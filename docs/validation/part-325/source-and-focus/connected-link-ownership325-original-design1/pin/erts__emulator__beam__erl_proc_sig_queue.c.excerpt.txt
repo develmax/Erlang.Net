@@ -1,0 +1,55 @@
+4674:     else if (op == ERTS_SIG_Q_OP_EXIT_LINKED) {
+4675:         ErtsLink *lnk, *dlnk = NULL;
+4676:         ErtsELink *elnk = NULL;
+4677:         lnk = erts_link_tree_lookup(ERTS_P_LINKS(c_p), from);
+4678:         if (!lnk)
+4679:             ignore = destroy = !0; /* No longer active */
+4680:         else if (ERTS_ML_GET_TYPE(lnk) != ERTS_LNK_TYPE_DIST_PROC
+4681:                  && ERTS_ML_GET_TYPE(lnk) != ERTS_LNK_TYPE_DIST_PORT) {
+4682:             if (((ErtsILink *) lnk)->unlinking)
+4683:                 ignore = destroy = !0; /* No longer active */
+4684:             else
+4685:                 linked = !0;
+4686:         }
+4687:         else {
+4688:             dlnk = erts_link_to_other(lnk, &elnk);
+4689:             if (elnk->unlinking)
+4690:                 ignore = destroy = !0; /* No longer active */
+4691:             else
+4692:                 linked = !0;
+4693:             if ((xsigd->u.link.flags & ERTS_SIG_LNK_X_FLAG_CONNECTION_LOST)
+4694:                 && xsigd->u.link.connection_id != elnk->dist->connection_id) {
+4695:                 /*
+4696:                  * The exit signal is due to loss of connection. The link
+4697:                  * that triggered this was setup before that connection
+4698:                  * was lost, but was later unlinked. After that, the
+4699:                  * current link was setup using a new connection. That is,
+4700:                  * current link should be left unaffected, and the signal
+4701:                  * should be silently dropped.
+4702:                  */
+4703:                 linked = 0;
+4704:                 lnk = NULL;
+4705:                 ignore = destroy = !0;
+4706:             }
+4707:         }
+4708:         if (lnk) {
+4709:             if (lnk->flags & ERTS_ML_FLG_PRIO_ML) {
+4710:                 prio_link_removed = !0;
+4711:                 prio = linked;
+4712:             }
+4713:             /* Remove link... */
+4714:             erts_link_tree_delete(&ERTS_P_LINKS(c_p), lnk);
+4715:             if (!elnk)
+4716:                 erts_link_internal_release(lnk);
+4717:             else if (erts_link_dist_delete(dlnk))
+4718:                 erts_link_release_both(&elnk->ld);
+4719:             else
+4720:                 erts_link_release(lnk);
+4721:         }
+4722:     }
+4723: 
+4724:     if (!ignore) {
+4725:         /* This GEN_EXIT was received from another node, decode the exit reason */
+4726:         if (ERTS_SIG_IS_GEN_EXIT_EXTERNAL(sig))
+4727:             erts_proc_sig_decode_dist(c_p, ERTS_PROC_LOCK_MAIN, sig, 1);
+4728: 

@@ -1,0 +1,72 @@
+{
+  "Status": "PASS_INDEPENDENT_PUBLISHED323_DISTRIBUTION_GL4_SEND7_LINK7_EXIT8_AND_NEW_CONTROLWAIT2",
+  "Head": "3785a8916b6469c7e7ada4838786b2526dad7f9e",
+  "Run": 38843456243,
+  "Job": 116788544451,
+  "Artifact": 12022881742,
+  "Attempt": 1,
+  "TypedGuards": [
+    {
+      "Path": "artifacts/pack323-group-leader-independent-guard.json",
+      "Sha256": "FF2269C443821B6466B4ADB1F8B4EF13FADDC6292C704163BA4DA57D77BADD2F"
+    },
+    {
+      "Path": "artifacts/pack323-guest-send-independent-guard.json",
+      "Sha256": "BA0CE58E8D251BA902F3E95BEDD7D6899D55BCBD74AEBE17EDE13CE85BB4F65A"
+    },
+    {
+      "Path": "artifacts/pack323-guest-links-independent-guard.json",
+      "Sha256": "15C0377DC329630440543172801BBCAE25E9F74FC397535A198289192F0CF351"
+    },
+    {
+      "Path": "artifacts/pack323-guest-exit-independent-guard.json",
+      "Sha256": "81100EED2EB78542BA0C615BD72776A7E59E96370E1A449B2E7E006A8D10D258"
+    },
+    {
+      "Path": "artifacts/pack323-control-wait-independent-guard.json",
+      "Sha256": "492286D7D4ED285E4B79C1FED6E06F0D8315B56EADD5194009B8DFE6117F1D53"
+    }
+  ],
+  "NewOriginal323ControlWaitCases": 2,
+  "Scenarios": [
+    "send",
+    "link"
+  ],
+  "RequestNonceOwnedPidAndRawHashSupplement": [
+    {
+      "Mode": "send",
+      "Nonce": "0affcffbd08244de99cf906b9dad1aba",
+      "ActualStoppedOwnedPid": 83743,
+      "RequestAndMarkerHashesBound": true
+    },
+    {
+      "Mode": "link",
+      "Nonce": "80c86b969b6d4d88a42c1bf9e560e07c",
+      "ActualStoppedOwnedPid": 83807,
+      "RequestAndMarkerHashesBound": true
+    }
+  ],
+  "InheritedContracts": {
+    "GroupLeader": 4,
+    "PublicSend": 7,
+    "LinkUnlink": 7,
+    "ExplicitExit": 8
+  },
+  "OriginalMetadataThreeVmsAndTwoSourceCompiledImagesEach": true,
+  "ActualCRemoteKillAndKilledDownBeforeCont": true,
+  "PrimaryAndCleanupErrorsAbsent": true,
+  "OriginalBusySuspensionNotSdkPreEnqueueWait": true,
+  "NativeWireOrLiveSdkPeerEquivalence": false,
+  "LinkRetention325Proven": false,
+  "ReviewerVmSdkNativeBuildNetworkGitMainMutation": false,
+  "LocalInheritedExitReaderHistory": {
+    "FirstAttempt": "Assertion chain refused before guard output; raw files and first reader retained",
+    "SecondStrictReplay": "Exact same published verifier/raw report equality plus all8 semantic assertions passed",
+    "Reader1Path": "artifacts/pack323-guest-exit-guard.py",
+    "Reader1Sha256": "25E9AEF0A1B7BC2610A29BFDB56375C27F340C2964D978459C3F0806727CF180",
+    "Reader2Path": "artifacts/pack323-guest-exit-guard2.py",
+    "Reader2Sha256": "FEF5E575E1C82BD30876D2C3D377841ADA0F62D795F3BDC5FFB7C6B2C8216B6B",
+    "RawEvidenceChangedByReviewer": false,
+    "RemoteOriginalFailureClaimed": false
+  }
+}

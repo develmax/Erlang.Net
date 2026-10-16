@@ -1,0 +1,59 @@
+14094:                             | ERTS_PORT_SIG_FLG_BROKEN_LINK),
+14095:                            prt,
+14096:                            c_p->common.id,
+14097:                            reason,
+14098:                            NULL);
+14099:         break;
+14100:     }
+14101:     case ERTS_LNK_TYPE_DIST_PROC: {
+14102:         DistEntry *dep;
+14103:         ErtsMonLnkDist *dist;
+14104:         ErtsLink *dlnk;
+14105:         ErtsDSigSendContext ctx;
+14106:         int code;
+14107: 
+14108:         dlnk = erts_link_to_other(lnk, &elnk);
+14109:         if (elnk->unlinking) {
+14110:             if (!erts_link_dist_delete(dlnk))
+14111:                 elnk = NULL;
+14112:             break;
+14113:         }
+14114: 
+14115:         if (is_immed(reason)) {
+14116:             dist = elnk->dist;
+14117: 
+14118:             ASSERT(is_external_pid(lnk->other.item));
+14119:             dep = external_pid_dist_entry(lnk->other.item);
+14120: 
+14121:             ASSERT(dep != erts_this_dist_entry);
+14122: 
+14123:             if (!erts_link_dist_delete(dlnk))
+14124:                 elnk = NULL;
+14125: 
+14126:             code = erts_dsig_prepare(&ctx, dep, NULL, 0, ERTS_DSP_NO_LOCK, 1, 1, 0);
+14127:             switch (code) {
+14128:             case ERTS_DSIG_PREP_CONNECTED:
+14129:             case ERTS_DSIG_PREP_PENDING:
+14130:                 if (dist->connection_id == ctx.connection_id) {
+14131:                     code = erts_dsig_send_exit_tt(&ctx,
+14132:                                                   c_p,
+14133:                                                   lnk->other.item,
+14134:                                                   reason,
+14135:                                                   SEQ_TRACE_TOKEN(c_p));
+14136:                     ASSERT(code == ERTS_DSIG_SEND_OK);
+14137:                 }
+14138:                 break;
+14139:             default:
+14140:                 break;
+14141:             }
+14142:         } else {
+14143:             erts_link_tree_insert(&ctxt->dist_links, lnk);
+14144:             return 1;
+14145:         }
+14146:         break;
+14147:     }
+14148:     case ERTS_LNK_TYPE_DIST_PORT:
+14149:         /*
+14150:          * Process linked an external port and should have a
+14151:          * noproc exit-signal in its signal queue. Just release
+14152:          * the link structure...

@@ -1,0 +1,12 @@
+--- cleanup2/tests/Erlang.Tests/DistributionRetainedLinkHostChecks.cs
++++ cleanup3/tests/Erlang.Tests/DistributionRetainedLinkHostChecks.cs
+@@ -97,8 +97,7 @@
+             {
+                 if (!guest.Guest.Completion.IsCompleted)
+                     await WaitApi.PutExit(fixture, guest.Guest.Pid, Term.A(ProcessExitSignals.Kill));
+-                await guest.Unwound.Task.WaitAsync(DistributionControlWaitHostNames.Deadline);
+-                await guest.Guest.Completion.WaitAsync(DistributionControlWaitHostNames.Deadline);
++                // Finish retires the connection before joining a guest still blocked on the historical output path.
+             }
+             catch (Exception cleanupFailure)
+             {

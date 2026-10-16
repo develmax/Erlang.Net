@@ -1,0 +1,80 @@
+{
+  "Status": "PASS_INDEPENDENT_EXACT_HEAD323_ACTUAL_ORIGINAL_TWO_NODE_GUEST_LINK_UNLINK_SEVEN_CONTRACTS",
+  "Head": "3785a8916b6469c7e7ada4838786b2526dad7f9e",
+  "Run": 38843456243,
+  "Job": 116788544451,
+  "Artifact": 12022881742,
+  "Attempt": 1,
+  "RawZipSha256": "4154B06E736E0887B2249CC8B42418FA027CC8B3E45E3BD645CC336C3AB01152",
+  "RawJobSha256": "97A86DD0789621D8CEAF668D87352126E1CF5AD8AB6EF25F3FAD52C5E59B148D",
+  "CollectorPublishedSourceSha256": "24F993D517F4C4A5B6013F428E3159E8A8FB5FB4D6C5D4E2132283FAD65DAACB",
+  "SourcePlanSha256": "5106A602867DA8CB30AF0F42E6384E543B576148D25BAF8FC4E685BDD6C76602",
+  "PinnedSourceFilesVerified": 6,
+  "RawCollectorFilesRehashed": 57,
+  "ActualOriginalNodes": 2,
+  "ActualNodeNames": {
+    "server": "gl321_server_377248e3f7a5@127.0.0.1",
+    "client": "gl321_client_377248e3f7a5@127.0.0.1"
+  },
+  "BothNodesCompiledProbeAndDriverMd5BindActualCapturedBeam": true,
+  "ActualCompilerExitZeroAndOwnedProcessesReaped": true,
+  "OriginalContracts": [
+    "public_link_propagates",
+    "duplicate_link_idempotent",
+    "link_priority_is_local_receiver_permission",
+    "empty_link_options_clear_priority",
+    "public_unlink_propagates",
+    "duplicate_unlink_idempotent",
+    "relink_after_unlink_propagates"
+  ],
+  "ObservedRelationPhases": [
+    "baseline",
+    "linked",
+    "duplicate_link",
+    "priority_link",
+    "cleared_priority",
+    "unlinked",
+    "duplicate_unlink",
+    "relinked",
+    "final_unlink"
+  ],
+  "RawOutcomeAndWorkerServerCleanupRetained": true,
+  "PublishedTypedVerifierIndependentlyReplayed": true,
+  "ExistingFiveInputControllerCapturesComplete": true,
+  "ExistingFiveInputControllerSemanticCompatibilityClaim": false,
+  "New321SevenLinkProbeExecuted": true,
+  "SdkExecutedByThisCollector": false,
+  "SdkLivePeerComparisonClaimed": false,
+  "NativeWireByteEqualityClaimed": false,
+  "NoVmNativeSdkCompilerOrGitMutationByReviewer": true,
+  "ToolsScope": "Remote collector captured launcher/emulator identities; this passive replay rehashes actual captured BEAM/source/raw files, not an exported complete OTP runtime binary tree.",
+  "ActualCompiledImages": [
+    {
+      "Module": "guest_connected_links321",
+      "BeamPath": "artifacts/pack323-watch-38843456243-terminal/artifact-12022881742/guest-connected-links321-original/ebin/guest_connected_links321.beam",
+      "BeamSha256": "9A4B63C1933A654935BAD0D25E45050675BF9BD434125DD1F7E9F65DBD9B76B1",
+      "BeamBytes": 7588,
+      "BeamMd5": "477059921DFBBA06838CEF4927151EEB",
+      "SourceSha256": "CDE52EDF78910B49F353F322B490ECFAE2F324551881048F0070D0D17040CAAA"
+    },
+    {
+      "Module": "guest_connected_links321_driver",
+      "BeamPath": "artifacts/pack323-watch-38843456243-terminal/artifact-12022881742/guest-connected-links321-original/ebin/guest_connected_links321_driver.beam",
+      "BeamSha256": "B51D1BE37A2F0837EA415231D9A83FE7EE9EEBC0280944DCD0AF194E17EF8A50",
+      "BeamBytes": 5768,
+      "BeamMd5": "14A04D7430755EE013F539CCE99DE948",
+      "SourceSha256": "9BDD05E874F08D0BF4BFB12AE98DC67A0F15669C7F15CD630E819663D07AD944"
+    },
+    {
+      "Module": "guest_connected_bang322",
+      "BeamPath": "artifacts/pack323-watch-38843456243-terminal/artifact-12022881742/guest-connected-links321-original/ebin/guest_connected_bang322.beam",
+      "BeamSha256": "AAADAC2F0BE0422FC84C4B79F398DD6EDD5B0D35778D925A0A4BC2D0BF2FE7E5",
+      "BeamBytes": 968,
+      "BeamMd5": "8F9716D389984F8A11B150E9A3132721",
+      "SourceSha256": "CEEB8FC07A31051DCB74F0BB6A592A2AF57FF602201BED00FEA73A1AC7692577"
+    }
+  ],
+  "MinimalBang322ActuallyCompiledAndLoadedBothNodes": true,
+  "SdkPreparedOrInvokedMinimalBeam": false,
+  "ActualBothNodeMetadataFields": 10
+}

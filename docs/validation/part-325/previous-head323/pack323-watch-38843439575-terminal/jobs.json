@@ -1,0 +1,121 @@
+{
+  "total_count": 1,
+  "jobs": [
+    {
+      "id": 116788492797,
+      "run_id": 38843439575,
+      "workflow_name": "Pinned OTP differential oracle",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/develmax/Erlang.Net/actions/runs/38843439575",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVCU9ks8AAAAbMSL5_Q",
+      "head_sha": "3785a8916b6469c7e7ada4838786b2526dad7f9e",
+      "url": "https://api.github.com/repos/develmax/Erlang.Net/actions/jobs/116788492797",
+      "html_url": "https://github.com/develmax/Erlang.Net/actions/runs/38843439575/job/116788492797",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-16T03:01:48Z",
+      "started_at": "2026-10-16T03:01:51Z",
+      "completed_at": "2026-10-16T03:29:38Z",
+      "name": "oracle",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-16T03:01:51Z",
+          "completed_at": "2026-10-16T03:01:53Z"
+        },
+        {
+          "name": "Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-16T03:01:53Z",
+          "completed_at": "2026-10-16T03:02:26Z"
+        },
+        {
+          "name": "Run actions/setup-dotnet@v6",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-16T03:02:26Z",
+          "completed_at": "2026-10-16T03:02:34Z"
+        },
+        {
+          "name": "Build development oracle from the exact reference commit",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-16T03:02:34Z",
+          "completed_at": "2026-10-16T03:10:33Z"
+        },
+        {
+          "name": "Compare the supported language corpus",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-16T03:10:33Z",
+          "completed_at": "2026-10-16T03:29:25Z"
+        },
+        {
+          "name": "Observe the declared allocator backend profile against original OTP",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-16T03:29:25Z",
+          "completed_at": "2026-10-16T03:29:28Z"
+        },
+        {
+          "name": "Compare inherited descriptor IO against the original fd driver",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-16T03:29:28Z",
+          "completed_at": "2026-10-16T03:29:33Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-16T03:29:33Z",
+          "completed_at": "2026-10-16T03:29:35Z"
+        },
+        {
+          "name": "Post Run actions/setup-dotnet@v6",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-16T03:29:35Z",
+          "completed_at": "2026-10-16T03:29:35Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-16T03:29:35Z",
+          "completed_at": "2026-10-16T03:29:35Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-16T03:29:35Z",
+          "completed_at": "2026-10-16T03:29:35Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/develmax/Erlang.Net/check-runs/116788492797",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001534,
+      "runner_name": "GitHub Actions 1000001534",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ]
+}

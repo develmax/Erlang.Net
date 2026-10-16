@@ -88,6 +88,7 @@ Test(
     Erlang.Tests.DistributionControlWaitPublicRouteHostChecks.RunKills
 );
 Test(Erlang.Tests.DistributionControlWaitHostNames.ContractsTest, Erlang.Tests.DistributionControlWaitHostChecks.Run);
+Test(Erlang.Tests.DistributionRetainedLinkHostNames.Test, Erlang.Tests.DistributionRetainedLinkHostChecks.Run);
 Test(Erlang.Tests.ActualMinimalBeamGuestSendHostNames.Test, Erlang.Tests.ActualMinimalBeamGuestSendHostChecks.Run);
 Test(Erlang.Tests.AsyncDistributionHostNames.Test, Erlang.Tests.AsyncDistributionHostChecks.Run);
 Test(Erlang.Tests.ProcessInfoAsyncDistributionHostNames.Test, Erlang.Tests.ProcessInfoAsyncDistributionHostChecks.Run);

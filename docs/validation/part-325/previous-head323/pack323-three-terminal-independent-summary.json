@@ -1,0 +1,130 @@
+{
+  "Status": "PASS_PUBLISHED323_CI_NATIVE_AND_DISTRIBUTION_INDEPENDENT_TERMINAL_CHECKPOINT",
+  "Head": "3785a8916b6469c7e7ada4838786b2526dad7f9e",
+  "Workflows": [
+    {
+      "Kind": "ci",
+      "Run": 38843084970,
+      "Job": 116787379819,
+      "Artifact": 12022865252,
+      "Attempt": 1,
+      "Head": "3785a8916b6469c7e7ada4838786b2526dad7f9e",
+      "WorkflowConclusion": "success",
+      "JobConclusion": "success",
+      "RawApiArchiveSha256": "E700197DAF4A95FDA2CDBD11471CB025D462812747504605AD6E1AB52CB3F6A9",
+      "RawArchiveIncludedInLeanRows": false
+    },
+    {
+      "Kind": "native",
+      "Run": 38843445906,
+      "Job": 116788512001,
+      "Artifact": 12022073211,
+      "Attempt": 1,
+      "Head": "3785a8916b6469c7e7ada4838786b2526dad7f9e",
+      "WorkflowConclusion": "success",
+      "JobConclusion": "success",
+      "RawApiArchiveSha256": "16B1DD53B739776CA4FA02F97E79ABF97CA4FBF2CF2368A2EFE924DC7EA50BA8",
+      "RawArchiveIncludedInLeanRows": false
+    },
+    {
+      "Kind": "distribution",
+      "Run": 38843456243,
+      "Job": 116788544451,
+      "Artifact": 12022881742,
+      "Attempt": 1,
+      "Head": "3785a8916b6469c7e7ada4838786b2526dad7f9e",
+      "WorkflowConclusion": "success",
+      "JobConclusion": "success",
+      "RawApiArchiveSha256": "4154B06E736E0887B2249CC8B42418FA027CC8B3E45E3BD645CC336C3AB01152",
+      "RawArchiveIncludedInLeanRows": false
+    }
+  ],
+  "IndependentGuards": [
+    {
+      "Path": "artifacts/pack323-ci-independent-guard.json",
+      "Sha256": "6384220DC795C0F65A637031F64F6D43A6EF5476911CBF069969942ACFF10A98"
+    },
+    {
+      "Path": "artifacts/pack323-native-combined-independent-guard.json",
+      "Sha256": "BFFDB11FE3EF19BF49AEE1542918D29FD2F497277321254569FC43282025858E"
+    },
+    {
+      "Path": "artifacts/pack323-native-38843445906-independent-envelope-and-sdk-guard.json",
+      "Sha256": "89260D52056479A594DEE9E1B3246D1456649251DA3B0BAF86276459AA0B7980"
+    },
+    {
+      "Path": "artifacts/pack323-original13-independent-local-report.json",
+      "Sha256": "29B6A0693120CCBC727DACEFF3D11C6CCC2471C539A8C4DD9F1DBFD46044170A"
+    },
+    {
+      "Path": "artifacts/pack323-original13-independent-local-capture.json",
+      "Sha256": "2E7C5683F50399FF959FCF2682E1739F197A08E5A8685E8704CF6FFA5652F621"
+    },
+    {
+      "Path": "artifacts/pack323-group-leader-independent-guard.json",
+      "Sha256": "FF2269C443821B6466B4ADB1F8B4EF13FADDC6292C704163BA4DA57D77BADD2F"
+    },
+    {
+      "Path": "artifacts/pack323-guest-send-independent-guard.json",
+      "Sha256": "BA0CE58E8D251BA902F3E95BEDD7D6899D55BCBD74AEBE17EDE13CE85BB4F65A"
+    },
+    {
+      "Path": "artifacts/pack323-guest-links-independent-guard.json",
+      "Sha256": "15C0377DC329630440543172801BBCAE25E9F74FC397535A198289192F0CF351"
+    },
+    {
+      "Path": "artifacts/pack323-guest-exit-independent-guard.json",
+      "Sha256": "81100EED2EB78542BA0C615BD72776A7E59E96370E1A449B2E7E006A8D10D258"
+    },
+    {
+      "Path": "artifacts/pack323-control-wait-independent-guard.json",
+      "Sha256": "492286D7D4ED285E4B79C1FED6E06F0D8315B56EADD5194009B8DFE6117F1D53"
+    },
+    {
+      "Path": "artifacts/pack323-distribution-combined-independent-guard.json",
+      "Sha256": "6C8748E2813C353B8EB62A53EFD732C83E27C660DA9CADA5426E734F133F3EBB"
+    }
+  ],
+  "Ci": {
+    "Passed": 6685,
+    "Integrations": 11,
+    "Mfas": 509,
+    "Erlang": 351,
+    "PublishedStageBlobs": 205
+  },
+  "Native": {
+    "SourcePlanInputs": 1108,
+    "SourcePlanSha256": "D0E9EF6F2103042BDB62694402E76C5A592514AE843E43701BFEB991BAB421E6",
+    "StrictLinuxLines": 8,
+    "DomainRoles": 3,
+    "Original13SeparateTypedPass": true,
+    "Original13SdkCompared": false
+  },
+  "Distribution": {
+    "InheritedGroupLeaderContracts": 4,
+    "InheritedPublicSendContracts": 7,
+    "InheritedLinkUnlinkContracts": 7,
+    "InheritedExplicitExitContracts": 8,
+    "NewOriginalControlWaitCases": [
+      "send",
+      "link"
+    ],
+    "ActualVmsPerNewScenario": 3,
+    "ActualSourceCompiledImagesPerVm": 2,
+    "TargetSpecificBusyFullOwnerQueryAndRemoteKillKilledDownBeforeCont": true,
+    "OwnedPidStartIdentityAndStopResumeNonceJournalVerified": true,
+    "BoundedPrimaryAndWorkerCleanupVerified": true,
+    "SdkPreEnqueueWaitNativeBusyPhaseEquivalent": false,
+    "NativeWireOrSdkLivePeerComparison": false,
+    "RetainedLink325ObservationExecuted": false
+  },
+  "OrdinaryAndReallocation323": {
+    "WorkflowStatusesRootReportedSuccess": true,
+    "IndependentTypedAuditIncludedHere": false
+  },
+  "Current325OriginalExecuted": false,
+  "LeanRowsAreSelectedProofsNotSelfContainedRuntimeOrWholeApiArchive": true,
+  "RawArchiveIdentitiesPreservedExternally": true,
+  "Historical321322AlreadyPublishedRowsNotRecopied": true,
+  "NoReviewerGetPostSdkVmNativeBuildMainGitMutation": true
+}

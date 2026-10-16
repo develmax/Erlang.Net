@@ -4,8 +4,8 @@ public sealed partial class ProcessRuntime
 {
     internal async ValueTask LinkGuestAsync(ProcessContext caller, Pid remote, bool priority = false)
     {
-        ValueTask<bool> publication;
-        DistributionProcessLink link;
+        ValueTask<Task> preparation;
+        bool asynchronous;
         lock (gate)
         {
             ValidateGuestLinkCaller(caller, remote);
@@ -23,49 +23,56 @@ public sealed partial class ProcessRuntime
             );
             if (existing is not null && existing.UnlinkId is null && existing.Identity.PendingUnlink is null)
             {
-                // An inbound LINK already establishes the peer's half, even before its mailbox callback runs.
                 InstallGuestDistributionLink(existing, priority);
 
                 return;
             }
-            link = new DistributionProcessLink(
+            var link = new DistributionProcessLink(
                 entry,
                 connected,
                 entry.ConnectionId,
                 caller,
                 remote
             );
-            distributionProcessLinks.Add(link);
-            InstallGuestDistributionLink(link, priority);
-            try
-            {
-                // Relation and receiver priority exist before reserve/wait, as in the pinned external LINK branch.
-                publication = entry.Owner.PublishLiveControl(
-                    entry,
-                    connected,
-                    link.ConnectionId,
-                    caller,
-                    Term.Tuple(Term.I(DistributionControlOpcodes.Link), caller.Self, remote),
-                    caller.Self,
-                    stateValid: () => DistributionUnlinkStillActive(link)
-                );
-            }
-            catch
-            {
-                RollBackUnpublishedGuestLink(link);
-                throw;
-            }
+            asynchronous = caller.AsyncDistribution;
+            preparation = entry.Owner.PrepareGuestLinkOutput(link, priority);
         }
-        try
+        Task publication = await preparation.ConfigureAwait(false);
+        if (!asynchronous)
         {
-            _ = await publication.ConfigureAwait(false);
+            // Accepted LINK belongs to the connection, even when killing its caller cancels this wait.
+            await caller.WaitForDistributionControlCompletionAsync(
+                publication.WaitAsync(caller.Cancellation), caller.Cancellation).ConfigureAwait(false);
         }
-        catch
-        {
-            lock (gate)
-                RollBackUnpublishedGuestLink(link);
-            throw;
-        }
+    }
+
+    internal bool UseExistingGuestLink(DistributionProcessLink prepared, bool priority)
+    {
+        var existing = FindGuestDistributionLink(
+            prepared.Entry,
+            prepared.Connection,
+            prepared.Local,
+            prepared.Remote
+        );
+        if (existing is null || existing.UnlinkId is not null || existing.Identity.PendingUnlink is not null)
+            return false;
+        InstallGuestDistributionLink(existing, priority);
+
+        return true;
+    }
+
+    internal void CommitGuestLink(DistributionProcessLink link, bool priority)
+    {
+        distributionProcessLinks.Add(link);
+        InstallGuestDistributionLink(link, priority);
+    }
+
+    internal void ReserveGuestLinkCommit(DistributionProcessLink link)
+    {
+        distributionProcessLinks.EnsureCapacity(checked(distributionProcessLinks.Count + 1));
+        link.Local.LinkIdentities.EnsureCapacity(checked(link.Local.LinkIdentities.Count + 1));
+        link.Local.Links.EnsureCapacity(checked(link.Local.Links.Count + 1));
+        link.Local.PriorityLinks.EnsureCapacity(checked(link.Local.PriorityLinks.Count + 1));
     }
 
     internal async ValueTask UnlinkGuestAsync(ProcessContext caller, Pid remote)
@@ -146,13 +153,4 @@ public sealed partial class ProcessRuntime
         link.Established = true;
     }
 
-    private void RollBackUnpublishedGuestLink(DistributionProcessLink link)
-    {
-        // Retirement owns its queued noconnection; terminal cleanup owns any captured EXIT continuation.
-        if (!IsOwnedLiveNodeProcess(link.Local) ||
-            !link.Entry.Owner.IsConnectedSignalGeneration(link.Entry, link.Connection, link.ConnectionId))
-            return;
-        distributionProcessLinks.Remove(link);
-        RemoveDistributionLinkIdentity(link);
-    }
 }

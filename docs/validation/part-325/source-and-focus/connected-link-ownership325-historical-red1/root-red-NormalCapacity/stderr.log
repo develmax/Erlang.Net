@@ -1,0 +1,8 @@
+FAIL DistributionRetainedLinkHostChecks:NormalCapacity
+System.InvalidOperationException: Retained connected guest LINK assertion failed
+   at Erlang.Tests.DistributionRetainedLinkHostChecks.Require(Boolean condition) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\connected-link-ownership325-historical-red1\candidate\tests\Erlang.Tests\DistributionRetainedLinkHostChecks.cs:line 158
+   at Erlang.Tests.DistributionRetainedLinkHostChecks.Retention(Boolean asynchronous, Boolean turn) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\connected-link-ownership325-historical-red1\candidate\tests\Erlang.Tests\DistributionRetainedLinkHostChecks.cs:line 82
+   at Erlang.Tests.DistributionControlWaitPublicRouteHostChecks.Finish(DistributionLifecycleHostFixture fixture, ProcessHandle guest, Task unwound, Task`1 blocker, Task`1 query, Exception primary) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\connected-link-ownership325-historical-red1\candidate\tests\Erlang.Tests\DistributionControlWaitPublicRouteHostChecks.cs:line 281
+   at Erlang.Tests.DistributionRetainedLinkHostChecks.Retention(Boolean asynchronous, Boolean turn) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\connected-link-ownership325-historical-red1\candidate\tests\Erlang.Tests\DistributionRetainedLinkHostChecks.cs:line 97
+   at Erlang.Tests.DistributionRetainedLinkHostChecks.Retention(Boolean asynchronous, Boolean turn) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\connected-link-ownership325-historical-red1\candidate\tests\Erlang.Tests\DistributionRetainedLinkHostChecks.cs:line 97
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\source-purge-stage315-focus\Program.cs:line 22

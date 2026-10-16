@@ -1,0 +1,15 @@
+{
+  "Status": "NEEDS_REVISION_SOURCE_LINK_UPDATE_SET_INCLUDES_UNLINK",
+  "Passed": false,
+  "ProposalFreezeSha256": "1CB86BA0EE54BCB770BDD42B3019A15740FBB1773D9C3AA2F8F0357DEDA24765",
+  "GuardSourceSha256": "AE18A3BCAA4275EEC60A4F1D60A527DDAA06EDF9729C86E316A84CA693A509F0",
+  "Finding": {
+    "Condition": "linkkeys includes link/1, link/2, unlink/1; update loop if k in linkkeys also rewrites unlink",
+    "Contradiction": "sorted(updated) requires only link/1,link/2,process_info/2, so all4 updates or earlier unlinksubstring refusal",
+    "MinimalFix": "Keep unlink in22restoredoldcustom; separate onlyLINK1/2updateset and verify unrelatedunlink exact"
+  },
+  "PromoterAndRunnerByteExactPriorReviewedFirstHandoff": true,
+  "FullExecutionUnblockedByThisSourceGuardFinding": true,
+  "GuardExecutedByReviewer": false,
+  "NoReviewerBuildNativeVmGitMainNetworkMutation": true
+}

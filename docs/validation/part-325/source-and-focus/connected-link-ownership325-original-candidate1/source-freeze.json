@@ -1,0 +1,112 @@
+{
+  "Status": "SOURCE_ONLY_ORIGINAL325_RETAINED_LINK_THREE_NODE_COLLECTOR_PENDING_PEER_AND_EXECUTION",
+  "ApprovedDesignFreezeSha256": "BC5F6966B76E6165F5CC43B2AB4AA78E935A34A66678A010199CB9FB4483F49E",
+  "DesignIndependentPeerSha256": "5343C2B8A8A6F01A2F48C55C5FD0DC4F5EA4E582CD2D24020EDCEE2E49F54B62",
+  "ParentOriginal323FreezeSha256": "E8B3C3E30C02BC23EBE06AC609795702E02E6D746AF0C3BB765E26E5BD1D33EE",
+  "WorkflowAttributesParentRole": "ExactRoot323Main2FrozenRows_NotFuturePublishedParent_RequireRootFinalRebind",
+  "ParentMain2FreezeSha256": "02E0E22DAC9B052143C77539BCF836C733095BC60E258CAB50021A1C90E42AD5",
+  "ParentMain2ClosureSha256": "6DD7EE300C2E63C5599A1D8E43FA1DCF506146F6B761876859092B1399F1E6E8",
+  "SourcePaths": 12,
+  "CSharpPaths": 0,
+  "SourcePlanPaths": 9,
+  "SourcePlanSha256": "A62852C3F0148AD1381F62CD470BE858C03B9502613C1761E88718E4A5CAC323",
+  "ActualCompiledImagesExpected": 3,
+  "ActualRolesPerScenario": 3,
+  "Scenarios": [
+    "normal",
+    "async"
+  ],
+  "Files": [
+    {
+      "Path": ".gitattributes",
+      "Bytes": 7892,
+      "Sha256": "E20FEB3E42F3EDCB216410E99DE471B2A8DBAB279B9566206F944EE3225B9D3A"
+    },
+    {
+      "Path": ".github/workflows/distribution-signal-observations.yml",
+      "Bytes": 10930,
+      "Sha256": "14AFB4163B11F799145CA4BFC861351B2DCDE814EF6BEB52B1CBD68191EC0FB0"
+    },
+    {
+      "Path": "tools/Erlang.DistributionLinkRetentionObservations/collect.py",
+      "Bytes": 33502,
+      "Sha256": "C96B503EF98E69BDC4049FA77A95336340C882684168B153B513581919F11647"
+    },
+    {
+      "Path": "tools/Erlang.DistributionLinkRetentionObservations/distribution_link_receiver325.erl",
+      "Bytes": 1091,
+      "Sha256": "ABCCEA2B7DF91CE098E047ED5D6D343B5E8E4D0A63CAAC40E1D0D5A081609218"
+    },
+    {
+      "Path": "tools/Erlang.DistributionLinkRetentionObservations/distribution_link_retention325.erl",
+      "Bytes": 10324,
+      "Sha256": "96E0B421CC36188B26A2F5583ACF93542085A175038CC9F9D3F769104B378331"
+    },
+    {
+      "Path": "tools/Erlang.DistributionLinkRetentionObservations/distribution_link_retention325_driver.erl",
+      "Bytes": 5215,
+      "Sha256": "14F2B82CD1000958AEFEEF797BB07FFA922A38CF51A72FCD0B10D3116F8D8AC2"
+    },
+    {
+      "Path": "tools/Erlang.DistributionLinkRetentionObservations/owned_process.py",
+      "Bytes": 3675,
+      "Sha256": "846101AD4F92121ACB128EAFB3228DD66D8A524CE0539A25E020A77010CFF071"
+    },
+    {
+      "Path": "tools/Erlang.DistributionLinkRetentionObservations/passive_control_etf.py",
+      "Bytes": 7619,
+      "Sha256": "CADBAD3ABA60D2AA9B549E4376245F4D2149C47440F7E0E4BDA2EC130BFA9052"
+    },
+    {
+      "Path": "tools/Erlang.DistributionLinkRetentionObservations/passive_etf.py",
+      "Bytes": 7105,
+      "Sha256": "A069AD650B3EA1BE6B90DE60117B84ED7A1A6B67128CC41E7ECAEFD2889C1713"
+    },
+    {
+      "Path": "tools/Erlang.DistributionLinkRetentionObservations/process_capture.py",
+      "Bytes": 1610,
+      "Sha256": "4801CCC2E1986BB9ED4779335C0248CFC8BA7CD579C6BF3855302E19443ED559"
+    },
+    {
+      "Path": "tools/Erlang.DistributionLinkRetentionObservations/README.md",
+      "Bytes": 4414,
+      "Sha256": "3025FB4AE43064B2C7DE8E622692542B364BFAAD97D39D0CB6387AA4E702DB0E"
+    },
+    {
+      "Path": "tools/Erlang.DistributionLinkRetentionObservations/source-plan.json",
+      "Bytes": 4121,
+      "Sha256": "A62852C3F0148AD1381F62CD470BE858C03B9502613C1761E88718E4A5CAC323"
+    }
+  ],
+  "EvidenceFiles": [
+    {
+      "Path": "controls-result.json",
+      "Bytes": 3039,
+      "Sha256": "C8C00D5936AF277924E00D2228C2B5F1CE904D9B45C8954C8B947C38F046F1B1"
+    },
+    {
+      "Path": "controls.py",
+      "Bytes": 11001,
+      "Sha256": "DDD3F5C7FF992CD404E7FDCF097C1D4740B9267875168B6C31D401D35B9CF1C2"
+    },
+    {
+      "Path": "parent-bindings/.gitattributes",
+      "Bytes": 7811,
+      "Sha256": "15B56F53F9E0413739C748E28F56C9FCC9EF8A09A984EE3072665F7167863069"
+    },
+    {
+      "Path": "parent-bindings/.github/workflows/distribution-signal-observations.yml",
+      "Bytes": 9770,
+      "Sha256": "D5F93AF42B07A28C1ACE3E85440C2601EBDB8F4DABF811779C70C0F0DEF8B942"
+    },
+    {
+      "Path": "source-author-proof.json",
+      "Bytes": 4475,
+      "Sha256": "F7B7D02F96D10F626F1FA5BD718F52228878BB30BE6E18A7A3E67D55B118B820"
+    }
+  ],
+  "OriginalVmExecuted": false,
+  "SdkExecuted": false,
+  "NativeWireCaptured": false,
+  "SyntheticPassiveControls": 93
+}

@@ -1,0 +1,22 @@
+14120: 
+14121:             ASSERT(dep != erts_this_dist_entry);
+14122: 
+14123:             if (!erts_link_dist_delete(dlnk))
+14124:                 elnk = NULL;
+14125: 
+14126:             code = erts_dsig_prepare(&ctx, dep, NULL, 0, ERTS_DSP_NO_LOCK, 1, 1, 0);
+14127:             switch (code) {
+14128:             case ERTS_DSIG_PREP_CONNECTED:
+14129:             case ERTS_DSIG_PREP_PENDING:
+14130:                 if (dist->connection_id == ctx.connection_id) {
+14131:                     code = erts_dsig_send_exit_tt(&ctx,
+14132:                                                   c_p,
+14133:                                                   lnk->other.item,
+14134:                                                   reason,
+14135:                                                   SEQ_TRACE_TOKEN(c_p));
+14136:                     ASSERT(code == ERTS_DSIG_SEND_OK);
+14137:                 }
+14138:                 break;
+14139:             default:
+14140:                 break;
+14141:             }

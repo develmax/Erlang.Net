@@ -1,0 +1,24 @@
+{
+  "Status": "PASS_SOURCE_REVIEW_RETAINED_CONNECTED_GUEST_LINK325_PENDING_EXECUTION",
+  "Passed": true,
+  "SourceFreezeSha256": "DE5A99E9A6F284B98C33989D56178F5F652834F66CFA66340E6592B1120D6593",
+  "SourceClosureSha256": "76A5F01234002BD29AB29E3E23A0BB42AAA3D6FD94B5EFF50A6732090FFC21E7",
+  "SourcePaths": 7,
+  "CSharpPaths": 7,
+  "NewSourcePaths": 3,
+  "SourceClosureRowsRehashed": 2352,
+  "Findings": [],
+  "Checks": [
+    "Ticket/resource captured under gate, fixed LINK encoded outside gate with yield out of outer runtime monitor; producer/generation rechecked before acceptance",
+    "Capacity reserved before stage/relation; hardcap refusal leaves no new relation; duplicate/inbound relation uses existing identity and releases unused ticket/resource",
+    "Connection-owned existing output worker waits acceptance and validates only captured generation; producer cancellation only affects normal guest proxy; async flag returns after acceptance",
+    "Relation/priority committed atomically with retained LINK before turn/capacity wait; later EXIT/UNLINK remain ordered; no new worker framework or process ref retained in accepted record",
+    "New five HOST scenarios use real generated guest/public owner links query/fresh killed DOWN/unwound before drain, false versus true return, decoded LINK then EXIT, hardcap real system_limit; same source uses pre325 APIs",
+    "Existing historical LINK expectations intentionally migrate from drop to retained LINK before EXIT; prior source artifacts remain immutable; no unrelated 321 inbound/ACK safeguards changed"
+  ],
+  "PublicationRebaseRequired": "Sparse rebase onto eventual published323 Main2 must retain file-specific provenance binary attr and own2A31 seal; candidate author parent remains explicitly pre-attribute C0D/B395",
+  "ActualExecution": null,
+  "HistoricalRedAndGreenStillRequired": true,
+  "Original325DesignSeparate": "BC5F6966B76E6165F5CC43B2AB4AA78E935A34A66678A010199CB9FB4483F49E",
+  "NativeSdkVmBuildNetworkMainGitMutationByReviewer": false
+}

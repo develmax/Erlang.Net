@@ -1,0 +1,28 @@
+{
+  "Status": "FAIL",
+  "Identities": [
+    {
+      "Name": "Erlang.Tests",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-link-ownership325-historical-red2\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "Sha256": "F54575D3FFE98B5F2A562D31C66F003B4FB56BBBA89B2D3B6A9A265A40474F31"
+    },
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-link-ownership325-historical-red2\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Sha256": "256C0AE0116FBA91373FF88B9B65842E52294D8D42B216EB8AD2583AB538832E"
+    },
+    {
+      "Name": "Erlang.Compiler",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-link-ownership325-historical-red2\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Compiler.dll",
+      "Sha256": "3F6EF13D001AB4752C09EE8A8599C1262007ABA892459791BC8FFA1BEAC702D1"
+    }
+  ],
+  "Cases": [
+    {
+      "Name": "DistributionRetainedLinkHostChecks:AsyncCapacity",
+      "Status": "FAIL",
+      "ElapsedMilliseconds": 10698,
+      "Exception": "System.AggregateException: One or more errors occurred. (Retained connected guest LINK assertion failed) (The operation has timed out.)\r\n ---\u003E System.InvalidOperationException: Retained connected guest LINK assertion failed\r\n   at Erlang.Tests.DistributionRetainedLinkHostChecks.Require(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-link-ownership325-historical-red2\\candidate\\tests\\Erlang.Tests\\DistributionRetainedLinkHostChecks.cs:line 169\r\n   at Erlang.Tests.DistributionRetainedLinkHostChecks.Retention(Boolean asynchronous, Boolean turn) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-link-ownership325-historical-red2\\candidate\\tests\\Erlang.Tests\\DistributionRetainedLinkHostChecks.cs:line 63\r\n   --- End of inner exception stack trace ---\r\n   at Erlang.Tests.DistributionControlWaitPublicRouteHostChecks.Finish(DistributionLifecycleHostFixture fixture, ProcessHandle guest, Task unwound, Task\u00601 blocker, Task\u00601 query, Exception primary) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-link-ownership325-historical-red2\\candidate\\tests\\Erlang.Tests\\DistributionControlWaitPublicRouteHostChecks.cs:line 281\r\n   at Erlang.Tests.DistributionRetainedLinkHostChecks.Retention(Boolean asynchronous, Boolean turn) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-link-ownership325-historical-red2\\candidate\\tests\\Erlang.Tests\\DistributionRetainedLinkHostChecks.cs:line 108\r\n   at Erlang.Tests.DistributionRetainedLinkHostChecks.Retention(Boolean asynchronous, Boolean turn) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-link-ownership325-historical-red2\\candidate\\tests\\Erlang.Tests\\DistributionRetainedLinkHostChecks.cs:line 108\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\source-purge-stage315-focus\\Program.cs:line 22\r\n ---\u003E (Inner Exception #1) System.TimeoutException: The operation has timed out.\r\n   at Erlang.Tests.DistributionRetainedLinkHostChecks.Retention(Boolean asynchronous, Boolean turn) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\connected-link-ownership325-historical-red2\\candidate\\tests\\Erlang.Tests\\DistributionRetainedLinkHostChecks.cs:line 101\u003C---\r\n"
+    }
+  ]
+}

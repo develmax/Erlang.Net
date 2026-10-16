@@ -108,6 +108,7 @@ internal static class DistributionGuestLinkHostChecks
         var entered = Signal();
         Task<Term> linking = Start(fixture, ErlangModuleNames.Link, entered);
         await entered.Task.WaitAsync(DistributionGuestLinkHostNames.Deadline);
+        await WaitForLinkCommit(fixture);
         Routes.Check(!linking.IsCompleted);
         Routes.Check((await Links(fixture)).Equals(Term.List(fixture.Connection.Remote)));
         await fixture.DrainFiller(fixture.Connection, 1);
@@ -184,6 +185,7 @@ internal static class DistributionGuestLinkHostChecks
         var entered = Signal();
         Task<Term> linking = Start(fixture, ErlangModuleNames.Link, entered);
         await entered.Task.WaitAsync(DistributionGuestLinkHostNames.Deadline);
+        await WaitForLinkCommit(fixture);
         Routes.Check(!linking.IsCompleted);
         await fixture.Connection.Controller.Invoke(context =>
         {
@@ -199,8 +201,9 @@ internal static class DistributionGuestLinkHostChecks
         catch (OperationCanceledException)
         {
         }
-        // The pre-send native relation is real: its terminal EXIT has separate retained ownership.
+        // Native LINK is already enqueued before busy suspension, so it survives before terminal EXIT.
         await fixture.DrainFiller(fixture.Connection, capacity);
+        Routes.Check((await fixture.Take(fixture.Connection)).Control.Equals(LinkControl(fixture)));
         var terminal = await fixture.Take(fixture.Connection);
         Routes.Check(terminal.Control.Equals(Term.Tuple(
             Term.I(DistributionControlOpcodes.Exit),
@@ -220,6 +223,7 @@ internal static class DistributionGuestLinkHostChecks
         var entered = Signal();
         Task<Term> linking = Start(fixture, ErlangModuleNames.Link, entered);
         await entered.Task.WaitAsync(DistributionGuestLinkHostNames.Deadline);
+        await WaitForLinkCommit(fixture);
         Routes.Check(!linking.IsCompleted);
         fixture.Runtime.DistributionPending.CloseConnected(fixture.Connection.Host);
         Routes.Check((await linking.WaitAsync(DistributionGuestLinkHostNames.Deadline)).Equals(Term.A(ErlangBooleanAtoms.True)));
@@ -360,6 +364,16 @@ internal static class DistributionGuestLinkHostChecks
             unlink.Items[3].Equals(fixture.Connection.Remote));
         await Put(fixture, Acknowledgement(fixture, unlink.Items[DistributionGuestLinkHostNames.UnlinkIdIndex]));
         Empty(fixture);
+    }
+
+    private static async Task WaitForLinkCommit(DistributionLifecycleHostFixture fixture)
+    {
+        var deadline = System.Diagnostics.Stopwatch.StartNew();
+        while (!(await Links(fixture)).Equals(Term.List(fixture.Connection.Remote)))
+        {
+            Routes.Check(deadline.Elapsed < DistributionGuestLinkHostNames.Deadline);
+            await Task.Yield();
+        }
     }
 
     private static async Task WaitForUnlinkCommit(DistributionLifecycleHostFixture fixture)

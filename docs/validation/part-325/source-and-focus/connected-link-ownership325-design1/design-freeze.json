@@ -1,0 +1,139 @@
+{
+  "Status": "SOURCE_ONLY_AUDIT_CONFIRMED_PHASE_GAP_NO_IMPLEMENTATION",
+  "ParentFreeze": {
+    "Path": "artifacts\\distribution-control-wait323-focus1\\formatted-source-freeze.json",
+    "Bytes": 2843,
+    "Sha256": "5DC06B0D895EEC67562DE36D36CEA0C700D95297769BEC7454FCB9BCA21AAF06"
+  },
+  "ParentClosure": {
+    "Path": "artifacts\\distribution-control-wait323-focus1\\formatted-source-resource-closure.json",
+    "Bytes": 428142,
+    "Sha256": "FEF4EF7CAF603DCBE9A395C815A10984FA8C95AD23051BAF4387B45A88509E9D"
+  },
+  "PinnedOtp": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "PinObjects": [
+    {
+      "OriginalPath": "erts/emulator/beam/bif.c",
+      "Object": {
+        "Path": "pin/erts/emulator/beam/bif.c",
+        "Bytes": 169612,
+        "Sha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC"
+      },
+      "Excerpt": {
+        "Path": "pin/erts__emulator__beam__bif.c.excerpt.txt",
+        "Bytes": 2736,
+        "Sha256": "C598AA810F6E9428045D4781EA6EFE05BC081260E07AB96FFA76B9BD71B2C7B9"
+      },
+      "LineRanges": [
+        [
+          315,
+          380
+        ]
+      ]
+    },
+    {
+      "OriginalPath": "erts/emulator/beam/dist.c",
+      "Object": {
+        "Path": "pin/erts/emulator/beam/dist.c",
+        "Bytes": 220150,
+        "Sha256": "67711AB6A7C9FCE0F4D5B40B06D4DDE5F61E9C8BDFAAFB1D0A22988D04657EEB"
+      },
+      "Excerpt": {
+        "Path": "pin/erts__emulator__beam__dist.c.excerpt.txt",
+        "Bytes": 10994,
+        "Sha256": "0321C0A743311AB084E087135D3976401DA69066A54CB73951E7BB09872F2465"
+      },
+      "LineRanges": [
+        [
+          1450,
+          1460
+        ],
+        [
+          3190,
+          3212
+        ],
+        [
+          3288,
+          3330
+        ],
+        [
+          3616,
+          3818
+        ]
+      ]
+    },
+    {
+      "OriginalPath": "erts/emulator/beam/erl_process.c",
+      "Object": {
+        "Path": "pin/erts/emulator/beam/erl_process.c",
+        "Bytes": 459197,
+        "Sha256": "89CBDB55BE2A97E77B2450BB3D339CA6DB934B9C4BF556EAD29B4EAE88072DC9"
+      },
+      "Excerpt": {
+        "Path": "pin/erts__emulator__beam__erl_process.c.excerpt.txt",
+        "Bytes": 2350,
+        "Sha256": "9E53556E9BE2A6DB12D966E9972F0399949988B28BB6D95707745FF7072DE81B"
+      },
+      "LineRanges": [
+        [
+          14094,
+          14152
+        ]
+      ]
+    }
+  ],
+  "SdkSourceBindings": [
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.GuestLinks.cs",
+      "Bytes": 6012,
+      "Sha256": "B0EE64BF339F5C70DBEFF22A20253C9259B23D4115CEDD02F3CD985717150A92"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeDistributionPending.OwnedOutput.cs",
+      "Bytes": 12167,
+      "Sha256": "5C70E724FB47590DF08A97B989684E00043462A334AA122C9DF7D885B941F5DB"
+    },
+    {
+      "Path": "src/Erlang.Runtime/DistributionOutputSequencer.cs",
+      "Bytes": 3896,
+      "Sha256": "023FC2417C5947DA3B6090BA31B63F7D804173887194DA93C5A51BB2B2204E8B"
+    },
+    {
+      "Path": "src/Erlang.Runtime/AsyncDistributionOutput.cs",
+      "Bytes": 874,
+      "Sha256": "39B0AFF523E09F8D47875532F806473043BD715A60C4C06C4B758FA7FCAA9EB5"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeDistributionPending.AsyncGuestSend.cs",
+      "Bytes": 8478,
+      "Sha256": "4EF0FF779D563460741FFA45AD0FE65963B6EE27DEC8F35D902A54BA049FB1C5"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.DistributionLinks.cs",
+      "Bytes": 9509,
+      "Sha256": "FA5296566531B8451A042593D2CABE1A882443AE63B9870952E69AE8A0AD93CC"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessExitContinuation.cs",
+      "Bytes": 613,
+      "Sha256": "EA1E0615DE0AC57A28862FD5B33C1A6C0A34FF3D1E98DBDD25164E300037B9BB"
+    },
+    {
+      "Path": "src/Erlang.Runtime/DistributionExitOutput.cs",
+      "Bytes": 216,
+      "Sha256": "0C4D86E31CA63657F23C4C7656D7FDDBA4CAFEC79CB69A6972D309CC33BED16D"
+    }
+  ],
+  "Design": {
+    "Path": "DESIGN.md",
+    "Bytes": 6512,
+    "Sha256": "192B952D14C9BA96542CE09C58F75D798D265881BD89A29DF5F25D48EB51F67D"
+  },
+  "ActualExecutions": null,
+  "Pending": [
+    "Root design review",
+    "implementation scope approval",
+    "same-source SDK RED/GREEN",
+    "original measurable ordering design and actual execution"
+  ]
+}

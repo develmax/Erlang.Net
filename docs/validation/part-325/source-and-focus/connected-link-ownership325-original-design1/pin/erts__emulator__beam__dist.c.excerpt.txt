@@ -1,0 +1,67 @@
+2757: 	    }
+2758: 	    token = NIL;
+2759: 	    reason = tuple[4];
+2760:             edep = NULL;
+2761: 	} else if (type == DOP_EXIT_TT){
+2762: 	    if (tuple_arity != 5) {
+2763: 		goto invalid_message;
+2764: 	    }
+2765: 	    token = tuple[4];
+2766: 	    reason = tuple[5];
+2767:             edep = NULL;
+2768: 	} else if (type == DOP_PAYLOAD_EXIT) {
+2769:             if (tuple_arity != 3) {
+2770: 		goto invalid_message;
+2771: 	    }
+2772:             token = NIL;
+2773:             reason = THE_NON_VALUE;
+2774:         } else {
+2775:             if (tuple_arity != 4) {
+2776: 		goto invalid_message;
+2777: 	    }
+2778:             token = tuple[4];
+2779:             reason = THE_NON_VALUE;
+2780:         }
+2781: 	if (is_not_external_pid(from)
+2782:             || dep != external_pid_dist_entry(from)
+2783:             || is_not_internal_pid(to)) {
+2784: 	    goto invalid_message;
+2785: 	}
+2786: 
+2787:         if (!erts_proc_lookup(to)) {
+2788:             if (ede_hfrag != NULL) {
+2789:                 erts_free_dist_ext_copy(erts_get_dist_ext(ede_hfrag));
+2790:                 free_message_buffer(ede_hfrag);
+2791:             }
+2792:             break; /* Process not alive */
+2793:         }
+2794: 
+2795: #ifdef ERTS_DIST_MSG_DBG
+2796:         if (reason == THE_NON_VALUE) {
+2797:             dist_msg_dbg(edep, "MSG", buf, orig_len);
+2798:         }
+2799: #endif
+2800: 
+2801:         erts_proc_sig_send_dist_link_exit(dep,
+2802:                                           from, to, edep, ede_hfrag,
+2803:                                           reason, token);
+2804: 	break;
+2805:     }
+2806:     case DOP_PAYLOAD_EXIT2_TT:
+2807:     case DOP_PAYLOAD_EXIT2:
+2808:     case DOP_EXIT2_TT:
+2809:     case DOP_EXIT2: {
+2810: 
+2811: 	/* 'from' is send an exit signal to 'to' */
+2812:         from = tuple[2];
+2813:         to = tuple[3];
+2814: 
+2815: 	if (type == DOP_EXIT2) {
+2816: 	    if (tuple_arity != 4) {
+2817: 		goto invalid_message;
+2818: 	    }
+2819: 	    reason = tuple[4];
+2820: 	    token = NIL;
+2821:             edep = NULL;
+2822: 	} else if (type == DOP_EXIT2_TT) {
+2823: 	    if (tuple_arity != 5) {

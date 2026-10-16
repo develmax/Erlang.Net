@@ -1,0 +1,66 @@
+315:         replace = 0;
+316: 
+317:         ASSERT(eq(elnk->ld.proc.other.item, other));
+318:         ASSERT(elnk->ld.dist.other.item == c_p->common.id);
+319: 
+320:         code = erts_dsig_prepare(&ctx, dep, c_p,
+321:                                  ERTS_PROC_LOCK_MAIN,
+322:                                  ERTS_DSP_RLOCK, 0, 1, 1);
+323:         switch (code) {
+324:         case ERTS_DSIG_PREP_NOT_ALIVE:
+325:         case ERTS_DSIG_PREP_NOT_CONNECTED:
+326:             if (created || elnk->unlinking) {
+327:                 if (elnk->unlinking) {
+328:                     /*
+329:                      * Currently unlinking an old link from an old connection; replace
+330:                      * old link with the prepared one...
+331:                      */
+332:                     relnk = NULL;
+333:                     rlnk = lnk;
+334:                     elnk = pelnk;
+335:                     replace = !0;
+336:                 }
+337:                 erts_link_set_dead_dist(&elnk->ld.dist, dep->sysname);
+338:             }
+339:             erts_proc_sig_send_link_exit_noconnection(&elnk->ld.dist);
+340:             break;
+341: 
+342:         case ERTS_DSIG_PREP_PENDING:
+343:         case ERTS_DSIG_PREP_CONNECTED: {
+344:             /*
+345:              * We have a connection (or a pending connection).
+346:              * Setup link and enqueue link signal.
+347:              */
+348:             if (created
+349:                 || (elnk->unlinking
+350:                     && elnk->dist->connection_id != ctx.connection_id)) {
+351:                 int inserted;
+352:                 if (!created) {
+353:                     /*
+354:                      * Currently unlinking an old link from an old connection; replace
+355:                      * old link with the prepared one...
+356:                      */
+357:                     rlnk = lnk;
+358:                     if (erts_link_dist_delete(&elnk->ld.dist))
+359:                         relnk = elnk;
+360:                     else
+361:                         relnk = NULL;
+362:                     elnk = pelnk;
+363:                     replace = !0;
+364:                 }
+365:                 inserted = erts_link_dist_insert(&elnk->ld.dist, dep->mld);
+366:                 ASSERT(inserted); (void)inserted;
+367:             }
+368: 
+369:             erts_de_runlock(dep);
+370: 
+371:             code = erts_dsig_send_link(&ctx, c_p->common.id, other);
+372:             if (code == ERTS_DSIG_SEND_YIELD)
+373:                 ERTS_BIF_YIELD_RETURN(c_p, am_true);
+374:             ASSERT(code == ERTS_DSIG_SEND_OK);
+375:             break;
+376:         }
+377:         default:
+378:             ERTS_ASSERT(! "Invalid dsig prepare result");
+379:         }
+380: 

@@ -1,0 +1,86 @@
+{
+  "Status": "PASS_SOURCE_PASSIVE_CLEANUP_ORDER_DIAGNOSIS_NO_NEW_EXECUTION",
+  "ActualMixedRedPreserved": {
+    "Path": "artifacts/connected-link-ownership325-historical-red2/root-red-AsyncCapacity/actual.json",
+    "Bytes": 3582,
+    "Sha256": "015D90D835851D4AE605967F446E6DC8806AAEFE1F3E47B2AFB24819C3FBBCA4"
+  },
+  "ObservedPrimary": "Missing async returned marker assertion line63",
+  "ObservedCleanup": "Exactly one TimeoutException from pre-Finish awaitUnwound line101",
+  "ExistingFinishOrder": "CloseConnected first, then bounded join unwound/guestCompletion/blocker/query, preserve primary and append new failures",
+  "Inference": "Actual report has no extra Finish join timeout, so its post-close joins settled; catch imposes an earlier unwinding prerequisite before the existing close operation releases that output lifecycle",
+  "NotEstablished": "Exact internal reason queued public EXIT2 did not finish guest before connection close; no new runtime diagnosis/execution or broad signal-pump parity claim",
+  "MinimalProposal": "Keep public PutExit and aggregate its errors, remove the catch pre-close joins, delegate actual close-before-join and fault preservation to unchanged Finish",
+  "SuccessAssertionsBeforeCatchAndAfterFinishRawTextExact": true,
+  "RuntimeRegistrationAndExistingHelpersChanged": false,
+  "RequireSameHostSourceGreenAndHistoricalRed": true,
+  "FutureGates": [
+    "source review",
+    "target build0/0",
+    "same-source newGREEN18",
+    "NormalCapacity clean missing-LINK RED",
+    "AsyncCapacity clean missing-return marker RED with no cleanup Timeout and settled owned process"
+  ],
+  "Bindings": [
+    {
+      "Path": "artifacts/connected-link-ownership325-focus2/source-freeze.json",
+      "Bytes": 1990,
+      "Sha256": "EAEEE4262C4B2F17F5D2B0254D94F9E20F551B4F2DE8CA26A11D9A68227E0D44"
+    },
+    {
+      "Path": "artifacts/connected-link-ownership325-focus2/source-resource-closure.json",
+      "Bytes": 434907,
+      "Sha256": "95BE1825B7452E6ECD87DD2C8F5476CD0919434CCC4049AC31596F080CC5160D"
+    },
+    {
+      "Path": "artifacts/connected-link-ownership325-historical-red2/source-freeze.json",
+      "Bytes": 1052,
+      "Sha256": "95663541FB80F9A840E99D85B380278715B4AE840FA3DD64A1699B360F5005D0"
+    },
+    {
+      "Path": "artifacts/connected-link-ownership325-historical-red2/source-resource-closure.json",
+      "Bytes": 434708,
+      "Sha256": "665D11BFFBDC808EEBC057CC1B6E41CCB410F776FE57C7C2F7362D0FAA9DA029"
+    },
+    {
+      "Path": "artifacts/connected-link-ownership325-historical-red2/root-red-AsyncCapacity/actual.json",
+      "Bytes": 3582,
+      "Sha256": "015D90D835851D4AE605967F446E6DC8806AAEFE1F3E47B2AFB24819C3FBBCA4"
+    },
+    {
+      "Path": "artifacts/connected-link-ownership325-historical-red2/root-red-AsyncCapacity/stderr.log",
+      "Bytes": 2298,
+      "Sha256": "1074642810F777B8A94F68CCCE4B902A53CD247CCADF9225B5C70F054218B9DC"
+    },
+    {
+      "Path": "artifacts/connected-link-ownership325-historical-red2/root-red-AsyncCapacity/process.json",
+      "Bytes": 1110,
+      "Sha256": "9210D815240C971ABCB1C25DD4F23BB410C637A12C81B0A4833D9B39754A9FB7"
+    },
+    {
+      "Path": "artifacts/connected-link-ownership325-historical-red2/candidate/tests/Erlang.Tests/DistributionControlWaitPublicRouteHostChecks.cs",
+      "Bytes": 11927,
+      "Sha256": "1F3C448CE91A25B98ED4575EA87C2311E510E7AB85BEA1BC79413E23BFD327C3"
+    },
+    {
+      "Path": "artifacts/connected-link-ownership325-historical-red2/candidate/src/Erlang.Runtime/ProcessContext.DistributionWait.cs",
+      "Bytes": 788,
+      "Sha256": "33D69954ED19DC136902EBF2521D3C39E1290B26DA79B95A378B7B76DF4C29E5"
+    },
+    {
+      "Path": "artifacts/connected-link-ownership325-historical-red2/candidate/src/Erlang.Runtime/RuntimeDistributionPending.OwnedOutput.cs",
+      "Bytes": 12167,
+      "Sha256": "5C70E724FB47590DF08A97B989684E00043462A334AA122C9DF7D885B941F5DB"
+    },
+    {
+      "Path": "artifacts/connected-link-ownership325-historical-red2/candidate/src/Erlang.Runtime/Mailbox.cs",
+      "Bytes": 20107,
+      "Sha256": "A58F4A53DB0147B4DA15957264BC08F034FD4CC3C9C5EC21509443332E71CE09"
+    },
+    {
+      "Path": "artifacts/connected-link-ownership325-historical-red2/candidate/src/Erlang.Runtime/ProcessRuntime.DistributionLinks.cs",
+      "Bytes": 9509,
+      "Sha256": "FA5296566531B8451A042593D2CABE1A882443AE63B9870952E69AE8A0AD93CC"
+    }
+  ]
+}

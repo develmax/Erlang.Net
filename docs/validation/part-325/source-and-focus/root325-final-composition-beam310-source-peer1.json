@@ -1,0 +1,56 @@
+{
+  "Status": "PASS_INDEPENDENT_FINAL325_SOURCE_COMPOSITION_ACTUAL_GREEN_CLEAN_RED_BOUND",
+  "Passed": true,
+  "SourceFreezeSha256": "2DA30CA5A31C5F985C46666617D3327BF95AC90C0B1D2FA72A72EFDC1A856AAD",
+  "SourceClosureSha256": "44C983D68C6C2BBAF910E1369E23050AF42686FF1EFB6E4BA15C0C34D3FD3848",
+  "PublishedParent": "56fa1196fb5507e1dce28e73d530685e7dcbc4d8",
+  "SourcePaths": 23,
+  "CSharpPaths": 7,
+  "SourceClosurePaths": 2366,
+  "All2366SourceRowsRehashed": true,
+  "All2353PublishedParentBlobsVerified": true,
+  "AllOutsideOwnedParentRowsExact": true,
+  "AllSixNonProgramCSharpRawExactActualGreen3": true,
+  "ProgramExactOneAdditiveRetainedLinkRegistrationPreserves324AndTiny": true,
+  "Original325TenToolFilesRawExactE159": true,
+  "Original325SourcePlanSha256": "A62852C3F0148AD1381F62CD470BE858C03B9502613C1761E88718E4A5CAC323",
+  "Original325VmExecuted": false,
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Inputs": 1109,
+      "Sha256": "A8575369F4D9B3325D7711E614561C80793C4E11BE18B1F01268680028D1880E",
+      "Workflow": ".github/workflows/nif-pending-native.yml",
+      "Pin": "REVIEWED_SOURCE_PLAN_SHA256",
+      "AllNonFilesImportAbiPolicyFieldsUnchanged": true
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Inputs": 1134,
+      "Sha256": "8C5829A6282A13AB1EC3BC9684FB30CFBD2ABAAC89E9F8307D0C4B4E804010C6",
+      "Workflow": ".github/workflows/nif-reallocation-native.yml",
+      "Pin": "REVIEWED_REALLOCATION_PLAN_SHA256",
+      "AllNonFilesImportAbiPolicyFieldsUnchanged": true
+    }
+  ],
+  "NativeInputDeltaOnlyOneRuntimePartial": true,
+  "AllNativeNonFilesImportAbiPoliciesExactParent": true,
+  "ProvenanceBinaryRepairAnd324SourcePreserved": true,
+  "ActualGreenAndCleanRedGuards": [
+    {
+      "Path": "artifacts/root325-actual-green3-guard.json",
+      "Sha256": "5FC1A288DA59BED4879AEC6F9E9542452861D5FC03CFA4B2185D60CFCEAB9B32"
+    },
+    {
+      "Path": "artifacts/root325-actual-clean-red3-guard.json",
+      "Sha256": "123AB3DE1EC1A5AC6B44710035FD389C9BCDCCF6690810821D40B7B96F2B0C12"
+    }
+  ],
+  "IndependentActualCombinedGuard": {
+    "Path": "artifacts/connected-link-ownership325-actual-green3-clean-red3-beam310-guard.json",
+    "Sha256": "53C0932673795DC2A1E0D51C9E73C40870264A276080D1DE1FC48780EC75885A"
+  },
+  "FinalProgramCompilationStillRootNextGate": true,
+  "Findings": [],
+  "NoReviewerSdkNativeVmBuildNetworkGitMainMutation": true
+}

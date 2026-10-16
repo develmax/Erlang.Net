@@ -1,0 +1,79 @@
+{
+  "Status": "PASS_PUBLISHED323_ORDINARY5885_FD8_SEMANTIC_WITH_STRICT_RAW_VARIANCE_RETAINED",
+  "Scope": "Only newly audited ordinary323 workflow, not all-five/current324/325 or new original busy collector execution",
+  "Head": "3785a8916b6469c7e7ada4838786b2526dad7f9e",
+  "Run": 38843439575,
+  "Job": 116788492797,
+  "Artifact": 12023315909,
+  "Attempt": 1,
+  "RawFilesRehashed": 11,
+  "ApiZipDigestAndEveryMemberVerified": true,
+  "Passed": 5885,
+  "FdPassed": 8,
+  "Expressions": 778,
+  "CompiledModules": 4942,
+  "Diagnostics": 165,
+  "HistoricalDifferentialSourceFilesRawExactFrom322": 229,
+  "AllHistoricalOrderedContractsContextHashPoliciesAndSixExclusionsPreserved": true,
+  "NewOrdinary323Cases": 0,
+  "SemanticGuard": {
+    "Path": "artifacts/pack323-ordinary-semantic-independent-guard.json",
+    "Bytes": 1581,
+    "Sha256": "9B687CB06B035C9EA350DD320B71C9960B9A4F9008BBBC66070D07EF3FDC2544"
+  },
+  "StrictRawGuard": {
+    "Path": "artifacts/pack323-ordinary-strict-independent-guard.json",
+    "Bytes": 1640,
+    "Sha256": "24220D304E8FF05CE5F80092EC3EAAF2A10E3FDADDCEE51576EDC8CC8AA3918B"
+  },
+  "StrictComparatorExitCode": 1,
+  "SemanticComparatorExitCode": 0,
+  "StrictRawEqualityPassed": false,
+  "ObservedPredeclaredMapStdoutVarianceRows": 1,
+  "RawDifference": {
+    "Name": "erlang-term-display-map",
+    "Index": 3605,
+    "Previous322NativeHex": "237B623D3E2241222C613D3E7B307D7D0D0A",
+    "Current323NativeHex": "237B613D3E7B307D2C623D3E2241227D0D0A",
+    "SourceExpectedSdkAlternativesUnchanged": true,
+    "DifferenceArtifact": {
+      "Path": "artifacts/pack323-ordinary-semantic-historical-differences.json",
+      "Bytes": 2276,
+      "Sha256": "F6CFD57A4635E8D67026BD553C0FFC0AD8BB3AD86B4E7B62DCE973BFB787CC32"
+    }
+  },
+  "RawNormalization": false,
+  "SourceFrameworkAllowancesAdded": false,
+  "OriginalBackend": "libc",
+  "SdkBackend": "dotnet_native_memory",
+  "BackendProfileGuard": {
+    "Path": "artifacts/pack323-allocator-profile-independent-guard.json",
+    "Bytes": 1312,
+    "Sha256": "7EACA9DBF03928EEC305F27F1A75ED669863A3FEA48A06AAE321D71AC3E8188D"
+  },
+  "IndependentNineKeySnapshotGuard": {
+    "Path": "artifacts/pack323-memory-profile-independent-guard.json",
+    "Bytes": 1653,
+    "Sha256": "87B742270AB1FFFE4571D9C503A592F3A93B4781DC03F032856F8AF2C63EAB6A"
+  },
+  "RawBackendResultsEqual": false,
+  "PhysicalOrWholeGcMemoryParityClaimed": false,
+  "Previous322SemanticGuard": {
+    "Path": "artifacts/pack322-ordinary-semantic-independent-guard.json",
+    "Bytes": 1274,
+    "Sha256": "0150EA84805DB8273D6A627EC9B71163E9EF08041FC19F0F30F72B83802E4F91"
+  },
+  "Previous322StrictRefusal": {
+    "Path": "artifacts/pack322-ordinary-strict-independent-guard.json",
+    "Bytes": 604,
+    "Sha256": "70F6C961DF6B7080EE12E963D3F690DE49088804D9BBEA043D7ABDA98FF64544"
+  },
+  "Current323BusyCollectorExecutedByThisWorkflow": false,
+  "VerifierExecutedVmNativeSdkBuildGetPostOrGitMutation": false,
+  "HistoricalDocumentationPendingCheckpointsRemainImmutable": true,
+  "RawApiArchiveRetainedSeparately": {
+    "Path": "artifacts/pack323-watch-38843439575-terminal/artifact-12023315909.zip",
+    "Bytes": 625629,
+    "Sha256": "85643799AB949BDE3F0001B799540ECB5B378F4A7A9BF42F6D2E9DD3CC298BCD"
+  }
+}

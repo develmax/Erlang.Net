@@ -1,0 +1,45 @@
+{
+  "Status": "SOURCE_ONLY_ONE_HOST_CLEANUP_ORDER_REVISION_PENDING_REVIEW_AND_IDENTICAL_SOURCE_GREEN_RED",
+  "SourcePaths": 1,
+  "CSharpPaths": 1,
+  "RuntimeChanges": 0,
+  "RegistrationChanges": 0,
+  "SuccessPathAssertionsChanged": false,
+  "ExistingFinishHelperChanged": false,
+  "ParentFileSha256": "1A67F3622540D37F4066DBD5814954A8E1BA6E7C82403D8A1B0854DE116C6DE8",
+  "Files": [
+    {
+      "Path": "tests/Erlang.Tests/DistributionRetainedLinkHostChecks.cs",
+      "Bytes": 7527,
+      "Sha256": "EF3DB41873F572E2C738C4441D2CDA770A2613E0AEB7A05BB6AC7A87A2DF0232"
+    }
+  ],
+  "EvidenceFiles": [
+    {
+      "Path": "passive-diagnosis.json",
+      "Bytes": 4407,
+      "Sha256": "0C3DCB86C30C1D623F5388F15D4601952E47C41DB868058A0DCEF6963EAAFE86"
+    },
+    {
+      "Path": "review.diff",
+      "Bytes": 724,
+      "Sha256": "DC9790893D9B09ADF8C9EE6E5958C3C40AEDDE39F2E89C426448F4825F33D5B7"
+    }
+  ],
+  "PriorCleanup2AuthorFreeze": {
+    "Path": "artifacts/connected-link-ownership325-host-cleanup-candidate2/source-freeze.json",
+    "Bytes": 3008,
+    "Sha256": "4B0D2FDE491A9648C400041248FC694A26711BBA614C59DA88EE63A1E0A7766A"
+  },
+  "GreenParentFreeze": {
+    "Path": "artifacts/connected-link-ownership325-focus2/source-freeze.json",
+    "Bytes": 1990,
+    "Sha256": "EAEEE4262C4B2F17F5D2B0254D94F9E20F551B4F2DE8CA26A11D9A68227E0D44"
+  },
+  "HistoricalParentFreeze": {
+    "Path": "artifacts/connected-link-ownership325-historical-red2/source-freeze.json",
+    "Bytes": 1052,
+    "Sha256": "95663541FB80F9A840E99D85B380278715B4AE840FA3DD64A1699B360F5005D0"
+  },
+  "NewSdkBuildVmNetworkMainGitExecution": false
+}

@@ -85,6 +85,17 @@ internal static class DistributionControlWaitPublicRouteHostChecks
             guest.Start.TrySetResult();
             await guest.Entered.Task.WaitAsync(DistributionControlWaitHostNames.Deadline);
             Check(!guest.Unwound.Task.IsCompleted);
+            if (function == DistributionControlWaitHostNames.Link)
+            {
+                var links = await Information(
+                    fixture,
+                    observer,
+                    guest.Guest.Pid,
+                    ProcessInfoNames.Links
+                )
+                    .WaitAsync(DistributionControlWaitHostNames.Deadline);
+                Check(links.Equals(Term.Tuple(Term.A(ProcessInfoNames.Links), Term.List(fixture.Connection.Remote))));
+            }
             await PutExit(fixture, guest.Guest.Pid, Term.A(ProcessExitSignals.Kill));
             Term? down = await Down(observer, reference);
             Check(down?.Equals(Term.Tuple(
@@ -105,6 +116,8 @@ internal static class DistributionControlWaitPublicRouteHostChecks
             }
             if (function == DistributionControlWaitHostNames.Link)
             {
+                Check((await fixture.Take(fixture.Connection)).Control.Equals(Term.Tuple(
+                    Term.I(DistributionControlOpcodes.Link), guest.Guest.Pid, fixture.Connection.Remote)));
                 var terminal = (await fixture.Take(fixture.Connection)).Control;
                 Check(terminal.Equals(Term.Tuple(
                     Term.I(DistributionControlOpcodes.Exit),
