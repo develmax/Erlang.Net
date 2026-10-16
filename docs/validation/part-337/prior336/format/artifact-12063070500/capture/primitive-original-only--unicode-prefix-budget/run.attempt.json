@@ -1,0 +1,26 @@
+{
+  "Arguments": [
+    "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/proc-lib-format-otp/bin/erl",
+    "+S",
+    "2:2",
+    "+pc",
+    "latin1",
+    "-noshell",
+    "-noinput",
+    "-boot",
+    "start_clean",
+    "-pa",
+    "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/proc-lib-format-original/capture/primitive-original-only--unicode-prefix-budget/beam",
+    "-eval",
+    "D=os:getenv(\"ERLANG_NET_FORMAT_CAPTURE\"),R=try oracle_proc_format_primitive:run() of V->{returned,V} catch C:E:S->{raised,C,E,S} end,case R of {returned,Returned}->ok=file:write_file(filename:join(D,\"returned.etf\"),term_to_binary(Returned));{raised,Class,Reason,Stack}->ok=file:write_file(filename:join(D,\"raised.etf\"),term_to_binary({Class,Reason,Stack})) end,ok=file:write_file(filename:join(D,\"outcome.etf\"),term_to_binary(R)),halt(0)."
+  ],
+  "WorkingDirectory": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/proc-lib-format-original/capture/primitive-original-only--unicode-prefix-budget",
+  "TimeoutSeconds": 30,
+  "StartedUnix": 1792171647.1506333,
+  "NewOwnedSession": true,
+  "SelectedEnvironment": {
+    "ERLC_USE_SERVER": "false",
+    "ERL_CRASH_DUMP": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/proc-lib-format-original/capture/primitive-original-only--unicode-prefix-budget/erl_crash.dump",
+    "ERLANG_NET_FORMAT_CAPTURE": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/proc-lib-format-original/capture/primitive-original-only--unicode-prefix-budget"
+  }
+}

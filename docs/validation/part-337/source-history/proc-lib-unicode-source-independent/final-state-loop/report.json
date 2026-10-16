@@ -1,0 +1,25 @@
+{
+  "Status": "PASS_SOURCE_CP_AND_CONTINUATION_STATE_LOOPS",
+  "Passed": true,
+  "PinnedOtp": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Reference": "lib/stdlib/uc_spec/gen_unicode_mod.escript:gen_cp",
+  "Files": [
+    {
+      "Bytes": 5204,
+      "Sha256": "26C660ACB9D887A202D9DB28C42A511A8DCB7066BEC8225840BB6B3268EEE659",
+      "Path": "ProcLibReportUnicodeCharacters.cs"
+    },
+    {
+      "Bytes": 167,
+      "Sha256": "103BEB7C0604AF480A242015381B388CEDC9777873F15890037C97F02B971275",
+      "Path": "ProcLibReportUnicodeParameters.cs"
+    }
+  ],
+  "SameStageTailTransitionsIterative": true,
+  "RemainingRecursion": "Only integer continuation transitions increment stage; stages 1 through 3 bound recursive construction.",
+  "RawContinuationAndInvalidBinaryShapesSourceAligned": true,
+  "SdkOrOriginalExecution": false,
+  "MutatedReviewedSource": false,
+  "History": "Prior initial and after-cp-tail-fix refusals retained; no claim those sources passed.",
+  "Scope": "Code-point and optimized continuation port only; integration fallback and complete grapheme algorithm not reviewed by this receipt."
+}

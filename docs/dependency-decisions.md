@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part337 — Inspect pinned proc_lib, io_lib_format, io_lib_pretty, erl_error, string and Unicode generator/data. Reuse the existing terms, runtime identity/float/function-information facilities, System.Text.Rune/strict UTF8, and current BCL grapheme measurement with its Unicode-version gap explicit. A general .NET text/JSON serializer cannot preserve Erlang raw report lists or source depth/budget rules; no external formatter, actor framework or new package is introduced. Preserve existing third-party notices and keep the owner-local public-license proposal uncommitted.
+
 Part336 — Inspected the existing differential workflow and source-capture observer tools. Reuse their pinned OTP build/configuration, Python standard-library process and hashing facilities, with fresh erlc/VM percase. Python is development observation infrastructure only; production/runtime formatter remains C#. No package or public license decision changes; existing third-party notices and owner-local uncommitted license are preserved.
 
 Part335 — Pinned OTP29.1.1 proc_lib.erl stop, sys.erl system messages and gen.erl call/reply/name resolution guide the adaptation. Existing project/runtime/BCL primitives supply actual monitors, aliases, sends, ownership and cancellation. No third-party framework, production BEAM dependency or new license header is added; existing notices and license decisions remain. Global registry implementation and complete system protocol are separate dependencies.

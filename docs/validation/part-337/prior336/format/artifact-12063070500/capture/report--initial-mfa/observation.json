@@ -1,0 +1,72 @@
+{
+  "Track": "report",
+  "Name": "initial-mfa",
+  "Source": {
+    "Path": "fixtures/initial-mfa.erl",
+    "Bytes": 243,
+    "Sha256": "A3525469B9D28FC927CE532065C4DF7212E18955B824DFC1E89E4DF88D70E954"
+  },
+  "SourceReturnProfile": "reviewed-report-source-result",
+  "CopiedSource": {
+    "Path": "source/oracle_proc_format.erl",
+    "Bytes": 243,
+    "Sha256": "A3525469B9D28FC927CE532065C4DF7212E18955B824DFC1E89E4DF88D70E954"
+  },
+  "Module": "oracle_proc_format",
+  "Scope": "Original report fixture observation; source wrapper determines flattened versus raw return",
+  "Compile": {
+    "ExitCode": 0,
+    "TimedOut": false,
+    "Settled": true,
+    "OwnedPid": 83163,
+    "ElapsedSeconds": 0.2715393220000806,
+    "Stdout": {
+      "Path": "compile.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "Stderr": {
+      "Path": "compile.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    }
+  },
+  "OriginalVmLaunched": true,
+  "OriginalExecuted": true,
+  "ExpectedValue": null,
+  "SdkCompared": false,
+  "RawNormalization": false,
+  "Beam": {
+    "Path": "beam/oracle_proc_format.beam",
+    "Bytes": 996,
+    "Sha256": "E995DD5FCF32E267CEA268009A5DD34140267964C1D6512845B9ABB8BCE9F6B2"
+  },
+  "Run": {
+    "ExitCode": 0,
+    "TimedOut": false,
+    "Settled": true,
+    "OwnedPid": 83210,
+    "ElapsedSeconds": 0.1795382550000113,
+    "Stdout": {
+      "Path": "run.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "Stderr": {
+      "Path": "run.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    }
+  },
+  "RawValueEtf": {
+    "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/proc-lib-format-original/capture/report--initial-mfa/returned.etf",
+    "Bytes": 68,
+    "Sha256": "D10B102E2FA3C384688FA662A051024E18C8D45A053F5643E511170D15A6C818"
+  },
+  "RawOutcomeEtf": {
+    "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/proc-lib-format-original/capture/report--initial-mfa/outcome.etf",
+    "Bytes": 80,
+    "Sha256": "3C3F49619D51211291DE3D34711AD67DBBBF264F50D7F842D3CCEFE2DC6962C5"
+  },
+  "Status": "OBSERVED_RETURNED"
+}

@@ -1,0 +1,72 @@
+{
+  "Track": "report",
+  "Name": "initial-improper-fallback",
+  "Source": {
+    "Path": "fixtures/initial-improper-fallback.erl",
+    "Bytes": 243,
+    "Sha256": "11991C8C07CA3C776EE45C8B94A69E3CBD354D676AC86DE5764B368014D4C064"
+  },
+  "SourceReturnProfile": "reviewed-report-source-result",
+  "CopiedSource": {
+    "Path": "source/oracle_proc_format.erl",
+    "Bytes": 243,
+    "Sha256": "11991C8C07CA3C776EE45C8B94A69E3CBD354D676AC86DE5764B368014D4C064"
+  },
+  "Module": "oracle_proc_format",
+  "Scope": "Original report fixture observation; source wrapper determines flattened versus raw return",
+  "Compile": {
+    "ExitCode": 0,
+    "TimedOut": false,
+    "Settled": true,
+    "OwnedPid": 83457,
+    "ElapsedSeconds": 0.2578369720000637,
+    "Stdout": {
+      "Path": "compile.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "Stderr": {
+      "Path": "compile.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    }
+  },
+  "OriginalVmLaunched": true,
+  "OriginalExecuted": true,
+  "ExpectedValue": null,
+  "SdkCompared": false,
+  "RawNormalization": false,
+  "Beam": {
+    "Path": "beam/oracle_proc_format.beam",
+    "Bytes": 1016,
+    "Sha256": "4487C5A851116782C4A54A41A2E23B390ADB6BC10BFE3E1E16D38A9CE5418D71"
+  },
+  "Run": {
+    "ExitCode": 0,
+    "TimedOut": false,
+    "Settled": true,
+    "OwnedPid": 83504,
+    "ElapsedSeconds": 0.19895243400003437,
+    "Stdout": {
+      "Path": "run.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "Stderr": {
+      "Path": "run.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    }
+  },
+  "RawValueEtf": {
+    "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/proc-lib-format-original/capture/report--initial-improper-fallback/returned.etf",
+    "Bytes": 78,
+    "Sha256": "C9948506969D320F15C5DEC7368B3B2F1380022D31AF8817FA443873AD0EF98D"
+  },
+  "RawOutcomeEtf": {
+    "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/proc-lib-format-original/capture/report--initial-improper-fallback/outcome.etf",
+    "Bytes": 90,
+    "Sha256": "8834E167EE984A2A67F139257B00332E146C04CC81EF7DB54CB9AE7BAEC86109"
+  },
+  "Status": "OBSERVED_RETURNED"
+}

@@ -1,5 +1,7 @@
 # Dependency-directed API implementation
 
+Part337 — proc_lib29/39 now has original-verified report formatting. Prioritize the real logger/error_logger/application-environment dependencies and shared initializer/crash-report path, then connected spawn protocol/ownership and six node overloads. Test real delivery and resource/order boundaries; retain unsupported native tuning/physical/performance scope explicitly.
+
 Part336 — Capture original57 report and19 primitive results first; compare with private SDK observations, fix actual differences and only then publish four report exports. In parallel complete initializer/hibernate with real crash-report/logger dependencies; six node overloads also require actual connected spawning.
 
 Reference: OTP-29.1.1, commit `ad05823719d77c8faee87348ea39513d4e2f99c5`.

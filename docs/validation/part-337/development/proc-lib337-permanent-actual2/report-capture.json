@@ -1,0 +1,68 @@
+{
+  "Status": "FAIL",
+  "Identities": [
+    {
+      "Name": "Erlang.Tests",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib337-candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "Sha256": "F185D40D1938F5DA7479B27928817CE6A97911C6EE7AF594E565B81A35387476"
+    },
+    {
+      "Name": "Erlang.Compiler",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib337-candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Compiler.dll",
+      "Sha256": "C6871D7E5A5F420085DD5BAB12A22471B12AFBA81858747641F0925B0FFBBFD1"
+    },
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib337-candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Sha256": "4AF8727B8B410368C97A7E19DE1587045DECA12A696AC6FBF903C9E3925C5EDE"
+    }
+  ],
+  "Cases": [
+    {
+      "Name": "Erlang.Tests.ProcLibReportProbeChecks:CaptureReports",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 2610
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibReportProbeChecks:CapturePrimitives",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 502
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibReportProbeChecks:PrettySourceContracts",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 622
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibReportProbeChecks:CallbackAwaitControl",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 5
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibUnicodeContinuationHostChecks:Run",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 18
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibReportMfaContracts:Run:format:1",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 4
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibReportMfaContracts:Run:format:2",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 0
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibReportMfaContracts:Run:format:3",
+      "Status": "PASS",
+      "ElapsedMilliseconds": 0
+    },
+    {
+      "Name": "Erlang.Tests.ProcLibReportMfaContracts:Run:report_cb:2",
+      "Status": "FAIL",
+      "ElapsedMilliseconds": 0,
+      "Exception": "System.InvalidOperationException: The proc_lib report differs from the independently executed OTP result.\r\n   at Erlang.Tests.ProcLibReportMfaContracts.Run(String function, Int32 arity) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib337-candidate\\tests\\Erlang.Tests\\ProcLibReportMfaContracts.cs:line 53\r\n   at Erlang.Tests.ProcLibReportMfaContracts.Run(String function, Int32 arity) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib337-candidate\\tests\\Erlang.Tests\\ProcLibReportMfaContracts.cs:line 58\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib337-focus\\Program.cs:line 22"
+    }
+  ]
+}

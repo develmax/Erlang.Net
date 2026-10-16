@@ -1,0 +1,72 @@
+{
+  "Track": "report",
+  "Name": "invalid-initial-call-shape",
+  "Source": {
+    "Path": "fixtures/invalid-initial-call-shape.erl",
+    "Bytes": 224,
+    "Sha256": "194A4510FA5B668A4738C39C3384AC2145EE7891ECC4F2F818CC2FE35C497EF4"
+  },
+  "SourceReturnProfile": "reviewed-report-source-result",
+  "CopiedSource": {
+    "Path": "source/oracle_proc_format.erl",
+    "Bytes": 224,
+    "Sha256": "194A4510FA5B668A4738C39C3384AC2145EE7891ECC4F2F818CC2FE35C497EF4"
+  },
+  "Module": "oracle_proc_format",
+  "Scope": "Original report fixture observation; source wrapper determines flattened versus raw return",
+  "Compile": {
+    "ExitCode": 0,
+    "TimedOut": false,
+    "Settled": true,
+    "OwnedPid": 85516,
+    "ElapsedSeconds": 0.26438694499995563,
+    "Stdout": {
+      "Path": "compile.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "Stderr": {
+      "Path": "compile.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    }
+  },
+  "OriginalVmLaunched": true,
+  "OriginalExecuted": true,
+  "ExpectedValue": null,
+  "SdkCompared": false,
+  "RawNormalization": false,
+  "Beam": {
+    "Path": "beam/oracle_proc_format.beam",
+    "Bytes": 992,
+    "Sha256": "8EE6F9BF009D174C9495DA9E89912030EBC5F94EE33BF1338B76260A2C6F0334"
+  },
+  "Run": {
+    "ExitCode": 0,
+    "TimedOut": false,
+    "Settled": true,
+    "OwnedPid": 85563,
+    "ElapsedSeconds": 0.18943732000002456,
+    "Stdout": {
+      "Path": "run.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "Stderr": {
+      "Path": "run.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    }
+  },
+  "RawValueEtf": {
+    "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/proc-lib-format-original/capture/report--invalid-initial-call-shape/returned.etf",
+    "Bytes": 38,
+    "Sha256": "C33F323A986CD4958EE63DB7A314826732BA93CA7BDEB5B42B8D7F6A6E234A2B"
+  },
+  "RawOutcomeEtf": {
+    "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/proc-lib-format-original/capture/report--invalid-initial-call-shape/outcome.etf",
+    "Bytes": 50,
+    "Sha256": "085EA48F714FA96734E4D46F7EF86190C8FF50C8E2AD9FD2FAE2F8F95FA59E1D"
+  },
+  "Status": "OBSERVED_RETURNED"
+}

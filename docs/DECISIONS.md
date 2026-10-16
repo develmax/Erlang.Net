@@ -1,5 +1,7 @@
 # Decisions
 
+Part337 — Port proc_lib report/exception orchestration and the required pretty/control algorithms directly over immutable C# terms and existing runtime primitives. Retain actual raw iolist structure, not only rendered text. Obtain expected ETF exclusively from pinned source-built OTP; a separate independent decoder verifies76 comparisons. Keep generic io_lib/string and unverified logger/remote drafts outside this registration slice.
+
 Part336 — Obtain independently captured original outcomes before assigning formatter expectations. Use existing Python standard-library development-observer infrastructure, exact pinned source-built OTP and isolated owned processes; do not add a runtime BEAM or third-party package dependency. Decode ETF terms for later comparison while retaining text bytes and nested lists; never infer expected values from SDK output.
 
 Part335 — Port proc_lib stop and required sys/gen call/reply logic directly over existing CLR process, alias, monitor and receive primitives. The host GenServer.Stop helper stays usable in a bare runtime without module-registration side effects; it consumes ACK and awaits DOWN under one Stopwatch budget. Preserve source error/catch boundaries and matching-node registry failures. Avoid a separate actor or message-bus dependency.

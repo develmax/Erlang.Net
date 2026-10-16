@@ -1,0 +1,72 @@
+{
+  "Track": "report",
+  "Name": "invalid-chars-limit",
+  "Source": {
+    "Path": "fixtures/invalid-chars-limit.erl",
+    "Bytes": 264,
+    "Sha256": "4D1760A068ED45F861CBC27895EEE225878DB9A3E3607A9704366890E6FBE966"
+  },
+  "SourceReturnProfile": "reviewed-report-source-result",
+  "CopiedSource": {
+    "Path": "source/oracle_proc_format.erl",
+    "Bytes": 264,
+    "Sha256": "4D1760A068ED45F861CBC27895EEE225878DB9A3E3607A9704366890E6FBE966"
+  },
+  "Module": "oracle_proc_format",
+  "Scope": "Original report fixture observation; source wrapper determines flattened versus raw return",
+  "Compile": {
+    "ExitCode": 0,
+    "TimedOut": false,
+    "Settled": true,
+    "OwnedPid": 86007,
+    "ElapsedSeconds": 0.27036314700001185,
+    "Stdout": {
+      "Path": "compile.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "Stderr": {
+      "Path": "compile.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    }
+  },
+  "OriginalVmLaunched": true,
+  "OriginalExecuted": true,
+  "ExpectedValue": null,
+  "SdkCompared": false,
+  "RawNormalization": false,
+  "Beam": {
+    "Path": "beam/oracle_proc_format.beam",
+    "Bytes": 1028,
+    "Sha256": "22519AB261904654FD2485754A9B396FCE887C03093D0ED620D15E855B00E02C"
+  },
+  "Run": {
+    "ExitCode": 0,
+    "TimedOut": false,
+    "Settled": true,
+    "OwnedPid": 86054,
+    "ElapsedSeconds": 0.1766623939998908,
+    "Stdout": {
+      "Path": "run.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "Stderr": {
+      "Path": "run.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    }
+  },
+  "RawValueEtf": {
+    "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/proc-lib-format-original/capture/report--invalid-chars-limit/returned.etf",
+    "Bytes": 41,
+    "Sha256": "B0C88ED142F36B5E9068974A37E16ECE4E565EF7B502C0E612EC01EB18989E5F"
+  },
+  "RawOutcomeEtf": {
+    "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/proc-lib-format-original/capture/report--invalid-chars-limit/outcome.etf",
+    "Bytes": 53,
+    "Sha256": "610F520E80C5245943CC6904EB057208728306CF07069B75A9E5560FBCC0EC96"
+  },
+  "Status": "OBSERVED_RETURNED"
+}

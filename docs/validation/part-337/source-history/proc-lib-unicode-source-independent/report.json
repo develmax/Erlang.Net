@@ -1,0 +1,26 @@
+{
+  "Status": "SOURCE_REVIEW_BLOCKED_UNBOUNDED_MUTUAL_TAIL_RECURSION",
+  "Passed": false,
+  "PinnedGeneratorSha256": "44D702E05F77409858C1E702F64ACF03B761D2F661B6F86E343BEC21322E5FA9",
+  "Files": [
+    {
+      "Path": "artifacts/proc-lib-unicode-source/ProcLibReportUnicodeCharacters.cs",
+      "Bytes": 5205,
+      "Sha256": "A3E1AFC23866E5157B579E91BF21C7F15334E28900644812C7F5DFC201407019"
+    },
+    {
+      "Path": "artifacts/proc-lib-unicode-source/ProcLibReportUnicodeParameters.cs",
+      "Bytes": 167,
+      "Sha256": "103BEB7C0604AF480A242015381B388CEDC9777873F15890037C97F02B971275"
+    }
+  ],
+  "ContinuationShapesReviewed": [
+    "cp([C|_]) guardedscalar and unwrapping",
+    "cpl integerhead/singleton/binary/empty/errorcontinuation",
+    "cpl_cont stages1..3 and cpl_1_cont stages1..3 preserve original raw continuation shapes",
+    "Rune.DecodeFromUtf8 perbinary matches scalar decoding/rejects incomplete and invalidsegments"
+  ],
+  "BlockingFinding": "CodePoint -> NestedCodePoint -> CodePoint tail transitions recurse once per leadingempty list in [[],[],...,[],<<128>>]. Original Erlangtailcalls do notgrow processstack. Useone outerdispatch/state loop withoutchanging rawcontinuation/errorpayload.",
+  "SdkOrOriginalExecution": false,
+  "MutatedReviewedSource": false
+}

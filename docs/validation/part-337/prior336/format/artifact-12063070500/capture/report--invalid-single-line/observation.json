@@ -1,0 +1,72 @@
+{
+  "Track": "report",
+  "Name": "invalid-single-line",
+  "Source": {
+    "Path": "fixtures/invalid-single-line.erl",
+    "Bytes": 246,
+    "Sha256": "0379AB426564524617E8BF9E872A4AC773003B83057CEB83023C0CB348E09E81"
+  },
+  "SourceReturnProfile": "reviewed-report-source-result",
+  "CopiedSource": {
+    "Path": "source/oracle_proc_format.erl",
+    "Bytes": 246,
+    "Sha256": "0379AB426564524617E8BF9E872A4AC773003B83057CEB83023C0CB348E09E81"
+  },
+  "Module": "oracle_proc_format",
+  "Scope": "Original report fixture observation; source wrapper determines flattened versus raw return",
+  "Compile": {
+    "ExitCode": 0,
+    "TimedOut": false,
+    "Settled": true,
+    "OwnedPid": 85909,
+    "ElapsedSeconds": 0.2749387019999858,
+    "Stdout": {
+      "Path": "compile.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "Stderr": {
+      "Path": "compile.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    }
+  },
+  "OriginalVmLaunched": true,
+  "OriginalExecuted": true,
+  "ExpectedValue": null,
+  "SdkCompared": false,
+  "RawNormalization": false,
+  "Beam": {
+    "Path": "beam/oracle_proc_format.beam",
+    "Bytes": 1032,
+    "Sha256": "B39E15C5A86AA42AB32CF07D8413964F2BAAD307F298632DCB63E3FC41B4E4B1"
+  },
+  "Run": {
+    "ExitCode": 0,
+    "TimedOut": false,
+    "Settled": true,
+    "OwnedPid": 85956,
+    "ElapsedSeconds": 0.1827172819999987,
+    "Stdout": {
+      "Path": "run.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "Stderr": {
+      "Path": "run.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    }
+  },
+  "RawValueEtf": {
+    "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/proc-lib-format-original/capture/report--invalid-single-line/returned.etf",
+    "Bytes": 5,
+    "Sha256": "3062AE3472B1A73F2C24BAFADC5E8C59319B94400C3BA265041431DB77D9D0D6"
+  },
+  "RawOutcomeEtf": {
+    "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/proc-lib-format-original/capture/report--invalid-single-line/outcome.etf",
+    "Bytes": 17,
+    "Sha256": "C736D7DDD696618CED3E974CC2197523FF47C2A38661BFF7D465B53BB695D25B"
+  },
+  "Status": "OBSERVED_RETURNED"
+}

@@ -1,0 +1,540 @@
+{
+  "Status": "EXPECTED_VALUES_EXCLUSIVELY_FROM_ORIGINAL_RETURNED_ETF",
+  "OriginalObservationsSha256": "89AE7474085927DA7C45757007A29BD609EE6A3EA1462D7351EDC71B72534755",
+  "Rows": [
+    {
+      "Name": "empty-default",
+      "Track": "report",
+      "ExpectedEtfBytes": 38,
+      "ExpectedEtfSha256": "8F7000EE303FE2D483DB09FE582182AEB33AA0D60BE7FC55033BD980514DB12E",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--empty-default\\returned.etf"
+    },
+    {
+      "Name": "empty-explicit-latin1",
+      "Track": "report",
+      "ExpectedEtfBytes": 38,
+      "ExpectedEtfSha256": "8F7000EE303FE2D483DB09FE582182AEB33AA0D60BE7FC55033BD980514DB12E",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--empty-explicit-latin1\\returned.etf"
+    },
+    {
+      "Name": "empty-depth-unused",
+      "Track": "report",
+      "ExpectedEtfBytes": 38,
+      "ExpectedEtfSha256": "8F7000EE303FE2D483DB09FE582182AEB33AA0D60BE7FC55033BD980514DB12E",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--empty-depth-unused\\returned.etf"
+    },
+    {
+      "Name": "ordinary-tags",
+      "Track": "report",
+      "ExpectedEtfBytes": 111,
+      "ExpectedEtfSha256": "8DA09A89A701995596D0236066FCC07CB0BACAD4757E9C29D0783E4DDECC1D11",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--ordinary-tags\\returned.etf"
+    },
+    {
+      "Name": "process-label-suppression",
+      "Track": "report",
+      "ExpectedEtfBytes": 84,
+      "ExpectedEtfSha256": "642F99F72272FAB2310B297CED05E162C5F8FDD8AA295EC45F8E0F79306A580D",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--process-label-suppression\\returned.etf"
+    },
+    {
+      "Name": "initial-mfa",
+      "Track": "report",
+      "ExpectedEtfBytes": 68,
+      "ExpectedEtfSha256": "D10B102E2FA3C384688FA662A051024E18C8D45A053F5643E511170D15A6C818",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--initial-mfa\\returned.etf"
+    },
+    {
+      "Name": "initial-quoted-atom",
+      "Track": "report",
+      "ExpectedEtfBytes": 70,
+      "ExpectedEtfSha256": "AEC1BDAB43D4EB071C819D3FE2FCF83B5B881707C60895F4BD3CEDDC67B7DA11",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--initial-quoted-atom\\returned.etf"
+    },
+    {
+      "Name": "initial-nonatom-fallback",
+      "Track": "report",
+      "ExpectedEtfBytes": 68,
+      "ExpectedEtfSha256": "3008A9ECC78F18D5B7B56AB0764E3C67DC135933CA035707451499E0A27FB3C6",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--initial-nonatom-fallback\\returned.etf"
+    },
+    {
+      "Name": "initial-improper-fallback",
+      "Track": "report",
+      "ExpectedEtfBytes": 78,
+      "ExpectedEtfSha256": "C9948506969D320F15C5DEC7368B3B2F1380022D31AF8817FA443873AD0EF98D",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--initial-improper-fallback\\returned.etf"
+    },
+    {
+      "Name": "neighbours",
+      "Track": "report",
+      "ExpectedEtfBytes": 152,
+      "ExpectedEtfSha256": "298DDF24F43670B2BB89EDFBA90D25F4F9C2F91B785F3D1D65A35A397B3AC72D",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--neighbours\\returned.etf"
+    },
+    {
+      "Name": "raw-neighbour-report",
+      "Track": "report",
+      "ExpectedEtfBytes": 69,
+      "ExpectedEtfSha256": "8CB9814BC50CCC6EEDBE3F8FE37F2AB1B9731291020D0ADD8C0A4EA814686156",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--raw-neighbour-report\\returned.etf"
+    },
+    {
+      "Name": "single-line",
+      "Track": "report",
+      "ExpectedEtfBytes": 67,
+      "ExpectedEtfSha256": "B652CAA18DF32E19F5C7C8BF5A87621761726F809F36AF53D04AD9FC11FF5E8C",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--single-line\\returned.etf"
+    },
+    {
+      "Name": "single-error",
+      "Track": "report",
+      "ExpectedEtfBytes": 94,
+      "ExpectedEtfSha256": "D8920C3495F12ECBFEA907A274BECD53C87A5BE07AAC79D154A164EC2D659BB2",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--single-error\\returned.etf"
+    },
+    {
+      "Name": "exit-error",
+      "Track": "report",
+      "ExpectedEtfBytes": 68,
+      "ExpectedEtfSha256": "71BC75ACC0B9CFEF84A40B4D0DA05ECAA9D8A9110030F87514D6364BE4085046",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--exit-error\\returned.etf"
+    },
+    {
+      "Name": "error-badmatch",
+      "Track": "report",
+      "ExpectedEtfBytes": 100,
+      "ExpectedEtfSha256": "A89C084F57F997BFBBFDE6BE958FAB702AFD28E223CCF49793ABB4021BF27B1D",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--error-badmatch\\returned.etf"
+    },
+    {
+      "Name": "error-stack",
+      "Track": "report",
+      "ExpectedEtfBytes": 112,
+      "ExpectedEtfSha256": "E3D7FAA2BEE245D24505D6F27D01E5A40F26FCCF66005AD799917F98F8066C8F",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--error-stack\\returned.etf"
+    },
+    {
+      "Name": "error-stack-filter",
+      "Track": "report",
+      "ExpectedEtfBytes": 98,
+      "ExpectedEtfSha256": "52A3FECD5E81FC66BFFBD41992413E206D77222D37B605F337901C4016B22A83",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--error-stack-filter\\returned.etf"
+    },
+    {
+      "Name": "depth-two",
+      "Track": "report",
+      "ExpectedEtfBytes": 65,
+      "ExpectedEtfSha256": "336CD54E57344B57FB34C451E9A0BF2482DE4FA138857C46A06538DFEED3435F",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--depth-two\\returned.etf"
+    },
+    {
+      "Name": "wide-report",
+      "Track": "report",
+      "ExpectedEtfBytes": 282,
+      "ExpectedEtfSha256": "00594C27A3C454C6F9AC8DD10934C1CAD48E54CD55C39AF69E26FCF4EF2D42A5",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--wide-report\\returned.etf"
+    },
+    {
+      "Name": "chars-budget",
+      "Track": "report",
+      "ExpectedEtfBytes": 95,
+      "ExpectedEtfSha256": "F7CEC1D0D01E0F8E81840ED23371ECF0D12B4356B1EADF5D8C63A9465E323935",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--chars-budget\\returned.etf"
+    },
+    {
+      "Name": "chars-zero",
+      "Track": "report",
+      "ExpectedEtfBytes": 52,
+      "ExpectedEtfSha256": "2124C785BAA04A0B222A0A0AB5595BACB464C86F03EB946910C25BE138C802B4",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--chars-zero\\returned.etf"
+    },
+    {
+      "Name": "chars-negative",
+      "Track": "report",
+      "ExpectedEtfBytes": 52,
+      "ExpectedEtfSha256": "2124C785BAA04A0B222A0A0AB5595BACB464C86F03EB946910C25BE138C802B4",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--chars-negative\\returned.etf"
+    },
+    {
+      "Name": "unicode-latin1",
+      "Track": "report",
+      "ExpectedEtfBytes": 79,
+      "ExpectedEtfSha256": "78A1D3F982665B69E9E7940DC04F957333E57A3D4ADE736C258A1772B58711B3",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--unicode-latin1\\returned.etf"
+    },
+    {
+      "Name": "unicode-native",
+      "Track": "report",
+      "ExpectedEtfBytes": 127,
+      "ExpectedEtfSha256": "B07151B14CEE785B97CBA4BFE2D5F2A9CF8BEE9A23F0292DAB2121BEE572A6AF",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--unicode-native\\returned.etf"
+    },
+    {
+      "Name": "malformed-element-stops",
+      "Track": "report",
+      "ExpectedEtfBytes": 50,
+      "ExpectedEtfSha256": "F2A667118B594538F6AA4DF7FB6CEEB9F5FE5AE12C5E48FFC59FE03EFD6F7E77",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--malformed-element-stops\\returned.etf"
+    },
+    {
+      "Name": "improper-report-tail-stops",
+      "Track": "report",
+      "ExpectedEtfBytes": 50,
+      "ExpectedEtfSha256": "F2A667118B594538F6AA4DF7FB6CEEB9F5FE5AE12C5E48FFC59FE03EFD6F7E77",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--improper-report-tail-stops\\returned.etf"
+    },
+    {
+      "Name": "error-info-malformed-prefix",
+      "Track": "report",
+      "ExpectedEtfBytes": 38,
+      "ExpectedEtfSha256": "8F7000EE303FE2D483DB09FE582182AEB33AA0D60BE7FC55033BD980514DB12E",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--error-info-malformed-prefix\\returned.etf"
+    },
+    {
+      "Name": "nonlist-own-report",
+      "Track": "report",
+      "ExpectedEtfBytes": 60,
+      "ExpectedEtfSha256": "771241FB8744315385EA43555873B32FEC2DDCA700B13F725C93DC02FCA5AF73",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--nonlist-own-report\\returned.etf"
+    },
+    {
+      "Name": "invalid-outer-report",
+      "Track": "report",
+      "ExpectedEtfBytes": 38,
+      "ExpectedEtfSha256": "C33F323A986CD4958EE63DB7A314826732BA93CA7BDEB5B42B8D7F6A6E234A2B",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--invalid-outer-report\\returned.etf"
+    },
+    {
+      "Name": "invalid-initial-call-shape",
+      "Track": "report",
+      "ExpectedEtfBytes": 38,
+      "ExpectedEtfSha256": "C33F323A986CD4958EE63DB7A314826732BA93CA7BDEB5B42B8D7F6A6E234A2B",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--invalid-initial-call-shape\\returned.etf"
+    },
+    {
+      "Name": "invalid-error-info",
+      "Track": "report",
+      "ExpectedEtfBytes": 45,
+      "ExpectedEtfSha256": "6C7C4B6CD8352DFE25C91B004261058BADFB966B8C3E4AAA90723068D5A90917",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--invalid-error-info\\returned.etf"
+    },
+    {
+      "Name": "invalid-callback-label",
+      "Track": "report",
+      "ExpectedEtfBytes": 38,
+      "ExpectedEtfSha256": "C33F323A986CD4958EE63DB7A314826732BA93CA7BDEB5B42B8D7F6A6E234A2B",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--invalid-callback-label\\returned.etf"
+    },
+    {
+      "Name": "invalid-callback-extra",
+      "Track": "report",
+      "ExpectedEtfBytes": 36,
+      "ExpectedEtfSha256": "7A251478301985A3B6471D2FEF913796D0C7D430B0F9417189B9E928B60ADABA",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--invalid-callback-extra\\returned.etf"
+    },
+    {
+      "Name": "invalid-single-line",
+      "Track": "report",
+      "ExpectedEtfBytes": 5,
+      "ExpectedEtfSha256": "3062AE3472B1A73F2C24BAFADC5E8C59319B94400C3BA265041431DB77D9D0D6",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--invalid-single-line\\returned.etf"
+    },
+    {
+      "Name": "invalid-chars-limit",
+      "Track": "report",
+      "ExpectedEtfBytes": 41,
+      "ExpectedEtfSha256": "B0C88ED142F36B5E9068974A37E16ECE4E565EF7B502C0E612EC01EB18989E5F",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--invalid-chars-limit\\returned.etf"
+    },
+    {
+      "Name": "empty-limited-report",
+      "Track": "report",
+      "ExpectedEtfBytes": 31,
+      "ExpectedEtfSha256": "D86A3CFBBB84266D6B3E2D6C12C4C5E1F1B81B3879DB60DA09025F4DF164415F",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--empty-limited-report\\returned.etf"
+    },
+    {
+      "Name": "invalid-link-generator",
+      "Track": "report",
+      "ExpectedEtfBytes": 43,
+      "ExpectedEtfSha256": "E714DFED3ABB421155DE288869DBE0C23495F38C3260DC58B2650C68EAAA3A71",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--invalid-link-generator\\returned.etf"
+    },
+    {
+      "Name": "empty-default-raw",
+      "Track": "report",
+      "ExpectedEtfBytes": 70,
+      "ExpectedEtfSha256": "557200752567F0AB035D1767B2EE4F87E52B8B7F19ABA071A3B527E55CBD72D0",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--empty-default-raw\\returned.etf"
+    },
+    {
+      "Name": "ordinary-tags-raw",
+      "Track": "report",
+      "ExpectedEtfBytes": 205,
+      "ExpectedEtfSha256": "8CDE083C38B218ACEEB7C7B2B9A66FD8BEE707DE69A9AE6AF36806782B607157",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--ordinary-tags-raw\\returned.etf"
+    },
+    {
+      "Name": "initial-mfa-raw",
+      "Track": "report",
+      "ExpectedEtfBytes": 128,
+      "ExpectedEtfSha256": "05CD2918DFC3A8751882DF6A6C81ACF9A4D6165FEF524508D53B5B7F5AA6D47B",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--initial-mfa-raw\\returned.etf"
+    },
+    {
+      "Name": "neighbours-raw",
+      "Track": "report",
+      "ExpectedEtfBytes": 337,
+      "ExpectedEtfSha256": "4AE5A48F04089D8B80D8B17DC0D64B6C96D56F1130621F1DF0D74AD25220763F",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--neighbours-raw\\returned.etf"
+    },
+    {
+      "Name": "single-line-raw",
+      "Track": "report",
+      "ExpectedEtfBytes": 155,
+      "ExpectedEtfSha256": "E2C6F290B10F8DB979E99369575838DB662467384EC23CB196C1E049217013B4",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--single-line-raw\\returned.etf"
+    },
+    {
+      "Name": "single-error-raw",
+      "Track": "report",
+      "ExpectedEtfBytes": 215,
+      "ExpectedEtfSha256": "55251FD2A9F2A32137325618ECAF967966ECF7199CEA9A76D3F96FAB15D0D724",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--single-error-raw\\returned.etf"
+    },
+    {
+      "Name": "exit-error-raw",
+      "Track": "report",
+      "ExpectedEtfBytes": 140,
+      "ExpectedEtfSha256": "CA2BE1B1495AD3797CC4570C973CF87746EFA1585F6F8231A56007298F4AFED6",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--exit-error-raw\\returned.etf"
+    },
+    {
+      "Name": "depth-two-raw",
+      "Track": "report",
+      "ExpectedEtfBytes": 137,
+      "ExpectedEtfSha256": "7EC43302EDE31299E67DA4E2A4D19118D3F70DAD50706462BC3184B94B5FEC3C",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--depth-two-raw\\returned.etf"
+    },
+    {
+      "Name": "chars-budget-raw",
+      "Track": "report",
+      "ExpectedEtfBytes": 232,
+      "ExpectedEtfSha256": "F1458C70D8A4BD47162F3A2C689C615956F10129DBB75F7A7704ED22BE0C159C",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--chars-budget-raw\\returned.etf"
+    },
+    {
+      "Name": "extended-reason-override",
+      "Track": "report",
+      "ExpectedEtfBytes": 267,
+      "ExpectedEtfSha256": "991DAEB132C9828C80174B63D71D110A8C2DC4EF1C75BF6E3DD31EF0346C7CBD",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--extended-reason-override\\returned.etf"
+    },
+    {
+      "Name": "extended-error-ignored",
+      "Track": "report",
+      "ExpectedEtfBytes": 159,
+      "ExpectedEtfSha256": "A0A23CD5564A7926F5EF88019A3708E99A7DADF9D419F3D38ECA628E7BA481B1",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--extended-error-ignored\\returned.etf"
+    },
+    {
+      "Name": "extended-throw-propagates",
+      "Track": "report",
+      "ExpectedEtfBytes": 38,
+      "ExpectedEtfSha256": "7F3A9E49DB38DD2F13CF01E2456ADB791647149633F6A16BCCBEF99B0DDEA3EC",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--extended-throw-propagates\\returned.etf"
+    },
+    {
+      "Name": "extended-exit-propagates",
+      "Track": "report",
+      "ExpectedEtfBytes": 37,
+      "ExpectedEtfSha256": "69EF0501A15EA592B12FC0494DD0758864365FB9DF42FB710739F3A4485D45B3",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--extended-exit-propagates\\returned.etf"
+    },
+    {
+      "Name": "extended-nonmap",
+      "Track": "report",
+      "ExpectedEtfBytes": 47,
+      "ExpectedEtfSha256": "181CFB79DC69CFC3C682B24CD717E34E89012D3192CBB46A20558770E86AD5D7",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--extended-nonmap\\returned.etf"
+    },
+    {
+      "Name": "extended-real-receive",
+      "Track": "report",
+      "ExpectedEtfBytes": 174,
+      "ExpectedEtfSha256": "24316495CEE4B718CF96504297527C376EE706865552A31BE3807AB95F2E6A01",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--extended-real-receive\\returned.etf"
+    },
+    {
+      "Name": "extended-reason-override-raw",
+      "Track": "report",
+      "ExpectedEtfBytes": 627,
+      "ExpectedEtfSha256": "718D7CB63841585576ECFAFF42D5136F9EF4BDE2DEB4B7E44042CE9BD5EEC61B",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--extended-reason-override-raw\\returned.etf"
+    },
+    {
+      "Name": "extended-real-receive-raw",
+      "Track": "report",
+      "ExpectedEtfBytes": 354,
+      "ExpectedEtfSha256": "89AE30B1C45464975377278089DA58B3F31B9269D5135F4A7ADBAD44BA5031C6",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--extended-real-receive-raw\\returned.etf"
+    },
+    {
+      "Name": "undef-head-no-extended-callback",
+      "Track": "report",
+      "ExpectedEtfBytes": 5,
+      "ExpectedEtfSha256": "3062AE3472B1A73F2C24BAFADC5E8C59319B94400C3BA265041431DB77D9D0D6",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--undef-head-no-extended-callback\\returned.etf"
+    },
+    {
+      "Name": "override-still-evaluates-default-reason",
+      "Track": "report",
+      "ExpectedEtfBytes": 5,
+      "ExpectedEtfSha256": "3062AE3472B1A73F2C24BAFADC5E8C59319B94400C3BA265041431DB77D9D0D6",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--override-still-evaluates-default-reason\\returned.etf"
+    },
+    {
+      "Name": "nonlist-neighbour-data",
+      "Track": "report",
+      "ExpectedEtfBytes": 94,
+      "ExpectedEtfSha256": "CF3E474A7D3BB5ACE7493BAC401BDA5B55726075FDD409BE309D3008ACCF6C02",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\report--nonlist-neighbour-data\\returned.etf"
+    },
+    {
+      "Name": "surrogate-pair",
+      "Track": "primitive-original-only",
+      "ExpectedEtfBytes": 12,
+      "ExpectedEtfSha256": "8A6FD4DA988B0667ED28F1CD45378D0473DE5D0FB33BC8A749E8249D51BFB434",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\primitive-original-only--surrogate-pair\\returned.etf"
+    },
+    {
+      "Name": "surrogate-and-combining",
+      "Track": "primitive-original-only",
+      "ExpectedEtfBytes": 12,
+      "ExpectedEtfSha256": "38AFC056CD28C0CCB635F6E1CFE474D5D4C43742EB11F00A2BC369B77207060C",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\primitive-original-only--surrogate-and-combining\\returned.etf"
+    },
+    {
+      "Name": "complete-binary-grapheme",
+      "Track": "primitive-original-only",
+      "ExpectedEtfBytes": 12,
+      "ExpectedEtfSha256": "38AFC056CD28C0CCB635F6E1CFE474D5D4C43742EB11F00A2BC369B77207060C",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\primitive-original-only--complete-binary-grapheme\\returned.etf"
+    },
+    {
+      "Name": "incomplete-binary-boundary",
+      "Track": "primitive-original-only",
+      "ExpectedEtfBytes": 49,
+      "ExpectedEtfSha256": "D532F76911DF117FEA9493643FCCCEB77802CE4B23BA41F21EA4FF6D1D5381EF",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\primitive-original-only--incomplete-binary-boundary\\returned.etf"
+    },
+    {
+      "Name": "surrogate-single",
+      "Track": "primitive-original-only",
+      "ExpectedEtfBytes": 12,
+      "ExpectedEtfSha256": "38AFC056CD28C0CCB635F6E1CFE474D5D4C43742EB11F00A2BC369B77207060C",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\primitive-original-only--surrogate-single\\returned.etf"
+    },
+    {
+      "Name": "latin1-byte-size",
+      "Track": "primitive-original-only",
+      "ExpectedEtfBytes": 12,
+      "ExpectedEtfSha256": "8A6FD4DA988B0667ED28F1CD45378D0473DE5D0FB33BC8A749E8249D51BFB434",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\primitive-original-only--latin1-byte-size\\returned.etf"
+    },
+    {
+      "Name": "unicode-default-printable",
+      "Track": "primitive-original-only",
+      "ExpectedEtfBytes": 38,
+      "ExpectedEtfSha256": "50C69BD9CC4C2A0A69C3FFFE52E4AA8C97C234A244CC5CC9FEB960F9B3E9C032",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\primitive-original-only--unicode-default-printable\\returned.etf"
+    },
+    {
+      "Name": "nested-list-depth",
+      "Track": "primitive-original-only",
+      "ExpectedEtfBytes": 86,
+      "ExpectedEtfSha256": "B449A2B28C2B9BBF23949CAE9BD8C59E18C495D04F249953042B98AA22407A29",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\primitive-original-only--nested-list-depth\\returned.etf"
+    },
+    {
+      "Name": "write-string-disabled",
+      "Track": "primitive-original-only",
+      "ExpectedEtfBytes": 62,
+      "ExpectedEtfSha256": "8045E898117F5DDAAB92324A16D209FF55CAA755316EC1173B0D4A88D5967656",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\primitive-original-only--write-string-disabled\\returned.etf"
+    },
+    {
+      "Name": "unicode-prefix-budget",
+      "Track": "primitive-original-only",
+      "ExpectedEtfBytes": 32,
+      "ExpectedEtfSha256": "A7ECC08BC1F9794637FCA5213182579728FC08F21369D7A497BE15DD4966DA84",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\primitive-original-only--unicode-prefix-budget\\returned.etf"
+    },
+    {
+      "Name": "utf8-binary",
+      "Track": "primitive-original-only",
+      "ExpectedEtfBytes": 50,
+      "ExpectedEtfSha256": "F96E563406A0DCDBEA49DE4EF7521EF1FAD3CFF99437F06598463F49AF342F4C",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\primitive-original-only--utf8-binary\\returned.etf"
+    },
+    {
+      "Name": "latin1-binary-fallback",
+      "Track": "primitive-original-only",
+      "ExpectedEtfBytes": 36,
+      "ExpectedEtfSha256": "B1A465214C79A46FFBBCAA5D23FE4A795CF387908BCDAF098967FFAADC236118",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\primitive-original-only--latin1-binary-fallback\\returned.etf"
+    },
+    {
+      "Name": "partial-bits",
+      "Track": "primitive-original-only",
+      "ExpectedEtfBytes": 46,
+      "ExpectedEtfSha256": "949D4AA1D05916F1E180112EE86E6EA82CE61C8F0D4D7F2500F81347B4DBB0E9",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\primitive-original-only--partial-bits\\returned.etf"
+    },
+    {
+      "Name": "map-tail-depth-budget",
+      "Track": "primitive-original-only",
+      "ExpectedEtfBytes": 129,
+      "ExpectedEtfSha256": "0F7C4115909C98228B76D6FC3081049C23CCD1F14FA690B35906FBE21B2381CA",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\primitive-original-only--map-tail-depth-budget\\returned.etf"
+    },
+    {
+      "Name": "column18-width",
+      "Track": "primitive-original-only",
+      "ExpectedEtfBytes": 491,
+      "ExpectedEtfSha256": "90568C13FB3BAB79FC82D3D1192D0036E714CB0DA52AA77897BA437B7F1AF469",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\primitive-original-only--column18-width\\returned.etf"
+    },
+    {
+      "Name": "width0",
+      "Track": "primitive-original-only",
+      "ExpectedEtfBytes": 325,
+      "ExpectedEtfSha256": "1827386ED88FF38385982439E603D1C2740A3AC9A6DF3144B02D6EB947AF1EBF",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\primitive-original-only--width0\\returned.etf"
+    },
+    {
+      "Name": "unicode-printable-prefix-control",
+      "Track": "primitive-original-only",
+      "ExpectedEtfBytes": 32,
+      "ExpectedEtfSha256": "A7ECC08BC1F9794637FCA5213182579728FC08F21369D7A497BE15DD4966DA84",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\primitive-original-only--unicode-printable-prefix-control\\returned.etf"
+    },
+    {
+      "Name": "unicode-printable-prefix-nested",
+      "Track": "primitive-original-only",
+      "ExpectedEtfBytes": 32,
+      "ExpectedEtfSha256": "A7ECC08BC1F9794637FCA5213182579728FC08F21369D7A497BE15DD4966DA84",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\primitive-original-only--unicode-printable-prefix-nested\\returned.etf"
+    },
+    {
+      "Name": "unicode-prefix-whole-grapheme",
+      "Track": "primitive-original-only",
+      "ExpectedEtfBytes": 32,
+      "ExpectedEtfSha256": "A7ECC08BC1F9794637FCA5213182579728FC08F21369D7A497BE15DD4966DA84",
+      "OriginalPath": "artifacts\\part336-remote-new-review\\format\\artifact-12063070500\\capture\\primitive-original-only--unicode-prefix-whole-grapheme\\returned.etf"
+    }
+  ],
+  "Rows76": 76,
+  "SdkExpectedValuesUsed": false
+}

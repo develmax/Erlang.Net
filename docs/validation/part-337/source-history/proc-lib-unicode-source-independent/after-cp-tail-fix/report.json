@@ -1,0 +1,20 @@
+{
+  "Status": "SOURCE_REVIEW_CP_FIXED_CONTINUATION_TAIL_RECURSION_REMAINS",
+  "Passed": false,
+  "Files": [
+    {
+      "Path": "ProcLibReportUnicodeCharacters.cs",
+      "Bytes": 4964,
+      "Sha256": "D5547389A9792C970640D0100B957523D9025A33D7FC2E1DC2AE6AE2E92C8FFD"
+    },
+    {
+      "Path": "ProcLibReportUnicodeParameters.cs",
+      "Bytes": 167,
+      "Sha256": "103BEB7C0604AF480A242015381B388CEDC9777873F15890037C97F02B971275"
+    }
+  ],
+  "CodePointSingleOuterStateAligned": true,
+  "BlockingFinding": "Continue(Nil,R,stage)->ContinueSingle(R,stage)->Continue(Nil,tail,stage) stillgrowsCSharpstack overemptylists withoutadvancingstage. Example [[97],[[],[],...,<<128>>]]. One mode/state loop required for bothtail transitions; onlyinteger stage+1 recursion bounded3.",
+  "SdkOrOriginalExecution": false,
+  "MutatedReviewedSource": false
+}

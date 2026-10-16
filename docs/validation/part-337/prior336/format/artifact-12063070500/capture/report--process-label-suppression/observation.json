@@ -1,0 +1,72 @@
+{
+  "Track": "report",
+  "Name": "process-label-suppression",
+  "Source": {
+    "Path": "fixtures/process-label-suppression.erl",
+    "Bytes": 272,
+    "Sha256": "2E71299EA750553483DD0139870E1E609FD549283B29B37DA1B43CF482A0B0E4"
+  },
+  "SourceReturnProfile": "reviewed-report-source-result",
+  "CopiedSource": {
+    "Path": "source/oracle_proc_format.erl",
+    "Bytes": 272,
+    "Sha256": "2E71299EA750553483DD0139870E1E609FD549283B29B37DA1B43CF482A0B0E4"
+  },
+  "Module": "oracle_proc_format",
+  "Scope": "Original report fixture observation; source wrapper determines flattened versus raw return",
+  "Compile": {
+    "ExitCode": 0,
+    "TimedOut": false,
+    "Settled": true,
+    "OwnedPid": 83065,
+    "ElapsedSeconds": 0.2679684529999804,
+    "Stdout": {
+      "Path": "compile.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "Stderr": {
+      "Path": "compile.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    }
+  },
+  "OriginalVmLaunched": true,
+  "OriginalExecuted": true,
+  "ExpectedValue": null,
+  "SdkCompared": false,
+  "RawNormalization": false,
+  "Beam": {
+    "Path": "beam/oracle_proc_format.beam",
+    "Bytes": 1040,
+    "Sha256": "399DEF2DCCDDAAACA5963D273479852C9627950584D8025025A2EFDC06E09AAF"
+  },
+  "Run": {
+    "ExitCode": 0,
+    "TimedOut": false,
+    "Settled": true,
+    "OwnedPid": 83112,
+    "ElapsedSeconds": 0.1884011060000148,
+    "Stdout": {
+      "Path": "run.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "Stderr": {
+      "Path": "run.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    }
+  },
+  "RawValueEtf": {
+    "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/proc-lib-format-original/capture/report--process-label-suppression/returned.etf",
+    "Bytes": 84,
+    "Sha256": "642F99F72272FAB2310B297CED05E162C5F8FDD8AA295EC45F8E0F79306A580D"
+  },
+  "RawOutcomeEtf": {
+    "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/proc-lib-format-original/capture/report--process-label-suppression/outcome.etf",
+    "Bytes": 96,
+    "Sha256": "3D7E26F2222D0CF4043137078626304E56A1C61E7440C6578677497A494DEFBC"
+  },
+  "Status": "OBSERVED_RETURNED"
+}

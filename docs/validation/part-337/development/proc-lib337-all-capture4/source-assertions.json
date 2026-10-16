@@ -1,0 +1,198 @@
+[
+  {
+    "Name": "atom",
+    "ExpectedFromPinnedSource": "ok",
+    "Actual": "ok",
+    "Passed": true,
+    "OriginalExecuted": false
+  },
+  {
+    "Name": "tuple-depth-two",
+    "ExpectedFromPinnedSource": "{tag,...}",
+    "Actual": "{tag,...}",
+    "Passed": true,
+    "OriginalExecuted": false
+  },
+  {
+    "Name": "list-depth-two",
+    "ExpectedFromPinnedSource": "[0|...]",
+    "Actual": "[0|...]",
+    "Passed": true,
+    "OriginalExecuted": false
+  },
+  {
+    "Name": "improper-list",
+    "ExpectedFromPinnedSource": "[0|tail]",
+    "Actual": "[0|tail]",
+    "Passed": true,
+    "OriginalExecuted": false
+  },
+  {
+    "Name": "printable-list",
+    "ExpectedFromPinnedSource": "\"AB\"",
+    "Actual": "\"AB\"",
+    "Passed": true,
+    "OriginalExecuted": false
+  },
+  {
+    "Name": "unicode-output-default-latin1-printable-range",
+    "ExpectedFromPinnedSource": "[955]",
+    "Actual": "[955]",
+    "Passed": true,
+    "OriginalExecuted": false
+  },
+  {
+    "Name": "utf8-latin1-printable",
+    "ExpectedFromPinnedSource": "<<\"\u00e9\"/utf8>>",
+    "Actual": "<<\"\u00e9\"/utf8>>",
+    "Passed": true,
+    "OriginalExecuted": false
+  },
+  {
+    "Name": "invalid-utf8-latin1-fallback",
+    "ExpectedFromPinnedSource": "<<\"\u00ff\">>",
+    "Actual": "<<\"\u00ff\">>",
+    "Passed": true,
+    "OriginalExecuted": false
+  },
+  {
+    "Name": "partial-bitstring",
+    "ExpectedFromPinnedSource": "<<3:2>>",
+    "Actual": "<<3:2>>",
+    "Passed": true,
+    "OriginalExecuted": false
+  },
+  {
+    "Name": "zero-budget",
+    "ExpectedFromPinnedSource": "...",
+    "Actual": "...",
+    "Passed": true,
+    "OriginalExecuted": false
+  },
+  {
+    "Name": "empty-tuple-depth-one",
+    "ExpectedFromPinnedSource": "{}",
+    "Actual": "{}",
+    "Passed": true,
+    "OriginalExecuted": false
+  },
+  {
+    "Name": "nonempty-map-depth-one",
+    "ExpectedFromPinnedSource": "#{...}",
+    "Actual": "#{...}",
+    "Passed": true,
+    "OriginalExecuted": false
+  },
+  {
+    "Name": "write-list-no-printable-string",
+    "ExpectedFromPinnedSource": "[65,66]",
+    "Actual": "[65,66]",
+    "Passed": true,
+    "OriginalExecuted": false
+  },
+  {
+    "Name": "write-binary-no-printable-string",
+    "ExpectedFromPinnedSource": "<<65,66>>",
+    "Actual": "<<65,66>>",
+    "Passed": true,
+    "OriginalExecuted": false
+  },
+  {
+    "Name": "decreasing-tuple-element-depth",
+    "ExpectedFromPinnedSource": "{tag,0,...}",
+    "Actual": "{tag,0,...}",
+    "Passed": true,
+    "OriginalExecuted": false
+  },
+  {
+    "Name": "map-child-and-pair-depth",
+    "ExpectedFromPinnedSource": "#{0 => [...],...}",
+    "Actual": "#{0 => [...],...}",
+    "Passed": true,
+    "OriginalExecuted": false
+  },
+  {
+    "Name": "atom-encoding-latin1",
+    "ExpectedFromPinnedSource": "'\\x{3BB}'",
+    "Actual": "'\\x{3BB}'",
+    "Passed": true,
+    "OriginalExecuted": false
+  },
+  {
+    "Name": "atomic-budget-not-hard-cut",
+    "ExpectedFromPinnedSource": "123456",
+    "Actual": "123456",
+    "Passed": true,
+    "OriginalExecuted": false
+  },
+  {
+    "Name": "width-zero-is-flat",
+    "ExpectedFromPinnedSource": "{tag,[0,1]}",
+    "Actual": "{tag,[0,1]}",
+    "Passed": true,
+    "OriginalExecuted": false
+  },
+  {
+    "Name": "tuple-small-budget-exceeds-budget-marker",
+    "ExpectedFromPinnedSource": "{...}",
+    "Actual": "{...}",
+    "Passed": true,
+    "OriginalExecuted": false
+  },
+  {
+    "Name": "native-zero-budget",
+    "ExpectedFromPinnedSource": "...",
+    "Actual": "...",
+    "Passed": true,
+    "OriginalExecuted": false
+  },
+  {
+    "Name": "native-tiny-budget-marker",
+    "ExpectedFromPinnedSource": "#oracle_pretty_native:r{...}",
+    "Actual": "#oracle_pretty_native:r{...}",
+    "Passed": true,
+    "OriginalExecuted": false
+  },
+  {
+    "Name": "native-depth-one-marker",
+    "ExpectedFromPinnedSource": "#oracle_pretty_native:r{...}",
+    "Actual": "#oracle_pretty_native:r{...}",
+    "Passed": true,
+    "OriginalExecuted": false
+  },
+  {
+    "Name": "native-depth-two-no-fields",
+    "ExpectedFromPinnedSource": "#oracle_pretty_native:r{...}",
+    "Actual": "#oracle_pretty_native:r{...}",
+    "Passed": true,
+    "OriginalExecuted": false
+  },
+  {
+    "Name": "native-depth-three-first-field",
+    "ExpectedFromPinnedSource": "#oracle_pretty_native:r{x = 0,...}",
+    "Actual": "#oracle_pretty_native:r{x = 0,...}",
+    "Passed": true,
+    "OriginalExecuted": false
+  },
+  {
+    "Name": "native-depth-four-complete",
+    "ExpectedFromPinnedSource": "#oracle_pretty_native:r{x = 0,y = 1}",
+    "Actual": "#oracle_pretty_native:r{x = 0,y = 1}",
+    "Passed": true,
+    "OriginalExecuted": false
+  },
+  {
+    "Name": "native-finite-large-budget",
+    "ExpectedFromPinnedSource": "#oracle_pretty_native:r{x = 0,y = 1}",
+    "Actual": "#oracle_pretty_native:r{x = 0,y = 1}",
+    "Passed": true,
+    "OriginalExecuted": false
+  },
+  {
+    "Name": "native-nested-field-depth-decreases",
+    "ExpectedFromPinnedSource": "#oracle_pretty_native:r{x = {tag,...},y = [...]}",
+    "Actual": "#oracle_pretty_native:r{x = {tag,...},y = [...]}",
+    "Passed": true,
+    "OriginalExecuted": false
+  }
+]

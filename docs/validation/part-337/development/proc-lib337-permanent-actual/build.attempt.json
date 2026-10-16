@@ -1,0 +1,15 @@
+{
+  "Command": [
+    "dotnet",
+    "build",
+    "tests/Erlang.Tests/Erlang.Tests.csproj",
+    "--disable-build-servers",
+    "-m:1",
+    "-nr:false",
+    "-p:UseSharedCompilation=false",
+    "-p:RestoreDisableParallel=true"
+  ],
+  "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\proc-lib337-candidate",
+  "DeadlineSeconds": 600,
+  "StartedUnix": 1792172537.1184747
+}

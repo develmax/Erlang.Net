@@ -6,6 +6,10 @@ using Erlang.Compiler;
 using Erlang.Otp;
 
 var tests = new List<(string Name, Func<Task> Body)>();
+Test(Erlang.Tests.ProcLibReportProbeNames.PrimitiveTest, Erlang.Tests.ProcLibReportProbeChecks.CapturePrimitives);
+Test(Erlang.Tests.ProcLibReportProbeNames.PrettyTest, Erlang.Tests.ProcLibReportProbeChecks.PrettySourceContracts);
+Test(Erlang.Tests.ProcLibReportProbeNames.CallbackTest, Erlang.Tests.ProcLibReportProbeChecks.CallbackAwaitControl);
+Test(Erlang.Tests.ProcLibReportProbeNames.DeepUnicodeTest, Erlang.Tests.ProcLibUnicodeContinuationHostChecks.Run);
 Test(Erlang.Tests.HaltLifecycleHostNames.Test, Erlang.Tests.HaltLifecycleHostChecks.Run);
 Test(Erlang.Tests.HaltPlatformHostNames.Test, Erlang.Tests.HaltPlatformHostChecks.Run);
 Test(Erlang.Tests.HaltPortHostNames.Test, Erlang.Tests.HaltPortHostChecks.Run);
@@ -1808,6 +1812,12 @@ foreach (var export in exportRegistry.Exports.Where(export => Erlang.Tests.Funct
         if (Erlang.Tests.ProcLibStartupMfaContracts.Owns(export.Module, export.Function))
         {
             await Erlang.Tests.ProcLibStartupMfaContracts.Run(export.Function, export.Arity);
+
+            return;
+        }
+        if (Erlang.Tests.ProcLibReportMfaContracts.Owns(export.Module, export.Function, export.Arity))
+        {
+            await Erlang.Tests.ProcLibReportMfaContracts.Run(export.Function, export.Arity);
 
             return;
         }
