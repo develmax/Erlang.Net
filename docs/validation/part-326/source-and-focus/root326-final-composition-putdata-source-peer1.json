@@ -1,0 +1,56 @@
+{
+  "Status": "PASS_INDEPENDENT_FINAL326_SOURCE_COMPOSITION_ACTUAL_GREEN_HISTORICAL_RED_BOUND",
+  "Passed": true,
+  "SourceFreezeSha256": "98F62E3123C7E205F90485735727E619B7094DB9C9B8C609E230B4EBCA1FF02D",
+  "SourceClosureSha256": "098DD51D477CBD68C004AAF7D45115B06A0F7566370B56A05B75CBCCB68D989F",
+  "PublishedParent": "2bd148150ddf2cca49dd2c797d05de3260bf663c",
+  "SourcePaths": 13,
+  "CSharpPaths": 8,
+  "SourceClosurePaths": 2370,
+  "All2370SourceRowsRehashed": true,
+  "All2366ParentRawAndPublishedRowsVerified": true,
+  "CanonicalLfPublicationDifferences": 72,
+  "AllOutsideOwned2357ParentRowsRawExact": true,
+  "AllEightActualCompiledFormattedCSharpRawExact": true,
+  "TwoNativePlansInputPathSetsHashModesNonFilesPoliciesExactParent": true,
+  "BothCanonicalLfRawPlanHashesEqualWorkflowPins": true,
+  "Docs326BinaryAttributeOnlyAppend": true,
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Inputs": 1109,
+      "Sha256": "A673C88561EC5E31E1F69BE5795519A3AA658E013B6000910B03E192A520E6A5",
+      "Workflow": ".github/workflows/nif-pending-native.yml",
+      "Pin": "REVIEWED_SOURCE_PLAN_SHA256",
+      "AllNonFilesImportAbiPolicyFieldsUnchanged": true,
+      "InputPathSetUnchanged": true
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Inputs": 1134,
+      "Sha256": "53500EFC145705B70364DE7BC19E60FBCE55C62C7C4C00CB66712B1B8F01F9E4",
+      "Workflow": ".github/workflows/nif-reallocation-native.yml",
+      "Pin": "REVIEWED_REALLOCATION_PLAN_SHA256",
+      "AllNonFilesImportAbiPolicyFieldsUnchanged": true,
+      "InputPathSetUnchanged": true
+    }
+  ],
+  "ActualGreenAndHistoricalRedGuards": [
+    {
+      "Path": "artifacts/root326-actual-green1-guard.json",
+      "Sha256": "E4A57D943609F84A2F3D4F870AB9D1F968FAF5A20B7E782E40E0307974D7FC9B",
+      "Role": "green"
+    },
+    {
+      "Path": "artifacts/root326-actual-historical-red1-guard.json",
+      "Sha256": "064D7E1F4439D4D336042D5E678F389CEED3F308728749B8B07731C38609628C",
+      "Role": "red"
+    }
+  ],
+  "ActualFullNativeReadinessStillFuture": true,
+  "ExpectedFullPassedNotObserved": 6708,
+  "Original326Executed": false,
+  "Findings": [],
+  "NoReviewerMainGitMutationBuildSdkNativeVmNetworkExecution": true,
+  "ReviewerScriptSha256": "D9CE711810E26AD9D45D4CFAFB9E82C3CB6BF45633DE8EBA6AC290FD0456736B"
+}

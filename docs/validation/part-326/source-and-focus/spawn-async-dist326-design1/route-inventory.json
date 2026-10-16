@@ -1,0 +1,27 @@
+[
+  {
+    "Route": "spawn_opt local fun/MFA/local-node",
+    "Entry": "ProcessSpawnOptionRegistrations.Start -> ProcessSpawnOptions.Parse -> SpawnWithOptions -> SpawnTraced",
+    "Change": "Parse and pass initial flag"
+  },
+  {
+    "Route": "spawn_request local fun/MFA/local-node",
+    "Entry": "ProcessSpawnRequestOptions.Parse(disconnected=false) -> ProcessSpawnOptions.Parse -> SpawnRequest -> SpawnTraced",
+    "Change": "Existing forwarding, pass initial flag only"
+  },
+  {
+    "Route": "spawn_request disconnected",
+    "Entry": "Parse(disconnected=true), sender-only link/monitor/reply validation",
+    "Change": "NONE; keep async_dist creator option deferred"
+  },
+  {
+    "Route": "spawn_opt disconnected",
+    "Entry": "Existing full options parse then disconnected child/crasher adaptation",
+    "Change": "Accepted flag participates existing parser; preserve error/fallback path, no remote creation claim"
+  },
+  {
+    "Route": "plain spawn/spawn_link/spawn_monitor/HOST/default",
+    "Entry": "SpawnTraced optional default false",
+    "Change": "NONE; no parent flag inheritance"
+  }
+]

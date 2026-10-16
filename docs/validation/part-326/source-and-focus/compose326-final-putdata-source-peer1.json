@@ -1,0 +1,34 @@
+{
+  "Status": "PASS_INDEPENDENT_SOURCE_ONLY_FINAL326_COMPOSER",
+  "Passed": true,
+  "ProposalFreezeSha256": "1CE3BC24973C17D7E0B66FBE6B0A3360B9B8405A9FB129BC57DA89F92CB9936A",
+  "ComposerSha256": "C186505723D0AEF0A5C2F8D61C28D7413D9B5E230D373D50C6519F8E16256ED8",
+  "SourcePaths": 13,
+  "CSharpPaths": 8,
+  "SourceClosurePaths": 2370,
+  "NativeInputCounts": [
+    1109,
+    1134
+  ],
+  "BothInputClosuresRehashed": [
+    2370,
+    2370
+  ],
+  "ActualGreenGuardSha256": "E4A57D943609F84A2F3D4F870AB9D1F968FAF5A20B7E782E40E0307974D7FC9B",
+  "ActualRedGuardSha256": "064D7E1F4439D4D336042D5E678F389CEED3F308728749B8B07731C38609628C",
+  "AllActualGuardBindingsRehashed": true,
+  "Findings": [],
+  "NonblockingNotes": [
+    "README outside-owned count2361 is arithmetic typo; expected2370\u221213=2357. Code validates the complete outside-owned set and does not use that count."
+  ],
+  "Reviewed": [
+    "No output mutation before published-parent/raw-baseline/frozen formatted+historical source, tokens and explicit actual guards validate",
+    "Fresh artifact-only resolved output path; no Main/Git mutation/build/SDK/VM/network dispatch",
+    "Eight actual compiled source bytes preserved; only attrs plus two native plans/two workflow pins added",
+    "Legacy plan seal then legacy workflow before reallocation seal/workflow; canonical write_bytes UTF8LF, exact input modes/pathset/count, policies/import/ABI unchanged",
+    "All final source/resource rows and outside-owned parent bytes checked,13/8/2370 derived; actual final independent review required before promotion"
+  ],
+  "Original326Executed": false,
+  "EntryPointExecutedByReviewer": false,
+  "NoMainGitBuildSdkNativeVmNetworkExecutionOrMutation": true
+}

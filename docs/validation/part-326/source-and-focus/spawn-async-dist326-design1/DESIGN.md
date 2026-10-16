@@ -1,0 +1,40 @@
+# Proposed 326: explicit async_dist at local spawn creation
+
+Source audit/design only, 2026-10-16. No implementation, original observation, SDK/build/VM/native execution or Main/Git mutation. Bound source foundation is actual Main324 371AAF15 / A5A3 closure; the nine audited spawn-related files remain byte identical in current Main325 7313C3CE. All public MFA counts remain unchanged. Implementation needs Root design review first.
+
+## Pinned behavior
+
+OTP ad058: erl_process.c:12221-12305 parses the whole proper option list from default spawn flags. Exact two-tuple {async_dist,true|false} sets/clears SPO_ASYNC_DIST. Repeated valid values therefore leave the last valid value. A bad value/shape sets a sticky option error; a later valid option cannot erase it. The final improper tail returns the existing non-proper-list classification (12418-12433). Do not change current wrappers' type-before-option error/stack/cause behavior while adding the accepted option.
+
+Native creation starts local flags at zero (12436-12444), copies SPO_ASYNC_DIST to F_ASYNC_DIST before child publication/run (12549-12555), and does not copy the parent's current process flag. Default flags come from erts_default_spo_flags, initialized without SPO_ASYNC_DIST at line132; erl_init.c:1384-1397 implements global +pad true/false. The bounded SDK keeps its existing default false and has no +pad emulator-launcher implementation: explicit options override the child initial value, not the parent. No claim covers configurable VM startup defaults.
+
+bif.c:1024-1064 and1078-1127 both call erts_parse_spawn_opts before erl_create_process; spawn_request marks asynchronous request/reply mechanics separately from async_dist. erlang.erl:10998-11003 documents the child flag; local-node wrappers dispatch to the local implementation. Remote dist.c:5827-5973 validates sender-side reply/link/monitor controls and a proper list, but leaves unrecognized creator options (including async_dist) for the receiver; dist.c:2931 invokes the creator parser remotely. Preserve this split. A disconnected spawn_request with an invalid async_dist creator value must not suddenly become a sender-side badopt solely because the local parser now knows the key. Remote spawn_opt's existing disconnected crasher/fallback validation is distinct (erlang.erl:11049-11074).
+
+## Current actual SDK routes
+
+ProcessSpawnOptionRegistrations.Start validates node/fun or MFA/argument list, then fully parses ProcessSpawnOptions before SpawnWithOptions. ProcessSpawnRequestRegistrations.Start normalizes local forms, separates proper-list-tail classification, then ProcessSpawnRequestOptions.Parse passes all local creator options to ProcessSpawnOptions. In disconnected mode it intentionally forwards only sender-visible link/monitor controls to that parser; other creator options are deferred. No change is needed to either registration class or the request parser for this feature.
+
+SpawnWithOptions and SpawnRequest already call SpawnTraced under the shared runtime gate. SpawnTraced constructs ProcessContext, adds it to process tables/slots, dispatches its body, and runs link/sequence-spawn setup. ProcessContext.AsyncDistribution defaults to false. Setting it after SpawnTraced returns would leave a published child/trace callback observable with the wrong initial flag, even if a particular body happens to remain gate blocked. Do not use a guest-body prologue or process_flag call to initialize it.
+
+## Minimal proposed increment: two production files
+
+1. ProcessSpawnOptions.cs: add an internal/private-set bool AsyncDistribution, default false. Parse only a two-tuple with existing ProcessAsyncDistributionNames.Flag and exact ErlangBooleanAtoms.True/False. Last valid occurrence wins. Invalid occurrence still throws through existing caller-specific handling; no mutable runtime/process state or allocation of a child during parsing. Reuse existing semantic constants; no new public constant/API.
+2. ProcessRuntime.cs: append an optional internal SpawnTraced initial-async-distribution bool parameter, default false, preserving all existing callers. Immediately after constructing ctx, set ctx.AsyncDistribution from that parameter under the runtime gate, BEFORE processes.Add/executingProcesses/processSlots/actorDispatcher.Dispatch/SequenceTracing.Spawned. Pass options.AsyncDistribution from SpawnWithOptions and options.Spawn.AsyncDistribution from local successful SpawnRequest. Do not read parent.AsyncDistribution. Normal spawn/spawn_link/spawn_monitor/HOST Spawn and no-option routes retain false.
+
+The existing outer gate remains responsible for link/monitor/reserved-reference/reply setup. This adds no awaits, callbacks, locks, process flag setter calls, reference reservations or failure cleanup. Existing rollback paths remain intact. Request failure/disconnected paths create no actual remote child; keep their reply/tag/link/monitor/error ordering and deferred creator validation. No connected remote spawn protocol, priorities, allocator options, +pad, trace semantics or public process_flag/3 feature is added.
+
+## Meaningful proposed checks
+
+Append fresh ordinary fixture names; preserve every published source/hash/expected row. Cover local spawn_opt fun/MFA and local-node wrapper forms with child FIRST expression reading process_info(self(),async_dist) and reporting the value, explicit true/false, alternating/repeated valid options, parent true with default child false, child of an explicit true child default false. Never initialize via a guest prologue.
+
+Cover local spawn_request fun/MFA/local-node forms with default/reply_tag/reply controls independently, child first-expression true and normal success reply/ref/PID, monitor plus link options, child process_flag change returning the actual initialized previous value, and DOWN cleanup. Do not assert a new order between ordinary child messages and spawn reply; use their real reference/PID identities.
+
+Invalid bool atom/integer/map, atom async_dist instead of tuple, wrong tuple arity, invalid-before-valid and valid-before-invalid, and improper list must fail through existing wrapper routes with no guest body side effect/no child publication. A real registered side-effect helper/monitor barrier can demonstrate absence; no sleep-only check or invented scheduler hook. Preserve type/error precedence for bad MFA/fun/arg list together with bad options using existing fixture patterns.
+
+Retain disconnected request deferral controls: invalid creator async_dist remains deferred and existing noconnection reply wins; malformed reply/link/monitor still preserves the previous sender validation classification; local same-node wrapper uses full local parser. For disconnected spawn_opt preserve the existing crasher/fallback validation contracts. This slice does not claim a real remote child was created.
+
+New HOST controls should execute first child observation through the actual runtime and check real links/monitor/normal termination; no reflection-only fake backend. Run all existing SpawnRequestHostChecks, NodeSpawnHostChecks, spawn options/request/sequence generated cases, default/noninheritance process_info cases and connected flag consumers. Genuine RED should reuse the exact new helpers on unchanged production: explicit true currently reaches badopt rather than the child first-expression contract. Keep missing-type/selector/build failures separate. Future published original ordinary run validates the public option/error cases; no source-only audit is differential evidence.
+
+## Paths and gates
+
+Production ceiling: two existing C# files named above. A small new HOST class/names plus Program row and append-only ordinary case class/names plus CompiledModuleCases registration are expected; derive final owned/new-path counts after authoring. No new public MFA, native ABI/source C/profile/import change. Exact source peer, source token/style, target/focus, same-helper historical RED, full/integration/readiness and existing trusted post-full native guards remain future gates. This design contains no permission to implement before Root review.

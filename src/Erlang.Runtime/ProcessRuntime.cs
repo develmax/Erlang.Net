@@ -183,7 +183,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         SequenceSpawnDescription? description,
         ReferenceTerm? spawnReference = null,
         bool asynchronousSpawn = false,
-        bool successSpawnReply = true
+        bool successSpawnReply = true,
+        bool initialAsyncDistribution = false
     )
     {
         ProcessContext ctx;
@@ -198,6 +199,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 new Pid(LocalIdentity, (ulong)++nextPid),
                 description?.Mfa
             );
+            ctx.AsyncDistribution = initialAsyncDistribution;
             ctx.GroupLeader = parent?.GroupLeader ?? processes[InitializationPid].GroupLeader;
             processes.Add(ctx.Self, ctx);
             executingProcesses.Add(ctx);
@@ -320,7 +322,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 parent,
                 options.Link,
                 description,
-                reference
+                reference,
+                initialAsyncDistribution: options.AsyncDistribution
             );
             if (options.PriorityLink)
                 parent.PriorityLinks.Add(process.Pid);
@@ -408,7 +411,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                         description,
                         reference,
                         true,
-                        options.SuccessReply
+                        options.SuccessReply,
+                        options.Spawn.AsyncDistribution
                     );
                 }
                 catch (ErlangException exception) when (exception.Reason.Equals(Term.A(ErlangErrorReasons.SystemLimit)))

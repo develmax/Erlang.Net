@@ -1,0 +1,134 @@
+{
+  "RecipePassed": true,
+  "Mode": "all",
+  "ExpectedCases": 6,
+  "Executed": 6,
+  "FixturePassed": 6,
+  "FixtureFailed": 0,
+  "HistoricalBadArgumentConfirmed": 0,
+  "Unexecuted": 0,
+  "ApprovedSourceFreezePath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-info-async-dist324-focus2\\formatted-source-freeze.json",
+  "ApprovedSourceFreezeSha256": "5DB2781B3B5A67D93235989967DBA02592A88C9BAED5DB9AC8B8F206A6AFB2E9",
+  "SourceFreezeUnchanged": true,
+  "ActualLoadedAssemblies": [
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-info-async-dist324-managed-proposal1\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Bytes": 1384960,
+      "Sha256": "8D9BDC1817A8CE09CAE9A361C74EE8B0CA9BC9D799E3BE04D7F18733456905EB",
+      "LoadedModuleVersionId": "2e6da145-dafd-44e1-af0c-30500cc6addd"
+    },
+    {
+      "Name": "Erlang.Compiler",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-info-async-dist324-managed-proposal1\\bin\\Debug\\net10.0\\Erlang.Compiler.dll",
+      "Bytes": 353280,
+      "Sha256": "FB80B15ECF77E1AC2147303946BDA2F29A7DB6AF312BC42E1A2B7855C3816240",
+      "LoadedModuleVersionId": "7d1aea7f-a456-48ce-879d-f49d31b9ee3e"
+    },
+    {
+      "Name": "Erlang.Differential",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-info-async-dist324-managed-proposal1\\bin\\Debug\\net10.0\\Erlang.Differential.dll",
+      "Bytes": 1547776,
+      "Sha256": "16CBE1FAB7A2D7EBA424B676FE134F77533070612B287C47FE5C6672867D73E5",
+      "LoadedModuleVersionId": "c9881730-3f9a-46c7-8143-11e3d578e7f3"
+    },
+    {
+      "Name": "Erlang.Terms",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-info-async-dist324-managed-proposal1\\bin\\Debug\\net10.0\\Erlang.Terms.dll",
+      "Bytes": 96256,
+      "Sha256": "BF847BC1F12F559FCAB80EE7C3BC359ECF8B20BFB51622E22048D609CAFFE480",
+      "LoadedModuleVersionId": "605caa89-6614-4c3b-9e9a-a38e977e76cf"
+    }
+  ],
+  "LoadedAssemblyFilesUnchanged": true,
+  "Cases": [
+    {
+      "Case": "process-info-async-dist-default-false",
+      "Source": "-module(oracle_process_info_async_dist). -export([run/0]). run()-\u003E{async_dist,false}=process_info(self(),async_dist),done.",
+      "SourceSha256": "6E7815D0411D476BE68E9167737F4420FAE5B2CB4E7129F8B142ABF044E5A44F",
+      "GeneratedCSharpSha256": "58BC87661C5589109F2C4FCBA8EEE8F1AE1397104DFA23265923A90C16C40D06",
+      "CallerContext": "UntrappedFresh",
+      "Actual": "{ok,done}",
+      "Expected": "{ok,done}",
+      "StandardOutputHex": "",
+      "StandardErrorHex": "",
+      "FixturePassed": true,
+      "ExpectedHistoricalBadArgumentObserved": false,
+      "Exception": null
+    },
+    {
+      "Case": "process-info-async-dist-self-transitions-and-invalid-no-mutation",
+      "Source": "-module(oracle_process_info_async_dist). -export([run/0]). run()-\u003Efalse=process_flag(async_dist,true), {async_dist,true}=process_info(self(),async_dist),\ntrue=process_flag(async_dist,false), {async_dist,false}=process_info(self(),async_dist),\nok=try process_flag(async_dist,invalid_async_value) of _-\u003Eunexpected catch error:badarg-\u003Eok end,\n{async_dist,false}=process_info(self(),async_dist),done.",
+      "SourceSha256": "F69919E97B029F9D0747DBBDDB77C713ACF6269FDCBE3526EE3FCEB286A7F71C",
+      "GeneratedCSharpSha256": "9EC8C9042F3B24F7134B8105870C118B5A90D16DF8CBD9E7DA0F345334C2B2CC",
+      "CallerContext": "UntrappedFresh",
+      "Actual": "{ok,done}",
+      "Expected": "{ok,done}",
+      "StandardOutputHex": "",
+      "StandardErrorHex": "",
+      "FixturePassed": true,
+      "ExpectedHistoricalBadArgumentObserved": false,
+      "Exception": null
+    },
+    {
+      "Case": "process-info-async-dist-list-order-duplicates-and-default-query-exclusion",
+      "Source": "-module(oracle_process_info_async_dist). -export([run/0]). run()-\u003Efalse=process_flag(async_dist,true), {trap_exit,Trap}=process_info(self(),trap_exit),\n[{priority,normal},{async_dist,true},{async_dist,true},{trap_exit,Trap}]=\n    process_info(self(),[priority,async_dist,async_dist,trap_exit]),\n[]=process_info(self(),[]), false=lists:keymember(async_dist,1,process_info(self())),done.",
+      "SourceSha256": "6F067854A50CAA9B2383178331A8331A90852CC9A48C5C8FFBAF828224BA7A65",
+      "GeneratedCSharpSha256": "049CCD17ECE98EEC91D943FD069833B87E4317C792D1D69F8639E21F08D1A9DE",
+      "CallerContext": "UntrappedFresh",
+      "Actual": "{ok,done}",
+      "Expected": "{ok,done}",
+      "StandardOutputHex": "",
+      "StandardErrorHex": "",
+      "FixturePassed": true,
+      "ExpectedHistoricalBadArgumentObserved": false,
+      "Exception": null
+    },
+    {
+      "Case": "process-info-async-dist-other-process-transitions-and-child-noninheritance",
+      "Source": "-module(oracle_process_info_async_dist). -export([run/0]). run()-\u003EOwner=self(),false=process_flag(async_dist,true),\n{P,R}=spawn_monitor(fun()-\u003EOwner!{ready,self(),process_info(self(),async_dist)},\n    receive turn_on-\u003Efalse=process_flag(async_dist,true),Owner!{enabled,self()},receive stop-\u003Eok end end end),\ntry\n    receive {ready,P,{async_dist,false}}-\u003Eok after 5000-\u003Eerlang:error(child_ready_timeout) end,\n    {async_dist,false}=process_info(P,async_dist), P!turn_on,\n    receive {enabled,P}-\u003Eok after 5000-\u003Eerlang:error(child_enabled_timeout) end,\n    {async_dist,true}=process_info(P,async_dist),\n    [{links,[]},{async_dist,true},{links,[]},{async_dist,true}]=process_info(P,[links,async_dist,links,async_dist]),\n    {async_dist,true}=process_info(self(),async_dist),done\nafter\n    exit(P,kill),receive {\u0027DOWN\u0027,R,process,P,_}-\u003Eok after 5000-\u003Eerlang:error(child_cleanup_timeout) end\nend.",
+      "SourceSha256": "273A4257610B932B40F9A28F32E241FAEEE2AEE1F6B37497BACB137F6875A0ED",
+      "GeneratedCSharpSha256": "F3E5E145E3B40C7F41A61F071C27C273BDB8CFCDDBDF1120BAC274256C1A5F23",
+      "CallerContext": "UntrappedFresh",
+      "Actual": "{ok,done}",
+      "Expected": "{ok,done}",
+      "StandardOutputHex": "",
+      "StandardErrorHex": "",
+      "FixturePassed": true,
+      "ExpectedHistoricalBadArgumentObserved": false,
+      "Exception": null
+    },
+    {
+      "Case": "process-info-async-dist-dead-target-and-full-item-validation",
+      "Source": "-module(oracle_process_info_async_dist). -export([run/0]). run()-\u003E{P,R}=spawn_monitor(fun()-\u003Eok end),receive {\u0027DOWN\u0027,R,process,P,normal}-\u003Eok after 5000-\u003Eerlang:error(dead_ready_timeout) end,\nundefined=process_info(P,async_dist),undefined=process_info(P,[async_dist,async_dist]),undefined=process_info(P,[]),\nok=try process_info(P,[async_dist,unknown_async_info]) of _-\u003Eunexpected catch error:badarg-\u003Eok end,\nok=try process_info(P,[async_dist|invalid_tail]) of _-\u003Eunexpected catch error:badarg-\u003Eok end,\nok=try process_info(self(),{async_dist,invalid_tuple}) of _-\u003Eunexpected catch error:badarg-\u003Eok end,\nok=try process_info(make_ref(),async_dist) of _-\u003Eunexpected catch error:badarg-\u003Eok end,done.",
+      "SourceSha256": "39FAE769B54D211DE5DE36C31D26280EB5034A5495E2D4EC6C8686169017A1D1",
+      "GeneratedCSharpSha256": "EB8C3D50F315596FAE021241DEE2213EC48FC2C968C1C368226C9CB6628A7A96",
+      "CallerContext": "UntrappedFresh",
+      "Actual": "{ok,done}",
+      "Expected": "{ok,done}",
+      "StandardOutputHex": "",
+      "StandardErrorHex": "",
+      "FixturePassed": true,
+      "ExpectedHistoricalBadArgumentObserved": false,
+      "Exception": null
+    },
+    {
+      "Case": "process-info-async-dist-unknown-local-valid-max-pid-and-remote-domain",
+      "Source": "-module(oracle_process_info_async_dist). -export([run/0]). run()-\u003E\u003C\u003C131,88,B/binary\u003E\u003E=term_to_binary(self()),S=byte_size(B)-12,\n\u003C\u003CN:S/binary,_:32,_:32,C:32\u003E\u003E=B,\nMaxLocalPidNumber=(1 bsl 28)-1,\nP=binary_to_term(\u003C\u003C131,88,N/binary,MaxLocalPidNumber:32,0:32,C:32\u003E\u003E),\nfalse=is_process_alive(P),undefined=process_info(P,async_dist),undefined=process_info(P,[async_dist]),\nok=try process_info(P,[async_dist,unknown_async_info]) of _-\u003Eunexpected catch error:badarg-\u003Eok end,\n\u003C\u003C131,RemoteNode/binary\u003E\u003E=term_to_binary(async_info_remote@invalid),\nRemote=binary_to_term(\u003C\u003C131,88,RemoteNode/binary,1:32,0:32,1:32\u003E\u003E),\nok=try process_info(Remote,async_dist) of _-\u003Eunexpected catch error:badarg-\u003Eok end,done.",
+      "SourceSha256": "8BAEBAF42A289465FF8BE5BA9F9C71D96BAE78F474807B2404F827EB54FC00AC",
+      "GeneratedCSharpSha256": "7CAF67AD7D6AA7B3746EBDC897F5B8980B16C4594209473E021C7646F191D6DE",
+      "CallerContext": "UntrappedFresh",
+      "Actual": "{ok,done}",
+      "Expected": "{ok,done}",
+      "StandardOutputHex": "",
+      "StandardErrorHex": "",
+      "FixturePassed": true,
+      "ExpectedHistoricalBadArgumentObserved": false,
+      "Exception": null
+    }
+  ],
+  "OriginalExecuted": false,
+  "NativeFixtureExecuted": false,
+  "OuterProcessDeadlineRequired": true,
+  "HistoricalHostDefaultQueryStillRequiredSeparately": false
+}

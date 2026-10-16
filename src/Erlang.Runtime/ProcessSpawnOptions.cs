@@ -2,9 +2,22 @@ namespace Erlang;
 
 internal sealed class ProcessSpawnOptions
 {
-    public bool Link { get; private set; }
-    public bool PriorityLink { get; private set; }
-    public bool Monitor { get; private set; }
+    public bool AsyncDistribution
+    {
+        get; private set;
+    }
+    public bool Link
+    {
+        get; private set;
+    }
+    public bool PriorityLink
+    {
+        get; private set;
+    }
+    public bool Monitor
+    {
+        get; private set;
+    }
     public ProcessMonitorOptions MonitorOptions { get; private set; } = ProcessMonitorOptions.Default;
 
     public static ProcessSpawnOptions Parse(Term value)
@@ -14,6 +27,12 @@ internal sealed class ProcessSpawnOptions
         {
             switch (option)
             {
+                case TupleTerm { Items: [Atom { Name: ProcessAsyncDistributionNames.Flag }, Atom { Name: ErlangBooleanAtoms.True }] }:
+                    result.AsyncDistribution = true;
+                    break;
+                case TupleTerm { Items: [Atom { Name: ProcessAsyncDistributionNames.Flag }, Atom { Name: ErlangBooleanAtoms.False }] }:
+                    result.AsyncDistribution = false;
+                    break;
                 case Atom { Name: ProcessSpawnOptionNames.Link }:
                     result.Link = true;
                     break;

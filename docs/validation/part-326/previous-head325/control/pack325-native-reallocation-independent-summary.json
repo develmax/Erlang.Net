@@ -1,0 +1,55 @@
+{
+  "Status": "PASS_INDEPENDENT_ACTUAL_PUBLISHED325_NATIVE_AND_REALLOCATION_ONLY",
+  "Head": "2bd148150ddf2cca49dd2c797d05de3260bf663c",
+  "Native": {
+    "Run": 38848191324,
+    "Job": 116803356792,
+    "Artifact": 12024417447,
+    "Attempt": 1,
+    "LegacyPlanInputs": 1109,
+    "LegacyPlanSha256": "A8575369F4D9B3325D7711E614561C80793C4E11BE18B1F01268680028D1880E",
+    "StrictSdkEightLines": true,
+    "DomainRoles": 3,
+    "SeparateOriginal13": true,
+    "Original13ComparedWithSdk": false,
+    "GeneratedCSharpSha256": "6E28E8B093F042C22ACAFD2C0213A55C7DCEFC2D162B486AC8443FC7C4E5F77A",
+    "PublishedWindowsGuardSha256": "687DABE25A5011CD04D4D40AFC9131D085A9E6F40EB5B237F74006E16FD180BC"
+  },
+  "Reallocation": {
+    "Run": 38848192290,
+    "Job": 116803360455,
+    "Artifact": 12024298549,
+    "Attempt": 1,
+    "OwnPlanInputs": 1134,
+    "OwnPlanSha256": "8C5829A6282A13AB1EC3BC9684FB30CFBD2ABAAC89E9F8307D0C4B4E804010C6",
+    "ConfiguredInstalledPrefixFiles": 2646,
+    "NamespaceAndSymlinksExact": true,
+    "FourElfInspections": true,
+    "OriginalMasks": [
+      1539,
+      1601,
+      2047
+    ],
+    "SdkMasks": [
+      1539,
+      1601,
+      2047
+    ],
+    "PinnedThreeHeadersAndActualConfiguredHeader": true
+  },
+  "Guards": [
+    {
+      "Path": "artifacts/pack325-native-combined-independent-guard.json",
+      "Sha256": "8587FC4247F5011CE8D2CB2BAE12410E1CBD99BBF43B3FBB17446A6213BE1B1E"
+    },
+    {
+      "Path": "artifacts/pack325-reallocation-independent-guard2.json",
+      "Sha256": "95DAAEF25F48C5F31469BF858AC2E6CDDCA7B69BCA80866CCAC98CF83E7CE455"
+    }
+  ],
+  "Other325WorkflowResultsNotInferred": true,
+  "Retention325OriginalProofNotInferred": true,
+  "OnlySelectedRawNoPortableBinaryRuntimeClaim": true,
+  "NoGeneralNativeAbiOrPhysicalEquality": true,
+  "ReviewerSdkNativeVmNetworkMainGitMutation": false
+}

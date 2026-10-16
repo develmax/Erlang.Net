@@ -1,0 +1,53 @@
+{
+  "Status": "PASS_INDEPENDENT_PUBLISHED324_TYPED_DISTRIBUTION_GL4_SEND7_LINK7_EXIT8_CONTROLWAIT2_WITH_STRICT_EXIT_REPR_VARIANCE_RETAINED",
+  "Head": "56fa1196fb5507e1dce28e73d530685e7dcbc4d8",
+  "Run": 38845675043,
+  "Job": 116795547135,
+  "Artifact": 12023123026,
+  "Attempt": 1,
+  "TypedGuards": [
+    {
+      "Path": "artifacts/pack324-group-leader-independent-guard.json",
+      "Sha256": "5C8D191899B53AFB31126CFBE1FCA8CD907741177C50598B634AD909848E0617",
+      "Status": "PASS_INDEPENDENT_EXACT_HEAD324_ACTUAL_ORIGINAL_TWO_NODE_GROUP_LEADER_FOUR_CONTRACTS"
+    },
+    {
+      "Path": "artifacts/pack324-guest-send-independent-guard.json",
+      "Sha256": "650B4D2FE669E7B4D7A3B3BD5345E649356737C8BB2545F1DA91D87665C1B925",
+      "Status": "PASS_INDEPENDENT_EXACT_HEAD324_ACTUAL_ORIGINAL_TWO_NODE_GUEST_PUBLIC_SEND_SEVEN_CONTRACTS"
+    },
+    {
+      "Path": "artifacts/pack324-guest-links-independent-guard.json",
+      "Sha256": "8DA783856080665E63E8246DB48BE8411DD966D09F487D5D1F52338DF6FC6A08",
+      "Status": "PASS_INDEPENDENT_EXACT_HEAD324_ACTUAL_ORIGINAL_TWO_NODE_GUEST_LINK_UNLINK_SEVEN_CONTRACTS"
+    },
+    {
+      "Path": "artifacts/pack324-guest-exit-independent-guard.json",
+      "Sha256": "C4D77BCB415932B69CDFB84CA20797CB3EBB8480C21F60C85B762AD971D282F4",
+      "Status": "PASS_INDEPENDENT_EXACT_HEAD324_ACTUAL_ORIGINAL_TWO_NODE_GUEST_EXPLICIT_EXIT_EIGHT_CONTRACTS"
+    },
+    {
+      "Path": "artifacts/pack324-control-wait-independent-guard.json",
+      "Sha256": "F37BEEF211C02C917D48715B15E9BB40B8E12BDCE71FCCA1CB955076D75D7AE9",
+      "Status": "PASS_INDEPENDENT_PUBLISHED324_ACTUAL_THREE_NODE_BUSY_QUERY_REMOTE_KILL_TWO_SCENARIOS"
+    }
+  ],
+  "OriginalCounts": {
+    "GroupLeader": 4,
+    "Send": 7,
+    "Link": 7,
+    "Exit": 8,
+    "ControlWait": 2
+  },
+  "StrictRemoteExitPythonReprEqualityPassed": false,
+  "StrictExitReprRefusalSha256": "4CCA3EDC108966ECA3CA38EC9550504247F2114A846D298BFD99EDEB53F75CCD",
+  "ExitRawEtfFilesAndAllManifestHashesExact": true,
+  "ExitDisplayOnlyFrozensetOrderingVariance": true,
+  "RawNormalization": false,
+  "ControlWaitOriginalNodesPerScenario": 3,
+  "ActualOwnedStopContAndWorkerCleanup": true,
+  "SourcePlanSealsPreserved": true,
+  "SdkLivePeerOrNativeWireOrSchedulerPhaseEquality": false,
+  "LinkRetention325Observed": false,
+  "ReviewerSdkVmNativeBuildNetworkMainGitMutation": false
+}

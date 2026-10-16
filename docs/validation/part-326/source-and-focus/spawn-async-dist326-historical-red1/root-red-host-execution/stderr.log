@@ -1,0 +1,15 @@
+FAIL SpawnAsyncDistributionHostChecks:RunInitialization
+Erlang.ErlangException: badarg
+   at Erlang.ProcessSpawnOptionRegistrations.Start(ProcessContext context, IReadOnlyList`1 arguments) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\spawn-async-dist326-historical-red1\candidate\src\Erlang.Runtime\ProcessSpawnOptionRegistrations.cs:line 75
+   at Erlang.ModuleRegistry.Call(ProcessContext context, String module, String function, Term[] arguments) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\spawn-async-dist326-historical-red1\candidate\src\Erlang.Runtime\ModuleRegistry.cs:line 246
+   at Erlang.Tests.SpawnAsyncDistributionHostChecks.FirstInstruction(ProcessContext owner, Boolean request, Term options, Boolean expected) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\spawn-async-dist326-historical-red1\candidate\tests\Erlang.Tests\SpawnAsyncDistributionHostChecks.cs:line 116
+   at Erlang.Tests.SpawnAsyncDistributionHostChecks.FirstInstruction(ProcessContext owner, Boolean request, Term options, Boolean expected) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\spawn-async-dist326-historical-red1\candidate\tests\Erlang.Tests\SpawnAsyncDistributionHostChecks.cs:line 174
+   at Erlang.Tests.SpawnAsyncDistributionHostChecks.<>c__DisplayClass1_0.<<RunInitialization>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\spawn-async-dist326-historical-red1\candidate\tests\Erlang.Tests\SpawnAsyncDistributionHostChecks.cs:line 34
+--- End of stack trace from previous location ---
+   at Erlang.Tests.RuntimeNodeFoundationHostActor.<>c__DisplayClass9_0`1.<<InvokeAsync>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\spawn-async-dist326-historical-red1\candidate\tests\Erlang.Tests\RuntimeNodeFoundationHostActor.cs:line 43
+--- End of stack trace from previous location ---
+   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func`2 command) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\spawn-async-dist326-historical-red1\candidate\tests\Erlang.Tests\RuntimeNodeFoundationHostActor.cs:line 51
+   at Erlang.Tests.SpawnAsyncDistributionHostChecks.RunInitialization() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\spawn-async-dist326-historical-red1\candidate\tests\Erlang.Tests\SpawnAsyncDistributionHostChecks.cs:line 19
+   at Erlang.Tests.SpawnAsyncDistributionHostChecks.RunInitialization() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\spawn-async-dist326-historical-red1\candidate\tests\Erlang.Tests\SpawnAsyncDistributionHostChecks.cs:line 19
+   at Erlang.Tests.SpawnAsyncDistributionHostChecks.RunInitialization() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\spawn-async-dist326-historical-red1\candidate\tests\Erlang.Tests\SpawnAsyncDistributionHostChecks.cs:line 19
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\source-purge-stage315-focus\Program.cs:line 22

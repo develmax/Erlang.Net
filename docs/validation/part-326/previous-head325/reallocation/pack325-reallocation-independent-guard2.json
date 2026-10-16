@@ -1,0 +1,201 @@
+{
+  "Status": "PASS_INDEPENDENT_EXACT_HEAD325_PINNED_SOURCE_FULL_PREFIX_FOUR_NATIVE_BUILDS_AND_ORIGINAL3_SDK3_COMPARISON",
+  "Head": "2bd148150ddf2cca49dd2c797d05de3260bf663c",
+  "Run": 38848192290,
+  "Job": 116803360455,
+  "Artifact": 12024298549,
+  "Attempt": 1,
+  "RawZipSha256": "9AFD722B9AAD2C0A0C37048256AACABA7725D49FFB85394A1BB8126344397D10",
+  "RawJobSha256": "B39B7C8EF1B035FBACE80E439C6798F26E3BDD31763FAB44786991828D220774",
+  "PublishedPlanInputsRehashed": 1134,
+  "PublishedPlanSha256": "8C5829A6282A13AB1EC3BC9684FB30CFBD2ABAAC89E9F8307D0C4B4E804010C6",
+  "ConfigureBuildInstallActualExitZero": true,
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "WholeInstalledPrefixFilesPassivelyRehashed": 2646,
+  "WholeNamespaceAndSymlinksExact": true,
+  "SourceReviewRuntimeNativeCaptureApprovalReceiptHashesLinked": true,
+  "RawElfAndCapturedSymbolsAndPoliciesVerified": [
+    {
+      "Name": "reallocation_fixture.so",
+      "Sha256": "42F7C4A8EA3B336F7E0EA008C44583BF30005F36D6AEA1FB89791FCACD26323B",
+      "Elf": {
+        "Machine": "x86_64",
+        "Class": "ELF64",
+        "Type": "ET_DYN",
+        "Exports": [
+          "nif_init"
+        ],
+        "Imports": [
+          "_ITM_deregisterTMCloneTable",
+          "_ITM_registerTMCloneTable",
+          "__cxa_finalize",
+          "__gmon_start__",
+          "__stack_chk_fail",
+          "enif_free",
+          "enif_get_int",
+          "enif_has_pending_exception",
+          "enif_make_badarg",
+          "enif_make_int",
+          "enif_make_string",
+          "enif_realloc"
+        ],
+        "Needed": [
+          "libc.so.6"
+        ],
+        "RpathOrRunpath": false,
+        "WritableExecutableSegments": false
+      },
+      "ActualCompileAndNmReadelfExitZero": true
+    },
+    {
+      "Name": "reallocation_extension.so",
+      "Sha256": "E2613ADCE1BEFD7FCFE511BED8E91EF846386525016FFB9083E64A8A5BEA50CD",
+      "Elf": {
+        "Machine": "x86_64",
+        "Class": "ELF64",
+        "Type": "ET_DYN",
+        "Exports": [
+          "enif_realloc",
+          "erlang_net_reallocation_register"
+        ],
+        "Imports": [
+          "_ITM_deregisterTMCloneTable",
+          "_ITM_registerTMCloneTable",
+          "__cxa_finalize",
+          "__gmon_start__",
+          "abort"
+        ],
+        "Needed": [
+          "libc.so.6"
+        ],
+        "RpathOrRunpath": false,
+        "WritableExecutableSegments": false
+      },
+      "ActualCompileAndNmReadelfExitZero": true
+    },
+    {
+      "Name": "legacy_fixture.so",
+      "Sha256": "6DEB2213C0F49FF31C4C9D8C395577874DBF5245DA913132EF3A4211BCEC95B1",
+      "Elf": {
+        "Machine": "x86_64",
+        "Class": "ELF64",
+        "Type": "ET_DYN",
+        "Exports": [
+          "memory_allocator_fixture_unload_count",
+          "nif_init"
+        ],
+        "Imports": [
+          "_ITM_deregisterTMCloneTable",
+          "_ITM_registerTMCloneTable",
+          "__cxa_finalize",
+          "__gmon_start__",
+          "__stack_chk_fail",
+          "enif_alloc",
+          "enif_free",
+          "enif_get_int",
+          "enif_make_badarg",
+          "enif_make_int",
+          "enif_make_string",
+          "enif_priv_data"
+        ],
+        "Needed": [
+          "libc.so.6"
+        ],
+        "RpathOrRunpath": false,
+        "WritableExecutableSegments": false
+      },
+      "ActualCompileAndNmReadelfExitZero": true
+    },
+    {
+      "Name": "legacy_bridge.so",
+      "Sha256": "9E3C19595CDAA7392AB6F4CBFE56AED83A0F044567E8C3E5286D69BE170B1B17",
+      "Elf": {
+        "Machine": "x86_64",
+        "Class": "ELF64",
+        "Type": "ET_DYN",
+        "Exports": [
+          "enif_alloc",
+          "enif_free",
+          "enif_get_int",
+          "enif_has_pending_exception",
+          "enif_is_exception",
+          "enif_make_badarg",
+          "enif_make_int",
+          "enif_make_list",
+          "enif_make_string",
+          "enif_make_tuple",
+          "enif_priv_data",
+          "enif_raise_exception",
+          "nif_bridge_read_term",
+          "nif_bridge_register"
+        ],
+        "Imports": [
+          "_ITM_deregisterTMCloneTable",
+          "_ITM_registerTMCloneTable",
+          "__cxa_finalize",
+          "__gmon_start__",
+          "__stack_chk_fail",
+          "abort"
+        ],
+        "Needed": [
+          "libc.so.6"
+        ],
+        "RpathOrRunpath": false,
+        "WritableExecutableSegments": false
+      },
+      "ActualCompileAndNmReadelfExitZero": true
+    }
+  ],
+  "AllFourActualNativeBuildsPassed": true,
+  "ManagedDependencyAssetsPresent": 34,
+  "ActualOriginalMetadataAndThreeCasesExitZero": true,
+  "ActualSdkProbeExitZero": true,
+  "PublishedPureComparisonIndependentlyReplayed": true,
+  "ComparisonSourceSha256": "875F4EA8DC6AC00494D4F88F21CB6C18EDDF825FBBAE7E0C8926463B4E2CF031",
+  "IndependentComparisonSha256": "C749EFD1B018F578A7A2411D16959F73D98320C6F1EB363B8DC87C8D44B06C9F",
+  "IndependentAndRemoteComparisonValuesExact": true,
+  "Cases": [
+    {
+      "Case": "null_positive",
+      "ActualOriginalMask": 1539,
+      "ActualSdkMask": 1539,
+      "RequestedSizesKind": "AuthoredControl"
+    },
+    {
+      "Case": "null_zero",
+      "ActualOriginalMask": 1601,
+      "ActualSdkMask": 1601,
+      "RequestedSizesKind": "AuthoredControl"
+    },
+    {
+      "Case": "resize_sequence",
+      "ActualOriginalMask": 2047,
+      "ActualSdkMask": 2047,
+      "RequestedSizesKind": "AuthoredControl"
+    }
+  ],
+  "ActualAllocatorOom": false,
+  "PhysicalMemoryCompared": false,
+  "DisabledProfileCompared": false,
+  "GeneralNifAbiComplete": false,
+  "DefaultNativeLoadHandlerInstalled": false,
+  "Previous315FirstImportFailureNotRelabeled": true,
+  "NativeSdkVmExecutedByReviewer": false,
+  "MainEdited": false,
+  "PostExecuted": false,
+  "ParentIndependentGuardSha256": "CB03C543979D4A5F58B99F194A6A70DC89C561E3AA3E7FA1AD8415DD93A086DB",
+  "RepairedPublishedOwnPlan1134Bound": true,
+  "PreAttribute7324PlanNotUsed": true,
+  "LegacyPlan1109Sha256": "A8575369F4D9B3325D7711E614561C80793C4E11BE18B1F01268680028D1880E",
+  "CanonicalPublishedPlanUtf8Lf": true,
+  "ApprovalVerifierHashesMatchPublishedSource": true,
+  "InstalledPinnedHeadersVerified": {
+    "erl_nif.h": "6CB96C37D306A173EF71946E823829FC21E47CB4A19288B221129EAC2F13B689",
+    "erl_nif_api_funcs.h": "CF34ADA521AEB0EE00C9936320CD694F9816EDBAB960500453051CEA443DDA11",
+    "erl_int_sizes_config.h": "9778F570E78AEFE130C9CBDB38FEF1BBFAB9A7A6F0018859C70C1AEC9FBB904A",
+    "erl_drv_nif.h": "E9D4280779E8FD4AC463144F310B4DA2346DD3A18E73D445BF1F88AE3C1F1312"
+  },
+  "ConfiguredHeaderMeasuredNotGuessed": true,
+  "AllFourLegacyRuntimeRolesMatchCompletePrefix": true,
+  "SourceGitBeforeAfterPinnedTrackedClean": true
+}

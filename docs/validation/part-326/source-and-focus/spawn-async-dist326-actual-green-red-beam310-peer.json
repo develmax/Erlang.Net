@@ -1,0 +1,64 @@
+{
+  "Status": "PASS_INDEPENDENT_ACTUAL326_FOURTEEN_MANAGED_SIX_HOST_AND_GENUINE_HISTORICAL325_RED",
+  "Passed": true,
+  "Bindings": [
+    {
+      "Path": "artifacts/root326-actual-green1-guard.json",
+      "Sha256": "E4A57D943609F84A2F3D4F870AB9D1F968FAF5A20B7E782E40E0307974D7FC9B"
+    },
+    {
+      "Path": "artifacts/root326-actual-historical-red1-guard.json",
+      "Sha256": "064D7E1F4439D4D336042D5E678F389CEED3F308728749B8B07731C38609628C"
+    }
+  ],
+  "GreenSourceFreezeSha256": "727EAE9A2FFEFED90A503F86B97A3417A1A0DBF8AD44790657266BD52096BCC4",
+  "RedSourceFreezeSha256": "132C4D6A927E98BED15C9935D740EB5C66BE6E56AD8E062594F958DC50260375",
+  "SourceFilesRehashedPerComposition": 2370,
+  "Processes": [
+    {
+      "Phase": "target-build",
+      "ExitCode": 0,
+      "ElapsedSeconds": 29.04699999999866,
+      "ProcessSha256": "7720002FD03726BF59087172B8CDD33CCC4DED3046321A0317642407787AD2C5"
+    },
+    {
+      "Phase": "green-build",
+      "ExitCode": 0,
+      "ElapsedSeconds": 3.4530000000013388,
+      "ProcessSha256": "D754C6672CD3152AADE055769EDD151CB08F8AC0FF65AF49FD56282CC46405E6"
+    },
+    {
+      "Phase": "green-host",
+      "ExitCode": 0,
+      "ElapsedSeconds": 2.1569999999992433,
+      "ProcessSha256": "A719F7E94A0DE63876E19DAB7CBBEA7554C6E8152E307E9FAE2C163543DE533F"
+    },
+    {
+      "Phase": "green-run",
+      "ExitCode": 0,
+      "ElapsedSeconds": 3.2030000000013388,
+      "ProcessSha256": "CA20122EC9FDAB58DC7358E6A7120C469AE50BCAF41EA152F25100B1906634F0"
+    },
+    {
+      "Phase": "red-build",
+      "ExitCode": 0,
+      "ElapsedSeconds": 27.57800000000134,
+      "ProcessSha256": "6E9E62AAF4674ED528A3841B0EC4BF15003F3814671A68FBF63E658A8028AD11"
+    },
+    {
+      "Phase": "red-host",
+      "ExitCode": 1,
+      "ElapsedSeconds": 0.6880000000019209,
+      "ProcessSha256": "D8B10B8FDC6C2CAF5BC9F940679E8616A3BD16848AD15ED1902036DEDFEC5644"
+    }
+  ],
+  "GeneratedCasesPassed": 14,
+  "HostGroupsPassed": 6,
+  "GeneratedSourceIndependentlyReconstructedExact": true,
+  "ActualLoadedDllFilesRehashed": true,
+  "SameFormattedHostAndHistoricalProductionProgramExact": true,
+  "HistoricalFailure": "sole public spawn_opt badarg on valid true option; exit1 and settled; no timeout or cleanup aggregate",
+  "OriginalExecutedByReviewer": false,
+  "SdkExecutedByReviewer": false,
+  "MainModifiedByReviewer": false
+}

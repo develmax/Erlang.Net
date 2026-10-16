@@ -1,0 +1,584 @@
+{
+  "Status": "SOURCE_ONLY_FINAL326_PENDING_INDEPENDENT_FINAL_REVIEW",
+  "ParentHead": "2bd148150ddf2cca49dd2c797d05de3260bf663c",
+  "ParentSourceFreezeSha256": "7313C3CEB35A75C39FDEF4438E7ECA73459BA2FD48F02C477C9C9387C53E1068",
+  "ParentSourceClosureSha256": "44C983D68C6C2BBAF910E1369E23050AF42686FF1EFB6E4BA15C0C34D3FD3848",
+  "CandidateDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part326-composed1\\candidate",
+  "SourcePaths": 13,
+  "CSharpPaths": 8,
+  "SourceClosurePaths": 2370,
+  "FinalSourceClosureSha256": "098DD51D477CBD68C004AAF7D45115B06A0F7566370B56A05B75CBCCB68D989F",
+  "Files": [
+    {
+      "Path": ".gitattributes",
+      "Bytes": 7996,
+      "Sha256": "ABC52E187D62813D97F4A26257C3C9C81F8CA787D5EBCC4ACAE33453D6E5772E",
+      "Added": false,
+      "ParentSha256": "C708104CEBF155D0701150573669D92E63B4140E7F82063B7B5F3122EE373A91"
+    },
+    {
+      "Path": ".github/workflows/nif-pending-native.yml",
+      "Bytes": 6236,
+      "Sha256": "4134CCEFC252D20EDBB1AA5B5ABB9032DE088FCB0C9FB6690FD105D289D5744B",
+      "Added": false,
+      "ParentSha256": "2BE530502774CAEC2E308A70FAAB93934B55765AAE47CD0F8BB4D77D72BD7F4F"
+    },
+    {
+      "Path": ".github/workflows/nif-reallocation-native.yml",
+      "Bytes": 5790,
+      "Sha256": "9E103285E72903324BD2EE8DCAA46B07E970221B69BB23E0CFC2776032B321D6",
+      "Added": false,
+      "ParentSha256": "B08FEABC7697DAEA11EE432E5DA1D1E3F8BAE0F9A8437025599EBFCF249013BC"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
+      "Bytes": 63789,
+      "Sha256": "ADA79DD9390FBA0C7D1C0728B09090B513E13CCBC7ED5A8D281ABC6F0D928E9E",
+      "Added": false,
+      "ParentSha256": "1436A30AE7C2E90852B2D6327078E1971AF88ED7EAC5929C90C063ED301A7B17"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessSpawnOptions.cs",
+      "Bytes": 3315,
+      "Sha256": "CA5C684EC9D88F561768C7DFF83857A421A41FF06932C307CF25DAAA28BABACD",
+      "Added": false,
+      "ParentSha256": "5A8BE271C4215DCB6043CB86D8451A6176BAA4E9E7DF06EAF68D0B7020A5F668"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Program.cs",
+      "Bytes": 168675,
+      "Sha256": "BD73B55352168249C84465D86267E326FEF59875FFA92D2B65DFF7E170AF005B",
+      "Added": false,
+      "ParentSha256": "767738CB050921AA27438DC69110F58141A5609118FE2831BF969F6E1562135B"
+    },
+    {
+      "Path": "tests/Erlang.Tests/SpawnAsyncDistributionHostChecks.cs",
+      "Bytes": 10009,
+      "Sha256": "5A5EC80E26BC83C2F8B5B445C6B5115B6DBF00FB689926C1E10895FF89C32338",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/SpawnAsyncDistributionHostNames.cs",
+      "Bytes": 1076,
+      "Sha256": "482DE97F52F72993573CC20BB76AC6E43B6B3F78DC27FF3477F2703226B6EA1F",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "tools/Erlang.Differential/CompiledModuleCases.cs",
+      "Bytes": 31464,
+      "Sha256": "518CBC964536946D40F6EDEFFD7538762D5F1DAC9CA3FBAC4C28FDD9F18BBE90",
+      "Added": false,
+      "ParentSha256": "4D5A61E4A5AAD186927A301B7C72857E4701E7A66F3EEFD29B70659E9C266729"
+    },
+    {
+      "Path": "tools/Erlang.Differential/SpawnAsyncDistributionCaseNames.cs",
+      "Bytes": 6054,
+      "Sha256": "66BBFEE52F54C5093815EC7D1AFB5DA1B5213163B7565825001741762B3E80A9",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "tools/Erlang.Differential/SpawnAsyncDistributionCases.cs",
+      "Bytes": 1992,
+      "Sha256": "D695F008773BE6EB584CBB3CD64C5E28F2F7747ED1FA65A85241CB355E9C285F",
+      "Added": true,
+      "ParentSha256": null
+    },
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Bytes": 229743,
+      "Sha256": "A673C88561EC5E31E1F69BE5795519A3AA658E013B6000910B03E192A520E6A5",
+      "Added": false,
+      "ParentSha256": "A8575369F4D9B3325D7711E614561C80793C4E11BE18B1F01268680028D1880E"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Bytes": 239787,
+      "Sha256": "53500EFC145705B70364DE7BC19E60FBCE55C62C7C4C00CB66712B1B8F01F9E4",
+      "Added": false,
+      "ParentSha256": "8C5829A6282A13AB1EC3BC9684FB30CFBD2ABAAC89E9F8307D0C4B4E804010C6"
+    }
+  ],
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Inputs": 1109,
+      "Sha256": "A673C88561EC5E31E1F69BE5795519A3AA658E013B6000910B03E192A520E6A5",
+      "Workflow": ".github/workflows/nif-pending-native.yml",
+      "Pin": "REVIEWED_SOURCE_PLAN_SHA256",
+      "AllNonFilesImportAbiPolicyFieldsUnchanged": true,
+      "InputPathSetUnchanged": true
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Inputs": 1134,
+      "Sha256": "53500EFC145705B70364DE7BC19E60FBCE55C62C7C4C00CB66712B1B8F01F9E4",
+      "Workflow": ".github/workflows/nif-reallocation-native.yml",
+      "Pin": "REVIEWED_REALLOCATION_PLAN_SHA256",
+      "AllNonFilesImportAbiPolicyFieldsUnchanged": true,
+      "InputPathSetUnchanged": true
+    }
+  ],
+  "ActualGreenAndHistoricalRedGuards": [
+    {
+      "Path": "artifacts/root326-actual-green1-guard.json",
+      "Sha256": "E4A57D943609F84A2F3D4F870AB9D1F968FAF5A20B7E782E40E0307974D7FC9B",
+      "Role": "green"
+    },
+    {
+      "Path": "artifacts/root326-actual-historical-red1-guard.json",
+      "Sha256": "064D7E1F4439D4D336042D5E678F389CEED3F308728749B8B07731C38609628C",
+      "Role": "red"
+    }
+  ],
+  "GreenSourceFreezeSha256": "727EAE9A2FFEFED90A503F86B97A3417A1A0DBF8AD44790657266BD52096BCC4",
+  "RedSourceFreezeSha256": "132C4D6A927E98BED15C9935D740EB5C66BE6E56AD8E062594F958DC50260375",
+  "AllEightCompiledGreenCSharpRawExact": true,
+  "AllOutsideOwnedPublishedParentRowsRawExact": true,
+  "AllNativeNonFilesFieldsExactParent": true,
+  "NativeInputPathSetsUnchanged": true,
+  "Docs326BinaryAttributeAdded": true,
+  "PublicMfaDelta": 0,
+  "OrdinaryCasesAppended": 14,
+  "HostRowsAdded": 1,
+  "ExpectedFullPassed": 6708,
+  "Original326Executed": false,
+  "ComposerExecutedSdkNativeVm": false,
+  "ComposerSha256": "C186505723D0AEF0A5C2F8D61C28D7413D9B5E230D373D50C6519F8E16256ED8",
+  "CanonicalPublishedParentRows": [
+    {
+      "Path": ".github/workflows/allocation-diagnostic.yml",
+      "WorkingSha256": "3C94130E12B4FCE17589FF77BCB6C23C814C500BE1A6B044A6C383B03A119AB8",
+      "PublishedSha256": "1AC3B4EC750CC987A41B987403AFEB03A0315239262C4214DAF2BC30B8E75C56",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": ".github/workflows/apply-optimizer-contrasts.yml",
+      "WorkingSha256": "DD98715A85270F56D56CFEAE756985F68BB977873767FFCDB84A4878A8D78C52",
+      "PublishedSha256": "0A1516973F067FFCE9631F7AC44488E2193FE52FD6301301F00F92BD79B69E67",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": ".github/workflows/beam-fixtures.yml",
+      "WorkingSha256": "C30D938A07ACBD23FEE586A46ED37ABA973FA8B562CCC478CF1C2CF1D588752C",
+      "PublishedSha256": "472C28E2E68A6471D17E2014DE4EEC326182F114BE40CF8AEFA90769E7B6188B",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": ".github/workflows/differential.yml",
+      "WorkingSha256": "F2C7DD4C823D4FA57ADD90F22DA708253B8D0AC25684B1D2175DB77C08F1507A",
+      "PublishedSha256": "19E4285AAF0E1EBC51DA85F126DDFE4A28174D9B94CDDB8C4D0936B4BB0775AA",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": ".github/workflows/distribution-monitor-payload-observations.yml",
+      "WorkingSha256": "591831C3BF126B0232E1789965950E166670474987B88F74A25F94271B3AF943",
+      "PublishedSha256": "541FE99A8F1A07BA3E83E2AD4A8FD5A5EBF2DD769B58FD47784124B9C5114CCF",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": ".github/workflows/distribution-payload-exit-observations.yml",
+      "WorkingSha256": "AA73A29B8EBB6564775BF6E6316F083BC74819EA72B370EA6EDA59E45656B6DA",
+      "PublishedSha256": "618E1C46385BAC0760557BED6AC867FAD98D5436650C61B17406161109001E04",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": ".github/workflows/distribution-pressure-observations.yml",
+      "WorkingSha256": "45200F9BE558D8BD69AE82D7A76372AD0069441193534642BFD42E1A9DBDDC83",
+      "PublishedSha256": "9C247FE5C5F5F5941A9DC2FFC7A568D8EFF761518001BC99524173083B51F6C8",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": ".github/workflows/distribution-trace-observations.yml",
+      "WorkingSha256": "3249C97CE719E2750486BAF0C04357F145496609ABC078F1F6FD1CF8C701A9E7",
+      "PublishedSha256": "75EB5400C97114068DB8D4EB052B9A0C85427701243024CCBC8FE4BCCAD09EBF",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": ".github/workflows/halt-differential.yml",
+      "WorkingSha256": "009CB0A46F7CE5268D9277FBC40276166CB1FC32C84D8B3CADC6A1BD031E8A10",
+      "PublishedSha256": "E77E9E7C7C5573A271E77017EAA0455DFD5155522FED1EB0AB24A1D80FE5797A",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": ".github/workflows/loader-contrasts.yml",
+      "WorkingSha256": "4F54CE788BBEFD8AE824120891C1B1F3701B47337D37572AA3741889ECE1F986",
+      "PublishedSha256": "F89FF89497B3D0EEE3FBC539F5DFE0A4A35414FC4265B20B770D37E9669332FF",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": ".github/workflows/loader-iodata-contrasts.yml",
+      "WorkingSha256": "3FF8CB7EB256F9D08C5D9333CDA889242DB7EA33242AD00D74A1F74F1FE8C7D3",
+      "PublishedSha256": "98662C1952E23294B174B0E49929C38D2C9B60B8C45F3C3CE1023DF8770429C0",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": ".github/workflows/local-node-admission-contrasts.yml",
+      "WorkingSha256": "17E07A3DDB095714A6331D9D5CC8A71E8C4FCC0D56E2AE3C8615C5A1EA2E76B7",
+      "PublishedSha256": "E8BAF44DFA809F8753BE0D7CD790E34FCAD41510AFAE9DF5B72530C0AAAB28A6",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": ".github/workflows/nif-fixture-observations.yml",
+      "WorkingSha256": "DBA324C8C24E48F13404B8067A09B257237BFE707EB653BC23B6A83ADFA8EFF0",
+      "PublishedSha256": "4E82BD73F1F638342523846FBB65293C1F9DFFB1EA62815CE4A2296C559816C1",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": ".github/workflows/node-identity-contrasts.yml",
+      "WorkingSha256": "62D4441931F6DA44361BFE99B5CBED5B127C876381819EDCD4B499F9D458AECC",
+      "PublishedSha256": "DD38327A55374734B64B0395AD5873C1755CB60014F4C5B25185F9661C549225",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "Erlang.Net.slnx",
+      "WorkingSha256": "78F6A7CBAE265B9F5A89942287650ABC591FE4C88315692C2F1A56E770027978",
+      "PublishedSha256": "4F7EBCC5D09802AC66EED860FB01A97C6D06B8481DCFA0388D7E19E5B228C91C",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "examples/HelloHybrid/HelloHybrid.csproj",
+      "WorkingSha256": "F3817EAA1E8283F349145E08EB461672CF6969C60C0F2288CF5569AE1AF9BEA6",
+      "PublishedSha256": "E35FC627FB454C7EA891C5080495778D6BA8A710C3CFCAF1E4C26E2CB91D3E1C",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.CSharp.MSBuild/Erlang.CSharp.MSBuild.csproj",
+      "WorkingSha256": "4746EA3FB4CEA47804A36F9CA53EFB6424D1925CEDCFBA666542339897A8951C",
+      "PublishedSha256": "49EAEC8A4396898DFAE8EC794E3E8B4EC281750BBAF4440D72FC24C8FBC24039",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Erlang.Compiler.csproj",
+      "WorkingSha256": "34652021BA045858168F51021083536CC9189C35963371A0F8369F512BEDD890",
+      "PublishedSha256": "12B1195EC391DBEC3FA57643F382DEF71F3849C90D2DC1A9CCDA0879B9B276F6",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/Erlang.Otp.Behaviours.csproj",
+      "WorkingSha256": "6622AD6442829FF8F586D2A69D2F954DEAD7393E2107C2F0C0A320FB8B2C90F2",
+      "PublishedSha256": "64C0A19DF3D94B9D296151BDE3B251D4AAC038CB746369CCB4B9CF00D97A78A3",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/Erlang.Runtime.csproj",
+      "WorkingSha256": "30FF980770863CFC020B0CFAD00E2902CB150A874CA1839208A59C931861880E",
+      "PublishedSha256": "159212B99AEA39F1F80347B0C51C136FBDC640B81F7C76AC6D20CC058480BBEC",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Serialization/Erlang.Serialization.csproj",
+      "WorkingSha256": "B31DFB16CFD821130A234E92478D39B885020287ADF8E0B7047FA1D718FC89D2",
+      "PublishedSha256": "F6A93AEE0F3B356DEE67BAABFFE687DEC04BC5809E6F3A3CCF5225F09ACCD251",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Terms/Erlang.Terms.csproj",
+      "WorkingSha256": "E6FCB8E1E93A724D47A829CFFD19D47840A5EB088E9ACE43F3A34BBAF1524B07",
+      "PublishedSha256": "8D654C44B7BEBB6B31A9F2F606927F45B5072193ADC4EEF8CCE3F3CF3B278DF3",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/Beam/source-proof.json",
+      "WorkingSha256": "6EC6D430CD883295B3F630E6ED69EA17B66369F80FC7435E89A41713D345D125",
+      "PublishedSha256": "677ABF439943D30FB81B54BCE8DCEAF65471B6B6A118AE1DF8C674519553B3D2",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoadResourceHashes.json",
+      "WorkingSha256": "E89C394F6883376657A7398AD0B365B05E6B2A7D2DB9EAA2C8E24FDF27BA0CD0",
+      "PublishedSha256": "DB88B0C05B0361B3FA2B273E7DFA1A96E9E898AEC58EE8698646A194B0CE4E8A",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.AllocationDiagnostic/README.md",
+      "WorkingSha256": "57FAD89C9C8E9E714CDB61A730231E7FE6C98A429953F3345E42605FA9F16E3A",
+      "PublishedSha256": "A3EA530A64E3E4A9E816DF0EBFE14D1626472C9AB9C6473650A74D6E1D2DD5F2",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.AllocationDiagnostic/Run-DiagnosticProcess.ps1",
+      "WorkingSha256": "16F3AF05DDA81E2161515D1A615858B88A6B880575AEF2C2DCD4DC10159D2057",
+      "PublishedSha256": "3BEE7B2B5F34D48BCDBD388BF9BAA5943C4CC59A16DBB2547864FBD83602C1D0",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.ApplyOptimizerContrasts/README.md",
+      "WorkingSha256": "446EA5452E26195F089FF26FE17B29144891F08CF24A3F26B18984AE7BEACF68",
+      "PublishedSha256": "BD50AD92B0B17132BFF75869E4FC0A7DBA9E6AD529156C4B9BB1CF539F22DEEB",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.BeamFixtures/README.md",
+      "WorkingSha256": "1FAEFC897C0B43DF3CB518C0AF62574506E7A22A1CDC0C0DDE2505F1CECC6FB2",
+      "PublishedSha256": "A3DFA8B1561AD1D12E1472B5A0DB3072C9B19582F15FFB6AF1283031D5BF4101",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.BeamFixtures/load-nif-opcode-contract.json",
+      "WorkingSha256": "54836EB82D0C4A52FA7A00C596EE1D2D882F6E48C770B2BE3C21F2E6DB09EA98",
+      "PublishedSha256": "15AD1A975034ACE226A4E43FCF37C700D1630E1CC86A73312D49B1041003DB3A",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.Differential/Erlang.Differential.csproj",
+      "WorkingSha256": "DE537F2108C88A9FCD4762E6FBB476B546A1FA5765B80B118B560E5B727BB0BA",
+      "PublishedSha256": "42F043ADAA229F09CFA1EB237CAB9EAC65CBBFCB5B997F28104AA64CE22CD229",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.DistributionMonitorPayloadObservations/Erlang.DistributionMonitorPayloadObservations.csproj",
+      "WorkingSha256": "C193B82BE6252A273A8109A6D2D2D5D348A198FB752B1B10BBCF7CA7BD47438B",
+      "PublishedSha256": "A24B5896E0888E73C4E36DCFEB965B60D476AABAEB56BD61FBC14E927B8EEDE0",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.DistributionPacketContrasts/Erlang.DistributionPacketContrasts.csproj",
+      "WorkingSha256": "043544242FAAE51D312D3E6839993F02DDE5559898F1366CFAFBD88B47F0F3F2",
+      "PublishedSha256": "037FBCE05EB14A617B5572ECA091CA13234E763EEE1CF1E294B14B62F0866F31",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.DistributionPayloadExitObservations/Erlang.DistributionPayloadExitObservations.csproj",
+      "WorkingSha256": "6F4A41C999D5816E2732432FEAA7CA7E1ED7504EEDDCD0101A6EBB78522E7914",
+      "PublishedSha256": "6402B537EF5A49919160CB53C0C0F4292BD26A3676EFD0D53E885B361B4F5134",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.DistributionPressureObservations/Erlang.DistributionPressureObservations.csproj",
+      "WorkingSha256": "99C403D3E343E9CEF7DEFD7094EF416700AD751309C104E6AC8447E1BEA05584",
+      "PublishedSha256": "3B26BCE679471285E67064DE9CB6AA02D46690D7DB33CF7332B7E38E80603881",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.DistributionPressureObservations/README.md",
+      "WorkingSha256": "8CFEAAFCC45283D2586C0E9E49C40B5F240892F654F13A3A4426629E14720BEB",
+      "PublishedSha256": "76665DA217F2FA012AA91D1FFFC7E5B37877BB1AEA9250A5ADD459A69C3A41C6",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.DistributionSignalObservations/Erlang.DistributionSignalObservations.csproj",
+      "WorkingSha256": "3A41AF75E0942BA2FADAD81B01A812DEA31759E70C019070C8A7E523E29286F5",
+      "PublishedSha256": "64A874875A67D642DD116EA257E10FD4F11DD28FAE2060692694486E7B30ACAE",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.DistributionTraceObservations/Erlang.DistributionTraceObservations.csproj",
+      "WorkingSha256": "495927F9E7B9C874A69B926AD41B68F889BB2A98762AD916951F2BE351589253",
+      "PublishedSha256": "C7A4C57B286C4735103D4D6A39F16E7AD591B29666D5B15D37DDF8FF9E719C88",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.LoaderContrasts/Erlang.LoaderContrasts.csproj",
+      "WorkingSha256": "FEE66912D5D1348BEAB2EC22898FEFA03A3F33D0694F407DCCE1766FCE2E1ADC",
+      "PublishedSha256": "106F55D6536A597F447AADE19AFD70A24856E83F554A478ED5C7715733BB8ECF",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.LoaderContrasts/README.md",
+      "WorkingSha256": "447F209116921ED50FEBE11A75DFAEA37BEA2D3E674A48A837E756775DC9A00A",
+      "PublishedSha256": "479E63309796307F69379D8B878B2CD34723B180B24A6FB4FAF584A8552BF453",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.LoaderContrasts/loader_contrast_wrapper.erl",
+      "WorkingSha256": "98CFA8C63C9E1A33CAF577AE378EF80C3BCDD61FAD4AC86B95B64603E7475B21",
+      "PublishedSha256": "901BE972C9A71575179AEB846D17C1D0A247AC61F632A373375FDF42F2DB7F5D",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.LoaderContrasts/loader_direct_caller.erl",
+      "WorkingSha256": "E2EB9004710027A48416E62CEE5B712BE744913BFC70AD3F7B4892DE76CDC022",
+      "PublishedSha256": "F21341EDFC452BD8EF52CDAFCA398014B7C63EDD580B4AEBEE3ED83EB8A56BF7",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.LoaderContrasts/pinned-source-provenance.json",
+      "WorkingSha256": "3E3DCFD243499A785D67793EF1226CCE67C8D58D6F4C6D512751B7556F46E26A",
+      "PublishedSha256": "8ED01F7D0BFCBC11D8BA9DD2654B171E630A87CD9CC6841C37E1E9281F53983A",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.LoaderContrasts/predeclared-contracts.json",
+      "WorkingSha256": "8187C6AA2C63B3A488A67B1FEE8394D81DDB3577F4BFE37F47630FF23526B233",
+      "PublishedSha256": "5CAD1E32512D3928D8457896FF1A316BE55230C88CEE0E7732B9C5D1F17B51E0",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.LoaderIodataContrasts/Erlang.LoaderIodataContrasts.csproj",
+      "WorkingSha256": "15541C40B743A8DC2FF6A3C4597B64C277766A249895AC53EC95230011A3B4A7",
+      "PublishedSha256": "E3C697CB3A06DC9C07DD55AD094142B542EB84BEEB1F06AEC109D18953C671D9",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.LoaderIodataContrasts/README.md",
+      "WorkingSha256": "E57539DFF41790D897B0BB6DFB9DFC1D90760D45E3683EF4B99AEB06C1B83D71",
+      "PublishedSha256": "41642BF4EFE087AAE8E3D1FFA75B0E75A3AA6E3842D35870EBA0FC2A6FDAEDA5",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.LoaderIodataContrasts/loader_iodata_wrapper.erl",
+      "WorkingSha256": "403660E8916EBF807BA2F2ECFBD5BD01933CDDF59416B98EF0028997445D6140",
+      "PublishedSha256": "35CB9D9E6138DC514E6E8A9FBD755B9C621E585FCAF4CF8BDE544755B6718A2A",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.LoaderIodataContrasts/pinned-source-provenance.json",
+      "WorkingSha256": "F9348C497DC7F4AA46A25D5771FDFA3AC98A23B90936D499F44DED4A12B1CAF3",
+      "PublishedSha256": "A0633D23B1124C5ED88D9A7169B18BE2623E1C7D5BC12346FE026FCE87AB4ABF",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.LoaderIodataContrasts/predeclared-contracts.json",
+      "WorkingSha256": "57B10BCFA9131311C755E0DDCC3898F233939214FA427AA73F008244899C6285",
+      "PublishedSha256": "1763A5574865A5E24E4E516DC6FD7D3289D98A373E86E27DDFCEB19678C22EFC",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.LoaderIodataContrasts/verify-iodata-contrasts.py",
+      "WorkingSha256": "55C0099A0A9F11084FB59C216925EEDD9D28378C5636769B7865235D20166434",
+      "PublishedSha256": "555D79FC242C4456A4949CADF53E600D64631AA1D27127D24420917E16AB5DA0",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.LocalNodeAdmissionContrasts/AdmissionOracle.csproj",
+      "WorkingSha256": "29CD2AD4EF855A10DC3F61054A268F2C87A8B1E1A8EDBF593D9EA826EABDF0E8",
+      "PublishedSha256": "A639A7A79A6D83068CAAD5DE70EE89C1F76914F172E56F8C287F360846019EF6",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifFixtureHost/Erlang.NifFixtureHost.csproj",
+      "WorkingSha256": "99D8C0DD50EB5756EAEBE09BF8C228316CAE842930C5B883CA447DF95F89BB7D",
+      "PublishedSha256": "0C55AB884EFFCD50AA5BA458A15C0D230AF80CD787800CC7B18E2AB42ADB4155",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifFixtureHost/README.md",
+      "WorkingSha256": "9EB87218B4CD935C7D89ECB77DE8F15F036705C6054AB9A0B51CA6FE9BE3CC27",
+      "PublishedSha256": "B3272E42DB40B868B9464D1801AF2509C9F30C2E5AFD02C35F2C3ACC242E3FD5",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/README.md",
+      "WorkingSha256": "69CDD984314E3436CB9B031F0303E49769CED6B4DA420333199C7D28D4EA3E74",
+      "PublishedSha256": "A459118B31240B19D9323A565F39654E1AB32884A16779E4DB1F5C5B78A95387",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/README.md",
+      "WorkingSha256": "50FFF52F133379583F6BC8DA3C8945FB73A407AE661200300EBAE81F0CE82655",
+      "PublishedSha256": "F918371F0EC73A3595529A4B6FA0239DB8714B618AEAECD2DBF05AE4474609D8",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/README.md",
+      "WorkingSha256": "BDE9724B8CC2B76ACD21DBB646AA9C7637E19E9EF0B08797D55FF6C0759D7D84",
+      "PublishedSha256": "07F98C3B9261202D2A75DAF779DA686E94C6BBB879E4AE314D31884B69225655",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/controlled_source_build.py",
+      "WorkingSha256": "A0DC628C9F4ACF5F998AEFE7B8D1032148A25354A76C6948088CD89F596CEFED",
+      "PublishedSha256": "39F7F225F8D8E5F2D3EC59D0B6C128565042B3435D93CA5EBD22620130411149",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/original/collect.py",
+      "WorkingSha256": "C248202484CBA9516D07C82E446572D11836E6B419571393CE01C87E52A612EB",
+      "PublishedSha256": "FD95760FB96FC9660DF848F130B10D96E9BF5FEA5112A18CF1736D5092AFBDA3",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/original/memory_allocator_nif_fixture.erl",
+      "WorkingSha256": "199F41D3531247080595A832EDE5CD7D143B48963311EEBCB0214D49DF74D83E",
+      "PublishedSha256": "4CA47BDA5B616EE2AFD111BEA89BBD054861A953E3EF600677A574BC121476FF",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/original/reallocation_observer.erl",
+      "WorkingSha256": "6AA6C940F7F5CE6BC822F9B871B78DD3428B9D137EF1921F22498230A8148844",
+      "PublishedSha256": "6737FB8FABF27A4EC990F533F0DAB912D131DD07ECD9141F3D9BD04DCF2E8E19",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/review-results.py",
+      "WorkingSha256": "7BCF4F0C32FB3050AAD7CE76ED9C8A83CEFA73BE69D2775F862A83822C7B486F",
+      "PublishedSha256": "875F4EA8DC6AC00494D4F88F21CB6C18EDDF825FBBAE7E0C8926463B4E2CF031",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/reviewed_common.py",
+      "WorkingSha256": "68269B896C5DED6A4F494E5F012FE05BFB06A634E89514E18E7B5B6865CBAF61",
+      "PublishedSha256": "C206262CE6563F213502B3A2442F53046115D67BCA35D0D665D342203F9DB146",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/run-reviewed.py",
+      "WorkingSha256": "4222DCECB47D532C9D2ECB9C3B393F4B369431B36A52C2B89FBA4712041C05B1",
+      "PublishedSha256": "4C871EA8984A3D650852E7E95606053D6C73C5B9DE3D832028091CE8A9CCF8CE",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/runtime_receipt_adapter.py",
+      "WorkingSha256": "2264FF1908F480919C100ADAF1185CA11C38EE76C87F3727EF6651A8D48D9001",
+      "PublishedSha256": "E3A2E6F21755D7E7196487FAA4B1C02E93CD308C69E7FEE9D46EF8529BA27171",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/verify_native_build.py",
+      "WorkingSha256": "13CB08A05F0965DE451AEE59173257CFFD3955B9B2773DAA86BEA684A22B1208",
+      "PublishedSha256": "22BB71FCD308CDD1B183229C2116B582F70852877B8E8397C436571D97D7A7B4",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/verify_source_build.py",
+      "WorkingSha256": "BA2459CD86C44CF3C02CA922BF4F067AFFFC03AC99C7324C603DEC3343BF41A6",
+      "PublishedSha256": "5DB8FB346BE69A8CF6D476980B733320EBBC98EB4D2BFBBF24E7EC6B36CA4CF4",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/windows-compile-recipe.json",
+      "WorkingSha256": "47C9155EBB39F11F105BBA96F761F3059A25529DD318BA864D805692DA171BFE",
+      "PublishedSha256": "D2218CE26A3D40927E2FE7A8D3375A963776D26401C5EF73D1DD633FC6F9A3D4",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NodeIdentityContrasts/README.md",
+      "WorkingSha256": "DDF972505B4E4796F4C08C8D04F2E504D8A749CB0DD3B1E7BD1222CE7A095464",
+      "PublishedSha256": "84583B41D103481F6B6BCC7DDC4C1E71CD5D3E4017C6139824197875D821524E",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NodeIdentityContrasts/source-plan.json",
+      "WorkingSha256": "CBF02B63D2151F74F43BCCEFD857F048F4E73B2DBD5395BBB3334674B6715618",
+      "PublishedSha256": "36F849559A57BF783E4AAA406433B84B65F7F24870F0C640A9731CC8C88B484C",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.PortProbe/Erlang.PortProbe.csproj",
+      "WorkingSha256": "6347BD85D4338BF31F62B01092343B31717E681D89024E2FD9BDCE095491B6E0",
+      "PublishedSha256": "485E171E44EE6360533652433989D3B90AB763B8F7CEBF63EE46FD066E074996",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.Style/Erlang.Style.csproj",
+      "WorkingSha256": "0391ECB21DE51392B310F81CDFA9F36A05425819ECC097AC1900BCD4FD1699FC",
+      "PublishedSha256": "24492808D27D5074C199736992FCC26BB2D787FBB1F1FF38D0903696CD31D008",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.Tool/Erlang.Tool.csproj",
+      "WorkingSha256": "5C1535556714EA766A5A05D8A25A070DE489F10D6E37A3278F0824AACF73674A",
+      "PublishedSha256": "1CEFD0C892EE4D68E4424F93B107235E2E05C638206B763D31F759DD3CB2C2C0",
+      "Mode": "TextLF"
+    },
+    {
+      "Path": "tools/validate.ps1",
+      "WorkingSha256": "DD493EA079090EE138723794C6EE23DB6D8CC4A10EB49731069A635C4093BA47",
+      "PublishedSha256": "CE478B14DB10EEB519D51A2D2AF683A01471AF28641B1AC8003595CD7A2D01DC",
+      "Mode": "TextLF"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "Bindings": [
+    {
+      "Prefix": "metadata",
+      "Target": "metadata.etf",
+      "EtfSha256": "ABAFDDC759953EDC91E5AA36EEDB3896AE3D6CB908881E5700A3C83B82377EAF",
+      "StdoutSha256": "274101A421176F0A2916E5686233A1C17C868F346824E540E45F48638A33E107",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "ProcessSha256": "C2FC630555A8FE9A4ABF693BC1009CFDBBB206C59450F26EE298FCF588B97914",
+      "Evaluation": "R=reallocation_observer:metadata(),ok=file:write_file(os:getenv(\"REALLOCATION_ETF\"),term_to_binary(R)),io:format(\"~tp.~n\",[R]),halt().",
+      "EnvironmentBindings": {
+        "REALLOCATION_ETF": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/reallocation-native/original3/metadata.etf",
+        "REALLOCATION_FIXTURE_PATH": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/reallocation-native/original3/reallocation_fixture"
+      }
+    },
+    {
+      "Prefix": "null_positive",
+      "Target": "null_positive.etf",
+      "EtfSha256": "49412973110473F297806C6631ED9349CDB7E53B4DFEEEB2B02E79EF351EE076",
+      "StdoutSha256": "FC4A0745BF1D264D507C403FD96B945E1D9A909B2621B1D7E130CEE283CCD812",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "ProcessSha256": "9186C88B36EA909E2BDC5F4D249550F14DB1F5FC6F418BEE504EAFDDB5F81380",
+      "Evaluation": "R=reallocation_observer:run(null_positive),ok=file:write_file(os:getenv(\"REALLOCATION_ETF\"),term_to_binary(R)),io:format(\"~tp.~n\",[R]),halt().",
+      "EnvironmentBindings": {
+        "REALLOCATION_ETF": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/reallocation-native/original3/null_positive.etf",
+        "REALLOCATION_FIXTURE_PATH": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/reallocation-native/original3/reallocation_fixture"
+      }
+    },
+    {
+      "Prefix": "null_zero",
+      "Target": "null_zero.etf",
+      "EtfSha256": "A9A3313B96BD43CE606947F46E12A86C60A9AEC3740E0331A05B8806F6414863",
+      "StdoutSha256": "9CA60D9741D56C943EE90D4190F35DE6E5057331E7C1F0771CD0A510C1EAAF41",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "ProcessSha256": "A50119005CE8159E1B899C5A6269EFD2C2F690445085C94C25383DB179C431DB",
+      "Evaluation": "R=reallocation_observer:run(null_zero),ok=file:write_file(os:getenv(\"REALLOCATION_ETF\"),term_to_binary(R)),io:format(\"~tp.~n\",[R]),halt().",
+      "EnvironmentBindings": {
+        "REALLOCATION_ETF": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/reallocation-native/original3/null_zero.etf",
+        "REALLOCATION_FIXTURE_PATH": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/reallocation-native/original3/reallocation_fixture"
+      }
+    },
+    {
+      "Prefix": "resize_sequence",
+      "Target": "resize_sequence.etf",
+      "EtfSha256": "8B8B1F66E39087D560047FDF9D1E92AE8DED000B41135F7FEF0CCD4232A18F9A",
+      "StdoutSha256": "CBC48691B937AE8D1A9739D3B4168A2AA674F63A3D8D5FD80487916CE46BDCFB",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "ProcessSha256": "F04E25208F5E7923EBE33E2F6CA02799C6538DFBBB57E24762BDC64D65E0B4D9",
+      "Evaluation": "R=reallocation_observer:run(resize_sequence),ok=file:write_file(os:getenv(\"REALLOCATION_ETF\"),term_to_binary(R)),io:format(\"~tp.~n\",[R]),halt().",
+      "EnvironmentBindings": {
+        "REALLOCATION_ETF": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/reallocation-native/original3/resize_sequence.etf",
+        "REALLOCATION_FIXTURE_PATH": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/reallocation-native/original3/reallocation_fixture"
+      }
+    }
+  ]
+}

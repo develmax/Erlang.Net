@@ -1,0 +1,165 @@
+{
+  "Status": "PASS_INDEPENDENT_ACTUAL_PUBLISHED324_ALL_FIVE_TYPED_TERMINALS_WITH_TWO_STRICT_TEXT_REFUSALS_RETAINED",
+  "Head": "56fa1196fb5507e1dce28e73d530685e7dcbc4d8",
+  "TerminalWorkflowCount": 5,
+  "AllWorkflowConclusionsSuccess": true,
+  "AllFiveTypedSemanticScopesPassed": true,
+  "AllStrictRawTextComparisonsPassed": false,
+  "Workflows": [
+    {
+      "Kind": "ci",
+      "Run": 38845491627,
+      "Job": 116794945993,
+      "Attempt": 1,
+      "Head": "56fa1196fb5507e1dce28e73d530685e7dcbc4d8",
+      "WorkflowConclusion": "success",
+      "TypedSemanticPassed": true,
+      "Guard": {
+        "Path": "artifacts/pack324-ci-independent-guard.json",
+        "Bytes": 2136,
+        "Sha256": "F512601B7FA8610C27962BF0F9A305ED5E04192C60E0F66275481B7BB29A5073"
+      },
+      "Scope": "PASS_EXACT_HEAD324_CI6692_ELEVEN_INTEGRATIONS_PUBLISHED314BLOBS"
+    },
+    {
+      "Kind": "native",
+      "Run": 38845664173,
+      "Job": 116795513209,
+      "Attempt": 1,
+      "Head": "56fa1196fb5507e1dce28e73d530685e7dcbc4d8",
+      "WorkflowConclusion": "success",
+      "TypedSemanticPassed": true,
+      "Guard": {
+        "Path": "artifacts/pack324-native-combined-independent-guard.json",
+        "Bytes": 1430,
+        "Sha256": "2E89DDE7420D84278C5D8F658142824487A5985660291C47B1BF9449FB5ECD91"
+      },
+      "Scope": "PASS_EXACT_HEAD324_LINUX_SDK_EIGHT_LINES_THREE_DOMAIN_ROLES_AND_SEPARATE_ORIGINAL13"
+    },
+    {
+      "Kind": "distribution",
+      "Run": 38845675043,
+      "Job": 116795547135,
+      "Attempt": 1,
+      "Head": "56fa1196fb5507e1dce28e73d530685e7dcbc4d8",
+      "WorkflowConclusion": "success",
+      "TypedSemanticPassed": true,
+      "Guard": {
+        "Path": "artifacts/pack324-distribution-combined-independent-guard.json",
+        "Bytes": 2358,
+        "Sha256": "52FBD6CB9E26112FC879BC4FF36CFD4DC438B57B1CB8830E4C8A36EF9E527773"
+      },
+      "Scope": "PASS_INDEPENDENT_PUBLISHED324_TYPED_DISTRIBUTION_GL4_SEND7_LINK7_EXIT8_CONTROLWAIT2_WITH_STRICT_EXIT_REPR_VARIANCE_RETAINED"
+    },
+    {
+      "Kind": "reallocation",
+      "Run": 38845669964,
+      "Job": 116795531072,
+      "Attempt": 1,
+      "Head": "56fa1196fb5507e1dce28e73d530685e7dcbc4d8",
+      "WorkflowConclusion": "success",
+      "TypedSemanticPassed": true,
+      "Guard": {
+        "Path": "artifacts/pack324-reallocation-independent-guard2.json",
+        "Bytes": 6683,
+        "Sha256": "BC62E991EB985EB6C2F6174C6F69E18307FFF855F47C449FEF2FFB433B742E85"
+      },
+      "Scope": "PASS_INDEPENDENT_EXACT_HEAD324_PINNED_SOURCE_FULL_PREFIX_FOUR_NATIVE_BUILDS_AND_ORIGINAL3_SDK3_COMPARISON"
+    },
+    {
+      "Kind": "ordinary",
+      "Run": 38845658227,
+      "Job": 116795495517,
+      "Attempt": 1,
+      "Head": "56fa1196fb5507e1dce28e73d530685e7dcbc4d8",
+      "WorkflowConclusion": "success",
+      "TypedSemanticPassed": true,
+      "Guard": {
+        "Path": "artifacts/pack324-ordinary-independent-summary.json",
+        "Bytes": 3805,
+        "Sha256": "80F376B484490B69740986E3A71395D6D4E64C7ADF8F2053799CE7772B324281"
+      },
+      "Scope": "PASS_PREVIOUS_HEAD324_ORIGINAL5891_FD8_SEMANTIC_WITH_STRICT_MAP_STDOUT_VARIANCE_RETAINED"
+    }
+  ],
+  "CI": {
+    "Passed": 6692,
+    "Integrations": 11,
+    "PublishedGitBlobs": 314,
+    "Registry": 509,
+    "Erlang": 351
+  },
+  "Native": {
+    "StrictSdkLines": 8,
+    "DomainRoles": 3,
+    "SeparateOriginalCases": 13,
+    "ThirteenOriginalComparedWithSdk": false,
+    "Legacy1108": "5986F86F9F9DB3F91B7DDE885E2297495FD97A9DFC169E89A95D96A24D03F3C7"
+  },
+  "Reallocation": {
+    "OwnPlanInputs": 1133,
+    "OwnPlanSha256": "718842531DF301DC0730484FC9014C1C25DEDC2A20EF17A8B1ADAF111969DC14",
+    "FullInstalledPrefixFiles": 2646,
+    "ActualOriginalMasks": [
+      1539,
+      1601,
+      2047
+    ],
+    "ActualSdkMasks": [
+      1539,
+      1601,
+      2047
+    ],
+    "PhysicalEquality": false
+  },
+  "DistributionOriginalContracts": {
+    "GroupLeader": 4,
+    "Send": 7,
+    "Link": 7,
+    "Exit": 8,
+    "ControlWait": 2,
+    "ControlWaitVmsPerScenario": 3
+  },
+  "Ordinary": {
+    "OriginalPassed": 5891,
+    "FdPassed": 8,
+    "NewCaseCount": 6,
+    "All5885HistoricalOrderedContractsPreserved": true,
+    "All231PublishedDifferentialSourcesBound": true,
+    "BackendAllocatorAndMemoryProfilesExplicitlyDistinct": true
+  },
+  "StrictRefusals": [
+    {
+      "Role": "ordinary native map stdout order versus historical323",
+      "Path": "artifacts/pack324-ordinary-strict-independent-guard.json",
+      "Sha256": "322960F3F89C06610CA1760AF6FFEACD8E632AF852AAEBC6CE027047E541108D",
+      "SemanticPassSeparate": true
+    },
+    {
+      "Role": "EXIT8 remote Python frozenset repr of two error_info fields",
+      "Path": "artifacts/pack324-guest-exit-strict-repr-refusal.json",
+      "Sha256": "4CCA3EDC108966ECA3CA38EC9550504247F2114A846D298BFD99EDEB53F75CCD",
+      "RawEtfFileHashesExact": true,
+      "TypedSemanticsPassSeparate": true
+    }
+  ],
+  "RawNormalization": false,
+  "SeparateReallocationAndOrdinaryCopyManifests": [
+    {
+      "Path": "artifacts/pack324-reallocation-terminal-lean-copy-rows.json",
+      "Sha256": "FDA99ECB8E25920908783A4A18F8FBB61497929C61BA23B2F3A50ED6EA934D73",
+      "Rows": 136,
+      "Bytes": 4398330
+    },
+    {
+      "Path": "artifacts/pack324-ordinary-terminal-lean-copy-rows.json",
+      "Sha256": "ABCB4AFF05A6C3879AD58B740B7743160BA7BFB39BFFC8D08E635BADF4C41306",
+      "Rows": 29,
+      "Bytes": 7211210
+    }
+  ],
+  "CurrentLeanScope": "CI/native/distribution only, new324 captures; no earlier-head evidence-tree recopy or binary/archive copying",
+  "New325RetainedLinkProofInferred": false,
+  "GeneralNifAbiOrLiveSdkPeerOrWholeErlangCompletion": false,
+  "ReviewerSdkVmNativeBuildNetworkMainGitMutation": false
+}

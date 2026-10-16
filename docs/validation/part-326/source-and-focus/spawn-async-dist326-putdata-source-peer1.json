@@ -1,0 +1,66 @@
+{
+  "Status": "PASS_INDEPENDENT_SOURCE_ONLY_SPAWN_ASYNC_DIST326_CANDIDATE2",
+  "Passed": true,
+  "SourceFreezeSha256": "26977A761E183ADD037BE46E03E77EE2A19C938C71A0338B53FCC3F4E97F03E8",
+  "SourceClosureSha256": "081E59EF97B8526D8968BB9126D29FE212088602343C853EC9B64B064594A389",
+  "SourcePaths": 8,
+  "CSharpPaths": 8,
+  "ProductionPaths": 2,
+  "BaselineRowsRehashed": 2366,
+  "CandidateRowsRehashed": 2370,
+  "PublishedParent": "2bd148150ddf2cca49dd2c797d05de3260bf663c",
+  "PublishedParentRowsCompared": 2366,
+  "RawWorkingAndCanonicalLfPublicationRolesDistinct": true,
+  "PublicationLfDifferences": 72,
+  "AllOutsideOwnedParentRowsExact": true,
+  "AllHistoricalTestsExceptOneAdditiveHostRowExact": true,
+  "OldCompiledFixturesPreservedExceptOneAdditiveRegistration": true,
+  "NewOrdinaryCases": 14,
+  "PinnedObjectsVerified": [
+    "erts/emulator/beam/erl_process.c",
+    "erts/emulator/beam/erl_process.h",
+    "erts/emulator/beam/bif.c",
+    "erts/emulator/beam/dist.c",
+    "erts/emulator/beam/erl_init.c",
+    "erts/preloaded/src/erlang.erl"
+  ],
+  "Findings": [],
+  "SourceReviewConclusions": [
+    "Exact true/false tuple options only; last valid wins; invalid occurrence throws before child publication and cannot be erased",
+    "Initial async flag is set under the existing gate before process tables, actor dispatch and trace publication; explicit local spawn options and successful local requests forward it",
+    "Default false stays independent of parent current flag; ordinary spawn and monitor paths use the unchanged optional false default",
+    "Disconnected request filters still defer creator async_dist; reply/link/monitor sender validation unchanged; no connected remote spawn or +pad claim",
+    "Existing parent-dead/system-limit/reference/link/monitor/trace/error rollback branches remain unchanged",
+    "Fourteen appended ordinary contracts cover local fun/MFA/node forms, repeats/default noninheritance, link/monitor, request success/tag, invalid values/shapes and deferred remote validation",
+    "New HOST public first-child query, validation and dead-parent checks are authored, not executed; future actual target/historicalRED/full/native/original gates required"
+  ],
+  "Limitations": [
+    "No original/SDK compile or runtime execution by this reviewer",
+    "Side-effect absence checks support bounded validation paths; they are not a general scheduler or child-allocation measurement",
+    "Full remote spawn/default emulator +pad, broader spawn options and performance remain outside scope"
+  ],
+  "Bindings": [
+    {
+      "Path": "artifacts/spawn-async-dist326-candidate2/source-freeze.json",
+      "Bytes": 3060,
+      "Sha256": "26977A761E183ADD037BE46E03E77EE2A19C938C71A0338B53FCC3F4E97F03E8"
+    },
+    {
+      "Path": "artifacts/spawn-async-dist326-candidate2/source-resource-closure.json",
+      "Bytes": 438532,
+      "Sha256": "081E59EF97B8526D8968BB9126D29FE212088602343C853EC9B64B064594A389"
+    },
+    {
+      "Path": "artifacts/spawn-async-dist326-design1/design-freeze.json",
+      "Bytes": 6195,
+      "Sha256": "0CEB18A2405E70AFD5DA5586F14B525EDCAEFE23BF03C2AADACC51C931983A1E"
+    },
+    {
+      "Path": "artifacts/spawn-async-dist326-candidate2/published-parent-source-preflight.json",
+      "Bytes": 27123,
+      "Sha256": "DBBC901B16BBA82767D2547D1EA529C55129BD346CB8EF4F28E1FD5D44B54388"
+    }
+  ],
+  "NoMainGitMutationBuildSdkVmNativeNetworkExecution": true,
+  "ReviewerScriptSha256": "DFB8081D47F8B348234E400B82F459648CA0C3E3CBA539EAAEFCEB1A2543706C"
+}

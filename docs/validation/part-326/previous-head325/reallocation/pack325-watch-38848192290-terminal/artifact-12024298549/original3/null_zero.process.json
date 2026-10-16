@@ -1,0 +1,25 @@
+{
+  "Arguments": [
+    "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/reallocation-native/otp-source/observer-install/bin/erl",
+    "+S",
+    "1:1",
+    "+SDcpu",
+    "1",
+    "+SDio",
+    "1",
+    "+A",
+    "1",
+    "-noshell",
+    "-noinput",
+    "-pa",
+    "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/reallocation-native/original3/ebin",
+    "-eval",
+    "R=reallocation_observer:run(null_zero),ok=file:write_file(os:getenv(\"REALLOCATION_ETF\"),term_to_binary(R)),io:format(\"~tp.~n\",[R]),halt()."
+  ],
+  "OwnedPid": 87238,
+  "ExitCode": 0,
+  "TimedOut": false,
+  "TimeoutSeconds": 90,
+  "PipesClosed": true,
+  "ParentReaped": true
+}

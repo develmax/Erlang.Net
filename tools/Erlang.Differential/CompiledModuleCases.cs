@@ -625,6 +625,7 @@ public static class CompiledModuleCases
         .. SystemAllocatorQueryCases.Modules,
         .. ClrMemoryCases.Modules,
         .. AsyncDistributionCases.Modules,
-        .. ProcessInfoAsyncDistributionCases.Modules
+        .. ProcessInfoAsyncDistributionCases.Modules,
+        .. SpawnAsyncDistributionCases.Modules
     ];
 }

@@ -1,0 +1,308 @@
+{
+  "Status": "PASS_ACTUAL_MAIN326_6708_FULL_AND_ELEVEN_INTEGRATIONS",
+  "Passed": 6708,
+  "Failed": 0,
+  "All6693PreviousOrderedNamesPreserved": true,
+  "AddedTestNames": [
+    "host_spawn_async_dist_first_instruction_validation_and_dead_parent",
+    "oracle/compiled-module/spawn-async-dist-argument-failure-before-option-validation",
+    "oracle/compiled-module/spawn-async-dist-disconnected-request-defers-creator-options",
+    "oracle/compiled-module/spawn-async-dist-false-and-last-option-wins",
+    "oracle/compiled-module/spawn-async-dist-fun-first-instruction-true",
+    "oracle/compiled-module/spawn-async-dist-invalid-values-and-shapes-never-create-child",
+    "oracle/compiled-module/spawn-async-dist-local-node-fun-first-instruction-true",
+    "oracle/compiled-module/spawn-async-dist-local-node-mfa-first-instruction-true",
+    "oracle/compiled-module/spawn-async-dist-mfa-first-instruction-true",
+    "oracle/compiled-module/spawn-async-dist-parent-true-default-child-and-grandchild-false",
+    "oracle/compiled-module/spawn-async-dist-request-fun-first-instruction-true",
+    "oracle/compiled-module/spawn-async-dist-request-invalid-stays-badopt-before-and-after-valid",
+    "oracle/compiled-module/spawn-async-dist-request-last-option-false-and-custom-reply-tag",
+    "oracle/compiled-module/spawn-async-dist-request-local-node-mfa-first-instruction-true",
+    "oracle/compiled-module/spawn-async-dist-true-with-link-monitor-and-normal-exit"
+  ],
+  "IntegrationResults": 11,
+  "SourcePaths": 13,
+  "CSharpPaths": 8,
+  "SourceResourceClosureFiles": 2370,
+  "SourceFreezeSha256": "371BBABFACB1B2F50D9FD08E40CC42D0DFE60A1B1FBDC0095CCE063F4BAEBBDA",
+  "SourceClosureSha256": "098DD51D477CBD68C004AAF7D45115B06A0F7566370B56A05B75CBCCB68D989F",
+  "Registry": 509,
+  "PreviousRegistry": 509,
+  "PublicMfaDelta": 0,
+  "ErlangMfas": 351,
+  "ApiPresenceIsNotSemanticCompletion": true,
+  "RawRegistrySha256": "19824139853ED60BC6044D5C3874825EFDAAEA4E19930F8A0EF049B00DF8D7AF",
+  "RegistryMetadataDisclosuresRestored": [
+    {
+      "Mfa": [
+        "erlang",
+        "link",
+        1
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending Already-connected guest remote PID LINK output is accepted into finite connection-owned staging before the normal caller waits. Captured-generation LINK, local relation and local receiver priority commit together after actual encoding/capacity preflight. An accepted worker retains its ticket and entry lease across producer cancellation or kill; retained terminal EXIT follows LINK in order. Normal callers cooperatively admit existing owner signals/system queries while awaiting turn or capacity. With async_dist true the caller returns after bounded acceptance without that output wait. Duplicate LINK remains idempotent, link/2 options validate before mutation, and hard staging-cap refusal raises system_limit before relation installation. SDK staging and transport have separately finite accounted-byte/packet budgets; these are SDK resource bounds, not physical native buffer sizes. Accepted UNLINK remains connection-owned and only its guest wait admits caller signals. Pending/autoconnect, remote names/aliases, synchronous embedding setters, complete inbound priority, live SDK network peers, native scheduler/queue-phase identity and general native wire equality remain incomplete. Five actual generated-guest HOST controls cover normal/async turn/capacity ownership and hard-cap refusal. The separate pinned original325 collector remains unexecuted by this pipeline."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "unlink",
+        1
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending Already-connected guest remote PID unlink suppresses the local relation before a captured-generation UNLINK_ID is accepted by the connection-owned worker. Accepted unlink output survives producer death and joins global output drain; ACK and stale EXIT identities preserve relink state. Duplicate unlink is idempotent; pending/autoconnect, a live SDK network peer and native wire equality remain incomplete. Caller-owned already-connected output waits now serially admit existing owner control signals and system queries while waiting for ticket turn or transport capacity, preserving ordinary message receive order and existing nested-wait guards. Cancellation or inbound kill settles producer reservations before completion. Accepted UNLINK workers remain connection-owned; only the guest wait admits its caller signals, without canceling retained output. Immediate nosuspend and accepted async staging do not gain capacity waits. Pending/autoconnect, synchronous embedding setters, complete inbound priority, live SDK peers and native scheduler/wire equality remain incomplete."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "process_flag",
+        2
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending async_dist accepts only true/false, returns the previous per-process boolean and defaults false; a spawned child does not inherit it. Connected PID output ownership follows the captured flag. Pending/autoconnect and async_dist spawn options remain incomplete; process_flag/3 is unchanged."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "exit",
+        2
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending Already-connected guest remote PID explicit exits publish captured-generation EXIT2 (normal opcode 26 or legacy opcode 8) or ALTACT (opcode 37, EXIT flag16 plus priority flag1). Explicit exits do not advance sequence tracing, attach tokens, or perform pseudo-send tracing; exit/3 and exit_signal/3 validate the complete options list and preserve duplicate priority semantics before remote mutation. Accepted async_dist output has finite staged and transport budgets; normal producer-owned output retains cancellation and generation checks. Local and remote exit aliases preserve their existing public contracts. Pending/autoconnect, remote names/aliases, a live SDK network peer and general native wire equality remain incomplete. Caller-owned already-connected output waits now serially admit existing owner control signals and system queries while waiting for ticket turn or transport capacity, preserving ordinary message receive order and existing nested-wait guards. Cancellation or inbound kill settles producer reservations before completion. Accepted UNLINK workers remain connection-owned; only the guest wait admits its caller signals, without canceling retained output. Immediate nosuspend and accepted async staging do not gain capacity waits. Pending/autoconnect, synchronous embedding setters, complete inbound priority, live SDK peers and native scheduler/wire equality remain incomplete."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "send",
+        2
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Registered guest already-connected remote PID sends use owned ordered publication, producer cancellation and generation isolation. Full option validation precedes state checks; connected noconnect may send. Immediate nosuspend conservatively returns WouldSuspend when capacity or captured sequential-trace state prevents admission, without advancing the token. Negotiated sender, trace and priority controls are bounded SDK adaptations; native scheduler phase parity is not claimed. Disconnected/pending autoconnect, remote named destinations/aliases and synchronous embedding helpers remain incomplete. SDK HOST/controller and original-only observations are separate; no live SDK-peer or native wire equality is claimed. With process_flag(async_dist,true), already-connected PID sends use bounded entry-owned accepted packet staging: accepted output survives sender death, retains original order and contributes staged plus transport AccountedBytes to dist_get_stat SendPend. False retains producer-owned319 behavior. A full independent staging budget raises system_limit before acceptance, including send_nosuspend; it is an SDK cap, not a native busy threshold or physical-memory measurement. Original new flag cases and live SDK-peer comparison remain separate gates. Caller-owned already-connected output waits now serially admit existing owner control signals and system queries while waiting for ticket turn or transport capacity, preserving ordinary message receive order and existing nested-wait guards. Cancellation or inbound kill settles producer reservations before completion. Accepted UNLINK workers remain connection-owned; only the guest wait admits its caller signals, without canceling retained output. Immediate nosuspend and accepted async staging do not gain capacity waits. Pending/autoconnect, synchronous embedding setters, complete inbound priority, live SDK peers and native scheduler/wire equality remain incomplete."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "!",
+        2
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Registered guest already-connected remote PID sends use owned ordered publication, producer cancellation and generation isolation. Full option validation precedes state checks; connected noconnect may send. Immediate nosuspend conservatively returns WouldSuspend when capacity or captured sequential-trace state prevents admission, without advancing the token. Negotiated sender, trace and priority controls are bounded SDK adaptations; native scheduler phase parity is not claimed. Disconnected/pending autoconnect, remote named destinations/aliases and synchronous embedding helpers remain incomplete. SDK HOST/controller and original-only observations are separate; no live SDK-peer or native wire equality is claimed. With process_flag(async_dist,true), already-connected PID sends use bounded entry-owned accepted packet staging: accepted output survives sender death, retains original order and contributes staged plus transport AccountedBytes to dist_get_stat SendPend. False retains producer-owned319 behavior. A full independent staging budget raises system_limit before acceptance, including send_nosuspend; it is an SDK cap, not a native busy threshold or physical-memory measurement. Original new flag cases and live SDK-peer comparison remain separate gates. Caller-owned already-connected output waits now serially admit existing owner control signals and system queries while waiting for ticket turn or transport capacity, preserving ordinary message receive order and existing nested-wait guards. Cancellation or inbound kill settles producer reservations before completion. Accepted UNLINK workers remain connection-owned; only the guest wait admits its caller signals, without canceling retained output. Immediate nosuspend and accepted async staging do not gain capacity waits. Pending/autoconnect, synchronous embedding setters, complete inbound priority, live SDK peers and native scheduler/wire equality remain incomplete."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "process_info",
+        2
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending Supported item async_dist now returns the actual target process flag as a boolean from the existing gated runtime state. Scalar and list queries preserve item validation, list order and duplicates; the item remains excluded from the default process_info/1 catalog. Real generated default/transition/other-process/child/dead-target/error contracts and mixed owner queries during connected output waits are covered within the existing PID/query domain. This adds no export and does not complete remote process-info domains, pending/autoconnect, native scheduler parity or general wire equality."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "process_info",
+        1
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Supported logical default subset: twelve fields unregistered, thirteen registered; pinned total_heap_size, heap_size, stack_size and garbage_collection omitted. process_info/2 physical items remain unsupported; eight new original projections pending."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "dist_get_stat",
+        1
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending SendPend includes actual retained staged plus transport encoded AccountedBytes, including accepted async_dist PID output. Queue partitions are bounded SDK accounting, not ERTS driver allocation or whole physical memory. OutputBuffers counts consumed packets; counters and exact-generation retirement remain existing controls."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "send",
+        3
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Registered guest already-connected remote PID sends use owned ordered publication, producer cancellation and generation isolation. Full option validation precedes state checks; connected noconnect may send. Immediate nosuspend conservatively returns WouldSuspend when capacity or captured sequential-trace state prevents admission, without advancing the token. Negotiated sender, trace and priority controls are bounded SDK adaptations; native scheduler phase parity is not claimed. Disconnected/pending autoconnect, remote named destinations/aliases and synchronous embedding helpers remain incomplete. SDK HOST/controller and original-only observations are separate; no live SDK-peer or native wire equality is claimed. With process_flag(async_dist,true), already-connected PID sends use bounded entry-owned accepted packet staging: accepted output survives sender death, retains original order and contributes staged plus transport AccountedBytes to dist_get_stat SendPend. False retains producer-owned319 behavior. A full independent staging budget raises system_limit before acceptance, including send_nosuspend; it is an SDK cap, not a native busy threshold or physical-memory measurement. Original new flag cases and live SDK-peer comparison remain separate gates. Caller-owned already-connected output waits now serially admit existing owner control signals and system queries while waiting for ticket turn or transport capacity, preserving ordinary message receive order and existing nested-wait guards. Cancellation or inbound kill settles producer reservations before completion. Accepted UNLINK workers remain connection-owned; only the guest wait admits its caller signals, without canceling retained output. Immediate nosuspend and accepted async staging do not gain capacity waits. Pending/autoconnect, synchronous embedding setters, complete inbound priority, live SDK peers and native scheduler/wire equality remain incomplete."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "send_nosuspend",
+        2
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Registered guest already-connected remote PID sends use owned ordered publication, producer cancellation and generation isolation. Full option validation precedes state checks; connected noconnect may send. Immediate nosuspend conservatively returns WouldSuspend when capacity or captured sequential-trace state prevents admission, without advancing the token. Negotiated sender, trace and priority controls are bounded SDK adaptations; native scheduler phase parity is not claimed. Disconnected/pending autoconnect, remote named destinations/aliases and synchronous embedding helpers remain incomplete. SDK HOST/controller and original-only observations are separate; no live SDK-peer or native wire equality is claimed. With process_flag(async_dist,true), already-connected PID sends use bounded entry-owned accepted packet staging: accepted output survives sender death, retains original order and contributes staged plus transport AccountedBytes to dist_get_stat SendPend. False retains producer-owned319 behavior. A full independent staging budget raises system_limit before acceptance, including send_nosuspend; it is an SDK cap, not a native busy threshold or physical-memory measurement. Original new flag cases and live SDK-peer comparison remain separate gates. Caller-owned already-connected output waits now serially admit existing owner control signals and system queries while waiting for ticket turn or transport capacity, preserving ordinary message receive order and existing nested-wait guards. Cancellation or inbound kill settles producer reservations before completion. Accepted UNLINK workers remain connection-owned; only the guest wait admits its caller signals, without canceling retained output. Immediate nosuspend and accepted async staging do not gain capacity waits. Pending/autoconnect, synchronous embedding setters, complete inbound priority, live SDK peers and native scheduler/wire equality remain incomplete."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "send_nosuspend",
+        3
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Registered guest already-connected remote PID sends use owned ordered publication, producer cancellation and generation isolation. Full option validation precedes state checks; connected noconnect may send. Immediate nosuspend conservatively returns WouldSuspend when capacity or captured sequential-trace state prevents admission, without advancing the token. Negotiated sender, trace and priority controls are bounded SDK adaptations; native scheduler phase parity is not claimed. Disconnected/pending autoconnect, remote named destinations/aliases and synchronous embedding helpers remain incomplete. SDK HOST/controller and original-only observations are separate; no live SDK-peer or native wire equality is claimed. With process_flag(async_dist,true), already-connected PID sends use bounded entry-owned accepted packet staging: accepted output survives sender death, retains original order and contributes staged plus transport AccountedBytes to dist_get_stat SendPend. False retains producer-owned319 behavior. A full independent staging budget raises system_limit before acceptance, including send_nosuspend; it is an SDK cap, not a native busy threshold or physical-memory measurement. Original new flag cases and live SDK-peer comparison remain separate gates. Caller-owned already-connected output waits now serially admit existing owner control signals and system queries while waiting for ticket turn or transport capacity, preserving ordinary message receive order and existing nested-wait guards. Cancellation or inbound kill settles producer reservations before completion. Accepted UNLINK workers remain connection-owned; only the guest wait admits its caller signals, without canceling retained output. Immediate nosuspend and accepted async staging do not gain capacity waits. Pending/autoconnect, synchronous embedding setters, complete inbound priority, live SDK peers and native scheduler/wire equality remain incomplete."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "group_leader",
+        2
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Registered guest connected-remote assignment uses owned ordered publication with capacity waits, producer cancellation and generation isolation. Disconnected/pending autoconnect and the legacy synchronous embedding setter remain incomplete. SDK controller HOST and original two-node observations are separate roles; no live SDK-peer or native wire equality is claimed. Caller-owned already-connected output waits now serially admit existing owner control signals and system queries while waiting for ticket turn or transport capacity, preserving ordinary message receive order and existing nested-wait guards. Cancellation or inbound kill settles producer reservations before completion. Accepted UNLINK workers remain connection-owned; only the guest wait admits its caller signals, without canceling retained output. Immediate nosuspend and accepted async staging do not gain capacity waits. Pending/autoconnect, synchronous embedding setters, complete inbound priority, live SDK peers and native scheduler/wire equality remain incomplete."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "link",
+        2
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending Already-connected guest remote PID LINK output is accepted into finite connection-owned staging before the normal caller waits. Captured-generation LINK, local relation and local receiver priority commit together after actual encoding/capacity preflight. An accepted worker retains its ticket and entry lease across producer cancellation or kill; retained terminal EXIT follows LINK in order. Normal callers cooperatively admit existing owner signals/system queries while awaiting turn or capacity. With async_dist true the caller returns after bounded acceptance without that output wait. Duplicate LINK remains idempotent, link/2 options validate before mutation, and hard staging-cap refusal raises system_limit before relation installation. SDK staging and transport have separately finite accounted-byte/packet budgets; these are SDK resource bounds, not physical native buffer sizes. Accepted UNLINK remains connection-owned and only its guest wait admits caller signals. Pending/autoconnect, remote names/aliases, synchronous embedding setters, complete inbound priority, live SDK network peers, native scheduler/queue-phase identity and general native wire equality remain incomplete. Five actual generated-guest HOST controls cover normal/async turn/capacity ownership and hard-cap refusal. The separate pinned original325 collector remains unexecuted by this pipeline."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "exit",
+        3
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending Already-connected guest remote PID explicit exits publish captured-generation EXIT2 (normal opcode 26 or legacy opcode 8) or ALTACT (opcode 37, EXIT flag16 plus priority flag1). Explicit exits do not advance sequence tracing, attach tokens, or perform pseudo-send tracing; exit/3 and exit_signal/3 validate the complete options list and preserve duplicate priority semantics before remote mutation. Accepted async_dist output has finite staged and transport budgets; normal producer-owned output retains cancellation and generation checks. Local and remote exit aliases preserve their existing public contracts. Pending/autoconnect, remote names/aliases, a live SDK network peer and general native wire equality remain incomplete. Caller-owned already-connected output waits now serially admit existing owner control signals and system queries while waiting for ticket turn or transport capacity, preserving ordinary message receive order and existing nested-wait guards. Cancellation or inbound kill settles producer reservations before completion. Accepted UNLINK workers remain connection-owned; only the guest wait admits its caller signals, without canceling retained output. Immediate nosuspend and accepted async staging do not gain capacity waits. Pending/autoconnect, synchronous embedding setters, complete inbound priority, live SDK peers and native scheduler/wire equality remain incomplete."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "exit_signal",
+        2
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending Already-connected guest remote PID explicit exits publish captured-generation EXIT2 (normal opcode 26 or legacy opcode 8) or ALTACT (opcode 37, EXIT flag16 plus priority flag1). Explicit exits do not advance sequence tracing, attach tokens, or perform pseudo-send tracing; exit/3 and exit_signal/3 validate the complete options list and preserve duplicate priority semantics before remote mutation. Accepted async_dist output has finite staged and transport budgets; normal producer-owned output retains cancellation and generation checks. Local and remote exit aliases preserve their existing public contracts. Pending/autoconnect, remote names/aliases, a live SDK network peer and general native wire equality remain incomplete. Caller-owned already-connected output waits now serially admit existing owner control signals and system queries while waiting for ticket turn or transport capacity, preserving ordinary message receive order and existing nested-wait guards. Cancellation or inbound kill settles producer reservations before completion. Accepted UNLINK workers remain connection-owned; only the guest wait admits its caller signals, without canceling retained output. Immediate nosuspend and accepted async staging do not gain capacity waits. Pending/autoconnect, synchronous embedding setters, complete inbound priority, live SDK peers and native scheduler/wire equality remain incomplete."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "exit_signal",
+        3
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending Already-connected guest remote PID explicit exits publish captured-generation EXIT2 (normal opcode 26 or legacy opcode 8) or ALTACT (opcode 37, EXIT flag16 plus priority flag1). Explicit exits do not advance sequence tracing, attach tokens, or perform pseudo-send tracing; exit/3 and exit_signal/3 validate the complete options list and preserve duplicate priority semantics before remote mutation. Accepted async_dist output has finite staged and transport budgets; normal producer-owned output retains cancellation and generation checks. Local and remote exit aliases preserve their existing public contracts. Pending/autoconnect, remote names/aliases, a live SDK network peer and general native wire equality remain incomplete. Caller-owned already-connected output waits now serially admit existing owner control signals and system queries while waiting for ticket turn or transport capacity, preserving ordinary message receive order and existing nested-wait guards. Cancellation or inbound kill settles producer reservations before completion. Accepted UNLINK workers remain connection-owned; only the guest wait admits its caller signals, without canceling retained output. Immediate nosuspend and accepted async staging do not gain capacity waits. Pending/autoconnect, synchronous embedding setters, complete inbound priority, live SDK peers and native scheduler/wire equality remain incomplete."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "load_nif",
+        2
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Exact pinned indirect BIF only: apply/3 and external-fun invocation return the original bad_lib error. Successful literal native loading, the default instruction handler and general native ABI remain incomplete."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "alloc_info",
+        1
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "CLR sys_alloc metadata only; m=dotnet_native_memory is a declared backend adaptation. Recognized unsupported allocators raise notsup. Full OTP allocator/carrier sizes and disabled-backend profiles remain unsupported."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "alloc_sizes",
+        1
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "CLR sys_alloc metadata only; m=dotnet_native_memory is a declared backend adaptation. Recognized unsupported allocators raise notsup. Full OTP allocator/carrier sizes and disabled-backend profiles remain unsupported."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "memory",
+        0
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Measured CLR SDK-observed payload profile within the loaded SDK type universe: real backing identities, process slot/mailbox payloads and joined native backing-request bytes. ETS has no storage implementation. Excludes CLR headers, unrelated application heaps, JIT, OS footprint and ERTS allocator/physical byte parity; captures are not atomic across sources."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "memory",
+        1
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Measured CLR SDK-observed payload profile within the loaded SDK type universe: real backing identities, process slot/mailbox payloads and joined native backing-request bytes. ETS has no storage implementation. Excludes CLR headers, unrelated application heaps, JIT, OS footprint and ERTS allocator/physical byte parity; captures are not atomic across sources."
+    }
+  ],
+  "TwentyTwoPriorCustomLimitsExact": true,
+  "UpdatedScopeMfas": [
+    [
+      "erlang",
+      "spawn_opt",
+      2
+    ],
+    [
+      "erlang",
+      "spawn_opt",
+      3
+    ],
+    [
+      "erlang",
+      "spawn_opt",
+      4
+    ],
+    [
+      "erlang",
+      "spawn_opt",
+      5
+    ],
+    [
+      "erlang",
+      "spawn_request",
+      2
+    ],
+    [
+      "erlang",
+      "spawn_request",
+      3
+    ],
+    [
+      "erlang",
+      "spawn_request",
+      4
+    ],
+    [
+      "erlang",
+      "spawn_request",
+      5
+    ]
+  ],
+  "SpawnRequest1ExactParent": true,
+  "UnrelatedMfaRowsExactParent": true,
+  "ExplicitLocalSpawnAsyncDistScopeOnly": true,
+  "DefaultFalseNoninheritanceAndPrepublicationInitialization": true,
+  "DisconnectedRequestCreatorValidationRemainsDeferred": true,
+  "PadPriorityRemoteAndAutoconnectRemainPartial": true,
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Inputs": 1109,
+      "Sha256": "A673C88561EC5E31E1F69BE5795519A3AA658E013B6000910B03E192A520E6A5",
+      "Workflow": ".github/workflows/nif-pending-native.yml",
+      "Pin": "REVIEWED_SOURCE_PLAN_SHA256",
+      "AllNonFilesImportAbiPolicyFieldsUnchanged": true,
+      "InputPathSetUnchanged": true
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Inputs": 1134,
+      "Sha256": "53500EFC145705B70364DE7BC19E60FBCE55C62C7C4C00CB66712B1B8F01F9E4",
+      "Workflow": ".github/workflows/nif-reallocation-native.yml",
+      "Pin": "REVIEWED_REALLOCATION_PLAN_SHA256",
+      "AllNonFilesImportAbiPolicyFieldsUnchanged": true,
+      "InputPathSetUnchanged": true
+    }
+  ],
+  "CollectorOriginalExecutedByFullPipeline": false,
+  "NativeFixtureExecutedByFullPipeline": false,
+  "FullExecutionContext": "Outside sandbox",
+  "GuardSourceSha256": "E8D377FBE1DDCF746AF4C7BF7467794553FBCDD60203D99C3C45DA0EAD8B984F"
+}

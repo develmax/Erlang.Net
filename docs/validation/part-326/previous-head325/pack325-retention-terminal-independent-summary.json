@@ -1,0 +1,111 @@
+{
+  "Status": "PASS_ACTUAL_PUBLISHED325_NEW_ORIGINAL_RETAINED_LINK_NORMAL_AND_ASYNC_WITH_SEPARATE_INHERITED_TYPED_REPLAYS",
+  "Head": "2bd148150ddf2cca49dd2c797d05de3260bf663c",
+  "Run": 38848192329,
+  "Job": 116803360014,
+  "Artifact": 12024163929,
+  "Attempt": 1,
+  "NewRetentionGuard": {
+    "Path": "artifacts/pack325-retention-independent-guard.json",
+    "Sha256": "C6318DE11FEA81152E3916F04CF6B55B92EA11C758AC121772A24FE5BA2CB5AD"
+  },
+  "NewRetentionCases": [
+    {
+      "Mode": "normal",
+      "Nodes": {
+        "a": "lr325_normal_a_2b55bb467b60@127.0.0.1",
+        "b": "lr325_normal_b_2b55bb467b60@127.0.0.1",
+        "c": "lr325_normal_c_2b55bb467b60@127.0.0.1"
+      },
+      "Nonce": "2b55bb467b604d88ab2f716df4dbde20",
+      "CompiledImagesPerRole": 3,
+      "ActualVmRoles": 3,
+      "FullOwnerQuery": true,
+      "NormalTargetBusy": true,
+      "AsyncReturnedBeforeDrainWithoutTargetBusy": false,
+      "IndependentCPublicKillAndFreshDownKilledBeforeCont": true,
+      "ReceiverNonceLinkedExitKilledAfterCont": true,
+      "StoppedSeconds": 0.429930754,
+      "AllWorkerAndVmCleanupSettled": true
+    },
+    {
+      "Mode": "async",
+      "Nodes": {
+        "a": "lr325_async_a_4f71536c284c@127.0.0.1",
+        "b": "lr325_async_b_4f71536c284c@127.0.0.1",
+        "c": "lr325_async_c_4f71536c284c@127.0.0.1"
+      },
+      "Nonce": "4f71536c284c4646839124e5319aee00",
+      "CompiledImagesPerRole": 3,
+      "ActualVmRoles": 3,
+      "FullOwnerQuery": true,
+      "NormalTargetBusy": false,
+      "AsyncReturnedBeforeDrainWithoutTargetBusy": true,
+      "IndependentCPublicKillAndFreshDownKilledBeforeCont": true,
+      "ReceiverNonceLinkedExitKilledAfterCont": true,
+      "StoppedSeconds": 0.436821009,
+      "AllWorkerAndVmCleanupSettled": true
+    }
+  ],
+  "NewRetentionCompiledImages": [
+    {
+      "Module": "distribution_link_retention325",
+      "Bytes": 17224,
+      "Sha256": "7ABE549D11862F0B22C65747E3A872593FB4503D396152713CDBBD18D0C97A2F",
+      "FullImageMd5": "8EE5DF0B19BA4D3FA5AA6B50A4C88AA7"
+    },
+    {
+      "Module": "distribution_link_retention325_driver",
+      "Bytes": 10088,
+      "Sha256": "83E7824BA5E1E44E5AE8D755BE797A6075CD4ACCA094252F0196201AFE2769F8",
+      "FullImageMd5": "8B3989C77715FC77D4315D5E9AF1CD0C"
+    },
+    {
+      "Module": "distribution_link_receiver325",
+      "Bytes": 2464,
+      "Sha256": "4097B2547CA82029B85A7BFFE82EDA5169594F2B8F37710450B8F2AA64B9CEA7",
+      "FullImageMd5": "2E353BD061BCED5E059F08C68E1E7789"
+    }
+  ],
+  "InheritedTypedGuards": [
+    {
+      "Path": "artifacts/pack325-group-leader-independent-guard.json",
+      "Sha256": "49A5E6517A3D85E0F4C25FACA8D7EAC85D4161CAF22F41F897295217365D0CCC",
+      "Status": "PASS_INDEPENDENT_EXACT_HEAD323_ACTUAL_ORIGINAL_TWO_NODE_GROUP_LEADER_FOUR_CONTRACTS"
+    },
+    {
+      "Path": "artifacts/pack325-guest-send-independent-guard.json",
+      "Sha256": "AA9E41ABD214CF728D621E5821AC441AF747E0FF59BB7D063DB92155308383B2",
+      "Status": "PASS_INDEPENDENT_EXACT_HEAD323_ACTUAL_ORIGINAL_TWO_NODE_GUEST_PUBLIC_SEND_SEVEN_CONTRACTS"
+    },
+    {
+      "Path": "artifacts/pack325-guest-links-independent-guard.json",
+      "Sha256": "F045F54606CDF9F398F28421FE90B3EA9286A4002D7022C504B71576B5142D9E",
+      "Status": "PASS_INDEPENDENT_EXACT_HEAD323_ACTUAL_ORIGINAL_TWO_NODE_GUEST_LINK_UNLINK_SEVEN_CONTRACTS"
+    },
+    {
+      "Path": "artifacts/pack325-guest-exit-independent-guard.json",
+      "Sha256": "6F916DA810F93DD7FBB3F267523154A21FE1CDB0DCB02A4F9386959E5C8E36BD",
+      "Status": "PASS_INDEPENDENT_EXACT_HEAD325_ACTUAL_ORIGINAL_TWO_NODE_GUEST_EXPLICIT_EXIT_EIGHT_CONTRACTS"
+    },
+    {
+      "Path": "artifacts/pack325-control-wait-independent-guard.json",
+      "Sha256": "F9A0D8A2584A1069E2D46C3D177C8364F9B4643ADA648CE9DBDEA5BF4EF59F15",
+      "Status": "PASS_INDEPENDENT_PUBLISHED325_ACTUAL_THREE_NODE_BUSY_QUERY_REMOTE_KILL_TWO_SCENARIOS"
+    }
+  ],
+  "InheritedGuardStatusLabelsMayRetainEarlier323LiteralButHeadRunAndRawInputsAreActual325": true,
+  "ExitRawReportDisplayEqualityFirstReaderRefusalPreserved": true,
+  "ExitSubsequentEmptyDifferenceDiagnosisAndGuard3ExpectedSetPreconditionPreserved": true,
+  "ExitTypedVerifierAllEightCasesAndNonDisplayAssertionsExact": true,
+  "RawEtfOrReportNormalized": false,
+  "RawRetentionCollectionIncludedComplete": true,
+  "InheritedRawCollectionsNotIncludedCompleteByThisLeanSupplement": true,
+  "ExternalWholeApiArtifactArchiveIdentityOnly": {
+    "Sha256": "88EF232407BE5E12EE11623A4FA077334A11C94B5BC24D853474A6EB471083ED",
+    "Copied": false
+  },
+  "Original326FourteenOrdinaryCasesObserved": false,
+  "NativeWireOrSdkLivePeerOrPhaseEqualityClaimed": false,
+  "ReviewerExecutedSdkVmNativeNetworkOrMainGitMutation": false
+}

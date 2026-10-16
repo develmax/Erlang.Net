@@ -2781,7 +2781,7 @@
     "Arity": 2,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:spawn_opt/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending Explicit {async_dist,true|false} is supported by the existing local fun/MFA and local-node spawn_opt routes. Repeated valid options use the last value; invalid values or shapes reject before child creation through existing wrapper error handling. The child flag is initialized before process publication, dispatch and sequence-spawn callbacks. Its default remains false and it does not inherit the parent flag. Existing monitor/link, argument validation and disconnected crasher adaptation remain bounded existing behavior. This does not implement +pad VM defaults, other unsupported priority/allocator spawn options, connected remote creation, pending/autoconnect, full native scheduling or general remote protocol parity. Actual SDK validation covers first child observation, repeated/invalid options, default noninheritance and existing lifecycle; current original326 execution remains pending."
   },
   {
     "Module": "erlang",
@@ -2789,7 +2789,7 @@
     "Arity": 3,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:spawn_opt/3",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending Explicit {async_dist,true|false} is supported by the existing local fun/MFA and local-node spawn_opt routes. Repeated valid options use the last value; invalid values or shapes reject before child creation through existing wrapper error handling. The child flag is initialized before process publication, dispatch and sequence-spawn callbacks. Its default remains false and it does not inherit the parent flag. Existing monitor/link, argument validation and disconnected crasher adaptation remain bounded existing behavior. This does not implement +pad VM defaults, other unsupported priority/allocator spawn options, connected remote creation, pending/autoconnect, full native scheduling or general remote protocol parity. Actual SDK validation covers first child observation, repeated/invalid options, default noninheritance and existing lifecycle; current original326 execution remains pending."
   },
   {
     "Module": "erlang",
@@ -2797,7 +2797,7 @@
     "Arity": 4,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:spawn_opt/4",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending Explicit {async_dist,true|false} is supported by the existing local fun/MFA and local-node spawn_opt routes. Repeated valid options use the last value; invalid values or shapes reject before child creation through existing wrapper error handling. The child flag is initialized before process publication, dispatch and sequence-spawn callbacks. Its default remains false and it does not inherit the parent flag. Existing monitor/link, argument validation and disconnected crasher adaptation remain bounded existing behavior. This does not implement +pad VM defaults, other unsupported priority/allocator spawn options, connected remote creation, pending/autoconnect, full native scheduling or general remote protocol parity. Actual SDK validation covers first child observation, repeated/invalid options, default noninheritance and existing lifecycle; current original326 execution remains pending."
   },
   {
     "Module": "erlang",
@@ -2805,7 +2805,7 @@
     "Arity": 5,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:spawn_opt/5",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending Explicit {async_dist,true|false} is supported by the existing local fun/MFA and local-node spawn_opt routes. Repeated valid options use the last value; invalid values or shapes reject before child creation through existing wrapper error handling. The child flag is initialized before process publication, dispatch and sequence-spawn callbacks. Its default remains false and it does not inherit the parent flag. Existing monitor/link, argument validation and disconnected crasher adaptation remain bounded existing behavior. This does not implement +pad VM defaults, other unsupported priority/allocator spawn options, connected remote creation, pending/autoconnect, full native scheduling or general remote protocol parity. Actual SDK validation covers first child observation, repeated/invalid options, default noninheritance and existing lifecycle; current original326 execution remains pending."
   },
   {
     "Module": "erlang",
@@ -2821,7 +2821,7 @@
     "Arity": 2,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:spawn_request/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending In existing successful local option-bearing spawn_request overloads, explicit {async_dist,true|false} initializes the child before process publication, dispatch and sequence-spawn callbacks. Repeated valid values use the last option; invalid local creator values retain existing badopt/reply handling. Forms without an options argument keep default false and do not inherit the parent flag. Request/reply mechanics remain separate from the child async_dist flag; existing reply tags, monitor/link options and wrapper validation ordering are preserved. Disconnected requests still defer creator-option validation and preserve sender reply/link/monitor validation, without claiming a real remote child. This does not implement +pad defaults, connected remote spawning, unsupported priority/allocator options, pending/autoconnect or full native protocol/scheduler parity; current original326 execution remains pending."
   },
   {
     "Module": "erlang",
@@ -2829,7 +2829,7 @@
     "Arity": 3,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:spawn_request/3",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending In existing successful local option-bearing spawn_request overloads, explicit {async_dist,true|false} initializes the child before process publication, dispatch and sequence-spawn callbacks. Repeated valid values use the last option; invalid local creator values retain existing badopt/reply handling. Forms without an options argument keep default false and do not inherit the parent flag. Request/reply mechanics remain separate from the child async_dist flag; existing reply tags, monitor/link options and wrapper validation ordering are preserved. Disconnected requests still defer creator-option validation and preserve sender reply/link/monitor validation, without claiming a real remote child. This does not implement +pad defaults, connected remote spawning, unsupported priority/allocator options, pending/autoconnect or full native protocol/scheduler parity; current original326 execution remains pending."
   },
   {
     "Module": "erlang",
@@ -2837,7 +2837,7 @@
     "Arity": 4,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:spawn_request/4",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending In existing successful local option-bearing spawn_request overloads, explicit {async_dist,true|false} initializes the child before process publication, dispatch and sequence-spawn callbacks. Repeated valid values use the last option; invalid local creator values retain existing badopt/reply handling. Forms without an options argument keep default false and do not inherit the parent flag. Request/reply mechanics remain separate from the child async_dist flag; existing reply tags, monitor/link options and wrapper validation ordering are preserved. Disconnected requests still defer creator-option validation and preserve sender reply/link/monitor validation, without claiming a real remote child. This does not implement +pad defaults, connected remote spawning, unsupported priority/allocator options, pending/autoconnect or full native protocol/scheduler parity; current original326 execution remains pending."
   },
   {
     "Module": "erlang",
@@ -2845,7 +2845,7 @@
     "Arity": 5,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:spawn_request/5",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending In existing successful local option-bearing spawn_request overloads, explicit {async_dist,true|false} initializes the child before process publication, dispatch and sequence-spawn callbacks. Repeated valid values use the last option; invalid local creator values retain existing badopt/reply handling. Forms without an options argument keep default false and do not inherit the parent flag. Request/reply mechanics remain separate from the child async_dist flag; existing reply tags, monitor/link options and wrapper validation ordering are preserved. Disconnected requests still defer creator-option validation and preserve sender reply/link/monitor validation, without claiming a real remote child. This does not implement +pad defaults, connected remote spawning, unsupported priority/allocator options, pending/autoconnect or full native protocol/scheduler parity; current original326 execution remains pending."
   },
   {
     "Module": "erlang",

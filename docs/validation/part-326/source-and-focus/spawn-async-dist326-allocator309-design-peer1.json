@@ -1,0 +1,32 @@
+{
+  "Status": "PASS_INDEPENDENT_SOURCE_DESIGN_REVIEW326_EXPLICIT_LOCAL_SPAWN_ASYNC_DIST",
+  "Passed": true,
+  "DesignFreezeSha256": "0CEB18A2405E70AFD5DA5586F14B525EDCAEFE23BF03C2AADACC51C931983A1E",
+  "DesignFilesVerified": 2,
+  "ActualSdkSourceBindingsVerified": 9,
+  "PinnedWholeGitObjectsAndExactExcerptsVerified": 6,
+  "PinnedOtp": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ProposedProductionPaths": [
+    "src/Erlang.Runtime/ProcessSpawnOptions.cs",
+    "src/Erlang.Runtime/ProcessRuntime.cs"
+  ],
+  "PublicMfaDelta": 0,
+  "Findings": [],
+  "Checks": [
+    "OTP exact two-tuple boolean async_dist sets or clears SPO_ASYNC_DIST; valid duplicates last wins; invalid option state sticky; improper tail classification kept separate.",
+    "Default spawn flags exclude SPO_ASYNC_DIST, creation uses local flags and copies explicit option before p->flags publication; parent flag is not inherited. +pad configurable VM defaults explicitly excluded.",
+    "SpawnTraced must assign initial bool immediately after constructing ProcessContext, before process/slot/executing registration, actor dispatch, linking/sequence tracing callbacks. Optional default false preserves all existing plain/HOST callers.",
+    "SpawnWithOptions and local successful SpawnRequest are the two forwarding sites; current options parsers fully validate before child creation. Existing failure/rollback/link/monitor/reply and wrapper error precedence remain unchanged.",
+    "Disconnected request parser intentionally filters only sender reply/link/monitor controls; adding local creator option does not make invalid remote async_dist become premature badopt. Native dist sender default branch defers creator options; remote receiver parses separately.",
+    "Disconnected spawn_opt existing crasher/full creator validation adaptation remains distinct; no new remote child/protocol claim.",
+    "Planned first-child-expression observations, duplicates/invalid-before-valid/no publication, default noninheritance, local node forms, monitor/link/reply identities and same-helper historical semantic RED are meaningful; no invented child/reply ordering."
+  ],
+  "ImplementationConditions": [
+    "Keep ProcessSpawnRequestOptions.Parse(disconnected=true) behavior byte/semantic unchanged.",
+    "Do not set flag in child body or after SpawnTraced returns.",
+    "Do not claim +pad, connected remote spawning, all allocator/priority options or remote validation completion."
+  ],
+  "ReviewerAuthoredDesignOrImplementation": false,
+  "ImplementationExecutionByReviewer": false,
+  "MainGitMutationBuildSdkVmNativeNetworkByReviewer": false
+}

@@ -1,0 +1,23 @@
+{
+  "Status": "FAIL",
+  "Identities": [
+    {
+      "Name": "Erlang.Tests",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\spawn-async-dist326-historical-red1\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "Sha256": "8BEA40F87FAAC671598640CDD167B2729E3FD8D719F4D889FB7200B660943076"
+    },
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\spawn-async-dist326-historical-red1\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Sha256": "A2CF7E942D87289EA102DA04E7BA90E4B3CD47334E9A25901BB2987181365FC5"
+    }
+  ],
+  "Cases": [
+    {
+      "Name": "SpawnAsyncDistributionHostChecks:RunInitialization",
+      "Status": "FAIL",
+      "ElapsedMilliseconds": 354,
+      "Exception": "Erlang.ErlangException: badarg\r\n   at Erlang.ProcessSpawnOptionRegistrations.Start(ProcessContext context, IReadOnlyList\u00601 arguments) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\spawn-async-dist326-historical-red1\\candidate\\src\\Erlang.Runtime\\ProcessSpawnOptionRegistrations.cs:line 75\r\n   at Erlang.ModuleRegistry.Call(ProcessContext context, String module, String function, Term[] arguments) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\spawn-async-dist326-historical-red1\\candidate\\src\\Erlang.Runtime\\ModuleRegistry.cs:line 246\r\n   at Erlang.Tests.SpawnAsyncDistributionHostChecks.FirstInstruction(ProcessContext owner, Boolean request, Term options, Boolean expected) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\spawn-async-dist326-historical-red1\\candidate\\tests\\Erlang.Tests\\SpawnAsyncDistributionHostChecks.cs:line 116\r\n   at Erlang.Tests.SpawnAsyncDistributionHostChecks.FirstInstruction(ProcessContext owner, Boolean request, Term options, Boolean expected) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\spawn-async-dist326-historical-red1\\candidate\\tests\\Erlang.Tests\\SpawnAsyncDistributionHostChecks.cs:line 174\r\n   at Erlang.Tests.SpawnAsyncDistributionHostChecks.\u003C\u003Ec__DisplayClass1_0.\u003C\u003CRunInitialization\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\spawn-async-dist326-historical-red1\\candidate\\tests\\Erlang.Tests\\SpawnAsyncDistributionHostChecks.cs:line 34\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.\u003C\u003Ec__DisplayClass9_0\u00601.\u003C\u003CInvokeAsync\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\spawn-async-dist326-historical-red1\\candidate\\tests\\Erlang.Tests\\RuntimeNodeFoundationHostActor.cs:line 43\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func\u00602 command) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\spawn-async-dist326-historical-red1\\candidate\\tests\\Erlang.Tests\\RuntimeNodeFoundationHostActor.cs:line 51\r\n   at Erlang.Tests.SpawnAsyncDistributionHostChecks.RunInitialization() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\spawn-async-dist326-historical-red1\\candidate\\tests\\Erlang.Tests\\SpawnAsyncDistributionHostChecks.cs:line 19\r\n   at Erlang.Tests.SpawnAsyncDistributionHostChecks.RunInitialization() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\spawn-async-dist326-historical-red1\\candidate\\tests\\Erlang.Tests\\SpawnAsyncDistributionHostChecks.cs:line 19\r\n   at Erlang.Tests.SpawnAsyncDistributionHostChecks.RunInitialization() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\spawn-async-dist326-historical-red1\\candidate\\tests\\Erlang.Tests\\SpawnAsyncDistributionHostChecks.cs:line 19\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\source-purge-stage315-focus\\Program.cs:line 22"
+    }
+  ]
+}

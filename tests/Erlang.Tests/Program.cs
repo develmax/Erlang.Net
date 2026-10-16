@@ -92,6 +92,7 @@ Test(Erlang.Tests.DistributionRetainedLinkHostNames.Test, Erlang.Tests.Distribut
 Test(Erlang.Tests.ActualMinimalBeamGuestSendHostNames.Test, Erlang.Tests.ActualMinimalBeamGuestSendHostChecks.Run);
 Test(Erlang.Tests.AsyncDistributionHostNames.Test, Erlang.Tests.AsyncDistributionHostChecks.Run);
 Test(Erlang.Tests.ProcessInfoAsyncDistributionHostNames.Test, Erlang.Tests.ProcessInfoAsyncDistributionHostChecks.Run);
+Test(Erlang.Tests.SpawnAsyncDistributionHostNames.Test, Erlang.Tests.SpawnAsyncDistributionHostChecks.Run);
 Test(Erlang.Tests.ModuleDeletionHostNames.Test, Erlang.Tests.ModuleDeletionHostChecks.Run);
 Test(Erlang.Tests.SourceTailHostNames.Test, Erlang.Tests.SourceTailHostChecks.Run);
 Test(Erlang.Tests.RuntimeTailHostNames.Test, Erlang.Tests.RuntimeTailHostChecks.Run);

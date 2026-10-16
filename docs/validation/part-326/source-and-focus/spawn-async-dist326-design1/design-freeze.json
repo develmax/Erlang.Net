@@ -1,0 +1,198 @@
+{
+  "Status": "SOURCE_ONLY_BOUNDED326_EXPLICIT_SPAWN_ASYNC_DIST_DESIGN_REQUIRES_ROOT_REVIEW_NO_IMPLEMENTATION",
+  "PinnedOtp": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ParentMain324FreezeSha256": "371AAF15D4F5912F157B864DB6FCE759F880C793B9770639C9C2B07FF719B884",
+  "ParentClosureSha256": "A5A3A99DF27EA4B496557F6DF37F7FB0941BE59C8DBF09F12D0C6D949253651B",
+  "AuditedCurrentMain325FreezeSha256": "7313C3CEB35A75C39FDEF4438E7ECA73459BA2FD48F02C477C9C9387C53E1068",
+  "CurrentAuditedFilesExactParent324": true,
+  "SourceBindings": [
+    {
+      "Path": "src/Erlang.Runtime/ProcessSpawnOptions.cs",
+      "Bytes": 2763,
+      "Sha256": "5A8BE271C4215DCB6043CB86D8451A6176BAA4E9E7DF06EAF68D0B7020A5F668"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessSpawnRequestOptions.cs",
+      "Bytes": 3118,
+      "Sha256": "34A8B3E89D78F9AFEE76FA2779BAA09A080CD4CB8250F8F95BC72FD48DC93584"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessSpawnOptionRegistrations.cs",
+      "Bytes": 3782,
+      "Sha256": "CE7F176F9CCC616697396BF11E6E4C9CFF02CDD234CB349ECE283C505D4EAE05"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessSpawnRequestRegistrations.cs",
+      "Bytes": 5860,
+      "Sha256": "D5E7CC5077E48361BC62894C4940A06D08894570CEA1E59AF96BD8A31EE23882"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
+      "Bytes": 63554,
+      "Sha256": "1436A30AE7C2E90852B2D6327078E1971AF88ED7EAC5929C90C063ED301A7B17"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.cs",
+      "Bytes": 12703,
+      "Sha256": "76092C7CCE069042B3AB50FF4DF6A183918BDD8E393D9BD829AF370977903FEA"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessSpawnRegistrations.cs",
+      "Bytes": 3377,
+      "Sha256": "D7BE144E1911EDF774ACFA426657A96555F2F90B03D5A7E9D77CBC37DC1336EF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NodeSpawnRegistrations.cs",
+      "Bytes": 4132,
+      "Sha256": "0B4D2577253E0680357295522976CE3924C7655842C52B3D3AEDF1C76D87DD1B"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessAsyncDistributionNames.cs",
+      "Bytes": 122,
+      "Sha256": "81E9DC4B99C40CA32ECE3EC254FC4EBCC6AEB61790560723A6D952DC2B110A38"
+    }
+  ],
+  "PinnedObjects": [
+    {
+      "Path": "erts/emulator/beam/erl_process.c",
+      "WholeFileSha256": "89CBDB55BE2A97E77B2450BB3D339CA6DB934B9C4BF556EAD29B4EAE88072DC9",
+      "WholeFileBytes": 459197,
+      "Snapshot": "pin/erts/emulator/beam/erl_process.c",
+      "LineRanges": [
+        [
+          128,
+          133
+        ],
+        [
+          12221,
+          12305
+        ],
+        [
+          12418,
+          12444
+        ],
+        [
+          12549,
+          12556
+        ]
+      ],
+      "Excerpt": "pin/erts__emulator__beam__erl_process.c.excerpt.txt",
+      "ExcerptSha256": "79C7E94DD4FDA0835B19C2B27F9F1166953B9190FE7C9C4B7AB8FAD2F1068B36"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_process.h",
+      "WholeFileSha256": "DF0079F48C4C05E2BF453BA29D03CF656C9A6817F6BF88F5014873256DFFE0D5",
+      "WholeFileBytes": 105033,
+      "Snapshot": "pin/erts/emulator/beam/erl_process.h",
+      "LineRanges": [
+        [
+          1505,
+          1514
+        ],
+        [
+          1566,
+          1577
+        ]
+      ],
+      "Excerpt": "pin/erts__emulator__beam__erl_process.h.excerpt.txt",
+      "ExcerptSha256": "32EB304C9F8817AB0DF2AB294AA18D42A56E09CF4173B2450786504EF89BEDF2"
+    },
+    {
+      "Path": "erts/emulator/beam/bif.c",
+      "WholeFileSha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC",
+      "WholeFileBytes": 169612,
+      "Snapshot": "pin/erts/emulator/beam/bif.c",
+      "LineRanges": [
+        [
+          1024,
+          1064
+        ],
+        [
+          1078,
+          1127
+        ]
+      ],
+      "Excerpt": "pin/erts__emulator__beam__bif.c.excerpt.txt",
+      "ExcerptSha256": "F0F9830EB1874E93F90F5B9B409CDCCF0DBB0179682E81E873CED012D16D2929"
+    },
+    {
+      "Path": "erts/emulator/beam/dist.c",
+      "WholeFileSha256": "67711AB6A7C9FCE0F4D5B40B06D4DDE5F61E9C8BDFAAFB1D0A22988D04657EEB",
+      "WholeFileBytes": 220150,
+      "Snapshot": "pin/erts/emulator/beam/dist.c",
+      "LineRanges": [
+        [
+          2899,
+          2936
+        ],
+        [
+          5827,
+          5973
+        ]
+      ],
+      "Excerpt": "pin/erts__emulator__beam__dist.c.excerpt.txt",
+      "ExcerptSha256": "A5A98623714BFCACDE00A1EB35A818E81DFBF9710FB8317A4239DF80AE3336EF"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_init.c",
+      "WholeFileSha256": "427B8918B7300B6998B2B1D5123A2904C59A67BA917E20461C9300B62D38B027",
+      "WholeFileBytes": 89801,
+      "Snapshot": "pin/erts/emulator/beam/erl_init.c",
+      "LineRanges": [
+        [
+          1384,
+          1397
+        ]
+      ],
+      "Excerpt": "pin/erts__emulator__beam__erl_init.c.excerpt.txt",
+      "ExcerptSha256": "11807A92CB6F96F63284AB6E65122BD1BB6FC914D55B6407B7B04CBEB3491598"
+    },
+    {
+      "Path": "erts/preloaded/src/erlang.erl",
+      "WholeFileSha256": "00D7672A16325E43CA221C6D6CEB4200390E2A961A243C2E31DDC141AC145047",
+      "WholeFileBytes": 475966,
+      "Snapshot": "pin/erts/preloaded/src/erlang.erl",
+      "LineRanges": [
+        [
+          10998,
+          11003
+        ],
+        [
+          11040,
+          11077
+        ],
+        [
+          11249,
+          11264
+        ],
+        [
+          11436,
+          11449
+        ]
+      ],
+      "Excerpt": "pin/erts__preloaded__src__erlang.erl.excerpt.txt",
+      "ExcerptSha256": "B57C1C7A6DE973D732384D3BE38D138C7D26B038A8C3DC065F3E4CB9ECB5BEBC"
+    }
+  ],
+  "ProposedProductionPaths": [
+    "src/Erlang.Runtime/ProcessSpawnOptions.cs",
+    "src/Erlang.Runtime/ProcessRuntime.cs"
+  ],
+  "PublicMfaDelta": 0,
+  "ExistingDisconnectedRequestDeferralMustRemain": true,
+  "InitializationBeforePublicationAndDispatchRequired": true,
+  "ImplementationAuthored": false,
+  "ActualResults": null,
+  "Files": [
+    {
+      "Path": "DESIGN.md",
+      "Bytes": 8148,
+      "Sha256": "C90D05FAE477F9FE35A601F3F761FD24F42F09FA3D5BA7E435971AF5E1BFB46B"
+    },
+    {
+      "Path": "route-inventory.json",
+      "Bytes": 1101,
+      "Sha256": "9314BC1D12C1C8E3332FD7D029362DC1214743D1ECE4193843E190BD80300A1F"
+    }
+  ]
+}

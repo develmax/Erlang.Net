@@ -1,0 +1,20 @@
+{
+  "Status": "SOURCE_ONLY_NOT_EXECUTED",
+  "Baseline": "baseline-source-resources.zip",
+  "BaselineRows": 2366,
+  "Apply": [
+    "tools/Erlang.Differential/SpawnAsyncDistributionCaseNames.cs",
+    "tools/Erlang.Differential/SpawnAsyncDistributionCases.cs",
+    "tools/Erlang.Differential/CompiledModuleCases.cs",
+    "tests/Erlang.Tests/SpawnAsyncDistributionHostNames.cs",
+    "tests/Erlang.Tests/SpawnAsyncDistributionHostChecks.cs"
+  ],
+  "KeepBaselineProductionAndProgramExact": true,
+  "RunFirst": "Erlang.Tests.SpawnAsyncDistributionHostChecks.RunInitialization",
+  "ExpectedOldRoute": "Public spawn_opt rejects exact async_dist tuple before child starts; nonzero assertion/exception is only RED after target builds 0/0.",
+  "Existing325HistoricalHelpers": [
+    "tests/Erlang.Tests/DistributionRetainedLinkHostChecks.cs",
+    "tests/Erlang.Tests/DistributionRetainedLinkHostNames.cs"
+  ],
+  "NoActualResult": true
+}
