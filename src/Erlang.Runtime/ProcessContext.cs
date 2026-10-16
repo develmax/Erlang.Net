@@ -73,7 +73,12 @@ public sealed partial class ProcessContext : ITermExecutionContext
     {
         get;
     }
-    internal Atom ErrorHandler { get; } = ProcessInfoLogicalAtoms.DefaultErrorHandler;
+    private Atom errorHandler = ProcessInfoLogicalAtoms.DefaultErrorHandler;
+    internal Atom ErrorHandler
+    {
+        get => Volatile.Read(ref errorHandler);
+        set => Volatile.Write(ref errorHandler, value);
+    }
     internal Atom SchedulingPriority { get; } = ProcessInfoLogicalAtoms.NormalPriority;
     internal long CumulativeReductions => Interlocked.Read(ref cumulativeReductions);
     private readonly AsyncLocal<ErlangExecutionFrame?> executionFrame = new();

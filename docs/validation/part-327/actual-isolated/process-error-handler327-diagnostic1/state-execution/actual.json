@@ -1,0 +1,28 @@
+{
+  "Status": "FAIL",
+  "Identities": [
+    {
+      "Name": "Erlang.Tests",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-error-handler327-diagnostic1\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "Sha256": "EB720E499048E24E24B4DE2C926EB65C8E11617883503C94E8EB6563F5A7E28E"
+    },
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-error-handler327-diagnostic1\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Sha256": "030EDC09FC4CECC301BBCF3E408846DEA437D645C1BB2024628034499A948F6B"
+    },
+    {
+      "Name": "Erlang.Compiler",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-error-handler327-diagnostic1\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Compiler.dll",
+      "Sha256": "3382E8990487307F9D1B684A4CB5FBEC76924E9005D359D624B26CDE3EF2D3B8"
+    }
+  ],
+  "Cases": [
+    {
+      "Name": "ProcessErrorHandlerHostChecks:RunState",
+      "Status": "FAIL",
+      "ElapsedMilliseconds": 511,
+      "Exception": "Erlang.Compiler.CompileException: Stacktrace must be a variable\r\n   at Erlang.Compiler.Parser.Primary(Boolean bitSegment, Boolean stopQualifier) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-error-handler327-diagnostic1\\candidate\\src\\Erlang.Compiler\\Parser.cs:line 374\r\n   at Erlang.Compiler.Parser.Expression(Int32 minimum, Boolean stopQualifier) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-error-handler327-diagnostic1\\candidate\\src\\Erlang.Compiler\\Parser.cs:line 301\r\n   at Erlang.Compiler.Parser.Body() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-error-handler327-diagnostic1\\candidate\\src\\Erlang.Compiler\\Parser.cs:line 267\r\n   at Erlang.Compiler.Parser.ParseClause(IReadOnlyList\u00601 patterns) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-error-handler327-diagnostic1\\candidate\\src\\Erlang.Compiler\\Parser.cs:line 248\r\n   at Erlang.Compiler.Parser.ParseModule() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-error-handler327-diagnostic1\\candidate\\src\\Erlang.Compiler\\Parser.cs:line 185\r\n   at Erlang.Compiler.CodeGeneration.CompileModule(String source, String sourcePath) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-error-handler327-diagnostic1\\candidate\\src\\Erlang.Compiler\\CodeGeneration.cs:line 140\r\n   at Erlang.Differential.GeneratedModuleCompiler.Compile(String source) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-error-handler327-diagnostic1\\candidate\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 14\r\n   at Erlang.Tests.ProcessErrorHandlerHostChecks.RunState() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-error-handler327-diagnostic1\\candidate\\tests\\Erlang.Tests\\ProcessErrorHandlerHostChecks.cs:line 53\r\n   at Erlang.Tests.ProcessErrorHandlerHostChecks.RunState() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-error-handler327-diagnostic1\\candidate\\tests\\Erlang.Tests\\ProcessErrorHandlerHostChecks.cs:line 51\r\n   at Erlang.Tests.ProcessErrorHandlerHostChecks.RunState() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-error-handler327-diagnostic1\\candidate\\tests\\Erlang.Tests\\ProcessErrorHandlerHostChecks.cs:line 51\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\source-purge-stage315-focus\\Program.cs:line 22"
+    }
+  ]
+}

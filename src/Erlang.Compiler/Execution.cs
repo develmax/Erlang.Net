@@ -132,17 +132,21 @@ public static partial class Execution
         Term[] arguments
     )
     {
+        ModuleCallDispatchKind dispatch = ModuleCallDispatchKind.Direct;
         try
         {
-            return await context.Runtime.Modules.Call(
+            return await context.Runtime.Modules.CallWithDispatch(
                 context,
                 module,
                 function,
-                arguments
+                arguments,
+                out dispatch
             );
         }
         catch (ErlangException exception)
         {
+            if (dispatch == ModuleCallDispatchKind.UndefinedFunctionHandler)
+                throw;
             throw RuntimeCallFrames.Capture(
                 exception,
                 module,
@@ -765,6 +769,7 @@ public static partial class Execution
                     if (tail && (x.Module is not null && x.Module != ErlangModuleNames.Module || ErlangSourceWrapperSignatures.Contains(x.Function, args.Length)))
                         throw new RuntimeTailCall(x.Module ?? ErlangModuleNames.Module, x.Function, args);
 
+                    ModuleCallDispatchKind dispatch = ModuleCallDispatchKind.Direct;
                     try
                     {
                         if (RecordPredicateSyntax.TupleTest(x) is { } predicate)
@@ -777,15 +782,18 @@ public static partial class Execution
                         if (CompilerLoaderSyntax.IsStaticApply(x))
                             return await ctx.Runtime.Modules.InvokeLoaderOnLoad(ctx, ((Cons)args[CompilerLoaderSyntaxArity.ArgumentList]).Head);
 
-                        return await ctx.Runtime.Modules.Call(
+                        return await ctx.Runtime.Modules.CallWithDispatch(
                             ctx,
                             x.Module ?? ErlangModuleNames.Module,
                             x.Function,
-                            args
+                            args,
+                            out dispatch
                         );
                     }
                     catch (ErlangException exception)
                     {
+                        if (dispatch == ModuleCallDispatchKind.UndefinedFunctionHandler)
+                            throw;
                         throw RuntimeCallFrames.Capture(
                             exception,
                             x.Module ?? ErlangModuleNames.Module,

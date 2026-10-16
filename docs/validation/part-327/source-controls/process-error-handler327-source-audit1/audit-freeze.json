@@ -1,0 +1,146 @@
+{
+  "Status": "SOURCE_ONLY_327_OPTION_AND_RUNTIME_GAP_AUDIT_REQUIRES_ROOT_REVIEW_NO_IMPLEMENTATION",
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Main326FreezeSha256": "371BBABFACB1B2F50D9FD08E40CC42D0DFE60A1B1FBDC0095CCE063F4BAEBBDA",
+  "PublishedParentHead": "2bd148150ddf2cca49dd2c797d05de3260bf663c",
+  "RecommendedNextScope": "Real per-process custom undefined_function/3 handler plus process_flag(error_handler,Module), not setter-only metadata",
+  "SourceBindings": [
+    {
+      "Path": "src/Erlang.Runtime/CoreModules.cs",
+      "Bytes": 30087,
+      "Sha256": "DB601293748545604F393E6EAB911D6F07EF0C7840EC3C25BA6A1B36834F29CF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.cs",
+      "Bytes": 12703,
+      "Sha256": "76092C7CCE069042B3AB50FF4DF6A183918BDD8E393D9BD829AF370977903FEA"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
+      "Bytes": 63789,
+      "Sha256": "ADA79DD9390FBA0C7D1C0728B09090B513E13CCBC7ED5A8D281ABC6F0D928E9E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.cs",
+      "Bytes": 22129,
+      "Sha256": "D2C7E0B5083D83B27C60DD388F7279216FB106AAB58359B809C9CDC11A0B8CB3"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeFunctionEntries.cs",
+      "Bytes": 3982,
+      "Sha256": "C3B98B59A3FB9902EEB55E55C6EEE4FF007EE5CCA8958A915219528D495A8305"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamExternalImports.cs",
+      "Bytes": 2533,
+      "Sha256": "933307F1F93FC873DE1417B40847D9F0878E9FE5AB08C553F5E65D68F0F97804"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "Bytes": 37213,
+      "Sha256": "8FF7CAADA831E4E695D3A3FFB9E5A477C9FA974219F18FF6BDD9648D424A5BF2"
+    },
+    {
+      "Path": "src/Erlang.Compiler/NamedFunctionReferences.cs",
+      "Bytes": 1974,
+      "Sha256": "FD69E61A72E3FEB975FD88509B9976A8A8F3792BB9588A1F1CC9356B12606FAC"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessInfoLogicalNames.cs",
+      "Bytes": 440,
+      "Sha256": "CD81B0369CF5F37C443543984A928E0B4C98ED5083D0805D17EB494A87435C4D"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeActorDispatcher.cs",
+      "Bytes": 2002,
+      "Sha256": "223F402F1C2032928101AD75CBB966E91BA91630C9FB074DAFB374B447BFC0A5"
+    }
+  ],
+  "PinnedFiles": [
+    {
+      "Path": "erts/emulator/beam/bif.c",
+      "Sha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC",
+      "Bytes": 169612,
+      "Snapshot": "pin/erts/emulator/beam/bif.c",
+      "Ranges": [
+        [
+          2045,
+          2051
+        ]
+      ],
+      "Excerpt": "pin/erts__emulator__beam__bif.c.excerpt.txt",
+      "ExcerptSha256": "21C4B59357464B790AD03F61715AAC5EB64F6755A8899070161C9E4D7019CEF4"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_process.h",
+      "Sha256": "DF0079F48C4C05E2BF453BA29D03CF656C9A6817F6BF88F5014873256DFFE0D5",
+      "Bytes": 105033,
+      "Snapshot": "pin/erts/emulator/beam/erl_process.h",
+      "Ranges": [
+        [
+          2416,
+          2447
+        ]
+      ],
+      "Excerpt": "pin/erts__emulator__beam__erl_process.h.excerpt.txt",
+      "ExcerptSha256": "BE5C3FA7DEAE05C2443940E072439754AA8FEA7383BC2B906C1362DB57A6FCDC"
+    },
+    {
+      "Path": "erts/emulator/beam/beam_common.c",
+      "Sha256": "1AF6CF2D371975B0D9944B5857062A90091298373B3802639B25D03003AB3C47",
+      "Bytes": 65513,
+      "Snapshot": "pin/erts/emulator/beam/beam_common.c",
+      "Ranges": [
+        [
+          1294,
+          1342
+        ],
+        [
+          1690,
+          1728
+        ]
+      ],
+      "Excerpt": "pin/erts__emulator__beam__beam_common.c.excerpt.txt",
+      "ExcerptSha256": "688364773330C0559CE0C365339910AEF7D9BCBA56C251FF7FD2CA0E8460F2D0"
+    },
+    {
+      "Path": "erts/preloaded/src/erlang.erl",
+      "Sha256": "00D7672A16325E43CA221C6D6CEB4200390E2A961A243C2E31DDC141AC145047",
+      "Bytes": 475966,
+      "Snapshot": "pin/erts/preloaded/src/erlang.erl",
+      "Ranges": [
+        [
+          8075,
+          8082
+        ]
+      ],
+      "Excerpt": "pin/erts__preloaded__src__erlang.erl.excerpt.txt",
+      "ExcerptSha256": "C2390EA217ECC3770D7C494A44B93D285F15EBAC7637C6520CA05C6E2FFF050F"
+    },
+    {
+      "Path": "lib/kernel/src/error_handler.erl",
+      "Sha256": "F15CF5F795D7DD8C7D11A7087756DCEF5BC6CAC60DAF3BE206545AE531E12630",
+      "Bytes": 6794,
+      "Snapshot": "pin/lib/kernel/src/error_handler.erl",
+      "Ranges": [
+        [
+          22,
+          110
+        ]
+      ],
+      "Excerpt": "pin/lib__kernel__src__error_handler.erl.excerpt.txt",
+      "ExcerptSha256": "217E64F5D64336EFF96B77C542281DD8B601F1F4F15773BFD87628F12A2511B8"
+    }
+  ],
+  "Files": [
+    {
+      "Path": "AUDIT.md",
+      "Bytes": 6843,
+      "Sha256": "990FD61C77BE2517A9C632EDBF7DECEBEB7EFC5ACCF90E0749C1D501DAB9CC7B"
+    }
+  ],
+  "NewMfaDelta": 0,
+  "ImplementationAuthored": false,
+  "SdkVmNativeOrNetworkExecuted": false,
+  "MainOrGitMutated": false
+}

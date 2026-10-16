@@ -1,0 +1,218 @@
+{
+  "Passed": true,
+  "Authority": "PublishedRootSourceReviewedPassiveNativeVerifier",
+  "Head": "b51f050c287f3b91346e1d3e30e86061708fb035",
+  "PlanSha256": "53500EFC145705B70364DE7BC19E60FBCE55C62C7C4C00CB66712B1B8F01F9E4",
+  "VerifierSha256": "22BB71FCD308CDD1B183229C2116B582F70852877B8E8397C436571D97D7A7B4",
+  "ApprovedBuildReceiptSha256": "801F699C2CDCE8DAF6AA0E372D87EFCB161794590F2D43A5072C544F5593ADFA",
+  "Binaries": [
+    {
+      "Name": "reallocation_fixture.so",
+      "Sha256": "42F7C4A8EA3B336F7E0EA008C44583BF30005F36D6AEA1FB89791FCACD26323B",
+      "Elf": {
+        "Machine": "x86_64",
+        "Class": "ELF64",
+        "Type": "ET_DYN",
+        "Exports": [
+          "nif_init"
+        ],
+        "Imports": [
+          "_ITM_deregisterTMCloneTable",
+          "_ITM_registerTMCloneTable",
+          "__cxa_finalize",
+          "__gmon_start__",
+          "__stack_chk_fail",
+          "enif_free",
+          "enif_get_int",
+          "enif_has_pending_exception",
+          "enif_make_badarg",
+          "enif_make_int",
+          "enif_make_string",
+          "enif_realloc"
+        ],
+        "Needed": [
+          "libc.so.6"
+        ],
+        "RpathOrRunpath": false,
+        "WritableExecutableSegments": false
+      }
+    },
+    {
+      "Name": "reallocation_extension.so",
+      "Sha256": "E2613ADCE1BEFD7FCFE511BED8E91EF846386525016FFB9083E64A8A5BEA50CD",
+      "Elf": {
+        "Machine": "x86_64",
+        "Class": "ELF64",
+        "Type": "ET_DYN",
+        "Exports": [
+          "enif_realloc",
+          "erlang_net_reallocation_register"
+        ],
+        "Imports": [
+          "_ITM_deregisterTMCloneTable",
+          "_ITM_registerTMCloneTable",
+          "__cxa_finalize",
+          "__gmon_start__",
+          "abort"
+        ],
+        "Needed": [
+          "libc.so.6"
+        ],
+        "RpathOrRunpath": false,
+        "WritableExecutableSegments": false
+      }
+    },
+    {
+      "Name": "legacy_fixture.so",
+      "Sha256": "6DEB2213C0F49FF31C4C9D8C395577874DBF5245DA913132EF3A4211BCEC95B1",
+      "Elf": {
+        "Machine": "x86_64",
+        "Class": "ELF64",
+        "Type": "ET_DYN",
+        "Exports": [
+          "memory_allocator_fixture_unload_count",
+          "nif_init"
+        ],
+        "Imports": [
+          "_ITM_deregisterTMCloneTable",
+          "_ITM_registerTMCloneTable",
+          "__cxa_finalize",
+          "__gmon_start__",
+          "__stack_chk_fail",
+          "enif_alloc",
+          "enif_free",
+          "enif_get_int",
+          "enif_make_badarg",
+          "enif_make_int",
+          "enif_make_string",
+          "enif_priv_data"
+        ],
+        "Needed": [
+          "libc.so.6"
+        ],
+        "RpathOrRunpath": false,
+        "WritableExecutableSegments": false
+      }
+    },
+    {
+      "Name": "legacy_bridge.so",
+      "Sha256": "9E3C19595CDAA7392AB6F4CBFE56AED83A0F044567E8C3E5286D69BE170B1B17",
+      "Elf": {
+        "Machine": "x86_64",
+        "Class": "ELF64",
+        "Type": "ET_DYN",
+        "Exports": [
+          "enif_alloc",
+          "enif_free",
+          "enif_get_int",
+          "enif_has_pending_exception",
+          "enif_is_exception",
+          "enif_make_badarg",
+          "enif_make_int",
+          "enif_make_list",
+          "enif_make_string",
+          "enif_make_tuple",
+          "enif_priv_data",
+          "enif_raise_exception",
+          "nif_bridge_read_term",
+          "nif_bridge_register"
+        ],
+        "Imports": [
+          "_ITM_deregisterTMCloneTable",
+          "_ITM_registerTMCloneTable",
+          "__cxa_finalize",
+          "__gmon_start__",
+          "__stack_chk_fail",
+          "abort"
+        ],
+        "Needed": [
+          "libc.so.6"
+        ],
+        "RpathOrRunpath": false,
+        "WritableExecutableSegments": false
+      }
+    }
+  ],
+  "ManagedRuntimeDependencies": [
+    {
+      "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/reallocation-native/sdk-native/managed/Erlang.NifNativeBackend.dll",
+      "Bytes": 117248,
+      "Sha256": "BDD0B2E54C4AC707AE48542DEF6A2A7901F7FC7162C3E419A30F9C884CB8BB8E"
+    },
+    {
+      "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/reallocation-native/sdk-native/managed/Erlang.Compiler.dll",
+      "Bytes": 326144,
+      "Sha256": "9185A75C82383FF4E0F4C2A19DB7D4979A2A55F73B1A6C277285C0D4634C1BA0"
+    },
+    {
+      "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/reallocation-native/sdk-native/managed/Erlang.Otp.Behaviours.dll",
+      "Bytes": 111104,
+      "Sha256": "2F6D98E23635A61FC8EF3635FE65165EF1101BA9380347108EA4F9F75CAB2FDA"
+    },
+    {
+      "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/reallocation-native/sdk-native/managed/Erlang.Runtime.dll",
+      "Bytes": 1281536,
+      "Sha256": "A4B8859DD6F2D8E61774C9504AC5FA1EC32497B40E83852D8AFBAF6D22E98002"
+    },
+    {
+      "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/reallocation-native/sdk-native/managed/Erlang.Serialization.dll",
+      "Bytes": 69632,
+      "Sha256": "E1FC5E38E8D6EEE6DD0259C48F964D23ACB05527C876092A32B9145C12603ABC"
+    },
+    {
+      "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/reallocation-native/sdk-native/managed/Erlang.Terms.dll",
+      "Bytes": 93696,
+      "Sha256": "921489456F3B1000D35B6D71080BD401C0A3D332585FE85C39E59717211AA9AC"
+    },
+    {
+      "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/reallocation-native/sdk-native/managed/Microsoft.CodeAnalysis.CSharp.dll",
+      "Bytes": 7085904,
+      "Sha256": "22F13094CC59DDFE6E0BB43942C7AE188F21A769C2695912F806BB952BC8FFE5"
+    },
+    {
+      "Path": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/reallocation-native/sdk-native/managed/Microsoft.CodeAnalysis.dll",
+      "Bytes": 3103568,
+      "Sha256": "3CC1B92658591BAB003CA7F82A0EB99225D8384D41687C726B7302D37BA7E3D3"
+    }
+  ],
+  "ActualTools": [
+    {
+      "Role": "dotnet",
+      "CommandPath": "/usr/share/dotnet/dotnet",
+      "CanonicalFile": {
+        "Path": "/usr/share/dotnet/dotnet",
+        "Bytes": 68424,
+        "Sha256": "7DDA7A639BC35FBA05C40D308B0296450AA4E628D109245A6312C385DA9B0931"
+      }
+    },
+    {
+      "Role": "gcc",
+      "CommandPath": "/usr/bin/gcc",
+      "CanonicalFile": {
+        "Path": "/usr/bin/x86_64-linux-gnu-gcc-13",
+        "Bytes": 1023032,
+        "Sha256": "1B99826121AE6682A634E5EFE09BD3E3DF58CE58E0B28F849114AB5B89139C26"
+      }
+    },
+    {
+      "Role": "nm",
+      "CommandPath": "/usr/bin/nm",
+      "CanonicalFile": {
+        "Path": "/usr/bin/x86_64-linux-gnu-nm",
+        "Bytes": 44544,
+        "Sha256": "3708DF3D7CE16E2C1DCDCD722784AE382D4D582276A71AB7BBE2D542F5621202"
+      }
+    },
+    {
+      "Role": "readelf",
+      "CommandPath": "/usr/bin/readelf",
+      "CanonicalFile": {
+        "Path": "/usr/bin/x86_64-linux-gnu-readelf",
+        "Bytes": 789280,
+        "Sha256": "64C58E15274BBBB5153F31078E455E9E77EE5F51489E709BBA5BB788CE9DF2B0"
+      }
+    }
+  ],
+  "NativeExecutedByVerifier": false,
+  "ManagedExecutedByVerifier": false
+}

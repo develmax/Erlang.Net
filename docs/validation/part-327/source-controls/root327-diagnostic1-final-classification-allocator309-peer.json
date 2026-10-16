@@ -1,0 +1,238 @@
+{
+  "Status": "PASS_INDEPENDENT_FINAL_CLASSIFICATION_OF_MIXED_ACTUAL327_DIAGNOSTIC_WITH_GENUINE_NESTED_ASSERTION_RED",
+  "Passed": true,
+  "WholeDiagnosticPassed": false,
+  "SourceFreezeSha256": "07E89B212F0471AF1A5D8C2DE05AB133D42938801E629942FE9CBF429B4EEFF7",
+  "SourceClosureSha256": "CA057C6D4071716AA53C5F833A92A4E375F6EED27A355B2D35711733A19A2531",
+  "All2378SourcesRehashed": true,
+  "All15TokenStreamsByteExact": true,
+  "OutsideOwned2363RawExact": true,
+  "TargetBuildZeroWarningsZeroErrors": true,
+  "Selectors": [
+    {
+      "Phase": "nested-receipt2",
+      "Classification": "GENUINE_NEW_NESTED_SELECTED_HANDLER_ORDER_ASSERTION_NOT_INFRA_FAILURE",
+      "ExitCode": 1,
+      "ElapsedSeconds": 1.1090000000040163,
+      "ActualLoadedAssemblies": [
+        "Erlang.Tests",
+        "Erlang.Runtime"
+      ]
+    },
+    {
+      "Phase": "isolation-receipt2",
+      "Classification": "ACTUAL_SELECTOR_PASS",
+      "ExitCode": 0,
+      "ElapsedSeconds": 0.5619999999980791,
+      "ActualLoadedAssemblies": [
+        "Erlang.Tests",
+        "Erlang.Runtime"
+      ]
+    },
+    {
+      "Phase": "state-execution",
+      "Classification": "AUTHORED_ORDINARY_CATCH_STACK_PATTERN_SYNTAX_ERROR_NOT_RUNTIME_FLAG_FAILURE",
+      "ExitCode": 1,
+      "ElapsedSeconds": 0.9530000000013388,
+      "ActualLoadedAssemblies": [
+        "Erlang.Tests",
+        "Erlang.Runtime",
+        "Erlang.Compiler"
+      ]
+    },
+    {
+      "Phase": "frames-execution",
+      "Classification": "ACTUAL_SELECTOR_PASS",
+      "ExitCode": 0,
+      "ElapsedSeconds": 1.4060000000026776,
+      "ActualLoadedAssemblies": [
+        "Erlang.Tests",
+        "Erlang.Runtime",
+        "Erlang.Compiler"
+      ]
+    },
+    {
+      "Phase": "source-lease-execution",
+      "Classification": "ACTUAL_SELECTOR_PASS",
+      "ExitCode": 0,
+      "ElapsedSeconds": 1.2180000000007567,
+      "ActualLoadedAssemblies": [
+        "Erlang.Tests",
+        "Erlang.Runtime",
+        "Erlang.Compiler"
+      ]
+    }
+  ],
+  "InitialNestedIsolationProcessReceiptsMissingDueOverstrictCompilerLoadedAssumption": true,
+  "CorrectedReceiptsRequireTestsRuntimeWithoutForceLoadingCompiler": true,
+  "NoCompletedOrdinarySuite": true,
+  "NoOriginalExecutionOrNestedFixProven": true,
+  "ReviewerSdkNativeVmMainMutation": false,
+  "Bindings": [
+    {
+      "Path": "artifacts/process-error-handler327-diagnostic1/formatted-source-freeze.json",
+      "Bytes": 3690,
+      "Sha256": "07E89B212F0471AF1A5D8C2DE05AB133D42938801E629942FE9CBF429B4EEFF7"
+    },
+    {
+      "Path": "artifacts/process-error-handler327-diagnostic1/formatted-source-resource-closure.json",
+      "Bytes": 451904,
+      "Sha256": "CA057C6D4071716AA53C5F833A92A4E375F6EED27A355B2D35711733A19A2531"
+    },
+    {
+      "Path": "artifacts/process-error-handler327-diagnostic1/tokens-before.json",
+      "Bytes": 1738446,
+      "Sha256": "DE82422A92772E1CC46B5C73FC7D2A83478468190AD019D562F97E2C73AD7A51"
+    },
+    {
+      "Path": "artifacts/process-error-handler327-diagnostic1/tokens-after.json",
+      "Bytes": 1738446,
+      "Sha256": "DE82422A92772E1CC46B5C73FC7D2A83478468190AD019D562F97E2C73AD7A51"
+    },
+    {
+      "Path": "artifacts/process-error-handler327-diagnostic1/target-execution/process.json",
+      "Bytes": 1001,
+      "Sha256": "AA2E268A418A94C1D3CB1E358483F2494A836DB03CF650F77C05F02FF5E8D767"
+    },
+    {
+      "Path": "artifacts/process-error-handler327-diagnostic1/target-execution/stdout.log",
+      "Bytes": 3941,
+      "Sha256": "156B1A41660B58B015C4E4A746A7F41CD71E2A4E569BAD5AF5CD56D95D1055B0"
+    },
+    {
+      "Path": "artifacts/process-error-handler327-diagnostic1/nested-receipt2/process.json",
+      "Bytes": 1405,
+      "Sha256": "A6F2563ED31B06CAF0B9D647FCC000BCE343F26D43A10ECD35226BF5C9C3ED88"
+    },
+    {
+      "Path": "artifacts/process-error-handler327-diagnostic1/nested-receipt2/actual.json",
+      "Bytes": 3340,
+      "Sha256": "5411227EF7BCA08346FA94A9C6DDD3953CDFA8C768B29BCAF5B4DA7CCBD46A11"
+    },
+    {
+      "Path": "artifacts/process-error-handler327-diagnostic1/nested-receipt2/stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/process-error-handler327-diagnostic1/nested-receipt2/stderr.log",
+      "Bytes": 2333,
+      "Sha256": "C964AD5621274A043C093FC3ED642DE2EF1ECB224EB9CADCAA1FFA3460F0F710"
+    },
+    {
+      "Path": "artifacts/process-error-handler327-diagnostic1/isolation-receipt2/process.json",
+      "Bytes": 1363,
+      "Sha256": "B957EEF4F3096BDFDF09ADA14C3B7BD882A1F80343D921B35908CEE1AD66AB6B"
+    },
+    {
+      "Path": "artifacts/process-error-handler327-diagnostic1/isolation-receipt2/actual.json",
+      "Bytes": 836,
+      "Sha256": "35A66EE547FABF7701AA26EED7F3834186ACDE48B0D94732E6348273F5B488A9"
+    },
+    {
+      "Path": "artifacts/process-error-handler327-diagnostic1/isolation-receipt2/stdout.log",
+      "Bytes": 49,
+      "Sha256": "7FF82B2ADAB4D57CB71D91A87962C8AB63A81B8D2B9CE16B272E3DE20E35BC31"
+    },
+    {
+      "Path": "artifacts/process-error-handler327-diagnostic1/isolation-receipt2/stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/process-error-handler327-diagnostic1/state-execution/process.json",
+      "Bytes": 1240,
+      "Sha256": "9245F38B1E96CAB6C0C1B1A944C0932F49EA88A031F084EDCE22E4488970A53C"
+    },
+    {
+      "Path": "artifacts/process-error-handler327-diagnostic1/state-execution/actual.json",
+      "Bytes": 3690,
+      "Sha256": "6E304C747CA78E29E952C7D1733F0CAF1154B7AC4859C5E801DAC30049663FDE"
+    },
+    {
+      "Path": "artifacts/process-error-handler327-diagnostic1/state-execution/stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/process-error-handler327-diagnostic1/state-execution/stderr.log",
+      "Bytes": 2405,
+      "Sha256": "B073571B9A24363659AFFB0C64B3F6BEEEC35CEBEB8D263CAA91D1C0DC816746"
+    },
+    {
+      "Path": "artifacts/process-error-handler327-diagnostic1/frames-execution/process.json",
+      "Bytes": 1218,
+      "Sha256": "6B578749A25ABB870C2049DA300EDDEA4E594797000C394CFB5E0238CE5AECC8"
+    },
+    {
+      "Path": "artifacts/process-error-handler327-diagnostic1/frames-execution/actual.json",
+      "Bytes": 1155,
+      "Sha256": "C9D4AFFA0C7BFDD7F03C3BE869567BD1DFE79D217E25153C94B892982292ADF2"
+    },
+    {
+      "Path": "artifacts/process-error-handler327-diagnostic1/frames-execution/stdout.log",
+      "Bytes": 46,
+      "Sha256": "4F6A9832CB9D99205336884B3E3F9430ADD1C2188D3A71A3364F283B4F5D3DCF"
+    },
+    {
+      "Path": "artifacts/process-error-handler327-diagnostic1/frames-execution/stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/process-error-handler327-diagnostic1/source-lease-execution/process.json",
+      "Bytes": 1235,
+      "Sha256": "96E76881BBFD64FC9B690609E33C14A1F6B73239D648CC81FFD9ECC767ABCA2F"
+    },
+    {
+      "Path": "artifacts/process-error-handler327-diagnostic1/source-lease-execution/actual.json",
+      "Bytes": 1159,
+      "Sha256": "4DAEDE2FDA285A6B9B662FB8B2DFA175CABDD49112C6EF934C48DCF877C24F1E"
+    },
+    {
+      "Path": "artifacts/process-error-handler327-diagnostic1/source-lease-execution/stdout.log",
+      "Bytes": 51,
+      "Sha256": "9844943AEDD9520F91A6A4F149DD13F568E5821BE60CC5F0CBC650D71ED19103"
+    },
+    {
+      "Path": "artifacts/process-error-handler327-diagnostic1/source-lease-execution/stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/process-error-handler327-diagnostic1/nested-execution/actual.json",
+      "Bytes": 3340,
+      "Sha256": "731362DAB79A9D733E0971080F9104E72E3EEE5F30C7DAEE0D9847617BB62CAF"
+    },
+    {
+      "Path": "artifacts/process-error-handler327-diagnostic1/isolation-execution/actual.json",
+      "Bytes": 836,
+      "Sha256": "35A66EE547FABF7701AA26EED7F3834186ACDE48B0D94732E6348273F5B488A9"
+    },
+    {
+      "Path": "artifacts/process-error-handler327-diagnostic1/style-check-execution/process.json",
+      "Bytes": 518,
+      "Sha256": "E4A848845FC7B483E20DDCE0177F48651AD529655878055C30DD11E0C38F81DB"
+    },
+    {
+      "Path": "artifacts/process-error-handler327-diagnostic1/style-write-execution/process.json",
+      "Bytes": 518,
+      "Sha256": "2B44BDF4283FD9823AD5ED7F4C76A3C612902C3DD23E9D3396A24896CFDB50C2"
+    },
+    {
+      "Path": "artifacts/process-error-handler327-diagnostic1/sdk-execution/process.json",
+      "Bytes": 2928,
+      "Sha256": "BEC71784A44643787543BAB56ED2397301A6DD81011C4E328F0931EFB9AC10F2"
+    },
+    {
+      "Path": "artifacts/process-error-handler327-diagnostic1/token-before-execution/process.json",
+      "Bytes": 721,
+      "Sha256": "BF00E67DF0D9350D2ACA3DF19F51F935333660BEBEE8523FC5B2FD2401373B3C"
+    },
+    {
+      "Path": "artifacts/process-error-handler327-diagnostic1/token-after-execution/process.json",
+      "Bytes": 705,
+      "Sha256": "F7193F4FAD672510E9F5FA47178C193F8B1CC5F88302D8326EE542A5C747422B"
+    }
+  ]
+}

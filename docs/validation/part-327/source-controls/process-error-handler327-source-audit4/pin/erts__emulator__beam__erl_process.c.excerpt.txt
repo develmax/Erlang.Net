@@ -1,0 +1,20 @@
+12738:     p->sig_inq.nmsigs.last = NULL;
+12739:     ASSERT(erts_atomic_read_nob(&p->sig_inq_buffers) == (erts_aint_t)NULL);
+12740: #ifdef ERTS_PROC_SIG_HARD_DEBUG
+12741:     p->sig_inq.may_contain_heap_terms = 0;
+12742: #endif
+12743:     p->bif_timers = NULL;
+12744:     p->paused_bif_timers = NULL;
+12745:     p->mbuf = NULL;
+12746:     p->msg_frag = NULL;
+12747:     p->mbuf_sz = 0;
+12748:     erts_atomic_init_nob(&p->psd, (erts_aint_t) NULL);
+12749:     p->dictionary = NULL;
+12750: #ifdef USE_VM_PROBES
+12751:     DT_UTAG(p) = NIL;
+12752:     DT_UTAG_FLAGS(p) = 0;
+12753: #endif
+12754: 
+12755:     if (parent_id == ERTS_INVALID_PID) {
+12756:         p->parent = am_undefined;
+12757:     }

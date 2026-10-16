@@ -1,0 +1,68 @@
+{
+  "Status": "PARTIAL_DIAGNOSTICS_WITH_GENUINE_NESTED_ASSERTION_AND_FIXTURE_SYNTAX_FAILURE",
+  "BuildWarnings": 0,
+  "BuildErrors": 0,
+  "FormattedSourceFreezeSha256": "07E89B212F0471AF1A5D8C2DE05AB133D42938801E629942FE9CBF429B4EEFF7",
+  "All2378SourcesExactAfterExecution": true,
+  "FifteenTokenStreamsByteExact": true,
+  "PureHostCompilerAssemblyMayRemainUnloaded": true,
+  "RecipeIdentityAssertionReceiptGapPreserved": true,
+  "MainUnchanged": true,
+  "Checks": [
+    {
+      "Phase": "nested",
+      "ActualStatus": "FAIL",
+      "RawReportSha256": "731362DAB79A9D733E0971080F9104E72E3EEE5F30C7DAEE0D9847617BB62CAF",
+      "LoadedIdentitiesVerified": [
+        "Erlang.Runtime",
+        "Erlang.Tests"
+      ],
+      "OriginalProcessReceiptPresent": false,
+      "RootClassification": "Actual strict inner-handler-first assertion failed; source predicts outer prepended before inner. Pending corrected receipt replay; not a functional pass."
+    },
+    {
+      "Phase": "state",
+      "ActualStatus": "FAIL",
+      "RawReportSha256": "6E304C747CA78E29E952C7D1733F0CAF1154B7AC4859C5E801DAC30049663FDE",
+      "LoadedIdentitiesVerified": [
+        "Erlang.Compiler",
+        "Erlang.Runtime",
+        "Erlang.Tests"
+      ],
+      "OriginalProcessReceiptPresent": true,
+      "RootClassification": "Invalid new Erlang fixture catch syntax; runtime state assertions preceding generated compilation completed."
+    },
+    {
+      "Phase": "frames",
+      "ActualStatus": "PASS",
+      "RawReportSha256": "C9D4AFFA0C7BFDD7F03C3BE869567BD1DFE79D217E25153C94B892982292ADF2",
+      "LoadedIdentitiesVerified": [
+        "Erlang.Compiler",
+        "Erlang.Runtime",
+        "Erlang.Tests"
+      ],
+      "OriginalProcessReceiptPresent": true
+    },
+    {
+      "Phase": "source-lease",
+      "ActualStatus": "PASS",
+      "RawReportSha256": "4DAEDE2FDA285A6B9B662FB8B2DFA175CABDD49112C6EF934C48DCF877C24F1E",
+      "LoadedIdentitiesVerified": [
+        "Erlang.Compiler",
+        "Erlang.Runtime",
+        "Erlang.Tests"
+      ],
+      "OriginalProcessReceiptPresent": true
+    },
+    {
+      "Phase": "isolation",
+      "ActualStatus": "PASS",
+      "RawReportSha256": "35A66EE547FABF7701AA26EED7F3834186ACDE48B0D94732E6348273F5B488A9",
+      "LoadedIdentitiesVerified": [
+        "Erlang.Runtime",
+        "Erlang.Tests"
+      ],
+      "OriginalProcessReceiptPresent": false
+    }
+  ]
+}

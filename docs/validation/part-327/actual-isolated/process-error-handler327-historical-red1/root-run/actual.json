@@ -1,0 +1,23 @@
+{
+  "Status": "FAIL",
+  "Identities": [
+    {
+      "Name": "Erlang.Tests",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-error-handler327-historical-red1\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "Sha256": "A8164F4091A83CC646D5335B63CEBE303F34F609A884BA4F47DDA054442FD4C6"
+    },
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-error-handler327-historical-red1\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Sha256": "7765E5682EE545151A025C315FCCE51A35FB04203BFB44A9C95E5B8F7DA3F604"
+    }
+  ],
+  "Cases": [
+    {
+      "Name": "ProcessErrorHandlerHostChecks:RunState",
+      "Status": "FAIL",
+      "ElapsedMilliseconds": 622,
+      "Exception": "Erlang.ErlangException: badarg\r\n   at Erlang.CoreModules.\u003C\u003Ec.\u003CRegisterCode\u003Eb__1_30(ProcessContext c, IReadOnlyList\u00601 a) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-error-handler327-historical-red1\\candidate\\src\\Erlang.Runtime\\CoreModules.cs:line 257\r\n   at Erlang.CoreModules.\u003C\u003Ec__DisplayClass1_1.\u003CRegisterCode\u003Eb__93(ProcessContext c, IReadOnlyList\u00601 a) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-error-handler327-historical-red1\\candidate\\src\\Erlang.Runtime\\CoreModules.cs:line 23\r\n   at Erlang.ModuleRegistry.Call(ProcessContext context, String module, String function, Term[] arguments) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-error-handler327-historical-red1\\candidate\\src\\Erlang.Runtime\\ModuleRegistry.cs:line 246\r\n   at Erlang.Tests.ProcessErrorHandlerHostChecks.Change(ProcessContext context, String module) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-error-handler327-historical-red1\\candidate\\tests\\Erlang.Tests\\ProcessErrorHandlerHostChecks.cs:line 494\r\n   at Erlang.Tests.ProcessErrorHandlerHostChecks.\u003C\u003Ec__DisplayClass1_0.\u003C\u003CRunState\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-error-handler327-historical-red1\\candidate\\tests\\Erlang.Tests\\ProcessErrorHandlerHostChecks.cs:line 24\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.\u003C\u003Ec__DisplayClass9_0\u00601.\u003C\u003CInvokeAsync\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-error-handler327-historical-red1\\candidate\\tests\\Erlang.Tests\\RuntimeNodeFoundationHostActor.cs:line 43\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func\u00602 command) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-error-handler327-historical-red1\\candidate\\tests\\Erlang.Tests\\RuntimeNodeFoundationHostActor.cs:line 51\r\n   at Erlang.Tests.ProcessErrorHandlerHostChecks.RunState() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-error-handler327-historical-red1\\candidate\\tests\\Erlang.Tests\\ProcessErrorHandlerHostChecks.cs:line 22\r\n   at Erlang.Tests.ProcessErrorHandlerHostChecks.RunState() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-error-handler327-historical-red1\\candidate\\tests\\Erlang.Tests\\ProcessErrorHandlerHostChecks.cs:line 51\r\n   at Erlang.Tests.ProcessErrorHandlerHostChecks.RunState() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-error-handler327-historical-red1\\candidate\\tests\\Erlang.Tests\\ProcessErrorHandlerHostChecks.cs:line 51\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\source-purge-stage315-focus\\Program.cs:line 22"
+    }
+  ]
+}

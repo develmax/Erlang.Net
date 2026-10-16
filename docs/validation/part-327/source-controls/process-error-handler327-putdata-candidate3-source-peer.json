@@ -1,0 +1,60 @@
+{
+  "Status": "SOURCE_CLEARED_FOR_BOUNDED_DIAGNOSTICS_WITH_KNOWN_PROMOTION_BLOCKER",
+  "DiagnosticExecutionSourceCleared": true,
+  "PromotionReady": false,
+  "FunctionalPass": false,
+  "CandidateFreezePath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-error-handler327-candidate3\\source-freeze.json",
+  "CandidateFreezeSha256": "5517D79476C99DF4C021648A87D1EFADAB19D3B30C3DDC2DF103A8EA2E0D002E",
+  "ClosureSha256": "CC3B81A820B3252C219302353CC821567C6DB1C9B0B214349F5E6D2543004424",
+  "SourcePaths": 15,
+  "ProductionPaths": 9,
+  "ClosureRows": 2378,
+  "ParentRows": 2370,
+  "Revision2ProductionExact": true,
+  "ChangedFromRevision2": [
+    "tests/Erlang.Tests/ProcessErrorHandlerHostChecks.cs",
+    "tests/Erlang.Tests/ProcessErrorHandlerHostNames.cs"
+  ],
+  "SourceFindings": [
+    {
+      "Severity": "PromotionBlocker",
+      "KnownBeforeReview": true,
+      "Path": "src/Erlang.Runtime/ModuleRegistry.ErrorHandler.cs",
+      "Issue": "Each nonexplicit central callback catch prepends its handler frame. When outer callback awaits inner callback failure, the outer frame is prepended before inner. Strict RunNestedFrames correctly requires inner first and exactly two distinct actual handler frames. This is source-predicted, not an executed failure.",
+      "RequiredAction": "Capture actual bounded strict nested diagnostic; preserve strict expectation. Fix in a new immutable production revision before promotion."
+    }
+  ],
+  "ReviewedBoundaries": [
+    "Synchronous ValueTask CallWithDispatch initializes Direct before lookup/admission and sets handler policy only after existing non-source EnterSourceCode succeeds, before callback outside registry gate. Out local remains available to catch synchronous invocation failure.",
+    "Atomic selected export/body identity uses existing normal admission. Source-owned image lease remains inside Execution.InvokeAsync; no earlier or double lease is claimed.",
+    "Missing handler lookup is direct and finite; existing selected callee undef does not invoke a fallback handler. Process error-handler Atom is volatile state with runtime-owned lock validation and previous-value return.",
+    "Compiler and apply suppress only synthetic missing-MFA wrapper for selected handler policy; explicit Nil/custom trace remains unchanged through existing WithStackFrame semantics. Terms and RuntimeCallFrames are not modified.",
+    "Actual existing reflected RegisterIntrinsic signature accepts module/function/arity/ErlangFunction. Intrinsic bridge preserves real source handler flow for held success/fault/kill controls.",
+    "Unwind signal finally executes even if CheckActive fails, preserving assertion rather than replacing it with missing-signal timeout. Source process cleanup releases bridge, kills if unfinished, and waits bounded completion.",
+    "Concurrent handler isolation releases in finally and joins Task.WhenAll under deadline. Strict nested test was not weakened.",
+    "19 ordinary cases and five HOST selectors are authored, unexecuted; source compiler first2 ordinary use remains explicit. Existing catalog append preserves historical cases/order/exclusions."
+  ],
+  "DiagnosticRequirements": [
+    "Root owns formatting/build/runtime and must preserve immutable author snapshots and actual per-selector streams/outcomes.",
+    "Use bounded outer process/tree cleanup; run strict nested selector independently so expected diagnostic failure cannot suppress other selectors.",
+    "No claim of functional/native/OTP pass or publication readiness from source review."
+  ],
+  "ExecutedByReviewer": {
+    "Sdk": false,
+    "Build": false,
+    "Vm": false,
+    "Network": false,
+    "MainMutation": false,
+    "GitMutation": false
+  },
+  "PassiveVerified": {
+    "All2378CandidateRowsBytesAndSha256": true,
+    "All2370BaselineZipRowsAndExactPublishedGitBlobs": true,
+    "RawVersusCanonicalLfParentDistinctionPreserved": true,
+    "OutsideOwned2363RowsExactBaseline": true,
+    "All15OwnedRowsExactFreeze": true,
+    "Added8PathsOnly": true,
+    "Exactly2HostFilesDifferFromRevision2": true,
+    "All9ProductionPathsExactRevision2": true
+  }
+}

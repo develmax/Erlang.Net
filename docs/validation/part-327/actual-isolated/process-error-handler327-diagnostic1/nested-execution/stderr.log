@@ -1,0 +1,13 @@
+FAIL ProcessErrorHandlerHostChecks:RunNestedFrames
+System.InvalidOperationException: Process error handler assertion failed
+   at Erlang.Tests.ProcessErrorHandlerHostChecks.Require(Boolean condition) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\process-error-handler327-diagnostic1\candidate\tests\Erlang.Tests\ProcessErrorHandlerHostChecks.cs:line 419
+   at Erlang.Tests.ProcessErrorHandlerHostChecks.CheckFrame(ErlangException error, String handler) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\process-error-handler327-diagnostic1\candidate\tests\Erlang.Tests\ProcessErrorHandlerHostChecks.cs:line 396
+   at Erlang.Tests.ProcessErrorHandlerHostChecks.<>c.<<RunNestedFrames>b__4_2>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\process-error-handler327-diagnostic1\candidate\tests\Erlang.Tests\ProcessErrorHandlerHostChecks.cs:line 146
+--- End of stack trace from previous location ---
+   at Erlang.Tests.RuntimeNodeFoundationHostActor.<>c__DisplayClass9_0`1.<<InvokeAsync>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\process-error-handler327-diagnostic1\candidate\tests\Erlang.Tests\RuntimeNodeFoundationHostActor.cs:line 43
+--- End of stack trace from previous location ---
+   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func`2 command) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\process-error-handler327-diagnostic1\candidate\tests\Erlang.Tests\RuntimeNodeFoundationHostActor.cs:line 51
+   at Erlang.Tests.ProcessErrorHandlerHostChecks.RunNestedFrames() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\process-error-handler327-diagnostic1\candidate\tests\Erlang.Tests\ProcessErrorHandlerHostChecks.cs:line 142
+   at Erlang.Tests.ProcessErrorHandlerHostChecks.RunNestedFrames() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\process-error-handler327-diagnostic1\candidate\tests\Erlang.Tests\ProcessErrorHandlerHostChecks.cs:line 142
+   at Erlang.Tests.ProcessErrorHandlerHostChecks.RunNestedFrames() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\process-error-handler327-diagnostic1\candidate\tests\Erlang.Tests\ProcessErrorHandlerHostChecks.cs:line 142
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\source-purge-stage315-focus\Program.cs:line 22

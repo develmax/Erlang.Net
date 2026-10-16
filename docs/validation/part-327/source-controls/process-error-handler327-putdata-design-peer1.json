@@ -1,0 +1,52 @@
+{
+  "Status": "PASS_INDEPENDENT327_SOURCE_GAP_AND_BOUNDED_DESIGN_AUDIT_WITH_PREIMPLEMENTATION_FRAME_BOUNDARY",
+  "Passed": true,
+  "AuditFreezeSha256": "9EB7933698AD5D6C023B2F6D3518FADC07C16983092533DABD2D046D09B033EA",
+  "Main326FreezeSha256": "371BBABFACB1B2F50D9FD08E40CC42D0DFE60A1B1FBDC0095CCE063F4BAEBBDA",
+  "SourceBindingsVerified": 13,
+  "WholePinnedGitObjectsAndExcerptsVerified": [
+    "erts/emulator/beam/bif.c",
+    "erts/emulator/beam/erl_process.h",
+    "erts/emulator/beam/beam_common.c",
+    "erts/preloaded/src/erlang.erl",
+    "lib/kernel/src/error_handler.erl",
+    "erts/emulator/beam/erl_process.c"
+  ],
+  "ActualProductionGapConfirmed": true,
+  "ChildDefaultNoninheritancePinnedCreationNotAnalogy": true,
+  "MissingHandlerOriginalUndefNoRecursiveSelectionRequired": true,
+  "AtomicNoFallbackAdmissionAndCodeLeaseContractReviewed": true,
+  "LiveSelfAtomSetterAndActualProcessInfoGetterStateReviewed": true,
+  "AsyncContextTraceLeaseAndReturnFailureRoutesReviewed": true,
+  "FindingsResolved": [
+    "Original audit lacked direct native child default proof; revision2 adds PSDNULL creator and defaultgetter pair",
+    "HasExport then Call race excluded; selected handler lookup and owner/image lease admission must be one atomic operation",
+    "Naive registry-only fallback can add fictitious requestedMFA frames; revision3 binds actual frame helpers and requires exact bounded forwarding contract"
+  ],
+  "RequiredBeforeImplementation": [
+    "Root review of concrete forwarded-resolution provenance algorithm and exact final production path ceiling",
+    "No blanket ExplicitStackTrace=true, global recursion/depth suppression, catch-any-undef fallback or raw callback delegate bypass",
+    "Missing handler keeps original missingMFA undef/args; selected handler failures preserve real frames, legitimate caller context and explicit empty/custom traces",
+    "Source-owned async callback lifetime/cancellation/halt/purge/replacement must retain existing admission/flow release semantics"
+  ],
+  "ReadyForUnqualifiedImplementation": false,
+  "RootOwnsFurtherScopeApproval": true,
+  "TestsProposedNotExecuted": [
+    "direct remote missingMFA, runtime-parameter apply3 and externalfun from exportedhelper",
+    "prior/reset/nonatom acceptedunknownmodule/currentgetter/defaultchildnotinherited",
+    "missinghandler no recursion, existingexports/presence checks nohook",
+    "handler return/throw/error/exit, nestedmissingcalls, concurrentdifferenthandlers",
+    "stable original-vs-forwarded frames and explicitraise Nil/custom",
+    "async actualcontext/sourceowner/image/lease retention and bounded cleanup, genuine historical326semanticRED"
+  ],
+  "ScopeStillExcluded": [
+    "kernel autoload/code-server parity",
+    "$handle_undefined_function/2",
+    "undefined_lambda/debugger/undefinedregisteredprocess behavior",
+    "arbitrary genuineBEAM unknownimport admission",
+    "broad fullstack/scheduler/native/physical parity"
+  ],
+  "SourceOnlyReviewNotOriginalDifferentialEvidence": true,
+  "NoMainGitMutationBuildSdkNativeVmNetworkExecution": true,
+  "ReviewerScriptSha256": "8396492460A193C9618DFF52B088CBF5D2BF3A9BD0B780C49A5C56854F1BE11C"
+}

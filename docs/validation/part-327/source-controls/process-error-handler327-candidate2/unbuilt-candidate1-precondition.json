@@ -1,0 +1,9 @@
+{
+  "Status": "AUTHOR_SOURCE_PREFLIGHT_UNBUILT_UNSUPPORTED_FIFTH_ARGUMENT",
+  "PriorFreezeSha256": "B8A672933A44C9DF3C8F74FF7430EC82C79F40EFD292BF88508738028333474E",
+  "Path": "src/Erlang.Compiler/Execution.cs",
+  "Before": "            throw RuntimeCallFrames.Capture(\n                exception,\n                module,\n                function,\n                arguments,\n                out dispatch\n            );",
+  "After": "            throw RuntimeCallFrames.Capture(\n                exception,\n                module,\n                function,\n                arguments\n            );",
+  "BuildOrSdkExecuted": false,
+  "RuntimeSemanticResult": null
+}

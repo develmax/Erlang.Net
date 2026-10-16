@@ -1,0 +1,54 @@
+{
+  "Status": "PASS_INDEPENDENT_ACTUAL_FINAL327_SOURCE_COMPOSITION",
+  "Passed": true,
+  "FinalSourceFreezeSha256": "464C81BB1624BC63CEA8B404ACAFEEF7246FFA745EDC3FC0D10D59C447593EDA",
+  "SourceClosureSha256": "57275A459C17E8A6F991CE0FAD8C3FDE16F3DF0D6B132CF8A9C53D0EC9491C3F",
+  "FinalSourceFreeze": {
+    "Path": "artifacts/root-part327-composed1/source-freeze.json",
+    "Bytes": 30199,
+    "Sha256": "464C81BB1624BC63CEA8B404ACAFEEF7246FFA745EDC3FC0D10D59C447593EDA"
+  },
+  "SourceClosure": {
+    "Path": "artifacts/root-part327-composed1/source-resource-closure.json",
+    "Bytes": 440191,
+    "Sha256": "57275A459C17E8A6F991CE0FAD8C3FDE16F3DF0D6B132CF8A9C53D0EC9491C3F"
+  },
+  "ParentHead": "b51f050c287f3b91346e1d3e30e86061708fb035",
+  "SourcePaths": 22,
+  "CSharpPaths": 17,
+  "SourceResourceClosureFiles": 2379,
+  "All17CompiledFormattedGreenCSharpRawExact": true,
+  "All2357OutsideOwnedParentRowsRawExact": true,
+  "All2370BaselineZipAndActualPublishedGitBindingsVerified": true,
+  "AddedParentBindingsAndPromotionMapExact": true,
+  "NativePlans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Inputs": 1114,
+      "Sha256": "D1A3A9533A9A4537E7C7B596318E690083677B154B8A912B5AC36A0672137344"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Inputs": 1139,
+      "Sha256": "0096F13F945A7494F704C518EDFCEC766DF38167B8EE76898F53FA3077E118D9"
+    }
+  ],
+  "AllNativeNonFilesImportAbiProfilesUnchanged": true,
+  "NativeInputSetsOnlyFiveApprovedNewProductionAdded": [
+    "src/Erlang.Runtime/ModuleCallDispatchKind.cs",
+    "src/Erlang.Runtime/ModuleRegistry.ErrorHandler.cs",
+    "src/Erlang.Runtime/ProcessErrorHandlerNames.cs",
+    "src/Erlang.Runtime/ProcessRuntime.ErrorHandler.cs",
+    "src/Erlang.Terms/ErlangExceptionTraceOrigin.cs"
+  ],
+  "EveryNativeHashModeAndDeclaredSourceBytesRehashed": true,
+  "BothPlansCanonicalUtf8LfRawCanonicalAndWorkflowPinsEqual": true,
+  "WorkflowBytesOnlyExactPinReplacement": true,
+  "OnlyNewDocs327BinaryAttribute": true,
+  "ActualGreenAndHistoricalRedGuardsAndAll50BindingsReplayed": true,
+  "DetailedActualSourceGreenRedPeerSha256": "EB49DB663B88EB51D2B34CBF29698DE3DC43857EDCB35E51A3F02DB76A7ED299",
+  "BlockingFindings": [],
+  "ReadyForRootPromotionAndFullValidation": true,
+  "ActualMainFullNativeOriginalReadinessNotClaimed": true,
+  "ReviewerExecutedComposerSdkVmNativeNetworkMainGitMutation": false
+}

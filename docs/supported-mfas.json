@@ -237,7 +237,7 @@
     "Arity": 2,
     "Status": "Partially compatible",
     "Evidence": "mfa/erlang:process_flag/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending async_dist accepts only true/false, returns the previous per-process boolean and defaults false; a spawned child does not inherit it. Connected PID output ownership follows the captured flag. Pending/autoconnect and async_dist spawn options remain incomplete; process_flag/3 is unchanged."
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending async_dist accepts only true/false, returns the previous per-process boolean and defaults false; a spawned child does not inherit it. Connected PID output ownership follows the captured flag. Pending/autoconnect and async_dist spawn options remain incomplete; process_flag/3 is unchanged. Per-process error_handler accepts an atom and returns the previous handler; children default to error_handler. Missing supported registered/source MFA calls can invoke the selected undefined_function/3 in the original process with original arguments, normal source ownership and bounded forwarded-error frames. Missing handler retains original undef; valid callees raising undef and invalid registered-name sends are not intercepted. Kernel autoload/code-server behavior, undefined_lambda/3, breakpoints, arbitrary raw BEAM imports and whole erlang compatibility remain incomplete. Original327 ordinary comparison is a separate pending gate."
   },
   {
     "Module": "erlang",

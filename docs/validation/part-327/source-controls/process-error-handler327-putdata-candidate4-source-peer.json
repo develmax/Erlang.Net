@@ -1,0 +1,45 @@
+{
+  "Status": "PASS_INDEPENDENT_SOURCE_REVIEW_APPROVED_PROVENANCE_EXTENSION_FOR_ROOT_MANAGED_VALIDATION",
+  "DiagnosticAndFunctionalValidationSourceCleared": true,
+  "ActualFunctionalPassClaimed": false,
+  "PromotionReadyBeforeActualGates": false,
+  "CandidateFreezeSha256": "4C01B791522C2EBA5EDF27707A41EB0D8D037CB9F7D7FFA5CE5FFDAACB334FFD",
+  "ClosureSha256": "27895F543094B738ED2DD3BC952DDAD9F2FDAD648713B6F82E8F43AE60FF5AEF",
+  "SourcePaths": 17,
+  "ProductionPaths": 11,
+  "ClosureRows": 2379,
+  "BaselineAndPublishedBlobsVerified": 2370,
+  "OutsideOwnedExactBaseline": 2362,
+  "ChangedFromCandidate3": [
+    "src/Erlang.Runtime/ModuleRegistry.ErrorHandler.cs",
+    "src/Erlang.Terms/ErlangException.cs",
+    "src/Erlang.Terms/ErlangExceptionTraceOrigin.cs",
+    "tests/Erlang.Tests/ProcessErrorHandlerHostChecks.cs",
+    "tests/Erlang.Tests/ProcessErrorHandlerHostNames.cs",
+    "tools/Erlang.Differential/ProcessErrorHandlerCaseNames.cs",
+    "tools/Erlang.Differential/ProcessErrorHandlerCases.cs"
+  ],
+  "NewPublicMfaCount": 0,
+  "AuthoredOrdinaryCases": 20,
+  "BlockingSourceFindings": [],
+  "Reviewed": [
+    "Private typed trace origin has no setters exposed externally and is assigned only when constructing a new exception. Original exception/Cons chain is never mutated; Reason/Class and origin preserved by clones.",
+    "ExplicitStackTrace returns this before allocation or marking. Existing ordinary unmarked prepend is unchanged; first selected capture prepends and marks; every marked ordinary/selected outward capture appends.",
+    "Append is iterative, retains frame Term references, rebuilds only Cons spine and retains original terminal proper/improper tail; no Cons.Items badarg replacement, value heuristic, equal-MFA deduplication, ambient/global state or changed friend access.",
+    "Selected callback central sync/await paths each use WithSelectedHandlerFrame once; original gate/normal source admission, out policy placement, all8other production paths are byteexact candidate3.",
+    "Strict distinct nested expectation retained; equal two real callback activations and generated non-tail intermediate source helper assert inner/helper/outer order; shared original exception used by concurrent actors yields independent clones and a pristine raw original.",
+    "Explicit Nil/custom exception AND trace reference identity checks remain real compiler routes. Marked ordinary clone keeps first handler; fresh unmarked exception preserves old prepend order.",
+    "Catch components now use trace variables with body pattern assertions; native error1/throw/exit accept actual handler arity3 or exact original callback args, error2/3 projected args stay strict. New non-tail same-handler source error1 fixture asserts at least2 handler activations and no outer return.",
+    "All historical published cases/exclusions preserved except additive case catalog; author-only fixtures corrected openly, original327 execution remains pending."
+  ],
+  "RemainingLimits": [
+    "Before-first-selected-handler source/callee order remains existing partial compiler profile; do not claim full native stack/argument/continuation parity.",
+    "All20 authored ordinary cases, five HOSTselectors, historical RED/GREEN and Root full/native/original gates require actual execution. This is source review only."
+  ],
+  "ReviewerExecuted": {
+    "SdkBuild": false,
+    "TestsOrVm": false,
+    "NativeOrNetwork": false,
+    "MainOrGitMutation": false
+  }
+}

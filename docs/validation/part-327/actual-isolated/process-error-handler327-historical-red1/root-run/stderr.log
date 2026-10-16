@@ -1,0 +1,15 @@
+FAIL ProcessErrorHandlerHostChecks:RunState
+Erlang.ErlangException: badarg
+   at Erlang.CoreModules.<>c.<RegisterCode>b__1_30(ProcessContext c, IReadOnlyList`1 a) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\process-error-handler327-historical-red1\candidate\src\Erlang.Runtime\CoreModules.cs:line 257
+   at Erlang.CoreModules.<>c__DisplayClass1_1.<RegisterCode>b__93(ProcessContext c, IReadOnlyList`1 a) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\process-error-handler327-historical-red1\candidate\src\Erlang.Runtime\CoreModules.cs:line 23
+   at Erlang.ModuleRegistry.Call(ProcessContext context, String module, String function, Term[] arguments) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\process-error-handler327-historical-red1\candidate\src\Erlang.Runtime\ModuleRegistry.cs:line 246
+   at Erlang.Tests.ProcessErrorHandlerHostChecks.Change(ProcessContext context, String module) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\process-error-handler327-historical-red1\candidate\tests\Erlang.Tests\ProcessErrorHandlerHostChecks.cs:line 494
+   at Erlang.Tests.ProcessErrorHandlerHostChecks.<>c__DisplayClass1_0.<<RunState>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\process-error-handler327-historical-red1\candidate\tests\Erlang.Tests\ProcessErrorHandlerHostChecks.cs:line 24
+--- End of stack trace from previous location ---
+   at Erlang.Tests.RuntimeNodeFoundationHostActor.<>c__DisplayClass9_0`1.<<InvokeAsync>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\process-error-handler327-historical-red1\candidate\tests\Erlang.Tests\RuntimeNodeFoundationHostActor.cs:line 43
+--- End of stack trace from previous location ---
+   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func`2 command) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\process-error-handler327-historical-red1\candidate\tests\Erlang.Tests\RuntimeNodeFoundationHostActor.cs:line 51
+   at Erlang.Tests.ProcessErrorHandlerHostChecks.RunState() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\process-error-handler327-historical-red1\candidate\tests\Erlang.Tests\ProcessErrorHandlerHostChecks.cs:line 22
+   at Erlang.Tests.ProcessErrorHandlerHostChecks.RunState() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\process-error-handler327-historical-red1\candidate\tests\Erlang.Tests\ProcessErrorHandlerHostChecks.cs:line 51
+   at Erlang.Tests.ProcessErrorHandlerHostChecks.RunState() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\process-error-handler327-historical-red1\candidate\tests\Erlang.Tests\ProcessErrorHandlerHostChecks.cs:line 51
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\source-purge-stage315-focus\Program.cs:line 22

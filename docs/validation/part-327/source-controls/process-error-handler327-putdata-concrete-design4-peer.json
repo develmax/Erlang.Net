@@ -1,0 +1,39 @@
+{
+  "Status": "PASS_INDEPENDENT_SOURCE327_CONCRETE_DESIGN4_WITH_EXPLICIT_NORMAL_ADMISSION_QUALIFICATIONS",
+  "Passed": true,
+  "AuditFreezeSha256": "0B420D18BFFFE96B225BD075D757326088094328DBD714FC271E37BA4223AF5E",
+  "SourceBindingsVerified": 13,
+  "WholePinnedGitObjectsAndExcerptsVerified": 6,
+  "ProposedProductionPaths": 9,
+  "Findings": [],
+  "RootApprovedQualifiedSourceScopeMayProceed": true,
+  "ExactRequiredQualifications": [
+    "CallWithDispatch is a synchronous method returning ValueTask, not an async method with out parameters",
+    "Initialize each caller local and the out policy to Direct before the guarded call; earlier out writes remain visible to caller after synchronous throw and locals persist across awaits",
+    "Capture actual target/handler body and source identity under the existing registry gate; no HasExport then separate relookup",
+    "For non-source image callbacks run existing EnterSourceCode while policy remains Direct; only after its success set Handler before callback outside gate",
+    "This ordering covers actual ReserveSourceCode ErlangException undef on pending/retired images without an unframed Handler failure",
+    "For sourceOwners preserve captured registration lambda and existing Execution.InvokeAsync lease acquisition; it occurs inside central selectedhandler wrapper, not at registry lookup; no earlier/double lease or purge refactor",
+    "Central selectedhandler wrapper captures one actual Handler:undefined_function/3 frame for synchronous or awaited non-explicit callback error, including a HOST callback with Nil trace",
+    "CompilerExecution and RuntimeApplyDispatch suppress only their specific synthetic missingtarget wrapper when that invocation local policy is Handler",
+    "Retain legitimate outer/nested/concurrent invocations including identical recursive MFAs; no stack-MFA heuristic dedupe",
+    "WithStackFrame retains explicit empty/custom traces; no Terms metadata/global/AsyncLocal/ConditionalWeakTable exception markers or blanket explicit flag",
+    "Direct real callee undef, malformed apply, lexical missing functions, presence checks, invalid send and raw BEAM admission stay outside fallback trigger"
+  ],
+  "CSharpOutSemanticsReviewedFromLanguageRulesNoCompilerInvoked": true,
+  "SourceCallerTraceAndExistingCodeLeaseHaltCancellationPathsMustRemainShared": true,
+  "RequiredCandidateControls": [
+    "immediate and delayed callback Nil traces actualhandler frame once",
+    "source error1 vs expliciterror2/3 and raiseNil/custom exact stable projections",
+    "missinghandler originalMFA/arguments/no recursion; real existingcallee undef negative",
+    "nested samehandler and concurrent independent contexts",
+    "actualsource image/lease held across async non-tail helper and released oncompletion/cancel/halt",
+    "existing public/custom flags, process_info and childdefaultnoninheritance",
+    "same-helper historical326 semanticRED after actual successful build"
+  ],
+  "SourceOwnerLeaseAtRegistryLookupClaimed": false,
+  "NoGeneralNativePurgeOrFullStackParityClaim": true,
+  "CandidateImplementationStillNeedsIndependentSourceAndActualGates": true,
+  "Original327OutcomesNotObserved": true,
+  "NoReviewerMainGitMutationCodeAuthorshipBuildSdkNativeVmNetworkExecution": true
+}

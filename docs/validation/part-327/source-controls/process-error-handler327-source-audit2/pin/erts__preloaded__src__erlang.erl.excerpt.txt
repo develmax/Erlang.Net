@@ -1,0 +1,8 @@
+8075: - ```erlang
+8076:   process_flag(error_handler, module())
+8077:   ```
+8078:   {: #process_flag_error_handler }
+8079:   
+8080:   Used by a process to redefine the `m:error_handler` for undefined function calls and
+8081:   undefined registered processes. Use this flag with substantial caution, as code
+8082:   auto-loading depends on the correct operation of the error handling module.

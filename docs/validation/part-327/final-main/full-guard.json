@@ -1,0 +1,83 @@
+{
+  "Status": "PASS_ACTUAL_MAIN327_6729_FULL_AND_ELEVEN_INTEGRATIONS",
+  "Passed": 6729,
+  "Failed": 0,
+  "IntegrationResults": 11,
+  "All6708PreviousOrderedNamesPreserved": true,
+  "AddedTestNames": [
+    "host_process_error_handler_dispatch_frames_source_lease_and_isolation",
+    "oracle/compiled-module/process-error-handler-argument-evaluation-before-missing-dispatch",
+    "oracle/compiled-module/process-error-handler-child-default-does-not-inherit-custom-handler",
+    "oracle/compiled-module/process-error-handler-error-frame-is-real-selected-handler",
+    "oracle/compiled-module/process-error-handler-error-three-retains-projected-handler-arguments",
+    "oracle/compiled-module/process-error-handler-error-two-retains-projected-handler-arguments",
+    "oracle/compiled-module/process-error-handler-exit-class-and-selected-handler-frame",
+    "oracle/compiled-module/process-error-handler-explicit-custom-raise-trace-is-unchanged",
+    "oracle/compiled-module/process-error-handler-explicit-empty-raise-trace-is-unchanged",
+    "oracle/compiled-module/process-error-handler-exported-dynamic-apply",
+    "oracle/compiled-module/process-error-handler-exported-external-fun-entry",
+    "oracle/compiled-module/process-error-handler-invalid-values-do-not-mutate",
+    "oracle/compiled-module/process-error-handler-literal-remote-exact-mfa-args-and-self",
+    "oracle/compiled-module/process-error-handler-missing-selected-handler-retains-original-undef",
+    "oracle/compiled-module/process-error-handler-nested-error-one-retains-repeated-handler-order",
+    "oracle/compiled-module/process-error-handler-nested-error-two-innermost-handler-precedes-outer-continuation",
+    "oracle/compiled-module/process-error-handler-nested-missing-lookup-is-not-globally-disabled",
+    "oracle/compiled-module/process-error-handler-non-tail-return-continues-caller",
+    "oracle/compiled-module/process-error-handler-previous-value-reset-and-any-atom",
+    "oracle/compiled-module/process-error-handler-throw-class-and-selected-handler-frame",
+    "oracle/compiled-module/process-error-handler-valid-undef-and-invalid-send-do-not-invoke-handler"
+  ],
+  "SourceFreezeSha256": "380AF06807C90F6891C3C834A66573536310F23118954512E6A538E3E4BD8AD3",
+  "SourceClosureSha256": "57275A459C17E8A6F991CE0FAD8C3FDE16F3DF0D6B132CF8A9C53D0EC9491C3F",
+  "SourcePaths": 22,
+  "CSharpPaths": 17,
+  "SourceResourceClosureFiles": 2379,
+  "Registry": 509,
+  "PreviousRegistry": 509,
+  "PublicMfaDelta": 0,
+  "ErlangMfas": 351,
+  "ThirtyPriorCustomLimitsRestoredBeforeAppend": true,
+  "OnlyProcessFlag2ScopeAppended": true,
+  "TwentyNineOtherCustomLimitsExact": true,
+  "UnrelatedMfaRowsExactParent": true,
+  "RawRegistrySha256": "19824139853ED60BC6044D5C3874825EFDAAEA4E19930F8A0EF049B00DF8D7AF",
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Inputs": 1114,
+      "Sha256": "D1A3A9533A9A4537E7C7B596318E690083677B154B8A912B5AC36A0672137344",
+      "Workflow": ".github/workflows/nif-pending-native.yml",
+      "Pin": "REVIEWED_SOURCE_PLAN_SHA256",
+      "AllNonFilesImportAbiPolicyFieldsUnchanged": true,
+      "InputPathSetOnlyApprovedFiveAdded": true,
+      "NewProductionInputs": [
+        "src/Erlang.Runtime/ModuleCallDispatchKind.cs",
+        "src/Erlang.Runtime/ModuleRegistry.ErrorHandler.cs",
+        "src/Erlang.Runtime/ProcessErrorHandlerNames.cs",
+        "src/Erlang.Runtime/ProcessRuntime.ErrorHandler.cs",
+        "src/Erlang.Terms/ErlangExceptionTraceOrigin.cs"
+      ]
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Inputs": 1139,
+      "Sha256": "0096F13F945A7494F704C518EDFCEC766DF38167B8EE76898F53FA3077E118D9",
+      "Workflow": ".github/workflows/nif-reallocation-native.yml",
+      "Pin": "REVIEWED_REALLOCATION_PLAN_SHA256",
+      "AllNonFilesImportAbiPolicyFieldsUnchanged": true,
+      "InputPathSetOnlyApprovedFiveAdded": true,
+      "NewProductionInputs": [
+        "src/Erlang.Runtime/ModuleCallDispatchKind.cs",
+        "src/Erlang.Runtime/ModuleRegistry.ErrorHandler.cs",
+        "src/Erlang.Runtime/ProcessErrorHandlerNames.cs",
+        "src/Erlang.Runtime/ProcessRuntime.ErrorHandler.cs",
+        "src/Erlang.Terms/ErlangExceptionTraceOrigin.cs"
+      ]
+    }
+  ],
+  "FullExecutionContext": "Outside sandbox",
+  "OriginalExecutedByFullPipeline": false,
+  "NativeExecutedByFullPipeline": false,
+  "ReadinessStillRequiredSeparately": true,
+  "GuardSourceSha256": "BEC89C8C799C806F210AFE6571992C86CE866D0B72986026FFB57961F3936609"
+}

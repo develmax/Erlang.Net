@@ -23,16 +23,18 @@ internal static class ErlangApplyDispatch
         Term[] arguments
     )
     {
+        ModuleCallDispatchKind dispatch = ModuleCallDispatchKind.Direct;
         try
         {
-            return await context.Runtime.Modules.Call(
+            return await context.Runtime.Modules.CallWithDispatch(
                 context,
                 module,
                 function,
-                arguments
+                arguments,
+                out dispatch
             );
         }
-        catch (ErlangException exception) when (!exception.ExplicitStackTrace && exception.StackTraceTerm is Nil)
+        catch (ErlangException exception) when (dispatch == ModuleCallDispatchKind.Direct && !exception.ExplicitStackTrace && exception.StackTraceTerm is Nil)
         {
             throw exception.WithStackFrame(module, function, arguments);
         }

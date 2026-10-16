@@ -1,0 +1,79 @@
+{
+  "Status": "PASS_INDEPENDENT_PUBLISHED326_ACTUAL_ORIGINAL_NORMAL_AND_ASYNC_RETAINED_LINK_AFTER_REMOTE_KILL",
+  "Passed": true,
+  "Head": "b51f050c287f3b91346e1d3e30e86061708fb035",
+  "Run": 38850744058,
+  "Job": 116811173868,
+  "Artifact": 12025501020,
+  "Attempt": 1,
+  "SourcePlanSha256": "A62852C3F0148AD1381F62CD470BE858C03B9502613C1761E88718E4A5CAC323",
+  "PinnedSourcesVerified": 14,
+  "CollectorSourceFilesVerified": 9,
+  "CollectorFilesRehashed": 145,
+  "WholeRemoteCaptureRowsRehashed": 600,
+  "Cases": [
+    {
+      "Mode": "normal",
+      "Nodes": {
+        "a": "lr325_normal_a_3c3ec74d4cc5@127.0.0.1",
+        "b": "lr325_normal_b_3c3ec74d4cc5@127.0.0.1",
+        "c": "lr325_normal_c_3c3ec74d4cc5@127.0.0.1"
+      },
+      "Nonce": "3c3ec74d4cc54f9ca8b628e99a6ff761",
+      "CompiledImagesPerRole": 3,
+      "ActualVmRoles": 3,
+      "FullOwnerQuery": true,
+      "NormalTargetBusy": true,
+      "AsyncReturnedBeforeDrainWithoutTargetBusy": false,
+      "IndependentCPublicKillAndFreshDownKilledBeforeCont": true,
+      "ReceiverNonceLinkedExitKilledAfterCont": true,
+      "StoppedSeconds": 0.444318376,
+      "AllWorkerAndVmCleanupSettled": true
+    },
+    {
+      "Mode": "async",
+      "Nodes": {
+        "a": "lr325_async_a_b1ea78f5c672@127.0.0.1",
+        "b": "lr325_async_b_b1ea78f5c672@127.0.0.1",
+        "c": "lr325_async_c_b1ea78f5c672@127.0.0.1"
+      },
+      "Nonce": "b1ea78f5c6724415b1ef62fe0634d27d",
+      "CompiledImagesPerRole": 3,
+      "ActualVmRoles": 3,
+      "FullOwnerQuery": true,
+      "NormalTargetBusy": false,
+      "AsyncReturnedBeforeDrainWithoutTargetBusy": true,
+      "IndependentCPublicKillAndFreshDownKilledBeforeCont": true,
+      "ReceiverNonceLinkedExitKilledAfterCont": true,
+      "StoppedSeconds": 0.423902377,
+      "AllWorkerAndVmCleanupSettled": true
+    }
+  ],
+  "CompiledImages": [
+    {
+      "Module": "distribution_link_retention325",
+      "Bytes": 17224,
+      "Sha256": "7ABE549D11862F0B22C65747E3A872593FB4503D396152713CDBBD18D0C97A2F",
+      "FullImageMd5": "8EE5DF0B19BA4D3FA5AA6B50A4C88AA7"
+    },
+    {
+      "Module": "distribution_link_retention325_driver",
+      "Bytes": 10088,
+      "Sha256": "83E7824BA5E1E44E5AE8D755BE797A6075CD4ACCA094252F0196201AFE2769F8",
+      "FullImageMd5": "8B3989C77715FC77D4315D5E9AF1CD0C"
+    },
+    {
+      "Module": "distribution_link_receiver325",
+      "Bytes": 2464,
+      "Sha256": "4097B2547CA82029B85A7BFFE82EDA5169594F2B8F37710450B8F2AA64B9CEA7",
+      "FullImageMd5": "2E353BD061BCED5E059F08C68E1E7789"
+    }
+  ],
+  "RawZipSha256": "46A8D76EFA64FC3F706884B3DD1CA3B0EB4C4F28B92BB1473BECC5DD9922ADB6",
+  "RawJobSha256": "5E787B56E0CD2CC0C53164207BDC0CB5E6B56CAB43127C15EB30A6EB94779A8C",
+  "ActualOriginalRetentionObserved": true,
+  "SdkLivePeerOrWirePhaseEqualityClaimed": false,
+  "InheritedGlSendLinkExitControlWaitScopesNotReplayedByThisGuard": true,
+  "Original327OrdinaryCasesExecutedByThisGuard": false,
+  "ReviewerExecutedVmNativeSdkBuildNetworkOrMainGitMutation": false
+}

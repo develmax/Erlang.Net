@@ -1,0 +1,23 @@
+{
+  "Status": "FAIL",
+  "Identities": [
+    {
+      "Name": "Erlang.Tests",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-error-handler327-diagnostic1\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "Sha256": "EB720E499048E24E24B4DE2C926EB65C8E11617883503C94E8EB6563F5A7E28E"
+    },
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-error-handler327-diagnostic1\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Sha256": "030EDC09FC4CECC301BBCF3E408846DEA437D645C1BB2024628034499A948F6B"
+    }
+  ],
+  "Cases": [
+    {
+      "Name": "ProcessErrorHandlerHostChecks:RunNestedFrames",
+      "Status": "FAIL",
+      "ElapsedMilliseconds": 484,
+      "Exception": "System.InvalidOperationException: Process error handler assertion failed\r\n   at Erlang.Tests.ProcessErrorHandlerHostChecks.Require(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-error-handler327-diagnostic1\\candidate\\tests\\Erlang.Tests\\ProcessErrorHandlerHostChecks.cs:line 419\r\n   at Erlang.Tests.ProcessErrorHandlerHostChecks.CheckFrame(ErlangException error, String handler) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-error-handler327-diagnostic1\\candidate\\tests\\Erlang.Tests\\ProcessErrorHandlerHostChecks.cs:line 396\r\n   at Erlang.Tests.ProcessErrorHandlerHostChecks.\u003C\u003Ec.\u003C\u003CRunNestedFrames\u003Eb__4_2\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-error-handler327-diagnostic1\\candidate\\tests\\Erlang.Tests\\ProcessErrorHandlerHostChecks.cs:line 146\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.\u003C\u003Ec__DisplayClass9_0\u00601.\u003C\u003CInvokeAsync\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-error-handler327-diagnostic1\\candidate\\tests\\Erlang.Tests\\RuntimeNodeFoundationHostActor.cs:line 43\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func\u00602 command) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-error-handler327-diagnostic1\\candidate\\tests\\Erlang.Tests\\RuntimeNodeFoundationHostActor.cs:line 51\r\n   at Erlang.Tests.ProcessErrorHandlerHostChecks.RunNestedFrames() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-error-handler327-diagnostic1\\candidate\\tests\\Erlang.Tests\\ProcessErrorHandlerHostChecks.cs:line 142\r\n   at Erlang.Tests.ProcessErrorHandlerHostChecks.RunNestedFrames() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-error-handler327-diagnostic1\\candidate\\tests\\Erlang.Tests\\ProcessErrorHandlerHostChecks.cs:line 142\r\n   at Erlang.Tests.ProcessErrorHandlerHostChecks.RunNestedFrames() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-error-handler327-diagnostic1\\candidate\\tests\\Erlang.Tests\\ProcessErrorHandlerHostChecks.cs:line 142\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\source-purge-stage315-focus\\Program.cs:line 22"
+    }
+  ]
+}

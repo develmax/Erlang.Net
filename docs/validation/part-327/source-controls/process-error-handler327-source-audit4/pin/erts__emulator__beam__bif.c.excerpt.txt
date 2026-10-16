@@ -1,0 +1,7 @@
+2045:    else if (BIF_ARG_1 == am_error_handler) {
+2046:       if (is_not_atom(BIF_ARG_2)) {
+2047: 	 goto error;
+2048:       }
+2049:       old_value = erts_proc_set_error_handler(BIF_P, BIF_ARG_2);
+2050:       BIF_RET(old_value);
+2051:    }

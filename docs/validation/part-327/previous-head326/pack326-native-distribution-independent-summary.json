@@ -1,0 +1,177 @@
+{
+  "Status": "PASS_INDEPENDENT_PUBLISHED326_NATIVE_AND_DISTRIBUTION_TYPED_SCOPES_WITH_FRESH_EXIT_DISPLAY_REFUSAL",
+  "Head": "b51f050c287f3b91346e1d3e30e86061708fb035",
+  "Native": {
+    "Run": 38850744372,
+    "Job": 116811175864,
+    "Artifact": 12026035055,
+    "RawRows": 205,
+    "StrictSdkStdoutLines": 8,
+    "DomainRoles": 3,
+    "SeparateOriginal13": true,
+    "Original13ComparedWithSdk": false,
+    "GeneratedCSharpSha256": "6E28E8B093F042C22ACAFD2C0213A55C7DCEFC2D162B486AC8443FC7C4E5F77A",
+    "PublishedWindowsGuardSha256": "47C245415C8FD7FA7C517FC3B1B00040458BAACA1822FA9C31C72ECB77ACC132"
+  },
+  "Distribution": {
+    "Run": 38850744058,
+    "Job": 116811173868,
+    "Artifact": 12025501020,
+    "RawRows": 600,
+    "GroupLeaderContracts": 4,
+    "SendContracts": 7,
+    "LinkContracts": 7,
+    "ExitContracts": 8,
+    "ControlWaitFreshThreeVmCases": 2,
+    "RetainedLinkFreshThreeVmCases": 2,
+    "ActualRetentionCases": [
+      {
+        "Mode": "normal",
+        "Nodes": {
+          "a": "lr325_normal_a_3c3ec74d4cc5@127.0.0.1",
+          "b": "lr325_normal_b_3c3ec74d4cc5@127.0.0.1",
+          "c": "lr325_normal_c_3c3ec74d4cc5@127.0.0.1"
+        },
+        "Nonce": "3c3ec74d4cc54f9ca8b628e99a6ff761",
+        "CompiledImagesPerRole": 3,
+        "ActualVmRoles": 3,
+        "FullOwnerQuery": true,
+        "NormalTargetBusy": true,
+        "AsyncReturnedBeforeDrainWithoutTargetBusy": false,
+        "IndependentCPublicKillAndFreshDownKilledBeforeCont": true,
+        "ReceiverNonceLinkedExitKilledAfterCont": true,
+        "StoppedSeconds": 0.444318376,
+        "AllWorkerAndVmCleanupSettled": true
+      },
+      {
+        "Mode": "async",
+        "Nodes": {
+          "a": "lr325_async_a_b1ea78f5c672@127.0.0.1",
+          "b": "lr325_async_b_b1ea78f5c672@127.0.0.1",
+          "c": "lr325_async_c_b1ea78f5c672@127.0.0.1"
+        },
+        "Nonce": "b1ea78f5c6724415b1ef62fe0634d27d",
+        "CompiledImagesPerRole": 3,
+        "ActualVmRoles": 3,
+        "FullOwnerQuery": true,
+        "NormalTargetBusy": false,
+        "AsyncReturnedBeforeDrainWithoutTargetBusy": true,
+        "IndependentCPublicKillAndFreshDownKilledBeforeCont": true,
+        "ReceiverNonceLinkedExitKilledAfterCont": true,
+        "StoppedSeconds": 0.423902377,
+        "AllWorkerAndVmCleanupSettled": true
+      }
+    ],
+    "ActualRetentionCompiledImages": [
+      {
+        "Module": "distribution_link_retention325",
+        "Bytes": 17224,
+        "Sha256": "7ABE549D11862F0B22C65747E3A872593FB4503D396152713CDBBD18D0C97A2F",
+        "FullImageMd5": "8EE5DF0B19BA4D3FA5AA6B50A4C88AA7"
+      },
+      {
+        "Module": "distribution_link_retention325_driver",
+        "Bytes": 10088,
+        "Sha256": "83E7824BA5E1E44E5AE8D755BE797A6075CD4ACCA094252F0196201AFE2769F8",
+        "FullImageMd5": "8B3989C77715FC77D4315D5E9AF1CD0C"
+      },
+      {
+        "Module": "distribution_link_receiver325",
+        "Bytes": 2464,
+        "Sha256": "4097B2547CA82029B85A7BFFE82EDA5169594F2B8F37710450B8F2AA64B9CEA7",
+        "FullImageMd5": "2E353BD061BCED5E059F08C68E1E7789"
+      }
+    ],
+    "NativeKillAndIndependentControllerDownBeforeCont": true,
+    "LinkedReceiverExitKilledAfterCont": true,
+    "AllOwnedCleanupSettled": true
+  },
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Inputs": 1109,
+      "Sha256": "A673C88561EC5E31E1F69BE5795519A3AA658E013B6000910B03E192A520E6A5",
+      "AllNonFilesPoliciesExact325": true,
+      "InputPathSetExact325": true,
+      "ChangedRecords": [
+        "src/Erlang.Runtime/ProcessRuntime.cs",
+        "src/Erlang.Runtime/ProcessSpawnOptions.cs"
+      ]
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Inputs": 1134,
+      "Sha256": "53500EFC145705B70364DE7BC19E60FBCE55C62C7C4C00CB66712B1B8F01F9E4",
+      "AllNonFilesPoliciesExact325": true,
+      "InputPathSetExact325": true,
+      "ChangedRecords": [
+        ".gitattributes",
+        ".github/workflows/nif-pending-native.yml",
+        "src/Erlang.Runtime/ProcessRuntime.cs",
+        "src/Erlang.Runtime/ProcessSpawnOptions.cs",
+        "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json"
+      ]
+    }
+  ],
+  "Guards": [
+    {
+      "Path": "artifacts/pack326-native-combined-independent-guard.json",
+      "Bytes": 1430,
+      "Sha256": "655427BB5E7CFA6BA595C16992D59663752F6F7A0013E951E69F4C274E9EB2D5",
+      "Status": "PASS_EXACT_HEAD326_LINUX_SDK_EIGHT_LINES_THREE_DOMAIN_ROLES_AND_SEPARATE_ORIGINAL13"
+    },
+    {
+      "Path": "artifacts/pack326-group-leader-independent-guard.json",
+      "Bytes": 1986,
+      "Sha256": "ADDBC48EA34E199642893142C6F267C1DA973384AB5F33B8F2267377256DF18E",
+      "Status": "PASS_INDEPENDENT_EXACT_HEAD323_ACTUAL_ORIGINAL_TWO_NODE_GROUP_LEADER_FOUR_CONTRACTS"
+    },
+    {
+      "Path": "artifacts/pack326-guest-send-independent-guard.json",
+      "Bytes": 2568,
+      "Sha256": "6973A1B5F9C08EA9D239FB47F8245F2A37360B1EE4B3E57315D161D668282CC7",
+      "Status": "PASS_INDEPENDENT_EXACT_HEAD323_ACTUAL_ORIGINAL_TWO_NODE_GUEST_PUBLIC_SEND_SEVEN_CONTRACTS"
+    },
+    {
+      "Path": "artifacts/pack326-guest-links-independent-guard.json",
+      "Bytes": 3774,
+      "Sha256": "A9E902585F2DF1314B193B45FFAF806D8DDAC299244C0A94A9E92A48EBCEAAB4",
+      "Status": "PASS_INDEPENDENT_EXACT_HEAD323_ACTUAL_ORIGINAL_TWO_NODE_GUEST_LINK_UNLINK_SEVEN_CONTRACTS"
+    },
+    {
+      "Path": "artifacts/pack326-guest-exit-independent-guard.json",
+      "Bytes": 4139,
+      "Sha256": "D6317B44799E768C8C1D3746CCF8EDBBE8B08C7C5A2E8E23906F50064E54FD5C",
+      "Status": "PASS_INDEPENDENT_EXACT_HEAD326_ACTUAL_ORIGINAL_TWO_NODE_GUEST_EXPLICIT_EXIT_EIGHT_CONTRACTS"
+    },
+    {
+      "Path": "artifacts/pack326-control-wait-independent-guard.json",
+      "Bytes": 2027,
+      "Sha256": "37B2A105DCA0082803755A979100612F8A4C5AC7BB15608E5E1E9C5CC77F3472",
+      "Status": "PASS_INDEPENDENT_PUBLISHED326_ACTUAL_THREE_NODE_BUSY_QUERY_REMOTE_KILL_TWO_SCENARIOS"
+    },
+    {
+      "Path": "artifacts/pack326-retention-independent-guard.json",
+      "Bytes": 3001,
+      "Sha256": "2BC72B05E9A0D1E50456C84B62C6512D51FDAF06C383E19894E58CDE72F6F45D",
+      "Status": "PASS_INDEPENDENT_PUBLISHED326_ACTUAL_ORIGINAL_NORMAL_AND_ASYNC_RETAINED_LINK_AFTER_REMOTE_KILL"
+    }
+  ],
+  "StrictExitRemotePythonReprEqualityPassed": false,
+  "StrictExitDisplayOnlyRefusal": {
+    "Path": "artifacts/pack326-guest-exit-strict-repr-refusal.json",
+    "Bytes": 431,
+    "Sha256": "08405EFE736CDB3DDB23C41B2CE2F91A29269991DFDC1C3161EC868206260D17"
+  },
+  "TwoActualDifferingDisplayFields": [
+    "ActualRawOutcome",
+    "AllEightRawCaseRows"
+  ],
+  "NoRawNormalization": true,
+  "NoAssumedOldRefusalOrExpectedDisplayDifferenceSet": true,
+  "InheritedThreeGuardStatusLabelsRetain323LiteralButActualHeadRunAndRawBindingsAre326": true,
+  "WholeErlangOrNativeAbiOrWirePhaseParityClaimed": false,
+  "Current326OriginalFourteenSpawnCasesObservedByTheseWorkflows": false,
+  "ReallocationAndOrdinary326NotInferred": true,
+  "ReviewerExecutedNativeVmSdkNetworkOrMainGitMutation": false
+}

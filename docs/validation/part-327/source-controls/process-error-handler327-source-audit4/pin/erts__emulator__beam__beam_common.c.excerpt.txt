@@ -1,0 +1,89 @@
+1294: const Export *call_error_handler(Process* p,
+1295:                                  const ErtsCodeMFA *mfa,
+1296:                                  Eterm* reg,
+1297:                                  Eterm func)
+1298: {
+1299:     const Export* ep;
+1300:     Eterm* hp;
+1301:     int arity;
+1302:     Eterm args;
+1303:     Uint sz;
+1304:     int i;
+1305: 
+1306:     DBG_TRACE_MFA_P(mfa, "call_error_handler");
+1307:     /*
+1308:      * Search for the error_handler module.
+1309:      */
+1310:     ep = erts_find_function(erts_proc_get_error_handler(p), func, 3,
+1311: 			    erts_active_code_ix());
+1312:     if (ep == NULL) {		/* No error handler */
+1313: 	p->current = mfa;
+1314: 	p->freason = EXC_UNDEF;
+1315: 	return 0;
+1316:     }
+1317: 
+1318:     /*
+1319:      * Create a list with all arguments in the x registers.
+1320:      */
+1321: 
+1322:     arity = mfa->arity;
+1323:     sz = 2 * arity;
+1324:     if (HeapWordsLeft(p) < sz) {
+1325: 	erts_garbage_collect(p, sz, reg, arity);
+1326:     }
+1327:     hp = HEAP_TOP(p);
+1328:     HEAP_TOP(p) += sz;
+1329:     args = NIL;
+1330:     for (i = arity-1; i >= 0; i--) {
+1331: 	args = CONS(hp, reg[i], args);
+1332: 	hp += 2;
+1333:     }
+1334: 
+1335:     /*
+1336:      * Set up registers for call to error_handler:<func>/3.
+1337:      */
+1338:     reg[0] = mfa->module;
+1339:     reg[1] = mfa->function;
+1340:     reg[2] = args;
+1341:     return ep;
+1342: }
+
+1690:             if (fe->pend_purge_address) {
+1691:                 /* The system is currently trying to purge the
+1692:                  * module containing this fun. Suspend the process
+1693:                  * and let it try again when the purge operation is
+1694:                  * done (may succeed or not). */
+1695:                 ep = erts_suspend_process_on_pending_purge_lambda(p, fe);
+1696:             } else {
+1697:                 if ((modp = erts_get_module(module, code_ix)) != NULL
+1698:                     && modp->curr.code_hdr != NULL) {
+1699:                     /* There is a module loaded, but obviously the fun is
+1700:                      * not defined in it. We must not call the error_handler
+1701:                      * (or we will get into an infinite loop). */
+1702:                     p->current = NULL;
+1703:                     p->freason = EXC_BADFUN;
+1704:                     p->fvalue = fun;
+1705:                     return NULL;
+1706:                 }
+1707: 
+1708:                 /* No current code for this module. Call the error_handler
+1709:                  * module to attempt loading the module. */
+1710: 
+1711:                 ep = erts_find_function(erts_proc_get_error_handler(p),
+1712:                                         am_undefined_lambda, 3, code_ix);
+1713:                 if (ep == NULL) {
+1714:                     /* No error handler */
+1715:                     p->current = NULL;
+1716:                     p->freason = EXC_UNDEF;
+1717:                     return NULL;
+1718:                 }
+1719:             }
+1720: 
+1721:             ASSERT(ep);
+1722: 
+1723:             reg[0] = module;
+1724:             reg[1] = fun;
+1725:             reg[2] = args;
+1726:             reg[3] = NIL;
+1727: 
+1728:             return ep->dispatch.addresses[code_ix];

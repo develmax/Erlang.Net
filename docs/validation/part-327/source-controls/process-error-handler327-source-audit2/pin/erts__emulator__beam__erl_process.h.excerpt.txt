@@ -1,0 +1,32 @@
+2416: ERTS_GLB_INLINE Eterm erts_proc_get_error_handler(Process *p);
+2417: ERTS_GLB_INLINE Eterm erts_proc_set_error_handler(Process *p, Eterm handler);
+2418: 
+2419: #if ERTS_GLB_INLINE_INCL_FUNC_DEF
+2420: ERTS_GLB_INLINE Eterm
+2421: erts_proc_get_error_handler(Process *p)
+2422: {
+2423:     void *val = erts_psd_get(p, ERTS_PSD_ERROR_HANDLER);
+2424:     if (!val)
+2425: 	return am_error_handler;
+2426:     else {
+2427: 	ASSERT(is_atom(((Eterm) (UWord) val)));
+2428: 	return (Eterm) (UWord) val;
+2429:     }
+2430: }
+2431: 
+2432: ERTS_GLB_INLINE Eterm
+2433: erts_proc_set_error_handler(Process *p, Eterm handler)
+2434: {
+2435:     void *old_val;
+2436:     void *new_val;
+2437:     ASSERT(is_atom(handler));
+2438:     new_val = (handler == am_error_handler) ? NULL : (void *) (UWord) handler;
+2439:     old_val = erts_psd_set(p, ERTS_PSD_ERROR_HANDLER, new_val);
+2440:     if (!old_val)
+2441: 	return am_error_handler;
+2442:     else {
+2443: 	ASSERT(is_atom(((Eterm) (UWord) old_val)));
+2444: 	return (Eterm) (UWord) old_val;
+2445:     }
+2446: }
+2447: 

@@ -626,6 +626,7 @@ public static class CompiledModuleCases
         .. ClrMemoryCases.Modules,
         .. AsyncDistributionCases.Modules,
         .. ProcessInfoAsyncDistributionCases.Modules,
-        .. SpawnAsyncDistributionCases.Modules
+        .. SpawnAsyncDistributionCases.Modules,
+        .. ProcessErrorHandlerCases.Modules
     ];
 }

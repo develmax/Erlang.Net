@@ -1,0 +1,15 @@
+# Root-only Main327 promotion/full gates (SOURCE ONLY)
+
+Author has not invoked these Main-writing/build entry points. Future final composer freeze and independent final source peer are mandatory CLI inputs; no final SHA is guessed. The exact already executed focus4 C0B49A/DF0595 authority, five HOST selectors and actual managed20 report are hash-bound in focus-bindings.json. Final17 C# bytes must match that actual focus. Candidate4 appends exactly one Program HOST row and20 ordinary modules: expected full **6729 =6708+20+1**, no public MFA increase.
+
+```text
+python -B artifacts/part327-main-gates-proposal1/main327.py promote --freeze FINAL/source-freeze.json --freeze-sha256 FINAL_SHA --closure-sha256 FINAL_CLOSURE_SHA --source-peer FINAL_PEER.json --source-peer-sha256 PEER_SHA
+pwsh -NoProfile -File artifacts/part327-main-gates-proposal1/run327-main-full.ps1 -MainFreezeSha256 ACTUAL_PROMOTED_MAIN_SHA -ClosureSha256 FINAL_CLOSURE_SHA
+python -B artifacts/part327-main-gates-proposal1/main327.py full-guard --freeze artifacts/root-part327-main1/source-freeze.json --freeze-sha256 ACTUAL_PROMOTED_MAIN_SHA --closure-sha256 FINAL_CLOSURE_SHA --source-peer FINAL_PEER.json --source-peer-sha256 PEER_SHA
+```
+
+Use the bundled Python executable used in previous recipes. Root launches the full runner OUTSIDE the known Windows native named-pipe sandbox restriction; it records that context and uses CPU2/no shared compiler/no build servers/disabled restore parallel. It invokes the actual tools/validate.ps1 once into fresh root-part327-main1 captures. Source/hash/count checks precede invocation. Registry before full is preserved at promotion. Main source count derives from exact final Files;17 C#/2379 full authored inputs are required. Both native plans/workflow pins and all their declared source hashes are checked by the full guard.
+
+The guard verifies actual6729 PASS, zero failures, all old6708 names in unchanged order, exact20 generated names plus the HOST registration, and eleven integrations exactly matching immutable326. It restores all30 prior custom Limits before appending only the narrow process_flag/2 error_handler scope. Twenty-nine other custom Limits and all unrelated rows remain exact; the prior process_flag/2 limitation text is retained as prefix. Registry509 / previous509 / delta0 /351erlang describes presence only. Native3 must run fresh after this guard through the separate source proposal; actual readiness CLI exit0 must still be independently obtained with6729/509/509/delta0 comparing validation/part-326/final-main/tests.json. Neither target/focus/full alone claims readiness, original327 execution or whole erlang completion.
+
+Proposed Runtime-note boundary for later finalization: per-process custom undefined_function/3 forwarding on supported registered/source call routes, original arguments/context and bounded source-lease/error propagation; default child handler and fallback undef preserved. Kernel autoload, undefined_lambda, debugger callbacks, arbitrary raw BEAM imports and general native/stack/erlang compatibility remain incomplete. No finalizer or metadata entry is executed by this proposal.

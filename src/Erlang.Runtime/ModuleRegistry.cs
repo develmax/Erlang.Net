@@ -196,24 +196,82 @@ public sealed partial class ModuleRegistry
         string module,
         string function,
         params Term[] arguments
+    ) => CallWithDispatch(
+        context,
+        module,
+        function,
+        arguments,
+        out _
+    );
+
+    internal ValueTask<Term> CallWithDispatch(
+        ProcessContext context,
+        string module,
+        string function,
+        Term[] arguments,
+        out ModuleCallDispatchKind dispatch
     )
     {
+        dispatch = ModuleCallDispatchKind.Direct;
         context.Runtime.ThrowIfHalted();
         foreach (Term argument in arguments)
             context.Runtime.ObserveIncomingTerm(argument);
         ErlangFunction? body;
         ModuleCodeImage? image;
         IDisposable? code;
+        bool handler = false;
+        Atom selectedHandler = context.ErrorHandler;
         lock (gate)
         {
             functions.TryGetValue((module, function, arguments.Length), out body);
+            if (body is null)
+            {
+                if (!functions.TryGetValue((selectedHandler.Name, ProcessErrorHandlerNames.UndefinedFunction, ProcessErrorHandlerNames.Arity), out body))
+                    throw new ErlangException(ErlangErrorReasons.UndefinedFunction);
+                arguments = [Term.A(module), Term.A(function), Cons.From(arguments)];
+                module = selectedHandler.Name;
+                function = ProcessErrorHandlerNames.UndefinedFunction;
+                handler = true;
+            }
             var signature = (module, function, arguments.Length);
             ModuleCodeImage? currentImage = codeImages.GetValueOrDefault(module);
             image = sourceOwners.ContainsKey(signature) || IsIntrinsic(signature, body, currentImage) ? null : currentImage;
             code = image is null || body is null ? null : context.EnterSourceCode(image, body);
+            if (handler)
+                dispatch = ModuleCallDispatchKind.UndefinedFunctionHandler;
         }
-        if (body is null)
-            throw new ErlangException(ErlangErrorReasons.UndefinedFunction);
+
+        return handler
+            ? InvokeErrorHandler(
+                context,
+                module,
+                function,
+                arguments,
+                body!,
+                image,
+                code
+            )
+            : InvokeSelected(
+                context,
+                module,
+                function,
+                arguments,
+                body!,
+                image,
+                code
+            );
+    }
+
+    private ValueTask<Term> InvokeSelected(
+        ProcessContext context,
+        string module,
+        string function,
+        Term[] arguments,
+        ErlangFunction body,
+        ModuleCodeImage? image,
+        IDisposable? code
+    )
+    {
         ProcessTraceInvocation? invocation = null;
         if (image is null)
         {

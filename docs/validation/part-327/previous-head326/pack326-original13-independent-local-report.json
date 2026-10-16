@@ -1,0 +1,85 @@
+{
+  "Status": "ORIGINAL_ONLY_THIRTEEN_TYPED_SEMANTIC_PASS",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SourcePlanSha256": "EAC7F22640E3233268FD81EC22568A08666BAD5A190A81748DC1A49A1D5B20C0",
+  "PredeclaredPolicySha256": "B1CA9E182911DE41ECF74214B889E51FFF6CE7E77F244A77DA49EFCB0DFA2F15",
+  "DecoderSha256": "F09799AD51AB4A49C271977E987F1C186C76FF4A87C943D19E8D6AA709F1DB4C",
+  "Cases": {
+    "tuple_empty": {
+      "Passed": true,
+      "RawEtfSha256": "B6AEB9A5CC390A6A380D4B40A7E34004A41BAEF86401C472EC0B1F7CF7C66205",
+      "FullStackAndTaintsRetained": true
+    },
+    "tuple_single": {
+      "Passed": true,
+      "RawEtfSha256": "2AF53EAE322B16DD77A352E801ED9D08F0C020DEFE3D4BD819B9C41176EACC09",
+      "FullStackAndTaintsRetained": true
+    },
+    "tuple_spill": {
+      "Passed": true,
+      "RawEtfSha256": "4DFDBD0EBFF9345AD12BB844B7AC8D4F3E97C1F34C6C2D93ABC38543C1259960",
+      "FullStackAndTaintsRetained": true
+    },
+    "list_empty": {
+      "Passed": true,
+      "RawEtfSha256": "E1E5BF7AA34CE9E0FD37F8BE44EF458BFFBECD3625DC90C9A1AB9CE335033AAF",
+      "FullStackAndTaintsRetained": true
+    },
+    "list_single": {
+      "Passed": true,
+      "RawEtfSha256": "50C8DCD9B9D63815ECD977E283D7198481BBBDA23ACB2F291E328E4F7F82C586",
+      "FullStackAndTaintsRetained": true
+    },
+    "list_spill": {
+      "Passed": true,
+      "RawEtfSha256": "93FD06B3C74FA0617863BBDEFAB0A089F6401064B03013C0263577513292F825",
+      "FullStackAndTaintsRetained": true
+    },
+    "pending_none": {
+      "Passed": true,
+      "RawEtfSha256": "4147C37007ABA05763E9D04B33C9096D5B24E69FD6F24075652CE478768B674D",
+      "FullStackAndTaintsRetained": true
+    },
+    "pending_raise_twice": {
+      "Passed": true,
+      "RawEtfSha256": "4A5F9356251287397A19974EEF6E8588D3B57F4C070639C1EC43111ED9C38111",
+      "FullStackAndTaintsRetained": true
+    },
+    "pending_badarg_ignored": {
+      "Passed": true,
+      "RawEtfSha256": "6A35453E09AF285A98B24573873AABF339C19FC4D0EC1B3FE90D1801FEF8DC29",
+      "FullStackAndTaintsRetained": true
+    },
+    "pending_detail": {
+      "Passed": true,
+      "RawEtfSha256": "9469FF59BD0360200CBE10E32D126DEB56BD70A3A8EB05C75C850CCF09BAA4FF",
+      "FullStackAndTaintsRetained": true
+    },
+    "pending_badarg_then_raise": {
+      "Passed": true,
+      "RawEtfSha256": "647782777729C70FACEC30849DD38FCFBD9D90CE44957CF897A2BB67FB572489",
+      "FullStackAndTaintsRetained": true
+    },
+    "pending_raise_then_badarg": {
+      "Passed": true,
+      "RawEtfSha256": "5AA153C857B51A73A0A1788A8C7B60060193989E495BD03192484221433C421C",
+      "FullStackAndTaintsRetained": true
+    },
+    "load_veto": {
+      "Passed": true,
+      "RawEtfSha256": "7040A95B46D43EF72D01052DDCF372DE249B385D4D57DA7D03D37013C01127FF",
+      "FullStackAndTaintsRetained": true
+    }
+  },
+  "ReceiptFilesVerified": 88,
+  "RawEvidenceDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\pack326-watch-38850744372-terminal\\artifact-12026035055\\nif-pending-original-observations",
+  "CiIdentity": null,
+  "CiEnvelopeMatchedExpectedFields": false,
+  "CiIdentityAuthenticatedByNetwork": false,
+  "SdkCompared": false,
+  "SdkPass": false,
+  "GenericNifSupport": false,
+  "NativeUnloadCounterCompared": false,
+  "Exclusions": [],
+  "Scope": "Independent original-only semantics. Does not establish SDK ABI/lifecycle/route compatibility."
+}
