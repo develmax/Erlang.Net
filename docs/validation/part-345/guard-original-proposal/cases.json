@@ -1,0 +1,173 @@
+{
+  "Status": "SOURCE_DERIVED_EXPECTATIONS_UNEXECUTED",
+  "Cases": [
+    {
+      "Name": "ordinary_guard",
+      "Path": "fixtures/ordinary_guard.erl",
+      "Expected": "done",
+      "Diagnostic": null,
+      "SourceSha256": "C34F86F8BCB4B0B0AF7BE60D238D1367B8B3239C726E0E3148FAA7F99AC28085"
+    },
+    {
+      "Name": "local_guard_shadow",
+      "Path": "fixtures/local_guard_shadow.erl",
+      "Expected": null,
+      "Diagnostic": "ERL007",
+      "SourceSha256": "C6ECD5660CC2AC588BE621703E021256F96796605D4DCD88DE77DCF2816E64B4"
+    },
+    {
+      "Name": "local_guard_shadow_suppressed",
+      "Path": "fixtures/local_guard_shadow_suppressed.erl",
+      "Expected": null,
+      "Diagnostic": "ERL007",
+      "SourceSha256": "78B551B8266554F61018D95D65290F42707690479D3D53953F194F61E6147C0B"
+    },
+    {
+      "Name": "qualified_guard_local_shadow",
+      "Path": "fixtures/qualified_guard_local_shadow.erl",
+      "Expected": "done",
+      "Diagnostic": null,
+      "SourceSha256": "9711A26B18AE0949B5ADB8F369D33844B3537EFB6002ABADB6A99A3D1A2D6B84"
+    },
+    {
+      "Name": "suppressed_guard",
+      "Path": "fixtures/suppressed_guard.erl",
+      "Expected": null,
+      "Diagnostic": "ERL007",
+      "SourceSha256": "1EE7E5470F7A9D7DE6334D06A0D55E0F45A6A5951D9EA6561C9CF7E8CF1A2AB3"
+    },
+    {
+      "Name": "suppressed_ordinary",
+      "Path": "fixtures/suppressed_ordinary.erl",
+      "Expected": null,
+      "Diagnostic": "ERL005",
+      "SourceSha256": "DC0E9658239788F6B28E9613A4FC47D484B5302EAEA257C98135CF3C14A01E9B"
+    },
+    {
+      "Name": "suppressed_named_fun",
+      "Path": "fixtures/suppressed_named_fun.erl",
+      "Expected": null,
+      "Diagnostic": "ERL005",
+      "SourceSha256": "35628EE86C5C6E4637AC21B43F2A5D9FC2B478ED71BCF5CD9A55B1DCD223DD20"
+    },
+    {
+      "Name": "erlang_reimport_guard",
+      "Path": "fixtures/erlang_reimport_guard.erl",
+      "Expected": "done",
+      "Diagnostic": null,
+      "SourceSha256": "65F0FE1577E4C670FD17050C5E66E98EA4001FBB71013BBC21A7B5236FED651D"
+    },
+    {
+      "Name": "all_suppressed_qualified",
+      "Path": "fixtures/all_suppressed_qualified.erl",
+      "Expected": "done",
+      "Diagnostic": null,
+      "SourceSha256": "3A739D1884BA17701D3DA905EFBB9A8350D3CF8CB53E8CDE0C34799401CF56CE"
+    },
+    {
+      "Name": "all_suppressed_reimport",
+      "Path": "fixtures/all_suppressed_reimport.erl",
+      "Expected": "done",
+      "Diagnostic": null,
+      "SourceSha256": "877430059D2D6A50920E763B78AA948F7D21A70A0348024F1B03FCB8175FA4DA"
+    },
+    {
+      "Name": "foreign_import_guard",
+      "Path": "fixtures/foreign_import_guard.erl",
+      "Expected": null,
+      "Diagnostic": "ERL007",
+      "SourceSha256": "B29AFD6965F6F99F0D7DB0CDF20B09AFC154B3E272A2B66C9FD929886722F224"
+    },
+    {
+      "Name": "foreign_import_qualified_guard",
+      "Path": "fixtures/foreign_import_qualified_guard.erl",
+      "Expected": "done",
+      "Diagnostic": null,
+      "SourceSha256": "0F7E295B17BD55BCC8D1D9B16777417009E027ADADD04C8B68F4E908CC1D3192"
+    },
+    {
+      "Name": "imported_call",
+      "Path": "fixtures/imported_call.erl",
+      "Expected": "done",
+      "Diagnostic": null,
+      "SourceSha256": "B233D20C34DB3C860E5C8FD2CF0586A7B4E42A9DCAF039033F71F35D3FE958A6"
+    },
+    {
+      "Name": "imported_fun_forbidden",
+      "Path": "fixtures/imported_fun_forbidden.erl",
+      "Expected": null,
+      "Diagnostic": "ERL005",
+      "SourceSha256": "5AACB7844BC210061626B5DAF9117D868941F3173A2E99479D5D15B3602957C6"
+    },
+    {
+      "Name": "erlang_imported_fun_forbidden",
+      "Path": "fixtures/erlang_imported_fun_forbidden.erl",
+      "Expected": null,
+      "Diagnostic": "ERL005",
+      "SourceSha256": "3BC25233245DDA62AB88B35DEEF4AF2F9FD8D5532474D945229BD4010761A016"
+    },
+    {
+      "Name": "import_local_conflict",
+      "Path": "fixtures/import_local_conflict.erl",
+      "Expected": null,
+      "Diagnostic": "ERL005",
+      "SourceSha256": "5349C024E258C39464E6139AF883FA4BDE6F00FFF99AB161FD81667698A4E026"
+    },
+    {
+      "Name": "duplicate_import",
+      "Path": "fixtures/duplicate_import.erl",
+      "Expected": null,
+      "Diagnostic": "ERL005",
+      "SourceSha256": "C45450A2D25E7451BE2E26FAEE0A3237B57DCB783FA3F347EA676E6BBB017A00"
+    },
+    {
+      "Name": "duplicate_within_form",
+      "Path": "fixtures/duplicate_within_form.erl",
+      "Expected": "done",
+      "Diagnostic": null,
+      "SourceSha256": "090BD492E6E34DAE4CA777892B7FEA2588BDA1DFD4BBEA960A907B2E3DABDF73"
+    },
+    {
+      "Name": "local_filter_is_expression",
+      "Path": "fixtures/local_filter_is_expression.erl",
+      "Expected": "done",
+      "Diagnostic": null,
+      "SourceSha256": "1F58693838427ED25ECFEE58E97631DEEF63CC90C626ABCD1ED5CE1398425228"
+    },
+    {
+      "Name": "local_filter_failure_propagates",
+      "Path": "fixtures/local_filter_failure_propagates.erl",
+      "Expected": "done",
+      "Diagnostic": null,
+      "SourceSha256": "19F34F8966D446D6E28840C809BDDDB22A92751D8A22FC4ABF9DC8AAE8856645"
+    },
+    {
+      "Name": "suppressed_filter",
+      "Path": "fixtures/suppressed_filter.erl",
+      "Expected": null,
+      "Diagnostic": "ERL007",
+      "SourceSha256": "02ED756476A833A9BC73BB959DCFB04B441834B62E88BBD7AAECE11C75AA2D0F"
+    },
+    {
+      "Name": "suppressed_bit_size",
+      "Path": "fixtures/suppressed_bit_size.erl",
+      "Expected": null,
+      "Diagnostic": "ERL007",
+      "SourceSha256": "228E11E07760A5CB6B7CBFADF1BB0CF3BFB8DC191574B5FB56864CF7C6045883"
+    },
+    {
+      "Name": "suppressed_map_key",
+      "Path": "fixtures/suppressed_map_key.erl",
+      "Expected": null,
+      "Diagnostic": "ERL007",
+      "SourceSha256": "E5A1BCE229B18AF4147AD5BAEA7748B0E1293684FAAADC20308DBEAC195C4850"
+    },
+    {
+      "Name": "qualified_pattern_keys_sizes",
+      "Path": "fixtures/qualified_pattern_keys_sizes.erl",
+      "Expected": "done",
+      "Diagnostic": null,
+      "SourceSha256": "11C7CA51C8079BDEA2912045419AB9CD16EBE6EB1D7D2508DD69166E9A3DD5EF"
+    }
+  ]
+}

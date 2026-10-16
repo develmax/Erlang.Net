@@ -1,0 +1,114 @@
+{
+  "Status": "PASS_ACTUAL_GUARD345_FIRST35_FOCUSED_NOT_FULL_OR_ORIGINAL",
+  "Candidate": "artifacts/guard345-candidate",
+  "SourceFreezeSha256": "81DADC25287681D2E257F8E3DE4AFD34FE16CBAFBB0A6B8579EB33B92FFDE635",
+  "Formatted13Sha256": "BE314F56F92CF96F0A28186663C38927A3862AA4937201A97C09A9DF8F9AA58C",
+  "BuildWarnings": 0,
+  "BuildErrors": 0,
+  "ParseAll29Passed": true,
+  "FocusedPassed": 35,
+  "GuardCases": 24,
+  "GuardPositiveCompiled": 11,
+  "GuardNegativeExpectedCodes": 13,
+  "PredicateFixtures": 5,
+  "SourceTermPartitionsPerPredicate": 38,
+  "MetadataLengthAndRestoredFunRegressions": 6,
+  "PassedNames": [
+    "guard/ordinary_guard",
+    "guard/local_guard_shadow",
+    "guard/local_guard_shadow_suppressed",
+    "guard/qualified_guard_local_shadow",
+    "guard/suppressed_guard",
+    "guard/suppressed_ordinary",
+    "guard/suppressed_named_fun",
+    "guard/erlang_reimport_guard",
+    "guard/all_suppressed_qualified",
+    "guard/all_suppressed_reimport",
+    "guard/foreign_import_guard",
+    "guard/foreign_import_qualified_guard",
+    "guard/imported_call",
+    "guard/imported_fun_forbidden",
+    "guard/erlang_imported_fun_forbidden",
+    "guard/import_local_conflict",
+    "guard/duplicate_import",
+    "guard/duplicate_within_form",
+    "guard/local_filter_is_expression",
+    "guard/local_filter_failure_propagates",
+    "guard/suppressed_filter",
+    "guard/suppressed_bit_size",
+    "guard/suppressed_map_key",
+    "guard/qualified_pattern_keys_sizes",
+    "predicate/is_atom",
+    "predicate/is_float",
+    "predicate/is_integer",
+    "predicate/is_number",
+    "predicate/is_tuple",
+    "regression/binding-generated-image-identity",
+    "regression/length-guard-progress",
+    "regression/length-receive-priority",
+    "regression/length-resolved-suspension",
+    "regression/restored-source-current-old-purge-sibling",
+    "regression/restored-source-lexical-captures"
+  ],
+  "CurrentCompatibilityCounts": {
+    "Verified compatible": 5,
+    "Known differences": 17,
+    "Needs verification": 565
+  },
+  "VerifiedSourceBindings": 25,
+  "NoNewCompatibilityPromotion": true,
+  "OriginalCompared": false,
+  "FullRun": false,
+  "MainModified": false,
+  "HistoricalOldHostFailureSeparatelyPreserved": "artifacts/guard345-legacy-attribute-actual1/exit.json",
+  "PendingRepairs": [
+    "Source-directed old import-unsupported HOST expectation migration awaiting Rootpeer",
+    "New importmodule missing existingname validation sourcefinding awaiting Rootpeer"
+  ],
+  "Evidence": [
+    {
+      "Path": "artifacts/guard345-focused-actual1/build-exit.json",
+      "Sha256": "D00A435619CB777766F1A371AC61681938F2A955FA49324B823450F95A555102"
+    },
+    {
+      "Path": "artifacts/guard345-focused-actual1/build.log",
+      "Sha256": "758D6A5D842E15F012B88FE5FD363A4A43EE9A639419A2CF9D4F4EBDFC174891"
+    },
+    {
+      "Path": "artifacts/guard345-focused-actual1/parse-exit.json",
+      "Sha256": "3355B411CF8AB4A0F7BFA855CE39698FB6C68EC6E30EF0663AFDEDEDB0F32E2A"
+    },
+    {
+      "Path": "artifacts/guard345-focused-actual1/parse.stdout",
+      "Sha256": "AFB8785CE3A41E8563C08B7BD4A1C25CECEFDC89FF67E5F75F3E3D206BC6E76B"
+    },
+    {
+      "Path": "artifacts/guard345-focused-actual1/focus-exit.json",
+      "Sha256": "71E460CA13BDF32953B49533F05BA42ACBCC0CC33D43B3ED8DD392123724E6B6"
+    },
+    {
+      "Path": "artifacts/guard345-focused-actual1/focus.stdout",
+      "Sha256": "F60D187C98676E1C7CAB3DC6565A20089B84486BD0B04881C72F84B3286BC750"
+    },
+    {
+      "Path": "artifacts/guard345-focused-actual1/focus.stderr",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/guard345-focused-actual1/dlls-before.json",
+      "Sha256": "C36E82565A399DE9F60474D0711289B78D1AFC62FA89C2FAF89B4CEB1C1E4AD2"
+    },
+    {
+      "Path": "artifacts/guard345-focused-actual1/fixture-manifest.json",
+      "Sha256": "13BD591BEE59D80FB1F9AF5006D5ABB136C23E5120DBF4B499E3A56BADD9787B"
+    },
+    {
+      "Path": "artifacts/guard345-empty-bindings-codegen/report.json",
+      "Sha256": "ACCD7FF76117E9E31F3352D676C0871F4E18B72E2DFEB00E36F0775EF9F9388C"
+    },
+    {
+      "Path": "artifacts/guard345-verified-source-independent/current-verified-source-review.json",
+      "Sha256": "B699617F8CD39D9A3A6DF209D6A591EE9E24E252C19F9CBE9F4AD8AB8B8D4B76"
+    }
+  ]
+}

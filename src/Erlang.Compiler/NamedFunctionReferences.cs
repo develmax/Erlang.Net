@@ -42,12 +42,13 @@ internal static class NamedFunctionReferences
 
             return Create([]);
         }
-        if (!AutoImportSignatures.Contains(reference.Name, reference.Arity))
+        string? target = SourceCallResolution.ExternalModule(module, reference.Name, reference.Arity);
+        if (target is null)
             throw new ErlangException(ErlangErrorReasons.UndefinedFunction);
 
         return context.Runtime.Functions.External(
             context.Runtime,
-            new ExternalFunctionIdentity(Term.A(ErlangModuleNames.Module), Term.A(reference.Name), reference.Arity)
+            new ExternalFunctionIdentity(Term.A(target), Term.A(reference.Name), reference.Arity)
         );
     }
 }

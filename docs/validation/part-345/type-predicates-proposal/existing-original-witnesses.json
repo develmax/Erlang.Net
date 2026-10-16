@@ -1,0 +1,221 @@
+{
+  "Status": "SELECTED_EXISTING_OBSERVATIONS_NOT_COMPLETE_PARTITION_VERIFICATION",
+  "OriginalCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "PublishedHead": "df2b4078bf14d7337ef4b928f1cb88d9df4fbc5d",
+  "Run": 38959085439,
+  "Job": 117169309757,
+  "Artifact": 12073481602,
+  "RawPath": "docs/validation/part-341/published340-ordinary/artifact-12073481602/differential.json",
+  "RawSha256": "5E6ACC0712B0AACA221438DF99535AE6BB6D8ACC0EE448C265603127E0B97794",
+  "Rows": [
+    {
+      "Mfa": "erlang:is_atom/1",
+      "Track": "Results",
+      "Index": 13,
+      "RawRow": {
+        "Source": "case a of X when hd(X) == 1; is_atom(X) -> ok end",
+        "Expected": "{ok,ok}",
+        "Actual": "{ok,ok}",
+        "ExitReason": "normal",
+        "Passed": true
+      }
+    },
+    {
+      "Mfa": "erlang:is_atom/1",
+      "Track": "ModuleResults",
+      "Index": 1767,
+      "RawRow": {
+        "Name": "erlang-process-query-export-registered-0",
+        "Source": "-module(oracle_process_query). -export([run/0]). run()->register(oracle_query_parent,self()),true=lists:member(oracle_query_parent,erlang:registered()),true=lists:all(fun(X)->is_atom(X) end,erlang:registered()),unregister(oracle_query_parent),false=lists:member(oracle_query_parent,erlang:registered()),done.",
+        "SourceSha256": "D8634E918A1FEC78AD4B4134FE08371552112A52D346F62639A93E0060328F3D",
+        "CSharpSha256": "79B21FDED06FA78C62EEC0CAA721DC9DE13A0647B1E4C1C566CBA8C1CC200A1C",
+        "CallerContext": "UntrappedFresh",
+        "CompilerPolicy": "Default",
+        "Expected": "{ok,done}",
+        "FixtureExpected": "{ok,done}",
+        "Actual": "{ok,done}",
+        "ExpectedStandardOutputHex": null,
+        "ExpectedStandardOutputAlternatives": null,
+        "ExpectedStandardErrorHex": null,
+        "NativeStandardOutputHex": null,
+        "NativeStandardErrorHex": null,
+        "SdkStandardOutputHex": null,
+        "SdkStandardErrorHex": null,
+        "NativeAndSdkStandardOutputExactlyMatch": true,
+        "StandardStreamsMatch": true,
+        "Passed": true
+      }
+    },
+    {
+      "Mfa": "erlang:is_integer/1",
+      "Track": "Results",
+      "Index": 91,
+      "RawRow": {
+        "Source": "case 42 of X -> F = fun(X) when is_integer(X) -> X; (_) -> X end, F(atom) end",
+        "Expected": "{ok,42}",
+        "Actual": "{ok,42}",
+        "ExitReason": "normal",
+        "Passed": true
+      }
+    },
+    {
+      "Mfa": "erlang:is_integer/1",
+      "Track": "Results",
+      "Index": 328,
+      "RawRow": {
+        "Source": "if is_integer(1), 1 < 2 -> yes end",
+        "Expected": "{ok,yes}",
+        "Actual": "{ok,yes}",
+        "ExitReason": "normal",
+        "Passed": true
+      }
+    },
+    {
+      "Mfa": "erlang:is_integer/1",
+      "Track": "ModuleResults",
+      "Index": 0,
+      "RawRow": {
+        "Name": "private-clauses",
+        "Source": "-module(oracle_clauses). -export([run/0]). run()->pick(2). pick(0)->zero; pick(N) when is_integer(N)->N+1.",
+        "SourceSha256": "8BC767262EBECD9ABC5B7C1C72E6891647480B21808756887914B4F3ABE33085",
+        "CSharpSha256": "9483A8019291B9E2AC90FC51FC0F0CD0203C5A85440C6E4CEC6AA49E83DD836D",
+        "CallerContext": "UntrappedFresh",
+        "CompilerPolicy": "Default",
+        "Expected": "{ok,3}",
+        "FixtureExpected": "{ok,3}",
+        "Actual": "{ok,3}",
+        "ExpectedStandardOutputHex": null,
+        "ExpectedStandardOutputAlternatives": null,
+        "ExpectedStandardErrorHex": null,
+        "NativeStandardOutputHex": null,
+        "NativeStandardErrorHex": null,
+        "SdkStandardOutputHex": null,
+        "SdkStandardErrorHex": null,
+        "NativeAndSdkStandardOutputExactlyMatch": true,
+        "StandardStreamsMatch": true,
+        "Passed": true
+      }
+    },
+    {
+      "Mfa": "erlang:is_float/1",
+      "Track": "Results",
+      "Index": 525,
+      "RawRow": {
+        "Source": "maybe 1 ?= 1.0 else V -> is_float(V) end",
+        "Expected": "{ok,true}",
+        "Actual": "{ok,true}",
+        "ExitReason": "normal",
+        "Passed": true
+      }
+    },
+    {
+      "Mfa": "erlang:is_float/1",
+      "Track": "ModuleResults",
+      "Index": 145,
+      "RawRow": {
+        "Name": "compiled-maybe-exact-numeric-match",
+        "Source": "-module(oracle_maybe_20). -export([run/0]). run()->maybe 1 ?= 1.0 else V -> is_float(V) end.",
+        "SourceSha256": "80657A2331D995ECA073A83743355D0511570C68D48ECE39DAA3B171F66BF74C",
+        "CSharpSha256": "C4C1B4417F1A9287233B1ECA1A4EB46E4842598FEB4D5AC88851B49D4109028D",
+        "CallerContext": "UntrappedFresh",
+        "CompilerPolicy": "Default",
+        "Expected": "{ok,true}",
+        "FixtureExpected": "{ok,true}",
+        "Actual": "{ok,true}",
+        "ExpectedStandardOutputHex": null,
+        "ExpectedStandardOutputAlternatives": null,
+        "ExpectedStandardErrorHex": null,
+        "NativeStandardOutputHex": null,
+        "NativeStandardErrorHex": null,
+        "SdkStandardOutputHex": null,
+        "SdkStandardErrorHex": null,
+        "NativeAndSdkStandardOutputExactlyMatch": true,
+        "StandardStreamsMatch": true,
+        "Passed": true
+      }
+    },
+    {
+      "Mfa": "erlang:is_number/1",
+      "Track": "ModuleResults",
+      "Index": 1087,
+      "RawRow": {
+        "Name": "erlang-basic-guards",
+        "Source": "-module(oracle_erlang_basic). -export([run/0]). run()->yes=guard(-2.5,fun(X)->X end),no=guard(wrong,wrong),done. guard(X,F) when is_number(X),abs(X)=:=2.5,round(X)=:=-3,is_function(F,1),is_boolean(true),is_integer(5,0,9),size({a})=:=1,min(X,0)=:=X->yes;guard(_,_) ->no.",
+        "SourceSha256": "4FAFB9DEC2B9D36D1991D4DE092A92C5933E4BB41AE17961FA89B04788395486",
+        "CSharpSha256": "090F945AE2B78034E9A2FBC39EC470B07C4CB38A0456EA823207BB54AE94B7B5",
+        "CallerContext": "UntrappedFresh",
+        "CompilerPolicy": "Default",
+        "Expected": "{ok,done}",
+        "FixtureExpected": "{ok,done}",
+        "Actual": "{ok,done}",
+        "ExpectedStandardOutputHex": null,
+        "ExpectedStandardOutputAlternatives": null,
+        "ExpectedStandardErrorHex": null,
+        "NativeStandardOutputHex": null,
+        "NativeStandardErrorHex": null,
+        "SdkStandardOutputHex": null,
+        "SdkStandardErrorHex": null,
+        "NativeAndSdkStandardOutputExactlyMatch": true,
+        "StandardStreamsMatch": true,
+        "Passed": true
+      }
+    },
+    {
+      "Mfa": "erlang:is_tuple/1",
+      "Track": "ModuleResults",
+      "Index": 4246,
+      "RawRow": {
+        "Name": "erlang-native-record-introspection",
+        "Source": "-module(native_record_contract). -export([run/0]). run()->R=records:create(test,a,[{z,3},{x,1},{y,2}],#{is_exported=>true}),test=records:get_module(R),a=records:get_name(R),[z,x,y]=records:get_field_names(R),true=records:is_exported(R),1=records:get(x,R),false=is_tuple(R),false=is_map(R),done. ",
+        "SourceSha256": "3E3C6259E0A6EB08E853757D9F3445C84527B8AC60BE4C0129B330ACB4A517AD",
+        "CSharpSha256": "A51F314DEEA228ACFB7F3E710DE33F1B3DBED41DF8DE570403D6DDBF27123403",
+        "CallerContext": "UntrappedFresh",
+        "CompilerPolicy": "Default",
+        "Expected": "{ok,done}",
+        "FixtureExpected": "{ok,done}",
+        "Actual": "{ok,done}",
+        "ExpectedStandardOutputHex": null,
+        "ExpectedStandardOutputAlternatives": null,
+        "ExpectedStandardErrorHex": null,
+        "NativeStandardOutputHex": null,
+        "NativeStandardErrorHex": null,
+        "SdkStandardOutputHex": null,
+        "SdkStandardErrorHex": null,
+        "NativeAndSdkStandardOutputExactlyMatch": true,
+        "StandardStreamsMatch": true,
+        "Passed": true
+      }
+    },
+    {
+      "Mfa": "erlang:is_tuple/1",
+      "Track": "ModuleResults",
+      "Index": 4579,
+      "RawRow": {
+        "Name": "erlang-match-spec-table-type-guards",
+        "Source": "-module(match_spec_contract). -export([run/0]). run()->{ok,7,[],[]}=erlang:match_spec_test({7},[{{'$1'},[{is_integer,'$1',0,10},{is_tuple,'$_'}],[{element,1,'$_'}]}],table),done.",
+        "SourceSha256": "1320E9B318BBC5B60FDD225D89F6FCAF40243A9371429A98CE34DD6CE4F3EE1F",
+        "CSharpSha256": "CED9A599CD6CA41546537173EC7F183305E11907EBE3A5FD41CE2DBA75381DA3",
+        "CallerContext": "UntrappedFresh",
+        "CompilerPolicy": "Default",
+        "Expected": "{ok,done}",
+        "FixtureExpected": "{ok,done}",
+        "Actual": "{ok,done}",
+        "ExpectedStandardOutputHex": null,
+        "ExpectedStandardOutputAlternatives": null,
+        "ExpectedStandardErrorHex": null,
+        "NativeStandardOutputHex": null,
+        "NativeStandardErrorHex": null,
+        "SdkStandardOutputHex": null,
+        "SdkStandardErrorHex": null,
+        "NativeAndSdkStandardOutputExactlyMatch": true,
+        "StandardStreamsMatch": true,
+        "Passed": true
+      }
+    }
+  ],
+  "Limits": [
+    "is_number negative atom in combined guard is not isolated; other conjuncts may also reject it.",
+    "is_integer/3 rows are not evidence for is_integer/1.",
+    "No complete 38-partition native capture exists for these proposed fixtures."
+  ]
+}

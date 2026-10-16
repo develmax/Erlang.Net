@@ -641,6 +641,8 @@ public static class CompiledModuleCases
         .. ErrorLoggerTermLimitCases.Modules,
         .. ConnectedDependencyCases.Modules,
         .. RemoteSourceFunCases.Modules,
-        .. ListLengthCases.Modules
+        .. ListLengthCases.Modules,
+        .. SourceCallBindingCases.Modules,
+        .. TypePredicateCases.Modules
     ];
 }

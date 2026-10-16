@@ -749,7 +749,8 @@ public static partial class Execution
                 }
             case Expr.Call x:
                 {
-                    if (RecordPredicateSyntax.HasLiteralNonpositiveSize(x))
+                    string? targetModule = x.Module ?? (module?.Functions.Any(f => f.Name == x.Function && f.Arity == x.Arguments.Count) == true ? null : SourceCallResolution.ExternalModule(module, x.Function, x.Arguments.Count));
+                    if (targetModule == ErlangModuleNames.Module && RecordPredicateSyntax.HasLiteralNonpositiveSize(x))
                         return Term.A(ErlangBooleanAtoms.False);
                     var args = await Arguments(x.Arguments);
                     if (x.Module == ErlangModuleNames.Module && x.Function == SourceLoadNifNames.Function
@@ -768,8 +769,8 @@ public static partial class Execution
                         );
                     }
 
-                    if (tail && (x.Module is not null || AutoImportSignatures.Contains(x.Function, args.Length)) &&
-                        ctx.Runtime.Modules.SourceEntry(x.Module ?? ErlangModuleNames.Module, x.Function, args.Length) is { Owner: ModuleDefinition source } entry)
+                    if (tail && targetModule is not null &&
+                        ctx.Runtime.Modules.SourceEntry(targetModule ?? ErlangModuleNames.Module, x.Function, args.Length) is { Owner: ModuleDefinition source } entry)
                         throw new SourceTailCall(
                             source,
                             x.Function,
@@ -777,15 +778,15 @@ public static partial class Execution
                             entry.Image
                         );
 
-                    if (tail && (x.Module is not null && x.Module != ErlangModuleNames.Module || ErlangSourceWrapperSignatures.Contains(x.Function, args.Length)))
-                        throw new RuntimeTailCall(x.Module ?? ErlangModuleNames.Module, x.Function, args);
+                    if (tail && (targetModule is not null && targetModule != ErlangModuleNames.Module || targetModule == ErlangModuleNames.Module && ErlangSourceWrapperSignatures.Contains(x.Function, args.Length)))
+                        throw new RuntimeTailCall(targetModule ?? ErlangModuleNames.Module, x.Function, args);
 
                     ModuleCallDispatchKind dispatch = ModuleCallDispatchKind.Direct;
                     try
                     {
-                        if (RecordPredicateSyntax.TupleTest(x) is { } predicate)
+                        if (targetModule == ErlangModuleNames.Module && RecordPredicateSyntax.TupleTest(x) is { } predicate)
                             return RecordPredicateSyntax.Test(predicate.StaticApply ? Cons.Items(args[2]).First() : args[0], predicate);
-                        if (x.Module is null && !AutoImportSignatures.Contains(x.Function, args.Length))
+                        if (targetModule is null)
                             throw new ErlangException(ErlangErrorReasons.UndefinedFunction);
 
                         if (x.Module == ErlangModuleNames.Module && x.Function == CompilerLoaderNames.CallOnLoad && args.Length == 1)
@@ -795,7 +796,7 @@ public static partial class Execution
 
                         return await ctx.Runtime.Modules.CallWithDispatch(
                             ctx,
-                            x.Module ?? ErlangModuleNames.Module,
+                            targetModule ?? ErlangModuleNames.Module,
                             x.Function,
                             args,
                             out dispatch
@@ -807,7 +808,7 @@ public static partial class Execution
                             throw;
                         throw RuntimeCallFrames.Capture(
                             exception,
-                            x.Module ?? ErlangModuleNames.Module,
+                            targetModule ?? ErlangModuleNames.Module,
                             x.Function,
                             args
                         );

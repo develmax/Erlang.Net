@@ -18,6 +18,8 @@ public sealed partial record ModuleDefinition(
     public IReadOnlyList<FunctionDefinition> Functions { get; init; } = PredefinedModuleFunctions.Add(Name, Functions);
     public IReadOnlyList<ModuleAttribute> Attributes { get; init; } = Array.AsReadOnly((Attributes ?? []).ToArray());
 
+    public SourceCallBindings CallBindings { get; init; } = SourceCallBindings.Empty;
+
     private IReadOnlyList<(string Name, int Arity)>? declaredNifs;
     public IReadOnlyList<(string Name, int Arity)>? DeclaredNifs
     {

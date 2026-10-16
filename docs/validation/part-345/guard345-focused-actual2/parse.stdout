@@ -1,0 +1,51 @@
+PASS parse/guard/ordinary_guard
+{"Name":"guard/local_guard_shadow","ExpectedDiagnostic":"ERL007","ActualDiagnostic":"ERL007","Message":"Illegal guard call \u0027is_atom/1\u0027"}
+PASS guard/local_guard_shadow
+{"Name":"guard/local_guard_shadow_suppressed","ExpectedDiagnostic":"ERL007","ActualDiagnostic":"ERL007","Message":"Illegal guard call \u0027is_atom/1\u0027"}
+PASS guard/local_guard_shadow_suppressed
+PASS parse/guard/qualified_guard_local_shadow
+{"Name":"guard/suppressed_guard","ExpectedDiagnostic":"ERL007","ActualDiagnostic":"ERL007","Message":"Illegal guard call \u0027is_atom/1\u0027"}
+PASS guard/suppressed_guard
+{"Name":"guard/suppressed_ordinary","ExpectedDiagnostic":"ERL005","ActualDiagnostic":"ERL005","Message":"Undefined function is_atom/1"}
+PASS guard/suppressed_ordinary
+{"Name":"guard/suppressed_named_fun","ExpectedDiagnostic":"ERL005","ActualDiagnostic":"ERL005","Message":"Undefined function is_atom/1"}
+PASS guard/suppressed_named_fun
+PASS parse/guard/erlang_reimport_guard
+PASS parse/guard/all_suppressed_qualified
+PASS parse/guard/all_suppressed_reimport
+{"Name":"guard/foreign_import_guard","ExpectedDiagnostic":"ERL007","ActualDiagnostic":"ERL007","Message":"Illegal guard call \u0027is_atom/1\u0027"}
+PASS guard/foreign_import_guard
+PASS parse/guard/foreign_import_qualified_guard
+PASS parse/guard/imported_call
+{"Name":"guard/imported_fun_forbidden","ExpectedDiagnostic":"ERL005","ActualDiagnostic":"ERL005","Message":"Creating a fun from imported name reverse/1 is not allowed"}
+PASS guard/imported_fun_forbidden
+{"Name":"guard/erlang_imported_fun_forbidden","ExpectedDiagnostic":"ERL005","ActualDiagnostic":"ERL005","Message":"Creating a fun from imported name is_atom/1 is not allowed"}
+PASS guard/erlang_imported_fun_forbidden
+{"Name":"guard/import_local_conflict","ExpectedDiagnostic":"ERL005","ActualDiagnostic":"ERL005","Message":"Imported function reverse/1 is locally defined"}
+PASS guard/import_local_conflict
+{"Name":"guard/duplicate_import","ExpectedDiagnostic":"ERL005","ActualDiagnostic":"ERL005","Message":"Function reverse/1 already imported"}
+PASS guard/duplicate_import
+PASS parse/guard/duplicate_within_form
+PASS parse/guard/local_filter_is_expression
+PASS parse/guard/local_filter_failure_propagates
+{"Name":"guard/suppressed_filter","ExpectedDiagnostic":"ERL007","ActualDiagnostic":"ERL007","Message":"Illegal guard call \u0027is_atom/1\u0027"}
+PASS guard/suppressed_filter
+{"Name":"guard/suppressed_bit_size","ExpectedDiagnostic":"ERL007","ActualDiagnostic":"ERL007","Message":"Illegal guard call \u0027length/1\u0027"}
+PASS guard/suppressed_bit_size
+{"Name":"guard/suppressed_map_key","ExpectedDiagnostic":"ERL007","ActualDiagnostic":"ERL007","Message":"Illegal guard call \u0027is_atom/1\u0027"}
+PASS guard/suppressed_map_key
+PASS parse/guard/qualified_pattern_keys_sizes
+PASS parse/predicate/is_atom
+PASS parse/predicate/is_float
+PASS parse/predicate/is_integer
+PASS parse/predicate/is_number
+PASS parse/predicate/is_tuple
+{"Name":"import-module-name/non_latin1","ExpectedDiagnostic":"ERL010","ActualDiagnostic":"ERL010","Message":"module names with non-latin1 characters are not supported"}
+PASS import-module-name/non_latin1
+{"Name":"import-module-name/empty","ExpectedDiagnostic":"ERL010","ActualDiagnostic":"ERL010","Message":"the module name must not be empty"}
+PASS import-module-name/empty
+{"Name":"import-module-name/blank","ExpectedDiagnostic":"ERL010","ActualDiagnostic":"ERL010","Message":"the module name must contain at least one visible character"}
+PASS import-module-name/blank
+{"Name":"import-module-name/control","ExpectedDiagnostic":"ERL010","ActualDiagnostic":"ERL010","Message":"the module name must not contain control characters"}
+PASS import-module-name/control
+PASS parse/import-module-name/latin1

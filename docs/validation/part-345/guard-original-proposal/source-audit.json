@@ -1,0 +1,34 @@
+{
+  "Status": "SOURCE_IMPLEMENTATION_AWAITING_PEER_AND_EXECUTION",
+  "OriginalCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "OriginalFile": "lib/stdlib/src/erl_lint.erl",
+  "OriginalSha256": "D849FACD432331BCEAF4C244A7D71B3B74CD962297B464B016A449C1E50E9292",
+  "Branches": [
+    "no_guard_bif_clash: no local; no foreign import; no suppression unless erlang reimport",
+    "guard_test2/gexpr unqualified guard calls versus explicit erlang calls",
+    "is_guard_test2_info excludes all explicit imports, including erlang, from unqualified comprehension guard classification",
+    "expr fun local reference rejects explicitly imported function names; qualified external references remain valid",
+    "import deduplicates same-form signatures but rejects reimport in separate forms",
+    "auto_import_suppressed accepts atom no_auto_import and per-signature tuple flags; suppression does not remove explicit imports"
+  ],
+  "Implementation": [
+    "Separate immutable per-module CallBindings, retained in generated initializer and thus code-image fingerprint",
+    "No ambient/thread-local module context; iterative validation carries guard-context flag through clauses and dynamic pattern keys/sizes",
+    "Comprehension filters use module-aware classification; ordinary imported calls dispatch to actual imported module",
+    "No changes to predicate bodies or supported MFA registry",
+    "Local and imported record-named calls bypass erlang-only special optimizations"
+  ],
+  "Limits": [
+    "Not executed, parsed, built or compared with native OTP yet",
+    "Existing compiler warning surface is not implemented; overridden auto-import warning emission remains outside this correction",
+    "Unsupported unrelated compile flags are still rejected",
+    "Malformed compile-option handling requires dedicated original diagnostics before broader attribute parity claim",
+    "Rebase Execution.cs against final async length343 before SDK; do not overwrite frozen async graph"
+  ],
+  "RequiredValidation": [
+    "Parse all positive source controls, compile all expected diagnostics, execute positive compiled controls",
+    "Generated C# module roundtrip must retain CallBindings without exposing compiler/import attributes as user module attributes",
+    "Original OTP diagnostics plus corresponding positive results, preserving raw diagnostics rather than equating diagnostic text",
+    "Complete prior tests and registry preservation after integration"
+  ]
+}

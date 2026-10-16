@@ -1,0 +1,75 @@
+{
+  "Status": "PASS_SOURCE_AND_TRANSITIVE_INPUT_PREFLIGHT_NOT_SDK_FULL",
+  "ParentHead": "9c7949f87348223a61c65d37d859b02841036374",
+  "SourceFreezeSha256": "92CA87634B19A5CB999C9BA0C94F2DA638E022A1325EF3D3B1A7E4C90A5E3825",
+  "SourceClosureSha256": "3E624D130B22232E40E47982D4449D6482469D2BABF0815F3E5521E293E67805",
+  "OwnedPaths": 34,
+  "ClosureRows": 2751,
+  "PackageResources": 6,
+  "ReadinessInputs": 18,
+  "PreviousTests7224": true,
+  "RegistryRows": 587,
+  "CompatibilityCounts": {
+    "Verified compatible": 5,
+    "Known differences": 17,
+    "Needs verification": 565
+  },
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Files": 1246,
+      "AddedPaths": [
+        "src/Erlang.Compiler/SourceCallBindingBuilder.cs",
+        "src/Erlang.Compiler/SourceCallBindingCode.cs",
+        "src/Erlang.Compiler/SourceCallBindingDiagnostics.cs",
+        "src/Erlang.Compiler/SourceCallBindingNames.cs",
+        "src/Erlang.Compiler/SourceCallBindings.cs",
+        "src/Erlang.Compiler/SourceCallResolution.cs"
+      ],
+      "ChangedExistingPaths": [
+        "src/Erlang.Compiler/CodeGeneration.cs",
+        "src/Erlang.Compiler/ComprehensionGuard.cs",
+        "src/Erlang.Compiler/Execution.cs",
+        "src/Erlang.Compiler/LocalCallValidation.cs",
+        "src/Erlang.Compiler/ModuleDefinition.cs",
+        "src/Erlang.Compiler/NamedFunctionReferences.cs",
+        "src/Erlang.Compiler/Parser.cs"
+      ],
+      "NonFilesFieldsUnchanged": true,
+      "RawUtf8Lf": true,
+      "Sha256": "42638380B3D376C2852B0ED19F70B2314A811EBA641D2D16FA5907E2CC4822E2",
+      "Workflow": ".github/workflows/nif-pending-native.yml",
+      "WorkflowSha256": "9DE12239CFC4CBEC7E838F5DC52374BD0E66A0D76ACA1AD65A75376596E8195F"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Files": 1271,
+      "AddedPaths": [
+        "src/Erlang.Compiler/SourceCallBindingBuilder.cs",
+        "src/Erlang.Compiler/SourceCallBindingCode.cs",
+        "src/Erlang.Compiler/SourceCallBindingDiagnostics.cs",
+        "src/Erlang.Compiler/SourceCallBindingNames.cs",
+        "src/Erlang.Compiler/SourceCallBindings.cs",
+        "src/Erlang.Compiler/SourceCallResolution.cs"
+      ],
+      "ChangedExistingPaths": [
+        ".gitattributes",
+        ".github/workflows/nif-pending-native.yml",
+        "src/Erlang.Compiler/CodeGeneration.cs",
+        "src/Erlang.Compiler/ComprehensionGuard.cs",
+        "src/Erlang.Compiler/Execution.cs",
+        "src/Erlang.Compiler/LocalCallValidation.cs",
+        "src/Erlang.Compiler/ModuleDefinition.cs",
+        "src/Erlang.Compiler/NamedFunctionReferences.cs",
+        "src/Erlang.Compiler/Parser.cs",
+        "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json"
+      ],
+      "NonFilesFieldsUnchanged": true,
+      "RawUtf8Lf": true,
+      "Sha256": "B9858C9789CAD5282CB6DB767F1F7FB8E819033EDAA1A06A044544A15C409E05",
+      "Workflow": ".github/workflows/nif-reallocation-native.yml",
+      "WorkflowSha256": "1A7EAEFA287C9B3D270F9C59893F8D152478C442E5BB7577F11898F82F04FB2E"
+    }
+  ],
+  "FullExecuted": false
+}

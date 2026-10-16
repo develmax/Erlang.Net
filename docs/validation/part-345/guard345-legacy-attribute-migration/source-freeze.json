@@ -1,0 +1,25 @@
+{
+  "Status": "PROPOSED_SOURCE_DIRECTED_OBSOLETE_NEGATIVE_HOST_MIGRATION_NOT_APPLIED",
+  "Files": [
+    {
+      "Path": "tests/Erlang.Tests/ModuleAttributeHostChecks.cs",
+      "Bytes": 4729,
+      "Sha256": "4D01364EB137F5BFF32158876040937B41E5DD60DABD4451136C41677CF474F2",
+      "ParentSha256": "6D0CC499832B569704CA4E6F40097E911AC5E8D934FC000F98E70414A685D26A"
+    }
+  ],
+  "ObservedOldHostFailure": "artifacts/guard345-legacy-attribute-actual1/exit.json",
+  "OldRawFailurePreserved": true,
+  "OldTestNamePreserved": true,
+  "Change": "Replace one obsolete import-unsupported expectation with accepted explicit-import metadata/non-leakage contract; retain on_load/export_all unsupported and literal-side-effect refusals.",
+  "PinnedSource": {
+    "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "Path": "lib/stdlib/src/erl_lint.erl",
+    "Sha256": "D849FACD432331BCEAF4C244A7D71B3B74CD962297B464B016A449C1E50E9292",
+    "Lines": "2111-2147 import/3 accepts valid module/signatures and records imports; conflict checks remain, no target module existence/execution requirement."
+  },
+  "ProductionChanged": false,
+  "ExpectationSeededFromSdk": false,
+  "NativeExecution": false,
+  "MainModified": false
+}

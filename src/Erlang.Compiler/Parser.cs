@@ -84,6 +84,7 @@ public sealed class Parser
         var functions = new List<FunctionDefinition>();
         var attributes = new List<ModuleAttribute>();
         List<(string Name, int Arity)>? declaredNifs = null;
+        var callBindings = new SourceCallBindingBuilder();
         while (Current.Kind != LexerTokenKinds.EndOfInput)
         {
             if (Take(ErlangSyntaxTokens.AttributeIntroducer))
@@ -135,10 +136,23 @@ public sealed class Parser
                     declaredNifs ??= [];
                     declaredNifs.AddRange(NifDeclarationSyntax.Read(declaration, offset));
                 }
-                else if (attr == ModuleAttributeNames.Compile && TakeAtom(CompilerOptionNames.DisableSsaOptimization))
+                else if (attr == SourceCallBindingNames.Import)
                 {
+                    int offset = Current.Start;
+                    string importedModule = Name();
+                    Expect(ErlangSyntaxTokens.Comma);
+                    Term signatures = AttributeLiteral.Normalize(Expression(), offset);
                     Expect(ErlangSyntaxTokens.CloseParenthesis);
                     ExpectFormTerminator();
+                    callBindings.Import(importedModule, signatures, offset);
+                }
+                else if (attr == ModuleAttributeNames.Compile)
+                {
+                    int offset = Current.Start;
+                    Term option = AttributeLiteral.Normalize(Expression(), offset);
+                    Expect(ErlangSyntaxTokens.CloseParenthesis);
+                    ExpectFormTerminator();
+                    callBindings.Compile(option, offset);
                 }
                 else if (attr == ModuleAttributeNames.Record)
                 {
@@ -206,6 +220,7 @@ public sealed class Parser
         )
         {
             DeclaredNifs = declaredNifs,
+            CallBindings = callBindings.Build(),
             NativeRecords = Array.AsReadOnly(nativeRecords.Values.Select(definition => new NativeRecordDefinition(
                 definition.Name,
                 exportedRecords.Contains(definition.Name),

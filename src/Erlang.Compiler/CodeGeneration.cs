@@ -311,6 +311,8 @@ public static class CodeGeneration
         var fields = new List<string>();
         if (module.NativeRecords.Count != 0)
             fields.Add("NativeRecords=" + Array(module.NativeRecords, NativeDefinitionCode, "global::Erlang.NativeRecordDefinition"));
+        if (!module.CallBindings.IsEmpty)
+            fields.Add(SourceCallBindingCode.Emit(module.CallBindings));
         if (module.DeclaredNifs is { } nifs)
             fields.Add(NifDeclarationCodeNames.Initializer + string.Join(',', nifs.Select(value => "(" + Quote(value.Name) + "," + value.Arity + ")")) + "}");
 

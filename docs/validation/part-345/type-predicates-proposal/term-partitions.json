@@ -1,0 +1,479 @@
+{
+  "RepresentativeCount": 38,
+  "Predicates": {
+    "is_atom": [
+      "atom"
+    ],
+    "is_integer": [
+      "integer"
+    ],
+    "is_float": [
+      "float"
+    ],
+    "is_number": [
+      "float",
+      "integer"
+    ],
+    "is_tuple": [
+      "tuple"
+    ]
+  },
+  "Rows": [
+    {
+      "Label": "plain_atom",
+      "SourceExpression": "plain_atom",
+      "ErlangCategory": "atom",
+      "Expected": {
+        "is_atom": true,
+        "is_integer": false,
+        "is_float": false,
+        "is_number": false,
+        "is_tuple": false
+      }
+    },
+    {
+      "Label": "empty_atom",
+      "SourceExpression": "''",
+      "ErlangCategory": "atom",
+      "Expected": {
+        "is_atom": true,
+        "is_integer": false,
+        "is_float": false,
+        "is_number": false,
+        "is_tuple": false
+      }
+    },
+    {
+      "Label": "unicode_atom",
+      "SourceExpression": "'\u03bb'",
+      "ErlangCategory": "atom",
+      "Expected": {
+        "is_atom": true,
+        "is_integer": false,
+        "is_float": false,
+        "is_number": false,
+        "is_tuple": false
+      }
+    },
+    {
+      "Label": "true_atom",
+      "SourceExpression": "true",
+      "ErlangCategory": "atom",
+      "Expected": {
+        "is_atom": true,
+        "is_integer": false,
+        "is_float": false,
+        "is_number": false,
+        "is_tuple": false
+      }
+    },
+    {
+      "Label": "false_atom",
+      "SourceExpression": "false",
+      "ErlangCategory": "atom",
+      "Expected": {
+        "is_atom": true,
+        "is_integer": false,
+        "is_float": false,
+        "is_number": false,
+        "is_tuple": false
+      }
+    },
+    {
+      "Label": "zero_integer",
+      "SourceExpression": "0",
+      "ErlangCategory": "integer",
+      "Expected": {
+        "is_atom": false,
+        "is_integer": true,
+        "is_float": false,
+        "is_number": true,
+        "is_tuple": false
+      }
+    },
+    {
+      "Label": "positive_integer",
+      "SourceExpression": "42",
+      "ErlangCategory": "integer",
+      "Expected": {
+        "is_atom": false,
+        "is_integer": true,
+        "is_float": false,
+        "is_number": true,
+        "is_tuple": false
+      }
+    },
+    {
+      "Label": "negative_integer",
+      "SourceExpression": "-42",
+      "ErlangCategory": "integer",
+      "Expected": {
+        "is_atom": false,
+        "is_integer": true,
+        "is_float": false,
+        "is_number": true,
+        "is_tuple": false
+      }
+    },
+    {
+      "Label": "large_integer",
+      "SourceExpression": "Big",
+      "ErlangCategory": "integer",
+      "Expected": {
+        "is_atom": false,
+        "is_integer": true,
+        "is_float": false,
+        "is_number": true,
+        "is_tuple": false
+      }
+    },
+    {
+      "Label": "large_negative_integer",
+      "SourceExpression": "-Big",
+      "ErlangCategory": "integer",
+      "Expected": {
+        "is_atom": false,
+        "is_integer": true,
+        "is_float": false,
+        "is_number": true,
+        "is_tuple": false
+      }
+    },
+    {
+      "Label": "float_positive",
+      "SourceExpression": "1.5",
+      "ErlangCategory": "float",
+      "Expected": {
+        "is_atom": false,
+        "is_integer": false,
+        "is_float": true,
+        "is_number": true,
+        "is_tuple": false
+      }
+    },
+    {
+      "Label": "float_negative",
+      "SourceExpression": "-2.5",
+      "ErlangCategory": "float",
+      "Expected": {
+        "is_atom": false,
+        "is_integer": false,
+        "is_float": true,
+        "is_number": true,
+        "is_tuple": false
+      }
+    },
+    {
+      "Label": "float_zero",
+      "SourceExpression": "0.0",
+      "ErlangCategory": "float",
+      "Expected": {
+        "is_atom": false,
+        "is_integer": false,
+        "is_float": true,
+        "is_number": true,
+        "is_tuple": false
+      }
+    },
+    {
+      "Label": "float_negative_zero",
+      "SourceExpression": "-0.0",
+      "ErlangCategory": "float",
+      "Expected": {
+        "is_atom": false,
+        "is_integer": false,
+        "is_float": true,
+        "is_number": true,
+        "is_tuple": false
+      }
+    },
+    {
+      "Label": "float_subnormal",
+      "SourceExpression": "Subnormal",
+      "ErlangCategory": "float",
+      "Expected": {
+        "is_atom": false,
+        "is_integer": false,
+        "is_float": true,
+        "is_number": true,
+        "is_tuple": false
+      }
+    },
+    {
+      "Label": "float_max_finite",
+      "SourceExpression": "Maximum",
+      "ErlangCategory": "float",
+      "Expected": {
+        "is_atom": false,
+        "is_integer": false,
+        "is_float": true,
+        "is_number": true,
+        "is_tuple": false
+      }
+    },
+    {
+      "Label": "empty_tuple",
+      "SourceExpression": "{}",
+      "ErlangCategory": "tuple",
+      "Expected": {
+        "is_atom": false,
+        "is_integer": false,
+        "is_float": false,
+        "is_number": false,
+        "is_tuple": true
+      }
+    },
+    {
+      "Label": "single_tuple",
+      "SourceExpression": "{a}",
+      "ErlangCategory": "tuple",
+      "Expected": {
+        "is_atom": false,
+        "is_integer": false,
+        "is_float": false,
+        "is_number": false,
+        "is_tuple": true
+      }
+    },
+    {
+      "Label": "nested_tuple",
+      "SourceExpression": "{a,1,[b]}",
+      "ErlangCategory": "tuple",
+      "Expected": {
+        "is_atom": false,
+        "is_integer": false,
+        "is_float": false,
+        "is_number": false,
+        "is_tuple": true
+      }
+    },
+    {
+      "Label": "ordinary_record",
+      "SourceExpression": "#ordinary{value=42}",
+      "ErlangCategory": "tuple",
+      "Expected": {
+        "is_atom": false,
+        "is_integer": false,
+        "is_float": false,
+        "is_number": false,
+        "is_tuple": true
+      }
+    },
+    {
+      "Label": "empty_list",
+      "SourceExpression": "[]",
+      "ErlangCategory": "list",
+      "Expected": {
+        "is_atom": false,
+        "is_integer": false,
+        "is_float": false,
+        "is_number": false,
+        "is_tuple": false
+      }
+    },
+    {
+      "Label": "proper_list",
+      "SourceExpression": "[a,b]",
+      "ErlangCategory": "list",
+      "Expected": {
+        "is_atom": false,
+        "is_integer": false,
+        "is_float": false,
+        "is_number": false,
+        "is_tuple": false
+      }
+    },
+    {
+      "Label": "improper_list",
+      "SourceExpression": "[a|tail]",
+      "ErlangCategory": "list",
+      "Expected": {
+        "is_atom": false,
+        "is_integer": false,
+        "is_float": false,
+        "is_number": false,
+        "is_tuple": false
+      }
+    },
+    {
+      "Label": "empty_map",
+      "SourceExpression": "#{}",
+      "ErlangCategory": "map",
+      "Expected": {
+        "is_atom": false,
+        "is_integer": false,
+        "is_float": false,
+        "is_number": false,
+        "is_tuple": false
+      }
+    },
+    {
+      "Label": "nonempty_map",
+      "SourceExpression": "#{a=>1}",
+      "ErlangCategory": "map",
+      "Expected": {
+        "is_atom": false,
+        "is_integer": false,
+        "is_float": false,
+        "is_number": false,
+        "is_tuple": false
+      }
+    },
+    {
+      "Label": "large_map",
+      "SourceExpression": "LargeMap",
+      "ErlangCategory": "map",
+      "Expected": {
+        "is_atom": false,
+        "is_integer": false,
+        "is_float": false,
+        "is_number": false,
+        "is_tuple": false
+      }
+    },
+    {
+      "Label": "empty_binary",
+      "SourceExpression": "<<>>",
+      "ErlangCategory": "bits",
+      "Expected": {
+        "is_atom": false,
+        "is_integer": false,
+        "is_float": false,
+        "is_number": false,
+        "is_tuple": false
+      }
+    },
+    {
+      "Label": "aligned_binary",
+      "SourceExpression": "<<0,255>>",
+      "ErlangCategory": "bits",
+      "Expected": {
+        "is_atom": false,
+        "is_integer": false,
+        "is_float": false,
+        "is_number": false,
+        "is_tuple": false
+      }
+    },
+    {
+      "Label": "partial_bitstring",
+      "SourceExpression": "<<1:1>>",
+      "ErlangCategory": "bits",
+      "Expected": {
+        "is_atom": false,
+        "is_integer": false,
+        "is_float": false,
+        "is_number": false,
+        "is_tuple": false
+      }
+    },
+    {
+      "Label": "anonymous_fun",
+      "SourceExpression": "fun()->ok end",
+      "ErlangCategory": "fun",
+      "Expected": {
+        "is_atom": false,
+        "is_integer": false,
+        "is_float": false,
+        "is_number": false,
+        "is_tuple": false
+      }
+    },
+    {
+      "Label": "captured_fun",
+      "SourceExpression": "Captured",
+      "ErlangCategory": "fun",
+      "Expected": {
+        "is_atom": false,
+        "is_integer": false,
+        "is_float": false,
+        "is_number": false,
+        "is_tuple": false
+      }
+    },
+    {
+      "Label": "external_fun",
+      "SourceExpression": "fun erlang:self/0",
+      "ErlangCategory": "fun",
+      "Expected": {
+        "is_atom": false,
+        "is_integer": false,
+        "is_float": false,
+        "is_number": false,
+        "is_tuple": false
+      }
+    },
+    {
+      "Label": "local_pid",
+      "SourceExpression": "self()",
+      "ErlangCategory": "pid",
+      "Expected": {
+        "is_atom": false,
+        "is_integer": false,
+        "is_float": false,
+        "is_number": false,
+        "is_tuple": false
+      }
+    },
+    {
+      "Label": "external_pid",
+      "SourceExpression": "ExternalPid",
+      "ErlangCategory": "pid",
+      "Expected": {
+        "is_atom": false,
+        "is_integer": false,
+        "is_float": false,
+        "is_number": false,
+        "is_tuple": false
+      }
+    },
+    {
+      "Label": "local_reference",
+      "SourceExpression": "make_ref()",
+      "ErlangCategory": "reference",
+      "Expected": {
+        "is_atom": false,
+        "is_integer": false,
+        "is_float": false,
+        "is_number": false,
+        "is_tuple": false
+      }
+    },
+    {
+      "Label": "external_reference",
+      "SourceExpression": "ExternalReference",
+      "ErlangCategory": "reference",
+      "Expected": {
+        "is_atom": false,
+        "is_integer": false,
+        "is_float": false,
+        "is_number": false,
+        "is_tuple": false
+      }
+    },
+    {
+      "Label": "external_port",
+      "SourceExpression": "ExternalPort",
+      "ErlangCategory": "port",
+      "Expected": {
+        "is_atom": false,
+        "is_integer": false,
+        "is_float": false,
+        "is_number": false,
+        "is_tuple": false
+      }
+    },
+    {
+      "Label": "native_record",
+      "SourceExpression": "Native",
+      "ErlangCategory": "native_record",
+      "Expected": {
+        "is_atom": false,
+        "is_integer": false,
+        "is_float": false,
+        "is_number": false,
+        "is_tuple": false
+      }
+    }
+  ]
+}

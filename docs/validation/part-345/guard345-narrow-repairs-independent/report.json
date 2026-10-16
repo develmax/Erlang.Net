@@ -1,0 +1,29 @@
+{
+  "Status": "PASS_SOURCE_ONLY_GUARD345_TWO_NARROW_REPAIRS",
+  "Proposals": [
+    {
+      "Proposal": "guard345-legacy-attribute-migration",
+      "SourceFreezeSha256": "25ACC54EF6FD6C679B03DEB6F5195A2C896138D9791E5613783A3797296F825A",
+      "SourceSha256": "4D01364EB137F5BFF32158876040937B41E5DD60DABD4451136C41677CF474F2"
+    },
+    {
+      "Proposal": "guard345-import-module-validation-proposal",
+      "SourceFreezeSha256": "8D419E7DE6DD429D55B823965C52724A6DCF4FAB50DB79F1899D51E02AF804BA",
+      "SourceSha256": "2AAA270AB5793042EAC8F8718BE9F05C836B254812D09DBBF18BFCE00F78D122"
+    }
+  ],
+  "PinnedErlLintSha256": "D849FACD432331BCEAF4C244A7D71B3B74CD962297B464B016A449C1E50E9292",
+  "ImportModuleValidationAtEntryMatchesPinnedCheckModuleName": true,
+  "ExistingValidatorReused": true,
+  "FiveFixtureHashesRechecked": true,
+  "ObsoleteImportUnsupportedExpectationReplacedWithImportMetadataAndAttributeNonLeakage": true,
+  "OtherAttributeRefusalsPreserved": true,
+  "OnlyOneHostFileChangesOldProgramTestNameUnchanged": true,
+  "PreviousObservedFailuresRetained": true,
+  "Limitations": [
+    "No SDK or original execution during this review",
+    "Compile diagnostics use existing project validator and fail-fast behavior; no claim of identical aggregate lint diagnostics"
+  ],
+  "MainModified": false,
+  "NetworkUsed": false
+}

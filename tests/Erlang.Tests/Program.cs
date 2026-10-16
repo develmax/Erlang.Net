@@ -6,6 +6,12 @@ using Erlang.Compiler;
 using Erlang.Otp;
 
 var tests = new List<(string Name, Func<Task> Body)>();
+foreach (var fixture in Erlang.Differential.SourceCallBindingCases.Controls)
+    Test(fixture.Name, () => Erlang.Tests.SourceCallBindingHostChecks.Check(fixture.Name));
+Test(
+    Erlang.Differential.SourceCallBindingCaseNames.MetadataRoundtrip,
+    Erlang.Tests.SourceCallBindingHostChecks.GeneratedBindingRoundtrip
+);
 Test(Erlang.Tests.MfaCompatibilityHostNames.Test, Erlang.Tests.MfaCompatibilityHostChecks.Run);
 Test("proc-lib-node-captured-spawn", Erlang.Tests.RemoteSourceFunHostChecks.SpawnCaptured);
 Test("proc-lib-node-captured-spawn-link", Erlang.Tests.RemoteSourceFunHostChecks.SpawnLinkCaptured);

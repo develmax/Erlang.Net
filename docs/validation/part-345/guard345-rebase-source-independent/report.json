@@ -1,0 +1,41 @@
+{
+  "Status": "PASS_INDEPENDENT_ACTUAL_GUARD345_ASYNC343_MERGE_SOURCE_REVIEW",
+  "Passed": true,
+  "SourceFreezeSha256": "20CA7C91B5B9B0BEE746B7197D8E5B8806B4BA2C227254CD6867BEB7CFD3D4CE",
+  "Published343ParentHead": "f26d913cf9bb9e27576f01f55eb9b78ec19fa57c",
+  "Base343SourceFreezeSha256": "2D0B06DF331EAB1A3E0C4F96BA954B25A392D4B699C9A0EC7C50D0BF87162BC2",
+  "Base343SourceClosureSha256": "2A92B8A200FD65A171457BED250C38E14297A2EA7257846B5E87F8F1E2415A0C",
+  "Base343ActualTestsSha256": "A64A6847952C071F6321C5D737BC5614F7E451C9CCB830654DF87EC93609BBD6",
+  "Base343ActualPassed": 7224,
+  "ReviewedSourceFiles": 13,
+  "OriginalProposalSha256": "1E4DC90EE7C80DB8C9DC18F85D32E45429FA9F4D7E7589C75D52C4EB3C26FF65",
+  "PriorPinnedLogicalSourcePeerSha256": "76D53142D3F85A6E87250A1A061FA980158E6598885A400A5C53D9EC3689BB06",
+  "Checks": {
+    "All13SnapshotAndCandidateRowsRehashed": true,
+    "All12NonExecutionRowsExactlyOriginalReviewedProposal": true,
+    "ExecutionExactSingleNormalCallBlockReplacement": true,
+    "ExecutionOutsideNormalCallBlockTextExact343": true,
+    "AsyncGuardsEntireBytesExact343": true,
+    "All2732Other343ClosureRowsRawExact": true,
+    "AwaitedSelectAndGuardAndPatternsPreserved": true,
+    "AsyncReceiveSelectionAndTransactionalRevalidationPreserved": true,
+    "TryMaybeAsyncCallbacksPreserved": true,
+    "NormalDispatchLocalThenImportThenUnsuppressedBif": true,
+    "RecordOptimizationsOnlyErLangResolvedTarget": true,
+    "ImportedNamedFunCompileRejectionPreserved": true,
+    "ModuleCallBindingsImmutableAndGeneratedInitializerFingerprintRetained": true
+  },
+  "BlockingFindings": [],
+  "RequiredNext": [
+    "Build/style/ParseAll all24proposal controls and execute11positive/13negative contracts; preserve real failures without treating source review as execution.",
+    "Generated module roundtrip and source closure identity assertions must confirm import/suppression metadata survives code generation.",
+    "Run343async length regressions when new guard binding changes interact with guards/pattern/comprehension classification.",
+    "Current five verified source binding audit must cover changed Execution before full readiness; preserve statuses and original evidence.",
+    "Actual original OTP results and whole prior regression remain separate required gates."
+  ],
+  "MetadataNote": "Historical ProvisionalPublished343Base text says publication pending; actual Published343ParentHead is the explicit final parent binding. No code or execution claim derived from stale narrative field.",
+  "SdkExecuted": false,
+  "OriginalExecuted": false,
+  "NetworkUsed": false,
+  "MainEdited": false
+}

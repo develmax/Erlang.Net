@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part345 — Reuse the existing parser, source module, scheduler and registry; add no framework, package or production BEAM dependency. Reuse existing module-name validation for imports. Preserve full/focused/preparation histories and custom Limits; archive exact34source snapshots plus lean text receipts, excluding runtime/ZIP/nupkg binaries. Keep346collector fixes outside345source.
+
 Part344 changes original-observation tooling only. Four procfs discovery handlers now tolerate a disappearing process; ownership, generation, permission and normal cleanup requirements remain enforced. Exact six-file source and deterministic controls pass independent review. The previous eight-case original run remains failed/incomplete, with seven partial acquisitions; no fresh original result or full SDK run is claimed. Runtime baseline343 remains7224 tests/11 integrations,587 APIs and5/17/565 compatibility counts. A new original eight-case capture requires the reviewed manifest61E52EC3EEE23FD4084772C0E383470C7FD09DAC6A6F16D7BD50AD3A6CB85229. Historical syscall and peer-crash/cleanup ordering are unproven. [Evidence](validation/part-344/).
 
 Part343 — Reuse existing C# scheduler, mailbox, module and pattern infrastructure without a production BEAM dependency or new package. Publish exact43 tested snapshots and lean textual receipts. Preserve actual342 CI success and real-peer collector failure separately; exclude ZIPs/runtime binaries/package binaries and leave LICENSE.local.txt uncommitted.

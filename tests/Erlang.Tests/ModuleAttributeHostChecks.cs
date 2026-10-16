@@ -27,7 +27,7 @@ public static class ModuleAttributeHostChecks
         }
         foreach (string attribute in new[]
         {
-            "-on_load(run/0).", "-import(other,[run/0]).", "-compile(export_all)."
+            "-on_load(run/0).", "-compile(export_all)."
         })
         {
             bool rejected = false;
@@ -42,6 +42,12 @@ public static class ModuleAttributeHostChecks
             if (!rejected)
                 throw new InvalidOperationException(ModuleAttributeHostNames.Broken);
         }
+        var imported = new Parser("-module(attribute_host). -import(other,[run/0]).").ParseModule();
+        if (imported.CallBindings.Imports.Count != 1 ||
+            imported.CallBindings.Imports[0] != ("other", ModuleAttributeHostNames.RunFunction, 0) ||
+            imported.Attributes.Any(attribute => attribute.Name == "import"))
+            throw new InvalidOperationException(ModuleAttributeHostNames.Broken);
+
         var nifs = new Parser("-module(attribute_host). -nifs([run/0]). run()->ok.").ParseModule();
         if (nifs.DeclaredNifs is not { Count: 1 } declarations || declarations[0] != (ModuleAttributeHostNames.RunFunction, 0))
             throw new InvalidOperationException(ModuleAttributeHostNames.Broken);

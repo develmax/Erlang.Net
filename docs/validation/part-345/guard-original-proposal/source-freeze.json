@@ -1,0 +1,261 @@
+{
+  "Status": "SOURCE_ONLY_PROPOSAL_NOT_VALIDATED",
+  "Parent": "0114bc4ba2c7b8152612e930e3cd36db1caf4180",
+  "OriginalCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Files": [
+    {
+      "Path": "src/Erlang.Compiler/CodeGeneration.cs",
+      "Bytes": 21110,
+      "Sha256": "7039122703D0BF5A296F71FB016C0898B158C12A71770270ABD4114971E5D7DF",
+      "ParentSha256": "1D533B426DC5CEE2A5FC15825BED198FCFCA404757C6B429B423D2E7CE7620D1"
+    },
+    {
+      "Path": "src/Erlang.Compiler/ComprehensionGuard.cs",
+      "Bytes": 2587,
+      "Sha256": "A6A1F31F02FAF006FB293C4CD047BA9E95B5BB2053EE8046093D28C1D4B0A044",
+      "ParentSha256": "6D9BBD0721A3656FD7136C762E3CD8C7C06CF5CB768125057EAB23914154C652"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "Bytes": 39497,
+      "Sha256": "19B9EC64D295C0699CCE533577C20F180F57C82B2393CAF342C7ACF303A9668D",
+      "ParentSha256": "37F4E5D8ACA90886AB3EF8393D05EBC54333FDF690C195B366B4B00244F289F5"
+    },
+    {
+      "Path": "src/Erlang.Compiler/LocalCallValidation.cs",
+      "Bytes": 9906,
+      "Sha256": "5854C71C370951E4224E42A5220C865BB5A35060D7AB19111631E11040EBB9E3",
+      "ParentSha256": "098651A61EA209F9D877D3844FCD2FF1825FFE216672399FAA72C7E4C15A01A1"
+    },
+    {
+      "Path": "src/Erlang.Compiler/ModuleDefinition.cs",
+      "Bytes": 3399,
+      "Sha256": "F7D59037FC5638F7C8AACD7586895D140A3BF95EF867613F8A03AD19B060ED2C",
+      "ParentSha256": "0518CB4B7FF486F58B5BE7D9B28F2D3D8998196560D37FC52D1484A204767D3A"
+    },
+    {
+      "Path": "src/Erlang.Compiler/NamedFunctionReferences.cs",
+      "Bytes": 2189,
+      "Sha256": "C771EF81F909E600EC1554DE9DD71FBBFA103E77A6F54D5637AB8456D1463358",
+      "ParentSha256": "4628984FFC45D0026CE240ED9D757936927672C759F4034FA4B96787A45E6667"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Parser.cs",
+      "Bytes": 51052,
+      "Sha256": "22538E5E90EB343B8C6B417809A510FEEDE26D58B87C2632D0B9E59E5A67D07F",
+      "ParentSha256": "C8E22C74D2F3D231FD5EAAB65ED7FA1C38132C3707F1FD0337B57B7B4E6089E8"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceCallBindingBuilder.cs",
+      "Bytes": 3275,
+      "Sha256": "A71CAF25D2C224613A25FFB5F721EE887D1F9FDD991EC05211046CC27ED9A1F3",
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceCallBindingCode.cs",
+      "Bytes": 726,
+      "Sha256": "8A53A4F38E316BD171F0CA68347E14B820A4552EFAEF0B64DAABC2961CD350C8",
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceCallBindingDiagnostics.cs",
+      "Bytes": 685,
+      "Sha256": "22D6C9DD1FD76C0FBE109727A788371D70428A23E1A60A9268460923E3BC1B0C",
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceCallBindingNames.cs",
+      "Bytes": 177,
+      "Sha256": "5917B5AE4027F84DB4B070703E3CD6417769E20559EB45D74C1125C01B00B722",
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceCallBindings.cs",
+      "Bytes": 1135,
+      "Sha256": "AE52E9A9A7FF4EB6030EB5703D2AFA152921DAF64AD55E3191097B37C9EA36C8",
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceCallResolution.cs",
+      "Bytes": 1433,
+      "Sha256": "9E662A5BCBB9D80F819B84970A199C02874AA443C92DD80C26FF21A9A716B5D6",
+      "ParentSha256": null
+    }
+  ],
+  "Cases": [
+    {
+      "Name": "ordinary_guard",
+      "Path": "fixtures/ordinary_guard.erl",
+      "Expected": "done",
+      "Diagnostic": null,
+      "SourceSha256": "C34F86F8BCB4B0B0AF7BE60D238D1367B8B3239C726E0E3148FAA7F99AC28085"
+    },
+    {
+      "Name": "local_guard_shadow",
+      "Path": "fixtures/local_guard_shadow.erl",
+      "Expected": null,
+      "Diagnostic": "ERL007",
+      "SourceSha256": "C6ECD5660CC2AC588BE621703E021256F96796605D4DCD88DE77DCF2816E64B4"
+    },
+    {
+      "Name": "local_guard_shadow_suppressed",
+      "Path": "fixtures/local_guard_shadow_suppressed.erl",
+      "Expected": null,
+      "Diagnostic": "ERL007",
+      "SourceSha256": "78B551B8266554F61018D95D65290F42707690479D3D53953F194F61E6147C0B"
+    },
+    {
+      "Name": "qualified_guard_local_shadow",
+      "Path": "fixtures/qualified_guard_local_shadow.erl",
+      "Expected": "done",
+      "Diagnostic": null,
+      "SourceSha256": "9711A26B18AE0949B5ADB8F369D33844B3537EFB6002ABADB6A99A3D1A2D6B84"
+    },
+    {
+      "Name": "suppressed_guard",
+      "Path": "fixtures/suppressed_guard.erl",
+      "Expected": null,
+      "Diagnostic": "ERL007",
+      "SourceSha256": "1EE7E5470F7A9D7DE6334D06A0D55E0F45A6A5951D9EA6561C9CF7E8CF1A2AB3"
+    },
+    {
+      "Name": "suppressed_ordinary",
+      "Path": "fixtures/suppressed_ordinary.erl",
+      "Expected": null,
+      "Diagnostic": "ERL005",
+      "SourceSha256": "DC0E9658239788F6B28E9613A4FC47D484B5302EAEA257C98135CF3C14A01E9B"
+    },
+    {
+      "Name": "suppressed_named_fun",
+      "Path": "fixtures/suppressed_named_fun.erl",
+      "Expected": null,
+      "Diagnostic": "ERL005",
+      "SourceSha256": "35628EE86C5C6E4637AC21B43F2A5D9FC2B478ED71BCF5CD9A55B1DCD223DD20"
+    },
+    {
+      "Name": "erlang_reimport_guard",
+      "Path": "fixtures/erlang_reimport_guard.erl",
+      "Expected": "done",
+      "Diagnostic": null,
+      "SourceSha256": "65F0FE1577E4C670FD17050C5E66E98EA4001FBB71013BBC21A7B5236FED651D"
+    },
+    {
+      "Name": "all_suppressed_qualified",
+      "Path": "fixtures/all_suppressed_qualified.erl",
+      "Expected": "done",
+      "Diagnostic": null,
+      "SourceSha256": "3A739D1884BA17701D3DA905EFBB9A8350D3CF8CB53E8CDE0C34799401CF56CE"
+    },
+    {
+      "Name": "all_suppressed_reimport",
+      "Path": "fixtures/all_suppressed_reimport.erl",
+      "Expected": "done",
+      "Diagnostic": null,
+      "SourceSha256": "877430059D2D6A50920E763B78AA948F7D21A70A0348024F1B03FCB8175FA4DA"
+    },
+    {
+      "Name": "foreign_import_guard",
+      "Path": "fixtures/foreign_import_guard.erl",
+      "Expected": null,
+      "Diagnostic": "ERL007",
+      "SourceSha256": "B29AFD6965F6F99F0D7DB0CDF20B09AFC154B3E272A2B66C9FD929886722F224"
+    },
+    {
+      "Name": "foreign_import_qualified_guard",
+      "Path": "fixtures/foreign_import_qualified_guard.erl",
+      "Expected": "done",
+      "Diagnostic": null,
+      "SourceSha256": "0F7E295B17BD55BCC8D1D9B16777417009E027ADADD04C8B68F4E908CC1D3192"
+    },
+    {
+      "Name": "imported_call",
+      "Path": "fixtures/imported_call.erl",
+      "Expected": "done",
+      "Diagnostic": null,
+      "SourceSha256": "B233D20C34DB3C860E5C8FD2CF0586A7B4E42A9DCAF039033F71F35D3FE958A6"
+    },
+    {
+      "Name": "imported_fun_forbidden",
+      "Path": "fixtures/imported_fun_forbidden.erl",
+      "Expected": null,
+      "Diagnostic": "ERL005",
+      "SourceSha256": "5AACB7844BC210061626B5DAF9117D868941F3173A2E99479D5D15B3602957C6"
+    },
+    {
+      "Name": "erlang_imported_fun_forbidden",
+      "Path": "fixtures/erlang_imported_fun_forbidden.erl",
+      "Expected": null,
+      "Diagnostic": "ERL005",
+      "SourceSha256": "3BC25233245DDA62AB88B35DEEF4AF2F9FD8D5532474D945229BD4010761A016"
+    },
+    {
+      "Name": "import_local_conflict",
+      "Path": "fixtures/import_local_conflict.erl",
+      "Expected": null,
+      "Diagnostic": "ERL005",
+      "SourceSha256": "5349C024E258C39464E6139AF883FA4BDE6F00FFF99AB161FD81667698A4E026"
+    },
+    {
+      "Name": "duplicate_import",
+      "Path": "fixtures/duplicate_import.erl",
+      "Expected": null,
+      "Diagnostic": "ERL005",
+      "SourceSha256": "C45450A2D25E7451BE2E26FAEE0A3237B57DCB783FA3F347EA676E6BBB017A00"
+    },
+    {
+      "Name": "duplicate_within_form",
+      "Path": "fixtures/duplicate_within_form.erl",
+      "Expected": "done",
+      "Diagnostic": null,
+      "SourceSha256": "090BD492E6E34DAE4CA777892B7FEA2588BDA1DFD4BBEA960A907B2E3DABDF73"
+    },
+    {
+      "Name": "local_filter_is_expression",
+      "Path": "fixtures/local_filter_is_expression.erl",
+      "Expected": "done",
+      "Diagnostic": null,
+      "SourceSha256": "1F58693838427ED25ECFEE58E97631DEEF63CC90C626ABCD1ED5CE1398425228"
+    },
+    {
+      "Name": "local_filter_failure_propagates",
+      "Path": "fixtures/local_filter_failure_propagates.erl",
+      "Expected": "done",
+      "Diagnostic": null,
+      "SourceSha256": "19F34F8966D446D6E28840C809BDDDB22A92751D8A22FC4ABF9DC8AAE8856645"
+    },
+    {
+      "Name": "suppressed_filter",
+      "Path": "fixtures/suppressed_filter.erl",
+      "Expected": null,
+      "Diagnostic": "ERL007",
+      "SourceSha256": "02ED756476A833A9BC73BB959DCFB04B441834B62E88BBD7AAECE11C75AA2D0F"
+    },
+    {
+      "Name": "suppressed_bit_size",
+      "Path": "fixtures/suppressed_bit_size.erl",
+      "Expected": null,
+      "Diagnostic": "ERL007",
+      "SourceSha256": "228E11E07760A5CB6B7CBFADF1BB0CF3BFB8DC191574B5FB56864CF7C6045883"
+    },
+    {
+      "Name": "suppressed_map_key",
+      "Path": "fixtures/suppressed_map_key.erl",
+      "Expected": null,
+      "Diagnostic": "ERL007",
+      "SourceSha256": "E5A1BCE229B18AF4147AD5BAEA7748B0E1293684FAAADC20308DBEAC195C4850"
+    },
+    {
+      "Name": "qualified_pattern_keys_sizes",
+      "Path": "fixtures/qualified_pattern_keys_sizes.erl",
+      "Expected": "done",
+      "Diagnostic": null,
+      "SourceSha256": "11C7CA51C8079BDEA2912045419AB9CD16EBE6EB1D7D2508DD69166E9A3DD5EF"
+    }
+  ],
+  "PositiveCases": 11,
+  "NegativeCases": 13,
+  "SourceAuditSha256": "6D2078533B177EC0E3AE178E6EA84559FE294B6EB48D68503813D02414A28601",
+  "MainModified": false,
+  "SdkExecuted": false,
+  "OriginalExecuted": false
+}

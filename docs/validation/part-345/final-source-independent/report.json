@@ -1,0 +1,61 @@
+{
+  "Status": "PASS_SOURCE_ONLY_FINAL345_PREFLIGHT_BEFORE_FULL",
+  "SourceFreezeSha256": "92CA87634B19A5CB999C9BA0C94F2DA638E022A1325EF3D3B1A7E4C90A5E3825",
+  "SourceClosureSha256": "3E624D130B22232E40E47982D4449D6482469D2BABF0815F3E5521E293E67805",
+  "ParentHead": "9c7949f87348223a61c65d37d859b02841036374",
+  "OwnedPaths": 34,
+  "ClosureRowsRehashed": 2751,
+  "ParentCopyRowsRehashed": 2722,
+  "UnownedParentRowsRawExact": 2717,
+  "CompatibilityEntries": 587,
+  "CompatibilityCounts": {
+    "Verified compatible": 5,
+    "Needs verification": 565,
+    "Known differences": 17
+  },
+  "CurrentVerifiedBindingsRehashed": 30,
+  "AllOldEntryFieldsAndEvidencePrefixPreserved": true,
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Rows": 1246,
+      "Added": [
+        "src/Erlang.Compiler/SourceCallBindingBuilder.cs",
+        "src/Erlang.Compiler/SourceCallBindingCode.cs",
+        "src/Erlang.Compiler/SourceCallBindingDiagnostics.cs",
+        "src/Erlang.Compiler/SourceCallBindingNames.cs",
+        "src/Erlang.Compiler/SourceCallBindings.cs",
+        "src/Erlang.Compiler/SourceCallResolution.cs"
+      ],
+      "Sha256": "42638380B3D376C2852B0ED19F70B2314A811EBA641D2D16FA5907E2CC4822E2",
+      "PoliciesUnchanged": true
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Rows": 1271,
+      "Added": [
+        "src/Erlang.Compiler/SourceCallBindingBuilder.cs",
+        "src/Erlang.Compiler/SourceCallBindingCode.cs",
+        "src/Erlang.Compiler/SourceCallBindingDiagnostics.cs",
+        "src/Erlang.Compiler/SourceCallBindingNames.cs",
+        "src/Erlang.Compiler/SourceCallBindings.cs",
+        "src/Erlang.Compiler/SourceCallResolution.cs"
+      ],
+      "Sha256": "B9858C9789CAD5282CB6DB767F1F7FB8E819033EDAA1A06A044544A15C409E05",
+      "PoliciesUnchanged": true
+    }
+  ],
+  "PackageResources": 6,
+  "ReadinessInputHashesRechecked": 18,
+  "PreviousPassedNames": 7224,
+  "ActualPermanentFocus35Passed": true,
+  "FocusedNameMapping": "Explicit harness barecompiled/diagnostic names mapped to permanent oracle prefixes; set equality35, full suite order follows Program/catalog rather than focus execution order",
+  "ReviewHarnessInitialRefusal": "Overstrict focus log name/order equality corrected to explicit permanent prefix mapping; raw inputs unchanged",
+  "StyleSourceBoundToFrozenCandidate": true,
+  "FullExecutedByReviewer": false,
+  "OriginalExecuted": false,
+  "SdkExecutedByReviewer": false,
+  "MainModified": false,
+  "NetworkUsed": false,
+  "Limits": "Source/full preconditions only. Full and original comparisons pending;13guard diagnostic controls remainHOST only, four module-name diagnostics await original comparison."
+}

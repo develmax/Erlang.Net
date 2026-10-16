@@ -16,7 +16,7 @@ internal static class ComprehensionGuard
         Expr.Bits b => b.Segments.All(s => IsTest(s.Value, module) && (s.Size is null || IsTest(s.Size, module))),
         Expr.Unary u => IsTest(u.Operand, module),
         Expr.Binary b => b.Operator is not (ErlangOperators.Send or ErlangOperators.Append or ErlangOperators.SubtractList) && IsTest(b.Left, module) && IsTest(b.Right, module),
-        Expr.Call c => (c.Module == ErlangModuleNames.Module || c.Module is null && module?.Functions.Any(f => f.Name == c.Function && f.Arity == c.Arguments.Count) != true) && (Semantics.GuardBifs.Contains((c.Function, c.Arguments.Count)) || c.Module == ErlangModuleNames.Module && IsOperator(c.Function, c.Arguments.Count)) && c.Arguments.All(e => IsTest(e, module)),
+        Expr.Call c => (c.Module == ErlangModuleNames.Module || c.Module is null && SourceCallResolution.IsGuardFilter(module, c.Function, c.Arguments.Count)) && (Semantics.GuardBifs.Contains((c.Function, c.Arguments.Count)) || c.Module == ErlangModuleNames.Module && IsOperator(c.Function, c.Arguments.Count)) && c.Arguments.All(e => IsTest(e, module)),
         _ => false
     };
 
