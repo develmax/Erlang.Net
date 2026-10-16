@@ -11,7 +11,7 @@ internal static class TryExpressionExecution
         ProcessRuntime runtime,
         Dictionary<string, Term> bindings,
         Func<Expr, Dictionary<string, Term>, ValueTask<Term>> evaluate,
-        Func<Clause, Term, Dictionary<string, Term>, bool> match
+        Func<Clause, Term, Dictionary<string, Term>, ValueTask<bool>> match
     )
     {
         var incoming = CompiledBindingScope.Copy(bindings);
@@ -42,7 +42,7 @@ internal static class TryExpressionExecution
             foreach (var clause in clauses)
             {
                 var scope = CompiledBindingScope.Copy(parent);
-                if (!match(clause, value, scope))
+                if (!await match(clause, value, scope))
                     continue;
                 var result = await evaluate(clause.Body, scope);
                 foreach (var binding in scope)

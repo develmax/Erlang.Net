@@ -20,4 +20,21 @@ public sealed record AliasPattern(Pattern Left, Pattern Right) : Pattern
         context,
         keyScope
     );
+
+    protected override async ValueTask<bool> MatchCoreAsync(
+        Term value,
+        Dictionary<string, Term> bindings,
+        ProcessContext? context = null,
+        Dictionary<string, Term>? keyScope = null
+    ) => await Left.MatchAsync(
+        value,
+        bindings,
+        context,
+        keyScope
+    ) && await Right.MatchAsync(
+        value,
+        bindings,
+        context,
+        keyScope
+    );
 }

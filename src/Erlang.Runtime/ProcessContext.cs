@@ -18,6 +18,7 @@ public sealed partial class ProcessContext : ITermExecutionContext
             HaltRequested = () => Runtime.IsHaltRequested,
             ProcessSignals = () => Runtime.AdmitSignals(this),
             WaitForExecution = WaitIfSuspended,
+            SuspensionTime = () => Interlocked.Read(ref cumulativeSuspensionTicks),
             ExecutionBlocked = () => SuspensionRequested,
             MessageReceived = SavedCalls.Received,
             MessageAdmitted = (message, from) => Runtime.ProcessTracing.Admitted(this, message, from),
@@ -325,7 +326,10 @@ public sealed partial class ProcessContext : ITermExecutionContext
             await Mailbox.WaitForControlCompletion(resumed, Cancellation);
         }
 
-        return System.Diagnostics.Stopwatch.GetTimestamp() - start;
+        long elapsed = System.Diagnostics.Stopwatch.GetTimestamp() - start;
+        Interlocked.Add(ref cumulativeSuspensionTicks, elapsed);
+
+        return elapsed;
     }
 
     public ValueTask<T?> ReceiveAsync<T>(Func<Term, T?> select, TimeSpan? timeout = null) where T : class

@@ -28,11 +28,11 @@ public static class CoreModules
             0,
             (c, a) => c.Self
         );
-        Add(
+        r.Register(
             ErlangModuleNames.Module,
             ErlangModuleNames.Length,
             1,
-            (c, a) => Term.I(Cons.Items(a[0]).LongCount())
+            (context, arguments) => ErlangListLength.ReadAsync(context, arguments[0])
         );
         Add(
             ErlangModuleNames.Module,

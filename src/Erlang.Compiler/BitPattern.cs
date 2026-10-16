@@ -232,4 +232,200 @@ public sealed record BitPattern(IReadOnlyList<BitPatternSegment> Segments) : Pat
 
         return true;
     }
+
+    protected override async ValueTask<bool> MatchCoreAsync(
+        Term value,
+        Dictionary<string, Term> bindings,
+        ProcessContext? context = null,
+        Dictionary<string, Term>? keyScope = null
+    )
+    {
+        if (value is not BitString input)
+            return false;
+        var result = await ReadFieldsAsync(
+            input,
+            input.ToArray(),
+            0,
+            bindings,
+            context,
+            keyScope,
+            false
+        );
+
+        return result.Complete && result.Matched && result.Consumed == input.BitLength;
+    }
+
+    internal ValueTask<PatternReadResult> ReadGeneratorAsync(
+        BitString input,
+        byte[] bytes,
+        int start,
+        Dictionary<string, Term> bindings,
+        ProcessContext context,
+        Dictionary<string, Term> keyScope
+    ) => ReadFieldsAsync(
+        input,
+        bytes,
+        start,
+        bindings,
+        context,
+        keyScope,
+        true
+    );
+
+    private async ValueTask<PatternReadResult> ReadFieldsAsync(
+        BitString input,
+        byte[] bytes,
+        int start,
+        Dictionary<string, Term> bindings,
+        ProcessContext? context,
+        Dictionary<string, Term>? keyScope,
+        bool generator
+    )
+    {
+        int position = start;
+        int consumed = 0;
+        bool matched = true;
+
+        PatternReadResult Result(bool complete) => new(complete, matched, consumed);
+        var sizeScope = new Dictionary<string, Term>(keyScope ?? bindings, StringComparer.Ordinal);
+
+        int ReadBit()
+        {
+            int bit = (bytes[position / BitStorageLayout.BitsPerByte] >> (BitStorageLayout.MostSignificantBitIndex - position % BitStorageLayout.BitsPerByte)) & 1;
+            position++;
+
+            return bit;
+        }
+        byte[] prefix = new byte[UtfSegmentLimits.MaximumEncodedBytes];
+
+        foreach (var segment in Segments)
+        {
+            var spec = segment.Specification;
+
+            bool integer = spec.Type == BitSegmentTypes.Integer, floating = spec.Type == BitSegmentTypes.Float;
+
+            if (BitUnicode.IsUtf(spec.Type))
+            {
+                if (spec.Size is not null || spec.Unit != 1)
+                    return Result(false);
+                int available = Math.Min((input.BitLength - position) / BitStorageLayout.BitsPerByte, UtfSegmentLimits.MaximumEncodedBytes);
+                Array.Clear(prefix);
+                for (int i = 0; i < available * BitStorageLayout.BitsPerByte; i++)
+                    if (((bytes[(position + i) / BitStorageLayout.BitsPerByte] >> (BitStorageLayout.MostSignificantBitIndex - (position + i) % BitStorageLayout.BitsPerByte)) & 1) != 0)
+                        prefix[i / BitStorageLayout.BitsPerByte] |= (byte)(1 << (BitStorageLayout.MostSignificantBitIndex - i % BitStorageLayout.BitsPerByte));
+                var scalar = BitUnicode.Decode(
+                    prefix[..available],
+                    spec.Type,
+                    spec.Endian,
+                    out int utfConsumed
+                );
+                if (scalar is null)
+                    return Result(false);
+                position += utfConsumed * BitStorageLayout.BitsPerByte;
+                if (await segment.Value.MatchAsync(
+                    scalar,
+                    bindings,
+                    context,
+                    keyScope
+                ))
+                {
+                    foreach (string name in Semantics.Variables(segment.Value))
+                        sizeScope[name] = bindings[name];
+                }
+                else if (generator)
+                    matched = false;
+                else
+                    return Result(false);
+                continue;
+            }
+
+            Term? size;
+            try
+            {
+                size = spec.Size is null ? null : await Execution.PatternKeyAsync(spec.Size, sizeScope, context);
+            }
+            catch (ErlangException)
+            {
+                return Result(false);
+            }
+            bool whole = spec.Type == BitSegmentTypes.Binary && (size is null || size is Atom { Name: BitSizeAtoms.All });
+            BigInteger length;
+            if (whole)
+                length = input.BitLength - position;
+            else if (size is null && (integer || floating))
+                length = (integer ? BitSyntaxDefaults.IntegerWidth : BitSyntaxDefaults.FloatWidth) * spec.Unit;
+            else if (size is Integer width && width.Value >= 0)
+                length = width.Value * spec.Unit;
+            else
+                return Result(false);
+
+            if (length > input.BitLength - position)
+                return Result(false);
+            int count = (int)length;
+            if (floating && count is not (0 or FloatSegmentWidths.Half or FloatSegmentWidths.Single or FloatSegmentWidths.Double))
+                return Result(false);
+            if (whole && count % spec.Unit != 0)
+                return Result(false);
+
+            Term extracted;
+            if (integer)
+            {
+                BigInteger number = BigInteger.Zero;
+                bool little = spec.Endian == BitByteOrders.Little || spec.Endian == BitByteOrders.Native && BitConverter.IsLittleEndian;
+                if (!little)
+                    for (int i = 0; i < count; i++)
+                        number = (number << 1) | ReadBit();
+                else
+                    for (int offset = 0; offset < count; offset += BitStorageLayout.BitsPerByte)
+                    {
+                        int chunk = 0;
+                        for (int i = 0; i < Math.Min(BitStorageLayout.BitsPerByte, count - offset); i++)
+                            chunk = (chunk << 1) | ReadBit();
+                        number |= new BigInteger(chunk) << offset;
+                    }
+                if (spec.Signed && count > 0 && (number & (BigInteger.One << (count - 1))) != 0)
+                    number -= BigInteger.One << count;
+                extracted = new Integer(number);
+            }
+            else
+            {
+                var part = new byte[(int)(((long)count + BitStorageLayout.ByteRoundingOffset) / BitStorageLayout.BitsPerByte)];
+                for (int i = 0; i < count; i++)
+                    if (ReadBit() != 0)
+                        part[i / BitStorageLayout.BitsPerByte] |= (byte)(1 << (BitStorageLayout.MostSignificantBitIndex - i % BitStorageLayout.BitsPerByte));
+                if (floating)
+                {
+                    var number = BitFloat.Decode(part, count, spec.Endian);
+                    if (number is null)
+                    {
+                        if (!generator)
+                            return Result(false);
+                        matched = false;
+                        continue;
+                    }
+                    extracted = number;
+                }
+                else
+                    extracted = new BitString(part, count);
+            }
+            if (await segment.Value.MatchAsync(
+                extracted,
+                bindings,
+                context,
+                keyScope
+            ))
+            {
+                foreach (string name in Semantics.Variables(segment.Value))
+                    sizeScope[name] = bindings[name];
+            }
+            else if (generator)
+                matched = false;
+            else
+                return Result(false);
+        }
+
+        consumed = position - start;
+
+        return Result(true);
+    }
 }

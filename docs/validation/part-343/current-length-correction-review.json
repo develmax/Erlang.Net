@@ -1,0 +1,45 @@
+{
+  "Status": "PASS_SOURCE_AND_ACTUAL24_BASED_LENGTH_ONLY_CLASSIFICATION_CORRECTION",
+  "Passed": true,
+  "Mfa": "erlang:length/1",
+  "PreviousPublished342Status": "Known differences",
+  "Current343Status": "Needs verification",
+  "VerifiedCompatible": false,
+  "CountsBefore": {
+    "Verified compatible": 5,
+    "Known differences": 18,
+    "Needs verification": 564
+  },
+  "CountsAfter": {
+    "Verified compatible": 5,
+    "Known differences": 17,
+    "Needs verification": 565
+  },
+  "Scope": "Published342 synchronous long-list scheduling defect is repaired in current343 implementation; no current concrete production divergence identified in the reviewed logical contract. Original nine fixtures and full validation remain pending, so no Verified classification.",
+  "Source4ReviewPath": "artifacts/erlang-length-cooperative-source-independent/source4-report.json",
+  "Source4ReviewSha256": "DB6F5E4D9B04892B662CAC0FCDA6ED8614B8F7F20225C738EBCBB561305DED0A",
+  "ActualFocusedReviewPath": "artifacts/length343-focused-independent/report.json",
+  "ActualFocusedReviewSha256": "6EC6D0FE7FB47E880C18B695F08B2C43F7E27B67E9CEE6CE993500A627F6C990",
+  "ActualFocusedProducerReportSha256": "027BE855405375222A9BDFCBE5E07864E7C6AC093FEE08B0A519B06586E1D32E",
+  "ActualFocusedSourceFreezeSha256": "E76E05F7325A4CEF1F3716E19B31D1B0FA915CFE396BFD03C313B3FECB3B86B1",
+  "Evidence": [
+    "Pinned ordinary and JIT guard trapping length algorithm ported with preserved tail/count/original argument and async continuations",
+    "Dedicated synchronous nontrapping matchspec path follows pinned db_length_1",
+    "Transactional async pattern/map-key/bit-size and guarded receive selection reviewed",
+    "Actual24focused passes include real progress/cancellation/suspension, priority/removal revalidation and resolved timeout suspension accounting"
+  ],
+  "RequiredLedgerLimits": [
+    "Historical published342 long traversal scheduling difference corrected in current343 async implementation; historical classification and evidence remain immutable.",
+    "Actual pinned-original comparison of all nine new fixtures pending.",
+    "Full current source regression/integration/package/native-plan validation pending.",
+    "Complete error/input/original badarg frame and all logical context contract verification still requires final comparison review; no exhaustive compatibility promotion from24focused passes."
+  ],
+  "Other586EntriesMustRetainStatusScopeLimits": true,
+  "Published342LedgerAndReportsMustRemainUnchanged": true,
+  "Current343NewEvidenceMayAppendSourceReviewOnly": true,
+  "NoKnownCurrentSourceDefectEstablished": true,
+  "NoOriginalExecutionClaimed": true,
+  "NoSdkExecutedByReviewer": true,
+  "MainEdited": false,
+  "NetworkUsed": false
+}

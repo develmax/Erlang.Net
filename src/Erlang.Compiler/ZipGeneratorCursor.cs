@@ -34,54 +34,52 @@ internal sealed class ZipGeneratorCursor
         }
     }
 
-    public bool Read(
+    public async ValueTask<PatternReadResult> ReadAsync(
         Pattern pattern,
         Dictionary<string, Term> scope,
         Dictionary<string, Term> bindings,
-        ProcessContext context,
-        out bool matched,
-        out int consumed
+        ProcessContext context
     )
     {
-        matched = false;
-        consumed = 0;
+        bool matched = false;
+        int consumed = 0;
+
+        PatternReadResult Result(bool complete) => new(complete, matched, consumed);
         if (Generator.Binary)
         {
             if (bits is null)
-                return false;
+                return Result(false);
 
-            return ((BitPattern)pattern).ReadGenerator(
+            return await ((BitPattern)pattern).ReadGeneratorAsync(
                 bits,
                 bytes!,
                 position,
                 bindings,
                 context,
-                scope,
-                out consumed,
-                out matched
+                scope
             );
         }
         Term item;
         if (entries is not null)
         {
             if (position == entries.Count)
-                return false;
+                return Result(false);
             var pair = entries[position];
             item = Term.Tuple(pair.Key, pair.Value);
         }
         else if (remaining is Cons cell)
             item = cell.Head;
         else
-            return false;
+            return Result(false);
         consumed = 1;
-        matched = pattern.Match(
+        matched = await pattern.MatchAsync(
             item,
             bindings,
             context,
             scope
         );
 
-        return true;
+        return Result(true);
     }
 
     public bool IsDone(bool complete) => entries is not null ? position == entries.Count : Generator.Binary ? bits is not null && !complete : remaining is Nil;

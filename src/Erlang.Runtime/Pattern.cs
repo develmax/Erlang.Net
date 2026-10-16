@@ -9,6 +9,40 @@ public abstract record Pattern
         Dictionary<string, Term>? keyScope = null
     );
 
+    protected virtual ValueTask<bool> MatchCoreAsync(
+        Term value,
+        Dictionary<string, Term> bindings,
+        ProcessContext? context = null,
+        Dictionary<string, Term>? keyScope = null
+    ) => ValueTask.FromResult(MatchCore(
+        value,
+        bindings,
+        context,
+        keyScope
+    ));
+
+    public async ValueTask<bool> MatchAsync(
+        Term value,
+        Dictionary<string, Term> bindings,
+        ProcessContext? context = null,
+        Dictionary<string, Term>? keyScope = null
+    )
+    {
+        var candidate = new Dictionary<string, Term>(bindings, StringComparer.Ordinal);
+        if (!await MatchCoreAsync(
+            value,
+            candidate,
+            context,
+            new Dictionary<string, Term>(keyScope ?? bindings, StringComparer.Ordinal)
+        ))
+            return false;
+        bindings.Clear();
+        foreach (var binding in candidate)
+            bindings.Add(binding.Key, binding.Value);
+
+        return true;
+    }
+
     public bool Match(
         Term value,
         Dictionary<string, Term> bindings,
@@ -89,6 +123,27 @@ public abstract record Pattern
 
             return true;
         }
+
+        protected override async ValueTask<bool> MatchCoreAsync(
+            Term value,
+            Dictionary<string, Term> bindings,
+            ProcessContext? context = null,
+            Dictionary<string, Term>? keyScope = null
+        )
+        {
+            if (value is not TupleTerm t || t.Items.Count != Items.Count)
+                return false;
+            for (int i = 0; i < Items.Count; i++)
+                if (!await Items[i].MatchCoreAsync(
+                    t.Items[i],
+                    bindings,
+                    context,
+                    keyScope
+                ))
+                    return false;
+
+            return true;
+        }
     }
     public sealed record List(IReadOnlyList<Pattern> Items, Pattern? Tail = null) : Pattern
     {
@@ -112,6 +167,33 @@ public abstract record Pattern
             }
 
             return Tail is null ? value is Nil : Tail.MatchCore(
+                value,
+                bindings,
+                context,
+                keyScope
+            );
+        }
+
+        protected override async ValueTask<bool> MatchCoreAsync(
+            Term value,
+            Dictionary<string, Term> bindings,
+            ProcessContext? context = null,
+            Dictionary<string, Term>? keyScope = null
+        )
+        {
+            foreach (var p in Items)
+            {
+                if (value is not Cons c || !await p.MatchCoreAsync(
+                    c.Head,
+                    bindings,
+                    context,
+                    keyScope
+                ))
+                    return false;
+                value = c.Tail;
+            }
+
+            return Tail is null ? value is Nil : await Tail.MatchCoreAsync(
                 value,
                 bindings,
                 context,

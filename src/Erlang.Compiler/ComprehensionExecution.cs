@@ -146,7 +146,7 @@ internal static class ComprehensionExecution
                 {
                     await context.ReduceAsync();
                     var fresh = new Dictionary<string, Term>(StringComparer.Ordinal);
-                    if (generator.Pattern.Match(
+                    if (await generator.Pattern.MatchAsync(
                         cell.Head,
                         fresh,
                         context,
@@ -184,7 +184,7 @@ internal static class ComprehensionExecution
                     await context.ReduceAsync();
                     var fresh = new Dictionary<string, Term>(StringComparer.Ordinal);
                     var pair = Term.Tuple(entry.Key, entry.Value);
-                    if (mapGenerator.Pattern.Match(
+                    if (await mapGenerator.Pattern.MatchAsync(
                         pair,
                         fresh,
                         context,
@@ -213,16 +213,17 @@ internal static class ComprehensionExecution
                 {
                     await context.ReduceAsync();
                     var fresh = new Dictionary<string, Term>(StringComparer.Ordinal);
-                    bool complete = binaryGenerator.Pattern.ReadGenerator(
+                    var readResult = await binaryGenerator.Pattern.ReadGeneratorAsync(
                         input,
                         bytes,
                         position,
                         fresh,
                         context,
-                        scope,
-                        out int consumed,
-                        out bool matched
+                        scope
                     );
+                    bool complete = readResult.Complete;
+                    int consumed = readResult.Consumed;
+                    bool matched = readResult.Matched;
                     if (!complete)
                     {
                         if (binaryGenerator.Strict && position != input.BitLength)
@@ -258,7 +259,7 @@ internal static class ComprehensionExecution
             var filter = (ComprehensionQualifier.Filter)qualifiers[index];
             if (ComprehensionGuard.IsTest(filter.Expression, module))
             {
-                if (Execution.Guard(filter.Expression, scope, context))
+                if (await Execution.GuardAsync(filter.Expression, scope, context))
                     await Qualifiers(index + 1, scope);
 
                 return;

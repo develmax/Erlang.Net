@@ -7,7 +7,7 @@
   "VerifiedSourceFiles": [
     {
       "Path": "src/Erlang.Compiler/Execution.cs",
-      "Sha256": "37F4E5D8ACA90886AB3EF8393D05EBC54333FDF690C195B366B4B00244F289F5"
+      "Sha256": "CAECE2612C072A3DBABF924C0AC346D39AF1375684F4B15B9EBC3DF24FC0D561"
     },
     {
       "Path": "src/Erlang.Compiler/Semantics.cs",
@@ -15,7 +15,7 @@
     },
     {
       "Path": "src/Erlang.Runtime/CoreModules.cs",
-      "Sha256": "E0A62BBC2BF677224475FE6BC7366C17A0B1060D4E10E436BA081E2AFC27E208"
+      "Sha256": "37ACAF904489E59D04409936ABE4145922FAA012982E58DBE6AD54C5D85AEBE4"
     },
     {
       "Path": "src/Erlang.Runtime/ErlangProcessQueryRegistrations.cs",
@@ -23,7 +23,7 @@
     },
     {
       "Path": "src/Erlang.Runtime/ProcessContext.cs",
-      "Sha256": "3BB7E4778484647C3F67D97E61FB830359022E55B61DFA7E55CC52BB6CA1581D"
+      "Sha256": "29C763089F9BC64206FE1F1C0A5B38A439B0FD4D66ECAE488007DFBC778EDB27"
     },
     {
       "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
@@ -44,11 +44,15 @@
     {
       "Path": "src/Erlang.Terms/NativeRecordTerm.cs",
       "Sha256": "30DE73CCB8E5F8E19D31A4D1A9F79ADA24F424F06094DE1D169251740FDA7850"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Execution.AsyncGuards.cs",
+      "Sha256": "994F87089FAEEFA88BC2143577894F3C3A728BF4AF1972BD610B7DCC6B61920A"
     }
   ],
   "VerifiedCompatibleMfas": 5,
-  "NeedsVerificationMfas": 564,
-  "KnownDifferenceMfas": 18,
+  "NeedsVerificationMfas": 565,
+  "KnownDifferenceMfas": 17,
   "MfaCompatibility": [
     {
       "Module": "erlang",
@@ -86,6 +90,12 @@
           "Path": "validation/part-342/current-verified-source-review.json",
           "Sha256": "570E2B06D694CE7A8C1DA99FBA3124215AB3C1043C8AC0CE1BA6AF8284A5A47C",
           "Scope": "Independent current341 to342 source delta audit: five complete observable contracts retained; added closure capture metadata does not alter their handler, guard or dispatch branches."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-343/current-verified-source-review.json",
+          "Sha256": "AA763B8AB6B20E1D7CEBC9EC0F01A218F8BAE8B1C481DB348681784230ADA4B0",
+          "Scope": "Independent actual styled length async graph audit preserves the five existing complete observable logical contracts; length classification remains Known differences pending actual original comparisons."
         }
       ],
       "Limits": [],
@@ -95,19 +105,37 @@
       "Module": "erlang",
       "Function": "length",
       "Arity": 1,
-      "Status": "Known differences",
-      "Scope": "List length return/badarg source logic aligns, but long traversal scheduling behavior differs.",
+      "Status": "Needs verification",
+      "Scope": "List result/badarg logic and cooperative traversal are source-reviewed with 24 targeted checks. The earlier synchronous long-list scheduling difference was corrected in part343; the complete observable API contract remains under verification.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
           "Path": "validation/part-341/compatibility-audit/classification.json",
           "Sha256": "B424B90ADA84FB2271BE803A5525A00835EAFC80B3FFB5967E12588678E14A7A",
           "Scope": "Complete source branch/term partition argument and per-MFA classification at published340; no presence-only verification."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-343/current-length-correction-review.json",
+          "Sha256": "D3253B40231AF576CC37DB0208ABA78134BFF5DD98B88152251093A3FE1F74D9",
+          "Scope": "Current source correction and independently reviewed first24 targeted outcomes; no original OTP or full-contract compatibility claim."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-343/length-focused-independent.json",
+          "Sha256": "6EC6D0FE7FB47E880C18B695F08B2C43F7E27B67E9CEE6CE993500A627F6C990",
+          "Scope": "Current source correction and independently reviewed first24 targeted outcomes; no original OTP or full-contract compatibility claim."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-343/length-source4-independent.json",
+          "Sha256": "DB6F5E4D9B04892B662CAC0FCDA6ED8614B8F7F20225C738EBCBB561305DED0A",
+          "Scope": "Current source correction and independently reviewed first24 targeted outcomes; no original OTP or full-contract compatibility claim."
         }
       ],
       "Limits": [
-        "Known source-level cooperative scheduling divergence for long lists; no measured numeric performance claim.",
-        "Complete input/error/frame partition and long-list interruption comparison still pending."
+        "Actual pinned-original comparison of the nine fixtures and broader input/error/frame/interruption partitions remain required.",
+        "Source and targeted HOST controls do not establish full contract, physical VM or performance equivalence; full regression results are tracked separately."
       ],
       "Key": "erlang:length/1"
     },
@@ -318,6 +346,12 @@
           "Path": "validation/part-342/current-verified-source-review.json",
           "Sha256": "570E2B06D694CE7A8C1DA99FBA3124215AB3C1043C8AC0CE1BA6AF8284A5A47C",
           "Scope": "Independent current341 to342 source delta audit: five complete observable contracts retained; added closure capture metadata does not alter their handler, guard or dispatch branches."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-343/current-verified-source-review.json",
+          "Sha256": "AA763B8AB6B20E1D7CEBC9EC0F01A218F8BAE8B1C481DB348681784230ADA4B0",
+          "Scope": "Independent actual styled length async graph audit preserves the five existing complete observable logical contracts; length classification remains Known differences pending actual original comparisons."
         }
       ],
       "Limits": [],
@@ -359,6 +393,12 @@
           "Path": "validation/part-342/current-verified-source-review.json",
           "Sha256": "570E2B06D694CE7A8C1DA99FBA3124215AB3C1043C8AC0CE1BA6AF8284A5A47C",
           "Scope": "Independent current341 to342 source delta audit: five complete observable contracts retained; added closure capture metadata does not alter their handler, guard or dispatch branches."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-343/current-verified-source-review.json",
+          "Sha256": "AA763B8AB6B20E1D7CEBC9EC0F01A218F8BAE8B1C481DB348681784230ADA4B0",
+          "Scope": "Independent actual styled length async graph audit preserves the five existing complete observable logical contracts; length classification remains Known differences pending actual original comparisons."
         }
       ],
       "Limits": [],
@@ -455,6 +495,12 @@
           "Path": "validation/part-342/current-verified-source-review.json",
           "Sha256": "570E2B06D694CE7A8C1DA99FBA3124215AB3C1043C8AC0CE1BA6AF8284A5A47C",
           "Scope": "Independent current341 to342 source delta audit: five complete observable contracts retained; added closure capture metadata does not alter their handler, guard or dispatch branches."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-343/current-verified-source-review.json",
+          "Sha256": "AA763B8AB6B20E1D7CEBC9EC0F01A218F8BAE8B1C481DB348681784230ADA4B0",
+          "Scope": "Independent actual styled length async graph audit preserves the five existing complete observable logical contracts; length classification remains Known differences pending actual original comparisons."
         }
       ],
       "Limits": [],
@@ -3100,6 +3146,12 @@
           "Path": "validation/part-342/current-verified-source-review.json",
           "Sha256": "570E2B06D694CE7A8C1DA99FBA3124215AB3C1043C8AC0CE1BA6AF8284A5A47C",
           "Scope": "Independent current341 to342 source delta audit: five complete observable contracts retained; added closure capture metadata does not alter their handler, guard or dispatch branches."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-343/current-verified-source-review.json",
+          "Sha256": "AA763B8AB6B20E1D7CEBC9EC0F01A218F8BAE8B1C481DB348681784230ADA4B0",
+          "Scope": "Independent actual styled length async graph audit preserves the five existing complete observable logical contracts; length classification remains Known differences pending actual original comparisons."
         }
       ],
       "Limits": [],
@@ -7907,8 +7959,8 @@
       "Key": "rpc:call/5"
     }
   ],
-  "ComparisonTestReport": "validation/part-340/final-candidate/tests.json",
-  "LocalPassedTests": 7200,
+  "ComparisonTestReport": "validation/part-342/full-actual3/tests.json",
+  "LocalPassedTests": 7224,
   "RegisteredMfas": 587,
   "PreviousRegisteredMfas": 587,
   "RegisteredMfaDelta": 0,
@@ -8102,7 +8154,7 @@
         "GC global CLR heap differs from BEAM per-process heap,physical roots/reductions/dirty-task/max-heap/resource/scheduler parity;CPU hardware topology assignment and full system flags/info unfinished.",
         "Physical BEAM heap/scheduler/resources,complete lint/spec/warnings/source stacks/code staging,connected distribution and full native/upstream/performance parity;native numeric record hashes independently matched in230, while general resource/lifecycle scope remains partial."
       ],
-      "RelatedPassedTests": 710
+      "RelatedPassedTests": 725
     },
     {
       "Id": "Compiler",
@@ -8351,7 +8403,7 @@
         "Part134: all3248 comparable original cases pass at b1ed28e; six exact unsafe-original scenarios remain explicitly excluded while mandatory managed tests pass. No complete native coverage claim.",
         "Part136: complete3291 comparable original cases,3290 pass/one pending alias signal admission mismatch at569cba8;six explicit unsafe-native exclusions remain. Implement pending signal admission before promotion;latest successful comparable134."
       ],
-      "RelatedPassedTests": 5510
+      "RelatedPassedTests": 5519
     },
     {
       "Id": "Style checks",
@@ -14765,8 +14817,8 @@
       "Status": "Partially compatible",
       "RegisteredMfas": 351,
       "VerifiedCompatibleMfas": 5,
-      "NeedsVerificationMfas": 345,
-      "KnownDifferenceMfas": 1,
+      "NeedsVerificationMfas": 346,
+      "KnownDifferenceMfas": 0,
       "PreviousRegisteredMfas": 351,
       "Delta": 0,
       "ReferenceDeclarations": 351,

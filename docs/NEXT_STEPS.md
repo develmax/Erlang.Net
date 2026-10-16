@@ -1,5 +1,7 @@
 # Next executable tasks
 
+Part343: publish the exact tested cooperative length implementation, check current-head CI and compare the enlarged corpus with pinned OTP. Repair the standalone real-peer collector failure before claiming eight complete original observations. Continue the isolated guard-BIF shadow/import/no_auto_import correction and the five pending type-predicate partition witnesses. Keep original observations separate from source-derived local assertions.
+
 Part342: publish the exact tested source, audit current-head CI, and dispatch each original workflow once at the verified head. Complete the eight real-peer and6261 ordinary contracts plus fd8 from actual receipts. Then integrate the isolated cooperative length/1 implementation across normal/guard/pattern/receive and match-spec contexts; retain Known differences until source, SDK, original and regression checks actually pass.
 
 Part341: audit the564 pending API contracts and address the18 known differences using the explicit command ledger. Continue the separately focused captured-source-function receiver repair and real two-node proc_lib/label checks against pinned OTP. Do not promote selected-case coverage or complete export presence to full compatibility. Published340 original6260/fd8 and WindowsCI7193/11 are now complete.

@@ -39,4 +39,38 @@ public sealed record MapPattern(IReadOnlyList<MapPatternField> Fields) : Pattern
 
         return true;
     }
+
+    protected override async ValueTask<bool> MatchCoreAsync(
+        Term value,
+        Dictionary<string, Term> bindings,
+        ProcessContext? context = null,
+        Dictionary<string, Term>? keyScope = null
+    )
+    {
+        if (value is not MapTerm map)
+            return false;
+        // Resolve all keys before any value pattern binds variables.
+        var keys = new Term[Fields.Count];
+        try
+        {
+            for (int i = 0; i < keys.Length; i++)
+                keys[i] = await Execution.PatternKeyAsync(Fields[i].Key, keyScope ?? bindings, context);
+        }
+        catch (ErlangException)
+        {
+            return false;
+        }
+        for (int i = 0; i < keys.Length; i++)
+        {
+            if (!map.TryGet(keys[i], out var item) || !await Fields[i].Value.MatchAsync(
+                item!,
+                bindings,
+                context,
+                keyScope
+            ))
+                return false;
+        }
+
+        return true;
+    }
 }

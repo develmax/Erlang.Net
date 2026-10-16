@@ -26,23 +26,21 @@ internal static class ZipComprehensionExecution
         {
             await context.ReduceAsync();
             for (int index = 0; index < cursors.Length; index++)
-                complete[index] = cursors[index].Read(
+                complete[index] = (await cursors[index].ReadAsync(
                     definitions[index].Pattern,
                     incoming,
                     new(StringComparer.Ordinal),
-                    context,
-                    out _,
-                    out _
-                );
+                    context
+                )).Complete;
 
             if (compiled)
             {
                 var row = new Dictionary<string, Term>(StringComparer.Ordinal);
-                bool matches = JointMatch(patterns, row);
+                bool matches = await JointMatch(patterns, row);
                 if (!matches)
                 {
                     row.Clear();
-                    if (!JointMatch(skipPatterns, row))
+                    if (!await JointMatch(skipPatterns, row))
                     {
                         if (cursors.All(cursor => cursor.CompiledTail))
                             return;
@@ -70,14 +68,15 @@ internal static class ZipComprehensionExecution
                     var cursor = cursors[index];
                     var scope = row;
                     var fresh = new Dictionary<string, Term>(StringComparer.Ordinal);
-                    bool read = cursor.Read(
+                    var readResult = await cursor.ReadAsync(
                         definitions[index].Pattern,
                         scope,
                         fresh,
-                        context,
-                        out bool matched,
-                        out consumed[index]
+                        context
                     );
+                    bool read = readResult.Complete;
+                    bool matched = readResult.Matched;
+                    consumed[index] = readResult.Consumed;
                     if (!read)
                     {
                         if (cursor.IsDone(false) && !cursor.HasStrictBinaryTail)
@@ -110,19 +109,19 @@ internal static class ZipComprehensionExecution
                 cursors[index].Advance(consumed[index]);
         }
 
-        bool JointMatch(IReadOnlyList<Pattern> patterns, Dictionary<string, Term> row)
+        async ValueTask<bool> JointMatch(IReadOnlyList<Pattern> patterns, Dictionary<string, Term> row)
         {
             for (int index = 0; index < cursors.Length; index++)
             {
                 var fresh = new Dictionary<string, Term>(StringComparer.Ordinal);
-                if (!cursors[index].Read(
+                var readResult = await cursors[index].ReadAsync(
                     patterns[index],
                     incoming,
                     fresh,
-                    context,
-                    out bool matched,
-                    out consumed[index]
-                ) || !matched || Merge(fresh, row, strictVariables) != ZipBindingConflict.None)
+                    context
+                );
+                consumed[index] = readResult.Consumed;
+                if (!readResult.Complete || !readResult.Matched || Merge(fresh, row, strictVariables) != ZipBindingConflict.None)
                     return false;
                 foreach (var binding in fresh)
                     row[binding.Key] = binding.Value;

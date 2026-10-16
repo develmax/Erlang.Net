@@ -1,0 +1,42 @@
+{
+  "Status": "SOURCE3_REVIEW_BLOCKED_BY_ORIGINAL_FIXTURE_GRAMMAR_REPAIR_PENDING",
+  "SourceFreezeSha256": "FE89A90B9E9A4D3E95B4E9692E740383F224CDEDFC2912F3EA8B6E0387C3A850",
+  "ArchivedSourcePrefix": "artifacts/erlang-length-cooperative-proposal/frozen-source3",
+  "FrozenRowsRehashed": 28,
+  "ProductionBlockingFindings": [],
+  "BlockingFixtures": [
+    {
+      "Path": "tools/Erlang.Differential/ListLengthCaseSources.cs",
+      "Case": "LongBadarg",
+      "Finding": "Catch stack position contains list pattern. OTP grammar requires a variable, so fixture will fail parsing before exercising length.",
+      "Repair": "catch error:badarg:Stack -> [{erlang,length,[Argument],_}|_]=Stack, Argument =:= Original end",
+      "OwnerAcknowledged": true
+    }
+  ],
+  "ReviewedContracts": [
+    "Pinned erl_bif_guard normal path retains original argument/tail/count,16cells per reduction, trap with accumulated state, immediate improper-tail badarg and floor cell charging; proposed async helper follows that structure.",
+    "Pinned JIT length guard calls same trapping helper, so guard evaluation must await; proposed GuardAsync awaits sequential operands/alternatives and catches only ErlangException, letting cancellation/halt/hibernate transfers escape.",
+    "Pinned erl_db_util db_length_1 is explicitly non-trapping; CallMatchSpecGuard has dedicated synchronous path before general async registration.",
+    "Clause/try/maybe/comprehension/zip entrypoints use async selector/pattern paths; synchronous host Pattern.Match remains separately supported, with no language evaluator fallback to incomplete ValueTask.GetResult.",
+    "Pattern.MatchAsync uses candidate copy and commits only success; map keys use incoming key scope and resolve before value bindings; binary segments evaluate each size after prior-segment bindings and do not pre-evaluate future sizes.",
+    "Async mailbox selector awaits outside gate and retains post-await precedence/pending/admission/node/suspension checks before RemoveNode; callbacks/tracing still occur only after successful removal.",
+    "Suspension time is accumulated by real WaitIfSuspended and subtracted only for spans inside selector, while preselector WaitForExecution duration retains existing separate adjustment; traversal yield wall time is not disguised as suspension.",
+    "ChargeAsync0 at each resumed list slice observes cancellation/suspension; remaining-slice traversal budget is consumed without claiming BEAM reduction equality."
+  ],
+  "PendingSource4": [
+    "Exact catch-stack fixture syntax repair",
+    "Already-authorized finite receive-timeout suspension HOST control; inspect its binding/await/cleanup and actual delta before final source PASS"
+  ],
+  "ExecutionScope": {
+    "SdkExecuted": false,
+    "OriginalErlangParsed": false,
+    "OriginalExecuted": false,
+    "MainEdited": false,
+    "NetworkUsed": false
+  },
+  "Caveats": [
+    "Source review found no production blocker; this does not establish runtime correctness or full length compatibility.",
+    "Full language regression, cancellation/suspension/priority/removal HOST controls and actual original nine fixture outcomes remain required.",
+    "Final integration must rebase onto published342 and preserve its captured-function metadata; Execution/CoreModules current verified-source bindings need new narrow audit, not stale hash replacement."
+  ]
+}

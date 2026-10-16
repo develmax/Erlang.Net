@@ -1,0 +1,299 @@
+{
+  "ParentHead": "0114bc4ba2c7b8152612e930e3cd36db1caf4180",
+  "PreviousTestsPath": "docs/validation/part-342/full-actual3/tests.json",
+  "PreviousTestsSha256": "B6EEA682C95B8E5254C39686BACDDBB424B432DFFDC6968BAAAA9CB968618092",
+  "PreviousTestCount": 7200,
+  "PreviousProof": "Actual published342 isolatedfull3; same-head CI result remains independent and is not invented here",
+  "RegistryPath": "docs/supported-mfas.json",
+  "RegistrySha256": "3B2591EFD44F896F4F12ACC1A73428C4AD90FFFE1723E76B38CFDB5722157F29",
+  "Registry587": true,
+  "Modules14": true,
+  "LedgerPath": "docs/mfa-compatibility.json",
+  "LedgerSha256": "79F7F780FACC4A3840BDD048DC6D6093CAE723AE58FD4CD61975D712DD508E34",
+  "PreviousCompatibilityCounts": {
+    "Verified compatible": 5,
+    "Known differences": 18,
+    "Needs verification": 564
+  },
+  "CompatibilityCounts": {
+    "Verified compatible": 5,
+    "Known differences": 17,
+    "Needs verification": 565
+  },
+  "OnlyClassificationTransition": {
+    "Module": "erlang",
+    "Function": "length",
+    "Arity": 1,
+    "PreviousStatus": "Known differences",
+    "CurrentStatus": "Needs verification"
+  },
+  "ProtectedBaselineFiles": [
+    {
+      "Path": ".gitattributes",
+      "Bytes": 9047,
+      "Sha256": "FCEC19968DD0C4BFA475BB0407835A27050C3AC5BB29CA122183A84E089A04CB"
+    },
+    {
+      "Path": ".github/workflows/nif-pending-native.yml",
+      "Bytes": 6350,
+      "Sha256": "C208A41BD1E10B2634AC7C0F94F37335997885ED570F6A6076C43258FAABA6DF"
+    },
+    {
+      "Path": ".github/workflows/nif-reallocation-native.yml",
+      "Bytes": 5862,
+      "Sha256": "C375313AEF9AB49E97580106CF7A158B52EEC2508A9F2B2012E98FFA752586EC"
+    },
+    {
+      "Path": ".github/workflows/proc-lib-real-peer-original.yml",
+      "Bytes": 2699,
+      "Sha256": "F42DA35887D9351211CF57CE6B2210C850A558A3B02C09779B5CDE3A8F3D6439"
+    },
+    {
+      "Path": "docs/mfa-compatibility.json",
+      "Bytes": 344611,
+      "Sha256": "79F7F780FACC4A3840BDD048DC6D6093CAE723AE58FD4CD61975D712DD508E34"
+    },
+    {
+      "Path": "docs/module-readiness-scope.json",
+      "Bytes": 148681,
+      "Sha256": "E93C7B459A481554FF98DBFE3898A40A06748C4F2F5AF1C62EC034CB0BC70742"
+    },
+    {
+      "Path": "docs/supported-mfas.json",
+      "Bytes": 228718,
+      "Sha256": "3B2591EFD44F896F4F12ACC1A73428C4AD90FFFE1723E76B38CFDB5722157F29"
+    },
+    {
+      "Path": "docs/validation/part-341/compatibility-audit/classification.json",
+      "Bytes": 84120,
+      "Sha256": "B424B90ADA84FB2271BE803A5525A00835EAFC80B3FFB5967E12588678E14A7A"
+    },
+    {
+      "Path": "docs/validation/part-341/compatibility-audit/identity-dependencies.json",
+      "Bytes": 1312,
+      "Sha256": "F17E577C07EC8C584C36ED8E3BFDBF6A23C1D89821D06B3807383396FE42764B"
+    },
+    {
+      "Path": "docs/validation/part-341/compatibility-audit/original-provenance-map.json",
+      "Bytes": 3147,
+      "Sha256": "90A8AC0081CA9F0249352B60F5D924E073845B7BAC19C4A8118C8E466ED52C13"
+    },
+    {
+      "Path": "docs/validation/part-341/compatibility-audit/proc-lib-rpc-erpc-inventory.json",
+      "Bytes": 22665,
+      "Sha256": "E3766539CFAEF13586CD07EBFB68687D8A18B29C7BDF176BB06B65458690CEE7"
+    },
+    {
+      "Path": "docs/validation/part-341/compatibility-audit/root-independent-review.json",
+      "Bytes": 579,
+      "Sha256": "401EF647BAF50EEEE5595DFFDA3113306C67F515EC0EF16F0A769711094CEF63"
+    },
+    {
+      "Path": "docs/validation/part-341/compatibility-audit/selected-original-witnesses.json",
+      "Bytes": 11553,
+      "Sha256": "13DACBB4F041504139210D47F2B975D3641DDAA7626BAE498EA6E5E150B9B407"
+    },
+    {
+      "Path": "docs/validation/part-341/compatibility-audit/verified-source-files.json",
+      "Bytes": 1927,
+      "Sha256": "14A5BCF89F653E64FEE87F33ECC23AF209810C9E81799FB44EDB92E79CC0FD60"
+    },
+    {
+      "Path": "docs/validation/part-342/current-verified-source-review.json",
+      "Bytes": 9541,
+      "Sha256": "570E2B06D694CE7A8C1DA99FBA3124215AB3C1043C8AC0CE1BA6AF8284A5A47C"
+    },
+    {
+      "Path": "src/Erlang.Compiler/ClosureCaptures.cs",
+      "Bytes": 12813,
+      "Sha256": "00A2908763356233EDB0925B709C0521F15A764784A98E107533F7A86F0EDA36"
+    },
+    {
+      "Path": "src/Erlang.Compiler/LocalFunctionEntries.cs",
+      "Bytes": 9466,
+      "Sha256": "79C9C8F0DAB203C3C9C501DF3643D073E5F74BCFBEB88215F5FC6E48558E06E2"
+    },
+    {
+      "Path": "src/Erlang.Compiler/ModuleDefinition.LocalFunctions.cs",
+      "Bytes": 2363,
+      "Sha256": "65AAF43CC3CB49E36DCA21AD039DAE8776FAB360F1337A37B4C2E1718712FD22"
+    },
+    {
+      "Path": "src/Erlang.Compiler/ModuleDefinition.cs",
+      "Bytes": 3231,
+      "Sha256": "0518CB4B7FF486F58B5BE7D9B28F2D3D8998196560D37FC52D1484A204767D3A"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Semantics.cs",
+      "Bytes": 23813,
+      "Sha256": "59920F9FA17CB76DC3A2C0B6074A193C28A77545D062FFFE945C04D0FDEA3458"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ISourceLocalFunctionResolver.cs",
+      "Bytes": 385,
+      "Sha256": "16192D25CDAEA3CA5FBF2C873553B67C93A7FAFEBD1010BA24337211B84D60CD"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.SourceLocalFunctions.cs",
+      "Bytes": 2252,
+      "Sha256": "4E021D87221B1BABB0AF7D502CFC5BC02A959A17CF2C146AA464962AFB266CD9"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeFunctionEntries.cs",
+      "Bytes": 7464,
+      "Sha256": "F3F04C4A88E3C6EFE9546B5917C0144E33E19F4A337A8144956F7BDC4ADE1C71"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Erlang.Tests.csproj",
+      "Bytes": 2282,
+      "Sha256": "ED08837B2BB54F30425B64E1D8B64AD1AA4D1AE5B01B45F57B5A67E6E0FB1542"
+    },
+    {
+      "Path": "tests/Erlang.Tests/MfaCompatibilityHostChecks.cs",
+      "Bytes": 11219,
+      "Sha256": "81F13700682BCB53C9788C8AC4BD9B9A6F4169AD5EE7FBBEE175C5977E36708A"
+    },
+    {
+      "Path": "tests/Erlang.Tests/MfaCompatibilityHostNames.cs",
+      "Bytes": 693,
+      "Sha256": "C5A503AE14BF640C41AD4C78F10580EE24EDA6E1B96C6A4EF2D7F75A58F679C2"
+    },
+    {
+      "Path": "tests/Erlang.Tests/MfaRegistryMetadataNames.cs",
+      "Bytes": 205,
+      "Sha256": "DABD195FCE88EC8DA3DB1F1101FE376493F52070760E415BC1EBD93836972868"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Program.cs",
+      "Bytes": 177655,
+      "Sha256": "8D05458BD78CC7F29A21126E2114D591AB5448C7F7C2773E88E53A8BFEAB91C3"
+    },
+    {
+      "Path": "tests/Erlang.Tests/RemoteSourceFunHostChecks.cs",
+      "Bytes": 9032,
+      "Sha256": "2320D6DB7177A320922250229FAB5A27D78BD2445822A697BC7082978C634E89"
+    },
+    {
+      "Path": "tests/Erlang.Tests/RemoteSourceFunHostNames.cs",
+      "Bytes": 3483,
+      "Sha256": "8ED834F6F5F2589E080AD7420D17FBAFB0E92F3F3A3110F03BDC216FD4D7274F"
+    },
+    {
+      "Path": "tests/Erlang.Tests/RemoteSourceFunImageHostChecks.cs",
+      "Bytes": 4819,
+      "Sha256": "79F8E5751A2C7460ED079FFBDE79BFD6EFE12A52F7D70DA5880FBB4B67173698"
+    },
+    {
+      "Path": "tests/Erlang.Tests/RemoteSourceFunLexicalHostChecks.cs",
+      "Bytes": 3517,
+      "Sha256": "E4EAEA74951C570492E7EF1E4895B14E7D22602F715E54B520ECD6F83E5A2CF2"
+    },
+    {
+      "Path": "tools/Erlang.Differential/CompiledModuleCases.cs",
+      "Bytes": 32032,
+      "Sha256": "10FCFB47308967440FA3EA305CC8DC38A0B31E9BE60C21DC63A206414CDE173E"
+    },
+    {
+      "Path": "tools/Erlang.Differential/RemoteSourceFunCaseNames.cs",
+      "Bytes": 200,
+      "Sha256": "09DA516B21847F6933B743B3EE61FE82393454E36253B17507CA460279EF77D0"
+    },
+    {
+      "Path": "tools/Erlang.Differential/RemoteSourceFunCaseSources.cs",
+      "Bytes": 664,
+      "Sha256": "FE936EA7858499D75C70C6A4B40D4B11D30062EFE06AAF5E1748BF5C258F31F7"
+    },
+    {
+      "Path": "tools/Erlang.Differential/RemoteSourceFunCases.cs",
+      "Bytes": 396,
+      "Sha256": "7CB61CC558E228D666594E2FA028FD8698D72D2E0FE37197845136CA6CFDCEC2"
+    },
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Bytes": 256533,
+      "Sha256": "B5D0E88C08A858AFDCDBA78C55CE27079B4E4C8FB856B2A4238F5F5E898B3C7E"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Bytes": 266577,
+      "Sha256": "84D8B2DCDFA47A4B7842997E315FDE55738D242736A461865D48BCE2031B19E7"
+    },
+    {
+      "Path": "tools/Erlang.ProcLibRealPeerObservations/README.md",
+      "Bytes": 3108,
+      "Sha256": "55F5EB15670A3FC0CD4294EC790E041900A9067A6BF2AD8EFD0F30D84E4C1AC3"
+    },
+    {
+      "Path": "tools/Erlang.ProcLibRealPeerObservations/collect-original.py",
+      "Bytes": 18480,
+      "Sha256": "3451F256A7FFF8580DBF295C4D6FFE04710A61D063994C3648DA38B0E2035286"
+    },
+    {
+      "Path": "tools/Erlang.ProcLibRealPeerObservations/proc_lib_real_peer_probe.erl",
+      "Bytes": 6291,
+      "Sha256": "D38B1300E57513EE0E2032EDEC43BF6445F9930C9F057B0E0088215A5F3BB58A"
+    },
+    {
+      "Path": "tools/Erlang.ProcLibRealPeerObservations/proc_lib_remote_payload.erl",
+      "Bytes": 898,
+      "Sha256": "51CF003E978C004B2F3B374BDF9FF96A1459BF6BD000C07945B54F6D877041EF"
+    },
+    {
+      "Path": "tools/Erlang.ProcLibRealPeerObservations/source-manifest.json",
+      "Bytes": 3138,
+      "Sha256": "78D4C5B9268520DED2C79C846894DEA8CAFC7DCB9BD07A68A6564E26BF595032"
+    },
+    {
+      "Path": "tools/Erlang.Tool/MfaCompatibility.cs",
+      "Bytes": 5683,
+      "Sha256": "1D2307DE1E7B4272000025DE66A1BADD39345C1B484110AC9CF60A50D125DE28"
+    },
+    {
+      "Path": "tools/Erlang.Tool/MfaCompatibilityEntry.cs",
+      "Bytes": 622,
+      "Sha256": "58E9046F0E78763EB37A71BE86360EA9107E55D8785129CAA4F708716C50AFFD"
+    },
+    {
+      "Path": "tools/Erlang.Tool/MfaCompatibilityEvidence.cs",
+      "Bytes": 342,
+      "Sha256": "CD9448B48076AE4BA1C0BCC8EC04B97D9E6CEC67C82414FB16526B40A4F066DD"
+    },
+    {
+      "Path": "tools/Erlang.Tool/MfaCompatibilityLedger.cs",
+      "Bytes": 463,
+      "Sha256": "483318BE7A6B96F356745408B154069D48D267DBBEA7575F0773AD36CED86B06"
+    },
+    {
+      "Path": "tools/Erlang.Tool/MfaCompatibilityMarkdown.cs",
+      "Bytes": 2297,
+      "Sha256": "1769973368F3F7D1F34FCE0C5009A68F1FF60F4E208BC45D2060DB48D0BF703F"
+    },
+    {
+      "Path": "tools/Erlang.Tool/MfaCompatibilityNames.cs",
+      "Bytes": 2030,
+      "Sha256": "648545D7D2600A3CC9674495973F2D2A28147E750D3C18CF5ECDD39127418E7D"
+    },
+    {
+      "Path": "tools/Erlang.Tool/MfaCompatibilitySourceFile.cs",
+      "Bytes": 219,
+      "Sha256": "7FE6B314B2CDAF6710A30B7CF6AABC3A3878AB1094F9171444ABBE0382E522EB"
+    },
+    {
+      "Path": "tools/Erlang.Tool/Readiness.cs",
+      "Bytes": 10982,
+      "Sha256": "9D125DFDF07E3CC1237B6B5FFC4A7C6A3839AC625DC3B11B6E0E37A198348B39"
+    },
+    {
+      "Path": "tools/Erlang.Tool/ReadinessTestAccess.cs",
+      "Bytes": 87,
+      "Sha256": "A560A73507DAC9644AD71E5231D58A61A3136416738F5E71BCEEEFA90B252F3A"
+    },
+    {
+      "Path": "tools/Erlang.Tool/ReadinessText.cs",
+      "Bytes": 3083,
+      "Sha256": "DB29D39576E11D28F62EF8E7221360544CF51199DFCAF5B1F985658548ECA925"
+    }
+  ],
+  "LengthCorrectionReviewPath": "artifacts/length343-classification-correction-review.json",
+  "LengthCorrectionReviewSha256": "D3253B40231AF576CC37DB0208ABA78134BFF5DD98B88152251093A3FE1F74D9"
+}

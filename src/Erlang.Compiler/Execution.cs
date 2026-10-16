@@ -120,7 +120,7 @@ public static partial class Execution
         }
 
         var definition = module.Functions.FirstOrDefault(f => f.Name == function && f.Arity == arguments.Count) ?? throw new ErlangException(ErlangErrorReasons.UndefinedFunction);
-        var selection = Select(
+        var selection = await Select(
             definition.Clauses,
             arguments,
             [],
@@ -266,7 +266,7 @@ public static partial class Execution
             var scope = new Dictionary<string, Term>(environment, StringComparer.Ordinal);
             foreach (string name in clause.Patterns.SelectMany(Semantics.Variables))
                 scope.Remove(name);
-            var selection = Select(
+            var selection = await Select(
                 [clause],
                 arguments,
                 scope,
@@ -286,7 +286,7 @@ public static partial class Execution
         throw new ErlangException(ErlangErrorReasons.FunctionClause);
     }
 
-    private static Selection? Select(
+    private static async ValueTask<Selection?> Select(
         IReadOnlyList<Clause> clauses,
         IReadOnlyList<Term> values,
         Dictionary<string, Term> parent,
@@ -299,34 +299,20 @@ public static partial class Execution
             var b = CompiledBindingScope.Copy(parent);
             bool matched = clause.Patterns.Count == values.Count;
             for (int i = 0; matched && i < values.Count; i++)
-                matched = clause.Patterns[i].Match(
+                matched = await clause.Patterns[i].MatchAsync(
                     values[i],
                     b,
                     ctx,
                     keyScope ?? parent
                 );
-            if (matched && Guard(clause.Guard, b, ctx))
+            if (matched && await GuardAsync(clause.Guard, b, ctx))
                 return new(clause, b);
         }
 
         return null;
     }
 
-    internal static bool Guard(Expr? e, Dictionary<string, Term> b, ProcessContext ctx)
-    {
-        if (e is null)
-            return true;
-        if (e is Expr.GuardAlternatives alternatives)
-            return alternatives.Items.Any(x => Guard(x, b, ctx));
-        try
-        {
-            return GuardValue(RecordGuards.Normalize(e), b, ctx).Equals(Term.A(ErlangBooleanAtoms.True));
-        }
-        catch (ErlangException)
-        {
-            return false;
-        }
-    }
+
 
     internal static Term PatternKey(Expr e, Dictionary<string, Term> b, ProcessContext? ctx) => GuardValue(e, b, ctx);
 
@@ -375,6 +361,9 @@ public static partial class Execution
             GuardValue(x.Arguments[1], b, ctx),
             ctx
         ),
+        // Synchronous host Pattern.Match retains its synchronous contract.
+        // Source execution uses PatternKeyAsync and the cooperative BIF.
+        Expr.Call x when ctx is not null && x.Function == ErlangModuleNames.Length && x.Arguments.Count == 1 => ErlangListLength.ReadMatchSpec(GuardValue(x.Arguments[0], b, ctx)),
         Expr.Call x when ctx is not null && Semantics.GuardBifs.Contains((x.Function, x.Arguments.Count)) => ctx.Runtime.Modules.Call(
             ctx,
             ErlangModuleNames.Module,
@@ -618,7 +607,7 @@ public static partial class Execution
                         b,
                         module
                     );
-                    if (!CompiledBindingScope.Match(
+                    if (!await CompiledBindingScope.MatchAsync(
                         m.Pattern,
                         value,
                         b,
@@ -673,12 +662,12 @@ public static partial class Execution
                         scope,
                         module
                     ),
-                    (clause, value, scope) => clause.Patterns.Count == 1 && clause.Patterns[0].Match(
+                    async (clause, value, scope) => clause.Patterns.Count == 1 && await clause.Patterns[0].MatchAsync(
                         value,
                         scope,
                         ctx,
                         scope
-                    ) && Guard(clause.Guard, scope, ctx)
+                    ) && await GuardAsync(clause.Guard, scope, ctx)
                 );
             case Expr.Maybe conditional:
                 return await MaybeExpressionExecution.Evaluate(
@@ -690,18 +679,18 @@ public static partial class Execution
                         scope,
                         module
                     ),
-                    (pattern, value, scope) => CompiledBindingScope.Match(
+                    (pattern, value, scope) => CompiledBindingScope.MatchAsync(
                         pattern,
                         value,
                         scope,
                         ctx
                     ),
-                    (clause, value, scope) => clause.Patterns.Count == 1 && clause.Patterns[0].Match(
+                    async (clause, value, scope) => clause.Patterns.Count == 1 && await clause.Patterns[0].MatchAsync(
                         value,
                         scope,
                         ctx,
                         scope
-                    ) && Guard(clause.Guard, scope, ctx)
+                    ) && await GuardAsync(clause.Guard, scope, ctx)
                 );
             case Expr.Unary u:
                 return Unary(u.Operator, await Evaluate(
@@ -848,7 +837,7 @@ public static partial class Execution
                         module
                     );
 
-                    return await Branch(Select(
+                    return await Branch(await Select(
                         x.Clauses,
                         [value],
                         b,
@@ -856,7 +845,7 @@ public static partial class Execution
                     ) ?? throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.CaseClause), value)));
                 }
             case Expr.If x:
-                return await Branch(Select(
+                return await Branch(await Select(
                     x.Clauses,
                     [],
                     b,
@@ -871,15 +860,15 @@ public static partial class Execution
                         module
                     );
 
-                    Selection? SelectMessage(Term message) => Select(
+                    ValueTask<Selection?> SelectMessage(Term message) => Select(
                         x.Clauses,
                         [message],
                         b,
                         ctx
                     );
                     var selection = timeout is null
-                        ? await ctx.ReceiveAsync(SelectMessage)
-                        : await ctx.ReceiveErlangAsync(SelectMessage, timeout);
+                        ? await ctx.ReceiveSelectingAsync(SelectMessage)
+                        : await ctx.ReceiveSelectingAsync(SelectMessage, timeout);
                     if (selection is not null)
                         return await Branch(selection);
 

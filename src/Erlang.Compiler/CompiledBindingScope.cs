@@ -58,4 +58,36 @@ internal sealed class CompiledBindingScope : Dictionary<string, Term>
 
         return true;
     }
+
+    public static async ValueTask<bool> MatchAsync(
+        Pattern pattern,
+        Term value,
+        Dictionary<string, Term> bindings,
+        ProcessContext context
+    )
+    {
+        if (bindings is not CompiledBindingScope scope)
+            return await pattern.MatchAsync(value, bindings, context);
+
+        var candidate = new Dictionary<string, Term>(bindings, StringComparer.Ordinal);
+        foreach (string name in Semantics.Variables(pattern).Distinct(StringComparer.Ordinal))
+        {
+            if (!scope.Constraints.TryGetValue(name, out var constraint))
+                continue;
+            if (candidate.TryGetValue(name, out var previous) && !previous.Equals(constraint))
+                return false;
+            candidate[name] = constraint;
+        }
+        if (!await pattern.MatchAsync(
+            value,
+            candidate,
+            context,
+            bindings
+        ))
+            return false;
+        foreach (var binding in candidate)
+            bindings[binding.Key] = binding.Value;
+
+        return true;
+    }
 }

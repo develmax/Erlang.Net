@@ -1,0 +1,21 @@
+{
+  "Arguments": [
+    "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/real-peer-otp/bin/erl",
+    "+S",
+    "2:2",
+    "+pc",
+    "latin1",
+    "-start_epmd",
+    "false",
+    "-noshell",
+    "-noinput",
+    "-boot",
+    "start_clean",
+    "-eval",
+    "io:format(\"ROOT ~s~nOTP ~s~nERTS ~s~nPRINTABLE ~p~n\",[code:root_dir(),erlang:system_info(otp_release),erlang:system_info(version),io:printable_range()]),lists:foreach(fun(M)->io:format(\"MODULE ~s ~s~n\",[atom_to_list(M),code:which(M)]) end,[proc_lib,seq_trace]),halt(0)."
+  ],
+  "WorkingDirectory": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/proc-lib-real-peer-original/capture",
+  "TimeoutSeconds": 60,
+  "StartedUnix": 1792186020.3351688,
+  "NewOwnedSession": true
+}

@@ -1,0 +1,93 @@
+{
+  "Status": "PASS_SOURCE_AND_TRANSITIVE_INPUT_PREFLIGHT_NOT_SDK_FULL",
+  "ParentHead": "0114bc4ba2c7b8152612e930e3cd36db1caf4180",
+  "SourceFreezeSha256": "2D0B06DF331EAB1A3E0C4F96BA954B25A392D4B699C9A0EC7C50D0BF87162BC2",
+  "SourceClosureSha256": "2A92B8A200FD65A171457BED250C38E14297A2EA7257846B5E87F8F1E2415A0C",
+  "OwnedPaths": 43,
+  "ClosureRows": 2739,
+  "PackageResources": 6,
+  "ReadinessInputs": 16,
+  "PreviousTests7200": true,
+  "RegistryRows": 587,
+  "CompatibilityCounts": {
+    "Verified compatible": 5,
+    "Known differences": 17,
+    "Needs verification": 565
+  },
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Files": 1240,
+      "AddedPaths": [
+        "src/Erlang.Compiler/Execution.AsyncGuards.cs",
+        "src/Erlang.Compiler/PatternReadResult.cs",
+        "src/Erlang.Runtime/ErlangListLength.cs",
+        "src/Erlang.Runtime/ErlangListLengthLimits.cs",
+        "src/Erlang.Runtime/ProcessContext.AsyncSelection.cs",
+        "src/Erlang.Runtime/ProcessContext.ListTraversal.cs"
+      ],
+      "ChangedExistingPaths": [
+        "src/Erlang.Compiler/BitPattern.cs",
+        "src/Erlang.Compiler/CompiledBindingScope.cs",
+        "src/Erlang.Compiler/ComprehensionExecution.cs",
+        "src/Erlang.Compiler/Execution.cs",
+        "src/Erlang.Compiler/MapPattern.cs",
+        "src/Erlang.Compiler/MaybeExpressionExecution.cs",
+        "src/Erlang.Compiler/NativeRecordPattern.cs",
+        "src/Erlang.Compiler/TryExpressionExecution.cs",
+        "src/Erlang.Compiler/ZipComprehensionExecution.cs",
+        "src/Erlang.Compiler/ZipGeneratorCursor.cs",
+        "src/Erlang.Runtime/AliasPattern.cs",
+        "src/Erlang.Runtime/CoreModules.cs",
+        "src/Erlang.Runtime/Mailbox.cs",
+        "src/Erlang.Runtime/ModuleRegistry.cs",
+        "src/Erlang.Runtime/Pattern.cs",
+        "src/Erlang.Runtime/ProcessContext.cs"
+      ],
+      "NonFilesFieldsUnchanged": true,
+      "RawUtf8Lf": true,
+      "Sha256": "86B95A1BA0926655FB1DA4320DBC535C116EEA4A26EE807F004EE34CB1FE1872",
+      "Workflow": ".github/workflows/nif-pending-native.yml",
+      "WorkflowSha256": "9D7410E6FB15A4F3379FEFF59C78C24C5A5D8CFFF926CEE60BBFE760FAE122AD"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Files": 1265,
+      "AddedPaths": [
+        "src/Erlang.Compiler/Execution.AsyncGuards.cs",
+        "src/Erlang.Compiler/PatternReadResult.cs",
+        "src/Erlang.Runtime/ErlangListLength.cs",
+        "src/Erlang.Runtime/ErlangListLengthLimits.cs",
+        "src/Erlang.Runtime/ProcessContext.AsyncSelection.cs",
+        "src/Erlang.Runtime/ProcessContext.ListTraversal.cs"
+      ],
+      "ChangedExistingPaths": [
+        ".gitattributes",
+        ".github/workflows/nif-pending-native.yml",
+        "src/Erlang.Compiler/BitPattern.cs",
+        "src/Erlang.Compiler/CompiledBindingScope.cs",
+        "src/Erlang.Compiler/ComprehensionExecution.cs",
+        "src/Erlang.Compiler/Execution.cs",
+        "src/Erlang.Compiler/MapPattern.cs",
+        "src/Erlang.Compiler/MaybeExpressionExecution.cs",
+        "src/Erlang.Compiler/NativeRecordPattern.cs",
+        "src/Erlang.Compiler/TryExpressionExecution.cs",
+        "src/Erlang.Compiler/ZipComprehensionExecution.cs",
+        "src/Erlang.Compiler/ZipGeneratorCursor.cs",
+        "src/Erlang.Runtime/AliasPattern.cs",
+        "src/Erlang.Runtime/CoreModules.cs",
+        "src/Erlang.Runtime/Mailbox.cs",
+        "src/Erlang.Runtime/ModuleRegistry.cs",
+        "src/Erlang.Runtime/Pattern.cs",
+        "src/Erlang.Runtime/ProcessContext.cs",
+        "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json"
+      ],
+      "NonFilesFieldsUnchanged": true,
+      "RawUtf8Lf": true,
+      "Sha256": "3330E71EB357A840BDE0FD38DE4229A97CCB42D6703A36DF2381284D9EA783C4",
+      "Workflow": ".github/workflows/nif-reallocation-native.yml",
+      "WorkflowSha256": "C5D1EAAA6818275767F8C0AC0BC3B6BCD7697DC269A96A0D08579E0AC94F16A9"
+    }
+  ],
+  "FullExecuted": false
+}

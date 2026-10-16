@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part343 — Reuse existing C# scheduler, mailbox, module and pattern infrastructure without a production BEAM dependency or new package. Publish exact43 tested snapshots and lean textual receipts. Preserve actual342 CI success and real-peer collector failure separately; exclude ZIPs/runtime binaries/package binaries and leave LICENSE.local.txt uncommitted.
+
 Part342 — Reuse C# module/image ownership, read-only per-module dictionaries and ConditionalWeakTable capture plans; add no framework, package or production BEAM dependency. Standalone original tooling builds pinned OTP with owned private EPMD/TCP peers. Preserve Main unowned EOL bytes, recorded failure history, notices and uncommitted LICENSE.local.txt; no NuGet publication.
 
 Part341 — Reuse the existing C# readiness generator, System.Text.Json and BCL SHA256 with no new third-party or production BEAM dependency. The test project references the existing Tool project for direct admission/generator controls. Preserve upstream notices and leave LICENSE.local.txt uncommitted.

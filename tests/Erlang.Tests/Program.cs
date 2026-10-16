@@ -18,6 +18,24 @@ Test(
     "source-fun-fresh-receiver-lexical-boundaries",
     Erlang.Tests.RemoteSourceFunLexicalHostChecks.FreshReceiverLexicalCaptureBoundaries
 );
+Test("runtime/length-parse-all", Erlang.Tests.ListLengthHostChecks.ParseAll);
+Test("runtime/length-ordinary-progress", Erlang.Tests.ListLengthHostChecks.OrdinaryProgress);
+Test("runtime/length-ordinary-cancellation", Erlang.Tests.ListLengthHostChecks.OrdinaryCancellation);
+Test("runtime/length-guard-progress", Erlang.Tests.ListLengthHostChecks.GuardProgress);
+Test("runtime/length-guard-cancellation", Erlang.Tests.ListLengthHostChecks.GuardCancellation);
+Test("runtime/length-receive-progress", Erlang.Tests.ListLengthHostChecks.ReceiveProgress);
+Test("runtime/length-receive-cancellation", Erlang.Tests.ListLengthHostChecks.ReceiveCancellation);
+Test("runtime/length-dynamic-map-key-progress", Erlang.Tests.ListLengthHostChecks.DynamicMapKeyProgress);
+Test("runtime/length-dynamic-bit-size-progress", Erlang.Tests.ListLengthHostChecks.DynamicBitSizeProgress);
+Test("runtime/length-receive-priority-revalidation", Erlang.Tests.ListLengthHostChecks.ReceivePriorityRevalidation);
+Test("runtime/length-receive-candidate-removal", Erlang.Tests.ListLengthHostChecks.ReceiveCandidateRemoval);
+Test("runtime/length-ordinary-suspend-resume", Erlang.Tests.ListLengthHostChecks.OrdinarySuspendResume);
+Test("runtime/length-guard-suspend-resume", Erlang.Tests.ListLengthHostChecks.GuardSuspendResume);
+Test("runtime/length-receive-suspend-resume", Erlang.Tests.ListLengthHostChecks.ReceiveSuspendResume);
+Test(
+    "runtime/length-resolved-budget-excludes-guard-suspension",
+    Erlang.Tests.ListLengthReceiveTimerHostChecks.ResolvedBudgetExcludesGuardSuspension
+);
 Test(Erlang.Tests.ProcLibLifecycleHostNames.ParseAll, Erlang.Tests.ProcLibLifecycleMfaContracts.ParseAll);
 Test(Erlang.Tests.ErrorLoggerTermLimitHostNames.Test, Erlang.Tests.ErrorLoggerTermLimitHostChecks.Run);
 Test(Erlang.Tests.ProcLibLifecycleHostNames.Isolation, Erlang.Tests.ProcLibLifecycleHostChecks.IsolatedConfiguration);

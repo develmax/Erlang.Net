@@ -1,0 +1,39 @@
+{
+  "Status": "PASS_INDEPENDENT_SOURCE4_ASYNC_LENGTH_REVIEW_NOT_EXECUTED",
+  "Passed": true,
+  "SourceFreezeSha256": "08544953B11E32E682A45CDAB26D2D06D5885DB6A0195FC307CEABC8A9C5EFC0",
+  "PreviousSource3ReviewSha256": "45EAFA255C6B12E5327A4EE984B3CB39F62159B5A93A0675DFDCDAAB4FBD32BB",
+  "FrozenCSharpRowsRehashed": 30,
+  "FixtureRowsRehashed": 9,
+  "RuntimeSourceLiteralShaBindingsExact": true,
+  "RuntimeAndCompilerExactReviewedSource3": true,
+  "OriginalFixtureGrammarBlockerResolved": true,
+  "HostTargets": 15,
+  "PlannedTests": 24,
+  "NewControlReview": {
+    "Method": "ListLengthReceiveTimerHostChecks.ResolvedBudgetExcludesGuardSuspension",
+    "ActualProductionSeam": "Mailbox.ReceiveSelectingAsync with finite already-resolved TimeSpan budget, real Erlang length BIF selector",
+    "Checks": [
+      "1s resolved budget starts before selector yields",
+      "actual target suspend request acknowledged via real suspension machinery",
+      "real bounded2s timer exceeds budget while target is suspended",
+      "resume plus append forces scan retry so unadjusted timeout would fail at next outer iteration",
+      "expects actual appended value selected",
+      "finally kills incomplete owned operation, drives captured continuations, joins real process completion and body unwind"
+    ],
+    "Scope": "Managed timer accounting component control; source-reviewed not executed and not native scheduling/performance proof"
+  },
+  "BlockingFindings": [],
+  "RequiredBeforeCompatibilityPromotion": [
+    "Actual rebase onto published342 and preservation of captured-fun metadata",
+    "Reviewed update of Execution/CoreModules five-MFA current source hash bindings",
+    "SDK style/build/ParseAll, all15HOSTcontrols and9compiledfixtures",
+    "Full previous test regression, eleven integrations/packages",
+    "Actual pinned-original9 fixture comparisons; retain any failures"
+  ],
+  "SdkExecuted": false,
+  "ErlangParsed": false,
+  "OriginalExecuted": false,
+  "MainEdited": false,
+  "NetworkUsed": false
+}

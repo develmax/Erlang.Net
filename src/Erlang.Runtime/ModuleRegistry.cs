@@ -218,6 +218,8 @@ public sealed partial class ModuleRegistry
     {
         if (!MatchSpecOperations.Pure.Contains((function, arguments.Length)))
             throw MatchSpecNames.UnsupportedAction(function, arguments.Length);
+        if (function == ErlangModuleNames.Length && arguments.Length == 1)
+            return ErlangListLength.ReadMatchSpec(arguments[0]);
         if (function == ErlangModuleNames.IsInteger && arguments.Length == 3)
         {
             if (arguments[1] is not Integer minimum || arguments[2] is not Integer maximum)

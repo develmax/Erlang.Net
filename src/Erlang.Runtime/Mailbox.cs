@@ -17,6 +17,7 @@ public sealed partial class Mailbox
     internal Func<bool>? HaltRequested { get; init; }
     internal Action? ProcessSignals { get; init; }
     internal Func<ValueTask<long>>? WaitForExecution { get; init; }
+    internal Func<long>? SuspensionTime { get; init; }
     internal Func<bool>? ExecutionBlocked { get; init; }
     internal Action? MessageReceived { get; init; }
     internal Action<Term, Term?>? MessageAdmitted { get; init; }
@@ -424,7 +425,7 @@ public sealed partial class Mailbox
     {
         try
         {
-            return await ReceiveCore(select, timeout, cancellation);
+            return await ReceiveCore(value => ValueTask.FromResult(select(value)), timeout, cancellation);
         }
         finally
         {
@@ -443,7 +444,7 @@ public sealed partial class Mailbox
             TimeSpan? initialTimeout = timeout is Integer integer && integer.Value.IsZero ? TimeSpan.Zero : null;
 
             return await ReceiveCore(
-                select,
+                value => ValueTask.FromResult(select(value)),
                 initialTimeout,
                 cancellation,
                 () => ReceiveTimeoutValue.Parse(timeout)
@@ -455,8 +456,32 @@ public sealed partial class Mailbox
         }
     }
 
+    internal async ValueTask<T?> ReceiveSelectingAsync<T>(
+        Func<Term, ValueTask<T?>> select,
+        TimeSpan? timeout,
+        CancellationToken cancellation,
+        Term? erlangTimeout = null
+    ) where T : class
+    {
+        try
+        {
+            TimeSpan? initial = erlangTimeout is Integer integer && integer.Value.IsZero ? TimeSpan.Zero : timeout;
+
+            return await ReceiveCore(
+                select,
+                initial,
+                cancellation,
+                erlangTimeout is null ? null : () => ReceiveTimeoutValue.Parse(erlangTimeout)
+            );
+        }
+        finally
+        {
+            WaitingStateChanged?.Invoke(false);
+        }
+    }
+
     private async ValueTask<T?> ReceiveCore<T>(
-        Func<Term, T?> select,
+        Func<Term, ValueTask<T?>> select,
         TimeSpan? timeout,
         CancellationToken cancellation,
         Func<TimeSpan?>? resolveTimeout = null
@@ -523,7 +548,9 @@ public sealed partial class Mailbox
                     }
                     candidate = node.Value;
                 }
-                T? match = select(candidate.Value);
+                long suspensionBefore = SuspensionTime?.Invoke() ?? 0;
+                T? match = await select(candidate.Value);
+                start += (SuspensionTime?.Invoke() ?? 0) - suspensionBefore;
                 ThrowIfHalted();
                 cancellation.ThrowIfCancellationRequested();
                 lock (gate)

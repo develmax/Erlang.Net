@@ -1,0 +1,97 @@
+{
+  "total_count": 1,
+  "jobs": [
+    {
+      "id": 117200623776,
+      "run_id": 38968442431,
+      "workflow_name": "Original two-node proc_lib observations",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/develmax/Erlang.Net/actions/runs/38968442431",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVCU9ks8AAAAbSbOYoA",
+      "head_sha": "0114bc4ba2c7b8152612e930e3cd36db1caf4180",
+      "url": "https://api.github.com/repos/develmax/Erlang.Net/actions/jobs/117200623776",
+      "html_url": "https://github.com/develmax/Erlang.Net/actions/runs/38968442431/job/117200623776",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-10-16T21:18:26Z",
+      "started_at": "2026-10-16T21:18:29Z",
+      "completed_at": "2026-10-16T21:27:10Z",
+      "name": "original-real-peer",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-16T21:18:29Z",
+          "completed_at": "2026-10-16T21:18:30Z"
+        },
+        {
+          "name": "Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-16T21:18:30Z",
+          "completed_at": "2026-10-16T21:19:01Z"
+        },
+        {
+          "name": "Verify exact collector source and external dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-16T21:19:01Z",
+          "completed_at": "2026-10-16T21:19:02Z"
+        },
+        {
+          "name": "Build exact pinned original OTP",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-16T21:19:02Z",
+          "completed_at": "2026-10-16T21:27:00Z"
+        },
+        {
+          "name": "Capture eight fresh real TCP peer pairs and joined cleanup",
+          "status": "completed",
+          "conclusion": "failure",
+          "number": 5,
+          "started_at": "2026-10-16T21:27:00Z",
+          "completed_at": "2026-10-16T21:27:07Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-16T21:27:07Z",
+          "completed_at": "2026-10-16T21:27:08Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-16T21:27:08Z",
+          "completed_at": "2026-10-16T21:27:08Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-16T21:27:08Z",
+          "completed_at": "2026-10-16T21:27:08Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/develmax/Erlang.Net/check-runs/117200623776",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001604,
+      "runner_name": "GitHub Actions 1000001604",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ]
+}

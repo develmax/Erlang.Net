@@ -640,6 +640,7 @@ public static class CompiledModuleCases
         .. ProcLibLifecycleCases.Modules,
         .. ErrorLoggerTermLimitCases.Modules,
         .. ConnectedDependencyCases.Modules,
-        .. RemoteSourceFunCases.Modules
+        .. RemoteSourceFunCases.Modules,
+        .. ListLengthCases.Modules
     ];
 }

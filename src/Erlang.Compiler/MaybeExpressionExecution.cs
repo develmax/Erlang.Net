@@ -8,8 +8,8 @@ internal static class MaybeExpressionExecution
         Expr.Maybe expression,
         Dictionary<string, Term> bindings,
         Func<Expr, Dictionary<string, Term>, ValueTask<Term>> evaluate,
-        Func<Pattern, Term, Dictionary<string, Term>, bool> match,
-        Func<Clause, Term, Dictionary<string, Term>, bool> matchClause
+        Func<Pattern, Term, Dictionary<string, Term>, ValueTask<bool>> match,
+        Func<Clause, Term, Dictionary<string, Term>, ValueTask<bool>> matchClause
     )
     {
         var body = CompiledBindingScope.Copy(bindings);
@@ -23,7 +23,7 @@ internal static class MaybeExpressionExecution
             }
             value = await evaluate(conditional.Value, body);
             var candidate = CompiledBindingScope.Copy(body);
-            if (match(conditional.Pattern, value, candidate))
+            if (await match(conditional.Pattern, value, candidate))
             {
                 body = candidate;
                 continue;
@@ -33,7 +33,7 @@ internal static class MaybeExpressionExecution
             foreach (var clause in expression.Clauses)
             {
                 var scope = CompiledBindingScope.Copy(bindings);
-                if (matchClause(clause, value, scope))
+                if (await matchClause(clause, value, scope))
                     return await evaluate(clause.Body, scope);
             }
 
