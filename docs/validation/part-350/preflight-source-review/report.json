@@ -1,0 +1,92 @@
+{
+  "Status": "PASS_INDEPENDENT_SOURCE_ONLY350_PREFLIGHT_BEFORE_FULL",
+  "ParentHead": "712933b97a654a3b6ed42250902017bde0740f17",
+  "SourceFreezeSha256": "B2CA082349C03497A4992D9148D122848EE59FFF517940B30BAF49C4EB0D1AC5",
+  "SourceClosureSha256": "2D4C13B3BE68D947965AB9D6D168B9643373E4856EF1F1786E57A7A7D22B7037",
+  "PreflightSha256": "927069FABDC5F6A5F61830568B38632273E68EC50219D6CF9FB8A0398E8B80FA",
+  "OwnedPaths": 11,
+  "OwnedCSharp": 7,
+  "ProductionCSharpChanges": 0,
+  "ClosureInputsRehashed": 2768,
+  "AllUnownedClosureInputsRawExactCurrentMain": true,
+  "PackageResourcesRawExactMain": 6,
+  "ReadinessInputsRehashed": 29,
+  "RegistryRawExactIncludingLimits": 587,
+  "CurrentRuntimeBindings": 59,
+  "CompatibilityCounts": [
+    10,
+    19,
+    558
+  ],
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Rows": 1250,
+      "ChangedRows": [],
+      "Sha256": "B0ACB753ABEAF19A74E862B2461E776307F922A14FF21795796A0E91603E5153",
+      "WorkflowSealExact": true
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Rows": 1275,
+      "ChangedRows": [
+        ".gitattributes"
+      ],
+      "Sha256": "76AA659406ECB6DCE63D32E751068015CC492EF7C3CA521BE875EAC1D0837AB6",
+      "WorkflowSealExact": true
+    }
+  ],
+  "SourceCatalogs": [
+    {
+      "Class": "AdditionalTypePredicate",
+      "Fixtures": 6,
+      "FilesRawExactFocusedFreeze": [
+        "tools/Erlang.Differential/AdditionalTypePredicateCaseNames.cs",
+        "tools/Erlang.Differential/AdditionalTypePredicateCaseSources.cs",
+        "tools/Erlang.Differential/AdditionalTypePredicateCases.cs"
+      ],
+      "LogicalSourcesSha256": {
+        "IsBoolean": "F6207047FC23C4D5BC7791214D8EB28DFF96D0CE76798C4A99201D1C901EA6CD",
+        "IsFunction": "6404CC24411A2D648257030918E574EAF32CEBC3DBF5F2F10438B415F9F2C500",
+        "IsList": "CE17892E2D884AE00C9EDFD4DA8A9EFADACFEBE1F01BFA80BD509455F1C41454",
+        "IsPid": "705A38700F23A1E85CFC7482FB8C780DA9E8B4B9D906DFD4506A5790B6E97A23",
+        "IsPort": "2DFD79BACC404F95604A177B9223FF0C6EDA7503A2E1560652E819531F0E2789",
+        "IsReference": "29E8ABB192A3D4D808E9438BEB332C0FB13AA32A55D97CB49A4571E94F3AED6B"
+      }
+    },
+    {
+      "Class": "NumericBoundary",
+      "Fixtures": 12,
+      "FilesRawExactFocusedFreeze": [
+        "tools/Erlang.Differential/NumericBoundaryCaseNames.cs",
+        "tools/Erlang.Differential/NumericBoundaryCaseSources.cs",
+        "tools/Erlang.Differential/NumericBoundaryCases.cs"
+      ],
+      "LogicalSourcesSha256": {
+        "AbsBitBoundaries": "9BD95A00A09857942EACF65BF5A95E4DDD6D47AB6A8A4DB891291D1A0E295E35",
+        "FloatPreservesBits": "15A3D9207DD712656E5A7C8FD032F4619A7CDBBFB0A5D915CE90080B6F01D9C0",
+        "FloatNearestEven": "FDFBA21600470612B8C1776C446EE7711CC8370ADC7AF088BC097098DA94A451",
+        "FloatOverflowThreshold": "B0BEC7F522DFF17769C6A374A22E911B2D11CD3A850492BDA95C9D212B92E092",
+        "RoundHalfNeighbours": "DFED2791AC19685CC9FB9F30B71FF7702AB5055F176DCF7202A4FDAC4C63E155",
+        "SubnormalDirectedRounding": "824BA911FD587EFD7B1BCD67B0F1AEA0A2DF13020E2458081CE6B1F86D0C4683",
+        "LargestFloatIntegers": "FECB12500F15F68DFD990EAAA5F175235C90AD43E1446612B855F457F61B770E",
+        "HugeIntegerIdentity": "755B4968047B1F4696613BE9747573C189DD6ED508FB913147D701082C63D49F",
+        "InvalidTypePartitions": "50A98CD7E228578D81C329352648FB6A1C718601155F83754DC94ADD6D8C5006",
+        "MinMaxTieIdentity": "FFBEE599FCD37AFBBAF2598B344D9932D46955B3FA24BBAFF59A4018D3B9BEFA",
+        "MinMaxExactMixedComparison": "1FD4CDA6580A2202E90C1E1F015E7E91E80C7BC06A69F52346501BCFF2908480",
+        "GuardAndMatchSpecRoutes": "EA9D4BF380E94FBD77F9F1D2A999EC34742210BE7C8ECFE75B75648B3370A9BD"
+      }
+    }
+  ],
+  "PreviousOrderedTests": 7268,
+  "NewDeclaredTests": 18,
+  "ExpectedFullArithmeticOnly": 7286,
+  "CatalogDeltaExactlyTwoSpreads": true,
+  "StyleExit0ReceiptBound": true,
+  "Preparation1And2NewlineRefusalsPreservedNotSdkFailures": true,
+  "OriginalComparisonClaimed": false,
+  "FullExecutedByReview": false,
+  "SdkExecutedByReview": false,
+  "MainModified": false,
+  "NetworkUsed": false
+}

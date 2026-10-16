@@ -1,0 +1,89 @@
+{
+  "Status": "PASS_PASSIVE_BINDING_ROOT_EXECUTED_SIX_MANAGED_FOCUS_ONLY",
+  "SourceAuditSha256": "5DA09FE486FD9E951E3963488AFBEC24463CD314F6D1FC9E591CED7DCEAC4C80",
+  "SourceFreezeSha256": "0F5D888D3BF9ABCBA37F26E8657EE0E277E6B06004B05C00C4B30338260DE227",
+  "ManagedPassed": 6,
+  "ExactPassNames": [
+    "erlang-additional-type-predicate-is-boolean-term-partitions",
+    "erlang-additional-type-predicate-is-function-term-partitions",
+    "erlang-additional-type-predicate-is-list-term-partitions",
+    "erlang-additional-type-predicate-is-pid-term-partitions",
+    "erlang-additional-type-predicate-is-port-term-partitions",
+    "erlang-additional-type-predicate-is-reference-term-partitions"
+  ],
+  "Files": [
+    {
+      "Path": "artifacts/additional-type-predicate-focus-actual2/report.json",
+      "Bytes": 728,
+      "Sha256": "744AA5EA96869DCC3005967CA1251696DDB1426D23B16D027E9C0FF035D3CFAA"
+    },
+    {
+      "Path": "artifacts/additional-type-predicate-focus-actual2/build-exit.json",
+      "Bytes": 346,
+      "Sha256": "BC9E4CE8AD118A6325189785620726AB223C880B0D29A82BD0AC6C4A3F0E1C75"
+    },
+    {
+      "Path": "artifacts/additional-type-predicate-focus-actual2/build-process.json",
+      "Bytes": 236,
+      "Sha256": "BCA7F3BABB3C9C5A2FB00FE390A91708A52498E49766A2455EE062B59607252D"
+    },
+    {
+      "Path": "artifacts/additional-type-predicate-focus-actual2/build.stdout",
+      "Bytes": 152,
+      "Sha256": "8E56330D6FDF503FD4F8830E0BBE982CCD4A90183931D3D6C2F242F4A80F2203"
+    },
+    {
+      "Path": "artifacts/additional-type-predicate-focus-actual2/build.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/additional-type-predicate-focus-actual2/focus-exit.json",
+      "Bytes": 293,
+      "Sha256": "FC15229A429D3D5B07419D2B65B9DD3E3FC7B729A18E6F8F2F9B7A15C19FDE10"
+    },
+    {
+      "Path": "artifacts/additional-type-predicate-focus-actual2/focus-process.json",
+      "Bytes": 202,
+      "Sha256": "CFB833035AE814A3C506084498BC39492504108E270B1359CC5D3FE200E0568F"
+    },
+    {
+      "Path": "artifacts/additional-type-predicate-focus-actual2/focus.stdout",
+      "Bytes": 389,
+      "Sha256": "70866E795C61544CD59743395A48213AA22519D039913A6E760A800CB4C7A67F"
+    },
+    {
+      "Path": "artifacts/additional-type-predicate-focus-actual2/focus.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/additional-type-predicate-focus-actual1/build-exit.json",
+      "Bytes": 347,
+      "Sha256": "D108AFFA784ECE4CAD2751E20CB83E2023C14F16E36602A0D66940B460706D59"
+    },
+    {
+      "Path": "artifacts/additional-type-predicate-focus-actual1/build-process.json",
+      "Bytes": 237,
+      "Sha256": "B6A47D30790B6E0DE784735EB24843F971397580C81CD22F3C8B16502BFC64D6"
+    },
+    {
+      "Path": "artifacts/additional-type-predicate-focus-actual1/build.stdout",
+      "Bytes": 4475,
+      "Sha256": "8746B3498AD4626B0086CAFA300FDF17665EBFCEC7DD3605AB6D7C38B2267100"
+    },
+    {
+      "Path": "artifacts/additional-type-predicate-focus-actual1/build.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    }
+  ],
+  "History": "Initial separate harness failed CS0122 on internal OracleOutcomeTags. Root linked the exact existing constant source in that harness; frozen three fixture sources stayed unchanged. Actual2 build and six focus cases settled exit0.",
+  "SourceAuditExecutionLimitClarification": "The earlier source audit did not itself execute SDK/original code. This supplement separately binds Root-executed managed observations received after that audit.",
+  "OriginalExecuted": false,
+  "WholeApiCompatibilityPromoted": false,
+  "FullExecuted": false,
+  "ThisPassiveReviewSdkExecuted": false,
+  "Network": false,
+  "MainChanged": false
+}

@@ -1,0 +1,90 @@
+{
+  "Status": "SOURCE_ONLY_EXECUTION_ADMISSION_DEPENDENCY_AUDIT",
+  "OriginalReportSha256": "CFD479C7DDE0F927221A44C31EA991B2F4FEB604C95666326A3072A1BA11030F",
+  "FutureIncrement": 351,
+  "Frozen350MustNotChange": true,
+  "SourceBindings": [
+    {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "Sha256": "B0771827A437A320B1D94D6CFA0B9FA87CE5972DD32658392DA34DFDF3400484",
+      "ConfigureAwaitFalseLines": [],
+      "TaskYieldLines": [
+        108,
+        257
+      ],
+      "ReduceAsyncLines": [
+        384
+      ]
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangOperatorValues.cs",
+      "Sha256": "B69915CB6F2CA3B7E5BBC63174C3F78CAF1BE0E56905EAA2997E557B5364BE44",
+      "ConfigureAwaitFalseLines": [
+        57,
+        69
+      ],
+      "TaskYieldLines": [],
+      "ReduceAsyncLines": []
+    },
+    {
+      "Path": "src/Erlang.Runtime/AllocatorQueryMailbox.cs",
+      "Sha256": "389E52D7DBB5069A46A19A144877D9B9014154EF4B18A81178694A4F8AD5213A",
+      "ConfigureAwaitFalseLines": [
+        36,
+        45
+      ],
+      "TaskYieldLines": [],
+      "ReduceAsyncLines": []
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifImageInitializationFlow.cs",
+      "Sha256": "051FFB5F1844968F93991AA01E185D201B3FCF87F909ADAEBC943E85B034F9D9",
+      "ConfigureAwaitFalseLines": [
+        44
+      ],
+      "TaskYieldLines": [],
+      "ReduceAsyncLines": []
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.OnLoad.cs",
+      "Sha256": "8CC152B38953D9794FD15A0965EA7EA506D30DEA94D354E785766A7291356D69",
+      "ConfigureAwaitFalseLines": [
+        77,
+        85,
+        223,
+        233,
+        234,
+        244,
+        245,
+        246,
+        249,
+        250,
+        252,
+        266,
+        276,
+        278
+      ],
+      "TaskYieldLines": [],
+      "ReduceAsyncLines": []
+    }
+  ],
+  "ConcreteCoupling": [
+    "Execution.Evaluate calls ReduceAsync before each evaluated expression (Execution.cs384). ProcessContext.ChargeAsync charges1 or explicitbump and yields at cooperative slice2000.",
+    "Initial actor body is dispatched by TaskFactory on ConcurrentExclusiveSchedulerPair. Current Dispatch signature receives only body, not owner; no per-owner priority can be selected.",
+    "Named/anonymous deep-stack protections yield separately at Execution.cs108/257. These are stack unwinding scheduling points, not charged slice expiry, and must retain the approved recursion behavior.",
+    "Runtime BIF and ownership helpers use ConfigureAwait(false), including links/sends, allocator query completion, module onload/retirement and NIF initialization wrappers. Adding a TaskScheduler alone is insufficient to prove all guest re-entry stays on the intended owner queue. Inner helper escape does not by itself prove an externally observable scheduling bug; caller recapture has to be traced."
+  ],
+  "FeasibleDesignChoice": "Implement process-owned TaskScheduler proxies over a shared priority runnable arbiter AND explicit owner-aware cooperative resume admission. Initial actor Dispatch accepts owner. Proxy QueueTask classifies by current owner priority and routes captured await continuations. The runtime-owned YieldToScheduler(context) path replaces reduction Task.Yield, while stack-unwind yield preserves non-recursive continuation and also re-enters owner admission. Host-only I/O/retirement work may remain on default scheduler; any call back into guest code must re-admit context.",
+  "AdmissionHazardsToResolveBeforeCodeClaim": [
+    "Do not acquire a permit then await for a continuation that needs the same permit (capacity1 deadlock). Execute task via correct owner proxy so TaskScheduler.Current remains stable.",
+    "An owner awaiting a real receive/IO must not hold a runnable slot. Requeue on completion; capacity counts synchronous runnable turns rather than entire async lifetime.",
+    "active actor lifetime count for CompleteWhenIdle differs from queued/running continuation count; retirement must accept continuation cleanup for admitted actors.",
+    "Queued reprioritization and process termination require single queue ownership; no dropped finally, duplicate turns or stale queued owner resurrection.",
+    "Do not change CooperativeSlice2000 or RESCHEDULE_LOW8 merely to fit throughput tests. Physical ERTS scheduling/reduction-cost/affinity remains unclaimed."
+  ],
+  "NextImplementationBoundary": "Local normal/high/max/low real cooperative runqueue+process_flag2 priority return-old and process_info2; shared spawn default and duplicate options initialized before dispatch. Include sender/receiver option propagation using existing connected generation controls before claiming remote overload parity.",
+  "NoSdk": true,
+  "NoNative": true,
+  "NoMainMutation": true,
+  "NoLedgerMutation": true
+}

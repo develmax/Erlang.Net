@@ -1,0 +1,30 @@
+{
+  "Status": "PASS_SOURCE_ONLY_REPORTING_PROPOSAL_FOUR_SPAWN_OPT_PENDING_TO_KNOWN",
+  "ParentHead": "712933b97a654a3b6ed42250902017bde0740f17",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SourceKnownReviewSha256": "CE46C0AF7705FDCB276119E5C5B4721D8B9E6A0243E671CECD34689AB7862D0F",
+  "ChangedMfas": [
+    "erlang:spawn_opt/2",
+    "erlang:spawn_opt/3",
+    "erlang:spawn_opt/4",
+    "erlang:spawn_opt/5"
+  ],
+  "PreservedOtherEntries": 583,
+  "OldCounts": {
+    "Verified compatible": 10,
+    "Known differences": 19,
+    "Needs verification": 558
+  },
+  "ProposedCounts": {
+    "Verified compatible": 10,
+    "Known differences": 23,
+    "Needs verification": 554
+  },
+  "RuntimeSourceGuards": 59,
+  "OldTenVerifiedEvidencePreservedExact": true,
+  "ReportingTiming": "Apply only after unchanged full350 completes. That full froze10/19/558; subsequent reporting CLI must bind a distinct output directory and10/23/554. Do not rewrite its initial sourcefreeze, ledger or claimed input counts.",
+  "NoNativeOrSdkExecutionClaimed": true,
+  "NoRuntimeOrFixtureChanges": true,
+  "StatusPromotionPerformed": false,
+  "RootReviewRequired": true
+}

@@ -1,0 +1,190 @@
+{
+  "Status": "PASS_ACTUAL_MANAGED_NUMERIC12_WITH_PRESERVED_FIRST_BUILD_FAILURE",
+  "SourceFreezeSha256": "C2A00751CD824BDB878A64F7E163059A0AF54CE6D8A66719D93BF7DD9B7AA13C",
+  "OriginalFrozenFilesVerified": [
+    {
+      "Path": "harness/Focus.csproj",
+      "Bytes": 441,
+      "Sha256": "4B684C7185F6D38F100D63240DB517BB133621309296534A6C771568F34B8A66"
+    },
+    {
+      "Path": "harness/NumericBoundaryFocusNames.cs",
+      "Bytes": 492,
+      "Sha256": "FE001397FC23FDCCC73D7A5752FF580BA748113C868E162FDA99F536FF2FE771"
+    },
+    {
+      "Path": "harness/Program.cs",
+      "Bytes": 2157,
+      "Sha256": "7EE043C2F51BD46AAD3D187C71108D217278426B09053DEF6E5D37213D839AFF"
+    },
+    {
+      "Path": "proposal.json",
+      "Bytes": 7221,
+      "Sha256": "EE80F0C39A69641A2E7E988B0D0F6631587082CED2CF0C9E0729D87D92DAC912"
+    },
+    {
+      "Path": "runner.py",
+      "Bytes": 4579,
+      "Sha256": "2C919AB2B901970C517E2CEF447F6CB0E3BCD40E340543975E976C4DB902DB7E"
+    },
+    {
+      "Path": "source/tools/Erlang.Differential/NumericBoundaryCaseNames.cs",
+      "Bytes": 1185,
+      "Sha256": "EE3A3EC4D6FE8B489B552ABD3A812A361105E7CED10C4E0AED46BC668DAEABBD"
+    },
+    {
+      "Path": "source/tools/Erlang.Differential/NumericBoundaryCases.cs",
+      "Bytes": 3052,
+      "Sha256": "CD742A5F8182364456CE95A7BD8F5B335C636705140246763691A6C94E039B10"
+    },
+    {
+      "Path": "source/tools/Erlang.Differential/NumericBoundaryCaseSources.cs",
+      "Bytes": 5518,
+      "Sha256": "A862CBE4C31956A27E632811815539799063598DC56D0BD4BEA9858B997C7293"
+    }
+  ],
+  "RunnerSerialCodeChange": "Exactly one -m:2 -> -m:1; runner storage line endings/trailing final blank line also differ. All harness/fixture source bytes unchanged.",
+  "RunnerSerialSha256": "B560D0B5F4C4D4C6EC491F95183087FD33643BEAD2442060DAC765B0C6AABD58",
+  "FirstPassiveReaderAssertion": "Initial raw-byte runner comparison refused solely due line-ending/final-blank storage delta; normalized line comparison proves only one code argument change. No product execution/failure inferred.",
+  "FirstBuildExit": 1,
+  "FirstBuildCause": "Unproven; raw logs and settled exit retained.",
+  "Passed": 12,
+  "ParseAll": 12,
+  "ActualObservationsSha256": "ACC08A68D9451E028F80681CA6A1B7DB572C9B4D51506815FC66C0EB0B4546EA",
+  "LoadedHarness": {
+    "HarnessDllSha256": "45155A0C7512B3C2D89582FDFA52CFC9965F45D3921AD89416A7CE716B989081",
+    "SourceFreezeSha256": "C2A00751CD824BDB878A64F7E163059A0AF54CE6D8A66719D93BF7DD9B7AA13C"
+  },
+  "Receipts": [
+    {
+      "Path": "artifacts/numeric-bif350-focus-actual1/build.exit.json",
+      "Sha256": "4F50A92A703F2D05F7720F1828C370C5530E2BBD2DA5CDF646B5A0E5790A15C3",
+      "Receipt": {
+        "Command": [
+          "C:/Program Files/dotnet/dotnet.exe",
+          "build",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\numeric-bif350-fixture-proposal\\harness\\Focus.csproj",
+          "--disable-build-servers",
+          "-m:2",
+          "-nr:false"
+        ],
+        "Pid": 249188,
+        "ElapsedSeconds": 3.312999999994645,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 1,
+        "Failures": [],
+        "StdoutSha256": "17F2A19B139879DDE714247F592F7FE2202DC9CABC1922D1E26D79D633EBA629",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      }
+    },
+    {
+      "Path": "artifacts/numeric-bif350-focus-actual2/build.exit.json",
+      "Sha256": "D2DF23F46FBE06718BF9FE3A117C6AA7CB5835495984DB8960645E709E689357",
+      "Receipt": {
+        "Command": [
+          "C:/Program Files/dotnet/dotnet.exe",
+          "build",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\numeric-bif350-fixture-proposal\\harness\\Focus.csproj",
+          "--disable-build-servers",
+          "-m:1",
+          "-nr:false"
+        ],
+        "Pid": 247464,
+        "ElapsedSeconds": 3.5,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "635FFF2469C14E3EF1858B685ADBFF2674BD21D7CEFC7CBF2AFCB540AA1D3C65",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      }
+    },
+    {
+      "Path": "artifacts/numeric-bif350-focus-actual2/focus.exit.json",
+      "Sha256": "59A056647B9787787B6B7FDA28F51CA799A00E424F74340F7DDF31E3757EADA5",
+      "Receipt": {
+        "Command": [
+          "C:/Program Files/dotnet/dotnet.exe",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\numeric-bif350-fixture-proposal\\harness\\bin\\Debug\\net10.0\\Focus.dll",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\numeric-bif350-focus-actual2\\observations.json"
+        ],
+        "Pid": 240236,
+        "ElapsedSeconds": 3.0,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "2AAC1A2A34194C05BA91CC25A2453210BD4DFF335A317066019CF33EDF4CC694",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      }
+    }
+  ],
+  "ActualRawBindings": [
+    {
+      "Path": "artifacts/numeric-bif350-focus-actual1/build.exit.json",
+      "Bytes": 579,
+      "Sha256": "4F50A92A703F2D05F7720F1828C370C5530E2BBD2DA5CDF646B5A0E5790A15C3"
+    },
+    {
+      "Path": "artifacts/numeric-bif350-focus-actual1/build.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/numeric-bif350-focus-actual1/build.stdout.log",
+      "Bytes": 213,
+      "Sha256": "17F2A19B139879DDE714247F592F7FE2202DC9CABC1922D1E26D79D633EBA629"
+    },
+    {
+      "Path": "artifacts/numeric-bif350-focus-actual2/build.exit.json",
+      "Bytes": 565,
+      "Sha256": "D2DF23F46FBE06718BF9FE3A117C6AA7CB5835495984DB8960645E709E689357"
+    },
+    {
+      "Path": "artifacts/numeric-bif350-focus-actual2/build.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/numeric-bif350-focus-actual2/build.stdout.log",
+      "Bytes": 1496,
+      "Sha256": "635FFF2469C14E3EF1858B685ADBFF2674BD21D7CEFC7CBF2AFCB540AA1D3C65"
+    },
+    {
+      "Path": "artifacts/numeric-bif350-focus-actual2/completion.json",
+      "Bytes": 180,
+      "Sha256": "20C53BC46313C8A43AF74F0B33CBFFA4362DFBE69641DFD4701AC29D2342B992"
+    },
+    {
+      "Path": "artifacts/numeric-bif350-focus-actual2/focus.exit.json",
+      "Bytes": 621,
+      "Sha256": "59A056647B9787787B6B7FDA28F51CA799A00E424F74340F7DDF31E3757EADA5"
+    },
+    {
+      "Path": "artifacts/numeric-bif350-focus-actual2/focus.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/numeric-bif350-focus-actual2/focus.stdout.log",
+      "Bytes": 549,
+      "Sha256": "2AAC1A2A34194C05BA91CC25A2453210BD4DFF335A317066019CF33EDF4CC694"
+    },
+    {
+      "Path": "artifacts/numeric-bif350-focus-actual2/loaded-inputs.json",
+      "Bytes": 189,
+      "Sha256": "47C2749AE81551E4002C36592F0A1FDE3F49FAA3F5B5255BA34EE0861584D8C6"
+    },
+    {
+      "Path": "artifacts/numeric-bif350-focus-actual2/observations.json",
+      "Bytes": 5149,
+      "Sha256": "ACC08A68D9451E028F80681CA6A1B7DB572C9B4D51506815FC66C0EB0B4546EA"
+    }
+  ],
+  "NativeExecutedByReviewer": false,
+  "SdkExecutedByReviewer": false,
+  "MainModified": false,
+  "StatusesPromoted": false,
+  "MinMaxWholeTermOrderCertified": false
+}

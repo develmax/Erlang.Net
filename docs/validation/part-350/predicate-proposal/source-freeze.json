@@ -1,0 +1,110 @@
+{
+  "Status": "SOURCE_ONLY_SIX_ADDITIONAL_TYPE_PREDICATE_PARTITION_FIXTURES_NOT_EXECUTED",
+  "ParentHead": "d1bd571fc1f655abf81bdc0336b7133f3d023fac",
+  "Files": [
+    {
+      "Path": "tools/Erlang.Differential/AdditionalTypePredicateCaseNames.cs",
+      "Bytes": 708,
+      "Sha256": "6C4D3A9A71D498C03A6C05A277B6FB7C6B9C565FD123636D0D920FD8796C3816"
+    },
+    {
+      "Path": "tools/Erlang.Differential/AdditionalTypePredicateCaseSources.cs",
+      "Bytes": 22012,
+      "Sha256": "9F41E77EB56CC2201C8ABFB904C10609A09E01A29C4A668BBE896837026DD11F"
+    },
+    {
+      "Path": "tools/Erlang.Differential/AdditionalTypePredicateCases.cs",
+      "Bytes": 1608,
+      "Sha256": "E1571248147B1FA00F227D631723B59E82F70F8EB55D2E44C3632745A8F5FC7D"
+    }
+  ],
+  "Predicates": [
+    {
+      "Function": "is_boolean",
+      "Arity": 1,
+      "Rows": 38,
+      "Contexts": 12,
+      "PositiveLabels": [
+        "false_atom",
+        "true_atom"
+      ],
+      "FixtureName": "erlang-additional-type-predicate-is-boolean-term-partitions",
+      "SourceSha256": "F6207047FC23C4D5BC7791214D8EB28DFF96D0CE76798C4A99201D1C901EA6CD",
+      "Expected": "{ok,done}"
+    },
+    {
+      "Function": "is_function",
+      "Arity": 1,
+      "Rows": 38,
+      "Contexts": 12,
+      "PositiveLabels": [
+        "anonymous_fun",
+        "captured_fun",
+        "external_fun"
+      ],
+      "FixtureName": "erlang-additional-type-predicate-is-function-term-partitions",
+      "SourceSha256": "6404CC24411A2D648257030918E574EAF32CEBC3DBF5F2F10438B415F9F2C500",
+      "Expected": "{ok,done}"
+    },
+    {
+      "Function": "is_list",
+      "Arity": 1,
+      "Rows": 38,
+      "Contexts": 12,
+      "PositiveLabels": [
+        "empty_list",
+        "improper_list",
+        "proper_list"
+      ],
+      "FixtureName": "erlang-additional-type-predicate-is-list-term-partitions",
+      "SourceSha256": "CE17892E2D884AE00C9EDFD4DA8A9EFADACFEBE1F01BFA80BD509455F1C41454",
+      "Expected": "{ok,done}"
+    },
+    {
+      "Function": "is_pid",
+      "Arity": 1,
+      "Rows": 38,
+      "Contexts": 12,
+      "PositiveLabels": [
+        "external_pid",
+        "local_pid"
+      ],
+      "FixtureName": "erlang-additional-type-predicate-is-pid-term-partitions",
+      "SourceSha256": "705A38700F23A1E85CFC7482FB8C780DA9E8B4B9D906DFD4506A5790B6E97A23",
+      "Expected": "{ok,done}"
+    },
+    {
+      "Function": "is_port",
+      "Arity": 1,
+      "Rows": 38,
+      "Contexts": 12,
+      "PositiveLabels": [
+        "external_port"
+      ],
+      "FixtureName": "erlang-additional-type-predicate-is-port-term-partitions",
+      "SourceSha256": "2DFD79BACC404F95604A177B9223FF0C6EDA7503A2E1560652E819531F0E2789",
+      "Expected": "{ok,done}"
+    },
+    {
+      "Function": "is_reference",
+      "Arity": 1,
+      "Rows": 38,
+      "Contexts": 12,
+      "PositiveLabels": [
+        "external_reference",
+        "local_reference"
+      ],
+      "FixtureName": "erlang-additional-type-predicate-is-reference-term-partitions",
+      "SourceSha256": "29E8ABB192A3D4D808E9438BEB332C0FB13AA32A55D97CB49A4571E94F3AED6B",
+      "Expected": "{ok,done}"
+    }
+  ],
+  "OriginalExecuted": false,
+  "SdkExecuted": false,
+  "MainEdited": false,
+  "Limits": [
+    "Source expectation proposal only; independent OTP/source audit and actual execution remain required.",
+    "is_function/2 is a distinct contract and is not covered by these arity1 fixtures.",
+    "No new verified API classification."
+  ]
+}

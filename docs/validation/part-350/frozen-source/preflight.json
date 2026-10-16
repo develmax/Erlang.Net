@@ -1,0 +1,53 @@
+{
+  "Status": "PASS_SOURCE_ONLY350_FULL_PREPARATION_REQUIRES_INDEPENDENT_PEER",
+  "ParentHead": "712933b97a654a3b6ed42250902017bde0740f17",
+  "SourceFreezeSha256": "B2CA082349C03497A4992D9148D122848EE59FFF517940B30BAF49C4EB0D1AC5",
+  "SourceClosureSha256": "2D4C13B3BE68D947965AB9D6D168B9643373E4856EF1F1786E57A7A7D22B7037",
+  "OwnedPaths": 11,
+  "OwnedCSharpFiles": 7,
+  "ProductionCSharpChanges": 0,
+  "ClosureRows": 2768,
+  "PackageResources": 6,
+  "ReadinessInputs": 29,
+  "Registry": 587,
+  "CurrentRuntimeBindings": 59,
+  "CompatibilityCounts": {
+    "Verified compatible": 10,
+    "Needs verification": 558,
+    "Known differences": 19
+  },
+  "PreviousTests": 7268,
+  "NewDeclaredTests": 18,
+  "ExpectedFullTestsArithmeticOnly": 7286,
+  "OldComparisonPointer": "validation/part-345/full/tests.json",
+  "ComparisonPointer": "validation/part-348/full/tests.json",
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Files": 1250,
+      "AddedRows": 0,
+      "ChangedExistingPaths": [],
+      "NonFilesUnchanged": true,
+      "Sha256": "B0ACB753ABEAF19A74E862B2461E776307F922A14FF21795796A0E91603E5153",
+      "Workflow": ".github/workflows/nif-pending-native.yml",
+      "WorkflowSha256": "5C756BE7CC3180968C49AEEE2345DB6B2A465E3034BC0A78764D07B3FE31FA92"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Files": 1275,
+      "AddedRows": 0,
+      "ChangedExistingPaths": [
+        ".gitattributes"
+      ],
+      "NonFilesUnchanged": true,
+      "Sha256": "76AA659406ECB6DCE63D32E751068015CC492EF7C3CA521BE875EAC1D0837AB6",
+      "Workflow": ".github/workflows/nif-reallocation-native.yml",
+      "WorkflowSha256": "4FE88AB6B5E48EAFB09593314467140B0E3B9D6878799C0DC2405FDF6D498F5C"
+    }
+  ],
+  "SevenFocusedSourceRowsPreserved": true,
+  "UnownedRawVariances": 0,
+  "FullExecuted": false,
+  "SdkBuildExecuted": false,
+  "MainModified": false
+}

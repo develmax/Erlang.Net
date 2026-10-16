@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part350 — Reuse existing C#/Erlang fixture infrastructure and packages. Keep pending1250 raw unchanged; change only the existing .gitattributes row in reallocation1275 and seal its strict LF bytes. Publish lean text/ETF receipts, not runtime binaries, ZIP or nupkg outputs.
+
 Part349 — Reporting/evidence only: no new SDK build or runtime dependency. Reuse the built348 readiness tool; extend current-source guard union35→59. Publish explicit lean raw original/CI subsets plus full hash manifests. Keep XML/solution EOL exceptions separate from C# and returned-value equality; preserve archived348 incident chronology.
 
 Part348 — Use C# Stack/IEnumerator/HashCode and existing immutable term layouts; add no package or production BEAM dependency. Preserve CS1061 harness history, lifecycle-capture source finding and package raw-byte preflight refusal separately. Publish exact25source snapshots and lean text receipts, not runtime/ZIP/nupkg binaries. Keep inherited registry custom Limits and5/19/563 statuses.

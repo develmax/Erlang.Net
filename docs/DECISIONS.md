@@ -1,5 +1,7 @@
 # Decisions
 
+Part350 — Add portable semantic regressions without changing production behavior or inferring API compatibility from finite cases. Preserve first harness build failures, unknown numeric build cause, preparation newline refusals and reviewer catalog assumption separately.
+
 Part349 — Promote a bounded API contract only when complete branch/category/dispatch reasoning, original evidence, current-source bindings and current CI agree. Preserve prior582 entries and scopes. Correct passive-reader assumptions through reviewed revisions, retain refusals and declare uncaptured identities rather than normalizing observations.
 
 Part348 — Use explicit disposable traversal frames to preserve short-circuit compound comparison phases, per-pair exactness and one shared NodeComparisonContext. Preserve the process-seeded internal HashCode fold rather than replacing it with a different hash. Bound deep controls in owned children and retain streams/lifecycle failures. Current-source dependency guards extend30→35 without changing any API classification.

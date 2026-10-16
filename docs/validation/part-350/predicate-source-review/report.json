@@ -1,0 +1,185 @@
+{
+  "Status": "PASS_SOURCE_EXPECTATIONS_SIX_ADDITIONAL_PREDICATES_NOT_EXECUTED",
+  "SourceFreezeSha256": "0F5D888D3BF9ABCBA37F26E8657EE0E277E6B06004B05C00C4B30338260DE227",
+  "ParentHead": "d1bd571fc1f655abf81bdc0336b7133f3d023fac",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Files": [
+    {
+      "Path": "tools/Erlang.Differential/AdditionalTypePredicateCaseNames.cs",
+      "Bytes": 708,
+      "Sha256": "6C4D3A9A71D498C03A6C05A277B6FB7C6B9C565FD123636D0D920FD8796C3816"
+    },
+    {
+      "Path": "tools/Erlang.Differential/AdditionalTypePredicateCaseSources.cs",
+      "Bytes": 22012,
+      "Sha256": "9F41E77EB56CC2201C8ABFB904C10609A09E01A29C4A668BBE896837026DD11F"
+    },
+    {
+      "Path": "tools/Erlang.Differential/AdditionalTypePredicateCases.cs",
+      "Bytes": 1608,
+      "Sha256": "E1571248147B1FA00F227D631723B59E82F70F8EB55D2E44C3632745A8F5FC7D"
+    }
+  ],
+  "FixtureReview": [
+    {
+      "Function": "is_boolean",
+      "Arity": 1,
+      "SourceSha256": "F6207047FC23C4D5BC7791214D8EB28DFF96D0CE76798C4A99201D1C901EA6CD",
+      "LiteralRows": 38,
+      "PositiveLabels": [
+        "false_atom",
+        "true_atom"
+      ],
+      "Contexts": 12,
+      "NamedFunSetupIsNotExtraIndependentContext": true,
+      "Expected": "{ok,done}"
+    },
+    {
+      "Function": "is_function",
+      "Arity": 1,
+      "SourceSha256": "6404CC24411A2D648257030918E574EAF32CEBC3DBF5F2F10438B415F9F2C500",
+      "LiteralRows": 38,
+      "PositiveLabels": [
+        "anonymous_fun",
+        "captured_fun",
+        "external_fun"
+      ],
+      "Contexts": 12,
+      "NamedFunSetupIsNotExtraIndependentContext": true,
+      "Expected": "{ok,done}"
+    },
+    {
+      "Function": "is_list",
+      "Arity": 1,
+      "SourceSha256": "CE17892E2D884AE00C9EDFD4DA8A9EFADACFEBE1F01BFA80BD509455F1C41454",
+      "LiteralRows": 38,
+      "PositiveLabels": [
+        "empty_list",
+        "improper_list",
+        "proper_list"
+      ],
+      "Contexts": 12,
+      "NamedFunSetupIsNotExtraIndependentContext": true,
+      "Expected": "{ok,done}"
+    },
+    {
+      "Function": "is_pid",
+      "Arity": 1,
+      "SourceSha256": "705A38700F23A1E85CFC7482FB8C780DA9E8B4B9D906DFD4506A5790B6E97A23",
+      "LiteralRows": 38,
+      "PositiveLabels": [
+        "external_pid",
+        "local_pid"
+      ],
+      "Contexts": 12,
+      "NamedFunSetupIsNotExtraIndependentContext": true,
+      "Expected": "{ok,done}"
+    },
+    {
+      "Function": "is_port",
+      "Arity": 1,
+      "SourceSha256": "2DFD79BACC404F95604A177B9223FF0C6EDA7503A2E1560652E819531F0E2789",
+      "LiteralRows": 38,
+      "PositiveLabels": [
+        "external_port"
+      ],
+      "Contexts": 12,
+      "NamedFunSetupIsNotExtraIndependentContext": true,
+      "Expected": "{ok,done}"
+    },
+    {
+      "Function": "is_reference",
+      "Arity": 1,
+      "SourceSha256": "29E8ABB192A3D4D808E9438BEB332C0FB13AA32A55D97CB49A4571E94F3AED6B",
+      "LiteralRows": 38,
+      "PositiveLabels": [
+        "external_reference",
+        "local_reference"
+      ],
+      "Contexts": 12,
+      "NamedFunSetupIsNotExtraIndependentContext": true,
+      "Expected": "{ok,done}"
+    }
+  ],
+  "PinnedSource": [
+    {
+      "Path": "erts/emulator/beam/erl_bif_op.c",
+      "Bytes": 7761,
+      "Sha256": "74CA827E5188657CF2726A4C8A9DA6F4503675714A656041722CE10A066EEAD3"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_term.h",
+      "Bytes": 59494,
+      "Sha256": "8E016126FB7A1BC1DB8D31111601C0BEA21D72207211BF91E1F3C127E943B5C2"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_node_container_utils.h",
+      "Bytes": 13783,
+      "Sha256": "A7F0C4C49A3043042F4CD4C644F3D1AE6B70D9E49DAF3A76E82D4509F0B3692D"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_db_util.c",
+      "Bytes": 173579,
+      "Sha256": "9228A0FD19A784FE52EDAEBFC3F0F714DB9648FD939E268CEEB855E73181E1F5"
+    }
+  ],
+  "CurrentManagedSource": [
+    {
+      "Path": "src/Erlang.Runtime/CoreModules.cs",
+      "Sha256": "37ACAF904489E59D04409936ABE4145922FAA012982E58DBE6AD54C5D85AEBE4"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangBasicRegistrations.cs",
+      "Sha256": "DBB61CB2182B1D11FAC8605818E0064A578618BFD263FE9B56A3B2842AE0D06B"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangBasicBifNames.cs",
+      "Sha256": "E55991B21A9A5393764E1C1227C07885A805134B23E0D4CCECD29C7E48EF5A4B"
+    },
+    {
+      "Path": "src/Erlang.Runtime/MatchSpecOperations.cs",
+      "Sha256": "8C82EFECF906A1FA8773FA60CF40B0941DC5B2D9153CEC4CF65B2EF5124E4503"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.cs",
+      "Sha256": "6148EADEEA43420DE554BC651C8A9BA8C9ABADDAFA76691121D33B386264583C"
+    },
+    {
+      "Path": "src/Erlang.Runtime/MatchSpecProgram.cs",
+      "Sha256": "EB33F5DC48C57F054E69F4F410112000E56753B5107E079C9D6984DF7E3FF569"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Execution.AsyncGuards.cs",
+      "Sha256": "994F87089FAEEFA88BC2143577894F3C3A728BF4AF1972BD610B7DCC6B61920A"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Semantics.cs",
+      "Sha256": "59920F9FA17CB76DC3A2C0B6074A193C28A77545D062FFFE945C04D0FDEA3458"
+    },
+    {
+      "Path": "src/Erlang.Terms/NativeRecordTerm.cs",
+      "Sha256": "30DE73CCB8E5F8E19D31A4D1A9F79ADA24F424F06094DE1D169251740FDA7850"
+    }
+  ],
+  "Findings": {
+    "BlockingExpectationDefects": [],
+    "Boolean": "Exactly atom true or false; arbitrary atoms/numbers/nonatoms false. Native predicate has no argument-dependent error.",
+    "FunctionArity1": "is_any_fun accepts local/external functions without querying code availability, captured environment or fun arity. This is not is_function/2.",
+    "List": "Primary list cell OR nil, without walking tail. The improper_list positive is required; native record is a separate boxed kind.",
+    "NodeContainers": "is_pid/is_port/is_ref macros include internal OR external containers. Liveness and connectedness are not consulted, so fabricated external ETF identities remain valid positive type witnesses.",
+    "MatchSpec": "All six unary BIFs occur as DBIF_ALL in pinned erl_db_util; managed Pure whitelist delegates to registered synchronous completed ValueTasks. Expected {ok,Expected,[],[]} is appropriate for table match-spec test with pure result bodies.",
+    "Contexts": "Direct qualified/apply/namedfun/clauseguard/case/if/failed-guardalternative/orelse/andalso/comprehension/receive/matchspec are twelve contexts. Named binding is setup, not a thirteenth context."
+  },
+  "Limits": [
+    "Source/expectation review only: no Erlang compile, ParseAll, original VM, SDK or final compatibility audit has executed these six fixtures.",
+    "38 representative term rows do not independently witness all object representations, native architecture tags or lifecycle states. They are not 38 exhaustive physical categories.",
+    "No actual local port or separate dead-local-PID row; external port and non-live fabricated external PID cover source-proven tag recognition only.",
+    "Anonymous/captured/external fun witnesses have arity0; is_function/1 is arity-independent by source, but higher-arity fun values are not separately witnessed.",
+    "Native-record expectation is distinct from an ordinary record tuple; no unsupported internal-only term or host custom Term subclass is claimed.",
+    "Existing compatibility classifications remain unchanged; six source fixtures do not establish six verified APIs."
+  ],
+  "SdkExecuted": false,
+  "OriginalExecuted": false,
+  "Network": false,
+  "MainChanged": false
+}

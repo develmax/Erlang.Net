@@ -1,0 +1,69 @@
+{
+  "Status": "PASS_INDEPENDENT_SOURCE_PROVEN_VALID_OPTIONS_REJECTED_ALL_FOUR_SPAWN_OPT_ARITIES",
+  "PublishedHead": "712933b97a654a3b6ed42250902017bde0740f17",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ManagedSourceBindings": [
+    {
+      "Path": "src/Erlang.Runtime/ProcessSpawnOptions.cs",
+      "Bytes": 3896,
+      "Sha256": "E756D073002391E059296DC2B2CA196E1692833F469FD3D1E3C841966D78F4CF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessSpawnOptionRegistrations.cs",
+      "Bytes": 4787,
+      "Sha256": "73B52077F9772FE1FD1758A0AE8C166E839A3022D42ADAF2AAFA7E371655EF88"
+    }
+  ],
+  "ConcreteOptions": [
+    {
+      "Option": "{priority,normal}",
+      "Original": "erts_parse_spawn_opts accepts PRIORITY_NORMAL; no duplicate/invalid options.",
+      "Managed": "Unrecognized outer tuple reaches default badarg before child creation."
+    },
+    {
+      "Option": "{priority,high}",
+      "Original": "Same branch accepts PRIORITY_HIGH.",
+      "Managed": "Same default badarg."
+    },
+    {
+      "Option": "{message_queue_data,on_heap} or {message_queue_data,off_heap}",
+      "Original": "Parser sets SPO_ON_HEAP_MSGQ or SPO_OFF_HEAP_MSGQ.",
+      "Managed": "Neither tuple is recognized; badarg."
+    },
+    {
+      "Option": "{min_heap_size,0} or {min_bin_vheap_size,0}",
+      "Original": "Nonnegative small zero accepted and rounded up to native minimum.",
+      "Managed": "Neither tuple is recognized; badarg."
+    },
+    {
+      "Option": "{max_heap_size,0} or {fullsweep_after,0}",
+      "Original": "Native zero max-heap accepted, with final minimum comparison skipped for zero; nonnegative fullsweep_after accepted.",
+      "Managed": "Neither tuple is recognized; badarg."
+    },
+    {
+      "Option": "{scheduler,0}",
+      "Original": "Zero accepted as unbound scheduler within0..erts_no_schedulers.",
+      "Managed": "Tuple unrecognized; badarg."
+    }
+  ],
+  "AffectedMfas": [
+    "erlang:spawn_opt/2",
+    "erlang:spawn_opt/3",
+    "erlang:spawn_opt/4",
+    "erlang:spawn_opt/5"
+  ],
+  "ConcreteLocalInputs": [
+    "spawn_opt(fun()->ok end,[{priority,normal}])",
+    "spawn_opt(node(),fun()->ok end,[{priority,high}])",
+    "spawn_opt(erlang,self,[],[{message_queue_data,on_heap}])",
+    "spawn_opt(node(),erlang,self,[],[{scheduler,0}])"
+  ],
+  "AllFourArityProof": "Native/2 delegates to/4; native/3 with node() delegates to/2; native/5 with node() delegates to/4. Managed allfour registrations parse the final options before any SpawnWithOptions/connected request. Same-node witnesses avoid assumptions about remote tuning support.",
+  "PriorityDistinction": "Existing link/monitor priority controls signal delivery; it does not implement the outer process scheduling priority tuple.",
+  "EvidenceLevel": "Independent pinned-source semantic proof. No new native/managed execution and no runtime test failure claimed.",
+  "Prototype351Excluded": true,
+  "Frozen350InputsMustRemainUnchanged": true,
+  "MainModified": false,
+  "SdkExecuted": false,
+  "NetworkUsed": false
+}
