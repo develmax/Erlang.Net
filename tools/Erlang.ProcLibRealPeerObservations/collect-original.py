@@ -141,7 +141,7 @@ def collect(a):
             if peer_pid is None:
                 # Harvest only descendants of our still-owned origin, before any failure can retire it.
                 pending=[parent_pid[0]];seen=set()
-                while pending:
+                while pending and peer_pid is None:
                     current=pending.pop()
                     if current is None or current in seen:continue
                     seen.add(current)

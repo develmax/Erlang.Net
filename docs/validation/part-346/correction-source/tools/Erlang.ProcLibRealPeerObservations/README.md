@@ -1,0 +1,25 @@
+# Pinned original real two-node proc_lib observations
+
+Source-only collector. Eight independent cases cover six node-qualified overloads (three MFA and three captured anonymous fun) plus visible/hidden remote labels. Each case starts a fresh origin VM and peer:start_link with standard_io supervision, exact installed erl and the same two source-compiled module images. Actual proc_lib and label operations use normal loopback TCP distribution; peer:call is limited to bootstrap/provenance/independent remote observations. No SDK output is an expected value.
+
+The shared proc_lib_remote_payload.erl exports maker/1 and child/1. Only the origin invokes maker, registering a unique node-wide marker, then capturing the entire nested term. The receiving child reports that same term and whereis(Marker)=undefined. Peer module loading does not invoke maker. Parent must not pre-register itself under a second name. The same exact payload source/hash is handed to the SDK team; each side compiles its own image.
+
+Python allocates a candidate ephemeral loopback port, starts exact installed epmd in foreground with explicit port/address, then proves the live listener socket belongs to that owned PID through /proc FD inodes. Both VMs inherit ERL_EPMD_PORT and disable automatic epmd start. No daemon/default EPMD is borrowed. Normal completion requires real child DOWN normal, optional primary DOWN/link EXIT normal, peer:stop ok, peer-controller DOWN normal, nodedown, peer OS process gone and dedicated epmd empty-registration exit0. Forced cleanup remains a failure with raw evidence. A failed peer can be signaled only after exact executable root, unique node name, beam directory, owner UID and process generation checks.
+
+Retain raw ETF, compiler/parent/epmd stdout/stderr and process receipts, compiled-image/runtime/module hashes and pinned source anchors. Byte capture and normal cleanup are acquisition gates, not a claim of complete proc_lib, native/SDK interoperability or performance parity. No .beam binaries become public expected data. A strict passive reader later checks actual captured native values.
+
+Workflow is manual and consumes the exact reviewed source-manifest SHA at the selected published ref. It builds OTP-29.1.1 commit ad05823719d77c8faee87348ea39513d4e2f99c5 once and launches bounded fresh process groups. Existing owned-process, passive ETF and original provenance helper sources are imported only after exact published byte/hash verification. No local OTP or SDK was run while preparing this proposal.
+
+Module provenance retains each module atom, code:which loaded path, code:get_object_code path, actual M:module_info(md5), beam_lib:md5 code checksum and full retrieved-file MD5. The loaded code checksum must equal the significant-chunk checksum of that exact retrieved BEAM; full-file MD5 must also equal the bytes at the same resolved path. This detects old loaded code with a changed on-disk BEAM. It does not claim metadata-only differences alter the code checksum. Pinned beam_lib:md5 returns {ok,{Module,MD5}}; the VM module_info(md5) reads the loaded code header MD5.
+
+## Procfs observation correction
+
+The first published eight-case attempt retained seven completed acquisitions and one failed mfa_spawn acquisition. The first capture records ProcessLookupError and retains peer-options only, without peer identity or spawn results. Source inspection and local deterministic controls reproduce an unhandled process-discovery ESRCH hole; the exact historical syscall and the order of the peer boot crash relative to collector cleanup are unproven. The collector receipt records termination of its owned origin VM. This incomplete acquisition is not an API semantic comparison.
+
+The collector treats only FileNotFoundError and ProcessLookupError during read-only process discovery as disappearance, and retains ownership, UID, executable, generation, timeout and normal-cleanup requirements. Permission and identity failures still fail. Future unexpected case failures retain a traceback. The Erlang probes, payloads and all eight required outcome/cleanup contracts are unchanged. Deterministic local procfs-only controls do not replace a fresh original VM acquisition.
+
+## Single peer identity admission
+
+The subsequent corrected acquisition failed fun_spawn_opt with FileExistsError for peer-owned-process.json. The nested discovery loop could continue through pending descendants after an inner match and attempt a second exclusive save in the same observation. Stop discovery immediately after the first admitted identity; later polls retain that identity and native identity disagreement still fails. Do not replace exclusive file creation or relax UID, executable, name, beam path, generation or cleanup gates.
+
+The captured first identity is retained; the second attempted PID and exact relationship between matching processes were not recorded. Synthetic nested multi-match controls reproduce the overwrite hazard but do not identify historical processes. Seven other acquisitions do not establish an eight-case pass. A fresh original run remains mandatory.

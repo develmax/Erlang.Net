@@ -1,5 +1,7 @@
 # Decisions
 
+Part346 — Stop traversal after the first admitted owned peer rather than weakening exclusive file creation or replacing its receipt. Retain the unknown second-candidate identity and incomplete native acquisition as evidence limits. Keep runtime/API compatibility at the published345 baseline.
+
 Part345 — Store import/auto-import decisions in immutable module binding metadata and generated image identities. Use module-aware admission for guard BIFs and comprehension filter classification; keep qualified erlang calls and actual local/imported MFAs distinct. Retain all five existing verified contracts and original evidence while extending current-source bindings to30 dependencies. Preserve raw comparison refusals independently from finite semantic contracts.
 
 Part344 changes original-observation tooling only. Four procfs discovery handlers now tolerate a disappearing process; ownership, generation, permission and normal cleanup requirements remain enforced. Exact six-file source and deterministic controls pass independent review. The previous eight-case original run remains failed/incomplete, with seven partial acquisitions; no fresh original result or full SDK run is claimed. Runtime baseline343 remains7224 tests/11 integrations,587 APIs and5/17/565 compatibility counts. A new original eight-case capture requires the reviewed manifest61E52EC3EEE23FD4084772C0E383470C7FD09DAC6A6F16D7BD50AD3A6CB85229. Historical syscall and peer-crash/cleanup ordering are unproven. [Evidence](validation/part-344/).

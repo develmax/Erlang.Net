@@ -1,0 +1,169 @@
+{
+  "Status": "SOURCE_ONLY_TYPED_SHARED_CONTRACT_CROSSWALK_NO_EXECUTION_CLAIM",
+  "NativeSourceManifestSha256": "C1B3C8BADDCC519B48E557628522E42E5EB31C2CF4055DC343CCBD436EEECD16",
+  "SharedPayloadSha256": "51CF003E978C004B2F3B374BDF9FF96A1459BF6BD000C07945B54F6D877041EF",
+  "Entries": [
+    {
+      "NativeCase": "fun_spawn",
+      "Mfa": "proc_lib:spawn/2",
+      "SdkSourceMethod": "RemoteSourceFunHostChecks.SpawnCaptured",
+      "SharedContracts": [
+        "matching module independently loaded at receiver without executing maker",
+        "entire nested captured payload restored",
+        "receiver marker undefined before/after",
+        "registered parent ancestry",
+        "raw and logical initial_call anonymous name derived from origin metadata",
+        "group leader inheritance",
+        "link/monitor normal termination where requested"
+      ],
+      "DifferentSetup": [
+        "Native uses real TCP with actual OTP peer; SDK uses two real managed runtimes and manually routed distribution frames.",
+        "Native ancestry tail original_ancestor; SDK tail remote_source_fun_root; compare relation, not literal text.",
+        "Group leader original reader verifies origin-node PID only; SDK source asserts exact origin GL."
+      ],
+      "NativeActualStatus": "Awaiting original acquisition",
+      "SdkActualStatus": "Awaiting source-bound342 actual outcome import; source review is not execution"
+    },
+    {
+      "NativeCase": "fun_spawn_link",
+      "Mfa": "proc_lib:spawn_link/2",
+      "SdkSourceMethod": "RemoteSourceFunHostChecks.SpawnLinkCaptured",
+      "SharedContracts": [
+        "matching module independently loaded at receiver without executing maker",
+        "entire nested captured payload restored",
+        "receiver marker undefined before/after",
+        "registered parent ancestry",
+        "raw and logical initial_call anonymous name derived from origin metadata",
+        "group leader inheritance",
+        "link/monitor normal termination where requested"
+      ],
+      "DifferentSetup": [
+        "Native uses real TCP with actual OTP peer; SDK uses two real managed runtimes and manually routed distribution frames.",
+        "Native ancestry tail original_ancestor; SDK tail remote_source_fun_root; compare relation, not literal text.",
+        "Group leader original reader verifies origin-node PID only; SDK source asserts exact origin GL."
+      ],
+      "NativeActualStatus": "Awaiting original acquisition",
+      "SdkActualStatus": "Awaiting source-bound342 actual outcome import; source review is not execution"
+    },
+    {
+      "NativeCase": "fun_spawn_opt",
+      "Mfa": "proc_lib:spawn_opt/3",
+      "SdkSourceMethod": "RemoteSourceFunHostChecks.SpawnOptCaptured",
+      "SharedContracts": [
+        "matching module independently loaded at receiver without executing maker",
+        "entire nested captured payload restored",
+        "receiver marker undefined before/after",
+        "registered parent ancestry",
+        "raw and logical initial_call anonymous name derived from origin metadata",
+        "group leader inheritance",
+        "link/monitor normal termination where requested"
+      ],
+      "DifferentSetup": [
+        "Native uses real TCP with actual OTP peer; SDK uses two real managed runtimes and manually routed distribution frames.",
+        "Native ancestry tail original_ancestor; SDK tail remote_source_fun_root; compare relation, not literal text.",
+        "Group leader original reader verifies origin-node PID only; SDK source asserts exact origin GL."
+      ],
+      "NativeActualStatus": "Awaiting original acquisition",
+      "SdkActualStatus": "Awaiting source-bound342 actual outcome import; source review is not execution"
+    },
+    {
+      "NativeCase": "mfa_spawn",
+      "Mfa": "proc_lib:spawn/4",
+      "SdkSourceMethod": "ConnectedProcLibNodeHostChecks.SpawnMfa",
+      "SharedContracts": [
+        "actual remote child",
+        "MFA initial call/ancestry/group leader",
+        "link/monitor lifecycle"
+      ],
+      "NativeActualStatus": "Awaiting original acquisition",
+      "SdkActualStatus": "Existing340 HOST outcomes separate; final comparison must bind exact frozen source/outcome row"
+    },
+    {
+      "NativeCase": "mfa_spawn_link",
+      "Mfa": "proc_lib:spawn_link/4",
+      "SdkSourceMethod": "ConnectedProcLibNodeHostChecks.SpawnLinkMfa",
+      "SharedContracts": [
+        "actual remote child",
+        "MFA initial call/ancestry/group leader",
+        "link/monitor lifecycle"
+      ],
+      "NativeActualStatus": "Awaiting original acquisition",
+      "SdkActualStatus": "Existing340 HOST outcomes separate; final comparison must bind exact frozen source/outcome row"
+    },
+    {
+      "NativeCase": "mfa_spawn_opt",
+      "Mfa": "proc_lib:spawn_opt/5",
+      "SdkSourceMethod": "ConnectedProcLibNodeHostChecks.SpawnOptMfa",
+      "SharedContracts": [
+        "actual remote child",
+        "MFA initial call/ancestry/group leader",
+        "link/monitor lifecycle"
+      ],
+      "NativeActualStatus": "Awaiting original acquisition",
+      "SdkActualStatus": "Existing340 HOST outcomes separate; final comparison must bind exact frozen source/outcome row"
+    },
+    {
+      "NativeCase": "labels_visible",
+      "Mfa": "proc_lib:get_label/1",
+      "SdkSourceMethod": "ConnectedRpcLabelHostChecks.VisibleLabelDeathAndNodeRetirement",
+      "SharedContracts": [
+        "actual live arbitrary term label",
+        "undefined dead PID",
+        "visible query uses genuine rpc/erpc spawn and DOWN",
+        "hidden node returns undefined while independent process dictionary still holds label"
+      ],
+      "DifferentSetup": [
+        "SDK scenario additionally retires node generation; native8 fixture does not cover that phase."
+      ],
+      "NativeActualStatus": "Awaiting original acquisition",
+      "SdkActualStatus": "Existing340 HOST label scenario execution separate; no identical whole-case claim"
+    },
+    {
+      "NativeCase": "labels_hidden",
+      "Mfa": "proc_lib:get_label/1",
+      "SdkSourceMethod": "ConnectedRpcLabelHostChecks.VisibleLabelDeathAndNodeRetirement",
+      "SharedContracts": [
+        "actual live arbitrary term label",
+        "undefined dead PID",
+        "visible query uses genuine rpc/erpc spawn and DOWN",
+        "hidden node returns undefined while independent process dictionary still holds label"
+      ],
+      "DifferentSetup": [
+        "SDK scenario additionally retires node generation; native8 fixture does not cover that phase."
+      ],
+      "NativeActualStatus": "Awaiting original acquisition",
+      "SdkActualStatus": "Existing340 HOST label scenario execution separate; no identical whole-case claim"
+    }
+  ],
+  "SourceBindings": [
+    {
+      "Path": "artifacts/runtime342-candidate/tests/Erlang.Tests/RemoteSourceFunHostChecks.cs",
+      "Sha256": "2320D6DB7177A320922250229FAB5A27D78BD2445822A697BC7082978C634E89",
+      "EvidenceClass": "Source assertions only; actual SDK outcome must separately match this source or declared token-preserving formatted image"
+    },
+    {
+      "Path": "artifacts/runtime342-candidate/tests/Erlang.Tests/RemoteSourceFunHostNames.cs",
+      "Sha256": "8ED834F6F5F2589E080AD7420D17FBAFB0E92F3F3A3110F03BDC216FD4D7274F",
+      "EvidenceClass": "Source assertions only; actual SDK outcome must separately match this source or declared token-preserving formatted image"
+    },
+    {
+      "Path": "tests/Erlang.Tests/ConnectedProcLibNodeHostChecks.cs",
+      "Sha256": "1BF9242D34205E3B5EEB8F004B9E4C73BE38ED85112AAD73A4F779093BD840FB",
+      "EvidenceClass": "Source assertions only; actual SDK outcome must separately match this source or declared token-preserving formatted image"
+    },
+    {
+      "Path": "tests/Erlang.Tests/ConnectedRpcLabelHostChecks.cs",
+      "Sha256": "FD0A794558D4C03C7254AE71069A7BB3363246D90DE7618306C3E02327CB3DDE",
+      "EvidenceClass": "Source assertions only; actual SDK outcome must separately match this source or declared token-preserving formatted image"
+    }
+  ],
+  "RequiredFutureSdkEvidence": [
+    "SHA-bound actual SDK sourcefreeze",
+    "settled0 build/focus/full receipts",
+    "exact HOST target/outcome row or permanent test name",
+    "rehash source assertions against actually executed formatted sources",
+    "preserve any first failure and distinguish source-only controls from successful execution"
+  ],
+  "NoIdenticalWholeCaseOrTraceClaim": true,
+  "NoNativeSdkTcpInteroperabilityClaim": true
+}

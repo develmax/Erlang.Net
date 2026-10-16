@@ -1,0 +1,18 @@
+{
+  "Name": "fun_spawn_opt",
+  "Status": "FAILED_RAW_RETAINED",
+  "Port": 42115,
+  "Origin": "origin_7f730c67fe368bb2@127.0.0.1",
+  "SdkExecuted": false,
+  "ExpectedValuesPresent": false,
+  "Error": "FileExistsError(17, 'File exists')",
+  "ErrorTraceback": "Traceback (most recent call last):\n  File \"/home/runner/work/Erlang.Net/Erlang.Net/tools/Erlang.ProcLibRealPeerObservations/collect-original.py\", line 179, in collect\n    try:vm.wait(time.monotonic()+a.timeout_seconds,lambda: observe() or STOP)\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/Erlang.Net/Erlang.Net/tools/Erlang.GuestConnectedSendObservations/owned_process.py\", line 39, in wait\n    if cancelled():\n       ^^^^^^^^^^^\n  File \"/home/runner/work/Erlang.Net/Erlang.Net/tools/Erlang.ProcLibRealPeerObservations/collect-original.py\", line 179, in <lambda>\n    try:vm.wait(time.monotonic()+a.timeout_seconds,lambda: observe() or STOP)\n                                                           ^^^^^^^^^\n  File \"/home/runner/work/Erlang.Net/Erlang.Net/tools/Erlang.ProcLibRealPeerObservations/collect-original.py\", line 156, in observe\n    save(d/'peer-owned-process.json',dict(Pid=peer_pid,StartTicks=peer_start,OriginOwnedPid=parent_pid[0]));break\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/Erlang.Net/Erlang.Net/tools/Erlang.ProcLibRealPeerObservations/collect-original.py\", line 14, in save\n    with p.open('xb') as f: f.write((json.dumps(v,indent=2)+'\\n').encode())\n         ^^^^^^^^^^^^\n  File \"/usr/lib/python3.12/pathlib.py\", line 1015, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileExistsError: [Errno 17] File exists: '/home/runner/work/Erlang.Net/Erlang.Net/artifacts/proc-lib-real-peer-original/capture/fun_spawn_opt/peer-owned-process.json'\n",
+  "PeerOsCleanupError": "ValueError('Unique peer command identity')",
+  "RawEtf": [
+    {
+      "Path": "peer-options.etf",
+      "Bytes": 512,
+      "Sha256": "27FF325D2AF3A1441FD7C7EE1CD0C43E70625B10F9F95E0EC4ED898713D8128D"
+    }
+  ]
+}

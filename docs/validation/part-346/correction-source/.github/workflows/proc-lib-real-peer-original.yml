@@ -1,0 +1,60 @@
+name: Original two-node proc_lib observations
+on:
+  workflow_dispatch:
+    inputs:
+      source_manifest_sha256:
+        description: SHA256 of the independently reviewed collector source manifest at this exact ref
+        type: string
+        required: true
+permissions:
+  contents: read
+jobs:
+  original-real-peer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      ERLC_USE_SERVER: 'false'
+      PYTHONDONTWRITEBYTECODE: '1'
+      SOURCE_MANIFEST_SHA256: ${{ inputs.source_manifest_sha256 }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Verify exact collector source and external dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/proc-lib-real-peer-original
+          python3 tools/Erlang.ProcLibRealPeerObservations/collect-original.py verify \
+            --repository "$GITHUB_WORKSPACE" --manifest-sha256 "$SOURCE_MANIFEST_SHA256" \
+            --expected-head "$GITHUB_SHA" \
+            2>&1 | tee artifacts/proc-lib-real-peer-original/source-verification.log
+      - name: Build exact pinned original OTP
+        shell: bash
+        run: |
+          set -euo pipefail
+          (
+            set -x
+            git clone --depth 1 --branch OTP-29.1.1 https://github.com/erlang/otp.git artifacts/real-peer-otp-source
+            test "$(git -C artifacts/real-peer-otp-source rev-parse HEAD)" = ad05823719d77c8faee87348ea39513d4e2f99c5
+            cd artifacts/real-peer-otp-source
+            ./configure --prefix="$GITHUB_WORKSPACE/artifacts/real-peer-otp" --without-javac --without-wx --without-odbc --without-debugger --without-observer --without-et
+            make -j2
+            make install
+          ) 2>&1 | tee artifacts/proc-lib-real-peer-original/original-build.log
+      - name: Capture eight fresh real TCP peer pairs and joined cleanup
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/Erlang.ProcLibRealPeerObservations/collect-original.py collect \
+            --repository "$GITHUB_WORKSPACE" --manifest-sha256 "$SOURCE_MANIFEST_SHA256" \
+            --expected-head "$GITHUB_SHA" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/real-peer-otp-source" \
+            --erl "$GITHUB_WORKSPACE/artifacts/real-peer-otp/bin/erl" \
+            --output "$GITHUB_WORKSPACE/artifacts/proc-lib-real-peer-original/capture" \
+            --timeout-seconds 60 \
+            2>&1 | tee artifacts/proc-lib-real-peer-original/collection.log
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: proc-lib-real-peer-original-eight
+          path: artifacts/proc-lib-real-peer-original/**
+          if-no-files-found: warn

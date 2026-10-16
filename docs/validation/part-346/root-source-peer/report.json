@@ -1,0 +1,192 @@
+{
+  "Status": "PASS_INDEPENDENT_ONE_LINE_MULTIMATCH_FIX_AND_FIVE_CONTROLS",
+  "SourceFreezeSha256": "5CC269683B674990E6C2C0A8A02E9C839ECF0F2E8826C226A7E8E64198CD7CB5",
+  "CollectorSha256": "0279AF41CF8EAD52C804EE5B9FB3A510D9BBE0F34B4FD789B6497770031D8730",
+  "SourceRows": 6,
+  "Checks": [
+    {
+      "Mode": "match",
+      "Error": "FileExistsError",
+      "State": [
+        300,
+        1300
+      ],
+      "Saved": {
+        "Pid": 200,
+        "StartTicks": 1200,
+        "OriginOwnedPid": 100
+      },
+      "Events": [
+        [
+          "children",
+          "100"
+        ],
+        [
+          "cmdline",
+          "200"
+        ],
+        [
+          "children",
+          "200"
+        ],
+        [
+          "cmdline",
+          "300"
+        ]
+      ]
+    },
+    {
+      "Mode": "match",
+      "Error": null,
+      "State": [
+        200,
+        1200
+      ],
+      "Saved": {
+        "Pid": 200,
+        "StartTicks": 1200,
+        "OriginOwnedPid": 100
+      },
+      "Events": [
+        [
+          "children",
+          "100"
+        ],
+        [
+          "cmdline",
+          "200"
+        ]
+      ]
+    },
+    {
+      "Mode": "denied",
+      "Error": "PermissionError",
+      "State": [
+        null,
+        null
+      ],
+      "Saved": null,
+      "Events": [
+        [
+          "children",
+          "100"
+        ]
+      ]
+    },
+    {
+      "Mode": "wrong_uid",
+      "Error": "ValueError",
+      "State": [
+        null,
+        null
+      ],
+      "Saved": null,
+      "Events": [
+        [
+          "children",
+          "100"
+        ],
+        [
+          "cmdline",
+          "200"
+        ]
+      ]
+    },
+    {
+      "Mode": "wrong_exe",
+      "Error": null,
+      "State": [
+        null,
+        null
+      ],
+      "Saved": null,
+      "Events": [
+        [
+          "children",
+          "100"
+        ],
+        [
+          "cmdline",
+          "200"
+        ],
+        [
+          "children",
+          "200"
+        ],
+        [
+          "cmdline",
+          "300"
+        ],
+        [
+          "children",
+          "300"
+        ],
+        [
+          "children",
+          "100"
+        ],
+        [
+          "cmdline",
+          "200"
+        ],
+        [
+          "children",
+          "200"
+        ],
+        [
+          "cmdline",
+          "300"
+        ],
+        [
+          "children",
+          "300"
+        ],
+        [
+          "children",
+          "100"
+        ],
+        [
+          "cmdline",
+          "200"
+        ],
+        [
+          "children",
+          "200"
+        ],
+        [
+          "cmdline",
+          "300"
+        ],
+        [
+          "children",
+          "300"
+        ],
+        [
+          "children",
+          "100"
+        ],
+        [
+          "cmdline",
+          "200"
+        ],
+        [
+          "children",
+          "200"
+        ],
+        [
+          "cmdline",
+          "300"
+        ],
+        [
+          "children",
+          "300"
+        ]
+      ]
+    }
+  ],
+  "ExclusiveSaveRetained": true,
+  "HistoricalSecondPidKnown": false,
+  "FreshOriginalRequired": true,
+  "MainModified": false,
+  "NativeOrSdkExecuted": false
+}

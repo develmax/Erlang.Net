@@ -1,0 +1,194 @@
+{
+  "Status": "PASS_LOCAL_AST_EXTRACTED_MULTIMATCH_RED_GREEN_AND_REFUSAL_CONTROLS",
+  "OriginalCollectorSha256": "FCC46428B84CBB1AEBB74286D13897C3F835C12C22D56D86106C99C9E97C8C82",
+  "PatchedCollectorSha256": "0279AF41CF8EAD52C804EE5B9FB3A510D9BBE0F34B4FD789B6497770031D8730",
+  "Results": [
+    {
+      "Profile": "original-red",
+      "Mode": "match",
+      "Error": "FileExistsError",
+      "State": [
+        300,
+        1300
+      ],
+      "Saved": {
+        "Pid": 200,
+        "StartTicks": 1200,
+        "OriginOwnedPid": 100
+      },
+      "Events": [
+        [
+          "children",
+          "100"
+        ],
+        [
+          "cmdline",
+          "200"
+        ],
+        [
+          "children",
+          "200"
+        ],
+        [
+          "cmdline",
+          "300"
+        ]
+      ]
+    },
+    {
+      "Profile": "patched-green-repeated-poll",
+      "Mode": "match",
+      "Error": null,
+      "State": [
+        200,
+        1200
+      ],
+      "Saved": {
+        "Pid": 200,
+        "StartTicks": 1200,
+        "OriginOwnedPid": 100
+      },
+      "Events": [
+        [
+          "children",
+          "100"
+        ],
+        [
+          "cmdline",
+          "200"
+        ]
+      ]
+    },
+    {
+      "Profile": "patched-refusal",
+      "Mode": "denied",
+      "Error": "PermissionError",
+      "State": [
+        null,
+        null
+      ],
+      "Saved": null,
+      "Events": [
+        [
+          "children",
+          "100"
+        ]
+      ]
+    },
+    {
+      "Profile": "patched-refusal",
+      "Mode": "wrong_uid",
+      "Error": "ValueError",
+      "State": [
+        null,
+        null
+      ],
+      "Saved": null,
+      "Events": [
+        [
+          "children",
+          "100"
+        ],
+        [
+          "cmdline",
+          "200"
+        ]
+      ]
+    },
+    {
+      "Profile": "patched-no-owned-candidate",
+      "Mode": "wrong_exe",
+      "Error": null,
+      "State": [
+        null,
+        null
+      ],
+      "Saved": null,
+      "Events": [
+        [
+          "children",
+          "100"
+        ],
+        [
+          "cmdline",
+          "200"
+        ],
+        [
+          "children",
+          "200"
+        ],
+        [
+          "cmdline",
+          "300"
+        ],
+        [
+          "children",
+          "300"
+        ],
+        [
+          "children",
+          "100"
+        ],
+        [
+          "cmdline",
+          "200"
+        ],
+        [
+          "children",
+          "200"
+        ],
+        [
+          "cmdline",
+          "300"
+        ],
+        [
+          "children",
+          "300"
+        ],
+        [
+          "children",
+          "100"
+        ],
+        [
+          "cmdline",
+          "200"
+        ],
+        [
+          "children",
+          "200"
+        ],
+        [
+          "cmdline",
+          "300"
+        ],
+        [
+          "children",
+          "300"
+        ],
+        [
+          "children",
+          "100"
+        ],
+        [
+          "cmdline",
+          "200"
+        ],
+        [
+          "children",
+          "200"
+        ],
+        [
+          "cmdline",
+          "300"
+        ],
+        [
+          "children",
+          "300"
+        ]
+      ]
+    }
+  ],
+  "ProductionCodeExecuted": "Only local AST-extracted observe/save functions with deterministic synthetic procfs; no VM, real /proc, process signaling or network",
+  "SdkExecuted": false,
+  "OriginalOtpExecuted": false
+}

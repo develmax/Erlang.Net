@@ -1,0 +1,26 @@
+{
+  "Status": "SOURCE_GUIDED_MULTIMATCH_DIAGNOSIS_WITH_LOCAL_RED_GREEN_NOT_NATIVE_PASS",
+  "ParentHead": "9c7949f87348223a61c65d37d859b02841036374",
+  "Run": 38972702249,
+  "Artifact": 12077787635,
+  "FailedCase": "fun_spawn_opt",
+  "ObservationSha256": "F3BCA1069E31FDDC799BFFAEE350C8240F68C0693C20BE1D3D457FBE64BFCB11",
+  "SavedPeerIdentity": {
+    "Pid": 83525,
+    "StartTicks": 60771,
+    "OriginOwnedPid": 83474
+  },
+  "Cause": "Inner break exits only child for-loop; pending traversal continues despite selected peer_pid, allowing second candidate to overwrite memory then fail exclusive save.",
+  "HistoricalLimit": "Second attempted PID, exact relationship/wrapper status, and native peer boot chronology not established by retained evidence.",
+  "Patch": "Stop pending traversal when first peer_pid admitted; all ownership and exclusive-write gates preserved.",
+  "ControlResultSha256": "8AE938375353BAC208AD426AC07AB0DBEDCD77DD985D564D77EFC3C5EBA75D47",
+  "HarnessHistory": [
+    "Initial tempfile cleanup refused by Windows sandbox ACL; retained controls.py/controls2.py",
+    "Initial deterministic harness omitted Windows getuid seam; retained controls3.py/controls4.py",
+    "controls5 explicitly supplies synthetic UID and workspace output directories; production remains Linux-only"
+  ],
+  "SdkExecuted": false,
+  "OriginalOtpExecuted": false,
+  "MainModified": false,
+  "NetworkUsed": false
+}
