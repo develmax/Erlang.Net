@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part347 — Reporting/source-audit correction only: use existing345Tool for readiness, no SDK/full rerun and no runtime package. Physical accounting needs an explicit ownership model rather than invented numbers or node-wide GC substitutions. Preserve raw proof bytes through one attribute row and corresponding reallocation workflow seal.
+
 Part346 — Reuse the existing original-only collector, owned-process controls and passive typed reader; add no runtime package or BEAM dependency. Preserve pending1246 unchanged, update only attributes in reallocation1271 plus its workflow seal, and retain byte-exact controller/payload/workflow sources.
 
 Part345 — Reuse the existing parser, source module, scheduler and registry; add no framework, package or production BEAM dependency. Reuse existing module-name validation for imports. Preserve full/focused/preparation histories and custom Limits; archive exact34source snapshots plus lean text receipts, excluding runtime/ZIP/nupkg binaries. Keep346collector fixes outside345source.

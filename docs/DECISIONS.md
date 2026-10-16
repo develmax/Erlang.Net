@@ -1,5 +1,7 @@
 # Decisions
 
+Part347 — A source-proven differing valid OTP branch is Known differences even while other partitions need verification. Change exactly process_info/1,2; preserve all verified evidence and other MFA scopes. Keep projections, source proof, native observations, implementation and reporting distinct.
+
 Part346 — Stop traversal after the first admitted owned peer rather than weakening exclusive file creation or replacing its receipt. Retain the unknown second-candidate identity and incomplete native acquisition as evidence limits. Keep runtime/API compatibility at the published345 baseline.
 
 Part345 — Store import/auto-import decisions in immutable module binding metadata and generated image identities. Use module-aware admission for guard BIFs and comprehension filter classification; keep qualified erlang calls and actual local/imported MFAs distinct. Retain all five existing verified contracts and original evidence while extending current-source bindings to30 dependencies. Preserve raw comparison refusals independently from finite semantic contracts.

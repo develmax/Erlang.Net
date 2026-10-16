@@ -1,0 +1,226 @@
+{
+  "Status": "SOURCE_PROVEN_TWO_MFA_KNOWN_DIFFERENCE_CLASSIFICATION_PROPOSAL_NOT_APPLIED",
+  "PublishedRuntimeBase": "9c7949f87348223a61c65d37d859b02841036374",
+  "PinnedOriginalCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "PinnedOriginalSource": {
+    "Path": "erts/emulator/beam/erl_bif_info.c",
+    "Sha256": "9A86723F7BCE38BCB64B4CF3E7759FFC51CEFA9973CB11B36DC26A263A329149",
+    "Branches": [
+      "pi_1_keys includes four physical resource fields",
+      "pi_arg2ix accepts heap/stack/GC keys",
+      "process_info_aux HEAP_SIZE/TOTAL_HEAP_SIZE/STACK_SIZE/GARBAGE_COLLECTION returns native measurements"
+    ]
+  },
+  "ManagedSource": [
+    {
+      "Head": "9c7949f87348223a61c65d37d859b02841036374",
+      "Path": "src/Erlang.Runtime/ProcessInfoResourceNames.cs",
+      "Sha256": "5FB6E85670682B25BEC63B757F2E911BB46B28021EE0EC8D5D1949407B47E7C4"
+    },
+    {
+      "Head": "9c7949f87348223a61c65d37d859b02841036374",
+      "Path": "src/Erlang.Runtime/ProcessInfoDefaultCatalog.cs",
+      "Sha256": "7B3FCA544BBAECF99567010EB5549D6359F159D90A4EB823FB56E6F47FD80AF2"
+    },
+    {
+      "Head": "9c7949f87348223a61c65d37d859b02841036374",
+      "Path": "src/Erlang.Runtime/ProcessInfoDefaultRegistrations.cs",
+      "Sha256": "710780508963474ACBBF564F7D01CB4563D853761D90F4640F1064B135E10331"
+    },
+    {
+      "Head": "9c7949f87348223a61c65d37d859b02841036374",
+      "Path": "src/Erlang.Runtime/ProcessInfoRegistrations.cs",
+      "Sha256": "3DB5278FFB3002BE28CDE1635D232EA9A6D1D6A0E7FF79F0CE0D5D22254AB8E3"
+    },
+    {
+      "Head": "9c7949f87348223a61c65d37d859b02841036374",
+      "Path": "src/Erlang.Runtime/ProcessInfoAtoms.cs",
+      "Sha256": "1B350A44C3E677FADF0162BEE77733F4985BCE96A9351B8A740CC17EEEAEBA03"
+    },
+    {
+      "Head": "9c7949f87348223a61c65d37d859b02841036374",
+      "Path": "src/Erlang.Runtime/ProcessInfoItem.cs",
+      "Sha256": "56831E7519AE1D2ACC09D1AD8F624111A4424A1E45A6A46CA3E0C144030BDC4A"
+    }
+  ],
+  "Changes": [
+    {
+      "Module": "erlang",
+      "Function": "process_info",
+      "Arity": 1,
+      "PreviousStatus": "Needs verification",
+      "ProposedStatus": "Known differences",
+      "PreserveOriginalRow": {
+        "Module": "erlang",
+        "Function": "process_info",
+        "Arity": 1,
+        "Status": "Needs verification",
+        "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
+        "Evidence": [],
+        "Limits": [
+          "Supported logical default subset: twelve fields unregistered, thirteen registered; pinned total_heap_size, heap_size, stack_size and garbage_collection omitted. process_info/2 physical items remain unsupported; eight new original projections pending."
+        ]
+      },
+      "ConcreteDifference": "Default query explicitly removes total_heap_size,heap_size,stack_size,garbage_collection from the pinned17-field key list and returns only logical fields.",
+      "ProofKind": "Pinned original source branch versus exact current managed source, reinforced by existing projected original observations; no new counterexample execution claimed.",
+      "Limits": [
+        "Physical heap/stack/GC values are not implemented; other logical query partitions retain their previous evidence and pending limits.",
+        "Existing original subset fixtures observe projections only and cannot demonstrate full process_info parity."
+      ]
+    },
+    {
+      "Module": "erlang",
+      "Function": "process_info",
+      "Arity": 2,
+      "PreviousStatus": "Needs verification",
+      "ProposedStatus": "Known differences",
+      "PreserveOriginalRow": {
+        "Module": "erlang",
+        "Function": "process_info",
+        "Arity": 2,
+        "Status": "Needs verification",
+        "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
+        "Evidence": [],
+        "Limits": [
+          "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending Supported item async_dist now returns the actual target process flag as a boolean from the existing gated runtime state. Scalar and list queries preserve item validation, list order and duplicates; the item remains excluded from the default process_info/1 catalog. Real generated default/transition/other-process/child/dead-target/error contracts and mixed owner queries during connected output waits are covered within the existing PID/query domain. This adds no export and does not complete remote process-info domains, pending/autoconnect, native scheduler parity or general wire equality."
+        ]
+      },
+      "ConcreteDifference": "Valid pinned physical keys total_heap_size,heap_size,stack_size,garbage_collection are absent from IsSupported, so ProcessInfoItem.Parse raises badarg before querying a live local process. OTP accepts these keys and returns actual resource values.",
+      "ProofKind": "Pinned original source branch versus exact current managed source, reinforced by existing projected original observations; no new counterexample execution claimed.",
+      "Limits": [
+        "Physical heap/stack/GC values are not implemented; other logical query partitions retain their previous evidence and pending limits.",
+        "Existing original subset fixtures observe projections only and cannot demonstrate full process_info parity."
+      ]
+    }
+  ],
+  "CurrentCounts": {
+    "Verified compatible": 5,
+    "Known differences": 17,
+    "Needs verification": 565
+  },
+  "ProposedCountsIfExactlyTheseTwoRowsChange": {
+    "Verified compatible": 5,
+    "Known differences": 19,
+    "Needs verification": 563
+  },
+  "ExistingOriginalReport": {
+    "Path": "artifacts/part343-remote-new-review/ordinary/artifact-12077509369/differential.json",
+    "Sha256": "F911394556BA930A7C2C728797D45545B8CFD94657040874DBBC212CD4B5ECB9",
+    "Run": 38970910651,
+    "Artifact": 12077509369,
+    "SelectedProjectionRows": [
+      {
+        "Track": "ModuleResults",
+        "Index": 4905,
+        "Row": {
+          "Name": "process-info-default-subset-registered-name",
+          "Source": "-module(default_process_info_subset_contract). -export([run/0]). run()->true=register(default_subset_contract,self()),I=process_info(self()),{registered_name,default_subset_contract}=lists:keyfind(registered_name,1,I),{registered_name,default_subset_contract}=process_info(self(),registered_name),done.",
+          "SourceSha256": "5D9AC91FED4CB6CC8667B3150585994EBD5B3C5128F997C1F9A2E46B87E4A246",
+          "CSharpSha256": "03D0A1489C2CB69002F081AB4AA68CF33AE6075D4E45CB8D0FA63631A5A63D4C",
+          "CallerContext": "UntrappedFresh",
+          "CompilerPolicy": "Default",
+          "Expected": "{ok,done}",
+          "FixtureExpected": "{ok,done}",
+          "Actual": "{ok,done}",
+          "ExpectedStandardOutputHex": null,
+          "ExpectedStandardOutputAlternatives": null,
+          "ExpectedStandardErrorHex": null,
+          "NativeStandardOutputHex": null,
+          "NativeStandardErrorHex": null,
+          "SdkStandardOutputHex": null,
+          "SdkStandardErrorHex": null,
+          "NativeAndSdkStandardOutputExactlyMatch": true,
+          "StandardStreamsMatch": true,
+          "Passed": true
+        }
+      },
+      {
+        "Track": "ModuleResults",
+        "Index": 4906,
+        "Row": {
+          "Name": "process-info-default-subset-query2-stable-projection",
+          "Source": "-module(default_process_info_subset_contract). -export([run/0]). run()->I=process_info(self()),lists:foreach(fun(K)->T=process_info(self(),K),T=lists:keyfind(K,1,I) end,[trap_exit,error_handler,priority,group_leader,dictionary]),done.",
+          "SourceSha256": "5686DDD0D2A38768223F9B01B555447D4E1CC1E104C796A380F3069BD983A9BC",
+          "CSharpSha256": "464AF80D66762AC785B0DE52604E77815DC8A1BFA0E716C88E7B70E9FA83CDE0",
+          "CallerContext": "UntrappedFresh",
+          "CompilerPolicy": "Default",
+          "Expected": "{ok,done}",
+          "FixtureExpected": "{ok,done}",
+          "Actual": "{ok,done}",
+          "ExpectedStandardOutputHex": null,
+          "ExpectedStandardOutputAlternatives": null,
+          "ExpectedStandardErrorHex": null,
+          "NativeStandardOutputHex": null,
+          "NativeStandardErrorHex": null,
+          "SdkStandardOutputHex": null,
+          "SdkStandardErrorHex": null,
+          "NativeAndSdkStandardOutputExactlyMatch": true,
+          "StandardStreamsMatch": true,
+          "Passed": true
+        }
+      },
+      {
+        "Track": "ModuleResults",
+        "Index": 4907,
+        "Row": {
+          "Name": "process-info-default-subset-invalid-targets",
+          "Source": "-module(default_process_info_subset_contract). -export([run/0]). run()->lists:foreach(fun(V)->ok=try process_info(V) of _->unexpected catch error:badarg->ok end end,[0,ok,{},[],make_ref(),<<>>,fun()->ok end]),done.",
+          "SourceSha256": "4BC49ED278AC3540EE06B99A4BEDEE447FC47BF33E4FCBCA7B721832048B0939",
+          "CSharpSha256": "EDD897708EA9B68966CBAF3F9C1B941FE194E53F5F591C93E5C8A3D4633569E7",
+          "CallerContext": "UntrappedFresh",
+          "CompilerPolicy": "Default",
+          "Expected": "{ok,done}",
+          "FixtureExpected": "{ok,done}",
+          "Actual": "{ok,done}",
+          "ExpectedStandardOutputHex": null,
+          "ExpectedStandardOutputAlternatives": null,
+          "ExpectedStandardErrorHex": null,
+          "NativeStandardOutputHex": null,
+          "NativeStandardErrorHex": null,
+          "SdkStandardOutputHex": null,
+          "SdkStandardErrorHex": null,
+          "NativeAndSdkStandardOutputExactlyMatch": true,
+          "StandardStreamsMatch": true,
+          "Passed": true
+        }
+      },
+      {
+        "Track": "ModuleResults",
+        "Index": 4908,
+        "Row": {
+          "Name": "process-info-default-subset-dead-local",
+          "Source": "-module(default_process_info_subset_contract). -export([run/0]). run()->P=spawn(fun()->ok end),R=monitor(process,P),receive {'DOWN',R,process,P,_}->ok end,undefined=process_info(P),done.",
+          "SourceSha256": "A33945337F441F80141DEB7084803EB9F87047FA0A32376520A99D1377634672",
+          "CSharpSha256": "BA37404827C03D605FA66D0A51D1BCCFE1C0D55D876F29AC81733E3058F04A27",
+          "CallerContext": "UntrappedFresh",
+          "CompilerPolicy": "Default",
+          "Expected": "{ok,done}",
+          "FixtureExpected": "{ok,done}",
+          "Actual": "{ok,done}",
+          "ExpectedStandardOutputHex": null,
+          "ExpectedStandardOutputAlternatives": null,
+          "ExpectedStandardErrorHex": null,
+          "NativeStandardOutputHex": null,
+          "NativeStandardErrorHex": null,
+          "SdkStandardOutputHex": null,
+          "SdkStandardErrorHex": null,
+          "NativeAndSdkStandardOutputExactlyMatch": true,
+          "StandardStreamsMatch": true,
+          "Passed": true
+        }
+      }
+    ],
+    "Scope": "Actual passing registered-name/logical projection/invalid/dead-target contracts; no actual raw native physical value or full default-list comparison is claimed."
+  },
+  "ImplementationChoices": [
+    "Retain truthful Known differences while physical fields are absent. Do not manufacture integers or silently replace missing physical metrics with logical metrics.",
+    "If implementing managed resource introspection, define honest process-owned allocation/stack/GC accounting and explicitly document any distinct observable semantics; system GC totals are not per-Erlang-process heap data.",
+    "Exact native BEAM physical word counts would require a corresponding process memory/accounting model, not a formatting change. Keep correctness, collection lifetime and cancellation contracts explicit."
+  ],
+  "NewExecutedCounterexample": false,
+  "Current345LedgerMustRemainFrozen": true,
+  "OtherPendingRowsReclassified": false,
+  "SdkExecuted": false,
+  "NetworkUsed": false,
+  "MainModified": false
+}

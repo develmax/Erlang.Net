@@ -127,8 +127,8 @@
     }
   ],
   "VerifiedCompatibleMfas": 5,
-  "NeedsVerificationMfas": 565,
-  "KnownDifferenceMfas": 17,
+  "NeedsVerificationMfas": 563,
+  "KnownDifferenceMfas": 19,
   "MfaCompatibility": [
     {
       "Module": "erlang",
@@ -3369,10 +3369,18 @@
       "Module": "erlang",
       "Function": "process_info",
       "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
+      "Status": "Known differences",
+      "Scope": "Supported logical information keys retain their existing query behavior. Four valid OTP resource keys (total_heap_size, heap_size, stack_size, garbage_collection) currently raise badarg, which is a known contract difference.",
+      "Evidence": [
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-347/current-source-difference-review.json",
+          "Sha256": "5692B504DF36620B5244DA53D1B50C0CD5D79B9D0E5A9E376F9EE0C886B26C42",
+          "Scope": "Exact current source and pinned OTP branches prove omitted default physical fields and badarg for four valid explicit resource keys. Existing original projections remain separately scoped; no new physical values were observed or fabricated."
+        }
+      ],
       "Limits": [
+        "Native physical resource keys total_heap_size, heap_size, stack_size and garbage_collection are unsupported and rejected; they are valid in pinned OTP. Do not replace them with fabricated integer values or node-wide GC totals.",
         "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending Supported item async_dist now returns the actual target process flag as a boolean from the existing gated runtime state. Scalar and list queries preserve item validation, list order and duplicates; the item remains excluded from the default process_info/1 catalog. Real generated default/transition/other-process/child/dead-target/error contracts and mixed owner queries during connected output waits are covered within the existing PID/query domain. This adds no export and does not complete remote process-info domains, pending/autoconnect, native scheduler parity or general wire equality."
       ],
       "Key": "erlang:process_info/2"
@@ -3381,11 +3389,18 @@
       "Module": "erlang",
       "Function": "process_info",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
+      "Status": "Known differences",
+      "Scope": "Logical default process information is implemented, but the default list omits pinned OTP total_heap_size, heap_size, stack_size and garbage_collection. This is a known observable contract difference, not merely missing verification.",
+      "Evidence": [
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-347/current-source-difference-review.json",
+          "Sha256": "5692B504DF36620B5244DA53D1B50C0CD5D79B9D0E5A9E376F9EE0C886B26C42",
+          "Scope": "Exact current source and pinned OTP branches prove omitted default physical fields and badarg for four valid explicit resource keys. Existing original projections remain separately scoped; no new physical values were observed or fabricated."
+        }
+      ],
       "Limits": [
-        "Supported logical default subset: twelve fields unregistered, thirteen registered; pinned total_heap_size, heap_size, stack_size and garbage_collection omitted. process_info/2 physical items remain unsupported; eight new original projections pending."
+        "The native physical heap/stack/GC fields are absent. Actual original logical projections pass within their finite query scope; they do not verify a full default-list/resource contract. Other remaining query, scheduler and process-domain limits are not promoted to compatible."
       ],
       "Key": "erlang:process_info/1"
     },
@@ -14953,8 +14968,8 @@
       "Status": "Partially compatible",
       "RegisteredMfas": 351,
       "VerifiedCompatibleMfas": 5,
-      "NeedsVerificationMfas": 346,
-      "KnownDifferenceMfas": 0,
+      "NeedsVerificationMfas": 344,
+      "KnownDifferenceMfas": 2,
       "PreviousRegisteredMfas": 351,
       "Delta": 0,
       "ReferenceDeclarations": 351,

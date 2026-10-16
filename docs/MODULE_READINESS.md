@@ -12,7 +12,7 @@ API presence is the registered, directly tested MFA count divided by the union o
 | binary | 0 | 0 | 31 | 0 | 0 | 0 |
 | code | 0 | 0 | 69 | 0 | 0 | 0 |
 | dets | 0 | 0 | 64 | 0 | 0 | 0 |
-| erlang | 351 | 0 | 351 | 5 | 346 | 0 |
+| erlang | 351 | 0 | 351 | 5 | 344 | 2 |
 | erpc | 3 | 0 | 33 | 0 | 3 | 0 |
 | error_logger | 2 | 0 | 29 | 0 | 2 | 0 |
 | ets | 0 | 0 | 76 | 0 | 0 | 0 |
@@ -37,7 +37,7 @@ API presence is the registered, directly tested MFA count divided by the union o
 
 Compatibility is tracked per command in an explicit, baseline-bound audited ledger. Direct registry tests establish API presence only. Verified requires an audit of the command's complete observable semantic contract on the supported Erlang term model, actual original OTP comparisons, and no known or unresolved semantic gaps. Selected-case or subcontract-only evidence remains Needs verification. Verification does not claim identical internal VM layout, timings or performance; APIs exposing resource values or options still require their complete observable contracts.
 
-Verified compatible: **5**; needs verification: **565**; known differences: **17**.
+Verified compatible: **5**; needs verification: **563**; known differences: **19**.
 
 [Every command, evidence and limits](API_COMPATIBILITY.md).
 

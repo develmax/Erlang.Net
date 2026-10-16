@@ -1,0 +1,54 @@
+{
+  "Status": "SOURCE_PROVEN_CURRENT_TWO_PROCESS_INFO_CONTRACT_DIFFERENCES_NOT_IMPLEMENTATION",
+  "PublishedHead": "83dde925f0b15707d0406d6028a85b9877764c3c",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "PriorClassificationProposalSha256": "77AEB10742522BF6CDC300A603CEB697F9052FB37D8C80F9681C70C6A65FA56D",
+  "OldLedgerSha256": "1BB0D1EBB620D26AC305E274D89A5B7411D5FACBE524F57B8E97F687815C4469",
+  "CurrentManagedSources": [
+    {
+      "Path": "src/Erlang.Runtime/ProcessInfoResourceNames.cs",
+      "Bytes": 301,
+      "Sha256": "5FB6E85670682B25BEC63B757F2E911BB46B28021EE0EC8D5D1949407B47E7C4"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessInfoDefaultCatalog.cs",
+      "Bytes": 1429,
+      "Sha256": "7B3FCA544BBAECF99567010EB5549D6359F159D90A4EB823FB56E6F47FD80AF2"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessInfoDefaultRegistrations.cs",
+      "Bytes": 770,
+      "Sha256": "710780508963474ACBBF564F7D01CB4563D853761D90F4640F1064B135E10331"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessInfoRegistrations.cs",
+      "Bytes": 1318,
+      "Sha256": "3DB5278FFB3002BE28CDE1635D232EA9A6D1D6A0E7FF79F0CE0D5D22254AB8E3"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessInfoAtoms.cs",
+      "Bytes": 1240,
+      "Sha256": "1B350A44C3E677FADF0162BEE77733F4985BCE96A9351B8A740CC17EEEAEBA03"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessInfoItem.cs",
+      "Bytes": 925,
+      "Sha256": "56831E7519AE1D2ACC09D1AD8F624111A4424A1E45A6A46CA3E0C144030BDC4A"
+    }
+  ],
+  "PinnedSourceFullSha256": "9A86723F7BCE38BCB64B4CF3E7759FFC51CEFA9973CB11B36DC26A263A329149",
+  "ObservedDifferences": {
+    "erlang:process_info/1": "The managed default catalog explicitly filters total_heap_size,heap_size,stack_size,garbage_collection out of the pinned seventeen-key catalog. Existing logical projections do not include these fields.",
+    "erlang:process_info/2": "ProcessInfoAtoms.IsSupported excludes these four valid OTP keys. ProcessInfoItem.Parse raises badarg for them before querying even a live local PID; pinned pi_arg2ix and process_info_aux accept and return the resource data."
+  },
+  "ExistingNativeEvidenceScope": "Four selected actual published343 logical-projection/registered/invalid/dead query rows are already passing. They are projection evidence only, not full native default-list or heap/stack/GC value equality.",
+  "NewNativeCounterexampleExecuted": false,
+  "PriorUnexecutedWitnessesCountedAsTests": false,
+  "ClassificationRule": "A concrete source-proven differing valid contract is Known differences, even when other partitions still need verification. No other pending MFA is relabelled.",
+  "AllThirtyVerifiedSourceBindingsRawUnchanged": true,
+  "VerifiedFiveEvidenceAndScopesUnchanged": true,
+  "ApiRegistryRows587Unchanged": true,
+  "MainModified": false,
+  "SdkExecuted": false,
+  "NetworkUsed": false
+}

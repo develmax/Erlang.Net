@@ -1,0 +1,169 @@
+{
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Path": "erts/emulator/beam/erl_bif_info.c",
+  "FullRawSha256": "9A86723F7BCE38BCB64B4CF3E7759FFC51CEFA9973CB11B36DC26A263A329149",
+  "ExactSourceLineExcerpts": [
+    {
+      "Marker": "static Eterm pi_1_keys[]",
+      "FirstLine": 1007,
+      "Lines": [
+        "static Eterm pi_1_keys[] = {",
+        "    am_registered_name,",
+        "    am_current_function,",
+        "    am_initial_call,",
+        "    am_status,",
+        "    am_message_queue_len,",
+        "    am_links,",
+        "    am_dictionary,",
+        "    am_trap_exit,",
+        "    am_error_handler,",
+        "    am_priority,",
+        "    am_group_leader,",
+        "    am_total_heap_size,",
+        "    am_heap_size,",
+        "    am_stack_size,",
+        "    am_reductions,",
+        "    am_garbage_collection,",
+        "    am_suspending",
+        "};",
+        "",
+        "#define ERTS_PI_1_NO_OF_KEYS (sizeof(pi_1_keys)/sizeof(Eterm))",
+        ""
+      ]
+    },
+    {
+      "Marker": "case am_heap_size:",
+      "FirstLine": 935,
+      "Lines": [
+        "    case am_heap_size:",
+        "        return ERTS_PI_IX_HEAP_SIZE;",
+        "    case am_stack_size:",
+        "        return ERTS_PI_IX_STACK_SIZE;"
+      ]
+    },
+    {
+      "Marker": "case am_total_heap_size:",
+      "FirstLine": 961,
+      "Lines": [
+        "    case am_total_heap_size:",
+        "        return ERTS_PI_IX_TOTAL_HEAP_SIZE;",
+        "    case am_suspending:",
+        "        return ERTS_PI_IX_SUSPENDING;"
+      ]
+    },
+    {
+      "Marker": "case am_stack_size:",
+      "FirstLine": 937,
+      "Lines": [
+        "    case am_stack_size:",
+        "        return ERTS_PI_IX_STACK_SIZE;",
+        "    case am_memory:",
+        "        return ERTS_PI_IX_MEMORY;"
+      ]
+    },
+    {
+      "Marker": "case am_garbage_collection:",
+      "FirstLine": 941,
+      "Lines": [
+        "    case am_garbage_collection:",
+        "        return ERTS_PI_IX_GARBAGE_COLLECTION;",
+        "    case am_group_leader:",
+        "        return ERTS_PI_IX_GROUP_LEADER;"
+      ]
+    },
+    {
+      "Marker": "case ERTS_PI_IX_HEAP_SIZE:",
+      "FirstLine": 1982,
+      "Lines": [
+        "    case ERTS_PI_IX_HEAP_SIZE: {",
+        "\tUint hsz = 0;",
+        "\t(void) erts_bld_uint(NULL, &hsz, HEAP_SIZE(rp));",
+        "        hp = erts_produce_heap(hfact, hsz, reserve_size);",
+        "\tres = erts_bld_uint(&hp, NULL, HEAP_SIZE(rp));",
+        "\tbreak;",
+        "    }",
+        ""
+      ]
+    },
+    {
+      "Marker": "case ERTS_PI_IX_TOTAL_HEAP_SIZE:",
+      "FirstLine": 2021,
+      "Lines": [
+        "    case ERTS_PI_IX_TOTAL_HEAP_SIZE: {",
+        "\tUint total_heap_size;",
+        "\tUint hsz = 0;",
+        "",
+        "\ttotal_heap_size = rp->heap_sz;",
+        "\tif (rp->old_hend && rp->old_heap)",
+        "\t    total_heap_size += rp->old_hend - rp->old_heap;",
+        "",
+        "\ttotal_heap_size += rp->mbuf_sz;",
+        "",
+        "        ASSERT(flags & ERTS_PI_FLAG_NEED_MSGQ);",
+        "        if (rp->sig_qs.flags & FS_ON_HEAP_MSGQ) {",
+        "            ErtsMessage *mp;",
+        "            for (mp = rp->sig_qs.first; mp; mp = mp->next) {",
+        "\t\tif (ERTS_SIG_IS_RECV_MARKER(mp))",
+        "\t\t    continue;",
+        "                ASSERT(ERTS_SIG_IS_MSG(mp));",
+        "                if (mp->data.attached)",
+        "                    total_heap_size += erts_msg_attached_data_size(mp);",
+        "            }",
+        "            *reds += (Uint) rp->sig_qs.mq_len / 4;",
+        "        }",
+        "",
+        "\t(void) erts_bld_uint(NULL, &hsz, total_heap_size);",
+        "        hp = erts_produce_heap(hfact, hsz, reserve_size);",
+        "\tres = erts_bld_uint(&hp, NULL, total_heap_size);",
+        "\tbreak;",
+        "    }"
+      ]
+    },
+    {
+      "Marker": "case ERTS_PI_IX_STACK_SIZE:",
+      "FirstLine": 2050,
+      "Lines": [
+        "    case ERTS_PI_IX_STACK_SIZE: {",
+        "\tUint stack_size = STACK_START(rp) - rp->stop;",
+        "\tUint hsz = 0;",
+        "\t(void) erts_bld_uint(NULL, &hsz, stack_size);",
+        "        hp = erts_produce_heap(hfact, hsz, reserve_size);",
+        "\tres = erts_bld_uint(&hp, NULL, stack_size);",
+        "\tbreak;",
+        "    }"
+      ]
+    },
+    {
+      "Marker": "case ERTS_PI_IX_GARBAGE_COLLECTION:",
+      "FirstLine": 2072,
+      "Lines": [
+        "    case ERTS_PI_IX_GARBAGE_COLLECTION: {",
+        "        DECL_AM(minor_gcs);",
+        "        Eterm t, mhs_map;",
+        "",
+        "        mhs_map = erts_max_heap_size_map(hfact, MAX_HEAP_SIZE_GET(rp),",
+        "                                         MAX_HEAP_SIZE_FLAGS_GET(rp));",
+        "",
+        "        hp = erts_produce_heap(hfact, 5*(3+2), reserve_size);",
+        "",
+        "\tt = TUPLE2(hp, AM_minor_gcs, make_small(GEN_GCS(rp))); hp += 3;",
+        "\tres = CONS(hp, t, NIL); hp += 2;",
+        "\tt = TUPLE2(hp, am_fullsweep_after, make_small(MAX_GEN_GCS(rp))); hp += 3;",
+        "\tres = CONS(hp, t, res); hp += 2;",
+        "",
+        "\tt = TUPLE2(hp, am_min_heap_size, make_small(MIN_HEAP_SIZE(rp))); hp += 3;",
+        "\tres = CONS(hp, t, res); hp += 2;",
+        "\tt = TUPLE2(hp, am_min_bin_vheap_size, make_small(rp->min_vheap_size)); hp += 3;",
+        "\tres = CONS(hp, t, res); hp += 2;",
+        "",
+        "\tt = TUPLE2(hp, am_max_heap_size, mhs_map); hp += 3;",
+        "\tres = CONS(hp, t, res); hp += 2;",
+        "\tbreak;",
+        "    }",
+        "",
+        "    case ERTS_PI_IX_GARBAGE_COLLECTION_INFO: {"
+      ]
+    }
+  ],
+  "NoOriginalRuntimeExecuted": true
+}

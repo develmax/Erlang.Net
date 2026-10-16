@@ -1,5 +1,7 @@
 # Next executable tasks
 
+Part347: regenerate readiness from the corrected two-MFA ledger using the existing345Tool/7259report, publish the reporting change, then verify current-head CI. Continue actual pending original3456290/fd8 and corrected346real-peer8 audits. Develop a real process-owned resource/accounting model before claiming process_info physical compatibility; do not fabricate counters. Continue isolated TermOrder comparison/hash work after rebasing to347.
+
 Part346: publish the exact reviewed one-line collector correction and new manifest, run the original eight-case capture once at that head, and verify every typed outcome and cleanup receipt. Complete original345 ordinary6290/fd8 independently. Then continue bounded TermOrder comparison/hash source work and exact per-MFA compatibility audits.
 
 Part345: publish the exact7259/11 tested increment and verify current-head CI and pinned-original ordinary results. Complete independent native38-category checks for five type predicates before any promotion. Publish the separate346collector traversal correction and obtain eight complete real-peer observations; preserve both earlier failures and all partial evidence. Audit the concrete process_info physical-field differences separately; keep current3455/17/565 frozen.
