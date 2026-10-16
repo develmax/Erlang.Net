@@ -8,15 +8,15 @@ internal static class ProcessExitRegistrations
             ErlangModuleNames.Module,
             ErlangModuleNames.Link,
             2,
-            (context, arguments) =>
+            async (context, arguments) =>
         {
             bool priority = Priority(arguments[1], ProcessLinkOptionNames.Priority);
             if (arguments[0] is PortTerm port)
                 context.Runtime.Ports.Link(context, port, priority);
             else
-                context.Runtime.Link(context, CoreModules.PidValue(arguments[0]), priority);
+                await context.Runtime.LinkGuestAsync(context, CoreModules.PidValue(arguments[0]), priority).ConfigureAwait(false);
 
-            return ValueTask.FromResult<Term>(Term.A(ErlangBooleanAtoms.True));
+            return Term.A(ErlangBooleanAtoms.True);
         }
         );
         foreach (string name in new[] { ErlangModuleNames.Exit, ProcessExitFunctionNames.ExitSignal })

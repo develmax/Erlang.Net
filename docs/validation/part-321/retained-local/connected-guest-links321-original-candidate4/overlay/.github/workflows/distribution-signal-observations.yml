@@ -1,0 +1,135 @@
+name: Pinned OTP monitor and group leader observations
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  observations:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+      - name: Build standalone signal observation tool
+        id: signal-tool
+        shell: bash
+        env:
+          DOTNET_PROCESSOR_COUNT: 2
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts
+          dotnet build tools/Erlang.DistributionSignalObservations -m:1 --disable-build-servers -p:UseSharedCompilation=false 2>&1 | tee artifacts/signal-observation-tool-build.log
+      - name: Build and attest the pinned development compiler
+        id: pinned-build
+        if: ${{ !cancelled() && steps.signal-tool.outcome == 'success' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          {
+            echo "PINNED_BEAM_SOURCE_BEGIN $GITHUB_SHA"
+            git clone --depth 1 --branch OTP-29.1.1 https://github.com/erlang/otp.git artifacts/beam-otp-source
+            source_commit="$(git -C artifacts/beam-otp-source rev-parse HEAD)"
+            test "$source_commit" = ad05823719d77c8faee87348ea39513d4e2f99c5
+            echo "PINNED_BEAM_SOURCE_VERIFIED $source_commit"
+            cd artifacts/beam-otp-source
+            echo 'PINNED_BEAM_CONFIGURE --without-javac --without-wx --without-odbc --without-debugger --without-observer --without-et'
+            ./configure --prefix="$GITHUB_WORKSPACE/artifacts/beam-otp-oracle" --without-javac --without-wx --without-odbc --without-debugger --without-observer --without-et
+            echo 'PINNED_BEAM_MAKE -j2'
+            make -j2
+            echo 'PINNED_BEAM_INSTALL'
+            make install
+            test "$(cat "$GITHUB_WORKSPACE/artifacts/beam-otp-oracle/lib/erlang/releases/29/OTP_VERSION")" = 29.1.1
+            echo 'PINNED_BEAM_INSTALL_VERIFIED 29.1.1'
+          } 2>&1 | tee artifacts/beam-otp-build.log
+          python3 - <<'PY'
+          import hashlib, json, os, pathlib
+          root = pathlib.Path(os.environ['GITHUB_WORKSPACE'])
+          log = root / 'artifacts/beam-otp-build.log'
+          evidence = {
+              'SourceCommit': 'ad05823719d77c8faee87348ea39513d4e2f99c5',
+              'SourceTag': 'OTP-29.1.1',
+              'SourceBuildCompleted': True,
+              'InstalledOtpRoot': str(root / 'artifacts/beam-otp-oracle/lib/erlang'),
+              'SourceBuildLog': str(log),
+              'SourceBuildLogSha256': hashlib.sha256(log.read_bytes()).hexdigest().upper(),
+              'HarnessCommit': os.environ['GITHUB_SHA'],
+              'RunId': os.environ['GITHUB_RUN_ID'],
+              'RunAttempt': os.environ['GITHUB_RUN_ATTEMPT'],
+              'Job': os.environ['GITHUB_JOB'],
+              'RunnerOs': os.environ['RUNNER_OS'],
+              'ConfigureOptions': ['--without-javac','--without-wx','--without-odbc','--without-debugger','--without-observer','--without-et'],
+              'BuildArguments': ['make','-j2'],
+              'InstallArguments': ['make','install']
+          }
+          (root / 'artifacts/beam-source-build-evidence.json').write_text(json.dumps(evidence, indent=2) + '\n')
+          PY
+      - name: Capture five original signal scenarios in independent fresh VMs
+        if: ${{ !cancelled() && steps.signal-tool.outcome == 'success' && steps.pinned-build.outcome == 'success' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          dotnet run --project tools/Erlang.DistributionSignalObservations --no-build -- artifacts/beam-otp-oracle/lib/erlang artifacts/distribution-signal-observations artifacts/beam-source-build-evidence.json
+      - name: Observe public group leader assignment between two real original nodes
+        if: ${{ !cancelled() && steps.signal-tool.outcome == 'success' && steps.pinned-build.outcome == 'success' }}
+        shell: bash
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+          GROUP_LEADER_SOURCE_PLAN_SHA256: ACEE30ABEDDF9EF2572F50D0008699ADDE9B9F02C44470AD7C8E2AC5F58F948F
+        run: |
+          set -euo pipefail
+          python3 -B tools/Erlang.GroupLeaderOutboundObservations/collect.py \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/beam-otp-source" \
+            --otp-root "$GITHUB_WORKSPACE/artifacts/beam-otp-oracle/lib/erlang" \
+            --build-evidence "$GITHUB_WORKSPACE/artifacts/beam-source-build-evidence.json" \
+            --approved-source-plan-sha256 "$GROUP_LEADER_SOURCE_PLAN_SHA256" \
+            --output "$GITHUB_WORKSPACE/artifacts/group-leader-outbound318-original" \
+            2>&1 | tee artifacts/group-leader-outbound318-collector.log
+      - name: Observe public connected sends between two real original nodes
+        if: ${{ !cancelled() && steps.signal-tool.outcome == 'success' && steps.pinned-build.outcome == 'success' }}
+        shell: bash
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+          GUEST_CONNECTED_SEND_SOURCE_PLAN_SHA256: 7E14E4D608DAB6DC61AC1C08CFD53183CE9979FDCA178D2E84CB19811FA45399
+        run: |
+          set -euo pipefail
+          python3 -B tools/Erlang.GuestConnectedSendObservations/collect.py \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/beam-otp-source" \
+            --otp-root "$GITHUB_WORKSPACE/artifacts/beam-otp-oracle/lib/erlang" \
+            --build-evidence "$GITHUB_WORKSPACE/artifacts/beam-source-build-evidence.json" \
+            --approved-source-plan-sha256 "$GUEST_CONNECTED_SEND_SOURCE_PLAN_SHA256" \
+            --output "$GITHUB_WORKSPACE/artifacts/guest-connected-send319-original" \
+            2>&1 | tee artifacts/guest-connected-send319-collector.log
+      - name: Observe public connected links and unlinks between two original nodes
+        if: ${{ !cancelled() && steps.signal-tool.outcome == 'success' && steps.pinned-build.outcome == 'success' }}
+        shell: bash
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+          GUEST_CONNECTED_LINK_SOURCE_PLAN_SHA256: 5106A602867DA8CB30AF0F42E6384E543B576148D25BAF8FC4E685BDD6C76602
+        run: |
+          set -euo pipefail
+          python3 -B tools/Erlang.GuestConnectedLinkObservations/collect.py \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/beam-otp-source" \
+            --otp-root "$GITHUB_WORKSPACE/artifacts/beam-otp-oracle/lib/erlang" \
+            --build-evidence "$GITHUB_WORKSPACE/artifacts/beam-source-build-evidence.json" \
+            --approved-source-plan-sha256 "$GUEST_CONNECTED_LINK_SOURCE_PLAN_SHA256" \
+            --output "$GITHUB_WORKSPACE/artifacts/guest-connected-links321-original" \
+            2>&1 | tee artifacts/guest-connected-links321-collector.log
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: pinned-distribution-signal-observations
+          path: |
+            artifacts/distribution-signal-observations
+            artifacts/beam-otp-build.log
+            artifacts/beam-source-build-evidence.json
+            artifacts/signal-observation-tool-build.log
+            artifacts/group-leader-outbound318-original
+            artifacts/group-leader-outbound318-collector.log
+            artifacts/guest-connected-send319-original
+            artifacts/guest-connected-send319-collector.log
+            artifacts/guest-connected-links321-original
+            artifacts/guest-connected-links321-collector.log

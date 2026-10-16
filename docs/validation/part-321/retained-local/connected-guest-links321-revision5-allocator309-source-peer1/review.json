@@ -1,0 +1,32 @@
+{
+  "Status": "PASS_INDEPENDENT_SOURCE_ONLY_321_REVISION5_PENDING_LINK_RETIREMENT_IDENTITY_FIX",
+  "SourceFreezeSha256": "DAC752F6ABF7D734C5A2CAED3AFD19C32883FFD2418C11BAFE3F4D80CB330301",
+  "ParentActualGreenFreezeSha256": "D9370F456E3313C27A6E9917B4F5BC5EFDBA1C07DE6C80E572727365F74356C8",
+  "SourcePaths": 9,
+  "ChangedPaths": [
+    "src/Erlang.Runtime/ProcessRuntime.DistributionLinks.cs",
+    "tests/Erlang.Tests/DistributionGuestLinkHostChecks.cs"
+  ],
+  "SevenOtherSourceFilesRawExact": true,
+  "SingleRuntimeChangeConfinedToInboundLinkAdmissionGuard": true,
+  "ExistingUnlinkAckExitRetirementMethodsByteExact": true,
+  "AcceptedRetiredPendingLinkWithoutCompetingIdentityCanInstallBeforeQueuedRetirementExit": true,
+  "UnlinkIdAndPendingUnlinkStillSuppressOldAdmission": true,
+  "RetiredOldCandidateCannotReplaceDifferentCurrentIdentity": true,
+  "LiveNewCandidateCanReplaceOlderPendingUnlinkIdentity": true,
+  "LiveNewCandidateCannotOverwriteDifferentActiveIdentity": true,
+  "StaleAckAndTerminalExitStillRequireExactCapturedIdentity": true,
+  "ThreeNewLifecycleSubgroupsAuthored": true,
+  "ActualRawLinkCloseBeforeAdmitAsserted": true,
+  "ReplacementIdentityPreservedThroughOldCallbacksAndNewExitAsserted": true,
+  "PublicUnlinkThenRetireNoGhostExitAsserted": true,
+  "LiveInboundRelinkOldUnlinkAckThenNewExitAsserted": true,
+  "PriorGhostUnlinkAndAckControlsRetained": true,
+  "RequiredFutureFocusIncludesExistingDistributionRawSignalHostChecks": true,
+  "RequiredActualFullRerun": 6678,
+  "RequiredFinalNativePlanResealAfterRuntimeChange": true,
+  "OldF36dE70aAndMain8729GatesRemainHistoricalFailedAuthority": true,
+  "BuildSdkVmNativeNetworkMainGitMutationExecuted": false,
+  "RuntimeGreenNotClaimedBySourceReview": true,
+  "NoBlockingSourceFindings": true
+}

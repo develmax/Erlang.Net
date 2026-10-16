@@ -1,0 +1,45 @@
+{
+  "Status": "PASS_INDEPENDENT_EXACT_HEAD320_ACTUAL_ORIGINAL_TWO_NODE_GROUP_LEADER_FOUR_CONTRACTS",
+  "Head": "ab2e7b5c213460188e80e45111068a55bd4b4d69",
+  "Run": 38830364171,
+  "Job": 116747509057,
+  "Artifact": 12017440984,
+  "Attempt": 1,
+  "RawZipSha256": "3711C32A6A0336A1A575612C19FF9E4EFB99A75A309EB775AF6060EF111241CF",
+  "RawJobSha256": "7B4FB242FAF8F77731AFBAE32CB742B44702276B72AF61A65180127BCBCCEBE2",
+  "CollectorPublishedSourceSha256": "75E3C12528769649AEA8E56A535781CF09D55E2FE8DC5CBF3E42B021D03AEDA5",
+  "SourcePlanSha256": "ACEE30ABEDDF9EF2572F50D0008699ADDE9B9F02C44470AD7C8E2AC5F58F948F",
+  "PinnedSourceFilesVerified": 6,
+  "RawCollectorFilesRehashed": 57,
+  "ActualOriginalNodes": 2,
+  "ActualNodeNames": {
+    "server": "gl318_server_38decd5189f5@127.0.0.1",
+    "client": "gl318_client_38decd5189f5@127.0.0.1"
+  },
+  "BothNodesCompiledProbeAndDriverMd5BindActualCapturedBeam": true,
+  "ActualCompilerExitZeroAndOwnedProcessesReaped": true,
+  "OriginalContracts": [
+    "connected_leader_observed",
+    "same_sender_last_update_observed",
+    "dead_leader_accepted_and_observed",
+    "dead_remote_target_accepted"
+  ],
+  "SixOrderedOriginalOperations": [
+    "first_set",
+    "first_probe",
+    "ordered_first_set",
+    "last_set",
+    "last_probe",
+    "dead_remote_set"
+  ],
+  "RawOutcomeAndWorkerServerCleanupRetained": true,
+  "PublishedTypedVerifierIndependentlyReplayed": true,
+  "ExistingFiveInputControllerCapturesComplete": true,
+  "ExistingFiveInputControllerSemanticCompatibilityClaim": false,
+  "New319SevenSendProbeExecuted": false,
+  "SdkExecutedByThisCollector": false,
+  "SdkLivePeerComparisonClaimed": false,
+  "NativeWireByteEqualityClaimed": false,
+  "NoVmNativeSdkCompilerOrGitMutationByReviewer": true,
+  "ToolsScope": "Remote collector captured launcher/emulator identities; this passive replay rehashes actual captured BEAM/source/raw files, not an exported complete OTP runtime binary tree."
+}

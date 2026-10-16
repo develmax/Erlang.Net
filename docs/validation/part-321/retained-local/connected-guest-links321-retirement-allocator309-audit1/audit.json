@@ -1,0 +1,57 @@
+{
+  "Status": "CONFIRMED_SOURCE_ORDERING_REGRESSION_321_FIX_PENDING_PEER",
+  "Files": [
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.DistributionLinks.cs",
+      "Bytes": 9183,
+      "Sha256": "3A2A175280B0DC49F70E0D64C5392FB59F17E60B818B35A08AFB825CC83D936E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.GuestLinks.cs",
+      "Bytes": 5928,
+      "Sha256": "34810D5A939320DADB913B62D892CA70F1F15C861844C2C0E8B591A7D9BC4D8B"
+    },
+    {
+      "Path": "src/Erlang.Runtime/DistributionProcessLink.cs",
+      "Bytes": 663,
+      "Sha256": "7E8EF30068AF3BD0EA9695CE1CB36FC7BA25565B7423C9E4D041313080D1554D"
+    },
+    {
+      "Path": "tests/Erlang.Tests/DistributionRawSignalHostChecks.cs",
+      "Bytes": 10355,
+      "Sha256": "F14A411C149472A2A83DF01E531D7337601CAEE78E9605D41AF28DD9F2797D9B"
+    },
+    {
+      "Path": "artifacts/root-part321-main1/source-freeze.json",
+      "Bytes": 9207,
+      "Sha256": "872916DEFB7170CD988197A03EBB4B88859D682A7EFB42A784E7CEBEB1FF7D93"
+    },
+    {
+      "Path": "artifacts/root-part321-main1/source-resource-closure.json",
+      "Bytes": 427793,
+      "Sha256": "E70A3810D719536D6B94D3D92C1E5236C41AE86B858A12A5901A5BE8C86F4FD7"
+    },
+    {
+      "Path": "artifacts/root-part321-main1/full-exit.json",
+      "Bytes": 155,
+      "Sha256": "87C8E3857E7FF6B4EFED241ED43076D585D963D30E447D634110FFDBBA18002A"
+    }
+  ],
+  "ObservedFullFailureFromRoot": "6677/6678 at DistributionRawSignalHostChecks182; current321 fails same old HOST while published320 passes60 controls, as Root reported. This auditor did not rerun.",
+  "SourceCausalChain": [
+    "Inbound LINK adds captured link to collection and queues installation callback; identity remains pending before admission.",
+    "CloseConnected retirement removes collection entry before owner mailbox admission and queues noconnection behind LINK.",
+    "Queued installation removes PendingLinkOrigins then rejects missing collection entry; no LinkIdentities map is installed.",
+    "Queued terminal noconnection requires captured LinkIdentities identity; absent map returns null, losing the required disconnected EXIT."
+  ],
+  "RequiredPreservationCases": [
+    "Queued LINK then retirement must deliver noconnection and end with no relation.",
+    "Queued LINK then queued inbound UNLINK then retirement must respect ordered unlink suppression.",
+    "Pending guest UNLINK marker before retirement must suppress old terminal effect.",
+    "New generation/relink identity must not be overwritten by old queued LINK or removed by old terminal EXIT.",
+    "Existing exact-image relink/ACK/EXIT controls must remain; do not blanket admit every removed collection entry."
+  ],
+  "FutureFocusMustInclude": "DistributionRawSignalHostChecks plus nine current focused groups and new pending-retirement/relink controls.",
+  "CurrentF36dE70aMain8729ProofAuthority": "HOLD_STALE_FOR_PENDING_REVISION",
+  "NoBuildRuntimeVmNativeNetworkMainGitMutationExecuted": true
+}

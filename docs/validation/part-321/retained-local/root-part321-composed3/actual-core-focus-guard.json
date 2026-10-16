@@ -1,0 +1,87 @@
+{
+  "Status": "PASS_ACTUAL321_NINE_GREEN_AND_TWO_EXACT_PUBLISHED320_MISSING_OUTPUT_RED",
+  "Passed": true,
+  "SourceFreeze": {
+    "Path": "artifacts/root-part321-composed3/focus-source-freeze.json",
+    "Bytes": 2488,
+    "Sha256": "D9370F456E3313C27A6E9917B4F5BC5EFDBA1C07DE6C80E572727365F74356C8"
+  },
+  "SourceClosure": {
+    "Path": "artifacts/root-part321-composed3/focus-source-resource-closure.json",
+    "Bytes": 426010,
+    "Sha256": "44C911B5D216EFADFB1B66474670825F3B3628286B61AD031ADA1C7C950CE940"
+  },
+  "GreenSourceFiles": 2307,
+  "OwnedCSharp": 9,
+  "GreenHostGroups": 9,
+  "LifecycleSubgroups": 9,
+  "GreenReport": {
+    "Path": "artifacts/root-part321-composed3/actual-green-focus.json",
+    "Bytes": 2176,
+    "Sha256": "F776257175780427B66E0CC6A01513CA9823590EC6E9D0ADA0B387BFDA3043B4"
+  },
+  "HistoricalSourceFreeze": {
+    "Path": "artifacts/root-part321-historical-red2/source-freeze.json",
+    "Bytes": 942,
+    "Sha256": "EFA93A25765F8FB1314CB646867A652D42ED5E2B419E4FD038556CD9945AD95E"
+  },
+  "HistoricalSourceClosure": {
+    "Path": "artifacts/root-part321-historical-red2/source-resource-closure.json",
+    "Bytes": 425445,
+    "Sha256": "449488CDA88441A67DFDEC39DD6D2DBB3809BC86CD142482D473220ED8E5A0F0"
+  },
+  "HistoricalProduction320RawExact": true,
+  "SharedHostSourcesExact": [
+    "tests/Erlang.Tests/DistributionGuestLinkHostNames.cs",
+    "tests/Erlang.Tests/DistributionGuestLinkPublicRouteHostChecks.cs"
+  ],
+  "HistoricalMissingLinkAndUnlinkReports": [
+    {
+      "Path": "artifacts/root-part321-historical-red2/actual-link-red-focus.json",
+      "Bytes": 2177,
+      "Sha256": "7BF9A91626E9BC1479D6FEAB54D5B6112261917D24063E6464FA46046840EAE7"
+    },
+    {
+      "Path": "artifacts/root-part321-historical-red2/actual-unlink-red-focus.json",
+      "Bytes": 2204,
+      "Sha256": "7A6CB1D4CBBD451F32A18F4176E1E92D699FF2299AF58FED0466CB91E3666008"
+    }
+  ],
+  "NineTokenStreamsExact": true,
+  "ThreeTestsOnlyOwnerObservationCorrection": [
+    "tests/Erlang.Tests/DistributionGuestLinkHostChecks.cs",
+    "tests/Erlang.Tests/DistributionGuestLinkHostNames.cs",
+    "tests/Erlang.Tests/DistributionGuestLinkPublicRouteHostChecks.cs"
+  ],
+  "FiveRuntimeAndProgramExactPreviouslyCompiledRevision2": true,
+  "FirstCompileCheckBindingFailurePreserved": {
+    "Path": "artifacts/root-part321-composed1/target-build.log",
+    "Bytes": 56775,
+    "Sha256": "B73FAA5146975D9A06D5166C253E9B6B9F27E8B15C6A10CFDDA51C345F2B4245"
+  },
+  "FirstTwoCrossActorQueryTimeoutReportsPreserved": [
+    {
+      "Path": "artifacts/root-part321-composed2/actual-green-focus.json",
+      "Bytes": 1816,
+      "Sha256": "0EA310CEF15A8786FD9A6D221B6549808879E6242FA06AF855B841F68BD87FC0"
+    },
+    {
+      "Path": "artifacts/root-part321-composed2/actual-inbound-regressions-focus.json",
+      "Bytes": 1843,
+      "Sha256": "E844F9B30A3DAA67751C36860E37F856D46DEBFBDC821AD0FF954CF7B7D1C210"
+    }
+  ],
+  "ActualOwnerPumpDiagnostic": {
+    "Path": "artifacts/guest-links321-query-diagnostic1/actual-report.json",
+    "Bytes": 1975,
+    "Sha256": "22E8263E808AA144B2254803B2F131EDB9B4137F8189257B51E174851CDE2BB5"
+  },
+  "NoPrivateStateWritesOrFakeRepliesInHostCorrection": true,
+  "NewOriginalSevenContractsExecuted": false,
+  "LiveSdkPeerOrNativeWireEqualityClaimed": false,
+  "GuardSource": {
+    "Path": "artifacts/root-guard321-core-focus.py",
+    "Bytes": 5252,
+    "Sha256": "18CE6D4F8204BB2B7BC36AC2FF1C94EDB1B4FFD59698B8A1A9614653E5C40249"
+  }
+}

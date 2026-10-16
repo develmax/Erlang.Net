@@ -1,0 +1,23 @@
+{
+  "Status": "FAIL",
+  "Identities": [
+    {
+      "Name": "Erlang.Tests",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part321-composed2\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "Sha256": "630985CEC9706421089028B5BD3C22BF3755C0190D25239180E03253C8617AD5"
+    },
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part321-composed2\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Sha256": "CA15B3DADDA98417990EAF3C573462DB52DAAEC399E93885171C55AA9A0AFA42"
+    }
+  ],
+  "Cases": [
+    {
+      "Name": "DistributionGuestLinkPublicRouteHostChecks:InboundUnlinkPublishes",
+      "Status": "FAIL",
+      "ElapsedMilliseconds": 10190,
+      "Exception": "System.TimeoutException: The operation has timed out.\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func\u00602 command) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part321-composed2\\candidate\\tests\\Erlang.Tests\\RuntimeNodeFoundationHostActor.cs:line 51\r\n   at Erlang.Tests.DistributionGuestLinkPublicRouteHostChecks.InboundUnlinkPublishes() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part321-composed2\\candidate\\tests\\Erlang.Tests\\DistributionGuestLinkPublicRouteHostChecks.cs:line 24\r\n   at Erlang.Tests.DistributionGuestLinkPublicRouteHostChecks.InboundUnlinkPublishes() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part321-composed2\\candidate\\tests\\Erlang.Tests\\DistributionGuestLinkPublicRouteHostChecks.cs:line 30\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\source-purge-stage315-focus\\Program.cs:line 22"
+    }
+  ]
+}

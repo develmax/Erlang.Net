@@ -1,0 +1,376 @@
+{
+  "Status": "PASS_PASSIVE_EXACT_FAILED_BEAM_OPCODE_ROLE_ANALYSIS",
+  "BeamSha256": "2306C0C21F7F0E95BE4934C0230FA042B8EF864EF67438EBB637274AE8D5136D",
+  "DecodedInstructions": 417,
+  "ExactCodeBytesConsumed": 1460,
+  "FirstUnsupportedRole": {
+    "Index": 4,
+    "Offset": 10,
+    "Opcode": 48,
+    "Name": "is_atom",
+    "Function": "run/1"
+  },
+  "UnsupportedRoles": [
+    "build_stacktrace",
+    "call_last",
+    "case_end",
+    "gc_bif1",
+    "is_atom",
+    "is_ne_exact",
+    "is_tuple",
+    "recv_marker_bind",
+    "recv_marker_clear",
+    "recv_marker_reserve",
+    "recv_marker_use",
+    "select_tuple_arity",
+    "test_arity",
+    "trim",
+    "try",
+    "try_case",
+    "try_end"
+  ],
+  "UnsupportedOccurrences": [
+    {
+      "Index": 4,
+      "Offset": 10,
+      "Opcode": 48,
+      "Name": "is_atom",
+      "Function": "run/1"
+    },
+    {
+      "Index": 6,
+      "Offset": 16,
+      "Opcode": 44,
+      "Name": "is_ne_exact",
+      "Function": "run/1"
+    },
+    {
+      "Index": 25,
+      "Offset": 81,
+      "Opcode": 175,
+      "Name": "recv_marker_reserve",
+      "Function": "run/1"
+    },
+    {
+      "Index": 33,
+      "Offset": 113,
+      "Opcode": 173,
+      "Name": "recv_marker_bind",
+      "Function": "run/1"
+    },
+    {
+      "Index": 49,
+      "Offset": 171,
+      "Opcode": 174,
+      "Name": "recv_marker_clear",
+      "Function": "run/1"
+    },
+    {
+      "Index": 55,
+      "Offset": 188,
+      "Opcode": 60,
+      "Name": "select_tuple_arity",
+      "Function": "run/1"
+    },
+    {
+      "Index": 63,
+      "Offset": 221,
+      "Opcode": 60,
+      "Name": "select_tuple_arity",
+      "Function": "run/1"
+    },
+    {
+      "Index": 76,
+      "Offset": 265,
+      "Opcode": 74,
+      "Name": "case_end",
+      "Function": "run/1"
+    },
+    {
+      "Index": 79,
+      "Offset": 271,
+      "Opcode": 74,
+      "Name": "case_end",
+      "Function": "run/1"
+    },
+    {
+      "Index": 104,
+      "Offset": 337,
+      "Opcode": 5,
+      "Name": "call_last",
+      "Function": "worker/1"
+    },
+    {
+      "Index": 115,
+      "Offset": 373,
+      "Opcode": 57,
+      "Name": "is_tuple",
+      "Function": "worker_loop/2"
+    },
+    {
+      "Index": 116,
+      "Offset": 377,
+      "Opcode": 60,
+      "Name": "select_tuple_arity",
+      "Function": "worker_loop/2"
+    },
+    {
+      "Index": 128,
+      "Offset": 431,
+      "Opcode": 124,
+      "Name": "gc_bif1",
+      "Function": "worker_loop/2"
+    },
+    {
+      "Index": 142,
+      "Offset": 487,
+      "Opcode": 5,
+      "Name": "call_last",
+      "Function": "worker_loop/2"
+    },
+    {
+      "Index": 152,
+      "Offset": 526,
+      "Opcode": 136,
+      "Name": "trim",
+      "Function": "worker_loop/2"
+    },
+    {
+      "Index": 158,
+      "Offset": 542,
+      "Opcode": 5,
+      "Name": "call_last",
+      "Function": "worker_loop/2"
+    },
+    {
+      "Index": 173,
+      "Offset": 594,
+      "Opcode": 104,
+      "Name": "try",
+      "Function": "capture/1"
+    },
+    {
+      "Index": 176,
+      "Offset": 608,
+      "Opcode": 105,
+      "Name": "try_end",
+      "Function": "capture/1"
+    },
+    {
+      "Index": 182,
+      "Offset": 626,
+      "Opcode": 106,
+      "Name": "try_case",
+      "Function": "capture/1"
+    },
+    {
+      "Index": 186,
+      "Offset": 637,
+      "Opcode": 160,
+      "Name": "build_stacktrace",
+      "Function": "capture/1"
+    },
+    {
+      "Index": 210,
+      "Offset": 713,
+      "Opcode": 175,
+      "Name": "recv_marker_reserve",
+      "Function": "-run/1-fun-1-/1"
+    },
+    {
+      "Index": 215,
+      "Offset": 727,
+      "Opcode": 173,
+      "Name": "recv_marker_bind",
+      "Function": "-run/1-fun-1-/1"
+    },
+    {
+      "Index": 221,
+      "Offset": 746,
+      "Opcode": 176,
+      "Name": "recv_marker_use",
+      "Function": "-run/1-fun-1-/1"
+    },
+    {
+      "Index": 232,
+      "Offset": 794,
+      "Opcode": 174,
+      "Name": "recv_marker_clear",
+      "Function": "-run/1-fun-1-/1"
+    },
+    {
+      "Index": 245,
+      "Offset": 834,
+      "Opcode": 136,
+      "Name": "trim",
+      "Function": "-run/1-fun-1-/1"
+    },
+    {
+      "Index": 249,
+      "Offset": 846,
+      "Opcode": 174,
+      "Name": "recv_marker_clear",
+      "Function": "-run/1-fun-1-/1"
+    },
+    {
+      "Index": 266,
+      "Offset": 908,
+      "Opcode": 175,
+      "Name": "recv_marker_reserve",
+      "Function": "-run/1-fun-0-/1"
+    },
+    {
+      "Index": 271,
+      "Offset": 930,
+      "Opcode": 173,
+      "Name": "recv_marker_bind",
+      "Function": "-run/1-fun-0-/1"
+    },
+    {
+      "Index": 311,
+      "Offset": 1100,
+      "Opcode": 176,
+      "Name": "recv_marker_use",
+      "Function": "-run/1-fun-0-/1"
+    },
+    {
+      "Index": 317,
+      "Offset": 1127,
+      "Opcode": 174,
+      "Name": "recv_marker_clear",
+      "Function": "-run/1-fun-0-/1"
+    },
+    {
+      "Index": 326,
+      "Offset": 1158,
+      "Opcode": 175,
+      "Name": "recv_marker_reserve",
+      "Function": "-run/1-fun-0-/1"
+    },
+    {
+      "Index": 330,
+      "Offset": 1174,
+      "Opcode": 173,
+      "Name": "recv_marker_bind",
+      "Function": "-run/1-fun-0-/1"
+    },
+    {
+      "Index": 335,
+      "Offset": 1190,
+      "Opcode": 57,
+      "Name": "is_tuple",
+      "Function": "-run/1-fun-0-/1"
+    },
+    {
+      "Index": 336,
+      "Offset": 1194,
+      "Opcode": 58,
+      "Name": "test_arity",
+      "Function": "-run/1-fun-0-/1"
+    },
+    {
+      "Index": 341,
+      "Offset": 1220,
+      "Opcode": 176,
+      "Name": "recv_marker_use",
+      "Function": "-run/1-fun-0-/1"
+    },
+    {
+      "Index": 347,
+      "Offset": 1247,
+      "Opcode": 174,
+      "Name": "recv_marker_clear",
+      "Function": "-run/1-fun-0-/1"
+    },
+    {
+      "Index": 362,
+      "Offset": 1305,
+      "Opcode": 174,
+      "Name": "recv_marker_clear",
+      "Function": "-run/1-fun-0-/1"
+    },
+    {
+      "Index": 367,
+      "Offset": 1321,
+      "Opcode": 174,
+      "Name": "recv_marker_clear",
+      "Function": "-run/1-fun-0-/1"
+    },
+    {
+      "Index": 375,
+      "Offset": 1344,
+      "Opcode": 174,
+      "Name": "recv_marker_clear",
+      "Function": "-run/1-fun-0-/1"
+    },
+    {
+      "Index": 380,
+      "Offset": 1360,
+      "Opcode": 174,
+      "Name": "recv_marker_clear",
+      "Function": "-run/1-fun-0-/1"
+    },
+    {
+      "Index": 384,
+      "Offset": 1370,
+      "Opcode": 174,
+      "Name": "recv_marker_clear",
+      "Function": "-run/1-fun-0-/1"
+    },
+    {
+      "Index": 388,
+      "Offset": 1380,
+      "Opcode": 174,
+      "Name": "recv_marker_clear",
+      "Function": "-run/1-fun-0-/1"
+    },
+    {
+      "Index": 392,
+      "Offset": 1390,
+      "Opcode": 174,
+      "Name": "recv_marker_clear",
+      "Function": "-run/1-fun-0-/1"
+    },
+    {
+      "Index": 396,
+      "Offset": 1400,
+      "Opcode": 174,
+      "Name": "recv_marker_clear",
+      "Function": "-run/1-fun-0-/1"
+    }
+  ],
+  "BangBodyDecodedInstructions": [
+    {
+      "Index": 87,
+      "Offset": 291,
+      "Opcode": 12,
+      "Name": "allocate",
+      "Function": "bang/2"
+    },
+    {
+      "Index": 88,
+      "Offset": 294,
+      "Opcode": 20,
+      "Name": "send",
+      "Function": "bang/2"
+    },
+    {
+      "Index": 89,
+      "Offset": 295,
+      "Opcode": 18,
+      "Name": "deallocate",
+      "Function": "bang/2"
+    },
+    {
+      "Index": 90,
+      "Offset": 297,
+      "Opcode": 19,
+      "Name": "return",
+      "Function": "bang/2"
+    }
+  ],
+  "WholeModuleRoleValidationBeforeExportSelection": true,
+  "ActualFailureBeforeBangExecution": true,
+  "NoAllowlistOrBeamMutation": true,
+  "SdkVmCompilerExecutedByAnalysis": false
+}

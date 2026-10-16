@@ -1,0 +1,86 @@
+{
+  "Status": "PASS_ACTUAL_REPAIRED321_TEN_GREEN_TWO_PUBLISHED320_MISSING_OUTPUT_RED_AND_FULL_REGRESSION_REPAIR",
+  "Passed": true,
+  "SourceFreeze": {
+    "Path": "artifacts/root-part321-composed5/focus-source-freeze.json",
+    "Bytes": 2600,
+    "Sha256": "47C76299A42E01356C7BADD65E845ED93AF53AAE931F054EB581ECA1866A21F5"
+  },
+  "SourceClosure": {
+    "Path": "artifacts/root-part321-composed5/focus-source-resource-closure.json",
+    "Bytes": 426010,
+    "Sha256": "DAFC935D62C41457400553BE6AD2608F47952E5BB265A2BB2577531C82091450"
+  },
+  "SourceFiles": 2307,
+  "CSharpPaths": 9,
+  "GreenHostGroups": 10,
+  "LifecycleSubgroups": 12,
+  "GreenReport": {
+    "Path": "artifacts/root-part321-composed5/actual-green-focus.json",
+    "Bytes": 2300,
+    "Sha256": "63542B4FF772395E0F406A2B411395FE1AA4836ED5FBC22BDCB6D03AF1554813"
+  },
+  "ActualAssemblies": [
+    {
+      "Name": "Erlang.Tests",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part321-composed5\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "Sha256": "CA703A0D36E2E5FDB5C033184C2E51963E7BBC96542FC48C4F61074090CD7C20"
+    },
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part321-composed5\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Sha256": "6427E8CFAF8E91D7EBC730C70050C24D6202FEF2A9447A6ABB648A6A1887B8B3"
+    },
+    {
+      "Name": "Erlang.Compiler",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part321-composed5\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Compiler.dll",
+      "Sha256": "AD094812A6F5F1D6C2D674E1D471D9E875886B10BA10D7A96AB7DACBB4D78544"
+    }
+  ],
+  "NineTokenStreamsExact": true,
+  "SharedPublished320PublicHostSourcesRawExact": true,
+  "HistoricalMissingOutputReports": [
+    {
+      "Path": "artifacts/root-part321-historical-red2/actual-link-red-focus.json",
+      "Bytes": 2177,
+      "Sha256": "7BF9A91626E9BC1479D6FEAB54D5B6112261917D24063E6464FA46046840EAE7"
+    },
+    {
+      "Path": "artifacts/root-part321-historical-red2/actual-unlink-red-focus.json",
+      "Bytes": 2204,
+      "Sha256": "7A6CB1D4CBBD451F32A18F4176E1E92D699FF2299AF58FED0466CB91E3666008"
+    }
+  ],
+  "PreservedFirstFullFailure": {
+    "Path": "artifacts/root-part321-main1/first-full-failure-receipt.json",
+    "Bytes": 4911,
+    "Sha256": "DB948C4DC131A6AE35B542FAB720A5D67E770DDFCD1B853C256C53BBE714DFE4"
+  },
+  "Previous321RawSignalFailure": {
+    "Path": "artifacts/root-part321-composed3/actual-raw-link-retirement-regression-focus.json",
+    "Bytes": 3347,
+    "Sha256": "ECB2D4ACC9231558F4F7F47CCB3378742F44564BBBF9604F7B19CA7D0C313866"
+  },
+  "Published320SameRawSignalPass": {
+    "Path": "artifacts/root-part321-composed3/actual-published320-raw-link-retirement-focus.json",
+    "Bytes": 797,
+    "Sha256": "17D5533DEB55057784184FCB0D8C75C0B324CDBAEEE8CB23B0EEC5FE7507DAAC"
+  },
+  "OnlyTwoChangedSourcesFromFirstFocusedCandidate": [
+    "src/Erlang.Runtime/ProcessRuntime.DistributionLinks.cs",
+    "tests/Erlang.Tests/DistributionGuestLinkHostChecks.cs"
+  ],
+  "Revision5SourcePeer": {
+    "Path": "artifacts/connected-guest-links321-revision5-allocator309-source-peer1/review.json",
+    "Bytes": 1803,
+    "Sha256": "7C62AB39FCED4C3D10D617CE8C3FBAA39574525AC33C8B9E70B12E5A750AA966"
+  },
+  "NoAssertionsWeakenedOrHistoricalFailuresOverwritten": true,
+  "NewOriginalCollectorExecuted": false,
+  "MainFullRerunSucceeded": false,
+  "GuardSource": {
+    "Path": "artifacts/root-guard321-repaired-focus.py",
+    "Bytes": 4764,
+    "Sha256": "D4A3B50AC233A251192C09086482C0E518C9009E1CB5B535B39F61E401457D69"
+  }
+}

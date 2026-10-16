@@ -1,0 +1,59 @@
+{
+  "Files": [
+    {
+      "Path": "configuration.json",
+      "Bytes": 8193,
+      "Sha256": "50C9B92E84AAC226F14C2318090C0334B8065D2B1993C9A74D749133BA97AD2C"
+    },
+    {
+      "Path": "guard321-main-native.py",
+      "Bytes": 9817,
+      "Sha256": "A589FF46992635EBC6D3EC18F62F44BC023CD9B41B56E9E106DE1C44220A3D3A"
+    },
+    {
+      "Path": "README.md",
+      "Bytes": 999,
+      "Sha256": "83FB3F4118217FE9FA86D90F36DB2278787D9EC7F1EF1C011C97AA170B04BF18"
+    },
+    {
+      "Path": "run321-main-native.py",
+      "Bytes": 8459,
+      "Sha256": "A01B366FA64DBEDFE2514B628E18D508193E032EAE768EC3B815C9E813BBB3E4"
+    }
+  ],
+  "AuthorFinalFreezeSha256": "F36D5712337293908866C52328623D8EB71B7FCE935AAFD846FC1906D1DE5DB1",
+  "AuthorClosureSha256": "E70A3810D719536D6B94D3D92C1E5236C41AE86B858A12A5901A5BE8C86F4FD7",
+  "ExpectedFull": [
+    6678,
+    0,
+    11
+  ],
+  "ExpectedSources": [
+    24,
+    9,
+    2316
+  ],
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Inputs": 1103,
+      "Sha256": "B609209500B1C7B62BD9DD7E1B19C6BAF46D27F844542BEE76F6C4628AAA60FA",
+      "Workflow": ".github/workflows/nif-pending-native.yml",
+      "Pin": "REVIEWED_SOURCE_PLAN_SHA256",
+      "AllNonFilesImportAbiPolicyFieldsUnchanged": true
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Inputs": 1128,
+      "Sha256": "E7DA36463AB22003BB433C9BA6CC3733B4596106223B43A71271C0BD1383A292",
+      "Workflow": ".github/workflows/nif-reallocation-native.yml",
+      "Pin": "REVIEWED_REALLOCATION_PLAN_SHA256",
+      "AllNonFilesImportAbiPolicyFieldsUnchanged": true
+    }
+  ],
+  "RequiredMainFreezeFullGuardSourcePeerToolRuntimeCliSha256": true,
+  "FutureMainSourcePeerRequired": true,
+  "ExecutionApproved": false,
+  "NativeExecuted": false,
+  "MainChanged": false
+}

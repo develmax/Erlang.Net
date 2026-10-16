@@ -1,0 +1,79 @@
+{
+  "Status": "PRESERVED_ACTUAL_FIRST_MAIN321_FULL_FAILURE_6677_OF_6678",
+  "Passed": 6677,
+  "Failed": 1,
+  "FailedTests": [
+    {
+      "Name": "runtime/distribution-raw-signal-link-unlink-exit-owned-process-signals",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Raw distribution signal assertion failed\r\n   at Erlang.Tests.DistributionRawSignalHostChecks.<>c__DisplayClass0_0.<Run>g__Check|13(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\DistributionRawSignalHostChecks.cs:line 254\r\n   at Erlang.Tests.DistributionRawSignalHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\DistributionRawSignalHostChecks.cs:line 182\r\n   at Erlang.Tests.DistributionRawSignalHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\DistributionRawSignalHostChecks.cs:line 189\r\n   at Erlang.Tests.DistributionRawSignalHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\DistributionRawSignalHostChecks.cs:line 189\r\n   at Erlang.Tests.DistributionRawSignalHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\DistributionRawSignalHostChecks.cs:line 189\r\n   at Erlang.Tests.DistributionRawSignalHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\DistributionRawSignalHostChecks.cs:line 189\r\n   at Erlang.Tests.DistributionRawSignalHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\DistributionRawSignalHostChecks.cs:line 189\r\n   at Erlang.Tests.DistributionRawSignalHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\DistributionRawSignalHostChecks.cs:line 189\r\n   at Erlang.Tests.DistributionRawSignalHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\DistributionRawSignalHostChecks.cs:line 189\r\n   at Erlang.Tests.DistributionRawSignalHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\DistributionRawSignalHostChecks.cs:line 189\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 4382",
+      "Milliseconds": 5052
+    }
+  ],
+  "SourceFreeze": {
+    "Path": "artifacts/root-part321-main1/source-freeze.json",
+    "Bytes": 9207,
+    "Sha256": "872916DEFB7170CD988197A03EBB4B88859D682A7EFB42A784E7CEBEB1FF7D93"
+  },
+  "SourceClosure": {
+    "Path": "artifacts/root-part321-main1/source-resource-closure.json",
+    "Bytes": 427793,
+    "Sha256": "E70A3810D719536D6B94D3D92C1E5236C41AE86B858A12A5901A5BE8C86F4FD7"
+  },
+  "SourceRowsRehashed": 2316,
+  "FullLog": {
+    "Path": "artifacts/root-part321-main1/full-validation.log",
+    "Bytes": 400710,
+    "Sha256": "F183F598B4CE6B763E4758361571A20E40F9778083B9DEE0953EA31585A09438"
+  },
+  "FullExit": {
+    "Path": "artifacts/root-part321-main1/full-exit.json",
+    "Bytes": 155,
+    "Sha256": "87C8E3857E7FF6B4EFED241ED43076D585D963D30E447D634110FFDBBA18002A"
+  },
+  "ImmutableTests": {
+    "Path": "artifacts/root-part321-main1/first-full-results-snapshot/tests.json",
+    "Bytes": 928592,
+    "Sha256": "5F989211835744281142F2A547D0DA4D60B7F5530C321E1E11F807BEE7BB44D2"
+  },
+  "RawRegeneratedMfas": {
+    "Path": "artifacts/root-part321-main1/first-full-results-snapshot/raw-supported-mfas.json",
+    "Bytes": 156901,
+    "Sha256": "BCF6415F7ADB839DC604F18F80CEC0FC6BA4D583209EBBE8701D4C1314572F0F"
+  },
+  "CurrentPostFailureBuildAssets": [
+    {
+      "Path": "tests/Erlang.Tests/bin/Debug/net10.0/Erlang.Tests.dll",
+      "Bytes": 3350528,
+      "Sha256": "D943C86A68246B9695034CD748A96BFCE4B2708A8938743B7AA0F96A4A4938B3"
+    },
+    {
+      "Path": "tests/Erlang.Tests/bin/Debug/net10.0/Erlang.Runtime.dll",
+      "Bytes": 1376256,
+      "Sha256": "3E04979A31766F551F7CC3866FB743F69C223C7237D8DB861016DE7113842BE0"
+    },
+    {
+      "Path": "src/Erlang.Runtime/bin/Debug/net10.0/Erlang.Runtime.dll",
+      "Bytes": 1376256,
+      "Sha256": "3E04979A31766F551F7CC3866FB743F69C223C7237D8DB861016DE7113842BE0"
+    },
+    {
+      "Path": "tools/Erlang.Tool/bin/Debug/net10.0/Erlang.Tool.dll",
+      "Bytes": 77312,
+      "Sha256": "B480ABBC09691067AEC9CCA2D2BA69939CCA65F94027DA61700A548C894CC6F4"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/bin/Debug/net10.0/Erlang.NifNativeBackend.dll",
+      "Bytes": 126976,
+      "Sha256": "D3E4631BE06CA9B04577D08571D6D79AC6611E8C73240D52D1C1F3666ECB00E5"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/bin/Debug/net10.0/Erlang.Runtime.dll",
+      "Bytes": 1376256,
+      "Sha256": "3E04979A31766F551F7CC3866FB743F69C223C7237D8DB861016DE7113842BE0"
+    }
+  ],
+  "IntegrationAndPackagesReached": false,
+  "FullNativeOrReadinessSuccessClaimed": false,
+  "CurrentRegeneratedManifestStillUnrepaired": true
+}

@@ -1,0 +1,23 @@
+{
+  "Status": "FAIL",
+  "Identities": [
+    {
+      "Name": "Erlang.Tests",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part321-historical-red2\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "Sha256": "03D8A90FAC9C14FC73E05053F4DF930C51B57D20AA04A49261C809A0B93B10F5"
+    },
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part321-historical-red2\\candidate\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Sha256": "0F00A90F406626404034123BEAE6D1ED3E8608BAD5C9556863F4CC31A3A94782"
+    }
+  ],
+  "Cases": [
+    {
+      "Name": "DistributionGuestLinkPublicRouteHostChecks:InboundUnlinkPublishes",
+      "Status": "FAIL",
+      "ElapsedMilliseconds": 233,
+      "Exception": "System.InvalidOperationException: Connected public guest link assertion failed\r\n   at Erlang.Tests.DistributionGuestLinkPublicRouteHostChecks.Check(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part321-historical-red2\\candidate\\tests\\Erlang.Tests\\DistributionGuestLinkPublicRouteHostChecks.cs:line 115\r\n   at Erlang.Tests.DistributionGuestLinkPublicRouteHostChecks.TakeNow(DistributionLifecycleHostFixture fixture) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part321-historical-red2\\candidate\\tests\\Erlang.Tests\\DistributionGuestLinkPublicRouteHostChecks.cs:line 104\r\n   at Erlang.Tests.DistributionGuestLinkPublicRouteHostChecks.InboundUnlinkPublishes() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part321-historical-red2\\candidate\\tests\\Erlang.Tests\\DistributionGuestLinkPublicRouteHostChecks.cs:line 28\r\n   at Erlang.Tests.DistributionGuestLinkPublicRouteHostChecks.InboundUnlinkPublishes() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-part321-historical-red2\\candidate\\tests\\Erlang.Tests\\DistributionGuestLinkPublicRouteHostChecks.cs:line 33\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\source-purge-stage315-focus\\Program.cs:line 22"
+    }
+  ]
+}

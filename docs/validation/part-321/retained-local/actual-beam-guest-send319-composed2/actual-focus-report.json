@@ -1,0 +1,31 @@
+{
+  "Passed": false,
+  "Host": "Erlang.Tests.ActualBeamGuestSendHostChecks",
+  "ExpectedSubgroups": 2,
+  "ActualHostProvenance": {},
+  "ActualLoadedAssemblies": [
+    {
+      "Name": "Erlang.Tests",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\actual-beam-guest-send319-composed2\\focus\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "Sha256": "B29997766E4CEB542E7B5C614855A4FD0433C62260B40C58C1D51EA1E18438CE",
+      "Mvid": "1fd8d992-27b0-40c0-9236-a7a188f07e91"
+    },
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\actual-beam-guest-send319-composed2\\focus\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Sha256": "098A33987486646CAD57C116ABF888BE9ADECA59862DD3390BC132EC6824A476",
+      "Mvid": "9c24c000-8006-47bf-a578-3127fce73f4a"
+    },
+    {
+      "Name": "Erlang.Terms",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\actual-beam-guest-send319-composed2\\focus\\bin\\Debug\\net10.0\\Erlang.Terms.dll",
+      "Sha256": "8BB99B2ACE65444DA76237297D256DCC2553933FA2ABCF3EE831E8908E1E9D95",
+      "Mvid": "2dafc2b2-2b2a-4a2e-bdc3-74db4f22c158"
+    }
+  ],
+  "Exception": "System.NotSupportedException: Unsupported BEAM opcode role in bounded linker\r\n   at Erlang.BeamLinkedCodeReader.ValidateRoles(BeamInstruction instruction, BeamStructure structure, IReadOnlyDictionary\u00602 functions, IReadOnlyList\u00601 lambdas) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\actual-beam-guest-send319-composed2\\candidate\\src\\Erlang.Runtime\\BeamLinkedCodeReader.cs:line 294\r\n   at Erlang.BeamLinkedCodeReader.Read(BeamStructure structure) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\actual-beam-guest-send319-composed2\\candidate\\src\\Erlang.Runtime\\BeamLinkedCodeReader.cs:line 92\r\n   at Erlang.BeamModule.Prepare(ReadOnlyMemory\u00601 bytes) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\actual-beam-guest-send319-composed2\\candidate\\src\\Erlang.Runtime\\BeamModule.cs:line 41\r\n   at Erlang.Tests.ActualBeamGuestSendHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\actual-beam-guest-send319-composed2\\candidate\\tests\\Erlang.Tests\\ActualBeamGuestSendHostChecks.cs:line 24\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\actual-beam-guest-send319-composed2\\focus\\Program.cs:line 15",
+  "OriginalExecuted": false,
+  "NativeFixtureExecuted": false,
+  "LiveSdkPeerCompared": false,
+  "NativeWireEqualityClaimed": false
+}

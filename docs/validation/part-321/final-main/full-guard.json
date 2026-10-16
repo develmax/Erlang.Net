@@ -1,0 +1,198 @@
+{
+  "Status": "PASS_ACTUAL_MAIN321_6678_FULL_AND_ELEVEN_INTEGRATIONS",
+  "Passed": 6678,
+  "Failed": 0,
+  "All6675PreviousOrderedNamesPreserved": true,
+  "AddedTestNames": [
+    "host_guest_connected_link_public_control",
+    "host_guest_connected_link_unlink_phases_ack_and_ownership",
+    "host_guest_connected_unlink_inbound_public_control"
+  ],
+  "IntegrationResults": 11,
+  "SourcePaths": 24,
+  "CSharpPaths": 9,
+  "SourceResourceClosureFiles": 2316,
+  "SourceFreezeSha256": "2B1A7264ECF3A7C891C30B95555E18D5C07ED85F1CF8131882AD807BB4CC2DE3",
+  "SourceClosureSha256": "FC9F58B6E32711ED8A1D7157D288F4CD1CBB04AC3B3EAD4556F46584A8DE220C",
+  "Registry": 509,
+  "PreviousRegistry": 509,
+  "PublicMfaDelta": 0,
+  "ErlangMfas": 351,
+  "ApiPresenceIsNotSemanticCompletion": true,
+  "RawRegistrySha256": "19824139853ED60BC6044D5C3874825EFDAAEA4E19930F8A0EF049B00DF8D7AF",
+  "RegistryMetadataDisclosuresRestored": [
+    {
+      "Mfa": [
+        "erlang",
+        "process_flag",
+        2
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending async_dist accepts only true/false, returns the previous per-process boolean and defaults false; a spawned child does not inherit it. Connected PID output ownership follows the captured flag. Pending/autoconnect and async_dist spawn options remain incomplete; process_flag/3 is unchanged."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "send",
+        2
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Registered guest already-connected remote PID sends use owned ordered publication, producer cancellation and generation isolation. Full option validation precedes state checks; connected noconnect may send. Immediate nosuspend conservatively returns WouldSuspend when capacity or captured sequential-trace state prevents admission, without advancing the token. Negotiated sender, trace and priority controls are bounded SDK adaptations; native scheduler phase parity is not claimed. Disconnected/pending autoconnect, remote named destinations/aliases and synchronous embedding helpers remain incomplete. SDK HOST/controller and original-only observations are separate; no live SDK-peer or native wire equality is claimed. With process_flag(async_dist,true), already-connected PID sends use bounded entry-owned accepted packet staging: accepted output survives sender death, retains original order and contributes staged plus transport AccountedBytes to dist_get_stat SendPend. False retains producer-owned319 behavior. A full independent staging budget raises system_limit before acceptance, including send_nosuspend; it is an SDK cap, not a native busy threshold or physical-memory measurement. Original new flag cases and live SDK-peer comparison remain separate gates."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "!",
+        2
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Registered guest already-connected remote PID sends use owned ordered publication, producer cancellation and generation isolation. Full option validation precedes state checks; connected noconnect may send. Immediate nosuspend conservatively returns WouldSuspend when capacity or captured sequential-trace state prevents admission, without advancing the token. Negotiated sender, trace and priority controls are bounded SDK adaptations; native scheduler phase parity is not claimed. Disconnected/pending autoconnect, remote named destinations/aliases and synchronous embedding helpers remain incomplete. SDK HOST/controller and original-only observations are separate; no live SDK-peer or native wire equality is claimed. With process_flag(async_dist,true), already-connected PID sends use bounded entry-owned accepted packet staging: accepted output survives sender death, retains original order and contributes staged plus transport AccountedBytes to dist_get_stat SendPend. False retains producer-owned319 behavior. A full independent staging budget raises system_limit before acceptance, including send_nosuspend; it is an SDK cap, not a native busy threshold or physical-memory measurement. Original new flag cases and live SDK-peer comparison remain separate gates."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "process_info",
+        1
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Supported logical default subset: twelve fields unregistered, thirteen registered; pinned total_heap_size, heap_size, stack_size and garbage_collection omitted. process_info/2 physical items remain unsupported; eight new original projections pending."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "dist_get_stat",
+        1
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending SendPend includes actual retained staged plus transport encoded AccountedBytes, including accepted async_dist PID output. Queue partitions are bounded SDK accounting, not ERTS driver allocation or whole physical memory. OutputBuffers counts consumed packets; counters and exact-generation retirement remain existing controls."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "send",
+        3
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Registered guest already-connected remote PID sends use owned ordered publication, producer cancellation and generation isolation. Full option validation precedes state checks; connected noconnect may send. Immediate nosuspend conservatively returns WouldSuspend when capacity or captured sequential-trace state prevents admission, without advancing the token. Negotiated sender, trace and priority controls are bounded SDK adaptations; native scheduler phase parity is not claimed. Disconnected/pending autoconnect, remote named destinations/aliases and synchronous embedding helpers remain incomplete. SDK HOST/controller and original-only observations are separate; no live SDK-peer or native wire equality is claimed. With process_flag(async_dist,true), already-connected PID sends use bounded entry-owned accepted packet staging: accepted output survives sender death, retains original order and contributes staged plus transport AccountedBytes to dist_get_stat SendPend. False retains producer-owned319 behavior. A full independent staging budget raises system_limit before acceptance, including send_nosuspend; it is an SDK cap, not a native busy threshold or physical-memory measurement. Original new flag cases and live SDK-peer comparison remain separate gates."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "send_nosuspend",
+        2
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Registered guest already-connected remote PID sends use owned ordered publication, producer cancellation and generation isolation. Full option validation precedes state checks; connected noconnect may send. Immediate nosuspend conservatively returns WouldSuspend when capacity or captured sequential-trace state prevents admission, without advancing the token. Negotiated sender, trace and priority controls are bounded SDK adaptations; native scheduler phase parity is not claimed. Disconnected/pending autoconnect, remote named destinations/aliases and synchronous embedding helpers remain incomplete. SDK HOST/controller and original-only observations are separate; no live SDK-peer or native wire equality is claimed. With process_flag(async_dist,true), already-connected PID sends use bounded entry-owned accepted packet staging: accepted output survives sender death, retains original order and contributes staged plus transport AccountedBytes to dist_get_stat SendPend. False retains producer-owned319 behavior. A full independent staging budget raises system_limit before acceptance, including send_nosuspend; it is an SDK cap, not a native busy threshold or physical-memory measurement. Original new flag cases and live SDK-peer comparison remain separate gates."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "send_nosuspend",
+        3
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Registered guest already-connected remote PID sends use owned ordered publication, producer cancellation and generation isolation. Full option validation precedes state checks; connected noconnect may send. Immediate nosuspend conservatively returns WouldSuspend when capacity or captured sequential-trace state prevents admission, without advancing the token. Negotiated sender, trace and priority controls are bounded SDK adaptations; native scheduler phase parity is not claimed. Disconnected/pending autoconnect, remote named destinations/aliases and synchronous embedding helpers remain incomplete. SDK HOST/controller and original-only observations are separate; no live SDK-peer or native wire equality is claimed. With process_flag(async_dist,true), already-connected PID sends use bounded entry-owned accepted packet staging: accepted output survives sender death, retains original order and contributes staged plus transport AccountedBytes to dist_get_stat SendPend. False retains producer-owned319 behavior. A full independent staging budget raises system_limit before acceptance, including send_nosuspend; it is an SDK cap, not a native busy threshold or physical-memory measurement. Original new flag cases and live SDK-peer comparison remain separate gates."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "group_leader",
+        2
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Registered guest connected-remote assignment uses owned ordered publication with capacity waits, producer cancellation and generation isolation. Disconnected/pending autoconnect and the legacy synchronous embedding setter remain incomplete. SDK controller HOST and original two-node observations are separate roles; no live SDK-peer or native wire equality is claimed."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "load_nif",
+        2
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Exact pinned indirect BIF only: apply/3 and external-fun invocation return the original bad_lib error. Successful literal native loading, the default instruction handler and general native ABI remain incomplete."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "alloc_info",
+        1
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "CLR sys_alloc metadata only; m=dotnet_native_memory is a declared backend adaptation. Recognized unsupported allocators raise notsup. Full OTP allocator/carrier sizes and disabled-backend profiles remain unsupported."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "alloc_sizes",
+        1
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "CLR sys_alloc metadata only; m=dotnet_native_memory is a declared backend adaptation. Recognized unsupported allocators raise notsup. Full OTP allocator/carrier sizes and disabled-backend profiles remain unsupported."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "memory",
+        0
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Measured CLR SDK-observed payload profile within the loaded SDK type universe: real backing identities, process slot/mailbox payloads and joined native backing-request bytes. ETS has no storage implementation. Excludes CLR headers, unrelated application heaps, JIT, OS footprint and ERTS allocator/physical byte parity; captures are not atomic across sources."
+    },
+    {
+      "Mfa": [
+        "erlang",
+        "memory",
+        1
+      ],
+      "Raw": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+      "Derived": "Measured CLR SDK-observed payload profile within the loaded SDK type universe: real backing identities, process slot/mailbox payloads and joined native backing-request bytes. ETS has no storage implementation. Excludes CLR headers, unrelated application heaps, JIT, OS footprint and ERTS allocator/physical byte parity; captures are not atomic across sources."
+    }
+  ],
+  "ConnectedLinkUnlinkScopeUpdated": [
+    [
+      "erlang",
+      "link",
+      1
+    ],
+    [
+      "erlang",
+      "unlink",
+      1
+    ],
+    [
+      "erlang",
+      "link",
+      2
+    ]
+  ],
+  "FourteenPriorCustomLimitsExact": true,
+  "ProcessFlag3ExactParent": true,
+  "ExistingGroupLeader318AndAsync320LimitsPreserved": true,
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Inputs": 1103,
+      "Sha256": "7A0FFC3749A293FF996C8E4AD0D934D5DADFB5E4A2E741BCC9E2FCB536BA03BE",
+      "Workflow": ".github/workflows/nif-pending-native.yml",
+      "Pin": "REVIEWED_SOURCE_PLAN_SHA256",
+      "AllNonFilesImportAbiPolicyFieldsUnchanged": true
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Inputs": 1128,
+      "Sha256": "ACD132BD477573A6D474E32FE3391FE246CCD5507A3F806C38D5907305B41AC8",
+      "Workflow": ".github/workflows/nif-reallocation-native.yml",
+      "Pin": "REVIEWED_REALLOCATION_PLAN_SHA256",
+      "AllNonFilesImportAbiPolicyFieldsUnchanged": true
+    }
+  ],
+  "CollectorOriginalExecutedByFullPipeline": false,
+  "NativeFixtureExecutedByFullPipeline": false,
+  "PreviousFailedMain1": {
+    "Path": "artifacts/root-part321-main1/first-full-failure-receipt.json",
+    "Sha256": "DB948C4DC131A6AE35B542FAB720A5D67E770DDFCD1B853C256C53BBE714DFE4"
+  },
+  "FirstFull6677FailureNotRelabeled": true,
+  "FullExecutionContext": "Outside sandbox",
+  "GuardSourceSha256": "3FACB9974C8FF5E463E5E8F6185B7B50C205047A03DCAE98E2696BB6DA00EC7E"
+}

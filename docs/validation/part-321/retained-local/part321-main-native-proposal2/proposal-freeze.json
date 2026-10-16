@@ -1,0 +1,68 @@
+{
+  "Files": [
+    {
+      "Path": "configuration.json",
+      "Bytes": 10678,
+      "Sha256": "2D7A85822E78ACA6752A6B8F6835F040D5AFFC95868D801128EF4F2B7113E1A9"
+    },
+    {
+      "Path": "guard321-main-native.py",
+      "Bytes": 9977,
+      "Sha256": "3EF5DED7A0AEF776E2167FE32F8C775C95D1E04E75B0199FD270D7E79FD2472D"
+    },
+    {
+      "Path": "README.md",
+      "Bytes": 962,
+      "Sha256": "2A66C777F7F3052EF53147EF52C8F0FA7887A504E88D5E12A39F196BCD540077"
+    },
+    {
+      "Path": "run321-main-native.py",
+      "Bytes": 8522,
+      "Sha256": "5AA8BE6588C4967D21B87B685989E73B5AAA1CC48FD72AE35B43D2305EA7C2C2"
+    }
+  ],
+  "PreviousStaleProposalSha256": "F81F63F39AC883FE85146C2F78371C1390B5A60CFE1BD66F187DEDE20F1521F2",
+  "AuthorFinalFreezeSha256": "F4A0BB9A8365170872829FC460F67465D9785B51F2E8C32D42DCDE0078E933AB",
+  "AuthorClosureSha256": "FC9F58B6E32711ED8A1D7157D288F4CD1CBB04AC3B3EAD4556F46584A8DE220C",
+  "ActualMain2FreezeSha256": "2B1A7264ECF3A7C891C30B95555E18D5C07ED85F1CF8131882AD807BB4CC2DE3",
+  "ActualFullGuardSha256": "454F60F2F693D932A42A56DAED06F41EEC51A013B54342F9A623A2725DCE9BCB",
+  "IndependentPeer": {
+    "Path": "artifacts/root321-repaired-final-source-green-red-beam310-peer2.json",
+    "Sha256": "D707CADDF9893D367ACAD02A4DB0A24E960BCE05233E6255F783016D00A87A5A"
+  },
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Inputs": 1103,
+      "Sha256": "7A0FFC3749A293FF996C8E4AD0D934D5DADFB5E4A2E741BCC9E2FCB536BA03BE",
+      "Workflow": ".github/workflows/nif-pending-native.yml",
+      "Pin": "REVIEWED_SOURCE_PLAN_SHA256",
+      "AllNonFilesImportAbiPolicyFieldsUnchanged": true
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Inputs": 1128,
+      "Sha256": "ACD132BD477573A6D474E32FE3391FE246CCD5507A3F806C38D5907305B41AC8",
+      "Workflow": ".github/workflows/nif-reallocation-native.yml",
+      "Pin": "REVIEWED_REALLOCATION_PLAN_SHA256",
+      "AllNonFilesImportAbiPolicyFieldsUnchanged": true
+    }
+  ],
+  "ExpectedFull": [
+    6678,
+    0,
+    11
+  ],
+  "ExpectedSources": [
+    24,
+    9,
+    2316
+  ],
+  "PreviousFailedMain1": {
+    "Path": "artifacts/root-part321-main1/first-full-failure-receipt.json",
+    "Sha256": "DB948C4DC131A6AE35B542FAB720A5D67E770DDFCD1B853C256C53BBE714DFE4"
+  },
+  "ExecutionApproved": false,
+  "NativeExecuted": false,
+  "MainChanged": false
+}

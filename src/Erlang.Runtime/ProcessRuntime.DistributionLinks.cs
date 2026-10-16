@@ -46,8 +46,12 @@ public sealed partial class ProcessRuntime
                 lock (gate)
                 {
                     target.PendingLinkOrigins.Remove(link.Identity);
-                    if (!IsOwnedLiveNodeProcess(target))
+                    if (!IsOwnedLiveNodeProcess(target) || link.UnlinkId is not null || link.Identity.PendingUnlink is not null)
                         return null;
+                    if (target.LinkIdentities.TryGetValue(remote, out var current) && !ReferenceEquals(current, link.Identity) &&
+                        (current.PendingUnlink is null || !distributionProcessLinks.Contains(link)))
+                        return null;
+                    // An accepted LINK precedes its queued retirement EXIT even after removal from the live connection list.
                     target.LinkIdentities[remote] = link.Identity;
                     target.Links.Add(remote);
                     link.Established = true;
@@ -174,9 +178,14 @@ public sealed partial class ProcessRuntime
                 {
                     distributionProcessLinks.Remove(link);
                     if (!target.LinkIdentities.TryGetValue(remote, out var current) ||
-                        !ReferenceEquals(current, link.Identity) || current.PendingUnlink is not null ||
-                        !target.Links.Contains(remote))
+                        !ReferenceEquals(current, link.Identity))
                         return null;
+                    if (current.PendingUnlink is not null || !target.Links.Contains(remote))
+                    {
+                        RemoveDistributionLinkIdentity(link);
+
+                        return null;
+                    }
                     priority = target.PriorityLinks.Contains(remote);
                     RemoveDistributionLinkIdentity(link);
                 }

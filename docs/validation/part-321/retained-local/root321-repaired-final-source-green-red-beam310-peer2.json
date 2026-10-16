@@ -1,0 +1,50 @@
+{
+  "Status": "PASS_INDEPENDENT_REPAIRED321_FINAL_SOURCE_ACTUAL_FOCUS_AND_MAIN2_RECIPES",
+  "SourceFreezeSha256": "F4A0BB9A8365170872829FC460F67465D9785B51F2E8C32D42DCDE0078E933AB",
+  "SourceClosureSha256": "FC9F58B6E32711ED8A1D7157D288F4CD1CBB04AC3B3EAD4556F46584A8DE220C",
+  "SourcePaths": 24,
+  "CSharpPaths": 9,
+  "SourceFilesRehashed": 2316,
+  "ActualCompiledSourceFreezeSha256": "47C76299A42E01356C7BADD65E845ED93AF53AAE931F054EB581ECA1866A21F5",
+  "ActualCompiledClosureSha256": "DAFC935D62C41457400553BE6AD2608F47952E5BB265A2BB2577531C82091450",
+  "ActualGreenGuardSha256": "D553BC737358357FF7972E972DBCBAE16A4717F761C02ED407957DFB44314C4B",
+  "ActualGreenHostGroups": 10,
+  "ActualLifecycleSubgroups": 12,
+  "RawSignalExistingRegressionNowPass": true,
+  "NineCompiledSourcesRawExactAndTokenStreamsEqual": true,
+  "Parent320OutsideOwnedRowsExact": true,
+  "ActualGreenDllIdentitiesRehashed": true,
+  "HistoricalTwoPublicMissingOutputRedsSameHelpers": true,
+  "PreservedMain1Failure6677Of6678ProductCompatibilityRegression": true,
+  "Root3RawFailureAndPublished320RawPassIndependentlyRehashed": true,
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Inputs": 1103,
+      "Sha256": "7A0FFC3749A293FF996C8E4AD0D934D5DADFB5E4A2E741BCC9E2FCB536BA03BE",
+      "Workflow": ".github/workflows/nif-pending-native.yml",
+      "Pin": "REVIEWED_SOURCE_PLAN_SHA256",
+      "AllNonFilesImportAbiPolicyFieldsUnchanged": true
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Inputs": 1128,
+      "Sha256": "ACD132BD477573A6D474E32FE3391FE246CCD5507A3F806C38D5907305B41AC8",
+      "Workflow": ".github/workflows/nif-reallocation-native.yml",
+      "Pin": "REVIEWED_REALLOCATION_PLAN_SHA256",
+      "AllNonFilesImportAbiPolicyFieldsUnchanged": true
+    }
+  ],
+  "NativeNonFilesImportAbiPoliciesUnchanged": true,
+  "CollectorAuthorPeerPlanBindingsUnchanged": true,
+  "Main2Recipes": {
+    "part321-main2-gates-proposal1": "42346724EFBDBCAA82FEA51E576B4E794AB3CCD8505B1761A37626A750F452A1",
+    "compose321-final-proposal2": "595CCF70B2BFF8EF92BBC239AE32E046BDB3E8A2E811B4AEA8964F87384BB93B"
+  },
+  "Main2PromotionAllChecksBeforeWritesAndOnlySixPermittedDeltas": true,
+  "Main2FullGuardRequiresFreshActual6678AndElevenIntegrations": true,
+  "ComposerUsesImmutablePublished320NotFailedMainAsParentAuthority": true,
+  "NewOriginalCollectorOrFullMain2PassClaimed": false,
+  "ReviewerExecutedSdkVmNativeBuildMainGitMutation": false,
+  "NoBlockingFindings": true
+}

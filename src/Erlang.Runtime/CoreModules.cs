@@ -185,30 +185,30 @@ public static class CoreModules
      return Term.A(ErlangBooleanAtoms.True);
  }
         );
-        Add(
+        r.Register(
             ErlangModuleNames.Module,
             ErlangModuleNames.Link,
             1,
-            (c, a) =>
+            async (c, a) =>
  {
      if (a[0] is PortTerm port)
          c.Runtime.Ports.Link(c, port);
      else
-         c.Runtime.Link(c, PidValue(a[0]));
+         await c.Runtime.LinkGuestAsync(c, PidValue(a[0])).ConfigureAwait(false);
 
      return Term.A(ErlangBooleanAtoms.True);
  }
         );
-        Add(
+        r.Register(
             ErlangModuleNames.Module,
             ErlangModuleNames.Unlink,
             1,
-            (c, a) =>
+            async (c, a) =>
  {
      if (a[0] is PortTerm port)
          c.Runtime.Ports.Unlink(c, port);
      else
-         c.Runtime.Unlink(c, PidValue(a[0]));
+         await c.Runtime.UnlinkGuestAsync(c, PidValue(a[0])).ConfigureAwait(false);
 
      return Term.A(ErlangBooleanAtoms.True);
  }

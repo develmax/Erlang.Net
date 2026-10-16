@@ -1,0 +1,37 @@
+{
+  "Status": "PASS_SOURCE_ONLY_REPAIRED321_MAIN2_POST_FULL_NATIVE_PROPOSAL2",
+  "ProposalFreezeSha256": "6F627C5DE316D76C37377ED0C4E62E58A02BB95283DC0AEAF6464D0242FBF7FA",
+  "ConfigurationSha256": "2D7A85822E78ACA6752A6B8F6835F040D5AFFC95868D801128EF4F2B7113E1A9",
+  "RunnerSha256": "5AA8BE6588C4967D21B87B685989E73B5AAA1CC48FD72AE35B43D2305EA7C2C2",
+  "GuardSha256": "3EF5DED7A0AEF776E2167FE32F8C775C95D1E04E75B0199FD270D7E79FD2472D",
+  "Main2SourceFreezeSha256": "2B1A7264ECF3A7C891C30B95555E18D5C07ED85F1CF8131882AD807BB4CC2DE3",
+  "ActualFullGuardSha256": "454F60F2F693D932A42A56DAED06F41EEC51A013B54342F9A623A2725DCE9BCB",
+  "AllReferenceBytesRehashed": 42,
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Inputs": 1103,
+      "Sha256": "7A0FFC3749A293FF996C8E4AD0D934D5DADFB5E4A2E741BCC9E2FCB536BA03BE",
+      "Workflow": ".github/workflows/nif-pending-native.yml",
+      "Pin": "REVIEWED_SOURCE_PLAN_SHA256",
+      "AllNonFilesImportAbiPolicyFieldsUnchanged": true
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Inputs": 1128,
+      "Sha256": "ACD132BD477573A6D474E32FE3391FE246CCD5507A3F806C38D5907305B41AC8",
+      "Workflow": ".github/workflows/nif-reallocation-native.yml",
+      "Pin": "REVIEWED_REALLOCATION_PLAN_SHA256",
+      "AllNonFilesImportAbiPolicyFieldsUnchanged": true
+    }
+  ],
+  "FreshOutputBeforeThreeOnceOnlyBoundedRoles": true,
+  "SourceAndRecursiveDllJsonAndTrustedNativePinsBeforeAfter": true,
+  "ExactMain2AndFinalSourcePeerRoleBindings": true,
+  "StrictA820TypedReplayAndActual317GoldenLabelsPreserved": true,
+  "NoArgsNamespaceShadow": true,
+  "GuardRequiresActualExitZeroEmptyStderrFull6678AndDependencyAssets": true,
+  "PreviousFailedMain1Preserved": true,
+  "NoBlockingFindings": true,
+  "ReviewerExecutedNativeSdkVmBuildMainGitMutation": false
+}
