@@ -61,9 +61,11 @@ if a.mode == 'original':
     assert a.oracle and a.oracle.is_file() and a.otp_source
     actual = subprocess.check_output(['git', '-C', str(a.otp_source), 'rev-parse', 'HEAD'], text=True).strip()
     assert actual == PIN
-    version_files = list((a.oracle.parent.parent / 'releases').glob('*/OTP_VERSION'))
+    resolved_oracle = a.oracle.resolve(strict=True)
+    installed_root = resolved_oracle.parent.parent
+    version_files = list((installed_root / 'releases').glob('*/OTP_VERSION'))
     assert any(path.read_text().strip() == '29.1.1' for path in version_files)
-    save(a.out / 'original-provenance.json', dict(SourceCommit=actual, Oracle=binding(a.oracle), OtpVersionFiles=[binding(path) for path in version_files], Collector=binding(a.collector), SubjectCommit=a.subject_sha))
+    save(a.out / 'original-provenance.json', dict(SourceCommit=actual, Oracle=binding(a.oracle), ResolvedOracle=binding(resolved_oracle), InstalledOtpRoot=str(installed_root), OtpVersionFiles=[binding(path) for path in version_files], Collector=binding(a.collector), SubjectCommit=a.subject_sha))
 binaries = [binding(path) for path in sorted(a.collector.parent.glob('*.dll'))]
 subject_binaries = a.subject_root / 'tools/Erlang.Differential/bin/Debug/net10.0'
 subject_pins = []

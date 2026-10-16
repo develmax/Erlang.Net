@@ -16,3 +16,5 @@ Actual pre-promotion SDK receipts (original reports retained under artifacts, no
 
 - `named`: expected and actual `{ok,{killed,no_cleanup}}`; source SHA256 `DAFD7307B1FA93F54B7519DCD933BBF944FFC25551A9A04D314A7CD6BC9577E4`; report SHA256 `DE65624755336F945614B707608A5DE15CF5EB02835593974484BD554A7CCFFA`.
 - `anonymous`: expected and actual `{ok,{killed,no_cleanup}}`; source SHA256 `67560C058C98A0C42EFBAA8D2BB680F8077AA5F682F49CDE7888419E8E1F623D`; report SHA256 `A987C3B5FF093A56ABB824BF5C8BAAB4FB8352689C1C4536FCAC616DFE882D6E`.
+
+Post-publication correction: the public prefix/bin/erl entry is a symlink in the pinned Linux installation. Resolve the actual launcher before locating releases/29/OTP_VERSION under the installed Erlang root. The source commit and exact29.1.1 assertions remain mandatory; missing metadata remains a failure. This correction does not change either fixture, the collector binary, the target329 subject or any production code. Original execution on the corrected driver remains pending.
