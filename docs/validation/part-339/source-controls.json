@@ -1,0 +1,26 @@
+{
+  "Status": "PASS_ACTUAL_PASSIVE_COLLECTOR_SOURCE_CONTROLS",
+  "Controls": 12,
+  "Checks": [
+    "exact-seven-file-source-and-external-dependency-closure",
+    "wrong-manifest-digest",
+    "wrong-checkout-head",
+    "workflow-drift",
+    "external-dependency-drift",
+    "fixture-source-drift",
+    "undeclared-tool-file",
+    "relative-traversal",
+    "absolute-source",
+    "windows-drive-source",
+    "windows-separator-source",
+    "source-restored-exactly-after-all-controls"
+  ],
+  "SourceFreezeSha256": "2080B5FDAE3F93B731B97779AE13BDF33983685CBB0EE85ABDE5AEB05F0997A9",
+  "SourceManifestSha256": "C942C5C8CD4150A72F353F255D035A11CB74703F51B9314AE3C770FA381A43BE",
+  "SourceMirrorOnly": true,
+  "DeclaredScenarios": 12,
+  "SdkExecuted": false,
+  "ErlangCompilerOrVmExecuted": false,
+  "NetworkExecuted": false,
+  "MainEdited": false
+}

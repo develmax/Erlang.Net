@@ -1,0 +1,51 @@
+{
+  "Status": "SOURCE_ONLY_TWELVE_ORIGINAL_SCENARIOS_NOT_EXECUTED",
+  "PreviousCollectorSourceFreezeSha256": "0CD7B85FFEAC57AFF2597E953AE3B16286E4AA8FF551C766A6D37A2F9FCF080F",
+  "PreviousSourceManifestSha256": "AFBE1496B21C4F853A51E8D26C6DC3AF5940186F0D1AD7BEA2AC762A5D264091",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Cases": [
+    "inbound_plain",
+    "inbound_trace",
+    "inbound_badopt_trace",
+    "outbound_plain",
+    "outbound_trace",
+    "outbound_monitor_options",
+    "alias_input_explicit",
+    "alias_input_demonitor",
+    "alias_input_reply_demonitor",
+    "alias_input_trace",
+    "alias_output_send2",
+    "alias_output_trace_send3"
+  ],
+  "Files": [
+    {
+      "Path": ".github/workflows/connected-spawn-original.yml",
+      "Bytes": 2744,
+      "Sha256": "091FA18EC129E2AACF56AC1B498EA76D838668233730D8457CEE91E4EB1C641A"
+    },
+    {
+      "Path": "tools/Erlang.ConnectedSpawnOriginalObservations/collect-original.py",
+      "Bytes": 15039,
+      "Sha256": "B5D04E74FE476FE3C7DF53873E62F7A57A39AD5023F0151D86C50A03F9562059"
+    },
+    {
+      "Path": "tools/Erlang.ConnectedSpawnOriginalObservations/connected_spawn_probe.erl",
+      "Bytes": 13370,
+      "Sha256": "4421C0540E2CDF124271D0EA7D043CB0B76B45919F3FFB0D70FD0664DB147E3D"
+    },
+    {
+      "Path": "tools/Erlang.ConnectedSpawnOriginalObservations/README.md",
+      "Bytes": 2146,
+      "Sha256": "F17327A209A5245750CD00C983367F8B4DBF2E39834DD920D5571210BD2FA87A"
+    },
+    {
+      "Path": "tools/Erlang.ConnectedSpawnOriginalObservations/source-manifest.json",
+      "Bytes": 8844,
+      "Sha256": "C942C5C8CD4150A72F353F255D035A11CB74703F51B9314AE3C770FA381A43BE"
+    }
+  ],
+  "SourceManifestSha256": "C942C5C8CD4150A72F353F255D035A11CB74703F51B9314AE3C770FA381A43BE",
+  "SdkExecuted": false,
+  "OriginalExecuted": false,
+  "MainEdited": false
+}

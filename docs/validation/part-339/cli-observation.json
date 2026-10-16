@@ -1,0 +1,24 @@
+{
+  "Status": "ACTUAL_SOURCE_VERIFY_CLI_OBSERVED_EXIT0",
+  "Command": [
+    "python",
+    "-B",
+    "tools/Erlang.ConnectedSpawnOriginalObservations/collect-original.py",
+    "verify",
+    "--repository",
+    ".",
+    "--manifest-sha256",
+    "C942C5C8CD4150A72F353F255D035A11CB74703F51B9314AE3C770FA381A43BE",
+    "--expected-head",
+    "c8f46a6b60df1d0921df55855e617f8453adbb31"
+  ],
+  "ObservedToolResult": {
+    "Status": "SOURCE_VERIFIED",
+    "Head": "c8f46a6b60df1d0921df55855e617f8453adbb31",
+    "Cases": 12,
+    "SdkExecuted": false,
+    "OriginalExecuted": false
+  },
+  "Provenance": "Structured record of the successful preceding exec tool result; not a raw process-output file.",
+  "RepeatedForReceipt": false
+}
