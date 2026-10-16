@@ -5,7 +5,14 @@ using Erlang;
 using Erlang.Compiler;
 using Erlang.Otp;
 
+if (args.Length > 0 && args[0] == Erlang.Tests.TermOrderHostNames.ChildSwitch)
+    return Erlang.Tests.TermOrderProbeHostMain.Run(args);
+
 var tests = new List<(string Name, Func<Task> Body)>();
+Test(Erlang.Tests.TermOrderHostNames.DeepCompareTest, Erlang.Tests.TermOrderHostChecks.DeepCompare);
+Test(Erlang.Tests.TermOrderHostNames.DeepHashTest, Erlang.Tests.TermOrderHostChecks.DeepHash);
+Test(Erlang.Tests.TermOrderHostNames.ShallowTest, Erlang.Tests.TermOrderHostChecks.Shallow);
+Test(Erlang.Tests.TermOrderHostNames.SnapshotTest, Erlang.Tests.TermOrderHostChecks.Snapshot);
 foreach (var fixture in Erlang.Differential.SourceCallBindingCases.Controls)
     Test(fixture.Name, () => Erlang.Tests.SourceCallBindingHostChecks.Check(fixture.Name));
 Test(

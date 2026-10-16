@@ -1,0 +1,8 @@
+{
+  "Status": "PASSIVE_READER_SEPARATE_PACKAGE_MANIFEST_LOOKUP_FAILURE_NOT_CI_FAILURE",
+  "Finding": "The six package resource inputs use a separate manifest and several license paths are outside the 2751 source closure. Looking them up in the source-closure dictionary raised KeyError before result output.",
+  "Correction": "Read all six published package paths separately, require raw equality between published345 and346, recheck frozen raw local resource hashes and record only explicit canonical-LF publication differences. No package input or test expectation is changed.",
+  "SdkExecuted": false,
+  "MainModified": false,
+  "NetworkUsed": false
+}

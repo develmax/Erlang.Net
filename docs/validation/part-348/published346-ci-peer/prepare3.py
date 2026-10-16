@@ -1,0 +1,5 @@
+from pathlib import Path
+R=Path.cwd();O=R/'artifacts/successor346-ci-independent';s=(O/'review2.py').read_text(encoding='utf-8')
+s=s.replace("for row in package_resources['Files']:assert newbuild[row['Path']]==oldbuild[row['Path']] and sha(newbuild[row['Path']])==row['Sha256']", "packagepaths=[r['Path'] for r in package_resources['Files']];packageold=blobs(priorhead,packagepaths);packagenew=blobs(head,packagepaths);packageeol=[]\nfor row in package_resources['Files']:\n assert packagenew[row['Path']]==packageold[row['Path']]\n frozenlocal=(R/row['Path']).read_bytes();assert sha(frozenlocal)==row['Sha256'] and len(frozenlocal)==row['Bytes']\n if packagenew[row['Path']]!=frozenlocal:\n  assert packagenew[row['Path']].replace(b'\\r\\n',b'\\n')==frozenlocal.replace(b'\\r\\n',b'\\n');packageeol.append(row['Path'])")
+s=s.replace("'PackageResourcesRawExact':6", "'PublishedPackageResourcesRawExact345To346':6,'FrozenRawPackageInputHashesLocallyRechecked':6,'ExplicitPackagePublicationEolOnlyDifferences':packageeol,'SecondReaderManifestScopeRefusalPreserved':True")
+(O/'review3.py').write_text(s,encoding='utf-8')

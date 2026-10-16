@@ -1,0 +1,9 @@
+{
+  "Status": "PASSIVE_READER_CLOSURE_SCOPE_ASSUMPTION_FAILURE_NOT_CI_FAILURE",
+  "Finding": "The 2751-path frozen closure includes documentation and standalone collector inputs. The first reader allowed only three metadata changes, so refused five additional intentional AGENTS/CHANGELOG/collector changes before final output.",
+  "ActualChangedPaths": [".gitattributes", ".github/workflows/nif-reallocation-native.yml", "AGENTS.md", "CHANGELOG.md", "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json", "tools/Erlang.ProcLibRealPeerObservations/README.md", "tools/Erlang.ProcLibRealPeerObservations/collect-original.py", "tools/Erlang.ProcLibRealPeerObservations/source-manifest.json"],
+  "Correction": "Permit only this exact reviewed documentary/metadata/collector set; bind the collector delta to six frozen source hashes and its single while-condition correction. Continue requiring every C#/project/build/resource input unchanged.",
+  "SdkExecuted": false,
+  "MainModified": false,
+  "NetworkUsed": false
+}

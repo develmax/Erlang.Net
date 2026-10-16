@@ -1,0 +1,59 @@
+{
+  "Status": "PASS_SOURCE_AND_TRANSITIVE_INPUT_PREFLIGHT_NOT_SDK_FULL",
+  "ParentHead": "2ae381b4f0258d9846bb5b0fc7b9f00ed46b905b",
+  "SourceFreezeSha256": "08A9020739E9E8C3ADA1741FDBB099779B02D41ECF3D114C24E691DF3A2A488B",
+  "SourceClosureSha256": "A76624B096F08F6F6781EF2ACE25D1D268A04E39376DEC4F5416FDD05372FDFA",
+  "OwnedPaths": 25,
+  "ClosureRows": 2764,
+  "PackageResources": 6,
+  "ReadinessInputs": 20,
+  "PreviousTests7259": true,
+  "RegistryRows": 587,
+  "CompatibilityCounts": {
+    "Verified compatible": 5,
+    "Known differences": 19,
+    "Needs verification": 563
+  },
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Files": 1250,
+      "AddedPaths": [
+        "src/Erlang.Terms/TermComparisonStep.cs",
+        "src/Erlang.Terms/TermHashFrame.cs",
+        "src/Erlang.Terms/TermHashStep.cs",
+        "src/Erlang.Terms/TermHashStepKind.cs"
+      ],
+      "ChangedExistingPaths": [
+        "src/Erlang.Terms/TermOrder.cs"
+      ],
+      "NonFilesFieldsUnchanged": true,
+      "RawUtf8Lf": true,
+      "Sha256": "B0ACB753ABEAF19A74E862B2461E776307F922A14FF21795796A0E91603E5153",
+      "Workflow": ".github/workflows/nif-pending-native.yml",
+      "WorkflowSha256": "5C756BE7CC3180968C49AEEE2345DB6B2A465E3034BC0A78764D07B3FE31FA92"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Files": 1275,
+      "AddedPaths": [
+        "src/Erlang.Terms/TermComparisonStep.cs",
+        "src/Erlang.Terms/TermHashFrame.cs",
+        "src/Erlang.Terms/TermHashStep.cs",
+        "src/Erlang.Terms/TermHashStepKind.cs"
+      ],
+      "ChangedExistingPaths": [
+        ".gitattributes",
+        ".github/workflows/nif-pending-native.yml",
+        "src/Erlang.Terms/TermOrder.cs",
+        "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json"
+      ],
+      "NonFilesFieldsUnchanged": true,
+      "RawUtf8Lf": true,
+      "Sha256": "FE454A4107FB62DFF837DB88AB13C755788BC475B64D03EE13BC950D9F912126",
+      "Workflow": ".github/workflows/nif-reallocation-native.yml",
+      "WorkflowSha256": "4C7AE8E0FC4B4419DDF324BCB1C3A5EF0C40043FD9D4E6C10619F8538B8C5D89"
+    }
+  ],
+  "FullExecuted": false
+}

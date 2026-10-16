@@ -1,0 +1,9 @@
+# Part348 conditional Root delivery helpers
+
+These are source-only successor drafts of reviewed345 helpers. No promotion, registry restoration, Tool action or staging is executed while the Root-owned canonical full run is active. All actions refuse until the actual full and independent guard settle at7268/0, eleven integration outcomes and two packages, with exact25/2764/6inputs and35current compatibility bindings. The12 new bounded-child receipts must also settle successfully, retain complete streams and match the expected family/operation/depth matrix.
+
+Fixed actual parent347 is2ae381b4f0258d9846bb5b0fc7b9f00ed46b905b; source08A902 and closureA766 are bound in common348.py. Supply the actual independent guard path/hash and all plan/tool hashes through explicit CLI arguments. If the actual immutable guard has a different schema, preserve this draft and adapt only against its real fields; do not invent flags to satisfy the draft.
+
+Root sequence after actual completion/review: registry restoration once (Root owns it; do not duplicate); passive prospective plan; reviewed exact25 source promotion; bounded existing Tool readiness generation; final artifact-only docs overlay; explicit readiness/docs application; exact pathspec staging. No helper commits, pushes, dispatches a workflow or builds SDK projects. Preserve all587 registry rows, order and custom Limits,35source bindings and5/19/563 statuses.
+
+Keep actual original3456290/fd8 and corrected346real-peer8 pending until their raw results are independently verified. Private old tuple32768 compare/hash child failures and bounded green observations are local evidence, not native equivalence or performance results. Preserve initial CS1061 harness build failure, HOST lifecycle-capture source finding and package-resource raw-byte preflight refusal. The active full run is Root-owned; these scripts must not launch another validation.

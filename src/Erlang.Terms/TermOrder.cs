@@ -35,11 +35,12 @@ public static class TermOrder
         );
     }
 
-    internal static int CompareSnapshot(
+    private static int CompareCurrent(
         Term a,
         Term b,
         bool exact,
-        ref NodeComparisonContext context
+        ref NodeComparisonContext context,
+        Stack<IEnumerator<TermComparisonStep>> pending
     )
     {
         int rank = Rank(a).CompareTo(Rank(b));
@@ -107,57 +108,23 @@ public static class TermOrder
             case (FunctionTerm x, FunctionTerm y):
                 if (x.ExternalIdentity is { } left && y.ExternalIdentity is { } right)
                 {
-                    int module = CompareSnapshot(
-                        left.Module,
-                        right.Module,
-                        true,
-                        ref context
-                    );
-                    if (module != 0)
-                        return module;
-                    int function = CompareSnapshot(
-                        left.Function,
-                        right.Function,
-                        true,
-                        ref context
-                    );
+                    pending.Push(ExternalFunctionSteps(left, right).GetEnumerator());
 
-                    return function != 0 ? function : left.Arity.CompareTo(right.Arity);
+                    return 0;
                 }
                 if (x.ExternalIdentity is not null || y.ExternalIdentity is not null)
                     return (x.ExternalIdentity is not null).CompareTo(y.ExternalIdentity is not null);
                 if (x.LocalIdentity is { } localLeft && y.LocalIdentity is { } localRight)
                 {
-                    int module = CompareSnapshot(
-                        localLeft.Module,
-                        localRight.Module,
-                        true,
-                        ref context
-                    );
-                    if (module != 0)
-                        return module;
-                    int index = localLeft.Index.CompareTo(localRight.Index);
-                    if (index != 0)
-                        return index;
-                    int unique = CompareSnapshot(
-                        localLeft.Unique,
-                        localRight.Unique,
-                        true,
-                        ref context
-                    );
-                    if (unique != 0)
-                        return unique;
-                    int arity = x.Arity.CompareTo(y.Arity);
-                    if (arity != 0)
-                        return arity;
-                    int count = x.Environment.Count.CompareTo(y.Environment.Count);
+                    pending.Push(LocalFunctionSteps(
+                        x,
+                        y,
+                        localLeft,
+                        localRight,
+                        exact
+                    ).GetEnumerator());
 
-                    return count != 0 ? count : Sequence(
-                        x.Environment,
-                        y.Environment,
-                        exact,
-                        ref context
-                    );
+                    return 0;
                 }
                 if (x.LocalIdentity is not null || y.LocalIdentity is not null)
                     return (x.LocalIdentity is not null).CompareTo(y.LocalIdentity is not null);
@@ -165,95 +132,30 @@ public static class TermOrder
                 return x.Identity.CompareTo(y.Identity);
             case (TupleTerm x, TupleTerm y):
                 {
-                    int c = x.Items.Count.CompareTo(y.Items.Count);
+                    int count = x.Items.Count.CompareTo(y.Items.Count);
+                    if (count != 0)
+                        return count;
+                    pending.Push(SequenceSteps(x.Items, y.Items, exact).GetEnumerator());
 
-                    return c != 0 ? c : Sequence(
-                        x.Items,
-                        y.Items,
-                        exact,
-                        ref context
-                    );
+                    return 0;
                 }
             case (NativeRecordTerm x, NativeRecordTerm y):
-                {
-                    int c = CompareSnapshot(
-                        x.Module,
-                        y.Module,
-                        true,
-                        ref context
-                    );
-                    if (c != 0)
-                        return c;
-                    c = CompareSnapshot(
-                        x.Name,
-                        y.Name,
-                        true,
-                        ref context
-                    );
-                    if (c != 0)
-                        return c;
-                    c = x.IsExported.CompareTo(y.IsExported);
-                    if (c != 0)
-                        return c;
-                    c = x.FieldNames.Count.CompareTo(y.FieldNames.Count);
-                    if (c != 0)
-                        return c;
-                    c = Sequence(
-                        x.FieldNames,
-                        y.FieldNames,
-                        true,
-                        ref context
-                    );
+                pending.Push(RecordSteps(x, y, exact).GetEnumerator());
 
-                    return c != 0 ? c : Sequence(
-                        x.Values,
-                        y.Values,
-                        exact,
-                        ref context
-                    );
-                }
+                return 0;
             case (MapTerm x, MapTerm y):
                 {
-                    var leftEntries = x.Entries;
-                    var rightEntries = y.Entries;
-                    int c = leftEntries.Count.CompareTo(rightEntries.Count);
-                    if (c != 0)
-                        return c;
-                    c = Sequence(
-                        leftEntries.Select(e => e.Key).ToArray(),
-                        rightEntries.Select(e => e.Key).ToArray(),
-                        true,
-                        ref context
-                    );
+                    int count = x.Entries.Count.CompareTo(y.Entries.Count);
+                    if (count != 0)
+                        return count;
+                    pending.Push(MapSteps(x, y, exact).GetEnumerator());
 
-                    return c != 0 ? c : Sequence(
-                        leftEntries.Select(e => e.Value).ToArray(),
-                        rightEntries.Select(e => e.Value).ToArray(),
-                        exact,
-                        ref context
-                    );
+                    return 0;
                 }
             case (Cons, Cons):
-                while (a is Cons x && b is Cons y)
-                {
-                    int c = CompareSnapshot(
-                        x.Head,
-                        y.Head,
-                        exact,
-                        ref context
-                    );
-                    if (c != 0)
-                        return c;
-                    a = x.Tail;
-                    b = y.Tail;
-                }
+                pending.Push(ListSteps(a, b, exact).GetEnumerator());
 
-                return CompareSnapshot(
-                    a,
-                    b,
-                    exact,
-                    ref context
-                );
+                return 0;
             case (BitString x, BitString y):
                 for (int i = 0; i < Math.Min(x.BitLength, y.BitLength); i++)
                 {
@@ -317,26 +219,112 @@ public static class TermOrder
         }
     }
 
-    private static int Sequence(
-        IReadOnlyList<Term> a,
-        IReadOnlyList<Term> b,
+    internal static int CompareSnapshot(
+        Term a,
+        Term b,
         bool exact,
         ref NodeComparisonContext context
     )
     {
-        for (int i = 0; i < a.Count; i++)
+        var pending = new Stack<IEnumerator<TermComparisonStep>>();
+        var step = TermComparisonStep.Pair(a, b, exact);
+        try
         {
-            int c = CompareSnapshot(
-                a[i],
-                b[i],
-                exact,
-                ref context
-            );
-            if (c != 0)
-                return c;
+            while (true)
+            {
+                int comparison = step.Left is null
+                    ? step.Result
+                    : CompareCurrent(
+                        step.Left,
+                        step.Right!,
+                        step.Exact,
+                        ref context,
+                        pending
+                    );
+                if (comparison != 0)
+                    return comparison;
+                while (true)
+                {
+                    if (pending.Count == 0)
+                        return 0;
+                    var sequence = pending.Peek();
+                    if (sequence.MoveNext())
+                    {
+                        step = sequence.Current;
+                        break;
+                    }
+                    pending.Pop().Dispose();
+                }
+            }
         }
+        finally
+        {
+            foreach (var sequence in pending)
+                sequence.Dispose();
+        }
+    }
 
-        return 0;
+    private static IEnumerable<TermComparisonStep> SequenceSteps(
+        IReadOnlyList<Term> a, IReadOnlyList<Term> b, bool exact)
+    {
+        for (int i = 0; i < a.Count; i++)
+            yield return TermComparisonStep.Pair(a[i], b[i], exact);
+    }
+
+    private static IEnumerable<TermComparisonStep> ExternalFunctionSteps(
+        ExternalFunctionIdentity a, ExternalFunctionIdentity b)
+    {
+        yield return TermComparisonStep.Pair(a.Module, b.Module, true);
+        yield return TermComparisonStep.Pair(a.Function, b.Function, true);
+        yield return TermComparisonStep.Scalar(a.Arity.CompareTo(b.Arity));
+    }
+
+    private static IEnumerable<TermComparisonStep> LocalFunctionSteps(
+        FunctionTerm a,
+        FunctionTerm b,
+        LocalFunctionIdentity left,
+        LocalFunctionIdentity right,
+        bool exact
+    )
+    {
+        yield return TermComparisonStep.Pair(left.Module, right.Module, true);
+        yield return TermComparisonStep.Scalar(left.Index.CompareTo(right.Index));
+        yield return TermComparisonStep.Pair(left.Unique, right.Unique, true);
+        yield return TermComparisonStep.Scalar(a.Arity.CompareTo(b.Arity));
+        yield return TermComparisonStep.Scalar(a.Environment.Count.CompareTo(b.Environment.Count));
+        for (int i = 0; i < a.Environment.Count; i++)
+            yield return TermComparisonStep.Pair(a.Environment[i], b.Environment[i], exact);
+    }
+
+    private static IEnumerable<TermComparisonStep> RecordSteps(NativeRecordTerm a, NativeRecordTerm b, bool exact)
+    {
+        yield return TermComparisonStep.Pair(a.Module, b.Module, true);
+        yield return TermComparisonStep.Pair(a.Name, b.Name, true);
+        yield return TermComparisonStep.Scalar(a.IsExported.CompareTo(b.IsExported));
+        yield return TermComparisonStep.Scalar(a.FieldNames.Count.CompareTo(b.FieldNames.Count));
+        for (int i = 0; i < a.FieldNames.Count; i++)
+            yield return TermComparisonStep.Pair(a.FieldNames[i], b.FieldNames[i], true);
+        for (int i = 0; i < a.Values.Count; i++)
+            yield return TermComparisonStep.Pair(a.Values[i], b.Values[i], exact);
+    }
+
+    private static IEnumerable<TermComparisonStep> MapSteps(MapTerm a, MapTerm b, bool exact)
+    {
+        for (int i = 0; i < a.Entries.Count; i++)
+            yield return TermComparisonStep.Pair(a.Entries[i].Key, b.Entries[i].Key, true);
+        for (int i = 0; i < a.Entries.Count; i++)
+            yield return TermComparisonStep.Pair(a.Entries[i].Value, b.Entries[i].Value, exact);
+    }
+
+    private static IEnumerable<TermComparisonStep> ListSteps(Term a, Term b, bool exact)
+    {
+        while (a is Cons left && b is Cons right)
+        {
+            yield return TermComparisonStep.Pair(left.Head, right.Head, exact);
+            a = left.Tail;
+            b = right.Tail;
+        }
+        yield return TermComparisonStep.Pair(a, b, exact);
     }
 
     // Compare the exact binary rational represented by a double, without rounding a large integer.
@@ -355,86 +343,123 @@ public static class TermOrder
 
     public static int Hash(Term t)
     {
-        var h = new HashCode();
-        h.Add(Rank(t));
+        var pending = new Stack<TermHashFrame>();
+        pending.Push(new TermHashFrame(HashSteps(t).GetEnumerator()));
+        try
+        {
+            while (true)
+            {
+                var frame = pending.Peek();
+                if (frame.Steps.MoveNext())
+                {
+                    var step = frame.Steps.Current;
+                    if (step.Value is not null)
+                    {
+                        frame.PendingKind = step.Kind;
+                        pending.Push(new TermHashFrame(HashSteps(step.Value).GetEnumerator()));
+                    }
+                    else
+                    {
+                        frame.Consume(step.Kind, step.Hash);
+                    }
+                    continue;
+                }
+                int hash = frame.Accumulator.ToHashCode();
+                pending.Pop().Steps.Dispose();
+                if (pending.Count == 0)
+                    return hash;
+                var parent = pending.Peek();
+                parent.Consume(parent.PendingKind, hash);
+            }
+        }
+        finally
+        {
+            foreach (var frame in pending)
+                frame.Steps.Dispose();
+        }
+    }
+
+    private static IEnumerable<TermHashStep> HashSteps(Term t)
+    {
+        yield return TermHashStep.Scalar(Rank(t));
         switch (t)
         {
             case Integer x:
-                h.Add(0);
-                h.Add(x.Value);
+                yield return TermHashStep.Scalar(0);
+                yield return TermHashStep.Scalar(x.Value.GetHashCode());
                 break;
             case FloatTerm x:
-                h.Add(1);
-                h.Add(BitConverter.DoubleToInt64Bits(x.Value));
+                yield return TermHashStep.Scalar(1);
+                yield return TermHashStep.Scalar(BitConverter.DoubleToInt64Bits(x.Value).GetHashCode());
                 break;
             case Atom x:
-                h.Add(x.Name, StringComparer.Ordinal);
+                yield return TermHashStep.Scalar(StringComparer.Ordinal.GetHashCode(x.Name));
                 break;
             case Pid x:
-                h.Add(x.Id);
+                yield return TermHashStep.Scalar(x.Id.GetHashCode());
                 break;
             case ReferenceTerm x:
-                h.Add(x.FullId);
+                yield return TermHashStep.Scalar(x.FullId.GetHashCode());
                 break;
             case PortTerm x:
-                h.Add(x.Id);
+                yield return TermHashStep.Scalar(x.Id.GetHashCode());
                 break;
             case FunctionTerm x:
                 if (x.ExternalIdentity is { } identity)
                 {
-                    h.Add(identity.Module);
-                    h.Add(identity.Function);
-                    h.Add(identity.Arity);
+                    yield return TermHashStep.Child(identity.Module);
+                    yield return TermHashStep.Child(identity.Function);
+                    yield return TermHashStep.Scalar(identity.Arity);
                 }
                 else if (x.LocalIdentity is { } local)
                 {
-                    h.Add(local.Module);
-                    h.Add(local.Index);
-                    h.Add(local.Unique);
-                    h.Add(x.Arity);
+                    yield return TermHashStep.Child(local.Module);
+                    yield return TermHashStep.Scalar(local.Index);
+                    yield return TermHashStep.Child(local.Unique);
+                    yield return TermHashStep.Scalar(x.Arity);
                     foreach (var value in x.Environment)
-                        h.Add(value);
+                        yield return TermHashStep.Child(value);
                 }
                 else
                 {
-                    h.Add(x.Identity);
+                    yield return TermHashStep.Scalar(x.Identity.GetHashCode());
                 }
                 break;
             case TupleTerm x:
                 foreach (var item in x.Items)
-                    h.Add(item);
+                    yield return TermHashStep.Child(item);
                 break;
             case NativeRecordTerm x:
-                h.Add(x.Module);
-                h.Add(x.Name);
-                h.Add(x.IsExported);
+                yield return TermHashStep.Child(x.Module);
+                yield return TermHashStep.Child(x.Name);
+                yield return TermHashStep.Scalar(x.IsExported.GetHashCode());
                 foreach (var field in x.FieldNames)
-                    h.Add(field);
+                    yield return TermHashStep.Child(field);
                 foreach (var value in x.Values)
-                    h.Add(value);
+                    yield return TermHashStep.Child(value);
                 break;
             case MapTerm x:
-                int pairs = 0;
                 foreach (var item in x.Entries)
-                    pairs = unchecked(pairs + HashCode.Combine(item.Key, item.Value));
-                h.Add(x.Entries.Count);
-                h.Add(pairs);
+                {
+                    yield return TermHashStep.Child(item.Key, TermHashStepKind.MapKey);
+                    yield return TermHashStep.Child(item.Value, TermHashStepKind.MapValue);
+                }
+                yield return TermHashStep.Scalar(x.Entries.Count);
+                yield return new TermHashStep(null, 0, TermHashStepKind.MapPairs);
                 break;
             case Cons:
                 while (t is Cons c)
                 {
-                    h.Add(c.Head);
+                    yield return TermHashStep.Child(c.Head);
                     t = c.Tail;
                 }
-                h.Add(t);
+                yield return TermHashStep.Child(t);
                 break;
             case BitString x:
-                h.Add(x.BitLength);
+                yield return TermHashStep.Scalar(x.BitLength);
                 foreach (byte item in x.ToArray())
-                    h.Add(item);
+                    yield return TermHashStep.Scalar(item.GetHashCode());
                 break;
         }
-
-        return h.ToHashCode();
     }
 }

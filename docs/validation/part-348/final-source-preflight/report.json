@@ -1,0 +1,55 @@
+{
+  "Status": "PASS_SOURCE_ONLY_FINAL348_PREFLIGHT_BEFORE_FULL",
+  "ParentHead": "2ae381b4f0258d9846bb5b0fc7b9f00ed46b905b",
+  "SourceFreezeSha256": "08A9020739E9E8C3ADA1741FDBB099779B02D41ECF3D114C24E691DF3A2A488B",
+  "SourceClosureSha256": "A76624B096F08F6F6781EF2ACE25D1D268A04E39376DEC4F5416FDD05372FDFA",
+  "OwnedPaths": 25,
+  "ClosureRowsRehashed": 2764,
+  "UnownedCurrent347RawRowsRehashed": 2739,
+  "UnownedRawOrEolVariances": 0,
+  "PackageResourcesCurrentMainRawExact": 6,
+  "ReadinessInputsRehashed": 20,
+  "Registry": 587,
+  "PreviousPassed": 7259,
+  "AddedOrderedNames": 9,
+  "ActualFocusReportSha256": "8A3D6A489D882492E9BC3A372082BFE6E6B9667E8834D8C30D111A33730971BA",
+  "ActualBoundedChildReceiptsRehashed": 12,
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Rows": 1250,
+      "Sha256": "B0ACB753ABEAF19A74E862B2461E776307F922A14FF21795796A0E91603E5153",
+      "NewProductionHelperRows": [
+        "src/Erlang.Terms/TermComparisonStep.cs",
+        "src/Erlang.Terms/TermHashFrame.cs",
+        "src/Erlang.Terms/TermHashStep.cs",
+        "src/Erlang.Terms/TermHashStepKind.cs"
+      ],
+      "NonFilesPoliciesUnchanged": true
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Rows": 1275,
+      "Sha256": "FE454A4107FB62DFF837DB88AB13C755788BC475B64D03EE13BC950D9F912126",
+      "NewProductionHelperRows": [
+        "src/Erlang.Terms/TermComparisonStep.cs",
+        "src/Erlang.Terms/TermHashFrame.cs",
+        "src/Erlang.Terms/TermHashStep.cs",
+        "src/Erlang.Terms/TermHashStepKind.cs"
+      ],
+      "NonFilesPoliciesUnchanged": true
+    }
+  ],
+  "CurrentVerifiedSourceBindingsRehashed": 35,
+  "CompatibilityCounts": {
+    "Verified compatible": 5,
+    "Needs verification": 563,
+    "Known differences": 19
+  },
+  "AllPrevious587NonEvidenceFieldsAndEvidencePrefixPreserved": true,
+  "InitialPreSdkPackageEolRefusalPreservedSha256": "6BDAA5A1BFA4FB18515304F47AA87B3B52AB72AB8C10FDB3B53034D2894674FD",
+  "SdkExecutedByReviewer": false,
+  "MainModified": false,
+  "NetworkUsed": false,
+  "Disclosure": "Reviewer authored5algorithm; independent source/actual peers retained. This is finalcomposition/preflight review, not independent algorithm authorship or original/full completion."
+}

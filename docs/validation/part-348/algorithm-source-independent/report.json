@@ -1,0 +1,130 @@
+{
+  "Status": "PASS_SOURCE_ONLY_TERM_ORDER_ITERATIVE_AND_BOUNDED_HARNESS_FIRST_FOCUS_GATE",
+  "Passed": true,
+  "SourceFreezeSha256": "9496D9EF4FB6DB4DD32379B766815B71E53FDA6A226A75F14A4DFD6E8A227192",
+  "SourcePlanSha256": "4F9CCF3E4084ECC5EF9FEFCA46AEF14AE1C337745C3DCB7C76C88DB219482A1F",
+  "SourceRowsRehashed": 17,
+  "ProductionFiles": 5,
+  "ProductionParentHashesExact": true,
+  "OriginalPinnedInputsRehashed": 3,
+  "UnchangedMethodBodies": [
+    "private static int Rank(",
+    "public static int Compare(",
+    "private static int PidIdentity(",
+    "private static int PortIdentity(",
+    "private static int Codepoints(",
+    "private static int IntegerFloat("
+  ],
+  "Bindings": [
+    {
+      "Path": "artifacts/term-order-iterative-proposal/source/src/Erlang.Terms/TermComparisonStep.cs",
+      "Bytes": 333,
+      "Sha256": "83BA7948FEB1181FD58CCBF9FB2DB1F972D589C1849522B0015314BE217080E6"
+    },
+    {
+      "Path": "artifacts/term-order-iterative-proposal/source/src/Erlang.Terms/TermHashFrame.cs",
+      "Bytes": 863,
+      "Sha256": "BC8D6EEC6D10C975A4FBA29DA431A511CB92334B03FE9D24D9CDC93E8187AB0D"
+    },
+    {
+      "Path": "artifacts/term-order-iterative-proposal/source/src/Erlang.Terms/TermHashStep.cs",
+      "Bytes": 334,
+      "Sha256": "2788EF4B0EFE37C7EC43057477B927E9014C538A5C5873F22539BB8350BBBFF2"
+    },
+    {
+      "Path": "artifacts/term-order-iterative-proposal/source/src/Erlang.Terms/TermHashStepKind.cs",
+      "Bytes": 111,
+      "Sha256": "54B9FD9F04D2C72EA43289E669F1C813E82B7C4849F3B8D77CFE8EF84355C710"
+    },
+    {
+      "Path": "artifacts/term-order-iterative-proposal/source/src/Erlang.Terms/TermOrder.cs",
+      "Bytes": 16894,
+      "Sha256": "69E65255EE1B6FA446CD270C042E7354C21CA30A912C87B0C00F3D9DAE1E71D9"
+    },
+    {
+      "Path": "artifacts/term-order-iterative-proposal/harness/BaselineTermHash.cs",
+      "Bytes": 3276,
+      "Sha256": "8DF6983713A3BE108A72C3CF9C1E879FEE20295623B0B7EF88D54F12BFD086F7"
+    },
+    {
+      "Path": "artifacts/term-order-iterative-proposal/harness/Program.cs",
+      "Bytes": 1742,
+      "Sha256": "5F85363AEA6F6C3BAA4F5A8EDEFDF4112DB83B3EC504B07CF3882B3E3557D5D3"
+    },
+    {
+      "Path": "artifacts/term-order-iterative-proposal/harness/TermOrderProbe.csproj",
+      "Bytes": 401,
+      "Sha256": "969DBE538FA953F5FE17AB359599CD7E00E82AE8835BAD725C6CF4AD4EB091CF"
+    },
+    {
+      "Path": "artifacts/term-order-iterative-proposal/harness/TermOrderProbeChecks.cs",
+      "Bytes": 4775,
+      "Sha256": "768021C0410958D061DF4DCAD0EEFB224AA76E9696E1DEEC0CE0E55CF64929C4"
+    },
+    {
+      "Path": "artifacts/term-order-iterative-proposal/harness/TermOrderProbeNames.cs",
+      "Bytes": 1242,
+      "Sha256": "4CBF0F9244E4E90F5A3B3466329D88CD2F0AF9B49F9B5F22CEF1390100963481"
+    },
+    {
+      "Path": "artifacts/term-order-iterative-proposal/fixtures/fun_environment.erl",
+      "Bytes": 220,
+      "Sha256": "B14E18AF838FAEDF82B24A3DAC9FE22023A1DEEA0A5F11AAC77F2D05F8B554BB"
+    },
+    {
+      "Path": "artifacts/term-order-iterative-proposal/fixtures/list_head.erl",
+      "Bytes": 205,
+      "Sha256": "A3100882F1795E3FADAB276C58E2E60C37CE32D409EC1450F8E360551C7A4FBA"
+    },
+    {
+      "Path": "artifacts/term-order-iterative-proposal/fixtures/map_key_phases.erl",
+      "Bytes": 179,
+      "Sha256": "7A1EA7CB16B60B500A6FDF24C42FAA9DD14253591CFC701CEF067347C0731C8F"
+    },
+    {
+      "Path": "artifacts/term-order-iterative-proposal/fixtures/map_value.erl",
+      "Bytes": 211,
+      "Sha256": "D81125C0FB8312F513B0A80BCE5278D060F3C40259CF9CB5F079975D37539163"
+    },
+    {
+      "Path": "artifacts/term-order-iterative-proposal/fixtures/tuple.erl",
+      "Bytes": 201,
+      "Sha256": "B84CF80ABF9C812F255FC8800B80A42852CEF1CAA025A69A90E2200D10DD4A28"
+    },
+    {
+      "Path": "artifacts/term-order-iterative-proposal/README.md",
+      "Bytes": 3673,
+      "Sha256": "7B91CD172F155FDDE21EEEBB192399AF83026E1A2905EED96344CD8A096D554B"
+    },
+    {
+      "Path": "artifacts/term-order-iterative-proposal/run-child.py",
+      "Bytes": 2340,
+      "Sha256": "18C954EA5695D8F0546EE27596B884603A4E253FBB00A75DBD404789E5588393"
+    }
+  ],
+  "ReviewedContracts": [
+    "CompareSnapshot preserves one ref NodeComparisonContext across every queued child and callers that reuse it across map sorting.",
+    "LIFO continuation stack resumes the current sequence only after the complete yielded child; lazy scalar results retain the old short-circuit ordering.",
+    "Tuples compare count before elements; native records preserve module/name/export/count/all field names exact then values; maps preserve count/all exact keys then values under caller exactness.",
+    "External/local function identity order and captured environment exactness remain unchanged; cons loop compares heads then final improper/proper tail without CLR recursive descent.",
+    "Hash frames preserve scalar GetHashCode inputs and old HashCode.Add(Term) child hash contribution through Add(int); same-process HashCode.Combine of child integers preserves map pair fold and unchecked sum.",
+    "Cons hash retains flattened tails; frame accumulator is a mutable field on a reference object, and per-map key/pair accumulators are isolated per frame.",
+    "Current hash and comparison enumerators are disposed on early result and exception; no per-call memoization or all-siblings push changes identity or wide-term storage policy.",
+    "Harness constructs independent left/right/greater terms and prints loaded Terms DLL hash plus flushed CONSTRUCTED before deep operation; shallow independent old fold uses same process random seed.",
+    "Snapshot reflection carries the updated byref context between invocations and tests fresh-context visibility after identity publication; no production test hook is added.",
+    "Child capture validates finite32768 depth/60s maximum, starts no shell/descendants, joins direct child on normal exit/timeout/finally, and reports capture rather than semantic success."
+  ],
+  "Findings": [],
+  "ScopeLimits": [
+    "No SDK/style/build or managed child has been run by this review. Source risk is not a reproduced stack overflow.",
+    "First execution requires separately preserved red baseline and green candidate binaries/source hashes; classify failure from checkpoint/stderr/exit, not nonzero exit alone.",
+    "Controller records capture-only and returns zero even when child fails. Any PASS/red classification must inspect receipt and raw output; loaded DLL stdout identity must be checked against selected immutable binary.",
+    "Normal supported term objects contain non-null Term children; malformed host-only null child graphs are outside this source gate.",
+    "Portable five original cases are source-derived and unexecuted; native-record/signed-zero breadth, cooperative scheduling/cancellation and performance are not proven.",
+    "Internal HashCode preservation does not constitute erlang phash algorithm or stable numeric hash compatibility."
+  ],
+  "SdkExecuted": false,
+  "NativeExecuted": false,
+  "MainModified": false,
+  "NetworkUsed": false
+}

@@ -1,0 +1,10 @@
+Stack overflow.
+Repeated 613 times:
+--------------------------------
+   at Erlang.TermOrder.CompareSnapshot(Erlang.Term, Erlang.Term, Boolean, Erlang.NodeComparisonContext ByRef)
+   at Erlang.TermOrder.Sequence(System.Collections.Generic.IReadOnlyList`1<Erlang.Term>, System.Collections.Generic.IReadOnlyList`1<Erlang.Term>, Boolean, Erlang.NodeComparisonContext ByRef)
+--------------------------------
+   at Erlang.TermOrder.CompareSnapshot(Erlang.Term, Erlang.Term, Boolean, Erlang.NodeComparisonContext ByRef)
+   at Erlang.TermOrder.Compare(Erlang.Term, Erlang.Term, Boolean)
+   at Erlang.Term.Equals(Erlang.Term)
+   at Program.<Main>$(System.String[])

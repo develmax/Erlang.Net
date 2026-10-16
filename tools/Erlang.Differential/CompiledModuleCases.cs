@@ -643,6 +643,7 @@ public static class CompiledModuleCases
         .. RemoteSourceFunCases.Modules,
         .. ListLengthCases.Modules,
         .. SourceCallBindingCases.Modules,
-        .. TypePredicateCases.Modules
+        .. TypePredicateCases.Modules,
+        .. TermOrderCases.Modules
     ];
 }

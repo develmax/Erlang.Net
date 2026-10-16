@@ -1,0 +1,18 @@
+{
+  "Status": "BLOCKED_SOURCE1_HOST_FAILURE_CAPTURE_BOUNDARY",
+  "SourceFreezeSha256": "79120EB6599745E0E1AD2517535A1B34D81597BA193B095E9DFE7887C8681299",
+  "FrozenSourceRowsRehashed": 16,
+  "Production5ExactActuallyTested": true,
+  "Portable5LogicalSourceTextsExact": true,
+  "EarlyProbeBeforeTestRegistration": true,
+  "PreviousCatalogAndRegistrationsPreservedByAdditiveDiff": true,
+  "Finding": {
+    "Path": "tests/Erlang.Tests/TermOrderHostChecks.cs",
+    "Issue": "Kill/join/stream-wait exceptions bypass artifact creation and raw/receipt writes; timeout or exit race can lose owned-child failure evidence.",
+    "RequiredCorrection": "Allocate capture first, retain lifecycle exceptions and available raw streams with bounded cleanup, explicitly fail unjoined children; do not relax algorithm or assertions."
+  },
+  "ProductionAuthorshipDisclosure": "Reviewer authored private5algorithm and initialharness; this report independently audits integration changes, not an independent production-author audit. Prior independent production/actual peer7967/2EBC retained.",
+  "SdkExecuted": false,
+  "MainModified": false,
+  "NetworkUsed": false
+}

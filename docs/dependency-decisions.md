@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part348 — Use C# Stack/IEnumerator/HashCode and existing immutable term layouts; add no package or production BEAM dependency. Preserve CS1061 harness history, lifecycle-capture source finding and package raw-byte preflight refusal separately. Publish exact25source snapshots and lean text receipts, not runtime/ZIP/nupkg binaries. Keep inherited registry custom Limits and5/19/563 statuses.
+
 Part347 — Reporting/source-audit correction only: use existing345Tool for readiness, no SDK/full rerun and no runtime package. Physical accounting needs an explicit ownership model rather than invented numbers or node-wide GC substitutions. Preserve raw proof bytes through one attribute row and corresponding reallocation workflow seal.
 
 Part346 — Reuse the existing original-only collector, owned-process controls and passive typed reader; add no runtime package or BEAM dependency. Preserve pending1246 unchanged, update only attributes in reallocation1271 plus its workflow seal, and retain byte-exact controller/payload/workflow sources.

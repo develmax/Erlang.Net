@@ -1,0 +1,78 @@
+{
+  "Status": "PASS_ACTUAL_BOUNDED_TERM_ORDER_RED_GREEN_FOCUS_NOT_FULL_OR_ORIGINAL",
+  "SourceFreezeSha256": "FC6F8A65D947DD3067F0C5D3B867B99A69317051C4168CE1E70579E875F3B70F",
+  "TermsSourceClosureSha256": "3F769C46CF12F114FACEC314FD62AE754D71F5E6DD9A3FB53514DEFCED88BD66",
+  "Baseline345FullGuardSha256": "F25EF9185875392070FFBE9E9980C5C19B12091F08A54523E9963927EE586689",
+  "ActualRed": [
+    {
+      "Family": "tuple",
+      "Operation": "compare",
+      "Depth": 32768,
+      "ExitCode": 3221225725,
+      "TermsDllSha256": "B127B31D6DEFB244EC9130F14AE5CAD833D782EDD3CC8B2A84CDD8F93C30F3B8",
+      "ReceiptSha256": "08C474DDF3437C79E7E0AD77A9BB47ECC1594B41476000138BCFAD9365B7AD09",
+      "StderrSha256": "996C7FF4783A5C27AE0A3F3F371158859AE696ADB79D789FF3348F91AE04A61E",
+      "LoadedDllAndConstructedCheckpointVerified": true
+    },
+    {
+      "Family": "tuple",
+      "Operation": "hash",
+      "Depth": 32768,
+      "ExitCode": 3221225725,
+      "TermsDllSha256": "B127B31D6DEFB244EC9130F14AE5CAD833D782EDD3CC8B2A84CDD8F93C30F3B8",
+      "ReceiptSha256": "EBCF20E0287C0324E5AF6D62251D5F5ABA7E8F5227E442E685CB40512F54F16C",
+      "StderrSha256": "7C12B766BDBC362D763BC9BF546B5DF16776DF811F6BC4426791C0FCE1CC626D",
+      "LoadedDllAndConstructedCheckpointVerified": true
+    }
+  ],
+  "ActualGreenChildCases": 22,
+  "GreenOutcomesSha256": "BF884375BD8193FF4A37446401FF32AC9FD0C546DA696595B7D9A65C7961C8F0",
+  "GreenTermsDllSha256": "F78572B61A263455F4DA915629D99C078C0FB9CC526D1510F4C873324D06D90A",
+  "ShallowIndependentOldHashFoldAndCategoryChecksPassed": true,
+  "NodeComparisonContextSnapshotReflectionControlPassed": true,
+  "ProductionFiles": 5,
+  "StyleTokenPreservationChecked": true,
+  "ManagedPortableFixturesPassed": 5,
+  "ManagedFixtureResults": [
+    {
+      "Name": "fun_environment.erl",
+      "Passed": true,
+      "Result": "{ok,done}"
+    },
+    {
+      "Name": "list_head.erl",
+      "Passed": true,
+      "Result": "{ok,done}"
+    },
+    {
+      "Name": "map_key_phases.erl",
+      "Passed": true,
+      "Result": "{ok,done}"
+    },
+    {
+      "Name": "map_value.erl",
+      "Passed": true,
+      "Result": "{ok,done}"
+    },
+    {
+      "Name": "tuple.erl",
+      "Passed": true,
+      "Result": "{ok,done}"
+    }
+  ],
+  "ManagedFixtureStdoutSha256": "F5A1ED34D9E3C0CABE8E4824A5F5D4E8331DA94C0A820DB876F32B9361264694",
+  "OriginalPortableFixturesExecuted": false,
+  "InitialProbeBuildFailurePreserved": "artifacts/term-order-red-actual1/build-exit.json",
+  "HarnessOnlyRepair": "Read internal fallback FunctionTerm.Identity through test-only reflection, no production access change; unknown-function hash category added",
+  "SdkLaneReleased": true,
+  "MainModified": false,
+  "NetworkUsed": false,
+  "FullExecuted": false,
+  "KnownLimits": [
+    "Actual red established for nested tuples compare/hash only; other families have bounded green coverage, no baseline failure claim",
+    "Exact internal HashCode values preserved against sameprocess shallow original fold, not claimed as Erlang phash values",
+    "No native comparison or full integration/package run yet",
+    "Private candidate must rebase metadata/unowned inputs on published346 before futurefull; verifiedsourcebindings must be reviewed afterTermOrder change",
+    "Synchronous iterative traversal does not by itself add scheduler reductions/cancellation cooperation"
+  ]
+}
