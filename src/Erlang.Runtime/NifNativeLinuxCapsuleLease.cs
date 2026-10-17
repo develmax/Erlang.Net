@@ -5,14 +5,16 @@ internal sealed class NifNativeLinuxCapsuleLease : IDisposable
     private readonly object gate = new();
     private readonly NifNativeLinuxNamespace owner;
     private readonly FileStream file;
+    private readonly FileStream? experimentalTargetCopy;
     private nint pointer;
     internal nint Pointer => pointer;
 
-    internal NifNativeLinuxCapsuleLease(NifNativeLinuxNamespace owner, FileStream file, nint pointer)
+    internal NifNativeLinuxCapsuleLease(NifNativeLinuxNamespace owner, FileStream file, nint pointer, FileStream? experimentalTargetCopy = null)
     {
         this.owner = owner;
         this.file = file;
         this.pointer = pointer;
+        this.experimentalTargetCopy = experimentalTargetCopy;
     }
 
     public void Dispose()
@@ -37,7 +39,14 @@ internal sealed class NifNativeLinuxCapsuleLease : IDisposable
             }
             finally
             {
-                owner.ReleaseCapsule();
+                try
+                {
+                    experimentalTargetCopy?.Dispose();
+                }
+                finally
+                {
+                    owner.ReleaseCapsule();
+                }
             }
         }
     }

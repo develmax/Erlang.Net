@@ -3,7 +3,7 @@ ROOT=pathlib.Path.cwd().resolve()
 PLAN_SHA='83667FC235724A7E618C6DA8AAE36FF6BCCA0C4616E1C1AE83E1BA1F25A43995'
 plan_path=ROOT/'.validation/nif-callback361-source-plan.json'
 assert hashlib.sha256(plan_path.read_bytes()).hexdigest().upper()==PLAN_SHA
-changed={'tools/Erlang.NifNativeBackend/NifLinuxCallbackDriver.cs','tools/Erlang.NifLinuxCallbackFocus/Program.cs','.github/workflows/nif-entry-original.yml'}
+changed={'tools/Erlang.NifNativeBackend/NifLinuxCallbackDriver.cs','tools/Erlang.NifLinuxCallbackFocus/Program.cs','.github/workflows/nif-entry-original.yml','src/Erlang.Runtime/NifNativeLinuxNamespace.cs','src/Erlang.Runtime/NifNativeLinuxNamespaceApi.cs','src/Erlang.Runtime/NifNativeLinuxNamespaceNames.cs','src/Erlang.Runtime/NifNativeLinuxCapsuleLease.cs'}
 verified=[]
 for row in json.loads(plan_path.read_bytes())['Files']:
     path=(ROOT/row['Path']).resolve();assert path.is_relative_to(ROOT)

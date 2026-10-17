@@ -7,6 +7,8 @@ internal sealed unsafe class NifNativeLinuxNamespace : IDisposable
     private readonly object gate = new();
     private readonly NifNativeLinuxBridgeInput bridge;
     private readonly NifNativeEnvironmentAllocator allocator;
+    private FileStream? experimentalBridgeCopy;
+    private byte[] BridgeDescriptor => NifNativeLinuxNamespaceApi.Descriptor(experimentalBridgeCopy ?? bridge.File);
     private readonly nint identity;
     private NifNativeLinuxReallocationExtension? reallocation;
     private NifNativeBridgeTable* table;
@@ -32,7 +34,13 @@ internal sealed unsafe class NifNativeLinuxNamespace : IDisposable
         };
         try
         {
-            library = NifNativeLinuxNamespaceApi.Open(NifNativeLinuxNamespaceNames.NewNamespace, bridge.Descriptor);
+            if (NifNativeLinuxNamespaceApi.ExperimentalBaseCopies)
+            {
+                if (profile.ExpectedLibrarySha256 is null || profile.ReallocationEnabled)
+                    throw new NotSupportedException(NifNativeLinuxNamespaceNames.ExperimentalUnsupported);
+                experimentalBridgeCopy = NifNativeLinuxNamespaceApi.ExperimentalCopy(bridge.File, bridge.Hash);
+            }
+            library = NifNativeLinuxNamespaceApi.Open(NifNativeLinuxNamespaceNames.NewNamespace, BridgeDescriptor);
             identity = NifNativeLinuxNamespaceApi.Identity(library);
             table = (NifNativeBridgeTable*)NativeMemory.Alloc((nuint)sizeof(NifNativeBridgeTable));
             if (table == null)
@@ -68,7 +76,9 @@ internal sealed unsafe class NifNativeLinuxNamespace : IDisposable
             using var requestedBridge = NifNativeLinuxBridgeDeployment.Open(profile);
             if (!bridge.Hash.Equals(requestedBridge.Hash, StringComparison.OrdinalIgnoreCase))
                 throw new InvalidOperationException(NifNativeLinuxNamespaceNames.BridgeMismatch);
-            var dependencies = new List<byte[]> { bridge.Descriptor };
+            if (NifNativeLinuxNamespaceApi.ExperimentalBaseCopies && (profile.ExpectedLibrarySha256 is null || profile.ReallocationEnabled))
+                throw new NotSupportedException(NifNativeLinuxNamespaceNames.ExperimentalUnsupported);
+            var dependencies = new List<byte[]> { BridgeDescriptor };
             if (profile.ReallocationEnabled)
             {
                 if (profile.ReallocationBridgePath is not { } path || profile.ReallocationBridgeSha256 is not { } hash)
@@ -79,11 +89,25 @@ internal sealed unsafe class NifNativeLinuxNamespace : IDisposable
                     throw new InvalidOperationException(NifNativeLinuxNamespaceNames.BridgeMismatch);
                 dependencies.Add(reallocation.Descriptor);
             }
-            byte[] target = profile.ExpectedLibrarySha256 is not null
+            FileStream? experimentalTargetCopy = NifNativeLinuxNamespaceApi.ExperimentalBaseCopies
+                ? NifNativeLinuxNamespaceApi.ExperimentalCopy(verifiedTarget ?? throw new InvalidOperationException(NifNativeDiagnostics.BridgeContract), profile.ExpectedLibrarySha256!)
+                : null;
+            byte[] target = experimentalTargetCopy is not null
+                ? NifNativeLinuxNamespaceApi.Descriptor(experimentalTargetCopy)
+                : profile.ExpectedLibrarySha256 is not null
                 ? NifNativeLinuxNamespaceApi.Descriptor(verifiedTarget ?? throw new InvalidOperationException(NifNativeDiagnostics.BridgeContract))
                 : profile.NativeLibraryPath.UnixNullTerminated()[..^1];
             dependencies.Add(target);
-            FileStream capsule = NifNativeLinuxNamespaceApi.Capsule(NifNativeElfCapsule.Create(dependencies.ToArray()));
+            FileStream capsule;
+            try
+            {
+                capsule = NifNativeLinuxNamespaceApi.Capsule(NifNativeElfCapsule.Create(dependencies.ToArray()));
+            }
+            catch
+            {
+                experimentalTargetCopy?.Dispose();
+                throw;
+            }
             nint handle = 0;
             try
             {
@@ -92,7 +116,7 @@ internal sealed unsafe class NifNativeLinuxNamespace : IDisposable
                     throw new InvalidOperationException(NifNativeDiagnostics.BridgeContract);
                 capsules++;
 
-                return new(this, capsule, handle);
+                return new(this, capsule, handle, experimentalTargetCopy);
             }
             catch (Exception loadFailure)
             {
@@ -103,10 +127,11 @@ internal sealed unsafe class NifNativeLinuxNamespace : IDisposable
                 catch (Exception cleanupFailure)
                 {
                     capsules++;
-                    NifNativeLinuxNamespaceRetention.Retain(new NifNativeLinuxCapsuleLease(this, capsule, handle));
+                    NifNativeLinuxNamespaceRetention.Retain(new NifNativeLinuxCapsuleLease(this, capsule, handle, experimentalTargetCopy));
                     throw new AggregateException(loadFailure, cleanupFailure);
                 }
                 capsule.Dispose();
+                experimentalTargetCopy?.Dispose();
                 throw;
             }
         }
@@ -133,6 +158,8 @@ internal sealed unsafe class NifNativeLinuxNamespace : IDisposable
                 Reader = 0;
                 NativeMemory.Free(table);
                 table = null;
+                experimentalBridgeCopy?.Dispose();
+                experimentalBridgeCopy = null;
                 bridge.Dispose();
                 GC.KeepAlive(allocator);
             }
