@@ -16,7 +16,7 @@ run() ->
       {size_null_env,[{N,observe(1,make_map(N))} || N <- Sizes]},
       {size_guards,[{N,observe(0,make_map(N))} || N <- [0,32,33,8193]]},
       {size_values,[observe(0,M) || M <- [#{a=>#{b=>[1,2]}},
-        #{a=>binary:copy(<<7>>,65537),b=>1 bsl 200},#{1=>a,1.0=>b}]]},
+        #{a=>erlang:list_to_binary(lists:duplicate(65537,7)),b=>1 bsl 200},#{1=>a,1.0=>b}]]},
       {size_independent,observe(3,make_map(33))},
       {size_foreign_thread,observe(4,unused)},
       {size_retained,observe(5,unused)}

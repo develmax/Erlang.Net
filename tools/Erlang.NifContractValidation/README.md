@@ -11,3 +11,5 @@ Earlier local checkout attempts hit Windows path limits, then an initially empty
 Namespace run39028125433 failed before C compilation because artifacts/ did not yet exist. Preserve that failed acquisition; create only the output parent before creating the fresh probe output directory. C sources, namespace assertions and both original OTP contracts remain unchanged.
 
 The constructor successor checks registration before target ELF constructors in two simultaneous namespaces using the same unlinked target bytes. It remains an owned native loader probe until production integration and actual SDK validation complete.
+
+The map-size SDK run exposed an unavailable fixture dependency binary:copy/2 after native load succeeded. The successor constructs the same65537-byte binary with supported list_to_binary/1 and lists:duplicate/2; C source, callbacks and all eight observation predicates remain unchanged. The earlier SDK failure remains retained; this changed source requires a fresh original run and SDK comparison.
