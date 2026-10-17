@@ -5,15 +5,13 @@ namespace Erlang;
 
 internal static unsafe class NifNativeLinuxNamespaceApi
 {
-    internal static bool ExperimentalBaseCopies => Environment.GetEnvironmentVariable(NifNativeLinuxNamespaceNames.ExperimentalBaseCopiesVariable) == "1";
-
     internal static nint Open(nint domain, byte[] path)
     {
         byte[] terminated = new byte[checked(path.Length + 1)];
         path.CopyTo(terminated, 0);
         nint handle;
         fixed (byte* pointer = terminated)
-            handle = Dlmopen(ExperimentalBaseCopies ? NifNativeLinuxNamespaceNames.BaseNamespace : domain, pointer, NifNativeLinuxNamespaceNames.Immediate | (ExperimentalBaseCopies ? NifNativeLinuxNamespaceNames.DeepBind : 0));
+            handle = Dlmopen(domain, pointer, NifNativeLinuxNamespaceNames.Immediate);
         if (handle == 0)
         {
             string reason = Marshal.PtrToStringUTF8(Dlerror()) ?? NifNativeLinuxNamespaceNames.Unavailable;
@@ -25,7 +23,7 @@ internal static unsafe class NifNativeLinuxNamespaceApi
 
     internal static nint Identity(nint handle)
     {
-        if (Dlinfo(handle, NifNativeLinuxNamespaceNames.NamespaceRequest, out nint identity) != 0 || identity == 0 && !ExperimentalBaseCopies)
+        if (Dlinfo(handle, NifNativeLinuxNamespaceNames.NamespaceRequest, out nint identity) != 0 || identity == 0)
             throw new NifNativeLoadStageException(NifNativeDefaultLoaderNames.LoadFailed, new InvalidOperationException(NifNativeLinuxNamespaceNames.Unavailable));
 
         return identity;
@@ -40,28 +38,6 @@ internal static unsafe class NifNativeLinuxNamespaceApi
         catch (InvalidOperationException lookupFailure) when (lookupFailure.Message == NifNativeDiagnostics.BridgeContract)
         {
             throw new NifNativeLoadStageException(NifNativeDefaultLoaderNames.LoadFailed, lookupFailure);
-        }
-    }
-
-    internal static FileStream ExperimentalCopy(FileStream source, string expectedHash)
-    {
-        FileStream copy = Capsule([]);
-        try
-        {
-            source.Position = 0;
-            source.CopyTo(copy);
-            copy.Position = 0;
-            string actual = Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(copy));
-            if (!actual.Equals(expectedHash, StringComparison.OrdinalIgnoreCase))
-                throw new InvalidOperationException(NifNativeDiagnostics.BridgeContract);
-            copy.Position = 0;
-
-            return copy;
-        }
-        catch
-        {
-            copy.Dispose();
-            throw;
         }
     }
 

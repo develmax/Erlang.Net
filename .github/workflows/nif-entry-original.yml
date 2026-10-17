@@ -1,4 +1,4 @@
-name: Controlled base namespace copied-image reviewed-only experiment
+name: Controlled NEWLM host-thread and ordinary NIF loading validation
 on:
   workflow_dispatch:
     inputs:
@@ -36,13 +36,18 @@ jobs:
         shell: bash
         run: |
           if ! command -v gdb >/dev/null; then timeout 120s sudo apt-get install --yes --no-install-recommends gdb || echo "Debugger unavailable; bounded triage dump fallback retained"; fi
-      - name: Build explicit four-file base-copy runtime experiment
+      - name: Build only the owned host-thread bridge with retained original headers
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -B tools/Erlang.NifLinuxCallbackObservations/prepare-pthread.py
+      - name: Build NEWLM host-thread provider control
         shell: bash
         run: |
           set -euo pipefail
           dotnet --info
           dotnet build tools/Erlang.NifLinuxCallbackFocus/Erlang.NifLinuxCallbackFocus.csproj --disable-build-servers -m:1 -nr:false --nologo
-          cp artifacts/linux-callback17/bridge/Erlang.NifBridge.so tools/Erlang.NifLinuxCallbackFocus/bin/Debug/net10.0/Erlang.NifBridge.so
+          cp artifacts/linux-pthread-bridge/Erlang.NifBridge.so tools/Erlang.NifLinuxCallbackFocus/bin/Debug/net10.0/Erlang.NifBridge.so
       - name: Build managed-only discriminator from identical guest source
         shell: bash
         run: |
@@ -58,26 +63,49 @@ jobs:
             --expected-head "$GITHUB_SHA" \
             --focus "$GITHUB_WORKSPACE/tools/Erlang.NifLinuxManagedControlFocus/bin/Release/net10.0/Erlang.NifLinuxManagedControlFocus.dll" \
             --output "$GITHUB_WORKSPACE/artifacts/linux-managed-control"
-      - name: Execute traced full17 on reviewed route with distinct copied-image base namespace after preflights and joined-thread GC
+      - name: Build ordinary loading regression focus
         shell: bash
         run: |
           set -euo pipefail
-          python3 -B tools/Erlang.NifLinuxCallbackObservations/diagnose.py --source-plan "$GITHUB_WORKSPACE/$SOURCE_PLAN" --source-plan-sha256 "$SOURCE_PLAN_SHA"
-      - name: Compare reviewed34 rows against exact reused original artifacts
+          dotnet build tools/Erlang.NifOrdinaryLoaderFocus/Erlang.NifOrdinaryLoaderFocus.csproj -c Release --disable-build-servers -m:1 -nr:false --nologo
+          cp artifacts/linux-pthread-bridge/Erlang.NifBridge.so tools/Erlang.NifOrdinaryLoaderFocus/bin/Release/net10.0/Erlang.NifBridge.so
+      - name: Check ordinary origin, bare-name lookup and missing dependency against native loader
         shell: bash
         run: |
           set -euo pipefail
-          python3 -B tools/Erlang.NifLinuxCallbackObservations/compare-experiment.py --capture-root "$GITHUB_WORKSPACE/artifacts/linux-callback-base-copy-experiment" \
+          python3 -B tools/Erlang.NifOrdinaryLoaderObservations/run.py \
+            --expected-head "$GITHUB_SHA" \
+            --header-receipt "$GITHUB_WORKSPACE/artifacts/linux-callback17/size-native/native-build-receipt.json" \
+            --approved-header-receipt-sha256 "$(sha256sum artifacts/linux-callback17/size-native/native-build-receipt.json | cut -d' ' -f1)" \
+            --headers "$GITHUB_WORKSPACE/artifacts/linux-callback17/size-native/headers" \
+            --focus "$GITHUB_WORKSPACE/tools/Erlang.NifOrdinaryLoaderFocus/bin/Release/net10.0/Erlang.NifOrdinaryLoaderFocus.dll" \
+            --bridge-sha256 "$(sha256sum artifacts/linux-pthread-bridge/Erlang.NifBridge.so | cut -d' ' -f1)" \
+            --output "$GITHUB_WORKSPACE/artifacts/linux-ordinary-regressions"
+      - name: Execute full17 on both routes retaining original NEWLM target paths
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -B tools/Erlang.NifLinuxCallbackObservations/run-pthread.py --source-plan "$GITHUB_WORKSPACE/$SOURCE_PLAN" --source-plan-sha256 "$SOURCE_PLAN_SHA" --approved-admission-sha256 "$(sha256sum artifacts/linux-pthread-bridge/admission.json | cut -d' ' -f1)"
+      - name: Verify actual host-provider bindings and joined thread calls
+        shell: bash
+        run: python3 -B tools/Erlang.NifLinuxCallbackObservations/verify-pthread.py
+      - name: Compare all68 rows against exact reused original artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -B tools/Erlang.NifLinuxCallbackObservations/compare.py --capture-root "$GITHUB_WORKSPACE/artifacts/linux-callback-pthread-control" \
             --approved-size-completion-sha256 "$(sha256sum artifacts/linux-callback17/size-original/completion.json | cut -d' ' -f1)" \
             --approved-reference-completion-sha256 "$(sha256sum artifacts/linux-callback17/reference-original/completion.json | cut -d' ' -f1)" \
-            --approved-sdk-completion-sha256 "$(sha256sum artifacts/linux-callback-base-copy-experiment/sdk/completion.json | cut -d' ' -f1)" \
-            --approved-admission-sha256 "$(sha256sum artifacts/linux-callback17/bridge/admission.json | cut -d' ' -f1)" \
-            --output "$GITHUB_WORKSPACE/artifacts/linux-callback-base-copy-experiment/comparison.json"
+            --approved-sdk-completion-sha256 "$(sha256sum artifacts/linux-callback-pthread-control/sdk/completion.json | cut -d' ' -f1)" \
+            --approved-admission-sha256 "$(sha256sum artifacts/linux-pthread-bridge/admission.json | cut -d' ' -f1)" \
+            --output "$GITHUB_WORKSPACE/artifacts/linux-callback-pthread-control/comparison.json"
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: linux-callback-base-copy-experiment
+          name: linux-callback-pthread-control
           path: |
-            artifacts/linux-callback-base-copy-experiment/**
+            artifacts/linux-callback-pthread-control/**
             artifacts/linux-callback17/reuse-proof.json
             artifacts/linux-managed-control/**
+            artifacts/linux-pthread-bridge/**
+            artifacts/linux-ordinary-regressions/**

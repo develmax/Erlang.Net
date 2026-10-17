@@ -7,5 +7,6 @@ internal sealed record NifLinuxCallbackAdmission(
     string BridgeSha256,
     string BridgeReceiptPath,
     string BridgeReceiptSha256,
-    NifLinuxCallbackImage[] Images
+    NifLinuxCallbackImage[] Images,
+    string? BridgeSubjectHead = null
 );

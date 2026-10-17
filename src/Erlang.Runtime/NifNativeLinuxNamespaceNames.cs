@@ -2,10 +2,6 @@ namespace Erlang;
 
 internal static class NifNativeLinuxNamespaceNames
 {
-    internal const string ExperimentalBaseCopiesVariable = "ERLANG_NIF_EXPERIMENT_BASE_COPIES";
-    internal const string ExperimentalUnsupported = "Base-copy experiment admits only reviewed images without reallocation";
-    internal const int DeepBind = 8;
-    internal const nint BaseNamespace = 0;
     internal const string DefaultBridge = "Erlang.NifBridge.so";
     internal const string CapsuleMemoryFile = "erlang-nif-capsule";
     internal const string Libc = "libc.so.6";

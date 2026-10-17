@@ -20,7 +20,7 @@ internal static class NifLinuxCallbackDriver
         Verify(admission.BridgeReceiptPath, admission.BridgeReceiptSha256);
         using var bridgeProof = JsonDocument.Parse(File.ReadAllBytes(admission.BridgeReceiptPath));
         Require(bridgeProof.RootElement.GetProperty(NifLinuxCallbackNames.StatusProperty).GetString() == NifLinuxCallbackNames.BridgeBuildStatus);
-        Require(bridgeProof.RootElement.GetProperty(NifLinuxCallbackNames.SubjectHeadProperty).GetString() == admission.SubjectHead);
+        Require(bridgeProof.RootElement.GetProperty(NifLinuxCallbackNames.SubjectHeadProperty).GetString() == (admission.BridgeSubjectHead ?? admission.SubjectHead));
         Require(bridgeProof.RootElement.GetProperty(NifLinuxCallbackNames.BridgeHashProperty).GetString() == admission.BridgeSha256);
         foreach (var image in admission.Images)
         {
@@ -247,6 +247,12 @@ internal static class NifLinuxCallbackDriver
         {
             Term result = await Execution.InvokeAsync(module, function, context, arguments);
             NifLinuxCallbackTrace.Mark(destination, NifLinuxCallbackTraceNames.InvokeAfter, module.Name, function);
+            object? nativeDomain = typeof(ProcessRuntime).GetField(NifLinuxPthreadProbeNames.DomainField, BindingFlags.Instance | BindingFlags.NonPublic)?.GetValue(context.Runtime);
+            if (nativeDomain is not null)
+            {
+                string? witness = nativeDomain.GetType().GetProperty(NifLinuxPthreadProbeNames.WitnessProperty, BindingFlags.Instance | BindingFlags.NonPublic)?.GetValue(nativeDomain) as string;
+                File.WriteAllText(Path.Combine(destination, NifLinuxPthreadProbeNames.WitnessFile), witness ?? throw new InvalidOperationException(NifLinuxCallbackNames.Failure));
+            }
 
             return result;
         }
