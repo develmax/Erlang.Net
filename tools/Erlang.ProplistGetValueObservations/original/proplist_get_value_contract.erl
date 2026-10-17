@@ -1,5 +1,5 @@
 -module(proplist_get_value_contract).
--export([run/0,run/1,names/0]).
+-export([run/0,run/1,names/0,stack_observations/0]).
 
 names()->['empty-two','empty-three','missing-two','missing-three','atom-shorthand','atom-before-tuple','tuple-before-atom','first-tuple-wins','explicit-undefined','singleton-stops-two','singleton-stops-three','triple-stops-two','triple-stops-three','empty-tuple-ignored','nonmatching-tuple-arities','nonproperties-ignored','integer-exact','float-exact','large-integer-key','tuple-key-exact','list-key-exact','improper-list-key','map-key-exact','empty-list-key','empty-tuple-key','binary-key','bitstring-key','reference-key','pid-key','function-key','default-reference-identity','value-function-identity','improper-atom-match','improper-tuple-match','improper-singleton-match','improper-triple-match','improper-reached-two','improper-reached-three','nonlist-atom-two','nonlist-atom-three','nonlist-integer-two','nonlist-integer-three','nonlist-float-two','nonlist-float-three','nonlist-tuple-two','nonlist-tuple-three','nonlist-map-two','nonlist-map-three','nonlist-binary-two','nonlist-binary-three','large-missing-two','large-terminal-match','large-improper-early-match','stack-depth-0-arity-2','stack-depth-1-arity-2','stack-depth-2-arity-2','stack-depth-0-arity-3','stack-depth-1-arity-3','stack-depth-2-arity-3'].
 
@@ -69,3 +69,18 @@ run('stack-depth-2-arity-2')->Old=erlang:system_flag(backtrace_depth,2),ok=try p
 run('stack-depth-0-arity-3')->Old=erlang:system_flag(backtrace_depth,0),ok=try proplists:get_value(key,[other|tail],fallback) of _->unexpected catch error:function_clause:Stack->[{proplists,get_value,[key,tail,fallback],[{file,"proplists.erl"},{line,222}]}|_]=Stack,1=length(Stack),ok after erlang:system_flag(backtrace_depth,Old) end,done;
 run('stack-depth-1-arity-3')->Old=erlang:system_flag(backtrace_depth,1),ok=try proplists:get_value(key,[other|tail],fallback) of _->unexpected catch error:function_clause:Stack->[{proplists,get_value,[key,tail,fallback],[{file,"proplists.erl"},{line,222}]}|_]=Stack,1=length(Stack),ok after erlang:system_flag(backtrace_depth,Old) end,done;
 run('stack-depth-2-arity-3')->Old=erlang:system_flag(backtrace_depth,2),ok=try proplists:get_value(key,[other|tail],fallback) of _->unexpected catch error:function_clause:Stack->[{proplists,get_value,[key,tail,fallback],[{file,"proplists.erl"},{line,222}]}|_]=Stack,2=length(Stack),ok after erlang:system_flag(backtrace_depth,Old) end,done.
+
+stack_observations()->
+    [{Arity,Mode,Depth,observe_stack(Arity,Mode,Depth)} || Arity<-[2,3],Mode<-[tail,non_tail],Depth<-[0,1,2]].
+
+observe_stack(Arity,Mode,Depth)->
+    Old=erlang:system_flag(backtrace_depth,Depth),
+    try invoke_stack(Arity,Mode,[other|tail]) of Value->{returned,Value}
+    catch Class:Reason:Stack->{Class,Reason,Stack}
+    after erlang:system_flag(backtrace_depth,Old)
+    end.
+
+invoke_stack(2,tail,Properties)->proplists:get_value(key,Properties);
+invoke_stack(3,tail,Properties)->proplists:get_value(key,Properties,fallback);
+invoke_stack(2,non_tail,Properties)->Value=proplists:get_value(key,Properties),{returned,Value};
+invoke_stack(3,non_tail,Properties)->Value=proplists:get_value(key,Properties,fallback),{returned,Value}.
