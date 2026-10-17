@@ -309,356 +309,358 @@ Current API presence: pinned OTP-29.1.1 (`ad05823719d77c8faee87348ea39513d4e2f99
 
 Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac6891f9c71049f6668fa608.3795/full local and same-head CI verified; original1383301/3301 verified. Failed original1363290/3291 preserved; latest successful comparable proof is138 at the same source head. Six unsafe-original exclusions remain explicit; whole erlang goal active.
 
+Current command compatibility: **16 APIs 100% compatible, 7 with known differences and 328 needing verification for 100% compatibility**. All 351 pinned erlang declarations are registered; registration is API presence only. See the [separate command lists for all modules](API_COMPATIBILITY_INDEX.md) and [complete per-command audit](API_COMPATIBILITY.md). The earlier checkpoint paragraphs retain their historical counts.
+
 | Export | Current state |
 | --- | --- |
-| `--/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `-/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `-/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `!/2` | Partial: caller-owned connected output waits admit owner controls and system queries; immediate/async modes unchanged, pending/autoconnect and native phase/wire parity incomplete |
-| `*/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `//2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `/=/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `+/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `+/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `++/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `</2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `=:=/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `=/=/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `=</2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `==/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `>/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `>=/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `abs/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `adler32_combine/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `adler32/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `adler32/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `alias/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `alias/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `alloc_info/1` | Partial: CLR sys_alloc metadata; unsupported allocator profiles raise notsup; full ERTS sizes/options remain unsupported |
-| `alloc_sizes/1` | Partial: CLR sys_alloc metadata; unsupported allocator profiles raise notsup; full ERTS sizes/options remain unsupported |
-| `and/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `append_element/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `append/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `apply/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `apply/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `atom_to_binary/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `atom_to_binary/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `atom_to_list/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `band/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `binary_part/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `binary_part/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `binary_to_atom/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `binary_to_atom/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `binary_to_existing_atom/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `binary_to_existing_atom/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `binary_to_float/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `binary_to_integer/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `binary_to_integer/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `binary_to_list/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `binary_to_list/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `binary_to_term/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `binary_to_term/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `bit_size/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `bitstring_to_list/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `bnot/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `bor/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `bsl/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `bsr/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `bump_reductions/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `bxor/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `byte_size/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `call_on_load_function/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `cancel_timer/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `cancel_timer/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `ceil/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `check_old_code/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `check_process_code/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `check_process_code/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `convert_time_unit/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `crc32_combine/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `crc32/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `crc32/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `date/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `decode_packet/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `delay_trap/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `delete_element/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `delete_module/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `demonitor/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `demonitor/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `disconnect_node/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `display_string/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `display_string/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `display/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `dist_ctrl_get_data_notification/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `dist_ctrl_get_data/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `dist_ctrl_get_opt/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `dist_ctrl_input_handler/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `dist_ctrl_put_data/2` | Partially compatible; real registered input adapter, handler authorization, iolists, counters and compiled contracts. Full connected protocol controls 29-34/37 and all-writer pressure remain unfinished |
-| `dist_ctrl_set_opt/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `dist_get_stat/1` | Partially compatible; registered generation-aware counters and implementation-dependent queued-storage charge. Original statistics observations are retained; complete connected protocol and physical ERTS storage parity remain incomplete. |
-| `div/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `dmonitor_node/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `dt_append_vm_tag_data/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `dt_get_tag_data/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `dt_get_tag/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `dt_prepend_vm_tag_data/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `dt_put_tag/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `dt_restore_tag/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `dt_spread_tag/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `element/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `erase/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `erase/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `error/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `error/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `error/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `exit_signal/2` | Partial: caller-owned connected output waits admit owner controls and system queries; immediate/async modes unchanged, pending/autoconnect and native phase/wire parity incomplete |
-| `exit_signal/3` | Partial: caller-owned connected output waits admit owner controls and system queries; immediate/async modes unchanged, pending/autoconnect and native phase/wire parity incomplete |
-| `exit/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `exit/2` | Partial: caller-owned connected output waits admit owner controls and system queries; immediate/async modes unchanged, pending/autoconnect and native phase/wire parity incomplete |
-| `exit/3` | Partial: caller-owned connected output waits admit owner controls and system queries; immediate/async modes unchanged, pending/autoconnect and native phase/wire parity incomplete |
-| `external_size/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `external_size/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `finish_after_on_load/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `finish_loading/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `float_to_binary/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `float_to_binary/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `float_to_list/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `float_to_list/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `float/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `floor/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `format_cpu_topology/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `fun_info_mfa/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `fun_info/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `fun_info/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `fun_to_list/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `function_exported/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `garbage_collect_message_area/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `garbage_collect/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `garbage_collect/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `garbage_collect/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `gather_gc_info_result/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `get_cookie/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `get_cookie/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `get_keys/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `get_keys/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `get_module_info/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `get_module_info/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `get/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `get/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `group_leader/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `group_leader/2` | Partial: caller-owned connected output waits admit owner controls and system queries; immediate/async modes unchanged, pending/autoconnect and native phase/wire parity incomplete |
-| `halt/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `halt/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `halt/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `has_prepared_code_on_load/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `hd/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `hibernate/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `hibernate/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `insert_element/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `integer_to_binary/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `integer_to_binary/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `integer_to_list/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `integer_to_list/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `iolist_size/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `iolist_to_binary/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `iolist_to_iovec/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `is_alive/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `is_atom/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `is_binary/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `is_bitstring/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `is_boolean/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `is_builtin/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `is_float/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `is_function/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `is_function/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `is_integer/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `is_integer/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `is_list/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `is_map_key/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `is_map/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `is_number/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `is_pid/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `is_port/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `is_process_alive/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `is_record/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `is_record/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `is_record/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `is_reference/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `is_tuple/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `length/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `link/1` | Partial: already-connected LINK is accepted into finite connection-owned staging before caller waits, survives producer death, and precedes retained terminal EXIT; async_dist returns after acceptance, normal waits cooperate with owner controls. Pending/autoconnect, live peers, complete inbound priority and native phase/wire parity remain incomplete |
-| `link/2` | Partial: already-connected LINK is accepted into finite connection-owned staging before caller waits, survives producer death, and precedes retained terminal EXIT; async_dist returns after acceptance, normal waits cooperate with owner controls. Pending/autoconnect, live peers, complete inbound priority and native phase/wire parity remain incomplete |
-| `list_to_atom/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `list_to_binary/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `list_to_bitstring/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `list_to_existing_atom/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `list_to_float/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `list_to_integer/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `list_to_integer/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `list_to_pid/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `list_to_port/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `list_to_ref/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `list_to_tuple/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `load_module/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `load_nif/2` | Partially compatible; registered exact indirect BIF bad_lib error for apply/3 and external fun. Successful literal native loading, the default native instruction handler and general NIF ABI remain incomplete. |
-| `loaded/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `localtime_to_universaltime/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `localtime_to_universaltime/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `localtime/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `make_fun/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `make_ref/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `make_tuple/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `make_tuple/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `map_get/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `map_size/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `match_spec_test/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `max/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `md5_final/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `md5_init/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `md5_update/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `md5/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `memory/0` | Partial: measured CLR SDK payload profile; excludes ERTS allocator/physical bytes, JIT and absent ETS storage |
-| `memory/1` | Partial: measured CLR SDK payload profile; excludes ERTS allocator/physical bytes, JIT and absent ETS storage |
-| `min/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `module_loaded/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `monitor_node/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `monitor_node/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `monitor/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `monitor/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `monotonic_time/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `monotonic_time/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `nif_error/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `nif_error/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `node/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `node/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `nodes/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `nodes/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `nodes/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `not/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `now/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `open_port/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `or/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `phash/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `phash2/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `phash2/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `pid_to_list/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `port_call/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `port_call/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `port_close/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `port_command/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `port_command/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `port_connect/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `port_control/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `port_get_data/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `port_info/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `port_info/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `port_set_data/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `port_to_list/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `ports/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `posixtime_to_universaltime/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `pre_loaded/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `prepare_loading/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `process_display/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `process_flag/2` | Partial: per-process error_handler atom setter returns the previous value; default children do not inherit. Supported missing registered/source MFA calls select real undefined_function/3 with bounded frames and normal source admission. Default kernel autoload, undefined_lambda, raw BEAM imports and before-first-handler whole-stack parity remain incomplete |
-| `process_flag/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `process_info/1` | Partially compatible; registered logical default subset with twelve fields, or thirteen when registered. Four pinned physical heap/stack/GC fields remain omitted; see supported-mfas.json for limits. |
-| `process_info/2` | Partial: async_dist returns the actual target boolean with complete item validation, order/duplicate preservation and existing mixed owner-query cooperation; default process_info/1 catalog unchanged, full PID/resource/native-scheduler scope remains incomplete |
-| `processes_iterator/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `processes_next/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `processes/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `purge_module/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `put/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `raise/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `read_timer/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `read_timer/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `ref_to_list/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `register/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `registered/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `rem/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `resume_process/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `round/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `self/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `send_after/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `send_after/4` | Registered; bounded functional evidence, see supported-mfas.json |
-| `send_nosuspend/2` | Partial: caller-owned connected output waits admit owner controls and system queries; immediate/async modes unchanged, pending/autoconnect and native phase/wire parity incomplete |
-| `send_nosuspend/3` | Partial: caller-owned connected output waits admit owner controls and system queries; immediate/async modes unchanged, pending/autoconnect and native phase/wire parity incomplete |
-| `send/2` | Partial: caller-owned connected output waits admit owner controls and system queries; immediate/async modes unchanged, pending/autoconnect and native phase/wire parity incomplete |
-| `send/3` | Partial: caller-owned connected output waits admit owner controls and system queries; immediate/async modes unchanged, pending/autoconnect and native phase/wire parity incomplete |
-| `seq_trace_info/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `seq_trace_print/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `seq_trace_print/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `seq_trace/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `set_cookie/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `set_cookie/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `set_cpu_topology/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `setelement/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `setnode/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `setnode/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `size/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `spawn_link/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `spawn_link/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `spawn_link/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `spawn_link/4` | Registered; bounded functional evidence, see supported-mfas.json |
-| `spawn_monitor/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `spawn_monitor/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `spawn_monitor/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `spawn_monitor/4` | Registered; bounded functional evidence, see supported-mfas.json |
-| `spawn_opt/2` | Partial: explicit local async_dist creator option initializes child state before publication, last valid value wins, invalid values retain existing validation and default children do not inherit; disconnected request creator validation stays deferred. +pad defaults, full remote spawn, broader priorities/options and native scheduling remain incomplete |
-| `spawn_opt/3` | Partial: explicit local async_dist creator option initializes child state before publication, last valid value wins, invalid values retain existing validation and default children do not inherit; disconnected request creator validation stays deferred. +pad defaults, full remote spawn, broader priorities/options and native scheduling remain incomplete |
-| `spawn_opt/4` | Partial: explicit local async_dist creator option initializes child state before publication, last valid value wins, invalid values retain existing validation and default children do not inherit; disconnected request creator validation stays deferred. +pad defaults, full remote spawn, broader priorities/options and native scheduling remain incomplete |
-| `spawn_opt/5` | Partial: explicit local async_dist creator option initializes child state before publication, last valid value wins, invalid values retain existing validation and default children do not inherit; disconnected request creator validation stays deferred. +pad defaults, full remote spawn, broader priorities/options and native scheduling remain incomplete |
-| `spawn_request_abandon/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `spawn_request/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `spawn_request/2` | Partial: explicit local async_dist creator option initializes child state before publication, last valid value wins, invalid values retain existing validation and default children do not inherit; disconnected request creator validation stays deferred. +pad defaults, full remote spawn, broader priorities/options and native scheduling remain incomplete |
-| `spawn_request/3` | Partial: explicit local async_dist creator option initializes child state before publication, last valid value wins, invalid values retain existing validation and default children do not inherit; disconnected request creator validation stays deferred. +pad defaults, full remote spawn, broader priorities/options and native scheduling remain incomplete |
-| `spawn_request/4` | Partial: explicit local async_dist creator option initializes child state before publication, last valid value wins, invalid values retain existing validation and default children do not inherit; disconnected request creator validation stays deferred. +pad defaults, full remote spawn, broader priorities/options and native scheduling remain incomplete |
-| `spawn_request/5` | Partial: explicit local async_dist creator option initializes child state before publication, last valid value wins, invalid values retain existing validation and default children do not inherit; disconnected request creator validation stays deferred. +pad defaults, full remote spawn, broader priorities/options and native scheduling remain incomplete |
-| `spawn/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `spawn/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `spawn/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `spawn/4` | Registered; bounded functional evidence, see supported-mfas.json |
-| `split_binary/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `start_timer/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `start_timer/4` | Registered; bounded functional evidence, see supported-mfas.json |
-| `statistics/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `subtract/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `suspend_process/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `suspend_process/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `system_flag/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `system_info/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `system_monitor/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `system_monitor/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `system_monitor/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `system_profile/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `system_profile/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `system_time/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `system_time/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `term_to_binary/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `term_to_binary/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `term_to_iovec/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `term_to_iovec/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `throw/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `time_offset/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `time_offset/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `time/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `timestamp/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `tl/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `trace_delivered/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `trace_info/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `trace_pattern/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `trace_pattern/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `trace/3` | Registered; bounded functional evidence, see supported-mfas.json |
-| `trunc/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `tuple_size/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `tuple_to_list/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `unalias/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `unique_integer/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `unique_integer/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `universaltime_to_localtime/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `universaltime_to_posixtime/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `universaltime/0` | Registered; bounded functional evidence, see supported-mfas.json |
-| `unlink/1` | Partial: caller-owned connected output waits admit owner controls and system queries; immediate/async modes unchanged, pending/autoconnect and native phase/wire parity incomplete; accepted UNLINK worker remains connection-owned, only guest wait admits caller signals |
-| `unregister/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `whereis/1` | Registered; bounded functional evidence, see supported-mfas.json |
-| `xor/2` | Registered; bounded functional evidence, see supported-mfas.json |
-| `yield/0` | Registered; bounded functional evidence, see supported-mfas.json |
+| `--/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `-/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `-/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `!/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `*/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `//2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `/=/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `+/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `+/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `++/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `</2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `=:=/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `=/=/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `=</2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `==/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `>/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `>=/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `abs/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `adler32_combine/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `adler32/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `adler32/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `alias/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `alias/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `alloc_info/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `alloc_sizes/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `and/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `append_element/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `append/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `apply/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `apply/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `atom_to_binary/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `atom_to_binary/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `atom_to_list/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `band/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `binary_part/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `binary_part/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `binary_to_atom/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `binary_to_atom/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `binary_to_existing_atom/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `binary_to_existing_atom/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `binary_to_float/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `binary_to_integer/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `binary_to_integer/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `binary_to_list/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `binary_to_list/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `binary_to_term/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `binary_to_term/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `bit_size/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `bitstring_to_list/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `bnot/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `bor/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `bsl/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `bsr/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `bump_reductions/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `bxor/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `byte_size/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `call_on_load_function/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `cancel_timer/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `cancel_timer/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `ceil/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `check_old_code/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `check_process_code/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `check_process_code/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `convert_time_unit/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `crc32_combine/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `crc32/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `crc32/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `date/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `decode_packet/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `delay_trap/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `delete_element/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `delete_module/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `demonitor/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `demonitor/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `disconnect_node/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `display_string/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `display_string/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `display/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `dist_ctrl_get_data_notification/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `dist_ctrl_get_data/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `dist_ctrl_get_opt/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `dist_ctrl_input_handler/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `dist_ctrl_put_data/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `dist_ctrl_set_opt/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `dist_get_stat/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `div/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `dmonitor_node/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `dt_append_vm_tag_data/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `dt_get_tag_data/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `dt_get_tag/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `dt_prepend_vm_tag_data/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `dt_put_tag/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `dt_restore_tag/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `dt_spread_tag/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `element/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `erase/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `erase/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `error/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `error/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `error/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `exit_signal/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `exit_signal/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `exit/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `exit/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `exit/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `external_size/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `external_size/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `finish_after_on_load/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `finish_loading/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `float_to_binary/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `float_to_binary/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `float_to_list/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `float_to_list/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `float/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `floor/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `format_cpu_topology/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `fun_info_mfa/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `fun_info/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `fun_info/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `fun_to_list/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `function_exported/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `garbage_collect_message_area/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `garbage_collect/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `garbage_collect/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `garbage_collect/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `gather_gc_info_result/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `get_cookie/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `get_cookie/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `get_keys/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `get_keys/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `get_module_info/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `get_module_info/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `get/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `get/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `group_leader/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `group_leader/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `halt/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `halt/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `halt/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `has_prepared_code_on_load/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `hd/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `hibernate/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `hibernate/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `insert_element/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `integer_to_binary/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `integer_to_binary/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `integer_to_list/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `integer_to_list/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `iolist_size/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `iolist_to_binary/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `iolist_to_iovec/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `is_alive/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `is_atom/1` | 100% compatible; see [per-command evidence](API_COMPATIBILITY.md) |
+| `is_binary/1` | 100% compatible; see [per-command evidence](API_COMPATIBILITY.md) |
+| `is_bitstring/1` | 100% compatible; see [per-command evidence](API_COMPATIBILITY.md) |
+| `is_boolean/1` | 100% compatible; see [per-command evidence](API_COMPATIBILITY.md) |
+| `is_builtin/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `is_float/1` | 100% compatible; see [per-command evidence](API_COMPATIBILITY.md) |
+| `is_function/1` | 100% compatible; see [per-command evidence](API_COMPATIBILITY.md) |
+| `is_function/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `is_integer/1` | 100% compatible; see [per-command evidence](API_COMPATIBILITY.md) |
+| `is_integer/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `is_list/1` | 100% compatible; see [per-command evidence](API_COMPATIBILITY.md) |
+| `is_map_key/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `is_map/1` | 100% compatible; see [per-command evidence](API_COMPATIBILITY.md) |
+| `is_number/1` | 100% compatible; see [per-command evidence](API_COMPATIBILITY.md) |
+| `is_pid/1` | 100% compatible; see [per-command evidence](API_COMPATIBILITY.md) |
+| `is_port/1` | 100% compatible; see [per-command evidence](API_COMPATIBILITY.md) |
+| `is_process_alive/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `is_record/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `is_record/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `is_record/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `is_reference/1` | 100% compatible; see [per-command evidence](API_COMPATIBILITY.md) |
+| `is_tuple/1` | 100% compatible; see [per-command evidence](API_COMPATIBILITY.md) |
+| `length/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `link/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `link/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `list_to_atom/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `list_to_binary/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `list_to_bitstring/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `list_to_existing_atom/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `list_to_float/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `list_to_integer/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `list_to_integer/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `list_to_pid/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `list_to_port/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `list_to_ref/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `list_to_tuple/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `load_module/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `load_nif/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `loaded/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `localtime_to_universaltime/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `localtime_to_universaltime/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `localtime/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `make_fun/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `make_ref/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `make_tuple/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `make_tuple/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `map_get/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `map_size/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `match_spec_test/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `max/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `md5_final/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `md5_init/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `md5_update/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `md5/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `memory/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `memory/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `min/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `module_loaded/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `monitor_node/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `monitor_node/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `monitor/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `monitor/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `monotonic_time/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `monotonic_time/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `nif_error/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `nif_error/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `node/0` | 100% compatible; see [per-command evidence](API_COMPATIBILITY.md) |
+| `node/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `nodes/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `nodes/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `nodes/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `not/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `now/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `open_port/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `or/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `phash/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `phash2/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `phash2/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `pid_to_list/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `port_call/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `port_call/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `port_close/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `port_command/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `port_command/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `port_connect/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `port_control/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `port_get_data/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `port_info/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `port_info/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `port_set_data/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `port_to_list/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `ports/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `posixtime_to_universaltime/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `pre_loaded/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `prepare_loading/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `process_display/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `process_flag/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `process_flag/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `process_info/1` | Known differences; see [per-command evidence](API_COMPATIBILITY.md) |
+| `process_info/2` | Known differences; see [per-command evidence](API_COMPATIBILITY.md) |
+| `processes_iterator/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `processes_next/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `processes/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `purge_module/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `put/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `raise/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `read_timer/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `read_timer/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `ref_to_list/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `register/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `registered/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `rem/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `resume_process/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `round/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `self/0` | 100% compatible; see [per-command evidence](API_COMPATIBILITY.md) |
+| `send_after/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `send_after/4` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `send_nosuspend/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `send_nosuspend/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `send/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `send/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `seq_trace_info/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `seq_trace_print/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `seq_trace_print/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `seq_trace/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `set_cookie/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `set_cookie/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `set_cpu_topology/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `setelement/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `setnode/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `setnode/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `size/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `spawn_link/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `spawn_link/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `spawn_link/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `spawn_link/4` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `spawn_monitor/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `spawn_monitor/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `spawn_monitor/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `spawn_monitor/4` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `spawn_opt/2` | Known differences; see [per-command evidence](API_COMPATIBILITY.md) |
+| `spawn_opt/3` | Known differences; see [per-command evidence](API_COMPATIBILITY.md) |
+| `spawn_opt/4` | Known differences; see [per-command evidence](API_COMPATIBILITY.md) |
+| `spawn_opt/5` | Known differences; see [per-command evidence](API_COMPATIBILITY.md) |
+| `spawn_request_abandon/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `spawn_request/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `spawn_request/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `spawn_request/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `spawn_request/4` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `spawn_request/5` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `spawn/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `spawn/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `spawn/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `spawn/4` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `split_binary/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `start_timer/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `start_timer/4` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `statistics/1` | Known differences; see [per-command evidence](API_COMPATIBILITY.md) |
+| `subtract/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `suspend_process/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `suspend_process/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `system_flag/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `system_info/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `system_monitor/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `system_monitor/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `system_monitor/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `system_profile/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `system_profile/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `system_time/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `system_time/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `term_to_binary/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `term_to_binary/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `term_to_iovec/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `term_to_iovec/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `throw/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `time_offset/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `time_offset/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `time/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `timestamp/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `tl/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `trace_delivered/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `trace_info/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `trace_pattern/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `trace_pattern/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `trace/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `trunc/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `tuple_size/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `tuple_to_list/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `unalias/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `unique_integer/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `unique_integer/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `universaltime_to_localtime/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `universaltime_to_posixtime/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `universaltime/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `unlink/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `unregister/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `whereis/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `xor/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `yield/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
