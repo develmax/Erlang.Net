@@ -1,0 +1,52 @@
+name: Pinned parent Linux callback crash diagnosis only
+on:
+  workflow_dispatch:
+    inputs:
+      expected_head:
+        type: string
+        required: true
+permissions:
+  contents: read
+  actions: read
+jobs:
+  diagnose-reused-own-native-images:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      EXPECTED_HEAD: ${{ inputs.expected_head }}
+      PYTHONDONTWRITEBYTECODE: '1'
+      DOTNET_PROCESSOR_COUNT: '2'
+      SOURCE_PLAN: .validation/nif-callback361-source-plan.json
+      SOURCE_PLAN_SHA: 83667FC235724A7E618C6DA8AAE36FF6BCCA0C4616E1C1AE83E1BA1F25A43995
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+      - name: Verify executing code head and reuse exact parent owned artifact
+        env:
+          GH_ARTIFACT_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$EXPECTED_HEAD" = "$GITHUB_SHA"
+          test "$(git --no-optional-locks rev-parse HEAD)" = "$EXPECTED_HEAD"
+          python3 -B tools/Erlang.NifLinuxCallbackObservations/reuse.py
+      - name: Build instrumented focus with unchanged production sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          dotnet --info
+          dotnet build tools/Erlang.NifLinuxCallbackFocus/Erlang.NifLinuxCallbackFocus.csproj --disable-build-servers -m:1 -nr:false --nologo
+      - name: Diagnose numeric forwarding then joined foreign threads and forced GC
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -B tools/Erlang.NifLinuxCallbackObservations/diagnose.py --source-plan "$GITHUB_WORKSPACE/$SOURCE_PLAN" --source-plan-sha256 "$SOURCE_PLAN_SHA"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: linux-callback-diagnostic-only
+          path: |
+            artifacts/linux-callback-diagnostic/**
+            artifacts/linux-callback17/reuse-proof.json

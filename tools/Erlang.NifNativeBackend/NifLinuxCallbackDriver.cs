@@ -47,13 +47,16 @@ internal static class NifLinuxCallbackDriver
             Verify(Path.Combine(AppContext.BaseDirectory, NifLinuxCallbackNames.PackagedBridge), admission.BridgeSha256);
         Directory.CreateDirectory(output);
         int arrived = 0;
+        int foreignArrived = 0;
+        var foreignReady = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         var ready = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
-
         async Task Domain(string node, string leaf)
         {
             string destination = Path.Combine(output, leaf);
             Directory.CreateDirectory(destination);
-            await using var runtime = new ProcessRuntime(node);
+            var runtime = new ProcessRuntime(node);
+            await using var diagnosticRuntime = new NifLinuxCallbackDiagnosticRuntime(runtime, destination);
+            NifLinuxCallbackTrace.Mark(destination, NifLinuxCallbackTraceNames.RuntimeCreated);
             object identity = typeof(ProcessRuntime).GetProperty(NifLinuxCallbackNames.LocalIdentityProperty, BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(runtime)!;
             identity.GetType().GetMethod(NifLinuxCallbackNames.PublishIdentityMethod, BindingFlags.Instance | BindingFlags.NonPublic)!.Invoke(identity, [node, (uint)1]);
             Require(runtime.Node == node);
@@ -68,30 +71,16 @@ internal static class NifLinuxCallbackDriver
                     {
                         var image = admission.Images.Single(image => image.LibraryPath == path);
 
-                        return new NifNativeReviewedBasicAbi(
-                            path,
-                            image.LibrarySha256,
-                            image.BuildReceiptSha256,
-                            admission.BridgePath,
-                            admission.BridgeSha256
-                        );
+                        return new NifNativeReviewedBasicAbi(path, image.LibrarySha256, image.BuildReceiptSha256, admission.BridgePath, admission.BridgeSha256);
                     });
-                await NifNativeHarness.Context(
-                    runtime,
-                    async context =>
+                await NifNativeHarness.Context(runtime, async context =>
                 {
                     // Load the reference image first in each domain. No shared/static allocator
                     // can supply its foreign-thread independent environment from another runtime.
                     foreach (var image in admission.Images.OrderBy(image => image.Module == NifLinuxCallbackNames.Module ? 0 : 1))
                     {
                         var module = compiled.Single(module => module.Definition.Name == image.Module).Definition;
-                        Term loaded = await Invoke(
-                            destination,
-                            module,
-                            NifLinuxCallbackNames.Load,
-                            context,
-                            [Term.String(image.LibraryPath[..^3])]
-                        );
+                        Term loaded = await Invoke(destination, module, NifLinuxCallbackNames.Load, context, [Term.String(image.LibraryPath[..^3])]);
                         File.WriteAllBytes(Path.Combine(destination, image.Module + NifLinuxCallbackNames.LoadTermSuffix), ExternalTermFormat.Encode(loaded));
                         Require(loaded.Equals(Term.A(NifLinuxCallbackNames.Ok)));
                         owned.Add(runtime.Modules.CurrentCodeImage(image.Module) ?? throw new InvalidOperationException(NifLinuxCallbackNames.Failure));
@@ -100,74 +89,93 @@ internal static class NifLinuxCallbackDriver
                         ready.TrySetResult();
                     await ready.Task.WaitAsync(NifLinuxCallbackNames.Deadline);
                     var referenceModule = compiled.Single(module => module.Definition.Name == NifLinuxCallbackNames.Module).Definition;
-                    Term foreign = await Invoke(
-                        destination,
-                        referenceModule,
-                        NifLinuxCallbackNames.Independent,
-                        context,
-                        [Term.I(NifLinuxCallbackNames.ForeignAllocationMode)]
-                    );
+                    Term widths = await Invoke(destination, referenceModule, NifLinuxCallbackTraceNames.Widths, context, []);
+                    File.WriteAllBytes(Path.Combine(destination, NifLinuxCallbackTraceNames.WidthsTerm), ExternalTermFormat.Encode(widths));
+                    var mapModule = compiled.Single(module => module.Definition.Name == NifLinuxCallbackTraceNames.MapModule).Definition;
+                    Term[] preflightValues = [new MapTerm([]), new MapTerm([new KeyValuePair<Term, Term>(Term.I(1), Term.I(2))]), Term.I(42)];
+                    for (int mode = 0; mode < preflightValues.Length; mode++)
+                    {
+                        NifLinuxCallbackTrace.Mark(destination, NifLinuxCallbackTraceNames.PreflightPrefix + mode, NifLinuxCallbackTraceNames.MapModule, NifLinuxCallbackTraceNames.Observe);
+                        Term diagnostic = await Invoke(destination, mapModule, NifLinuxCallbackTraceNames.Observe, context, [Term.I(mode), preflightValues[mode]]);
+                        File.WriteAllBytes(Path.Combine(destination, NifLinuxCallbackTraceNames.PreflightPrefix + mode + NifLinuxCallbackTraceNames.PreflightSuffix), ExternalTermFormat.Encode(diagnostic));
+                    }
+                    Term foreign = await Invoke(destination, referenceModule, NifLinuxCallbackNames.Independent, context, [Term.I(NifLinuxCallbackNames.ForeignAllocationMode)]);
                     File.WriteAllBytes(Path.Combine(destination, NifLinuxCallbackNames.ForeignAllocationTerm), ExternalTermFormat.Encode(foreign));
                     Term[] references = Cons.Items(foreign).ToArray();
                     Require(references.Length == 3 && references.All(term => term is ReferenceTerm reference && reference.Node == runtime.Node));
                     Require(!references[0].Equals(references[1]) && references[0].Equals(references[2]));
-                    foreach (var image in admission.Images)
+                    NifLinuxCallbackTrace.Mark(destination, NifLinuxCallbackTraceNames.ForeignValidated);
+                    NifLinuxCallbackTrace.Mark(destination, NifLinuxCallbackTraceNames.ForeignBarrier);
+                    if (Interlocked.Increment(ref foreignArrived) == NifLinuxCallbackNames.DomainCount)
                     {
-                        var module = compiled.Single(module => module.Definition.Name == image.Module).Definition;
-                        Term observed = await Invoke(
-                            destination,
-                            module,
-                            NifLinuxCallbackNames.Run,
-                            context,
-                            []
-                        );
-                        File.WriteAllBytes(Path.Combine(destination, image.Module + NifLinuxCallbackNames.TermSuffix), ExternalTermFormat.Encode(observed));
-                        Require(observed is TupleTerm { Items.Count: 3 });
-                        var tuple = (TupleTerm)observed;
-                        Require(tuple.Items[0].Equals(Term.A(image.Module)));
-                        Term[] rows = Cons.Items(tuple.Items[1]).ToArray();
-                        Require(rows.Length == image.ObservationNames.Length);
-                        for (int index = 0; index < rows.Length; index++)
-                            Require(rows[index] is TupleTerm { Items.Count: 2 } row && row.Items[0].Equals(Term.A(image.ObservationNames[index])));
-                        Require(tuple.Items[2].Equals(Term.List(NifLinuxCallbackNames.Widths.Select(value => Term.I(value)).ToArray())));
+                        try
+                        {
+                            NifLinuxCallbackTrace.Mark(destination, NifLinuxCallbackTraceNames.CollectFirstBefore);
+                            GC.Collect();
+                            NifLinuxCallbackTrace.Mark(destination, NifLinuxCallbackTraceNames.CollectFirstAfter);
+                            NifLinuxCallbackTrace.Mark(destination, NifLinuxCallbackTraceNames.FinalizersBefore);
+                            GC.WaitForPendingFinalizers();
+                            NifLinuxCallbackTrace.Mark(destination, NifLinuxCallbackTraceNames.FinalizersAfter);
+                            NifLinuxCallbackTrace.Mark(destination, NifLinuxCallbackTraceNames.CollectSecondBefore);
+                            GC.Collect();
+                            NifLinuxCallbackTrace.Mark(destination, NifLinuxCallbackTraceNames.CollectSecondAfter);
+                            foreignReady.TrySetResult();
+                        }
+                        catch (Exception failure)
+                        {
+                            NifLinuxCallbackTrace.Mark(destination, NifLinuxCallbackTraceNames.CollectionFailed, failure: failure);
+                            foreignReady.TrySetException(failure);
+                            throw;
+                        }
                     }
-                }
-                );
+                    await foreignReady.Task.WaitAsync(NifLinuxCallbackNames.Deadline);
+                });
+            }
+            catch (Exception failure)
+            {
+                NifLinuxCallbackTrace.Mark(destination, NifLinuxCallbackTraceNames.BeforeCleanupFailure, failure: failure);
+                throw;
             }
             finally
             {
                 foreach (var image in owned.AsEnumerable().Reverse())
+                {
+                    NifLinuxCallbackTrace.Mark(destination, NifLinuxCallbackTraceNames.RetireBefore, image.Module);
                     await image.NifBindings.RetireAsync().WaitAsync(NifLinuxCallbackNames.Deadline);
+                    NifLinuxCallbackTrace.Mark(destination, NifLinuxCallbackTraceNames.RetireAfter, image.Module);
+                }
                 foreach (var module in compiled)
+                {
+                    NifLinuxCallbackTrace.Mark(destination, NifLinuxCallbackTraceNames.ModuleDisposeBefore, module.Definition.Name);
                     module.Dispose();
+                    NifLinuxCallbackTrace.Mark(destination, NifLinuxCallbackTraceNames.ModuleDisposeAfter);
+                }
             }
         }
-        await Task.WhenAll(
-            Domain(NifLinuxCallbackNames.FirstNode, NifLinuxCallbackNames.First),
-            Domain(NifLinuxCallbackNames.SecondNode, NifLinuxCallbackNames.Second)
-        );
+        await Task.WhenAll(Domain(NifLinuxCallbackNames.FirstNode, NifLinuxCallbackNames.First), Domain(NifLinuxCallbackNames.SecondNode, NifLinuxCallbackNames.Second));
         Verify(admissionPath, arguments[1]);
         Verify(admission.BridgePath, admission.BridgeSha256);
         foreach (var image in admission.Images)
             Verify(image.LibraryPath, image.LibrarySha256);
-        File.WriteAllText(
-            Path.Combine(output, NifLinuxCallbackNames.Completion),
-            JsonSerializer.Serialize(new
-            {
-                Status = NifLinuxCallbackNames.AcquiredStatus,
-                admission.SubjectHead,
-                AdmissionSha256 = arguments[1],
-                Route = route,
-                PrimaryObservationCount = NifLinuxCallbackNames.ObservationCount,
-                RuntimeDomains = NifLinuxCallbackNames.DomainCount,
-                FirstForeignAllocationOwnershipChecked = true,
-                Widths = NifLinuxCallbackNames.Widths,
-                OriginalComparisonExecuted = false,
-                AllImageRetirementsCompleted = true,
-                RuntimeDisposalsCompleted = true,
-                Files = Directory.GetFiles(output, NifLinuxCallbackNames.TermPattern, SearchOption.AllDirectories).Order().Select(path => new { Path = Path.GetRelativePath(output, path), Sha256 = Hash(path) }).ToArray()
-            })
-        );
+        File.WriteAllText(Path.Combine(output, NifLinuxCallbackNames.Completion), JsonSerializer.Serialize(new
+        {
+            Status = NifLinuxCallbackTraceNames.DiagnosticStatus,
+            admission.SubjectHead,
+            AdmissionSha256 = arguments[1],
+            Route = route,
+            PrimaryObservationCount = 0,
+            DiagnosticOnly = true,
+            OriginalSeventeenNotExecuted = true,
+            PreflightNumericCallsPerRuntime = 3,
+            ForcedGcBarrierExecuted = true,
+            RuntimeDomains = NifLinuxCallbackNames.DomainCount,
+            FirstForeignAllocationOwnershipChecked = true,
+            Widths = NifLinuxCallbackNames.Widths,
+            OriginalComparisonExecuted = false,
+            AllImageRetirementsCompleted = true,
+            RuntimeDisposalsCompleted = true,
+            Files = Directory.GetFiles(output, NifLinuxCallbackNames.TermPattern, SearchOption.AllDirectories).Order().Select(path => new { Path = Path.GetRelativePath(output, path), Sha256 = Hash(path) }).ToArray()
+        }));
     }
 
     private static async Task<Term> Invoke(
@@ -178,22 +186,27 @@ internal static class NifLinuxCallbackDriver
         IReadOnlyList<Term> arguments
     )
     {
+        NifLinuxCallbackTrace.Mark(destination, NifLinuxCallbackTraceNames.InvokeBefore, module.Name, function);
         try
         {
-            return await Execution.InvokeAsync(
-                module,
-                function,
-                context,
-                arguments
-            );
+            Term result = await Execution.InvokeAsync(module, function, context, arguments);
+            NifLinuxCallbackTrace.Mark(destination, NifLinuxCallbackTraceNames.InvokeAfter, module.Name, function);
+
+            return result;
         }
         catch (ErlangException failure)
         {
+            NifLinuxCallbackTrace.Mark(destination, NifLinuxCallbackTraceNames.InvokeFailed, module.Name, function, failure);
             File.WriteAllBytes(
                 Path.Combine(destination, module.Name + NifLinuxCallbackNames.InvocationSeparator + function + NifLinuxCallbackNames.RaisedTermSuffix),
                 ExternalTermFormat.Encode(Term.Tuple(Term.A(failure.ExceptionClass), failure.Reason, failure.StackTraceTerm))
             );
 
+            throw;
+        }
+        catch (Exception failure)
+        {
+            NifLinuxCallbackTrace.Mark(destination, NifLinuxCallbackTraceNames.InvokeFailed, module.Name, function, failure);
             throw;
         }
     }
