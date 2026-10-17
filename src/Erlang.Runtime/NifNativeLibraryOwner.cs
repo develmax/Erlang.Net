@@ -10,7 +10,7 @@ internal sealed unsafe class NifNativeLibraryOwner : IAsyncDisposable
     private NifNativeWindowsCallbacks? windowsCallbacks;
     private NifNativeAbiEntry entry;
     private nint library;
-    private FileStream? verifiedFile;
+    private FileStream? libraryFile;
     private nint privateData;
     private bool initializationStarted;
     private bool reallocationEnabled;
@@ -46,9 +46,10 @@ internal sealed unsafe class NifNativeLibraryOwner : IAsyncDisposable
             NifNativePlatformLoader.VerifyPlatform();
             try
             {
-                verifiedFile = NifNativeCapabilityProfile.OpenVerified(profile.LibraryPath, profile.LibrarySha256);
+                libraryFile = profile.OpenLibraryFile();
             }
-            catch (Exception openFailure) when (openFailure is FileNotFoundException or DirectoryNotFoundException)
+            catch (Exception openFailure) when (openFailure is FileNotFoundException or DirectoryNotFoundException ||
+                profile.ExpectedLibrarySha256 is null && openFailure is (UnauthorizedAccessException or IOException))
             {
                 throw new NifNativeLoadStageException(NifNativeDefaultLoaderNames.LoadFailed, openFailure);
             }
@@ -57,7 +58,11 @@ internal sealed unsafe class NifNativeLibraryOwner : IAsyncDisposable
                 NifNativeReallocationExportRegistration.EnsureRegistered(profile);
             if (OperatingSystem.IsWindows())
                 windowsCallbacks = new(reallocationEnabled);
-            library = NifNativePlatformLoader.OpenNifLibrary(verifiedFile, profile.LibraryPath);
+            library = NifNativePlatformLoader.OpenNifLibrary(
+                libraryFile,
+                profile.LibraryPath,
+                useDescriptor: profile.ExpectedLibrarySha256 is not null
+            );
             nint initialize = NifNativePlatformLoader.NifInitializer(library);
             var failure = new NifNativeFailureState();
             using var scope = new NifNativeCallbackScope(allocations, failure, reallocationEnabled);
@@ -85,7 +90,7 @@ internal sealed unsafe class NifNativeLibraryOwner : IAsyncDisposable
             }
             failure.ThrowPending();
             if (result != 0)
-                throw new InvalidOperationException(NifNativeDiagnostics.LoadVeto);
+                throw new NifNativeLoadVetoException(result);
             cancellation.ThrowIfCancellationRequested();
             var bindings = new List<KeyValuePair<(string Name, int Arity), ErlangFunction>>();
             foreach (var pair in functions)
@@ -203,8 +208,8 @@ internal sealed unsafe class NifNativeLibraryOwner : IAsyncDisposable
                 {
                     failure = failure is null ? closeFailure : new AggregateException(failure, closeFailure);
                 }
-                var previousFile = verifiedFile;
-                verifiedFile = null;
+                var previousFile = libraryFile;
+                libraryFile = null;
                 try
                 {
                     previousFile?.Dispose();

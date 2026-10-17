@@ -3,6 +3,7 @@ namespace Erlang.NifNativeBackend;
 internal static class NifNativeElevenNames
 {
     internal const string Mode = "--reviewed-entry-case";
+    internal const string OrdinaryHostMode = "--ordinary-host-entry-case";
     internal const string Admission = "APPROVED_EXACT_NATIVE_ENTRY_EXECUTION";
     internal const string Ok = "ok";
     internal const string Error = "error";

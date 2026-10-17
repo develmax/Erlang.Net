@@ -1,0 +1,498 @@
+{
+  "Status": "PASS_PASSIVE_ORIGINAL356_ELEVEN_SOURCE_BOUND_NATIVE_AND_SELECTED_MANAGED_CONTRACTS",
+  "Head": "4416a1df0657c08c28f560ab2e96f38c4adabac3",
+  "Run": 39013935267,
+  "Job": 117342020079,
+  "Artifact": 12094585437,
+  "Passed": 11,
+  "Failed": 0,
+  "Cases": [
+    {
+      "Name": "alpha_no_declarations",
+      "Module": "native_entry_alpha",
+      "Selected": {
+        "Category": "ok",
+        "CompleteSelectedSuccessTermEqual": true,
+        "Marker": 41,
+        "Third": "alpha"
+      },
+      "OriginalReturnedSha256": "21CB47605F041E3F165C039BBBF6B868236F667ED62D92E5F413E2003AF9825F",
+      "ManagedObservedSha256": "C0D97B235DB7D05820013D87DDE873E90321D56D99F897682DEDC8E7C0A6FCBC",
+      "NativeElfSha256": "F2B5A528228BA45EEE51BF0F16B0C3A52269F00D63AEC313F456D8D09AAF26D3",
+      "OriginalCodeCleanup": "deleted_and_purged",
+      "NormalCompileAndObserve": true
+    },
+    {
+      "Name": "beta_explicit",
+      "Module": "native_entry_beta",
+      "Selected": {
+        "Category": "ok",
+        "CompleteSelectedSuccessTermEqual": true,
+        "Marker": 73,
+        "Third": 233
+      },
+      "OriginalReturnedSha256": "01188E99FC5CA03C62B26603F19F19C9733D9F1B190BAE5708ED4B82C1C4E328",
+      "ManagedObservedSha256": "3BE850FFA64427C2E7E43FA6CB8CF708B052AFCFD8CCD73286955BB8FEBCDEC3",
+      "NativeElfSha256": "439BED1C73178D5156BC092D4DEC8ED72F939CD0DF33F86F921DDE599A23DB77",
+      "OriginalCodeCleanup": "deleted_and_purged",
+      "NormalCompileAndObserve": true
+    },
+    {
+      "Name": "beta_absent_load",
+      "Module": "native_entry_beta",
+      "Selected": {
+        "Category": "ok",
+        "CompleteSelectedSuccessTermEqual": true,
+        "Marker": -1,
+        "Third": 233
+      },
+      "OriginalReturnedSha256": "433CB1D818D2CA8D5F8EDCD574EDE45EBF0E1F4276D25752729E55AA5B58ED37",
+      "ManagedObservedSha256": "CDF83A1ED5A9BD1B08B511BCDC7EBA095FE6CCAB1460010471ED3104DAD47765",
+      "NativeElfSha256": "60B8E82D8EC5A5A6DC4B42D5B4F3EC26967B12B2C182EA56E7036AD72396A5C4",
+      "OriginalCodeCleanup": "deleted_and_purged",
+      "NormalCompileAndObserve": true
+    },
+    {
+      "Name": "beta_absent_unload",
+      "Module": "native_entry_beta",
+      "Selected": {
+        "Category": "ok",
+        "CompleteSelectedSuccessTermEqual": true,
+        "Marker": 73,
+        "Third": 233
+      },
+      "OriginalReturnedSha256": "FE4995F4B7E275B8EB29E8779B42238D2143FB877A2F42548E4F9ADCDA3B7742",
+      "ManagedObservedSha256": "6112DA7D7F6A82FED9891305F9C8E18461CFBCB823514444F367656DFE67B937",
+      "NativeElfSha256": "C5B08112AC8C76070C33FD9D50F7E5D4BD49161FABFF2CA0B8BCC7D8B8830345",
+      "OriginalCodeCleanup": "deleted_and_purged",
+      "NormalCompileAndObserve": true
+    },
+    {
+      "Name": "beta_no_declarations",
+      "Module": "native_entry_beta",
+      "Selected": {
+        "Category": "ok",
+        "CompleteSelectedSuccessTermEqual": true,
+        "Marker": 73,
+        "Third": 233
+      },
+      "OriginalReturnedSha256": "459E13E51417D68905CE319F4163E6A5D9BDED823FDFDC75C52E0EF78EE3D5D7",
+      "ManagedObservedSha256": "A65D1397E8FE998D6AE2545B82AA7819CAC95E5C86B652D11F49FCA52405B0DD",
+      "NativeElfSha256": "439BED1C73178D5156BC092D4DEC8ED72F939CD0DF33F86F921DDE599A23DB77",
+      "OriginalCodeCleanup": "deleted_and_purged",
+      "NormalCompileAndObserve": true
+    },
+    {
+      "Name": "alpha_duplicate",
+      "Module": "native_entry_alpha",
+      "Selected": {
+        "Category": "bad_lib",
+        "StubAfterFailureEqual": true,
+        "OriginalReason": "Duplicate NIF entry for native_entry_alpha:identity/1",
+        "ManagedReason": "Native function is outside the fixture allowlist.",
+        "ExactErrorReasonCompared": false
+      },
+      "OriginalReturnedSha256": "27AE1114CC8D1C1CF50EC6FF8D24707386D768F4758A9B6E9B1B92072A8DCB67",
+      "ManagedObservedSha256": "261CFEE0D107ADD4BEA0D5681AEDEECF9871169B4EBD96E512B4429A327FEE01",
+      "NativeElfSha256": "FA3CC0C99F3A0B68BFA5CC1A16018EEC215C0517ECF6048732D2EF03B1B1FB49",
+      "OriginalCodeCleanup": "deleted_and_purged",
+      "NormalCompileAndObserve": true
+    },
+    {
+      "Name": "beta_undeclared",
+      "Module": "native_entry_beta",
+      "Selected": {
+        "Category": "bad_lib",
+        "StubAfterFailureEqual": true,
+        "OriginalReason": "Function not declared as nif native_entry_beta:ordinary/0",
+        "ManagedReason": "Native function is not declared on the reserved code image.",
+        "ExactErrorReasonCompared": false
+      },
+      "OriginalReturnedSha256": "AB2A58EF0656910714681195B917962DBEAFD80F35EA7AD7F65CCB4D79DB845A",
+      "ManagedObservedSha256": "A075FC2325EF5019FFD67F6775704B1F307EE79F612D7C6077C4E9C5A1C52BD0",
+      "NativeElfSha256": "6EF8AEA3B51C276306B9092943BE3E9A05EEFA0C40209D0C5648CD3A95FA592A",
+      "OriginalCodeCleanup": "deleted_and_purged",
+      "NormalCompileAndObserve": true
+    },
+    {
+      "Name": "beta_missing",
+      "Module": "native_entry_beta",
+      "Selected": {
+        "Category": "bad_lib",
+        "StubAfterFailureEqual": true,
+        "OriginalReason": "Function not found native_entry_beta:absent_entry/0",
+        "ManagedReason": "Native function is not declared on the reserved code image.",
+        "ExactErrorReasonCompared": false
+      },
+      "OriginalReturnedSha256": "62B9029241F6E01E9EA42F01D9189E5F418A84D0B1A87F7816FE263E2099F2FB",
+      "ManagedObservedSha256": "BF5C833333293144DEC8F4A6013ABBC2556D8FA496855C3C0DCAA5E8E63A3FFF",
+      "NativeElfSha256": "D465B5CC3108C739E4D50177C1C2F0A432FC3C9364FC90B84A384370171905B7",
+      "OriginalCodeCleanup": "deleted_and_purged",
+      "NormalCompileAndObserve": true
+    },
+    {
+      "Name": "module_mismatch",
+      "Module": "native_entry_beta",
+      "Selected": {
+        "Category": "bad_lib",
+        "StubAfterFailureEqual": true,
+        "OriginalReason": "Library module name 'native_entry_alpha' does not match calling module 'native_entry_beta'",
+        "ManagedReason": "Fixture module identity mismatch.",
+        "ExactErrorReasonCompared": false
+      },
+      "OriginalReturnedSha256": "6386A78F996DB78B7E7C4D62B7D7E66968580E2F02D71D34166D1CEC4FAD10AA",
+      "ManagedObservedSha256": "D7FFCDDCEC25D92C408CAE6507F1BBD17E675E4C5C7B21BFA34DFD2FBB79D4B4",
+      "NativeElfSha256": "F2B5A528228BA45EEE51BF0F16B0C3A52269F00D63AEC313F456D8D09AAF26D3",
+      "OriginalCodeCleanup": "deleted_and_purged",
+      "NormalCompileAndObserve": true
+    },
+    {
+      "Name": "load_veto",
+      "Module": "native_entry_beta",
+      "Selected": {
+        "Category": "load",
+        "StubAfterFailureEqual": true,
+        "OriginalReason": "Library load-call unsuccessful (1).",
+        "ManagedReason": "Native fixture load vetoed publication.",
+        "ExactErrorReasonCompared": false
+      },
+      "OriginalReturnedSha256": "53CB6DE347518C5FCDB4A7937370BD4384FEB5CF20420F44BF9304CC8C0CA1CA",
+      "ManagedObservedSha256": "A8432B65C56F4D9B4DB05F5E8AC141C0FFBB9D70FC804283CFE3BE8BA4148A77",
+      "NativeElfSha256": "439BED1C73178D5156BC092D4DEC8ED72F939CD0DF33F86F921DDE599A23DB77",
+      "OriginalCodeCleanup": "deleted_and_purged",
+      "NormalCompileAndObserve": true
+    },
+    {
+      "Name": "latin1_module",
+      "Module": "native_entry_b\u00e9ta",
+      "Selected": {
+        "Category": "ok",
+        "CompleteSelectedSuccessTermEqual": true,
+        "Marker": 73,
+        "Third": 233
+      },
+      "OriginalReturnedSha256": "2FE412F81F4DE8D3609BB7E22F8203EFD1C4116AE2BDED98ACEF8523A52E5F13",
+      "ManagedObservedSha256": "3C51AE7602D57CB821355C6D1B46F9D0A4FC1848D18078292D83B7B83768FBE5",
+      "NativeElfSha256": "4F54AB83D55E0FBEDA13585E99C27E9093C7ABA5F31FF6B7D0F32D3DA261C257",
+      "OriginalCodeCleanup": "deleted_and_purged",
+      "NormalCompileAndObserve": true
+    }
+  ],
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "AllPinnedGitSourceRowsRehashed": 12008,
+  "OriginalBuildNormalStages": 3,
+  "NativeBuildNormalStages": 33,
+  "CaseNormalCompileObserveStages": 22,
+  "NormalProcessReceipts": [
+    {
+      "Path": "runtime-build/configure.process.json",
+      "Pid": 2147,
+      "Sha256": "47752D4C17C40B91D4CF5F160FA462EAAD05F293169D2383B387B71EDE349731"
+    },
+    {
+      "Path": "runtime-build/make.process.json",
+      "Pid": 12380,
+      "Sha256": "DC771BB63F04794F0C313BCDB3322B2A7F0A6696D0FE144D39B7C7CB03204926"
+    },
+    {
+      "Path": "runtime-build/install.process.json",
+      "Pid": 77872,
+      "Sha256": "708E01BE92B7D664B034837CBB21E0FB071381B4994DEBD32F350F499BF63FF9"
+    },
+    {
+      "Path": "native-build/compiler-version.process.json",
+      "Pid": 82411,
+      "Sha256": "0B40427AE265D0D067E6B3ADEC1E35B01488DC71DD913443AA6D0821E933C44A"
+    },
+    {
+      "Path": "native-build/alpha/compile.process.json",
+      "Pid": 82412,
+      "Sha256": "C2D74AF0DF8DBC32D6062D0311C3B66D1886EEBAAF526AFC2191BECB48AB0962"
+    },
+    {
+      "Path": "native-build/alpha/defined.process.json",
+      "Pid": 82417,
+      "Sha256": "36870D62359EE1B1C76E27894E35C9D37860C438DF578A0835873926871AE058"
+    },
+    {
+      "Path": "native-build/alpha/undefined.process.json",
+      "Pid": 82418,
+      "Sha256": "EBE01066CD0EE247C622B7D11150912D4D303DF1A83FA18AA1E15DA0254AF13A"
+    },
+    {
+      "Path": "native-build/alpha/readelf.process.json",
+      "Pid": 82419,
+      "Sha256": "69C306B88E081526E2FBAB3C312DD96F30D406774F6089A6D02EA6730B691C4F"
+    },
+    {
+      "Path": "native-build/beta/compile.process.json",
+      "Pid": 82420,
+      "Sha256": "7740208B38CC6E2EBFB0FAD5191E2C725B6FCF0ADFBA651B1E7B6CA609912C89"
+    },
+    {
+      "Path": "native-build/beta/defined.process.json",
+      "Pid": 82425,
+      "Sha256": "355F8BAF4DDD677D7D116E30A6929245029A39F271E726B04A4F5A7DCF387C13"
+    },
+    {
+      "Path": "native-build/beta/undefined.process.json",
+      "Pid": 82426,
+      "Sha256": "5539D4375A1C5540B00803FE2575C315361176F44469F5169243A731CA16C685"
+    },
+    {
+      "Path": "native-build/beta/readelf.process.json",
+      "Pid": 82427,
+      "Sha256": "47C0F939883D22A3A57769B5AD10E281C9D56014D3943C9773161676C310EC50"
+    },
+    {
+      "Path": "native-build/beta_absent_load/compile.process.json",
+      "Pid": 82428,
+      "Sha256": "A110506ED66C28A80B1B089FD8F4FB14B5B47E3BAC1FDE5B17E76326A7B516EF"
+    },
+    {
+      "Path": "native-build/beta_absent_load/defined.process.json",
+      "Pid": 82433,
+      "Sha256": "DEBA1BB9E56033AEF2E30B3E77C4E2C3CB6B4D473D1DAB2E83BC33DADDB335AF"
+    },
+    {
+      "Path": "native-build/beta_absent_load/undefined.process.json",
+      "Pid": 82434,
+      "Sha256": "F392E3E0EB8115DE6AAEB4E46D9802DA85556414FCD8D7BA761C9D5D74792064"
+    },
+    {
+      "Path": "native-build/beta_absent_load/readelf.process.json",
+      "Pid": 82435,
+      "Sha256": "BECDBDCCC6206AC6DAB3CE6E260DDA41B58D18CE2E201952C4F9339172AD9991"
+    },
+    {
+      "Path": "native-build/beta_absent_unload/compile.process.json",
+      "Pid": 82436,
+      "Sha256": "DC084BB07D0EF34B0B8F466CF000846C41770B74F811261DACFBBEDAB8CB4BB9"
+    },
+    {
+      "Path": "native-build/beta_absent_unload/defined.process.json",
+      "Pid": 82441,
+      "Sha256": "8052E2BBCEDF3B43DC6BA11FD1000C0039573608B5EB9AF2C71A3E7803373FDB"
+    },
+    {
+      "Path": "native-build/beta_absent_unload/undefined.process.json",
+      "Pid": 82442,
+      "Sha256": "4049A1E846D6F537EC5713764B99F76AFFE84D99EF86371A6655E6284A0A0FDB"
+    },
+    {
+      "Path": "native-build/beta_absent_unload/readelf.process.json",
+      "Pid": 82443,
+      "Sha256": "781F3DFC848328FF19D08BF1A7F57515A7DA930F9ACE1988FE304EE357487BBB"
+    },
+    {
+      "Path": "native-build/alpha_duplicate/compile.process.json",
+      "Pid": 82444,
+      "Sha256": "EBCF13D1F2D25DC2B1853CC63035F0DF862CB6071127934E3E636E7C7F8F5A09"
+    },
+    {
+      "Path": "native-build/alpha_duplicate/defined.process.json",
+      "Pid": 82449,
+      "Sha256": "5D1DB880637E69573E0EB23097EDACB95009F2FAE259101981F743E37168DF65"
+    },
+    {
+      "Path": "native-build/alpha_duplicate/undefined.process.json",
+      "Pid": 82450,
+      "Sha256": "DEF0DE6B711E1C1E90558A5E1E6154A9112EE74D56E2CDEA43C5495CE30DC740"
+    },
+    {
+      "Path": "native-build/alpha_duplicate/readelf.process.json",
+      "Pid": 82451,
+      "Sha256": "770F5B4FEC368D5302843B87BD22BF452B15130823E1260CB51EF858CEC620D3"
+    },
+    {
+      "Path": "native-build/beta_undeclared/compile.process.json",
+      "Pid": 82452,
+      "Sha256": "9621B3B296788AA802CCDD675F875E236D069C77E3B87DDFA6A669CC9F689D14"
+    },
+    {
+      "Path": "native-build/beta_undeclared/defined.process.json",
+      "Pid": 82457,
+      "Sha256": "FA9F6EEB5B8CC8E642AF68261E3C38AAC6C5A8D58B874A71DE697AA4383A2E24"
+    },
+    {
+      "Path": "native-build/beta_undeclared/undefined.process.json",
+      "Pid": 82458,
+      "Sha256": "9811D543CB640FC697F26CB77A095D242F0FEFA3778A6168DF8D930C5E11D1BE"
+    },
+    {
+      "Path": "native-build/beta_undeclared/readelf.process.json",
+      "Pid": 82459,
+      "Sha256": "C9C54BA027722961298E8DF03BC33493100432F5AF5E79C9D34C212E7A12AD06"
+    },
+    {
+      "Path": "native-build/beta_missing/compile.process.json",
+      "Pid": 82460,
+      "Sha256": "77F1AC26DC2435F4936391EFAA9795BA08890FDE377E86C0A0123E4F8F999595"
+    },
+    {
+      "Path": "native-build/beta_missing/defined.process.json",
+      "Pid": 82465,
+      "Sha256": "B5E06480A6864037A3AB2661B10A64902B05C5F2F8923282E295D9D68D9DB82B"
+    },
+    {
+      "Path": "native-build/beta_missing/undefined.process.json",
+      "Pid": 82466,
+      "Sha256": "C48DEB8E24E5FE89B45970A024DCE4DBB7C449B28424496BF08961075601E26A"
+    },
+    {
+      "Path": "native-build/beta_missing/readelf.process.json",
+      "Pid": 82467,
+      "Sha256": "7A748793592A0A5EE8635DD76353AD4DD5D2BE98D75BB6B9B5B622BD207A243B"
+    },
+    {
+      "Path": "native-build/beta_latin1/compile.process.json",
+      "Pid": 82468,
+      "Sha256": "6FFDA31F0DDF63ED898A90D173406F4649F45C3902ECF05DBB885AC22BD25FBD"
+    },
+    {
+      "Path": "native-build/beta_latin1/defined.process.json",
+      "Pid": 82473,
+      "Sha256": "78F77C1798D36C3B15D9F9249C7F791F547A64B3BA64F69668612ACC9159E219"
+    },
+    {
+      "Path": "native-build/beta_latin1/undefined.process.json",
+      "Pid": 82474,
+      "Sha256": "2956555E2817ECCE380AF2439ECAC7566F4EB73472591A9F9079EA7E12C7435F"
+    },
+    {
+      "Path": "native-build/beta_latin1/readelf.process.json",
+      "Pid": 82475,
+      "Sha256": "7440C9804AF414ED3708E8E51321289C151C99CA35E9A57C92A7CE6F6E9AAA70"
+    },
+    {
+      "Path": "capture/alpha_no_declarations/compile-vm.process.json",
+      "Pid": 82528,
+      "Sha256": "8C0A78B52B4297D42C783AC022AB52EB1E5B659449C585D1536E8C9ACD2073AE"
+    },
+    {
+      "Path": "capture/alpha_no_declarations/observe-vm.process.json",
+      "Pid": 82558,
+      "Sha256": "91FB2621CFF165537227DBED3EDDFD08967BC2BCCB75235E5E52D7A8FCA7490B"
+    },
+    {
+      "Path": "capture/beta_explicit/compile-vm.process.json",
+      "Pid": 82611,
+      "Sha256": "53D02E1BA137C37668377D387AFCCD6070577959EEACF8CDF60099AFE61FAF58"
+    },
+    {
+      "Path": "capture/beta_explicit/observe-vm.process.json",
+      "Pid": 82641,
+      "Sha256": "33DC2E65DF0E5ADA551D6373D410B6CD08CC1127E2C0F2CF0E66244DCDED9FA5"
+    },
+    {
+      "Path": "capture/beta_absent_load/compile-vm.process.json",
+      "Pid": 82695,
+      "Sha256": "7586F7CD07EA6780D61E2B1944E1F73D0FD75A9C27BD6961E8820675278D4380"
+    },
+    {
+      "Path": "capture/beta_absent_load/observe-vm.process.json",
+      "Pid": 82725,
+      "Sha256": "BC1FEAA4054C0787C9C8B7084661A98A477CEB31F0E942F6B8D9B69722C4BB20"
+    },
+    {
+      "Path": "capture/beta_absent_unload/compile-vm.process.json",
+      "Pid": 82778,
+      "Sha256": "F166D72EC0A297DBD593401F1B4EA7ECE46601DEFAFBAA8CF98FD5FD97D2B8EF"
+    },
+    {
+      "Path": "capture/beta_absent_unload/observe-vm.process.json",
+      "Pid": 82808,
+      "Sha256": "A5126F3AAF4BFC0DDB93130FA0AE2C2F89186EFD2D51F418A29A489A29CBB222"
+    },
+    {
+      "Path": "capture/beta_no_declarations/compile-vm.process.json",
+      "Pid": 82861,
+      "Sha256": "2354BE38A6B4B2CE030D2253FD2F25AF31993634BD8D4D9EC5A1872E84DB0302"
+    },
+    {
+      "Path": "capture/beta_no_declarations/observe-vm.process.json",
+      "Pid": 82891,
+      "Sha256": "E4274F6BACD385350C72E2E522E9EB288D8B1926D0F1AC73879120072A4BED4F"
+    },
+    {
+      "Path": "capture/alpha_duplicate/compile-vm.process.json",
+      "Pid": 82944,
+      "Sha256": "1FE0537E409F5E2107078BB2CB00C674F060B6629B4B03C37244500370F7A98E"
+    },
+    {
+      "Path": "capture/alpha_duplicate/observe-vm.process.json",
+      "Pid": 82974,
+      "Sha256": "7938B570FEDAE40593EC33481CDDD909C5C6683A407E636C9112832B9FBE6F64"
+    },
+    {
+      "Path": "capture/beta_undeclared/compile-vm.process.json",
+      "Pid": 83027,
+      "Sha256": "0B7462CF9B8EA179C894D5CC632E811B3BD27B41CAD42FDF512E22FA1821251E"
+    },
+    {
+      "Path": "capture/beta_undeclared/observe-vm.process.json",
+      "Pid": 83057,
+      "Sha256": "47C7F13B6FFA454E8E770B30F81E47A021058182E66C35A3FE10F64BEDCA48BB"
+    },
+    {
+      "Path": "capture/beta_missing/compile-vm.process.json",
+      "Pid": 83110,
+      "Sha256": "38F3AFF5048E2111519468C0ADCF9A111A4AAB6BED23BB5B204C6D00AC0F9CCD"
+    },
+    {
+      "Path": "capture/beta_missing/observe-vm.process.json",
+      "Pid": 83140,
+      "Sha256": "AE8D3A980E514FE38D3174FFEA143A653A6C073C4B963BDDDEFB8527B8111CD2"
+    },
+    {
+      "Path": "capture/module_mismatch/compile-vm.process.json",
+      "Pid": 83193,
+      "Sha256": "907BEF1F0AA1E01566D69885FCDF6873C9C74D6A8E88A91C015F71871523F75F"
+    },
+    {
+      "Path": "capture/module_mismatch/observe-vm.process.json",
+      "Pid": 83223,
+      "Sha256": "D6A042C617C7C1D3D0BEBE54539431F475C42EECC188391A20622966BA263993"
+    },
+    {
+      "Path": "capture/load_veto/compile-vm.process.json",
+      "Pid": 83276,
+      "Sha256": "6928228B3DCE2D56E7E5E74356E53B8EC2F456E4C14F2D500484C633D7977BAB"
+    },
+    {
+      "Path": "capture/load_veto/observe-vm.process.json",
+      "Pid": 83306,
+      "Sha256": "ADEC3A84734DA403BE261B2EE75FA911FA9A0F4912D68857E637CB1FFB4E96F1"
+    },
+    {
+      "Path": "capture/latin1_module/compile-vm.process.json",
+      "Pid": 83359,
+      "Sha256": "D7EDB114BA7A07163B2F1F86173641B3E30B70082ACDCA2D211D91786DC4E614"
+    },
+    {
+      "Path": "capture/latin1_module/observe-vm.process.json",
+      "Pid": 83389,
+      "Sha256": "E85AC56CC61C30062E3AB6E0DFDD892B4C96DF00509DD3DDB46F94247BE32807"
+    }
+  ],
+  "NativeElfsRehashedAndDynamicSymbolsParsed": 8,
+  "HeaderInputs": 4,
+  "OriginalInstalledRuntimePayloadAbsentFromArtifact": true,
+  "InstalledRuntimeIdentityEvidence": "Exact source-build/installed-hash producer receipt, actual VM roots, source-checked compile/observation commands and loaded module checksums; installed binaries not independently rehashed from capture.",
+  "PublishedLfManifestSha256": "E400B3393DFA539B65141EB4E36D77411180898D2A9FE7D4F692DE17715C02AD",
+  "LocalCrLfManifestSha256": "FBB2A50336A968F46CA622349CE6A75A0836226BB34DB66E026A7C9DB812827C",
+  "ManifestDifferenceOnlyCrLfToLf": true,
+  "OriginalRuntimeBuildReceiptSha256": "FFC6EA0ED92105766C93C6437B2489858009B2F4117F0ED4E15C0C98EEE487AD",
+  "NativeBuildReceiptSha256": "A4E58A6559108C0F03EF43D8FA7B7D837D352354B3B6F73B3CA022C6E1FB4E7D",
+  "OriginalCompletionSha256": "4E791A6D48300F126D70846EDB3C6E538774F2CC795206CAEEEE8C473FE40072",
+  "CaptureManifestSha256": "17DC1E3B1FBFFAD512370E54ED3DE19836837D4F8EDCE2ADAD35A7A169E9DD36",
+  "ManagedPublishedNativeCompletionSha256": "5946239F5B93FB1416F6F80BC870C9E55E21AE8AB52A87FD0BA3D941B7833DD1",
+  "ExactErrorReasonParityClaimed": false,
+  "WholeNifOrNoPolicyCompatibilityClaimed": false,
+  "WindowsOtpComparisonClaimed": false,
+  "Historical355FailureReclassified": false,
+  "CurrentCaseCountDoesNotChangeOrdinaryCorpus": true,
+  "SdkNativeOrDownloadedCodeExecutedByReviewer": false,
+  "NetworkUsed": false,
+  "ReaderSha256": "E600A86A91D9CE5D199B6D8697037126A185383C08671EC5381E03CAD70A0A93"
+}

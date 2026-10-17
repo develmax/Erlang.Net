@@ -1,6 +1,6 @@
 namespace Erlang;
 
-internal sealed class RuntimeActorDispatcher
+internal sealed partial class RuntimeActorDispatcher
 {
     private readonly object gate = new();
     private readonly RuntimeSchedulerLane[] lanes;

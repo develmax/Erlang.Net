@@ -6,18 +6,25 @@ internal static class NifNativeDefaultLoader
         ProcessContext context,
         SourceLoadNifCall captured,
         Term[] arguments,
-        Func<string, NifNativeReviewedBasicAbi?> approve
+        Func<string, NifNativeReviewedBasicAbi?>? approve
     )
     {
         string path = NifNativeFilename.Resolve(arguments[0]);
         SourceCodeEntry caller = captured.Consume(context);
-        NifNativeReviewedBasicAbi capability = approve(path)
-            ?? throw new UnauthorizedAccessException(NifNativeDefaultLoaderNames.Permission);
-        StringComparison comparison = OperatingSystem.IsWindows()
-            ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
-        if (!string.Equals(capability.LibraryPath, path, comparison))
-            throw new UnauthorizedAccessException(NifNativeDefaultLoaderNames.Permission);
-        var profile = NifNativeCapabilityProfile.ForReviewedBasicAbi(capability);
+        NifNativeCapabilityProfile profile;
+        if (approve is null)
+            profile = NifNativeCapabilityProfile.ForHostLibrary(path);
+        else
+        {
+            NifNativeReviewedBasicAbi capability = approve(path)
+                ?? throw new UnauthorizedAccessException(NifNativeDefaultLoaderNames.Permission);
+            StringComparison comparison = OperatingSystem.IsWindows()
+                ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+            if (!string.Equals(capability.LibraryPath, path, comparison))
+                throw new UnauthorizedAccessException(NifNativeDefaultLoaderNames.Permission);
+            profile = NifNativeCapabilityProfile.ForReviewedBasicAbi(capability);
+        }
+
         try
         {
             await using var reservation = await context.Runtime.Modules.ReserveNifImageAsync(context);
@@ -35,6 +42,14 @@ internal static class NifNativeDefaultLoader
         catch (NifNativeLoadStageException failure)
         {
             return Error(failure.Category, failure.Message);
+        }
+        catch (NifNativeEntryAdmissionException failure)
+        {
+            return Error(failure.PublicReason.Category, failure.PublicReason.Format(context.Runtime));
+        }
+        catch (NifNativeLoadVetoException failure)
+        {
+            return Error(failure.PublicReason.Category, failure.PublicReason.Format(context.Runtime));
         }
         catch (NifImageAdmissionException failure) when (failure.Failure is
             NifImageAdmissionFailure.OldCode or NifImageAdmissionFailure.Reload or NifImageAdmissionFailure.UpgradeUnsupported)

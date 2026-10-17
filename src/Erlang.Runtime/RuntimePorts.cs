@@ -110,25 +110,46 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
         return Term.A(ErlangBooleanAtoms.True);
     }
 
-    public async ValueTask<Term> CloseOrdered(Term identity)
+    public ValueTask<Term> CloseOrdered(Term identity, CancellationToken cancellation = default)
     {
-        await AwaitCommands(identity);
-        Task writes;
+        Task<Term> operation;
         lock (gate)
-            writes = Require(identity).Writes;
-        await writes;
+        {
+            RuntimePort port = Require(identity);
+            operation = CloseOrderedCore(port, port.Commands);
+            port.Commands = operation;
+            Track(operation);
+        }
 
-        return Close(identity);
+        return new ValueTask<Term>(operation.WaitAsync(cancellation));
     }
 
-    public async ValueTask AwaitCommands(Term identity)
+    private async Task<Term> CloseOrderedCore(RuntimePort port, Task previous)
+    {
+        try
+        {
+            await previous.ConfigureAwait(false);
+        }
+        catch (ErlangException)
+        {
+            // An earlier failed command must not poison an accepted close operation.
+        }
+        Task writes;
+        lock (gate)
+            writes = port.Writes;
+        await writes.ConfigureAwait(false);
+
+        return Close(port.Identity);
+    }
+
+    public async ValueTask AwaitCommands(Term identity, CancellationToken cancellation = default)
     {
         Task previous;
         lock (gate)
             previous = Find(identity)?.Commands ?? Task.CompletedTask;
         try
         {
-            await previous;
+            await previous.WaitAsync(cancellation);
         }
         catch (ErlangException)
         {
@@ -296,18 +317,29 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
         return Term.Tuple(key, value);
     }
 
-    public async ValueTask<Term> Command(Term identity, Term data, Term flags)
+    public async ValueTask<Term> Command(
+        Term identity,
+        Term data,
+        Term flags,
+        ProcessContext? caller = null
+    )
     {
-        await AwaitCommands(identity);
+        await AwaitCommands(identity, caller?.Cancellation ?? CancellationToken.None);
 
-        return await CommandCore(identity, data, flags);
+        return await CommandCore(
+            identity,
+            data,
+            flags,
+            caller: caller
+        );
     }
 
     private async ValueTask<Term> CommandCore(
         Term identity,
         Term data,
         Term flags,
-        bool accepted = false
+        bool accepted = false,
+        ProcessContext? caller = null
     )
     {
         if (!accepted)
@@ -381,8 +413,13 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
                 if (noSuspend)
                     return Term.A(ErlangBooleanAtoms.False);
                 writable = port.Writable.Task;
+                if (caller is not null && !writable.IsCompleted)
+                {
+                    caller.Cancellation.ThrowIfCancellationRequested();
+                    runtime.SystemMonitoring.BusyPort(caller.Self, port.Identity);
+                }
             }
-            await writable;
+            await writable.WaitAsync(caller?.Cancellation ?? CancellationToken.None);
         }
     }
 
@@ -569,7 +606,8 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
         Term identity,
         Term message,
         bool noSuspend,
-        CancellationToken cancellation
+        CancellationToken cancellation,
+        ProcessContext? caller = null
     )
     {
         while (true)
@@ -593,6 +631,11 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
                 }
                 else if (noSuspend)
                     return false;
+                if (caller is not null && !wait.IsCompleted)
+                {
+                    cancellation.ThrowIfCancellationRequested();
+                    runtime.SystemMonitoring.BusyPort(caller.Self, port.Identity);
+                }
             }
             await wait.WaitAsync(cancellation);
             if (accepted)

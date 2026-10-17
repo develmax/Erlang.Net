@@ -21,6 +21,8 @@ internal sealed unsafe class NifNativeWindowsCallbacks : IDisposable
         var slots = (nint*)pointer;
         if (reallocationEnabled)
             slots[NifNativeWindowsCallbackLayout.Reallocate] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint, nint>)&NifNativePrimitiveCallbacks.Reallocate;
+        slots[NifNativeWindowsCallbackLayout.MakeTupleFromArray] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint*, uint, nuint>)&NifNativeArrayCallbacks.MakeTuple;
+        slots[NifNativeWindowsCallbackLayout.MakeListFromArray] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint*, uint, nuint>)&NifNativeArrayCallbacks.MakeList;
         slots[NifNativeWindowsCallbackLayout.PrivateData] = (nint)(delegate* unmanaged[Cdecl]<nint, nint>)&NifNativePrimitiveCallbacks.PrivateData;
         slots[NifNativeWindowsCallbackLayout.Allocate] = (nint)(delegate* unmanaged[Cdecl]<nuint, nint>)&NifNativePrimitiveCallbacks.Allocate;
         slots[NifNativeWindowsCallbackLayout.Free] = (nint)(delegate* unmanaged[Cdecl]<nint, void>)&NifNativePrimitiveCallbacks.Free;

@@ -401,6 +401,7 @@ public sealed partial class ProcessContext : ITermExecutionContext
         if (capToRemainingSlice)
             count = Math.Min(count, ProcessSchedulingLimits.CooperativeSlice - reductions);
         Interlocked.Add(ref cumulativeReductions, count);
+        Runtime.Statistics.RecordReductions(count);
         reductions += count;
         if (reductions >= ProcessSchedulingLimits.CooperativeSlice)
         {

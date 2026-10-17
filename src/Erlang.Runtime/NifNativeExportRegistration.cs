@@ -14,7 +14,9 @@ internal static unsafe class NifNativeExportRegistration
 
     internal static void EnsureRegistered(NifNativeCapabilityProfile profile)
     {
-        if (OperatingSystem.IsWindows())
+        // Host-file loading uses the runtime's already-exported ABI, if present. Without it,
+        // dlopen reports unresolved imports rather than requiring a per-library test policy.
+        if (OperatingSystem.IsWindows() || profile.ExpectedLibrarySha256 is null)
             return;
         if (AssemblyLoadContext.GetLoadContext(typeof(NifNativeExportRegistration).Assembly)?.IsCollectible == true)
             throw new NotSupportedException(NifNativeDiagnostics.BridgeLifetime);

@@ -283,6 +283,8 @@ public static class CoreModules
          return c.Runtime.ChangeErrorHandler(c, a[1]);
      if (a[0] is Atom { Name: ProcessSchedulerNames.Binding })
          return await c.Runtime.ChangeSchedulerBinding(c, a[1]);
+     if (a[0] is Atom { Name: ProcessFullSweepNames.Flag })
+         return ProcessFullSweepAfter.SetSelf(c, a[1]);
      if (a[0] is Atom { Name: ProcessPriorityNames.Flag })
          return c.Runtime.ChangeSchedulingPriority(c, a[1]);
      if (a[0] is Atom { Name: ProcessAsyncDistributionNames.Flag })

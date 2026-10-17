@@ -12,5 +12,5 @@ internal static class ProcessInfoAtoms
         ProcessInfoLogicalNames.Priority or ProcessInfoLogicalNames.Reductions or ProcessInfoLogicalNames.Suspending or ProcessInfoNames.Links or ProcessInfoNames.TrapExit or ProcessInfoNames.GroupLeader or
         ProcessInfoNames.RegisteredName or ProcessInfoNames.LastCalls or ProcessInfoNames.Dictionary or ProcessInfoNames.Messages or
         ProcessInfoNames.MessageQueueLength or ProcessInfoNames.Monitors or ProcessInfoNames.MonitoredBy or ProcessInfoNames.Status or
-        ProcessInfoNames.CurrentFunction or ProcessInfoNames.CurrentStackTrace or ProcessInfoNames.PriorityMessages or ProcessAsyncDistributionNames.Flag;
+        ProcessInfoNames.CurrentFunction or ProcessInfoNames.CurrentStackTrace or ProcessInfoNames.PriorityMessages or ProcessAsyncDistributionNames.Flag or ProcessFullSweepNames.Flag;
 }

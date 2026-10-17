@@ -1,0 +1,192 @@
+{
+  "Status": "PASS_ROOT_SELECTED_ORIGINAL11_AND_FIVE_EXACT_REASONS_ON_BOTH_NATIVE_ROUTES",
+  "OriginalRun": 39013935267,
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "OriginalReportSha256": "D417DE137328431AA4D66B7A3F6EBA8D4DB8535FE39A0D51D205F9CA7A076896",
+  "CanonicalPlanSha256": "50CB076DA06D42BB93734AC84A95DB9514627E029FA431D9102B9A6325E3AF4B",
+  "CasesPerMode": 11,
+  "OwnedNativeObservations": 22,
+  "ExactFailureReasonsPerMode": 5,
+  "SelectedSuccessTermsPerMode": 6,
+  "NewOriginalRunExecuted": false,
+  "WholeTraceOrNifAbiParityClaimed": false,
+  "Scope": "Current Windows selected success bodies and failed-load stubs are byte/term preserved from original-checked356 witnesses; all five newly corrected reason lists now exactly match original raw-derived text. No equality for physical platforms, OS loader messages or complete ABI is inferred.",
+  "Outcomes": [
+    {
+      "Mode": "reviewed",
+      "Name": "alpha_no_declarations",
+      "OriginalReturnedSha256": "21CB47605F041E3F165C039BBBF6B868236F667ED62D92E5F413E2003AF9825F",
+      "CurrentObservedSha256": "C0D97B235DB7D05820013D87DDE873E90321D56D99F897682DEDC8E7C0A6FCBC",
+      "SuccessBodyOrFailureStubEqual": true,
+      "ExactOriginalFailureReasonEqual": null
+    },
+    {
+      "Mode": "reviewed",
+      "Name": "beta_explicit",
+      "OriginalReturnedSha256": "01188E99FC5CA03C62B26603F19F19C9733D9F1B190BAE5708ED4B82C1C4E328",
+      "CurrentObservedSha256": "3BE850FFA64427C2E7E43FA6CB8CF708B052AFCFD8CCD73286955BB8FEBCDEC3",
+      "SuccessBodyOrFailureStubEqual": true,
+      "ExactOriginalFailureReasonEqual": null
+    },
+    {
+      "Mode": "reviewed",
+      "Name": "beta_absent_load",
+      "OriginalReturnedSha256": "433CB1D818D2CA8D5F8EDCD574EDE45EBF0E1F4276D25752729E55AA5B58ED37",
+      "CurrentObservedSha256": "CDF83A1ED5A9BD1B08B511BCDC7EBA095FE6CCAB1460010471ED3104DAD47765",
+      "SuccessBodyOrFailureStubEqual": true,
+      "ExactOriginalFailureReasonEqual": null
+    },
+    {
+      "Mode": "reviewed",
+      "Name": "beta_absent_unload",
+      "OriginalReturnedSha256": "FE4995F4B7E275B8EB29E8779B42238D2143FB877A2F42548E4F9ADCDA3B7742",
+      "CurrentObservedSha256": "6112DA7D7F6A82FED9891305F9C8E18461CFBCB823514444F367656DFE67B937",
+      "SuccessBodyOrFailureStubEqual": true,
+      "ExactOriginalFailureReasonEqual": null
+    },
+    {
+      "Mode": "reviewed",
+      "Name": "beta_no_declarations",
+      "OriginalReturnedSha256": "459E13E51417D68905CE319F4163E6A5D9BDED823FDFDC75C52E0EF78EE3D5D7",
+      "CurrentObservedSha256": "A65D1397E8FE998D6AE2545B82AA7819CAC95E5C86B652D11F49FCA52405B0DD",
+      "SuccessBodyOrFailureStubEqual": true,
+      "ExactOriginalFailureReasonEqual": null
+    },
+    {
+      "Mode": "reviewed",
+      "Name": "alpha_duplicate",
+      "OriginalReturnedSha256": "27AE1114CC8D1C1CF50EC6FF8D24707386D768F4758A9B6E9B1B92072A8DCB67",
+      "CurrentObservedSha256": "52D62CE3082A9CCD0D43900F85AA721A5ABDCD470656A100086F7DBEFE88AD0F",
+      "SuccessBodyOrFailureStubEqual": true,
+      "ExactOriginalFailureReasonEqual": true
+    },
+    {
+      "Mode": "reviewed",
+      "Name": "beta_undeclared",
+      "OriginalReturnedSha256": "AB2A58EF0656910714681195B917962DBEAFD80F35EA7AD7F65CCB4D79DB845A",
+      "CurrentObservedSha256": "49C30AC3E0EC5B90D5D77DFEDF884D74ED5E59B5EEC3F75E66FAC36BA1FF3FBB",
+      "SuccessBodyOrFailureStubEqual": true,
+      "ExactOriginalFailureReasonEqual": true
+    },
+    {
+      "Mode": "reviewed",
+      "Name": "beta_missing",
+      "OriginalReturnedSha256": "62B9029241F6E01E9EA42F01D9189E5F418A84D0B1A87F7816FE263E2099F2FB",
+      "CurrentObservedSha256": "1881768EE228F1F4E4EB9293E1A951FF9D7BE00650F80E9BEB81908B5104CD2C",
+      "SuccessBodyOrFailureStubEqual": true,
+      "ExactOriginalFailureReasonEqual": true
+    },
+    {
+      "Mode": "reviewed",
+      "Name": "module_mismatch",
+      "OriginalReturnedSha256": "6386A78F996DB78B7E7C4D62B7D7E66968580E2F02D71D34166D1CEC4FAD10AA",
+      "CurrentObservedSha256": "3DB9BA1A23462ECD9D8A19F86983E65BF516E3AE06A41D58AC29A1B6A9CA07E1",
+      "SuccessBodyOrFailureStubEqual": true,
+      "ExactOriginalFailureReasonEqual": true
+    },
+    {
+      "Mode": "reviewed",
+      "Name": "load_veto",
+      "OriginalReturnedSha256": "53CB6DE347518C5FCDB4A7937370BD4384FEB5CF20420F44BF9304CC8C0CA1CA",
+      "CurrentObservedSha256": "0010D3A230287B35E7E37892F219C9CE5B16C24AB6C324BAD734FC6B05A4123A",
+      "SuccessBodyOrFailureStubEqual": true,
+      "ExactOriginalFailureReasonEqual": true
+    },
+    {
+      "Mode": "reviewed",
+      "Name": "latin1_module",
+      "OriginalReturnedSha256": "2FE412F81F4DE8D3609BB7E22F8203EFD1C4116AE2BDED98ACEF8523A52E5F13",
+      "CurrentObservedSha256": "3C51AE7602D57CB821355C6D1B46F9D0A4FC1848D18078292D83B7B83768FBE5",
+      "SuccessBodyOrFailureStubEqual": true,
+      "ExactOriginalFailureReasonEqual": null
+    },
+    {
+      "Mode": "ordinary",
+      "Name": "alpha_no_declarations",
+      "OriginalReturnedSha256": "21CB47605F041E3F165C039BBBF6B868236F667ED62D92E5F413E2003AF9825F",
+      "CurrentObservedSha256": "C0D97B235DB7D05820013D87DDE873E90321D56D99F897682DEDC8E7C0A6FCBC",
+      "SuccessBodyOrFailureStubEqual": true,
+      "ExactOriginalFailureReasonEqual": null
+    },
+    {
+      "Mode": "ordinary",
+      "Name": "beta_explicit",
+      "OriginalReturnedSha256": "01188E99FC5CA03C62B26603F19F19C9733D9F1B190BAE5708ED4B82C1C4E328",
+      "CurrentObservedSha256": "3BE850FFA64427C2E7E43FA6CB8CF708B052AFCFD8CCD73286955BB8FEBCDEC3",
+      "SuccessBodyOrFailureStubEqual": true,
+      "ExactOriginalFailureReasonEqual": null
+    },
+    {
+      "Mode": "ordinary",
+      "Name": "beta_absent_load",
+      "OriginalReturnedSha256": "433CB1D818D2CA8D5F8EDCD574EDE45EBF0E1F4276D25752729E55AA5B58ED37",
+      "CurrentObservedSha256": "CDF83A1ED5A9BD1B08B511BCDC7EBA095FE6CCAB1460010471ED3104DAD47765",
+      "SuccessBodyOrFailureStubEqual": true,
+      "ExactOriginalFailureReasonEqual": null
+    },
+    {
+      "Mode": "ordinary",
+      "Name": "beta_absent_unload",
+      "OriginalReturnedSha256": "FE4995F4B7E275B8EB29E8779B42238D2143FB877A2F42548E4F9ADCDA3B7742",
+      "CurrentObservedSha256": "6112DA7D7F6A82FED9891305F9C8E18461CFBCB823514444F367656DFE67B937",
+      "SuccessBodyOrFailureStubEqual": true,
+      "ExactOriginalFailureReasonEqual": null
+    },
+    {
+      "Mode": "ordinary",
+      "Name": "beta_no_declarations",
+      "OriginalReturnedSha256": "459E13E51417D68905CE319F4163E6A5D9BDED823FDFDC75C52E0EF78EE3D5D7",
+      "CurrentObservedSha256": "A65D1397E8FE998D6AE2545B82AA7819CAC95E5C86B652D11F49FCA52405B0DD",
+      "SuccessBodyOrFailureStubEqual": true,
+      "ExactOriginalFailureReasonEqual": null
+    },
+    {
+      "Mode": "ordinary",
+      "Name": "alpha_duplicate",
+      "OriginalReturnedSha256": "27AE1114CC8D1C1CF50EC6FF8D24707386D768F4758A9B6E9B1B92072A8DCB67",
+      "CurrentObservedSha256": "52D62CE3082A9CCD0D43900F85AA721A5ABDCD470656A100086F7DBEFE88AD0F",
+      "SuccessBodyOrFailureStubEqual": true,
+      "ExactOriginalFailureReasonEqual": true
+    },
+    {
+      "Mode": "ordinary",
+      "Name": "beta_undeclared",
+      "OriginalReturnedSha256": "AB2A58EF0656910714681195B917962DBEAFD80F35EA7AD7F65CCB4D79DB845A",
+      "CurrentObservedSha256": "49C30AC3E0EC5B90D5D77DFEDF884D74ED5E59B5EEC3F75E66FAC36BA1FF3FBB",
+      "SuccessBodyOrFailureStubEqual": true,
+      "ExactOriginalFailureReasonEqual": true
+    },
+    {
+      "Mode": "ordinary",
+      "Name": "beta_missing",
+      "OriginalReturnedSha256": "62B9029241F6E01E9EA42F01D9189E5F418A84D0B1A87F7816FE263E2099F2FB",
+      "CurrentObservedSha256": "1881768EE228F1F4E4EB9293E1A951FF9D7BE00650F80E9BEB81908B5104CD2C",
+      "SuccessBodyOrFailureStubEqual": true,
+      "ExactOriginalFailureReasonEqual": true
+    },
+    {
+      "Mode": "ordinary",
+      "Name": "module_mismatch",
+      "OriginalReturnedSha256": "6386A78F996DB78B7E7C4D62B7D7E66968580E2F02D71D34166D1CEC4FAD10AA",
+      "CurrentObservedSha256": "3DB9BA1A23462ECD9D8A19F86983E65BF516E3AE06A41D58AC29A1B6A9CA07E1",
+      "SuccessBodyOrFailureStubEqual": true,
+      "ExactOriginalFailureReasonEqual": true
+    },
+    {
+      "Mode": "ordinary",
+      "Name": "load_veto",
+      "OriginalReturnedSha256": "53CB6DE347518C5FCDB4A7937370BD4384FEB5CF20420F44BF9304CC8C0CA1CA",
+      "CurrentObservedSha256": "0010D3A230287B35E7E37892F219C9CE5B16C24AB6C324BAD734FC6B05A4123A",
+      "SuccessBodyOrFailureStubEqual": true,
+      "ExactOriginalFailureReasonEqual": true
+    },
+    {
+      "Mode": "ordinary",
+      "Name": "latin1_module",
+      "OriginalReturnedSha256": "2FE412F81F4DE8D3609BB7E22F8203EFD1C4116AE2BDED98ACEF8523A52E5F13",
+      "CurrentObservedSha256": "3C51AE7602D57CB821355C6D1B46F9D0A4FC1848D18078292D83B7B83768FBE5",
+      "SuccessBodyOrFailureStubEqual": true,
+      "ExactOriginalFailureReasonEqual": null
+    }
+  ]
+}

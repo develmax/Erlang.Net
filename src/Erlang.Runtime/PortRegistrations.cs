@@ -43,7 +43,7 @@ internal static class PortRegistrations
             (context, arguments) => ValueTask.FromResult(context.Runtime.Ports.Open(context, arguments[0], arguments[1]))
         );
         Add(PortNames.Ports, 0, (context, _) => ValueTask.FromResult(context.Runtime.Ports.Snapshot()));
-        Add(PortNames.Close, 1, (context, arguments) => context.Runtime.Ports.CloseOrdered(arguments[0]));
+        Add(PortNames.Close, 1, (context, arguments) => context.Runtime.Ports.CloseOrdered(arguments[0], context.Cancellation));
         Add(
             PortNames.Connect,
             2,
@@ -60,7 +60,7 @@ internal static class PortRegistrations
             1,
             async (context, arguments) =>
         {
-            await context.Runtime.Ports.AwaitCommands(arguments[0]);
+            await context.Runtime.Ports.AwaitCommands(arguments[0], context.Cancellation);
 
             return context.Runtime.Ports.Info(arguments[0], null);
         }
@@ -70,13 +70,23 @@ internal static class PortRegistrations
             2,
             async (context, arguments) =>
         {
-            await context.Runtime.Ports.AwaitCommands(arguments[0]);
+            await context.Runtime.Ports.AwaitCommands(arguments[0], context.Cancellation);
 
             return context.Runtime.Ports.Info(arguments[0], arguments[1]);
         }
         );
-        Add(PortNames.Command, 2, (context, arguments) => context.Runtime.Ports.Command(arguments[0], arguments[1], Nil.Value));
-        Add(PortNames.Command, 3, (context, arguments) => context.Runtime.Ports.Command(arguments[0], arguments[1], arguments[2]));
+        Add(PortNames.Command, 2, (context, arguments) => context.Runtime.Ports.Command(
+            arguments[0],
+            arguments[1],
+            Nil.Value,
+            context
+        ));
+        Add(PortNames.Command, 3, (context, arguments) => context.Runtime.Ports.Command(
+            arguments[0],
+            arguments[1],
+            arguments[2],
+            context
+        ));
 
         // Ordinary guest call/control operations are unsupported by this backend.
         // The Unix driver's private forker/SIGCHLD memory protocol is not a guest handler.

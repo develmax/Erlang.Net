@@ -11,21 +11,10 @@ internal static class RuntimeStatisticsHostParameters
     public const string Failure = "Statistics actual shared clock/user CPU contract failed";
     public static readonly string[] PhysicalKeys =
     [
-        RuntimeStatisticsNames.ActiveTasks,
-        RuntimeStatisticsNames.ActiveTasksAll,
         RuntimeStatisticsNames.ContextSwitches,
-        RuntimeStatisticsNames.ExactReductions,
         RuntimeStatisticsNames.GarbageCollection,
         RuntimeStatisticsNames.Io,
         RuntimeStatisticsNames.MicrostateAccounting,
-        RuntimeStatisticsNames.Reductions,
-        RuntimeStatisticsNames.RunQueue,
-        RuntimeStatisticsNames.RunQueueLengths,
-        RuntimeStatisticsNames.RunQueueLengthsAll,
-        RuntimeStatisticsNames.TotalActiveTasks,
-        RuntimeStatisticsNames.TotalActiveTasksAll,
-        RuntimeStatisticsNames.TotalRunQueueLengths,
-        RuntimeStatisticsNames.TotalRunQueueLengthsAll,
         RuntimeStatisticsNames.SchedulerWallTime,
         RuntimeStatisticsNames.SchedulerWallTimeAll,
         RuntimeStatisticsNames.RunQueues

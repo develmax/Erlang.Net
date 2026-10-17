@@ -2,17 +2,16 @@ using System.Security.Cryptography;
 
 namespace Erlang;
 
-// Trusted deployment metadata, not a proof that a binary was built from this source.
+// Optional deployment hash admission is separate from ordinary host filesystem loading.
 internal sealed class NifNativeCapabilityProfile
 {
     internal string LibraryPath
     {
         get;
     }
-    internal string LibrarySha256
-    {
-        get;
-    }
+    internal string? ExpectedLibrarySha256 { get; }
+    internal string LibrarySha256 => ExpectedLibrarySha256
+        ?? throw new InvalidOperationException(NifNativeHostFileNames.NoExpectedDigest);
     internal string? BridgePath
     {
         get;
@@ -83,7 +82,7 @@ internal sealed class NifNativeCapabilityProfile
         if (reallocation && OperatingSystem.IsLinux() && (bridgePath is null || reallocationBridgePath is null))
             throw new InvalidOperationException(NifNativeDiagnostics.BridgeContract);
         LibraryPath = libraryPath;
-        LibrarySha256 = trustedLibrarySha256;
+        ExpectedLibrarySha256 = trustedLibrarySha256;
         BridgePath = bridgePath;
         BridgeSha256 = trustedBridgeSha256;
         ReallocationEnabled = reallocation;
@@ -102,13 +101,37 @@ internal sealed class NifNativeCapabilityProfile
     private NifNativeCapabilityProfile(NifNativeReviewedBasicAbi capability)
     {
         LibraryPath = capability.LibraryPath;
-        LibrarySha256 = capability.LibrarySha256;
+        ExpectedLibrarySha256 = capability.LibrarySha256;
         BridgePath = capability.BridgePath;
         BridgeSha256 = capability.BridgeSha256;
         ReallocationEnabled = false;
         ReallocationBridgePath = null;
         ReallocationBridgeSha256 = null;
     }
+
+    // Ordinary OTP loading trusts the host filesystem; no reviewed-source claim or synthetic digest.
+    internal static NifNativeCapabilityProfile ForHostLibrary(string libraryPath)
+    {
+        ArgumentNullException.ThrowIfNull(libraryPath);
+        if (!Path.IsPathFullyQualified(libraryPath))
+            throw new ArgumentException(NifNativeDiagnostics.TrustedSource);
+
+        return new NifNativeCapabilityProfile(libraryPath);
+    }
+
+    private NifNativeCapabilityProfile(string libraryPath)
+    {
+        LibraryPath = libraryPath;
+    }
+
+    internal FileStream OpenLibraryFile() => ExpectedLibrarySha256 is { } hash
+        ? OpenVerified(LibraryPath, hash)
+        : new FileStream(
+            LibraryPath,
+            FileMode.Open,
+            FileAccess.Read,
+            FileShare.Read
+        );
 
     private static void ValidatePathAndHash(string path, string hash)
     {

@@ -190,7 +190,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         bool successSpawnReply = true,
         bool initialAsyncDistribution = false,
         ProcessSchedulingPriority initialPriority = ProcessSchedulingPriority.Normal,
-        int schedulerBinding = ProcessSchedulerNames.Unbound
+        int schedulerBinding = ProcessSchedulerNames.Unbound,
+        ushort? initialFullSweepAfter = null
     )
     {
         ProcessContext ctx;
@@ -205,6 +206,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 new Pid(LocalIdentity, (ulong)++nextPid),
                 description?.Mfa
             );
+            ctx.GarbageCollectionPolicy.ExchangeThreshold(initialFullSweepAfter ?? DefaultFullSweepAfter);
             ctx.AsyncDistribution = initialAsyncDistribution;
             ctx.SchedulingPriorityLevel = initialPriority;
             ctx.SchedulerBinding = schedulerBinding;
@@ -336,7 +338,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 reference,
                 initialAsyncDistribution: options.AsyncDistribution,
                 initialPriority: options.Priority,
-                schedulerBinding: options.ResolveScheduler(ActorDispatchCapacity)
+                schedulerBinding: options.ResolveScheduler(ActorDispatchCapacity),
+                initialFullSweepAfter: options.FullSweepAfter
             );
             if (options.PriorityLink)
                 parent.PriorityLinks.Add(process.Pid);
@@ -427,7 +430,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                         options.SuccessReply,
                         options.Spawn.AsyncDistribution,
                         options.Spawn.Priority,
-                        options.Spawn.ResolveScheduler(ActorDispatchCapacity)
+                        options.Spawn.ResolveScheduler(ActorDispatchCapacity),
+                        options.Spawn.FullSweepAfter
                     );
                 }
                 catch (ErlangException exception) when (exception.Reason.Equals(Term.A(ErlangErrorReasons.SystemLimit)))
@@ -767,6 +771,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                     ProcessInfoLogicalNames.InitialCall => process.InitialCall,
                     ProcessInfoLogicalNames.ErrorHandler => process.ErrorHandler,
                     ProcessInfoLogicalNames.Priority => process.SchedulingPriority,
+                    ProcessFullSweepNames.Flag => Term.I(process.GarbageCollectionPolicy.Threshold),
                     ProcessAsyncDistributionNames.Flag => CoreModules.Boolean(process.AsyncDistribution),
                     ProcessInfoLogicalNames.Reductions => Term.I(process.CumulativeReductions),
                     ProcessInfoNames.Links => Cons.From(process.Links.Cast<Term>().Concat(process.PortLinks)),

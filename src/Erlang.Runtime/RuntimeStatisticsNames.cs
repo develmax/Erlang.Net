@@ -27,7 +27,7 @@ public static class RuntimeStatisticsNames
     public const string SchedulerWallTimeAll = "scheduler_wall_time_all";
     public const string RunQueues = "run_queues";
 
-    public static bool IsPhysical(string key) => key is ActiveTasks or ActiveTasksAll or ContextSwitches or ExactReductions or
-        GarbageCollection or Io or MicrostateAccounting or Reductions or RunQueue or RunQueueLengths or RunQueueLengthsAll or
+    public static bool IsPhysical(string key) => key is ActiveTasks or ActiveTasksAll or ContextSwitches or
+        GarbageCollection or Io or MicrostateAccounting or RunQueue or RunQueueLengths or RunQueueLengthsAll or
         TotalActiveTasks or TotalActiveTasksAll or TotalRunQueueLengths or TotalRunQueueLengthsAll or SchedulerWallTime or SchedulerWallTimeAll or RunQueues;
 }

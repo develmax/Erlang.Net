@@ -3,6 +3,7 @@ namespace Erlang;
 internal sealed class ProcessSpawnOptions
 {
     internal List<Term> SchedulerOptions { get; } = new();
+    internal ushort? FullSweepAfter { get; private set; }
 
     internal int ResolveScheduler(int configured)
     {
@@ -48,12 +49,17 @@ internal sealed class ProcessSpawnOptions
                 continue;
             }
             var current = Parse(Term.List(option));
+            if (option is TupleTerm { Items: [Atom { Name: ProcessAsyncDistributionNames.Flag }, _] })
+                result.AsyncDistribution = current.AsyncDistribution;
             if (option is TupleTerm { Items: [Atom { Name: ProcessPriorityNames.Flag }, _] })
                 result.Priority = current.Priority;
+            if (option is TupleTerm { Items: [Atom { Name: ProcessFullSweepNames.Flag }, _] })
+                result.FullSweepAfter = current.FullSweepAfter;
             result.Link |= current.Link;
-            result.PriorityLink |= current.PriorityLink;
+            if (option is TupleTerm { Items: [Atom { Name: ProcessSpawnOptionNames.Link }, _] })
+                result.PriorityLink = current.PriorityLink;
             result.Monitor |= current.Monitor;
-            if (option is TupleTerm { Items: [Atom { Name: ProcessSpawnOptionNames.Monitor }, _] })
+            if (option is Atom { Name: ProcessSpawnOptionNames.Monitor } or TupleTerm { Items: [Atom { Name: ProcessSpawnOptionNames.Monitor }, _] })
                 result.MonitorOptions = current.MonitorOptions;
         }
 
@@ -72,6 +78,9 @@ internal sealed class ProcessSpawnOptions
                     break;
                 case TupleTerm { Items: [Atom { Name: ProcessAsyncDistributionNames.Flag }, Atom { Name: ErlangBooleanAtoms.False }] }:
                     result.AsyncDistribution = false;
+                    break;
+                case TupleTerm { Items: [Atom { Name: ProcessFullSweepNames.Flag }, var sweepValue] }:
+                    result.FullSweepAfter = ProcessFullSweepAfter.ParseProcess(sweepValue);
                     break;
                 case TupleTerm { Items: [Atom { Name: ProcessSchedulerNames.Binding }, var schedulerValue] }:
                     _ = ProcessSchedulerValues.Parse(schedulerValue, configuredSchedulers);

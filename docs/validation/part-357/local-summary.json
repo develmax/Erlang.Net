@@ -1,0 +1,61 @@
+{
+  "Status": "ACTUAL_LOCAL357_ACCEPTED_PENDING_PUBLICATION_CI_AND_NEW_ORIGINAL",
+  "Parent": "4416a1df0657c08c28f560ab2e96f38c4adabac3",
+  "ExpectedTests": 7386,
+  "Passed": 7386,
+  "Failed": 0,
+  "OriginalOrderedPrefix": 7345,
+  "PriorCandidatePrefix": 7378,
+  "IntegrationOutcomes": 11,
+  "Packages": 2,
+  "TermOrderChildren": 12,
+  "RegistryRows": 587,
+  "RuntimeSourceGuards": 157,
+  "NativeCases": 22,
+  "CompositionPlanSha256": "50CB076DA06D42BB93734AC84A95DB9514627E029FA431D9102B9A6325E3AF4B",
+  "FullReportSha256": "E591DB83B18E0E6D0BB925AB07C466A4AD6D44EFD6109EA2B02EFB6DD769C6F9",
+  "CustomRegistryLimitsRestored": true,
+  "PostFullRegistryLimitsCorrection": {
+    "Key": {
+      "Module": "erlang",
+      "Function": "load_nif",
+      "Arity": 2
+    },
+    "BeforeFileSha256": "45718F0FE73ED01C42CE5EA4DFE4FB025799B4E4473A0182847BAB2E6BFC7665",
+    "AfterFileSha256": "19F1A426F5410308821F3C973065B8CB82AC3365417FA2D598D2A7E487D17FAD",
+    "BeforeLimit": "Pinned indirect BIF refusal remains. Direct captured loading now has a production backend under explicit reviewed image execution approval; no-policy fallback, broader native ABI/callbacks/upgrade, general filename modes and exact native loader errors remain incomplete. See per-command Known differences; registration is not complete compatibility.",
+    "AfterLimit": "Pinned indirect BIF refusal remains. Direct captured calls load actual host libraries; an explicit source handler takes precedence, and a reviewed image policy is optional. Fixed list/tuple array callbacks and five selected pinned native-load reason strings are covered by current controls and owned fixture observations. Broader NIF ABI/callbacks, non-UTF8 Unix filename modes, dirty execution, resources, threads and reload/upgrade remain incomplete. See per-command Known differences; registration is not complete compatibility.",
+    "BeforeLimitSha256": "959A0C2525CB5CA97A9148024CD9874426AE6D459875B2CA15186A8E5D3ACD21",
+    "AfterLimitSha256": "0EBFDAB054FAEA02CFDD43229984AAD19E05864E06E783ADC97D3B8AFE422BB5",
+    "OnlyOneSerializedValueReplaced": true,
+    "Other586RowsAndAllOutsideBytesUnchanged": true,
+    "RowsStatusesAndOrderUnchanged": true,
+    "LocalFullInputRetainedOldText": true,
+    "RawGeneratedRegistrySha256": "23A1729AC575A30C500F26F47877012E1D6C632DB8A43A21F3DBBE6F9C8A0FAB",
+    "CandidateRegistryNotModified": true,
+    "ExcludedFromSixPackageResourcesAndBothNativePlans": true,
+    "Scope": "Post-full documentation correction only: ordinary host loading and selected callback/reason coverage replace stale unsupported fallback wording. Readiness counts/ledger statuses remain unchanged; broader Known differences remain."
+  },
+  "CompatibilityCounts": {
+    "Verified compatible": 16,
+    "Needs verification": 541,
+    "Known differences": 30
+  },
+  "NativeSourcePlans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Rows": 1325,
+      "Sha256": "501B103A4A19FF52DB381D80880BD66385F21CCC81E4D550C4C45C27588B7D85",
+      "Workflow": ".github/workflows/nif-pending-native.yml"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Rows": 1350,
+      "Sha256": "6E4FA3339400FDB79B8D4515AB835D5AE8B048AF7B70DC7E3E481545FAE88BAE",
+      "Workflow": ".github/workflows/nif-reallocation-native.yml"
+    }
+  ],
+  "OriginalOtpExecutedByCanonicalRun": false,
+  "CurrentHeadCiVerified": false,
+  "MainChanged": false
+}

@@ -4203,7 +4203,7 @@ Test(
     return Task.CompletedTask;
 }
 );
-foreach (var fixture in Erlang.Differential.CompiledModuleCases.All.Where(fixture => !Erlang.Differential.SchedulerAffinityCases.Modules.Contains(fixture) && !Erlang.Differential.SizeErrorCases.Modules.Contains(fixture)))
+foreach (var fixture in Erlang.Differential.CompiledModuleCases.All.Where(fixture => !Erlang.Differential.SchedulerAffinityCases.Modules.Contains(fixture) && !Erlang.Differential.SizeErrorCases.Modules.Contains(fixture) && !Erlang.Tests.RuntimeIncrementCompiledCases.Names.Contains(fixture.Name)))
 {
     Test(
         "oracle/compiled-module/" + fixture.Name,
@@ -4709,6 +4709,77 @@ Test(
 Test(
     Erlang.Tests.NifNativeDefaultRouteHostNames.FilenameTest,
     NifNativeBackend::Erlang.NifNativeBackend.NifNativeDefaultRouteHostEntry.Filename
+);
+
+foreach (var fixture in Erlang.Tests.RuntimeIncrementCompiledCases.Modules)
+{
+    Test(
+        Erlang.Tests.RuntimeIncrementCompiledCases.TestPrefix + fixture.Name,
+        async () =>
+    {
+        using var artifact = Erlang.Differential.GeneratedModuleCompiler.Compile(fixture.Source);
+        if (fixture.ExpectedStandardOutputHex is not null || fixture.ExpectedStandardErrorHex is not null)
+        {
+            var captured = await Erlang.Differential.CompiledModuleExecution.RunCaptured(artifact, fixture.CallerContext);
+            Equal(captured.Result, fixture.Expected);
+            Check(Erlang.Differential.CompiledStandardOutputContract.Matches(fixture, captured.StandardOutputHex, captured.StandardErrorHex));
+        }
+        else
+            Equal(await Erlang.Differential.CompiledModuleExecution.Run(artifact, fixture.CallerContext), fixture.Expected);
+        Check(artifact.CSharpSha256.Length == 64);
+    }
+    );
+}
+
+Test(Erlang.Tests.RuntimeOptionRegistrationNames.FullSweep, Erlang.Tests.FullSweepHostChecks.Run);
+Test(Erlang.Tests.RuntimeReductionHostNames.Test, Erlang.Tests.RuntimeReductionHostChecks.Run);
+Test(Erlang.Tests.RemoteMonitorOptionNames.SpawnTest, Erlang.Tests.RemoteMonitorOptionHostChecks.RunSpawnOpt);
+Test(Erlang.Tests.RemoteMonitorOptionNames.RequestTest, Erlang.Tests.RemoteMonitorOptionHostChecks.RunSpawnRequest);
+Test(Erlang.Tests.RuntimeOptionRegistrationNames.Queued, Erlang.Tests.SchedulerStatisticsHostChecks.QueuedOwnerOnce);
+Test(Erlang.Tests.RuntimeOptionRegistrationNames.Offline, Erlang.Tests.SchedulerStatisticsHostChecks.OfflineLaneOrder);
+Test(Erlang.Tests.RuntimeOptionRegistrationNames.Initializer, Erlang.Tests.SchedulerStatisticsHostChecks.InitializerExcluded);
+
+Test(Erlang.Tests.BusyPortMonitorHostNames.ConfigurationTest, Erlang.Tests.BusyPortMonitorHostChecks.Configuration);
+Test(Erlang.Tests.BusyPortMonitorHostNames.SuspensionTest, Erlang.Tests.BusyPortMonitorHostChecks.Run);
+Test(Erlang.Tests.BusyPortCancellationHostNames.Test, Erlang.Tests.BusyPortMonitorHostChecks.QueuedCommandCancellation);
+
+Test(Erlang.Tests.PortWaitCancellationHostNames.Info, Erlang.Tests.BusyPortMonitorHostChecks.QueuedInfoCancellation);
+Test(Erlang.Tests.PortWaitCancellationHostNames.InfoItem, Erlang.Tests.BusyPortMonitorHostChecks.QueuedInfoItemCancellation);
+Test(Erlang.Tests.PortWaitCancellationHostNames.Close, Erlang.Tests.BusyPortMonitorHostChecks.QueuedCloseCancellation);
+
+foreach (var fixture in Erlang.Tests.RuntimeIncrementCompiledCases.NativeHostModules)
+{
+    Test(
+        Erlang.Tests.RuntimeIncrementCompiledCases.TestPrefix + fixture.Name,
+        async () =>
+    {
+        using var artifact = Erlang.Differential.GeneratedModuleCompiler.Compile(fixture.Source);
+        if (fixture.ExpectedStandardOutputHex is not null || fixture.ExpectedStandardErrorHex is not null)
+        {
+            var captured = await Erlang.Differential.CompiledModuleExecution.RunCaptured(artifact, fixture.CallerContext);
+            Equal(captured.Result, fixture.Expected);
+            Check(Erlang.Differential.CompiledStandardOutputContract.Matches(fixture, captured.StandardOutputHex, captured.StandardErrorHex));
+        }
+        else
+            Equal(await Erlang.Differential.CompiledModuleExecution.Run(artifact, fixture.CallerContext), fixture.Expected);
+        Check(artifact.CSharpSha256.Length == 64);
+    }
+    );
+}
+
+Test(Erlang.Tests.NifArrayCallbackHostNames.Empty, NifNativeBackend::Erlang.NifNativeBackend.NifNativeArrayHostEntry.Empty);
+Test(Erlang.Tests.NifArrayCallbackHostNames.Order, NifNativeBackend::Erlang.NifNativeBackend.NifNativeArrayHostEntry.Order);
+Test(Erlang.Tests.NifArrayCallbackHostNames.Limits, NifNativeBackend::Erlang.NifNativeBackend.NifNativeArrayHostEntry.Limits);
+Test(
+    Erlang.Tests.NifArrayCallbackHostNames.Containment,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeArrayHostEntry.Containment
+);
+Test(Erlang.Tests.RemoteSpawnMetadataHostNames.ParserTest, Erlang.Tests.RemoteSpawnMetadataHostChecks.ParserMetadata);
+Test(Erlang.Tests.RemoteSpawnMetadataHostNames.AsyncTest, Erlang.Tests.RemoteSpawnMetadataHostChecks.ConnectedAsync);
+Test(Erlang.Tests.RemoteSpawnMetadataHostNames.PriorityTest, Erlang.Tests.RemoteSpawnMetadataHostChecks.PriorityDuplicates);
+Test(
+    "runtime/nif-load-reason-original-five-controls",
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeLoadReasonHostEntry.Run
 );
 
 int failed = 0;

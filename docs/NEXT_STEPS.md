@@ -1,5 +1,9 @@
 # Next executable tasks
 
+Part357: publish the tested source closure, verify same-head CI, and run the new pinned original observers. Continue native ABI/resources/dirty execution and process-owned physical accounting; no complete erlang or performance-parity claim follows from API registration or these selected checks.
+
+Part356 same-head CI and original eleven-case selected native comparison are complete; retain all five diagnostic-text differences explicitly. Continue the prepared fullsweep_after/reductions and remote monitor-order implementations with their independent original checks. Do not repeat successful part356 runs or promote whole-API compatibility from selected witnesses.
+
 Part356: publish the exact accepted native-load runtime and source closure, then dispatch the corrected original eleven-case collector with its new manifest FBB2A50336A968F46CA622349CE6A75A0836226BB34DB66E026A7C9DB812827C and verify current-head CI. Preserve original355 as failure with zero completed cases; no old run is reused as success. Continue actual fullsweep_after policy and reductions counters from the separate source-reviewed 357 proposals, then their original OTP comparisons. No-policy default native loading, full ABI/resources, dirty scheduling and reload/upgrade still need implementation and complete contract verification.
 
 

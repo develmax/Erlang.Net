@@ -91,18 +91,19 @@ public static class ConnectedSpawnWireOptionHostChecks
         await a.PutPacket(await b.TakePacket());
         await caller.InvokeAsync(async context =>
         {
+            Require((await context.ReceiveAsync(value => value, ConnectedSpawnHostNames.Deadline))!.Equals(Term.A(ConnectedSpawnHostNames.Unrelated)));
             Term? first = await context.ReceiveAsync(value => value, ConnectedSpawnHostNames.Deadline);
             Term? second = await context.ReceiveAsync(value => value, ConnectedSpawnHostNames.Deadline);
             var values = new[] { first, second };
             Require(values.Any(value => value!.Equals(Term.Tuple(Term.A(ConnectedSpawnHostNames.Exit), child, Term.A(ConnectedSpawnHostNames.ChildReason)))));
             Require(values.Any(value => value!.Equals(Term.Tuple(
-                Term.A(ConnectedSpawnOptionHostNames.CustomDown),
+                Term.A(ConnectedSpawnHostNames.Down),
                 reference,
                 Term.A(ProcessMonitorKinds.Process),
                 child,
                 Term.A(ConnectedSpawnHostNames.ChildReason)
             ))));
-            Require((await context.ReceiveAsync(value => value, ConnectedSpawnHostNames.Deadline))!.Equals(Term.A(ConnectedSpawnHostNames.Unrelated)));
+            Require(await context.ReceiveAsync(value => value, TimeSpan.Zero) is null);
 
             return true;
         });

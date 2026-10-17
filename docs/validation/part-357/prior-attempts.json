@@ -1,0 +1,38 @@
+{
+  "FirstCanonical": {
+    "Passed": 7376,
+    "Failed": 2,
+    "FailureRows": [
+      {
+        "Name": "runtime/direct-source-load-nif-exact-caller-capability",
+        "Status": "Failed",
+        "Error": "System.InvalidOperationException: Direct source load_nif caller capability contract failed\r\n   at Erlang.Tests.SourceLoadNifHostChecks.Require(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part357-candidate\\tests\\Erlang.Tests\\SourceLoadNifHostChecks.cs:line 26\r\n   at Erlang.Tests.SourceLoadNifHostChecks.<>c__DisplayClass13_0.<<RoutesAndOwnership>b__0>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part357-candidate\\tests\\Erlang.Tests\\SourceLoadNifHostChecks.cs:line 147\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.NifAdmissionHostBridge.<>c__DisplayClass8_0.<<Context>b__0>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part357-candidate\\tests\\Erlang.Tests\\NifAdmissionHostBridge.cs:line 77\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.NifAdmissionHostBridge.Context(ProcessRuntime runtime, Func`2 operation) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part357-candidate\\tests\\Erlang.Tests\\NifAdmissionHostBridge.cs:line 87\r\n   at Erlang.Tests.SourceLoadNifHostChecks.RoutesAndOwnership() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part357-candidate\\tests\\Erlang.Tests\\SourceLoadNifHostChecks.cs:line 137\r\n   at Erlang.Tests.SourceLoadNifHostChecks.RoutesAndOwnership() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part357-candidate\\tests\\Erlang.Tests\\SourceLoadNifHostChecks.cs:line 253\r\n   at Erlang.Tests.SourceLoadNifHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part357-candidate\\tests\\Erlang.Tests\\SourceLoadNifHostChecks.cs:line 12\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part357-candidate\\tests\\Erlang.Tests\\Program.cs:line 4779",
+        "Milliseconds": 30
+      },
+      {
+        "Name": "runtime/connected-wire-order-last-tuple-precedence",
+        "Status": "Failed",
+        "Error": "System.InvalidOperationException: Connected remote spawn HOST contract failed.\r\n   at Erlang.Tests.ConnectedSpawnWireOptionHostChecks.Require(Boolean passed) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part357-candidate\\tests\\Erlang.Tests\\ConnectedSpawnWireOptionHostChecks.cs:line 114\r\n   at Erlang.Tests.ConnectedSpawnWireOptionHostChecks.<>c__DisplayClass0_0.<<WireOrderAndLastTuplePrecedence>b__2>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part357-candidate\\tests\\Erlang.Tests\\ConnectedSpawnWireOptionHostChecks.cs:line 98\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.<>c__DisplayClass9_0`1.<<InvokeAsync>b__0>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part357-candidate\\tests\\Erlang.Tests\\RuntimeNodeFoundationHostActor.cs:line 43\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func`2 command) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part357-candidate\\tests\\Erlang.Tests\\RuntimeNodeFoundationHostActor.cs:line 51\r\n   at Erlang.Tests.ConnectedSpawnWireOptionHostChecks.WireOrderAndLastTuplePrecedence() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part357-candidate\\tests\\Erlang.Tests\\ConnectedSpawnWireOptionHostChecks.cs:line 92\r\n   at Erlang.Tests.ConnectedSpawnWireOptionHostChecks.WireOrderAndLastTuplePrecedence() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part357-candidate\\tests\\Erlang.Tests\\ConnectedSpawnWireOptionHostChecks.cs:line 92\r\n   at Erlang.Tests.ConnectedSpawnWireOptionHostChecks.WireOrderAndLastTuplePrecedence() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part357-candidate\\tests\\Erlang.Tests\\ConnectedSpawnWireOptionHostChecks.cs:line 92\r\n   at Erlang.Tests.ConnectedSpawnWireOptionHostChecks.WireOrderAndLastTuplePrecedence() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part357-candidate\\tests\\Erlang.Tests\\ConnectedSpawnWireOptionHostChecks.cs:line 92\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part357-candidate\\tests\\Erlang.Tests\\Program.cs:line 4779",
+        "Milliseconds": 17
+      }
+    ],
+    "TestReportSha256": "F90DD33F44651B2C3FDC4BF350BB1F232429CFCD3270F60A59545FABD6398437",
+    "Exit": {
+      "Command": [
+        "C:/Users/Maksim/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+        "-NoProfile",
+        "-File",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part357-candidate\\tools\\validate.ps1"
+      ],
+      "Pid": 230420,
+      "ElapsedSeconds": 332.28100000001723,
+      "TimedOut": false,
+      "Settled": true,
+      "ExitCode": 1,
+      "Failures": [],
+      "StdoutSha256": "B81E5335767E9B471CC0D23BCA9622CEC0F75876FDAF3D7C6284D8815018FEEA",
+      "StderrSha256": "994B850F430448AF73D5960982704620F5FE3721BBB8FBCA09F03C4C709DBD03"
+    }
+  },
+  "History": "Private busy5/6 build/reflection failures, concurrent first-seal refusal, first legacy migration focus unhandled process and owned cleanup, and first native reason-control writer-record LF mismatch are retained in their original artifact directories. The first legacy focus did not settle normally. Later passing acquisitions do not overwrite these failures."
+}

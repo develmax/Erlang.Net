@@ -34,6 +34,8 @@ internal static class SequenceTraceRegistrations
             2,
             (context, arguments) => arguments[0] is Atom { Name: SequenceTraceNames.SystemTracer }
             ? ValueTask.FromResult(context.Runtime.SequenceTracing.SetTracer(arguments[1]))
+            : arguments[0] is Atom { Name: ProcessFullSweepNames.Flag }
+            ? ValueTask.FromResult(ProcessFullSweepAfter.SetDefault(context, arguments))
             : arguments[0] is Atom { Name: BacktraceDepthNames.Flag }
             ? ValueTask.FromResult(BacktraceDepthFlag.Set(context, arguments))
             : arguments[0] is Atom { Name: ProcessSchedulerNames.Online }
@@ -53,6 +55,8 @@ internal static class SequenceTraceRegistrations
             1,
             (context, arguments) => arguments[0] is Atom { Name: SequenceTraceNames.SystemTracer }
             ? ValueTask.FromResult<Term>(Term.Tuple(Term.A(SequenceTraceNames.SystemTracer), context.Runtime.SequenceTracing.Tracer()))
+            : arguments[0] is Atom { Name: ProcessFullSweepNames.Flag }
+            ? ValueTask.FromResult<Term>(Term.Tuple(Term.A(ProcessFullSweepNames.Flag), Term.I(context.Runtime.DefaultFullSweepAfter)))
             : arguments[0] is Atom { Name: AtomRegistryInfoNames.AtomCount }
             ? ValueTask.FromResult<Term>(Term.I(AtomNameRegistry.Count))
             : arguments[0] is Atom { Name: RuntimeLocalNodeAdmissionNames.Creation } ? ValueTask.FromResult<Term>(Term.I(context.Runtime.LocalIdentity.Snapshot.Creation))

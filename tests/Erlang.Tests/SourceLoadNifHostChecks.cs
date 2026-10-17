@@ -20,6 +20,17 @@ public static partial class SourceLoadNifHostChecks
         await ArgumentEvaluationAndGeneratedRoute(true);
     }
 
+    private static void RequireMissingLibraryFailure(Term value)
+    {
+        Require(value is TupleTerm
+        {
+            Items: [Atom { Name: SourceLoadNifHostNames.Error }, TupleTerm
+            {
+                Items: [Atom { Name: SourceLoadNifHostNames.LoadFailed }, Cons]
+            }]
+        });
+    }
+
     private static void Require(bool condition)
     {
         if (!condition)
@@ -142,9 +153,10 @@ public static partial class SourceLoadNifHostChecks
                 first,
                 SourceLoadNifHostNames.Direct,
                 context,
-                [Nil.Value]
+                [Term.String(SourceLoadNifHostNames.MissingLibrary)]
             );
-            Require(value.Equals(rejectedApply));
+            RequireMissingLibraryFailure(value);
+            Require(calls == 0 && References(context, image) == 0 && References(context, otherImage) == 0);
         }
         );
         Install(

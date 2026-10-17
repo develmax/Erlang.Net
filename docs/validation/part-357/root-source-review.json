@@ -1,0 +1,132 @@
+{
+  "Status": "PASS_ROOT_REVIEWED_SUCCESSOR357_SOURCE_AND_ACTUAL_FOCUSED_GATES",
+  "PlanSha256": "50CB076DA06D42BB93734AC84A95DB9514627E029FA431D9102B9A6325E3AF4B",
+  "SourceRows": 3027,
+  "ExpectedTests": 7386,
+  "RuntimeGuards": 157,
+  "CompatibilityCounts": {
+    "Verified compatible": 16,
+    "Needs verification": 541,
+    "Known differences": 30
+  },
+  "NewVerifiedClaims": 0,
+  "ActualFocusedGates": {
+    "arrays": {
+      "Path": "artifacts/nif-array-callback-focused-actual1/completion.json",
+      "Sha256": "21E0E328CB05148D4D2EF60B45E00AAB3C4A7DADC495D91FDCEE05F13E0F046F",
+      "Actual": {
+        "Status": "ACTUAL_FIXED_ARRAY_CALLBACK_MANAGED_FOCUS_REQUIRES_REVIEW",
+        "Executed": 4,
+        "Passed": 4,
+        "Failed": 0,
+        "Results": [
+          {
+            "Name": "empty",
+            "Passed": true,
+            "OutcomeSha256": "36CCB098BBD4A15EC1B1C7B13FE32142DD782F89AF4AD413777E0A758C814EB9",
+            "ExitSha256": "F3C818CDF23B6854BF07F7CC2C8F59FF329320C486AA1273198413CB02DDA3E3"
+          },
+          {
+            "Name": "order",
+            "Passed": true,
+            "OutcomeSha256": "9CD50C16D71B733C56ADAAA9DCF05A36CF6DAE228215C29B21DC33AD25685A89",
+            "ExitSha256": "A1A165512CF08D66A68B3A5668E921F236BD15951A2D0CF6B4DDD8E5E29000E8"
+          },
+          {
+            "Name": "limits",
+            "Passed": true,
+            "OutcomeSha256": "8AC9507478E5D0717B209AE3F1965DF3B4EB2744C557306C317204F1B9AC2606",
+            "ExitSha256": "EEC9C8F9F59D84DA8CBFC2547612090F2075B0BF605D8A262BE8E366691D4771"
+          },
+          {
+            "Name": "containment",
+            "Passed": true,
+            "OutcomeSha256": "21C169538C198299AA09CED692C214B19F519DF3639D92BD9BE38E4EFBC40AC7",
+            "ExitSha256": "A0C48EDDAE7286D4ECBCE2C37C65FCE58D1F77E6928916A24AB0E0C6B3D60F3F"
+          }
+        ],
+        "SourceFreezeSha256": "C22A8666DE2C42589D9AD7701AF72D6AE83BD21AF74883C2BA615C9B6E6BFFD2",
+        "ExecutionInputsSha256": "A8F13158D4DC797AD94C32AF95A06572431C3995FD898687D7D4B8051DC59D17",
+        "NativeLibraryImageLoaded": false,
+        "ManagedCallbackFunctionPointersExecuted": true,
+        "OriginalOtpExecuted": false,
+        "FullExecuted": false,
+        "MainChanged": false
+      }
+    },
+    "remote": {
+      "Path": "artifacts/remote-spawn-metadata-after-actual1/completion.json",
+      "Sha256": "F93DD61CCE80496EB77F6D29DAAC8BB24F463A66726A1732B4E28CA7A16CA2FD",
+      "Actual": {
+        "Status": "ACTUAL_REMOTE_SPAWN_METADATA_FOCUS_REQUIRES_REVIEW",
+        "Stage": "after",
+        "Passed": 4,
+        "Failed": 0,
+        "Results": [
+          {
+            "Name": "metadata",
+            "Passed": true,
+            "OutcomeSha256": "F5CF0378F09A20A2F09DFD884D5073FC9E34ECD355A7C625DBC2EB8011C2FC31",
+            "ExitSha256": "87EEF2A6BEB55716A20786C831EC2E498BE724EBC5CBD6F48AD57270E9D64083"
+          },
+          {
+            "Name": "connected-async",
+            "Passed": true,
+            "OutcomeSha256": "EC14D103136B26AE038DCBE3B9F45030BE94E7AA69BE6998586AFE6D08A02C72",
+            "ExitSha256": "C5C5C3155E13A5AC292639E6EBD799121E9713CAC97887B960D3AC14939A26F9"
+          },
+          {
+            "Name": "connected-priority",
+            "Passed": true,
+            "OutcomeSha256": "D2BC2CEB8086BA83430421F5CF539970ED4E29A4D066D98F46A6C5653A2ED77C",
+            "ExitSha256": "25F71F87B640C517363A1A02141009051B9F0228B8CFC1B8BCE0191EC5BBEA3E"
+          },
+          {
+            "Name": "legacy-wire",
+            "Passed": true,
+            "OutcomeSha256": "67C4D81102B061083E0DB7A44FF68B31895496F7E804CA2708F37E887497319E",
+            "ExitSha256": "A32AB9782781A5CEB52A4FE8BDBC90124E560C8F4FA46EECB6F419F02ED4D6F6"
+          }
+        ],
+        "SourceFreezeSha256": "682774F0918322EBFCCCE0A597F5D244047421792CEAA0545E31B7F6A011D61C",
+        "ExecutionInputsSha256": "8C8290BA58981F33072388B6F5C45727EA97F61A9EEB306FAF9B44AF2FD712FE",
+        "OriginalOtpExecuted": false,
+        "NativeExecuted": false,
+        "NetworkExecuted": false,
+        "MainChanged": false
+      }
+    },
+    "reasons": {
+      "Path": "artifacts/native-error-reasons-managed-actual2/completion.json",
+      "Sha256": "E884C8B8BFFA45376DB237BF4E4F795D209053E8ADA93C97BDE32DA475F5EA3D",
+      "Actual": {
+        "Status": "PASS_ACTUAL_BUILD_AND_BOUNDED_NO_NIF_REASON_CONTROLS",
+        "BuildExitSha256": "832F5522A1BBCE0E78E09C3ABFB86754A50B7D27AE8B55EE9AAF655764EB1370",
+        "ControlsExitSha256": "61FD08BF0BAFE83F3704EF00AEF2565F253EDB027616DA24460930E55024DCD3",
+        "SourceInputsSha256": "F6BEECA59BAB5FA4E41DEB8EDD705B65A1BA4EF3126FBA9234D27CD584E9985A",
+        "SourceRows": 1624,
+        "ActualNativeLibraryLoaded": false,
+        "OriginalOtpExecuted": false,
+        "MainChanged": false,
+        "FullExecuted": false
+      }
+    },
+    "caller-build": {
+      "Path": "artifacts/source-load-nif-host-focus-actual357-2/build.exit.json",
+      "Sha256": "FC2C7A85FD135B9E1511CCB54A6EA6251A27798D7509C747B54C6D809AC9D681"
+    },
+    "caller-direct-source-target": {
+      "Path": "artifacts/source-load-nif-host-focus-actual357-2/direct-source-target.exit.json",
+      "Sha256": "B6C4DE94DFE3A6790966B550D0E2FAA4018FBE0AB16BA00B6DF1D11E945D3052"
+    }
+  },
+  "SelectedSourceReview": [
+    "Fixed array callbacks preserve order and zero-count semantics with explicit managed limits",
+    "Typed native entry/veto failures preserve legacy internal messages; public reasons use pinned builders and omit writer record terminator only",
+    "Last tuple-link options reset priority; plain link preserves prior state; last monitor resets tag",
+    "Registered missing-file load reaches loader; unregistered standalone BEAM explicitly refuses UnknownImage; original indirect/caller/lease and configured-handler checks retained"
+  ],
+  "OriginalReasonData": "part356 original report D417DE137328431AA4D66B7A3F6EBA8D4DB8535FE39A0D51D205F9CA7A076896",
+  "FullOrNativeSuccessClaimed": false,
+  "Authorship": "Root authored legacy caller expectation migration; selected review and target execution are disclosed, not independent test design"
+}

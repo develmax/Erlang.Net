@@ -649,6 +649,12 @@ public static class CompiledModuleCases
         .. NumericBoundaryCases.Modules,
         .. SpawnPriorityCases.Modules,
         .. SchedulerAffinityCases.Modules,
-        .. SizeErrorCases.Modules
+        .. SizeErrorCases.Modules,
+        .. FullSweepCases.Modules,
+        .. RuntimeReductionCases.Modules,
+        .. MonitorOptionOrderCases.Modules,
+        .. SchedulerStatisticsCases.Modules,
+        .. BusyPortCases.Modules,
+        .. NativeHostDefaultCases.Modules
     ];
 }

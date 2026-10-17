@@ -8,7 +8,7 @@ namespace Erlang.NifNativeBackend;
 // One case per externally owned process. Admission is a separately reviewed Root artifact.
 internal static class NifNativeElevenDriver
 {
-    internal static async Task Run(string[] arguments)
+    internal static async Task Run(string[] arguments, bool ordinaryHost = false)
     {
         NifNativeHarness.Require(arguments.Length == 4 && (OperatingSystem.IsLinux() || OperatingSystem.IsWindows()));
         string admissionPath = Path.GetFullPath(arguments[0]);
@@ -70,18 +70,37 @@ internal static class NifNativeElevenDriver
         string module = Text(selected, "Module");
         ModuleCodeImage ownedImage = runtime.Modules.CurrentCodeImage(module)
             ?? throw new InvalidOperationException(NifNativeHarnessNames.Broken);
-        runtime.Modules.InstallReviewedNativeExecutionPolicy(path =>
+        if (ordinaryHost)
         {
-            NifNativeHarness.Require(path == imagePath);
+            // The developer driver still admits exact owned images before any native operation.
+            // Linux needs its separately admitted runtime ABI bridge; no per-image runtime policy.
+            if (OperatingSystem.IsLinux())
+                NifNativeExportRegistration.EnsureRegistered(NifNativeCapabilityProfile.ForReviewedBasicAbi(
+                    new NifNativeReviewedBasicAbi(
+                        imagePath,
+                        imageHash,
+                        buildHash,
+                        bridgePath,
+                        bridgeHash
+                    )
+                ));
+        }
+        else
+        {
+            runtime.Modules.InstallReviewedNativeExecutionPolicy(path =>
+            {
+                NifNativeHarness.Require(path == imagePath);
 
-            return new NifNativeReviewedBasicAbi(
-                imagePath,
-                imageHash,
-                buildHash,
-                bridgePath,
-                bridgeHash
-            );
-        });
+                return new NifNativeReviewedBasicAbi(
+                    imagePath,
+                    imageHash,
+                    buildHash,
+                    bridgePath,
+                    bridgeHash
+                );
+            });
+        }
+
         Term? observed = null;
         try
         {
@@ -98,6 +117,7 @@ internal static class NifNativeElevenDriver
                     [Term.String(stem), info]
                 );
                 File.WriteAllBytes(Path.Combine(output, NifNativeElevenNames.LoadResult), ExternalTermFormat.Encode(result));
+                NifNativeLoadReasonChecks.AssertOriginal(caseName, result);
                 Term body;
                 if (Text(selected, "SourceExpected") == "success")
                 {
@@ -174,7 +194,10 @@ internal static class NifNativeElevenDriver
                 Status = "OBSERVED_MANAGED_SOURCE_ROUTE_AND_RETIRED_IMAGE",
                 NativeBuildReceiptSha256 = buildHash,
                 AdmissionSha256 = arguments[1],
-                OriginalComparisonExecuted = false
+                OriginalComparisonExecuted = false,
+                RuntimeImagePolicyInstalled = !ordinaryHost,
+                OrdinaryHostFileLoading = ordinaryHost,
+                AdmittedLinuxBridgeBootstrapped = ordinaryHost && OperatingSystem.IsLinux()
             })
         );
     }

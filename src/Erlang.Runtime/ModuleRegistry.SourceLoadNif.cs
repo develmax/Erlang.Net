@@ -23,29 +23,14 @@ public sealed partial class ModuleRegistry
     )
     {
         var handler = Volatile.Read(ref sourceLoadNifHandler);
-        if (handler is null && Volatile.Read(ref nativeExecutionPolicy) is { } approval)
+        if (handler is null)
+        {
+            var approval = Volatile.Read(ref nativeExecutionPolicy);
             handler = (caller, captured, values) => NifNativeDefaultLoader.LoadAsync(
                 caller,
                 captured,
                 values,
                 approval
-            );
-        if (handler is null)
-        {
-            if (!SourceLoadNifFilename.IsValidUtf8(arguments[0]))
-                return RuntimeExceptionCapture.InvokeNative(
-                    context,
-                    (_, _) => throw new ErlangException(ErlangErrorReasons.BadArgument),
-                    ErlangModuleNames.Module,
-                    SourceLoadNifNames.Function,
-                    arguments
-                );
-
-            return Call(
-                context,
-                ErlangModuleNames.Module,
-                SourceLoadNifNames.Function,
-                arguments
             );
         }
 

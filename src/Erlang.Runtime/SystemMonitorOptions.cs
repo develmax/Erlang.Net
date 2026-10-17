@@ -1,11 +1,12 @@
 namespace Erlang;
 
-internal sealed record SystemMonitorOptions(long? Disable, ulong Enable)
+internal sealed record SystemMonitorOptions(long? Disable, ulong Enable, bool BusyPort = false)
 {
     public static SystemMonitorOptions Parse(Term options)
     {
         long? disable = null;
         ulong enable = 0;
+        bool busyPort = false;
         var physical = new Dictionary<string, bool>(StringComparer.Ordinal);
         foreach (Term option in Cons.Items(options))
         {
@@ -50,6 +51,10 @@ internal sealed record SystemMonitorOptions(long? Disable, ulong Enable)
                         throw new ErlangException(ErlangErrorReasons.BadArgument);
                     break;
                 case SystemMonitorNames.BusyPort:
+                    if (value is not Atom { Name: ErlangBooleanAtoms.True or ErlangBooleanAtoms.False } busy)
+                        throw new ErlangException(ErlangErrorReasons.BadArgument);
+                    busyPort = busy.Name == ErlangBooleanAtoms.True;
+                    break;
                 case SystemMonitorNames.BusyDistributionPort:
                     if (value is not Atom { Name: ErlangBooleanAtoms.True or ErlangBooleanAtoms.False } boolean)
                         throw new ErlangException(ErlangErrorReasons.BadArgument);
@@ -59,14 +64,24 @@ internal sealed record SystemMonitorOptions(long? Disable, ulong Enable)
                     throw new ErlangException(ErlangErrorReasons.BadArgument);
             }
         }
-        foreach (string name in new[] { SystemMonitorNames.BusyDistributionPort, SystemMonitorNames.BusyPort, SystemMonitorNames.LargeHeap, SystemMonitorNames.LongSchedule, SystemMonitorNames.LongGarbageCollection })
+        foreach (string name in new[] { SystemMonitorNames.BusyDistributionPort, SystemMonitorNames.LargeHeap, SystemMonitorNames.LongSchedule, SystemMonitorNames.LongGarbageCollection })
         {
             if (physical.GetValueOrDefault(name))
                 throw SystemMonitorNames.UnsupportedEffect(name);
         }
 
-        return new(disable, enable);
+        return new(disable, enable, busyPort);
     }
 
-    public Term ToTerm() => Disable is long off ? Term.List(Term.Tuple(Term.A(SystemMonitorNames.LongQueue), Term.Tuple(Term.I(off), new Integer(Enable)))) : Nil.Value;
+    public Term ToTerm()
+    {
+        Term result = Disable is long off
+            ? Term.List(Term.Tuple(
+                Term.A(SystemMonitorNames.LongQueue),
+                Term.Tuple(Term.I(off), new Integer(Enable))
+            ))
+            : Nil.Value;
+
+        return BusyPort ? new Cons(Term.A(SystemMonitorNames.BusyPort), result) : result;
+    }
 }

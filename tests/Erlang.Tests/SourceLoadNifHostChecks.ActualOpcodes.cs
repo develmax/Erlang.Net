@@ -111,15 +111,24 @@ public static partial class SourceLoadNifHostChecks
             Require(References(context, image) == SourceLoadNifHostNames.OwnedDirectReferences);
             Require(evaluated.Length == SourceLoadNifHostNames.Arity && evaluated[0].Equals(path) && evaluated[1].Equals(info));
         }
-        Term rejection = Term.Tuple(
-            Term.A(SourceLoadNifHostNames.Error),
-            Term.Tuple(Term.A(SourceLoadNifHostNames.BadLibrary), Term.String(SourceLoadNifHostNames.ApplyRejectedMessage))
-        );
         await NifAdmissionHostBridge.Context(
             runtime,
             async context =>
         {
-            Require((await Invoke(context)).Equals(Outcome(rejection)));
+            if (registered)
+            {
+                Term fallback = await Invoke(context);
+                if (nonTail)
+                {
+                    Require(fallback is TupleTerm { Items.Count: 2 } tuple && tuple.Items[0].Equals(marker));
+                    fallback = ((TupleTerm)fallback).Items[1];
+                }
+                RequireMissingLibraryFailure(fallback);
+            }
+            else
+            {
+                await NifAdmissionHostBridge.Failure(Invoke(context).AsTask(), SourceLoadNifHostNames.UnknownImage);
+            }
             CheckMarker(context);
             Require(References(context, image) == 0);
         }

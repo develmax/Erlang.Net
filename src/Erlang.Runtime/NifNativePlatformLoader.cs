@@ -13,7 +13,12 @@ internal static class NifNativePlatformLoader
             throw new PlatformNotSupportedException(NifNativeDiagnostics.UnsupportedPlatform);
     }
 
-    internal static nint Open(FileStream file, string path, bool global)
+    internal static nint Open(
+        FileStream file,
+        string path,
+        bool global,
+        bool useDescriptor = true
+    )
     {
         VerifyPlatform();
         if (OperatingSystem.IsWindows())
@@ -27,21 +32,27 @@ internal static class NifNativePlatformLoader
 
             return windowsHandle;
         }
-        // The verified descriptor prevents pathname replacement between hashing and dlopen.
-        // This deliberately bounded fixture has no relative private dependencies.
-        string descriptorPath = NifNativeNames.LinuxDescriptorPrefix + file.SafeFileHandle.DangerousGetHandle().ToString();
-        nint handle = Dlopen(descriptorPath, NifNativeNames.LinuxImmediate | (global ? NifNativeNames.LinuxGlobal : 0));
+        // Reviewed images use the verified descriptor. Ordinary host loading preserves
+        // the lexical pathname and its native relative dependency resolution.
+        string loadPath = useDescriptor
+            ? NifNativeNames.LinuxDescriptorPrefix + file.SafeFileHandle.DangerousGetHandle().ToString() : path;
+        nint handle = Dlopen(loadPath, NifNativeNames.LinuxImmediate | (global ? NifNativeNames.LinuxGlobal : 0));
         if (handle == 0)
             throw new InvalidOperationException(NifNativeDiagnostics.BridgeContract);
 
         return handle;
     }
 
-    internal static nint OpenNifLibrary(FileStream file, string path)
+    internal static nint OpenNifLibrary(FileStream file, string path, bool useDescriptor = true)
     {
         try
         {
-            return Open(file, path, global: false);
+            return Open(
+                file,
+                path,
+                global: false,
+                useDescriptor: useDescriptor
+            );
         }
         catch (Exception failure) when (failure is DllNotFoundException or BadImageFormatException ||
             failure is InvalidOperationException && failure.Message == NifNativeDiagnostics.BridgeContract)

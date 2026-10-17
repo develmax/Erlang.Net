@@ -11,8 +11,19 @@ internal static unsafe class NifNativeEntryFunctions
         ModuleCodeDescriptor descriptor
     )
     {
-        if (ReadLatin1(entry.Name) != module)
-            throw new NotSupportedException(NifNativeDiagnostics.ModuleIdentity);
+        string libraryModule = ReadLatin1(entry.Name);
+        if (libraryModule != module)
+            throw new NifNativeEntryAdmissionException(
+                NifNativeDiagnostics.ModuleIdentity,
+                new NifNativeLoadReason(
+                    NifNativeLoadReasonKind.ModuleMismatch,
+                    module,
+                    libraryModule,
+                    string.Empty,
+                    0,
+                    0
+                )
+            );
         if (Marshal.PtrToStringUTF8(entry.Variant) != NifNativeNames.Variant ||
             entry.FunctionCount < 0 || entry.FunctionCount > 0 && entry.Functions == 0 ||
             entry.Options != NifNativeAbi.InitializerEntryOptions)
@@ -23,17 +34,62 @@ internal static unsafe class NifNativeEntryFunctions
             var function = ((NifNativeAbiFunction*)entry.Functions)[index];
             string name = ReadLatin1(function.Name);
             if (function.Arity > int.MaxValue)
-                throw new NotSupportedException(NifNativeDiagnostics.NoDeclaredNif);
+                throw FunctionError(
+                    NifNativeLoadReasonKind.MissingFunction,
+                    NifNativeDiagnostics.NoDeclaredNif,
+                    module,
+                    name,
+                    function.Arity
+                );
             var key = (name, (int)function.Arity);
-            if (!descriptor.Functions.Contains(key) ||
-                descriptor.DeclaredNifs is { } declared && !declared.Contains(key))
-                throw new NotSupportedException(NifNativeDiagnostics.NoDeclaredNif);
-            if (function.Flags != 0 || function.Function == 0 || !functions.TryAdd(key, function.Function))
+            if (!descriptor.Functions.Contains(key))
+                throw FunctionError(
+                    NifNativeLoadReasonKind.MissingFunction,
+                    NifNativeDiagnostics.NoDeclaredNif,
+                    module,
+                    name,
+                    function.Arity
+                );
+            if (descriptor.DeclaredNifs is { } declared && !declared.Contains(key))
+                throw FunctionError(
+                    NifNativeLoadReasonKind.UndeclaredFunction,
+                    NifNativeDiagnostics.NoDeclaredNif,
+                    module,
+                    name,
+                    function.Arity
+                );
+            if (function.Flags != 0 || function.Function == 0)
                 throw new NotSupportedException(NifNativeDiagnostics.UntrustedFunction);
+            if (!functions.TryAdd(key, function.Function))
+                throw FunctionError(
+                    NifNativeLoadReasonKind.DuplicateFunction,
+                    NifNativeDiagnostics.UntrustedFunction,
+                    module,
+                    name,
+                    function.Arity
+                );
         }
 
         return functions;
     }
+
+    private static NifNativeEntryAdmissionException FunctionError(
+        NifNativeLoadReasonKind kind,
+        string diagnostic,
+        string module,
+        string function,
+        uint arity
+    ) => new(
+        diagnostic,
+        new NifNativeLoadReason(
+            kind,
+            module,
+            string.Empty,
+            function,
+            arity,
+            0
+        )
+    );
 
     private static string ReadLatin1(nint pointer)
     {

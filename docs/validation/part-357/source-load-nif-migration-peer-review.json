@@ -1,0 +1,80 @@
+{
+  "Status": "PASS_SELECTED_MIGRATION2_PEER_SOURCE_REVIEW_AND_PASSIVE_ACTUAL_RECEIPTS",
+  "CopyPlanSha256": "B31A13D6C05CDD522DB5F1B9856E9B9BC25937BA6DE1099DABFF1FDFA3B7C7B6",
+  "Files": [
+    {
+      "Path": "tests/Erlang.Tests/SourceLoadNifHostChecks.cs",
+      "BeforeSha256": "457522C9A686D70BCF465AF85CE38982128790161A22D365932FCC2F037A4ABE",
+      "AfterSha256": "7C69DB73229F3989451F11C78CE5FCEB8FC43A2E60B3E2D557B76C2850EB1AFC",
+      "ActualFocusSourceSha256": "7C69DB73229F3989451F11C78CE5FCEB8FC43A2E60B3E2D557B76C2850EB1AFC"
+    },
+    {
+      "Path": "tests/Erlang.Tests/SourceLoadNifHostNames.cs",
+      "BeforeSha256": "B53C8E735FDBE8D9987131EF35FFA1D9D0353D074D7393098744746F281B7859",
+      "AfterSha256": "B090689A05CF945678B9F73B0C37D9666278B8E3FAFAC4F282E9B9F3662D2580",
+      "ActualFocusSourceSha256": "B090689A05CF945678B9F73B0C37D9666278B8E3FAFAC4F282E9B9F3662D2580"
+    },
+    {
+      "Path": "tests/Erlang.Tests/SourceLoadNifHostChecks.ActualBeam.cs",
+      "BeforeSha256": "81E68529693899E3756C0611AAEE29E7CDA99E7C4E74719C005CA9B82E4C2CD5",
+      "AfterSha256": "495BE9F1B2D6877E7716FEED1B6635C359B8C39A2F05A91BF52C5A7F3610EBE5",
+      "ActualFocusSourceSha256": "495BE9F1B2D6877E7716FEED1B6635C359B8C39A2F05A91BF52C5A7F3610EBE5"
+    },
+    {
+      "Path": "tests/Erlang.Tests/SourceLoadNifHostChecks.ActualOpcodes.cs",
+      "BeforeSha256": "D61F9F9AB3D77FB98F85C0465B877455513C3951D5C801DA7A5558010428C3B4",
+      "AfterSha256": "3E2A75B7D942B983E43649403A6067995AEB25E90A2B923064E9D79A6FE58975",
+      "ActualFocusSourceSha256": "3E2A75B7D942B983E43649403A6067995AEB25E90A2B923064E9D79A6FE58975"
+    }
+  ],
+  "ProductionBindings": [
+    {
+      "Path": "artifacts/part357-candidate/src/Erlang.Runtime/ModuleRegistry.SourceLoadNif.cs",
+      "Sha256": "D8BE1978958DE328AC6BBC056B7C647D7337AD9D15CEC8E7A9A25BB68C5D4F69",
+      "ActualFocusSourceSha256": "D8BE1978958DE328AC6BBC056B7C647D7337AD9D15CEC8E7A9A25BB68C5D4F69"
+    },
+    {
+      "Path": "artifacts/part357-candidate/src/Erlang.Runtime/ModuleRegistry.NifAdmission.cs",
+      "Sha256": "676B054D12BBDF77D2C2169607C0F21CC277FA48C9313F853C11E50D98D2DDF7",
+      "ActualFocusSourceSha256": "676B054D12BBDF77D2C2169607C0F21CC277FA48C9313F853C11E50D98D2DDF7"
+    }
+  ],
+  "ActualReceipts": [
+    {
+      "Path": "artifacts/source-load-nif-host-focus-actual357-2/build.exit.json",
+      "Sha256": "FC2C7A85FD135B9E1511CCB54A6EA6251A27798D7509C747B54C6D809AC9D681",
+      "Pid": 264360,
+      "ElapsedSeconds": 34.719000000011874,
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts/source-load-nif-host-focus-actual357-2/direct-source-target.exit.json",
+      "Sha256": "B6C4DE94DFE3A6790966B550D0E2FAA4018FBE0AB16BA00B6DF1D11E945D3052",
+      "Pid": 209016,
+      "ElapsedSeconds": 2.2960000000020955,
+      "ExitCode": 0
+    }
+  ],
+  "Preserved": [
+    "All nine Run groups and public Run facade",
+    "Generated indirect/apply/fun-reference rejection and configured handler call counts",
+    "Main configured handler suffix byte exact: escaped/foreign caller refusal, one-shot consume, old generations, ownership and references",
+    "Actual BEAM configured handler suffix byte exact: owner/image identity, active and released references, failure identity, managed NIF install/bind and surviving stub",
+    "Actual opcode metadata classifiers byte exact; configured handler and cancellation suffix byte exact: dictionary marker, arguments, live references during finally, released references after unwind"
+  ],
+  "Semantics": [
+    "Registered direct/BEAM/opcode no-handler routes reach actual ordinary loader; missing file returns error/load_failed with a nonempty Cons reason",
+    "Non-tail opcode result retains marker tuple wrapper before checking returned failure",
+    "Unregistered private standalone image is not present in codeImages/pendingBeamImages, so CaptureNifGeneration throws typed UnknownImage before native initialization; Failure helper requires matching reflected Failure enum, not any exception",
+    "InvokeSourceLoadNif retains custom handler precedence. UnknownImage is deliberately not among default loader converted OldCode/Reload/UpgradeUnsupported errors. Permission and code lease cleanup remain finally/disposal paths."
+  ],
+  "Limits": [
+    "Selected source migration review, not original OTP execution or whole load_nif verification",
+    "Nonempty Cons reason shape does not independently validate every charlist element or exact OS diagnostic text; production Term.String construction reviewed separately",
+    "Private unregistered standalone admission refusal has no executable counterpart in an ordinary original OTP registered module; do not count it as an OTP equality case",
+    "Full successor validation, native two-mode acquisition and new original/CI remain separate"
+  ],
+  "ReviewerAuthorship": "Reviewer authored source composition and dynamic acquisition helpers but did not author these four Root migration changes or execute this focused test. This is independent selected source review, not independent full test-design authorship.",
+  "NoSdkOrNativeExecutionPerformedByReviewer": true,
+  "MainChanged": false
+}

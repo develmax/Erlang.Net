@@ -1,5 +1,10 @@
 # Durable project instructions
 
+Part357 local validation passes 7,386 tests, eleven integration outcomes, two packages and twelve bounded child controls; both Windows native modes pass eleven fixtures each. Preserve the original 7,345 ordered baseline and the prior candidate prefix. Registered APIs remain587 in14 modules, with16 verified,30 known differences and541 pending; erlang remains16/13/322 of351. New same-head CI and original comparisons remain pending.
+
+Part356 remote checks are complete at published head 4416a1df0657c08c28f560ab2e96f38c4adabac3: CI **7,345 tests / eleven integration outcomes**, two package creation log entries, and original OTP-29.1.1 **eleven native cases**. Six selected complete success terms and five failure-category/stub results match the final managed run; all five diagnostic strings differ explicitly. The passive review verifies 127 source guards, eight original ELF images, 12,008 pinned source blobs and 58 normal process receipts. No compatibility promotion follows: **16 verified / 30 Known differences / 541 Needs verification** (erlang 16 / 13 / 322 of 351). Earlier pending statements and original355 failure remain historical. [Completion evidence](docs/validation/part-356/remote-completion/).
+
+
 Part 356 implements the compiled native-load source route under separately reviewed image admission and removes fixture-specific entry export restrictions. Canonical local validation passes **7,345 tests / eleven integration outcomes / two packages**, preserving 7,343 prior ordered tests and twelve child controls. Eleven real owned Windows native cases pass through the exact final driver. Registry remains 587 APIs across 14 modules; compatibility remains **16 verified / 30 Known differences / 541 Needs verification**, with 127 runtime source guards (erlang 16 / 13 / 322 of 351). Original eleven-case comparison and same-head CI are pending publication; unrestricted loading and complete native ABI semantics remain unfinished. Failed and incomplete attempts remain explicit. [Evidence](docs/validation/part-356/).
 
 

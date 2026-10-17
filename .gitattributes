@@ -175,3 +175,9 @@ tools/Erlang.SchedulerAffinityOriginalObservations/** -text whitespace=trailing-
 docs/validation/part-354/** binary
 
 docs/validation/part-356/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
+
+# Live original-observation inputs keep declared raw bytes across checkouts.
+tools/Erlang.NifEntryOriginalObservations/*.json text eol=lf
+tools/Erlang.RemoteMonitorOrderOriginalObservations/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Erlang.RemoteMonitorOrderOriginalObservations/*.json text eol=lf
+.github/workflows/remote-monitor-order-original.yml text eol=lf

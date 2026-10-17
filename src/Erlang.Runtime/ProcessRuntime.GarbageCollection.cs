@@ -8,7 +8,7 @@ public sealed partial class ProcessRuntime
         bool major = options.Type is Atom { Name: ProcessGarbageCollectionNames.Major };
         if (!options.Async && target.Equals(requester.Self))
         {
-            CollectManagedHeap(major);
+            requester.CollectManagedGarbage(major, CollectManagedHeap);
 
             return Term.A(ErlangBooleanAtoms.True);
         }
@@ -29,7 +29,7 @@ public sealed partial class ProcessRuntime
                     {
                         if (process.PendingGarbageCollections.Remove(request))
                         {
-                            CollectManagedHeap(request.Major);
+                            process.CollectManagedGarbage(request.Major, CollectManagedHeap);
                             ReplyGarbageCollection(request, true, process.Self);
                         }
                     }

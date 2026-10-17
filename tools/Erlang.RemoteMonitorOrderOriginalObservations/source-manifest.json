@@ -1,0 +1,109 @@
+{
+  "SchemaVersion": 1,
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Cases": [
+    "spawn_plain_last",
+    "spawn_custom_last",
+    "request_plain_last",
+    "request_custom_last"
+  ],
+  "Files": [
+    {
+      "Path": "collect-original.py",
+      "Bytes": 7274,
+      "Sha256": "13C3B7F7792F5C7251B222D36EFD5DC55338231ABC75A333E072A29738239E1F"
+    },
+    {
+      "Path": "monitor_option_order.reference.erl",
+      "Bytes": 935,
+      "Sha256": "13919E0AB0DAC639FB72C966418F6D31459468BBFBD85C6638188AEF41AC53BC"
+    },
+    {
+      "Path": "proc_lib_real_peer_probe.erl",
+      "Bytes": 5530,
+      "Sha256": "C8FF719E2746EFDB1D47A4326748886BDAF277ACEF426D3949629937D2FFE272"
+    },
+    {
+      "Path": "proc_lib_remote_payload.erl",
+      "Bytes": 168,
+      "Sha256": "6C69007EEA4721FA175A226FB3F0E90C0B1800D86866C5863B82901C53E16598"
+    },
+    {
+      "Path": "README.md",
+      "Bytes": 2748,
+      "Sha256": "6BB362C6DF36E96512C6B53A74E6BA5B7554E8814F834E983B06774BB625C799"
+    }
+  ],
+  "ExternalDependencies": [
+    {
+      "Path": "tools/Erlang.GuestConnectedSendObservations/owned_process.py",
+      "Bytes": 3675,
+      "Sha256": "846101AD4F92121ACB128EAFB3228DD66D8A524CE0539A25E020A77010CFF071"
+    },
+    {
+      "Path": "tools/Erlang.GuestConnectedSendObservations/passive_etf.py",
+      "Bytes": 7105,
+      "Sha256": "A069AD650B3EA1BE6B90DE60117B84ED7A1A6B67128CC41E7ECAEFD2889C1713"
+    },
+    {
+      "Path": "tools/Erlang.ConnectedSpawnOriginalObservations/collect-original.py",
+      "Bytes": 15039,
+      "Sha256": "B5D04E74FE476FE3C7DF53873E62F7A57A39AD5023F0151D86C50A03F9562059"
+    }
+  ],
+  "ReusedCollector": {
+    "Path": "tools/Erlang.ProcLibRealPeerObservations/collect-original.py",
+    "Bytes": 18638,
+    "Sha256": "0279AF41CF8EAD52C804EE5B9FB3A510D9BBE0F34B4FD789B6497770031D8730"
+  },
+  "Workflow": {
+    "Path": ".github/workflows/remote-monitor-order-original.yml",
+    "Bytes": 2763,
+    "Sha256": "4B7D52A009CA35813F79749DB1F12EFA8160B8F676525DE36D1B4ABAE797715D"
+  },
+  "PinnedSourceAnchors": [
+    {
+      "Path": "lib/stdlib/src/peer.erl",
+      "Bytes": 62528,
+      "Sha256": "29D7756577C44DACF93632D3E01686D39864145290A197CFC7ED976A1C11AE2A"
+    },
+    {
+      "Path": "erts/epmd/src/epmd.c",
+      "Bytes": 15533,
+      "Sha256": "D85AFC0FC08F95880F65CCF2A475A6064337C6C810C3DF06374CC395059EDFC3"
+    },
+    {
+      "Path": "lib/stdlib/src/proc_lib.erl",
+      "Bytes": 57067,
+      "Sha256": "A8FC8E94F9AD47ACE46CD204FC5EB6FD227C09787F3BE906D80D2E4547E6A8C5"
+    },
+    {
+      "Path": "erts/emulator/beam/dist.c",
+      "Bytes": 220150,
+      "Sha256": "67711AB6A7C9FCE0F4D5B40B06D4DDE5F61E9C8BDFAAFB1D0A22988D04657EEB"
+    },
+    {
+      "Path": "lib/stdlib/src/beam_lib.erl",
+      "Bytes": 54697,
+      "Sha256": "A817BC772330D250EF6FAD4B8FABC1A31F10F6FE45A84122035AF8AD6627A868"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_bif_info.c",
+      "Bytes": 195383,
+      "Sha256": "9A86723F7BCE38BCB64B4CF3E7759FFC51CEFA9973CB11B36DC26A263A329149"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_process.c",
+      "Bytes": 459197,
+      "Sha256": "89CBDB55BE2A97E77B2450BB3D339CA6DB934B9C4BF556EAD29B4EAE88072DC9"
+    }
+  ],
+  "ReviewedDependenciesAtHead": "f50f4712f4266dbc2dfca3dba392b283a795faf9",
+  "OriginalExecuted": false,
+  "SdkExecuted": false,
+  "FullTraceCompared": false,
+  "OriginalWirePacketsCaptured": false,
+  "CompilePolicy": "Exact installed erlc default options; no no_ssa_opt",
+  "ReusedOwnershipImplementationUnchanged": true,
+  "SharedPayloadSha256": "6C69007EEA4721FA175A226FB3F0E90C0B1800D86866C5863B82901C53E16598"
+}

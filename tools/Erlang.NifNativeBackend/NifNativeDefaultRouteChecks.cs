@@ -12,7 +12,7 @@ internal static class NifNativeDefaultRouteChecks
         EntryModuleDiagnostic();
         await PolicyAndFilename();
         await HostPrecedence();
-        await NoPolicyFallback();
+        await NoPolicyHostFile();
         await CurrentReservationAndOldCaller();
         await MissingFileAndHashAdmission();
         Console.WriteLine(NifNativeDefaultRouteNames.Pass);
@@ -137,7 +137,7 @@ internal static class NifNativeDefaultRouteChecks
         );
     }
 
-    private static async Task NoPolicyFallback()
+    private static async Task NoPolicyHostFile()
     {
         using var compiled = GeneratedModuleCompiler.Compile(NifNativeDefaultRouteNames.Source);
         await using var runtime = new ProcessRuntime();
@@ -146,11 +146,18 @@ internal static class NifNativeDefaultRouteChecks
             runtime,
             async context =>
         {
-            NifNativeHarness.Require((await Load(
-                compiled.Definition,
-                context,
-                Term.String(NifNativeDefaultRouteNames.RelativeStem)
-            )).Equals(ErlangLoadNifTerms.IndirectCallError));
+            string absent = Path.Combine(Path.GetTempPath(), NifNativeDefaultRouteNames.MissingPrefix + Guid.NewGuid());
+            Term result = await Load(compiled.Definition, context, Term.String(absent));
+            NifNativeHarness.Require(result is TupleTerm
+            {
+                Items: [Atom { Name: NifNativeDefaultRouteNames.Error }, TupleTerm
+                {
+                    Items: [Atom { Name: NifNativeDefaultLoaderNames.LoadFailed }, Cons]
+                }]
+            });
+            // Missing files do not reach the native initializer or taint the module.
+            NifNativeHarness.Require(runtime.Modules.CurrentCodeImage(NifNativeDefaultRouteNames.Module) is not null);
+            NifNativeHarness.Require(!runtime.Modules.GetNifTaints().Contains(NifNativeDefaultRouteNames.Module));
         }
         );
     }

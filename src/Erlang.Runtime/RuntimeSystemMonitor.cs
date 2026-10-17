@@ -85,6 +85,26 @@ internal sealed class RuntimeSystemMonitor(ProcessRuntime runtime, object runtim
         }
     }
 
+    internal void BusyPort(Pid process, PortTerm port)
+    {
+        lock (eventGate)
+        {
+            if (stopped || receiver is null || !options.BusyPort || process.Equals(receiver))
+                return;
+            notifications.Enqueue((receiver, Term.Tuple(
+                Term.A(SystemMonitorNames.Notification),
+                process,
+                Term.A(SystemMonitorNames.BusyPort),
+                port
+            )));
+            if (!dispatching)
+            {
+                dispatching = true;
+                dispatcher = Task.Run(Dispatch);
+            }
+        }
+    }
+
     public void Terminated(Pid process)
     {
         lock (eventGate)

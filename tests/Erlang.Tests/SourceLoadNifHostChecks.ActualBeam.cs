@@ -32,25 +32,29 @@ public static partial class SourceLoadNifHostChecks
                 runtime,
                 async context =>
             {
-                Term rejection = Term.Tuple(
-                    Term.A(SourceLoadNifHostNames.Error),
-                    Term.Tuple(Term.A(SourceLoadNifHostNames.BadLibrary), Term.String(SourceLoadNifHostNames.ApplyRejectedMessage))
-                );
-                Term fallback = registered
-                    ? await runtime.Modules.Call(
+                if (registered)
+                {
+                    Term fallback = await runtime.Modules.Call(
                         context,
                         standalone.Name,
                         ActualBeamLoadNifHostNames.Load,
                         Term.String(ActualBeamLoadNifHostNames.Path),
                         Term.I(SourceLoadNifHostNames.Marker)
-                    )
-                    : await standalone.Invoke(
-                        context,
-                        ActualBeamLoadNifHostNames.Load,
-                        Term.String(ActualBeamLoadNifHostNames.Path),
-                        Term.I(SourceLoadNifHostNames.Marker)
                     );
-                Require(fallback.Equals(rejection));
+                    RequireMissingLibraryFailure(fallback);
+                }
+                else
+                {
+                    await NifAdmissionHostBridge.Failure(
+                        standalone.Invoke(
+                            context,
+                            ActualBeamLoadNifHostNames.Load,
+                            Term.String(ActualBeamLoadNifHostNames.Path),
+                            Term.I(SourceLoadNifHostNames.Marker)
+                        ).AsTask(),
+                        SourceLoadNifHostNames.UnknownImage
+                    );
+                }
                 if (expectedImage is not null)
                     Require(References(context, expectedImage) == 0);
             }

@@ -5,13 +5,19 @@ namespace Erlang;
 
 internal sealed class RuntimeStatistics
 {
+    private readonly RuntimeReductionStatistics reductions = new();
     private readonly object gate = new();
     private readonly long started = Stopwatch.GetTimestamp();
     private BigInteger previousWallClock;
     private BigInteger previousUserCpu;
 
+    internal void RecordReductions(int count) => reductions.Record(count);
+
     public Term Sample(string key)
     {
+        if (key is RuntimeStatisticsNames.Reductions or RuntimeStatisticsNames.ExactReductions)
+            return reductions.Sample(key);
+
         lock (gate)
         {
             BigInteger total;

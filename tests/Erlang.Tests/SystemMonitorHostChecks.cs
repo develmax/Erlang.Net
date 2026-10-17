@@ -10,9 +10,9 @@ public static class SystemMonitorHostChecks
         {
             try
             {
-                foreach (string effect in new[] { SystemMonitorNames.LongGarbageCollection, SystemMonitorNames.LongSchedule, SystemMonitorNames.LargeHeap, SystemMonitorNames.BusyPort, SystemMonitorNames.BusyDistributionPort })
+                foreach (string effect in new[] { SystemMonitorNames.LongGarbageCollection, SystemMonitorNames.LongSchedule, SystemMonitorNames.LargeHeap, SystemMonitorNames.BusyDistributionPort })
                 {
-                    Term enabled = effect is SystemMonitorNames.BusyPort or SystemMonitorNames.BusyDistributionPort ? Term.A(ErlangBooleanAtoms.True) : Term.I(0);
+                    Term enabled = effect == SystemMonitorNames.BusyDistributionPort ? Term.A(ErlangBooleanAtoms.True) : Term.I(0);
                     try
                     {
                         await runtime.Modules.Call(
