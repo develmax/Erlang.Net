@@ -1,0 +1,149 @@
+{
+  "Status": "UNEXECUTED_SOURCE_DERIVED_NATIVE_ENTRY_CASES",
+  "Cases": [
+    {
+      "Name": "alpha_no_declarations",
+      "Module": "native_entry_alpha",
+      "ErlangSource": "source/original/alpha/native_entry_alpha.erl",
+      "ErlangSourceSha256": "219140805FAC8C948BF9E195DA77850473F4D2479B04465F24E9F333CEEAE9C3",
+      "NativeLeaf": "alpha",
+      "NativeSource": "source/native/entry_alpha.c",
+      "CompilerDefinitions": [],
+      "SourceExpected": "success",
+      "ActualOriginalObservation": null,
+      "Scope": "Success values and failed-load stub rollback; error tag only, actual reason string retained raw. No exact unload callback count or complete loader-error parity claim."
+    },
+    {
+      "Name": "beta_explicit",
+      "Module": "native_entry_beta",
+      "ErlangSource": "source/original/beta/native_entry_beta.erl",
+      "ErlangSourceSha256": "F9E788A588A7A5999CF49A8C24940F62B0362131899123B610E8365782D4D703",
+      "NativeLeaf": "beta",
+      "NativeSource": "source/native/entry_beta.c",
+      "CompilerDefinitions": [],
+      "SourceExpected": "success",
+      "ActualOriginalObservation": null,
+      "Scope": "Success values and failed-load stub rollback; error tag only, actual reason string retained raw. No exact unload callback count or complete loader-error parity claim."
+    },
+    {
+      "Name": "beta_absent_load",
+      "Module": "native_entry_beta",
+      "ErlangSource": "source/original/beta/native_entry_beta.erl",
+      "ErlangSourceSha256": "F9E788A588A7A5999CF49A8C24940F62B0362131899123B610E8365782D4D703",
+      "NativeLeaf": "beta_absent_load",
+      "NativeSource": "source/native/entry_beta.c",
+      "CompilerDefinitions": [
+        "ENTRY_WITH_LOAD=0"
+      ],
+      "SourceExpected": "success",
+      "ActualOriginalObservation": null,
+      "Scope": "Success values and failed-load stub rollback; error tag only, actual reason string retained raw. No exact unload callback count or complete loader-error parity claim."
+    },
+    {
+      "Name": "beta_absent_unload",
+      "Module": "native_entry_beta",
+      "ErlangSource": "source/original/beta/native_entry_beta.erl",
+      "ErlangSourceSha256": "F9E788A588A7A5999CF49A8C24940F62B0362131899123B610E8365782D4D703",
+      "NativeLeaf": "beta_absent_unload",
+      "NativeSource": "source/native/entry_beta.c",
+      "CompilerDefinitions": [
+        "ENTRY_WITH_UNLOAD=0"
+      ],
+      "SourceExpected": "success",
+      "ActualOriginalObservation": null,
+      "Scope": "Success values and failed-load stub rollback; error tag only, actual reason string retained raw. No exact unload callback count or complete loader-error parity claim."
+    },
+    {
+      "Name": "beta_no_declarations",
+      "Module": "native_entry_beta",
+      "ErlangSource": "source/original/beta_no_declarations/native_entry_beta.erl",
+      "ErlangSourceSha256": "FAD431482F6B5BD4F5488549FBA3CE3E8CBB20A4388BF57DCB8DFBB5DF76CDF6",
+      "NativeLeaf": "beta",
+      "NativeSource": "source/native/entry_beta.c",
+      "CompilerDefinitions": [],
+      "SourceExpected": "success",
+      "ActualOriginalObservation": null,
+      "Scope": "Success values and failed-load stub rollback; error tag only, actual reason string retained raw. No exact unload callback count or complete loader-error parity claim."
+    },
+    {
+      "Name": "alpha_duplicate",
+      "Module": "native_entry_alpha",
+      "ErlangSource": "source/original/alpha/native_entry_alpha.erl",
+      "ErlangSourceSha256": "219140805FAC8C948BF9E195DA77850473F4D2479B04465F24E9F333CEEAE9C3",
+      "NativeLeaf": "alpha_duplicate",
+      "NativeSource": "source/native/entry_alpha.c",
+      "CompilerDefinitions": [
+        "ENTRY_DUPLICATE=1"
+      ],
+      "SourceExpected": "bad_lib",
+      "ActualOriginalObservation": null,
+      "Scope": "Success values and failed-load stub rollback; error tag only, actual reason string retained raw. No exact unload callback count or complete loader-error parity claim."
+    },
+    {
+      "Name": "beta_undeclared",
+      "Module": "native_entry_beta",
+      "ErlangSource": "source/original/beta/native_entry_beta.erl",
+      "ErlangSourceSha256": "F9E788A588A7A5999CF49A8C24940F62B0362131899123B610E8365782D4D703",
+      "NativeLeaf": "beta_undeclared",
+      "NativeSource": "source/native/entry_beta.c",
+      "CompilerDefinitions": [
+        "ENTRY_UNDECLARED=1"
+      ],
+      "SourceExpected": "bad_lib",
+      "ActualOriginalObservation": null,
+      "Scope": "Success values and failed-load stub rollback; error tag only, actual reason string retained raw. No exact unload callback count or complete loader-error parity claim."
+    },
+    {
+      "Name": "beta_missing",
+      "Module": "native_entry_beta",
+      "ErlangSource": "source/original/beta/native_entry_beta.erl",
+      "ErlangSourceSha256": "F9E788A588A7A5999CF49A8C24940F62B0362131899123B610E8365782D4D703",
+      "NativeLeaf": "beta_missing",
+      "NativeSource": "source/native/entry_beta.c",
+      "CompilerDefinitions": [
+        "ENTRY_MISSING=1"
+      ],
+      "SourceExpected": "bad_lib",
+      "ActualOriginalObservation": null,
+      "Scope": "Success values and failed-load stub rollback; error tag only, actual reason string retained raw. No exact unload callback count or complete loader-error parity claim."
+    },
+    {
+      "Name": "module_mismatch",
+      "Module": "native_entry_beta",
+      "ErlangSource": "source/original/beta/native_entry_beta.erl",
+      "ErlangSourceSha256": "F9E788A588A7A5999CF49A8C24940F62B0362131899123B610E8365782D4D703",
+      "NativeLeaf": "alpha",
+      "NativeSource": "source/native/entry_alpha.c",
+      "CompilerDefinitions": [],
+      "SourceExpected": "bad_lib",
+      "ActualOriginalObservation": null,
+      "Scope": "Success values and failed-load stub rollback; error tag only, actual reason string retained raw. No exact unload callback count or complete loader-error parity claim."
+    },
+    {
+      "Name": "load_veto",
+      "Module": "native_entry_beta",
+      "ErlangSource": "source/original/beta/native_entry_beta.erl",
+      "ErlangSourceSha256": "F9E788A588A7A5999CF49A8C24940F62B0362131899123B610E8365782D4D703",
+      "NativeLeaf": "beta",
+      "NativeSource": "source/native/entry_beta.c",
+      "CompilerDefinitions": [],
+      "SourceExpected": "load",
+      "ActualOriginalObservation": null,
+      "Scope": "Success values and failed-load stub rollback; error tag only, actual reason string retained raw. No exact unload callback count or complete loader-error parity claim."
+    },
+    {
+      "Name": "latin1_module",
+      "Module": "native_entry_béta",
+      "ErlangSource": "source/original/latin1/native_entry_béta.erl",
+      "ErlangSourceSha256": "2F89969F306B60DD352A0E548AA2B076E23A0E387193068140EBB9F5522DFA39",
+      "NativeLeaf": "beta_latin1",
+      "NativeSource": "source/native/entry_beta.c",
+      "CompilerDefinitions": [
+        "ENTRY_LATIN1_MODULE=1"
+      ],
+      "SourceExpected": "success",
+      "ActualOriginalObservation": null,
+      "Scope": "Success values and failed-load stub rollback; error tag only, actual reason string retained raw. No exact unload callback count or complete loader-error parity claim."
+    }
+  ]
+}

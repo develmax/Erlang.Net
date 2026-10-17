@@ -1,0 +1,9 @@
+# Part 355: publish original NIF-entry collector tooling
+
+This increment publishes the manual workflow and its frozen source collector before any original native run. **Eleven original scenarios and eight native images are planned, not observed.** No compiler VM, native image, NIF or SDK execution is claimed by the tooling checks. Runtime backend integration remains private and incomplete; no runtime source, compatibility ledger, readiness JSON, package resource or existing native source plan changes in this increment.
+
+The Root-executed pure source controls passed schema/hash checks for eleven cases, eight image definitions and seven receipt/cleanup refusal controls. [Lossless raw records](tooling-source/root-source-controls-raw.json) preserve the exact Root output bytes, including CRLF, as Base64 with SHA256. [Frozen proposal](tooling-source/source-freeze.json) and [control source](tooling-source/check-source-controls.py) establish the source scope; they do not establish a native result.
+
+The collector binds OTP-29.1.1 commit ad05823719d77c8faee87348ea39513d4e2f99c5 and manifest9B5712D0A45A77CBA92426FD993D3AF75B1039AE2B95DD4B01E6C8D67A26CA4B. It requires a separately built installed runtime, the exact PREFIX/lib/erlang root, owned build/compiler/observation processes and normal cleanup. Each original case uses fresh VMs with explicit +S2:2; source/image checksums, loaded code identity, raw ETF, initialization/compilation errors and partial failure observations remain separate. No embedded observation is presented as actual output.
+
+Next: after this workflow is published, Root may dispatch a once-only run for the exact published head and reviewed manifest. Terminal API/artifact/provenance and typed observations need independent acceptance before any original result or compatibility claim. Ordinary comparison remains a separate run. The larger Erlang implementation remains incomplete.
