@@ -1,9 +1,9 @@
-name: Native namespace isolation source probe
+name: Native namespace constructor registration probe
 on:
   workflow_dispatch:
     inputs:
       source_manifest_sha256:
-        description: Reviewed namespace source closure digest
+        description: Root-reviewed source closure digest
         type: string
         required: true
       expected_head:
@@ -12,22 +12,22 @@ on:
 permissions:
   contents: read
 jobs:
-  namespace-probe:
+  namespace-constructor-probe:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     env:
       EXPECTED_HEAD: ${{ inputs.expected_head }}
     steps:
       - uses: actions/checkout@v7
-      - name: Verify exact source head and compile owned namespace probe
+      - name: Verify exact head and execute owned constructor namespace probe
         shell: bash
         run: |
           set -euo pipefail
           test "$EXPECTED_HEAD" = "$GITHUB_SHA"
           test "$(git --no-optional-locks rev-parse HEAD)" = "$GITHUB_SHA"
-          bash tools/Erlang.NifNamespaceProbe/run.sh artifacts/namespace-probe
+          bash tools/Erlang.NifNamespaceConstructorProbe/run.sh artifacts/namespace-constructor-probe
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: native-namespace-probe
-          path: artifacts/namespace-probe/**
+          name: native-namespace-constructor-probe
+          path: artifacts/namespace-constructor-probe/**
