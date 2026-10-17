@@ -129,6 +129,62 @@ internal static class NifLinuxCallbackDriver
                         }
                     }
                     await foreignReady.Task.WaitAsync(NifLinuxCallbackNames.Deadline);
+                    foreach (int count in NifLinuxCallbackTraceNames.MapSizes)
+                    {
+                        NifLinuxCallbackTrace.Mark(destination, NifLinuxCallbackTraceNames.MapConstructionBefore + count, mapModule.Name, NifLinuxCallbackTraceNames.MakeMap);
+                        Term map = await Invoke(destination, mapModule, NifLinuxCallbackTraceNames.MakeMap, context, [Term.I(count)]);
+                        NifLinuxCallbackTrace.Mark(destination, NifLinuxCallbackTraceNames.MapConstructionAfter + count, mapModule.Name, NifLinuxCallbackTraceNames.MakeMap);
+                        NifLinuxCallbackTrace.Mark(destination, NifLinuxCallbackTraceNames.DirectSizeBefore + count, mapModule.Name, NifLinuxCallbackTraceNames.Observe);
+                        Term sized = await Invoke(destination, mapModule, NifLinuxCallbackTraceNames.Observe, context, [Term.I(0), map]);
+                        File.WriteAllBytes(Path.Combine(destination, NifLinuxCallbackTraceNames.DirectSizeFile + count + NifLinuxCallbackNames.TermSuffix), ExternalTermFormat.Encode(sized));
+                        NifLinuxCallbackTrace.Mark(destination, NifLinuxCallbackTraceNames.DirectSizeAfter + count, mapModule.Name, NifLinuxCallbackTraceNames.Observe);
+                    }
+                    Term independentMap = await Invoke(destination, mapModule, NifLinuxCallbackTraceNames.MakeMap, context, [Term.I(33)]);
+                    bool retained = false;
+                    try
+                    {
+                        for (int mode = 3; mode <= 4; mode++)
+                        {
+                            NifLinuxCallbackTrace.Mark(destination, NifLinuxCallbackTraceNames.IndependentBefore + mode, mapModule.Name, NifLinuxCallbackTraceNames.Observe);
+                            Term sized = await Invoke(destination, mapModule, NifLinuxCallbackTraceNames.Observe, context, [Term.I(mode), mode == 3 ? independentMap : Term.A(NifLinuxCallbackTraceNames.Unused)]);
+                            if (mode == 3)
+                                retained = true;
+                            File.WriteAllBytes(Path.Combine(destination, NifLinuxCallbackTraceNames.IndependentFile + mode + NifLinuxCallbackNames.TermSuffix), ExternalTermFormat.Encode(sized));
+                            NifLinuxCallbackTrace.Mark(destination, NifLinuxCallbackTraceNames.IndependentAfter + mode, mapModule.Name, NifLinuxCallbackTraceNames.Observe);
+                        }
+                    }
+                    catch (Exception failure)
+                    {
+                        NifLinuxCallbackTrace.Mark(destination, NifLinuxCallbackTraceNames.BeforeCleanupFailure, mapModule.Name, NifLinuxCallbackTraceNames.Observe, failure);
+                        throw;
+                    }
+                    finally
+                    {
+                        if (retained)
+                        {
+                            NifLinuxCallbackTrace.Mark(destination, NifLinuxCallbackTraceNames.IndependentBefore + 5, mapModule.Name, NifLinuxCallbackTraceNames.Observe);
+                            Term released = await Invoke(destination, mapModule, NifLinuxCallbackTraceNames.Observe, context, [Term.I(5), Term.A(NifLinuxCallbackTraceNames.Unused)]);
+                            File.WriteAllBytes(Path.Combine(destination, NifLinuxCallbackTraceNames.IndependentFile + 5 + NifLinuxCallbackNames.TermSuffix), ExternalTermFormat.Encode(released));
+                            NifLinuxCallbackTrace.Mark(destination, NifLinuxCallbackTraceNames.IndependentAfter + 5, mapModule.Name, NifLinuxCallbackTraceNames.Observe);
+                        }
+                    }
+
+                    foreach (var image in admission.Images)
+                    {
+                        NifLinuxCallbackTrace.Mark(destination, NifLinuxCallbackTraceNames.FullRunBefore, image.Module, NifLinuxCallbackNames.Run);
+                        var module = compiled.Single(module => module.Definition.Name == image.Module).Definition;
+                        Term observed = await Invoke(destination, module, NifLinuxCallbackNames.Run, context, []);
+                        NifLinuxCallbackTrace.Mark(destination, NifLinuxCallbackTraceNames.FullRunAfter, image.Module, NifLinuxCallbackNames.Run);
+                        File.WriteAllBytes(Path.Combine(destination, image.Module + NifLinuxCallbackNames.TermSuffix), ExternalTermFormat.Encode(observed));
+                        Require(observed is TupleTerm { Items.Count: 3 });
+                        var tuple = (TupleTerm)observed;
+                        Require(tuple.Items[0].Equals(Term.A(image.Module)));
+                        Term[] rows = Cons.Items(tuple.Items[1]).ToArray();
+                        Require(rows.Length == image.ObservationNames.Length);
+                        for (int index = 0; index < rows.Length; index++)
+                            Require(rows[index] is TupleTerm { Items.Count: 2 } row && row.Items[0].Equals(Term.A(image.ObservationNames[index])));
+                        Require(tuple.Items[2].Equals(Term.List(NifLinuxCallbackNames.Widths.Select(value => Term.I(value)).ToArray())));
+                    }
                 });
             }
             catch (Exception failure)
@@ -159,13 +215,13 @@ internal static class NifLinuxCallbackDriver
             Verify(image.LibraryPath, image.LibrarySha256);
         File.WriteAllText(Path.Combine(output, NifLinuxCallbackNames.Completion), JsonSerializer.Serialize(new
         {
-            Status = NifLinuxCallbackTraceNames.DiagnosticStatus,
+            Status = NifLinuxCallbackNames.AcquiredStatus,
             admission.SubjectHead,
             AdmissionSha256 = arguments[1],
             Route = route,
-            PrimaryObservationCount = 0,
-            DiagnosticOnly = true,
-            OriginalSeventeenNotExecuted = true,
+            PrimaryObservationCount = NifLinuxCallbackNames.ObservationCount,
+            DiagnosticOnly = false,
+            OriginalSeventeenNotExecuted = false,
             PreflightNumericCallsPerRuntime = 3,
             ForcedGcBarrierExecuted = true,
             RuntimeDomains = NifLinuxCallbackNames.DomainCount,

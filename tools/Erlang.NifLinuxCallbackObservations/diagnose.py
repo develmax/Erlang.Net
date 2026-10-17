@@ -5,7 +5,9 @@ from owned_process import OwnedProcess
 def sha(p):return hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest().upper()
 def check(p,s):assert sha(p)==s.upper(),str(p)
 a=argparse.ArgumentParser();a.add_argument('--source-plan',required=True);a.add_argument('--source-plan-sha256',required=True);args=a.parse_args()
-base=ROOT/'artifacts/linux-callback17';out=ROOT/'artifacts/linux-callback-diagnostic';out.mkdir(exist_ok=False)
+base=ROOT/'artifacts/linux-callback17';capture=ROOT/'artifacts/linux-callback-full2';capture.mkdir(exist_ok=False)
+for family in ('bridge','size-original','reference-original'):(capture/family).symlink_to(base/family,target_is_directory=True)
+out=capture/'sdk';out.mkdir(exist_ok=False)
 check(base/'bridge/admission.json','0711868322C3A608AE6B2FB249D42D05C4C420A5B842D11532577F0C00A00CD3')
 admission=json.loads((base/'bridge/admission.json').read_bytes())
 assert admission['SubjectHead']=='f7399755673e510c15ddcdc573a376141c1c5965'
@@ -24,11 +26,16 @@ for row in old['AdjacentDlls']:
 # Source-equivalent rebuilds are recorded honestly; only focus/backend instrumentation may change source.
 gdb=shutil.which('gdb');environment=os.environ.copy()
 for key in ('GH_ARTIFACT_TOKEN','GITHUB_TOKEN','LD_PRELOAD','LD_AUDIT'):environment.pop(key,None)
-command=[str(dotnet),str(focus),str(base/'bridge/admission.json'),sha(base/'bridge/admission.json'),str(out/'reviewed'),'reviewed']
-mode='gdb' if gdb else 'dotnet-triage-dump'
-if gdb:
-    script=out/'capture.gdb'
-    script.write_text("""set pagination off
+stages=[]
+inputs={'DiagnosticInstrumentation':True,'PrimaryObservationCount':17,'AdmissionSubjectHead':admission['SubjectHead'],'ExecutingCodeHead':os.environ['GITHUB_SHA'],'PreviousRun':39030222266,'PreviousArtifact':12099548874,'SourcePlanSha256':args.source_plan_sha256,'Dotnet':str(dotnet),'DotnetSha256':sha(dotnet),'PreviousDotnetSha256':old['DotnetSha256'],'DotnetByteIdentical':sha(dotnet)==old['DotnetSha256'],'AdjacentDlls':dlls,'FocusSha256':sha(focus),'DebuggerPath':gdb,'DebuggerSha256':sha(gdb) if gdb else None,'Platform':platform.platform(),'Libc':platform.libc_ver(),'SignalCaptureBudget':4,'BacktraceFramesPerThread':16,'WallDeadlineSecondsPerRoute':180,'MaximumStreamBytes':4194304,'MaximumDumpFileBytes':67108864}
+(out/'inputs.json').write_text(json.dumps(inputs,indent=2))
+resource.setrlimit(resource.RLIMIT_FSIZE,(64*1024*1024,64*1024*1024))
+for route in ('reviewed','ordinary'):
+    command=[str(dotnet),str(focus),str(base/'bridge/admission.json'),sha(base/'bridge/admission.json'),str(out/route),route]
+    mode='gdb' if gdb else 'dotnet-triage-dump'
+    if gdb:
+        script=out/('capture-'+route+'.gdb')
+        script.write_text("""set pagination off
 set confirm off
 set debuginfod enabled off
 set auto-load safe-path /nonexistent
@@ -56,28 +63,32 @@ continue
 end
 run
 """)
-    for key in ('DOTNET_DbgEnableMiniDump','COMPlus_DbgEnableMiniDump'):environment.pop(key,None)
-    command=[gdb,'--nx','--batch','--return-child-result','-x',str(script),'--args']+command
-else:
-    environment.update(DOTNET_DbgEnableMiniDump='1',DOTNET_DbgMiniDumpType='3',DOTNET_DbgMiniDumpName=str(out/'crash.%p.dmp'),DOTNET_EnableCrashReport='1')
-resource.setrlimit(resource.RLIMIT_FSIZE,(64*1024*1024,64*1024*1024))
-inputs={'DiagnosticOnly':True,'PrimaryObservationCount':0,'AdmissionSubjectHead':admission['SubjectHead'],'ExecutingCodeHead':os.environ['GITHUB_SHA'],'PreviousRun':39030222266,'PreviousArtifact':12099548874,'SourcePlanSha256':args.source_plan_sha256,'Dotnet':str(dotnet),'DotnetSha256':sha(dotnet),'PreviousDotnetSha256':old['DotnetSha256'],'DotnetByteIdentical':sha(dotnet)==old['DotnetSha256'],'AdjacentDlls':dlls,'FocusSha256':sha(focus),'Mode':mode,'DebuggerPath':gdb,'DebuggerSha256':sha(gdb) if gdb else None,'Platform':platform.platform(),'Libc':platform.libc_ver(),'Arguments':command,'SignalCaptureBudget':4,'BacktraceFramesPerThread':16,'WallDeadlineSeconds':180,'MaximumStreamBytes':4194304,'MaximumDumpFileBytes':67108864}
-(out/'inputs.json').write_text(json.dumps(inputs,indent=2))
-process=None;failure=None
-try:
-    process=OwnedProcess(command,ROOT,environment,out/'reviewed-process')
-    process.wait(time.monotonic()+180,lambda:False)
-except BaseException as error:
-    failure=repr(error)
-finally:
-    if process:process.close()
-    check(admission['BridgePath'],admission['BridgeSha256'])
-    for image in admission['Images']:check(image['LibraryPath'],image['LibrarySha256'])
-    target_completion=out/'reviewed/completion.json'
-    completed=False
-    if target_completion.exists():
-        completion=json.loads(target_completion.read_bytes())
-        completed=completion.get('Status')=='DIAGNOSTIC_NUMERIC_FOREIGN_GC_RETIREMENT_COMPLETED' and completion.get('DiagnosticOnly') is True and completion.get('PrimaryObservationCount')==0
-    if failure is None and not completed:failure='Wrapper exited zero without verified diagnostic target completion'
-    (out/'diagnostic-receipt.json').write_text(json.dumps({'DiagnosticOnly':True,'PrimaryObservationCount':0,'Failure':failure,'Mode':mode,'TargetDiagnosticCompletionVerified':completed,'TargetCompletionSha256':sha(target_completion) if target_completion.exists() else None,'WrapperExitCode':None if process is None else process.process.returncode,'TargetSignalNotInferredFromWrapper':True,'DumpFiles':[{'Path':str(p),'Bytes':p.stat().st_size,'Sha256':sha(p)} for p in out.glob('*.dmp')],'ProductionSourcePlanPreservedExceptTwoEntrypointsAndDispatchAlias':True,'NativeImagesPreserved':True},indent=2))
-if failure:raise RuntimeError(failure)
+        for key in ('DOTNET_DbgEnableMiniDump','COMPlus_DbgEnableMiniDump'):environment.pop(key,None)
+        command=[gdb,'--nx','--batch','--return-child-result','-x',str(script),'--args']+command
+    else:
+        environment.update(DOTNET_DbgEnableMiniDump='1',DOTNET_DbgMiniDumpType='3',DOTNET_DbgMiniDumpName=str(out/(route+'.crash.%p.dmp')),DOTNET_EnableCrashReport='1')
+    (out/(route+'-execution.json')).write_text(json.dumps({'Mode':mode,'Arguments':command,'ExecutingCodeHead':os.environ['GITHUB_SHA'],'AdmissionSubjectHead':admission['SubjectHead']},indent=2))
+    process=None;failure=None
+    try:
+        process=OwnedProcess(command,ROOT,environment,out/route)
+        process.wait(time.monotonic()+180,lambda:False)
+    except BaseException as error:
+        failure=repr(error)
+    finally:
+        if process:process.close()
+        check(admission['BridgePath'],admission['BridgeSha256'])
+        for image in admission['Images']:check(image['LibraryPath'],image['LibrarySha256'])
+        target_completion=out/route/'completion.json';completed=False
+        if target_completion.exists():
+            completion=json.loads(target_completion.read_bytes())
+            completed=completion.get('Status')=='ACQUIRED_LINUX_CALLBACK17_TWO_RUNTIME_ROWS' and completion.get('PrimaryObservationCount')==17 and completion.get('Route')==route and completion.get('RuntimeDomains')==2 and completion.get('AllImageRetirementsCompleted') is True and completion.get('RuntimeDisposalsCompleted') is True
+            if completed:
+                for row in completion['Files']:check(out/route/row['Path'],row['Sha256'])
+        if failure is None and not completed:failure='Wrapper exited zero without verified full17 target completion'
+        (out/(route+'-diagnostic-receipt.json')).write_text(json.dumps({'DiagnosticInstrumentation':True,'PrimaryObservationCount':17,'Failure':failure,'Mode':mode,'TargetCompletionVerified':completed,'TargetCompletionSha256':sha(target_completion) if target_completion.exists() else None,'WrapperExitCode':None if process is None else process.process.returncode,'TargetSignalNotInferredFromWrapper':True,'DumpFiles':[{'Path':str(p),'Bytes':p.stat().st_size,'Sha256':sha(p)} for p in out.glob(route+'.crash.*.dmp')],'ProductionSourcePlanPreservedExceptTwoEntrypointsAndDispatchAlias':True,'NativeImagesPreserved':True},indent=2))
+    if failure:raise RuntimeError(failure)
+    receipt=out/(route+'.process.json');value=json.loads(receipt.read_bytes())
+    assert value['ExitCode']==0 and value['ParentReaped'] and value['StreamsClosed'] and not value['TerminationRequested'] and not value['RemainingGroupKillRequested'] and value['CleanupFailure'] is None
+    stages.append({'Name':route,'ReceiptSha256':sha(receipt),'StdoutSha256':sha(out/(route+'.stdout')),'StderrSha256':sha(out/(route+'.stderr'))})
+for row in dlls:check(row['Path'],row['Sha256'])
+(out/'completion.json').write_text(json.dumps({'Status':'ACQUIRED_TWO_LINUX_ROUTES_CALLBACK17','SubjectHead':admission['SubjectHead'],'ExecutingCodeHead':os.environ['GITHUB_SHA'],'AdmissionSha256':sha(base/'bridge/admission.json'),'InputsSha256':sha(out/'inputs.json'),'OwnedStages':stages,'Routes':['reviewed','ordinary'],'PrimaryRowsPerRoute':17,'RuntimeDomainsPerRoute':2,'OriginalComparisonExecuted':False},indent=2))

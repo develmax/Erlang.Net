@@ -1,4 +1,4 @@
-name: Pinned parent Linux callback crash diagnosis only
+name: Pinned parent Linux callback full17 traced comparisons
 on:
   workflow_dispatch:
     inputs:
@@ -11,7 +11,7 @@ permissions:
 jobs:
   diagnose-reused-own-native-images:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 15
     env:
       EXPECTED_HEAD: ${{ inputs.expected_head }}
       PYTHONDONTWRITEBYTECODE: '1'
@@ -32,21 +32,36 @@ jobs:
           test "$EXPECTED_HEAD" = "$GITHUB_SHA"
           test "$(git --no-optional-locks rev-parse HEAD)" = "$EXPECTED_HEAD"
           python3 -B tools/Erlang.NifLinuxCallbackObservations/reuse.py
+      - name: Try bounded debugger installation on this ephemeral runner
+        shell: bash
+        run: |
+          if ! command -v gdb >/dev/null; then timeout 120s sudo apt-get install --yes --no-install-recommends gdb || echo "Debugger unavailable; bounded triage dump fallback retained"; fi
       - name: Build instrumented focus with unchanged production sources
         shell: bash
         run: |
           set -euo pipefail
           dotnet --info
           dotnet build tools/Erlang.NifLinuxCallbackFocus/Erlang.NifLinuxCallbackFocus.csproj --disable-build-servers -m:1 -nr:false --nologo
-      - name: Diagnose numeric forwarding then joined foreign threads and forced GC
+          cp artifacts/linux-callback17/bridge/Erlang.NifBridge.so tools/Erlang.NifLinuxCallbackFocus/bin/Debug/net10.0/Erlang.NifBridge.so
+      - name: Execute traced full17 on both routes after preflights and joined-thread GC
         shell: bash
         run: |
           set -euo pipefail
           python3 -B tools/Erlang.NifLinuxCallbackObservations/diagnose.py --source-plan "$GITHUB_WORKSPACE/$SOURCE_PLAN" --source-plan-sha256 "$SOURCE_PLAN_SHA"
+      - name: Compare all68 rows against exact reused original artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -B tools/Erlang.NifLinuxCallbackObservations/compare.py --capture-root "$GITHUB_WORKSPACE/artifacts/linux-callback-full2" \
+            --approved-size-completion-sha256 "$(sha256sum artifacts/linux-callback17/size-original/completion.json | cut -d' ' -f1)" \
+            --approved-reference-completion-sha256 "$(sha256sum artifacts/linux-callback17/reference-original/completion.json | cut -d' ' -f1)" \
+            --approved-sdk-completion-sha256 "$(sha256sum artifacts/linux-callback-full2/sdk/completion.json | cut -d' ' -f1)" \
+            --approved-admission-sha256 "$(sha256sum artifacts/linux-callback17/bridge/admission.json | cut -d' ' -f1)" \
+            --output "$GITHUB_WORKSPACE/artifacts/linux-callback-full2/comparison.json"
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: linux-callback-diagnostic-only
+          name: linux-callback-full17-traced
           path: |
-            artifacts/linux-callback-diagnostic/**
+            artifacts/linux-callback-full2/**
             artifacts/linux-callback17/reuse-proof.json

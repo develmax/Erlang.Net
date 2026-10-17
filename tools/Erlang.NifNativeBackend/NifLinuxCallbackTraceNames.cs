@@ -3,6 +3,19 @@ namespace Erlang.NifNativeBackend;
 internal static class NifLinuxCallbackTraceNames
 {
     internal const string DiagnosticStatus = "DIAGNOSTIC_NUMERIC_FOREIGN_GC_RETIREMENT_COMPLETED";
+    internal const string MakeMap = "make_map";
+    internal const string Unused = "unused";
+    internal const string MapConstructionBefore = "private-map-construction-before-";
+    internal const string MapConstructionAfter = "private-map-construction-after-";
+    internal const string DirectSizeBefore = "private-map-size-before-";
+    internal const string DirectSizeAfter = "private-map-size-after-";
+    internal const string DirectSizeFile = "diagnostic-direct-size-";
+    internal const string IndependentBefore = "diagnostic-map-independent-before-";
+    internal const string IndependentAfter = "diagnostic-map-independent-after-";
+    internal const string IndependentFile = "diagnostic-map-independent-";
+    internal static readonly int[] MapSizes = [0, 1, 31, 32, 33, 512, 8193];
+    internal const string FullRunBefore = "full-run-before";
+    internal const string FullRunAfter = "full-run-after";
     internal const string ForeignBarrier = "foreign-barrier-arrived";
     internal const string CollectFirstBefore = "collect-first-before";
     internal const string CollectFirstAfter = "collect-first-after";
