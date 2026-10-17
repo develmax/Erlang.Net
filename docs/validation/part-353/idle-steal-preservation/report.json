@@ -1,0 +1,46 @@
+{
+  "Status": "SOURCE_ONLY_ACCEPTED_IDLE_STEAL_PATCH_RETAINED16_DEPENDENCY_REVIEW_NOT_FULL_ACCEPTANCE",
+  "ParentHead": "0e739220c2d5d7afc66b6fb94c1f2b15d156bd90",
+  "PatchFreezeSha256": "16B1A5255E268A3CC89D5E673EA5FFB4AF45B6C4AFFF4491A541AFD5E4788921",
+  "DispatcherParentSha256": "62C918298E09201540B631ED3DEF63722E19F1C6299F8678C429A730B912A70E",
+  "DispatcherSha256": "0AF57D1F9F65CE153129E6D9718B3F545F7CE83FFE409E6889F51957040C3555",
+  "IndependentPeerSha256": "37ECDC70810F978AAB7B020A1E7892C229DE6394552B5043CCC20471672B292F",
+  "ChangedRuntimeSourceFiles": 1,
+  "RuntimeSourceGuardCount": 89,
+  "PreservationArgument": [
+    "Five added lines run only after existing local Select returns null and lane.Online is true, while retaining the same dispatcher gate. Existing nonempty local priority selection and low-priority counter paths are unchanged.",
+    "The existing bound-aware TrySteal filters donors and bound/offline work; a second existing Select uses normal admission. No process context is replaced, task or code-image delegate altered, cancellation gate bypassed, or guest term/predicate representation modified.",
+    "self/0 and node/0 retain actual process/runtime identity; fourteen unary type predicates retain exact handler, guard/import/named/apply/matchspec/type-tag branches. Only the idle availability of an admitted logical lane changes; complete prior observable scopes and all prior evidence are preserved.",
+    "Independent peer accepted the concrete source patch. This is a current dependency preservation review for the existing16 classifications, not certification of scheduler options or proof that source changes repaired the whole failed full."
+  ],
+  "PriorLedgerSha256": "C648269317F1B96473DBED575A8E74C556EEF197D66F7F50FA0784F8D9E03F15",
+  "GuardChangedPaths": [
+    "src/Erlang.Runtime/RuntimeActorDispatcher.cs"
+  ],
+  "All16VerifiedScopesLimitsAndPriorEvidencePrefixExact": true,
+  "Registry13LimitsExactMetadata4": true,
+  "Counts": {
+    "Verified": 16,
+    "Known": 24,
+    "Needs": 547,
+    "Registry": 587
+  },
+  "RootCauseScope": "Reachable source interleaving consistent with first-wave starvation; no captured historical queue snapshot.",
+  "FailedFirstFull": {
+    "Passed": 7312,
+    "Failed": 1,
+    "All16NewPassed": true,
+    "OriginalBudgetsAndTestsUnchanged": true,
+    "RetainedIndependentFailureSha256": "E72ACEA3E321236202FD0582F6799825957BDAF5AF199F1E2B581C88A17B0821"
+  },
+  "OtpPortsParentSha256": "9E84B1518B2DA33DDA2CA02F925A5C3A6997D7845FAE211D3EA4D840E1859019",
+  "OtpPortsProposedSha256": "C941D5FA411A189EF2586420C4C38B513DEE00A3CFA4127A4B5101A8699EC8D1",
+  "PriorOtpRegisterBodyExact": true,
+  "PackageResourcesSixRequireNewOtpPortsHash": true,
+  "RemainingGates": [
+    "Corrected focus",
+    "Fresh canonical full and independent audit",
+    "Original explicit two-lane native profile and same-head CI after publication"
+  ],
+  "NoMainCandidateSdkNetworkGitMutation": true
+}

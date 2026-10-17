@@ -1,8 +1,14 @@
 namespace Erlang;
 
-internal sealed class RuntimeProcessTaskScheduler(RuntimeActorDispatcher dispatcher, ProcessContext owner) : TaskScheduler
+internal sealed class RuntimeProcessTaskScheduler(RuntimeActorDispatcher dispatcher, ProcessContext owner, RuntimeActorRole role = RuntimeActorRole.Guest) : TaskScheduler
 {
     internal ProcessContext Owner { get; } = owner;
+    internal RuntimeActorRole Role { get; } = role;
+    internal RuntimeSchedulerLane Lane { get; set; } = null!;
+    internal CancellationTokenRegistration CancellationRegistration { get; set; }
+
+    internal void NotifyCancellation() => dispatcher.OwnerCanceled(this);
+
     internal Queue<RuntimeScheduledTask> Pending { get; } = new();
     internal LinkedListNode<RuntimeProcessTaskScheduler>? ReadyNode { get; set; }
     internal bool Running { get; set; }
@@ -19,9 +25,9 @@ internal sealed class RuntimeProcessTaskScheduler(RuntimeActorDispatcher dispatc
 
     protected override IEnumerable<Task>? GetScheduledTasks() => dispatcher.Snapshot(this);
 
-    internal void Execute(RuntimeScheduledTask work)
+    internal void Execute(RuntimeScheduledTask work, int laneIdentity)
     {
-        using var turn = RuntimeActorExecutionTurn.Enter(Owner, work.Epoch);
+        using var turn = RuntimeActorExecutionTurn.Enter(Owner, work.Epoch, laneIdentity);
         _ = TryExecuteTask(work.Task);
     }
 

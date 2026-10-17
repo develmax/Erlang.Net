@@ -1,0 +1,32 @@
+{
+  "Status": "ROOT_CONFIRMED_SOURCE_PREPARATION_BLOCKERS_PROFILE2_NOT_GUEST_FAILURE",
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Profile2SourceFreeze": "746BE4FEDB3C067E672D2283A9E7BCF53197923D8900E7460911F382140474C2",
+  "HistoricalPeerReport": "9050BE63EE1F335BA2F358ED732694CE5C8C91B2CC5BC303D971D91ACCAEE632",
+  "SymlinkDirectoryProof": {
+    "Path": "erts/preloaded/doc",
+    "GitEntry": "120000 blob 6af34c9a8c54a2974c2d47cf9505aad61d8d3577\terts/preloaded/doc",
+    "RawLinkTarget": "../doc",
+    "ResolvedGitTarget": "erts/doc",
+    "TargetGitEntry": "040000 tree b7795bc649575582c9480b34c4e537fd4faa3214\terts/doc",
+    "Consequence": "Path.read_bytes follows this tracked symlink into a directory and raises IsADirectoryError on the intended Linux checkout."
+  },
+  "RuntimeRootOverrideProof": {
+    "Path": "erts/etc/unix/erl.src.src",
+    "Sha256": "B9D8B447D665B11F343F84FE23BDC473733CAB7551BAB0E94CADC84F94616F96",
+    "Anchors": [
+      "if [ -z \"$ERL_ROOTDIR\" ]",
+      "ROOTDIR=\"$ERL_ROOTDIR\""
+    ],
+    "Consequence": "A hashed installed erl wrapper alone does not bind actual VM origin if an inherited ERL_ROOTDIR redirects it."
+  },
+  "SourceInputsSha256": "6B4A53BD878E08C3E885B2E5E5708737CAC868EB150B20486AD2B920221BD8F3",
+  "CollectorSha256": "A057C4024459B90C0EFE797B567CF356791D6DC41BE87CF7AB2ECE9C662F01B3",
+  "RequiredRepairs": [
+    "Mode-aware tracked source inventory; hash raw symlink payload without traversing target.",
+    "Remove ERL_ROOTDIR from build/VM environments and record/assert actual code:root_dir against sealed runtime root."
+  ],
+  "NativeOrGuestCodeExecuted": false,
+  "MainModified": false,
+  "Profile2ExecutionAuthorized": false
+}

@@ -1,0 +1,59 @@
+{
+  "Status": "PASS_SOURCE_ONLY353_IDLE_STEAL_PATCH_AND_FRESH_FOCUS_CONSTRUCTION_ADMISSION",
+  "Passed": true,
+  "SourceFreezeSha256": "16B1A5255E268A3CC89D5E673EA5FFB4AF45B6C4AFFF4491A541AFD5E4788921",
+  "ParentRuntimeSha256": "62C918298E09201540B631ED3DEF63722E19F1C6299F8678C429A730B912A70E",
+  "PatchedRuntimeSha256": "0AF57D1F9F65CE153129E6D9718B3F545F7CE83FFE409E6889F51957040C3555",
+  "ChangedProductionFiles": 1,
+  "ExactAddedLines": 5,
+  "ChangedTests": 0,
+  "ExactPatchReview": "Only after Select(lane)==null and lane.Online, existing TrySteal then existing Select again under the same gate before idle exit; every other byte exact failed-full dispatcher.",
+  "PreservedRuntimeInvariants": [
+    "Existing pump executes stolen task: no extra worker/capacity expansion",
+    "TrySteal still excludes bound owners and offline donor lanes; offline destination never enters new branch",
+    "Existing priority queues and Select max/high/normal-low skip accounting retained",
+    "No cleanup queue stealing or cancellation/admission/lease/body changes",
+    "Online transition/retirement logic unchanged outside normal existing finally/idle calls"
+  ],
+  "PinnedSource": {
+    "OriginalCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "SourcePath": "erts/emulator/beam/erl_process.c",
+    "OriginalBlobBytes": 459197,
+    "OriginalBlobSha256": "89CBDB55BE2A97E77B2450BB3D339CA6DB934B9C4BF556EAD29B4EAE88072DC9",
+    "ExcerptFirstLine": 9876,
+    "ExcerptLastLine": 9945,
+    "KeyAnchors": {
+      "EmptyRunQueueBranch": 9881,
+      "NormalSchedulerTrySteal": 9907,
+      "SchedulerWait": 9939
+    },
+    "Scope": "Native normal scheduler tries steal before scheduler_wait; proposed managed logical-lane correction reusesexistingmanagedstealfilters, doesnotclaimfullnativebalancer/physicalCPU/dirtyschedparity."
+  },
+  "CauseScope": "Actual diagnostic firstWave failures at capacities2/4 and Run; source-proven reachable lost idle-steal opportunity consistent with failures. Historical queue interleaving not directly captured. Native branch guidance does not imply full native balancer/dirty/thread parity.",
+  "VerifiedContractPreservation": {
+    "CurrentSourceGuards": 89,
+    "ChangedGuardPath": "src/Erlang.Runtime/RuntimeActorDispatcher.cs",
+    "ExpectedOldSha256": "62C918298E09201540B631ED3DEF63722E19F1C6299F8678C429A730B912A70E",
+    "ExpectedNewSha256": "0AF57D1F9F65CE153129E6D9718B3F545F7CE83FFE409E6889F51957040C3555",
+    "SixteenVerifiedContractsRemainSourcePreserved": true,
+    "Reason": "Narrow retry of existing runnable-task selection changes liveness only; term predicate tags/values, argument/error/context/import dispatch and their supported-term semantics unchanged. No new callback bypass or cancellation relaxation. Other88 guard source rows unchanged by this proposal; no ledger entry/status/scope/evidence rewrite authorized.",
+    "Metadata5Required": "Replace only dispatcher current-source SHA, append immutable narrow review evidence for affected verified contracts, preserve all587 entries/status16-24-547/scopes/prior proofs. Final89 rows must be independently rehashed after composition; this report is not actual metadata application."
+  },
+  "FreshFocusConstructionAdmission": {
+    "Admitted": true,
+    "Base": "Exact3096 frozen composition inputs, all hashes before fresh output",
+    "OnlyRuntimeDelta": "src/Erlang.Runtime/RuntimeActorDispatcher.cs",
+    "Requirements": [
+      "Fresh artifact candidate; no bin/obj/oldoutputs copied",
+      "Replace exactly reviewed dispatcher with0AF57D source and freeze resulting inputs before build",
+      "Failed candidate/full1/diagnostic binaries remain immutable",
+      "Initial Tests build plus original10 diagnostic phases and meaningful affinity/priority/cancel regressions; no assertion/deadline change",
+      "Do not run readiness/full on stale ledger or sourceplans; refresh metadata5/plans/seals and independent fullpreflight first"
+    ]
+  },
+  "NextActualGate": "Root build/focus red-green; all original Run must fit canonical15 without raising deadline. Later fresh full still required.",
+  "SdkExecutedByReviewer": false,
+  "MainModified": false,
+  "CandidateModified": false,
+  "NetworkExecuted": false
+}

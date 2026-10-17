@@ -1,0 +1,113 @@
+{
+  "Name": "--parse",
+  "Passed": true,
+  "Failure": null,
+  "Scope": "Private managed scheduler-affinity352 focus; source-derived contracts, no original observation or status promotion.",
+  "Sources": [
+    {
+      "Name": "scheduler_first_instruction",
+      "SourceSha256": "ABB26ED42ED55ECC662E02E3301BCC38253AD4204D532199B8DCA25991650254",
+      "Expected": "{ok,done}"
+    },
+    {
+      "Name": "scheduler_migration_previous_binding",
+      "SourceSha256": "26D487608148CD933C6B95E69117EF2675B01F11CDFDCF18341F1C447BE31961",
+      "Expected": "{ok,done}"
+    },
+    {
+      "Name": "scheduler_invalid_and_duplicate",
+      "SourceSha256": "20430A4ACED89F26AE3C10535CE3861D4A5AB35204A5BCE0F3C39BA49F382DF2",
+      "Expected": "{ok,done}"
+    },
+    {
+      "Name": "scheduler_offline_bound_resume",
+      "SourceSha256": "DC851B11A4E7E8F4FFCADE7FADF6C9B35FAD474A2F6D80883A0655F93C5461EE",
+      "Expected": "{ok,done}"
+    },
+    {
+      "Name": "scheduler_offline_pending_kill",
+      "SourceSha256": "BAF618AC18FA41E6A325780A0AD4C2D5DA88F871D9EF3E39B300A085C79EF0D5",
+      "Expected": "{ok,done}"
+    },
+    {
+      "Name": "non-tail-recursion-named-finite-checksum",
+      "SourceSha256": "0083D1647CE32A937884459C412F641344379042F540019A5AEBC5E334A1A52C",
+      "Expected": "{ok,{8390656,4096}}"
+    },
+    {
+      "Name": "proc-lib-lifecycle-hibernate-real-message-resume",
+      "SourceSha256": "0D748247343172502A5EA75B041CC99005D0D0285DF55B16D32B14E442C7BC85",
+      "Expected": "{ok,ok}"
+    }
+  ],
+  "Observation": null,
+  "Targets": [
+    "scheduler/first-instruction-and-migration",
+    "scheduler/offline-child-park-resume",
+    "scheduler/initializer-mailbox-readmission-reentry",
+    "scheduler/initializer-retirement-after-guests",
+    "scheduler/invalid-values-preserve-state",
+    "scheduler/all-local-public-spawn-option-and-request-forms",
+    "scheduler/parked-granted-head-pending-kill-administrative-retirement",
+    "scheduler/active-cancel-retains-quiescence",
+    "scheduler/canceled-queued-waiter-successor",
+    "scheduler/offline-guest-kill-admitted-after-reonline",
+    "scheduler/offline-pending-guest-kill-distinct-retirement",
+    "priority/all-ready-order",
+    "priority/escaped-registered-callback",
+    "priority/synchronous-turn-borrow",
+    "priority/low-logical-epochs",
+    "priority/waiting-high-capacity",
+    "priority/queued-priority-change",
+    "priority/halt-cleanup",
+    "priority/killed-owner-retirement",
+    "regression/length-ordinary-cancellation",
+    "regression/length-guard-cancellation",
+    "regression/length-receive-cancellation",
+    "regression/source-image-current-old-purge",
+    "scheduler_first_instruction",
+    "scheduler_migration_previous_binding",
+    "scheduler_invalid_and_duplicate",
+    "scheduler_offline_bound_resume",
+    "scheduler_offline_pending_kill",
+    "non-tail-recursion-named-finite-checksum",
+    "proc-lib-lifecycle-hibernate-real-message-resume"
+  ],
+  "LoadedAssemblies": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\scheduler-affinity352-candidate6\\tests\\Erlang.Scheduler352.Focus\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Sha256": "E6074702A408CEE7F3956E2DBFE4FB4A7905DE6438EE8D4FC0CCF04E1839A529"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\scheduler-affinity352-candidate6\\tests\\Erlang.Scheduler352.Focus\\bin\\Debug\\net10.0\\Erlang.Terms.dll",
+      "Sha256": "5C2D981D8999A52A45335E4E3E843C1E22FCAE767951806BCBE26E997F2055FE"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\scheduler-affinity352-candidate6\\tests\\Erlang.Scheduler352.Focus\\bin\\Debug\\net10.0\\Erlang.Serialization.dll",
+      "Sha256": "53AEB943E8CD9AF5E15BECB68BAC56586958DF1D645A2A5CB165FB38C804355E"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\scheduler-affinity352-candidate6\\tests\\Erlang.Scheduler352.Focus\\bin\\Debug\\net10.0\\Erlang.Otp.Behaviours.dll",
+      "Sha256": "12605E505BF3930442D30155B20911938375B029C025226E039B85DBCA9275F2"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\scheduler-affinity352-candidate6\\tests\\Erlang.Scheduler352.Focus\\bin\\Debug\\net10.0\\Erlang.Compiler.dll",
+      "Sha256": "3FD2259C9BBFC3A1FFC4AD47386DE468F235993F24FF11AE574799E8E24F79BF"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\scheduler-affinity352-candidate6\\tests\\Erlang.Scheduler352.Focus\\bin\\Debug\\net10.0\\Erlang.Differential.dll",
+      "Sha256": "B73E5D97CB80CA29FA384D4B169D60FEA1DA16A308BF1E3A62ECDBC58B63998F"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\scheduler-affinity352-candidate6\\tests\\Erlang.Scheduler352.Focus\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "Sha256": "5BDB49325C50B78BDEF9429B626612A49FFF72A662A557F8DE949D873FA43D44"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\scheduler-affinity352-candidate6\\tests\\Erlang.Scheduler352.Focus\\bin\\Debug\\net10.0\\Scheduler352Focus.dll",
+      "Sha256": "AB62EC89F91630F4A69BF53B7667EEDB17EC7955325149C9F3496C4FA196D0E0"
+    }
+  ],
+  "NativeExecuted": false,
+  "FullValidationExecuted": false,
+  "StatusesPromoted": false
+}

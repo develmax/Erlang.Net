@@ -1,0 +1,453 @@
+{
+  "Status": "PASS_INDEPENDENT_ACTUAL_CORRECTED353_FOCUS40_NO_FULL_ACCEPTANCE",
+  "ManagedPassed": 40,
+  "ParseAll": 7,
+  "SourceFreezeSha256": "513564D6C8BEDB585CF938EA85BD83D08296B0F4B24122635D4F170B9A9DBA6D",
+  "ClosureRows": 3120,
+  "RunnerSha256": "95D9CA7A8FB57B0ACACFA862A21E1AB5D8D0BA2E9F38D40D7F547C120C6F28AE",
+  "SourceContractsSha256": "B949BAC0DBD4EAC4189B616654AA1012169409FBB9D5E9A269860EAA4B535C6A",
+  "Targets30": [
+    {
+      "Name": "scheduler/first-instruction-and-migration",
+      "OutcomeSha256": "FAFCBFDB5D63D6B3BDDAA7DFA502DEAC852F08D46CBF69732E32FEC065B93490"
+    },
+    {
+      "Name": "scheduler/offline-child-park-resume",
+      "OutcomeSha256": "12A051809C3C2A5A079771F4E5A351A398CED492A51562EC981EC75910BCF496"
+    },
+    {
+      "Name": "scheduler/initializer-mailbox-readmission-reentry",
+      "OutcomeSha256": "3D501F5FFAE9639F88A7D3E95609DB2C482680E02AA783C8F9EFD0EF1877B791"
+    },
+    {
+      "Name": "scheduler/initializer-retirement-after-guests",
+      "OutcomeSha256": "77EFBAF7D0B653E38B92F717530A0FE4C21B55E9CD47C60F5BB76C3E6955F145"
+    },
+    {
+      "Name": "scheduler/all-local-public-spawn-option-and-request-forms",
+      "OutcomeSha256": "F0804B4028CCC87525329BB1301FA957F85FCE6E0C81F0F14C28273D52BB7EE8"
+    },
+    {
+      "Name": "scheduler/invalid-values-preserve-state",
+      "OutcomeSha256": "B0A39E1B71E19ED850EFB6CDDF3634545DF68B464D64CDF2D5E3332DB00323B8"
+    },
+    {
+      "Name": "scheduler/parked-granted-head-pending-kill-administrative-retirement",
+      "OutcomeSha256": "C6182C14746B5E9C4BB0B872944B7A08CB9C14FF7281B4E983EA6007194C1B91"
+    },
+    {
+      "Name": "scheduler/active-cancel-retains-quiescence",
+      "OutcomeSha256": "102E4D57781CD5007773A0380031738F12E1BA54AF618CB28A43DDC9E490858C"
+    },
+    {
+      "Name": "scheduler/canceled-queued-waiter-successor",
+      "OutcomeSha256": "19F613454FCAE9D6A57386B5173028F8D138DCF22000D727B168DC503BC78546"
+    },
+    {
+      "Name": "scheduler/offline-guest-kill-admitted-after-reonline",
+      "OutcomeSha256": "0F7D388874D80C77A3796812C2C93887B310B086D49FC2CB74E569F745D1FBC4"
+    },
+    {
+      "Name": "scheduler/offline-pending-guest-kill-distinct-retirement",
+      "OutcomeSha256": "92C2F6818134D2331152E13429E0E2BE9D252B7C5DB3D0B76C7009CC70BD5A97"
+    },
+    {
+      "Name": "priority/all-ready-order",
+      "OutcomeSha256": "C676C043771C166EF94B4FAA0A84114445BB580B83CB73C379B1E83D725F4BE8"
+    },
+    {
+      "Name": "priority/escaped-registered-callback",
+      "OutcomeSha256": "4949C1864A010D3C2C5463D4C1AC04BC4FAD27F3B45AE04CA9176F061A1E5B06"
+    },
+    {
+      "Name": "priority/synchronous-turn-borrow",
+      "OutcomeSha256": "57313E0EA2B6A49838F74B790EA32B251A5DC628B9693DA95CFEE6B5D03AF7E9"
+    },
+    {
+      "Name": "priority/low-logical-epochs",
+      "OutcomeSha256": "DAC53FCAF5DCF6C30BB4B9F0246DB5981DFB47DE6EE309DFA4112252C16B56F4"
+    },
+    {
+      "Name": "priority/waiting-high-capacity",
+      "OutcomeSha256": "3E80EADA523565E2E3EF54F1D43E45DCA7908F70737B6B32E36B9A3348F2AFB2"
+    },
+    {
+      "Name": "priority/queued-priority-change",
+      "OutcomeSha256": "A1FE426AA4605489976953A207841B6696D89FA361442C1A1E6419AA1D0D6C22"
+    },
+    {
+      "Name": "priority/halt-cleanup",
+      "OutcomeSha256": "16B4FE0AD4DFF9CCA6BECB80C46195116B76BDB1BB5BCBBFABEA7046D83AF3BC"
+    },
+    {
+      "Name": "priority/killed-owner-retirement",
+      "OutcomeSha256": "F5C702DED0C4703DD5A244F3A3C91C3877B1004CD51B3FAC941F4CBB626E161E"
+    },
+    {
+      "Name": "regression/length-ordinary-cancellation",
+      "OutcomeSha256": "68B68F80B8839B1E116F072E3510B0A8C3BFE28B5C2CA2806CE0E6F591A9623F"
+    },
+    {
+      "Name": "regression/length-guard-cancellation",
+      "OutcomeSha256": "2FCCAA934262B6F54446C0827D98124E0F4886D4BD315187F2343C3EE01920DD"
+    },
+    {
+      "Name": "regression/length-receive-cancellation",
+      "OutcomeSha256": "CFC6D7CC80ADF72BE2EA8F43C12CADEEB21A056E5BFB84263B64D30DB8D5D031"
+    },
+    {
+      "Name": "regression/source-image-current-old-purge",
+      "OutcomeSha256": "8B4D2F2F421FB80E740F5660C908BCFE0EE3804946A54704F08FFB3E37C86F84"
+    },
+    {
+      "Name": "scheduler_first_instruction",
+      "OutcomeSha256": "7C2E0EDB8452BD5FAEB00F2A5864241BCBA583CC58782D723E687267D7DCE131"
+    },
+    {
+      "Name": "scheduler_migration_previous_binding",
+      "OutcomeSha256": "603E9863EA03B57D89BDA1B2DC5EBB66E51EB50BC1AF5480DC002D2004713635"
+    },
+    {
+      "Name": "scheduler_invalid_and_duplicate",
+      "OutcomeSha256": "54F26BA2315EFD1B494E5D0A50197867502EF4D4CD21F138D8B8FCF874F36C76"
+    },
+    {
+      "Name": "scheduler_offline_bound_resume",
+      "OutcomeSha256": "6DFC8CBD133F6B4573C92D7C829E8E7C222A91A01B10EF78D93AD943863C2F1D"
+    },
+    {
+      "Name": "non-tail-recursion-named-finite-checksum",
+      "OutcomeSha256": "DD6C035487A0702241D6089C3474E3B0BC6E93DD7B07B9272713DF831060E68E"
+    },
+    {
+      "Name": "proc-lib-lifecycle-hibernate-real-message-resume",
+      "OutcomeSha256": "50ACB51F133E25B1C21A96AD88E234AC9CF397EE22144A00EF22B90735048FE7"
+    },
+    {
+      "Name": "scheduler_offline_pending_kill",
+      "OutcomeSha256": "1A4019F72E8C7FB999FE9C1280FCC64F1538143E3A992F99A240D4345D444C82"
+    }
+  ],
+  "OriginalPhases10": [
+    {
+      "Name": "bounded-1",
+      "ElapsedSeconds": 0.1768356,
+      "OutcomeSha256": "010F670F682BC47DF611EB5644F830D831B45A2FEED582B8DF523E7F161F4067"
+    },
+    {
+      "Name": "bounded-2",
+      "ElapsedSeconds": 0.680926,
+      "OutcomeSha256": "65979402944B7B0548FDC507693C5F23CF6D214C18656D5935ECC19F45E5A0E8"
+    },
+    {
+      "Name": "bounded-4",
+      "ElapsedSeconds": 2.712933,
+      "OutcomeSha256": "25F1A36781D4758D6350612C3AB23D24F6F2A00DAE4370F574E2D696A5425ABF"
+    },
+    {
+      "Name": "CapturedContinuationsAndIndependentInitializer",
+      "ElapsedSeconds": 0.1792381,
+      "OutcomeSha256": "7909A9F2739EEF9E08C01A7F11373BFFEA43BE60D86DCAE989ECE8E67449D642"
+    },
+    {
+      "Name": "NestedInitializerAfterParentRetirement",
+      "ElapsedSeconds": 0.1823461,
+      "OutcomeSha256": "B3DD991CBD0A861DC993186FFC703D56F014372348A054CA01600250BFCE8BD8"
+    },
+    {
+      "Name": "CapacityIsolation",
+      "ElapsedSeconds": 0.1709735,
+      "OutcomeSha256": "B1092B01986296F01039BC1881ACCDAA66768DA9BA0D5F6949CF1DE47191BB13"
+    },
+    {
+      "Name": "CancellationAndExternalDisposal",
+      "ElapsedSeconds": 0.1727541,
+      "OutcomeSha256": "A038D5D30EFA8413CC18CBC5DD08E47BE6964F7E28210ED1F9FED680FE9F728F"
+    },
+    {
+      "Name": "SelfDisposal",
+      "ElapsedSeconds": 0.1682844,
+      "OutcomeSha256": "23B4D72E7F1B291C69D6E89A466AB1FD44AB8430CA44EB79F1D84BB3DB9E49C8"
+    },
+    {
+      "Name": "RetirementAndFailedEnqueue",
+      "ElapsedSeconds": 0.181107,
+      "OutcomeSha256": "2F5D15EF422EE5DCFBB2AAC8DD367BFE668BBAC2930CEA9ACD0A74710CB87C71"
+    },
+    {
+      "Name": "Run",
+      "ElapsedSeconds": 2.2161867,
+      "OutcomeSha256": "A8935D613F6CA44E3971E7EE109ABEB4F837875DC5AE9E44AAFB9A586CE401B0"
+    }
+  ],
+  "Receipts": [
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/build.exit.json",
+      "Sha256": "8D7068D70A6A9AF1F12C5980D06DDA9AE36A64C772831CA4A00879336DCBA757",
+      "Pid": 251384,
+      "StartedUnixSeconds": 1792204397.5676153
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/parse.exit.json",
+      "Sha256": "616028B50B233E14A57D96768605284FE5FEA36D629BE2BD094A310822BEE877",
+      "Pid": 247504,
+      "StartedUnixSeconds": 1792204432.1099548
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/target-00/process.exit.json",
+      "Sha256": "5E0FE10ED543A5B60631D7E2A90686920DEF890F415CB2D9374E6999501C83A7",
+      "Pid": 252036,
+      "StartedUnixSeconds": 1792204432.2979903
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/target-01/process.exit.json",
+      "Sha256": "9043A11056ADDB957F4A892BA77660B1045921E615D4AB707050978E117CE72C",
+      "Pid": 231872,
+      "StartedUnixSeconds": 1792204432.5239897
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/target-02/process.exit.json",
+      "Sha256": "C69F031202459DB5F52775D6BD077B9669B704D97A37DFFCB0043693351B7D99",
+      "Pid": 246060,
+      "StartedUnixSeconds": 1792204432.7754295
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/target-03/process.exit.json",
+      "Sha256": "BF0056BE456C52853A3885CED186F5956D52A3151BA88DA898BDCBF6FC00544A",
+      "Pid": 246108,
+      "StartedUnixSeconds": 1792204433.0090144
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/target-04/process.exit.json",
+      "Sha256": "689F592580D41CFC295DB08DF19353D77B9F5AA9768CBDF2E1924C0BA0412C9F",
+      "Pid": 246792,
+      "StartedUnixSeconds": 1792204433.2360055
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/target-05/process.exit.json",
+      "Sha256": "B82B73E103A381A5F424786C7A3C762A971EA899284F5984DBF9677D11382D27",
+      "Pid": 252908,
+      "StartedUnixSeconds": 1792204433.4735053
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/target-06/process.exit.json",
+      "Sha256": "58DB9FC58BF83B480166FD4FFA8C44BC00C13E4E2741E55D8305861D2593F135",
+      "Pid": 245292,
+      "StartedUnixSeconds": 1792204433.6930048
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/target-07/process.exit.json",
+      "Sha256": "5F051FFDE67FE3AFD5E6C3722E73D06A5AACAC3A22FC30C9A4F7BDBB7543902E",
+      "Pid": 251824,
+      "StartedUnixSeconds": 1792204433.969004
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/target-08/process.exit.json",
+      "Sha256": "F0BC63710D0FC7CF4457F8715CF8FEEB3DD679C2534EBAD1BC893F8C0AA27599",
+      "Pid": 244272,
+      "StartedUnixSeconds": 1792204434.2010038
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/target-09/process.exit.json",
+      "Sha256": "7C78DE7072D357880D2DCC293FA119AAEEB210116CA1E205F18BD4D625CB1A2E",
+      "Pid": 13508,
+      "StartedUnixSeconds": 1792204434.487503
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/target-10/process.exit.json",
+      "Sha256": "FD2B014961471DD1C3360118800D6BDB6C78059842FA164B044629FD1733E96C",
+      "Pid": 249528,
+      "StartedUnixSeconds": 1792204434.7415028
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/target-11/process.exit.json",
+      "Sha256": "82B156BAB19786C2A76CEC91581C3E8722BFAB30A45D5E731DD1B57646221EF3",
+      "Pid": 244888,
+      "StartedUnixSeconds": 1792204435.007196
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/target-12/process.exit.json",
+      "Sha256": "E9D3DD3648DBBC056C9CC4467D02C6B4343188744CA03D6C9D25499DC1E889BE",
+      "Pid": 248748,
+      "StartedUnixSeconds": 1792204435.2381952
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/target-13/process.exit.json",
+      "Sha256": "427AE3B940F54E47A29499A700D66B73F21D5B1B9B628BA254B605471153E9AA",
+      "Pid": 249448,
+      "StartedUnixSeconds": 1792204435.4766948
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/target-14/process.exit.json",
+      "Sha256": "2700A05908865013C271E94DCA9B72CECD7B873B2468A5ADBD0CB6BF2D2EA2BE",
+      "Pid": 219804,
+      "StartedUnixSeconds": 1792204435.704194
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/target-15/process.exit.json",
+      "Sha256": "EA3433214943790650982A42110841B006C7A020952F52981A1DE875F6B38779",
+      "Pid": 197160,
+      "StartedUnixSeconds": 1792204435.9517004
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/target-16/process.exit.json",
+      "Sha256": "8400361374F48C0DB5736F267B3D446CBF89564804E7F3A2A7F7C207DE98E7FB",
+      "Pid": 252736,
+      "StartedUnixSeconds": 1792204436.1712003
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/target-17/process.exit.json",
+      "Sha256": "79761BA66816CA326E41BCBF04E06E32A82D37FDE04630B9EEB9B61DA6B28759",
+      "Pid": 246060,
+      "StartedUnixSeconds": 1792204436.4172857
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/target-18/process.exit.json",
+      "Sha256": "33131AC60E5B0D828030CD7349EF799C66F9F19B1085C0F5E88FB4E860E82B5D",
+      "Pid": 238488,
+      "StartedUnixSeconds": 1792204436.6514695
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/target-19/process.exit.json",
+      "Sha256": "F739643A1686A65D4B5D500AF6026A810C893DB6980D6107941A1D94026BDF87",
+      "Pid": 249004,
+      "StartedUnixSeconds": 1792204436.897815
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/target-20/process.exit.json",
+      "Sha256": "C7BC0DC06B08DA54A69474C4A1B5C22FD581AF61C2E11F5876C9726052B14E07",
+      "Pid": 249304,
+      "StartedUnixSeconds": 1792204437.7142425
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/target-21/process.exit.json",
+      "Sha256": "8920096D318D6B920724B40E7A3FD6FD349F285D118E9234D92EA6A100157F80",
+      "Pid": 251592,
+      "StartedUnixSeconds": 1792204438.5367687
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/target-22/process.exit.json",
+      "Sha256": "9BAA6B190A2E0C44C3D24A0F0A009B6CC571E01B994077A05C2794C359BF854E",
+      "Pid": 251552,
+      "StartedUnixSeconds": 1792204439.3725212
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/target-23/process.exit.json",
+      "Sha256": "0BD700D15E243D98F67F14B72E5E897D25B4AD7B97D51CEEBA2E748F5FE39F73",
+      "Pid": 250708,
+      "StartedUnixSeconds": 1792204440.2411304
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/target-24/process.exit.json",
+      "Sha256": "B9FBC928C9DBCD9D25BB990C041E3E9BBD5CE6B71B98583D5A73CEE9415384F0",
+      "Pid": 242252,
+      "StartedUnixSeconds": 1792204441.0336356
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/target-25/process.exit.json",
+      "Sha256": "8AB63F06A4FE09DFF756B8FAAD450E37ED0FBBEBBCB98CEE9DB57E84DA495025",
+      "Pid": 250384,
+      "StartedUnixSeconds": 1792204441.8041263
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/target-26/process.exit.json",
+      "Sha256": "77C5FB7A42427CED77B8A7ABD53A5B54873C73D412592C00345C874CB271B001",
+      "Pid": 242224,
+      "StartedUnixSeconds": 1792204442.6892421
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/target-27/process.exit.json",
+      "Sha256": "D86BB7B59DE2FB269589A13768549221A8BB8225978FBB292171ED26F71FD277",
+      "Pid": 236760,
+      "StartedUnixSeconds": 1792204443.5402398
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/target-28/process.exit.json",
+      "Sha256": "D3F42704D034C6151DE78528E6B0EEEB87E33445DB4A81B6CC25770E6FB41DBC",
+      "Pid": 224184,
+      "StartedUnixSeconds": 1792204444.4587374
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/target-29/process.exit.json",
+      "Sha256": "5309EFA80D469A8DBF74ED551ED0B2D7C8946533E9936CAE298AE4C375D30DD9",
+      "Pid": 247432,
+      "StartedUnixSeconds": 1792204445.3077428
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/phase-00/process.exit.json",
+      "Sha256": "C1F0F35EB1503D262AF9EC0EA65B3984AF7A6B1EF3BE15B604A72FE9B0C20688",
+      "Pid": 203176,
+      "StartedUnixSeconds": 1792204446.1300251
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/phase-01/process.exit.json",
+      "Sha256": "C00BE50F5749E41DCEDF092473501CAFDC380E2218E03C2EBFA1C5DC1EE1514F",
+      "Pid": 250732,
+      "StartedUnixSeconds": 1792204446.4330251
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/phase-02/process.exit.json",
+      "Sha256": "D9E715AB47DEE9479F7E288F844E9A0E57CD5BD07AD141C2375A1810787C6BE7",
+      "Pid": 242240,
+      "StartedUnixSeconds": 1792204447.2465231
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/phase-03/process.exit.json",
+      "Sha256": "99F4ACA8339A26BE304C2C81C5F7722E5B0433E24643DC265F0E6D36AD2B5631",
+      "Pid": 243100,
+      "StartedUnixSeconds": 1792204450.0994382
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/phase-04/process.exit.json",
+      "Sha256": "886AED0DBBBF5AFCC1B0BB4188A4986C9E8E015A4846B45B021F4448C78E07DE",
+      "Pid": 251584,
+      "StartedUnixSeconds": 1792204450.400938
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/phase-05/process.exit.json",
+      "Sha256": "2445E3DFB912DD7DF4097BBAE47B6219DB63332A268311E2876E409D18320A84",
+      "Pid": 245364,
+      "StartedUnixSeconds": 1792204450.7174373
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/phase-06/process.exit.json",
+      "Sha256": "B1B43685F6D3447E3B8A68D0952343C07F0400F16AEDE39E162E5477B4147931",
+      "Pid": 249500,
+      "StartedUnixSeconds": 1792204451.0424364
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/phase-07/process.exit.json",
+      "Sha256": "48765DB341A511B58270B9E902A1FACBA2E54F2B7A385BEC5F5E399BCB5CF5FF",
+      "Pid": 252796,
+      "StartedUnixSeconds": 1792204451.352435
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/phase-08/process.exit.json",
+      "Sha256": "28EA1E45D57709FBAB11D432A980E9903E88CF6404B1276FA5077D8A4B27678C",
+      "Pid": 31028,
+      "StartedUnixSeconds": 1792204451.662435
+    },
+    {
+      "Path": "artifacts/scheduler-affinity353-idle-focus-actual2/phase-09/process.exit.json",
+      "Sha256": "2EB90BC3E6AEDAC82983A533FF51B8113BEB608FAC9100F5182BD41CB91983F8",
+      "Pid": 251980,
+      "StartedUnixSeconds": 1792204451.988934
+    }
+  ],
+  "SettledReceipts": 42,
+  "InitialFocusDlls": 16,
+  "InitialTestDlls": 19,
+  "ActualLoaded8UniqueAndInitialSetsVerified": true,
+  "AllDllsAndSourcesUnchanged": true,
+  "GeneratedHashScope": "Actual64hex emitted hash checked, not regenerated by passive reader",
+  "OriginalFailedDiagnosticsPreservedSha256": "D2F1D000811BC383110A60E87F9A3987B54D678CA420E2657B027E32F40BD0A4",
+  "OriginalCanonicalBudgetsUnchanged": true,
+  "RedGreenScope": "Original firstWave failures bounded2/4 and Run contrasted with corrected actualsame testmethod assertions/deadlines; no historicalqueue trace or nativephysicalbalancer parity claim.",
+  "FullAccepted": false,
+  "ReadinessExecuted": false,
+  "NativeExecuted": false,
+  "CompatibilityStatusesPromoted": false,
+  "MainModified": false,
+  "SdkExecutedByReader": false,
+  "ReaderSha256": "58B7F2A9FDA04CCDB896D42CBB252FE7462B980A99211858696586A79F1009A7"
+}

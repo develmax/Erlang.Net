@@ -1,0 +1,141 @@
+{
+  "Status": "PASS_INDEPENDENT_ACTUAL_CORRECTED_CANONICAL353_FULL2_RAW_REGISTRY_RESTORATION_PENDING",
+  "Passed": 7313,
+  "Failed": 0,
+  "CompositionPlanSha256": "3F8C5F95912959D7BE22BDDA3E6F39B696AC644EA98E5461C6B67C64771F06BC",
+  "StableClosureRows": 3106,
+  "OwnedPaths": 169,
+  "Old7297ExactPrefix": true,
+  "AddedTestNames": [
+    "oracle/compiled-module/scheduler_first_instruction",
+    "oracle/compiled-module/scheduler_migration_previous_binding",
+    "oracle/compiled-module/scheduler_invalid_and_duplicate",
+    "oracle/compiled-module/scheduler_offline_bound_resume",
+    "oracle/compiled-module/scheduler_offline_pending_kill",
+    "scheduler/first-instruction-and-migration",
+    "scheduler/offline-child-park-resume",
+    "scheduler/initializer-mailbox-readmission-reentry",
+    "scheduler/initializer-retirement-after-guests",
+    "scheduler/invalid-values-preserve-state",
+    "scheduler/all-local-public-spawn-option-and-request-forms",
+    "scheduler/parked-granted-head-pending-kill-administrative-retirement",
+    "scheduler/active-cancel-retains-quiescence",
+    "scheduler/canceled-queued-waiter-successor",
+    "scheduler/offline-guest-kill-admitted-after-reonline",
+    "scheduler/offline-pending-guest-kill-distinct-retirement"
+  ],
+  "IntegrationResults": {
+    "Readiness": "Passed",
+    "PackagedReadiness": "Passed",
+    "Build": "Passed",
+    "Tests": "Passed",
+    "OracleUnavailableReport": "Expected failure recorded",
+    "HybridOutput": "Hello World",
+    "Incremental": "Passed",
+    "DisabledPreprocessing": "Expected failure",
+    "CleanRebuild": "Passed",
+    "PackageConsumer": "Passed",
+    "LocalTool": "Passed"
+  },
+  "Packages": [
+    {
+      "Path": "artifacts/packages/Erlang.Net.CSharp.0.1.0.nupkg",
+      "Sha256": "9B89725CD1894CE6E2A84A00CC34FE45B1E3A8D1766ADBD7A773BDFBB59E64AE",
+      "Id": "Erlang.Net.CSharp",
+      "Version": "0.1.0",
+      "ZipMembers": 26,
+      "CrcAndSafeUniquePathsVerified": true,
+      "SourceBoundMembers": [
+        "README.md",
+        "licenses/DOTNET-LICENSE.txt",
+        "licenses/DOTNET-ThirdPartyNotices.txt",
+        "licenses/OTP-LICENSE.txt",
+        "licenses/ROSLYN-LICENSE.txt",
+        "licenses/OTP-PORTS.md",
+        "lib/net10.0/Erlang.Terms.dll",
+        "lib/net10.0/Erlang.Runtime.dll",
+        "lib/net10.0/Erlang.Compiler.dll",
+        "lib/net10.0/Erlang.Otp.Behaviours.dll",
+        "lib/net10.0/Erlang.Serialization.dll"
+      ]
+    },
+    {
+      "Path": "artifacts/packages/Erlang.Net.Tool.0.1.0.nupkg",
+      "Sha256": "687EEE00EFECF65AAADE6D793DD432C430DACF1EE3ADD224C75990EBE7537682",
+      "Id": "Erlang.Net.Tool",
+      "Version": "0.1.0",
+      "ZipMembers": 53,
+      "CrcAndSafeUniquePathsVerified": true,
+      "SourceBoundMembers": [
+        "README.md",
+        "licenses/DOTNET-LICENSE.txt",
+        "licenses/DOTNET-ThirdPartyNotices.txt",
+        "licenses/OTP-LICENSE.txt",
+        "licenses/ROSLYN-LICENSE.txt",
+        "licenses/OTP-PORTS.md",
+        "tools/net10.0/any/Erlang.Tool.dll",
+        "tools/net10.0/any/Erlang.Terms.dll",
+        "tools/net10.0/any/Erlang.Runtime.dll",
+        "tools/net10.0/any/Erlang.Compiler.dll"
+      ]
+    }
+  ],
+  "PackageInputs": 6,
+  "RuntimeSourceGuards": 89,
+  "CompatibilityCounts": {
+    "Verified compatible": 16,
+    "Needs verification": 547,
+    "Known differences": 24
+  },
+  "LedgerEvidenceRows": 36,
+  "Readiness": [
+    {
+      "Path": "artifacts/readiness/module-readiness.json",
+      "Sha256": "880339299C69DA2CA927B66ECA66A324C9537076153AE18C826B9AB0D419282F"
+    },
+    {
+      "Path": "artifacts/tool-readiness/module-readiness.json",
+      "Sha256": "880339299C69DA2CA927B66ECA66A324C9537076153AE18C826B9AB0D419282F"
+    }
+  ],
+  "RegistryRows": 587,
+  "RegistryNonLimitsAndOrderPreserved": true,
+  "RegistryBeforeSha256": "43FFC6E2F483F1957B5B5ACC4D74D6511AB1D851D308C70CD1B6933EA0EA2DD3",
+  "RawRegistrySha256": "23A1729AC575A30C500F26F47877012E1D6C632DB8A43A21F3DBBE6F9C8A0FAB",
+  "CustomLimitsRestorationPending": true,
+  "TermOrderChildren": 12,
+  "ChildMatrixVerified": true,
+  "ActualChildTermsIdentity": "5E722B49014A97FD9CCDE0AC5D4D380372E7F8ADE983ACAF06B57DD2C1A40A11",
+  "DriverIdentityScope": "Recorded driver path/current hash; only Terms identity is independently emitted by child. No initial DLL set claimed.",
+  "ProducerFreshChildrenScope": "Reviewed executed wrapper refused any prior receipt before launch; current exact12 indexed directories checked. No invented children-before raw snapshot.",
+  "FullExitSha256": "36AA11BE976B030F0FDAB04B83FDE9C6A38AAE2CB5064F12141AF9409D016A23",
+  "FullStdoutSha256": "F3D20CEA976F44DDEA2B6ECDF8E5AC7762C029C0620F5B4AF4A09606B4D620F0",
+  "FullStderrSha256": "274367E6F4E81A193CDE8676079AADD8FB78995BE3DBFE0A20D69B6382663B02",
+  "TestReportSha256": "1442C3D710D6C1A5666F40197CDB104F103B5DA940252A3D49DD3E5C3E9F0E20",
+  "CapturedIndexSha256": "348BE5902CE264B67F0B22ED37ED31533E5CD8BFB0ABA9680BA40662CEBAB345",
+  "NativeSourcePlans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Rows": 1268,
+      "Sha256": "9D47EEB07A4430F3C1B33F244A7F0E07B37DDBE17F76E02E3EEF12825F7AEB1A",
+      "AllRowsAndSealVerified": true
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Rows": 1293,
+      "Sha256": "BA8DCF9F278186842B1D4D45C757E21C59EEA922C73EAF7CEEB7915C9992D8D9",
+      "AllRowsAndSealVerified": true
+    }
+  ],
+  "FocusedProductionAndTestInputRowsIdentical": 2180,
+  "AcceptedCorrectedFocusGuardSha256": "EC95B4234F95F3436D860EEB30B17772532E8FEA554D9F9A8C5EB7CDCEF86DE5",
+  "FailedFull1ExitSha256": "99BA270A7478F198C3ED08FB697F2053C27D720768DDD5C3571D50ADD946D8B7",
+  "FailedFull1TestReportSha256": "C0BD06B3CE79D002418B9C83E5CBE8EB349D925E633A474A8192335AB9649168",
+  "OriginalDiagnosticFailureEvidenceSha256": "D2F1D000811BC383110A60E87F9A3987B54D678CA420E2657B027E32F40BD0A4",
+  "SingleUninterruptedPassScope": "Corrected attempt2 only; actual1 failed7312/1 and retained. Exact old7297 testnames/method assertions andcanonical15 unchanged.",
+  "ReaderSha256": "9B00EA0CC517F6C6F90CF712523BDB640FDB6008D8A3B6A73BF7B4C7412B9994",
+  "NativeOriginalExecuted": false,
+  "MainModified": false,
+  "LaterReportingOnlyDocuments": "Current0e739 three reporting documents are raw-bound in composition2; promotion must preserve them or use separately reviewed appendix-only update.",
+  "NoCompatibilityPromotionInferredFromFull": true
+}

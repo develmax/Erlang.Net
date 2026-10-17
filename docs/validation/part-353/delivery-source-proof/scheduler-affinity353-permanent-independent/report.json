@@ -1,0 +1,45 @@
+{
+  "Status": "PASS_SOURCE_ONLY_PERMANENT353_INITIAL_TEST_PROJECT_BUILD_ADMISSION",
+  "Passed": true,
+  "SourceFreezeSha256": "6D719CDE2635B96E3D95C6BC4A2F7039D80A8B6DE422667D91212E40B30EF0C3",
+  "SourceClosureSha256": "ADF5385C6D5A8724C24D944BEA6A99C27590095DE09682E4646386B70F21154A",
+  "ParentHead": "4c9cb16e7c52bc10e54ceaf652797d100def488b",
+  "OwnedPaths": 42,
+  "ProductionFiles": 20,
+  "SourceClosureRows": 2953,
+  "UnownedBaselineRowsVerified": 2911,
+  "ProductionRawSameFocused6": 16,
+  "ProductionLayoutOnlyChanged": [
+    "src/Erlang.Runtime/ProcessRuntime.Schedulers.cs",
+    "src/Erlang.Runtime/RuntimeActorDispatcher.cs",
+    "src/Erlang.Runtime/RuntimeActorExecutionTurn.cs",
+    "src/Erlang.Runtime/RuntimeProcessTaskScheduler.cs"
+  ],
+  "RoslynTokenReviewSha256": "45CA5ED27825FE33389C4FEA655EC4FDB0B49F266B4E52A963174E3C4E9ADEB6",
+  "TokenRows": 42,
+  "DeclaredPreStyleRegistrationReordering": [
+    "tests/Erlang.Tests/Program.cs",
+    "tests/Erlang.Tests/SchedulerAffinityTestNames.cs"
+  ],
+  "OldProgramOutsideNewLoopFilterAndAppendExact": true,
+  "OldCatalogExceptOneTailAppendExact": true,
+  "PortableSourcesRawExact": 5,
+  "AppendedCompiledTests": 5,
+  "AppendedHostTests": 11,
+  "InitializerMigrationReview": {
+    "ThreeDefaultSchedulerAssertionsReplaced": true,
+    "NewHelperChecks": "actual initializer ProcessContext; nondefault per-owner concurrency1; synchronous system_info scheduler_id admission; recursive InitializeModulesAsync same scheduler/lane and immediate completion",
+    "Preserved": "global capacity/child scheduler independence/normal guest completion/retirement join/post-parent-retirement child initialization and guest/all prior test names",
+    "NoNewSourceBlockerFound": true
+  },
+  "Scope": "Source admission for first Tests-project build only. Earlier focused6 actual30 evidence remains separate. No permanent353 execution, full, readiness or native-profile success inferred.",
+  "RemainingGates": [
+    "Actual permanent build and executions",
+    "Fresh metadata/current-source guards and complete full input preparation",
+    "Explicit +S2:2 original profile workflow/build provenance and actual captures"
+  ],
+  "SdkExecutedByReviewer": false,
+  "NetworkExecuted": false,
+  "MainModified": false,
+  "AuthorshipDisclosure": "Reviewer previously reviewed scheduler source and authored passive focused readers; did not author these scheduler production/permanent integration changes."
+}

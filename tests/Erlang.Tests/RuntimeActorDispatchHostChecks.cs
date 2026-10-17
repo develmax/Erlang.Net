@@ -116,7 +116,7 @@ internal static class RuntimeActorDispatchHostChecks
             Require((await child.Completion).Equals(Term.A(ProcessExitReasons.Normal)));
             await runtime.InitializeModulesAsync(registry =>
             {
-                Require(ReferenceEquals(TaskScheduler.Current, TaskScheduler.Default));
+                RuntimeActorInitializerHostChecks.RequireCurrentOwner(runtime);
                 registry.Register(
                     RuntimeActorDispatchHostNames.Module,
                     RuntimeActorDispatchHostNames.Function,
@@ -143,14 +143,15 @@ internal static class RuntimeActorDispatchHostChecks
         ProcessRuntime? child = null;
         var created = NewSignal();
         var finish = NewSignal();
-        bool initialDefaultScheduler = false;
+        bool initialOwnedScheduler = false;
         var actor = parent.Spawn(async context =>
         {
             Require(!ReferenceEquals(TaskScheduler.Current, TaskScheduler.Default));
             child = new ProcessRuntime(1);
             await child.InitializeModulesAsync(registry =>
             {
-                initialDefaultScheduler = ReferenceEquals(TaskScheduler.Current, TaskScheduler.Default);
+                RuntimeActorInitializerHostChecks.RequireCurrentOwner(child);
+                initialOwnedScheduler = true;
                 registry.Register(
                     RuntimeActorDispatchHostNames.Module,
                     RuntimeActorDispatchHostNames.Function,
@@ -174,11 +175,11 @@ internal static class RuntimeActorDispatchHostChecks
             Require((await actor.Completion.WaitAsync(RuntimeActorDispatchHostParameters.Deadline)).Equals(Term.A(ProcessExitReasons.Normal)));
             await retiring.WaitAsync(RuntimeActorDispatchHostParameters.Deadline);
             Require(retiring.IsCompletedSuccessfully);
-            Require(initialDefaultScheduler);
+            Require(initialOwnedScheduler);
             Require(child is not null);
             await child!.InitializeModulesAsync(registry =>
             {
-                Require(ReferenceEquals(TaskScheduler.Current, TaskScheduler.Default));
+                RuntimeActorInitializerHostChecks.RequireCurrentOwner(child);
                 registry.Register(
                     RuntimeActorDispatchHostNames.PostRetirementModule,
                     RuntimeActorDispatchHostNames.Function,

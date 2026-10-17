@@ -1,0 +1,28 @@
+{
+  "Status": "ACTUAL_ROOT352_ATTRIBUTE_ORDER_PUBLICATION_ERROR_CORRECTED",
+  "InitialPublishedHead": "c09a075b7921b3875f526ea0da9d011c263e3bad",
+  "InitialCiRun": 38991076980,
+  "InitialCiConclusionObserved": null,
+  "Cause": "Root promotion verified the reviewed attrs overlay and native rows, then separately reconstructed attrs from old Main in reversed namespace order. Staged-byte guard did not recheck native rows after this overwrite.",
+  "InitialWorkingAttrsSha256": "A58E15F0C683055BDA800A5678C6F3B17392695F723587D42D177705007625FF",
+  "CorrectedWorkingAttrsSha256": "212B48FA91AA1639E00B408090C60C1FD908BDA22AE0F87FAC65E46B034991BD",
+  "CorrectedTextLFAttrsSha256": "ECDA73879045E0EB47D4CE6BBB31E355C562814D284F93CEDA69CC52E4A686F5",
+  "ReviewedSourceProposalWasConsistent": true,
+  "FinalActualMainNativePlansRehashed": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Files": 1262,
+      "Sha256": "DEAEAD6E1DD0C955FC450CE5FEBDB6579E51F93A92D0FFD57BF514B090FB20EE"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Files": 1287,
+      "Sha256": "F41897F7F196E7E4DABB31AD859EEDD3CE5A185C83342D9F4894DFD99218E6E4"
+    }
+  ],
+  "NativeSourceAndWorkflowSealsChangedByThisCorrection": false,
+  "PredicateClassificationsAndEvidenceChanged": false,
+  "ProductionCSharpChanged": false,
+  "NewRuntimeOrNativeTestsExecuted": false,
+  "CorrectiveAction": "Use the reviewed attrs overlay directly; rehash every native row after final Main write; retain original commit and known CI run without rerun."
+}

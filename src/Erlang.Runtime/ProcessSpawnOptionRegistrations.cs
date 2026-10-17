@@ -65,7 +65,8 @@ internal static class ProcessSpawnOptionRegistrations
                 arguments[^1]
             );
         }
-        ProcessSpawnOptions options = ParseOptions(context, arguments);
+        ProcessSpawnOptions options = node == context.Runtime.Node
+            ? ParseOptions(context, arguments) : ProcessSpawnOptions.ParseRemote(arguments[^1]);
         if (node != context.Runtime.Node)
         {
             var remoteResult = await context.Runtime.DistributionPending.TrySpawnConnectedAsync(
@@ -92,6 +93,15 @@ internal static class ProcessSpawnOptionRegistrations
             };
         }
 
+        try
+        {
+            _ = options.ResolveScheduler(context.Runtime.ActorDispatchCapacity);
+        }
+        catch (ErlangException)
+        {
+            throw Invalid(context, arguments, true);
+        }
+
         return context.Runtime.SpawnWithOptions(
             context,
             body,
@@ -104,7 +114,7 @@ internal static class ProcessSpawnOptionRegistrations
     {
         try
         {
-            return ProcessSpawnOptions.Parse(arguments[^1]);
+            return ProcessSpawnOptions.Parse(arguments[^1], context.Runtime.ActorDispatchCapacity);
         }
         catch (ErlangException)
         {

@@ -1,0 +1,70 @@
+	    /* Wait for emulator to terminate... */
+	    erts_runq_unlock(rq);
+	    while (1)
+		erts_milli_sleep(1000*1000);
+	}
+	else if (!runq_got_work_to_execute_flags(flags)) {
+	    /* Prepare for scheduler wait */
+	    ERTS_LC_ASSERT(erts_lc_runq_is_locked(rq));
+
+	    rq->wakeup_other = 0;
+	    rq->wakeup_other_reds = 0;
+
+	    flags = ERTS_RUNQ_FLGS_GET_NOB(rq);
+	    if (flags & ERTS_RUNQ_FLG_SUSPENDED)
+		goto continue_check_activities_to_run_known_flags;
+	    if (flags & ERTS_RUNQ_FLG_INACTIVE)
+		empty_runq(rq);
+	    else {
+                ASSERT(!runq_got_work_to_execute(rq));
+		if (!is_normal_sched) {
+                    /* Dirty scheduler */
+                    if (erts_atomic32_read_acqb(&esdp->ssi->flags)
+                        & (ERTS_SSI_FLG_SUSPENDED|ERTS_SSI_FLG_MSB_EXEC)) {
+                        /* Go suspend... */
+                        goto continue_check_activities_to_run_known_flags;
+                    }
+                    empty_runq(rq);
+                }
+                else {
+                    /* Normal scheduler */
+                    p = NULL;
+                    if (try_steal_task(rq, &p)) {
+                        if (p) {
+                            state = erts_atomic32_read_acqb(&p->state);
+                            goto execute_process;
+                        }
+                        goto continue_check_activities_to_run;
+                    }
+                    /*
+                     * Check for suspend has to be done after trying
+                     * to steal a task...
+                     */
+                    flags = ERTS_RUNQ_FLGS_GET_NOB(rq);
+                    if ((flags & ERTS_RUNQ_FLG_SUSPENDED)
+                        /* If multi scheduling block and we have
+                         * dirty work, suspend and let dirty
+                         * scheduler handle work... */
+                        || ((((flags & (ERTS_RUNQ_FLG_HALTING
+                                       | ERTS_RUNQ_FLG_MSB_EXEC))
+                              == ERTS_RUNQ_FLG_MSB_EXEC))
+                            && have_dirty_work())
+                        ) {
+                        non_empty_runq(rq);
+                        flags |= ERTS_RUNQ_FLG_NONEMPTY;
+                        /*
+                         * Go suspend...
+                         */
+                        goto continue_check_activities_to_run_known_flags;
+                    }
+		}
+	    }
+
+	    (void) ERTS_RUNQ_FLGS_UNSET(rq, ERTS_RUNQ_FLG_EXEC);
+	    scheduler_wait(&fcalls, esdp, rq);
+	    flags = ERTS_RUNQ_FLGS_SET_NOB(rq, ERTS_RUNQ_FLG_EXEC);
+	    flags |= ERTS_RUNQ_FLG_EXEC;
+            ERTS_MSACC_UPDATE_CACHE();
+	    non_empty_runq(rq);
+
+	    goto check_activities_to_run;

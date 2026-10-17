@@ -21,7 +21,7 @@ public sealed partial class RuntimeDistributionPending
         int replyFlags = 0;
         try
         {
-            var options = ProcessSpawnOptions.Parse(control.Items[DistributionSpawnLayout.OptionsIndex]);
+            var options = ProcessSpawnOptions.Parse(control.Items[DistributionSpawnLayout.OptionsIndex], runtime.ActorDispatchCapacity);
             if (options.Monitor && (connected.Flags & DistributionPassThroughFlags.ProcessMonitors) != DistributionPassThroughFlags.ProcessMonitors)
                 throw new NotSupportedException(DistributionSpawnDiagnostics.SenderOptionsNotImplemented);
             result = runtime.CreateConnectedSpawn(

@@ -1,0 +1,20 @@
+{
+  "Status": "PASS_SOURCE_ONLY_READER_SCHEMA_FOLLOWUP_NO_ACTUAL353_RESULTS_READ",
+  "ReaderSha256": "AF9238A9B4D277430495000ED9FD26F95950124FFC0E43E4DC65ECD730FF8C06",
+  "PermanentSourceFreezeSha256": "6D719CDE2635B96E3D95C6BC4A2F7039D80A8B6DE422667D91212E40B30EF0C3",
+  "Checks": [
+    "Immutable report CompiledCases is five ordered Property/Name records matching SchedulerAffinityCases.Modules; CaseNames contain exact module names used by reader.",
+    "Immutable report HostTargets is eleven ordered Key/Name/Method records; SchedulerAffinityTestNames constants and permanent Program append use exactly those names/order, including Invalid before Public.",
+    "TermOrderChildReceipt source defines every field read by reader; child stdout emits loaded Terms path/hash first, CONSTRUCTED for compare/hash, PASS last. No driver-side additional loaded identity invented.",
+    "Readiness source emits VerifiedSourceFiles, VerifiedCompatibleMfas, KnownDifferenceMfas, NeedsVerificationMfas, ComparisonTestReport, LocalPassedTests and ImplementedApiModules with the reader's exact JSON property names.",
+    "Canonical validate.ps1 produces source CLI and packaged CLI readiness from same docs/artifacts/tests.json; both use configured comparison pointer. Twelve genuine child receipts and postfull TestDlls are separate indexes.",
+    "Producer wrapper uses full.live.json/full.exit.json with Failures and StdoutSha256/StderrSha256, captures six named canonical output files, records non-restored raw registry and stable3095 check. Reader matches these source schemas."
+  ],
+  "NewSourceBlockersFound": [],
+  "ReaderChanged": false,
+  "Actual353ResultsRead": false,
+  "ReaderExecuted": false,
+  "SdkExecuted": false,
+  "MainModified": false,
+  "Gate": "Remain paused until Root terminal notice; Root may execute the unchanged approved reader then."
+}

@@ -82,6 +82,7 @@ public sealed partial class ProcessContext : ITermExecutionContext
     }
     private int schedulingPriority = (int)ProcessSchedulingPriority.Normal;
     internal RuntimeProcessTaskScheduler? ActorTaskScheduler { get; set; }
+    internal int SchedulerBinding { get; set; }
     internal ProcessSchedulingPriority SchedulingPriorityLevel
     {
         get => (ProcessSchedulingPriority)Volatile.Read(ref schedulingPriority);

@@ -1,0 +1,44 @@
+{
+  "Status": "SOURCE_ONLY_NARROW_IDLE_ONLINE_PUMP_STEAL_RETRY_REQUIRES_PEER",
+  "ParentRuntimePath": "artifacts/scheduler-affinity353-full-candidate/src/Erlang.Runtime/RuntimeActorDispatcher.cs",
+  "ParentRuntimeSha256": "62C918298E09201540B631ED3DEF63722E19F1C6299F8678C429A730B912A70E",
+  "OriginalFullFailure": "7312/7313; originalRuntimeActorDispatch registeredtestouter15 timeout",
+  "ActualPhaseFinding": "BoundedSegments(2) and(4) actualsettledexit1, firstWave wait15 atsource66; capacities1 andallsixother phasesPASS; Run repeatsboundedfirstWave timeout. Initializer migration is not the cause demonstrated by these observations.",
+  "RootCause": "After currentlane executes initializer andbecomesempty, previousPumpfinally calls StartWorkers while currentlane.Pumping true; StartWorkers skipsTrySteal forit. NextSelectnull marksidle andreturns. Otherlane canholdsyncguest waitingcapacity firstWave, withqueuedunboundsiblings andnoenqueuetoretriggeridleworker.",
+  "Fix": "Only after localSelectnull on online lane, call existing bound-aware TrySteal andSelectagain beforemarkingidle. No change to anyexistingnonemptylocalpriority selection, low8counter, donorpriorityqueues, bound/offlineexclude, actorpendingtask/lease/cleanup ownership.",
+  "UnchangedTests": [
+    "All old capacity/start/max<=capacity/firstWaveconditions",
+    "Initializeractualowner/lane/reentry andlifetimechecks",
+    "15secondoriginaltestbudgets",
+    "7297priororderednames and16newtests"
+  ],
+  "ProposedRootFocus": [
+    "Rebase freshcandidate2 onefiledelta only; do noteditfailedcandidate1",
+    "Run exactdiagnostic10 onfreshbuilt candidate2DLLs; allmustsettle andRunmustfitcanonical15",
+    "Also exercise originalnew16 affinitycontrols andpriority/deep/cancel regressions underexistingmeaningfulfocus wrapper; noexpectationchanges",
+    "Beforefull refresh89guard dispatcherrow andnativeplans affectedinput/seals withreview,thennewfreeze andsinglefullauthorizedbyRoot"
+  ],
+  "NoSdk": true,
+  "NoMainMutation": true,
+  "NoFrozenCandidateMutation": true,
+  "NoNative": true,
+  "PreviousProposalFreezeSha256": "F63C235BED0BD6738DDF3FC6A402664092D2412862389269E394DB6006D6C619",
+  "HistoricalQueueSnapshotCaptured": false,
+  "CausePrecision": "Actual phase receipts identify firstWave starvation. The queue interleaving is a source-proven reachable liveness path consistent with both failures, not an actual captured historical queue snapshot.",
+  "PinnedSourceGuidance": {
+    "OriginalCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "SourcePath": "erts/emulator/beam/erl_process.c",
+    "OriginalBlobBytes": 459197,
+    "OriginalBlobSha256": "89CBDB55BE2A97E77B2450BB3D339CA6DB934B9C4BF556EAD29B4EAE88072DC9",
+    "ExcerptFirstLine": 9876,
+    "ExcerptLastLine": 9945,
+    "KeyAnchors": {
+      "EmptyRunQueueBranch": 9881,
+      "NormalSchedulerTrySteal": 9907,
+      "SchedulerWait": 9939
+    },
+    "Scope": "Native normal scheduler tries steal before scheduler_wait; proposed managed logical-lane correction reusesexistingmanagedstealfilters, doesnotclaimfullnativebalancer/physicalCPU/dirtyschedparity."
+  },
+  "NoInitializerMigrationRegressionFoundByDiagnostic": "All six otherprivatephases actualPASS around0.18s; theseobservationsdonotproveabsenceofallpossibleinterleavings.",
+  "MetadataHistory": "Unexecuted source2 assigned scheduler_wait anchor9940; actual gitgrep proved9939. This revision corrects only that evidence metadata, runtimepatch unchanged."
+}

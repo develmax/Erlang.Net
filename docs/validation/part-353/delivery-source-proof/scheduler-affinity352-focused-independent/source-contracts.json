@@ -1,0 +1,78 @@
+{
+  "Status": "SOURCE_ONLY_FIVE_NEW_SOURCE_GOLDENS_TWO_OLD_NATIVE_GOLDENS_NO352EXECUTION",
+  "Contracts": [
+    {
+      "Name": "scheduler_first_instruction",
+      "SourceSha256": "ABB26ED42ED55ECC662E02E3301BCC38253AD4204D532199B8DCA25991650254",
+      "SourceBytes": 473,
+      "Expected": "{ok,done}",
+      "Authority": "Unexecuted pinned-source-derived fixture; exactraw proposal5portable."
+    },
+    {
+      "Name": "scheduler_migration_previous_binding",
+      "SourceSha256": "26D487608148CD933C6B95E69117EF2675B01F11CDFDCF18341F1C447BE31961",
+      "SourceBytes": 349,
+      "Expected": "{ok,done}",
+      "Authority": "Unexecuted pinned-source-derived fixture; exactraw proposal5portable."
+    },
+    {
+      "Name": "scheduler_invalid_and_duplicate",
+      "SourceSha256": "20430A4ACED89F26AE3C10535CE3861D4A5AB35204A5BCE0F3C39BA49F382DF2",
+      "SourceBytes": 713,
+      "Expected": "{ok,done}",
+      "Authority": "Unexecuted pinned-source-derived fixture; exactraw proposal5portable."
+    },
+    {
+      "Name": "scheduler_offline_bound_resume",
+      "SourceSha256": "DC851B11A4E7E8F4FFCADE7FADF6C9B35FAD474A2F6D80883A0655F93C5461EE",
+      "SourceBytes": 978,
+      "Expected": "{ok,done}",
+      "Authority": "Unexecuted pinned-source-derived fixture; exactraw proposal5portable."
+    },
+    {
+      "Name": "scheduler_offline_pending_kill",
+      "SourceSha256": "BAF618AC18FA41E6A325780A0AD4C2D5DA88F871D9EF3E39B300A085C79EF0D5",
+      "SourceBytes": 999,
+      "Expected": "{ok,done}",
+      "Authority": "Unexecuted pinned-source-derived fixture; exactraw proposal5portable."
+    },
+    {
+      "Name": "non-tail-recursion-named-finite-checksum",
+      "SourceSha256": "0083D1647CE32A937884459C412F641344379042F540019A5AEBC5E334A1A52C",
+      "SourceBytes": 105,
+      "Expected": "{ok,{8390656,4096}}",
+      "Authority": "Actual original350rawrow; logicalfixturecatalog sourcefiles rawsame published351."
+    },
+    {
+      "Name": "proc-lib-lifecycle-hibernate-real-message-resume",
+      "SourceSha256": "0D748247343172502A5EA75B041CC99005D0D0285DF55B16D32B14E442C7BC85",
+      "SourceBytes": 1582,
+      "Expected": "{ok,ok}",
+      "Authority": "Actual original350rawrow; logicalfixturecatalog sourcefiles rawsame published351."
+    }
+  ],
+  "Original350ReportPath": "artifacts/part350-remote-new-review/ordinary/artifact-12083085671/differential.json",
+  "Original350ReportSha256": "83582FE46F692A4F0F450DBEEE7A4D6E20C4C9C7F372891F364456AEABA9272A",
+  "OldFixtureCatalogSourceBindingsRawExact350To351": [
+    {
+      "Path": "tools/Erlang.Differential/NonTailRecursionCases.cs",
+      "Sha256": "C123E1F15B513C7428C8B655D071615107D28FBE4D69758BE2195A683DD1E92E"
+    },
+    {
+      "Path": "tools/Erlang.Differential/NonTailRecursionCaseNames.cs",
+      "Sha256": "48D1B32EBB00BCA32A6EE8FE2D5049557C88C75D6BB8FE5DD2D89B03C587CD05"
+    },
+    {
+      "Path": "tools/Erlang.Differential/ProcLibLifecycleCases.cs",
+      "Sha256": "11AB0A4A51AD99D528AEED38582B8E03D66DBDE6A10D053244F5FC68976D776F"
+    },
+    {
+      "Path": "tools/Erlang.Differential/ProcLibLifecycleCaseNames.cs",
+      "Sha256": "A952C78F0E58198BD3410426F9B14699EA490E5D00039D23190BBD37A8E7E10F"
+    },
+    {
+      "Path": "tools/Erlang.Differential/ProcLibLifecycleCaseData.cs",
+      "Sha256": "81D974992A891DD9FD68A3F5858DA4A4DE6FBB8E6E692892A39576A32300BA08"
+    }
+  ]
+}

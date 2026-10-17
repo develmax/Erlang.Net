@@ -8,7 +8,7 @@ internal sealed class ProcessSpawnRequestOptions
     public bool BadOptions { get; private set; }
     public ProcessSpawnOptions Spawn { get; private set; } = ProcessSpawnOptions.Parse(Nil.Value);
 
-    public static ProcessSpawnRequestOptions Parse(IReadOnlyList<Term> values, bool disconnected)
+    public static ProcessSpawnRequestOptions Parse(IReadOnlyList<Term> values, bool disconnected, int configuredSchedulers = int.MaxValue)
     {
         var result = new ProcessSpawnRequestOptions();
         var spawn = new List<Term>();
@@ -65,7 +65,7 @@ internal sealed class ProcessSpawnRequestOptions
         {
             result.Spawn = disconnected
                 ? ProcessSpawnOptions.ParseRemote(Cons.From(spawn))
-                : ProcessSpawnOptions.Parse(Cons.From(spawn));
+                : ProcessSpawnOptions.Parse(Cons.From(spawn), configuredSchedulers);
         }
         catch (ErlangException)
         {

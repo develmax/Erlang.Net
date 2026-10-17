@@ -1,0 +1,66 @@
+{
+  "Scope": "Producer actualphase observations, not independentfullacceptance",
+  "Attempts": [
+    {
+      "Target": "bounded-1",
+      "Passed": true,
+      "Elapsed": 0.1728181,
+      "Failure": null
+    },
+    {
+      "Target": "bounded-2",
+      "Passed": false,
+      "Elapsed": 15.1927581,
+      "Failure": "System.TimeoutException: The operation has timed out.\r\n   at Erlang.Tests.RuntimeActorDispatchHostChecks.BoundedSegments(Int32 capacity) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\scheduler-affinity353-full-candidate\\tests\\Erlang.Tests\\RuntimeActorDispatchHostChecks.cs:line 66\r\n   at Erlang.Tests.RuntimeActorDispatchHostChecks.BoundedSegments(Int32 capacity) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\scheduler-affinity353-full-candidate\\tests\\Erlang.Tests\\RuntimeActorDispatchHostChecks.cs:line 78\r\n   at Scheduler353Diagnostic.DiagnosticMain.Main(String[] arguments) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\scheduler-affinity353-failure-diagnostic-proposal\\source\\DiagnosticMain.cs:line 46"
+    },
+    {
+      "Target": "bounded-4",
+      "Passed": false,
+      "Elapsed": 15.1779717,
+      "Failure": "System.TimeoutException: The operation has timed out.\r\n   at Erlang.Tests.RuntimeActorDispatchHostChecks.BoundedSegments(Int32 capacity) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\scheduler-affinity353-full-candidate\\tests\\Erlang.Tests\\RuntimeActorDispatchHostChecks.cs:line 66\r\n   at Erlang.Tests.RuntimeActorDispatchHostChecks.BoundedSegments(Int32 capacity) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\scheduler-affinity353-full-candidate\\tests\\Erlang.Tests\\RuntimeActorDispatchHostChecks.cs:line 78\r\n   at Scheduler353Diagnostic.DiagnosticMain.Main(String[] arguments) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\scheduler-affinity353-failure-diagnostic-proposal\\source\\DiagnosticMain.cs:line 46"
+    },
+    {
+      "Target": "CapturedContinuationsAndIndependentInitializer",
+      "Passed": true,
+      "Elapsed": 0.1784786,
+      "Failure": null
+    },
+    {
+      "Target": "NestedInitializerAfterParentRetirement",
+      "Passed": true,
+      "Elapsed": 0.1847982,
+      "Failure": null
+    },
+    {
+      "Target": "CapacityIsolation",
+      "Passed": true,
+      "Elapsed": 0.1778566,
+      "Failure": null
+    },
+    {
+      "Target": "CancellationAndExternalDisposal",
+      "Passed": true,
+      "Elapsed": 0.1871289,
+      "Failure": null
+    },
+    {
+      "Target": "SelfDisposal",
+      "Passed": true,
+      "Elapsed": 0.1774489,
+      "Failure": null
+    },
+    {
+      "Target": "RetirementAndFailedEnqueue",
+      "Passed": true,
+      "Elapsed": 0.1788149,
+      "Failure": null
+    },
+    {
+      "Target": "Run",
+      "Passed": false,
+      "Elapsed": 16.1780348,
+      "Failure": "System.TimeoutException: The operation has timed out.\r\n   at Erlang.Tests.RuntimeActorDispatchHostChecks.BoundedSegments(Int32 capacity) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\scheduler-affinity353-full-candidate\\tests\\Erlang.Tests\\RuntimeActorDispatchHostChecks.cs:line 66\r\n   at Erlang.Tests.RuntimeActorDispatchHostChecks.BoundedSegments(Int32 capacity) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\scheduler-affinity353-full-candidate\\tests\\Erlang.Tests\\RuntimeActorDispatchHostChecks.cs:line 78\r\n   at Erlang.Tests.RuntimeActorDispatchHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\scheduler-affinity353-full-candidate\\tests\\Erlang.Tests\\RuntimeActorDispatchHostChecks.cs:line 10\r\n   at Scheduler353Diagnostic.DiagnosticMain.Main(String[] arguments) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\scheduler-affinity353-failure-diagnostic-proposal\\source\\DiagnosticMain.cs:line 46"
+    }
+  ],
+  "Source": "Exact failed full1 built DLLs, unchanged methods and inner15. No currentproposal SDK execution."
+}

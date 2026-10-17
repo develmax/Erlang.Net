@@ -89,7 +89,7 @@ internal static class ProcessSpawnRequestRegistrations
             optionTail = cell.Tail;
         }
         bool disconnected = node != context.Runtime.Node;
-        ProcessSpawnRequestOptions parsed = ProcessSpawnRequestOptions.Parse(optionValues, disconnected);
+        ProcessSpawnRequestOptions parsed = ProcessSpawnRequestOptions.Parse(optionValues, disconnected, context.Runtime.ActorDispatchCapacity);
         if (optionTail is not Nil && (!disconnected || !parsed.BadOptions))
             throw Invalid(
                 context,

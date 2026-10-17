@@ -1,0 +1,68 @@
+{
+  "Status": "SOURCE_ONLY_REVISION6_FUNCTION_CALLBACK_CONTEXT_CONVERSION_REQUIRES_PEER",
+  "ParentHead": "547a2dd266586589a90c7883dac88d09a5a1de20",
+  "PreviousFreezeSha256": "AFA644E9CE7D1422DE4D0CA54AA8CE34FE51EF0AEB2BE6FB64905B49C8C17355",
+  "PreviousBlockingFindingSha256": "8ED5ACFC9F86F148DAB95AFD1191C2C125E589340A2C3CA0466149B49D555338",
+  "CandidateRelativePath": "artifacts/scheduler-affinity352-candidate6",
+  "ProductionFiles": 20,
+  "ChangedProductionSince3": [
+    "src/Erlang.Runtime/RuntimeActorDispatcher.cs"
+  ],
+  "Fix": "Both online permit/completion awaits use actual Mailbox.WaitForControlCompletion; explicit Runtime.AdmitSignals outside dispatcher gate before applyingstate andaftercompletion covers already-ready TCS precedence. No bypass of publicexit2signalpath.",
+  "SignalAudit": {
+    "Claim": "Source-guided expected behavior for normal nondirty process bound to offline normal scheduler; no actualnative run claim.",
+    "Chain": [
+      "erl_proc_sig_queue.c1627-1840 sends genericexit via proc_queue_signal; receiverhandle_exit_signal4740-4800 mapskill\u2192killed andselfexiting. Sender doesnot do receiverkill.",
+      "erl_proc_sig_queue.c1244 notify_new_sig\u2192erl_proc_sig_queue.h2063 proc_sys_schedule; dirtyhandleronlyfor DIRTY_STATE, excluded from thesefixtures.",
+      "erl_process.c7161 proc_sys_schedule\u2192active_sys_enqueue7028/7144 add2runq, ordinary boundrunq identity retained; proxy setup6441-6474 inheritsbound.",
+      "erl_process.h2711 boundbit rejects runqchange; erl_process.c4439 evacuation stores stuckbound; suspendedloop7980aux/timers/evacuation doesnotexecute ordinarybound process."
+    ],
+    "Limits": "No dirty NIF/scheduler-handler generalization; complete nativeobservation stillrequired. Direct host Terminate/Cancel isnotguestexit2."
+  },
+  "CorrectedControlContracts": [
+    "Active cancellation waits actual recipientDoneKilled AND tokenCanceled beforeasserting activebarrierretained/successornotgranted.",
+    "Queued cancellation waits actual DoneKilled+token before asserting removal/successor preservation.",
+    "Grantedofflinehead publickill ispending, tokenfalse/Doneincomplete/FIFOheadretained; publiconline successor cannotbypass. Separate administrativeDispose expectsShutdown, no killedresult claim.",
+    "Plain offlineboundreceiver pendingpublickill keeps tokenfalse/Doneincomplete; distinctonlineactor restores2 then actualDoneKilled/token/finallyLane2 observed.",
+    "Separate administrativeoffline retirement expectsShutdown andjoinsactualfinallyLane2+dispatcherCompletion, nevercalledsameasguestkill."
+  ],
+  "OracleProfileAuditSha256": "7903CF0688CE4144DBFFEB6E9292AB7B2415810B73FBD7C766397EC5469C44FD",
+  "ExpectedTargets": 30,
+  "ExpectedParse": 7,
+  "RootInitialRuntimeBuildHistory": "Root reported revision2 immutable20 serialbuild0warnings/errors; firstquiet build1 causeunproven retained. This is not revision4 guest or newcompile evidence.",
+  "InheritedSourceReview": "A53B379C revision2 initialbuildscope only; revision3finding8ED5 retained. This revision needs fresh independentpeer.",
+  "UnimplementedOrUnproven": [
+    "No SDK/build/parse/native execution for revision4.",
+    "Connected sender/receiver differing scheduler count still sourceproposal only; currentpublicnodeforms are localnode.",
+    "Nativeexplicit2profile not collected yet; current ordinary corpus unchanged.",
+    "OldDefaultScheduler wholeHOST stillneedsdeclaredactualowner/lane migration before permanentfull; newinitializer testsretainrealadmission/reentry/lifecycle requirements.",
+    "No physical/dirtyCPU/multischeduling/performance/fullreadiness/statuspromotion."
+  ],
+  "NoSdk": true,
+  "NoNetwork": true,
+  "NoMainMutation": true,
+  "NoFrozen351Mutation": true,
+  "ChangedSince4": [
+    "tests/Erlang.Scheduler352.Focus/SchedulerControlCalls.cs"
+  ],
+  "FixSince4": "Rename Atom field Kill to KillAtom and its Exit argument only; method Kill and all 20 production sources unchanged.",
+  "Build4History": {
+    "Exit": {
+      "Path": "artifacts/scheduler-affinity352-focused-actual4/build.exit.json",
+      "Sha256": "7E651E78C6AF46BDA7B55EB2EE482C2DBD80F963DDDE87B984AFD9CEC5BC538B"
+    },
+    "Failure": "CS0102 duplicate SchedulerControlCalls.Kill; zero guest/parse executed",
+    "NativeOrSdkExecutedByThisRevision": false
+  },
+  "ChangedSince5": [
+    "tests/Erlang.Scheduler352.Focus/SchedulerAffinityHostChecks.cs",
+    "tests/Erlang.Scheduler352.Focus/SchedulerPublicApiHostChecks.cs"
+  ],
+  "FixSince5": "Three FunctionTerm callbacks accept ITermExecutionContext; explicitly cast their actual receiving executionContext to ProcessContext before unchanged identity/yield assertions. No runtime/helper semantics changed.",
+  "Build5History": {
+    "ExitPath": "artifacts/scheduler-affinity352-focused-actual5/build.exit.json",
+    "ExitSha256": "B28529944BDBB08A28CEAFA69257272D038256D45FF483A49C19F558827C912C",
+    "Failure": "5 compile errors: callback ITermExecutionContext cannot be passed to ProcessContext helpers, no YieldExecution on interface. No parse/guest executed."
+  },
+  "PreparationHistory": "Initial artifact-only patch needle expected CRLF but exact files were LF; assertion stopped before source changes. Corrected LF needle; no SDK/guest attempt."
+}

@@ -2,6 +2,21 @@ namespace Erlang;
 
 internal sealed class ProcessSpawnOptions
 {
+    internal List<Term> SchedulerOptions { get; } = new();
+
+    internal int ResolveScheduler(int configured)
+    {
+        int result = ProcessSchedulerNames.Unbound;
+        foreach (var option in SchedulerOptions)
+        {
+            if (option is not TupleTerm { Items: [Atom, var value] })
+                throw new ErlangException(ErlangErrorReasons.BadArgument);
+            result = ProcessSchedulerValues.Parse(value, configured);
+        }
+
+        return result;
+    }
+
     public ProcessSchedulingPriority Priority { get; private set; } = ProcessSchedulingPriority.Normal;
 
     public bool AsyncDistribution
@@ -27,6 +42,11 @@ internal sealed class ProcessSpawnOptions
         var result = new ProcessSpawnOptions();
         foreach (Term option in Cons.Items(value))
         {
+            if (option is TupleTerm { Items: [Atom { Name: ProcessSchedulerNames.Binding }, ..] })
+            {
+                result.SchedulerOptions.Add(option);
+                continue;
+            }
             var current = Parse(Term.List(option));
             if (option is TupleTerm { Items: [Atom { Name: ProcessPriorityNames.Flag }, _] })
                 result.Priority = current.Priority;
@@ -40,7 +60,7 @@ internal sealed class ProcessSpawnOptions
         return result;
     }
 
-    public static ProcessSpawnOptions Parse(Term value)
+    public static ProcessSpawnOptions Parse(Term value, int configuredSchedulers = int.MaxValue)
     {
         var result = new ProcessSpawnOptions();
         foreach (Term option in Cons.Items(value))
@@ -52,6 +72,10 @@ internal sealed class ProcessSpawnOptions
                     break;
                 case TupleTerm { Items: [Atom { Name: ProcessAsyncDistributionNames.Flag }, Atom { Name: ErlangBooleanAtoms.False }] }:
                     result.AsyncDistribution = false;
+                    break;
+                case TupleTerm { Items: [Atom { Name: ProcessSchedulerNames.Binding }, var schedulerValue] }:
+                    _ = ProcessSchedulerValues.Parse(schedulerValue, configuredSchedulers);
+                    result.SchedulerOptions.Add(option);
                     break;
                 case TupleTerm { Items: [Atom { Name: ProcessPriorityNames.Flag }, var priorityValue] }:
                     result.Priority = ProcessPriorityValues.Parse(priorityValue);

@@ -1,0 +1,166 @@
+{
+  "Status": "PASS_PUBLISHED351_ORIGINAL6316_FD8_SEMANTIC_CONTRACTS",
+  "Head": "547a2dd266586589a90c7883dac88d09a5a1de20",
+  "Run": 38989291376,
+  "Job": 117267826371,
+  "Artifact": 12085158009,
+  "Passed": 6316,
+  "Failed": 0,
+  "FdPassed": 8,
+  "NewModules": 3,
+  "AllPrevious6313OrderedContractsPreserved": true,
+  "ExactJobPassOrder6316": true,
+  "OldPrefixRawChanges": [],
+  "PredeclaredMapStdoutHistoricalChanges": 0,
+  "CurrentNativeSdkRawMapVariants": [
+    {
+      "Index": 3605,
+      "Name": "erlang-term-display-map"
+    }
+  ],
+  "StrictRawEqualityPassed": false,
+  "RawReportSha256": "35CFFDACEC0BDE2DEEA85A69EE819BC6033E8E415A12BD557508CCA28E0E1979",
+  "Prior6313ReportSha256": "83582FE46F692A4F0F450DBEEE7A4D6E20C4C9C7F372891F364456AEABA9272A",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "OriginalGuestCodeExecutedByReviewer": false,
+  "SdkExecutedByReviewer": false,
+  "MainModified": false,
+  "NetworkUsed": false,
+  "WholePriorityOrSchedulerCompatibilityClaimed": false,
+  "Disclosure": "Passive reviewer did not execute native or managed guest code. Native observations came from the published351 workflow. Selected cases do not establish complete priority/scheduler compatibility.",
+  "SourceSha256": "434640BE47B0872A0DD3D91F8EAED994D7EE550C0A680383CED5C4AF70944222",
+  "CommonSourceSha256": "CDF8D9E71186906940C15F74E37848141803A02A4169F9E7BA20B26A9D2E194E",
+  "ExistingTrustedSourcePins": {
+    "passive-common.py": "BA2160DB60288DDD0E2C4D18B50A3155DE0156E7CB6A1DA68D40F42242C68C32"
+  },
+  "PriorOracleSourceFilesRawPreserved": 289,
+  "PublishedSourceBindings": [
+    {
+      "Path": "tools/Erlang.Differential/SpawnPriorityCaseNames.cs",
+      "Bytes": 386,
+      "Sha256": "B6622685B64ED74D67F25DE5A4D78BA2BDC8D4C355F605A90FD0813314AEA64D"
+    },
+    {
+      "Path": "tools/Erlang.Differential/SpawnPriorityCaseSources.cs",
+      "Bytes": 2330,
+      "Sha256": "1E766D308B03FC2E3F32D437C9B800A70273D40FB63891A25408306092395DA0"
+    },
+    {
+      "Path": "tools/Erlang.Differential/SpawnPriorityCases.cs",
+      "Bytes": 837,
+      "Sha256": "B673B12DCDCDB2FDD9E731725866E069A1EBCEB12FBFA248E2D4E98F5634EAC3"
+    },
+    {
+      "Path": "tools/Erlang.Differential/CompiledModuleCases.cs",
+      "Bytes": 32314,
+      "Sha256": "D55EE73E39A12B6A92A44CD3B79C75F1D17ACE054829A16B9F3E223ECD71CCFE"
+    },
+    {
+      "Path": "tools/Erlang.Differential/OracleOutcomeTags.cs",
+      "Bytes": 159,
+      "Sha256": "50D93FB347141EDD3E03935FB2943251C1619B6F3CE8B3A2AFAF49DBAA312B9C"
+    },
+    {
+      "Path": "tools/Erlang.Differential/TermDisplayCases.cs",
+      "Bytes": 3630,
+      "Sha256": "240D54D2B97A1E0DB80D83775372E1405938418761ABB09BDF8DB39A4AE194F9"
+    },
+    {
+      "Path": "tools/Erlang.Differential/CompiledStandardOutputContract.cs",
+      "Bytes": 397,
+      "Sha256": "0F8F396BEF58B01830F408CF8BD1A0792566B73EA89B10448F9E109B8D17EF38"
+    },
+    {
+      "Path": "reference-baseline.json",
+      "Bytes": 135,
+      "Sha256": "3A676AC4915283B11E240D75E40157D5D2A1CFFAC3F0BFA71B4A4277AC55791A"
+    },
+    {
+      "Path": ".github/workflows/differential.yml",
+      "Bytes": 2719,
+      "Sha256": "19E4285AAF0E1EBC51DA85F126DDFE4A28174D9B94CDDB8C4D0936B4BB0775AA"
+    }
+  ],
+  "SourceDerivedNewModuleContracts": [
+    {
+      "Name": "spawn-priority-priority-first-observation",
+      "Source": "-module(oracle_priority_first_observation).\n-export([run/0, child/1]).\nrun() ->\n    Parent=self(),\n    lists:foreach(fun(Level)->\n        {Pid,Ref}=spawn_opt(oracle_priority_first_observation,child,[Parent],[monitor,{priority,Level}]),\n        receive {Pid,{priority,Level}} -> ok after 1000 -> error(missing_priority) end,\n        receive {'DOWN',Ref,process,Pid,normal} -> ok after 1000 -> error(missing_down) end\n    end,[low,normal,high,max]), done.\nchild(Parent) -> Parent ! {self(),process_info(self(),priority)}.\n",
+      "Family": "SpawnPriority"
+    },
+    {
+      "Name": "spawn-priority-priority-flag-old-and-default",
+      "Source": "-module(oracle_priority_flag_old_and_default).\n-export([run/0]).\nrun() ->\n    normal=process_flag(priority,high), {priority,high}=process_info(self(),priority),\n    high=process_flag(priority,low), low=process_flag(priority,max), max=process_flag(priority,normal),\n    Parent=self(), normal=process_flag(priority,high),\n    {Pid,Ref}=spawn_monitor(fun()->Parent!{self(),process_info(self(),priority)} end),\n    receive {Pid,{priority,normal}} -> ok after 1000 -> error(inherited_priority) end,\n    receive {'DOWN',Ref,process,Pid,normal} -> ok after 1000 -> error(missing_down) end,\n    high=process_flag(priority,normal), done.\n",
+      "Family": "SpawnPriority"
+    },
+    {
+      "Name": "spawn-priority-priority-duplicate-invalid",
+      "Source": "-module(oracle_priority_duplicate_invalid).\n-export([run/0]).\nrun() ->\n    Parent=self(),\n    {Pid,Ref}=spawn_opt(fun()->Parent!{self(),process_info(self(),priority)} end,[monitor,{priority,high},{priority,low}]),\n    receive {Pid,{priority,low}} -> ok after 1000 -> error(wrong_duplicate) end,\n    receive {'DOWN',Ref,process,Pid,normal} -> ok after 1000 -> error(missing_down) end,\n    lists:foreach(fun(Value)->\n        try spawn_opt(fun()->Parent!unexpected_child end,[{priority,Value}]) of _ -> error(expected_badarg) catch error:badarg -> ok end\n    end,[wrong,0,true,{},[]]),\n    receive unexpected_child -> error(created_invalid_child) after 0 -> done end.\n",
+      "Family": "SpawnPriority"
+    }
+  ],
+  "SelectedNewRawRows": [
+    {
+      "Name": "spawn-priority-priority-first-observation",
+      "Source": "-module(oracle_priority_first_observation).\n-export([run/0, child/1]).\nrun() ->\n    Parent=self(),\n    lists:foreach(fun(Level)->\n        {Pid,Ref}=spawn_opt(oracle_priority_first_observation,child,[Parent],[monitor,{priority,Level}]),\n        receive {Pid,{priority,Level}} -> ok after 1000 -> error(missing_priority) end,\n        receive {'DOWN',Ref,process,Pid,normal} -> ok after 1000 -> error(missing_down) end\n    end,[low,normal,high,max]), done.\nchild(Parent) -> Parent ! {self(),process_info(self(),priority)}.\n",
+      "SourceSha256": "D2F4609F3BA00C4C378CB2A8630D4E622A722640DBA125F860BE7F9CAFD11473",
+      "CSharpSha256": "0757117617F95B78D6EC95F2ED723F56EDD707CE135E74113A2785023674A652",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "ExpectedStandardOutputHex": null,
+      "ExpectedStandardOutputAlternatives": null,
+      "ExpectedStandardErrorHex": null,
+      "NativeStandardOutputHex": null,
+      "NativeStandardErrorHex": null,
+      "SdkStandardOutputHex": null,
+      "SdkStandardErrorHex": null,
+      "NativeAndSdkStandardOutputExactlyMatch": true,
+      "StandardStreamsMatch": true,
+      "Passed": true
+    },
+    {
+      "Name": "spawn-priority-priority-flag-old-and-default",
+      "Source": "-module(oracle_priority_flag_old_and_default).\n-export([run/0]).\nrun() ->\n    normal=process_flag(priority,high), {priority,high}=process_info(self(),priority),\n    high=process_flag(priority,low), low=process_flag(priority,max), max=process_flag(priority,normal),\n    Parent=self(), normal=process_flag(priority,high),\n    {Pid,Ref}=spawn_monitor(fun()->Parent!{self(),process_info(self(),priority)} end),\n    receive {Pid,{priority,normal}} -> ok after 1000 -> error(inherited_priority) end,\n    receive {'DOWN',Ref,process,Pid,normal} -> ok after 1000 -> error(missing_down) end,\n    high=process_flag(priority,normal), done.\n",
+      "SourceSha256": "2F16B176618F1FFA2508B48A4B96D0A27C8130E2734BEB449E0FC875D8585441",
+      "CSharpSha256": "514CD5CEC0FB43E725F7E5D0B4BDE93C5814A3B82440626F158B7177B1A400F7",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "ExpectedStandardOutputHex": null,
+      "ExpectedStandardOutputAlternatives": null,
+      "ExpectedStandardErrorHex": null,
+      "NativeStandardOutputHex": null,
+      "NativeStandardErrorHex": null,
+      "SdkStandardOutputHex": null,
+      "SdkStandardErrorHex": null,
+      "NativeAndSdkStandardOutputExactlyMatch": true,
+      "StandardStreamsMatch": true,
+      "Passed": true
+    },
+    {
+      "Name": "spawn-priority-priority-duplicate-invalid",
+      "Source": "-module(oracle_priority_duplicate_invalid).\n-export([run/0]).\nrun() ->\n    Parent=self(),\n    {Pid,Ref}=spawn_opt(fun()->Parent!{self(),process_info(self(),priority)} end,[monitor,{priority,high},{priority,low}]),\n    receive {Pid,{priority,low}} -> ok after 1000 -> error(wrong_duplicate) end,\n    receive {'DOWN',Ref,process,Pid,normal} -> ok after 1000 -> error(missing_down) end,\n    lists:foreach(fun(Value)->\n        try spawn_opt(fun()->Parent!unexpected_child end,[{priority,Value}]) of _ -> error(expected_badarg) catch error:badarg -> ok end\n    end,[wrong,0,true,{},[]]),\n    receive unexpected_child -> error(created_invalid_child) after 0 -> done end.\n",
+      "SourceSha256": "54C673183C938A0B40374E805436BEAD7180BA319C3BFA67F17CFE28AC7B8B1C",
+      "CSharpSha256": "B4B3E5A0F5E49E2376E991D747D6E5AC884B401614E8D6039720F3534051FF25",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "ExpectedStandardOutputHex": null,
+      "ExpectedStandardOutputAlternatives": null,
+      "ExpectedStandardErrorHex": null,
+      "NativeStandardOutputHex": null,
+      "NativeStandardErrorHex": null,
+      "SdkStandardOutputHex": null,
+      "SdkStandardErrorHex": null,
+      "NativeAndSdkStandardOutputExactlyMatch": true,
+      "StandardStreamsMatch": true,
+      "Passed": true
+    }
+  ]
+}

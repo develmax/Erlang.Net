@@ -1,0 +1,14 @@
+--- failedfull1/src/Erlang.Runtime/RuntimeActorDispatcher.cs
++++ proposal2/src/Erlang.Runtime/RuntimeActorDispatcher.cs
+@@ -382,6 +382,11 @@
+             lock (gate)
+             {
+                 scheduler = Select(lane);
++                if (scheduler is null && lane.Online)
++                {
++                    TrySteal(lane);
++                    scheduler = Select(lane);
++                }
+                 if (scheduler is null)
+                 {
+                     lane.Pumping = false;

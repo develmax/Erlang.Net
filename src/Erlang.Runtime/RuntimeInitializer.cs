@@ -24,12 +24,7 @@ internal sealed class RuntimeInitializer(ProcessContext context)
                 registry.PublishModule(InitializationNames.Module);
                 registry.PublishModuleCode(InitializationNames.Module, ModuleCodeFingerprints.Owner(typeof(RuntimeInitializer)));
             });
-        Completion = Task.Factory.StartNew(
-            Run,
-            CancellationToken.None,
-            TaskCreationOptions.DenyChildAttach,
-            TaskScheduler.Default
-        ).Unwrap();
+        Completion = context.Runtime.DispatchInitializer(context, Run);
     }
 
     public ValueTask Configure(Action<ModuleRegistry> configure)
@@ -62,7 +57,7 @@ internal sealed class RuntimeInitializer(ProcessContext context)
         {
             while (true)
             {
-                var message = await context.ReceiveAsync(value => value).ConfigureAwait(false);
+                var message = await context.ReceiveAsync(value => value);
                 if (message is Atom { Name: InitializationNames.WorkSignal })
                 {
                     while (Take() is { } work)
@@ -99,7 +94,7 @@ internal sealed class RuntimeInitializer(ProcessContext context)
                     }
                 }
                 else if (IoDefaultDevice.IsRequest(message))
-                    await IoDefaultDevice.Execute(context, message).ConfigureAwait(false);
+                    await IoDefaultDevice.Execute(context, message);
                 else if (message is TupleTerm { Items.Count: 2 } request && request.Items[0] is Pid from && request.Items[1] is Atom { Name: InitializationNames.GetStatus })
                 {
                     context.Runtime.Send(

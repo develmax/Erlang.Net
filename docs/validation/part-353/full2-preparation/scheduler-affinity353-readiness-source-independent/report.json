@@ -1,0 +1,36 @@
+{
+  "Status": "SOURCE_REVIEW_FUTURE_READINESS_REQUIRES_NARROW_CORRECTIONS_AND_FULL2_REBIND_NO_EXECUTION",
+  "ReaderPath": "artifacts/root-affinity353-readiness.py",
+  "ReaderSha256": "271E85DDB5D4B3AAEA2472DA4740388D4CA833425BA23723368555127A26ABE1",
+  "AstParsePassed": true,
+  "CurrentFull1FailedSoExecutionNotAdmitted": true,
+  "GoodGates": [
+    "Exact composition plan and independent guard hash/status/7313/0 gate before restoration",
+    "Raw candidate registry equals retained rawregistry guard hash; restore source equals reviewed RegistryBefore",
+    "Stable3095 source closure rehashed before/after, registry is the only permitted stable exclusion",
+    "Owned helper C66A with bounded90s readiness subprocess; raw inputs/streams/exit; no SDK build/guest rerun",
+    "Tool DLL equals actual independently hashed full package member",
+    "Generated3 exact allowlist,16/24/547/7313/587/14module assertions;89source rows equal currentledger; no native ABI/original claim"
+  ],
+  "NecessaryBeforeFutureExecution": [
+    {
+      "Id": "READINESS_ACTUAL_REPORT_BINDING",
+      "Finding": "ActualTestReportSha256 is recorded into inputs.json but never asserted equal guard.TestReportSha256 before using that report in readiness. Bind those exact bytes first; writing a new recorded hash is not equivalence to the accepted full.",
+      "RequiredFix": "assert sha(a/'artifacts/tests.json') == guard['TestReportSha256'] before restoring candidate or executing readiness"
+    },
+    {
+      "Id": "RESTORE_AFTER_ALL_PREREQUISITES",
+      "Finding": "Candidate registry is restored before the full Tool package/member preflight completes and before inputs.json is written. A failed package/tool check would leave an intentionally modified candidate with no complete inputs receipt.",
+      "RequiredFix": "Preflight report/hash, package identity/member and immutable-source gates first; persist restoration intent with raw/reviewed hashes before candidate registry write, then record actual after hash. Keep copied raw registry unchanged."
+    }
+  ],
+  "Full2AdaptationRequirements": [
+    "Preserve this never-executed source; adapt in a fresh runner revision only after reviewed full2 composition/parent/candidate/actual directory/independent guard are known. Do not repoint the old fixed full1 report silently.",
+    "Rebind stable closure and its rowcount/ownedpackage-source resources to freshfull2; derive registry module count14 from actual reviewed587 rows instead of broad assumptions.",
+    "Verify loaded readiness Tool dependency DLLs against source-bound package members as well as main Tool.dll for stronger current-binary provenance; current script binds only main DLL. This is an evidence-strengthening recommendation, not an observed wrong-runtime outcome.",
+    "Recheck89source/evidence/16statuses and preserve currentMainindex/matrix/0055 when copying generated reports later."
+  ],
+  "RegistryModules14ConfirmedFromReviewedInput": true,
+  "ReadinessExecuted": false,
+  "MainCandidateSdkNetworkGitMutation": false
+}

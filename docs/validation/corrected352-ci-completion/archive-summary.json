@@ -1,0 +1,54 @@
+{
+  "Status": "READY_RAW_PROVENANCE_ARCHIVE_FOR_NEXT_FINISHED_INCREMENT_PART_UNASSIGNED",
+  "Original351": {
+    "Head": "547a2dd266586589a90c7883dac88d09a5a1de20",
+    "Run": 38989291376,
+    "Passed": 6316,
+    "FdPassed": 8,
+    "Old6313RawRowsExact": true,
+    "NewPriorityWitnesses": 3,
+    "StrictRawEquality": "REFUSED_PREDECLARED_MAP_STDOUT_VARIANCE",
+    "WholePriorityCompatibilityClaimed": false
+  },
+  "Corrected352CI": {
+    "Head": "4c9cb16e7c52bc10e54ceaf652797d100def488b",
+    "Run": 38991296407,
+    "Job": 117274049419,
+    "Artifact": 12084534509,
+    "Passed": 7297,
+    "Failed": 0,
+    "Integrations": 11,
+    "CommittedBlobs": 136,
+    "RuntimeSourceGuards": 77,
+    "Counts": [
+      16,
+      24,
+      547
+    ],
+    "EveryNativePlanRows": 2549,
+    "SemanticGuardSha256": "08FAE3466FE2369A2F2D5A62D35CFC7F1ED6259A50A452A44B191009F4530E29"
+  },
+  "Initial352CI": {
+    "Head": "c09a075b7921b3875f526ea0da9d011c263e3bad",
+    "Run": 38991076980,
+    "ActualConclusion": "success",
+    "ObservedApiSnapshot": "artifacts/part352-ci-review/monitor/run-20261017T014020Z.json",
+    "SemanticallyAudited": false,
+    "InitialPromotionNativeMetadataMismatchStillRecorded": true,
+    "CIREDClaimed": false
+  },
+  "CiZipOmittedButFullDigestRetained": [
+    {
+      "Path": "artifact-12084534509.zip",
+      "Bytes": 71155,
+      "Sha256": "2EEC045B8164A5F1C60007A143E3BA0CDB411E08B2D8EE2AB7C4172D252097F6"
+    }
+  ],
+  "RequiredBinaryAttributePatterns": [
+    "docs/validation/original351-completion/** binary",
+    "docs/validation/corrected352-ci-completion/** binary"
+  ],
+  "FuturePartNumberAssigned": false,
+  "NewSdkNativeGuestOrNetworkExecution": false,
+  "MainChanged": false
+}

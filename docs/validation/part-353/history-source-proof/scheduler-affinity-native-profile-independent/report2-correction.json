@@ -1,0 +1,24 @@
+{
+  "Status": "PROFILE2_SOURCE_ADMISSION_SUPERSEDED_BY_CONFIRMED_PREPARATION_PROVENANCE_BLOCKERS",
+  "SupersededReportSha256": "9050BE63EE1F335BA2F358ED732694CE5C8C91B2CC5BC303D971D91ACCAEE632",
+  "SourceFreezeSha256": "746BE4FEDB3C067E672D2283A9E7BCF53197923D8900E7460911F382140474C2",
+  "ExecutionAdmitted": false,
+  "Blockers": [
+    {
+      "Source": "source_inputs.py:source_identity",
+      "Finding": "Path.read_bytes follows all tracked paths. Pinned git modes include120000 directory symlinks erts/preloaded/doc and lib/mnesia/examples/DATA; actual Linux invocation would raise IsADirectoryError.",
+      "RequiredCorrection": "Inventory git modes; hash raw readlink payload for symlinks without target traversal and regular file bytes for supported regular modes; preserve before/after comparison."
+    },
+    {
+      "Source": "build-original.py and collect-profile.py environment/provenance",
+      "Finding": "Pinned erts/etc/unix/erl.src.src explicitly uses ERL_ROOTDIR if present. Existing five-variable sanitization leaves this override, so sealed executable path/hash alone does not bind actual loaded runtime root.",
+      "RequiredCorrection": "Clear ERL_ROOTDIR for build and capture; record/assert actual VM code:root_dir against sealed expected RuntimeRoot."
+    }
+  ],
+  "Discovery": "Root independent source inspection; reviewer acknowledges missed blockers. Confirmed pinned git modes and erl script branch by read-only git show/ls-tree.",
+  "NativeGuestRed": false,
+  "SdkExecuted": false,
+  "NetworkExecuted": false,
+  "MainModified": false,
+  "NextGate": "Independent immutable profile3 source review before execution; original report2 remains unchanged historical evidence."
+}

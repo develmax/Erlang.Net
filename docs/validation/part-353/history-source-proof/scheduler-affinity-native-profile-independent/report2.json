@@ -1,0 +1,39 @@
+{
+  "Status": "PASS_SOURCE_ONLY_EXPLICIT_ORIGINAL_PROFILE2_BUILD_WORKFLOW",
+  "Passed": true,
+  "SourceFreezeSha256": "746BE4FEDB3C067E672D2283A9E7BCF53197923D8900E7460911F382140474C2",
+  "SourceManifestSha256": "5E6A1DF0D84E8A03E3F71AD0CD14B7BB4A17E6D3CB8BD7A40939193EDE2942A9",
+  "FrozenFilesVerified": 28,
+  "ToolFilesVerified": 15,
+  "DependenciesVerified": 2,
+  "WorkflowSha256": "209414B3964D7D98828DB272ECC85396A36C91B24C958EFC8A81E12B834F7109",
+  "OriginalCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Cases": 5,
+  "FixturesRawExactFocused6": true,
+  "Review": {
+    "ManifestWorkflowAndHelperAdmission": "Exact subject HEAD and externally supplied reviewed manifest SHA; all tool/workflow/dependency hashes checked before build and capture.",
+    "OwnedBuild": "Fresh install/evidence roots; configure180s/make2100s/install180s; private Linux sessions; raw streams/status and process receipts; exact source tracked SHA inventory before/after with clean pinned HEAD.",
+    "InstalledProvenance": "Build receipt links same source root, subject head, reviewed manifest, PREFIX/lib/erlang runtime root; erl/erlc/beam.smp/erlexec plus erlang/init/erl_eval/compile/beam_lib/lists BEAM and version hashes; collector rechecks all recorded hashes and build-stage streams/receipts.",
+    "ExplicitProfile": "Each fresh VM actual raw scheduler_profile tuple required2/2 before compilation; explicit +S2:2; inherited five ERL settings removed; no ordinary-corpus/default-flag change.",
+    "LoadedFixture": "code load result and module_info(md5) equals beam_lib code MD5; raw image ETF and compiled BEAM retained.",
+    "Cleanup": "All stages/VMs require exit0/reaped/closed, TerminationRequested false AND RemainingGroupKillRequested false, CleanupFailure null; timeout/nonzero/partial evidence remains uploaded via always().",
+    "Controls": "Seven strict receipt refusal cases and four typed ETF goldens; corrected tuple/list control representation failure retained separately.",
+    "SourceKnownScope": "Five source-derived expected returns, not fabricated SDK/native observations; source review does not establish scheduler semantics on original until dispatch and passive captured-value review."
+  },
+  "PreviousProfile1FindingsResolved": [
+    "RemainingGroupKillRequested admission",
+    "Owned source-built installation workflow and build-receipt dependency",
+    "Explicit PREFIX/lib/erlang root"
+  ],
+  "BlockersFound": [],
+  "RemainingGates": [
+    "Published exact subject/tool manifest and authorized manual dispatch",
+    "Actual pinned build and all five fresh original captures with normal cleanup",
+    "Independent API/artifact/ZIP/raw ETF and semantic review"
+  ],
+  "SdkExecuted": false,
+  "NativeExecuted": false,
+  "NetworkExecuted": false,
+  "MainModified": false,
+  "AuthorshipDisclosure": "Independent reviewer of scheduler source/permanent integration and prior profile1; did not author this build workflow or collector revision."
+}

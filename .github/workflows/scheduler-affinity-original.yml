@@ -1,0 +1,68 @@
+name: Original two-lane scheduler affinity observations
+on:
+  workflow_dispatch:
+    inputs:
+      source_manifest_sha256:
+        description: SHA256 of the reviewed original scheduler source manifest at this exact ref
+        type: string
+        required: true
+permissions:
+  contents: read
+jobs:
+  original-scheduler-affinity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    env:
+      ERLC_USE_SERVER: 'false'
+      PYTHONDONTWRITEBYTECODE: '1'
+      SOURCE_MANIFEST_SHA256: ${{ inputs.source_manifest_sha256 }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Verify exact collector, fixtures, helper and workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/scheduler-affinity-original
+          python3 tools/Erlang.SchedulerAffinityOriginalObservations/verify-source.py \
+            --repository "$GITHUB_WORKSPACE" --manifest-sha256 "$SOURCE_MANIFEST_SHA256" \
+            --expected-head "$GITHUB_SHA" \
+            2>&1 | tee artifacts/scheduler-affinity-original/source-verification.log
+          python3 tools/Erlang.SchedulerAffinityOriginalObservations/check-source-controls.py \
+            --repository "$GITHUB_WORKSPACE" \
+            2>&1 | tee artifacts/scheduler-affinity-original/source-controls.log
+      - name: Clone exact pinned original source
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 --branch OTP-29.1.1 https://github.com/erlang/otp.git artifacts/scheduler-affinity-otp-source \
+            2>&1 | tee artifacts/scheduler-affinity-original/clone.log
+          test "$(git -C artifacts/scheduler-affinity-otp-source rev-parse HEAD)" = ad05823719d77c8faee87348ea39513d4e2f99c5
+      - name: Build original with owned bounded stages and seal installed image
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/Erlang.SchedulerAffinityOriginalObservations/build-original.py \
+            --repository "$GITHUB_WORKSPACE" --manifest-sha256 "$SOURCE_MANIFEST_SHA256" \
+            --expected-head "$GITHUB_SHA" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/scheduler-affinity-otp-source" \
+            --prefix "$GITHUB_WORKSPACE/artifacts/scheduler-affinity-otp" \
+            --output "$GITHUB_WORKSPACE/artifacts/scheduler-affinity-original/build" \
+            2>&1 | tee artifacts/scheduler-affinity-original/build-driver.log
+      - name: Capture five fresh original VMs with actual configured and online two
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/Erlang.SchedulerAffinityOriginalObservations/collect-profile.py \
+            --repository "$GITHUB_WORKSPACE" --manifest-sha256 "$SOURCE_MANIFEST_SHA256" \
+            --expected-head "$GITHUB_SHA" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/scheduler-affinity-otp-source" \
+            --otp-install "$GITHUB_WORKSPACE/artifacts/scheduler-affinity-otp/lib/erlang" \
+            --build-receipt "$GITHUB_WORKSPACE/artifacts/scheduler-affinity-original/build/build-receipt.json" \
+            --output "$GITHUB_WORKSPACE/artifacts/scheduler-affinity-original/capture" \
+            2>&1 | tee artifacts/scheduler-affinity-original/collection.log
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: scheduler-affinity-original-five
+          path: artifacts/scheduler-affinity-original/**
+          if-no-files-found: warn

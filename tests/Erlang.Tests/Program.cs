@@ -4201,7 +4201,7 @@ Test(
     return Task.CompletedTask;
 }
 );
-foreach (var fixture in Erlang.Differential.CompiledModuleCases.All)
+foreach (var fixture in Erlang.Differential.CompiledModuleCases.All.Where(fixture => !Erlang.Differential.SchedulerAffinityCases.Modules.Contains(fixture)))
 {
     Test(
         "oracle/compiled-module/" + fixture.Name,
@@ -4596,6 +4596,71 @@ Test(
 Test(
     Erlang.Tests.SpawnPriorityTestNames.KilledOwnerRetirement,
     Erlang.Tests.SpawnPriorityRetirementHostChecks.KilledOwnerStillSettlesQueuedCleanup
+);
+
+foreach (var fixture in Erlang.Differential.SchedulerAffinityCases.Modules)
+{
+    Test(
+        Erlang.Tests.SchedulerAffinityTestNames.CompiledPrefix + fixture.Name,
+        async () =>
+    {
+        using var artifact = Erlang.Differential.GeneratedModuleCompiler.Compile(fixture.Source);
+        if (fixture.ExpectedStandardOutputHex is not null || fixture.ExpectedStandardErrorHex is not null)
+        {
+            var captured = await Erlang.Differential.CompiledModuleExecution.RunCaptured(artifact, fixture.CallerContext);
+            Equal(captured.Result, fixture.Expected);
+            Check(Erlang.Differential.CompiledStandardOutputContract.Matches(fixture, captured.StandardOutputHex, captured.StandardErrorHex));
+        }
+        else
+            Equal(await Erlang.Differential.CompiledModuleExecution.Run(artifact, fixture.CallerContext), fixture.Expected);
+        Check(artifact.CSharpSha256.Length == 64);
+    }
+    );
+}
+
+Test(
+    Erlang.Tests.SchedulerAffinityTestNames.First,
+    Erlang.Tests.SchedulerAffinityHostChecks.FirstInstructionAndMigration
+);
+Test(
+    Erlang.Tests.SchedulerAffinityTestNames.Park,
+    Erlang.Tests.SchedulerAffinityHostChecks.OfflineChildParksAndResumes
+);
+Test(
+    Erlang.Tests.SchedulerAffinityTestNames.Init,
+    Erlang.Tests.SchedulerInitializerHostChecks.MailboxReadmissionAndRecursiveConfigure
+);
+Test(
+    Erlang.Tests.SchedulerAffinityTestNames.Retire,
+    Erlang.Tests.SchedulerInitializerHostChecks.RetirementWaitsForGuestThenInitializer
+);
+Test(
+    Erlang.Tests.SchedulerAffinityTestNames.Invalid,
+    Erlang.Tests.SchedulerPublicApiHostChecks.InvalidValuesPreserveBindingAndOnlineCount
+);
+Test(
+    Erlang.Tests.SchedulerAffinityTestNames.Public,
+    Erlang.Tests.SchedulerPublicApiHostChecks.QueriesAndAllLocalSpawnOptionForms
+);
+Test(
+    Erlang.Tests.SchedulerAffinityTestNames.Granted,
+    Erlang.Tests.SchedulerOnlineConcurrentHostChecks.ParkedGrantedHeadDefersGuestKillUntilAdministrativeRetirement
+);
+Test(
+    Erlang.Tests.SchedulerAffinityTestNames.Active,
+    Erlang.Tests.SchedulerOnlineConcurrentHostChecks.ActiveCancellationCannotAdvanceBeforeQuiescence
+);
+Test(
+    Erlang.Tests.SchedulerAffinityTestNames.Queued,
+    Erlang.Tests.SchedulerOnlineConcurrentHostChecks.CanceledQueuedWaiterDoesNotStallSuccessor
+);
+Test(
+    Erlang.Tests.SchedulerAffinityTestNames.GuestKill,
+    Erlang.Tests.SchedulerOfflineGuestExitHostChecks.PendingKillIsAdmittedOnlyAfterLaneReturnsOnline
+);
+Test(
+    Erlang.Tests.SchedulerAffinityTestNames.Offline,
+    Erlang.Tests.SchedulerOfflineRetirementHostChecks.RunningParksPendingGuestKillAndRetirementSeparatelyJoinsCleanup
 );
 
 int failed = 0;

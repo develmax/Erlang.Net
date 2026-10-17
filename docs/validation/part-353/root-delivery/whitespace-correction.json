@@ -1,0 +1,77 @@
+{
+  "Status": "POST_FULL_WHITESPACE_CORRECTION_ACTUAL_COMPILED_CONSTANT_IDENTITY_NO_NATIVE_ROWS_AFFECTED",
+  "BeforeFixtureSourceSha256": "E114788DBC9B11777C0DE9E98396DF8FDC0AA94F40D093AE7A64C7A6805B08AE",
+  "AfterFixtureSourceSha256": "B626F4B71D1605ABBD171A655B1B99D385DF6D12DBAF350EC3A23A8996596F49",
+  "RemovedExactlyFortyIndentationSpacesAtLines": [
+    15,
+    26,
+    42,
+    67,
+    92
+  ],
+  "RawCSharpTokenIdentityClaimed": false,
+  "ExactFiveEmittedValues": [
+    {
+      "Name": "FirstInstruction",
+      "Module": "scheduler_first_instruction",
+      "Bytes": 473,
+      "Sha256": "ABB26ED42ED55ECC662E02E3301BCC38253AD4204D532199B8DCA25991650254",
+      "OldNewCompiledMetadataAndNativeFixtureBytesExact": true
+    },
+    {
+      "Name": "MigrationPreviousBinding",
+      "Module": "scheduler_migration_previous_binding",
+      "Bytes": 349,
+      "Sha256": "26D487608148CD933C6B95E69117EF2675B01F11CDFDCF18341F1C447BE31961",
+      "OldNewCompiledMetadataAndNativeFixtureBytesExact": true
+    },
+    {
+      "Name": "InvalidAndDuplicate",
+      "Module": "scheduler_invalid_and_duplicate",
+      "Bytes": 713,
+      "Sha256": "20430A4ACED89F26AE3C10535CE3861D4A5AB35204A5BCE0F3C39BA49F382DF2",
+      "OldNewCompiledMetadataAndNativeFixtureBytesExact": true
+    },
+    {
+      "Name": "OfflineBoundResume",
+      "Module": "scheduler_offline_bound_resume",
+      "Bytes": 978,
+      "Sha256": "DC851B11A4E7E8F4FFCADE7FADF6C9B35FAD474A2F6D80883A0655F93C5461EE",
+      "OldNewCompiledMetadataAndNativeFixtureBytesExact": true
+    },
+    {
+      "Name": "OfflinePendingKill",
+      "Module": "scheduler_offline_pending_kill",
+      "Bytes": 999,
+      "Sha256": "BAF618AC18FA41E6A325780A0AD4C2D5DA88F871D9EF3E39B300A085C79EF0D5",
+      "OldNewCompiledMetadataAndNativeFixtureBytesExact": true
+    }
+  ],
+  "CompiledMetadataReportSha256": "91D9551B2F587B5A444EC4E280AD0EE6D5CD8C4880ABD9DA3ECA33FAA09AF53C",
+  "CompiledAssemblySha256": "67F18BC7F05BBC3893610529ABA5668EF674F8D312AFBCEFE3B241868BEE45B8",
+  "SourceParserScope": "Five fixedLF multiline C#rawstrings with eight-space closing indentation; modeledempty whitespace lines compared with actual compiled metadata and nativefixtures, not only sourceparser expectations.",
+  "RawCliGeneratedMdSha256": "DEB1F93EC71BAE32D6DF79CD5F57C8120811EAEAD1D3EF87BC3A53A82C1D4CF8",
+  "DisplayMdSha256": "01F1B402EDFE3A461251EEA362C1179D4AA24D3AD6036683088D0AE9C5F7A9C0",
+  "OnlyOneExtraFinalLfRemoved": true,
+  "Full2RawSourceAndRawCliArchivesUnmodified": true,
+  "NativePlans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Rows": 1268,
+      "Sha256": "9D47EEB07A4430F3C1B33F244A7F0E07B37DDBE17F76E02E3EEF12825F7AEB1A",
+      "FixtureSourcePresent": false,
+      "NoAffectedRowOrSeal": true
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Rows": 1293,
+      "Sha256": "BA8DCF9F278186842B1D4D45C757E21C59EEA922C73EAF7CEEB7915C9992D8D9",
+      "FixtureSourcePresent": false,
+      "NoAffectedRowOrSeal": true
+    }
+  ],
+  "All89RuntimeGuardsAndLedgerEvidenceAndPackageSixUnchanged": true,
+  "PriorFailure": "Resume completed index checks then git diff --cached --check rejected five C#indentation-only blanklines and one Markdown blankEOF; no successful resumeguard existed.",
+  "PreparationHistory": "First artifact-only proposal expected a native row for Differential fixturefile; exactinventory returned absent[] and assertion refused before any nativeplan write. Correctedproposal preservesbothplans/seals rawexact; no row invented.",
+  "NoSdkMainGitMutation": true
+}

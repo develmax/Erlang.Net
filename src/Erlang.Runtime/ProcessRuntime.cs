@@ -185,7 +185,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         bool asynchronousSpawn = false,
         bool successSpawnReply = true,
         bool initialAsyncDistribution = false,
-        ProcessSchedulingPriority initialPriority = ProcessSchedulingPriority.Normal
+        ProcessSchedulingPriority initialPriority = ProcessSchedulingPriority.Normal,
+        int schedulerBinding = ProcessSchedulerNames.Unbound
     )
     {
         ProcessContext ctx;
@@ -202,6 +203,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             );
             ctx.AsyncDistribution = initialAsyncDistribution;
             ctx.SchedulingPriorityLevel = initialPriority;
+            ctx.SchedulerBinding = schedulerBinding;
             ctx.GroupLeader = parent?.GroupLeader ?? processes[InitializationPid].GroupLeader;
             processes.Add(ctx.Self, ctx);
             executingProcesses.Add(ctx);
@@ -329,7 +331,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 description,
                 reference,
                 initialAsyncDistribution: options.AsyncDistribution,
-                initialPriority: options.Priority
+                initialPriority: options.Priority,
+                schedulerBinding: options.ResolveScheduler(ActorDispatchCapacity)
             );
             if (options.PriorityLink)
                 parent.PriorityLinks.Add(process.Pid);
@@ -419,7 +422,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                         true,
                         options.SuccessReply,
                         options.Spawn.AsyncDistribution,
-                        options.Spawn.Priority
+                        options.Spawn.Priority,
+                        options.Spawn.ResolveScheduler(ActorDispatchCapacity)
                     );
                 }
                 catch (ErlangException exception) when (exception.Reason.Equals(Term.A(ErlangErrorReasons.SystemLimit)))

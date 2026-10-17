@@ -1,0 +1,93 @@
+{
+  "Status": "PASS_SOURCE_ONLY_353_COMPOSITION_HELPER_AND_EXACT_PLAN",
+  "Passed": true,
+  "SourceFreezeSha256": "B859A65EFF2F03C3D12FF61548701158B162E28D4F9583BC64338F63747E52BF",
+  "ComposerSha256": "2310B1DB1FAEF01FE5DC0D038C043510D36DBED49A4EF4F196F7CD7DECA83F31",
+  "CompositionPlanSha256": "B13C31B4A1AC65E8BC8DD2349AD051687E1DEBB438CC4C63BE4FBC5D895CD38A",
+  "ParentHead": "4c9cb16e7c52bc10e54ceaf652797d100def488b",
+  "Rows": 3096,
+  "StableClosureRows": 3095,
+  "OwnedPaths": 159,
+  "Permanent42SourcePreserved": true,
+  "NativeProfile3SourcesPreserved": true,
+  "CurrentSourceGuards": 89,
+  "CompatibilityCounts": {
+    "Verified compatible": 16,
+    "Known differences": 24,
+    "Needs verification": 547
+  },
+  "RegistryRows": 587,
+  "PackageResources": [
+    {
+      "Path": "README.md",
+      "SourcePath": "artifacts/scheduler-affinity353-candidate/README.md",
+      "Bytes": 8709,
+      "Sha256": "CE72552A05DAE01EBE8CBCD6BC7D7833BA954E439EDDC503EF6E2AA734574E78",
+      "Kind": "FrozenPermanentInput"
+    },
+    {
+      "Path": "docs/DOTNET-LICENSE.txt",
+      "SourcePath": "artifacts/scheduler-affinity353-candidate/docs/DOTNET-LICENSE.txt",
+      "Bytes": 9513,
+      "Sha256": "535F99D87C276B2B1B19A1CD16033BB57D40532EE3FFAC2AB92D7607D33105F7",
+      "Kind": "FrozenPermanentInput"
+    },
+    {
+      "Path": "docs/DOTNET-ThirdPartyNotices.txt",
+      "SourcePath": "artifacts/scheduler-affinity353-candidate/docs/DOTNET-ThirdPartyNotices.txt",
+      "Bytes": 78887,
+      "Sha256": "DEB4427A295E1ED474B0D81C5A0D972C1B550B9A715CDA939CDFA9236B1B418F",
+      "Kind": "FrozenPermanentInput"
+    },
+    {
+      "Path": "docs/OTP-LICENSE.txt",
+      "SourcePath": "artifacts/scheduler-affinity353-candidate/docs/OTP-LICENSE.txt",
+      "Bytes": 11904,
+      "Sha256": "CD89DC3D7D7B1F3C1F6FECAA996A75FA3EBB5FEFAC7D26DE856BA9F5C57FD58F",
+      "Kind": "FrozenPermanentInput"
+    },
+    {
+      "Path": "docs/ROSLYN-LICENSE.txt",
+      "SourcePath": "artifacts/scheduler-affinity353-candidate/docs/ROSLYN-LICENSE.txt",
+      "Bytes": 1113,
+      "Sha256": "E1A7F024FDB8B7F09F5F75ED7F9723C9379DD6AA02F8EF0A24098EF7EFB48C35",
+      "Kind": "FrozenPermanentInput"
+    },
+    {
+      "Path": "docs/OTP-PORTS.md",
+      "SourcePath": "artifacts/affinity353-metadata-overlay4/overlay/docs/OTP-PORTS.md",
+      "Bytes": 236811,
+      "Sha256": "9E84B1518B2DA33DDA2CA02F925A5C3A6997D7845FAE211D3EA4D840E1859019",
+      "Kind": "ReviewedMetadataOverlay"
+    }
+  ],
+  "NativePlans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Rows": 1268,
+      "Sha256": "ACAD198BF02DC8B882E67C2A1A61F9527C8AD2FE9DF36931E0E9FF6DFBADEE80",
+      "AllRowsAndWorkflowSealExact": true
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Rows": 1293,
+      "Sha256": "4985640F24835F168DFC2679D401B18C66259FABC308E9A40A9D0502A66FA3F8",
+      "AllRowsAndWorkflowSealExact": true
+    }
+  ],
+  "ExpectedOldOrderedPrefix": 7297,
+  "ExpectedAdded": 16,
+  "ExpectedTotalIfFullPasses": 7313,
+  "HelperReview": "Approved-plan SHA and self-SHA/parent/all input hashes/all source bytes checked before fresh artifact destination creation; safe relative paths reject traversal/build/cache/license.local. Copy only frozen sources; post-copy hashes. Registry excluded from stable closure with separate before row. Direct ledger evidence and both prior350/351 reports included. Comparison explicitly351 full. No execution inferred from plan.",
+  "InitialBuildGate": "Root reported permanent Tests-project build0/no warnings; reviewer has not claimed full success from source plan.",
+  "RemainingGates": [
+    "Apply exact reviewed plan and freeze actual full inputs",
+    "Review bounded full runner and run actual full",
+    "Fresh original explicit two-lane profile capture and semantic audit"
+  ],
+  "ComposeExecutedByReviewer": false,
+  "SdkExecuted": false,
+  "NativeExecuted": false,
+  "NetworkExecuted": false,
+  "MainModified": false
+}

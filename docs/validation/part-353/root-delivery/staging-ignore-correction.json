@@ -1,0 +1,66 @@
+{
+  "Status": "STAGING_IGNORE_CORRECTION_HISTORY_ORIGINAL_HELPER_DID_NOT_EXIT_ZERO",
+  "OriginalHelperSha256": "292E80BEAD4007828FFDD2001C3151702B5DFC06368DEE97C21C211AE3677DEB",
+  "PartialStateSha256": "0E0765B9D359C73471CAB134B16EF823F9FB31667CA9E5A8710A27E58232D380",
+  "OriginalPlannedPaths": 631,
+  "OriginalPartialStagedPaths": 624,
+  "IgnoredPlannedPaths": [
+    "docs/validation/part-353/failed-full1-retention/raw/artifacts/tests.json",
+    "docs/validation/part-353/full/raw/artifacts/integration-results.json",
+    "docs/validation/part-353/full/raw/artifacts/readiness/API_COMPATIBILITY.md",
+    "docs/validation/part-353/full/raw/artifacts/readiness/MODULE_READINESS.md",
+    "docs/validation/part-353/full/raw/artifacts/readiness/module-readiness.json",
+    "docs/validation/part-353/full/raw/artifacts/tests.json",
+    "docs/validation/part-353/full/raw/artifacts/tool-readiness/module-readiness.json"
+  ],
+  "IgnoreRules": [
+    {
+      "Source": ".gitignore",
+      "Line": "3",
+      "Pattern": "artifacts/",
+      "Path": "docs/validation/part-353/failed-full1-retention/raw/artifacts/tests.json"
+    },
+    {
+      "Source": ".gitignore",
+      "Line": "3",
+      "Pattern": "artifacts/",
+      "Path": "docs/validation/part-353/full/raw/artifacts/integration-results.json"
+    },
+    {
+      "Source": ".gitignore",
+      "Line": "3",
+      "Pattern": "artifacts/",
+      "Path": "docs/validation/part-353/full/raw/artifacts/readiness/API_COMPATIBILITY.md"
+    },
+    {
+      "Source": ".gitignore",
+      "Line": "3",
+      "Pattern": "artifacts/",
+      "Path": "docs/validation/part-353/full/raw/artifacts/readiness/MODULE_READINESS.md"
+    },
+    {
+      "Source": ".gitignore",
+      "Line": "3",
+      "Pattern": "artifacts/",
+      "Path": "docs/validation/part-353/full/raw/artifacts/readiness/module-readiness.json"
+    },
+    {
+      "Source": ".gitignore",
+      "Line": "3",
+      "Pattern": "artifacts/",
+      "Path": "docs/validation/part-353/full/raw/artifacts/tests.json"
+    },
+    {
+      "Source": ".gitignore",
+      "Line": "3",
+      "Pattern": "artifacts/",
+      "Path": "docs/validation/part-353/full/raw/artifacts/tool-readiness/module-readiness.json"
+    }
+  ],
+  "OriginalExecutionEvidence": "Root observed session54148 terminal exit1 at git add and repeated exact add exit1 for stderr. No standalone original stage process receipt existed in promotion directory; this report independently observes current index and ignore rules, not original process execution.",
+  "CorrectionPlan": "After verifying all original source/intents/currentbytes, force-add only seven already-planned ignored proof paths; stage separately one history file and append-only0055 note; original631 authority retained, amended632 explicit.",
+  "SourceTestsPackagesChanged": false,
+  "FullRerunRequired": false,
+  "ResumeSucceededClaimedByThisHistory": false,
+  "ActualResumeReceipt": "Produced separately only after actual resume succeeds; original helper exit1 remains unchanged."
+}

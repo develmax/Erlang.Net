@@ -1,0 +1,133 @@
+{
+  "Status": "SOURCE_ONLY_STYLED_PERMANENT353_REQUIRES_SOURCE_PEER",
+  "ParentHead": "4c9cb16e7c52bc10e54ceaf652797d100def488b",
+  "Candidate": "artifacts/scheduler-affinity353-candidate",
+  "PreviousFreezeSha256": "3EFDCE826417EB28F6169987B47F32F917E7112F17DAB902C8A38A4A5C574A1E",
+  "OwnedFiles": 42,
+  "ProductionFiles": 20,
+  "RuntimeLayoutOnlyChangedFromFocus6": [
+    "src/Erlang.Runtime/ProcessRuntime.Schedulers.cs",
+    "src/Erlang.Runtime/RuntimeActorDispatcher.cs",
+    "src/Erlang.Runtime/RuntimeActorExecutionTurn.cs",
+    "src/Erlang.Runtime/RuntimeProcessTaskScheduler.cs"
+  ],
+  "RoslynTokenReviewPath": "artifacts/scheduler-affinity353-permanent-style2/token-review.json",
+  "RoslynTokenReviewSha256": "45CA5ED27825FE33389C4FEA655EC4FDB0B49F266B4E52A963174E3C4E9ADEB6",
+  "ExistingStyleCheckExit": {
+    "Arguments": [
+      "dotnet",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Style\\bin\\Debug\\net10.0\\Erlang.Style.dll",
+      "--check",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\scheduler-affinity353-candidate"
+    ],
+    "ExitCode": 0,
+    "Settled": true,
+    "ElapsedSeconds": 7.51600000000326,
+    "SdkBuild": false
+  },
+  "RegistrationPolicy": "Exclude only five new SchedulerAffinityCases from old shared generic loop; register same exact compile/run/stdout/hash assertions after all7297 earlier registrations, then11newHOST. No old body or name changes.",
+  "HostTargets": [
+    {
+      "Key": "First",
+      "Name": "scheduler/first-instruction-and-migration",
+      "Method": "SchedulerAffinityHostChecks.FirstInstructionAndMigration"
+    },
+    {
+      "Key": "Park",
+      "Name": "scheduler/offline-child-park-resume",
+      "Method": "SchedulerAffinityHostChecks.OfflineChildParksAndResumes"
+    },
+    {
+      "Key": "Init",
+      "Name": "scheduler/initializer-mailbox-readmission-reentry",
+      "Method": "SchedulerInitializerHostChecks.MailboxReadmissionAndRecursiveConfigure"
+    },
+    {
+      "Key": "Retire",
+      "Name": "scheduler/initializer-retirement-after-guests",
+      "Method": "SchedulerInitializerHostChecks.RetirementWaitsForGuestThenInitializer"
+    },
+    {
+      "Key": "Invalid",
+      "Name": "scheduler/invalid-values-preserve-state",
+      "Method": "SchedulerPublicApiHostChecks.InvalidValuesPreserveBindingAndOnlineCount"
+    },
+    {
+      "Key": "Public",
+      "Name": "scheduler/all-local-public-spawn-option-and-request-forms",
+      "Method": "SchedulerPublicApiHostChecks.QueriesAndAllLocalSpawnOptionForms"
+    },
+    {
+      "Key": "Granted",
+      "Name": "scheduler/parked-granted-head-pending-kill-administrative-retirement",
+      "Method": "SchedulerOnlineConcurrentHostChecks.ParkedGrantedHeadDefersGuestKillUntilAdministrativeRetirement"
+    },
+    {
+      "Key": "Active",
+      "Name": "scheduler/active-cancel-retains-quiescence",
+      "Method": "SchedulerOnlineConcurrentHostChecks.ActiveCancellationCannotAdvanceBeforeQuiescence"
+    },
+    {
+      "Key": "Queued",
+      "Name": "scheduler/canceled-queued-waiter-successor",
+      "Method": "SchedulerOnlineConcurrentHostChecks.CanceledQueuedWaiterDoesNotStallSuccessor"
+    },
+    {
+      "Key": "GuestKill",
+      "Name": "scheduler/offline-guest-kill-admitted-after-reonline",
+      "Method": "SchedulerOfflineGuestExitHostChecks.PendingKillIsAdmittedOnlyAfterLaneReturnsOnline"
+    },
+    {
+      "Key": "Offline",
+      "Name": "scheduler/offline-pending-guest-kill-distinct-retirement",
+      "Method": "SchedulerOfflineRetirementHostChecks.RunningParksPendingGuestKillAndRetirementSeparatelyJoinsCleanup"
+    }
+  ],
+  "CompiledCases": [
+    {
+      "Property": "FirstInstruction",
+      "Name": "scheduler_first_instruction"
+    },
+    {
+      "Property": "MigrationPreviousBinding",
+      "Name": "scheduler_migration_previous_binding"
+    },
+    {
+      "Property": "InvalidAndDuplicate",
+      "Name": "scheduler_invalid_and_duplicate"
+    },
+    {
+      "Property": "OfflineBoundResume",
+      "Name": "scheduler_offline_bound_resume"
+    },
+    {
+      "Property": "OfflinePendingKill",
+      "Name": "scheduler_offline_pending_kill"
+    }
+  ],
+  "InitializerMigration": {
+    "File": "tests/Erlang.Tests/RuntimeActorDispatchHostChecks.cs",
+    "Changes": [
+      "Three initializer callbacks now assert actual owner/lane and same-owner synchronous recursive Configure rather than TaskScheduler.Default",
+      "Local boolean renamed initialOwnedScheduler"
+    ],
+    "Unchanged": [
+      "Actor per-owner scheduler identity",
+      "Synchronous capacity/max concurrency",
+      "Guest normal completion before parent retirement",
+      "Post-retirement child-runtime independent callback and guest",
+      "CompleteWhenIdle and dispatcher lifetime joins",
+      "All previous test names"
+    ],
+    "NewHelper": "tests/Erlang.Tests/RuntimeActorInitializerHostChecks.cs",
+    "Unexecuted": true
+  },
+  "ExpectedPreviousPrefix": 7297,
+  "ExpectedNewCases": 16,
+  "ExpectedTotalIfFullPasses": 7313,
+  "SdkBuild": false,
+  "GuestExecution": false,
+  "MetadataGuardsStalePendingSeparateReview": true,
+  "NativeProfileSeparateUnexecuted": true,
+  "NoMainMutation": true
+}

@@ -241,11 +241,11 @@ public static class CoreModules
      return Boolean(c.Runtime.Demonitor(c, reference));
  }
         );
-        Add(
+        r.Register(
             ErlangModuleNames.Module,
             ErlangModuleNames.ProcessFlag,
             2,
-            (c, a) =>
+            async (c, a) =>
  {
      if (RuntimeNodeMonitorRegistrations.TryChangeSelf(c, a, out Term nodeMonitorResult))
          return nodeMonitorResult;
@@ -253,6 +253,8 @@ public static class CoreModules
          return ProcessSavedCallRegistrations.ChangeSelf(c, a);
      if (a[0] is Atom { Name: ProcessInfoLogicalNames.ErrorHandler })
          return c.Runtime.ChangeErrorHandler(c, a[1]);
+     if (a[0] is Atom { Name: ProcessSchedulerNames.Binding })
+         return await c.Runtime.ChangeSchedulerBinding(c, a[1]);
      if (a[0] is Atom { Name: ProcessPriorityNames.Flag })
          return c.Runtime.ChangeSchedulingPriority(c, a[1]);
      if (a[0] is Atom { Name: ProcessAsyncDistributionNames.Flag })
