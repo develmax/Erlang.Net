@@ -1,150 +1,73 @@
-name: Controlled NEWLM host-thread and ordinary NIF loading validation
+name: Original proplists53 contracts only
 on:
   workflow_dispatch:
     inputs:
       expected_head:
+        description: Exact published validation head
+        type: string
+        required: true
+      source_inputs_sha256:
+        description: SHA256 of reviewed proplists source-inputs.json at that head
         type: string
         required: true
 permissions:
   contents: read
-  actions: read
 jobs:
-  diagnose-reused-own-native-images:
+  original-proplists53:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 50
     env:
       EXPECTED_HEAD: ${{ inputs.expected_head }}
+      SOURCE_INPUTS_SHA256: ${{ inputs.source_inputs_sha256 }}
+      ERLC_USE_SERVER: 'false'
       PYTHONDONTWRITEBYTECODE: '1'
-      DOTNET_PROCESSOR_COUNT: '2'
-      SOURCE_PLAN: .validation/nif-callback361-source-plan.json
-      SOURCE_PLAN_SHA: 83667FC235724A7E618C6DA8AAE36FF6BCCA0C4616E1C1AE83E1BA1F25A43995
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-dotnet@v6
         with:
-          global-json-file: global.json
-      - name: Verify executing code head and reuse exact parent owned artifact
-        id: reuse
-        env:
-          GH_ARTIFACT_TOKEN: ${{ github.token }}
+          persist-credentials: false
+      - name: Admit exact head and corrected 53-case source
         shell: bash
         run: |
           set -euo pipefail
-          test "$EXPECTED_HEAD" = "$GITHUB_SHA"
-          test "$(git --no-optional-locks rev-parse HEAD)" = "$EXPECTED_HEAD"
-          python3 -B tools/Erlang.NifLinuxCallbackObservations/reuse.py
-      - name: Select installed debugger or existing bounded dump fallback
-        if: ${{ !cancelled() && steps.reuse.outcome == 'success' }}
-        shell: bash
-        run: |
-          if command -v gdb >/dev/null; then
-            command -v gdb
-          else
-            echo "Using existing bounded dotnet triage-dump fallback; no debugger installation"
-          fi
-      - name: Build only the owned host-thread bridge with retained original headers
-        id: prepare_bridge
-        if: ${{ !cancelled() && steps.reuse.outcome == 'success' }}
+          test "$GITHUB_SHA" = "$EXPECTED_HEAD"
+          mkdir -p artifacts/pure-api-original
+          python3 tools/Erlang.ProplistGetValueObservations/collect-original.py \
+            --expected-head "$EXPECTED_HEAD" --source-inputs-sha256 "$SOURCE_INPUTS_SHA256" --verify-only \
+            2>&1 | tee artifacts/pure-api-original/source-admission.log
+      - name: Clone the pinned original source once
         shell: bash
         run: |
           set -euo pipefail
-          python3 -B tools/Erlang.NifLinuxCallbackObservations/prepare-pthread.py
-      - name: Build NEWLM host-thread provider control
-        id: build_callback
-        if: ${{ !cancelled() && steps.prepare_bridge.outcome == 'success' }}
+          git clone --depth 1 --branch OTP-29.1.1 https://github.com/erlang/otp.git artifacts/pure-api-otp-source \
+            2>&1 | tee artifacts/pure-api-original/clone.log
+          test "$(git -C artifacts/pure-api-otp-source rev-parse HEAD)" = ad05823719d77c8faee87348ea39513d4e2f99c5
+      - name: Build and seal one original OTP installation
         shell: bash
         run: |
           set -euo pipefail
-          dotnet --info
-          dotnet build tools/Erlang.NifLinuxCallbackFocus/Erlang.NifLinuxCallbackFocus.csproj --disable-build-servers -m:1 -nr:false --nologo
-          cp artifacts/linux-pthread-bridge/Erlang.NifBridge.so tools/Erlang.NifLinuxCallbackFocus/bin/Debug/net10.0/Erlang.NifBridge.so
-      - name: Build managed-only discriminator from identical guest source
-        id: build_managed
-        if: ${{ !cancelled() && steps.prepare_bridge.outcome == 'success' }}
+          BUILD_MANIFEST_SHA256="$(sha256sum tools/Erlang.SchedulerAffinityOriginalObservations/manifest.json | cut -d ' ' -f 1)"
+          python3 tools/Erlang.SchedulerAffinityOriginalObservations/build-original.py \
+            --repository "$GITHUB_WORKSPACE" --manifest-sha256 "$BUILD_MANIFEST_SHA256" \
+            --expected-head "$EXPECTED_HEAD" --otp-source "$GITHUB_WORKSPACE/artifacts/pure-api-otp-source" \
+            --prefix "$GITHUB_WORKSPACE/artifacts/pure-api-otp" \
+            --output "$GITHUB_WORKSPACE/artifacts/pure-api-original/build" \
+            2>&1 | tee artifacts/pure-api-original/build.log
+      - name: Compile legal fixture and acquire all 53 original outcomes
         shell: bash
         run: |
           set -euo pipefail
-          dotnet build tools/Erlang.NifLinuxManagedControlFocus/Erlang.NifLinuxManagedControlFocus.csproj -c Release --disable-build-servers -m:1 -nr:false --nologo
-      - name: Execute independent managed-only map construction control
-        id: run_managed
-        if: ${{ !cancelled() && steps.build_managed.outcome == 'success' }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          python3 -B tools/Erlang.NifLinuxManagedControlObservations/run.py \
-            --admission "$GITHUB_WORKSPACE/artifacts/linux-callback17/bridge/admission.json" \
-            --approved-admission-sha256 0711868322C3A608AE6B2FB249D42D05C4C420A5B842D11532577F0C00A00CD3 \
-            --expected-head "$GITHUB_SHA" \
-            --focus "$GITHUB_WORKSPACE/tools/Erlang.NifLinuxManagedControlFocus/bin/Release/net10.0/Erlang.NifLinuxManagedControlFocus.dll" \
-            --output "$GITHUB_WORKSPACE/artifacts/linux-managed-control"
-      - name: Build ordinary loading regression focus
-        id: build_ordinary
-        if: ${{ !cancelled() && steps.prepare_bridge.outcome == 'success' }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          dotnet build tools/Erlang.NifOrdinaryLoaderFocus/Erlang.NifOrdinaryLoaderFocus.csproj -c Release --disable-build-servers -m:1 -nr:false --nologo
-          cp artifacts/linux-pthread-bridge/Erlang.NifBridge.so tools/Erlang.NifOrdinaryLoaderFocus/bin/Release/net10.0/Erlang.NifBridge.so
-      - name: Check ordinary origin, bare-name lookup and missing dependency against native loader
-        id: run_ordinary
-        if: ${{ !cancelled() && steps.build_ordinary.outcome == 'success' }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          python3 -B tools/Erlang.NifOrdinaryLoaderObservations/run.py \
-            --expected-head "$GITHUB_SHA" \
-            --header-receipt "$GITHUB_WORKSPACE/artifacts/linux-callback17/size-native/native-build-receipt.json" \
-            --approved-header-receipt-sha256 "$(sha256sum artifacts/linux-callback17/size-native/native-build-receipt.json | cut -d' ' -f1)" \
-            --headers "$GITHUB_WORKSPACE/artifacts/linux-callback17/size-native/headers" \
-            --focus "$GITHUB_WORKSPACE/tools/Erlang.NifOrdinaryLoaderFocus/bin/Release/net10.0/Erlang.NifOrdinaryLoaderFocus.dll" \
-            --bridge-sha256 "$(sha256sum artifacts/linux-pthread-bridge/Erlang.NifBridge.so | cut -d' ' -f1)" \
-            --output "$GITHUB_WORKSPACE/artifacts/linux-ordinary-regressions"
-      - name: Check ordinary C++ and POSIX thread destructors
-        id: run_destructors
-        if: ${{ !cancelled() && steps.build_ordinary.outcome == 'success' }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          python3 -B tools/Erlang.NifOrdinaryLoaderObservations/run.py --thread-destructors \
-            --expected-head "$GITHUB_SHA" \
-            --header-receipt "$GITHUB_WORKSPACE/artifacts/linux-callback17/size-native/native-build-receipt.json" \
-            --approved-header-receipt-sha256 "$(sha256sum artifacts/linux-callback17/size-native/native-build-receipt.json | cut -d' ' -f1)" \
-            --headers "$GITHUB_WORKSPACE/artifacts/linux-callback17/size-native/headers" \
-            --focus "$GITHUB_WORKSPACE/tools/Erlang.NifOrdinaryLoaderFocus/bin/Release/net10.0/Erlang.NifOrdinaryLoaderFocus.dll" \
-            --bridge-sha256 "$(sha256sum artifacts/linux-pthread-bridge/Erlang.NifBridge.so | cut -d' ' -f1)" \
-            --output "$GITHUB_WORKSPACE/artifacts/linux-thread-destructors"
-      - name: Execute full17 on both routes retaining original NEWLM target paths
-        id: run_callback
-        if: ${{ !cancelled() && steps.build_callback.outcome == 'success' }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          python3 -B tools/Erlang.NifLinuxCallbackObservations/run-pthread.py --source-plan "$GITHUB_WORKSPACE/$SOURCE_PLAN" --source-plan-sha256 "$SOURCE_PLAN_SHA" --approved-admission-sha256 "$(sha256sum artifacts/linux-pthread-bridge/admission.json | cut -d' ' -f1)"
-      - name: Verify actual host-provider bindings and joined thread calls
-        id: verify_providers
-        if: ${{ !cancelled() && steps.run_callback.outcome == 'success' }}
-        shell: bash
-        run: python3 -B tools/Erlang.NifLinuxCallbackObservations/verify-pthread.py
-      - name: Compare all68 rows against exact reused original artifacts
-        id: compare_rows
-        if: ${{ !cancelled() && steps.run_callback.outcome == 'success' }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          python3 -B tools/Erlang.NifLinuxCallbackObservations/compare.py --capture-root "$GITHUB_WORKSPACE/artifacts/linux-callback-pthread-control" \
-            --approved-size-completion-sha256 "$(sha256sum artifacts/linux-callback17/size-original/completion.json | cut -d' ' -f1)" \
-            --approved-reference-completion-sha256 "$(sha256sum artifacts/linux-callback17/reference-original/completion.json | cut -d' ' -f1)" \
-            --approved-sdk-completion-sha256 "$(sha256sum artifacts/linux-callback-pthread-control/sdk/completion.json | cut -d' ' -f1)" \
-            --approved-admission-sha256 "$(sha256sum artifacts/linux-pthread-bridge/admission.json | cut -d' ' -f1)" \
-            --output "$GITHUB_WORKSPACE/artifacts/linux-callback-pthread-control/comparison.json"
+          BUILD_RECEIPT_SHA256="$(sha256sum artifacts/pure-api-original/build/build-receipt.json | cut -d ' ' -f 1)"
+          python3 tools/Erlang.ProplistGetValueObservations/collect-original.py \
+            --expected-head "$EXPECTED_HEAD" --source-inputs-sha256 "$SOURCE_INPUTS_SHA256" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/pure-api-otp-source" \
+            --runtime-root "$GITHUB_WORKSPACE/artifacts/pure-api-otp/lib/erlang" \
+            --build-receipt "$GITHUB_WORKSPACE/artifacts/pure-api-original/build/build-receipt.json" \
+            --approved-build-receipt-sha256 "$BUILD_RECEIPT_SHA256" \
+            --output "$GITHUB_WORKSPACE/artifacts/pure-api-original/capture" \
+            2>&1 | tee artifacts/pure-api-original/collection.log
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: linux-callback-pthread-control
-          path: |
-            artifacts/linux-callback-pthread-control/**
-            artifacts/linux-callback17/reuse-proof.json
-            artifacts/linux-managed-control/**
-            artifacts/linux-pthread-bridge/**
-            artifacts/linux-ordinary-regressions/**
-            artifacts/linux-thread-destructors/**
+          name: original-proplists53
+          path: artifacts/pure-api-original/**
+          if-no-files-found: warn
