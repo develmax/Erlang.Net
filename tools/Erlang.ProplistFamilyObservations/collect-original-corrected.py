@@ -14,10 +14,10 @@ def resolved(root,name):
 def require_parse_gate(gate_data,all_sources):
     assert gate_data['Status']=='PASS_FIXTURE_PARSE_GATE'
     rows=gate_data['Fixtures']
-    assert len(rows)==len(all_sources)==3
+    assert len(rows)==len(all_sources) and len(all_sources)>0
     assert all(x.get('Passed') is True and 'Error' not in x for x in rows)
     actual=[(str(Path(x['Path']).resolve()),x['Sha256']) for x in rows]
-    assert len({x[0] for x in actual})==3
+    assert len({x[0] for x in actual})==len(all_sources)
     assert sorted(actual)==sorted((str(x.resolve()),digest(x)) for x in all_sources)
 
 def require_old59_stack_rows(stack_rows):
@@ -47,6 +47,11 @@ def main():
     def path_for(f):return resolved(t if f['Location']=='tool' else r,f['Path'])
     all_sources=[path_for(f) for f in profile['Fixtures']]
     all_sources += [resolved(t,x) for f in profile['Fixtures'] for x in f['Companions']]
+    all_sources=list(dict.fromkeys(all_sources))
+    declared=[resolved(t if x['Location']=='tool' else r,x['Path']) for x in profile['FixtureSources']]
+    assert len(declared)==len(set(declared))==profile['ExpectedUniqueSourceCount']==len(all_sources)
+    assert set(declared)==set(all_sources)
+    for row,path in zip(profile['FixtureSources'],declared):assert digest(path)==row['Sha256']
     gate=Path(a.parse_gate);assert digest(gate)==a.parse_gate_sha256.upper();gate_data=json.loads(gate.read_bytes())
     require_parse_gate(gate_data,all_sources)
     assert len({x['Id'] for x in profile['Fixtures']})==len(profile['Fixtures'])
@@ -111,8 +116,8 @@ def main():
                 env['FAMILY_OUTPUT']=str(directory);env['FAMILY_EBIN']=str(ebin)
                 modules=[f['Module']]+[x.stem for x in sources[1:]]
                 loads=','.join('{module,'+m+'}=code:load_abs(filename:join(E,"'+m+'"))' for m in modules)
-                module=f['Module'];stack=f['StackModule'];entry=f['StackEntry'];names=f['NamesEntry']
-                expression='O=os:getenv("FAMILY_OUTPUT"),E=os:getenv("FAMILY_EBIN"),'+loads+',{module,proplists}=code:ensure_loaded(proplists),{proplists,B,F}=code:get_object_code(proplists),ok=file:write_file(filename:join(O,"proplists-loaded.beam"),B),M={family_provenance,code:root_dir(),code:which(proplists),F,erlang:md5(B),proplists:module_info(md5),code:which('+module+'),'+module+':'+names+'(),erlang:system_info(otp_release),erlang:system_info(schedulers),erlang:system_info(schedulers_online)},ok=file:write_file(filename:join(O,"metadata.etf"),term_to_binary(M)),Rows='+module+':'+f['Run']+'(),ok=file:write_file(filename:join(O,"returned.etf"),term_to_binary(Rows)),Stacks='+stack+':'+entry+'(),ok=file:write_file(filename:join(O,"stack-observations.etf"),term_to_binary(Stacks)),halt().'
+                module=f['Module'];stack=f['StackModule'];entry=f['StackEntry'];names=f['NamesEntry'];worker=f['WorkerModule'];worker_entry=f['WorkerEntry']
+                expression='O=os:getenv("FAMILY_OUTPUT"),E=os:getenv("FAMILY_EBIN"),'+loads+',{module,proplists}=code:ensure_loaded(proplists),{proplists,B,F}=code:get_object_code(proplists),ok=file:write_file(filename:join(O,"proplists-loaded.beam"),B),M={family_provenance,code:root_dir(),code:which(proplists),F,erlang:md5(B),proplists:module_info(md5),code:which('+module+'),'+module+':'+names+'(),erlang:system_info(otp_release),erlang:system_info(schedulers),erlang:system_info(schedulers_online)},ok=file:write_file(filename:join(O,"metadata.etf"),term_to_binary(M)),Rows='+module+':'+f['Run']+'(),ok=file:write_file(filename:join(O,"returned.etf"),term_to_binary(Rows)),Stacks='+worker+':'+worker_entry+'('+stack+','+entry+'),ok=file:write_file(filename:join(O,"stack-observations.etf"),term_to_binary(Stacks)),halt().'
                 failure=stage('observe',[runtime/'bin/erl','+S','2:2','-noshell','-noinput','-eval',expression],directory,120)
                 if failure:group['Failure']=failure;continue
                 metadata=decoder.decode_exact((directory/'metadata.etf').read_bytes());assert metadata[0]=='tuple' and len(metadata[1])==11
@@ -126,14 +131,15 @@ def main():
                 for expected,row in zip(f['Names'],rows[1]):assert row[0]=='tuple' and len(row[1])==2 and row[1][0]==('atom',expected)
                 stack_rows=decoder.decode_exact((directory/'stack-observations.etf').read_bytes())
                 assert stack_rows[0]=='list'
-                if f['Id']=='family148':
+                if f['StackShape']=='depth_cases':
                     assert len(stack_rows[1])==5
                     for expected_depth,entry in zip([('atom','default'),('integer',0),('integer',1),('integer',2),('integer',8)],stack_rows[1]):
                         assert entry[0]=='tuple' and len(entry[1])==2 and entry[1][0]==expected_depth
                         nested=entry[1][1];assert nested[0]=='list' and len(nested[1])==len(f['Names'])
                         for name,row in zip(f['Names'],nested[1]):assert row[0]=='tuple' and len(row[1])==2 and row[1][0]==('atom',name)
-                else:
+                elif f['StackShape']=='old59_twelve':
                     require_old59_stack_rows(stack_rows)
+                else:raise AssertionError('Unknown full-stack fixture shape')
                 group.update(Acquired=True,ReturnedSha256=digest(directory/'returned.etf'),RawStacksSha256=digest(directory/'stack-observations.etf'),MetadataSha256=digest(directory/'metadata.etf'),CompiledFiles=[dict(Module=m,Sha256=digest(ebin/(m+'.beam'))) for m in modules])
             except BaseException as e:group['Failure']=repr(e)
             finally:groups.append(group)

@@ -42,7 +42,7 @@ def main():
         if failure:raise RuntimeError(name+' failed; raw output retained')
     run('parse-build',['dotnet','build',tool/'parse-gate/ProplistFamily.ParseGate.csproj','--disable-build-servers','-m:1','-nr:false','--nologo','-p:UseSharedCompilation=false','-p:NuGetAudit=false'],180)
     gate=out/'parse-receipt.json'
-    run('parse-three',['dotnet',tool/'parse-gate/bin/Debug/net10.0/ProplistFamily.ParseGate.dll',root,tool,gate],30)
+    run('parse-sources',['dotnet',tool/'parse-gate/bin/Debug/net10.0/ProplistFamily.ParseGate.dll',root,tool,gate],30)
     run('collector-admit',['python3','-B',tool/'collect-original-corrected.py','--repository',root,'--expected-head',a.head,'--source-inputs-sha256',sha(manifest),'--parse-gate',gate,'--parse-gate-sha256',sha(gate),'--verify-only'],30)
-    (out/'completion.json').write_text(json.dumps(dict(Status='PASS_LINUX_THREE_FIXTURE_GATE',Stages=stages,ParseGateSha256=sha(gate),OriginalExecuted=False),indent=2)+'\n')
+    (out/'completion.json').write_text(json.dumps(dict(Status='PASS_LINUX_NAMED_FIXTURE_GATE',Stages=stages,ParseGateSha256=sha(gate),OriginalExecuted=False),indent=2)+'\n')
 if __name__=='__main__':main()

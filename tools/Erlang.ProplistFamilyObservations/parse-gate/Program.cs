@@ -8,11 +8,12 @@ string output = Path.GetFullPath(args[2]);
 if (File.Exists(output)) return 2;
 using var profile = JsonDocument.Parse(await File.ReadAllTextAsync(Path.Combine(tool, "profile.json")));
 var paths = new List<string>();
-foreach (var fixture in profile.RootElement.GetProperty("Fixtures").EnumerateArray())
+foreach (var source in profile.RootElement.GetProperty(ParseGateNames.FixtureSources).EnumerateArray())
 {
-    paths.Add(Path.GetFullPath(Path.Combine(fixture.GetProperty("Location").GetString() == "tool" ? tool : repository, fixture.GetProperty("Path").GetString()!)));
-    paths.AddRange(fixture.GetProperty("Companions").EnumerateArray().Select(x => Path.GetFullPath(Path.Combine(tool, x.GetString()!))));
+    paths.Add(Path.GetFullPath(Path.Combine(source.GetProperty(ParseGateNames.Location).GetString() == ParseGateNames.Tool ? tool : repository, source.GetProperty(ParseGateNames.Path).GetString()!)));
 }
+if (paths.Count != paths.Distinct(StringComparer.Ordinal).Count() || paths.Count != profile.RootElement.GetProperty(ParseGateNames.ExpectedUniqueSourceCount).GetInt32())
+    throw new InvalidOperationException(ParseGateNames.SourceCountMismatch);
 var results = new List<object>();
 int failed = 0;
 foreach (string path in paths)
