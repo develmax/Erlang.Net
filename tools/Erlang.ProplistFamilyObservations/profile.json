@@ -1,43 +1,30 @@
 {
-  "Family": "compiler-tail-return-regression",
+  "Family": "strict-comprehension-and-code-image-regression",
   "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Mfas": [
-    "lc_return_frames:probe/1",
-    "lists:foldr/3"
+    "erlang:check_process_code/2",
+    "lc_strict_singleton:probe/1"
   ],
   "Fixtures": [
     {
-      "Id": "lc_return_frames",
+      "Id": "lc_strict_singleton",
       "Location": "tool",
-      "Path": "original/lc_return_frames.erl",
-      "Module": "lc_return_frames",
+      "Path": "original/lc_strict_singleton.erl",
+      "Module": "lc_strict_singleton",
       "Names": [
-        "terminal_after_skip",
-        "may_return_after_skip",
-        "terminal_renamed",
-        "improper_identity",
-        "improper_effect",
-        "proper_identity",
-        "singleton_terminal",
-        "non_tail_terminal",
-        "dynamic_source",
-        "unknown_filter",
-        "named_fun_short",
-        "named_fun_long",
-        "anonymous_fun_short",
-        "anonymous_fun_long",
-        "named_fun_error",
-        "anonymous_fun_error",
-        "apply_badarity",
-        "apply_nontail",
-        "foldr_direct_error",
-        "foldr_short",
-        "foldr_long",
-        "foldr_catch"
+        "relaxed_variable",
+        "strict_variable",
+        "strict_match",
+        "strict_mismatch",
+        "strict_improper",
+        "strict_body_error",
+        "after_strict",
+        "unknown_singleton",
+        "strict_renamed"
       ],
       "Run": "run",
       "NamesEntry": "cases",
-      "StackModule": "lc_return_frames",
+      "StackModule": "lc_strict_singleton",
       "StackEntry": "run_stacks",
       "WorkerModule": "proplists_observation_worker",
       "WorkerEntry": "run",
@@ -47,160 +34,136 @@
       ],
       "Cases": [
         {
-          "Name": "terminal_after_skip",
+          "Name": "relaxed_variable",
           "Mfas": [
-            "lc_return_frames:probe/1"
+            "lc_strict_singleton:probe/1"
           ],
           "Policy": "exact"
         },
         {
-          "Name": "may_return_after_skip",
+          "Name": "strict_variable",
           "Mfas": [
-            "lc_return_frames:probe/1"
+            "lc_strict_singleton:probe/1"
           ],
           "Policy": "exact"
         },
         {
-          "Name": "terminal_renamed",
+          "Name": "strict_match",
           "Mfas": [
-            "lc_return_frames:probe/1"
+            "lc_strict_singleton:probe/1"
           ],
           "Policy": "exact"
         },
         {
-          "Name": "improper_identity",
+          "Name": "strict_mismatch",
           "Mfas": [
-            "lc_return_frames:probe/1"
+            "lc_strict_singleton:probe/1"
           ],
           "Policy": "exact"
         },
         {
-          "Name": "improper_effect",
+          "Name": "strict_improper",
           "Mfas": [
-            "lc_return_frames:probe/1"
+            "lc_strict_singleton:probe/1"
           ],
           "Policy": "exact"
         },
         {
-          "Name": "proper_identity",
+          "Name": "strict_body_error",
           "Mfas": [
-            "lc_return_frames:probe/1"
+            "lc_strict_singleton:probe/1"
           ],
           "Policy": "exact"
         },
         {
-          "Name": "singleton_terminal",
+          "Name": "after_strict",
           "Mfas": [
-            "lc_return_frames:probe/1"
+            "lc_strict_singleton:probe/1"
           ],
           "Policy": "exact"
         },
         {
-          "Name": "non_tail_terminal",
+          "Name": "unknown_singleton",
           "Mfas": [
-            "lc_return_frames:probe/1"
+            "lc_strict_singleton:probe/1"
           ],
           "Policy": "exact"
         },
         {
-          "Name": "dynamic_source",
+          "Name": "strict_renamed",
           "Mfas": [
-            "lc_return_frames:probe/1"
+            "lc_strict_singleton:probe/1"
+          ],
+          "Policy": "exact"
+        }
+      ],
+      "OriginalCompilerOptions": [
+        "nowarn_nomatch"
+      ]
+    },
+    {
+      "Id": "code_image_tail_contract",
+      "Location": "tool",
+      "Path": "original/code_image_tail_contract.erl",
+      "Module": "code_image_tail_contract",
+      "Names": [
+        "tail",
+        "non_tail",
+        "held_local_tail",
+        "held_local_non_tail",
+        "held_external_tail",
+        "held_external_non_tail"
+      ],
+      "Run": "run",
+      "NamesEntry": "cases",
+      "StackModule": "code_image_tail_contract",
+      "StackEntry": "run_stacks",
+      "WorkerModule": "proplists_observation_worker",
+      "WorkerEntry": "run",
+      "StackShape": "depth_cases",
+      "Companions": [
+        "original/proplists_observation_worker.erl"
+      ],
+      "Cases": [
+        {
+          "Name": "tail",
+          "Mfas": [
+            "erlang:check_process_code/2"
           ],
           "Policy": "exact"
         },
         {
-          "Name": "unknown_filter",
+          "Name": "non_tail",
           "Mfas": [
-            "lc_return_frames:probe/1"
+            "erlang:check_process_code/2"
           ],
           "Policy": "exact"
         },
         {
-          "Name": "named_fun_short",
+          "Name": "held_local_tail",
           "Mfas": [
-            "lc_return_frames:probe/1"
+            "erlang:check_process_code/2"
           ],
           "Policy": "exact"
         },
         {
-          "Name": "named_fun_long",
+          "Name": "held_local_non_tail",
           "Mfas": [
-            "lc_return_frames:probe/1"
+            "erlang:check_process_code/2"
           ],
           "Policy": "exact"
         },
         {
-          "Name": "anonymous_fun_short",
+          "Name": "held_external_tail",
           "Mfas": [
-            "lc_return_frames:probe/1"
+            "erlang:check_process_code/2"
           ],
           "Policy": "exact"
         },
         {
-          "Name": "anonymous_fun_long",
+          "Name": "held_external_non_tail",
           "Mfas": [
-            "lc_return_frames:probe/1"
-          ],
-          "Policy": "exact"
-        },
-        {
-          "Name": "named_fun_error",
-          "Mfas": [
-            "lc_return_frames:probe/1"
-          ],
-          "Policy": "exact"
-        },
-        {
-          "Name": "anonymous_fun_error",
-          "Mfas": [
-            "lc_return_frames:probe/1"
-          ],
-          "Policy": "exact"
-        },
-        {
-          "Name": "apply_badarity",
-          "Mfas": [
-            "lc_return_frames:probe/1"
-          ],
-          "Policy": "exact"
-        },
-        {
-          "Name": "apply_nontail",
-          "Mfas": [
-            "lc_return_frames:probe/1"
-          ],
-          "Policy": "exact"
-        },
-        {
-          "Name": "foldr_direct_error",
-          "Mfas": [
-            "lc_return_frames:probe/1",
-            "lists:foldr/3"
-          ],
-          "Policy": "exact"
-        },
-        {
-          "Name": "foldr_short",
-          "Mfas": [
-            "lc_return_frames:probe/1",
-            "lists:foldr/3"
-          ],
-          "Policy": "exact"
-        },
-        {
-          "Name": "foldr_long",
-          "Mfas": [
-            "lc_return_frames:probe/1",
-            "lists:foldr/3"
-          ],
-          "Policy": "exact"
-        },
-        {
-          "Name": "foldr_catch",
-          "Mfas": [
-            "lc_return_frames:probe/1",
-            "lists:foldr/3"
+            "erlang:check_process_code/2"
           ],
           "Policy": "exact"
         }
@@ -210,8 +173,13 @@
   "FixtureSources": [
     {
       "Location": "tool",
-      "Path": "original/lc_return_frames.erl",
-      "Sha256": "D80ECDB0C600F6A3EC704B6A9A6911B31A25330C55A7C78C023DB0FB974D7A28"
+      "Path": "original/lc_strict_singleton.erl",
+      "Sha256": "A0D21C7D898A56FE229831D942432161A62D90030085B4D6FD3CE00F15BEACF4"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/code_image_tail_contract.erl",
+      "Sha256": "7DAF4D04326BC5DEBCAE02155763CBB4961A5E0BF6DAA678B5CB0A12D68E73ED"
     },
     {
       "Location": "tool",
@@ -219,6 +187,6 @@
       "Sha256": "34B743EB95A5937058AB8F208A1FB17C6ACED20AF7E08398EF6D154F574546BC"
     }
   ],
-  "ExpectedUniqueSourceCount": 2,
-  "ObserverEntry": "Same matched guest worker, whole terms retained; regression scopes not API promotions"
+  "ExpectedUniqueSourceCount": 3,
+  "ObserverEntry": "Same monitored compiled worker; code-image module original-only, equivalent SDK HOST controls separate; no API promotion"
 }

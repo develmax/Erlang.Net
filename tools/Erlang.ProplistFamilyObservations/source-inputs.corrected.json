@@ -47,8 +47,8 @@
     },
     {
       "Path": "collect-original-corrected.py",
-      "Bytes": 14013,
-      "Sha256": "777F8D9340FF3694BBEA80C9063027E80465ACA8A58FA7B80CD5ED78D76FE187"
+      "Bytes": 14229,
+      "Sha256": "1CEDE49762F90F35632C8A4B3E32754A53AEC2B8490D295AE9895F7147010E4C"
     },
     {
       "Path": "collect-original.py",
@@ -71,6 +71,11 @@
       "Sha256": "7D44FC6D0539A9D924A4E62C28DE0D4A8675E651EB3B14496B7E6D869AB51522"
     },
     {
+      "Path": "original/code_image_tail_contract.erl",
+      "Bytes": 4000,
+      "Sha256": "7DAF4D04326BC5DEBCAE02155763CBB4961A5E0BF6DAA678B5CB0A12D68E73ED"
+    },
+    {
       "Path": "original/lc_return_frames.erl",
       "Bytes": 3427,
       "Sha256": "D80ECDB0C600F6A3EC704B6A9A6911B31A25330C55A7C78C023DB0FB974D7A28"
@@ -84,6 +89,11 @@
       "Path": "original/lc_source_frames_b.erl",
       "Bytes": 2228,
       "Sha256": "183AB02D7D5E854EF6162F644CEFBE7AC125783E3FBD74B759899A71D980DF59"
+    },
+    {
+      "Path": "original/lc_strict_singleton.erl",
+      "Bytes": 1545,
+      "Sha256": "A0D21C7D898A56FE229831D942432161A62D90030085B4D6FD3CE00F15BEACF4"
     },
     {
       "Path": "original/proplists_family_capture.erl",
@@ -132,8 +142,8 @@
     },
     {
       "Path": "profile.json",
-      "Bytes": 5461,
-      "Sha256": "BE1CA5A58851863934EE431A6FCB3D26A445880D529BE7199219DCA056B6A12E"
+      "Bytes": 4944,
+      "Sha256": "374913FA1E5538702BAC84EF19331793D86397B96116B4EB81B35E36011516C3"
     },
     {
       "Path": "self-test.py",
@@ -156,9 +166,10 @@
   "FamilyPublicationAuthorized": false,
   "OriginalAdapterSourceInputsSha256": "52FBA0CEF0CABB45A1A2D67F41FE8DB70BE6FD905F5AE5DBF42673732620E56F",
   "Corrections": [
-    "New22-case compiler/foldr regression group only; old six groups are not repeated.",
-    "No API accounting or compatibility promotion.",
-    "Original published collector, decoder, bounded ownership and worker remain byte-preserved."
+    "Only new strict9 and old-code6 regressiongroups; previous6+1groups not repeated.",
+    "Code-image compile:forms is original-only; SDK HOST evidence is distinct equivalent setup.",
+    "No API implementation or compatibility promotion.",
+    "Strict fixture uses source-bound erlc +nowarn_nomatch CLI option only for intentional negative patterns, with a one-option allowlist; bytes shared by SDK/original remain unchanged. compile attribute parse failure retained; no production compiler-option change."
   ],
   "WorkerObservationSchema": "shared-guest-worker-1"
 }

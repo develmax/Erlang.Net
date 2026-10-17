@@ -111,7 +111,9 @@ def main():
             group=dict(Id=f['Id'],ExpectedRows=len(f['Names']),Acquired=False,VmSkipped=False)
             try:
                 sources=[path_for(f)]+[resolved(t,x) for x in f['Companions']]
-                failure=stage('compile',[runtime/'bin/erlc','-Werror','+deterministic','-o',ebin,*sources],directory,90)
+                options=f.get('OriginalCompilerOptions',[])
+                assert isinstance(options,list) and len(options)==len(set(options)) and all(x=='nowarn_nomatch' for x in options)
+                failure=stage('compile',[runtime/'bin/erlc','-Werror','+deterministic',*['+'+x for x in options],'-o',ebin,*sources],directory,90)
                 if failure:group.update(Failure=failure,VmSkipped=True);continue
                 env['FAMILY_OUTPUT']=str(directory);env['FAMILY_EBIN']=str(ebin)
                 modules=[f['Module']]+[x.stem for x in sources[1:]]
