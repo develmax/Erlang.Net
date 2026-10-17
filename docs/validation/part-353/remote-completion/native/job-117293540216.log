@@ -1,0 +1,370 @@
+﻿2026-10-17T03:08:21.9896726Z Current runner version: '2.337.0'
+2026-10-17T03:08:21.9917303Z ##[group]Runner Image Provisioner
+2026-10-17T03:08:21.9918186Z Hosted Compute Agent
+2026-10-17T03:08:21.9918737Z Version: 20261012.601
+2026-10-17T03:08:21.9919299Z Commit: f3dc54e1fb89da6852db922499a0233137369e1d
+2026-10-17T03:08:21.9920046Z Build Date: 2026-10-12T17:48:21Z
+2026-10-17T03:08:21.9920899Z Worker ID: {9574d646-093d-4a6d-befe-47cffe5aa43c}
+2026-10-17T03:08:21.9921622Z Region: westcentralus
+2026-10-17T03:08:21.9922170Z Cloud: Azure
+2026-10-17T03:08:21.9922695Z ##[endgroup]
+2026-10-17T03:08:21.9924074Z ##[group]Operating System
+2026-10-17T03:08:21.9924645Z Ubuntu
+2026-10-17T03:08:21.9925139Z 24.04.5
+2026-10-17T03:08:21.9925631Z LTS
+2026-10-17T03:08:21.9926150Z ##[endgroup]
+2026-10-17T03:08:21.9926677Z ##[group]Runner Image
+2026-10-17T03:08:21.9927237Z Image: ubuntu-24.04
+2026-10-17T03:08:21.9927751Z Version: 20261012.334.1
+2026-10-17T03:08:21.9929029Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261012.334/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-17T03:08:21.9930495Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261012.334
+2026-10-17T03:08:21.9931580Z ##[endgroup]
+2026-10-17T03:08:21.9932652Z ##[group]GITHUB_TOKEN Permissions
+2026-10-17T03:08:21.9934701Z Contents: read
+2026-10-17T03:08:21.9935327Z Metadata: read
+2026-10-17T03:08:21.9935855Z ##[endgroup]
+2026-10-17T03:08:21.9937661Z Secret source: Actions
+2026-10-17T03:08:21.9938781Z Cache mode: write
+2026-10-17T03:08:21.9939573Z Prepare workflow directory
+2026-10-17T03:08:22.0430142Z Prepare all required actions
+2026-10-17T03:08:22.0475203Z Getting action download info
+2026-10-17T03:08:22.3314414Z Download action repository 'actions/checkout@v7' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-10-17T03:08:22.4348367Z Download action repository 'actions/upload-artifact@v7' (SHA:cf430e030ddbb5b0abf93d22962f4752f3646cd9)
+2026-10-17T03:08:23.2808492Z Complete job name: original-scheduler-affinity
+2026-10-17T03:08:23.3505858Z ##[group]Run actions/checkout@v7
+2026-10-17T03:08:23.3506725Z with:
+2026-10-17T03:08:23.3507298Z   repository: develmax/Erlang.Net
+2026-10-17T03:08:23.3511691Z   token: ***
+2026-10-17T03:08:23.3512249Z   ssh-strict: true
+2026-10-17T03:08:23.3512858Z   ssh-user: git
+2026-10-17T03:08:23.3513449Z   persist-credentials: true
+2026-10-17T03:08:23.3514060Z   clean: true
+2026-10-17T03:08:23.3514631Z   sparse-checkout-cone-mode: true
+2026-10-17T03:08:23.3515260Z   fetch-depth: 1
+2026-10-17T03:08:23.3515828Z   fetch-tags: false
+2026-10-17T03:08:23.3516383Z   show-progress: true
+2026-10-17T03:08:23.3516917Z   lfs: false
+2026-10-17T03:08:23.3517480Z   submodules: false
+2026-10-17T03:08:23.3518040Z   set-safe-directory: true
+2026-10-17T03:08:23.3518677Z   allow-unsafe-pr-checkout: false
+2026-10-17T03:08:23.3519520Z env:
+2026-10-17T03:08:23.3520025Z   ERLC_USE_SERVER: false
+2026-10-17T03:08:23.3520788Z   PYTHONDONTWRITEBYTECODE: 1
+2026-10-17T03:08:23.3521870Z   SOURCE_MANIFEST_SHA256: 4C9A79CD6E8BC18F68316D42B2F30DB171E67A242CA81CA84BB8A022E8BA5BFB
+2026-10-17T03:08:23.3522893Z ##[endgroup]
+2026-10-17T03:08:23.4490977Z Syncing repository: develmax/Erlang.Net
+2026-10-17T03:08:23.4493356Z ##[group]Getting Git version info
+2026-10-17T03:08:23.4494314Z Working directory is '/home/runner/work/Erlang.Net/Erlang.Net'
+2026-10-17T03:08:23.4495794Z [command]/usr/bin/git version
+2026-10-17T03:08:23.4562722Z git version 2.55.0
+2026-10-17T03:08:23.4580504Z ##[endgroup]
+2026-10-17T03:08:23.4592158Z Temporarily overriding HOME='/home/runner/work/_temp/8ea82f57-fed3-4b4b-ab90-f79f41aff62c' before making global git config changes
+2026-10-17T03:08:23.4594706Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-17T03:08:23.4598079Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Erlang.Net/Erlang.Net
+2026-10-17T03:08:23.4643842Z Deleting the contents of '/home/runner/work/Erlang.Net/Erlang.Net'
+2026-10-17T03:08:23.4647718Z ##[group]Determining repository object format
+2026-10-17T03:08:23.4649972Z ##[endgroup]
+2026-10-17T03:08:23.4651688Z ##[group]Initializing the repository
+2026-10-17T03:08:23.4654828Z [command]/usr/bin/git init /home/runner/work/Erlang.Net/Erlang.Net
+2026-10-17T03:08:23.4754000Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-17T03:08:23.4755789Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-17T03:08:23.4757716Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-17T03:08:23.4759186Z hint: call:
+2026-10-17T03:08:23.4760002Z hint:
+2026-10-17T03:08:23.4761150Z hint: 	git config --global init.defaultBranch <name>
+2026-10-17T03:08:23.4762338Z hint:
+2026-10-17T03:08:23.4763371Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-17T03:08:23.4764901Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-17T03:08:23.4766191Z hint:
+2026-10-17T03:08:23.4767053Z hint: 	git branch -m <name>
+2026-10-17T03:08:23.4767961Z hint:
+2026-10-17T03:08:23.4769006Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-17T03:08:23.4770969Z Initialized empty Git repository in /home/runner/work/Erlang.Net/Erlang.Net/.git/
+2026-10-17T03:08:23.4773856Z [command]/usr/bin/git remote add origin https://github.com/develmax/Erlang.Net
+2026-10-17T03:08:23.4825226Z ##[endgroup]
+2026-10-17T03:08:23.4826859Z ##[group]Disabling automatic garbage collection
+2026-10-17T03:08:23.4828642Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-17T03:08:23.4858891Z ##[endgroup]
+2026-10-17T03:08:23.4861591Z ##[group]Setting up auth
+2026-10-17T03:08:23.4862920Z Removing SSH command configuration
+2026-10-17T03:08:23.4864617Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-17T03:08:23.4903515Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-17T03:08:23.5215398Z Removing HTTP extra header
+2026-10-17T03:08:23.5222650Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-17T03:08:23.5257913Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-17T03:08:23.5444036Z Removing includeIf entries pointing to credentials config files
+2026-10-17T03:08:23.5447877Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-17T03:08:23.5473943Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-17T03:08:23.5656367Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-9f8201b2-2061-4d9d-9c14-72410746b86a.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-17T03:08:23.5687174Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Erlang.Net/Erlang.Net/.git.path /home/runner/work/_temp/git-credentials-9f8201b2-2061-4d9d-9c14-72410746b86a.config
+2026-10-17T03:08:23.5715114Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Erlang.Net/Erlang.Net/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-9f8201b2-2061-4d9d-9c14-72410746b86a.config
+2026-10-17T03:08:23.5748440Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-9f8201b2-2061-4d9d-9c14-72410746b86a.config
+2026-10-17T03:08:23.5777575Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-9f8201b2-2061-4d9d-9c14-72410746b86a.config
+2026-10-17T03:08:23.5805812Z ##[endgroup]
+2026-10-17T03:08:23.5806896Z ##[group]Fetching the repository
+2026-10-17T03:08:23.5811659Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +50e756f73437eb8d2882a19f729bccb09af74f3d:refs/remotes/origin/main
+2026-10-17T03:08:48.0277463Z From https://github.com/develmax/Erlang.Net
+2026-10-17T03:08:48.0278478Z  * [new ref]           50e756f73437eb8d2882a19f729bccb09af74f3d -> origin/main
+2026-10-17T03:08:48.0288316Z [command]/usr/bin/git branch --list --remote origin/main
+2026-10-17T03:08:48.0311770Z   origin/main
+2026-10-17T03:08:48.0318825Z [command]/usr/bin/git rev-parse refs/remotes/origin/main
+2026-10-17T03:08:48.0339919Z 50e756f73437eb8d2882a19f729bccb09af74f3d
+2026-10-17T03:08:48.0342350Z ##[endgroup]
+2026-10-17T03:08:48.0343242Z ##[group]Determining the checkout info
+2026-10-17T03:08:48.0344051Z ##[endgroup]
+2026-10-17T03:08:48.0348058Z [command]/usr/bin/git sparse-checkout disable
+2026-10-17T03:08:48.0542631Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-17T03:08:48.0742430Z ##[group]Checking out the ref
+2026-10-17T03:08:48.0746792Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-10-17T03:08:49.1608256Z Updating files:  10% (4852/46538)
+2026-10-17T03:08:49.1924124Z Updating files:  11% (5120/46538)
+2026-10-17T03:08:49.2294831Z Updating files:  12% (5585/46538)
+2026-10-17T03:08:49.2577806Z Updating files:  13% (6050/46538)
+2026-10-17T03:08:49.4160062Z Updating files:  14% (6516/46538)
+2026-10-17T03:08:49.4365191Z Updating files:  15% (6981/46538)
+2026-10-17T03:08:49.4599636Z Updating files:  16% (7447/46538)
+2026-10-17T03:08:49.7231435Z Updating files:  17% (7912/46538)
+2026-10-17T03:08:49.7381002Z Updating files:  18% (8377/46538)
+2026-10-17T03:08:50.1527008Z Updating files:  19% (8843/46538)
+2026-10-17T03:08:50.2291749Z Updating files:  19% (9207/46538)
+2026-10-17T03:08:51.2162397Z Updating files:  20% (9308/46538)
+2026-10-17T03:08:51.2170753Z Updating files:  20% (9746/46538)
+2026-10-17T03:08:51.7232892Z Updating files:  21% (9773/46538)
+2026-10-17T03:08:51.7654979Z Updating files:  22% (10239/46538)
+2026-10-17T03:08:52.1332383Z Updating files:  23% (10704/46538)
+2026-10-17T03:08:52.1383565Z Updating files:  24% (11170/46538)
+2026-10-17T03:08:52.2772627Z Updating files:  24% (11173/46538)
+2026-10-17T03:08:52.6267397Z Updating files:  25% (11635/46538)
+2026-10-17T03:08:52.8788103Z Updating files:  26% (12100/46538)
+2026-10-17T03:08:53.1402374Z Updating files:  27% (12566/46538)
+2026-10-17T03:08:53.2235446Z Updating files:  27% (12860/46538)
+2026-10-17T03:08:53.4682488Z Updating files:  28% (13031/46538)
+2026-10-17T03:08:53.5305180Z Updating files:  29% (13497/46538)
+2026-10-17T03:08:54.1569410Z Updating files:  30% (13962/46538)
+2026-10-17T03:08:54.2245763Z Updating files:  30% (14308/46538)
+2026-10-17T03:08:54.7046918Z Updating files:  31% (14427/46538)
+2026-10-17T03:08:54.7906721Z Updating files:  32% (14893/46538)
+2026-10-17T03:08:54.8767908Z Updating files:  33% (15358/46538)
+2026-10-17T03:08:55.0716627Z Updating files:  34% (15823/46538)
+2026-10-17T03:08:55.1553282Z Updating files:  35% (16289/46538)
+2026-10-17T03:08:55.5165886Z Updating files:  35% (16333/46538)
+2026-10-17T03:08:56.2846990Z Updating files:  36% (16754/46538)
+2026-10-17T03:08:56.3068541Z Updating files:  36% (17106/46538)
+2026-10-17T03:08:56.4452318Z Updating files:  37% (17220/46538)
+2026-10-17T03:08:56.6457167Z Updating files:  38% (17685/46538)
+2026-10-17T03:08:56.9848354Z Updating files:  39% (18150/46538)
+2026-10-17T03:08:57.1607240Z Updating files:  40% (18616/46538)
+2026-10-17T03:08:57.4248995Z Updating files:  40% (18719/46538)
+2026-10-17T03:08:57.6875850Z Updating files:  41% (19081/46538)
+2026-10-17T03:08:58.0316699Z Updating files:  42% (19546/46538)
+2026-10-17T03:08:58.1488123Z Updating files:  43% (20012/46538)
+2026-10-17T03:08:58.2941623Z Updating files:  43% (20179/46538)
+2026-10-17T03:08:58.4511898Z Updating files:  44% (20477/46538)
+2026-10-17T03:08:58.7857606Z Updating files:  45% (20943/46538)
+2026-10-17T03:08:59.1414462Z Updating files:  46% (21408/46538)
+2026-10-17T03:08:59.1422878Z Updating files:  46% (21865/46538)
+2026-10-17T03:08:59.4822384Z Updating files:  47% (21873/46538)
+2026-10-17T03:08:59.8085636Z Updating files:  48% (22339/46538)
+2026-10-17T03:08:59.9359700Z Updating files:  49% (22804/46538)
+2026-10-17T03:09:00.1368954Z Updating files:  50% (23269/46538)
+2026-10-17T03:09:00.4734580Z Updating files:  50% (23541/46538)
+2026-10-17T03:09:00.9170375Z Updating files:  51% (23735/46538)
+2026-10-17T03:09:01.1417278Z Updating files:  52% (24200/46538)
+2026-10-17T03:09:02.2067131Z Updating files:  52% (24376/46538)
+2026-10-17T03:09:02.2587211Z Updating files:  52% (24605/46538)
+2026-10-17T03:09:02.3853873Z Updating files:  53% (24666/46538)
+2026-10-17T03:09:02.7431657Z Updating files:  54% (25131/46538)
+2026-10-17T03:09:02.8833062Z Updating files:  55% (25596/46538)
+2026-10-17T03:09:03.1458117Z Updating files:  56% (26062/46538)
+2026-10-17T03:09:03.1578109Z Updating files:  56% (26501/46538)
+2026-10-17T03:09:03.2295042Z Updating files:  57% (26527/46538)
+2026-10-17T03:09:03.3397040Z Updating files:  58% (26993/46538)
+2026-10-17T03:09:03.4401929Z Updating files:  59% (27458/46538)
+2026-10-17T03:09:03.6378211Z Updating files:  60% (27923/46538)
+2026-10-17T03:09:03.7307938Z Updating files:  61% (28389/46538)
+2026-10-17T03:09:03.8839665Z Updating files:  62% (28854/46538)
+2026-10-17T03:09:03.9941817Z Updating files:  63% (29319/46538)
+2026-10-17T03:09:04.1359774Z Updating files:  64% (29785/46538)
+2026-10-17T03:09:04.1594684Z Updating files:  64% (30160/46538)
+2026-10-17T03:09:04.3007040Z Updating files:  65% (30250/46538)
+2026-10-17T03:09:04.3938356Z Updating files:  66% (30716/46538)
+2026-10-17T03:09:04.4953240Z Updating files:  67% (31181/46538)
+2026-10-17T03:09:04.5802852Z Updating files:  68% (31646/46538)
+2026-10-17T03:09:04.6766753Z Updating files:  69% (32112/46538)
+2026-10-17T03:09:04.7657051Z Updating files:  70% (32577/46538)
+2026-10-17T03:09:04.8404421Z Updating files:  71% (33042/46538)
+2026-10-17T03:09:04.9347780Z Updating files:  72% (33508/46538)
+2026-10-17T03:09:05.0151111Z Updating files:  73% (33973/46538)
+2026-10-17T03:09:05.2243309Z Updating files:  74% (34439/46538)
+2026-10-17T03:09:05.2972352Z Updating files:  74% (34830/46538)
+2026-10-17T03:09:05.3170291Z Updating files:  75% (34904/46538)
+2026-10-17T03:09:05.3444738Z Updating files:  76% (35369/46538)
+2026-10-17T03:09:05.4062554Z Updating files:  77% (35835/46538)
+2026-10-17T03:09:05.4153000Z Updating files:  78% (36300/46538)
+2026-10-17T03:09:05.4574186Z Updating files:  79% (36766/46538)
+2026-10-17T03:09:05.5706809Z Updating files:  80% (37231/46538)
+2026-10-17T03:09:05.6006910Z Updating files:  81% (37696/46538)
+2026-10-17T03:09:05.6210175Z Updating files:  82% (38162/46538)
+2026-10-17T03:09:05.6449605Z Updating files:  83% (38627/46538)
+2026-10-17T03:09:05.8317605Z Updating files:  84% (39092/46538)
+2026-10-17T03:09:05.9300486Z Updating files:  85% (39558/46538)
+2026-10-17T03:09:06.0899091Z Updating files:  86% (40023/46538)
+2026-10-17T03:09:06.1600191Z Updating files:  87% (40489/46538)
+2026-10-17T03:09:06.2613792Z Updating files:  87% (40645/46538)
+2026-10-17T03:09:06.3299508Z Updating files:  88% (40954/46538)
+2026-10-17T03:09:06.4673312Z Updating files:  89% (41419/46538)
+2026-10-17T03:09:06.5893494Z Updating files:  90% (41885/46538)
+2026-10-17T03:09:06.6566271Z Updating files:  91% (42350/46538)
+2026-10-17T03:09:06.8249677Z Updating files:  92% (42815/46538)
+2026-10-17T03:09:06.9724800Z Updating files:  93% (43281/46538)
+2026-10-17T03:09:06.9969994Z Updating files:  94% (43746/46538)
+2026-10-17T03:09:07.0103951Z Updating files:  95% (44212/46538)
+2026-10-17T03:09:07.0256719Z Updating files:  96% (44677/46538)
+2026-10-17T03:09:07.0398393Z Updating files:  97% (45142/46538)
+2026-10-17T03:09:07.0567543Z Updating files:  98% (45608/46538)
+2026-10-17T03:09:07.0723395Z Updating files:  99% (46073/46538)
+2026-10-17T03:09:07.0723938Z Updating files: 100% (46538/46538)
+2026-10-17T03:09:07.0724556Z Updating files: 100% (46538/46538), done.
+2026-10-17T03:09:07.6428450Z Switched to a new branch 'main'
+2026-10-17T03:09:07.6432732Z branch 'main' set up to track 'origin/main'.
+2026-10-17T03:09:07.6508347Z ##[endgroup]
+2026-10-17T03:09:07.6551164Z [command]/usr/bin/git log -1 --format=%H
+2026-10-17T03:09:07.6575799Z 50e756f73437eb8d2882a19f729bccb09af74f3d
+2026-10-17T03:09:07.7467453Z ##[group]Run set -euo pipefail
+2026-10-17T03:09:07.7467963Z [36;1mset -euo pipefail[0m
+2026-10-17T03:09:07.7468459Z [36;1mmkdir -p artifacts/scheduler-affinity-original[0m
+2026-10-17T03:09:07.7469049Z [36;1mpython3 tools/Erlang.SchedulerAffinityOriginalObservations/verify-source.py \[0m
+2026-10-17T03:09:07.7469697Z [36;1m  --repository "$GITHUB_WORKSPACE" --manifest-sha256 "$SOURCE_MANIFEST_SHA256" \[0m
+2026-10-17T03:09:07.7470249Z [36;1m  --expected-head "$GITHUB_SHA" \[0m
+2026-10-17T03:09:07.7471041Z [36;1m  2>&1 | tee artifacts/scheduler-affinity-original/source-verification.log[0m
+2026-10-17T03:09:07.7471747Z [36;1mpython3 tools/Erlang.SchedulerAffinityOriginalObservations/check-source-controls.py \[0m
+2026-10-17T03:09:07.7472359Z [36;1m  --repository "$GITHUB_WORKSPACE" \[0m
+2026-10-17T03:09:07.7472832Z [36;1m  2>&1 | tee artifacts/scheduler-affinity-original/source-controls.log[0m
+2026-10-17T03:09:07.8058123Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-17T03:09:07.8058568Z env:
+2026-10-17T03:09:07.8058887Z   ERLC_USE_SERVER: false
+2026-10-17T03:09:07.8059238Z   PYTHONDONTWRITEBYTECODE: 1
+2026-10-17T03:09:07.8059732Z   SOURCE_MANIFEST_SHA256: 4C9A79CD6E8BC18F68316D42B2F30DB171E67A242CA81CA84BB8A022E8BA5BFB
+2026-10-17T03:09:07.8060214Z ##[endgroup]
+2026-10-17T03:09:07.8509764Z PASS exact scheduler collector, five fixtures, workflow and ownership helper source
+2026-10-17T03:09:08.1137269Z PASS source AST, five inputs, seven cleanup refusals, four ETF goldens, three link payloads, two regular modes, three mode/stage refusals and six cleared Erlang overrides; no VM/SDK
+2026-10-17T03:09:08.1334495Z ##[group]Run set -euo pipefail
+2026-10-17T03:09:08.1334891Z [36;1mset -euo pipefail[0m
+2026-10-17T03:09:08.1335523Z [36;1mgit clone --depth 1 --branch OTP-29.1.1 https://github.com/erlang/otp.git artifacts/scheduler-affinity-otp-source \[0m
+2026-10-17T03:09:08.1336259Z [36;1m  2>&1 | tee artifacts/scheduler-affinity-original/clone.log[0m
+2026-10-17T03:09:08.1336991Z [36;1mtest "$(git -C artifacts/scheduler-affinity-otp-source rev-parse HEAD)" = ad05823719d77c8faee87348ea39513d4e2f99c5[0m
+2026-10-17T03:09:08.1376111Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-17T03:09:08.1376556Z env:
+2026-10-17T03:09:08.1376826Z   ERLC_USE_SERVER: false
+2026-10-17T03:09:08.1377193Z   PYTHONDONTWRITEBYTECODE: 1
+2026-10-17T03:09:08.1377683Z   SOURCE_MANIFEST_SHA256: 4C9A79CD6E8BC18F68316D42B2F30DB171E67A242CA81CA84BB8A022E8BA5BFB
+2026-10-17T03:09:08.1378493Z ##[endgroup]
+2026-10-17T03:09:08.1454569Z Cloning into 'artifacts/scheduler-affinity-otp-source'...
+2026-10-17T03:09:17.3739433Z warning: refs/tags/OTP-29.1.1 906667d86dc2a4b1b8de33e39844bba257b0bb76 is not a commit!
+2026-10-17T03:09:17.3743759Z Note: switching to 'ad05823719d77c8faee87348ea39513d4e2f99c5'.
+2026-10-17T03:09:17.3744328Z 
+2026-10-17T03:09:17.3744562Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-10-17T03:09:17.3745164Z changes and commit them, and you can discard any commits you make in this
+2026-10-17T03:09:17.3745835Z state without impacting any branches by switching back to a branch.
+2026-10-17T03:09:17.3746131Z 
+2026-10-17T03:09:17.3746383Z If you want to create a new branch to retain commits you create, you may
+2026-10-17T03:09:17.3751512Z do so (now or later) by using -c with the switch command. Example:
+2026-10-17T03:09:17.3751834Z 
+2026-10-17T03:09:17.3752003Z   git switch -c <new-branch-name>
+2026-10-17T03:09:17.3752195Z 
+2026-10-17T03:09:17.3752384Z Or undo this operation with:
+2026-10-17T03:09:17.3752615Z 
+2026-10-17T03:09:17.3752737Z   git switch -
+2026-10-17T03:09:17.3752916Z 
+2026-10-17T03:09:17.3753139Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-10-17T03:09:17.3753476Z 
+2026-10-17T03:09:18.4303504Z ##[group]Run set -euo pipefail
+2026-10-17T03:09:18.4304063Z [36;1mset -euo pipefail[0m
+2026-10-17T03:09:18.4304633Z [36;1mpython3 tools/Erlang.SchedulerAffinityOriginalObservations/build-original.py \[0m
+2026-10-17T03:09:18.4305299Z [36;1m  --repository "$GITHUB_WORKSPACE" --manifest-sha256 "$SOURCE_MANIFEST_SHA256" \[0m
+2026-10-17T03:09:18.4305810Z [36;1m  --expected-head "$GITHUB_SHA" \[0m
+2026-10-17T03:09:18.4306303Z [36;1m  --otp-source "$GITHUB_WORKSPACE/artifacts/scheduler-affinity-otp-source" \[0m
+2026-10-17T03:09:18.4306949Z [36;1m  --prefix "$GITHUB_WORKSPACE/artifacts/scheduler-affinity-otp" \[0m
+2026-10-17T03:09:18.4307578Z [36;1m  --output "$GITHUB_WORKSPACE/artifacts/scheduler-affinity-original/build" \[0m
+2026-10-17T03:09:18.4308142Z [36;1m  2>&1 | tee artifacts/scheduler-affinity-original/build-driver.log[0m
+2026-10-17T03:09:18.4347465Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-17T03:09:18.4347902Z env:
+2026-10-17T03:09:18.4348392Z   ERLC_USE_SERVER: false
+2026-10-17T03:09:18.4348717Z   PYTHONDONTWRITEBYTECODE: 1
+2026-10-17T03:09:18.4349240Z   SOURCE_MANIFEST_SHA256: 4C9A79CD6E8BC18F68316D42B2F30DB171E67A242CA81CA84BB8A022E8BA5BFB
+2026-10-17T03:09:18.4349766Z ##[endgroup]
+2026-10-17T03:16:44.5958004Z ##[group]Run set -euo pipefail
+2026-10-17T03:16:44.5958402Z [36;1mset -euo pipefail[0m
+2026-10-17T03:16:44.5958911Z [36;1mpython3 tools/Erlang.SchedulerAffinityOriginalObservations/collect-profile.py \[0m
+2026-10-17T03:16:44.5959605Z [36;1m  --repository "$GITHUB_WORKSPACE" --manifest-sha256 "$SOURCE_MANIFEST_SHA256" \[0m
+2026-10-17T03:16:44.5960134Z [36;1m  --expected-head "$GITHUB_SHA" \[0m
+2026-10-17T03:16:44.5960770Z [36;1m  --otp-source "$GITHUB_WORKSPACE/artifacts/scheduler-affinity-otp-source" \[0m
+2026-10-17T03:16:44.5961390Z [36;1m  --otp-install "$GITHUB_WORKSPACE/artifacts/scheduler-affinity-otp/lib/erlang" \[0m
+2026-10-17T03:16:44.5962093Z [36;1m  --build-receipt "$GITHUB_WORKSPACE/artifacts/scheduler-affinity-original/build/build-receipt.json" \[0m
+2026-10-17T03:16:44.5962821Z [36;1m  --output "$GITHUB_WORKSPACE/artifacts/scheduler-affinity-original/capture" \[0m
+2026-10-17T03:16:44.5963505Z [36;1m  2>&1 | tee artifacts/scheduler-affinity-original/collection.log[0m
+2026-10-17T03:16:44.6004137Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-17T03:16:44.6004639Z env:
+2026-10-17T03:16:44.6004926Z   ERLC_USE_SERVER: false
+2026-10-17T03:16:44.6005259Z   PYTHONDONTWRITEBYTECODE: 1
+2026-10-17T03:16:44.6005792Z   SOURCE_MANIFEST_SHA256: 4C9A79CD6E8BC18F68316D42B2F30DB171E67A242CA81CA84BB8A022E8BA5BFB
+2026-10-17T03:16:44.6006284Z ##[endgroup]
+2026-10-17T03:16:46.5777768Z ##[group]Run actions/upload-artifact@v7
+2026-10-17T03:16:46.5778170Z with:
+2026-10-17T03:16:46.5778478Z   name: scheduler-affinity-original-five
+2026-10-17T03:16:46.5778876Z   path: artifacts/scheduler-affinity-original/**
+2026-10-17T03:16:46.5779284Z   if-no-files-found: warn
+2026-10-17T03:16:46.5779648Z   compression-level: 6
+2026-10-17T03:16:46.5779955Z   overwrite: false
+2026-10-17T03:16:46.5780265Z   include-hidden-files: false
+2026-10-17T03:16:46.5780881Z   archive: true
+2026-10-17T03:16:46.5781200Z env:
+2026-10-17T03:16:46.5781471Z   ERLC_USE_SERVER: false
+2026-10-17T03:16:46.5781803Z   PYTHONDONTWRITEBYTECODE: 1
+2026-10-17T03:16:46.5782284Z   SOURCE_MANIFEST_SHA256: 4C9A79CD6E8BC18F68316D42B2F30DB171E67A242CA81CA84BB8A022E8BA5BFB
+2026-10-17T03:16:46.5782756Z ##[endgroup]
+2026-10-17T03:16:46.7202296Z With the provided path, there will be 88 files uploaded
+2026-10-17T03:16:46.7203239Z Artifact name is valid!
+2026-10-17T03:16:46.7203684Z Root directory input is valid!
+2026-10-17T03:16:47.0552524Z Uploading artifact: scheduler-affinity-original-five.zip
+2026-10-17T03:16:47.0619477Z Beginning upload of artifact content to blob storage
+2026-10-17T03:16:47.8605689Z Uploaded bytes 1406381
+2026-10-17T03:16:47.9271410Z Finished uploading artifact content to blob storage!
+2026-10-17T03:16:47.9272325Z SHA256 digest of uploaded artifact is 016871102c66aa5d7f7457524b15e0791f0a70cb6fe56f2a4bce6ad8957c0f16
+2026-10-17T03:16:47.9274057Z Finalizing artifact upload
+2026-10-17T03:16:48.2788402Z Artifact scheduler-affinity-original-five successfully finalized. Artifact ID 12088032294
+2026-10-17T03:16:48.2789728Z Artifact scheduler-affinity-original-five has been successfully uploaded! Final size is 1406381 bytes. Artifact ID is 12088032294
+2026-10-17T03:16:48.2792233Z Artifact download URL: https://github.com/develmax/Erlang.Net/actions/runs/38997624227/artifacts/12088032294
+2026-10-17T03:16:48.2981951Z Post job cleanup.
+2026-10-17T03:16:48.3769412Z [command]/usr/bin/git version
+2026-10-17T03:16:48.3807452Z git version 2.55.0
+2026-10-17T03:16:48.3847034Z Temporarily overriding HOME='/home/runner/work/_temp/052330b3-acf7-413d-bd79-b5798d52fe71' before making global git config changes
+2026-10-17T03:16:48.3848274Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-17T03:16:48.3852560Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Erlang.Net/Erlang.Net
+2026-10-17T03:16:48.3884162Z Removing SSH command configuration
+2026-10-17T03:16:48.3891240Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-17T03:16:48.3924159Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-17T03:16:48.4192718Z Removing HTTP extra header
+2026-10-17T03:16:48.4198001Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-17T03:16:48.4226694Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-17T03:16:48.4466426Z Removing includeIf entries pointing to credentials config files
+2026-10-17T03:16:48.4472418Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-17T03:16:48.4494481Z includeif.gitdir:/home/runner/work/Erlang.Net/Erlang.Net/.git.path
+2026-10-17T03:16:48.4495900Z includeif.gitdir:/home/runner/work/Erlang.Net/Erlang.Net/.git/worktrees/*.path
+2026-10-17T03:16:48.4496793Z includeif.gitdir:/github/workspace/.git.path
+2026-10-17T03:16:48.4497535Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-17T03:16:48.4503486Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Erlang.Net/Erlang.Net/.git.path
+2026-10-17T03:16:48.4522966Z /home/runner/work/_temp/git-credentials-9f8201b2-2061-4d9d-9c14-72410746b86a.config
+2026-10-17T03:16:48.4531430Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Erlang.Net/Erlang.Net/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-9f8201b2\-2061\-4d9d\-9c14\-72410746b86a\.config
+2026-10-17T03:16:48.4567009Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Erlang.Net/Erlang.Net/.git/worktrees/*.path
+2026-10-17T03:16:48.4586314Z /home/runner/work/_temp/git-credentials-9f8201b2-2061-4d9d-9c14-72410746b86a.config
+2026-10-17T03:16:48.4593705Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Erlang.Net/Erlang.Net/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-9f8201b2\-2061\-4d9d\-9c14\-72410746b86a\.config
+2026-10-17T03:16:48.4628515Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-10-17T03:16:48.4649534Z /github/runner_temp/git-credentials-9f8201b2-2061-4d9d-9c14-72410746b86a.config
+2026-10-17T03:16:48.4663228Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-9f8201b2\-2061\-4d9d\-9c14\-72410746b86a\.config
+2026-10-17T03:16:48.4699845Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-17T03:16:48.4718589Z /github/runner_temp/git-credentials-9f8201b2-2061-4d9d-9c14-72410746b86a.config
+2026-10-17T03:16:48.4725585Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-9f8201b2\-2061\-4d9d\-9c14\-72410746b86a\.config
+2026-10-17T03:16:48.4789307Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-17T03:16:48.5027213Z Removing credentials config '/home/runner/work/_temp/git-credentials-9f8201b2-2061-4d9d-9c14-72410746b86a.config'
+2026-10-17T03:16:48.5178315Z Cleaning up orphan processes

@@ -1,0 +1,154 @@
+{
+  "Status": "PASS_PASSIVE_PUBLISHED353_ORIGINAL6321_FD8_SEMANTIC_CONTRACTS",
+  "Head": "50e756f73437eb8d2882a19f729bccb09af74f3d",
+  "Run": 38997623733,
+  "Job": 117293538779,
+  "Artifact": 12087319277,
+  "Passed": 6321,
+  "Failed": 0,
+  "FdPassed": 8,
+  "Previous6316OrderedContractsPreserved": true,
+  "PublishedStageBlobs": 634,
+  "SourceDerivedNewContracts": [
+    {
+      "Name": "scheduler_first_instruction",
+      "Source": "-module(scheduler_first_instruction).\n-export([run/0]).\nrun() ->\n    Count=erlang:system_info(schedulers), true=Count>=2, Parent=self(),\n    lists:foreach(fun(N)->\n        {Pid,Ref}=spawn_opt(fun()->Parent!{self(),erlang:system_info(scheduler_id)} end,[monitor,{scheduler,N}]),\n        receive {Pid,N}->ok after 5000->error(wrong_scheduler) end,\n        receive {'DOWN',Ref,process,Pid,normal}->ok after 5000->error(missing_down) end\n    end,lists:usort([1,Count])), done.\n"
+    },
+    {
+      "Name": "scheduler_migration_previous_binding",
+      "Source": "-module(scheduler_migration_previous_binding).\n-export([run/0]).\nrun() ->\n    Count=erlang:system_info(schedulers), true=Count>=2,\n    0=process_flag(scheduler,1), 1=erlang:system_info(scheduler_id),\n    1=process_flag(scheduler,Count), Count=erlang:system_info(scheduler_id),\n    Count=process_flag(scheduler,0), 0=process_flag(scheduler,0), done.\n"
+    },
+    {
+      "Name": "scheduler_invalid_and_duplicate",
+      "Source": "-module(scheduler_invalid_and_duplicate).\n-export([run/0]).\nrun() ->\n    Count=erlang:system_info(schedulers), true=Count>=2, Parent=self(),\n    lists:foreach(fun(Value)->\n        try spawn_opt(fun()->Parent!unexpected end,[{scheduler,Value},{scheduler,1}]) of _->error(accepted)\n        catch error:badarg->ok end\n    end,[-1,Count+1,1.0,wrong,[],{},1 bsl 100]),\n    {Pid,Ref}=spawn_opt(fun()->Parent!{self(),erlang:system_info(scheduler_id)} end,[monitor,{scheduler,Count},{scheduler,1}]),\n    receive {Pid,1}->ok after 5000->error(wrong_duplicate) end,\n    receive {'DOWN',Ref,process,Pid,normal}->ok after 5000->error(missing_down) end,\n    receive unexpected->error(created_invalid_child) after 0->done end.\n"
+    },
+    {
+      "Name": "scheduler_offline_bound_resume",
+      "Source": "-module(scheduler_offline_bound_resume).\n-export([run/0]).\nrun() ->\n    Total=erlang:system_info(schedulers),\n    case Total > 1 of\n        false -> error(two_scheduler_profile_required);\n        true ->\n            PreviousBinding=process_flag(scheduler,1),\n            PreviousOnline=erlang:system_flag(schedulers_online,1),\n            try\n                Parent=self(),\n                {Pid,Ref}=spawn_opt(fun()->Parent!{self(),erlang:system_info(scheduler_id)} end,[monitor,{scheduler,Total}]),\n                receive {Pid,_}->error(ran_offline) after 0->ok end,\n                1=erlang:system_flag(schedulers_online,Total),\n                receive {Pid,Total}->ok after 5000->error(did_not_resume) end,\n                receive {'DOWN',Ref,process,Pid,normal}->done after 5000->error(missing_down) end\n            after\n                erlang:system_flag(schedulers_online,PreviousOnline),\n                process_flag(scheduler,PreviousBinding)\n            end\n    end.\n"
+    },
+    {
+      "Name": "scheduler_offline_pending_kill",
+      "Source": "-module(scheduler_offline_pending_kill).\n-export([run/0]).\nrun() ->\n    Total=erlang:system_info(schedulers),\n    case Total > 1 of\n        false -> error(two_scheduler_profile_required);\n        true ->\n            PreviousBinding=process_flag(scheduler,1), Parent=self(),\n            {Pid,Ref}=spawn_opt(fun()->Parent!{self(),ready},receive hold->ok end end,[monitor,{scheduler,2}]),\n            receive {Pid,ready}->ok after 5000->error(no_ready) end,\n            PreviousOnline=erlang:system_flag(schedulers_online,1),\n            try\n                true=exit(Pid,kill),\n                receive {'DOWN',Ref,process,Pid,_}->error(died_while_offline) after 0->ok end,\n                1=erlang:system_flag(schedulers_online,2),\n                receive {'DOWN',Ref,process,Pid,killed}->done after 5000->error(no_killed_down) end\n            after\n                erlang:system_flag(schedulers_online,PreviousOnline),\n                process_flag(scheduler,PreviousBinding)\n            end\n    end.\n"
+    }
+  ],
+  "SelectedNewRawRows": [
+    {
+      "Name": "scheduler_first_instruction",
+      "Source": "-module(scheduler_first_instruction).\n-export([run/0]).\nrun() ->\n    Count=erlang:system_info(schedulers), true=Count>=2, Parent=self(),\n    lists:foreach(fun(N)->\n        {Pid,Ref}=spawn_opt(fun()->Parent!{self(),erlang:system_info(scheduler_id)} end,[monitor,{scheduler,N}]),\n        receive {Pid,N}->ok after 5000->error(wrong_scheduler) end,\n        receive {'DOWN',Ref,process,Pid,normal}->ok after 5000->error(missing_down) end\n    end,lists:usort([1,Count])), done.\n",
+      "SourceSha256": "ABB26ED42ED55ECC662E02E3301BCC38253AD4204D532199B8DCA25991650254",
+      "CSharpSha256": "02774DC1B843CEECD8CE9094E04EF89E0409BA1884808D66272650D5EE8C5205",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "ExpectedStandardOutputHex": null,
+      "ExpectedStandardOutputAlternatives": null,
+      "ExpectedStandardErrorHex": null,
+      "NativeStandardOutputHex": null,
+      "NativeStandardErrorHex": null,
+      "SdkStandardOutputHex": null,
+      "SdkStandardErrorHex": null,
+      "NativeAndSdkStandardOutputExactlyMatch": true,
+      "StandardStreamsMatch": true,
+      "Passed": true
+    },
+    {
+      "Name": "scheduler_migration_previous_binding",
+      "Source": "-module(scheduler_migration_previous_binding).\n-export([run/0]).\nrun() ->\n    Count=erlang:system_info(schedulers), true=Count>=2,\n    0=process_flag(scheduler,1), 1=erlang:system_info(scheduler_id),\n    1=process_flag(scheduler,Count), Count=erlang:system_info(scheduler_id),\n    Count=process_flag(scheduler,0), 0=process_flag(scheduler,0), done.\n",
+      "SourceSha256": "26D487608148CD933C6B95E69117EF2675B01F11CDFDCF18341F1C447BE31961",
+      "CSharpSha256": "1C765D642E87B09A6C218BB55588DAF7841780CA9A33951A42CEDDD0AA3F6868",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "ExpectedStandardOutputHex": null,
+      "ExpectedStandardOutputAlternatives": null,
+      "ExpectedStandardErrorHex": null,
+      "NativeStandardOutputHex": null,
+      "NativeStandardErrorHex": null,
+      "SdkStandardOutputHex": null,
+      "SdkStandardErrorHex": null,
+      "NativeAndSdkStandardOutputExactlyMatch": true,
+      "StandardStreamsMatch": true,
+      "Passed": true
+    },
+    {
+      "Name": "scheduler_invalid_and_duplicate",
+      "Source": "-module(scheduler_invalid_and_duplicate).\n-export([run/0]).\nrun() ->\n    Count=erlang:system_info(schedulers), true=Count>=2, Parent=self(),\n    lists:foreach(fun(Value)->\n        try spawn_opt(fun()->Parent!unexpected end,[{scheduler,Value},{scheduler,1}]) of _->error(accepted)\n        catch error:badarg->ok end\n    end,[-1,Count+1,1.0,wrong,[],{},1 bsl 100]),\n    {Pid,Ref}=spawn_opt(fun()->Parent!{self(),erlang:system_info(scheduler_id)} end,[monitor,{scheduler,Count},{scheduler,1}]),\n    receive {Pid,1}->ok after 5000->error(wrong_duplicate) end,\n    receive {'DOWN',Ref,process,Pid,normal}->ok after 5000->error(missing_down) end,\n    receive unexpected->error(created_invalid_child) after 0->done end.\n",
+      "SourceSha256": "20430A4ACED89F26AE3C10535CE3861D4A5AB35204A5BCE0F3C39BA49F382DF2",
+      "CSharpSha256": "EEE2446DDAA40343EA2585CE7CB0BCFEF91A0037A328CA3E53A970AA975172EC",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "ExpectedStandardOutputHex": null,
+      "ExpectedStandardOutputAlternatives": null,
+      "ExpectedStandardErrorHex": null,
+      "NativeStandardOutputHex": null,
+      "NativeStandardErrorHex": null,
+      "SdkStandardOutputHex": null,
+      "SdkStandardErrorHex": null,
+      "NativeAndSdkStandardOutputExactlyMatch": true,
+      "StandardStreamsMatch": true,
+      "Passed": true
+    },
+    {
+      "Name": "scheduler_offline_bound_resume",
+      "Source": "-module(scheduler_offline_bound_resume).\n-export([run/0]).\nrun() ->\n    Total=erlang:system_info(schedulers),\n    case Total > 1 of\n        false -> error(two_scheduler_profile_required);\n        true ->\n            PreviousBinding=process_flag(scheduler,1),\n            PreviousOnline=erlang:system_flag(schedulers_online,1),\n            try\n                Parent=self(),\n                {Pid,Ref}=spawn_opt(fun()->Parent!{self(),erlang:system_info(scheduler_id)} end,[monitor,{scheduler,Total}]),\n                receive {Pid,_}->error(ran_offline) after 0->ok end,\n                1=erlang:system_flag(schedulers_online,Total),\n                receive {Pid,Total}->ok after 5000->error(did_not_resume) end,\n                receive {'DOWN',Ref,process,Pid,normal}->done after 5000->error(missing_down) end\n            after\n                erlang:system_flag(schedulers_online,PreviousOnline),\n                process_flag(scheduler,PreviousBinding)\n            end\n    end.\n",
+      "SourceSha256": "DC851B11A4E7E8F4FFCADE7FADF6C9B35FAD474A2F6D80883A0655F93C5461EE",
+      "CSharpSha256": "E9A6A5F67AFC741BBF430BA40E4631BD45576B46F92C4372B83CD0557E3327AD",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "ExpectedStandardOutputHex": null,
+      "ExpectedStandardOutputAlternatives": null,
+      "ExpectedStandardErrorHex": null,
+      "NativeStandardOutputHex": null,
+      "NativeStandardErrorHex": null,
+      "SdkStandardOutputHex": null,
+      "SdkStandardErrorHex": null,
+      "NativeAndSdkStandardOutputExactlyMatch": true,
+      "StandardStreamsMatch": true,
+      "Passed": true
+    },
+    {
+      "Name": "scheduler_offline_pending_kill",
+      "Source": "-module(scheduler_offline_pending_kill).\n-export([run/0]).\nrun() ->\n    Total=erlang:system_info(schedulers),\n    case Total > 1 of\n        false -> error(two_scheduler_profile_required);\n        true ->\n            PreviousBinding=process_flag(scheduler,1), Parent=self(),\n            {Pid,Ref}=spawn_opt(fun()->Parent!{self(),ready},receive hold->ok end end,[monitor,{scheduler,2}]),\n            receive {Pid,ready}->ok after 5000->error(no_ready) end,\n            PreviousOnline=erlang:system_flag(schedulers_online,1),\n            try\n                true=exit(Pid,kill),\n                receive {'DOWN',Ref,process,Pid,_}->error(died_while_offline) after 0->ok end,\n                1=erlang:system_flag(schedulers_online,2),\n                receive {'DOWN',Ref,process,Pid,killed}->done after 5000->error(no_killed_down) end\n            after\n                erlang:system_flag(schedulers_online,PreviousOnline),\n                process_flag(scheduler,PreviousBinding)\n            end\n    end.\n",
+      "SourceSha256": "BAF618AC18FA41E6A325780A0AD4C2D5DA88F871D9EF3E39B300A085C79EF0D5",
+      "CSharpSha256": "1B370F14882500CF81B0F4F21AFC875B7793FAB0E1E69333AE6D1F4F6A8BADF2",
+      "CallerContext": "UntrappedFresh",
+      "CompilerPolicy": "Default",
+      "Expected": "{ok,done}",
+      "FixtureExpected": "{ok,done}",
+      "Actual": "{ok,done}",
+      "ExpectedStandardOutputHex": null,
+      "ExpectedStandardOutputAlternatives": null,
+      "ExpectedStandardErrorHex": null,
+      "NativeStandardOutputHex": null,
+      "NativeStandardErrorHex": null,
+      "SdkStandardOutputHex": null,
+      "SdkStandardErrorHex": null,
+      "NativeAndSdkStandardOutputExactlyMatch": true,
+      "StandardStreamsMatch": true,
+      "Passed": true
+    }
+  ],
+  "OldPrefixRawChanges": [],
+  "CurrentNativeSdkRawMapVariants": [
+    {
+      "Index": 3605,
+      "Name": "erlang-term-display-map"
+    }
+  ],
+  "StrictRawEqualityPassed": false,
+  "ReportSha256": "489542F91DADBA7964ED522E66263E107A3615855A74E5D1F766E79724F86280",
+  "PriorReportSha256": "35CFFDACEC0BDE2DEEA85A69EE819BC6033E8E415A12BD557508CCA28E0E1979",
+  "SdkOrNativeExecutedByReviewer": false,
+  "NetworkUsed": false,
+  "WholeSchedulerCompatibilityClaimed": false
+}

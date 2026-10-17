@@ -1,0 +1,72 @@
+{
+  "Status": "UNEXECUTED_ROOT_ONLY_TRANSPORT_AND_PASSIVE_READER_PROPOSAL",
+  "Files": [
+    {
+      "Path": "read-native5.py",
+      "Bytes": 14612,
+      "Sha256": "63539A1F684D279F9500CD9D95188952A51E5E0405B57893FD7FBB2A0CEF09BA"
+    },
+    {
+      "Path": "root-transport.py",
+      "Bytes": 12337,
+      "Sha256": "B02C0DB5EB10F9E2F604E1BA8B95A4D3CAA00F0142C06BDA5240773DC3B8CDD8"
+    },
+    {
+      "Path": "check-controls.py",
+      "Bytes": 5577,
+      "Sha256": "83501DF9034D4081A3FC720B3A9B33A76A76952AE80CD53D38A1EDA3615A521B"
+    },
+    {
+      "Path": "freeze-proposal.py",
+      "Bytes": 2728,
+      "Sha256": "89705B8DFDFC13D78D172BF5A6A3D3DBD92C2B84F9F985B8244894846AD0476C"
+    },
+    {
+      "Path": "README.md",
+      "Bytes": 5459,
+      "Sha256": "E0A3C415A0151D8CF32C44958E129B0B3A4884B14B756D60116199166A085820"
+    },
+    {
+      "Path": "history.json",
+      "Bytes": 534,
+      "Sha256": "BA0A6AFC1368B444A04A3B112F1DD54B488C98E570B82C5608620FF11E22D534"
+    },
+    {
+      "Path": "pure-controls3.json",
+      "Bytes": 273,
+      "Sha256": "1790E21359418AE722A4141A434BACA72E541F5AD0B22D5BF93CD96179570E15"
+    }
+  ],
+  "Bindings": [
+    {
+      "Path": "tools/Erlang.GuestConnectedSendObservations/passive_etf.py",
+      "Sha256": "A069AD650B3EA1BE6B90DE60117B84ED7A1A6B67128CC41E7ECAEFD2889C1713"
+    },
+    {
+      "Path": "artifacts/scheduler-affinity-native-profile-proposal3/source/tools/Erlang.SchedulerAffinityOriginalObservations/manifest.json",
+      "Sha256": "4C9A79CD6E8BC18F68316D42B2F30DB171E67A242CA81CA84BB8A022E8BA5BFB"
+    },
+    {
+      "Path": "artifacts/scheduler-affinity-native-profile-proposal3/source-freeze.json",
+      "Sha256": "0ED32D791D127B18183ACAA21B6B395EF8CCFB82A518CA8251509871D1A74EDF"
+    }
+  ],
+  "PinnedBeamLib": {
+    "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "Path": "lib/stdlib/src/beam_lib.erl",
+    "Sha256": "A817BC772330D250EF6FAD4B8FABC1A31F10F6FE45A84122035AF8AD6627A868",
+    "Anchors": [
+      "md5/1 lines563-567",
+      "filter_funtab lines873-885",
+      "md5_chunks lines1381-1383"
+    ]
+  },
+  "NativeCases": 5,
+  "OrdinaryPlannedCases": 6321,
+  "FdPlannedCases": 8,
+  "ActualNativeResultsPresent": false,
+  "NetworkExecutedByAuthor": false,
+  "SdkExecutedByAuthor": false,
+  "RootReviewAndIndependentSourcePeerRequiredBeforeNetworkUse": true,
+  "OrdinaryAndCiSemanticReaders": "Separate future actual artifact audit; no fabricated result guard."
+}

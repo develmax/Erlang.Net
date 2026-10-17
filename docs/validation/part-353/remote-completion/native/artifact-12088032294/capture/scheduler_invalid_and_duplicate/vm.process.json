@@ -1,0 +1,25 @@
+{
+  "Arguments": [
+    "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/scheduler-affinity-otp/lib/erlang/bin/erl",
+    "+S",
+    "2:2",
+    "-noshell",
+    "-noinput",
+    "-boot",
+    "start_clean",
+    "-eval",
+    "D=os:getenv(\"SCHEDULER_PROFILE_DIR\"), W=fun(N,V)->ok=file:write_file(filename:join(D,N),term_to_binary(V,[{minor_version,2}])) end, ExpectedRoot=os:getenv(\"SCHEDULER_PROFILE_RUNTIME_ROOT\"), ActualRoot=filename:absname(code:root_dir()), W(\"runtime-root.etf\",{runtime_root,list_to_binary(ExpectedRoot),list_to_binary(ActualRoot)}), ExpectedRoot=ActualRoot, P={scheduler_profile,erlang:system_info(schedulers),erlang:system_info(schedulers_online)}, W(\"profile.etf\",P), {scheduler_profile,2,2}=P, {ok,scheduler_invalid_and_duplicate}=compile:file(filename:join(D,\"scheduler_invalid_and_duplicate.erl\"),[{outdir,D},return_errors]), {module,scheduler_invalid_and_duplicate}=code:load_abs(filename:join(D,\"scheduler_invalid_and_duplicate\")), {ok,{scheduler_invalid_and_duplicate,CodeMd5}}=beam_lib:md5(filename:join(D,\"scheduler_invalid_and_duplicate.beam\")), CodeMd5=scheduler_invalid_and_duplicate:module_info(md5), W(\"image.etf\",{scheduler_invalid_and_duplicate,code:which(scheduler_invalid_and_duplicate),CodeMd5}), R=try scheduler_invalid_and_duplicate:run() of V->W(\"returned.etf\",V),W(\"compiled-protocol.etf\",{ok,V}),{returned,V} catch C:E:S->W(\"raised.etf\",{C,E,S}),{raised,C,E,S} end, W(\"outcome.etf\",R), case R of {returned,done}->halt(0);_->halt(1) end."
+  ],
+  "OwnedPid": 82761,
+  "OwnedProcessGroup": 82761,
+  "ExitCode": 0,
+  "ElapsedSeconds": 0.25129544399999304,
+  "TerminationRequested": false,
+  "RemainingGroupKillRequested": false,
+  "ParentReaped": true,
+  "CleanupFailure": null,
+  "StreamsClosed": true,
+  "StdoutBytes": 0,
+  "StderrBytes": 0,
+  "Scope": "Linux foreground private epmd/erl process groups; automatic epmd daemon disabled"
+}

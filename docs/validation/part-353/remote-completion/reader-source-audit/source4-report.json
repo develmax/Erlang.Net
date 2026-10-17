@@ -1,0 +1,47 @@
+{
+  "Status": "PASS_SOURCE_REVIEW4_CLOSED_SOURCE_REPRESENTATION_SUCCESSOR_FOR_ROOT_PASSIVE_EXECUTION",
+  "SourceFreezeSha256": "B3F75A258C8FB7390598ACD08C6B7DE47BE71901B4648C0BFF60048638DE3EF9",
+  "FilesVerified": 11,
+  "BindingsVerified": 6,
+  "ChangedOperationalSource": [
+    "review-ci.py"
+  ],
+  "RawUnchangedOperationalSources": [
+    "common.py",
+    "review-ordinary.py",
+    "root-transport-with-log.py",
+    "root-discover-runs.py"
+  ],
+  "PackageSixPolicyAstExactReader3": true,
+  "ActualIndependentInventoryAudit": {
+    "Path": "artifacts/part353-remote-readers-source-independent/closure-inventory-independent.json",
+    "Sha256": "7AD7E7DF267BBFDD2186D4A4C6ED8BD4642EEEA2E33630FA5DF7E931D57E3BD8"
+  },
+  "IndependentlyRerunControls": {
+    "Path": "artifacts/part353-remote-readers-source-independent/closure-source-controls4-independent.json",
+    "Sha256": "67F30E728F091B81241453D64771863E167A9FE0F87C498CC63322E3A9C086C8",
+    "StableRows": 3106,
+    "Differences": 142,
+    "UnchangedNonCSharp": 134,
+    "PriorClosedStaged": 8,
+    "StageBlobs": 634,
+    "NegativeRefusals": 4
+  },
+  "SourceScope": "All and only exact142 mismatch rows observed.134 fixed non-CS UTF8/noNUL CRLF-to-LF sources hash-bound and published==parent raw, absent changedstage. Other8 fixed staged metadata/compiled-literal correction remain separately admitted. No new CSharp permission or general source normalization.",
+  "PriorRefusalRetained": {
+    "Path": "artifacts/root-part353-remote-independent/ci-reader3-refusal-history.json",
+    "Sha256": "74F661CABA435798235F28E27E937C2FBBDC6B53DB5EF62A09D244682D47134B",
+    "IsTestFailure": false
+  },
+  "PreservedGates": [
+    "Exact transport/head/joblog/ZIP/current634 published source proof closure",
+    "7313 ordered names/old7297+16;11 integration outcomes;12 child controls",
+    "587 registry13Limits/89 source guards/evidence16-24-547",
+    "Six package policies exact reader3",
+    "Ordinary6321/fd8 unchanged and strict variance refusal separate"
+  ],
+  "RemoteCiOrOrdinaryReaderExecuted": false,
+  "SdkExecuted": false,
+  "NetworkExecuted": false,
+  "MainOrGitMutation": false
+}
