@@ -1,0 +1,73 @@
+{
+  "Status": "PROPOSED_SIX_COMPLETE_UNARY_CONTRACTS_PUBLISHED351",
+  "Head": "547a2dd266586589a90c7883dac88d09a5a1de20",
+  "Audit": {
+    "Path": "validation/complete-six-predicate-audit/complete-source-audit.json",
+    "Sha256": "0DEEE38087CE2578D03BD3AF3C263DA4D6EDB64F727DECE24941446C211BB982"
+  },
+  "Rows": [
+    {
+      "Module": "erlang",
+      "Function": "is_boolean",
+      "Arity": 1,
+      "Status": "Verified compatible",
+      "Scope": "Returns true exactly for the atoms true and false; false for every other supported Erlang term. Complete observable unary semantic contract on the supported Erlang term model; no internal VM layout, timing or performance claim.",
+      "Limits": [],
+      "Reason": "Finite exhaustive type/name branch proof plus actual pinned original38partition/12context corroboration, raw current351 dependency graph and actual351full/CI, not case-only verification."
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_function",
+      "Arity": 1,
+      "Status": "Verified compatible",
+      "Scope": "Returns true exactly for supported local/anonymous/named/external fun values, independently of arity, environment or code availability; false for all other supported Erlang terms. This is arity1, not is_function/2. Complete observable unary semantic contract on the supported Erlang term model; no internal VM layout, timing or performance claim.",
+      "Limits": [],
+      "Reason": "Finite exhaustive type/name branch proof plus actual pinned original38partition/12context corroboration, raw current351 dependency graph and actual351full/CI, not case-only verification."
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_list",
+      "Arity": 1,
+      "Status": "Verified compatible",
+      "Scope": "Returns true exactly for nil and a cons cell, including improper lists of any length; false for all other supported Erlang terms. Does not validate the tail. Complete observable unary semantic contract on the supported Erlang term model; no internal VM layout, timing or performance claim.",
+      "Limits": [],
+      "Reason": "Finite exhaustive type/name branch proof plus actual pinned original38partition/12context corroboration, raw current351 dependency graph and actual351full/CI, not case-only verification."
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_pid",
+      "Arity": 1,
+      "Status": "Verified compatible",
+      "Scope": "Returns true exactly for supported internal/local and external PID terms irrespective of existence, process exit, connection or node epoch; false otherwise. Complete observable unary semantic contract on the supported Erlang term model; no internal VM layout, timing or performance claim.",
+      "Limits": [],
+      "Reason": "Finite exhaustive type/name branch proof plus actual pinned original38partition/12context corroboration, raw current351 dependency graph and actual351full/CI, not case-only verification."
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_port",
+      "Arity": 1,
+      "Status": "Verified compatible",
+      "Scope": "Returns true exactly for supported internal/local and external port terms irrespective of open/closed state, connectedness or port backend; false otherwise. Complete observable unary semantic contract on the supported Erlang term model; no internal VM layout, timing or performance claim.",
+      "Limits": [],
+      "Reason": "Finite exhaustive type/name branch proof plus actual pinned original38partition/12context corroboration, raw current351 dependency graph and actual351full/CI, not case-only verification."
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_reference",
+      "Arity": 1,
+      "Status": "Verified compatible",
+      "Scope": "Returns true exactly for supported ordinary, alias, monitor, internal-resource/magic and external reference terms irrespective of resource/alias lifetime; false otherwise. Complete observable unary semantic contract on the supported Erlang term model; no internal VM layout, timing or performance claim.",
+      "Limits": [],
+      "Reason": "Finite exhaustive type/name branch proof plus actual pinned original38partition/12context corroboration, raw current351 dependency graph and actual351full/CI, not case-only verification."
+    }
+  ],
+  "Counts": {
+    "Verified": 16,
+    "Known": 24,
+    "NeedsVerification": 547
+  },
+  "CurrentRuntimeGuards": 77,
+  "Activated": false,
+  "Original351PriorityCapturePending": true,
+  "WholePriorityCompatibilityClaimed": false
+}

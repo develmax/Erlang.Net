@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 352 — Preserve all 74 published runtime source bindings and add only ErlangBasicRegistrations.cs, ErlangBasicBifNames.cs and AutoImportNames.cs, for 77 total. Raw Erlang fixtures and C# catalogs are evidence rather than runtime guards. This increment delivers no package, runtime source, test expectation, loader or scheduler-affinity change.
+
 Part351 — Reuse runtime/BCL scheduling and existing tests without packages. Preserve all older Verified evidence, bind74 current runtime dependencies, and refine unsupported spawn options truthfully. Archive exact source and declared raw proof subsets; no SDK/runtime/package binaries.
 
 Part350 — Reuse existing C#/Erlang fixture infrastructure and packages. Keep pending1250 raw unchanged; change only the existing .gitattributes row in reallocation1275 and seal its strict LF bytes. Publish lean text/ETF receipts, not runtime binaries, ZIP or nupkg outputs.

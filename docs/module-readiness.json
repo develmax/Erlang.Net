@@ -300,10 +300,22 @@
     {
       "Path": "src/Erlang.Runtime/RuntimeScheduledTask.cs",
       "Sha256": "2FE11F32154C8427556D656D35BABB0014CBFBA28F0BDB55E8944054F83DF987"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangBasicRegistrations.cs",
+      "Sha256": "DBB61CB2182B1D11FAC8605818E0064A578618BFD263FE9B56A3B2842AE0D06B"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangBasicBifNames.cs",
+      "Sha256": "E55991B21A9A5393764E1C1227C07885A805134B23E0D4CCECD29C7E48EF5A4B"
+    },
+    {
+      "Path": "src/Erlang.Compiler/AutoImportNames.cs",
+      "Sha256": "4F53370216EE256A914CEAB884D2E4CA2EDB79F3F2D40088468E9906DBBABCF0"
     }
   ],
-  "VerifiedCompatibleMfas": 10,
-  "NeedsVerificationMfas": 553,
+  "VerifiedCompatibleMfas": 16,
+  "NeedsVerificationMfas": 547,
   "KnownDifferenceMfas": 24,
   "MfaCompatibility": [
     {
@@ -1094,31 +1106,64 @@
       "Module": "erlang",
       "Function": "is_list",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Existing implementation and selected passed cases; no whole-MFA compatibility claim.",
+      "Status": "Verified compatible",
+      "Scope": "Returns true exactly for nil and a cons cell, including improper lists of any length; false for all other supported Erlang terms. Does not validate the tail. Complete observable unary semantic contract on the supported Erlang term model; no internal VM layout, timing or performance claim.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
           "Path": "validation/part-341/compatibility-audit/classification.json",
           "Sha256": "B424B90ADA84FB2271BE803A5525A00835EAFC80B3FFB5967E12588678E14A7A",
           "Scope": "Complete source branch/term partition argument and per-MFA classification at published340; no presence-only verification."
+        },
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/complete-six-predicate-audit/classification.json",
+          "Sha256": "6EBBFF42E49AB28983FA498834E8A1C4CB2FA32F0F9A812B115A8F0A3B05073B",
+          "Scope": "Current published351 complete supported-term unary branch/category/dispatch audit, not selected-case or API-presence inference."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/complete-six-predicate-audit/selected-original350-witnesses.json",
+          "Sha256": "06218024A75F2DABE2F3519DF33C5FD9532BDB529AE2D4B35B87A3763BDF4B64",
+          "Scope": "Six actual original350 witnesses each38term partitions/12contexts, fixture sources unchanged through published351. Full original pin/report/raw transport guard archived separately."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/complete-six-predicate-audit/complete-source-audit.json",
+          "Sha256": "0DEEE38087CE2578D03BD3AF3C263DA4D6EDB64F727DECE24941446C211BB982",
+          "Scope": "Current351 exact77src dependencies, actual full/CI corroboration and unchanged predicate paths, including two runtime correction review. No wholepriority/performance claim."
         }
       ],
-      "Limits": [
-        "Source Cons-or-Nil agrees with native semantics, including improper Cons. Need explicit MFA normal-call empty/proper/improper/non-list partition evidence, not match-spec is_list operator evidence."
-      ],
+      "Limits": [],
       "Key": "erlang:is_list/1"
     },
     {
       "Module": "erlang",
       "Function": "is_pid",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+      "Status": "Verified compatible",
+      "Scope": "Returns true exactly for supported internal/local and external PID terms irrespective of existence, process exit, connection or node epoch; false otherwise. Complete observable unary semantic contract on the supported Erlang term model; no internal VM layout, timing or performance claim.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/complete-six-predicate-audit/classification.json",
+          "Sha256": "6EBBFF42E49AB28983FA498834E8A1C4CB2FA32F0F9A812B115A8F0A3B05073B",
+          "Scope": "Current published351 complete supported-term unary branch/category/dispatch audit, not selected-case or API-presence inference."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/complete-six-predicate-audit/selected-original350-witnesses.json",
+          "Sha256": "06218024A75F2DABE2F3519DF33C5FD9532BDB529AE2D4B35B87A3763BDF4B64",
+          "Scope": "Six actual original350 witnesses each38term partitions/12contexts, fixture sources unchanged through published351. Full original pin/report/raw transport guard archived separately."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/complete-six-predicate-audit/complete-source-audit.json",
+          "Sha256": "0DEEE38087CE2578D03BD3AF3C263DA4D6EDB64F727DECE24941446C211BB982",
+          "Scope": "Current351 exact77src dependencies, actual full/CI corroboration and unchanged predicate paths, including two runtime correction review. No wholepriority/performance claim."
+        }
       ],
+      "Limits": [],
       "Key": "erlang:is_pid/1"
     },
     {
@@ -2678,24 +2723,58 @@
       "Module": "erlang",
       "Function": "is_boolean",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+      "Status": "Verified compatible",
+      "Scope": "Returns true exactly for the atoms true and false; false for every other supported Erlang term. Complete observable unary semantic contract on the supported Erlang term model; no internal VM layout, timing or performance claim.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/complete-six-predicate-audit/classification.json",
+          "Sha256": "6EBBFF42E49AB28983FA498834E8A1C4CB2FA32F0F9A812B115A8F0A3B05073B",
+          "Scope": "Current published351 complete supported-term unary branch/category/dispatch audit, not selected-case or API-presence inference."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/complete-six-predicate-audit/selected-original350-witnesses.json",
+          "Sha256": "06218024A75F2DABE2F3519DF33C5FD9532BDB529AE2D4B35B87A3763BDF4B64",
+          "Scope": "Six actual original350 witnesses each38term partitions/12contexts, fixture sources unchanged through published351. Full original pin/report/raw transport guard archived separately."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/complete-six-predicate-audit/complete-source-audit.json",
+          "Sha256": "0DEEE38087CE2578D03BD3AF3C263DA4D6EDB64F727DECE24941446C211BB982",
+          "Scope": "Current351 exact77src dependencies, actual full/CI corroboration and unchanged predicate paths, including two runtime correction review. No wholepriority/performance claim."
+        }
       ],
+      "Limits": [],
       "Key": "erlang:is_boolean/1"
     },
     {
       "Module": "erlang",
       "Function": "is_function",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+      "Status": "Verified compatible",
+      "Scope": "Returns true exactly for supported local/anonymous/named/external fun values, independently of arity, environment or code availability; false for all other supported Erlang terms. This is arity1, not is_function/2. Complete observable unary semantic contract on the supported Erlang term model; no internal VM layout, timing or performance claim.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/complete-six-predicate-audit/classification.json",
+          "Sha256": "6EBBFF42E49AB28983FA498834E8A1C4CB2FA32F0F9A812B115A8F0A3B05073B",
+          "Scope": "Current published351 complete supported-term unary branch/category/dispatch audit, not selected-case or API-presence inference."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/complete-six-predicate-audit/selected-original350-witnesses.json",
+          "Sha256": "06218024A75F2DABE2F3519DF33C5FD9532BDB529AE2D4B35B87A3763BDF4B64",
+          "Scope": "Six actual original350 witnesses each38term partitions/12contexts, fixture sources unchanged through published351. Full original pin/report/raw transport guard archived separately."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/complete-six-predicate-audit/complete-source-audit.json",
+          "Sha256": "0DEEE38087CE2578D03BD3AF3C263DA4D6EDB64F727DECE24941446C211BB982",
+          "Scope": "Current351 exact77src dependencies, actual full/CI corroboration and unchanged predicate paths, including two runtime correction review. No wholepriority/performance claim."
+        }
       ],
+      "Limits": [],
       "Key": "erlang:is_function/1"
     },
     {
@@ -2714,24 +2793,58 @@
       "Module": "erlang",
       "Function": "is_port",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+      "Status": "Verified compatible",
+      "Scope": "Returns true exactly for supported internal/local and external port terms irrespective of open/closed state, connectedness or port backend; false otherwise. Complete observable unary semantic contract on the supported Erlang term model; no internal VM layout, timing or performance claim.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/complete-six-predicate-audit/classification.json",
+          "Sha256": "6EBBFF42E49AB28983FA498834E8A1C4CB2FA32F0F9A812B115A8F0A3B05073B",
+          "Scope": "Current published351 complete supported-term unary branch/category/dispatch audit, not selected-case or API-presence inference."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/complete-six-predicate-audit/selected-original350-witnesses.json",
+          "Sha256": "06218024A75F2DABE2F3519DF33C5FD9532BDB529AE2D4B35B87A3763BDF4B64",
+          "Scope": "Six actual original350 witnesses each38term partitions/12contexts, fixture sources unchanged through published351. Full original pin/report/raw transport guard archived separately."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/complete-six-predicate-audit/complete-source-audit.json",
+          "Sha256": "0DEEE38087CE2578D03BD3AF3C263DA4D6EDB64F727DECE24941446C211BB982",
+          "Scope": "Current351 exact77src dependencies, actual full/CI corroboration and unchanged predicate paths, including two runtime correction review. No wholepriority/performance claim."
+        }
       ],
+      "Limits": [],
       "Key": "erlang:is_port/1"
     },
     {
       "Module": "erlang",
       "Function": "is_reference",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+      "Status": "Verified compatible",
+      "Scope": "Returns true exactly for supported ordinary, alias, monitor, internal-resource/magic and external reference terms irrespective of resource/alias lifetime; false otherwise. Complete observable unary semantic contract on the supported Erlang term model; no internal VM layout, timing or performance claim.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/complete-six-predicate-audit/classification.json",
+          "Sha256": "6EBBFF42E49AB28983FA498834E8A1C4CB2FA32F0F9A812B115A8F0A3B05073B",
+          "Scope": "Current published351 complete supported-term unary branch/category/dispatch audit, not selected-case or API-presence inference."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/complete-six-predicate-audit/selected-original350-witnesses.json",
+          "Sha256": "06218024A75F2DABE2F3519DF33C5FD9532BDB529AE2D4B35B87A3763BDF4B64",
+          "Scope": "Six actual original350 witnesses each38term partitions/12contexts, fixture sources unchanged through published351. Full original pin/report/raw transport guard archived separately."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/complete-six-predicate-audit/complete-source-audit.json",
+          "Sha256": "0DEEE38087CE2578D03BD3AF3C263DA4D6EDB64F727DECE24941446C211BB982",
+          "Scope": "Current351 exact77src dependencies, actual full/CI corroboration and unchanged predicate paths, including two runtime correction review. No wholepriority/performance claim."
+        }
       ],
+      "Limits": [],
       "Key": "erlang:is_reference/1"
     },
     {
@@ -15690,8 +15803,8 @@
       "Name": "erlang",
       "Status": "Partially compatible",
       "RegisteredMfas": 351,
-      "VerifiedCompatibleMfas": 10,
-      "NeedsVerificationMfas": 334,
+      "VerifiedCompatibleMfas": 16,
+      "NeedsVerificationMfas": 328,
       "KnownDifferenceMfas": 7,
       "PreviousRegisteredMfas": 351,
       "Delta": 0,

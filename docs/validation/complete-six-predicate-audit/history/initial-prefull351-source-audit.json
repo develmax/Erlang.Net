@@ -1,0 +1,795 @@
+{
+  "Status": "COMPLETE_SUPPORTED_TERM_UNARY_BRANCH_AUDIT_FUTURE_CLASSIFICATION_ONLY",
+  "ParentPublishedHead": "c1f219f31726fc93e537080f400651d300c47d72",
+  "ProductionFreeze": {
+    "Path": "artifacts/spawn-priority351-preparation/runtime-styled-source-freeze2.json",
+    "Bytes": 6911,
+    "Sha256": "F8A3CB00D45BD9491573B36F7C8857C925794AC4B1A320F39DD7B6EE90948404"
+  },
+  "PinnedOtp": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "TermUniverse": {
+    "GuestVisibleClasses": [
+      "Atom",
+      "Integer",
+      "FloatTerm",
+      "TupleTerm",
+      "Cons",
+      "Nil",
+      "MapTerm",
+      "BitString",
+      "FunctionTerm",
+      "Pid",
+      "PortTerm",
+      "ReferenceTerm",
+      "NativeRecordTerm"
+    ],
+    "ReferenceSubclass": "ResourceReferenceTerm",
+    "Closure": "For supported guest-created or decoded Erlang terms, thirteen nominal Term categories plus reference subclass exhaust actual production model. Term is public abstract and custom host subclasses/null are not Erlang guest terms. All tag classes sealed except reference base; new future term representations require re-audit.",
+    "OrthogonalRepresentations": "Big/small integers, all finite floats, empty/nonempty tuples/maps, ordinary tuple-records, full/partial binaries, cons properness, native records, local/external identity and function code states are either explicit positive tag or uniformly negative tag. No child traversal, numeric comparison, hash or code invocation is used."
+  },
+  "Contracts": [
+    {
+      "Module": "erlang",
+      "Function": "is_boolean",
+      "Arity": 1,
+      "CurrentStatus": "Needs verification",
+      "FutureRecommendation": "Verified compatible only after current351 source/full/publication gates accepted",
+      "Scope": "Returns true exactly for the atoms true and false; false for every other supported Erlang term.",
+      "CompletePrimitiveBranchArgument": "Atom names use exact ordinal constant patterns. Nonboolean atoms remain false; numeric 0/1 are not coerced.",
+      "PositiveCategories": [
+        "AtomTrue",
+        "AtomFalse"
+      ],
+      "NegativeCategories": [
+        "Atom",
+        "Integer",
+        "FloatTerm",
+        "TupleTerm",
+        "Cons",
+        "Nil",
+        "MapTerm",
+        "BitString",
+        "FunctionTerm",
+        "Pid",
+        "PortTerm",
+        "ReferenceTerm",
+        "NativeRecordTerm"
+      ],
+      "NativeRecord": "false: separate boxed native record, never a list/fun/PID/port/reference/boolean",
+      "ArgumentDependentErrors": "None for one valid Erlang term; always exact atom true or false. Wrong arity is another MFA; argument-expression errors occur before invocation and are not predicate errors.",
+      "NativeWitness": {
+        "Name": "erlang-additional-type-predicate-is-boolean-term-partitions",
+        "SourceSha256": "F6207047FC23C4D5BC7791214D8EB28DFF96D0CE76798C4A99201D1C901EA6CD",
+        "TermRows": 38,
+        "Contexts": 12,
+        "Expected": "{ok,done}",
+        "Actual": "{ok,done}"
+      },
+      "ObservationGaps": [
+        "No separately executed live local port/dead local PID/higher-arity or purged fun/resource-reference sample in these six fixtures. These variants are covered by the tag-only source argument, not claimed as separately observed native samples."
+      ],
+      "TimingScope": "Specified Erlang return/guard contract on supported term model; no timing, reduction count, physical scheduler, loader completeness or performance promise."
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_function",
+      "Arity": 1,
+      "CurrentStatus": "Needs verification",
+      "FutureRecommendation": "Verified compatible only after current351 source/full/publication gates accepted",
+      "Scope": "Returns true exactly for supported local/anonymous/named/external fun values, independently of arity, environment or code availability; false for all other supported Erlang terms. This is arity1, not is_function/2.",
+      "CompletePrimitiveBranchArgument": "Unary predicate reads only CLR FunctionTerm tag. It does not read Arity/Environment/LocalIdentity/identityProvider or invoke the fun, so stale/purged/unloaded code and arbitrary valid arities cannot alter its result. Both identity constructors produce the same sealed FunctionTerm.",
+      "PositiveCategories": [
+        "FunctionTerm"
+      ],
+      "NegativeCategories": [
+        "Atom",
+        "Integer",
+        "FloatTerm",
+        "TupleTerm",
+        "Cons",
+        "Nil",
+        "MapTerm",
+        "BitString",
+        "Pid",
+        "PortTerm",
+        "ReferenceTerm",
+        "NativeRecordTerm"
+      ],
+      "NativeRecord": "false: separate boxed native record, never a list/fun/PID/port/reference/boolean",
+      "ArgumentDependentErrors": "None for one valid Erlang term; always exact atom true or false. Wrong arity is another MFA; argument-expression errors occur before invocation and are not predicate errors.",
+      "NativeWitness": {
+        "Name": "erlang-additional-type-predicate-is-function-term-partitions",
+        "SourceSha256": "6404CC24411A2D648257030918E574EAF32CEBC3DBF5F2F10438B415F9F2C500",
+        "TermRows": 38,
+        "Contexts": 12,
+        "Expected": "{ok,done}",
+        "Actual": "{ok,done}"
+      },
+      "ObservationGaps": [
+        "No separately executed live local port/dead local PID/higher-arity or purged fun/resource-reference sample in these six fixtures. These variants are covered by the tag-only source argument, not claimed as separately observed native samples."
+      ],
+      "TimingScope": "Specified Erlang return/guard contract on supported term model; no timing, reduction count, physical scheduler, loader completeness or performance promise."
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_list",
+      "Arity": 1,
+      "CurrentStatus": "Needs verification",
+      "FutureRecommendation": "Verified compatible only after current351 source/full/publication gates accepted",
+      "Scope": "Returns true exactly for nil and a cons cell, including improper lists of any length; false for all other supported Erlang terms. Does not validate the tail.",
+      "CompletePrimitiveBranchArgument": "Only outer Cons or Nil tag is read; head and tail are not traversed. Thus proper/improper, deep tails, binary tails and cyclic host graphs cannot cause traversal; host cyclic/custom invalid terms themselves are outside Erlang supported input model.",
+      "PositiveCategories": [
+        "Cons",
+        "Nil"
+      ],
+      "NegativeCategories": [
+        "Atom",
+        "Integer",
+        "FloatTerm",
+        "TupleTerm",
+        "MapTerm",
+        "BitString",
+        "FunctionTerm",
+        "Pid",
+        "PortTerm",
+        "ReferenceTerm",
+        "NativeRecordTerm"
+      ],
+      "NativeRecord": "false: separate boxed native record, never a list/fun/PID/port/reference/boolean",
+      "ArgumentDependentErrors": "None for one valid Erlang term; always exact atom true or false. Wrong arity is another MFA; argument-expression errors occur before invocation and are not predicate errors.",
+      "NativeWitness": {
+        "Name": "erlang-additional-type-predicate-is-list-term-partitions",
+        "SourceSha256": "CE17892E2D884AE00C9EDFD4DA8A9EFADACFEBE1F01BFA80BD509455F1C41454",
+        "TermRows": 38,
+        "Contexts": 12,
+        "Expected": "{ok,done}",
+        "Actual": "{ok,done}"
+      },
+      "ObservationGaps": [
+        "No separately executed live local port/dead local PID/higher-arity or purged fun/resource-reference sample in these six fixtures. These variants are covered by the tag-only source argument, not claimed as separately observed native samples."
+      ],
+      "TimingScope": "Specified Erlang return/guard contract on supported term model; no timing, reduction count, physical scheduler, loader completeness or performance promise."
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_pid",
+      "Arity": 1,
+      "CurrentStatus": "Needs verification",
+      "FutureRecommendation": "Verified compatible only after current351 source/full/publication gates accepted",
+      "Scope": "Returns true exactly for supported internal/local and external PID terms irrespective of existence, process exit, connection or node epoch; false otherwise.",
+      "CompletePrimitiveBranchArgument": "Pid is sealed. Local/external identities share that class. Predicate reads no Node/Creation/id or process table, so live/dead/stale/disconnected identities are equivalent inputs to this predicate.",
+      "PositiveCategories": [
+        "Pid"
+      ],
+      "NegativeCategories": [
+        "Atom",
+        "Integer",
+        "FloatTerm",
+        "TupleTerm",
+        "Cons",
+        "Nil",
+        "MapTerm",
+        "BitString",
+        "FunctionTerm",
+        "PortTerm",
+        "ReferenceTerm",
+        "NativeRecordTerm"
+      ],
+      "NativeRecord": "false: separate boxed native record, never a list/fun/PID/port/reference/boolean",
+      "ArgumentDependentErrors": "None for one valid Erlang term; always exact atom true or false. Wrong arity is another MFA; argument-expression errors occur before invocation and are not predicate errors.",
+      "NativeWitness": {
+        "Name": "erlang-additional-type-predicate-is-pid-term-partitions",
+        "SourceSha256": "705A38700F23A1E85CFC7482FB8C780DA9E8B4B9D906DFD4506A5790B6E97A23",
+        "TermRows": 38,
+        "Contexts": 12,
+        "Expected": "{ok,done}",
+        "Actual": "{ok,done}"
+      },
+      "ObservationGaps": [
+        "No separately executed live local port/dead local PID/higher-arity or purged fun/resource-reference sample in these six fixtures. These variants are covered by the tag-only source argument, not claimed as separately observed native samples."
+      ],
+      "TimingScope": "Specified Erlang return/guard contract on supported term model; no timing, reduction count, physical scheduler, loader completeness or performance promise."
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_port",
+      "Arity": 1,
+      "CurrentStatus": "Needs verification",
+      "FutureRecommendation": "Verified compatible only after current351 source/full/publication gates accepted",
+      "Scope": "Returns true exactly for supported internal/local and external port terms irrespective of open/closed state, connectedness or port backend; false otherwise.",
+      "CompletePrimitiveBranchArgument": "PortTerm is sealed. Local runtime descriptor and external decoded identifiers share it. No process handle, state, backend lookup or identity getter is consulted; closed/stale/external states stay true.",
+      "PositiveCategories": [
+        "PortTerm"
+      ],
+      "NegativeCategories": [
+        "Atom",
+        "Integer",
+        "FloatTerm",
+        "TupleTerm",
+        "Cons",
+        "Nil",
+        "MapTerm",
+        "BitString",
+        "FunctionTerm",
+        "Pid",
+        "ReferenceTerm",
+        "NativeRecordTerm"
+      ],
+      "NativeRecord": "false: separate boxed native record, never a list/fun/PID/port/reference/boolean",
+      "ArgumentDependentErrors": "None for one valid Erlang term; always exact atom true or false. Wrong arity is another MFA; argument-expression errors occur before invocation and are not predicate errors.",
+      "NativeWitness": {
+        "Name": "erlang-additional-type-predicate-is-port-term-partitions",
+        "SourceSha256": "2DFD79BACC404F95604A177B9223FF0C6EDA7503A2E1560652E819531F0E2789",
+        "TermRows": 38,
+        "Contexts": 12,
+        "Expected": "{ok,done}",
+        "Actual": "{ok,done}"
+      },
+      "ObservationGaps": [
+        "No separately executed live local port/dead local PID/higher-arity or purged fun/resource-reference sample in these six fixtures. These variants are covered by the tag-only source argument, not claimed as separately observed native samples."
+      ],
+      "TimingScope": "Specified Erlang return/guard contract on supported term model; no timing, reduction count, physical scheduler, loader completeness or performance promise."
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_reference",
+      "Arity": 1,
+      "CurrentStatus": "Needs verification",
+      "FutureRecommendation": "Verified compatible only after current351 source/full/publication gates accepted",
+      "Scope": "Returns true exactly for supported ordinary, alias, monitor, internal-resource/magic and external reference terms irrespective of resource/alias lifetime; false otherwise.",
+      "CompletePrimitiveBranchArgument": "ReferenceTerm is the ordinary identity base; ResourceReferenceTerm derives from it. Type pattern includes the subclass without evaluating Entry/ResourceKind. Alias closure, cancelled monitors, disposed resource or external-reference identity never cause unwrapping or liveness checks.",
+      "PositiveCategories": [
+        "ReferenceTerm",
+        "ResourceReferenceTerm"
+      ],
+      "NegativeCategories": [
+        "Atom",
+        "Integer",
+        "FloatTerm",
+        "TupleTerm",
+        "Cons",
+        "Nil",
+        "MapTerm",
+        "BitString",
+        "FunctionTerm",
+        "Pid",
+        "PortTerm",
+        "NativeRecordTerm"
+      ],
+      "NativeRecord": "false: separate boxed native record, never a list/fun/PID/port/reference/boolean",
+      "ArgumentDependentErrors": "None for one valid Erlang term; always exact atom true or false. Wrong arity is another MFA; argument-expression errors occur before invocation and are not predicate errors.",
+      "NativeWitness": {
+        "Name": "erlang-additional-type-predicate-is-reference-term-partitions",
+        "SourceSha256": "29E8ABB192A3D4D808E9438BEB332C0FB13AA32A55D97CB49A4571E94F3AED6B",
+        "TermRows": 38,
+        "Contexts": 12,
+        "Expected": "{ok,done}",
+        "Actual": "{ok,done}"
+      },
+      "ObservationGaps": [
+        "No separately executed live local port/dead local PID/higher-arity or purged fun/resource-reference sample in these six fixtures. These variants are covered by the tag-only source argument, not claimed as separately observed native samples."
+      ],
+      "TimingScope": "Specified Erlang return/guard contract on supported term model; no timing, reduction count, physical scheduler, loader completeness or performance promise."
+    }
+  ],
+  "DispatchArgument": [
+    "CoreModules and BasicRegistrations register exact MFA1 completed ValueTask delegates. Core Boolean returns interned/name-equal true/false atoms; no context, process state, trace token or resource lookup influences predicate result.",
+    "Normal qualified/unqualified auto-import and imported erlang calls resolve by SourceCallResolution/Execution target. Local functions win normal calls and local/imported shadows are rejected in guards by LocalCallValidation; no_auto_import suppresses implicit calls while explicit erlang calls remain valid. A user shadow is not an invocation of the erlang predicate.",
+    "AutoImportSignatures includes all six unary names; NamedFunctionReferences produces external erlang funs, FunctionTerm.Invoke checks arity then invokes registry dispatcher. apply/3 supplies one argument through ErlangApplyDispatch; malformed apply arguments concern apply contract, not unary predicate.",
+    "Semantics GuardBifs union includes Core list/PID plus Basic Guards boolean/function/port/reference. AsyncGuards evaluates arguments and awaits registry call; generic generated C# preserves Expr.Call/CallBindings and uses Execution; no distinct optimized predicate branch exists.",
+    "case/if/clause/receive guards and comprehension tests share the same GuardBifs/AsyncGuards and exact Boolean checks. ComprehensionGuard honors local/imported shadow classification; no new predicate value conversion. Existing guard345 source/native diagnostics cover binding implementation independently.",
+    "MatchSpec Pure includes six unary MFAs and compiler accepts them; MatchSpecProgram calls CallMatchSpecGuard directly. These six delegates return synchronously completed ValueTask independent of351 actor scheduler, because this dedicated path invokes body directly; pending-task rejection therefore cannot affect them. Pinned DBIF_ALL accepts six predicates in table/trace match-spec domains.",
+    "351 normal dispatcher may schedule selected invocation, but actor execution/captured context preservation proof4F93 and sourceF8 bound here; no predicate reads actor context and no handler branch changed350\u2192351. Current351 full not yet claimed."
+  ],
+  "RuntimeSourceGuardProposal": {
+    "Base74Preserved": true,
+    "AddedPaths": [
+      "src/Erlang.Runtime/ErlangBasicRegistrations.cs",
+      "src/Erlang.Runtime/ErlangBasicBifNames.cs",
+      "src/Erlang.Compiler/AutoImportNames.cs"
+    ],
+    "ProposedUnion77": [
+      {
+        "Path": "src/Erlang.Compiler/AutoImportSignatures.cs",
+        "Sha256": "13FBAD08FC4EC9EDD2B4CCDB661115A43F4CB737F681DCE0F5EDEB096BB2EC2F"
+      },
+      {
+        "Path": "src/Erlang.Compiler/CodeGeneration.cs",
+        "Sha256": "6FFA154BFCC58F9D13A41F1A29FD39E48AB2DB5A666D9ACB4DF1D9B62D283903"
+      },
+      {
+        "Path": "src/Erlang.Compiler/CompileException.cs",
+        "Sha256": "CFE6B9E98D61D7DCB05730A9F6665853134BDCEC32212F561ECA14E78EFA2949"
+      },
+      {
+        "Path": "src/Erlang.Compiler/CompilerDiagnosticCodes.cs",
+        "Sha256": "E9A3A0D933AB51E9712A6957A24EACC531CCD551D42DE3CB8FF09479C0E309CC"
+      },
+      {
+        "Path": "src/Erlang.Compiler/ComprehensionGuard.cs",
+        "Sha256": "9BDCE99B896F2FBC323C5384CDB227326995F47CFE3F7F7B91E03713A5750565"
+      },
+      {
+        "Path": "src/Erlang.Compiler/Execution.AsyncGuards.cs",
+        "Sha256": "994F87089FAEEFA88BC2143577894F3C3A728BF4AF1972BD610B7DCC6B61920A"
+      },
+      {
+        "Path": "src/Erlang.Compiler/Execution.cs",
+        "Sha256": "E249498D8D0684013CE77B3D00F136895905746A99610AA62F2D7FE43DF3602D"
+      },
+      {
+        "Path": "src/Erlang.Compiler/LocalCallValidation.cs",
+        "Sha256": "1EA5E7C1189CF7F37357397720175BB45EBDF39DBCDD5314FBF7B05EF6612DD4"
+      },
+      {
+        "Path": "src/Erlang.Compiler/ModuleDefinition.cs",
+        "Sha256": "0675A3EA94ED6F9284362F02B97D3DFEF38F6473E401A2D8C574145E0F30F637"
+      },
+      {
+        "Path": "src/Erlang.Compiler/ModuleNameDiagnostics.cs",
+        "Sha256": "4908D2580C28AFC641C2D023DBB0C5D5E688785AB3D96CD25038A81A9F6A23B1"
+      },
+      {
+        "Path": "src/Erlang.Compiler/ModuleNameParameters.cs",
+        "Sha256": "66086BD0302CFC85AEFFD07B06AED2A9B0864EF4732D90D90715DEB208C6D2A9"
+      },
+      {
+        "Path": "src/Erlang.Compiler/ModuleNameValidation.cs",
+        "Sha256": "13FBF35429121ADB9F6B7CBE96D89D67435ADA7F386A32C6410E4057B6E459B4"
+      },
+      {
+        "Path": "src/Erlang.Compiler/NamedFunctionReferences.cs",
+        "Sha256": "374855A51103017CADF86DE92B0ADAFF705CBB32E62707F2C6E70396CF54247F"
+      },
+      {
+        "Path": "src/Erlang.Compiler/Parser.cs",
+        "Sha256": "1B0D729A43ADEABADE978AF266C96F5ACD64E19C7860BF1F17B7276D26C34B6F"
+      },
+      {
+        "Path": "src/Erlang.Compiler/RecordPredicateSyntax.cs",
+        "Sha256": "EC38828DD641FB4E0775B57728096F6936815B9804B0C532D30ED0103486A025"
+      },
+      {
+        "Path": "src/Erlang.Compiler/Semantics.cs",
+        "Sha256": "59920F9FA17CB76DC3A2C0B6074A193C28A77545D062FFFE945C04D0FDEA3458"
+      },
+      {
+        "Path": "src/Erlang.Compiler/SourceCallBindingBuilder.cs",
+        "Sha256": "D0BE717064BC6DA794886E51BE32E8ED0CF175E00AEB6BD3569BB084B7343251"
+      },
+      {
+        "Path": "src/Erlang.Compiler/SourceCallBindingCode.cs",
+        "Sha256": "22564BF033FCDD3BDAC2E08776F4E7858244881BAF6A57AF94EE4616F8E63317"
+      },
+      {
+        "Path": "src/Erlang.Compiler/SourceCallBindingDiagnostics.cs",
+        "Sha256": "3558D96008871537B8222ABE72E3F597B55375CD4AA2065595BB9D1820FF6B57"
+      },
+      {
+        "Path": "src/Erlang.Compiler/SourceCallBindingNames.cs",
+        "Sha256": "5917B5AE4027F84DB4B070703E3CD6417769E20559EB45D74C1125C01B00B722"
+      },
+      {
+        "Path": "src/Erlang.Compiler/SourceCallBindings.cs",
+        "Sha256": "AE52E9A9A7FF4EB6030EB5703D2AFA152921DAF64AD55E3191097B37C9EA36C8"
+      },
+      {
+        "Path": "src/Erlang.Compiler/SourceCallResolution.cs",
+        "Sha256": "9E662A5BCBB9D80F819B84970A199C02874AA443C92DD80C26FF21A9A716B5D6"
+      },
+      {
+        "Path": "src/Erlang.Runtime/CoreModules.cs",
+        "Sha256": "CDF0EFD07267927CFE97523AAD7A1FE3509B795456CC5E8D2853408A67C13B63"
+      },
+      {
+        "Path": "src/Erlang.Runtime/ErlangProcessQueryRegistrations.cs",
+        "Sha256": "0A1A3F6A52AED376204ED203AC8D2FD5927078A1E715B61192E196FA24050E32"
+      },
+      {
+        "Path": "src/Erlang.Runtime/ProcessContext.cs",
+        "Sha256": "3C461A3953098DC512AC531FE0DED81B71BB60C9E18E0A5C5519D8542206C8B8"
+      },
+      {
+        "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
+        "Sha256": "935D12A47C2C0DE3F58BB439D4975E89582B6B0BF81B98813AC2D1DFF599A400"
+      },
+      {
+        "Path": "src/Erlang.Terms/BitString.cs",
+        "Sha256": "66C7A14040D3F7AF80DEF58B1C06ACAB067D40172C423AED64D86F436183CDD0"
+      },
+      {
+        "Path": "src/Erlang.Terms/Cons.cs",
+        "Sha256": "46D73379F77BC6339AC7E5C035FAF5AB8B4EE8CEB286877C92DAC0C8CC3125D9"
+      },
+      {
+        "Path": "src/Erlang.Terms/MapTerm.cs",
+        "Sha256": "1AAFECC8C729CA2F38540180E8AAA2303312BD346FAE67A7E684D684D728F7C3"
+      },
+      {
+        "Path": "src/Erlang.Terms/NativeRecordTerm.cs",
+        "Sha256": "30DE73CCB8E5F8E19D31A4D1A9F79ADA24F424F06094DE1D169251740FDA7850"
+      },
+      {
+        "Path": "src/Erlang.Terms/TermComparisonStep.cs",
+        "Sha256": "DA1D1968DEEAF4D48382D0ED24FD37A3652225ED385F2E4276C24A90DDF13917"
+      },
+      {
+        "Path": "src/Erlang.Terms/TermHashFrame.cs",
+        "Sha256": "F932D02FD87FDC9E784B3D1309D0AA8113B9B434C70DDC09BC5AE17B9308506B"
+      },
+      {
+        "Path": "src/Erlang.Terms/TermHashStep.cs",
+        "Sha256": "448EFEEEE42896034F759D8EAFBC3549B77ACDB6CC494D07D160978BB83B1226"
+      },
+      {
+        "Path": "src/Erlang.Terms/TermHashStepKind.cs",
+        "Sha256": "B2CA8362745FCEAB745EA5AD67CBB99E31CE6AA33A4893089862C3C40EC18E40"
+      },
+      {
+        "Path": "src/Erlang.Terms/TermOrder.cs",
+        "Sha256": "B2E92018FAE4A40A7A3A03910227AEBDDACE23473A650C7E6A6FEC649E79A589"
+      },
+      {
+        "Path": "src/Erlang.Runtime/ErlangApplyDispatch.cs",
+        "Sha256": "3D872A4A1A1DC899CF7A8E90992926CEEAB879E77D34ED204B40D55173FDB295"
+      },
+      {
+        "Path": "src/Erlang.Runtime/ErlangApplyLimits.cs",
+        "Sha256": "CF072BE6E5652D443B5352E1A06BF3D289DD30B27917E6151B6EECBA728D3649"
+      },
+      {
+        "Path": "src/Erlang.Runtime/MatchSpecCompiler.cs",
+        "Sha256": "10760FBD45AA4E023386A678A11C05266D33BD6FC7BE709C837DFC028A40DB8A"
+      },
+      {
+        "Path": "src/Erlang.Runtime/MatchSpecOperations.cs",
+        "Sha256": "8C82EFECF906A1FA8773FA60CF40B0941DC5B2D9153CEC4CF65B2EF5124E4503"
+      },
+      {
+        "Path": "src/Erlang.Runtime/MatchSpecProgram.cs",
+        "Sha256": "EB33F5DC48C57F054E69F4F410112000E56753B5107E079C9D6984DF7E3FF569"
+      },
+      {
+        "Path": "src/Erlang.Runtime/MatchSpecRegistrations.cs",
+        "Sha256": "677F3F0B7ED4B12139841EDD7D1871A88A4627A10254DD95428347751367B1C8"
+      },
+      {
+        "Path": "src/Erlang.Runtime/ModuleRegistry.cs",
+        "Sha256": "14C17E6F60C7A37446CEC556FFF3812859CFE0252643D5165970B7CC42713279"
+      },
+      {
+        "Path": "src/Erlang.Runtime/NativeBuiltinCatalog.cs",
+        "Sha256": "17D47C563EAC30308F96719F5232FDB6FAB84C4F5EF195F4FA146823993BBDBF"
+      },
+      {
+        "Path": "src/Erlang.Runtime/ProcessRuntime.ExternalTerms.cs",
+        "Sha256": "B7FE057B5228BAD9DC90BC5B70A49BC060F421BE6AC06A9C9C49359C5CE15E7D"
+      },
+      {
+        "Path": "src/Erlang.Runtime/ResourceReferenceTerm.cs",
+        "Sha256": "DCB42DC0EAE26EC5D8870AF23F2E50B1C5957774AF23B7D00DFD270E5772BE8F"
+      },
+      {
+        "Path": "src/Erlang.Runtime/RuntimeKnownNodes.cs",
+        "Sha256": "3A05794C9D10EF0BE358F223F8D3FFCE04D276A5A8922E049F4AA96E3704DA96"
+      },
+      {
+        "Path": "src/Erlang.Terms/Atom.cs",
+        "Sha256": "E1772CEA8524236CD6BF34E47697574E69445FB3581246067D6061BAEEAF4A50"
+      },
+      {
+        "Path": "src/Erlang.Terms/AtomCache.cs",
+        "Sha256": "37DE45772B404F5590FB420CD3604F23E35DD74A5975D44C07B0A49803644244"
+      },
+      {
+        "Path": "src/Erlang.Terms/ErlangBooleanAtoms.cs",
+        "Sha256": "9140F2E799740BE5FDA0A36A2A7BA27D3DF3A5A203AD23BBA32C36AE52A06F82"
+      },
+      {
+        "Path": "src/Erlang.Terms/ErlangModuleNames.cs",
+        "Sha256": "1C284D03463B93940AC39550E63BF818A33BBE121A7DDEBC2EFB1BF1148B1402"
+      },
+      {
+        "Path": "src/Erlang.Terms/FloatTerm.cs",
+        "Sha256": "15947C4D813909CD7B1C8A163D4FFBC3509E8E5DDEB026C88F1D308B7BC15229"
+      },
+      {
+        "Path": "src/Erlang.Terms/FunctionTerm.cs",
+        "Sha256": "B58853E8C1D4548775E4835DA704C15DAFA1EBF06C99432CEA6BDAB6ABE7C5E2"
+      },
+      {
+        "Path": "src/Erlang.Terms/Integer.cs",
+        "Sha256": "CD4E5B3604C8194785FE20CD15A09A182BFBCA7128B95EE688ADB8719C30CC4F"
+      },
+      {
+        "Path": "src/Erlang.Terms/Nil.cs",
+        "Sha256": "93D91D6D1400387B0E31B8C2ED36760921A6FDACFCD64953DA086F3D02B63366"
+      },
+      {
+        "Path": "src/Erlang.Terms/Pid.cs",
+        "Sha256": "CFB58C5E4A782C21CD612E16FB361CBFB6C5A1C7A4422A0A987B2752C353F80D"
+      },
+      {
+        "Path": "src/Erlang.Terms/PortTerm.cs",
+        "Sha256": "083E9B55E3BB8265E7C575FFE84E1BA1DD17B8E11A9C272586138A197E19AF21"
+      },
+      {
+        "Path": "src/Erlang.Terms/ReferenceTerm.cs",
+        "Sha256": "8AF2B4C481E2D58E0AEEE23F30EA9DD8047EF502FB2A024B7C125D397DDB22C4"
+      },
+      {
+        "Path": "src/Erlang.Terms/Term.cs",
+        "Sha256": "32EE6669E0D4D5BAE2E780CD62FEAA1E56D3F49B6C3781927D5994E86C14A644"
+      },
+      {
+        "Path": "src/Erlang.Terms/TupleTerm.cs",
+        "Sha256": "A3CDFE09E6855FCE67979373A06A2D3960AFB09BF0ED5A5E6E52B82068992080"
+      },
+      {
+        "Path": "src/Erlang.Runtime/ModuleRegistry.ProcessScheduling.cs",
+        "Sha256": "3BE87389672FAA120DD21EABEE50C998170C5A45D22879FC98D8C2CB237555AD"
+      },
+      {
+        "Path": "src/Erlang.Runtime/ProcessExecutionAdmission.cs",
+        "Sha256": "C551B48631670491C0C3A3A1434790D78EE42D851376CC1E3F817F9E2AA68F31"
+      },
+      {
+        "Path": "src/Erlang.Runtime/ProcessExecutionAwaitable.cs",
+        "Sha256": "C3A4BF7E5506058F3CB42EC4D2565CA052908CD0FA8C4469186303517E411F79"
+      },
+      {
+        "Path": "src/Erlang.Runtime/ProcessExecutionAwaiter.cs",
+        "Sha256": "E8035D71918F6A66EA2446A4637166FA54EDA3ECC0C05DBE49803F1D7D89F5BC"
+      },
+      {
+        "Path": "src/Erlang.Runtime/ProcessPriorityNames.cs",
+        "Sha256": "952464908BC3E705D220CE9D609EEF9F347A81158A430C239A1E76FE831D8F4E"
+      },
+      {
+        "Path": "src/Erlang.Runtime/ProcessPriorityValues.cs",
+        "Sha256": "C6AF5AD761C9826D7027221D643572165DFF5A3597E715121A1634EECC07C093"
+      },
+      {
+        "Path": "src/Erlang.Runtime/ProcessRuntime.ConnectedSpawn.cs",
+        "Sha256": "56E0773E3E30507BA648903658866EB3A875855EC4A15F1488A73107DBC48CFE"
+      },
+      {
+        "Path": "src/Erlang.Runtime/ProcessRuntime.Priority.cs",
+        "Sha256": "66871BF5F4E57C8BC7A7CACF1325C2ADABD63335C6A3B691643A8A66EC8F6EDA"
+      },
+      {
+        "Path": "src/Erlang.Runtime/ProcessSchedulingPriority.cs",
+        "Sha256": "BC762C0DB29DC586E294CD4AB088E702EEE9E6C9F380C34C4EC3B3D0F1E3DE2F"
+      },
+      {
+        "Path": "src/Erlang.Runtime/ProcessSpawnOptions.cs",
+        "Sha256": "B3BB2B2294F01DEF5594F8F5EA476E4D57B398D99AC210B79C1E9F098D29E670"
+      },
+      {
+        "Path": "src/Erlang.Runtime/RuntimeActorContinuation.cs",
+        "Sha256": "0725B8ECE17147ABEA9C8F0FE6F25614FEE4F775A42E5B01669FC6DA233B9A7A"
+      },
+      {
+        "Path": "src/Erlang.Runtime/RuntimeActorDispatcher.cs",
+        "Sha256": "06DFE4D088A24712CD25A855A3318CF018D0B50C653E2303DE8EC0F72098FC3D"
+      },
+      {
+        "Path": "src/Erlang.Runtime/RuntimeActorExecutionTurn.cs",
+        "Sha256": "905869A18ABA79B14E9264BCC8E43104EAAC2B3DBD589311C7E55E7B04BD3CF6"
+      },
+      {
+        "Path": "src/Erlang.Runtime/RuntimeProcessTaskScheduler.cs",
+        "Sha256": "F749C44C345F027DCA74C0FE2DD279CFF2A48A082079467B78A3CF56E03DC63D"
+      },
+      {
+        "Path": "src/Erlang.Runtime/RuntimeScheduledTask.cs",
+        "Sha256": "2FE11F32154C8427556D656D35BABB0014CBFBA28F0BDB55E8944054F83DF987"
+      },
+      {
+        "Path": "src/Erlang.Runtime/ErlangBasicRegistrations.cs",
+        "Sha256": "DBB61CB2182B1D11FAC8605818E0064A578618BFD263FE9B56A3B2842AE0D06B"
+      },
+      {
+        "Path": "src/Erlang.Runtime/ErlangBasicBifNames.cs",
+        "Sha256": "E55991B21A9A5393764E1C1227C07885A805134B23E0D4CCECD29C7E48EF5A4B"
+      },
+      {
+        "Path": "src/Erlang.Compiler/AutoImportNames.cs",
+        "Sha256": "4F53370216EE256A914CEAB884D2E4CA2EDB79F3F2D40088468E9906DBBABCF0"
+      }
+    ],
+    "FixtureSourcesNeverIncludedInVerifiedSourceFiles": true
+  },
+  "FixtureEvidenceFiles": [
+    {
+      "Path": "tools/Erlang.Differential/AdditionalTypePredicateCaseNames.cs",
+      "Bytes": 708,
+      "Sha256": "6C4D3A9A71D498C03A6C05A277B6FB7C6B9C565FD123636D0D920FD8796C3816"
+    },
+    {
+      "Path": "tools/Erlang.Differential/AdditionalTypePredicateCaseSources.cs",
+      "Bytes": 22012,
+      "Sha256": "9F41E77EB56CC2201C8ABFB904C10609A09E01A29C4A668BBE896837026DD11F"
+    },
+    {
+      "Path": "tools/Erlang.Differential/AdditionalTypePredicateCases.cs",
+      "Bytes": 1608,
+      "Sha256": "E1571248147B1FA00F227D631723B59E82F70F8EB55D2E44C3632745A8F5FC7D"
+    }
+  ],
+  "PinnedSourceAnchors": {
+    "Path": "artifacts/additional-six-predicate351-contract-audit/pinned-source-anchors.json",
+    "Bytes": 17565,
+    "Sha256": "91777ECF32498AE4E0A17A21C425BA042D9A61D9A8985A67095C7080144CCF8A"
+  },
+  "ManagedSourceSnapshots": [
+    {
+      "Path": "src/Erlang.Runtime/CoreModules.cs",
+      "Sha256": "CDF0EFD07267927CFE97523AAD7A1FE3509B795456CC5E8D2853408A67C13B63",
+      "Snapshot": "artifacts/additional-six-predicate351-contract-audit/source/src/Erlang.Runtime/CoreModules.cs"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangBasicRegistrations.cs",
+      "Sha256": "DBB61CB2182B1D11FAC8605818E0064A578618BFD263FE9B56A3B2842AE0D06B",
+      "Snapshot": "artifacts/additional-six-predicate351-contract-audit/source/src/Erlang.Runtime/ErlangBasicRegistrations.cs"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangBasicBifNames.cs",
+      "Sha256": "E55991B21A9A5393764E1C1227C07885A805134B23E0D4CCECD29C7E48EF5A4B",
+      "Snapshot": "artifacts/additional-six-predicate351-contract-audit/source/src/Erlang.Runtime/ErlangBasicBifNames.cs"
+    },
+    {
+      "Path": "src/Erlang.Compiler/AutoImportNames.cs",
+      "Sha256": "4F53370216EE256A914CEAB884D2E4CA2EDB79F3F2D40088468E9906DBBABCF0",
+      "Snapshot": "artifacts/additional-six-predicate351-contract-audit/source/src/Erlang.Compiler/AutoImportNames.cs"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.cs",
+      "Sha256": "14C17E6F60C7A37446CEC556FFF3812859CFE0252643D5165970B7CC42713279",
+      "Snapshot": "artifacts/additional-six-predicate351-contract-audit/source/src/Erlang.Runtime/ModuleRegistry.cs"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.ProcessScheduling.cs",
+      "Sha256": "3BE87389672FAA120DD21EABEE50C998170C5A45D22879FC98D8C2CB237555AD",
+      "Snapshot": "artifacts/additional-six-predicate351-contract-audit/source/src/Erlang.Runtime/ModuleRegistry.ProcessScheduling.cs"
+    },
+    {
+      "Path": "src/Erlang.Runtime/MatchSpecProgram.cs",
+      "Sha256": "EB33F5DC48C57F054E69F4F410112000E56753B5107E079C9D6984DF7E3FF569",
+      "Snapshot": "artifacts/additional-six-predicate351-contract-audit/source/src/Erlang.Runtime/MatchSpecProgram.cs"
+    },
+    {
+      "Path": "src/Erlang.Runtime/MatchSpecOperations.cs",
+      "Sha256": "8C82EFECF906A1FA8773FA60CF40B0941DC5B2D9153CEC4CF65B2EF5124E4503",
+      "Snapshot": "artifacts/additional-six-predicate351-contract-audit/source/src/Erlang.Runtime/MatchSpecOperations.cs"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ResourceReferenceTerm.cs",
+      "Sha256": "DCB42DC0EAE26EC5D8870AF23F2E50B1C5957774AF23B7D00DFD270E5772BE8F",
+      "Snapshot": "artifacts/additional-six-predicate351-contract-audit/source/src/Erlang.Runtime/ResourceReferenceTerm.cs"
+    },
+    {
+      "Path": "src/Erlang.Terms/FunctionTerm.cs",
+      "Sha256": "B58853E8C1D4548775E4835DA704C15DAFA1EBF06C99432CEA6BDAB6ABE7C5E2",
+      "Snapshot": "artifacts/additional-six-predicate351-contract-audit/source/src/Erlang.Terms/FunctionTerm.cs"
+    },
+    {
+      "Path": "src/Erlang.Terms/ReferenceTerm.cs",
+      "Sha256": "8AF2B4C481E2D58E0AEEE23F30EA9DD8047EF502FB2A024B7C125D397DDB22C4",
+      "Snapshot": "artifacts/additional-six-predicate351-contract-audit/source/src/Erlang.Terms/ReferenceTerm.cs"
+    },
+    {
+      "Path": "src/Erlang.Terms/Pid.cs",
+      "Sha256": "CFB58C5E4A782C21CD612E16FB361CBFB6C5A1C7A4422A0A987B2752C353F80D",
+      "Snapshot": "artifacts/additional-six-predicate351-contract-audit/source/src/Erlang.Terms/Pid.cs"
+    },
+    {
+      "Path": "src/Erlang.Terms/PortTerm.cs",
+      "Sha256": "083E9B55E3BB8265E7C575FFE84E1BA1DD17B8E11A9C272586138A197E19AF21",
+      "Snapshot": "artifacts/additional-six-predicate351-contract-audit/source/src/Erlang.Terms/PortTerm.cs"
+    },
+    {
+      "Path": "src/Erlang.Terms/NativeRecordTerm.cs",
+      "Sha256": "30DE73CCB8E5F8E19D31A4D1A9F79ADA24F424F06094DE1D169251740FDA7850",
+      "Snapshot": "artifacts/additional-six-predicate351-contract-audit/source/src/Erlang.Terms/NativeRecordTerm.cs"
+    },
+    {
+      "Path": "src/Erlang.Compiler/LocalCallValidation.cs",
+      "Sha256": "1EA5E7C1189CF7F37357397720175BB45EBDF39DBCDD5314FBF7B05EF6612DD4",
+      "Snapshot": "artifacts/additional-six-predicate351-contract-audit/source/src/Erlang.Compiler/LocalCallValidation.cs"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceCallResolution.cs",
+      "Sha256": "9E662A5BCBB9D80F819B84970A199C02874AA443C92DD80C26FF21A9A716B5D6",
+      "Snapshot": "artifacts/additional-six-predicate351-contract-audit/source/src/Erlang.Compiler/SourceCallResolution.cs"
+    },
+    {
+      "Path": "src/Erlang.Compiler/NamedFunctionReferences.cs",
+      "Sha256": "374855A51103017CADF86DE92B0ADAFF705CBB32E62707F2C6E70396CF54247F",
+      "Snapshot": "artifacts/additional-six-predicate351-contract-audit/source/src/Erlang.Compiler/NamedFunctionReferences.cs"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Execution.AsyncGuards.cs",
+      "Sha256": "994F87089FAEEFA88BC2143577894F3C3A728BF4AF1972BD610B7DCC6B61920A",
+      "Snapshot": "artifacts/additional-six-predicate351-contract-audit/source/src/Erlang.Compiler/Execution.AsyncGuards.cs"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "Sha256": "E249498D8D0684013CE77B3D00F136895905746A99610AA62F2D7FE43DF3602D",
+      "Snapshot": "artifacts/additional-six-predicate351-contract-audit/source/src/Erlang.Compiler/Execution.cs"
+    },
+    {
+      "Path": "src/Erlang.Compiler/CodeGeneration.cs",
+      "Sha256": "6FFA154BFCC58F9D13A41F1A29FD39E48AB2DB5A666D9ACB4DF1D9B62D283903",
+      "Snapshot": "artifacts/additional-six-predicate351-contract-audit/source/src/Erlang.Compiler/CodeGeneration.cs"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangApplyDispatch.cs",
+      "Sha256": "3D872A4A1A1DC899CF7A8E90992926CEEAB879E77D34ED204B40D55173FDB295",
+      "Snapshot": "artifacts/additional-six-predicate351-contract-audit/source/src/Erlang.Runtime/ErlangApplyDispatch.cs"
+    }
+  ],
+  "Corroboration": [
+    {
+      "Path": "artifacts/part350-ordinary-independent/semantic-guard.json",
+      "Bytes": 74403,
+      "Sha256": "9A289E0430F92276B7DD691A6269F6E086FC52CBA1BC6EBC2546F1B662A71EC2"
+    },
+    {
+      "Path": "artifacts/part350-ordinary-independent/strict-guard.json",
+      "Bytes": 343,
+      "Sha256": "DC15C5EF0448531EA4FADC8D8EFEBFC1DFDC83C99EAA8DA8A82EB1CD868B4E70"
+    },
+    {
+      "Path": "artifacts/successor350-ci-independent/report.json",
+      "Bytes": 3170,
+      "Sha256": "0DE0E08451CDEBD26BC3E247245DA38D79F869CC37A331E510785AEE6B537562"
+    },
+    {
+      "Path": "artifacts/additional-type-predicate350-full-independent/report.json",
+      "Bytes": 11922,
+      "Sha256": "A880ED1A33BE32A6807B0A92B8609F41890F61105683C79A7C0241693476F42C"
+    },
+    {
+      "Path": "artifacts/priority351-verified-contract-source-review/report.json",
+      "Bytes": 6289,
+      "Sha256": "4F93CBF3F3FDAD9930DC6A6D6A944E201904611178DC5C0C99A55AB6AE42677C"
+    },
+    {
+      "Path": "artifacts/additional-type-predicate-source-independent/report.json",
+      "Bytes": 7682,
+      "Sha256": "5DA09FE486FD9E951E3963488AFBEC24463CD314F6D1FC9E591CED7DCEAC4C80"
+    },
+    {
+      "Path": "artifacts/additional-six-predicate351-contract-audit/selected-original350-six-witnesses.json",
+      "Bytes": 27255,
+      "Sha256": "06218024A75F2DABE2F3519DF33C5FD9532BDB529AE2D4B35B87A3763BDF4B64"
+    }
+  ],
+  "FutureCountsIfAllSixApproved": {
+    "Verified": 16,
+    "Known": 24,
+    "NeedsVerification": 547,
+    "Total": 587
+  },
+  "Current351FullInputUnchanged": {
+    "Verified": 10,
+    "Known": 24,
+    "NeedsVerification": 553,
+    "RuntimeGuards": 74
+  },
+  "RemainingPublicationGates": [
+    "Root/independent review accepts complete branch/category and dispatch argument, not merely six examples.",
+    "Current351 full and source freeze accepted, then rebase futureclassification on exact published351 source guard hashes; preserve older evidence.",
+    "Actual same-head351 CI/publication evidence may be appended after publication; no impossible prefull351 native/CI gate.",
+    "No new predicate runtime code is proposed; if source changes before futurepromotion, all77 bindings require exact revalidation."
+  ],
+  "SemanticLimitationsFound": [],
+  "ObservationLimitationsPreserved": true,
+  "LedgerChanged": false,
+  "MainChanged": false,
+  "CandidateChanged": false,
+  "SdkExecuted": false,
+  "NativeCodeExecuted": false,
+  "NetworkUsed": false
+}

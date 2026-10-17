@@ -1,0 +1,542 @@
+[
+  {
+    "Path": "erts/emulator/beam/erl_bif_op.c",
+    "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "Bytes": 7761,
+    "Sha256": "74CA827E5188657CF2726A4C8A9DA6F4503675714A656041722CE10A066EEAD3",
+    "Anchors": [
+      {
+        "Line": 269,
+        "Needle": "BIF_RETTYPE is_boolean_1",
+        "Excerpt": [
+          "",
+          "BIF_RETTYPE is_boolean_1(BIF_ALIST_1)",
+          "{",
+          "    if (BIF_ARG_1 == am_true || BIF_ARG_1 == am_false) {",
+          "\tBIF_RET(am_true);",
+          "    } else {",
+          "\tBIF_RET(am_false);",
+          "    }",
+          "}",
+          ""
+        ]
+      },
+      {
+        "Line": 223,
+        "Needle": "BIF_RETTYPE is_function_1",
+        "Excerpt": [
+          "",
+          "BIF_RETTYPE is_function_1(BIF_ALIST_1)",
+          "{",
+          "    if (is_any_fun(BIF_ARG_1)) {",
+          "\tBIF_RET(am_true);",
+          "    } else {",
+          "\tBIF_RET(am_false);",
+          "    }",
+          "}",
+          ""
+        ]
+      },
+      {
+        "Line": 157,
+        "Needle": "BIF_RETTYPE is_list_1",
+        "Excerpt": [
+          "",
+          "BIF_RETTYPE is_list_1(BIF_ALIST_1)",
+          "{",
+          "    if (is_list(BIF_ARG_1) || is_nil(BIF_ARG_1)) {",
+          "\tBIF_RET(am_true);",
+          "    }",
+          "    BIF_RET(am_false);",
+          "}",
+          "",
+          "BIF_RETTYPE is_number_1(BIF_ALIST_1)"
+        ]
+      },
+      {
+        "Line": 174,
+        "Needle": "BIF_RETTYPE is_pid_1",
+        "Excerpt": [
+          "",
+          "BIF_RETTYPE is_pid_1(BIF_ALIST_1)",
+          "{",
+          "    if (is_pid(BIF_ARG_1)) {",
+          "\tBIF_RET(am_true);",
+          "    }",
+          "    BIF_RET(am_false);",
+          "}",
+          "",
+          "BIF_RETTYPE is_port_1(BIF_ALIST_1)"
+        ]
+      },
+      {
+        "Line": 182,
+        "Needle": "BIF_RETTYPE is_port_1",
+        "Excerpt": [
+          "",
+          "BIF_RETTYPE is_port_1(BIF_ALIST_1)",
+          "{",
+          "    if (is_port(BIF_ARG_1)) {",
+          "\tBIF_RET(am_true);",
+          "    }",
+          "    BIF_RET(am_false);",
+          "}",
+          "",
+          "BIF_RETTYPE is_reference_1(BIF_ALIST_1)"
+        ]
+      },
+      {
+        "Line": 190,
+        "Needle": "BIF_RETTYPE is_reference_1",
+        "Excerpt": [
+          "",
+          "BIF_RETTYPE is_reference_1(BIF_ALIST_1)",
+          "{",
+          "    if (is_ref(BIF_ARG_1)) {",
+          "\tBIF_RET(am_true);",
+          "    }",
+          "    BIF_RET(am_false);",
+          "}",
+          "",
+          "BIF_RETTYPE is_tuple_1(BIF_ALIST_1)"
+        ]
+      }
+    ]
+  },
+  {
+    "Path": "erts/emulator/beam/erl_term.h",
+    "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "Bytes": 59494,
+    "Sha256": "8E016126FB7A1BC1DB8D31111601C0BEA21D72207211BF91E1F3C127E943B5C2",
+    "Anchors": [
+      {
+        "Line": 226,
+        "Needle": "#define is_list(x)",
+        "Excerpt": [
+          "#define is_not_list(x)\t\t_ET_APPLY(is_not_list,(x))",
+          "#define is_list(x)\t\t(!is_not_list((x)))",
+          "#else",
+          "#define is_list(x)\t\t(((x) & _TAG_PRIMARY_MASK) == TAG_PRIMARY_LIST)",
+          "#define is_not_list(x)\t\t(!is_list((x)))",
+          "#endif",
+          "#define _list_precond(x)        (is_list(x))",
+          "#ifdef TAG_LITERAL_PTR",
+          "#define _unchecked_list_val(x) _unchecked_ptr_val(x)",
+          "#else"
+        ]
+      },
+      {
+        "Line": 228,
+        "Needle": "#define is_list(x)",
+        "Excerpt": [
+          "#else",
+          "#define is_list(x)\t\t(((x) & _TAG_PRIMARY_MASK) == TAG_PRIMARY_LIST)",
+          "#define is_not_list(x)\t\t(!is_list((x)))",
+          "#endif",
+          "#define _list_precond(x)        (is_list(x))",
+          "#ifdef TAG_LITERAL_PTR",
+          "#define _unchecked_list_val(x) _unchecked_ptr_val(x)",
+          "#else",
+          "#define _unchecked_list_val(x) ((Eterm*) ((x) - TAG_PRIMARY_LIST))",
+          "#endif"
+        ]
+      },
+      {
+        "Line": 294,
+        "Needle": "#define is_nil(x)",
+        "Excerpt": [
+          "#define NIL\t\t((Eterm)(_TAG_IMMED2_NIL))",
+          "#define is_nil(x)\t((x) == NIL)",
+          "#define is_not_nil(x)\t((x) != NIL)",
+          "",
+          "#define MAX_ATOM_INDEX (~(~((Uint) 0) << (sizeof(Uint)*8 - _TAG_IMMED2_SIZE)))",
+          "",
+          "/* atom access methods */",
+          "#define make_atom(x)  ((Eterm)(((x) << _TAG_IMMED2_SIZE) + _TAG_IMMED2_ATOM))",
+          "#define is_atom(x)\t(((x) & _TAG_IMMED2_MASK) == _TAG_IMMED2_ATOM)",
+          "#define is_not_atom(x)\t(!is_atom(x))"
+        ]
+      },
+      {
+        "Line": 426,
+        "Needle": "#define is_any_fun(x)",
+        "Excerpt": [
+          "#define make_fun(x)             make_boxed((Eterm*)(x))",
+          "#define is_any_fun(x)           (is_boxed((x)) && is_fun_header(*boxed_val((x))))",
+          "#define is_not_any_fun(x)       (!is_any_fun((x)))",
+          "#define _unchecked_fun_val(x)   _unchecked_boxed_val((x))",
+          "_ET_DECLARE_CHECKED(Eterm*,fun_val,Eterm)",
+          "#define fun_val(x)\t\t_ET_APPLY(fun_val,(x))",
+          "",
+          "/* Native record objects. */",
+          "#define make_record_header(Size)                                              \\",
+          "    _make_header((Size), _TAG_HEADER_RECORD)"
+        ]
+      }
+    ]
+  },
+  {
+    "Path": "erts/emulator/beam/erl_node_container_utils.h",
+    "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "Bytes": 13783,
+    "Sha256": "A7F0C4C49A3043042F4CD4C644F3D1AE6B70D9E49DAF3A76E82D4509F0B3692D",
+    "Anchors": [
+      {
+        "Line": 171,
+        "Needle": "#define is_pid(x)",
+        "Excerpt": [
+          "\t\t\t\t\t : external_pid_channel_no((x)))",
+          "#define is_pid(x)\t\t\t(is_internal_pid((x))\t\t\\",
+          "\t\t\t\t\t || is_external_pid((x)))",
+          "#define is_not_pid(x)\t\t\t(!is_pid(x))",
+          "",
+          "/*",
+          " * Maximum number of processes. We want the number to fit in a SMALL on",
+          " * 32-bit CPU.",
+          " */",
+          ""
+        ]
+      },
+      {
+        "Line": 239,
+        "Needle": "#define is_port(x)",
+        "Excerpt": [
+          "",
+          "#define is_port(x)\t\t\t(is_internal_port((x))\t\t\\",
+          "\t\t\t\t\t || is_external_port((x)))",
+          "#define is_not_port(x)\t\t\t(!is_port(x))",
+          "",
+          "/* Highest port-ID part in a term of type Port ",
+          "   Not necessarily the same as current maximum port table size",
+          "   which defines the maximum number of simultaneous Ports",
+          "   in the Erlang node. ERTS_MAX_PORTS is a hard upper limit.",
+          "*/"
+        ]
+      },
+      {
+        "Line": 322,
+        "Needle": "#define is_ref(x)",
+        "Excerpt": [
+          "\t\t\t\t\t : external_ref_channel_no((x)))",
+          "#define is_ref(x)\t\t\t(is_internal_ref((x))\t\t\\",
+          "\t\t\t\t\t || is_external_ref((x)))",
+          "#define is_not_ref(x)\t\t\t(!is_ref(x))",
+          "",
+          "#endif"
+        ]
+      }
+    ]
+  },
+  {
+    "Path": "erts/emulator/beam/erl_db_util.c",
+    "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "Bytes": 173579,
+    "Sha256": "9228A0FD19A784FE52EDAEBFC3F0F714DB9648FD939E268CEEB855E73181E1F5",
+    "Anchors": [
+      {
+        "Line": 654,
+        "Needle": "&is_boolean_1",
+        "Excerpt": [
+          "        am_is_boolean,",
+          "        &is_boolean_1,",
+          "        1,",
+          "        DBIF_ALL",
+          "    },",
+          "    {",
+          "        am_is_function,",
+          "        &is_function_1,",
+          "        1,",
+          "        DBIF_ALL"
+        ]
+      },
+      {
+        "Line": 660,
+        "Needle": "&is_function_1",
+        "Excerpt": [
+          "        am_is_function,",
+          "        &is_function_1,",
+          "        1,",
+          "        DBIF_ALL",
+          "    },",
+          "    {",
+          "        am_is_function,",
+          "        &is_function_2,",
+          "        2,",
+          "        DBIF_ALL"
+        ]
+      },
+      {
+        "Line": 600,
+        "Needle": "&is_list_1",
+        "Excerpt": [
+          "\tam_is_list,",
+          "\t&is_list_1,",
+          "\t1,",
+          "\tDBIF_ALL",
+          "    },",
+          "    {",
+          "\tam_is_number,",
+          "\t&is_number_1,",
+          "\t1,",
+          "\tDBIF_ALL"
+        ]
+      },
+      {
+        "Line": 612,
+        "Needle": "&is_pid_1",
+        "Excerpt": [
+          "\tam_is_pid,",
+          "\t&is_pid_1,",
+          "\t1,",
+          "\tDBIF_ALL",
+          "    },",
+          "    {",
+          "\tam_is_port,",
+          "\t&is_port_1,",
+          "\t1,",
+          "\tDBIF_ALL"
+        ]
+      },
+      {
+        "Line": 618,
+        "Needle": "&is_port_1",
+        "Excerpt": [
+          "\tam_is_port,",
+          "\t&is_port_1,",
+          "\t1,",
+          "\tDBIF_ALL",
+          "    },",
+          "    {",
+          "\tam_is_reference,",
+          "\t&is_reference_1,",
+          "\t1,",
+          "\tDBIF_ALL"
+        ]
+      },
+      {
+        "Line": 624,
+        "Needle": "&is_reference_1",
+        "Excerpt": [
+          "\tam_is_reference,",
+          "\t&is_reference_1,",
+          "\t1,",
+          "\tDBIF_ALL",
+          "    },",
+          "    {",
+          "\tam_is_tuple,",
+          "\t&is_tuple_1,",
+          "\t1,",
+          "\tDBIF_ALL"
+        ]
+      }
+    ]
+  },
+  {
+    "Path": "lib/stdlib/src/erl_internal.erl",
+    "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "Bytes": 18240,
+    "Sha256": "D7D62083E74560591851D85821B379274FDCC88A7E10870AE6A7448775ABEF9D",
+    "Anchors": [
+      {
+        "Line": 123,
+        "Needle": "new_type_test(is_boolean, 1)",
+        "Excerpt": [
+          "new_type_test(is_bitstring, 1) -> true;",
+          "new_type_test(is_boolean, 1) -> true;",
+          "new_type_test(is_float, 1) -> true;",
+          "new_type_test(is_function, 1) -> true;",
+          "new_type_test(is_function, 2) -> true;",
+          "new_type_test(is_integer, 1) -> true;",
+          "new_type_test(is_list, 1) -> true;",
+          "new_type_test(is_map, 1) -> true;",
+          "new_type_test(is_number, 1) -> true;",
+          "new_type_test(is_pid, 1) -> true;"
+        ]
+      },
+      {
+        "Line": 125,
+        "Needle": "new_type_test(is_function, 1)",
+        "Excerpt": [
+          "new_type_test(is_float, 1) -> true;",
+          "new_type_test(is_function, 1) -> true;",
+          "new_type_test(is_function, 2) -> true;",
+          "new_type_test(is_integer, 1) -> true;",
+          "new_type_test(is_list, 1) -> true;",
+          "new_type_test(is_map, 1) -> true;",
+          "new_type_test(is_number, 1) -> true;",
+          "new_type_test(is_pid, 1) -> true;",
+          "new_type_test(is_port, 1) -> true;",
+          "new_type_test(is_record, 2) -> true;"
+        ]
+      },
+      {
+        "Line": 128,
+        "Needle": "new_type_test(is_list, 1)",
+        "Excerpt": [
+          "new_type_test(is_integer, 1) -> true;",
+          "new_type_test(is_list, 1) -> true;",
+          "new_type_test(is_map, 1) -> true;",
+          "new_type_test(is_number, 1) -> true;",
+          "new_type_test(is_pid, 1) -> true;",
+          "new_type_test(is_port, 1) -> true;",
+          "new_type_test(is_record, 2) -> true;",
+          "new_type_test(is_record, 3) -> true;",
+          "new_type_test(is_reference, 1) -> true;",
+          "new_type_test(is_record, 1) -> true;"
+        ]
+      },
+      {
+        "Line": 131,
+        "Needle": "new_type_test(is_pid, 1)",
+        "Excerpt": [
+          "new_type_test(is_number, 1) -> true;",
+          "new_type_test(is_pid, 1) -> true;",
+          "new_type_test(is_port, 1) -> true;",
+          "new_type_test(is_record, 2) -> true;",
+          "new_type_test(is_record, 3) -> true;",
+          "new_type_test(is_reference, 1) -> true;",
+          "new_type_test(is_record, 1) -> true;",
+          "new_type_test(is_tuple, 1) -> true;",
+          "new_type_test(Name, A) when is_atom(Name), is_integer(A) -> false.",
+          ""
+        ]
+      },
+      {
+        "Line": 132,
+        "Needle": "new_type_test(is_port, 1)",
+        "Excerpt": [
+          "new_type_test(is_pid, 1) -> true;",
+          "new_type_test(is_port, 1) -> true;",
+          "new_type_test(is_record, 2) -> true;",
+          "new_type_test(is_record, 3) -> true;",
+          "new_type_test(is_reference, 1) -> true;",
+          "new_type_test(is_record, 1) -> true;",
+          "new_type_test(is_tuple, 1) -> true;",
+          "new_type_test(Name, A) when is_atom(Name), is_integer(A) -> false.",
+          "",
+          "%%  Erlang old-style type tests."
+        ]
+      },
+      {
+        "Line": 135,
+        "Needle": "new_type_test(is_reference, 1)",
+        "Excerpt": [
+          "new_type_test(is_record, 3) -> true;",
+          "new_type_test(is_reference, 1) -> true;",
+          "new_type_test(is_record, 1) -> true;",
+          "new_type_test(is_tuple, 1) -> true;",
+          "new_type_test(Name, A) when is_atom(Name), is_integer(A) -> false.",
+          "",
+          "%%  Erlang old-style type tests.",
+          "-doc false.",
+          "-spec old_type_test(Name::atom(), Arity::arity()) -> boolean().",
+          ""
+        ]
+      }
+    ]
+  },
+  {
+    "Path": "lib/stdlib/src/erl_lint.erl",
+    "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "Bytes": 229242,
+    "Sha256": "D849FACD432331BCEAF4C244A7D71B3B74CD962297B464B016A449C1E50E9292",
+    "Anchors": [
+      {
+        "Line": 77,
+        "Needle": "is_guard_test",
+        "Excerpt": [
+          "-export([exprs/2,exprs_opt/3,used_vars/2]). % Used from erl_eval.erl.",
+          "-export([is_pattern_expr/1,is_guard_test/1,is_guard_test/2,is_guard_test/3]).",
+          "-export([is_guard_expr/1]).",
+          "-export([bool_option/4,value_option/3,value_option/7]).",
+          "",
+          "-export([check_format_string/1, check_format_string/2]).",
+          "",
+          "-export_type([error_info/0, error_description/0]).",
+          "-export_type([fun_used_vars/0]). % Used from erl_eval.erl.",
+          ""
+        ]
+      },
+      {
+        "Line": 2635,
+        "Needle": "is_guard_test",
+        "Excerpt": [
+          "    %% otherwise just treat it as an expression.",
+          "    Info = is_guard_test2_info(St),",
+          "    case is_gexpr(Size, Info) of",
+          "        true ->",
+          "            case erl_eval:partial_eval(Size) of",
+          "                {integer,_ILn,I} -> {I,[],St};",
+          "                _Other ->",
+          "                    {Evt,St1} = Check(Size, Vt, St),",
+          "                    {unknown,Evt,St1}",
+          "            end;"
+        ]
+      },
+      {
+        "Line": 2878,
+        "Needle": "is_guard_test",
+        "Excerpt": [
+          "",
+          "%% is_guard_test(Expression) -> boolean().",
+          "%%  Test if a general expression is a guard test.",
+          "%%",
+          "%%  Note: Only use this function in contexts where there can be",
+          "%%  no definition of a local function that may override a guard BIF",
+          "%%  (for example, in the shell).",
+          "-doc \"\"\"",
+          "Tests if `Expr` is a legal guard test. `Expr` is an Erlang term representing the",
+          "abstract form for the expression."
+        ]
+      },
+      {
+        "Line": 337,
+        "Needle": "no_auto_import",
+        "Excerpt": [
+          "     compile directive nowarn_bif_clash is no longer allowed --",
+          "     use explicit module names or -compile({no_auto_import, [F/A]})",
+          "     \"\"\";",
+          "format_error_1({bad_on_load,Term}) ->",
+          "    {~\"badly formed on_load attribute: ~tw\", [Term]};",
+          "format_error_1(multiple_on_loads) ->",
+          "    ~\"more than one on_load attribute\";",
+          "format_error_1({bad_on_load_arity,{F,A}}) ->",
+          "    {~\"function ~tw/~w has wrong arity (must be 0)\", [F,A]};",
+          "format_error_1({Tag, duplicate_doc_attribute, Ann}) ->"
+        ]
+      },
+      {
+        "Line": 380,
+        "Needle": "no_auto_import",
+        "Excerpt": [
+          "      ambiguous call of overridden auto-imported BIF ~w/~w --",
+          "      use erlang:~w/~w or \"-compile({no_auto_import,[~w/~w]}).\" to resolve name clash",
+          "      \"\"\", [F,A,F,A,F,A]};",
+          "format_error_1({redefine_bif_import,{F,A}}) ->",
+          "    {~\"\"\"",
+          "      import directive overrides auto-imported BIF ~w/~w --",
+          "      use \"-compile({no_auto_import,[~w/~w]}).\" to resolve name clash",
+          "      \"\"\", [F,A,F,A]};",
+          "format_error_1({obsolete_bool_op, OldOp, NewOp}) ->",
+          "    String ="
+        ]
+      },
+      {
+        "Line": 385,
+        "Needle": "no_auto_import",
+        "Excerpt": [
+          "      import directive overrides auto-imported BIF ~w/~w --",
+          "      use \"-compile({no_auto_import,[~w/~w]}).\" to resolve name clash",
+          "      \"\"\", [F,A,F,A]};",
+          "format_error_1({obsolete_bool_op, OldOp, NewOp}) ->",
+          "    String =",
+          "        (\"use the short circuiting \" ++ NewOp ++ \" instead.\\nThe \"",
+          "         ++ OldOp ++ \" \"",
+          "         ++ ~\"\"\"",
+          "         operator, which always evaluates both sides, could be",
+          "         removed in a future version of Erlang/OTP."
+        ]
+      }
+    ]
+  }
+]

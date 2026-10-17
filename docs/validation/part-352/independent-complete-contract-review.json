@@ -1,0 +1,82 @@
+{
+  "Status": "PASS_INDEPENDENT_SIX_COMPLETE_SUPPORTED_UNARY_CONTRACT_CLASSIFICATION_SOURCE_AND_ACTUAL_EVIDENCE_REVIEW",
+  "ProposalSha256": "C4A338D5E454999D399F4A3EB9D5379AD3F5EF3EAAD33CC5FBEA2F9537237D0E",
+  "Head": "547a2dd266586589a90c7883dac88d09a5a1de20",
+  "AuditSha256": "0DEEE38087CE2578D03BD3AF3C263DA4D6EDB64F727DECE24941446C211BB982",
+  "CandidateLedgerSha256": "B5A33AA1FDD71B922C5DC601AD974A3010F3751D9EA7994889773E79A4A40F00",
+  "CountsProposed": {
+    "Verified compatible": 16,
+    "Known differences": 24,
+    "Needs verification": 547
+  },
+  "ExactlySixTransitions": [
+    [
+      "erlang",
+      "is_list",
+      1
+    ],
+    [
+      "erlang",
+      "is_pid",
+      1
+    ],
+    [
+      "erlang",
+      "is_boolean",
+      1
+    ],
+    [
+      "erlang",
+      "is_function",
+      1
+    ],
+    [
+      "erlang",
+      "is_port",
+      1
+    ],
+    [
+      "erlang",
+      "is_reference",
+      1
+    ]
+  ],
+  "Other581EntriesRawObjectExact": true,
+  "PriorTenVerifiedEntriesIncludingAllEvidenceExact": true,
+  "Prior74RuntimeBindingPrefixExact": true,
+  "All77CurrentRuntimeBindingsRehashed": true,
+  "ProofFilesRehashed": 98,
+  "PinnedSourceFilesAndAnchorLinesRehashed": 6,
+  "ActualOriginal350WholeRawWitnessRowsExact": 6,
+  "CurrentFixturesRawExactActualOriginal350Version": true,
+  "ReasonedContractReview": {
+    "is_boolean1": "Atom exactordinal name true/false only; no truthiness. Native exacttrue/false atoms; all13supported typecategories covered.",
+    "is_list1": "Cons or Nil only, native primaryLIST or NIL. Neither tail nor length traversed, so improper/deep lists totaltrue without a proper-list precondition.",
+    "is_pid1": "Sealed Pid class models local/external; native internal/external PID tag union. No liveness/nodeepoch/table lookup is performed.",
+    "is_port1": "Sealed PortTerm for local/external identities; native uniontag. Open/dead/closed backend cannot change classifier. No I/O path needed to classify.",
+    "is_reference1": "ReferenceTerm pattern includes ResourceReferenceTerm/alias/monitor/external encodings; native internal/magic/external ref union. Resource state is not read.",
+    "is_function1": "FunctionTerm includes named/local/captured/external anyarity/codeavailability. Reads neither identityProvider norArity/invoke; native is_any_fun boxedheader. Distinct is_function2 errors explicitlyexcluded as otherMFA."
+  },
+  "ContextReview": [
+    "Read CoreModules/ErlangBasicRegistrations exactMFA1 delegates and Boolean/AtomCache. ReturnValueTask completed and no context/resource dependency.",
+    "Read normalExecution/SourceCallResolution, LocalCallValidation, Semantics, AutoImportSignatures/Names and NamedFunctionReferences. Shadows changecallee, not predicatecontract; explicit/imported erlang routing and suppression retain same registeredbody.",
+    "Read AsyncGuards/ComprehensionGuard and generatedExecution callpath; sixnames in guardwhitelist, precise trueatom test, no alternative optimizedclassifier.",
+    "Read ModuleRegistry.CallMatchSpecGuard, MatchSpecOperations.Pure and MatchSpecProgram: completed totalbody directlyinvoked without351queuedadmission; native DBIF_ALL selects same sixBIF1 bodies.",
+    "Read FunctionTerm, reference subtype andallproductionTerm subclasses;13nominalcategories+resourceRef. Unsupported CLRnull/customsubclasses/cycles are not substituted for validguestterms.",
+    "One validterm input has no argument-dependenterrors. Wrongarity/argument evaluation/apply misuse are separate contracts; processcancel/halt preserves task lifetime policy and does not create a data classifier branch."
+  ],
+  "EvidenceScope": [
+    "Native38partition\u00d712context rows corroborate each function and routing path; finite nominaltag/name sourceproof closes entire supportedterm domain. This is not extrapolation from six done results alone.",
+    "Live/dead PID/port, purged/higherarityfun andmagicref lifecycle variants not claimed as individually nativeexecuted; their classifier is formally fixed by tagonly body reading none of those states.",
+    "Original351prioritycapture not requiredfor unchanged primitivebranches/sharedbindingcode plus rawidenticalfixture/native350witness; no priority/port/IOperformance verification inferred.",
+    "Actualfull351B9C1 andCI35107D0 independently reviewed current correctedruntime, statuses remainat10/24/553 untilRoot explicitlyappliesnewreportingproposal.",
+    "Newfuturetermrepresentations, predicatehandlers or compilerbinding/matchspec changes require newaudit; no forwardlooking universalpromise."
+  ],
+  "MissingWholeContractOrKnownCurrentSemanticGapFound": false,
+  "SourceAcceptance": "Accept proposed exactsixclassification on supportedErlangtermunaryobservablecontract; preserve allpendingelsewhere. No runtimeimplementation/publishing by reviewer.",
+  "Disclosure": "Reviewer independently reviewed source/categoryproof andnativewitnesses; authored unrelatedschedulerHOST migrations and currentCI351passivereader. Actualoriginal/managedexecution performed elsewhere; this review ran only readonlyGit/Pythondata assertions.",
+  "SdkExecuted": false,
+  "NativeExecuted": false,
+  "MainModified": false,
+  "NetworkUsed": false
+}
