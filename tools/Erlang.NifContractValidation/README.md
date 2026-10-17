@@ -7,3 +7,5 @@ Existing manual workflow filenames are branch-local execution aliases because Gi
 The branch skips automatic full Windows regression on source-only pushes; the actual original/native workflows run explicitly. This branch-local CI trigger change must not be merged into Main. Production integration still requires full regression and same-head Main CI.
 
 Earlier local checkout attempts hit Windows path limits, then an initially empty sparse index and CRLF-only shared Python checkout differences. The final sparse checkout preserves the complete Git tree; shared dependencies are checked from canonical parent Git blobs. No failed attempt or API result is relabelled successful.
+
+Namespace run39028125433 failed before C compilation because artifacts/ did not yet exist. Preserve that failed acquisition; create only the output parent before creating the fresh probe output directory. C sources, namespace assertions and both original OTP contracts remain unchanged.

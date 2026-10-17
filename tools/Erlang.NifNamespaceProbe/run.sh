@@ -2,6 +2,7 @@
 set -euo pipefail
 source_dir=$(cd -- "$(dirname -- "$0")" && pwd)
 output=$1
+mkdir -p "$(dirname -- "$output")"
 mkdir "$output"
 output=$(cd -- "$output" && pwd)
 gcc -shared -fPIC -std=c11 -O2 -Wall -Wextra -Werror "$source_dir/bridge.c" -ldl -Wl,-soname,bridge.so -o "$output/bridge.so"
