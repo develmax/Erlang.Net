@@ -1,0 +1,35 @@
+{
+  "Status": "PASS_ACTUAL_MANAGED_READINESS_RED_BEFORE_GREEN_AFTER_EOL_ONLY",
+  "Head": "64460f8686b0f4d2b7e6d9a363b49f8d09fa00da",
+  "Rows": 204,
+  "BoundSourceAndEvidenceRows": 198,
+  "Receipts": [
+    {
+      "Stage": "before",
+      "ExitCode": 1,
+      "Pid": 259224,
+      "ElapsedSeconds": 0.46799999999348074,
+      "ReceiptSha256": "EB56B468837D7DC1A2EFECCFAB6C1B03FAE51E7F8AA3215B093D2E5D361D7CD7"
+    },
+    {
+      "Stage": "after",
+      "ExitCode": 0,
+      "Pid": 261648,
+      "ElapsedSeconds": 1.4059999999881256,
+      "ReceiptSha256": "E70577E34CAF2EF22D04D6E13CFF63616EFF558366BD7B8C08788BC9B146BD0A"
+    }
+  ],
+  "RegistryRows": 587,
+  "SourceGuards": 157,
+  "UniqueEvidenceFiles": 41,
+  "CompatibilityCounts": {
+    "Verified compatible": 16,
+    "Known differences": 30,
+    "Needs verification": 541
+  },
+  "CiRunStillFailed": true,
+  "FullCiRerunPerformed": false,
+  "BuildExecuted": false,
+  "NativeLibraryExecuted": false,
+  "MainChanged": false
+}
