@@ -24,6 +24,7 @@ jobs:
         with:
           global-json-file: global.json
       - name: Verify executing code head and reuse exact parent owned artifact
+        id: reuse
         env:
           GH_ARTIFACT_TOKEN: ${{ github.token }}
         shell: bash
@@ -32,16 +33,25 @@ jobs:
           test "$EXPECTED_HEAD" = "$GITHUB_SHA"
           test "$(git --no-optional-locks rev-parse HEAD)" = "$EXPECTED_HEAD"
           python3 -B tools/Erlang.NifLinuxCallbackObservations/reuse.py
-      - name: Try bounded debugger installation on this ephemeral runner
+      - name: Select installed debugger or existing bounded dump fallback
+        if: ${{ !cancelled() && steps.reuse.outcome == 'success' }}
         shell: bash
         run: |
-          if ! command -v gdb >/dev/null; then timeout 120s sudo apt-get install --yes --no-install-recommends gdb || echo "Debugger unavailable; bounded triage dump fallback retained"; fi
+          if command -v gdb >/dev/null; then
+            command -v gdb
+          else
+            echo "Using existing bounded dotnet triage-dump fallback; no debugger installation"
+          fi
       - name: Build only the owned host-thread bridge with retained original headers
+        id: prepare_bridge
+        if: ${{ !cancelled() && steps.reuse.outcome == 'success' }}
         shell: bash
         run: |
           set -euo pipefail
           python3 -B tools/Erlang.NifLinuxCallbackObservations/prepare-pthread.py
       - name: Build NEWLM host-thread provider control
+        id: build_callback
+        if: ${{ !cancelled() && steps.prepare_bridge.outcome == 'success' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -49,11 +59,15 @@ jobs:
           dotnet build tools/Erlang.NifLinuxCallbackFocus/Erlang.NifLinuxCallbackFocus.csproj --disable-build-servers -m:1 -nr:false --nologo
           cp artifacts/linux-pthread-bridge/Erlang.NifBridge.so tools/Erlang.NifLinuxCallbackFocus/bin/Debug/net10.0/Erlang.NifBridge.so
       - name: Build managed-only discriminator from identical guest source
+        id: build_managed
+        if: ${{ !cancelled() && steps.prepare_bridge.outcome == 'success' }}
         shell: bash
         run: |
           set -euo pipefail
           dotnet build tools/Erlang.NifLinuxManagedControlFocus/Erlang.NifLinuxManagedControlFocus.csproj -c Release --disable-build-servers -m:1 -nr:false --nologo
       - name: Execute independent managed-only map construction control
+        id: run_managed
+        if: ${{ !cancelled() && steps.build_managed.outcome == 'success' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -64,12 +78,16 @@ jobs:
             --focus "$GITHUB_WORKSPACE/tools/Erlang.NifLinuxManagedControlFocus/bin/Release/net10.0/Erlang.NifLinuxManagedControlFocus.dll" \
             --output "$GITHUB_WORKSPACE/artifacts/linux-managed-control"
       - name: Build ordinary loading regression focus
+        id: build_ordinary
+        if: ${{ !cancelled() && steps.prepare_bridge.outcome == 'success' }}
         shell: bash
         run: |
           set -euo pipefail
           dotnet build tools/Erlang.NifOrdinaryLoaderFocus/Erlang.NifOrdinaryLoaderFocus.csproj -c Release --disable-build-servers -m:1 -nr:false --nologo
           cp artifacts/linux-pthread-bridge/Erlang.NifBridge.so tools/Erlang.NifOrdinaryLoaderFocus/bin/Release/net10.0/Erlang.NifBridge.so
       - name: Check ordinary origin, bare-name lookup and missing dependency against native loader
+        id: run_ordinary
+        if: ${{ !cancelled() && steps.build_ordinary.outcome == 'success' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -82,6 +100,8 @@ jobs:
             --bridge-sha256 "$(sha256sum artifacts/linux-pthread-bridge/Erlang.NifBridge.so | cut -d' ' -f1)" \
             --output "$GITHUB_WORKSPACE/artifacts/linux-ordinary-regressions"
       - name: Check ordinary C++ and POSIX thread destructors
+        id: run_destructors
+        if: ${{ !cancelled() && steps.build_ordinary.outcome == 'success' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -94,14 +114,20 @@ jobs:
             --bridge-sha256 "$(sha256sum artifacts/linux-pthread-bridge/Erlang.NifBridge.so | cut -d' ' -f1)" \
             --output "$GITHUB_WORKSPACE/artifacts/linux-thread-destructors"
       - name: Execute full17 on both routes retaining original NEWLM target paths
+        id: run_callback
+        if: ${{ !cancelled() && steps.build_callback.outcome == 'success' }}
         shell: bash
         run: |
           set -euo pipefail
           python3 -B tools/Erlang.NifLinuxCallbackObservations/run-pthread.py --source-plan "$GITHUB_WORKSPACE/$SOURCE_PLAN" --source-plan-sha256 "$SOURCE_PLAN_SHA" --approved-admission-sha256 "$(sha256sum artifacts/linux-pthread-bridge/admission.json | cut -d' ' -f1)"
       - name: Verify actual host-provider bindings and joined thread calls
+        id: verify_providers
+        if: ${{ !cancelled() && steps.run_callback.outcome == 'success' }}
         shell: bash
         run: python3 -B tools/Erlang.NifLinuxCallbackObservations/verify-pthread.py
       - name: Compare all68 rows against exact reused original artifacts
+        id: compare_rows
+        if: ${{ !cancelled() && steps.run_callback.outcome == 'success' }}
         shell: bash
         run: |
           set -euo pipefail

@@ -35,7 +35,7 @@ for binary in sorted((dotnet.parent/'shared/Microsoft.NETCore.App').glob('10.0.*
     coreclr.append({'InstalledPath':str(binary),'CapturedPath':str(target),'Sha256':sha(target),'Bytes':target.stat().st_size})
 assert coreclr
 (out/'coreclr-identities.json').write_text(json.dumps(coreclr,indent=2))
-stages=[]
+stages=[];failures=[]
 inputs={'DiagnosticInstrumentation':True,'PrimaryObservationCount':17,'AdmissionSubjectHead':admission['SubjectHead'],'ExecutingCodeHead':os.environ['GITHUB_SHA'],'PreviousRun':39030222266,'PreviousArtifact':12099548874,'SourcePlanSha256':args.source_plan_sha256,'Dotnet':str(dotnet),'DotnetSha256':sha(dotnet),'PreviousDotnetSha256':old['DotnetSha256'],'DotnetByteIdentical':sha(dotnet)==old['DotnetSha256'],'AdjacentDlls':dlls,'FocusSha256':sha(focus),'DebuggerPath':gdb,'DebuggerSha256':sha(gdb) if gdb else None,'Platform':platform.platform(),'Libc':platform.libc_ver(),'SignalCaptureBudget':4,'BacktraceFramesPerThread':16,'WallDeadlineSecondsPerRoute':180,'MaximumStreamBytes':4194304,'MaximumDumpFileBytes':67108864}
 (out/'inputs.json').write_text(json.dumps(inputs,indent=2))
 resource.setrlimit(resource.RLIMIT_FSIZE,(64*1024*1024,64*1024*1024))
@@ -91,16 +91,23 @@ run
         check(admission['BridgePath'],admission['BridgeSha256'])
         for image in admission['Images']:check(image['LibraryPath'],image['LibrarySha256'])
         target_completion=out/route/'completion.json';completed=False
-        if target_completion.exists():
-            completion=json.loads(target_completion.read_bytes())
-            completed=completion.get('Status')=='ACQUIRED_LINUX_CALLBACK17_TWO_RUNTIME_ROWS' and completion.get('PrimaryObservationCount')==17 and completion.get('Route')==route and completion.get('RuntimeDomains')==2 and completion.get('AllImageRetirementsCompleted') is True and completion.get('RuntimeDisposalsCompleted') is True
-            if completed:
-                for row in completion['Files']:check(out/route/row['Path'],row['Sha256'])
+        try:
+            if target_completion.exists():
+                completion=json.loads(target_completion.read_bytes())
+                completed=completion.get('Status')=='ACQUIRED_LINUX_CALLBACK17_TWO_RUNTIME_ROWS' and completion.get('PrimaryObservationCount')==17 and completion.get('Route')==route and completion.get('RuntimeDomains')==2 and completion.get('AllImageRetirementsCompleted') is True and completion.get('RuntimeDisposalsCompleted') is True
+                if completed:
+                    for row in completion['Files']:check(out/route/row['Path'],row['Sha256'])
+        except Exception as error:
+            completed=False;failure=failure or 'Invalid route output: '+repr(error)
         if failure is None and not completed:failure='Wrapper exited zero without verified full17 target completion'
         (out/(route+'-diagnostic-receipt.json')).write_text(json.dumps({'DiagnosticInstrumentation':True,'PrimaryObservationCount':17,'Failure':failure,'Mode':mode,'TargetCompletionVerified':completed,'TargetCompletionSha256':sha(target_completion) if target_completion.exists() else None,'WrapperExitCode':None if process is None else process.process.returncode,'TargetSignalNotInferredFromWrapper':True,'DumpFiles':[{'Path':str(p),'Bytes':p.stat().st_size,'Sha256':sha(p)} for p in out.glob(route+'.crash.*.dmp')],'SourcePlanExceptions':['Driver','Program','Admission','DispatchAlias','NamespaceHostThreadRegistration'],'NativeImagesPreserved':True},indent=2))
-    if failure:raise RuntimeError(failure)
     receipt=out/(route+'.process.json');value=json.loads(receipt.read_bytes())
-    assert value['ExitCode']==0 and value['ParentReaped'] and value['StreamsClosed'] and not value['TerminationRequested'] and not value['RemainingGroupKillRequested'] and value['CleanupFailure'] is None
-    stages.append({'Name':route,'ReceiptSha256':sha(receipt),'StdoutSha256':sha(out/(route+'.stdout')),'StderrSha256':sha(out/(route+'.stderr'))})
+    # An unsettled child invalidates isolation for the next route; do not continue.
+    assert value['ParentReaped'] and value['StreamsClosed'] and value['CleanupFailure'] is None
+    if value['ExitCode']!=0 or value['TerminationRequested'] or value['RemainingGroupKillRequested']:
+        failure=failure or 'Owned route did not complete normally'
+    if failure:failures.append({'Route':route,'Failure':failure})
+    stages.append({'Name':route,'Passed':failure is None,'ReceiptSha256':sha(receipt),'StdoutSha256':sha(out/(route+'.stdout')),'StderrSha256':sha(out/(route+'.stderr'))})
 for row in dlls:check(row['Path'],row['Sha256'])
-(out/'completion.json').write_text(json.dumps({'Status':'ACQUIRED_TWO_LINUX_ROUTES_CALLBACK17','SubjectHead':admission['SubjectHead'],'ExecutingCodeHead':os.environ['GITHUB_SHA'],'AdmissionSha256':sha(new_bridge/'admission.json'),'InputsSha256':sha(out/'inputs.json'),'OwnedStages':stages,'Routes':['reviewed','ordinary'],'PrimaryRowsPerRoute':17,'RuntimeDomainsPerRoute':2,'OriginalComparisonExecuted':False},indent=2))
+(out/'completion.json').write_text(json.dumps({'Status':'FAILED_TWO_LINUX_ROUTES_CALLBACK17' if failures else 'ACQUIRED_TWO_LINUX_ROUTES_CALLBACK17','SubjectHead':admission['SubjectHead'],'ExecutingCodeHead':os.environ['GITHUB_SHA'],'AdmissionSha256':sha(new_bridge/'admission.json'),'InputsSha256':sha(out/'inputs.json'),'OwnedStages':stages,'Routes':['reviewed','ordinary'],'Failures':failures,'PrimaryRowsPerRoute':17,'RuntimeDomainsPerRoute':2,'OriginalComparisonExecuted':False},indent=2))
+if failures:raise RuntimeError('Independent route failures: '+repr(failures))

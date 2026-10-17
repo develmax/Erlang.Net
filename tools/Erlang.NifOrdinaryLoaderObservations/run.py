@@ -5,6 +5,9 @@ R = Path(__file__).resolve().parents[2]
 T = Path(__file__).resolve().parent
 H = lambda p: hashlib.sha256(Path(p).read_bytes()).hexdigest().upper()
 J = lambda p: json.loads(Path(p).read_bytes())
+class UnsettledChild(RuntimeError):
+    pass
+
 def write(path, value):
     with path.open('x', encoding='utf-8') as stream:
         json.dump(value, stream, indent=2); stream.write('\n')
@@ -51,9 +54,14 @@ def main():
         except BaseException as error:
             failure=repr(error)
         finally:
-            if process is not None: process.close()
-        proof=J(prefix.with_suffix('.process.json'))
-        assert proof['ExitCode']==expected and proof['ParentReaped'] and proof['StreamsClosed']
+            if process is not None:
+                try: process.close()
+                except Exception as error: raise UnsettledChild(str(prefix)) from error
+        try: proof=J(prefix.with_suffix('.process.json'))
+        except Exception as error: raise UnsettledChild(str(prefix)) from error
+        if not proof['ParentReaped'] or not proof['StreamsClosed'] or proof['CleanupFailure'] is not None:
+            raise UnsettledChild(str(prefix))
+        assert proof['ExitCode']==expected
         assert not proof['TerminationRequested'] and not proof['RemainingGroupKillRequested'] and proof['CleanupFailure'] is None
         if expected==0: assert failure is None
         else: assert failure is not None
@@ -75,36 +83,46 @@ def main():
     images=[dict(Path=str(path),Sha256=H(path)) for directory in [absolute,bare,missing] for path in sorted(directory.rglob('*.so'))]
     for path in absolute.rglob('*.so'): path.chmod(0o444)
     (absolute/'deps').chmod(0o555); absolute.chmod(0o555)
-    results=[]
+    results=[];failures=[]
     for name,directory,isbare,success in [('origin-spaces-readonly',absolute,False,True),('bare-ld-library-path',bare,True,True),('missing-dependency',missing,False,False)]:
-        caseenv=env.copy()
-        if isbare: caseenv['LD_LIBRARY_PATH']=str(directory)
-        library='libordinary_path_probe.so' if isbare else str(directory/'libordinary_path_probe.so')
-        prefix=output/(name+'-baseline')
-        stage([baseline,library],prefix,caseenv,0 if success else 20)
-        baselinevalue=int(prefix.with_suffix('.stdout').read_text().strip()) if success else None
-        if a.thread_destructors and success: assert baselinevalue == 1111
-        if not success: assert 'libordinary_path_dependency.so' in prefix.with_suffix('.stderr').read_text()
-        sdkout=output/(name+'-sdk')
-        stage([dotnet,focus,T/'original/ordinary_loader_probe.erl',H(T/'original/ordinary_loader_probe.erl'),library[:-3],sdkout,a.bridge_sha256.upper()],output/(name+'-managed'),caseenv)
-        actual=J(sdkout/'completion.json')
-        assert actual['Status']=='ACQUIRED_ORDINARY_OS_LOADER_CONTROL' and actual['RuntimeDisposalsCompleted'] and actual['Loaded']==success
-        if success:
-            assert actual['NativeImageRetirementCompleted'] and int(actual['ActualValue'])==baselinevalue
-            assert passive_etf.decode_exact((sdkout/'returned.etf').read_bytes())==('integer',baselinevalue)
-            if a.thread_destructors:
-                witness=J(sdkout/'pthread-provider-witness.json')
-                bindings=[json.loads(value) for value in witness['Bindings']]
-                calls={row['Name']:row['Calls'] for row in json.loads(witness['Calls'])}
-                assert len(bindings)==1 and all(row['CapsuleLookupMatchesWrapper'] and row['BaseDiffersFromWrapper'] for row in bindings[0])
-                assert calls['pthread_create']==calls['pthread_join']==2
-                assert calls['pthread_key_create']==calls['pthread_key_delete']==calls['pthread_setspecific']==2
-                assert calls['__cxa_thread_atexit_impl']==2 and calls['pthread_exit']==1
-        else:
-            raw=passive_etf.decode_exact((sdkout/'load.etf').read_bytes())
-            assert raw[0]=='tuple' and raw[1][0]==('atom','error') and 'load_failed' in repr(raw)
-        results.append(dict(Name=name,BaselineValue=baselinevalue,ManagedValue=actual['ActualValue'],Loaded=actual['Loaded'],LoadTermSha256=H(sdkout/'load.etf')))
+        try:
+            caseenv=env.copy()
+            if isbare: caseenv['LD_LIBRARY_PATH']=str(directory)
+            library='libordinary_path_probe.so' if isbare else str(directory/'libordinary_path_probe.so')
+            prefix=output/(name+'-baseline')
+            stage([baseline,library],prefix,caseenv,0 if success else 20)
+            baselinevalue=int(prefix.with_suffix('.stdout').read_text().strip()) if success else None
+            if a.thread_destructors and success: assert baselinevalue == 1111
+            if not success: assert 'libordinary_path_dependency.so' in prefix.with_suffix('.stderr').read_text()
+            sdkout=output/(name+'-sdk')
+            stage([dotnet,focus,T/'original/ordinary_loader_probe.erl',H(T/'original/ordinary_loader_probe.erl'),library[:-3],sdkout,a.bridge_sha256.upper()],output/(name+'-managed'),caseenv)
+            actual=J(sdkout/'completion.json')
+            assert actual['Status']=='ACQUIRED_ORDINARY_OS_LOADER_CONTROL' and actual['RuntimeDisposalsCompleted'] and actual['Loaded']==success
+            if success:
+                assert actual['NativeImageRetirementCompleted'] and int(actual['ActualValue'])==baselinevalue
+                assert passive_etf.decode_exact((sdkout/'returned.etf').read_bytes())==('integer',baselinevalue)
+                if a.thread_destructors:
+                    witness=J(sdkout/'pthread-provider-witness.json')
+                    bindings=[json.loads(value) for value in witness['Bindings']]
+                    calls={row['Name']:row['Calls'] for row in json.loads(witness['Calls'])}
+                    assert len(bindings)==1 and all(row['CapsuleLookupMatchesWrapper'] and row['BaseDiffersFromWrapper'] for row in bindings[0])
+                    assert calls['pthread_create']==calls['pthread_join']==2
+                    assert calls['pthread_key_create']==calls['pthread_key_delete']==calls['pthread_setspecific']==2
+                    assert calls['__cxa_thread_atexit_impl']==2 and calls['pthread_exit']==1
+            else:
+                raw=passive_etf.decode_exact((sdkout/'load.etf').read_bytes())
+                assert raw[0]=='tuple' and raw[1][0]==('atom','error') and 'load_failed' in repr(raw)
+            results.append(dict(Name=name,BaselineValue=baselinevalue,ManagedValue=actual['ActualValue'],Loaded=actual['Loaded'],LoadTermSha256=H(sdkout/'load.etf')))
+        except UnsettledChild:
+            raise
+        except Exception as error:
+            failure=dict(Name=name,Failure=repr(error))
+            failures.append(failure)
+            write(output/(name+'-failure.json'),failure)
+        # Shared inputs must remain valid before starting another independent case.
+        for row in images+dlls: assert H(row['Path'])==row['Sha256']
     for row in images+dlls: assert H(row['Path'])==row['Sha256']
     for row in inputs['Sources']: assert H(row['Path'])==row['Sha256']
-    write(output/'completion.json',dict(Status='PASS_THREE_ORDINARY_OS_LOADER_REGRESSIONS',ExecutingHead=head,InputsSha256=H(output/'inputs.json'),Images=images,OwnedStages=stages,Cases=results,ThreadDestructorControl=a.thread_destructors,OriginalOtpComparisonExecuted=False,WholeOrdinaryLoaderCompatibilityProved=False))
+    write(output/'completion.json',dict(Status='FAILED_ORDINARY_OS_LOADER_REGRESSIONS' if failures else 'PASS_THREE_ORDINARY_OS_LOADER_REGRESSIONS',ExecutingHead=head,InputsSha256=H(output/'inputs.json'),Images=images,OwnedStages=stages,Cases=results,Failures=failures,AttemptedCases=3,ThreadDestructorControl=a.thread_destructors,OriginalOtpComparisonExecuted=False,WholeOrdinaryLoaderCompatibilityProved=False))
+    if failures: raise RuntimeError('Independent ordinary case failures: '+repr(failures))
 if __name__=='__main__': main()
