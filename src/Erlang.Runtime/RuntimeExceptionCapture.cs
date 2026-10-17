@@ -38,7 +38,8 @@ internal static class RuntimeExceptionCapture
         string module,
         string function,
         IReadOnlyList<Term> arguments,
-        bool native
+        bool native,
+        Term? sourceLocation = null
     )
     {
         if (error.ExplicitStackTrace || error.AutomaticStackTraceCaptured)
@@ -50,7 +51,7 @@ internal static class RuntimeExceptionCapture
             return Source(context, error, frame);
         int depth = Math.Max(1, context.Runtime.BacktraceDepth);
         string? formatter = native ? RuntimeExceptionNames.Formatter(module) : null;
-        Term location = formatter is not null
+        Term location = sourceLocation ?? (formatter is not null
             ? Term.List(Term.Tuple(
                 Term.A(RuntimeExceptionNames.ErrorInfo),
                 new MapTerm(new Dictionary<Term, Term>
@@ -58,7 +59,7 @@ internal static class RuntimeExceptionCapture
                     [Term.A(RuntimeExceptionNames.Module)] = Term.A(formatter)
                 })
             ))
-            : Nil.Value;
+            : Nil.Value);
         var trace = new List<Term>
         {
             Term.Tuple(
@@ -74,7 +75,7 @@ internal static class RuntimeExceptionCapture
                 Term.A(frame.Module),
                 Term.A(frame.Function),
                 frame.HostHandlerArguments is { } handlerArguments ? Cons.From(handlerArguments) : Term.I(frame.Arity),
-                Nil.Value
+                sourceLocation is not null ? frame.SourceLocation ?? Nil.Value : Nil.Value
             ));
             frame = frame.Parent;
         }

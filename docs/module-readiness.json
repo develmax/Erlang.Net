@@ -15,7 +15,7 @@
     },
     {
       "Path": "src/Erlang.Compiler/CodeGeneration.cs",
-      "Sha256": "6FFA154BFCC58F9D13A41F1A29FD39E48AB2DB5A666D9ACB4DF1D9B62D283903"
+      "Sha256": "5C01BCEBD5AA99195C3793CDA0ABFE6AB61C0610A50C4825354CD2E15EC7994D"
     },
     {
       "Path": "src/Erlang.Compiler/CompileException.cs",
@@ -39,7 +39,11 @@
     },
     {
       "Path": "src/Erlang.Compiler/Execution.cs",
-      "Sha256": "3032D8469BDBA146D2C5A25B2FED85845805F03739130CAB5538C93A9968F813"
+      "Sha256": "C2A213ECCAFEA717442247CEE0A0847FA05E8B56E473E28D2AAA04C7C5DB3EAA"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Expr.cs",
+      "Sha256": "BF1EAF4E9CAFC27D1ABF09045163054AC74B31E8872FAAB93B4D98E57DD7821C"
     },
     {
       "Path": "src/Erlang.Compiler/LocalCallValidation.cs",
@@ -47,7 +51,7 @@
     },
     {
       "Path": "src/Erlang.Compiler/ModuleDefinition.cs",
-      "Sha256": "0675A3EA94ED6F9284362F02B97D3DFEF38F6473E401A2D8C574145E0F30F637"
+      "Sha256": "90A39DE107C7F534C752DA8DF7F1E52DEAC6F2DCF54127D4A968D0ECB4BF642C"
     },
     {
       "Path": "src/Erlang.Compiler/ModuleNameDiagnostics.cs",
@@ -67,7 +71,7 @@
     },
     {
       "Path": "src/Erlang.Compiler/Parser.cs",
-      "Sha256": "1B0D729A43ADEABADE978AF266C96F5ACD64E19C7860BF1F17B7276D26C34B6F"
+      "Sha256": "AFB8861B7F62ACA15B082325F827996CEADD0EFFFD2A99B7AB3C4FD928D59C8E"
     },
     {
       "Path": "src/Erlang.Compiler/RecordPredicateSyntax.cs",
@@ -100,6 +104,14 @@
     {
       "Path": "src/Erlang.Compiler/SourceCallBindings.cs",
       "Sha256": "AE52E9A9A7FF4EB6030EB5703D2AFA152921DAF64AD55E3191097B37C9EA36C8"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceCallLocationNames.cs",
+      "Sha256": "C277A0C1CCD70B389CC49933150923033928E02868E593A51CF2C90997EAD983"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceCallLocations.cs",
+      "Sha256": "CC41B1DBD4C9D794452CB9D211EAE601F470BDAE6CC9319C5EC9B511FE43FC5C"
     },
     {
       "Path": "src/Erlang.Compiler/SourceCallResolution.cs",
@@ -143,7 +155,7 @@
     },
     {
       "Path": "src/Erlang.Runtime/CoreModules.cs",
-      "Sha256": "BAB1FEEF05E68E5D8B229816E8C3635B77F190D86850F0C102D33F9732634B32"
+      "Sha256": "8B3D052DB0A7A8C661E538A913C02AFE442AF15AE7742079296CB93A536A4100"
     },
     {
       "Path": "src/Erlang.Runtime/ErlangApplyDispatch.cs",
@@ -163,7 +175,11 @@
     },
     {
       "Path": "src/Erlang.Runtime/ErlangExecutionFrame.cs",
-      "Sha256": "1BAEE7ADA213DBE07E8E7737CB6CB84F16FEE2A8C171F3590BDCAE891E5EFAE8"
+      "Sha256": "BAC83C718E86E827AA0CD12C07D137878B09E37A542142205A8B391658202EA7"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangOperatorValues.cs",
+      "Sha256": "AECAA6EA5AEE4FA16BCA15B7A042785908BC1FA98B88BA6776EBB7DABA14A672"
     },
     {
       "Path": "src/Erlang.Runtime/ErlangProcessQueryRegistrations.cs",
@@ -202,6 +218,10 @@
       "Sha256": "360CFD2920E559939B9F22BFFB082A1837C08CB9F4AFD52379ABFA6E883546D6"
     },
     {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.NativeExecutionPolicy.cs",
+      "Sha256": "5AB5CBD770191A2FA132434DE2FB854F500CA17578407D8D0BD96746A062DA46"
+    },
+    {
       "Path": "src/Erlang.Runtime/ModuleRegistry.ProcessScheduling.cs",
       "Sha256": "ED6529031DDB176F6E518831149A6B34C20D5903A5808CC34F9B21E7BAC39D2B"
     },
@@ -218,8 +238,360 @@
       "Sha256": "17D47C563EAC30308F96719F5232FDB6FAB84C4F5EF195F4FA146823993BBDBF"
     },
     {
+      "Path": "src/Erlang.Runtime/NifNativeAbi.cs",
+      "Sha256": "87D203E0B449BC2B865CED1124E86D4CFAFB48AFAA1FCCF9F1176154B1F1868A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeArrayCallbacks.cs",
+      "Sha256": "670E396BE73D2F169699C4C9237039C7AC14634F4E3923BE69953BB9EE30AB90"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeArrayNames.cs",
+      "Sha256": "77DAF3C3ED3BBA46930C040516ADFB9D938770938323BB6F589814665987B1E4"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeAtomCallbacks.cs",
+      "Sha256": "5DC060495CB534FBB71CF982CCFA037340664454164822058E5C4FBCF3649ED9"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeBinaryCallbacks.cs",
+      "Sha256": "28DEE339BC33E53DCF5FE7CA5D637C5F35FEE20DC1D0F55A5ECD3AC294243A99"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeBinaryDescriptor.cs",
+      "Sha256": "6E14C9EC3F24475EEC356AA7ACFE11C34C594260BC3E2960151C0EBBF392CEB3"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeBinaryNames.cs",
+      "Sha256": "9E141C2678FD3ADBF13BB427F28FBA38973E272F2336BABCA3BB1A4CDB2B96DF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeBinaryNode.cs",
+      "Sha256": "75F2057DDE52883457790EF205679642214D9345CD66DE02F1575D8684528D68"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeBinaryRegistry.cs",
+      "Sha256": "AC2FBDBA687A5845B2AF5ACF0E2B6F5177DF6C693EDBF10F23B2AC8EB83E0160"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeBinaryStorage.cs",
+      "Sha256": "78732031E5ACE2AE66200F2B7A6B47EFF97199D3FA01A9171B6C35657C2123A9"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeBridgeTable.cs",
+      "Sha256": "DF5EFD25CA448AEA2569D27A86876FB1A5A73FE2D7FC6B7E9FA1051E113165C6"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeCallEnvironment.cs",
+      "Sha256": "52AA8BDB06D8BB924CDAC0B9F26398E53D5CD5BBDA48CF2A9FB889FEDC9FEBE9"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeCallbackScope.cs",
+      "Sha256": "1911396A620D6F733F8F4F8558252F070EC83CE6753F41597864281DCE796893"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeCapabilityProfile.cs",
+      "Sha256": "BB02181953B06E0B31A70054D2BC1BB4BF4A192E836A0C5A88FCED88ED8C8164"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeCapsuleDiagnostics.cs",
+      "Sha256": "863E782E92A618DA4FF49F23F702F6824CA4EB223571D995FEB3C9BA6E007002"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeCapsuleLayout.cs",
+      "Sha256": "EDD946D71CF812D4D62E0B0CF48C84657971F8B52150F7F14C15B0D66C7FD403"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeComparisonCallbacks.cs",
+      "Sha256": "24E7C71D1F89A098A5F912AE261D70AA203BA8508B9AED8B0F60AA2019732D63"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeComparisonNames.cs",
+      "Sha256": "0AD5879A31A2E0B8C26677ED3FAC22E19F5DF92037B515A7FEEAD558DA930316"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeConsNode.cs",
+      "Sha256": "FA698C8837CAD50CFC4EF9CADF79F5B4D4536E93548EDD539E53FC3A04179970"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeDefaultLoader.cs",
+      "Sha256": "F1F4C1D9A0B90F1C7D66EC237C9032DFE64DD8EE4FBA56C52F37065BCD8D68B8"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeDefaultLoaderNames.cs",
+      "Sha256": "6BB69FC0749A27212DF306454393D3E6851791D85E39E9FBF01B59105C853B2B"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeElfCapsule.cs",
+      "Sha256": "4AEE9477F527B63CBB6E4EEE39BFB1D34D89402E6C21B0A6BC00768A36B5788C"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeEntryAdmissionException.cs",
+      "Sha256": "C37232B6182E77C9F43A76AEC393D1116DC2D2EDF7C1B53908B012C3C769953A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeEntryFunctions.cs",
+      "Sha256": "5E3F0F9F8B4225E6082212C34974370545FFB59D4591A4157922E6954F16197C"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeEntryTextLimits.cs",
+      "Sha256": "FE5EA708149B5757FDB5E4B122BA785A5E05E5BCB5CDE56CC2C15FCF1181798F"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeEnvironmentAllocator.cs",
+      "Sha256": "78C63B36D518B58966AD3F858080E3FCA7EAA15595EF3935A470309A8E783461"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeEnvironmentBinding.cs",
+      "Sha256": "184864EFDE3CEC32C58DD4769CD8C50E5C4B8360CF7AA9C36409F4E7B95CD69A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeEnvironmentCallbacks.cs",
+      "Sha256": "B24B8300202DBBD4CFB8BA5CF1072591A7D9BE0FC68F54E32D18C45012411B8B"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeEnvironmentLayout.cs",
+      "Sha256": "1BBF3B267DC9C00D1A8567483C4424FD604D4C8812384BE9EAD8A4305F08C165"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeEnvironmentNames.cs",
+      "Sha256": "2676A9470CB3775D3D528DD80797F403EA52C3591FB9917BEB08DFD96710C954"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeExportRegistration.cs",
+      "Sha256": "89299E4D161A61B761CD04729FD6A6E2700E650B9D274E8FED0BA2D666EDBEBF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeFailureState.cs",
+      "Sha256": "EC70AF2834C2180FFF18FD542621A2877E156424248491F62BAB2FD9E2CC984A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeFilename.cs",
+      "Sha256": "6E3ED59F82CF13FEA144561A6A6FF88B9BC3157DF42A4E3B531257965E926D71"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeHostFileNames.cs",
+      "Sha256": "2F34F9DBB97A3CE73BA52B7E47E4FA6C728CB515DD8381CA9D2C8C2773F497B1"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeImmediateOwner.cs",
+      "Sha256": "33FC5CF5ED4983D8B3C417007C99F1B0653D5865DF87DBB75A61A2037DE58B72"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeInvocationNames.cs",
+      "Sha256": "7C82BD5BD3A4EB1C79D83037C5A83000AEFE7D623F9BC18A48DE0A9C0AEE63E1"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLibraryOwner.cs",
+      "Sha256": "DC4B4590CF564229010370A616B362D2FEB1CC8715C87F638EA457D28F778E13"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLibraryPath.cs",
+      "Sha256": "BD5215BDD63C35DCDD4E008158D8DF4BC6142471674B7F6DC132DA42A8AE26D2"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLinuxBridgeDeployment.cs",
+      "Sha256": "B8C75AB65CF1275E7E2C6E059D78E3593902F33664D29B062D6B7F4B95EB6CC5"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLinuxBridgeInput.cs",
+      "Sha256": "8F84426701DFE6ABCBB356C33C35E8F72ACFE4B95EC3D6B4D1BDCE759DD9EA91"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLinuxCapsuleLease.cs",
+      "Sha256": "E64EF737BE2575301982145F2340F3FA8325ADA6E067EDE734EFD535D0D79B4C"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLinuxNamespace.cs",
+      "Sha256": "CEDF8F3E936D14F6DF349E238E4AEF6239B41A1B7EDBD453C73313389911CBA9"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLinuxNamespaceApi.cs",
+      "Sha256": "D3F0E281101F7F8A7CBEFAC2347598A233AE2E330E18E54FB32A45C4932295CD"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLinuxNamespaceNames.cs",
+      "Sha256": "92F745464DD3B272E8E62D3414F829C94CC6B00494D1A7B74E437F2C8DA01D5D"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLinuxNamespaceRetention.cs",
+      "Sha256": "9D84567A330D314EAE369BA85FCEDEFBBDFA3D2528170A83AE9F25B4ABF2C575"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLinuxNumericCallbacks.cs",
+      "Sha256": "175DB3B64F8584BA5D4C35DF9112C40C5D8A41AFEAE46D31B60F87B0F10880D0"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLinuxNumericNames.cs",
+      "Sha256": "984341B3E0B8E988A03B8E5D45B58E76FADCC357F4B0A66E179AEED8C9D77B9A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLinuxPthreadControl.cs",
+      "Sha256": "88FF58339B486EF7E2C87AA19DE68485317C31F957518F69A2CE6C678DC0BDBB"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLinuxPthreadControlNames.cs",
+      "Sha256": "0326152E8838EADA01FA9AC2F544F2B6088A8A153DBC6DED5A3FF60DA65A86F2"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLinuxReallocationExtension.cs",
+      "Sha256": "722C1969FE111656E6082B6CF6E24C1F54BC25DE214717EE3934744F40022064"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLinuxSymbolOwner.cs",
+      "Sha256": "E2080B7FE378AB011B4433E1392489E1833FEC5B4B12A84ECFD5E047032DFABE"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeListCellCallbacks.cs",
+      "Sha256": "E6AE7EF0AAA55ACB7DE466EDDC20F41E65DE03291984FBAFEAA2CEDD5B1BDCB2"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeListCellNames.cs",
+      "Sha256": "B4C16D2AC246CF13D08CF20BF2132E592D1498EE13ACD583B50413FFBC85E12E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLoadReason.cs",
+      "Sha256": "1F9A081B52BBA9959D07B4AB4FC716387059B8090B2A23565AE97915593104B7"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLoadReasonKind.cs",
+      "Sha256": "D8381F205E5E8333E4A7212E93932779FE07938E118D8D50A2015B99519F8A48"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLoadReasonText.cs",
+      "Sha256": "2B71E4631D3BE2A4CC005C0D4DE282DD9CC9E91A248AB3CBE4754B8730D39E51"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLoadStageException.cs",
+      "Sha256": "75E8E152E29595BCD9FEC3077432F9CE3B88410A750E6885E713A074F6E77B37"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLoadVetoException.cs",
+      "Sha256": "413D53CCFC45FB525FBE860F7B838995B2D26B137DFF4E1702CE5AE10D238D92"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeMapSizeCallbacks.cs",
+      "Sha256": "DB96E5019CA273E1A2F67D156AD0462FEAE306DAE7E946AC630AA1BC4F8B8969"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeMapSizeNames.cs",
+      "Sha256": "2709988CB99D9E1C744DAF25C86AD175315BF4C30310F423450C318ED061DBF8"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeNames.cs",
+      "Sha256": "7C9E4674218704D7F43100C4D09F5DDAAD53E9C63A2F420151784A0850C4F879"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeNumericCallbacks.cs",
+      "Sha256": "97B168D7A231922C2CEDCF4C80CC3C81DDA9A882071868C15B4E451F794AFDFA"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeNumericConversionCodes.cs",
+      "Sha256": "69C3C0BEB5E6574E1703D8E3F35C08DFF0A2C615D8B4996D6F1E5E1526523815"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeNumericNames.cs",
+      "Sha256": "80E517253B57DE8379A817FE6FAE1EE352B33D570141528E0C347389171FA2C1"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativePlatformLoader.cs",
+      "Sha256": "4D7065CF652CF428BAAC78BED36227C51D168D80DC00A5A93F2151D7B3A103CF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativePrimitiveCallbacks.cs",
+      "Sha256": "7AA85D7B7265B5A3650BC260668AFFF516BBF2B6C1038FD3494F285B0B304E37"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeReferenceBridgeTable.cs",
+      "Sha256": "BEAEE3C01BB8C3107084FCF8D81FD8D805525E2D37B41CCB940D847274DB4A9E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeReferenceCallbacks.cs",
+      "Sha256": "DA9DEA07EA5B9D3424ACB70561274CE7F4279AABBAA05C185D782431E268D3AF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeReferenceNames.cs",
+      "Sha256": "915862B351A92EAD2E1B6CA026EAF701E9F2C7AAE5A2C06EF26CE230D451F177"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeReviewedBasicAbi.cs",
+      "Sha256": "1EEA223FE14F6486C7AC233286AB533840C4A62B5CA3398A1FA46EC80D21423E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeSequenceCallbacks.cs",
+      "Sha256": "E9326F7D610B175E1BB212DFA32C38349083C9CDF83188738D6AD48FDAC7BF77"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeStringCallbacks.cs",
+      "Sha256": "6097F7D29D15B23458C2D2A320796E6689901BEFFD815CE4ADDC2CBC4CF5D354"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeTermGraph.cs",
+      "Sha256": "6FF624C4548324A070AA33532B324C534DECB5C33268427E721646F97A3F88F8"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeTermNode.cs",
+      "Sha256": "4888F7239F052430E7CC5EA3AB755A3F461003B704B677226EB29575849FE2A1"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeTermValue.cs",
+      "Sha256": "DC059AC474603881FCFEBF11C3E84A284128CE3B1AB6282963FAF1A085D50E0C"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeTextNames.cs",
+      "Sha256": "3FF1EE8303EF1A66E2B5E5296474CA9D90018672D7B4104C74A8A234289C8D12"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeTupleNode.cs",
+      "Sha256": "C30C66A73F7A7F2CDFEDC900A55C0EE599FDF22770E4778ECA3EE6886F070364"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeTypeCallbacks.cs",
+      "Sha256": "33E7760C58CFF782789DC0D051AED0DD125B60A0D1BA316D4477A46642CDA2F8"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeTypeKind.cs",
+      "Sha256": "595C7BE7C92399A2B96E66B1883DE5836BE72CBB41338223F97849F3D80DB0CA"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeUnixFile.cs",
+      "Sha256": "082D22BA1C66D66836FEAE441BC4686BB59E207F777479E3672C52544D82439D"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeUnixPathNames.cs",
+      "Sha256": "6DDFD65D3BABC32B0AA8EFED6B629677C1C344BD0BF22716F291AE36F729204E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeVariadicCursor.cs",
+      "Sha256": "D3A30D298EAC352A219BD2DEA1AD10FCBE07454EF07F9B8C615D69DF7A1D74F4"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeWindowsCallbackLayout.cs",
+      "Sha256": "89A1D947502FF932E67E08BD066AE8CEECF173123A13C74D62C772F5367866DC"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeWindowsCallbacks.cs",
+      "Sha256": "8614F45DF22B222E780CA5A67830C16E34E7DFD59031ABEA64CF0DC4903D583F"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeWindowsLoaderNames.cs",
+      "Sha256": "F5D0F711D02F756C5246C51AFD2724542A812FD636962DB254DF5A3C6C33510E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/PortRegistrations.cs",
+      "Sha256": "C409878E97AABA128116716ACC9461DA8932772A190BE89307651D550C8F0755"
+    },
+    {
       "Path": "src/Erlang.Runtime/ProcessContext.ErrorHandlers.cs",
       "Sha256": "6BD2063879D8A6DA15D87C94ECFAD2ED2CC8A6E91CA2367A2CE9CA0EC86E7952"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.GarbageCollectionPolicy.cs",
+      "Sha256": "A80D1CA2C487F66B2490A9565188646076ECC14412F92A622AF3136A222C80BF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.SourceLocations.cs",
+      "Sha256": "D6F1417262F40797A249BB8472297C05F2323CC467AD44DA2CE01D6114BADBCE"
     },
     {
       "Path": "src/Erlang.Runtime/ProcessContext.cs",
@@ -236,6 +608,22 @@
     {
       "Path": "src/Erlang.Runtime/ProcessExecutionAwaiter.cs",
       "Sha256": "E8035D71918F6A66EA2446A4637166FA54EDA3ECC0C05DBE49803F1D7D89F5BC"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessFullSweepAfter.cs",
+      "Sha256": "EF84914A3905CE4F8638C4DAC8F6F8AAB555967505D91AAF1FBD924D6E25733E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessFullSweepNames.cs",
+      "Sha256": "8A26500C8975B825C9492A07649853EE9D7B3415283294CD8F84B5EBC12E9F94"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessGarbageCollectionPolicy.cs",
+      "Sha256": "FD35AB3C1565B897EE93D79A5CB7330A7294623547D844A4747A9A922028E6D5"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessInfoAtoms.cs",
+      "Sha256": "3DFE8F65CC094733DB7CAF291818F2C41D627B38E17972EDB6DFF18AC403AF7E"
     },
     {
       "Path": "src/Erlang.Runtime/ProcessPriorityNames.cs",
@@ -258,8 +646,24 @@
       "Sha256": "B7FE057B5228BAD9DC90BC5B70A49BC060F421BE6AC06A9C9C49359C5CE15E7D"
     },
     {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.GarbageCollection.cs",
+      "Sha256": "B41F2880304AE30A401FD4B4944E4E71133D4EA07C7E16B571598831555D9F53"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.GarbageCollectionPolicy.cs",
+      "Sha256": "C5A13FD35B757992119F9047FFC04871FB1FFAC810BE958D89F3B9D61DE98089"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.NativeLinuxNamespace.cs",
+      "Sha256": "D475A127FFC81FA8FD61C56F81083136DDC65979AA92B0E7A9C2BEDC116A1AC5"
+    },
+    {
       "Path": "src/Erlang.Runtime/ProcessRuntime.Priority.cs",
       "Sha256": "66871BF5F4E57C8BC7A7CACF1325C2ADABD63335C6A3B691643A8A66EC8F6EDA"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.SchedulerStatistics.cs",
+      "Sha256": "ADBE0100E84B9546DBB768DAA5881E85E172B4318185DBC870D9CF731072C7C3"
     },
     {
       "Path": "src/Erlang.Runtime/ProcessRuntime.Schedulers.cs",
@@ -267,7 +671,7 @@
     },
     {
       "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
-      "Sha256": "5EAFD866D4C66CBCF65C9A119FB3146C542F91B96B644EA4F11D0CF17632FCA9"
+      "Sha256": "6240A6D51E58590C6EEF506711218557F1FCA6886C99668A3BF12AEDB4A59CA9"
     },
     {
       "Path": "src/Erlang.Runtime/ProcessSchedulerNames.cs",
@@ -298,12 +702,40 @@
       "Sha256": "6F5A61899B02DB405E55285802F4FE26CD9F151CF16BB52BD53364AACF5FE630"
     },
     {
+      "Path": "src/Erlang.Runtime/ProplistModuleNames.cs",
+      "Sha256": "8921C9909632E28358B7C0AA4D5CE9F9EF4DD1B91FC65302AD0855A91B6CA913"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProplistModuleRegistrations.cs",
+      "Sha256": "82CB2F382950DD14B114BD1D549039E466AF3A5A3294B5C69F25D6E595D75F35"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProplistPropertyAtoms.cs",
+      "Sha256": "F1BE0D67A13B2BC9E3C0E3390815211C82402EEA5AB785C9D1FD7FDDA91B3C0C"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProplistSourceLocation.cs",
+      "Sha256": "552EB50DA717EEEEBFC7B1852A06726613BC105F1D359252D398ED99026CC76A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProplistSourceLocationNames.cs",
+      "Sha256": "00E45AE782C463D8BBE537D53974F050D4DAE3C8C0F1641AC7ED83749FA0D5EF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProplistValueLookup.cs",
+      "Sha256": "9AC5E6B4D25F806ED9A4C3574E1FDD8AEE61F6F9A71F0F87D8BABFCCA2C8CEF9"
+    },
+    {
       "Path": "src/Erlang.Runtime/ResourceReferenceTerm.cs",
       "Sha256": "DCB42DC0EAE26EC5D8870AF23F2E50B1C5957774AF23B7D00DFD270E5772BE8F"
     },
     {
       "Path": "src/Erlang.Runtime/RuntimeActorContinuation.cs",
       "Sha256": "0725B8ECE17147ABEA9C8F0FE6F25614FEE4F775A42E5B01669FC6DA233B9A7A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeActorDispatcher.Statistics.cs",
+      "Sha256": "09C8E9858439F469DF482C770019D616A3B92D8FE446D5A91CE1C12372E016B5"
     },
     {
       "Path": "src/Erlang.Runtime/RuntimeActorDispatcher.cs",
@@ -327,7 +759,7 @@
     },
     {
       "Path": "src/Erlang.Runtime/RuntimeExceptionCapture.cs",
-      "Sha256": "BC8864F2F2DE3092D8C16194D80BF227C60B7493336716483C69FFA8CEFA4F58"
+      "Sha256": "52CE3C60F8AD772136567AF3EE9D82D8E2B3DEC3334ED3B8BC916281FAE65AF2"
     },
     {
       "Path": "src/Erlang.Runtime/RuntimeExceptionNames.cs",
@@ -342,8 +774,16 @@
       "Sha256": "3A05794C9D10EF0BE358F223F8D3FFCE04D276A5A8922E049F4AA96E3704DA96"
     },
     {
+      "Path": "src/Erlang.Runtime/RuntimePorts.cs",
+      "Sha256": "72B5B46CDBB7F3278FF9E352E57CB6591C1633D0249EFCEA87A86CB68F7C8061"
+    },
+    {
       "Path": "src/Erlang.Runtime/RuntimeProcessTaskScheduler.cs",
       "Sha256": "195DE47E12A5B97872E870C232224952AB259B284CAB50D643DE7613C4F7CDE5"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeReductionStatistics.cs",
+      "Sha256": "9DD99BA1ED5BB83BA63C665BDDB6B9AB5A8C742FF00B96AC8B51A6E512702C83"
     },
     {
       "Path": "src/Erlang.Runtime/RuntimeScheduledTask.cs",
@@ -356,6 +796,26 @@
     {
       "Path": "src/Erlang.Runtime/RuntimeSchedulerOnlineRequest.cs",
       "Sha256": "8FD23181F230F4AE049DDC752E58218558928E6A5EEAD423F3123419740E67A1"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeSchedulerStatistics.cs",
+      "Sha256": "A35F1A21C9AAD3D92B250DA083BA403AC50737755367348E2DFB6BDFFFB2E979"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeStatistics.cs",
+      "Sha256": "3778AE3780F48E3EAFC26DD4E5C7701F84363B933E5F78C76306E4330D2CE3D8"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeStatisticsNames.cs",
+      "Sha256": "F888E561AB949F44271481CF4F5FF24AA0C60AD289AD37824A1B6401256BE4C3"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeStatisticsRegistrations.cs",
+      "Sha256": "AD0261B342B3D772CEAD8A0420E35D3094FD2F39A3C6A4BB1E778EF9596CA22B"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeSystemMonitor.cs",
+      "Sha256": "F9DA3710534D29E3DB5EC681861DAE7EE8E5F2C6F11A7351A4737FE66D71EAA8"
     },
     {
       "Path": "src/Erlang.Runtime/SelectedErrorHandlerInvocation.cs",
@@ -372,6 +832,10 @@
     {
       "Path": "src/Erlang.Runtime/SourceLoadNifFilenameParameters.cs",
       "Sha256": "BFD31E6E28674B803235549180844CF325E97F2FF9C1D76FCEEEF73D089C7944"
+    },
+    {
+      "Path": "src/Erlang.Runtime/SystemMonitorOptions.cs",
+      "Sha256": "9A3E79FC0A524620A118533352765F8A50DD85C5662423DC704B1FA06856E582"
     },
     {
       "Path": "src/Erlang.Terms/Atom.cs",
@@ -464,313 +928,9 @@
     {
       "Path": "src/Erlang.Terms/TupleTerm.cs",
       "Sha256": "A3CDFE09E6855FCE67979373A06A2D3960AFB09BF0ED5A5E6E52B82068992080"
-    },
-    {
-      "Path": "src/Erlang.Runtime/ModuleRegistry.NativeExecutionPolicy.cs",
-      "Sha256": "5AB5CBD770191A2FA132434DE2FB854F500CA17578407D8D0BD96746A062DA46"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeCapabilityProfile.cs",
-      "Sha256": "A73340F491A3E5CAB9426CB8B3251E143D9197B4CD89B16641BD52F575A44F33"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeDefaultLoader.cs",
-      "Sha256": "22D945F866FBB44FE207B0C33C72B7AB4FD60B65B03AE8DAE77AA514CB9F3E5A"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeDefaultLoaderNames.cs",
-      "Sha256": "AEFAAD14AEC683A85881BEE66315246CAD92B4CAC3C5D8DC275E292791D26A30"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeEntryFunctions.cs",
-      "Sha256": "5E3F0F9F8B4225E6082212C34974370545FFB59D4591A4157922E6954F16197C"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeEntryTextLimits.cs",
-      "Sha256": "FE5EA708149B5757FDB5E4B122BA785A5E05E5BCB5CDE56CC2C15FCF1181798F"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeFilename.cs",
-      "Sha256": "37207DB8273E905608582759E282945AFC153F56256418DBC3D3AD1731AD48C6"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeLibraryOwner.cs",
-      "Sha256": "7513D02B8E863DCDA08266FF39C2C3457EEEC9B47E02EEE439B846C5901102CF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeLoadStageException.cs",
-      "Sha256": "59C11329488D1CF544EED8D084339F7D99221E60F7619341801B8E9A58834F24"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativePlatformLoader.cs",
-      "Sha256": "22AFEF8A0AC6E27700185548609B87F40E62C749A9A23E1AD4F0E40F8707D62E"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeReviewedBasicAbi.cs",
-      "Sha256": "CC691937867F8B72DCEACB428F9F3E596043A1FE86B9603917B15415158B1D15"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeWindowsLoaderNames.cs",
-      "Sha256": "F5D0F711D02F756C5246C51AFD2724542A812FD636962DB254DF5A3C6C33510E"
-    },
-    {
-      "Path": "src/Erlang.Runtime/ErlangOperatorValues.cs",
-      "Sha256": "AECAA6EA5AEE4FA16BCA15B7A042785908BC1FA98B88BA6776EBB7DABA14A672"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeArrayCallbacks.cs",
-      "Sha256": "670E396BE73D2F169699C4C9237039C7AC14634F4E3923BE69953BB9EE30AB90"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeArrayNames.cs",
-      "Sha256": "77DAF3C3ED3BBA46930C040516ADFB9D938770938323BB6F589814665987B1E4"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeEntryAdmissionException.cs",
-      "Sha256": "C37232B6182E77C9F43A76AEC393D1116DC2D2EDF7C1B53908B012C3C769953A"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeExportRegistration.cs",
-      "Sha256": "ED08932A4A7AA6F19CFD28D790C6A94054F8A9BEA1005AB02C1E1E4B5F4F71C1"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeHostFileNames.cs",
-      "Sha256": "2F34F9DBB97A3CE73BA52B7E47E4FA6C728CB515DD8381CA9D2C8C2773F497B1"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeLoadReason.cs",
-      "Sha256": "1F9A081B52BBA9959D07B4AB4FC716387059B8090B2A23565AE97915593104B7"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeLoadReasonKind.cs",
-      "Sha256": "D8381F205E5E8333E4A7212E93932779FE07938E118D8D50A2015B99519F8A48"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeLoadReasonText.cs",
-      "Sha256": "2B71E4631D3BE2A4CC005C0D4DE282DD9CC9E91A248AB3CBE4754B8730D39E51"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeLoadVetoException.cs",
-      "Sha256": "413D53CCFC45FB525FBE860F7B838995B2D26B137DFF4E1702CE5AE10D238D92"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeWindowsCallbackLayout.cs",
-      "Sha256": "BC112D88036B42B68859CE36C819DA35F626950D046CF3F00924A3D4EE09F3BB"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeWindowsCallbacks.cs",
-      "Sha256": "D4F1F896AC95FCDDBF621D6A85294AD98A2BC6CDF39D06E004EBE09CA3B0E52A"
-    },
-    {
-      "Path": "src/Erlang.Runtime/PortRegistrations.cs",
-      "Sha256": "C409878E97AABA128116716ACC9461DA8932772A190BE89307651D550C8F0755"
-    },
-    {
-      "Path": "src/Erlang.Runtime/ProcessContext.GarbageCollectionPolicy.cs",
-      "Sha256": "A80D1CA2C487F66B2490A9565188646076ECC14412F92A622AF3136A222C80BF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/ProcessFullSweepAfter.cs",
-      "Sha256": "EF84914A3905CE4F8638C4DAC8F6F8AAB555967505D91AAF1FBD924D6E25733E"
-    },
-    {
-      "Path": "src/Erlang.Runtime/ProcessFullSweepNames.cs",
-      "Sha256": "8A26500C8975B825C9492A07649853EE9D7B3415283294CD8F84B5EBC12E9F94"
-    },
-    {
-      "Path": "src/Erlang.Runtime/ProcessGarbageCollectionPolicy.cs",
-      "Sha256": "FD35AB3C1565B897EE93D79A5CB7330A7294623547D844A4747A9A922028E6D5"
-    },
-    {
-      "Path": "src/Erlang.Runtime/ProcessInfoAtoms.cs",
-      "Sha256": "3DFE8F65CC094733DB7CAF291818F2C41D627B38E17972EDB6DFF18AC403AF7E"
-    },
-    {
-      "Path": "src/Erlang.Runtime/ProcessRuntime.GarbageCollection.cs",
-      "Sha256": "B41F2880304AE30A401FD4B4944E4E71133D4EA07C7E16B571598831555D9F53"
-    },
-    {
-      "Path": "src/Erlang.Runtime/ProcessRuntime.GarbageCollectionPolicy.cs",
-      "Sha256": "C5A13FD35B757992119F9047FFC04871FB1FFAC810BE958D89F3B9D61DE98089"
-    },
-    {
-      "Path": "src/Erlang.Runtime/ProcessRuntime.SchedulerStatistics.cs",
-      "Sha256": "ADBE0100E84B9546DBB768DAA5881E85E172B4318185DBC870D9CF731072C7C3"
-    },
-    {
-      "Path": "src/Erlang.Runtime/RuntimeActorDispatcher.Statistics.cs",
-      "Sha256": "09C8E9858439F469DF482C770019D616A3B92D8FE446D5A91CE1C12372E016B5"
-    },
-    {
-      "Path": "src/Erlang.Runtime/RuntimePorts.cs",
-      "Sha256": "72B5B46CDBB7F3278FF9E352E57CB6591C1633D0249EFCEA87A86CB68F7C8061"
-    },
-    {
-      "Path": "src/Erlang.Runtime/RuntimeReductionStatistics.cs",
-      "Sha256": "9DD99BA1ED5BB83BA63C665BDDB6B9AB5A8C742FF00B96AC8B51A6E512702C83"
-    },
-    {
-      "Path": "src/Erlang.Runtime/RuntimeSchedulerStatistics.cs",
-      "Sha256": "A35F1A21C9AAD3D92B250DA083BA403AC50737755367348E2DFB6BDFFFB2E979"
-    },
-    {
-      "Path": "src/Erlang.Runtime/RuntimeStatistics.cs",
-      "Sha256": "3778AE3780F48E3EAFC26DD4E5C7701F84363B933E5F78C76306E4330D2CE3D8"
-    },
-    {
-      "Path": "src/Erlang.Runtime/RuntimeStatisticsNames.cs",
-      "Sha256": "F888E561AB949F44271481CF4F5FF24AA0C60AD289AD37824A1B6401256BE4C3"
-    },
-    {
-      "Path": "src/Erlang.Runtime/RuntimeStatisticsRegistrations.cs",
-      "Sha256": "AD0261B342B3D772CEAD8A0420E35D3094FD2F39A3C6A4BB1E778EF9596CA22B"
-    },
-    {
-      "Path": "src/Erlang.Runtime/RuntimeSystemMonitor.cs",
-      "Sha256": "F9DA3710534D29E3DB5EC681861DAE7EE8E5F2C6F11A7351A4737FE66D71EAA8"
-    },
-    {
-      "Path": "src/Erlang.Runtime/SystemMonitorOptions.cs",
-      "Sha256": "9A3E79FC0A524620A118533352765F8A50DD85C5662423DC704B1FA06856E582"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeCallEnvironment.cs",
-      "Sha256": "AE96E4679773463550775EAECF704360F05A3E5B334EC4A6D9833E697CC9B1C6"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeListCellCallbacks.cs",
-      "Sha256": "E6AE7EF0AAA55ACB7DE466EDDC20F41E65DE03291984FBAFEAA2CEDD5B1BDCB2"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeListCellNames.cs",
-      "Sha256": "B4C16D2AC246CF13D08CF20BF2132E592D1498EE13ACD583B50413FFBC85E12E"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeNumericCallbacks.cs",
-      "Sha256": "97B168D7A231922C2CEDCF4C80CC3C81DDA9A882071868C15B4E451F794AFDFA"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeNumericConversionCodes.cs",
-      "Sha256": "69C3C0BEB5E6574E1703D8E3F35C08DFF0A2C615D8B4996D6F1E5E1526523815"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeNumericNames.cs",
-      "Sha256": "80E517253B57DE8379A817FE6FAE1EE352B33D570141528E0C347389171FA2C1"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeTypeCallbacks.cs",
-      "Sha256": "33E7760C58CFF782789DC0D051AED0DD125B60A0D1BA316D4477A46642CDA2F8"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeTypeKind.cs",
-      "Sha256": "595C7BE7C92399A2B96E66B1883DE5836BE72CBB41338223F97849F3D80DB0CA"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeAbi.cs",
-      "Sha256": "B858ABA7C63CC191C0D9FA5ADE15C8A91C6B9F94A82672F755CCA1824039775D"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeAtomCallbacks.cs",
-      "Sha256": "5DC060495CB534FBB71CF982CCFA037340664454164822058E5C4FBCF3649ED9"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeBinaryCallbacks.cs",
-      "Sha256": "28DEE339BC33E53DCF5FE7CA5D637C5F35FEE20DC1D0F55A5ECD3AC294243A99"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeBinaryDescriptor.cs",
-      "Sha256": "6E14C9EC3F24475EEC356AA7ACFE11C34C594260BC3E2960151C0EBBF392CEB3"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeBinaryNames.cs",
-      "Sha256": "9E141C2678FD3ADBF13BB427F28FBA38973E272F2336BABCA3BB1A4CDB2B96DF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeBinaryNode.cs",
-      "Sha256": "75F2057DDE52883457790EF205679642214D9345CD66DE02F1575D8684528D68"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeBinaryRegistry.cs",
-      "Sha256": "AC2FBDBA687A5845B2AF5ACF0E2B6F5177DF6C693EDBF10F23B2AC8EB83E0160"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeBinaryStorage.cs",
-      "Sha256": "78732031E5ACE2AE66200F2B7A6B47EFF97199D3FA01A9171B6C35657C2123A9"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeBridgeTable.cs",
-      "Sha256": "DFFC81F8D732229667AC4916B416F881624A55741D7FA0C05026DCBC6F7B27D6"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeCallbackScope.cs",
-      "Sha256": "1911396A620D6F733F8F4F8558252F070EC83CE6753F41597864281DCE796893"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeConsNode.cs",
-      "Sha256": "FA698C8837CAD50CFC4EF9CADF79F5B4D4536E93548EDD539E53FC3A04179970"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeEnvironmentBinding.cs",
-      "Sha256": "184864EFDE3CEC32C58DD4769CD8C50E5C4B8360CF7AA9C36409F4E7B95CD69A"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeFailureState.cs",
-      "Sha256": "EC70AF2834C2180FFF18FD542621A2877E156424248491F62BAB2FD9E2CC984A"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeImmediateOwner.cs",
-      "Sha256": "33FC5CF5ED4983D8B3C417007C99F1B0653D5865DF87DBB75A61A2037DE58B72"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeInvocationNames.cs",
-      "Sha256": "7C82BD5BD3A4EB1C79D83037C5A83000AEFE7D623F9BC18A48DE0A9C0AEE63E1"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeLinuxNumericCallbacks.cs",
-      "Sha256": "175DB3B64F8584BA5D4C35DF9112C40C5D8A41AFEAE46D31B60F87B0F10880D0"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeLinuxNumericNames.cs",
-      "Sha256": "984341B3E0B8E988A03B8E5D45B58E76FADCC357F4B0A66E179AEED8C9D77B9A"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeNames.cs",
-      "Sha256": "C9C1FC1B33E57E471CFB41A61DA1FDA473E6A973AFAD4CC2F9B075E6B117215B"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativePrimitiveCallbacks.cs",
-      "Sha256": "7AA85D7B7265B5A3650BC260668AFFF516BBF2B6C1038FD3494F285B0B304E37"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeSequenceCallbacks.cs",
-      "Sha256": "E9326F7D610B175E1BB212DFA32C38349083C9CDF83188738D6AD48FDAC7BF77"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeStringCallbacks.cs",
-      "Sha256": "6097F7D29D15B23458C2D2A320796E6689901BEFFD815CE4ADDC2CBC4CF5D354"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeTermGraph.cs",
-      "Sha256": "6FF624C4548324A070AA33532B324C534DECB5C33268427E721646F97A3F88F8"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeTermNode.cs",
-      "Sha256": "4888F7239F052430E7CC5EA3AB755A3F461003B704B677226EB29575849FE2A1"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeTermValue.cs",
-      "Sha256": "DC059AC474603881FCFEBF11C3E84A284128CE3B1AB6282963FAF1A085D50E0C"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeTextNames.cs",
-      "Sha256": "3FF1EE8303EF1A66E2B5E5296474CA9D90018672D7B4104C74A8A234289C8D12"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeTupleNode.cs",
-      "Sha256": "C30C66A73F7A7F2CDFEDC900A55C0EE599FDF22770E4778ECA3EE6886F070364"
     }
   ],
-  "VerifiedCompatibleMfas": 16,
+  "VerifiedCompatibleMfas": 18,
   "NeedsVerificationMfas": 541,
   "KnownDifferenceMfas": 30,
   "MfaCompatibility": [
@@ -888,6 +1048,18 @@
           "Path": "validation/part-360/current-source-preservation.json",
           "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
           "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-361/current-source-preservation.json",
+          "Sha256": "71CF94FDBB0F98BD8FE5E2657B49B3FEBE2201E377EBEF4094447175D1BE5925",
+          "Scope": "Author current source binding only; Root independent source review and integrated execution pending. Prior classifications and complete bounded scopes retained; no API promotion."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-362/compatibility-audit.json",
+          "Sha256": "B49571CC061CE762645117A2FBD7A911B89556DC4758286D4508477BDFDD1C60",
+          "Scope": "Current caller-location/frame/capture dependency changes preserve existing omitted-location capture and API handlers; full7504 regression accepted."
         }
       ],
       "Limits": [],
@@ -1127,6 +1299,18 @@
           "Path": "validation/part-360/current-source-preservation.json",
           "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
           "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-361/current-source-preservation.json",
+          "Sha256": "71CF94FDBB0F98BD8FE5E2657B49B3FEBE2201E377EBEF4094447175D1BE5925",
+          "Scope": "Author current source binding only; Root independent source review and integrated execution pending. Prior classifications and complete bounded scopes retained; no API promotion."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-362/compatibility-audit.json",
+          "Sha256": "B49571CC061CE762645117A2FBD7A911B89556DC4758286D4508477BDFDD1C60",
+          "Scope": "Current caller-location/frame/capture dependency changes preserve existing omitted-location capture and API handlers; full7504 regression accepted."
         }
       ],
       "Limits": [],
@@ -1252,6 +1436,18 @@
           "Path": "validation/part-360/current-source-preservation.json",
           "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
           "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-361/current-source-preservation.json",
+          "Sha256": "71CF94FDBB0F98BD8FE5E2657B49B3FEBE2201E377EBEF4094447175D1BE5925",
+          "Scope": "Author current source binding only; Root independent source review and integrated execution pending. Prior classifications and complete bounded scopes retained; no API promotion."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-362/compatibility-audit.json",
+          "Sha256": "B49571CC061CE762645117A2FBD7A911B89556DC4758286D4508477BDFDD1C60",
+          "Scope": "Current caller-location/frame/capture dependency changes preserve existing omitted-location capture and API handlers; full7504 regression accepted."
         }
       ],
       "Limits": [],
@@ -1377,6 +1573,18 @@
           "Path": "validation/part-360/current-source-preservation.json",
           "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
           "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-361/current-source-preservation.json",
+          "Sha256": "71CF94FDBB0F98BD8FE5E2657B49B3FEBE2201E377EBEF4094447175D1BE5925",
+          "Scope": "Author current source binding only; Root independent source review and integrated execution pending. Prior classifications and complete bounded scopes retained; no API promotion."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-362/compatibility-audit.json",
+          "Sha256": "B49571CC061CE762645117A2FBD7A911B89556DC4758286D4508477BDFDD1C60",
+          "Scope": "Current caller-location/frame/capture dependency changes preserve existing omitted-location capture and API handlers; full7504 regression accepted."
         }
       ],
       "Limits": [],
@@ -1502,6 +1710,18 @@
           "Path": "validation/part-360/current-source-preservation.json",
           "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
           "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-361/current-source-preservation.json",
+          "Sha256": "71CF94FDBB0F98BD8FE5E2657B49B3FEBE2201E377EBEF4094447175D1BE5925",
+          "Scope": "Author current source binding only; Root independent source review and integrated execution pending. Prior classifications and complete bounded scopes retained; no API promotion."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-362/compatibility-audit.json",
+          "Sha256": "B49571CC061CE762645117A2FBD7A911B89556DC4758286D4508477BDFDD1C60",
+          "Scope": "Current caller-location/frame/capture dependency changes preserve existing omitted-location capture and API handlers; full7504 regression accepted."
         }
       ],
       "Limits": [],
@@ -1627,6 +1847,18 @@
           "Path": "validation/part-360/current-source-preservation.json",
           "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
           "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-361/current-source-preservation.json",
+          "Sha256": "71CF94FDBB0F98BD8FE5E2657B49B3FEBE2201E377EBEF4094447175D1BE5925",
+          "Scope": "Author current source binding only; Root independent source review and integrated execution pending. Prior classifications and complete bounded scopes retained; no API promotion."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-362/compatibility-audit.json",
+          "Sha256": "B49571CC061CE762645117A2FBD7A911B89556DC4758286D4508477BDFDD1C60",
+          "Scope": "Current caller-location/frame/capture dependency changes preserve existing omitted-location capture and API handlers; full7504 regression accepted."
         }
       ],
       "Limits": [],
@@ -1746,6 +1978,18 @@
           "Path": "validation/part-360/current-source-preservation.json",
           "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
           "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-361/current-source-preservation.json",
+          "Sha256": "71CF94FDBB0F98BD8FE5E2657B49B3FEBE2201E377EBEF4094447175D1BE5925",
+          "Scope": "Author current source binding only; Root independent source review and integrated execution pending. Prior classifications and complete bounded scopes retained; no API promotion."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-362/compatibility-audit.json",
+          "Sha256": "B49571CC061CE762645117A2FBD7A911B89556DC4758286D4508477BDFDD1C60",
+          "Scope": "Current caller-location/frame/capture dependency changes preserve existing omitted-location capture and API handlers; full7504 regression accepted."
         }
       ],
       "Limits": [],
@@ -1865,6 +2109,18 @@
           "Path": "validation/part-360/current-source-preservation.json",
           "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
           "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-361/current-source-preservation.json",
+          "Sha256": "71CF94FDBB0F98BD8FE5E2657B49B3FEBE2201E377EBEF4094447175D1BE5925",
+          "Scope": "Author current source binding only; Root independent source review and integrated execution pending. Prior classifications and complete bounded scopes retained; no API promotion."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-362/compatibility-audit.json",
+          "Sha256": "B49571CC061CE762645117A2FBD7A911B89556DC4758286D4508477BDFDD1C60",
+          "Scope": "Current caller-location/frame/capture dependency changes preserve existing omitted-location capture and API handlers; full7504 regression accepted."
         }
       ],
       "Limits": [],
@@ -1966,6 +2222,18 @@
           "Path": "validation/part-360/current-source-preservation.json",
           "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
           "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-361/current-source-preservation.json",
+          "Sha256": "71CF94FDBB0F98BD8FE5E2657B49B3FEBE2201E377EBEF4094447175D1BE5925",
+          "Scope": "Author current source binding only; Root independent source review and integrated execution pending. Prior classifications and complete bounded scopes retained; no API promotion."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-362/compatibility-audit.json",
+          "Sha256": "B49571CC061CE762645117A2FBD7A911B89556DC4758286D4508477BDFDD1C60",
+          "Scope": "Current caller-location/frame/capture dependency changes preserve existing omitted-location capture and API handlers; full7504 regression accepted."
         }
       ],
       "Limits": [],
@@ -2037,6 +2305,18 @@
           "Path": "validation/part-360/current-source-preservation.json",
           "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
           "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-361/current-source-preservation.json",
+          "Sha256": "71CF94FDBB0F98BD8FE5E2657B49B3FEBE2201E377EBEF4094447175D1BE5925",
+          "Scope": "Author current source binding only; Root independent source review and integrated execution pending. Prior classifications and complete bounded scopes retained; no API promotion."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-362/compatibility-audit.json",
+          "Sha256": "B49571CC061CE762645117A2FBD7A911B89556DC4758286D4508477BDFDD1C60",
+          "Scope": "Current caller-location/frame/capture dependency changes preserve existing omitted-location capture and API handlers; full7504 regression accepted."
         }
       ],
       "Limits": [],
@@ -2156,6 +2436,18 @@
           "Path": "validation/part-360/current-source-preservation.json",
           "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
           "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-361/current-source-preservation.json",
+          "Sha256": "71CF94FDBB0F98BD8FE5E2657B49B3FEBE2201E377EBEF4094447175D1BE5925",
+          "Scope": "Author current source binding only; Root independent source review and integrated execution pending. Prior classifications and complete bounded scopes retained; no API promotion."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-362/compatibility-audit.json",
+          "Sha256": "B49571CC061CE762645117A2FBD7A911B89556DC4758286D4508477BDFDD1C60",
+          "Scope": "Current caller-location/frame/capture dependency changes preserve existing omitted-location capture and API handlers; full7504 regression accepted."
         }
       ],
       "Limits": [],
@@ -3703,6 +3995,18 @@
           "Path": "validation/part-360/current-source-preservation.json",
           "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
           "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-361/current-source-preservation.json",
+          "Sha256": "71CF94FDBB0F98BD8FE5E2657B49B3FEBE2201E377EBEF4094447175D1BE5925",
+          "Scope": "Author current source binding only; Root independent source review and integrated execution pending. Prior classifications and complete bounded scopes retained; no API promotion."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-362/compatibility-audit.json",
+          "Sha256": "B49571CC061CE762645117A2FBD7A911B89556DC4758286D4508477BDFDD1C60",
+          "Scope": "Current caller-location/frame/capture dependency changes preserve existing omitted-location capture and API handlers; full7504 regression accepted."
         }
       ],
       "Limits": [],
@@ -3774,6 +4078,18 @@
           "Path": "validation/part-360/current-source-preservation.json",
           "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
           "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-361/current-source-preservation.json",
+          "Sha256": "71CF94FDBB0F98BD8FE5E2657B49B3FEBE2201E377EBEF4094447175D1BE5925",
+          "Scope": "Author current source binding only; Root independent source review and integrated execution pending. Prior classifications and complete bounded scopes retained; no API promotion."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-362/compatibility-audit.json",
+          "Sha256": "B49571CC061CE762645117A2FBD7A911B89556DC4758286D4508477BDFDD1C60",
+          "Scope": "Current caller-location/frame/capture dependency changes preserve existing omitted-location capture and API handlers; full7504 regression accepted."
         }
       ],
       "Limits": [],
@@ -3857,6 +4173,18 @@
           "Path": "validation/part-360/current-source-preservation.json",
           "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
           "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-361/current-source-preservation.json",
+          "Sha256": "71CF94FDBB0F98BD8FE5E2657B49B3FEBE2201E377EBEF4094447175D1BE5925",
+          "Scope": "Author current source binding only; Root independent source review and integrated execution pending. Prior classifications and complete bounded scopes retained; no API promotion."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-362/compatibility-audit.json",
+          "Sha256": "B49571CC061CE762645117A2FBD7A911B89556DC4758286D4508477BDFDD1C60",
+          "Scope": "Current caller-location/frame/capture dependency changes preserve existing omitted-location capture and API handlers; full7504 regression accepted."
         }
       ],
       "Limits": [],
@@ -3928,6 +4256,18 @@
           "Path": "validation/part-360/current-source-preservation.json",
           "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
           "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-361/current-source-preservation.json",
+          "Sha256": "71CF94FDBB0F98BD8FE5E2657B49B3FEBE2201E377EBEF4094447175D1BE5925",
+          "Scope": "Author current source binding only; Root independent source review and integrated execution pending. Prior classifications and complete bounded scopes retained; no API promotion."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-362/compatibility-audit.json",
+          "Sha256": "B49571CC061CE762645117A2FBD7A911B89556DC4758286D4508477BDFDD1C60",
+          "Scope": "Current caller-location/frame/capture dependency changes preserve existing omitted-location capture and API handlers; full7504 regression accepted."
         }
       ],
       "Limits": [],
@@ -5115,6 +5455,18 @@
           "Path": "validation/part-360/current-source-preservation.json",
           "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
           "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-361/current-source-preservation.json",
+          "Sha256": "71CF94FDBB0F98BD8FE5E2657B49B3FEBE2201E377EBEF4094447175D1BE5925",
+          "Scope": "Author current source binding only; Root independent source review and integrated execution pending. Prior classifications and complete bounded scopes retained; no API promotion."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-362/compatibility-audit.json",
+          "Sha256": "B49571CC061CE762645117A2FBD7A911B89556DC4758286D4508477BDFDD1C60",
+          "Scope": "Current caller-location/frame/capture dependency changes preserve existing omitted-location capture and API handlers; full7504 regression accepted."
         }
       ],
       "Limits": [],
@@ -7606,7 +7958,7 @@
       "Function": "load_nif",
       "Arity": 2,
       "Status": "Known differences",
-      "Scope": "Indirect BIF refusal and UTF8 direct filename validation remain implemented. A production captured-source native backend exists under explicit image execution approval; ordinary no-policy loading and broader native behavior remain observably incomplete.",
+      "Scope": "Captured direct calls support ordinary host loading and optional reviewed image admission. Indirect refusal remains. Current raw Unix pathname plumbing and additional selected callbacks require integrated managed/native/original proof; broader ABI, resources, dirty execution and upgrade semantics remain incomplete.",
       "Evidence": [
         {
           "Kind": "SourceReview",
@@ -7637,10 +7989,16 @@
           "Path": "validation/part-360/current-source-preservation.json",
           "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
           "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-361/current-source-preservation.json",
+          "Sha256": "71CF94FDBB0F98BD8FE5E2657B49B3FEBE2201E377EBEF4094447175D1BE5925",
+          "Scope": "Author current source binding only; Root independent source review and integrated execution pending. Prior classifications and complete bounded scopes retained; no API promotion."
         }
       ],
       "Limits": [
-        "Ordinary captured direct calls now open actual host libraries without a per-image approval policy; optional reviewed hash policy and explicit source handler retain precedence. General native ABI/version/dirty/resource/thread/upgrade support and raw Unix non-UTF8 filename behavior remain incomplete.",
+        "Ordinary captured direct calls open host libraries without per-image approval; optional reviewed hash policy and explicit handler retain precedence. Raw Unix filename bytes/search are implemented in source with Linux/original execution pending. General native ABI/version/dirty/resource/thread/upgrade support remains incomplete.",
         "Managed source-route and owned Windows eleven-image observations do not establish original OTP equality or complete native error text. New ordinary original comparisons and same-head CI remain pending."
       ],
       "Key": "erlang:load_nif/2"
@@ -10393,15 +10751,85 @@
         "Representative local/connected tests are not whole RPC/ERPC API contract completion; original340 stillpending at audit."
       ],
       "Key": "rpc:call/5"
+    },
+    {
+      "Module": "proplists",
+      "Function": "get_value",
+      "Arity": 2,
+      "Status": "Verified compatible",
+      "Scope": "Complete OTP-29.1.1 get_value observable semantic contract on the supported Erlang term/source model: exact keys, atom shorthand, first matching tuple shadowing, arbitrary values/defaults, /2 undefined, lazy improper tails, effective /3 error arguments, exact API/caller file and line, tail-call elision and bounded backtrace depth. Source-reviewed iterative traversal and cooperative process cancellation. No identical physical VM layout, instruction/reduction counts, scheduling or performance claim.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-362/compatibility-audit.json",
+          "Sha256": "B49571CC061CE762645117A2FBD7A911B89556DC4758286D4508477BDFDD1C60",
+          "Scope": "Exhaustive source branch partition and final-source shared dependency review."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-362/peer/acceptance.json",
+          "Sha256": "983B7E7CBEB467593258EC5EBAB8A2258790D6E9DEA3BD7293CB1AFE6D513FE4",
+          "Scope": "Pinned original59 assertions and12 complete raw stacks accepted independently, no normalization."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-362/sdk/comparison.json",
+          "Sha256": "3C7700201F6B5EA9A4903527520BF1D4202E84C65C013A2B406E26CFCDEED13C",
+          "Scope": "Actual final-source DLLs reproduce all59 return rows and12 full stacks byte-for-byte."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-362/full/completion.json",
+          "Sha256": "D1922F6F730BFCFE80FA2A39B96E6338D838020EFB8624AF69187C10ED156E9A",
+          "Scope": "Final source full7504 tests,7438 unchanged ordered prefix,11 integration outcomes and12 bounded children."
+        }
+      ],
+      "Limits": [],
+      "Key": "proplists:get_value/2"
+    },
+    {
+      "Module": "proplists",
+      "Function": "get_value",
+      "Arity": 3,
+      "Status": "Verified compatible",
+      "Scope": "Complete OTP-29.1.1 get_value observable semantic contract on the supported Erlang term/source model: exact keys, atom shorthand, first matching tuple shadowing, arbitrary values/defaults, /2 undefined, lazy improper tails, effective /3 error arguments, exact API/caller file and line, tail-call elision and bounded backtrace depth. Source-reviewed iterative traversal and cooperative process cancellation. No identical physical VM layout, instruction/reduction counts, scheduling or performance claim.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-362/compatibility-audit.json",
+          "Sha256": "B49571CC061CE762645117A2FBD7A911B89556DC4758286D4508477BDFDD1C60",
+          "Scope": "Exhaustive source branch partition and final-source shared dependency review."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-362/peer/acceptance.json",
+          "Sha256": "983B7E7CBEB467593258EC5EBAB8A2258790D6E9DEA3BD7293CB1AFE6D513FE4",
+          "Scope": "Pinned original59 assertions and12 complete raw stacks accepted independently, no normalization."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-362/sdk/comparison.json",
+          "Sha256": "3C7700201F6B5EA9A4903527520BF1D4202E84C65C013A2B406E26CFCDEED13C",
+          "Scope": "Actual final-source DLLs reproduce all59 return rows and12 full stacks byte-for-byte."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-362/full/completion.json",
+          "Sha256": "D1922F6F730BFCFE80FA2A39B96E6338D838020EFB8624AF69187C10ED156E9A",
+          "Scope": "Final source full7504 tests,7438 unchanged ordered prefix,11 integration outcomes and12 bounded children."
+        }
+      ],
+      "Limits": [],
+      "Key": "proplists:get_value/3"
     }
   ],
   "ComparisonTestReport": "validation/part-356/tests.json",
-  "LocalPassedTests": 7425,
-  "RegisteredMfas": 587,
+  "LocalPassedTests": 7504,
+  "RegisteredMfas": 589,
   "PreviousRegisteredMfas": 587,
-  "RegisteredMfaDelta": 0,
+  "RegisteredMfaDelta": 2,
   "SourceModuleRows": 1289,
-  "ImplementedApiModules": 14,
+  "ImplementedApiModules": 15,
   "Components": [
     {
       "Id": "Terms",
@@ -10593,7 +11021,7 @@
         "GC global CLR heap differs from BEAM per-process heap,physical roots/reductions/dirty-task/max-heap/resource/scheduler parity;CPU hardware topology assignment and full system flags/info unfinished.",
         "Physical BEAM heap/scheduler/resources,complete lint/spec/warnings/source stacks/code staging,connected distribution and full native/upstream/performance parity;native numeric record hashes independently matched in230, while general resource/lifecycle scope remains partial."
       ],
-      "RelatedPassedTests": 806
+      "RelatedPassedTests": 819
     },
     {
       "Id": "Compiler",
@@ -10680,7 +11108,7 @@
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
       ],
-      "RelatedPassedTests": 1626
+      "RelatedPassedTests": 1628
     },
     {
       "Id": "gen_server adapters",
@@ -10842,7 +11270,7 @@
         "Part134: all3248 comparable original cases pass at b1ed28e; six exact unsafe-original scenarios remain explicitly excluded while mandatory managed tests pass. No complete native coverage claim.",
         "Part136: complete3291 comparable original cases,3290 pass/one pending alias signal admission mismatch at569cba8;six explicit unsafe-native exclusions remain. Implement pending signal admission before promotion;latest successful comparable134."
       ],
-      "RelatedPassedTests": 5613
+      "RelatedPassedTests": 5672
     },
     {
       "Id": "Style checks",
@@ -24071,20 +24499,23 @@
     },
     {
       "Name": "proplists",
-      "Status": "Not started",
-      "RegisteredMfas": 0,
-      "VerifiedCompatibleMfas": 0,
+      "Status": "Partially compatible",
+      "RegisteredMfas": 2,
+      "VerifiedCompatibleMfas": 2,
       "NeedsVerificationMfas": 0,
       "KnownDifferenceMfas": 0,
       "PreviousRegisteredMfas": 0,
-      "Delta": 0,
+      "Delta": 2,
       "ReferenceDeclarations": 22,
-      "ApiPresencePercent": 0,
+      "ApiPresencePercent": 9.1,
       "RequiresPreprocessing": false,
       "Sources": [
         "lib/stdlib/src/proplists.erl"
       ],
-      "Mfas": [],
+      "Mfas": [
+        "proplists:get_value/2",
+        "proplists:get_value/3"
+      ],
       "AbsentFromReference": []
     },
     {

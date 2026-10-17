@@ -1,0 +1,913 @@
+{
+  "SchemaVersion": 1,
+  "InventoryVersion": "native-infrastructure-1",
+  "Status": "Versioned bounded engineering inventory",
+  "SnapshotMainCommit": "372286a86767b4f677d49d9906df489d6d2dec7b",
+  "PinnedOtp": {
+    "Tag": "OTP-29.1.1",
+    "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5"
+  },
+  "Methodology": "Counts describe only this fixed versioned24-row engineering inventory. No percentage or whole-NIF/whole-loader compatibility total is defined. Accepted-scoped means only the explicitly bounded done criterion has accepted evidence; local-tests-only/source-only/missing cannot be promoted by MFA presence. InMain is source presence at SnapshotMainCommit,not same-head CI or feature completion. RemainingOrBlockers include explicitly excluded extensions even when a scoped milestone is met.",
+  "MfaAccounting": {
+    "SeparateFrom": "docs/module-readiness.json",
+    "CountedAsNewMfas": 0,
+    "AlterCanonicalTotals": false,
+    "Method": "Current MFA counts come from the separate canonical API report, never from this inventory."
+  },
+  "Publication": {
+    "RegistryItselfInMain": true,
+    "ImplementationSourceInMainAt": "372286a86767b4f677d49d9906df489d6d2dec7b",
+    "SameHeadCiVerifiedByThisProposal": false,
+    "ExecutionPerformedByReviewer": false,
+    "RegistryReleasePart": 362
+  },
+  "SourceEquivalence": {
+    "TestedPlanPath": "docs/validation/part-361/tested-source-plan.json",
+    "TestedPlanSha256": "26771833B3E7C2A70166C36ED0854354198F4DC5E6270E01CD1B00E97101A2E2",
+    "CurrentBoundSourceFiles": 40,
+    "ExactRawHashesMatchTestedPlan": true,
+    "SameHeadExecutionInferred": false
+  },
+  "Counts": {
+    "InventoryRows": 24,
+    "Implementation": {
+      "implemented": 17,
+      "partial": 1,
+      "not-implemented": 6
+    },
+    "Verification": {
+      "accepted-scoped": 7,
+      "local-tests-only": 10,
+      "missing": 6,
+      "source-only": 1
+    },
+    "InMain": 18,
+    "ScopedMilestonesMet": 7
+  },
+  "Evidence": {
+    "full": {
+      "Path": "docs/validation/part-361/full4-acceptance.json",
+      "Sha256": "63640464A9ECC6560E1A2C6CD94A5EADC910A8E8B3AA49470BA8D88F5A0EE02A",
+      "Scope": "7438/0 Windows full suite,11 integrations,2 packages,12 normal children; not every NIF API",
+      "Platform": "windows-x64",
+      "ExecutionIdentity": "candidate5 source-plan26771833"
+    },
+    "windows-original": {
+      "Path": "docs/validation/part-361/windows-original-acceptance.json",
+      "Sha256": "20AE90F30EAF1CC87A0D7A9610B4CE1313293A10C358A82A173A58CEDDFE610F",
+      "Scope": "34 exact rows across map-size/reference reviewed and ordinary routes",
+      "Platform": "windows-x64",
+      "ExecutionIdentity": "original39029306519/39027923905 and recorded Windows routes"
+    },
+    "linux": {
+      "Path": "docs/validation/part-361/linux-collector-acceptance.json",
+      "Sha256": "FDC7DE4963D4824865CC3E99816F6734EDD32D670AC2B71A3CD63AB2A33DD26E",
+      "Scope": "68 callback comparisons,16 managed counts,3 loader and3 destructor controls,50 normal receipts",
+      "Platform": "glibc-linux-x64",
+      "ExecutionIdentity": "91a281319529ee3aadb353e14e5e6b08d93cbb51"
+    },
+    "source-chain": {
+      "Path": "docs/validation/part-361/linux-to-final-source-review.json",
+      "Sha256": "9841FA8AEF280CDE88F66584F3BB94AB90E67093399E6DDCEF7A3222B4C2EF82",
+      "Scope": "Tested Linux source to final candidate source equivalence; no execution inferred",
+      "Platform": "source-only",
+      "ExecutionIdentity": "candidate5 source-plan26771833"
+    },
+    "contract": {
+      "Path": "docs/validation/part-361/CONTRACT-AUDIT.md",
+      "Sha256": "8CF68AEA771AE91CC145CBD2BB7DB7A98892EDD04A82A866A7AB4039AF0E4CD6",
+      "Scope": "Bounded map-size/reference contracts and stated exclusions",
+      "Platform": "source-audit",
+      "ExecutionIdentity": "OTP29.1.1"
+    },
+    "main-build": {
+      "Path": "docs/validation/part-361/integrated-build-receipt.json",
+      "Sha256": "70E43ED3E309F5856EB1C97884DCFE8E4FB49F06D566182CB2AD75A3E811562B",
+      "Scope": "Actual integrated Main test-project build; no general semantic proof",
+      "Platform": "windows-x64",
+      "ExecutionIdentity": "pre-publication Main integration"
+    },
+    "main-focus": {
+      "Path": "docs/validation/part-361/integrated-focused-tests.json",
+      "Sha256": "1DEED58509A1615E24967287F4E10ADE417706C41667919E94B0F4111839A719",
+      "Scope": "Actual integrated focused checks; retain declared count/scope",
+      "Platform": "windows-x64",
+      "ExecutionIdentity": "pre-publication Main integration"
+    }
+  },
+  "Entries": [
+    {
+      "Id": "nif.load-admission",
+      "Title": "Ordinary and reviewed NIF admission",
+      "Scope": "Admitted synchronous fixtures; ordinary host loading and optional reviewed hash admission remain separate.",
+      "DoneCriterion": "On admitted x64 routes load valid fixtures and retain raw native error controls without conflating fixture and bridge producer identities.",
+      "Implementation": "implemented",
+      "Verification": "accepted-scoped",
+      "InMain": true,
+      "MainCommit": "372286a86767b4f677d49d9906df489d6d2dec7b",
+      "ScopedMilestoneMet": true,
+      "SourceBindings": [
+        {
+          "Path": "src/Erlang.Runtime/NifNativeDefaultLoader.cs",
+          "Sha256": "F1F4C1D9A0B90F1C7D66EC237C9032DFE64DD8EE4FBA56C52F37065BCD8D68B8"
+        },
+        {
+          "Path": "src/Erlang.Runtime/NifNativeCapabilityProfile.cs",
+          "Sha256": "BB02181953B06E0B31A70054D2BC1BB4BF4A192E836A0C5A88FCED88ED8C8164"
+        }
+      ],
+      "EvidenceRefs": [
+        "linux",
+        "windows-original",
+        "contract"
+      ],
+      "Platforms": [
+        "windows-x64",
+        "glibc-linux-x64"
+      ],
+      "RelatedPassedTests": [
+        "runtime/direct-source-load-nif-exact-caller-capability"
+      ],
+      "RemainingOrBlockers": [
+        "Complete OTP load failure text/error_info partition and every native dependency graph are not established."
+      ]
+    },
+    {
+      "Id": "nif.load-admission",
+      "Title": "Native entry ABI admission",
+      "Scope": "Fixed OTP2.18 entry layout,beam.vanilla,zero function flags and x64 native widths.",
+      "DoneCriterion": "Independently exercise every admitted entry field and rejected version/layout/function-metadata branch,including MinimumErts/ResourceInitSize applicability.",
+      "Implementation": "implemented",
+      "Verification": "local-tests-only",
+      "InMain": true,
+      "MainCommit": "372286a86767b4f677d49d9906df489d6d2dec7b",
+      "ScopedMilestoneMet": false,
+      "SourceBindings": [
+        {
+          "Path": "src/Erlang.Runtime/NifNativeAbi.cs",
+          "Sha256": "87D203E0B449BC2B865CED1124E86D4CFAFB48AFAA1FCCF9F1176154B1F1868A"
+        },
+        {
+          "Path": "src/Erlang.Runtime/NifNativeEntryReader.cs",
+          "Sha256": "4886AF66B25FD5A47331B6C0E0A95AA75D1C84DF7EA74B86273544BAB31B4A76"
+        },
+        {
+          "Path": "src/Erlang.Runtime/NifNativeEntryFunctions.cs",
+          "Sha256": "5E3F0F9F8B4225E6082212C34974370545FFB59D4591A4157922E6954F16197C"
+        }
+      ],
+      "EvidenceRefs": [
+        "full",
+        "contract"
+      ],
+      "Platforms": [
+        "windows-x64",
+        "glibc-linux-x64"
+      ],
+      "RelatedPassedTests": [],
+      "RemainingOrBlockers": [
+        "EntryReader fixes2.18; fields existing in a struct are not implemented feature support. Wider entry versions/options and full minimum-ERTS/resource-field policy remain open."
+      ]
+    },
+    {
+      "Id": "nif.image-bindings",
+      "Title": "Image-owned installation and dispatch",
+      "Scope": "Function declarations,source/BEAM caller identity,reservations and image-specific NIF bindings.",
+      "DoneCriterion": "Validate commit/abort,exact caller/current-old image routing,declared function constraints and quiescent dispatch across all admitted entries.",
+      "Implementation": "implemented",
+      "Verification": "local-tests-only",
+      "InMain": true,
+      "MainCommit": "372286a86767b4f677d49d9906df489d6d2dec7b",
+      "ScopedMilestoneMet": false,
+      "SourceBindings": [
+        {
+          "Path": "src/Erlang.Runtime/NifImageBindings.cs",
+          "Sha256": "BFF0CA2FB4965C1CCB2A87B63611DC3B836120C48D03BB27DD39A610E69E522C"
+        },
+        {
+          "Path": "src/Erlang.Runtime/ModuleRegistry.NifAdmission.cs",
+          "Sha256": "676B054D12BBDF77D2C2169607C0F21CC277FA48C9313F853C11E50D98D2DDF7"
+        },
+        {
+          "Path": "src/Erlang.Runtime/NifImageBindingStore.cs",
+          "Sha256": "677108FD58314F4AA18407EF4F748457BA4300185CC407B6D83DBAAEA74D5C8E"
+        }
+      ],
+      "EvidenceRefs": [
+        "full",
+        "main-focus"
+      ],
+      "Platforms": [
+        "windows-x64",
+        "glibc-linux-x64"
+      ],
+      "RelatedPassedTests": [
+        "runtime/nif-image-attachment-transactions-and-quiescence",
+        "runtime/nif-caller-image-reservation-generation-and-cleanup",
+        "runtime/nif-source-named-entry-routing-and-owned-drain",
+        "runtime/nif-beam-exact-image-entry-and-closure-routing"
+      ],
+      "RemainingOrBlockers": [
+        "Host regression evidence is not a full OTP upgrade/reload or arbitrary stale-code contract proof."
+      ]
+    },
+    {
+      "Id": "nif.synchronous-call",
+      "Title": "Synchronous native call and exception boundary",
+      "Scope": "A normal native frame owns callback scope,environment,pending exception and return-term conversion.",
+      "DoneCriterion": "Exercise all pending-exception/return precedence,argument-count/context and unwinding branches with valid ABI calls.",
+      "Implementation": "implemented",
+      "Verification": "local-tests-only",
+      "InMain": true,
+      "MainCommit": "372286a86767b4f677d49d9906df489d6d2dec7b",
+      "ScopedMilestoneMet": false,
+      "SourceBindings": [
+        {
+          "Path": "src/Erlang.Runtime/NifNativeLibraryOwner.cs",
+          "Sha256": "DC4B4590CF564229010370A616B362D2FEB1CC8715C87F638EA457D28F778E13"
+        },
+        {
+          "Path": "src/Erlang.Runtime/NifNativeCallbackScope.cs",
+          "Sha256": "1911396A620D6F733F8F4F8558252F070EC83CE6753F41597864281DCE796893"
+        }
+      ],
+      "EvidenceRefs": [
+        "full"
+      ],
+      "Platforms": [
+        "windows-x64",
+        "glibc-linux-x64"
+      ],
+      "RelatedPassedTests": [],
+      "RemainingOrBlockers": [
+        "No interruption of arbitrary native code; native memory corruption is not contained like an Erlang exception. Async and dirty execution are separate units."
+      ]
+    },
+    {
+      "Id": "nif.term-ownership",
+      "Title": "Bound term handles and provenance",
+      "Scope": "Opaque managed-model handles with environment/runtime ownership and call-thread validity.",
+      "DoneCriterion": "Prove handle admission,copy,clear/dispose and cross-runtime/thread partitions with no expired handle reuse.",
+      "Implementation": "implemented",
+      "Verification": "local-tests-only",
+      "InMain": true,
+      "MainCommit": "372286a86767b4f677d49d9906df489d6d2dec7b",
+      "ScopedMilestoneMet": false,
+      "SourceBindings": [
+        {
+          "Path": "src/Erlang.Runtime/NifNativeCallEnvironment.cs",
+          "Sha256": "52AA8BDB06D8BB924CDAC0B9F26398E53D5CD5BBDA48CF2A9FB889FEDC9FEBE9"
+        },
+        {
+          "Path": "src/Erlang.Runtime/NifNativeTermValue.cs",
+          "Sha256": "DC059AC474603881FCFEBF11C3E84A284128CE3B1AB6282963FAF1A085D50E0C"
+        }
+      ],
+      "EvidenceRefs": [
+        "full",
+        "contract"
+      ],
+      "Platforms": [
+        "windows-x64",
+        "glibc-linux-x64"
+      ],
+      "RelatedPassedTests": [],
+      "RemainingOrBlockers": [
+        "Handles differ from BEAM tagged terms and have a finite signed-long process-wide ceiling. Invalid pointers/expired or unsynchronized handles are outside native crash parity."
+      ]
+    },
+    {
+      "Id": "nif.allocation-ownership",
+      "Title": "Native allocation ownership and reallocation",
+      "Scope": "Owned native buffers,requested/backing extent accounting and explicit reviewed reallocation profile.",
+      "DoneCriterion": "Validate real allocation/reallocation/free histories,failed-init/unload containment and accounting on each admitted reallocation route.",
+      "Implementation": "implemented",
+      "Verification": "local-tests-only",
+      "InMain": true,
+      "MainCommit": "372286a86767b4f677d49d9906df489d6d2dec7b",
+      "ScopedMilestoneMet": false,
+      "SourceBindings": [
+        {
+          "Path": "src/Erlang.Runtime/NifNativeAllocationOwner.cs",
+          "Sha256": "2884702F5A0934364639A6FCF29C069F94A432BDF8161AF57FB2E7A9EB40DF77"
+        },
+        {
+          "Path": "src/Erlang.Runtime/NifNativeAllocationDomain.cs",
+          "Sha256": "046185BAA85056C832D96001B1D405E06550C14E14DEC8106E481289D25B9174"
+        },
+        {
+          "Path": "src/Erlang.Runtime/NifNativeReallocationExportRegistration.cs",
+          "Sha256": "05F345682FBEDB825A97271FC579E0BBFF4C525143B9685D53911959B8812D5E"
+        }
+      ],
+      "EvidenceRefs": [
+        "full"
+      ],
+      "Platforms": [
+        "windows-x64",
+        "glibc-linux-x64"
+      ],
+      "RelatedPassedTests": [
+        "runtime/nif-native-requested-backing-allocation-ledger",
+        "runtime/nif-runtime-native-payload-domain-lifecycle",
+        "runtime/nif-real-payload-reallocation-extent-history"
+      ],
+      "RemainingOrBlockers": [
+        "Reallocation remains profile/platform bounded; arbitrary allocator ownership mixing and OOM/native-fault parity are not accepted."
+      ]
+    },
+    {
+      "Id": "nif.independent-environments",
+      "Title": "Independent environments and copying",
+      "Scope": "alloc_env/free_env/clear_env/make_copy for synchronized use,with allocator bound to the owning runtime.",
+      "DoneCriterion": "Observe original/native/managed copy-clear-free lifetime and two-runtime joined foreign allocation ownership without a global-runtime fallback.",
+      "Implementation": "implemented",
+      "Verification": "accepted-scoped",
+      "InMain": true,
+      "MainCommit": "372286a86767b4f677d49d9906df489d6d2dec7b",
+      "ScopedMilestoneMet": true,
+      "SourceBindings": [
+        {
+          "Path": "src/Erlang.Runtime/NifNativeEnvironmentCallbacks.cs",
+          "Sha256": "B24B8300202DBBD4CFB8BA5CF1072591A7D9BE0FC68F54E32D18C45012411B8B"
+        },
+        {
+          "Path": "src/Erlang.Runtime/NifNativeCallEnvironment.cs",
+          "Sha256": "52AA8BDB06D8BB924CDAC0B9F26398E53D5CD5BBDA48CF2A9FB889FEDC9FEBE9"
+        }
+      ],
+      "EvidenceRefs": [
+        "windows-original",
+        "linux",
+        "contract"
+      ],
+      "Platforms": [
+        "windows-x64",
+        "glibc-linux-x64"
+      ],
+      "RelatedPassedTests": [
+        "runtime/nif/reference-environment-lifetime",
+        "runtime/nif/reference-foreign-threads"
+      ],
+      "RemainingOrBlockers": [
+        "Callers must synchronize independent environments and stop workers before unload. Shared unsynchronized access and invalid environments are excluded."
+      ]
+    },
+    {
+      "Id": "nif.binary-storage",
+      "Title": "Native binary descriptor and storage lifetime",
+      "Scope": "Implemented inspect/allocate/reallocate/release/make/subbinary callbacks and owned storage in the currently wired Windows surface.",
+      "DoneCriterion": "Validate descriptor/copy/pending-node ownership,mutation and release partitions and publish equivalent admitted-platform callback matrices.",
+      "Implementation": "implemented",
+      "Verification": "local-tests-only",
+      "InMain": true,
+      "MainCommit": "372286a86767b4f677d49d9906df489d6d2dec7b",
+      "ScopedMilestoneMet": false,
+      "SourceBindings": [
+        {
+          "Path": "src/Erlang.Runtime/NifNativeBinaryCallbacks.cs",
+          "Sha256": "28DEE339BC33E53DCF5FE7CA5D637C5F35FEE20DC1D0F55A5ECD3AC294243A99"
+        },
+        {
+          "Path": "src/Erlang.Runtime/NifNativeBinaryStorage.cs",
+          "Sha256": "78732031E5ACE2AE66200F2B7A6B47EFF97199D3FA01A9171B6C35657C2123A9"
+        },
+        {
+          "Path": "src/Erlang.Runtime/NifNativeWindowsCallbacks.cs",
+          "Sha256": "8614F45DF22B222E780CA5A67830C16E34E7DFD59031ABEA64CF0DC4903D583F"
+        }
+      ],
+      "EvidenceRefs": [
+        "full"
+      ],
+      "Platforms": [
+        "windows-x64"
+      ],
+      "RelatedPassedTests": [],
+      "RemainingOrBlockers": [
+        "Linux bridge does not expose the full Windows binary callback surface. Zero-copy BEAM layout/GC identity and every descriptor invalid-use branch are not claimed."
+      ]
+    },
+    {
+      "Id": "nif.numeric-marshalling",
+      "Title": "Native numeric marshalling",
+      "Scope": "Implemented integer/float get/make callback families using actual LLP64/LP64 widths.",
+      "DoneCriterion": "Exercise finite/range/type/overflow branches for every wired numeric callback on both ABIs against pinned original observations.",
+      "Implementation": "implemented",
+      "Verification": "local-tests-only",
+      "InMain": true,
+      "MainCommit": "372286a86767b4f677d49d9906df489d6d2dec7b",
+      "ScopedMilestoneMet": false,
+      "SourceBindings": [
+        {
+          "Path": "src/Erlang.Runtime/NifNativeNumericCallbacks.cs",
+          "Sha256": "97B168D7A231922C2CEDCF4C80CC3C81DDA9A882071868C15B4E451F794AFDFA"
+        },
+        {
+          "Path": "src/Erlang.Runtime/NifNativeLinuxNumericCallbacks.cs",
+          "Sha256": "175DB3B64F8584BA5D4C35DF9112C40C5D8A41AFEAE46D31B60F87B0F10880D0"
+        }
+      ],
+      "EvidenceRefs": [
+        "full",
+        "linux",
+        "windows-original"
+      ],
+      "Platforms": [
+        "windows-x64",
+        "glibc-linux-x64"
+      ],
+      "RelatedPassedTests": [],
+      "RemainingOrBlockers": [
+        "Width observations are accepted; all numeric callback contracts are not independently complete merely because widths match."
+      ]
+    },
+    {
+      "Id": "nif.sequence-and-type-callbacks",
+      "Title": "Sequence,atom,string and type callbacks",
+      "Scope": "Wired predicates,list-cell,tuple/list constructors and Windows atom/string/tuple access.",
+      "DoneCriterion": "Close each admitted callback type/encoding/length/output/lifetime branch and document platform matrix.",
+      "Implementation": "implemented",
+      "Verification": "local-tests-only",
+      "InMain": true,
+      "MainCommit": "372286a86767b4f677d49d9906df489d6d2dec7b",
+      "ScopedMilestoneMet": false,
+      "SourceBindings": [
+        {
+          "Path": "src/Erlang.Runtime/NifNativeTypeCallbacks.cs",
+          "Sha256": "33E7760C58CFF782789DC0D051AED0DD125B60A0D1BA316D4477A46642CDA2F8"
+        },
+        {
+          "Path": "src/Erlang.Runtime/NifNativeArrayCallbacks.cs",
+          "Sha256": "670E396BE73D2F169699C4C9237039C7AC14634F4E3923BE69953BB9EE30AB90"
+        },
+        {
+          "Path": "src/Erlang.Runtime/NifNativeAtomCallbacks.cs",
+          "Sha256": "5DC060495CB534FBB71CF982CCFA037340664454164822058E5C4FBCF3649ED9"
+        },
+        {
+          "Path": "src/Erlang.Runtime/NifNativeStringCallbacks.cs",
+          "Sha256": "6097F7D29D15B23458C2D2A320796E6689901BEFFD815CE4ADDC2CBC4CF5D354"
+        }
+      ],
+      "EvidenceRefs": [
+        "full"
+      ],
+      "Platforms": [
+        "windows-x64",
+        "glibc-linux-x64"
+      ],
+      "RelatedPassedTests": [],
+      "RemainingOrBlockers": [
+        "Platform callback surfaces differ; Latin1/string limits and variadic item bounds are explicit adaptations. Not every OTP term callback is present."
+      ]
+    },
+    {
+      "Id": "nif.comparison",
+      "Title": "Native comparison and identity",
+      "Scope": "Windows slots15/16 use managed term ordering/exact identity and owned handle resolution.",
+      "DoneCriterion": "Publish full supported term-domain comparisons and expose/prove equivalent Linux callbacks before cross-platform completion.",
+      "Implementation": "partial",
+      "Verification": "local-tests-only",
+      "InMain": true,
+      "MainCommit": "372286a86767b4f677d49d9906df489d6d2dec7b",
+      "ScopedMilestoneMet": false,
+      "SourceBindings": [
+        {
+          "Path": "src/Erlang.Runtime/NifNativeComparisonCallbacks.cs",
+          "Sha256": "24E7C71D1F89A098A5F912AE261D70AA203BA8508B9AED8B0F60AA2019732D63"
+        },
+        {
+          "Path": "src/Erlang.Runtime/NifNativeWindowsCallbacks.cs",
+          "Sha256": "8614F45DF22B222E780CA5A67830C16E34E7DFD59031ABEA64CF0DC4903D583F"
+        }
+      ],
+      "EvidenceRefs": [
+        "full",
+        "contract"
+      ],
+      "Platforms": [
+        "windows-x64"
+      ],
+      "RelatedPassedTests": [
+        "runtime/nif/compare-ordering",
+        "runtime/nif/exact-identity",
+        "runtime/nif/compare-pending-live-writes",
+        "runtime/nif/compare-reference-ownership"
+      ],
+      "RemainingOrBlockers": [
+        "Linux comparison slots15/16 remain pending. Representation and floating/reference ownership boundaries must remain explicit."
+      ]
+    },
+    {
+      "Id": "nif.reference-constructor",
+      "Title": "Reference generation",
+      "Scope": "enif_make_ref using environment runtime and finite language reference generator; Windows slot28.",
+      "DoneCriterion": "Close valid-environment reference identity,node/type,generator-boundary,copy/lifetime and joined two-runtime branches with pinned observations.",
+      "Implementation": "implemented",
+      "Verification": "accepted-scoped",
+      "InMain": true,
+      "MainCommit": "372286a86767b4f677d49d9906df489d6d2dec7b",
+      "ScopedMilestoneMet": true,
+      "SourceBindings": [
+        {
+          "Path": "src/Erlang.Runtime/NifNativeReferenceCallbacks.cs",
+          "Sha256": "DA9DEA07EA5B9D3424ACB70561274CE7F4279AABBAA05C185D782431E268D3AF"
+        },
+        {
+          "Path": "src/Erlang.Runtime/ReferenceNumberLayout.cs",
+          "Sha256": "C83191FD063FD1DF4368AF997BE94B82CF7D6DA2FF031AEE563AA63729205154"
+        }
+      ],
+      "EvidenceRefs": [
+        "windows-original",
+        "linux",
+        "contract"
+      ],
+      "Platforms": [
+        "windows-x64",
+        "glibc-linux-x64"
+      ],
+      "RelatedPassedTests": [
+        "runtime/nif/reference-uniqueness",
+        "runtime/nif/compare-reference-ownership",
+        "runtime/nif/reference-environment-lifetime",
+        "runtime/nif/reference-foreign-threads",
+        "runtime/nif/reference-counter-boundaries",
+        "runtime/nif/reference-counter-concurrent-boundaries"
+      ],
+      "RemainingOrBlockers": [
+        "Finite reference domain/generator and separate opaque-handle capacity remain documented. MakeRef(NULL),expired pointers and exact cross-VM raw words are excluded."
+      ]
+    },
+    {
+      "Id": "nif.map-cardinality",
+      "Title": "Map cardinality",
+      "Scope": "enif_get_map_size/Windows slot109 for admitted static MapTerm values,including independent/retained owner resolution.",
+      "DoneCriterion": "Close success/cardinality/canary/nonmap-no-write/env-independent/joined-foreign/later-retained valid-use branches against pinned OTP.",
+      "Implementation": "implemented",
+      "Verification": "accepted-scoped",
+      "InMain": true,
+      "MainCommit": "372286a86767b4f677d49d9906df489d6d2dec7b",
+      "ScopedMilestoneMet": true,
+      "SourceBindings": [
+        {
+          "Path": "src/Erlang.Runtime/NifNativeMapSizeCallbacks.cs",
+          "Sha256": "DB96E5019CA273E1A2F67D156AD0462FEAE306DAE7E946AC630AA1BC4F8B8969"
+        }
+      ],
+      "EvidenceRefs": [
+        "windows-original",
+        "linux",
+        "contract"
+      ],
+      "Platforms": [
+        "windows-x64",
+        "glibc-linux-x64"
+      ],
+      "RelatedPassedTests": [
+        "runtime/nif/map-size-shape-output",
+        "runtime/nif/map-size-pure-environment",
+        "runtime/nif/map-size-owner-lifetime"
+      ],
+      "RemainingOrBlockers": [
+        "Future pending native map nodes are not preapproved. Successful-map NULL-output writes and expired/unsynchronized pointers are outside parity."
+      ]
+    },
+    {
+      "Id": "nif.linux-loader",
+      "Title": "Linux namespace and raw path loader controls",
+      "Scope": "Per-runtime NEWLM bridge/allocator/reader;ordered capsule dependencies; reviewed descriptors and ordinary raw paths.",
+      "DoneCriterion": "Retain distinct runtime ownership and exact fixture bytes; pass the declared origin/spaces/read-only,bare-name and missing-dependency controls on glibc x64.",
+      "Implementation": "implemented",
+      "Verification": "accepted-scoped",
+      "InMain": true,
+      "MainCommit": "372286a86767b4f677d49d9906df489d6d2dec7b",
+      "ScopedMilestoneMet": true,
+      "SourceBindings": [
+        {
+          "Path": "src/Erlang.Runtime/NifNativeLinuxNamespace.cs",
+          "Sha256": "CEDF8F3E936D14F6DF349E238E4AEF6239B41A1B7EDBD453C73313389911CBA9"
+        },
+        {
+          "Path": "src/Erlang.Runtime/NifNativeElfCapsule.cs",
+          "Sha256": "4AEE9477F527B63CBB6E4EEE39BFB1D34D89402E6C21B0A6BC00768A36B5788C"
+        },
+        {
+          "Path": "src/Erlang.Runtime/NifNativeLibraryPath.cs",
+          "Sha256": "BD5215BDD63C35DCDD4E008158D8DF4BC6142471674B7F6DC132DA42A8AE26D2"
+        }
+      ],
+      "EvidenceRefs": [
+        "linux",
+        "source-chain",
+        "contract"
+      ],
+      "Platforms": [
+        "glibc-linux-x64"
+      ],
+      "RelatedPassedTests": [],
+      "RemainingOrBlockers": [
+        "Not a proof for every SONAME/versioned/transitive/dlopen dependency graph,namespace/TLS exhaustion or hidden libc behavior. No base-copy path rewrite is in Main."
+      ]
+    },
+    {
+      "Id": "nif.windows-loader",
+      "Title": "Windows initializer callback table",
+      "Scope": "LoadLibrary-based ordinary/reviewed image loading and per-image initializer callback slots.",
+      "DoneCriterion": "Validate ABI table lifetime,required wired slots and admitted path/error partitions on Windows x64 with native callback fixtures.",
+      "Implementation": "implemented",
+      "Verification": "local-tests-only",
+      "InMain": true,
+      "MainCommit": "372286a86767b4f677d49d9906df489d6d2dec7b",
+      "ScopedMilestoneMet": false,
+      "SourceBindings": [
+        {
+          "Path": "src/Erlang.Runtime/NifNativeWindowsCallbacks.cs",
+          "Sha256": "8614F45DF22B222E780CA5A67830C16E34E7DFD59031ABEA64CF0DC4903D583F"
+        },
+        {
+          "Path": "src/Erlang.Runtime/NifNativeWindowsCallbackLayout.cs",
+          "Sha256": "89A1D947502FF932E67E08BD066AE8CEECF173123A13C74D62C772F5367866DC"
+        },
+        {
+          "Path": "src/Erlang.Runtime/NifNativePlatformLoader.cs",
+          "Sha256": "4D7065CF652CF428BAAC78BED36227C51D168D80DC00A5A93F2151D7B3A103CF"
+        }
+      ],
+      "EvidenceRefs": [
+        "full",
+        "windows-original"
+      ],
+      "Platforms": [
+        "windows-x64"
+      ],
+      "RelatedPassedTests": [],
+      "RemainingOrBlockers": [
+        "Zero-filled unwired slots are unsupported callbacks,not a complete OTP180-slot implementation. DLL dependency and invalid pointer behavior remain bounded."
+      ]
+    },
+    {
+      "Id": "nif.retirement",
+      "Title": "Quiescent unload and image retirement",
+      "Scope": "Drain admitted calls,invoke unload and finish target destructors before reclaiming owned allocations/callback storage.",
+      "DoneCriterion": "Complete normal image retirement/runtime disposal after joined native workers on both admitted x64 routes,with real cleanup receipts.",
+      "Implementation": "implemented",
+      "Verification": "accepted-scoped",
+      "InMain": true,
+      "MainCommit": "372286a86767b4f677d49d9906df489d6d2dec7b",
+      "ScopedMilestoneMet": true,
+      "SourceBindings": [
+        {
+          "Path": "src/Erlang.Runtime/NifImageBindings.cs",
+          "Sha256": "BFF0CA2FB4965C1CCB2A87B63611DC3B836120C48D03BB27DD39A610E69E522C"
+        },
+        {
+          "Path": "src/Erlang.Runtime/NifNativeLibraryOwner.cs",
+          "Sha256": "DC4B4590CF564229010370A616B362D2FEB1CC8715C87F638EA457D28F778E13"
+        },
+        {
+          "Path": "src/Erlang.Runtime/NifNativeLinuxCapsuleLease.cs",
+          "Sha256": "E64EF737BE2575301982145F2340F3FA8325ADA6E067EDE734EFD535D0D79B4C"
+        }
+      ],
+      "EvidenceRefs": [
+        "full",
+        "linux",
+        "contract"
+      ],
+      "Platforms": [
+        "windows-x64",
+        "glibc-linux-x64"
+      ],
+      "RelatedPassedTests": [
+        "runtime/nif-image-attachment-transactions-and-quiescence",
+        "runtime/nif-owned-purge-discard-shutdown-and-real-unwind"
+      ],
+      "RemainingOrBlockers": [
+        "This unit requires joined workers. Arbitrary background callbacks,active resource destructors and hot upgrades are not accepted by these receipts."
+      ]
+    },
+    {
+      "Id": "nif.native-thread-tls",
+      "Title": "Joined native worker and selected TLS destructors",
+      "Scope": "Eight base-libc provider bridges on NEWLM: create/join,key create/delete,get/set-specific,__cxa_thread_atexit_impl,pthread_exit.",
+      "DoneCriterion": "Actual witnesses resolve declared wrappers; callback workers join; C++ and pthread TLS destructor probes each return1111 for normal return and explicit exit with exact counters.",
+      "Implementation": "implemented",
+      "Verification": "accepted-scoped",
+      "InMain": true,
+      "MainCommit": "372286a86767b4f677d49d9906df489d6d2dec7b",
+      "ScopedMilestoneMet": true,
+      "SourceBindings": [
+        {
+          "Path": "src/Erlang.Runtime/NifNativeLinuxPthreadControl.cs",
+          "Sha256": "88FF58339B486EF7E2C87AA19DE68485317C31F957518F69A2CE6C678DC0BDBB"
+        },
+        {
+          "Path": "tools/Erlang.NifNativeBackend/native/nif_bridge_pthread_control.c",
+          "Sha256": "7280DAFAC7273E6470E80E6E476BBCDE3631D91D7F0031CC28ABCEDABD9E2D29"
+        }
+      ],
+      "EvidenceRefs": [
+        "linux",
+        "contract"
+      ],
+      "Platforms": [
+        "glibc-linux-x64"
+      ],
+      "RelatedPassedTests": [],
+      "RemainingOrBlockers": [
+        "getspecific is resolved but its positive call count is zero in the current probe. Cancellation,hidden libc calls,arbitrary C++ TLS/DSO unload and unjoined workers remain unverified; no whole-pthread claim."
+      ]
+    },
+    {
+      "Id": "nif.resources",
+      "Title": "NIF resources and resource types",
+      "Scope": "Resource type creation,takeover,resource terms/refcounts/destructors/GC integration.",
+      "DoneCriterion": "Implement resource ownership and GC/destructor/takeover contracts and obtain original platform/lifetime comparisons.",
+      "Implementation": "not-implemented",
+      "Verification": "missing",
+      "InMain": false,
+      "MainCommit": null,
+      "ScopedMilestoneMet": false,
+      "SourceBindings": [
+        {
+          "Path": "src/Erlang.Runtime/NifNativeAbiEntry.cs",
+          "Sha256": "3970151D12A30FB5A946AFEC5E4B17BC94F22F4D972005D51473CB35CF873C9A"
+        }
+      ],
+      "EvidenceRefs": [],
+      "Platforms": [],
+      "RelatedPassedTests": [],
+      "RemainingOrBlockers": [
+        "ResourceInitSize struct field is metadata only; no resource API/GC implementation found in the inspected native callback surface."
+      ]
+    },
+    {
+      "Id": "nif.dirty-scheduling",
+      "Title": "Dirty native scheduler execution",
+      "Scope": "CPU/IO dirty flags,scheduling and process/scheduler interaction.",
+      "DoneCriterion": "Admit intended dirty flags and prove scheduler responsiveness,call ownership,cancellation/halt and error behavior with genuine fixtures.",
+      "Implementation": "not-implemented",
+      "Verification": "missing",
+      "InMain": false,
+      "MainCommit": null,
+      "ScopedMilestoneMet": false,
+      "SourceBindings": [
+        {
+          "Path": "src/Erlang.Runtime/NifNativeEntryFunctions.cs",
+          "Sha256": "5E3F0F9F8B4225E6082212C34974370545FFB59D4591A4157922E6954F16197C"
+        }
+      ],
+      "EvidenceRefs": [],
+      "Platforms": [],
+      "RelatedPassedTests": [],
+      "RemainingOrBlockers": [
+        "Nonzero function Flags currently rejected. General Task-based runtime scheduling is not dirty-NIF support."
+      ]
+    },
+    {
+      "Id": "nif.async-native",
+      "Title": "Async native work and IO notifications",
+      "Scope": "Continuation/scheduled NIFs,native send/select/monitor and async ownership handoff.",
+      "DoneCriterion": "Define and implement the selected async API contracts,environment/resource ownership and completion/cancellation/shutdown tests.",
+      "Implementation": "not-implemented",
+      "Verification": "missing",
+      "InMain": false,
+      "MainCommit": null,
+      "ScopedMilestoneMet": false,
+      "SourceBindings": [
+        {
+          "Path": "src/Erlang.Runtime/NifNativeNames.cs",
+          "Sha256": "7C9E4674218704D7F43100C4D09F5DDAAD53E9C63A2F420151784A0850C4F879"
+        }
+      ],
+      "EvidenceRefs": [],
+      "Platforms": [],
+      "RelatedPassedTests": [],
+      "RemainingOrBlockers": [
+        "No enif_schedule_nif/enif_select/enif_send bridge implementation found. Async loader/disposal methods do not implement these APIs."
+      ]
+    },
+    {
+      "Id": "nif.upgrade-reload",
+      "Title": "Native reload and code upgrade",
+      "Scope": "Native entry Reload/Upgrade callbacks,old/new priv_data and code/resource takeover.",
+      "DoneCriterion": "Implement supported hot upgrade/reload transactions and prove rollback/old-code/resource/native-call lifetime semantics.",
+      "Implementation": "not-implemented",
+      "Verification": "missing",
+      "InMain": false,
+      "MainCommit": null,
+      "ScopedMilestoneMet": false,
+      "SourceBindings": [
+        {
+          "Path": "src/Erlang.Runtime/NifNativeAbiEntry.cs",
+          "Sha256": "3970151D12A30FB5A946AFEC5E4B17BC94F22F4D972005D51473CB35CF873C9A"
+        },
+        {
+          "Path": "src/Erlang.Runtime/ModuleRegistry.NifAdmission.cs",
+          "Sha256": "676B054D12BBDF77D2C2169607C0F21CC277FA48C9313F853C11E50D98D2DDF7"
+        }
+      ],
+      "EvidenceRefs": [],
+      "Platforms": [],
+      "RelatedPassedTests": [],
+      "RemainingOrBlockers": [
+        "Reload and Upgrade fields exist but admission explicitly rejects Reload/UpgradeUnsupported. Ordinary load/unload is not upgrade support."
+      ]
+    },
+    {
+      "Id": "nif.map-mutation-iteration",
+      "Title": "Native map construction,mutation and iteration",
+      "Scope": "Native map creation,put/update/remove and iteration beyond static MapTerm cardinality.",
+      "DoneCriterion": "Implement and bind the selected native map mutation/iterator family; prove pending map ownership,copy/materialization and error/lifetime contracts.",
+      "Implementation": "not-implemented",
+      "Verification": "missing",
+      "InMain": false,
+      "MainCommit": null,
+      "ScopedMilestoneMet": false,
+      "SourceBindings": [
+        {
+          "Path": "src/Erlang.Runtime/NifNativeMapSizeCallbacks.cs",
+          "Sha256": "DB96E5019CA273E1A2F67D156AD0462FEAE306DAE7E946AC630AA1BC4F8B8969"
+        },
+        {
+          "Path": "src/Erlang.Runtime/NifNativeWindowsCallbackLayout.cs",
+          "Sha256": "89A1D947502FF932E67E08BD066AE8CEECF173123A13C74D62C772F5367866DC"
+        }
+      ],
+      "EvidenceRefs": [
+        "contract"
+      ],
+      "Platforms": [],
+      "RelatedPassedTests": [],
+      "RemainingOrBlockers": [
+        "Slots110-114 are pending; cardinality of static MapTerm values does not implement native map construction or iterator state."
+      ]
+    },
+    {
+      "Id": "nif.other-platforms",
+      "Title": "Additional native ABI/platform routes",
+      "Scope": "ARM64,32-bit,macOS,musl and other unsupported native platform layouts.",
+      "DoneCriterion": "Explicitly admit each target ABI,build actual native fixtures and establish ownership/lifetime/platform error parity.",
+      "Implementation": "not-implemented",
+      "Verification": "missing",
+      "InMain": false,
+      "MainCommit": null,
+      "ScopedMilestoneMet": false,
+      "SourceBindings": [
+        {
+          "Path": "src/Erlang.Runtime/NifNativePlatformLoader.cs",
+          "Sha256": "4D7065CF652CF428BAAC78BED36227C51D168D80DC00A5A93F2151D7B3A103CF"
+        },
+        {
+          "Path": "src/Erlang.Runtime/NifNativeAbi.cs",
+          "Sha256": "87D203E0B449BC2B865CED1124E86D4CFAFB48AFAA1FCCF9F1176154B1F1868A"
+        }
+      ],
+      "EvidenceRefs": [],
+      "Platforms": [],
+      "RelatedPassedTests": [],
+      "RemainingOrBlockers": [
+        "Current accepted profile is Windows/glibc Linux x64. Managed-code portability does not prove native ABI portability."
+      ]
+    },
+    {
+      "Id": "nif.failed-close-retention",
+      "Title": "Failed-close containment and retained roots",
+      "Scope": "Source-reviewed quarantine keeps owner,callbacks,allocations and namespace leases alive after actual close failure.",
+      "DoneCriterion": "Obtain bounded injected/actual failed-close receipts proving roots remain live,no premature reclaim and no false successful disposal across repeated failure.",
+      "Implementation": "implemented",
+      "Verification": "source-only",
+      "InMain": true,
+      "MainCommit": "372286a86767b4f677d49d9906df489d6d2dec7b",
+      "ScopedMilestoneMet": false,
+      "SourceBindings": [
+        {
+          "Path": "src/Erlang.Runtime/NifNativeLinuxNamespaceRetention.cs",
+          "Sha256": "9D84567A330D314EAE369BA85FCEDEFBBDFA3D2528170A83AE9F25B4ABF2C575"
+        },
+        {
+          "Path": "src/Erlang.Runtime/NifNativeLibraryOwner.cs",
+          "Sha256": "DC4B4590CF564229010370A616B362D2FEB1CC8715C87F638EA457D28F778E13"
+        },
+        {
+          "Path": "src/Erlang.Runtime/NifNativeLinuxCapsuleLease.cs",
+          "Sha256": "E64EF737BE2575301982145F2340F3FA8325ADA6E067EDE734EFD535D0D79B4C"
+        }
+      ],
+      "EvidenceRefs": [
+        "source-chain",
+        "contract"
+      ],
+      "Platforms": [
+        "glibc-linux-x64"
+      ],
+      "RelatedPassedTests": [],
+      "RemainingOrBlockers": [
+        "Normal cleanup receipts do not execute failed-dlclose branches. Quarantine intentionally retains storage and is not evidence of successful release or native crash containment."
+      ]
+    }
+  ],
+  "InventoryIdsSha256": "D333E96ECA335BE07B1B9D9929848AA4EAC30110B792E19763D6AF1E0428CD27"
+}

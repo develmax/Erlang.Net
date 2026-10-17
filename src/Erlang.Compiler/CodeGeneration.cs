@@ -107,8 +107,8 @@ public static class CodeGeneration
         Expr.Unary u => "new " + E + "Unary(" + Quote(u.Operator) + "," + ExpressionCode(u.Operand) + ")",
         Expr.Binary b => "new " + E + "Binary(" + Quote(b.Operator) + "," + ExpressionCode(b.Left) + "," + ExpressionCode(b.Right) + ")",
         Expr.Call c when RecordPredicateSyntax.HasLiteralNonpositiveSize(c) => "new " + E + "Literal(" + TermCode(Term.A(ErlangBooleanAtoms.False)) + ")",
-        Expr.Call c => "new " + E + "Call(" + (c.Module is null ? "null" : Quote(c.Module)) + "," + Quote(c.Function) + "," + Expressions(c.Arguments) + ")",
-        Expr.Apply a => "new " + E + "Apply(" + ExpressionCode(a.Function) + "," + Expressions(a.Arguments) + ")",
+        Expr.Call c => "new " + E + "Call(" + (c.Module is null ? "null" : Quote(c.Module)) + "," + Quote(c.Function) + "," + Expressions(c.Arguments) + "){SourceLine=" + c.SourceLine + "}",
+        Expr.Apply a => "new " + E + "Apply(" + ExpressionCode(a.Function) + "," + Expressions(a.Arguments) + "){SourceLine=" + a.SourceLine + "}",
         Expr.Match m => "new " + E + "Match(" + PatternCode(m.Pattern) + "," + ExpressionCode(m.Value) + ")",
         Expr.MaybeMatch m => "new " + E + "MaybeMatch(" + PatternCode(m.Pattern) + "," + ExpressionCode(m.Value) + ")",
         Expr.Maybe conditional => "new " + E + "Maybe(" + Expressions(conditional.Items) + "," + Clauses(conditional.Clauses) + ")",
@@ -139,11 +139,12 @@ public static class CodeGeneration
     {
         var module = new Parser(source).ParseModule();
 
-        return ModuleCode(module, sourcePath);
+        return ModuleCode(module with { SourceFilePath = sourcePath }, sourcePath);
     }
 
     internal static string ModuleCode(ModuleDefinition module, string sourcePath, bool includeAttributes = true)
     {
+        module = module with { SourceFilePath = sourcePath };
         string className = "ErlangModule_" + string.Concat(module.Name.Select(c => char.IsAsciiLetterOrDigit(c) || c == '_' ? c.ToString() : "_" + ((int)c).ToString("x4", CultureInfo.InvariantCulture)));
 
         return "// Generated from " + sourcePath.Replace("\n", " ") + "\n#nullable enable\nnamespace Erlang.Generated;\npublic static class " + className + "\n{\npublic static global::Erlang.Compiler.ModuleDefinition Definition {get;} = new(" + Quote(module.Name) + ",new (string Name,int Arity)[]{" + string.Join(',', module.DeclaredExports.Select(x => "(" + Quote(x.Name) + "," + x.Arity + ")")) + "},new global::Erlang.Compiler.FunctionDefinition[]{" + string.Join(
@@ -309,6 +310,8 @@ public static class CodeGeneration
     private static string NativeModuleInitializer(ModuleDefinition module)
     {
         var fields = new List<string>();
+        if (module.SourceFilePath is not null)
+            fields.Add("SourceFilePath=" + Quote(module.SourceFilePath));
         if (module.NativeRecords.Count != 0)
             fields.Add("NativeRecords=" + Array(module.NativeRecords, NativeDefinitionCode, "global::Erlang.NativeRecordDefinition"));
         if (!module.CallBindings.IsEmpty)

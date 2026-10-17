@@ -11,10 +11,12 @@ public sealed class Parser
     private readonly List<Token> tokens; private int position;
 
     private readonly string source;
+    private readonly int[] sourceLineStarts;
 
     public Parser(string text, bool blockPrefix = false)
     {
         source = text;
+        sourceLineStarts = [0, .. text.Select((value, index) => (value, index)).Where(item => item.value == '\n').Select(item => item.index + 1)];
         tokens = Lexer.Scan(text, blockPrefix);
     }
 
@@ -334,6 +336,7 @@ public sealed class Parser
 
     private Expr Primary(bool bitSegment = false, bool stopQualifier = false)
     {
+        int sourceStart = Current.Start;
         Expr result;
         if (Take(ErlangKeywords.Maybe))
         {
@@ -585,7 +588,15 @@ public sealed class Parser
                 break;
         }
 
-        return result;
+        int sourceLine = Array.BinarySearch(sourceLineStarts, sourceStart);
+        sourceLine = sourceLine >= 0 ? sourceLine + 1 : ~sourceLine;
+
+        return result switch
+        {
+            Expr.Call call when call.SourceLine == 0 => call with { SourceLine = sourceLine },
+            Expr.Apply apply when apply.SourceLine == 0 => apply with { SourceLine = sourceLine },
+            _ => result
+        };
     }
 
     private IReadOnlyList<ComprehensionQualifier> ComprehensionQualifiers(string close)

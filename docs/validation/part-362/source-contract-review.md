@@ -1,0 +1,29 @@
+# Final proplists-owned contract review
+
+Read-only inspection of private `artifacts/part362-proplists1`. No execution, source/registry/Main/native/CI edits. The source change is suitable for closing the API-owned metadata gap; acceptance of the current fixture and final integration remains Root's work.
+
+## Implementation assessment
+
+`RuntimeExceptionCapture.Call` now takes optional `Term? sourceLocation=null`. All existing callers that omit it retain the original formatter/error-info-or-Nil expression. The early explicit/automatic-stack branches, max(1,BacktraceDepth), caller iteration and captured-stack marker remain unchanged. ProplistValueLookup is the only supplied-location caller reviewed here and passes native:false. Thus this local change does not replace native BIF error-info or mutate caller source locations. Because this is a shared helper, final affected regression must include existing native/wrapper exception-capture controls, not only new proplist tests.
+
+ProplistSourceLocation.GetValue is an immutable cached Erlang list with ordered `{file,"proplists.erl"}` and `{line,222}` entries, using a charlist filename and integer line. It retains no ProcessContext, runtime, dynamic arguments or caller stack. Source constants are separate from the missing-value atom. The location matches pinned OTP source/function entry and the previously accepted installed BEAM line table. Both arities still report the /3 function-clause entry, including after arbitrarily many tail-recursive misses.
+
+The lookup branches remain exhaustive and unchanged: /2 supplies undefined; empty list returns default; atom shorthand with exact key returns true; positive-arity matching tuple returns its second element only at arity2, otherwise returns default immediately; every nonmatching/non-property entry advances to tail; a reached non-list tail raises error:function_clause. This covers every property type and tuple-arity partition without requiring enumeration of every possible value. Values and defaults are returned unchanged. Exact key equality is delegated to existing Term.Equals, so no NumericEquals/coercion regression is introduced. Iteration and ordinary process reductions preserve bounded stack use and exercised cooperative cancellation/cleanup.
+
+The error path strips only its own preloaded wrapper, builds one get_value/3 frame with `[Key,ReachedTail,EffectiveDefault]`, and now attaches exact API-owned file/line metadata. No remaining get_value-specific branch mismatch was identified by source review. This is a source argument, not proof by counting green cases.
+
+## Classification proposal, pending evidence
+
+The current schema uses `Verified compatible`. Root may propose that status for each of `proplists:get_value/2` and `/3` after current59 original contract results, current SDK results, raw12 stack observations, and affected final-source regression are accepted. Suggested Scope:
+
+> OTP-29.1.1 property lookup on the supported Erlang term model: exact keys; atom shorthand; first matching positive-arity tuple shadows later entries; only arity2 returns a value; /2 undefined and /3 arbitrary defaults; lazy improper-tail behavior; error:function_clause with effective /3 arguments and exact proplists.erl:222 API-owned source location; source-reviewed tail traversal and bounded process cancellation. Caller chains obey the separately documented compiler/runtime execution-frame contract. No assertion of identical physical VM reduction counts, instruction scheduling, memory layout or performance.
+
+Do not write “100% partially compatible.” There is no new API-local known difference identified here, but pending original/SDK evidence is a pending verification status until it actually exists. The old original53 fixture SHA69215 cannot serve as proof for the current strengthened59 fixture: its14 stack-location checks were weaker and it lacked six depth cases.
+
+## Evidence/dependency boundaries
+
+- Root reports65 current SDK checks:59 compiled cases plus two direct MFA and four host controls. Treat this as current SDK evidence only until exact producer/source bindings are inspected; this reviewer did not execute them.
+- Root's current original-only head99cad729 run is pending in this review. Require59 independent assertions and normal compile/VM cleanup, exact current fixture hash, installed/loaded pinned module identity, and raw returned rows. Do not reuse old success wording for changed inputs.
+- The new `stack_observations/0` supplies12 arity2/3 × tail/non-tail × depth0/1/2 stacks. Acquire both engines' complete raw stacks and retain any differences. Verify exact top tuple/location, no /2 delegation frame or recursion history, depth0/1 length1, and correct logical caller inclusion/elision at depth2. Flag restoration uses try/after and must remain serial in one original VM because the flag is global there.
+- Inherited exact TermOrder semantics, source caller filename/line metadata, generic compiler tail-call traces, tracing/saved-call records and process scheduler accounting are separate shared contracts. A generic caller metadata difference must be disclosed and attributed, not normalized away and labeled full raw-stack equality. Conversely, a request to complete these two APIs does not require a speculative rewrite of every compiler frame or identical physical reduction counts.
+- After accepting the above, publish +2 implementation and +2 contract classifications only if the ledger's declared scope matches the tested/source-reviewed contract. Add current source guards for both new location classes and the modified helper. Preserve existing registry limits. Final integration should run the affected ordinary module/compiler/term/exception controls on the actual published candidate; native/TLS work does not block original proplist execution.

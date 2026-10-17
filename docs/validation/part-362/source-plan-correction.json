@@ -1,0 +1,9 @@
+{
+  "Status": "PASS_FINAL_METADATA_ONLY_SOURCE_PLAN_CORRECTION",
+  "RuntimeOrCompilerChangedAfterFull2": false,
+  "PendingPlanRows": 1468,
+  "ReallocationPlanRows": 1574,
+  "PendingExactInputSet": "Existing run-reviewed.py reviewed_inputs function; all1468 inputs retained, including all runtime source. Removed84 extraneous unrelated experiment/test/tool rows accidentally added to this plan, including reverse links to the reallocation plan and workflow. Those inputs remain bound in full2 source plan or their owning experiment.",
+  "Acyclic": "Pending plan then its workflow pin then reallocation plan then its workflow pin. Own workflow bindings retain existing published-Git-head checks.",
+  "Validation": "All final indexed source rows, explicit hash modes and workflow plan pins accepted. No native run or new original build claimed."
+}

@@ -9,9 +9,9 @@ namespace Erlang.Differential;
 
 public static class GeneratedModuleCompiler
 {
-    public static GeneratedModuleArtifact Compile(string source)
+    public static GeneratedModuleArtifact Compile(string source, string? sourceFile = null)
     {
-        string generated = CodeGeneration.CompileModule(source, GeneratedModuleMetadata.SourceFile);
+        string generated = CodeGeneration.CompileModule(source, sourceFile ?? GeneratedModuleMetadata.SourceFile);
         string hash = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(generated)));
         var compilation = CSharpCompilation.Create(
             GeneratedModuleMetadata.AssemblyPrefix + hash,

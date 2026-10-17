@@ -1,0 +1,841 @@
+{
+  "Status": "PASS_INDEPENDENT_PASSIVE_FULL2_ACCEPTANCE",
+  "ExecutionByReviewer": false,
+  "SourcePlanSha256": "E896F2F75768C94C24DF1A009D213E5A0A406A0E3169F159C68A748B4EC44DEA",
+  "SourceRows": 3187,
+  "CurrentExactSourceRows": 3186,
+  "RegistryExportException": {
+    "Path": "docs/supported-mfas.json",
+    "BeforeMatchesSourcePlan": true,
+    "OrderedMfasPreserved": false,
+    "MfaSetPreserved": true,
+    "Mfas": 589,
+    "ChangedRows": [
+      {
+        "Mfa": "erlang:link/1",
+        "Fields": {
+          "Limits": {
+            "Before": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending Already-connected guest remote PID LINK output is accepted into finite connection-owned staging before the normal caller waits. Captured-generation LINK, local relation and local receiver priority commit together after actual encoding/capacity preflight. An accepted worker retains its ticket and entry lease across producer cancellation or kill; retained terminal EXIT follows LINK in order. Normal callers cooperatively admit existing owner signals/system queries while awaiting turn or capacity. With async_dist true the caller returns after bounded acceptance without that output wait. Duplicate LINK remains idempotent, link/2 options validate before mutation, and hard staging-cap refusal raises system_limit before relation installation. SDK staging and transport have separately finite accounted-byte/packet budgets; these are SDK resource bounds, not physical native buffer sizes. Accepted UNLINK remains connection-owned and only its guest wait admits caller signals. Pending/autoconnect, remote names/aliases, synchronous embedding setters, complete inbound priority, live SDK network peers, native scheduler/queue-phase identity and general native wire equality remain incomplete. Five actual generated-guest HOST controls cover normal/async turn/capacity ownership and hard-cap refusal. The separate pinned original325 collector remains unexecuted by this pipeline.",
+            "Exported": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+          }
+        }
+      },
+      {
+        "Mfa": "erlang:unlink/1",
+        "Fields": {
+          "Limits": {
+            "Before": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending Already-connected guest remote PID unlink suppresses the local relation before a captured-generation UNLINK_ID is accepted by the connection-owned worker. Accepted unlink output survives producer death and joins global output drain; ACK and stale EXIT identities preserve relink state. Duplicate unlink is idempotent; pending/autoconnect, a live SDK network peer and native wire equality remain incomplete. Caller-owned already-connected output waits now serially admit existing owner control signals and system queries while waiting for ticket turn or transport capacity, preserving ordinary message receive order and existing nested-wait guards. Cancellation or inbound kill settles producer reservations before completion. Accepted UNLINK workers remain connection-owned; only the guest wait admits its caller signals, without canceling retained output. Immediate nosuspend and accepted async staging do not gain capacity waits. Pending/autoconnect, synchronous embedding setters, complete inbound priority, live SDK peers and native scheduler/wire equality remain incomplete.",
+            "Exported": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+          }
+        }
+      },
+      {
+        "Mfa": "erlang:process_flag/2",
+        "Fields": {
+          "Limits": {
+            "Before": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending async_dist accepts only true/false, returns the previous per-process boolean and defaults false; a spawned child does not inherit it. Connected PID output ownership follows the captured flag. Pending/autoconnect and async_dist spawn options remain incomplete; process_flag/3 is unchanged. Per-process error_handler accepts an atom and returns the previous handler; children default to error_handler. Missing supported registered/source MFA calls can invoke the selected undefined_function/3 in the original process with original arguments, normal source ownership and bounded forwarded-error frames. Missing handler retains original undef; valid callees raising undef and invalid registered-name sends are not intercepted. Kernel autoload/code-server behavior, breakpoints, arbitrary raw BEAM imports and whole erlang compatibility remain incomplete. Original327 ordinary comparison is a separate pending gate. Restored local source fun invocation can select the executing process error_handler undefined_lambda/3 with the original wrapper and arguments after source retirement and no CURRENT code; active old bodies, pending purge control pumping, source callback leases and relevant factory publication validation are within the reviewed supported slice. Compatible source relink requires a pre-registered factory. Fresh CURRENT without a factory resolver, direct foreign captured-image transfer, default handler autoload, arbitrary raw BEAM and whole erlang parity remain partial. Current328 original comparison is a separate gate. Current351 scheduling priority: process_flag(priority,low|normal|high|max) returns the previous priority; supported live local process_info priority queries/default logical entry expose actual per-process state. This does not implement physical heap/GC fields or native timing parity. Current affinity candidate implements process_flag(scheduler,N) through an admitted owner lane change, returns the previous binding and preserves live cancellation/retirement gates; whole flag/error/context compatibility remains unverified.",
+            "Exported": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+          }
+        }
+      },
+      {
+        "Mfa": "erlang:exit/2",
+        "Fields": {
+          "Limits": {
+            "Before": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending Already-connected guest remote PID explicit exits publish captured-generation EXIT2 (normal opcode 26 or legacy opcode 8) or ALTACT (opcode 37, EXIT flag16 plus priority flag1). Explicit exits do not advance sequence tracing, attach tokens, or perform pseudo-send tracing; exit/3 and exit_signal/3 validate the complete options list and preserve duplicate priority semantics before remote mutation. Accepted async_dist output has finite staged and transport budgets; normal producer-owned output retains cancellation and generation checks. Local and remote exit aliases preserve their existing public contracts. Pending/autoconnect, remote names/aliases, a live SDK network peer and general native wire equality remain incomplete. Caller-owned already-connected output waits now serially admit existing owner control signals and system queries while waiting for ticket turn or transport capacity, preserving ordinary message receive order and existing nested-wait guards. Cancellation or inbound kill settles producer reservations before completion. Accepted UNLINK workers remain connection-owned; only the guest wait admits its caller signals, without canceling retained output. Immediate nosuspend and accepted async staging do not gain capacity waits. Pending/autoconnect, synchronous embedding setters, complete inbound priority, live SDK peers and native scheduler/wire equality remain incomplete.",
+            "Exported": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+          }
+        }
+      },
+      {
+        "Mfa": "erlang:send/2",
+        "Fields": {
+          "Limits": {
+            "Before": "Registered guest already-connected remote PID sends use owned ordered publication, producer cancellation and generation isolation. Full option validation precedes state checks; connected noconnect may send. Immediate nosuspend conservatively returns WouldSuspend when capacity or captured sequential-trace state prevents admission, without advancing the token. Negotiated sender, trace and priority controls are bounded SDK adaptations; native scheduler phase parity is not claimed. Disconnected/pending autoconnect, remote named destinations/aliases and synchronous embedding helpers remain incomplete. SDK HOST/controller and original-only observations are separate; no live SDK-peer or native wire equality is claimed. With process_flag(async_dist,true), already-connected PID sends use bounded entry-owned accepted packet staging: accepted output survives sender death, retains original order and contributes staged plus transport AccountedBytes to dist_get_stat SendPend. False retains producer-owned319 behavior. A full independent staging budget raises system_limit before acceptance, including send_nosuspend; it is an SDK cap, not a native busy threshold or physical-memory measurement. Original new flag cases and live SDK-peer comparison remain separate gates. Caller-owned already-connected output waits now serially admit existing owner control signals and system queries while waiting for ticket turn or transport capacity, preserving ordinary message receive order and existing nested-wait guards. Cancellation or inbound kill settles producer reservations before completion. Accepted UNLINK workers remain connection-owned; only the guest wait admits its caller signals, without canceling retained output. Immediate nosuspend and accepted async staging do not gain capacity waits. Pending/autoconnect, synchronous embedding setters, complete inbound priority, live SDK peers and native scheduler/wire equality remain incomplete.",
+            "Exported": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+          }
+        }
+      },
+      {
+        "Mfa": "erlang:!/2",
+        "Fields": {
+          "Limits": {
+            "Before": "Registered guest already-connected remote PID sends use owned ordered publication, producer cancellation and generation isolation. Full option validation precedes state checks; connected noconnect may send. Immediate nosuspend conservatively returns WouldSuspend when capacity or captured sequential-trace state prevents admission, without advancing the token. Negotiated sender, trace and priority controls are bounded SDK adaptations; native scheduler phase parity is not claimed. Disconnected/pending autoconnect, remote named destinations/aliases and synchronous embedding helpers remain incomplete. SDK HOST/controller and original-only observations are separate; no live SDK-peer or native wire equality is claimed. With process_flag(async_dist,true), already-connected PID sends use bounded entry-owned accepted packet staging: accepted output survives sender death, retains original order and contributes staged plus transport AccountedBytes to dist_get_stat SendPend. False retains producer-owned319 behavior. A full independent staging budget raises system_limit before acceptance, including send_nosuspend; it is an SDK cap, not a native busy threshold or physical-memory measurement. Original new flag cases and live SDK-peer comparison remain separate gates. Caller-owned already-connected output waits now serially admit existing owner control signals and system queries while waiting for ticket turn or transport capacity, preserving ordinary message receive order and existing nested-wait guards. Cancellation or inbound kill settles producer reservations before completion. Accepted UNLINK workers remain connection-owned; only the guest wait admits its caller signals, without canceling retained output. Immediate nosuspend and accepted async staging do not gain capacity waits. Pending/autoconnect, synchronous embedding setters, complete inbound priority, live SDK peers and native scheduler/wire equality remain incomplete.",
+            "Exported": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+          }
+        }
+      },
+      {
+        "Mfa": "erlang:process_info/2",
+        "Fields": {
+          "Limits": {
+            "Before": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending Supported item async_dist now returns the actual target process flag as a boolean from the existing gated runtime state. Scalar and list queries preserve item validation, list order and duplicates; the item remains excluded from the default process_info/1 catalog. Real generated default/transition/other-process/child/dead-target/error contracts and mixed owner queries during connected output waits are covered within the existing PID/query domain. This adds no export and does not complete remote process-info domains, pending/autoconnect, native scheduler parity or general wire equality. Current351 scheduling priority: process_flag(priority,low|normal|high|max) returns the previous priority; supported live local process_info priority queries/default logical entry expose actual per-process state. This does not implement physical heap/GC fields or native timing parity. Scheduling priority item support is unchanged; no new process_info scheduler item is claimed by the affinity implementation.",
+            "Exported": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+          }
+        }
+      },
+      {
+        "Mfa": "erlang:process_info/1",
+        "Fields": {
+          "Limits": {
+            "Before": "Supported logical default subset: twelve fields unregistered, thirteen registered; pinned total_heap_size, heap_size, stack_size and garbage_collection omitted. process_info/2 physical items remain unsupported; eight new original projections pending. Current351 scheduling priority: process_flag(priority,low|normal|high|max) returns the previous priority; supported live local process_info priority queries/default logical entry expose actual per-process state. This does not implement physical heap/GC fields or native timing parity. Scheduling priority item support is unchanged; no new process_info scheduler item is claimed by the affinity implementation.",
+            "Exported": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+          }
+        }
+      },
+      {
+        "Mfa": "erlang:dist_get_stat/1",
+        "Fields": {
+          "Limits": {
+            "Before": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending SendPend includes actual retained staged plus transport encoded AccountedBytes, including accepted async_dist PID output. Queue partitions are bounded SDK accounting, not ERTS driver allocation or whole physical memory. OutputBuffers counts consumed packets; counters and exact-generation retirement remain existing controls.",
+            "Exported": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+          }
+        }
+      },
+      {
+        "Mfa": "erlang:send/3",
+        "Fields": {
+          "Limits": {
+            "Before": "Registered guest already-connected remote PID sends use owned ordered publication, producer cancellation and generation isolation. Full option validation precedes state checks; connected noconnect may send. Immediate nosuspend conservatively returns WouldSuspend when capacity or captured sequential-trace state prevents admission, without advancing the token. Negotiated sender, trace and priority controls are bounded SDK adaptations; native scheduler phase parity is not claimed. Disconnected/pending autoconnect, remote named destinations/aliases and synchronous embedding helpers remain incomplete. SDK HOST/controller and original-only observations are separate; no live SDK-peer or native wire equality is claimed. With process_flag(async_dist,true), already-connected PID sends use bounded entry-owned accepted packet staging: accepted output survives sender death, retains original order and contributes staged plus transport AccountedBytes to dist_get_stat SendPend. False retains producer-owned319 behavior. A full independent staging budget raises system_limit before acceptance, including send_nosuspend; it is an SDK cap, not a native busy threshold or physical-memory measurement. Original new flag cases and live SDK-peer comparison remain separate gates. Caller-owned already-connected output waits now serially admit existing owner control signals and system queries while waiting for ticket turn or transport capacity, preserving ordinary message receive order and existing nested-wait guards. Cancellation or inbound kill settles producer reservations before completion. Accepted UNLINK workers remain connection-owned; only the guest wait admits its caller signals, without canceling retained output. Immediate nosuspend and accepted async staging do not gain capacity waits. Pending/autoconnect, synchronous embedding setters, complete inbound priority, live SDK peers and native scheduler/wire equality remain incomplete.",
+            "Exported": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+          }
+        }
+      },
+      {
+        "Mfa": "erlang:send_nosuspend/2",
+        "Fields": {
+          "Limits": {
+            "Before": "Registered guest already-connected remote PID sends use owned ordered publication, producer cancellation and generation isolation. Full option validation precedes state checks; connected noconnect may send. Immediate nosuspend conservatively returns WouldSuspend when capacity or captured sequential-trace state prevents admission, without advancing the token. Negotiated sender, trace and priority controls are bounded SDK adaptations; native scheduler phase parity is not claimed. Disconnected/pending autoconnect, remote named destinations/aliases and synchronous embedding helpers remain incomplete. SDK HOST/controller and original-only observations are separate; no live SDK-peer or native wire equality is claimed. With process_flag(async_dist,true), already-connected PID sends use bounded entry-owned accepted packet staging: accepted output survives sender death, retains original order and contributes staged plus transport AccountedBytes to dist_get_stat SendPend. False retains producer-owned319 behavior. A full independent staging budget raises system_limit before acceptance, including send_nosuspend; it is an SDK cap, not a native busy threshold or physical-memory measurement. Original new flag cases and live SDK-peer comparison remain separate gates. Caller-owned already-connected output waits now serially admit existing owner control signals and system queries while waiting for ticket turn or transport capacity, preserving ordinary message receive order and existing nested-wait guards. Cancellation or inbound kill settles producer reservations before completion. Accepted UNLINK workers remain connection-owned; only the guest wait admits its caller signals, without canceling retained output. Immediate nosuspend and accepted async staging do not gain capacity waits. Pending/autoconnect, synchronous embedding setters, complete inbound priority, live SDK peers and native scheduler/wire equality remain incomplete.",
+            "Exported": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+          }
+        }
+      },
+      {
+        "Mfa": "erlang:send_nosuspend/3",
+        "Fields": {
+          "Limits": {
+            "Before": "Registered guest already-connected remote PID sends use owned ordered publication, producer cancellation and generation isolation. Full option validation precedes state checks; connected noconnect may send. Immediate nosuspend conservatively returns WouldSuspend when capacity or captured sequential-trace state prevents admission, without advancing the token. Negotiated sender, trace and priority controls are bounded SDK adaptations; native scheduler phase parity is not claimed. Disconnected/pending autoconnect, remote named destinations/aliases and synchronous embedding helpers remain incomplete. SDK HOST/controller and original-only observations are separate; no live SDK-peer or native wire equality is claimed. With process_flag(async_dist,true), already-connected PID sends use bounded entry-owned accepted packet staging: accepted output survives sender death, retains original order and contributes staged plus transport AccountedBytes to dist_get_stat SendPend. False retains producer-owned319 behavior. A full independent staging budget raises system_limit before acceptance, including send_nosuspend; it is an SDK cap, not a native busy threshold or physical-memory measurement. Original new flag cases and live SDK-peer comparison remain separate gates. Caller-owned already-connected output waits now serially admit existing owner control signals and system queries while waiting for ticket turn or transport capacity, preserving ordinary message receive order and existing nested-wait guards. Cancellation or inbound kill settles producer reservations before completion. Accepted UNLINK workers remain connection-owned; only the guest wait admits its caller signals, without canceling retained output. Immediate nosuspend and accepted async staging do not gain capacity waits. Pending/autoconnect, synchronous embedding setters, complete inbound priority, live SDK peers and native scheduler/wire equality remain incomplete.",
+            "Exported": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+          }
+        }
+      },
+      {
+        "Mfa": "erlang:group_leader/2",
+        "Fields": {
+          "Limits": {
+            "Before": "Registered guest connected-remote assignment uses owned ordered publication with capacity waits, producer cancellation and generation isolation. Disconnected/pending autoconnect and the legacy synchronous embedding setter remain incomplete. SDK controller HOST and original two-node observations are separate roles; no live SDK-peer or native wire equality is claimed. Caller-owned already-connected output waits now serially admit existing owner control signals and system queries while waiting for ticket turn or transport capacity, preserving ordinary message receive order and existing nested-wait guards. Cancellation or inbound kill settles producer reservations before completion. Accepted UNLINK workers remain connection-owned; only the guest wait admits its caller signals, without canceling retained output. Immediate nosuspend and accepted async staging do not gain capacity waits. Pending/autoconnect, synchronous embedding setters, complete inbound priority, live SDK peers and native scheduler/wire equality remain incomplete.",
+            "Exported": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+          }
+        }
+      },
+      {
+        "Mfa": "erlang:spawn_opt/2",
+        "Fields": {
+          "Limits": {
+            "Before": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending Explicit {async_dist,true|false} is supported by the existing local fun/MFA and local-node spawn_opt routes. Repeated valid options use the last value; invalid values or shapes reject before child creation through existing wrapper error handling. The child flag is initialized before process publication, dispatch and sequence-spawn callbacks. Its default remains false and it does not inherit the parent flag. Existing monitor/link, argument validation and disconnected crasher adaptation remain bounded existing behavior. This does not implement +pad VM defaults, remaining unsupported heap/GC and message_queue_data options, connected remote creation, pending/autoconnect, full native scheduling or general remote protocol parity. Actual SDK validation covers first child observation, repeated/invalid options, default noninheritance and existing lifecycle; current original326 execution remains pending. Current351 priority slice accepts low/normal/high/max, defaults normal and uses last valid option, initialized before child execution on existing local/connected routes. Logical priority admission is implemented; complete native scheduling policy/performance and remaining tuning options are not certified. Current affinity candidate accepts {scheduler,N} with a configured logical lane domain, zero unbound and last valid duplicate semantics; child binding is resolved before publication on local/request/inbound connected paths. Offline-bound waiting, migration and online changes are implemented in managed lanes. Actual explicit two-lane original comparison and final full validation remain separate gates; no physical CPU pinning or whole spawn_opt parity claim.",
+            "Exported": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+          }
+        }
+      },
+      {
+        "Mfa": "erlang:spawn_opt/3",
+        "Fields": {
+          "Limits": {
+            "Before": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending Explicit {async_dist,true|false} is supported by the existing local fun/MFA and local-node spawn_opt routes. Repeated valid options use the last value; invalid values or shapes reject before child creation through existing wrapper error handling. The child flag is initialized before process publication, dispatch and sequence-spawn callbacks. Its default remains false and it does not inherit the parent flag. Existing monitor/link, argument validation and disconnected crasher adaptation remain bounded existing behavior. This does not implement +pad VM defaults, remaining unsupported heap/GC and message_queue_data options, connected remote creation, pending/autoconnect, full native scheduling or general remote protocol parity. Actual SDK validation covers first child observation, repeated/invalid options, default noninheritance and existing lifecycle; current original326 execution remains pending. Current351 priority slice accepts low/normal/high/max, defaults normal and uses last valid option, initialized before child execution on existing local/connected routes. Logical priority admission is implemented; complete native scheduling policy/performance and remaining tuning options are not certified. Current affinity candidate accepts {scheduler,N} with a configured logical lane domain, zero unbound and last valid duplicate semantics; child binding is resolved before publication on local/request/inbound connected paths. Offline-bound waiting, migration and online changes are implemented in managed lanes. Actual explicit two-lane original comparison and final full validation remain separate gates; no physical CPU pinning or whole spawn_opt parity claim.",
+            "Exported": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+          }
+        }
+      },
+      {
+        "Mfa": "erlang:spawn_opt/4",
+        "Fields": {
+          "Limits": {
+            "Before": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending Explicit {async_dist,true|false} is supported by the existing local fun/MFA and local-node spawn_opt routes. Repeated valid options use the last value; invalid values or shapes reject before child creation through existing wrapper error handling. The child flag is initialized before process publication, dispatch and sequence-spawn callbacks. Its default remains false and it does not inherit the parent flag. Existing monitor/link, argument validation and disconnected crasher adaptation remain bounded existing behavior. This does not implement +pad VM defaults, remaining unsupported heap/GC and message_queue_data options, connected remote creation, pending/autoconnect, full native scheduling or general remote protocol parity. Actual SDK validation covers first child observation, repeated/invalid options, default noninheritance and existing lifecycle; current original326 execution remains pending. Current351 priority slice accepts low/normal/high/max, defaults normal and uses last valid option, initialized before child execution on existing local/connected routes. Logical priority admission is implemented; complete native scheduling policy/performance and remaining tuning options are not certified. Current affinity candidate accepts {scheduler,N} with a configured logical lane domain, zero unbound and last valid duplicate semantics; child binding is resolved before publication on local/request/inbound connected paths. Offline-bound waiting, migration and online changes are implemented in managed lanes. Actual explicit two-lane original comparison and final full validation remain separate gates; no physical CPU pinning or whole spawn_opt parity claim.",
+            "Exported": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+          }
+        }
+      },
+      {
+        "Mfa": "erlang:spawn_opt/5",
+        "Fields": {
+          "Limits": {
+            "Before": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending Explicit {async_dist,true|false} is supported by the existing local fun/MFA and local-node spawn_opt routes. Repeated valid options use the last value; invalid values or shapes reject before child creation through existing wrapper error handling. The child flag is initialized before process publication, dispatch and sequence-spawn callbacks. Its default remains false and it does not inherit the parent flag. Existing monitor/link, argument validation and disconnected crasher adaptation remain bounded existing behavior. This does not implement +pad VM defaults, remaining unsupported heap/GC and message_queue_data options, connected remote creation, pending/autoconnect, full native scheduling or general remote protocol parity. Actual SDK validation covers first child observation, repeated/invalid options, default noninheritance and existing lifecycle; current original326 execution remains pending. Current351 priority slice accepts low/normal/high/max, defaults normal and uses last valid option, initialized before child execution on existing local/connected routes. Logical priority admission is implemented; complete native scheduling policy/performance and remaining tuning options are not certified. Current affinity candidate accepts {scheduler,N} with a configured logical lane domain, zero unbound and last valid duplicate semantics; child binding is resolved before publication on local/request/inbound connected paths. Offline-bound waiting, migration and online changes are implemented in managed lanes. Actual explicit two-lane original comparison and final full validation remain separate gates; no physical CPU pinning or whole spawn_opt parity claim.",
+            "Exported": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+          }
+        }
+      },
+      {
+        "Mfa": "erlang:spawn_request/2",
+        "Fields": {
+          "Limits": {
+            "Before": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending In existing successful local option-bearing spawn_request overloads, explicit {async_dist,true|false} initializes the child before process publication, dispatch and sequence-spawn callbacks. Repeated valid values use the last option; invalid local creator values retain existing badopt/reply handling. Forms without an options argument keep default false and do not inherit the parent flag. Request/reply mechanics remain separate from the child async_dist flag; existing reply tags, monitor/link options and wrapper validation ordering are preserved. Disconnected requests still defer creator-option validation and preserve sender reply/link/monitor validation, without claiming a real remote child. Existing connected remote spawning is implemented. Remaining limitations include +pad defaults, unsupported heap/GC tuning and message_queue_data options, pending/autoconnect and complete native remote protocol/scheduler compatibility. The original326 pending gate is historical; completed original351 preserves the accumulated corpus and covers its bounded priority witnesses, without proving the full remote/protocol option domain. Current source implements process scheduling priority and logical {scheduler,N} binding on existing creator/request and inbound connected paths before child publication. This corrects the historical priority-refusal wording; whole spawn_request option/protocol parity and native scheduler performance remain unverified.",
+            "Exported": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+          }
+        }
+      },
+      {
+        "Mfa": "erlang:spawn_request/3",
+        "Fields": {
+          "Limits": {
+            "Before": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending In existing successful local option-bearing spawn_request overloads, explicit {async_dist,true|false} initializes the child before process publication, dispatch and sequence-spawn callbacks. Repeated valid values use the last option; invalid local creator values retain existing badopt/reply handling. Forms without an options argument keep default false and do not inherit the parent flag. Request/reply mechanics remain separate from the child async_dist flag; existing reply tags, monitor/link options and wrapper validation ordering are preserved. Disconnected requests still defer creator-option validation and preserve sender reply/link/monitor validation, without claiming a real remote child. Existing connected remote spawning is implemented. Remaining limitations include +pad defaults, unsupported heap/GC tuning and message_queue_data options, pending/autoconnect and complete native remote protocol/scheduler compatibility. The original326 pending gate is historical; completed original351 preserves the accumulated corpus and covers its bounded priority witnesses, without proving the full remote/protocol option domain. Current source implements process scheduling priority and logical {scheduler,N} binding on existing creator/request and inbound connected paths before child publication. This corrects the historical priority-refusal wording; whole spawn_request option/protocol parity and native scheduler performance remain unverified.",
+            "Exported": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+          }
+        }
+      },
+      {
+        "Mfa": "erlang:spawn_request/4",
+        "Fields": {
+          "Limits": {
+            "Before": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending In existing successful local option-bearing spawn_request overloads, explicit {async_dist,true|false} initializes the child before process publication, dispatch and sequence-spawn callbacks. Repeated valid values use the last option; invalid local creator values retain existing badopt/reply handling. Forms without an options argument keep default false and do not inherit the parent flag. Request/reply mechanics remain separate from the child async_dist flag; existing reply tags, monitor/link options and wrapper validation ordering are preserved. Disconnected requests still defer creator-option validation and preserve sender reply/link/monitor validation, without claiming a real remote child. Existing connected remote spawning is implemented. Remaining limitations include +pad defaults, unsupported heap/GC tuning and message_queue_data options, pending/autoconnect and complete native remote protocol/scheduler compatibility. The original326 pending gate is historical; completed original351 preserves the accumulated corpus and covers its bounded priority witnesses, without proving the full remote/protocol option domain. Current source implements process scheduling priority and logical {scheduler,N} binding on existing creator/request and inbound connected paths before child publication. This corrects the historical priority-refusal wording; whole spawn_request option/protocol parity and native scheduler performance remain unverified.",
+            "Exported": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+          }
+        }
+      },
+      {
+        "Mfa": "erlang:spawn_request/5",
+        "Fields": {
+          "Limits": {
+            "Before": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending In existing successful local option-bearing spawn_request overloads, explicit {async_dist,true|false} initializes the child before process publication, dispatch and sequence-spawn callbacks. Repeated valid values use the last option; invalid local creator values retain existing badopt/reply handling. Forms without an options argument keep default false and do not inherit the parent flag. Request/reply mechanics remain separate from the child async_dist flag; existing reply tags, monitor/link options and wrapper validation ordering are preserved. Disconnected requests still defer creator-option validation and preserve sender reply/link/monitor validation, without claiming a real remote child. Existing connected remote spawning is implemented. Remaining limitations include +pad defaults, unsupported heap/GC tuning and message_queue_data options, pending/autoconnect and complete native remote protocol/scheduler compatibility. The original326 pending gate is historical; completed original351 preserves the accumulated corpus and covers its bounded priority witnesses, without proving the full remote/protocol option domain. Current source implements process scheduling priority and logical {scheduler,N} binding on existing creator/request and inbound connected paths before child publication. This corrects the historical priority-refusal wording; whole spawn_request option/protocol parity and native scheduler performance remain unverified.",
+            "Exported": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+          }
+        }
+      },
+      {
+        "Mfa": "erlang:link/2",
+        "Fields": {
+          "Limits": {
+            "Before": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending Already-connected guest remote PID LINK output is accepted into finite connection-owned staging before the normal caller waits. Captured-generation LINK, local relation and local receiver priority commit together after actual encoding/capacity preflight. An accepted worker retains its ticket and entry lease across producer cancellation or kill; retained terminal EXIT follows LINK in order. Normal callers cooperatively admit existing owner signals/system queries while awaiting turn or capacity. With async_dist true the caller returns after bounded acceptance without that output wait. Duplicate LINK remains idempotent, link/2 options validate before mutation, and hard staging-cap refusal raises system_limit before relation installation. SDK staging and transport have separately finite accounted-byte/packet budgets; these are SDK resource bounds, not physical native buffer sizes. Accepted UNLINK remains connection-owned and only its guest wait admits caller signals. Pending/autoconnect, remote names/aliases, synchronous embedding setters, complete inbound priority, live SDK network peers, native scheduler/queue-phase identity and general native wire equality remain incomplete. Five actual generated-guest HOST controls cover normal/async turn/capacity ownership and hard-cap refusal. The separate pinned original325 collector remains unexecuted by this pipeline.",
+            "Exported": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+          }
+        }
+      },
+      {
+        "Mfa": "erlang:exit/3",
+        "Fields": {
+          "Limits": {
+            "Before": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending Already-connected guest remote PID explicit exits publish captured-generation EXIT2 (normal opcode 26 or legacy opcode 8) or ALTACT (opcode 37, EXIT flag16 plus priority flag1). Explicit exits do not advance sequence tracing, attach tokens, or perform pseudo-send tracing; exit/3 and exit_signal/3 validate the complete options list and preserve duplicate priority semantics before remote mutation. Accepted async_dist output has finite staged and transport budgets; normal producer-owned output retains cancellation and generation checks. Local and remote exit aliases preserve their existing public contracts. Pending/autoconnect, remote names/aliases, a live SDK network peer and general native wire equality remain incomplete. Caller-owned already-connected output waits now serially admit existing owner control signals and system queries while waiting for ticket turn or transport capacity, preserving ordinary message receive order and existing nested-wait guards. Cancellation or inbound kill settles producer reservations before completion. Accepted UNLINK workers remain connection-owned; only the guest wait admits its caller signals, without canceling retained output. Immediate nosuspend and accepted async staging do not gain capacity waits. Pending/autoconnect, synchronous embedding setters, complete inbound priority, live SDK peers and native scheduler/wire equality remain incomplete.",
+            "Exported": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+          }
+        }
+      },
+      {
+        "Mfa": "erlang:exit_signal/2",
+        "Fields": {
+          "Limits": {
+            "Before": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending Already-connected guest remote PID explicit exits publish captured-generation EXIT2 (normal opcode 26 or legacy opcode 8) or ALTACT (opcode 37, EXIT flag16 plus priority flag1). Explicit exits do not advance sequence tracing, attach tokens, or perform pseudo-send tracing; exit/3 and exit_signal/3 validate the complete options list and preserve duplicate priority semantics before remote mutation. Accepted async_dist output has finite staged and transport budgets; normal producer-owned output retains cancellation and generation checks. Local and remote exit aliases preserve their existing public contracts. Pending/autoconnect, remote names/aliases, a live SDK network peer and general native wire equality remain incomplete. Caller-owned already-connected output waits now serially admit existing owner control signals and system queries while waiting for ticket turn or transport capacity, preserving ordinary message receive order and existing nested-wait guards. Cancellation or inbound kill settles producer reservations before completion. Accepted UNLINK workers remain connection-owned; only the guest wait admits its caller signals, without canceling retained output. Immediate nosuspend and accepted async staging do not gain capacity waits. Pending/autoconnect, synchronous embedding setters, complete inbound priority, live SDK peers and native scheduler/wire equality remain incomplete.",
+            "Exported": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+          }
+        }
+      },
+      {
+        "Mfa": "erlang:exit_signal/3",
+        "Fields": {
+          "Limits": {
+            "Before": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending Already-connected guest remote PID explicit exits publish captured-generation EXIT2 (normal opcode 26 or legacy opcode 8) or ALTACT (opcode 37, EXIT flag16 plus priority flag1). Explicit exits do not advance sequence tracing, attach tokens, or perform pseudo-send tracing; exit/3 and exit_signal/3 validate the complete options list and preserve duplicate priority semantics before remote mutation. Accepted async_dist output has finite staged and transport budgets; normal producer-owned output retains cancellation and generation checks. Local and remote exit aliases preserve their existing public contracts. Pending/autoconnect, remote names/aliases, a live SDK network peer and general native wire equality remain incomplete. Caller-owned already-connected output waits now serially admit existing owner control signals and system queries while waiting for ticket turn or transport capacity, preserving ordinary message receive order and existing nested-wait guards. Cancellation or inbound kill settles producer reservations before completion. Accepted UNLINK workers remain connection-owned; only the guest wait admits its caller signals, without canceling retained output. Immediate nosuspend and accepted async staging do not gain capacity waits. Pending/autoconnect, synchronous embedding setters, complete inbound priority, live SDK peers and native scheduler/wire equality remain incomplete.",
+            "Exported": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+          }
+        }
+      },
+      {
+        "Mfa": "erlang:system_flag/2",
+        "Fields": {
+          "Limits": {
+            "Before": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending Current affinity candidate implements schedulers_online positive configured-count changes with initiating-owner admission, offline-lane quiescence, previous-value return and cancellation. This logical lane slice does not complete system_flag or certify native topology/performance.",
+            "Exported": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+          }
+        }
+      },
+      {
+        "Mfa": "erlang:system_info/1",
+        "Fields": {
+          "Limits": {
+            "Before": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending Current affinity candidate implements logical scheduler_id for the actual executing owner and configured schedulers/schedulers_total/schedulers_online counts. schedulers_active/schedulers_state and broader physical/system-info domains remain unimplemented or unaudited; no physical BEAM scheduler equivalence is claimed.",
+            "Exported": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+          }
+        }
+      },
+      {
+        "Mfa": "erlang:load_nif/2",
+        "Fields": {
+          "Limits": {
+            "Before": "Pinned indirect BIF refusal remains. Direct captured calls load actual host libraries; an explicit source handler takes precedence, and a reviewed image policy is optional. Fixed list/tuple array callbacks and five selected pinned native-load reason strings are covered by current controls and owned fixture observations. Broader NIF ABI/callbacks, non-UTF8 Unix filename modes, dirty execution, resources, threads and reload/upgrade remain incomplete. See per-command Known differences; registration is not complete compatibility.",
+            "Exported": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+          }
+        }
+      },
+      {
+        "Mfa": "erlang:alloc_info/1",
+        "Fields": {
+          "Limits": {
+            "Before": "CLR sys_alloc metadata only; m=dotnet_native_memory is a declared backend adaptation. Recognized unsupported allocators raise notsup. Full OTP allocator/carrier sizes and disabled-backend profiles remain unsupported.",
+            "Exported": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+          }
+        }
+      },
+      {
+        "Mfa": "erlang:alloc_sizes/1",
+        "Fields": {
+          "Limits": {
+            "Before": "CLR sys_alloc metadata only; m=dotnet_native_memory is a declared backend adaptation. Recognized unsupported allocators raise notsup. Full OTP allocator/carrier sizes and disabled-backend profiles remain unsupported.",
+            "Exported": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+          }
+        }
+      },
+      {
+        "Mfa": "erlang:memory/0",
+        "Fields": {
+          "Limits": {
+            "Before": "Measured CLR SDK-observed payload profile within the loaded SDK type universe: real backing identities, process slot/mailbox payloads and joined native backing-request bytes. ETS has no storage implementation. Excludes CLR headers, unrelated application heaps, JIT, OS footprint and ERTS allocator/physical byte parity; captures are not atomic across sources.",
+            "Exported": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+          }
+        }
+      },
+      {
+        "Mfa": "erlang:memory/1",
+        "Fields": {
+          "Limits": {
+            "Before": "Measured CLR SDK-observed payload profile within the loaded SDK type universe: real backing identities, process slot/mailbox payloads and joined native backing-request bytes. ETS has no storage implementation. Excludes CLR headers, unrelated application heaps, JIT, OS footprint and ERTS allocator/physical byte parity; captures are not atomic across sources.",
+            "Exported": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+          }
+        }
+      },
+      {
+        "Mfa": "proplists:get_value/2",
+        "Fields": {
+          "Limits": {
+            "Before": "Source port and current SDK value/error/source-frame controls; strengthened original acceptance pending.",
+            "Exported": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+          }
+        }
+      },
+      {
+        "Mfa": "proplists:get_value/3",
+        "Fields": {
+          "Limits": {
+            "Before": "Source port and current SDK value/error/source-frame controls; strengthened original acceptance pending.",
+            "Exported": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+          }
+        }
+      }
+    ],
+    "ExportSha256": "4D456DBE395DB3FE387669D8B11C37C5956583BEEDA535C0139D11C26A42E75C"
+  },
+  "Tests": {
+    "Passed": 7504,
+    "Failed": 0,
+    "Unique": 7504,
+    "ExactOrderedPreviousPrefix": 7438,
+    "AddedNames": [
+      "proplists-get-value-parse-all",
+      "proplists-get-value-object-identity",
+      "proplists-get-value-cooperative-progress",
+      "proplists-get-value-cooperative-cancellation",
+      "mfa/proplists:get_value/2",
+      "mfa/proplists:get_value/3",
+      "oracle/compiled-module/proplists-get-value-empty-two",
+      "oracle/compiled-module/proplists-get-value-empty-three",
+      "oracle/compiled-module/proplists-get-value-missing-two",
+      "oracle/compiled-module/proplists-get-value-missing-three",
+      "oracle/compiled-module/proplists-get-value-atom-shorthand",
+      "oracle/compiled-module/proplists-get-value-atom-before-tuple",
+      "oracle/compiled-module/proplists-get-value-tuple-before-atom",
+      "oracle/compiled-module/proplists-get-value-first-tuple-wins",
+      "oracle/compiled-module/proplists-get-value-explicit-undefined",
+      "oracle/compiled-module/proplists-get-value-singleton-stops-two",
+      "oracle/compiled-module/proplists-get-value-singleton-stops-three",
+      "oracle/compiled-module/proplists-get-value-triple-stops-two",
+      "oracle/compiled-module/proplists-get-value-triple-stops-three",
+      "oracle/compiled-module/proplists-get-value-empty-tuple-ignored",
+      "oracle/compiled-module/proplists-get-value-nonmatching-tuple-arities",
+      "oracle/compiled-module/proplists-get-value-nonproperties-ignored",
+      "oracle/compiled-module/proplists-get-value-integer-exact",
+      "oracle/compiled-module/proplists-get-value-float-exact",
+      "oracle/compiled-module/proplists-get-value-large-integer-key",
+      "oracle/compiled-module/proplists-get-value-tuple-key-exact",
+      "oracle/compiled-module/proplists-get-value-list-key-exact",
+      "oracle/compiled-module/proplists-get-value-improper-list-key",
+      "oracle/compiled-module/proplists-get-value-map-key-exact",
+      "oracle/compiled-module/proplists-get-value-empty-list-key",
+      "oracle/compiled-module/proplists-get-value-empty-tuple-key",
+      "oracle/compiled-module/proplists-get-value-binary-key",
+      "oracle/compiled-module/proplists-get-value-bitstring-key",
+      "oracle/compiled-module/proplists-get-value-reference-key",
+      "oracle/compiled-module/proplists-get-value-pid-key",
+      "oracle/compiled-module/proplists-get-value-function-key",
+      "oracle/compiled-module/proplists-get-value-default-reference-identity",
+      "oracle/compiled-module/proplists-get-value-value-function-identity",
+      "oracle/compiled-module/proplists-get-value-improper-atom-match",
+      "oracle/compiled-module/proplists-get-value-improper-tuple-match",
+      "oracle/compiled-module/proplists-get-value-improper-singleton-match",
+      "oracle/compiled-module/proplists-get-value-improper-triple-match",
+      "oracle/compiled-module/proplists-get-value-improper-reached-two",
+      "oracle/compiled-module/proplists-get-value-improper-reached-three",
+      "oracle/compiled-module/proplists-get-value-nonlist-atom-two",
+      "oracle/compiled-module/proplists-get-value-nonlist-atom-three",
+      "oracle/compiled-module/proplists-get-value-nonlist-integer-two",
+      "oracle/compiled-module/proplists-get-value-nonlist-integer-three",
+      "oracle/compiled-module/proplists-get-value-nonlist-float-two",
+      "oracle/compiled-module/proplists-get-value-nonlist-float-three",
+      "oracle/compiled-module/proplists-get-value-nonlist-tuple-two",
+      "oracle/compiled-module/proplists-get-value-nonlist-tuple-three",
+      "oracle/compiled-module/proplists-get-value-nonlist-map-two",
+      "oracle/compiled-module/proplists-get-value-nonlist-map-three",
+      "oracle/compiled-module/proplists-get-value-nonlist-binary-two",
+      "oracle/compiled-module/proplists-get-value-nonlist-binary-three",
+      "oracle/compiled-module/proplists-get-value-large-missing-two",
+      "oracle/compiled-module/proplists-get-value-large-terminal-match",
+      "oracle/compiled-module/proplists-get-value-large-improper-early-match",
+      "oracle/compiled-module/proplists-get-value-stack-depth-0-arity-2",
+      "oracle/compiled-module/proplists-get-value-stack-depth-1-arity-2",
+      "oracle/compiled-module/proplists-get-value-stack-depth-2-arity-2",
+      "oracle/compiled-module/proplists-get-value-stack-depth-0-arity-3",
+      "oracle/compiled-module/proplists-get-value-stack-depth-1-arity-3",
+      "oracle/compiled-module/proplists-get-value-stack-depth-2-arity-3",
+      "proplists-get-value-source-stack-metadata"
+    ]
+  },
+  "IntegrationOutcomes": {
+    "LocalTool": "Passed",
+    "HybridOutput": "Hello World",
+    "Tests": "Passed",
+    "CleanRebuild": "Passed",
+    "OracleUnavailableReport": "Expected failure recorded",
+    "Build": "Passed",
+    "PackagedReadiness": "Passed",
+    "Incremental": "Passed",
+    "PackageConsumer": "Passed",
+    "Readiness": "Passed",
+    "DisabledPreprocessing": "Expected failure"
+  },
+  "FullProcess": {
+    "Command": [
+      "C:/Users/Maksim/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+      "-NoProfile",
+      "-File",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\validate.ps1"
+    ],
+    "Pid": 256620,
+    "ElapsedSeconds": 400.875,
+    "TimedOut": false,
+    "Settled": true,
+    "ExitCode": 0,
+    "Failures": [],
+    "StdoutSha256": "6CC1D8516790A6B17682923D7BF6C437CD6906138649CAE94CE45F0CD12332AA",
+    "StderrSha256": "CA28DC90026E2F533157EF715CA259762FB2CDE0F743DD1591699AD5FBCAECA0"
+  },
+  "FreshChildren": [
+    {
+      "Path": "artifacts/term-order-children/16841f3d87b14a70b6998c45131278ca/receipt.json",
+      "Sha256": "FAD3FE57CB884FDD9338EBCDF8DDB39CAAF9F605059F34505386364E928162D9",
+      "WrittenUnixSeconds": 1792251108.4456782,
+      "Family": "list-head",
+      "Operation": "compare",
+      "Depth": 32768,
+      "Pid": 297220,
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts/term-order-children/5bc82194671a4472819e3b41381d4d5c/receipt.json",
+      "Sha256": "7CCDE7B9DEFC75177F75BDB70AC832317A2C0F6876891917A100FBF6B8CBED97",
+      "WrittenUnixSeconds": 1792251110.2739477,
+      "Family": "tuple",
+      "Operation": "hash",
+      "Depth": 32768,
+      "Pid": 166256,
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts/term-order-children/6d311da9cc3f4279a41e36fdfcf4d775/receipt.json",
+      "Sha256": "6F8D0CD4DBC7055BF9E755E8E211C0A341EBA26B44D4B6B6F75EE94866F32AB5",
+      "WrittenUnixSeconds": 1792251110.9429862,
+      "Family": "map-value",
+      "Operation": "hash",
+      "Depth": 32768,
+      "Pid": 274540,
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts/term-order-children/6d77e573cb4449dab9cc52b49c1c2102/receipt.json",
+      "Sha256": "263400173FD08A2DC7C13BC8E7EC0054F375CDA1DB6F6059E937E5E16D8A88A9",
+      "WrittenUnixSeconds": 1792251112.2853994,
+      "Family": "tuple",
+      "Operation": "snapshot",
+      "Depth": 0,
+      "Pid": 232060,
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts/term-order-children/93dfb2a881e44108bc6c8c420e3109f1/receipt.json",
+      "Sha256": "70D98B7654ED5BBC02274B77985F8F19F4C72B1A5B1A93CEB08BD8937E02328C",
+      "WrittenUnixSeconds": 1792251109.516918,
+      "Family": "fun-environment",
+      "Operation": "compare",
+      "Depth": 32768,
+      "Pid": 301776,
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts/term-order-children/9830fccc83d743b087ec598972ce3b2e/receipt.json",
+      "Sha256": "58F379E5FE5E64D420CC6C8FA05543A536D01F02F764315A89DB64BF902B4883",
+      "WrittenUnixSeconds": 1792251111.4539764,
+      "Family": "fun-environment",
+      "Operation": "hash",
+      "Depth": 32768,
+      "Pid": 164192,
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts/term-order-children/b2754f09f21b4474886f15dafbf0e3cf/receipt.json",
+      "Sha256": "CFF2B6784C8018348B8FC622C9BEFCDB07D622C93B4C1C9C5AD15C8434727013",
+      "WrittenUnixSeconds": 1792251110.056986,
+      "Family": "native-record",
+      "Operation": "compare",
+      "Depth": 32768,
+      "Pid": 298736,
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts/term-order-children/b33e05f2b5d3410dabac6d0b284fe1bc/receipt.json",
+      "Sha256": "DA6730237DF84EEEBC98BFD9F1B89CEB91C4E84BED0473F851979A4C158C6785",
+      "WrittenUnixSeconds": 1792251108.8819413,
+      "Family": "map-value",
+      "Operation": "compare",
+      "Depth": 32768,
+      "Pid": 272876,
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts/term-order-children/e011fe57a8b04a9a894b6e87f02e0442/receipt.json",
+      "Sha256": "9D05D5924A5BCDD65B5D6C80F37570E39B4B091FE510D1BE301484EBB6C3F7AE",
+      "WrittenUnixSeconds": 1792251110.4904144,
+      "Family": "list-head",
+      "Operation": "hash",
+      "Depth": 32768,
+      "Pid": 280368,
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts/term-order-children/e3928c8da7054f88b1ac15e0db9264a7/receipt.json",
+      "Sha256": "86FEC2963755CCBD18304784A630D88BD6E456EDE2FBF60252F0565FBA618221",
+      "WrittenUnixSeconds": 1792251108.2316794,
+      "Family": "tuple",
+      "Operation": "compare",
+      "Depth": 32768,
+      "Pid": 284480,
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts/term-order-children/eb61971953944e1f84e8bda0dbfa92b3/receipt.json",
+      "Sha256": "2CDA58F46E112333750D84B90D9AD22BB8219769B2D341777EAF65FEA68FD21D",
+      "WrittenUnixSeconds": 1792251111.9794195,
+      "Family": "native-record",
+      "Operation": "hash",
+      "Depth": 32768,
+      "Pid": 267552,
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts/term-order-children/faa654e115134fa7a8ca75eb037b4860/receipt.json",
+      "Sha256": "961F754C159F6BE1B4442CF1F3A3BE7C249BAABC1A20A8B4650767D14791F3AF",
+      "WrittenUnixSeconds": 1792251112.1464007,
+      "Family": "tuple",
+      "Operation": "shallow",
+      "Depth": 6,
+      "Pid": 269728,
+      "ExitCode": 0
+    }
+  ],
+  "ChildFreshnessMethod": "Receipt filesystem write times fall within live StartedUnixSeconds plus exit elapsed; all12 earlier receipts lie outside that window. The producer stores only prior count, not prior IDs.",
+  "ExpectedPriorReceipts": 12,
+  "Packages": [
+    {
+      "Path": "artifacts/packages/Erlang.Net.CSharp.0.1.0.nupkg",
+      "Bytes": 14144887,
+      "Sha256": "1EAF0E6711ABA9606D1B6B5C48C58C114AD91FC61D3D71CD20556FEED8ECF9F4",
+      "WrittenUnixSeconds": 1792251448.8442597
+    },
+    {
+      "Path": "artifacts/packages/Erlang.Net.Tool.0.1.0.nupkg",
+      "Bytes": 15495335,
+      "Sha256": "63B61102B128D9133F3D8B3AA1A7D033083C8EEC6F00751DFDAE967E3715397E",
+      "WrittenUnixSeconds": 1792251452.6290975
+    }
+  ],
+  "PackageCreationLogLines": [
+    {
+      "Line": 7725,
+      "Text": "  \u041f\u0430\u043a\u0435\u0442 \"D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\packages\\Erlang.Net.CSharp.0.1.0.nupkg\" \u0443\u0441\u043f\u0435\u0448\u043d\u043e \u0441\u043e\u0437\u0434\u0430\u043d."
+    },
+    {
+      "Line": 7736,
+      "Text": "  \u041f\u0430\u043a\u0435\u0442 \"D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\packages\\Erlang.Net.Tool.0.1.0.nupkg\" \u0443\u0441\u043f\u0435\u0448\u043d\u043e \u0441\u043e\u0437\u0434\u0430\u043d."
+    }
+  ],
+  "Limits": [
+    "Local actual execution only; no same-publication-head CI or original equality inferred.",
+    "Child lifecycle evidence is fresh receipt+stream hashes and completed flags; no independent OS descendant census.",
+    "No complete-contract or registry-status promotion."
+  ],
+  "BoundInputs": [
+    {
+      "Path": "artifacts/term-order-children/16841f3d87b14a70b6998c45131278ca/receipt.json",
+      "Bytes": 652,
+      "Sha256": "FAD3FE57CB884FDD9338EBCDF8DDB39CAAF9F605059F34505386364E928162D9"
+    },
+    {
+      "Path": "artifacts/term-order-children/16841f3d87b14a70b6998c45131278ca/stdout.txt",
+      "Bytes": 240,
+      "Sha256": "6540B51DCE16254B2F3B4D165900E0529B9F4FAF19DBB5ED83E1CBC3DAD71420"
+    },
+    {
+      "Path": "artifacts/term-order-children/16841f3d87b14a70b6998c45131278ca/stderr.txt",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/term-order-children/5bc82194671a4472819e3b41381d4d5c/receipt.json",
+      "Bytes": 646,
+      "Sha256": "7CCDE7B9DEFC75177F75BDB70AC832317A2C0F6876891917A100FBF6B8CBED97"
+    },
+    {
+      "Path": "artifacts/term-order-children/5bc82194671a4472819e3b41381d4d5c/stdout.txt",
+      "Bytes": 240,
+      "Sha256": "6540B51DCE16254B2F3B4D165900E0529B9F4FAF19DBB5ED83E1CBC3DAD71420"
+    },
+    {
+      "Path": "artifacts/term-order-children/5bc82194671a4472819e3b41381d4d5c/stderr.txt",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/term-order-children/6d311da9cc3f4279a41e36fdfcf4d775/receipt.json",
+      "Bytes": 650,
+      "Sha256": "6F8D0CD4DBC7055BF9E755E8E211C0A341EBA26B44D4B6B6F75EE94866F32AB5"
+    },
+    {
+      "Path": "artifacts/term-order-children/6d311da9cc3f4279a41e36fdfcf4d775/stdout.txt",
+      "Bytes": 240,
+      "Sha256": "6540B51DCE16254B2F3B4D165900E0529B9F4FAF19DBB5ED83E1CBC3DAD71420"
+    },
+    {
+      "Path": "artifacts/term-order-children/6d311da9cc3f4279a41e36fdfcf4d775/stderr.txt",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/term-order-children/6d77e573cb4449dab9cc52b49c1c2102/receipt.json",
+      "Bytes": 646,
+      "Sha256": "263400173FD08A2DC7C13BC8E7EC0054F375CDA1DB6F6059E937E5E16D8A88A9"
+    },
+    {
+      "Path": "artifacts/term-order-children/6d77e573cb4449dab9cc52b49c1c2102/stdout.txt",
+      "Bytes": 227,
+      "Sha256": "8A51F9BC2708D4D7DC5CA30607F63E78B3371E879DFBBB37C10A969AEC489874"
+    },
+    {
+      "Path": "artifacts/term-order-children/6d77e573cb4449dab9cc52b49c1c2102/stderr.txt",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/term-order-children/93dfb2a881e44108bc6c8c420e3109f1/receipt.json",
+      "Bytes": 659,
+      "Sha256": "70D98B7654ED5BBC02274B77985F8F19F4C72B1A5B1A93CEB08BD8937E02328C"
+    },
+    {
+      "Path": "artifacts/term-order-children/93dfb2a881e44108bc6c8c420e3109f1/stdout.txt",
+      "Bytes": 240,
+      "Sha256": "6540B51DCE16254B2F3B4D165900E0529B9F4FAF19DBB5ED83E1CBC3DAD71420"
+    },
+    {
+      "Path": "artifacts/term-order-children/93dfb2a881e44108bc6c8c420e3109f1/stderr.txt",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/term-order-children/9830fccc83d743b087ec598972ce3b2e/receipt.json",
+      "Bytes": 656,
+      "Sha256": "58F379E5FE5E64D420CC6C8FA05543A536D01F02F764315A89DB64BF902B4883"
+    },
+    {
+      "Path": "artifacts/term-order-children/9830fccc83d743b087ec598972ce3b2e/stdout.txt",
+      "Bytes": 240,
+      "Sha256": "6540B51DCE16254B2F3B4D165900E0529B9F4FAF19DBB5ED83E1CBC3DAD71420"
+    },
+    {
+      "Path": "artifacts/term-order-children/9830fccc83d743b087ec598972ce3b2e/stderr.txt",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/term-order-children/b2754f09f21b4474886f15dafbf0e3cf/receipt.json",
+      "Bytes": 657,
+      "Sha256": "CFF2B6784C8018348B8FC622C9BEFCDB07D622C93B4C1C9C5AD15C8434727013"
+    },
+    {
+      "Path": "artifacts/term-order-children/b2754f09f21b4474886f15dafbf0e3cf/stdout.txt",
+      "Bytes": 240,
+      "Sha256": "6540B51DCE16254B2F3B4D165900E0529B9F4FAF19DBB5ED83E1CBC3DAD71420"
+    },
+    {
+      "Path": "artifacts/term-order-children/b2754f09f21b4474886f15dafbf0e3cf/stderr.txt",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/term-order-children/b33e05f2b5d3410dabac6d0b284fe1bc/receipt.json",
+      "Bytes": 653,
+      "Sha256": "DA6730237DF84EEEBC98BFD9F1B89CEB91C4E84BED0473F851979A4C158C6785"
+    },
+    {
+      "Path": "artifacts/term-order-children/b33e05f2b5d3410dabac6d0b284fe1bc/stdout.txt",
+      "Bytes": 240,
+      "Sha256": "6540B51DCE16254B2F3B4D165900E0529B9F4FAF19DBB5ED83E1CBC3DAD71420"
+    },
+    {
+      "Path": "artifacts/term-order-children/b33e05f2b5d3410dabac6d0b284fe1bc/stderr.txt",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/term-order-children/e011fe57a8b04a9a894b6e87f02e0442/receipt.json",
+      "Bytes": 650,
+      "Sha256": "9D05D5924A5BCDD65B5D6C80F37570E39B4B091FE510D1BE301484EBB6C3F7AE"
+    },
+    {
+      "Path": "artifacts/term-order-children/e011fe57a8b04a9a894b6e87f02e0442/stdout.txt",
+      "Bytes": 240,
+      "Sha256": "6540B51DCE16254B2F3B4D165900E0529B9F4FAF19DBB5ED83E1CBC3DAD71420"
+    },
+    {
+      "Path": "artifacts/term-order-children/e011fe57a8b04a9a894b6e87f02e0442/stderr.txt",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/term-order-children/e3928c8da7054f88b1ac15e0db9264a7/receipt.json",
+      "Bytes": 649,
+      "Sha256": "86FEC2963755CCBD18304784A630D88BD6E456EDE2FBF60252F0565FBA618221"
+    },
+    {
+      "Path": "artifacts/term-order-children/e3928c8da7054f88b1ac15e0db9264a7/stdout.txt",
+      "Bytes": 240,
+      "Sha256": "6540B51DCE16254B2F3B4D165900E0529B9F4FAF19DBB5ED83E1CBC3DAD71420"
+    },
+    {
+      "Path": "artifacts/term-order-children/e3928c8da7054f88b1ac15e0db9264a7/stderr.txt",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/term-order-children/eb61971953944e1f84e8bda0dbfa92b3/receipt.json",
+      "Bytes": 654,
+      "Sha256": "2CDA58F46E112333750D84B90D9AD22BB8219769B2D341777EAF65FEA68FD21D"
+    },
+    {
+      "Path": "artifacts/term-order-children/eb61971953944e1f84e8bda0dbfa92b3/stdout.txt",
+      "Bytes": 240,
+      "Sha256": "6540B51DCE16254B2F3B4D165900E0529B9F4FAF19DBB5ED83E1CBC3DAD71420"
+    },
+    {
+      "Path": "artifacts/term-order-children/eb61971953944e1f84e8bda0dbfa92b3/stderr.txt",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/term-order-children/faa654e115134fa7a8ca75eb037b4860/receipt.json",
+      "Bytes": 645,
+      "Sha256": "961F754C159F6BE1B4442CF1F3A3BE7C249BAABC1A20A8B4650767D14791F3AF"
+    },
+    {
+      "Path": "artifacts/term-order-children/faa654e115134fa7a8ca75eb037b4860/stdout.txt",
+      "Bytes": 227,
+      "Sha256": "8A51F9BC2708D4D7DC5CA30607F63E78B3371E879DFBBB37C10A969AEC489874"
+    },
+    {
+      "Path": "artifacts/term-order-children/faa654e115134fa7a8ca75eb037b4860/stderr.txt",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/packages/Erlang.Net.CSharp.0.1.0.nupkg",
+      "Bytes": 14144887,
+      "Sha256": "1EAF0E6711ABA9606D1B6B5C48C58C114AD91FC61D3D71CD20556FEED8ECF9F4"
+    },
+    {
+      "Path": "artifacts/packages/Erlang.Net.Tool.0.1.0.nupkg",
+      "Bytes": 15495335,
+      "Sha256": "63B61102B128D9133F3D8B3AA1A7D033083C8EEC6F00751DFDAE967E3715397E"
+    },
+    {
+      "Path": "artifacts/part362-main-full2/inputs.json",
+      "Bytes": 201,
+      "Sha256": "7BFAF8E9C8B1D2F5B6C334832921FA80AB71D26BC1F86E5ABC525FE5DEEA85D3"
+    },
+    {
+      "Path": "artifacts/part362-main-full2/source-plan.json",
+      "Bytes": 610702,
+      "Sha256": "E896F2F75768C94C24DF1A009D213E5A0A406A0E3169F159C68A748B4EC44DEA"
+    },
+    {
+      "Path": "artifacts/part362-main-full2/completion.json",
+      "Bytes": 227,
+      "Sha256": "D1922F6F730BFCFE80FA2A39B96E6338D838020EFB8624AF69187C10ED156E9A"
+    },
+    {
+      "Path": "artifacts/part362-main-full2/full.live.json",
+      "Bytes": 306,
+      "Sha256": "00F9F6A754D020FBFB0B152C63065E7D250071ED65EB8C4C29A8812DDF480C87"
+    },
+    {
+      "Path": "artifacts/part362-main-full2/full.exit.json",
+      "Bytes": 544,
+      "Sha256": "8197F4F4A52515E1322CE8DE039875D3A5ADBFAE762B15CF1984E9C38FE95A18"
+    },
+    {
+      "Path": "artifacts/part362-main-full2/full.stdout.log",
+      "Bytes": 482551,
+      "Sha256": "6CC1D8516790A6B17682923D7BF6C437CD6906138649CAE94CE45F0CD12332AA"
+    },
+    {
+      "Path": "artifacts/part362-main-full2/full.stderr.log",
+      "Bytes": 1047,
+      "Sha256": "CA28DC90026E2F533157EF715CA259762FB2CDE0F743DD1591699AD5FBCAECA0"
+    },
+    {
+      "Path": "artifacts/part362-main-full2/registry-curated-before.json",
+      "Bytes": 236913,
+      "Sha256": "378FA5558F09ECBC7D4B993B66BD113E69F6D9B51E76332A273AD623009798B4"
+    },
+    {
+      "Path": "artifacts/part362-main-full2/outputs/docs/supported-mfas.json",
+      "Bytes": 204665,
+      "Sha256": "4D456DBE395DB3FE387669D8B11C37C5956583BEEDA535C0139D11C26A42E75C"
+    },
+    {
+      "Path": "artifacts/part362-main-full2/outputs/artifacts/tests.json",
+      "Bytes": 1044188,
+      "Sha256": "04E5052DF56D41E5A87E7F4C2291394AB577D0B99A33F0A7705983C69DCF5D52"
+    },
+    {
+      "Path": "artifacts/part362-main-full2/outputs/artifacts/integration-results.json",
+      "Bytes": 365,
+      "Sha256": "CB1B2D30F00D1BEC3AA0351182252EC71CB88995C6B09029A9D401D8CC125586"
+    },
+    {
+      "Path": "docs/validation/part-361/tests.json",
+      "Bytes": 1034656,
+      "Sha256": "82EDD554EB88D71ED78FEDC3F1F7F90EFCA43A62F2A46C8C3B666686EB7D453E"
+    },
+    {
+      "Path": "artifacts/part362-integration-preparation/full2.py",
+      "Bytes": 3086,
+      "Sha256": "F62D106702EBE110E06560C9033E029C443F437BD502C8F344489B2C60D4669E"
+    },
+    {
+      "Path": "tools/validate.ps1",
+      "Bytes": 9211,
+      "Sha256": "DD493EA079090EE138723794C6EE23DB6D8CC4A10EB49731069A635C4093BA47"
+    }
+  ]
+}

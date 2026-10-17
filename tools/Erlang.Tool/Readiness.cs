@@ -176,6 +176,13 @@ internal static class Readiness
             ));
         markdown.AppendLine().AppendLine(ReadinessText.FacadeBoundary);
         Directory.CreateDirectory(output);
+        if (NativeInfrastructureReport.Write(
+            docs,
+            output,
+            baseline.Tag,
+            baseline.Commit
+        ))
+            markdown.AppendLine().AppendLine(NativeInfrastructureNames.Link);
         await File.WriteAllTextAsync(
             Path.Combine(output, MfaCompatibilityNames.Report),
             MfaCompatibilityMarkdown.Generate(compatibility with { Entries = registered.Select(entry => compatibilityByMfa[Key(entry.Module, entry.Function, entry.Arity)]).ToArray() }),

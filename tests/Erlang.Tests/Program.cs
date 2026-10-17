@@ -23,6 +23,10 @@ catch (ArgumentException failure)
 }
 
 var tests = new List<(string Name, Func<Task> Body)>();
+Test(Erlang.Tests.ProplistGetValueHostNames.ParseTest, Erlang.Tests.ProplistGetValueHostChecks.ParseAll);
+Test(Erlang.Tests.ProplistGetValueHostNames.IdentityTest, Erlang.Tests.ProplistGetValueHostChecks.Identity);
+Test(Erlang.Tests.ProplistGetValueHostNames.ProgressTest, Erlang.Tests.ProplistGetValueHostChecks.Progress);
+Test(Erlang.Tests.ProplistGetValueHostNames.CancellationTest, Erlang.Tests.ProplistGetValueHostChecks.Cancellation);
 Test(Erlang.Tests.TermOrderHostNames.DeepCompareTest, Erlang.Tests.TermOrderHostChecks.DeepCompare);
 Test(Erlang.Tests.TermOrderHostNames.DeepHashTest, Erlang.Tests.TermOrderHostChecks.DeepHash);
 Test(Erlang.Tests.TermOrderHostNames.ShallowTest, Erlang.Tests.TermOrderHostChecks.Shallow);
@@ -1914,6 +1918,12 @@ foreach (var export in exportRegistry.Exports.Where(export => Erlang.Tests.Funct
         $"mfa/{export.Module}:{export.Function}/{export.Arity}",
         async () =>
     {
+        if (Erlang.Tests.ProplistGetValueMfaContracts.Owns(export.Module, export.Function, export.Arity))
+        {
+            await Erlang.Tests.ProplistGetValueMfaContracts.Run(export.Arity);
+
+            return;
+        }
         if (Erlang.Tests.ConnectedDependencyMfaContracts.Owns(export.Module, export.Function, export.Arity))
         {
             await Erlang.Tests.ConnectedDependencyMfaContracts.Run(export.Module, export.Function, export.Arity);
@@ -5053,6 +5063,8 @@ Test(
 
 try
 {
+    Test(Erlang.Tests.ProplistStackHostNames.Test, Erlang.Tests.ProplistStackHostChecks.Run);
+    tests = tests.OrderBy(test => Erlang.Tests.ProplistGetValueMfaContracts.OwnsTest(test.Name)).ToList();
     var catalog = Erlang.Tests.TestRunCatalog.Create(tests.Select(test => test.Name));
     selectedTests = selection.Select(tests, catalog);
     if (selection.ListOnly)

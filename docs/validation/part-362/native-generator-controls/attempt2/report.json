@@ -1,0 +1,74 @@
+{
+  "PowerShellVersion": "7.6.5",
+  "CanonicalInputSha256": "9493E144B54F3217222E95D8E626BE50F887B043C45CF1280D1D55151751561E",
+  "ScratchDirectoryRemoved": true,
+  "Cases": [
+    {
+      "InputSha256": "9493E144B54F3217222E95D8E626BE50F887B043C45CF1280D1D55151751561E",
+      "ExpectedAccepted": true,
+      "ActualAccepted": true,
+      "ErrorType": null,
+      "Passed": true,
+      "OutputCreated": true,
+      "Name": "normal",
+      "ErrorMessage": null
+    },
+    {
+      "InputSha256": "EF40429AFDC7BDA0BE4D560D93AAFBA64163D345DC133EB98B329D1DCD8E42E4",
+      "ExpectedAccepted": false,
+      "ActualAccepted": false,
+      "ErrorType": "System.InvalidOperationException",
+      "Passed": true,
+      "OutputCreated": false,
+      "Name": "duplicate-id",
+      "ErrorMessage": "Invalid versioned native infrastructure inventory or evidence"
+    },
+    {
+      "InputSha256": "FA68B755584A14474C2622D7AB55D1BFAFABE3A21B040EDFDE9D9C3B956FDB06",
+      "ExpectedAccepted": false,
+      "ActualAccepted": false,
+      "ErrorType": "System.InvalidOperationException",
+      "Passed": true,
+      "OutputCreated": false,
+      "Name": "unknown-implementation",
+      "ErrorMessage": "Invalid versioned native infrastructure inventory or evidence"
+    },
+    {
+      "InputSha256": "45226F6B5A16623DF287EDD2B24F29DA6AFDC8FFC83A13478C26E4E03B9A7507",
+      "ExpectedAccepted": false,
+      "ActualAccepted": false,
+      "ErrorType": "System.InvalidOperationException",
+      "Passed": true,
+      "OutputCreated": false,
+      "Name": "unknown-verification",
+      "ErrorMessage": "Invalid versioned native infrastructure inventory or evidence"
+    },
+    {
+      "InputSha256": "DB61402E20D14F17606D850503F0EF48F9A4E79C7A34DFFA1B348E05A0CF41B8",
+      "ExpectedAccepted": false,
+      "ActualAccepted": false,
+      "ErrorType": "System.InvalidOperationException",
+      "Passed": true,
+      "OutputCreated": false,
+      "Name": "count-mismatch",
+      "ErrorMessage": "Invalid versioned native infrastructure inventory or evidence"
+    },
+    {
+      "InputSha256": "5CC9479618A26D3882501DDAEDF5DF9B0A626F7B577F02084313CA8739EC1F7F",
+      "ExpectedAccepted": false,
+      "ActualAccepted": false,
+      "ErrorType": "System.InvalidOperationException",
+      "Passed": true,
+      "OutputCreated": false,
+      "Name": "stale-evidence-hash",
+      "ErrorMessage": "Invalid versioned native infrastructure inventory or evidence"
+    }
+  ],
+  "DotNetRuntime": "10.0.11",
+  "Status": "PASS_ACTUAL_REFLECTION_GENERATOR_6_CONTROLS",
+  "ToolDllSha256": "3847A94FE20D94726729826E3CE5786D8D2CBFFD69E4AE0A16AE73B01FFAA868",
+  "BuildsSdkNativeNetworkOrGitExecuted": false,
+  "CanonicalSourceOrDocsChanged": false,
+  "InvokedType": "NativeInfrastructureReport",
+  "InvokedMethod": "Boolean Write(System.String, System.String, System.String, System.String)"
+}

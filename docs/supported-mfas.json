@@ -5281,5 +5281,23 @@
     "CompatibilityLedger": "mfa-compatibility.json",
     "Evidence": "mfa/rpc:call/5",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "proplists",
+    "Function": "get_value",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/proplists:get_value/2",
+    "Limits": "Complete observable get_value contract accepted; see mfa-compatibility.json for scope and source/original evidence."
+  },
+  {
+    "Module": "proplists",
+    "Function": "get_value",
+    "Arity": 3,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/proplists:get_value/3",
+    "Limits": "Complete observable get_value contract accepted; see mfa-compatibility.json for scope and source/original evidence."
   }
 ]

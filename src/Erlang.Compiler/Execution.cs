@@ -807,6 +807,7 @@ public static partial class Execution
                     if (targetModule == ErlangModuleNames.Module && RecordPredicateSyntax.HasLiteralNonpositiveSize(x))
                         return Term.A(ErlangBooleanAtoms.False);
                     var args = await Arguments(x.Arguments);
+                    using var sourceLocation = ctx.EnterSourceLocation(SourceCallLocations.For(module, x.SourceLine));
                     if (x.Module == ErlangModuleNames.Module && x.Function == SourceLoadNifNames.Function
                         && args.Length == SourceLoadNifNames.Arity)
                         return await CallSourceLoadNif(ctx, args);
@@ -878,6 +879,7 @@ public static partial class Execution
                         module
                     );
                     var args = await Arguments(x.Arguments);
+                    using var sourceLocation = ctx.EnterSourceLocation(SourceCallLocations.For(module, x.SourceLine));
 
                     if (fun is not FunctionTerm f)
                         throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadFunction), fun));

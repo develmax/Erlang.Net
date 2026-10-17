@@ -512,6 +512,7 @@ public static class CompiledModuleCases
         .. SupervisorSimpleCases.Modules,
         .. MapOperationsCases.Modules,
         .. ListFunctionsCases.Modules,
+        .. ProplistGetValueCases.Modules,
         .. RuntimeTimerCases.Modules,
         .. RecordCases.Modules,
         .. EarlyPlatformCases.Modules,

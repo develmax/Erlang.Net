@@ -1,0 +1,93 @@
+{
+  "Status": "PASS_SOURCE_REVIEW_AND_ORIGINAL59_FULL12_PENDING_FINAL_SEAL_REGRESSION_CI",
+  "ProposedMfas": [
+    {
+      "Module": "proplists",
+      "Function": "get_value",
+      "Arity": 2,
+      "ProposedStatusAfterFinalGates": "Verified compatible"
+    },
+    {
+      "Module": "proplists",
+      "Function": "get_value",
+      "Arity": 3,
+      "ProposedStatusAfterFinalGates": "Verified compatible"
+    }
+  ],
+  "AcceptanceSha256": "983B7E7CBEB467593258EC5EBAB8A2258790D6E9DEA3BD7293CB1AFE6D513FE4",
+  "CallerReviewSha256": "FFCD8E2BAF814BA53E32CBCA37EC8F807E5A2EF65DAF6FF94AA08FD1F6AE3050",
+  "KnownUnresolvedGetValueSpecificMetadataDifference": false,
+  "CurrentSourceBindings": [
+    {
+      "Path": "src/Erlang.Runtime/RuntimeExceptionCapture.cs",
+      "Sha256": "52CE3C60F8AD772136567AF3EE9D82D8E2B3DEC3334ED3B8BC916281FAE65AF2"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangExecutionFrame.cs",
+      "Sha256": "BAC83C718E86E827AA0CD12C07D137878B09E37A542142205A8B391658202EA7"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.SourceLocations.cs",
+      "Sha256": "995F79E162A45AA7D2CA54A7C7D0911D6F8F1C723ACCC448D6FDFD043558F416"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProplistValueLookup.cs",
+      "Sha256": "9AC5E6B4D25F806ED9A4C3574E1FDD8AEE61F6F9A71F0F87D8BABFCCA2C8CEF9"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProplistSourceLocation.cs",
+      "Sha256": "552EB50DA717EEEEBFC7B1852A06726613BC105F1D359252D398ED99026CC76A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProplistSourceLocationNames.cs",
+      "Sha256": "00E45AE782C463D8BBE537D53974F050D4DAE3C8C0F1641AC7ED83749FA0D5EF"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Expr.cs",
+      "Sha256": "BF1EAF4E9CAFC27D1ABF09045163054AC74B31E8872FAAB93B4D98E57DD7821C"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Parser.cs",
+      "Sha256": "AFB8861B7F62ACA15B082325F827996CEADD0EFFFD2A99B7AB3C4FD928D59C8E"
+    },
+    {
+      "Path": "src/Erlang.Compiler/CodeGeneration.cs",
+      "Sha256": "5C01BCEBD5AA99195C3793CDA0ABFE6AB61C0610A50C4825354CD2E15EC7994D"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "Sha256": "C2A213ECCAFEA717442247CEE0A0847FA05E8B56E473E28D2AAA04C7C5DB3EAA"
+    },
+    {
+      "Path": "src/Erlang.Compiler/ModuleDefinition.cs",
+      "Sha256": "90A39DE107C7F534C752DA8DF7F1E52DEAC6F2DCF54127D4A968D0ECB4BF642C"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceCallLocations.cs",
+      "Sha256": "1328B9C097944EC69FA72FE1E553FF4BDA61E0B83490E1B15EF86CF5DEE22128"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceCallLocationNames.cs",
+      "Sha256": "C277A0C1CCD70B389CC49933150923033928E02868E593A51CF2C90997EAD983"
+    },
+    {
+      "Path": "tools/Erlang.Differential/GeneratedModuleCompiler.cs",
+      "Sha256": "2D06B99D8E490DD32E4109A32DA2A8E61C909107557F868B5A83537A8BBF2929"
+    },
+    {
+      "Path": "tools/Erlang.Differential/ProplistGetValueObservationSource.cs",
+      "Sha256": "DE7208B28FAD67FF7C90DB4CF9705E8B1D9B387D3BAC91F3F437E65D7930C2CF"
+    },
+    {
+      "Path": "tests/Erlang.Tests/ProplistStackHostChecks.cs",
+      "Sha256": "438DCF22A1A56F66C09E0B118DE1E48B6A90FD8A7D04E51B3F750361EFF3819A"
+    },
+    {
+      "Path": "tests/Erlang.Tests/ProplistStackHostNames.cs",
+      "Sha256": "04489D93E2E5717C9F76F4A591CF43F78F544C4FB8D2FC3456E5EB113EE77E12"
+    }
+  ],
+  "FinalRootSourceSealAccepted": false,
+  "ReviewerExecutedSdkOriginalNativeNetwork": false,
+  "ReviewerModifiedSourceRegistryOrCi": false
+}

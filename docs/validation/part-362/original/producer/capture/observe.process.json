@@ -1,0 +1,23 @@
+{
+  "Arguments": [
+    "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/pure-api-otp/lib/erlang/bin/erl",
+    "+S",
+    "2:2",
+    "-noshell",
+    "-noinput",
+    "-eval",
+    "O=os:getenv(\"PURE_API_OUTPUT\"),E=os:getenv(\"PURE_API_EBIN\"),{module,proplist_get_value_contract}=code:load_abs(filename:join(E,\"proplist_get_value_contract\")),{module,proplists}=code:ensure_loaded(proplists),{proplists,B,F}=code:get_object_code(proplists),ok=file:write_file(filename:join(O,\"proplists-loaded.beam\"),B),Meta={pure_api_provenance,code:root_dir(),code:which(proplists),F,erlang:md5(B),proplists:module_info(md5),code:which(proplist_get_value_contract),erlang:system_info(otp_release),erlang:system_info(schedulers),erlang:system_info(schedulers_online),proplist_get_value_contract:names()},ok=file:write_file(filename:join(O,\"metadata.etf\"),term_to_binary(Meta)),Stacks=proplist_get_value_contract:stack_observations(),ok=file:write_file(filename:join(O,\"stack-observations.etf\"),term_to_binary(Stacks)),Rows=proplist_get_value_contract:run(),ok=file:write_file(filename:join(O,\"returned.etf\"),term_to_binary(Rows)),halt()."
+  ],
+  "OwnedPid": 82599,
+  "OwnedProcessGroup": 82599,
+  "ExitCode": 0,
+  "ElapsedSeconds": 0.12597716199996967,
+  "TerminationRequested": false,
+  "RemainingGroupKillRequested": false,
+  "ParentReaped": true,
+  "CleanupFailure": null,
+  "StreamsClosed": true,
+  "StdoutBytes": 0,
+  "StderrBytes": 0,
+  "Scope": "Linux foreground private epmd/erl process groups; automatic epmd daemon disabled"
+}

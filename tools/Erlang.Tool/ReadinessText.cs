@@ -36,7 +36,7 @@ internal static class ReadinessText
         int tests,
         string[] implemented,
         string[] remaining
-    ) => $"| {id} | {status} | {tests} | {string.Join("; ", implemented)} | {string.Join("; ", remaining)} |";
+    ) => $"| {MfaCompatibilityMarkdown.Escape(id)} | {MfaCompatibilityMarkdown.Escape(status)} | {tests} | {MfaCompatibilityMarkdown.Escape(string.Join("; ", implemented))} | {MfaCompatibilityMarkdown.Escape(string.Join("; ", remaining))} |";
 
     public static string ModuleRow(
         string name,

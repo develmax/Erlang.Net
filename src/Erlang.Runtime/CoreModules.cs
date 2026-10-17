@@ -851,6 +851,7 @@ public static class CoreModules
         ErlangErrorRegistrations.Register(r);
         ErlangLoadNifRegistrations.Register(r);
         ListModuleRegistrations.Register(r);
+        ProplistModuleRegistrations.Register(r);
         foreach (string operation in new[] { TimerModuleNames.SendAfter, TimerModuleNames.StartTimer })
             r.Register(
                 ErlangModuleNames.Module,

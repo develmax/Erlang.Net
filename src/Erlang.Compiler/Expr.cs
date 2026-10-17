@@ -29,8 +29,14 @@ public abstract record Expr
     public sealed record MapComprehension(IReadOnlyList<MapField> Fields, IReadOnlyList<ComprehensionQualifier> Qualifiers) : Expr;
     public sealed record Map(Expr? Base, IReadOnlyList<MapField> Fields) : Expr;
     public sealed record Bits(IReadOnlyList<BitSegment> Segments) : Expr;
-    public sealed record Call(string? Module, string Function, IReadOnlyList<Expr> Arguments) : Expr;
-    public sealed record Apply(Expr Function, IReadOnlyList<Expr> Arguments) : Expr;
+    public sealed record Call(string? Module, string Function, IReadOnlyList<Expr> Arguments) : Expr
+    {
+        public int SourceLine { get; init; }
+    }
+    public sealed record Apply(Expr Function, IReadOnlyList<Expr> Arguments) : Expr
+    {
+        public int SourceLine { get; init; }
+    }
     public sealed record Unary(string Operator, Expr Operand) : Expr;
     public sealed record Binary(string Operator, Expr Left, Expr Right) : Expr;
     public sealed record Match(Pattern Pattern, Expr Value) : Expr;

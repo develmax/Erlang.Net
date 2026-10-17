@@ -1,0 +1,73 @@
+name: Original proplists59 contracts only
+on:
+  workflow_dispatch:
+    inputs:
+      expected_head:
+        description: Exact published validation head
+        type: string
+        required: true
+      source_inputs_sha256:
+        description: SHA256 of reviewed proplists source-inputs.json at that head
+        type: string
+        required: true
+permissions:
+  contents: read
+jobs:
+  original-proplists59:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    env:
+      EXPECTED_HEAD: ${{ inputs.expected_head }}
+      SOURCE_INPUTS_SHA256: ${{ inputs.source_inputs_sha256 }}
+      ERLC_USE_SERVER: 'false'
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Admit exact head and corrected 59-case source
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_SHA" = "$EXPECTED_HEAD"
+          mkdir -p artifacts/pure-api-original
+          python3 tools/Erlang.ProplistGetValueObservations/collect-original.py \
+            --expected-head "$EXPECTED_HEAD" --source-inputs-sha256 "$SOURCE_INPUTS_SHA256" --verify-only \
+            2>&1 | tee artifacts/pure-api-original/source-admission.log
+      - name: Clone the pinned original source once
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 --branch OTP-29.1.1 https://github.com/erlang/otp.git artifacts/pure-api-otp-source \
+            2>&1 | tee artifacts/pure-api-original/clone.log
+          test "$(git -C artifacts/pure-api-otp-source rev-parse HEAD)" = ad05823719d77c8faee87348ea39513d4e2f99c5
+      - name: Build and seal one original OTP installation
+        shell: bash
+        run: |
+          set -euo pipefail
+          BUILD_MANIFEST_SHA256="$(sha256sum tools/Erlang.SchedulerAffinityOriginalObservations/manifest.json | cut -d ' ' -f 1)"
+          python3 tools/Erlang.SchedulerAffinityOriginalObservations/build-original.py \
+            --repository "$GITHUB_WORKSPACE" --manifest-sha256 "$BUILD_MANIFEST_SHA256" \
+            --expected-head "$EXPECTED_HEAD" --otp-source "$GITHUB_WORKSPACE/artifacts/pure-api-otp-source" \
+            --prefix "$GITHUB_WORKSPACE/artifacts/pure-api-otp" \
+            --output "$GITHUB_WORKSPACE/artifacts/pure-api-original/build" \
+            2>&1 | tee artifacts/pure-api-original/build.log
+      - name: Compile legal fixture and acquire all 59 original outcomes
+        shell: bash
+        run: |
+          set -euo pipefail
+          BUILD_RECEIPT_SHA256="$(sha256sum artifacts/pure-api-original/build/build-receipt.json | cut -d ' ' -f 1)"
+          python3 tools/Erlang.ProplistGetValueObservations/collect-original.py \
+            --expected-head "$EXPECTED_HEAD" --source-inputs-sha256 "$SOURCE_INPUTS_SHA256" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/pure-api-otp-source" \
+            --runtime-root "$GITHUB_WORKSPACE/artifacts/pure-api-otp/lib/erlang" \
+            --build-receipt "$GITHUB_WORKSPACE/artifacts/pure-api-original/build/build-receipt.json" \
+            --approved-build-receipt-sha256 "$BUILD_RECEIPT_SHA256" \
+            --output "$GITHUB_WORKSPACE/artifacts/pure-api-original/capture" \
+            2>&1 | tee artifacts/pure-api-original/collection.log
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: original-proplists59
+          path: artifacts/pure-api-original/**
+          if-no-files-found: warn

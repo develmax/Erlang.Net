@@ -6,5 +6,6 @@ internal sealed record ErlangExecutionFrame(
     int Arity,
     ErlangExecutionFrame? Parent,
     bool SourceWrapper = false,
-    IReadOnlyList<Term>? HostHandlerArguments = null
+    IReadOnlyList<Term>? HostHandlerArguments = null,
+    Term? SourceLocation = null
 );
