@@ -1,28 +1,27 @@
 {
-  "Family": "proplists-map-iterator-delegation",
+  "Family": "proplists-raw-iterator-and-native-hash-contract",
   "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Mfas": [
-    "proplists:from_map/1"
+    "proplists:from_map/1",
+    "erts_debug:get_internal_state/1"
   ],
   "Fixtures": [
     {
-      "Id": "proplists_iterator_contract",
+      "Id": "flat_iterators",
       "Location": "tool",
-      "Path": "original/proplists_iterator_contract.erl",
-      "Module": "proplists_iterator_contract",
+      "Path": "original/proplists_flat_iterator_contract.erl",
+      "Module": "proplists_flat_iterator_contract",
       "Names": [
-        "none",
-        "literal_next",
-        "ordered",
-        "reversed",
-        "wrapped_iterator",
-        "malformed_atom",
-        "malformed_tail",
-        "malformed_keys"
+        "flat_nonzero",
+        "flat_at_end",
+        "flat_outside",
+        "empty_zero",
+        "empty_outside",
+        "flat_negative"
       ],
       "Run": "run",
       "NamesEntry": "cases",
-      "StackModule": "proplists_iterator_contract",
+      "StackModule": "proplists_flat_iterator_contract",
       "StackEntry": "run_stacks",
       "WorkerModule": "proplists_observation_worker",
       "WorkerEntry": "run",
@@ -32,58 +31,388 @@
       ],
       "Cases": [
         {
-          "Name": "none",
+          "Name": "flat_nonzero",
           "Mfas": [
             "proplists:from_map/1"
           ],
           "Policy": "exact"
         },
         {
-          "Name": "literal_next",
+          "Name": "flat_at_end",
           "Mfas": [
             "proplists:from_map/1"
           ],
           "Policy": "exact"
         },
         {
-          "Name": "ordered",
+          "Name": "flat_outside",
           "Mfas": [
             "proplists:from_map/1"
           ],
           "Policy": "exact"
         },
         {
-          "Name": "reversed",
+          "Name": "empty_zero",
           "Mfas": [
             "proplists:from_map/1"
           ],
           "Policy": "exact"
         },
         {
-          "Name": "wrapped_iterator",
+          "Name": "empty_outside",
           "Mfas": [
             "proplists:from_map/1"
           ],
           "Policy": "exact"
         },
         {
-          "Name": "malformed_atom",
+          "Name": "flat_negative",
+          "Mfas": [
+            "proplists:from_map/1"
+          ],
+          "Policy": "exact"
+        }
+      ]
+    },
+    {
+      "Id": "raw_cursors",
+      "Location": "tool",
+      "Path": "original/proplists_raw_cursor_contract.erl",
+      "Module": "proplists_raw_cursor_contract",
+      "Names": [
+        "flat32_one",
+        "flat32_fifteen",
+        "flat32_limit",
+        "flat32_over",
+        "flat32_negative",
+        "flat32_big",
+        "hamt33_zero",
+        "hamt33_one",
+        "hamt33_two",
+        "hamt33_fifteen",
+        "hamt33_sixteen",
+        "hamt33_negative_small",
+        "hamt33_small_min",
+        "hamt33_big",
+        "hamt33_negative_big",
+        "hamt33_tuple_keys",
+        "hamt33_atom_keys",
+        "hamt33_binary_keys"
+      ],
+      "Run": "run",
+      "NamesEntry": "cases",
+      "StackModule": "proplists_raw_cursor_contract",
+      "StackEntry": "run_stacks",
+      "WorkerModule": "proplists_observation_worker",
+      "WorkerEntry": "run",
+      "StackShape": "depth_cases",
+      "Companions": [
+        "original/proplists_observation_worker.erl"
+      ],
+      "Cases": [
+        {
+          "Name": "flat32_one",
           "Mfas": [
             "proplists:from_map/1"
           ],
           "Policy": "exact"
         },
         {
-          "Name": "malformed_tail",
+          "Name": "flat32_fifteen",
           "Mfas": [
             "proplists:from_map/1"
           ],
           "Policy": "exact"
         },
         {
-          "Name": "malformed_keys",
+          "Name": "flat32_limit",
           "Mfas": [
             "proplists:from_map/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "flat32_over",
+          "Mfas": [
+            "proplists:from_map/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "flat32_negative",
+          "Mfas": [
+            "proplists:from_map/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "flat32_big",
+          "Mfas": [
+            "proplists:from_map/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "hamt33_zero",
+          "Mfas": [
+            "proplists:from_map/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "hamt33_one",
+          "Mfas": [
+            "proplists:from_map/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "hamt33_two",
+          "Mfas": [
+            "proplists:from_map/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "hamt33_fifteen",
+          "Mfas": [
+            "proplists:from_map/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "hamt33_sixteen",
+          "Mfas": [
+            "proplists:from_map/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "hamt33_negative_small",
+          "Mfas": [
+            "proplists:from_map/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "hamt33_small_min",
+          "Mfas": [
+            "proplists:from_map/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "hamt33_big",
+          "Mfas": [
+            "proplists:from_map/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "hamt33_negative_big",
+          "Mfas": [
+            "proplists:from_map/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "hamt33_tuple_keys",
+          "Mfas": [
+            "proplists:from_map/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "hamt33_atom_keys",
+          "Mfas": [
+            "proplists:from_map/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "hamt33_binary_keys",
+          "Mfas": [
+            "proplists:from_map/1"
+          ],
+          "Policy": "exact"
+        }
+      ]
+    },
+    {
+      "Id": "native_hashes",
+      "Location": "tool",
+      "Path": "original/proplists_raw_cursor_contract.erl",
+      "Module": "proplists_raw_cursor_contract",
+      "Names": [
+        "integer_zero",
+        "integer_one",
+        "integer_minus_one",
+        "small_max",
+        "small_min",
+        "positive_big_boundary",
+        "negative_big_boundary",
+        "big_word",
+        "big_two_words",
+        "float_zero",
+        "float_fraction",
+        "binary_empty",
+        "binary_three",
+        "bitstring_partial",
+        "tuple_empty",
+        "tuple_integers",
+        "list_empty",
+        "list_bytes",
+        "list_improper",
+        "atom_key"
+      ],
+      "Run": "hash_run",
+      "NamesEntry": "hash_cases",
+      "StackModule": "proplists_raw_cursor_contract",
+      "StackEntry": "hash_run_stacks",
+      "WorkerModule": "proplists_observation_worker",
+      "WorkerEntry": "run",
+      "StackShape": "depth_cases",
+      "Companions": [
+        "original/proplists_observation_worker.erl"
+      ],
+      "Cases": [
+        {
+          "Name": "integer_zero",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "integer_one",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "integer_minus_one",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "small_max",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "small_min",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "positive_big_boundary",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "negative_big_boundary",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "big_word",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "big_two_words",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "float_zero",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "float_fraction",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "binary_empty",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "binary_three",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "bitstring_partial",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "tuple_empty",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "tuple_integers",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "list_empty",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "list_bytes",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "list_improper",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "atom_key",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
           ],
           "Policy": "exact"
         }
@@ -93,8 +422,13 @@
   "FixtureSources": [
     {
       "Location": "tool",
-      "Path": "original/proplists_iterator_contract.erl",
-      "Sha256": "311320DE56CD96873CB428AC01A80455E1D14D7C5070403B6F1A6C7718045A7F"
+      "Path": "original/proplists_flat_iterator_contract.erl",
+      "Sha256": "DA0C0BF86429A60C1F74BA5174C01A2D9048C03BC3EB455A5C0EB2CAF31BF9D1"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/proplists_raw_cursor_contract.erl",
+      "Sha256": "C8E391356BA060F25592F85418FEDDE9AE5C94EF030923DFFC0DB92ED69FD670"
     },
     {
       "Location": "tool",
@@ -102,6 +436,6 @@
       "Sha256": "34B743EB95A5937058AB8F208A1FB17C6ACED20AF7E08398EF6D154F574546BC"
     }
   ],
-  "ExpectedUniqueSourceCount": 2,
-  "ObserverEntry": "New8iterator branch cases only, full matched-worker frames retained; final integrated SDK replay remains local"
+  "ExpectedUniqueSourceCount": 3,
+  "ObserverEntry": "Flat6/raw18 SDK pairs; nativehash20 original-only diagnostics paired separately by managed hash HOST; no captured hashes inserted in production"
 }

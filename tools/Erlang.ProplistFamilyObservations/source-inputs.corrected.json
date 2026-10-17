@@ -111,6 +111,11 @@
       "Sha256": "720B6DB44B031F1FABBBF694391CD016243B510FD30E620DEE8C4F9FFD5C3D21"
     },
     {
+      "Path": "original/proplists_flat_iterator_contract.erl",
+      "Bytes": 1175,
+      "Sha256": "DA0C0BF86429A60C1F74BA5174C01A2D9048C03BC3EB455A5C0EB2CAF31BF9D1"
+    },
+    {
       "Path": "original/proplists_fun_semantics.erl",
       "Bytes": 3291,
       "Sha256": "E8FF34EFAA501C7B8A341EA4C89173EDA64F5711BDBED827F3C51700DB982F15"
@@ -129,6 +134,11 @@
       "Path": "original/proplists_observation_worker.erl",
       "Bytes": 1038,
       "Sha256": "34B743EB95A5937058AB8F208A1FB17C6ACED20AF7E08398EF6D154F574546BC"
+    },
+    {
+      "Path": "original/proplists_raw_cursor_contract.erl",
+      "Bytes": 4017,
+      "Sha256": "C8E391356BA060F25592F85418FEDDE9AE5C94EF030923DFFC0DB92ED69FD670"
     },
     {
       "Path": "parse-gate/ParseGateNames.cs",
@@ -152,8 +162,8 @@
     },
     {
       "Path": "profile.json",
-      "Bytes": 2799,
-      "Sha256": "90ABFFB9B4BD4443A146D6283DB9854AA2E982A9F63CB38174B34FDF54691AB9"
+      "Bytes": 11167,
+      "Sha256": "19B25FCBF8E42E86C9EC53F686882CB177E57B4E4CC50B46A4600BC3C4930A4E"
     },
     {
       "Path": "self-test.py",
@@ -176,8 +186,9 @@
   "FamilyPublicationAuthorized": false,
   "OriginalAdapterSourceInputsSha256": "52FBA0CEF0CABB45A1A2D67F41FE8DB70BE6FD905F5AE5DBF42673732620E56F",
   "Corrections": [
-    "New8iterator cases only; previous10groups unchanged and not repeated.",
-    "Original-only CI; no runtime/compiler implementation publication."
+    "Only24newiterator cases plus20nativehash diagnostics; previous8andoldergroups not repeated.",
+    "Nativehashdiagnostics original-only, managedcounterpartHOSTseparate; rawstatesremainmandatory.",
+    "No runtime/compiler implementation publication."
   ],
   "WorkerObservationSchema": "shared-guest-worker-1"
 }
