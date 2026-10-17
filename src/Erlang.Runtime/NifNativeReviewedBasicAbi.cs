@@ -5,6 +5,7 @@ namespace Erlang;
 internal sealed class NifNativeReviewedBasicAbi
 {
     internal string LibraryPath { get; }
+    internal NifNativeLibraryPath NativeLibraryPath { get; }
     internal string LibrarySha256 { get; }
     internal string ReviewedBuildReceiptSha256 { get; }
     internal string? BridgePath { get; }
@@ -15,7 +16,8 @@ internal sealed class NifNativeReviewedBasicAbi
         string trustedLibrarySha256,
         string reviewedBuildReceiptSha256,
         string? bridgePath = null,
-        string? trustedBridgeSha256 = null
+        string? trustedBridgeSha256 = null,
+        byte[]? unixLibraryPath = null
     )
     {
         Validate(libraryPath, trustedLibrarySha256);
@@ -26,6 +28,12 @@ internal sealed class NifNativeReviewedBasicAbi
             throw new ArgumentException(NifNativeDiagnostics.BridgeContract);
         if (OperatingSystem.IsLinux() && bridgePath is null)
             throw new ArgumentException(NifNativeDiagnostics.BridgeContract);
+        NativeLibraryPath = unixLibraryPath is null
+            ? NifNativeLibraryPath.FromHostPath(libraryPath)
+            : NifNativeLibraryPath.FromUnixAbsolute(unixLibraryPath);
+        if (unixLibraryPath is not null && (OperatingSystem.IsWindows() ||
+            !string.Equals(NativeLibraryPath.DisplayPath, libraryPath, StringComparison.Ordinal)))
+            throw new ArgumentException(NifNativeDiagnostics.TrustedSource);
         LibraryPath = libraryPath;
         LibrarySha256 = trustedLibrarySha256;
         ReviewedBuildReceiptSha256 = reviewedBuildReceiptSha256;

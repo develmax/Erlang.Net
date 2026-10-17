@@ -45,4 +45,10 @@ internal unsafe struct NifNativeBridgeTable
     internal delegate* unmanaged[Cdecl]<nint, long, nuint> MakeLong;
     internal delegate* unmanaged[Cdecl]<nint, long, nuint> MakeInt64;
     internal delegate* unmanaged[Cdecl]<nint, ulong, nuint> MakeUInt64;
+    internal delegate* unmanaged[Cdecl]<nint, nuint, nuint*, int> GetMapSize;
+    internal delegate* unmanaged[Cdecl]<nint, nuint> MakeReference;
+    internal delegate* unmanaged[Cdecl]<nint> AllocateEnvironment;
+    internal delegate* unmanaged[Cdecl]<nint, void> FreeEnvironment;
+    internal delegate* unmanaged[Cdecl]<nint, void> ClearEnvironment;
+    internal delegate* unmanaged[Cdecl]<nint, nuint, nuint> CopyTerm;
 }

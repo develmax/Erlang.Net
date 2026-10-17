@@ -1,0 +1,54 @@
+{
+  "Status": "PASS_SIX_SYNTHETIC_ROUTE_COLLECTION_CONTROLS",
+  "SourceSha256": "3FE6FAD78F8118273E4CD52C993E746D46282BC9A166C34FE7DB90D1A398FF86",
+  "NoSdkOrNativeExecution": true,
+  "Cases": [
+    {
+      "Name": "reviewed-fails",
+      "Invoked": [
+        "reviewed",
+        "ordinary"
+      ],
+      "Error": "RuntimeError"
+    },
+    {
+      "Name": "ordinary-fails",
+      "Invoked": [
+        "reviewed",
+        "ordinary"
+      ],
+      "Error": "RuntimeError"
+    },
+    {
+      "Name": "both-fail",
+      "Invoked": [
+        "reviewed",
+        "ordinary"
+      ],
+      "Error": "RuntimeError"
+    },
+    {
+      "Name": "both-pass",
+      "Invoked": [
+        "reviewed",
+        "ordinary"
+      ],
+      "Error": null
+    },
+    {
+      "Name": "malformed-reviewed",
+      "Invoked": [
+        "reviewed",
+        "ordinary"
+      ],
+      "Error": "RuntimeError"
+    },
+    {
+      "Name": "unsettled-reviewed",
+      "Invoked": [
+        "reviewed"
+      ],
+      "Error": "AssertionError"
+    }
+  ]
+}

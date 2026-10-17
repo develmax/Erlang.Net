@@ -9,6 +9,9 @@ internal static unsafe class NifNativeBridgeFixedHostChecks
     internal static void Layout(ProcessContext context)
     {
         NifNativeBridgeTable table = Table();
+        using var environmentTable = new NifNativeWindowsCallbacks();
+        environmentTable.BindIndependentEnvironments(context.Runtime, new ModuleCodeImage(NifNativeBridgeFixedHostNames.Module));
+        NifNativeReferenceBridgeTable.Bind(ref table, ((nint*)environmentTable.Pointer)[NifNativeEnvironmentLayout.Allocate]);
         Require(table.Version == NifNativeBridgeFixedHostNames.ExpectedVersion);
         Require(table.Size == NifNativeBridgeFixedHostNames.ExpectedTableBytes);
         Require(sizeof(NifNativeBridgeTable) == NifNativeBridgeFixedHostNames.ExpectedTableBytes);
@@ -23,7 +26,8 @@ internal static unsafe class NifNativeBridgeFixedHostChecks
             "IsEmptyList", "IsList", "IsTuple", "IsNumber", "IsMap", "GetListCell",
             "MakeTupleFromArray", "MakeListFromArray", "GetUnsignedLong", "GetDouble",
             "GetUnsignedInt", "GetLong", "GetInt64", "GetUInt64", "MakeUnsignedLong",
-            "MakeDouble", "MakeUnsignedInt", "MakeLong", "MakeInt64", "MakeUInt64"
+            "MakeDouble", "MakeUnsignedInt", "MakeLong", "MakeInt64", "MakeUInt64",
+            "GetMapSize", "MakeReference", "AllocateEnvironment", "FreeEnvironment", "ClearEnvironment", "CopyTerm"
         ];
         Require(prefix.Length == NifNativeBridgeFixedHostNames.LegacyPointerCount);
         Require(extension.Length == NifNativeBridgeFixedHostNames.AddedPointerCount);

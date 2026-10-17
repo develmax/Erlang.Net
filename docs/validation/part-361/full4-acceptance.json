@@ -1,0 +1,269 @@
+{
+  "Status": "PASS_FINAL_WINDOWS_FULL4_CURATED_REGISTRY_PUBLICATION_EXCEPTION",
+  "SourcePlanSha256": "26771833B3E7C2A70166C36ED0854354198F4DC5E6270E01CD1B00E97101A2E2",
+  "StableSourceRows": 3319,
+  "StyleTokenFiles": 104,
+  "GuardRows": 221,
+  "FullExitCode": 0,
+  "FullTimedOut": false,
+  "ActualTestsPassed": 7438,
+  "Failed": 0,
+  "ExactOrderedPreviousPrefix": 7425,
+  "ExactNewNames": [
+    "runtime/nif/compare-ordering",
+    "runtime/nif/exact-identity",
+    "runtime/nif/compare-pending-live-writes",
+    "runtime/nif/reference-uniqueness",
+    "runtime/nif/compare-reference-ownership",
+    "runtime/nif/map-size-shape-output",
+    "runtime/nif/map-size-pure-environment",
+    "runtime/nif/map-size-owner-lifetime",
+    "runtime/nif/reference-environment-lifetime",
+    "runtime/nif/reference-foreign-threads",
+    "runtime/nif/reference-counter-boundaries",
+    "runtime/nif/reference-counter-concurrent-boundaries",
+    "runtime/nif/linux-capsule-metadata"
+  ],
+  "IntegrationOutcomes": {
+    "OracleUnavailableReport": "Expected failure recorded",
+    "PackagedReadiness": "Passed",
+    "Readiness": "Passed",
+    "LocalTool": "Passed",
+    "Incremental": "Passed",
+    "CleanRebuild": "Passed",
+    "Build": "Passed",
+    "DisabledPreprocessing": "Expected failure",
+    "PackageConsumer": "Passed",
+    "HybridOutput": "Hello World",
+    "Tests": "Passed"
+  },
+  "RegistryRows": 587,
+  "RegistryModules": 14,
+  "RegistryIdentityAndNonLimitsFieldsStable": true,
+  "CuratedLimitsReplacedByLegacyExport": 32,
+  "CurrentRegistryState": "GENERATED_GENERIC_LIMITS_CURRENT",
+  "CustomLimitsRestoreRequiredForPublication": true,
+  "SourceAndFocusDllSnapshotRows": 26,
+  "NativeReuseWithFull": true,
+  "Readiness": [
+    {
+      "Path": "artifacts/readiness/module-readiness.json",
+      "Sha256": "A3857983D666E7DD097726DBBD2EA62770770E78E15D5ECCC3E568F3039CF953",
+      "LocalPassedTests": 7438
+    },
+    {
+      "Path": "artifacts/tool-readiness/module-readiness.json",
+      "Sha256": "A3857983D666E7DD097726DBBD2EA62770770E78E15D5ECCC3E568F3039CF953",
+      "LocalPassedTests": 7438
+    }
+  ],
+  "Packages": [
+    {
+      "Name": "Erlang.Net.CSharp.0.1.0.nupkg",
+      "Bytes": 14136224,
+      "Sha256": "3C82875A3C47B3B00CB891EFB676E18FD15040E1D97DDBA642B715546604D2A9",
+      "CanonicalGitResources": 6,
+      "ErlangDllPayloads": [
+        {
+          "Member": "lib/net10.0/Erlang.Compiler.dll",
+          "Sha256": "387B2106AF01BFE30A4A4857C29E6F6D9E267ECAFEDA7F375D9AD9660E87D1DF"
+        },
+        {
+          "Member": "lib/net10.0/Erlang.Otp.Behaviours.dll",
+          "Sha256": "6E6BC77829A1479FFF518A66829114BE159EA9AC41186F646C80F51FE80CAE96"
+        },
+        {
+          "Member": "lib/net10.0/Erlang.Runtime.dll",
+          "Sha256": "100D21C9566B33F59BBBE63CDB8A302E95CFF678EED499EFF82E65D39E0A92E3"
+        },
+        {
+          "Member": "lib/net10.0/Erlang.Serialization.dll",
+          "Sha256": "78539D6CE442645227F8D32CF2A487EAB1B3AE7A00B779A0BEE2B033CDC7C73F"
+        },
+        {
+          "Member": "lib/net10.0/Erlang.Terms.dll",
+          "Sha256": "88A6F4DC44D2F92B8266DD21966498F9BE5B009ECBCEA188526A3B177BE4D3D1"
+        },
+        {
+          "Member": "tools/net10.0/Erlang.Compiler.dll",
+          "Sha256": "387B2106AF01BFE30A4A4857C29E6F6D9E267ECAFEDA7F375D9AD9660E87D1DF"
+        },
+        {
+          "Member": "tools/net10.0/Erlang.Otp.Behaviours.dll",
+          "Sha256": "6E6BC77829A1479FFF518A66829114BE159EA9AC41186F646C80F51FE80CAE96"
+        },
+        {
+          "Member": "tools/net10.0/Erlang.Runtime.dll",
+          "Sha256": "100D21C9566B33F59BBBE63CDB8A302E95CFF678EED499EFF82E65D39E0A92E3"
+        },
+        {
+          "Member": "tools/net10.0/Erlang.Serialization.dll",
+          "Sha256": "78539D6CE442645227F8D32CF2A487EAB1B3AE7A00B779A0BEE2B033CDC7C73F"
+        },
+        {
+          "Member": "tools/net10.0/Erlang.Terms.dll",
+          "Sha256": "88A6F4DC44D2F92B8266DD21966498F9BE5B009ECBCEA188526A3B177BE4D3D1"
+        },
+        {
+          "Member": "tools/net10.0/Erlang.Tool.dll",
+          "Sha256": "7EA6C8E35978754F7219A6C33FDB84CB120F506E2F1DBE14B7CD6B1BC0127FDA"
+        }
+      ]
+    },
+    {
+      "Name": "Erlang.Net.Tool.0.1.0.nupkg",
+      "Bytes": 16226548,
+      "Sha256": "CF771AC6D2E225D8AC5BAC448B2D428798248C1411BC468D4144A461F4191333",
+      "CanonicalGitResources": 6,
+      "ErlangDllPayloads": [
+        {
+          "Member": "tools/net10.0/any/Erlang.Compiler.dll",
+          "Sha256": "387B2106AF01BFE30A4A4857C29E6F6D9E267ECAFEDA7F375D9AD9660E87D1DF"
+        },
+        {
+          "Member": "tools/net10.0/any/Erlang.Otp.Behaviours.dll",
+          "Sha256": "6E6BC77829A1479FFF518A66829114BE159EA9AC41186F646C80F51FE80CAE96"
+        },
+        {
+          "Member": "tools/net10.0/any/Erlang.Runtime.dll",
+          "Sha256": "100D21C9566B33F59BBBE63CDB8A302E95CFF678EED499EFF82E65D39E0A92E3"
+        },
+        {
+          "Member": "tools/net10.0/any/Erlang.Serialization.dll",
+          "Sha256": "78539D6CE442645227F8D32CF2A487EAB1B3AE7A00B779A0BEE2B033CDC7C73F"
+        },
+        {
+          "Member": "tools/net10.0/any/Erlang.Terms.dll",
+          "Sha256": "88A6F4DC44D2F92B8266DD21966498F9BE5B009ECBCEA188526A3B177BE4D3D1"
+        },
+        {
+          "Member": "tools/net10.0/any/Erlang.Tool.dll",
+          "Sha256": "7EA6C8E35978754F7219A6C33FDB84CB120F506E2F1DBE14B7CD6B1BC0127FDA"
+        }
+      ]
+    }
+  ],
+  "CanonicalGitResourceHead": "714ada4d0364afa7b244abdde8dccc6c1bdb0e5f",
+  "CanonicalGitResourceHashes": {
+    "README.md": "CE72552A05DAE01EBE8CBCD6BC7D7833BA954E439EDDC503EF6E2AA734574E78",
+    "docs/ROSLYN-LICENSE.txt": "E1A7F024FDB8B7F09F5F75ED7F9723C9379DD6AA02F8EF0A24098EF7EFB48C35",
+    "docs/DOTNET-LICENSE.txt": "5D7FCBB3E04B03275D268BC215D541A0C96A96CBAF96D690ABC285D22F4C2B4A",
+    "docs/DOTNET-ThirdPartyNotices.txt": "2DC8F8C5A39401E928B5784AB564EB8B3CEB99EAD3DF8F260E0CAB7E0BBECC7A",
+    "docs/OTP-LICENSE.txt": "2935DE8423498CFE75B8C4043FC482914FF575EFA269F9B8F97FB559E209315C",
+    "docs/OTP-PORTS.md": "A978CB9FCC8F8C2F3A98AF90897E2F18F222FC2DD15D53C132A41B1273FE0623"
+  },
+  "ActualChildControls": 12,
+  "ChildReceiptCombinations": [
+    [
+      "fun-environment",
+      "compare",
+      32768
+    ],
+    [
+      "fun-environment",
+      "hash",
+      32768
+    ],
+    [
+      "list-head",
+      "compare",
+      32768
+    ],
+    [
+      "list-head",
+      "hash",
+      32768
+    ],
+    [
+      "map-value",
+      "compare",
+      32768
+    ],
+    [
+      "map-value",
+      "hash",
+      32768
+    ],
+    [
+      "native-record",
+      "compare",
+      32768
+    ],
+    [
+      "native-record",
+      "hash",
+      32768
+    ],
+    [
+      "tuple",
+      "compare",
+      32768
+    ],
+    [
+      "tuple",
+      "hash",
+      32768
+    ],
+    [
+      "tuple",
+      "shallow",
+      6
+    ],
+    [
+      "tuple",
+      "snapshot",
+      0
+    ]
+  ],
+  "StderrScope": "Expected process_display contract diagnostics retained; not discarded",
+  "LinuxRun39030222266Accepted": false,
+  "LinuxFailurePreservedSeparately": true,
+  "SameHeadCiClaimed": false,
+  "ApiCompatibilityPromoted": false,
+  "SdkOrNativeExecutedByReviewer": false,
+  "CoordinatorSha256": "8D41DE7410A8993BF7D228552DD8C11D5BB0D3A67BA260F64D09087AAB751430",
+  "ActualFullElapsedSeconds": 370.0469999999914,
+  "CuratedSnapshotSha256": "77B061DEFFD2218D8F76BB1A87C8B829539AA3D6D727A7C8A6B0928E9E7BDBF6",
+  "PreviousFull3RedPreserved": true,
+  "PreviousFull3Passed": 7422,
+  "PreviousFull3Failed": 16,
+  "PreviousFull3FailureNames": [
+    "oracle/compiled-module/erlang-port-native-option-echo-3",
+    "oracle/compiled-module/erlang-port-native-option-echo-4",
+    "oracle/compiled-module/erlang-port-native-option-shared-streams-5",
+    "oracle/compiled-module/erlang-port-native-option-shared-streams-6",
+    "oracle/compiled-module/erlang-port-native-option-shared-streams-7",
+    "oracle/compiled-module/erlang-port-native-option-shell-shared-streams",
+    "oracle/compiled-module/erlang-port-native-option-arg0-9",
+    "oracle/compiled-module/erlang-port-native-option-arg0-10",
+    "oracle/compiled-module/erlang-port-native-option-arg0-11",
+    "oracle/compiled-module/erlang-port-native-option-arg0-preserved-by-args",
+    "oracle/compiled-module/erlang-port-native-option-auxiliary-19",
+    "oracle/compiled-module/erlang-port-native-option-auxiliary-20",
+    "oracle/compiled-module/erlang-port-native-option-auxiliary-21",
+    "oracle/compiled-module/erlang-port-native-option-input-only-eof",
+    "oracle/compiled-module/erlang-port-native-option-input-only-output-fails",
+    "oracle/compiled-module/erlang-port-native-option-output-only-no-data"
+  ],
+  "PreviousFull3Artifacts": [
+    {
+      "Path": "artifacts\\part361-full-actual3\\outputs\\artifacts\\tests.json",
+      "Sha256": "A518E624427D0F685B998C1B4A50A5D4840F6E8A740FA1843C34AFE2BE2348F5"
+    },
+    {
+      "Path": "artifacts\\part361-full-actual3\\full.exit.json",
+      "Sha256": "EF262958F1DB80F8E6788F6C8F6F088BBEC13ACC52379F0B318A8F2884C84F3F"
+    },
+    {
+      "Path": "artifacts\\part361-full-actual3\\full.stdout.log",
+      "Sha256": "8554ED39CFDF3044BE33C5CDE9A2D2D19D2101A1BBC32331A2F458474ECC9E31"
+    },
+    {
+      "Path": "artifacts\\part361-full-actual3\\full.stderr.log",
+      "Sha256": "287E8D9D338787997CA20811DADCA00B5B1EBCA4C66FFDA3F7F1774951F49B4F"
+    }
+  ],
+  "PreviousFull3SourcePlanAndNativeInputsEqual": true,
+  "PreviousFull3SavedChildReceipts": 12,
+  "WindowsNativePortEaccesCauseEstablishedByThisReview": false
+}

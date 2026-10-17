@@ -13,7 +13,7 @@ _Static_assert(sizeof(long) == 8, "Linux bridge requires LP64 long");
 _Static_assert(sizeof(void *) == 8, "Linux bridge requires x64 pointers");
 
 #define NIF_BRIDGE_EXPORT __attribute__((visibility("default")))
-#define NIF_BRIDGE_VERSION UINT32_C(2)
+#define NIF_BRIDGE_VERSION UINT32_C(4)
 
 typedef struct NifBridgeCursor {
     va_list arguments;
@@ -61,9 +61,15 @@ typedef struct NifBridgeCallbacks {
     ERL_NIF_TERM (*make_long)(ErlNifEnv *, long);
     ERL_NIF_TERM (*make_int64)(ErlNifEnv *, ErlNifSInt64);
     ERL_NIF_TERM (*make_uint64)(ErlNifEnv *, ErlNifUInt64);
+    int (*get_map_size)(ErlNifEnv *, ERL_NIF_TERM, size_t *);
+    ERL_NIF_TERM (*make_ref)(ErlNifEnv *);
+    ErlNifEnv *(*alloc_env)(void);
+    void (*free_env)(ErlNifEnv *);
+    void (*clear_env)(ErlNifEnv *);
+    ERL_NIF_TERM (*make_copy)(ErlNifEnv *, ERL_NIF_TERM);
 } NifBridgeCallbacks;
 
-_Static_assert(sizeof(NifBridgeCallbacks) == 312, "Fixed bridge table size mismatch");
+_Static_assert(sizeof(NifBridgeCallbacks) == 360, "Fixed bridge table size mismatch");
 
 /* Caller owns an immutable, process-lifetime table. No replacement/unregister. */
 NIF_BRIDGE_EXPORT int nif_bridge_register(const NifBridgeCallbacks *callbacks);

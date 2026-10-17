@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace Erlang;
 
-internal static class NifNativePlatformLoader
+internal static unsafe class NifNativePlatformLoader
 {
     internal static void VerifyPlatform()
     {
@@ -14,8 +14,20 @@ internal static class NifNativePlatformLoader
     }
 
     internal static nint Open(
-        FileStream file,
+        FileStream? file,
         string path,
+        bool global,
+        bool useDescriptor = true
+    ) => Open(
+        file,
+        NifNativeLibraryPath.FromHostPath(path),
+        global,
+        useDescriptor
+    );
+
+    internal static nint Open(
+        FileStream? file,
+        NifNativeLibraryPath path,
         bool global,
         bool useDescriptor = true
     )
@@ -23,7 +35,7 @@ internal static class NifNativePlatformLoader
         VerifyPlatform();
         if (OperatingSystem.IsWindows())
         {
-            nint windowsHandle = LoadLibraryEx(path, 0, NifNativeWindowsLoaderNames.AlteredSearchPath);
+            nint windowsHandle = LoadLibraryEx(path.DisplayPath, 0, NifNativeWindowsLoaderNames.AlteredSearchPath);
             if (windowsHandle == 0)
             {
                 var failure = new Win32Exception(Marshal.GetLastPInvokeError());
@@ -34,16 +46,23 @@ internal static class NifNativePlatformLoader
         }
         // Reviewed images use the verified descriptor. Ordinary host loading preserves
         // the lexical pathname and its native relative dependency resolution.
-        string loadPath = useDescriptor
-            ? NifNativeNames.LinuxDescriptorPrefix + file.SafeFileHandle.DangerousGetHandle().ToString() : path;
-        nint handle = Dlopen(loadPath, NifNativeNames.LinuxImmediate | (global ? NifNativeNames.LinuxGlobal : 0));
+        NifNativeLibraryPath loadPath = useDescriptor
+            ? NifNativeLibraryPath.FromHostPath(NifNativeNames.LinuxDescriptorPrefix + (file ?? throw new InvalidOperationException(NifNativeDiagnostics.BridgeContract)).SafeFileHandle.DangerousGetHandle().ToString())
+            : path;
+        byte[] bytes = loadPath.UnixNullTerminated();
+        nint handle;
+        fixed (byte* pointer = bytes)
+            handle = DlopenBytes(pointer, NifNativeNames.LinuxImmediate | (global ? NifNativeNames.LinuxGlobal : 0));
         if (handle == 0)
             throw new InvalidOperationException(NifNativeDiagnostics.BridgeContract);
 
         return handle;
     }
 
-    internal static nint OpenNifLibrary(FileStream file, string path, bool useDescriptor = true)
+    internal static nint OpenNifLibrary(FileStream? file, string path, bool useDescriptor = true) =>
+        OpenNifLibrary(file, NifNativeLibraryPath.FromHostPath(path), useDescriptor);
+
+    internal static nint OpenNifLibrary(FileStream? file, NifNativeLibraryPath path, bool useDescriptor = true)
     {
         try
         {
@@ -103,7 +122,7 @@ internal static class NifNativePlatformLoader
     private static extern nint LoadLibraryEx(string path, nint file, uint flags);
 
     [DllImport(NifNativeNames.LoaderLibrary, EntryPoint = "dlopen", CallingConvention = CallingConvention.Cdecl)]
-    private static extern nint Dlopen([MarshalAs(UnmanagedType.LPUTF8Str)] string path, int flags);
+    private static extern nint DlopenBytes(byte* path, int flags);
 
     [DllImport(NifNativeNames.LoaderLibrary, EntryPoint = "dlsym", CallingConvention = CallingConvention.Cdecl)]
     private static extern nint Dlsym(nint handle, [MarshalAs(UnmanagedType.LPUTF8Str)] string name);

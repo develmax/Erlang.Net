@@ -8,7 +8,7 @@ internal sealed unsafe class NifNativeCallEnvironment : IDisposable
 {
     private static readonly ConcurrentDictionary<nint, NifNativeCallEnvironment> Environments = new();
     private static long nextTerm;
-    private readonly Dictionary<nuint, NifNativeTermValue> terms = new();
+    private readonly ConcurrentDictionary<nuint, NifNativeTermValue> terms = new();
     private Dictionary<object, nint>? tupleArrays;
     private HashSet<NifNativeTermNode>? retainedNodes;
     private HashSet<NifNativeBinaryStorage>? binaryStorage;
@@ -17,7 +17,7 @@ internal sealed unsafe class NifNativeCallEnvironment : IDisposable
     private nuint pendingReasonHandle;
     private long pendingReasonVersion;
 
-    internal ProcessContext Caller
+    internal ProcessRuntime Runtime
     {
         get;
     }
@@ -31,6 +31,8 @@ internal sealed unsafe class NifNativeCallEnvironment : IDisposable
     }
     internal NifNativeFailureState Failure { get; }
     private readonly int threadId = Environment.CurrentManagedThreadId;
+    internal bool IsIndependent { get; }
+    internal bool AccessibleOnCurrentThread => IsIndependent || threadId == Environment.CurrentManagedThreadId;
     internal nint Pointer => pointer != 0 ? pointer : throw new ObjectDisposedException(nameof(NifNativeCallEnvironment));
     internal static int ActiveCount => Environments.Count;
 
@@ -39,12 +41,40 @@ internal sealed unsafe class NifNativeCallEnvironment : IDisposable
         ModuleCodeImage image,
         nint privateData,
         NifNativeFailureState failure
+    ) : this(
+        caller.Runtime,
+        image,
+        privateData,
+        failure,
+        false
+    )
+    {
+    }
+
+    internal NifNativeCallEnvironment(ProcessRuntime runtime, ModuleCodeImage image)
+        : this(
+            runtime,
+            image,
+            0,
+            new NifNativeFailureState(),
+            true
+        )
+    {
+    }
+
+    private NifNativeCallEnvironment(
+        ProcessRuntime runtime,
+        ModuleCodeImage image,
+        nint privateData,
+        NifNativeFailureState failure,
+        bool independent
     )
     {
         Failure = failure;
-        Caller = caller;
+        Runtime = runtime;
         Image = image;
         PrivateData = privateData;
+        IsIndependent = independent;
         pointer = (nint)NativeMemory.Alloc(NifNativeAbi.EnvironmentStorageBytes);
         if (pointer == 0)
             throw new OutOfMemoryException();
@@ -59,7 +89,7 @@ internal sealed unsafe class NifNativeCallEnvironment : IDisposable
     internal static NifNativeCallEnvironment Resolve(nint pointer)
     {
         if (!Environments.TryGetValue(pointer, out var environment) ||
-            environment.threadId != Environment.CurrentManagedThreadId)
+            !environment.AccessibleOnCurrentThread)
             throw new InvalidOperationException(NifNativeDiagnostics.ExpiredEnvironment);
 
         return environment;
@@ -67,15 +97,14 @@ internal sealed unsafe class NifNativeCallEnvironment : IDisposable
 
     internal static NifNativeCallEnvironment ResolveTermOwner(nuint handle, nint environmentHint)
     {
-        int currentThread = Environment.CurrentManagedThreadId;
         // The argument is an optional index hint, never dereferenced or required.
         if (Environments.TryGetValue(environmentHint, out var hinted) &&
-            hinted.threadId == currentThread && hinted.pointer != 0 && hinted.terms.ContainsKey(handle))
+            hinted.AccessibleOnCurrentThread && hinted.pointer != 0 && hinted.terms.ContainsKey(handle))
             return hinted;
         foreach (var entry in Environments)
         {
             var environment = entry.Value;
-            if (environment.threadId == currentThread && environment.pointer != 0 &&
+            if (environment.AccessibleOnCurrentThread && environment.pointer != 0 &&
                 environment.terms.ContainsKey(handle))
                 return environment;
         }
@@ -136,7 +165,8 @@ internal sealed unsafe class NifNativeCallEnvironment : IDisposable
         long handle = Interlocked.Increment(ref nextTerm);
         if (handle <= 0)
             throw new InvalidOperationException(NifNativeDiagnostics.TermHandleExhausted);
-        terms.Add((nuint)handle, value);
+        if (!terms.TryAdd((nuint)handle, value))
+            throw new InvalidOperationException(NifNativeDiagnostics.TermHandleExhausted);
 
         return (nuint)handle;
     }
@@ -246,12 +276,16 @@ internal sealed unsafe class NifNativeCallEnvironment : IDisposable
         }
     }
 
-    public void Dispose()
+    internal void ClearIndependent()
     {
-        nint previous = Interlocked.Exchange(ref pointer, 0);
-        if (previous == 0)
-            return;
-        Environments.TryRemove(previous, out _);
+        if (!IsIndependent)
+            throw new InvalidOperationException(NifNativeEnvironmentNames.ProcessBound);
+        _ = Pointer;
+        ClearTerms();
+    }
+
+    private void ClearTerms()
+    {
         if (tupleArrays is not null)
         {
             foreach (var entry in tupleArrays)
@@ -267,6 +301,17 @@ internal sealed unsafe class NifNativeCallEnvironment : IDisposable
         inspectedBinaries?.Clear();
         retainedNodes?.Clear();
         terms.Clear();
+        pendingReasonHandle = 0;
+        pendingReasonVersion = 0;
+    }
+
+    public void Dispose()
+    {
+        nint previous = Interlocked.Exchange(ref pointer, 0);
+        if (previous == 0)
+            return;
+        Environments.TryRemove(previous, out _);
+        ClearTerms();
         NativeMemory.Free((void*)previous);
     }
 }

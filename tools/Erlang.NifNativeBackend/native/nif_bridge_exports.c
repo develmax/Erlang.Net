@@ -41,7 +41,11 @@ NIF_BRIDGE_EXPORT int nif_bridge_register(const NifBridgeCallbacks *callbacks)
         callbacks->make_uint == NULL ||
         callbacks->make_long == NULL ||
         callbacks->make_int64 == NULL ||
-        callbacks->make_uint64 == NULL)
+        callbacks->make_uint64 == NULL ||
+        callbacks->get_map_size == NULL ||
+        callbacks->make_ref == NULL || callbacks->alloc_env == NULL ||
+        callbacks->free_env == NULL || callbacks->clear_env == NULL ||
+        callbacks->make_copy == NULL)
         return 1;
 
     if (atomic_compare_exchange_strong_explicit(&published_callbacks, &expected, callbacks,
@@ -246,4 +250,34 @@ NIF_BRIDGE_EXPORT ERL_NIF_TERM enif_make_int64(ErlNifEnv * env, ErlNifSInt64 val
 NIF_BRIDGE_EXPORT ERL_NIF_TERM enif_make_uint64(ErlNifEnv * env, ErlNifUInt64 value)
 {
     return nif_bridge_callbacks()->make_uint64(env, value);
+}
+
+NIF_BRIDGE_EXPORT int enif_get_map_size(ErlNifEnv *env, ERL_NIF_TERM term, size_t *size)
+{
+    return nif_bridge_callbacks()->get_map_size(env, term, size);
+}
+
+NIF_BRIDGE_EXPORT ERL_NIF_TERM enif_make_ref(ErlNifEnv *env)
+{
+    return nif_bridge_callbacks()->make_ref(env);
+}
+
+NIF_BRIDGE_EXPORT ErlNifEnv *enif_alloc_env(void)
+{
+    return nif_bridge_callbacks()->alloc_env();
+}
+
+NIF_BRIDGE_EXPORT void enif_free_env(ErlNifEnv *env)
+{
+    nif_bridge_callbacks()->free_env(env);
+}
+
+NIF_BRIDGE_EXPORT void enif_clear_env(ErlNifEnv *env)
+{
+    nif_bridge_callbacks()->clear_env(env);
+}
+
+NIF_BRIDGE_EXPORT ERL_NIF_TERM enif_make_copy(ErlNifEnv *env, ERL_NIF_TERM source)
+{
+    return nif_bridge_callbacks()->make_copy(env, source);
 }

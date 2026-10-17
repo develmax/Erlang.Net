@@ -1,0 +1,9 @@
+# Passive collector-run acceptance
+
+PASS for run 39037669366 / artifact 12102708142 at 91a281319529ee3aadb353e14e5e6b08d93cbb51. Fresh ZIP contents and acquisition manifest were rehashed; 3184 actual and producer source rows were reconstructed from local Git blobs. The original fixture producer remains f7399755673e510c15ddcdc573a376141c1c5965, separately from the executing collector/bridge head.
+
+All 68 callback rows match the retained pinned-original raw ETF recursively without normalization. Both routes show independent runtime foreign-reference ownership, joined create/join counts 7/7 per runtime, image retirement and runtime disposal. Eight provider names, capsule wrapper resolution and base-libc ownership were checked.
+
+Three ordinary loader cases and three C++/pthread destructor cases passed. Both successful ordinary cases explicitly return 137. Both successful TLS cases explicitly return 1111 on native baseline and SDK, with exact create/join/key-create/key-delete/setspecific counts 2 and C++ TLS registration 2 / pthread_exit 1, covering return and explicit-exit paths. Missing dependency remains an expected nonzero native-loader result and raw SDK load_failed. The managed-only discriminator also has 16 correct counts.
+
+Fifty bound process receipts, including retained original stages, satisfy their explicit expected exit code and normal reaping/stream closure without termination, remaining-group kill or cleanup failure. Runtime, bridge C and fixture sources are unchanged from TLS-repair head 111e17f0; only four collector/workflow sources and one progress document changed. This is evidence for the scoped controls, not every-import, hidden-call or general libc/TLS compatibility. No SDK/native/network execution or shared-source edits were performed by this reviewer.

@@ -75,7 +75,7 @@ internal static unsafe class NifNativeExportRegistration
         }
     }
 
-    private static NifNativeBridgeTable CreateTable() => new()
+    internal static NifNativeBridgeTable CreateTable() => new()
     {
         Version = NifNativeNames.BridgeVersion,
         Size = (uint)sizeof(NifNativeBridgeTable),
@@ -116,6 +116,7 @@ internal static unsafe class NifNativeExportRegistration
         MakeUnsignedInt = &NifNativeNumericCallbacks.MakeUnsignedInt,
         MakeLong = &NifNativeLinuxNumericCallbacks.MakeLong,
         MakeInt64 = &NifNativeLinuxNumericCallbacks.MakeLong,
-        MakeUInt64 = &NifNativeLinuxNumericCallbacks.MakeUnsignedLong
+        MakeUInt64 = &NifNativeLinuxNumericCallbacks.MakeUnsignedLong,
+        GetMapSize = &NifNativeMapSizeCallbacks.Size
     };
 }

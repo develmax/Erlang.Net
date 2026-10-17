@@ -5,6 +5,7 @@ namespace Erlang;
 internal sealed unsafe class NifNativeWindowsCallbacks : IDisposable
 {
     private nint pointer;
+    private NifNativeEnvironmentAllocator? environmentAllocator;
     internal nint Pointer => pointer;
 
     internal NifNativeWindowsCallbacks() : this(false)
@@ -19,6 +20,10 @@ internal sealed unsafe class NifNativeWindowsCallbacks : IDisposable
         if (pointer == 0)
             throw new OutOfMemoryException();
         var slots = (nint*)pointer;
+        slots[NifNativeWindowsCallbackLayout.GetMapSize] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint, nuint*, int>)&NifNativeMapSizeCallbacks.Size;
+        slots[NifNativeWindowsCallbackLayout.IsIdentical] = (nint)(delegate* unmanaged[Cdecl]<nuint, nuint, int>)&NifNativeComparisonCallbacks.Identical;
+        slots[NifNativeWindowsCallbackLayout.Compare] = (nint)(delegate* unmanaged[Cdecl]<nuint, nuint, int>)&NifNativeComparisonCallbacks.Compare;
+        slots[NifNativeWindowsCallbackLayout.MakeReference] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint>)&NifNativeReferenceCallbacks.Make;
         slots[NifNativeWindowsCallbackLayout.InspectBinary] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint, NifNativeBinaryDescriptor*, int>)&NifNativeBinaryCallbacks.Inspect;
         slots[NifNativeWindowsCallbackLayout.AllocateBinary] = (nint)(delegate* unmanaged[Cdecl]<nuint, NifNativeBinaryDescriptor*, int>)&NifNativeBinaryCallbacks.Allocate;
         slots[NifNativeWindowsCallbackLayout.ReallocateBinary] = (nint)(delegate* unmanaged[Cdecl]<NifNativeBinaryDescriptor*, nuint, int>)&NifNativeBinaryCallbacks.Reallocate;
@@ -76,6 +81,28 @@ internal sealed unsafe class NifNativeWindowsCallbacks : IDisposable
         slots[NifNativeWindowsCallbackLayout.HasPendingException] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint*, int>)&NifNativePrimitiveCallbacks.HasPendingException;
         slots[NifNativeWindowsCallbackLayout.RaiseException] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint, nuint>)&NifNativePrimitiveCallbacks.RaiseException;
         slots[NifNativeWindowsCallbackLayout.MakeString] = (nint)(delegate* unmanaged[Cdecl]<nint, byte*, int, nuint>)&NifNativePrimitiveCallbacks.MakeString;
+    }
+
+    internal void BindIndependentEnvironments(ProcessRuntime runtime, ModuleCodeImage image)
+    {
+        environmentAllocator = () =>
+        {
+            try
+            {
+                return new NifNativeCallEnvironment(runtime, image).Pointer;
+            }
+            catch (Exception failure)
+            {
+                NifNativeCallbackScope.Fail(failure);
+
+                return 0;
+            }
+        };
+        var slots = (nint*)pointer;
+        slots[NifNativeEnvironmentLayout.Allocate] = Marshal.GetFunctionPointerForDelegate(environmentAllocator);
+        slots[NifNativeEnvironmentLayout.Free] = (nint)(delegate* unmanaged[Cdecl]<nint, void>)&NifNativeEnvironmentCallbacks.Free;
+        slots[NifNativeEnvironmentLayout.Clear] = (nint)(delegate* unmanaged[Cdecl]<nint, void>)&NifNativeEnvironmentCallbacks.Clear;
+        slots[NifNativeEnvironmentLayout.Copy] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint, nuint>)&NifNativeEnvironmentCallbacks.Copy;
     }
 
     public void Dispose()

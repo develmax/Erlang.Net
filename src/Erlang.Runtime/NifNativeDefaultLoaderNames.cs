@@ -11,7 +11,6 @@ internal static class NifNativeDefaultLoaderNames
     internal const string Reload = "reload";
     internal const string Upgrade = "upgrade";
     internal const string Permission = "The native image has not been approved for the reviewed execution ABI.";
-    internal const string BinaryFilenameEncoding = "Non-UTF8 raw binary filenames are not implemented by the managed native backend.";
     internal const string DriveRelativeFilename = "Drive-relative native library names are not implemented by this backend.";
     internal const string AlreadyConfigured = "The reviewed native execution policy is already installed.";
 }

@@ -10,6 +10,18 @@ using Erlang.Otp;
 if (args.Length > 0 && args[0] == Erlang.Tests.TermOrderHostNames.ChildSwitch)
     return Erlang.Tests.TermOrderProbeHostMain.Run(args);
 
+Erlang.Tests.TestRunSelection selection;
+try
+{
+    selection = Erlang.Tests.TestRunSelection.Parse(args);
+}
+catch (ArgumentException failure)
+{
+    Console.Error.WriteLine(failure.Message);
+
+    return Erlang.Tests.TestRunNames.InvalidArgumentsExitCode;
+}
+
 var tests = new List<(string Name, Func<Task> Body)>();
 Test(Erlang.Tests.TermOrderHostNames.DeepCompareTest, Erlang.Tests.TermOrderHostChecks.DeepCompare);
 Test(Erlang.Tests.TermOrderHostNames.DeepHashTest, Erlang.Tests.TermOrderHostChecks.DeepHash);
@@ -4973,8 +4985,100 @@ Test(
 );
 
 
+Test(
+    Erlang.Tests.NifComparisonReferenceHostNames.Ordering,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeComparisonHostEntry.Ordering
+);
+
+Test(
+    Erlang.Tests.NifComparisonReferenceHostNames.ExactEquality,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeComparisonHostEntry.ExactEquality
+);
+
+Test(
+    Erlang.Tests.NifComparisonReferenceHostNames.PendingReads,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeComparisonHostEntry.PendingReads
+);
+
+Test(
+    Erlang.Tests.NifComparisonReferenceHostNames.ReferenceUniqueness,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeComparisonHostEntry.ReferenceUniqueness
+);
+
+Test(
+    Erlang.Tests.NifComparisonReferenceHostNames.OwnershipBoundaries,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeComparisonHostEntry.OwnershipBoundaries
+);
+
+Test(
+    Erlang.Tests.NifCompletionHostNames.MapSizeShapeAndOutput,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapSizeHostEntry.ShapeAndOutput
+);
+
+Test(
+    Erlang.Tests.NifCompletionHostNames.MapSizePureEnvironment,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapSizeHostEntry.PureEnvironment
+);
+
+Test(
+    Erlang.Tests.NifCompletionHostNames.MapSizeOwnerLifetime,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapSizeHostEntry.OwnerLifetime
+);
+
+Test(
+    Erlang.Tests.NifCompletionHostNames.ReferenceEnvironmentLifetime,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeReferenceEnvironmentHostEntry.Lifetime
+);
+
+Test(
+    Erlang.Tests.NifCompletionHostNames.ReferenceForeignThreads,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeReferenceEnvironmentHostEntry.ForeignThreads
+);
+
+Test(
+    Erlang.Tests.NifCompletionHostNames.ReferenceCounterBoundaries,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeReferenceCounterHostEntry.Boundaries
+);
+
+Test(
+    Erlang.Tests.NifCompletionHostNames.ReferenceCounterConcurrentBoundaries,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeReferenceCounterHostEntry.ConcurrentBoundaries
+);
+
+IReadOnlyList<(string Name, Func<Task> Body)> selectedTests;
+Test(
+    Erlang.Tests.NifCompletionHostNames.CapsuleMetadata,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeElfCapsuleHostEntry.Metadata
+);
+
+try
+{
+    var catalog = Erlang.Tests.TestRunCatalog.Create(tests.Select(test => test.Name));
+    selectedTests = selection.Select(tests, catalog);
+    if (selection.ListOnly)
+    {
+        await selection.WriteListingAsync(catalog, selectedTests.Select(test => test.Name));
+
+        return 0;
+    }
+}
+catch (ArgumentException failure)
+{
+    Console.Error.WriteLine(failure.Message);
+
+    return Erlang.Tests.TestRunNames.InvalidArgumentsExitCode;
+}
+
+if (selection.IsPartial)
+    Console.WriteLine(JsonSerializer.Serialize(new
+    {
+        Partial = true,
+        SelectedCount = selectedTests.Count,
+        TotalCount = tests.Count
+    }));
+
 int failed = 0;
-foreach (var test in tests)
+foreach (var test in selectedTests)
 {
     var watch = Stopwatch.StartNew();
     try
@@ -5004,24 +5108,28 @@ foreach (var test in tests)
         });
     }
 }
-Console.WriteLine($"{tests.Count - failed}/{tests.Count} passed");
-string? report = args.FirstOrDefault();
+Console.WriteLine($"{selectedTests.Count - failed}/{selectedTests.Count} passed");
+string? report = selection.ReportPath;
 if (report is not null)
 {
     Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(report))!);
     await File.WriteAllTextAsync(
         report,
-        JsonSerializer.Serialize(new
-        {
-            Passed = tests.Count - failed,
-            Failed = failed,
-            Tests = results
-        }, new JsonSerializerOptions { WriteIndented = true })
+        JsonSerializer.Serialize(
+            selection.Report(
+                selectedTests.Count - failed,
+                failed,
+                results,
+                selectedTests.Count,
+                tests.Count
+            ),
+            new JsonSerializerOptions { WriteIndented = true }
+        )
     );
 }
-if (failed == 0 && args.Length > 1)
+if (failed == 0 && !selection.IsPartial && selection.RegistryPath is not null)
     await File.WriteAllTextAsync(
-        args[1],
+        selection.RegistryPath,
         JsonSerializer.Serialize(
             exportRegistry.Exports.Select(e => new
             {

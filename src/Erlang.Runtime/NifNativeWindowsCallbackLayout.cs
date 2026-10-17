@@ -2,8 +2,12 @@ namespace Erlang;
 
 internal static class NifNativeWindowsCallbackLayout
 {
+    internal const int GetMapSize = 109;
     internal const int FunctionCount = 180;
     internal const int TailPointers = 2;
+    internal const int IsIdentical = 15;
+    internal const int Compare = 16;
+    internal const int MakeReference = 28;
     internal const int InspectBinary = 6;
     internal const int AllocateBinary = 7;
     internal const int ReallocateBinary = 8;

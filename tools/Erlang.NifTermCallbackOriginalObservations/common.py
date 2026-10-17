@@ -28,5 +28,5 @@ def verify(repository, expected, manifest_sha):
     assert digest(root/plan['Workflow']['Path']) == plan['Workflow']['Sha256']
     identity = module(root/'tools/Erlang.SchedulerAffinityOriginalObservations/source_inputs.py','term_identity')
     owned = module(root/'tools/Erlang.GuestConnectedSendObservations/owned_process.py','term_owned')
-    decoder = module(root/'tools/Erlang.GuestConnectedSendObservations/passive_etf.py','term_decoder')
+    decoder = module(tool/'passive_etf.py','term_decoder')
     return root,tool,plan,identity,owned,decoder

@@ -1,0 +1,86 @@
+name: Original NIF text and binary callback observations
+on:
+  workflow_dispatch:
+    inputs:
+      expected_head:
+        description: Exact published source head approved for this once-only original run
+        type: string
+        required: true
+      source_manifest_sha256:
+        description: Reviewed text and binary callback source manifest SHA256 at this exact head
+        type: string
+        required: true
+permissions:
+  contents: read
+jobs:
+  original-term-callback:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    env:
+      ERLC_USE_SERVER: 'false'
+      PYTHONDONTWRITEBYTECODE: '1'
+      EXPECTED_HEAD: ${{ inputs.expected_head }}
+      ENTRY_MANIFEST_SHA256: ${{ inputs.source_manifest_sha256 }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Verify exact reviewed source inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$EXPECTED_HEAD" = "$GITHUB_SHA"
+          test "$(git --no-optional-locks rev-parse HEAD)" = "$GITHUB_SHA"
+          mkdir -p artifacts/nif-map-basic-original
+          python3 -B tools/Erlang.NifMapSizeOriginalObservations/verify-source.py \
+            --repository "$GITHUB_WORKSPACE" --expected-head "$GITHUB_SHA" \
+            --manifest-sha256 "$ENTRY_MANIFEST_SHA256" \
+            2>&1 | tee artifacts/nif-map-basic-original/source-verification.log
+      - name: Clone exact pinned OTP source
+        shell: bash
+        run: |
+          set -euo pipefail
+          test ! -e artifacts/nif-entry-otp-source
+          git clone --depth 1 --single-branch --branch OTP-29.1.1 https://github.com/erlang/otp.git artifacts/nif-entry-otp-source \
+            2>&1 | tee artifacts/nif-map-basic-original/clone.log
+          test "$(git -C artifacts/nif-entry-otp-source rev-parse HEAD)" = ad05823719d77c8faee87348ea39513d4e2f99c5
+      - name: Reuse owned pinned runtime build and preserve its original manifest identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -B tools/Erlang.SchedulerAffinityOriginalObservations/build-original.py \
+            --repository "$GITHUB_WORKSPACE" --manifest-sha256 4C9A79CD6E8BC18F68316D42B2F30DB171E67A242CA81CA84BB8A022E8BA5BFB \
+            --expected-head "$GITHUB_SHA" --otp-source "$GITHUB_WORKSPACE/artifacts/nif-entry-otp-source" \
+            --prefix "$GITHUB_WORKSPACE/artifacts/nif-entry-otp" \
+            --output "$GITHUB_WORKSPACE/artifacts/nif-map-basic-original/runtime-build" \
+            2>&1 | tee artifacts/nif-map-basic-original/runtime-build.log
+      - name: Build source-bound native images with pinned installed headers
+        shell: bash
+        run: |
+          set -euo pipefail
+          receipt="$GITHUB_WORKSPACE/artifacts/nif-map-basic-original/runtime-build/build-receipt.json"
+          receipt_sha=$(python3 -c 'import hashlib,sys;print(hashlib.sha256(open(sys.argv[1],"rb").read()).hexdigest().upper())' "$receipt")
+          python3 -B tools/Erlang.NifMapSizeOriginalObservations/build-native.py \
+            --repository "$GITHUB_WORKSPACE" --expected-head "$GITHUB_SHA" --manifest-sha256 "$ENTRY_MANIFEST_SHA256" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/nif-entry-otp-source" --runtime-root "$GITHUB_WORKSPACE/artifacts/nif-entry-otp/lib/erlang" \
+            --build-receipt "$receipt" --approved-build-receipt-sha256 "$receipt_sha" \
+            --output "$GITHUB_WORKSPACE/artifacts/nif-map-basic-original/native-build" \
+            2>&1 | tee artifacts/nif-map-basic-original/native-build.log
+      - name: Capture selected original text/binary output observations
+        shell: bash
+        run: |
+          set -euo pipefail
+          receipt="$GITHUB_WORKSPACE/artifacts/nif-map-basic-original/runtime-build/build-receipt.json"
+          receipt_sha=$(python3 -c 'import hashlib,sys;print(hashlib.sha256(open(sys.argv[1],"rb").read()).hexdigest().upper())' "$receipt")
+          native="$GITHUB_WORKSPACE/artifacts/nif-map-basic-original/native-build"
+          native_sha=$(python3 -c 'import hashlib,sys;print(hashlib.sha256(open(sys.argv[1],"rb").read()).hexdigest().upper())' "$native/native-build-receipt.json")
+          python3 -B tools/Erlang.NifMapSizeOriginalObservations/collect.py \
+            --repository "$GITHUB_WORKSPACE" --expected-head "$GITHUB_SHA" --manifest-sha256 "$ENTRY_MANIFEST_SHA256" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/nif-entry-otp-source" --runtime-root "$GITHUB_WORKSPACE/artifacts/nif-entry-otp/lib/erlang" \
+            --build-receipt "$receipt" --approved-build-receipt-sha256 "$receipt_sha" \
+            --native-build "$native" --approved-native-build-receipt-sha256 "$native_sha" \
+            --output "$GITHUB_WORKSPACE/artifacts/nif-map-basic-original/capture" \
+            2>&1 | tee artifacts/nif-map-basic-original/capture.log
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: nif-map-basic-original-selected
+          path: artifacts/nif-map-basic-original/**

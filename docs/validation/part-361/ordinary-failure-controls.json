@@ -1,0 +1,54 @@
+{
+  "Status": "PASS_FIVE_SYNTHETIC_ORDINARY_COLLECTION_CONTROLS",
+  "SourceSha256": "85F026E05AB5BDBBA375AD5DE40991C46DEA1FFF254AD7EE8E062C4CEFD44F48",
+  "NoSdkOrNativeExecution": true,
+  "Cases": [
+    {
+      "Name": "origin-fails",
+      "Invoked": [
+        "origin-spaces-readonly-baseline",
+        "origin-spaces-readonly-managed",
+        "bare-ld-library-path-baseline",
+        "bare-ld-library-path-managed",
+        "missing-dependency-baseline",
+        "missing-dependency-managed"
+      ],
+      "Error": "RuntimeError"
+    },
+    {
+      "Name": "bare-fails",
+      "Invoked": [
+        "origin-spaces-readonly-baseline",
+        "origin-spaces-readonly-managed",
+        "bare-ld-library-path-baseline",
+        "bare-ld-library-path-managed",
+        "missing-dependency-baseline",
+        "missing-dependency-managed"
+      ],
+      "Error": "RuntimeError"
+    },
+    {
+      "Name": "both-pass",
+      "Invoked": [
+        "origin-spaces-readonly-baseline",
+        "origin-spaces-readonly-managed",
+        "bare-ld-library-path-baseline",
+        "bare-ld-library-path-managed",
+        "missing-dependency-baseline",
+        "missing-dependency-managed"
+      ],
+      "Error": null
+    },
+    {
+      "Name": "unsettled-origin",
+      "Invoked": [
+        "origin-spaces-readonly-baseline"
+      ],
+      "Error": "UnsettledChild"
+    },
+    {
+      "Name": "close-error-fatal",
+      "Error": "UnsettledChild"
+    }
+  ]
+}

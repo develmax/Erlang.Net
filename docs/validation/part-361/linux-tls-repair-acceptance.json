@@ -1,0 +1,373 @@
+{
+  "Status": "PASS_INDEPENDENT_PASSIVE_LINUX68_TLS_REPAIR_BOUNDED_ACCEPTANCE",
+  "ExecutingHead": "111e17f081b9ec1d371c88d38f4f07be57ac86c4",
+  "OriginalProducerHead": "f7399755673e510c15ddcdc573a376141c1c5965",
+  "ZipSha256": "AF0581B2C7DEF6215B3ED5ACF0CCFF06D3B464B97DDE8B651CC724DB364F42D8",
+  "DownloadedFiles": 326,
+  "VerifiedGitSourceRows": 3184,
+  "SourceBindings": [
+    {
+      "Family": "size",
+      "OriginalCompletionSha256": "F82F7CB84F21736AA95EE16A00CFF777B44B44C64BAFBEBCD875403C74043C5C",
+      "ManifestSha256": "D2B172D4D43FA00F3CAE963CDBC873833E8133DCD0AA7C8E2641E157FE42A155",
+      "NativeSourceSha256": "2F00C4C965E5C6E51388AB5A4F9336CAF4D0F84088707C658C889369A9D63FB6",
+      "ErlangSourceSha256": "4A2007C584A9E9854491FF155A3D8F2DD65A62276088938AC4EB50EFDB818069"
+    },
+    {
+      "Family": "reference",
+      "OriginalCompletionSha256": "C2C7D02062BCF6CCAA57FFD4474BED2E4358BAFF5C9E230157178E8FF106BEFB",
+      "ManifestSha256": "70805D1929DA074241241C8B4F1E1F20425D859BE3BEAB4B4A045A61AA5EEF10",
+      "NativeSourceSha256": "C1839C66F43EC88CFC9AAD9C8F0D58CF077839F2454F42FCA3EDCA43041AF8E8",
+      "ErlangSourceSha256": "A3A78E217BB0658B48E72583BBC831927C694BCA3848C7710815124B529CE136"
+    }
+  ],
+  "CallbackRowsCompared": 68,
+  "UniqueObservationGroups": 17,
+  "Routes": 2,
+  "RuntimeDomainsPerRoute": 2,
+  "Widths": [
+    4,
+    8,
+    8,
+    40
+  ],
+  "ManagedOnlyOutcomes": 16,
+  "OrdinaryOsLoaderCases": [
+    {
+      "Name": "origin-spaces-readonly",
+      "BaselineValue": 137,
+      "ManagedValue": "137",
+      "Loaded": true,
+      "LoadTermSha256": "3062AE3472B1A73F2C24BAFADC5E8C59319B94400C3BA265041431DB77D9D0D6"
+    },
+    {
+      "Name": "bare-ld-library-path",
+      "BaselineValue": 137,
+      "ManagedValue": "137",
+      "Loaded": true,
+      "LoadTermSha256": "3062AE3472B1A73F2C24BAFADC5E8C59319B94400C3BA265041431DB77D9D0D6"
+    },
+    {
+      "Name": "missing-dependency",
+      "BaselineValue": null,
+      "ManagedValue": null,
+      "Loaded": false,
+      "LoadTermSha256": "F9B35972C57A27750EADCB4E0FA8BDBB5B83000B88D7BDA85D6C950E345A7469"
+    }
+  ],
+  "ThreadDestructorOsLoaderCases": [
+    {
+      "Name": "origin-spaces-readonly",
+      "BaselineValue": 1111,
+      "ManagedValue": "1111",
+      "Loaded": true,
+      "LoadTermSha256": "3062AE3472B1A73F2C24BAFADC5E8C59319B94400C3BA265041431DB77D9D0D6"
+    },
+    {
+      "Name": "bare-ld-library-path",
+      "BaselineValue": 1111,
+      "ManagedValue": "1111",
+      "Loaded": true,
+      "LoadTermSha256": "3062AE3472B1A73F2C24BAFADC5E8C59319B94400C3BA265041431DB77D9D0D6"
+    },
+    {
+      "Name": "missing-dependency",
+      "BaselineValue": null,
+      "ManagedValue": null,
+      "Loaded": false,
+      "LoadTermSha256": "F9B35972C57A27750EADCB4E0FA8BDBB5B83000B88D7BDA85D6C950E345A7469"
+    }
+  ],
+  "ThreadDestructorProviderCallsPerSuccess": [
+    2,
+    2,
+    2,
+    2,
+    0,
+    2,
+    2,
+    1
+  ],
+  "EarlierFixtureChanges": [
+    {
+      "Path": "/home/runner/work/Erlang.Net/Erlang.Net/tools/Erlang.NifOrdinaryLoaderObservations/native/thread-destructors.cpp",
+      "EarlierSha256": "FDE3119B5417D0EBEB5310129A2C14800541D5479AF6CC8768FA574C10A563B2",
+      "SuccessorSha256": "ADE9EA0773E1B9B69856357B28F2BC5B29BEA77325129680A3FC7320B7E219C1"
+    }
+  ],
+  "SelectedCppTlsAndExplicitExitContractsObserved": true,
+  "EarlierFailurePreserved": {
+    "Run": 39036599858,
+    "Head": "4b54f60a0480676882acf0d4fed5c26ee26eed81",
+    "NativeBaseline": 1111,
+    "SdkValue": -40
+  },
+  "ProviderCreateJoinCallsPerRuntime": [
+    7,
+    7
+  ],
+  "ProviderKeyCallsPerRuntime": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "OwnedReceipts": [
+    {
+      "Path": "artifacts\\part361-remote-linux-tls-repair1\\run-39037054000\\artifact-12102262355\\linux-pthread-bridge\\gcc-version.process.json",
+      "Sha256": "441E05CA19E3D7A4BB6915C3049446D66B61C647E86C03B1312A3C6F7F0EDAC9",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux-tls-repair1\\run-39037054000\\artifact-12102262355\\linux-pthread-bridge\\bridge-build.process.json",
+      "Sha256": "6393D0021F89E4A447B8A0B9E094D127319DD4EE62A78605EAD9DF5B8EFA1371",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux-tls-repair1\\run-39037054000\\artifact-12102262355\\linux-pthread-bridge\\bridge-defined.process.json",
+      "Sha256": "3AB944C07CFC1D4F392E06E15BA1D5EFBF79A9FF35199C983CD8BB1AE8F3110B",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux-tls-repair1\\run-39037054000\\artifact-12102262355\\linux-pthread-bridge\\bridge-elf.process.json",
+      "Sha256": "7A2B4ED3664FBB1AE368F047A26C379A23132CCB36B1A2D8C33645834EBC48E3",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux1\\run-39030222266\\artifact-12099548874\\runtime-build\\configure.process.json",
+      "Sha256": "A7CA028F9A5271CFA4CAE51D714E23118B833EAF1514087BBF450D4F54189932",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux1\\run-39030222266\\artifact-12099548874\\runtime-build\\make.process.json",
+      "Sha256": "9475416651E5C222E833AD2EF46E8AA3A2BA06B7B95DC6BC91AA5E9B3307790A",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux1\\run-39030222266\\artifact-12099548874\\runtime-build\\install.process.json",
+      "Sha256": "B3F84E1EE8D419D58815D4714F71D2231AD086450FE150E747DCB1AD51F6562B",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux1\\run-39030222266\\artifact-12099548874\\size-native\\compiler-version.process.json",
+      "Sha256": "155F8F8E793376C7EC02935686713ADE007109F33390CD6FCF3C2D1FBF26CF94",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux1\\run-39030222266\\artifact-12099548874\\size-native\\map_size_callbacks\\compile.process.json",
+      "Sha256": "DE019CC124AD9A6D6AFB32E07E5E5FBA9C8BF609E008670DC68CCB3D65015A81",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux1\\run-39030222266\\artifact-12099548874\\size-native\\map_size_callbacks\\defined.process.json",
+      "Sha256": "20E745FFFE57B830BD9D531F367EFEC2C169A7C00FF961B33CDF511810A1E6C4",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux1\\run-39030222266\\artifact-12099548874\\size-native\\map_size_callbacks\\undefined.process.json",
+      "Sha256": "C0A4C2144499BF740354DF0B144AC3FCE84743B47CDBFD764A9B72C4C5C041DC",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux1\\run-39030222266\\artifact-12099548874\\size-native\\map_size_callbacks\\readelf.process.json",
+      "Sha256": "C4BB0C8E679A44C3BA832D1A5169C4FB4B97F261FDE52D6B57579329A3A4BCB9",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux1\\run-39030222266\\artifact-12099548874\\size-original\\compile-vm.process.json",
+      "Sha256": "EB3A38FA84D4B55E9362EE7C816E51D4EE390FBAA4F27515D7143950348DDAF4",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux1\\run-39030222266\\artifact-12099548874\\size-original\\observe-vm.process.json",
+      "Sha256": "DCF751F3DCA1E0D01679B06605E1E56A6DB057CEC005FE16CA1D0E7FCF3769CA",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux1\\run-39030222266\\artifact-12099548874\\reference-native\\compiler-version.process.json",
+      "Sha256": "1AD01DE0867F643ED20EC1C805E47654A86D8B2007DC3B859E792FDAFD5BB0D5",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux1\\run-39030222266\\artifact-12099548874\\reference-native\\make_reference_callbacks\\compile.process.json",
+      "Sha256": "F6494C5179873C0B3B6E702158F0406A72120C6DD4EB43C312A698F9A6B00F70",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux1\\run-39030222266\\artifact-12099548874\\reference-native\\make_reference_callbacks\\defined.process.json",
+      "Sha256": "0FB38B4925E2DE77C696BF0D2FBFEE744A394106A637EFF3F2E06864F78B5CED",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux1\\run-39030222266\\artifact-12099548874\\reference-native\\make_reference_callbacks\\undefined.process.json",
+      "Sha256": "CD70C5C7458EA0B5A337E5BFB49644FD564A78D1E7300FB21504A84A4101BB91",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux1\\run-39030222266\\artifact-12099548874\\reference-native\\make_reference_callbacks\\readelf.process.json",
+      "Sha256": "FF154CC1C057DC5C83ECCBAC7807D079D68F15AD99E6C4E31EC3BB2C8DD72070",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux1\\run-39030222266\\artifact-12099548874\\reference-original\\compile-vm.process.json",
+      "Sha256": "F1B226CB3075800BA4E92F61B444F0EF579CAC17629D283750677F53DB7EE336",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux1\\run-39030222266\\artifact-12099548874\\reference-original\\observe-vm.process.json",
+      "Sha256": "67CBF2415E4BE1291C9AA36CC8F56EC7812414E6DB40FAE8546CF6EEC65399DE",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux-tls-repair1\\run-39037054000\\artifact-12102262355\\linux-callback-pthread-control\\sdk\\reviewed.process.json",
+      "Sha256": "5AE135619112BBD6FE5C2B0225EEDB2153EAD6266E50B635227A544A0883D9B7",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux-tls-repair1\\run-39037054000\\artifact-12102262355\\linux-callback-pthread-control\\sdk\\ordinary.process.json",
+      "Sha256": "5E0B58CA3002431245219D176B300CBC828A86684C18F55038770C091B808363",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux-tls-repair1\\run-39037054000\\artifact-12102262355\\linux-managed-control\\managed-process.process.json",
+      "Sha256": "C65C344C699F7387C5F94A55E5C9D8CECD8A70755B34C53A3773F874D8B05F54",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux-tls-repair1\\run-39037054000\\artifact-12102262355\\linux-ordinary-regressions\\compile-baseline.process.json",
+      "Sha256": "907D4F2B3B1AA9ABC6A97B48C149D84EB5CF718D0DBDF66881FD8A5C33D73D4D",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux-tls-repair1\\run-39037054000\\artifact-12102262355\\linux-ordinary-regressions\\compile-helper-0.process.json",
+      "Sha256": "1A70FC2FE148D427C53339C0EB58E3EE96FFC9E9C6F10527A5F209D0C428CD8B",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux-tls-repair1\\run-39037054000\\artifact-12102262355\\linux-ordinary-regressions\\compile-image-0.process.json",
+      "Sha256": "E8ED01D776F3CF0F6CF65231622C45A14492B802FC4391679EFE55E26CAEDFE6",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux-tls-repair1\\run-39037054000\\artifact-12102262355\\linux-ordinary-regressions\\image-metadata-0.process.json",
+      "Sha256": "56F022EA08B96552F106843A17EBDD05647D673857FA7369C5B4FE01836CD8C1",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux-tls-repair1\\run-39037054000\\artifact-12102262355\\linux-ordinary-regressions\\compile-helper-1.process.json",
+      "Sha256": "061CA46D1E3A6AD7DF22A601B7E117ADEE6B36BF9575DFD0D3D344AE5D43C462",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux-tls-repair1\\run-39037054000\\artifact-12102262355\\linux-ordinary-regressions\\compile-image-1.process.json",
+      "Sha256": "C0279BD68556C1AD5B9A5C85424846C232D9C464CE27C21E54C353E01953AB68",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux-tls-repair1\\run-39037054000\\artifact-12102262355\\linux-ordinary-regressions\\image-metadata-1.process.json",
+      "Sha256": "A2A7B72C4B5AD4A4275B6D996374591612D5125A6538B2A3B56A545201798951",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux-tls-repair1\\run-39037054000\\artifact-12102262355\\linux-ordinary-regressions\\origin-spaces-readonly-baseline.process.json",
+      "Sha256": "328355ACEB4CA5FF330A37606D358037B920F0F1EB8625951708064B2DA977A2",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux-tls-repair1\\run-39037054000\\artifact-12102262355\\linux-ordinary-regressions\\origin-spaces-readonly-managed.process.json",
+      "Sha256": "8A24CD866C0E94446CB8685FCFA289695D987CBA380DA0CC6235B54235B3A6B3",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux-tls-repair1\\run-39037054000\\artifact-12102262355\\linux-ordinary-regressions\\bare-ld-library-path-baseline.process.json",
+      "Sha256": "FDA09018DFFAA5C3BEF88769BDF749F3A69B18192DB5884F70D442F930C32049",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux-tls-repair1\\run-39037054000\\artifact-12102262355\\linux-ordinary-regressions\\bare-ld-library-path-managed.process.json",
+      "Sha256": "D1450CC8FFD450334B6E6D6455589E699F6BE5E5EA7C288F1A448F0478E81226",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux-tls-repair1\\run-39037054000\\artifact-12102262355\\linux-ordinary-regressions\\missing-dependency-baseline.process.json",
+      "Sha256": "9DE6DF13A9B8576D774ACFF65EC465B0F1CA883A637186F098BCB1DD41092728",
+      "ExitCode": 20
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux-tls-repair1\\run-39037054000\\artifact-12102262355\\linux-ordinary-regressions\\missing-dependency-managed.process.json",
+      "Sha256": "ABDC3343CA3D7DC60CD71DC19E3C495175F6725A862F3A3CCA274C52A4A6F6C9",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux-tls-repair1\\run-39037054000\\artifact-12102262355\\linux-thread-destructors\\compile-baseline.process.json",
+      "Sha256": "3D73AB63D2E5BCD558937DDF71F54D8D27781E99FCF6031BE0F7742D2B861618",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux-tls-repair1\\run-39037054000\\artifact-12102262355\\linux-thread-destructors\\compile-helper-0.process.json",
+      "Sha256": "323395964C46B23F0FAD71EB270AE21B3F629DE38AEED5AFAC19CE102FFC421C",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux-tls-repair1\\run-39037054000\\artifact-12102262355\\linux-thread-destructors\\compile-image-0.process.json",
+      "Sha256": "98A1281CA7DDCB0E4BDC5591E9643DB5E2A52CB08C90FC061D12CBC230EEBC58",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux-tls-repair1\\run-39037054000\\artifact-12102262355\\linux-thread-destructors\\image-metadata-0.process.json",
+      "Sha256": "00C8AFB78442E53DF34E1AFB7EEA91727D405ED3BF7A57A4A2D24DB5CB70C01E",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux-tls-repair1\\run-39037054000\\artifact-12102262355\\linux-thread-destructors\\compile-helper-1.process.json",
+      "Sha256": "6EE41A06BF2BDB440F400429D8E7C8BBA779D4F1B36691E422495139F5034AC7",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux-tls-repair1\\run-39037054000\\artifact-12102262355\\linux-thread-destructors\\compile-image-1.process.json",
+      "Sha256": "8CEE66E97073A8C3209EBC883BEA6C2E16358F8EC5FBA5254B66EAD9858914A4",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux-tls-repair1\\run-39037054000\\artifact-12102262355\\linux-thread-destructors\\image-metadata-1.process.json",
+      "Sha256": "2585DB313C6F4B88D57D0AFE574EDFB2AD8C130F2F4B6A6EC189873363C930C2",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux-tls-repair1\\run-39037054000\\artifact-12102262355\\linux-thread-destructors\\origin-spaces-readonly-baseline.process.json",
+      "Sha256": "11CF2205B89D0F9DF245BDCC5FAEB64EB5D07C79344E843E6C3E05E560F32182",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux-tls-repair1\\run-39037054000\\artifact-12102262355\\linux-thread-destructors\\origin-spaces-readonly-managed.process.json",
+      "Sha256": "1CB561BEAD8BAC4B636055370B75A6CFA976B70A330610A578A44849EFB75718",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux-tls-repair1\\run-39037054000\\artifact-12102262355\\linux-thread-destructors\\bare-ld-library-path-baseline.process.json",
+      "Sha256": "594B0F9B13D8FDE11D8B5A4D2FD6A40B4512EDBDDB5314113AF983E08E8261D6",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux-tls-repair1\\run-39037054000\\artifact-12102262355\\linux-thread-destructors\\bare-ld-library-path-managed.process.json",
+      "Sha256": "AE1434539471A29C13ABDA83B132E8CBA385B7DE630E3E264711CD9916947270",
+      "ExitCode": 0
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux-tls-repair1\\run-39037054000\\artifact-12102262355\\linux-thread-destructors\\missing-dependency-baseline.process.json",
+      "Sha256": "34A6C15797F7EE1E75487E3BD3EA8F5FBDFB655E036DE20355703C4E26E46AD8",
+      "ExitCode": 20
+    },
+    {
+      "Path": "artifacts\\part361-remote-linux-tls-repair1\\run-39037054000\\artifact-12102262355\\linux-thread-destructors\\missing-dependency-managed.process.json",
+      "Sha256": "F353DB2E1529F99C1E36DA375E3A639CF0E82585C80A70C2BA23B4488BF04990",
+      "ExitCode": 0
+    }
+  ],
+  "DecoderSha256": "A069AD650B3EA1BE6B90DE60117B84ED7A1A6B67128CC41E7ECAEFD2889C1713",
+  "SourceProofSeparateFromRows": true,
+  "CppTlsDestructorRootCauseProved": false,
+  "WholeLibcOrOrdinaryLoaderCompatibilityProved": false,
+  "DownloadedManagedDllBytesIndependentlyRehashed": false,
+  "NoCompatibilityPromotion": true
+}

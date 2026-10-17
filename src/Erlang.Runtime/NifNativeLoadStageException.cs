@@ -1,6 +1,6 @@
 namespace Erlang;
 
-// Typed only at the two platform-loader sites; never wraps authorization, hashing or cleanup.
+// Typed at native loading and ABI symbol-lookup sites; authorization, hashing and cleanup remain host failures.
 internal sealed class NifNativeLoadStageException(string category, Exception failure)
     : InvalidOperationException(failure.Message, failure)
 {

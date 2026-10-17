@@ -9,18 +9,17 @@ internal static class NifNativeDefaultLoader
         Func<string, NifNativeReviewedBasicAbi?>? approve
     )
     {
-        string path = NifNativeFilename.Resolve(arguments[0]);
+        NifNativeLibraryPath nativePath = NifNativeFilename.ResolveNative(arguments[0], reviewed: approve is not null);
+        string path = nativePath.DisplayPath;
         SourceCodeEntry caller = captured.Consume(context);
         NifNativeCapabilityProfile profile;
         if (approve is null)
-            profile = NifNativeCapabilityProfile.ForHostLibrary(path);
+            profile = NifNativeCapabilityProfile.ForHostLibrary(nativePath);
         else
         {
             NifNativeReviewedBasicAbi capability = approve(path)
                 ?? throw new UnauthorizedAccessException(NifNativeDefaultLoaderNames.Permission);
-            StringComparison comparison = OperatingSystem.IsWindows()
-                ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
-            if (!string.Equals(capability.LibraryPath, path, comparison))
+            if (!capability.NativeLibraryPath.SameFileName(nativePath))
                 throw new UnauthorizedAccessException(NifNativeDefaultLoaderNames.Permission);
             profile = NifNativeCapabilityProfile.ForReviewedBasicAbi(capability);
         }
