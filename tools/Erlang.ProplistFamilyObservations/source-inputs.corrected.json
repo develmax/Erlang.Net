@@ -1,5 +1,5 @@
 {
-  "Status": "PRIVATE_CORRECTED_SUCCESSOR_LOCAL_PREFLIGHT",
+  "Status": "PRIVATE_ADDITIONAL_ORIGINAL_REGRESSION_SOURCE",
   "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "ExistingBuildManifestSha256": "4C9A79CD6E8BC18F68316D42B2F30DB171E67A242CA81CA84BB8A022E8BA5BFB",
   "RepositoryInputs": [
@@ -71,6 +71,11 @@
       "Sha256": "7D44FC6D0539A9D924A4E62C28DE0D4A8675E651EB3B14496B7E6D869AB51522"
     },
     {
+      "Path": "original/lc_return_frames.erl",
+      "Bytes": 3427,
+      "Sha256": "D80ECDB0C600F6A3EC704B6A9A6911B31A25330C55A7C78C023DB0FB974D7A28"
+    },
+    {
       "Path": "original/lc_source_frames_a.erl",
       "Bytes": 2039,
       "Sha256": "9125F3099BBDFA522A07D1AEF6C5E99847199ABC8C1F2EA558A67DC8446964AC"
@@ -127,8 +132,8 @@
     },
     {
       "Path": "profile.json",
-      "Bytes": 58137,
-      "Sha256": "9667E715AECC20EC9CD9374020482508D5FD1A523B06F737457BCB4859A19E89"
+      "Bytes": 5461,
+      "Sha256": "BE1CA5A58851863934EE431A6FCB3D26A445880D529BE7199219DCA056B6A12E"
     },
     {
       "Path": "self-test.py",
@@ -151,12 +156,9 @@
   "FamilyPublicationAuthorized": false,
   "OriginalAdapterSourceInputsSha256": "52FBA0CEF0CABB45A1A2D67F41FE8DB70BE6FD905F5AE5DBF42673732620E56F",
   "Corrections": [
-    "Immutable old59 source enumerates12 raw stack rows, not18.",
-    "Parse admission requires every row Passed true, no Error, exactly3 distinct correct paths/hashes.",
-    "Common monitored guest worker run/2 for all groups, no HOST/erl_eval parent roots cross worker boundary.",
-    "Exact named unique fixture-source inventory and successful parse rows replace fixed three-file assertion.",
-    "Six groups include unchanged148/old59,20fun semantic rows,two16case LC fixtures and8long-tail cases.",
-    "Complete raw values/stacks retained; opaque identities remain strict whole-comparison failures; relationships are separate."
+    "New22-case compiler/foldr regression group only; old six groups are not repeated.",
+    "No API accounting or compatibility promotion.",
+    "Original published collector, decoder, bounded ownership and worker remain byte-preserved."
   ],
   "WorkerObservationSchema": "shared-guest-worker-1"
 }
