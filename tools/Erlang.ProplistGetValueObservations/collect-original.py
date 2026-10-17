@@ -1,4 +1,4 @@
-"""One bounded pinned-OTP proplists53 capture; no SDK/native NIF dependencies."""
+"""One bounded pinned-OTP proplists59 capture; no SDK/native NIF dependencies."""
 from pathlib import Path
 import argparse, hashlib, importlib.util, json, os, re, sys, threading, time
 R=Path(__file__).resolve().parents[2]
@@ -18,7 +18,7 @@ def main():
     for key in ['otp-source','runtime-root','build-receipt','approved-build-receipt-sha256','output']:parser.add_argument('--'+key)
     parser.add_argument('--verify-only',action='store_true')
     a=parser.parse_args();sourceplan=T/'source-inputs.json';assert digest(sourceplan)==a.source_inputs_sha256.upper()
-    plan=json.loads(sourceplan.read_bytes());assert plan['PinnedOtpCommit']==PIN and plan['Family']=='proplists53'
+    plan=json.loads(sourceplan.read_bytes());assert plan['PinnedOtpCommit']==PIN and plan['Family']=='proplists59'
     for row in plan['BoundSourceInputs']:
         p=R/row['Path'];assert p.resolve().is_relative_to(R) and p.stat().st_size==row['Bytes'] and digest(p)==row['Sha256']
     for row in plan['Files']:
@@ -28,9 +28,9 @@ def main():
     _,_,build_plan=verify(R,actual_build_manifest_sha,a.expected_head)
     fixture=T/'original/proplist_get_value_contract.erl'
     source=fixture.read_text();names=re.findall(r"'([^']+)'",source.split('names()->[',1)[1].split('].',1)[0])
-    assert names==plan['Names'] and len(names)==len(set(names))==53
+    assert names==plan['Names'] and len(names)==len(set(names))==59
     assert 'get_value,FrameArgs' in source and 'true=FrameArgs=:=[key,#{a=>1}' in source
-    if a.verify_only:print('PASS_SOURCE_BOUND_CORRECTED_PROPLISTS53_ONLY');return
+    if a.verify_only:print('PASS_SOURCE_BOUND_CORRECTED_PROPLISTS59_ONLY');return
     assert all(getattr(a,key.replace('-','_')) for key in ['otp-source','runtime-root','build-receipt','approved-build-receipt-sha256','output'])
     output=Path(a.output).resolve();output.mkdir(parents=True,exist_ok=False)
     stages=[];phase='build-admission';vm_started=False
@@ -91,7 +91,7 @@ def main():
         assert fields[10]==('list',tuple(('atom',n) for n in names))
         assert digest(output/'proplists-loaded.beam')==installed_sha==digest(installed)
         assert fields[4]==('binary',hashlib.md5(installed.read_bytes()).digest())
-        assert rows[0]=='list' and len(rows[1])==53
+        assert rows[0]=='list' and len(rows[1])==59
         results=[]
         for name,row in zip(names,rows[1]):
             assert row[0]=='tuple' and len(row[1])==2 and row[1][0]==('atom',name)
@@ -99,8 +99,8 @@ def main():
         write(output/'case-results.json',results)
         assert source_identity(otp)==before and digest(fixture)==plan['FixtureSha256']
         failed=[row for row in results if not row['Passed']]
-        write(output/'completion.json',dict(Status='PASS_ORIGINAL_PROPLISTS53' if not failed else 'FAIL_ORIGINAL_PROPLISTS53_ROWS_RETAINED',SubjectHead=a.expected_head,PinnedOtpCommit=PIN,Names=names,Total=53,Passed=53-len(failed),Failed=len(failed),SourceInputsSha256=digest(sourceplan),BuildReceiptSha256=digest(receipt_path),InstalledProplistsSha256=installed_sha,FixtureSha256=digest(fixture),CompiledFixtureSha256=digest(compiled),ReturnedSha256=digest(output/'returned.etf'),MetadataSha256=digest(output/'metadata.etf'),CaseResultsSha256=digest(output/'case-results.json'),OwnedStages=stages,AllRowsAcquiredBeforeVerdict=True,OriginalOnly=True,SdkOrNativeNifExecution=False))
-        if failed:raise RuntimeError('Original proplists contract rows failed; all53 retained.')
+        write(output/'completion.json',dict(Status='PASS_ORIGINAL_PROPLISTS59' if not failed else 'FAIL_ORIGINAL_PROPLISTS59_ROWS_RETAINED',SubjectHead=a.expected_head,PinnedOtpCommit=PIN,Names=names,Total=59,Passed=59-len(failed),Failed=len(failed),SourceInputsSha256=digest(sourceplan),BuildReceiptSha256=digest(receipt_path),InstalledProplistsSha256=installed_sha,FixtureSha256=digest(fixture),CompiledFixtureSha256=digest(compiled),ReturnedSha256=digest(output/'returned.etf'),MetadataSha256=digest(output/'metadata.etf'),CaseResultsSha256=digest(output/'case-results.json'),OwnedStages=stages,AllRowsAcquiredBeforeVerdict=True,OriginalOnly=True,SdkOrNativeNifExecution=False))
+        if failed:raise RuntimeError('Original proplists contract rows failed; all59 retained.')
     except BaseException as error:
-        write(output/'failure.json',dict(Status='FAILED_ORIGINAL_PROPLISTS53_RAW_RETAINED',Phase=phase,Error=repr(error),VmStarted=vm_started,DependentVmSkipped=not vm_started,OwnedStages=stages));raise
+        write(output/'failure.json',dict(Status='FAILED_ORIGINAL_PROPLISTS59_RAW_RETAINED',Phase=phase,Error=repr(error),VmStarted=vm_started,DependentVmSkipped=not vm_started,OwnedStages=stages));raise
 if __name__=='__main__':main()
