@@ -1,0 +1,35 @@
+{
+  "Status": "SOURCE_ONLY_REQUIRED_SCOPE_CORRECTION_NO_RUNTIME_CHANGE",
+  "ParentLedger": {
+    "Path": "docs/mfa-compatibility.json",
+    "SourcePath": "artifacts/size-bif354-full3-preparation/generated/docs/mfa-compatibility.json",
+    "Bytes": 435498,
+    "Sha256": "1465A7C0F520F833CA961DF5DB6B0D2C3559BAFA5E52DB5C680E037AE3A11B76",
+    "Kind": "DispatcherGuardAndNativeSealsOnly"
+  },
+  "CorrectedMfas": [
+    "erlang:self/0",
+    "erlang:is_atom/1",
+    "erlang:is_integer/1",
+    "erlang:is_float/1",
+    "erlang:is_number/1",
+    "erlang:is_tuple/1",
+    "erlang:is_binary/1",
+    "erlang:is_bitstring/1",
+    "erlang:is_list/1",
+    "erlang:is_pid/1",
+    "erlang:is_map/1",
+    "erlang:is_boolean/1",
+    "erlang:is_function/1",
+    "erlang:is_port/1",
+    "erlang:is_reference/1",
+    "erlang:node/0"
+  ],
+  "AddedField": "Scope",
+  "AddedRows": 16,
+  "EveryOtherLedgerValueUnchanged": true,
+  "RuntimePackageNativePlansUnchanged": true,
+  "FailedFull3AcquisitionReportSha256": "83706C3D50A96D205BDA2E33538CB4CF53DC74F3452D483BB6BBF37FABF92553",
+  "MainModified": false,
+  "SdkExecuted": false
+}

@@ -4201,7 +4201,7 @@ Test(
     return Task.CompletedTask;
 }
 );
-foreach (var fixture in Erlang.Differential.CompiledModuleCases.All.Where(fixture => !Erlang.Differential.SchedulerAffinityCases.Modules.Contains(fixture)))
+foreach (var fixture in Erlang.Differential.CompiledModuleCases.All.Where(fixture => !Erlang.Differential.SchedulerAffinityCases.Modules.Contains(fixture) && !Erlang.Differential.SizeErrorCases.Modules.Contains(fixture)))
 {
     Test(
         "oracle/compiled-module/" + fixture.Name,
@@ -4662,6 +4662,42 @@ Test(
     Erlang.Tests.SchedulerAffinityTestNames.Offline,
     Erlang.Tests.SchedulerOfflineRetirementHostChecks.RunningParksPendingGuestKillAndRetirementSeparatelyJoinsCleanup
 );
+
+foreach (var fixture in Erlang.Differential.SizeErrorCases.Modules)
+{
+    Test(
+        "oracle/compiled-module/" + fixture.Name,
+        async () =>
+    {
+        using var artifact = Erlang.Differential.GeneratedModuleCompiler.Compile(fixture.Source);
+        if (fixture.ExpectedStandardOutputHex is not null || fixture.ExpectedStandardErrorHex is not null)
+        {
+            var captured = await Erlang.Differential.CompiledModuleExecution.RunCaptured(artifact, fixture.CallerContext);
+            Equal(captured.Result, fixture.Expected);
+            Check(Erlang.Differential.CompiledStandardOutputContract.Matches(fixture, captured.StandardOutputHex, captured.StandardErrorHex));
+        }
+        else
+            Equal(await Erlang.Differential.CompiledModuleExecution.Run(artifact, fixture.CallerContext), fixture.Expected);
+        Check(artifact.CSharpSha256.Length == 64);
+    }
+    );
+}
+
+Test(Erlang.Tests.BacktraceDepthHostNames.Test, Erlang.Tests.BacktraceDepthHostChecks.IndependentRuntimes);
+Test(
+    Erlang.Tests.SizeErrorHostTestNames.Identity,
+    Erlang.Tests.CommonErrorCaptureHostChecks.RunIdentityRollbackAndAsyncSnapshot
+);
+Test(
+    Erlang.Tests.SizeErrorHostTestNames.Fallback,
+    Erlang.Tests.CommonErrorCaptureHostChecks.RunUncapturedFallbackAndPriorHost
+);
+Test(Erlang.Tests.SizeErrorHostTestNames.ConfiguredLoadNif, Erlang.Tests.SourceLoadNifHostChecks.RunCommonFailureCapture);
+
+Test(Erlang.Tests.SizeErrorHostTestNames.Reinstall, Erlang.Tests.CommonPreloadedReinstallHostChecks.Run);
+Test(Erlang.Tests.SizeErrorHostTestNames.Lambda, Erlang.Tests.CommonLambdaHandlerCaptureHostChecks.Run);
+
+Test(Erlang.Tests.CleanupStealingHostNames.Test, Erlang.Tests.CleanupStealingHostChecks.Run);
 
 int failed = 0;
 foreach (var test in tests)

@@ -1,0 +1,55 @@
+{
+  "Status": "REVIEWABLE_FOCUSED354_INTEGRATION_PLAN_NOT_APPLIED_NOT_SDK_READY_UNTIL_PEER",
+  "ParentHead": "50e756f73437eb8d2882a19f729bccb09af74f3d",
+  "Destination": "artifacts/size-bif354-focused-candidate",
+  "BaseCompositionPlanSha256": "3F8C5F95912959D7BE22BDDA3E6F39B696AC644EA98E5461C6B67C64771F06BC",
+  "BasePathRows": 3107,
+  "CurrentMainRaw": true,
+  "OwnedPaths": 19,
+  "RuntimeSourceFiles": 9,
+  "ClosureRows": 3120,
+  "StableClosureRows": 3119,
+  "PackageRows": 6,
+  "ReadinessInputRows": 43,
+  "VerifiedSourceGuardCount": 89,
+  "ChangedGuardPaths": [
+    {
+      "Path": "src/Erlang.Runtime/CoreModules.cs",
+      "OldSha256": "7B32F96DD7A0F94E97C13616777D88DFBBA374BB77BD683DEBDED98E75DAAED7",
+      "NewSha256": "0CE602F42B0094C361C5B71B693A7D4BA78374E6E559E905B57E22EDE8BB13C7"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
+      "OldSha256": "46FFC253273B58939531584AC2900D14FF065B7DEA85F79FB17BD60E2FB345E4",
+      "NewSha256": "B3C5073FEA87A8AAD8BB4EF3EC6340DE8DB32727C812917D9D6508C12C6C0AB1"
+    },
+    {
+      "Path": "src/Erlang.Runtime/SequenceTraceRegistrations.cs",
+      "OldSha256": "377083C8E74BB12BC4EAD8D77490C41E52964C3BBA2BAF4BAFBE8936302E9958",
+      "NewSha256": "D484B5004F6F0282D9B13EFE0EC1DC21C93F2B0605720C90BDE53B1956DB0264"
+    }
+  ],
+  "Counts": {
+    "Verified compatible": 16,
+    "Known differences": 29,
+    "Needs verification": 542
+  },
+  "ExistingVerified16StatusScopeLimitsExact": true,
+  "FiveKnownReportingOnly": true,
+  "Other582StatusScopeLimitsExact": true,
+  "NewPortable16": true,
+  "AdditionalHostRuntimeIsolation": true,
+  "ExpectedNewManagedChecks": 17,
+  "Prerequisites": [
+    "Independent combined nine-runtime source/16-verified scope admission",
+    "Current parent and all Main raw bytes still exact before fresh composition",
+    "Root-owned bounded build+ParseAll before any fixture execution"
+  ],
+  "NoMainMutation": true,
+  "NoSdk": true,
+  "NoNetwork": true,
+  "NoNative": true,
+  "NoFullFreeze": true,
+  "GenericDepthAssertionsIncluded": true,
+  "ActualFailuresMustBeRetained": true
+}

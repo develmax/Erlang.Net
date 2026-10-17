@@ -1,0 +1,38 @@
+{
+  "Status": "PASS_INDEPENDENT_SOURCE_ONLY_FULL354_COMPOSER_RUNNER2_ADMISSION",
+  "SourceFreezeSha256": "0AD2F1D40EC998581A6FC78A9B32343FE7D64DBF94D131AD4AB280C5B43EB83C",
+  "ComposerSha256": "188F3E9DB1BAF89910F28FEBAFBDA7496E2B267E07A7933D93DB42CC4EF02DDF",
+  "RunnerSha256": "5354F9424D23548984E45358F7117CBBD9D2D9706131C4C5AE3453BB1D3F5C60",
+  "CompositionPlanSha256": "7129614325BD320F9205DBFDEBC74E3C7F09065C318431360B64FA6A078890C6",
+  "InputRows": 3208,
+  "StableRows": 3207,
+  "OwnedPaths": 128,
+  "FocusedProductionAndTestRowsExact": 2210,
+  "PackageResources": 6,
+  "RuntimeGuards": 114,
+  "ExpectedOldTests": 7313,
+  "ExpectedNewTests": 29,
+  "ExpectedFullTests": 7342,
+  "ExpectedIntegrations": 11,
+  "ExpectedPackages": 2,
+  "MandatoryAcceptedFocusSha256": "2DABAA680DF8CC8F7483B4437EA8385FC66D415B094B977BCC3EF1A68338D35D",
+  "Review": [
+    "Fresh artifact-only candidate fixed under artifacts; source/parent/overlay pins checked before copy; no Main/Git/network mutations in composer.",
+    "Root runner verifies all frozen candidate inputs and final focused production/test equality before sole canonical validate.ps1 execution; no focus/raw diagnostic executable path included.",
+    "Pinned owned-process helper retains stdout/stderr/settled exit and rejects timeout/error/nonzero; bounded900s command uses CPU2, fresh output exclusive.",
+    "Registry excluded only from stable closure: input raw captured, postcommand raw captured without restoration; independent final acceptance remains required.",
+    "Finally captures available outputs/child receipts/packages/DLL hashes and verifies all3207 stable bytes; errors propagate rather than becoming PASS.",
+    "Full postconditions enforce7342/0, exactold7313orderednames and exact29append names. Validation command covers integrations/package; producer only checks11integrationrows, so final passive acceptance must verify each result/2packages/12child provenance.",
+    "Only current known classifications and reviewed114 dependency refresh: no new Verified status or original/native ABI claim.",
+    "Native plans preserve all old policies/nonFiles, add14runtime paths each, update every finalrow and topological pending/reallocation seals.",
+    "Six package inputs exact plan; OTPPORTS register contains source/adaptation scope not unobserved full/native claims.",
+    "Original first runner root-path failure is unexecuted source history; only frozenrun-full2 admitted."
+  ],
+  "Limits": [
+    "Source review and passive input hashing only; no candidate composition, SDK execution or full outcome observed by reviewer.",
+    "Caller must pass this exact report/hash and accepted2DAB focus report/hash; actual full requires later independent typed output/provenance acceptance."
+  ],
+  "MainMutation": false,
+  "SdkExecuted": false,
+  "NetworkExecuted": false
+}

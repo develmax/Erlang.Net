@@ -10,7 +10,8 @@ public sealed partial class ModuleRegistry
         ErlangFunction body,
         ModuleCodeImage? image,
         IDisposable? code,
-        bool handler
+        bool handler,
+        bool hostErrorHandler
     )
     {
         ValueTask<Term> InvokeOwned()
@@ -38,7 +39,8 @@ public sealed partial class ModuleRegistry
                     arguments,
                     body,
                     image,
-                    code
+                    code,
+                    hostErrorHandler
                 )
                 : InvokeSelected(
                     context,

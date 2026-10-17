@@ -1,0 +1,13 @@
+{
+  "Status": "SOURCE_ONLY_CONTROL_PRECISION_CORRECTION_NO_FINDING_WITHDRAWAL",
+  "PreservedReportSha256": "AB05E556EDEADC5A3984141DF7E81A8574A003E2C138D61452EDCC6F984D91E9",
+  "Finding": "WRAPPER_FUNCTION_CLAUSE_ARGUMENTS",
+  "ExactPublicGuardWitness": "proc_lib:start_link(42,init,[],10,[])",
+  "ExpectedPublicFunctionClauseTop": "{proc_lib,start_link,[42,init,[],10,[]],Location}",
+  "PinnedSource": "ad05823719d77c8faee87348ea39513d4e2f99c5:lib/stdlib/src/proc_lib.erl start_link/5 guard is_atom(M),is_atom(F),is_list(A)",
+  "EarlierWitnessPrecision": "initial_call(bad_input) actually fails the pinned private raw_initial_call/1 guard. It cannot establish native top initial_call/[bad_input]; it is a separate internal-helper frame gap. No executed test or original witness was used for that earlier source sketch.",
+  "FindingRetained": "InvokeWrapper still passes no arguments for function_clause, so the isolated public start_link/5 guard failure would freeze arity5 instead of argument list.",
+  "SdkExecuted": false,
+  "NetworkExecuted": false,
+  "MainMutation": false
+}

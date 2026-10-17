@@ -309,7 +309,7 @@ Current API presence: pinned OTP-29.1.1 (`ad05823719d77c8faee87348ea39513d4e2f99
 
 Part137: published pending alias signal admission repair at2eb3e411f8ae1ff0ac6891f9c71049f6668fa608.3795/full local and same-head CI verified; original1383301/3301 verified. Failed original1363290/3291 preserved; latest successful comparable proof is138 at the same source head. Six unsafe-original exclusions remain explicit; whole erlang goal active.
 
-Current command compatibility: **16 APIs 100% compatible, 7 with known differences and 328 needing verification for 100% compatibility**. All 351 pinned erlang declarations are registered; registration is API presence only. See the [separate command lists for all modules](API_COMPATIBILITY_INDEX.md) and [complete per-command audit](API_COMPATIBILITY.md). The earlier checkpoint paragraphs retain their historical counts.
+Current command compatibility: **16 APIs 100% compatible, 13 with known differences and 322 needing verification for 100% compatibility**. All 351 pinned erlang declarations are registered; registration is API presence only. See the [separate command lists for all modules](API_COMPATIBILITY_INDEX.md) and [complete per-command audit](API_COMPATIBILITY.md). The earlier checkpoint paragraphs retain their historical counts.
 
 | Export | Current state |
 | --- | --- |
@@ -502,7 +502,7 @@ Current command compatibility: **16 APIs 100% compatible, 7 with known differenc
 | `list_to_ref/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
 | `list_to_tuple/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
 | `load_module/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
-| `load_nif/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `load_nif/2` | Known differences; see [per-command evidence](API_COMPATIBILITY.md) |
 | `loaded/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
 | `localtime_to_universaltime/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
 | `localtime_to_universaltime/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
@@ -611,10 +611,10 @@ Current command compatibility: **16 APIs 100% compatible, 7 with known differenc
 | `spawn_opt/5` | Known differences; see [per-command evidence](API_COMPATIBILITY.md) |
 | `spawn_request_abandon/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
 | `spawn_request/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
-| `spawn_request/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
-| `spawn_request/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
-| `spawn_request/4` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
-| `spawn_request/5` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `spawn_request/2` | Known differences; see [per-command evidence](API_COMPATIBILITY.md) |
+| `spawn_request/3` | Known differences; see [per-command evidence](API_COMPATIBILITY.md) |
+| `spawn_request/4` | Known differences; see [per-command evidence](API_COMPATIBILITY.md) |
+| `spawn_request/5` | Known differences; see [per-command evidence](API_COMPATIBILITY.md) |
 | `spawn/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
 | `spawn/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
 | `spawn/3` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
@@ -626,7 +626,7 @@ Current command compatibility: **16 APIs 100% compatible, 7 with known differenc
 | `subtract/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
 | `suspend_process/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
 | `suspend_process/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
-| `system_flag/2` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
+| `system_flag/2` | Known differences; see [per-command evidence](API_COMPATIBILITY.md) |
 | `system_info/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
 | `system_monitor/0` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |
 | `system_monitor/1` | Needs verification for 100% compatibility; see [per-command evidence](API_COMPATIBILITY.md) |

@@ -1,0 +1,56 @@
+{
+  "Status": "SOURCE_REFUSAL_RED_GREEN_HELPER1_BEFORE_SDK",
+  "SourceFreezeSha256": "EE1A96E8E79654FD07A613A8C3D2B2E59369AEFD06D3B742A4CEA2156669FEDA",
+  "VerifiedFrozenFiles": [
+    {
+      "Path": "run.py",
+      "Bytes": 5134,
+      "Sha256": "4F251CA67BBBD48EB2FB4FF40A18E5171DEF7A49B8854916CCCED112D88B103F"
+    },
+    {
+      "Path": "jobs.py",
+      "Bytes": 4570,
+      "Sha256": "C8C5A562A6FCE2B0D9C9F82BE675AC5BC5A56B226A8C48CCAE7C6F59163D17F3"
+    },
+    {
+      "Path": "Main.cs",
+      "Bytes": 1389,
+      "Sha256": "CE3E3CC1A9B01AE8EB0E19E583AE559A23A4F27277AFAF080689AA3D359D970A"
+    },
+    {
+      "Path": "Diagnostic.csproj",
+      "Bytes": 827,
+      "Sha256": "D76825B344CC665E4030F021EFA92A7B6AB2A05519CEE5511D5E5844BD552477"
+    }
+  ],
+  "Findings": [
+    {
+      "Id": "GreenDirectoryCollision",
+      "File": "run.py",
+      "Evidence": "green=o/'green';green.mkdir() creates sourceclone, then targetloop labelgreen d=o/label;d.mkdir() tries existingdirectory.",
+      "Impact": "Guaranteed FileExistsError beforegreenexecution; notruntimefailure.",
+      "Required": "Fresh source directory or targetdirectory names in successorfreeze."
+    },
+    {
+      "Id": "ActualLoadedRuntimeNotObserved",
+      "File": "Main.cs/run.py",
+      "Evidence": "Outcome hasonly Passed/Failure/InnerCount/InnerType; bound[] records intended3DLL files, noactual ALC loadedpath/hash.",
+      "Impact": "Source direction sensible but cannot bindredgreen runtime binaries fromactualprocess.",
+      "Required": "CaptureactualloadedErlang.Runtime/Erlang.Terms paths+SHA, require selectedfolder/hash; capturevalidateSerialization ifloaded."
+    },
+    {
+      "Id": "BaselineSourceClosureNotSealed",
+      "File": "run.py",
+      "Evidence": "Copies3project source dirs fromfull2 thenlogs dynamichashes; no assertionagainstsealedfull2source manifest exceptDispatcher parenthash.",
+      "Impact": "One-runtime-file delta currentlyintended, not source-enforced againstsealedbaseline.",
+      "Required": "Verifyallcopiedinputs againstapprovedfull2plan beforepatch, thenensureexactoneDispatcher difference; no outputalreadyexists."
+    }
+  ],
+  "AdmittedAspects": [
+    "Frozencontrol59383 exactlysame twoC#files singleharnessbothruns. Privatefalse refs and reflectionlater JIT plusresolver perruntimefolder correct direction.",
+    "Realcontrolbind/unbind/actualhaltcancellation/ownTCS observer wait preserved; REDline71+singleTimeout+blocker marker/noobserver distinguishes requiredfailure fromarbitrarytimeout.",
+    "Windowsjobownership beforeRUN handshake, original60sparent sameboth, childexit/timeout/forcedcleanup/remainingprocess strict assertions sound. No weaken/guessoriginalVM."
+  ],
+  "ExecutionByReviewer": false,
+  "MainOrCandidateMutation": false
+}

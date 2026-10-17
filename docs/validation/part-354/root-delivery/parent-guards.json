@@ -1,0 +1,579 @@
+{
+  "ParentHead": "a9ec41acf2eb5727f60c613ba8146c470f82fbb0",
+  "ParentFiles": [
+    {
+      "Path": ".gitattributes",
+      "ParentSha256": "CF0ED5B8661507CBE25A1B8DB3EDF8CD7D8246A2E9E3AA0E3EB0A6FC95738C85"
+    },
+    {
+      "Path": ".github/workflows/nif-pending-native.yml",
+      "ParentSha256": "0E43303C3A89C40F3B05FB03FA29AC6A3A9E070C25F1D2EDF22C8D3995525A73"
+    },
+    {
+      "Path": ".github/workflows/nif-reallocation-native.yml",
+      "ParentSha256": "E69D1F1B43E244D840741BFE7B3BEB2434081735D32D46069F1C6D94C8F56193"
+    },
+    {
+      "Path": "AGENTS.md",
+      "ParentSha256": "AA74118C4EBA2F2E0D8D9C8AA30EA6B6B9AD143EC157C6A7B76E75AC9F0FD984"
+    },
+    {
+      "Path": "CHANGELOG.md",
+      "ParentSha256": "D59003C62D3CB27B0AEA40F98D88653B280C009D2344202BFD9F85B0763BBB96"
+    },
+    {
+      "Path": "docs/API_COMPATIBILITY.md",
+      "ParentSha256": "01F1B402EDFE3A461251EEA362C1179D4AA24D3AD6036683088D0AE9C5F7A9C0"
+    },
+    {
+      "Path": "docs/API_COMPATIBILITY_INDEX.md",
+      "ParentSha256": "29D2509F386FABF98CCB0DB00A0D0C1F3A6E2A95909C640FD1305289CD4B3C18"
+    },
+    {
+      "Path": "docs/ERLANG_COMPATIBILITY.md",
+      "ParentSha256": "037372BECAA0B1AE4F2C46A2F3154EDC64780C9EF338E280365ACE6AAE624ED7"
+    },
+    {
+      "Path": "docs/MODULE_READINESS.md",
+      "ParentSha256": "7D25EE056F3569BD0E23778AF4319024E42944A50337072EB7B3A7BCAF8DDADF"
+    },
+    {
+      "Path": "docs/OTP-PORTS.md",
+      "ParentSha256": "C941D5FA411A189EF2586420C4C38B513DEE00A3CFA4127A4B5101A8699EC8D1"
+    },
+    {
+      "Path": "docs/PROGRESS.md",
+      "ParentSha256": "6519F709FE7F17ACC35CBD3A36370C6CD3D93F8EE6321E65B749D2D57B5686A9"
+    },
+    {
+      "Path": "docs/changelog/0055.md",
+      "ParentSha256": "939C3E9E5881D842F7B979DBD978D9D4D2F8C762FFBDA4DA847A79B6131BF6A8"
+    },
+    {
+      "Path": "docs/mfa-compatibility.json",
+      "ParentSha256": "78998728189E6BA967401A1A1BB6C061647CE4652EACE36596E70A8CEF8D1DB3"
+    },
+    {
+      "Path": "docs/module-readiness-scope.json",
+      "ParentSha256": "AEEE01CBE4F4484F52DBBA04BB7CE6039B0C04280190B5D77CDA7F6719FBBCAC"
+    },
+    {
+      "Path": "docs/module-readiness.json",
+      "ParentSha256": "880339299C69DA2CA927B66ECA66A324C9537076153AE18C826B9AB0D419282F"
+    },
+    {
+      "Path": "docs/validation/part-354/corrected-source-review.json",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-known-differences/managed/src/Erlang.Runtime/BacktraceDepthFlag.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-known-differences/managed/src/Erlang.Runtime/CpuTopologyStateRegistrations.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-known-differences/managed/src/Erlang.Runtime/ErlangLoadNifNames.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-known-differences/managed/src/Erlang.Runtime/ErlangLoadNifRegistrations.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-known-differences/managed/src/Erlang.Runtime/ErlangLoadNifTerms.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-known-differences/managed/src/Erlang.Runtime/ModuleRegistry.SourceLoadNif.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-known-differences/managed/src/Erlang.Runtime/ProcessSpawnOptions.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-known-differences/managed/src/Erlang.Runtime/ProcessSpawnRequestOptions.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-known-differences/managed/src/Erlang.Runtime/ProcessSpawnRequestRegistrations.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-known-differences/managed/src/Erlang.Runtime/SequenceTraceRegistrations.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-known-differences/managed/src/Erlang.Runtime/SourceLoadNifFilename.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-known-differences/pinned/erts__emulator__beam__bif.c__5042-5057.txt",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-known-differences/pinned/erts__emulator__beam__bif.c__5108-5116.txt",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-known-differences/pinned/erts__emulator__beam__erl_nif.c__4708-4817.txt",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-known-differences/pinned/erts__emulator__beam__erl_process.c__12305-12363.txt",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-known-differences/pinned/erts__emulator__beam__erl_unicode.c__2057-2119.txt",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-known-differences/pinned/erts__emulator__beam__erl_unicode.c__2222-2420.txt",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-known-differences/source-review.json",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/final-styled3-report.json",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/final-styled3-source-guards.json",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/src/Erlang.Compiler/Execution.LoadNif.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/src/Erlang.Compiler/Execution.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/src/Erlang.Compiler/RuntimeCallFrames.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/src/Erlang.Otp.Behaviours/Erpc.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/src/Erlang.Otp.Behaviours/OtpModules.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/src/Erlang.Otp.Behaviours/ProcLibIntrospection.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/src/Erlang.Otp.Behaviours/ProcLibLifecycle.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/src/Erlang.Otp.Behaviours/RuntimeExceptionWrapperNames.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/src/Erlang.Runtime/BacktraceDepthFlag.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/src/Erlang.Runtime/BacktraceDepthNames.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/src/Erlang.Runtime/BacktraceDepthParameters.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/src/Erlang.Runtime/CoreModules.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/src/Erlang.Runtime/ErlangExecutionFrame.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/src/Erlang.Runtime/ErlangSizeErrorFrames.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/src/Erlang.Runtime/ErlangSizeErrorNames.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/src/Erlang.Runtime/ModuleRegistry.ErrorHandler.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/src/Erlang.Runtime/ModuleRegistry.LocalFunctionDispatch.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/src/Erlang.Runtime/ModuleRegistry.ProcessScheduling.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/src/Erlang.Runtime/ModuleRegistry.SourceLoadNif.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/src/Erlang.Runtime/ModuleRegistry.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/src/Erlang.Runtime/ProcessContext.ErrorHandlers.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/src/Erlang.Runtime/ProcessContext.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/src/Erlang.Runtime/ProcessRuntime.Backtrace.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/src/Erlang.Runtime/ProcessRuntime.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/src/Erlang.Runtime/RuntimeErrorBinding.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/src/Erlang.Runtime/RuntimeExceptionCapture.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/src/Erlang.Runtime/RuntimeExceptionNames.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/src/Erlang.Runtime/SelectedErrorHandlerInvocation.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/src/Erlang.Runtime/SequenceTraceRegistrations.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/src/Erlang.Runtime/SourceLoadNifFilename.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/src/Erlang.Runtime/SourceLoadNifFilenameParameters.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/src/Erlang.Terms/ErlangException.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/tests/Erlang.Tests/BacktraceDepthHostChecks.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/tests/Erlang.Tests/BacktraceDepthHostNames.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/tests/Erlang.Tests/BacktraceDepthHostParameters.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/tests/Erlang.Tests/CommonErrorCaptureHostChecks.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/tests/Erlang.Tests/CommonErrorCaptureHostNames.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/tests/Erlang.Tests/CommonErrorCaptureHostParameters.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/tests/Erlang.Tests/CommonLambdaHandlerCaptureHostChecks.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/tests/Erlang.Tests/CommonLambdaHandlerCaptureHostNames.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/tests/Erlang.Tests/CommonPreloadedReinstallHostChecks.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/tests/Erlang.Tests/CommonPreloadedReinstallHostNames.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/tests/Erlang.Tests/Program.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/tests/Erlang.Tests/SizeErrorHostTestNames.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/tests/Erlang.Tests/SourceLoadNifCaptureHostNames.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/tests/Erlang.Tests/SourceLoadNifHostChecks.Capture.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/tools/Erlang.Differential/CompiledModuleCases.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/tools/Erlang.Differential/SizeErrorCaseNames.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/tools/Erlang.Differential/SizeErrorCaseSources.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "docs/validation/part-354/current-verified-source-review/source/tools/Erlang.Differential/SizeErrorCases.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Compiler/Execution.LoadNif.cs",
+      "ParentSha256": "0319480F4C1160D11825469B98D770755FDD688F1122F3DD5B03DB7B7C450249"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "ParentSha256": "E249498D8D0684013CE77B3D00F136895905746A99610AA62F2D7FE43DF3602D"
+    },
+    {
+      "Path": "src/Erlang.Compiler/RuntimeCallFrames.cs",
+      "ParentSha256": "FD9C816892E857F48A62F47257953906A1AFD42B95EC65F1369F007E3372F5FA"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/Erpc.cs",
+      "ParentSha256": "48ED6BCDD0FB8C04F246E465B58A0C0890D07CDAEEAE8B2D900B4AE5599E466D"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/ErpcNames.cs",
+      "ParentSha256": "D40002B453856CC12DBE68BC6CBF149C916EC48164856E4009FB790785FBFEDA"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/OtpModules.cs",
+      "ParentSha256": "DF364C299B53D153FA86B5C95968F53195720D03A5641E6725EF28B1E28BE85A"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/ProcLibIntrospection.cs",
+      "ParentSha256": "DD1AA3EA508C82250AB92860908B6388E55E596DFC2AE386EBC714C86DF16BD3"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/ProcLibLifecycle.cs",
+      "ParentSha256": "7C7CF38ED379F770B9FC422CBBCA75887E4E6A864530D92E3601DA29910DC292"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/RuntimeExceptionWrapperNames.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Runtime/BacktraceDepthFlag.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Runtime/BacktraceDepthNames.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Runtime/BacktraceDepthParameters.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Runtime/CoreModules.cs",
+      "ParentSha256": "7B32F96DD7A0F94E97C13616777D88DFBBA374BB77BD683DEBDED98E75DAAED7"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangApplyDispatch.cs",
+      "ParentSha256": "3D872A4A1A1DC899CF7A8E90992926CEEAB879E77D34ED204B40D55173FDB295"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangExecutionFrame.cs",
+      "ParentSha256": "372405964A795EF30154883C716225C6A560EC944A019DC9F4166314AE087C10"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangSizeErrorFrames.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangSizeErrorNames.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.ErrorHandler.cs",
+      "ParentSha256": "E11FBDCB76287F0F54854E4B07FE0358CC391E48FBC56DB7410AB9817726B903"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.LocalFunctionDispatch.cs",
+      "ParentSha256": "FC6ECE23AA25152DD7DF14E0F7890B7CF925131AF791E9C6F1A61E4F101ACBEA"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.ProcessScheduling.cs",
+      "ParentSha256": "B2032518A4CE88DD09325AFCCDF2E02EB8738F7D1233AC77D8B30DC4A310F17D"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.SourceLoadNif.cs",
+      "ParentSha256": "86A04A810020D7432069E4ECBDF0D0361ABE363033F5CD911B794E322A542E2A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.cs",
+      "ParentSha256": "14C17E6F60C7A37446CEC556FFF3812859CFE0252643D5165970B7CC42713279"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.ErrorHandlers.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.cs",
+      "ParentSha256": "7CD483379153C4E3D73D078E81E2E56B1DB3320CF9AECFD0751E413A73F5D923"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.Backtrace.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
+      "ParentSha256": "46FFC253273B58939531584AC2900D14FF065B7DEA85F79FB17BD60E2FB345E4"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeActorDispatcher.cs",
+      "ParentSha256": "0AF57D1F9F65CE153129E6D9718B3F545F7CE83FFE409E6889F51957040C3555"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeErrorBinding.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeExceptionCapture.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeExceptionNames.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Runtime/SelectedErrorHandlerInvocation.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Runtime/SequenceTraceRegistrations.cs",
+      "ParentSha256": "377083C8E74BB12BC4EAD8D77490C41E52964C3BBA2BAF4BAFBE8936302E9958"
+    },
+    {
+      "Path": "src/Erlang.Runtime/SourceLoadNifFilename.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Runtime/SourceLoadNifFilenameParameters.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Terms/ErlangException.cs",
+      "ParentSha256": "6C159C2B6067ECA59E1F7F0634CE0589A66B2017AD89E61B6FD8647257D409AC"
+    },
+    {
+      "Path": "tests/Erlang.Tests/BacktraceDepthHostChecks.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/BacktraceDepthHostNames.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/BacktraceDepthHostParameters.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/CleanupStealingHostChecks.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/CleanupStealingHostNames.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/CommonErrorCaptureHostChecks.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/CommonErrorCaptureHostNames.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/CommonErrorCaptureHostParameters.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/CommonLambdaHandlerCaptureHostChecks.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/CommonLambdaHandlerCaptureHostNames.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/CommonPreloadedReinstallHostChecks.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/CommonPreloadedReinstallHostNames.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/Program.cs",
+      "ParentSha256": "8B1E16AED640E784ABD3A11551B9C031ECB60E007E83A71D012ADA536594F31D"
+    },
+    {
+      "Path": "tests/Erlang.Tests/SizeErrorHostTestNames.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/SourceLoadNifCaptureHostNames.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "tests/Erlang.Tests/SourceLoadNifHostChecks.Capture.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "tools/Erlang.Differential/CompiledModuleCases.cs",
+      "ParentSha256": "0F7EF7071C087CF81DFBA990ADB31558D4117A578FF073D6EC97B9BF0E54B8B6"
+    },
+    {
+      "Path": "tools/Erlang.Differential/SizeErrorCaseNames.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "tools/Erlang.Differential/SizeErrorCaseSources.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "tools/Erlang.Differential/SizeErrorCases.cs",
+      "ParentSha256": null
+    },
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "ParentSha256": "9D47EEB07A4430F3C1B33F244A7F0E07B37DDBE17F76E02E3EEF12825F7AEB1A"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "ParentSha256": "BA8DCF9F278186842B1D4D45C757E21C59EEA922C73EAF7CEEB7915C9992D8D9"
+    }
+  ],
+  "SourcePlansContainNoFinalReportingPaths": true,
+  "NoPackageResourceRewriteAfterFull": true
+}

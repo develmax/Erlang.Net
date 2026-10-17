@@ -1,0 +1,38 @@
+--- styled2/tests/Erlang.Tests/Program.cs
++++ permanent3/tests/Erlang.Tests/Program.cs
+@@ -4201,7 +4201,7 @@
+     return Task.CompletedTask;
+ }
+ );
+-foreach (var fixture in Erlang.Differential.CompiledModuleCases.All.Where(fixture => !Erlang.Differential.SchedulerAffinityCases.Modules.Contains(fixture)))
++foreach (var fixture in Erlang.Differential.CompiledModuleCases.All.Where(fixture => !Erlang.Differential.SchedulerAffinityCases.Modules.Contains(fixture) && !Erlang.Differential.SizeErrorCases.Modules.Contains(fixture)))
+ {
+     Test(
+         "oracle/compiled-module/" + fixture.Name,
+@@ -4663,6 +4663,26 @@
+     Erlang.Tests.SchedulerOfflineRetirementHostChecks.RunningParksPendingGuestKillAndRetirementSeparatelyJoinsCleanup
+ );
+ 
++foreach (var fixture in Erlang.Differential.SizeErrorCases.Modules)
++{
++    Test(
++        "oracle/compiled-module/" + fixture.Name,
++        async () =>
++    {
++        using var artifact = Erlang.Differential.GeneratedModuleCompiler.Compile(fixture.Source);
++        if (fixture.ExpectedStandardOutputHex is not null || fixture.ExpectedStandardErrorHex is not null)
++        {
++            var captured = await Erlang.Differential.CompiledModuleExecution.RunCaptured(artifact, fixture.CallerContext);
++            Equal(captured.Result, fixture.Expected);
++            Check(Erlang.Differential.CompiledStandardOutputContract.Matches(fixture, captured.StandardOutputHex, captured.StandardErrorHex));
++        }
++        else
++            Equal(await Erlang.Differential.CompiledModuleExecution.Run(artifact, fixture.CallerContext), fixture.Expected);
++        Check(artifact.CSharpSha256.Length == 64);
++    }
++    );
++}
++
+ Test(Erlang.Tests.BacktraceDepthHostNames.Test, Erlang.Tests.BacktraceDepthHostChecks.IndependentRuntimes);
+ Test(
+     Erlang.Tests.SizeErrorHostTestNames.Identity,

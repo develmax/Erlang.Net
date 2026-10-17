@@ -1,0 +1,14 @@
+{
+  "Status": "OBSERVED_FAILED_FULL2_ROWS_NO_FULL_ACCEPTANCE",
+  "TestReportSha256": "4654115D210BEE342EA4769A89EB8A0E39021BDC6D4F9220846B833307BF4B92",
+  "FullExitSha256": "2F883C0967D6EC2B4E73E1D2ABEC2E93F0CF940D331B451014F061B851C03F1E",
+  "FailureRows": [
+    {
+      "Name": "runtime/halt-live-port-drain-immediate-timeout-and-profile-ownership",
+      "Status": "Failed",
+      "Error": "System.TimeoutException: The operation has timed out.\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4709",
+      "Milliseconds": 15014
+    }
+  ],
+  "Scope": "Only outer canonical15s timeout observed. No private phase/root cause proven."
+}

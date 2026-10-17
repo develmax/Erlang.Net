@@ -1,0 +1,24 @@
+{
+  "Status": "SOURCE_ONLY_HOST_MECHANISM_CONTROLS_NOT_PARSED_BUILT_OR_EXECUTED",
+  "Files": [
+    {
+      "Path": "CommonErrorCaptureHostChecks.cs",
+      "Bytes": 5044,
+      "Sha256": "5B61F8804937656E43A389C26D11904E1F038C28D50078AD1DB96421C5E41A40"
+    }
+  ],
+  "TargetMethod": "RunIdentityRollbackAndAsyncSnapshot",
+  "Contracts": [
+    "Recursive Apply+InstallPreloaded failure restores original native delegate identity map; reusing same delegate as HOST override must remain unclassified",
+    "Asynchronously faulted native dispatch uses saved caller context and failure-time global depth changed by another actor",
+    "Shared thrown exception remains unmodified",
+    "Explicit Nil and custom trace exception/trace identity preserved"
+  ],
+  "Scope": "Synthetic private registry mechanism controls only; not actual native hd implementation or original OTP evidence. Existing ProcessErrorHandlerHostChecks must also execute unchanged.",
+  "NeedsBeforeSdk": [
+    "Source review",
+    "Wire into private focused harness; test constants may be split/styled without semantic edits"
+  ],
+  "SdkExecuted": false,
+  "MainOrGitMutation": false
+}

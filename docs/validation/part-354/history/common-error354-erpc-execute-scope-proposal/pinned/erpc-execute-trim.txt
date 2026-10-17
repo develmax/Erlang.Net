@@ -1,0 +1,115 @@
+call(N, M, F, A, #{timeout := infinity, line 277
+call(N, M, F, A, #{timeout := infinity,
+		   always_spawn := false}) when node() =:= N,  %% Optimize local call
+                                                is_atom(M),
+                                                is_atom(F),
+                                                is_list(A) ->
+    try
+        {return, Return} = execute_call(M,F,A),
+        Return
+    catch
+        exit:Reason ->
+            exit({exception, Reason});
+        error:Reason:Stack ->
+            case is_arg_error(Reason, M, F, A) of
+                true ->
+                    error({?MODULE, Reason});
+                false ->
+                    ErpcStack = trim_stack(Stack, M, F, A),
+                    error({exception, Reason, ErpcStack})
+            end
+    end;
+call(N, M, F, A, #{timeout := T,
+		   always_spawn := AlwaysSpawn}) when is_atom(N),
+                                                      is_atom(M),
+                                                      is_atom(F),
+                                                      is_list(A),
+                                                      is_boolean(AlwaysSpawn) ->
+    Timeout = timeout_value(T),
+
+execute_call(M,F,A) -> line 1280
+execute_call(M,F,A) ->
+    {return, apply(M, F, A)}.
+
+-doc false.
+execute_cast(M, F, A) ->
+    try
+        apply(M, F, A)
+    catch
+        error:Reason:Stack ->
+            %% Produce error reports with error
+            %% exceptions produced for calls...
+            case is_arg_error(Reason, M, F, A) of
+                true ->
+                    error({?MODULE, Reason});
+                false ->
+                    ErpcStack = trim_stack(Stack, M, F, A),
+                    error({exception, {Reason, ErpcStack}})
+            end
+    end.
+
+-doc false.
+call_result(Type, ReqId, Res, Reason) ->
+    result(Type, ReqId, Res, Reason).
+
+-doc false.
+is_arg_error(system_limit, _M, _F, A) ->
+    try
+
+trim_stack([CF | _], M, F, A) when line 1322
+trim_stack([CF | _], M, F, A) when ?IS_CUT_FRAME(CF) ->
+    [{M, F, A, []}];
+trim_stack([{M, F, A, _} = SF, CF | _], M, F, A) when ?IS_CUT_FRAME(CF) ->
+    [SF];
+trim_stack(S, M, F, A) ->
+    try
+        trim_stack_aux(S, M, F, A)
+    catch
+        throw:use_all -> S
+    end.
+
+%%------------------------------------------------------------------------
+%% Internals
+%%------------------------------------------------------------------------
+
+trim_stack_aux([], _M, _F, _A) ->
+    throw(use_all);
+trim_stack_aux([{M, F, AL, _} = SF, CF | _], M, F, A) when ?IS_CUT_FRAME(CF),
+                                                            AL == length(A) ->
+    [SF];
+trim_stack_aux([CF | _], M, F, A) when ?IS_CUT_FRAME(CF) ->
+    try
+        [{M, F, length(A), []}]
+    catch
+        _:_ ->
+            []
+    end;
+
+trim_stack_aux([], _M, _F, _A) -> line 1337
+trim_stack_aux([], _M, _F, _A) ->
+    throw(use_all);
+trim_stack_aux([{M, F, AL, _} = SF, CF | _], M, F, A) when ?IS_CUT_FRAME(CF),
+                                                            AL == length(A) ->
+    [SF];
+trim_stack_aux([CF | _], M, F, A) when ?IS_CUT_FRAME(CF) ->
+    try
+        [{M, F, length(A), []}]
+    catch
+        _:_ ->
+            []
+    end;
+trim_stack_aux([SF|SFs], M, F, A) ->
+    [SF|trim_stack_aux(SFs, M, F, A)].
+
+call_abandon(ReqId) ->
+    case spawn_request_abandon(ReqId) of
+        true -> true;
+        false -> erlang:demonitor(ReqId, [info])
+    end.
+
+-dialyzer([{nowarn_function, result/4}, no_return]).
+
+-spec result('down', ReqId, Res, Reason) -> term() when
+      ReqId :: reference(),
+      Res :: reference(),
+      Reason :: term();

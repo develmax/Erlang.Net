@@ -1,0 +1,36 @@
+{
+  "Status": "SOURCE_ONLY_FUTURE_RAW_EVIDENCE_CAPTURE_INVENTORY_NO_ACTUAL_FULL_READ",
+  "ActualRoot": "artifacts/size-bif354-full-actual1",
+  "RequiredRawFiles": [
+    "composition-plan.json",
+    "inputs.json",
+    "runner-source-review.json",
+    "corrected-focus-independent.json",
+    "registry-before.json",
+    "raw-supported-mfas.json",
+    "previous-tests.json",
+    "full.live.json",
+    "full.exit.json",
+    "full.stdout.log",
+    "full.stderr.log",
+    "captured-outputs.json",
+    "stable-closure-after.json",
+    "producer-completion.json",
+    "artifacts/tests.json",
+    "artifacts/integration-results.json",
+    "artifacts/readiness/module-readiness.json",
+    "artifacts/readiness/MODULE_READINESS.md",
+    "artifacts/readiness/API_COMPATIBILITY.md",
+    "artifacts/tool-readiness/module-readiness.json"
+  ],
+  "CandidateRawGroups": [
+    "artifacts/term-order-children/*/{receipt.json,stdout.txt,stderr.txt} exact12 indexed",
+    "artifacts/packages/*.nupkg exact2 ZIP bytes",
+    "tests/Erlang.Tests/bin/Debug/net10.0/*.dll exactpostbuildindex",
+    "src/{Erlang.Terms,Erlang.Runtime,Erlang.Compiler,Erlang.Otp.Behaviours,Erlang.Serialization}/bin/Debug/net10.0/*.dll packagebound",
+    "tools/Erlang.Tool/bin/Debug/net10.0/* packageallDLL/runtime/deps bound"
+  ],
+  "TransitiveSourceRows": "All plan3208/stable3207 plus InputPins and fullsourcefreeze2; no executed output substituted for frozen input",
+  "DoNotClaim": "No invented initial full DLL snapshot, no native354, no actual source-style gate separate from completed canonical validation invocation",
+  "Restoration": "Keep raw-supported-mfas immutable; restore only candidate registry after independent PASS and preflight all Tool/package/deps/evidence before write"
+}

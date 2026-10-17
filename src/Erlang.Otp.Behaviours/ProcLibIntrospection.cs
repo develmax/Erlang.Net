@@ -51,41 +51,57 @@ internal static class ProcLibIntrospection
 
     private static async ValueTask<Term> RawInitialCall(ProcessContext context, Term input)
     {
-        if (input is TupleTerm { Items: [Integer channel, Integer number, Integer serial] })
+        using var frame = context.EnterSourceWrapper(
+            ProcLibNames.Module,
+            RuntimeExceptionWrapperNames.RawInitialCall,
+            1
+        );
+        Term original = input;
+        try
         {
-            string text = string.Format(
-                CultureInfo.InvariantCulture,
-                ProcLibIntrospectionNames.PidFormat,
-                channel.Value,
-                number.Value,
-                serial.Value
-            );
-            input = await context.Runtime.Modules.Call(
-                context,
-                ProcLibNames.Erlang,
-                ProcessIdentifierTextNames.ListToPid,
-                Term.String(text)
+            if (input is TupleTerm { Items: [Integer channel, Integer number, Integer serial] })
+            {
+                string text = string.Format(
+                    CultureInfo.InvariantCulture,
+                    ProcLibIntrospectionNames.PidFormat,
+                    channel.Value,
+                    number.Value,
+                    serial.Value
+                );
+                input = await context.Runtime.Modules.Call(
+                    context,
+                    ProcLibNames.Erlang,
+                    ProcessIdentifierTextNames.ListToPid,
+                    Term.String(text)
+                );
+            }
+            if (input is Pid)
+            {
+                Term value = await DictionaryValue(context, input, ProcLibIntrospectionAtoms.InitialCallQuery);
+
+                return value is TupleTerm { Items.Count: 3 } ? value : ProcLibIntrospectionAtoms.False;
+            }
+            if (input is not Cons and not Nil)
+                throw new ErlangException(ErlangErrorReasons.FunctionClause);
+            Term specific = await KeyFind(context, ProcLibIntrospectionAtoms.InitialCallQuery, input);
+            if (specific is TupleTerm { Items: [_, var stored] })
+                return stored is TupleTerm { Items.Count: 3 } ? stored : ProcLibIntrospectionAtoms.False;
+            if (!specific.Equals(ProcLibIntrospectionAtoms.False))
+                throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.CaseClause), specific));
+            Term dictionary = await KeyFind(context, ProcLibIntrospectionAtoms.Dictionary, input);
+            if (dictionary is not TupleTerm { Items: [_, var entries] })
+                return ProcLibIntrospectionAtoms.False;
+            Term initial = await KeyFind(context, ProcLibAtoms.InitialCall, entries);
+
+            return initial is TupleTerm { Items: [_, TupleTerm { Items.Count: 3 } mfa] } ? mfa : ProcLibIntrospectionAtoms.False;
+        }
+        catch (ErlangException exception)
+        {
+            throw context.CaptureSourceFailure(
+                exception,
+                exception.Reason.Equals(Term.A(ErlangErrorReasons.FunctionClause)) ? [original] : null
             );
         }
-        if (input is Pid)
-        {
-            Term value = await DictionaryValue(context, input, ProcLibIntrospectionAtoms.InitialCallQuery);
-
-            return value is TupleTerm { Items.Count: 3 } ? value : ProcLibIntrospectionAtoms.False;
-        }
-        if (input is not Cons and not Nil)
-            throw new ErlangException(ErlangErrorReasons.FunctionClause);
-        Term specific = await KeyFind(context, ProcLibIntrospectionAtoms.InitialCallQuery, input);
-        if (specific is TupleTerm { Items: [_, var stored] })
-            return stored is TupleTerm { Items.Count: 3 } ? stored : ProcLibIntrospectionAtoms.False;
-        if (!specific.Equals(ProcLibIntrospectionAtoms.False))
-            throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.CaseClause), specific));
-        Term dictionary = await KeyFind(context, ProcLibIntrospectionAtoms.Dictionary, input);
-        if (dictionary is not TupleTerm { Items: [_, var entries] })
-            return ProcLibIntrospectionAtoms.False;
-        Term initial = await KeyFind(context, ProcLibAtoms.InitialCall, entries);
-
-        return initial is TupleTerm { Items: [_, TupleTerm { Items.Count: 3 } mfa] } ? mfa : ProcLibIntrospectionAtoms.False;
     }
 
     private static async ValueTask<Term> KeyFind(ProcessContext context, Term key, Term list)
@@ -114,6 +130,11 @@ internal static class ProcLibIntrospection
 
     internal static async ValueTask<Term> MakeDummyArguments(ProcessContext context, Term arity)
     {
+        using var frame = context.EnterSourceWrapper(
+            ProcLibNames.Module,
+            RuntimeExceptionWrapperNames.MakeDummyArguments,
+            2
+        );
         Term result = Nil.Value;
         while (arity is not Integer integer || !integer.Value.IsZero)
         {

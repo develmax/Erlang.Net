@@ -1,0 +1,170 @@
+{
+  "Status": "PASS_INDEPENDENT_ACTUAL_INSTRUMENTED_HALT_PORT_GATE_PAIR_ACQUISITION_NO_HISTORICAL_CAUSE_INFERENCE",
+  "SourceFreezeSha256": "6A4208B702388954EC6CEBB27FE9767F6FF2628BFE11D0DA06F43B91D3035B39",
+  "SourcePeerSha256": "36AD5D420FB9A318FE793757D920433E7612F852E81C49EABACA682F30DBF2C2",
+  "InputsSha256": "48719A8C1FFD904AF4227DAB63F227D0ECC45055804C79A752AE1DC5D695A713",
+  "CompletionSha256": "56AD093B03265FB5863378D9FDA7F99D82B5AF64050798B7786FB4E53E83B394",
+  "ActualFull2ExitSha256": "2F883C0967D6EC2B4E73E1D2ABEC2E93F0CF940D331B451014F061B851C03F1E",
+  "PrimarySevenPhaseAuditSha256": "F5D8A5D09D54914A6B98D4E6E0965F37778527A84C0D8C652F7DF78727B8A667",
+  "BoundFullDlls": 19,
+  "BoundProbeFiles": 4,
+  "HarnessDllSha256": "29C74E6808398A9A73CED61CFECF03611366D3D985B1A1F9C68D7B83B6F63145",
+  "InstrumentedCopy": true,
+  "RuntimeAndTermsLoadedFromExactOriginalFull2Directory": true,
+  "BuildWarnings": 0,
+  "BuildErrors": 0,
+  "DiagnosticPassed": 2,
+  "DiagnosticFailed": 0,
+  "Targets": [
+    {
+      "Target": "held-orderly",
+      "Passed": true,
+      "ElapsedSeconds": 1.2053798,
+      "Pid": 251440,
+      "ExitSha256": "B176ED397E4828D71D63E17253EB2575C74C04603165CEC7F00D0BD502162330",
+      "OutcomeSha256": "223C3EC68AA08087CD3D6538CE08947F87001340FF9084B215A1EAF597D46E61",
+      "StdoutSha256": "ADDC3487DEE4834D8FC054F575781634C6267DDA250311968D1C8BA8C9103972",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "GateRecords": [
+        {
+          "GatePhase": "callback-ready",
+          "CancellationRequested": false,
+          "Scheduler": 3,
+          "Utc": "2026-10-17T05:10:42.8837231+00:00"
+        },
+        {
+          "GatePhase": "cooperative-ready",
+          "CancellationRequested": false,
+          "Scheduler": 2,
+          "Utc": "2026-10-17T05:10:42.8836603+00:00"
+        },
+        {
+          "GatePhase": "cancellation-callback-entered",
+          "CancellationRequested": true,
+          "Scheduler": 1,
+          "Utc": "2026-10-17T05:10:42.909407+00:00"
+        },
+        {
+          "GatePhase": "cooperative-cancel-observed",
+          "CancellationRequested": true,
+          "Scheduler": 2,
+          "Utc": "2026-10-17T05:10:43.8271821+00:00"
+        },
+        {
+          "GatePhase": "snapshot",
+          "CooperativeStopped": true,
+          "CallbackEntered": true,
+          "CooperativeCompletion": "RanToCompletion",
+          "CallbackCompletion": "RanToCompletion",
+          "CooperativeCancellation": true,
+          "CallbackCancellation": true,
+          "Utc": "2026-10-17T05:10:43.8294678+00:00"
+        },
+        {
+          "GatePhase": "callback-body-before-registration-dispose",
+          "CancellationRequested": true,
+          "Scheduler": 3,
+          "Utc": "2026-10-17T05:10:43.8350932+00:00"
+        },
+        {
+          "GatePhase": "snapshot",
+          "CooperativeStopped": true,
+          "CallbackEntered": true,
+          "CooperativeCompletion": "RanToCompletion",
+          "CallbackCompletion": "RanToCompletion",
+          "CooperativeCancellation": true,
+          "CallbackCancellation": true,
+          "Utc": "2026-10-17T05:10:43.8639771+00:00"
+        },
+        {
+          "GatePhase": "cancellation-callback-released",
+          "CancellationRequested": true,
+          "Scheduler": 1,
+          "Utc": "2026-10-17T05:10:43.8640618+00:00"
+        }
+      ],
+      "NormalOwnedJobSettlement": true
+    },
+    {
+      "Target": "held-deadline",
+      "Passed": true,
+      "ElapsedSeconds": 2.2150885,
+      "Pid": 259944,
+      "ExitSha256": "75FEE6DFDBDE63DAD81CAEFA4E2939C07C172FDE4B3CEE8B2CEB1129C31C38EE",
+      "OutcomeSha256": "4815CBD5E5A6EEE06BC02221D2ECFBD28B5A1CDDFEAB024411EBA2070CEA6365",
+      "StdoutSha256": "E3FB0C23CEF7EBF1CC861B926B93965DD005DA62D9574F7797976E355B8BCEED",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "GateRecords": [
+        {
+          "GatePhase": "cooperative-ready",
+          "CancellationRequested": false,
+          "Scheduler": 2,
+          "Utc": "2026-10-17T05:10:44.335377+00:00"
+        },
+        {
+          "GatePhase": "callback-ready",
+          "CancellationRequested": false,
+          "Scheduler": 3,
+          "Utc": "2026-10-17T05:10:44.3354464+00:00"
+        },
+        {
+          "GatePhase": "cancellation-callback-entered",
+          "CancellationRequested": true,
+          "Scheduler": 1,
+          "Utc": "2026-10-17T05:10:44.3624993+00:00"
+        },
+        {
+          "GatePhase": "cooperative-cancel-observed",
+          "CancellationRequested": true,
+          "Scheduler": 2,
+          "Utc": "2026-10-17T05:10:45.2823968+00:00"
+        },
+        {
+          "GatePhase": "snapshot",
+          "CooperativeStopped": true,
+          "CallbackEntered": true,
+          "CooperativeCompletion": "RanToCompletion",
+          "CallbackCompletion": "RanToCompletion",
+          "CooperativeCancellation": true,
+          "CallbackCancellation": true,
+          "Utc": "2026-10-17T05:10:45.2861799+00:00"
+        },
+        {
+          "GatePhase": "callback-body-before-registration-dispose",
+          "CancellationRequested": true,
+          "Scheduler": 3,
+          "Utc": "2026-10-17T05:10:45.293189+00:00"
+        },
+        {
+          "GatePhase": "snapshot",
+          "CooperativeStopped": true,
+          "CallbackEntered": true,
+          "CooperativeCompletion": "RanToCompletion",
+          "CallbackCompletion": "RanToCompletion",
+          "CooperativeCancellation": true,
+          "CallbackCancellation": true,
+          "Utc": "2026-10-17T05:10:46.3120736+00:00"
+        },
+        {
+          "GatePhase": "cancellation-callback-released",
+          "CancellationRequested": true,
+          "Scheduler": 1,
+          "Utc": "2026-10-17T05:10:46.3122143+00:00"
+        }
+      ],
+      "NormalOwnedJobSettlement": true
+    }
+  ],
+  "OwnedJobsNormalSettled": 2,
+  "ForcedJobTerminationCount": 0,
+  "BothGatesObservedInBothRuns": true,
+  "Limits": [
+    "Instrumented copies add Console logging and handle/context snapshots; these alter timing and are not unchanged canonical method execution",
+    "Both fresh instrumented runs passed; they do not identify the missing gate in prior uninstrumented held-deadline failure or full2 wholeRun timeout",
+    "TaskScheduler.Current.Id is a logical TaskScheduler identity, not independently recorded physical dispatcher lane",
+    "ProcessHandle.Completion snapshot does not prove physical cancellation callback/dispose unwind complete",
+    "No original OTP, full canonical acceptance, SDK or new probe execution by reviewer; individual probe PID not independently emitted"
+  ],
+  "NoCauseClaim": true,
+  "MainChanged": false
+}

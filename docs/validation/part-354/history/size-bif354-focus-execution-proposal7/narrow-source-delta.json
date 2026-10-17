@@ -1,0 +1,46 @@
+{
+  "Status": "SOURCE_ONLY_HOST2_NARROW_CORRECTION_RUNTIME8_UNCHANGED",
+  "ParentExecutionFreezeSha256": "B3632013319A520DFC1B75C43EFD9775F95251A7D8DD2FDA0A9D7E33E457BA75",
+  "CommonSource8Sha256": "DC8268316A2F615039804849CF893293F2F448823F9886B427E741A6E395A01C",
+  "HostControls2Sha256": "F04176BD277FE5B01B31C4A3198124CD1145AA3B4E326A8106F91516B66A412A",
+  "ChangedCandidatePaths": [
+    "tests/Erlang.Size354.Focus/FocusNames.cs",
+    "tests/Erlang.Size354.Focus/FocusProgram.cs",
+    "tests/Erlang.Tests/CommonErrorCaptureHostChecks.cs"
+  ],
+  "RuntimeAndAllErlangSourcesRawExact": true,
+  "Actual4BuildFailureBindings": [
+    {
+      "Path": "artifacts/size-bif354-focused-actual4/inputs.json",
+      "Bytes": 645,
+      "Sha256": "BF93AEDF69B5C803BF16AF60B00188A3936054AAC742173C82D072E9D300F166"
+    },
+    {
+      "Path": "artifacts/size-bif354-focused-actual4/build.exit.json",
+      "Bytes": 530,
+      "Sha256": "F8ABAE5502F719F91566C12702506AA62DF9761A3718F9210F3FACDC0FBEE616"
+    },
+    {
+      "Path": "artifacts/size-bif354-focused-actual4/build.stdout.log",
+      "Bytes": 7246,
+      "Sha256": "9ACAFC5781A68305C39306B8328609B9FEED2D1CEB3C863298A2BC4016BCC2CA"
+    },
+    {
+      "Path": "artifacts/size-bif354-focused-actual4/build.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/size-bif354-focused-actual4/completion.json",
+      "Bytes": 174,
+      "Sha256": "C11C12C0B22110DCAAFEBFD2019EC72082A17B0498B3EBA4B8E632B0C9196EA4"
+    }
+  ],
+  "Actual4ParseAndGuestCases": 0,
+  "Chronology": "HOST2 authored source correction precedes Root observation of three CS0411 diagnostics; no claim repair was derived from earlier executed HOST result.",
+  "SourceRows": 3151,
+  "ParseAll": 23,
+  "ManagedTargets": 26,
+  "NoSdkByAuthor": true,
+  "NoMainMutation": true
+}

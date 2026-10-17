@@ -1,0 +1,82 @@
+{
+  "Status": "SOURCE_ONLY_COMMON_ORIGIN_CAPTURE_PROPOSAL_REQUIRES_PEER_AND_EXECUTION",
+  "ParentHead": "50e756f73437eb8d2882a19f729bccb09af74f3d",
+  "Files": [
+    {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "Bytes": 39759,
+      "Sha256": "D08E0F7B25D246629196F2F1AADFBF24D62F1935B6FFCA9A9350CF11ADCC0FF3",
+      "ParentSha256": "E249498D8D0684013CE77B3D00F136895905746A99610AA62F2D7FE43DF3602D"
+    },
+    {
+      "Path": "src/Erlang.Compiler/RuntimeCallFrames.cs",
+      "Bytes": 596,
+      "Sha256": "82538BC757EEC0E8C6DA1F37240C7A59B65640C8B47BB3E64AB95EA92EA093F1",
+      "ParentSha256": "FD9C816892E857F48A62F47257953906A1AFD42B95EC65F1369F007E3372F5FA"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/Erpc.cs",
+      "Bytes": 9423,
+      "Sha256": "D44F1FFAF6CF6AF5E66465184845B2AB41230E8BFE37BC39C74E77943A0FF25B",
+      "ParentSha256": "48ED6BCDD0FB8C04F246E465B58A0C0890D07CDAEEAE8B2D900B4AE5599E466D"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/ProcLibLifecycle.cs",
+      "Bytes": 5113,
+      "Sha256": "89E75F3CFC765322861800097811F2855728B6CF3780E2C031A204EC1F8A0F9D",
+      "ParentSha256": "7C7CF38ED379F770B9FC422CBBCA75887E4E6A864530D92E3601DA29910DC292"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.cs",
+      "Bytes": 27128,
+      "Sha256": "6FEB09ADC5F440CE2ECCE493328393663AB237C8739967ACD23B2386E02D829E",
+      "ParentSha256": "14C17E6F60C7A37446CEC556FFF3812859CFE0252643D5165970B7CC42713279"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.cs",
+      "Bytes": 15123,
+      "Sha256": "C7A48D719B46DCEFE78FDDAE339DF09F22069B53B5B876D0F642511DC3E94992",
+      "ParentSha256": "7CD483379153C4E3D73D078E81E2E56B1DB3320CF9AECFD0751E413A73F5D923"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeExceptionCapture.cs",
+      "Bytes": 4089,
+      "Sha256": "E0B143B377D048E8499FFB67E215F5CEFF6868D73AF15D5AC1DC080503EBE048",
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeExceptionNames.cs",
+      "Bytes": 647,
+      "Sha256": "54B9B2F105B7F3637B28A54B1386D6C1B5D3069D12202EF4858B2FB44D2D76F1",
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Terms/ErlangException.cs",
+      "Bytes": 2619,
+      "Sha256": "AA48C437DE909BAE4C9A909EAF2EF5716700FECE361CA685BBEEB425C7D73628",
+      "ParentSha256": "6C159C2B6067ECA59E1F7F0634CE0589A66B2017AD89E61B6FD8647257D409AC"
+    }
+  ],
+  "SourceFiles": 9,
+  "InitialFourSizeAndFlagProposal": "artifacts/size-bif354-integration-proposal2/source-freeze.json",
+  "CurrentImplementation": [
+    "Origin-time common preloaded native binding sync/async capture",
+    "Actual selected delegate/source-owner identity checked under registry gate",
+    "Identity map rollback included in recursive Apply transaction",
+    "Error/exit/throw non-BIF exception top policy",
+    "Source Evaluate wrapper before leaf try/catch consumption",
+    "Source named/anonymous function clause capture before scope disposal",
+    "Selected HOST handler logical frame preserves actual handler and nesting",
+    "Completed automatic marker separate from explicit trace and idempotent legacy WithFrame",
+    "ProcLib/Erpc consumers avoid complete-trace concatenation"
+  ],
+  "RemainingSourceReviewRisks": [
+    "Existing custom selected-handler tests may expose expected migration in old synthetic caller arg shapes; do not relax before exact original-source review.",
+    "C# source wrappers without their own logical scope keep existing source-depth limitations; no whole runtime trace parity claimed.",
+    "Native error_info cause details already explicit remain untouched; central generic metadata supplies formatter module only.",
+    "No compile/style/runtime check has run on these new files."
+  ],
+  "SdkExecuted": false,
+  "NetworkExecuted": false,
+  "MainOrGitMutation": false
+}

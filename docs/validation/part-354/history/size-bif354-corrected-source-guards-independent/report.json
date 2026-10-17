@@ -1,0 +1,26 @@
+{
+  "Status": "PASS_INDEPENDENT_SOURCE_ONLY_CORRECTED354_115_GUARD_METADATA_PRESERVATION",
+  "SourceFreezeSha256": "766C4259D365802B7DE8E81893D5582AB4A48BE44F2CDB6D0F43E3B8E3DCE796",
+  "CopyPlanSha256": "D0D61BDDBE6DC495118F949A316B750D1E36D27ACB83A6C3BB8F9CBEC15371E2",
+  "LedgerSha256": "B22DF8B0C7FB585A9E52F251FC5253DFCB1825DD1FA47AF332A2536FC8D16E31",
+  "Original114Guards": 114,
+  "Current115Guards": 115,
+  "UnchangedBindings": 112,
+  "ChangedExisting": [
+    "src/Erlang.Runtime/ErlangApplyDispatch.cs",
+    "src/Erlang.Otp.Behaviours/Erpc.cs"
+  ],
+  "Added": "src/Erlang.Otp.Behaviours/ErpcNames.cs",
+  "SixteenScopeLimitsStatusAndEvidencePrefixPreserved": true,
+  "Other571EntriesExact": true,
+  "Counts": {
+    "Verified compatible": 16,
+    "Known differences": 30,
+    "Needs verification": 541
+  },
+  "SourceReview": "Type/identity primitive handlers and supported-term branches unchanged. Narrow apply adapter freezes direct empty-trace target failures; argument admission/successful dispatch unchanged. Local Erpc helper creates pinned protected cut frame without changing target success values/remote execution. ErpcNames adds only arity3. No new Verified admission.",
+  "AuthorshipDisclosure": "Reviewer authored Erpc correction, independently reviewed Rec5A375. Apply authored Rec and independently reviewed here8AA3. This report checks metadata/reference integrity and narrow preservation, not independent runtime proof.",
+  "PreparationHistory": "First passive acquisition expected ChangedOrAddedBindings rather than actual ChangedFiles and stopped with KeyError before report write; corrected actual schema, raw proposal unchanged.",
+  "NoActualCorrectedFocusOrFullClaim": true,
+  "MainSdkNetworkMutation": false
+}

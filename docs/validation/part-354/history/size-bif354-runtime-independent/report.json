@@ -1,0 +1,162 @@
+{
+  "Status": "PASS_CONDITIONAL_SOURCE354_RUNTIME_AND_SIXTEEN_VERIFIED_PRESERVATION_BOUNDED_FOCUS_ONLY",
+  "ParentHead": "50e756f73437eb8d2882a19f729bccb09af74f3d",
+  "SourceFreezeSha256": "178B0C9D17EDD2D0F435622DF37B4E71CDB15925F64A6885A5A942F89FEB445C",
+  "FrozenRowsRehashedAcrossTwoRevisions": 101,
+  "RuntimeFiles": 9,
+  "RuntimeBytesSameAcrossIntegrations": true,
+  "ChangedExistingRuntimeFiles": [
+    {
+      "Path": "src/Erlang.Runtime/CoreModules.cs",
+      "BeforeSha256": "7B32F96DD7A0F94E97C13616777D88DFBBA374BB77BD683DEBDED98E75DAAED7",
+      "AfterSha256": "0CE602F42B0094C361C5B71B693A7D4BA78374E6E559E905B57E22EDE8BB13C7",
+      "DiffSha256": "570AEA0836885A347816934167DDAD39918FA862619A231828507A474B5574DF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
+      "BeforeSha256": "46FFC253273B58939531584AC2900D14FF065B7DEA85F79FB17BD60E2FB345E4",
+      "AfterSha256": "B3C5073FEA87A8AAD8BB4EF3EC6340DE8DB32727C812917D9D6508C12C6C0AB1",
+      "DiffSha256": "BBE2E542FB381CE740FCB4D9815ABC006D73202729F1C525B3C23DD4B5D26A54"
+    },
+    {
+      "Path": "src/Erlang.Runtime/SequenceTraceRegistrations.cs",
+      "BeforeSha256": "377083C8E74BB12BC4EAD8D77490C41E52964C3BBA2BAF4BAFBE8936302E9958",
+      "AfterSha256": "D484B5004F6F0282D9B13EFE0EC1DC21C93F2B0605720C90BDE53B1956DB0264",
+      "DiffSha256": "E9FF4ED972DC5533CD86D894AC9B6FA595979243D6F04325EC9235F1E1B225AC"
+    }
+  ],
+  "CurrentGuards": 89,
+  "UnchangedGuardsRawExact": 86,
+  "VerifiedContracts": [
+    "erlang:self/0",
+    "erlang:is_atom/1",
+    "erlang:is_integer/1",
+    "erlang:is_float/1",
+    "erlang:is_number/1",
+    "erlang:is_tuple/1",
+    "erlang:is_binary/1",
+    "erlang:is_bitstring/1",
+    "erlang:is_list/1",
+    "erlang:is_pid/1",
+    "erlang:is_map/1",
+    "erlang:is_boolean/1",
+    "erlang:is_function/1",
+    "erlang:is_port/1",
+    "erlang:is_reference/1",
+    "erlang:node/0"
+  ],
+  "SixteenVerifiedStatusScopeLimitsAndPriorEvidencePrefixesPreserved": true,
+  "OnlyFivePendingToKnown": [
+    [
+      "erlang",
+      "spawn_request",
+      2
+    ],
+    [
+      "erlang",
+      "spawn_request",
+      3
+    ],
+    [
+      "erlang",
+      "spawn_request",
+      4
+    ],
+    [
+      "erlang",
+      "spawn_request",
+      5
+    ],
+    [
+      "erlang",
+      "system_flag",
+      2
+    ]
+  ],
+  "ConditionalThreeSourceGuardRefreshAdmitted": true,
+  "PinnedAnchors": [
+    {
+      "Path": "erts/emulator/beam/bif.c",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "BlobSha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC",
+      "LineRanges": [
+        [
+          5159,
+          5166
+        ]
+      ]
+    },
+    {
+      "Path": "erts/emulator/beam/beam_common.c",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "BlobSha256": "1AF6CF2D371975B0D9944B5857062A90091298373B3802639B25D03003AB3C47",
+      "LineRanges": [
+        [
+          877,
+          932
+        ],
+        [
+          993,
+          1006
+        ],
+        [
+          1028,
+          1053
+        ]
+      ]
+    },
+    {
+      "Path": "erts/emulator/beam/erl_term.h",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "BlobSha256": "8E016126FB7A1BC1DB8D31111601C0BEA21D72207211BF91E1F3C127E943B5C2",
+      "LineRanges": [
+        [
+          259,
+          270
+        ]
+      ]
+    },
+    {
+      "Path": "erts/emulator/beam/error.h",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "BlobSha256": "2D2C9FE1E0AB30ECD577675BE575283A32ED0FC16D5342BF7FAAF4FCC0D0C9A3",
+      "LineRanges": [
+        [
+          206,
+          206
+        ]
+      ]
+    },
+    {
+      "Path": "erts/emulator/beam/erl_map.c",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "BlobSha256": "47F77A3456ED1D17BAB547F50427ACA109564ED072D0945096790D84F998EA69",
+      "LineRanges": [
+        [
+          146,
+          154
+        ]
+      ]
+    }
+  ],
+  "ReviewedRuntimeReasoning": [
+    "CoreModules changes only four invalid size branches; successful size paths and all predicate/self/node bodies unchanged.",
+    "Fresh explicit error factory supplies only builtin MFA arguments and module erl_erts_errors metadata; it does not rewrite existing custom/raised errors.",
+    "BacktraceDepth state still defaults8 per runtime; volatile field and atomic exchange add no scheduling/callback side effects.",
+    "Exact system_flag backtrace_depth dispatch precedes unchanged scheduler/topology branches; small nonnegative guard and clamp64 match pinned 64-bit OTP.",
+    "Existing CaptureErrorStack minimum1/current BIF and depth-minus-one continuation shape follows pinned save_stacktrace; explicit flag prevents apply/compiler duplicate frames."
+  ],
+  "ConcreteExistingRuntimeGap": "Terms.ErlangException.WithFrame is not capped by Runtime.BacktraceDepth; generic hd/error routes may differ. Added generic_depth_error/hd assertions must record actual RED without weakening.",
+  "MetadataPublicationBlockers": [
+    "Combined system_flag Scope/Limits/source-known evidence still describe backtrace_depth as unintegrated/currently refused; update to current combined behavior before publication.",
+    "Four changed spawn_request Limits retain stale parent326 present-tense connected/priority refusal wording; correct those affected rows while preserving historical evidence."
+  ],
+  "ConditionalAdmission": "Root-owned fresh build/parse21/16compiled+1HOST diagnostic focus only; expected generic RED is not runtime completion. No full/readiness/publication admission and no system_flag/four-size/full-tail compatibility claim.",
+  "NativeStackMetadataObservationPending": true,
+  "NoVerifiedPromotion": true,
+  "SdkExecuted": false,
+  "VmExecuted": false,
+  "NetworkUsed": false,
+  "MainOrGitMutated": false,
+  "ProductionAuthorship": "Reviewer did not author the nine runtime files. Prior future-size audit informed the scope; implementation authored by other agents."
+}

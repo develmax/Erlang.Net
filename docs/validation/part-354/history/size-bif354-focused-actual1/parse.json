@@ -1,0 +1,48 @@
+{
+  "Name": "--parse",
+  "Passed": false,
+  "Failure": "Erlang.Compiler.CompileException: Invalid or unsupported pattern\r\n   at Erlang.Compiler.Parser.ToPattern(Expr e) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate3\\src\\Erlang.Compiler\\Parser.cs:line 948\r\n   at System.Linq.Enumerable.ListSelectIterator\u00602.Fill(ReadOnlySpan\u00601 source, Span\u00601 destination, Func\u00602 func)\r\n   at System.Linq.Enumerable.ListSelectIterator\u00602.ToArray()\r\n   at Erlang.Compiler.Parser.ToPattern(Expr e) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate3\\src\\Erlang.Compiler\\Parser.cs:line 944\r\n   at System.Linq.Enumerable.ListSelectIterator\u00602.Fill(ReadOnlySpan\u00601 source, Span\u00601 destination, Func\u00602 func)\r\n   at System.Linq.Enumerable.ListSelectIterator\u00602.ToArray()\r\n   at Erlang.Compiler.Parser.ToPattern(Expr e) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate3\\src\\Erlang.Compiler\\Parser.cs:line 945\r\n   at System.Linq.Enumerable.ListSelectIterator\u00602.Fill(ReadOnlySpan\u00601 source, Span\u00601 destination, Func\u00602 func)\r\n   at System.Linq.Enumerable.ListSelectIterator\u00602.ToArray()\r\n   at Erlang.Compiler.Parser.ToPattern(Expr e) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate3\\src\\Erlang.Compiler\\Parser.cs:line 944\r\n   at System.Linq.Enumerable.ListSelectIterator\u00602.Fill(ReadOnlySpan\u00601 source, Span\u00601 destination, Func\u00602 func)\r\n   at System.Linq.Enumerable.ListSelectIterator\u00602.ToArray()\r\n   at Erlang.Compiler.Parser.ToPattern(Expr e) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate3\\src\\Erlang.Compiler\\Parser.cs:line 945\r\n   at Erlang.Compiler.Parser.Expression(Int32 minimum, Boolean stopQualifier) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate3\\src\\Erlang.Compiler\\Parser.cs:line 327\r\n   at Erlang.Compiler.Parser.Body() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate3\\src\\Erlang.Compiler\\Parser.cs:line 282\r\n   at Erlang.Compiler.Parser.ParseClause(IReadOnlyList\u00601 patterns) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate3\\src\\Erlang.Compiler\\Parser.cs:line 263\r\n   at Erlang.Compiler.Parser.Primary(Boolean bitSegment, Boolean stopQualifier) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate3\\src\\Erlang.Compiler\\Parser.cs:line 393\r\n   at Erlang.Compiler.Parser.Expression(Int32 minimum, Boolean stopQualifier) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate3\\src\\Erlang.Compiler\\Parser.cs:line 316\r\n   at Erlang.Compiler.Parser.Body() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate3\\src\\Erlang.Compiler\\Parser.cs:line 282\r\n   at Erlang.Compiler.Parser.ParseClause(IReadOnlyList\u00601 patterns) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate3\\src\\Erlang.Compiler\\Parser.cs:line 263\r\n   at Erlang.Compiler.Parser.ParseModule() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate3\\src\\Erlang.Compiler\\Parser.cs:line 199\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate3\\tests\\Erlang.Size354.Focus\\FocusProgram.cs:line 25",
+  "ElapsedSeconds": 0.0622996,
+  "Sources": [],
+  "Observation": null,
+  "LoadedAssemblies": [
+    {
+      "Name": "Erlang.Terms",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate3\\tests\\Erlang.Size354.Focus\\bin\\Debug\\net10.0\\Erlang.Terms.dll",
+      "Sha256": "ADC04369D2D2F7DCFE286E6364F8B9DDEDDACB10695FE8C4D345ED45A9F2D16E"
+    },
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate3\\tests\\Erlang.Size354.Focus\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Sha256": "D74E8FC83BA96280643A7C4B6231815E18D7B59E1A4F5D72D4C95C5B26D4700F"
+    },
+    {
+      "Name": "Erlang.Compiler",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate3\\tests\\Erlang.Size354.Focus\\bin\\Debug\\net10.0\\Erlang.Compiler.dll",
+      "Sha256": "65EA35562F728DB4DC19DC431060605885860BDAAEDC0F2387662FFA896B0C4E"
+    },
+    {
+      "Name": "Erlang.Serialization",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate3\\tests\\Erlang.Size354.Focus\\bin\\Debug\\net10.0\\Erlang.Serialization.dll",
+      "Sha256": "A4A5BFC6C58AD76DCAE1E13ABBAB5454A81662CF7588567AD9F2507B47FD4ECC"
+    },
+    {
+      "Name": "Erlang.Differential",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate3\\tests\\Erlang.Size354.Focus\\bin\\Debug\\net10.0\\Erlang.Differential.dll",
+      "Sha256": "8CA7A4D18A968291B0866E8292E0E4DCC9748CC479D01340744C402030ABB37C"
+    },
+    {
+      "Name": "Erlang.Tests",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate3\\tests\\Erlang.Size354.Focus\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "Sha256": "1A5205AEFF13044D39E4ECF10480EF3F7572DF23CA48BFF8333B9B2E34B931B3"
+    },
+    {
+      "Name": "Size354Focus",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate3\\tests\\Erlang.Size354.Focus\\bin\\Debug\\net10.0\\Size354Focus.dll",
+      "Sha256": "DF4FD411672FFEB874342D5A20EF015283F936560D95BC789D2F315705EB4169"
+    }
+  ],
+  "NativeExecuted": false,
+  "FullValidationExecuted": false,
+  "ReadinessExecuted": false
+}

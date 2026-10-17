@@ -25,6 +25,7 @@ public sealed partial class ModuleRegistry
         ModuleCodeImage? image;
         IDisposable? code;
         Term[] callbackArguments;
+        bool hostErrorHandler;
         lock (gate)
         {
             bool badfun = incompatibleFactory || loadedModules.ContainsKey(module);
@@ -38,6 +39,7 @@ public sealed partial class ModuleRegistry
             if (!callback)
                 throw new ErlangException(ErlangErrorReasons.UndefinedFunction);
             code = image is null ? null : context.EnterSourceCode(image, body!);
+            hostErrorHandler = !sourceOwners.ContainsKey((handler.Name, ProcessErrorHandlerNames.UndefinedLambda, ProcessErrorHandlerNames.Arity));
         }
 
         return InvokeErrorHandler(
@@ -47,7 +49,8 @@ public sealed partial class ModuleRegistry
             callbackArguments,
             body!,
             image,
-            code
+            code,
+            hostErrorHandler
         );
     }
 }

@@ -648,6 +648,7 @@ public static class CompiledModuleCases
         .. AdditionalTypePredicateCases.Modules,
         .. NumericBoundaryCases.Modules,
         .. SpawnPriorityCases.Modules,
-        .. SchedulerAffinityCases.Modules
+        .. SchedulerAffinityCases.Modules,
+        .. SizeErrorCases.Modules
     ];
 }

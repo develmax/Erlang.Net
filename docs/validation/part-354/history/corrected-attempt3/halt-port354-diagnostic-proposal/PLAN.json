@@ -1,0 +1,21 @@
+{
+  "Status": "SOURCE_ONLY_BOUNDED_SEVEN_PHASE_HALT_PORT_DIAGNOSTIC_REQUIRES_PEER_ROOT_EXECUTION",
+  "TargetType": "Erlang.Tests.HaltPortHostChecks",
+  "Targets": [
+    "ordered",
+    "immediate",
+    "deadline",
+    "preempt",
+    "held-orderly",
+    "held-deadline",
+    "Run"
+  ],
+  "CanonicalRunSeconds": 15,
+  "OriginalMethodBodiesAssertionsInnerDeadlinesUnchanged": true,
+  "ActualFull2InputsSha256": "9EE9CEA2F864CA8C3F630EFEF534458E8C81BBC54322E02E779A7754EC734077",
+  "ActualFull2ExitSha256": "2F883C0967D6EC2B4E73E1D2ABEC2E93F0CF940D331B451014F061B851C03F1E",
+  "Ownership": "Windows kill-on-close job assigned before stdin RUN handshake. Descendant port probe inherits same job; no arbitrary process enumeration or global process kill. Every child gets fresh output. Parent45s phases/30s Run; canonical Run independently keeps WaitAsync15. Any job forced termination recorded and not success, preserves raw streams and ownership failures. No next child if settlement uncertain.",
+  "Build": "Standalone net10 project no ProjectReferences. Build only harness into fresh output, never candidate or full DLLs. All19 fullDLL hashes +actualProbe artifacts bound before/after each phase.",
+  "Caution": "Original353/full1 success and full2 timeout preserved. Job changes diagnostic ownership boundary only, not canonical runtime. Perphase observations not a fix/full/original parity result.",
+  "SourceAuthorExecutedSdkOrNative": false
+}

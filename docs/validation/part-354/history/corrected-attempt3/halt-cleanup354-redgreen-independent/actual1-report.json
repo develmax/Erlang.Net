@@ -1,0 +1,74 @@
+{
+  "Status": "PASS_ACTUAL_DETERMINISTIC_REAL_ACTOR_CLEANUP_STEALING_RED_GREEN",
+  "DriverSourceFreezeSha256": "5D3BC92D12E06FD9035D4BDE06DCDE9726D19AFF9691417536E3005921C9FBDC",
+  "SourceAdmissionSha256": "5C7173EB7F61115B6D6472A206F967843119DAFFF7287EBF176157518D045022",
+  "CompletionSha256": "D16B0CDA22E192AD57B84E836F2D8EDF698B63184376E81B3E5E8FFCCD3DF30B",
+  "InputsSha256": "CDE4EA2313FE34259067049ED2FAA06D3886C8567D696195A16F4DA8BA6B0297",
+  "SourceInputsRehashed": 969,
+  "GreenSourceDeltaExactly": [
+    "src/Erlang.Runtime/RuntimeActorDispatcher.cs"
+  ],
+  "DispatcherSha256": "F2BBB954CE212ED87AE16FE8F50ACA14268A9A5C9A06812E11799EB7C270AB58",
+  "OldFullDllRowsUnchanged": 19,
+  "HarnessSha256": "456EEE91D75EA266CD139B2F70D86BAAB426B97FF40682689B867F27E2D6816E",
+  "ControlSourceExactlyProposal2": true,
+  "ControlAssertionsBudgetsUnchanged": true,
+  "ActualBuilds": [
+    {
+      "Name": "runtime-build",
+      "ReceiptSha256": "8C284DE79174A13E3ECCE5074D794A467C4E50AFA3B34DF4AD538595B8CE8B8A",
+      "ElapsedSeconds": 9.984000000025844
+    },
+    {
+      "Name": "harness-build",
+      "ReceiptSha256": "7EBFC204D39B9A420601ABF9222FF495D004318377A1B85BDBC48F9F9F8BE2DD",
+      "ElapsedSeconds": 2.625
+    }
+  ],
+  "ActualAttempts": [
+    {
+      "Label": "red",
+      "OutcomeSha256": "65A56951DC432DAF3A709E223C2F51383E2D36A70F3C5CD338AC09ABDF6939CC",
+      "ReceiptSha256": "591BA05A037EB65644E3CAF266D915637E60881B47CD12DEFB8EB04048A020C5",
+      "ElapsedSeconds": 15.25,
+      "LoadedRuntime": [
+        {
+          "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate2\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+          "Sha256": "DFFCA0D1F1174B4F91AAD539C9DCA1AC58497ECEE31A38A35E618C66B5F12D87"
+        },
+        {
+          "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate2\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Terms.dll",
+          "Sha256": "11C466ECF06255F3D11F38609A916CB8BA8C101FAA7DAB11F7BE90C765E40859"
+        }
+      ],
+      "ExitCode": 1,
+      "JobProcessesRemaining": 0,
+      "ForcedCleanup": false
+    },
+    {
+      "Label": "green",
+      "OutcomeSha256": "2AD2726974B58BA99DFD061542E8B5406C34CE75BF4A9ACBB843B154B148E175",
+      "ReceiptSha256": "D006865DD201CCCB17A5593111B0AC681A1CE82F79466D68DDF5E304A1B04890",
+      "ElapsedSeconds": 0.21900000001187436,
+      "LoadedRuntime": [
+        {
+          "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-cleanup354-redgreen-actual1\\runtime\\Erlang.Runtime.dll",
+          "Sha256": "AA56305B320D5BFD1218BBF770D46949B4B45266E0D25FDAC75DEBC5283ECD9C"
+        },
+        {
+          "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-cleanup354-redgreen-actual1\\runtime\\Erlang.Terms.dll",
+          "Sha256": "ADF5C9C1142F0506053F8240E1278F0C40F9A2B7429A33D265D3999D68BA8270"
+        }
+      ],
+      "ExitCode": 0,
+      "JobProcessesRemaining": 0,
+      "ForcedCleanup": false
+    }
+  ],
+  "Proven": "Old dispatcher fails specific observer wait behind bound held lane1; same control DLL with sole Dispatcher source correction allows canceled unbound observer before release, then real HaltQuiescence/Dispose joins. Actual Runtime/Terms path/hash checked in each process.",
+  "HistoricalCauseLimit": "This proves reachable liveness defect and repair, not the unobserved exact interleaving of previous HaltPort historical failure. Uninstrumented failure and instrumented bothPASS remain separate.",
+  "BuildRepresentation": "All three green projects rebuilt; Terms/Serialization rawDLL hashes differ but their sources exactbaseline. Serialization not actually loaded either child, no fabricated loaded identity.",
+  "ReaderHistory": "Initial inline reader rejected English-only build summary assertion; actual Russian logs show zero warnings/errors. Reader now accepts exact anchored English or Russian labels, raw receipts/hashes unchanged. No source or guest failure change.",
+  "SdkNativeNetworkMainMutationByReviewer": false,
+  "NoFullOriginalOrCompatibilityPromotionClaim": true
+}

@@ -1,0 +1,20 @@
+{
+  "Status": "SOURCE_ONLY_DETERMINISTIC_REAL_ACTOR_CLEANUP_STEALING_CONTROL_REQUIRES_PEER_ROOT_EXECUTION",
+  "Target": "Erlang.Tests.CleanupStealingHostChecks.Run",
+  "Expected": "Successful real observer execution before blocked lane1 actor release, then actual HaltQuiescence join; no seeded observation.",
+  "ParentRuntimePath": "artifacts/size-bif354-full-candidate2/src/Erlang.Runtime/RuntimeActorDispatcher.cs",
+  "ParentRuntimeSha256": "0AF57D1F9F65CE153129E6D9718B3F545F7CE83FFE409E6889F51957040C3555",
+  "ProposedRuntimeFreezeSha256": "63754A3D92C96A57CCDB6126D6EB148B589384A6C3C151B957AF1FF6F3B914A0",
+  "Construction": [
+    "Two genuine runtime actors initially execute public process_flag(scheduler,1); both query public system_info(scheduler_id)==1. Blocker stays bound1; observer publicly unbinds0 while actually executinglane1 before parking. No internalqueue/ready-state mutation.",
+    "Public RequestImmediateHalt performs actual runtime owner cancellation and retirement. Both real cancellation registrations must fire before continuations are released; canceled-token checks remain in actual actor bodies.",
+    "Host resumes blocker bound1; it signals entered then intentionally holds its synchronous actor turn on releaseBlocker. Only after entered host resumes observer. Its previously unbound nowcanceled continuation starts fromlane1 and must be stolen to idleonline2 to signal observerEntered beforeblockerrelease.",
+    "On old runtime TrySteal ignores Cleanup and observer wait reaches originalnew15s deadline. Finally always releases both gates and joins actual HaltQuiescence+Dispose without relying on early ProcessHandle.Completion. On corrected runtime observer progresses before release.",
+    "No publicguestkill semantics claim, no directTokenCancel, no fakequeue/admission, no Task.Run actorbody escape. Sameowner TaskScheduler identity checked across await."
+  ],
+  "RedGreenExecution": "Root should compile same control against exact originalfull2runtime and patchedruntime in separate fresh artifact harnesses. All errors/cleanup retained; independentparent45/60s ownswholeprocess. Sourceauthor has not compiled or run either.",
+  "NoMainSdkNetwork": true,
+  "SupersedesSourceFreezeSha256": "59383C4AEE2909C659B94E77025A1A992EA6A100C0A2571230D5045C5A27F7B4",
+  "Revision2": "Add real blocker-exited finally marker, require it incomplete before observer progress. Prevent accidental early blocker exit from satisfying stealing contract. No other behavior changes.",
+  "Revision3": "Style only: three Modules.Call argument lists one argument per line, blank line before final failure check. All comments/literals/non-whitespace code token characters exact to proposal2. No new behavior."
+}

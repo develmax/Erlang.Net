@@ -1,0 +1,64 @@
+--- 50e756f73437eb8d2882a19f729bccb09af74f3d/src/Erlang.Runtime/CoreModules.cs
++++ proposal2/src/Erlang.Runtime/CoreModules.cs
+@@ -56,7 +56,14 @@
+             ErlangModuleNames.Module,
+             ErlangModuleNames.TupleSize,
+             1,
+-            (c, a) => a[0] is TupleTerm t ? Term.I(t.Items.Count) : throw new ErlangException(ErlangErrorReasons.BadArgument)
++            (c, a) => a[0] is TupleTerm t
++                ? Term.I(t.Items.Count)
++                : throw ErlangSizeErrorFrames.Invalid(
++                    c,
++                    ErlangModuleNames.TupleSize,
++                    a,
++                    Term.A(ErlangErrorReasons.BadArgument)
++                )
+         );
+         Add(
+             ErlangModuleNames.Module,
+@@ -104,13 +111,27 @@
+             ErlangModuleNames.Module,
+             ErlangModuleNames.BitSize,
+             1,
+-            (c, a) => a[0] is BitString b ? Term.I(b.BitLength) : throw new ErlangException(ErlangErrorReasons.BadArgument)
++            (c, a) => a[0] is BitString b
++                ? Term.I(b.BitLength)
++                : throw ErlangSizeErrorFrames.Invalid(
++                    c,
++                    ErlangModuleNames.BitSize,
++                    a,
++                    Term.A(ErlangErrorReasons.BadArgument)
++                )
+         );
+         Add(
+             ErlangModuleNames.Module,
+             ErlangModuleNames.ByteSize,
+             1,
+-            (c, a) => a[0] is BitString b ? Term.I((b.BitLength + 7L) / 8) : throw new ErlangException(ErlangErrorReasons.BadArgument)
++            (c, a) => a[0] is BitString b
++                ? Term.I((b.BitLength + 7L) / 8)
++                : throw ErlangSizeErrorFrames.Invalid(
++                    c,
++                    ErlangModuleNames.ByteSize,
++                    a,
++                    Term.A(ErlangErrorReasons.BadArgument)
++                )
+         );
+         Add(
+             ErlangModuleNames.Module,
+@@ -134,7 +155,14 @@
+             ErlangModuleNames.Module,
+             ErlangModuleNames.MapSize,
+             1,
+-            (c, a) => a[0] is MapTerm m ? Term.I(m.Entries.Count) : throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadMap), a[0]))
++            (c, a) => a[0] is MapTerm m
++                ? Term.I(m.Entries.Count)
++                : throw ErlangSizeErrorFrames.Invalid(
++                    c,
++                    ErlangModuleNames.MapSize,
++                    a,
++                    Term.Tuple(Term.A(ErlangErrorReasons.BadMap), a[0])
++                )
+         );
+         Add(
+             ErlangModuleNames.Module,

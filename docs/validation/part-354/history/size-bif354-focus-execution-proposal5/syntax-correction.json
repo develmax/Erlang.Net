@@ -1,0 +1,127 @@
+{
+  "Status": "SYNTAX_ONLY_ASSERTION_FIDELITY_CORRECTION_NO_PARSER_CHANGE",
+  "PriorExecutionFreezeSha256": "1898567EC6C2E1D9E1DEF98F6EFB0A2383E544B363974E0D01A56BA07B03FD54",
+  "SuccessorIntegrationFreezeSha256": "418F92C86042AC14A7704C074BAAE359FF6B59BE9D19BD242880C0BA2286F640",
+  "FixtureChanges": [
+    {
+      "Module": "backtrace_depth_flag",
+      "OldSha256": "0B3D4AC88C62685262B72D6DC95F90967A2091A1A6664142B61FEBFB8988D23A",
+      "NewSha256": "0B9A84377CA61DC0CC2E8A75283856990FEA8002A32273EBD3A5DEB5AE55E33C"
+    },
+    {
+      "Module": "generic_depth_hd",
+      "OldSha256": "D8B832EDDC1F4FD1CCFD30A8CA0DBE2CEE902834D33C9D491E0F526C22FA4451",
+      "NewSha256": "40DAA0E7EECCCEB9B471D8E1612E299C1CA0EA76F9C395372F443D562298072A"
+    },
+    {
+      "Module": "size_depth_controls",
+      "OldSha256": "B45846FA7DB0A6EA4C70C7E4304C3E1F37F1677892DD8C8C30A24CAB6026BA64",
+      "NewSha256": "1FE831B1EB0662FC12C48D7E0D5ACEFF573AA0EC4F77B43AAC131C7013CB7A11"
+    },
+    {
+      "Module": "size_depth_import_controls",
+      "OldSha256": "BB03EDD007DD9B8420199708C7C60A544ABDBA53CC0683546438C0E2747860B6",
+      "NewSha256": "54F656AFB2AA90AF6C889B8BF10590A7F646A20C82B5685A2277E07A1C4CC05E"
+    },
+    {
+      "Module": "size_error_bit_size",
+      "OldSha256": "3F8917A7E46023533C7903011A072D3B38A9EEB069B38233022FA8FBB1023250",
+      "NewSha256": "19C5033657BD286FB8C66F3EA0D4FDF41E4D750A56B1E620F878EE05BC1CF59E"
+    },
+    {
+      "Module": "size_error_byte_size",
+      "OldSha256": "B49718D29FF694D81B177500DF7539790DDB8363FDFDFD90A311AF3B42C6DE55",
+      "NewSha256": "FA558EFE3B85C3809AF637991745C2068BAB53ACAF0B9638254139AD61E52F03"
+    },
+    {
+      "Module": "size_error_map_size",
+      "OldSha256": "2DA02CA41408236DE77DBD8F119C2BF1AC40179DD24E63F4C8D6F0FC1E737E8A",
+      "NewSha256": "B09C3E8DEDA1B2999591AC7CB2502FDAC0F98BA2A78119E97B1CBCBD84E99EB0"
+    },
+    {
+      "Module": "size_error_tuple_size",
+      "OldSha256": "9C47594ED34F03ED78A394AE1E8045DE70F1A0D873777CE8D721C6B9CE209217",
+      "NewSha256": "A455B054600319D6F3D1DC1B612C83CBC8495D4E6C6C5D422590D172D6C02941"
+    },
+    {
+      "Module": "size_import_bit_size",
+      "OldSha256": "3F7AD540865358D597CE29D892B912C5CDEBED4CC03514B57BB3565F1B7F0A5C",
+      "NewSha256": "F5438DDD0EDB82A86506FE8286D014EC6B5B7E38504C58859FC1CE2AB6FDC52F"
+    },
+    {
+      "Module": "size_import_byte_size",
+      "OldSha256": "546DFFAEBB15B3B3AB4CBA9490335C59074007E0DE296CE770F0F5422531D130",
+      "NewSha256": "F6A9DD5F9FFFBA4E1B43694702707D54CD92F5D53E69822D8B4D5594A2A101D5"
+    },
+    {
+      "Module": "size_import_map_size",
+      "OldSha256": "B2D1DD54D2E4DD12A224481F3C4DE233D774CAEB799B2D8095DC1DBEE680D466",
+      "NewSha256": "87B09C80EAB6A6A629AF01FD755D49032150EC51A7B001D342F1393E0ACA389E"
+    },
+    {
+      "Module": "size_import_tuple_size",
+      "OldSha256": "F19BB5BC76902E45826B75871B4ADE9EB38DEB760BD64A18DE2018126F6C66BC",
+      "NewSha256": "C22163A3AE5A77DDA0A6F64880E465A91F9592C97F51BD37FC8FDFF0B4E4C76B"
+    }
+  ],
+  "PatternRepair": "Bind ErrorInfo in exact single error_info list, then exact term equality against one-field map; no permissive subset map match.",
+  "ProductionNineRawUnchanged": true,
+  "HostRawUnchanged": true,
+  "ParseHarnessDelta": "CurrentSource assigned before Parser and included in outcome; no parse/guest contract weakening.",
+  "FirstActualBuildPassed": true,
+  "FirstActualParseFailed": true,
+  "FirstActualGuestCases": 0,
+  "FirstActualBindings": [
+    {
+      "Path": "artifacts/size-bif354-focused-actual1/inputs.json",
+      "Bytes": 658,
+      "Sha256": "E7601CCCB94A385C9244ADF0890D8D4748881591400ECFAD78558CDEB88D6B5E"
+    },
+    {
+      "Path": "artifacts/size-bif354-focused-actual1/build.exit.json",
+      "Bytes": 530,
+      "Sha256": "0D42B0C3EC9BA57F3BA4BF83F26C1AA7CDB6F5EBB023FD94599861000FC46486"
+    },
+    {
+      "Path": "artifacts/size-bif354-focused-actual1/build.stdout.log",
+      "Bytes": 4214,
+      "Sha256": "5E879DCDEA42AEB26913803F2CCF8799C6EF36A8F603A058C317847522A32FE0"
+    },
+    {
+      "Path": "artifacts/size-bif354-focused-actual1/build.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/size-bif354-focused-actual1/parse.exit.json",
+      "Bytes": 668,
+      "Sha256": "379F53996A06433B039E921C5D7BF252088681A9AC67D11CD37E6BBB2A9A6DDB"
+    },
+    {
+      "Path": "artifacts/size-bif354-focused-actual1/parse.json",
+      "Bytes": 5995,
+      "Sha256": "013C0CDE156C68CC78A1D8AF814807009540A5EE3A42DF1CF53CE16AC626D63F"
+    },
+    {
+      "Path": "artifacts/size-bif354-focused-actual1/parse.stdout.log",
+      "Bytes": 14,
+      "Sha256": "2D37C1A96F01028EEA94C301773CEBBB905CC029745D1A8F016E96BB19A8E615"
+    },
+    {
+      "Path": "artifacts/size-bif354-focused-actual1/parse.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/size-bif354-focused-actual1/completion.json",
+      "Bytes": 165,
+      "Sha256": "885B2A08AAE85B78B47836A10D125C8507B92C268F8B992BFF0254E3377F1D0C"
+    },
+    {
+      "Path": "artifacts/size-bif354-focused-actual1/initial-built-dlls.json",
+      "Bytes": 3841,
+      "Sha256": "A715DDFDA4A134A26BCB46E3DD90BB68CE4D2AE21FF05F7A6BE5958B7E4E4B4D"
+    }
+  ],
+  "NoSdkByAuthor": true
+}

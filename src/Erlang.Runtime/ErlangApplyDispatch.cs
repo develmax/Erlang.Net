@@ -46,7 +46,15 @@ internal static class ErlangApplyDispatch
         }
         catch (ErlangException exception) when (dispatch == ModuleCallDispatchKind.Direct && !exception.ExplicitStackTrace && exception.StackTraceTerm is Nil)
         {
-            throw exception.WithStackFrame(module, function, arguments);
+            throw RuntimeExceptionCapture.Call(
+                context,
+                exception,
+                context.CaptureExecutionChain(),
+                module,
+                function,
+                arguments,
+                false
+            );
         }
     }
 }

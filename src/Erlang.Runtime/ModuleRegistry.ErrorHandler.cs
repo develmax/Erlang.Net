@@ -17,9 +17,19 @@ public sealed partial class ModuleRegistry
         Term[] arguments,
         ErlangFunction body,
         ModuleCodeImage? image,
-        IDisposable? code
+        IDisposable? code,
+        bool hostErrorHandler
     )
     {
+        ErlangFunction selected = body;
+        body = (caller, values) => RuntimeExceptionCapture.InvokeHandler(
+            caller,
+            selected,
+            module,
+            function,
+            values,
+            hostErrorHandler
+        );
         try
         {
             ValueTask<Term> pending = InvokeSelected(

@@ -3,6 +3,7 @@ namespace Erlang.Compiler;
 internal static class RuntimeCallFrames
 {
     internal static ErlangException Capture(
+        ProcessContext context,
         ErlangException exception,
         string module,
         string function,
@@ -13,6 +14,11 @@ internal static class RuntimeCallFrames
             arguments.Count == ErlangApplyLayout.ModuleApplyArity && exception.StackTraceTerm is Cons)
             return exception;
 
-        return exception.WithStackFrame(module, function, arguments);
+        return context.CaptureCallFailure(
+            exception,
+            module,
+            function,
+            arguments
+        );
     }
 }

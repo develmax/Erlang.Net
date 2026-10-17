@@ -1,0 +1,54 @@
+{
+  "Status": "SOURCE_ONLY_BOUNDED_SEVEN_PHASE_HALT_PORT_DIAGNOSTIC_REQUIRES_PEER_ROOT_EXECUTION",
+  "Files": [
+    {
+      "Path": "PLAN.json",
+      "Bytes": 1443,
+      "Sha256": "ECD4B1F5134F95D341BA2E3FE6A0D8BF204FA24CC83BF597F94EA489077C7A35"
+    },
+    {
+      "Path": "run.py",
+      "Bytes": 8220,
+      "Sha256": "FAC921E9C87EA1E598B12278E839B6F86189FBA3A3E1CE3199DBB20F699A00F4"
+    },
+    {
+      "Path": "source/Diagnostic.csproj",
+      "Bytes": 349,
+      "Sha256": "24EF3DF21A9D5A3B1C97F345B679F20E76663BCEB0341DF7C7C01C2546926ED0"
+    },
+    {
+      "Path": "source/DiagnosticMain.cs",
+      "Bytes": 4671,
+      "Sha256": "1FBF18C10A4C25288DD59CEBBF11C31F6D5317050E3B41E6A160540220B521EF"
+    },
+    {
+      "Path": "source/DiagnosticNames.cs",
+      "Bytes": 1156,
+      "Sha256": "AD63E6B3A8BBC6F8D3500CB1AFBBA7050169BE2EB74D0DC030A08DC0C282150E"
+    },
+    {
+      "Path": "targets.json",
+      "Bytes": 5187,
+      "Sha256": "D4034BC918A46A63CAAC27805508E73CF639009AEA51A944061E414666B5ED7C"
+    }
+  ],
+  "Targets": [
+    "ordered",
+    "immediate",
+    "deadline",
+    "preempt",
+    "held-orderly",
+    "held-deadline",
+    "Run"
+  ],
+  "ActualFullDlls": 19,
+  "ActualProbeFiles": 4,
+  "ExternalBindings": [
+    {
+      "Path": "artifacts/spawn-priority351-preparation/execute-root.py",
+      "Sha256": "C66ACEC6FFE57C57EFAABC96FD1DB00598D7AAD7D05C2EA814A146B759D4171A"
+    }
+  ],
+  "NoSdkExecuted": true,
+  "NoCandidateMutation": true
+}

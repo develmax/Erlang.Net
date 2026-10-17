@@ -1,0 +1,15 @@
+--- 50e756f73437eb8d2882a19f729bccb09af74f3d/src/Erlang.Runtime/ProcessRuntime.cs
++++ proposal2/src/Erlang.Runtime/ProcessRuntime.cs
+@@ -73,7 +73,11 @@
+         get;
+     }
+     private readonly bool ownsStandardStreams;
+-    public int BacktraceDepth { get; internal set; } = ErlangStackLimits.DefaultBacktraceDepth;
++    public int BacktraceDepth
++    {
++        get => Volatile.Read(ref backtraceDepth);
++        internal set => Volatile.Write(ref backtraceDepth, value);
++    }
+     public ModuleRegistry Modules { get; } = new();
+     public RuntimeFunctionEntries Functions { get; } = new();
+     public RuntimeReferenceResources ReferenceResources

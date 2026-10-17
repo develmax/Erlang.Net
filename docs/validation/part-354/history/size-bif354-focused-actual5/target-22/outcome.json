@@ -1,0 +1,49 @@
+{
+  "Name": "handler/RunNestedFrames",
+  "Passed": false,
+  "Failure": "System.InvalidOperationException: Process error handler assertion failed\r\n   at Erlang.Tests.ProcessErrorHandlerHostChecks.Require(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate7\\tests\\Erlang.Tests\\ProcessErrorHandlerHostChecks.cs:line 568\r\n   at Erlang.Tests.ProcessErrorHandlerHostChecks.\u003C\u003Ec__DisplayClass5_0.\u003C\u003CRepeatedFrames\u003Eb__1\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate7\\tests\\Erlang.Tests\\ProcessErrorHandlerHostChecks.cs:line 206\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.\u003C\u003Ec__DisplayClass9_0\u00601.\u003C\u003CInvokeAsync\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate7\\tests\\Erlang.Tests\\RuntimeNodeFoundationHostActor.cs:line 43\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func\u00602 command) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate7\\tests\\Erlang.Tests\\RuntimeNodeFoundationHostActor.cs:line 51\r\n   at Erlang.Tests.ProcessErrorHandlerHostChecks.RepeatedFrames() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate7\\tests\\Erlang.Tests\\ProcessErrorHandlerHostChecks.cs:line 200\r\n   at Erlang.Tests.ProcessErrorHandlerHostChecks.RepeatedFrames() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate7\\tests\\Erlang.Tests\\ProcessErrorHandlerHostChecks.cs:line 200\r\n   at Erlang.Tests.ProcessErrorHandlerHostChecks.RepeatedFrames() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate7\\tests\\Erlang.Tests\\ProcessErrorHandlerHostChecks.cs:line 200\r\n   at Erlang.Tests.ProcessErrorHandlerHostChecks.RunNestedFrames() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate7\\tests\\Erlang.Tests\\ProcessErrorHandlerHostChecks.cs:line 174\r\n   at Erlang.Tests.ProcessErrorHandlerHostChecks.RunNestedFrames() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate7\\tests\\Erlang.Tests\\ProcessErrorHandlerHostChecks.cs:line 175\r\n   at Erlang.Tests.ProcessErrorHandlerHostChecks.RunNestedFrames() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate7\\tests\\Erlang.Tests\\ProcessErrorHandlerHostChecks.cs:line 175\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate7\\tests\\Erlang.Size354.Focus\\FocusProgram.cs:line 89",
+  "ElapsedSeconds": 0.1502572,
+  "Sources": [],
+  "CurrentSource": null,
+  "Observation": null,
+  "LoadedAssemblies": [
+    {
+      "Name": "Erlang.Terms",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate7\\tests\\Erlang.Size354.Focus\\bin\\Debug\\net10.0\\Erlang.Terms.dll",
+      "Sha256": "C281C9EF56629F3DBEA703D907827332707689BC97D92B7B4F9C5EA5393D0733"
+    },
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate7\\tests\\Erlang.Size354.Focus\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Sha256": "AE2881E5F7B3BA6E918C6290002164A09EEA9C4FF2278EB7B067F9D92542067C"
+    },
+    {
+      "Name": "Erlang.Compiler",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate7\\tests\\Erlang.Size354.Focus\\bin\\Debug\\net10.0\\Erlang.Compiler.dll",
+      "Sha256": "9AEEA78B1C2FBB1CAB92D516CCDF4B2246CB5F21C36ACB17A29791CA19217C7C"
+    },
+    {
+      "Name": "Erlang.Serialization",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate7\\tests\\Erlang.Size354.Focus\\bin\\Debug\\net10.0\\Erlang.Serialization.dll",
+      "Sha256": "8C02F90A4C7B69C6DBD3D67EA94D1D35A1A0C82AABAEF7533F39CB4D6AAAF7A9"
+    },
+    {
+      "Name": "Erlang.Differential",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate7\\tests\\Erlang.Size354.Focus\\bin\\Debug\\net10.0\\Erlang.Differential.dll",
+      "Sha256": "6D83D1D396D1BC95E7B1DC21C546E34AE1A425D2449979862856C3BDBC4F580F"
+    },
+    {
+      "Name": "Erlang.Tests",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate7\\tests\\Erlang.Size354.Focus\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "Sha256": "27438F34FFFA6A62D3C83B1CFC784A6C9E3B3B9AA51E271613A69A7779A297DA"
+    },
+    {
+      "Name": "Size354Focus",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate7\\tests\\Erlang.Size354.Focus\\bin\\Debug\\net10.0\\Size354Focus.dll",
+      "Sha256": "CD651F90F05B1D68C091BBDB208D13F1F4782C93C0E4EEE0369A70F9EEEACE77"
+    }
+  ],
+  "NativeExecuted": false,
+  "FullValidationExecuted": false,
+  "ReadinessExecuted": false
+}

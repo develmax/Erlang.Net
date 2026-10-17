@@ -1,0 +1,21 @@
+{
+  "Status": "PASS_EXACT_CONSERVATIVE_LEXICAL_IDENTITY_STYLE_ONLY",
+  "Method": "Token groups preserve full comments and ordinary/verbatim string and char literals including whitespace; remaining non-whitespace code characters compare exact. No Roslyn execution claimed.",
+  "Files": [
+    {
+      "Path": "source/tests/Erlang.Tests/CleanupStealingHostChecks.cs",
+      "BeforeSha256": "B7722C5D72D3FB448ACBCAA1D264E5CEB7A4F1A43D1A89D46625A87E1475978E",
+      "AfterSha256": "A9903BEB1E4E2F2999E153BE92FF3C5E54876FA285A34C8B6F1D64EAB6289F19",
+      "ConservativeLexicalTokens": 4219,
+      "Exact": false
+    },
+    {
+      "Path": "source/tests/Erlang.Tests/CleanupStealingHostNames.cs",
+      "BeforeSha256": "4CA7893CAD9EE1943BF427C7C686DCB5E46198719AD28CD4A1BEEC8AF296AB92",
+      "AfterSha256": "4CA7893CAD9EE1943BF427C7C686DCB5E46198719AD28CD4A1BEEC8AF296AB92",
+      "ConservativeLexicalTokens": 523,
+      "Exact": true
+    }
+  ],
+  "ParentSourceFreezeSha256": "59383C4AEE2909C659B94E77025A1A992EA6A100C0A2571230D5045C5A27F7B4"
+}

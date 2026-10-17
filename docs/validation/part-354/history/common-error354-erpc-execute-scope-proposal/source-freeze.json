@@ -1,0 +1,51 @@
+{
+  "Status": "SOURCE_ONLY_ERPC_LOCAL_EXECUTE_CALL3_SOURCE_SCOPE_FIX_REQUIRES_PEER_AND_EXECUTION",
+  "ParentFullCandidate": "artifacts/size-bif354-full-candidate",
+  "Files": [
+    {
+      "Path": "src/Erlang.Otp.Behaviours/Erpc.cs",
+      "Bytes": 9888,
+      "Sha256": "B6AB40195550524ECCC53BF4C9BB4D51C9B94DF1E361B0EC989E46BDF7277BE6",
+      "ParentSourceSha256": "D44F1FFAF6CF6AF5E66465184845B2AB41230E8BFE37BC39C74E77943A0FF25B"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/ErpcNames.cs",
+      "Bytes": 1303,
+      "Sha256": "C216688FC153F378E99276FDD8224A8F81A4EAF84975B368878FE658C0692F2C",
+      "ParentSourceSha256": "D40002B453856CC12DBE68BC6CBF149C916EC48164856E4009FB790785FBFEDA"
+    }
+  ],
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "PinnedErpcSha256": "7E5615627BB94221EB9371046CDA801922711672C09CECA21B4B2BF19F3572DB",
+  "PinnedAnchors": {
+    "call(N, M, F, A, #{timeout := infinity,": 277,
+    "execute_call(M,F,A) ->": 1280,
+    "trim_stack([CF | _], M, F, A) when": 1322,
+    "trim_stack_aux([], _M, _F, _A) ->": 1337
+  },
+  "RootObservedFailure": "full354 actual1 rpc-errors top rpc:call/4 instead of requested erlang:error Args; full7324/7342 includes separate apply and16port failures.",
+  "Cause": "Pinned local erpc Call uses protected non-tail execute_call/3. Current CLR Call bypassed it. New automatic error1 non-BIF snapshot therefore has no erpc trim cut frame and retains outer rpc caller.",
+  "Correction": "Create actual source-guided logical execute_call/3 scope around local Apply only, before error creation and while awaited body runs. Existing ErpcStack.Trim replaces cut-only trace with requested MFA/Args and preserves native/source target frames preceding cut.",
+  "NoAssertionWeakening": true,
+  "NoCoreOrRuntimeExceptionCaptureChange": true,
+  "NoErpcExportCountChange": true,
+  "RemoteExecute4Unchanged": true,
+  "Fixtures": [
+    {
+      "Path": "fixtures/rpc_erpc_capture_scope.erl",
+      "Bytes": 939,
+      "Sha256": "4AF1C2E399DD1480F1A5C26D796D4948EFD52F002BECCDF915FCD9C73F795EA5",
+      "Expected": "done"
+    },
+    {
+      "Path": "fixtures/rpc_errors_existing.erl",
+      "Bytes": 2284,
+      "Sha256": "07045529F2A924476E961B20816F56197BEF9140BC50E4CFFDF7D1F04109ECEC",
+      "Expected": "done"
+    }
+  ],
+  "FixtureCaution": "New depth fixture source-derived expected only; no Parse/SDK/native execution. Existing rpc_errors fixture retained exactly, not rewritten.",
+  "SdkExecuted": false,
+  "MainMutation": false,
+  "NetworkExecuted": false
+}

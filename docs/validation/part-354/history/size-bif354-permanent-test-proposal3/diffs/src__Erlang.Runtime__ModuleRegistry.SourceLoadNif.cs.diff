@@ -1,0 +1,26 @@
+--- styled2/src/Erlang.Runtime/ModuleRegistry.SourceLoadNif.cs
++++ permanent3/src/Erlang.Runtime/ModuleRegistry.SourceLoadNif.cs
+@@ -24,12 +24,23 @@
+     {
+         var handler = Volatile.Read(ref sourceLoadNifHandler);
+         if (handler is null)
++        {
++            if (!SourceLoadNifFilename.IsValidUtf8(arguments[0]))
++                return RuntimeExceptionCapture.InvokeNative(
++                    context,
++                    (_, _) => throw new ErlangException(ErlangErrorReasons.BadArgument),
++                    ErlangModuleNames.Module,
++                    SourceLoadNifNames.Function,
++                    arguments
++                );
++
+             return Call(
+                 context,
+                 ErlangModuleNames.Module,
+                 SourceLoadNifNames.Function,
+                 arguments
+             );
++        }
+ 
+         return RuntimeExceptionCapture.InvokeNative(
+             context,

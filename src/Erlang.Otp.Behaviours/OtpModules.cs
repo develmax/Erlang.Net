@@ -7,6 +7,9 @@ public static class OtpModules
     private static readonly ConditionalWeakTable<ModuleRegistry, object> Installed = new();
 
     public static void Register(ModuleRegistry registry)
+        => registry.InstallSourceWrappers(RegisterCode);
+
+    private static void RegisterCode(ModuleRegistry registry)
     {
         lock (Installed)
         {

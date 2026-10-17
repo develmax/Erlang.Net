@@ -1,0 +1,33 @@
+{
+  "Status": "SOURCE_ONLY_HOST_MECHANISM_CONTROLS_NOT_PARSED_BUILT_OR_EXECUTED",
+  "Files": [
+    {
+      "Path": "CommonErrorCaptureHostChecks.cs",
+      "Bytes": 6699,
+      "Sha256": "47BAC63336AAA93A493C94A2757CBFC8382D812FD9584CAD27C166EB26D27517"
+    }
+  ],
+  "TargetMethod": "RunIdentityRollbackAndAsyncSnapshot",
+  "Contracts": [
+    "Recursive Apply+InstallPreloaded failure restores original native delegate identity map; reusing same delegate as HOST override must remain unclassified",
+    "Asynchronously faulted native dispatch uses saved caller context and failure-time global depth changed by another actor",
+    "Shared thrown exception remains unmodified",
+    "Explicit Nil and custom trace exception/trace identity preserved"
+  ],
+  "Scope": "Synthetic private registry mechanism controls only; not actual native hd implementation or original OTP evidence. Existing ProcessErrorHandlerHostChecks must also execute unchanged.",
+  "NeedsBeforeSdk": [
+    "Source review",
+    "Wire into private focused harness; test constants may be split/styled without semantic edits"
+  ],
+  "SdkExecuted": false,
+  "MainOrGitMutation": false,
+  "ParentFreezeSha256": "850C3694906ED6A0A87DE6E0B832C467C341CCC1B035BBA5B72A27A1D1877C88",
+  "NarrowCorrections": [
+    "HostActor.InvokeAsync expects Task<T>, so second-actor ValueTask callbacks now use actual async-await lambdas (source prerequisite, no build attempt claimed).",
+    "Add RunUncapturedFallbackAndPriorHost: existing unrelated HOST registration followed by empty InstallPreloaded remains original exception, no native classification; real no-logical-frame core error1 remains uncaptured and actual Erpc private Stack fallback emits supplied actual target frame."
+  ],
+  "TargetMethods": [
+    "RunIdentityRollbackAndAsyncSnapshot",
+    "RunUncapturedFallbackAndPriorHost"
+  ]
+}

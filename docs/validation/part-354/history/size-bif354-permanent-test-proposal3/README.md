@@ -1,0 +1,1 @@
+Corrected prospective permanent3, no SDK/build/full/native acceptance. Old permanent2 and its truthful style proof remain immutable. Restores the exact managed focus6 filename validation and preserves all original7313 registrations as a prefix by explicitly moving only23 new registrations. Fresh style/token/source-preservation and runtime focused execution remain required.

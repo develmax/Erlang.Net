@@ -1,0 +1,23 @@
+{
+  "Status": "SOURCE_ONLY_QUALIFIED_CALL_FIDELITY_DELTA",
+  "PriorFreezeSha256": "178B0C9D17EDD2D0F435622DF37B4E71CDB15925F64A6885A5A942F89FEB445C",
+  "SuccessorFreezeSha256": "CE649112C9609824F3A50D066D35C49E2F26D5B3AFCC489916D727FFB64FB9AC",
+  "Changes": [
+    {
+      "Name": "generic_depth_error",
+      "OldSha256": "A0830BBA6D4DBC0B31DB86AB550A97A9EB47A8AFA6F69D4965FA1A56D2F22904",
+      "NewSha256": "AD8B36028A3CE457C60011B7373A43EF212483BFA86FF37986A071006232DC39",
+      "Change": "One local middle->leaf call qualified to actual literal own module; assertions/timeouts unchanged, no ?MODULE parser dependency."
+    },
+    {
+      "Name": "generic_depth_hd",
+      "OldSha256": "07881220E076A2AF54CD655CB16F0320BFB70E3259CF015CE966A11CDBC98F84",
+      "NewSha256": "D8B832EDDC1F4FD1CCFD30A8CA0DBE2CEE902834D33C9D491E0F526C22FA4451",
+      "Change": "One local middle->leaf call qualified to actual literal own module; assertions/timeouts unchanged, no ?MODULE parser dependency."
+    }
+  ],
+  "NineRuntimeBytesUnchanged": true,
+  "OldRunBodyAndCanonical15Unchanged": true,
+  "ExpectationsNotWeakened": true,
+  "NoSdk": true
+}

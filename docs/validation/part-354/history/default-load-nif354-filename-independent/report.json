@@ -1,0 +1,57 @@
+{
+  "Status": "PASS_INDEPENDENT_SOURCE_ONLY_UTF8_FILENAME_DOMAIN_NARROW_FIX",
+  "SourceFreezeSha256": "57142502859233FB448A7A6FF80D120AA0C5347C634AC5F52C5E25927151C797",
+  "VerifiedFiles": [
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.SourceLoadNif.cs",
+      "Sha256": "ACB87E84B75D1A6A4D55860F4E847331D2CC30FE7FF47913FB5D6A155799467A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/SourceLoadNifFilename.cs",
+      "Sha256": "A40270669386E828CC1468165AD6D6A2966AA5B27BBD440BC554055BDB3B88DA"
+    },
+    {
+      "Path": "src/Erlang.Runtime/SourceLoadNifFilenameParameters.cs",
+      "Sha256": "BFD31E6E28674B803235549180844CF325E97F2FF9C1D76FCEEEF73D089C7944"
+    },
+    {
+      "Path": "fixtures/default_load_nif_accepted_domain.erl",
+      "Sha256": "CAA388C5C576F17D35A738B4F6B613B89723514CDDCAE93CE8B0274C1A041E5F"
+    },
+    {
+      "Path": "fixtures/default_load_nif_invalid_filename.erl",
+      "Sha256": "6D074EADB7D8E21A7B78298BB4B4840B666C46006B150F8F4ABEF11AB23A0987"
+    }
+  ],
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "PinnedSources": [
+    {
+      "Path": "erts/emulator/beam/erl_nif.c",
+      "Sha256": "66F06AB32AEDB5D1E02140C37E0215E797FB80D78C1AA4091EB52BE01465299A"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_unicode.c",
+      "Sha256": "6C1B4A4521A434477D3CCE75D9BE1B4DE3706B064F4E0F2C72F48BE8AEC9C4A6"
+    },
+    {
+      "Path": "erts/emulator/beam/emu/bif_instrs.tab",
+      "Sha256": "EFA0551D5FFA27A197DE60FB6759530A00A891031627B58D948442FE0F313AEE"
+    }
+  ],
+  "Source12LoadNifParentExactSource10": true,
+  "BranchArgument": [
+    "Top-level aligned bitstring is accepted without content validation; native converter copies arbitrary bytes and appends NUL in UTF8 mode. Nonaligned bitstring refuses.",
+    "Top-level Cons/Nil only for list domain; nested Cons/Nil traversal uses explicit stack, permits positive Unicode scalars through 10FFFF except surrogate range, refuses NUL, negative, large integer, nested binary and improper tail exactly as native UTF8 need loop.",
+    "Native erts_load_nif forces Windows WCHAR filename mode to UTF8 before validation; native user-requested Latin1 remains outside this UTF8-only implementation.",
+    "Invalid default direct instruction raises badarg through shared native capture with original two arguments; configured handler and indirect BIF paths remain unchanged.",
+    "Valid default filenames retain existing unsupported loader fallback; accepted-domain fixture intentionally establishes domain only, not error category/message parity."
+  ],
+  "ScopeLimits": [
+    "No build, Parse, guest, original OTP execution, loader filesystem/ABI or performance observation by this audit.",
+    "Custom configured handler integer sentinels are embedding hooks, not evidence of native filename domain.",
+    "No compatibility status promotion; full load_nif API remains known different after this narrow repair."
+  ],
+  "SdkExecuted": false,
+  "NetworkExecuted": false,
+  "MainMutation": false
+}

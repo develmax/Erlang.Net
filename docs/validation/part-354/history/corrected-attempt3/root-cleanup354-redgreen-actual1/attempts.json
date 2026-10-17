@@ -1,0 +1,94 @@
+[
+  {
+    "Label": "red",
+    "Inputs": [
+      {
+        "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate2\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+        "Sha256": "DFFCA0D1F1174B4F91AAD539C9DCA1AC58497ECEE31A38A35E618C66B5F12D87"
+      },
+      {
+        "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate2\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Terms.dll",
+        "Sha256": "11C466ECF06255F3D11F38609A916CB8BA8C101FAA7DAB11F7BE90C765E40859"
+      },
+      {
+        "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate2\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Serialization.dll",
+        "Sha256": "98B627B0D20E1D4D0DDF3AD7EA083E833C839AC16815D7F3219AD51301A006C0"
+      }
+    ],
+    "Outcome": {
+      "Passed": false,
+      "Failure": "System.AggregateException: One or more errors occurred. (The operation has timed out.)\r\n ---> System.TimeoutException: The operation has timed out.\r\n   at Erlang.Tests.CleanupStealingHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-cleanup354-redgreen-actual1\\harness\\CleanupStealingHostChecks.cs:line 71\r\n   --- End of inner exception stack trace ---\r\n   at Erlang.Tests.CleanupStealingHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-cleanup354-redgreen-actual1\\harness\\CleanupStealingHostChecks.cs:line 104\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-cleanup354-redgreen-actual1\\harness\\Main.cs:line 21",
+      "LoadedRuntime": [
+        {
+          "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate2\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+          "Sha256": "DFFCA0D1F1174B4F91AAD539C9DCA1AC58497ECEE31A38A35E618C66B5F12D87"
+        },
+        {
+          "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate2\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Terms.dll",
+          "Sha256": "11C466ECF06255F3D11F38609A916CB8BA8C101FAA7DAB11F7BE90C765E40859"
+        }
+      ],
+      "InnerCount": 1,
+      "InnerType": "System.TimeoutException"
+    },
+    "Process": {
+      "Pid": 252392,
+      "ElapsedSeconds": 15.25,
+      "TimedOut": false,
+      "ExitCode": 1,
+      "Settled": true,
+      "Failures": [],
+      "KillOnCloseJobAssigned": true,
+      "JobTerminationRequested": false,
+      "RemainingJobProcesses": 0,
+      "StdoutSha256": "D6ED29DA64D0F4594F7596B51078BA26DC3EC43407B927E02C76D0AE319B2364",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    }
+  },
+  {
+    "Label": "green",
+    "Inputs": [
+      {
+        "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-cleanup354-redgreen-actual1\\runtime\\Erlang.Runtime.dll",
+        "Sha256": "AA56305B320D5BFD1218BBF770D46949B4B45266E0D25FDAC75DEBC5283ECD9C"
+      },
+      {
+        "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-cleanup354-redgreen-actual1\\runtime\\Erlang.Terms.dll",
+        "Sha256": "ADF5C9C1142F0506053F8240E1278F0C40F9A2B7429A33D265D3999D68BA8270"
+      },
+      {
+        "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-cleanup354-redgreen-actual1\\runtime\\Erlang.Serialization.dll",
+        "Sha256": "8F5D2BDD769670E1E2369F450615E285F39F7B39D7D21E8E6930310E1DE538E4"
+      }
+    ],
+    "Outcome": {
+      "Passed": true,
+      "Failure": null,
+      "LoadedRuntime": [
+        {
+          "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-cleanup354-redgreen-actual1\\runtime\\Erlang.Runtime.dll",
+          "Sha256": "AA56305B320D5BFD1218BBF770D46949B4B45266E0D25FDAC75DEBC5283ECD9C"
+        },
+        {
+          "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\root-cleanup354-redgreen-actual1\\runtime\\Erlang.Terms.dll",
+          "Sha256": "ADF5C9C1142F0506053F8240E1278F0C40F9A2B7429A33D265D3999D68BA8270"
+        }
+      ],
+      "InnerCount": null,
+      "InnerType": null
+    },
+    "Process": {
+      "Pid": 259312,
+      "ElapsedSeconds": 0.21900000001187436,
+      "TimedOut": false,
+      "ExitCode": 0,
+      "Settled": true,
+      "Failures": [],
+      "KillOnCloseJobAssigned": true,
+      "JobTerminationRequested": false,
+      "RemainingJobProcesses": 0,
+      "StdoutSha256": "7A3D5E112BC872A80CAF04F31FA698FAFCCAC394C4FF16711C03DC65A9058E97",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    }
+  }
+]

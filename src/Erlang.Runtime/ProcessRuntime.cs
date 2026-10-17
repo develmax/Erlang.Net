@@ -73,7 +73,11 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         get;
     }
     private readonly bool ownsStandardStreams;
-    public int BacktraceDepth { get; internal set; } = ErlangStackLimits.DefaultBacktraceDepth;
+    public int BacktraceDepth
+    {
+        get => Volatile.Read(ref backtraceDepth);
+        internal set => Volatile.Write(ref backtraceDepth, value);
+    }
     public ModuleRegistry Modules { get; } = new();
     public RuntimeFunctionEntries Functions { get; } = new();
     public RuntimeReferenceResources ReferenceResources

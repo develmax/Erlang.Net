@@ -1,0 +1,37 @@
+{
+  "Status": "PASS_SOURCE_ONLY_FULL354_ATTEMPT3_COMPOSITION_AND_CANONICAL_RUNNER",
+  "SourceFreezeSha256": "D091643380100894AF22A6549C6CF103C47A68586A3E58DB4DCA7174516C88F4",
+  "CompositionPlanSha256": "AE9E40FD4A12BC33F51D6F4CF777258E2EBE0387E066898BF0C1418645060D19",
+  "SourceRows": 3211,
+  "StableRows": 3210,
+  "OwnedPaths": 134,
+  "ChangedOrNewPathsFromFull2": [
+    ".github/workflows/nif-pending-native.yml",
+    ".github/workflows/nif-reallocation-native.yml",
+    "docs/OTP-PORTS.md",
+    "docs/mfa-compatibility.json",
+    "src/Erlang.Runtime/RuntimeActorDispatcher.cs",
+    "tests/Erlang.Tests/CleanupStealingHostChecks.cs",
+    "tests/Erlang.Tests/CleanupStealingHostNames.cs",
+    "tests/Erlang.Tests/Program.cs",
+    "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+    "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json"
+  ],
+  "RuntimeSourceGuards": 115,
+  "Other114GuardsAndAll587EntriesUnchanged": true,
+  "NativePlanRows": [
+    1282,
+    1307
+  ],
+  "NativePoliciesNonFilesAndTopologicalSealsVerified": true,
+  "PermanentOld7342PrefixAndOneCleanupControlExpected7343": true,
+  "ActualAcceptedRedGreenMustBeCliBoundBeforeSdk": true,
+  "RawRegistryRetainedUntilIndependentAcceptance": true,
+  "SdkExecuted": false,
+  "MainChanged": false,
+  "Limits": [
+    "This is source admission, not actual full3 acceptance.",
+    "Actual deterministic diagnostic acceptance and canonical full are Root-owned.",
+    "Managed cleanup scheduling is not original OTP or native ABI equivalence."
+  ]
+}

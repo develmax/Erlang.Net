@@ -1,0 +1,224 @@
+{
+  "Status": "PASS_ACTUAL_HOST_SELECTED_HANDLER_BEFORE_AFTER_RELATIONS",
+  "Sources": [
+    {
+      "Path": "artifacts\\size-bif354-selected-handler-actual1\\selected-handler.etf",
+      "Sha256": "703BD5337A6545A091C3961149D407548C9A89AC807AFD7E7F78147EDB35B33A"
+    },
+    {
+      "Path": "artifacts\\size-bif354-focused-actual6\\target-32\\selected-handler.etf",
+      "Sha256": "DC3236F48105D660E6403C2FE64C81C52D324BCC84CF5D18BEAF84A82E5400A4"
+    }
+  ],
+  "Before": {
+    "Tuple": [
+      {
+        "Tuple": [
+          {
+            "Atom": "repeated_host"
+          },
+          2,
+          {
+            "Atom": "handler_fault"
+          },
+          [
+            {
+              "Tuple": [
+                {
+                  "Atom": "host_equal_error_handler"
+                },
+                {
+                  "Atom": "undefined_function"
+                },
+                [
+                  {
+                    "Atom": "missing_handler_target"
+                  },
+                  {
+                    "Atom": "missing_handler_function"
+                  },
+                  [
+                    {
+                      "Atom": "handler_payload"
+                    }
+                  ]
+                ],
+                []
+              ]
+            },
+            {
+              "Tuple": [
+                {
+                  "Atom": "host_equal_error_handler"
+                },
+                {
+                  "Atom": "undefined_function"
+                },
+                3,
+                []
+              ]
+            }
+          ]
+        ]
+      },
+      {
+        "Tuple": [
+          {
+            "Atom": "source_handler_host_bridge"
+          },
+          {
+            "Atom": "undefined_function"
+          },
+          {
+            "Atom": "handler_fault"
+          },
+          [
+            {
+              "Tuple": [
+                {
+                  "Atom": "handler_host_bridge"
+                },
+                {
+                  "Atom": "held"
+                },
+                [
+                  {
+                    "Atom": "missing_handler_target"
+                  },
+                  {
+                    "Atom": "missing_handler_function"
+                  },
+                  [
+                    {
+                      "Atom": "handler_payload"
+                    }
+                  ]
+                ],
+                []
+              ]
+            },
+            {
+              "Tuple": [
+                {
+                  "Atom": "source_error_handler"
+                },
+                {
+                  "Atom": "undefined_function"
+                },
+                3,
+                []
+              ]
+            }
+          ]
+        ]
+      }
+    ]
+  },
+  "After": {
+    "Tuple": [
+      {
+        "Tuple": [
+          {
+            "Atom": "repeated_host"
+          },
+          2,
+          {
+            "Atom": "handler_fault"
+          },
+          [
+            {
+              "Tuple": [
+                {
+                  "Atom": "host_equal_error_handler"
+                },
+                {
+                  "Atom": "undefined_function"
+                },
+                [
+                  {
+                    "Atom": "missing_handler_target"
+                  },
+                  {
+                    "Atom": "missing_handler_function"
+                  },
+                  [
+                    {
+                      "Atom": "handler_payload"
+                    }
+                  ]
+                ],
+                []
+              ]
+            },
+            {
+              "Tuple": [
+                {
+                  "Atom": "host_equal_error_handler"
+                },
+                {
+                  "Atom": "undefined_function"
+                },
+                [
+                  {
+                    "Atom": "missing_handler_target"
+                  },
+                  {
+                    "Atom": "missing_handler_function"
+                  },
+                  [
+                    {
+                      "Atom": "handler_payload"
+                    }
+                  ]
+                ],
+                []
+              ]
+            }
+          ]
+        ]
+      },
+      {
+        "Tuple": [
+          {
+            "Atom": "source_handler_host_bridge"
+          },
+          {
+            "Atom": "undefined_function"
+          },
+          {
+            "Atom": "handler_fault"
+          },
+          [
+            {
+              "Tuple": [
+                {
+                  "Atom": "source_error_handler"
+                },
+                {
+                  "Atom": "undefined_function"
+                },
+                [
+                  {
+                    "Atom": "missing_handler_target"
+                  },
+                  {
+                    "Atom": "missing_handler_function"
+                  },
+                  [
+                    {
+                      "Atom": "handler_payload"
+                    }
+                  ]
+                ],
+                []
+              ]
+            }
+          ]
+        ]
+      }
+    ]
+  },
+  "OldAssertionsChanged": false,
+  "NativeParityClaimed": false,
+  "Scope": "Typed observations plus unchanged HOST contract assertions, not original VM output."
+}

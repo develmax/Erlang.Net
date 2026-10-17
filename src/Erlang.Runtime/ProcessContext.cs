@@ -212,18 +212,107 @@ public sealed partial class ProcessContext : ITermExecutionContext
     }
 
     public IDisposable EnterFunction(string module, string function, int arity)
+        => EnterFrame(
+            module,
+            function,
+            arity,
+            false
+        );
+
+    internal IDisposable EnterSourceWrapper(
+        string module,
+        string function,
+        int arity
+    )
+        => EnterFrame(
+            module,
+            function,
+            arity,
+            true
+        );
+
+    internal IDisposable EnterSourceWrapperBody(
+        string module,
+        string function,
+        int arity
+    )
+    {
+        var previous = executionFrame.Value;
+        var parent = previous is { SourceWrapper: true } && previous.Module == module ? previous.Parent : previous;
+        executionFrame.Value = new(
+            module,
+            function,
+            arity,
+            parent,
+            true
+        );
+        Volatile.Write(ref visibleExecutionFrame, executionFrame.Value);
+
+        return new ExecutionFrameScope(this, previous);
+    }
+
+    private IDisposable EnterFrame(
+        string module,
+        string function,
+        int arity,
+        bool sourceWrapper
+    )
     {
         var previous = executionFrame.Value;
         executionFrame.Value = new(
             module,
             function,
             arity,
-            previous
+            previous,
+            sourceWrapper
         );
+        var selected = selectedErrorHandler.Value;
+        if (!sourceWrapper && selected is not null && selected.Frame is null
+            && selected.Module == module && selected.Function == function && selected.Arguments.Count == arity)
+            selected.Frame = executionFrame.Value;
         Volatile.Write(ref visibleExecutionFrame, executionFrame.Value);
 
         return new ExecutionFrameScope(this, previous);
     }
+
+    internal ErlangExecutionFrame? CaptureExecutionChain() => executionFrame.Value;
+
+    internal ErlangException CaptureSourceFailure(
+        ErlangException exception,
+        IReadOnlyList<Term>? arguments = null
+    ) => RuntimeExceptionCapture.Source(
+        this,
+        exception,
+        executionFrame.Value,
+        arguments
+    );
+
+    internal ErlangException CaptureCallFailure(
+        ErlangException exception,
+        string module,
+        string function,
+        IReadOnlyList<Term> arguments
+    ) => CaptureUntrustedCallFailure(
+        exception,
+        module,
+        function,
+        arguments
+    );
+
+    internal ErlangException CaptureNativeFailure(
+        ErlangException exception,
+        string module,
+        string function,
+        IReadOnlyList<Term> arguments
+    ) => RuntimeExceptionCapture.Call(
+        this,
+        exception,
+        executionFrame.Value,
+        module,
+        function,
+        arguments,
+        true
+    );
 
     internal Term CaptureErrorStack(Term arguments, MapTerm? info, string? builtin = null)
     {
@@ -237,6 +326,10 @@ public sealed partial class ProcessContext : ITermExecutionContext
                 arguments,
                 location
             ));
+        if (builtin is not null && frame is { SourceWrapper: true }
+            && frame.Module == ErlangModuleNames.Module && frame.Function == builtin
+            && arguments is Cons or Nil && Cons.Items(arguments).Count() == frame.Arity)
+            frame = frame.Parent;
         bool first = builtin is null;
         int depth = Math.Max(1, Runtime.BacktraceDepth);
         while (frame is not null && frames.Count < depth)

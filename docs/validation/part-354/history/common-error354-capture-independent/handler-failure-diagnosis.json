@@ -1,0 +1,67 @@
+{
+  "Status": "ACTUAL_TWO_FAILURES_SOURCE_CONSISTENT_DIAGNOSIS_NO_TRACE_TERM_OBSERVATION",
+  "CompletionSha256": "1D7D66FB7DB359539E2D2A0C5280E6C260038457E9C176EFD975C0B42685D039",
+  "FailureBindings": [
+    {
+      "Path": "artifacts/size-bif354-focused-actual5/target-22/outcome.json",
+      "Sha256": "61BE60C4A251B6D85C5B75A786E559E814AAC913DC34C926CDB7E01DA0D3371D",
+      "Name": "handler/RunNestedFrames",
+      "Failure": "System.InvalidOperationException: Process error handler assertion failed\r\n   at Erlang.Tests.ProcessErrorHandlerHostChecks.Require(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate7\\tests\\Erlang.Tests\\ProcessErrorHandlerHostChecks.cs:line 568\r\n   at Erlang.Tests.ProcessErrorHandlerHostChecks.<>c__DisplayClass5_0.<<RepeatedFrames>b__1>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate7\\tests\\Erlang.Tests\\ProcessErrorHandlerHostChecks.cs:line 206\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.<>c__DisplayClass9_0`1.<<InvokeAsync>b__0>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate7\\tests\\Erlang.Tests\\RuntimeNodeFoundationHostActor.cs:line 43\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func`2 command) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate7\\tests\\Erlang.Tests\\RuntimeNodeFoundationHostActor.cs:line 51\r\n   at Erlang.Tests.ProcessErrorHandlerHostChecks.RepeatedFrames() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate7\\tests\\Erlang.Tests\\ProcessErrorHandlerHostChecks.cs:line 200\r\n   at Erlang.Tests.ProcessErrorHandlerHostChecks.RepeatedFrames() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate7\\tests\\Erlang.Tests\\ProcessErrorHandlerHostChecks.cs:line 200\r\n   at Erlang.Tests.ProcessErrorHandlerHostChecks.RepeatedFrames() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate7\\tests\\Erlang.Tests\\ProcessErrorHandlerHostChecks.cs:line 200\r\n   at Erlang.Tests.ProcessErrorHandlerHostChecks.RunNestedFrames() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate7\\tests\\Erlang.Tests\\ProcessErrorHandlerHostChecks.cs:line 174\r\n   at Erlang.Tests.ProcessErrorHandlerHostChecks.RunNestedFrames() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate7\\tests\\Erlang.Tests\\ProcessErrorHandlerHostChecks.cs:line 175\r\n   at Erlang.Tests.ProcessErrorHandlerHostChecks.RunNestedFrames() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate7\\tests\\Erlang.Tests\\ProcessErrorHandlerHostChecks.cs:line 175\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate7\\tests\\Erlang.Size354.Focus\\FocusProgram.cs:line 89"
+    },
+    {
+      "Path": "artifacts/size-bif354-focused-actual5/target-23/outcome.json",
+      "Sha256": "C6D39DE82DCF55DEC048425AD258982990165437F512A5B631282AFA4751AE80",
+      "Name": "handler/RunSourceLease",
+      "Failure": "System.InvalidOperationException: Process error handler assertion failed\r\n   at Erlang.Tests.ProcessErrorHandlerHostChecks.Require(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate7\\tests\\Erlang.Tests\\ProcessErrorHandlerHostChecks.cs:line 568\r\n   at Erlang.Tests.ProcessErrorHandlerHostChecks.CheckFrame(ErlangException error, String handler) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate7\\tests\\Erlang.Tests\\ProcessErrorHandlerHostChecks.cs:line 545\r\n   at Erlang.Tests.ProcessErrorHandlerHostChecks.SourceLease(Boolean fail, Boolean kill) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate7\\tests\\Erlang.Tests\\ProcessErrorHandlerHostChecks.cs:line 362\r\n   at Erlang.Tests.ProcessErrorHandlerHostChecks.SourceLease(Boolean fail, Boolean kill) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate7\\tests\\Erlang.Tests\\ProcessErrorHandlerHostChecks.cs:line 381\r\n   at Erlang.Tests.ProcessErrorHandlerHostChecks.SourceLease(Boolean fail, Boolean kill) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate7\\tests\\Erlang.Tests\\ProcessErrorHandlerHostChecks.cs:line 381\r\n   at Erlang.Tests.ProcessErrorHandlerHostChecks.RunSourceLease() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate7\\tests\\Erlang.Tests\\ProcessErrorHandlerHostChecks.cs:line 132\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate7\\tests\\Erlang.Size354.Focus\\FocusProgram.cs:line 89"
+    }
+  ],
+  "CurrentUnmodifiedHostSources": [
+    {
+      "Path": "tests/Erlang.Tests/ProcessErrorHandlerHostChecks.cs",
+      "Sha256": "E6F7B42F81134168E0BC635A3D527D248A04CEF2254718633314FC7A8CB97543"
+    },
+    {
+      "Path": "tests/Erlang.Tests/ProcessErrorHandlerHostNames.cs",
+      "Sha256": "AD9893296F7BA5575796F4BFF6B19B90385ED7B0845CC98745DD92CF001CF67B"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.ErrorHandler.cs",
+      "Sha256": "E11FBDCB76287F0F54854E4B07FE0358CC391E48FBC56DB7410AB9817726B903"
+    }
+  ],
+  "RuntimeSource8FreezeSha256": "DC8268316A2F615039804849CF893293F2F448823F9886B427E741A6E395A01C",
+  "Findings": [
+    {
+      "Actual": "RepeatedFrames line206: two calls and two frames must be identical full-argument handler frames.",
+      "SourceCause": "InvokeHandler captures inner selected handler with savedArguments, but immutable parent ErlangExecutionFrame has only Arity. Source renders only first arguments; outer repeated handler renders integer3. Outer WithSelectedHandlerFrame sees completed automatic trace and cannot restore legacy argument-bearing selected frame.",
+      "Confidence": "Source-consistent explanation of exact failed assertion. Actual error term not dumped by failed harness; do not label actual observed frame contents."
+    },
+    {
+      "Actual": "SourceLease line545 expects top selected source handler undefined_function, not bridge.",
+      "SourceCause": "Registered intrinsic HOST bridge throws fresh error under generated source handler. Compiler RuntimeCallFrames.Capture freezes synthetic bridge call top using Call(native:false), then source-origin and selected-handler unwind adapters are idempotent and cannot preserve prior selected-handler top policy.",
+      "Confidence": "Source-consistent route. Actual error term not dumped; no independent measured stack shape yet."
+    }
+  ],
+  "PinnedNative": {
+    "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "Path": "erts/emulator/beam/beam_common.c",
+    "Sha256": "1AF6CF2D371975B0D9944B5857062A90091298373B3802639B25D03003AB3C47",
+    "Anchors": [
+      "call_error_handler selects actual process handler export and registers M/F/Args",
+      "save_stacktrace distinguishes current argument-list errors from ordinary source caller arities"
+    ],
+    "Conclusion": "Two identical argument-bearing recursive HOST frames are a preserved synthetic embedding contract, not proof ordinary native caller frames contain Args. Keep distinction explicit."
+  },
+  "CorrectionConstraints": [
+    "Preserve original assertions, selected body identity/image/code lease and cleanup.",
+    "No blanket all-caller argument snapshots or equal-MFA collapsing.",
+    "Do not reframe explicit traces or mutate shared exceptions.",
+    "Keep generic native origin freeze before leaf catch and failure-time depth intact.",
+    "Distinguish selected-HOST or HOST-intrinsic compatibility provenance from actual native/source origin; no synthetic bridge claim as native BIF.",
+    "Run both unchanged old groups plus nested source intermediate/equal handler/shared identity and new generic depth controls after source peer."
+  ],
+  "SdkExecuted": false,
+  "NetworkExecuted": false,
+  "MainMutation": false,
+  "CompatibilityPromotion": false
+}

@@ -1,0 +1,131 @@
+{
+  "Status": "SOURCE_ONLY_APPLY_FORWARDING_ORIGIN_CORRECTION_REQUIRES_PEER_AND_EXECUTION",
+  "ParentCandidate": "artifacts/size-bif354-full-candidate",
+  "ParentFullInputsSha256": "9DF6A042CCC322200A1B77A57E3F76C4EFEA401F9CBDB469BC591AEE24F30933",
+  "ParentSourceSha256": "3D872A4A1A1DC899CF7A8E90992926CEEAB879E77D34ED204B40D55173FDB295",
+  "Files": [
+    {
+      "Path": "src/Erlang.Runtime/ErlangApplyDispatch.cs",
+      "Bytes": 1921,
+      "Sha256": "CFF37548C390E0BA20B09BAD66633A21C77C6F7E909A285F8E7946FFDDA21DB5"
+    }
+  ],
+  "UnchangedParentBindings": [
+    {
+      "Path": "src/Erlang.Runtime/ErlangApplyDispatch.cs",
+      "Sha256": "3D872A4A1A1DC899CF7A8E90992926CEEAB879E77D34ED204B40D55173FDB295"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeExceptionCapture.cs",
+      "Sha256": "BC8864F2F2DE3092D8C16194D80BF227C60B7493336716483C69FFA8CEFA4F58"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.ErrorHandlers.cs",
+      "Sha256": "6BD2063879D8A6DA15D87C94ECFAD2ED2CC8A6E91CA2367A2CE9CA0EC86E7952"
+    },
+    {
+      "Path": "src/Erlang.Compiler/RuntimeCallFrames.cs",
+      "Sha256": "7FD69FB921E3F8BA8E11DA676203AAE3322B4A32D0A51888422B7AE590487F0B"
+    },
+    {
+      "Path": "tools/Erlang.Differential/ApplyFrameCases.cs",
+      "Sha256": "659CA89A37829F80C35EA2E841237D6797B14BC7AE6B8BEFDE19728DDB4977D7"
+    },
+    {
+      "Path": "tools/Erlang.Differential/ApplyFrameCaseNames.cs",
+      "Sha256": "C3B9E7812A6A3F87F3185BC8559AA62967E4DCAFF6D7C5AA7DE99157434A87E5"
+    }
+  ],
+  "Controls": [
+    {
+      "Path": "controls/ApplyForwardingRegressionHostChecks.cs",
+      "Bytes": 793,
+      "Sha256": "F3DDF7760E3AD81D36AF9611E4E4982453D6C15612BAE2E21044272EE51A985C"
+    },
+    {
+      "Path": "controls/ApplyForwardingRegressionHostNames.cs",
+      "Bytes": 299,
+      "Sha256": "4D4285F2504AED98069C849FE0C5CDC17E66B17F20225669C578C77A02D621BA"
+    }
+  ],
+  "Diff": "--- \n+++ \n@@ -46,7 +46,15 @@\n         }\n         catch (ErlangException exception) when (dispatch == ModuleCallDispatchKind.Direct && !exception.ExplicitStackTrace && exception.StackTraceTerm is Nil)\n         {\n-            throw exception.WithStackFrame(module, function, arguments);\n+            throw RuntimeExceptionCapture.Call(\n+                context,\n+                exception,\n+                context.CaptureExecutionChain(),\n+                module,\n+                function,\n+                arguments,\n+                false\n+            );\n         }\n     }\n }\n",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "PinnedSources": [
+    {
+      "Path": "erts/emulator/beam/beam_common.c",
+      "Sha256": "1AF6CF2D371975B0D9944B5857062A90091298373B3802639B25D03003AB3C47",
+      "Anchors": {
+        "apply_bif_error_adjustment": [
+          1345,
+          1522,
+          1563
+        ],
+        "apply(Process* p": [
+          1434,
+          1529
+        ],
+        "create a stub entry which in turn calls the error handler": [
+          1519,
+          1560
+        ]
+      }
+    },
+    {
+      "Path": "lib/kernel/src/error_handler.erl",
+      "Sha256": "F15CF5F795D7DD8C7D11A7087756DCEF5BC6CAC60DAF3BE206545AE531E12630",
+      "Anchors": {
+        "undefined_function(Module, Func, Args)": [
+          85
+        ],
+        "raise_undef_exception(Module, Func, Args)": [
+          146
+        ],
+        "crash(Tuple)": [
+          172
+        ],
+        "Stk = [Tuple|tl(Stacktrace)]": [
+          176
+        ]
+      }
+    }
+  ],
+  "ActualFailure": "Full354 old erlang-apply-forwarded-frame-undef-direct-and-dynamic expected target missing_apply_frame_module:absent/[17] for both paths, dynamic path instead had erlang:apply/[M,F,Args]. Assertions remain unchanged.",
+  "SourceCause": "Validated direct target failure receives legacy partial WithStackFrame (auto=false). Outer native apply origin then replaces partial trace with apply frame before compiler RuntimeCallFrames Cons guard executes.",
+  "Correction": "Freeze actual validated forwarded target using existing RuntimeExceptionCapture.Call(native:false) and current caller chain at target catch. Native=false avoids inventing native formatter metadata. Automatic/explicit already captured traces return unchanged.",
+  "WhyNotCaptureCallFailureAdapter": "That context adapter includes selected-source HOST-bridge compatibility rewriting. Forwarded apply target is the actual validated target and must preserve its target origin even inside a selected handler; direct central Call intentionally bypasses that embedding-specific override.",
+  "Preserved": [
+    "Argument/module/function/1023limit validation before InvokeTarget unchanged; true apply argument errors retain apply origin.",
+    "Existing catch is still direct dispatch plus !explicit and empty trace only; selected handler dispatch/fresh native/source captured errors are not rewritten.",
+    "Explicit raise custom/empty traces unchanged; no blanket arbitrary Cons is treated as complete.",
+    "No source function/lease, process scheduling, argument parsing, tracing, registry selection or assertion changes.",
+    "Common RuntimeExceptionCapture remains byte-identical to failed full, avoiding shared RPC repair overlap."
+  ],
+  "FocusedPlan": {
+    "Target": "Erlang.Tests.ApplyForwardingRegressionHostChecks.Run",
+    "Cases": [
+      "erlang-apply-forwarded-frame-badarg-direct-and-dynamic",
+      "erlang-apply-forwarded-frame-undef-direct-and-dynamic",
+      "erlang-apply-forwarded-frame-invalid-module-keeps-apply-frame",
+      "erlang-apply-forwarded-frame-invalid-function-keeps-apply-frame",
+      "erlang-apply-forwarded-frame-improper-arguments-keeps-apply-frame",
+      "erlang-apply-forwarded-frame-explicit-raise-preserves-all-classes-and-empty-stack"
+    ],
+    "ExpectedAuthority": "Exact existing ApplyFrameCases.Modules expected terms, compiled with actual original source/caller context. No copied or SDK-seeded fixtures.",
+    "Runner": "Root existing bounded owned child helper; link only controls2, execute group after rebuilding fresh corrected candidate. Retain DLL/source hashes and raw failure receipts. No execution by proposal author.",
+    "AdditionalUnchangedRegressions": [
+      "Shared apply256/1023/1024 boundaries",
+      "Existing handler groups and corrected RPC old case",
+      "Current354 generic depth/explicit/forwarded controls"
+    ]
+  },
+  "SourceGuardRequirement": {
+    "Path": "src/Erlang.Runtime/ErlangApplyDispatch.cs",
+    "AlreadyIn114": true,
+    "NeedFinalBindingReview": true
+  },
+  "SdkExecuted": false,
+  "NetworkExecuted": false,
+  "MainMutation": false,
+  "AssertionsChanged": false,
+  "CompatibilityPromotion": false
+}

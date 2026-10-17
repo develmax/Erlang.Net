@@ -1,0 +1,39 @@
+--- failed-full/src/Erlang.Otp.Behaviours/Erpc.cs
++++ proposal/src/Erlang.Otp.Behaviours/Erpc.cs
+@@ -36,7 +36,7 @@
+         {
+             try
+             {
+-                return await Apply(
++                return await ExecuteLocal(
+                     context,
+                     module,
+                     function,
+@@ -196,6 +196,27 @@
+         throw new ErlangException(reply, ErlangExceptionClasses.Exit);
+     }
+ 
++    private static async ValueTask<Term> ExecuteLocal(
++        ProcessContext context,
++        Term module,
++        Term function,
++        Term values
++    )
++    {
++        using var scope = context.EnterSourceWrapper(
++            ErpcNames.Module,
++            ErpcNames.Execute,
++            ErpcNames.ExecuteLocalArity
++        );
++
++        return await Apply(
++            context,
++            module,
++            function,
++            values
++        );
++    }
++
+     private static ValueTask<Term> Apply(
+         ProcessContext context,
+         Term module,

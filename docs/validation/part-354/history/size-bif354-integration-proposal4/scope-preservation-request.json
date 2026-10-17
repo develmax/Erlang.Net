@@ -1,0 +1,114 @@
+{
+  "Status": "SOURCE_SCOPE_PRESERVATION_REQUEST_REQUIRES_INDEPENDENT_ROOT_PEER",
+  "ParentHead": "50e756f73437eb8d2882a19f729bccb09af74f3d",
+  "AffectedExistingGuards": [
+    {
+      "Path": "src/Erlang.Runtime/CoreModules.cs",
+      "OldSha256": "7B32F96DD7A0F94E97C13616777D88DFBBA374BB77BD683DEBDED98E75DAAED7",
+      "NewSha256": "0CE602F42B0094C361C5B71B693A7D4BA78374E6E559E905B57E22EDE8BB13C7"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
+      "OldSha256": "46FFC253273B58939531584AC2900D14FF065B7DEA85F79FB17BD60E2FB345E4",
+      "NewSha256": "B3C5073FEA87A8AAD8BB4EF3EC6340DE8DB32727C812917D9D6508C12C6C0AB1"
+    },
+    {
+      "Path": "src/Erlang.Runtime/SequenceTraceRegistrations.cs",
+      "OldSha256": "377083C8E74BB12BC4EAD8D77490C41E52964C3BBA2BAF4BAFBE8936302E9958",
+      "NewSha256": "D484B5004F6F0282D9B13EFE0EC1DC21C93F2B0605720C90BDE53B1956DB0264"
+    }
+  ],
+  "GuardCount": 89,
+  "VerifiedMfas": [
+    {
+      "Module": "erlang",
+      "Function": "self",
+      "Arity": 0
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_atom",
+      "Arity": 1
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_integer",
+      "Arity": 1
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_float",
+      "Arity": 1
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_number",
+      "Arity": 1
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_tuple",
+      "Arity": 1
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_binary",
+      "Arity": 1
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_bitstring",
+      "Arity": 1
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_list",
+      "Arity": 1
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_pid",
+      "Arity": 1
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_map",
+      "Arity": 1
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_boolean",
+      "Arity": 1
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_function",
+      "Arity": 1
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_port",
+      "Arity": 1
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_reference",
+      "Arity": 1
+    },
+    {
+      "Module": "erlang",
+      "Function": "node",
+      "Arity": 0
+    }
+  ],
+  "Rationale": [
+    "CoreModules only four invalid size branches; all sixteen verified registrations/predicate values unchanged.",
+    "ProcessRuntime BacktraceDepth default8 remains and per-runtime getter/setter signature retained; synchronized backing field and atomic exchange add no scheduling/callbacks. No verified predicate/self/node body changed.",
+    "SequenceTraceRegistrations adds one exact backtrace_depth key, preserving all previous key branches and invalid fallback. No verified module dispatch or source resolution changed.",
+    "New error factory is used only in four invalid size paths; existing custom/explicit exceptions never rewritten; guard/matchspec catch handling unchanged."
+  ],
+  "Limit": "Caller tail/file/line parity not established; only non-tail routes and narrow depth top/second-MFA assertions proposed. Original corroboration and managed focus remain pending.",
+  "ApprovalRequiredBeforeComposition": true,
+  "NoExecution": true,
+  "GenericDepthGap": "Generic error1/hd first-capture depth remains unfixed; both source-derived checks are in proposed asserted catalog and must execute/retain actual failures. No blanket flag-complete claim."
+}

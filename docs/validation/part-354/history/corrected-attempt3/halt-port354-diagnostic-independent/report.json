@@ -1,0 +1,56 @@
+{
+  "Status": "PASS_SOURCE_ONLY_BOUNDED_HALT_PORT_DIAGNOSTIC_ADMISSION_NO_EXECUTION",
+  "ProposalFreezeSha256": "3FF3631F9066AAC81D5A7A9C9319F623AD798FE6D326E33E38CF915D1DFC9780",
+  "RunnerSha256": "FAC921E9C87EA1E598B12278E839B6F86189FBA3A3E1CE3199DBB20F699A00F4",
+  "FilesRehashed": 6,
+  "ActualFullDllBindingsRehashed": 19,
+  "ActualProbeBindingsRehashed": 4,
+  "Targets": [
+    "ordered",
+    "immediate",
+    "deadline",
+    "preempt",
+    "held-orderly",
+    "held-deadline",
+    "Run"
+  ],
+  "OwnedProcessReview": [
+    "Fresh unnamed non-inheritable Job handle; KILL_ON_JOB_CLOSE0x2000; no shared job name/global process enumeration",
+    "Standalone harness may hash files before assignment but cannot invoke target until parent assigns job then writes RUN handshake",
+    "Spawned port descendants inherit job membership; actual WindowsPortChildProcess flags contain no breakaway flag",
+    "On timeout or descendants remaining, only owned job terminated, parent wait bounded15s, job ActiveProcesses queried with bounded15s join",
+    "Query/terminate/close failures retained and prohibit next target; forced cleanup never ObservedSuccess",
+    "Assignment failure only kills directly owned not-yet-admitted harness process, target cannot launch port before RUN"
+  ],
+  "AbiReview": {
+    "HostPointerBytes": 8,
+    "Sizes": {
+      "BasicLimits": 64,
+      "IoCounters": 48,
+      "ExtendedLimits": 144,
+      "Accounting": 48
+    },
+    "BasicAffinityOffset": 48,
+    "ExtendedIoOffset": 64,
+    "AccountingActiveOffset": 40,
+    "Classes": {
+      "SetExtendedLimits": 9,
+      "QueryBasicAccounting": 1
+    },
+    "PureCtypesLayoutOnlyNoWinApiInvoked": true
+  },
+  "ClrReview": [
+    "bool? target.Argument value boxed into object[] preserves false and true correctly",
+    "Exactly mapped seven existing methods; reflection includes public/nonpublic static; original compiled method bodies unchanged",
+    "Original Run keeps actual WaitAsync15; private phases retain compiled inner waits; parent45phase30Run does not relax canonical success",
+    "Same-directory resolver uses sealed19 actual DLLs; own standalone build noProjectReferences; before/loaded/fullDLL hashes checked each phase"
+  ],
+  "Limits": [
+    "Diagnostic Job ownership is an added containment boundary; outcomes are not canonical/full/nativeOTP parity",
+    "CanonicalOuterTimeout records catch filter observed task state, not proof of a particular internal phase",
+    "No SDK/diagnostic/native subprocess execution by reviewer; compilation prerequisite assessed from source only"
+  ],
+  "RootCauseClaim": false,
+  "MainChanged": false,
+  "SourceAuthorDisclosure": "Reviewer authored earlier helpers and failure readers, not this seven-phase harness. Parent Root owns execution."
+}

@@ -1,0 +1,89 @@
+{
+  "Status": "PASS_INDEPENDENT_SOURCE_ONLY_NARROW_APPLY_FORWARDING_ORIGIN_FIX",
+  "SourceFreezeSha256": "29518E0283613D2BD0852C2F6E568ECC14CD6AB01839869F85A0C303D4C5E7F7",
+  "PatchedSourceSha256": "CFF37548C390E0BA20B09BAD66633A21C77C6F7E909A285F8E7946FFDDA21DB5",
+  "ParentSourceSha256": "3D872A4A1A1DC899CF7A8E90992926CEEAB879E77D34ED204B40D55173FDB295",
+  "ChangedProductionPaths": 1,
+  "UnchangedParentBindings": [
+    {
+      "Path": "src/Erlang.Runtime/ErlangApplyDispatch.cs",
+      "Sha256": "3D872A4A1A1DC899CF7A8E90992926CEEAB879E77D34ED204B40D55173FDB295"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeExceptionCapture.cs",
+      "Sha256": "BC8864F2F2DE3092D8C16194D80BF227C60B7493336716483C69FFA8CEFA4F58"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.ErrorHandlers.cs",
+      "Sha256": "6BD2063879D8A6DA15D87C94ECFAD2ED2CC8A6E91CA2367A2CE9CA0EC86E7952"
+    },
+    {
+      "Path": "src/Erlang.Compiler/RuntimeCallFrames.cs",
+      "Sha256": "7FD69FB921E3F8BA8E11DA676203AAE3322B4A32D0A51888422B7AE590487F0B"
+    },
+    {
+      "Path": "tools/Erlang.Differential/ApplyFrameCases.cs",
+      "Sha256": "659CA89A37829F80C35EA2E841237D6797B14BC7AE6B8BEFDE19728DDB4977D7"
+    },
+    {
+      "Path": "tools/Erlang.Differential/ApplyFrameCaseNames.cs",
+      "Sha256": "C3B9E7812A6A3F87F3185BC8559AA62967E4DCAFF6D7C5AA7DE99157434A87E5"
+    }
+  ],
+  "PinnedSources": [
+    {
+      "Path": "erts/emulator/beam/beam_common.c",
+      "Sha256": "1AF6CF2D371975B0D9944B5857062A90091298373B3802639B25D03003AB3C47",
+      "Anchors": {
+        "apply_bif_error_adjustment": [
+          1345,
+          1522,
+          1563
+        ],
+        "apply(Process* p": [
+          1434,
+          1529
+        ],
+        "create a stub entry which in turn calls the error handler": [
+          1519,
+          1560
+        ]
+      }
+    },
+    {
+      "Path": "lib/kernel/src/error_handler.erl",
+      "Sha256": "F15CF5F795D7DD8C7D11A7087756DCEF5BC6CAC60DAF3BE206545AE531E12630",
+      "Anchors": {
+        "undefined_function(Module, Func, Args)": [
+          85
+        ],
+        "raise_undef_exception(Module, Func, Args)": [
+          146
+        ],
+        "crash(Tuple)": [
+          172
+        ],
+        "Stk = [Tuple|tl(Stacktrace)]": [
+          176
+        ]
+      }
+    }
+  ],
+  "Review": [
+    "Only existing validated target catch changes; module/function atom admission, proper argument traversal,1023limit, selection, tracing and body invocation unchanged.",
+    "Catch eligibility remains Direct dispatch, !ExplicitStackTrace and Nil trace. Actual selected error-handler dispatch does not enter this adapter.",
+    "RuntimeExceptionCapture.Call immediately preserves explicit or already-automatic snapshots; native:false emits validated target+actualargs without inventing native error formatter. Saved current caller chain uses existing failure-time budget and freezes complete capture once so outer apply no longer replaces a partial legacy frame.",
+    "Direct central Call bypasses CaptureCallFailure selected-source HOST-bridge rewriting deliberately: a validated forwarded target is actual origin, not an embedding bridge identity.",
+    "Native apply invalid module/function/improper args/overflow still fail before InvokeTarget; outer native apply remains correct origin for those admission failures.",
+    "Already nonempty source/native/selected traces are outside old catch; custom explicit empty/nonempty traces remain untouched. No new assumption that arbitrary nonempty Cons means a fully captured automatic trace.",
+    "All six existing ApplyFrameCases/CaseNames source hashes exact failedfull, and new control executes their original source/CallerContext/Expected without seeding or weakening expectations.",
+    "No source lease, code-image/publication, process scheduling, Core BIF or shared RuntimeExceptionCapture production change."
+  ],
+  "Boundary": [
+    "Source admission only; Root must build/focus actual corrected candidate, retain failedfull old result, then fresh complete validation.",
+    "No original OTP runtime or full stack/tail/frame compatibility certified by this one catch correction."
+  ],
+  "NoSdk": true,
+  "NoMainMutation": true,
+  "NoNetwork": true
+}

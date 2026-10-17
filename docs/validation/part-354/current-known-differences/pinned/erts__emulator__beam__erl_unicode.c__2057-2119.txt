@@ -1,0 +1,63 @@
+char *erts_convert_filename_to_encoding(Eterm name, char *statbuf, size_t statbuf_size,
+					ErtsAlcType_t alloc_type, int allow_empty,
+					int allow_atom, int encoding, Sint *used,
+					Uint extra)
+{
+    char* name_buf = NULL;
+
+    if ((allow_atom && is_atom(name)) || 
+	is_list(name) || 
+	(allow_empty && is_nil(name))) {
+	Sint need;
+	if ((need = erts_native_filename_need(name, encoding)) < 0) {
+	    return NULL;
+	}
+	if (encoding == ERL_FILENAME_WIN_WCHAR) {
+	    need += 2;
+	    extra *= 2;
+	} else {
+	    ++need;
+	}
+	if (used) 
+	    *used = need;
+	if (need+extra > statbuf_size) {
+	    name_buf = (char *) erts_alloc(alloc_type, need+extra);
+	} else {
+	    name_buf = statbuf;
+	}
+	erts_native_filename_put(name,encoding,(byte *)name_buf); 
+	name_buf[need-1] = 0;
+	if (encoding == ERL_FILENAME_WIN_WCHAR) {
+	    name_buf[need-2] = 0;
+	}
+    } else if (is_bitstring(name)) {
+        const byte *temp_alloc = NULL, *bytes;
+        Uint size;
+
+        bytes = erts_get_aligned_binary_bytes(name, &size, &temp_alloc);
+        if (bytes == NULL) {
+            return NULL;
+        }
+
+	if (encoding != ERL_FILENAME_WIN_WCHAR) {
+	    /*Add 0 termination only*/
+	    if (used) 
+		*used = (Sint) size+1;
+	    if (size+1+extra > statbuf_size) {
+		name_buf = (char *) erts_alloc(alloc_type, size+1+extra);
+	    } else {
+		name_buf = statbuf;
+	    }
+	    sys_memcpy(name_buf,bytes,size);
+	    name_buf[size]=0;
+	} else {
+            name_buf = erts_convert_filename_to_wchar(bytes, size,
+                                                      statbuf, statbuf_size,
+                                                      alloc_type, used, extra);
+        }
+	erts_free_aligned_binary_bytes(temp_alloc);
+    } else {
+	return NULL;
+    }
+    return name_buf;
+}

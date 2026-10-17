@@ -5,6 +5,7 @@ namespace Erlang;
 public sealed partial class ModuleRegistry
 {
     private readonly object gate = new();
+    private readonly Dictionary<(string Module, string Function, int Arity), RuntimeErrorBinding> runtimeErrorBindings = new();
     private readonly Dictionary<(string Module, string Function, int Arity), ErlangFunction> functions = new();
     private readonly Dictionary<string, Atom> loadedModules = new(StringComparer.Ordinal);
     private readonly Dictionary<string, Atom> preloadedModules = new(StringComparer.Ordinal);
@@ -270,6 +271,9 @@ public sealed partial class ModuleRegistry
         ModuleCodeImage? image;
         IDisposable? code;
         bool handler = false;
+        bool nativeErrorBoundary = false;
+        bool sourceWrapperBoundary = false;
+        bool hostErrorHandler = false;
         Atom selectedHandler = context.ErrorHandler;
         lock (gate)
         {
@@ -288,6 +292,7 @@ public sealed partial class ModuleRegistry
                 image = SelectErrorHandlerImage(module, function, body!);
                 code = image is null ? null : context.EnterSourceCode(image, body!);
                 dispatch = ModuleCallDispatchKind.UndefinedFunctionHandler;
+                hostErrorHandler = !sourceOwners.ContainsKey((module, function, arguments.Length));
             }
             else
             {
@@ -295,7 +300,38 @@ public sealed partial class ModuleRegistry
                 ModuleCodeImage? currentImage = codeImages.GetValueOrDefault(module);
                 image = sourceOwners.ContainsKey(signature) || IsIntrinsic(signature, body, currentImage) ? null : currentImage;
                 code = image is null || body is null ? null : context.EnterSourceCode(image, body);
+                if (!sourceOwners.ContainsKey(signature)
+                    && runtimeErrorBindings.TryGetValue(signature, out var runtimeBinding)
+                    && ReferenceEquals(runtimeBinding.Body, body)
+                    && ReferenceEquals(runtimeBinding.Image, currentImage))
+                {
+                    nativeErrorBoundary = runtimeBinding.Native;
+                    sourceWrapperBoundary = !runtimeBinding.Native;
+                }
             }
+        }
+
+        if (sourceWrapperBoundary)
+        {
+            ErlangFunction selected = body!;
+            body = (caller, values) => RuntimeExceptionCapture.InvokeWrapper(
+                caller,
+                selected,
+                module,
+                function,
+                values
+            );
+        }
+        else if (nativeErrorBoundary)
+        {
+            ErlangFunction selected = body!;
+            body = (caller, values) => RuntimeExceptionCapture.InvokeNative(
+                caller,
+                selected,
+                module,
+                function,
+                values
+            );
         }
 
         return InvokeAdmittedSelection(
@@ -306,7 +342,8 @@ public sealed partial class ModuleRegistry
             body!,
             image,
             code,
-            handler
+            handler,
+            hostErrorHandler
         );
     }
 
@@ -460,6 +497,7 @@ public sealed partial class ModuleRegistry
             foreach (var entry in entries)
             {
                 functions.Remove(entry.Key);
+                runtimeErrorBindings.Remove(entry.Key);
                 intrinsicBindings.Remove(entry.Key);
                 sourceOwners.Remove(entry.Key);
             }
@@ -552,12 +590,41 @@ public sealed partial class ModuleRegistry
         Apply(target =>
         {
             var previous = loadedModules.Keys.ToHashSet(StringComparer.Ordinal);
+            var previousBindings = new Dictionary<(string Module, string Function, int Arity), ErlangFunction>(functions);
             configure(target);
+            foreach (var entry in functions)
+                if (!sourceOwners.ContainsKey(entry.Key)
+                    && (!previousBindings.TryGetValue(entry.Key, out var before) || !ReferenceEquals(before, entry.Value)))
+                    runtimeErrorBindings[entry.Key] = new(
+                        entry.Value,
+                        codeImages[entry.Key.Module],
+                        NativeBuiltinCatalog.Contains(entry.Key.Module, entry.Key.Function, entry.Key.Arity)
+                    );
             foreach (var module in loadedModules)
             {
                 if (!previous.Contains(module.Key))
                     preloadedModules.TryAdd(module.Key, module.Value);
             }
+        });
+    }
+
+    internal void InstallSourceWrappers(Action<ModuleRegistry> configure)
+    {
+        using var source = EnterSourceMutation();
+        using var modification = CodeModification.Enter();
+        ArgumentNullException.ThrowIfNull(configure);
+        Apply(target =>
+        {
+            var previous = new Dictionary<(string Module, string Function, int Arity), ErlangFunction>(functions);
+            configure(target);
+            foreach (var entry in functions)
+                if (!sourceOwners.ContainsKey(entry.Key)
+                    && (!previous.TryGetValue(entry.Key, out var before) || !ReferenceEquals(before, entry.Value)))
+                    runtimeErrorBindings[entry.Key] = new(
+                        entry.Value,
+                        codeImages[entry.Key.Module],
+                        false
+                    );
         });
     }
 
@@ -605,6 +672,7 @@ public sealed partial class ModuleRegistry
             lock (gate)
             {
                 var previous = new Dictionary<(string Module, string Function, int Arity), ErlangFunction>(functions);
+                var previousNativeErrors = new Dictionary<(string Module, string Function, int Arity), RuntimeErrorBinding>(runtimeErrorBindings);
                 var previousIntrinsics = new Dictionary<(string Module, string Function, int Arity), IntrinsicBinding>(intrinsicBindings);
                 var previousModules = new Dictionary<string, Atom>(loadedModules, StringComparer.Ordinal);
                 var previousPreloaded = new Dictionary<string, Atom>(preloadedModules, StringComparer.Ordinal);
@@ -620,6 +688,9 @@ public sealed partial class ModuleRegistry
                 }
                 catch
                 {
+                    runtimeErrorBindings.Clear();
+                    foreach (var entry in previousNativeErrors)
+                        runtimeErrorBindings.Add(entry.Key, entry.Value);
                     intrinsicBindings.Clear();
                     foreach (var entry in previousIntrinsics)
                         intrinsicBindings.Add(entry.Key, entry.Value);

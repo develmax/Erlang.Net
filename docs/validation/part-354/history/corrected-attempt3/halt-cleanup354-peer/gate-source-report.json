@@ -1,0 +1,26 @@
+{
+  "Status": "SOURCE_REVIEW_GATE_PROBE_INPUT_LABEL_CORRECTION_REQUIRED_BEFORE_EXECUTION",
+  "SourceFreezeSha256": "E861CF50EF82124DBFC7C4B56448DCDA09742070E7520D20161F934ABC1AEA44",
+  "FilesHashed": 11,
+  "OriginalHelpersRawExact": 3,
+  "CanonicalAssertionLinesExact": true,
+  "CanonicalInnerWaitCountExact": true,
+  "NoRuntimeChange": true,
+  "Review": [
+    "Only copied HeldOwnerCancellation adds context/handle locals and gate Emit/Snapshot; original child ready/cancel TCS ordering, using registration, releaseCallback finally and all Require/15s waits remain.",
+    "DiagnosticMain invokes own copied type and honestly emits methodbody modified/instrumented flag, retains Run canonical15s wait. Runtime/Terms resolved from old full2 DLLs with Private=false; no candidate runtime build.",
+    "Windows kill-on-close job assigned before RUN stdin release. No guest test or port creation before release; exact bounded child/probe inputs pinned. Failure paths retain receipts, force only owned job and require settlement before another child.",
+    "Instrumentation adds console IO and handle/context references and can perturb the interleaving; even exact observed gates are current probe evidence, not a captured historical schedule."
+  ],
+  "Findings": [
+    {
+      "Path": "run.py",
+      "Issue": "inputs.json OriginalMethodsModified:false contradicts intentionally instrumented copied method; should true plus canonical original files unchanged marker."
+    },
+    {
+      "Path": "run.py",
+      "Issue": "inputs.json ParentSeconds45 obscures Run30 parent bound; record phase/default and Run bounds separately."
+    }
+  ],
+  "NoSdkMainNetworkMutation": true
+}

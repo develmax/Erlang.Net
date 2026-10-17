@@ -1,0 +1,34 @@
+{
+  "Status": "PASS_PASSIVE_ACTUAL_OBSERVATION_CONFIRMS_PRIOR_SOURCE_DIAGNOSIS",
+  "Bindings": [
+    {
+      "Path": "artifacts/size-bif354-selected-handler-actual1/typed-observation.json",
+      "Sha256": "747B67F84F2A7D34C3CD677F26A56D937F8036EB346CD30D4B38C2AB3CF6C194"
+    },
+    {
+      "Path": "artifacts/size-bif354-selected-handler-actual1/selected-handler.etf",
+      "Sha256": "703BD5337A6545A091C3961149D407548C9A89AC807AFD7E7F78147EDB35B33A"
+    },
+    {
+      "Path": "artifacts/size-bif354-selected-handler-actual1/completion.json",
+      "Sha256": "C341D66C78452A5487F73513D683CE447C93C23F7D867928EB283EB12CF1A3BC"
+    },
+    {
+      "Path": "artifacts/size-bif354-selected-handler-actual1/diagnostic.exit.json",
+      "Sha256": "0DF0135CD43539085A2C8B91EE574F5DDDE8BAD31107805362B0AEB8F782B573"
+    },
+    {
+      "Path": "artifacts/size-bif354-selected-handler-actual1/observation.json",
+      "Sha256": "3F9F07C684635280CFE653017331107967CC8CA7347FBF62AA5DDF11518554F0"
+    }
+  ],
+  "PreviousSourceDiagnosis": "handler-failure-diagnosis.json remains immutable and truthfully unmeasured at its creation time.",
+  "ActualConfirmed": [
+    "Repeated handler invoked twice: inner first frame carries argument list, outer second frame carries integer arity3.",
+    "Source handler live CurrentFunction is undefined_function, but saved error stack starts handler_host_bridge MFA."
+  ],
+  "ExpectedValuesNotSeeded": "These actual terms confirm diagnosis only; original assertions and source-derived contract remain unchanged.",
+  "SdkExecutedByReviewer": false,
+  "NetworkExecuted": false,
+  "MainMutation": false
+}

@@ -1,0 +1,121 @@
+{
+  "Status": "SOURCE_PROVEN_CONCRETE_VALID_OPTION_REFUSALS_NO_NATIVE_EXECUTION",
+  "OriginalCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "CurrentSourceBindings": [
+    {
+      "Path": "src/Erlang.Runtime/ProcessSpawnOptions.cs",
+      "Bytes": 5377,
+      "Sha256": "28A667E5D1A7D16E734701C79277F8084C62B8C2B2AF73A5749367643744FBC3"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessSpawnRequestOptions.cs",
+      "Bytes": 3286,
+      "Sha256": "A8F6F22DD62EFE9BAF44C6EAA3F7EDBA86F0658F8DB235FF48B0C565FDC9A158"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessSpawnRequestRegistrations.cs",
+      "Bytes": 6229,
+      "Sha256": "6F5A61899B02DB405E55285802F4FE26CD9F151CF16BB52BD53364AACF5FE630"
+    },
+    {
+      "Path": "src/Erlang.Runtime/SequenceTraceRegistrations.cs",
+      "Bytes": 3158,
+      "Sha256": "377083C8E74BB12BC4EAD8D77490C41E52964C3BBA2BAF4BAFBE8936302E9958"
+    },
+    {
+      "Path": "src/Erlang.Runtime/CpuTopologyStateRegistrations.cs",
+      "Bytes": 2186,
+      "Sha256": "34DEB67C477F926366018771CEFEAF412EF00D46DCFC1AD6048906DFBFE5722A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
+      "Bytes": 64674,
+      "Sha256": "46FFC253273B58939531584AC2900D14FF065B7DEA85F79FB17BD60E2FB345E4"
+    }
+  ],
+  "PinnedAnchors": [
+    {
+      "Path": "erts/emulator/beam/erl_process.c",
+      "FirstLine": 12305,
+      "LastLine": 12363,
+      "BlobSha256": "89CBDB55BE2A97E77B2450BB3D339CA6DB934B9C4BF556EAD29B4EAE88072DC9",
+      "Excerpt": "pinned/erts__emulator__beam__erl_process.c__12305-12363.txt",
+      "ExcerptSha256": "F3FB2E0EE835A4CCC9AF09B9749527C93C845F7CD07F1EA9C5B475602C33A1B5"
+    },
+    {
+      "Path": "erts/emulator/beam/bif.c",
+      "FirstLine": 1077,
+      "LastLine": 1166,
+      "BlobSha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC",
+      "Excerpt": "pinned/erts__emulator__beam__bif.c__1077-1166.txt",
+      "ExcerptSha256": "77ECB72AAF679976E3498BB906D2241E26A45036E46A5AECF83E27C27BD8C04E"
+    },
+    {
+      "Path": "erts/emulator/beam/bif.c",
+      "FirstLine": 5042,
+      "LastLine": 5057,
+      "BlobSha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC",
+      "Excerpt": "pinned/erts__emulator__beam__bif.c__5042-5057.txt",
+      "ExcerptSha256": "AE6993AE0476263CE6B8B262A3EDC8558D5DAFE16FE7B1AB3657E48D928AB71F"
+    },
+    {
+      "Path": "erts/emulator/beam/bif.c",
+      "FirstLine": 5108,
+      "LastLine": 5116,
+      "BlobSha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC",
+      "Excerpt": "pinned/erts__emulator__beam__bif.c__5108-5116.txt",
+      "ExcerptSha256": "D00634C0E1B804AEAECE6542C6B4FEF6681EB9D2502B5990F109CC8CA19C397E"
+    },
+    {
+      "Path": "erts/preloaded/src/erlang.erl",
+      "FirstLine": 11133,
+      "LastLine": 11151,
+      "BlobSha256": "00D7672A16325E43CA221C6D6CEB4200390E2A961A243C2E31DDC141AC145047",
+      "Excerpt": "pinned/erts__preloaded__src__erlang.erl__11133-11151.txt",
+      "ExcerptSha256": "9CA380314FCA9E556A5811B8E39296035ABD7310C91BAA3678953371A5C780F5"
+    },
+    {
+      "Path": "erts/preloaded/src/erlang.erl",
+      "FirstLine": 11190,
+      "LastLine": 11212,
+      "BlobSha256": "00D7672A16325E43CA221C6D6CEB4200390E2A961A243C2E31DDC141AC145047",
+      "Excerpt": "pinned/erts__preloaded__src__erlang.erl__11190-11212.txt",
+      "ExcerptSha256": "71F78F779E63AC6A5D28D7FCC9074C650DF6C79D5A24C488083E4908D25D2539"
+    },
+    {
+      "Path": "erts/preloaded/src/erlang.erl",
+      "FirstLine": 11215,
+      "LastLine": 11305,
+      "BlobSha256": "00D7672A16325E43CA221C6D6CEB4200390E2A961A243C2E31DDC141AC145047",
+      "Excerpt": "pinned/erts__preloaded__src__erlang.erl__11215-11305.txt",
+      "ExcerptSha256": "C20A3611DE267984EB94F4CA6CC6E98B54F574D5911E95F45A0D2E2069F52055"
+    }
+  ],
+  "Entries": [
+    {
+      "Mfa": "erlang:system_flag/2",
+      "Known": "Current dispatch rejects valid fullsweep_after=0 and min_heap_size=0, both accepted pinned small nonnegative keys. Also currently rejects backtrace_depth=0/1; separate unintegrated proposal fixes that key only, leaving fullsweep/heap difference true.",
+      "Managed": "SequenceTraceRegistrations only sequential_tracer/schedulers_online then CpuTopologyState internal_cpu_topology; otherwise badarg. No fallback setter for these keys."
+    },
+    {
+      "Mfas": [
+        "erlang:spawn_request/2",
+        "erlang:spawn_request/3",
+        "erlang:spawn_request/4",
+        "erlang:spawn_request/5"
+      ],
+      "Known": "Local creator rejects valid {message_queue_data,on_heap|off_heap}, {min_heap_size,0}, {min_bin_vheap_size,0}, {fullsweep_after,0}. Pinned parse_spawn_opts accepts; managed default ProcessSpawnOptions.Parse throws and ProcessSpawnRequestOptions converts to BadOptions, yielding error badopt reply/no successful child.",
+      "Routes": [
+        "spawn_request(Fun,Options)",
+        "spawn_request(node(),Fun,Options)",
+        "spawn_request(Module,Function,Args,Options)",
+        "spawn_request(node(),Module,Function,Args,Options)"
+      ],
+      "Scope": "No statement about options-free spawn_request/1; disconnected requests intentionally defer creator validation and are not used as the witness. Existing logical priority/scheduler functionality is not described as missing."
+    }
+  ],
+  "Classification": "Exactly five Needs verification -> Known differences; no Verified promotion; source-known API behavior, not measured runtime/native failure.",
+  "NoSdk": true,
+  "NoNative": true,
+  "NoMainMutation": true
+}

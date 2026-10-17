@@ -1,0 +1,109 @@
+{
+  "Status": "PASSIVE_TYPED_DECODE_OF_ACTUAL_RAW_OBSERVATION",
+  "EtfSha256": "703BD5337A6545A091C3961149D407548C9A89AC807AFD7E7F78147EDB35B33A",
+  "Observed": {
+    "Tuple": [
+      {
+        "Tuple": [
+          {
+            "Atom": "repeated_host"
+          },
+          2,
+          {
+            "Atom": "handler_fault"
+          },
+          [
+            {
+              "Tuple": [
+                {
+                  "Atom": "host_equal_error_handler"
+                },
+                {
+                  "Atom": "undefined_function"
+                },
+                [
+                  {
+                    "Atom": "missing_handler_target"
+                  },
+                  {
+                    "Atom": "missing_handler_function"
+                  },
+                  [
+                    {
+                      "Atom": "handler_payload"
+                    }
+                  ]
+                ],
+                []
+              ]
+            },
+            {
+              "Tuple": [
+                {
+                  "Atom": "host_equal_error_handler"
+                },
+                {
+                  "Atom": "undefined_function"
+                },
+                3,
+                []
+              ]
+            }
+          ]
+        ]
+      },
+      {
+        "Tuple": [
+          {
+            "Atom": "source_handler_host_bridge"
+          },
+          {
+            "Atom": "undefined_function"
+          },
+          {
+            "Atom": "handler_fault"
+          },
+          [
+            {
+              "Tuple": [
+                {
+                  "Atom": "handler_host_bridge"
+                },
+                {
+                  "Atom": "held"
+                },
+                [
+                  {
+                    "Atom": "missing_handler_target"
+                  },
+                  {
+                    "Atom": "missing_handler_function"
+                  },
+                  [
+                    {
+                      "Atom": "handler_payload"
+                    }
+                  ]
+                ],
+                []
+              ]
+            },
+            {
+              "Tuple": [
+                {
+                  "Atom": "source_error_handler"
+                },
+                {
+                  "Atom": "undefined_function"
+                },
+                3,
+                []
+              ]
+            }
+          ]
+        ]
+      }
+    ]
+  },
+  "ExpectedTraceInjected": false
+}

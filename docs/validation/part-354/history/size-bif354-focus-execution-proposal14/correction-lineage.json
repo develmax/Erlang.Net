@@ -1,0 +1,64 @@
+{
+  "Status": "SOURCE_ONLY_CORRECTED_FOCUS44_NO_FULL_READINESS",
+  "ParentFullPlanSha256": "7129614325BD320F9205DBFDEBC74E3C7F09065C318431360B64FA6A078890C6",
+  "PatchPins": [
+    {
+      "Path": "artifacts/apply-forwarding354-correction/source-freeze.json",
+      "Sha256": "29518E0283613D2BD0852C2F6E568ECC14CD6AB01839869F85A0C303D4C5E7F7"
+    },
+    {
+      "Path": "artifacts/common-error354-erpc-execute-scope-proposal/source-freeze2.json",
+      "Sha256": "1666053A974EAC3898EB38D2FED0EF0A171B1DF36B76A7FC1E87F0F070E5196F"
+    }
+  ],
+  "ExactlyThreeProductionOverlays": [
+    "src/Erlang.Otp.Behaviours/Erpc.cs",
+    "src/Erlang.Otp.Behaviours/ErpcNames.cs",
+    "src/Erlang.Runtime/ErlangApplyDispatch.cs"
+  ],
+  "Cases31": [
+    "size_error_tuple_size",
+    "size_import_tuple_size",
+    "size_error_map_size",
+    "size_import_map_size",
+    "size_error_bit_size",
+    "size_import_bit_size",
+    "size_error_byte_size",
+    "size_import_byte_size",
+    "size_guard_matchspec",
+    "size_valid_values",
+    "size_custom_trace_preservation",
+    "size_depth_controls",
+    "backtrace_depth_flag",
+    "size_depth_import_controls",
+    "generic_depth_error",
+    "generic_depth_hd",
+    "common_error_capture_depth",
+    "common_wrapper_capture_depth",
+    "common_lifecycle_wrapper_slots",
+    "common_private_wrapper_clause",
+    "common_public_wrapper_clause",
+    "default_load_nif_accepted_domain",
+    "default_load_nif_invalid_filename",
+    "erlang-apply-forwarded-frame-badarg-direct-and-dynamic",
+    "erlang-apply-forwarded-frame-undef-direct-and-dynamic",
+    "erlang-apply-forwarded-frame-invalid-module-keeps-apply-frame",
+    "erlang-apply-forwarded-frame-invalid-function-keeps-apply-frame",
+    "erlang-apply-forwarded-frame-improper-arguments-keeps-apply-frame",
+    "erlang-apply-forwarded-frame-explicit-raise-preserves-all-classes-and-empty-stack",
+    "rpc-errors",
+    "rpc_erpc_capture_scope"
+  ],
+  "Parse36SourceAuthority": "Existing23+fiveobserver fixtures rawexact; oldApply6 literal Add bodies/ModulePrefix/Helpers exact CSharp string values; oldrpc exact embedded CSharp LF string, separately preserved Pub CRLF file text-equal; newrpcdepth exact raw4AF1",
+  "OldFixtureExpectations": "Unchanged actual CompiledModuleCases.All.Expected; newdepth only source-derived {ok,done} Root explicitly approved private diagnostic",
+  "InitialSourcePreparationHistory": {
+    "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-execution-proposal12\\preparation-failure.json",
+    "Sha256": "0D74B66F0522074E1D5B35D3E5C6BA64261AB43B38FD1D7092B41FDBA1C4C29A"
+  },
+  "RetainedOldFullFailureReportSha256": "1AF416F070A2D8996430DA580CE3ABD3F48DD864C7D88B76EB849728F342F0EB",
+  "SourceRows": 3248,
+  "Native16SeparateImmutableDllDiagnostic": true,
+  "NewRpcDepthPrivateOnly": true,
+  "PermanentCountRemains7342": true,
+  "MetadataIntentionallyStale": "No readiness/full/classification claim; final114hashes need new preservation review"
+}

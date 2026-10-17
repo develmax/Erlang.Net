@@ -1,0 +1,172 @@
+{
+  "Status": "PASS_SOURCE5_CONDITIONAL_BOUNDED_DIAGNOSTIC_FOCUS_ONLY",
+  "SourceFreezes": {
+    "3": "E7BEAA76F5BBA2E376106EE90517EB3C349668FB0553BC675B5CFAC998D4C357",
+    "4": "3500B6BDF3D4DBE13F525C0EAAAE721A0EC0E129D2D0843EEB1CC726889B9A44",
+    "5": "ABD4E32C7D25050398AD1E55C6C791AF5B0853434FBE5F7815A2D4AC84097A3E"
+  },
+  "SourceFiles": [
+    {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "Bytes": 40113,
+      "Sha256": "AD72D65DBD79FF287DF7FBA88B11A1AEFC784A5EDC9B29268E3690FBF4CF4C3D",
+      "ParentSha256": "E249498D8D0684013CE77B3D00F136895905746A99610AA62F2D7FE43DF3602D"
+    },
+    {
+      "Path": "src/Erlang.Compiler/RuntimeCallFrames.cs",
+      "Bytes": 596,
+      "Sha256": "82538BC757EEC0E8C6DA1F37240C7A59B65640C8B47BB3E64AB95EA92EA093F1",
+      "ParentSha256": "FD9C816892E857F48A62F47257953906A1AFD42B95EC65F1369F007E3372F5FA"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/Erpc.cs",
+      "Bytes": 9423,
+      "Sha256": "D44F1FFAF6CF6AF5E66465184845B2AB41230E8BFE37BC39C74E77943A0FF25B",
+      "ParentSha256": "48ED6BCDD0FB8C04F246E465B58A0C0890D07CDAEEAE8B2D900B4AE5599E466D"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/ProcLibLifecycle.cs",
+      "Bytes": 5113,
+      "Sha256": "89E75F3CFC765322861800097811F2855728B6CF3780E2C031A204EC1F8A0F9D",
+      "ParentSha256": "7C7CF38ED379F770B9FC422CBBCA75887E4E6A864530D92E3601DA29910DC292"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.cs",
+      "Bytes": 27316,
+      "Sha256": "DDCEEECE3AE4CD6F875899AB1863E114889712243557991546A26C6E5B89D811",
+      "ParentSha256": "14C17E6F60C7A37446CEC556FFF3812859CFE0252643D5165970B7CC42713279"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.cs",
+      "Bytes": 15359,
+      "Sha256": "19532EC24CFCBC84C19F53439C7BCC1D2119DC6F4EF778F7799A7780CF3DBC72",
+      "ParentSha256": "7CD483379153C4E3D73D078E81E2E56B1DB3320CF9AECFD0751E413A73F5D923"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeExceptionCapture.cs",
+      "Bytes": 5145,
+      "Sha256": "99FDA6E809E27BED5207958A037A7CE5B30E5EAB16A30A8EA98D6456660FCD84",
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeExceptionNames.cs",
+      "Bytes": 647,
+      "Sha256": "54B9B2F105B7F3637B28A54B1386D6C1B5D3069D12202EF4858B2FB44D2D76F1",
+      "ParentSha256": null
+    },
+    {
+      "Path": "src/Erlang.Terms/ErlangException.cs",
+      "Bytes": 2936,
+      "Sha256": "CAB347CA1263E3CD40116421C3AD3774F641D81A83B46B25A141518F2FA2D215",
+      "ParentSha256": "6C159C2B6067ECA59E1F7F0634CE0589A66B2017AD89E61B6FD8647257D409AC"
+    }
+  ],
+  "Source4To5ChangedPaths": [
+    "src/Erlang.Compiler/Execution.cs"
+  ],
+  "Source4To5Diff": {
+    "src/Erlang.Compiler/Execution.cs": "--- \n+++ \n@@ -112,15 +112,15 @@\n         }\n \n         using var frame = context.EnterFunction(module.Name, function, arguments.Count);\n-        if (image is not null && NifImageBindingStore.TryGetValue(image, out var bindings))\n-        {\n-            using var native = bindings!.Admit(function, arguments.Count);\n-            if (native is not null)\n-                return await native.InvokeAsync(context, arguments);\n-        }\n-\n         try\n         {\n+            if (image is not null && NifImageBindingStore.TryGetValue(image, out var bindings))\n+            {\n+                using var native = bindings!.Admit(function, arguments.Count);\n+                if (native is not null)\n+                    return await native.InvokeAsync(context, arguments);\n+            }\n+\n             var definition = module.Functions.FirstOrDefault(f => f.Name == function && f.Arity == arguments.Count) ?? throw new ErlangException(ErlangErrorReasons.UndefinedFunction);\n             var selection = await Select(\n                 definition.Clauses,\n"
+  },
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "PinnedSources": [
+    {
+      "Path": "erts/emulator/beam/beam_common.c",
+      "Sha256": "1AF6CF2D371975B0D9944B5857062A90091298373B3802639B25D03003AB3C47",
+      "Anchors": {
+        "handle_error": [
+          449
+        ],
+        "save_stacktrace": [
+          51,
+          506,
+          880,
+          1070
+        ],
+        "EXF_HAS_EXT_INFO": [
+          488,
+          989,
+          994,
+          1007
+        ]
+      }
+    },
+    {
+      "Path": "erts/emulator/beam/emu/bif_instrs.tab",
+      "Sha256": "EFA0551D5FFA27A197DE60FB6759530A00A891031627B58D948442FE0F313AEE",
+      "Anchors": {
+        "nif_bif.call_nif": [
+          469,
+          480
+        ],
+        "c_p->current = codemfa": [
+          502,
+          568
+        ]
+      }
+    },
+    {
+      "Path": "erts/emulator/beam/erl_nfunc_sched.h",
+      "Sha256": "BAF9D5F50774B2DE3F101EF35B79E322225B422A870A64A0B3C7D38A6073117C",
+      "Anchors": {
+        "erts_nfunc_restore_error": [
+          80,
+          148
+        ]
+      }
+    },
+    {
+      "Path": "erts/emulator/beam/erl_nif.c",
+      "Sha256": "66F06AB32AEDB5D1E02140C37E0215E797FB80D78C1AA4091EB52BE01465299A",
+      "Anchors": {
+        "enif_make_badarg": [
+          1791,
+          2073,
+          2089,
+          2266,
+          2271,
+          2379,
+          3549,
+          3559,
+          3577
+        ],
+        "enif_raise_exception": [
+          523,
+          1793,
+          1796,
+          3429
+        ]
+      }
+    }
+  ],
+  "PreservedSourceFinding": {
+    "Revisions": [
+      3,
+      4
+    ],
+    "Finding": "Source-bound NIF admission/invoke was outside the source-origin catch. NifImageCall has only finally disposal and does not capture Erlang errors, so unwind could remove the NIF logical frame before the outer capture.",
+    "Correction": "Revision5 encloses existing NIF branch in the catch while EnterFunction is live; NIF lease disposal and function-selection order remain intact.",
+    "NifImageCallSha256": "D7BC90637E86B73DEF61070556C986E3807809DD3135BE800882442D868CBE6C"
+  },
+  "ReviewedContracts": [
+    "Selected actual delegate identity and source-owner classification under registry gate; wrapping occurs after selection without a fresh lookup.",
+    "Native binding identity map participates in recursive Apply rollback.",
+    "Synchronous and asynchronous native failures use saved caller chain/argument copy and read depth at failure capture.",
+    "Explicit traces including empty/custom error_info traces are returned unchanged; automatic capture clones shared exception rather than mutating it.",
+    "Evaluate catches before expression-local try/catch consumes an error; named/anonymous source catches run before logical scope disposal.",
+    "Only ErlangException is captured; tail-call and cancellation control exceptions retain existing propagation.",
+    "Selected HOST handler retains live logical scope; public WithStackFrame selected-origin behavior is deliberately preserved.",
+    "ProcLib/Erpc avoid concatenating or replacing already captured complete traces."
+  ],
+  "RequiredBeforeFullAdmission": [
+    "Resolve or measure non-native preloaded Erlang wrapper frame omission: these wrappers have neither source-owner scope nor native-boundary scope, and inner automatic capture makes outer unwind framing idempotent. Do not classify arbitrary image-null HOST delegates as native.",
+    "Run unchanged custom selected-handler, explicit/shared exception, rollback and failure-time-depth controls; do not migrate assertions without pinned source basis.",
+    "Run source-bound NIF failure control with existing real native path; generic arity/arguments and dirty-restored NIF trace contracts are not proved by this source correction alone.",
+    "Run meaningful deep recursion/async/cancellation regressions because Evaluate now adds an async catch boundary.",
+    "Compare typed native witnesses before metadata compatibility or whole backtrace-depth claims."
+  ],
+  "SdkExecuted": false,
+  "NetworkExecuted": false,
+  "MainMutation": false,
+  "CompatibilityPromotion": false,
+  "ReviewerAuthorship": "Independent reviewer of these nine authored-by-publication sources; previously authored related proc_lib/rpc code, disclosed."
+}

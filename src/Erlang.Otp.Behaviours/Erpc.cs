@@ -36,7 +36,7 @@ internal static class Erpc
         {
             try
             {
-                return await Apply(
+                return await ExecuteLocal(
                     context,
                     module,
                     function,
@@ -196,6 +196,27 @@ internal static class Erpc
         throw new ErlangException(reply, ErlangExceptionClasses.Exit);
     }
 
+    private static async ValueTask<Term> ExecuteLocal(
+        ProcessContext context,
+        Term module,
+        Term function,
+        Term values
+    )
+    {
+        using var scope = context.EnterSourceWrapper(
+            ErpcNames.Module,
+            ErpcNames.Execute,
+            ErpcNames.ExecuteLocalArity
+        );
+
+        return await Apply(
+            context,
+            module,
+            function,
+            values
+        );
+    }
+
     private static ValueTask<Term> Apply(
         ProcessContext context,
         Term module,
@@ -232,7 +253,7 @@ internal static class Erpc
         Term arguments
     )
     {
-        if (error.StackTraceTerm is Nil && !error.ExplicitStackTrace)
+        if (error.StackTraceTerm is Nil && !error.ExplicitStackTrace && !error.AutomaticStackTraceCaptured)
             return Term.List(Term.Tuple(
                 module,
                 function,

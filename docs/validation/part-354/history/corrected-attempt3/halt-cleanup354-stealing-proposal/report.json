@@ -1,0 +1,22 @@
+{
+  "Status": "SOURCE_ONLY_REACHABLE_CLEANUP_STEALING_LIVENESS_CORRECTION_REQUIRES_GATE_OBSERVATION_AND_PEER",
+  "ParentPath": "artifacts/size-bif354-full-candidate2/src/Erlang.Runtime/RuntimeActorDispatcher.cs",
+  "ParentSha256": "0AF57D1F9F65CE153129E6D9718B3F545F7CE83FFE409E6889F51957040C3555",
+  "ProposedSourcePath": "artifacts/halt-cleanup354-stealing-proposal/source/src/Erlang.Runtime/RuntimeActorDispatcher.cs",
+  "Sha256": "F2BBB954CE212ED87AE16FE8F50ACA14268A9A5C9A06812E11799EB7C270AB58",
+  "Diff": "--- \n+++ \n@@ -356,7 +356,7 @@\n         {\n             if (ReferenceEquals(source, destination) || !source.Online)\n                 continue;\n-            foreach (var queue in new[] { source.Maximum, source.High, source.Ordinary })\n+            foreach (var queue in new[] { source.Cleanup, source.Maximum, source.High, source.Ordinary })\n             {\n                 for (var node = queue.First; node is not null; node = node.Next)\n                 {\n@@ -365,7 +365,9 @@\n                         continue;\n                     queue.Remove(node);\n                     scheduler.Lane = destination;\n-                    scheduler.ReadyNode = destination.Queue(scheduler.Owner.SchedulingPriorityLevel).AddLast(scheduler);\n+                    var destinationQueue = ReferenceEquals(queue, source.Cleanup)\n+                        ? destination.Cleanup : destination.Queue(scheduler.Owner.SchedulingPriorityLevel);\n+                    scheduler.ReadyNode = destinationQueue.AddLast(scheduler);\n \n                     return;\n                 }\n",
+  "ReachableCause": [
+    "Canceled unbound owner continuations are admitted to lane.Cleanup by Ready/OwnerCanceled; Select prioritizes this queue.",
+    "TrySteal currently ignores every Cleanup queue, including online lanes during retirement. Therefore blocked lane can keep independent canceled unbound owners queued while another eligible lane stays idle.",
+    "HeldOwnerCancellation callback actor awaits canceled Task.Delay then leaves using CancellationTokenRegistration. Dispose can synchronously wait its running callback, which deliberately waits releaseCallback. If cooperativeStopped continuation is queued behind this owner in sameCleanup queue, line144 cannot complete and cannot reach finally release untiltimeout. Actual missingTCS not observed yet; Root gateprobe pending."
+  ],
+  "DeltaContract": [
+    "Add Cleanup as first steal source to match Select cleanup precedence. Move it to destination.Cleanup, never demote into Ordinary/High/Maximum.",
+    "Keep source.Online requirement; no offline-bound guest continuation admission changes. Existing SchedulerBinding!=Unbound refusal remains unchanged. Capacityone/singleowner serialization/Pending task identity/epochs/priorities unchanged.",
+    "Administrative cleanup liveness only; no claim of exact original native cancellation implementation or physical lane parity."
+  ],
+  "ExistingFailureEvidence": "artifacts/halt-port354-diagnostic-actual1/target-05/outcome.json atinnerline144; parentfull1passed, parentfull2timeout. Independent gateprobe distinguishesactualmissingTCS.",
+  "ScopePreservation": "No type/guard/native-success handler changes for16 verified primitives. Future fresh115 guard hash refresh onlyDispatcher; audit/metadata requiresindependentpeer.",
+  "NoTestChanges": true,
+  "NoSdkNativeMainCandidateMutation": true
+}

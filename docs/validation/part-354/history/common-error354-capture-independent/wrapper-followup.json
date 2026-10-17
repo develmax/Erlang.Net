@@ -1,0 +1,79 @@
+{
+  "Status": "SOURCE5_REACHABLE_WRAPPER_GAP_AND_INITIAL_CALL_FALLBACK_RISK_NO_RUNTIME_EXECUTION",
+  "Source5FreezeSha256": "ABD4E32C7D25050398AD1E55C6C791AF5B0853434FBE5F7815A2D4AC84097A3E",
+  "Bindings": [
+    {
+      "Path": "src/Erlang.Otp.Behaviours/OtpModules.cs",
+      "Sha256": "DF364C299B53D153FA86B5C95968F53195720D03A5641E6725EF28B1E28BE85A"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/ProcLib.cs",
+      "Sha256": "AA5DD64E40E1E31A87F4F8515CB8C9B1B1EA10A1C184D69ECA195505597BFF87"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/ProcLibIntrospection.cs",
+      "Sha256": "DD1AA3EA508C82250AB92860908B6388E55E596DFC2AE386EBC714C86DF16BD3"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/ProcLibOptionStartup.cs",
+      "Sha256": "38BE2C622605A473EED1211294BABAF950579C2D3B8067102235800311E6D5A2"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
+      "Sha256": "46FFC253273B58939531584AC2900D14FF065B7DEA85F79FB17BD60E2FB345E4"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeInitializer.cs",
+      "Sha256": "685F52710E32B35367066F07351B9CFD1170DD0842530B12DED2002BFC1F2339"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NativeBuiltinCatalog.cs",
+      "Sha256": "17D47C563EAC30308F96719F5232FDB6FAB84C4F5EF195F4FA146823993BBDBF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangErrorRegistrations.cs",
+      "Sha256": "7C56310B312BB61928B0A95FA0E8A8ACBAD5F3B660C20D89A96AAB3F0515AE31"
+    }
+  ],
+  "PinnedProcLib": {
+    "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "Path": "lib/stdlib/src/proc_lib.erl",
+    "Sha256": "A8FC8E94F9AD47ACE46CD204FC5EB6FD227C09787F3BE906D80D2E4547E6A8C5",
+    "Lines": "818-831"
+  },
+  "ConcreteRoute": {
+    "Call": "proc_lib:initial_call([{{dictionary,'$initial_call'},{m,f,not_integer}}])",
+    "SourceSequence": [
+      "RawInitialCall accepts stored triple",
+      "MakeDummyArguments enters noninteger branch",
+      "erlang:integer_to_list(not_integer) fails",
+      "native boundary freezes trace using guest executionFrame only",
+      "outer RuntimeCallFrames sees automatic marker and cannot append proc_lib frame"
+    ],
+    "NativeContract": "Pinned initial_call invokes make_dummy_args non-tail inside returned tuple; make_dummy_args invokes integer_to_list inside list concatenation, so proc_lib source frames are relevant.",
+    "Unproven": "No VM/SDK observation yet; precise full native stack including private helper depth requires actual witness. Adding only public wrapper scope does not prove exact private helper frame parity."
+  },
+  "ExplicitRoute": {
+    "Call": "proc_lib:start_link(M,F,A,Timeout,[monitor])",
+    "SourceSequence": "VerifyNoMonitor -> RejectMonitor -> erlang:error/2 explicit factory, with no proc_lib entry logical scope.",
+    "Classification": "Reachable pre-existing explicit-factory limitation; not advertised as a new runtime RED."
+  },
+  "TrustedRegistrationRequirement": "OtpModules/ProcLib use ordinary Register through initializer Apply, not Core InstallPreloaded. Record trusted Erlang-source-wrapper identity explicitly; never classify all image-null or arbitrary HOST registrations as native/source.",
+  "InitialCallFallback": {
+    "SourceFact": "SpawnTraced initializes InitialCall once from spawn description. Hibernate transfer replaces current callback with another selected MFA without updating InitialCall.",
+    "Conclusion": "InitialCall is historical process metadata, not unconditional current stack frame authority. Prefer actual selected live invocation scope; test absent-context behavior explicitly.",
+    "AutomaticEmptyRisk": "Source(null) marks Nil automatically captured; Erpc.Stack then suppresses its previous fallback. This requires real selected-target/bare-context control, not a guessed stale InitialCall frame."
+  },
+  "HotPathRisk": "InvokeNative allocates an argument array and dispatch wrapper before successful calls, including total predicates/self/node; no performance improvement claimed. Measure after correctness; a proven nonthrowing exact binding exclusion may be reviewed later.",
+  "ProposedControls": [
+    "Real proc_lib initial_call stored noninteger arity at depth1/2/8, normal/apply/external-fun entry; typed top and relevant wrapper/helper frames.",
+    "Real proc_lib start_link forbidden-monitor error/2 preserves supplied Args and wrapper top without erlang:error frame.",
+    "Same-named ordinary HOST replacement remains unclassified and shared/explicit exception identity unchanged.",
+    "Real process starts M1:F1 then hibernates into M2:F2; failure must not fabricate historical M1:F1 fallback.",
+    "Real erpc local target nested error/1 with absent versus present logical source scope; captured-empty distinction source-reviewed."
+  ],
+  "SdkExecuted": false,
+  "NetworkExecuted": false,
+  "MainMutation": false,
+  "StatusPromotion": false
+}

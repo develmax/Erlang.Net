@@ -1,0 +1,16 @@
+	if (!is_small(BIF_ARG_2) || (n = signed_val(BIF_ARG_2)) < 0) {
+	    goto error;
+	}
+	nval = (n > (Sint) ((Uint16) -1)) ? ((Uint16) -1) : ((Uint16) n);
+	oval = (Uint) erts_atomic32_xchg_nob(&erts_max_gen_gcs,
+						 (erts_aint32_t) nval);
+	BIF_RET(make_small(oval));
+    } else if (BIF_ARG_1 == am_min_heap_size) {
+	int oval = H_MIN_SIZE;
+
+	if (!is_small(BIF_ARG_2) || (n = signed_val(BIF_ARG_2)) < 0) {
+	    goto error;
+	}
+
+	erts_proc_unlock(BIF_P, ERTS_PROC_LOCK_MAIN);
+	erts_thr_progress_block();

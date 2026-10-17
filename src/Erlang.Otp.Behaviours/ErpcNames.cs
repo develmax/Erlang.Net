@@ -6,6 +6,7 @@ internal static class ErpcNames
     internal const string Rpc = "rpc";
     internal const string Call = "call";
     internal const string Execute = "execute_call";
+    internal const int ExecuteLocalArity = 3;
     internal const string Cast = "execute_cast";
     internal const string Return = "return";
     internal const string Throw = "throw";

@@ -1,0 +1,61 @@
+{
+  "Name": "generic_depth_error",
+  "Passed": false,
+  "Failure": "System.InvalidOperationException: Actual compiled result differs from source-derived expected\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate4\\tests\\Erlang.Size354.Focus\\FocusProgram.cs:line 53",
+  "ElapsedSeconds": 0.6928596,
+  "Sources": [],
+  "CurrentSource": null,
+  "Observation": {
+    "Name": "generic_depth_error",
+    "SourceSha256": "AD8B36028A3CE457C60011B7373A43EF212483BFA86FF37986A071006232DC39",
+    "CallerContext": 0,
+    "CompilerPolicy": 0,
+    "CSharpSha256": "80AF68EDE47F57C9187E9A4676ADFB32BF7772EB5AD69E2CB149C39B57D75AA3",
+    "ActualEtfHex": "83680377056572726F7277056572726F72680277086261646D617463686C000000026804771367656E657269635F64657074685F6572726F7277046C6561666C00000001770C70726F62655F726561736F6E6A6A6804770665726C616E6777056572726F726C00000001770C70726F62655F726561736F6E6A6A6A",
+    "ExpectedEtfHex": "83680277026F6B7704646F6E65",
+    "Actual": "{error,error,{badmatch,[{generic_depth_error,leaf,[probe_reason],[]},{erlang,error,[probe_reason],[]}]}}",
+    "Expected": "{ok,done}",
+    "StandardOutputHex": "",
+    "StandardErrorHex": ""
+  },
+  "LoadedAssemblies": [
+    {
+      "Name": "Erlang.Terms",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate4\\tests\\Erlang.Size354.Focus\\bin\\Debug\\net10.0\\Erlang.Terms.dll",
+      "Sha256": "77B978AD7420EBF51493C02F2AB327DC40D69BFEF705AFBA71D90DC5117B0904"
+    },
+    {
+      "Name": "Erlang.Runtime",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate4\\tests\\Erlang.Size354.Focus\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Sha256": "C8C9E73B8CD1EDE026B0199C3137225A0340BF3C56499916843D242B5F4F5A8A"
+    },
+    {
+      "Name": "Erlang.Compiler",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate4\\tests\\Erlang.Size354.Focus\\bin\\Debug\\net10.0\\Erlang.Compiler.dll",
+      "Sha256": "EFB041B6915964D13F96D9CC24DC723104CAE15393877541C62D59B295465D19"
+    },
+    {
+      "Name": "Erlang.Serialization",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate4\\tests\\Erlang.Size354.Focus\\bin\\Debug\\net10.0\\Erlang.Serialization.dll",
+      "Sha256": "357A94DF9D2D1CD51A7AAD41A341F746AFD3029098154105D7B73E8B73FE2E17"
+    },
+    {
+      "Name": "Erlang.Differential",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate4\\tests\\Erlang.Size354.Focus\\bin\\Debug\\net10.0\\Erlang.Differential.dll",
+      "Sha256": "94CF839888E7E432B55725EAA759BA2C6841DB9DE2139776C91D3962A3D02FC6"
+    },
+    {
+      "Name": "Erlang.Tests",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate4\\tests\\Erlang.Size354.Focus\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "Sha256": "B2E2B4FB5A23885A86CBBEDFDD54E342F883A1C278822CF5AD8C6772736B19ED"
+    },
+    {
+      "Name": "Size354Focus",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-focus-candidate4\\tests\\Erlang.Size354.Focus\\bin\\Debug\\net10.0\\Size354Focus.dll",
+      "Sha256": "3BB81E30A8D296F3A22143999DCEE4B68FDCEBB84BE0C8754BE0E1E54E039584"
+    }
+  ],
+  "NativeExecuted": false,
+  "FullValidationExecuted": false,
+  "ReadinessExecuted": false
+}

@@ -96,7 +96,11 @@ internal static class ProcLibLifecycle
         IReadOnlyList<Term> frameArguments
     )
     {
-        using var frame = context.EnterFunction(ProcLibNames.Module, function, frameArguments.Count);
+        using var frame = context.EnterSourceWrapperBody(
+            ProcLibNames.Module,
+            function,
+            frameArguments.Count
+        );
         try
         {
             return callback is not null
@@ -112,7 +116,7 @@ internal static class ProcLibLifecycle
         }
         catch (ErlangException error)
         {
-            Term trace = error.ExplicitStackTrace
+            Term trace = error.ExplicitStackTrace || error.AutomaticStackTraceCaptured
                 ? error.StackTraceTerm
                 : Cons.From(Cons.Items(error.StackTraceTerm).Concat(
                     Cons.Items(context.CaptureErrorStack(Term.I(frameArguments.Count), null))

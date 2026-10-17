@@ -1,0 +1,155 @@
+{
+  "Status": "FULL354_FAILED_FINALIZER_NEVER_EXECUTED_PASS_GATES_NOT_MET",
+  "SourceFreezeSha256": "92F19A1E747205859A487D79A0D3E10B41CC71E96B2CB4E75764BA58C4CCD85E",
+  "HelperSha256": "412CD60705AD15D4994F3583B77977681D68ED1CBA453F62064E3CEEB5CF0F3E",
+  "ActualFull": {
+    "Passed": 7324,
+    "Failed": 18,
+    "Settled": true,
+    "ExitCode": 1,
+    "ElapsedSeconds": 366.4210000000021
+  },
+  "RawFiles": [
+    {
+      "Path": "artifacts/size-bif354-full-actual1/full.exit.json",
+      "Bytes": 593,
+      "Sha256": "9C89D46CF7A905B9692295893AAF3E54BBF3A31904C07F4783D486243FBBECF1"
+    },
+    {
+      "Path": "artifacts/size-bif354-full-actual1/full.stdout.log",
+      "Bytes": 485631,
+      "Sha256": "993B489FEF40DADC6234573745D7A599B911E153A3C47095C2B1354C36B0A9E0"
+    },
+    {
+      "Path": "artifacts/size-bif354-full-actual1/full.stderr.log",
+      "Bytes": 1446,
+      "Sha256": "A71D32C5AAF14CACCA8EF6C25FD967CCBD44C62E3F8FB891DCB5FB4D59FDB739"
+    },
+    {
+      "Path": "artifacts/size-bif354-full-actual1/artifacts/tests.json",
+      "Bytes": 1039597,
+      "Sha256": "6C5A9ADC0EF61D622FEB3E5C75928865939D05A29FC30A989D5166CA24146844"
+    },
+    {
+      "Path": "artifacts/size-bif354-full-actual1/raw-supported-mfas.json",
+      "Bytes": 235935,
+      "Sha256": "43FFC6E2F483F1957B5B5ACC4D74D6511AB1D851D308C70CD1B6933EA0EA2DD3"
+    }
+  ],
+  "FailedRows": [
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-echo-3",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 421\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 4218\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 4709",
+      "Milliseconds": 58
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-echo-4",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 421\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 4218\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 4709",
+      "Milliseconds": 46
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-shared-streams-5",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 421\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 4218\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 4709",
+      "Milliseconds": 48
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-shared-streams-6",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 421\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 4218\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 4709",
+      "Milliseconds": 58
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-shared-streams-7",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 421\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 4218\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 4709",
+      "Milliseconds": 51
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-shell-shared-streams",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 421\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 4218\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 4709",
+      "Milliseconds": 63
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-arg0-9",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 421\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 4218\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 4709",
+      "Milliseconds": 48
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-arg0-10",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 421\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 4218\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 4709",
+      "Milliseconds": 47
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-arg0-11",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 421\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 4218\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 4709",
+      "Milliseconds": 47
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-arg0-preserved-by-args",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 421\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 4218\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 4709",
+      "Milliseconds": 50
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-auxiliary-19",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 421\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 4218\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 4709",
+      "Milliseconds": 51
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-auxiliary-20",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 421\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 4218\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 4709",
+      "Milliseconds": 46
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-auxiliary-21",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 421\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 4218\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 4709",
+      "Milliseconds": 45
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-input-only-eof",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 421\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 4218\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 4709",
+      "Milliseconds": 55
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-input-only-output-fails",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 421\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 4218\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 4709",
+      "Milliseconds": 51
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-output-only-no-data",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 421\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 4218\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 4709",
+      "Milliseconds": 46
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-apply-forwarded-frame-undef-direct-and-dynamic",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,{{error,undef,{missing_apply_frame_module,absent,[17]}},{error,undef,{missing_apply_frame_module,absent,[17]}}}}, got {ok,{{error,undef,{missing_apply_frame_module,absent,[17]}},{error,undef,{erlang,apply,[missing_apply_frame_module,absent,[17]]}}}}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 421\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 4218\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 4709",
+      "Milliseconds": 27
+    },
+    {
+      "Name": "oracle/compiled-module/rpc-errors",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,ok}, got {error,error,{badmatch,{badrpc,{'EXIT',{reason,[{rpc,call,4,[]},{rpc_dependency_cases,errors,0,[]}]}}}}}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 421\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 4218\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\size-bif354-full-candidate\\tests\\Erlang.Tests\\Program.cs:line 4709",
+      "Milliseconds": 64
+    }
+  ],
+  "Classification": "Sixteen native-port EACCES observations are separate from two source-capture regressions; permission cause remains independently diagnosed, not assumed from count. RPC error and apply forwarding source repairs are proposed separately, no old assertions weakened.",
+  "PreparationHistory": "Initial retention acquisition used per-row Passed instead of actual Status, raised KeyError before any report write. Corrected to exact actual Status schema; all raw files unchanged.",
+  "NoRegistryRestorationByAuthor": true,
+  "FinalizationPassOutputCreated": false,
+  "MainMutation": false,
+  "SdkExecuted": false
+}

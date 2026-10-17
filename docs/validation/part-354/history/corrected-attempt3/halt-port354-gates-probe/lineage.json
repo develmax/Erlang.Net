@@ -1,0 +1,27 @@
+{
+  "ParentDiagnosticFreezeSha256": "3FF3631F9066AAC81D5A7A9C9319F623AD798FE6D326E33E38CF915D1DFC9780",
+  "OriginalTestFiles": [
+    {
+      "Path": "tests/Erlang.Tests/HaltPortHostChecks.cs",
+      "Sha256": "CCFD9EFF8FBBFBFBB3D13F72A96DEF1DA218D089C32B36B70B99D5AE71D3F637",
+      "CopiedSourcePath": "source/HaltPortHostChecks.cs"
+    },
+    {
+      "Path": "tests/Erlang.Tests/HaltPortFixture.cs",
+      "Sha256": "C65F05268E6B2D87F48C4F273D2C6855F5B4D316019D72A7D1C8FFCC2FEC0432",
+      "CopiedSourcePath": "source/HaltPortFixture.cs"
+    },
+    {
+      "Path": "tests/Erlang.Tests/HaltPortHostNames.cs",
+      "Sha256": "9D7494CAADD0AB74EC8E7442AD105AE0FE28E995D4C302BCB6D3912CBBB68795",
+      "CopiedSourcePath": "source/HaltPortHostNames.cs"
+    },
+    {
+      "Path": "tests/Erlang.Tests/PortHostParameters.cs",
+      "Sha256": "58EFF86E011C4A66F45A47BE7FA2EB68EEE6266C9A8737742A75983123F37C66",
+      "CopiedSourcePath": "source/PortHostParameters.cs"
+    }
+  ],
+  "Changes": "Only additive gate diagnostics plus context/handle locals in copied HaltPortHostChecks. No runtime edits, no assertions or 15s waits removed/changed. Reflection invokes own instrumented test type; Runtime/Terms resolved from original full2 directory, references Private=false. Other helpers rawexact. Actual native port subprocess diagnostics, no original OTP.",
+  "SourceHypothesis": "A canceled callback actor can resume and block its lane in CancellationTokenRegistration.Dispose until releaseCallback. A cooperative cancellation continuation on same Cleanup queue cannot be stolen by other lane because TrySteal excludes Cleanup. Historical interleaving unobserved; this probe distinguishes the missing gate."
+}

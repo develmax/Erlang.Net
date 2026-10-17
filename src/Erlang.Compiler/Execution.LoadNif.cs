@@ -14,6 +14,7 @@ public static partial class Execution
         catch (ErlangException exception)
         {
             throw RuntimeCallFrames.Capture(
+                context,
                 exception,
                 ErlangModuleNames.Module,
                 SourceLoadNifNames.Function,

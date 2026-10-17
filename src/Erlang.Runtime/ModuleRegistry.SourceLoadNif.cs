@@ -17,19 +17,46 @@ public sealed partial class ModuleRegistry
         }
     }
 
-    internal async ValueTask<Term> InvokeSourceLoadNif(
+    internal ValueTask<Term> InvokeSourceLoadNif(
         ProcessContext context,
         Term[] arguments
     )
     {
         var handler = Volatile.Read(ref sourceLoadNifHandler);
         if (handler is null)
-            return await Call(
+        {
+            if (!SourceLoadNifFilename.IsValidUtf8(arguments[0]))
+                return RuntimeExceptionCapture.InvokeNative(
+                    context,
+                    (_, _) => throw new ErlangException(ErlangErrorReasons.BadArgument),
+                    ErlangModuleNames.Module,
+                    SourceLoadNifNames.Function,
+                    arguments
+                );
+
+            return Call(
                 context,
                 ErlangModuleNames.Module,
                 SourceLoadNifNames.Function,
                 arguments
             );
+        }
+
+        return RuntimeExceptionCapture.InvokeNative(
+            context,
+            (caller, _) => InvokeSourceLoadNifCore(caller, arguments, handler),
+            ErlangModuleNames.Module,
+            SourceLoadNifNames.Function,
+            arguments
+        );
+    }
+
+    private async ValueTask<Term> InvokeSourceLoadNifCore(
+        ProcessContext context,
+        Term[] arguments,
+        Func<ProcessContext, SourceLoadNifCall, Term[], ValueTask<Term>> handler
+    )
+    {
         if (!ReferenceEquals(context.Runtime.Modules, this))
             throw new NifImageAdmissionException(NifImageAdmissionFailure.ForeignRuntime);
         context.Runtime.ThrowIfHalted();

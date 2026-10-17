@@ -1,0 +1,14 @@
+--- styled2/tests/Erlang.Tests/CommonPreloadedReinstallHostChecks.cs
++++ permanent3/tests/Erlang.Tests/CommonPreloadedReinstallHostChecks.cs
+@@ -51,9 +51,9 @@
+         Require(!Bindings(registry).Contains(Key()));
+         object old = OldCode(registry)[CommonPreloadedReinstallHostNames.Module]!;
+         Require(ReferenceEquals(Property(old, CommonPreloadedReinstallHostNames.ImageProperty), firstImage));
+-        object entries = Property(old, "Entries");
++        object entries = Property(old, CommonPreloadedReinstallHostNames.EntriesProperty);
+         object entry = ((IEnumerable)entries).Cast<object>().Single();
+-        Require(ReferenceEquals(entry.GetType().GetField("Item2")!.GetValue(entry), firstBody));
++        Require(ReferenceEquals(entry.GetType().GetField(CommonPreloadedReinstallHostNames.Item2Field)!.GetValue(entry), firstBody));
+         registry.InstallPreloaded(target => target.Register(
+             CommonPreloadedReinstallHostNames.Module,
+             CommonPreloadedReinstallHostNames.Function,

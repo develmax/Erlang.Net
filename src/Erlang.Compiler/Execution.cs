@@ -112,28 +112,47 @@ public static partial class Execution
         }
 
         using var frame = context.EnterFunction(module.Name, function, arguments.Count);
-        if (image is not null && NifImageBindingStore.TryGetValue(image, out var bindings))
+        try
         {
-            using var native = bindings!.Admit(function, arguments.Count);
-            if (native is not null)
-                return await native.InvokeAsync(context, arguments);
+            if (image is not null && NifImageBindingStore.TryGetValue(image, out var bindings))
+            {
+                using var native = bindings!.Admit(function, arguments.Count);
+                if (native is not null)
+                {
+                    try
+                    {
+                        return await native.InvokeAsync(context, arguments);
+                    }
+                    catch (ErlangException exception)
+                    {
+                        throw context.CaptureSourceFailure(exception, arguments);
+                    }
+                }
+            }
+
+            var definition = module.Functions.FirstOrDefault(f => f.Name == function && f.Arity == arguments.Count) ?? throw new ErlangException(ErlangErrorReasons.UndefinedFunction);
+            var selection = await Select(
+                definition.Clauses,
+                arguments,
+                [],
+                context
+            ) ?? throw new ErlangException(ErlangErrorReasons.FunctionClause);
+
+            return await Evaluate(
+                selection.Clause.Body,
+                context,
+                selection.Bindings,
+                module,
+                true
+            );
         }
-
-        var definition = module.Functions.FirstOrDefault(f => f.Name == function && f.Arity == arguments.Count) ?? throw new ErlangException(ErlangErrorReasons.UndefinedFunction);
-        var selection = await Select(
-            definition.Clauses,
-            arguments,
-            [],
-            context
-        ) ?? throw new ErlangException(ErlangErrorReasons.FunctionClause);
-
-        return await Evaluate(
-            selection.Clause.Body,
-            context,
-            selection.Bindings,
-            module,
-            true
-        );
+        catch (ErlangException exception)
+        {
+            throw context.CaptureSourceFailure(
+                exception,
+                exception.Reason.Equals(Term.A(ErlangErrorReasons.FunctionClause)) ? arguments : null
+            );
+        }
     }
 
     private static async ValueTask<Term> CallRuntime(
@@ -159,6 +178,7 @@ public static partial class Execution
             if (dispatch == ModuleCallDispatchKind.UndefinedFunctionHandler)
                 throw;
             throw RuntimeCallFrames.Capture(
+                context,
                 exception,
                 module,
                 function,
@@ -261,29 +281,39 @@ public static partial class Execution
         }
 
         using var frame = context.EnterFunction(identity.Module.Name, identity.Name!.Name, arguments.Count);
-        foreach (var clause in expression.Clauses)
+        try
         {
-            var scope = new Dictionary<string, Term>(environment, StringComparer.Ordinal);
-            foreach (string name in clause.Patterns.SelectMany(Semantics.Variables))
-                scope.Remove(name);
-            var selection = await Select(
-                [clause],
-                arguments,
-                scope,
-                context,
-                environment
-            );
-            if (selection is not null)
-                return await Evaluate(
-                    selection.Clause.Body,
+            foreach (var clause in expression.Clauses)
+            {
+                var scope = new Dictionary<string, Term>(environment, StringComparer.Ordinal);
+                foreach (string name in clause.Patterns.SelectMany(Semantics.Variables))
+                    scope.Remove(name);
+                var selection = await Select(
+                    [clause],
+                    arguments,
+                    scope,
                     context,
-                    selection.Bindings,
-                    module,
-                    true
+                    environment
                 );
-        }
+                if (selection is not null)
+                    return await Evaluate(
+                        selection.Clause.Body,
+                        context,
+                        selection.Bindings,
+                        module,
+                        true
+                    );
+            }
 
-        throw new ErlangException(ErlangErrorReasons.FunctionClause);
+            throw new ErlangException(ErlangErrorReasons.FunctionClause);
+        }
+        catch (ErlangException exception)
+        {
+            throw context.CaptureSourceFailure(
+                exception,
+                exception.Reason.Equals(Term.A(ErlangErrorReasons.FunctionClause)) ? arguments : null
+            );
+        }
     }
 
     private static async ValueTask<Selection?> Select(
@@ -374,6 +404,30 @@ public static partial class Execution
     };
 
     private static async ValueTask<Term> Evaluate(
+        Expr e,
+        ProcessContext ctx,
+        Dictionary<string, Term> b,
+        ModuleDefinition? module,
+        bool tail = false
+    )
+    {
+        try
+        {
+            return await EvaluateCore(
+                e,
+                ctx,
+                b,
+                module,
+                tail
+            );
+        }
+        catch (ErlangException exception)
+        {
+            throw ctx.CaptureSourceFailure(exception);
+        }
+    }
+
+    private static async ValueTask<Term> EvaluateCore(
         Expr e,
         ProcessContext ctx,
         Dictionary<string, Term> b,
@@ -698,7 +752,7 @@ public static partial class Execution
                     ctx,
                     b,
                     module
-                ));
+                ), ctx);
             case Expr.Binary x:
                 {
                     bool shortCircuit = x.Operator is ErlangOperators.AndAlso or ErlangOperators.OrElse;
@@ -807,6 +861,7 @@ public static partial class Execution
                         if (dispatch == ModuleCallDispatchKind.UndefinedFunctionHandler)
                             throw;
                         throw RuntimeCallFrames.Capture(
+                            ctx,
                             exception,
                             targetModule ?? ErlangModuleNames.Module,
                             x.Function,
@@ -930,7 +985,7 @@ public static partial class Execution
         }
     }
 
-    private static Term Unary(string op, Term value)
+    private static Term Unary(string op, Term value, ProcessContext? context = null)
     {
         try
         {
@@ -938,7 +993,13 @@ public static partial class Execution
         }
         catch (ErlangException exception)
         {
-            throw exception.WithStackFrame(ErlangModuleNames.Module, op, [value]);
+            throw context is null ? exception.WithStackFrame(ErlangModuleNames.Module, op, [value])
+                : context.CaptureNativeFailure(
+                    exception,
+                    ErlangModuleNames.Module,
+                    op,
+                    [value]
+                );
         }
     }
 
@@ -960,7 +1021,13 @@ public static partial class Execution
         }
         catch (ErlangException exception)
         {
-            throw exception.WithStackFrame(ErlangModuleNames.Module, op, [a, b]);
+            throw context is null ? exception.WithStackFrame(ErlangModuleNames.Module, op, [a, b])
+                : context.CaptureNativeFailure(
+                    exception,
+                    ErlangModuleNames.Module,
+                    op,
+                    [a, b]
+                );
         }
     }
 

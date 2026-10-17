@@ -356,7 +356,7 @@ internal sealed class RuntimeActorDispatcher
         {
             if (ReferenceEquals(source, destination) || !source.Online)
                 continue;
-            foreach (var queue in new[] { source.Maximum, source.High, source.Ordinary })
+            foreach (var queue in new[] { source.Cleanup, source.Maximum, source.High, source.Ordinary })
             {
                 for (var node = queue.First; node is not null; node = node.Next)
                 {
@@ -365,7 +365,9 @@ internal sealed class RuntimeActorDispatcher
                         continue;
                     queue.Remove(node);
                     scheduler.Lane = destination;
-                    scheduler.ReadyNode = destination.Queue(scheduler.Owner.SchedulingPriorityLevel).AddLast(scheduler);
+                    var destinationQueue = ReferenceEquals(queue, source.Cleanup)
+                        ? destination.Cleanup : destination.Queue(scheduler.Owner.SchedulingPriorityLevel);
+                    scheduler.ReadyNode = destinationQueue.AddLast(scheduler);
 
                     return;
                 }

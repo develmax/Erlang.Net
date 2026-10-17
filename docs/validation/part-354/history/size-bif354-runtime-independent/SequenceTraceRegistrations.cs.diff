@@ -1,0 +1,11 @@
+--- 50e756f73437eb8d2882a19f729bccb09af74f3d/src/Erlang.Runtime/SequenceTraceRegistrations.cs
++++ proposal2/src/Erlang.Runtime/SequenceTraceRegistrations.cs
+@@ -34,6 +34,8 @@
+             2,
+             (context, arguments) => arguments[0] is Atom { Name: SequenceTraceNames.SystemTracer }
+             ? ValueTask.FromResult(context.Runtime.SequenceTracing.SetTracer(arguments[1]))
++            : arguments[0] is Atom { Name: BacktraceDepthNames.Flag }
++            ? ValueTask.FromResult(BacktraceDepthFlag.Set(context, arguments))
+             : arguments[0] is Atom { Name: ProcessSchedulerNames.Online }
+             ? context.Runtime.ChangeSchedulersOnline(context, arguments[1])
+             : CpuTopologyStateRegistrations.TrySystemFlag(

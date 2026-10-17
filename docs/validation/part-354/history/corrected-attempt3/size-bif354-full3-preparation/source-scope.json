@@ -1,0 +1,30 @@
+{
+  "Status": "SOURCE_ONLY_PREPARED_FULL3_PLAN_NO_APPLICATION_OR_SDK",
+  "PlanSha256": "AE9E40FD4A12BC33F51D6F4CF777258E2EBE0387E066898BF0C1418645060D19",
+  "DerivedSourceRows": 3211,
+  "DerivedStableRows": 3210,
+  "DerivedOwnedPaths": 134,
+  "ChangedOrAddedPathsFromFull2": [
+    ".github/workflows/nif-pending-native.yml",
+    ".github/workflows/nif-reallocation-native.yml",
+    "docs/OTP-PORTS.md",
+    "docs/mfa-compatibility.json",
+    "src/Erlang.Runtime/RuntimeActorDispatcher.cs",
+    "tests/Erlang.Tests/CleanupStealingHostChecks.cs",
+    "tests/Erlang.Tests/CleanupStealingHostNames.cs",
+    "tests/Erlang.Tests/Program.cs",
+    "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+    "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json"
+  ],
+  "NewTestNames": [
+    "runtime/canceled-unbound-continuation-stolen-before-bound-blocker-release"
+  ],
+  "FutureTestCountIfPasses": 7343,
+  "Old7342NamesSource": "Actual full2 failedreport; names preserved only, no claim prior7342Passed",
+  "LedgerPolicy": "All587entries unchanged, including16verifiedscope/limits/evidence; exactlyoneDispatcherhashchanged,other114guardsunchanged",
+  "OriginalNativeScope": "erts/emulator/beam/erl_process.c9881/9907/9939 guide idle stealing; CLR cleanup adaptation is not nativeequivalence",
+  "RequiredExecutionGate": "One Root-accepted actual deterministicredgreenreport path/hash, sourcepeer andfinalapprovedplanSHA; no newmetadata chain",
+  "PackagePlanSha256": "8693AB34F3A05A882A3C75FDB357760B0C7978022198B8F06271E3A009BE3B64",
+  "OtpPortsSha256": "BF72D0AEDA38823EAF03A8DCE3F4956369AD0EAD61E366DB5026C9B2D030E4E5",
+  "PriorFailedFullsAndDiagnosticsUnchanged": true
+}

@@ -14,6 +14,17 @@ public sealed class ErlangException(Term reason, string exceptionClass = ErlangE
         get; init;
     }
 
+    public bool AutomaticStackTraceCaptured { get; internal init; }
+
+    internal ErlangException WithCapturedStack(Term trace, bool selectedHandler = false) => ExplicitStackTrace || AutomaticStackTraceCaptured
+        ? this
+        : new(Reason, ExceptionClass)
+        {
+            StackTraceTerm = trace,
+            AutomaticStackTraceCaptured = true,
+            traceOrigin = selectedHandler ? ErlangExceptionTraceOrigin.SelectedHandlerCaptured : traceOrigin
+        };
+
     private ErlangExceptionTraceOrigin traceOrigin;
 
     public ErlangException WithStackFrame(string module, string function, IReadOnlyList<Term> arguments)
@@ -25,7 +36,7 @@ public sealed class ErlangException(Term reason, string exceptionClass = ErlangE
         );
 
     internal ErlangException WithSelectedHandlerFrame(string module, string function, IReadOnlyList<Term> arguments)
-        => WithFrame(
+        => AutomaticStackTraceCaptured ? this : WithFrame(
             module,
             function,
             arguments,
@@ -39,7 +50,7 @@ public sealed class ErlangException(Term reason, string exceptionClass = ErlangE
         bool selectedHandler
     )
     {
-        if (ExplicitStackTrace)
+        if (ExplicitStackTrace || AutomaticStackTraceCaptured && traceOrigin != ErlangExceptionTraceOrigin.SelectedHandlerCaptured)
             return this;
         Term frame = Term.Tuple(
             Term.A(module),
@@ -53,7 +64,8 @@ public sealed class ErlangException(Term reason, string exceptionClass = ErlangE
             StackTraceTerm = traceOrigin == ErlangExceptionTraceOrigin.SelectedHandlerCaptured
                 ? AppendFrame(StackTraceTerm, frame)
                 : new Cons(frame, StackTraceTerm),
-            traceOrigin = selectedHandler ? ErlangExceptionTraceOrigin.SelectedHandlerCaptured : traceOrigin
+            traceOrigin = selectedHandler ? ErlangExceptionTraceOrigin.SelectedHandlerCaptured : traceOrigin,
+            AutomaticStackTraceCaptured = AutomaticStackTraceCaptured
         };
     }
 

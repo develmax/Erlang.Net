@@ -1,0 +1,21 @@
+{
+  "Status": "SOURCE_ONLY_REAL_UNDEFINED_LAMBDA_PROVENANCE_CONTROLS_NOT_BUILT_OR_EXECUTED",
+  "Files": [
+    {
+      "Path": "CommonLambdaHandlerCaptureHostChecks.cs",
+      "Bytes": 4614,
+      "Sha256": "BAEF86B67CCF376C74AA8A20EF775F08EE2295970E6AE95B372786F6E8612C56"
+    }
+  ],
+  "Target": "CommonLambdaHandlerCaptureHostChecks.Run",
+  "Controls": [
+    "Four real localfunction invocation flows named/anonymous\u00d7selectedHOST/sourcehandler",
+    "Existing source fixture creates genuinefunction, term_to_binary/binary_to_term roundtrip then actual DeleteModule/purge_module causes missing-code callback",
+    "HOSTnested callback invokes sameactualfun twice and strict twoidentical full-entryArgs frames expected",
+    "Sourcehandler uses existing actual compiled handler\u2192registered intrinsic HOST bridge; strict actualselectedhandler+args top not fictitious bridge, no wrapper-function pathshortcut"
+  ],
+  "NoDirectReflectionDispatchToUndefinedLambda": true,
+  "NoAssertionWeakening": true,
+  "SdkExecuted": false,
+  "MainMutation": false
+}

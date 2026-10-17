@@ -1,0 +1,27 @@
+{
+  "Status": "SOURCE_ONLY_TRUSTED_REINSTALL_NESTED_ROLLBACK_AND_OLD_SNAPSHOT_CONTROLS",
+  "Files": [
+    {
+      "Path": "CommonPreloadedReinstallHostChecks.cs",
+      "Bytes": 5593,
+      "Sha256": "FD6B8D767D44E29DB28BBD71036DA303FD689A906366EFD21E7EEC6B256EF354"
+    },
+    {
+      "Path": "CommonPreloadedReinstallHostNames.cs",
+      "Bytes": 620,
+      "Sha256": "42ED07CDFDBC8406E2C6FF29639BC857C839AE59FA78102F0A644318BF5BFEA6"
+    }
+  ],
+  "Target": "CommonPreloadedReinstallHostChecks.Run",
+  "Controls": [
+    "Actual InstallPreloaded initial wrapper failure capture",
+    "Actual nested Apply delete/reinstall then throw restores original exact binding/body/image, no oldCode leftover",
+    "Actual DeleteModule removes current binding immediately but retains exact old snapshot image and delegate",
+    "Actual trusted reinstall installs new binding exactbody/image and captures new failures",
+    "Old snapshot remains exact after current replacement; shared exceptions untouched"
+  ],
+  "NoGcCollectionTimingClaim": true,
+  "NoCapturedSourceFunctionSubstitution": true,
+  "SdkExecuted": false,
+  "MainMutation": false
+}

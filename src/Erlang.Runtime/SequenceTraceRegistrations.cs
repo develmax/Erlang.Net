@@ -34,6 +34,8 @@ internal static class SequenceTraceRegistrations
             2,
             (context, arguments) => arguments[0] is Atom { Name: SequenceTraceNames.SystemTracer }
             ? ValueTask.FromResult(context.Runtime.SequenceTracing.SetTracer(arguments[1]))
+            : arguments[0] is Atom { Name: BacktraceDepthNames.Flag }
+            ? ValueTask.FromResult(BacktraceDepthFlag.Set(context, arguments))
             : arguments[0] is Atom { Name: ProcessSchedulerNames.Online }
             ? context.Runtime.ChangeSchedulersOnline(context, arguments[1])
             : CpuTopologyStateRegistrations.TrySystemFlag(
