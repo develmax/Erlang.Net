@@ -38,7 +38,7 @@ def main():
     stage('bridge-build',[gcc,'-shared','-fPIC','-std=c11','-O2','-Wall','-Wextra','-Werror','-I',headers,*sources,'-o',bridge])
     stage('bridge-defined',[nm,'-D','--defined-only','--format=posix',bridge],30)
     stage('bridge-elf',[readelf,'-h','-Ws','-d',bridge],30)
-    required={'pthread_create','pthread_join','pthread_key_create','pthread_key_delete','pthread_getspecific','pthread_setspecific','nif_bridge_pthread_register','nif_bridge_pthread_provider','nif_bridge_pthread_calls','nif_bridge_register','enif_make_ref','enif_get_map_size'}
+    required={'pthread_create','pthread_join','pthread_key_create','pthread_key_delete','pthread_getspecific','pthread_setspecific','__cxa_thread_atexit_impl','pthread_exit','nif_bridge_pthread_register','nif_bridge_pthread_provider','nif_bridge_pthread_calls','nif_bridge_register','enif_make_ref','enif_get_map_size'}
     defined={line.split()[0] for line in (out/'bridge-defined.stdout').read_text().splitlines() if line.split()};assert required<=defined
     for row in before:assert H(row['Path'])==row['Sha256']
     receipt=out/'bridge-build-receipt.json'

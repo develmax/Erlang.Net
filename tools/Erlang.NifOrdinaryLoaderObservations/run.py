@@ -92,6 +92,14 @@ def main():
         if success:
             assert actual['NativeImageRetirementCompleted'] and int(actual['ActualValue'])==baselinevalue
             assert passive_etf.decode_exact((sdkout/'returned.etf').read_bytes())==('integer',baselinevalue)
+            if a.thread_destructors:
+                witness=J(sdkout/'pthread-provider-witness.json')
+                bindings=[json.loads(value) for value in witness['Bindings']]
+                calls={row['Name']:row['Calls'] for row in json.loads(witness['Calls'])}
+                assert len(bindings)==1 and all(row['CapsuleLookupMatchesWrapper'] and row['BaseDiffersFromWrapper'] for row in bindings[0])
+                assert calls['pthread_create']==calls['pthread_join']==2
+                assert calls['pthread_key_create']==calls['pthread_key_delete']==calls['pthread_setspecific']==2
+                assert calls['__cxa_thread_atexit_impl']==2 and calls['pthread_exit']==1
         else:
             raw=passive_etf.decode_exact((sdkout/'load.etf').read_bytes())
             assert raw[0]=='tuple' and raw[1][0]==('atom','error') and 'load_failed' in repr(raw)

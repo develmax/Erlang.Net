@@ -3,7 +3,7 @@
 #include <stdatomic.h>
 #include <stdlib.h>
 #define CONTROL_EXPORT __attribute__((visibility("default")))
-#define CONTROL_COUNT 6
+#define CONTROL_COUNT 8
 static _Atomic int state;
 static uintptr_t providers[CONTROL_COUNT];
 static _Atomic unsigned long calls[CONTROL_COUNT];
@@ -57,4 +57,15 @@ CONTROL_EXPORT int pthread_setspecific(pthread_key_t key,const void *value)
 {
     typedef int (*function)(pthread_key_t,const void *);
     atomic_fetch_add(&calls[5],1);return ((function)provider(5))(key,value);
+}
+CONTROL_EXPORT int __cxa_thread_atexit_impl(void (*destructor)(void *),void *value,void *image)
+{
+    typedef int (*function)(void (*)(void *),void *,void *);
+    atomic_fetch_add(&calls[6],1);return ((function)provider(6))(destructor,value,image);
+}
+CONTROL_EXPORT _Noreturn void pthread_exit(void *value)
+{
+    typedef void (*function)(void *);
+    atomic_fetch_add(&calls[7],1);((function)provider(7))(value);
+    abort();
 }

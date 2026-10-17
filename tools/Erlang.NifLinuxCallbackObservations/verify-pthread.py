@@ -3,7 +3,7 @@ from pathlib import Path
 import json
 
 R=Path(__file__).resolve().parents[2]
-root=R/'artifacts/linux-callback-pthread-control';expected=['pthread_create','pthread_join','pthread_key_create','pthread_key_delete','pthread_getspecific','pthread_setspecific']
+root=R/'artifacts/linux-callback-pthread-control';expected=['pthread_create','pthread_join','pthread_key_create','pthread_key_delete','pthread_getspecific','pthread_setspecific','__cxa_thread_atexit_impl','pthread_exit']
 reports=[]
 for route in ['reviewed','ordinary']:
     wrappers=[];base_providers=None

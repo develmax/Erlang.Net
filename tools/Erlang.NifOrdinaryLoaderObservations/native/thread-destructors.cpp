@@ -11,6 +11,7 @@ struct ProbeState {
     std::atomic<int> key_destroyed{0};
     std::atomic<int> worker_returned{0};
     int setspecific_status = -1;
+    bool explicit_exit = false;
 };
 
 struct ThreadWitness {
@@ -36,13 +37,15 @@ static void *worker(void *value)
     owner->cpp_created.fetch_add(1, std::memory_order_relaxed);
     owner->setspecific_status = pthread_setspecific(owner->key, owner);
     owner->worker_returned.fetch_add(1, std::memory_order_relaxed);
+    if (owner->explicit_exit) pthread_exit(nullptr);
     return nullptr;
 }
 
-static int run_probe(int values[9])
+static int run_probe(int values[9], bool explicit_exit)
 {
     for (unsigned index = 0; index < 9; ++index) values[index] = -1;
     ProbeState state;
+    state.explicit_exit = explicit_exit;
     values[0] = pthread_key_create(&state.key, key_destructor);
     if (values[0] != 0) return -10;
     pthread_t thread;
@@ -62,12 +65,14 @@ static int run_probe(int values[9])
     values[7] = state.key_destroyed.load(std::memory_order_relaxed);
     values[8] = state.worker_returned.load(std::memory_order_relaxed);
     for (unsigned index = 0; index < 5; ++index) if (values[index] != 0) return -30;
-    for (unsigned index = 5; index < 9; ++index) if (values[index] != 1) return -40;
-    return 1111;
+    for (unsigned index = 5; index < 9; ++index) if (values[index] < 0 || values[index] > 1) return -40;
+    return 1000 * values[5] + 100 * values[6] + 10 * values[7] + values[8];
 }
 
 PROBE_EXPORT int ordinary_dependency_value(void)
 {
     int values[9];
-    return run_probe(values);
+    int returned = run_probe(values, false);
+    if (returned != 1111) return returned;
+    return run_probe(values, true);
 }

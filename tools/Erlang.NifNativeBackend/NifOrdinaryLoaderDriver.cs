@@ -1,5 +1,6 @@
 using System.Security.Cryptography;
 using System.Text.Json;
+using System.Reflection;
 using Erlang.Compiler;
 using Erlang.Differential;
 namespace Erlang.NifNativeBackend;
@@ -37,6 +38,10 @@ internal static class NifOrdinaryLoaderDriver
                         File.WriteAllBytes(Path.Combine(output, NifOrdinaryLoaderNames.ReturnTerm), ExternalTermFormat.Encode(value));
                         Require(value is Integer);
                         actualValue = ((Integer)value).Value.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                        object nativeDomain = typeof(ProcessRuntime).GetField(NifLinuxPthreadProbeNames.DomainField, BindingFlags.Instance | BindingFlags.NonPublic)?.GetValue(context.Runtime)
+                            ?? throw new InvalidOperationException(NifOrdinaryLoaderNames.Failure);
+                        string? witness = nativeDomain.GetType().GetProperty(NifLinuxPthreadProbeNames.WitnessProperty, BindingFlags.Instance | BindingFlags.NonPublic)?.GetValue(nativeDomain) as string;
+                        File.WriteAllText(Path.Combine(output, NifLinuxPthreadProbeNames.WitnessFile), witness ?? throw new InvalidOperationException(NifOrdinaryLoaderNames.Failure));
                     }
                 }
                 catch (ErlangException failure)
