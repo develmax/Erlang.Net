@@ -298,25 +298,16 @@ public sealed partial class ModuleRegistry
             }
         }
 
-        return handler
-            ? InvokeErrorHandler(
-                context,
-                module,
-                function,
-                arguments,
-                body!,
-                image,
-                code
-            )
-            : InvokeSelected(
-                context,
-                module,
-                function,
-                arguments,
-                body!,
-                image,
-                code
-            );
+        return InvokeAdmittedSelection(
+            context,
+            module,
+            function,
+            arguments,
+            body!,
+            image,
+            code,
+            handler
+        );
     }
 
     private ValueTask<Term> InvokeSelected(

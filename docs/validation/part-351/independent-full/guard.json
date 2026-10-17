@@ -1,0 +1,160 @@
+{
+  "Status": "PASS_INDEPENDENT_ACTUAL_CANONICAL351_FULL_RAW_REGISTRY_RESTORATION_PENDING",
+  "Passed": 7297,
+  "Failed": 0,
+  "SourceFreezeSha256": "C5FC54F85ED13C883C7C985EA3F88495E7E4EC6EFE515DDEB3129E23A42D9B1F",
+  "SourceClosureSha256": "B3897680F2AA4222E258D350D1FC163EC673E205B59D2E341D8FC0A531E36C6F",
+  "ConfigurationSha256": "B12ECD96F854DD20B3AC513D456ADEB42D32A9D2AD4DA878A44D6D92F0744A9B",
+  "ProducerGuardSha256": "65B1431875C3FFC7BED13B3B4FC651E0FA153FCD05C1765F846F77E7DE5DC6D5",
+  "FullExitSha256": "D4D8F31D1E8C3FB0C374483D2166BE19D2B6A6A6E61D46212535FCC04592582E",
+  "FullProcessPid": 249328,
+  "TestReportSha256": "0381A6247B5F400D2A75060B6D24EE82E82C7B01FFE93A8B92E28179B372FFA8",
+  "AllPrevious7286OrderedNamesPreserved": true,
+  "AddedTestNames": [
+    "oracle/compiled-module/spawn-priority-priority-first-observation",
+    "oracle/compiled-module/spawn-priority-priority-flag-old-and-default",
+    "oracle/compiled-module/spawn-priority-priority-duplicate-invalid",
+    "runtime/priority/all-ready-order",
+    "runtime/priority/escaped-registered-callback",
+    "runtime/priority/synchronous-turn-borrow",
+    "runtime/priority/low-logical-epochs",
+    "runtime/priority/waiting-high-capacity",
+    "runtime/priority/queued-priority-change",
+    "runtime/priority/halt-cleanup",
+    "runtime/priority/killed-owner-retirement"
+  ],
+  "OwnedPaths": 49,
+  "StableClosureRows": 3006,
+  "ReadinessInputs": 37,
+  "PackageResources": 6,
+  "CurrentRuntimeSourceBindings": 74,
+  "CompatibilityCounts": {
+    "Verified compatible": 10,
+    "Needs verification": 553,
+    "Known differences": 24
+  },
+  "ReferencedLedgerEvidenceRows": 31,
+  "RegistryRows": 587,
+  "RegistryNonLimitsAndOrderExactBefore": true,
+  "RegistryBeforeSha256": "EE3B3C9540C151698CA086E738BCD7E37C83F2836C9CBA79CC08169521B50A89",
+  "RawRegistrySha256": "23A1729AC575A30C500F26F47877012E1D6C632DB8A43A21F3DBBE6F9C8A0FAB",
+  "IntentionalPrefullRegistryLimitsChanges": [
+    [
+      "erlang",
+      "process_flag",
+      2
+    ],
+    [
+      "erlang",
+      "process_info",
+      2
+    ],
+    [
+      "erlang",
+      "process_info",
+      1
+    ],
+    [
+      "erlang",
+      "spawn_opt",
+      2
+    ],
+    [
+      "erlang",
+      "spawn_opt",
+      3
+    ],
+    [
+      "erlang",
+      "spawn_opt",
+      4
+    ],
+    [
+      "erlang",
+      "spawn_opt",
+      5
+    ]
+  ],
+  "Other580PrefullCustomLimitsPreserved": true,
+  "CustomLimitsRestorationPending": true,
+  "Integrations": {
+    "Readiness": "Passed",
+    "PackagedReadiness": "Passed",
+    "Build": "Passed",
+    "Tests": "Passed",
+    "OracleUnavailableReport": "Expected failure recorded",
+    "HybridOutput": "Hello World",
+    "Incremental": "Passed",
+    "DisabledPreprocessing": "Expected failure",
+    "CleanRebuild": "Passed",
+    "PackageConsumer": "Passed",
+    "LocalTool": "Passed"
+  },
+  "Packages": [
+    {
+      "Path": "artifacts/packages/Erlang.Net.CSharp.0.1.0.nupkg",
+      "Sha256": "F2AB3BFE3497F37D85A2B47F3905F8899AD04429FAF90B6ECDB558BD7F995F42",
+      "Id": "Erlang.Net.CSharp",
+      "Version": "0.1.0",
+      "ZipMembers": 26,
+      "CrcAndSafeUniquePathsVerified": true,
+      "SourceBoundMembers": [
+        "README.md",
+        "licenses/ROSLYN-LICENSE.txt",
+        "licenses/DOTNET-LICENSE.txt",
+        "licenses/DOTNET-ThirdPartyNotices.txt",
+        "licenses/OTP-LICENSE.txt",
+        "licenses/OTP-PORTS.md",
+        "lib/net10.0/Erlang.Terms.dll",
+        "lib/net10.0/Erlang.Runtime.dll",
+        "lib/net10.0/Erlang.Compiler.dll",
+        "lib/net10.0/Erlang.Otp.Behaviours.dll",
+        "lib/net10.0/Erlang.Serialization.dll"
+      ]
+    },
+    {
+      "Path": "artifacts/packages/Erlang.Net.Tool.0.1.0.nupkg",
+      "Sha256": "C974DA2F19F75B409C5D8F21C3783F4F13C7B20BEDA6C07B8C81F0415D96D900",
+      "Id": "Erlang.Net.Tool",
+      "Version": "0.1.0",
+      "ZipMembers": 53,
+      "CrcAndSafeUniquePathsVerified": true,
+      "SourceBoundMembers": [
+        "README.md",
+        "licenses/ROSLYN-LICENSE.txt",
+        "licenses/DOTNET-LICENSE.txt",
+        "licenses/DOTNET-ThirdPartyNotices.txt",
+        "licenses/OTP-LICENSE.txt",
+        "licenses/OTP-PORTS.md",
+        "tools/net10.0/any/Erlang.Tool.dll",
+        "tools/net10.0/any/Erlang.Terms.dll",
+        "tools/net10.0/any/Erlang.Runtime.dll",
+        "tools/net10.0/any/Erlang.Compiler.dll"
+      ]
+    }
+  ],
+  "TermOrderChildren": 12,
+  "ChildPidCount": 12,
+  "ObservedDistinctChildPids": 12,
+  "ChildMatrixVerified": true,
+  "ChildTermsLoadedIdentity": "523754EBC7C54A4F37DD63E4C46EAE90932B4AAB5920F32F3E5F2E1AA7F182D8",
+  "RecordedDriverPathAndCurrentHash": {
+    "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\spawn-priority351-full-corrected-candidate2\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+    "Sha256": "2C19A1DA0D7D24AE2BAD06363588C1172B2567CB02E9F95F91D9899FC24E47B9"
+  },
+  "LoadedIdentityScope": "Each genuine child emits actual loaded Terms DLL path/hash. Driver path is recorded by parent receipt and current file hash verified; no invented child-side Runtime/Compiler/other assembly identity observation.",
+  "ChildrenBeforeSha256": "37517E5F3DC66819F61F5A7BB8ACE1921282415F10551D2DEFA5C3EB0985B570",
+  "ChildManifestSha256": "0852BCAD0AFE6D0A2DA638395B86A931121BC339DECE5161F4B06E851DCAAE51",
+  "NativeExecutedByReviewer": false,
+  "SdkExecutedByReviewer": false,
+  "MainModified": false,
+  "NetworkUsed": false,
+  "CompatibilityStatusesPromoted": false,
+  "Original351ParityClaimed": false,
+  "ReaderSha256": "31B5054497DF663990551EFA0EF151485E57E4E29A81BC5F5A56CCF6B759DB45",
+  "HistoricalFailedFull1Preserved": true,
+  "HistoricalFailedFull1ExitSha256": "53D1F67207666DA9EC6BE4039009895512B0D8922BEA501FED842710B17EB4B9",
+  "HistoricalFailedFull1TestsSha256": "732F629BB7D715FC9126BD36C57A6E94B040B2D90E48AC74879E2177368DA1CF",
+  "CorrectedFocus59IndependentSha256": "DD3DC38152E23BD01952131A12E1996FA98F2FE7EEADC0C69FAECDD180B55ACF",
+  "SingleUninterruptedPassScope": "Attempt2 only; original attempt1 failed21 and remains unchanged. Seven reviewed correction files plus current published reporting inputs are source-bound; no claim attempt1 succeeded."
+}

@@ -31,7 +31,7 @@
     },
     {
       "Path": "src/Erlang.Compiler/Execution.cs",
-      "Sha256": "B0771827A437A320B1D94D6CFA0B9FA87CE5972DD32658392DA34DFDF3400484"
+      "Sha256": "E249498D8D0684013CE77B3D00F136895905746A99610AA62F2D7FE43DF3602D"
     },
     {
       "Path": "src/Erlang.Compiler/LocalCallValidation.cs",
@@ -95,7 +95,7 @@
     },
     {
       "Path": "src/Erlang.Runtime/CoreModules.cs",
-      "Sha256": "37ACAF904489E59D04409936ABE4145922FAA012982E58DBE6AD54C5D85AEBE4"
+      "Sha256": "CDF0EFD07267927CFE97523AAD7A1FE3509B795456CC5E8D2853408A67C13B63"
     },
     {
       "Path": "src/Erlang.Runtime/ErlangProcessQueryRegistrations.cs",
@@ -103,11 +103,11 @@
     },
     {
       "Path": "src/Erlang.Runtime/ProcessContext.cs",
-      "Sha256": "29C763089F9BC64206FE1F1C0A5B38A439B0FD4D66ECAE488007DFBC778EDB27"
+      "Sha256": "3C461A3953098DC512AC531FE0DED81B71BB60C9E18E0A5C5519D8542206C8B8"
     },
     {
       "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
-      "Sha256": "63846E423438F2F03D51346FF41C30C8C8AE172BC31E0632132474123EA113C1"
+      "Sha256": "935D12A47C2C0DE3F58BB439D4975E89582B6B0BF81B98813AC2D1DFF599A400"
     },
     {
       "Path": "src/Erlang.Terms/BitString.cs",
@@ -171,7 +171,7 @@
     },
     {
       "Path": "src/Erlang.Runtime/ModuleRegistry.cs",
-      "Sha256": "6148EADEEA43420DE554BC651C8A9BA8C9ABADDAFA76691121D33B386264583C"
+      "Sha256": "14C17E6F60C7A37446CEC556FFF3812859CFE0252643D5165970B7CC42713279"
     },
     {
       "Path": "src/Erlang.Runtime/NativeBuiltinCatalog.cs",
@@ -240,11 +240,71 @@
     {
       "Path": "src/Erlang.Terms/TupleTerm.cs",
       "Sha256": "A3CDFE09E6855FCE67979373A06A2D3960AFB09BF0ED5A5E6E52B82068992080"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.ProcessScheduling.cs",
+      "Sha256": "B2032518A4CE88DD09325AFCCDF2E02EB8738F7D1233AC77D8B30DC4A310F17D"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessExecutionAdmission.cs",
+      "Sha256": "C551B48631670491C0C3A3A1434790D78EE42D851376CC1E3F817F9E2AA68F31"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessExecutionAwaitable.cs",
+      "Sha256": "C3A4BF7E5506058F3CB42EC4D2565CA052908CD0FA8C4469186303517E411F79"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessExecutionAwaiter.cs",
+      "Sha256": "E8035D71918F6A66EA2446A4637166FA54EDA3ECC0C05DBE49803F1D7D89F5BC"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessPriorityNames.cs",
+      "Sha256": "952464908BC3E705D220CE9D609EEF9F347A81158A430C239A1E76FE831D8F4E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessPriorityValues.cs",
+      "Sha256": "C6AF5AD761C9826D7027221D643572165DFF5A3597E715121A1634EECC07C093"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.ConnectedSpawn.cs",
+      "Sha256": "56E0773E3E30507BA648903658866EB3A875855EC4A15F1488A73107DBC48CFE"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.Priority.cs",
+      "Sha256": "66871BF5F4E57C8BC7A7CACF1325C2ADABD63335C6A3B691643A8A66EC8F6EDA"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessSchedulingPriority.cs",
+      "Sha256": "BC762C0DB29DC586E294CD4AB088E702EEE9E6C9F380C34C4EC3B3D0F1E3DE2F"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessSpawnOptions.cs",
+      "Sha256": "B3BB2B2294F01DEF5594F8F5EA476E4D57B398D99AC210B79C1E9F098D29E670"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeActorContinuation.cs",
+      "Sha256": "0725B8ECE17147ABEA9C8F0FE6F25614FEE4F775A42E5B01669FC6DA233B9A7A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeActorDispatcher.cs",
+      "Sha256": "06DFE4D088A24712CD25A855A3318CF018D0B50C653E2303DE8EC0F72098FC3D"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeActorExecutionTurn.cs",
+      "Sha256": "905869A18ABA79B14E9264BCC8E43104EAAC2B3DBD589311C7E55E7B04BD3CF6"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeProcessTaskScheduler.cs",
+      "Sha256": "F749C44C345F027DCA74C0FE2DD279CFF2A48A082079467B78A3CF56E03DC63D"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeScheduledTask.cs",
+      "Sha256": "2FE11F32154C8427556D656D35BABB0014CBFBA28F0BDB55E8944054F83DF987"
     }
   ],
   "VerifiedCompatibleMfas": 10,
-  "NeedsVerificationMfas": 554,
-  "KnownDifferenceMfas": 23,
+  "NeedsVerificationMfas": 553,
+  "KnownDifferenceMfas": 24,
   "MfaCompatibility": [
     {
       "Module": "erlang",
@@ -306,6 +366,18 @@
           "Path": "validation/part-348/current-verified-source-review.json",
           "Sha256": "33827A737784A67D7D23AA98308FAC0BE9FE91D1575083422FBA3C70C2FD78C1",
           "Scope": "Source-only iterative TermOrder dependency extension preserving the five existing complete bounded contracts, all prior evidence and5/19/563 statuses. Exact five styled sources plus prior30 bindings reviewed; no new API promotion or native/performance claim."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-351/verified-preservation/prefull-review.json",
+          "Sha256": "BE812CFCB4E17C8B1BF910DF6C622B263227DA8DA61B5DBD5B087C8EEA9948AF",
+          "Scope": "Preserve existing ten verified observable contracts/scopes under the exact351 production source with74 dependency bindings, unchanged primitive handlers/prior original evidence and actual24 managed focus. Full351 remains required before publication; same-head CI/new priority original follow publication. This is not a new API promotion."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-351/corrected-source-review/preservation.json",
+          "Sha256": "5F8CCF0BE102E47D9D331058DAE9C40E172C2DCAD903DD1931AB82C10650C17F",
+          "Scope": "Source-only narrow corrected351 admission/port-boundary review; ten existing verified scopes and prior evidence retained,74 current dependency bindings. Focus/full still pending; no new API promotion."
         }
       ],
       "Limits": [],
@@ -491,6 +563,18 @@
           "Path": "validation/part-349/five-predicate-audit/ci348-independent.json",
           "Sha256": "E4B87001BCD9159DC0CD60888C0403AAD59F13209E4A74D5F7719CEFB6D0BD95",
           "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-351/verified-preservation/prefull-review.json",
+          "Sha256": "BE812CFCB4E17C8B1BF910DF6C622B263227DA8DA61B5DBD5B087C8EEA9948AF",
+          "Scope": "Preserve existing ten verified observable contracts/scopes under the exact351 production source with74 dependency bindings, unchanged primitive handlers/prior original evidence and actual24 managed focus. Full351 remains required before publication; same-head CI/new priority original follow publication. This is not a new API promotion."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-351/corrected-source-review/preservation.json",
+          "Sha256": "5F8CCF0BE102E47D9D331058DAE9C40E172C2DCAD903DD1931AB82C10650C17F",
+          "Scope": "Source-only narrow corrected351 admission/port-boundary review; ten existing verified scopes and prior evidence retained,74 current dependency bindings. Focus/full still pending; no new API promotion."
         }
       ],
       "Limits": [],
@@ -562,6 +646,18 @@
           "Path": "validation/part-349/five-predicate-audit/ci348-independent.json",
           "Sha256": "E4B87001BCD9159DC0CD60888C0403AAD59F13209E4A74D5F7719CEFB6D0BD95",
           "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-351/verified-preservation/prefull-review.json",
+          "Sha256": "BE812CFCB4E17C8B1BF910DF6C622B263227DA8DA61B5DBD5B087C8EEA9948AF",
+          "Scope": "Preserve existing ten verified observable contracts/scopes under the exact351 production source with74 dependency bindings, unchanged primitive handlers/prior original evidence and actual24 managed focus. Full351 remains required before publication; same-head CI/new priority original follow publication. This is not a new API promotion."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-351/corrected-source-review/preservation.json",
+          "Sha256": "5F8CCF0BE102E47D9D331058DAE9C40E172C2DCAD903DD1931AB82C10650C17F",
+          "Scope": "Source-only narrow corrected351 admission/port-boundary review; ten existing verified scopes and prior evidence retained,74 current dependency bindings. Focus/full still pending; no new API promotion."
         }
       ],
       "Limits": [],
@@ -633,6 +729,18 @@
           "Path": "validation/part-349/five-predicate-audit/ci348-independent.json",
           "Sha256": "E4B87001BCD9159DC0CD60888C0403AAD59F13209E4A74D5F7719CEFB6D0BD95",
           "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-351/verified-preservation/prefull-review.json",
+          "Sha256": "BE812CFCB4E17C8B1BF910DF6C622B263227DA8DA61B5DBD5B087C8EEA9948AF",
+          "Scope": "Preserve existing ten verified observable contracts/scopes under the exact351 production source with74 dependency bindings, unchanged primitive handlers/prior original evidence and actual24 managed focus. Full351 remains required before publication; same-head CI/new priority original follow publication. This is not a new API promotion."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-351/corrected-source-review/preservation.json",
+          "Sha256": "5F8CCF0BE102E47D9D331058DAE9C40E172C2DCAD903DD1931AB82C10650C17F",
+          "Scope": "Source-only narrow corrected351 admission/port-boundary review; ten existing verified scopes and prior evidence retained,74 current dependency bindings. Focus/full still pending; no new API promotion."
         }
       ],
       "Limits": [],
@@ -704,6 +812,18 @@
           "Path": "validation/part-349/five-predicate-audit/ci348-independent.json",
           "Sha256": "E4B87001BCD9159DC0CD60888C0403AAD59F13209E4A74D5F7719CEFB6D0BD95",
           "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-351/verified-preservation/prefull-review.json",
+          "Sha256": "BE812CFCB4E17C8B1BF910DF6C622B263227DA8DA61B5DBD5B087C8EEA9948AF",
+          "Scope": "Preserve existing ten verified observable contracts/scopes under the exact351 production source with74 dependency bindings, unchanged primitive handlers/prior original evidence and actual24 managed focus. Full351 remains required before publication; same-head CI/new priority original follow publication. This is not a new API promotion."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-351/corrected-source-review/preservation.json",
+          "Sha256": "5F8CCF0BE102E47D9D331058DAE9C40E172C2DCAD903DD1931AB82C10650C17F",
+          "Scope": "Source-only narrow corrected351 admission/port-boundary review; ten existing verified scopes and prior evidence retained,74 current dependency bindings. Focus/full still pending; no new API promotion."
         }
       ],
       "Limits": [],
@@ -775,6 +895,18 @@
           "Path": "validation/part-349/five-predicate-audit/ci348-independent.json",
           "Sha256": "E4B87001BCD9159DC0CD60888C0403AAD59F13209E4A74D5F7719CEFB6D0BD95",
           "Scope": "Combined per-MFA current348 complete-contract classification; exact original345 witnesses, current348 full/finalization and independently verified published348 CI. See classification.json for precise scope and history."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-351/verified-preservation/prefull-review.json",
+          "Sha256": "BE812CFCB4E17C8B1BF910DF6C622B263227DA8DA61B5DBD5B087C8EEA9948AF",
+          "Scope": "Preserve existing ten verified observable contracts/scopes under the exact351 production source with74 dependency bindings, unchanged primitive handlers/prior original evidence and actual24 managed focus. Full351 remains required before publication; same-head CI/new priority original follow publication. This is not a new API promotion."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-351/corrected-source-review/preservation.json",
+          "Sha256": "5F8CCF0BE102E47D9D331058DAE9C40E172C2DCAD903DD1931AB82C10650C17F",
+          "Scope": "Source-only narrow corrected351 admission/port-boundary review; ten existing verified scopes and prior evidence retained,74 current dependency bindings. Focus/full still pending; no new API promotion."
         }
       ],
       "Limits": [],
@@ -840,6 +972,18 @@
           "Path": "validation/part-348/current-verified-source-review.json",
           "Sha256": "33827A737784A67D7D23AA98308FAC0BE9FE91D1575083422FBA3C70C2FD78C1",
           "Scope": "Source-only iterative TermOrder dependency extension preserving the five existing complete bounded contracts, all prior evidence and5/19/563 statuses. Exact five styled sources plus prior30 bindings reviewed; no new API promotion or native/performance claim."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-351/verified-preservation/prefull-review.json",
+          "Sha256": "BE812CFCB4E17C8B1BF910DF6C622B263227DA8DA61B5DBD5B087C8EEA9948AF",
+          "Scope": "Preserve existing ten verified observable contracts/scopes under the exact351 production source with74 dependency bindings, unchanged primitive handlers/prior original evidence and actual24 managed focus. Full351 remains required before publication; same-head CI/new priority original follow publication. This is not a new API promotion."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-351/corrected-source-review/preservation.json",
+          "Sha256": "5F8CCF0BE102E47D9D331058DAE9C40E172C2DCAD903DD1931AB82C10650C17F",
+          "Scope": "Source-only narrow corrected351 admission/port-boundary review; ten existing verified scopes and prior evidence retained,74 current dependency bindings. Focus/full still pending; no new API promotion."
         }
       ],
       "Limits": [],
@@ -905,6 +1049,18 @@
           "Path": "validation/part-348/current-verified-source-review.json",
           "Sha256": "33827A737784A67D7D23AA98308FAC0BE9FE91D1575083422FBA3C70C2FD78C1",
           "Scope": "Source-only iterative TermOrder dependency extension preserving the five existing complete bounded contracts, all prior evidence and5/19/563 statuses. Exact five styled sources plus prior30 bindings reviewed; no new API promotion or native/performance claim."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-351/verified-preservation/prefull-review.json",
+          "Sha256": "BE812CFCB4E17C8B1BF910DF6C622B263227DA8DA61B5DBD5B087C8EEA9948AF",
+          "Scope": "Preserve existing ten verified observable contracts/scopes under the exact351 production source with74 dependency bindings, unchanged primitive handlers/prior original evidence and actual24 managed focus. Full351 remains required before publication; same-head CI/new priority original follow publication. This is not a new API promotion."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-351/corrected-source-review/preservation.json",
+          "Sha256": "5F8CCF0BE102E47D9D331058DAE9C40E172C2DCAD903DD1931AB82C10650C17F",
+          "Scope": "Source-only narrow corrected351 admission/port-boundary review; ten existing verified scopes and prior evidence retained,74 current dependency bindings. Focus/full still pending; no new API promotion."
         }
       ],
       "Limits": [],
@@ -1025,6 +1181,18 @@
           "Path": "validation/part-348/current-verified-source-review.json",
           "Sha256": "33827A737784A67D7D23AA98308FAC0BE9FE91D1575083422FBA3C70C2FD78C1",
           "Scope": "Source-only iterative TermOrder dependency extension preserving the five existing complete bounded contracts, all prior evidence and5/19/563 statuses. Exact five styled sources plus prior30 bindings reviewed; no new API promotion or native/performance claim."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-351/verified-preservation/prefull-review.json",
+          "Sha256": "BE812CFCB4E17C8B1BF910DF6C622B263227DA8DA61B5DBD5B087C8EEA9948AF",
+          "Scope": "Preserve existing ten verified observable contracts/scopes under the exact351 production source with74 dependency bindings, unchanged primitive handlers/prior original evidence and actual24 managed focus. Full351 remains required before publication; same-head CI/new priority original follow publication. This is not a new API promotion."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-351/corrected-source-review/preservation.json",
+          "Sha256": "5F8CCF0BE102E47D9D331058DAE9C40E172C2DCAD903DD1931AB82C10650C17F",
+          "Scope": "Source-only narrow corrected351 admission/port-boundary review; ten existing verified scopes and prior evidence retained,74 current dependency bindings. Focus/full still pending; no new API promotion."
         }
       ],
       "Limits": [],
@@ -3694,6 +3862,18 @@
           "Path": "validation/part-348/current-verified-source-review.json",
           "Sha256": "33827A737784A67D7D23AA98308FAC0BE9FE91D1575083422FBA3C70C2FD78C1",
           "Scope": "Source-only iterative TermOrder dependency extension preserving the five existing complete bounded contracts, all prior evidence and5/19/563 statuses. Exact five styled sources plus prior30 bindings reviewed; no new API promotion or native/performance claim."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-351/verified-preservation/prefull-review.json",
+          "Sha256": "BE812CFCB4E17C8B1BF910DF6C622B263227DA8DA61B5DBD5B087C8EEA9948AF",
+          "Scope": "Preserve existing ten verified observable contracts/scopes under the exact351 production source with74 dependency bindings, unchanged primitive handlers/prior original evidence and actual24 managed focus. Full351 remains required before publication; same-head CI/new priority original follow publication. This is not a new API promotion."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-351/corrected-source-review/preservation.json",
+          "Sha256": "5F8CCF0BE102E47D9D331058DAE9C40E172C2DCAD903DD1931AB82C10650C17F",
+          "Scope": "Source-only narrow corrected351 admission/port-boundary review; ten existing verified scopes and prior evidence retained,74 current dependency bindings. Focus/full still pending; no new API promotion."
         }
       ],
       "Limits": [],
@@ -5051,7 +5231,7 @@
       "Function": "spawn_opt",
       "Arity": 2,
       "Status": "Known differences",
-      "Scope": "Local and connected spawn paths exist, but the full OTP-29.1.1 option contract is not compatible. Current published349 rejects source-proven valid process scheduling priority, heap/GC, message_queue_data and scheduler options before child creation; same-node forms establish the difference for this arity. Signal-priority link/monitor support is distinct from process scheduling priority.",
+      "Scope": "Local and existing connected spawn paths now accept process scheduling priority low/normal/high/max and use logical priority admission. Heap/GC tuning, message_queue_data and scheduler affinity options remain source-proven valid OTP refusals, so the full option contract stays Known differences. Signal priority remains distinct; native scheduler timing/throughput is not certified.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
@@ -5076,11 +5256,17 @@
           "Path": "validation/part-350/spawn-options-audit/prior-report.json",
           "Sha256": "CFD479C7DDE0F927221A44C31EA991B2F4FEB604C95666326A3072A1BA11030F",
           "Scope": "Independent source-known valid-option refusal at published349 against pinned OTP-29.1.1; reporting-only classification, no execution or complete option-parity claim."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-351/spawn-option-refinement/prefull-source-review.json",
+          "Sha256": "F2E799B8C899489D7441F0C58C2C9B64932A55B3CADFE70A8A46C515B98F3BA9",
+          "Scope": "Current source implements priority while remaining heap/GC/MQD/affinity refusals preserve Known status; prior unsupported-priority evidence is historical and unchanged."
         }
       ],
       "Limits": [
-        "SPAWN_VALID_TUNING_REJECTED: valid {priority,normal}/{priority,high}, {message_queue_data,on_heap|off_heap}, nonnegative min_heap_size/min_bin_vheap_size/fullsweep_after, {max_heap_size,0} and {scheduler,0} reach managed badarg; native pinned parser accepts the bounded examples.",
-        "This is direct source-known incompatibility; no new native execution, runtime failure, complete option implementation or whole-MFA compatibility claim."
+        "SPAWN_VALID_TUNING_REJECTED: process scheduling priority is implemented in the351 candidate, but valid message_queue_data on_heap/off_heap, nonnegative min_heap_size/min_bin_vheap_size/fullsweep_after, max_heap_size and scheduler-affinity options remain rejected. Historical350 evidence includes the then-unsupported priority slice and is retained with its original scope.",
+        "Priority source/focus evidence supports the implemented logical queue slice, not complete option compatibility, native heap layout, scheduler timing/throughput or new original351 execution."
       ],
       "Key": "erlang:spawn_opt/2"
     },
@@ -5089,7 +5275,7 @@
       "Function": "spawn_opt",
       "Arity": 3,
       "Status": "Known differences",
-      "Scope": "Local and connected spawn paths exist, but the full OTP-29.1.1 option contract is not compatible. Current published349 rejects source-proven valid process scheduling priority, heap/GC, message_queue_data and scheduler options before child creation; same-node forms establish the difference for this arity. Signal-priority link/monitor support is distinct from process scheduling priority.",
+      "Scope": "Local and existing connected spawn paths now accept process scheduling priority low/normal/high/max and use logical priority admission. Heap/GC tuning, message_queue_data and scheduler affinity options remain source-proven valid OTP refusals, so the full option contract stays Known differences. Signal priority remains distinct; native scheduler timing/throughput is not certified.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
@@ -5114,11 +5300,17 @@
           "Path": "validation/part-350/spawn-options-audit/prior-report.json",
           "Sha256": "CFD479C7DDE0F927221A44C31EA991B2F4FEB604C95666326A3072A1BA11030F",
           "Scope": "Independent source-known valid-option refusal at published349 against pinned OTP-29.1.1; reporting-only classification, no execution or complete option-parity claim."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-351/spawn-option-refinement/prefull-source-review.json",
+          "Sha256": "F2E799B8C899489D7441F0C58C2C9B64932A55B3CADFE70A8A46C515B98F3BA9",
+          "Scope": "Current source implements priority while remaining heap/GC/MQD/affinity refusals preserve Known status; prior unsupported-priority evidence is historical and unchanged."
         }
       ],
       "Limits": [
-        "SPAWN_VALID_TUNING_REJECTED: valid {priority,normal}/{priority,high}, {message_queue_data,on_heap|off_heap}, nonnegative min_heap_size/min_bin_vheap_size/fullsweep_after, {max_heap_size,0} and {scheduler,0} reach managed badarg; native pinned parser accepts the bounded examples.",
-        "This is direct source-known incompatibility; no new native execution, runtime failure, complete option implementation or whole-MFA compatibility claim."
+        "SPAWN_VALID_TUNING_REJECTED: process scheduling priority is implemented in the351 candidate, but valid message_queue_data on_heap/off_heap, nonnegative min_heap_size/min_bin_vheap_size/fullsweep_after, max_heap_size and scheduler-affinity options remain rejected. Historical350 evidence includes the then-unsupported priority slice and is retained with its original scope.",
+        "Priority source/focus evidence supports the implemented logical queue slice, not complete option compatibility, native heap layout, scheduler timing/throughput or new original351 execution."
       ],
       "Key": "erlang:spawn_opt/3"
     },
@@ -5127,7 +5319,7 @@
       "Function": "spawn_opt",
       "Arity": 4,
       "Status": "Known differences",
-      "Scope": "Local and connected spawn paths exist, but the full OTP-29.1.1 option contract is not compatible. Current published349 rejects source-proven valid process scheduling priority, heap/GC, message_queue_data and scheduler options before child creation; same-node forms establish the difference for this arity. Signal-priority link/monitor support is distinct from process scheduling priority.",
+      "Scope": "Local and existing connected spawn paths now accept process scheduling priority low/normal/high/max and use logical priority admission. Heap/GC tuning, message_queue_data and scheduler affinity options remain source-proven valid OTP refusals, so the full option contract stays Known differences. Signal priority remains distinct; native scheduler timing/throughput is not certified.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
@@ -5152,11 +5344,17 @@
           "Path": "validation/part-350/spawn-options-audit/prior-report.json",
           "Sha256": "CFD479C7DDE0F927221A44C31EA991B2F4FEB604C95666326A3072A1BA11030F",
           "Scope": "Independent source-known valid-option refusal at published349 against pinned OTP-29.1.1; reporting-only classification, no execution or complete option-parity claim."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-351/spawn-option-refinement/prefull-source-review.json",
+          "Sha256": "F2E799B8C899489D7441F0C58C2C9B64932A55B3CADFE70A8A46C515B98F3BA9",
+          "Scope": "Current source implements priority while remaining heap/GC/MQD/affinity refusals preserve Known status; prior unsupported-priority evidence is historical and unchanged."
         }
       ],
       "Limits": [
-        "SPAWN_VALID_TUNING_REJECTED: valid {priority,normal}/{priority,high}, {message_queue_data,on_heap|off_heap}, nonnegative min_heap_size/min_bin_vheap_size/fullsweep_after, {max_heap_size,0} and {scheduler,0} reach managed badarg; native pinned parser accepts the bounded examples.",
-        "This is direct source-known incompatibility; no new native execution, runtime failure, complete option implementation or whole-MFA compatibility claim."
+        "SPAWN_VALID_TUNING_REJECTED: process scheduling priority is implemented in the351 candidate, but valid message_queue_data on_heap/off_heap, nonnegative min_heap_size/min_bin_vheap_size/fullsweep_after, max_heap_size and scheduler-affinity options remain rejected. Historical350 evidence includes the then-unsupported priority slice and is retained with its original scope.",
+        "Priority source/focus evidence supports the implemented logical queue slice, not complete option compatibility, native heap layout, scheduler timing/throughput or new original351 execution."
       ],
       "Key": "erlang:spawn_opt/4"
     },
@@ -5165,7 +5363,7 @@
       "Function": "spawn_opt",
       "Arity": 5,
       "Status": "Known differences",
-      "Scope": "Local and connected spawn paths exist, but the full OTP-29.1.1 option contract is not compatible. Current published349 rejects source-proven valid process scheduling priority, heap/GC, message_queue_data and scheduler options before child creation; same-node forms establish the difference for this arity. Signal-priority link/monitor support is distinct from process scheduling priority.",
+      "Scope": "Local and existing connected spawn paths now accept process scheduling priority low/normal/high/max and use logical priority admission. Heap/GC tuning, message_queue_data and scheduler affinity options remain source-proven valid OTP refusals, so the full option contract stays Known differences. Signal priority remains distinct; native scheduler timing/throughput is not certified.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
@@ -5190,11 +5388,17 @@
           "Path": "validation/part-350/spawn-options-audit/prior-report.json",
           "Sha256": "CFD479C7DDE0F927221A44C31EA991B2F4FEB604C95666326A3072A1BA11030F",
           "Scope": "Independent source-known valid-option refusal at published349 against pinned OTP-29.1.1; reporting-only classification, no execution or complete option-parity claim."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-351/spawn-option-refinement/prefull-source-review.json",
+          "Sha256": "F2E799B8C899489D7441F0C58C2C9B64932A55B3CADFE70A8A46C515B98F3BA9",
+          "Scope": "Current source implements priority while remaining heap/GC/MQD/affinity refusals preserve Known status; prior unsupported-priority evidence is historical and unchanged."
         }
       ],
       "Limits": [
-        "SPAWN_VALID_TUNING_REJECTED: valid {priority,normal}/{priority,high}, {message_queue_data,on_heap|off_heap}, nonnegative min_heap_size/min_bin_vheap_size/fullsweep_after, {max_heap_size,0} and {scheduler,0} reach managed badarg; native pinned parser accepts the bounded examples.",
-        "This is direct source-known incompatibility; no new native execution, runtime failure, complete option implementation or whole-MFA compatibility claim."
+        "SPAWN_VALID_TUNING_REJECTED: process scheduling priority is implemented in the351 candidate, but valid message_queue_data on_heap/off_heap, nonnegative min_heap_size/min_bin_vheap_size/fullsweep_after, max_heap_size and scheduler-affinity options remain rejected. Historical350 evidence includes the then-unsupported priority slice and is retained with its original scope.",
+        "Priority source/focus evidence supports the implemented logical queue slice, not complete option compatibility, native heap layout, scheduler timing/throughput or new original351 execution."
       ],
       "Key": "erlang:spawn_opt/5"
     },
@@ -5802,10 +6006,18 @@
       "Module": "erlang",
       "Function": "statistics",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
+      "Status": "Known differences",
+      "Scope": "Wall-clock/runtime samples retain their current implementation. Valid pinned OTP garbage_collection queries are rejected with notsup by the managed physical-key gate: a concrete observable contract difference.",
+      "Evidence": [
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-351/statistics-audit/classification.json",
+          "Sha256": "4BBB3A04A253D6F4F3B2C783FAC94ED14590DD8D56AD3B5A372C458835FA9CA2",
+          "Scope": "Source-proven valid garbage_collection key is rejected with notsup, while pinned OTP accepts it and requests GC statistics; no physical counter values are invented and the minimal probe is unexecuted."
+        }
+      ],
       "Limits": [
+        "The valid garbage_collection key is explicitly rejected with notsup. Pinned OTP accepts this key and obtains GC statistics (or its internal undefined branch); the project has not implemented corresponding real GC accounting. Do not fabricate counter values or claim complete statistics/1 compatibility.",
         "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
       ],
       "Key": "erlang:statistics/1"
@@ -8620,8 +8832,8 @@
       "Key": "rpc:call/5"
     }
   ],
-  "ComparisonTestReport": "validation/part-348/full/tests.json",
-  "LocalPassedTests": 7286,
+  "ComparisonTestReport": "validation/part-350/full/tests.json",
+  "LocalPassedTests": 7297,
   "RegisteredMfas": 587,
   "PreviousRegisteredMfas": 587,
   "RegisteredMfaDelta": 0,
@@ -8801,7 +9013,8 @@
         "Part 326: exact {async_dist,true|false} creator options initialize the real local child flag under the existing gate before process tables, actor dispatch and spawn trace publication; last valid value wins, invalid entries remain errors and default children do not inherit the parent flag. Disconnected spawn_request still defers creator-only options, preserving existing sender reply/link/monitor validation. Actual focused fourteen generated SDK cases and six HOST groups/three new internal controls passed; identical helpers over historical325 produced a settled public valid-option badarg, separately from unexecuted optional generated historical mode. Actual final Main6708/6708 and eleven integrations plus three fresh post-full trusted Windows roles passed; actual readiness CLI exit0 against immutable325 is a required finalization gate, registry509/509/delta0 and351erlang presence only. Published324 typed five terminal scopes pass with separate retained map-stdout and EXIT frozenset strict-text refusals; published325 CI6693/11 and separate native/reallocation profiles and both original normal/async retained-LINK scenarios are now independently verified, including DOWN killed before owned B resumes and nonce-bound compiled receiver EXIT killed after CONT; new326 original outcomes remain pending and no SDK wire/live-peer equality is inferred. No \u002Bpad, full remote spawn/priorities, scheduler/wire/physical parity or whole erlang completion is claimed.",
         "Part 327: per-process error_handler accepts any atom, returns the previous value and defaults independently in children; missing supported registered/source MFA calls select the actual registered undefined_function/3 in the same process with original evaluated arguments and normal source-image admission. Missing callback retains original undef; valid callee undef, malformed calls, invalid sends and export checks are not intercepted. Private immutable Terms provenance preserves first-handler/outer continuation order without changing unmarked generic prepend or explicit trace identity. Actual isolated20 generated cases/five HOST groups and settled historical326 valid-flag badarg RED pass; prior nested semantic RED and distinct fixture/receipt preconditions remain preserved. Actual Main passes6729/6729 and11 integration/package checks; three separate fresh post-full trusted Windows SDK processes pass legacy, five-phase query and reallocation controls. Publication additionally requires the separate actual readiness CLI comparing immutable326. Pinned ad058 bif.c/erl_process.h/erl_process.c and beam_common.c guide the existing CLR registry/compiler/exception adaptation, with no new framework. Before-FIRST-handler source-callee stack parity, default kernel autoload, undefined_lambda, raw BEAM imports, native physical/scheduler behavior and whole erlang compatibility remain partial; current original327 comparison is pending.",
         "Part 328: deferred compiler-source and unresolved restored local fun invocation selects the executing runtime and its actual undefined_lambda/3 with the original restored wrapper and evaluated arguments only when no CURRENT defining code can resolve the fun. Stable per-key immutable publications, Volatile validation and typed retry retain existing lock order and normal source leases; named/anonymous and module-null factory paths validate before invocation. The public six-argument source admission preserves old undef. Actual focused eight generated fixtures/twelve HOST selectors (seven feature controls plus five unchanged legacy regression groups), historical327 public and generated undef, Main6738/6738 and eleven integrations, three fresh post-full Windows SDK roles and readiness CLI exit0 against immutable327 are required and bound by this entry. Initial first-fixture stack-overflow is retained; a tail-recursive fixture helper is not a generic production stack-safety fix. Fresh CURRENT without maker factory, direct foreign captured-image funs, default autoload, raw BEAM, full native continuation/stack parity and performance remain incomplete; original328 comparison remains pending. Registry509/previous509/delta0 and351erlang is presence only. Published327 all five typed scopes pass, including5925/fd8 with a separate strict map-stdout refusal and no raw normalization.\n First actual Main1 failed6733/6738 on five old legacy factory timing assertions, reproduced using its exact captured Runtime; a narrow public Register HOST-factory eager Restore split preserves exact legacy return objects outside Functions gate while compiler source factories remain deferred. Compiler source factories never construct during decode. Legacy public HOST factories retain existing selected decode or owner-preparation timing outside gates; no new ingress path or test weakening is introduced. First failed full and same-DLL RED remain historical; only newly bound corrected Main gates are publication authority.",
-        "Part 329: the CLR source evaluator checks physical stack availability at named and anonymous function entries and yields on a low-stack result without charging guest reductions; halt/cancellation and the existing source-image lease/owner flow remain in force. Actual bounded compiled4096, retained original input, module-null interpreted and lifecycle controls, fresh Main6747/11, post-full SDK native roles and readiness509 total/351 erlang are mandatory evidence for this slice. Registered MFA rows and all thirty prior custom Limits remain unchanged. This does not establish arbitrary AST/term/pattern or all host-context/completion/unwind stack safety, nor native physical layout, scheduler or performance parity. The existing BCL mechanism is reused without a new third-party component; selected prior328 all-five typed proofs remain separate from future original329 observations."
+        "Part 329: the CLR source evaluator checks physical stack availability at named and anonymous function entries and yields on a low-stack result without charging guest reductions; halt/cancellation and the existing source-image lease/owner flow remain in force. Actual bounded compiled4096, retained original input, module-null interpreted and lifecycle controls, fresh Main6747/11, post-full SDK native roles and readiness509 total/351 erlang are mandatory evidence for this slice. Registered MFA rows and all thirty prior custom Limits remain unchanged. This does not establish arbitrary AST/term/pattern or all host-context/completion/unwind stack safety, nor native physical layout, scheduler or performance parity. The existing BCL mechanism is reused without a new third-party component; selected prior328 all-five typed proofs remain separate from future original329 observations.",
+        "Part351: max/high/normal/low owner scheduling and logical low8 admission, initial spawn priority, priority flag/query, actual executing-turn borrowing and escaped registered-callback readmission. Isolated ParseAll10 and24 managed controls pass with exact loaded DLL identities; current canonical full/original/CI evidence is reported separately, with no whole-MFA or physical/performance parity claim."
       ],
       "Remaining": [
         "signal races, scheduler fairness and resources",
@@ -8815,7 +9028,7 @@
         "GC global CLR heap differs from BEAM per-process heap,physical roots/reductions/dirty-task/max-heap/resource/scheduler parity;CPU hardware topology assignment and full system flags/info unfinished.",
         "Physical BEAM heap/scheduler/resources,complete lint/spec/warnings/source stacks/code staging,connected distribution and full native/upstream/performance parity;native numeric record hashes independently matched in230, while general resource/lifecycle scope remains partial."
       ],
-      "RelatedPassedTests": 729
+      "RelatedPassedTests": 737
     },
     {
       "Id": "Compiler",
@@ -9064,7 +9277,7 @@
         "Part134: all3248 comparable original cases pass at b1ed28e; six exact unsafe-original scenarios remain explicitly excluded while mandatory managed tests pass. No complete native coverage claim.",
         "Part136: complete3291 comparable original cases,3290 pass/one pending alias signal admission mismatch at569cba8;six explicit unsafe-native exclusions remain. Implement pending signal admission before promotion;latest successful comparable134."
       ],
-      "RelatedPassedTests": 5562
+      "RelatedPassedTests": 5565
     },
     {
       "Id": "Style checks",
@@ -15478,8 +15691,8 @@
       "Status": "Partially compatible",
       "RegisteredMfas": 351,
       "VerifiedCompatibleMfas": 10,
-      "NeedsVerificationMfas": 335,
-      "KnownDifferenceMfas": 6,
+      "NeedsVerificationMfas": 334,
+      "KnownDifferenceMfas": 7,
       "PreviousRegisteredMfas": 351,
       "Delta": 0,
       "ReferenceDeclarations": 351,

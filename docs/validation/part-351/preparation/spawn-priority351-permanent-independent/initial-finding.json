@@ -1,0 +1,40 @@
+{
+  "Status": "SOURCE_PIN_REFUSAL_PERMANENT_RAW_LITERALS_DROP_FINAL_LF",
+  "SourceFreezeSha256": "D74CCF45D969027058201E4EC987E34EA0A5F045B467F14068510B0522647ED4",
+  "InitialReviewSha256": "E9158B5D3EC3DD594A457A470B144610D0B92AC70A5B23E03191AF0780BFA95E",
+  "Rows": [
+    {
+      "Key": "FirstObservation",
+      "FocusedBytes": 520,
+      "PermanentBytes": 519,
+      "FocusedSha256": "D2F4609F3BA00C4C378CB2A8630D4E622A722640DBA125F860BE7F9CAFD11473",
+      "PermanentSha256": "D8F83631942F6206568BB77678E340E05BEECA83F0B4EBFE79B75BEC01C5202B",
+      "OnlyDelta": "Missing finalLF in permanent C#raw string value"
+    },
+    {
+      "Key": "FlagOldAndDefault",
+      "FocusedBytes": 629,
+      "PermanentBytes": 628,
+      "FocusedSha256": "2F16B176618F1FFA2508B48A4B96D0A27C8130E2734BEB449E0FC875D8585441",
+      "PermanentSha256": "3B6F45B32AD69009C3BA5A98D4F38A8670C64BB12E9FF06694CBED736BD0EDAA",
+      "OnlyDelta": "Missing finalLF in permanent C#raw string value"
+    },
+    {
+      "Key": "DuplicateInvalid",
+      "FocusedBytes": 665,
+      "PermanentBytes": 664,
+      "FocusedSha256": "54C673183C938A0B40374E805436BEAD7180BA319C3BFA67F17CFE28AC7B8B1C",
+      "PermanentSha256": "04141342E0EBA2EE737DD219DA80E683A638DF103F3EF14457D72DAC2EBED2A4",
+      "OnlyDelta": "Missing finalLF in permanent C#raw string value"
+    }
+  ],
+  "SourceControlsExactClaimNotSatisfied": true,
+  "PreviouslyPassedSourceChecks": [
+    "40snapshots and2826closure rehash",
+    "20production and10HOST exactfocused",
+    "Program8additive decodedstatements/catalogappend3"
+  ],
+  "RuntimeFailureClaimed": false,
+  "SdkExecuted": false,
+  "MainModified": false
+}

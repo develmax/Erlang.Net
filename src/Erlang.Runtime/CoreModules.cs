@@ -253,6 +253,8 @@ public static class CoreModules
          return ProcessSavedCallRegistrations.ChangeSelf(c, a);
      if (a[0] is Atom { Name: ProcessInfoLogicalNames.ErrorHandler })
          return c.Runtime.ChangeErrorHandler(c, a[1]);
+     if (a[0] is Atom { Name: ProcessPriorityNames.Flag })
+         return c.Runtime.ChangeSchedulingPriority(c, a[1]);
      if (a[0] is Atom { Name: ProcessAsyncDistributionNames.Flag })
          return ProcessAsyncDistributionRegistration.ChangeSelf(c, a[1]);
      if (AtomName(a[0]) != ProcessFlagNames.TrapExit)

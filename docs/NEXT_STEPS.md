@@ -1,5 +1,7 @@
 # Next executable tasks
 
+Part351: publish the exact tested priority implementation, verify same-head CI and three new priority scenarios against pinned OTP. Keep10/24/553 classifications until a later complete contract audit and current-source proof justify promotion. Continue real statistics garbage-collection accounting without invented counts.
+
 Post-full reporting correction: erlang:spawn_opt/2,3,4,5 move from Needs verification to Known differences because valid OTP priority, message_queue_data, heap, GC and scheduler options are rejected by the managed parser. This source-proven correction changes the final ledger to 10 verified,23 known differences,554 pending (erlang10/6/335); all583 other entries and59 source guards remain unchanged. The immutable full350 input ledger remains10/19/558; this is a later reporting change, not a rewritten full result. No new native execution or runtime implementation is claimed. The first documentation finalizer invocation refused a relative guard path before creating its overlay; the absolute-path invocation completed without SDK or Main mutation.
 
 Part350: publish the exact tested portable catalog, verify current-head CI and all18 new scenarios against pinned OTP. Retain current59-source compatibility guards and10/19/558 statuses until independent full-contract evidence justifies a later promotion. Keep process_info physical accounting and native/managed interoperability limits explicit.

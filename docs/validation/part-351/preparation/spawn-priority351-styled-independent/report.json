@@ -1,0 +1,55 @@
+{
+  "Status": "PASS_INDEPENDENT_STYLED_PRIORITY351_PRODUCTION20_AND_BUILD_CLOSURE_SOURCE_REVIEW",
+  "StyledFreezeSha256": "53A8C9186D0C62E151174902FB7D3C079FC882B58F5F4F654FBC3488ED15390A",
+  "Source3FreezeSha256": "652DD4A9646BCF0A14FC6CA76C7DC88BEE72291E3FC8F453E691EC1023B6F140",
+  "Source3PeerSha256": "8D96FAA8337AD4EEBE2CE0104A8E3D170A51F750FD442DDA15B5BBA94383D0FB",
+  "ProductionRows": 20,
+  "BuildClosureRows": 2780,
+  "BuildClosureSha256": "D479BCE0E94257F01917E3C6BE5E73235D8237ECF7319F3FFFA6FD5D4CD4FED2",
+  "BaselineMainRows": 2768,
+  "UnownedMainRawRows": 2760,
+  "UnownedRawVariances": 0,
+  "ComparisonMethod": "All20 current candidate/snapshot/frozen hashes rechecked; whitespace-removed decoded text exact. All8 changed-file unified diffs independently inspected: only blank lines, indentation and comma-delimited call-argument wraps; no literal/comment/operator/identifier or token-boundary edits. Concrete equivalent whitespace diff review; no Roslyn tokenizer execution claimed.",
+  "ChangedFiles": [
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.cs",
+      "Diff": "--- \n+++ \n@@ -299,5 +299,14 @@\n         }\n \n-        return InvokeAdmittedSelection(context, module, function, arguments, body!, image, code, handler);\n+        return InvokeAdmittedSelection(\n+            context,\n+            module,\n+            function,\n+            arguments,\n+            body!,\n+            image,\n+            code,\n+            handler\n+        );\n     }\n \n"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.ProcessScheduling.cs",
+      "Diff": "--- \n+++ \n@@ -28,7 +28,24 @@\n                 throw;\n             }\n+\n             return handler\n-                ? InvokeErrorHandler(context, module, function, arguments, body, image, code)\n-                : InvokeSelected(context, module, function, arguments, body, image, code);\n+                ? InvokeErrorHandler(\n+                    context,\n+                    module,\n+                    function,\n+                    arguments,\n+                    body,\n+                    image,\n+                    code\n+                )\n+                : InvokeSelected(\n+                    context,\n+                    module,\n+                    function,\n+                    arguments,\n+                    body,\n+                    image,\n+                    code\n+                );\n         }\n \n"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessExecutionAwaiter.cs",
+      "Diff": "--- \n+++ \n@@ -19,5 +19,7 @@\n     public bool IsCompleted => !Forced && pending.IsCompleted &&\n         (scheduler is null || RuntimeActorExecutionTurn.IsOwnedBy(scheduler.Owner));\n+\n     public void GetResult() => pending.GetResult();\n+\n     public void OnCompleted(Action continuation) => UnsafeOnCompleted(continuation);\n \n@@ -28,4 +30,5 @@\n         var reason = admission;\n         bool forced = Forced;\n+\n         void Queue()\n         {\n@@ -33,4 +36,5 @@\n             {\n                 _ = Task.Run(continuation);\n+\n                 return;\n             }\n@@ -40,4 +44,5 @@\n                 target.Continue(continuation, reason);\n         }\n+\n         void Resume()\n         {\n"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
+      "Diff": "--- \n+++ \n@@ -210,5 +210,7 @@\n             try\n             {\n-                _ = actorDispatcher.Dispatch(ctx, async () =>\n+                _ = actorDispatcher.Dispatch(\n+                    ctx,\n+                    async () =>\n                 {\n                     lock (gate)\n@@ -283,5 +285,6 @@\n                         }\n                     }\n-                });\n+                }\n+                );\n                 enqueued = true;\n                 if (link && parent is not null)\n"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.Priority.cs",
+      "Diff": "--- \n+++ \n@@ -12,4 +12,5 @@\n             context.SchedulingPriorityLevel = priority;\n             actorDispatcher.PriorityChanged(context);\n+\n             return previous;\n         }\n"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeActorDispatcher.cs",
+      "Diff": "--- \n+++ \n@@ -31,6 +31,10 @@\n             try\n             {\n-                var factory = new TaskFactory(CancellationToken.None, TaskCreationOptions.DenyChildAttach,\n-                    TaskContinuationOptions.None, scheduler);\n+                var factory = new TaskFactory(\n+                    CancellationToken.None,\n+                    TaskCreationOptions.DenyChildAttach,\n+                    TaskContinuationOptions.None,\n+                    scheduler\n+                );\n                 execution = factory.StartNew(NifImageInitializationFlow.IsolateActor(NifRetirementFlow.IsolateActor(body))).Unwrap();\n             }\n@@ -40,6 +44,11 @@\n                 throw;\n             }\n-            _ = execution.ContinueWith(_ => Released(), CancellationToken.None,\n-                TaskContinuationOptions.ExecuteSynchronously, TaskScheduler.Default);\n+            _ = execution.ContinueWith(\n+                _ => Released(),\n+                CancellationToken.None,\n+                TaskContinuationOptions.ExecuteSynchronously,\n+                TaskScheduler.Default\n+            );\n+\n             return execution;\n         }\n@@ -119,4 +128,5 @@\n         best.Value.ReadyNode = null;\n         best.Value.Running = true;\n+\n         return best.Value;\n     }\n@@ -151,4 +161,5 @@\n                     workers--;\n                     CompleteIfIdle();\n+\n                     return;\n                 }\n@@ -178,4 +189,5 @@\n             retiring = true;\n             CompleteIfIdle();\n+\n             return completion.Task;\n         }\n"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeActorExecutionTurn.cs",
+      "Diff": "--- \n+++ \n@@ -9,4 +9,5 @@\n \n     internal static bool IsOwnedBy(ProcessContext context) => ReferenceEquals(owner, context);\n+\n     internal static long Epoch(ProcessContext context) => IsOwnedBy(context) ? epoch : 0;\n \n@@ -16,4 +17,5 @@\n         owner = context;\n         epoch = currentEpoch;\n+\n         return previous;\n     }\n"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeProcessTaskScheduler.cs",
+      "Diff": "--- \n+++ \n@@ -13,7 +13,9 @@\n \n     protected override void QueueTask(Task task) => dispatcher.Enqueue(this, task);\n+\n     protected override bool TryExecuteTaskInline(Task task, bool taskWasPreviouslyQueued) =>\n         !taskWasPreviouslyQueued && RuntimeActorExecutionTurn.IsOwnedBy(Owner) &&\n         System.Runtime.CompilerServices.RuntimeHelpers.TryEnsureSufficientExecutionStack() && TryExecuteTask(task);\n+\n     protected override IEnumerable<Task>? GetScheduledTasks() => dispatcher.Snapshot(this);\n \n@@ -27,9 +29,18 @@\n     {\n         var request = new RuntimeActorContinuation(body, admission);\n-        _ = Task.Factory.StartNew(static value => ((RuntimeActorContinuation)value!).Body(), request,\n-            CancellationToken.None, TaskCreationOptions.DenyChildAttach, this);\n+        _ = Task.Factory.StartNew(\n+            static value => ((RuntimeActorContinuation)value!).Body(),\n+            request,\n+            CancellationToken.None,\n+            TaskCreationOptions.DenyChildAttach,\n+            this\n+        );\n     }\n \n     internal Task<Term> Invoke(Func<ValueTask<Term>> body) => Task.Factory.StartNew(\n-        () => body().AsTask(), CancellationToken.None, TaskCreationOptions.DenyChildAttach, this).Unwrap();\n+        () => body().AsTask(),\n+        CancellationToken.None,\n+        TaskCreationOptions.DenyChildAttach,\n+        this\n+    ).Unwrap();\n }\n"
+    }
+  ],
+  "BoundedProductionCompileAdmissible": true,
+  "FocusedHarnessGate": "Separate immutable runner/target/source handoff still pending. This receipt binds Root build inputs, not unreviewed focused harness/results.",
+  "InitialPassiveReviewPreconditionCorrection": "Initial local inline review assumed baseline manifest contained only2760unowned rows; actual schema contains2768Main rows including8existing owned parents. Corrected by excluding exact20owned path set before asserting2760. No production/code/runtime failure.",
+  "MainModified": false,
+  "SdkExecuted": false,
+  "NetworkUsed": false,
+  "OriginalExecuted": false,
+  "CompatibilityStatusesChanged": false
+}

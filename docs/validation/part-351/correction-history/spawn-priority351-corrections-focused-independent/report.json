@@ -1,0 +1,443 @@
+{
+  "Status": "PASS_ACTUAL_CORRECTION_FOCUSED_59_INDEPENDENT_PASSIVE",
+  "Passed": 59,
+  "Failed": 0,
+  "HostTests": 12,
+  "PressureCompiled": 19,
+  "NativeOptionCompiled": 25,
+  "PriorityCompiled": 3,
+  "SourceClosureRows": 3004,
+  "SourceFreezeSha256": "97B24C9CC9E3DDCDA194B86D83DA163676C63ECCB79840AF685651538209C0AC",
+  "TargetsSha256": "01E2297D8DB7CFDA6A02CEA253B3AEE5C5DB9631AB045CB172270394F03ED957",
+  "SummarySha256": "0B0C449AAACEAAA7BB7F2403C63D1160F9EF62BDA977BE8B587078F7DA44FD4F",
+  "SettledProcessReceipts": 60,
+  "DistinctNumericPids": 53,
+  "DistinctPidStartReceiptIdentities": 60,
+  "ReusedNumericPidsHaveNonoverlappingSettledReceiptIntervals": true,
+  "LoadedAssembliesByTarget": {
+    "host:HaltLifecycleHostChecks:Run": 7,
+    "host:PriorityPermissionHostChecks:Run": 5,
+    "host:RuntimeActorDispatchHostChecks:Run": 5,
+    "host:SpawnAsyncDistributionHostChecks:RunDeadParent": 5,
+    "host:SpawnPriorityAdmissionHostChecks:AllReadyPriorityOrder": 5,
+    "host:SpawnPriorityGuestReentryHostChecks:EscapedCallbackMustReadmitOwner": 5,
+    "host:SpawnPrioritySynchronousBorrowHostChecks:SameTurnCallbackStaysSynchronous": 5,
+    "host:SpawnPriorityEpochHostChecks:LowPaysOncePerLogicalReduction": 5,
+    "host:SpawnPriorityWaitingHostChecks:WaitingHighDoesNotHoldCapacity": 5,
+    "host:SpawnPriorityQueuedChangeHostChecks:ReprioritizesAlreadyQueuedOwner": 5,
+    "host:SpawnPriorityRetirementHostChecks:HaltSettlesEscapedCallbackWithoutInvokingTarget": 5,
+    "host:SpawnPriorityRetirementHostChecks:KilledOwnerStillSettlesQueuedCleanup": 5,
+    "erlang-port-pressure-setting-0": 8,
+    "erlang-port-pressure-setting-1": 8,
+    "erlang-port-pressure-setting-2": 8,
+    "erlang-port-pressure-setting-3": 8,
+    "erlang-port-pressure-setting-4": 8,
+    "erlang-port-pressure-invalid-watermark-5": 8,
+    "erlang-port-pressure-invalid-watermark-6": 8,
+    "erlang-port-pressure-invalid-watermark-7": 8,
+    "erlang-port-pressure-invalid-watermark-8": 8,
+    "erlang-port-pressure-invalid-watermark-9": 8,
+    "erlang-port-pressure-invalid-watermark-10": 8,
+    "erlang-port-pressure-invalid-watermark-11": 8,
+    "erlang-port-pressure-invalid-watermark-12": 8,
+    "erlang-port-pressure-invalid-watermark-13": 8,
+    "erlang-port-pressure-invalid-watermark-14": 8,
+    "erlang-port-pressure-invalid-parallelism": 8,
+    "erlang-port-pressure-suspend-resume-true": 8,
+    "erlang-port-pressure-suspend-resume-false": 8,
+    "erlang-port-pressure-default-line": 8,
+    "erlang-port-native-option-echo-0": 8,
+    "erlang-port-native-option-echo-1": 8,
+    "erlang-port-native-option-echo-2": 8,
+    "erlang-port-native-option-echo-3": 8,
+    "erlang-port-native-option-echo-4": 8,
+    "erlang-port-native-option-shared-streams-5": 8,
+    "erlang-port-native-option-shared-streams-6": 8,
+    "erlang-port-native-option-shared-streams-7": 8,
+    "erlang-port-native-option-shell-shared-streams": 8,
+    "erlang-port-native-option-arg0-9": 8,
+    "erlang-port-native-option-arg0-10": 8,
+    "erlang-port-native-option-arg0-11": 8,
+    "erlang-port-native-option-arg0-preserved-by-args": 8,
+    "erlang-port-native-option-invalid-arg0-13": 8,
+    "erlang-port-native-option-invalid-arg0-14": 8,
+    "erlang-port-native-option-invalid-arg0-15": 8,
+    "erlang-port-native-option-arg0-rejects-shell": 8,
+    "erlang-port-native-option-stdio-conflict-17": 8,
+    "erlang-port-native-option-stdio-conflict-18": 8,
+    "erlang-port-native-option-auxiliary-19": 8,
+    "erlang-port-native-option-auxiliary-20": 8,
+    "erlang-port-native-option-auxiliary-21": 8,
+    "erlang-port-native-option-input-only-eof": 8,
+    "erlang-port-native-option-input-only-output-fails": 8,
+    "erlang-port-native-option-output-only-no-data": 8,
+    "spawn-priority-priority-first-observation": 8,
+    "spawn-priority-priority-flag-old-and-default": 8,
+    "spawn-priority-priority-duplicate-invalid": 8
+  },
+  "LoadedAssemblyUnionCount": 8,
+  "All59LazyLoadedSetsExactExpectedClassAndCurrentOutputDllHashes": true,
+  "InitialBuiltDllManifestCaptured": false,
+  "SourceAndExpectedIndependentlyReconstructedFromFrozenCSharpCatalog": true,
+  "CallerContextAndPolicy": "UntrappedFresh/Default; actual reviewed harness passes fixture.CallerContext and rejects nondefault policy. These values are source-proven, not separately emitted metadata fields.",
+  "GeneratedHashes": "Each actual observation has a valid64hex generated CSharp hash; compilation deterministic reexecution not performed by passive reviewer.",
+  "Scope": "Managed bounded focused execution only; no original351 comparison, full pass, API compatibility promotion or performance claim.",
+  "Authorship": "Reviewer authored three HOST migrations and independently reviewed two runtime patches; Root executed actual build/cases.",
+  "ReaderHistory": "Initial reader5992 refused uniform Loaded7 assumption; actual reviewed harness lazy loads halt7, otherHOST5, compiled8. Original reader and failure receipt preserved; raw results unchanged. Reader2 later refused numericPID uniqueness; reader3 instead verifies distinct PID/start receipt identities and nonoverlapping reuse intervals, without claiming OS startticks capture.",
+  "Observations": [
+    {
+      "Name": "host:HaltLifecycleHostChecks:Run",
+      "ReceiptSha256": "FA2CD53328D2EADDC7C863BFFF3864F1E2066342B25AF8131CBB7F2014BF471E",
+      "ResultSha256": "1F5C5162277B216BF7A61AC2D928744315E20E0D2698E81E475701E2AB65D6EB",
+      "Pid": 248276
+    },
+    {
+      "Name": "host:PriorityPermissionHostChecks:Run",
+      "ReceiptSha256": "E47B9591910C714FB4251A1E2B9DDDC8C1202AA09BFFDFDBC5388714313091D7",
+      "ResultSha256": "CFF77FDC4869B9A358401BE1B23B112DC425050AE7E5FD148EA43FC6B7FF7E59",
+      "Pid": 248536
+    },
+    {
+      "Name": "host:RuntimeActorDispatchHostChecks:Run",
+      "ReceiptSha256": "3C6C14FAA4AC97A9EBF68998C7BA0799E28865A987FEDE9DD96B78707E3EC718",
+      "ResultSha256": "B4A29CC9327357437292114406FBF4A714E23F3C58ADCE9A40002136E0AACCC4",
+      "Pid": 221376
+    },
+    {
+      "Name": "host:SpawnAsyncDistributionHostChecks:RunDeadParent",
+      "ReceiptSha256": "9E9EAC899546F16D9755155F4E40CBB7CC2C7BDCD7F2CEAEEB4905F1CDF072F2",
+      "ResultSha256": "590F611B619CA3A76A86876A72B663F0EBEADB467EB1674F3C84D9602F90437E",
+      "Pid": 242812
+    },
+    {
+      "Name": "host:SpawnPriorityAdmissionHostChecks:AllReadyPriorityOrder",
+      "ReceiptSha256": "272317EECF496B75BCCEE759D0768D2BF2C4C51E5E83587CB3D92C3E1B3BF413",
+      "ResultSha256": "D48CA2BEEAA036838D7EF395522674C6595F9129E3207D9A97DE65ED4F153110",
+      "Pid": 247384
+    },
+    {
+      "Name": "host:SpawnPriorityGuestReentryHostChecks:EscapedCallbackMustReadmitOwner",
+      "ReceiptSha256": "8F6E16C7966ECCDCF9E36EDD7BC854CDA3FAC2BB8CBBD37B0F9ED6BC12F92FB7",
+      "ResultSha256": "ACBF355E53C48ABA3BBACD70EF791F2953056CF91E052C97861693EBEEA11732",
+      "Pid": 223772
+    },
+    {
+      "Name": "host:SpawnPrioritySynchronousBorrowHostChecks:SameTurnCallbackStaysSynchronous",
+      "ReceiptSha256": "41397AC01B3CE9938613EA2B7085AD81C1C43C8427D81062DE4687C12C6B3548",
+      "ResultSha256": "3BA4ED323EE313B7823CDD20B940F457322914C948E97FFBCE1431884429ECFB",
+      "Pid": 249932
+    },
+    {
+      "Name": "host:SpawnPriorityEpochHostChecks:LowPaysOncePerLogicalReduction",
+      "ReceiptSha256": "1595B9E6FF79248860C7B15E9B71A8FA0FB994D6BC79FD156ACEE813D173BC9E",
+      "ResultSha256": "ADDBD1AC7373500CF1B9A242D10FDC4EEEE954972F76025B9D0631FEDA797C59",
+      "Pid": 247868
+    },
+    {
+      "Name": "host:SpawnPriorityWaitingHostChecks:WaitingHighDoesNotHoldCapacity",
+      "ReceiptSha256": "475AAAFC0D23749537EFF75674D412C5387C775876DDB549AD1E9B63B3FD5072",
+      "ResultSha256": "D466295AD024FEC37BAAB52138882207E0016F18BC7DE4127CE53500E7E1ED86",
+      "Pid": 242388
+    },
+    {
+      "Name": "host:SpawnPriorityQueuedChangeHostChecks:ReprioritizesAlreadyQueuedOwner",
+      "ReceiptSha256": "750D4D17C5E536ECC0F7D46767DA417FF8DE204A4943B692C3002570BE1AC28E",
+      "ResultSha256": "53D5A8158AC070315EBC45629E42F7DC7A56A085DB3DC43EB9CE77B454E8BAED",
+      "Pid": 247728
+    },
+    {
+      "Name": "host:SpawnPriorityRetirementHostChecks:HaltSettlesEscapedCallbackWithoutInvokingTarget",
+      "ReceiptSha256": "FCF6852177672BC4340F46067DCBC582F21A1CEFB64B089C4E8F6CDB20BC8909",
+      "ResultSha256": "196CA72768195ACDD705980ED3429AB9BDC1B075DF34AA107CE0C75197C97051",
+      "Pid": 22552
+    },
+    {
+      "Name": "host:SpawnPriorityRetirementHostChecks:KilledOwnerStillSettlesQueuedCleanup",
+      "ReceiptSha256": "425E50CD6D426DDCF737AF5CB2CE621CE35B34EF9172F7AECB06EF6EC187A61A",
+      "ResultSha256": "3586BE0AF8A5AC4A979C608CE2D658618DB71D8448D8EB2A943A535A57E277B9",
+      "Pid": 243412
+    },
+    {
+      "Name": "erlang-port-pressure-setting-0",
+      "ReceiptSha256": "502B9554D2BEE6AFD27BF17F8AB9434576741A644FD2E2086CA9E85A367C5800",
+      "ResultSha256": "614425152D4B61905DB68699DD55018D06EB082C98E9F0FE4DE0666AE7E3B817",
+      "Pid": 249504
+    },
+    {
+      "Name": "erlang-port-pressure-setting-1",
+      "ReceiptSha256": "574E86F21B322E7C45598A3CFC2224C5DA7BE34AACFA225F39B8EA163C73F8D2",
+      "ResultSha256": "0A007731DCED355490B3AAD2060E5E6E4CC6F18DCB13ED827299F14FD56D694D",
+      "Pid": 250036
+    },
+    {
+      "Name": "erlang-port-pressure-setting-2",
+      "ReceiptSha256": "FC6540E8812E29F44F7BC72B6B7C2FCB63F56F45E685C07A02897D49B56E6590",
+      "ResultSha256": "47C9EBBEA8C02F2827A1B8B1CF83B5F486D92A7AD4B2593416D80C2B5D9F86D7",
+      "Pid": 244372
+    },
+    {
+      "Name": "erlang-port-pressure-setting-3",
+      "ReceiptSha256": "8FD69FCE2E358A6DD120E22F09287183EC9179147588DFF581DFBF79E833A606",
+      "ResultSha256": "E0C9920F7FAC91343A31811CF47540A34179DBD95261E3E217E98215C0A5D3B2",
+      "Pid": 250724
+    },
+    {
+      "Name": "erlang-port-pressure-setting-4",
+      "ReceiptSha256": "4EA7BB34284BA2057D0F752C0E7C22E85ED3FB392857F405C1566A89BB2B3D67",
+      "ResultSha256": "0D74D62B23995E7BEA1C81E46F17CDCAF140ADB4C59269E9185A82B70B1A5F85",
+      "Pid": 243120
+    },
+    {
+      "Name": "erlang-port-pressure-invalid-watermark-5",
+      "ReceiptSha256": "A5A12D497C397395C5C81780B9454BA1F3F242524240BACCB6A737D68552820A",
+      "ResultSha256": "779DBC97C2DAA38F66F507926AAF014F4606FB3E18699E0B32913BAD8780EB2E",
+      "Pid": 232024
+    },
+    {
+      "Name": "erlang-port-pressure-invalid-watermark-6",
+      "ReceiptSha256": "B0526117659C11CB584AE8C9B1D4EA919C111C30AADFBCE53F4BED29925643B7",
+      "ResultSha256": "D106515EC35F98881E8708040D23D853BB69AB02413CCDFD603B043D0C99285A",
+      "Pid": 29120
+    },
+    {
+      "Name": "erlang-port-pressure-invalid-watermark-7",
+      "ReceiptSha256": "1CD710715EDFA83A0CDF64BBA52774780BF4DC87132EC49ACCCD3622517A45C6",
+      "ResultSha256": "14D61F0A6DD924FFCE2D5CD1ABB3E92A71A3E9726E8EF3414946E7F0C6C4F138",
+      "Pid": 250056
+    },
+    {
+      "Name": "erlang-port-pressure-invalid-watermark-8",
+      "ReceiptSha256": "9CA7E30E98F13A3FB3419EB1BA33B9FC323D33FFA127B231AE43DD5467B61B50",
+      "ResultSha256": "78F107335FAF43CD4054F22FE66A0FF4F9DADBE58B1C2E5C7A2A27D286AD7A96",
+      "Pid": 241788
+    },
+    {
+      "Name": "erlang-port-pressure-invalid-watermark-9",
+      "ReceiptSha256": "FE0D2A5C8877B688B3E0387EF9C66FFC693FC6C60112E517172E28BB2E6E16B1",
+      "ResultSha256": "C82A88F330551529B1297299D8371C2B3AE8989CDE4F44F0D52C3DDAE046C855",
+      "Pid": 250412
+    },
+    {
+      "Name": "erlang-port-pressure-invalid-watermark-10",
+      "ReceiptSha256": "7DD55A954F1BC897062F2ABC9258806A5A8756D57A5DE56DF973448744822742",
+      "ResultSha256": "C340175BCE8BECE286B87766D6D60A6DA0E26D379BA9E9A2C93DAD13D8ECFE8A",
+      "Pid": 243120
+    },
+    {
+      "Name": "erlang-port-pressure-invalid-watermark-11",
+      "ReceiptSha256": "0FC77C84430FAF901928881036D27A0744FABA33C1300AC8BCAE03EB2F875EB6",
+      "ResultSha256": "248264236F8F3879203A094AE0B6847C1B010AB905AFB53347959905C0BA994E",
+      "Pid": 213208
+    },
+    {
+      "Name": "erlang-port-pressure-invalid-watermark-12",
+      "ReceiptSha256": "3E46BFF2BDD0560500FACD5E8302EC22288206F40736B027ABC43541C1E67011",
+      "ResultSha256": "EB074E8753F2AA4054C52C2F0C2C55EC3406C57E23218BEB87EC7242D9B2F31D",
+      "Pid": 248836
+    },
+    {
+      "Name": "erlang-port-pressure-invalid-watermark-13",
+      "ReceiptSha256": "BA6ADF59FC8CE0DA5B0FAD1AB74A4614A4B15D033B59BF4205175C169CC76300",
+      "ResultSha256": "0D25EB2FD1EB2EEE063B332CDDBFB09B8133402C6424351327E38CD11013ED16",
+      "Pid": 212224
+    },
+    {
+      "Name": "erlang-port-pressure-invalid-watermark-14",
+      "ReceiptSha256": "A3183A16A22131BCF76C1AFD7E22412BDF9FBE133EA1B2613F0AF4077F85876E",
+      "ResultSha256": "55CBAFBE18609FFE9F534AFF99F4C0169FDD3C6350DB6E7DEB2785417879C6CE",
+      "Pid": 246868
+    },
+    {
+      "Name": "erlang-port-pressure-invalid-parallelism",
+      "ReceiptSha256": "2477D54176134D8B47F78BA959A7A5A6D07BE06CDDA33E08DDD7721362AC8686",
+      "ResultSha256": "C255934A8A17762FB1B6BAA2D7E8C7034DD9E43DA2F9BC5CB67D443F10AFB1E3",
+      "Pid": 245312
+    },
+    {
+      "Name": "erlang-port-pressure-suspend-resume-true",
+      "ReceiptSha256": "B41501599B962DD393792A8201B4D7F1AC0692624B393684DFF54F304DF3EA89",
+      "ResultSha256": "5A30266B99484F5E49D388B294B4E51FF3145509D79F3423BBF1F5670C20FCBA",
+      "Pid": 249288
+    },
+    {
+      "Name": "erlang-port-pressure-suspend-resume-false",
+      "ReceiptSha256": "C7FE3DCA35A4F5BC019E0FBBD2CBE1AEBD7E0AD024CC46301331DF00888DB5B9",
+      "ResultSha256": "2487FD212C3E737CF21D7150358499129BE20C6DE62332BA3CCCFC4834034FF6",
+      "Pid": 248836
+    },
+    {
+      "Name": "erlang-port-pressure-default-line",
+      "ReceiptSha256": "DAC312B9EF73CD0472CA75412CBABD8B43073BC24BD05A78AC01B56CE4133F34",
+      "ResultSha256": "41B826918A8EA60ADA11B65A7EBE41EBE40A1AD2C4140B89FF83B4700474311D",
+      "Pid": 250724
+    },
+    {
+      "Name": "erlang-port-native-option-echo-0",
+      "ReceiptSha256": "5D20EF08F0666AFD48F88EF512FDB1EFF515E7068E1C3AECF7EB4A792BE3C146",
+      "ResultSha256": "C07C3E1F6EDC1D22EC8BF4D5AB7DD5E2869964460F36DDD38D7A964F8C6C08FD",
+      "Pid": 249504
+    },
+    {
+      "Name": "erlang-port-native-option-echo-1",
+      "ReceiptSha256": "B3D4CA487F9C6A73DC98FE21D0A027F2039002C3D740FAB2F4FCF11848EA2DB6",
+      "ResultSha256": "DF8F97E9AD305833221E880D919567EE911CE6F0290AEB785DE0AE734F347E4F",
+      "Pid": 247884
+    },
+    {
+      "Name": "erlang-port-native-option-echo-2",
+      "ReceiptSha256": "0A1A7F3F82406AA6E21BFE3B797231D3F46118E86FCCD24B07616180D87D8FC8",
+      "ResultSha256": "FD96735CD78BDE8599CCFEC307F6649299EFF59F65BAD654CE54CD6CF36D70FF",
+      "Pid": 221376
+    },
+    {
+      "Name": "erlang-port-native-option-echo-3",
+      "ReceiptSha256": "656D7452A84CBC1CF39D278D47E1C32386FFB67543D6DA023D822081B1691E4A",
+      "ResultSha256": "2BF95CEC4C1A5093AA6CE64C515B89572D6314ACDBA050385D6C926C72D77E8E",
+      "Pid": 249608
+    },
+    {
+      "Name": "erlang-port-native-option-echo-4",
+      "ReceiptSha256": "9D1A6A9E477F43B99F5B0F0196F2C2933390A96FB2E333D6D96942FD259ACD1D",
+      "ResultSha256": "1873CF800FDE55D445AB7DCBA68ACF9B915577DCD3B54217E6A249819525E167",
+      "Pid": 229712
+    },
+    {
+      "Name": "erlang-port-native-option-shared-streams-5",
+      "ReceiptSha256": "4B329C1049FFA961E6255F9D7846B4320102932E1516008F68BEA7E01F78A75A",
+      "ResultSha256": "143BBD9D4CEEA7DDBD1E84222C09F31FA6AD25446A643C3F942067CEBF15AF4D",
+      "Pid": 250292
+    },
+    {
+      "Name": "erlang-port-native-option-shared-streams-6",
+      "ReceiptSha256": "F6ACDCB93D34454A0BF3FE1DDFC587B56155C9267EAA9024069D60382632F6F9",
+      "ResultSha256": "D8CB1DDB46BF3A786DAF4626929C184418387C4021B342C848279B2185AB686D",
+      "Pid": 244876
+    },
+    {
+      "Name": "erlang-port-native-option-shared-streams-7",
+      "ReceiptSha256": "EB931E59A5E176F902458FD774FAD51E3BA2898021226E6979C69A63A5D813F6",
+      "ResultSha256": "CF153C1C22718CA07BC37CA7658C241072EA35F24B0064A0BC32713199FF3EE3",
+      "Pid": 214144
+    },
+    {
+      "Name": "erlang-port-native-option-shell-shared-streams",
+      "ReceiptSha256": "62F7A6836E2B77C24CA966FABA804EEF1540F5BD656F9B75AC0728B73E5D84C3",
+      "ResultSha256": "C04DA82BF19DB23896474344B9615F0400BDF3CB9CB377FCDEA846FD1F5A97CA",
+      "Pid": 241120
+    },
+    {
+      "Name": "erlang-port-native-option-arg0-9",
+      "ReceiptSha256": "ABB35B267FECEEC97F38B34423BB7AF678D37CD1569B2D40FA42E8A787AE7FBE",
+      "ResultSha256": "2163E16497817D3076F51FF56A7309B65047CE43D35417367FA1F24DA5307B15",
+      "Pid": 242656
+    },
+    {
+      "Name": "erlang-port-native-option-arg0-10",
+      "ReceiptSha256": "0F399AFC2DE048A7444A52DC6210D90B78CC4B6E9B9E537F3A219F427916FABC",
+      "ResultSha256": "FAEA410B56DFD6D8A3F10FAFB91617D8F227A6E48F8AA53AB29C277D08B5127A",
+      "Pid": 244660
+    },
+    {
+      "Name": "erlang-port-native-option-arg0-11",
+      "ReceiptSha256": "38FBC8712F3AE9D94BCE347AF78BA4542BCE69169A9C75DC03177FFB4847FE70",
+      "ResultSha256": "DD93E434A6121412638D908569321FE40A6E86C662B39AAC32A87FFDA696A802",
+      "Pid": 211768
+    },
+    {
+      "Name": "erlang-port-native-option-arg0-preserved-by-args",
+      "ReceiptSha256": "C7D271EBD49074B857E2B17F97C6D2A3D2D814CA29C6699F16A0D4F0743B985E",
+      "ResultSha256": "4B23CB6DCEC7D534EB2C9DC6667D456E5F82EA75BD1D9850243D904F721D41FF",
+      "Pid": 249864
+    },
+    {
+      "Name": "erlang-port-native-option-invalid-arg0-13",
+      "ReceiptSha256": "595D7ADDC1D85B4BC879C525DFA41F9CBFCE49ED00B0A317805B988E3E4A71B0",
+      "ResultSha256": "8F9BF7278E1CAC4C4DF3AFD3C7CDAE0F4AD0F13D99F6662CCEE9F62BA2682748",
+      "Pid": 239800
+    },
+    {
+      "Name": "erlang-port-native-option-invalid-arg0-14",
+      "ReceiptSha256": "08E04456E99029F78EAC50D1B49DA294BE3EEB3F7C4DD448C9FAF26D64F8CD40",
+      "ResultSha256": "C34997A1ECC82618EF022E3ABD95CB19F25DF895139B5E749B69D2188688E95C",
+      "Pid": 250552
+    },
+    {
+      "Name": "erlang-port-native-option-invalid-arg0-15",
+      "ReceiptSha256": "F2983C76FC2E48D2A7EEBEC7C669659E62425BF93E49B5AA1C36DF3602D0F227",
+      "ResultSha256": "1DC4169866E9CCC3275753CBF84666E573BA590D02F5A64C6ABD9C290E95B4EA",
+      "Pid": 250456
+    },
+    {
+      "Name": "erlang-port-native-option-arg0-rejects-shell",
+      "ReceiptSha256": "9430321FBF2DE377E31100E75F7421DA59DF5F3B8C065D2C4264928F4476DE06",
+      "ResultSha256": "50293EEF2D5A968FABACC78205A4A7463AD60CD24C79C79E3A08D6946CDEFF20",
+      "Pid": 248820
+    },
+    {
+      "Name": "erlang-port-native-option-stdio-conflict-17",
+      "ReceiptSha256": "B1AFF12AC928B71579AA3914315024A1EDC33058833E2CC6786DDEEE33B9D354",
+      "ResultSha256": "C65AB8BFD2D8270F8F73BD5151113E3F562C48DD897B1D9E0EFFB6C0F0F9EA27",
+      "Pid": 249572
+    },
+    {
+      "Name": "erlang-port-native-option-stdio-conflict-18",
+      "ReceiptSha256": "BF416E8E1B44B1704BD68DE94FA7D5168C89769B437941DF0F8D02849AE5353A",
+      "ResultSha256": "3921DA1E6CD0636ABB8D2FF37B9758ED01234A3F5FD9EDA766DB2D0EA041EBFA",
+      "Pid": 249780
+    },
+    {
+      "Name": "erlang-port-native-option-auxiliary-19",
+      "ReceiptSha256": "ED22D6D883852171089BFDBF5FF2B560017885798E5A769BE8C154B7CF9B4053",
+      "ResultSha256": "CD781703C13D240CDC7AEAB9E3A5D68ECF8C9EB99773EE66E6B646188D2D62EF",
+      "Pid": 250708
+    },
+    {
+      "Name": "erlang-port-native-option-auxiliary-20",
+      "ReceiptSha256": "F2207EF18A547703236D2AD300E75B45154500A0A7302C39CC1F9FDC33AF171E",
+      "ResultSha256": "5CFC58F6179BB3C3EF5F79E6C590DED1F4C450EB1742C424EF1526865D792F30",
+      "Pid": 242560
+    },
+    {
+      "Name": "erlang-port-native-option-auxiliary-21",
+      "ReceiptSha256": "F84FACD47E9C4199FDF3F93EA70A2C203BEF01BAC6D19848D4B841919F5C1E45",
+      "ResultSha256": "0B6A4A52286996828628ABACADE00E1D26E982C8337763E2F243E903D10D0D41",
+      "Pid": 245584
+    },
+    {
+      "Name": "erlang-port-native-option-input-only-eof",
+      "ReceiptSha256": "5F8A4B6BE0BB7C744510CC3CE1B20E5802D8DD9ADAB851737D0C3E9A9ECA6EE5",
+      "ResultSha256": "AB0E9628FB7F2130B0CFE5CEFC393CBA87BB7BAA03B749C908AEAE3DCD8B31BB",
+      "Pid": 87624
+    },
+    {
+      "Name": "erlang-port-native-option-input-only-output-fails",
+      "ReceiptSha256": "8086C27B489DE0FFCBF9199602671CB6F1CA17D043DDF9A20462DC4B3A327718",
+      "ResultSha256": "D33CF6155D811352D0FDED1A582421700FFB4D24D92377838DC615A0815EA19E",
+      "Pid": 244876
+    },
+    {
+      "Name": "erlang-port-native-option-output-only-no-data",
+      "ReceiptSha256": "645E1C3B09E5AE39787BA9B25FF879B1E5F98ACEA232B8CF1F3BEE7AE03C6949",
+      "ResultSha256": "BA7A3FD40EDD877AB79E336339DD46C2EE1225344989552FA2493A44E97E1676",
+      "Pid": 29120
+    },
+    {
+      "Name": "spawn-priority-priority-first-observation",
+      "ReceiptSha256": "8FFA8DC9AADEDC0087946BF469E95924231A62ED51A00EA7D6EE63BA419D04F0",
+      "ResultSha256": "6BFFAF286956B4C3DAEAC9E48043EE229B2B732D538F1E0D31029D2885854942",
+      "Pid": 247364
+    },
+    {
+      "Name": "spawn-priority-priority-flag-old-and-default",
+      "ReceiptSha256": "FC73E3DD628B5B0B2C033AB42C5AD2C966A466F14FF8AF7835C05D52BC195829",
+      "ResultSha256": "FB9C2FACE83E4B542528562E5FD99408657AA4D2F9400B82BEDF3B3C97B46B2A",
+      "Pid": 236216
+    },
+    {
+      "Name": "spawn-priority-priority-duplicate-invalid",
+      "ReceiptSha256": "D7AB2CC15E4D7A25DA1BE8483298EE673DCEFD8B731A5C76E4B889FFC7757164",
+      "ResultSha256": "14A565D8F979411E6E810C5E6E8DC53B8952C1DDF39474826ED95F5D46017023",
+      "Pid": 246228
+    }
+  ]
+}

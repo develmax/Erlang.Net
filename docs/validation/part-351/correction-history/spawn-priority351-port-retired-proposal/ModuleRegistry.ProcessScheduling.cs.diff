@@ -1,0 +1,11 @@
+--- frozen351/src/Erlang.Runtime/ModuleRegistry.ProcessScheduling.cs
++++ proposed/src/Erlang.Runtime/ModuleRegistry.ProcessScheduling.cs
+@@ -18,6 +18,8 @@
+             try
+             {
+                 context.Runtime.ThrowIfHalted();
++                if (context.Cancellation.IsCancellationRequested && !context.Runtime.IsAlive(context.Self))
++                    throw new ErlangException(ErlangErrorReasons.NoProcess);
+                 context.Cancellation.ThrowIfCancellationRequested();
+             }
+             catch

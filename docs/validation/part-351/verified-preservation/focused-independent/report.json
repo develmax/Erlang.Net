@@ -1,0 +1,453 @@
+{
+  "Status": "PASS_INDEPENDENT_ACTUAL_PRIORITY351_FOCUSED24_PARSE10_BUILD_AND_DLL_BINDINGS",
+  "ManagedPassed": 24,
+  "Failed": 0,
+  "ParseAll": 10,
+  "SourceFreezeSha256": "AA468252959B4C0229410DC09673C9219277FF9B02E1AD63F06897DEAFCD9C2D",
+  "SourceClosureSha256": "E61E509F1279AEA447A9DADD86BA3C1A65B53E7F4C4055666E59A27BB66DF955",
+  "SourceRows38RawExact": true,
+  "ClosureRows2798RawExact": true,
+  "PackageReadinessInputsRawExact": true,
+  "InitialBuiltDllManifestSha256": "1DC977212117143632FF026E08D3A54D66F8F99EA780E03228C33F4583F7C745",
+  "Exact8LoadedDllSetsMatchInitialBuildForParseAndAll24Targets": true,
+  "DistinctActualSettledPids26": true,
+  "SourceDerivedCompiledContracts": [
+    {
+      "Name": "priority/portable/priority_first_observation",
+      "SourceSha256": "D2F4609F3BA00C4C378CB2A8630D4E622A722640DBA125F860BE7F9CAFD11473",
+      "Expected": "{ok,done}"
+    },
+    {
+      "Name": "priority/portable/priority_flag_old_and_default",
+      "SourceSha256": "2F16B176618F1FFA2508B48A4B96D0A27C8130E2734BEB449E0FC875D8585441",
+      "Expected": "{ok,done}"
+    },
+    {
+      "Name": "priority/portable/priority_duplicate_invalid",
+      "SourceSha256": "54C673183C938A0B40374E805436BEAD7180BA319C3BFA67F17CFE28AC7B8B1C",
+      "Expected": "{ok,done}"
+    },
+    {
+      "Name": "non-tail-recursion-named-finite-checksum",
+      "SourceSha256": "0083D1647CE32A937884459C412F641344379042F540019A5AEBC5E334A1A52C",
+      "Expected": "{ok,{8390656,4096}}"
+    },
+    {
+      "Name": "non-tail-recursion-mutual-finite-checksum",
+      "SourceSha256": "AEF4819FDD8D8491F2B4B0BD5F55EFB2569BD91F9E8BFE7E77E4EBF4C823D13E",
+      "Expected": "{ok,{8390656,4096}}"
+    },
+    {
+      "Name": "non-tail-recursion-anonymous-self-argument-finite-checksum",
+      "SourceSha256": "AE80BE45508616478BCEB45507BAFDF5762D51C314C2071B2C1C2983992DAE05",
+      "Expected": "{ok,{8390656,4096}}"
+    },
+    {
+      "Name": "non-tail-recursion-tail-accumulator-control",
+      "SourceSha256": "EC448907E3F1DA83041545623F28252CC9001CA74B09FE1CA2AF266030C9CB2C",
+      "Expected": "{ok,{8390656,4096}}"
+    },
+    {
+      "Name": "non-tail-recursion-try-after-normal-return-cleanup-order",
+      "SourceSha256": "63C0D5EE8F163822870B3FD7AD53BBEA5F94948A0D9A4B5228A0BC040763704F",
+      "Expected": "{ok,{78,[12,11,10,9,8,7,6,5,4,3,2,1]}}"
+    },
+    {
+      "Name": "non-tail-recursion-try-after-error-and-throw-cleanup-once",
+      "SourceSha256": "AEBE17A154B78834FBB1C8C06233C37942CDEC12CFA200B53AED3DA2EA82E453",
+      "Expected": "{ok,{caught_error,[12,11,10,9,8,7,6,5,4,3,2,1],caught_throw,[12,11,10,9,8,7,6,5,4,3,2,1]}}"
+    },
+    {
+      "Name": "proc-lib-lifecycle-hibernate-real-message-resume",
+      "SourceSha256": "0D748247343172502A5EA75B041CC99005D0D0285DF55B16D32B14E442C7BC85",
+      "Expected": "{ok,ok}"
+    }
+  ],
+  "Outcomes": [
+    {
+      "Name": "priority/all-ready-order",
+      "OutcomeSha256": "6C74DDC297DC50B0190348ECF4AAB41A65011AA8048FE2EFAD3BD070A581992E",
+      "Compiled": false,
+      "LoadedAssembliesMatchInitialBuiltManifest": true
+    },
+    {
+      "Name": "priority/escaped-registered-callback",
+      "OutcomeSha256": "BDDF2469F054F445E2E5903AB3904C2F0A6234E138BF7BE18263D3500EEF09FD",
+      "Compiled": false,
+      "LoadedAssembliesMatchInitialBuiltManifest": true
+    },
+    {
+      "Name": "priority/synchronous-turn-borrow",
+      "OutcomeSha256": "A974A4444EDD36BD8936A012BB46A58C364CBCBBB968C628BE63EF453B6BE318",
+      "Compiled": false,
+      "LoadedAssembliesMatchInitialBuiltManifest": true
+    },
+    {
+      "Name": "priority/low-logical-epochs",
+      "OutcomeSha256": "8F42A1982776114671CD2A72E7D338A0DCA35895F353086D013ADD763A62C09E",
+      "Compiled": false,
+      "LoadedAssembliesMatchInitialBuiltManifest": true
+    },
+    {
+      "Name": "priority/waiting-high-capacity",
+      "OutcomeSha256": "D4A9D9C42ACE2CCE997FFDB0F4678AD4E83FE075C219D2B3DD192580C3CEFDB0",
+      "Compiled": false,
+      "LoadedAssembliesMatchInitialBuiltManifest": true
+    },
+    {
+      "Name": "priority/queued-priority-change",
+      "OutcomeSha256": "6B012790D2C5C1147C3D8FF8DCC5F306CFC103E0C9E9424371B9261D7D090841",
+      "Compiled": false,
+      "LoadedAssembliesMatchInitialBuiltManifest": true
+    },
+    {
+      "Name": "priority/halt-cleanup",
+      "OutcomeSha256": "D765AB5BB964555B3628F2848A37404DF11CF341B3BEA63C009E5365D25C66B0",
+      "Compiled": false,
+      "LoadedAssembliesMatchInitialBuiltManifest": true
+    },
+    {
+      "Name": "priority/killed-owner-retirement",
+      "OutcomeSha256": "B93727A568B8D5A49B3DAA91B7E42BA9068C4BDCCBD6123CE3A445E896A00388",
+      "Compiled": false,
+      "LoadedAssembliesMatchInitialBuiltManifest": true
+    },
+    {
+      "Name": "regression/source-image-current-old-purge",
+      "OutcomeSha256": "5F14048F884ADF0F2AC90B45B46F9541D6F2F46DED42A69BA14668BBD9C122AD",
+      "Compiled": false,
+      "LoadedAssembliesMatchInitialBuiltManifest": true
+    },
+    {
+      "Name": "regression/source-fun-lexical",
+      "OutcomeSha256": "47FAEA773E64564B0570DEBDA4DE6CDE380ED55DAFE080F03AFBB6AB3E612BDD",
+      "Compiled": false,
+      "LoadedAssembliesMatchInitialBuiltManifest": true
+    },
+    {
+      "Name": "regression/length-ordinary-cancellation",
+      "OutcomeSha256": "F1DBF2CE88BFD77CB0BB460D444F4859D0F2002AAF3A2714329D59CACE98023C",
+      "Compiled": false,
+      "LoadedAssembliesMatchInitialBuiltManifest": true
+    },
+    {
+      "Name": "regression/length-guard-cancellation",
+      "OutcomeSha256": "37994EC0FC1DBD6FCC51539507270D8BEF092DD44B436402902D4D5D515B6225",
+      "Compiled": false,
+      "LoadedAssembliesMatchInitialBuiltManifest": true
+    },
+    {
+      "Name": "regression/length-receive-cancellation",
+      "OutcomeSha256": "3A3E9C37DD280BF38C8B8F04EE0D5D7A3FD027E36081608CCC4BD0AB771F6A64",
+      "Compiled": false,
+      "LoadedAssembliesMatchInitialBuiltManifest": true
+    },
+    {
+      "Name": "regression/reference-resource-ownership",
+      "OutcomeSha256": "5D9C7157758CF0A5D54C9EAC5950C5D2B878DAAA595C479F2B50B9E52149B5DE",
+      "Compiled": false,
+      "LoadedAssembliesMatchInitialBuiltManifest": true
+    },
+    {
+      "Name": "priority/portable/priority_first_observation",
+      "OutcomeSha256": "9C6C34D161FF08F37DA68F52129DE5231FE21EBF11D0374978237081033E31A1",
+      "Compiled": true,
+      "LoadedAssembliesMatchInitialBuiltManifest": true
+    },
+    {
+      "Name": "priority/portable/priority_flag_old_and_default",
+      "OutcomeSha256": "178AA09B6EFE126189F68570BEF444D705F3E5FA1FA7A87CFBF9E6EC606874B5",
+      "Compiled": true,
+      "LoadedAssembliesMatchInitialBuiltManifest": true
+    },
+    {
+      "Name": "priority/portable/priority_duplicate_invalid",
+      "OutcomeSha256": "3858EFE802B65D4CDC13B856DE388EB4FB7488B3E54F5931606BD40617A68D6C",
+      "Compiled": true,
+      "LoadedAssembliesMatchInitialBuiltManifest": true
+    },
+    {
+      "Name": "non-tail-recursion-named-finite-checksum",
+      "OutcomeSha256": "C25A039F7478DDEAD4CB5FFB82FD1783936CC2D023531E871C81034F0B4E3216",
+      "Compiled": true,
+      "LoadedAssembliesMatchInitialBuiltManifest": true
+    },
+    {
+      "Name": "non-tail-recursion-mutual-finite-checksum",
+      "OutcomeSha256": "2BA00CB255BA022B89C4E7620F97D4CC6C34DC98C5A47C7357D47958ADAF37A5",
+      "Compiled": true,
+      "LoadedAssembliesMatchInitialBuiltManifest": true
+    },
+    {
+      "Name": "non-tail-recursion-anonymous-self-argument-finite-checksum",
+      "OutcomeSha256": "3E733981940DD9CAB3B8FBAF1F01606E40FEF1572FC73B7E0FF13EF368FFA0EF",
+      "Compiled": true,
+      "LoadedAssembliesMatchInitialBuiltManifest": true
+    },
+    {
+      "Name": "non-tail-recursion-tail-accumulator-control",
+      "OutcomeSha256": "990F8F9E461ECD3331D96612AC70F808307BC4C8186CEE9EC0AEB90453474194",
+      "Compiled": true,
+      "LoadedAssembliesMatchInitialBuiltManifest": true
+    },
+    {
+      "Name": "non-tail-recursion-try-after-normal-return-cleanup-order",
+      "OutcomeSha256": "EB966965653F3C22B3DC2693AA7142A749963CA8C2CB9FCDD7AA30EE4BF6ACEB",
+      "Compiled": true,
+      "LoadedAssembliesMatchInitialBuiltManifest": true
+    },
+    {
+      "Name": "non-tail-recursion-try-after-error-and-throw-cleanup-once",
+      "OutcomeSha256": "BC1E1A84B1C7B10265E46D649CC19D32B81F653097BFDC99FB92E0903788CD81",
+      "Compiled": true,
+      "LoadedAssembliesMatchInitialBuiltManifest": true
+    },
+    {
+      "Name": "proc-lib-lifecycle-hibernate-real-message-resume",
+      "OutcomeSha256": "E26319424314A89A1983C83351E3C5FB71F0F0C4FDE9D60C884711DA5D1F9962",
+      "Compiled": true,
+      "LoadedAssembliesMatchInitialBuiltManifest": true
+    }
+  ],
+  "ProcessReceipts": [
+    {
+      "Path": "artifacts/spawn-priority351-focus-actual1/build.exit.json",
+      "Sha256": "3EFEAA368F9ACDFDB32636BEE616A1E2D7019B44B3E194CBDA641E168C555F01",
+      "Pid": 218132,
+      "ExitCode": 0,
+      "Settled": true,
+      "ElapsedSeconds": 20.156000000002678
+    },
+    {
+      "Path": "artifacts/spawn-priority351-focus-actual1/parse.exit.json",
+      "Sha256": "B4F3BB15309C148C7F150EE9C6A7865D2B01AE60198ED431C39A8B12A29B8217",
+      "Pid": 242696,
+      "ExitCode": 0,
+      "Settled": true,
+      "ElapsedSeconds": 0.20300000000861473
+    },
+    {
+      "Path": "artifacts/spawn-priority351-focus-actual1/target-00/process.exit.json",
+      "Sha256": "D2C8C9D13034FA5024CE4BB41E7B8B60B21A92B79EA0D050D4AC50BECADF93F6",
+      "Pid": 250132,
+      "ExitCode": 0,
+      "Settled": true,
+      "ElapsedSeconds": 0.21899999999732245
+    },
+    {
+      "Path": "artifacts/spawn-priority351-focus-actual1/target-01/process.exit.json",
+      "Sha256": "CF66E1C5F09E9A571431BD1FA15691AC905341190EDE50922CFA79EB96444DC1",
+      "Pid": 248644,
+      "ExitCode": 0,
+      "Settled": true,
+      "ElapsedSeconds": 0.1869999999908032
+    },
+    {
+      "Path": "artifacts/spawn-priority351-focus-actual1/target-02/process.exit.json",
+      "Sha256": "12932330360ED97DCD553E6D6AEC35E5B1E4D64A2D0D29FDC78DB7DC2281049B",
+      "Pid": 249704,
+      "ExitCode": 0,
+      "Settled": true,
+      "ElapsedSeconds": 0.20300000000861473
+    },
+    {
+      "Path": "artifacts/spawn-priority351-focus-actual1/target-03/process.exit.json",
+      "Sha256": "EA6BC6B3A79CD1D04B86EF83C148F409CE4F21209FF3E3CFFD941FA7F0D4A3DE",
+      "Pid": 242336,
+      "ExitCode": 0,
+      "Settled": true,
+      "ElapsedSeconds": 0.20300000000861473
+    },
+    {
+      "Path": "artifacts/spawn-priority351-focus-actual1/target-04/process.exit.json",
+      "Sha256": "536E51B818B3335426120E2DDAB4E2269B33E8BB317F785106A5D8635D9607F5",
+      "Pid": 249080,
+      "ExitCode": 0,
+      "Settled": true,
+      "ElapsedSeconds": 0.25
+    },
+    {
+      "Path": "artifacts/spawn-priority351-focus-actual1/target-05/process.exit.json",
+      "Sha256": "FC8A3D84A1C83AE848B587A97EDD3658B36095A1BC47B4EC4EFF9B8FCCCF83D9",
+      "Pid": 235584,
+      "ExitCode": 0,
+      "Settled": true,
+      "ElapsedSeconds": 0.21800000000803266
+    },
+    {
+      "Path": "artifacts/spawn-priority351-focus-actual1/target-06/process.exit.json",
+      "Sha256": "A5698F31F70B1A943CC73EF9ED490C837F71C01C1FE6C3224BF5EAB3B169ABA6",
+      "Pid": 137400,
+      "ExitCode": 0,
+      "Settled": true,
+      "ElapsedSeconds": 0.20299999999406282
+    },
+    {
+      "Path": "artifacts/spawn-priority351-focus-actual1/target-07/process.exit.json",
+      "Sha256": "621C9216882A57F92072877E37CCF503169FB0C713D6AB9DF8C7E79B6C400EC5",
+      "Pid": 247984,
+      "ExitCode": 0,
+      "Settled": true,
+      "ElapsedSeconds": 0.1869999999908032
+    },
+    {
+      "Path": "artifacts/spawn-priority351-focus-actual1/target-08/process.exit.json",
+      "Sha256": "178F4A92CB6BF439968CA80FB1E040BB201DF51190B7B427B6BB781A35F0B77C",
+      "Pid": 214704,
+      "ExitCode": 0,
+      "Settled": true,
+      "ElapsedSeconds": 0.9060000000026776
+    },
+    {
+      "Path": "artifacts/spawn-priority351-focus-actual1/target-09/process.exit.json",
+      "Sha256": "909B0C547CBA68D0010383C6F06FC2F7B6E827B0843CE890A39813D2225B0934",
+      "Pid": 250208,
+      "ExitCode": 0,
+      "Settled": true,
+      "ElapsedSeconds": 0.8589999999967404
+    },
+    {
+      "Path": "artifacts/spawn-priority351-focus-actual1/target-10/process.exit.json",
+      "Sha256": "36F9A1E7D79E03030814475907AF125F1A3E9056E9313B92F57639F77E01DC32",
+      "Pid": 250388,
+      "ExitCode": 0,
+      "Settled": true,
+      "ElapsedSeconds": 0.7810000000026776
+    },
+    {
+      "Path": "artifacts/spawn-priority351-focus-actual1/target-11/process.exit.json",
+      "Sha256": "396E8885FFEAED4EAD179206E6D032011980305CAC873B4A75E308E12EC339DA",
+      "Pid": 219700,
+      "ExitCode": 0,
+      "Settled": true,
+      "ElapsedSeconds": 0.7969999999913853
+    },
+    {
+      "Path": "artifacts/spawn-priority351-focus-actual1/target-12/process.exit.json",
+      "Sha256": "99B79C88165E8E23D4CC5CEACA2C8260808292BD6FB3262A2A176A886DDF12F6",
+      "Pid": 248372,
+      "ExitCode": 0,
+      "Settled": true,
+      "ElapsedSeconds": 0.7960000000020955
+    },
+    {
+      "Path": "artifacts/spawn-priority351-focus-actual1/target-13/process.exit.json",
+      "Sha256": "F4ECB1FF8636194787F35841DD63FB174442D065D0261B3B5DD222850922EA1D",
+      "Pid": 249248,
+      "ExitCode": 0,
+      "Settled": true,
+      "ElapsedSeconds": 0.28099999998812564
+    },
+    {
+      "Path": "artifacts/spawn-priority351-focus-actual1/target-14/process.exit.json",
+      "Sha256": "FFDF2D07EEC966F200020936E61DC9F93CABA68827F34F7A53AFAADE1FEDFC9D",
+      "Pid": 248968,
+      "ExitCode": 0,
+      "Settled": true,
+      "ElapsedSeconds": 0.7810000000026776
+    },
+    {
+      "Path": "artifacts/spawn-priority351-focus-actual1/target-15/process.exit.json",
+      "Sha256": "C367C77E826C86FB234B32901FF3E7C3EF99C1CC03A8CAE4B2A10EE1D13990B3",
+      "Pid": 242364,
+      "ExitCode": 0,
+      "Settled": true,
+      "ElapsedSeconds": 0.7810000000026776
+    },
+    {
+      "Path": "artifacts/spawn-priority351-focus-actual1/target-16/process.exit.json",
+      "Sha256": "C729F4F31286234256F67DD56BDE83DD7505B6DE8B5A87AA0A2D67083AAF0CAD",
+      "Pid": 249108,
+      "ExitCode": 0,
+      "Settled": true,
+      "ElapsedSeconds": 0.8280000000086147
+    },
+    {
+      "Path": "artifacts/spawn-priority351-focus-actual1/target-17/process.exit.json",
+      "Sha256": "EC7251F65189BDEA2E3D590DBEB767D128EE773EA9DE5D93E5680D922D8F2CEF",
+      "Pid": 222676,
+      "ExitCode": 0,
+      "Settled": true,
+      "ElapsedSeconds": 0.8910000000032596
+    },
+    {
+      "Path": "artifacts/spawn-priority351-focus-actual1/target-18/process.exit.json",
+      "Sha256": "6F4704F266F7CB5316942C35725777A623182016C97C0A695F377BD59043333C",
+      "Pid": 81492,
+      "ExitCode": 0,
+      "Settled": true,
+      "ElapsedSeconds": 0.9530000000086147
+    },
+    {
+      "Path": "artifacts/spawn-priority351-focus-actual1/target-19/process.exit.json",
+      "Sha256": "B0755BCEFD330D4771D6786FD01489288393043ECC6B28EFDBDFB55FC8531BF1",
+      "Pid": 140872,
+      "ExitCode": 0,
+      "Settled": true,
+      "ElapsedSeconds": 0.9379999999946449
+    },
+    {
+      "Path": "artifacts/spawn-priority351-focus-actual1/target-20/process.exit.json",
+      "Sha256": "F0F51B1BA8EFFDD4E063A166CF22965AD7EC0FE1255096CA8CBF59C77F620379",
+      "Pid": 249880,
+      "ExitCode": 0,
+      "Settled": true,
+      "ElapsedSeconds": 0.8439999999973224
+    },
+    {
+      "Path": "artifacts/spawn-priority351-focus-actual1/target-21/process.exit.json",
+      "Sha256": "ED9A9168983A45618A450BEF645BE7DD201ED43A1A53E32BEA578EAE6BCBB9C0",
+      "Pid": 70796,
+      "ExitCode": 0,
+      "Settled": true,
+      "ElapsedSeconds": 0.75
+    },
+    {
+      "Path": "artifacts/spawn-priority351-focus-actual1/target-22/process.exit.json",
+      "Sha256": "AE848B207B026934722576532D80D154C612894D58F36BC304B42B95C7741A62",
+      "Pid": 244068,
+      "ExitCode": 0,
+      "Settled": true,
+      "ElapsedSeconds": 0.75
+    },
+    {
+      "Path": "artifacts/spawn-priority351-focus-actual1/target-23/process.exit.json",
+      "Sha256": "A94281861F9F9A96602995254B4CDB2123B5CD603530C699EA9690BAB093B0B6",
+      "Pid": 139040,
+      "ExitCode": 0,
+      "Settled": true,
+      "ElapsedSeconds": 0.8280000000086147
+    }
+  ],
+  "CompletedControllerManifestSha256": "7ECBF8188FA4764BFE172226AB3BA60B0705EA73E9E98EABD7AE92780F2AADEA",
+  "InitialCoreBuildHistory": [
+    {
+      "Path": "artifacts/spawn-priority351-core-build-actual1/exit.json",
+      "Sha256": "EF44AAB14D8D976E86452CB67C934717CD4AE686F986D49336E6BA634949F946",
+      "ExitCode": 1,
+      "GuestTestsExecuted": false
+    },
+    {
+      "Path": "artifacts/spawn-priority351-core-build-actual2/exit.json",
+      "Sha256": "74FAB360345CAC18126189417ACD35E3531D4161DC187C0488412DFF03EF8243",
+      "ExitCode": 0,
+      "GuestTestsExecuted": false
+    }
+  ],
+  "PreSdkRawSameRefusal": {
+    "OriginalWrapperPath": "artifacts/root-build-priority351.py",
+    "OriginalWrapperSha256": "F34E1A897E98B774DD60C4C6F9DD2006F81334299EF2D84A9F5E5401F0579BAB",
+    "RawReceiptAvailable": false,
+    "Explanation": "Root reports original wrapper raw-same assumption refused before output mkdir and before SDK; only conversation terminal trace retained. Do not invent a physical refusal receipt or classify as runtime failure."
+  },
+  "ProductionPatternRenamePeerSha256": "C4819FDE577E2467B19D78777BC0DDF429A46D88A7507C4E7C9B24956DDDE642",
+  "SourceRunnerPeerSha256": "A13F627D10772DB7D42AD40B2F06F0428AA8B92D7BFA2EEDF7D18D56865AF474",
+  "NativeExecutedByReviewer": false,
+  "SdkExecutedByReviewer": false,
+  "MainModified": false,
+  "NetworkUsed": false,
+  "CompatibilityStatusesPromoted": false,
+  "FullValidationClaimed": false,
+  "WholeSpawnOptOrNativeSchedulerParityClaimed": false,
+  "ReaderSha256": "C268A9988507953BE1C4D0511E3DA8C2056EADA5F16EF8DA47E5A8A1A57674EA"
+}

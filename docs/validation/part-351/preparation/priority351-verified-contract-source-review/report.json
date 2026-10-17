@@ -1,0 +1,89 @@
+{
+  "Status": "SOURCE_ONLY_OLD_TEN_CONTRACTS_PRESERVATION_ASSESSMENT_NOT_FINAL_REBIND",
+  "CurrentPublishedBase": "c1f219f31726fc93e537080f400651d300c47d72",
+  "StyledProductionFreezeSha256": "F8A3CB00D45BD9491573B36F7C8857C925794AC4B1A320F39DD7B6EE90948404",
+  "BuildClosureSha256": "884BB2BD278FB14A8B39EE540C7B1D9CB97E28F441E5C75E497F33B25526FCC0",
+  "ProductionRowsReviewed": 20,
+  "RuntimeClosureRowsRehashed": 2780,
+  "VerifiedMfasAssessed": [
+    "erlang:self/0",
+    "erlang:is_atom/1",
+    "erlang:is_integer/1",
+    "erlang:is_float/1",
+    "erlang:is_number/1",
+    "erlang:is_tuple/1",
+    "erlang:is_binary/1",
+    "erlang:is_bitstring/1",
+    "erlang:is_map/1",
+    "erlang:node/0"
+  ],
+  "ChangedExisting59GuardInputs": [
+    {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "PriorSha256": "B0771827A437A320B1D94D6CFA0B9FA87CE5972DD32658392DA34DFDF3400484",
+      "ProposedSha256": "E249498D8D0684013CE77B3D00F136895905746A99610AA62F2D7FE43DF3602D"
+    },
+    {
+      "Path": "src/Erlang.Runtime/CoreModules.cs",
+      "PriorSha256": "37ACAF904489E59D04409936ABE4145922FAA012982E58DBE6AD54C5D85AEBE4",
+      "ProposedSha256": "CDF0EFD07267927CFE97523AAD7A1FE3509B795456CC5E8D2853408A67C13B63"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.cs",
+      "PriorSha256": "29C763089F9BC64206FE1F1C0A5B38A439B0FD4D66ECAE488007DFBC778EDB27",
+      "ProposedSha256": "3C461A3953098DC512AC531FE0DED81B71BB60C9E18E0A5C5519D8542206C8B8"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
+      "PriorSha256": "63846E423438F2F03D51346FF41C30C8C8AE172BC31E0632132474123EA113C1",
+      "ProposedSha256": "935D12A47C2C0DE3F58BB439D4975E89582B6B0BF81B98813AC2D1DFF599A400"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.cs",
+      "PriorSha256": "6148EADEEA43420DE554BC651C8A9BA8C9ABADDAFA76691121D33B386264583C",
+      "ProposedSha256": "14C17E6F60C7A37446CEC556FFF3812859CFE0252643D5165970B7CC42713279"
+    }
+  ],
+  "UnchangedExistingGuardInputs": 54,
+  "ProposedGuardUnion": 74,
+  "NewGuardInputs": [
+    "src/Erlang.Runtime/ModuleRegistry.ProcessScheduling.cs",
+    "src/Erlang.Runtime/ProcessExecutionAdmission.cs",
+    "src/Erlang.Runtime/ProcessExecutionAwaitable.cs",
+    "src/Erlang.Runtime/ProcessExecutionAwaiter.cs",
+    "src/Erlang.Runtime/ProcessPriorityNames.cs",
+    "src/Erlang.Runtime/ProcessPriorityValues.cs",
+    "src/Erlang.Runtime/ProcessRuntime.ConnectedSpawn.cs",
+    "src/Erlang.Runtime/ProcessRuntime.Priority.cs",
+    "src/Erlang.Runtime/ProcessSchedulingPriority.cs",
+    "src/Erlang.Runtime/ProcessSpawnOptions.cs",
+    "src/Erlang.Runtime/RuntimeActorContinuation.cs",
+    "src/Erlang.Runtime/RuntimeActorDispatcher.cs",
+    "src/Erlang.Runtime/RuntimeActorExecutionTurn.cs",
+    "src/Erlang.Runtime/RuntimeProcessTaskScheduler.cs",
+    "src/Erlang.Runtime/RuntimeScheduledTask.cs"
+  ],
+  "SourceFindings": [
+    "CoreModules differs only by process_flag(priority,...) branch: exact self/type predicate registrations and synchronous ValueTask.FromResult wrappers remain unchanged. Type classes and native-record distinctions are unchanged.",
+    "node/0 handler still returns context.Runtime.NodeAtom; its registration file and node-identity dependencies retain old bytes. self/0 still returns the explicitly selected ProcessContext.Self. No source branch replaces either identity with dispatcher worker/thread identity.",
+    "Execution changes two stack-unwind Task.Yield calls and the expression reduction checkpoint to scheduler-aware awaitables. Evaluation logic, type dispatch and argument order remain byte-identical after those exact substitutions.",
+    "Async guard evaluation file is raw unchanged and awaits ModuleRegistry.Call. Match-spec synchronous helper remains raw unchanged and invokes the still-synchronous ten primitive BIF delegates directly, so scheduler admission does not turn their match-spec calls into incomplete ValueTasks.",
+    "New ModuleRegistry admitted-selection helper captures the chosen context/body/arguments/image/lease in closures; direct owner/null-scheduler path calls the same InvokeSelected/InvokeErrorHandler. Queued invocation captures execution context before restoring caller source flow, and cancellation/halt failure disposes the admitted source lease.",
+    "RuntimeActorExecutionTurn uses scoped thread-local owner/epoch restoration; scheduler executes Task objects under the intended owner and its maximum concurrency is one. Awaiter captures/restores ExecutionContext; dispatcher worker context flow is suppressed while task invocation restores captured actor context. This supports identity preservation by source, not a measured concurrency equivalence claim.",
+    "Scheduling priority initial state/updates and connected spawn now feed the actor dispatcher. They change admission timing; no direct change to primitive boolean/type/identity result functions was found. Existing scopes do not assert native scheduler timing or throughput."
+  ],
+  "ConcreteSourceContractInvalidationsFound": [],
+  "SourceRiskAndValidationGates": [
+    "New scheduler/continuation/retirement/cancellation behavior is shared infrastructure: source inspection alone is insufficient to assert complete observed preservation under concurrent execution.",
+    "All fifteen newly touched dependency paths, including previously unguarded spawn/priority files and scheduler support types, are conservatively included; five old input hashes require an explicitly reviewed future refresh.",
+    "The proposed74-row file is not a ledger candidate and no compatibility source binding has been applied. Current350 ten Verified entries/evidence and59 runtime hashes remain untouched.",
+    "Build2 exit0 for core projects is compilation evidence only. Preserve build1 CS0136/cascadeCS8604 and rename-only repair; no focus/full/native/CI351 PASS is claimed here."
+  ],
+  "CoreBuild2ReceiptSha256": "74FAB360345CAC18126189417ACD35E3531D4161DC187C0488412DFF03EF8243",
+  "ProposedPlanSha256": "72A39B31B79EA42F3BCD33A1CC570672601FD5EC3FC6F7238954887B913E8A34",
+  "MainChanged": false,
+  "LedgerChanged": false,
+  "CandidateChanged": false,
+  "SdkExecutedByReviewer": false,
+  "Network": false
+}

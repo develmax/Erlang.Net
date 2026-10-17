@@ -1,0 +1,104 @@
+{
+  "Name": "non-tail-recursion-try-after-normal-return-cleanup-order",
+  "Passed": true,
+  "Failure": null,
+  "Scope": "Managed focused observations only; no original or compatibility promotion.",
+  "Sources": [
+    {
+      "Name": "priority/portable/priority_first_observation",
+      "SourceSha256": "D2F4609F3BA00C4C378CB2A8630D4E622A722640DBA125F860BE7F9CAFD11473",
+      "Expected": "{ok,done}"
+    },
+    {
+      "Name": "priority/portable/priority_flag_old_and_default",
+      "SourceSha256": "2F16B176618F1FFA2508B48A4B96D0A27C8130E2734BEB449E0FC875D8585441",
+      "Expected": "{ok,done}"
+    },
+    {
+      "Name": "priority/portable/priority_duplicate_invalid",
+      "SourceSha256": "54C673183C938A0B40374E805436BEAD7180BA319C3BFA67F17CFE28AC7B8B1C",
+      "Expected": "{ok,done}"
+    },
+    {
+      "Name": "non-tail-recursion-named-finite-checksum",
+      "SourceSha256": "0083D1647CE32A937884459C412F641344379042F540019A5AEBC5E334A1A52C",
+      "Expected": "{ok,{8390656,4096}}"
+    },
+    {
+      "Name": "non-tail-recursion-mutual-finite-checksum",
+      "SourceSha256": "AEF4819FDD8D8491F2B4B0BD5F55EFB2569BD91F9E8BFE7E77E4EBF4C823D13E",
+      "Expected": "{ok,{8390656,4096}}"
+    },
+    {
+      "Name": "non-tail-recursion-anonymous-self-argument-finite-checksum",
+      "SourceSha256": "AE80BE45508616478BCEB45507BAFDF5762D51C314C2071B2C1C2983992DAE05",
+      "Expected": "{ok,{8390656,4096}}"
+    },
+    {
+      "Name": "non-tail-recursion-tail-accumulator-control",
+      "SourceSha256": "EC448907E3F1DA83041545623F28252CC9001CA74B09FE1CA2AF266030C9CB2C",
+      "Expected": "{ok,{8390656,4096}}"
+    },
+    {
+      "Name": "non-tail-recursion-try-after-normal-return-cleanup-order",
+      "SourceSha256": "63C0D5EE8F163822870B3FD7AD53BBEA5F94948A0D9A4B5228A0BC040763704F",
+      "Expected": "{ok,{78,[12,11,10,9,8,7,6,5,4,3,2,1]}}"
+    },
+    {
+      "Name": "non-tail-recursion-try-after-error-and-throw-cleanup-once",
+      "SourceSha256": "AEBE17A154B78834FBB1C8C06233C37942CDEC12CFA200B53AED3DA2EA82E453",
+      "Expected": "{ok,{caught_error,[12,11,10,9,8,7,6,5,4,3,2,1],caught_throw,[12,11,10,9,8,7,6,5,4,3,2,1]}}"
+    },
+    {
+      "Name": "proc-lib-lifecycle-hibernate-real-message-resume",
+      "SourceSha256": "0D748247343172502A5EA75B041CC99005D0D0285DF55B16D32B14E442C7BC85",
+      "Expected": "{ok,ok}"
+    }
+  ],
+  "Observation": {
+    "Name": "non-tail-recursion-try-after-normal-return-cleanup-order",
+    "CSharpSha256": "2C1462E3C66AF314A13CEEA4246B1E39E61296534A2411D955D5E05E283E09A8",
+    "Expected": "{ok,{78,[12,11,10,9,8,7,6,5,4,3,2,1]}}",
+    "Actual": "{ok,{78,[12,11,10,9,8,7,6,5,4,3,2,1]}}",
+    "CallerContext": "UntrappedFresh",
+    "CompilerPolicy": "Default",
+    "Passed": true
+  },
+  "RuntimeVersion": "10.0.11",
+  "LoadedAssemblies": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\spawn-priority351-candidate\\tests\\Erlang.Priority351.Focus\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Sha256": "B242205C4459F5D961C07C784E8C136C8B2CD90D956C16557364903DFAFF6830"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\spawn-priority351-candidate\\tests\\Erlang.Priority351.Focus\\bin\\Debug\\net10.0\\Erlang.Terms.dll",
+      "Sha256": "EAFF3546E04473AACF1B48B7AF4E26FEC9F56D62739637425A6D30E70699306A"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\spawn-priority351-candidate\\tests\\Erlang.Priority351.Focus\\bin\\Debug\\net10.0\\Erlang.Serialization.dll",
+      "Sha256": "8A36D7F5BBB9F1540E86BDEADBE6069F4A961D4DDB8770D6BEF2C91C2CCC4E4B"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\spawn-priority351-candidate\\tests\\Erlang.Priority351.Focus\\bin\\Debug\\net10.0\\Erlang.Otp.Behaviours.dll",
+      "Sha256": "268813AEFEFE12E5B4770B72AB5EE1EFEAFB0870828A3B2417A342F31D26B13D"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\spawn-priority351-candidate\\tests\\Erlang.Priority351.Focus\\bin\\Debug\\net10.0\\Erlang.Compiler.dll",
+      "Sha256": "C0DE982535955000EA38203D8A80CF4F700C215EF1CD02801A348ACB9C94AA02"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\spawn-priority351-candidate\\tests\\Erlang.Priority351.Focus\\bin\\Debug\\net10.0\\Erlang.Differential.dll",
+      "Sha256": "6C4B51269CAB5276B6F9512401275C109D0AC7EBFD03B4929C7F22042D1BB350"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\spawn-priority351-candidate\\tests\\Erlang.Priority351.Focus\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "Sha256": "CEFA49E87DBBAB5F1750F35F0F0FF9D102C99F003F8DF79813F8591E8C5A40D8"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\spawn-priority351-candidate\\tests\\Erlang.Priority351.Focus\\bin\\Debug\\net10.0\\Priority351Focus.dll",
+      "Sha256": "20274AC79140821B8AB4B10E5296F2543939856B46266BEEB6814FAB778A56EF"
+    }
+  ],
+  "NativeExecuted": false,
+  "StatusesPromoted": false
+}

@@ -4568,6 +4568,36 @@ Test(
 );
 Test(Erlang.Tests.ClrMemoryPublicHostNames.Test, Erlang.Tests.ClrMemoryPublicHostChecks.Run);
 
+Test(Erlang.Tests.SpawnPriorityTestNames.AllReadyOrder, Erlang.Tests.SpawnPriorityAdmissionHostChecks.AllReadyPriorityOrder);
+Test(
+    Erlang.Tests.SpawnPriorityTestNames.EscapedRegisteredCallback,
+    Erlang.Tests.SpawnPriorityGuestReentryHostChecks.EscapedCallbackMustReadmitOwner
+);
+Test(
+    Erlang.Tests.SpawnPriorityTestNames.SynchronousTurnBorrow,
+    Erlang.Tests.SpawnPrioritySynchronousBorrowHostChecks.SameTurnCallbackStaysSynchronous
+);
+Test(
+    Erlang.Tests.SpawnPriorityTestNames.LowLogicalEpochs,
+    Erlang.Tests.SpawnPriorityEpochHostChecks.LowPaysOncePerLogicalReduction
+);
+Test(
+    Erlang.Tests.SpawnPriorityTestNames.WaitingHighCapacity,
+    Erlang.Tests.SpawnPriorityWaitingHostChecks.WaitingHighDoesNotHoldCapacity
+);
+Test(
+    Erlang.Tests.SpawnPriorityTestNames.QueuedPriorityChange,
+    Erlang.Tests.SpawnPriorityQueuedChangeHostChecks.ReprioritizesAlreadyQueuedOwner
+);
+Test(
+    Erlang.Tests.SpawnPriorityTestNames.HaltCleanup,
+    Erlang.Tests.SpawnPriorityRetirementHostChecks.HaltSettlesEscapedCallbackWithoutInvokingTarget
+);
+Test(
+    Erlang.Tests.SpawnPriorityTestNames.KilledOwnerRetirement,
+    Erlang.Tests.SpawnPriorityRetirementHostChecks.KilledOwnerStillSettlesQueuedCleanup
+);
+
 int failed = 0;
 foreach (var test in tests)
 {

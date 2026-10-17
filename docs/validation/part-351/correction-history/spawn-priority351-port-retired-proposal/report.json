@@ -1,0 +1,41 @@
+{
+  "Status": "SOURCE_ONLY_CORRECTION_PROPOSAL_NO_EXECUTION",
+  "ActualFailureReport": {
+    "Path": "artifacts/spawn-priority351-full-failure-independent/report.json",
+    "Sha256": "5F26ABD4AA0753DFF2DB77BE4F880BD6DB3B03DF7E2246C0F3D97079C68F037A"
+  },
+  "Changes": [
+    {
+      "Path": "src/Erlang.Runtime/RuntimePorts.cs",
+      "Purpose": "Detach infrastructure write completion from guest owner TaskScheduler; pending byte accounting/writable wakeup must complete independently of owning guest continuation.",
+      "Delta": "Only three awaits inside private Write use ConfigureAwait(false). Port Command caller awaits, Pump, close and accounting code unchanged.",
+      "Evidence": "Actual queue_size5 equals 4byte packet prefix+1payload from resumedcommand; actor scheduler singleowner turn serialized whereas port pump alreadyTask.Run. Source dependency is confirmed; precise observed ordering requires focusedactualvalidation.",
+      "PinnedBoundary": "OTP port_info queue_size reads erts_port_ioq_size (erl_bif_info.c3855); driver_sizeq io.c6821 returns actualioqsize. This does not justify falsezero/syntheticcounter or awaiting allwrites in query."
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.ProcessScheduling.cs",
+      "Purpose": "Keep cancellation sideeffect gate while preserving managed valid-call dead-parent noproc.",
+      "Delta": "After haltcheck, canceled and no-longer-alive context maps noproc; livecanceled staysOperationCanceledException; noncanceled behavior unchanged.",
+      "Evidence": "Existing completedparent RunDeadParent calls spawn_opt/spawn_request with validinputs and catchesnoproc; pre351 Runtime.SpawnWithOptions/SpawnRequest RequireAlive suppliesnoproc; genericnewgate maskedwithOCE.",
+      "PinnedBoundary": "There is no Erlang-level call by a deadprocess in OTP. This is managed host-entry lifecycle compatibility, not a new OTP-observable deadcaller claim.",
+      "Safety": "No selectedbody invoked for retired/canceled context. Existing sourcecode lease catch/restore unchanged. Runtime.IsAlive takesruntimegate; InvokeOwned is executed outside dispatcherqueuegate, preserving lockorder."
+    }
+  ],
+  "ExistingTestsUnchanged": [
+    "host_spawn_async_dist_first_instruction_validation_and_dead_parent",
+    "erlang-port-pressure-suspend-resume-false",
+    "erlang-port-pressure-suspend-resume-true",
+    "runtime/priority-halt-cleanup",
+    "runtime/priority-killed-owner-retirement"
+  ],
+  "RequiredFocusedValidation": [
+    "Oldcompletedparenthosttest exactnoproc+zerochildexecutions",
+    "Allportpressurecases includingbothparallelismsettings preservequeueaccounting/busy/wakeup",
+    "Existingpriorityretirement/haltcontrols no latecallbacksideeffect/settledfinally",
+    "Running canceledcontext shouldstillreject arbitraryregisteredbody; retiredcontextnoproc withoutbody; haltruntimecheck remains first"
+  ],
+  "NoSdk": true,
+  "NoNetwork": true,
+  "NoMainMutation": true,
+  "FrozenCandidateUnchanged": true
+}

@@ -646,6 +646,7 @@ public static class CompiledModuleCases
         .. TypePredicateCases.Modules,
         .. TermOrderCases.Modules,
         .. AdditionalTypePredicateCases.Modules,
-        .. NumericBoundaryCases.Modules
+        .. NumericBoundaryCases.Modules,
+        .. SpawnPriorityCases.Modules
     ];
 }

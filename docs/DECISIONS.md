@@ -1,5 +1,7 @@
 # Decisions
 
+Part351 — A per-owner TaskScheduler, actual executing-turn marker and logical epochs implement priority admission. Preserve selected source leases and cancellation/retirement cleanup across asynchronous waits. Keep scheduling priority distinct from priority message delivery and physical BEAM scheduler parity.
+
 Part350 — Add portable semantic regressions without changing production behavior or inferring API compatibility from finite cases. Preserve first harness build failures, unknown numeric build cause, preparation newline refusals and reviewer catalog assumption separately.
 
 Part349 — Promote a bounded API contract only when complete branch/category/dispatch reasoning, original evidence, current-source bindings and current CI agree. Preserve prior582 entries and scopes. Correct passive-reader assumptions through reviewed revisions, retain refusals and declare uncaptured identities rather than normalizing observations.

@@ -390,11 +390,11 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
     {
         try
         {
-            await previous;
+            await previous.ConfigureAwait(false);
             if (!port.Options.Write && (frame.Length != 0 || OperatingSystem.IsLinux()))
                 throw new NativePortIOException(NativePortIoParameters.BadDescriptor);
-            await port.Input.WriteAsync(frame, port.Stop.Token);
-            await port.Input.FlushAsync(port.Stop.Token);
+            await port.Input.WriteAsync(frame, port.Stop.Token).ConfigureAwait(false);
+            await port.Input.FlushAsync(port.Stop.Token).ConfigureAwait(false);
         }
         catch (Exception exception) when (exception is IOException or ObjectDisposedException or OperationCanceledException)
         {

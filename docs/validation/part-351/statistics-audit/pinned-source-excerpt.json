@@ -1,0 +1,16 @@
+{
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Path": "erts/emulator/beam/erl_bif_info.c",
+  "FullBytes": 195383,
+  "FullSha256": "9A86723F7BCE38BCB64B4CF3E7759FFC51CEFA9973CB11B36DC26A263A329149",
+  "FirstLine": 2905,
+  "Lines": [
+    "    } else if (BIF_ARG_1 == am_garbage_collection){",
+    "\tUint val = (Uint) erts_atomic32_read_nob(&erts_max_gen_gcs);",
+    "\tEterm tup;",
+    "\thp = HAlloc(BIF_P, 3+2 + 3+2 + 3+2 + 3+2);",
+    "",
+    "\ttup = TUPLE2(hp, am_fullsweep_after, make_small(val)); hp += 3;",
+    "\tres = CONS(hp, tup, NIL); hp += 2;"
+  ]
+}

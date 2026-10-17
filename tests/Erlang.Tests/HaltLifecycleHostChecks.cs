@@ -182,7 +182,7 @@ internal static class HaltLifecycleHostChecks
 
     private static async Task TimerAndBlockedReceive()
     {
-        await using var runtime = new ProcessRuntime();
+        await using var runtime = new ProcessRuntime(HaltLifecycleHostNames.TimerActorCapacity);
         var contextReady = new TaskCompletionSource<ProcessContext>(TaskCreationOptions.RunContinuationsAsynchronously);
         var entered = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         var release = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
@@ -203,34 +203,42 @@ internal static class HaltLifecycleHostChecks
 
             return Nil.Value;
         });
-        ProcessContext captured = await contextReady.Task.WaitAsync(HaltLifecycleHostNames.Timeout);
-        await runtime.Modules.Call(
-            captured,
-            ErlangModuleNames.Module,
-            HaltLifecycleHostNames.TimerStart,
-            Term.I(HaltLifecycleHostNames.PendingTimerMilliseconds),
-            owner.Pid,
-            Term.A(HaltLifecycleHostNames.TimerMessage)
-        );
-        runtime.Send(owner.Pid, Term.A(HaltLifecycleHostNames.HeldMessage));
-        await entered.Task.WaitAsync(HaltLifecycleHostNames.Timeout);
-        await runtime.Modules.Call(
-            captured,
-            ErlangModuleNames.Module,
-            HaltLifecycleHostNames.TimerStart,
-            Term.I(0),
-            owner.Pid,
-            Term.A(HaltLifecycleHostNames.TimerMessage)
-        );
-        Task<RuntimeHaltResult> halt = Task.Run(() => runtime.RequestImmediateHalt(HaltLifecycleHostNames.TransferStatus));
+        Task<RuntimeHaltResult> halt;
         try
         {
+            ProcessContext capturedOwner = await contextReady.Task.WaitAsync(HaltLifecycleHostNames.Timeout);
+            await runtime.Modules.Call(
+                capturedOwner,
+                ErlangModuleNames.Module,
+                HaltLifecycleHostNames.TimerStart,
+                Term.I(HaltLifecycleHostNames.PendingTimerMilliseconds),
+                owner.Pid,
+                Term.A(HaltLifecycleHostNames.TimerMessage)
+            ).AsTask().WaitAsync(HaltLifecycleHostNames.Timeout);
+            runtime.Send(owner.Pid, Term.A(HaltLifecycleHostNames.HeldMessage));
+            await entered.Task.WaitAsync(HaltLifecycleHostNames.Timeout);
+            ProcessHandle timerCaller = runtime.Spawn(async context =>
+            {
+                await runtime.Modules.Call(
+                    context,
+                    ErlangModuleNames.Module,
+                    HaltLifecycleHostNames.TimerStart,
+                    Term.I(0),
+                    owner.Pid,
+                    Term.A(HaltLifecycleHostNames.TimerMessage)
+                );
+
+                return Nil.Value;
+            });
+            Require((await timerCaller.Completion.WaitAsync(HaltLifecycleHostNames.Timeout)).Equals(Term.A(HaltLifecycleHostNames.Normal)));
+            halt = Task.Run(() => runtime.RequestImmediateHalt(HaltLifecycleHostNames.TransferStatus));
             Require(!runtime.HaltQuiescence.IsCompleted);
         }
         finally
         {
-            release.SetResult();
+            release.TrySetResult();
         }
+        ProcessContext captured = await contextReady.Task.WaitAsync(HaltLifecycleHostNames.Timeout);
         Require((await halt.WaitAsync(HaltLifecycleHostNames.Timeout)).Status == HaltLifecycleHostNames.TransferStatus);
         await runtime.HaltQuiescence.WaitAsync(HaltLifecycleHostNames.Timeout);
         Require(captured.Mailbox.Count == 0);

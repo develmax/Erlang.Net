@@ -1,0 +1,83 @@
+{
+  "Status": "PASS_INDEPENDENT_PRIORITY351_REVISION3_SOURCE_FOR_BOUNDED_FOCUSED_EXECUTION_ONLY",
+  "SourceFreezeSha256": "652DD4A9646BCF0A14FC6CA76C7DC88BEE72291E3FC8F453E691EC1023B6F140",
+  "SourceRowsRehashed": 37,
+  "ProductionCSharpFiles": 20,
+  "ParentBindingsRehashed": 8,
+  "Parent": "712933b97a654a3b6ed42250902017bde0740f17",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ExecutingTurnLease": "ThreadStatic owner/epoch is installed only around actual TryExecuteTask and restored by scoped finally. AsyncLocal/ExecutionContext identity alone cannot manufacture this marker. Same-owner actual thread borrows synchronously; escaped registry invocation enters the owner TaskScheduler.",
+  "RegistryAdmission": "Selected implementation/error-handler code image and source lease are captured before scheduling; caller flow is restored immediately, invocation owns final disposal. Scheduled InvokeOwned checks halt/cancellation before trace/body; original selected invocation/error handler cleanup stays in use. No semaphore held across guest await or synchronous borrower.",
+  "LogicalEpochReview": "Explicit reduction increments the queued epoch; same-epoch managed and stack-unwind continuations do not pay another low8 skip. Fresh idle wake increments. Normal/low share FIFO and low counts down from8, matching pinned selection direction; a lone low is selected without executing fictitious normal work. Ready repriority removes/reinserts under dispatcher gate.",
+  "PinnedSourceAnchors": [
+    "erl_process.c:3956-3972 (low schedule_count)",
+    "erl_process.c:4030-4056 (skip low/queue-tail rule)",
+    "erl_process.h:373 (RESCHEDULE_LOW8)",
+    "erl_process.c:9442-9468 (user priority atoms/setter)",
+    "erl_process.c:12275-12290 (spawn priority parse)"
+  ],
+  "CancellationRetirement": "Queued tasks are executed, not discarded, so cancellation/retirement paths can unwind. InvokeOwned suppresses halted/canceled guest target; active actor lifetime is distinct from worker count, CompleteWhenIdle waits for both and ready queue. Dispatcher lock is not held while task body executes; no inverse dispatcher-to-runtime gate was found in reviewed paths.",
+  "AwaitFlow": "Custom awaiter captures/restores ExecutionContext for admitted continuation, only inlines on actual owner with sufficient stack; reduction and stack-unwind force queue admission. Source checkpoints retain cancellation/suspension and reduction accounting.",
+  "FocusedControls": [
+    {
+      "Class": "SpawnPriorityAdmissionHostChecks",
+      "Method": "AllReadyPriorityOrder",
+      "Contract": "Capacity1 actor queues low,normal,high,max synchronously before returning; observed max/high/normal/low."
+    },
+    {
+      "Class": "SpawnPriorityGuestReentryHostChecks",
+      "Method": "EscapedCallbackMustReadmitOwner",
+      "Contract": "Pending registered callback awaitConfigureAwait(false) then direct target; target actual TaskScheduler must equal original owner proxy."
+    },
+    {
+      "Class": "SpawnPrioritySynchronousBorrowHostChecks",
+      "Method": "SameTurnCallbackStaysSynchronous",
+      "Contract": "Same-owner executing-thread callback remains synchronously completed; no requeue/self-deadlock."
+    },
+    {
+      "Class": "SpawnPriorityEpochHostChecks",
+      "Method": "LowPaysOncePerLogicalReduction",
+      "Contract": "Low queued first, normal explicitly yields12 reduction slices; first low after7normal selections, not after7managed continuation layers."
+    },
+    {
+      "Class": "SpawnPriorityWaitingHostChecks",
+      "Method": "WaitingHighDoesNotHoldCapacity",
+      "Contract": "High starts then real mailbox await; normal runs and sends exact release, high resumes. Timeout cannot pass."
+    },
+    {
+      "Class": "SpawnPriorityQueuedChangeHostChecks",
+      "Method": "ReprioritizesAlreadyQueuedOwner",
+      "Contract": "Internal unit changes queued low tohigh underruntimegate; promoted child runs first and public query observeshigh. No public cross-process setter claim."
+    },
+    {
+      "Class": "SpawnPriorityRetirementHostChecks",
+      "Method": "HaltSettlesEscapedCallbackWithoutInvokingTarget",
+      "Contract": "Halt while genuine callbackpending; release, actualfinally+HaltQuiescence andno late guesttarget sideeffect."
+    },
+    {
+      "Class": "SpawnPriorityRetirementHostChecks",
+      "Method": "KilledOwnerStillSettlesQueuedCleanup",
+      "Contract": "Kill blockedowner, release callback; canceled admitted targetnotinvoked, actualfinally and private dispatchercompletion joined afterDispose."
+    }
+  ],
+  "BlockingSourceFindings": [],
+  "FocusedExecutionAdmissible": true,
+  "FocusedExecutionRequiredBeforeAnyProductionClaim": [
+    "Build/style plus8 real HOST controls and3 portable fixtures, finite subprocess timeout and joined cleanup",
+    "Existing deep named/anonymous recursion, image lease/cancel/hibernate regression routes",
+    "Preserve any actual failure and source bytes; do not weaken low8/retirement assertions to obtain a pass"
+  ],
+  "RemainingUnverifiedBoundaries": [
+    "Managed continuation epochs versus native runnable reduction slices needs actual low7normal observation; source alignment alone is not exact scheduler parity.",
+    "Actor-root completion and late detached host work are not arbitrary CLR preemption guarantees. Cleanup controls must observe real joined retirement.",
+    "No actual NIF-to-guest bridge was demonstrated by this source review; synchronous registered callback control proves only the actual proposed registry borrower route.",
+    "Native scheduler migration, CPU affinity, physical timing/performance and unsupported heap/GC/MQD/scheduler options remain outside this priority slice.",
+    "Future full on published350 requires rebase of unowned metadata/catalog and current verified-source guard review because Execution/ModuleRegistry/CoreModules shared paths change."
+  ],
+  "SdkExecuted": false,
+  "NativeExecuted": false,
+  "MainModified": false,
+  "NetworkUsed": false,
+  "CompatibilityStatusesChanged": false,
+  "ProductionCompletionClaimed": false
+}

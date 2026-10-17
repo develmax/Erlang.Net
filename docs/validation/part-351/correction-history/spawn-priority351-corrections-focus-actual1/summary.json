@@ -1,0 +1,363 @@
+{
+  "Passed": 59,
+  "Failed": 0,
+  "Tests": [
+    {
+      "Name": "host:HaltLifecycleHostChecks:Run",
+      "Passed": true,
+      "Result": "case-000.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "host:PriorityPermissionHostChecks:Run",
+      "Passed": true,
+      "Result": "case-001.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "host:RuntimeActorDispatchHostChecks:Run",
+      "Passed": true,
+      "Result": "case-002.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "host:SpawnAsyncDistributionHostChecks:RunDeadParent",
+      "Passed": true,
+      "Result": "case-003.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "host:SpawnPriorityAdmissionHostChecks:AllReadyPriorityOrder",
+      "Passed": true,
+      "Result": "case-004.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "host:SpawnPriorityGuestReentryHostChecks:EscapedCallbackMustReadmitOwner",
+      "Passed": true,
+      "Result": "case-005.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "host:SpawnPrioritySynchronousBorrowHostChecks:SameTurnCallbackStaysSynchronous",
+      "Passed": true,
+      "Result": "case-006.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "host:SpawnPriorityEpochHostChecks:LowPaysOncePerLogicalReduction",
+      "Passed": true,
+      "Result": "case-007.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "host:SpawnPriorityWaitingHostChecks:WaitingHighDoesNotHoldCapacity",
+      "Passed": true,
+      "Result": "case-008.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "host:SpawnPriorityQueuedChangeHostChecks:ReprioritizesAlreadyQueuedOwner",
+      "Passed": true,
+      "Result": "case-009.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "host:SpawnPriorityRetirementHostChecks:HaltSettlesEscapedCallbackWithoutInvokingTarget",
+      "Passed": true,
+      "Result": "case-010.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "host:SpawnPriorityRetirementHostChecks:KilledOwnerStillSettlesQueuedCleanup",
+      "Passed": true,
+      "Result": "case-011.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-pressure-setting-0",
+      "Passed": true,
+      "Result": "case-012.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-pressure-setting-1",
+      "Passed": true,
+      "Result": "case-013.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-pressure-setting-2",
+      "Passed": true,
+      "Result": "case-014.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-pressure-setting-3",
+      "Passed": true,
+      "Result": "case-015.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-pressure-setting-4",
+      "Passed": true,
+      "Result": "case-016.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-pressure-invalid-watermark-5",
+      "Passed": true,
+      "Result": "case-017.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-pressure-invalid-watermark-6",
+      "Passed": true,
+      "Result": "case-018.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-pressure-invalid-watermark-7",
+      "Passed": true,
+      "Result": "case-019.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-pressure-invalid-watermark-8",
+      "Passed": true,
+      "Result": "case-020.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-pressure-invalid-watermark-9",
+      "Passed": true,
+      "Result": "case-021.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-pressure-invalid-watermark-10",
+      "Passed": true,
+      "Result": "case-022.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-pressure-invalid-watermark-11",
+      "Passed": true,
+      "Result": "case-023.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-pressure-invalid-watermark-12",
+      "Passed": true,
+      "Result": "case-024.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-pressure-invalid-watermark-13",
+      "Passed": true,
+      "Result": "case-025.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-pressure-invalid-watermark-14",
+      "Passed": true,
+      "Result": "case-026.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-pressure-invalid-parallelism",
+      "Passed": true,
+      "Result": "case-027.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-pressure-suspend-resume-true",
+      "Passed": true,
+      "Result": "case-028.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-pressure-suspend-resume-false",
+      "Passed": true,
+      "Result": "case-029.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-pressure-default-line",
+      "Passed": true,
+      "Result": "case-030.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-native-option-echo-0",
+      "Passed": true,
+      "Result": "case-031.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-native-option-echo-1",
+      "Passed": true,
+      "Result": "case-032.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-native-option-echo-2",
+      "Passed": true,
+      "Result": "case-033.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-native-option-echo-3",
+      "Passed": true,
+      "Result": "case-034.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-native-option-echo-4",
+      "Passed": true,
+      "Result": "case-035.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-native-option-shared-streams-5",
+      "Passed": true,
+      "Result": "case-036.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-native-option-shared-streams-6",
+      "Passed": true,
+      "Result": "case-037.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-native-option-shared-streams-7",
+      "Passed": true,
+      "Result": "case-038.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-native-option-shell-shared-streams",
+      "Passed": true,
+      "Result": "case-039.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-native-option-arg0-9",
+      "Passed": true,
+      "Result": "case-040.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-native-option-arg0-10",
+      "Passed": true,
+      "Result": "case-041.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-native-option-arg0-11",
+      "Passed": true,
+      "Result": "case-042.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-native-option-arg0-preserved-by-args",
+      "Passed": true,
+      "Result": "case-043.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-native-option-invalid-arg0-13",
+      "Passed": true,
+      "Result": "case-044.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-native-option-invalid-arg0-14",
+      "Passed": true,
+      "Result": "case-045.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-native-option-invalid-arg0-15",
+      "Passed": true,
+      "Result": "case-046.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-native-option-arg0-rejects-shell",
+      "Passed": true,
+      "Result": "case-047.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-native-option-stdio-conflict-17",
+      "Passed": true,
+      "Result": "case-048.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-native-option-stdio-conflict-18",
+      "Passed": true,
+      "Result": "case-049.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-native-option-auxiliary-19",
+      "Passed": true,
+      "Result": "case-050.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-native-option-auxiliary-20",
+      "Passed": true,
+      "Result": "case-051.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-native-option-auxiliary-21",
+      "Passed": true,
+      "Result": "case-052.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-native-option-input-only-eof",
+      "Passed": true,
+      "Result": "case-053.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-native-option-input-only-output-fails",
+      "Passed": true,
+      "Result": "case-054.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "erlang-port-native-option-output-only-no-data",
+      "Passed": true,
+      "Result": "case-055.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "spawn-priority-priority-first-observation",
+      "Passed": true,
+      "Result": "case-056.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "spawn-priority-priority-flag-old-and-default",
+      "Passed": true,
+      "Result": "case-057.json",
+      "ExecutionFailure": null
+    },
+    {
+      "Name": "spawn-priority-priority-duplicate-invalid",
+      "Passed": true,
+      "Result": "case-058.json",
+      "ExecutionFailure": null
+    }
+  ],
+  "SourceFreezeSha256": "97B24C9CC9E3DDCDA194B86D83DA163676C63ECCB79840AF685651538209C0AC",
+  "InputSourceBytesUnchanged": true,
+  "Scope": "Managed focused correction controls only; no original OTP comparison or full validation claim"
+}

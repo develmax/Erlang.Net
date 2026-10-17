@@ -1,0 +1,55 @@
+{
+  "Status": "SOURCE_ONLY_HOST_CONTRACT_MIGRATION_UNBUILT_UNEXECUTED",
+  "Parent": "actual failed351 full candidate",
+  "ActualFailureReportSha256": "5F26ABD4AA0753DFF2DB77BE4F880BD6DB3B03DF7E2246C0F3D97079C68F037A",
+  "Files": [
+    {
+      "Path": "tests/Erlang.Tests/RuntimeActorDispatchHostChecks.cs",
+      "ParentSha256": "8C2F185AA096E702937B402C9EEBFB3AF09875CD8F787844ACE715DA1B943E26",
+      "Sha256": "536F4CD122EBF45CCF8C8240C5E9681EAC49F0E464CAC67C957B036A83C06F02",
+      "Bytes": 16420
+    },
+    {
+      "Path": "tests/Erlang.Tests/RuntimeActorDispatchHostParameters.cs",
+      "ParentSha256": "F31C925526C0DC6B55867E8B50137FEE7AB583075C0B76C4C52A5E529423C6CC",
+      "Sha256": "E13AAF38B19B58C62481151E7AD99434582CA8D08A30035C7F16F9D25DA254D3",
+      "Bytes": 410
+    },
+    {
+      "Path": "tests/Erlang.Tests/PriorityPermissionHostChecks.cs",
+      "ParentSha256": "893AE59C231EA5FDD32FE4296B6B5E10AF076533B43553E1F4D1873737A6E6E2",
+      "Sha256": "13AECB62661BF497F0C57FE2809D61BE65C853DCF8CFF41D9DA36D3851213C09",
+      "Bytes": 10568
+    },
+    {
+      "Path": "tests/Erlang.Tests/HaltLifecycleHostChecks.cs",
+      "ParentSha256": "6FEF0F2E9ADA21945753C5FC7ECEE9C46FD98AB4FEB0D89F61DA97243FBBB84D",
+      "Sha256": "2C5C434D0B8CC1BADDE99F174BB3BE63116F5DA5E1BCC5E56F27013F47B2F480",
+      "Bytes": 11888
+    },
+    {
+      "Path": "tests/Erlang.Tests/HaltLifecycleHostNames.cs",
+      "ParentSha256": "0DBAFB553DBD62398E1A40FF2FE9209389F768AEBB5B9B061C5E8A7C76DB9DBC",
+      "Sha256": "4B17C73EFD4A9A2BE5F119DD1E7DD9BF6095BD3E96DA85F016166F27365C21EC",
+      "Bytes": 1608
+    }
+  ],
+  "Preserved": [
+    "All original HOST test names and measured global capacity/maximum assertions",
+    "Priority flag exact value, link/generation identity checks",
+    "Pending timer plus real zero timer call from independent live actor, halt transfer/quiescence/mailbox flush/dead owner checks",
+    "Same-owner continuation scheduler identity, independent initializer/default scheduler checks"
+  ],
+  "Changes": [
+    "Per-process TaskScheduler.MaximumConcurrencyLevel is1; global capacity still measured by simultaneous active actors",
+    "Child scheduler must differ from parent and retain its own identity across await",
+    "Remove only synchronous completion timing requirement for externally admitted process_info",
+    "Two dispatch slots permit real independent timer caller while owner selector synchronously blocked; finally releases owner even on timer/admission/deadline failure"
+  ],
+  "Limitations": [
+    "No SDK/style/build/focused execution performed",
+    "Timeout raw report has no substep markers: halt and actor source causes are reachable, not dynamically proven first failure positions",
+    "No claim native timing/physical scheduling parity",
+    "RuntimePorts and dead-parent admission owned separately by recursion agent"
+  ]
+}

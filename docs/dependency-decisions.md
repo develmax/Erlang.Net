@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part351 — Reuse runtime/BCL scheduling and existing tests without packages. Preserve all older Verified evidence, bind74 current runtime dependencies, and refine unsupported spawn options truthfully. Archive exact source and declared raw proof subsets; no SDK/runtime/package binaries.
+
 Part350 — Reuse existing C#/Erlang fixture infrastructure and packages. Keep pending1250 raw unchanged; change only the existing .gitattributes row in reallocation1275 and seal its strict LF bytes. Publish lean text/ETF receipts, not runtime binaries, ZIP or nupkg outputs.
 
 Part349 — Reporting/evidence only: no new SDK build or runtime dependency. Reuse the built348 readiness tool; extend current-source guard union35→59. Publish explicit lean raw original/CI subsets plus full hash manifests. Keep XML/solution EOL exceptions separate from C# and returned-value equality; preserve archived348 incident chronology.

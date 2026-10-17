@@ -111,7 +111,8 @@ public sealed partial class ProcessRuntime
                 null,
                 false,
                 new(mfa, arguments, Nil.Value),
-                initialAsyncDistribution: options.AsyncDistribution
+                initialAsyncDistribution: options.AsyncDistribution,
+                initialPriority: options.Priority
             );
             // The actor first takes this same gate; none of its guest body can run yet.
             var context = processes[handle.Pid];

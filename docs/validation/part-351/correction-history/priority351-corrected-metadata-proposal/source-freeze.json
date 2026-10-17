@@ -1,0 +1,28 @@
+{
+  "Status": "ARTIFACT_ONLY_METADATA_SOURCE_READY_FOR_ROOT_REVIEW",
+  "Files": [
+    {
+      "Path": "artifacts/priority351-corrected-metadata-proposal/prepare.py",
+      "Bytes": 7608,
+      "Sha256": "4B957EC4C6A6CB66CABC17CDBC6992087410F7046B6885EEB01D155B250F3857"
+    },
+    {
+      "Path": "artifacts/priority351-corrected-metadata-proposal/prepare1-before-plan-order-assertion.py",
+      "Bytes": 7576,
+      "Sha256": "0085FE73D7EE8BB3DAF772085419EE851AB10827B1CD2D8360452347BB03018A"
+    },
+    {
+      "Path": "artifacts/priority351-corrected-metadata-proposal/proposal.json",
+      "Bytes": 7038,
+      "Sha256": "EFF96FADE67D81A10DA4D925145176EF5F975DA07044711FA34886A77EA8E0F7"
+    },
+    {
+      "Path": "artifacts/priority351-corrected-metadata-proposal/copy-plan.json",
+      "Bytes": 5306,
+      "Sha256": "459B6844636AC0FB8A560F8F2A54AC7A1630B8D598936D2F0768424485F18B74"
+    }
+  ],
+  "History": "Initial preparation asserted runtime-row insertion order rather than actual sorted plan order and refused before any overlay write; corrected to exact two-row set with order preserved. No source/candidate/focus changes.",
+  "FocusResultClaimed": false,
+  "FullResultClaimed": false
+}

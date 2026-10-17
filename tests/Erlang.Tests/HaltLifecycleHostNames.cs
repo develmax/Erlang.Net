@@ -13,6 +13,7 @@ internal static class HaltLifecycleHostNames
     public const string HeldMessage = "halt_held_message";
     public const string TimerMessage = "halt_timer_message";
     public const string TimerStart = "send_after";
+    public const int TimerActorCapacity = 2;
     public const int PendingTimerMilliseconds = 60000;
     public const byte PortByte = 37;
     public const string Cast = "$gen_cast";

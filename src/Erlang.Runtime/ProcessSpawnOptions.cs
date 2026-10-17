@@ -2,6 +2,8 @@ namespace Erlang;
 
 internal sealed class ProcessSpawnOptions
 {
+    public ProcessSchedulingPriority Priority { get; private set; } = ProcessSchedulingPriority.Normal;
+
     public bool AsyncDistribution
     {
         get; private set;
@@ -26,6 +28,8 @@ internal sealed class ProcessSpawnOptions
         foreach (Term option in Cons.Items(value))
         {
             var current = Parse(Term.List(option));
+            if (option is TupleTerm { Items: [Atom { Name: ProcessPriorityNames.Flag }, _] })
+                result.Priority = current.Priority;
             result.Link |= current.Link;
             result.PriorityLink |= current.PriorityLink;
             result.Monitor |= current.Monitor;
@@ -48,6 +52,9 @@ internal sealed class ProcessSpawnOptions
                     break;
                 case TupleTerm { Items: [Atom { Name: ProcessAsyncDistributionNames.Flag }, Atom { Name: ErlangBooleanAtoms.False }] }:
                     result.AsyncDistribution = false;
+                    break;
+                case TupleTerm { Items: [Atom { Name: ProcessPriorityNames.Flag }, var priorityValue] }:
+                    result.Priority = ProcessPriorityValues.Parse(priorityValue);
                     break;
                 case Atom { Name: ProcessSpawnOptionNames.Link }:
                     result.Link = true;

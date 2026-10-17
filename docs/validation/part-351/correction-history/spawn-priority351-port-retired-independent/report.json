@@ -1,0 +1,31 @@
+{
+  "Status": "PASS_SOURCE_ONLY_TWO_RUNTIME_CORRECTIONS_FOR_BOUNDED_FOCUS",
+  "ProposalSha256": "6FF4F122A56670065A7BBBFC4E292F7991F385190CEC0DF1C80A03FA52E4A5D6",
+  "AllParentAndProposalHashesExact": true,
+  "ExactTextDeltasVerified": true,
+  "PortWrite": "Only three ConfigureAwait(false) in infrastructure Write. QueuedBytes finally, previous chain, locks and task tracking unchanged. Incomplete pump continuation no longer needs owner scheduler. Synchronously completed awaits can still execute inline; actual queue_size fixture remains necessary.",
+  "Admission": [
+    "Halt still first.",
+    "Cancelled and absent real registry throws noproc before body/error handler.",
+    "Cancelled live still OCE before body/error handler.",
+    "Noncancelled unchanged; no blanket retired callback permission."
+  ],
+  "LeaseCleanup": "Both refusal branches inside unchanged catch dispose code and restore flow; outer admission capture/finally unchanged.",
+  "LockOrder": "IsAlive briefly takes runtime gate; dispatcher executes tasks outside dispatcher gate. No new gate across guest callback.",
+  "Limits": [
+    "Racing cancellation after check remains cooperative race.",
+    "Dead-context noproc is managed HOST contract, not native live-caller claim.",
+    "No SDK/build/style/Main/network."
+  ],
+  "RecommendedFocus": [
+    "four failed HOST groups",
+    "eight new priority HOST groups",
+    "all unchanged native-option and pressure fixtures",
+    "cancellation/lease/retirement effects"
+  ],
+  "ReviewHistory": [
+    "Initial whole-file await-previous count assertion refused because other methods contain it; scoped private Write.",
+    "Second raw replacement assertion used CRLF for actual LF ModuleRegistry; retained exact raw hash binding and verified exact decoded LF delta. No source or execution changes."
+  ],
+  "Authorship": "Independent of runtime patches; author of separate HOST migration proposal."
+}

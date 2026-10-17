@@ -184,7 +184,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         ReferenceTerm? spawnReference = null,
         bool asynchronousSpawn = false,
         bool successSpawnReply = true,
-        bool initialAsyncDistribution = false
+        bool initialAsyncDistribution = false,
+        ProcessSchedulingPriority initialPriority = ProcessSchedulingPriority.Normal
     )
     {
         ProcessContext ctx;
@@ -200,6 +201,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 description?.Mfa
             );
             ctx.AsyncDistribution = initialAsyncDistribution;
+            ctx.SchedulingPriorityLevel = initialPriority;
             ctx.GroupLeader = parent?.GroupLeader ?? processes[InitializationPid].GroupLeader;
             processes.Add(ctx.Self, ctx);
             executingProcesses.Add(ctx);
@@ -207,7 +209,9 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             bool enqueued = false;
             try
             {
-                _ = actorDispatcher.Dispatch(async () =>
+                _ = actorDispatcher.Dispatch(
+                    ctx,
+                    async () =>
                 {
                     lock (gate)
                         ctx.ExecutionStarted = true;
@@ -280,7 +284,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                             ctx.Unwound.TrySetResult();
                         }
                     }
-                });
+                }
+                );
                 enqueued = true;
                 if (link && parent is not null)
                 {
@@ -323,7 +328,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 options.Link,
                 description,
                 reference,
-                initialAsyncDistribution: options.AsyncDistribution
+                initialAsyncDistribution: options.AsyncDistribution,
+                initialPriority: options.Priority
             );
             if (options.PriorityLink)
                 parent.PriorityLinks.Add(process.Pid);
@@ -412,7 +418,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                         reference,
                         true,
                         options.SuccessReply,
-                        options.Spawn.AsyncDistribution
+                        options.Spawn.AsyncDistribution,
+                        options.Spawn.Priority
                     );
                 }
                 catch (ErlangException exception) when (exception.Reason.Equals(Term.A(ErlangErrorReasons.SystemLimit)))

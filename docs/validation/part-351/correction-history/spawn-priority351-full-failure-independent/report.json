@@ -1,0 +1,249 @@
+{
+  "Status": "FAILED_ACTUAL_CANONICAL351_FULL_BOUNDED_INDEPENDENT_DIAGNOSIS_NO_SUCCESS_CLAIM",
+  "Passed": 7276,
+  "Failed": 21,
+  "ActualTests": 7297,
+  "FullExitSha256": "53D1F67207666DA9EC6BE4039009895512B0D8922BEA501FED842710B17EB4B9",
+  "TestReportSha256": "732F629BB7D715FC9126BD36C57A6E94B040B2D90E48AC74879E2177368DA1CF",
+  "FullLogSha256": "583FD7A29896F03E27FC7E5C4F3C9FE643C5CDA9972C91F7DC3E31C31345B5D8",
+  "SourceFreezeSha256": "5DF99C8F91ECDFACC0EE79138A7A412F8BE211133F0B284D88A7303F3671E238",
+  "SourceClosureSha256": "554A77C7298621BE17FB5DAD19148A166C25BFC7D07356C45A694873339A9C46",
+  "AllFrozen43Source3002ClosureAnd6PackageInputsStillRawExact": true,
+  "AllPrevious7286NamesOrderedPreserved": true,
+  "AllNew11TestsPassed": true,
+  "FailureSummary": [
+    {
+      "Name": "runtime/halt-foundation-transfer-admission-and-independent-runtime",
+      "Milliseconds": 15021,
+      "ErrorHead": "System.TimeoutException: The operation has timed out."
+    },
+    {
+      "Name": "host_spawn_async_dist_first_instruction_validation_and_dead_parent",
+      "Milliseconds": 16,
+      "ErrorHead": "System.OperationCanceledException: The operation was canceled."
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-pressure-suspend-resume-false",
+      "Milliseconds": 2282,
+      "ErrorHead": "System.InvalidOperationException: Expected {ok,done}, got {error,error,{badmatch,{queue_size,5}}}"
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-echo-3",
+      "Milliseconds": 45,
+      "ErrorHead": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}"
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-echo-4",
+      "Milliseconds": 44,
+      "ErrorHead": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}"
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-shared-streams-5",
+      "Milliseconds": 69,
+      "ErrorHead": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}"
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-shared-streams-6",
+      "Milliseconds": 48,
+      "ErrorHead": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}"
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-shared-streams-7",
+      "Milliseconds": 50,
+      "ErrorHead": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}"
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-shell-shared-streams",
+      "Milliseconds": 71,
+      "ErrorHead": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}"
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-arg0-9",
+      "Milliseconds": 49,
+      "ErrorHead": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}"
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-arg0-10",
+      "Milliseconds": 45,
+      "ErrorHead": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}"
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-arg0-11",
+      "Milliseconds": 62,
+      "ErrorHead": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}"
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-arg0-preserved-by-args",
+      "Milliseconds": 46,
+      "ErrorHead": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}"
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-auxiliary-19",
+      "Milliseconds": 49,
+      "ErrorHead": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}"
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-auxiliary-20",
+      "Milliseconds": 66,
+      "ErrorHead": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}"
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-auxiliary-21",
+      "Milliseconds": 46,
+      "ErrorHead": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}"
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-input-only-eof",
+      "Milliseconds": 44,
+      "ErrorHead": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}"
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-input-only-output-fails",
+      "Milliseconds": 74,
+      "ErrorHead": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}"
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-output-only-no-data",
+      "Milliseconds": 45,
+      "ErrorHead": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}"
+    },
+    {
+      "Name": "runtime/priority-permission-unlink-generation-admission",
+      "Milliseconds": 6,
+      "ErrorHead": "System.InvalidOperationException: Priority permission identity or unlink admission invariant failed."
+    },
+    {
+      "Name": "runtime/owned-actor-dispatch-capacity-continuation-and-retirement",
+      "Milliseconds": 15015,
+      "ErrorHead": "System.TimeoutException: The operation has timed out."
+    }
+  ],
+  "NativeOptionEaccesNames": [
+    "oracle/compiled-module/erlang-port-native-option-echo-3",
+    "oracle/compiled-module/erlang-port-native-option-echo-4",
+    "oracle/compiled-module/erlang-port-native-option-shared-streams-5",
+    "oracle/compiled-module/erlang-port-native-option-shared-streams-6",
+    "oracle/compiled-module/erlang-port-native-option-shared-streams-7",
+    "oracle/compiled-module/erlang-port-native-option-shell-shared-streams",
+    "oracle/compiled-module/erlang-port-native-option-arg0-9",
+    "oracle/compiled-module/erlang-port-native-option-arg0-10",
+    "oracle/compiled-module/erlang-port-native-option-arg0-11",
+    "oracle/compiled-module/erlang-port-native-option-arg0-preserved-by-args",
+    "oracle/compiled-module/erlang-port-native-option-auxiliary-19",
+    "oracle/compiled-module/erlang-port-native-option-auxiliary-20",
+    "oracle/compiled-module/erlang-port-native-option-auxiliary-21",
+    "oracle/compiled-module/erlang-port-native-option-input-only-eof",
+    "oracle/compiled-module/erlang-port-native-option-input-only-output-fails",
+    "oracle/compiled-module/erlang-port-native-option-output-only-no-data"
+  ],
+  "EaccesCause": "16actual eacces outcomes. This capture does not independently prove sandbox/permissions, code failure, or specific syscall. Keep separate from the five other failures.",
+  "OtherFiveFindings": [
+    {
+      "Test": "host_spawn_async_dist_first_instruction_validation_and_dead_parent",
+      "Observed": "OperationCanceledException actual stack at ModuleRegistry.ProcessScheduling.InvokeOwned cancellation gate then SpawnAsyncDistributionHostChecks.RunDeadParent line240.",
+      "SourceFinding": "The old HOST explicitly invokes spawn_opt/spawn_request from an already completed captured ProcessContext and catches only ErlangException noproc. New generic admission checks canceled context before existing spawn validation. This changed host API error precedence is directly supported by actual stack, not a valid running Erlang process call.",
+      "Classification": "Confirmed host error-contract/precedence change; design choice or source fix needed, do not silently weaken all canceled-process guarantees.",
+      "Sources": [
+        "src/Erlang.Runtime/ModuleRegistry.ProcessScheduling.cs:21",
+        "tests/Erlang.Tests/SpawnAsyncDistributionHostChecks.cs:218-254"
+      ]
+    },
+    {
+      "Test": "runtime/priority-permission-unlink-generation-admission",
+      "Observed": "Invariant actual stack RequireFlag line205, Run line33.",
+      "SourceFinding": "RequireFlag demands ModuleRegistry.Call ValueTask.IsCompletedSuccessfully from an external thread while the source actor is waiting. New admission always queues non-owner invocations, so this synchronous-completion assertion is no longer valid even before the flag value is examined.",
+      "Classification": "Confirmed old HOST synchronous-admission assumption; preserve all flag values/unlink/generation semantics in any migration.",
+      "Sources": [
+        "tests/Erlang.Tests/PriorityPermissionHostChecks.cs:198-206",
+        "src/Erlang.Runtime/ModuleRegistry.ProcessScheduling.cs"
+      ]
+    },
+    {
+      "Test": "runtime/owned-actor-dispatch-capacity-continuation-and-retirement",
+      "Observed": "Outer harness timeout15.015s; no internal substep marker captured.",
+      "SourceFinding": "BoundedSegments requires TaskScheduler.Current.MaximumConcurrencyLevel==global capacity for capacities1,2,4. New per-owner scheduler reports1, so capacity2/4 actors can fail before firstWave. A later test also requires child scheduler ReferenceEquals parent, now deliberately separate per-owner proxies.",
+      "Classification": "Concrete obsolete implementation-shape assertions; exact first failing substep not established by outer timeout. Preserve measured global active-segment bounds, same-owner continuation identity, retirement/cleanup and independent runtimes.",
+      "Sources": [
+        "tests/Erlang.Tests/RuntimeActorDispatchHostChecks.cs:36-113",
+        "src/Erlang.Runtime/RuntimeProcessTaskScheduler.cs"
+      ]
+    },
+    {
+      "Test": "runtime/halt-foundation-transfer-admission-and-independent-runtime",
+      "Observed": "Outer harness timeout15.021s; no per-substep diagnostic captured.",
+      "SourceFinding": "TimerAndBlockedReceive blocks the owner synchronously inside receive selector on release.GetResult; host then awaits Modules.Call(captured,start_timer,0,...), which new admission queues behind that same blocked owner. release is set only after this awaited call returns: a reachable new scheduling cycle.",
+      "Classification": "Strong source-supported cycle if that substep was reached; current outer timeout does not prove the actual substep. Requires bounded substep diagnostic or correction preserving original halt/real-timer/blocked-selector purpose.",
+      "Sources": [
+        "tests/Erlang.Tests/HaltLifecycleHostChecks.cs:180-242",
+        "src/Erlang.Runtime/ModuleRegistry.ProcessScheduling.cs",
+        "src/Erlang.Runtime/RuntimeActorDispatcher.cs"
+      ]
+    },
+    {
+      "Test": "oracle/compiled-module/erlang-port-pressure-suspend-resume-false",
+      "Observed": "Expected {ok,done}, actual {error,error,{badmatch,{queue_size,5}}}.",
+      "SourceFinding": "Fixture waits for echoed final1byte payload then expects queue_size0. With packet4, remaining5 equals final frame. RuntimePorts parallelism=false starts Write inline; its awaits capture caller scheduler, while QueuedBytes is decremented only in Write finally. New per-owner queue can delay that cleanup behind echoed-message continuation.",
+      "Classification": "Concrete real guest failure; scheduler-capture/accounting order is a source-supported candidate, not an executed causal proof. Do not normalize queue_size or weaken expected zero without source/native analysis.",
+      "Sources": [
+        "tools/Erlang.Differential/PortPressureCases.cs:42-48",
+        "src/Erlang.Runtime/RuntimePorts.cs:365-414"
+      ]
+    }
+  ],
+  "SourceBindings": [
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.ProcessScheduling.cs",
+      "Sha256": "3BE87389672FAA120DD21EABEE50C998170C5A45D22879FC98D8C2CB237555AD",
+      "Bytes": 1935
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeActorDispatcher.cs",
+      "Sha256": "06DFE4D088A24712CD25A855A3318CF018D0B50C653E2303DE8EC0F72098FC3D",
+      "Bytes": 6970
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimePorts.cs",
+      "Sha256": "E2E4BE7E13C730B6783EF52868ED62F1FBACCA9AF1D10CF98A75DEFDF07AAD75",
+      "Bytes": 25268
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeProcessTaskScheduler.cs",
+      "Sha256": "F749C44C345F027DCA74C0FE2DD279CFF2A48A082079467B78A3CF56E03DC63D",
+      "Bytes": 1848
+    },
+    {
+      "Path": "tests/Erlang.Tests/HaltLifecycleHostChecks.cs",
+      "Sha256": "6FEF0F2E9ADA21945753C5FC7ECEE9C46FD98AB4FEB0D89F61DA97243FBBB84D",
+      "Bytes": 11280
+    },
+    {
+      "Path": "tests/Erlang.Tests/PriorityPermissionHostChecks.cs",
+      "Sha256": "893AE59C231EA5FDD32FE4296B6B5E10AF076533B43553E1F4D1873737A6E6E2",
+      "Bytes": 10616
+    },
+    {
+      "Path": "tests/Erlang.Tests/RuntimeActorDispatchHostChecks.cs",
+      "Sha256": "8C2F185AA096E702937B402C9EEBFB3AF09875CD8F787844ACE715DA1B943E26",
+      "Bytes": 16068
+    },
+    {
+      "Path": "tests/Erlang.Tests/SpawnAsyncDistributionHostChecks.cs",
+      "Sha256": "5A5EC80E26BC83C2F8B5B445C6B5115B6DBF00FB689926C1E10895FF89C32338",
+      "Bytes": 10009
+    },
+    {
+      "Path": "tools/Erlang.Differential/PortPressureCases.cs",
+      "Sha256": "C1456DF2603FD1A9A4CC65B80BE45BA319FC5BB4797B8D7BEBF4BDED9AA3695E",
+      "Bytes": 2896
+    }
+  ],
+  "CanonicalPipelineStoppedAt": "tools/validate.ps1 Invoke-DotNet tests/Erlang.Tests returned1; later readiness/package/integration suffix did not complete.",
+  "CompletionGuardAbsent": true,
+  "SuccessReaderExecuted": false,
+  "FullParityOrPublicationReadyClaimed": false,
+  "NoWholeCleanupClaim": "Outer test timeouts do not establish internal task/resource quiescence; no global cleanup success inferred.",
+  "SdkExecutedByReviewer": false,
+  "MainModified": false,
+  "NetworkUsed": false,
+  "NextWork": "Root should retain failed run, distinguish host scheduling-assumption migration from real guest/production semantics, diagnose bounded relevant controls, and only then choose a new exact source/full attempt."
+}

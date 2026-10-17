@@ -1,0 +1,114 @@
+name: Pinned OTP pending and bounded native backend observations
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  original-and-bounded-sdk-native:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      ERLC_USE_SERVER: 'false'
+      REVIEWED_SOURCE_PLAN_SHA256: F4696B01DD14D49F4E7D54601BCC7C273EE2F2506B531115C5384B174FA8B512
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+      - name: Build exact original oracle
+        id: otp
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts
+          (
+            set -x
+            git clone --depth 1 --branch OTP-29.1.1 https://github.com/erlang/otp.git artifacts/nif-pending-otp-source
+            test "$(git -C artifacts/nif-pending-otp-source rev-parse HEAD)" = ad05823719d77c8faee87348ea39513d4e2f99c5
+            cd artifacts/nif-pending-otp-source
+            ./configure --prefix="$PWD/observer-install" --without-javac --without-wx --without-odbc --without-debugger --without-observer --without-et
+            make -j2
+            make install
+          ) 2>&1 | tee artifacts/nif-pending-otp-build.log
+          python3 - <<'PY_BUILD'
+          import hashlib, json, pathlib, subprocess
+          root = pathlib.Path('artifacts/nif-pending-otp-source').resolve()
+          prefix = root / 'observer-install'
+          files = [prefix / 'bin/erl', prefix / 'bin/erlc', *prefix.glob('lib/erlang/erts-*/bin/beam.smp'), *prefix.glob('lib/erlang/erts-*/bin/erlexec')]
+          assert len(files) == 4 and all(path.is_file() for path in files)
+          head = subprocess.check_output(['git', '-C', str(root), 'rev-parse', 'HEAD'], text=True).strip()
+          assert head == 'ad05823719d77c8faee87348ea39513d4e2f99c5'
+          receipt = {'SourceHead': head, 'ConfiguredPrefix': str(prefix), 'NativeNifCasesExecuted': False, 'Files': [{'Path': str(path.relative_to(root)), 'Bytes': path.stat().st_size, 'Sha256': hashlib.sha256(path.read_bytes()).hexdigest().upper()} for path in files]}
+          pathlib.Path('artifacts/nif-pending-otp-build-provenance.json').write_text(json.dumps(receipt, indent=2) + '\n', encoding='utf-8')
+          PY_BUILD
+      - name: Build reviewed bounded native SDK inputs
+        id: native
+        shell: bash
+        run: |
+          set -euo pipefail
+          recipe="$GITHUB_WORKSPACE/tools/Erlang.NifPendingVarargsObservations"
+          python3 "$recipe/run-reviewed.py" native-build \
+            --repository "$GITHUB_WORKSPACE" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/nif-pending-otp-source" \
+            --plan "$recipe/reviewed-source-plan.json" \
+            --approved-plan-sha256 "$REVIEWED_SOURCE_PLAN_SHA256" \
+            --output "$GITHUB_WORKSPACE/artifacts/nif-bounded-sdk" \
+            2>&1 | tee artifacts/nif-bounded-sdk-build-launch.log
+          sha256sum artifacts/nif-bounded-sdk/build-receipt.json | tee artifacts/nif-bounded-sdk-build-receipt.sha256
+      - name: Execute recorded six-argument trusted SDK profile
+        if: steps.native.outcome == 'success'
+        shell: bash
+        run: |
+          set -euo pipefail
+          recipe="$GITHUB_WORKSPACE/tools/Erlang.NifPendingVarargsObservations"
+          read -r build_receipt_sha ignored < artifacts/nif-bounded-sdk-build-receipt.sha256
+          python3 "$recipe/run-reviewed.py" sdk \
+            --repository "$GITHUB_WORKSPACE" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/nif-pending-otp-source" \
+            --plan "$recipe/reviewed-source-plan.json" \
+            --approved-plan-sha256 "$REVIEWED_SOURCE_PLAN_SHA256" \
+            --approved-build-receipt-sha256 "$build_receipt_sha" \
+            --output "$GITHUB_WORKSPACE/artifacts/nif-bounded-sdk" \
+            2>&1 | tee artifacts/nif-bounded-sdk-execute-launch.log
+      - name: Collect thirteen fresh original VM observations
+        if: always() && steps.otp.outcome == 'success'
+        shell: bash
+        run: |
+          set -euo pipefail
+          prefix="$GITHUB_WORKSPACE/artifacts/nif-pending-otp-source/observer-install"
+          recipe="$GITHUB_WORKSPACE/tools/Erlang.NifPendingVarargsObservations/original"
+          python3 "$recipe/collect.py" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/nif-pending-otp-source" \
+            --otp-include "$prefix/lib/erlang/usr/include" \
+            --otp-bin "$prefix/bin" \
+            --fixture-source "$recipe/fixture.c" \
+            --output "$GITHUB_WORKSPACE/artifacts/nif-pending-original-observations" \
+            --approved-plan-sha256 EAC7F22640E3233268FD81EC22568A08666BAD5A190A81748DC1A49A1D5B20C0 \
+            2>&1 | tee artifacts/nif-pending-original-launch.log
+      - name: Independently review original thirteen typed observations
+        if: always() && steps.otp.outcome == 'success'
+        shell: bash
+        run: |
+          set -euo pipefail
+          recipe="$GITHUB_WORKSPACE/tools/Erlang.NifPendingVarargsObservations"
+          python3 "$recipe/verify-original13.py" \
+            --observations "$GITHUB_WORKSPACE/artifacts/nif-pending-original-observations" \
+            --proposal "$recipe/original" \
+            --build-provenance "$GITHUB_WORKSPACE/artifacts/nif-pending-otp-build-provenance.json" \
+            --decoder-source "$GITHUB_WORKSPACE/tools/Erlang.BeamFixtures/verify-metadata-mutations.py" \
+            --report "$GITHUB_WORKSPACE/artifacts/nif-pending-original-typed-review.json" \
+            2>&1 | tee artifacts/nif-pending-original-review-launch.log
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: nif-pending-and-bounded-sdk-observations
+          path: |
+            artifacts/nif-pending-otp-build.log
+            artifacts/nif-pending-otp-build-provenance.json
+            artifacts/nif-pending-original-launch.log
+            artifacts/nif-pending-original-observations/**
+            artifacts/nif-bounded-sdk/**
+            artifacts/nif-bounded-sdk-*.log
+            artifacts/nif-bounded-sdk-build-receipt.sha256
+            artifacts/nif-pending-original-typed-review.json
+            artifacts/nif-pending-original-review-launch.log

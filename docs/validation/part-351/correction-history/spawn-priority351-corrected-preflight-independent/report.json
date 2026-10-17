@@ -1,0 +1,90 @@
+{
+  "Status": "PASS_INDEPENDENT_CORRECTED351_SEED4_SOURCE_PREFLIGHT",
+  "SourceFreezeSha256": "C5FC54F85ED13C883C7C985EA3F88495E7E4EC6EFE515DDEB3129E23A42D9B1F",
+  "SourceClosureSha256": "B3897680F2AA4222E258D350D1FC163EC673E205B59D2E341D8FC0A531E36C6F",
+  "ConfigurationSha256": "B12ECD96F854DD20B3AC513D456ADEB42D32A9D2AD4DA878A44D6D92F0744A9B",
+  "RunnerSha256": "96E5E39E3EB055A4AA1D55ABC373BC8C01DEC8F4C13462AB34FB638C28DCCD74",
+  "ParentHead": "add05fc61d8c6f5f024ffcdad1ea19aaea4e3725",
+  "OwnedPaths": 49,
+  "OwnedCSharp": 42,
+  "StableClosureRows": 3006,
+  "ReadinessInputs": 37,
+  "PackageResources": 6,
+  "RegistryRows": 587,
+  "IntentionalRegistryLimitsChanges": [
+    [
+      "erlang",
+      "process_flag",
+      2
+    ],
+    [
+      "erlang",
+      "process_info",
+      2
+    ],
+    [
+      "erlang",
+      "process_info",
+      1
+    ],
+    [
+      "erlang",
+      "spawn_opt",
+      2
+    ],
+    [
+      "erlang",
+      "spawn_opt",
+      3
+    ],
+    [
+      "erlang",
+      "spawn_opt",
+      4
+    ],
+    [
+      "erlang",
+      "spawn_opt",
+      5
+    ]
+  ],
+  "CurrentRuntimeSourceBindings": 74,
+  "AllLedgerEvidence31RawExact": true,
+  "CompatibilityCounts": {
+    "Verified compatible": 10,
+    "Needs verification": 553,
+    "Known differences": 24
+  },
+  "PreviousTests": 7286,
+  "NewTestNamesActualSourceOrder": [
+    "oracle/compiled-module/spawn-priority-priority-first-observation",
+    "oracle/compiled-module/spawn-priority-priority-flag-old-and-default",
+    "oracle/compiled-module/spawn-priority-priority-duplicate-invalid",
+    "runtime/priority/all-ready-order",
+    "runtime/priority/escaped-registered-callback",
+    "runtime/priority/synchronous-turn-borrow",
+    "runtime/priority/low-logical-epochs",
+    "runtime/priority/waiting-high-capacity",
+    "runtime/priority/queued-priority-change",
+    "runtime/priority/halt-cleanup",
+    "runtime/priority/killed-owner-retirement"
+  ],
+  "ExpectedFullTestsArithmeticOnly": 7297,
+  "Plans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Rows": 1262,
+      "Sha256": "DEAEAD6E1DD0C955FC450CE5FEBDB6579E51F93A92D0FFD57BF514B090FB20EE"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Rows": 1287,
+      "Sha256": "13E9EDF416098053A9877614E186FAC69D32157CC76603C9F805A23FED1854AA"
+    }
+  ],
+  "Focused59IndependentPassed": true,
+  "Scope": "Source/input preflight only; failed full1 remains immutable. New full success not claimed. Root must independently inspect settled full0/test7297/integrations11/packages2/children and restore intended587customLimits after preserving generated registry.",
+  "SdkExecuted": false,
+  "MainModified": false,
+  "NetworkUsed": false
+}

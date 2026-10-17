@@ -1,0 +1,373 @@
+{
+  "Status": "BOUNDED_SOURCE_AUDIT_GC_FOUR_MFAS_KEEP_PENDING_NO_SOURCE_PROVEN_COUNTEREXAMPLE",
+  "Head": "c1f219f31726fc93e537080f400651d300c47d72",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ManagedSources": [
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.GarbageCollection.cs",
+      "Bytes": 2561,
+      "Sha256": "ADD72114DA6956DA7B466D1FC1BE1C7C07DDB9C5A244805F8DA732B92CD21FDD"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessGarbageCollectionRegistrations.cs",
+      "Bytes": 2331,
+      "Sha256": "3F981E8AD1B5AD550283BF9D18BD3FC5CAD1D376B464D98A1CBB771BF9C8D0D5"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessGarbageCollectionOptions.cs",
+      "Bytes": 1245,
+      "Sha256": "11DB5654A0F90E4F7BA55B8D506549BFE672A1A38226C70CEEE4D71F5E353A71"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessGarbageCollectionRequest.cs",
+      "Bytes": 256,
+      "Sha256": "B5DB446BE61126DD01342B7A064C858BFBF485A39224410E806B1B41B1EB13D3"
+    },
+    {
+      "Path": "src/Erlang.Terms/ProcessGarbageCollectionNames.cs",
+      "Bytes": 746,
+      "Sha256": "BAC19C12CA493A5022FDC0534E53E31303F23AC9F170D98219C7D6853A103A01"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.cs",
+      "Bytes": 13420,
+      "Sha256": "29C763089F9BC64206FE1F1C0A5B38A439B0FD4D66ECAE488007DFBC778EDB27"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
+      "Bytes": 64090,
+      "Sha256": "63846E423438F2F03D51346FF41C30C8C8AE172BC31E0632132474123EA113C1"
+    },
+    {
+      "Path": "src/Erlang.Runtime/Mailbox.cs",
+      "Bytes": 22050,
+      "Sha256": "36EBF392C055471E1583629AADCB3B3715D6EAA75D46202D3EF9584C3FB4027D"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.NodeIdentity.cs",
+      "Bytes": 1380,
+      "Sha256": "C8CA9FD6FB02F068EC4071648CADDC4B70E530E11FD969EFE60729A0FF921454"
+    },
+    {
+      "Path": "src/Erlang.Terms/Pid.cs",
+      "Bytes": 957,
+      "Sha256": "CFB58C5E4A782C21CD612E16FB361CBFB6C5A1C7A4422A0A987B2752C353F80D"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeStatisticsRegistrations.cs",
+      "Bytes": 1673,
+      "Sha256": "6E29A466DEE04FAD45A435DBB8D1DB65442EE525A37C450B2356D92B7993CE38"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeStatisticsNames.cs",
+      "Bytes": 1906,
+      "Sha256": "3CBAFA195B2AC1F70A557F23A9D88A640FEAF226DA5A3D636AA79D9322BAC1E9"
+    },
+    {
+      "Path": "tools/Erlang.Differential/ProcessGarbageCollectionCases.cs",
+      "Bytes": 6007,
+      "Sha256": "238335FE9D44DF157A37FFAE61072569A9D0454352D693C683D39882B80C340D"
+    }
+  ],
+  "PinnedSources": [
+    {
+      "Path": "erts/preloaded/src/erlang.erl",
+      "Bytes": 475966,
+      "Sha256": "00D7672A16325E43CA221C6D6CEB4200390E2A961A243C2E31DDC141AC145047",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "Excerpts": [
+        {
+          "Marker": "garbage_collect() ->",
+          "FirstLine": 3045,
+          "Lines": [
+            "-spec garbage_collect() -> true.",
+            "garbage_collect() ->",
+            "    erts_internal:garbage_collect(major).",
+            "",
+            "%% garbage_collect/1"
+          ]
+        },
+        {
+          "Marker": "garbage_collect(Pid) ->",
+          "FirstLine": 3052,
+          "Lines": [
+            "-spec garbage_collect(Pid) -> GCResult when",
+            "      Pid :: pid(),",
+            "      GCResult :: boolean().",
+            "garbage_collect(Pid) ->",
+            "    try",
+            "\terlang:garbage_collect(Pid, [])",
+            "    catch",
+            "\terror:Error -> error_with_info(Error, [Pid])",
+            "    end.",
+            ""
+          ]
+        },
+        {
+          "Marker": "garbage_collect(Pid, OptionList)",
+          "FirstLine": 3109,
+          "Lines": [
+            "-spec garbage_collect(Pid, OptionList) -> GCResult | async when",
+            "      Pid :: pid(),",
+            "      RequestId :: term(),",
+            "      Option :: {async, RequestId} | {type, 'major' | 'minor'},",
+            "      OptionList :: [Option],",
+            "      GCResult :: boolean().",
+            "garbage_collect(Pid, OptionList)  ->",
+            "    try",
+            "\tGcOpts = get_gc_opts(OptionList, #gcopt{}),",
+            "\tcase GcOpts#gcopt.async of",
+            "\t    {async, ReqId} ->",
+            "\t\terts_internal:request_system_task(",
+            "                    Pid, inherit, {garbage_collect, ReqId, GcOpts#gcopt.type}),",
+            "\t\tasync;",
+            "\t    sync ->",
+            "\t\tcase Pid == erlang:self() of",
+            "\t\t    true ->",
+            "\t\t\terts_internal:garbage_collect(GcOpts#gcopt.type);",
+            "\t\t    false ->",
+            "\t\t\tReqId = erlang:make_ref(),",
+            "\t\t\terts_internal:request_system_task(",
+            "                            Pid, inherit,",
+            "                            {garbage_collect, ReqId, GcOpts#gcopt.type}),",
+            "\t\t\treceive",
+            "\t\t\t    {garbage_collect, ReqId, GCResult} ->",
+            "\t\t\t\tGCResult",
+            "\t\t\tend",
+            "\t\tend",
+            "\tend",
+            "    catch",
+            "        throw:bad_option -> badarg_with_cause([Pid, OptionList], bad_option);",
+            "\terror:_ -> badarg_with_info([Pid, OptionList])",
+            "    end.",
+            "",
+            "%% gets async opt and verify valid option list",
+            "get_gc_opts([{async, _ReqId} = AsyncTuple | Options], GcOpt = #gcopt{}) ->",
+            "    get_gc_opts(Options, GcOpt#gcopt{ async = AsyncTuple });",
+            "get_gc_opts([{type, T} | Options], GcOpt = #gcopt{}) ->"
+          ]
+        },
+        {
+          "Marker": "get_gc_opts([{async",
+          "FirstLine": 3144,
+          "Lines": [
+            "get_gc_opts([{async, _ReqId} = AsyncTuple | Options], GcOpt = #gcopt{}) ->",
+            "    get_gc_opts(Options, GcOpt#gcopt{ async = AsyncTuple });",
+            "get_gc_opts([{type, T} | Options], GcOpt = #gcopt{}) ->",
+            "    get_gc_opts(Options, GcOpt#gcopt{ type = T });",
+            "get_gc_opts([], GcOpt) ->",
+            "    GcOpt;",
+            "get_gc_opts(_, _) ->",
+            "    erlang:throw(bad_option).",
+            "",
+            "%% garbage_collect_message_area/0",
+            "-doc false."
+          ]
+        },
+        {
+          "Marker": "garbage_collect_message_area() ->",
+          "FirstLine": 3155,
+          "Lines": [
+            "-spec garbage_collect_message_area() -> boolean().",
+            "garbage_collect_message_area() ->",
+            "    erlang:nif_error(undefined)."
+          ]
+        }
+      ]
+    },
+    {
+      "Path": "erts/emulator/beam/bif.c",
+      "Bytes": 169612,
+      "Sha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "Excerpts": [
+        {
+          "Marker": "erts_internal_garbage_collect_1(",
+          "FirstLine": 4077,
+          "Lines": [
+            "erts_internal_garbage_collect_1(BIF_ALIST_1)",
+            "{",
+            "    switch (BIF_ARG_1) {",
+            "    case am_minor:  break;",
+            "    case am_major:  FLAGS(BIF_P) |= F_NEED_FULLSWEEP; break;",
+            "    default:        BIF_ERROR(BIF_P, BADARG);",
+            "    }",
+            "    erts_garbage_collect(BIF_P, 0, NULL, 0);",
+            "    if (ERTS_PROC_IS_EXITING(BIF_P)) {",
+            "        /* The max heap size limit was reached. */",
+            "        return THE_NON_VALUE;",
+            "    }",
+            "    return am_true;",
+            "}",
+            "",
+            "/**********************************************************************/",
+            "/*",
+            " * The erlang:processes/0 BIF.",
+            " */"
+          ]
+        }
+      ]
+    },
+    {
+      "Path": "erts/emulator/beam/erl_process.c",
+      "Bytes": 459197,
+      "Sha256": "89CBDB55BE2A97E77B2450BB3D339CA6DB934B9C4BF556EAD29B4EAE88072DC9",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "Excerpts": [
+        {
+          "Marker": "request_system_task(Process *c_p",
+          "FirstLine": 11309,
+          "Lines": [
+            "request_system_task(Process *c_p, Eterm requester, Eterm target,",
+            "\t\t    Eterm priority_req, Eterm operation)",
+            "{",
+            "    BIF_RETTYPE ret;",
+            "    Process *rp = erts_proc_lookup_raw(target);",
+            "    ErtsProcSysTask *st = NULL;",
+            "    erts_aint32_t prio, fail_state = ERTS_PSFLG_EXITING;",
+            "    Eterm noproc_res, req_type, priority = priority_req;",
+            "    int signal = 0;",
+            "",
+            "    if (!rp && !is_internal_pid(target)) {",
+            "\tif (!is_external_pid(target))",
+            "\t    goto badarg;",
+            "\tif (external_pid_dist_entry(target) != erts_this_dist_entry)",
+            "\t    goto badarg;",
+            "    }",
+            "",
+            "    switch (priority_req) {",
+            "    case am_max:\tprio = PRIORITY_MAX;\tbreak;",
+            "    case am_high:\tprio = PRIORITY_HIGH;\tbreak;",
+            "    case am_normal:\tprio = PRIORITY_NORMAL;\tbreak;",
+            "    case am_low:\tprio = PRIORITY_LOW;\tbreak;",
+            "    case am_inherit: {",
+            "\terts_aint32_t state = erts_atomic32_read_nob(&c_p->state);",
+            "        prio = ERTS_PSFLGS_GET_USR_PRIO(state);",
+            "\tswitch (prio) {",
+            "\tcase PRIORITY_MAX: priority = am_max; break;",
+            "\tcase PRIORITY_HIGH: priority = am_high; break;",
+            "\tcase PRIORITY_NORMAL: priority = am_normal; break;"
+          ]
+        },
+        {
+          "Marker": "case am_garbage_collect:",
+          "FirstLine": 11412,
+          "Lines": [
+            "    case am_garbage_collect:",
+            "\tif (c_p->common.id == requester)",
+            "\t    signal = !0;",
+            "        switch (st->arg[0]) {",
+            "        case am_minor:  st->type = ERTS_PSTT_GC_MINOR; break;",
+            "        case am_major:  st->type = ERTS_PSTT_GC_MAJOR; break;",
+            "        default: goto badarg;",
+            "        }",
+            "        noproc_res = am_false;",
+            "        if (!rp)",
+            "\t    goto noproc;",
+            "\tbreak;",
+            "",
+            "    case am_check_process_code:",
+            "\tif (c_p->common.id == requester)",
+            "\t    signal = !0;"
+          ]
+        }
+      ]
+    },
+    {
+      "Path": "erts/emulator/beam/erl_bif_info.c",
+      "Bytes": 195383,
+      "Sha256": "9A86723F7BCE38BCB64B4CF3E7759FFC51CEFA9973CB11B36DC26A263A329149",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "Excerpts": [
+        {
+          "Marker": "} else if (BIF_ARG_1 == am_garbage_collection)",
+          "FirstLine": 2905,
+          "Lines": [
+            "    } else if (BIF_ARG_1 == am_garbage_collection){",
+            "\tUint val = (Uint) erts_atomic32_read_nob(&erts_max_gen_gcs);",
+            "\tEterm tup;",
+            "\thp = HAlloc(BIF_P, 3+2 + 3+2 + 3+2 + 3+2);",
+            "",
+            "\ttup = TUPLE2(hp, am_fullsweep_after, make_small(val)); hp += 3;",
+            "\tres = CONS(hp, tup, NIL); hp += 2;"
+          ]
+        }
+      ]
+    }
+  ],
+  "Recommendations": [
+    {
+      "Module": "erlang",
+      "Function": "garbage_collect",
+      "Arity": 0,
+      "CurrentStatus": "Needs verification",
+      "RecommendedStatus": "Needs verification",
+      "MinimalSourceProvenDifferingInput": null
+    },
+    {
+      "Module": "erlang",
+      "Function": "garbage_collect",
+      "Arity": 1,
+      "CurrentStatus": "Needs verification",
+      "RecommendedStatus": "Needs verification",
+      "MinimalSourceProvenDifferingInput": null
+    },
+    {
+      "Module": "erlang",
+      "Function": "garbage_collect",
+      "Arity": 2,
+      "CurrentStatus": "Needs verification",
+      "RecommendedStatus": "Needs verification",
+      "MinimalSourceProvenDifferingInput": null
+    },
+    {
+      "Module": "erlang",
+      "Function": "garbage_collect_message_area",
+      "Arity": 0,
+      "CurrentStatus": "Needs verification",
+      "RecommendedStatus": "Needs verification",
+      "MinimalSourceProvenDifferingInput": null
+    }
+  ],
+  "ConfirmedBackendDifference": "Managed GC.Collect requests a process-wide CLR generation collection; pinned GC operates on an Erlang Process heap and per-process system tasks. This is not per-process heap/accounting equivalence. Backend choice alone is not proof that these four returned-value/protocol contracts differ on a valid supported guest input.",
+  "FiniteBranchFindings": [
+    "GC0/self-sync return true; GC1 delegates equivalent default major options; GC2 supports async arbitrary request IDs, last option wins, proper option lists, major/minor type validation and false for terminated targets. Pinned minor is a hint.",
+    "Message-area function is a pinned erlang:nif_error(undefined) stub; managed registration throws undefined. No source-proven different error reason found.",
+    "Suspension is not an obvious mailbox deadlock: WaitIfSuspended calls Runtime.AdmitSignals; control wait also invokes ProcessSignals, which reaches AdmitPending while guest execution stays paused. Existing native suspended/suspended-async finite cases agree.",
+    "Do not classify same-name stale-creation PID false as a mismatch merely because it is external: native request_system_task explicitly permits external PID when its dist-entry is this node, then sends false if no process. Full node/epoch boundary proof remains pending."
+  ],
+  "ExistingOriginalWitnessCount": 37,
+  "ExistingOriginalWitnessFileSha256": "76CB9EE7D7CC3F59A8AEADEFD7E2D4E54E912286FFAD474D25677AEEF3D475BD",
+  "Historical223225": [
+    {
+      "Path": "docs/validation/part-223/corpus-audit.json",
+      "Sha256": "5A227BCF1024873C94F841F6E538653D63FD747DF27E6D6EEF3098F4B92727A6",
+      "OriginalVerifiedFlag": false,
+      "Scope": "Historical corpus/source audit, not native execution proof because OriginalVerified is false."
+    },
+    {
+      "Path": "docs/validation/part-225/corpus-audit.json",
+      "Sha256": "606A7A8464194A39301CCAC46D93435332B62BAB64E81A0AC8C4376CA0A85984",
+      "OriginalVerifiedFlag": false,
+      "Scope": "Historical corpus/source audit, not native execution proof because OriginalVerified is false."
+    }
+  ],
+  "RemainingProof": [
+    "Whole per-process reclamation/effect/resource ownership semantics, reductions/cancellation and precise GC-monitor/trace behavior have not been independently established.",
+    "System-task signal ordering, busy/deferred execution, exit/cancellation races and every node-incarnation boundary need dedicated contracts; different implementation shape is not itself a demonstrated failure.",
+    "A complete observable exception/stack/dispatch proof is not supplied even for the apparent message-area stub, so this bounded audit does not promote it to Verified."
+  ],
+  "RelatedConcreteDifferenceOutsideFourMfas": {
+    "Mfa": "erlang:statistics/1",
+    "Input": "garbage_collection",
+    "Managed": "RuntimeStatisticsNames.IsPhysical includes this key; RuntimeStatisticsRegistrations throws error:notsup.",
+    "Pinned": "erl_bif_info.c valid-key branch calls erts_gc_info_request, returns undefined if nonvalue or traps to gather GC statistics; it does not reject the recognized key as notsup.",
+    "ClassificationActionHere": false,
+    "DoNotMisattributeToGarbageCollect": true
+  },
+  "NewNativeExecuted": false,
+  "SdkExecuted": false,
+  "MainChanged": false,
+  "LedgerChanged": false,
+  "Network": false
+}

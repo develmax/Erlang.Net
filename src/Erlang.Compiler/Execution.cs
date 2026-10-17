@@ -105,7 +105,7 @@ public static partial class Execution
             context.Runtime.ThrowIfHalted();
             context.Cancellation.ThrowIfCancellationRequested();
 
-            await Task.Yield();
+            await context.YieldExecution();
 
             context.Runtime.ThrowIfHalted();
             context.Cancellation.ThrowIfCancellationRequested();
@@ -254,7 +254,7 @@ public static partial class Execution
             context.Runtime.ThrowIfHalted();
             context.Cancellation.ThrowIfCancellationRequested();
 
-            await Task.Yield();
+            await context.YieldExecution();
 
             context.Runtime.ThrowIfHalted();
             context.Cancellation.ThrowIfCancellationRequested();
@@ -381,7 +381,7 @@ public static partial class Execution
         bool tail = false
     )
     {
-        await ctx.ReduceAsync();
+        await ctx.ExecutionCheckpoint();
 
         async ValueTask<Term[]> Arguments(IReadOnlyList<Expr> expressions)
         {

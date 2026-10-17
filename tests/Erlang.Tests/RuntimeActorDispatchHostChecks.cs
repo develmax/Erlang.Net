@@ -45,7 +45,7 @@ internal static class RuntimeActorDispatchHostChecks
             {
                 actors.Add(runtime.Spawn(context =>
                 {
-                    Require(TaskScheduler.Current.MaximumConcurrencyLevel == capacity);
+                    Require(TaskScheduler.Current.MaximumConcurrencyLevel == RuntimeActorDispatchHostParameters.PerProcessConcurrency);
                     int now = Interlocked.Increment(ref active);
                     RecordMaximum(ref maximum, now);
                     Interlocked.Increment(ref started);
@@ -97,9 +97,12 @@ internal static class RuntimeActorDispatchHostChecks
             Require(ReferenceEquals(TaskScheduler.Current, scheduler));
             var child = runtime.Spawn(async childContext =>
             {
-                Require(ReferenceEquals(TaskScheduler.Current, scheduler));
+                TaskScheduler childScheduler = TaskScheduler.Current;
+                Require(!ReferenceEquals(childScheduler, scheduler));
+                Require(!ReferenceEquals(childScheduler, TaskScheduler.Default));
+                Require(childScheduler.MaximumConcurrencyLevel == RuntimeActorDispatchHostParameters.PerProcessConcurrency);
                 await send.Task;
-                Require(ReferenceEquals(TaskScheduler.Current, scheduler));
+                Require(ReferenceEquals(TaskScheduler.Current, childScheduler));
                 runtime.Send(context.Self, Term.A(RuntimeActorDispatchHostNames.Message));
 
                 return Nil.Value;
@@ -222,7 +225,7 @@ internal static class RuntimeActorDispatchHostChecks
             await entered.Task.WaitAsync(RuntimeActorDispatchHostParameters.Deadline);
             var independent = second.Spawn(context =>
             {
-                Require(TaskScheduler.Current.MaximumConcurrencyLevel == second.ActorDispatchCapacity);
+                Require(TaskScheduler.Current.MaximumConcurrencyLevel == RuntimeActorDispatchHostParameters.PerProcessConcurrency);
 
                 return ValueTask.FromResult<Term>(Nil.Value);
             });

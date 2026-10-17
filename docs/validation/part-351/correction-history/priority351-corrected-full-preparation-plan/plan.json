@@ -1,0 +1,318 @@
+{
+  "Status": "SOURCE_ONLY_CORRECTED351_PREFULL_PLAN_NOT_SUCCESS_OR_EXECUTION_AUTHORITY",
+  "CurrentPublishedParent": "add05fc61d8c6f5f024ffcdad1ea19aaea4e3725",
+  "ImmutableFailedFull": {
+    "SourceFreeze": {
+      "Path": "artifacts/spawn-priority351-full-source2/source-freeze.json",
+      "Bytes": 7963,
+      "Sha256": "5DF99C8F91ECDFACC0EE79138A7A412F8BE211133F0B284D88A7303F3671E238"
+    },
+    "SourceClosure": {
+      "Path": "artifacts/spawn-priority351-full-source2/source-resource-closure.json",
+      "Bytes": 564912,
+      "Sha256": "554A77C7298621BE17FB5DAD19148A166C25BFC7D07356C45A694873339A9C46"
+    },
+    "FailureAudit": {
+      "Path": "artifacts/spawn-priority351-full-failure-independent/report.json",
+      "Bytes": 13775,
+      "Sha256": "5F26ABD4AA0753DFF2DB77BE4F880BD6DB3B03DF7E2246C0F3D97079C68F037A"
+    },
+    "Exit": {
+      "Path": "artifacts/spawn-priority351-full-actual1/full-exit.json",
+      "Bytes": 365,
+      "Sha256": "53D1F67207666DA9EC6BE4039009895512B0D8922BEA501FED842710B17EB4B9"
+    },
+    "ObservedPassed": 7276,
+    "ObservedFailed": 21,
+    "AllElevenNewPassed": true,
+    "Instruction": "Preserve original43/3002/exit1/raw tests/log and failure audit unchanged. Do not rerun or edit that candidate."
+  },
+  "ExactSevenCorrections": [
+    {
+      "Path": "tests/Erlang.Tests/RuntimeActorDispatchHostChecks.cs",
+      "ParentSha256": "8C2F185AA096E702937B402C9EEBFB3AF09875CD8F787844ACE715DA1B943E26",
+      "Sha256": "536F4CD122EBF45CCF8C8240C5E9681EAC49F0E464CAC67C957B036A83C06F02",
+      "Bytes": 16420,
+      "SourcePath": "artifacts/spawn-priority351-host-corrections-proposal1/source/tests/Erlang.Tests/RuntimeActorDispatchHostChecks.cs",
+      "VerifiedParentSha256": "8C2F185AA096E702937B402C9EEBFB3AF09875CD8F787844ACE715DA1B943E26"
+    },
+    {
+      "Path": "tests/Erlang.Tests/RuntimeActorDispatchHostParameters.cs",
+      "ParentSha256": "F31C925526C0DC6B55867E8B50137FEE7AB583075C0B76C4C52A5E529423C6CC",
+      "Sha256": "E13AAF38B19B58C62481151E7AD99434582CA8D08A30035C7F16F9D25DA254D3",
+      "Bytes": 410,
+      "SourcePath": "artifacts/spawn-priority351-host-corrections-proposal1/source/tests/Erlang.Tests/RuntimeActorDispatchHostParameters.cs",
+      "VerifiedParentSha256": "F31C925526C0DC6B55867E8B50137FEE7AB583075C0B76C4C52A5E529423C6CC"
+    },
+    {
+      "Path": "tests/Erlang.Tests/PriorityPermissionHostChecks.cs",
+      "ParentSha256": "893AE59C231EA5FDD32FE4296B6B5E10AF076533B43553E1F4D1873737A6E6E2",
+      "Sha256": "13AECB62661BF497F0C57FE2809D61BE65C853DCF8CFF41D9DA36D3851213C09",
+      "Bytes": 10568,
+      "SourcePath": "artifacts/spawn-priority351-host-corrections-proposal1/source/tests/Erlang.Tests/PriorityPermissionHostChecks.cs",
+      "VerifiedParentSha256": "893AE59C231EA5FDD32FE4296B6B5E10AF076533B43553E1F4D1873737A6E6E2"
+    },
+    {
+      "Path": "tests/Erlang.Tests/HaltLifecycleHostChecks.cs",
+      "ParentSha256": "6FEF0F2E9ADA21945753C5FC7ECEE9C46FD98AB4FEB0D89F61DA97243FBBB84D",
+      "Sha256": "2C5C434D0B8CC1BADDE99F174BB3BE63116F5DA5E1BCC5E56F27013F47B2F480",
+      "Bytes": 11888,
+      "SourcePath": "artifacts/spawn-priority351-host-corrections-proposal1/source/tests/Erlang.Tests/HaltLifecycleHostChecks.cs",
+      "VerifiedParentSha256": "6FEF0F2E9ADA21945753C5FC7ECEE9C46FD98AB4FEB0D89F61DA97243FBBB84D"
+    },
+    {
+      "Path": "tests/Erlang.Tests/HaltLifecycleHostNames.cs",
+      "ParentSha256": "0DBAFB553DBD62398E1A40FF2FE9209389F768AEBB5B9B061C5E8A7C76DB9DBC",
+      "Sha256": "4B17C73EFD4A9A2BE5F119DD1E7DD9BF6095BD3E96DA85F016166F27365C21EC",
+      "Bytes": 1608,
+      "SourcePath": "artifacts/spawn-priority351-host-corrections-proposal1/source/tests/Erlang.Tests/HaltLifecycleHostNames.cs",
+      "VerifiedParentSha256": "0DBAFB553DBD62398E1A40FF2FE9209389F768AEBB5B9B061C5E8A7C76DB9DBC"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimePorts.cs",
+      "Bytes": 25334,
+      "Sha256": "E519FA5E969E5400B90CD4C20634CC0846B9373454FDA946DFC27A9EFE897A7A",
+      "SourcePath": "artifacts/spawn-priority351-port-retired-proposal/source/src/Erlang.Runtime/RuntimePorts.cs",
+      "VerifiedParentSha256": "E2E4BE7E13C730B6783EF52868ED62F1FBACCA9AF1D10CF98A75DEFDF07AAD75"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.ProcessScheduling.cs",
+      "Bytes": 2120,
+      "Sha256": "B2032518A4CE88DD09325AFCCDF2E02EB8738F7D1233AC77D8B30DC4A310F17D",
+      "SourcePath": "artifacts/spawn-priority351-port-retired-proposal/source/src/Erlang.Runtime/ModuleRegistry.ProcessScheduling.cs",
+      "VerifiedParentSha256": "3BE87389672FAA120DD21EABEE50C998170C5A45D22879FC98D8C2CB237555AD"
+    }
+  ],
+  "PublishedReportingSourceMerge": [
+    {
+      "Path": "tools/Erlang.Tool/MfaCompatibilityMarkdown.cs",
+      "PublishedBlobSha256": "4CC9015CCBE8780AD87E27409F44CD9C22780A9055849AE3DD233553939DB748",
+      "CurrentRawSha256": "4CC9015CCBE8780AD87E27409F44CD9C22780A9055849AE3DD233553939DB748",
+      "Frozen3002Sha256": "1769973368F3F7D1F34FCE0C5009A68F1FF60F4E208BC45D2060DB48D0BF703F",
+      "Action": "Copy current published reporting source using current unowned raw/EOL policy; derive and freeze exact bytes before style/build."
+    },
+    {
+      "Path": "tools/Erlang.Tool/MfaCompatibilityNames.cs",
+      "PublishedBlobSha256": "5EA4724E7FA839E0688C1ADC5752C4EAB7DD0FA1622A40F0D38DC6F3977E1F64",
+      "CurrentRawSha256": "5EA4724E7FA839E0688C1ADC5752C4EAB7DD0FA1622A40F0D38DC6F3977E1F64",
+      "Frozen3002Sha256": "648545D7D2600A3CC9674495973F2D2A28147E750D3C18CF5ECDD39127418E7D",
+      "Action": "Copy current published reporting source using current unowned raw/EOL policy; derive and freeze exact bytes before style/build."
+    },
+    {
+      "Path": "tools/Erlang.Tool/Readiness.cs",
+      "PublishedBlobSha256": "33617A2A6978FA45B8A331A12D36BE1F938D2F86E91207FAE6954BD59D0F0C44",
+      "CurrentRawSha256": "33617A2A6978FA45B8A331A12D36BE1F938D2F86E91207FAE6954BD59D0F0C44",
+      "Frozen3002Sha256": "9D125DFDF07E3CC1237B6B5FFC4A7C6A3839AC625DC3B11B6E0E37A198348B39",
+      "Action": "Copy current published reporting source using current unowned raw/EOL policy; derive and freeze exact bytes before style/build."
+    },
+    {
+      "Path": "tools/Erlang.Tool/ReadinessText.cs",
+      "PublishedBlobSha256": "76B4D745884D5EEEEB8640AD7925CA7CDBE45CFCFCBED627F6977C9D2DABDD5A",
+      "CurrentRawSha256": "76B4D745884D5EEEEB8640AD7925CA7CDBE45CFCFCBED627F6977C9D2DABDD5A",
+      "Frozen3002Sha256": "DB29D39576E11D28F62EF8E7221360544CF51199DFCAF5B1F985658548ECA925",
+      "Action": "Copy current published reporting source using current unowned raw/EOL policy; derive and freeze exact bytes before style/build."
+    }
+  ],
+  "KnownFutureOwnedSet": {
+    "Original": 43,
+    "OneExistingPathReplaced": "src/Erlang.Runtime/ModuleRegistry.ProcessScheduling.cs",
+    "SixAdditionalOwnedPaths": [
+      "tests/Erlang.Tests/RuntimeActorDispatchHostChecks.cs",
+      "tests/Erlang.Tests/RuntimeActorDispatchHostParameters.cs",
+      "tests/Erlang.Tests/PriorityPermissionHostChecks.cs",
+      "tests/Erlang.Tests/HaltLifecycleHostChecks.cs",
+      "tests/Erlang.Tests/HaltLifecycleHostNames.cs",
+      "src/Erlang.Runtime/RuntimePorts.cs"
+    ],
+    "FourCurrentPublishedToolPaths": [
+      "tools/Erlang.Tool/MfaCompatibilityMarkdown.cs",
+      "tools/Erlang.Tool/MfaCompatibilityNames.cs",
+      "tools/Erlang.Tool/Readiness.cs",
+      "tools/Erlang.Tool/ReadinessText.cs"
+    ],
+    "KnownUnion53": [
+      ".gitattributes",
+      ".github/workflows/nif-pending-native.yml",
+      ".github/workflows/nif-reallocation-native.yml",
+      "docs/mfa-compatibility.json",
+      "docs/module-readiness-scope.json",
+      "src/Erlang.Compiler/Execution.cs",
+      "src/Erlang.Runtime/CoreModules.cs",
+      "src/Erlang.Runtime/ModuleRegistry.ProcessScheduling.cs",
+      "src/Erlang.Runtime/ModuleRegistry.cs",
+      "src/Erlang.Runtime/ProcessContext.cs",
+      "src/Erlang.Runtime/ProcessExecutionAdmission.cs",
+      "src/Erlang.Runtime/ProcessExecutionAwaitable.cs",
+      "src/Erlang.Runtime/ProcessExecutionAwaiter.cs",
+      "src/Erlang.Runtime/ProcessPriorityNames.cs",
+      "src/Erlang.Runtime/ProcessPriorityValues.cs",
+      "src/Erlang.Runtime/ProcessRuntime.ConnectedSpawn.cs",
+      "src/Erlang.Runtime/ProcessRuntime.Priority.cs",
+      "src/Erlang.Runtime/ProcessRuntime.cs",
+      "src/Erlang.Runtime/ProcessSchedulingPriority.cs",
+      "src/Erlang.Runtime/ProcessSpawnOptions.cs",
+      "src/Erlang.Runtime/RuntimeActorContinuation.cs",
+      "src/Erlang.Runtime/RuntimeActorDispatcher.cs",
+      "src/Erlang.Runtime/RuntimeActorExecutionTurn.cs",
+      "src/Erlang.Runtime/RuntimePorts.cs",
+      "src/Erlang.Runtime/RuntimeProcessTaskScheduler.cs",
+      "src/Erlang.Runtime/RuntimeScheduledTask.cs",
+      "tests/Erlang.Tests/HaltLifecycleHostChecks.cs",
+      "tests/Erlang.Tests/HaltLifecycleHostNames.cs",
+      "tests/Erlang.Tests/PriorityPermissionHostChecks.cs",
+      "tests/Erlang.Tests/Program.cs",
+      "tests/Erlang.Tests/RuntimeActorDispatchHostChecks.cs",
+      "tests/Erlang.Tests/RuntimeActorDispatchHostParameters.cs",
+      "tests/Erlang.Tests/SpawnPriorityAdmissionHostChecks.cs",
+      "tests/Erlang.Tests/SpawnPriorityEpochHostChecks.cs",
+      "tests/Erlang.Tests/SpawnPriorityGuestReentryHostChecks.cs",
+      "tests/Erlang.Tests/SpawnPriorityHostNames.cs",
+      "tests/Erlang.Tests/SpawnPriorityLifecycleHostNames.cs",
+      "tests/Erlang.Tests/SpawnPriorityQueuedChangeHostChecks.cs",
+      "tests/Erlang.Tests/SpawnPriorityReentryNames.cs",
+      "tests/Erlang.Tests/SpawnPriorityRetirementHostChecks.cs",
+      "tests/Erlang.Tests/SpawnPrioritySynchronousBorrowHostChecks.cs",
+      "tests/Erlang.Tests/SpawnPriorityTestNames.cs",
+      "tests/Erlang.Tests/SpawnPriorityWaitingHostChecks.cs",
+      "tools/Erlang.Differential/CompiledModuleCases.cs",
+      "tools/Erlang.Differential/SpawnPriorityCaseNames.cs",
+      "tools/Erlang.Differential/SpawnPriorityCaseSources.cs",
+      "tools/Erlang.Differential/SpawnPriorityCases.cs",
+      "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "tools/Erlang.Tool/MfaCompatibilityMarkdown.cs",
+      "tools/Erlang.Tool/MfaCompatibilityNames.cs",
+      "tools/Erlang.Tool/Readiness.cs",
+      "tools/Erlang.Tool/ReadinessText.cs"
+    ],
+    "KnownCSharp46": 46,
+    "ProductionFiles21": "Original20 plus existing RuntimePorts.cs; actual final count must be derived.",
+    "Qualification": "53 is known source/metadata set before any additional evidence/closure inputs; exact final count derives from actual prepared snapshot. Four Tool files now part of current published parent, so promotion may treat them as preserved unowned rather than changed production paths; freeze their actual bytes either way."
+  },
+  "NativePlans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "OldRawSha256": "F4696B01DD14D49F4E7D54601BCC7C273EE2F2506B531115C5384B174FA8B512",
+      "EntryCount": 1262,
+      "AffectedExistingRows": [
+        "src/Erlang.Runtime/RuntimePorts.cs",
+        "src/Erlang.Runtime/ModuleRegistry.ProcessScheduling.cs"
+      ],
+      "ExcludedHostAndReportingPaths": true,
+      "Action": "After final styled correction hashes exist, refresh only these two existing TextLF row Bytes/Sha256; preserve all other rows and policies and strict UTF8LF JSON. Derive final raw SHA and replace exactly the named workflow seal. If attrs changes additionally refresh existing .gitattributes row where present, with independent exact delta review.",
+      "WorkflowPath": ".github/workflows/nif-pending-native.yml",
+      "WorkflowSeal": "REVIEWED_SOURCE_PLAN_SHA256",
+      "CountChangeExpected": 0
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "OldRawSha256": "6196A1B85BE7F960BC4C33E564E608C08F572245E9D58198F449D483BECB1154",
+      "EntryCount": 1287,
+      "AffectedExistingRows": [
+        "src/Erlang.Runtime/RuntimePorts.cs",
+        "src/Erlang.Runtime/ModuleRegistry.ProcessScheduling.cs"
+      ],
+      "ExcludedHostAndReportingPaths": true,
+      "Action": "After final styled correction hashes exist, refresh only these two existing TextLF row Bytes/Sha256; preserve all other rows and policies and strict UTF8LF JSON. Derive final raw SHA and replace exactly the named workflow seal. If attrs changes additionally refresh existing .gitattributes row where present, with independent exact delta review.",
+      "WorkflowPath": ".github/workflows/nif-reallocation-native.yml",
+      "WorkflowSeal": "REVIEWED_REALLOCATION_PLAN_SHA256",
+      "CountChangeExpected": 0
+    }
+  ],
+  "CompatibilityPreparation": {
+    "Path": "docs/mfa-compatibility.json",
+    "CountsUnchanged": [
+      10,
+      24,
+      553
+    ],
+    "GuardPathCountUnchanged": 74,
+    "OnlyExistingGuardHashRefresh": {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.ProcessScheduling.cs",
+      "Previous": "3BE87389672FAA120DD21EABEE50C998170C5A45D22879FC98D8C2CB237555AD",
+      "ProposedUnstyled": "B2032518A4CE88DD09325AFCCDF2E02EB8738F7D1233AC77D8B30DC4A310F17D"
+    },
+    "Action": "After independent source review/current focused pass, append a new SourceReview to existing ten Verified rows preserving all prior evidence/scope/limits, refresh only this guard SHA to final styled bytes; RuntimePorts is not a dependency of the currently verified ten scalar/identity predicates. Preserve previous F8 source review as historical. Rehash every referenced source/evidence and copy transitive inputs before full validator; no future six predicate status changes."
+  },
+  "RegistryPreparation": {
+    "Path": "docs/supported-mfas.json",
+    "Rows": 587,
+    "ExpectedCustomLimitsInput": "EE3B3C9540C151698CA086E738BCD7E37C83F2836C9CBA79CC08169521B50A89",
+    "Action": "Preserve all intentional seven priority Limits refinements and all587 nonLimits; snapshot before full. After validation generation restore only custom Limits consciously against frozen input; no status or MFA count change."
+  },
+  "RemainingPreparationActions": [
+    "Reconstruct from immutable3002 with exact package6; apply only peer-approved seven correction sources and current published add05fc6 four Tool sources. Parent source/EOL receipts distinguish actualcurrentMain350+labels from oldfailed351 snapshot.",
+    "Build/style and focus only after Root grant. Freeze final styled bytes and source peer; old failure cause classifications remain distinct from observed red/green results. Required focus covers migrated HOST controls, retired/cancel admission, portpressure bothparallelism values, and prioritycleanup/retirement.",
+    "Update canonical sourcefreeze/snapshot, full build closure (3002 no longer assumedfinal), registrybefore, readiness-input closure/transitive evidence hashes, previous7286ordered names, same11new test expectation (three compiled then eight HOST). Testnames notadded by these repairs.",
+    "Check .gitattributes current policy and exact proposed rawbytes; no unconditional attribute edits. Pending1262/reallocation1287 initially retain counts; derive updated plan rawhashes then exactly two workflowseals. Freeze strictUTF8LF sourceplan bytes and pinnedOTP anchors/resources before any native future build.",
+    "Recompute package6/readiness inputs against exactnewparent. Source-only reporting correction requires actual compiled generator to preserve 100% compatible/Needs verification labels in later generated Markdown. Do not overwrite current public MD with stale labels.",
+    "Generate new configuration with actual candidate/seed/output paths, actual source/closure/registry/package/readiness/previous/newnames hashvalues and independent peer. Keep failedactual1 outputs immutable; distinct newfull output. Root owns one full process; no duplicate SDK work.",
+    "Current publication docs finalizer1 is stale: parentc1f219,20production,43owned/3002closure and absent0055 assumptions must be superseded only afteractualcorrectedfocus/full. Preserve it unchanged. Future finalizer appends part351 to existing0055 reporting clarification and preserves closed0054; merges current label Tool source and checkpoints without replacing earlier history.",
+    "New priority original3 and same-head351CI follow eventual publication; no fake prefull gate and no fullPASS until settled independent actual proof."
+  ],
+  "PortPermissionControl": {
+    "Name": "erlang-port-native-option-echo-3",
+    "SameSourceGeneratedAndLoadedLibraries": true,
+    "Restricted": "actual false {error,error,eacces}, settledexit1",
+    "Approved": "actual true {ok,done}, settledexit0",
+    "Scope": "One exact same-DLL echo3 case demonstrates environment boundary for that case only; does not prove all16 native-port cases pass or classify every remaining firstfull failure."
+  },
+  "Evidence": [
+    {
+      "Path": "artifacts/spawn-priority351-host-corrections-proposal1/source-freeze.json",
+      "Bytes": 2925,
+      "Sha256": "2A64376F5EDFF3D54CA14820C97598E3E6D66C1E957E37A323ABAFBCA7BE783C"
+    },
+    {
+      "Path": "artifacts/spawn-priority351-port-retired-proposal/source-freeze.json",
+      "Bytes": 906,
+      "Sha256": "6FF4F122A56670065A7BBBFC4E292F7991F385190CEC0DF1C80A03FA52E4A5D6"
+    },
+    {
+      "Path": "artifacts/spawn-priority351-port-restricted/result.json",
+      "Bytes": 1873,
+      "Sha256": "F82D627ACDA2F3376FB1DFCBED5A9FAE02E7BAB349C4B6D9473FDB6BFCA3DE14"
+    },
+    {
+      "Path": "artifacts/spawn-priority351-port-restricted/probe.exit.json",
+      "Bytes": 642,
+      "Sha256": "D1B066DF69FF1C8591CF4BA1AEC949EB98B3BA0E3030AD9490385D9F2AD38008"
+    },
+    {
+      "Path": "artifacts/spawn-priority351-port-restricted/probe.stdout.log",
+      "Bytes": 6,
+      "Sha256": "765489FD1B16CABFD78A744FF35DBECCD0D050FB1BFF907DCA6E1EAFA8D44938"
+    },
+    {
+      "Path": "artifacts/spawn-priority351-port-restricted/probe.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn-priority351-port-approved/result.json",
+      "Bytes": 1861,
+      "Sha256": "98A5E252A3FFF9B8F8694D2F3D4C541CA89D04A51E48AA023290FB15979EA823"
+    },
+    {
+      "Path": "artifacts/spawn-priority351-port-approved/probe.exit.json",
+      "Bytes": 640,
+      "Sha256": "BE4D13E38C6E79FFAC9489BAED5C9031BBB1F37F43EDAB924EA97C533158521D"
+    },
+    {
+      "Path": "artifacts/spawn-priority351-port-approved/probe.stdout.log",
+      "Bytes": 6,
+      "Sha256": "D938FA189912F8776C3DEB31A6BEC42F403F57B9C8E3ED936BDB076CAF6BD61C"
+    },
+    {
+      "Path": "artifacts/spawn-priority351-port-approved/probe.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    }
+  ],
+  "SourcePlansMutated": false,
+  "LedgerChanged": false,
+  "MainChanged": false,
+  "CandidateChanged": false,
+  "SdkExecuted": false,
+  "Network": false
+}

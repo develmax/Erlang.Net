@@ -1,0 +1,360 @@
+{
+  "Status": "PROPOSED_ONLY74_RUNTIME_GUARDS_NOT_APPLIED",
+  "BaseCurrent350LedgerSha256": "993A676DAE44029A4E0DFEA8C827BA5C9AABFFB6B8AE70D4B68E821C7B9AADA8",
+  "ReviewedStyledFreezeSha256": "F8A3CB00D45BD9491573B36F7C8857C925794AC4B1A320F39DD7B6EE90948404",
+  "Prior59Bindings": 59,
+  "OldBindingsNeedingHashRefresh": [
+    {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "PriorSha256": "B0771827A437A320B1D94D6CFA0B9FA87CE5972DD32658392DA34DFDF3400484",
+      "ProposedSha256": "E249498D8D0684013CE77B3D00F136895905746A99610AA62F2D7FE43DF3602D"
+    },
+    {
+      "Path": "src/Erlang.Runtime/CoreModules.cs",
+      "PriorSha256": "37ACAF904489E59D04409936ABE4145922FAA012982E58DBE6AD54C5D85AEBE4",
+      "ProposedSha256": "CDF0EFD07267927CFE97523AAD7A1FE3509B795456CC5E8D2853408A67C13B63"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.cs",
+      "PriorSha256": "29C763089F9BC64206FE1F1C0A5B38A439B0FD4D66ECAE488007DFBC778EDB27",
+      "ProposedSha256": "3C461A3953098DC512AC531FE0DED81B71BB60C9E18E0A5C5519D8542206C8B8"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
+      "PriorSha256": "63846E423438F2F03D51346FF41C30C8C8AE172BC31E0632132474123EA113C1",
+      "ProposedSha256": "935D12A47C2C0DE3F58BB439D4975E89582B6B0BF81B98813AC2D1DFF599A400"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.cs",
+      "PriorSha256": "6148EADEEA43420DE554BC651C8A9BA8C9ABADDAFA76691121D33B386264583C",
+      "ProposedSha256": "14C17E6F60C7A37446CEC556FFF3812859CFE0252643D5165970B7CC42713279"
+    }
+  ],
+  "NewDependencyPaths": [
+    "src/Erlang.Runtime/ModuleRegistry.ProcessScheduling.cs",
+    "src/Erlang.Runtime/ProcessExecutionAdmission.cs",
+    "src/Erlang.Runtime/ProcessExecutionAwaitable.cs",
+    "src/Erlang.Runtime/ProcessExecutionAwaiter.cs",
+    "src/Erlang.Runtime/ProcessPriorityNames.cs",
+    "src/Erlang.Runtime/ProcessPriorityValues.cs",
+    "src/Erlang.Runtime/ProcessRuntime.ConnectedSpawn.cs",
+    "src/Erlang.Runtime/ProcessRuntime.Priority.cs",
+    "src/Erlang.Runtime/ProcessSchedulingPriority.cs",
+    "src/Erlang.Runtime/ProcessSpawnOptions.cs",
+    "src/Erlang.Runtime/RuntimeActorContinuation.cs",
+    "src/Erlang.Runtime/RuntimeActorDispatcher.cs",
+    "src/Erlang.Runtime/RuntimeActorExecutionTurn.cs",
+    "src/Erlang.Runtime/RuntimeProcessTaskScheduler.cs",
+    "src/Erlang.Runtime/RuntimeScheduledTask.cs"
+  ],
+  "ProposedRuntimeBindings": [
+    {
+      "Path": "src/Erlang.Compiler/AutoImportSignatures.cs",
+      "Sha256": "13FBAD08FC4EC9EDD2B4CCDB661115A43F4CB737F681DCE0F5EDEB096BB2EC2F"
+    },
+    {
+      "Path": "src/Erlang.Compiler/CodeGeneration.cs",
+      "Sha256": "6FFA154BFCC58F9D13A41F1A29FD39E48AB2DB5A666D9ACB4DF1D9B62D283903"
+    },
+    {
+      "Path": "src/Erlang.Compiler/CompileException.cs",
+      "Sha256": "CFE6B9E98D61D7DCB05730A9F6665853134BDCEC32212F561ECA14E78EFA2949"
+    },
+    {
+      "Path": "src/Erlang.Compiler/CompilerDiagnosticCodes.cs",
+      "Sha256": "E9A3A0D933AB51E9712A6957A24EACC531CCD551D42DE3CB8FF09479C0E309CC"
+    },
+    {
+      "Path": "src/Erlang.Compiler/ComprehensionGuard.cs",
+      "Sha256": "9BDCE99B896F2FBC323C5384CDB227326995F47CFE3F7F7B91E03713A5750565"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Execution.AsyncGuards.cs",
+      "Sha256": "994F87089FAEEFA88BC2143577894F3C3A728BF4AF1972BD610B7DCC6B61920A"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "Sha256": "E249498D8D0684013CE77B3D00F136895905746A99610AA62F2D7FE43DF3602D"
+    },
+    {
+      "Path": "src/Erlang.Compiler/LocalCallValidation.cs",
+      "Sha256": "1EA5E7C1189CF7F37357397720175BB45EBDF39DBCDD5314FBF7B05EF6612DD4"
+    },
+    {
+      "Path": "src/Erlang.Compiler/ModuleDefinition.cs",
+      "Sha256": "0675A3EA94ED6F9284362F02B97D3DFEF38F6473E401A2D8C574145E0F30F637"
+    },
+    {
+      "Path": "src/Erlang.Compiler/ModuleNameDiagnostics.cs",
+      "Sha256": "4908D2580C28AFC641C2D023DBB0C5D5E688785AB3D96CD25038A81A9F6A23B1"
+    },
+    {
+      "Path": "src/Erlang.Compiler/ModuleNameParameters.cs",
+      "Sha256": "66086BD0302CFC85AEFFD07B06AED2A9B0864EF4732D90D90715DEB208C6D2A9"
+    },
+    {
+      "Path": "src/Erlang.Compiler/ModuleNameValidation.cs",
+      "Sha256": "13FBF35429121ADB9F6B7CBE96D89D67435ADA7F386A32C6410E4057B6E459B4"
+    },
+    {
+      "Path": "src/Erlang.Compiler/NamedFunctionReferences.cs",
+      "Sha256": "374855A51103017CADF86DE92B0ADAFF705CBB32E62707F2C6E70396CF54247F"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Parser.cs",
+      "Sha256": "1B0D729A43ADEABADE978AF266C96F5ACD64E19C7860BF1F17B7276D26C34B6F"
+    },
+    {
+      "Path": "src/Erlang.Compiler/RecordPredicateSyntax.cs",
+      "Sha256": "EC38828DD641FB4E0775B57728096F6936815B9804B0C532D30ED0103486A025"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Semantics.cs",
+      "Sha256": "59920F9FA17CB76DC3A2C0B6074A193C28A77545D062FFFE945C04D0FDEA3458"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceCallBindingBuilder.cs",
+      "Sha256": "D0BE717064BC6DA794886E51BE32E8ED0CF175E00AEB6BD3569BB084B7343251"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceCallBindingCode.cs",
+      "Sha256": "22564BF033FCDD3BDAC2E08776F4E7858244881BAF6A57AF94EE4616F8E63317"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceCallBindingDiagnostics.cs",
+      "Sha256": "3558D96008871537B8222ABE72E3F597B55375CD4AA2065595BB9D1820FF6B57"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceCallBindingNames.cs",
+      "Sha256": "5917B5AE4027F84DB4B070703E3CD6417769E20559EB45D74C1125C01B00B722"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceCallBindings.cs",
+      "Sha256": "AE52E9A9A7FF4EB6030EB5703D2AFA152921DAF64AD55E3191097B37C9EA36C8"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceCallResolution.cs",
+      "Sha256": "9E662A5BCBB9D80F819B84970A199C02874AA443C92DD80C26FF21A9A716B5D6"
+    },
+    {
+      "Path": "src/Erlang.Runtime/CoreModules.cs",
+      "Sha256": "CDF0EFD07267927CFE97523AAD7A1FE3509B795456CC5E8D2853408A67C13B63"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangProcessQueryRegistrations.cs",
+      "Sha256": "0A1A3F6A52AED376204ED203AC8D2FD5927078A1E715B61192E196FA24050E32"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.cs",
+      "Sha256": "3C461A3953098DC512AC531FE0DED81B71BB60C9E18E0A5C5519D8542206C8B8"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
+      "Sha256": "935D12A47C2C0DE3F58BB439D4975E89582B6B0BF81B98813AC2D1DFF599A400"
+    },
+    {
+      "Path": "src/Erlang.Terms/BitString.cs",
+      "Sha256": "66C7A14040D3F7AF80DEF58B1C06ACAB067D40172C423AED64D86F436183CDD0"
+    },
+    {
+      "Path": "src/Erlang.Terms/Cons.cs",
+      "Sha256": "46D73379F77BC6339AC7E5C035FAF5AB8B4EE8CEB286877C92DAC0C8CC3125D9"
+    },
+    {
+      "Path": "src/Erlang.Terms/MapTerm.cs",
+      "Sha256": "1AAFECC8C729CA2F38540180E8AAA2303312BD346FAE67A7E684D684D728F7C3"
+    },
+    {
+      "Path": "src/Erlang.Terms/NativeRecordTerm.cs",
+      "Sha256": "30DE73CCB8E5F8E19D31A4D1A9F79ADA24F424F06094DE1D169251740FDA7850"
+    },
+    {
+      "Path": "src/Erlang.Terms/TermComparisonStep.cs",
+      "Sha256": "DA1D1968DEEAF4D48382D0ED24FD37A3652225ED385F2E4276C24A90DDF13917"
+    },
+    {
+      "Path": "src/Erlang.Terms/TermHashFrame.cs",
+      "Sha256": "F932D02FD87FDC9E784B3D1309D0AA8113B9B434C70DDC09BC5AE17B9308506B"
+    },
+    {
+      "Path": "src/Erlang.Terms/TermHashStep.cs",
+      "Sha256": "448EFEEEE42896034F759D8EAFBC3549B77ACDB6CC494D07D160978BB83B1226"
+    },
+    {
+      "Path": "src/Erlang.Terms/TermHashStepKind.cs",
+      "Sha256": "B2CA8362745FCEAB745EA5AD67CBB99E31CE6AA33A4893089862C3C40EC18E40"
+    },
+    {
+      "Path": "src/Erlang.Terms/TermOrder.cs",
+      "Sha256": "B2E92018FAE4A40A7A3A03910227AEBDDACE23473A650C7E6A6FEC649E79A589"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangApplyDispatch.cs",
+      "Sha256": "3D872A4A1A1DC899CF7A8E90992926CEEAB879E77D34ED204B40D55173FDB295"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangApplyLimits.cs",
+      "Sha256": "CF072BE6E5652D443B5352E1A06BF3D289DD30B27917E6151B6EECBA728D3649"
+    },
+    {
+      "Path": "src/Erlang.Runtime/MatchSpecCompiler.cs",
+      "Sha256": "10760FBD45AA4E023386A678A11C05266D33BD6FC7BE709C837DFC028A40DB8A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/MatchSpecOperations.cs",
+      "Sha256": "8C82EFECF906A1FA8773FA60CF40B0941DC5B2D9153CEC4CF65B2EF5124E4503"
+    },
+    {
+      "Path": "src/Erlang.Runtime/MatchSpecProgram.cs",
+      "Sha256": "EB33F5DC48C57F054E69F4F410112000E56753B5107E079C9D6984DF7E3FF569"
+    },
+    {
+      "Path": "src/Erlang.Runtime/MatchSpecRegistrations.cs",
+      "Sha256": "677F3F0B7ED4B12139841EDD7D1871A88A4627A10254DD95428347751367B1C8"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.cs",
+      "Sha256": "14C17E6F60C7A37446CEC556FFF3812859CFE0252643D5165970B7CC42713279"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NativeBuiltinCatalog.cs",
+      "Sha256": "17D47C563EAC30308F96719F5232FDB6FAB84C4F5EF195F4FA146823993BBDBF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.ExternalTerms.cs",
+      "Sha256": "B7FE057B5228BAD9DC90BC5B70A49BC060F421BE6AC06A9C9C49359C5CE15E7D"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ResourceReferenceTerm.cs",
+      "Sha256": "DCB42DC0EAE26EC5D8870AF23F2E50B1C5957774AF23B7D00DFD270E5772BE8F"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeKnownNodes.cs",
+      "Sha256": "3A05794C9D10EF0BE358F223F8D3FFCE04D276A5A8922E049F4AA96E3704DA96"
+    },
+    {
+      "Path": "src/Erlang.Terms/Atom.cs",
+      "Sha256": "E1772CEA8524236CD6BF34E47697574E69445FB3581246067D6061BAEEAF4A50"
+    },
+    {
+      "Path": "src/Erlang.Terms/AtomCache.cs",
+      "Sha256": "37DE45772B404F5590FB420CD3604F23E35DD74A5975D44C07B0A49803644244"
+    },
+    {
+      "Path": "src/Erlang.Terms/ErlangBooleanAtoms.cs",
+      "Sha256": "9140F2E799740BE5FDA0A36A2A7BA27D3DF3A5A203AD23BBA32C36AE52A06F82"
+    },
+    {
+      "Path": "src/Erlang.Terms/ErlangModuleNames.cs",
+      "Sha256": "1C284D03463B93940AC39550E63BF818A33BBE121A7DDEBC2EFB1BF1148B1402"
+    },
+    {
+      "Path": "src/Erlang.Terms/FloatTerm.cs",
+      "Sha256": "15947C4D813909CD7B1C8A163D4FFBC3509E8E5DDEB026C88F1D308B7BC15229"
+    },
+    {
+      "Path": "src/Erlang.Terms/FunctionTerm.cs",
+      "Sha256": "B58853E8C1D4548775E4835DA704C15DAFA1EBF06C99432CEA6BDAB6ABE7C5E2"
+    },
+    {
+      "Path": "src/Erlang.Terms/Integer.cs",
+      "Sha256": "CD4E5B3604C8194785FE20CD15A09A182BFBCA7128B95EE688ADB8719C30CC4F"
+    },
+    {
+      "Path": "src/Erlang.Terms/Nil.cs",
+      "Sha256": "93D91D6D1400387B0E31B8C2ED36760921A6FDACFCD64953DA086F3D02B63366"
+    },
+    {
+      "Path": "src/Erlang.Terms/Pid.cs",
+      "Sha256": "CFB58C5E4A782C21CD612E16FB361CBFB6C5A1C7A4422A0A987B2752C353F80D"
+    },
+    {
+      "Path": "src/Erlang.Terms/PortTerm.cs",
+      "Sha256": "083E9B55E3BB8265E7C575FFE84E1BA1DD17B8E11A9C272586138A197E19AF21"
+    },
+    {
+      "Path": "src/Erlang.Terms/ReferenceTerm.cs",
+      "Sha256": "8AF2B4C481E2D58E0AEEE23F30EA9DD8047EF502FB2A024B7C125D397DDB22C4"
+    },
+    {
+      "Path": "src/Erlang.Terms/Term.cs",
+      "Sha256": "32EE6669E0D4D5BAE2E780CD62FEAA1E56D3F49B6C3781927D5994E86C14A644"
+    },
+    {
+      "Path": "src/Erlang.Terms/TupleTerm.cs",
+      "Sha256": "A3CDFE09E6855FCE67979373A06A2D3960AFB09BF0ED5A5E6E52B82068992080"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.ProcessScheduling.cs",
+      "Sha256": "3BE87389672FAA120DD21EABEE50C998170C5A45D22879FC98D8C2CB237555AD"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessExecutionAdmission.cs",
+      "Sha256": "C551B48631670491C0C3A3A1434790D78EE42D851376CC1E3F817F9E2AA68F31"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessExecutionAwaitable.cs",
+      "Sha256": "C3A4BF7E5506058F3CB42EC4D2565CA052908CD0FA8C4469186303517E411F79"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessExecutionAwaiter.cs",
+      "Sha256": "E8035D71918F6A66EA2446A4637166FA54EDA3ECC0C05DBE49803F1D7D89F5BC"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessPriorityNames.cs",
+      "Sha256": "952464908BC3E705D220CE9D609EEF9F347A81158A430C239A1E76FE831D8F4E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessPriorityValues.cs",
+      "Sha256": "C6AF5AD761C9826D7027221D643572165DFF5A3597E715121A1634EECC07C093"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.ConnectedSpawn.cs",
+      "Sha256": "56E0773E3E30507BA648903658866EB3A875855EC4A15F1488A73107DBC48CFE"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.Priority.cs",
+      "Sha256": "66871BF5F4E57C8BC7A7CACF1325C2ADABD63335C6A3B691643A8A66EC8F6EDA"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessSchedulingPriority.cs",
+      "Sha256": "BC762C0DB29DC586E294CD4AB088E702EEE9E6C9F380C34C4EC3B3D0F1E3DE2F"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessSpawnOptions.cs",
+      "Sha256": "B3BB2B2294F01DEF5594F8F5EA476E4D57B398D99AC210B79C1E9F098D29E670"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeActorContinuation.cs",
+      "Sha256": "0725B8ECE17147ABEA9C8F0FE6F25614FEE4F775A42E5B01669FC6DA233B9A7A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeActorDispatcher.cs",
+      "Sha256": "06DFE4D088A24712CD25A855A3318CF018D0B50C653E2303DE8EC0F72098FC3D"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeActorExecutionTurn.cs",
+      "Sha256": "905869A18ABA79B14E9264BCC8E43104EAAC2B3DBD589311C7E55E7B04BD3CF6"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeProcessTaskScheduler.cs",
+      "Sha256": "F749C44C345F027DCA74C0FE2DD279CFF2A48A082079467B78A3CF56E03DC63D"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeScheduledTask.cs",
+      "Sha256": "2FE11F32154C8427556D656D35BABB0014CBFBA28F0BDB55E8944054F83DF987"
+    }
+  ],
+  "UnchangedOldBindings": 54,
+  "CompatibilityEntriesChanged": false,
+  "MayApplyAutomatically": false,
+  "RequiredBeforeFinalCompatibilityAssertion": [
+    "Root source/plan acceptance",
+    "Actual focused old-ten dispatch/context preservation results",
+    "Full current-source regression and readiness",
+    "Relevant original/current-head CI evidence accepted by Root"
+  ],
+  "MainModified": false,
+  "SdkExecuted": false,
+  "Network": false
+}

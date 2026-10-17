@@ -80,7 +80,14 @@ public sealed partial class ProcessContext : ITermExecutionContext
         get => Volatile.Read(ref errorHandler);
         set => Volatile.Write(ref errorHandler, value);
     }
-    internal Atom SchedulingPriority { get; } = ProcessInfoLogicalAtoms.NormalPriority;
+    private int schedulingPriority = (int)ProcessSchedulingPriority.Normal;
+    internal RuntimeProcessTaskScheduler? ActorTaskScheduler { get; set; }
+    internal ProcessSchedulingPriority SchedulingPriorityLevel
+    {
+        get => (ProcessSchedulingPriority)Volatile.Read(ref schedulingPriority);
+        set => Volatile.Write(ref schedulingPriority, (int)value);
+    }
+    internal Atom SchedulingPriority => ProcessPriorityValues.ToAtom(SchedulingPriorityLevel);
     internal long CumulativeReductions => Interlocked.Read(ref cumulativeReductions);
     private readonly AsyncLocal<ErlangExecutionFrame?> executionFrame = new();
     private ErlangExecutionFrame? visibleExecutionFrame;
@@ -278,6 +285,15 @@ public sealed partial class ProcessContext : ITermExecutionContext
 
     public ValueTask ReduceAsync() => ChargeAsync(1);
 
+    public ProcessExecutionAwaitable ExecutionCheckpoint() => new(
+        ChargeAsync(1), ActorTaskScheduler, ProcessExecutionAdmission.Continuation);
+
+    public ProcessExecutionAwaitable YieldExecution() => new(
+        ValueTask.CompletedTask, ActorTaskScheduler, ProcessExecutionAdmission.StackUnwind);
+
+    private ProcessExecutionAwaitable YieldReduction() => new(
+        ValueTask.CompletedTask, ActorTaskScheduler, ProcessExecutionAdmission.Reduction);
+
     internal ValueTask ChargeAsync(int count) => ChargeAsync(count, capToRemainingSlice: false);
 
     internal ValueTask BumpReductionsAsync(int count) => ChargeAsync(count, capToRemainingSlice: true);
@@ -299,7 +315,7 @@ public sealed partial class ProcessContext : ITermExecutionContext
             Yielding = true;
             try
             {
-                await Task.Yield();
+                await YieldReduction();
             }
             finally
             {

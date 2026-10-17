@@ -1,0 +1,47 @@
+{
+  "Status": "SOURCE_ONLY_CORRECTED351_TEN_CONTRACT_PRESERVATION_REQUIRES_FOCUSED_AND_FULL_VALIDATION",
+  "ParentPublishedHead": "add05fc61d8c6f5f024ffcdad1ea19aaea4e3725",
+  "PriorInputLedgerSha256": "4C2F187AC486BA4E07AB58A8CC16DD2A14F9EAD202297E95A8D8BD9968AD93BF",
+  "CompatibilityCountsUnchanged": [
+    10,
+    24,
+    553
+  ],
+  "RuntimeGuards": 74,
+  "OnlyUpdatedGuard": "src/Erlang.Runtime/ModuleRegistry.ProcessScheduling.cs",
+  "CorrectedSourceFiles": [
+    {
+      "Path": "src/Erlang.Runtime/RuntimePorts.cs",
+      "Bytes": 25334,
+      "RawSha256": "E519FA5E969E5400B90CD4C20634CC0846B9373454FDA946DFC27A9EFE897A7A",
+      "TextLFBytes": 25334,
+      "TextLFSha256": "E519FA5E969E5400B90CD4C20634CC0846B9373454FDA946DFC27A9EFE897A7A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.ProcessScheduling.cs",
+      "Bytes": 2120,
+      "RawSha256": "B2032518A4CE88DD09325AFCCDF2E02EB8738F7D1233AC77D8B30DC4A310F17D",
+      "TextLFBytes": 2120,
+      "TextLFSha256": "B2032518A4CE88DD09325AFCCDF2E02EB8738F7D1233AC77D8B30DC4A310F17D"
+    }
+  ],
+  "IndependentRuntimePeer": {
+    "Path": "docs/validation/part-351/corrected-source-review/two-runtime-independent.json",
+    "Sha256": "C412FE7AD70F4DA8CC3886BFD99AD83023B28A68DB2AC77B0AC6DB4CB505E568"
+  },
+  "Argument": [
+    "Existing ten primitive self/node/type predicate handlers and guard/admission argument remain source-identical outside exact existing scheduling gate correction. All other73 guarded dependency hashes revalidated against currentcandidate2.",
+    "Scheduling delta adds noproc only for an already cancelled context absent from the process registry, before selectedbody/errorhandler. Halt still first, live cancellation remains OCE, unchanged catch disposes selected code lease/restores flow. This is managed dead-context HOST contract, not an OTP deadguest caller capability.",
+    "RuntimePorts changes only three infrastructure Write awaits to ConfigureAwait(false); queued-byte finally, chaining, lock/tracking and caller behavior unchanged. It is not on the current ten primitive handler/guard dependency graph; no new Verified API inferred from portbehavior.",
+    "Current published four Tool display-label files are reporting source only, separate from runtime guard graph. Future generated Markdown must retain explicit100%compatible/pendinglabels.",
+    "Current59target focused process is running; this source review claims no focus/build/full success, no new native or current351CI evidence. After focused/source gate acceptance, freeze metadata as explicitnewfullinput. Original failedfull43/3002 and F8 historical evidence remain unchanged."
+  ],
+  "PreservedTenScopeLimitsAndPriorEvidence": true,
+  "NoStatusPromotions": true,
+  "FocusCompletedClaim": false,
+  "FullCompletedClaim": false,
+  "NativeExecuted": false,
+  "SdkExecuted": false,
+  "MainChanged": false,
+  "CandidateChanged": false
+}

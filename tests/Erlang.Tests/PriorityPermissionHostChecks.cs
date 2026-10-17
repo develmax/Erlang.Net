@@ -202,7 +202,6 @@ public static class PriorityPermissionHostChecks
             target,
             Term.A(ProcessInfoNames.PriorityMessages)
         );
-        Require(value.IsCompletedSuccessfully);
         Require((await value).Equals(Term.Tuple(Term.A(ProcessInfoNames.PriorityMessages), Term.A(expected ? ErlangBooleanAtoms.True : ErlangBooleanAtoms.False))));
     }
 
