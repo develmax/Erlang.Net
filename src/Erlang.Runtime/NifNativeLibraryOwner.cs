@@ -8,6 +8,7 @@ internal sealed unsafe class NifNativeLibraryOwner : IAsyncDisposable
     private readonly NifNativeAllocationOwner allocations = new();
     private readonly Dictionary<(string Name, int Arity), nint> functions = new();
     private NifNativeWindowsCallbacks? windowsCallbacks;
+    private NifNativeLinuxCapsuleLease? linuxCapsule;
     private NifNativeAbiEntry entry;
     private nint library;
     private FileStream? libraryFile;
@@ -16,6 +17,7 @@ internal sealed unsafe class NifNativeLibraryOwner : IAsyncDisposable
     private bool reallocationEnabled;
     private bool initialized;
     private bool disposed;
+    private Exception? disposalFailure;
     internal int OutstandingAfterNativeUnload { get; private set; } = -1;
 
     internal NifNativeLibraryOwner(ModuleCodeImage image, ProcessContext context)
@@ -53,17 +55,17 @@ internal sealed unsafe class NifNativeLibraryOwner : IAsyncDisposable
             {
                 throw new NifNativeLoadStageException(NifNativeDefaultLoaderNames.LoadFailed, openFailure);
             }
-            NifNativeExportRegistration.EnsureRegistered(profile);
-            if (reallocationEnabled)
-                NifNativeReallocationExportRegistration.EnsureRegistered(profile);
             if (OperatingSystem.IsWindows())
+            {
+                NifNativeExportRegistration.EnsureRegistered(profile);
+                if (reallocationEnabled)
+                    NifNativeReallocationExportRegistration.EnsureRegistered(profile);
+            }
+            if (OperatingSystem.IsWindows())
+            {
                 windowsCallbacks = new(reallocationEnabled);
-            library = NifNativePlatformLoader.OpenNifLibrary(
-                libraryFile,
-                profile.LibraryPath,
-                useDescriptor: profile.ExpectedLibrarySha256 is not null
-            );
-            nint initialize = NifNativePlatformLoader.NifInitializer(library);
+                windowsCallbacks.BindIndependentEnvironments(initializationContext.Runtime, image);
+            }
             var failure = new NifNativeFailureState();
             using var scope = new NifNativeCallbackScope(allocations, failure, reallocationEnabled);
             using var environment = new NifNativeCallEnvironment(
@@ -73,6 +75,29 @@ internal sealed unsafe class NifNativeLibraryOwner : IAsyncDisposable
                 failure
             );
             using var invocation = scope.BindEnvironment(environment);
+            if (OperatingSystem.IsLinux())
+            {
+                try
+                {
+                    linuxCapsule = initializationContext.Runtime.OpenNativeLinuxCapsule(profile, image, libraryFile);
+                    library = linuxCapsule.Pointer;
+                }
+                catch (Exception nativeFailure) when (nativeFailure is IOException or UnauthorizedAccessException or
+                    DllNotFoundException or EntryPointNotFoundException or BadImageFormatException)
+                {
+                    throw new NifNativeLoadStageException(NifNativeDefaultLoaderNames.LoadFailed, nativeFailure);
+                }
+            }
+            else
+            {
+                library = NifNativePlatformLoader.OpenNifLibrary(
+                    libraryFile,
+                    profile.NativeLibraryPath,
+                    useDescriptor: profile.ExpectedLibrarySha256 is not null
+                );
+            }
+            failure.ThrowPending();
+            nint initialize = NifNativePlatformLoader.NifInitializer(library);
             initializationContext.Runtime.Modules.AddNifTaint(image.Module);
             nint entryPointer = OperatingSystem.IsWindows()
                 ? ((delegate* unmanaged[Cdecl]<nint, nint>)initialize)(windowsCallbacks!.Pointer)
@@ -160,9 +185,19 @@ internal sealed unsafe class NifNativeLibraryOwner : IAsyncDisposable
         lock (gate)
         {
             if (disposed)
-                return ValueTask.CompletedTask;
+                return disposalFailure is null ? ValueTask.CompletedTask : ValueTask.FromException(disposalFailure);
+            var retirementState = new NifNativeFailureState();
+            using var retirementScope = new NifNativeCallbackScope(allocations, retirementState, reallocationEnabled);
+            using var retirementEnvironment = new NifNativeCallEnvironment(
+                initializationContext,
+                image,
+                privateData,
+                retirementState
+            );
+            using var retirementInvocation = retirementScope.BindEnvironment(retirementEnvironment);
             disposed = true;
             Exception? failure = null;
+            bool nativeClosed = false;
             try
             {
                 if (initialized)
@@ -170,78 +205,85 @@ internal sealed unsafe class NifNativeLibraryOwner : IAsyncDisposable
                     initialized = false;
                     if (entry.Unload != 0)
                     {
-                        var state = new NifNativeFailureState();
-                        using var scope = new NifNativeCallbackScope(allocations, state, reallocationEnabled);
-                        using var environment = new NifNativeCallEnvironment(
-                            initializationContext,
-                            image,
-                            privateData,
-                            state
-                        );
-                        using var invocation = scope.BindEnvironment(environment);
-                        ((delegate* unmanaged[Cdecl]<nint, nint, void>)entry.Unload)(environment.Pointer, privateData);
+                        ((delegate* unmanaged[Cdecl]<nint, nint, void>)entry.Unload)(retirementEnvironment.Pointer, privateData);
                         OutstandingAfterNativeUnload = allocations.Count;
-                        state.ThrowPending();
+                        retirementState.ThrowPending();
                     }
                 }
             }
-            catch (Exception error)
+            catch (Exception unloadFailure)
             {
-                failure = error;
+                failure = unloadFailure;
             }
             finally
             {
-                privateData = 0;
-                // Containment for failed init/veto; no assertion that arbitrary native resources are reclaimed.
                 try
                 {
-                    allocations.ReclaimAll();
-                }
-                catch (Exception reclaimFailure)
-                {
-                    failure = failure is null ? reclaimFailure : new AggregateException(failure, reclaimFailure);
-                }
-                nint previous = library;
-                library = 0;
-                try
-                {
-                    NifNativePlatformLoader.Close(previous);
+                    if (linuxCapsule is { } capsule)
+                    {
+                        capsule.Dispose();
+                        linuxCapsule = null;
+                    }
+                    else
+                    {
+                        NifNativePlatformLoader.Close(library);
+                    }
+                    nativeClosed = true;
+                    library = 0;
+                    retirementState.ThrowPending();
                 }
                 catch (Exception closeFailure)
                 {
                     failure = failure is null ? closeFailure : new AggregateException(failure, closeFailure);
                 }
-                var previousFile = libraryFile;
-                libraryFile = null;
-                try
+                if (nativeClosed)
                 {
-                    previousFile?.Dispose();
+                    privateData = 0;
+                    // Target ELF/CRT destructors finish before failed-init/veto containment.
+                    try
+                    {
+                        allocations.ReclaimAll();
+                    }
+                    catch (Exception reclaimFailure)
+                    {
+                        failure = failure is null ? reclaimFailure : new AggregateException(failure, reclaimFailure);
+                    }
+                    var previousFile = libraryFile;
+                    libraryFile = null;
+                    try
+                    {
+                        previousFile?.Dispose();
+                    }
+                    catch (Exception fileFailure)
+                    {
+                        failure = failure is null ? fileFailure : new AggregateException(failure, fileFailure);
+                    }
+                    var previousCallbacks = windowsCallbacks;
+                    windowsCallbacks = null;
+                    try
+                    {
+                        previousCallbacks?.Dispose();
+                    }
+                    catch (Exception callbackFailure)
+                    {
+                        failure = failure is null ? callbackFailure : new AggregateException(failure, callbackFailure);
+                    }
+                    functions.Clear();
+                    try
+                    {
+                        allocations.TryEndDomainMembership();
+                    }
+                    catch (Exception membershipFailure)
+                    {
+                        failure = failure is null ? membershipFailure : new AggregateException(failure, membershipFailure);
+                    }
                 }
-                catch (Exception fileFailure)
+                else
                 {
-                    failure = failure is null ? fileFailure : new AggregateException(failure, fileFailure);
-                }
-                var previousCallbacks = windowsCallbacks;
-                windowsCallbacks = null;
-                try
-                {
-                    previousCallbacks?.Dispose();
-                }
-                catch (Exception callbackFailure)
-                {
-                    failure = failure is null ? callbackFailure : new AggregateException(failure, callbackFailure);
-                }
-                functions.Clear();
-                try
-                {
-                    // Failed reclamation must retain a nonempty membership and its actual bytes.
-                    allocations.TryEndDomainMembership();
-                }
-                catch (Exception membershipFailure)
-                {
-                    failure = failure is null ? membershipFailure : new AggregateException(failure, membershipFailure);
+                    NifNativeLinuxNamespaceRetention.Retain(this);
                 }
             }
+            disposalFailure = failure;
             if (failure is not null)
                 return ValueTask.FromException(failure);
 

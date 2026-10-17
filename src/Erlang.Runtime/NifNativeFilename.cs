@@ -6,7 +6,43 @@ internal static class NifNativeFilename
 {
     private static readonly UTF8Encoding StrictUtf8 = new(false, true);
 
-    internal static string Resolve(Term value)
+    internal static string Resolve(Term value) =>
+        ResolveNative(value).AsAbsolute(NifNativeUnixFile.WorkingDirectory).DisplayPath;
+
+    internal static NifNativeLibraryPath ResolveNative(Term value, bool reviewed = false)
+    {
+        if (OperatingSystem.IsWindows())
+            return NifNativeLibraryPath.FromHostPath(ResolveWindows(value));
+        if (!SourceLoadNifFilename.IsValidUtf8(value))
+            throw new ErlangException(ErlangErrorReasons.BadArgument);
+        NifNativePlatformLoader.VerifyPlatform();
+        byte[] stem = value is BitString binary ? binary.ToArray() : Encoding.UTF8.GetBytes(Flatten(value));
+
+        NifNativeLibraryPath path = NifNativeLibraryPath.ResolveUnix(stem);
+
+        return reviewed && !path.IsUnixBasename ? path.AsAbsolute(NifNativeUnixFile.WorkingDirectory) : path;
+    }
+
+    private static string Flatten(Term value)
+    {
+        var text = new StringBuilder();
+        var pending = new Stack<Term>();
+        pending.Push(value);
+        while (pending.TryPop(out Term? next))
+        {
+            if (next is Cons cell)
+            {
+                pending.Push(cell.Tail);
+                pending.Push(cell.Head);
+            }
+            else if (next is Integer number)
+                text.Append(char.ConvertFromUtf32((int)number.Value));
+        }
+
+        return text.ToString();
+    }
+
+    private static string ResolveWindows(Term value)
     {
         if (!SourceLoadNifFilename.IsValidUtf8(value))
             throw new ErlangException(ErlangErrorReasons.BadArgument);
@@ -25,10 +61,6 @@ internal static class NifNativeFilename
             {
                 // Pinned erts_convert_filename_to_wchar falls back byte-for-byte to Latin1.
                 name = Encoding.Latin1.GetString(bytes, 0, length);
-            }
-            catch (DecoderFallbackException failure)
-            {
-                throw new NotSupportedException(NifNativeDefaultLoaderNames.BinaryFilenameEncoding, failure);
             }
         }
         else

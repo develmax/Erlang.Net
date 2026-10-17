@@ -43,12 +43,12 @@ internal static class Readiness
 
     public static async Task Generate(string docs, string tests, string output)
     {
+        var report = ReadinessTestReportAdmission.Load<TestReport>(tests, JsonOptions);
         var inventory = Load<SourceInventory>(Path.Combine(docs, ReadinessText.InventoryFile));
         var baseline = Load<Baseline>(Path.Combine(docs, "..", ReadinessText.BaselineFile));
         var registered = Load<Mfa[]>(Path.Combine(docs, ReadinessText.RegistryFile));
-        var report = Load<TestReport>(tests);
         var scope = Load<Scope>(Path.Combine(docs, ReadinessText.ScopeFile));
-        var previous = Load<TestReport>(Path.Combine(docs, scope.ComparisonTestReport));
+        var previous = ReadinessTestReportAdmission.Load<TestReport>(Path.Combine(docs, scope.ComparisonTestReport), JsonOptions);
         if (report.Failed != 0 || report.Tests.Any(test => test.Status != ReadinessText.Passed) || report.Passed != report.Tests.Length || inventory.Tag != baseline.Tag || inventory.Commit != baseline.Commit)
             throw new InvalidOperationException(ToolDiagnostics.ReadinessInvalidInput);
 

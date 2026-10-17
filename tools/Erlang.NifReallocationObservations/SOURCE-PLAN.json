@@ -37,14 +37,14 @@
   "Files": [
     {
       "Path": ".gitattributes",
-      "Bytes": 10883,
-      "Sha256": "CEAAED49ED6268CE756594C8378B3820CA14BB121277DA35DF95C22B6EA484E7",
+      "Bytes": 11196,
+      "Sha256": "E670B1305281394ABDF3EF52540528393AFF13534E935F9202BD7953B3F73578",
       "HashMode": "TextLF"
     },
     {
       "Path": ".github/workflows/nif-pending-native.yml",
       "Bytes": 6236,
-      "Sha256": "57B79060DBC1EB3FB6C9328FD174B20E1821F00A4ACDEDDDD2A3A3071423AEDD",
+      "Sha256": "C7176FFFB5F5E8E735CADC4665D6B82D52C97725249B8D4CCE416D4436BBF2E6",
       "HashMode": "TextLF"
     },
     {
@@ -1512,6 +1512,12 @@
       "HashMode": "TextLF"
     },
     {
+      "Path": "src/Erlang.Otp.Behaviours/RuntimeExceptionWrapperNames.cs",
+      "Bytes": 207,
+      "Sha256": "BE91EBBB5E961620A5064604A2A5C36965731EA392468D75166A0E72C7A163C9",
+      "HashMode": "TextLF"
+    },
+    {
       "Path": "src/Erlang.Otp.Behaviours/ServerFrom.cs",
       "Bytes": 90,
       "Sha256": "2AC4CDA0AB17586628B80F32F12B24A54A9920D3E98F6CE1AC373F5451187531",
@@ -1719,6 +1725,24 @@
       "Path": "src/Erlang.Runtime/AtomRegistryInfoNames.cs",
       "Bytes": 115,
       "Sha256": "1E48F43858F6BCA0D87536AE663496EF6B2FE44F2F44579D6CDC4ECE040BD8A0",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BacktraceDepthFlag.cs",
+      "Bytes": 1107,
+      "Sha256": "0E7477B1D2A174CC8A38FFC02888855FC33A43D704506DCFBDFD40B03DAA15A8",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BacktraceDepthNames.cs",
+      "Bytes": 229,
+      "Sha256": "527A996361F1A170A57F3A0C3EFC38E93704E16E026B3F4FFE666C23DF8B1D71",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BacktraceDepthParameters.cs",
+      "Bytes": 173,
+      "Sha256": "0E7BA0ED9C4D75D1B52D3F0B71E9842F7A406041BB0E867C9AA927AA7ED78DBC",
       "HashMode": "TextLF"
     },
     {
@@ -3192,6 +3216,18 @@
       "HashMode": "TextLF"
     },
     {
+      "Path": "src/Erlang.Runtime/ErlangSizeErrorFrames.cs",
+      "Bytes": 628,
+      "Sha256": "572608F0D0509CD92AE97B4BFF9C50CA364797F0C5DC3EBE8220F4E184AA2696",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangSizeErrorNames.cs",
+      "Bytes": 168,
+      "Sha256": "2E9BD002B1759426562DDFC4986F20BD2AD012465B6332C9F21AD49C8F138CA8",
+      "HashMode": "TextLF"
+    },
+    {
       "Path": "src/Erlang.Runtime/ErlangStackLimits.cs",
       "Bytes": 111,
       "Sha256": "48CD94CA97C250527210EDEB7921924369D0F830640484CE34A565E35BCB01F8",
@@ -3942,6 +3978,12 @@
       "HashMode": "TextLF"
     },
     {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.NativeExecutionPolicy.cs",
+      "Bytes": 667,
+      "Sha256": "5AB5CBD770191A2FA132434DE2FB854F500CA17578407D8D0BD96746A062DA46",
+      "HashMode": "TextLF"
+    },
+    {
       "Path": "src/Erlang.Runtime/ModuleRegistry.NifAdmission.cs",
       "Bytes": 8189,
       "Sha256": "676B054D12BBDF77D2C2169607C0F21CC277FA48C9313F853C11E50D98D2DDF7",
@@ -3979,9 +4021,9 @@
     },
     {
       "Path": "src/Erlang.Runtime/ModuleRegistry.ProcessScheduling.cs",
-      "HashMode": "TextLF",
       "Bytes": 2189,
-      "Sha256": "ED6529031DDB176F6E518831149A6B34C20D5903A5808CC34F9B21E7BAC39D2B"
+      "Sha256": "ED6529031DDB176F6E518831149A6B34C20D5903A5808CC34F9B21E7BAC39D2B",
+      "HashMode": "TextLF"
     },
     {
       "Path": "src/Erlang.Runtime/ModuleRegistry.SourceEntry.cs",
@@ -4274,7 +4316,7 @@
     {
       "Path": "src/Erlang.Runtime/NifNativeAbi.cs",
       "Bytes": 609,
-      "Sha256": "B858ABA7C63CC191C0D9FA5ADE15C8A91C6B9F94A82672F755CCA1824039775D",
+      "Sha256": "87D203E0B449BC2B865CED1124E86D4CFAFB48AFAA1FCCF9F1176154B1F1868A",
       "HashMode": "TextLF"
     },
     {
@@ -4338,15 +4380,69 @@
       "HashMode": "TextLF"
     },
     {
+      "Path": "src/Erlang.Runtime/NifNativeArrayCallbacks.cs",
+      "Bytes": 3148,
+      "Sha256": "670E396BE73D2F169699C4C9237039C7AC14634F4E3923BE69953BB9EE30AB90",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeArrayNames.cs",
+      "Bytes": 254,
+      "Sha256": "77DAF3C3ED3BBA46930C040516ADFB9D938770938323BB6F589814665987B1E4",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeAtomCallbacks.cs",
+      "Bytes": 6304,
+      "Sha256": "5DC060495CB534FBB71CF982CCFA037340664454164822058E5C4FBCF3649ED9",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeBinaryCallbacks.cs",
+      "Bytes": 11156,
+      "Sha256": "28DEE339BC33E53DCF5FE7CA5D637C5F35FEE20DC1D0F55A5ECD3AC294243A99",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeBinaryDescriptor.cs",
+      "Bytes": 280,
+      "Sha256": "6E14C9EC3F24475EEC356AA7ACFE11C34C594260BC3E2960151C0EBBF392CEB3",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeBinaryNames.cs",
+      "Bytes": 1222,
+      "Sha256": "9E141C2678FD3ADBF13BB427F28FBA38973E272F2336BABCA3BB1A4CDB2B96DF",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeBinaryNode.cs",
+      "Bytes": 824,
+      "Sha256": "75F2057DDE52883457790EF205679642214D9345CD66DE02F1575D8684528D68",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeBinaryRegistry.cs",
+      "Bytes": 2268,
+      "Sha256": "AC2FBDBA687A5845B2AF5ACF0E2B6F5177DF6C693EDBF10F23B2AC8EB83E0160",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeBinaryStorage.cs",
+      "Bytes": 3393,
+      "Sha256": "78732031E5ACE2AE66200F2B7A6B47EFF97199D3FA01A9171B6C35657C2123A9",
+      "HashMode": "TextLF"
+    },
+    {
       "Path": "src/Erlang.Runtime/NifNativeBridgeTable.cs",
-      "Bytes": 2950,
-      "Sha256": "DFFC81F8D732229667AC4916B416F881624A55741D7FA0C05026DCBC6F7B27D6",
+      "Bytes": 3372,
+      "Sha256": "DF5EFD25CA448AEA2569D27A86876FB1A5A73FE2D7FC6B7E9FA1051E113165C6",
       "HashMode": "TextLF"
     },
     {
       "Path": "src/Erlang.Runtime/NifNativeCallEnvironment.cs",
-      "Bytes": 9216,
-      "Sha256": "AE96E4679773463550775EAECF704360F05A3E5B334EC4A6D9833E697CC9B1C6",
+      "Bytes": 10328,
+      "Sha256": "52AA8BDB06D8BB924CDAC0B9F26398E53D5CD5BBDA48CF2A9FB889FEDC9FEBE9",
       "HashMode": "TextLF"
     },
     {
@@ -4357,8 +4453,50 @@
     },
     {
       "Path": "src/Erlang.Runtime/NifNativeCapabilityProfile.cs",
-      "Bytes": 5779,
-      "Sha256": "A73340F491A3E5CAB9426CB8B3251E143D9197B4CD89B16641BD52F575A44F33",
+      "Bytes": 6687,
+      "Sha256": "BB02181953B06E0B31A70054D2BC1BB4BF4A192E836A0C5A88FCED88ED8C8164",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeCapsuleDiagnostics.cs",
+      "Bytes": 287,
+      "Sha256": "863E782E92A618DA4FF49F23F702F6824CA4EB223571D995FEB3C9BA6E007002",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeCapsuleLayout.cs",
+      "Bytes": 1160,
+      "Sha256": "EDD946D71CF812D4D62E0B0CF48C84657971F8B52150F7F14C15B0D66C7FD403",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeComparisonCallbacks.cs",
+      "Bytes": 1400,
+      "Sha256": "24E7C71D1F89A098A5F912AE261D70AA203BA8508B9AED8B0F60AA2019732D63",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeComparisonNames.cs",
+      "Bytes": 296,
+      "Sha256": "0AD5879A31A2E0B8C26677ED3FAC22E19F5DF92037B515A7FEEAD558DA930316",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeConsNode.cs",
+      "Bytes": 509,
+      "Sha256": "FA698C8837CAD50CFC4EF9CADF79F5B4D4536E93548EDD539E53FC3A04179970",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeDefaultLoader.cs",
+      "Bytes": 3747,
+      "Sha256": "F1F4C1D9A0B90F1C7D66EC237C9032DFE64DD8EE4FBA56C52F37065BCD8D68B8",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeDefaultLoaderNames.cs",
+      "Bytes": 801,
+      "Sha256": "6BB69FC0749A27212DF306454393D3E6851791D85E39E9FBF01B59105C853B2B",
       "HashMode": "TextLF"
     },
     {
@@ -4368,15 +4506,69 @@
       "HashMode": "TextLF"
     },
     {
+      "Path": "src/Erlang.Runtime/NifNativeElfCapsule.cs",
+      "Bytes": 4321,
+      "Sha256": "4AEE9477F527B63CBB6E4EEE39BFB1D34D89402E6C21B0A6BC00768A36B5788C",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeEntryAdmissionException.cs",
+      "Bytes": 246,
+      "Sha256": "C37232B6182E77C9F43A76AEC393D1116DC2D2EDF7C1B53908B012C3C769953A",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeEntryFunctions.cs",
+      "Bytes": 4112,
+      "Sha256": "5E3F0F9F8B4225E6082212C34974370545FFB59D4591A4157922E6954F16197C",
+      "HashMode": "TextLF"
+    },
+    {
       "Path": "src/Erlang.Runtime/NifNativeEntryReader.cs",
       "Bytes": 941,
       "Sha256": "4886AF66B25FD5A47331B6C0E0A95AA75D1C84DF7EA74B86273544BAB31B4A76",
       "HashMode": "TextLF"
     },
     {
+      "Path": "src/Erlang.Runtime/NifNativeEntryTextLimits.cs",
+      "Bytes": 123,
+      "Sha256": "FE5EA708149B5757FDB5E4B122BA785A5E05E5BCB5CDE56CC2C15FCF1181798F",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeEnvironmentAllocator.cs",
+      "Bytes": 166,
+      "Sha256": "78C63B36D518B58966AD3F858080E3FCA7EAA15595EF3935A470309A8E783461",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeEnvironmentBinding.cs",
+      "Bytes": 569,
+      "Sha256": "184864EFDE3CEC32C58DD4769CD8C50E5C4B8360CF7AA9C36409F4E7B95CD69A",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeEnvironmentCallbacks.cs",
+      "Bytes": 1658,
+      "Sha256": "B24B8300202DBBD4CFB8BA5CF1072591A7D9BE0FC68F54E32D18C45012411B8B",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeEnvironmentLayout.cs",
+      "Bytes": 213,
+      "Sha256": "1BBF3B267DC9C00D1A8567483C4424FD604D4C8812384BE9EAD8A4305F08C165",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeEnvironmentNames.cs",
+      "Bytes": 165,
+      "Sha256": "2676A9470CB3775D3D528DD80797F403EA52C3591FB9917BEB08DFD96710C954",
+      "HashMode": "TextLF"
+    },
+    {
       "Path": "src/Erlang.Runtime/NifNativeExportRegistration.cs",
-      "Bytes": 5996,
-      "Sha256": "ED08932A4A7AA6F19CFD28D790C6A94054F8A9BEA1005AB02C1E1E4B5F4F71C1",
+      "Bytes": 6051,
+      "Sha256": "89299E4D161A61B761CD04729FD6A6E2700E650B9D274E8FED0BA2D666EDBEBF",
       "HashMode": "TextLF"
     },
     {
@@ -4386,9 +4578,21 @@
       "HashMode": "TextLF"
     },
     {
+      "Path": "src/Erlang.Runtime/NifNativeFilename.cs",
+      "Bytes": 3760,
+      "Sha256": "6E3ED59F82CF13FEA144561A6A6FF88B9BC3157DF42A4E3B531257965E926D71",
+      "HashMode": "TextLF"
+    },
+    {
       "Path": "src/Erlang.Runtime/NifNativeHostFailureException.cs",
       "Bytes": 516,
       "Sha256": "5A630556C9964384CBAFE3CD080CA7109B2DF9E6D0E0AF2423E48FA152FF5189",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeHostFileNames.cs",
+      "Bytes": 177,
+      "Sha256": "2F34F9DBB97A3CE73BA52B7E47E4FA6C728CB515DD8381CA9D2C8C2773F497B1",
       "HashMode": "TextLF"
     },
     {
@@ -4404,9 +4608,27 @@
       "HashMode": "TextLF"
     },
     {
+      "Path": "src/Erlang.Runtime/NifNativeImmediateOwner.cs",
+      "Bytes": 667,
+      "Sha256": "33FC5CF5ED4983D8B3C417007C99F1B0653D5865DF87DBB75A61A2037DE58B72",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeInvocationNames.cs",
+      "Bytes": 283,
+      "Sha256": "7C82BD5BD3A4EB1C79D83037C5A83000AEFE7D623F9BC18A48DE0A9C0AEE63E1",
+      "HashMode": "TextLF"
+    },
+    {
       "Path": "src/Erlang.Runtime/NifNativeLibraryOwner.cs",
-      "Bytes": 10592,
-      "Sha256": "7513D02B8E863DCDA08266FF39C2C3457EEEC9B47E02EEE439B846C5901102CF",
+      "Bytes": 12367,
+      "Sha256": "DC4B4590CF564229010370A616B362D2FEB1CC8715C87F638EA457D28F778E13",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLibraryPath.cs",
+      "Bytes": 3238,
+      "Sha256": "BD5215BDD63C35DCDD4E008158D8DF4BC6142471674B7F6DC132DA42A8AE26D2",
       "HashMode": "TextLF"
     },
     {
@@ -4422,15 +4644,153 @@
       "HashMode": "TextLF"
     },
     {
+      "Path": "src/Erlang.Runtime/NifNativeLinuxBridgeDeployment.cs",
+      "Bytes": 1956,
+      "Sha256": "B8C75AB65CF1275E7E2C6E059D78E3593902F33664D29B062D6B7F4B95EB6CC5",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLinuxBridgeInput.cs",
+      "Bytes": 328,
+      "Sha256": "8F84426701DFE6ABCBB356C33C35E8F72ACFE4B95EC3D6B4D1BDCE759DD9EA91",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLinuxCapsuleLease.cs",
+      "Bytes": 1037,
+      "Sha256": "E64EF737BE2575301982145F2340F3FA8325ADA6E067EDE734EFD535D0D79B4C",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLinuxNamespace.cs",
+      "Bytes": 5915,
+      "Sha256": "63E8EC1E719FDAF12C72E474E02C8F68C93A3E016FBD8091EE4FC73EDF6C81E4",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLinuxNamespaceApi.cs",
+      "Bytes": 3431,
+      "Sha256": "D3F0E281101F7F8A7CBEFAC2347598A233AE2E330E18E54FB32A45C4932295CD",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLinuxNamespaceNames.cs",
+      "Bytes": 783,
+      "Sha256": "92F745464DD3B272E8E62D3414F829C94CC6B00494D1A7B74E437F2C8DA01D5D",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLinuxNamespaceRetention.cs",
+      "Bytes": 263,
+      "Sha256": "9D84567A330D314EAE369BA85FCEDEFBBDFA3D2528170A83AE9F25B4ABF2C575",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLinuxNumericCallbacks.cs",
+      "Bytes": 1247,
+      "Sha256": "175DB3B64F8584BA5D4C35DF9112C40C5D8A41AFEAE46D31B60F87B0F10880D0",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLinuxNumericNames.cs",
+      "Bytes": 179,
+      "Sha256": "984341B3E0B8E988A03B8E5D45B58E76FADCC357F4B0A66E179AEED8C9D77B9A",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLinuxReallocationExtension.cs",
+      "Bytes": 2189,
+      "Sha256": "722C1969FE111656E6082B6CF6E24C1F54BC25DE214717EE3934744F40022064",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLinuxSymbolOwner.cs",
+      "Bytes": 258,
+      "Sha256": "E2080B7FE378AB011B4433E1392489E1833FEC5B4B12A84ECFD5E047032DFABE",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeListCellCallbacks.cs",
+      "Bytes": 1121,
+      "Sha256": "E6AE7EF0AAA55ACB7DE466EDDC20F41E65DE03291984FBAFEAA2CEDD5B1BDCB2",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeListCellNames.cs",
+      "Bytes": 157,
+      "Sha256": "B4C16D2AC246CF13D08CF20BF2132E592D1498EE13ACD583B50413FFBC85E12E",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLoadReason.cs",
+      "Bytes": 1867,
+      "Sha256": "1F9A081B52BBA9959D07B4AB4FC716387059B8090B2A23565AE97915593104B7",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLoadReasonKind.cs",
+      "Bytes": 162,
+      "Sha256": "D8381F205E5E8333E4A7212E93932779FE07938E118D8D50A2015B99519F8A48",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLoadReasonText.cs",
+      "Bytes": 852,
+      "Sha256": "2B71E4631D3BE2A4CC005C0D4DE282DD9CC9E91A248AB3CBE4754B8730D39E51",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLoadStageException.cs",
+      "Bytes": 330,
+      "Sha256": "75E8E152E29595BCD9FEC3077432F9CE3B88410A750E6885E713A074F6E77B37",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLoadVetoException.cs",
+      "Bytes": 405,
+      "Sha256": "413D53CCFC45FB525FBE860F7B838995B2D26B137DFF4E1702CE5AE10D238D92",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeMapSizeCallbacks.cs",
+      "Bytes": 805,
+      "Sha256": "DB96E5019CA273E1A2F67D156AD0462FEAE306DAE7E946AC630AA1BC4F8B8969",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeMapSizeNames.cs",
+      "Bytes": 153,
+      "Sha256": "2709988CB99D9E1C744DAF25C86AD175315BF4C30310F423450C318ED061DBF8",
+      "HashMode": "TextLF"
+    },
+    {
       "Path": "src/Erlang.Runtime/NifNativeNames.cs",
-      "Bytes": 2285,
-      "Sha256": "C9C1FC1B33E57E471CFB41A61DA1FDA473E6A973AFAD4CC2F9B075E6B117215B",
+      "Bytes": 2442,
+      "Sha256": "7C9E4674218704D7F43100C4D09F5DDAAD53E9C63A2F420151784A0850C4F879",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeNumericCallbacks.cs",
+      "Bytes": 7659,
+      "Sha256": "97B168D7A231922C2CEDCF4C80CC3C81DDA9A882071868C15B4E451F794AFDFA",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeNumericConversionCodes.cs",
+      "Bytes": 274,
+      "Sha256": "69C3C0BEB5E6574E1703D8E3F35C08DFF0A2C615D8B4996D6F1E5E1526523815",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeNumericNames.cs",
+      "Bytes": 173,
+      "Sha256": "80E517253B57DE8379A817FE6FAE1EE352B33D570141528E0C347389171FA2C1",
       "HashMode": "TextLF"
     },
     {
       "Path": "src/Erlang.Runtime/NifNativePlatformLoader.cs",
-      "Bytes": 4270,
-      "Sha256": "22AFEF8A0AC6E27700185548609B87F40E62C749A9A23E1AD4F0E40F8707D62E",
+      "Bytes": 4986,
+      "Sha256": "4D7065CF652CF428BAAC78BED36227C51D168D80DC00A5A93F2151D7B3A103CF",
       "HashMode": "TextLF"
     },
     {
@@ -4458,21 +4818,117 @@
       "HashMode": "TextLF"
     },
     {
+      "Path": "src/Erlang.Runtime/NifNativeReferenceBridgeTable.cs",
+      "Bytes": 542,
+      "Sha256": "BEAEE3C01BB8C3107084FCF8D81FD8D805525E2D37B41CCB940D847274DB4A9E",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeReferenceCallbacks.cs",
+      "Bytes": 587,
+      "Sha256": "DA9DEA07EA5B9D3424ACB70561274CE7F4279AABBAA05C185D782431E268D3AF",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeReferenceNames.cs",
+      "Bytes": 112,
+      "Sha256": "915862B351A92EAD2E1B6CA026EAF701E9F2C7AAE5A2C06EF26CE230D451F177",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeReviewedBasicAbi.cs",
+      "Bytes": 2571,
+      "Sha256": "1EEA223FE14F6486C7AC233286AB533840C4A62B5CA3398A1FA46EC80D21423E",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeSequenceCallbacks.cs",
+      "Bytes": 1877,
+      "Sha256": "E9326F7D610B175E1BB212DFA32C38349083C9CDF83188738D6AD48FDAC7BF77",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeStringCallbacks.cs",
+      "Bytes": 5774,
+      "Sha256": "6097F7D29D15B23458C2D2A320796E6689901BEFFD815CE4ADDC2CBC4CF5D354",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeTermGraph.cs",
+      "Bytes": 1028,
+      "Sha256": "6FF624C4548324A070AA33532B324C534DECB5C33268427E721646F97A3F88F8",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeTermNode.cs",
+      "Bytes": 258,
+      "Sha256": "4888F7239F052430E7CC5EA3AB755A3F461003B704B677226EB29575849FE2A1",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeTermValue.cs",
+      "Bytes": 1229,
+      "Sha256": "DC059AC474603881FCFEBF11C3E84A284128CE3B1AB6282963FAF1A085D50E0C",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeTextNames.cs",
+      "Bytes": 666,
+      "Sha256": "3FF1EE8303EF1A66E2B5E5296474CA9D90018672D7B4104C74A8A234289C8D12",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeTupleNode.cs",
+      "Bytes": 620,
+      "Sha256": "C30C66A73F7A7F2CDFEDC900A55C0EE599FDF22770E4778ECA3EE6886F070364",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeTypeCallbacks.cs",
+      "Bytes": 3839,
+      "Sha256": "33E7760C58CFF782789DC0D051AED0DD125B60A0D1BA316D4477A46642CDA2F8",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeTypeKind.cs",
+      "Bytes": 182,
+      "Sha256": "595C7BE7C92399A2B96E66B1883DE5836BE72CBB41338223F97849F3D80DB0CA",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeUnixFile.cs",
+      "Bytes": 2467,
+      "Sha256": "082D22BA1C66D66836FEAE441BC4686BB59E207F777479E3672C52544D82439D",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeUnixPathNames.cs",
+      "Bytes": 521,
+      "Sha256": "6DDFD65D3BABC32B0AA8EFED6B629677C1C344BD0BF22716F291AE36F729204E",
+      "HashMode": "TextLF"
+    },
+    {
       "Path": "src/Erlang.Runtime/NifNativeVariadicCursor.cs",
-      "Bytes": 784,
-      "Sha256": "09BC44072428FE79128FF138503C2098FB24FED5175E44EC51DF3229A107E790",
+      "Bytes": 956,
+      "Sha256": "D3A30D298EAC352A219BD2DEA1AD10FCBE07454EF07F9B8C615D69DF7A1D74F4",
       "HashMode": "TextLF"
     },
     {
       "Path": "src/Erlang.Runtime/NifNativeWindowsCallbackLayout.cs",
-      "Bytes": 2417,
-      "Sha256": "BC112D88036B42B68859CE36C819DA35F626950D046CF3F00924A3D4EE09F3BB",
+      "Bytes": 2579,
+      "Sha256": "89A1D947502FF932E67E08BD066AE8CEECF173123A13C74D62C772F5367866DC",
       "HashMode": "TextLF"
     },
     {
       "Path": "src/Erlang.Runtime/NifNativeWindowsCallbacks.cs",
-      "Bytes": 9524,
-      "Sha256": "D4F1F896AC95FCDDBF621D6A85294AD98A2BC6CDF39D06E004EBE09CA3B0E52A",
+      "Bytes": 11175,
+      "Sha256": "8614F45DF22B222E780CA5A67830C16E34E7DFD59031ABEA64CF0DC4903D583F",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeWindowsLoaderNames.cs",
+      "Bytes": 181,
+      "Sha256": "F5D0F711D02F756C5246C51AFD2724542A812FD636962DB254DF5A3C6C33510E",
       "HashMode": "TextLF"
     },
     {
@@ -4746,6 +5202,18 @@
       "HashMode": "TextLF"
     },
     {
+      "Path": "src/Erlang.Runtime/ProcessContext.ErrorHandlers.cs",
+      "Bytes": 2167,
+      "Sha256": "6BD2063879D8A6DA15D87C94ECFAD2ED2CC8A6E91CA2367A2CE9CA0EC86E7952",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.GarbageCollectionPolicy.cs",
+      "Bytes": 309,
+      "Sha256": "A80D1CA2C487F66B2490A9565188646076ECC14412F92A622AF3136A222C80BF",
+      "HashMode": "TextLF"
+    },
+    {
       "Path": "src/Erlang.Runtime/ProcessContext.ListTraversal.cs",
       "Bytes": 297,
       "Sha256": "762E8A8590A6C47D40A8B9BEEFB6ECFD6E149A7A8B05E8F3A333AB330DE8283C",
@@ -4807,21 +5275,21 @@
     },
     {
       "Path": "src/Erlang.Runtime/ProcessExecutionAdmission.cs",
-      "HashMode": "TextLF",
       "Bytes": 125,
-      "Sha256": "C551B48631670491C0C3A3A1434790D78EE42D851376CC1E3F817F9E2AA68F31"
+      "Sha256": "C551B48631670491C0C3A3A1434790D78EE42D851376CC1E3F817F9E2AA68F31",
+      "HashMode": "TextLF"
     },
     {
       "Path": "src/Erlang.Runtime/ProcessExecutionAwaitable.cs",
-      "HashMode": "TextLF",
       "Bytes": 571,
-      "Sha256": "C3A4BF7E5506058F3CB42EC4D2565CA052908CD0FA8C4469186303517E411F79"
+      "Sha256": "C3A4BF7E5506058F3CB42EC4D2565CA052908CD0FA8C4469186303517E411F79",
+      "HashMode": "TextLF"
     },
     {
       "Path": "src/Erlang.Runtime/ProcessExecutionAwaiter.cs",
-      "HashMode": "TextLF",
       "Bytes": 1897,
-      "Sha256": "E8035D71918F6A66EA2446A4637166FA54EDA3ECC0C05DBE49803F1D7D89F5BC"
+      "Sha256": "E8035D71918F6A66EA2446A4637166FA54EDA3ECC0C05DBE49803F1D7D89F5BC",
+      "HashMode": "TextLF"
     },
     {
       "Path": "src/Erlang.Runtime/ProcessExitContinuation.cs",
@@ -4866,6 +5334,18 @@
       "HashMode": "TextLF"
     },
     {
+      "Path": "src/Erlang.Runtime/ProcessFullSweepAfter.cs",
+      "Bytes": 1638,
+      "Sha256": "EF84914A3905CE4F8638C4DAC8F6F8AAB555967505D91AAF1FBD924D6E25733E",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessFullSweepNames.cs",
+      "Bytes": 242,
+      "Sha256": "8A26500C8975B825C9492A07649853EE9D7B3415283294CD8F84B5EBC12E9F94",
+      "HashMode": "TextLF"
+    },
+    {
       "Path": "src/Erlang.Runtime/ProcessGarbageCollectionOptions.cs",
       "Bytes": 1245,
       "Sha256": "11DB5654A0F90E4F7BA55B8D506549BFE672A1A38226C70CEEE4D71F5E353A71",
@@ -4875,6 +5355,12 @@
       "Path": "src/Erlang.Runtime/ProcessGarbageCollectionParameters.cs",
       "Bytes": 127,
       "Sha256": "11540C261D47C8122C28FBAB39F7D50E7353A044EB55C4126CD846C4DD42A6D2",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessGarbageCollectionPolicy.cs",
+      "Bytes": 1016,
+      "Sha256": "FD35AB3C1565B897EE93D79A5CB7330A7294623547D844A4747A9A922028E6D5",
       "HashMode": "TextLF"
     },
     {
@@ -5125,15 +5611,15 @@
     },
     {
       "Path": "src/Erlang.Runtime/ProcessPriorityNames.cs",
-      "HashMode": "TextLF",
       "Bytes": 314,
-      "Sha256": "952464908BC3E705D220CE9D609EEF9F347A81158A430C239A1E76FE831D8F4E"
+      "Sha256": "952464908BC3E705D220CE9D609EEF9F347A81158A430C239A1E76FE831D8F4E",
+      "HashMode": "TextLF"
     },
     {
       "Path": "src/Erlang.Runtime/ProcessPriorityValues.cs",
-      "HashMode": "TextLF",
       "Bytes": 1146,
-      "Sha256": "C6AF5AD761C9826D7027221D643572165DFF5A3597E715121A1634EECC07C093"
+      "Sha256": "C6AF5AD761C9826D7027221D643572165DFF5A3597E715121A1634EECC07C093",
+      "HashMode": "TextLF"
     },
     {
       "Path": "src/Erlang.Runtime/ProcessRegistryAtoms.cs",
@@ -5151,6 +5637,12 @@
       "Path": "src/Erlang.Runtime/ProcessRuntime.AsyncDistribution.cs",
       "Bytes": 632,
       "Sha256": "04CDC42FB33DCF0359285E1E74F4E984A3CD1A753982A65978EC1F38251BACAD",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.Backtrace.cs",
+      "Bytes": 244,
+      "Sha256": "2DD3177A08AAC511E88629E38B428BB0CFD238225173CE83DCD933B0638140D1",
       "HashMode": "TextLF"
     },
     {
@@ -5286,6 +5778,12 @@
       "HashMode": "TextLF"
     },
     {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.GarbageCollectionPolicy.cs",
+      "Bytes": 382,
+      "Sha256": "C5A13FD35B757992119F9047FFC04871FB1FFAC810BE958D89F3B9D61DE98089",
+      "HashMode": "TextLF"
+    },
+    {
       "Path": "src/Erlang.Runtime/ProcessRuntime.GroupLeaderOutput.cs",
       "Bytes": 1142,
       "Sha256": "9D654AE366E7E8A69E280975E35335C4C0149F09B04C7126CF032D6B23053A96",
@@ -5328,6 +5826,12 @@
       "HashMode": "TextLF"
     },
     {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.NativeLinuxNamespace.cs",
+      "Bytes": 886,
+      "Sha256": "D475A127FFC81FA8FD61C56F81083136DDC65979AA92B0E7A9C2BEDC116A1AC5",
+      "HashMode": "TextLF"
+    },
+    {
       "Path": "src/Erlang.Runtime/ProcessRuntime.NifLifetime.cs",
       "Bytes": 1367,
       "Sha256": "2EB7491CC03109D697CDBED834D926844028F226A48BF90FA76B2CC3E94B211A",
@@ -5359,9 +5863,9 @@
     },
     {
       "Path": "src/Erlang.Runtime/ProcessRuntime.Priority.cs",
-      "HashMode": "TextLF",
       "Bytes": 514,
-      "Sha256": "66871BF5F4E57C8BC7A7CACF1325C2ADABD63335C6A3B691643A8A66EC8F6EDA"
+      "Sha256": "66871BF5F4E57C8BC7A7CACF1325C2ADABD63335C6A3B691643A8A66EC8F6EDA",
+      "HashMode": "TextLF"
     },
     {
       "Path": "src/Erlang.Runtime/ProcessRuntime.PriorityPermissions.cs",
@@ -5388,6 +5892,12 @@
       "HashMode": "TextLF"
     },
     {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.SchedulerStatistics.cs",
+      "Bytes": 262,
+      "Sha256": "ADBE0100E84B9546DBB768DAA5881E85E172B4318185DBC870D9CF731072C7C3",
+      "HashMode": "TextLF"
+    },
+    {
       "Path": "src/Erlang.Runtime/ProcessRuntime.Schedulers.cs",
       "Bytes": 2553,
       "Sha256": "F075CA62BE20671C019862DC235275F12AE68AF7837271A3AC308B94EF46B272",
@@ -5395,8 +5905,8 @@
     },
     {
       "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
-      "Bytes": 65108,
-      "Sha256": "5EAFD866D4C66CBCF65C9A119FB3146C542F91B96B644EA4F11D0CF17632FCA9",
+      "Bytes": 65699,
+      "Sha256": "6240A6D51E58590C6EEF506711218557F1FCA6886C99668A3BF12AEDB4A59CA9",
       "HashMode": "TextLF"
     },
     {
@@ -5443,9 +5953,9 @@
     },
     {
       "Path": "src/Erlang.Runtime/ProcessSchedulingPriority.cs",
-      "HashMode": "TextLF",
       "Bytes": 106,
-      "Sha256": "BC762C0DB29DC586E294CD4AB088E702EEE9E6C9F380C34C4EC3B3D0F1E3DE2F"
+      "Sha256": "BC762C0DB29DC586E294CD4AB088E702EEE9E6C9F380C34C4EC3B3D0F1E3DE2F",
+      "HashMode": "TextLF"
     },
     {
       "Path": "src/Erlang.Runtime/ProcessSendNames.cs",
@@ -5737,9 +6247,9 @@
     },
     {
       "Path": "src/Erlang.Runtime/RuntimeActorContinuation.cs",
-      "HashMode": "TextLF",
       "Bytes": 118,
-      "Sha256": "0725B8ECE17147ABEA9C8F0FE6F25614FEE4F775A42E5B01669FC6DA233B9A7A"
+      "Sha256": "0725B8ECE17147ABEA9C8F0FE6F25614FEE4F775A42E5B01669FC6DA233B9A7A",
+      "HashMode": "TextLF"
     },
     {
       "Path": "src/Erlang.Runtime/RuntimeActorDispatchNames.cs",
@@ -5754,6 +6264,12 @@
       "HashMode": "TextLF"
     },
     {
+      "Path": "src/Erlang.Runtime/RuntimeActorDispatcher.Statistics.cs",
+      "Bytes": 815,
+      "Sha256": "09C8E9858439F469DF482C770019D616A3B92D8FE446D5A91CE1C12372E016B5",
+      "HashMode": "TextLF"
+    },
+    {
       "Path": "src/Erlang.Runtime/RuntimeActorDispatcher.cs",
       "Bytes": 18490,
       "Sha256": "D3881FBEBEFE67842B552F19ECEBED406A556F1A5CD90657267142310E0222B0",
@@ -5761,9 +6277,9 @@
     },
     {
       "Path": "src/Erlang.Runtime/RuntimeActorExecutionTurn.cs",
-      "HashMode": "TextLF",
       "Bytes": 1181,
-      "Sha256": "CBAE9C5F4551EA4D26A19F533F3DFA3C95DDB1D7E1ED4E73DA906E225E9F67D6"
+      "Sha256": "CBAE9C5F4551EA4D26A19F533F3DFA3C95DDB1D7E1ED4E73DA906E225E9F67D6",
+      "HashMode": "TextLF"
     },
     {
       "Path": "src/Erlang.Runtime/RuntimeActorRole.cs",
@@ -5982,6 +6498,24 @@
       "HashMode": "TextLF"
     },
     {
+      "Path": "src/Erlang.Runtime/RuntimeErrorBinding.cs",
+      "Bytes": 134,
+      "Sha256": "7993623C8780B1360D24C8989A59A06DB1C5C544A4559C80FD1DBEC3F0FB528A",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeExceptionCapture.cs",
+      "Bytes": 6346,
+      "Sha256": "BC8864F2F2DE3092D8C16194D80BF227C60B7493336716483C69FFA8CEFA4F58",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeExceptionNames.cs",
+      "Bytes": 648,
+      "Sha256": "44BDC6A12BF77E863E52ECC700529A3DCAF3EFE870FC551F4FB7681E320FE577",
+      "HashMode": "TextLF"
+    },
+    {
       "Path": "src/Erlang.Runtime/RuntimeExternalEpochReservation.cs",
       "Bytes": 244,
       "Sha256": "55564DF526ED64101F5CDB33152E3E77B88628B4EFBF276467AB7A6C4E747838",
@@ -6175,9 +6709,15 @@
     },
     {
       "Path": "src/Erlang.Runtime/RuntimeProcessTaskScheduler.cs",
-      "HashMode": "TextLF",
       "Bytes": 2200,
-      "Sha256": "195DE47E12A5B97872E870C232224952AB259B284CAB50D643DE7613C4F7CDE5"
+      "Sha256": "195DE47E12A5B97872E870C232224952AB259B284CAB50D643DE7613C4F7CDE5",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeReductionStatistics.cs",
+      "Bytes": 1208,
+      "Sha256": "9DD99BA1ED5BB83BA63C665BDDB6B9AB5A8C742FF00B96AC8B51A6E512702C83",
+      "HashMode": "TextLF"
     },
     {
       "Path": "src/Erlang.Runtime/RuntimeReferenceResources.ConnectedDistribution.cs",
@@ -6199,9 +6739,9 @@
     },
     {
       "Path": "src/Erlang.Runtime/RuntimeScheduledTask.cs",
-      "HashMode": "TextLF",
       "Bytes": 87,
-      "Sha256": "2FE11F32154C8427556D656D35BABB0014CBFBA28F0BDB55E8944054F83DF987"
+      "Sha256": "2FE11F32154C8427556D656D35BABB0014CBFBA28F0BDB55E8944054F83DF987",
+      "HashMode": "TextLF"
     },
     {
       "Path": "src/Erlang.Runtime/RuntimeSchedulerLane.cs",
@@ -6213,6 +6753,12 @@
       "Path": "src/Erlang.Runtime/RuntimeSchedulerOnlineRequest.cs",
       "Bytes": 555,
       "Sha256": "8FD23181F230F4AE049DDC752E58218558928E6A5EEAD423F3123419740E67A1",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeSchedulerStatistics.cs",
+      "Bytes": 1526,
+      "Sha256": "A35F1A21C9AAD3D92B250DA083BA403AC50737755367348E2DFB6BDFFFB2E979",
       "HashMode": "TextLF"
     },
     {
@@ -6273,6 +6819,12 @@
       "Path": "src/Erlang.Runtime/RuntimeTimers.cs",
       "Bytes": 6235,
       "Sha256": "BBC44D8FB055BE6A36A90E0E1F9CB0A1C4A9457A9974B5B20D7D9D645FFFF6DB",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/SelectedErrorHandlerInvocation.cs",
+      "Bytes": 209,
+      "Sha256": "9D66E86B82BE3AD6CB1E5784CC38CF45DFC530FDBB2FE9C979675E8167FBA9B5",
       "HashMode": "TextLF"
     },
     {
@@ -6381,6 +6933,18 @@
       "Path": "src/Erlang.Runtime/SourceLoadNifCall.cs",
       "Bytes": 913,
       "Sha256": "2A46EABFF0595F00D69AF4353A71AD46C6D6786467A48DF216192FBF38AA3542",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/SourceLoadNifFilename.cs",
+      "Bytes": 1469,
+      "Sha256": "A40270669386E828CC1468165AD6D6A2966AA5B27BBD440BC554055BDB3B88DA",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/SourceLoadNifFilenameParameters.cs",
+      "Bytes": 269,
+      "Sha256": "BFD31E6E28674B803235549180844CF325E97F2FF9C1D76FCEEEF73D089C7944",
       "HashMode": "TextLF"
     },
     {
@@ -7350,6 +7914,42 @@
       "HashMode": "TextLF"
     },
     {
+      "Path": "tests/Erlang.Tests/NifComparisonReferenceHostNames.cs",
+      "Bytes": 483,
+      "Sha256": "8335504D5539D3154D654AD15FC360755F37D5A7994431231D699AC6094228B6",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tests/Erlang.Tests/NifCompletionHostNames.cs",
+      "Bytes": 838,
+      "Sha256": "30EECC3CF77B9B894FF03064D87C3AA4D632E2508CEF591B8AB134656C5FADF3",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Program.cs",
+      "Bytes": 200066,
+      "Sha256": "F9DDD3BF192A524D6BD72874B17A1B324C101C9F907674F90E060D0ED7262FED",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tests/Erlang.Tests/TestRunCatalog.cs",
+      "Bytes": 2278,
+      "Sha256": "0F3578877C9EDC1575B835BA35737D80BF5C6B75728B3CCD82A68255414352AC",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tests/Erlang.Tests/TestRunNames.cs",
+      "Bytes": 3527,
+      "Sha256": "EEAD8BF6FBCC04180A1566B5A54F9B923140D00C3BCAC7085A6A63798DCBD056",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tests/Erlang.Tests/TestRunSelection.cs",
+      "Bytes": 6438,
+      "Sha256": "17616FB266297B26A6D1651744085E6C9FD95DB598DCFE9EDF118D01E2CB2137",
+      "HashMode": "TextLF"
+    },
+    {
       "Path": "tools/Erlang.Differential/GeneratedModuleArtifact.cs",
       "Bytes": 549,
       "Sha256": "6E0D9CA1D714743E51DBB011473D46CA51890E62737F022803C123D204FD6ED9",
@@ -7380,9 +7980,207 @@
       "HashMode": "TextLF"
     },
     {
+      "Path": "tools/Erlang.NifComparisonReferenceFocus/Erlang.NifComparisonReferenceFocus.csproj",
+      "Bytes": 214,
+      "Sha256": "B2DEA359DEE3F83ADB13CEE56491DDF3F97291F5973BFE28D1B535D366190741",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifComparisonReferenceFocus/Program.cs",
+      "Bytes": 671,
+      "Sha256": "88E9768F7820E6B85B8F463F198BF875E2168B1DA0885A72EB2588157E256CCB",
+      "HashMode": "TextLF"
+    },
+    {
       "Path": "tools/Erlang.NifFixtureHost/native/fixture.c",
       "Bytes": 1496,
       "Sha256": "7B6AF591C635DED2FE686A9E8671ACD58F9C8A6A080D47C61420F844FF33F074",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifLinuxCallbackFocus/Erlang.NifLinuxCallbackFocus.csproj",
+      "Bytes": 221,
+      "Sha256": "2B660A3B6B04BB256230421A8C72C1B0BBEB6EE7B6C04660C94EEDDA7D4BEC97",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifLinuxCallbackFocus/Program.cs",
+      "Bytes": 181,
+      "Sha256": "1D8D61545B1C34258C4C18ABCDFF006C9AEDC8908C40EEF1699509C1F181AC52",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifLinuxCallbackObservations/compare.py",
+      "Bytes": 6391,
+      "Sha256": "9B62F101E531392823955C91B3567100581E6F67604A9EF80CC11689DF2098F3",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifLinuxCallbackObservations/prepare.py",
+      "Bytes": 5348,
+      "Sha256": "61D6CC0D0616883903B31B794B9FD5E82C5C9EAFD38AB3140656B0D4BD1A7240",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifLinuxCallbackObservations/run.py",
+      "Bytes": 3507,
+      "Sha256": "4654A4E494B3F74465488F1CE02361F01B9A80728347D9846ECFB52464D81404",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifMakeReferenceCallbackNativeFocus/Erlang.NifMakeReferenceCallbackNativeFocus.csproj",
+      "Bytes": 237,
+      "Sha256": "96DB5EFB6E1CFD899276E67280FC4F7D787E975D76D899064F0A1B8CE0A18833",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifMakeReferenceCallbackNativeFocus/Program.cs",
+      "Bytes": 189,
+      "Sha256": "08A6B113E89803F55D30AFAB787229A14C36C904B56AF4E8D6E9650AF4F33DF2",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifMakeReferenceOriginalObservations/build-native.py",
+      "Bytes": 209,
+      "Sha256": "C5071F4A241C97926448A671BEC768ABD9CA16F2AA4BA17146C9EB8FC6EBC499",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifMakeReferenceOriginalObservations/cases.json",
+      "Bytes": 779,
+      "Sha256": "C3241076794E2E29500F58516F97AF2E0225CF08E65145638BACF9A4076284CC",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifMakeReferenceOriginalObservations/collect.py",
+      "Bytes": 7799,
+      "Sha256": "477D1C1A1F80A9D948068FF48D92AA77702B2D931FF3E9357E7E01C8F5C6A4C4",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifMakeReferenceOriginalObservations/common.py",
+      "Bytes": 1924,
+      "Sha256": "B90BAF6A63D2A1F2AB51BC4789881CBC80F27BA16F46908744AD49FC353CA3B6",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifMakeReferenceOriginalObservations/compare.py",
+      "Bytes": 5882,
+      "Sha256": "B02EDAC29AAABF6E706659D416A55570B6F6A140575CB3812BC0DE1FA9D2D748",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifMakeReferenceOriginalObservations/manifest.json",
+      "Bytes": 7428,
+      "Sha256": "70805D1929DA074241241C8B4F1E1F20425D859BE3BEAB4B4A045A61AA5EEF10",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifMakeReferenceOriginalObservations/native/entry_fixture_names.h",
+      "Bytes": 63,
+      "Sha256": "BB2B9BF66188F096B5ADEC9FDBD9839DA31B7C76CA4AC6DF4665D9384435C249",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "Path": "tools/Erlang.NifMakeReferenceOriginalObservations/native/make_reference_callback_contract.c",
+      "Bytes": 3925,
+      "Sha256": "C1839C66F43EC88CFC9AAD9C8F0D58CF077839F2454F42FCA3EDCA43041AF8E8",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "Path": "tools/Erlang.NifMakeReferenceOriginalObservations/original/entry_observer.erl",
+      "Bytes": 923,
+      "Sha256": "F6D885EE77985B725629B5D37EECAD200EEDC823E7AADCF1CD27619779970A34",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "Path": "tools/Erlang.NifMakeReferenceOriginalObservations/original/make_reference_callback_contract.erl",
+      "Bytes": 1347,
+      "Sha256": "A3A78E217BB0658B48E72583BBC831927C694BCA3848C7710815124B529CE136",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "Path": "tools/Erlang.NifMakeReferenceOriginalObservations/verify-source.py",
+      "Bytes": 370,
+      "Sha256": "9606583380F9C7806EB1E08C2F810A6D900D7597D58B3ECBFE1F7B1C46249FC5",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifMapSizeCallbackNativeFocus/Erlang.NifMapSizeCallbackNativeFocus.csproj",
+      "Bytes": 237,
+      "Sha256": "96DB5EFB6E1CFD899276E67280FC4F7D787E975D76D899064F0A1B8CE0A18833",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifMapSizeCallbackNativeFocus/Program.cs",
+      "Bytes": 183,
+      "Sha256": "62FEA3200FD694A5AB76C875DAC3677772C549DA09FA12E618583E5855C9AC84",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifMapSizeOriginalObservations/build-native.py",
+      "Bytes": 209,
+      "Sha256": "C5071F4A241C97926448A671BEC768ABD9CA16F2AA4BA17146C9EB8FC6EBC499",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifMapSizeOriginalObservations/cases.json",
+      "Bytes": 710,
+      "Sha256": "6A4F43D1AC55A2F1CA640CA3A23A3AC93D48A9FFE1F32014AA99B8A49BCE8BE7",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifMapSizeOriginalObservations/collect.py",
+      "Bytes": 7727,
+      "Sha256": "9610F0F2404216691D69F9E8DC143DC0EAC5EFC1E13237BFC5DB233C0E0F0BFC",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifMapSizeOriginalObservations/common.py",
+      "Bytes": 1918,
+      "Sha256": "A3E88251CB662A749DF09E309790CF784D918D5C15A817DABFFA85FA10EB56A8",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifMapSizeOriginalObservations/compare.py",
+      "Bytes": 5840,
+      "Sha256": "32FD80B6E82999E8702C4528BCE3B3F2BC32DECD00DD1EDD046244A9032D3DD8",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifMapSizeOriginalObservations/manifest.json",
+      "Bytes": 7449,
+      "Sha256": "D2B172D4D43FA00F3CAE963CDBC873833E8133DCD0AA7C8E2641E157FE42A155",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifMapSizeOriginalObservations/native/entry_fixture_names.h",
+      "Bytes": 124,
+      "Sha256": "1514CAA43FF4CAA16682B68A95A8CA769F093165EC7CAEC11F3EE1FDB00CC336",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "Path": "tools/Erlang.NifMapSizeOriginalObservations/native/map_size_callback_contract.c",
+      "Bytes": 3179,
+      "Sha256": "2F00C4C965E5C6E51388AB5A4F9336CAF4D0F84088707C658C889369A9D63FB6",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "Path": "tools/Erlang.NifMapSizeOriginalObservations/original/entry_observer.erl",
+      "Bytes": 863,
+      "Sha256": "A426C29E36A4C699A69AB260616C39B74289BD7BDACDCC2E5799AD85F6294AAE",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "Path": "tools/Erlang.NifMapSizeOriginalObservations/original/map_size_callback_contract.erl",
+      "Bytes": 1201,
+      "Sha256": "4A2007C584A9E9854491FF155A3D8F2DD65A62276088938AC4EB50EFDB818069",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "Path": "tools/Erlang.NifMapSizeOriginalObservations/verify-source.py",
+      "Bytes": 370,
+      "Sha256": "9606583380F9C7806EB1E08C2F810A6D900D7597D58B3ECBFE1F7B1C46249FC5",
       "HashMode": "TextLF"
     },
     {
@@ -7392,9 +8190,183 @@
       "HashMode": "TextLF"
     },
     {
+      "Path": "tools/Erlang.NifNativeBackend/NifLinuxCallbackAdmission.cs",
+      "Bytes": 277,
+      "Sha256": "29D59316CE8166AF1DDBD5904EA7E1B474687A177A594CEDBAAF6950EFD8BCDC",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifLinuxCallbackDriver.cs",
+      "Bytes": 11940,
+      "Sha256": "9607314AF4156601DD25354A69CB3A8C360C806CBC8248B7B5BF0393051ABB23",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifLinuxCallbackEntry.cs",
+      "Bytes": 171,
+      "Sha256": "FE423D93D4B14220AF169C25B9C38F580122F0E33EAFF91C715F1441FFC7566E",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifLinuxCallbackImage.cs",
+      "Bytes": 416,
+      "Sha256": "707CA00495C5F727BFC28091C5A37E95BAD0D57BD3A424C6F6B2A90E751B6577",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifLinuxCallbackNames.cs",
+      "Bytes": 2360,
+      "Sha256": "B9B4F32AC6D155E021963C36AF04F7B824836C3E26F8D59B08BE866AB737A06E",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifMakeReferenceCallbackAdmission.cs",
+      "Bytes": 411,
+      "Sha256": "817F4C686D0EBBF5A755DBCC1B7B9821EA796FE6DBE4B80BB239E7EBE23BF6EF",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifMakeReferenceCallbackBuildReceipt.cs",
+      "Bytes": 254,
+      "Sha256": "1EDF658EB9660964A8D218BF8C8CEFCA24459D58BA21A3E40D0A3A8559AC0DF6",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifMakeReferenceCallbackDriver.cs",
+      "Bytes": 7140,
+      "Sha256": "D70E3EA388EB200845792C285513DD8624E157C18500478449C6D21F34B1A86A",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifMakeReferenceCallbackEntry.cs",
+      "Bytes": 187,
+      "Sha256": "5F806AB2A0202D031F4840FEC7A1B7F3CE9B07E7982628FAF9EBB5F516B7B3DD",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifMakeReferenceCallbackImage.cs",
+      "Bytes": 139,
+      "Sha256": "7ACDAE4C436D3E1E32B689AEA6AB4A196D8C4278659646EB53A037B96C9B2729",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifMakeReferenceCallbackNames.cs",
+      "Bytes": 2081,
+      "Sha256": "17B1E4DE27D6A860B296C67ECE1CEC06ED78C55557CC653D5538E08B1FF09720",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifMapSizeCallbackAdmission.cs",
+      "Bytes": 405,
+      "Sha256": "2D37099D8CAF3CB3903DD20590920ABA0C049EEE284CA12563137FEB756A4253",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifMapSizeCallbackBuildReceipt.cs",
+      "Bytes": 242,
+      "Sha256": "BFC599C70BF055FE61D994497BA2BBA35A11A33BF56221D99142395FFACA3464",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifMapSizeCallbackDriver.cs",
+      "Bytes": 7583,
+      "Sha256": "823B1D9C11E3522BD2265553F2AECCFC78B7ABB818E0EE0344EF7E2F8AE2DF4F",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifMapSizeCallbackEntry.cs",
+      "Bytes": 175,
+      "Sha256": "23868BB5DE55CD26AE934334D3CE87C31A9D64681DB58CC8C3D4EC0387FFCCBD",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifMapSizeCallbackImage.cs",
+      "Bytes": 133,
+      "Sha256": "A6008AE22CD0D19BE7D7B8C8B13F949CE85189D29F5BB9044460C1E800333F57",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifMapSizeCallbackNames.cs",
+      "Bytes": 2147,
+      "Sha256": "4FA82F8DABAFBD47593DFE073C8570117D49F8AA8D3480BEE9964234B4150F56",
+      "HashMode": "TextLF"
+    },
+    {
       "Path": "tools/Erlang.NifNativeBackend/NifNativeAbiChecks.cs",
       "Bytes": 3253,
       "Sha256": "B370AD322EF7F7248E926887F2896E5F825A64A9214E4C322A269AFBA358EBC5",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeArrayHostChecks.cs",
+      "Bytes": 8205,
+      "Sha256": "E3D916A49617F9C0790AD755DF670FD97FA43DB84D63C6196F8B1AFE6929715A",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeArrayHostEntry.cs",
+      "Bytes": 485,
+      "Sha256": "0A47954E6DE0982BCDF872620E599749C7C7D6F4058241E94D50462599113B69",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeArrayHostNames.cs",
+      "Bytes": 630,
+      "Sha256": "76E4E53B02D6D46F128707B20B41538D7236CD190A477C1824EA1ECEC924B32F",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeBinaryHostChecks.cs",
+      "Bytes": 29481,
+      "Sha256": "D8F4DDE54ECDD01970094EB971270421DC3F3168D03A18431ECB2A404EE8CD23",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeBinaryHostEntry.cs",
+      "Bytes": 1262,
+      "Sha256": "7010CC814910244C7E81B4E5AD7DDF1FCE3ABC1C801B5A84238F1BF8F5F0A10C",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeBinaryHostNames.cs",
+      "Bytes": 1289,
+      "Sha256": "2C81637B0D865707ABE1D7416ADA75C93B3733945F88B4F29CC9E36F71C4761B",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeBridgeFixedHostChecks.cs",
+      "Bytes": 6578,
+      "Sha256": "3B992B4C90319B49539E0FE6301FF087A31A88932053735D39465402569B8D17",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeBridgeFixedHostEntry.cs",
+      "Bytes": 421,
+      "Sha256": "E582C0DFF5004DBFF9B4EAA98841153870EEE64CEBE717A4C5248DB523A4248A",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeBridgeFixedHostNames.cs",
+      "Bytes": 636,
+      "Sha256": "3E6B3B9847706E83148785C9A2804C522A027174D919B93CCA895F3C9A009175",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeComparisonHostChecks.cs",
+      "Bytes": 9081,
+      "Sha256": "B3F0CAD4F766B57456682812C698F3C5504FD330DB27C6482B3A01678AFD4726",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeComparisonHostEntry.cs",
+      "Bytes": 695,
+      "Sha256": "C7176E2C496654138FF241B5FF10A9F898BF44C7F281BD653C00E8F046097A0F",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeComparisonHostNames.cs",
+      "Bytes": 706,
+      "Sha256": "202520FA0AB6AC64816B17B89351AC6AF060755A9A7B98C72AD3D8D3167E6F51",
       "HashMode": "TextLF"
     },
     {
@@ -7410,6 +8382,24 @@
       "HashMode": "TextLF"
     },
     {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeDefaultRouteChecks.cs",
+      "Bytes": 12914,
+      "Sha256": "CCA9C02805C25DE5D50CC638EF5EAC3A6E2991FE3DE55D62DE744EE15FE2CE5A",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeDefaultRouteHostEntry.cs",
+      "Bytes": 374,
+      "Sha256": "1FDD242604F09F63CC259EE3241B268ED7F2F8F99A5769DEB81757FC5E50729E",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeDefaultRouteNames.cs",
+      "Bytes": 1252,
+      "Sha256": "D05EBD6A2775F2F8CFC8CA04B70725F73550116E34CC890893BC282D067E4DCD",
+      "HashMode": "TextLF"
+    },
+    {
       "Path": "tools/Erlang.NifNativeBackend/NifNativeDomainChecks.cs",
       "Bytes": 3622,
       "Sha256": "9BBDA254DA17C9C7AE09C45A391DB6B3CFF2551DF5A963C60EAB5A363E20851F",
@@ -7422,9 +8412,57 @@
       "HashMode": "TextLF"
     },
     {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeElevenDriver.cs",
+      "Bytes": 11865,
+      "Sha256": "19D704A1571F9983ADB5E7B82D2FEF0CFB8222120BBEEE3FD8768ED7A008B225",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeElevenNames.cs",
+      "Bytes": 2117,
+      "Sha256": "D473D01254DF07832BCA724EC646FB783E6AA6B6F81922887446C68B091034FF",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeElfCapsuleHostEntry.cs",
+      "Bytes": 3782,
+      "Sha256": "1CBDF13525C8339EF2935A18BDD0D0F7689C8D06816B4A56A338A12F99B4D219",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeElfCapsuleHostNames.cs",
+      "Bytes": 716,
+      "Sha256": "0E867EB3848246B599A29D65130306995E3A67F2C955B65BAE1B2C1622F0EBBD",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeEntryControlledChecks.cs",
+      "Bytes": 5746,
+      "Sha256": "33701023B4769559572A6266072176BA2D837B0D3E9F086F0BD51F2EFFED605E",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeEntryControlledNames.cs",
+      "Bytes": 558,
+      "Sha256": "9D0A35A55D9F914DE718CD55DFF8C3ECE336FCDB6638D4A270098311F0AE7F63",
+      "HashMode": "TextLF"
+    },
+    {
       "Path": "tools/Erlang.NifNativeBackend/NifNativeFenceNames.cs",
       "Bytes": 1109,
       "Sha256": "EC6E3DE77D27E95047EEBA8102163D36CB6F44939691063054DB04466BA69B89",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeFilenameControlNames.cs",
+      "Bytes": 441,
+      "Sha256": "0B6A7D8A6D5CB08B3D498570FD93EC41EAF529E0084061B151D25DEDE1B3552C",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeFilenameControls.cs",
+      "Bytes": 2273,
+      "Sha256": "C81B1C76134640087F49530C576901D1C14F594DBC99F1E98838BC86C91AE7EE",
       "HashMode": "TextLF"
     },
     {
@@ -7440,15 +8478,135 @@
       "HashMode": "TextLF"
     },
     {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeImmediateHostChecks.cs",
+      "Bytes": 6999,
+      "Sha256": "CCAB5E5686A712568CFEAB5A5ADCEE229A7F88283DE476F1C8AC0C5F5E3CD864",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeImmediateHostEntry.cs",
+      "Bytes": 409,
+      "Sha256": "81F3536910AD48F5AAAF38F9A5C5739470F857E6D48630B4ECCB946D4A462C74",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeImmediateHostNames.cs",
+      "Bytes": 679,
+      "Sha256": "B69BC60B82906105E5CFF9ECB3F778BE265909FD1409929D637A83CD1A273935",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeLegacyStringHostChecks.cs",
+      "Bytes": 11866,
+      "Sha256": "EF6FCAB5A043C5EE72D1DBEA29D4FA510EC7CC673DB68D292D81DC8C182FFF4C",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeLegacyStringHostEntry.cs",
+      "Bytes": 832,
+      "Sha256": "E50C5F73A2E5F5637B31C6518402441DEF44380F765ABBD950139FE35C803DBD",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeLegacyStringHostNames.cs",
+      "Bytes": 706,
+      "Sha256": "8586D8AB7D77D89351D2AF874DBF1F960181C5C98958AEAF60B2576C1AA72B5D",
+      "HashMode": "TextLF"
+    },
+    {
       "Path": "tools/Erlang.NifNativeBackend/NifNativeLifecycleChecks.cs",
       "Bytes": 11548,
       "Sha256": "30249C0D36D18988C97FDDA08DAECE6D815C7439893DF62E61C41540F7E75366",
       "HashMode": "TextLF"
     },
     {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeLinuxImmediateHostChecks.cs",
+      "Bytes": 6248,
+      "Sha256": "9A17C6D9FBE0743ECF03C4BBE01C4060CDC693B8D8AD0D5EDF92CD9095BE4CB9",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeLinuxImmediateHostEntry.cs",
+      "Bytes": 437,
+      "Sha256": "A133832C3519EC158EF33F20CAD75C360ADDE8EB79EAC218B8EB4784A4DF44EC",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeLinuxImmediateHostNames.cs",
+      "Bytes": 349,
+      "Sha256": "F53EDBADAC6CF90E217896944168758FF50BDB15519C7C8C84DB9EAA3AF336B0",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeLoadReasonCheckNames.cs",
+      "Bytes": 1651,
+      "Sha256": "B4108A98AEE98C558E43976CF9B0C7A37C16C942B624F519D623D61482025842",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeLoadReasonChecks.cs",
+      "Bytes": 512,
+      "Sha256": "1A60A7365D915562702A83F38806AC7148E289240C7E1B492277B4C40662F854",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeLoadReasonControlChecks.cs",
+      "Bytes": 5996,
+      "Sha256": "5747A3517B642CC215D997ED578B4D85B51DA5D625DFEDEE30C729133951E702",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeLoadReasonExpected.cs",
+      "Bytes": 939,
+      "Sha256": "14A032CEAAEE0003C0AA2504C2DA22F585F068A58E80861E7085B036771A418F",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeLoadReasonHostEntry.cs",
+      "Bytes": 161,
+      "Sha256": "B6AAF6B3BC5C0AF963914ECF70440BA12409BA20B7A9A8B75D76F04D78A63DE2",
+      "HashMode": "TextLF"
+    },
+    {
       "Path": "tools/Erlang.NifNativeBackend/NifNativeManagedChecks.cs",
       "Bytes": 5562,
       "Sha256": "B5F61F202A202164D13A35836F2B47E21D8917D740CD7479F5A145BB2405E73A",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeMapSizeHostChecks.cs",
+      "Bytes": 5556,
+      "Sha256": "83E999D32306D84E29A87CB68DDF477734707A9C989294776EDD8DC74008C848",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeMapSizeHostEntry.cs",
+      "Bytes": 439,
+      "Sha256": "1CB1C12C87D64F42CDE6A507E9755582D346E6F1F92ACAD1CCBB09E9CC4E3A18",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeMapSizeHostNames.cs",
+      "Bytes": 481,
+      "Sha256": "978FADF7C92C4091B628CDA379EA753CC4F0213298D62A4783FB3905BDBD9722",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeNumericHostChecks.cs",
+      "Bytes": 17534,
+      "Sha256": "FAEEEB09725DCA07B7F23A631B5208F556880EF7B337C2AC832FC696EE241AEC",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeNumericHostEntry.cs",
+      "Bytes": 571,
+      "Sha256": "368F2BE8FD153DA7A62151E905ADF26227139E521FB3BEC501CBC7347E394F4A",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeNumericHostNames.cs",
+      "Bytes": 1489,
+      "Sha256": "DAF8CE7248A80EC0DC683149C663301800173B8B917F74E9A1839588A414F628",
       "HashMode": "TextLF"
     },
     {
@@ -7530,9 +8688,171 @@
       "HashMode": "TextLF"
     },
     {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeReferenceCounterHostEntry.cs",
+      "Bytes": 4574,
+      "Sha256": "CE59A5731E9783B4B49DA0708B50ED9055D4029C55C126EC700F7BDA996664C0",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeReferenceCounterHostNames.cs",
+      "Bytes": 618,
+      "Sha256": "1039FD9275B7079F677556E94C3CCB57AEE1AAC8CB789A4333A0E33D58DB5542",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeReferenceEnvironmentHostChecks.cs",
+      "Bytes": 4754,
+      "Sha256": "9A245184BFAD6E0F5E656D55DAEBA277C3BFFDA409469DAFFBD2D82D7DDCD105",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeReferenceEnvironmentHostEntry.cs",
+      "Bytes": 348,
+      "Sha256": "E89AB1F1C18873227AC6E15C4F6999674A6DBED8AFD2638A8D645A6BB90739BC",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeReferenceEnvironmentHostNames.cs",
+      "Bytes": 338,
+      "Sha256": "F5816EC9578B2D1429602D5CFA835F92A3EEA80093B2F7EA013BCFA63A849AE9",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeSequenceTextHostChecks.cs",
+      "Bytes": 25832,
+      "Sha256": "2E6DC170CB992F1C4EC217898FDBF73FC50D9F3147EFC0C77222B7B6E5A2765F",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeSequenceTextHostEntry.cs",
+      "Bytes": 828,
+      "Sha256": "00B3ABFEF542E1EDDD6C58CD8C61DEE09399D44B21FD182B38ED54AD16F4805D",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeSequenceTextHostNames.cs",
+      "Bytes": 1186,
+      "Sha256": "7D6747D7634EF0B31AA51D36EE891F218BA69592622DFE73E3D2199D35C6417F",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeTypeHostChecks.cs",
+      "Bytes": 11102,
+      "Sha256": "AA9874B4069F3F5E41E5A64491CFC2D7BDE62C91E7F9B1BAB85E41E20B51B1CB",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeTypeHostEntry.cs",
+      "Bytes": 536,
+      "Sha256": "41BA8BCDB226AE47389D837D10A97A687CD9DBBA5DD3F3C096F33C110547D176",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeTypeHostNames.cs",
+      "Bytes": 531,
+      "Sha256": "425D161B0652466398E75B5FB305F3810CDB2C3E7D5A73CB40FDDACB5E607AB5",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeUnixPathControls.cs",
+      "Bytes": 3681,
+      "Sha256": "A3BAAED6FD68374E93D696FF7316661024BFD27B775374AE9FFA2D9E02194E90",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeUnixRawPathDriver.cs",
+      "Bytes": 4778,
+      "Sha256": "C0F9FA1895C6737E08D9BBB47758125B72FC36103DA38199BF49BF78FCDF45F3",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifNativeUnixRawPathNames.cs",
+      "Bytes": 762,
+      "Sha256": "67DD0BFC4473F8D3D747E3870D9094BD595897AB1072F4A72604DFC6865DD709",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifTermCallbackAdmission.cs",
+      "Bytes": 402,
+      "Sha256": "6593D044528BFB7545055BB4C290FA07A10BE76BEB8AE00CC52CA6B74FADA863",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifTermCallbackBuildReceipt.cs",
+      "Bytes": 236,
+      "Sha256": "ACAA0FBA921C9F503D70AD7B01756C27B7FDB53CD56FCFC4D635A1487E25A1A8",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifTermCallbackDriver.cs",
+      "Bytes": 7895,
+      "Sha256": "3E02D42F0C776B944D7A43D73998F15CE65E1BA4B5FAFE1C1F64C22B918B443E",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifTermCallbackEntry.cs",
+      "Bytes": 169,
+      "Sha256": "ECA681A589325F34D7E94BF292042868061162B852751889F6E9B17F49E63DA8",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifTermCallbackImage.cs",
+      "Bytes": 130,
+      "Sha256": "1495AC99BF91E973FEF43814358F2E58DE83272E4A55CF56864FA91E97C47F26",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifTermCallbackNames.cs",
+      "Bytes": 2137,
+      "Sha256": "EDF4A260DDBB3AC1EE51CEDEEB01D3A78E416CB68D6C8EDA60F7BC000D336FC4",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifTermCallbackSamples.cs",
+      "Bytes": 2846,
+      "Sha256": "060463A2DC6D09DF50634BA9BE8C012FBBCCD3FD9D85BF41DD02DB2C900B67D4",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifTextBinaryCallbackAdmission.cs",
+      "Bytes": 408,
+      "Sha256": "E74BD38ABAD33AA467F782F85C4CACDC2B3CA54BB04CB03CA1E3D2C2F7E5D37C",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifTextBinaryCallbackBuildReceipt.cs",
+      "Bytes": 248,
+      "Sha256": "1D13D398BF26380CE6A3BBEC0653AFAB548C4FD859821F941DA879853E59AA90",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifTextBinaryCallbackDriver.cs",
+      "Bytes": 7044,
+      "Sha256": "7233E9778C52A5CAB382228EA09C43D1B63F8D62D74714C6863D93C90B0E01F5",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifTextBinaryCallbackEntry.cs",
+      "Bytes": 181,
+      "Sha256": "285AC683C84D42223963890807C713B8A7C4DFC094D78FEEEACCAFB25157E8B8",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifTextBinaryCallbackImage.cs",
+      "Bytes": 136,
+      "Sha256": "7C883FF19C552EA9EC019D96B8EC6965DD3323723D36A18C00F32ABD6A5A6E72",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/NifTextBinaryCallbackNames.cs",
+      "Bytes": 2357,
+      "Sha256": "03A2F66CCB1D996CF07E4BF486E58DF618164D95CFDA79C391195ABED40E52BF",
+      "HashMode": "TextLF"
+    },
+    {
       "Path": "tools/Erlang.NifNativeBackend/Program.cs",
-      "Bytes": 2242,
-      "Sha256": "9F03823AC53E78240CDA2FF28806C2ED35B24916465037841423A7C1C5A9255F",
+      "Bytes": 2400,
+      "Sha256": "9632D880810CA335C80D8699E052F5B6AD8465AA9CF9AEFE370B9C3FA054DABF",
       "HashMode": "TextLF"
     },
     {
@@ -7555,14 +8875,14 @@
     },
     {
       "Path": "tools/Erlang.NifNativeBackend/native/nif_bridge_api.h",
-      "Bytes": 3290,
-      "Sha256": "CD8CBDDAA71B0426C4CDCD2AC535EC9CB9325DFE4C41FE03D3C78CB89A326CA2",
+      "Bytes": 3559,
+      "Sha256": "FD7B7ACDA45BE51FAF164CFBB8EA3F944068F1D3F02313FB7386C4C18DC5880D",
       "HashMode": "TextLF"
     },
     {
       "Path": "tools/Erlang.NifNativeBackend/native/nif_bridge_exports.c",
-      "Bytes": 7950,
-      "Sha256": "1596C56506127409AF84A8EEFC1B90B47FAB712DEFDA893085379B5A8527F6BF",
+      "Bytes": 8905,
+      "Sha256": "082A0A3AFD4F94682D4CE5BD51A095B818A63B2AD92BB2E09B7838634D5B4EBE",
       "HashMode": "TextLF"
     },
     {
@@ -7633,8 +8953,8 @@
     },
     {
       "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
-      "Bytes": 289526,
-      "Sha256": "D3562D5A4175296F4CBF67609C7731EFACB973FFA2AD3BEA5DC0F2815DF8D89E",
+      "Bytes": 313955,
+      "Sha256": "59B584A000CE8A32CFDEFF824C2A032A85A972BE934EE2C0F6D672CBF8FAD847",
       "HashMode": "TextLF"
     },
     {
@@ -7788,735 +9108,81 @@
       "HashMode": "TextLF"
     },
     {
+      "Path": "tools/Erlang.NifTermCallbackOriginalObservations/common.py",
+      "Bytes": 1879,
+      "Sha256": "9BE60B049F8E05C495B1845B302FC10CB019DE4DDC575FF187E144949A37C8D1",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifTermCallbackOriginalObservations/manifest.json",
+      "Bytes": 7783,
+      "Sha256": "854544B1C3EC513DF08E7A46B53D14DB124049938A635873877010817CB08AC1",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifTermCallbackOriginalObservations/passive_etf.py",
+      "Bytes": 7377,
+      "Sha256": "9C3204CB29755C508D05B611EA02B3A3186F83B40A72BF6EEC366242040432EE",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifUnixFilenameObservations/inputs.py",
+      "Bytes": 1515,
+      "Sha256": "C6F7312139829C06529DE1B7242DC138044B6F76A40022B3C426A18EE3F61150",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifUnixFilenameObservations/manifest.json",
+      "Bytes": 5874,
+      "Sha256": "46AD78FF0082DD6F45F2856BB2A78CE6D620F10EAE4D98267BA01664FB328A69",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifUnixFilenameObservations/native/echo.c",
+      "Bytes": 290,
+      "Sha256": "7DE39226C2223A0C2642EE9C10DBA3233CB98C7DF4920DF538B047145F020943",
+      "HashMode": "BinaryExact"
+    },
+    {
+      "Path": "tools/Erlang.NifUnixFilenameObservations/observe.py",
+      "Bytes": 7621,
+      "Sha256": "D9E658B9DDAFB43AB18B6633823A207B422C0A60BE59B8733074972DB17A787E",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifUnixFilenameObservations/raw_unix_filename_contract.erl",
+      "Bytes": 277,
+      "Sha256": "66FC4DBE5F9611498BE9A60D6883566E847E3D026CAB292C0BBDD61071660126",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tools/Erlang.NifUnixFilenameObservations/verify-source.py",
+      "Bytes": 368,
+      "Sha256": "FCBEBFDB8D901568C6CC7ABB4AE6E44F8B4245633049575E388094090D5157ED",
+      "HashMode": "TextLF"
+    },
+    {
       "Path": "tools/Erlang.RawOnLoadVisibilityObservations/guard/passive_etf.py",
       "Bytes": 7105,
       "Sha256": "A069AD650B3EA1BE6B90DE60117B84ED7A1A6B67128CC41E7ECAEFD2889C1713",
       "HashMode": "TextLF"
     },
     {
-      "Path": "src/Erlang.Otp.Behaviours/RuntimeExceptionWrapperNames.cs",
-      "Bytes": 207,
-      "Sha256": "BE91EBBB5E961620A5064604A2A5C36965731EA392468D75166A0E72C7A163C9",
+      "Path": "tools/Erlang.Tool/Readiness.cs",
+      "Bytes": 11122,
+      "Sha256": "B1144E811EEA7DEEBA271DBA2DF916433C09A66FE1172A7CB9CC3A5D09B2E6B1",
       "HashMode": "TextLF"
     },
     {
-      "Path": "src/Erlang.Runtime/BacktraceDepthFlag.cs",
-      "Bytes": 1107,
-      "Sha256": "0E7477B1D2A174CC8A38FFC02888855FC33A43D704506DCFBDFD40B03DAA15A8",
+      "Path": "tools/Erlang.Tool/ReadinessTestReportAdmission.cs",
+      "Bytes": 821,
+      "Sha256": "73E1F736D3172B273914BCCB79A18CCE439647A226C4B96152C9B63E20BBC486",
       "HashMode": "TextLF"
     },
     {
-      "Path": "src/Erlang.Runtime/BacktraceDepthNames.cs",
-      "Bytes": 229,
-      "Sha256": "527A996361F1A170A57F3A0C3EFC38E93704E16E026B3F4FFE666C23DF8B1D71",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/BacktraceDepthParameters.cs",
-      "Bytes": 173,
-      "Sha256": "0E7BA0ED9C4D75D1B52D3F0B71E9842F7A406041BB0E867C9AA927AA7ED78DBC",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/ErlangSizeErrorFrames.cs",
-      "Bytes": 628,
-      "Sha256": "572608F0D0509CD92AE97B4BFF9C50CA364797F0C5DC3EBE8220F4E184AA2696",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/ErlangSizeErrorNames.cs",
-      "Bytes": 168,
-      "Sha256": "2E9BD002B1759426562DDFC4986F20BD2AD012465B6332C9F21AD49C8F138CA8",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/ProcessContext.ErrorHandlers.cs",
-      "Bytes": 2167,
-      "Sha256": "6BD2063879D8A6DA15D87C94ECFAD2ED2CC8A6E91CA2367A2CE9CA0EC86E7952",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/ProcessRuntime.Backtrace.cs",
-      "Bytes": 244,
-      "Sha256": "2DD3177A08AAC511E88629E38B428BB0CFD238225173CE83DCD933B0638140D1",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/RuntimeErrorBinding.cs",
-      "Bytes": 134,
-      "Sha256": "7993623C8780B1360D24C8989A59A06DB1C5C544A4559C80FD1DBEC3F0FB528A",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/RuntimeExceptionCapture.cs",
-      "Bytes": 6346,
-      "Sha256": "BC8864F2F2DE3092D8C16194D80BF227C60B7493336716483C69FFA8CEFA4F58",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/RuntimeExceptionNames.cs",
-      "Bytes": 648,
-      "Sha256": "44BDC6A12BF77E863E52ECC700529A3DCAF3EFE870FC551F4FB7681E320FE577",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/SelectedErrorHandlerInvocation.cs",
-      "Bytes": 209,
-      "Sha256": "9D66E86B82BE3AD6CB1E5784CC38CF45DFC530FDBB2FE9C979675E8167FBA9B5",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/SourceLoadNifFilename.cs",
-      "Bytes": 1469,
-      "Sha256": "A40270669386E828CC1468165AD6D6A2966AA5B27BBD440BC554055BDB3B88DA",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/SourceLoadNifFilenameParameters.cs",
-      "Bytes": 269,
-      "Sha256": "BFD31E6E28674B803235549180844CF325E97F2FF9C1D76FCEEEF73D089C7944",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/ModuleRegistry.NativeExecutionPolicy.cs",
-      "Bytes": 667,
-      "Sha256": "5AB5CBD770191A2FA132434DE2FB854F500CA17578407D8D0BD96746A062DA46",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeDefaultLoader.cs",
-      "Bytes": 3791,
-      "Sha256": "22D945F866FBB44FE207B0C33C72B7AB4FD60B65B03AE8DAE77AA514CB9F3E5A",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeDefaultLoaderNames.cs",
-      "Bytes": 936,
-      "Sha256": "AEFAAD14AEC683A85881BEE66315246CAD92B4CAC3C5D8DC275E292791D26A30",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeEntryFunctions.cs",
-      "Bytes": 4112,
-      "Sha256": "5E3F0F9F8B4225E6082212C34974370545FFB59D4591A4157922E6954F16197C",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeEntryTextLimits.cs",
-      "Bytes": 123,
-      "Sha256": "FE5EA708149B5757FDB5E4B122BA785A5E05E5BCB5CDE56CC2C15FCF1181798F",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeFilename.cs",
-      "Bytes": 2581,
-      "Sha256": "37207DB8273E905608582759E282945AFC153F56256418DBC3D3AD1731AD48C6",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeLoadStageException.cs",
-      "Bytes": 312,
-      "Sha256": "59C11329488D1CF544EED8D084339F7D99221E60F7619341801B8E9A58834F24",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeReviewedBasicAbi.cs",
-      "Bytes": 2036,
-      "Sha256": "CC691937867F8B72DCEACB428F9F3E596043A1FE86B9603917B15415158B1D15",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeWindowsLoaderNames.cs",
-      "Bytes": 181,
-      "Sha256": "F5D0F711D02F756C5246C51AFD2724542A812FD636962DB254DF5A3C6C33510E",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeDefaultRouteChecks.cs",
-      "Bytes": 12914,
-      "Sha256": "CCA9C02805C25DE5D50CC638EF5EAC3A6E2991FE3DE55D62DE744EE15FE2CE5A",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeDefaultRouteHostEntry.cs",
-      "Bytes": 374,
-      "Sha256": "1FDD242604F09F63CC259EE3241B268ED7F2F8F99A5769DEB81757FC5E50729E",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeDefaultRouteNames.cs",
-      "Bytes": 1252,
-      "Sha256": "D05EBD6A2775F2F8CFC8CA04B70725F73550116E34CC890893BC282D067E4DCD",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeElevenDriver.cs",
-      "Bytes": 11865,
-      "Sha256": "19D704A1571F9983ADB5E7B82D2FEF0CFB8222120BBEEE3FD8768ED7A008B225",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeElevenNames.cs",
-      "Bytes": 2117,
-      "Sha256": "D473D01254DF07832BCA724EC646FB783E6AA6B6F81922887446C68B091034FF",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeEntryControlledChecks.cs",
-      "Bytes": 5746,
-      "Sha256": "33701023B4769559572A6266072176BA2D837B0D3E9F086F0BD51F2EFFED605E",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeEntryControlledNames.cs",
-      "Bytes": 558,
-      "Sha256": "9D0A35A55D9F914DE718CD55DFF8C3ECE336FCDB6638D4A270098311F0AE7F63",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeFilenameControlNames.cs",
-      "Bytes": 441,
-      "Sha256": "0B6A7D8A6D5CB08B3D498570FD93EC41EAF529E0084061B151D25DEDE1B3552C",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeFilenameControls.cs",
-      "Bytes": 2339,
-      "Sha256": "9FCFC826D507FC91292C82C9B53C9C19C0F86D07E80342A25143527797130A0A",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeArrayCallbacks.cs",
-      "Bytes": 3148,
-      "Sha256": "670E396BE73D2F169699C4C9237039C7AC14634F4E3923BE69953BB9EE30AB90",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeArrayNames.cs",
-      "Bytes": 254,
-      "Sha256": "77DAF3C3ED3BBA46930C040516ADFB9D938770938323BB6F589814665987B1E4",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeEntryAdmissionException.cs",
-      "Bytes": 246,
-      "Sha256": "C37232B6182E77C9F43A76AEC393D1116DC2D2EDF7C1B53908B012C3C769953A",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeHostFileNames.cs",
-      "Bytes": 177,
-      "Sha256": "2F34F9DBB97A3CE73BA52B7E47E4FA6C728CB515DD8381CA9D2C8C2773F497B1",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeLoadReason.cs",
-      "Bytes": 1867,
-      "Sha256": "1F9A081B52BBA9959D07B4AB4FC716387059B8090B2A23565AE97915593104B7",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeLoadReasonKind.cs",
-      "Bytes": 162,
-      "Sha256": "D8381F205E5E8333E4A7212E93932779FE07938E118D8D50A2015B99519F8A48",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeLoadReasonText.cs",
-      "Bytes": 852,
-      "Sha256": "2B71E4631D3BE2A4CC005C0D4DE282DD9CC9E91A248AB3CBE4754B8730D39E51",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeLoadVetoException.cs",
-      "Bytes": 405,
-      "Sha256": "413D53CCFC45FB525FBE860F7B838995B2D26B137DFF4E1702CE5AE10D238D92",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/ProcessContext.GarbageCollectionPolicy.cs",
-      "Bytes": 309,
-      "Sha256": "A80D1CA2C487F66B2490A9565188646076ECC14412F92A622AF3136A222C80BF",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/ProcessFullSweepAfter.cs",
-      "Bytes": 1638,
-      "Sha256": "EF84914A3905CE4F8638C4DAC8F6F8AAB555967505D91AAF1FBD924D6E25733E",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/ProcessFullSweepNames.cs",
-      "Bytes": 242,
-      "Sha256": "8A26500C8975B825C9492A07649853EE9D7B3415283294CD8F84B5EBC12E9F94",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/ProcessGarbageCollectionPolicy.cs",
-      "Bytes": 1016,
-      "Sha256": "FD35AB3C1565B897EE93D79A5CB7330A7294623547D844A4747A9A922028E6D5",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/ProcessRuntime.GarbageCollectionPolicy.cs",
-      "Bytes": 382,
-      "Sha256": "C5A13FD35B757992119F9047FFC04871FB1FFAC810BE958D89F3B9D61DE98089",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/ProcessRuntime.SchedulerStatistics.cs",
-      "Bytes": 262,
-      "Sha256": "ADBE0100E84B9546DBB768DAA5881E85E172B4318185DBC870D9CF731072C7C3",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/RuntimeActorDispatcher.Statistics.cs",
-      "Bytes": 815,
-      "Sha256": "09C8E9858439F469DF482C770019D616A3B92D8FE446D5A91CE1C12372E016B5",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/RuntimeReductionStatistics.cs",
-      "Bytes": 1208,
-      "Sha256": "9DD99BA1ED5BB83BA63C665BDDB6B9AB5A8C742FF00B96AC8B51A6E512702C83",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/RuntimeSchedulerStatistics.cs",
-      "Bytes": 1526,
-      "Sha256": "A35F1A21C9AAD3D92B250DA083BA403AC50737755367348E2DFB6BDFFFB2E979",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeArrayHostChecks.cs",
-      "Bytes": 8205,
-      "Sha256": "E3D916A49617F9C0790AD755DF670FD97FA43DB84D63C6196F8B1AFE6929715A",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeArrayHostEntry.cs",
-      "Bytes": 485,
-      "Sha256": "0A47954E6DE0982BCDF872620E599749C7C7D6F4058241E94D50462599113B69",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeArrayHostNames.cs",
-      "Bytes": 630,
-      "Sha256": "76E4E53B02D6D46F128707B20B41538D7236CD190A477C1824EA1ECEC924B32F",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeLoadReasonCheckNames.cs",
-      "Bytes": 1651,
-      "Sha256": "B4108A98AEE98C558E43976CF9B0C7A37C16C942B624F519D623D61482025842",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeLoadReasonChecks.cs",
-      "Bytes": 512,
-      "Sha256": "1A60A7365D915562702A83F38806AC7148E289240C7E1B492277B4C40662F854",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeLoadReasonControlChecks.cs",
-      "Bytes": 5996,
-      "Sha256": "5747A3517B642CC215D997ED578B4D85B51DA5D625DFEDEE30C729133951E702",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeLoadReasonExpected.cs",
-      "Bytes": 939,
-      "Sha256": "14A032CEAAEE0003C0AA2504C2DA22F585F068A58E80861E7085B036771A418F",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeLoadReasonHostEntry.cs",
-      "Bytes": 161,
-      "Sha256": "B6AAF6B3BC5C0AF963914ECF70440BA12409BA20B7A9A8B75D76F04D78A63DE2",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeListCellCallbacks.cs",
-      "Bytes": 1121,
-      "Sha256": "E6AE7EF0AAA55ACB7DE466EDDC20F41E65DE03291984FBAFEAA2CEDD5B1BDCB2",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeListCellNames.cs",
-      "Bytes": 157,
-      "Sha256": "B4C16D2AC246CF13D08CF20BF2132E592D1498EE13ACD583B50413FFBC85E12E",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeNumericCallbacks.cs",
-      "Bytes": 7659,
-      "Sha256": "97B168D7A231922C2CEDCF4C80CC3C81DDA9A882071868C15B4E451F794AFDFA",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeNumericConversionCodes.cs",
-      "Bytes": 274,
-      "Sha256": "69C3C0BEB5E6574E1703D8E3F35C08DFF0A2C615D8B4996D6F1E5E1526523815",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeNumericNames.cs",
-      "Bytes": 173,
-      "Sha256": "80E517253B57DE8379A817FE6FAE1EE352B33D570141528E0C347389171FA2C1",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeTypeCallbacks.cs",
-      "Bytes": 3839,
-      "Sha256": "33E7760C58CFF782789DC0D051AED0DD125B60A0D1BA316D4477A46642CDA2F8",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeTypeKind.cs",
-      "Bytes": 182,
-      "Sha256": "595C7BE7C92399A2B96E66B1883DE5836BE72CBB41338223F97849F3D80DB0CA",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeNumericHostChecks.cs",
-      "Bytes": 17534,
-      "Sha256": "FAEEEB09725DCA07B7F23A631B5208F556880EF7B337C2AC832FC696EE241AEC",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeNumericHostEntry.cs",
-      "Bytes": 571,
-      "Sha256": "368F2BE8FD153DA7A62151E905ADF26227139E521FB3BEC501CBC7347E394F4A",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeNumericHostNames.cs",
-      "Bytes": 1489,
-      "Sha256": "DAF8CE7248A80EC0DC683149C663301800173B8B917F74E9A1839588A414F628",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeTypeHostChecks.cs",
-      "Bytes": 11102,
-      "Sha256": "AA9874B4069F3F5E41E5A64491CFC2D7BDE62C91E7F9B1BAB85E41E20B51B1CB",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeTypeHostEntry.cs",
-      "Bytes": 536,
-      "Sha256": "41BA8BCDB226AE47389D837D10A97A687CD9DBBA5DD3F3C096F33C110547D176",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeTypeHostNames.cs",
-      "Bytes": 531,
-      "Sha256": "425D161B0652466398E75B5FB305F3810CDB2C3E7D5A73CB40FDDACB5E607AB5",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifTermCallbackAdmission.cs",
-      "Bytes": 402,
-      "Sha256": "6593D044528BFB7545055BB4C290FA07A10BE76BEB8AE00CC52CA6B74FADA863",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifTermCallbackBuildReceipt.cs",
-      "Bytes": 236,
-      "Sha256": "ACAA0FBA921C9F503D70AD7B01756C27B7FDB53CD56FCFC4D635A1487E25A1A8",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifTermCallbackDriver.cs",
-      "Bytes": 7895,
-      "Sha256": "3E02D42F0C776B944D7A43D73998F15CE65E1BA4B5FAFE1C1F64C22B918B443E",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifTermCallbackEntry.cs",
-      "Bytes": 169,
-      "Sha256": "ECA681A589325F34D7E94BF292042868061162B852751889F6E9B17F49E63DA8",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifTermCallbackImage.cs",
-      "Bytes": 130,
-      "Sha256": "1495AC99BF91E973FEF43814358F2E58DE83272E4A55CF56864FA91E97C47F26",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifTermCallbackNames.cs",
-      "Bytes": 2137,
-      "Sha256": "EDF4A260DDBB3AC1EE51CEDEEB01D3A78E416CB68D6C8EDA60F7BC000D336FC4",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifTermCallbackSamples.cs",
-      "Bytes": 2846,
-      "Sha256": "060463A2DC6D09DF50634BA9BE8C012FBBCCD3FD9D85BF41DD02DB2C900B67D4",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeAtomCallbacks.cs",
-      "Bytes": 6304,
-      "Sha256": "5DC060495CB534FBB71CF982CCFA037340664454164822058E5C4FBCF3649ED9",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeBinaryCallbacks.cs",
-      "Bytes": 11156,
-      "Sha256": "28DEE339BC33E53DCF5FE7CA5D637C5F35FEE20DC1D0F55A5ECD3AC294243A99",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeBinaryDescriptor.cs",
-      "Bytes": 280,
-      "Sha256": "6E14C9EC3F24475EEC356AA7ACFE11C34C594260BC3E2960151C0EBBF392CEB3",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeBinaryNames.cs",
-      "Bytes": 1222,
-      "Sha256": "9E141C2678FD3ADBF13BB427F28FBA38973E272F2336BABCA3BB1A4CDB2B96DF",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeBinaryNode.cs",
-      "Bytes": 824,
-      "Sha256": "75F2057DDE52883457790EF205679642214D9345CD66DE02F1575D8684528D68",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeBinaryRegistry.cs",
-      "Bytes": 2268,
-      "Sha256": "AC2FBDBA687A5845B2AF5ACF0E2B6F5177DF6C693EDBF10F23B2AC8EB83E0160",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeBinaryStorage.cs",
-      "Bytes": 3393,
-      "Sha256": "78732031E5ACE2AE66200F2B7A6B47EFF97199D3FA01A9171B6C35657C2123A9",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeConsNode.cs",
-      "Bytes": 509,
-      "Sha256": "FA698C8837CAD50CFC4EF9CADF79F5B4D4536E93548EDD539E53FC3A04179970",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeEnvironmentBinding.cs",
-      "Bytes": 569,
-      "Sha256": "184864EFDE3CEC32C58DD4769CD8C50E5C4B8360CF7AA9C36409F4E7B95CD69A",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeImmediateOwner.cs",
-      "Bytes": 667,
-      "Sha256": "33FC5CF5ED4983D8B3C417007C99F1B0653D5865DF87DBB75A61A2037DE58B72",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeInvocationNames.cs",
-      "Bytes": 283,
-      "Sha256": "7C82BD5BD3A4EB1C79D83037C5A83000AEFE7D623F9BC18A48DE0A9C0AEE63E1",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeLinuxNumericCallbacks.cs",
-      "Bytes": 1247,
-      "Sha256": "175DB3B64F8584BA5D4C35DF9112C40C5D8A41AFEAE46D31B60F87B0F10880D0",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeLinuxNumericNames.cs",
-      "Bytes": 179,
-      "Sha256": "984341B3E0B8E988A03B8E5D45B58E76FADCC357F4B0A66E179AEED8C9D77B9A",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeSequenceCallbacks.cs",
-      "Bytes": 1877,
-      "Sha256": "E9326F7D610B175E1BB212DFA32C38349083C9CDF83188738D6AD48FDAC7BF77",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeStringCallbacks.cs",
-      "Bytes": 5774,
-      "Sha256": "6097F7D29D15B23458C2D2A320796E6689901BEFFD815CE4ADDC2CBC4CF5D354",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeTermGraph.cs",
-      "Bytes": 1028,
-      "Sha256": "6FF624C4548324A070AA33532B324C534DECB5C33268427E721646F97A3F88F8",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeTermNode.cs",
-      "Bytes": 258,
-      "Sha256": "4888F7239F052430E7CC5EA3AB755A3F461003B704B677226EB29575849FE2A1",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeTermValue.cs",
-      "Bytes": 1229,
-      "Sha256": "DC059AC474603881FCFEBF11C3E84A284128CE3B1AB6282963FAF1A085D50E0C",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeTextNames.cs",
-      "Bytes": 666,
-      "Sha256": "3FF1EE8303EF1A66E2B5E5296474CA9D90018672D7B4104C74A8A234289C8D12",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/NifNativeTupleNode.cs",
-      "Bytes": 620,
-      "Sha256": "C30C66A73F7A7F2CDFEDC900A55C0EE599FDF22770E4778ECA3EE6886F070364",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeBinaryHostChecks.cs",
-      "Bytes": 29481,
-      "Sha256": "D8F4DDE54ECDD01970094EB971270421DC3F3168D03A18431ECB2A404EE8CD23",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeBinaryHostEntry.cs",
-      "Bytes": 1262,
-      "Sha256": "7010CC814910244C7E81B4E5AD7DDF1FCE3ABC1C801B5A84238F1BF8F5F0A10C",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeBinaryHostNames.cs",
-      "Bytes": 1289,
-      "Sha256": "2C81637B0D865707ABE1D7416ADA75C93B3733945F88B4F29CC9E36F71C4761B",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeBridgeFixedHostChecks.cs",
-      "Bytes": 6134,
-      "Sha256": "D4FC95A0F88192FBADFD6A9DF4679095F2E670AB7A9D7B536A862C573A0AABA6",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeBridgeFixedHostEntry.cs",
-      "Bytes": 421,
-      "Sha256": "E582C0DFF5004DBFF9B4EAA98841153870EEE64CEBE717A4C5248DB523A4248A",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeBridgeFixedHostNames.cs",
-      "Bytes": 636,
-      "Sha256": "A20A17E0172F238D334E67A3631A545A3324D4357723C59441C0C74CE92F6140",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeImmediateHostChecks.cs",
-      "Bytes": 6999,
-      "Sha256": "CCAB5E5686A712568CFEAB5A5ADCEE229A7F88283DE476F1C8AC0C5F5E3CD864",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeImmediateHostEntry.cs",
-      "Bytes": 409,
-      "Sha256": "81F3536910AD48F5AAAF38F9A5C5739470F857E6D48630B4ECCB946D4A462C74",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeImmediateHostNames.cs",
-      "Bytes": 679,
-      "Sha256": "B69BC60B82906105E5CFF9ECB3F778BE265909FD1409929D637A83CD1A273935",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeLegacyStringHostChecks.cs",
-      "Bytes": 11866,
-      "Sha256": "EF6FCAB5A043C5EE72D1DBEA29D4FA510EC7CC673DB68D292D81DC8C182FFF4C",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeLegacyStringHostEntry.cs",
-      "Bytes": 832,
-      "Sha256": "E50C5F73A2E5F5637B31C6518402441DEF44380F765ABBD950139FE35C803DBD",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeLegacyStringHostNames.cs",
-      "Bytes": 706,
-      "Sha256": "8586D8AB7D77D89351D2AF874DBF1F960181C5C98958AEAF60B2576C1AA72B5D",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeLinuxImmediateHostChecks.cs",
-      "Bytes": 6248,
-      "Sha256": "9A17C6D9FBE0743ECF03C4BBE01C4060CDC693B8D8AD0D5EDF92CD9095BE4CB9",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeLinuxImmediateHostEntry.cs",
-      "Bytes": 437,
-      "Sha256": "A133832C3519EC158EF33F20CAD75C360ADDE8EB79EAC218B8EB4784A4DF44EC",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeLinuxImmediateHostNames.cs",
-      "Bytes": 349,
-      "Sha256": "F53EDBADAC6CF90E217896944168758FF50BDB15519C7C8C84DB9EAA3AF336B0",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeSequenceTextHostChecks.cs",
-      "Bytes": 25832,
-      "Sha256": "2E6DC170CB992F1C4EC217898FDBF73FC50D9F3147EFC0C77222B7B6E5A2765F",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeSequenceTextHostEntry.cs",
-      "Bytes": 828,
-      "Sha256": "00B3ABFEF542E1EDDD6C58CD8C61DEE09399D44B21FD182B38ED54AD16F4805D",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifNativeSequenceTextHostNames.cs",
-      "Bytes": 1186,
-      "Sha256": "7D6747D7634EF0B31AA51D36EE891F218BA69592622DFE73E3D2199D35C6417F",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifTextBinaryCallbackAdmission.cs",
-      "Bytes": 408,
-      "Sha256": "E74BD38ABAD33AA467F782F85C4CACDC2B3CA54BB04CB03CA1E3D2C2F7E5D37C",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifTextBinaryCallbackBuildReceipt.cs",
-      "Bytes": 248,
-      "Sha256": "1D13D398BF26380CE6A3BBEC0653AFAB548C4FD859821F941DA879853E59AA90",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifTextBinaryCallbackDriver.cs",
-      "Bytes": 7044,
-      "Sha256": "7233E9778C52A5CAB382228EA09C43D1B63F8D62D74714C6863D93C90B0E01F5",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifTextBinaryCallbackEntry.cs",
-      "Bytes": 181,
-      "Sha256": "285AC683C84D42223963890807C713B8A7C4DFC094D78FEEEACCAFB25157E8B8",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifTextBinaryCallbackImage.cs",
-      "Bytes": 136,
-      "Sha256": "7C883FF19C552EA9EC019D96B8EC6965DD3323723D36A18C00F32ABD6A5A6E72",
-      "HashMode": "TextLF"
-    },
-    {
-      "Path": "tools/Erlang.NifNativeBackend/NifTextBinaryCallbackNames.cs",
-      "Bytes": 2357,
-      "Sha256": "03A2F66CCB1D996CF07E4BF486E58DF618164D95CFDA79C391195ABED40E52BF",
+      "Path": "tools/Erlang.Tool/ReadinessTestReportNames.cs",
+      "Bytes": 281,
+      "Sha256": "6040587DDC59910787DFD7A14AA57EA515F0CCF808E351399F3E2D8CA1288045",
       "HashMode": "TextLF"
     }
   ],

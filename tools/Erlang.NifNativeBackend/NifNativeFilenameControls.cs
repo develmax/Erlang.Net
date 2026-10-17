@@ -37,16 +37,10 @@ internal static class NifNativeFilenameControls
         }
         else
         {
-            bool refused = false;
-            try
-            {
-                NifNativeFilename.Resolve(new BitString(latin1));
-            }
-            catch (NotSupportedException failure) when (failure.Message == NifNativeDefaultLoaderNames.BinaryFilenameEncoding)
-            {
-                refused = true;
-            }
-            NifNativeHarness.Require(refused);
+            var path = NifNativeFilename.ResolveNative(new BitString(latin1));
+            byte[] expected = latin1.Concat(Encoding.UTF8.GetBytes(suffix)).Append((byte)0).ToArray();
+            NifNativeHarness.Require(path.UnixNullTerminated().SequenceEqual(expected));
         }
+        NifNativeUnixPathControls.Run();
     }
 }

@@ -1,33 +1,130 @@
-name: Native namespace constructor registration probe
+name: Source-bound original and Linux callback17 two-runtime observations
 on:
   workflow_dispatch:
     inputs:
-      source_manifest_sha256:
-        description: Root-reviewed source closure digest
+      expected_head:
         type: string
         required: true
-      expected_head:
+      source_plan:
+        description: Repository-relative reviewed final production source-plan JSON
+        type: string
+        required: true
+      source_plan_sha256:
+        type: string
+        required: true
+      map_manifest_sha256:
+        type: string
+        required: true
+      reference_manifest_sha256:
         type: string
         required: true
 permissions:
   contents: read
 jobs:
-  namespace-constructor-probe:
+  original-and-linux-sdk:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 60
     env:
       EXPECTED_HEAD: ${{ inputs.expected_head }}
+      SOURCE_PLAN: ${{ inputs.source_plan }}
+      SOURCE_PLAN_SHA: ${{ inputs.source_plan_sha256 }}
+      MAP_MANIFEST_SHA: ${{ inputs.map_manifest_sha256 }}
+      REFERENCE_MANIFEST_SHA: ${{ inputs.reference_manifest_sha256 }}
+      ERLC_USE_SERVER: 'false'
+      PYTHONDONTWRITEBYTECODE: '1'
+      DOTNET_PROCESSOR_COUNT: '2'
     steps:
       - uses: actions/checkout@v7
-      - name: Verify exact head and execute owned constructor namespace probe
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+      - name: Verify selected branch and reviewed source-plan identity
         shell: bash
         run: |
           set -euo pipefail
           test "$EXPECTED_HEAD" = "$GITHUB_SHA"
-          test "$(git --no-optional-locks rev-parse HEAD)" = "$GITHUB_SHA"
-          bash tools/Erlang.NifNamespaceConstructorProbe/run.sh artifacts/namespace-constructor-probe
+          test "$(git --no-optional-locks rev-parse HEAD)" = "$EXPECTED_HEAD"
+          python3 -B - <<'PY'
+          import hashlib,json,os,pathlib
+          root=pathlib.Path.cwd();p=(root/os.environ['SOURCE_PLAN']).resolve()
+          assert p.is_relative_to(root) and hashlib.sha256(p.read_bytes()).hexdigest().upper()==os.environ['SOURCE_PLAN_SHA'].upper()
+          for row in json.loads(p.read_bytes())['Files']:
+              q=(root/row['Path']).resolve()
+              assert q.is_relative_to(root) and q.stat().st_size==row['Bytes'] and hashlib.sha256(q.read_bytes()).hexdigest().upper()==row['Sha256']
+          PY
+          mkdir -p artifacts/linux-callback17
+      - name: Clone exact immutable original source
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 --single-branch --branch OTP-29.1.1 https://github.com/erlang/otp.git artifacts/linux17-otp-source
+          test "$(git -C artifacts/linux17-otp-source rev-parse HEAD)" = ad05823719d77c8faee87348ea39513d4e2f99c5
+      - name: Build original once for both independent C fixtures
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -B tools/Erlang.SchedulerAffinityOriginalObservations/build-original.py \
+            --repository "$GITHUB_WORKSPACE" --manifest-sha256 4C9A79CD6E8BC18F68316D42B2F30DB171E67A242CA81CA84BB8A022E8BA5BFB \
+            --expected-head "$GITHUB_SHA" --otp-source "$GITHUB_WORKSPACE/artifacts/linux17-otp-source" \
+            --prefix "$GITHUB_WORKSPACE/artifacts/linux17-otp" \
+            --output "$GITHUB_WORKSPACE/artifacts/linux-callback17/runtime-build"
+      - name: Build and acquire independent original8 and original9 from the same installed headers
+        shell: bash
+        run: |
+          set -euo pipefail
+          receipt="$GITHUB_WORKSPACE/artifacts/linux-callback17/runtime-build/build-receipt.json"
+          receipt_sha=$(sha256sum "$receipt" | cut -d' ' -f1)
+          for family in size reference; do
+            if [ "$family" = size ]; then tool=Erlang.NifMapSizeOriginalObservations; manifest="$MAP_MANIFEST_SHA"; else tool=Erlang.NifMakeReferenceOriginalObservations; manifest="$REFERENCE_MANIFEST_SHA"; fi
+            python3 -B "tools/$tool/build-native.py" --repository "$GITHUB_WORKSPACE" --expected-head "$GITHUB_SHA" --manifest-sha256 "$manifest" \
+              --otp-source "$GITHUB_WORKSPACE/artifacts/linux17-otp-source" --runtime-root "$GITHUB_WORKSPACE/artifacts/linux17-otp/lib/erlang" \
+              --build-receipt "$receipt" --approved-build-receipt-sha256 "$receipt_sha" \
+              --output "$GITHUB_WORKSPACE/artifacts/linux-callback17/$family-native"
+            native_sha=$(sha256sum "artifacts/linux-callback17/$family-native/native-build-receipt.json" | cut -d' ' -f1)
+            python3 -B "tools/$tool/collect.py" --repository "$GITHUB_WORKSPACE" --expected-head "$GITHUB_SHA" --manifest-sha256 "$manifest" \
+              --otp-source "$GITHUB_WORKSPACE/artifacts/linux17-otp-source" --runtime-root "$GITHUB_WORKSPACE/artifacts/linux17-otp/lib/erlang" \
+              --build-receipt "$receipt" --approved-build-receipt-sha256 "$receipt_sha" \
+              --native-build "$GITHUB_WORKSPACE/artifacts/linux-callback17/$family-native" --approved-native-build-receipt-sha256 "$native_sha" \
+              --output "$GITHUB_WORKSPACE/artifacts/linux-callback17/$family-original"
+          done
+      - name: Build source-bound V4 namespace bridge and prepare exact own-image admission
+        shell: bash
+        run: |
+          set -euo pipefail
+          receipt="$GITHUB_WORKSPACE/artifacts/linux-callback17/runtime-build/build-receipt.json"
+          python3 -B tools/Erlang.NifLinuxCallbackObservations/prepare.py --expected-head "$GITHUB_SHA" \
+            --source-plan "$GITHUB_WORKSPACE/$SOURCE_PLAN" --approved-source-plan-sha256 "$SOURCE_PLAN_SHA" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/linux17-otp-source" --runtime-root "$GITHUB_WORKSPACE/artifacts/linux17-otp/lib/erlang" \
+            --build-receipt "$receipt" --approved-build-receipt-sha256 "$(sha256sum "$receipt" | cut -d' ' -f1)" \
+            --size-native-build "$GITHUB_WORKSPACE/artifacts/linux-callback17/size-native" --approved-size-native-receipt-sha256 "$(sha256sum artifacts/linux-callback17/size-native/native-build-receipt.json | cut -d' ' -f1)" \
+            --reference-native-build "$GITHUB_WORKSPACE/artifacts/linux-callback17/reference-native" --approved-reference-native-receipt-sha256 "$(sha256sum artifacts/linux-callback17/reference-native/native-build-receipt.json | cut -d' ' -f1)" \
+            --output "$GITHUB_WORKSPACE/artifacts/linux-callback17/bridge"
+      - name: Build final net10 Linux focus and package ordinary bridge
+        shell: bash
+        run: |
+          set -euo pipefail
+          dotnet build tools/Erlang.NifLinuxCallbackFocus/Erlang.NifLinuxCallbackFocus.csproj --disable-build-servers -m:1 -nr:false --nologo
+          cp artifacts/linux-callback17/bridge/Erlang.NifBridge.so tools/Erlang.NifLinuxCallbackFocus/bin/Debug/net10.0/Erlang.NifBridge.so
+      - name: Execute both routes with two simultaneous runtime domains
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -B tools/Erlang.NifLinuxCallbackObservations/run.py --admission "$GITHUB_WORKSPACE/artifacts/linux-callback17/bridge/admission.json" \
+            --approved-admission-sha256 "$(sha256sum artifacts/linux-callback17/bridge/admission.json | cut -d' ' -f1)" \
+            --focus "$GITHUB_WORKSPACE/tools/Erlang.NifLinuxCallbackFocus/bin/Debug/net10.0/Erlang.NifLinuxCallbackFocus.dll" \
+            --output "$GITHUB_WORKSPACE/artifacts/linux-callback17/sdk"
+      - name: Compare all seventeen acquired rows on both routes and both runtime domains
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -B tools/Erlang.NifLinuxCallbackObservations/compare.py --capture-root "$GITHUB_WORKSPACE/artifacts/linux-callback17" \
+            --approved-size-completion-sha256 "$(sha256sum artifacts/linux-callback17/size-original/completion.json | cut -d' ' -f1)" \
+            --approved-reference-completion-sha256 "$(sha256sum artifacts/linux-callback17/reference-original/completion.json | cut -d' ' -f1)" \
+            --approved-sdk-completion-sha256 "$(sha256sum artifacts/linux-callback17/sdk/completion.json | cut -d' ' -f1)" \
+            --approved-admission-sha256 "$(sha256sum artifacts/linux-callback17/bridge/admission.json | cut -d' ' -f1)" \
+            --output "$GITHUB_WORKSPACE/artifacts/linux-callback17/comparison.json"
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: native-namespace-constructor-probe
-          path: artifacts/namespace-constructor-probe/**
+          name: linux-callback17-raw
+          path: artifacts/linux-callback17/**

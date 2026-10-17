@@ -9,6 +9,8 @@ internal sealed class NifNativeCapabilityProfile
     {
         get;
     }
+    internal NifNativeLibraryPath NativeLibraryPath { get; }
+
     internal string? ExpectedLibrarySha256 { get; }
     internal string LibrarySha256 => ExpectedLibrarySha256
         ?? throw new InvalidOperationException(NifNativeHostFileNames.NoExpectedDigest);
@@ -82,6 +84,7 @@ internal sealed class NifNativeCapabilityProfile
         if (reallocation && OperatingSystem.IsLinux() && (bridgePath is null || reallocationBridgePath is null))
             throw new InvalidOperationException(NifNativeDiagnostics.BridgeContract);
         LibraryPath = libraryPath;
+        NativeLibraryPath = NifNativeLibraryPath.FromHostPath(libraryPath);
         ExpectedLibrarySha256 = trustedLibrarySha256;
         BridgePath = bridgePath;
         BridgeSha256 = trustedBridgeSha256;
@@ -101,6 +104,7 @@ internal sealed class NifNativeCapabilityProfile
     private NifNativeCapabilityProfile(NifNativeReviewedBasicAbi capability)
     {
         LibraryPath = capability.LibraryPath;
+        NativeLibraryPath = capability.NativeLibraryPath;
         ExpectedLibrarySha256 = capability.LibrarySha256;
         BridgePath = capability.BridgePath;
         BridgeSha256 = capability.BridgeSha256;
@@ -119,19 +123,37 @@ internal sealed class NifNativeCapabilityProfile
         return new NifNativeCapabilityProfile(libraryPath);
     }
 
+    internal static NifNativeCapabilityProfile ForHostLibrary(NifNativeLibraryPath path)
+    {
+        ArgumentNullException.ThrowIfNull(path);
+
+        return new NifNativeCapabilityProfile(path);
+    }
+
+    private NifNativeCapabilityProfile(NifNativeLibraryPath path)
+    {
+        LibraryPath = path.DisplayPath;
+        NativeLibraryPath = path;
+    }
+
     private NifNativeCapabilityProfile(string libraryPath)
     {
         LibraryPath = libraryPath;
+        NativeLibraryPath = NifNativeLibraryPath.FromHostPath(libraryPath);
     }
 
-    internal FileStream OpenLibraryFile() => ExpectedLibrarySha256 is { } hash
-        ? OpenVerified(LibraryPath, hash)
-        : new FileStream(
-            LibraryPath,
+    internal FileStream? OpenLibraryFile() => ExpectedLibrarySha256 is { } hash
+        ? OpenVerified(NativeLibraryPath, hash)
+        : NativeLibraryPath.IsUnixBasename ? null : OpenFile(NativeLibraryPath);
+
+    private static FileStream OpenFile(NifNativeLibraryPath path) => OperatingSystem.IsWindows()
+        ? new FileStream(
+            path.DisplayPath,
             FileMode.Open,
             FileAccess.Read,
             FileShare.Read
-        );
+        )
+        : NifNativeUnixFile.OpenRead(path);
 
     private static void ValidatePathAndHash(string path, string hash)
     {
@@ -140,14 +162,12 @@ internal sealed class NifNativeCapabilityProfile
             throw new ArgumentException(NifNativeDiagnostics.TrustedSource);
     }
 
-    internal static FileStream OpenVerified(string path, string hash)
+    internal static FileStream OpenVerified(string path, string hash) =>
+        OpenVerified(NifNativeLibraryPath.FromHostPath(path), hash);
+
+    private static FileStream OpenVerified(NifNativeLibraryPath path, string hash)
     {
-        var file = new FileStream(
-            path,
-            FileMode.Open,
-            FileAccess.Read,
-            FileShare.Read
-        );
+        var file = OpenFile(path);
         try
         {
             if (!Convert.ToHexString(SHA256.HashData(file)).Equals(hash, StringComparison.OrdinalIgnoreCase))

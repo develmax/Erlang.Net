@@ -8,7 +8,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
     private readonly SemaphoreSlim codePurger = new(1, 1);
     private readonly ProcessSlotTable processSlots;
     public int ProcessLimit => processSlots.Capacity;
-    public int ReferenceDomainCapacity { get; } = Math.Min(Environment.ProcessorCount, (int)ReferenceNumberLayout.DomainMask);
+    public int ReferenceDomainCapacity => Math.Min(ActorDispatchCapacity, (int)ReferenceNumberLayout.DomainMask);
     private readonly Dictionary<string, Term> names = new(StringComparer.Ordinal);
     internal RuntimePorts Ports
     {
@@ -31,6 +31,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
     private readonly Dictionary<ReferenceTerm, ProcessAliasEntry> aliases = new();
     private readonly Dictionary<ReferenceTerm, ProcessSpawnRequestEntry> spawnRequests = new();
     private long nextPid, nextRef;
+    private readonly object referenceGate = new();
+    private uint referenceDomain;
     private bool disposed;
     private readonly RuntimeInitializer initializer;
     public Pid InitializationPid
@@ -1095,13 +1097,26 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
 
     public ReferenceTerm MakeReference()
     {
-        ulong value = unchecked((ulong)Interlocked.Increment(ref nextRef));
+        ulong value;
+        uint domain;
+        lock (referenceGate)
+        {
+            nextRef = unchecked(nextRef + 1);
+            value = unchecked((ulong)nextRef);
+            if (value == 0)
+            {
+                referenceDomain = referenceDomain == (uint)ReferenceDomainCapacity
+                    ? ReferenceNumberLayout.HostDomain
+                    : referenceDomain + 1;
+            }
+            domain = referenceDomain;
+        }
 
         return new ReferenceTerm(
             LocalIdentity,
             [
             (uint)(value & ReferenceIdentityLayout.LocalFirstWordMask),
-            (uint)value & ReferenceNumberLayout.CountMiddleMask | ReferenceNumberLayout.HostDomain,
+            (uint)value & ReferenceNumberLayout.CountMiddleMask | domain,
             (uint)(value >> ReferenceNumberLayout.CountHighShift)
         ]
         );
@@ -1608,6 +1623,14 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         try
         {
             await Task.WhenAll(sourceShutdown, nativeShutdown, DrainAutomaticNifShutdown()).ConfigureAwait(false);
+        }
+        catch (Exception failure)
+        {
+            failures.Add(failure);
+        }
+        try
+        {
+            CloseNativeLinuxNamespace();
         }
         catch (Exception failure)
         {

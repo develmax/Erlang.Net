@@ -3,6 +3,13 @@ using Erlang.NifNativeBackend;
 
 try
 {
+    if (args.Length != 0 && args[0] == NifNativeUnixRawPathNames.Mode)
+    {
+        await NifNativeUnixRawPathDriver.Run(args[1..]);
+
+        return;
+    }
+
     if (args.Length == 1 && args[0] == NifNativeLoadReasonCheckNames.Mode)
     {
         await NifNativeLoadReasonControlChecks.Run();
