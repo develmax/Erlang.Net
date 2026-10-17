@@ -81,6 +81,18 @@ jobs:
             --focus "$GITHUB_WORKSPACE/tools/Erlang.NifOrdinaryLoaderFocus/bin/Release/net10.0/Erlang.NifOrdinaryLoaderFocus.dll" \
             --bridge-sha256 "$(sha256sum artifacts/linux-pthread-bridge/Erlang.NifBridge.so | cut -d' ' -f1)" \
             --output "$GITHUB_WORKSPACE/artifacts/linux-ordinary-regressions"
+      - name: Check ordinary C++ and POSIX thread destructors
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -B tools/Erlang.NifOrdinaryLoaderObservations/run.py --thread-destructors \
+            --expected-head "$GITHUB_SHA" \
+            --header-receipt "$GITHUB_WORKSPACE/artifacts/linux-callback17/size-native/native-build-receipt.json" \
+            --approved-header-receipt-sha256 "$(sha256sum artifacts/linux-callback17/size-native/native-build-receipt.json | cut -d' ' -f1)" \
+            --headers "$GITHUB_WORKSPACE/artifacts/linux-callback17/size-native/headers" \
+            --focus "$GITHUB_WORKSPACE/tools/Erlang.NifOrdinaryLoaderFocus/bin/Release/net10.0/Erlang.NifOrdinaryLoaderFocus.dll" \
+            --bridge-sha256 "$(sha256sum artifacts/linux-pthread-bridge/Erlang.NifBridge.so | cut -d' ' -f1)" \
+            --output "$GITHUB_WORKSPACE/artifacts/linux-thread-destructors"
       - name: Execute full17 on both routes retaining original NEWLM target paths
         shell: bash
         run: |
@@ -109,3 +121,4 @@ jobs:
             artifacts/linux-managed-control/**
             artifacts/linux-pthread-bridge/**
             artifacts/linux-ordinary-regressions/**
+            artifacts/linux-thread-destructors/**

@@ -12,6 +12,7 @@ def main():
     parser = argparse.ArgumentParser()
     for key in ['expected-head','header-receipt','approved-header-receipt-sha256','headers','focus','bridge-sha256','output']:
         parser.add_argument('--'+key, required=True)
+    parser.add_argument('--thread-destructors', action='store_true')
     a = parser.parse_args()
     head = subprocess.check_output(['git','--no-optional-locks','-C',str(R),'rev-parse','HEAD'], text=True, timeout=20).strip()
     assert head == a.expected_head
@@ -38,7 +39,7 @@ def main():
     gcc = shutil.which('gcc'); dotnet = shutil.which('dotnet'); readelf = shutil.which('readelf')
     assert gcc and dotnet and readelf
     dlls = [dict(Path=str(path),Sha256=H(path)) for path in sorted(focus.parent.glob('*.dll'))]
-    sourcefiles = sorted((T/'native').glob('*.c')) + sorted((T/'original').glob('*.erl'))
+    sourcefiles = sorted((T/'native').glob('*.c')) + sorted((T/'native').glob('*.cpp')) + sorted((T/'original').glob('*.erl'))
     inputs = dict(ExecutingHead=head,HeaderProducerHead=headerproof['SubjectHead'],HeaderReceiptSha256=H(receipt),HeaderInputs=headerproof['HeaderInputs'],Sources=[dict(Path=str(path),Sha256=H(path)) for path in sourcefiles],AdjacentDlls=dlls,BridgeSha256=a.bridge_sha256.upper(),OriginalOtpComparisonExecuted=False)
     write(output/'inputs.json', inputs)
     stages=[]
@@ -63,7 +64,11 @@ def main():
     absolute=output/'absolute path with spaces'; bare=output/'bare'; missing=output/'missing'
     for index,directory in enumerate([absolute,bare]):
         (directory/'deps').mkdir(parents=True)
-        stage([gcc,'-shared','-fPIC','-O2','-Wall','-Wextra','-Werror',T/'native/dependency.c','-Wl,-soname,libordinary_path_dependency.so','-o',directory/'deps/libordinary_path_dependency.so'],output/('compile-helper-'+str(index)))
+        helper_compiler = shutil.which('g++') if a.thread_destructors else gcc
+        assert helper_compiler
+        helper_source = T/'native/thread-destructors.cpp' if a.thread_destructors else T/'native/dependency.c'
+        helper_flags = ['-std=c++17','-pthread'] if a.thread_destructors else []
+        stage([helper_compiler,'-shared','-fPIC','-O2','-Wall','-Wextra','-Werror',*helper_flags,helper_source,'-Wl,-soname,libordinary_path_dependency.so','-o',directory/'deps/libordinary_path_dependency.so'],output/('compile-helper-'+str(index)))
         stage([gcc,'-shared','-fPIC','-O2','-Wall','-Wextra','-Werror','-I',headers,T/'native/entry.c','-L'+str(directory/'deps'),'-lordinary_path_dependency','-Wl,-rpath,$ORIGIN/deps','-Wl,-z,lazy','-o',directory/'libordinary_path_probe.so'],output/('compile-image-'+str(index)))
         stage([readelf,'-d','-Ws',directory/'libordinary_path_probe.so'],output/('image-metadata-'+str(index)))
     missing.mkdir(); shutil.copyfile(absolute/'libordinary_path_probe.so',missing/'libordinary_path_probe.so')
@@ -78,6 +83,7 @@ def main():
         prefix=output/(name+'-baseline')
         stage([baseline,library],prefix,caseenv,0 if success else 20)
         baselinevalue=int(prefix.with_suffix('.stdout').read_text().strip()) if success else None
+        if a.thread_destructors and success: assert baselinevalue == 1111
         if not success: assert 'libordinary_path_dependency.so' in prefix.with_suffix('.stderr').read_text()
         sdkout=output/(name+'-sdk')
         stage([dotnet,focus,T/'original/ordinary_loader_probe.erl',H(T/'original/ordinary_loader_probe.erl'),library[:-3],sdkout,a.bridge_sha256.upper()],output/(name+'-managed'),caseenv)
@@ -92,5 +98,5 @@ def main():
         results.append(dict(Name=name,BaselineValue=baselinevalue,ManagedValue=actual['ActualValue'],Loaded=actual['Loaded'],LoadTermSha256=H(sdkout/'load.etf')))
     for row in images+dlls: assert H(row['Path'])==row['Sha256']
     for row in inputs['Sources']: assert H(row['Path'])==row['Sha256']
-    write(output/'completion.json',dict(Status='PASS_THREE_ORDINARY_OS_LOADER_REGRESSIONS',ExecutingHead=head,InputsSha256=H(output/'inputs.json'),Images=images,OwnedStages=stages,Cases=results,OriginalOtpComparisonExecuted=False,WholeOrdinaryLoaderCompatibilityProved=False))
+    write(output/'completion.json',dict(Status='PASS_THREE_ORDINARY_OS_LOADER_REGRESSIONS',ExecutingHead=head,InputsSha256=H(output/'inputs.json'),Images=images,OwnedStages=stages,Cases=results,ThreadDestructorControl=a.thread_destructors,OriginalOtpComparisonExecuted=False,WholeOrdinaryLoaderCompatibilityProved=False))
 if __name__=='__main__': main()
