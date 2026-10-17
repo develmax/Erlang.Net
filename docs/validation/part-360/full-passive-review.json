@@ -1,0 +1,184 @@
+{
+  "Status": "PASS_PASSIVE_ACTUAL_CANONICAL360_FULL_RAW_REGISTRY_RESTORATION_PENDING",
+  "Passed": 7425,
+  "Failed": 0,
+  "FullAccepted": true,
+  "CompositionPlanSha256": "E485F0CE55DBB249CB6F512209B65043FD19CCE9B35F9A2AB3AE0A69E3D041A2",
+  "SourceFreezeSha256": "B44FD496CA4DB820DBF2D5A36C48026ABD41926F7829589689E8EF7F3EF3F4E2",
+  "StableClosureRows": 3184,
+  "OwnedPaths": 90,
+  "OldOrderedNamesPrefix": true,
+  "OldOrderedPrefixCount": 7394,
+  "ExpectedTests": 7425,
+  "AddedTestNames": [
+    "runtime/nif-sequence-text-windows-tuplelifetime",
+    "runtime/nif-sequence-text-windows-listlengths",
+    "runtime/nif-sequence-text-windows-atoms",
+    "runtime/nif-sequence-text-windows-strings",
+    "runtime/nif-sequence-text-windows-invocationownership",
+    "runtime/nif-sequence-text-windows-containment",
+    "runtime/nif-legacy-string-windows-latin1",
+    "runtime/nif-legacy-string-windows-utf8",
+    "runtime/nif-legacy-string-windows-longinputs",
+    "runtime/nif-legacy-string-windows-termination",
+    "runtime/nif-legacy-string-windows-rejectedutf8",
+    "runtime/nif-legacy-string-windows-environmentandcontainment",
+    "runtime/native-int-getter-environment-and-refusal-contract",
+    "runtime/native-windows-immediate-integer-invocation-ownership",
+    "runtime/native-windows-immediate-integer-owner-containment",
+    "runtime/nif-linux-lp64-immediate-integer-boundaries-and-aliases",
+    "runtime/nif-linux-lp64-immediate-invocation-owner-restoration",
+    "runtime/nif-linux-lp64-large-environment-and-expired-owner-containment",
+    "runtime/nif-linux-bridge-fixed-layout",
+    "runtime/nif-linux-bridge-lp64-long-boundaries",
+    "runtime/nif-linux-bridge-array-list-cell",
+    "runtime/nif-binary-windows-inspection",
+    "runtime/nif-binary-windows-iolists",
+    "runtime/nif-binary-windows-allocationacrosscalls",
+    "runtime/nif-binary-windows-readonlyreallocation",
+    "runtime/nif-binary-windows-deferredcomposites",
+    "runtime/nif-binary-windows-subviewlifetimes",
+    "runtime/nif-binary-windows-exceptionalcleanup",
+    "runtime/nif-binary-windows-exceptiongraph",
+    "runtime/nif-binary-windows-deepgraph",
+    "runtime/nif-binary-windows-containment"
+  ],
+  "FailureRows": [],
+  "IntegrationResults": {
+    "Readiness": "Passed",
+    "Build": "Passed",
+    "DisabledPreprocessing": "Expected failure",
+    "HybridOutput": "Hello World",
+    "CleanRebuild": "Passed",
+    "PackageConsumer": "Passed",
+    "LocalTool": "Passed",
+    "PackagedReadiness": "Passed",
+    "Incremental": "Passed",
+    "OracleUnavailableReport": "Expected failure recorded",
+    "Tests": "Passed"
+  },
+  "Packages": [
+    {
+      "Path": "artifacts/packages/Erlang.Net.CSharp.0.1.0.nupkg",
+      "Sha256": "C02DAD09DF3D0E1483B94E34A6F69F5BFB0F296857DC45837922FE0FD9ACDEE0",
+      "Id": "Erlang.Net.CSharp",
+      "Version": "0.1.0",
+      "ZipMembers": 26,
+      "CrcAndSafeUniquePathsVerified": true,
+      "SourceBoundMembers": [
+        "README.md",
+        "licenses/DOTNET-LICENSE.txt",
+        "licenses/DOTNET-ThirdPartyNotices.txt",
+        "licenses/OTP-LICENSE.txt",
+        "licenses/OTP-PORTS.md",
+        "licenses/ROSLYN-LICENSE.txt",
+        "lib/net10.0/Erlang.Terms.dll",
+        "lib/net10.0/Erlang.Runtime.dll",
+        "lib/net10.0/Erlang.Compiler.dll",
+        "lib/net10.0/Erlang.Otp.Behaviours.dll",
+        "lib/net10.0/Erlang.Serialization.dll"
+      ]
+    },
+    {
+      "Path": "artifacts/packages/Erlang.Net.Tool.0.1.0.nupkg",
+      "Sha256": "62C378887D7EEE10372FB2699E8B1B0E323B72544D26F0A14567A848F5EBD8E8",
+      "Id": "Erlang.Net.Tool",
+      "Version": "0.1.0",
+      "ZipMembers": 53,
+      "CrcAndSafeUniquePathsVerified": true,
+      "SourceBoundMembers": [
+        "README.md",
+        "licenses/DOTNET-LICENSE.txt",
+        "licenses/DOTNET-ThirdPartyNotices.txt",
+        "licenses/OTP-LICENSE.txt",
+        "licenses/OTP-PORTS.md",
+        "licenses/ROSLYN-LICENSE.txt",
+        "tools/net10.0/any/Erlang.Tool.dll",
+        "tools/net10.0/any/Erlang.Terms.dll",
+        "tools/net10.0/any/Erlang.Runtime.dll",
+        "tools/net10.0/any/Erlang.Compiler.dll"
+      ]
+    }
+  ],
+  "PackageInputs": 6,
+  "TermOrderChildren": 12,
+  "ChildMatrixVerified": true,
+  "RuntimeSourceGuards": 191,
+  "CompatibilityCounts": {
+    "Verified compatible": 16,
+    "Needs verification": 541,
+    "Known differences": 30
+  },
+  "LedgerEvidenceRows": 43,
+  "LedgerRequiredEvidenceSchemaVerified": true,
+  "Readiness": [
+    {
+      "Path": "artifacts/readiness/module-readiness.json",
+      "Sha256": "38B8AEBD6DEF64D8AA1E59F1842C18CA4761769FAFD093C358ADCE85DD6E6D11"
+    },
+    {
+      "Path": "artifacts/tool-readiness/module-readiness.json",
+      "Sha256": "38B8AEBD6DEF64D8AA1E59F1842C18CA4761769FAFD093C358ADCE85DD6E6D11"
+    }
+  ],
+  "RegistryRows": 587,
+  "RegistryNonLimitsAndOrderPreserved": true,
+  "RegistryBeforeSha256": "19F1A426F5410308821F3C973065B8CB82AC3365417FA2D598D2A7E487D17FAD",
+  "RawRegistrySha256": "23A1729AC575A30C500F26F47877012E1D6C632DB8A43A21F3DBBE6F9C8A0FAB",
+  "CustomLimitsRestorationPending": true,
+  "FullExitSha256": "70A0AA562CE6262D1BE443839956A2A8925A2F089A9917A92873CA6B9D83EEE4",
+  "FullStdoutSha256": "20EC603BCE646B3C998BAD7DF2BA3658B6C374DC6843F2A949B2C9BC22A9D952",
+  "FullStderrSha256": "CA28DC90026E2F533157EF715CA259762FB2CDE0F743DD1591699AD5FBCAECA0",
+  "TestReportSha256": "A1A619F6A73BE7A74E15795EB7D32A87AE2156FACFA4F992C0101C85CDF06E83",
+  "CapturedIndexSha256": "8B42F76391AFB186DEBC37BD4B63BB90849E6A321DA18B304A35FA59FFDD6388",
+  "NativeSourcePlans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Rows": 1389,
+      "Sha256": "D3562D5A4175296F4CBF67609C7731EFACB973FFA2AD3BEA5DC0F2815DF8D89E",
+      "AllRowsAndSealVerified": true
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Rows": 1414,
+      "Sha256": "FB3DB2F9BEB3CAFFDA6DAC0D1B23905503819F0CE4203C5B29F1829A5F134E84",
+      "AllRowsAndSealVerified": true
+    }
+  ],
+  "ReaderSha256": "CAD449301899C12AF49A57F8AC468593046F0EC4C9BD81D96367D5F7E2783160",
+  "NativeIdentityAfterFull": {
+    "CanonicalDllChanges": [],
+    "ObservedFocusDllChanges": [],
+    "NativeReuseWithCanonicalFull": true,
+    "RequiresNativeRerun": false,
+    "Scope": "Same-source previous native observations are reusable only when all six canonical core/backend DLLs and observed focus DLLs remain byte exact. Otherwise rebuild/reacquire native routes before publication."
+  },
+  "SemanticNameMigrations": [],
+  "Other7394PriorNamesPreserved": true,
+  "SelectedNativeAcquisitionGroups": [
+    {
+      "Group": "Term14",
+      "BuiltReceiptPath": "artifacts/part360-term-focus-build1/candidate-built-receipt.json",
+      "BuiltReceiptSha256": "4D9403DFE4A3E075CCDE841A0EBF434B2BB20C9D1853BCDCA4B37531E0C0AE2F",
+      "DriverPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part360-candidate4\\tools\\Erlang.NifTermCallbackNativeFocus\\bin\\Debug\\net10.0\\Erlang.NifTermCallbackNativeFocus.dll",
+      "NativeOriginalCompared": false,
+      "Scope": "Selected14 callbacks/22 normal-null rows+arrays"
+    },
+    {
+      "Group": "TextBinary24",
+      "BuiltReceiptPath": "artifacts/part360-text-binary-focus-build1/candidate-built-receipt.json",
+      "BuiltReceiptSha256": "DC23308FA921A2495B9749AF49260DC65811A94E5754C6B4891F76813ABA6631",
+      "DriverPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\part360-candidate4\\tools\\Erlang.NifTextBinaryCallbackNativeFocus\\bin\\Debug\\net10.0\\Erlang.NifTextBinaryCallbackNativeFocus.dll",
+      "NativeOriginalCompared": false,
+      "Scope": "One image/24 actual raw observation groups; shape acquired, no original equality"
+    }
+  ],
+  "SelectedNativeOriginalEqualityClaimed": false,
+  "OriginalOtpExecuted": false,
+  "NativeAbiExecuted": false,
+  "MainModified": false,
+  "AuthorshipDisclosure": "Reader author also authored360 helper/source proposals; separate Root source review and external peer required. Passive recomputation is not independent implementation authorship.",
+  "PriorAttemptsNotOverwritten": true,
+  "DriverIdentityScope": "Recorded driver path/current hash; only Terms identity emitted by child; no initial fullDLLsnapshot claimed.",
+  "NoCompatibilityPromotionInferredFromFull": true
+}

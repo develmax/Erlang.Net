@@ -4819,6 +4819,160 @@ Test(
     NifNativeBackend::Erlang.NifNativeBackend.NifNativeNumericHostEntry.EnvironmentAndContainment
 );
 
+Test(
+    Erlang.Tests.NifSequenceTextCallbackHostNames.TupleLifetime,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeSequenceTextHostEntry.TupleLifetime
+);
+
+Test(
+    Erlang.Tests.NifSequenceTextCallbackHostNames.ListLengths,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeSequenceTextHostEntry.ListLengths
+);
+
+Test(
+    Erlang.Tests.NifSequenceTextCallbackHostNames.Atoms,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeSequenceTextHostEntry.Atoms
+);
+
+Test(
+    Erlang.Tests.NifSequenceTextCallbackHostNames.Strings,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeSequenceTextHostEntry.Strings
+);
+
+Test(
+    Erlang.Tests.NifSequenceTextCallbackHostNames.InvocationOwnership,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeSequenceTextHostEntry.InvocationOwnership
+);
+
+Test(
+    Erlang.Tests.NifSequenceTextCallbackHostNames.Containment,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeSequenceTextHostEntry.Containment
+);
+
+
+Test(
+    Erlang.Tests.NifLegacyStringCallbackHostNames.Latin1,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeLegacyStringHostEntry.Latin1
+);
+
+Test(
+    Erlang.Tests.NifLegacyStringCallbackHostNames.Utf8,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeLegacyStringHostEntry.Utf8
+);
+
+Test(
+    Erlang.Tests.NifLegacyStringCallbackHostNames.LongInputs,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeLegacyStringHostEntry.LongInputs
+);
+
+Test(
+    Erlang.Tests.NifLegacyStringCallbackHostNames.Termination,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeLegacyStringHostEntry.Termination
+);
+
+Test(
+    Erlang.Tests.NifLegacyStringCallbackHostNames.RejectedUtf8,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeLegacyStringHostEntry.RejectedUtf8
+);
+
+Test(
+    Erlang.Tests.NifLegacyStringCallbackHostNames.EnvironmentAndContainment,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeLegacyStringHostEntry.EnvironmentAndContainment
+);
+
+
+Test(
+    Erlang.Tests.NifImmediateCallbackHostNames.Getter,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeImmediateHostEntry.Getter
+);
+Test(
+    Erlang.Tests.NifImmediateCallbackHostNames.Ownership,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeImmediateHostEntry.Ownership
+);
+Test(
+    Erlang.Tests.NifImmediateCallbackHostNames.Containment,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeImmediateHostEntry.Containment
+);
+
+
+Test(
+    Erlang.Tests.NifLinuxImmediateHostNames.Boundaries,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeLinuxImmediateHostEntry.Boundaries
+);
+Test(
+    Erlang.Tests.NifLinuxImmediateHostNames.Ownership,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeLinuxImmediateHostEntry.Ownership
+);
+Test(
+    Erlang.Tests.NifLinuxImmediateHostNames.Containment,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeLinuxImmediateHostEntry.Containment
+);
+
+
+Test(
+    Erlang.Tests.NifBridgeFixedHostNames.Layout,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeBridgeFixedHostEntry.Layout
+);
+Test(
+    Erlang.Tests.NifBridgeFixedHostNames.LongWidth,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeBridgeFixedHostEntry.LongWidth
+);
+Test(
+    Erlang.Tests.NifBridgeFixedHostNames.CompoundTerms,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeBridgeFixedHostEntry.CompoundTerms
+);
+
+Test(
+    Erlang.Tests.NifBinaryCallbackHostNames.Inspection,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeBinaryHostEntry.Inspection
+);
+
+Test(
+    Erlang.Tests.NifBinaryCallbackHostNames.Iolists,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeBinaryHostEntry.Iolists
+);
+
+Test(
+    Erlang.Tests.NifBinaryCallbackHostNames.AllocationAcrossCalls,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeBinaryHostEntry.AllocationAcrossCalls
+);
+
+Test(
+    Erlang.Tests.NifBinaryCallbackHostNames.ReadonlyReallocation,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeBinaryHostEntry.ReadonlyReallocation
+);
+
+Test(
+    Erlang.Tests.NifBinaryCallbackHostNames.DeferredComposites,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeBinaryHostEntry.DeferredComposites
+);
+
+Test(
+    Erlang.Tests.NifBinaryCallbackHostNames.SubviewLifetimes,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeBinaryHostEntry.SubviewLifetimes
+);
+
+Test(
+    Erlang.Tests.NifBinaryCallbackHostNames.ExceptionalCleanup,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeBinaryHostEntry.ExceptionalCleanup
+);
+
+Test(
+    Erlang.Tests.NifBinaryCallbackHostNames.ExceptionGraph,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeBinaryHostEntry.ExceptionGraph
+);
+
+Test(
+    Erlang.Tests.NifBinaryCallbackHostNames.DeepGraph,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeBinaryHostEntry.DeepGraph
+);
+
+Test(
+    Erlang.Tests.NifBinaryCallbackHostNames.Containment,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeBinaryHostEntry.Containment
+);
+
+
 int failed = 0;
 foreach (var test in tests)
 {

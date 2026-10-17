@@ -4,6 +4,24 @@ internal static class NifNativeWindowsCallbackLayout
 {
     internal const int FunctionCount = 180;
     internal const int TailPointers = 2;
+    internal const int InspectBinary = 6;
+    internal const int AllocateBinary = 7;
+    internal const int ReallocateBinary = 8;
+    internal const int ReleaseBinary = 9;
+    internal const int MakeBinary = 17;
+    internal const int InspectIolistAsBinary = 61;
+    internal const int MakeSubBinary = 62;
+    internal const int MakeNewBinary = 81;
+    internal const int GetTuple = 14;
+    internal const int MakeAtom = 22;
+    internal const int MakeExistingAtom = 23;
+    internal const int GetString = 63;
+    internal const int GetAtom = 64;
+    internal const int GetAtomLength = 84;
+    internal const int GetListLength = 85;
+    internal const int MakeAtomLength = 86;
+    internal const int MakeExistingAtomLength = 87;
+    internal const int MakeStringLength = 88;
     internal const int IsAtom = 3;
     internal const int IsBinary = 4;
     internal const int IsReference = 5;

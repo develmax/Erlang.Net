@@ -18,7 +18,7 @@ internal static class NifNativeNames
     internal const int FunctionCount = 2;
     internal const int IncrementArity = 1;
     internal const int GreetingArity = 0;
-    internal const uint BridgeVersion = 1;
+    internal const uint BridgeVersion = 2;
     internal const int LinuxImmediate = 2;
     internal const int LinuxGlobal = 256;
     internal const int MaximumVariadicItems = 4096;
@@ -28,6 +28,32 @@ internal static class NifNativeNames
         "enif_priv_data", "enif_alloc", "enif_free", "enif_get_int",
         "enif_make_badarg", "enif_make_int", "enif_make_string",
         "enif_is_exception", "enif_has_pending_exception", "enif_raise_exception",
-        "enif_make_tuple", "enif_make_list"
+        "enif_make_tuple", "enif_make_list",
+        "enif_is_atom",
+        "enif_is_binary",
+        "enif_is_ref",
+        "enif_is_fun",
+        "enif_is_pid",
+        "enif_is_port",
+        "enif_is_empty_list",
+        "enif_is_list",
+        "enif_is_tuple",
+        "enif_is_number",
+        "enif_is_map",
+        "enif_get_list_cell",
+        "enif_make_tuple_from_array",
+        "enif_make_list_from_array",
+        "enif_get_ulong",
+        "enif_get_double",
+        "enif_get_uint",
+        "enif_get_long",
+        "enif_get_int64",
+        "enif_get_uint64",
+        "enif_make_ulong",
+        "enif_make_double",
+        "enif_make_uint",
+        "enif_make_long",
+        "enif_make_int64",
+        "enif_make_uint64"
     ];
 }

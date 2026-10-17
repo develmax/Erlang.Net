@@ -1,0 +1,7 @@
+#ifndef TEXT_BINARY_FIXTURE_NAMES_H
+#define TEXT_BINARY_FIXTURE_NAMES_H
+#define TB_CANARY 165
+#define TB_BUFFER 16
+#define TB_PARENT 130
+#define TB_LONG_BYTES 8192
+#endif

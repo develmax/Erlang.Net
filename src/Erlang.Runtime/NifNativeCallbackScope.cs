@@ -20,6 +20,22 @@ internal sealed class NifNativeCallbackScope : IDisposable
     {
         get;
     }
+    internal NifNativeCallEnvironment? InvocationEnvironment { get; private set; }
+
+    internal NifNativeEnvironmentBinding BindEnvironment(NifNativeCallEnvironment environment)
+    {
+        _ = NifNativeCallEnvironment.Resolve(environment.Pointer);
+        if (!ReferenceEquals(environment.Failure, Failure))
+            throw new InvalidOperationException(NifNativeInvocationNames.ForeignFailureState);
+        var binding = new NifNativeEnvironmentBinding(this, InvocationEnvironment);
+        InvocationEnvironment = environment;
+
+        return binding;
+    }
+
+    internal void RestoreEnvironment(NifNativeCallEnvironment? environment)
+        => InvocationEnvironment = environment;
+
     internal static NifNativeCallbackScope Current
         => current ?? throw new InvalidOperationException(NifNativeDiagnostics.NativeThreadUnsupported);
 
@@ -44,5 +60,9 @@ internal sealed class NifNativeCallbackScope : IDisposable
             unsupportedThreadFailure ??= exception;
     }
 
-    public void Dispose() => current = previous;
+    public void Dispose()
+    {
+        InvocationEnvironment = null;
+        current = previous;
+    }
 }

@@ -63,7 +63,7 @@ internal static unsafe class NifNativeNumericCallbacks
     {
         try
         {
-            var owner = NifNativeCallEnvironment.Resolve(env);
+            var owner = NifNativeImmediateOwner.Resolve(env);
 
             return owner.Add(new Integer(value));
         }
@@ -157,7 +157,7 @@ internal static unsafe class NifNativeNumericCallbacks
     {
         try
         {
-            var owner = NifNativeCallEnvironment.Resolve(env);
+            var owner = NifNativeImmediateOwner.Resolve(env);
 
             return owner.Add(new Integer(value));
         }
@@ -174,7 +174,7 @@ internal static unsafe class NifNativeNumericCallbacks
     {
         try
         {
-            var owner = NifNativeCallEnvironment.Resolve(env);
+            var owner = NifNativeImmediateOwner.Resolve(env);
 
             return owner.Add(new Integer(value));
         }

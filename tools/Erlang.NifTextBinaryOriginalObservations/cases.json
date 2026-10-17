@@ -1,0 +1,40 @@
+{
+  "Status": "UNEXECUTED_SOURCE_ONLY_NO_EXPECTED_OUTPUT_SEEDED_FROM_MANAGED",
+  "ObservationNames": [
+    "tuple_access",
+    "list_length",
+    "atom_latin1",
+    "atom_utf8",
+    "atom_length_latin1",
+    "atom_length_utf8",
+    "string_latin1",
+    "string_utf8",
+    "atom_make",
+    "atom_existing",
+    "string_make",
+    "latewrite_63_64_65",
+    "alloc_realloc_transfer",
+    "readonly_realloc",
+    "inspect_iolist",
+    "release",
+    "pending_exception_latewrite",
+    "iolist_snapshot_latewrite",
+    "native_alloc_first_call",
+    "native_transfer_next_call",
+    "legacy_utf8",
+    "legacy_invalid_utf8",
+    "legacy_long_latin1",
+    "legacy_long_utf8"
+  ],
+  "Cases": [
+    {
+      "Name": "text_binary_callbacks",
+      "Module": "text_binary_callback_contract",
+      "ErlangSource": "source/original/text_binary_callback_contract.erl",
+      "ErlangSourceSha256": "327060690C420DD775C2658A73B9A1D3722451A9D97134D09958F8F8BB3742F9",
+      "NativeLeaf": "text_binary_callbacks",
+      "NativeSource": "source/native/text_binary_callback_contract.c",
+      "CompilerDefinitions": []
+    }
+  ]
+}

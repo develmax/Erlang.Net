@@ -66,6 +66,13 @@ internal sealed unsafe class NifNativeLibraryOwner : IAsyncDisposable
             nint initialize = NifNativePlatformLoader.NifInitializer(library);
             var failure = new NifNativeFailureState();
             using var scope = new NifNativeCallbackScope(allocations, failure, reallocationEnabled);
+            using var environment = new NifNativeCallEnvironment(
+                initializationContext,
+                image,
+                0,
+                failure
+            );
+            using var invocation = scope.BindEnvironment(environment);
             initializationContext.Runtime.Modules.AddNifTaint(image.Module);
             nint entryPointer = OperatingSystem.IsWindows()
                 ? ((delegate* unmanaged[Cdecl]<nint, nint>)initialize)(windowsCallbacks!.Pointer)
@@ -73,12 +80,6 @@ internal sealed unsafe class NifNativeLibraryOwner : IAsyncDisposable
             failure.ThrowPending();
             entry = NifNativeEntryReader.Read(entryPointer);
             ValidateEntry(descriptor);
-            using var environment = new NifNativeCallEnvironment(
-                initializationContext,
-                image,
-                0,
-                failure
-            );
             nuint info = environment.Add(loadInfo);
             nint data = 0;
             int result = entry.Load == 0
@@ -140,6 +141,7 @@ internal sealed unsafe class NifNativeLibraryOwner : IAsyncDisposable
                 privateData,
                 failure
             );
+            using var invocation = scope.BindEnvironment(environment);
             nuint[] handles = arguments.Select(environment.Add).ToArray();
             nuint returned;
             fixed (nuint* values = handles)
@@ -176,6 +178,7 @@ internal sealed unsafe class NifNativeLibraryOwner : IAsyncDisposable
                             privateData,
                             state
                         );
+                        using var invocation = scope.BindEnvironment(environment);
                         ((delegate* unmanaged[Cdecl]<nint, nint, void>)entry.Unload)(environment.Pointer, privateData);
                         OutstandingAfterNativeUnload = allocations.Count;
                         state.ThrowPending();

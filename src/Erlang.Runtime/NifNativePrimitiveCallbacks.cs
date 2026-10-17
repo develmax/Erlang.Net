@@ -1,6 +1,5 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Text;
 using Erlang;
 
 namespace Erlang;
@@ -85,11 +84,11 @@ internal static unsafe class NifNativePrimitiveCallbacks
     {
         try
         {
+            Term value = NifNativeCallEnvironment.ResolveTermOwner(term, env).Get(term);
+            if (value is not Integer integer || integer.Value < int.MinValue || integer.Value > int.MaxValue)
+                return 0;
             if (output == null)
                 throw new InvalidOperationException(NifNativeDiagnostics.NullIntegerOutput);
-            if (NifNativeCallEnvironment.Resolve(env).Get(term) is not Integer integer || integer.Value < int.MinValue || integer.Value > int.MaxValue)
-
-                return 0;
             *output = (int)integer.Value;
 
             return 1;
@@ -107,7 +106,7 @@ internal static unsafe class NifNativePrimitiveCallbacks
     {
         try
         {
-            return NifNativeCallEnvironment.Resolve(env).Add(Term.I(value));
+            return NifNativeImmediateOwner.Resolve(env).Add(Term.I(value));
         }
         catch (Exception exception)
         {
@@ -138,27 +137,7 @@ internal static unsafe class NifNativePrimitiveCallbacks
         nint env,
         byte* text,
         int encoding
-    )
-    {
-        try
-        {
-            if (encoding != NifNativeAbi.Latin1Encoding || text == null)
-                throw new NotSupportedException(NifNativeDiagnostics.UnsupportedStringEncoding);
-            int length = 0;
-            while (length < NifNativeAbi.StringReadBoundary && text[length] != 0)
-                length++;
-            if (length == NifNativeAbi.StringReadBoundary)
-                throw new NotSupportedException(NifNativeDiagnostics.StringReadBoundary);
-
-            return NifNativeCallEnvironment.Resolve(env).Add(Term.String(Encoding.Latin1.GetString(new ReadOnlySpan<byte>(text, length))));
-        }
-        catch (Exception exception)
-        {
-            NifNativeCallbackScope.Fail(exception);
-
-            return 0;
-        }
-    }
+    ) => NifNativeStringCallbacks.MakeZeroTerminated(env, text, encoding);
 
     [UnmanagedCallersOnly(CallConvs = [typeof(CallConvCdecl)])]
     internal static nuint RaiseException(nint env, nuint reason)

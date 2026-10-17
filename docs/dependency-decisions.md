@@ -696,3 +696,7 @@ Reuse existing BCL/compiler projects; add no package. Pinned OTP contracts and C
 ## Part359 fixed Windows callbacks and original-driven monitor semantics
 
 Reuse existing BCL/guest ownership/compiler projects without another package. [Source and adaptation record](validation/part-359/source-attribution.md) records pinned OTP contracts, LLP64 limits and selected native scope. Leave six canonical package resources exact, source headers absent and LICENSE.local.txt unpublished.
+
+## Part360 text, binary and LP64 native adapters
+
+Reuse existing BCL and guest ownership/compiler projects without a new dependency. [Source and adaptation record](validation/part-360/source-attribution.md) distinguishes managed Linux support, Windows owned native acquisition and pending original comparison. Preserve six canonical package resources and leave LICENSE.local.txt unpublished.

@@ -19,6 +19,24 @@ internal sealed unsafe class NifNativeWindowsCallbacks : IDisposable
         if (pointer == 0)
             throw new OutOfMemoryException();
         var slots = (nint*)pointer;
+        slots[NifNativeWindowsCallbackLayout.InspectBinary] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint, NifNativeBinaryDescriptor*, int>)&NifNativeBinaryCallbacks.Inspect;
+        slots[NifNativeWindowsCallbackLayout.AllocateBinary] = (nint)(delegate* unmanaged[Cdecl]<nuint, NifNativeBinaryDescriptor*, int>)&NifNativeBinaryCallbacks.Allocate;
+        slots[NifNativeWindowsCallbackLayout.ReallocateBinary] = (nint)(delegate* unmanaged[Cdecl]<NifNativeBinaryDescriptor*, nuint, int>)&NifNativeBinaryCallbacks.Reallocate;
+        slots[NifNativeWindowsCallbackLayout.ReleaseBinary] = (nint)(delegate* unmanaged[Cdecl]<NifNativeBinaryDescriptor*, void>)&NifNativeBinaryCallbacks.Release;
+        slots[NifNativeWindowsCallbackLayout.MakeBinary] = (nint)(delegate* unmanaged[Cdecl]<nint, NifNativeBinaryDescriptor*, nuint>)&NifNativeBinaryCallbacks.Make;
+        slots[NifNativeWindowsCallbackLayout.InspectIolistAsBinary] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint, NifNativeBinaryDescriptor*, int>)&NifNativeBinaryCallbacks.InspectIolist;
+        slots[NifNativeWindowsCallbackLayout.MakeSubBinary] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint, nuint, nuint, nuint>)&NifNativeBinaryCallbacks.MakeSub;
+        slots[NifNativeWindowsCallbackLayout.MakeNewBinary] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint, nuint*, byte*>)&NifNativeBinaryCallbacks.MakeNew;
+        slots[NifNativeWindowsCallbackLayout.GetTuple] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint, int*, nuint**, int>)&NifNativeSequenceCallbacks.GetTuple;
+        slots[NifNativeWindowsCallbackLayout.MakeAtom] = (nint)(delegate* unmanaged[Cdecl]<nint, byte*, nuint>)&NifNativeAtomCallbacks.Make;
+        slots[NifNativeWindowsCallbackLayout.MakeExistingAtom] = (nint)(delegate* unmanaged[Cdecl]<nint, byte*, nuint*, int, int>)&NifNativeAtomCallbacks.Existing;
+        slots[NifNativeWindowsCallbackLayout.GetString] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint, byte*, uint, int, int>)&NifNativeStringCallbacks.Get;
+        slots[NifNativeWindowsCallbackLayout.GetAtom] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint, byte*, uint, int, int>)&NifNativeAtomCallbacks.Get;
+        slots[NifNativeWindowsCallbackLayout.GetAtomLength] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint, uint*, int, int>)&NifNativeAtomCallbacks.Length;
+        slots[NifNativeWindowsCallbackLayout.GetListLength] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint, uint*, int>)&NifNativeSequenceCallbacks.GetListLength;
+        slots[NifNativeWindowsCallbackLayout.MakeAtomLength] = (nint)(delegate* unmanaged[Cdecl]<nint, byte*, nuint, nuint>)&NifNativeAtomCallbacks.MakeLength;
+        slots[NifNativeWindowsCallbackLayout.MakeExistingAtomLength] = (nint)(delegate* unmanaged[Cdecl]<nint, byte*, nuint, nuint*, int, int>)&NifNativeAtomCallbacks.ExistingLength;
+        slots[NifNativeWindowsCallbackLayout.MakeStringLength] = (nint)(delegate* unmanaged[Cdecl]<nint, byte*, nuint, int, nuint>)&NifNativeStringCallbacks.MakeLength;
         slots[NifNativeWindowsCallbackLayout.GetUnsignedLong] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint, uint*, int>)&NifNativeNumericCallbacks.GetUnsignedLong;
         slots[NifNativeWindowsCallbackLayout.GetDouble] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint, double*, int>)&NifNativeNumericCallbacks.GetDouble;
         slots[NifNativeWindowsCallbackLayout.MakeUnsignedLong] = (nint)(delegate* unmanaged[Cdecl]<nint, uint, nuint>)&NifNativeNumericCallbacks.MakeUnsignedLong;

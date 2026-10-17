@@ -8,9 +8,14 @@ internal sealed unsafe class NifNativeCallEnvironment : IDisposable
 {
     private static readonly ConcurrentDictionary<nint, NifNativeCallEnvironment> Environments = new();
     private static long nextTerm;
-    private readonly Dictionary<nuint, Term> terms = new();
+    private readonly Dictionary<nuint, NifNativeTermValue> terms = new();
+    private Dictionary<object, nint>? tupleArrays;
+    private HashSet<NifNativeTermNode>? retainedNodes;
+    private HashSet<NifNativeBinaryStorage>? binaryStorage;
+    private Dictionary<BitString, NifNativeBinaryStorage>? inspectedBinaries;
     private nint pointer;
     private nuint pendingReasonHandle;
+    private long pendingReasonVersion;
 
     internal ProcessContext Caller
     {
@@ -78,36 +83,164 @@ internal sealed unsafe class NifNativeCallEnvironment : IDisposable
         throw new InvalidOperationException(NifNativeDiagnostics.ForeignTermHandle);
     }
 
-    internal nuint Add(Term term)
+    internal static NifNativeCallEnvironment CurrentInvocation()
+    {
+        var environment = NifNativeCallbackScope.Current.InvocationEnvironment
+            ?? throw new InvalidOperationException(NifNativeInvocationNames.Unbound);
+
+        return Resolve(environment.Pointer);
+    }
+
+    internal int BorrowedTupleArrayCount => tupleArrays?.Count ?? 0;
+
+    internal nuint* BorrowTupleElements(NifNativeTermValue value)
     {
         _ = Pointer;
+        if (!value.TryTupleArity(out int arity))
+            throw new InvalidOperationException(NifNativeBinaryNames.TupleShape);
+        tupleArrays ??= new(ReferenceEqualityComparer.Instance);
+        object key = (object?)value.Pending ?? value.StaticTerm!;
+        if (tupleArrays.TryGetValue(key, out nint existing))
+            return (nuint*)existing;
+        nuint bytes = checked((nuint)Math.Max(arity, 1) * (nuint)sizeof(nuint));
+        nuint* array = (nuint*)NativeMemory.Alloc(bytes);
+        if (array == null)
+            throw new OutOfMemoryException();
+        try
+        {
+            for (int index = 0; index < arity; index++)
+            {
+                NifNativeTermValue child = value.Pending is NifNativeTupleNode pending
+                    ? pending.Elements[index]
+                    : new(((TupleTerm)value.StaticTerm!).Items[index]);
+                array[index] = AddValue(child);
+            }
+            tupleArrays.Add(key, (nint)array);
+
+            return array;
+        }
+        catch
+        {
+            NativeMemory.Free(array);
+            throw;
+        }
+    }
+
+    internal nuint Add(Term term) => AddValue(new NifNativeTermValue(term));
+
+    internal nuint AddValue(NifNativeTermValue value)
+    {
+        _ = Pointer;
+        if (value.Pending is { } pending)
+            RetainGraph(pending);
         long handle = Interlocked.Increment(ref nextTerm);
         if (handle <= 0)
             throw new InvalidOperationException(NifNativeDiagnostics.TermHandleExhausted);
-        terms.Add((nuint)handle, term);
+        terms.Add((nuint)handle, value);
 
         return (nuint)handle;
     }
 
-    internal Term Get(nuint handle)
-        => terms.TryGetValue(handle, out var term)
-            ? term
+    internal NifNativeTermValue GetValue(nuint handle)
+        => terms.TryGetValue(handle, out var value)
+            ? value
             : throw new InvalidOperationException(NifNativeDiagnostics.ForeignTermHandle);
+
+    internal Term Get(nuint handle) => NifNativeTermGraph.Resolve(GetValue(handle));
+
+    private void RetainGraph(NifNativeTermNode root)
+    {
+        retainedNodes ??= new(ReferenceEqualityComparer.Instance);
+        if (retainedNodes.Contains(root))
+            return;
+        var stack = new Stack<(NifNativeTermNode Node, bool Exit)>();
+        stack.Push((root, false));
+        while (stack.TryPop(out var frame))
+        {
+            if (retainedNodes.Contains(frame.Node))
+                continue;
+            if (frame.Exit)
+            {
+                if (frame.Node is NifNativeBinaryNode binary)
+                    RetainBinaryStorage(binary.Storage);
+                retainedNodes.Add(frame.Node);
+                continue;
+            }
+            stack.Push((frame.Node, true));
+            for (int index = frame.Node.ChildCount - 1; index >= 0; index--)
+                if (frame.Node.Child(index).Pending is { } child && !retainedNodes.Contains(child))
+                    stack.Push((child, false));
+        }
+    }
+
+    internal void RetainBinaryStorage(NifNativeBinaryStorage storage)
+    {
+        _ = Pointer;
+        binaryStorage ??= new(ReferenceEqualityComparer.Instance);
+        if (!binaryStorage.Add(storage))
+            return;
+        try
+        {
+            storage.RetainEnvironment();
+        }
+        catch
+        {
+            binaryStorage.Remove(storage);
+            throw;
+        }
+    }
+
+    internal NifNativeBinaryStorage CreateBinaryStorage(nuint size)
+    {
+        _ = Pointer;
+        var storage = NifNativeBinaryStorage.TryAllocate(size, nativeOwned: false) ?? throw new OutOfMemoryException();
+        try
+        {
+            RetainBinaryStorage(storage);
+
+            return storage;
+        }
+        catch
+        {
+            storage.ReleaseUnowned();
+            throw;
+        }
+    }
+
+    internal NifNativeBinaryStorage InspectBinaryStorage(BitString binary)
+    {
+        inspectedBinaries ??= new(ReferenceEqualityComparer.Instance);
+        if (inspectedBinaries.TryGetValue(binary, out var existing))
+            return existing;
+        var storage = CreateBinaryStorage((nuint)binary.ByteSpan.Length);
+        binary.ByteSpan.CopyTo(new Span<byte>(storage.Pointer, binary.ByteSpan.Length));
+        inspectedBinaries.Add(binary, storage);
+
+        return storage;
+    }
 
     internal void Raise(nuint reason)
     {
-        Failure.Raise(Get(reason));
+        var value = GetValue(reason);
+        if (value.IsPending)
+            Failure.RaiseDeferred(() => NifNativeTermGraph.Resolve(value));
+        else
+            Failure.Raise(value.StaticTerm!);
         pendingReasonHandle = reason;
+        pendingReasonVersion = Failure.PendingVersion;
     }
 
     internal nuint PendingReasonHandle
     {
         get
         {
-            if (Failure.GuestPendingReason is not { } reason)
+            if (!Failure.HasGuestException)
                 return 0;
-            if (pendingReasonHandle == 0)
-                pendingReasonHandle = Add(reason);
+            if (pendingReasonHandle == 0 || pendingReasonVersion != Failure.PendingVersion)
+            {
+                pendingReasonHandle = Add(Failure.GuestPendingReason!);
+                pendingReasonVersion = Failure.PendingVersion;
+            }
 
             return pendingReasonHandle;
         }
@@ -119,6 +252,20 @@ internal sealed unsafe class NifNativeCallEnvironment : IDisposable
         if (previous == 0)
             return;
         Environments.TryRemove(previous, out _);
+        if (tupleArrays is not null)
+        {
+            foreach (var entry in tupleArrays)
+                NativeMemory.Free((void*)entry.Value);
+            tupleArrays.Clear();
+        }
+        if (binaryStorage is not null)
+        {
+            foreach (var storage in binaryStorage)
+                storage.ReleaseEnvironment();
+            binaryStorage.Clear();
+        }
+        inspectedBinaries?.Clear();
+        retainedNodes?.Clear();
         terms.Clear();
         NativeMemory.Free((void*)previous);
     }

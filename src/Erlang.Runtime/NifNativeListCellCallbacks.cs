@@ -17,14 +17,14 @@ internal static unsafe class NifNativeListCellCallbacks
         {
             var owner = NifNativeCallEnvironment.ResolveTermOwner(value, env);
             // Pinned OTP returns before touching output pointers for every non-cons.
-            if (owner.Get(value) is not Cons cell)
+            if (!owner.GetValue(value).TryCons(out var headValue, out var tailValue))
                 return 0;
             if (head == null || tail == null)
                 throw new InvalidOperationException(NifNativeListCellNames.NullOutput);
-            nuint headValue = owner.Add(cell.Head);
-            nuint tailValue = owner.Add(cell.Tail);
-            *head = headValue;
-            *tail = tailValue;
+            nuint headHandle = owner.AddValue(headValue);
+            nuint tailHandle = owner.AddValue(tailValue);
+            *head = headHandle;
+            *tail = tailHandle;
 
             return 1;
         }

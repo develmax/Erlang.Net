@@ -1,5 +1,7 @@
 # Next executable tasks
 
+Part360: verify publication-head CI and original text/binary24 contracts. Complete numeric12 native ABI, raw Unix filenames, comparison/reference callbacks, remaining native callbacks/resources/dirty scheduling/upgrade and observable runtime contracts. Keep all prior failures and selected-contract limits explicit; API presence is not complete compatibility.
+
 Part359: publish the exact tested24-callback/remote-monitor repair source, verify same-head CI, then compare the prepared six connected-monitor scenarios and one14-callback native-image observer with pinned OTP. Numeric12 native C ABI, Linux bridge/bootstrap, future10, broader dirty/resources/upgrade and physical/performance parity remain separate incomplete work. Do not promote complete API compatibility from selected tests.
 
 Part357: publish the tested source closure, verify same-head CI, and run the new pinned original observers. Continue native ABI/resources/dirty execution and process-owned physical accounting; no complete erlang or performance-parity claim follows from API registration or these selected checks.

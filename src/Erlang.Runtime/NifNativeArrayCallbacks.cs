@@ -45,10 +45,34 @@ internal static unsafe class NifNativeArrayCallbacks
             if (count != 0 && values == null)
                 throw new InvalidOperationException(NifNativeArrayNames.NullArray);
             Term[] items = count == 0 ? [] : new Term[checked((int)count)];
+            NifNativeTermValue[]? deferred = null;
             for (int index = 0; index < items.Length; index++)
-                items[index] = environment.Get(values[index]);
+            {
+                var value = environment.GetValue(values[index]);
+                if (value.IsPending && deferred is null)
+                {
+                    deferred = new NifNativeTermValue[items.Length];
+                    for (int previous = 0; previous < index; previous++)
+                        deferred[previous] = new(items[previous]);
+                }
+                if (deferred is not null)
+                    deferred[index] = value;
+                else
+                    items[index] = value.StaticTerm!;
+            }
+            if (deferred is null)
+                return environment.Add(tuple ? Term.Tuple(items) : Term.List(items));
+            if (tuple)
+                return environment.AddValue(new NifNativeTermValue(new NifNativeTupleNode(deferred)));
+            NifNativeTermValue result = new(Nil.Value);
+            for (int index = deferred.Length - 1; index >= 0; index--)
+            {
+                result = deferred[index].IsPending || result.IsPending
+                    ? new(new NifNativeConsNode(deferred[index], result))
+                    : new(new Cons(deferred[index].StaticTerm!, result.StaticTerm!));
+            }
 
-            return environment.Add(tuple ? Term.Tuple(items) : Term.List(items));
+            return environment.AddValue(result);
         }
         catch (OutOfMemoryException) when (environment is not null)
         {

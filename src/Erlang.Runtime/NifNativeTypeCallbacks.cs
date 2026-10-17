@@ -54,7 +54,20 @@ internal static class NifNativeTypeCallbacks
         try
         {
             // OTP's pure predicates do not inspect their environment argument.
-            Term term = NifNativeCallEnvironment.ResolveTermOwner(value, env).Get(value);
+            var entry = NifNativeCallEnvironment.ResolveTermOwner(value, env).GetValue(value);
+            if (entry.Pending is { } pending)
+            {
+                bool pendingMatch = pending switch
+                {
+                    NifNativeBinaryNode => kind == NifNativeTypeKind.Binary,
+                    NifNativeTupleNode => kind == NifNativeTypeKind.Tuple,
+                    NifNativeConsNode => kind == NifNativeTypeKind.List,
+                    _ => false
+                };
+
+                return pendingMatch ? 1 : 0;
+            }
+            Term term = entry.StaticTerm!;
             bool matches = kind switch
             {
                 NifNativeTypeKind.Atom => term is Atom,
