@@ -1,0 +1,29 @@
+name: Native namespace isolation source probe
+on:
+  workflow_dispatch:
+    inputs:
+      expected_head:
+        type: string
+        required: true
+permissions:
+  contents: read
+jobs:
+  namespace-probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      EXPECTED_HEAD: ${{ inputs.expected_head }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Verify exact source head and compile owned namespace probe
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$EXPECTED_HEAD" = "$GITHUB_SHA"
+          test "$(git --no-optional-locks rev-parse HEAD)" = "$GITHUB_SHA"
+          bash tools/Erlang.NifNamespaceProbe/run.sh artifacts/namespace-probe
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: native-namespace-probe
+          path: artifacts/namespace-probe/**

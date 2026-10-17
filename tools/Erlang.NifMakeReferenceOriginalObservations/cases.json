@@ -1,0 +1,25 @@
+{
+  "Status": "UNEXECUTED_SOURCE_ONLY_NO_EXPECTED_OUTPUT_SEEDED_FROM_MANAGED",
+  "ObservationNames": [
+    "local_counts",
+    "shared_reference_domain",
+    "call_lifetime",
+    "load_environment",
+    "independent_environment",
+    "independent_clear",
+    "foreign_allocate",
+    "foreign_make",
+    "foreign_handoff"
+  ],
+  "Cases": [
+    {
+      "Name": "make_reference_callbacks",
+      "Module": "make_reference_callback_contract",
+      "ErlangSource": "source/original/make_reference_callback_contract.erl",
+      "ErlangSourceSha256": "A3A78E217BB0658B48E72583BBC831927C694BCA3848C7710815124B529CE136",
+      "NativeLeaf": "make_reference_callbacks",
+      "NativeSource": "source/native/make_reference_callback_contract.c",
+      "CompilerDefinitions": []
+    }
+  ]
+}

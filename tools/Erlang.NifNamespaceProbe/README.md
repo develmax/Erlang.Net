@@ -1,0 +1,7 @@
+# Unexecuted Linux namespace symbol-scope probe
+
+Run `bash artifacts/nif-make-ref-completion-proposal/namespace-probe/run.sh artifacts/namespace-probe-actual1` on Linux x86_64. No OTP, .NET, network or production files are touched. The script compiles one native bridge, two entries and the driver, then records actual per-domain namespace IDs and results.
+
+The first entry has ordinary unresolved callback imports. The second records an explicit DT_NEEDED edge to the same bridge SONAME. Do not infer that an unlinked NIF can resolve a LOCAL namespace bridge from a linked-entry success. A failed first path is an architectural blocker for ordinary NIF loading and must remain visible. A linked success proves only that explicit dependency scope can isolate two callback domains. It does not prove a general loader or foreign-thread CLR execution.
+
+The third variant is an owned host capsule with two DT_NEEDED dependencies in order: the bridge, then the unchanged ordinary unresolved-import entry. One dlmopen LOCAL loads the whole closure. Two simultaneous namespaces register different domains (200/201), then invoke the SAME ordinary entry bytes through each capsule. This path must pass independently; it does not relink or patch the entry. `capsule.dynamic.txt` records the actual DT_NEEDED ordering. Production ELF capsule generation remains unimplemented until this actual native result exists.

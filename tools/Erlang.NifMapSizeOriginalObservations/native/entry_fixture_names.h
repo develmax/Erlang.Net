@@ -1,0 +1,5 @@
+#ifndef MAP_SIZE_FIXTURE_NAMES_H
+#define MAP_SIZE_FIXTURE_NAMES_H
+#define MB_SENTINEL 777
+#define MB_PENDING_BYTES 2
+#endif
