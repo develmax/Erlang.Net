@@ -8,13 +8,13 @@ internal static class MfaCompatibilityMarkdown
             .AppendLine($"{MfaCompatibilityNames.BaselineLabel}: {Escape(ledger.Tag)} (`{Escape(ledger.Commit)}`).").AppendLine();
         foreach (string status in new[] { MfaCompatibilityNames.Verified, MfaCompatibilityNames.Different, MfaCompatibilityNames.Pending })
         {
-            text.AppendLine("## " + status).AppendLine();
+            text.AppendLine("## " + MfaCompatibilityNames.DisplayStatus(status)).AppendLine();
             var entries = ledger.Entries.Where(entry => entry.Status == status).ToArray();
             foreach (var module in entries.Select(entry => entry.Module).Distinct(StringComparer.Ordinal))
             {
                 text.AppendLine("### " + Escape(module)).AppendLine().AppendLine(MfaCompatibilityNames.TableHeader).AppendLine(MfaCompatibilityNames.TableSeparator);
                 foreach (var entry in entries.Where(entry => entry.Module == module))
-                    text.AppendLine($"| {Code(entry.Key)} | {Escape(entry.Status)} | {Escape(entry.Scope)} | {Evidence(entry.Evidence)} | {Escape(string.Join("; ", entry.Limits))} |");
+                    text.AppendLine($"| {Code(entry.Key)} | {Escape(MfaCompatibilityNames.DisplayStatus(entry.Status))} | {Escape(entry.Scope)} | {Evidence(entry.Evidence)} | {Escape(string.Join("; ", entry.Limits))} |");
                 text.AppendLine();
             }
         }

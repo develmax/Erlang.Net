@@ -1,0 +1,103 @@
+{
+  "Status": "PASS",
+  "Commands": [
+    {
+      "Command": [
+        "dotnet",
+        "build",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\compatibility-display350-second\\Display.csproj",
+        "--nologo",
+        "-v:q"
+      ],
+      "ExitCode": 0
+    },
+    {
+      "Command": [
+        "dotnet",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\compatibility-display350-second\\bin\\Debug\\net10.0\\Display.dll",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\docs",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\docs\\validation\\part-350\\full\\tests.json",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\compatibility-display350-second\\generated"
+      ],
+      "ExitCode": 0
+    }
+  ],
+  "Sources": [
+    {
+      "Path": "tools\\Erlang.Tool\\Readiness.cs",
+      "Sha256": "33617A2A6978FA45B8A331A12D36BE1F938D2F86E91207FAE6954BD59D0F0C44"
+    },
+    {
+      "Path": "tools\\Erlang.Tool\\ReadinessText.cs",
+      "Sha256": "76B4D745884D5EEEEB8640AD7925CA7CDBE45CFCFCBED627F6977C9D2DABDD5A"
+    },
+    {
+      "Path": "tools\\Erlang.Tool\\MfaCompatibility.cs",
+      "Sha256": "1D2307DE1E7B4272000025DE66A1BADD39345C1B484110AC9CF60A50D125DE28"
+    },
+    {
+      "Path": "tools\\Erlang.Tool\\MfaCompatibilityNames.cs",
+      "Sha256": "5EA4724E7FA839E0688C1ADC5752C4EAB7DD0FA1622A40F0D38DC6F3977E1F64"
+    },
+    {
+      "Path": "tools\\Erlang.Tool\\MfaCompatibilityMarkdown.cs",
+      "Sha256": "4CC9015CCBE8780AD87E27409F44CD9C22780A9055849AE3DD233553939DB748"
+    },
+    {
+      "Path": "tools\\Erlang.Tool\\MfaCompatibilityLedger.cs",
+      "Sha256": "483318BE7A6B96F356745408B154069D48D267DBBEA7575F0773AD36CED86B06"
+    },
+    {
+      "Path": "tools\\Erlang.Tool\\MfaCompatibilityEntry.cs",
+      "Sha256": "58E9046F0E78763EB37A71BE86360EA9107E55D8785129CAA4F708716C50AFFD"
+    },
+    {
+      "Path": "tools\\Erlang.Tool\\MfaCompatibilityEvidence.cs",
+      "Sha256": "CD9448B48076AE4BA1C0BCC8EC04B97D9E6CEC67C82414FB16526B40A4F066DD"
+    },
+    {
+      "Path": "tools\\Erlang.Tool\\MfaCompatibilitySourceFile.cs",
+      "Sha256": "7FE6B314B2CDAF6710A30B7CF6AABC3A3878AB1094F9171444ABBE0382E522EB"
+    },
+    {
+      "Path": "tools\\Erlang.Tool\\ToolDiagnostics.cs",
+      "Sha256": "870C2E43BBAFAE184E3EFC39A17DE4A09BB6B794EDCF56888E1D230719BFA9F6"
+    }
+  ],
+  "Libraries": [
+    {
+      "Path": "artifacts\\additional-type-predicate-candidate\\tools\\Erlang.Tool\\bin\\Debug\\net10.0\\Erlang.Terms.dll",
+      "Sha256": "151AD8FB0AFA61646C2341FD9CBDD43B9FCA1C796450BC03CE4C490B5C5D6326"
+    },
+    {
+      "Path": "artifacts\\additional-type-predicate-candidate\\tools\\Erlang.Tool\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+      "Sha256": "E7A3D988F07184672F825873D9DF0DFB4ED57F34C88FC7837F62C81F891796EF"
+    },
+    {
+      "Path": "artifacts\\additional-type-predicate-candidate\\tools\\Erlang.Tool\\bin\\Debug\\net10.0\\Erlang.Serialization.dll",
+      "Sha256": "B97B2C2B0A8F1A173538813CD1398042573CF3B84A11CD0DA476B9C6706D13D6"
+    },
+    {
+      "Path": "artifacts\\additional-type-predicate-candidate\\tools\\Erlang.Tool\\bin\\Debug\\net10.0\\Erlang.Otp.Behaviours.dll",
+      "Sha256": "621C5B5202D65A29894F3EE8DF5B1D626E41C3005013C6D083B2C019DC63D097"
+    }
+  ],
+  "LedgerSha256": "993A676DAE44029A4E0DFEA8C827BA5C9AABFFB6B8AE70D4B68E821C7B9AADA8",
+  "Counts": {
+    "Verified": 10,
+    "Pending": 554,
+    "KnownDifferences": 23
+  },
+  "MachineReportUnchanged": true,
+  "RuntimeTestsRerun": false,
+  "Generated": [
+    {
+      "Path": "MODULE_READINESS.md",
+      "Sha256": "2AB720BDCCB885234D20D7C6E4F0973EB4F40E247C8DB0BDA11B4F0DB0FEA547"
+    },
+    {
+      "Path": "API_COMPATIBILITY.md",
+      "Sha256": "8ADC4A2CFC42C7DC883CC2B0AB265D5AF836B08AF7CC9624599633C2B27882BC"
+    }
+  ]
+}

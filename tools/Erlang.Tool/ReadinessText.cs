@@ -17,7 +17,7 @@ internal static class ReadinessText
     public const string ComponentHeader = "| Component | Status | Related passed tests | Delivered | Next milestone |";
     public const string ComponentSeparator = "| --- | --- | ---: | --- | --- |";
     public const string ModuleHeading = "## Erlang API modules";
-    public const string ModuleHeader = "| Module | Registered APIs | Change | Reference declarations | Verified compatible | Needs verification | Known differences |";
+    public const string ModuleHeader = "| Module | Registered APIs | Change | Reference declarations | 100% compatible APIs | APIs needing verification for 100% compatibility | APIs with known differences |";
     public const string ModuleSeparator = "| --- | ---: | ---: | ---: | ---: | ---: | ---: |";
     public const string FacadeBoundary = "gen_server and supervisor have C# host facades and selected registered Erlang-module adapters; full behaviour contracts remain partial. Full zero-registration inventory rows and implemented MFA names are preserved in module-readiness.json. Related test counts can overlap components and are not summed as independent coverage.";
 

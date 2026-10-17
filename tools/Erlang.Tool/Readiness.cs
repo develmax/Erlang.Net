@@ -161,7 +161,7 @@ internal static class Readiness
                 module.KnownDifferenceMfas
             ));
         markdown.AppendLine().AppendLine(MfaCompatibilityNames.Heading).AppendLine().AppendLine(MfaCompatibilityNames.Method).AppendLine()
-            .AppendLine($"Verified compatible: **{data.VerifiedCompatibleMfas}**; needs verification: **{data.NeedsVerificationMfas}**; known differences: **{data.KnownDifferenceMfas}**.")
+            .AppendLine($"{MfaCompatibilityNames.VerifiedDisplay}: **{data.VerifiedCompatibleMfas}**; {MfaCompatibilityNames.PendingDisplay}: **{data.NeedsVerificationMfas}**; {MfaCompatibilityNames.Different}: **{data.KnownDifferenceMfas}**.")
             .AppendLine().AppendLine($"[{MfaCompatibilityNames.CommandsLinkLabel}]({MfaCompatibilityNames.Report}).").AppendLine();
         foreach (var entry in compatibility.Entries.Where(entry => entry.Status == MfaCompatibilityNames.Verified))
             markdown.AppendLine($"- {MfaCompatibilityMarkdown.Code(entry.Key)}: {MfaCompatibilityMarkdown.Escape(entry.Scope)}.");

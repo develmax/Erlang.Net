@@ -7,6 +7,8 @@ internal static class MfaCompatibilityNames
     public const string Verified = "Verified compatible";
     public const string Pending = "Needs verification";
     public const string Different = "Known differences";
+    public const string VerifiedDisplay = "100% compatible";
+    public const string PendingDisplay = "Needs verification for 100% compatibility";
     public const string OriginalComparison = "OriginalOtpComparison";
     public const string Audit = "CompatibilityAudit";
     public const string SourceReview = "SourceReview";
@@ -22,4 +24,11 @@ internal static class MfaCompatibilityNames
     public const string Method = "Compatibility is tracked per command in an explicit, baseline-bound audited ledger. Direct registry tests establish API presence only. Verified requires an audit of the command's complete observable semantic contract on the supported Erlang term model, actual original OTP comparisons, and no known or unresolved semantic gaps. Selected-case or subcontract-only evidence remains Needs verification. Verification does not claim identical internal VM layout, timings or performance; APIs exposing resource values or options still require their complete observable contracts.";
     public const string TableHeader = "| Command | Compatibility | Audited scope | Evidence | Unresolved limits |";
     public const string TableSeparator = "| --- | --- | --- | --- | --- |";
+
+    public static string DisplayStatus(string status) => status switch
+    {
+        Verified => VerifiedDisplay,
+        Pending => PendingDisplay,
+        _ => status
+    };
 }

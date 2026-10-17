@@ -6,7 +6,7 @@ API presence is the registered, directly tested MFA count divided by the union o
 
 ## Erlang API modules
 
-| Module | Registered APIs | Change | Reference declarations | Verified compatible | Needs verification | Known differences |
+| Module | Registered APIs | Change | Reference declarations | 100% compatible APIs | APIs needing verification for 100% compatibility | APIs with known differences |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | application | 4 | 0 | 38 | 0 | 4 | 0 |
 | binary | 0 | 0 | 31 | 0 | 0 | 0 |
@@ -37,7 +37,7 @@ API presence is the registered, directly tested MFA count divided by the union o
 
 Compatibility is tracked per command in an explicit, baseline-bound audited ledger. Direct registry tests establish API presence only. Verified requires an audit of the command's complete observable semantic contract on the supported Erlang term model, actual original OTP comparisons, and no known or unresolved semantic gaps. Selected-case or subcontract-only evidence remains Needs verification. Verification does not claim identical internal VM layout, timings or performance; APIs exposing resource values or options still require their complete observable contracts.
 
-Verified compatible: **10**; needs verification: **554**; known differences: **23**.
+100% compatible: **10**; Needs verification for 100% compatibility: **554**; Known differences: **23**.
 
 [Every command, evidence and limits](API_COMPATIBILITY.md).
 
