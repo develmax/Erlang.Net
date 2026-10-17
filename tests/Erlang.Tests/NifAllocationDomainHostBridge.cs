@@ -1,5 +1,6 @@
 using System.Reflection;
 using System.Runtime.ExceptionServices;
+using System.Runtime.InteropServices;
 
 namespace Erlang.Tests;
 
@@ -39,6 +40,8 @@ internal sealed class NifAllocationDomainHostBridge : IAsyncDisposable
 
     internal static object Profile()
     {
+        if (File.Exists(Path.GetFullPath(NifAllocationDomainHostNames.NeverOpenedLibrary)))
+            throw new InvalidOperationException(NifAllocationDomainHostNames.UnexpectedInitialization);
         string source = (string)Type(NifAllocationDomainHostNames.NamesType).GetField(NifAllocationDomainHostNames.SourceHash, NifAllocationDomainHostNames.Statics)!.GetRawConstantValue()!;
 
         return Activator.CreateInstance(
@@ -63,11 +66,44 @@ internal sealed class NifAllocationDomainHostBridge : IAsyncDisposable
                 cancellation
             );
         }
-        catch (NotSupportedException error) when (error.Message == (string)Type(NifAllocationDomainHostNames.DiagnosticsType).GetField(NifAllocationDomainHostNames.ModuleIdentity, NifAllocationDomainHostNames.Statics)!.GetRawConstantValue()!)
+        catch (InvalidOperationException error) when (IsMissingLibrary(error))
         {
+            ValidateWrongEntryModule(descriptor);
+
             return;
         }
         throw new InvalidOperationException(NifAllocationDomainHostNames.UnexpectedInitialization);
+    }
+
+    private static bool IsMissingLibrary(InvalidOperationException error) =>
+        error.GetType() == Type(NifAllocationDomainHostNames.LoadStageType) &&
+        (string)Property(error.GetType(), NifAllocationDomainHostNames.Category).GetValue(error)! == NifAllocationDomainHostNames.LoadFailed &&
+        error.InnerException is FileNotFoundException or DirectoryNotFoundException;
+
+    private void ValidateWrongEntryModule(ModuleCodeDescriptor descriptor)
+    {
+        Type entryType = Type(NifAllocationDomainHostNames.EntryType);
+        object entry = Activator.CreateInstance(entryType)!;
+        nint name = Marshal.StringToCoTaskMemUTF8(NifAllocationDomainHostNames.WrongEntryModule);
+        try
+        {
+            entryType.GetField(NifAllocationDomainHostNames.EntryName, NifAllocationDomainHostNames.Members)!.SetValue(entry, name);
+            Field(NifAllocationDomainHostNames.Entry).SetValue(library, entry);
+            try
+            {
+                Call(library, NifAllocationDomainHostNames.ValidateEntry, descriptor);
+            }
+            catch (NotSupportedException failure) when (failure.Message == (string)Type(NifAllocationDomainHostNames.DiagnosticsType).GetField(NifAllocationDomainHostNames.ModuleIdentity, NifAllocationDomainHostNames.Statics)!.GetRawConstantValue()!)
+            {
+                return;
+            }
+            throw new InvalidOperationException(NifAllocationDomainHostNames.UnexpectedInitialization);
+        }
+        finally
+        {
+            Field(NifAllocationDomainHostNames.Entry).SetValue(library, Activator.CreateInstance(entryType));
+            Marshal.FreeCoTaskMem(name);
+        }
     }
 
     internal nint Allocate(nuint size)
@@ -107,7 +143,7 @@ internal sealed class NifAllocationDomainHostBridge : IAsyncDisposable
         {
             await task.WaitAsync(NifAllocationDomainHostNames.Deadline);
         }
-        catch (NotSupportedException error) when (error.Message == (string)Type(NifAllocationDomainHostNames.DiagnosticsType).GetField(NifAllocationDomainHostNames.ModuleIdentity, NifAllocationDomainHostNames.Statics)!.GetRawConstantValue()!)
+        catch (InvalidOperationException error) when (IsMissingLibrary(error))
         {
             return;
         }

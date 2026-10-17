@@ -14,6 +14,14 @@ internal static class NifAllocationDomainHostNames
     internal const string InitializerType = "Erlang.NifNativeImageInitializer";
     internal const string Initializer = "InitializeAsync";
     internal const string SourceHash = "SourceSha256";
+    internal const string LoadStageType = "Erlang.NifNativeLoadStageException";
+    internal const string Category = "Category";
+    internal const string LoadFailed = "load_failed";
+    internal const string EntryType = "Erlang.NifNativeAbiEntry";
+    internal const string Entry = "entry";
+    internal const string EntryName = "Name";
+    internal const string ValidateEntry = "ValidateEntry";
+    internal const string WrongEntryModule = "nif_domain_host_metadata_mismatch";
     internal const string ModuleIdentity = "ModuleIdentity";
     internal const string Initialize = "Initialize";
     internal const string Allocations = "allocations";

@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace Erlang;
 
 internal sealed unsafe class NifNativeLibraryOwner : IAsyncDisposable
@@ -46,16 +44,21 @@ internal sealed unsafe class NifNativeLibraryOwner : IAsyncDisposable
             reallocationEnabled = profile.ReallocationEnabled;
             allocations.JoinDomain(initializationContext.Runtime.NativeAllocationDomain);
             NifNativePlatformLoader.VerifyPlatform();
-            if (image.Module != NifNativeNames.Module)
-                throw new NotSupportedException(NifNativeDiagnostics.ModuleIdentity);
+            try
+            {
+                verifiedFile = NifNativeCapabilityProfile.OpenVerified(profile.LibraryPath, profile.LibrarySha256);
+            }
+            catch (Exception openFailure) when (openFailure is FileNotFoundException or DirectoryNotFoundException)
+            {
+                throw new NifNativeLoadStageException(NifNativeDefaultLoaderNames.LoadFailed, openFailure);
+            }
             NifNativeExportRegistration.EnsureRegistered(profile);
             if (reallocationEnabled)
                 NifNativeReallocationExportRegistration.EnsureRegistered(profile);
-            verifiedFile = NifNativeCapabilityProfile.OpenVerified(profile.LibraryPath, profile.LibrarySha256);
             if (OperatingSystem.IsWindows())
                 windowsCallbacks = new(reallocationEnabled);
-            library = NifNativePlatformLoader.Open(verifiedFile, profile.LibraryPath, global: false);
-            nint initialize = NifNativePlatformLoader.Symbol(library, NifNativeNames.Initializer);
+            library = NifNativePlatformLoader.OpenNifLibrary(verifiedFile, profile.LibraryPath);
+            nint initialize = NifNativePlatformLoader.NifInitializer(library);
             var failure = new NifNativeFailureState();
             using var scope = new NifNativeCallbackScope(allocations, failure, reallocationEnabled);
             initializationContext.Runtime.Modules.AddNifTaint(image.Module);
@@ -73,7 +76,8 @@ internal sealed unsafe class NifNativeLibraryOwner : IAsyncDisposable
             );
             nuint info = environment.Add(loadInfo);
             nint data = 0;
-            int result = ((delegate* unmanaged[Cdecl]<nint, nint*, nuint, int>)entry.Load)(environment.Pointer, &data, info);
+            int result = entry.Load == 0
+                ? 0 : ((delegate* unmanaged[Cdecl]<nint, nint*, nuint, int>)entry.Load)(environment.Pointer, &data, info);
             if (result == 0)
             {
                 privateData = data;
@@ -102,24 +106,8 @@ internal sealed unsafe class NifNativeLibraryOwner : IAsyncDisposable
 
     private void ValidateEntry(ModuleCodeDescriptor descriptor)
     {
-        if (Marshal.PtrToStringUTF8(entry.Name) != NifNativeNames.Module ||
-            Marshal.PtrToStringUTF8(entry.Variant) != NifNativeNames.Variant ||
-            entry.FunctionCount != NifNativeNames.FunctionCount || entry.Functions == 0 ||
-            entry.Load == 0 || entry.Unload == 0 || entry.Reload != 0 || entry.Upgrade != 0 || entry.Options != NifNativeAbi.InitializerEntryOptions)
-            throw new NotSupportedException(NifNativeDiagnostics.UnsupportedNativeEntry);
-        for (int index = 0; index < entry.FunctionCount; index++)
-        {
-            var function = ((NifNativeAbiFunction*)entry.Functions)[index];
-            string name = Marshal.PtrToStringUTF8(function.Name) ?? throw new InvalidOperationException(NifNativeDiagnostics.MissingFunctionName);
-            var key = (name, checked((int)function.Arity));
-            if (function.Flags != 0 || function.Function == 0 ||
-                !(key == (NifNativeNames.Increment, NifNativeNames.IncrementArity) ||
-                    key == (NifNativeNames.Greeting, NifNativeNames.GreetingArity)))
-                throw new NotSupportedException(NifNativeDiagnostics.UntrustedFunction);
-            if (descriptor.DeclaredNifs is not { } declared || !declared.Contains(key) || !descriptor.Functions.Contains(key))
-                throw new NotSupportedException(NifNativeDiagnostics.NoDeclaredNif);
-            functions.Add(key, function.Function);
-        }
+        foreach (var function in NifNativeEntryFunctions.Read(entry, image.Module, descriptor))
+            functions.Add(function.Key, function.Value);
     }
 
     private Term Invoke(
@@ -173,17 +161,20 @@ internal sealed unsafe class NifNativeLibraryOwner : IAsyncDisposable
                 if (initialized)
                 {
                     initialized = false;
-                    var state = new NifNativeFailureState();
-                    using var scope = new NifNativeCallbackScope(allocations, state, reallocationEnabled);
-                    using var environment = new NifNativeCallEnvironment(
-                        initializationContext,
-                        image,
-                        privateData,
-                        state
-                    );
-                    ((delegate* unmanaged[Cdecl]<nint, nint, void>)entry.Unload)(environment.Pointer, privateData);
-                    OutstandingAfterNativeUnload = allocations.Count;
-                    state.ThrowPending();
+                    if (entry.Unload != 0)
+                    {
+                        var state = new NifNativeFailureState();
+                        using var scope = new NifNativeCallbackScope(allocations, state, reallocationEnabled);
+                        using var environment = new NifNativeCallEnvironment(
+                            initializationContext,
+                            image,
+                            privateData,
+                            state
+                        );
+                        ((delegate* unmanaged[Cdecl]<nint, nint, void>)entry.Unload)(environment.Pointer, privateData);
+                        OutstandingAfterNativeUnload = allocations.Count;
+                        state.ThrowPending();
+                    }
                 }
             }
             catch (Exception error)

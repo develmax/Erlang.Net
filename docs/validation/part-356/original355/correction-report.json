@@ -1,0 +1,28 @@
+{
+  "Status": "SOURCE_FIX_FOR_ACTUAL_ORIGINAL_OBSERVER_CLEANUP_ASSERTION",
+  "FailedRun": 39009114104,
+  "Artifact": 12091849462,
+  "FailedHead": "407f898765d89583f3c8e17e73c27dec7f04b6e3",
+  "CompletedCases": 0,
+  "ActualException": "error:{badmatch,false} at entry_observer:run/1 line31",
+  "RaisedEtfSha256": "980B5BBA567150F453525C0627D27E2DAB700482530B30C87A0972A42472BFF2",
+  "OriginalSources": [
+    {
+      "Path": "lib/kernel/src/code.erl",
+      "Sha256": "774B2307E0F49FE2974F3E9D10C870F8F8F59A6AE5073F133908A99756332F17"
+    },
+    {
+      "Path": "lib/kernel/src/code_server.erl",
+      "Sha256": "160BF6A3AA23A9CC60043D4BFB0F1FF1475C11607E8E4E97E6C4C0806D825F9B"
+    },
+    {
+      "Path": "erts/preloaded/src/erts_code_purger.erl",
+      "Sha256": "2A9A4D8642BE168AD818BAF29CFD4F4FF913D0F9BD5F1F669947B575BFFC443D"
+    }
+  ],
+  "Reason": "code:purge returns DidKill, not purge success; false is required for no-kill cleanup. Added explicit absent old/current code postconditions.",
+  "LoadValueAssertionsChanged": false,
+  "PreviousFailurePreserved": true,
+  "FreshOriginalRunExecuted": false,
+  "NewCollectorManifestSha256": "FBB2A50336A968F46CA622349CE6A75A0836226BB34DB66E026A7C9DB812827C"
+}

@@ -1,5 +1,8 @@
 # Next executable tasks
 
+Part356: publish the exact accepted native-load runtime and source closure, then dispatch the corrected original eleven-case collector with its new manifest FBB2A50336A968F46CA622349CE6A75A0836226BB34DB66E026A7C9DB812827C and verify current-head CI. Preserve original355 as failure with zero completed cases; no old run is reused as success. Continue actual fullsweep_after policy and reductions counters from the separate source-reviewed 357 proposals, then their original OTP comparisons. No-policy default native loading, full ABI/resources, dirty scheduling and reload/upgrade still need implementation and complete contract verification.
+
+
 Part 352: retain the 16/24/547 audited split and 77 runtime dependencies. Continue unverified contracts and known implementation gaps; registered API counts alone do not establish compatibility. Track the existing part 351 priority original workflow separately. Scheduler affinity is outside this verification increment and its next runtime part remains unassigned.
 
 Part351: publish the exact tested priority implementation, verify same-head CI and three new priority scenarios against pinned OTP. Keep10/24/553 classifications until a later complete contract audit and current-source proof justify promotion. Continue real statistics garbage-collection accounting without invented counts.

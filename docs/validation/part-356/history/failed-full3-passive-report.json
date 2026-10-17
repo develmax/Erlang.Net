@@ -1,0 +1,171 @@
+{
+  "Status": "PASS_PASSIVE_ACTUAL_FAILED_CANONICAL356_ACQUISITION_NO_FULL_ACCEPTANCE",
+  "Passed": 7327,
+  "Failed": 18,
+  "FullAccepted": false,
+  "CompositionPlanSha256": "A0D5E1F4E9232E8EBF41AAEE9C60C259087F047EF55ADC634A456214D341517C",
+  "SourceFreezeSha256": "341986915F3D034218DB21DAF4C74FB992FD34CF948AECA21F31CA40ABE9D167",
+  "StableClosureRows": 2952,
+  "OwnedPaths": 38,
+  "Old7343ExactOrderedNamesPrefix": true,
+  "AddedTestNames": [
+    "runtime/default-nif-source-route-policy-filename-and-code-admission",
+    "runtime/native-filename-binary-prefix-unicode-and-platform-suffix"
+  ],
+  "FailureRows": [
+    {
+      "Name": "runtime/nif-runtime-native-payload-domain-lifecycle",
+      "Status": "Failed",
+      "Error": "Erlang.NifNativeLoadStageException: Could not find file 'D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\nif-domain-host-never-opened.dll'.\r\n ---> System.IO.FileNotFoundException: Could not find file 'D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\nif-domain-host-never-opened.dll'.\r\nFile name: 'D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\nif-domain-host-never-opened.dll'\r\n   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)\r\n   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)\r\n   at Erlang.NifNativeCapabilityProfile.OpenVerified(String path, String hash) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\src\\Erlang.Runtime\\NifNativeCapabilityProfile.cs:line 122\r\n   at Erlang.NifNativeLibraryOwner.Initialize(NifNativeCapabilityProfile profile, ModuleCodeDescriptor descriptor, Term loadInfo, CancellationToken cancellation) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\src\\Erlang.Runtime\\NifNativeLibraryOwner.cs:line 49\r\n   --- End of inner exception stack trace ---\r\n   at Erlang.NifNativeLibraryOwner.Initialize(NifNativeCapabilityProfile profile, ModuleCodeDescriptor descriptor, Term loadInfo, CancellationToken cancellation) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\src\\Erlang.Runtime\\NifNativeLibraryOwner.cs:line 53\r\n   at InvokeStub_NifNativeLibraryOwner.Initialize(Object, Span`1)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.NifAllocationDomainHostBridge.Invoke(MethodInfo method, Object target, Object[] arguments) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\NifAllocationDomainHostBridge.cs:line 151\r\n   at Erlang.Tests.NifAllocationDomainHostBridge.Call(Object target, String name, Object[] arguments) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\NifAllocationDomainHostBridge.cs:line 141\r\n   at Erlang.Tests.NifAllocationDomainHostBridge.InitializeWrongModule(ModuleCodeDescriptor descriptor, CancellationToken cancellation) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\NifAllocationDomainHostBridge.cs:line 57\r\n   at Erlang.Tests.NifAllocationDomainHostChecks.PayloadAndDisposal(ProcessRuntime runtime, ModuleCodeImage image, ProcessContext context, ModuleCodeDescriptor descriptor) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\NifAllocationDomainHostChecks.cs:line 132\r\n   at Erlang.Tests.NifAllocationDomainHostChecks.PayloadAndDisposal(ProcessRuntime runtime, ModuleCodeImage image, ProcessContext context, ModuleCodeDescriptor descriptor) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\NifAllocationDomainHostChecks.cs:line 154\r\n   at Erlang.Tests.NifAllocationDomainHostChecks.<>c__DisplayClass3_0.<<Run>b__1>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\NifAllocationDomainHostChecks.cs:line 46\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.NifAdmissionHostBridge.<>c__DisplayClass8_0.<<Context>b__0>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\NifAdmissionHostBridge.cs:line 77\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.NifAdmissionHostBridge.Context(ProcessRuntime runtime, Func`2 operation) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\NifAdmissionHostBridge.cs:line 87\r\n   at Erlang.Tests.NifAllocationDomainHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\NifAllocationDomainHostChecks.cs:line 36\r\n   at Erlang.Tests.NifAllocationDomainHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\NifAllocationDomainHostChecks.cs:line 36\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4723",
+      "Milliseconds": 38
+    },
+    {
+      "Name": "runtime/nif-real-payload-reallocation-extent-history",
+      "Status": "Failed",
+      "Error": "Erlang.NifNativeLoadStageException: Could not find file 'D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\nif-domain-host-never-opened.dll'.\r\n ---> System.IO.FileNotFoundException: Could not find file 'D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\nif-domain-host-never-opened.dll'.\r\nFile name: 'D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\nif-domain-host-never-opened.dll'\r\n   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)\r\n   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)\r\n   at Erlang.NifNativeCapabilityProfile.OpenVerified(String path, String hash) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\src\\Erlang.Runtime\\NifNativeCapabilityProfile.cs:line 122\r\n   at Erlang.NifNativeLibraryOwner.Initialize(NifNativeCapabilityProfile profile, ModuleCodeDescriptor descriptor, Term loadInfo, CancellationToken cancellation) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\src\\Erlang.Runtime\\NifNativeLibraryOwner.cs:line 49\r\n   --- End of inner exception stack trace ---\r\n   at Erlang.NifNativeLibraryOwner.Initialize(NifNativeCapabilityProfile profile, ModuleCodeDescriptor descriptor, Term loadInfo, CancellationToken cancellation) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\src\\Erlang.Runtime\\NifNativeLibraryOwner.cs:line 53\r\n   at InvokeStub_NifNativeLibraryOwner.Initialize(Object, Span`1)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.NifAllocationDomainHostBridge.Invoke(MethodInfo method, Object target, Object[] arguments) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\NifAllocationDomainHostBridge.cs:line 151\r\n   at Erlang.Tests.NifAllocationDomainHostBridge.Call(Object target, String name, Object[] arguments) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\NifAllocationDomainHostBridge.cs:line 141\r\n   at Erlang.Tests.NifAllocationDomainHostBridge.InitializeWrongModule(ModuleCodeDescriptor descriptor, CancellationToken cancellation) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\NifAllocationDomainHostBridge.cs:line 57\r\n   at Erlang.Tests.NifReallocationHostChecks.<>c__DisplayClass13_0.<<JoinedDomain>b__1>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\NifReallocationHostChecks.cs:line 245\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.NifReallocationHostChecks.<>c__DisplayClass13_0.<<JoinedDomain>b__1>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\NifReallocationHostChecks.cs:line 304\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.NifReallocationHostChecks.<>c__DisplayClass13_0.<<JoinedDomain>b__1>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\NifReallocationHostChecks.cs:line 304\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.NifAdmissionHostBridge.<>c__DisplayClass8_0.<<Context>b__0>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\NifAdmissionHostBridge.cs:line 77\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.NifAdmissionHostBridge.Context(ProcessRuntime runtime, Func`2 operation) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\NifAdmissionHostBridge.cs:line 87\r\n   at Erlang.Tests.NifReallocationHostChecks.JoinedDomain() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\NifReallocationHostChecks.cs:line 239\r\n   at Erlang.Tests.NifReallocationHostChecks.JoinedDomain() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\NifReallocationHostChecks.cs:line 239\r\n   at Erlang.Tests.NifReallocationHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\NifReallocationHostChecks.cs:line 15\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4723",
+      "Milliseconds": 14
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-echo-3",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 425\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4220\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4723",
+      "Milliseconds": 83
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-echo-4",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 425\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4220\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4723",
+      "Milliseconds": 64
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-shared-streams-5",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 425\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4220\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4723",
+      "Milliseconds": 79
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-shared-streams-6",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 425\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4220\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4723",
+      "Milliseconds": 79
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-shared-streams-7",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 425\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4220\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4723",
+      "Milliseconds": 110
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-shell-shared-streams",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 425\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4220\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4723",
+      "Milliseconds": 98
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-arg0-9",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 425\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4220\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4723",
+      "Milliseconds": 64
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-arg0-10",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 425\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4220\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4723",
+      "Milliseconds": 63
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-arg0-11",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 425\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4220\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4723",
+      "Milliseconds": 62
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-arg0-preserved-by-args",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 425\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4220\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4723",
+      "Milliseconds": 87
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-auxiliary-19",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 425\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4220\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4723",
+      "Milliseconds": 105
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-auxiliary-20",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 425\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4220\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4723",
+      "Milliseconds": 91
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-auxiliary-21",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 425\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4220\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4723",
+      "Milliseconds": 75
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-input-only-eof",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 425\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4220\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4723",
+      "Milliseconds": 78
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-input-only-output-fails",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 425\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4220\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4723",
+      "Milliseconds": 87
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-output-only-no-data",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 425\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4220\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-load356-full-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4723",
+      "Milliseconds": 62
+    }
+  ],
+  "IntegrationResults": null,
+  "Packages": [],
+  "PackageInputs": 6,
+  "TermOrderChildren": 12,
+  "ChildMatrixVerified": true,
+  "RuntimeSourceGuards": 127,
+  "CompatibilityCounts": {
+    "Verified compatible": 16,
+    "Needs verification": 541,
+    "Known differences": 30
+  },
+  "LedgerEvidenceRows": 40,
+  "LedgerRequiredEvidenceSchemaVerified": true,
+  "Readiness": [],
+  "RegistryRows": 587,
+  "RegistryNonLimitsAndOrderPreserved": true,
+  "RegistryBeforeSha256": "45718F0FE73ED01C42CE5EA4DFE4FB025799B4E4473A0182847BAB2E6BFC7665",
+  "RawRegistrySha256": "45718F0FE73ED01C42CE5EA4DFE4FB025799B4E4473A0182847BAB2E6BFC7665",
+  "CustomLimitsRestorationPending": true,
+  "FullExitSha256": "419BC3370977356835C7FD6A2A1342DC4A2283A438CCE0FF79AA60D010D355BB",
+  "FullStdoutSha256": "E8584CDCE593A0887002BD7CBBE74894210B62E456A0C082878B652B18DFFAFA",
+  "FullStderrSha256": "6F548D9FBB90A221E23DE0F9CDF7B6889AF3A853EEF58D8005E6E7B5769CD551",
+  "TestReportSha256": "DCF1C0F83B7BA90C7FABEB3F1866B703E3E3ADBB6E5F7889579E2500869FE206",
+  "CapturedIndexSha256": "D3AB1B6DAA5283CAFE5C7F9659EC342CD7B3D0151AC8C94F2A1C988777E19FC2",
+  "NativeSourcePlans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Rows": 1300,
+      "Sha256": "84DF32A07017D3C23E6A2C4C25A1D9CF5513E4F19C9B6D5BEAFD6AC9542F0F5C",
+      "AllRowsAndSealVerified": true
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Rows": 1325,
+      "Sha256": "5B636021E661F771C4F618E40F1B4AC5D4FC205CFB596874BAD94D448648F693",
+      "AllRowsAndSealVerified": true
+    }
+  ],
+  "ReaderSha256": "98AC23441496EFF34CB9CC3C38791652CE23FCE273B5686007217CBCF282545A",
+  "OriginalOtpExecuted": false,
+  "NativeAbiExecuted": false,
+  "MainModified": false,
+  "AuthorshipDisclosure": "Reader author also authored356 source composition; separate Root source review and external peer required. Passive recomputation is not independent implementation authorship.",
+  "PriorAttemptsNotOverwritten": true,
+  "DriverIdentityScope": "Recorded driver path/current hash; only Terms identity emitted by child; no initial fullDLLsnapshot claimed.",
+  "NoCompatibilityPromotionInferredFromFull": true
+}

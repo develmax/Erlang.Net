@@ -1,0 +1,125 @@
+{
+  "Status": "PASS_PASSIVE_ACTUAL_CANONICAL356_FULL_RAW_REGISTRY_RESTORATION_PENDING",
+  "Passed": 7345,
+  "Failed": 0,
+  "FullAccepted": true,
+  "CompositionPlanSha256": "CFD59AD745468D1F25E6B47FB5DF791C0413868C8346B50CE7090E1369720C06",
+  "SourceFreezeSha256": "2B20D27A9A666242734F6B1D9CA69DADEDAD657364D0A3E44DEDC53CEC3E24BB",
+  "StableClosureRows": 2952,
+  "OwnedPaths": 40,
+  "Old7343ExactOrderedNamesPrefix": true,
+  "AddedTestNames": [
+    "runtime/default-nif-source-route-policy-filename-and-code-admission",
+    "runtime/native-filename-binary-prefix-unicode-and-platform-suffix"
+  ],
+  "FailureRows": [],
+  "IntegrationResults": {
+    "PackagedReadiness": "Passed",
+    "Tests": "Passed",
+    "OracleUnavailableReport": "Expected failure recorded",
+    "PackageConsumer": "Passed",
+    "DisabledPreprocessing": "Expected failure",
+    "Build": "Passed",
+    "Readiness": "Passed",
+    "HybridOutput": "Hello World",
+    "Incremental": "Passed",
+    "CleanRebuild": "Passed",
+    "LocalTool": "Passed"
+  },
+  "Packages": [
+    {
+      "Path": "artifacts/packages/Erlang.Net.CSharp.0.1.0.nupkg",
+      "Sha256": "B7611761029BED604D337F39AD458DD4BE025666EDCBE9F9DC03DC1278F6B8D0",
+      "Id": "Erlang.Net.CSharp",
+      "Version": "0.1.0",
+      "ZipMembers": 26,
+      "CrcAndSafeUniquePathsVerified": true,
+      "SourceBoundMembers": [
+        "README.md",
+        "licenses/DOTNET-LICENSE.txt",
+        "licenses/DOTNET-ThirdPartyNotices.txt",
+        "licenses/OTP-LICENSE.txt",
+        "licenses/ROSLYN-LICENSE.txt",
+        "licenses/OTP-PORTS.md",
+        "lib/net10.0/Erlang.Terms.dll",
+        "lib/net10.0/Erlang.Runtime.dll",
+        "lib/net10.0/Erlang.Compiler.dll",
+        "lib/net10.0/Erlang.Otp.Behaviours.dll",
+        "lib/net10.0/Erlang.Serialization.dll"
+      ]
+    },
+    {
+      "Path": "artifacts/packages/Erlang.Net.Tool.0.1.0.nupkg",
+      "Sha256": "355175D66CFD40C771BEC3AC2DEFC0DAE4E6957DDED38FA4188369181C92081E",
+      "Id": "Erlang.Net.Tool",
+      "Version": "0.1.0",
+      "ZipMembers": 53,
+      "CrcAndSafeUniquePathsVerified": true,
+      "SourceBoundMembers": [
+        "README.md",
+        "licenses/DOTNET-LICENSE.txt",
+        "licenses/DOTNET-ThirdPartyNotices.txt",
+        "licenses/OTP-LICENSE.txt",
+        "licenses/ROSLYN-LICENSE.txt",
+        "licenses/OTP-PORTS.md",
+        "tools/net10.0/any/Erlang.Tool.dll",
+        "tools/net10.0/any/Erlang.Terms.dll",
+        "tools/net10.0/any/Erlang.Runtime.dll",
+        "tools/net10.0/any/Erlang.Compiler.dll"
+      ]
+    }
+  ],
+  "PackageInputs": 6,
+  "TermOrderChildren": 12,
+  "ChildMatrixVerified": true,
+  "RuntimeSourceGuards": 127,
+  "CompatibilityCounts": {
+    "Verified compatible": 16,
+    "Needs verification": 541,
+    "Known differences": 30
+  },
+  "LedgerEvidenceRows": 40,
+  "LedgerRequiredEvidenceSchemaVerified": true,
+  "Readiness": [
+    {
+      "Path": "artifacts/readiness/module-readiness.json",
+      "Sha256": "E128BB29BB7C3F9E1175FE58304DA9E6FA72BED895A9D18799F623D8302D4C7E"
+    },
+    {
+      "Path": "artifacts/tool-readiness/module-readiness.json",
+      "Sha256": "E128BB29BB7C3F9E1175FE58304DA9E6FA72BED895A9D18799F623D8302D4C7E"
+    }
+  ],
+  "RegistryRows": 587,
+  "RegistryNonLimitsAndOrderPreserved": true,
+  "RegistryBeforeSha256": "45718F0FE73ED01C42CE5EA4DFE4FB025799B4E4473A0182847BAB2E6BFC7665",
+  "RawRegistrySha256": "23A1729AC575A30C500F26F47877012E1D6C632DB8A43A21F3DBBE6F9C8A0FAB",
+  "CustomLimitsRestorationPending": true,
+  "FullExitSha256": "E4F02FB14154C0CC8438998133F6AD335C5839B02DED6B6F3C11ADADB50E37A4",
+  "FullStdoutSha256": "9BA7C83B715E82F4300CD7A577018A51BBF9C2CE1B6DB846751739C0D30F9319",
+  "FullStderrSha256": "CA28DC90026E2F533157EF715CA259762FB2CDE0F743DD1591699AD5FBCAECA0",
+  "TestReportSha256": "92ED2286B90F5A6BBC561FD09C7A923D734F11E15A22C30AE5F7850CC1987702",
+  "CapturedIndexSha256": "6F8B32E2FB4222D85F9C8F00797A1BF673ACF4C96F373F9B55D73B20BF62971E",
+  "NativeSourcePlans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Rows": 1300,
+      "Sha256": "84DF32A07017D3C23E6A2C4C25A1D9CF5513E4F19C9B6D5BEAFD6AC9542F0F5C",
+      "AllRowsAndSealVerified": true
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Rows": 1325,
+      "Sha256": "5B636021E661F771C4F618E40F1B4AC5D4FC205CFB596874BAD94D448648F693",
+      "AllRowsAndSealVerified": true
+    }
+  ],
+  "ReaderSha256": "15FE55C55C7EEB7B1650584AB65321C49F4F44920BB5A63C44F907633D92EDB6",
+  "OriginalOtpExecuted": false,
+  "NativeAbiExecuted": false,
+  "MainModified": false,
+  "AuthorshipDisclosure": "Reader author also authored356 source composition; separate Root source review and external peer required. Passive recomputation is not independent implementation authorship.",
+  "PriorAttemptsNotOverwritten": true,
+  "DriverIdentityScope": "Recorded driver path/current hash; only Terms identity emitted by child; no initial fullDLLsnapshot claimed.",
+  "NoCompatibilityPromotionInferredFromFull": true
+}

@@ -3659,7 +3659,7 @@
     "Arity": 2,
     "Status": "Implemented",
     "Evidence": "mfa/erlang:load_nif/2",
-    "Limits": "Exact pinned indirect BIF only: apply/3 and external-fun invocation return the original bad_lib error. Successful literal native loading, the default instruction handler and general native ABI remain incomplete.",
+    "Limits": "Pinned indirect BIF refusal remains. Direct captured loading now has a production backend under explicit reviewed image execution approval; no-policy fallback, broader native ABI/callbacks/upgrade, general filename modes and exact native loader errors remain incomplete. See per-command Known differences; registration is not complete compatibility.",
     "CompatibilityLedger": "mfa-compatibility.json"
   },
   {

@@ -1,3 +1,5 @@
+extern alias NifNativeBackend;
+
 using System.Diagnostics;
 using System.Numerics;
 using System.Text.Json;
@@ -4698,6 +4700,16 @@ Test(Erlang.Tests.SizeErrorHostTestNames.Reinstall, Erlang.Tests.CommonPreloaded
 Test(Erlang.Tests.SizeErrorHostTestNames.Lambda, Erlang.Tests.CommonLambdaHandlerCaptureHostChecks.Run);
 
 Test(Erlang.Tests.CleanupStealingHostNames.Test, Erlang.Tests.CleanupStealingHostChecks.Run);
+
+Test(
+    Erlang.Tests.NifNativeDefaultRouteHostNames.Test,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeDefaultRouteHostEntry.Run
+);
+
+Test(
+    Erlang.Tests.NifNativeDefaultRouteHostNames.FilenameTest,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeDefaultRouteHostEntry.Filename
+);
 
 int failed = 0;
 foreach (var test in tests)

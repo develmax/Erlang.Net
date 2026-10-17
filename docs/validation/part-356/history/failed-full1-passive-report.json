@@ -1,0 +1,62 @@
+{
+  "Status": "PASS_PASSIVE_ACTUAL_FAILED_CANONICAL356_ACQUISITION_NO_FULL_ACCEPTANCE",
+  "Passed": null,
+  "Failed": null,
+  "FullAccepted": false,
+  "CompositionPlanSha256": "59170F6B19A48D5DBE0161B04EA1A10031D9985A7DB0BB5D8C7136C6E4748A6E",
+  "SourceFreezeSha256": "68CFFE65B8DB6EE6B8C03EF9F4922CB6B1E98AE35ED49A733303659A027D4BA7",
+  "StableClosureRows": 2952,
+  "OwnedPaths": 38,
+  "Old7343ExactOrderedNamesPrefix": false,
+  "AddedTestNames": [
+    "runtime/default-nif-source-route-policy-filename-and-code-admission",
+    "runtime/native-filename-binary-prefix-unicode-and-platform-suffix"
+  ],
+  "FailureRows": [],
+  "IntegrationResults": null,
+  "Packages": [],
+  "PackageInputs": 6,
+  "TermOrderChildren": 0,
+  "ChildMatrixVerified": false,
+  "RuntimeSourceGuards": 127,
+  "CompatibilityCounts": {
+    "Verified compatible": 16,
+    "Needs verification": 541,
+    "Known differences": 30
+  },
+  "LedgerEvidenceRows": 40,
+  "LedgerRequiredEvidenceSchemaVerified": true,
+  "Readiness": [],
+  "RegistryRows": 587,
+  "RegistryNonLimitsAndOrderPreserved": true,
+  "RegistryBeforeSha256": "45718F0FE73ED01C42CE5EA4DFE4FB025799B4E4473A0182847BAB2E6BFC7665",
+  "RawRegistrySha256": "45718F0FE73ED01C42CE5EA4DFE4FB025799B4E4473A0182847BAB2E6BFC7665",
+  "CustomLimitsRestorationPending": true,
+  "FullExitSha256": "0B5B7A9FE4B91BC22337434BDB7B414075F44E321D11B3025DEEBCC8309F9083",
+  "FullStdoutSha256": "8B0CD76CFCD6FC73DA57AED842B4AD70422470D34FC1109820F0DC7461F54814",
+  "FullStderrSha256": "D9F8D7F295929E444F2073C74F3BA55365FA22F998BF5E6C9A8C91126855066D",
+  "TestReportSha256": null,
+  "CapturedIndexSha256": "D5698A2CF9E5144D1F570EC805A6DBFFE433EE9CE6EAA7D879005869CCA2D395",
+  "NativeSourcePlans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Rows": 1300,
+      "Sha256": "84DF32A07017D3C23E6A2C4C25A1D9CF5513E4F19C9B6D5BEAFD6AC9542F0F5C",
+      "AllRowsAndSealVerified": true
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Rows": 1325,
+      "Sha256": "5B636021E661F771C4F618E40F1B4AC5D4FC205CFB596874BAD94D448648F693",
+      "AllRowsAndSealVerified": true
+    }
+  ],
+  "ReaderSha256": "EBF59CBEBED0F99247A5CBFC14778EE7F1F19D3BD9BE346705ECF82619BAF522",
+  "OriginalOtpExecuted": false,
+  "NativeAbiExecuted": false,
+  "MainModified": false,
+  "AuthorshipDisclosure": "Reader author also authored356 source composition; separate Root source review and external peer required. Passive recomputation is not independent implementation authorship.",
+  "PriorAttemptsNotOverwritten": true,
+  "DriverIdentityScope": "Recorded driver path/current hash; only Terms identity emitted by child; no initial fullDLLsnapshot claimed.",
+  "NoCompatibilityPromotionInferredFromFull": true
+}

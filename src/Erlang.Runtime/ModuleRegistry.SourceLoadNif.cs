@@ -23,6 +23,13 @@ public sealed partial class ModuleRegistry
     )
     {
         var handler = Volatile.Read(ref sourceLoadNifHandler);
+        if (handler is null && Volatile.Read(ref nativeExecutionPolicy) is { } approval)
+            handler = (caller, captured, values) => NifNativeDefaultLoader.LoadAsync(
+                caller,
+                captured,
+                values,
+                approval
+            );
         if (handler is null)
         {
             if (!SourceLoadNifFilename.IsValidUtf8(arguments[0]))

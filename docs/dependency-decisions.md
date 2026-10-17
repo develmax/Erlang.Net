@@ -1,5 +1,8 @@
 # Dependency and compatibility decisions
 
+Part356 — Reuse the existing BCL/runtime loader and explicit image-review policy; add no package dependency or new third-party installation. Match native entry module/function declarations to actual loaded code rather than fixture names. The Windows fixture builder uses the existing MSVC installation, pinned OTP headers with an explicit LLP64 size configuration, and owned kill-on-close process jobs. These fixture binaries remain outside the repository. The final runtime closure has 127 reviewed source guards; preserve the two native plan seals and all older Verified evidence. .NET 10.0.11 already selects altered-search-path loading, so do not characterize the explicit Win32 loader as repairing an absent runtime flag. Compatibility counts remain unchanged.
+
+
 Part 352 — Preserve all 74 published runtime source bindings and add only ErlangBasicRegistrations.cs, ErlangBasicBifNames.cs and AutoImportNames.cs, for 77 total. Raw Erlang fixtures and C# catalogs are evidence rather than runtime guards. This increment delivers no package, runtime source, test expectation, loader or scheduler-affinity change.
 
 Part351 — Reuse runtime/BCL scheduling and existing tests without packages. Preserve all older Verified evidence, bind74 current runtime dependencies, and refine unsupported spawn options truthfully. Archive exact source and declared raw proof subsets; no SDK/runtime/package binaries.

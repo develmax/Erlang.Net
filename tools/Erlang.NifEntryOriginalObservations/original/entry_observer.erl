@@ -28,7 +28,9 @@ run(Case) ->
             {entry_case, Case, Module, Result, {stub_after_failure, not_loaded}}
     end,
     true = code:delete(Module),
-    true = code:purge(Module),
+    false = code:purge(Module),
+    false = erlang:check_old_code(Module),
+    false = code:is_loaded(Module),
     {Observed, {cleanup, deleted_and_purged}}.
 
 metadata() ->

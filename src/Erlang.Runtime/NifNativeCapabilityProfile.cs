@@ -91,6 +91,25 @@ internal sealed class NifNativeCapabilityProfile
         ReallocationBridgeSha256 = trustedReallocationBridgeSha256;
     }
 
+    // Separate opt-in reviewed deployment ABI policy; legacy source-digest constructors above are unchanged.
+    internal static NifNativeCapabilityProfile ForReviewedBasicAbi(NifNativeReviewedBasicAbi capability)
+    {
+        ArgumentNullException.ThrowIfNull(capability);
+
+        return new NifNativeCapabilityProfile(capability);
+    }
+
+    private NifNativeCapabilityProfile(NifNativeReviewedBasicAbi capability)
+    {
+        LibraryPath = capability.LibraryPath;
+        LibrarySha256 = capability.LibrarySha256;
+        BridgePath = capability.BridgePath;
+        BridgeSha256 = capability.BridgeSha256;
+        ReallocationEnabled = false;
+        ReallocationBridgePath = null;
+        ReallocationBridgeSha256 = null;
+    }
+
     private static void ValidatePathAndHash(string path, string hash)
     {
         if (!Path.IsPathFullyQualified(path) || hash.Length != NifNativeAbi.HashHexCharacters ||

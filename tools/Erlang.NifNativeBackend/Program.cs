@@ -1,6 +1,28 @@
 using Erlang;
 using Erlang.NifNativeBackend;
 
+if (args.Length == 1 && args[0] == NifNativeFilenameControlNames.Mode)
+{
+    NifNativeFilenameControls.Run();
+    Console.WriteLine(NifNativeFilenameControlNames.Pass);
+
+    return;
+}
+
+if (args.Length != 0 && args[0] == NifNativeElevenNames.Mode)
+{
+    await NifNativeElevenDriver.Run(args[1..]);
+
+    return;
+}
+
+if (args.Length == 1 && args[0] == NifNativeDefaultRouteNames.Mode)
+{
+    await NifNativeDefaultRouteChecks.Run();
+
+    return;
+}
+
 if (args.Length != 0 && args[0] == NifNativePayloadQueryHarnessNames.Mode)
 {
     await NifNativePayloadQueryHarness.Run(args[1..]);
