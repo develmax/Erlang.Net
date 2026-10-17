@@ -1,0 +1,194 @@
+{
+  "Status": "PASS_PASSIVE_ACTUAL_CANONICAL359_FULL_RAW_REGISTRY_RESTORATION_PENDING",
+  "Passed": 7394,
+  "Failed": 0,
+  "FullAccepted": true,
+  "CompositionPlanSha256": "B50E4F17EBE779D4589E54069E4401E23AFDD4224B491F00EB3E543E8B66982B",
+  "SourceFreezeSha256": "4AB67B598D67747EFE55B5EEBA13DBDBF034D06C6BB93A82D84007AB84F75EF0",
+  "StableClosureRows": 3063,
+  "OwnedPaths": 60,
+  "OldOrderedNamesPrefix": true,
+  "OldOrderedPrefixCount": 7345,
+  "ExpectedTests": 7394,
+  "AddedTestNames": [
+    "oracle/compiled-module/fullsweep_process_domain",
+    "oracle/compiled-module/fullsweep_spawn_forms",
+    "oracle/compiled-module/fullsweep_request_forms",
+    "oracle/compiled-module/fullsweep_default_snapshot",
+    "oracle/compiled-module/statistics-reductions-real-work-monotonic",
+    "oracle/compiled-module/statistics-reductions-independent-key-cursors",
+    "oracle/compiled-module/statistics-reductions-retains-retired-child-work",
+    "oracle/compiled-module/spawn-monitor-option-order-last-wins",
+    "oracle/compiled-module/scheduler-statistics-real-queue-shape-and-active-caller",
+    "oracle/compiled-module/erlang-system-monitor-busy-port-atom",
+    "oracle/compiled-module/erlang-system-monitor-busy-port-tuple-enabled",
+    "oracle/compiled-module/erlang-system-monitor-busy-port-duplicate-disabled",
+    "oracle/compiled-module/erlang-system-monitor-busy-port-duplicate-enabled",
+    "oracle/compiled-module/erlang-system-monitor-busy-port-invalid-rollback",
+    "oracle/compiled-module/erlang-system-monitor-busy-port-query-option-order",
+    "oracle/compiled-module/erlang-system-monitor-busy-port-replace-and-clear",
+    "oracle/compiled-module/erlang-system-monitor-busy-port-receiver-death",
+    "runtime/fullsweep-zero-real-major-collection",
+    "runtime/statistics-real-reductions-retired-actors-independent-cursors",
+    "runtime/remote-spawn-opt-monitor-atom-preserves-custom-tag",
+    "runtime/remote-spawn-request-monitor-atom-preserves-custom-tag",
+    "runtime/scheduler-statistics-queued-owner-dedup-and-idle",
+    "runtime/scheduler-statistics-offline-bound-lane-order",
+    "runtime/scheduler-statistics-host-initializer-excluded",
+    "runtime/system-monitor-busy-port-configuration-and-rollback",
+    "runtime/system-monitor-real-busy-port-wait-notification",
+    "runtime/port-command-cancellation-before-prior-protocol-command-completes",
+    "runtime/port-info-one-argument-cancellation-before-prior-command",
+    "runtime/port-info-two-argument-cancellation-before-prior-command",
+    "runtime/port-close-caller-cancellation-preserves-accepted-close",
+    "oracle/compiled-module/erlang-load-nif-ordinary-host-missing-string",
+    "oracle/compiled-module/erlang-load-nif-ordinary-host-missing-binary",
+    "oracle/compiled-module/erlang-load-nif-ordinary-host-badarg",
+    "runtime/nif-array-callback-empty-null-input",
+    "runtime/nif-array-callback-order-aliases-and-large-arrays",
+    "runtime/nif-array-callback-bounded-count-system-limit",
+    "runtime/nif-array-callback-foreign-expired-and-null-containment",
+    "runtime/remote-spawn-async-dist-option-metadata",
+    "runtime/remote-spawn-opt-request-child-async-dist-regression",
+    "runtime/remote-spawn-opt-request-priority-link-duplicate-order",
+    "runtime/nif-load-reason-original-five-controls",
+    "runtime/nif-type-callback-windows-table-all-term-categories",
+    "runtime/nif-type-callback-windows-environment-independent",
+    "runtime/nif-list-cell-windows-proper-improper-and-negative",
+    "runtime/nif-type-list-cell-windows-expired-owner-containment",
+    "runtime/nif-numeric-windows-integer-conversion-boundaries-canaries",
+    "runtime/nif-numeric-windows-integer-constructor-boundaries",
+    "runtime/nif-numeric-windows-finite-bits-and-nonfinite-badarg",
+    "runtime/nif-numeric-windows-environment-lifetime-and-output-containment"
+  ],
+  "FailureRows": [],
+  "IntegrationResults": {
+    "PackagedReadiness": "Passed",
+    "Build": "Passed",
+    "PackageConsumer": "Passed",
+    "Readiness": "Passed",
+    "HybridOutput": "Hello World",
+    "LocalTool": "Passed",
+    "DisabledPreprocessing": "Expected failure",
+    "Incremental": "Passed",
+    "CleanRebuild": "Passed",
+    "OracleUnavailableReport": "Expected failure recorded",
+    "Tests": "Passed"
+  },
+  "Packages": [
+    {
+      "Path": "artifacts/packages/Erlang.Net.CSharp.0.1.0.nupkg",
+      "Sha256": "F3FA3B822327E10DE08ECFCC09D7A2B799928A07AC45E302A19F93270F263EA2",
+      "Id": "Erlang.Net.CSharp",
+      "Version": "0.1.0",
+      "ZipMembers": 26,
+      "CrcAndSafeUniquePathsVerified": true,
+      "SourceBoundMembers": [
+        "README.md",
+        "licenses/DOTNET-LICENSE.txt",
+        "licenses/DOTNET-ThirdPartyNotices.txt",
+        "licenses/OTP-LICENSE.txt",
+        "licenses/OTP-PORTS.md",
+        "licenses/ROSLYN-LICENSE.txt",
+        "lib/net10.0/Erlang.Terms.dll",
+        "lib/net10.0/Erlang.Runtime.dll",
+        "lib/net10.0/Erlang.Compiler.dll",
+        "lib/net10.0/Erlang.Otp.Behaviours.dll",
+        "lib/net10.0/Erlang.Serialization.dll"
+      ]
+    },
+    {
+      "Path": "artifacts/packages/Erlang.Net.Tool.0.1.0.nupkg",
+      "Sha256": "2AF2BAE8DD2693EC002E3AE0F2AD4D91B8371F69FFE7E28C7F15F5D4E150CB20",
+      "Id": "Erlang.Net.Tool",
+      "Version": "0.1.0",
+      "ZipMembers": 53,
+      "CrcAndSafeUniquePathsVerified": true,
+      "SourceBoundMembers": [
+        "README.md",
+        "licenses/DOTNET-LICENSE.txt",
+        "licenses/DOTNET-ThirdPartyNotices.txt",
+        "licenses/OTP-LICENSE.txt",
+        "licenses/OTP-PORTS.md",
+        "licenses/ROSLYN-LICENSE.txt",
+        "tools/net10.0/any/Erlang.Tool.dll",
+        "tools/net10.0/any/Erlang.Terms.dll",
+        "tools/net10.0/any/Erlang.Runtime.dll",
+        "tools/net10.0/any/Erlang.Compiler.dll"
+      ]
+    }
+  ],
+  "PackageInputs": 6,
+  "TermOrderChildren": 12,
+  "ChildMatrixVerified": true,
+  "RuntimeSourceGuards": 165,
+  "CompatibilityCounts": {
+    "Verified compatible": 16,
+    "Needs verification": 541,
+    "Known differences": 30
+  },
+  "LedgerEvidenceRows": 42,
+  "LedgerRequiredEvidenceSchemaVerified": true,
+  "Readiness": [
+    {
+      "Path": "artifacts/readiness/module-readiness.json",
+      "Sha256": "0EC8BB95F35F651C51B0CA7DCB5DF0B98114E0584A49936CBDD658BF225EAF15"
+    },
+    {
+      "Path": "artifacts/tool-readiness/module-readiness.json",
+      "Sha256": "0EC8BB95F35F651C51B0CA7DCB5DF0B98114E0584A49936CBDD658BF225EAF15"
+    }
+  ],
+  "RegistryRows": 587,
+  "RegistryNonLimitsAndOrderPreserved": true,
+  "RegistryBeforeSha256": "19F1A426F5410308821F3C973065B8CB82AC3365417FA2D598D2A7E487D17FAD",
+  "RawRegistrySha256": "23A1729AC575A30C500F26F47877012E1D6C632DB8A43A21F3DBBE6F9C8A0FAB",
+  "CustomLimitsRestorationPending": true,
+  "FullExitSha256": "0935F5AFAA299EF54D5D3D346AF90F4FEAA990B3D9AAE969C02A095484887185",
+  "FullStdoutSha256": "2A9507E292F995498F78C238BD710A138285BCC691E3610155C4CBC97FB646E0",
+  "FullStderrSha256": "CA28DC90026E2F533157EF715CA259762FB2CDE0F743DD1591699AD5FBCAECA0",
+  "TestReportSha256": "0CC7192ECF573336E5C4A34A6265415AFF0006F10E0CDE2B59D119E8B779756E",
+  "CapturedIndexSha256": "0042AD1996D7C6C37999AED9FFA4F13842734F57DC5C383264B7F47F39A22AB3",
+  "NativeSourcePlans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Rows": 1345,
+      "Sha256": "8AB6C975A5F7D44A380ED41BCA80909DF4EDC687E9237491633B28A73E40A47F",
+      "AllRowsAndSealVerified": true
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Rows": 1370,
+      "Sha256": "BEA3245A60A38D074F93738F39A3F4061E49EBFB70750B2455A402BBDFBA1BC1",
+      "AllRowsAndSealVerified": true
+    }
+  ],
+  "ReaderSha256": "CDD12DB7F95C963D9085E48D8422D2A67605DBC133378B724625F6D9F335A1F5",
+  "NativeIdentityAfterFull": {
+    "CanonicalDllChanges": [],
+    "ObservedFocusDllChanges": [],
+    "NativeReuseWithCanonicalFull": true,
+    "RequiresNativeRerun": false,
+    "Scope": "Same-source previous native observations are reusable only when all six canonical core/backend DLLs and observed focus DLLs remain byte exact. Otherwise rebuild/reacquire native routes before publication."
+  },
+  "SemanticNameMigrations": [
+    {
+      "Old": "runtime/remote-spawn-opt-last-monitor-option-resets-custom-tag",
+      "New": "runtime/remote-spawn-opt-monitor-atom-preserves-custom-tag",
+      "Reason": "Original connected monitor atom preserves prior tuple tag; tuple-empty resets tested inside same HOST group."
+    },
+    {
+      "Old": "runtime/remote-spawn-request-last-monitor-option-resets-custom-tag",
+      "New": "runtime/remote-spawn-request-monitor-atom-preserves-custom-tag",
+      "Reason": "Original connected monitor atom preserves prior tuple tag; tuple-empty resets tested inside same HOST group."
+    }
+  ],
+  "Other7384PriorNamesPreserved": true,
+  "OriginalOtpExecuted": false,
+  "NativeAbiExecuted": false,
+  "MainModified": false,
+  "AuthorshipDisclosure": "Reader author also authored357 source composition; separate Root source review and external peer required. Passive recomputation is not independent implementation authorship.",
+  "PriorAttemptsNotOverwritten": true,
+  "DriverIdentityScope": "Recorded driver path/current hash; only Terms identity emitted by child; no initial fullDLLsnapshot claimed.",
+  "NoCompatibilityPromotionInferredFromFull": true
+}

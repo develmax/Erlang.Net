@@ -40,7 +40,7 @@ jobs:
             make -j2
             make install
           ) 2>&1 | tee artifacts/remote-monitor-order-original/original-build.log
-      - name: Capture four fresh real TCP peer pairs and joined cleanup
+      - name: Capture six fresh real TCP peer pairs and joined cleanup
         shell: bash
         run: |
           set -euo pipefail
@@ -55,6 +55,6 @@ jobs:
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: remote-monitor-order-original-four
+          name: remote-monitor-order-original-six
           path: artifacts/remote-monitor-order-original/**
           if-no-files-found: warn

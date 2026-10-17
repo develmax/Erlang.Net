@@ -1,0 +1,234 @@
+{
+  "Status": "PASS_PASSIVE_ACTUAL_FAILED_CANONICAL359_ACQUISITION_NO_FULL_ACCEPTANCE",
+  "Passed": 7377,
+  "Failed": 17,
+  "FullAccepted": false,
+  "CompositionPlanSha256": "4C34025C4B7B3E585D63F6C721C9443F3960F22A9E83685D2F5A412E6191417D",
+  "SourceFreezeSha256": "DDAB4969D7C754E7ABA6E08618B4D33B40ACF71DC4E057DA520A18DA91495821",
+  "StableClosureRows": 3063,
+  "OwnedPaths": 58,
+  "OldOrderedNamesPrefix": true,
+  "OldOrderedPrefixCount": 7345,
+  "ExpectedTests": 7394,
+  "AddedTestNames": [
+    "oracle/compiled-module/fullsweep_process_domain",
+    "oracle/compiled-module/fullsweep_spawn_forms",
+    "oracle/compiled-module/fullsweep_request_forms",
+    "oracle/compiled-module/fullsweep_default_snapshot",
+    "oracle/compiled-module/statistics-reductions-real-work-monotonic",
+    "oracle/compiled-module/statistics-reductions-independent-key-cursors",
+    "oracle/compiled-module/statistics-reductions-retains-retired-child-work",
+    "oracle/compiled-module/spawn-monitor-option-order-last-wins",
+    "oracle/compiled-module/scheduler-statistics-real-queue-shape-and-active-caller",
+    "oracle/compiled-module/erlang-system-monitor-busy-port-atom",
+    "oracle/compiled-module/erlang-system-monitor-busy-port-tuple-enabled",
+    "oracle/compiled-module/erlang-system-monitor-busy-port-duplicate-disabled",
+    "oracle/compiled-module/erlang-system-monitor-busy-port-duplicate-enabled",
+    "oracle/compiled-module/erlang-system-monitor-busy-port-invalid-rollback",
+    "oracle/compiled-module/erlang-system-monitor-busy-port-query-option-order",
+    "oracle/compiled-module/erlang-system-monitor-busy-port-replace-and-clear",
+    "oracle/compiled-module/erlang-system-monitor-busy-port-receiver-death",
+    "runtime/fullsweep-zero-real-major-collection",
+    "runtime/statistics-real-reductions-retired-actors-independent-cursors",
+    "runtime/remote-spawn-opt-monitor-atom-preserves-custom-tag",
+    "runtime/remote-spawn-request-monitor-atom-preserves-custom-tag",
+    "runtime/scheduler-statistics-queued-owner-dedup-and-idle",
+    "runtime/scheduler-statistics-offline-bound-lane-order",
+    "runtime/scheduler-statistics-host-initializer-excluded",
+    "runtime/system-monitor-busy-port-configuration-and-rollback",
+    "runtime/system-monitor-real-busy-port-wait-notification",
+    "runtime/port-command-cancellation-before-prior-protocol-command-completes",
+    "runtime/port-info-one-argument-cancellation-before-prior-command",
+    "runtime/port-info-two-argument-cancellation-before-prior-command",
+    "runtime/port-close-caller-cancellation-preserves-accepted-close",
+    "oracle/compiled-module/erlang-load-nif-ordinary-host-missing-string",
+    "oracle/compiled-module/erlang-load-nif-ordinary-host-missing-binary",
+    "oracle/compiled-module/erlang-load-nif-ordinary-host-badarg",
+    "runtime/nif-array-callback-empty-null-input",
+    "runtime/nif-array-callback-order-aliases-and-large-arrays",
+    "runtime/nif-array-callback-bounded-count-system-limit",
+    "runtime/nif-array-callback-foreign-expired-and-null-containment",
+    "runtime/remote-spawn-async-dist-option-metadata",
+    "runtime/remote-spawn-opt-request-child-async-dist-regression",
+    "runtime/remote-spawn-opt-request-priority-link-duplicate-order",
+    "runtime/nif-load-reason-original-five-controls",
+    "runtime/nif-type-callback-windows-table-all-term-categories",
+    "runtime/nif-type-callback-windows-environment-independent",
+    "runtime/nif-list-cell-windows-proper-improper-and-negative",
+    "runtime/nif-type-list-cell-windows-expired-owner-containment",
+    "runtime/nif-numeric-windows-integer-conversion-boundaries-canaries",
+    "runtime/nif-numeric-windows-integer-constructor-boundaries",
+    "runtime/nif-numeric-windows-finite-bits-and-nonfinite-badarg",
+    "runtime/nif-numeric-windows-environment-lifetime-and-output-containment"
+  ],
+  "FailureRows": [
+    {
+      "Name": "runtime/connected-wire-order-last-tuple-precedence",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Connected remote spawn HOST contract failed.\r\n   at Erlang.Tests.ConnectedSpawnWireOptionHostChecks.Require(Boolean passed) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\ConnectedSpawnWireOptionHostChecks.cs:line 115\r\n   at Erlang.Tests.ConnectedSpawnWireOptionHostChecks.<>c__DisplayClass0_0.<<WireOrderAndLastTuplePrecedence>b__2>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\ConnectedSpawnWireOptionHostChecks.cs:line 94\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.<>c__DisplayClass9_0`1.<<InvokeAsync>b__0>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\RuntimeNodeFoundationHostActor.cs:line 43\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func`2 command) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\RuntimeNodeFoundationHostActor.cs:line 51\r\n   at Erlang.Tests.ConnectedSpawnWireOptionHostChecks.WireOrderAndLastTuplePrecedence() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\ConnectedSpawnWireOptionHostChecks.cs:line 92\r\n   at Erlang.Tests.ConnectedSpawnWireOptionHostChecks.WireOrderAndLastTuplePrecedence() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\ConnectedSpawnWireOptionHostChecks.cs:line 92\r\n   at Erlang.Tests.ConnectedSpawnWireOptionHostChecks.WireOrderAndLastTuplePrecedence() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\ConnectedSpawnWireOptionHostChecks.cs:line 92\r\n   at Erlang.Tests.ConnectedSpawnWireOptionHostChecks.WireOrderAndLastTuplePrecedence() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\ConnectedSpawnWireOptionHostChecks.cs:line 92\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4831",
+      "Milliseconds": 24
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-echo-3",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 425\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4220\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4831",
+      "Milliseconds": 51
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-echo-4",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 425\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4220\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4831",
+      "Milliseconds": 46
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-shared-streams-5",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 425\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4220\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4831",
+      "Milliseconds": 48
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-shared-streams-6",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 425\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4220\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4831",
+      "Milliseconds": 50
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-shared-streams-7",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 425\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4220\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4831",
+      "Milliseconds": 49
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-shell-shared-streams",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 425\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4220\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4831",
+      "Milliseconds": 50
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-arg0-9",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 425\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4220\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4831",
+      "Milliseconds": 49
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-arg0-10",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 425\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4220\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4831",
+      "Milliseconds": 47
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-arg0-11",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 425\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4220\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4831",
+      "Milliseconds": 42
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-arg0-preserved-by-args",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 425\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4220\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4831",
+      "Milliseconds": 49
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-auxiliary-19",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 425\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4220\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4831",
+      "Milliseconds": 45
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-auxiliary-20",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 425\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4220\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4831",
+      "Milliseconds": 49
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-auxiliary-21",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 425\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4220\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4831",
+      "Milliseconds": 44
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-input-only-eof",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 425\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4220\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4831",
+      "Milliseconds": 43
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-input-only-output-fails",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 425\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4220\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4831",
+      "Milliseconds": 52
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-native-option-output-only-no-data",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.<<Main>$>g__Check|0_10(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 423\r\n   at Program.<<Main>$>g__Equal|0_11(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 425\r\n   at Program.<>c__DisplayClass0_79.<<<Main>$>b__559>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4220\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-callback24-candidate2\\tests\\Erlang.Tests\\Program.cs:line 4831",
+      "Milliseconds": 47
+    }
+  ],
+  "IntegrationResults": null,
+  "Packages": [],
+  "PackageInputs": 6,
+  "TermOrderChildren": 12,
+  "ChildMatrixVerified": true,
+  "RuntimeSourceGuards": 165,
+  "CompatibilityCounts": {
+    "Verified compatible": 16,
+    "Needs verification": 541,
+    "Known differences": 30
+  },
+  "LedgerEvidenceRows": 42,
+  "LedgerRequiredEvidenceSchemaVerified": true,
+  "Readiness": [],
+  "RegistryRows": 587,
+  "RegistryNonLimitsAndOrderPreserved": true,
+  "RegistryBeforeSha256": "19F1A426F5410308821F3C973065B8CB82AC3365417FA2D598D2A7E487D17FAD",
+  "RawRegistrySha256": "19F1A426F5410308821F3C973065B8CB82AC3365417FA2D598D2A7E487D17FAD",
+  "CustomLimitsRestorationPending": true,
+  "FullExitSha256": "FFD892F59CBD0E805492044F3365F952F1FEC02C743EA7101448C7C0ADE7A5A8",
+  "FullStdoutSha256": "05D39AD9BB042E1322065ADDB1463758A04C70FB8CE2053527DD94B9111A876D",
+  "FullStderrSha256": "399D7FA6611EF9BCCEDC953FD1CBDE47960A7CED1EAFDD3B6556907649D4ADE4",
+  "TestReportSha256": "3A9FDD0CB8A0F6CA0DE74E7502E12420ACF0B6E5BE4BB850DBD4700FCBEE506D",
+  "CapturedIndexSha256": "25A123CC51DEFD8ADD43866C2D2167B4B870BDD4D02783E6C99E84378AB0FF89",
+  "NativeSourcePlans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Rows": 1345,
+      "Sha256": "A974B87F211B9D5B4B3C08376AB92AF6B0585B541275920E2ABF7C09BE228473",
+      "AllRowsAndSealVerified": true
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Rows": 1370,
+      "Sha256": "FB33286157D1ECA2FCCFF0F90F2FE3C6A622C36B5683B7627EC66E2ADC6A68E0",
+      "AllRowsAndSealVerified": true
+    }
+  ],
+  "ReaderSha256": "CDD12DB7F95C963D9085E48D8422D2A67605DBC133378B724625F6D9F335A1F5",
+  "NativeIdentityAfterFull": {
+    "CanonicalDllChanges": [],
+    "ObservedFocusDllChanges": [],
+    "NativeReuseWithCanonicalFull": true,
+    "RequiresNativeRerun": false,
+    "Scope": "Same-source previous native observations are reusable only when all six canonical core/backend DLLs and observed focus DLLs remain byte exact. Otherwise rebuild/reacquire native routes before publication."
+  },
+  "SemanticNameMigrations": [
+    {
+      "Old": "runtime/remote-spawn-opt-last-monitor-option-resets-custom-tag",
+      "New": "runtime/remote-spawn-opt-monitor-atom-preserves-custom-tag",
+      "Reason": "Original connected monitor atom preserves prior tuple tag; tuple-empty resets tested inside same HOST group."
+    },
+    {
+      "Old": "runtime/remote-spawn-request-last-monitor-option-resets-custom-tag",
+      "New": "runtime/remote-spawn-request-monitor-atom-preserves-custom-tag",
+      "Reason": "Original connected monitor atom preserves prior tuple tag; tuple-empty resets tested inside same HOST group."
+    }
+  ],
+  "Other7384PriorNamesPreserved": true,
+  "OriginalOtpExecuted": false,
+  "NativeAbiExecuted": false,
+  "MainModified": false,
+  "AuthorshipDisclosure": "Reader author also authored357 source composition; separate Root source review and external peer required. Passive recomputation is not independent implementation authorship.",
+  "PriorAttemptsNotOverwritten": true,
+  "DriverIdentityScope": "Recorded driver path/current hash; only Terms identity emitted by child; no initial fullDLLsnapshot claimed.",
+  "NoCompatibilityPromotionInferredFromFull": true
+}

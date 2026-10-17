@@ -57,9 +57,9 @@ internal sealed class ProcessSpawnOptions
                 result.FullSweepAfter = current.FullSweepAfter;
             result.Link |= current.Link;
             if (option is TupleTerm { Items: [Atom { Name: ProcessSpawnOptionNames.Link }, _] })
-                result.PriorityLink = current.PriorityLink;
+                result.PriorityLink |= current.PriorityLink;
             result.Monitor |= current.Monitor;
-            if (option is Atom { Name: ProcessSpawnOptionNames.Monitor } or TupleTerm { Items: [Atom { Name: ProcessSpawnOptionNames.Monitor }, _] })
+            if (option is TupleTerm { Items: [Atom { Name: ProcessSpawnOptionNames.Monitor }, _] })
                 result.MonitorOptions = current.MonitorOptions;
         }
 

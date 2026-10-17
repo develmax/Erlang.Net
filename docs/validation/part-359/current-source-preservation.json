@@ -1,0 +1,159 @@
+{
+  "Status": "AUTHOR_CURRENT_SOURCE_BINDING_AND_LIMITS_CORRECTION_REQUIRES_ROOT_PEER_FULL_ORIGINAL",
+  "ParentHead": "b61d0298662e80b4d5d6dbe3b1814695c4b1d30f",
+  "Production": [
+    {
+      "Path": "src/Erlang.Runtime/NifNativeCallEnvironment.cs",
+      "Sha256": "120EED31067EFEBA748E245E2E59B1D56DF1A825CB984ED92F5822BD591B7893"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeListCellCallbacks.cs",
+      "Sha256": "2348281C6E31FA083C5E0E015473C5ABF3E9188C60D784263C2B3256E67C2975"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeListCellNames.cs",
+      "Sha256": "B4C16D2AC246CF13D08CF20BF2132E592D1498EE13ACD583B50413FFBC85E12E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeNumericCallbacks.cs",
+      "Sha256": "1C152D20768119256841EDDAD438C35E0E2E489EBBEBFB1FAAE5B5F5759E8E3E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeNumericConversionCodes.cs",
+      "Sha256": "69C3C0BEB5E6574E1703D8E3F35C08DFF0A2C615D8B4996D6F1E5E1526523815"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeNumericNames.cs",
+      "Sha256": "80E517253B57DE8379A817FE6FAE1EE352B33D570141528E0C347389171FA2C1"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeTypeCallbacks.cs",
+      "Sha256": "2DDA0B097F36DBB7A1FF7AC770EF743A505CAA47A8F007DC91938112AB626894"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeTypeKind.cs",
+      "Sha256": "595C7BE7C92399A2B96E66B1883DE5836BE72CBB41338223F97849F3D80DB0CA"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeWindowsCallbackLayout.cs",
+      "Sha256": "5F869A56D3C71E083063D7B10DB4453F8C6ACAC17E5B796EEC26DCC38B9C36F6"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeWindowsCallbacks.cs",
+      "Sha256": "45C56A95E7DF7035E8D2147F1E62F404BCA3343571A2F569F32234B7BC86B1D3"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessSpawnOptions.cs",
+      "Sha256": "1D0907B947532F5AE6B7DA2D7EAB4C76B587CEFF2D8D46AEBCA8081EA8739330"
+    }
+  ],
+  "SourceGuards": 165,
+  "PreviousVerifiedContractsPromoted": 0,
+  "ExistingVerifiedContracts": "Sixteen existing primitive contracts retain their existing semantic scope/original/audit evidence; new NIF fixed-table and spawn-option branches are separate unpromoted paths. Current source identities refreshed without claiming complete API verification.",
+  "SelectedFocus": "Accepted source/type/numeric managed focuses and remote repair3 and subsequent four-group priority-link repair controls precede this composition; prior full failure remains immutable. Final native normal/null22 rows and arrays0/3/8193, canonical7394/current-head CI and new original workflows remain separate.",
+  "SemanticNameMigrations": [
+    {
+      "Old": "runtime/remote-spawn-opt-last-monitor-option-resets-custom-tag",
+      "New": "runtime/remote-spawn-opt-monitor-atom-preserves-custom-tag",
+      "Reason": "Original connected monitor atom preserves prior tuple tag; tuple-empty resets tested inside same HOST group."
+    },
+    {
+      "Old": "runtime/remote-spawn-request-last-monitor-option-resets-custom-tag",
+      "New": "runtime/remote-spawn-request-monitor-atom-preserves-custom-tag",
+      "Reason": "Original connected monitor atom preserves prior tuple tag; tuple-empty resets tested inside same HOST group."
+    }
+  ],
+  "LimitsCorrections": [
+    {
+      "Module": "erlang",
+      "Function": "spawn_opt",
+      "Arity": 2,
+      "LimitIndex": 2,
+      "Before": "Part357 fullsweep_after controls explicit CLR collection mode and last remote monitor option controls tag. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete.",
+      "After": "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
+    },
+    {
+      "Module": "erlang",
+      "Function": "spawn_opt",
+      "Arity": 3,
+      "LimitIndex": 2,
+      "Before": "Part357 fullsweep_after controls explicit CLR collection mode and last remote monitor option controls tag. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete.",
+      "After": "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
+    },
+    {
+      "Module": "erlang",
+      "Function": "spawn_opt",
+      "Arity": 4,
+      "LimitIndex": 2,
+      "Before": "Part357 fullsweep_after controls explicit CLR collection mode and last remote monitor option controls tag. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete.",
+      "After": "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
+    },
+    {
+      "Module": "erlang",
+      "Function": "spawn_opt",
+      "Arity": 5,
+      "LimitIndex": 2,
+      "Before": "Part357 fullsweep_after controls explicit CLR collection mode and last remote monitor option controls tag. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete.",
+      "After": "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
+    },
+    {
+      "Module": "erlang",
+      "Function": "spawn_request",
+      "Arity": 1,
+      "LimitIndex": 1,
+      "Before": "Part357 fullsweep_after controls explicit CLR collection mode and last remote monitor option controls tag. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete.",
+      "After": "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
+    },
+    {
+      "Module": "erlang",
+      "Function": "spawn_request",
+      "Arity": 2,
+      "LimitIndex": 2,
+      "Before": "Part357 fullsweep_after controls explicit CLR collection mode and last remote monitor option controls tag. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete.",
+      "After": "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
+    },
+    {
+      "Module": "erlang",
+      "Function": "spawn_request",
+      "Arity": 3,
+      "LimitIndex": 2,
+      "Before": "Part357 fullsweep_after controls explicit CLR collection mode and last remote monitor option controls tag. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete.",
+      "After": "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
+    },
+    {
+      "Module": "erlang",
+      "Function": "spawn_request",
+      "Arity": 4,
+      "LimitIndex": 2,
+      "Before": "Part357 fullsweep_after controls explicit CLR collection mode and last remote monitor option controls tag. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete.",
+      "After": "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
+    },
+    {
+      "Module": "erlang",
+      "Function": "spawn_request",
+      "Arity": 5,
+      "LimitIndex": 2,
+      "Before": "Part357 fullsweep_after controls explicit CLR collection mode and last remote monitor option controls tag. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete.",
+      "After": "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
+    }
+  ],
+  "Remaining": "Broader native ABI, dirty/resources/upgrade, automatic/per-process physical GC, full connected scheduling and performance equality remain incomplete.",
+  "Authorship": "Source composition author prepared this binding refresh; Root peer review and actual focused/canonical/original evidence are separate.",
+  "PriorityLinkRepair": {
+    "Cause": "Remote singleton parsing previously dropped cumulative priority link state when another option followed priority link.",
+    "Implementation": "OR accumulated result.PriorityLink with current.PriorityLink, retaining pinned OTP asymmetric atom monitor option inheritance.",
+    "SourceSha256": "1D0907B947532F5AE6B7DA2D7EAB4C76B587CEFF2D8D46AEBCA8081EA8739330",
+    "FocusedActual": "Four permanent connected HOST groups passed in the caught priority repair focus; full/native successor acquisition remains separate.",
+    "PriorFullFailureRetained": true
+  },
+  "PriorityMetadataFixtureCorrection": {
+    "RuntimeUnchanged": true,
+    "PreviousFull": "artifacts/part359-full-actual2",
+    "PriorPassed": 7393,
+    "PriorFailed": 1,
+    "Correction": "Existing PriorityDuplicates now expects remote priority retention after empty tuples; added empty-only and empty+plain negative controls for both APIs.",
+    "FocusedActual": "artifacts/part359-priority-metadata-repair-focused-actual1/completion.json",
+    "FocusedCompletionSha256": "87ABA0A76ED02B33D16C76A6DEA1ABB1C3B6150B2256970E798C9AA8F56C2E05",
+    "FocusedPassed": 5
+  }
+}

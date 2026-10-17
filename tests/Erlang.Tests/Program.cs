@@ -4782,6 +4782,43 @@ Test(
     NifNativeBackend::Erlang.NifNativeBackend.NifNativeLoadReasonHostEntry.Run
 );
 
+Test(
+    Erlang.Tests.NifTypeCallbackHostNames.Classification,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeTypeHostEntry.Classification
+);
+Test(
+    Erlang.Tests.NifTypeCallbackHostNames.EnvironmentIndependence,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeTypeHostEntry.EnvironmentIndependence
+);
+Test(
+    Erlang.Tests.NifTypeCallbackHostNames.ListCells,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeTypeHostEntry.ListCells
+);
+Test(
+    Erlang.Tests.NifTypeCallbackHostNames.Containment,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeTypeHostEntry.Containment
+);
+
+Test(
+    Erlang.Tests.NifNumericCallbackHostNames.IntegerGetters,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeNumericHostEntry.IntegerGetters
+);
+
+Test(
+    Erlang.Tests.NifNumericCallbackHostNames.IntegerBuilders,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeNumericHostEntry.IntegerBuilders
+);
+
+Test(
+    Erlang.Tests.NifNumericCallbackHostNames.Doubles,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeNumericHostEntry.Doubles
+);
+
+Test(
+    Erlang.Tests.NifNumericCallbackHostNames.EnvironmentAndContainment,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeNumericHostEntry.EnvironmentAndContainment
+);
+
 int failed = 0;
 foreach (var test in tests)
 {

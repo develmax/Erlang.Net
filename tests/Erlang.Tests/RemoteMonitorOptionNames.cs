@@ -2,8 +2,8 @@ namespace Erlang.Tests;
 
 internal static class RemoteMonitorOptionNames
 {
-    internal const string SpawnTest = "runtime/remote-spawn-opt-last-monitor-option-resets-custom-tag";
-    internal const string RequestTest = "runtime/remote-spawn-request-last-monitor-option-resets-custom-tag";
+    internal const string SpawnTest = "runtime/remote-spawn-opt-monitor-atom-preserves-custom-tag";
+    internal const string RequestTest = "runtime/remote-spawn-request-monitor-atom-preserves-custom-tag";
     internal const string NodeA = "monitor_order_a@localhost";
     internal const string NodeB = "monitor_order_b@localhost";
     internal const string Module = "remote_monitor_option_order";

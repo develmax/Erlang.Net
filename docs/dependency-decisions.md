@@ -692,3 +692,7 @@ Part304: reuse the existing passive Python ETF decoder, receipt/process helper a
 ## Part357 runtime and native adapters
 
 Reuse existing BCL/compiler projects; add no package. Pinned OTP contracts and CLR adaptation boundaries are recorded in [part357 source attribution](validation/part-357/source-attribution.md). Keep existing packaged notices byte-exact to the canonical local package inputs; no source license headers or LICENSE.local.txt are added.
+
+## Part359 fixed Windows callbacks and original-driven monitor semantics
+
+Reuse existing BCL/guest ownership/compiler projects without another package. [Source and adaptation record](validation/part-359/source-attribution.md) records pinned OTP contracts, LLP64 limits and selected native scope. Leave six canonical package resources exact, source headers absent and LICENSE.local.txt unpublished.

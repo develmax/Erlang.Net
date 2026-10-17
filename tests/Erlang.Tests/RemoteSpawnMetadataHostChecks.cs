@@ -54,9 +54,21 @@ public static class RemoteSpawnMetadataHostChecks
         {
             await Connected(
                 request,
-                Term.List(priority, empty),
+                Term.List(empty),
                 false,
                 false
+            );
+            await Connected(
+                request,
+                Term.List(empty, plain),
+                false,
+                false
+            );
+            await Connected(
+                request,
+                Term.List(priority, empty),
+                false,
+                true
             );
             await Connected(
                 request,
@@ -74,7 +86,7 @@ public static class RemoteSpawnMetadataHostChecks
                 request,
                 Term.List(priority, empty, plain),
                 false,
-                false
+                true
             );
         }
     }

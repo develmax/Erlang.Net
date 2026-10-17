@@ -60,6 +60,24 @@ internal sealed unsafe class NifNativeCallEnvironment : IDisposable
         return environment;
     }
 
+    internal static NifNativeCallEnvironment ResolveTermOwner(nuint handle, nint environmentHint)
+    {
+        int currentThread = Environment.CurrentManagedThreadId;
+        // The argument is an optional index hint, never dereferenced or required.
+        if (Environments.TryGetValue(environmentHint, out var hinted) &&
+            hinted.threadId == currentThread && hinted.pointer != 0 && hinted.terms.ContainsKey(handle))
+            return hinted;
+        foreach (var entry in Environments)
+        {
+            var environment = entry.Value;
+            if (environment.threadId == currentThread && environment.pointer != 0 &&
+                environment.terms.ContainsKey(handle))
+                return environment;
+        }
+
+        throw new InvalidOperationException(NifNativeDiagnostics.ForeignTermHandle);
+    }
+
     internal nuint Add(Term term)
     {
         _ = Pointer;

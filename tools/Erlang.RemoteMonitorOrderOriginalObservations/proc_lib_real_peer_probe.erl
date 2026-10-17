@@ -44,9 +44,14 @@ run(Case, Output) ->
 scenario(Case,Peer,Remote) ->
     true = Remote =/= node(),
     CustomLast = lists:member(Case,[spawn_custom_last,request_custom_last]),
-    Request = lists:member(Case,[request_plain_last,request_custom_last]),
+    Request = lists:member(Case,[request_plain_last,request_custom_last,request_empty_tuple_last]),
+    EmptyTupleLast = lists:member(Case,[spawn_empty_tuple_last,request_empty_tuple_last]),
     Custom = {monitor,[{tag,custom_monitor_order}]},
-    Options = case CustomLast of true -> [monitor,Custom]; false -> [Custom,monitor] end,
+    Options = case {CustomLast,EmptyTupleLast} of
+        {_,true} -> [Custom,{monitor,[]}];
+        {true,false} -> [monitor,Custom];
+        {false,false} -> [Custom,monitor]
+    end,
     {Child,Primary,Returned,Reply} = case Request of
         false ->
             Started = erlang:spawn_opt(Remote,proc_lib_remote_payload,child,[self()],Options),
@@ -82,7 +87,7 @@ scenario(Case,Peer,Remote) ->
             save("child-cleanup.etf",{observed,Reason})
         after 7000 -> error(child_cleanup_timeout) end,
         save("monitor-order.etf",#{api=>case Request of true->spawn_request;false->spawn_opt end,
-            custom_last=>CustomLast,observer_node=>node(),remote_node=>Remote,
+            custom_last=>CustomLast,empty_tuple_last=>EmptyTupleLast,observer_node=>node(),remote_node=>Remote,
             child=>Child,primary_ref=>Primary,spawn_return=>Returned,
             request_reply=>Reply,down=>Down,options=>Options,
             connected_nodes=>nodes(connected)})

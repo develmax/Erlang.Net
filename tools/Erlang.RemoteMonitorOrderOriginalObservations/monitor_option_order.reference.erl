@@ -5,7 +5,7 @@ run(Node) ->
     lists:foreach(fun(CustomLast) ->
         Custom={monitor,[{tag,custom_monitor_order}]},
         Options=case CustomLast of true->[monitor,Custom]; false->[Custom,monitor] end,
-        Expected=case CustomLast of true->custom_monitor_order; false->'DOWN' end,
+        Expected=case Node =:= node() andalso not CustomLast of true->'DOWN'; false->custom_monitor_order end,
         {Pid,Ref}=spawn_opt(Node,monitor_option_order,child,[],Options),
         Pid!release,
         receive {Expected,Ref,process,Pid,normal}->ok after 5000->error(wrong_spawn_tag) end,

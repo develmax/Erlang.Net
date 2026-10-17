@@ -12,15 +12,17 @@ public static class RemoteMonitorOptionHostChecks
     {
         foreach (bool customLast in new[] { false, true })
             await RunCase(false, customLast);
+        await RunCase(false, false, emptyTupleLast: true);
     }
 
     public static async Task RunSpawnRequest()
     {
         foreach (bool customLast in new[] { false, true })
             await RunCase(true, customLast);
+        await RunCase(true, false, emptyTupleLast: true);
     }
 
-    private static async Task RunCase(bool request, bool customLast)
+    private static async Task RunCase(bool request, bool customLast, bool emptyTupleLast = false)
     {
         await using var a = new ConnectedSpawnHostEndpoint();
         await using var b = new ConnectedSpawnHostEndpoint();
@@ -53,7 +55,9 @@ public static class RemoteMonitorOptionHostChecks
 
         Term plain = Term.A(RemoteMonitorOptionNames.Monitor);
         Term custom = Term.Tuple(plain, Term.List(Term.Tuple(Term.A(RemoteMonitorOptionNames.Tag), Term.A(RemoteMonitorOptionNames.Custom))));
-        Term options = customLast ? Term.List(plain, custom) : Term.List(custom, plain);
+        Term options = emptyTupleLast
+            ? Term.List(custom, Term.Tuple(plain, Nil.Value))
+            : customLast ? Term.List(plain, custom) : Term.List(custom, plain);
         Pid? child = null;
         try
         {
@@ -70,7 +74,7 @@ public static class RemoteMonitorOptionHostChecks
             byte[] requestBytes = await a.TakePacket();
             var sent = DistributionPassThroughCodec.DecodeProcessPacket(requestBytes, negotiatedFlags: ConnectedSpawnHostNames.Flags);
             Require(sent.Control.Items[0].Equals(Term.I(DistributionControlOpcodes.SpawnRequest)));
-            Require(sent.Control.Items[DistributionSpawnLayout.OptionsIndex].Equals(Term.List(plain, plain)));
+            Require(sent.Control.Items[DistributionSpawnLayout.OptionsIndex].Equals(emptyTupleLast ? Term.List(plain) : Term.List(plain, plain)));
             ReferenceTerm reference = (ReferenceTerm)sent.Control.Items[DistributionSpawnLayout.ReferenceIndex];
             await b.PutPacket(requestBytes);
             Pid spawned = await entered.Task.WaitAsync(RemoteMonitorOptionNames.Deadline);
@@ -108,7 +112,7 @@ public static class RemoteMonitorOptionHostChecks
                     RemoteMonitorOptionNames.Deadline
                 );
                 Require(down is not null && down.Equals(Term.Tuple(
-                    Term.A(customLast ? RemoteMonitorOptionNames.Custom : RemoteMonitorOptionNames.Down),
+                    Term.A(emptyTupleLast ? RemoteMonitorOptionNames.Down : RemoteMonitorOptionNames.Custom),
                     reference,
                     Term.A(RemoteMonitorOptionNames.Process),
                     spawned,
