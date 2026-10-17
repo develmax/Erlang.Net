@@ -1,0 +1,955 @@
+{
+  "Status": "PASS_PASSIVE_PUBLISHED354_CI7343_ELEVEN_INTEGRATIONS",
+  "Head": "a54bb96cdd91c57052e953fd2705630f16cfe92e",
+  "Run": 39007596959,
+  "Job": 117323135900,
+  "Artifact": 12091522966,
+  "Passed": 7343,
+  "Failed": 0,
+  "Integrations": 11,
+  "Old7313OrderedPrefixPreserved": true,
+  "New30Names": [
+    "oracle/compiled-module/size_error_tuple_size",
+    "oracle/compiled-module/size_import_tuple_size",
+    "oracle/compiled-module/size_error_map_size",
+    "oracle/compiled-module/size_import_map_size",
+    "oracle/compiled-module/size_error_bit_size",
+    "oracle/compiled-module/size_import_bit_size",
+    "oracle/compiled-module/size_error_byte_size",
+    "oracle/compiled-module/size_import_byte_size",
+    "oracle/compiled-module/size_guard_matchspec",
+    "oracle/compiled-module/size_valid_values",
+    "oracle/compiled-module/size_custom_trace_preservation",
+    "oracle/compiled-module/size_depth_controls",
+    "oracle/compiled-module/backtrace_depth_flag",
+    "oracle/compiled-module/size_depth_import_controls",
+    "oracle/compiled-module/generic_depth_error",
+    "oracle/compiled-module/generic_depth_hd",
+    "oracle/compiled-module/common_error_capture_depth",
+    "oracle/compiled-module/common_wrapper_capture_depth",
+    "oracle/compiled-module/common_lifecycle_wrapper_slots",
+    "oracle/compiled-module/common_private_wrapper_clause",
+    "oracle/compiled-module/common_public_wrapper_clause",
+    "oracle/compiled-module/default_load_nif_accepted_domain",
+    "oracle/compiled-module/default_load_nif_invalid_filename",
+    "runtime/backtrace-depth-independent-runtimes",
+    "runtime/common-capture-identity-rollback-async",
+    "runtime/common-capture-null-fallback-prior-host",
+    "runtime/configured-load-nif-common-capture",
+    "runtime/common-preloaded-reinstall-identity",
+    "runtime/common-undefined-lambda-handler-provenance",
+    "runtime/canceled-unbound-continuation-stolen-before-bound-blocker-release"
+  ],
+  "SourceGuards": 115,
+  "CompatibilityCounts": {
+    "Verified compatible": 16,
+    "Needs verification": 541,
+    "Known differences": 30
+  },
+  "PublishedStageBlobs": 2260,
+  "OwnedCSharpSnapshots": 55,
+  "StableSourceRows": 3210,
+  "ExplicitSourceRepresentations": [
+    {
+      "Path": ".gitattributes",
+      "FrozenSha256": "E7110680B84C1D685F054BB6C95790D4D1EE43089FE13D57CD0B3AA328F3D19E",
+      "PublishedSha256": "A82D5B11D418137AF178001EBEF74DBD7C49FE729D64452499D5CF69FEDA8DE6",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": ".github/workflows/allocation-diagnostic.yml",
+      "FrozenSha256": "3C94130E12B4FCE17589FF77BCB6C23C814C500BE1A6B044A6C383B03A119AB8",
+      "PublishedSha256": "1AC3B4EC750CC987A41B987403AFEB03A0315239262C4214DAF2BC30B8E75C56",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": ".github/workflows/apply-optimizer-contrasts.yml",
+      "FrozenSha256": "DD98715A85270F56D56CFEAE756985F68BB977873767FFCDB84A4878A8D78C52",
+      "PublishedSha256": "0A1516973F067FFCE9631F7AC44488E2193FE52FD6301301F00F92BD79B69E67",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": ".github/workflows/beam-fixtures.yml",
+      "FrozenSha256": "C30D938A07ACBD23FEE586A46ED37ABA973FA8B562CCC478CF1C2CF1D588752C",
+      "PublishedSha256": "472C28E2E68A6471D17E2014DE4EEC326182F114BE40CF8AEFA90769E7B6188B",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": ".github/workflows/differential.yml",
+      "FrozenSha256": "F2C7DD4C823D4FA57ADD90F22DA708253B8D0AC25684B1D2175DB77C08F1507A",
+      "PublishedSha256": "19E4285AAF0E1EBC51DA85F126DDFE4A28174D9B94CDDB8C4D0936B4BB0775AA",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": ".github/workflows/distribution-monitor-payload-observations.yml",
+      "FrozenSha256": "591831C3BF126B0232E1789965950E166670474987B88F74A25F94271B3AF943",
+      "PublishedSha256": "541FE99A8F1A07BA3E83E2AD4A8FD5A5EBF2DD769B58FD47784124B9C5114CCF",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": ".github/workflows/distribution-payload-exit-observations.yml",
+      "FrozenSha256": "AA73A29B8EBB6564775BF6E6316F083BC74819EA72B370EA6EDA59E45656B6DA",
+      "PublishedSha256": "618E1C46385BAC0760557BED6AC867FAD98D5436650C61B17406161109001E04",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": ".github/workflows/distribution-pressure-observations.yml",
+      "FrozenSha256": "45200F9BE558D8BD69AE82D7A76372AD0069441193534642BFD42E1A9DBDDC83",
+      "PublishedSha256": "9C247FE5C5F5F5941A9DC2FFC7A568D8EFF761518001BC99524173083B51F6C8",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": ".github/workflows/distribution-trace-observations.yml",
+      "FrozenSha256": "3249C97CE719E2750486BAF0C04357F145496609ABC078F1F6FD1CF8C701A9E7",
+      "PublishedSha256": "75EB5400C97114068DB8D4EB052B9A0C85427701243024CCBC8FE4BCCAD09EBF",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": ".github/workflows/halt-differential.yml",
+      "FrozenSha256": "009CB0A46F7CE5268D9277FBC40276166CB1FC32C84D8B3CADC6A1BD031E8A10",
+      "PublishedSha256": "E77E9E7C7C5573A271E77017EAA0455DFD5155522FED1EB0AB24A1D80FE5797A",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": ".github/workflows/loader-contrasts.yml",
+      "FrozenSha256": "4F54CE788BBEFD8AE824120891C1B1F3701B47337D37572AA3741889ECE1F986",
+      "PublishedSha256": "F89FF89497B3D0EEE3FBC539F5DFE0A4A35414FC4265B20B770D37E9669332FF",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": ".github/workflows/loader-iodata-contrasts.yml",
+      "FrozenSha256": "3FF8CB7EB256F9D08C5D9333CDA889242DB7EA33242AD00D74A1F74F1FE8C7D3",
+      "PublishedSha256": "98662C1952E23294B174B0E49929C38D2C9B60B8C45F3C3CE1023DF8770429C0",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": ".github/workflows/local-node-admission-contrasts.yml",
+      "FrozenSha256": "17E07A3DDB095714A6331D9D5CC8A71E8C4FCC0D56E2AE3C8615C5A1EA2E76B7",
+      "PublishedSha256": "E8BAF44DFA809F8753BE0D7CD790E34FCAD41510AFAE9DF5B72530C0AAAB28A6",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": ".github/workflows/nif-fixture-observations.yml",
+      "FrozenSha256": "DBA324C8C24E48F13404B8067A09B257237BFE707EB653BC23B6A83ADFA8EFF0",
+      "PublishedSha256": "4E82BD73F1F638342523846FBB65293C1F9DFFB1EA62815CE4A2296C559816C1",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": ".github/workflows/node-identity-contrasts.yml",
+      "FrozenSha256": "62D4441931F6DA44361BFE99B5CBED5B127C876381819EDCD4B499F9D458AECC",
+      "PublishedSha256": "DD38327A55374734B64B0395AD5873C1755CB60014F4C5B25185F9661C549225",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "AGENTS.md",
+      "FrozenSha256": "AA74118C4EBA2F2E0D8D9C8AA30EA6B6B9AD143EC157C6A7B76E75AC9F0FD984",
+      "PublishedSha256": "61EA9619400980464E3E38F96ED82DBA765F6C9CE502D3418D7CAE28857CA40E",
+      "Reason": "ExplicitPostFullDocumentation"
+    },
+    {
+      "Path": "CHANGELOG.md",
+      "FrozenSha256": "D59003C62D3CB27B0AEA40F98D88653B280C009D2344202BFD9F85B0763BBB96",
+      "PublishedSha256": "3AB3F274FACA6F841E0C0E383E8A1AE190B5751076942363A020942DA77B0715",
+      "Reason": "ExplicitPostFullDocumentation"
+    },
+    {
+      "Path": "Erlang.Net.slnx",
+      "FrozenSha256": "78F6A7CBAE265B9F5A89942287650ABC591FE4C88315692C2F1A56E770027978",
+      "PublishedSha256": "4F7EBCC5D09802AC66EED860FB01A97C6D06B8481DCFA0388D7E19E5B228C91C",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/API_COMPATIBILITY.md",
+      "FrozenSha256": "01F1B402EDFE3A461251EEA362C1179D4AA24D3AD6036683088D0AE9C5F7A9C0",
+      "PublishedSha256": "AC7533C37F4411581427CE05CE5BCC991265F0B0C88ACB940EFEA01B86736263",
+      "Reason": "ExplicitPostFullDocumentation"
+    },
+    {
+      "Path": "docs/API_COMPATIBILITY_INDEX.md",
+      "FrozenSha256": "29D2509F386FABF98CCB0DB00A0D0C1F3A6E2A95909C640FD1305289CD4B3C18",
+      "PublishedSha256": "51879A05C705048E51B918F59AE2157AB9A8DEA2065C319BFAC2B8C9C04EF821",
+      "Reason": "ExplicitPostFullDocumentation"
+    },
+    {
+      "Path": "docs/CPU-TOPOLOGY-COMPOSITION.md",
+      "FrozenSha256": "51099C76CBAA27936D078ADEF28BF9A59C55910576D2B2993C0332B7C7AF8021",
+      "PublishedSha256": "3AACE079A24F2418C66E7A123B33AB3CABD5BC7B2664BA678EFB956A390086A3",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/DOTNET-LICENSE.txt",
+      "FrozenSha256": "535F99D87C276B2B1B19A1CD16033BB57D40532EE3FFAC2AB92D7607D33105F7",
+      "PublishedSha256": "5D7FCBB3E04B03275D268BC215D541A0C96A96CBAF96D690ABC285D22F4C2B4A",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/DOTNET-ThirdPartyNotices.txt",
+      "FrozenSha256": "DEB4427A295E1ED474B0D81C5A0D972C1B550B9A715CDA939CDFA9236B1B418F",
+      "PublishedSha256": "2DC8F8C5A39401E928B5784AB564EB8B3CEB99EAD3DF8F260E0CAB7E0BBECC7A",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/ERLANG_COMPATIBILITY.md",
+      "FrozenSha256": "037372BECAA0B1AE4F2C46A2F3154EDC64780C9EF338E280365ACE6AAE624ED7",
+      "PublishedSha256": "23E8DBF8F9DC8649FA5C8A4B0F037B1FBAB0DC6C3454CA093E074D73FD73E247",
+      "Reason": "ExplicitPostFullDocumentation"
+    },
+    {
+      "Path": "docs/LISTS_COMPATIBILITY.md",
+      "FrozenSha256": "874C2CBEAEF95162E9CEFA848CC07CBE47683226CA62185DB7E96FD96FDC8B77",
+      "PublishedSha256": "ED2CB6CD8BCE6F629B852E6F88894BD21252163FB1B4A56C974F0077FA419A9F",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/MAPS_COMPATIBILITY.md",
+      "FrozenSha256": "E41D4613466473C040985CE8E6E7712B2977B56C62B04D29140548C0182E80F4",
+      "PublishedSha256": "8B381CE6E641D609FB40574CF3BC758ED2468BA8065D4E17D5A02908FFEDD009",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/MODULE_READINESS.md",
+      "FrozenSha256": "7D25EE056F3569BD0E23778AF4319024E42944A50337072EB7B3A7BCAF8DDADF",
+      "PublishedSha256": "11A9E71B53B5D409BB3BDA7FBE2AC4B313A667176D3554345A741F3F2C20E81B",
+      "Reason": "ExplicitPostFullDocumentation"
+    },
+    {
+      "Path": "docs/OTP-GARBAGE-COLLECTION.md",
+      "FrozenSha256": "950BFFD38A1762B3AE11E307BF0F532A56BFA153FB1AF400B7D0597C3BFD5D97",
+      "PublishedSha256": "A2711C41BDFE41D4D65F8936B2DAEF9236FF2D1DC67392791BBEA0BE9EFD13B1",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/OTP-LICENSE.txt",
+      "FrozenSha256": "CD89DC3D7D7B1F3C1F6FECAA996A75FA3EBB5FEFAC7D26DE856BA9F5C57FD58F",
+      "PublishedSha256": "2935DE8423498CFE75B8C4043FC482914FF575EFA269F9B8F97FB559E209315C",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/OTP-MATCH-SPEC.md",
+      "FrozenSha256": "F20A4AB290C150E1917A0264A4AE8E353AC491549EBE9571E3E4941640044964",
+      "PublishedSha256": "2504F8C5B62382AEC12D777AED7128E877EFFEABE460238C0C562E9AE667601E",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/OTP-MATCH-TRACE-INTEGRATION.md",
+      "FrozenSha256": "11C125A50F05BE988331BA794AC9E8428A81F876DB22FFD1087FD468CAF1E732",
+      "PublishedSha256": "FBAAD2B318B97DD9F60A13701C7D904203DFEE7703EFC93C5722A87B461F5A06",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/OTP-PORTS.md",
+      "FrozenSha256": "BF72D0AEDA38823EAF03A8DCE3F4956369AD0EAD61E366DB5026C9B2D030E4E5",
+      "PublishedSha256": "AE1BB4ADC2A1536E44FC4BEB86BD5820A9BBD3153536ACAB73C9AD243E319211",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/OTP-PROCESS-INFO.md",
+      "FrozenSha256": "72F40B9AC9654E0979B34B2811C411ED279EB332C859002CCB725B8E32DD5799",
+      "PublishedSha256": "022D70DA4CDB14A95E5126F44C6409B714A1CCC691EFB24BDA7022518DA3E135",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/OTP_ADAPTERS.md",
+      "FrozenSha256": "6EB5B20A57234B7F7445B13D77D0F066EA177C45DB1A12D16C4819A74E297483",
+      "PublishedSha256": "E5BB1C85ADD194D4A2D190489744C8F16EF182ED9F5FDB46299F3BCF526E978F",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/PROGRESS.md",
+      "FrozenSha256": "6519F709FE7F17ACC35CBD3A36370C6CD3D93F8EE6321E65B749D2D57B5686A9",
+      "PublishedSha256": "859456157BFDAA16D3AC1D5E4CF5A9D3619FD215C90D7ACE9102598FE701C87F",
+      "Reason": "ExplicitPostFullDocumentation"
+    },
+    {
+      "Path": "docs/REFERENCE-RESOURCE-FOUNDATION.md",
+      "FrozenSha256": "9C4457F3FF3D9783EA1B954541BC05A7D4840CC315013FD2DD585D16AB393B54",
+      "PublishedSha256": "98A2B188A8987E10836984CFC7A20EE0F4D6FD03C3FF8ED56AFD419D9270B4F0",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/TEN_PERCENT_MILESTONE.md",
+      "FrozenSha256": "F49C28D52015AE6E11319A00559786E51A2F176A8C733230A8B192FBB2B0C22B",
+      "PublishedSha256": "906523780AF1AC07DF0EC893697D47121F5FD7272A08EFBE594ABA379E5F7F5C",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/beam-onload-host-source-candidate.md",
+      "FrozenSha256": "1E49722B187E76AD57FCCC592F339383F0EC305EBC47E02B80BB126F90DD562B",
+      "PublishedSha256": "B9B36FA92CC986E399D9D646FB7017F3F07D9433D9DD35EB166BD2CEACFDE18C",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/changelog-entry-template.md",
+      "FrozenSha256": "BA64E684EE555B1A98A39B5C45152636266AB5E27EF7982262201005931D226F",
+      "PublishedSha256": "A38C52BC7A16FF03B0E4C9D5EE8B389A73FAB3F38ABEF9F56CC159C695EC3615",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/changelog/0004.md",
+      "FrozenSha256": "BA545D0EFDF05BAE4E75B6BC80497FB61DEA1577FD42B7AE655E1F283EA1FC85",
+      "PublishedSha256": "5633B4C78FDF7904C4A48BF11A576B0406C1F47D501428ED10FD07E82C6B8ECA",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/changelog/0005.md",
+      "FrozenSha256": "3734693AB607C704AFE5029359308228EE4B8D3B18A18A28223F6D40A2DE0C5A",
+      "PublishedSha256": "5FFBC98D4BEEB4F68EDEAD2989B1AD8C04B71F58A14DDC93D2EF1233FD908162",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/changelog/0006.md",
+      "FrozenSha256": "8A67D9168D677C82825D9320FBD9B7F8DABE9A37E8AF7EEF8567F2C54CF76878",
+      "PublishedSha256": "C4B2EC59A1DB4FB4AB344CBB39751896040C429C53CBC24495304BF03C0204F2",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/changelog/0007.md",
+      "FrozenSha256": "B31CAFCEED3E150CBE38D92A9AB8EE4BD76D2925CC405D6A08F6C358C3192710",
+      "PublishedSha256": "C2773A78564A7B33B74537B83B42DCB2D23599867703D2629920E198375B07A6",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/changelog/0008.md",
+      "FrozenSha256": "D30E3F93F6A4F0E60A810E48B9D6EBB4B7F6598E871919BFC86020CBB323D304",
+      "PublishedSha256": "E486F7E4775644E533FA4F56B8E3A0A4627A83887CE3DC278AB053CF8AA2F0C1",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/changelog/0009.md",
+      "FrozenSha256": "3F1C1A97D38A632B9DFF70B0B8684A3A3A71F447CEAB5A35E2F27DAAE74B84E0",
+      "PublishedSha256": "206832E1F56E994B0EC106D7A931C8F84F6BC570ACA21BB77194404CA648A635",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/changelog/0010.md",
+      "FrozenSha256": "02272185C06909D492E6467648CFB89B7E7A2F03ED0C2CCAFD4ACC59DD285709",
+      "PublishedSha256": "9222421339C8BAA310C1A9EB266C439130A183B5AED37238D11E97CD84182A33",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/changelog/0011.md",
+      "FrozenSha256": "E30B0D79A3D5E1841F1066D745F7DCFE5A88BEAEB8C12C28ADA6E9FF3EEA53BF",
+      "PublishedSha256": "13804A47D58C27399BE4610CF84DCDAB193709698AB33B45919C6A5DCAA6F3B0",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/changelog/0012.md",
+      "FrozenSha256": "74C71E83A6BD3912AC6CA652705081492709822F9241BFC48D09518CEAF2D911",
+      "PublishedSha256": "0480639849AE03B614A74836488BF8DAA2F795EBA35EC169C5D00B8CC8E3FD2A",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/changelog/0013.md",
+      "FrozenSha256": "BC55EDEA624E03B184A879798B8CCB8784BF7FDEED1876262FD4464B28EF6886",
+      "PublishedSha256": "CC723998BD27359E67AD8BD127D590649268D9533AFC518DF61954ECE1C00499",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/changelog/0014.md",
+      "FrozenSha256": "E4BF498A4A3F624233913AC1BCB5686AF510FC22A3E8D75E943E21408DA7CE72",
+      "PublishedSha256": "69B5812586F9ACFCE1E82D77309A1FDEA97845EEF296AC70B32F51702142F85A",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/changelog/0015.md",
+      "FrozenSha256": "0EA83186E9A2C528A2405087195D97BA06A68E1DE7688793208A10F340D36A5E",
+      "PublishedSha256": "0620E6A7701ACB0F37D3C3CDED5E1B4A988898C8838EE9DBBC0B9BEDA9B10EC0",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/changelog/0016.md",
+      "FrozenSha256": "D58AB614455EE39C1254460DC6F760B516E6A73543212F30807E328A7B13B5B1",
+      "PublishedSha256": "3E6CE990364AC220215095696AE4D64ED2AB309AECC3D780E2726EAB19BCACEB",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/changelog/0017.md",
+      "FrozenSha256": "DE306A885723547CEF3F8D59F16D7AA9A6E1D62B5544DD5B803FC5A3C27DE6CD",
+      "PublishedSha256": "67A29F5E812104F7DC53F80AFD48CE68B3C40084743866EECD747B1ECC28F87C",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/changelog/0018.md",
+      "FrozenSha256": "2726D9BC140984E55D2DE05B31296A4E91226336434180C4DE9A35839A6AE858",
+      "PublishedSha256": "86096830C8D43901225795B2C8280C7B7AD09D88EFAEBA4F1E442971C0F8A318",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/changelog/0019.md",
+      "FrozenSha256": "8904BEB6E470FCE064DC88F31274843108E284F0F6AEF8159D4441AE23ED6879",
+      "PublishedSha256": "DBF3B5A3F07443AA77F6A2C6568B1D013F1FFCA1E2FD042D6E2D84BEDBB074B9",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/changelog/0020.md",
+      "FrozenSha256": "0F65EF49F81C40E33261F3196239EF8CE5D7ADA171FCA1942C02100309CC5C55",
+      "PublishedSha256": "B02DFAAB9737F071FD4BD2093D6370A0B7ABB450670D50D3BB66CB74E05CEC63",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/changelog/0035.md",
+      "FrozenSha256": "5201569D2076BBC15FA95126EA0FB2876B53DE797DEB1938BF772DB538394B37",
+      "PublishedSha256": "15AFE2B5B57155BA6F0B409A95D756C266F298920215D8A19C591AA98D1FACA1",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/changelog/0036.md",
+      "FrozenSha256": "E115E3F01088BE5ADBD4006B6828E43868730B801002D301E286A35BA7C922FA",
+      "PublishedSha256": "ED2D398BF9E969A521C30BAA46250E4172456B1208E3910C7DC98758B307863D",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/changelog/0037.md",
+      "FrozenSha256": "72172CE95F8B2BC07CC291B84C70FAC54D2C946BA504BAC01DF65F67150355D2",
+      "PublishedSha256": "3A0A68E6F5CC6C3497F38C2F0AA2F9743E68C898FE21745B6DC3C793421EE8E3",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/changelog/0038.md",
+      "FrozenSha256": "618BE47E3C16569991DF6F8C991FB7932AE1627BA713C9624C88B483F34BB5B0",
+      "PublishedSha256": "5715DE00187497C2B4612837A51AF6FD941895650A1A5DFA3B05837D2D22EF91",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/changelog/0041.md",
+      "FrozenSha256": "9B52E6BEEF3F611C029838B2F5F2CAC205F740CEA36C57F5EF1B431FDFCA06C7",
+      "PublishedSha256": "40AD9BD5020E0EA45D37CFC15648A683FF6EDD923D9D73C8CEB1435656A0557A",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/changelog/0042.md",
+      "FrozenSha256": "9E66900F77238648D19EFAE7ECC7D4FA50DB8CAA4EC60CAF63BD49DB4CAC1194",
+      "PublishedSha256": "FEAC273E4F359C92002771DE261E25B9E585473193C7DA6C83FDFB20E8B4B840",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/changelog/0043.md",
+      "FrozenSha256": "1246C10CA856935B004FA7ACB7E177E5E6A9B6F1250E32EBB893BE9739B6F0E1",
+      "PublishedSha256": "8E86858C0508942E215503B2BC80E4F9CFE3B6AF4C373A430FF1A920F65E996F",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/changelog/0044.md",
+      "FrozenSha256": "114B40E0985AEF79089330BAA00B445D955423CC8C81DB00DE5D160D981EC4C0",
+      "PublishedSha256": "E5BAC132C8E98DF035D44D711573A3A4011E98392958662A5E32DC50C032D96B",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/changelog/0045.md",
+      "FrozenSha256": "9EB82D1D39B01ABB618DFD3698D656E0ADE6F3511506604F33038C9A3B381CB6",
+      "PublishedSha256": "491AF4C840CA154CB98431B32CE25A859943A4CD92FE90E06888AB695813C156",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/changelog/0046.md",
+      "FrozenSha256": "CAF1B30E0592EF5502A0642631256E3B4F4A5AD8201D96BBB234DA6F2B163361",
+      "PublishedSha256": "A575E93B59D490BB2C41F191607A1AAAE821A280E42B1288BD60DCC245B76D6F",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/changelog/0047.md",
+      "FrozenSha256": "E4DDE5A0BA2BB6F8CDF6807391307E3AB708D9B8917D1A368108D91A3B27FF74",
+      "PublishedSha256": "9BD1ABC169666EA6818916123A5CC3842E23B30CB7173A7B9A22596AD6C26480",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/changelog/0055.md",
+      "FrozenSha256": "939C3E9E5881D842F7B979DBD978D9D4D2F8C762FFBDA4DA847A79B6131BF6A8",
+      "PublishedSha256": "126F61FA78BBB0700E115FEB3457381698F280D1745B3BA6F8EF870A2850D800",
+      "Reason": "ExplicitPostFullDocumentation"
+    },
+    {
+      "Path": "docs/compatibility-matrix.md",
+      "FrozenSha256": "28F0C621AB4D076A3F3358012CEE49E5CBF0228BB80402F713A023719892BFBD",
+      "PublishedSha256": "750F55619FD5CA40CCF035FB1E7B1DDC4CCE9660002172F6A9DD22C40B1C1C22",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/compatibility.json",
+      "FrozenSha256": "78B046010B39F33C18D82C6BF6034DB10284479D08AB4A6B35813B7F6B168451",
+      "PublishedSha256": "DA80D2BB6573E96639D59CF546CC4C510FF366840EAD4DAD3BD2CB671C09841F",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/cpu-topology-state-prototype.md",
+      "FrozenSha256": "CE9773896EE4B7125F4DC763BEFB558D71939EDE8D3C732485FF0931FE2B96A8",
+      "PublishedSha256": "768C54C75A07A7D96E3EE3694622423554ED1B1675D0787FB1E56F7DD888889B",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/halt-lifecycle-foundation.md",
+      "FrozenSha256": "1D95DE3781D74F22A531B4FFE42257C8678747D124F8150FC6E960F51380B4C8",
+      "PublishedSha256": "BD9303369952AD8136FF31CE5F251B6C9B3C1830DA9B0775F2A12FF3E38CEBAB",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/halt-platform-lifecycle.md",
+      "FrozenSha256": "7532C9AD5D1DD065BA05F73A033D5F37D6C082E12F1EDB041D1132CD8CA9D269",
+      "PublishedSha256": "A8E113A0A0A82424C12F9C23AFB848C0E5241B26419D01D879E5B17C85D6EB83",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/halt-port-drain-lifecycle.md",
+      "FrozenSha256": "1B426CAADC2BA7E2BAFF60F602A71FA6EE9891BA6B98FF15F5EEE7B02B28BEE1",
+      "PublishedSha256": "5B7524B0533F837244484FCC620D052D0F4919E480EE5F5FB77A92534734FDEA",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/license-audit.md",
+      "FrozenSha256": "B2C624DB30593B73F70BC471DA9E1A5ECB987E4D88C71E3CFBE59F27F0734DEB",
+      "PublishedSha256": "FD04F48878FB1FFCB8253E2EA2753615D84789A7BBF92007E0CA0AB89F9C684B",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/match-flatmap-order-prototype.md",
+      "FrozenSha256": "773BCD572B4B4F75D539292E8B91FD5F9A93E916F4F6B1BDA19DE7EE505AE57A",
+      "PublishedSha256": "AC8A16D48927F7CB3CAC56AF82EFB7DBF3528F91CCAAB40734A617B6E33FC74A",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/module-readiness.json",
+      "FrozenSha256": "880339299C69DA2CA927B66ECA66A324C9537076153AE18C826B9AB0D419282F",
+      "PublishedSha256": "7DF687626F5981989B13D2A633FD5060E51EE531AE0F8C4D6C7E5CFC56E7B32E",
+      "Reason": "ExplicitPostFullDocumentation"
+    },
+    {
+      "Path": "docs/native-anonymous-access-repair-audit.md",
+      "FrozenSha256": "7C3C0100F45C1A962000FFAA5A2BEB868A6878ADDA65BF99DDD6709FDA181DB4",
+      "PublishedSha256": "A0450A72FF7C815641A3A300AC771F1B8A9ED3BAE4B038E2C4313AA324D5048C",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/operator-support.json",
+      "FrozenSha256": "4001BA495B9D8007D523DF73D0F54FC9B1FEC7105AE67048E807E5585402AF2B",
+      "PublishedSha256": "A64A84B5C622BAA117DF15FA88901EEED012E826964CCB1FA7C1D810B099535B",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/otp-inventory.json",
+      "FrozenSha256": "B1A4A75A76DF82CDE0AD7D87D17F7BD4619CD929974B6356CCCB8F1CFBDFDEE3",
+      "PublishedSha256": "CD2FD00B8133E1AC2EC86625F562380AA0BAF86A2E2D43E8FBEE196C5664399F",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/part232-cpu-trace-repair.md",
+      "FrozenSha256": "3341BD113FEB8538041860AF7E445BF594A748DD887386520D3D74E528CF81F5",
+      "PublishedSha256": "6E7874549D57C20350AF3F1CC13787AE069086AC9F86C572A816FC0C9A89CB02",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/part232-seq-exit-tracer-repair.md",
+      "FrozenSha256": "A13C4C81524527BAE8D5FF1B0C54E6FBDA60637B586AA82FA4062797061B651D",
+      "PublishedSha256": "31F500696C52A3B03576B4DB8E00DA77F6386C7F487DE3655254B5C5B0857611",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/priority-permission-foundation.md",
+      "FrozenSha256": "FC19DF79FBA54C90B7FA6EC8923A376B3EA4D8048D1229630D8E6F16053E3168",
+      "PublishedSha256": "1E8A6E289D359A4BAD2E23CB5E1BF7416727BB358F830AC26EA6CAE53357828B",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/process-display-prototype.md",
+      "FrozenSha256": "2EC1EAB5ABAD5AD5FBDA611253835B4F5A145EAC3261C47C7025B63C2965BDF8",
+      "PublishedSha256": "F2D90E3FC3366367091C87E59B204CD03E5D5216E9A86A031FA687EBAED37CDB",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/profile-hash-repair-combined-prototype.md",
+      "FrozenSha256": "E45EBA8B59E3640B91DC7E1F68EA51A3407E0B7BAA756579E4DB804F517D875E",
+      "PublishedSha256": "8A76CB8CC7215751EC85D9810860CC9594FA2D70AE7B048ACE9CD11439543BCE",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/sequence-destination-source-audit.md",
+      "FrozenSha256": "3EE14C4F212093CC895B43BEE405B329D065E79E98955D5B393BC627DD31D79E",
+      "PublishedSha256": "DBDBAED96F175AAB0667288DFA74C721AFA7AAD71CEE454CD59438471513C763",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/system-profile-combined-prototype.md",
+      "FrozenSha256": "0003490F39491427FD1302D58E6E91480EF7F68A71F3E1754A73F3FEA033CA59",
+      "PublishedSha256": "E2D28D61101395235CC7292C42900402101902ED0C297EB4CB952201BC26C2B8",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "docs/system-profile-prototype.md",
+      "FrozenSha256": "F503DA6607B0111A30B08A99C0DB9719199C2D0D182C4164A884FE105FF2AB42",
+      "PublishedSha256": "4CA5C811E0A7BB1F8D85FA0B0BDBCE63F7A85C96C7F85096D51843B93423B03B",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "examples/HelloHybrid/HelloHybrid.csproj",
+      "FrozenSha256": "F3817EAA1E8283F349145E08EB461672CF6969C60C0F2288CF5569AE1AF9BEA6",
+      "PublishedSha256": "E35FC627FB454C7EA891C5080495778D6BA8A710C3CFCAF1E4C26E2CB91D3E1C",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "src/Erlang.CSharp.MSBuild/Erlang.CSharp.MSBuild.csproj",
+      "FrozenSha256": "4746EA3FB4CEA47804A36F9CA53EFB6424D1925CEDCFBA666542339897A8951C",
+      "PublishedSha256": "49EAEC8A4396898DFAE8EC794E3E8B4EC281750BBAF4440D72FC24C8FBC24039",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Erlang.Compiler.csproj",
+      "FrozenSha256": "34652021BA045858168F51021083536CC9189C35963371A0F8369F512BEDD890",
+      "PublishedSha256": "12B1195EC391DBEC3FA57643F382DEF71F3849C90D2DC1A9CCDA0879B9B276F6",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "src/Erlang.Otp.Behaviours/Erlang.Otp.Behaviours.csproj",
+      "FrozenSha256": "6622AD6442829FF8F586D2A69D2F954DEAD7393E2107C2F0C0A320FB8B2C90F2",
+      "PublishedSha256": "64C0A19DF3D94B9D296151BDE3B251D4AAC038CB746369CCB4B9CF00D97A78A3",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "src/Erlang.Runtime/Erlang.Runtime.csproj",
+      "FrozenSha256": "30FF980770863CFC020B0CFAD00E2902CB150A874CA1839208A59C931861880E",
+      "PublishedSha256": "159212B99AEA39F1F80347B0C51C136FBDC640B81F7C76AC6D20CC058480BBEC",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "src/Erlang.Serialization/Erlang.Serialization.csproj",
+      "FrozenSha256": "B31DFB16CFD821130A234E92478D39B885020287ADF8E0B7047FA1D718FC89D2",
+      "PublishedSha256": "F6A93AEE0F3B356DEE67BAABFFE687DEC04BC5809E6F3A3CCF5225F09ACCD251",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "src/Erlang.Terms/Erlang.Terms.csproj",
+      "FrozenSha256": "E6FCB8E1E93A724D47A829CFFD19D47840A5EB088E9ACE43F3A34BBAF1524B07",
+      "PublishedSha256": "8D654C44B7BEBB6B31A9F2F606927F45B5072193ADC4EEF8CCE3F3CF3B278DF3",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/Beam/source-proof.json",
+      "FrozenSha256": "6EC6D430CD883295B3F630E6ED69EA17B66369F80FC7435E89A41713D345D125",
+      "PublishedSha256": "677ABF439943D30FB81B54BCE8DCEAF65471B6B6A118AE1DF8C674519553B3D2",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/BeamOnLoadResourceHashes.json",
+      "FrozenSha256": "E89C394F6883376657A7398AD0B365B05E6B2A7D2DB9EAA2C8E24FDF27BA0CD0",
+      "PublishedSha256": "DB88B0C05B0361B3FA2B273E7DFA1A96E9E898AEC58EE8698646A194B0CE4E8A",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.AllocationDiagnostic/README.md",
+      "FrozenSha256": "57FAD89C9C8E9E714CDB61A730231E7FE6C98A429953F3345E42605FA9F16E3A",
+      "PublishedSha256": "A3EA530A64E3E4A9E816DF0EBFE14D1626472C9AB9C6473650A74D6E1D2DD5F2",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.AllocationDiagnostic/Run-DiagnosticProcess.ps1",
+      "FrozenSha256": "16F3AF05DDA81E2161515D1A615858B88A6B880575AEF2C2DCD4DC10159D2057",
+      "PublishedSha256": "3BEE7B2B5F34D48BCDBD388BF9BAA5943C4CC59A16DBB2547864FBD83602C1D0",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.ApplyOptimizerContrasts/README.md",
+      "FrozenSha256": "446EA5452E26195F089FF26FE17B29144891F08CF24A3F26B18984AE7BEACF68",
+      "PublishedSha256": "BD50AD92B0B17132BFF75869E4FC0A7DBA9E6AD529156C4B9BB1CF539F22DEEB",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.BeamFixtures/README.md",
+      "FrozenSha256": "1FAEFC897C0B43DF3CB518C0AF62574506E7A22A1CDC0C0DDE2505F1CECC6FB2",
+      "PublishedSha256": "A3DFA8B1561AD1D12E1472B5A0DB3072C9B19582F15FFB6AF1283031D5BF4101",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.BeamFixtures/load-nif-opcode-contract.json",
+      "FrozenSha256": "54836EB82D0C4A52FA7A00C596EE1D2D882F6E48C770B2BE3C21F2E6DB09EA98",
+      "PublishedSha256": "15AD1A975034ACE226A4E43FCF37C700D1630E1CC86A73312D49B1041003DB3A",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.Differential/Erlang.Differential.csproj",
+      "FrozenSha256": "DE537F2108C88A9FCD4762E6FBB476B546A1FA5765B80B118B560E5B727BB0BA",
+      "PublishedSha256": "42F043ADAA229F09CFA1EB237CAB9EAC65CBBFCB5B997F28104AA64CE22CD229",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.Differential/SizeErrorCaseSources.cs",
+      "FrozenSha256": "8D1044FE99523104EA121864E19794DA97140EB7F0496BC3408D3868CDE47864",
+      "PublishedSha256": "3D8313370A588B5EA483271EF1CCCFC095BA1A7F47B1ECD9F98009F4370479A5",
+      "Reason": "Exact11BlankLines23CompiledValues"
+    },
+    {
+      "Path": "tools/Erlang.DistributionMonitorPayloadObservations/Erlang.DistributionMonitorPayloadObservations.csproj",
+      "FrozenSha256": "C193B82BE6252A273A8109A6D2D2D5D348A198FB752B1B10BBCF7CA7BD47438B",
+      "PublishedSha256": "A24B5896E0888E73C4E36DCFEB965B60D476AABAEB56BD61FBC14E927B8EEDE0",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.DistributionPacketContrasts/Erlang.DistributionPacketContrasts.csproj",
+      "FrozenSha256": "043544242FAAE51D312D3E6839993F02DDE5559898F1366CFAFBD88B47F0F3F2",
+      "PublishedSha256": "037FBCE05EB14A617B5572ECA091CA13234E763EEE1CF1E294B14B62F0866F31",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.DistributionPayloadExitObservations/Erlang.DistributionPayloadExitObservations.csproj",
+      "FrozenSha256": "6F4A41C999D5816E2732432FEAA7CA7E1ED7504EEDDCD0101A6EBB78522E7914",
+      "PublishedSha256": "6402B537EF5A49919160CB53C0C0F4292BD26A3676EFD0D53E885B361B4F5134",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.DistributionPressureObservations/Erlang.DistributionPressureObservations.csproj",
+      "FrozenSha256": "99C403D3E343E9CEF7DEFD7094EF416700AD751309C104E6AC8447E1BEA05584",
+      "PublishedSha256": "3B26BCE679471285E67064DE9CB6AA02D46690D7DB33CF7332B7E38E80603881",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.DistributionPressureObservations/README.md",
+      "FrozenSha256": "8CFEAAFCC45283D2586C0E9E49C40B5F240892F654F13A3A4426629E14720BEB",
+      "PublishedSha256": "76665DA217F2FA012AA91D1FFFC7E5B37877BB1AEA9250A5ADD459A69C3A41C6",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.DistributionSignalObservations/Erlang.DistributionSignalObservations.csproj",
+      "FrozenSha256": "3A41AF75E0942BA2FADAD81B01A812DEA31759E70C019070C8A7E523E29286F5",
+      "PublishedSha256": "64A874875A67D642DD116EA257E10FD4F11DD28FAE2060692694486E7B30ACAE",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.DistributionTraceObservations/Erlang.DistributionTraceObservations.csproj",
+      "FrozenSha256": "495927F9E7B9C874A69B926AD41B68F889BB2A98762AD916951F2BE351589253",
+      "PublishedSha256": "C7A4C57B286C4735103D4D6A39F16E7AD591B29666D5B15D37DDF8FF9E719C88",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.LoaderContrasts/Erlang.LoaderContrasts.csproj",
+      "FrozenSha256": "FEE66912D5D1348BEAB2EC22898FEFA03A3F33D0694F407DCCE1766FCE2E1ADC",
+      "PublishedSha256": "106F55D6536A597F447AADE19AFD70A24856E83F554A478ED5C7715733BB8ECF",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.LoaderContrasts/README.md",
+      "FrozenSha256": "447F209116921ED50FEBE11A75DFAEA37BEA2D3E674A48A837E756775DC9A00A",
+      "PublishedSha256": "479E63309796307F69379D8B878B2CD34723B180B24A6FB4FAF584A8552BF453",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.LoaderContrasts/loader_contrast_wrapper.erl",
+      "FrozenSha256": "98CFA8C63C9E1A33CAF577AE378EF80C3BCDD61FAD4AC86B95B64603E7475B21",
+      "PublishedSha256": "901BE972C9A71575179AEB846D17C1D0A247AC61F632A373375FDF42F2DB7F5D",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.LoaderContrasts/loader_direct_caller.erl",
+      "FrozenSha256": "E2EB9004710027A48416E62CEE5B712BE744913BFC70AD3F7B4892DE76CDC022",
+      "PublishedSha256": "F21341EDFC452BD8EF52CDAFCA398014B7C63EDD580B4AEBEE3ED83EB8A56BF7",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.LoaderContrasts/pinned-source-provenance.json",
+      "FrozenSha256": "3E3DCFD243499A785D67793EF1226CCE67C8D58D6F4C6D512751B7556F46E26A",
+      "PublishedSha256": "8ED01F7D0BFCBC11D8BA9DD2654B171E630A87CD9CC6841C37E1E9281F53983A",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.LoaderContrasts/predeclared-contracts.json",
+      "FrozenSha256": "8187C6AA2C63B3A488A67B1FEE8394D81DDB3577F4BFE37F47630FF23526B233",
+      "PublishedSha256": "5CAD1E32512D3928D8457896FF1A316BE55230C88CEE0E7732B9C5D1F17B51E0",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.LoaderIodataContrasts/Erlang.LoaderIodataContrasts.csproj",
+      "FrozenSha256": "15541C40B743A8DC2FF6A3C4597B64C277766A249895AC53EC95230011A3B4A7",
+      "PublishedSha256": "E3C697CB3A06DC9C07DD55AD094142B542EB84BEEB1F06AEC109D18953C671D9",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.LoaderIodataContrasts/README.md",
+      "FrozenSha256": "E57539DFF41790D897B0BB6DFB9DFC1D90760D45E3683EF4B99AEB06C1B83D71",
+      "PublishedSha256": "41642BF4EFE087AAE8E3D1FFA75B0E75A3AA6E3842D35870EBA0FC2A6FDAEDA5",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.LoaderIodataContrasts/loader_iodata_wrapper.erl",
+      "FrozenSha256": "403660E8916EBF807BA2F2ECFBD5BD01933CDDF59416B98EF0028997445D6140",
+      "PublishedSha256": "35CB9D9E6138DC514E6E8A9FBD755B9C621E585FCAF4CF8BDE544755B6718A2A",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.LoaderIodataContrasts/pinned-source-provenance.json",
+      "FrozenSha256": "F9348C497DC7F4AA46A25D5771FDFA3AC98A23B90936D499F44DED4A12B1CAF3",
+      "PublishedSha256": "A0633D23B1124C5ED88D9A7169B18BE2623E1C7D5BC12346FE026FCE87AB4ABF",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.LoaderIodataContrasts/predeclared-contracts.json",
+      "FrozenSha256": "57B10BCFA9131311C755E0DDCC3898F233939214FA427AA73F008244899C6285",
+      "PublishedSha256": "1763A5574865A5E24E4E516DC6FD7D3289D98A373E86E27DDFCEB19678C22EFC",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.LoaderIodataContrasts/verify-iodata-contrasts.py",
+      "FrozenSha256": "55C0099A0A9F11084FB59C216925EEDD9D28378C5636769B7865235D20166434",
+      "PublishedSha256": "555D79FC242C4456A4949CADF53E600D64631AA1D27127D24420917E16AB5DA0",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.LocalNodeAdmissionContrasts/AdmissionOracle.csproj",
+      "FrozenSha256": "29CD2AD4EF855A10DC3F61054A268F2C87A8B1E1A8EDBF593D9EA826EABDF0E8",
+      "PublishedSha256": "A639A7A79A6D83068CAAD5DE70EE89C1F76914F172E56F8C287F360846019EF6",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.NifFixtureHost/Erlang.NifFixtureHost.csproj",
+      "FrozenSha256": "99D8C0DD50EB5756EAEBE09BF8C228316CAE842930C5B883CA447DF95F89BB7D",
+      "PublishedSha256": "0C55AB884EFFCD50AA5BA458A15C0D230AF80CD787800CC7B18E2AB42ADB4155",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.NifFixtureHost/README.md",
+      "FrozenSha256": "9EB87218B4CD935C7D89ECB77DE8F15F036705C6054AB9A0B51CA6FE9BE3CC27",
+      "PublishedSha256": "B3272E42DB40B868B9464D1801AF2509C9F30C2E5AFD02C35F2C3ACC242E3FD5",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/README.md",
+      "FrozenSha256": "69CDD984314E3436CB9B031F0303E49769CED6B4DA420333199C7D28D4EA3E74",
+      "PublishedSha256": "A459118B31240B19D9323A565F39654E1AB32884A16779E4DB1F5C5B78A95387",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/README.md",
+      "FrozenSha256": "50FFF52F133379583F6BC8DA3C8945FB73A407AE661200300EBAE81F0CE82655",
+      "PublishedSha256": "F918371F0EC73A3595529A4B6FA0239DB8714B618AEAECD2DBF05AE4474609D8",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/README.md",
+      "FrozenSha256": "BDE9724B8CC2B76ACD21DBB646AA9C7637E19E9EF0B08797D55FF6C0759D7D84",
+      "PublishedSha256": "07F98C3B9261202D2A75DAF779DA686E94C6BBB879E4AE314D31884B69225655",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/controlled_source_build.py",
+      "FrozenSha256": "A0DC628C9F4ACF5F998AEFE7B8D1032148A25354A76C6948088CD89F596CEFED",
+      "PublishedSha256": "39F7F225F8D8E5F2D3EC59D0B6C128565042B3435D93CA5EBD22620130411149",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/original/collect.py",
+      "FrozenSha256": "C248202484CBA9516D07C82E446572D11836E6B419571393CE01C87E52A612EB",
+      "PublishedSha256": "FD95760FB96FC9660DF848F130B10D96E9BF5FEA5112A18CF1736D5092AFBDA3",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/original/memory_allocator_nif_fixture.erl",
+      "FrozenSha256": "199F41D3531247080595A832EDE5CD7D143B48963311EEBCB0214D49DF74D83E",
+      "PublishedSha256": "4CA47BDA5B616EE2AFD111BEA89BBD054861A953E3EF600677A574BC121476FF",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/original/reallocation_observer.erl",
+      "FrozenSha256": "6AA6C940F7F5CE6BC822F9B871B78DD3428B9D137EF1921F22498230A8148844",
+      "PublishedSha256": "6737FB8FABF27A4EC990F533F0DAB912D131DD07ECD9141F3D9BD04DCF2E8E19",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/review-results.py",
+      "FrozenSha256": "7BCF4F0C32FB3050AAD7CE76ED9C8A83CEFA73BE69D2775F862A83822C7B486F",
+      "PublishedSha256": "875F4EA8DC6AC00494D4F88F21CB6C18EDDF825FBBAE7E0C8926463B4E2CF031",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/reviewed_common.py",
+      "FrozenSha256": "68269B896C5DED6A4F494E5F012FE05BFB06A634E89514E18E7B5B6865CBAF61",
+      "PublishedSha256": "C206262CE6563F213502B3A2442F53046115D67BCA35D0D665D342203F9DB146",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/run-reviewed.py",
+      "FrozenSha256": "4222DCECB47D532C9D2ECB9C3B393F4B369431B36A52C2B89FBA4712041C05B1",
+      "PublishedSha256": "4C871EA8984A3D650852E7E95606053D6C73C5B9DE3D832028091CE8A9CCF8CE",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/runtime_receipt_adapter.py",
+      "FrozenSha256": "2264FF1908F480919C100ADAF1185CA11C38EE76C87F3727EF6651A8D48D9001",
+      "PublishedSha256": "E3A2E6F21755D7E7196487FAA4B1C02E93CD308C69E7FEE9D46EF8529BA27171",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/verify_native_build.py",
+      "FrozenSha256": "13CB08A05F0965DE451AEE59173257CFFD3955B9B2773DAA86BEA684A22B1208",
+      "PublishedSha256": "22BB71FCD308CDD1B183229C2116B582F70852877B8E8397C436571D97D7A7B4",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/verify_source_build.py",
+      "FrozenSha256": "BA2459CD86C44CF3C02CA922BF4F067AFFFC03AC99C7324C603DEC3343BF41A6",
+      "PublishedSha256": "5DB8FB346BE69A8CF6D476980B733320EBBC98EB4D2BFBBF24E7EC6B36CA4CF4",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/windows-compile-recipe.json",
+      "FrozenSha256": "47C9155EBB39F11F105BBA96F761F3059A25529DD318BA864D805692DA171BFE",
+      "PublishedSha256": "D2218CE26A3D40927E2FE7A8D3375A963776D26401C5EF73D1DD633FC6F9A3D4",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.NodeIdentityContrasts/README.md",
+      "FrozenSha256": "DDF972505B4E4796F4C08C8D04F2E504D8A749CB0DD3B1E7BD1222CE7A095464",
+      "PublishedSha256": "84583B41D103481F6B6BCC7DDC4C1E71CD5D3E4017C6139824197875D821524E",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.NodeIdentityContrasts/source-plan.json",
+      "FrozenSha256": "CBF02B63D2151F74F43BCCEFD857F048F4E73B2DBD5395BBB3334674B6715618",
+      "PublishedSha256": "36F849559A57BF783E4AAA406433B84B65F7F24870F0C640A9731CC8C88B484C",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.PortProbe/Erlang.PortProbe.csproj",
+      "FrozenSha256": "6347BD85D4338BF31F62B01092343B31717E681D89024E2FD9BDCE095491B6E0",
+      "PublishedSha256": "485E171E44EE6360533652433989D3B90AB763B8F7CEBF63EE46FD066E074996",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.Style/Erlang.Style.csproj",
+      "FrozenSha256": "0391ECB21DE51392B310F81CDFA9F36A05425819ECC097AC1900BCD4FD1699FC",
+      "PublishedSha256": "24492808D27D5074C199736992FCC26BB2D787FBB1F1FF38D0903696CD31D008",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/Erlang.Tool/Erlang.Tool.csproj",
+      "FrozenSha256": "5C1535556714EA766A5A05D8A25A070DE489F10D6E37A3278F0824AACF73674A",
+      "PublishedSha256": "1CEFD0C892EE4D68E4424F93B107235E2E05C638206B763D31F759DD3CB2C2C0",
+      "Reason": "ClosedTextLFRepresentation"
+    },
+    {
+      "Path": "tools/validate.ps1",
+      "FrozenSha256": "DD493EA079090EE138723794C6EE23DB6D8CC4A10EB49731069A635C4093BA47",
+      "PublishedSha256": "CE478B14DB10EEB519D51A2D2AF683A01471AF28641B1AC8003595CD7A2D01DC",
+      "Reason": "ClosedTextLFRepresentation"
+    }
+  ],
+  "WholeClosureRawEqual": false,
+  "PackageResources": 6,
+  "PackageLFPaths": [
+    "docs/DOTNET-LICENSE.txt",
+    "docs/DOTNET-ThirdPartyNotices.txt",
+    "docs/OTP-LICENSE.txt",
+    "docs/OTP-PORTS.md"
+  ],
+  "PackagePayloadRehashedByThisReader": false,
+  "AcceptedActualPackageReceipts": 2,
+  "BoundedChildren": 12,
+  "NativePlans": [
+    {
+      "Path": "tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Rows": 1282
+    },
+    {
+      "Path": "tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Rows": 1307
+    }
+  ],
+  "ActualReportSha256": "01F1FF818E66FE2E1B59C6D95F66618607879C72876F94083A4ED48D3F24C5C7",
+  "IndependentFull4Sha256": "5DE0409B787679B78A7780DC30F941991B1A292E859C7D5F74AAA65EA9191C78",
+  "SdkOrNativeExecutedByReviewer": false,
+  "NetworkUsed": false
+}

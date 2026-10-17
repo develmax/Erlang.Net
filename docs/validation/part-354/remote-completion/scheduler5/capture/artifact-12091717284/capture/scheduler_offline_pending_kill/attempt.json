@@ -1,0 +1,15 @@
+{
+  "Arguments": [
+    "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/scheduler-affinity-otp/lib/erlang/bin/erl",
+    "+S",
+    "2:2",
+    "-noshell",
+    "-noinput",
+    "-boot",
+    "start_clean",
+    "-eval",
+    "D=os:getenv(\"SCHEDULER_PROFILE_DIR\"), W=fun(N,V)->ok=file:write_file(filename:join(D,N),term_to_binary(V,[{minor_version,2}])) end, ExpectedRoot=os:getenv(\"SCHEDULER_PROFILE_RUNTIME_ROOT\"), ActualRoot=filename:absname(code:root_dir()), W(\"runtime-root.etf\",{runtime_root,list_to_binary(ExpectedRoot),list_to_binary(ActualRoot)}), ExpectedRoot=ActualRoot, P={scheduler_profile,erlang:system_info(schedulers),erlang:system_info(schedulers_online)}, W(\"profile.etf\",P), {scheduler_profile,2,2}=P, {ok,scheduler_offline_pending_kill}=compile:file(filename:join(D,\"scheduler_offline_pending_kill.erl\"),[{outdir,D},return_errors]), {module,scheduler_offline_pending_kill}=code:load_abs(filename:join(D,\"scheduler_offline_pending_kill\")), {ok,{scheduler_offline_pending_kill,CodeMd5}}=beam_lib:md5(filename:join(D,\"scheduler_offline_pending_kill.beam\")), CodeMd5=scheduler_offline_pending_kill:module_info(md5), W(\"image.etf\",{scheduler_offline_pending_kill,code:which(scheduler_offline_pending_kill),CodeMd5}), R=try scheduler_offline_pending_kill:run() of V->W(\"returned.etf\",V),W(\"compiled-protocol.etf\",{ok,V}),{returned,V} catch C:E:S->W(\"raised.etf\",{C,E,S}),{raised,C,E,S} end, W(\"outcome.etf\",R), case R of {returned,done}->halt(0);_->halt(1) end."
+  ],
+  "SourceSha256": "BAF618AC18FA41E6A325780A0AD4C2D5DA88F871D9EF3E39B300A085C79EF0D5",
+  "TimeoutSeconds": 45
+}

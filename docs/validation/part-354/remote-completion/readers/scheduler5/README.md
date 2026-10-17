@@ -1,0 +1,6 @@
+Passive native-five354 successor. Semantics/provenance/cleanup/BEAM MD5 checks are unchanged from the reviewed353 reader; sole admission change pins published354 head/run, plus report subject fields. No new weakening, normalization or VM/SDK/network execution. Wait Root source approval and terminal capture.
+
+Invocation (substitute the actual captured artifact ID and fresh report path):
+python -B artifacts/part354-native-five-reader-proposal/read-native5.py --repository . --capture artifacts/part354-remote-scheduler/capture-ACTUAL_ARTIFACT --source-manifest tools/Erlang.SchedulerAffinityOriginalObservations/manifest.json --expected-head a54bb96cdd91c57052e953fd2705630f16cfe92e --run 39007661294 --artifact ACTUAL_ARTIFACT --report artifacts/part354-native-five-reader-proposal/actual-report.json
+
+No joblog is required by this reader: raw configure/make/install receipts and streams, mode-aware source-before/after, installed11identity receipts, actual runtime-root ETF, explicit +S2:2/profiles, loaded significant BEAM MD5, typed return goldens, normal owned-group cleanup and exact API/ZIP/extraction closure are mandatory. Installed binaries are not present and are not claimed rehashed; exact captured build identity is receipt-bound. This is original five-scenario observation, not managed/native interchange or whole scheduler/API compatibility proof.
