@@ -1,30 +1,26 @@
 {
-  "Family": "strict-comprehension-and-code-image-regression",
+  "Family": "static-source-fun-continuation-regression",
   "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Mfas": [
-    "erlang:check_process_code/2",
-    "lc_strict_singleton:probe/1"
+    "fun_continuation_contract:opaque_call/1"
   ],
   "Fixtures": [
     {
-      "Id": "lc_strict_singleton",
+      "Id": "fun_continuation_contract",
       "Location": "tool",
-      "Path": "original/lc_strict_singleton.erl",
-      "Module": "lc_strict_singleton",
+      "Path": "original/fun_continuation_contract.erl",
+      "Module": "fun_continuation_contract",
       "Names": [
-        "relaxed_variable",
-        "strict_variable",
-        "strict_match",
-        "strict_mismatch",
-        "strict_improper",
-        "strict_body_error",
-        "after_strict",
-        "unknown_singleton",
-        "strict_renamed"
+        "opaque_named",
+        "opaque_anonymous",
+        "static_named",
+        "static_alias",
+        "protected_catch",
+        "protected_after"
       ],
       "Run": "run",
       "NamesEntry": "cases",
-      "StackModule": "lc_strict_singleton",
+      "StackModule": "fun_continuation_contract",
       "StackEntry": "run_stacks",
       "WorkerModule": "proplists_observation_worker",
       "WorkerEntry": "run",
@@ -34,136 +30,44 @@
       ],
       "Cases": [
         {
-          "Name": "relaxed_variable",
+          "Name": "opaque_named",
           "Mfas": [
-            "lc_strict_singleton:probe/1"
+            "fun_continuation_contract:opaque_call/1"
           ],
           "Policy": "exact"
         },
         {
-          "Name": "strict_variable",
+          "Name": "opaque_anonymous",
           "Mfas": [
-            "lc_strict_singleton:probe/1"
+            "fun_continuation_contract:opaque_call/1"
           ],
           "Policy": "exact"
         },
         {
-          "Name": "strict_match",
+          "Name": "static_named",
           "Mfas": [
-            "lc_strict_singleton:probe/1"
+            "fun_continuation_contract:opaque_call/1"
           ],
           "Policy": "exact"
         },
         {
-          "Name": "strict_mismatch",
+          "Name": "static_alias",
           "Mfas": [
-            "lc_strict_singleton:probe/1"
+            "fun_continuation_contract:opaque_call/1"
           ],
           "Policy": "exact"
         },
         {
-          "Name": "strict_improper",
+          "Name": "protected_catch",
           "Mfas": [
-            "lc_strict_singleton:probe/1"
+            "fun_continuation_contract:opaque_call/1"
           ],
           "Policy": "exact"
         },
         {
-          "Name": "strict_body_error",
+          "Name": "protected_after",
           "Mfas": [
-            "lc_strict_singleton:probe/1"
-          ],
-          "Policy": "exact"
-        },
-        {
-          "Name": "after_strict",
-          "Mfas": [
-            "lc_strict_singleton:probe/1"
-          ],
-          "Policy": "exact"
-        },
-        {
-          "Name": "unknown_singleton",
-          "Mfas": [
-            "lc_strict_singleton:probe/1"
-          ],
-          "Policy": "exact"
-        },
-        {
-          "Name": "strict_renamed",
-          "Mfas": [
-            "lc_strict_singleton:probe/1"
-          ],
-          "Policy": "exact"
-        }
-      ],
-      "OriginalCompilerOptions": [
-        "nowarn_nomatch"
-      ]
-    },
-    {
-      "Id": "code_image_tail_contract",
-      "Location": "tool",
-      "Path": "original/code_image_tail_contract.erl",
-      "Module": "code_image_tail_contract",
-      "Names": [
-        "tail",
-        "non_tail",
-        "held_local_tail",
-        "held_local_non_tail",
-        "held_external_tail",
-        "held_external_non_tail"
-      ],
-      "Run": "run",
-      "NamesEntry": "cases",
-      "StackModule": "code_image_tail_contract",
-      "StackEntry": "run_stacks",
-      "WorkerModule": "proplists_observation_worker",
-      "WorkerEntry": "run",
-      "StackShape": "depth_cases",
-      "Companions": [
-        "original/proplists_observation_worker.erl"
-      ],
-      "Cases": [
-        {
-          "Name": "tail",
-          "Mfas": [
-            "erlang:check_process_code/2"
-          ],
-          "Policy": "exact"
-        },
-        {
-          "Name": "non_tail",
-          "Mfas": [
-            "erlang:check_process_code/2"
-          ],
-          "Policy": "exact"
-        },
-        {
-          "Name": "held_local_tail",
-          "Mfas": [
-            "erlang:check_process_code/2"
-          ],
-          "Policy": "exact"
-        },
-        {
-          "Name": "held_local_non_tail",
-          "Mfas": [
-            "erlang:check_process_code/2"
-          ],
-          "Policy": "exact"
-        },
-        {
-          "Name": "held_external_tail",
-          "Mfas": [
-            "erlang:check_process_code/2"
-          ],
-          "Policy": "exact"
-        },
-        {
-          "Name": "held_external_non_tail",
-          "Mfas": [
-            "erlang:check_process_code/2"
+            "fun_continuation_contract:opaque_call/1"
           ],
           "Policy": "exact"
         }
@@ -173,13 +77,8 @@
   "FixtureSources": [
     {
       "Location": "tool",
-      "Path": "original/lc_strict_singleton.erl",
-      "Sha256": "A0D21C7D898A56FE229831D942432161A62D90030085B4D6FD3CE00F15BEACF4"
-    },
-    {
-      "Location": "tool",
-      "Path": "original/code_image_tail_contract.erl",
-      "Sha256": "7DAF4D04326BC5DEBCAE02155763CBB4961A5E0BF6DAA678B5CB0A12D68E73ED"
+      "Path": "original/fun_continuation_contract.erl",
+      "Sha256": "5E3C6BB9CD4A288B026CCFEF4C33D84D1A50B3A734F387F99A3FE67A6B668AD3"
     },
     {
       "Location": "tool",
@@ -187,6 +86,6 @@
       "Sha256": "34B743EB95A5937058AB8F208A1FB17C6ACED20AF7E08398EF6D154F574546BC"
     }
   ],
-  "ExpectedUniqueSourceCount": 3,
-  "ObserverEntry": "Same monitored compiled worker; code-image module original-only, equivalent SDK HOST controls separate; no API promotion"
+  "ExpectedUniqueSourceCount": 2,
+  "ObserverEntry": "New six cases only; same matched guest worker, full original/SDK terms and frames retained; no API promotion"
 }

@@ -76,6 +76,11 @@
       "Sha256": "7DAF4D04326BC5DEBCAE02155763CBB4961A5E0BF6DAA678B5CB0A12D68E73ED"
     },
     {
+      "Path": "original/fun_continuation_contract.erl",
+      "Bytes": 1582,
+      "Sha256": "5E3C6BB9CD4A288B026CCFEF4C33D84D1A50B3A734F387F99A3FE67A6B668AD3"
+    },
+    {
       "Path": "original/lc_return_frames.erl",
       "Bytes": 3427,
       "Sha256": "D80ECDB0C600F6A3EC704B6A9A6911B31A25330C55A7C78C023DB0FB974D7A28"
@@ -142,8 +147,8 @@
     },
     {
       "Path": "profile.json",
-      "Bytes": 4944,
-      "Sha256": "374913FA1E5538702BAC84EF19331793D86397B96116B4EB81B35E36011516C3"
+      "Bytes": 2596,
+      "Sha256": "AE6B3891831F6A577DA730284AE8573660E7E1267F122B0326653FD238007281"
     },
     {
       "Path": "self-test.py",
@@ -166,10 +171,8 @@
   "FamilyPublicationAuthorized": false,
   "OriginalAdapterSourceInputsSha256": "52FBA0CEF0CABB45A1A2D67F41FE8DB70BE6FD905F5AE5DBF42673732620E56F",
   "Corrections": [
-    "Only new strict9 and old-code6 regressiongroups; previous6+1groups not repeated.",
-    "Code-image compile:forms is original-only; SDK HOST evidence is distinct equivalent setup.",
-    "No API implementation or compatibility promotion.",
-    "Strict fixture uses source-bound erlc +nowarn_nomatch CLI option only for intentional negative patterns, with a one-option allowlist; bytes shared by SDK/original remain unchanged. compile attribute parse failure retained; no production compiler-option change."
+    "Six new source-binding/try-after cases only; do not repeat previous groups.",
+    "No implementation publication or API promotion."
   ],
   "WorkerObservationSchema": "shared-guest-worker-1"
 }
