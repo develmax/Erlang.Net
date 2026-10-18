@@ -83,19 +83,19 @@ internal static class ClrMemoryPublicHostChecks
     {
         Require(Entry(ErlangBooleanAtoms.False) is not null);
         var binary = new BitString(new byte[ClrMemoryPublicHostParameters.Payload]);
-        byte[] backing = (byte[])typeof(BitString).GetField(ClrMemoryPublicHostNames.Backing, ClrMemoryPublicHostNames.Members)!.GetValue(binary)!;
+        byte[] backing = (byte[])typeof(BitString).GetProperty(ClrMemoryPublicHostNames.Backing, ClrMemoryPublicHostNames.Members)!.GetValue(binary)!;
         object entry = Entry(backing)!;
         Require(Number(entry, ClrMemoryPublicHostNames.Bytes) == backing.Length);
         Require(Property(entry, ClrMemoryPublicHostNames.Kind).ToString() == ClrMemoryPublicHostNames.ObservedBinary);
         var equalContent = new BitString(new byte[ClrMemoryPublicHostParameters.Payload]);
-        object equalBacking = typeof(BitString).GetField(ClrMemoryPublicHostNames.Backing, ClrMemoryPublicHostNames.Members)!.GetValue(equalContent)!;
+        object equalBacking = typeof(BitString).GetProperty(ClrMemoryPublicHostNames.Backing, ClrMemoryPublicHostNames.Members)!.GetValue(equalContent)!;
         Require(!ReferenceEquals(backing, equalBacking) && !ReferenceEquals(entry, Entry(equalBacking)));
         var shared = new byte[ClrMemoryPublicHostParameters.Payload];
         MethodInfo adopt = typeof(BitString).GetMethod(ClrMemoryPublicHostNames.FromOwned, ClrMemoryPublicHostNames.Members)!;
         var adopted = (BitString)adopt.Invoke(null, [shared])!;
         var secondAdoption = (BitString)adopt.Invoke(null, [shared])!;
         Require(ReferenceEquals(
-            typeof(BitString).GetField(ClrMemoryPublicHostNames.Backing, ClrMemoryPublicHostNames.Members)!.GetValue(adopted),
+            typeof(BitString).GetProperty(ClrMemoryPublicHostNames.Backing, ClrMemoryPublicHostNames.Members)!.GetValue(adopted),
             shared
         ));
         object sharedEntry = Entry(shared)!;
@@ -104,9 +104,18 @@ internal static class ClrMemoryPublicHostChecks
         Require(Entry(exported) is null);
         var partial = new BitString(new byte[1], ClrMemoryPublicHostParameters.PartialBits);
         var alias = (BitString)typeof(BitString).GetMethod(ClrMemoryPublicHostNames.ByteView, ClrMemoryPublicHostNames.Members)!.Invoke(partial, null)!;
-        object firstBacking = typeof(BitString).GetField(ClrMemoryPublicHostNames.Backing, ClrMemoryPublicHostNames.Members)!.GetValue(partial)!;
-        object secondBacking = typeof(BitString).GetField(ClrMemoryPublicHostNames.Backing, ClrMemoryPublicHostNames.Members)!.GetValue(alias)!;
-        Require(ReferenceEquals(firstBacking, secondBacking) && ReferenceEquals(Entry(firstBacking), Entry(secondBacking)));
+        object firstBacking = typeof(BitString).GetProperty(ClrMemoryPublicHostNames.Backing, ClrMemoryPublicHostNames.Members)!.GetValue(partial)!;
+        object secondBacking = typeof(BitString).GetProperty(ClrMemoryPublicHostNames.Backing, ClrMemoryPublicHostNames.Members)!.GetValue(alias)!;
+        Require(!ReferenceEquals(firstBacking, secondBacking)
+            && Entry(firstBacking) is not null && Entry(secondBacking) is not null
+            && partial.ToArray().SequenceEqual(alias.ToArray()));
+        var parent = new BitString(new byte[ClrMemoryPublicHostParameters.RetainedPayload]);
+        BitString retained = parent.SliceBits(ClrMemoryPublicHostParameters.RetainedOffsetBits, ClrMemoryPublicHostParameters.RetainedSliceBits);
+        object parentBacking = typeof(BitString).GetProperty(ClrMemoryPublicHostNames.Backing, ClrMemoryPublicHostNames.Members)!.GetValue(parent)!;
+        object retainedBacking = typeof(BitString).GetProperty(ClrMemoryPublicHostNames.Backing, ClrMemoryPublicHostNames.Members)!.GetValue(retained)!;
+        Require(ReferenceEquals(parentBacking, retainedBacking)
+            && Entry(parentBacking) is not null
+            && ReferenceEquals(Entry(parentBacking), Entry(retainedBacking)));
         string first = new(ClrMemoryPublicHostNames.DuplicateAtom.ToCharArray());
         string second = new(ClrMemoryPublicHostNames.DuplicateAtom.ToCharArray());
         var atom = Term.A(first);
@@ -124,6 +133,8 @@ internal static class ClrMemoryPublicHostChecks
         GC.KeepAlive(adopted);
         GC.KeepAlive(secondAdoption);
         GC.KeepAlive(binary);
+        GC.KeepAlive(parent);
+        GC.KeepAlive(retained);
         GC.KeepAlive(partial);
         GC.KeepAlive(alias);
         GC.KeepAlive(atom);
@@ -134,7 +145,7 @@ internal static class ClrMemoryPublicHostChecks
     private static WeakReference EphemeralBacking()
     {
         var value = new BitString(new byte[ClrMemoryPublicHostParameters.Payload]);
-        object backing = typeof(BitString).GetField(ClrMemoryPublicHostNames.Backing, ClrMemoryPublicHostNames.Members)!.GetValue(value)!;
+        object backing = typeof(BitString).GetProperty(ClrMemoryPublicHostNames.Backing, ClrMemoryPublicHostNames.Members)!.GetValue(value)!;
         Require(Entry(backing) is not null);
 
         return new WeakReference(backing);
@@ -324,7 +335,7 @@ internal static class ClrMemoryPublicHostChecks
         Require(ReferenceEquals(Entry(segment.Array!), Entry(segment.Array!)));
         // Observe an actual shared binary backing through the same code hook: binary wins.
         var binary = new BitString(new byte[ClrMemoryPublicHostParameters.Payload]);
-        object backing = typeof(BitString).GetField(ClrMemoryPublicHostNames.Backing, ClrMemoryPublicHostNames.Members)!.GetValue(binary)!;
+        object backing = typeof(BitString).GetProperty(ClrMemoryPublicHostNames.Backing, ClrMemoryPublicHostNames.Members)!.GetValue(binary)!;
         Type tracker = typeof(Term).Assembly.GetType(ClrMemoryPublicHostNames.RegistryType, true)!;
         tracker.GetMethod(ClrMemoryPublicHostNames.TrackCode, ClrMemoryPublicHostNames.Members)!.MakeGenericMethod(typeof(byte)).Invoke(null, [backing]);
         Require(Property(Entry(backing)!, ClrMemoryPublicHostNames.Kind).ToString() == ClrMemoryPublicHostNames.ObservedBinary);

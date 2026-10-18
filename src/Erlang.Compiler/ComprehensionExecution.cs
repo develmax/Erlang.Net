@@ -9,7 +9,9 @@ internal static class ComprehensionExecution
         Dictionary<string, Term> incoming,
         ProcessContext context,
         ModuleDefinition? module,
-        Func<Expr, Dictionary<string, Term>, ValueTask<Term>> evaluate
+        Func<Expr, Dictionary<string, Term>, ValueTask<Term>> evaluate,
+        bool tail = false,
+        Func<Expr, Dictionary<string, Term>, ValueTask<Term>>? evaluateTail = null
     )
         => Evaluate(
             expression.Items,
@@ -19,7 +21,15 @@ internal static class ComprehensionExecution
             incoming,
             context,
             module,
-            evaluate
+            evaluate,
+            module is not null && expression.Source is { } source
+                ? new CompiledComprehensionFrames(
+                    source,
+                    module,
+                    context,
+                    tail
+                ) : null,
+            evaluateTail
         );
 
     public static ValueTask<Term> Evaluate(
@@ -64,12 +74,26 @@ internal static class ComprehensionExecution
         Dictionary<string, Term> incoming,
         ProcessContext context,
         ModuleDefinition? module,
-        Func<Expr, Dictionary<string, Term>, ValueTask<Term>> evaluate
+        Func<Expr, Dictionary<string, Term>, ValueTask<Term>> evaluate,
+        CompiledComprehensionFrames? frames = null,
+        Func<Expr, Dictionary<string, Term>, ValueTask<Term>>? evaluateTail = null
     )
     {
+        var evaluateOriginal = evaluate;
+        if (frames is not null)
+        {
+            evaluate = (expression, scope) => frames.Run(() => evaluateOriginal(expression, scope));
+        }
         var result = new List<Term>();
         var pairs = new List<KeyValuePair<Term, Term>>();
-        await Qualifiers(0, CompiledBindingScope.Copy(incoming));
+        try
+        {
+            await Qualifiers(0, CompiledBindingScope.Copy(incoming));
+        }
+        catch (ErlangException error) when (frames is not null)
+        {
+            throw frames.Capture(error);
+        }
         if (fields is not null)
             return new MapTerm(pairs);
         if (binary)
@@ -119,10 +143,17 @@ internal static class ComprehensionExecution
 
                     return;
                 }
+                if (frames is { TerminalBody: true } && evaluateTail is not null)
+                {
+                    result.Add(await frames.RunTerminal(() => evaluateTail(items[0], scope)));
+
+                    return;
+                }
                 var values = module is null
                     ? await ExpressionBindings.EvaluateList(items, scope, evaluate)
                     : await CompiledExpressionBindings.EvaluateList(items, scope, evaluate);
                 result.AddRange(values);
+                frames?.Emitted();
 
                 return;
             }
@@ -134,7 +165,13 @@ internal static class ComprehensionExecution
                     context,
                     module is not null,
                     evaluate,
-                    nested => Qualifiers(index + 1, nested)
+                    async nested =>
+                    {
+                        await Qualifiers(index + 1, nested);
+                        frames?.Resume(index);
+                    },
+                    frames is null ? null : () => frames.EnterGenerator(index),
+                    frames is null ? null : () => frames.Resume(index)
                 );
 
                 return;
@@ -142,21 +179,39 @@ internal static class ComprehensionExecution
             if (qualifiers[index] is ComprehensionQualifier.Generator generator)
             {
                 Term source = await evaluate(generator.Source, CompiledBindingScope.Copy(scope));
+                frames?.EnterGenerator(index);
                 while (source is Cons cell)
                 {
-                    await context.ReduceAsync();
+                    frames?.Resume(index);
+                    if (frames is null)
+                    {
+                        await context.ReduceAsync();
+                    }
+                    else
+                    {
+                        await frames.Reduce();
+                    }
                     var fresh = new Dictionary<string, Term>(StringComparer.Ordinal);
-                    if (await generator.Pattern.MatchAsync(
-                        cell.Head,
-                        fresh,
-                        context,
-                        scope
-                    ))
+                    bool matched = frames is null
+                        ? await generator.Pattern.MatchAsync(
+                            cell.Head,
+                            fresh,
+                            context,
+                            scope
+                        )
+                        : await frames.Run(() => generator.Pattern.MatchAsync(
+                            cell.Head,
+                            fresh,
+                            context,
+                            scope
+                        ));
+                    if (matched)
                     {
                         var nested = new Dictionary<string, Term>(scope, StringComparer.Ordinal);
                         foreach (var binding in fresh)
                             nested[binding.Key] = binding.Value;
                         await Qualifiers(index + 1, nested);
+                        frames?.Resume(index);
                     }
                     else if (generator.Strict)
                         throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadMatch), cell.Head));
@@ -170,10 +225,11 @@ internal static class ComprehensionExecution
             if (qualifiers[index] is ComprehensionQualifier.MapGenerator mapGenerator)
             {
                 Term source = await evaluate(mapGenerator.Source, CompiledBindingScope.Copy(scope));
+                frames?.EnterGenerator(index);
                 IReadOnlyList<KeyValuePair<Term, Term>> entries;
                 try
                 {
-                    entries = MapIteration.Entries(source);
+                    entries = MapIteration.Entries(source, context.Runtime);
                 }
                 catch (ErlangException)
                 {
@@ -181,7 +237,15 @@ internal static class ComprehensionExecution
                 }
                 foreach (var entry in entries)
                 {
-                    await context.ReduceAsync();
+                    frames?.Resume(index);
+                    if (frames is null)
+                    {
+                        await context.ReduceAsync();
+                    }
+                    else
+                    {
+                        await frames.Reduce();
+                    }
                     var fresh = new Dictionary<string, Term>(StringComparer.Ordinal);
                     var pair = Term.Tuple(entry.Key, entry.Value);
                     if (await mapGenerator.Pattern.MatchAsync(
@@ -195,6 +259,7 @@ internal static class ComprehensionExecution
                         foreach (var binding in fresh)
                             nested[binding.Key] = binding.Value;
                         await Qualifiers(index + 1, nested);
+                        frames?.Resume(index);
                     }
                     else if (mapGenerator.Strict)
                         throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadMatch), pair));
@@ -205,13 +270,23 @@ internal static class ComprehensionExecution
             if (qualifiers[index] is ComprehensionQualifier.BinaryGenerator binaryGenerator)
             {
                 Term source = await evaluate(binaryGenerator.Source, CompiledBindingScope.Copy(scope));
+                frames?.EnterGenerator(index);
                 if (source is not BitString input)
                     throw new ErlangException(Term.Tuple(Term.A(ComprehensionErrorReasons.BadGenerator), source));
+                input.PinForMatch();
                 byte[] bytes = input.ToArray();
                 int position = 0;
                 while (true)
                 {
-                    await context.ReduceAsync();
+                    frames?.Resume(index);
+                    if (frames is null)
+                    {
+                        await context.ReduceAsync();
+                    }
+                    else
+                    {
+                        await frames.Reduce();
+                    }
                     var fresh = new Dictionary<string, Term>(StringComparer.Ordinal);
                     var readResult = await binaryGenerator.Pattern.ReadGeneratorAsync(
                         input,
@@ -239,6 +314,7 @@ internal static class ComprehensionExecution
                         foreach (var binding in fresh)
                             nested[binding.Key] = binding.Value;
                         await Qualifiers(index + 1, nested);
+                        frames?.Resume(index);
                     }
                     else if (binaryGenerator.Strict)
                         throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadMatch), Remaining()));
@@ -257,9 +333,13 @@ internal static class ComprehensionExecution
                 }
             }
             var filter = (ComprehensionQualifier.Filter)qualifiers[index];
+            frames?.SetLocation(filter.SourceLine);
             if (ComprehensionGuard.IsTest(filter.Expression, module))
             {
-                if (await Execution.GuardAsync(filter.Expression, scope, context))
+                bool accepted = frames is null
+                    ? await Execution.GuardAsync(filter.Expression, scope, context)
+                    : await frames.Run(() => Execution.GuardAsync(filter.Expression, scope, context));
+                if (accepted)
                     await Qualifiers(index + 1, scope);
 
                 return;

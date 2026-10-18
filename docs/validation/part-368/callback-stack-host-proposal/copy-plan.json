@@ -1,0 +1,67 @@
+{
+  "Status": "SOURCE_ONLY_PERMANENT_REGRESSION_NOT_BUILT",
+  "Files": [
+    {
+      "Source": "artifacts/queue-callback368-regression-proposal2/source/tests/Erlang.Tests/Fixtures/queue_callback368_regression.erl",
+      "Destination": "tests/Erlang.Tests/Fixtures/queue_callback368_regression.erl",
+      "BaseSha256": null,
+      "Bytes": 925,
+      "Sha256": "85ED59DE23BA7FDE260D043CFB142753F4AE54EEB95EF0E1358A58C430DC73AB"
+    },
+    {
+      "Source": "artifacts/queue-callback368-regression-proposal2/source/tests/Erlang.Tests/QueueCallbackRegressionHostChecks.cs",
+      "Destination": "tests/Erlang.Tests/QueueCallbackRegressionHostChecks.cs",
+      "BaseSha256": null,
+      "Bytes": 9149,
+      "Sha256": "C9896804C62B631AFED371309354D782004D8932C1E8AD7D04F074AED71CA709"
+    },
+    {
+      "Source": "artifacts/queue-callback368-regression-proposal2/source/tests/Erlang.Tests/QueueCallbackRegressionNames.cs",
+      "Destination": "tests/Erlang.Tests/QueueCallbackRegressionNames.cs",
+      "BaseSha256": null,
+      "Bytes": 1430,
+      "Sha256": "8394AF763AA7851571C48B0AC5E90BD66EFEDEA510B23B6B7880BA21F3AF2D14"
+    },
+    {
+      "Source": "artifacts/queue-callback368-regression-proposal2/source/tests/Erlang.Tests/QueueCallbackRegressionSource.cs",
+      "Destination": "tests/Erlang.Tests/QueueCallbackRegressionSource.cs",
+      "BaseSha256": null,
+      "Bytes": 1209,
+      "Sha256": "EAD67A41814162F00F249DA45C143FCB0B1F206A81722C906DBBED9C63996E6D"
+    }
+  ],
+  "Registration": "Test(Erlang.Tests.QueueCallbackRegressionNames.Test, Erlang.Tests.QueueCallbackRegressionHostChecks.Run);",
+  "Resource": "<EmbeddedResource Include=\"Fixtures/queue_callback368_regression.erl\" />",
+  "Dependencies": [
+    {
+      "Path": "src/Erlang.Runtime/ErlangBasicRegistrations.cs",
+      "Sha256": "AC94CB5B10A7D3A6060AEE7A5127FD9FCF80ACD482CC3C610C37F4D9A5669F46"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueHigherFilters.cs",
+      "Sha256": "1B57C35E565E1186BA8B0681BFCBC2F2A978E5B9ED798EA4E16B45D3785FA8A1"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueHigherTrace.cs",
+      "Sha256": "41F789E0828A9AD643247FC4DE2AD5765386A0F29C3F3B964BBE1D637E823753"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreTrace.cs",
+      "Sha256": "61B3BA76001585F516938154949F467AF9CDA890C5863539B36A1DE5618C6E66"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueHigherSource.cs",
+      "Sha256": "024F8A1B569F64B2A728347D8B704D4C310E35803CD00C70C99B350C62B6A6F2"
+    },
+    {
+      "Path": "tools/Erlang.Differential/CompiledModuleExecution.cs",
+      "Sha256": "57B99DE9B76AF6EFC29D8008D20C0AEC733A3E6CBC04CB150820C925B146F1A4"
+    },
+    {
+      "Path": "tools/Erlang.Differential/GeneratedModuleCompiler.cs",
+      "Sha256": "2D06B99D8E490DD32E4109A32DA2A8E61C909107557F868B5A83537A8BBF2929"
+    }
+  ],
+  "NewHostNames": 1,
+  "MainRuntimeCiChanges": 0
+}

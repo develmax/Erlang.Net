@@ -1,0 +1,1 @@
+-module(oracle_map_operations). -export([run/0]). run()->#{1.0:=b}=maps:without([1,missing,1],#{1=>a,1.0=>b}),done.

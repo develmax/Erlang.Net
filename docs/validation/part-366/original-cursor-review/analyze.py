@@ -1,0 +1,79 @@
+import pathlib,hashlib,json,subprocess,importlib.util
+R=pathlib.Path(__file__).resolve().parents[2];O=pathlib.Path(__file__).resolve().parent
+T=R/"artifacts/proplists-protocol366-original2/tool";D=R/"artifacts/proplists-protocol366-original2/download/run-39068386094";C=D/"artifact-12114153661/capture";B=D/"artifact-12114153661/build"
+HEAD="e81acb6f613ef5cf7c779aef6440faf9d42afefc";PIN="ad05823719d77c8faee87348ea39513d4e2f99c5"
+def H(p):return hashlib.sha256(p.read_bytes()).hexdigest().upper()
+def require(v,message="Passive admission failed"):
+ if not v:raise ValueError(message)
+def J(p):return json.loads(p.read_bytes())
+def git(path):return subprocess.run(["git","show",HEAD+":"+path],cwd=R,check=True,stdout=subprocess.PIPE).stdout
+def serial(v):
+ if isinstance(v,bytes):return {"BytesHex":v.hex().upper()}
+ if isinstance(v,(tuple,list)):return [serial(z)for z in v]
+ if isinstance(v,frozenset):return sorted([serial(z)for z in v],key=repr)
+ return v
+require(H(D/"artifact-12114153661.zip")=="9E0100220A2E48A9AF6B6EEC5C3B5D3066C2A53330D985C3F6F7A16D6319DD4D")
+manifest=J(D/"download-manifest.json")
+for row in manifest:
+ f=D/row["Path"];require(f.stat().st_size==row["Bytes"]and H(f)==row["Sha256"])
+completion=J(C/"completion.json");inputs=J(C/"inputs.json");require(completion["Status"]=="PASS_ORIGINAL_CAPTURE_PENDING_COMPARISON"and completion["SubjectHead"]==HEAD and completion["PinnedOtpCommit"]==PIN and completion["FailedGroups"]==0 and completion["AllGroupsAttempted"])
+planbytes=git("tools/Erlang.ProplistFamilyObservations/source-inputs.corrected.json");plan=json.loads(planbytes);require(hashlib.sha256(planbytes).hexdigest().upper()==completion["SourceInputsSha256"]=="BECA9B475A96917611A0BD597F155604E2C795FD8A614831783B367DA47C3B2C")
+for row in plan["ToolInputs"]:
+ f=T/row["Path"];require(H(f)==row["Sha256"]and f.stat().st_size==row["Bytes"]);require(hashlib.sha256(git("tools/Erlang.ProplistFamilyObservations/"+row["Path"])).hexdigest().upper()==row["Sha256"])
+for row in plan["RepositoryInputs"]:require(hashlib.sha256(git(row["Path"])).hexdigest().upper()==row["Sha256"])
+require(H(T/"profile.json")==completion["ProfileSha256"]==inputs["ProfileSha256"])
+# Independently reconstruct every pinned tree blob, mode and content hash.
+source=J(B/"source-before.json");require(source==J(B/"source-after.json")and source["Commit"]==PIN)
+tree=subprocess.run(["git","-C","../otp","ls-tree","-rz","--full-tree",PIN],cwd=R,stdout=subprocess.PIPE,check=True).stdout
+entries=[]
+for raw in tree.rstrip(b"\0").split(b"\0"):
+ meta,path=raw.split(b"\t",1);mode,kind,oid=meta.split();require(kind==b"blob");entries.append((path.decode(),mode.decode(),oid.decode()))
+batch=subprocess.run(["git","-C","../otp","cat-file","--batch"],cwd=R,input=("\n".join(x[2]for x in entries)+"\n").encode(),stdout=subprocess.PIPE,check=True).stdout
+pos=0;reconstructed=[]
+for path,mode,oid in entries:
+ end=batch.index(b"\n",pos);actual,kind,size=batch[pos:end].split();size=int(size);pos=end+1;require(actual.decode()==oid and kind==b"blob");content=batch[pos:pos+size];pos+=size;require(batch[pos:pos+1]==b"\n");pos+=1;reconstructed.append({"Path":path,"Mode":mode,"Bytes":size,"Sha256":hashlib.sha256(content).hexdigest().upper()})
+require(pos==len(batch));require(sorted(reconstructed,key=lambda x:x["Path"])==sorted(source["TrackedFiles"],key=lambda x:x["Path"]))
+# Trusted local bounded decoder only; no downloaded module/code executed.
+f=T/"passive_etf_family.py";spec=importlib.util.spec_from_file_location("trusted_cursor_decoder",f);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+def decode(p):return m.decode_exact(p.read_bytes())
+def A(v):return ("atom",v)
+def I(v):return ("integer",v)
+def L(*v):return ("list",tuple(v))
+def TT(*v):return ("tuple",tuple(v))
+def string(v):return L(*(I(ord(z))for z in v))
+def named(v):require(v[0]=="list");return dict(z[1]for z in v[1])
+folder=C/"reference_cursors";returned=decode(folder/"returned.etf");profiles=decode(folder/"stack-observations.etf");expected=[A("flat_aliases"),A("hamt_aliases"),A("prefix_alias")];require(list(named(returned))==expected);require(list(named(profiles))==[A("default"),I(0),I(1),I(2),I(8)])
+group=completion["Groups"][0];require(group["Id"]=="reference_cursors"and group["Acquired"]and not group["VmSkipped"])
+for n,k in [("returned.etf","ReturnedSha256"),("stack-observations.etf","RawStacksSha256"),("metadata.etf","MetadataSha256")]:require(H(folder/n)==group[k])
+for row in group["CompiledFiles"]:require(H(folder/"ebin"/(row["Module"]+".beam"))==row["Sha256"])
+require((folder/"proplists-loaded.beam").read_bytes()==(C/"proplists-installed.beam").read_bytes()and H(C/"proplists-installed.beam")==inputs["InstalledProplistsSha256"])
+frames=[];observations=[]
+def observe_case(name,out,depth):
+ require(out[0]=="tuple"and out[1][0]==A("ok"));value=out[1][1]
+ if name==A("prefix_alias"):
+  first,one,two,equal,h1,h2,root,base,mapvalue,lookup,cursor,observed=value[1]
+  require(equal==A("true")and one[3]==(first[1],)and two[3]==(first[1],0)and h1!=h2 and h1[1]&15==h2[1]&15==root[1]);require(len(base[1])==33 and all(row[1][1][1]&15!=root[1]for row in base[1]));require(len(mapvalue[1])==34 and lookup==A("present")and cursor==("improper",(L(two),),mapvalue));require(observed==TT(A("ok"),L(TT(two,A("present")))))
+  observations.append({"Depth":depth,"Case":name[1],"FirstWord":first[1],"Equal":True,"FullHashesDifferent":True,"RootNibble":root[1],"OriginalHashes":[h1[1],h2[1]],"All33BaseKeysExcludeRoot":True,"ActualLookup":"present","ActualCursorOutcome":"ok","QueryStoredCountPreserved":2});return
+ mapvalue,aliases=value[1];flat=name==A("flat_aliases");require(len(mapvalue[1])==(1 if flat else 34)and len(aliases[1])==5)
+ for index,row in enumerate(aliases[1],1):
+  count,ref,equal,wire,h,lookup,cursor,observed=row[1];require(count==I(index)and equal==A("true")and ref[3]==(7,)+(0,)*(index-1)and m.decode_exact(wire[1])==ref and cursor==("improper",(L(ref),),mapvalue))
+  okay=flat or index==1;require(lookup==A("present"if okay else"missing"))
+  if okay:require(observed==TT(A("ok"),L(TT(ref,A("present")))))
+  else:
+   require(observed[1][:3]==(A("error"),A("error"),TT(A("badmap"),cursor)));stack=observed[1][3];require(stack[0]=="list")
+   location=L(TT(A("file"),string("maps.erl")),TT(A("line"),I(1303)),TT(A("error_info"),("map",frozenset({(A("module"),A("erl_stdlib_errors"))}))))
+   top=TT(A("maps"),A("to_list"),L(cursor),location);require(stack[1][0]==top)
+   expected_depth=8 if depth in ["returned","default"]else max(1,depth);require(len(stack[1])==expected_depth)
+   for frame in stack[1][1:]:require(frame[1][0]==A("proplists_reference_cursor_contract")and frame[1][2][0]=="integer"and frame[1][3][0]=="list")
+   frames.append({"Depth":depth,"StoredWordCount":index,"FullOrderedStack":serial(stack),"FrameCount":len(stack[1]),"WholeCursorReasonAndTopArgumentsExact":True})
+  observations.append({"Depth":depth,"Case":name[1],"StoredWordCount":index,"OriginalHash":h[1],"RootNibble":h[1]&15,"ActualLookup":lookup[1],"Outcome":"ok"if okay else"error_badmap"})
+for name,out in named(returned).items():observe_case(name,out,"returned")
+for depth,rows in named(profiles).items():
+ require(list(named(rows))==expected)
+ for name,out in named(rows).items():observe_case(name,out,depth[1])
+processes=[]
+for stage in ["compile","observe"]:
+ p=folder/(stage+".process.json");a=J(p);require(a["ExitCode"]==0 and a["ParentReaped"]and a["StreamsClosed"]and not a["TerminationRequested"]and a["CleanupFailure"]is None);processes.append({"Stage":stage,"Sha256":H(p),"Seconds":a["ElapsedSeconds"],"NormalCleanup":True})
+(O/"decoded-full.json").write_text(json.dumps({"Returned":serial(returned),"Profiles":serial(profiles),"Metadata":serial(decode(folder/"metadata.etf"))},indent=2)+"\n",encoding="utf-8")
+report={"Status":"PASS_PASSIVE_ORIGINAL_CURSOR3_ADMISSION","Run":39068386094,"Head":HEAD,"PinnedOtp":PIN,"ZipSha256":H(D/"artifact-12114153661.zip"),"DownloadRowsRehashed":len(manifest),"SourcePlanSha256":completion["SourceInputsSha256"],"ToolInputsBoundToLocalAndCommittedHead":len(plan["ToolInputs"]),"RepositoryInputsBoundToCommittedHead":len(plan["RepositoryInputs"]),"IndependentPinnedBlobModeContentRows":len(reconstructed),"PinnedBeforeAfterExact":True,"DecoderSha256":H(f),"NativeCases":3,"FullRawProfiles":15,"Observations":observations,"PreservedErrorStacks":frames,"NormalOwnedProcesses":processes,"NoNativeDownloadedCodeSdkCiNetworkExecutionByReviewer":True,"RawHashes":{n:H(folder/n)for n in ["returned.etf","stack-observations.etf","metadata.etf"]},"Conclusion":["Flat aliases1..5 succeed, HAMT alias1 succeeds and2..5fail with wholecursorbadmap in this process.","Sameprefix equal reference alias succeeds with distinct fullhashes; unused suffix bits are not compared at a reachedleaf.","Full caller frames, duplicate LC frames, maps1303errorinfo, wholecursorreason and top arguments preserved in each depth. Depth0and1 still retain explicit mapsframe.","No literal crossVMhash equality or standalonefixture identical SDKcapture is claimed. Sourceprotocol witnesses complement actualMain independent own-stateHOST assertions and finalreplay5.","No remaining concrete from_mapsourceblocker found after prefix+flat corrections; recommendation remains conditional finaldelta package/readiness gates, Rootalone classifies."]}
+(O/"report.json").write_text(json.dumps(report,indent=2)+"\n",encoding="utf-8");print("PASS_NATIVE3_PROFILES15_PINNED"+str(len(reconstructed))+"_DOWNLOAD"+str(len(manifest)))

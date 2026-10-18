@@ -1,0 +1,71 @@
+{
+  "Files": [
+    {
+      "Path": "src/Erlang.Runtime/RuntimeReferenceResources.cs",
+      "Bytes": 7201,
+      "Sha256": "A1620F34D93B03FE0F6CB5D2A20376A53BE997EF40385013544E049AEE88F89B"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ReferenceResourceEntry.cs",
+      "Bytes": 1460,
+      "Sha256": "01F2BB5BEE8D4BD7BF33B6199E61053FB62C64935F504A938294D90F2FCF33CF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ReferenceResourceLease.cs",
+      "Bytes": 568,
+      "Sha256": "A3FCF66583D085E81F2112ADDEE26C43D579CBF56F2874D5A7F7601AB007C801"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ReferenceResourceKind.cs",
+      "Bytes": 150,
+      "Sha256": "573ACE305811214F288EA13D6C597B0C7638E9FF63F9F0F19608B0FEFAA4BB0B"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ResourceReferenceTerm.cs",
+      "Bytes": 427,
+      "Sha256": "DCB42DC0EAE26EC5D8870AF23F2E50B1C5957774AF23B7D00DFD270E5772BE8F"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.ExternalDecode.cs",
+      "Bytes": 2858,
+      "Sha256": "07309230819D4861A71DB83FB18E3668A1B1A931CC44C7B600EE7825A9EBDBC1"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeExceptionCapture.cs",
+      "Bytes": 7225,
+      "Sha256": "BDA882AF75249C5C067BEB61A842C5D4D4D9E5599303AF9F7F2FF8C99F19112F"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeExceptionNames.cs",
+      "Bytes": 648,
+      "Sha256": "44BDC6A12BF77E863E52ECC700529A3DCAF3EFE870FC551F4FB7681E320FE577"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BinaryModuleNames.cs",
+      "Bytes": 1101,
+      "Sha256": "F48C15D3386C1BECECF0661FB643B8B75ADD933C76A35F0C95AC9DE90F1F4000"
+    },
+    {
+      "Path": "src/Erlang.Terms/BitString.cs",
+      "Bytes": 3564,
+      "Sha256": "63F0D699FB328A4200EC7692D66D7932E487FE527D0807FF5E06FD5A48BB9D63"
+    },
+    {
+      "Path": "tests/Erlang.Tests/RuntimeNodeFoundationHostActor.cs",
+      "Bytes": 1920,
+      "Sha256": "2B92247A71D03AE6E0C62EF4033037435726844AA8AFEB3B413D45C981D18448"
+    },
+    {
+      "Path": "tests/Erlang.Tests/ListLengthYieldContext.cs",
+      "Bytes": 1605,
+      "Sha256": "940E04970901B232C0F98C8CB8829415D8D20C9C10AC1B864270B3AA30897B38"
+    }
+  ],
+  "RootIntegrationOnly": [
+    "CoreModules: BinarySearchModule.Register(registry); do not duplicate old five binary access registrations",
+    "Typed MFA dispatch hook: BinarySearchMfaContracts.Owns/Run for7exact signatures",
+    "Four HOST registrations from BinarySearchHostNames to resource/options/cooperative/compiled Run methods",
+    "EmbeddedResource Include=Fixtures/binary_search_contract.erl",
+    "Apply enum appended resource kind only after guarded base hash; no private fork of reference/ETF machinery"
+  ]
+}

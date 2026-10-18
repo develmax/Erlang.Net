@@ -1,0 +1,1 @@
+-module(oracle_map_operations). -export([run/0]). run()->try maps:map(fun(_,V)->V end,wrong) of _->unexpected catch error:{badmap,wrong}->ok end,done.

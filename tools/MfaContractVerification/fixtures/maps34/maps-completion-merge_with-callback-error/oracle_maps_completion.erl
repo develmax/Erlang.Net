@@ -1,0 +1,1 @@
+-module(oracle_maps_completion). -export([run/0]). run()->try maps:merge_with(fun(_,_,_)->error(callback_failed) end,#{a=>1},#{a=>2}) of _->unexpected catch error:callback_failed->ok end,done.

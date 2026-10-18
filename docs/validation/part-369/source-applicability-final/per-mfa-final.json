@@ -1,0 +1,291 @@
+{
+  "OtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Counts": {
+    "primitive18": 18,
+    "search7": 7,
+    "wrapper6": 6
+  },
+  "Entries": [
+    {
+      "Mfa": "binary:at/2",
+      "Family": "primitive18",
+      "DomainAndBranches": "Byte-aligned binary and integer index0<=i<byteLength, including unaligned retained binary views. Reject negative/noninteger/out-of-range and partial bitstrings.",
+      "ErrorsAndFrames": "Whole original public effective args; native BIF error_info uses actual registry/native boundary; current-code body+image ownership checked.",
+      "Dependencies": "ErlangIoData.Part; BitString logical offset; <=512bits copies, larger retains actual descriptor.",
+      "Classification": "SOURCE_APPLICABILITY_REVIEWED; ROOT_FINAL_EVIDENCE_AND_CLASSIFICATION_PENDING",
+      "Eligibility": "ELIGIBLE_AFTER_ROOT_FINAL_GATES; NOT_PROMOTED_BY_THIS_REPORT"
+    },
+    {
+      "Mfa": "binary:first/1",
+      "Family": "primitive18",
+      "DomainAndBranches": "Nonempty byte-aligned binary; first logical byte. Empty/nonbinary/partial fail.",
+      "ErrorsAndFrames": "Whole original public effective args; native BIF error_info uses actual registry/native boundary; current-code body+image ownership checked.",
+      "Dependencies": "ErlangIoData.Part; BitString logical offset; <=512bits copies, larger retains actual descriptor.",
+      "Classification": "SOURCE_APPLICABILITY_REVIEWED; ROOT_FINAL_EVIDENCE_AND_CLASSIFICATION_PENDING",
+      "Eligibility": "ELIGIBLE_AFTER_ROOT_FINAL_GATES; NOT_PROMOTED_BY_THIS_REPORT"
+    },
+    {
+      "Mfa": "binary:last/1",
+      "Family": "primitive18",
+      "DomainAndBranches": "Nonempty byte-aligned binary; last logical byte. Empty/nonbinary/partial fail.",
+      "ErrorsAndFrames": "Whole original public effective args; native BIF error_info uses actual registry/native boundary; current-code body+image ownership checked.",
+      "Dependencies": "ErlangIoData.Part; BitString logical offset; <=512bits copies, larger retains actual descriptor.",
+      "Classification": "SOURCE_APPLICABILITY_REVIEWED; ROOT_FINAL_EVIDENCE_AND_CLASSIFICATION_PENDING",
+      "Eligibility": "ELIGIBLE_AFTER_ROOT_FINAL_GATES; NOT_PROMOTED_BY_THIS_REPORT"
+    },
+    {
+      "Mfa": "binary:part/2",
+      "Family": "primitive18",
+      "DomainAndBranches": "Exact tuple2 position/length; negative length reverses range origin; zero endpoints inclusive; all arithmetic checked against logical bytes before slicing.",
+      "ErrorsAndFrames": "Whole original public effective args; native BIF error_info uses actual registry/native boundary; current-code body+image ownership checked.",
+      "Dependencies": "ErlangIoData.Part; BitString logical offset; <=512bits copies, larger retains actual descriptor.",
+      "Classification": "SOURCE_APPLICABILITY_REVIEWED; ROOT_FINAL_EVIDENCE_AND_CLASSIFICATION_PENDING",
+      "Eligibility": "ELIGIBLE_AFTER_ROOT_FINAL_GATES; NOT_PROMOTED_BY_THIS_REPORT"
+    },
+    {
+      "Mfa": "binary:part/3",
+      "Family": "primitive18",
+      "DomainAndBranches": "Same range partition with separate original arguments; unsigned position and signed length; invalid ranges do not construct a view.",
+      "ErrorsAndFrames": "Whole original public effective args; native BIF error_info uses actual registry/native boundary; current-code body+image ownership checked.",
+      "Dependencies": "ErlangIoData.Part; BitString logical offset; <=512bits copies, larger retains actual descriptor.",
+      "Classification": "SOURCE_APPLICABILITY_REVIEWED; ROOT_FINAL_EVIDENCE_AND_CLASSIFICATION_PENDING",
+      "Eligibility": "ELIGIBLE_AFTER_ROOT_FINAL_GATES; NOT_PROMOTED_BY_THIS_REPORT"
+    },
+    {
+      "Mfa": "binary:bin_to_list/1",
+      "Family": "primitive18",
+      "DomainAndBranches": "Binary; full range or exact tuple2/separate position,length. Source zero/negative/positive length and range checks preserve wrapper public arguments. Output proper byte integer list.",
+      "ErrorsAndFrames": "BinaryListConversion.ErrorLine selects source error_info vs badarg helper; whole caller chain retained via RuntimeExceptionCapture.Call; bin_to_list wrapper owner stripped once.",
+      "Dependencies": "BinaryWrapperSource/Trace; backwards list construction with cooperative checkpoints.",
+      "Classification": "SOURCE_APPLICABILITY_REVIEWED; ROOT_FINAL_EVIDENCE_AND_CLASSIFICATION_PENDING",
+      "Eligibility": "ELIGIBLE_AFTER_ROOT_FINAL_GATES; NOT_PROMOTED_BY_THIS_REPORT"
+    },
+    {
+      "Mfa": "binary:bin_to_list/2",
+      "Family": "primitive18",
+      "DomainAndBranches": "Binary; full range or exact tuple2/separate position,length. Source zero/negative/positive length and range checks preserve wrapper public arguments. Output proper byte integer list.",
+      "ErrorsAndFrames": "BinaryListConversion.ErrorLine selects source error_info vs badarg helper; whole caller chain retained via RuntimeExceptionCapture.Call; bin_to_list wrapper owner stripped once.",
+      "Dependencies": "BinaryWrapperSource/Trace; backwards list construction with cooperative checkpoints.",
+      "Classification": "SOURCE_APPLICABILITY_REVIEWED; ROOT_FINAL_EVIDENCE_AND_CLASSIFICATION_PENDING",
+      "Eligibility": "ELIGIBLE_AFTER_ROOT_FINAL_GATES; NOT_PROMOTED_BY_THIS_REPORT"
+    },
+    {
+      "Mfa": "binary:bin_to_list/3",
+      "Family": "primitive18",
+      "DomainAndBranches": "Binary; full range or exact tuple2/separate position,length. Source zero/negative/positive length and range checks preserve wrapper public arguments. Output proper byte integer list.",
+      "ErrorsAndFrames": "BinaryListConversion.ErrorLine selects source error_info vs badarg helper; whole caller chain retained via RuntimeExceptionCapture.Call; bin_to_list wrapper owner stripped once.",
+      "Dependencies": "BinaryWrapperSource/Trace; backwards list construction with cooperative checkpoints.",
+      "Classification": "SOURCE_APPLICABILITY_REVIEWED; ROOT_FINAL_EVIDENCE_AND_CLASSIFICATION_PENDING",
+      "Eligibility": "ELIGIBLE_AFTER_ROOT_FINAL_GATES; NOT_PROMOTED_BY_THIS_REPORT"
+    },
+    {
+      "Mfa": "binary:list_to_bin/1",
+      "Family": "primitive18",
+      "DomainAndBranches": "Top Nil or Cons only; arbitrary nested proper iodata with binary tails and byte heads. Top binary rejected. Singleton aligned binary list returns same object. Invalid reached integer/tuple/partial bits/improper tail fails.",
+      "ErrorsAndFrames": "Whole original public effective args; native BIF error_info uses actual registry/native boundary; current-code body+image ownership checked.",
+      "Dependencies": "BinaryWrapperOutput visits each structural node, including empty lists, and every bounded byte chunk; no segment-only cancellation hole.",
+      "Classification": "SOURCE_APPLICABILITY_REVIEWED; ROOT_FINAL_EVIDENCE_AND_CLASSIFICATION_PENDING",
+      "Eligibility": "ELIGIBLE_AFTER_ROOT_FINAL_GATES; NOT_PROMOTED_BY_THIS_REPORT"
+    },
+    {
+      "Mfa": "binary:copy/1",
+      "Family": "primitive18",
+      "DomainAndBranches": "Binary and nonnegative machine-Uint count (default1). Validate count/type/alignment before empty result. Result byte length multiply checked; new owned physical backing; byte contents repeated modulo source logical length.",
+      "ErrorsAndFrames": "Whole original public effective args; native BIF error_info uses actual registry/native boundary; current-code body+image ownership checked.",
+      "Dependencies": "Own int BitLength and actual CLR allocation limits; system_limit not invented large allocation. Cooperative copy chunks, cancellation before writes.",
+      "Classification": "SOURCE_APPLICABILITY_REVIEWED; ROOT_FINAL_EVIDENCE_AND_CLASSIFICATION_PENDING",
+      "Eligibility": "ELIGIBLE_AFTER_ROOT_FINAL_GATES; NOT_PROMOTED_BY_THIS_REPORT"
+    },
+    {
+      "Mfa": "binary:decode_unsigned/1",
+      "Family": "primitive18",
+      "DomainAndBranches": "Binary; big default or exact big/little atom. Empty/allzero=>0; leading/trailing zero stripping equivalent to unsigned BigInteger decode; no dependence on parent offset.",
+      "ErrorsAndFrames": "Whole original public effective args; native BIF error_info uses actual registry/native boundary; current-code body+image ownership checked.",
+      "Dependencies": "Logical ByteSpan; BigInteger unsigned direction; native source itself has atomic integer loops, no promise of identical reduction count.",
+      "Classification": "SOURCE_APPLICABILITY_REVIEWED; ROOT_FINAL_EVIDENCE_AND_CLASSIFICATION_PENDING",
+      "Eligibility": "ELIGIBLE_AFTER_ROOT_FINAL_GATES; NOT_PROMOTED_BY_THIS_REPORT"
+    },
+    {
+      "Mfa": "binary:encode_unsigned/1",
+      "Family": "primitive18",
+      "DomainAndBranches": "Nonnegative arbitrary integer; big default or exact big/little atom; zero=>one zero byte; minimal unsigned representation.",
+      "ErrorsAndFrames": "Whole original public effective args; native BIF error_info uses actual registry/native boundary; current-code body+image ownership checked.",
+      "Dependencies": "Genuine Integer value and actual owned binary output; current BitLength/CLR physical limits apply, not native heap size identity.",
+      "Classification": "SOURCE_APPLICABILITY_REVIEWED; ROOT_FINAL_EVIDENCE_AND_CLASSIFICATION_PENDING",
+      "Eligibility": "ELIGIBLE_AFTER_ROOT_FINAL_GATES; NOT_PROMOTED_BY_THIS_REPORT"
+    },
+    {
+      "Mfa": "binary:copy/2",
+      "Family": "primitive18",
+      "DomainAndBranches": "Binary and nonnegative machine-Uint count (default1). Validate count/type/alignment before empty result. Result byte length multiply checked; new owned physical backing; byte contents repeated modulo source logical length.",
+      "ErrorsAndFrames": "Whole original public effective args; native BIF error_info uses actual registry/native boundary; current-code body+image ownership checked.",
+      "Dependencies": "Own int BitLength and actual CLR allocation limits; system_limit not invented large allocation. Cooperative copy chunks, cancellation before writes.",
+      "Classification": "SOURCE_APPLICABILITY_REVIEWED; ROOT_FINAL_EVIDENCE_AND_CLASSIFICATION_PENDING",
+      "Eligibility": "ELIGIBLE_AFTER_ROOT_FINAL_GATES; NOT_PROMOTED_BY_THIS_REPORT"
+    },
+    {
+      "Mfa": "binary:decode_unsigned/2",
+      "Family": "primitive18",
+      "DomainAndBranches": "Binary; big default or exact big/little atom. Empty/allzero=>0; leading/trailing zero stripping equivalent to unsigned BigInteger decode; no dependence on parent offset.",
+      "ErrorsAndFrames": "Whole original public effective args; native BIF error_info uses actual registry/native boundary; current-code body+image ownership checked.",
+      "Dependencies": "Logical ByteSpan; BigInteger unsigned direction; native source itself has atomic integer loops, no promise of identical reduction count.",
+      "Classification": "SOURCE_APPLICABILITY_REVIEWED; ROOT_FINAL_EVIDENCE_AND_CLASSIFICATION_PENDING",
+      "Eligibility": "ELIGIBLE_AFTER_ROOT_FINAL_GATES; NOT_PROMOTED_BY_THIS_REPORT"
+    },
+    {
+      "Mfa": "binary:encode_unsigned/2",
+      "Family": "primitive18",
+      "DomainAndBranches": "Nonnegative arbitrary integer; big default or exact big/little atom; zero=>one zero byte; minimal unsigned representation.",
+      "ErrorsAndFrames": "Whole original public effective args; native BIF error_info uses actual registry/native boundary; current-code body+image ownership checked.",
+      "Dependencies": "Genuine Integer value and actual owned binary output; current BitLength/CLR physical limits apply, not native heap size identity.",
+      "Classification": "SOURCE_APPLICABILITY_REVIEWED; ROOT_FINAL_EVIDENCE_AND_CLASSIFICATION_PENDING",
+      "Eligibility": "ELIGIBLE_AFTER_ROOT_FINAL_GATES; NOT_PROMOTED_BY_THIS_REPORT"
+    },
+    {
+      "Mfa": "binary:longest_common_prefix/1",
+      "Family": "primitive18",
+      "DomainAndBranches": "Proper nonempty binary list; validate every head before trivialempty optimization. MAX_ARITYVAL count check precedes improper-tail final check. Compare logical bytes from front, returning minimal mismatch/shortest length.",
+      "ErrorsAndFrames": "Whole original public effective args; native BIF error_info uses actual registry/native boundary; current-code body+image ownership checked.",
+      "Dependencies": "Finite count bound0x00ffffff matches pinned arity layout; per-node/per-byte/per-candidate charging. Native trap partition not seeded.",
+      "Classification": "SOURCE_APPLICABILITY_REVIEWED; ROOT_FINAL_EVIDENCE_AND_CLASSIFICATION_PENDING",
+      "Eligibility": "ELIGIBLE_AFTER_ROOT_FINAL_GATES; NOT_PROMOTED_BY_THIS_REPORT"
+    },
+    {
+      "Mfa": "binary:longest_common_suffix/1",
+      "Family": "primitive18",
+      "DomainAndBranches": "Proper nonempty binary list; validate every head before trivialempty optimization. MAX_ARITYVAL count check precedes improper-tail final check. Compare logical bytes from back, returning minimal mismatch/shortest length.",
+      "ErrorsAndFrames": "Whole original public effective args; native BIF error_info uses actual registry/native boundary; current-code body+image ownership checked.",
+      "Dependencies": "Finite count bound0x00ffffff matches pinned arity layout; per-node/per-byte/per-candidate charging. Native trap partition not seeded.",
+      "Classification": "SOURCE_APPLICABILITY_REVIEWED; ROOT_FINAL_EVIDENCE_AND_CLASSIFICATION_PENDING",
+      "Eligibility": "ELIGIBLE_AFTER_ROOT_FINAL_GATES; NOT_PROMOTED_BY_THIS_REPORT"
+    },
+    {
+      "Mfa": "binary:referenced_byte_size/1",
+      "Family": "primitive18",
+      "DomainAndBranches": "Every BitString including partial bits. Heap returns floor(logicalbits/8); refc returns actual current backing array length. Retained views/volatile backing movement, shrink and aliases use same descriptor.",
+      "ErrorsAndFrames": "Whole original public effective args; native BIF error_info uses actual registry/native boundary; current-code body+image ownership checked.",
+      "Dependencies": "Own real allocation, explicit heap/refc kind, observed payload arrays. Generic append/pin/NIF freeze/sharing events source-reviewed; no equal native physical capacity or optimizer layout assertion.",
+      "Classification": "SOURCE_APPLICABILITY_REVIEWED; ROOT_FINAL_EVIDENCE_AND_CLASSIFICATION_PENDING",
+      "Eligibility": "ELIGIBLE_AFTER_ROOT_FINAL_GATES; NOT_PROMOTED_BY_THIS_REPORT"
+    },
+    {
+      "Mfa": "binary:compile_pattern/1",
+      "Family": "search7",
+      "DomainAndBranches": "Accept nonempty byte-aligned binary or proper nonempty list of nonempty byte-aligned binaries; reject Nil/nonbinary/partialbits/improperlists and compiled tuples. Single word or singleton list=>bm; two-plus list entries=>ac including duplicate words. Immutable trie preserves exactly all accepted words. Return tuple2 with genuine runtime-owned BinarySearchPattern resource reference; each compile creates a new actual resource identity. No captured native word/PID/address is fabricated.",
+      "ErrorsAndFrames": "Whole original public effective args; native BIF error_info uses actual registry/native boundary; current-code body+image ownership checked.",
+      "Dependencies": "Immutable trie exact leftmost-longest/nonoverlap algorithm; actual typed runtime resource ref and acquired lease; public resource lifecycle/ETF admission, cooperative compile/search/results. No fabricated opaque IDs.",
+      "Classification": "SOURCE_APPLICABILITY_REVIEWED; ROOT_FINAL_EVIDENCE_AND_CLASSIFICATION_PENDING",
+      "Eligibility": "ELIGIBLE_AFTER_ROOT_FINAL_GATES; NOT_PROMOTED_BY_THIS_REPORT"
+    },
+    {
+      "Mfa": "binary:match/2",
+      "Family": "search7",
+      "DomainAndBranches": "Subject must be binary; default full subject scope. Resolve raw patterns or exact genuine typed compiled tuple. Test positions ascending; at first successful start consume trie to scope end and choose greatest terminal depth. Equal-position longest wins, independent of pattern order. Return nomatch or exact absolute {position,length}; malformed arguments preserve whole original public args in binary BIF error_info frame.",
+      "ErrorsAndFrames": "Whole original public effective args; native BIF error_info uses actual registry/native boundary; current-code body+image ownership checked.",
+      "Dependencies": "Immutable trie exact leftmost-longest/nonoverlap algorithm; actual typed runtime resource ref and acquired lease; public resource lifecycle/ETF admission, cooperative compile/search/results. No fabricated opaque IDs.",
+      "Classification": "SOURCE_APPLICABILITY_REVIEWED; ROOT_FINAL_EVIDENCE_AND_CLASSIFICATION_PENDING",
+      "Eligibility": "ELIGIBLE_AFTER_ROOT_FINAL_GATES; NOT_PROMOTED_BY_THIS_REPORT"
+    },
+    {
+      "Mfa": "binary:match/3",
+      "Family": "search7",
+      "DomainAndBranches": "Same match2 plus options parsed before pattern: scope tuple2 unsigned start/signed length, negative lengths move start backward, end must fit subject. Every reached scope validates; last scope wins. Empty list valid; top nonlist invalid; valid Cons spine accepts arbitrary final improper tail as native C does. No global/trim options admitted.",
+      "ErrorsAndFrames": "Whole original public effective args; native BIF error_info uses actual registry/native boundary; current-code body+image ownership checked.",
+      "Dependencies": "Immutable trie exact leftmost-longest/nonoverlap algorithm; actual typed runtime resource ref and acquired lease; public resource lifecycle/ETF admission, cooperative compile/search/results. No fabricated opaque IDs.",
+      "Classification": "SOURCE_APPLICABILITY_REVIEWED; ROOT_FINAL_EVIDENCE_AND_CLASSIFICATION_PENDING",
+      "Eligibility": "ELIGIBLE_AFTER_ROOT_FINAL_GATES; NOT_PROMOTED_BY_THIS_REPORT"
+    },
+    {
+      "Mfa": "binary:matches/2",
+      "Family": "search7",
+      "DomainAndBranches": "Same validated matching scope, global collection resumes at selected match end, no overlaps; unmatched empty scope returns Nil after pattern validation. All positions absolute and ordered; longest chosen at every earliest next start. Result construction cooperates iteratively.",
+      "ErrorsAndFrames": "Whole original public effective args; native BIF error_info uses actual registry/native boundary; current-code body+image ownership checked.",
+      "Dependencies": "Immutable trie exact leftmost-longest/nonoverlap algorithm; actual typed runtime resource ref and acquired lease; public resource lifecycle/ETF admission, cooperative compile/search/results. No fabricated opaque IDs.",
+      "Classification": "SOURCE_APPLICABILITY_REVIEWED; ROOT_FINAL_EVIDENCE_AND_CLASSIFICATION_PENDING",
+      "Eligibility": "ELIGIBLE_AFTER_ROOT_FINAL_GATES; NOT_PROMOTED_BY_THIS_REPORT"
+    },
+    {
+      "Mfa": "binary:matches/3",
+      "Family": "search7",
+      "DomainAndBranches": "Same matches2 plus exact match3 option validation/precedence/duplicate and improper-tail behavior.",
+      "ErrorsAndFrames": "Whole original public effective args; native BIF error_info uses actual registry/native boundary; current-code body+image ownership checked.",
+      "Dependencies": "Immutable trie exact leftmost-longest/nonoverlap algorithm; actual typed runtime resource ref and acquired lease; public resource lifecycle/ETF admission, cooperative compile/search/results. No fabricated opaque IDs.",
+      "Classification": "SOURCE_APPLICABILITY_REVIEWED; ROOT_FINAL_EVIDENCE_AND_CLASSIFICATION_PENDING",
+      "Eligibility": "ELIGIBLE_AFTER_ROOT_FINAL_GATES; NOT_PROMOTED_BY_THIS_REPORT"
+    },
+    {
+      "Mfa": "binary:split/2",
+      "Family": "search7",
+      "DomainAndBranches": "Same subject/pattern validation; first match only; default scope full binary. No match returns [original subject], including empty subject. Successful split retains all bytes before/after delimiter, including bytes outside explicit scopes in split3. Parts materialize through Root genuine BitString.SliceBits, preserving actual backing/offset/short-copy policy rather than invented referenced-byte counts.",
+      "ErrorsAndFrames": "Whole original public effective args; native BIF error_info uses actual registry/native boundary; current-code body+image ownership checked.",
+      "Dependencies": "Immutable trie exact leftmost-longest/nonoverlap algorithm; actual typed runtime resource ref and acquired lease; public resource lifecycle/ETF admission, cooperative compile/search/results. No fabricated opaque IDs.",
+      "Classification": "SOURCE_APPLICABILITY_REVIEWED; ROOT_FINAL_EVIDENCE_AND_CLASSIFICATION_PENDING",
+      "Eligibility": "ELIGIBLE_AFTER_ROOT_FINAL_GATES; NOT_PROMOTED_BY_THIS_REPORT"
+    },
+    {
+      "Mfa": "binary:split/3",
+      "Family": "search7",
+      "DomainAndBranches": "Scope parser same signed/unsigned ranges and last-wins, plus cumulative global/trim/trim_all flags. Valid option Cons spine accepts arbitrary tail; earlier invalid option cannot be rescued. Global nonoverlap leftmost-longest; trim removes only trailing empty parts; trim_all all empty parts; bothflags equivalent trim_all. Empty no-match returns Nil when either trimflag set. All scope-external bytes kept in first/last parts. No eager byte-value/representation normalization beyond genuine SliceBits.",
+      "ErrorsAndFrames": "Whole original public effective args; native BIF error_info uses actual registry/native boundary; current-code body+image ownership checked.",
+      "Dependencies": "Immutable trie exact leftmost-longest/nonoverlap algorithm; actual typed runtime resource ref and acquired lease; public resource lifecycle/ETF admission, cooperative compile/search/results. No fabricated opaque IDs.",
+      "Classification": "SOURCE_APPLICABILITY_REVIEWED; ROOT_FINAL_EVIDENCE_AND_CLASSIFICATION_PENDING",
+      "Eligibility": "ELIGIBLE_AFTER_ROOT_FINAL_GATES; NOT_PROMOTED_BY_THIS_REPORT"
+    },
+    {
+      "Mfa": "binary:replace/3",
+      "Family": "wrapper6",
+      "DomainAndBranches": "Unconditional try replace4 with []. Catches error:Reason and rethrows same Reason using args3/module-only error_info. Actual replace4 hides any callbackclass/reason into badarg first.",
+      "ErrorsAndFrames": "Public error helper line1147 preserves args3; live callback do_replace907 plus one recursive908, replace4 line895 and replace3 line797. Inner replace4 catches callback errors before replace3 rethrows.",
+      "Dependencies": "Current source overrides obsolete preliminary frame/backing cautions: physical join writable allocation, hex phase allocation and matching pin. Genuine own callback/source identities; no frame projection.",
+      "Classification": "SOURCE_APPLICABILITY_REVIEWED; ROOT_FINAL_EVIDENCE_AND_CLASSIFICATION_PENDING",
+      "Eligibility": "ELIGIBLE_AFTER_ROOT_FINAL_GATES; NOT_PROMOTED_BY_THIS_REPORT",
+      "FinalSourceDelta": "Integer insert first pins replacement at native match boundary. Binary replacement plus insert_replaced=true creates deferred badfun only if a match invokes it; no-match returns subject. Fun replacement ignores insert as before. All resulting public catch/rethrow fields remain source-authentic; new7 original witnesses required."
+    },
+    {
+      "Mfa": "binary:replace/4",
+      "Family": "wrapper6",
+      "DomainAndBranches": "Replacement binary orfun1 guard first; options proper-spine get_opts lastwins scope/global/insert; unknown/illformed opts throwbadopt. Then matches3 forglobal elsematch3 first/no-match. Build insert plan AFTER search, evenno matches; suppliedfun ignoresinsert. binaryinsert integer nonnegative<=replacementbytes; listpositions source sort numerictermorder then nondecreasing slices duplicatepositions preserved. do_replace partprefix,matchedpart,callback,thenrecursive rest. Only after all callbacks finish validate outer iolist.",
+      "ErrorsAndFrames": "Public badarg helper1144, cause badopt helper1141 only for caught throw:badopt. Full args4 and genuine callback frame/caller chain; all other guest classes collapse by source catch.",
+      "Dependencies": "Current source overrides obsolete preliminary frame/backing cautions: physical join writable allocation, hex phase allocation and matching pin. Genuine own callback/source identities; no frame projection.",
+      "Classification": "SOURCE_APPLICABILITY_REVIEWED; ROOT_FINAL_EVIDENCE_AND_CLASSIFICATION_PENDING",
+      "Eligibility": "ELIGIBLE_AFTER_ROOT_FINAL_GATES; NOT_PROMOTED_BY_THIS_REPORT",
+      "FinalSourceDelta": "Integer insert first pins replacement at native match boundary. Binary replacement plus insert_replaced=true creates deferred badfun only if a match invokes it; no-match returns subject. Fun replacement ignores insert as before. All resulting public catch/rethrow fields remain source-authentic; new7 original witnesses required."
+    },
+    {
+      "Mfa": "binary:encode_hex/1",
+      "Family": "wrapper6",
+      "DomainAndBranches": "Binary guard; valid delegates uppercase/2, empty andeverybyte supported.",
+      "ErrorsAndFrames": "Public guard error helper1147 args1; valid source-phase generated helpers/comprehensions retain actual location/continuation metadata.",
+      "Dependencies": "Current source overrides obsolete preliminary frame/backing cautions: physical join writable allocation, hex phase allocation and matching pin. Genuine own callback/source identities; no frame projection.",
+      "Classification": "SOURCE_APPLICABILITY_REVIEWED; ROOT_FINAL_EVIDENCE_AND_CLASSIFICATION_PENDING",
+      "Eligibility": "ELIGIBLE_AFTER_ROOT_FINAL_GATES; NOT_PROMOTED_BY_THIS_REPORT"
+    },
+    {
+      "Mfa": "binary:encode_hex/2",
+      "Family": "wrapper6",
+      "DomainAndBranches": "Onlyuppercase/lowercase exactAtom plusbinary. OutputtwoASCII digits perinputbyte; all256 values, caseandempty.",
+      "ErrorsAndFrames": "Public guard error helper1147 args2; same real phase helpers with exact casing selection.",
+      "Dependencies": "Current source overrides obsolete preliminary frame/backing cautions: physical join writable allocation, hex phase allocation and matching pin. Genuine own callback/source identities; no frame projection.",
+      "Classification": "SOURCE_APPLICABILITY_REVIEWED; ROOT_FINAL_EVIDENCE_AND_CLASSIFICATION_PENDING",
+      "Eligibility": "ELIGIBLE_AFTER_ROOT_FINAL_GATES; NOT_PROMOTED_BY_THIS_REPORT"
+    },
+    {
+      "Mfa": "binary:decode_hex/1",
+      "Family": "wrapper6",
+      "DomainAndBranches": "Guard byte_size(Data) rem2=0, notis_binary. Nonbitstring/odd roundedbytecount publicbadarg. Evenrounded partialbits fails match in decode_hex1/1 beforedecoding and propagatesbadmatch. Properbinary digits0-9a-fA-F only; rejects anyotherbyte, returnsbinary halfsize.",
+      "ErrorsAndFrames": "Public badarg helper1144 args1. Even-rounded partial bits propagate actual badmatch at decode_hex1/1 line1087 then decode_hex/1 line1078; full failed input remains in reason.",
+      "Dependencies": "Current source overrides obsolete preliminary frame/backing cautions: physical join writable allocation, hex phase allocation and matching pin. Genuine own callback/source identities; no frame projection.",
+      "Classification": "SOURCE_APPLICABILITY_REVIEWED; ROOT_FINAL_EVIDENCE_AND_CLASSIFICATION_PENDING",
+      "Eligibility": "ELIGIBLE_AFTER_ROOT_FINAL_GATES; NOT_PROMOTED_BY_THIS_REPORT"
+    },
+    {
+      "Mfa": "binary:join/2",
+      "Family": "wrapper6",
+      "DomainAndBranches": "Separatorbinaryguard first. [] returns<<>>. [binary] returns SAMEbinary. Other Cons validatesheads asbinary, properend required; concatenatesseparatorbetweenheads.",
+      "ErrorsAndFrames": "Public badarg helper1144 args2; valid join3 continuation source1136..1138 present during construction; helper failures caught/rethrown with whole public args.",
+      "Dependencies": "Current source overrides obsolete preliminary frame/backing cautions: physical join writable allocation, hex phase allocation and matching pin. Genuine own callback/source identities; no frame projection.",
+      "Classification": "SOURCE_APPLICABILITY_REVIEWED; ROOT_FINAL_EVIDENCE_AND_CLASSIFICATION_PENDING",
+      "Eligibility": "ELIGIBLE_AFTER_ROOT_FINAL_GATES; NOT_PROMOTED_BY_THIS_REPORT"
+    }
+  ]
+}

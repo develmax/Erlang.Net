@@ -21,10 +21,9 @@ public sealed class MapTerm : Term
             context.Read(node, node.Snapshot);
         Entries = Array.AsReadOnly(d.OrderBy(
             entry => entry.Key,
-            Comparer<Term>.Create((left, right) => TermOrder.CompareSnapshot(
+            Comparer<Term>.Create((left, right) => TermOrder.CompareCanonicalSnapshot(
                 left,
                 right,
-                true,
                 ref context
             ))
         ).ToArray());

@@ -1,0 +1,50 @@
+{
+  "Partial": true,
+  "SelectedCount": 6,
+  "TotalCount": 7641,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/dynamic-apply-tail-frames-and-deep-transfer",
+    "runtime/size-bif-caller-source-location-depth-and-guards",
+    "runtime/term-order/deep-compare",
+    "runtime/term-order/deep-hash",
+    "runtime/term-order/retained-node-snapshot",
+    "runtime/term-order/shallow-fold-and-categories"
+  ],
+  "Passed": 4,
+  "Failed": 2,
+  "Tests": [
+    {
+      "Name": "runtime/term-order/deep-compare",
+      "Status": "Passed",
+      "Milliseconds": 1931
+    },
+    {
+      "Name": "runtime/term-order/deep-hash",
+      "Status": "Passed",
+      "Milliseconds": 1969
+    },
+    {
+      "Name": "runtime/term-order/shallow-fold-and-categories",
+      "Status": "Passed",
+      "Milliseconds": 170
+    },
+    {
+      "Name": "runtime/term-order/retained-node-snapshot",
+      "Status": "Passed",
+      "Milliseconds": 150
+    },
+    {
+      "Name": "runtime/size-bif-caller-source-location-depth-and-guards",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Size BIF lost its compiled caller source location or changed guard/error semantics.\r\n   at Erlang.Tests.SizeSourceLocationHostChecks.Require(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\SizeSourceLocationHostChecks.cs:line 81\r\n   at Erlang.Tests.SizeSourceLocationHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\SizeSourceLocationHostChecks.cs:line 17\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 5197",
+      "Milliseconds": 2363
+    },
+    {
+      "Name": "compiler/dynamic-apply-tail-frames-and-deep-transfer",
+      "Status": "Failed",
+      "Error": "Erlang.Compiler.CompileException: Unsupported expression \u0027?\u0027\r\n   at Erlang.Compiler.Parser.Primary(Boolean bitSegment, Boolean stopQualifier) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Compiler\\Parser.cs:line 573\r\n   at Erlang.Compiler.Parser.Expression(Int32 minimum, Boolean stopQualifier) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Compiler\\Parser.cs:line 320\r\n   at Erlang.Compiler.Parser.Arguments() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Compiler\\Parser.cs:line 942\r\n   at Erlang.Compiler.Parser.Primary(Boolean bitSegment, Boolean stopQualifier) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Compiler\\Parser.cs:line 588\r\n   at Erlang.Compiler.Parser.Expression(Int32 minimum, Boolean stopQualifier) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Compiler\\Parser.cs:line 320\r\n   at Erlang.Compiler.Parser.Body() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Compiler\\Parser.cs:line 288\r\n   at Erlang.Compiler.Parser.ParseClause(IReadOnlyList\u00601 patterns) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Compiler\\Parser.cs:line 267\r\n   at Erlang.Compiler.Parser.ParseModule() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Compiler\\Parser.cs:line 210\r\n   at Erlang.Compiler.CodeGeneration.CompileModule(String source, String sourcePath) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Compiler\\CodeGeneration.cs:line 143\r\n   at Erlang.Differential.GeneratedModuleCompiler.Compile(String source, String sourceFile) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 14\r\n   at Erlang.Tests.DynamicApplyHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\DynamicApplyHostChecks.cs:line 13\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 5197",
+      "Milliseconds": 13
+    }
+  ]
+}

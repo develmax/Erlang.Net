@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk"><PropertyGroup><OutputType>Exe</OutputType></PropertyGroup><ItemGroup><ProjectReference Include="../../tools/Erlang.NifNativeBackend/Erlang.NifNativeBackend.csproj" Aliases="NifNativeBackend" /><ProjectReference Include="../../tools/Erlang.Tool/Erlang.Tool.csproj" /><ProjectReference Include="../../src/Erlang.Compiler/Erlang.Compiler.csproj" /><ProjectReference Include="../../src/Erlang.Serialization/Erlang.Serialization.csproj" /><ProjectReference Include="../../src/Erlang.Otp.Behaviours/Erlang.Otp.Behaviours.csproj" /><ProjectReference Include="../../tools/Erlang.Differential/Erlang.Differential.csproj" /><ProjectReference Include="../../tools/Erlang.Style/Erlang.Style.csproj" /><ProjectReference Include="../../tools/Erlang.HaltProbe/Erlang.HaltProbe.csproj" />
+<Reference Include="Microsoft.CodeAnalysis.Workspaces"><HintPath>$(MSBuildToolsPath)/DotnetTools/dotnet-format/Microsoft.CodeAnalysis.Workspaces.dll</HintPath></Reference>
+<Reference Include="Microsoft.CodeAnalysis.CSharp.Workspaces"><HintPath>$(MSBuildToolsPath)/DotnetTools/dotnet-format/Microsoft.CodeAnalysis.CSharp.Workspaces.dll</HintPath></Reference>
+<Reference Include="System.Composition.AttributedModel"><HintPath>$(MSBuildToolsPath)/DotnetTools/dotnet-format/System.Composition.AttributedModel.dll</HintPath></Reference>
+<Reference Include="System.Composition.Runtime"><HintPath>$(MSBuildToolsPath)/DotnetTools/dotnet-format/System.Composition.Runtime.dll</HintPath></Reference>
+<Reference Include="System.Composition.Hosting"><HintPath>$(MSBuildToolsPath)/DotnetTools/dotnet-format/System.Composition.Hosting.dll</HintPath></Reference>
+<Reference Include="System.Composition.TypedParts"><HintPath>$(MSBuildToolsPath)/DotnetTools/dotnet-format/System.Composition.TypedParts.dll</HintPath></Reference>
+</ItemGroup><ItemGroup><EmbeddedResource Include="Resources/Beam/*" /></ItemGroup>  <ItemGroup>
+    <EmbeddedResource Include="Resources\BeamOnLoad\**\*" />
+  </ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Resources/BeamOnLoadResourceHashes.json" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Resources/BeamLoader/*" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Resources/BeamGzip/**/*" /><EmbeddedResource Include="Resources/BeamGzipControls/*" /></ItemGroup>
+<ItemGroup><EmbeddedResource Include="Resources/RawOnLoadDeferredExports/*" /></ItemGroup>  <ItemGroup>
+    <EmbeddedResource Include="Resources/ProplistFamily/cases.json" LogicalName="Erlang.Tests.ProplistFamily.cases.json" />
+    <EmbeddedResource Include="Resources/ProplistFamily/proplists_family_probe.erl" LogicalName="Erlang.Tests.ProplistFamily.proplists_family_probe.erl" />
+    <EmbeddedResource Include="Resources/ProplistFamily/continuation_safety.erl" LogicalName="Erlang.Tests.ProplistFamily.continuation_safety.erl" />
+  </ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Resources/ProplistFamily/proplists_iterator_contract.erl" LogicalName="Erlang.Tests.ProplistFamily.proplists_iterator_contract.erl" /></ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources/ProplistFamily/proplists_flat_iterator_contract.erl" LogicalName="Erlang.Tests.ProplistFamily.proplists_flat_iterator_contract.erl" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources/ProplistInternalHash/native-hashes.etf" LogicalName="Erlang.Tests.ProplistInternalHash.native-hashes.etf" />
+    <EmbeddedResource Include="Resources/ProplistInternalHash/raw-cursors.etf" LogicalName="Erlang.Tests.ProplistInternalHash.raw-cursors.etf" />
+    <EmbeddedResource Include="Resources/ProplistInternalHash/proplists_raw_cursor_contract.erl" LogicalName="Erlang.Tests.ProplistInternalHash.proplists_raw_cursor_contract.erl" />
+  </ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Fixtures/queue_ends368_contract.erl" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Fixtures/queue_callback368_regression.erl" /></ItemGroup>
+</Project>

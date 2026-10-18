@@ -1,0 +1,1 @@
+-module(oracle_maps_completion). -export([run/0]). run()->try maps:intersect_with(wrong,first_wrong,second_wrong) of _->unexpected catch error:badarg->ok end,done.

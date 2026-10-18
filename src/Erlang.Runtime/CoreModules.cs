@@ -52,6 +52,7 @@ public static class CoreModules
             2,
             (c, a) => a[0] is Integer i && a[1] is TupleTerm t && i.Value > 0 && i.Value <= t.Items.Count ? t.Items[(int)i.Value - 1] : throw new ErlangException(ErlangErrorReasons.BadArgument)
         );
+        r.SealElementSourceContract();
         Add(
             ErlangModuleNames.Module,
             ErlangModuleNames.TupleSize,
@@ -562,7 +563,7 @@ public static class CoreModules
             MapModuleNames.Module,
             MapModuleNames.Next,
             1,
-            (c, a) => MapIteration.Next(a[0])
+            (c, a) => MapIteration.Next(a[0], c.Runtime)
         );
         Add(
             MapModuleNames.Module,
@@ -639,19 +640,19 @@ public static class CoreModules
             MapModuleNames.Module,
             MapModuleNames.Keys,
             1,
-            (c, a) => Cons.From(MapOperations.RequireMap(a[0]).Entries.Select(entry => entry.Key))
+            (c, a) => Cons.From(MapIteration.Entries(MapOperations.RequireMap(a[0]), c.Runtime).Select(entry => entry.Key))
         );
         Add(
             MapModuleNames.Module,
             MapModuleNames.Values,
             1,
-            (c, a) => Cons.From(MapOperations.RequireMap(a[0]).Entries.Select(entry => entry.Value))
+            (c, a) => Cons.From(MapIteration.Entries(MapOperations.RequireMap(a[0]), c.Runtime).Select(entry => entry.Value))
         );
         Add(
             MapModuleNames.Module,
             MapModuleNames.ToList,
             1,
-            (c, a) => MapOperations.ToList(a[0])
+            (c, a) => MapOperations.ToList(a[0], c.Runtime)
         );
         Add(
             MapModuleNames.Module,
@@ -669,7 +670,7 @@ public static class CoreModules
             MapModuleNames.Module,
             MapModuleNames.IsIteratorValid,
             1,
-            (c, a) => Boolean(MapOperations.IsIteratorValid(a[0]))
+            (c, a) => Boolean(MapOperations.IsIteratorValid(a[0], c.Runtime))
         );
         r.Register(
             MapModuleNames.Module,
@@ -792,6 +793,7 @@ public static class CoreModules
             );
         ErlangBasicRegistrations.Register(r);
         ErlangDataRegistrations.Register(r);
+        BinaryModule.Register(r);
         ErlangAtomRegistrations.Register(r);
         ErlangFloatRegistrations.Register(r);
         ErlangClockRegistrations.Register(r);
@@ -852,6 +854,8 @@ public static class CoreModules
         ErlangLoadNifRegistrations.Register(r);
         ListModuleRegistrations.Register(r);
         ProplistModuleRegistrations.Register(r);
+        ProplistFamilyRegistrations.Register(r);
+        QueueCoreModule.Register(r);
         foreach (string operation in new[] { TimerModuleNames.SendAfter, TimerModuleNames.StartTimer })
             r.Register(
                 ErlangModuleNames.Module,

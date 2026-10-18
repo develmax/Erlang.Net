@@ -1,0 +1,212 @@
+{
+  "Family": "original-map-internal-hash-protocol-own-state",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Mfas": [
+    "erts_debug:get_internal_state/1"
+  ],
+  "Fixtures": [
+    {
+      "Id": "map_hashes",
+      "Location": "tool",
+      "Path": "original/proplists_map_hash_contract.erl",
+      "Module": "proplists_map_hash_contract",
+      "Names": [
+        "empty",
+        "one",
+        "two",
+        "flat32",
+        "hamt33",
+        "hamt64",
+        "hamt256",
+        "nested_flat",
+        "nested_hamt",
+        "map_keys",
+        "atom_flat",
+        "collision_first",
+        "collision_second",
+        "collision_map",
+        "collision_tuple"
+      ],
+      "Run": "run",
+      "NamesEntry": "cases",
+      "StackModule": "proplists_map_hash_contract",
+      "StackEntry": "run_stacks",
+      "WorkerModule": "proplists_observation_worker",
+      "WorkerEntry": "run",
+      "StackShape": "depth_cases",
+      "Companions": [
+        "original/proplists_observation_worker.erl"
+      ],
+      "Cases": [
+        {
+          "Name": "empty",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "one",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "two",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "flat32",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "hamt33",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "hamt64",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "hamt256",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "nested_flat",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "nested_hamt",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "map_keys",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "atom_flat",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "collision_first",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "collision_second",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "collision_map",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "collision_tuple",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        }
+      ]
+    },
+    {
+      "Id": "reference_layout",
+      "Location": "tool",
+      "Path": "original/proplists_reference_hash_contract.erl",
+      "Module": "proplists_reference_hash_contract",
+      "Names": [
+        "word_counts",
+        "map_aliases",
+        "roundtrip_aliases"
+      ],
+      "Run": "run",
+      "NamesEntry": "cases",
+      "StackModule": "proplists_reference_hash_contract",
+      "StackEntry": "run_stacks",
+      "WorkerModule": "proplists_observation_worker",
+      "WorkerEntry": "run",
+      "StackShape": "depth_cases",
+      "Companions": [
+        "original/proplists_observation_worker.erl"
+      ],
+      "Cases": [
+        {
+          "Name": "word_counts",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "map_aliases",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "roundtrip_aliases",
+          "Mfas": [
+            "erts_debug:get_internal_state/1"
+          ],
+          "Policy": "exact"
+        }
+      ]
+    }
+  ],
+  "FixtureSources": [
+    {
+      "Location": "tool",
+      "Path": "original/proplists_map_hash_contract.erl",
+      "Sha256": "26D0C6896BCD2CDAD4D871B444D50D181D99FF02A26B6807AF4B772EAB87970F"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/proplists_reference_hash_contract.erl",
+      "Sha256": "FBE23466805175F28BBCCB5C8DCAAF74C7C103FDBD50F44F46A579D502C8E833"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/proplists_observation_worker.erl",
+      "Sha256": "34B743EB95A5937058AB8F208A1FB17C6ACED20AF7E08398EF6D154F574546BC"
+    }
+  ],
+  "ExpectedUniqueSourceCount": 3,
+  "ObserverEntry": "Original-only18diagnostics/90profiles: maplayout15 plus externalreference representation3; VM-state-dependent numbers are observations, no production identity injection."
+}

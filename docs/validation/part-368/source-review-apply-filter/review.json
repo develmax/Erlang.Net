@@ -1,0 +1,90 @@
+{
+  "Status": "SOURCE_REVIEW_ACCEPTED_CONDITIONAL_EXECUTED_GATES",
+  "Files": [
+    {
+      "Path": "src/Erlang.Runtime/ErlangBasicRegistrations.cs",
+      "Sha256": "AC94CB5B10A7D3A6060AEE7A5127FD9FCF80ACD482CC3C610C37F4D9A5669F46"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueHigherFilters.cs",
+      "Sha256": "1B57C35E565E1186BA8B0681BFCBC2F2A978E5B9ED798EA4E16B45D3785FA8A1"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeExceptionCapture.cs",
+      "Sha256": "BDA882AF75249C5C067BEB61A842C5D4D4D9E5599303AF9F7F2FF8C99F19112F"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.cs",
+      "Sha256": "24EBFDE634CC465D2F7561C7A19D48FEC5EE14CDAEB2F8FA2F4DA0DC11201891"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListCallback.cs",
+      "Sha256": "D7A6112F8242BF9C962AEBF3A738A77BC5CE0F811B8C5793ADED72AE726192EB"
+    }
+  ],
+  "SourceAuthority": {
+    "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "File": "erts/emulator/beam/beam_common.c",
+    "Lines": "1667-1674",
+    "Behavior": "Wrong-arity FUN sets EXC_BADARITY and fvalue={fun,args}; no erlang:apply source frame is created by this dispatch branch."
+  },
+  "Apply2Review": {
+    "ChangedBranch": "Proper Cons.Items arguments first, then FunctionTerm arity mismatch only. CaptureSourceFailure uses actual current caller chain before native registry wrapper can fabricate apply frame. Same original FunctionTerm and complete values preserved in badarity reason.",
+    "PreservedBranches": [
+      "Non-list/improper arguments still fail in Cons.Items before added branch.",
+      "Matching-arity FunctionTerm delegates unchanged ListCallback.Invoke.",
+      "Non-FUN argument delegates unchanged ListCallback.Invoke.",
+      "apply/3 registration unchanged; every other registration token unchanged.",
+      "No guest callback executed by mismatch precheck."
+    ],
+    "Scope": "No new global exception classification or compiler change; only explicit native erlang:apply/2 wrong arity chooses source failure."
+  },
+  "RearFilterReview": {
+    "ActualOriginal": "lists:reverse/2 then queue:filter_r/2@765 then genuine recursiveCP754 then queue:filter/2@721.",
+    "Fix": "Default includeOwner=true restores exact current BIF call-site frame; initial tail-call inference from source expression alone was disproved by actual original stack.",
+    "Preserved": "Every BIF arg and pending outer continuation remains unchanged."
+  },
+  "VerifiedDependencyApplicability": {
+    "Count": 46,
+    "MfasByModule": {
+      "erlang": 16,
+      "proplists": 22,
+      "queue": 8
+    },
+    "ChangedExistingGuard": "src/Erlang.Runtime/ErlangBasicRegistrations.cs",
+    "OldGuardSha256": "DBB61CB2182B1D11FAC8605818E0064A578618BFD263FE9B56A3B2842AE0D06B",
+    "CurrentSha256": "AC94CB5B10A7D3A6060AEE7A5127FD9FCF80ACD482CC3C610C37F4D9A5669F46",
+    "Argument": "The16 verified erlang predicates/self/make_ref dispatch names are distinct; 22 proplists and8 queue operations registration algorithms unchanged. Their supported arbitrary callbacks may themselves explicitly apply wrong-arity FUNs; this correction restores native source semantics rather than changing callback guard/evaluation. Current source guard must be refreshed with this reviewed narrow delta and actual old/full regression; old source hash alone is not current proof.",
+    "GuardChanges": [
+      {
+        "Path": "src/Erlang.Runtime/ErlangBasicRegistrations.cs",
+        "BeforeSha256": "DBB61CB2182B1D11FAC8605818E0064A578618BFD263FE9B56A3B2842AE0D06B",
+        "AfterSha256": "AC94CB5B10A7D3A6060AEE7A5127FD9FCF80ACD482CC3C610C37F4D9A5669F46"
+      },
+      {
+        "Path": "src/Erlang.Runtime/QueueHigherFilters.cs",
+        "BeforeSha256": "A9EA99CB42C860F956CD3384004F7B3E442D138235627E129B548B8F909F4276",
+        "AfterSha256": "1B57C35E565E1186BA8B0681BFCBC2F2A978E5B9ED798EA4E16B45D3785FA8A1"
+      }
+    ],
+    "GuardRows": 380
+  },
+  "PermanentTestRecommendation": {
+    "Names": [
+      "filter_callback_badarity",
+      "filtermap_callback_badarity",
+      "any_callback_badarity",
+      "all_callback_badarity",
+      "delete_with_callback_badarity",
+      "delete_with_r_callback_badarity",
+      "filter_result_improper_rear"
+    ],
+    "Reuse": "Admit unchanged actual queue_callbacks+support Erlang fixture bytes as embedded test resources, compile same basenames and call selected cases via worker/profile on HOST. Preserve full raw stacks; bind own namedFUN identity from actual own module metadata rather than native bytes.",
+    "Assertions": "For six badarity cases top source frame support.invoke/2@44, no erlang:apply frame anywhere; exact remaining queue/helper/caller/source fields at0/1/2/8 plusdefault. Rear improper expansion exact reverse args and765/754/721 sequence.",
+    "NoNewOriginalRequired": "Existing original893/4465 capture contains all seven cases and all required profiles; final SDK successor comparison must rerun actual current source."
+  },
+  "MainModified": false,
+  "Built": false,
+  "OriginalExecuted": false,
+  "CompatibilityPromoted": false
+}

@@ -1,0 +1,1 @@
+-module(oracle_map_operations). -export([run/0]). run()->try maps:without([a|wrong],#{a=>b}) of _->unexpected catch error:function_clause->ok end,done.

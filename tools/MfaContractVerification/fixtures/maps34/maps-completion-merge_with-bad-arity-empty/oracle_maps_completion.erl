@@ -1,0 +1,1 @@
+-module(oracle_maps_completion). -export([run/0]). run()->try maps:merge_with(fun(_,_) -> wrong end,#{},#{}) of _->unexpected catch error:badarg->ok end,done.

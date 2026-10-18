@@ -1,0 +1,247 @@
+{
+  "SourceOnly": true,
+  "MainEdited": false,
+  "MainExecuted": false,
+  "BuildExecuted": false,
+  "BaseLedgerSha256": "155CE7AF6CF3E516A6D1C41C51524D94ACD5F039DB4CF7B46F01D8101B173783",
+  "PreservedVerifiedContractCount": 18,
+  "PreservedVerifiedContracts": [
+    {
+      "Module": "erlang",
+      "Function": "self",
+      "Arity": 0,
+      "Status": "Verified compatible"
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_atom",
+      "Arity": 1,
+      "Status": "Verified compatible"
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_integer",
+      "Arity": 1,
+      "Status": "Verified compatible"
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_float",
+      "Arity": 1,
+      "Status": "Verified compatible"
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_number",
+      "Arity": 1,
+      "Status": "Verified compatible"
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_tuple",
+      "Arity": 1,
+      "Status": "Verified compatible"
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_binary",
+      "Arity": 1,
+      "Status": "Verified compatible"
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_bitstring",
+      "Arity": 1,
+      "Status": "Verified compatible"
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_list",
+      "Arity": 1,
+      "Status": "Verified compatible"
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_pid",
+      "Arity": 1,
+      "Status": "Verified compatible"
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_map",
+      "Arity": 1,
+      "Status": "Verified compatible"
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_boolean",
+      "Arity": 1,
+      "Status": "Verified compatible"
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_function",
+      "Arity": 1,
+      "Status": "Verified compatible"
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_port",
+      "Arity": 1,
+      "Status": "Verified compatible"
+    },
+    {
+      "Module": "erlang",
+      "Function": "is_reference",
+      "Arity": 1,
+      "Status": "Verified compatible"
+    },
+    {
+      "Module": "erlang",
+      "Function": "node",
+      "Arity": 0,
+      "Status": "Verified compatible"
+    },
+    {
+      "Module": "proplists",
+      "Function": "get_value",
+      "Arity": 2,
+      "Status": "Verified compatible"
+    },
+    {
+      "Module": "proplists",
+      "Function": "get_value",
+      "Arity": 3,
+      "Status": "Verified compatible"
+    }
+  ],
+  "Assessment": "No source-level invalidation of the eighteen existing supported-term contracts found. Retain classifications with refreshed/additional source guards; final execution evidence remains a separate Root gate.",
+  "Analyses": [
+    {
+      "Area": "Provenance capture",
+      "Findings": [
+        "Source uses Nil fourth field only for selected first handler or HostHandlerArguments; ordinary source frames retain SourceLocation.",
+        "Call first captured native/source frame, arguments and location construction unchanged; tagged ancestor host handlers get Nil, ordinary ancestors retain source locations.",
+        "Adjacent continuation suppression remains ReferenceEquals on non-null logical identities; no printed-MFA or value-name dedup introduced."
+      ]
+    },
+    {
+      "Area": "Existing get_value/2,3",
+      "Findings": [
+        "ProplistModuleRegistrations, ProplistValueLookup and ProplistSourceLocation are current/unchanged under existing guards.",
+        "Lookup remains lazy reached-prefix traversal with exact key equality, wrong-arity tuple shadowing, default identity and reductions.",
+        "Malformed reached tail still uses RuntimeExceptionCapture.Call with get_value/3 effective args and proplists.erl line222; the top location is unchanged.",
+        "No call from get_value implementation to MapIteration, HamtCursorDispatch or hash engine. MapTerm keys/values use existing term equality, not new physical hash."
+      ]
+    },
+    {
+      "Area": "Sixteen prior simple logical contracts",
+      "Findings": [
+        "self/0 and node/0 identity handlers and fourteen unary predicate handlers retain existing branches and guarded term model.",
+        "New hash/view classes are not substituted for Term equality/hash/order or predicate handlers.",
+        "The get_value pair brings the preserved total to18; no new MFA is promoted."
+      ]
+    },
+    {
+      "Area": "MapIteration and partial HAMT",
+      "Findings": [
+        "Flat maps admit integer paths0..count and return all associations, as pinned flat branch does.",
+        "Large integer cursor path0 and nonzero route through own hash/HAMT view when recursive keys are Integer,FloatTerm,BitString,Atom,Nil,TupleTerm or Cons.",
+        "Keys containing map/function/pid/port/reference or other unsupported structures decline dispatcher; path0 retains prior fallback, nonzero rejects.",
+        "Own atom identity is independent of native OTP atom-table identity; atom-only and atom-containing tuple physical topology remains mandatory incomplete.",
+        "No full from_map/raw iterator parity or all-term-domain conclusion follows from finite19hash/16cursor checks."
+      ]
+    }
+  ],
+  "CompilerProposalCoverage": [
+    {
+      "Proposal": "successor3",
+      "PlanSha256": "2D23B12D7C4EF58288ABA8ACD75D3F8CBAAB8324BDD6342833EA44E95CD8CF52",
+      "CompilerPaths": [
+        "src/Erlang.Compiler/CompiledComprehensionFrames.cs",
+        "src/Erlang.Compiler/ComprehensionExecution.cs",
+        "src/Erlang.Compiler/ComprehensionReturnAnalysis.cs",
+        "src/Erlang.Compiler/ComprehensionReturnParameters.cs",
+        "src/Erlang.Compiler/ComprehensionSource.cs",
+        "src/Erlang.Compiler/ComprehensionSourceBindings.cs",
+        "src/Erlang.Compiler/ComprehensionSourceCode.cs",
+        "src/Erlang.Compiler/Execution.cs",
+        "src/Erlang.Compiler/Execution.FunctionTailCall.cs",
+        "src/Erlang.Compiler/Execution.InvocationLoop.cs",
+        "src/Erlang.Compiler/GeneratedComprehensionFunction.cs",
+        "src/Erlang.Compiler/NamedFunctionReferences.cs",
+        "src/Erlang.Compiler/SourceFunctionInvocation.cs",
+        "src/Erlang.Compiler/SourceFunctionTailDispatch.cs",
+        "src/Erlang.Compiler/SourceFunctionTailScope.cs",
+        "src/Erlang.Compiler/SourceFunctionTransfer.cs",
+        "src/Erlang.Compiler/SourceInvocationTarget.cs"
+      ],
+      "AllAlreadyGuarded": true
+    },
+    {
+      "Proposal": "successor4",
+      "PlanSha256": "702B15D55500B7AD47A08E72747627217760CA5738450E7B4F79F5A845CBF89A",
+      "CompilerPaths": [
+        "src/Erlang.Compiler/CodeGeneration.cs",
+        "src/Erlang.Compiler/CompiledComprehensionFrames.cs",
+        "src/Erlang.Compiler/ComprehensionExecution.cs",
+        "src/Erlang.Compiler/ComprehensionLowering.cs",
+        "src/Erlang.Compiler/ComprehensionReturnAnalysis.cs",
+        "src/Erlang.Compiler/ComprehensionReturnParameters.cs",
+        "src/Erlang.Compiler/ComprehensionSourceBindings.cs",
+        "src/Erlang.Compiler/Execution.cs",
+        "src/Erlang.Compiler/Execution.GeneratedTail.cs",
+        "src/Erlang.Compiler/Expr.cs",
+        "src/Erlang.Compiler/LocalFunctionEntries.cs",
+        "src/Erlang.Compiler/Parser.cs",
+        "src/Erlang.Compiler/SourceArgumentBindings.cs",
+        "src/Erlang.Compiler/SourceContinuationBindings.cs",
+        "src/Erlang.Compiler/SourceFunctionCode.cs",
+        "src/Erlang.Compiler/SourceReturnContracts.cs",
+        "src/Erlang.Compiler/SourceReturnSafety.cs"
+      ],
+      "AllAlreadyGuarded": true
+    },
+    {
+      "Proposal": "successor4a-safety3",
+      "PlanSha256": "DD12DA798B88782248C3DCBDCF61AF6A1164AFBA635FAB083FFC51AD3B450E33",
+      "CompilerPaths": [
+        "src/Erlang.Compiler/SourceFunctionTailDispatch.cs",
+        "src/Erlang.Compiler/SourceReturnContracts.cs",
+        "src/Erlang.Compiler/SourceReturnPurity.cs"
+      ],
+      "AllAlreadyGuarded": true
+    },
+    {
+      "Proposal": "successor5",
+      "PlanSha256": "BF4D8AF3893DE54DACE22D9ABCAF75639F69E52FD5D4A22DD5109BBA27F7F4EF",
+      "CompilerPaths": [
+        "src/Erlang.Compiler/ComprehensionSourceBindings.cs",
+        "src/Erlang.Compiler/Expr.cs",
+        "src/Erlang.Compiler/LocalFunctionEntries.cs",
+        "src/Erlang.Compiler/SourceFunctionCode.cs"
+      ],
+      "AllAlreadyGuarded": true
+    },
+    {
+      "Proposal": "successor6",
+      "PlanSha256": "3055898A9468C3C7F58984E41850CC45BA3401B94C5F9506657A09810F859FD5",
+      "CompilerPaths": [
+        "src/Erlang.Compiler/SourceContinuationBindings.cs"
+      ],
+      "AllAlreadyGuarded": true
+    }
+  ],
+  "GuardChanges": {
+    "RefreshCount": 3,
+    "AddCount": 10,
+    "NewCount": 293
+  },
+  "GuardScope": "Preserves previous283 policy and extends it to all ten newly introduced hash/view dispatcher dependencies. Historical untouched compiler helper omissions are not silently represented as a complete whole-repository dependency closure.",
+  "Pending": [
+    "Root final currentMain full suite and integration/package/child routes",
+    "Passive final replay2 whole raw comparison and relational controls",
+    "from_map mandatory full raw atom/structured-domain and any unsupported cursor representation gaps"
+  ],
+  "CompletionPromotions": []
+}

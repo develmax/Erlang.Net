@@ -1,42 +1,83 @@
-# Active delivery plan
+# Current work plan
 
-Updated: 2026-10-17. Source authority: OTP-29.1.1 `ad05823719d77c8faee87348ea39513d4e2f99c5`.
+Part371 active —2026-10-18. The owner authorizes publication of accepted parts363–370. Baseline678 registered APIs/107 complete contracts/7642 tests; erlang351 present,16 complete,13 Known and322 pending. Next60% lane: ordsets8 (new,is_set,size,is_empty,to_list,is_equal,is_element,add_element), currently preparation only. Next40% lane:14 existing numeric/text conversion APIs plus source closure for hd/1,tl/1,tuple_size/1,is_integer/3. Root owns one combined original OTP CI acquisition, Main integration and publication; isolated helpers own proposals. New delta currently0 APIs/0 complete contracts. Publication-head CI and new original packet are pending. [Module status](MODULE_READINESS.md); [journal](changelog/0060.md).
 
-## Measures
+Part370 complete locally; unpublished. Fixed the current erlang value/full-stack packet: 9582/9582 old and264/264 new observations match pinned OTP strictly (9846 total,0 differences,0 identity relations). Repairs cover dynamic apply tail frames, size-error caller locations, tuple limits, local-FUN ordering versus exact identity, and conservative direct/one-hop compiler continuation contracts. Final-source canonical validation passes7642/7642 tests (+3; all7639 previous ordered names retained),11 integration outcomes and2 local packages. The full pipeline succeeds uninterrupted in383.125s; an additional unchanged-code metadata/package suffix restores123 emitter-reset Limits notes and advances the comparison baseline to369. Current/installed CLI readiness matches across5 files;462 source guards are exact. API delta0; complete-contract delta0: erlang351 present,16 complete (4.6%),13 Known,322 pending. The57-MFA packet is not whole-module closure;294 erlang APIs are outside it. Global678 APIs/107 complete/30 Known/541 pending. Binary31/31,queue38/38 andproplists22/22 complete classifications are retained after final dependency regression. [Evidence](validation/part-370/local-completion/README.md).
 
-| Measure | Confirmed | Remaining |
-| --- | --- | --- |
-| Integrated MFA implementations | 587 in 14 modules | New proposals are excluded until integrated |
-| Complete MFA contracts | 16 verified; 30 known differences; 541 awaiting verification | Source presence and passing examples are separate measures |
-| erlang presence | 351/351 (100%) in the explicit inventory | Conditional/generated inventory limits remain documented |
-| erlang complete contracts | 16/351 (4.6%) | 13 known differences, 322 awaiting complete verification |
-| Size109 and MakeRef28 | Source audit and supported-route witnesses accepted | Final publication-head CI; no MFA count increase |
-| Final part361 regression | 7438/7438, 11 integration outcomes, two packages, 12 clean children | Same-publication-head CI remains separate |
+Updated:2026-10-18. Authority:OTP-29.1.1 `ad05823719d77c8faee87348ea39513d4e2f99c5`. Allocation target remains60% new APIs with complete-contract checks and40% existing gaps/regression. Implementation publication is authorized by the owner on2026-10-18. Root owns runtime, Main integration and CI; helper proposals remain isolated.
 
-## Current work, in order
+## Historical stage370 — erlang351
 
-| Lane | Stage | Accepted evidence | Next measurable result |
-| --- | --- | --- | --- |
-| Root: runtime, native bridge and CI owner | Integrating tested part361 | Windows34 and Linux68 exact callback-group comparisons; 17 unique groups; 3 ordinary-loader cases; 3 destructor-loader cases; binding and create/join witnesses; actual C++ registration and explicit exit; normal cleanup | Publish final source/docs and obtain green CI for that exact head |
-| New API: proplists get_value/2,3 | Private implementation and SDK checks passed; original running | 59 distinct SDK checks (53 contracts, four HOST, two direct MFA); corrected shared fixture; both APIs absent from published counts | Original run39041200099 on pinned source: 53/53, loaded proplists provenance, raw ETF equality and cleanup |
-| New API: queue core | Frozen source proposal, not integrated | Eight MFA implementations and dedicated HOST/original fixture proposal | Review and execute focused SDK/original contracts after proplists |
-| New API: binary access | Frozen source proposal, not integrated | Five MFA implementations and 51-case fixture proposal | Review shared slice contracts and execute focused SDK/original checks |
-| Existing gaps / regression | Final source regression accepted | 3319 stable source rows of sealed3320; 221 guards; 104 C# token witnesses; 26 unchanged DLL snapshots | Reuse exact-source results; rerun only affected blocks or newly unresolved concerns |
+CI remediation checkpoint (2026-10-18): five automatic CLR jobs stopped at the same two-file parse-gate style defect before functional tests. Test-only successor4e51fba9 passes full-tree style; full CLR CI39106838637 now passes on exact test-only head4e51fba9. All eight Main groups captured1597 values/7985 profiles. Original39106192411 remains failed; source-derived retrospective admission verifies its preserved raw evidence. First comparison:7344 exact observations,2238 explicit differences; next repair shared tail-call stack metadata and investigate tuple/FUN cases. No new complete-contract counts.
 
-Target engineering allocation remains 60% new functionality with complete-contract verification and 40% existing gaps/regression. This is a planning target, not a measured compatibility percentage. Three helper slots are available; helpers prepare isolated proposals or independently inspect results. Root alone changes runtime/native integration and dispatches CI.
+Validate all351 exports in explicit dependency groups against pinned original OTP through GitHub CI. Baseline16 complete,13 Known differences and322 Needs verification (351 present). Start with one batched original acquisition for type/size, numeric/operators and tuple/list families; then address state/lifecycle/native contracts and known valid-option refusals. Root owns Main/CI. Source-complete applicability and full error/state metadata are mandatory; a family completion does not complete erlang. Historical no-publication restriction was superseded by the owner on2026-10-18.
 
-## Linux acceptance and efficiency
+## Completed local stage369 — binary31
 
-Validation head91a281319529ee3aadb353e14e5e6b08d93cbb51, run39037669366, passes the selected Linux composition. Per-runtime NEWLM namespaces retain original image paths. Eight native thread providers are bound before constructors. The primary verifier proves inspected bindings and actual create/join; it does not prove every TLS operation. Separate destructor fixtures prove their actual C++ registration/key/explicit-exit paths, without claiming arbitrary C++ TLS lifetime compatibility.
+Part369 completes all31 binary exports against pinned OTP-29.1.1. Delta **+31 APIs / +31 complete source contracts / +40 tests**; totals **678 APIs /107complete/30Known/541pending** across17 modules. Binary: **31/31 present and31/31 complete**; queue38/38,proplists22/22 and erlang16 complete are retained. Current-source validation: **7639/7639 tests,11 integration outcomes,2 local packages**; the exact integration suffix was resumed after a docs-only inventory hash amendment. Original Linux CI and actual Windows Main are separate evidence. Implementation remains unpublished. [Evidence](validation/part-369/local-completion/README.md).
 
-Both independent callback routes and ordinary scenarios are collected before aggregate failure. Failed shared preparation or unsettled cleanup blocks dependent execution. Eleven synthetic collector controls pass. The three existing ordinary fixtures retain origin-relative dependencies, LD_LIBRARY_PATH and missing-dependency behavior. Workflow aliases remain present and only one is dispatched per snapshot. No new gdb installation: installed debugger or the existing bounded dump fallback is selected.
+Next60%: next absent APIs by dependency order. Next40%: complete-contract audits for existing APIs, preserving all450 source guards. No implementation publication without new authorization.
 
-Measured comparable job: 143 seconds before, 141 after; debugger step8 seconds before,0 after. Four distinct snapshots each ran once; the earlier three jobs total390 seconds including21 seconds of gdb installation. This is one observation, not proof of sustained speedup or fewer historical retries. Final Windows full4 takes370.047 seconds; the preceding restricted full3 remains failed and is not silently discarded.
+## Completed local stage368 — queue38
 
-## Preserved limitations
+Part368 completes all30 remaining queue exports against pinned OTP-29.1.1. Delta **+30 APIs / +30 complete contracts / +38 tests**; totals **647 APIs /76complete/30Known/541pending** across16 modules. Queue: **38/38 present and38/38 complete**; proplists22/22 and erlang16 complete remain unchanged. Current-source validation: **7599/7599 tests,11 integration outcomes,2 local packages**. Original Linux CI39078144460 and Windows Main are separate evidence. Implementation remains unpublished. [Evidence](validation/part-368/local-completion/README.md).
 
-The exact cause of the earlier CoreCLR SIGSEGV is not established. The controlled thread-provider composition passes the selected original/runtime/loader witnesses. Hidden libc operations, cancellation, unjoined native workers, arbitrary TLS outliving its image, broader NIF APIs and performance parity remain separate work.
+Next60%: prepared binary5/other absent APIs with complete contracts. Next40%: existing pending contract batches, preserving382 reviewed source guards.
 
-The restricted full3 gets actual Win32 error5 while opening its own named-pipe client. The same binaries pass all16 affected cases and then the full suite outside that restriction; runtime and ACLs are unchanged. Legacy full export overwrites32 curated Limits: preserve the generated report and restore the curated annotations before publication.
+## Completed local stage367 — prepared queue core
 
-See [part361 evidence](validation/part-361/evidence-index.json) and [English changelog](changelog/0056.md).
+Selected8/8 APIs and8/8 complete source-protocol contracts accepted. Whole queue remains8/38 present (21.1%),30 exports absent. Delta+8 APIs,+8 complete contracts,+20 tests; totals617 APIs in16 modules,46Verified/30Known/541Needs verification. Existing38 complete contracts and all609 prior API rows are preserved. proplists remains22/22 complete. Implementation is unpublished.
+
+Canonical checkpoint7561/7561+11integrations+2local packages passes367.906seconds on3249 unchanged source inputs. The subsequent eight-file reverse correction is verified on final3254 inputs/357 source guards by76 affected tests (51.687seconds),five genuine own-budget boundaries,four long normal/cancel/unwind routes,and two rebuilt packages/consumer/CLI (16.485seconds). Do not relabel the earlier full checkpoint as full execution after the delta.
+
+OriginalCI39071324870 and fresh final Main agree on160values/800wholeprofiles (954strict,six source-bound own identities). Supplementary originalCI39072770120 captures11new cases/55profiles without repeating160; eight queue cases/40profiles match under the predeclared actual-own-trap protocol,with three separate native-only dependency diagnostics. All42 corrupted evidence controls are rejected. Native256017-element cases genuinely trap;64017 may remain untrapped. Complete source/error/caller fields are retained; native heap/quantum/timing identity is not claimed. Current and packaged readiness agree byte-for-byte against the609-MFA part366 comparison checkpoint.
+
+Next60% lane: the prepared binary5 packet,or the next explicitly scoped queue exports. Next40% lane: unresolved existing contracts in dependency order,with reusable affected regressions. Root retains sole runtime/integration/CI ownership. No implementation commit/push/PR/package publication; LICENSE.local.txt stays uncommitted. [English journal](changelog/0059.md),[evidence](validation/part-367/local-completion/README.md).
+
+## Completed local increment — part365
+
+Twenty API registrations are integrated:589→609 in15modules. proplists22/22 are locally present. Complete-contract ledger18→37 verified (+19),30→31Known (+1from_map),541Needs verification unchanged. proplists21/22 complete contracts (95.5%),one Known; module remains partially compatible. These are supported observable Erlang term/source contracts, not physical VM/performance claims. Original evidence is Linux GitHubCI; current Main executes on Windows, with no LinuxMain or publication claim.
+
+Final canonical full3 passes7536/7536 tests,11integration outcomes and2local packages in385.641seconds. All7504previous names retain order;32new names are appended. Preserve589previous API rows and their custom Limits byMFA key; the canonical emitter resets34custom notes,so restore those metadata rows after generation and retain raw output separately. Current and packaged readiness agree byte-for-byte after classification;314reviewed source guards and3195final source inputs remain unchanged.
+
+Final Main replay3:336returned observations329strict/333all-fields-relational;1397whole stack observations1342strict/1382relational;37corruption controls reject changes. Retain two mandatory atom-cursor outcomes/ten profiles and permitted get_keys order1value/5profiles. Source-complete per-MFA arguments, actual own code metadata and current source/DLL bindings support19new classifications; finite case counts alone do not.
+
+## Current module accounting
+
+| Module | Registered / reference | Complete contracts | Known differences | Needs verification |
+| --- | ---: | ---: | ---: | ---: |
+| application | 4/38 | 0 | 0 | 4 |
+| erlang | 351/351 | 16 | 13 | 322 |
+| erpc | 3/33 | 0 | 0 | 3 |
+| error_logger | 2/29 | 0 | 0 | 2 |
+| gen_server | 10/41 | 0 | 0 | 10 |
+| io | 1/53 | 0 | 0 | 1 |
+| lists | 91/91 | 0 | 0 | 91 |
+| logger | 26/77 | 0 | 0 | 26 |
+| maps | 34/34 | 0 | 0 | 34 |
+| proc_lib | 39/39 | 0 | 17 | 22 |
+| proplists | 22/22 | 22 | 0 | 0 |
+| queue | 38/38 | 38 | 0 | 0 |
+| records | 8/8 | 0 | 0 | 8 |
+| rpc | 2/35 | 0 | 0 | 2 |
+| supervisor | 14/23 | 0 | 0 | 14 |
+| sys | 2/36 | 0 | 0 | 2 |
+
+
+## Completed stage366 and next work
+
+All 22 proplists contracts are now complete under the user-approved genuine own-state protocol, including manually constructed flatmap/HAMT cursors. This part adds zero APIs, one complete contract and five tests: totals **609 APIs / 38 complete / 30 Known / 541 pending**, with **7541 test names**. All 345 source guards match.
+
+Canonical checkpoint: 7541/7541, eleven integration outcomes and two local packages in 402.266 seconds. Final five-file flat-order delta: 283/283 affected checks in 13.937 seconds, fresh 336-value/1397-profile replay with 37 corruption controls, fourteen strict native hash vectors and rebuilt packages/consumer/local CLI in 14.547 seconds. Keep the pre-delta full run and final delta gates distinct. All 3224 final source inputs are bound; current and packaged readiness agree.
+
+Original-only GitHub CI run39068386094 succeeds with three new reference cursor cases/15 full profiles. Earlier run39066726283 failed only in passive decoding after normal workers; recover its18 cases/90 profiles without rerunning native code. Raw cross-VM atom topology and unspecified get_keys order remain preserved observations, not silently rewritten equality.
+
+Next, follow the60/40 allocation using the existing queue8/binary5 proposals in API_DELIVERY_PACKAGES.md. Reuse completed proplists original captures and the affected regression block; do not recreate proposals or rerun unchanged original fixtures. Implementation publication is authorized by the owner on2026-10-18. LICENSE.local.txt remains uncommitted.
+
+Evidence: [part366 completion](validation/part-366/local-completion/README.md).
+
+## Preserved failures and next gates
+
+Full1 used the wrong one-processor environment and retained13failures; unchanged baseline reproduced11,then Main fixed actual handler-provenance and registration-count issues. Full2 under2processors retained7535/7536,solelarge-map traversal inconsistency. Unify iterator/to_list/comprehension/keys/values traversal without weakening the original-backed assertion; affected278/278 passes11.641seconds,then full3 passes. Failed raw reports remain immutable. Earlier437.812sfailedfull1,332.265sfailedtest-onlyfull2and385.641sfull3have different scopes; they are not a speed benchmark. New-only original CI batches39061299103/39062211544 were reused after Main changes without rerunning unchanged original fixtures.
+
+Evidence:[local completion](validation/part-365/local-completion/README.md),[final replay](validation/part-365/final-main-replay3/README.md),[journal](changelog/0058.md).

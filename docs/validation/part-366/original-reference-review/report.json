@@ -1,0 +1,150 @@
+{
+  "Status": "PASS_PASSIVE_REFERENCE_OBSERVATION_ADMISSION_NOT_WHOLE_WORKFLOW_PASS",
+  "Run": 39066726283,
+  "Head": "9661925d5bedd6b2a216fefdeb0f7b3e80bc0c5d",
+  "PinnedOtp": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "DownloadManifestRowsRehashed": 69,
+  "CorrectedCommittedManifestSha256": "875FEC2EE6E626101BD4B3732CBD3206D97B27191073F8C5845BF5751FDD86DC",
+  "LocalToolInputsRehashed": 30,
+  "DecoderSha256": "7EE19228F695E12C4B4623BD14FF138D211740302F9D1A6AD87190ECCB2DD834",
+  "ReferenceDiagnosticRows": 3,
+  "FullProfileRows": 15,
+  "Profiles": [
+    "default",
+    0,
+    1,
+    2,
+    8
+  ],
+  "AllProfilesExactlyEqualReturned": true,
+  "WordCounts": [
+    {
+      "StoredWordCount": 1,
+      "EqualsCount1": true,
+      "OriginalHash": 13930838397247870661,
+      "ReferenceWireHex": "835A00017715686173685F7265666572656E63654072656D6F74650000000100000007"
+    },
+    {
+      "StoredWordCount": 2,
+      "EqualsCount1": true,
+      "OriginalHash": 7078782356459737480,
+      "ReferenceWireHex": "835A00027715686173685F7265666572656E63654072656D6F7465000000010000000700000000"
+    },
+    {
+      "StoredWordCount": 3,
+      "EqualsCount1": true,
+      "OriginalHash": 547426297180860144,
+      "ReferenceWireHex": "835A00037715686173685F7265666572656E63654072656D6F746500000001000000070000000000000000"
+    },
+    {
+      "StoredWordCount": 4,
+      "EqualsCount1": true,
+      "OriginalHash": 1565250762641503615,
+      "ReferenceWireHex": "835A00047715686173685F7265666572656E63654072656D6F74650000000100000007000000000000000000000000"
+    },
+    {
+      "StoredWordCount": 5,
+      "EqualsCount1": true,
+      "OriginalHash": 14769017762432359513,
+      "ReferenceWireHex": "835A00057715686173685F7265666572656E63654072656D6F7465000000010000000700000000000000000000000000000000"
+    }
+  ],
+  "HamtLookup": [
+    {
+      "StoredWordCount": 1,
+      "Observed": "present"
+    },
+    {
+      "StoredWordCount": 2,
+      "Observed": "missing"
+    },
+    {
+      "StoredWordCount": 3,
+      "Observed": "missing"
+    },
+    {
+      "StoredWordCount": 4,
+      "Observed": "missing"
+    },
+    {
+      "StoredWordCount": 5,
+      "Observed": "missing"
+    }
+  ],
+  "Roundtrip": [
+    {
+      "StoredWordCount": 1,
+      "EqualsCount1": "true",
+      "HashEqualsCount1": "true"
+    },
+    {
+      "StoredWordCount": 2,
+      "EqualsCount1": "true",
+      "HashEqualsCount1": "false"
+    },
+    {
+      "StoredWordCount": 3,
+      "EqualsCount1": "true",
+      "HashEqualsCount1": "false"
+    },
+    {
+      "StoredWordCount": 4,
+      "EqualsCount1": "true",
+      "HashEqualsCount1": "false"
+    },
+    {
+      "StoredWordCount": 5,
+      "EqualsCount1": "true",
+      "HashEqualsCount1": "false"
+    }
+  ],
+  "ProcessReceipts": [
+    {
+      "Group": "reference_layout",
+      "Stage": "compile",
+      "Sha256": "3EABB89148491010A5DBD9A25B42CF5525AF8E026E6FEA214FEF989E5C3F6B85",
+      "ExitCode": 0,
+      "ElapsedSeconds": 0.17595807800000784,
+      "NormalCleanup": true
+    },
+    {
+      "Group": "reference_layout",
+      "Stage": "observe",
+      "Sha256": "48F8D3E895374BFCC9A9CEED0A5C78CCAF77A21F4F22B1BAE16424C0E4397CE8",
+      "ExitCode": 0,
+      "ElapsedSeconds": 0.1008975190000001,
+      "NormalCleanup": true
+    },
+    {
+      "Group": "map_hashes",
+      "Stage": "compile",
+      "Sha256": "269E6C9EBB4229E773E24DF2EE4233053D9F610877D3BB722FE2C908EA24B984",
+      "ExitCode": 0,
+      "ElapsedSeconds": 0.1759980929999756,
+      "NormalCleanup": true
+    },
+    {
+      "Group": "map_hashes",
+      "Stage": "observe",
+      "Sha256": "2C0C0C3D0DE555C1318D55B2005EC95A2626B973B53F9AAE629C713ED43CCE6B",
+      "ExitCode": 0,
+      "ElapsedSeconds": 0.10081030899999632,
+      "NormalCleanup": true
+    }
+  ],
+  "RawHashes": {
+    "returned.etf": "CF9577261EDCB8CF684151AB9A2CD8427B3494AE4734E43582CFC0D1B10A20A8",
+    "stack-observations.etf": "045C73BCF3BF5D76E066530DA4957F3217C81B9C704CB0C681B296645CBF6217",
+    "metadata.etf": "32BCE06F7B88BEDBA29CA87F7690B3D9E3734EA3EED32D208325EC39E7CCF725"
+  },
+  "Implications": [
+    "Actual original equality ignores trailing-zero external reference words while its internal hash preserves stored count.",
+    "HAMT map containing count1 reference is not found by equal count2..5 external reference aliases in this actual original process.",
+    "Count-sensitive managed protocol agrees with source and this observed original diagnostic; do not silently normalize counts.",
+    "Hash numbers include process-owned node identity and are not literal cross-runtime oracle values.",
+    "Ordinary managed MapTerm dictionary alias semantics and complete from_map compatibility still require explicit classification; this observation does not resolve them."
+  ],
+  "WholeWorkflowStatusPreserved": "FAIL_ORIGINAL_CAPTURE_GROUPS_RETAINED: map_hashes passive decoder rejected extended identity-bearing map key; both native workers normal exit0.",
+  "MapHashesScope": "No repaired map decoder executed here; Root owns that admission repair and independent map analysis.",
+  "ExecutionScope": "Only own passive Python, trusted local passive decoder and read-only local Git show; no downloaded code/native/SDK/network/Main execution or edits."
+}

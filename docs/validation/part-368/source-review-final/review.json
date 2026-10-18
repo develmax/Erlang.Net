@@ -1,0 +1,54 @@
+{
+  "Status": "SOURCE_REVIEW_ACCEPTED_CONDITIONAL_FINAL_CAPTURE3_REGRESSION",
+  "BeforeGuards": 380,
+  "AfterGuards": 381,
+  "Changed": [
+    {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "BeforeSha256": "4BFFB7877871BD5FE4E4670FA3F2EEB776B8BEE05B64950C66B5EC075CE878B5",
+      "AfterSha256": "9279946C7BFFEAAF8283EFDB8F9B89E250817FF3BDBAFFC79DBBC3EAFDEEC141"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueMemberExecution.cs",
+      "BeforeSha256": "1B899DA38A8B02CEDBC95DDE8E549A9F6621DB07D520FA9634CF135FEA381EF8",
+      "AfterSha256": "9989D68E534613AD77D877EADB90E74CA0DA4DB07C72D7FC1DF3A7F768B78A9A"
+    }
+  ],
+  "Added": {
+    "Path": "src/Erlang.Compiler/StaticApplySyntax.cs",
+    "Sha256": "F90181C706F0522F0A01DFB2479F4A991860586EAF6D04D708D0DC1EBECBADEA"
+  },
+  "ExactInverseOldBytesProof": true,
+  "NativeCompilerAuthority": {
+    "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "Path": "lib/compiler/src/sys_core_fold.erl",
+    "Sha256": "8B29294DC2019A0FD858AFEF1E9AEF60BF42BB94FB0889763F1BD8B423FD0775",
+    "Lines": "1015-1053 simplify_apply/is_atom_or_var/get_fixed_args",
+    "Contract": "Original simplify_apply replaces apply3 with c_call when M/F atom-or-var and list has fixed argument count. Ours implements a sound narrower literal-atom/proper-syntax-list subset, retaining source annotation and existing direct-call tail semantics."
+  },
+  "StaticApplyBranchReview": [
+    "Resolved module must be erlang and function apply arity3. Local shadowed apply, imported other-module apply and suppressed autoimport cannot lower.",
+    "Literal M/F atoms have no evaluation side effects. Proper Expr.List Tail=null elements are reused in original order and evaluated exactly once by existing Arguments.",
+    "Dynamic M/F, dynamic list, improper syntactic tail remain original apply3 path; no new validation branch or fallback.",
+    "Lowered Expr.Call uses explicit destination module: remote visibility/exports/dependency dispatch remain existing ordinary remote-call rules.",
+    "SourceLine and current tail flag preserved. Existing tail trampoline handles call; no fixture/function-specific exception or hardcoded caller stripping.",
+    "No guard evaluator path changed. Existing direct record-predicate optimization remains applicable after lowering; other direct calls unchanged."
+  ],
+  "MemberBranchReview": "Only second/front Search retainQueueCaller false\u2192true changes; comparison showed native lists:member error keeps queue.member/2@262 even for this source tail expression. Values, traversal, entry suffix/snapshot, checkpoints, rear caller and public guard unchanged. Initial tail-BIF omission inference corrected rather than waived.",
+  "Old46Applicability": {
+    "StatusCountsUnchanged": true,
+    "ActualVerified": 46,
+    "Argument": "New generic lowered subset may reach all source modules but dispatches same direct-call semantics and preserves argument/source/tail ordering. Existing16 erlang predicates/self/reference paths and22proplists+8queue algorithms unchanged. Old960 capture2 predates this successor; final capture3 old960/full regression must refresh closure. Source-guard hashes are proposals only until final owner gates."
+  },
+  "NecessaryPermanentControls": [
+    "Explicit erlang:apply3 static atom/list direct call source stack including tail/non-tail contexts.",
+    "Autoimport apply3 and import erlang apply3 lower; local shadow/import other/suppression do not.",
+    "List arguments with side effects evaluate exactly once in source order.",
+    "Improper/dynamic list and dynamic M/F retain native apply validation path.",
+    "Existing is_record literal apply3/loader call_on_load special cases retain semantic behavior.",
+    "Member improper front keeps262 caller, full effective args exact or predeclared long own suffix protocol."
+  ],
+  "MainChanged": false,
+  "Built": false,
+  "CompatibilityPromoted": false
+}

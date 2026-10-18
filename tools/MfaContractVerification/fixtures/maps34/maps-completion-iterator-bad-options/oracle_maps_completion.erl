@@ -1,0 +1,1 @@
+-module(oracle_maps_completion). -export([run/0]). run()->try maps:iterator(wrong,ordered) of _->unexpected catch error:badarg->ok end,try maps:iterator(#{},wrong) of _->unexpected catch error:badarg->ok end,try maps:iterator(#{},fun(_)->true end) of _->unexpected catch error:badarg->ok end,done.

@@ -1,0 +1,299 @@
+{
+  "Status": "COMPLETE_BRANCH_ARGUMENT_FINAL_CAPTURE4_FULL_ROOT_GATE_PENDING",
+  "OtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "PerMfa": [
+    {
+      "module": "queue",
+      "function": "member",
+      "arity": 2,
+      "clausesEvaluation": "Shallow tuple/list guards; exact-equality lists:member rear first, shortcircuit on hit, otherwise front. Native BIF errors keep public queue.member/2@262 for BOTH calls. Each native-entry saved list is genuine own16cells/reduction state; no match after improper tail.",
+      "errorsFrames": "Public badarg264; dependency lists:member/2 actual[item,entryList] +queue.member/2@262 for rear andfront; long suffix ownstate relation requires separate owner proof.",
+      "Recommendation": "Eligible after final Root full regression/own-state source evidence; not automatically promoted by finite pass count.",
+      "AdditionalOwnerProof": "Root member source review and long source-bound 16cells/reduction transition; outside this2784 comparator.",
+      "BranchAuditConclusion": "No unresolved source clause/error/equality/order/callback/source-frame branch in this MFA under inherited supported term/runtime scope. Member long own-state route is separately required; final Root integration gates remain."
+    },
+    {
+      "module": "queue",
+      "function": "reverse",
+      "arity": 1,
+      "clausesEvaluation": "Shallow tuple/list guard only. Swaps physical halves; does not traverse improper Cons tails.",
+      "errorsFrames": "public badarg queue:reverse/1 line599",
+      "Recommendation": "Eligible after final Root full regression/own-state source evidence; not automatically promoted by finite pass count.",
+      "BranchAuditConclusion": "No unresolved source clause/error/equality/order/callback/source-frame branch in this MFA under inherited supported term/runtime scope. Member long own-state route is separately required; final Root integration gates remain."
+    },
+    {
+      "module": "queue",
+      "function": "join",
+      "arity": 2,
+      "clausesEvaluation": "Validate both queue shapes; second empty branch precedes first empty branch; return input queue object for empty identity. Nonempty evaluates reverse(R1,F2) before append(F1,...).",
+      "errorsFrames": "reverse/2 and ++/2 retain queue:join/2 line623; reverse uses genuine own allocation entry snapshots",
+      "Recommendation": "Eligible after final Root full regression/own-state source evidence; not automatically promoted by finite pass count.",
+      "BranchAuditConclusion": "No unresolved source clause/error/equality/order/callback/source-frame branch in this MFA under inherited supported term/runtime scope. Member long own-state route is separately required; final Root integration gates remain."
+    },
+    {
+      "module": "queue",
+      "function": "split",
+      "arity": 2,
+      "clausesEvaluation": "Integer nonnegative plus shallow shape; zero returns without lengths. Positive front length first; N<Lf moves front prefix, N>Lf rear length then range guard or rear prefix movement; equality evaluates f2r(F) before r2f(R).",
+      "errorsFrames": "badarg public line670/range659; length dependency651/656 or inline1299/1310; unbounded Integer index retained",
+      "Recommendation": "Eligible after final Root full regression/own-state source evidence; not automatically promoted by finite pass count.",
+      "BranchAuditConclusion": "No unresolved source clause/error/equality/order/callback/source-frame branch in this MFA under inherited supported term/runtime scope. Member long own-state route is separately required; final Root integration gates remain."
+    },
+    {
+      "module": "queue",
+      "function": "filter",
+      "arity": 2,
+      "clausesEvaluation": "Guard fun arity1 and shallow queue; complete front before rear; front callback order head-to-tail, rear callback order tail-to-head after validating entire rear. Front expansion waits for recursive suffix before append; rear expansion calls reverse tail. true/false/[]/[replacement]/Cons expansion distinct; malformed Cons expansion admitted by is_list then fails actual append/reverse.",
+      "errorsFrames": "filter_f733/case736/returnCP738,740,746; rear751/recursive754/callback755. Actual BIF error retains current filter_r765 before recursive754/public721. Final default includeOwner=true is required.",
+      "Recommendation": "Eligible after final Root full regression/own-state source evidence; not automatically promoted by finite pass count.",
+      "BranchAuditConclusion": "No unresolved source clause/error/equality/order/callback/source-frame branch in this MFA under inherited supported term/runtime scope. Member long own-state route is separately required; final Root integration gates remain."
+    },
+    {
+      "module": "queue",
+      "function": "filtermap",
+      "arity": 2,
+      "clausesEvaluation": "Same physical evaluation direction as filter; accepts only true, false, {true,Replacement}. Front dependency authentic lists:filtermap_1; rear queue:filtermap_r; balances only after both sides completed.",
+      "errorsFrames": "lists helper2607/case2608/distinct CP2610/2612; rear helper810/CP813/case814; guard807",
+      "Recommendation": "Eligible after final Root full regression/own-state source evidence; not automatically promoted by finite pass count.",
+      "BranchAuditConclusion": "No unresolved source clause/error/equality/order/callback/source-frame branch in this MFA under inherited supported term/runtime scope. Member long own-state route is separately required; final Root integration gates remain."
+    },
+    {
+      "module": "queue",
+      "function": "fold",
+      "arity": 3,
+      "clausesEvaluation": "Guard fun arity2 plus shallow queue; lists:foldl front first then explicit tail lists:foldr rear. Front accumulated value changes effective helper arguments; no callbacks after reached improper tail.",
+      "errorsFrames": "front lists:foldl2465 then foldl_1 helper2469/callback2470 under queue851; rear shared exact ListFoldRight, public queue frame removed",
+      "Recommendation": "Eligible after final Root full regression/own-state source evidence; not automatically promoted by finite pass count.",
+      "BranchAuditConclusion": "No unresolved source clause/error/equality/order/callback/source-frame branch in this MFA under inherited supported term/runtime scope. Member long own-state route is separately required; final Root integration gates remain."
+    },
+    {
+      "module": "queue",
+      "function": "any",
+      "arity": 2,
+      "clausesEvaluation": "fun1 guard; front forward then rear forward, returns immediately on true; no validation of later malformed tail or opposite half after hit. Nonboolean callback result raises case_clause.",
+      "errorsFrames": "lists:any2349 then any_1 helper2356/callback2357; queue875 only front, rear explicit tail removes queue",
+      "Recommendation": "Eligible after final Root full regression/own-state source evidence; not automatically promoted by finite pass count.",
+      "BranchAuditConclusion": "No unresolved source clause/error/equality/order/callback/source-frame branch in this MFA under inherited supported term/runtime scope. Member long own-state route is separately required; final Root integration gates remain."
+    },
+    {
+      "module": "queue",
+      "function": "all",
+      "arity": 2,
+      "clausesEvaluation": "fun1 guard; front forward then rear forward, returns immediately on false; nonboolean raises case_clause. Empty returns true; do not traverse after decisive callback.",
+      "errorsFrames": "lists:all2312 then all_1 helper2319/callback2320; queue899 only front, rear explicit tail removes queue",
+      "Recommendation": "Eligible after final Root full regression/own-state source evidence; not automatically promoted by finite pass count.",
+      "BranchAuditConclusion": "No unresolved source clause/error/equality/order/callback/source-frame branch in this MFA under inherited supported term/runtime scope. Member long own-state route is separately required; final Root integration gates remain."
+    },
+    {
+      "module": "queue",
+      "function": "delete",
+      "arity": 2,
+      "clausesEvaluation": "Exact equality, first logical match only. Front head-first; rear validates whole list before equality and searches physical tail-first. No-match returns original queue. Matched improper tail can propagate as result; atom false is actual helper sentinel and suppresses reconstruction.",
+      "errorsFrames": "front helper969/recurse972; rear979/recurse980, public dependency925/927; inline balancing on empty found result",
+      "Recommendation": "Eligible after final Root full regression/own-state source evidence; not automatically promoted by finite pass count.",
+      "BranchAuditConclusion": "No unresolved source clause/error/equality/order/callback/source-frame branch in this MFA under inherited supported term/runtime scope. Member long own-state route is separately required; final Root integration gates remain."
+    },
+    {
+      "module": "queue",
+      "function": "delete_r",
+      "arity": 2,
+      "clausesEvaluation": "Validate outer shape, call canonical delete on swapped queue then swap result. The call is NOT tail: outer delete_r frame964 remains on failure.",
+      "errorsFrames": "same delete branch/error behavior, outer guard967",
+      "Recommendation": "Eligible after final Root full regression/own-state source evidence; not automatically promoted by finite pass count.",
+      "BranchAuditConclusion": "No unresolved source clause/error/equality/order/callback/source-frame branch in this MFA under inherited supported term/runtime scope. Member long own-state route is separately required; final Root integration gates remain."
+    },
+    {
+      "module": "queue",
+      "function": "delete_with",
+      "arity": 2,
+      "clausesEvaluation": "fun1 guard; same front/rear traversal and false sentinel as delete. Predicate only until found; rear callback starts only after reaching proper Nil. Nonboolean predicate is case_clause at actual helper.",
+      "errorsFrames": "front1056/case1057/CP1061; rear1071/CP1072/case1074; public1012/1014; guard1028",
+      "Recommendation": "Eligible after final Root full regression/own-state source evidence; not automatically promoted by finite pass count.",
+      "BranchAuditConclusion": "No unresolved source clause/error/equality/order/callback/source-frame branch in this MFA under inherited supported term/runtime scope. Member long own-state route is separately required; final Root integration gates remain."
+    },
+    {
+      "module": "queue",
+      "function": "delete_with_r",
+      "arity": 2,
+      "clausesEvaluation": "fun1 guard then genuine non-tail canonical delete_with on swapped queue; return swaps result. Callback shortcircuit/order follows canonical helper.",
+      "errorsFrames": "outer1051 preserved, guard1054",
+      "Recommendation": "Eligible after final Root full regression/own-state source evidence; not automatically promoted by finite pass count.",
+      "BranchAuditConclusion": "No unresolved source clause/error/equality/order/callback/source-frame branch in this MFA under inherited supported term/runtime scope. Member long own-state route is separately required; final Root integration gates remain."
+    }
+  ],
+  "Reasoning": "Per-MFA complete guard/clause/evaluation/error/helper partition is ported as recorded above. Whole original witnesses corroborate it, rather than being the sole proof. Source is hash-bound current Main; no implementation-presence or sample-count shortcut.",
+  "InheritedScope": "Same supported Erlang term/runtime contract as accepted get_value2/3. Own genuine code/process/scheduler identities follow native source protocol; numeric cross-VM identity, timings, physical ERTS GC/reductions are not promised. No new exclusion of malformed tails, callbacks, source/caller metadata or effective error arguments.",
+  "Equality": "Member/delete exact Term equality: integer1 differs fromfloat1.0; arbitrary supported terms delegated to unchanged existing term equality.",
+  "EvaluationAndComplexity": {
+    "iteration": "All scans/reconstruction are iterative with ReduceAsync checkpoints. Output-dependent histories store original values needed for rebuilding, not recursive CLR frames.",
+    "logicalStack": "One token per actual source return site, adjacent identical CP suppression by runtime. Front filter history coalesces runs and reads at most supported maximum64 frames, independent of list length.",
+    "callbackContext": "Actual callback invoked through FunctionTerm.Invoke on same ProcessContext. Error capture preserves callback-selected own code identity and all existing source/caller fields. No native captured identities or expected frame bytes injected."
+  },
+  "Metadata": "Actual callback full source/error/helper/caller fields compare exactly. Named local code fields only bind each actual native BEAM FunT/MD5/initializerPID to actual own source resolver/MD5/initializerPID under frozen global CodeIdentityRule. Environment and all non-code fields remain exact; no wildcard, frame omission, native identity injection or source projection.",
+  "SourceChangesAfterInitialReview": {
+    "ReviewSha256": "8BA8DD96B2E0528DC3D76D1E26F77BDDCBE1A6ADF783BFF660A5B10EA62D9E67",
+    "Fixes": [
+      "Current filter_r765 BIF call-site frame restored, source inference corrected by actual original.",
+      "apply2 validates proper argument list first; only real FUN wrongarity captures actual current caller before native apply wrapper.",
+      "Member front BIF retains262, matching native.",
+      "Resolved literal apply3 direct-call lowering follows pinned compiler simplify_apply and preserves source/argument/tail semantics.",
+      "Static literal apply3 lowering limited to255 actualsyntax arguments, leaving256+ on existing validated apply3 path.",
+      "HigherTrace callbackentry ChargeAsync0 rechecks halt/cancellation/suspension after real consumer continuation resumes; zero positive budget debit or normal source-frame change."
+    ],
+    "Review3Sha256": "A59C4F5969541ACDB26490D35327ACA1FDDF5506DE811B3118F7E776C1932B18",
+    "Review4Sha256": "EA7C308D478D14601C3F7FC8C10588C77054837D26ADFFAF2FD11A1DA66E6CBD",
+    "CapAddendumSha256": "FF368439956C74704409A587C3E4DF3E02A1880364B4B16ECEFB7044D98EEC5A"
+  },
+  "CurrentSources": [
+    {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "Sha256": "9279946C7BFFEAAF8283EFDB8F9B89E250817FF3BDBAFFC79DBBC3EAFDEEC141"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceCallResolution.cs",
+      "Sha256": "9E662A5BCBB9D80F819B84970A199C02874AA443C92DD80C26FF21A9A716B5D6"
+    },
+    {
+      "Path": "src/Erlang.Compiler/StaticApplySyntax.cs",
+      "Sha256": "3BE405FB880B8B6821F2A8C796DD28AA7BB68958EF5CAD1AD6CEB31412D358C4"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangBasicRegistrations.cs",
+      "Sha256": "AC94CB5B10A7D3A6060AEE7A5127FD9FCF80ACD482CC3C610C37F4D9A5669F46"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListFoldRight.cs",
+      "Sha256": "857CEDC0E1086C31FB7BCE56A9F4633211FC574F9D18606F710373D8CBC2F2AD"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.GeneratedFrames.cs",
+      "Sha256": "C16FF0A3AFA8CC509DF58DC7E8263145B29122F8C80921F8085367B0F335205A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.SourceLocations.cs",
+      "Sha256": "D6F1417262F40797A249BB8472297C05F2323CC467AD44DA2CE01D6114BADBCE"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.cs",
+      "Sha256": "24EBFDE634CC465D2F7561C7A19D48FEC5EE14CDAEB2F8FA2F4DA0DC11201891"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreLinear.cs",
+      "Sha256": "5CBE233B039EC6CB9EE7BD336A4D1B17F3A06B160209B9E3050491D8771B74C6"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreReverse.cs",
+      "Sha256": "06FFD9CDC6466BA3770465B2D6F382A159B6004491A820C721A9551131601EF7"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreTrace.cs",
+      "Sha256": "61B3BA76001585F516938154949F467AF9CDA890C5863539B36A1DE5618C6E66"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueHigherDelete.cs",
+      "Sha256": "4D67A2D8F3CDE0644BFCC2C1440ADCFBE960064E7FFC1EDB6B5FFACB3621D5B6"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueHigherEmission.cs",
+      "Sha256": "69B1EE7B3376D1EE4405762D0E00FA88ED3CC57FD23DDA5D2557F5A8B77CFDDC"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueHigherExecution.cs",
+      "Sha256": "B74A47E477486A7480BA7AD7C355803B3E199E1C4B253EB5ADD0DAE46F8A082E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueHigherFilters.cs",
+      "Sha256": "1B57C35E565E1186BA8B0681BFCBC2F2A978E5B9ED798EA4E16B45D3785FA8A1"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueHigherFrame.cs",
+      "Sha256": "2E677A0B6E519706A83D9B3F816DCFACB9D8C82A0BC10AA791AADC146D3F1528"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueHigherHistory.cs",
+      "Sha256": "A33CF2D4767F6B017799D509243F11D1E562737986A6A8844D13FD1060A32A7D"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueHigherListCalls.cs",
+      "Sha256": "C8716E5F4105A9A2EC06EEC503E165259A9E5595106916F55AB577D26C898594"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueHigherModule.cs",
+      "Sha256": "7B0C7FC51B15F657C1FA432D86F8468834816B5B67A5333F7CD39BF4FA780CB4"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueHigherNames.cs",
+      "Sha256": "22FF08A89F182E210BF14187DC198B1A0EAE38F3341A2DC1BBA647ED3BE455F8"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueHigherPending.cs",
+      "Sha256": "C468AB06B989FACA70DBF1DFA392D7F3CAD69141714C2FC803994F0EF13751BC"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueHigherScope.cs",
+      "Sha256": "B55609D0BA3890A149BD31BE4F77D7E5BF892E3A5BBE1E4C53230A40D96BD54E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueHigherSource.cs",
+      "Sha256": "024F8A1B569F64B2A728347D8B704D4C310E35803CD00C70C99B350C62B6A6F2"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueHigherTrace.cs",
+      "Sha256": "E7C6F93F9067A19E5DF45EE37F44B288E6A8D2A4BC1E043055F1F37D80BBEA38"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueMemberExecution.cs",
+      "Sha256": "9989D68E534613AD77D877EADB90E74CA0DA4DB07C72D7FC1DF3A7F768B78A9A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueModuleNames.cs",
+      "Sha256": "0C1BABA8351C250E72124ADCC1C65A83CF42DB13265F1940FCA86C9D88E45DD9"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueTailAliases.cs",
+      "Sha256": "6F0577196A73DEAA96E728073B7052B8D16F6EEA64A4D28BE8DC898A40331F53"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeExceptionCapture.cs",
+      "Sha256": "BDA882AF75249C5C067BEB61A842C5D4D4D9E5599303AF9F7F2FF8C99F19112F"
+    },
+    {
+      "Path": "src/Erlang.Compiler/StaticApplyParameters.cs",
+      "Sha256": "F25A5D33B5886BD34A81B1881EDF503CC28ED5279A852FB416F51AE5E19206A6"
+    }
+  ],
+  "ActualComparison": {
+    "Whole": 2784,
+    "Values": 464,
+    "Stacks": 2320,
+    "Strict": 2453,
+    "SourceBoundNamedFUN": 331,
+    "NegativeControls": 18,
+    "Sha256": "12667E8B974281751E4E8E3CE052860AA3545EC0C9DC8D0C52F63C7F9C6CA7BE",
+    "Capture": "capture4"
+  },
+  "RemainingGates": [
+    "Root final current-source7599 canonical full/integrations/packages and preservation accounting.",
+    "Separate ends/member/long owner acceptance (Root has reported all5358, not reexecuted by this peer)."
+  ],
+  "MainChanged": false,
+  "CompatibilityPromoted": false,
+  "KnownSourceQuestionRemaining": null,
+  "SourceQuestionScope": "No known unreviewed source branch in13 higher MFAs. Separate ends/memberlong owner evidence and final later-phase/full regression remain acceptance gates, not new semantic exclusions.",
+  "ActualPermanentControls": {
+    "ReportSha256": "6D8A3321174F2D7F47EFAD3A15D4E647424B3E05261D37B28F81DB1B0FFF1C0C",
+    "ReceiptSha256": "ABDB9103AAC44680AD8AC0C3FB5554A1B50FC112A20C033DC4CBBEE1260492DF",
+    "Passed": 7,
+    "Names": [
+      "compiler/static-apply-three-resolution-effects-and-source-frames",
+      "mfa/erlang:apply/2",
+      "mfa/erlang:apply/3",
+      "queue/higher-compiled-apply-badarity-and-rear-expansion-frames",
+      "runtime/queue/core/cooperative-cancellation-cleanup",
+      "runtime/queue/higher/later-phase-cooperative-cancellation-cleanup",
+      "runtime/queue/member/own-entry-and-short-circuit"
+    ],
+    "Includes": "Actual laterphase callbacks/reconstruction/cancel/finally controls, exact badarity/rear BIF stacks, directapply and boundedstaticlowering.",
+    "FullRunClaimed": false
+  }
+}

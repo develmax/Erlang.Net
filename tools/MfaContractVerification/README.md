@@ -1,0 +1,43 @@
+# Local MFA contract verification
+
+One local entrypoint runs preparation, parse, SDK capture, optional original-evidence admission and exact comparison. Add a contract descriptor and fixture data to this process; do not add a runner for each API. This tool is local and uncommitted. It never installs, invokes network/CI, submits a branch, publishes, changes runtime registrations or applies a ledger diff.
+
+From the repository root:
+
+```powershell
+python -B tools/MfaContractVerification/verify.py run --family maps34 --output artifacts/mfa-contract-verification-local1/fresh-run
+python -B tools/MfaContractVerification/verify.py plan --mfa maps:get/2 --output artifacts/mfa-contract-verification-local1/fresh-one
+python -B tools/MfaContractVerification/verify.py plan --queue pending --output artifacts/mfa-contract-verification-local1/fresh-queue
+python -B tools/MfaContractVerification/verify.py plan --all --output artifacts/mfa-contract-verification-local1/fresh-all
+```
+
+Exactly one selector is required. Repeat --mfa for an explicit group. Unknown IDs, unknown family, empty selection, conflicting selectors, invalid schema/pin, duplicate fixture IDs and input hash failures are rejected. `plan` admits and records data without building or executing a VM. `run` uses every independent selected fixture, aggregates errors, and blocks only dependent SDK rows after failed parsing. A requested API without a descriptor is explicit insufficient coverage, not silently dropped. The pinned registry snapshot has 589 MFAs, 18 complete contracts and 15 modules, so --queue pending selects 571. The first catalog describes 34 of those, leaving 537 selected IDs without descriptors. Existing verified ledger rows are preserved; local batch insufficiency never downgrades them.
+
+Fixtures can cover multiple MFAs. The selection manifest reports requested IDs, selected fixture IDs and shared-fixture extra MFAs. A single requested MFA can run the unchanged shared observer that also calls other APIs; its extra observations are not counted as extra selected or accepted APIs.
+
+The data contract is deliberately small:
+
+- catalog.json schema1 binds the OTP commit, registered inventory, compatibility ledger, eight existing DLL snapshot inputs, owned-process helper, passive decoder and descriptor files by path/bytes/SHA256.
+- contracts/<family>.json schema1 declares the family, MFA IDs/registration state and explicit coverage-review obligations, plus fixtures. An MFA can be a proposed candidate absent from the canonical registry; use Registration=candidate. No runtime registration is invented.
+- A fixture declares a safe unique ID, associated MFAs, SHA-bound source file, declared source basename, module, entrypoint, argument expressions, caller trap-exit state, compiler policy, optional expected-protocol ETF, observed effect keys and finite deadline. Compiler policy currently supports only default; unsupported policy is a blocker, never silently changed.
+- Optional RawShape describes a nested finite depth-profile observation using labels, case names, outcome tags/arities, stack index and effect index. It contains no API-specific C# or Python branch. The maps descriptor supplies 131 inherited assertion sources and a shared 34-case observer with five depth profiles (170 complete outcomes).
+
+To add another API, write an independently specified fixture/expected term, add its MFA/fixture descriptor, then add the SHA-bound descriptor row to catalog.json. Point the catalog at an already reviewed local SDK DLL snapshot containing that implementation. Use the same --mfa or --family command. The tool does not compile Main or implement the API for you. Descriptor MFA associations are declared inputs; source/branch/AST review remains a separate obligation and a green finite test cannot supply that review. CoverageCompleteReviewed and RequiredPartitions are explicit review inputs, not calculated from line counts. Operator MFA names are split at the final /arity separator, so slash function atoms are not rejected by an alphanumeric-only grammar.
+
+Evidence under each fresh output directory:
+
+- selection.json and request.json record exact requested/extra MFAs, missing descriptors, copied fixture inputs and snapshot identity.
+- source-before.json/source-after.json hash the tool helpers/catalog/fixtures/runner and copied libraries/inputs. The catalog also admits external owner/decoder/inventory/ledger hashes before loading them. Dotnet executable/global.json and private project inputs are recorded. Root's passive dependency-admission receipt additionally rehashes external dependencies after the actual run.
+- processes/* records bounded private build/parse/SDK PIDs, literal arguments, elapsed time, stdout/stderr hashes, exit, timeout and normal settlement. Build uses one MSBuild node, DOTNET_PROCESSOR_COUNT=1, disabled servers/shared compilation and a private offline NuGet.Config; it references exact DLL snapshots and never builds Main.
+- parse/results.json records every independent parse result. SDK execution skips only rows whose parse dependency failed. sdk/<fixture>/{raw,protocol}.etf retains returned values or full exception class/reason/stack and all declared observed effects. Unexpected host exceptions keep failure.txt and aggregate remaining fixtures.
+- raw-checks.json validates declared observation structure using the unchanged hash-bound passive ETF decoder. Shape admission does not establish original equality or complete semantic coverage. Unsupported decoder terms fail visibly.
+- outcomes.json separates stage results from per-MFA outcomes. Categories include accepted evidence candidate, differences, insufficient coverage, blocked, blocker, crash and timeout. A zero CLI exit means the orchestration recorded its requested local work without a process/preparation blocker; it does not imply original comparison or compatibility acceptance. Inspect stage/outcome fields.
+- proposed-ledger-diff.json is always ProposedOnly=true and Applied=false. No writer for canonical ledgers is present. Existing verified statuses are preserved. An acceptance candidate requires explicitly reviewed descriptor closure plus successful SDK and exact original comparisons; finite green cases alone cannot create one.
+
+Original provider is optional. Without it, original and compare stages explicitly say BLOCKED. This implementation never clones/builds/launches an original VM. It can admit a reviewed existing capture context through --original-context FILE --original-context-sha256 SHA. That trusted local context must have SchemaVersion1, PinnedOtpCommit=ad05823719d77c8faee87348ea39513d4e2f99c5, Mode=reviewed-existing-capture, SHA-bound Provenance rows and uniquely identified Fixtures. Each fixture binds the same source SHA, entrypoint, arguments, trap-exit state, declared source basename and effect keys, plus a SHA-bound Raw ETF and CaptureReceipt. The POSIX receipt must show exit0, parent reaped, streams closed, no termination/group kill and no cleanup failure. No downloaded code is imported; only data is decoded. An unavailable/invalid context or missing fixture blocks that original/compare dependency.
+
+The original adapter is a structural reader for previously reviewed evidence, not a new source-build/loader/remote-provenance verifier. The human/owner must review the source/build/runtime and compiler-policy context before admitting its SHA. No original context was available or exercised in the first maps run. Current maps descriptors expressly lack complete closure, so they remain insufficient even if a later finite original match succeeds. Future provider adapters must fit the same entrypoint and retain their independent source/cleanup obligations; no cache or fresh original execution is claimed here.
+
+The comparator uses entire decoded raw terms, including exception helpers/files/lines/arguments/stacks and declared effects; it performs no post-capture normalization, field projection or invented PID/ref/fun equivalence. Observed dictionary keys and fixture-owned markers are a finite effect observer, not every process effect. Opaque identity, resource/reduction profiles, iterator domains and all helper/invalid-input ownership need source-directed coverage. Physical VM equivalence is not inferred. The unchanged decoder has finite byte/depth/term budgets and known term-domain limits; unsupported data is a blocker, never normalized to PASS.
+
+The actual first maps batch and its style-only successor evidence live in artifacts/mfa-contract-verification-local1. No API status promotion, Main change, original VM, CI, publication or network action occurs through this tool.

@@ -1,0 +1,1 @@
+-module(oracle_maps_completion). -export([run/0]). run()->put(order,[]),#{same:=[10,20,30]}=maps:groups_from_list(fun(X)->put(order,[{key,X}|get(order)]),same end,fun(X)->put(order,[{value,X}|get(order)]),X*10 end,[1,2,3]),[{value,1},{key,1},{value,2},{key,2},{value,3},{key,3}]=get(order),done.

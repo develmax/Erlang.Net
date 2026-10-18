@@ -1,0 +1,1 @@
+-module(oracle_maps_completion). -export([run/0]). run()->#{a:={a,left,right},b:=only_left,c:=only_right}=maps:merge_with(fun(K,L,R)->{K,L,R} end,#{a=>left,b=>only_left},#{a=>right,c=>only_right}),done.

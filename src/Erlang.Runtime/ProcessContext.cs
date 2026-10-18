@@ -14,6 +14,7 @@ public sealed partial class ProcessContext : ITermExecutionContext
         GroupLeader = pid;
         Mailbox = new()
         {
+            Owner = pid,
             IncomingTerm = Runtime.ObserveIncomingTerm,
             HaltRequested = () => Runtime.IsHaltRequested,
             ProcessSignals = () => Runtime.AdmitSignals(this),

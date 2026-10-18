@@ -1,5 +1,7 @@
 # Decisions
 
+Part365 final local decision: accept19new source-complete proplists contracts after exact-source audits, final Main/original comparisons,37negative controls and canonical7536/full. Preserve mandatory from_map raw-cursor differences and clarify their VM-state criterion rather than silently excluding them. Restore34prior registry custom notes after the existing emitter resets them; keep589old rows byte-equivalent as objects. Metadata-only classification/readiness updates do not trigger another full runtime regression. No implementation publication.
+
 Part 352 — Verify exactly six unary predicates through a complete branch argument over 13 guest Term classes plus ResourceReferenceTerm, actual original 350 witnesses and current part 351 source, full validation and CI. The finite corpus of 38 term partitions in 12 contexts corroborates the proof. Root and independent review accepted the complete contracts; all other 581 ledger rows remain unchanged.
 
 Part351 — A per-owner TaskScheduler, actual executing-turn marker and logical epochs implement priority admission. Preserve selected source leases and cancellation/retirement cleanup across asynchronous waits. Keep scheduling priority distinct from priority message delivery and physical BEAM scheduler parity.

@@ -1,0 +1,7 @@
+### Final compiler correction and validation chronology
+
+Canonical full1 finishes with7598 passed and one real regression: `runtime/direct-source-load-nif-exact-caller-capability`. The generic literal apply3 lowering mistakenly made indirect `apply(erlang,load_nif,[Path,Info])` eligible for the direct source caller capability. Keep the full failed report and its immutable source snapshot. Required integration/package steps are not credited to that failed cycle.
+
+After full1 settles, exclude every `erlang:load_nif` destination from this optimization, preserving the original apply route and its exact `bad_lib` rejection. Explicit direct source calls retain their original capability/ownership checks. The other queue/compiler paths remain unchanged. Final affected checks: {{AFFECTED_RESULT}}. Fresh canonical full2, executed after this correction: {{FULL2_RESULT}}. Fill these fields only from the actual settled results.
+
+Capture4 and its exact5358 new/960 prior whole observations precede this final one-line compiler exclusion. They are not recast as captures from the later compiler binary. Source review independently binds all21 actual new/prior fixture files and confirms none contains `load_nif`; the only changed destination branch is unreachable in those fixtures. Reuse the unchanged original capture and selected Main observations through this explicit source-subset argument, while full2 validates the globally corrected compiler. Keep all382 current source guards, both compiler binary identities and the source delta visible in the final evidence.

@@ -1,0 +1,2113 @@
+{
+  "Status": "PASS_BOUNDED_BINDING_WHOLE_STACK_OBSERVATIONS",
+  "OriginalAcceptanceSha256": "65602151A095BCC177672A271D4B2CFB5E327CBE26A6CB26667BA82708A1E774",
+  "FullComparisonSha256": "03BA68CDC06D02A3F10709405C67B6E474409973DA148957776A2F0A5CFC58A3",
+  "Values": 6,
+  "Profiles": 30,
+  "BeforeGuard": {
+    "ValueExact": 6,
+    "ProfileExact": 24,
+    "Failures": [
+      {
+        "Depth": "('atom', 'default')",
+        "Name": "opaque_named",
+        "BeforeExact": false,
+        "AfterExact": true,
+        "OriginalFrames": [
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "terminal",
+            "ArityOrArguments": "('integer', 0)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "opaque_call",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "capture",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-run_stacks/0-lc$^0/1-0-",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "run_stacks",
+            "ArityOrArguments": "('integer', 0)"
+          },
+          {
+            "Module": "proplists_observation_worker",
+            "Function": "worker",
+            "ArityOrArguments": "('integer', 1)"
+          }
+        ],
+        "BeforeFrames": [
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "terminal",
+            "ArityOrArguments": "('integer', 0)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "capture",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-run_stacks/0-lc$^0/1-0-",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "run_stacks",
+            "ArityOrArguments": "('integer', 0)"
+          },
+          {
+            "Module": "proplists_observation_worker",
+            "Function": "worker",
+            "ArityOrArguments": "('integer', 1)"
+          }
+        ],
+        "AfterFrames": [
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "terminal",
+            "ArityOrArguments": "('integer', 0)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "opaque_call",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "capture",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-run_stacks/0-lc$^0/1-0-",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "run_stacks",
+            "ArityOrArguments": "('integer', 0)"
+          },
+          {
+            "Module": "proplists_observation_worker",
+            "Function": "worker",
+            "ArityOrArguments": "('integer', 1)"
+          }
+        ],
+        "OriginalFrameCount": 6,
+        "BeforeFrameCount": 5,
+        "AfterFrameCount": 6
+      },
+      {
+        "Depth": "('atom', 'default')",
+        "Name": "opaque_anonymous",
+        "BeforeExact": false,
+        "AfterExact": true,
+        "OriginalFrames": [
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-probe/1-fun-0-",
+            "ArityOrArguments": "('integer', 0)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "opaque_call",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "capture",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-run_stacks/0-lc$^0/1-0-",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-run_stacks/0-lc$^0/1-0-",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "run_stacks",
+            "ArityOrArguments": "('integer', 0)"
+          },
+          {
+            "Module": "proplists_observation_worker",
+            "Function": "worker",
+            "ArityOrArguments": "('integer', 1)"
+          }
+        ],
+        "BeforeFrames": [
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-probe/1-fun-0-",
+            "ArityOrArguments": "('integer', 0)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "capture",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-run_stacks/0-lc$^0/1-0-",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-run_stacks/0-lc$^0/1-0-",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "run_stacks",
+            "ArityOrArguments": "('integer', 0)"
+          },
+          {
+            "Module": "proplists_observation_worker",
+            "Function": "worker",
+            "ArityOrArguments": "('integer', 1)"
+          }
+        ],
+        "AfterFrames": [
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-probe/1-fun-0-",
+            "ArityOrArguments": "('integer', 0)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "opaque_call",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "capture",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-run_stacks/0-lc$^0/1-0-",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-run_stacks/0-lc$^0/1-0-",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "run_stacks",
+            "ArityOrArguments": "('integer', 0)"
+          },
+          {
+            "Module": "proplists_observation_worker",
+            "Function": "worker",
+            "ArityOrArguments": "('integer', 1)"
+          }
+        ],
+        "OriginalFrameCount": 7,
+        "BeforeFrameCount": 6,
+        "AfterFrameCount": 7
+      },
+      {
+        "Depth": "('integer', 2)",
+        "Name": "opaque_named",
+        "BeforeExact": false,
+        "AfterExact": true,
+        "OriginalFrames": [
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "terminal",
+            "ArityOrArguments": "('integer', 0)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "opaque_call",
+            "ArityOrArguments": "('integer', 1)"
+          }
+        ],
+        "BeforeFrames": [
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "terminal",
+            "ArityOrArguments": "('integer', 0)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "capture",
+            "ArityOrArguments": "('integer', 1)"
+          }
+        ],
+        "AfterFrames": [
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "terminal",
+            "ArityOrArguments": "('integer', 0)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "opaque_call",
+            "ArityOrArguments": "('integer', 1)"
+          }
+        ],
+        "OriginalFrameCount": 2,
+        "BeforeFrameCount": 2,
+        "AfterFrameCount": 2
+      },
+      {
+        "Depth": "('integer', 2)",
+        "Name": "opaque_anonymous",
+        "BeforeExact": false,
+        "AfterExact": true,
+        "OriginalFrames": [
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-probe/1-fun-0-",
+            "ArityOrArguments": "('integer', 0)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "opaque_call",
+            "ArityOrArguments": "('integer', 1)"
+          }
+        ],
+        "BeforeFrames": [
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-probe/1-fun-0-",
+            "ArityOrArguments": "('integer', 0)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "capture",
+            "ArityOrArguments": "('integer', 1)"
+          }
+        ],
+        "AfterFrames": [
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-probe/1-fun-0-",
+            "ArityOrArguments": "('integer', 0)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "opaque_call",
+            "ArityOrArguments": "('integer', 1)"
+          }
+        ],
+        "OriginalFrameCount": 2,
+        "BeforeFrameCount": 2,
+        "AfterFrameCount": 2
+      },
+      {
+        "Depth": "('integer', 8)",
+        "Name": "opaque_named",
+        "BeforeExact": false,
+        "AfterExact": true,
+        "OriginalFrames": [
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "terminal",
+            "ArityOrArguments": "('integer', 0)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "opaque_call",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "capture",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-at_depth/2-lc$^0/1-0-",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "at_depth",
+            "ArityOrArguments": "('integer', 2)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-run_stacks/0-lc$^1/1-1-",
+            "ArityOrArguments": "('integer', 2)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-run_stacks/0-lc$^1/1-1-",
+            "ArityOrArguments": "('integer', 2)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "run_stacks",
+            "ArityOrArguments": "('integer', 0)"
+          }
+        ],
+        "BeforeFrames": [
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "terminal",
+            "ArityOrArguments": "('integer', 0)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "capture",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-at_depth/2-lc$^0/1-0-",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "at_depth",
+            "ArityOrArguments": "('integer', 2)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-run_stacks/0-lc$^1/1-1-",
+            "ArityOrArguments": "('integer', 2)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-run_stacks/0-lc$^1/1-1-",
+            "ArityOrArguments": "('integer', 2)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "run_stacks",
+            "ArityOrArguments": "('integer', 0)"
+          },
+          {
+            "Module": "proplists_observation_worker",
+            "Function": "worker",
+            "ArityOrArguments": "('integer', 1)"
+          }
+        ],
+        "AfterFrames": [
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "terminal",
+            "ArityOrArguments": "('integer', 0)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "opaque_call",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "capture",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-at_depth/2-lc$^0/1-0-",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "at_depth",
+            "ArityOrArguments": "('integer', 2)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-run_stacks/0-lc$^1/1-1-",
+            "ArityOrArguments": "('integer', 2)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-run_stacks/0-lc$^1/1-1-",
+            "ArityOrArguments": "('integer', 2)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "run_stacks",
+            "ArityOrArguments": "('integer', 0)"
+          }
+        ],
+        "OriginalFrameCount": 8,
+        "BeforeFrameCount": 8,
+        "AfterFrameCount": 8
+      },
+      {
+        "Depth": "('integer', 8)",
+        "Name": "opaque_anonymous",
+        "BeforeExact": false,
+        "AfterExact": true,
+        "OriginalFrames": [
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-probe/1-fun-0-",
+            "ArityOrArguments": "('integer', 0)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "opaque_call",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "capture",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-at_depth/2-lc$^0/1-0-",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-at_depth/2-lc$^0/1-0-",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "at_depth",
+            "ArityOrArguments": "('integer', 2)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-run_stacks/0-lc$^1/1-1-",
+            "ArityOrArguments": "('integer', 2)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-run_stacks/0-lc$^1/1-1-",
+            "ArityOrArguments": "('integer', 2)"
+          }
+        ],
+        "BeforeFrames": [
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-probe/1-fun-0-",
+            "ArityOrArguments": "('integer', 0)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "capture",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-at_depth/2-lc$^0/1-0-",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-at_depth/2-lc$^0/1-0-",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "at_depth",
+            "ArityOrArguments": "('integer', 2)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-run_stacks/0-lc$^1/1-1-",
+            "ArityOrArguments": "('integer', 2)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-run_stacks/0-lc$^1/1-1-",
+            "ArityOrArguments": "('integer', 2)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "run_stacks",
+            "ArityOrArguments": "('integer', 0)"
+          }
+        ],
+        "AfterFrames": [
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-probe/1-fun-0-",
+            "ArityOrArguments": "('integer', 0)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "opaque_call",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "capture",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-at_depth/2-lc$^0/1-0-",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-at_depth/2-lc$^0/1-0-",
+            "ArityOrArguments": "('integer', 1)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "at_depth",
+            "ArityOrArguments": "('integer', 2)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-run_stacks/0-lc$^1/1-1-",
+            "ArityOrArguments": "('integer', 2)"
+          },
+          {
+            "Module": "fun_continuation_contract",
+            "Function": "-run_stacks/0-lc$^1/1-1-",
+            "ArityOrArguments": "('integer', 2)"
+          }
+        ],
+        "OriginalFrameCount": 8,
+        "BeforeFrameCount": 8,
+        "AfterFrameCount": 8
+      }
+    ]
+  },
+  "AfterGuard": {
+    "ValueExact": 6,
+    "ProfileExact": 30
+  },
+  "FrameCounts": [
+    {
+      "Depth": "('atom', 'default')",
+      "Name": "opaque_named",
+      "BeforeExact": false,
+      "AfterExact": true,
+      "OriginalFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "opaque_call",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "capture",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "run_stacks",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "proplists_observation_worker",
+          "Function": "worker",
+          "ArityOrArguments": "('integer', 1)"
+        }
+      ],
+      "BeforeFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "capture",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "run_stacks",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "proplists_observation_worker",
+          "Function": "worker",
+          "ArityOrArguments": "('integer', 1)"
+        }
+      ],
+      "AfterFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "opaque_call",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "capture",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "run_stacks",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "proplists_observation_worker",
+          "Function": "worker",
+          "ArityOrArguments": "('integer', 1)"
+        }
+      ],
+      "OriginalFrameCount": 6,
+      "BeforeFrameCount": 5,
+      "AfterFrameCount": 6
+    },
+    {
+      "Depth": "('atom', 'default')",
+      "Name": "opaque_anonymous",
+      "BeforeExact": false,
+      "AfterExact": true,
+      "OriginalFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-probe/1-fun-0-",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "opaque_call",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "capture",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "run_stacks",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "proplists_observation_worker",
+          "Function": "worker",
+          "ArityOrArguments": "('integer', 1)"
+        }
+      ],
+      "BeforeFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-probe/1-fun-0-",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "capture",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "run_stacks",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "proplists_observation_worker",
+          "Function": "worker",
+          "ArityOrArguments": "('integer', 1)"
+        }
+      ],
+      "AfterFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-probe/1-fun-0-",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "opaque_call",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "capture",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "run_stacks",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "proplists_observation_worker",
+          "Function": "worker",
+          "ArityOrArguments": "('integer', 1)"
+        }
+      ],
+      "OriginalFrameCount": 7,
+      "BeforeFrameCount": 6,
+      "AfterFrameCount": 7
+    },
+    {
+      "Depth": "('atom', 'default')",
+      "Name": "static_named",
+      "BeforeExact": true,
+      "AfterExact": true,
+      "OriginalFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "capture",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "run_stacks",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "proplists_observation_worker",
+          "Function": "worker",
+          "ArityOrArguments": "('integer', 1)"
+        }
+      ],
+      "BeforeFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "capture",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "run_stacks",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "proplists_observation_worker",
+          "Function": "worker",
+          "ArityOrArguments": "('integer', 1)"
+        }
+      ],
+      "AfterFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "capture",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "run_stacks",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "proplists_observation_worker",
+          "Function": "worker",
+          "ArityOrArguments": "('integer', 1)"
+        }
+      ],
+      "OriginalFrameCount": 6,
+      "BeforeFrameCount": 6,
+      "AfterFrameCount": 6
+    },
+    {
+      "Depth": "('atom', 'default')",
+      "Name": "static_alias",
+      "BeforeExact": true,
+      "AfterExact": true,
+      "OriginalFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "capture",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "run_stacks",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "proplists_observation_worker",
+          "Function": "worker",
+          "ArityOrArguments": "('integer', 1)"
+        }
+      ],
+      "BeforeFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "capture",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "run_stacks",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "proplists_observation_worker",
+          "Function": "worker",
+          "ArityOrArguments": "('integer', 1)"
+        }
+      ],
+      "AfterFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "capture",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "run_stacks",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "proplists_observation_worker",
+          "Function": "worker",
+          "ArityOrArguments": "('integer', 1)"
+        }
+      ],
+      "OriginalFrameCount": 6,
+      "BeforeFrameCount": 6,
+      "AfterFrameCount": 6
+    },
+    {
+      "Depth": "('atom', 'default')",
+      "Name": "protected_catch",
+      "BeforeExact": true,
+      "AfterExact": true,
+      "OriginalFrames": [],
+      "BeforeFrames": [],
+      "AfterFrames": [],
+      "OriginalFrameCount": 0,
+      "BeforeFrameCount": 0,
+      "AfterFrameCount": 0
+    },
+    {
+      "Depth": "('atom', 'default')",
+      "Name": "protected_after",
+      "BeforeExact": true,
+      "AfterExact": true,
+      "OriginalFrames": [],
+      "BeforeFrames": [],
+      "AfterFrames": [],
+      "OriginalFrameCount": 0,
+      "BeforeFrameCount": 0,
+      "AfterFrameCount": 0
+    },
+    {
+      "Depth": "('integer', 0)",
+      "Name": "opaque_named",
+      "BeforeExact": true,
+      "AfterExact": true,
+      "OriginalFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        }
+      ],
+      "BeforeFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        }
+      ],
+      "AfterFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        }
+      ],
+      "OriginalFrameCount": 1,
+      "BeforeFrameCount": 1,
+      "AfterFrameCount": 1
+    },
+    {
+      "Depth": "('integer', 0)",
+      "Name": "opaque_anonymous",
+      "BeforeExact": true,
+      "AfterExact": true,
+      "OriginalFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-probe/1-fun-0-",
+          "ArityOrArguments": "('integer', 0)"
+        }
+      ],
+      "BeforeFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-probe/1-fun-0-",
+          "ArityOrArguments": "('integer', 0)"
+        }
+      ],
+      "AfterFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-probe/1-fun-0-",
+          "ArityOrArguments": "('integer', 0)"
+        }
+      ],
+      "OriginalFrameCount": 1,
+      "BeforeFrameCount": 1,
+      "AfterFrameCount": 1
+    },
+    {
+      "Depth": "('integer', 0)",
+      "Name": "static_named",
+      "BeforeExact": true,
+      "AfterExact": true,
+      "OriginalFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        }
+      ],
+      "BeforeFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        }
+      ],
+      "AfterFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        }
+      ],
+      "OriginalFrameCount": 1,
+      "BeforeFrameCount": 1,
+      "AfterFrameCount": 1
+    },
+    {
+      "Depth": "('integer', 0)",
+      "Name": "static_alias",
+      "BeforeExact": true,
+      "AfterExact": true,
+      "OriginalFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        }
+      ],
+      "BeforeFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        }
+      ],
+      "AfterFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        }
+      ],
+      "OriginalFrameCount": 1,
+      "BeforeFrameCount": 1,
+      "AfterFrameCount": 1
+    },
+    {
+      "Depth": "('integer', 0)",
+      "Name": "protected_catch",
+      "BeforeExact": true,
+      "AfterExact": true,
+      "OriginalFrames": [],
+      "BeforeFrames": [],
+      "AfterFrames": [],
+      "OriginalFrameCount": 0,
+      "BeforeFrameCount": 0,
+      "AfterFrameCount": 0
+    },
+    {
+      "Depth": "('integer', 0)",
+      "Name": "protected_after",
+      "BeforeExact": true,
+      "AfterExact": true,
+      "OriginalFrames": [],
+      "BeforeFrames": [],
+      "AfterFrames": [],
+      "OriginalFrameCount": 0,
+      "BeforeFrameCount": 0,
+      "AfterFrameCount": 0
+    },
+    {
+      "Depth": "('integer', 1)",
+      "Name": "opaque_named",
+      "BeforeExact": true,
+      "AfterExact": true,
+      "OriginalFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        }
+      ],
+      "BeforeFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        }
+      ],
+      "AfterFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        }
+      ],
+      "OriginalFrameCount": 1,
+      "BeforeFrameCount": 1,
+      "AfterFrameCount": 1
+    },
+    {
+      "Depth": "('integer', 1)",
+      "Name": "opaque_anonymous",
+      "BeforeExact": true,
+      "AfterExact": true,
+      "OriginalFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-probe/1-fun-0-",
+          "ArityOrArguments": "('integer', 0)"
+        }
+      ],
+      "BeforeFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-probe/1-fun-0-",
+          "ArityOrArguments": "('integer', 0)"
+        }
+      ],
+      "AfterFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-probe/1-fun-0-",
+          "ArityOrArguments": "('integer', 0)"
+        }
+      ],
+      "OriginalFrameCount": 1,
+      "BeforeFrameCount": 1,
+      "AfterFrameCount": 1
+    },
+    {
+      "Depth": "('integer', 1)",
+      "Name": "static_named",
+      "BeforeExact": true,
+      "AfterExact": true,
+      "OriginalFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        }
+      ],
+      "BeforeFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        }
+      ],
+      "AfterFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        }
+      ],
+      "OriginalFrameCount": 1,
+      "BeforeFrameCount": 1,
+      "AfterFrameCount": 1
+    },
+    {
+      "Depth": "('integer', 1)",
+      "Name": "static_alias",
+      "BeforeExact": true,
+      "AfterExact": true,
+      "OriginalFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        }
+      ],
+      "BeforeFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        }
+      ],
+      "AfterFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        }
+      ],
+      "OriginalFrameCount": 1,
+      "BeforeFrameCount": 1,
+      "AfterFrameCount": 1
+    },
+    {
+      "Depth": "('integer', 1)",
+      "Name": "protected_catch",
+      "BeforeExact": true,
+      "AfterExact": true,
+      "OriginalFrames": [],
+      "BeforeFrames": [],
+      "AfterFrames": [],
+      "OriginalFrameCount": 0,
+      "BeforeFrameCount": 0,
+      "AfterFrameCount": 0
+    },
+    {
+      "Depth": "('integer', 1)",
+      "Name": "protected_after",
+      "BeforeExact": true,
+      "AfterExact": true,
+      "OriginalFrames": [],
+      "BeforeFrames": [],
+      "AfterFrames": [],
+      "OriginalFrameCount": 0,
+      "BeforeFrameCount": 0,
+      "AfterFrameCount": 0
+    },
+    {
+      "Depth": "('integer', 2)",
+      "Name": "opaque_named",
+      "BeforeExact": false,
+      "AfterExact": true,
+      "OriginalFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "opaque_call",
+          "ArityOrArguments": "('integer', 1)"
+        }
+      ],
+      "BeforeFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "capture",
+          "ArityOrArguments": "('integer', 1)"
+        }
+      ],
+      "AfterFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "opaque_call",
+          "ArityOrArguments": "('integer', 1)"
+        }
+      ],
+      "OriginalFrameCount": 2,
+      "BeforeFrameCount": 2,
+      "AfterFrameCount": 2
+    },
+    {
+      "Depth": "('integer', 2)",
+      "Name": "opaque_anonymous",
+      "BeforeExact": false,
+      "AfterExact": true,
+      "OriginalFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-probe/1-fun-0-",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "opaque_call",
+          "ArityOrArguments": "('integer', 1)"
+        }
+      ],
+      "BeforeFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-probe/1-fun-0-",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "capture",
+          "ArityOrArguments": "('integer', 1)"
+        }
+      ],
+      "AfterFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-probe/1-fun-0-",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "opaque_call",
+          "ArityOrArguments": "('integer', 1)"
+        }
+      ],
+      "OriginalFrameCount": 2,
+      "BeforeFrameCount": 2,
+      "AfterFrameCount": 2
+    },
+    {
+      "Depth": "('integer', 2)",
+      "Name": "static_named",
+      "BeforeExact": true,
+      "AfterExact": true,
+      "OriginalFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "capture",
+          "ArityOrArguments": "('integer', 1)"
+        }
+      ],
+      "BeforeFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "capture",
+          "ArityOrArguments": "('integer', 1)"
+        }
+      ],
+      "AfterFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "capture",
+          "ArityOrArguments": "('integer', 1)"
+        }
+      ],
+      "OriginalFrameCount": 2,
+      "BeforeFrameCount": 2,
+      "AfterFrameCount": 2
+    },
+    {
+      "Depth": "('integer', 2)",
+      "Name": "static_alias",
+      "BeforeExact": true,
+      "AfterExact": true,
+      "OriginalFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "capture",
+          "ArityOrArguments": "('integer', 1)"
+        }
+      ],
+      "BeforeFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "capture",
+          "ArityOrArguments": "('integer', 1)"
+        }
+      ],
+      "AfterFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "capture",
+          "ArityOrArguments": "('integer', 1)"
+        }
+      ],
+      "OriginalFrameCount": 2,
+      "BeforeFrameCount": 2,
+      "AfterFrameCount": 2
+    },
+    {
+      "Depth": "('integer', 2)",
+      "Name": "protected_catch",
+      "BeforeExact": true,
+      "AfterExact": true,
+      "OriginalFrames": [],
+      "BeforeFrames": [],
+      "AfterFrames": [],
+      "OriginalFrameCount": 0,
+      "BeforeFrameCount": 0,
+      "AfterFrameCount": 0
+    },
+    {
+      "Depth": "('integer', 2)",
+      "Name": "protected_after",
+      "BeforeExact": true,
+      "AfterExact": true,
+      "OriginalFrames": [],
+      "BeforeFrames": [],
+      "AfterFrames": [],
+      "OriginalFrameCount": 0,
+      "BeforeFrameCount": 0,
+      "AfterFrameCount": 0
+    },
+    {
+      "Depth": "('integer', 8)",
+      "Name": "opaque_named",
+      "BeforeExact": false,
+      "AfterExact": true,
+      "OriginalFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "opaque_call",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "capture",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "at_depth",
+          "ArityOrArguments": "('integer', 2)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^1/1-1-",
+          "ArityOrArguments": "('integer', 2)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^1/1-1-",
+          "ArityOrArguments": "('integer', 2)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "run_stacks",
+          "ArityOrArguments": "('integer', 0)"
+        }
+      ],
+      "BeforeFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "capture",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "at_depth",
+          "ArityOrArguments": "('integer', 2)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^1/1-1-",
+          "ArityOrArguments": "('integer', 2)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^1/1-1-",
+          "ArityOrArguments": "('integer', 2)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "run_stacks",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "proplists_observation_worker",
+          "Function": "worker",
+          "ArityOrArguments": "('integer', 1)"
+        }
+      ],
+      "AfterFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "opaque_call",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "capture",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "at_depth",
+          "ArityOrArguments": "('integer', 2)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^1/1-1-",
+          "ArityOrArguments": "('integer', 2)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^1/1-1-",
+          "ArityOrArguments": "('integer', 2)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "run_stacks",
+          "ArityOrArguments": "('integer', 0)"
+        }
+      ],
+      "OriginalFrameCount": 8,
+      "BeforeFrameCount": 8,
+      "AfterFrameCount": 8
+    },
+    {
+      "Depth": "('integer', 8)",
+      "Name": "opaque_anonymous",
+      "BeforeExact": false,
+      "AfterExact": true,
+      "OriginalFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-probe/1-fun-0-",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "opaque_call",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "capture",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "at_depth",
+          "ArityOrArguments": "('integer', 2)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^1/1-1-",
+          "ArityOrArguments": "('integer', 2)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^1/1-1-",
+          "ArityOrArguments": "('integer', 2)"
+        }
+      ],
+      "BeforeFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-probe/1-fun-0-",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "capture",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "at_depth",
+          "ArityOrArguments": "('integer', 2)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^1/1-1-",
+          "ArityOrArguments": "('integer', 2)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^1/1-1-",
+          "ArityOrArguments": "('integer', 2)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "run_stacks",
+          "ArityOrArguments": "('integer', 0)"
+        }
+      ],
+      "AfterFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-probe/1-fun-0-",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "opaque_call",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "capture",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "at_depth",
+          "ArityOrArguments": "('integer', 2)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^1/1-1-",
+          "ArityOrArguments": "('integer', 2)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^1/1-1-",
+          "ArityOrArguments": "('integer', 2)"
+        }
+      ],
+      "OriginalFrameCount": 8,
+      "BeforeFrameCount": 8,
+      "AfterFrameCount": 8
+    },
+    {
+      "Depth": "('integer', 8)",
+      "Name": "static_named",
+      "BeforeExact": true,
+      "AfterExact": true,
+      "OriginalFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "capture",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "at_depth",
+          "ArityOrArguments": "('integer', 2)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^1/1-1-",
+          "ArityOrArguments": "('integer', 2)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^1/1-1-",
+          "ArityOrArguments": "('integer', 2)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "run_stacks",
+          "ArityOrArguments": "('integer', 0)"
+        }
+      ],
+      "BeforeFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "capture",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "at_depth",
+          "ArityOrArguments": "('integer', 2)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^1/1-1-",
+          "ArityOrArguments": "('integer', 2)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^1/1-1-",
+          "ArityOrArguments": "('integer', 2)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "run_stacks",
+          "ArityOrArguments": "('integer', 0)"
+        }
+      ],
+      "AfterFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "capture",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "at_depth",
+          "ArityOrArguments": "('integer', 2)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^1/1-1-",
+          "ArityOrArguments": "('integer', 2)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^1/1-1-",
+          "ArityOrArguments": "('integer', 2)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "run_stacks",
+          "ArityOrArguments": "('integer', 0)"
+        }
+      ],
+      "OriginalFrameCount": 8,
+      "BeforeFrameCount": 8,
+      "AfterFrameCount": 8
+    },
+    {
+      "Depth": "('integer', 8)",
+      "Name": "static_alias",
+      "BeforeExact": true,
+      "AfterExact": true,
+      "OriginalFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "capture",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "at_depth",
+          "ArityOrArguments": "('integer', 2)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^1/1-1-",
+          "ArityOrArguments": "('integer', 2)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^1/1-1-",
+          "ArityOrArguments": "('integer', 2)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "run_stacks",
+          "ArityOrArguments": "('integer', 0)"
+        }
+      ],
+      "BeforeFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "capture",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "at_depth",
+          "ArityOrArguments": "('integer', 2)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^1/1-1-",
+          "ArityOrArguments": "('integer', 2)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^1/1-1-",
+          "ArityOrArguments": "('integer', 2)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "run_stacks",
+          "ArityOrArguments": "('integer', 0)"
+        }
+      ],
+      "AfterFrames": [
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "terminal",
+          "ArityOrArguments": "('integer', 0)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "capture",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArityOrArguments": "('integer', 1)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "at_depth",
+          "ArityOrArguments": "('integer', 2)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^1/1-1-",
+          "ArityOrArguments": "('integer', 2)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "-run_stacks/0-lc$^1/1-1-",
+          "ArityOrArguments": "('integer', 2)"
+        },
+        {
+          "Module": "fun_continuation_contract",
+          "Function": "run_stacks",
+          "ArityOrArguments": "('integer', 0)"
+        }
+      ],
+      "OriginalFrameCount": 8,
+      "BeforeFrameCount": 8,
+      "AfterFrameCount": 8
+    },
+    {
+      "Depth": "('integer', 8)",
+      "Name": "protected_catch",
+      "BeforeExact": true,
+      "AfterExact": true,
+      "OriginalFrames": [],
+      "BeforeFrames": [],
+      "AfterFrames": [],
+      "OriginalFrameCount": 0,
+      "BeforeFrameCount": 0,
+      "AfterFrameCount": 0
+    },
+    {
+      "Depth": "('integer', 8)",
+      "Name": "protected_after",
+      "BeforeExact": true,
+      "AfterExact": true,
+      "OriginalFrames": [],
+      "BeforeFrames": [],
+      "AfterFrames": [],
+      "OriginalFrameCount": 0,
+      "BeforeFrameCount": 0,
+      "AfterFrameCount": 0
+    }
+  ],
+  "NegativeControls": [
+    "removed_opaque_caller",
+    "duplicated_frame",
+    "reordered_frames",
+    "altered_source_line",
+    "altered_reason",
+    "reordered_case_rows"
+  ],
+  "EarlierNegativeControls": 31,
+  "CombinedNegativeControls": 37,
+  "Projection": false,
+  "ValueReplacement": false,
+  "DownloadedCodeExecuted": false,
+  "CompatibilityPromoted": false
+}

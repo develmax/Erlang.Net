@@ -409,6 +409,22 @@ internal static class NifNativeBinaryHostChecks
             0
         );
         Require(((BitString)target.Get(empty)).ToArray().Length == 0);
+        target.Dispose();
+        Term parentBacking = context.Runtime.Modules.Call(
+            context,
+            BinaryModuleNames.Module,
+            BinaryModuleNames.ReferencedByteSize,
+            result.Items[0]
+        ).GetAwaiter().GetResult();
+        Require(parentBacking.Equals(Term.I(NifNativeBinaryHostNames.SubviewParentBytes)));
+        Require(((BitString)result.Items[0]).ToArray().SequenceEqual(expected));
+        Term smallBacking = context.Runtime.Modules.Call(
+            context,
+            BinaryModuleNames.Module,
+            BinaryModuleNames.ReferencedByteSize,
+            result.Items[2]
+        ).GetAwaiter().GetResult();
+        Require(smallBacking.Equals(Term.I(((BitString)result.Items[2]).ToArray().Length)));
         state.ThrowPending();
     }
 

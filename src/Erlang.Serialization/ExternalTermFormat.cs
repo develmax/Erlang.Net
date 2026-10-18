@@ -410,6 +410,7 @@ public static class ExternalTermFormat
                 }
                 break;
             case BitString b:
+                b.PinForSharing();
                 s.WriteByte((byte)(b.IsBinary ? EtfTags.Binary : EtfTags.BitBinary));
                 U32(s, (uint)b.ByteLength);
                 if (!b.IsBinary)

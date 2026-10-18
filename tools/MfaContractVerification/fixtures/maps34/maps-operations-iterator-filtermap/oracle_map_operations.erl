@@ -1,0 +1,1 @@
+-module(oracle_map_operations). -export([run/0]). run()->#{1:=11}=maps:filtermap(fun(_,V)->{true,V+1} end,maps:iterator(#{1=>10},ordered)),done.

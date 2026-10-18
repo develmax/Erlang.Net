@@ -11,12 +11,13 @@ internal sealed class ZipGeneratorCursor
     private int position;
     public ComprehensionGenerator Generator { get; }
 
-    public ZipGeneratorCursor(ComprehensionGenerator generator, Term source)
+    public ZipGeneratorCursor(ComprehensionGenerator generator, Term source, ProcessRuntime? runtime = null)
     {
         Generator = generator;
         remaining = source;
         if (generator.Binary && source is BitString input)
         {
+            input.PinForMatch();
             bits = input;
             bytes = input.ToArray();
         }
@@ -24,7 +25,7 @@ internal sealed class ZipGeneratorCursor
         {
             try
             {
-                entries = MapIteration.Entries(source);
+                entries = MapIteration.Entries(source, runtime);
                 compiledIterator = source is TupleTerm or Atom ? source : IteratorRemainder();
             }
             catch (ErlangException)

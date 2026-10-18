@@ -31,6 +31,8 @@ internal static class NamedFunctionReferences
                     )
                 );
 
+                SourceFunctionTailDispatch.Register(result);
+
                 return result;
             }
             identity = context.Runtime.Functions.RegisterSourceFactory(

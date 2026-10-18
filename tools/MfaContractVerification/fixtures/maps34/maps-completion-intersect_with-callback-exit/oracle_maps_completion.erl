@@ -1,0 +1,1 @@
+-module(oracle_maps_completion). -export([run/0]). run()->try maps:intersect_with(fun(_,_,_)->exit(exited) end,#{a=>1},#{a=>2}) of _->unexpected catch exit:exited->ok end,done.

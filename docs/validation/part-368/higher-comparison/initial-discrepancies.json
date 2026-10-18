@@ -1,0 +1,31 @@
+{
+  "Status": "FAIL_REAL33_FULLSTACK_DIFFERENCES",
+  "Values": 464,
+  "ValuePass": 464,
+  "WholeObservations": 2784,
+  "StrictEqual": 2450,
+  "SourceBoundEqual": 2751,
+  "NegativeControls": 13,
+  "AllNegativeControlsRejected": true,
+  "DifferencesByCase": {
+    "filter_callback_badarity": 5,
+    "filtermap_callback_badarity": 5,
+    "any_callback_badarity": 5,
+    "all_callback_badarity": 5,
+    "delete_with_callback_badarity": 5,
+    "delete_with_r_callback_badarity": 5,
+    "filter_result_improper_rear": 3
+  },
+  "RootActions": [
+    "Generated apply/badarity source metadata: native top support.invoke/2 at44; SDK inserts erlang:apply frame.",
+    "Restore includeOwner true on higher filter_r improper expansion Reverse call: actual native frame filter_r/2@765 precedes pending recursive754 and publicfilter721."
+  ],
+  "PolicyAdmissionCorrection": "Initial comparator applied only33 optional case hints. Frozen global CodeIdentityRule covers actual named localFUN fields in guard/helper error args as well; corrected replay admits only fully bound namedFUN code fields, no other field relation. Initial actual1 failure preserved.",
+  "ComparisonSha256": "597171AFEBFDD36AAF608A9674889196CF1592CB384679FF9479796B04AA506C",
+  "SdkAdmissionSha256": "727C801204DA0D9CB653881ADA56A77E5DD96E046D9FBE72EF459CDFC29F4ADB",
+  "NativeAdmissionDeclaredByRoot": "artifacts/queue-original368-peer1/actual1/acceptance.json C47FA74E8018889E6E3BCE118942C77B62397DF2AA5F1C003BC66C651724F840",
+  "MainChanged": false,
+  "Projection": false,
+  "Normalization": false,
+  "CompatibilityPromoted": false
+}

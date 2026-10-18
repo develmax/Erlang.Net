@@ -202,6 +202,12 @@ public sealed class RuntimeFunctionEntries
         }
     }
 
+    internal LocalFunctionIdentity GetCanonicalIdentityForHash(LocalFunctionIdentity identity, int arity)
+    {
+        lock (gate)
+            return FindOrAdd(identity, arity).Current.Identity;
+    }
+
     private LocalFunctionPublicationCell FindOrAdd(LocalFunctionIdentity identity, int arity)
     {
         var key = Key(identity, arity);

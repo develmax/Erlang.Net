@@ -1,0 +1,1 @@
+-module(oracle_map_operations). -export([run/0]). run()->#{a:=last,b:=two}=maps:from_list([{a,first},{b,two},{a,last}]),#{1:=integer,1.0:=float}=maps:from_list([{1,integer},{1.0,float}]),done.

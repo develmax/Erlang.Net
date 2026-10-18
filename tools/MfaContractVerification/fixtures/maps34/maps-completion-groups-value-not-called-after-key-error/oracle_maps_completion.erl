@@ -1,0 +1,1 @@
+-module(oracle_maps_completion). -export([run/0]). run()->put(called,false),try maps:groups_from_list(fun(_)->error(key_failed) end,fun(_)->put(called,true),value end,[a]) of _->unexpected catch error:key_failed->ok end,false=get(called),done.

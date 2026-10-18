@@ -44,7 +44,7 @@ internal static class TestRunNames
     internal static readonly string[] Blocks = [Terms, Compiler, Processes, PortsDistribution, Otp, Native, Tooling];
     internal static readonly string[] NativeMarkers = ["nif", "native/"];
     internal static readonly string[] PortsMarkers = ["distribution", "connected", "socket", "epmd", "cookie", "open-port", "ports/", "runtime/port", "halt-port", ":port_", ":open_port/", ":ports/"];
-    internal static readonly string[] OtpMarkers = ["lists-", "lists_", "maps-", "maps_", "proplists-", "otp/", "proc-lib", "proc_lib", "gen-server", "gen_server", "supervisor", "mfa/lists:", "mfa/maps:", "mfa/proplists:", "logger", "error-logger"];
+    internal static readonly string[] OtpMarkers = ["queue/core/", "queue/higher-", "queue-ends-", "runtime/queue/", "mfa/queue:", "lists-", "lists_", "maps-", "maps_", "proplists-", "otp/", "proc-lib", "proc_lib", "gen-server", "gen_server", "supervisor", "mfa/lists:", "mfa/maps:", "mfa/proplists:", "logger", "error-logger"];
     internal static readonly string[] CompilerMarkers = ["compiler", "compile", "parser", "lexer", "beam", "source-", "source/", "binding", "code-loading", "module-"];
     internal static readonly string[] ProcessMarkers = ["process", "spawn", "mailbox", "receive", "suspend", "resume", "monitor", "trace", "scheduler", "timer", "mfa/erlang:self/", "mfa/erlang:exit/"];
     internal static readonly string[] TermMarkers = ["erlang-text", "arithmetic", "bits-", "list-", "map-", "text-", "term-", "term/", "runtime/term", "binary", "bitstring", "tuple", "integer", "float", "atom", "unicode", "length", "mfa/erlang:is_", "mfa/erlang:map_"];

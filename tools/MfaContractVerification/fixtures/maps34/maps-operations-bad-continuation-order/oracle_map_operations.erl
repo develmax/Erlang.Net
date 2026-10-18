@@ -1,0 +1,1 @@
+-module(oracle_map_operations). -export([run/0]). run()->put(called,false),try maps:fold(fun(_,_,A)->put(called,true),A end,seed,{key,value,wrong}) of _->unexpected catch error:{badmap,{key,value,wrong}}->ok end,true=get(called),done.

@@ -60,7 +60,7 @@ internal static class ErlangBasicRegistrations
             1,
             (_, arguments) => arguments[0] is TupleTerm tuple ? Cons.From(tuple.Items) : throw new ErlangException(ErlangErrorReasons.BadArgument)
         );
-        Add(ErlangBasicBifNames.ListToTuple, 1, (_, arguments) => new TupleTerm(Cons.Items(arguments[0])));
+        Add(ErlangBasicBifNames.ListToTuple, 1, (_, arguments) => ErlangTupleBifs.FromList(arguments[0]));
         Add(ErlangBasicBifNames.Append, 2, (_, arguments) => Cons.From(Cons.Items(arguments[0]), arguments[1]));
         Add(ErlangBasicBifNames.Subtract, 2, (_, arguments) => ListBasicOperations.Subtract(arguments[0], arguments[1]));
         foreach (string name in new[] { ErlangBasicBifNames.Send, ErlangOperators.Send })
@@ -106,6 +106,11 @@ internal static class ErlangBasicRegistrations
             (context, arguments) =>
         {
             Term[] values = Cons.Items(arguments[1]).ToArray();
+            if (arguments[0] is FunctionTerm callback && callback.Arity != values.Length)
+                throw context.CaptureSourceFailure(new ErlangException(Term.Tuple(
+                    Term.A(ErlangErrorReasons.BadArity),
+                    Term.Tuple(callback, Cons.From(values))
+                )));
 
             return ListCallback.Invoke(context, arguments[0], values);
         }

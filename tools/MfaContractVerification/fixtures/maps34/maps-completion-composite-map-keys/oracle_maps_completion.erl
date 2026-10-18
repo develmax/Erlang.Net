@@ -1,0 +1,1 @@
+-module(oracle_maps_completion). -export([run/0]). run()->A=#{x=>1},B=#{x=>1.0},2=maps:size(maps:from_keys([A,B],value)),#{A:=[A],B:=[B]}=maps:groups_from_list(fun(X)->X end,[A,B]),done.

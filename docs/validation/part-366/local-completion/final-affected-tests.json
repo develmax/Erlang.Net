@@ -1,0 +1,1710 @@
+{
+  "Partial": true,
+  "SelectedCount": 283,
+  "TotalCount": 7541,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/comprehension/binary-illegal-guard",
+    "compiler/comprehension/binary-invalid-patterns",
+    "compiler/comprehension/binary-zero-progress-resource-policy",
+    "compiler/comprehension/map-exact-template-rejected",
+    "compiler/comprehension/map-illegal-guard",
+    "compiler/comprehension/map-invalid-syntax",
+    "compiler/maps-module-not-guard-legal",
+    "compiler/proplists-family-compiled-contracts",
+    "compiler/proplists/from-map-own-context-routes",
+    "hybrid/comprehension/binary-ast-emission",
+    "hybrid/comprehension/map-ast-emission",
+    "hybrid/comprehension/zip-ast-emission",
+    "mfa/maps:filter/2",
+    "mfa/maps:filtermap/2",
+    "mfa/maps:find/2",
+    "mfa/maps:fold/3",
+    "mfa/maps:foreach/2",
+    "mfa/maps:from_keys/2",
+    "mfa/maps:from_list/1",
+    "mfa/maps:get/2",
+    "mfa/maps:get/3",
+    "mfa/maps:groups_from_list/2",
+    "mfa/maps:groups_from_list/3",
+    "mfa/maps:intersect/2",
+    "mfa/maps:intersect_with/3",
+    "mfa/maps:is_iterator_valid/1",
+    "mfa/maps:is_key/2",
+    "mfa/maps:iterator/1",
+    "mfa/maps:iterator/2",
+    "mfa/maps:keys/1",
+    "mfa/maps:map/2",
+    "mfa/maps:merge/2",
+    "mfa/maps:merge_with/3",
+    "mfa/maps:new/0",
+    "mfa/maps:next/1",
+    "mfa/maps:put/3",
+    "mfa/maps:remove/2",
+    "mfa/maps:size/1",
+    "mfa/maps:take/2",
+    "mfa/maps:to_list/1",
+    "mfa/maps:update/3",
+    "mfa/maps:update_with/3",
+    "mfa/maps:update_with/4",
+    "mfa/maps:values/1",
+    "mfa/maps:with/2",
+    "mfa/maps:without/2",
+    "mfa/proplists:append_values/2",
+    "mfa/proplists:compact/1",
+    "mfa/proplists:delete/2",
+    "mfa/proplists:expand/2",
+    "mfa/proplists:from_map/1",
+    "mfa/proplists:get_all_values/2",
+    "mfa/proplists:get_bool/2",
+    "mfa/proplists:get_keys/1",
+    "mfa/proplists:get_value/2",
+    "mfa/proplists:get_value/3",
+    "mfa/proplists:is_defined/2",
+    "mfa/proplists:lookup/2",
+    "mfa/proplists:lookup_all/2",
+    "mfa/proplists:normalize/2",
+    "mfa/proplists:property/1",
+    "mfa/proplists:property/2",
+    "mfa/proplists:split/2",
+    "mfa/proplists:substitute_aliases/2",
+    "mfa/proplists:substitute_negations/2",
+    "mfa/proplists:to_map/1",
+    "mfa/proplists:to_map/2",
+    "mfa/proplists:unfold/1",
+    "modules/lists-and-maps",
+    "oracle/compiled-module/character-literal-comprehension",
+    "oracle/compiled-module/compiler-function-resolution-comprehension-private",
+    "oracle/compiled-module/erlang-length-comprehension-filters",
+    "oracle/compiled-module/erlang-native-record-syntax-comprehension-pattern",
+    "oracle/compiled-module/erlang-record-predicate-guard-comprehension",
+    "oracle/compiled-module/maps-completion-all-iteration-consistency-large",
+    "oracle/compiled-module/maps-completion-all-iteration-consistency-small",
+    "oracle/compiled-module/maps-completion-bad-map-find-1",
+    "oracle/compiled-module/maps-completion-bad-map-get-1",
+    "oracle/compiled-module/maps-completion-bad-map-get-2",
+    "oracle/compiled-module/maps-completion-bad-map-is_key-1",
+    "oracle/compiled-module/maps-completion-bad-map-iterator-0",
+    "oracle/compiled-module/maps-completion-bad-map-keys-0",
+    "oracle/compiled-module/maps-completion-bad-map-put-2",
+    "oracle/compiled-module/maps-completion-bad-map-remove-1",
+    "oracle/compiled-module/maps-completion-bad-map-size-0",
+    "oracle/compiled-module/maps-completion-bad-map-take-1",
+    "oracle/compiled-module/maps-completion-bad-map-to_list-0",
+    "oracle/compiled-module/maps-completion-bad-map-update-2",
+    "oracle/compiled-module/maps-completion-bad-map-values-0",
+    "oracle/compiled-module/maps-completion-combine-large",
+    "oracle/compiled-module/maps-completion-composite-map-keys",
+    "oracle/compiled-module/maps-completion-filter-bad-callback-before-map",
+    "oracle/compiled-module/maps-completion-filtermap-bad-callback-before-map",
+    "oracle/compiled-module/maps-completion-fold-bad-callback-before-map",
+    "oracle/compiled-module/maps-completion-foreach-bad-callback-before-map",
+    "oracle/compiled-module/maps-completion-foreach-ignores-return",
+    "oracle/compiled-module/maps-completion-foreach-invalid-batch-no-callback",
+    "oracle/compiled-module/maps-completion-from-keys-bad-list",
+    "oracle/compiled-module/maps-completion-groups-bad-fun",
+    "oracle/compiled-module/maps-completion-groups-bad-list",
+    "oracle/compiled-module/maps-completion-groups-composite-keys",
+    "oracle/compiled-module/maps-completion-groups-empty",
+    "oracle/compiled-module/maps-completion-groups-exact-keys",
+    "oracle/compiled-module/maps-completion-groups-exit",
+    "oracle/compiled-module/maps-completion-groups-improper-no-callback",
+    "oracle/compiled-module/maps-completion-groups-key-before-value",
+    "oracle/compiled-module/maps-completion-groups-key-error",
+    "oracle/compiled-module/maps-completion-groups-large",
+    "oracle/compiled-module/maps-completion-groups-reverse-callbacks",
+    "oracle/compiled-module/maps-completion-groups-three",
+    "oracle/compiled-module/maps-completion-groups-three-bad-funs",
+    "oracle/compiled-module/maps-completion-groups-three-improper-no-callback",
+    "oracle/compiled-module/maps-completion-groups-throw",
+    "oracle/compiled-module/maps-completion-groups-two",
+    "oracle/compiled-module/maps-completion-groups-value-error",
+    "oracle/compiled-module/maps-completion-groups-value-not-called-after-key-error",
+    "oracle/compiled-module/maps-completion-intersect",
+    "oracle/compiled-module/maps-completion-intersect-bad-map-precedence",
+    "oracle/compiled-module/maps-completion-intersect-empty",
+    "oracle/compiled-module/maps-completion-intersect-exact-keys",
+    "oracle/compiled-module/maps-completion-intersect-swap",
+    "oracle/compiled-module/maps-completion-intersect-with",
+    "oracle/compiled-module/maps-completion-intersect-with-callback-once",
+    "oracle/compiled-module/maps-completion-intersect-with-disjoint",
+    "oracle/compiled-module/maps-completion-intersect-with-first-smaller",
+    "oracle/compiled-module/maps-completion-intersect-with-second-smaller",
+    "oracle/compiled-module/maps-completion-intersect_with-bad-arity-empty",
+    "oracle/compiled-module/maps-completion-intersect_with-bad-callback-precedence",
+    "oracle/compiled-module/maps-completion-intersect_with-callback-error",
+    "oracle/compiled-module/maps-completion-intersect_with-callback-exit",
+    "oracle/compiled-module/maps-completion-intersect_with-callback-throw",
+    "oracle/compiled-module/maps-completion-intersect_with-first-bad-map",
+    "oracle/compiled-module/maps-completion-intersect_with-second-bad-map",
+    "oracle/compiled-module/maps-completion-iterator-bad-options",
+    "oracle/compiled-module/maps-completion-iterator-valid-missing-later-key",
+    "oracle/compiled-module/maps-completion-map-bad-callback-before-map",
+    "oracle/compiled-module/maps-completion-merge-bad-map-precedence",
+    "oracle/compiled-module/maps-completion-merge-with",
+    "oracle/compiled-module/maps-completion-merge-with-disjoint",
+    "oracle/compiled-module/maps-completion-merge-with-exact-keys",
+    "oracle/compiled-module/maps-completion-merge-with-first-smaller",
+    "oracle/compiled-module/maps-completion-merge-with-immutable",
+    "oracle/compiled-module/maps-completion-merge-with-second-smaller",
+    "oracle/compiled-module/maps-completion-merge_with-bad-arity-empty",
+    "oracle/compiled-module/maps-completion-merge_with-bad-callback-precedence",
+    "oracle/compiled-module/maps-completion-merge_with-callback-error",
+    "oracle/compiled-module/maps-completion-merge_with-callback-exit",
+    "oracle/compiled-module/maps-completion-merge_with-callback-throw",
+    "oracle/compiled-module/maps-completion-merge_with-first-bad-map",
+    "oracle/compiled-module/maps-completion-merge_with-second-bad-map",
+    "oracle/compiled-module/maps-completion-next-bad-iterator",
+    "oracle/compiled-module/maps-completion-next-improper-later-tail",
+    "oracle/compiled-module/maps-completion-next-missing-later-key",
+    "oracle/compiled-module/maps-completion-next-ordered-tuple-chain",
+    "oracle/compiled-module/maps-completion-next-reversed-tuple-chain",
+    "oracle/compiled-module/maps-completion-next-tuple-pass-through",
+    "oracle/compiled-module/maps-completion-ordered-numeric-key-ranks",
+    "oracle/compiled-module/maps-completion-to-list-bad-continuation",
+    "oracle/compiled-module/maps-completion-to-list-custom",
+    "oracle/compiled-module/maps-completion-to-list-missing-key",
+    "oracle/compiled-module/maps-completion-to-list-none",
+    "oracle/compiled-module/maps-completion-to-list-ordered",
+    "oracle/compiled-module/maps-completion-to-list-reversed",
+    "oracle/compiled-module/maps-completion-to-list-tuple-chain",
+    "oracle/compiled-module/maps-operations-bad-callback",
+    "oracle/compiled-module/maps-operations-bad-continuation-order",
+    "oracle/compiled-module/maps-operations-bad-filter-result",
+    "oracle/compiled-module/maps-operations-bad-from-list",
+    "oracle/compiled-module/maps-operations-bad-map-precedence",
+    "oracle/compiled-module/maps-operations-bad-select-shape",
+    "oracle/compiled-module/maps-operations-bad-source",
+    "oracle/compiled-module/maps-operations-bad-update-callback",
+    "oracle/compiled-module/maps-operations-callback-error-propagates",
+    "oracle/compiled-module/maps-operations-duplicate-iterator-keys",
+    "oracle/compiled-module/maps-operations-filter",
+    "oracle/compiled-module/maps-operations-filtermap",
+    "oracle/compiled-module/maps-operations-find",
+    "oracle/compiled-module/maps-operations-fold",
+    "oracle/compiled-module/maps-operations-foreach",
+    "oracle/compiled-module/maps-operations-from-keys",
+    "oracle/compiled-module/maps-operations-from-list",
+    "oracle/compiled-module/maps-operations-get-default",
+    "oracle/compiled-module/maps-operations-is-key",
+    "oracle/compiled-module/maps-operations-iterator-filter",
+    "oracle/compiled-module/maps-operations-iterator-filtermap",
+    "oracle/compiled-module/maps-operations-iterator-foreach",
+    "oracle/compiled-module/maps-operations-keys-values",
+    "oracle/compiled-module/maps-operations-map",
+    "oracle/compiled-module/maps-operations-merge",
+    "oracle/compiled-module/maps-operations-new",
+    "oracle/compiled-module/maps-operations-none",
+    "oracle/compiled-module/maps-operations-ordered-fold",
+    "oracle/compiled-module/maps-operations-put",
+    "oracle/compiled-module/maps-operations-remove",
+    "oracle/compiled-module/maps-operations-reversed-map-callback",
+    "oracle/compiled-module/maps-operations-take",
+    "oracle/compiled-module/maps-operations-to-list",
+    "oracle/compiled-module/maps-operations-update",
+    "oracle/compiled-module/maps-operations-update-with-four",
+    "oracle/compiled-module/maps-operations-update-with-three",
+    "oracle/compiled-module/maps-operations-valid-iterator",
+    "oracle/compiled-module/maps-operations-with",
+    "oracle/compiled-module/maps-operations-with-improper-tail",
+    "oracle/compiled-module/maps-operations-without",
+    "oracle/compiled-module/maps-operations-without-improper-tail",
+    "oracle/compiled-module/proplists-get-value-atom-before-tuple",
+    "oracle/compiled-module/proplists-get-value-atom-shorthand",
+    "oracle/compiled-module/proplists-get-value-binary-key",
+    "oracle/compiled-module/proplists-get-value-bitstring-key",
+    "oracle/compiled-module/proplists-get-value-default-reference-identity",
+    "oracle/compiled-module/proplists-get-value-empty-list-key",
+    "oracle/compiled-module/proplists-get-value-empty-three",
+    "oracle/compiled-module/proplists-get-value-empty-tuple-ignored",
+    "oracle/compiled-module/proplists-get-value-empty-tuple-key",
+    "oracle/compiled-module/proplists-get-value-empty-two",
+    "oracle/compiled-module/proplists-get-value-explicit-undefined",
+    "oracle/compiled-module/proplists-get-value-first-tuple-wins",
+    "oracle/compiled-module/proplists-get-value-float-exact",
+    "oracle/compiled-module/proplists-get-value-function-key",
+    "oracle/compiled-module/proplists-get-value-improper-atom-match",
+    "oracle/compiled-module/proplists-get-value-improper-list-key",
+    "oracle/compiled-module/proplists-get-value-improper-reached-three",
+    "oracle/compiled-module/proplists-get-value-improper-reached-two",
+    "oracle/compiled-module/proplists-get-value-improper-singleton-match",
+    "oracle/compiled-module/proplists-get-value-improper-triple-match",
+    "oracle/compiled-module/proplists-get-value-improper-tuple-match",
+    "oracle/compiled-module/proplists-get-value-integer-exact",
+    "oracle/compiled-module/proplists-get-value-large-improper-early-match",
+    "oracle/compiled-module/proplists-get-value-large-integer-key",
+    "oracle/compiled-module/proplists-get-value-large-missing-two",
+    "oracle/compiled-module/proplists-get-value-large-terminal-match",
+    "oracle/compiled-module/proplists-get-value-list-key-exact",
+    "oracle/compiled-module/proplists-get-value-map-key-exact",
+    "oracle/compiled-module/proplists-get-value-missing-three",
+    "oracle/compiled-module/proplists-get-value-missing-two",
+    "oracle/compiled-module/proplists-get-value-nonlist-atom-three",
+    "oracle/compiled-module/proplists-get-value-nonlist-atom-two",
+    "oracle/compiled-module/proplists-get-value-nonlist-binary-three",
+    "oracle/compiled-module/proplists-get-value-nonlist-binary-two",
+    "oracle/compiled-module/proplists-get-value-nonlist-float-three",
+    "oracle/compiled-module/proplists-get-value-nonlist-float-two",
+    "oracle/compiled-module/proplists-get-value-nonlist-integer-three",
+    "oracle/compiled-module/proplists-get-value-nonlist-integer-two",
+    "oracle/compiled-module/proplists-get-value-nonlist-map-three",
+    "oracle/compiled-module/proplists-get-value-nonlist-map-two",
+    "oracle/compiled-module/proplists-get-value-nonlist-tuple-three",
+    "oracle/compiled-module/proplists-get-value-nonlist-tuple-two",
+    "oracle/compiled-module/proplists-get-value-nonmatching-tuple-arities",
+    "oracle/compiled-module/proplists-get-value-nonproperties-ignored",
+    "oracle/compiled-module/proplists-get-value-pid-key",
+    "oracle/compiled-module/proplists-get-value-reference-key",
+    "oracle/compiled-module/proplists-get-value-singleton-stops-three",
+    "oracle/compiled-module/proplists-get-value-singleton-stops-two",
+    "oracle/compiled-module/proplists-get-value-stack-depth-0-arity-2",
+    "oracle/compiled-module/proplists-get-value-stack-depth-0-arity-3",
+    "oracle/compiled-module/proplists-get-value-stack-depth-1-arity-2",
+    "oracle/compiled-module/proplists-get-value-stack-depth-1-arity-3",
+    "oracle/compiled-module/proplists-get-value-stack-depth-2-arity-2",
+    "oracle/compiled-module/proplists-get-value-stack-depth-2-arity-3",
+    "oracle/compiled-module/proplists-get-value-triple-stops-three",
+    "oracle/compiled-module/proplists-get-value-triple-stops-two",
+    "oracle/compiled-module/proplists-get-value-tuple-before-atom",
+    "oracle/compiled-module/proplists-get-value-tuple-key-exact",
+    "oracle/compiled-module/proplists-get-value-value-function-identity",
+    "oracle/compiled-module/records-pattern-comprehension",
+    "proplists-get-value-cooperative-cancellation",
+    "proplists-get-value-cooperative-progress",
+    "proplists-get-value-object-identity",
+    "proplists-get-value-parse-all",
+    "proplists-get-value-source-stack-metadata",
+    "runtime/maps/internal-hash-native-vectors",
+    "runtime/maps/raw-integer-binary-cursors",
+    "runtime/proplists-family-improper-compact-continuations",
+    "runtime/proplists-family-improper-delete-continuations",
+    "runtime/proplists-family-improper-unfold-continuations",
+    "runtime/proplists-family-long-proper-unfold",
+    "runtime/proplists-family-map-iterator-contracts",
+    "runtime/proplists-family-ordinary-contracts",
+    "runtime/proplists-family-traversal-cancellation",
+    "runtime/proplists/from-map-own-entry-epochs",
+    "runtime/proplists/from-map-own-key-domains",
+    "runtime/proplists/from-map-own-real-collisions",
+    "runtime/proplists/from-map-own-reference-stored-counts"
+  ],
+  "Passed": 283,
+  "Failed": 0,
+  "Tests": [
+    {
+      "Name": "modules/lists-and-maps",
+      "Status": "Passed",
+      "Milliseconds": 228
+    },
+    {
+      "Name": "mfa/maps:filter/2",
+      "Status": "Passed",
+      "Milliseconds": 1256
+    },
+    {
+      "Name": "mfa/maps:filtermap/2",
+      "Status": "Passed",
+      "Milliseconds": 53
+    },
+    {
+      "Name": "mfa/maps:find/2",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "mfa/maps:fold/3",
+      "Status": "Passed",
+      "Milliseconds": 30
+    },
+    {
+      "Name": "mfa/maps:foreach/2",
+      "Status": "Passed",
+      "Milliseconds": 32
+    },
+    {
+      "Name": "mfa/maps:from_keys/2",
+      "Status": "Passed",
+      "Milliseconds": 31
+    },
+    {
+      "Name": "mfa/maps:from_list/1",
+      "Status": "Passed",
+      "Milliseconds": 30
+    },
+    {
+      "Name": "mfa/maps:get/2",
+      "Status": "Passed",
+      "Milliseconds": 8
+    },
+    {
+      "Name": "mfa/maps:get/3",
+      "Status": "Passed",
+      "Milliseconds": 36
+    },
+    {
+      "Name": "mfa/maps:groups_from_list/2",
+      "Status": "Passed",
+      "Milliseconds": 30
+    },
+    {
+      "Name": "mfa/maps:groups_from_list/3",
+      "Status": "Passed",
+      "Milliseconds": 38
+    },
+    {
+      "Name": "mfa/maps:intersect/2",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "mfa/maps:intersect_with/3",
+      "Status": "Passed",
+      "Milliseconds": 27
+    },
+    {
+      "Name": "mfa/maps:is_iterator_valid/1",
+      "Status": "Passed",
+      "Milliseconds": 26
+    },
+    {
+      "Name": "mfa/maps:is_key/2",
+      "Status": "Passed",
+      "Milliseconds": 26
+    },
+    {
+      "Name": "mfa/maps:iterator/1",
+      "Status": "Passed",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "mfa/maps:iterator/2",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "mfa/maps:keys/1",
+      "Status": "Passed",
+      "Milliseconds": 34
+    },
+    {
+      "Name": "mfa/maps:map/2",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "mfa/maps:merge/2",
+      "Status": "Passed",
+      "Milliseconds": 26
+    },
+    {
+      "Name": "mfa/maps:merge_with/3",
+      "Status": "Passed",
+      "Milliseconds": 26
+    },
+    {
+      "Name": "mfa/maps:new/0",
+      "Status": "Passed",
+      "Milliseconds": 23
+    },
+    {
+      "Name": "mfa/maps:next/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/maps:put/3",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "mfa/maps:remove/2",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "mfa/maps:size/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/maps:take/2",
+      "Status": "Passed",
+      "Milliseconds": 27
+    },
+    {
+      "Name": "mfa/maps:to_list/1",
+      "Status": "Passed",
+      "Milliseconds": 27
+    },
+    {
+      "Name": "mfa/maps:update/3",
+      "Status": "Passed",
+      "Milliseconds": 30
+    },
+    {
+      "Name": "mfa/maps:update_with/3",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "mfa/maps:update_with/4",
+      "Status": "Passed",
+      "Milliseconds": 27
+    },
+    {
+      "Name": "mfa/maps:values/1",
+      "Status": "Passed",
+      "Milliseconds": 32
+    },
+    {
+      "Name": "mfa/maps:with/2",
+      "Status": "Passed",
+      "Milliseconds": 28
+    },
+    {
+      "Name": "mfa/maps:without/2",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "mfa/proplists:append_values/2",
+      "Status": "Passed",
+      "Milliseconds": 24
+    },
+    {
+      "Name": "mfa/proplists:compact/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/proplists:delete/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/proplists:expand/2",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "mfa/proplists:from_map/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/proplists:get_all_values/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/proplists:get_bool/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/proplists:get_keys/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/proplists:is_defined/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/proplists:lookup/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/proplists:lookup_all/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/proplists:normalize/2",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "mfa/proplists:property/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/proplists:property/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/proplists:split/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/proplists:substitute_aliases/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/proplists:substitute_negations/2",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "mfa/proplists:to_map/1",
+      "Status": "Passed",
+      "Milliseconds": 14
+    },
+    {
+      "Name": "mfa/proplists:to_map/2",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "mfa/proplists:unfold/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/maps-module-not-guard-legal",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "compiler/comprehension/binary-invalid-patterns",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "compiler/comprehension/map-invalid-syntax",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/comprehension/map-exact-template-rejected",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/comprehension/map-illegal-guard",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "hybrid/comprehension/map-ast-emission",
+      "Status": "Passed",
+      "Milliseconds": 7
+    },
+    {
+      "Name": "compiler/comprehension/binary-illegal-guard",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/comprehension/binary-zero-progress-resource-policy",
+      "Status": "Passed",
+      "Milliseconds": 11
+    },
+    {
+      "Name": "hybrid/comprehension/binary-ast-emission",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "hybrid/comprehension/zip-ast-emission",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-get-default",
+      "Status": "Passed",
+      "Milliseconds": 28
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-find",
+      "Status": "Passed",
+      "Milliseconds": 24
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-from-list",
+      "Status": "Passed",
+      "Milliseconds": 27
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-from-keys",
+      "Status": "Passed",
+      "Milliseconds": 26
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-is-key",
+      "Status": "Passed",
+      "Milliseconds": 27
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-keys-values",
+      "Status": "Passed",
+      "Milliseconds": 40
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-merge",
+      "Status": "Passed",
+      "Milliseconds": 28
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-new",
+      "Status": "Passed",
+      "Milliseconds": 28
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-put",
+      "Status": "Passed",
+      "Milliseconds": 30
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-remove",
+      "Status": "Passed",
+      "Milliseconds": 26
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-take",
+      "Status": "Passed",
+      "Milliseconds": 26
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-to-list",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-update",
+      "Status": "Passed",
+      "Milliseconds": 28
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-update-with-three",
+      "Status": "Passed",
+      "Milliseconds": 32
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-update-with-four",
+      "Status": "Passed",
+      "Milliseconds": 32
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-with",
+      "Status": "Passed",
+      "Milliseconds": 31
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-without",
+      "Status": "Passed",
+      "Milliseconds": 27
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-filter",
+      "Status": "Passed",
+      "Milliseconds": 31
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-filtermap",
+      "Status": "Passed",
+      "Milliseconds": 38
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-fold",
+      "Status": "Passed",
+      "Milliseconds": 37
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-foreach",
+      "Status": "Passed",
+      "Milliseconds": 32
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-map",
+      "Status": "Passed",
+      "Milliseconds": 38
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-ordered-fold",
+      "Status": "Passed",
+      "Milliseconds": 43
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-reversed-map-callback",
+      "Status": "Passed",
+      "Milliseconds": 40
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-iterator-filter",
+      "Status": "Passed",
+      "Milliseconds": 36
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-iterator-filtermap",
+      "Status": "Passed",
+      "Milliseconds": 38
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-iterator-foreach",
+      "Status": "Passed",
+      "Milliseconds": 37
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-none",
+      "Status": "Passed",
+      "Milliseconds": 31
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-bad-callback",
+      "Status": "Passed",
+      "Milliseconds": 30
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-bad-source",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-bad-continuation-order",
+      "Status": "Passed",
+      "Milliseconds": 32
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-callback-error-propagates",
+      "Status": "Passed",
+      "Milliseconds": 28
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-bad-filter-result",
+      "Status": "Passed",
+      "Milliseconds": 36
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-bad-from-list",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-bad-map-precedence",
+      "Status": "Passed",
+      "Milliseconds": 31
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-bad-update-callback",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-bad-select-shape",
+      "Status": "Passed",
+      "Milliseconds": 28
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-with-improper-tail",
+      "Status": "Passed",
+      "Milliseconds": 26
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-without-improper-tail",
+      "Status": "Passed",
+      "Milliseconds": 26
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-duplicate-iterator-keys",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "oracle/compiled-module/maps-operations-valid-iterator",
+      "Status": "Passed",
+      "Milliseconds": 30
+    },
+    {
+      "Name": "oracle/compiled-module/records-pattern-comprehension",
+      "Status": "Passed",
+      "Milliseconds": 50
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-intersect",
+      "Status": "Passed",
+      "Milliseconds": 28
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-intersect-swap",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-intersect-empty",
+      "Status": "Passed",
+      "Milliseconds": 28
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-intersect-exact-keys",
+      "Status": "Passed",
+      "Milliseconds": 42
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-intersect-with",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-intersect-with-first-smaller",
+      "Status": "Passed",
+      "Milliseconds": 27
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-intersect-with-second-smaller",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-intersect-with-disjoint",
+      "Status": "Passed",
+      "Milliseconds": 35
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-intersect-with-callback-once",
+      "Status": "Passed",
+      "Milliseconds": 38
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-merge-with",
+      "Status": "Passed",
+      "Milliseconds": 35
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-merge-with-first-smaller",
+      "Status": "Passed",
+      "Milliseconds": 36
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-merge-with-second-smaller",
+      "Status": "Passed",
+      "Milliseconds": 38
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-merge-with-disjoint",
+      "Status": "Passed",
+      "Milliseconds": 41
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-merge-with-exact-keys",
+      "Status": "Passed",
+      "Milliseconds": 36
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-merge-with-immutable",
+      "Status": "Passed",
+      "Milliseconds": 41
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-groups-two",
+      "Status": "Passed",
+      "Milliseconds": 37
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-groups-three",
+      "Status": "Passed",
+      "Milliseconds": 44
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-groups-empty",
+      "Status": "Passed",
+      "Milliseconds": 37
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-groups-exact-keys",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-groups-composite-keys",
+      "Status": "Passed",
+      "Milliseconds": 35
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-groups-reverse-callbacks",
+      "Status": "Passed",
+      "Milliseconds": 46
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-groups-key-before-value",
+      "Status": "Passed",
+      "Milliseconds": 58
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-groups-improper-no-callback",
+      "Status": "Passed",
+      "Milliseconds": 39
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-groups-three-improper-no-callback",
+      "Status": "Passed",
+      "Milliseconds": 36
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-groups-key-error",
+      "Status": "Passed",
+      "Milliseconds": 51
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-groups-value-error",
+      "Status": "Passed",
+      "Milliseconds": 48
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-groups-value-not-called-after-key-error",
+      "Status": "Passed",
+      "Milliseconds": 56
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-groups-throw",
+      "Status": "Passed",
+      "Milliseconds": 54
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-groups-exit",
+      "Status": "Passed",
+      "Milliseconds": 58
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-to-list-ordered",
+      "Status": "Passed",
+      "Milliseconds": 58
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-to-list-reversed",
+      "Status": "Passed",
+      "Milliseconds": 63
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-to-list-custom",
+      "Status": "Passed",
+      "Milliseconds": 60
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-to-list-none",
+      "Status": "Passed",
+      "Milliseconds": 51
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-to-list-tuple-chain",
+      "Status": "Passed",
+      "Milliseconds": 54
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-to-list-bad-continuation",
+      "Status": "Passed",
+      "Milliseconds": 48
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-to-list-missing-key",
+      "Status": "Passed",
+      "Milliseconds": 46
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-iterator-valid-missing-later-key",
+      "Status": "Passed",
+      "Milliseconds": 43
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-all-iteration-consistency-small",
+      "Status": "Passed",
+      "Milliseconds": 83
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-all-iteration-consistency-large",
+      "Status": "Passed",
+      "Milliseconds": 123
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-combine-large",
+      "Status": "Passed",
+      "Milliseconds": 79
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-groups-large",
+      "Status": "Passed",
+      "Milliseconds": 53
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-intersect_with-bad-callback-precedence",
+      "Status": "Passed",
+      "Milliseconds": 30
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-intersect_with-bad-arity-empty",
+      "Status": "Passed",
+      "Milliseconds": 30
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-intersect_with-first-bad-map",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-intersect_with-second-bad-map",
+      "Status": "Passed",
+      "Milliseconds": 31
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-intersect_with-callback-error",
+      "Status": "Passed",
+      "Milliseconds": 34
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-intersect_with-callback-throw",
+      "Status": "Passed",
+      "Milliseconds": 37
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-intersect_with-callback-exit",
+      "Status": "Passed",
+      "Milliseconds": 35
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-merge_with-bad-callback-precedence",
+      "Status": "Passed",
+      "Milliseconds": 31
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-merge_with-bad-arity-empty",
+      "Status": "Passed",
+      "Milliseconds": 30
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-merge_with-first-bad-map",
+      "Status": "Passed",
+      "Milliseconds": 31
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-merge_with-second-bad-map",
+      "Status": "Passed",
+      "Milliseconds": 31
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-merge_with-callback-error",
+      "Status": "Passed",
+      "Milliseconds": 35
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-merge_with-callback-throw",
+      "Status": "Passed",
+      "Milliseconds": 39
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-merge_with-callback-exit",
+      "Status": "Passed",
+      "Milliseconds": 36
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-intersect-bad-map-precedence",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-groups-bad-fun",
+      "Status": "Passed",
+      "Milliseconds": 34
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-groups-three-bad-funs",
+      "Status": "Passed",
+      "Milliseconds": 34
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-groups-bad-list",
+      "Status": "Passed",
+      "Milliseconds": 37
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-ordered-numeric-key-ranks",
+      "Status": "Passed",
+      "Milliseconds": 51
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-composite-map-keys",
+      "Status": "Passed",
+      "Milliseconds": 38
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-from-keys-bad-list",
+      "Status": "Passed",
+      "Milliseconds": 32
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-iterator-bad-options",
+      "Status": "Passed",
+      "Milliseconds": 36
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-next-tuple-pass-through",
+      "Status": "Passed",
+      "Milliseconds": 28
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-next-ordered-tuple-chain",
+      "Status": "Passed",
+      "Milliseconds": 32
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-next-reversed-tuple-chain",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-next-missing-later-key",
+      "Status": "Passed",
+      "Milliseconds": 32
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-next-improper-later-tail",
+      "Status": "Passed",
+      "Milliseconds": 35
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-foreach-invalid-batch-no-callback",
+      "Status": "Passed",
+      "Milliseconds": 38
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-next-bad-iterator",
+      "Status": "Passed",
+      "Milliseconds": 32
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-foreach-ignores-return",
+      "Status": "Passed",
+      "Milliseconds": 34
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-merge-bad-map-precedence",
+      "Status": "Passed",
+      "Milliseconds": 34
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-bad-map-get-1",
+      "Status": "Passed",
+      "Milliseconds": 28
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-bad-map-get-2",
+      "Status": "Passed",
+      "Milliseconds": 28
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-bad-map-find-1",
+      "Status": "Passed",
+      "Milliseconds": 30
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-bad-map-is_key-1",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-bad-map-keys-0",
+      "Status": "Passed",
+      "Milliseconds": 27
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-bad-map-values-0",
+      "Status": "Passed",
+      "Milliseconds": 28
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-bad-map-size-0",
+      "Status": "Passed",
+      "Milliseconds": 26
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-bad-map-put-2",
+      "Status": "Passed",
+      "Milliseconds": 27
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-bad-map-remove-1",
+      "Status": "Passed",
+      "Milliseconds": 26
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-bad-map-take-1",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-bad-map-update-2",
+      "Status": "Passed",
+      "Milliseconds": 30
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-bad-map-to_list-0",
+      "Status": "Passed",
+      "Milliseconds": 27
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-bad-map-iterator-0",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-filter-bad-callback-before-map",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-filtermap-bad-callback-before-map",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-map-bad-callback-before-map",
+      "Status": "Passed",
+      "Milliseconds": 24
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-foreach-bad-callback-before-map",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "oracle/compiled-module/maps-completion-fold-bad-callback-before-map",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-record-predicate-guard-comprehension",
+      "Status": "Passed",
+      "Milliseconds": 38
+    },
+    {
+      "Name": "oracle/compiled-module/character-literal-comprehension",
+      "Status": "Passed",
+      "Milliseconds": 32
+    },
+    {
+      "Name": "oracle/compiled-module/compiler-function-resolution-comprehension-private",
+      "Status": "Passed",
+      "Milliseconds": 31
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-comprehension-pattern",
+      "Status": "Passed",
+      "Milliseconds": 70
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-length-comprehension-filters",
+      "Status": "Passed",
+      "Milliseconds": 1230
+    },
+    {
+      "Name": "proplists-get-value-parse-all",
+      "Status": "Passed",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "proplists-get-value-object-identity",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "proplists-get-value-cooperative-progress",
+      "Status": "Passed",
+      "Milliseconds": 15
+    },
+    {
+      "Name": "proplists-get-value-cooperative-cancellation",
+      "Status": "Passed",
+      "Milliseconds": 10
+    },
+    {
+      "Name": "mfa/proplists:get_value/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/proplists:get_value/3",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-empty-two",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-empty-three",
+      "Status": "Passed",
+      "Milliseconds": 22
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-missing-two",
+      "Status": "Passed",
+      "Milliseconds": 21
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-missing-three",
+      "Status": "Passed",
+      "Milliseconds": 21
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-atom-shorthand",
+      "Status": "Passed",
+      "Milliseconds": 21
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-atom-before-tuple",
+      "Status": "Passed",
+      "Milliseconds": 21
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-tuple-before-atom",
+      "Status": "Passed",
+      "Milliseconds": 21
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-first-tuple-wins",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-explicit-undefined",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-singleton-stops-two",
+      "Status": "Passed",
+      "Milliseconds": 23
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-singleton-stops-three",
+      "Status": "Passed",
+      "Milliseconds": 23
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-triple-stops-two",
+      "Status": "Passed",
+      "Milliseconds": 23
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-triple-stops-three",
+      "Status": "Passed",
+      "Milliseconds": 22
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-empty-tuple-ignored",
+      "Status": "Passed",
+      "Milliseconds": 21
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-nonmatching-tuple-arities",
+      "Status": "Passed",
+      "Milliseconds": 24
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-nonproperties-ignored",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-integer-exact",
+      "Status": "Passed",
+      "Milliseconds": 24
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-float-exact",
+      "Status": "Passed",
+      "Milliseconds": 21
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-large-integer-key",
+      "Status": "Passed",
+      "Milliseconds": 22
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-tuple-key-exact",
+      "Status": "Passed",
+      "Milliseconds": 22
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-list-key-exact",
+      "Status": "Passed",
+      "Milliseconds": 21
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-improper-list-key",
+      "Status": "Passed",
+      "Milliseconds": 24
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-map-key-exact",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-empty-list-key",
+      "Status": "Passed",
+      "Milliseconds": 22
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-empty-tuple-key",
+      "Status": "Passed",
+      "Milliseconds": 21
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-binary-key",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-bitstring-key",
+      "Status": "Passed",
+      "Milliseconds": 24
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-reference-key",
+      "Status": "Passed",
+      "Milliseconds": 23
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-pid-key",
+      "Status": "Passed",
+      "Milliseconds": 21
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-function-key",
+      "Status": "Passed",
+      "Milliseconds": 24
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-default-reference-identity",
+      "Status": "Passed",
+      "Milliseconds": 23
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-value-function-identity",
+      "Status": "Passed",
+      "Milliseconds": 24
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-improper-atom-match",
+      "Status": "Passed",
+      "Milliseconds": 21
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-improper-tuple-match",
+      "Status": "Passed",
+      "Milliseconds": 20
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-improper-singleton-match",
+      "Status": "Passed",
+      "Milliseconds": 20
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-improper-triple-match",
+      "Status": "Passed",
+      "Milliseconds": 20
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-improper-reached-two",
+      "Status": "Passed",
+      "Milliseconds": 35
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-improper-reached-three",
+      "Status": "Passed",
+      "Milliseconds": 32
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-nonlist-atom-two",
+      "Status": "Passed",
+      "Milliseconds": 36
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-nonlist-atom-three",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-nonlist-integer-two",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-nonlist-integer-three",
+      "Status": "Passed",
+      "Milliseconds": 32
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-nonlist-float-two",
+      "Status": "Passed",
+      "Milliseconds": 32
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-nonlist-float-three",
+      "Status": "Passed",
+      "Milliseconds": 37
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-nonlist-tuple-two",
+      "Status": "Passed",
+      "Milliseconds": 48
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-nonlist-tuple-three",
+      "Status": "Passed",
+      "Milliseconds": 38
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-nonlist-map-two",
+      "Status": "Passed",
+      "Milliseconds": 36
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-nonlist-map-three",
+      "Status": "Passed",
+      "Milliseconds": 36
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-nonlist-binary-two",
+      "Status": "Passed",
+      "Milliseconds": 38
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-nonlist-binary-three",
+      "Status": "Passed",
+      "Milliseconds": 36
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-large-missing-two",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-large-terminal-match",
+      "Status": "Passed",
+      "Milliseconds": 32
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-large-improper-early-match",
+      "Status": "Passed",
+      "Milliseconds": 30
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-stack-depth-0-arity-2",
+      "Status": "Passed",
+      "Milliseconds": 35
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-stack-depth-1-arity-2",
+      "Status": "Passed",
+      "Milliseconds": 39
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-stack-depth-2-arity-2",
+      "Status": "Passed",
+      "Milliseconds": 35
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-stack-depth-0-arity-3",
+      "Status": "Passed",
+      "Milliseconds": 36
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-stack-depth-1-arity-3",
+      "Status": "Passed",
+      "Milliseconds": 38
+    },
+    {
+      "Name": "oracle/compiled-module/proplists-get-value-stack-depth-2-arity-3",
+      "Status": "Passed",
+      "Milliseconds": 35
+    },
+    {
+      "Name": "proplists-get-value-source-stack-metadata",
+      "Status": "Passed",
+      "Milliseconds": 291
+    },
+    {
+      "Name": "runtime/proplists-family-ordinary-contracts",
+      "Status": "Passed",
+      "Milliseconds": 46
+    },
+    {
+      "Name": "compiler/proplists-family-compiled-contracts",
+      "Status": "Passed",
+      "Milliseconds": 261
+    },
+    {
+      "Name": "runtime/proplists-family-long-proper-unfold",
+      "Status": "Passed",
+      "Milliseconds": 130
+    },
+    {
+      "Name": "runtime/proplists-family-improper-unfold-continuations",
+      "Status": "Passed",
+      "Milliseconds": 63
+    },
+    {
+      "Name": "runtime/proplists-family-improper-compact-continuations",
+      "Status": "Passed",
+      "Milliseconds": 65
+    },
+    {
+      "Name": "runtime/proplists-family-improper-delete-continuations",
+      "Status": "Passed",
+      "Milliseconds": 53
+    },
+    {
+      "Name": "runtime/proplists-family-traversal-cancellation",
+      "Status": "Passed",
+      "Milliseconds": 745
+    },
+    {
+      "Name": "runtime/proplists-family-map-iterator-contracts",
+      "Status": "Passed",
+      "Milliseconds": 166
+    },
+    {
+      "Name": "runtime/maps/internal-hash-native-vectors",
+      "Status": "Passed",
+      "Milliseconds": 31
+    },
+    {
+      "Name": "runtime/maps/raw-integer-binary-cursors",
+      "Status": "Passed",
+      "Milliseconds": 206
+    },
+    {
+      "Name": "runtime/proplists/from-map-own-key-domains",
+      "Status": "Passed",
+      "Milliseconds": 101
+    },
+    {
+      "Name": "runtime/proplists/from-map-own-entry-epochs",
+      "Status": "Passed",
+      "Milliseconds": 27
+    },
+    {
+      "Name": "runtime/proplists/from-map-own-real-collisions",
+      "Status": "Passed",
+      "Milliseconds": 8
+    },
+    {
+      "Name": "compiler/proplists/from-map-own-context-routes",
+      "Status": "Passed",
+      "Milliseconds": 49
+    },
+    {
+      "Name": "runtime/proplists/from-map-own-reference-stored-counts",
+      "Status": "Passed",
+      "Milliseconds": 25
+    }
+  ]
+}

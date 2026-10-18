@@ -5,6 +5,8 @@ namespace Erlang;
 public sealed partial class Mailbox
 {
     private readonly object gate = new();
+    internal Pid? Owner { get; init; }
+    internal bool CopySelfMessages { get; init; }
     private readonly LinkedList<Entry> messages = new();
     private LinkedListNode<Entry>? lastPriority;
     private int deferredPending;
@@ -135,6 +137,8 @@ public sealed partial class Mailbox
         {
             if (HaltRequested?.Invoke() == true)
                 return;
+            if (CopySelfMessages || priority || from is null || !from.Equals(Owner) || token is not null)
+                BinarySharingCursor.Pin(message);
             if (priority)
                 lastPriority = lastPriority is null ? messages.AddFirst(new Entry(
                     message,
@@ -196,6 +200,7 @@ public sealed partial class Mailbox
         {
             if (HaltRequested?.Invoke() == true)
                 return;
+            BinarySharingCursor.Pin(message);
             messages.AddLast(new Entry(
                 message,
                 admission,

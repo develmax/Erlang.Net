@@ -1,0 +1,44 @@
+{
+  "ExistingUntouchedCases": "Four core operations normal/cancel plus five own reverse-entry boundaries.",
+  "AddedCases": [
+    {
+      "Function": "out_r/1",
+      "Path": "rear singleton, long front; f2r length/split/reverse"
+    },
+    {
+      "Function": "drop/1",
+      "Path": "long rear-only; direct reverse"
+    },
+    {
+      "Function": "drop_r/1",
+      "Path": "long front-only; direct reverse"
+    },
+    {
+      "Function": "get/1",
+      "Path": "long rear-only; iterative lists:last"
+    },
+    {
+      "Function": "get_r/1",
+      "Path": "long front-only; iterative lists:last"
+    },
+    {
+      "Function": "peek/1",
+      "Path": "long rear-only; lists:last with pending value tuple"
+    },
+    {
+      "Function": "member/2",
+      "Path": "missing integer probe; long rear then empty front"
+    },
+    {
+      "Function": "member/2",
+      "Path": "empty rear then long front tail path"
+    }
+  ],
+  "NewBoundaries": 16,
+  "InputCells": 256017,
+  "EachBoundary": "Actual public registry call; observer progress and actual reduction count; normal result or kill/canceled result; physical finally unwind, process death and runtime still usable.",
+  "NoRaceSleep": "Reuses deterministic captured real continuation helper and bounded waits; cancellation occurs at first actual yield.",
+  "AliasApplicability": "cons/in_r/snoc constant-time need no traversal-yield assertion. head/get, tail/drop, init/liat/lait/drop_r, last/daeh/get_r share exact implementations; value/error/native profiles cover their distinct wrappers.",
+  "ExplicitLimit": "Does not prove cancellation during later higher filter/delete reconstruction phases. Those require separate phase-aware witnesses, not a first-yield label.",
+  "NoActualExecution": true
+}

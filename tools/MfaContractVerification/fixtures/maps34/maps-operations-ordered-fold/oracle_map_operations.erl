@@ -1,0 +1,1 @@
+-module(oracle_map_operations). -export([run/0]). run()->[{2,20},{1,10}]=maps:fold(fun(K,V,A)->[{K,V}|A] end,[],maps:iterator(#{2=>20,1=>10},ordered)),done.

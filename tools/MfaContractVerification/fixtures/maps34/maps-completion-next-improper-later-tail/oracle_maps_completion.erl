@@ -1,0 +1,1 @@
+-module(oracle_maps_completion). -export([run/0]). run()->try maps:next([[a|wrong]|#{a=>1}]) of _->unexpected catch error:badarg->ok end,done.

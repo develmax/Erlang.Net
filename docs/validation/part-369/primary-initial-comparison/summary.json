@@ -1,0 +1,4635 @@
+{
+  "Status": "HISTORICAL_CAPTURE1_EXPLORATORY_DIFFERENCES_NOT_FINAL_ACCEPTANCE",
+  "ExpectedRows": 3510,
+  "ActualRows": 3510,
+  "StrictEqual": 2486,
+  "OpaqueOnlyUnaccepted": 18,
+  "OtherDifferences": 1006,
+  "GroupCounts": [
+    {
+      "Group": "access_parts",
+      "Kind": "other",
+      "Count": 261
+    },
+    {
+      "Group": "common",
+      "Kind": "other",
+      "Count": 30
+    },
+    {
+      "Group": "copy_backing",
+      "Kind": "other",
+      "Count": 66
+    },
+    {
+      "Group": "list_conversion",
+      "Kind": "other",
+      "Count": 89
+    },
+    {
+      "Group": "matches_split",
+      "Kind": "opaque-only",
+      "Count": 12
+    },
+    {
+      "Group": "matches_split",
+      "Kind": "other",
+      "Count": 108
+    },
+    {
+      "Group": "patterns_match",
+      "Kind": "opaque-only",
+      "Count": 6
+    },
+    {
+      "Group": "patterns_match",
+      "Kind": "other",
+      "Count": 54
+    },
+    {
+      "Group": "unsigned",
+      "Kind": "other",
+      "Count": 78
+    },
+    {
+      "Group": "wrappers",
+      "Kind": "other",
+      "Count": 320
+    }
+  ],
+  "Cases": [
+    {
+      "Group": "access_parts",
+      "Case": "at2_atom",
+      "Mfas": [
+        "binary:at/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "at2_bits7",
+      "Mfas": [
+        "binary:at/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "at2_empty",
+      "Mfas": [
+        "binary:at/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "at2_list",
+      "Mfas": [
+        "binary:at/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "first1_atom",
+      "Mfas": [
+        "binary:first/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "first1_bits7",
+      "Mfas": [
+        "binary:first/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "first1_empty",
+      "Mfas": [
+        "binary:first/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "first1_list",
+      "Mfas": [
+        "binary:first/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "last1_atom",
+      "Mfas": [
+        "binary:last/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "last1_bits7",
+      "Mfas": [
+        "binary:last/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "last1_empty",
+      "Mfas": [
+        "binary:last/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "last1_list",
+      "Mfas": [
+        "binary:last/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "legacy_at_atom",
+      "Mfas": [
+        "binary:at/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "legacy_at_bits",
+      "Mfas": [
+        "binary:at/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "legacy_at_empty",
+      "Mfas": [
+        "binary:at/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "legacy_at_end",
+      "Mfas": [
+        "binary:at/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "legacy_at_float",
+      "Mfas": [
+        "binary:at/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "legacy_at_huge",
+      "Mfas": [
+        "binary:at/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "legacy_at_negative",
+      "Mfas": [
+        "binary:at/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "legacy_at_nonbinary",
+      "Mfas": [
+        "binary:at/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "legacy_first_bits",
+      "Mfas": [
+        "binary:first/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "legacy_first_empty",
+      "Mfas": [
+        "binary:first/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "legacy_first_nonbinary",
+      "Mfas": [
+        "binary:first/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "legacy_last_bits",
+      "Mfas": [
+        "binary:last/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "legacy_last_empty",
+      "Mfas": [
+        "binary:last/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "legacy_last_nonbinary",
+      "Mfas": [
+        "binary:last/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "legacy_part2_bad_member",
+      "Mfas": [
+        "binary:part/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "legacy_part2_bits",
+      "Mfas": [
+        "binary:part/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "legacy_part2_huge_member",
+      "Mfas": [
+        "binary:part/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "legacy_part2_nonbinary",
+      "Mfas": [
+        "binary:part/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "legacy_part2_not_tuple",
+      "Mfas": [
+        "binary:part/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "legacy_part2_tuple_one",
+      "Mfas": [
+        "binary:part/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "legacy_part2_tuple_three",
+      "Mfas": [
+        "binary:part/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "legacy_part2_tuple_zero",
+      "Mfas": [
+        "binary:part/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "legacy_part3_bad_length",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "legacy_part3_bad_position",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "legacy_part3_before_start",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "legacy_part3_beyond_zero",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "legacy_part3_bits_empty",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "legacy_part3_huge_length",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "legacy_part3_huge_negative",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "legacy_part3_huge_position",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "legacy_part3_negative_position",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "legacy_part3_nonbinary",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "legacy_part3_past_end",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "legacy_part3_signed_min",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "legacy_part3_signed_overflow",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part2_atom",
+      "Mfas": [
+        "binary:part/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part2_bits7",
+      "Mfas": [
+        "binary:part/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part2_list",
+      "Mfas": [
+        "binary:part/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part2_shape_bothbad",
+      "Mfas": [
+        "binary:part/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part2_shape_floatlen",
+      "Mfas": [
+        "binary:part/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part2_shape_floatstart",
+      "Mfas": [
+        "binary:part/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part2_shape_list",
+      "Mfas": [
+        "binary:part/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part2_shape_tuple1",
+      "Mfas": [
+        "binary:part/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part2_shape_tuple3",
+      "Mfas": [
+        "binary:part/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part3_atom",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part3_bits7",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part3_bounds_0_36893488147419103232",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part3_bounds_0_4",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part3_bounds_0_n1",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part3_bounds_0_n3",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part3_bounds_0_n4",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part3_bounds_1_36893488147419103232",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part3_bounds_36893488147419103232_0",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part3_bounds_36893488147419103232_1",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part3_bounds_36893488147419103232_3",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part3_bounds_36893488147419103232_36893488147419103232",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part3_bounds_36893488147419103232_4",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part3_bounds_36893488147419103232_n1",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part3_bounds_36893488147419103232_n3",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part3_bounds_36893488147419103232_n4",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part3_bounds_3_1",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part3_bounds_3_3",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part3_bounds_3_36893488147419103232",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part3_bounds_3_4",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part3_bounds_3_n4",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part3_bounds_4_0",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part3_bounds_4_36893488147419103232",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part3_bounds_4_n1",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part3_bounds_n1_0",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part3_bounds_n1_36893488147419103232",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part3_bounds_n1_n1",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part3_bounds_n36893488147419103232_0",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part3_bounds_n36893488147419103232_36893488147419103232",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part3_bounds_n36893488147419103232_n1",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "access_parts",
+      "Case": "part3_list",
+      "Mfas": [
+        "binary:part/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "common",
+      "Case": "longest_common_prefix_atom",
+      "Mfas": [
+        "binary:longest_common_prefix/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "common",
+      "Case": "longest_common_prefix_bad_member",
+      "Mfas": [
+        "binary:longest_common_prefix/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "common",
+      "Case": "longest_common_prefix_bits",
+      "Mfas": [
+        "binary:longest_common_prefix/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "common",
+      "Case": "longest_common_prefix_empty",
+      "Mfas": [
+        "binary:longest_common_prefix/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "common",
+      "Case": "longest_common_prefix_improper",
+      "Mfas": [
+        "binary:longest_common_prefix/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "common",
+      "Case": "longest_common_suffix_atom",
+      "Mfas": [
+        "binary:longest_common_suffix/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "common",
+      "Case": "longest_common_suffix_bad_member",
+      "Mfas": [
+        "binary:longest_common_suffix/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "common",
+      "Case": "longest_common_suffix_bits",
+      "Mfas": [
+        "binary:longest_common_suffix/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "common",
+      "Case": "longest_common_suffix_empty",
+      "Mfas": [
+        "binary:longest_common_suffix/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "common",
+      "Case": "longest_common_suffix_improper",
+      "Mfas": [
+        "binary:longest_common_suffix/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "copy_backing",
+      "Case": "copy1_atom",
+      "Mfas": [
+        "binary:copy/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "copy_backing",
+      "Case": "copy1_bits9",
+      "Mfas": [
+        "binary:copy/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "copy_backing",
+      "Case": "copy2_atom_0",
+      "Mfas": [
+        "binary:copy/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "copy_backing",
+      "Case": "copy2_atom_1",
+      "Mfas": [
+        "binary:copy/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "copy_backing",
+      "Case": "copy2_atom_2",
+      "Mfas": [
+        "binary:copy/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "copy_backing",
+      "Case": "copy2_atom_36893488147419103232",
+      "Mfas": [
+        "binary:copy/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "copy_backing",
+      "Case": "copy2_atom_n1",
+      "Mfas": [
+        "binary:copy/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "copy_backing",
+      "Case": "copy2_bits9_0",
+      "Mfas": [
+        "binary:copy/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "copy_backing",
+      "Case": "copy2_bits9_1",
+      "Mfas": [
+        "binary:copy/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "copy_backing",
+      "Case": "copy2_bits9_2",
+      "Mfas": [
+        "binary:copy/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "copy_backing",
+      "Case": "copy2_bits9_36893488147419103232",
+      "Mfas": [
+        "binary:copy/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "copy_backing",
+      "Case": "copy2_bits9_n1",
+      "Mfas": [
+        "binary:copy/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "copy_backing",
+      "Case": "copy2_bytes_36893488147419103232",
+      "Mfas": [
+        "binary:copy/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "copy_backing",
+      "Case": "copy2_bytes_n1",
+      "Mfas": [
+        "binary:copy/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "copy_backing",
+      "Case": "copy2_empty_36893488147419103232",
+      "Mfas": [
+        "binary:copy/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "copy_backing",
+      "Case": "copy2_empty_n1",
+      "Mfas": [
+        "binary:copy/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "copy_backing",
+      "Case": "copy2_offset3_36893488147419103232",
+      "Mfas": [
+        "binary:copy/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "copy_backing",
+      "Case": "copy2_offset3_n1",
+      "Mfas": [
+        "binary:copy/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "copy_backing",
+      "Case": "copy_count_atom",
+      "Mfas": [
+        "binary:copy/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "copy_backing",
+      "Case": "copy_count_float",
+      "Mfas": [
+        "binary:copy/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "copy_backing",
+      "Case": "copy_count_list",
+      "Mfas": [
+        "binary:copy/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "copy_backing",
+      "Case": "reference_atom",
+      "Mfas": [
+        "binary:referenced_byte_size/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "list_conversion",
+      "Case": "binlist1_atom",
+      "Mfas": [
+        "binary:bin_to_list/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "list_conversion",
+      "Case": "binlist1_bits9",
+      "Mfas": [
+        "binary:bin_to_list/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "list_conversion",
+      "Case": "binlist2_atom",
+      "Mfas": [
+        "binary:bin_to_list/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "list_conversion",
+      "Case": "binlist2_bits9",
+      "Mfas": [
+        "binary:bin_to_list/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "list_conversion",
+      "Case": "binlist2_outside",
+      "Mfas": [
+        "binary:bin_to_list/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "list_conversion",
+      "Case": "binlist2_precedence",
+      "Mfas": [
+        "binary:bin_to_list/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "list_conversion",
+      "Case": "binlist2_tuple3",
+      "Mfas": [
+        "binary:bin_to_list/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "list_conversion",
+      "Case": "binlist3_0_36893488147419103232",
+      "Mfas": [
+        "binary:bin_to_list/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "list_conversion",
+      "Case": "binlist3_2_2",
+      "Mfas": [
+        "binary:bin_to_list/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "list_conversion",
+      "Case": "binlist3_36893488147419103232_0",
+      "Mfas": [
+        "binary:bin_to_list/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "list_conversion",
+      "Case": "binlist3_atom",
+      "Mfas": [
+        "binary:bin_to_list/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "list_conversion",
+      "Case": "binlist3_bits9",
+      "Mfas": [
+        "binary:bin_to_list/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "list_conversion",
+      "Case": "binlist3_n1_1",
+      "Mfas": [
+        "binary:bin_to_list/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "list_conversion",
+      "Case": "listbin_atom",
+      "Mfas": [
+        "binary:list_to_bin/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "list_conversion",
+      "Case": "listbin_badtail",
+      "Mfas": [
+        "binary:list_to_bin/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "list_conversion",
+      "Case": "listbin_binary",
+      "Mfas": [
+        "binary:list_to_bin/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "list_conversion",
+      "Case": "listbin_bitstring",
+      "Mfas": [
+        "binary:list_to_bin/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "list_conversion",
+      "Case": "listbin_float",
+      "Mfas": [
+        "binary:list_to_bin/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "list_conversion",
+      "Case": "listbin_highbyte",
+      "Mfas": [
+        "binary:list_to_bin/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "list_conversion",
+      "Case": "listbin_middlebad",
+      "Mfas": [
+        "binary:list_to_bin/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "list_conversion",
+      "Case": "listbin_negative",
+      "Mfas": [
+        "binary:list_to_bin/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "matches2_pattern_atom",
+      "Mfas": [
+        "binary:matches/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "matches2_pattern_bitmember",
+      "Mfas": [
+        "binary:matches/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "matches2_pattern_emptybinary",
+      "Mfas": [
+        "binary:matches/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "matches2_pattern_emptylist",
+      "Mfas": [
+        "binary:matches/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "matches2_pattern_emptymember",
+      "Mfas": [
+        "binary:matches/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "matches2_pattern_forgedtuple",
+      "Mfas": [
+        "binary:matches/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "matches2_pattern_improper",
+      "Mfas": [
+        "binary:matches/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "matches2_resource_ordinary",
+      "Mfas": [
+        "binary:matches/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "matches2_resource_ordinary",
+      "Mfas": [
+        "binary:matches/2"
+      ],
+      "OpaqueOnly": true,
+      "Depths": [
+        "values",
+        "('integer', 0)",
+        "('integer', 1)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "matches2_resource_wrong_tag",
+      "Mfas": [
+        "binary:matches/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "matches2_resource_wrong_tag",
+      "Mfas": [
+        "binary:matches/2"
+      ],
+      "OpaqueOnly": true,
+      "Depths": [
+        "values",
+        "('integer', 0)",
+        "('integer', 1)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "matches2_subject_atom",
+      "Mfas": [
+        "binary:matches/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "matches2_subject_bits9",
+      "Mfas": [
+        "binary:matches/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "matches3_options_atom",
+      "Mfas": [
+        "binary:matches/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "matches3_options_float",
+      "Mfas": [
+        "binary:matches/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "matches3_options_invalid_then_valid",
+      "Mfas": [
+        "binary:matches/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "matches3_options_outside",
+      "Mfas": [
+        "binary:matches/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "matches3_options_tuple3",
+      "Mfas": [
+        "binary:matches/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "matches3_options_unknown",
+      "Mfas": [
+        "binary:matches/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "matches3_precedence",
+      "Mfas": [
+        "binary:matches/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "split2_pattern_atom",
+      "Mfas": [
+        "binary:split/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "split2_pattern_bitmember",
+      "Mfas": [
+        "binary:split/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "split2_pattern_emptybinary",
+      "Mfas": [
+        "binary:split/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "split2_pattern_emptylist",
+      "Mfas": [
+        "binary:split/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "split2_pattern_emptymember",
+      "Mfas": [
+        "binary:split/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "split2_pattern_forgedtuple",
+      "Mfas": [
+        "binary:split/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "split2_pattern_improper",
+      "Mfas": [
+        "binary:split/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "split2_resource_ordinary",
+      "Mfas": [
+        "binary:split/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "split2_resource_ordinary",
+      "Mfas": [
+        "binary:split/2"
+      ],
+      "OpaqueOnly": true,
+      "Depths": [
+        "values",
+        "('integer', 0)",
+        "('integer', 1)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "split2_resource_wrong_tag",
+      "Mfas": [
+        "binary:split/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "split2_resource_wrong_tag",
+      "Mfas": [
+        "binary:split/2"
+      ],
+      "OpaqueOnly": true,
+      "Depths": [
+        "values",
+        "('integer', 0)",
+        "('integer', 1)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "split2_subject_atom",
+      "Mfas": [
+        "binary:split/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "split2_subject_bits9",
+      "Mfas": [
+        "binary:split/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "split3_options_atom",
+      "Mfas": [
+        "binary:split/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "split3_options_float",
+      "Mfas": [
+        "binary:split/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "split3_options_invalid_then_valid",
+      "Mfas": [
+        "binary:split/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "split3_options_outside",
+      "Mfas": [
+        "binary:split/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "split3_options_tuple3",
+      "Mfas": [
+        "binary:split/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "split3_options_unknown",
+      "Mfas": [
+        "binary:split/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "matches_split",
+      "Case": "split3_precedence",
+      "Mfas": [
+        "binary:split/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "patterns_match",
+      "Case": "match2_pattern_atom",
+      "Mfas": [
+        "binary:match/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "patterns_match",
+      "Case": "match2_pattern_bitmember",
+      "Mfas": [
+        "binary:match/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "patterns_match",
+      "Case": "match2_pattern_emptybinary",
+      "Mfas": [
+        "binary:match/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "patterns_match",
+      "Case": "match2_pattern_emptylist",
+      "Mfas": [
+        "binary:match/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "patterns_match",
+      "Case": "match2_pattern_emptymember",
+      "Mfas": [
+        "binary:match/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "patterns_match",
+      "Case": "match2_pattern_forgedtuple",
+      "Mfas": [
+        "binary:match/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "patterns_match",
+      "Case": "match2_pattern_improper",
+      "Mfas": [
+        "binary:match/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "patterns_match",
+      "Case": "match2_resource_ordinary",
+      "Mfas": [
+        "binary:match/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "patterns_match",
+      "Case": "match2_resource_ordinary",
+      "Mfas": [
+        "binary:match/2"
+      ],
+      "OpaqueOnly": true,
+      "Depths": [
+        "values",
+        "('integer', 0)",
+        "('integer', 1)"
+      ]
+    },
+    {
+      "Group": "patterns_match",
+      "Case": "match2_resource_wrong_tag",
+      "Mfas": [
+        "binary:match/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "patterns_match",
+      "Case": "match2_resource_wrong_tag",
+      "Mfas": [
+        "binary:match/2"
+      ],
+      "OpaqueOnly": true,
+      "Depths": [
+        "values",
+        "('integer', 0)",
+        "('integer', 1)"
+      ]
+    },
+    {
+      "Group": "patterns_match",
+      "Case": "match2_subject_atom",
+      "Mfas": [
+        "binary:match/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "patterns_match",
+      "Case": "match2_subject_bits9",
+      "Mfas": [
+        "binary:match/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "patterns_match",
+      "Case": "match3_options_atom",
+      "Mfas": [
+        "binary:match/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "patterns_match",
+      "Case": "match3_options_float",
+      "Mfas": [
+        "binary:match/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "patterns_match",
+      "Case": "match3_options_invalid_then_valid",
+      "Mfas": [
+        "binary:match/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "patterns_match",
+      "Case": "match3_options_outside",
+      "Mfas": [
+        "binary:match/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "patterns_match",
+      "Case": "match3_options_tuple3",
+      "Mfas": [
+        "binary:match/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "patterns_match",
+      "Case": "match3_options_unknown",
+      "Mfas": [
+        "binary:match/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "patterns_match",
+      "Case": "match3_precedence",
+      "Mfas": [
+        "binary:match/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "unsigned",
+      "Case": "decode1_atom",
+      "Mfas": [
+        "binary:decode_unsigned/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "unsigned",
+      "Case": "decode1_bits9",
+      "Mfas": [
+        "binary:decode_unsigned/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "unsigned",
+      "Case": "decode2_big_atom",
+      "Mfas": [
+        "binary:decode_unsigned/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "unsigned",
+      "Case": "decode2_big_bits9",
+      "Mfas": [
+        "binary:decode_unsigned/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "unsigned",
+      "Case": "decode2_little_atom",
+      "Mfas": [
+        "binary:decode_unsigned/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "unsigned",
+      "Case": "decode2_little_bits9",
+      "Mfas": [
+        "binary:decode_unsigned/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "unsigned",
+      "Case": "decode_endian_atom",
+      "Mfas": [
+        "binary:decode_unsigned/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "unsigned",
+      "Case": "decode_endian_integer",
+      "Mfas": [
+        "binary:decode_unsigned/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "unsigned",
+      "Case": "decode_endian_list",
+      "Mfas": [
+        "binary:decode_unsigned/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "unsigned",
+      "Case": "decode_endian_native",
+      "Mfas": [
+        "binary:decode_unsigned/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "unsigned",
+      "Case": "encode1_atom",
+      "Mfas": [
+        "binary:encode_unsigned/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "unsigned",
+      "Case": "encode1_float",
+      "Mfas": [
+        "binary:encode_unsigned/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "unsigned",
+      "Case": "encode1_list",
+      "Mfas": [
+        "binary:encode_unsigned/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "unsigned",
+      "Case": "encode1_negative",
+      "Mfas": [
+        "binary:encode_unsigned/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "unsigned",
+      "Case": "encode2_atom",
+      "Mfas": [
+        "binary:encode_unsigned/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "unsigned",
+      "Case": "encode2_float",
+      "Mfas": [
+        "binary:encode_unsigned/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "unsigned",
+      "Case": "encode2_list",
+      "Mfas": [
+        "binary:encode_unsigned/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "unsigned",
+      "Case": "encode2_negative",
+      "Mfas": [
+        "binary:encode_unsigned/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "unsigned",
+      "Case": "encode_bothbad_atom",
+      "Mfas": [
+        "binary:encode_unsigned/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "unsigned",
+      "Case": "encode_bothbad_integer",
+      "Mfas": [
+        "binary:encode_unsigned/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "unsigned",
+      "Case": "encode_bothbad_list",
+      "Mfas": [
+        "binary:encode_unsigned/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "unsigned",
+      "Case": "encode_bothbad_native",
+      "Mfas": [
+        "binary:encode_unsigned/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "unsigned",
+      "Case": "encode_endian_atom",
+      "Mfas": [
+        "binary:encode_unsigned/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "unsigned",
+      "Case": "encode_endian_integer",
+      "Mfas": [
+        "binary:encode_unsigned/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "unsigned",
+      "Case": "encode_endian_list",
+      "Mfas": [
+        "binary:encode_unsigned/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "unsigned",
+      "Case": "encode_endian_native",
+      "Mfas": [
+        "binary:encode_unsigned/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "decode_hex1_atom",
+      "Mfas": [
+        "binary:decode_hex/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "decode_hex1_bits1",
+      "Mfas": [
+        "binary:decode_hex/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "decode_hex1_bits17",
+      "Mfas": [
+        "binary:decode_hex/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "decode_hex1_bits65",
+      "Mfas": [
+        "binary:decode_hex/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "decode_hex1_bits7",
+      "Mfas": [
+        "binary:decode_hex/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "decode_hex1_bytes",
+      "Mfas": [
+        "binary:decode_hex/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "decode_hex1_invalid",
+      "Mfas": [
+        "binary:decode_hex/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "decode_hex1_odd",
+      "Mfas": [
+        "binary:decode_hex/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "encode_hex1_atom",
+      "Mfas": [
+        "binary:encode_hex/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "encode_hex1_bits1",
+      "Mfas": [
+        "binary:encode_hex/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "encode_hex1_bits15",
+      "Mfas": [
+        "binary:encode_hex/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "encode_hex1_bits17",
+      "Mfas": [
+        "binary:encode_hex/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "encode_hex1_bits63",
+      "Mfas": [
+        "binary:encode_hex/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "encode_hex1_bits65",
+      "Mfas": [
+        "binary:encode_hex/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "encode_hex1_bits7",
+      "Mfas": [
+        "binary:encode_hex/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "encode_hex1_bits9",
+      "Mfas": [
+        "binary:encode_hex/1"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "hex2_bothbad",
+      "Mfas": [
+        "binary:encode_hex/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "hex2_int",
+      "Mfas": [
+        "binary:encode_hex/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "hex2_invalid",
+      "Mfas": [
+        "binary:encode_hex/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "hex2_list",
+      "Mfas": [
+        "binary:encode_hex/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "join_atom",
+      "Mfas": [
+        "binary:join/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "join_badlater",
+      "Mfas": [
+        "binary:join/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "join_badone",
+      "Mfas": [
+        "binary:join/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "join_badsep_atom",
+      "Mfas": [
+        "binary:join/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "join_badsep_badlater",
+      "Mfas": [
+        "binary:join/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "join_badsep_badone",
+      "Mfas": [
+        "binary:join/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "join_badsep_bits",
+      "Mfas": [
+        "binary:join/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "join_badsep_empty",
+      "Mfas": [
+        "binary:join/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "join_badsep_improper",
+      "Mfas": [
+        "binary:join/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "join_badsep_many",
+      "Mfas": [
+        "binary:join/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "join_badsep_singleton",
+      "Mfas": [
+        "binary:join/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "join_bits",
+      "Mfas": [
+        "binary:join/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "join_improper",
+      "Mfas": [
+        "binary:join/2"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "replace3_funarity0",
+      "Mfas": [
+        "binary:replace/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "replace3_funbad",
+      "Mfas": [
+        "binary:replace/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "replace3_funbadlater",
+      "Mfas": [
+        "binary:replace/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "replace3_funerror",
+      "Mfas": [
+        "binary:replace/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "replace3_funexit",
+      "Mfas": [
+        "binary:replace/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "replace3_funthrowbadopt",
+      "Mfas": [
+        "binary:replace/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "replace3_invalid",
+      "Mfas": [
+        "binary:replace/3"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "replace4_binary_atom",
+      "Mfas": [
+        "binary:replace/4"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "replace4_binary_badscope",
+      "Mfas": [
+        "binary:replace/4"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "replace4_binary_improper",
+      "Mfas": [
+        "binary:replace/4"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "replace4_binary_insertatom",
+      "Mfas": [
+        "binary:replace/4"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "replace4_binary_insertimproper",
+      "Mfas": [
+        "binary:replace/4"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "replace4_binary_insertnegative",
+      "Mfas": [
+        "binary:replace/4"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "replace4_binary_insertoutside",
+      "Mfas": [
+        "binary:replace/4"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "replace4_binary_unknown",
+      "Mfas": [
+        "binary:replace/4"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "replace4_bothbad_precedence",
+      "Mfas": [
+        "binary:replace/4"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "replace4_fun_atom",
+      "Mfas": [
+        "binary:replace/4"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "replace4_fun_badscope",
+      "Mfas": [
+        "binary:replace/4"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "replace4_fun_improper",
+      "Mfas": [
+        "binary:replace/4"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "replace4_fun_unknown",
+      "Mfas": [
+        "binary:replace/4"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "replace4_funarity0",
+      "Mfas": [
+        "binary:replace/4"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "replace4_funbad",
+      "Mfas": [
+        "binary:replace/4"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "replace4_funbadlater",
+      "Mfas": [
+        "binary:replace/4"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "replace4_funerror",
+      "Mfas": [
+        "binary:replace/4"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "replace4_funexit",
+      "Mfas": [
+        "binary:replace/4"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "replace4_funthrowbadopt",
+      "Mfas": [
+        "binary:replace/4"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "replace4_global_all_bad",
+      "Mfas": [
+        "binary:replace/4"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "replace4_global_later_bad",
+      "Mfas": [
+        "binary:replace/4"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "replace4_insert_invalid_nomatch",
+      "Mfas": [
+        "binary:replace/4"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "replace4_invalid",
+      "Mfas": [
+        "binary:replace/4"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    },
+    {
+      "Group": "wrappers",
+      "Case": "replace4_search_before_insert",
+      "Mfas": [
+        "binary:replace/4"
+      ],
+      "OpaqueOnly": false,
+      "Depths": [
+        "('atom', 'default')",
+        "('integer', 0)",
+        "('integer', 1)",
+        "('integer', 2)",
+        "('integer', 8)"
+      ]
+    }
+  ],
+  "TopFrameDifferences": [
+    {
+      "Group": "list_conversion",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'bin_to_list'), ('list', (('bit_binary', b'\\x00\\x00', 1),)), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1147))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'bin_to_list'), ('list', (('bit_binary', b'\\x00\\x00', 1),)), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "list_conversion",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'bin_to_list'), ('list', (('atom', 'bad'),)), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1147))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'bin_to_list'), ('list', (('atom', 'bad'),)), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "list_conversion",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'bin_to_list'), ('list', (('bit_binary', b'\\x00\\x00', 1), ('tuple', (('integer', 0), ('integer', 0))))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1147))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'bin_to_list'), ('list', (('bit_binary', b'\\x00\\x00', 1), ('tuple', (('integer', 0), ('integer', 0))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "list_conversion",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'bin_to_list'), ('list', (('atom', 'bad'), ('tuple', (('integer', 0), ('integer', 0))))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1147))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'bin_to_list'), ('list', (('atom', 'bad'), ('tuple', (('integer', 0), ('integer', 0))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "list_conversion",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'bin_to_list'), ('list', (('bit_binary', b'\\x00\\x00', 1), ('integer', 0), ('integer', 0))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'bin_to_list'), ('list', (('bit_binary', b'\\x00\\x00', 1), ('integer', 0), ('integer', 0))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "list_conversion",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'bin_to_list'), ('list', (('atom', 'bad'), ('integer', 0), ('integer', 0))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'bin_to_list'), ('list', (('atom', 'bad'), ('integer', 0), ('integer', 0))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "list_conversion",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'bin_to_list'), ('list', (('binary', b'\\x01\\x02\\x03'), ('tuple', (('integer', 1), ('integer', -2))))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1147))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'bin_to_list'), ('list', (('binary', b'\\x01\\x02\\x03'), ('tuple', (('integer', 1), ('integer', -2))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "list_conversion",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'bin_to_list'), ('list', (('binary', b'\\x01\\x02'), ('tuple', (('integer', 0), ('integer', 1), ('integer', 2))))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'bin_to_list'), ('list', (('binary', b'\\x01\\x02'), ('tuple', (('integer', 0), ('integer', 1), ('integer', 2))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "list_conversion",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'bin_to_list'), ('list', (('atom', 'bad'), ('tuple', (('atom', 'bad'), ('atom', 'bad'))))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1147))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'bin_to_list'), ('list', (('atom', 'bad'), ('tuple', (('atom', 'bad'), ('atom', 'bad'))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "list_conversion",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'bin_to_list'), ('list', (('binary', b'\\x01\\x02\\x03'), ('integer', 2), ('integer', 2))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1147))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'bin_to_list'), ('list', (('binary', b'\\x01\\x02\\x03'), ('integer', 2), ('integer', 2))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "list_conversion",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'bin_to_list'), ('list', (('binary', b'\\x01\\x02\\x03'), ('integer', -1), ('integer', 1))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1147))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'bin_to_list'), ('list', (('binary', b'\\x01\\x02\\x03'), ('integer', -1), ('integer', 1))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "list_conversion",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'bin_to_list'), ('list', (('binary', b'\\x01\\x02\\x03'), ('integer', 0), ('integer', 36893488147419103232))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1147))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'bin_to_list'), ('list', (('binary', b'\\x01\\x02\\x03'), ('integer', 0), ('integer', 36893488147419103232))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "list_conversion",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'bin_to_list'), ('list', (('binary', b'\\x01\\x02\\x03'), ('integer', 36893488147419103232), ('integer', 0))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'bin_to_list'), ('list', (('binary', b'\\x01\\x02\\x03'), ('integer', 36893488147419103232), ('integer', 0))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'encode_hex'), ('list', (('atom', 'bad'),)), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1147))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'encode_hex'), ('list', (('atom', 'bad'),)), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'encode_hex'), ('list', (('bit_binary', b'\\x00', 1),)), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1147))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'encode_hex'), ('list', (('bit_binary', b'\\x00', 1),)), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'encode_hex'), ('list', (('bit_binary', b'\\x00', 7),)), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1147))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'encode_hex'), ('list', (('bit_binary', b'\\x00', 7),)), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'encode_hex'), ('list', (('bit_binary', b'\\x00\\x00', 1),)), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1147))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'encode_hex'), ('list', (('bit_binary', b'\\x00\\x00', 1),)), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'encode_hex'), ('list', (('bit_binary', b'\\x00\\x00', 7),)), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1147))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'encode_hex'), ('list', (('bit_binary', b'\\x00\\x00', 7),)), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'encode_hex'), ('list', (('bit_binary', b'\\x00\\x00\\x00', 1),)), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1147))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'encode_hex'), ('list', (('bit_binary', b'\\x00\\x00\\x00', 1),)), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'encode_hex'), ('list', (('bit_binary', b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00', 7),)), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1147))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'encode_hex'), ('list', (('bit_binary', b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00', 7),)), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'encode_hex'), ('list', (('bit_binary', b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00', 1),)), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1147))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'encode_hex'), ('list', (('bit_binary', b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00', 1),)), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'decode_hex'), ('list', (('binary', b'\\x00\\x0f\\x10\\x7f\\x80\\xff'),)), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'decode_hex'), ('list', (('binary', b'\\x00\\x0f\\x10\\x7f\\x80\\xff'),)), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'decode_hex'), ('list', (('binary', b'G0'),)), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'decode_hex'), ('list', (('binary', b'G0'),)), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'decode_hex'), ('list', (('binary', b'A'),)), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'decode_hex'), ('list', (('binary', b'A'),)), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'decode_hex'), ('list', (('atom', 'bad'),)), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'decode_hex'), ('list', (('atom', 'bad'),)), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'decode_hex'), ('list', (('bit_binary', b'\\x00', 1),)), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'decode_hex'), ('list', (('bit_binary', b'\\x00', 1),)), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'decode_hex'), ('list', (('bit_binary', b'\\x00', 7),)), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'decode_hex'), ('list', (('bit_binary', b'\\x00', 7),)), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'decode_hex'), ('list', (('bit_binary', b'\\x00\\x00\\x00', 1),)), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'decode_hex'), ('list', (('bit_binary', b'\\x00\\x00\\x00', 1),)), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'decode_hex'), ('list', (('bit_binary', b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00', 1),)), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'decode_hex'), ('list', (('bit_binary', b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00', 1),)), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'encode_hex'), ('list', (('binary', b'\\x00\\x0f\\x10\\xff'), ('atom', 'bad'))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1147))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'encode_hex'), ('list', (('binary', b'\\x00\\x0f\\x10\\xff'), ('atom', 'bad'))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'encode_hex'), ('list', (('binary', b'\\x00\\x0f\\x10\\xff'), ('list', ()))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1147))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'encode_hex'), ('list', (('binary', b'\\x00\\x0f\\x10\\xff'), ('list', ()))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'encode_hex'), ('list', (('binary', b'\\x00\\x0f\\x10\\xff'), ('integer', 1))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1147))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'encode_hex'), ('list', (('binary', b'\\x00\\x0f\\x10\\xff'), ('integer', 1))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'encode_hex'), ('list', (('atom', 'bad'), ('atom', 'bad'))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1147))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'encode_hex'), ('list', (('atom', 'bad'), ('atom', 'bad'))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'join'), ('list', (('list', ()), ('atom', 'bad'))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'join'), ('list', (('list', ()), ('atom', 'bad'))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'join'), ('list', (('list', (('binary', b'a'),)), ('atom', 'bad'))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'join'), ('list', (('list', (('binary', b'a'),)), ('atom', 'bad'))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'join'), ('list', (('list', (('binary', b'a'), ('binary', b'b'), ('binary', b''))), ('atom', 'bad'))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'join'), ('list', (('list', (('binary', b'a'), ('binary', b'b'), ('binary', b''))), ('atom', 'bad'))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'join'), ('list', (('improper', (('binary', b'a'),), ('atom', 'bad')), ('binary', b','))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'join'), ('list', (('improper', (('binary', b'a'),), ('atom', 'bad')), ('binary', b','))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'join'), ('list', (('improper', (('binary', b'a'),), ('atom', 'bad')), ('atom', 'bad'))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'join'), ('list', (('improper', (('binary', b'a'),), ('atom', 'bad')), ('atom', 'bad'))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'join'), ('list', (('list', (('atom', 'bad'),)), ('binary', b','))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'join'), ('list', (('list', (('atom', 'bad'),)), ('binary', b','))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'join'), ('list', (('list', (('atom', 'bad'),)), ('atom', 'bad'))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'join'), ('list', (('list', (('atom', 'bad'),)), ('atom', 'bad'))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'join'), ('list', (('list', (('binary', b'a'), ('atom', 'bad'))), ('binary', b','))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'join'), ('list', (('list', (('binary', b'a'), ('atom', 'bad'))), ('binary', b','))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'join'), ('list', (('list', (('binary', b'a'), ('atom', 'bad'))), ('atom', 'bad'))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'join'), ('list', (('list', (('binary', b'a'), ('atom', 'bad'))), ('atom', 'bad'))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'join'), ('list', (('list', (('bit_binary', b'\\x00\\x00', 1),)), ('binary', b','))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'join'), ('list', (('list', (('bit_binary', b'\\x00\\x00', 1),)), ('binary', b','))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'join'), ('list', (('list', (('bit_binary', b'\\x00\\x00', 1),)), ('atom', 'bad'))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'join'), ('list', (('list', (('bit_binary', b'\\x00\\x00', 1),)), ('atom', 'bad'))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'join'), ('list', (('atom', 'bad'), ('binary', b','))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'join'), ('list', (('atom', 'bad'), ('binary', b','))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'join'), ('list', (('atom', 'bad'), ('atom', 'bad'))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'join'), ('list', (('atom', 'bad'), ('atom', 'bad'))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('export_fun', ('atom', 'binary_all369_support'), ('atom', 'replace_bad'), ('integer', 1)))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1147))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('export_fun', ('atom', 'binary_all369_support'), ('atom', 'replace_bad'), ('integer', 1)))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('export_fun', ('atom', 'binary_all369_support'), ('atom', 'replace_bad_later'), ('integer', 1)))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1147))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('export_fun', ('atom', 'binary_all369_support'), ('atom', 'replace_bad_later'), ('integer', 1)))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('export_fun', ('atom', 'binary_all369_support'), ('atom', 'replace_throw_badopt'), ('integer', 1)))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1147))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('export_fun', ('atom', 'binary_all369_support'), ('atom', 'replace_throw_badopt'), ('integer', 1)))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('export_fun', ('atom', 'binary_all369_support'), ('atom', 'replace_error'), ('integer', 1)))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1147))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('export_fun', ('atom', 'binary_all369_support'), ('atom', 'replace_error'), ('integer', 1)))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('export_fun', ('atom', 'binary_all369_support'), ('atom', 'replace_exit'), ('integer', 1)))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1147))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('export_fun', ('atom', 'binary_all369_support'), ('atom', 'replace_exit'), ('integer', 1)))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('export_fun', ('atom', 'binary_all369_support'), ('atom', 'zero'), ('integer', 0)))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1147))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('export_fun', ('atom', 'binary_all369_support'), ('atom', 'zero'), ('integer', 0)))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('atom', 'bad'))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1147))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('atom', 'bad'))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('export_fun', ('atom', 'binary_all369_support'), ('atom', 'replace_bad'), ('integer', 1)), ('list', ()))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('export_fun', ('atom', 'binary_all369_support'), ('atom', 'replace_bad'), ('integer', 1)), ('list', ()))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('export_fun', ('atom', 'binary_all369_support'), ('atom', 'replace_bad_later'), ('integer', 1)), ('list', ()))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('export_fun', ('atom', 'binary_all369_support'), ('atom', 'replace_bad_later'), ('integer', 1)), ('list', ()))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('export_fun', ('atom', 'binary_all369_support'), ('atom', 'replace_throw_badopt'), ('integer', 1)), ('list', ()))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1141))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'cause'), ('atom', 'badopt')), (('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('export_fun', ('atom', 'binary_all369_support'), ('atom', 'replace_throw_badopt'), ('integer', 1)), ('list', ()))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'cause'), ('atom', 'badopt')), (('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('export_fun', ('atom', 'binary_all369_support'), ('atom', 'replace_error'), ('integer', 1)), ('list', ()))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('export_fun', ('atom', 'binary_all369_support'), ('atom', 'replace_error'), ('integer', 1)), ('list', ()))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('export_fun', ('atom', 'binary_all369_support'), ('atom', 'replace_exit'), ('integer', 1)), ('list', ()))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('export_fun', ('atom', 'binary_all369_support'), ('atom', 'replace_exit'), ('integer', 1)), ('list', ()))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('export_fun', ('atom', 'binary_all369_support'), ('atom', 'zero'), ('integer', 0)), ('list', ()))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('export_fun', ('atom', 'binary_all369_support'), ('atom', 'zero'), ('integer', 0)), ('list', ()))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('atom', 'bad'), ('list', ()))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('atom', 'bad'), ('list', ()))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('binary', b'X'), ('list', (('tuple', (('atom', 'scope'), ('atom', 'bad'))),)))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1141))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'cause'), ('atom', 'badopt')), (('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('binary', b'X'), ('list', (('tuple', (('atom', 'scope'), ('atom', 'bad'))),)))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'cause'), ('atom', 'badopt')), (('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('export_fun', ('atom', 'binary_all369_support'), ('atom', 'replace_iolist'), ('integer', 1)), ('list', (('tuple', (('atom', 'scope'), ('atom', 'bad'))),)))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1141))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'cause'), ('atom', 'badopt')), (('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('export_fun', ('atom', 'binary_all369_support'), ('atom', 'replace_iolist'), ('integer', 1)), ('list', (('tuple', (('atom', 'scope'), ('atom', 'bad'))),)))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'cause'), ('atom', 'badopt')), (('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('binary', b'X'), ('list', (('atom', 'bad'),)))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1141))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'cause'), ('atom', 'badopt')), (('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('binary', b'X'), ('list', (('atom', 'bad'),)))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'cause'), ('atom', 'badopt')), (('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('export_fun', ('atom', 'binary_all369_support'), ('atom', 'replace_iolist'), ('integer', 1)), ('list', (('atom', 'bad'),)))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1141))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'cause'), ('atom', 'badopt')), (('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('export_fun', ('atom', 'binary_all369_support'), ('atom', 'replace_iolist'), ('integer', 1)), ('list', (('atom', 'bad'),)))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'cause'), ('atom', 'badopt')), (('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('binary', b'X'), ('atom', 'bad'))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1141))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'cause'), ('atom', 'badopt')), (('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('binary', b'X'), ('atom', 'bad'))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'cause'), ('atom', 'badopt')), (('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('export_fun', ('atom', 'binary_all369_support'), ('atom', 'replace_iolist'), ('integer', 1)), ('atom', 'bad'))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1141))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'cause'), ('atom', 'badopt')), (('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('export_fun', ('atom', 'binary_all369_support'), ('atom', 'replace_iolist'), ('integer', 1)), ('atom', 'bad'))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'cause'), ('atom', 'badopt')), (('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('binary', b'X'), ('improper', (('atom', 'global'),), ('atom', 'bad')))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1141))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'cause'), ('atom', 'badopt')), (('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('binary', b'X'), ('improper', (('atom', 'global'),), ('atom', 'bad')))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'cause'), ('atom', 'badopt')), (('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('export_fun', ('atom', 'binary_all369_support'), ('atom', 'replace_iolist'), ('integer', 1)), ('improper', (('atom', 'global'),), ('atom', 'bad')))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1141))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'cause'), ('atom', 'badopt')), (('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('export_fun', ('atom', 'binary_all369_support'), ('atom', 'replace_iolist'), ('integer', 1)), ('improper', (('atom', 'global'),), ('atom', 'bad')))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'cause'), ('atom', 'badopt')), (('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('binary', b'X'), ('list', (('tuple', (('atom', 'insert_replaced'), ('integer', -1))),)))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('binary', b'X'), ('list', (('tuple', (('atom', 'insert_replaced'), ('integer', -1))),)))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('binary', b'X'), ('list', (('tuple', (('atom', 'insert_replaced'), ('integer', 99))),)))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('binary', b'X'), ('list', (('tuple', (('atom', 'insert_replaced'), ('integer', 99))),)))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('binary', b'X'), ('list', (('tuple', (('atom', 'insert_replaced'), ('atom', 'bad'))),)))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('binary', b'X'), ('list', (('tuple', (('atom', 'insert_replaced'), ('atom', 'bad'))),)))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('binary', b'X'), ('list', (('tuple', (('atom', 'insert_replaced'), ('improper', (('integer', 0),), ('atom', 'bad')))),)))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'ababa'), ('binary', b'a'), ('binary', b'X'), ('list', (('tuple', (('atom', 'insert_replaced'), ('improper', (('integer', 0),), ('atom', 'bad')))),)))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'aaa'), ('binary', b'a'), ('export_fun', ('atom', 'binary_all369_support'), ('atom', 'replace_bad'), ('integer', 1)), ('list', (('atom', 'global'),)))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'aaa'), ('binary', b'a'), ('export_fun', ('atom', 'binary_all369_support'), ('atom', 'replace_bad'), ('integer', 1)), ('list', (('atom', 'global'),)))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'aaa'), ('binary', b'a'), ('export_fun', ('atom', 'binary_all369_support'), ('atom', 'replace_bad_later'), ('integer', 1)), ('list', (('atom', 'global'),)))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'aaa'), ('binary', b'a'), ('export_fun', ('atom', 'binary_all369_support'), ('atom', 'replace_bad_later'), ('integer', 1)), ('list', (('atom', 'global'),)))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'abc'), ('binary', b'x'), ('binary', b'Y'), ('list', (('tuple', (('atom', 'insert_replaced'), ('integer', 9))),)))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('binary', b'abc'), ('binary', b'x'), ('binary', b'Y'), ('list', (('tuple', (('atom', 'insert_replaced'), ('integer', 9))),)))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('atom', 'bad'), ('binary', b''), ('atom', 'bad'), ('list', (('atom', 'bad'),)))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('atom', 'bad'), ('binary', b''), ('atom', 'bad'), ('list', (('atom', 'bad'),)))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "wrappers",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('atom', 'bad'), ('binary', b''), ('binary', b'X'), ('list', (('tuple', (('atom', 'insert_replaced'), ('atom', 'bad'))),)))), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1144))), ('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))}))))))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'replace'), ('list', (('atom', 'bad'), ('binary', b''), ('binary', b'X'), ('list', (('tuple', (('atom', 'insert_replaced'), ('atom', 'bad'))),)))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 5
+    },
+    {
+      "Group": "patterns_match",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'match'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'bm'), ('reference', ('atom', 'nonode@nohost'), 0, (215332, 2984509441, 1651623484), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'match'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'bm'), ('reference', ('atom', 'nonode@nohost'), 0, (3, 0, 0), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 1
+    },
+    {
+      "Group": "patterns_match",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'match'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'ac'), ('reference', ('atom', 'nonode@nohost'), 0, (215333, 2984640513, 1651623484), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'match'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'ac'), ('reference', ('atom', 'nonode@nohost'), 0, (250875, 1694629888, 3706042749), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 1
+    },
+    {
+      "Group": "patterns_match",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'match'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'bm'), ('reference', ('atom', 'nonode@nohost'), 0, (215367, 2984509441, 1651623484), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'match'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'bm'), ('reference', ('atom', 'nonode@nohost'), 0, (4, 0, 0), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 1
+    },
+    {
+      "Group": "patterns_match",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'match'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'ac'), ('reference', ('atom', 'nonode@nohost'), 0, (215368, 2984640513, 1651623484), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'match'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'ac'), ('reference', ('atom', 'nonode@nohost'), 0, (78165, 532021248, 3374024823), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 1
+    },
+    {
+      "Group": "patterns_match",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'match'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'bm'), ('reference', ('atom', 'nonode@nohost'), 0, (215402, 2984509441, 1651623484), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'match'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'bm'), ('reference', ('atom', 'nonode@nohost'), 0, (5, 0, 0), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 1
+    },
+    {
+      "Group": "patterns_match",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'match'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'ac'), ('reference', ('atom', 'nonode@nohost'), 0, (215403, 2984640513, 1651623484), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'match'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'ac'), ('reference', ('atom', 'nonode@nohost'), 0, (25935, 112590848, 3216828777), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 1
+    },
+    {
+      "Group": "patterns_match",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'match'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'bm'), ('reference', ('atom', 'nonode@nohost'), 0, (215437, 2984509441, 1651623484), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'match'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'bm'), ('reference', ('atom', 'nonode@nohost'), 0, (6, 0, 0), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 1
+    },
+    {
+      "Group": "patterns_match",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'match'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'ac'), ('reference', ('atom', 'nonode@nohost'), 0, (215438, 2984640513, 1651623484), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'match'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'ac'), ('reference', ('atom', 'nonode@nohost'), 0, (114465, 190971904, 4166750270), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 1
+    },
+    {
+      "Group": "patterns_match",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'match'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'bm'), ('reference', ('atom', 'nonode@nohost'), 0, (215472, 2984509441, 1651623484), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'match'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'bm'), ('reference', ('atom', 'nonode@nohost'), 0, (7, 0, 0), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 1
+    },
+    {
+      "Group": "patterns_match",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'match'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'ac'), ('reference', ('atom', 'nonode@nohost'), 0, (215473, 2984640513, 1651623484), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'match'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'ac'), ('reference', ('atom', 'nonode@nohost'), 0, (86027, 685113344, 4044198741), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 1
+    },
+    {
+      "Group": "matches_split",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'matches'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'bm'), ('reference', ('atom', 'nonode@nohost'), 0, (107614, 2985033729, 2190721886), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'matches'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'bm'), ('reference', ('atom', 'nonode@nohost'), 0, (4, 0, 0), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 1
+    },
+    {
+      "Group": "matches_split",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'matches'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'ac'), ('reference', ('atom', 'nonode@nohost'), 0, (107615, 2985164801, 2190721886), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'matches'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'ac'), ('reference', ('atom', 'nonode@nohost'), 0, (74526, 2302803968, 2891871663), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 1
+    },
+    {
+      "Group": "matches_split",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'split'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'bm'), ('reference', ('atom', 'nonode@nohost'), 0, (107634, 2985033729, 2190721886), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'split'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'bm'), ('reference', ('atom', 'nonode@nohost'), 0, (5, 0, 0), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 1
+    },
+    {
+      "Group": "matches_split",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'split'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'ac'), ('reference', ('atom', 'nonode@nohost'), 0, (107635, 2985164801, 2190721886), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'split'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'ac'), ('reference', ('atom', 'nonode@nohost'), 0, (234531, 2151546880, 1171356681), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 1
+    },
+    {
+      "Group": "matches_split",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'matches'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'bm'), ('reference', ('atom', 'nonode@nohost'), 0, (107669, 2985033729, 2190721886), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'matches'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'bm'), ('reference', ('atom', 'nonode@nohost'), 0, (6, 0, 0), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 1
+    },
+    {
+      "Group": "matches_split",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'matches'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'ac'), ('reference', ('atom', 'nonode@nohost'), 0, (107670, 2985164801, 2190721886), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'matches'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'ac'), ('reference', ('atom', 'nonode@nohost'), 0, (163846, 3594387456, 2842118974), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 1
+    },
+    {
+      "Group": "matches_split",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'split'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'bm'), ('reference', ('atom', 'nonode@nohost'), 0, (107689, 2985033729, 2190721886), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'split'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'bm'), ('reference', ('atom', 'nonode@nohost'), 0, (7, 0, 0), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 1
+    },
+    {
+      "Group": "matches_split",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'split'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'ac'), ('reference', ('atom', 'nonode@nohost'), 0, (107690, 2985164801, 2190721886), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'split'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'ac'), ('reference', ('atom', 'nonode@nohost'), 0, (10028, 3896901632, 3123973593), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 1
+    },
+    {
+      "Group": "matches_split",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'matches'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'bm'), ('reference', ('atom', 'nonode@nohost'), 0, (107724, 2985033729, 2190721886), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'matches'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'bm'), ('reference', ('atom', 'nonode@nohost'), 0, (8, 0, 0), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 1
+    },
+    {
+      "Group": "matches_split",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'matches'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'ac'), ('reference', ('atom', 'nonode@nohost'), 0, (107725, 2985164801, 2190721886), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'matches'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'ac'), ('reference', ('atom', 'nonode@nohost'), 0, (166366, 1630142464, 4145092205), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 1
+    },
+    {
+      "Group": "matches_split",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'split'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'bm'), ('reference', ('atom', 'nonode@nohost'), 0, (107744, 2985033729, 2190721886), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'split'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'bm'), ('reference', ('atom', 'nonode@nohost'), 0, (9, 0, 0), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 1
+    },
+    {
+      "Group": "matches_split",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'split'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'ac'), ('reference', ('atom', 'nonode@nohost'), 0, (107745, 2985164801, 2190721886), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'split'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'ac'), ('reference', ('atom', 'nonode@nohost'), 0, (139663, 1713766400, 566111128), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 1
+    },
+    {
+      "Group": "matches_split",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'matches'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'bm'), ('reference', ('atom', 'nonode@nohost'), 0, (107779, 2985033729, 2190721886), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'matches'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'bm'), ('reference', ('atom', 'nonode@nohost'), 0, (10, 0, 0), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 1
+    },
+    {
+      "Group": "matches_split",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'matches'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'ac'), ('reference', ('atom', 'nonode@nohost'), 0, (107780, 2985164801, 2190721886), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'matches'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'ac'), ('reference', ('atom', 'nonode@nohost'), 0, (158864, 3911319552, 3447073596), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 1
+    },
+    {
+      "Group": "matches_split",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'split'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'bm'), ('reference', ('atom', 'nonode@nohost'), 0, (107799, 2985033729, 2190721886), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'split'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'bm'), ('reference', ('atom', 'nonode@nohost'), 0, (11, 0, 0), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 1
+    },
+    {
+      "Group": "matches_split",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'split'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'ac'), ('reference', ('atom', 'nonode@nohost'), 0, (107800, 2985164801, 2190721886), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'split'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'ac'), ('reference', ('atom', 'nonode@nohost'), 0, (89963, 1581121536, 2599000942), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 1
+    },
+    {
+      "Group": "matches_split",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'matches'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'bm'), ('reference', ('atom', 'nonode@nohost'), 0, (107834, 2985033729, 2190721886), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'matches'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'bm'), ('reference', ('atom', 'nonode@nohost'), 0, (12, 0, 0), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 1
+    },
+    {
+      "Group": "matches_split",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'matches'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'ac'), ('reference', ('atom', 'nonode@nohost'), 0, (107835, 2985164801, 2190721886), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'matches'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'ac'), ('reference', ('atom', 'nonode@nohost'), 0, (146231, 135397376, 2508126120), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 1
+    },
+    {
+      "Group": "matches_split",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'split'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'bm'), ('reference', ('atom', 'nonode@nohost'), 0, (107854, 2985033729, 2190721886), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'split'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'bm'), ('reference', ('atom', 'nonode@nohost'), 0, (13, 0, 0), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 1
+    },
+    {
+      "Group": "matches_split",
+      "Original": "('tuple', (('atom', 'binary'), ('atom', 'split'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'ac'), ('reference', ('atom', 'nonode@nohost'), 0, (107855, 2985164801, 2190721886), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Sdk": "('tuple', (('atom', 'binary'), ('atom', 'split'), ('list', (('binary', b'abcabc'), ('tuple', (('atom', 'ac'), ('reference', ('atom', 'nonode@nohost'), 0, (11111, 1619918848, 2808974438), 90))))), ('list', (('tuple', (('atom', 'error_info'), ('map', frozenset({(('atom', 'module'), ('atom', 'erl_stdlib_errors'))})))),))))",
+      "Count": 1
+    }
+  ],
+  "OriginalAdmissionSha256": "DAFEA0BFAD08C1BE2975C81D342C729B816717D5BA213FD6710BDE4EE6301FF6",
+  "ComparisonSha256": "52369E9FA4CC33178F14AC148D1BD7F99E0AA28F794AE2C5C15045C15B164C3A",
+  "Projection": false,
+  "Normalization": false,
+  "CompatibilityPromoted": false
+}

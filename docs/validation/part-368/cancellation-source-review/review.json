@@ -1,0 +1,29 @@
+{
+  "Status": "ACTUAL_HOST_EXPOSED_REAL_CANCELLATION_ENTRY_GAP_SOURCE_FIX_REVIEWED_EXECUTION_PENDING",
+  "FailedActualCases": [
+    "FilterRearUnwind cancel",
+    "DeleteFrontNoMatch cancel",
+    "DeleteRearNoMatch cancel"
+  ],
+  "CorrectionToPriorCommentary": "The earlier queued-signal explanation was wrong for this public API. ProcessRuntime.Exit calls Signal, which calls Terminate directly for kill; Terminate cancels the process token via Stop.Cancel. The original failed control is not dismissed as infrastructure or invalid-test-only.",
+  "FailureMechanism": [
+    "ChargeAsync at a real reduction yield resumes and performs its post-yield cancellation check before completing its awaitable.",
+    "The consumer continuation can then remain queued in the actual test SynchronizationContext. A direct kill can cancel the worker after that completed check but before the consumer continuation resumes.",
+    "Before the fix, QueueHigherTrace.Invoke had no callback-entry checkpoint. That resumed consumer could invoke a callback with an already-canceled process token before reaching the next traversal reduction."
+  ],
+  "ReviewedFix": [
+    "Await actual context.ChargeAsync(0) as the first statement of QueueHigherTrace.Invoke, before history/current generated-frame scopes and callback invocation.",
+    "Zero charge performs genuine halt/cancellation/suspension admission without incrementing reductions. It closes the already-canceled consumer-entry window while retaining the native source reduction/own-entry protocols.",
+    "Generated frames and callback exception capture remain after the checkpoint. Normal guest error frame fields and argument order are unchanged; OperationCanceledException remains actor control flow, not a synthetic guest stack."
+  ],
+  "ReviewedHostRepair": "Each actual callback reads the public ProcessContext.Cancellation token at entry and counts callbacks entered after cancellation. Cancel outcomes require zero such callbacks plus canceled operation/killed completion/finally-unwind/deadPID. Counters may advance before token cancellation; request-time equality is not used as the sole oracle.",
+  "SourceScopeLimit": "This is cooperative callback-entry admission, not asynchronous preemption of a callback already running or an atomic cross-thread guarantee against cancellation arriving after the checkpoint. The deterministic witness cancels while the actual continuation is held, then resumes it.",
+  "PreservedEvidence": "Frozen proposal1 and first actual failed report remain unchanged. No failure reclassification or assertion weakening to green occurred in this review.",
+  "RequiredGates": [
+    "Root reruns all16 repaired HOST boundaries against fixed Main DLLs.",
+    "Fresh final native replay after this production delta, including all whole-frame callback profiles.",
+    "Refresh QueueHigherTrace guard to exact styled final hash; retain all prior ledger classifications until actual gates pass."
+  ],
+  "NoMainWritesBuildSdkNativeCiNetwork": true,
+  "NewClassifications": 0
+}

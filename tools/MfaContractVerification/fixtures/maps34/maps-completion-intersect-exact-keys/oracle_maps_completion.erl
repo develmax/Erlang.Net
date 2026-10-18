@@ -1,0 +1,1 @@
+-module(oracle_maps_completion). -export([run/0]). run()->#{1:=right_integer,1.0:=right_float}=maps:intersect(#{1=>integer,1.0=>float},#{1=>right_integer,1.0=>right_float}),0=maps:size(maps:intersect(#{1=>integer},#{1.0=>float})),done.

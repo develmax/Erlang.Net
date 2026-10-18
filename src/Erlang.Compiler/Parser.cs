@@ -235,6 +235,8 @@ public sealed class Parser
             if (!nativeRecords.ContainsKey(name))
                 throw RecordError(records.ContainsKey(name) ? NativeRecordDiagnostics.TupleExport : NativeRecordDiagnostics.Undefined(name));
         }
+        ComprehensionSourceBindings.Bind(result);
+        SourceContinuationBindings.Bind(result);
         Semantics.Validate(result);
 
         return result;
@@ -543,7 +545,13 @@ public sealed class Parser
                 {
                     var qualifiers = ComprehensionQualifiers(ErlangSyntaxTokens.CloseList);
 
-                    return new Expr.ListComprehension(items, qualifiers);
+                    int lineIndex = Array.BinarySearch(sourceLineStarts, sourceStart);
+                    int line = lineIndex >= 0 ? lineIndex + 1 : ~lineIndex;
+
+                    return new Expr.ListComprehension(items, qualifiers)
+                    {
+                        Source = new ComprehensionSource(line, sourceStart)
+                    };
                 }
                 if (Take(ErlangSyntaxTokens.ListTail))
                     tail = Expression();
@@ -614,7 +622,7 @@ public sealed class Parser
                 } while (Take(ErlangSyntaxTokens.ZipGeneratorSeparator));
                 if (group.Any(generator => ComprehensionGenerator.From(generator) is null))
                     throw Error(ParserDiagnostics.IllegalZipGenerator);
-                qualifier = new ComprehensionQualifier.Zip(group);
+                qualifier = new ComprehensionQualifier.Zip(group) { SourceLine = group[0].SourceLine };
             }
             qualifiers.Add(qualifier);
         } while (Take(ErlangSyntaxTokens.Comma));
@@ -625,6 +633,9 @@ public sealed class Parser
 
     private ComprehensionQualifier ComprehensionQualifier()
     {
+        int offset = Current.Start;
+        int lineIndex = Array.BinarySearch(sourceLineStarts, offset);
+        int qualifierLine = lineIndex >= 0 ? lineIndex + 1 : ~lineIndex;
         var qualifier = Expression();
         if (Take(ErlangSyntaxTokens.MapExactField))
         {
@@ -633,7 +644,7 @@ public sealed class Parser
             if (!strictMap)
                 Expect(ErlangSyntaxTokens.ListGenerator);
 
-            return new ComprehensionQualifier.MapGenerator(ToPattern(new Expr.Tuple([qualifier, value])), Expression(), strictMap);
+            return new ComprehensionQualifier.MapGenerator(ToPattern(new Expr.Tuple([qualifier, value])), Expression(), strictMap) { SourceLine = qualifierLine };
         }
         bool strictBinary = Take(ErlangSyntaxTokens.StrictBinaryGenerator);
         if (strictBinary || Take(ErlangSyntaxTokens.BinaryGenerator))
@@ -646,15 +657,15 @@ public sealed class Parser
             if (pattern.Segments.Any(s => s.Specification.Type == BitSegmentTypes.Binary && (s.Specification.Size is null || s.Specification.Size is Expr.Literal { Value: Atom { Name: BitSizeAtoms.All } })))
                 throw new CompileException(CompilerDiagnosticCodes.InvalidPattern, BitPatternDiagnostics.UnsizedGeneratorField, 0);
 
-            return new ComprehensionQualifier.BinaryGenerator(pattern, Expression(), strictBinary);
+            return new ComprehensionQualifier.BinaryGenerator(pattern, Expression(), strictBinary) { SourceLine = qualifierLine };
         }
         bool strict = Take(ErlangSyntaxTokens.StrictListGenerator);
         if (strict || Take(ErlangSyntaxTokens.ListGenerator))
-            return new ComprehensionQualifier.Generator(ToPattern(qualifier), Expression(), strict);
+            return new ComprehensionQualifier.Generator(ToPattern(qualifier), Expression(), strict) { SourceLine = qualifierLine };
         if (qualifier is Expr.Match)
             throw Error(ParserDiagnostics.ComprehensionAssignment);
 
-        return new ComprehensionQualifier.Filter(qualifier);
+        return new ComprehensionQualifier.Filter(qualifier) { SourceLine = qualifierLine };
     }
 
     private Expr ParseBits()

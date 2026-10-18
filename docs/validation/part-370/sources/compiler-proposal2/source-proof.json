@@ -1,0 +1,40 @@
+{
+  "Status": "SOURCE_REVIEW_ONLY_UNBUILT",
+  "NativeAuthority": {
+    "Path": "artifacts/erlang370-large-tuple-peer1/finding.json",
+    "Sha256": "64A0B26308CFF97AA4A5DEDA4BF250C8CE701FA11482441B51074B77B8E7C241",
+    "PinnedOtp": "ad05823719d77c8faee87348ea39513d4e2f99c5"
+  },
+  "NewNativeObservation": "Parent reports actual new264 comparison258strict, remaining6 solely exported-index helper. Runtime-only generic invoke summary6strict proves primitive operations correct. No raw artifact was changed or relabelled by this proposal.",
+  "OldObservedQuirkMandatory": true,
+  "PrimitiveSemanticsChanged": false,
+  "DirectRule": "Unprotected ordinary function-body Expr.Call, valid builtin resolution, literal index>2^24-1; actual canonical element delegate selected and executed inside source frame.",
+  "ForwarderRule": "One-clause distinct nonunderscore variables, no guard, direct builtin element body forwarding variables; literal out-of-domain caller argument mapped to index variable; actual analyzed terminal call/args/context/module observed under canonical native dispatch; actual identical result returned by helper.",
+  "NativeOverrideGuard": "Canonical actual delegate+image stamped only by CoreModules; selected proof captured under same ModuleRegistry gate as actual dispatch. No before/after race, no dispatch-enum changes. Custom host Register/InstallPreloaded/source body lacks canonical identity. Current module NIF override disables forwarded proof.",
+  "LexicalPartition": {
+    "FunctionOrAnonymousBody": "eligible direct/forwarder rule",
+    "GuardOrPatternExpression": "blocked",
+    "TryExpressionBeforeOf": "blocked",
+    "TryOfOrCatchBodyWithoutAfter": "inherits outer protection; own current handler inactive",
+    "AnyTryWithAfter": "conservative block within region",
+    "CatchOperand": "blocked",
+    "NestedAnonymousBody": "fresh function return boundary",
+    "Comprehension": "blocked; generated helper boundary requires separate analysis",
+    "SharedASTAllowedAndBlockedOccurrence": "blocked",
+    "DynamicIndexOrUnknownFunction": "no syntax proof, no transfer",
+    "MultiClauseGuardedEffectfulRecursiveForwarder": "declined by one-hop summary"
+  },
+  "ErrorFramePreservation": "Actual BIF invoked before any return transfer; exception path unchanged. Normal result only transferred. Existing RuntimeTailCall deliberately not reused because it unwinds source frame/lease before BIF execution.",
+  "ObservationLifetime": "Per async call-flow scope; exact target/args/context; locked state; late events rejected; dispose clears large-term/module/context/result fields and restores parent. No native handle/domain ownership.",
+  "NoHardcodes": "No fixture/case/helper name or returned atom is present in production changes; only pinned native element/arity/type-bound contract and actual result.",
+  "BaseFilesMatchCurrent": true,
+  "SourceCount": 14,
+  "RequiredActualGates": [
+    "Root independent HOST proposal direct/forwarder, original-body override, realbadarg fullcaller/file/line, trybody/of/after, anonymous scope",
+    "Build complete shared solution and relevant existing continuation/source-call/override regressions",
+    "Replay old9582+new264 actual whole outcomes, record every strict/relational field without frame projection",
+    "Original new runtime-only6 remain exact; both direct and forwarded observed quirks6each close from actual outputs",
+    "Refresh reviewed source guards and current DLL/source manifests; no claim frozen earlier capture uses new binaries"
+  ],
+  "NoExecution": true
+}

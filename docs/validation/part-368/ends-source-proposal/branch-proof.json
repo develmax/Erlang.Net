@@ -1,0 +1,191 @@
+{
+  "Status": "SOURCE_PROPOSAL_NOT_BUILT_OR_CLASSIFIED",
+  "PinnedOtp": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Authority": [
+    {
+      "Path": "lib/stdlib/src/queue.erl",
+      "Bytes": 33226,
+      "Sha256": "61B322302ECF74578D72B442D2317EA200A5DEE4E0994B58C5E1E961F252B101"
+    },
+    {
+      "Path": "lib/stdlib/src/lists.erl",
+      "Bytes": 123312,
+      "Sha256": "D429E541CA76ACA8C56BB9FF31130A3B636F33D3E1923A08683157BF5709AB47"
+    }
+  ],
+  "PerMfa": [
+    {
+      "Module": "queue",
+      "Function": "in_r",
+      "Arity": 2,
+      "Clauses": [
+        "Exact {[],[Only]} redistributes to {[Only],[X]}; other shallow Cons/Nil pairs prepend front without traversing improper tails.",
+        "Fallback error badarg effective[X,Q], public in_r317."
+      ],
+      "CompleteRecommendation": "Conditional on source/build/current whole values+raw-stack profiles, cooperative and regression gates; not classified by this source-only proposal."
+    },
+    {
+      "Module": "queue",
+      "Function": "out_r",
+      "Arity": 1,
+      "Clauses": [
+        "Empty returns {empty,Q}; front-only singleton returns removed/new; front-only Cons uses reverse(Tail,[]) then keeps first element in front.",
+        "Rear singleton and shallow front invokes inlined f2r; rear Cons with non-Nil tail removes head and retains arbitrary tail unvalidated.",
+        "Fallback badarg[Q] out_r389. Reverse ownerout_r382; inlined f2r length/reverse ownerout_r1310."
+      ],
+      "CompleteRecommendation": "Conditional on source/build/current whole values+raw-stack profiles, cooperative and regression gates; not classified by this source-only proposal."
+    },
+    {
+      "Module": "queue",
+      "Function": "get",
+      "Arity": 1,
+      "Clauses": [
+        "Shallow pair guard precedes tail get/2. Empty public empty[Q]413; fallback badarg[Q]417.",
+        "Front Cons returns head ignoring tail; rear-only singleton returns it; rear-only other Cons tail-calls lists:last on rear tail, with no retained get frame."
+      ],
+      "CompleteRecommendation": "Conditional on source/build/current whole values+raw-stack profiles, cooperative and regression gates; not classified by this source-only proposal."
+    },
+    {
+      "Module": "queue",
+      "Function": "get_r",
+      "Arity": 1,
+      "Clauses": [
+        "Empty empty[Q]446; rear Cons plus shallow front returns head ignoring rear tail; front-only singleton returns it; front-only other Cons tail-calls lists:last(front tail).",
+        "Fallback badarg[Q]454; no retained get_r continuation for lists:last errors."
+      ],
+      "CompleteRecommendation": "Conditional on source/build/current whole values+raw-stack profiles, cooperative and regression gates; not classified by this source-only proposal."
+    },
+    {
+      "Module": "queue",
+      "Function": "peek",
+      "Arity": 1,
+      "Clauses": [
+        "Empty atomempty; front Cons and shallow rear returns {value,H}; rear-only singleton returns value; other rear-only Cons wraps lists:last(rear tail).",
+        "Fallback badarg[Q]482. lists:last failure retains queue:peek/1 at480 because tuple construction follows."
+      ],
+      "CompleteRecommendation": "Conditional on source/build/current whole values+raw-stack profiles, cooperative and regression gates; not classified by this source-only proposal."
+    },
+    {
+      "Module": "queue",
+      "Function": "peek_r",
+      "Arity": 1,
+      "Clauses": [
+        "Mirror peek with rear priority and front fallback.",
+        "Fallback badarg[Q]510; wrapping lists:last retains peek_r508."
+      ],
+      "CompleteRecommendation": "Conditional on source/build/current whole values+raw-stack profiles, cooperative and regression gates; not classified by this source-only proposal."
+    },
+    {
+      "Module": "queue",
+      "Function": "drop",
+      "Arity": 1,
+      "Clauses": [
+        "Empty empty[Q]532; rear-only singleton new; other rear-only Cons reverse tail and remove reversed head while keeping original first rear item.",
+        "Front singleton plus shallow rear invokes inline r2f; other front Cons returns its tail verbatim, including nonlist.",
+        "Fallback badarg[Q]543; reverse ownerdrop536; inline r2f ownerdrop1299."
+      ],
+      "CompleteRecommendation": "Conditional on source/build/current whole values+raw-stack profiles, cooperative and regression gates; not classified by this source-only proposal."
+    },
+    {
+      "Module": "queue",
+      "Function": "drop_r",
+      "Arity": 1,
+      "Clauses": [
+        "Empty empty[Q]565; front-only singleton new; other front-only Cons reverse tail and remove reversed head while keeping original first front item.",
+        "Rear singleton plus shallow front invokes inline f2r; other rear Cons returns tail verbatim.",
+        "Fallback badarg[Q]576; reverse ownerdrop_r569; inline f2r ownerdrop_r1310."
+      ],
+      "CompleteRecommendation": "Conditional on source/build/current whole values+raw-stack profiles, cooperative and regression gates; not classified by this source-only proposal."
+    },
+    {
+      "Module": "queue",
+      "Function": "cons",
+      "Arity": 2,
+      "Clauses": [
+        "Unconditional tail call in_r(X,Q): including publicbadarg[X,Q], ownerin_r, no cons continuation."
+      ],
+      "CompleteRecommendation": "Conditional on source/build/current whole values+raw-stack profiles, cooperative and regression gates; not classified by this source-only proposal."
+    },
+    {
+      "Module": "queue",
+      "Function": "head",
+      "Arity": 1,
+      "Clauses": [
+        "Own empty[Q]1154 and badarg[Q]1158, shallow pair guard then tailcall get/2; successful selection and lists:last failure same helper chain as get, not public get/1."
+      ],
+      "CompleteRecommendation": "Conditional on source/build/current whole values+raw-stack profiles, cooperative and regression gates; not classified by this source-only proposal."
+    },
+    {
+      "Module": "queue",
+      "Function": "tail",
+      "Arity": 1,
+      "Clauses": [
+        "Unconditional tail call drop(Q), including empty/badarg ownerdrop and dependency ownerdrop."
+      ],
+      "CompleteRecommendation": "Conditional on source/build/current whole values+raw-stack profiles, cooperative and regression gates; not classified by this source-only proposal."
+    },
+    {
+      "Module": "queue",
+      "Function": "snoc",
+      "Arity": 2,
+      "Clauses": [
+        "Unconditional tail call in(X,Q) swaps public parameters Q,X. Reuses QueueCoreExecution.In, correct ownerin292 and effective[X,Q], no snoc frame."
+      ],
+      "CompleteRecommendation": "Conditional on source/build/current whole values+raw-stack profiles, cooperative and regression gates; not classified by this source-only proposal."
+    },
+    {
+      "Module": "queue",
+      "Function": "last",
+      "Arity": 1,
+      "Clauses": [
+        "Unconditional tail call get_r(Q), including empty/badarg ownerget_r and tail lists:last chain."
+      ],
+      "CompleteRecommendation": "Conditional on source/build/current whole values+raw-stack profiles, cooperative and regression gates; not classified by this source-only proposal."
+    },
+    {
+      "Module": "queue",
+      "Function": "daeh",
+      "Arity": 1,
+      "Clauses": [
+        "Unconditional tail call get_r(Q), no daeh frame."
+      ],
+      "CompleteRecommendation": "Conditional on source/build/current whole values+raw-stack profiles, cooperative and regression gates; not classified by this source-only proposal."
+    },
+    {
+      "Module": "queue",
+      "Function": "init",
+      "Arity": 1,
+      "Clauses": [
+        "Unconditional tail call drop_r(Q), no init frame."
+      ],
+      "CompleteRecommendation": "Conditional on source/build/current whole values+raw-stack profiles, cooperative and regression gates; not classified by this source-only proposal."
+    },
+    {
+      "Module": "queue",
+      "Function": "liat",
+      "Arity": 1,
+      "Clauses": [
+        "Unconditional tail call drop_r(Q), no liat frame."
+      ],
+      "CompleteRecommendation": "Conditional on source/build/current whole values+raw-stack profiles, cooperative and regression gates; not classified by this source-only proposal."
+    },
+    {
+      "Module": "queue",
+      "Function": "lait",
+      "Arity": 1,
+      "Clauses": [
+        "Unconditional tail call drop_r(Q), deprecated name still registered; compiled fixture uses apply to avoid erlc deprecation warning."
+      ],
+      "CompleteRecommendation": "Conditional on source/build/current whole values+raw-stack profiles, cooperative and regression gates; not classified by this source-only proposal."
+    }
+  ],
+  "Helpers": [
+    "lists:last/1 source467 rejects nonCons with function_clause and original single argument; Cons tailcalls last/2. last/2 loops source469; malformed tail fails effective[last element,tail], no error_info. Proper Nil returns last element. Loop is iterative and actor-cooperative.",
+    "r2f/f2r0/1/2 preserve exact source representation; larger or improper lists execute length before split and reverse, retaining effective original length input and inline ownerline1299/1310. Never call public from_list because that changes owner metadata.",
+    "All reverse calls reuse Part367 actual own reduction-entry snapshot allocation40cells/red protocol. No native reduction partition seeds and no short/long exception waiver.",
+    "Shallow source is_list means Cons or Nil, not full proper-list validation. Outputs can intentionally contain nonlist tails; no eager normalization is introduced.",
+    "Specialized trace copies established reference-identity continuation compression and actual source locations/depth, skips only current queue source wrapper. Empty and lists:last function_clause cannot use CoreTrace hardcoded badarg."
+  ],
+  "Scope": "All supported arbitrary term payloads, shallow tuple/list representations, proper and improper spines; source-defined errors and actual own scheduling controls. No identical native allocation/timing promise.",
+  "Pending": "Native fixture owner map_size_finish prepares all30 remaining exports. Last helper source frame/inlining and all alias caller survival must be checked on actual default/0/1/2/8 full raw stacks; no inferred native pass."
+}

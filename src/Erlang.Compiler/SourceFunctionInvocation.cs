@@ -25,6 +25,9 @@ internal static class SourceFunctionInvocation
         if (admission.Kind == SourceFunctionAdmissionKind.Retry)
             throw new LocalFunctionPublicationChangedException(invocation!);
         if (admission.Kind == SourceFunctionAdmissionKind.MissingCurrentLocalFunction)
+        {
+            SourceFunctionTailDispatch.Cancel(context);
+
             return await context.Runtime.Modules.InvokeUndefinedLambda(
                 context,
                 module.Name,
@@ -32,8 +35,19 @@ internal static class SourceFunctionInvocation
                 arguments,
                 invocation
             );
+        }
         module = (ModuleDefinition)admission.Owner;
         image = admission.Image;
+
+        SourceFunctionTailDispatch.Transfer(context, new(
+            module,
+            function,
+            null,
+            null,
+            null,
+            image,
+            admission.Lease
+        ));
 
         return await Execution.InvokeAsync(
             module,
@@ -72,6 +86,9 @@ internal static class SourceFunctionInvocation
             if (admission.Kind == SourceFunctionAdmissionKind.Retry)
                 throw new LocalFunctionPublicationChangedException(invocation!);
             if (admission.Kind == SourceFunctionAdmissionKind.MissingCurrentLocalFunction)
+            {
+                SourceFunctionTailDispatch.Cancel(context);
+
                 return await context.Runtime.Modules.InvokeUndefinedLambda(
                     context,
                     module.Name,
@@ -79,6 +96,7 @@ internal static class SourceFunctionInvocation
                     arguments,
                     invocation
                 );
+            }
             if (!ReferenceEquals(module, admission.Owner))
                 expression = LocalFunctionEntries.Anonymous((ModuleDefinition)admission.Owner, identity.Index);
             module = (ModuleDefinition)admission.Owner;
@@ -87,6 +105,16 @@ internal static class SourceFunctionInvocation
         }
         else if (invocation is not null && !context.Runtime.Modules.ValidateLocalFunctionPublication(invocation))
             throw new LocalFunctionPublicationChangedException(invocation);
+
+        SourceFunctionTailDispatch.Transfer(context, new(
+            module,
+            null,
+            identity,
+            expression,
+            environment,
+            image,
+            lease
+        ));
 
         return await Execution.InvokeAnonymousAsync(
             module,

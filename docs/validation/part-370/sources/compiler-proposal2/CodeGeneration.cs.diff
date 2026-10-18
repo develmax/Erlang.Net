@@ -1,0 +1,11 @@
+--- src/Erlang.Compiler/CodeGeneration.cs
++++ src/Erlang.Compiler/CodeGeneration.cs
+@@ -107,7 +107,7 @@
+         Expr.Unary u => "new " + E + "Unary(" + Quote(u.Operator) + "," + ExpressionCode(u.Operand) + ")",
+         Expr.Binary b => "new " + E + "Binary(" + Quote(b.Operator) + "," + ExpressionCode(b.Left) + "," + ExpressionCode(b.Right) + ")",
+         Expr.Call c when RecordPredicateSyntax.HasLiteralNonpositiveSize(c) => "new " + E + "Literal(" + TermCode(Term.A(ErlangBooleanAtoms.False)) + ")",
+-        Expr.Call c => "new " + E + "Call(" + (c.Module is null ? "null" : Quote(c.Module)) + "," + Quote(c.Function) + "," + Expressions(c.Arguments) + "){SourceLine=" + c.SourceLine + "}",
++        Expr.Call c => SourceFunctionCode.Call(c, c.Module is null ? "null" : Quote(c.Module), Quote(c.Function), Expressions(c.Arguments)),
+         Expr.Apply a => SourceFunctionCode.Apply(a, ExpressionCode(a.Function), Expressions(a.Arguments)),
+         Expr.Match m => "new " + E + "Match(" + PatternCode(m.Pattern) + "," + ExpressionCode(m.Value) + ")",
+         Expr.MaybeMatch m => "new " + E + "MaybeMatch(" + PatternCode(m.Pattern) + "," + ExpressionCode(m.Value) + ")",

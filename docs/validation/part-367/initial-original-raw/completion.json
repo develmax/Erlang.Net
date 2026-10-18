@@ -1,0 +1,85 @@
+{
+  "Status": "PASS_ORIGINAL_CAPTURE_PENDING_COMPARISON",
+  "SubjectHead": "1076e28999f314ef926475dd3c674657502d726b",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SourceInputsSha256": "CF9BF92475E3B4CFA559AF6F1AB04001DB3B210197D7DE048E7C653A92E8925D",
+  "ProfileSha256": "EEEC735B8B5BADD36901536ECDA1FF365C87304CBC9258F9C24A356A8AE5BF1E",
+  "BuildReceiptSha256": "9CE17BAE3DD13B675C9DB2E25024F4A6C4A5B68C08A1C05553CD7417223F92DC",
+  "Groups": [
+    {
+      "Id": "queue_core",
+      "ExpectedRows": 160,
+      "Acquired": true,
+      "VmSkipped": false,
+      "ReturnedSha256": "07A3AACBAB37672D6BD621786B9D4C261E3640303FA19195C5B3AD6407ADBED1",
+      "RawStacksSha256": "C6F014F3CF23A9BDDD1F419764BF124C0F16C5FB55F09AC325BC611F0DE882B8",
+      "MetadataSha256": "3F62E56A58D177B06937DBB0EA882BC8E89EE178D9F7CB4D1AED8C4AD5503F37",
+      "CompiledFiles": [
+        {
+          "Module": "queue_core_contract",
+          "Sha256": "1CF3F6A2C3280088D444D5C7575738D8E9ED337EAF74850BBC06755DBBE5E959"
+        },
+        {
+          "Module": "proplists_observation_worker",
+          "Sha256": "A27E1046C610DBFF434E2C50F73004623EEB0E96A8103BEF380FF1485BCC432B"
+        },
+        {
+          "Module": "queue_core_empty",
+          "Sha256": "7D8B25DEBEACA0B57B6A44D09F9D318CA0DE48FC662D82F0D77D0D229797BE4F"
+        },
+        {
+          "Module": "queue_core_errors",
+          "Sha256": "5EE7CF164A33B90E6806B112B093BFEC0DEB03D42144906B6D13C509E071E62A"
+        },
+        {
+          "Module": "queue_core_heterogeneous",
+          "Sha256": "2037F2BEDE66D384BE9AFAA08C5D491E4EB3AE0D6BDCB200E8BBABDB81F5276F"
+        },
+        {
+          "Module": "queue_core_improper",
+          "Sha256": "023E1C35F64246D0D153036464E8F99EAE563AAEDC68274E0C6FEC15A9FFF6E3"
+        },
+        {
+          "Module": "queue_core_observe",
+          "Sha256": "0877C993B00200EEADCC2B02D31B215D7B11EF3CAD6043109F4A1C7487F54A9F"
+        },
+        {
+          "Module": "queue_core_ordering",
+          "Sha256": "0D9FD7E342FA815817F964B573774110AF11A67D2E1B6C504F651A7FAD77BEE4"
+        },
+        {
+          "Module": "queue_core_persistence",
+          "Sha256": "784A65A1FE4C6775702C34F16C84B8F408EF0E01932436DD7CCFAF5ACF168C00"
+        },
+        {
+          "Module": "queue_core_raw_shapes",
+          "Sha256": "01F535A486EEF79FCCDA7A3CD49CEBEF36C025313B3DF752CA0C55659BD0CEE3"
+        },
+        {
+          "Module": "queue_core_representation",
+          "Sha256": "4C4B38436612FAB3914110820B7CFF405A62B5573A43C80FD4BF65166B0741AE"
+        }
+      ]
+    }
+  ],
+  "OwnedStages": [
+    {
+      "Group": "queue_core",
+      "Name": "compile",
+      "ReceiptSha256": "333E00885AE43E4B4D2DE262F4DDC5CFD7A534D8C9BC0900B717B2E34B446ACD",
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Group": "queue_core",
+      "Name": "observe",
+      "ReceiptSha256": "8A99E6BF9ABB1A99723303B09D8515D1CB29B455CFFDDD39BC8FB557D6BEAFD3",
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    }
+  ],
+  "FailedGroups": 0,
+  "AllGroupsAttempted": true,
+  "CompatibilityPromoted": false,
+  "OriginalBuildsByCollector": 0
+}

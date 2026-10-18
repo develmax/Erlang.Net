@@ -1,0 +1,1 @@
+-module(oracle_map_operations). -export([run/0]). run()->true=maps:is_iterator_valid(none),true=maps:is_iterator_valid(maps:iterator(#{a=>b})),false=maps:is_iterator_valid(wrong),false=maps:is_iterator_valid({a,b,wrong}),done.

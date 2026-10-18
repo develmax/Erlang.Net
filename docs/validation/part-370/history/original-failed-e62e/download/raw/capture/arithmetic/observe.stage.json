@@ -1,0 +1,14 @@
+{
+  "Name": "observe",
+  "Failure": null,
+  "Started": true,
+  "Arguments": [
+    "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/proplists22-otp/lib/erlang/bin/erl",
+    "+S",
+    "2:2",
+    "-noshell",
+    "-noinput",
+    "-eval",
+    "O=os:getenv(\"FAMILY_OUTPUT\"),E=os:getenv(\"FAMILY_EBIN\"),{module,erlang370_arithmetic}=code:load_abs(filename:join(E,\"erlang370_arithmetic\")),{module,erlang370_pure_support}=code:load_abs(filename:join(E,\"erlang370_pure_support\")),{module,erlang370_observation_worker}=code:load_abs(filename:join(E,\"erlang370_observation_worker\")),{module,erlang}=code:ensure_loaded(erlang),{ok,Executable}=file:read_link(\"/proc/self/exe\"),{ok,ExecutableBytes}=file:read_file(\"/proc/self/exe\"),M=#{schema=>erlang_preloaded_v1,subject=>erlang,root=>code:root_dir(),which=>code:which(erlang),loaded=>code:is_loaded(erlang),module_md5=>erlang:module_info(md5),exports=>erlang:module_info(exports),exe=>Executable,exe_md5=>erlang:md5(ExecutableBytes),exe_bytes=>byte_size(ExecutableBytes),os_pid=>os:getpid(),erts_version=>erlang:system_info(version),otp_release=>erlang:system_info(otp_release),system_architecture=>erlang:system_info(system_architecture),emu_flavor=>erlang:system_info(emu_flavor),build_type=>erlang:system_info(build_type),schedulers=>erlang:system_info(schedulers),schedulers_online=>erlang:system_info(schedulers_online),fixture_file=>code:which(erlang370_arithmetic),names=>erlang370_arithmetic:cases(),value_acquisition=>\"compiled-monitored-worker-values-and-stacks-v1\"},ok=file:write_file(filename:join(O,\"metadata.etf\"),term_to_binary(M)),Rows=erlang370_observation_worker:run(erlang370_arithmetic,run),ok=file:write_file(filename:join(O,\"returned.etf\"),term_to_binary(Rows)),Stacks=erlang370_observation_worker:run(erlang370_arithmetic,run_stacks),ok=file:write_file(filename:join(O,\"stack-observations.etf\"),term_to_binary(Stacks)),halt()."
+  ]
+}

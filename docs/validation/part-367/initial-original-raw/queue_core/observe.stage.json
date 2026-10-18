@@ -1,0 +1,14 @@
+{
+  "Name": "observe",
+  "Failure": null,
+  "Started": true,
+  "Arguments": [
+    "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/proplists22-otp/lib/erlang/bin/erl",
+    "+S",
+    "2:2",
+    "-noshell",
+    "-noinput",
+    "-eval",
+    "O=os:getenv(\"FAMILY_OUTPUT\"),E=os:getenv(\"FAMILY_EBIN\"),{module,queue_core_contract}=code:load_abs(filename:join(E,\"queue_core_contract\")),{module,proplists_observation_worker}=code:load_abs(filename:join(E,\"proplists_observation_worker\")),{module,queue_core_empty}=code:load_abs(filename:join(E,\"queue_core_empty\")),{module,queue_core_errors}=code:load_abs(filename:join(E,\"queue_core_errors\")),{module,queue_core_heterogeneous}=code:load_abs(filename:join(E,\"queue_core_heterogeneous\")),{module,queue_core_improper}=code:load_abs(filename:join(E,\"queue_core_improper\")),{module,queue_core_observe}=code:load_abs(filename:join(E,\"queue_core_observe\")),{module,queue_core_ordering}=code:load_abs(filename:join(E,\"queue_core_ordering\")),{module,queue_core_persistence}=code:load_abs(filename:join(E,\"queue_core_persistence\")),{module,queue_core_raw_shapes}=code:load_abs(filename:join(E,\"queue_core_raw_shapes\")),{module,queue_core_representation}=code:load_abs(filename:join(E,\"queue_core_representation\")),{module,queue}=code:ensure_loaded(queue),{queue,B,F}=code:get_object_code(queue),ok=file:write_file(filename:join(O,\"queue-loaded.beam\"),B),M={family_provenance,code:root_dir(),code:which(queue),F,erlang:md5(B),queue:module_info(md5),code:which(queue_core_contract),queue_core_contract:cases(),erlang:system_info(otp_release),erlang:system_info(schedulers),erlang:system_info(schedulers_online)},ok=file:write_file(filename:join(O,\"metadata.etf\"),term_to_binary(M)),Rows=queue_core_contract:run(),ok=file:write_file(filename:join(O,\"returned.etf\"),term_to_binary(Rows)),Stacks=proplists_observation_worker:run(queue_core_contract,run_stacks),ok=file:write_file(filename:join(O,\"stack-observations.etf\"),term_to_binary(Stacks)),halt()."
+  ]
+}

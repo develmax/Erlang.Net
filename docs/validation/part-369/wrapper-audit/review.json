@@ -1,0 +1,138 @@
+{
+  "Status": "CONDITIONAL_SOURCE_COMPLETE_WRAPPER6_AFTER_FIX6_AND_FINAL_GATES",
+  "Scope": "Independent six public Erlang wrapper APIs. Does not independently certify search7 or primitive18; their own source/provenance/resource audits remain necessary for all31. No finitepass=>complete inference.",
+  "SupportedContract": "Same existing observable supported Erlang Term/ownVM-state model: arbitrary supported terms and source callers, source-defined guards/evaluation/errors/stacks/effects, writable binary backing/pin/share protocol and actual own function identities. Physical ERTS heap addresses, timing, GC count and instruction reduction parity not identical. These are existing VMmodel distinctions, not new per-API escape clauses.",
+  "CurrentMainReadHashes": [
+    {
+      "Path": "src/Erlang.Runtime/BinaryWrapperNames.cs",
+      "Sha256": "9B3D7086961EB6E8C30F867D2ED1DC4E0B58988ECFD27BB3BB0A729DBC51D247"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BinaryWrapperOutput.cs",
+      "Sha256": "DF37087DCCCC7F04926E66156E87B81DC9461AD23F4F92924FA247C3F40E8166"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BinaryWrappersModule.cs",
+      "Sha256": "D932B37AA2C099D95F70B386948EBF991C73B6D211057A1BC890E356F15FCCEA"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BinaryWrapperSource.cs",
+      "Sha256": "4B163D2EEF33B0EFE99EEB5EDE9890D0C80C72FC8CFC543206650982C2BFB989"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BinaryWrapperTrace.cs",
+      "Sha256": "46A0F496680D8CA552B37439866153704119301CBCC6CB6FD276E32A560D0C4E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BinaryHexExecution.cs",
+      "Sha256": "94787E8178EB60937CEBCC3871B1820110F041141E9D9D8FF78AFC9F6B021116"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BinaryHexNames.cs",
+      "Sha256": "5EBFB21A380168C50B254C003EF16E417B9029BDD1986D29AD1E9F1FB8BC9910"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BinaryHexSource.cs",
+      "Sha256": "E2905CED2A9B7C64953DAB0A4940B300A742DACB668016C4441BD3CC2EBF29F5"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BinaryJoinExecution.cs",
+      "Sha256": "E4FFA3385333051858788F891862FED4278B5C9C5C83E8B556B5B0C3042034F3"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BinaryJoinSource.cs",
+      "Sha256": "EA777AFEED814949ABD9AA60DA535A8049B1BD04437B2C552BFDC63817B50E56"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BinaryReplaceExecution.cs",
+      "Sha256": "088DE33F05749AAF302046699F938B34DDD5B98F574CA7227219C7E60CBC7869"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BinaryReplaceOptions.cs",
+      "Sha256": "0D6452B3E239AF9786D4956F6D3F2986EE45C7FF952ECCA4E1B0EC4BDF11A5F8"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BinaryReplacePlan.cs",
+      "Sha256": "2E9154621EF7EF08CBA5E3F263669A705A3E0F4CD25E466BAA72A3D8B805C489"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeExceptionCapture.cs",
+      "Sha256": "BDA882AF75249C5C067BEB61A842C5D4D4D9E5599303AF9F7F2FF8C99F19112F"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.GeneratedFrames.cs",
+      "Sha256": "C16FF0A3AFA8CC509DF58DC7E8263145B29122F8C80921F8085367B0F335205A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.SourceLocations.cs",
+      "Sha256": "D6F1417262F40797A249BB8472297C05F2323CC467AD44DA2CE01D6114BADBCE"
+    },
+    {
+      "Path": "src/Erlang.Terms/BitString.cs",
+      "Sha256": "C116132F26E54C2FEE15E312027B9E244A23370A08348370B142F3C84A74C9A5"
+    },
+    {
+      "Path": "src/Erlang.Terms/BinaryBacking.cs",
+      "Sha256": "B94AB49CCF26821EDDB903FA23BDFCDA35E871078D2238536FB83E9C044F98F6"
+    },
+    {
+      "Path": "src/Erlang.Terms/BinaryBackingParameters.cs",
+      "Sha256": "A54FF9D87A3D8C50CE5DA76E674678C5FE760825E6B55053EB56873F1B5331A9"
+    }
+  ],
+  "Clauses": [
+    {
+      "Mfas": [
+        "binary:replace/3",
+        "binary:replace/4"
+      ],
+      "CoveredSource": "binary.erl795-800,863-928,1140-1147",
+      "Argument": "Replacementbinary/functionarity guard; proper option scanner lastwins scope/insert andglobalflag; searchbeforeplan/insert validation; nil/true/integer/list plan branches; exactlysourceinteger pattern pin beforebadmatch; part-backed sorted insertion; callbackeverymatchbeforefinaliodata validation; deferredbadfuntrue branch; strictpubliccatchclass/cause differences/3 versus/4; originalfullerrorargumentsandmetadata; genuine907/908continuation and895/797ownerchain; nestedcall scope restoration. No hidden callback is replaced withnativebytes.",
+      "ResidualRequired": "Fix6 integration +7newnative/SDK cases +newHOST +freshfinalregression. Matchedvalueentry closure needed forlivecallback values; alloldrawerl_eval suffix mismatches retained, never productionframeinjection."
+    },
+    {
+      "Mfas": [
+        "binary:encode_hex/1",
+        "binary:encode_hex/2"
+      ],
+      "CoveredSource": "binary.erl939-981,inlinehex983-1051; admitted installedBEAM21B69CF8...",
+      "Argument": "Exactbinary/casing guards andoriginalerrorargs/line1147; unarydefaultuppercase; matchinginputpin; publictaildelegations; realencode_hex1 initnil, liftedLBCarity3@973+parent973, residualtailhelper979; computedfirstcapacityandprivateappendgrowth. Bulk pure byte transform plusboundedresidualcopy is linear batch adaptation; actualoutputbytes/backingretained.",
+      "ResidualRequired": "Finalsource/DLL guard binding andfreshcanonicalregression. Before/afterdecode hexbacking native6 alreadystrictwholepassed; closure14 extends writableinputsharing, no projection."
+    },
+    {
+      "Mfas": [
+        "binary:decode_hex/1"
+      ],
+      "CoveredSource": "binary.erl1076-1107; admitted installedBEAM21B69CF8...",
+      "Argument": "Guardusesroundedbytesizeeven includingpartialbitstring; helpersmatchpin thenpartialbadmatch1087 exposedunder1078; exactASCIIcase/digitvalidity; invaliddigits collapsepublicbadarg1144afterhelperdispose; realLBCarity2@1088+parent1088, residual1094andpublic1078retained; exactbit/nibbleappendcapacityprotocol withgenuinewritable backing.",
+      "ResidualRequired": "Finalsource/DLL guard binding andfreshcanonicalregression. Nativepartialprofile +backingcohort arewitnesses of independent clauseargument, not substitute."
+    },
+    {
+      "Mfas": [
+        "binary:join/2"
+      ],
+      "CoveredSource": "binary.erl1123-1138; actualBEAMbs_init256/privateappend1128+1138",
+      "Argument": "Nilwithbinarysep empty; validbinarysingletonreturns SAME term/backing; invalidsep/nonlist/head/tail alwayssourcepublicbadarg1144originalargs; multiitemsourceprivateappend recurrence starts256, growsonlywhenactualusedbytesexceedcap, sourcejoin3tailhelperunderjoin2non-tailcall1128; no inputpatternmatchpin; outputbytesandgenuinewritablecapacitypreserved. Pure length/capacityplanning+oneflattenadmitsO(n) adaptationwithoutcallbackobservabletransientstates.",
+      "ResidualRequired": "Joinfix5 Mainbuild/HOST reportedRootpass; finalnativewholecomparison must befresh againstfrozenDLLs. Oldpair257mismatch514vs257 preserved in originalcomparison1."
+    }
+  ],
+  "GuardGuide": {
+    "WrapperFiles": "All rows in CurrentMainReadHashes need current hashes in final guarded reviewed-source closure. Include new BinaryJoinSource and BinaryHexNames/Source, pending BinaryReplacePlan successor.",
+    "CrossOwnerDependencies": [
+      "Search pattern/resource/options and part/2 routes used byreplace must retain final search7/primitive18 proof.",
+      "BitString/BinaryBacking state, slicing, writable append/growth/pin and serializer/message handoff affect referenced_byte_size; closure14 must be admitted as actual observations.",
+      "RuntimeExceptionCapture and generated/source scopes determine fullframes; dynamiccall FunctionTerm/ModuleRegistry resolution and guestcompiler SourceLine/continuation behavior are shared guard dependencies.",
+      "Compiler binary construction and writable-escape rules generate inputstates used bypublicbinary APIs; source representation alone doesnot prove arbitrary compiler allocation optimizations. Rootmust carry its independentlyaudited generic compiler/protocol source guards, notmarkall compiler complete."
+    ]
+  },
+  "DurableEvidenceGuide": [
+    "Pinned source +actualinstalledBEAMbinding/decode +perMFA clauseargument must travel with final classification.",
+    "Primary585/2925 rawETF pairs unchanged; supplement36/180 retained; nextmatchedclosure14/70andinsert7/35 newonly cohorts retainallfields and raw own/native identities.",
+    "Retain comparison1 failures, sourcecorrections, finalfreshfrozenDLLcapture and allnegativecontrols. Do notreplacehistoricalrawfiles ortruncateframe/effect fields toclaimpass.",
+    "Only finalcanonicalalltests/requiredcleanup passes afterproduction sourcefreeze permit promotion; source-only proposal neverfullproof.",
+    "All31 eligibility is conjunction of wrapper6, search7, primitive18/sourceprotocol+ownstate+actualnativeadmission+finalsharedregression. No all31endorsement from thissix-owner review alone."
+  ],
+  "MainEdited": false,
+  "BuildOrVmExecuted": false,
+  "Promotion": false
+}

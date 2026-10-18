@@ -1,0 +1,1 @@
+-module(oracle_maps_completion). -export([run/0]). run()->M=#{-1.0=>a,0.0=>b,-1=>c,0=>d},[{-1,c},{0,d},{-1.0,a},{0.0,b}]=maps:to_list(maps:iterator(M,ordered)),[{0.0,b},{-1.0,a},{0,d},{-1,c}]=maps:to_list(maps:iterator(M,reversed)),done.

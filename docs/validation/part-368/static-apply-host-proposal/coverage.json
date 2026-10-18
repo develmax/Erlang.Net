@@ -1,0 +1,17 @@
+{
+  "CompiledModules": 5,
+  "IndependentGroups": 5,
+  "NoReflectionOrAstAssertions": true,
+  "Controls": [
+    "Qualified literal apply3 executes target with left-to-right mark(a),mark(b) exactly once; pair and dictionary order must both match.",
+    "Autoimport apply3 returns queue:new result; explicit imported erlang apply3 under suppression returns same result.",
+    "Compiled local apply3 shadow under suppression returns shadow, never queue:new.",
+    "Compiled foreign import invokes public registered sentinel exactly once with exact module/function/listargs; wrong lowering produces wrong result and zero sentinel calls.",
+    "Suppressed apply3 without local/import binding remains undef; it cannot silently invoke autoimport apply3.",
+    "Tail qualified static apply3 badarg has exact queue:get public frame and no tail/erlangapply frame; non-tail preserves exact compiled non_tail/0 source22 continuation.",
+    "Syntactically improper and dynamic-improper argument lists both retain native apply3 validation and complete exact native top frame/effectiveargs/error_info; captures return full raw stacks."
+  ],
+  "ConservativeSourceBoundary": "Current Lower rejects argument count above255; actual source hash bound. Runtime apply3 own existing1023 limit remains unchanged. No new256/1024 execution controls are claimed by this bounded packet.",
+  "KnownLimits": "New compiled modules and new HOST are not executed by author. Root must retain any parse/build/runtime assertion failure. Existing full binding/guard/call_on_load controls remain separate evidence.",
+  "NoMainWritesBuildSdkNativeCiNetwork": true
+}

@@ -6,9 +6,18 @@ public static class CodeImageHostChecks
 {
     public static async Task Run()
     {
+        await VerifyTransfer(false);
+        await VerifyTransfer(true);
+        await VerifyCleanup(false);
+        await VerifyCleanup(true);
+    }
+
+    private static async Task VerifyTransfer(bool tail)
+    {
         await using var runtime = new ProcessRuntime();
         var registry = runtime.Modules;
-        var module = new Parser("-module(code_image_host). -export([run/2,make/0]). run(F,Expected)->code_image_callback:pause(),private(F,Expected). private(F,Expected)->code_image_callback:observe(),F(Expected). make()->fun run/2.").ParseModule();
+        string privateBody = tail ? "F(Expected)" : "{kept,F(Expected)}";
+        var module = new Parser("-module(code_image_host). -export([run/2,make/0]). run(F,Expected)->code_image_callback:pause(),private(F,Expected). private(F,Expected)->code_image_callback:observe()," + privateBody + ". make()->fun run/2.").ParseModule();
         var target = new Parser("-module(code_image_target). -export([run/1]). run(Expected)->code_image_callback:observe_fun(Expected).").ParseModule();
         module.Register(registry);
         target.Register(registry);
@@ -84,7 +93,7 @@ public static class CodeImageHostChecks
                     module,
                     CodeImageHostNames.Run,
                     context,
-                    [external, Term.A(CodeImageHostNames.Old)]
+                    [external, Term.A(tail ? CodeImageHostNames.Current : CodeImageHostNames.Old)]
                 );
             }
             catch (Exception exception)
@@ -134,8 +143,6 @@ public static class CodeImageHostChecks
         if (oldObservations != 1)
             throw new InvalidOperationException(CodeImageHostNames.Broken);
 
-        await VerifyCleanup(false);
-        await VerifyCleanup(true);
     }
 
     private static async Task VerifyCleanup(bool cancel)

@@ -1,0 +1,185 @@
+{
+  "PinnedOtp": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "AuthorityExactGitBlob": true,
+  "Frozen17RowsRehashed": 17,
+  "Mfas": [
+    {
+      "Mfa": "queue:new/0",
+      "Clauses": [
+        "Returns exact{[],[]} with no inputbranches, callbacks or errors."
+      ],
+      "Scheduling": "O(1); existing ModuleRegistry call boundary handles process controls."
+    },
+    {
+      "Mfa": "queue:is_queue/1",
+      "Clauses": [
+        "Exactly tuplearity2 and bothfields Cons-or-Nil givestrue; includes impropercons fields.",
+        "Every other supported term/tupleshape returnsfalse; no global proper-list validation."
+      ],
+      "Scheduling": "O(1), no element access."
+    },
+    {
+      "Mfa": "queue:is_empty/1",
+      "Clauses": [
+        "{[],[]}true.",
+        "Other tuple2 with bothfieldsCons-or-Nil false.",
+        "Otherterm/invalidfield badarg with effective[Q], queue.erl182."
+      ],
+      "Scheduling": "O(1), context-aware explicit source trace."
+    },
+    {
+      "Mfa": "queue:len/1",
+      "Clauses": [
+        "Guard only shallowlists; countrear thenfront and add BigIntegerlengths.",
+        "Invalidguard badarg[Q] line200.",
+        "Improperrear fails length(R) before front; properrear/improperfront fails length(F); BIFerrorinfo andqueueownerline198."
+      ],
+      "Scheduling": "Every spine cell ReduceAsync, no int overflow."
+    },
+    {
+      "Mfa": "queue:in/2",
+      "Clauses": [
+        "Specialsingletonrear+emptyfront returns{[X],Rear}.",
+        "Other shallowvalidqueue prependsrear, retainsfrontandimpropertails uninspected.",
+        "Invalidguard badarg[X,Q] line292; X arbitrary supportedTerm never inspected."
+      ],
+      "Scheduling": "O(1), frozen algorithm reused."
+    },
+    {
+      "Mfa": "queue:out/1",
+      "Clauses": [
+        "{[],[]}=Q yields{empty,Q}.",
+        "{[V],[]} yieldsremovedV/newempty.",
+        "{[Y|In],[]} reversesIn thenremoveshead, leavingrear[Y]; improperIn failsreverse/2 effective[In,[]], owner346.",
+        "{In,[V]} with shallowlistIn callsinlinedr2f:0/1/2exactshapes,largerlength/halfsplit/reversesecondhalf; improperIn failslength owner1299(source-derived inline annotation pendingoriginal).",
+        "{In,[V|Out]} with shallowlistIn returnsOut verbatim, including impropernonNil tail; no globalcanonicalization.",
+        "Fallbackbadarg[Q] line353."
+      ],
+      "Scheduling": "Only reartransfer/rebalance traversals yield; no CLRrecursion, no element invocation."
+    },
+    {
+      "Mfa": "queue:from_list/1",
+      "Clauses": [
+        "Shallowlistguard; inlinedf2r0/1/2exactqueue shapes.",
+        "Largerproperlist count/splithalf/reverseRR gives exact{reverse(RR),FF}.",
+        "ImproperCons failslength atsource1310(source-derivedinline annotation pendingoriginal), nonlistfails publicbadarg[L] line243."
+      ],
+      "Scheduling": "All count/split/prefixrebuild/reversespines ReduceAsync; BigIntegersplitcount."
+    },
+    {
+      "Mfa": "queue:to_list/1",
+      "Clauses": [
+        "Shallowvalidqueue: evaluate reverse(In,[]) first, then Out++Reversed.",
+        "Rearimproper failslists:reverse/2 before anyfrontspinevalidation.",
+        "Rearproper/frontimproper fails erlang:++/2 effective[Out,Reversed]; owner219.",
+        "Invalidguard badarg[Q] line221.",
+        "Every arbitraryelement Term is retained without comparison/callback/serialization."
+      ],
+      "Scheduling": "All reverse/append read and rebuildspines ReduceAsync."
+    }
+  ],
+  "SourceValueCounterexamplesFound": [],
+  "OriginalFrozenGapsAddressed": [
+    "Naked public/helper exceptions lack source/provenance",
+    "Linear guest loops had no cooperative processcontrol checkpoints"
+  ],
+  "TraceAssumptionsPendingOriginal": [
+    "Exact publicerror/inlineBIF continuationlines and argument representations must be compared to160case800profile original observer.",
+    "Inlinedf2r/r2f are not fabricated runtimehelperframes; candidate attributes dependencycontinuation to publicqueueowner with pinned inline expressionline.",
+    "Length/reverse/append error_info formatter follows existing runtime nativeboundary rules; sourceoriginal rawmetadata remains acceptance authority.",
+    "Long-improper reverse effectivearguments may reflect native trap state; actual original observation required, not inferred from smalllists."
+  ],
+  "ResourceScope": "Cooperative guest reduction/cancellation on every linearcell; actualBEAM reductions count/timing/heapaddress/OSOOM notclaimed. Finite queue representation/value branches preserved.",
+  "Status": "INTEGRATED_MAIN_SOURCE_VALUE_BRANCH_PROOF_TRACE_ORIGINAL_PENDING",
+  "CurrentSourceGuards": 353,
+  "Existing38Preserved": true,
+  "CanonicalStatusesChanged": false,
+  "IntegratedSource": [
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreExecution.cs",
+      "Sha256": "90FC6BFF1D590E7496BDC12D8B272850CBBCED786444A7A1801509D18134FC19"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreLinear.cs",
+      "Sha256": "B2C197A69C0B09A8879484F2C6315CAD397E7B2F8C901F55BDF2FD821B8A7576"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreModule.cs",
+      "Sha256": "DB5F161CD8281BB6C949CF5E8B65009741E4A2B6B47BD9BCCE63B3D059500202"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreParameters.cs",
+      "Sha256": "94C77DFFFE8D6FBD76818A6C7F1E28CC5588855AF3DCAA08BEBECE8778D9126E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreSource.cs",
+      "Sha256": "3486FB328298CD93FAE93BB1EB702248DEB0EACBCF7B34C2F851D88D5E2EA857"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreTrace.cs",
+      "Sha256": "D9E9EA3AB0298F516D1CE13C71FC0778691740906DEDE7BFC15F668225684A0E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueModuleNames.cs",
+      "Sha256": "10BADBC7B25CBCE06E533F3A787A55814A1866FA326D3924F34C2D4F99C5CEEB"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueOperations.cs",
+      "Sha256": "A1D321D10FEBC5A65D726BC4821447AF265DEF76981578CCD8ECD961B66F9B91"
+    }
+  ],
+  "NormalizationAudit": [
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreExecution.cs",
+      "FrozenSourceSha256": "52EE9E91050A78A67A96C57191C9D095B09E11C01AE0C6325ADEF59A0970B95A",
+      "CurrentSha256": "90FC6BFF1D590E7496BDC12D8B272850CBBCED786444A7A1801509D18134FC19",
+      "Delta": "SourceLayout whitespace; QueueCoreExecution/Linear additionally Rest\u2192Remainder tupleelement rename only"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreLinear.cs",
+      "FrozenSourceSha256": "9C49FE341E82D7D1D228A21EA059A732270E829BE4E7624834B8644DBE4F1F75",
+      "CurrentSha256": "B2C197A69C0B09A8879484F2C6315CAD397E7B2F8C901F55BDF2FD821B8A7576",
+      "Delta": "SourceLayout whitespace; QueueCoreExecution/Linear additionally Rest\u2192Remainder tupleelement rename only"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreModule.cs",
+      "FrozenSourceSha256": "35923F224F468D72F448153E0FD789B07B38D4CDDF190C11E8D87DE4C89630F0",
+      "CurrentSha256": "DB5F161CD8281BB6C949CF5E8B65009741E4A2B6B47BD9BCCE63B3D059500202",
+      "Delta": "SourceLayout whitespace; QueueCoreExecution/Linear additionally Rest\u2192Remainder tupleelement rename only"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreParameters.cs",
+      "FrozenSourceSha256": "D649DC34A8D4B8C36F1DC2D7652B8D037F73B803EC5EBA65AB9778C047A80CDC",
+      "CurrentSha256": "94C77DFFFE8D6FBD76818A6C7F1E28CC5588855AF3DCAA08BEBECE8778D9126E",
+      "Delta": "SourceLayout whitespace; QueueCoreExecution/Linear additionally Rest\u2192Remainder tupleelement rename only"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreSource.cs",
+      "FrozenSourceSha256": "D2FFF9E1D07E53E3F977AAF8111AB6B0A73CD8699670811C378A80B9B87CBC1B",
+      "CurrentSha256": "3486FB328298CD93FAE93BB1EB702248DEB0EACBCF7B34C2F851D88D5E2EA857",
+      "Delta": "SourceLayout whitespace; QueueCoreExecution/Linear additionally Rest\u2192Remainder tupleelement rename only"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreTrace.cs",
+      "FrozenSourceSha256": "EE294ED6FB583EE8522BA921A17C0EBB8BD97B549EDC04FC73A0A33B2D5B207B",
+      "CurrentSha256": "D9E9EA3AB0298F516D1CE13C71FC0778691740906DEDE7BFC15F668225684A0E",
+      "Delta": "SourceLayout whitespace; QueueCoreExecution/Linear additionally Rest\u2192Remainder tupleelement rename only"
+    }
+  ],
+  "InputUniverse": "All supported finite Erlang Term variants; shape decisions only tuplearity2, Nil, Cons spine, with arbitrary opaque element payloads. No guest callback invoked, elements compared/serialized or proper-list prevalidation introduced.",
+  "ProperListPartition": "Lengths0/1/2 versus>=3 (all odd/even halfsplits), arbitrary element types/persistence; pairrear/front distribution arbitrary, not only canonical queues.",
+  "ImproperListPartition": "Every finiteCons prefix ending in any nonNil/nonCons supportedterm; shallowguards accept it. Behavior depends on clauses reached, never blanketbadarg. Zero-cons nonlist inputs follow publicguard fallback.",
+  "ExhaustivePublicErrors": "is_queue returnsfalse, neverbadarg; new hasnoerrors; sixother operations have publicshapeinvalid branches plus operation-specific helperfailurebranches detailed perMFA.",
+  "ErrorMetadataStatus": "No queue MFA classified complete before actualwholeframes/effectivearguments/depthprofiles from160case original39071324870. Publicline/defaulthelpermetadata are candidates, not nativeobservations.",
+  "SchedulingApplicability": "Guestregistrations carryactual ProcessContext. EverylinearCount/Reverse/Split/PrefixRebuild/Append loop ReduceAsync. O(1) paths rely on normal shared modulecall controls; no exactBEAMreductioncount, physicalscheduler latency, CLR/native heaplayout, systemOOM parity inferred.",
+  "ResourceApplicability": "BigIntegerlength/halfsplit avoids boundedintegercount overflow, iterativework avoidsCLRrecursion; allocations proportional to requiredlistoutputs/intermediateprefixes, no userfixedinputsizecap.",
+  "Evidence": {
+    "FocusReportSha256": "855CE8D0199E3C30881FC76F192654835DAC8434C144E9077E34C8A5B54BEE11",
+    "FocusReceiptSha256": "F42EA99A94566BE2F45162EDE9086CE5328E52D8A3BBE92B52861F69BEDDB49E",
+    "FocusPassed": 76,
+    "SdkCaptureSealSha256": "7C25A643F6DA2822B5FF82F6BE9F422C997D20184F122EFCAC423E9CF035319D",
+    "CurrentFiveDllClosureSha256": "D1D2113DEE9233E1859FC0DC6C0AE2D8728596B3429BB7D1A6ABF9108BE61ACB"
+  },
+  "Recommendation": "All8 are source-value complete candidates only; completecontract recommendation remains conditional actualsamefixture values/fullstacks, processcontrol checks, final regression/package/sourceclosure gates. Other30queueexports remain outofscope.",
+  "MainOrSdkNativeCiExecutedByReviewer": false
+}

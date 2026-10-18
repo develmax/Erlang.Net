@@ -1,0 +1,1 @@
+-module(oracle_maps_completion). -export([run/0]). run()->put(calls,0),#{a:=3}=maps:intersect_with(fun(_,L,R)->put(calls,get(calls)+1),L+R end,#{a=>1,b=>4},#{a=>2,c=>5}),1=get(calls),done.

@@ -1,0 +1,18 @@
+{
+  "Status": "PASS_PASSIVE_ACQUISITION_OF_HISTORICAL_DIFFERENCES_NOT_COMPATIBILITY",
+  "OriginalAdmissionSha256": "DAFEA0BFAD08C1BE2975C81D342C729B816717D5BA213FD6710BDE4EE6301FF6",
+  "ExpectedRows": 3510,
+  "Rows": 3510,
+  "StrictEqual": 2486,
+  "OpaqueOnlyUnaccepted": 18,
+  "OtherFullStackDifferences": 1006,
+  "NonopaqueValueDifferences": 0,
+  "CopiedSdkDllCount": 5,
+  "SdkClosureSha256": "D2104937B56E3CC62C0598C05DA5CEBF925A6662E0191563D7E4488780F3C2C1",
+  "SdkCaptureSealSha256": "06AB9A80654A48B73DF54845B3CFD176A94370CF9D35902680FE851530FB1874",
+  "PrimaryCause": "Native binary BIF errors retain source probe caller; historical SDK RuntimeTailCall unwinds it before invocation. Erlang source wrapper errors additionally miss binary.erl location metadata in historical capture.",
+  "CurrentRuntimeAcceptance": false,
+  "FieldsProjected": false,
+  "RuntimeExecuted": false,
+  "NativeExecuted": false
+}

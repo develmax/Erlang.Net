@@ -1,0 +1,1 @@
+-module(oracle_map_operations). -export([run/0]). run()->#{a:=3}=maps:update_with(a,fun(V)->V+1 end,initial,#{a=>2}),#{a:=initial}=maps:update_with(a,fun(_)->throw(called) end,initial,#{}),done.

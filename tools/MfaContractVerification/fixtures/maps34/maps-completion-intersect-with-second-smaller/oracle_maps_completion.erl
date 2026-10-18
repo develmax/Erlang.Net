@@ -1,0 +1,1 @@
+-module(oracle_maps_completion). -export([run/0]). run()->#{a:={left,right}}=maps:intersect_with(fun(_,L,R)->{L,R} end,#{a=>left,b=>extra},#{a=>right}),done.

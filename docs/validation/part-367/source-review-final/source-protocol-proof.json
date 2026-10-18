@@ -1,0 +1,58 @@
+{
+  "FrozenSourceProofSha256": "02340677898FF0BD2AA25B39386F1F04C6AD492E074B62C5659FF06891CAB4F5",
+  "PinnedOtp": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Authority": [
+    {
+      "Path": "erts/emulator/beam/erl_bif_lists.c",
+      "Bytes": 37624,
+      "Sha256": "473804029CBF4FE37C47637E5A7310BAB334872910E71933AD7C07CCE7D571B3"
+    },
+    {
+      "Path": "erts/emulator/beam/bif.h",
+      "Bytes": 21390,
+      "Sha256": "0C5DFFFA51C20698D33473C8E7E5BC48BC748411D9782767928FA90D50B29F4E"
+    },
+    {
+      "Path": "erts/emulator/beam/beam_common.c",
+      "Bytes": 65513,
+      "Sha256": "1AF6CF2D371975B0D9944B5857062A90091298373B3802639B25D03003AB3C47"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_nfunc_sched.h",
+      "Bytes": 9552,
+      "Sha256": "BAF9D5F50774B2DE3F101EF35B79E322225B422A870A64A0B3C7D38A6073117C"
+    },
+    {
+      "Path": "erts/emulator/beam/bif.c",
+      "Bytes": 169612,
+      "Sha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC"
+    },
+    {
+      "Path": "erts/emulator/beam/jit/x86/beam_asm_global.cpp",
+      "Bytes": 12699,
+      "Sha256": "86195D62786F8D74CE0EB3C9D229454C51D6980C0B478335446C72B30CD731B0"
+    },
+    {
+      "Path": "erts/emulator/beam/jit/x86/instr_bif.cpp",
+      "Bytes": 38721,
+      "Sha256": "26684C37BDFFF302268E081B0BBD2A14B2215E4B0C1650CFFE4EA75AC5A0DF5E"
+    },
+    {
+      "Path": "erts/emulator/beam/jit/beam_jit_common.cpp",
+      "Bytes": 44693,
+      "Sha256": "B8FF4CFBE3AFB033B060BB0E0B013DC6E02E7280A4B7AC8D195CA4E6AC5248AE"
+    }
+  ],
+  "Argument": [
+    "Selects native allocation-only reverse branch: managed storage has no BEAM spare-heap model. Forty cells per genuine own remaining reduction; no captured native partition or native words seed execution.",
+    "Actor-only RemainingListTraversalReductions reads existing reductions field; ChargeAsync(0) checks controls without consuming reductions. Getter/scheduler source is unchanged.",
+    "Each iteration snapshots actual list, accumulator and remaining budget before lookahead. Floor(cells/40) is charged before malformed-lookahead failure, matching native BUMP ordering.",
+    "An improper endpoint seen during lookahead raises before any counted cells are copied. Error arguments are the immutable entry pair, not the final scan cursor.",
+    "Only after a valid partial chunk is copied does the next iteration snapshot its genuine suffix and accumulated tail. Completing Nil returns reversed values unchanged.",
+    "QueueCoreTrace, source locations, effective owner and caller/depth formatting are byte unchanged. Only the reverse BIF effective argument pair can change after a real own trap.",
+    "Deterministic actual budget1 tests cover improper prefixes39/40/41/81/80041; enlarged256017 normal/cancel traversal forces cooperative progress at40cells/reduction.",
+    "No length cutoff or blanket comparison waiver. Existing160values/800profiles and supplemental11/55 remain actual pending admission gates; any differing error arguments require actual last-entry decomposition and own budget proof."
+  ],
+  "SchedulingScope": "Own managed actor state; no assertion of identical cross-VM trap offsets, native heap availability, allocation timing or native scheduler quantum.",
+  "UnaffectedQueueBranches": "Length, split, append, guards and persistent tuple algorithms unchanged; only out rear-transfer and to_list rear reverse can expose corrected trapped-entry args."
+}

@@ -1,0 +1,70 @@
+{
+  "Scope": "PREDECLARED_POLICY_AND_REPLAYER_PRIMITIVES_NOT_ACTUAL_NATIVE_REPLAY",
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ObservedProposalProfile": {
+    "Path": "artifacts/queue367-longtrap-original-proposal1/tool/profile.json",
+    "Sha256": "E9EC23DDA51F94D9E19F1DAA39169107E5B6AC4C4CCDBBB4D13950D195722EB3"
+  },
+  "ObservedFixture": {
+    "Path": "artifacts/queue367-longtrap-original-proposal1/tool/original/queue_long_trap_contract.erl",
+    "Sha256": "4E9A935C54769F254BA410A054F6FCA12298904FAC67B32B8A730801BDF1E189"
+  },
+  "OriginalGroups": 4,
+  "OriginalValues": 11,
+  "OriginalFullObservations": 55,
+  "OriginalOnlyDiagnostics": [
+    "reverse_64017",
+    "reverse_256017",
+    "short_reverse_direct"
+  ],
+  "QueueReverseRelationCases": {
+    "to_list_rear_64017": 64017,
+    "to_list_rear_256017": 256017,
+    "out_rear_64017": 64017,
+    "out_rear_256017": 256017
+  },
+  "ExactControls": [
+    "short_reverse_rear",
+    "long_append_64017",
+    "long_length_64017",
+    "long_from_list_64017"
+  ],
+  "SDKQueueComparisons": {
+    "Values": 8,
+    "FullObservations": 40,
+    "DirectLargeReverseMfaPromotion": false
+  },
+  "StrictBeforeRelational": true,
+  "AllowedDifference": "Only argument-list field of first lists:reverse/2 failure frame for four specifically named queue long-improper rear cases. No other error/caller/location/cardinality/value field changes.",
+  "FullSourceDecomposition": "For original 1..N|tail, saved remaining is exactly k+1..N|tail and saved accumulator exactly k..1 for some actual last-entry k. Check every unique element, not only lengths or endpoints.",
+  "TrapProof": "Native k>0 demonstrates an earlier actual BIF trap; k=0 alone does not prove absence of within-entry prefix work. SDK k must bind its actual reviewed entry snapshot code/own budget policy, not be chosen after reading native k.",
+  "RequiredSourceReview": [
+    "ActualOwnTrapEntrySnapshotsSourceReviewed",
+    "NativePartitionSeededIntoMain=false",
+    "EveryBudgetHeapStateDifferenceExplained",
+    "Hash-bound final Main runtime source files plus exact SDK DLL/source capture closure",
+    "Audit of alloc lookahead-before-copy, true reentry-only snapshot updates, internal onheap-to-alloc non-reentry, cancellation, original append/length arguments unchanged"
+  ],
+  "FailClosed": "Decomposition alone is only a structural diagnostic and never compatibility acceptance. Missing own protocol evidence yields INSUFFICIENT_OWN_PROTOCOL_BINDING; preserve strict failure and raw snapshots.",
+  "Decoder": "Reuse admitted supplement passive_etf_family.py with explicit source-input hash/byte/term bound; do not silently increase bounds or use a new ETF parser.",
+  "RawPreservation": "Retain whole decoded differences, all full raw ETF files and exact file hashes. No rewritten normalized outcomes, omitted frames, captured native partitions or supplied expected error encodings.",
+  "NegativeControls": [
+    "wrong first-frame MFA",
+    "wrong class/reason",
+    "wrong saved suffix element/order/tail",
+    "wrong accumulator element/order or a missing word",
+    "wrong consumed split including duplicated/lost cells",
+    "altered location file/line/error_info",
+    "removed/changed caller frame",
+    "changed list argument count",
+    "missing/false own protocol source binding"
+  ],
+  "NoPromotionByFinitePass": true,
+  "MainModified": false,
+  "NativeOrSdkExecuted": false,
+  "CasePolicies": {
+    "Path": "artifacts/queue367-longtrap-original-proposal1/case-policies.json",
+    "Sha256": "6C758657B56CD8100AE0ED87322AA0DB7B4B27FC9A44607F46A89DF3DF5B4083"
+  },
+  "ReplacesUnexecutedPolicy1": "Exact original-only roster clarified by fixture owner: short direct reverse is also native-only."
+}

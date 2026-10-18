@@ -1,0 +1,67 @@
+{
+  "Family": "original-reference-ordered-cursor-protocol",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Mfas": [
+    "proplists:from_map/1"
+  ],
+  "Fixtures": [
+    {
+      "Id": "reference_cursors",
+      "Location": "tool",
+      "Path": "original/proplists_reference_cursor_contract.erl",
+      "Module": "proplists_reference_cursor_contract",
+      "Names": [
+        "flat_aliases",
+        "hamt_aliases",
+        "prefix_alias"
+      ],
+      "Run": "run",
+      "NamesEntry": "cases",
+      "StackModule": "proplists_reference_cursor_contract",
+      "StackEntry": "run_stacks",
+      "WorkerModule": "proplists_observation_worker",
+      "WorkerEntry": "run",
+      "StackShape": "depth_cases",
+      "Companions": [
+        "original/proplists_observation_worker.erl"
+      ],
+      "Cases": [
+        {
+          "Name": "flat_aliases",
+          "Mfas": [
+            "proplists:from_map/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "hamt_aliases",
+          "Mfas": [
+            "proplists:from_map/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "prefix_alias",
+          "Mfas": [
+            "proplists:from_map/1"
+          ],
+          "Policy": "exact"
+        }
+      ]
+    }
+  ],
+  "FixtureSources": [
+    {
+      "Location": "tool",
+      "Path": "original/proplists_reference_cursor_contract.erl",
+      "Sha256": "67A93D39D68AA98DCDC0C4180174499C9AAEE446637001F299EA1DE9D07F2A53"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/proplists_observation_worker.erl",
+      "Sha256": "34B743EB95A5937058AB8F208A1FB17C6ACED20AF7E08398EF6D154F574546BC"
+    }
+  ],
+  "ExpectedUniqueSourceCount": 2,
+  "ObserverEntry": "Only three newly identified reference cursor branches; preserve full errors and stacks, own-state selector for prefix witness."
+}

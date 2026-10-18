@@ -10,6 +10,13 @@ public static class ListFunctions
         Term? accumulator = null
     )
     {
+        if (operation == ListModuleNames.FoldRight)
+            return await ListFoldRight.Run(
+                context,
+                function,
+                accumulator!,
+                list
+            );
         bool fold = operation is ListModuleNames.FoldLeft or ListModuleNames.FoldRight or ListModuleNames.MapFoldLeft or ListModuleNames.MapFoldRight;
         if (function is not FunctionTerm callback || callback.Arity != (fold ? 2 : 1))
             throw new ErlangException(ErlangErrorReasons.FunctionClause);

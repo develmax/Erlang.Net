@@ -1,0 +1,476 @@
+{
+  "Scope": "Read-only complete source-clause audit; not original or SDK execution and no finite-pass completeness inference",
+  "PinnedOtp": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "PinnedProplistsSha256": "A0CABB89DD3FC82DDCEFC2C14502D12B6A4E0503A84B45867FCC18EE1F2E96A0",
+  "PinnedMapsSha256": "350C707FF10180E1677CD911A4E981ABCCE2207DB69CE5C986BB1C000D69A816",
+  "Mfas": [
+    {
+      "Mfa": "proplists:property/1",
+      "PinnedClauseAndEntry": "property/1 @73",
+      "ValueOrderEqualityContract": "Only exact {Atom,true} compacts to Atom. Nonatom key,true stays pair; false, singleton/triple/empty tuple and arbitrary nonproperty return unchanged.",
+      "ErrorAndEvaluationContract": "No type rejection; no list traversal.",
+      "CandidateImplementation": "Lookup.Property",
+      "ExistingFamilyCases": [
+        "case_001",
+        "case_002",
+        "case_003",
+        "case_004",
+        "case_005",
+        "case_006",
+        "case_007",
+        "case_008"
+      ],
+      "NewAuditStatus": "CLAUSE_ADAPTATION_MATCHES_SOURCE_NO_NEW_EXECUTION",
+      "PromotionGate": "Final Main source binding and affected regression/CI; retain runtime-profile limitations"
+    },
+    {
+      "Mfa": "proplists:property/2",
+      "PinnedClauseAndEntry": "property/2 @91",
+      "ValueOrderEqualityContract": "Atom,true\u2192Atom; everything else\u2192{Key,Value}; arbitrary Key/Value retained.",
+      "ErrorAndEvaluationContract": "No type rejection/traversal.",
+      "CandidateImplementation": "Lookup.Property",
+      "ExistingFamilyCases": [
+        "case_009",
+        "case_010",
+        "case_011",
+        "case_012",
+        "case_013"
+      ],
+      "NewAuditStatus": "CLAUSE_ADAPTATION_MATCHES_SOURCE_NO_NEW_EXECUTION",
+      "PromotionGate": "Final Main source binding and affected regression/CI; retain runtime-profile limitations"
+    },
+    {
+      "Mfa": "proplists:unfold/1",
+      "PinnedClauseAndEntry": "unfold/1 @108",
+      "ValueOrderEqualityContract": "Every atom\u2192{Atom,true}; all other elements unchanged, order and duplicates preserved.",
+      "ErrorAndEvaluationContract": "Traverses full spine; nonlist/reached improper tail gives function_clause in unfold/1 with reached tail, not original whole list.",
+      "CandidateImplementation": "Lookup.Transform(unfold=true)",
+      "ExistingFamilyCases": [
+        "case_014",
+        "case_015",
+        "case_016",
+        "case_017"
+      ],
+      "NewAuditStatus": "CLAUSE_ADAPTATION_MATCHES_SOURCE_NO_NEW_EXECUTION",
+      "PromotionGate": "Final Main source binding and affected regression/CI; retain runtime-profile limitations"
+    },
+    {
+      "Mfa": "proplists:compact/1",
+      "PinnedClauseAndEntry": "compact/1 @127",
+      "ValueOrderEqualityContract": "Apply property/1 to every element; order/duplicates preserved; unfold/compact round trip has documented normalization.",
+      "ErrorAndEvaluationContract": "Full list comprehension; generator nonlist/improper behavior and generated LC frame must be acquired, not invented as public function_clause.",
+      "CandidateImplementation": "Lookup.Transform(unfold=false)",
+      "ExistingFamilyCases": [
+        "case_018",
+        "case_019",
+        "case_020",
+        "case_021"
+      ],
+      "NewAuditStatus": "CLAUSE_ADAPTATION_MATCHES_SOURCE_NO_NEW_EXECUTION",
+      "PromotionGate": "Final Main source binding and affected regression/CI; retain runtime-profile limitations"
+    },
+    {
+      "Mfa": "proplists:lookup/2",
+      "PinnedClauseAndEntry": "lookup/2 @144",
+      "ValueOrderEqualityContract": "First atom match\u2192{Key,true}; first matching tuple arity>=1 returns whole tuple. Wrong arity shadows later matches. Empty\u2192none.",
+      "ErrorAndEvaluationContract": "Early match bypasses invalid tail; no match reaches function_clause lookup/2 arguments [Key,reachedTail].",
+      "CandidateImplementation": "Lookup.Find",
+      "ExistingFamilyCases": [
+        "case_022",
+        "case_030",
+        "case_031",
+        "case_032",
+        "case_054",
+        "case_063",
+        "case_065"
+      ],
+      "NewAuditStatus": "CLAUSE_ADAPTATION_MATCHES_SOURCE_NO_NEW_EXECUTION",
+      "PromotionGate": "Final Main source binding and affected regression/CI; retain runtime-profile limitations"
+    },
+    {
+      "Mfa": "proplists:lookup_all/2",
+      "PinnedClauseAndEntry": "lookup_all/2 @166",
+      "ValueOrderEqualityContract": "All atom matches\u2192pairs; all matching arity>=1 tuples unchanged; order and duplicates retained. Empty\u2192[].",
+      "ErrorAndEvaluationContract": "Always traverses tail even after match; function_clause lookup_all/2 with reachedTail.",
+      "CandidateImplementation": "Lookup.Find",
+      "ExistingFamilyCases": [
+        "case_023",
+        "case_033",
+        "case_034",
+        "case_035",
+        "case_058"
+      ],
+      "NewAuditStatus": "CLAUSE_ADAPTATION_MATCHES_SOURCE_NO_NEW_EXECUTION",
+      "PromotionGate": "Final Main source binding and affected regression/CI; retain runtime-profile limitations"
+    },
+    {
+      "Mfa": "proplists:is_defined/2",
+      "PinnedClauseAndEntry": "is_defined/2 @188",
+      "ValueOrderEqualityContract": "First matching atom or tuple arity>=1\u2192true, including wrong arity; empty/missing\u2192false.",
+      "ErrorAndEvaluationContract": "Early success bypasses tail; otherwise function_clause is_defined/2 [Key,reachedTail].",
+      "CandidateImplementation": "Lookup.Find",
+      "ExistingFamilyCases": [
+        "case_024",
+        "case_036",
+        "case_037",
+        "case_038",
+        "case_055"
+      ],
+      "NewAuditStatus": "CLAUSE_ADAPTATION_MATCHES_SOURCE_NO_NEW_EXECUTION",
+      "PromotionGate": "Final Main source binding and affected regression/CI; retain runtime-profile limitations"
+    },
+    {
+      "Mfa": "proplists:get_value/2",
+      "PinnedClauseAndEntry": "get_value/2 @207",
+      "ValueOrderEqualityContract": "Existing regression: delegate get_value/3 with undefined default; atom\u2192true, pair\u2192Value, wrong-arity matching tuple shadows\u2192undefined.",
+      "ErrorAndEvaluationContract": "Tail delegation exposes effective get_value/3 [Key,reachedTail,undefined], entry222, not a fabricated /2 error frame. Preserve current caller-stack behavior.",
+      "CandidateImplementation": "ProplistValueLookup.ReadAsync",
+      "ExistingFamilyCases": [
+        "case_025",
+        "case_039",
+        "case_040",
+        "case_041",
+        "case_057",
+        "case_062",
+        "case_064"
+      ],
+      "NewAuditStatus": "CLAUSE_ADAPTATION_MATCHES_SOURCE_NO_NEW_EXECUTION",
+      "PromotionGate": "Final Main source binding and affected regression/CI; retain runtime-profile limitations"
+    },
+    {
+      "Mfa": "proplists:get_value/3",
+      "PinnedClauseAndEntry": "get_value/3 @222",
+      "ValueOrderEqualityContract": "As /2 with arbitrary Default; wrong-arity shadow returns that exact Default without searching later.",
+      "ErrorAndEvaluationContract": "Existing regressions cover reachedTail/effective Default, logical caller and source metadata at varying backtrace depths.",
+      "CandidateImplementation": "ProplistValueLookup.ReadAsync",
+      "ExistingFamilyCases": [
+        "case_066",
+        "case_067",
+        "case_068",
+        "case_069",
+        "case_070",
+        "case_071"
+      ],
+      "NewAuditStatus": "CLAUSE_ADAPTATION_MATCHES_SOURCE_NO_NEW_EXECUTION",
+      "PromotionGate": "Final Main source binding and affected regression/CI; retain runtime-profile limitations"
+    },
+    {
+      "Mfa": "proplists:get_all_values/2",
+      "PinnedClauseAndEntry": "get_all_values/2 @247",
+      "ValueOrderEqualityContract": "Atoms contribute true; only matching exact pairs contribute values; singleton/triple matching tuples skipped, not shadow barriers. Order/duplicates preserved.",
+      "ErrorAndEvaluationContract": "Full traversal; function_clause [Key,reachedTail] even after prior matches.",
+      "CandidateImplementation": "Lookup.Find",
+      "ExistingFamilyCases": [
+        "case_026",
+        "case_042",
+        "case_043",
+        "case_044",
+        "case_059"
+      ],
+      "NewAuditStatus": "CLAUSE_ADAPTATION_MATCHES_SOURCE_NO_NEW_EXECUTION",
+      "PromotionGate": "Final Main source binding and affected regression/CI; retain runtime-profile limitations"
+    },
+    {
+      "Mfa": "proplists:append_values/2",
+      "PinnedClauseAndEntry": "append_values/2 @285",
+      "ValueOrderEqualityContract": "As get_all_values but each list-shaped Value concatenated one level; scalar Value singleton. [] contributes nothing; nested lists retained. Atom contributes true; wrong-arity tuple skipped.",
+      "ErrorAndEvaluationContract": "Matching improper list Value follows ++ badarg; unrelated improper Value is ignored. Recursion of remaining props occurs before ++ is applied, so competing invalid remaining tail may fail first. Acquire exact operator/helper frames and effective args.",
+      "CandidateImplementation": "Lookup.Find + Lists.Append",
+      "ExistingFamilyCases": [
+        "case_027",
+        "case_045",
+        "case_046",
+        "case_047",
+        "case_060",
+        "case_077",
+        "case_078",
+        "case_079",
+        "case_080",
+        "case_081"
+      ],
+      "NewAuditStatus": "CLAUSE_ADAPTATION_MATCHES_SOURCE_NO_NEW_EXECUTION",
+      "PromotionGate": "Final Main source binding and affected regression/CI; retain runtime-profile limitations"
+    },
+    {
+      "Mfa": "proplists:get_bool/2",
+      "PinnedClauseAndEntry": "get_bool/2 @317",
+      "ValueOrderEqualityContract": "Matching atom or exact {Key,true}\u2192true. First matching wrong arity/false/any other value\u2192false, no later search. Missing\u2192false.",
+      "ErrorAndEvaluationContract": "First match, including malformed tuple, bypasses tail; no match function_clause [Key,reachedTail].",
+      "CandidateImplementation": "Lookup.Find",
+      "ExistingFamilyCases": [
+        "case_028",
+        "case_048",
+        "case_049",
+        "case_050",
+        "case_056",
+        "case_072",
+        "case_073",
+        "case_074",
+        "case_075",
+        "case_076"
+      ],
+      "NewAuditStatus": "CLAUSE_ADAPTATION_MATCHES_SOURCE_NO_NEW_EXECUTION",
+      "PromotionGate": "Final Main source binding and affected regression/CI; retain runtime-profile limitations"
+    },
+    {
+      "Mfa": "proplists:get_keys/1",
+      "PinnedClauseAndEntry": "get_keys/1 @341",
+      "ValueOrderEqualityContract": "All atom keys and first elements of nonempty tuples; ignore emptytuple/nonproperty; exact duplicates eliminated, 1 versus1.0 distinct.",
+      "ErrorAndEvaluationContract": "Full traversal via get_keys/2 @344; reachedTail frame includes accumulated Keys set. Returned order comes from sets:to_list, documented unordered: retain raw result, compare exact key membership separately; no silent sorting-as-equality claim.",
+      "CandidateImplementation": "Lookup.Keys",
+      "ExistingFamilyCases": [
+        "case_082",
+        "case_083",
+        "case_084"
+      ],
+      "NewAuditStatus": "CLAUSE_ADAPTATION_MATCHES_SOURCE_NO_NEW_EXECUTION",
+      "PromotionGate": "Final Main source binding and affected regression/CI; retain runtime-profile limitations"
+    },
+    {
+      "Mfa": "proplists:delete/2",
+      "PinnedClauseAndEntry": "delete/2 @363",
+      "ValueOrderEqualityContract": "Remove every matching atom/nonempty tuple, including singleton/triple; retain all other elements/order. Empty\u2192[].",
+      "ErrorAndEvaluationContract": "Full traversal; function_clause delete/2 [Key,reachedTail], even if earlier matches removed.",
+      "CandidateImplementation": "Lookup.Delete",
+      "ExistingFamilyCases": [
+        "case_029",
+        "case_051",
+        "case_052",
+        "case_053",
+        "case_061"
+      ],
+      "NewAuditStatus": "CLAUSE_ADAPTATION_MATCHES_SOURCE_NO_NEW_EXECUTION",
+      "PromotionGate": "Final Main source binding and affected regression/CI; retain runtime-profile limitations"
+    },
+    {
+      "Mfa": "proplists:substitute_aliases/2",
+      "PinnedClauseAndEntry": "substitute_aliases/2 @396",
+      "ValueOrderEqualityContract": "Map each property using first matching alias pair. Atom uses property(NewKey,true); matching tuple uses setelement then property/1, preserving arity/extra fields. No chained aliasing in one pass; [a\u2192b,b\u2192c] maps a\u2192b.",
+      "ErrorAndEvaluationContract": "Outer LC fully traverses Props. Empty Props returns [] without inspecting As at all. Helper /2 @399 inspects table lazily per property; malformed table element or reached improper tabletail is function_clause; first match bypasses invalid alias tail. Nonmatching arbitrary properties still scan table, so malformed table may fail even for a nonproperty.",
+      "CandidateImplementation": "Substitution.Apply/One",
+      "ExistingFamilyCases": [
+        "case_085",
+        "case_086",
+        "case_087",
+        "case_088",
+        "case_089",
+        "case_090",
+        "case_091",
+        "case_092"
+      ],
+      "NewAuditStatus": "CLAUSE_ADAPTATION_MATCHES_SOURCE_NO_NEW_EXECUTION",
+      "PromotionGate": "Final Main source binding and affected regression/CI; retain runtime-profile limitations"
+    },
+    {
+      "Mfa": "proplists:substitute_negations/2",
+      "PinnedClauseAndEntry": "substitute_negations/2 @438",
+      "ValueOrderEqualityContract": "First matching table entry only. Atom or {Key,true}\u2192property(NewKey,false). {Key,false} and every other matching tuple (singleton/triple/other value)\u2192property(NewKey,true). Nonatom replacement keys remain pairs; no chaining.",
+      "ErrorAndEvaluationContract": "Same outer/table lazy distinctions as aliases; helper substitute_negations_1/2 @441. Empty Props does not inspect table.",
+      "CandidateImplementation": "Substitution.Apply/One",
+      "ExistingFamilyCases": [
+        "case_093",
+        "case_094",
+        "case_095",
+        "case_096",
+        "case_097",
+        "case_098",
+        "case_099",
+        "case_100"
+      ],
+      "NewAuditStatus": "CLAUSE_ADAPTATION_MATCHES_SOURCE_NO_NEW_EXECUTION",
+      "PromotionGate": "Final Main source binding and affected regression/CI; retain runtime-profile limitations"
+    },
+    {
+      "Mfa": "proplists:expand/2",
+      "PinnedClauseAndEntry": "expand/2 @502",
+      "ValueOrderEqualityContract": "Normalize rule property; skip malformed nonpair rule elements via LC; apply rules in order; inserted expansion lists opaque to later matching; final flatten only one level, including pre-existing list entries. First matching-key property mismatch stops that rule, but preserves normalized matching property, not necessarily original tuple. Successful match deletes later properties with same key.",
+      "ErrorAndEvaluationContract": "Nonlist Ps fails guard at expand/2 with original args. Improper cons Ps passes guard; reached helper/flatten/delete may fail, but an early mismatch can retain tail without traversing it until later flatten. Invalid/absent-rule Expansion can remain uninspected. Improper inserted/pre-existing list may fail ++; scalar expansion is retained as scalar by final flatten. Error depends on source path, not global badarg.",
+      "CandidateImplementation": "Expansion.Expand/One/Flatten",
+      "ExistingFamilyCases": [
+        "case_101",
+        "case_102",
+        "case_103",
+        "case_104",
+        "case_105",
+        "case_106",
+        "case_107",
+        "case_108",
+        "case_109",
+        "case_110",
+        "case_111",
+        "case_112",
+        "case_113",
+        "case_114"
+      ],
+      "NewAuditStatus": "CLAUSE_ADAPTATION_MATCHES_SOURCE_NO_NEW_EXECUTION",
+      "PromotionGate": "Final Main source binding and affected regression/CI; retain runtime-profile limitations"
+    },
+    {
+      "Mfa": "proplists:normalize/2",
+      "PinnedClauseAndEntry": "normalize/2 @611",
+      "ValueOrderEqualityContract": "Apply stages left-to-right (aliases/expand/negations), then always compact result. Empty stages still compact. Repeated stages allowed and can chain across passes.",
+      "ErrorAndEvaluationContract": "apply_stages/2 @614 rejects unknown tag/wrong tuplearity/nonlist/reached improper stages with function_clause and current transformed L plus remaining stages. Earlier stage failure wins; unknown stage can fail before invalid L is examined. Valid empty-stage invalid L reaches compact generator failure.",
+      "CandidateImplementation": "Projection.Normalize + Expansion.Stages",
+      "ExistingFamilyCases": [
+        "case_115",
+        "case_116",
+        "case_117",
+        "case_118",
+        "case_119",
+        "case_120",
+        "case_121",
+        "case_122"
+      ],
+      "NewAuditStatus": "CLAUSE_ADAPTATION_MATCHES_SOURCE_NO_NEW_EXECUTION",
+      "PromotionGate": "Final Main source binding and affected regression/CI; retain runtime-profile limitations"
+    },
+    {
+      "Mfa": "proplists:split/2",
+      "PinnedClauseAndEntry": "split/2 @651",
+      "ValueOrderEqualityContract": "Build exact-key store from Keys first; each matching atom/nonemptytuple goes to bucket; other terms to Rest; preserve original property shape and order. Duplicate requested keys produce identical repeated buckets in output. Missing key bucket[].",
+      "ErrorAndEvaluationContract": "Keys map comprehension runs BEFORE List traversal, including for empty List. Nonlist/improper Keys gets generator error before invalid List. Reached improper List gets split/3 @656 with reached tail, current Store and reversed Rest. Acquire helper frames; do not replace effective arguments with original pair.",
+      "CandidateImplementation": "Projection.Split",
+      "ExistingFamilyCases": [
+        "case_123",
+        "case_124",
+        "case_125",
+        "case_126",
+        "case_127",
+        "case_128",
+        "case_129",
+        "case_130"
+      ],
+      "NewAuditStatus": "CLAUSE_ADAPTATION_MATCHES_SOURCE_NO_NEW_EXECUTION",
+      "PromotionGate": "Final Main source binding and affected regression/CI; retain runtime-profile limitations"
+    },
+    {
+      "Mfa": "proplists:to_map/1",
+      "PinnedClauseAndEntry": "to_map/1 @716",
+      "ValueOrderEqualityContract": "Right fold means earliest property wins. Atom\u2192true, exact pair\u2192Value. Matching wrong-arity nonemptytuple REMOVES key from accumulated map, preserving get_value shadow semantics. Empty tuple/nonproperty ignored. Map keys exact (1 and1.0 distinct).",
+      "ErrorAndEvaluationContract": "Full list spine via lists:foldr; reached improper/nonlist exposes lists helper/function frames, not automatically proplists:to_map/1 badarg. Obtain actual anonymous fun metadata for tuple-removal branches if failure witnessed.",
+      "CandidateImplementation": "Projection.ToMap + ToMapFunction + ListFoldRight.Failure",
+      "ExistingFamilyCases": [
+        "case_131",
+        "case_132",
+        "case_133",
+        "case_134",
+        "case_135",
+        "case_136",
+        "case_137",
+        "case_138"
+      ],
+      "NewAuditStatus": "CLAUSE_ADAPTATION_MATCHES_SOURCE_NO_NEW_EXECUTION",
+      "PromotionGate": "Final Main source binding and affected regression/CI; retain runtime-profile limitations"
+    },
+    {
+      "Mfa": "proplists:to_map/2",
+      "PinnedClauseAndEntry": "to_map/2 @752",
+      "ValueOrderEqualityContract": "Apply stages then to_map/1; unlike normalize/2 no final compact (observe separately where equivalent versus internal frames). Existing stages rules/precedence preserved.",
+      "ErrorAndEvaluationContract": "Stage errors first; otherwise foldr list errors. Tail delegation means no artificial persistent /2 frame.",
+      "CandidateImplementation": "Projection.ToMap + ToMapFunction + ListFoldRight.Failure",
+      "ExistingFamilyCases": [
+        "case_139",
+        "case_140",
+        "case_141",
+        "case_142",
+        "case_143"
+      ],
+      "NewAuditStatus": "CLAUSE_ADAPTATION_MATCHES_SOURCE_NO_NEW_EXECUTION",
+      "PromotionGate": "Final Main source binding and affected regression/CI; retain runtime-profile limitations"
+    },
+    {
+      "Mfa": "proplists:from_map/1",
+      "PinnedClauseAndEntry": "from_map/1 @763",
+      "ValueOrderEqualityContract": "Exactly maps:to_list(Map); preserve arbitrary key/value pairs, including {Atom,true}, not compacted; empty map\u2192[]. Order is maps iteration contract, not a chosen dictionary order.",
+      "ErrorAndEvaluationContract": "Nonmap delegated maps error path; capture actual badmap reason/effective args and stack source instead of inventing a public frame.",
+      "CandidateImplementation": "Projection.FromMap",
+      "ExistingFamilyCases": [
+        "case_144",
+        "case_145",
+        "case_146",
+        "case_147",
+        "case_148"
+      ],
+      "NewAuditStatus": "BLOCKER_ITERATOR_BRANCH_MISSING",
+      "PromotionGate": "Implement all delegated maps:to_list iterator clauses; original witness evidence then final regression/CI"
+    }
+  ],
+  "Inputs": [
+    {
+      "Path": "artifacts/proplists-stack-next1/candidate/src/Erlang.Runtime/ProplistFamilyContinuations.cs",
+      "Sha256": "C1CFE4E8F2E4267DBA206346D3692CD3137BF325DCB56D784626C211E97CCD73"
+    },
+    {
+      "Path": "artifacts/proplists-stack-next1/candidate/src/Erlang.Runtime/ProplistFamilyExpansion.cs",
+      "Sha256": "CCFA8C4A31D6AE0D0B85CF0F90A7809AA18AA14E931CCC5D9210930CD10BFC37"
+    },
+    {
+      "Path": "artifacts/proplists-stack-next1/candidate/src/Erlang.Runtime/ProplistFamilyFoldDiagnostics.cs",
+      "Sha256": "CE44FC10EC3CE7536AF8FD29C2084566FDE22BC1A947D6F4D0D122382C0BA181"
+    },
+    {
+      "Path": "artifacts/proplists-stack-next1/candidate/src/Erlang.Runtime/ProplistFamilyFoldNames.cs",
+      "Sha256": "4F38E99B5D4E06812969C96B4F85117396C4C704A426A739CFA2CC73E31B1E1A"
+    },
+    {
+      "Path": "artifacts/proplists-stack-next1/candidate/src/Erlang.Runtime/ProplistFamilyFrame.cs",
+      "Sha256": "0E780A46218E32E94AC2169BCBF2CFAEF6ED0BA2923AEC43EA1B2814621793C2"
+    },
+    {
+      "Path": "artifacts/proplists-stack-next1/candidate/src/Erlang.Runtime/ProplistFamilyLists.cs",
+      "Sha256": "25ADE462E26ACE7E9F69CDC893AFE41EE465EB51D05822A4A62D8069E716AFF3"
+    },
+    {
+      "Path": "artifacts/proplists-stack-next1/candidate/src/Erlang.Runtime/ProplistFamilyLookup.cs",
+      "Sha256": "BCB84627E19102A62C78220BBDE1A89CF1800FCA6662BA36175B5560F73A8248"
+    },
+    {
+      "Path": "artifacts/proplists-stack-next1/candidate/src/Erlang.Runtime/ProplistFamilyNames.cs",
+      "Sha256": "4A39714DC944D3037AF119CA910C5E182C7931561151751E1C083D62814A9E44"
+    },
+    {
+      "Path": "artifacts/proplists-stack-next1/candidate/src/Erlang.Runtime/ProplistFamilyProjection.cs",
+      "Sha256": "94757A9B292A74F1A7B238FC24205D393D8ACDE7EA279960602063E6E1A52EDF"
+    },
+    {
+      "Path": "artifacts/proplists-stack-next1/candidate/src/Erlang.Runtime/ProplistFamilyRegistrations.cs",
+      "Sha256": "372097CDDFE66B6E96019AE1E03C251128A4FADE675EFC2DBCD4CFCC4A39B883"
+    },
+    {
+      "Path": "artifacts/proplists-stack-next1/candidate/src/Erlang.Runtime/ProplistFamilySource.cs",
+      "Sha256": "1E78FC99A5C56B7BB57DBD225EDB81EABE0C97AE4F698610A4F82B77B0C4343A"
+    },
+    {
+      "Path": "artifacts/proplists-stack-next1/candidate/src/Erlang.Runtime/ProplistFamilySubstitution.cs",
+      "Sha256": "EBA2E0D4AA497E168ABFA1910B1FEB0FB0FBA0E031F079852D7872996B5A4FD3"
+    },
+    {
+      "Path": "artifacts/proplists-stack-next1/candidate/src/Erlang.Runtime/ProplistFamilyToMapFunction.cs",
+      "Sha256": "48241D1EC6568062EA456FD5003372969FDF93F0F63B7F9D1D5029B3691DDF0A"
+    },
+    {
+      "Path": "artifacts/proplists-stack-next1/candidate/src/Erlang.Runtime/ProplistFamilyTrace.cs",
+      "Sha256": "5DD349E077D9EF221E40D3C39C71AF132A6ED7FC023F953F6CBF3CABB5DD14A8"
+    },
+    {
+      "Path": "artifacts/proplists-stack-next1/candidate/src/Erlang.Runtime/ProplistValueLookup.cs",
+      "Sha256": "9AC5E6B4D25F806ED9A4C3574E1FDD8AEE61F6F9A71F0F87D8BABFCCA2C8CEF9"
+    }
+  ],
+  "KnownBlockers": [
+    {
+      "Id": "FROM_MAP_ITERATORS",
+      "Mfa": "proplists:from_map/1",
+      "Detail": "Source delegates every term to maps:to_list. MapTerm-only adaptation rejects accepted none, next-result tuples and map iterators. The public spec does not remove executable clauses."
+    }
+  ],
+  "SourceOnlyResidualObligations": [
+    "Term exact equality/hash consistency for arbitrary nested and opaque keys inherited from shared Term implementation",
+    "Final source bytes after integration and source/fixture/provenance bindings must match tested graph",
+    "Cooperative cancellation during synchronous reconstruction/MapTerm materialization not established by list scan cancellation",
+    "Runtime max backtrace depth64 differs from unrestricted OTP profiles; state profile boundary rather than universal VM compatibility",
+    "Opaque local function code identities are build-specific. Preserve raw mismatches; separately test actual module fingerprint/olduniq derivation and same-runtime identity/apply/roundtrip relations."
+  ],
+  "NoMainOrCandidateWrites": true,
+  "NoBuildOrCi": true
+}

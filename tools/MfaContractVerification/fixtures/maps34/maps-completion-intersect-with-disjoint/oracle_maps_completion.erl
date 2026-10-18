@@ -1,0 +1,1 @@
+-module(oracle_maps_completion). -export([run/0]). run()->0=maps:size(maps:intersect_with(fun(_,_,_)->error(called) end,#{a=>1},#{b=>2})),0=maps:size(maps:intersect_with(fun(_,_,_)->error(called) end,#{},#{})),done.

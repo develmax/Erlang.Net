@@ -1,0 +1,1 @@
+-module(oracle_maps_completion). -export([run/0]). run()->put(input,{a,1,{b,2,none}}),[{a,1},{b,2}]=maps:to_list(get(input)),done.

@@ -1,0 +1,1 @@
+-module(oracle_maps_completion). -export([run/0]). run()->#{a:=right}=maps:intersect(#{a=>left,b=>only_left},#{a=>right,c=>only_right}),done.

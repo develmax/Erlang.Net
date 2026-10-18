@@ -106,4 +106,9 @@ Append numbered English entries only to the last volume. Start the next sequenti
 - [0054.md](docs/changelog/0054.md) — parts344–350 (closed)
 - [0055.md](docs/changelog/0055.md) — part350 reporting clarification and parts351–354 (closed)
 - [0056.md](docs/changelog/0056.md) — parts355–361 (closed)
-- [0057.md](docs/changelog/0057.md) — part362 (active)
+- [0057.md](docs/changelog/0057.md) — parts362–364 (closed; parts363–364 local, frame slice validated)
+
+- [0058.md](docs/changelog/0058.md) — parts365–366 (closed; proplists22 contracts validated locally, unpublished)
+- [0059.md](docs/changelog/0059.md) — parts367–368 (closed; all38 queue contracts completed locally, unpublished)
+
+- [0060.md](docs/changelog/0060.md) — parts369–371 (active)

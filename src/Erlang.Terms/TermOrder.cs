@@ -40,7 +40,8 @@ public static class TermOrder
         Term b,
         bool exact,
         ref NodeComparisonContext context,
-        Stack<IEnumerator<TermComparisonStep>> pending
+        Stack<IEnumerator<TermComparisonStep>> pending,
+        TermComparisonPurpose purpose
     )
     {
         int rank = Rank(a).CompareTo(Rank(b));
@@ -121,7 +122,8 @@ public static class TermOrder
                         y,
                         localLeft,
                         localRight,
-                        exact
+                        exact,
+                        purpose
                     ).GetEnumerator());
 
                     return 0;
@@ -224,6 +226,58 @@ public static class TermOrder
         Term b,
         bool exact,
         ref NodeComparisonContext context
+    ) => ComparePurposeSnapshot(
+        a,
+        b,
+        exact,
+        ref context,
+        TermComparisonPurpose.Ordering
+    );
+
+    internal static int CompareCanonicalSnapshot(
+        Term a,
+        Term b,
+        ref NodeComparisonContext context
+    ) => ComparePurposeSnapshot(
+        a,
+        b,
+        true,
+        ref context,
+        TermComparisonPurpose.CanonicalKeyStorage
+    );
+
+    internal static bool ExactEquals(Term a, Term b)
+    {
+        NodeComparisonContext context = default;
+
+        return ComparePurposeSnapshot(
+            a,
+            b,
+            true,
+            ref context,
+            TermComparisonPurpose.ExactEquality
+        ) == 0;
+    }
+
+    internal static bool NumericEquals(Term a, Term b)
+    {
+        NodeComparisonContext context = default;
+
+        return ComparePurposeSnapshot(
+            a,
+            b,
+            false,
+            ref context,
+            TermComparisonPurpose.NumericEquality
+        ) == 0;
+    }
+
+    private static int ComparePurposeSnapshot(
+        Term a,
+        Term b,
+        bool exact,
+        ref NodeComparisonContext context,
+        TermComparisonPurpose purpose
     )
     {
         var pending = new Stack<IEnumerator<TermComparisonStep>>();
@@ -239,7 +293,8 @@ public static class TermOrder
                         step.Right!,
                         step.Exact,
                         ref context,
-                        pending
+                        pending,
+                        purpose
                     );
                 if (comparison != 0)
                     return comparison;
@@ -284,13 +339,19 @@ public static class TermOrder
         FunctionTerm b,
         LocalFunctionIdentity left,
         LocalFunctionIdentity right,
-        bool exact
+        bool exact,
+        TermComparisonPurpose purpose
     )
     {
         yield return TermComparisonStep.Pair(left.Module, right.Module, true);
         yield return TermComparisonStep.Scalar(left.Index.CompareTo(right.Index));
-        yield return TermComparisonStep.Pair(left.Unique, right.Unique, true);
-        yield return TermComparisonStep.Scalar(a.Arity.CompareTo(b.Arity));
+        if (purpose is TermComparisonPurpose.ExactEquality or TermComparisonPurpose.CanonicalKeyStorage)
+        {
+            yield return TermComparisonStep.Pair(left.Unique, right.Unique, true);
+            yield return TermComparisonStep.Scalar(a.Arity.CompareTo(b.Arity));
+        }
+        else
+            yield return TermComparisonStep.Scalar(left.OldUnique.CompareTo(right.OldUnique));
         yield return TermComparisonStep.Scalar(a.Environment.Count.CompareTo(b.Environment.Count));
         for (int i = 0; i < a.Environment.Count; i++)
             yield return TermComparisonStep.Pair(a.Environment[i], b.Environment[i], exact);

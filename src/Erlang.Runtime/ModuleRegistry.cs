@@ -261,8 +261,25 @@ public sealed partial class ModuleRegistry
         string function,
         Term[] arguments,
         out ModuleCallDispatchKind dispatch
+    ) => CallWithDispatch(
+        context,
+        module,
+        function,
+        arguments,
+        out dispatch,
+        out _
+    );
+
+    internal ValueTask<Term> CallWithDispatch(
+        ProcessContext context,
+        string module,
+        string function,
+        Term[] arguments,
+        out ModuleCallDispatchKind dispatch,
+        out bool selectedElementSourceContract
     )
     {
+        selectedElementSourceContract = false;
         dispatch = ModuleCallDispatchKind.Direct;
         context.Runtime.ThrowIfHalted();
         foreach (Term argument in arguments)
@@ -307,6 +324,7 @@ public sealed partial class ModuleRegistry
                 {
                     nativeErrorBoundary = runtimeBinding.Native;
                     sourceWrapperBoundary = !runtimeBinding.Native;
+                    selectedElementSourceContract = nativeErrorBoundary && IsElementSourceContract(signature, body, currentImage);
                 }
             }
         }

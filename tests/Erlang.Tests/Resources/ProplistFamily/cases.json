@@ -1,0 +1,1900 @@
+[
+  {
+    "Name": "case_001",
+    "Function": "property",
+    "Arity": 1,
+    "Arguments": [
+      "k"
+    ],
+    "Expected": "k",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_002",
+    "Function": "property",
+    "Arity": 1,
+    "Arguments": [
+      "{k,true}"
+    ],
+    "Expected": "k",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_003",
+    "Function": "property",
+    "Arity": 1,
+    "Arguments": [
+      "{k,false}"
+    ],
+    "Expected": "{k,false}",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_004",
+    "Function": "property",
+    "Arity": 1,
+    "Arguments": [
+      "{1,true}"
+    ],
+    "Expected": "{1,true}",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_005",
+    "Function": "property",
+    "Arity": 1,
+    "Arguments": [
+      "{}"
+    ],
+    "Expected": "{}",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_006",
+    "Function": "property",
+    "Arity": 1,
+    "Arguments": [
+      "{k}"
+    ],
+    "Expected": "{k}",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_007",
+    "Function": "property",
+    "Arity": 1,
+    "Arguments": [
+      "{k,true,x}"
+    ],
+    "Expected": "{k,true,x}",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_008",
+    "Function": "property",
+    "Arity": 1,
+    "Arguments": [
+      "[k]"
+    ],
+    "Expected": "[k]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_009",
+    "Function": "property",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "true"
+    ],
+    "Expected": "k",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_010",
+    "Function": "property",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "false"
+    ],
+    "Expected": "{k,false}",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_011",
+    "Function": "property",
+    "Arity": 2,
+    "Arguments": [
+      "1",
+      "true"
+    ],
+    "Expected": "{1,true}",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_012",
+    "Function": "property",
+    "Arity": 2,
+    "Arguments": [
+      "[]",
+      "true"
+    ],
+    "Expected": "{[],true}",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_013",
+    "Function": "property",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "1"
+    ],
+    "Expected": "{k,1}",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_014",
+    "Function": "unfold",
+    "Arity": 1,
+    "Arguments": [
+      "[]"
+    ],
+    "Expected": "[]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_015",
+    "Function": "unfold",
+    "Arity": 1,
+    "Arguments": [
+      "[k,{a,true},{b,false},1,{}]"
+    ],
+    "Expected": "[{k,true},{a,true},{b,false},1,{}]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_016",
+    "Function": "unfold",
+    "Arity": 1,
+    "Arguments": [
+      "bad"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_017",
+    "Function": "unfold",
+    "Arity": 1,
+    "Arguments": [
+      "[k|bad]"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_018",
+    "Function": "compact",
+    "Arity": 1,
+    "Arguments": [
+      "[]"
+    ],
+    "Expected": "[]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_019",
+    "Function": "compact",
+    "Arity": 1,
+    "Arguments": [
+      "[k,{a,true},{b,false},{1,true},{}]"
+    ],
+    "Expected": "[k,a,{b,false},{1,true},{}]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_020",
+    "Function": "compact",
+    "Arity": 1,
+    "Arguments": [
+      "bad"
+    ],
+    "Expected": null,
+    "Error": "{bad_generator,bad}",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_021",
+    "Function": "compact",
+    "Arity": 1,
+    "Arguments": [
+      "[k|bad]"
+    ],
+    "Expected": null,
+    "Error": "{bad_generator,bad}",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_022",
+    "Function": "lookup",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[junk,{}, {k}, {k,7},k,{k,8,x},{1,int},{1.0,float}]"
+    ],
+    "Expected": "{k}",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": "wrong-arity shadow or filtering"
+  },
+  {
+    "Name": "case_023",
+    "Function": "lookup_all",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[junk,{}, {k}, {k,7},k,{k,8,x},{1,int},{1.0,float}]"
+    ],
+    "Expected": "[{k},{k,7},{k,true},{k,8,x}]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": "wrong-arity shadow or filtering"
+  },
+  {
+    "Name": "case_024",
+    "Function": "is_defined",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[junk,{}, {k}, {k,7},k,{k,8,x},{1,int},{1.0,float}]"
+    ],
+    "Expected": "true",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": "wrong-arity shadow or filtering"
+  },
+  {
+    "Name": "case_025",
+    "Function": "get_value",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[junk,{}, {k}, {k,7},k,{k,8,x},{1,int},{1.0,float}]"
+    ],
+    "Expected": "undefined",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": "wrong-arity shadow or filtering"
+  },
+  {
+    "Name": "case_026",
+    "Function": "get_all_values",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[junk,{}, {k}, {k,7},k,{k,8,x},{1,int},{1.0,float}]"
+    ],
+    "Expected": "[7,true]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": "wrong-arity shadow or filtering"
+  },
+  {
+    "Name": "case_027",
+    "Function": "append_values",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[junk,{}, {k}, {k,7},k,{k,8,x},{1,int},{1.0,float}]"
+    ],
+    "Expected": "[7,true]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": "wrong-arity shadow or filtering"
+  },
+  {
+    "Name": "case_028",
+    "Function": "get_bool",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[junk,{}, {k}, {k,7},k,{k,8,x},{1,int},{1.0,float}]"
+    ],
+    "Expected": "false",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": "wrong-arity shadow or filtering"
+  },
+  {
+    "Name": "case_029",
+    "Function": "delete",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[junk,{}, {k}, {k,7},k,{k,8,x},{1,int},{1.0,float}]"
+    ],
+    "Expected": "[junk,{}, {1,int},{1.0,float}]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": "wrong-arity shadow or filtering"
+  },
+  {
+    "Name": "case_030",
+    "Function": "lookup",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[]"
+    ],
+    "Expected": "none",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_031",
+    "Function": "lookup",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "bad"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_032",
+    "Function": "lookup",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[x|bad]"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_033",
+    "Function": "lookup_all",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[]"
+    ],
+    "Expected": "[]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_034",
+    "Function": "lookup_all",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "bad"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_035",
+    "Function": "lookup_all",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[x|bad]"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_036",
+    "Function": "is_defined",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[]"
+    ],
+    "Expected": "false",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_037",
+    "Function": "is_defined",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "bad"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_038",
+    "Function": "is_defined",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[x|bad]"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_039",
+    "Function": "get_value",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[]"
+    ],
+    "Expected": "undefined",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_040",
+    "Function": "get_value",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "bad"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_041",
+    "Function": "get_value",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[x|bad]"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_042",
+    "Function": "get_all_values",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[]"
+    ],
+    "Expected": "[]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_043",
+    "Function": "get_all_values",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "bad"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_044",
+    "Function": "get_all_values",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[x|bad]"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_045",
+    "Function": "append_values",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[]"
+    ],
+    "Expected": "[]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_046",
+    "Function": "append_values",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "bad"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_047",
+    "Function": "append_values",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[x|bad]"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_048",
+    "Function": "get_bool",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[]"
+    ],
+    "Expected": "false",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_049",
+    "Function": "get_bool",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "bad"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_050",
+    "Function": "get_bool",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[x|bad]"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_051",
+    "Function": "delete",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[]"
+    ],
+    "Expected": "[]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_052",
+    "Function": "delete",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "bad"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_053",
+    "Function": "delete",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[x|bad]"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_054",
+    "Function": "lookup",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[k|bad]"
+    ],
+    "Expected": "{k,true}",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": "first match avoids malformed tail"
+  },
+  {
+    "Name": "case_055",
+    "Function": "is_defined",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[k|bad]"
+    ],
+    "Expected": "true",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": "first match avoids malformed tail"
+  },
+  {
+    "Name": "case_056",
+    "Function": "get_bool",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[k|bad]"
+    ],
+    "Expected": "true",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": "first match avoids malformed tail"
+  },
+  {
+    "Name": "case_057",
+    "Function": "get_value",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[k|bad]"
+    ],
+    "Expected": "true",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": "first match avoids malformed tail"
+  },
+  {
+    "Name": "case_058",
+    "Function": "lookup_all",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[k|bad]"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_059",
+    "Function": "get_all_values",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[k|bad]"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_060",
+    "Function": "append_values",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[k|bad]"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_061",
+    "Function": "delete",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[k|bad]"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_062",
+    "Function": "get_value",
+    "Arity": 2,
+    "Arguments": [
+      "1",
+      "[junk,{}, {k}, {k,7},k,{k,8,x},{1,int},{1.0,float}]"
+    ],
+    "Expected": "int",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": "exact numeric key equality"
+  },
+  {
+    "Name": "case_063",
+    "Function": "lookup",
+    "Arity": 2,
+    "Arguments": [
+      "1",
+      "[junk,{}, {k}, {k,7},k,{k,8,x},{1,int},{1.0,float}]"
+    ],
+    "Expected": "{1,int}",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_064",
+    "Function": "get_value",
+    "Arity": 2,
+    "Arguments": [
+      "1.0",
+      "[junk,{}, {k}, {k,7},k,{k,8,x},{1,int},{1.0,float}]"
+    ],
+    "Expected": "float",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": "exact numeric key equality"
+  },
+  {
+    "Name": "case_065",
+    "Function": "lookup",
+    "Arity": 2,
+    "Arguments": [
+      "1.0",
+      "[junk,{}, {k}, {k,7},k,{k,8,x},{1,int},{1.0,float}]"
+    ],
+    "Expected": "{1.0,float}",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_066",
+    "Function": "get_value",
+    "Arity": 3,
+    "Arguments": [
+      "k",
+      "[{k,7},{k,8}]",
+      "fallback"
+    ],
+    "Expected": "7",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_067",
+    "Function": "get_value",
+    "Arity": 3,
+    "Arguments": [
+      "k",
+      "[{k}, {k,7}]",
+      "fallback"
+    ],
+    "Expected": "fallback",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_068",
+    "Function": "get_value",
+    "Arity": 3,
+    "Arguments": [
+      "k",
+      "[{k,false}]",
+      "fallback"
+    ],
+    "Expected": "false",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_069",
+    "Function": "get_value",
+    "Arity": 3,
+    "Arguments": [
+      "k",
+      "[]",
+      "fallback"
+    ],
+    "Expected": "fallback",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_070",
+    "Function": "get_value",
+    "Arity": 3,
+    "Arguments": [
+      "k",
+      "[k|bad]",
+      "fallback"
+    ],
+    "Expected": "true",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_071",
+    "Function": "get_value",
+    "Arity": 3,
+    "Arguments": [
+      "k",
+      "bad",
+      "fallback"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_072",
+    "Function": "get_bool",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[{k,true},k]"
+    ],
+    "Expected": "true",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_073",
+    "Function": "get_bool",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[{k,false},k]"
+    ],
+    "Expected": "false",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_074",
+    "Function": "get_bool",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[{k,1},k]"
+    ],
+    "Expected": "false",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_075",
+    "Function": "get_bool",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[{k,true,x},k]"
+    ],
+    "Expected": "false",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_076",
+    "Function": "get_bool",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[{k},k]"
+    ],
+    "Expected": "false",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_077",
+    "Function": "append_values",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[{k,[1,2]}, {k,[]}, {k,3},k]"
+    ],
+    "Expected": "[1,2,3,true]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_078",
+    "Function": "append_values",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[{k,[[x],[y]]}]"
+    ],
+    "Expected": "[[x],[y]]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_079",
+    "Function": "append_values",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[{k},{k,[a]}]"
+    ],
+    "Expected": "[a]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_080",
+    "Function": "append_values",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[{k,[a|bad]}]"
+    ],
+    "Expected": null,
+    "Error": "badarg",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_081",
+    "Function": "append_values",
+    "Arity": 2,
+    "Arguments": [
+      "k",
+      "[{k,[a|bad]}|tail]"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_082",
+    "Function": "get_keys",
+    "Arity": 1,
+    "Arguments": [
+      "[]"
+    ],
+    "Expected": "[]",
+    "Error": null,
+    "Policy": "unordered_list",
+    "Branch": ""
+  },
+  {
+    "Name": "case_083",
+    "Function": "get_keys",
+    "Arity": 1,
+    "Arguments": [
+      "[k,k,{k,2},{a},{1,a},{1.0,b},{},9]"
+    ],
+    "Expected": "[k,a,1,1.0]",
+    "Error": null,
+    "Policy": "unordered_list",
+    "Branch": ""
+  },
+  {
+    "Name": "case_084",
+    "Function": "get_keys",
+    "Arity": 1,
+    "Arguments": [
+      "[k|bad]"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_085",
+    "Function": "substitute_aliases",
+    "Arity": 2,
+    "Arguments": [
+      "bad",
+      "[]"
+    ],
+    "Expected": "[]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": "unused malformed table"
+  },
+  {
+    "Name": "case_086",
+    "Function": "substitute_aliases",
+    "Arity": 2,
+    "Arguments": [
+      "[{old,new}|bad]",
+      "[old]"
+    ],
+    "Expected": "[new]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": "matching entry avoids invalid tail"
+  },
+  {
+    "Name": "case_087",
+    "Function": "substitute_aliases",
+    "Arity": 2,
+    "Arguments": [
+      "[{old,new}|bad]",
+      "[other]"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_088",
+    "Function": "substitute_aliases",
+    "Arity": 2,
+    "Arguments": [
+      "[bad]",
+      "[{}]"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_089",
+    "Function": "substitute_aliases",
+    "Arity": 2,
+    "Arguments": [
+      "[]",
+      "[old|bad]"
+    ],
+    "Expected": null,
+    "Error": "{bad_generator,bad}",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_090",
+    "Function": "substitute_aliases",
+    "Arity": 2,
+    "Arguments": [
+      "[{old,new}]",
+      "[{old,true},{old,false},{old}, {old,x,y},other]"
+    ],
+    "Expected": "[new,{new,false},{new},{new,x,y},other]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_091",
+    "Function": "substitute_aliases",
+    "Arity": 2,
+    "Arguments": [
+      "[{old,new},{new,last}]",
+      "[old,new]"
+    ],
+    "Expected": "[new,last]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": "single substitution only"
+  },
+  {
+    "Name": "case_092",
+    "Function": "substitute_aliases",
+    "Arity": 2,
+    "Arguments": [
+      "[{1,a},{1.0,b}]",
+      "[{1,true},{1.0,false}]"
+    ],
+    "Expected": "[a,{b,false}]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_093",
+    "Function": "substitute_negations",
+    "Arity": 2,
+    "Arguments": [
+      "bad",
+      "[]"
+    ],
+    "Expected": "[]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": "unused malformed table"
+  },
+  {
+    "Name": "case_094",
+    "Function": "substitute_negations",
+    "Arity": 2,
+    "Arguments": [
+      "[{old,new}|bad]",
+      "[old]"
+    ],
+    "Expected": "[{new,false}]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": "matching entry avoids invalid tail"
+  },
+  {
+    "Name": "case_095",
+    "Function": "substitute_negations",
+    "Arity": 2,
+    "Arguments": [
+      "[{old,new}|bad]",
+      "[other]"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_096",
+    "Function": "substitute_negations",
+    "Arity": 2,
+    "Arguments": [
+      "[bad]",
+      "[{}]"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_097",
+    "Function": "substitute_negations",
+    "Arity": 2,
+    "Arguments": [
+      "[]",
+      "[old|bad]"
+    ],
+    "Expected": null,
+    "Error": "{bad_generator,bad}",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_098",
+    "Function": "substitute_negations",
+    "Arity": 2,
+    "Arguments": [
+      "[{old,new}]",
+      "[{old,true},{old,false},{old}, {old,x,y},other]"
+    ],
+    "Expected": "[{new,false},new,new,new,other]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_099",
+    "Function": "substitute_negations",
+    "Arity": 2,
+    "Arguments": [
+      "[{old,new},{new,last}]",
+      "[old,new]"
+    ],
+    "Expected": "[{new,false},{last,false}]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": "single substitution only"
+  },
+  {
+    "Name": "case_100",
+    "Function": "substitute_negations",
+    "Arity": 2,
+    "Arguments": [
+      "[{1,a},{1.0,b}]",
+      "[{1,true},{1.0,false}]"
+    ],
+    "Expected": "[{a,false},b]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_101",
+    "Function": "expand",
+    "Arity": 2,
+    "Arguments": [
+      "[]",
+      "[]"
+    ],
+    "Expected": "[]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_102",
+    "Function": "expand",
+    "Arity": 2,
+    "Arguments": [
+      "[]",
+      "[[a],[[b]],c]"
+    ],
+    "Expected": "[a,[b],c]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_103",
+    "Function": "expand",
+    "Arity": 2,
+    "Arguments": [
+      "[{k,[a,b]}]",
+      "[x,k,{k,2},y]"
+    ],
+    "Expected": "[x,a,b,y]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_104",
+    "Function": "expand",
+    "Arity": 2,
+    "Arguments": [
+      "[{{k,false},[x]},{k,[y]}]",
+      "[k]"
+    ],
+    "Expected": "[y]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_105",
+    "Function": "expand",
+    "Arity": 2,
+    "Arguments": [
+      "[{k,[a]},{k,[b]}]",
+      "[k]"
+    ],
+    "Expected": "[a]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_106",
+    "Function": "expand",
+    "Arity": 2,
+    "Arguments": [
+      "[{a,[b]},{b,[c]}]",
+      "[a]"
+    ],
+    "Expected": "[b]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_107",
+    "Function": "expand",
+    "Arity": 2,
+    "Arguments": [
+      "[bad,{}, {k,[x]}]",
+      "[k]"
+    ],
+    "Expected": "[x]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_108",
+    "Function": "expand",
+    "Arity": 2,
+    "Arguments": [
+      "[{k,scalar}]",
+      "[k]"
+    ],
+    "Expected": "[scalar]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_109",
+    "Function": "expand",
+    "Arity": 2,
+    "Arguments": [
+      "[{{k,false},[a]}]",
+      "[{k,true},z]"
+    ],
+    "Expected": "[k,z]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_110",
+    "Function": "expand",
+    "Arity": 2,
+    "Arguments": [
+      "[{a,[x]},{b,[y]},{a,[z]}]",
+      "[a,b]"
+    ],
+    "Expected": "[x,y]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_111",
+    "Function": "expand",
+    "Arity": 2,
+    "Arguments": [
+      "bad",
+      "[]"
+    ],
+    "Expected": null,
+    "Error": "{bad_generator,bad}",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_112",
+    "Function": "expand",
+    "Arity": 2,
+    "Arguments": [
+      "[]",
+      "bad"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_113",
+    "Function": "expand",
+    "Arity": 2,
+    "Arguments": [
+      "[]",
+      "[a|bad]"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_114",
+    "Function": "expand",
+    "Arity": 2,
+    "Arguments": [
+      "[{k,[a|bad]}]",
+      "[k]"
+    ],
+    "Expected": null,
+    "Error": "badarg",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_115",
+    "Function": "normalize",
+    "Arity": 2,
+    "Arguments": [
+      "[{k,true},{x,false}]",
+      "[]"
+    ],
+    "Expected": "[k,{x,false}]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_116",
+    "Function": "normalize",
+    "Arity": 2,
+    "Arguments": [
+      "[old]",
+      "[{aliases,[{old,k}]},{expand,[{k,[{x,true}]}]}]"
+    ],
+    "Expected": "[x]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_117",
+    "Function": "normalize",
+    "Arity": 2,
+    "Arguments": [
+      "[old]",
+      "[{negations,[{old,k}]}]"
+    ],
+    "Expected": "[{k,false}]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_118",
+    "Function": "normalize",
+    "Arity": 2,
+    "Arguments": [
+      "[]",
+      "[{aliases,bad}]"
+    ],
+    "Expected": "[]",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_119",
+    "Function": "normalize",
+    "Arity": 2,
+    "Arguments": [
+      "[]",
+      "[bad]"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_120",
+    "Function": "normalize",
+    "Arity": 2,
+    "Arguments": [
+      "[]",
+      "bad"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_121",
+    "Function": "normalize",
+    "Arity": 2,
+    "Arguments": [
+      "bad",
+      "[]"
+    ],
+    "Expected": null,
+    "Error": "{bad_generator,bad}",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_122",
+    "Function": "normalize",
+    "Arity": 2,
+    "Arguments": [
+      "[]",
+      "[{unknown,[]}]"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_123",
+    "Function": "split",
+    "Arity": 2,
+    "Arguments": [
+      "[]",
+      "[]"
+    ],
+    "Expected": "{[],[]}",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_124",
+    "Function": "split",
+    "Arity": 2,
+    "Arguments": [
+      "[a,{a,1},b,{},9,{c}]",
+      "[a,c,a]"
+    ],
+    "Expected": "{[[a,{a,1}],[{c}],[a,{a,1}]],[b,{},9]}",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_125",
+    "Function": "split",
+    "Arity": 2,
+    "Arguments": [
+      "[{1,int},{1.0,float}]",
+      "[1,1.0]"
+    ],
+    "Expected": "{[[{1,int}],[{1.0,float}]],[]}",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_126",
+    "Function": "split",
+    "Arity": 2,
+    "Arguments": [
+      "[a,b]",
+      "[]"
+    ],
+    "Expected": "{[],[a,b]}",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_127",
+    "Function": "split",
+    "Arity": 2,
+    "Arguments": [
+      "bad",
+      "[]"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_128",
+    "Function": "split",
+    "Arity": 2,
+    "Arguments": [
+      "[]",
+      "bad"
+    ],
+    "Expected": null,
+    "Error": "{bad_generator,bad}",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_129",
+    "Function": "split",
+    "Arity": 2,
+    "Arguments": [
+      "bad",
+      "[a|bad]"
+    ],
+    "Expected": null,
+    "Error": "{bad_generator,bad}",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_130",
+    "Function": "split",
+    "Arity": 2,
+    "Arguments": [
+      "[a|bad]",
+      "[a]"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_131",
+    "Function": "to_map",
+    "Arity": 1,
+    "Arguments": [
+      "[]"
+    ],
+    "Expected": "#{}",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_132",
+    "Function": "to_map",
+    "Arity": 1,
+    "Arguments": [
+      "[k,{k,2}]"
+    ],
+    "Expected": "#{k=>true}",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_133",
+    "Function": "to_map",
+    "Arity": 1,
+    "Arguments": [
+      "[{k},{k,v}]"
+    ],
+    "Expected": "#{}",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_134",
+    "Function": "to_map",
+    "Arity": 1,
+    "Arguments": [
+      "[{k,v},{k}]"
+    ],
+    "Expected": "#{k=>v}",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_135",
+    "Function": "to_map",
+    "Arity": 1,
+    "Arguments": [
+      "[{k,a,b},{k,v},x,{},9]"
+    ],
+    "Expected": "#{x=>true}",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_136",
+    "Function": "to_map",
+    "Arity": 1,
+    "Arguments": [
+      "[{1,int},{1.0,float}]"
+    ],
+    "Expected": "#{1=>int,1.0=>float}",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_137",
+    "Function": "to_map",
+    "Arity": 1,
+    "Arguments": [
+      "bad"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_138",
+    "Function": "to_map",
+    "Arity": 1,
+    "Arguments": [
+      "[k|bad]"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_139",
+    "Function": "to_map",
+    "Arity": 2,
+    "Arguments": [
+      "[{k,true}]",
+      "[]"
+    ],
+    "Expected": "#{k=>true}",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_140",
+    "Function": "to_map",
+    "Arity": 2,
+    "Arguments": [
+      "[old,{k,v}]",
+      "[{aliases,[{old,k}]}]"
+    ],
+    "Expected": "#{k=>true}",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_141",
+    "Function": "to_map",
+    "Arity": 2,
+    "Arguments": [
+      "[old]",
+      "[{negations,[{old,k}]}]"
+    ],
+    "Expected": "#{k=>false}",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_142",
+    "Function": "to_map",
+    "Arity": 2,
+    "Arguments": [
+      "[k]",
+      "[{expand,[{k,[{x,2}]}]}]"
+    ],
+    "Expected": "#{x=>2}",
+    "Error": null,
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_143",
+    "Function": "to_map",
+    "Arity": 2,
+    "Arguments": [
+      "[]",
+      "[bad]"
+    ],
+    "Expected": null,
+    "Error": "function_clause",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_144",
+    "Function": "from_map",
+    "Arity": 1,
+    "Arguments": [
+      "#{}"
+    ],
+    "Expected": "[]",
+    "Error": null,
+    "Policy": "unordered_list",
+    "Branch": ""
+  },
+  {
+    "Name": "case_145",
+    "Function": "from_map",
+    "Arity": 1,
+    "Arguments": [
+      "#{k=>true,1=>a,1.0=>b}"
+    ],
+    "Expected": "[{k,true},{1,a},{1.0,b}]",
+    "Error": null,
+    "Policy": "unordered_list",
+    "Branch": ""
+  },
+  {
+    "Name": "case_146",
+    "Function": "from_map",
+    "Arity": 1,
+    "Arguments": [
+      "bad"
+    ],
+    "Expected": null,
+    "Error": "{badmap,bad}",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_147",
+    "Function": "from_map",
+    "Arity": 1,
+    "Arguments": [
+      "[]"
+    ],
+    "Expected": null,
+    "Error": "{badmap,[]}",
+    "Policy": "exact",
+    "Branch": ""
+  },
+  {
+    "Name": "case_148",
+    "Function": "from_map",
+    "Arity": 1,
+    "Arguments": [
+      "{k,1}"
+    ],
+    "Expected": null,
+    "Error": "{badmap,{k,1}}",
+    "Policy": "exact",
+    "Branch": ""
+  }
+]

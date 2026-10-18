@@ -1,0 +1,10 @@
+--- src/Erlang.Compiler/SourceContinuationBindings.cs
++++ src/Erlang.Compiler/SourceContinuationBindings.cs
+@@ -8,6 +8,7 @@
+         {
+             VisitClauses(function.Clauses);
+         }
++        SourceBifContinuationBindings.Bind(module);
+     }
+ 
+     private static void VisitClauses(IReadOnlyList<Clause> clauses)

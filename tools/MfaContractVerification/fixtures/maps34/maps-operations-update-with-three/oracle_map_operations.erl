@@ -1,0 +1,1 @@
+-module(oracle_map_operations). -export([run/0]). run()->#{a:=3}=maps:update_with(a,fun(V)->V+1 end,#{a=>2}),try maps:update_with(a,fun(V)->V end,#{}) of _->unexpected catch error:{badkey,a}->ok end,done.

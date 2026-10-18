@@ -1,0 +1,1 @@
+-module(oracle_maps_completion). -export([run/0]). run()->try maps:groups_from_list(fun(_)->throw(thrown) end,[a]) of _->unexpected catch throw:thrown->ok end,done.

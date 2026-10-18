@@ -1746,6 +1746,285 @@
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
+    "Module": "binary",
+    "Function": "at",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/binary:at/2",
+    "Limits": "Complete observable supported-term source protocol audited against OTP-29.1.1, including whole errors/stacks and genuine own backing/resource state; see validation/part-369. Physical heap, compiler allocation optimization and performance identity are separate infrastructure boundaries."
+  },
+  {
+    "Module": "binary",
+    "Function": "first",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/binary:first/1",
+    "Limits": "Complete observable supported-term source protocol audited against OTP-29.1.1, including whole errors/stacks and genuine own backing/resource state; see validation/part-369. Physical heap, compiler allocation optimization and performance identity are separate infrastructure boundaries."
+  },
+  {
+    "Module": "binary",
+    "Function": "last",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/binary:last/1",
+    "Limits": "Complete observable supported-term source protocol audited against OTP-29.1.1, including whole errors/stacks and genuine own backing/resource state; see validation/part-369. Physical heap, compiler allocation optimization and performance identity are separate infrastructure boundaries."
+  },
+  {
+    "Module": "binary",
+    "Function": "part",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/binary:part/2",
+    "Limits": "Complete observable supported-term source protocol audited against OTP-29.1.1, including whole errors/stacks and genuine own backing/resource state; see validation/part-369. Physical heap, compiler allocation optimization and performance identity are separate infrastructure boundaries."
+  },
+  {
+    "Module": "binary",
+    "Function": "part",
+    "Arity": 3,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/binary:part/3",
+    "Limits": "Complete observable supported-term source protocol audited against OTP-29.1.1, including whole errors/stacks and genuine own backing/resource state; see validation/part-369. Physical heap, compiler allocation optimization and performance identity are separate infrastructure boundaries."
+  },
+  {
+    "Module": "binary",
+    "Function": "bin_to_list",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/binary:bin_to_list/1",
+    "Limits": "Complete observable supported-term source protocol audited against OTP-29.1.1, including whole errors/stacks and genuine own backing/resource state; see validation/part-369. Physical heap, compiler allocation optimization and performance identity are separate infrastructure boundaries."
+  },
+  {
+    "Module": "binary",
+    "Function": "bin_to_list",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/binary:bin_to_list/2",
+    "Limits": "Complete observable supported-term source protocol audited against OTP-29.1.1, including whole errors/stacks and genuine own backing/resource state; see validation/part-369. Physical heap, compiler allocation optimization and performance identity are separate infrastructure boundaries."
+  },
+  {
+    "Module": "binary",
+    "Function": "bin_to_list",
+    "Arity": 3,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/binary:bin_to_list/3",
+    "Limits": "Complete observable supported-term source protocol audited against OTP-29.1.1, including whole errors/stacks and genuine own backing/resource state; see validation/part-369. Physical heap, compiler allocation optimization and performance identity are separate infrastructure boundaries."
+  },
+  {
+    "Module": "binary",
+    "Function": "list_to_bin",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/binary:list_to_bin/1",
+    "Limits": "Complete observable supported-term source protocol audited against OTP-29.1.1, including whole errors/stacks and genuine own backing/resource state; see validation/part-369. Physical heap, compiler allocation optimization and performance identity are separate infrastructure boundaries."
+  },
+  {
+    "Module": "binary",
+    "Function": "copy",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/binary:copy/1",
+    "Limits": "Complete observable supported-term source protocol audited against OTP-29.1.1, including whole errors/stacks and genuine own backing/resource state; see validation/part-369. Physical heap, compiler allocation optimization and performance identity are separate infrastructure boundaries."
+  },
+  {
+    "Module": "binary",
+    "Function": "copy",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/binary:copy/2",
+    "Limits": "Complete observable supported-term source protocol audited against OTP-29.1.1, including whole errors/stacks and genuine own backing/resource state; see validation/part-369. Physical heap, compiler allocation optimization and performance identity are separate infrastructure boundaries."
+  },
+  {
+    "Module": "binary",
+    "Function": "decode_unsigned",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/binary:decode_unsigned/1",
+    "Limits": "Complete observable supported-term source protocol audited against OTP-29.1.1, including whole errors/stacks and genuine own backing/resource state; see validation/part-369. Physical heap, compiler allocation optimization and performance identity are separate infrastructure boundaries."
+  },
+  {
+    "Module": "binary",
+    "Function": "decode_unsigned",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/binary:decode_unsigned/2",
+    "Limits": "Complete observable supported-term source protocol audited against OTP-29.1.1, including whole errors/stacks and genuine own backing/resource state; see validation/part-369. Physical heap, compiler allocation optimization and performance identity are separate infrastructure boundaries."
+  },
+  {
+    "Module": "binary",
+    "Function": "encode_unsigned",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/binary:encode_unsigned/1",
+    "Limits": "Complete observable supported-term source protocol audited against OTP-29.1.1, including whole errors/stacks and genuine own backing/resource state; see validation/part-369. Physical heap, compiler allocation optimization and performance identity are separate infrastructure boundaries."
+  },
+  {
+    "Module": "binary",
+    "Function": "encode_unsigned",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/binary:encode_unsigned/2",
+    "Limits": "Complete observable supported-term source protocol audited against OTP-29.1.1, including whole errors/stacks and genuine own backing/resource state; see validation/part-369. Physical heap, compiler allocation optimization and performance identity are separate infrastructure boundaries."
+  },
+  {
+    "Module": "binary",
+    "Function": "longest_common_prefix",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/binary:longest_common_prefix/1",
+    "Limits": "Complete observable supported-term source protocol audited against OTP-29.1.1, including whole errors/stacks and genuine own backing/resource state; see validation/part-369. Physical heap, compiler allocation optimization and performance identity are separate infrastructure boundaries."
+  },
+  {
+    "Module": "binary",
+    "Function": "longest_common_suffix",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/binary:longest_common_suffix/1",
+    "Limits": "Complete observable supported-term source protocol audited against OTP-29.1.1, including whole errors/stacks and genuine own backing/resource state; see validation/part-369. Physical heap, compiler allocation optimization and performance identity are separate infrastructure boundaries."
+  },
+  {
+    "Module": "binary",
+    "Function": "referenced_byte_size",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/binary:referenced_byte_size/1",
+    "Limits": "Complete observable supported-term source protocol audited against OTP-29.1.1, including whole errors/stacks and genuine own backing/resource state; see validation/part-369. Physical heap, compiler allocation optimization and performance identity are separate infrastructure boundaries."
+  },
+  {
+    "Module": "binary",
+    "Function": "compile_pattern",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/binary:compile_pattern/1",
+    "Limits": "Complete observable supported-term source protocol audited against OTP-29.1.1, including whole errors/stacks and genuine own backing/resource state; see validation/part-369. Physical heap, compiler allocation optimization and performance identity are separate infrastructure boundaries."
+  },
+  {
+    "Module": "binary",
+    "Function": "match",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/binary:match/2",
+    "Limits": "Complete observable supported-term source protocol audited against OTP-29.1.1, including whole errors/stacks and genuine own backing/resource state; see validation/part-369. Physical heap, compiler allocation optimization and performance identity are separate infrastructure boundaries."
+  },
+  {
+    "Module": "binary",
+    "Function": "matches",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/binary:matches/2",
+    "Limits": "Complete observable supported-term source protocol audited against OTP-29.1.1, including whole errors/stacks and genuine own backing/resource state; see validation/part-369. Physical heap, compiler allocation optimization and performance identity are separate infrastructure boundaries."
+  },
+  {
+    "Module": "binary",
+    "Function": "split",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/binary:split/2",
+    "Limits": "Complete observable supported-term source protocol audited against OTP-29.1.1, including whole errors/stacks and genuine own backing/resource state; see validation/part-369. Physical heap, compiler allocation optimization and performance identity are separate infrastructure boundaries."
+  },
+  {
+    "Module": "binary",
+    "Function": "match",
+    "Arity": 3,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/binary:match/3",
+    "Limits": "Complete observable supported-term source protocol audited against OTP-29.1.1, including whole errors/stacks and genuine own backing/resource state; see validation/part-369. Physical heap, compiler allocation optimization and performance identity are separate infrastructure boundaries."
+  },
+  {
+    "Module": "binary",
+    "Function": "matches",
+    "Arity": 3,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/binary:matches/3",
+    "Limits": "Complete observable supported-term source protocol audited against OTP-29.1.1, including whole errors/stacks and genuine own backing/resource state; see validation/part-369. Physical heap, compiler allocation optimization and performance identity are separate infrastructure boundaries."
+  },
+  {
+    "Module": "binary",
+    "Function": "split",
+    "Arity": 3,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/binary:split/3",
+    "Limits": "Complete observable supported-term source protocol audited against OTP-29.1.1, including whole errors/stacks and genuine own backing/resource state; see validation/part-369. Physical heap, compiler allocation optimization and performance identity are separate infrastructure boundaries."
+  },
+  {
+    "Module": "binary",
+    "Function": "replace",
+    "Arity": 3,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/binary:replace/3",
+    "Limits": "Complete observable supported-term source protocol audited against OTP-29.1.1, including whole errors/stacks and genuine own backing/resource state; see validation/part-369. Physical heap, compiler allocation optimization and performance identity are separate infrastructure boundaries."
+  },
+  {
+    "Module": "binary",
+    "Function": "replace",
+    "Arity": 4,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/binary:replace/4",
+    "Limits": "Complete observable supported-term source protocol audited against OTP-29.1.1, including whole errors/stacks and genuine own backing/resource state; see validation/part-369. Physical heap, compiler allocation optimization and performance identity are separate infrastructure boundaries."
+  },
+  {
+    "Module": "binary",
+    "Function": "encode_hex",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/binary:encode_hex/1",
+    "Limits": "Complete observable supported-term source protocol audited against OTP-29.1.1, including whole errors/stacks and genuine own backing/resource state; see validation/part-369. Physical heap, compiler allocation optimization and performance identity are separate infrastructure boundaries."
+  },
+  {
+    "Module": "binary",
+    "Function": "encode_hex",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/binary:encode_hex/2",
+    "Limits": "Complete observable supported-term source protocol audited against OTP-29.1.1, including whole errors/stacks and genuine own backing/resource state; see validation/part-369. Physical heap, compiler allocation optimization and performance identity are separate infrastructure boundaries."
+  },
+  {
+    "Module": "binary",
+    "Function": "decode_hex",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/binary:decode_hex/1",
+    "Limits": "Complete observable supported-term source protocol audited against OTP-29.1.1, including whole errors/stacks and genuine own backing/resource state; see validation/part-369. Physical heap, compiler allocation optimization and performance identity are separate infrastructure boundaries."
+  },
+  {
+    "Module": "binary",
+    "Function": "join",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/binary:join/2",
+    "Limits": "Complete observable supported-term source protocol audited against OTP-29.1.1, including whole errors/stacks and genuine own backing/resource state; see validation/part-369. Physical heap, compiler allocation optimization and performance identity are separate infrastructure boundaries."
+  },
+  {
     "Module": "erlang",
     "Function": "atom_to_list",
     "Arity": 1,
@@ -4203,6 +4482,546 @@
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
+    "Module": "proplists",
+    "Function": "get_value",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/proplists:get_value/2",
+    "Limits": "Complete observable get_value contract accepted; see mfa-compatibility.json for scope and source/original evidence."
+  },
+  {
+    "Module": "proplists",
+    "Function": "get_value",
+    "Arity": 3,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/proplists:get_value/3",
+    "Limits": "Complete observable get_value contract accepted; see mfa-compatibility.json for scope and source/original evidence."
+  },
+  {
+    "Module": "proplists",
+    "Function": "property",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/proplists:property/1",
+    "Limits": "Complete observable operation contract accepted; see mfa-compatibility.json for scope and source/original evidence."
+  },
+  {
+    "Module": "proplists",
+    "Function": "property",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/proplists:property/2",
+    "Limits": "Complete observable operation contract accepted; see mfa-compatibility.json for scope and source/original evidence."
+  },
+  {
+    "Module": "proplists",
+    "Function": "unfold",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/proplists:unfold/1",
+    "Limits": "Complete observable operation contract accepted; see mfa-compatibility.json for scope and source/original evidence."
+  },
+  {
+    "Module": "proplists",
+    "Function": "compact",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/proplists:compact/1",
+    "Limits": "Complete observable operation contract accepted; see mfa-compatibility.json for scope and source/original evidence."
+  },
+  {
+    "Module": "proplists",
+    "Function": "lookup",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/proplists:lookup/2",
+    "Limits": "Complete observable operation contract accepted; see mfa-compatibility.json for scope and source/original evidence."
+  },
+  {
+    "Module": "proplists",
+    "Function": "lookup_all",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/proplists:lookup_all/2",
+    "Limits": "Complete observable operation contract accepted; see mfa-compatibility.json for scope and source/original evidence."
+  },
+  {
+    "Module": "proplists",
+    "Function": "is_defined",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/proplists:is_defined/2",
+    "Limits": "Complete observable operation contract accepted; see mfa-compatibility.json for scope and source/original evidence."
+  },
+  {
+    "Module": "proplists",
+    "Function": "get_all_values",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/proplists:get_all_values/2",
+    "Limits": "Complete observable operation contract accepted; see mfa-compatibility.json for scope and source/original evidence."
+  },
+  {
+    "Module": "proplists",
+    "Function": "append_values",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/proplists:append_values/2",
+    "Limits": "Complete observable operation contract accepted; see mfa-compatibility.json for scope and source/original evidence."
+  },
+  {
+    "Module": "proplists",
+    "Function": "get_bool",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/proplists:get_bool/2",
+    "Limits": "Complete observable operation contract accepted; see mfa-compatibility.json for scope and source/original evidence."
+  },
+  {
+    "Module": "proplists",
+    "Function": "get_keys",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/proplists:get_keys/1",
+    "Limits": "Complete observable operation contract accepted; see mfa-compatibility.json for scope and source/original evidence."
+  },
+  {
+    "Module": "proplists",
+    "Function": "delete",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/proplists:delete/2",
+    "Limits": "Complete observable operation contract accepted; see mfa-compatibility.json for scope and source/original evidence."
+  },
+  {
+    "Module": "proplists",
+    "Function": "substitute_aliases",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/proplists:substitute_aliases/2",
+    "Limits": "Complete observable operation contract accepted; see mfa-compatibility.json for scope and source/original evidence."
+  },
+  {
+    "Module": "proplists",
+    "Function": "substitute_negations",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/proplists:substitute_negations/2",
+    "Limits": "Complete observable operation contract accepted; see mfa-compatibility.json for scope and source/original evidence."
+  },
+  {
+    "Module": "proplists",
+    "Function": "expand",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/proplists:expand/2",
+    "Limits": "Complete observable operation contract accepted; see mfa-compatibility.json for scope and source/original evidence."
+  },
+  {
+    "Module": "proplists",
+    "Function": "normalize",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/proplists:normalize/2",
+    "Limits": "Complete observable operation contract accepted; see mfa-compatibility.json for scope and source/original evidence."
+  },
+  {
+    "Module": "proplists",
+    "Function": "split",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/proplists:split/2",
+    "Limits": "Complete observable operation contract accepted; see mfa-compatibility.json for scope and source/original evidence."
+  },
+  {
+    "Module": "proplists",
+    "Function": "from_map",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/proplists:from_map/1",
+    "Limits": "Complete observable contract audited against OTP-29.1.1 with mandatory raw cursors relative to genuine own VM state; see mfa-compatibility.json and validation/part-366."
+  },
+  {
+    "Module": "proplists",
+    "Function": "to_map",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/proplists:to_map/1",
+    "Limits": "Complete observable operation contract accepted; see mfa-compatibility.json for scope and source/original evidence."
+  },
+  {
+    "Module": "proplists",
+    "Function": "to_map",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/proplists:to_map/2",
+    "Limits": "Complete observable operation contract accepted; see mfa-compatibility.json for scope and source/original evidence."
+  },
+  {
+    "Module": "queue",
+    "Function": "new",
+    "Arity": 0,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:new/0",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "is_queue",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:is_queue/1",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "is_empty",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:is_empty/1",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "len",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:len/1",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "in",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:in/2",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "out",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:out/1",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "from_list",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:from_list/1",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "to_list",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:to_list/1",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "in_r",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:in_r/2",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "cons",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:cons/2",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "snoc",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:snoc/2",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "out_r",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:out_r/1",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "get",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:get/1",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "head",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:head/1",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "get_r",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:get_r/1",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "last",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:last/1",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "daeh",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:daeh/1",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "peek",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:peek/1",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "peek_r",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:peek_r/1",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "drop",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:drop/1",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "tail",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:tail/1",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "drop_r",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:drop_r/1",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "init",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:init/1",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "liat",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:liat/1",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "lait",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:lait/1",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "member",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:member/2",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "reverse",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:reverse/1",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "join",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:join/2",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "split",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:split/2",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "filter",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:filter/2",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "filtermap",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:filtermap/2",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "fold",
+    "Arity": 3,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:fold/3",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "any",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:any/2",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "all",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:all/2",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "delete",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:delete/2",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "delete_r",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:delete_r/2",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "delete_with",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:delete_with/2",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "queue",
+    "Function": "delete_with_r",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/queue:delete_with_r/2",
+    "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
     "Module": "erlang",
     "Function": "send_after",
     "Arity": 3,
@@ -5281,23 +6100,5 @@
     "CompatibilityLedger": "mfa-compatibility.json",
     "Evidence": "mfa/rpc:call/5",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "proplists",
-    "Function": "get_value",
-    "Arity": 2,
-    "Status": "Implemented",
-    "CompatibilityLedger": "mfa-compatibility.json",
-    "Evidence": "mfa/proplists:get_value/2",
-    "Limits": "Complete observable get_value contract accepted; see mfa-compatibility.json for scope and source/original evidence."
-  },
-  {
-    "Module": "proplists",
-    "Function": "get_value",
-    "Arity": 3,
-    "Status": "Implemented",
-    "CompatibilityLedger": "mfa-compatibility.json",
-    "Evidence": "mfa/proplists:get_value/3",
-    "Limits": "Complete observable get_value contract accepted; see mfa-compatibility.json for scope and source/original evidence."
   }
 ]

@@ -1,0 +1,60 @@
+{
+  "Status": "SOURCE_ONLY_PERMANENT_CONTROLS_NOT_BUILT",
+  "Files": [
+    {
+      "Source": "artifacts/static-apply368-regression-proposal1/source/tests/Erlang.Tests/StaticApplyRegressionHostChecks.cs",
+      "Destination": "tests/Erlang.Tests/StaticApplyRegressionHostChecks.cs",
+      "BaseSha256": null,
+      "Bytes": 6596,
+      "Sha256": "FBD54845DC0988B6FC057333F30742BFF3F39BCE8582BAD61B2674670F12CEF9"
+    },
+    {
+      "Source": "artifacts/static-apply368-regression-proposal1/source/tests/Erlang.Tests/StaticApplyRegressionNames.cs",
+      "Destination": "tests/Erlang.Tests/StaticApplyRegressionNames.cs",
+      "BaseSha256": null,
+      "Bytes": 1327,
+      "Sha256": "A2049D0C1E2658D3CF61B26D28EF32270CD05B5CEE9AFF98A9570C447E5D4213"
+    },
+    {
+      "Source": "artifacts/static-apply368-regression-proposal1/source/tests/Erlang.Tests/StaticApplyRegressionSources.cs",
+      "Destination": "tests/Erlang.Tests/StaticApplyRegressionSources.cs",
+      "BaseSha256": null,
+      "Bytes": 2280,
+      "Sha256": "1925A3088F809B7278B9617525ADDD9D85911B6E7EB520E733C5AE8C2FAB3600"
+    }
+  ],
+  "Registration": "Test(Erlang.Tests.StaticApplyRegressionNames.Test, Erlang.Tests.StaticApplyRegressionHostChecks.Run);",
+  "Resources": "None: five declared Erlang source/basename constants are in separate StaticApplyRegressionSources class.",
+  "Dependencies": [
+    {
+      "Path": "src/Erlang.Compiler/StaticApplySyntax.cs",
+      "Sha256": "3BE405FB880B8B6821F2A8C796DD28AA7BB68958EF5CAD1AD6CEB31412D358C4"
+    },
+    {
+      "Path": "src/Erlang.Compiler/StaticApplyParameters.cs",
+      "Sha256": "F25A5D33B5886BD34A81B1881EDF503CC28ED5279A852FB416F51AE5E19206A6"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "Sha256": "9279946C7BFFEAAF8283EFDB8F9B89E250817FF3BDBAFFC79DBBC3EAFDEEC141"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceCallResolution.cs",
+      "Sha256": "9E662A5BCBB9D80F819B84970A199C02874AA443C92DD80C26FF21A9A716B5D6"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangApplyDispatch.cs",
+      "Sha256": "CFF37548C390E0BA20B09BAD66633A21C77C6F7E909A285F8E7946FFDDA21DB5"
+    },
+    {
+      "Path": "tests/Erlang.Tests/RuntimeNodeFoundationHostActor.cs",
+      "Sha256": "2B92247A71D03AE6E0C62EF4033037435726844AA8AFEB3B413D45C981D18448"
+    },
+    {
+      "Path": "tools/Erlang.Differential/GeneratedModuleCompiler.cs",
+      "Sha256": "2D06B99D8E490DD32E4109A32DA2A8E61C909107557F868B5A83537A8BBF2929"
+    }
+  ],
+  "NewHostNames": 1,
+  "RuntimeChanges": 0
+}

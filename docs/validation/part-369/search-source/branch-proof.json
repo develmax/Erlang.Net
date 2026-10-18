@@ -1,0 +1,85 @@
+{
+  "Status": "SOURCE_IMPLEMENTED_PENDING_ROOT_PARSE_BUILD_ORIGINAL_FULL_GATES",
+  "Authority": {
+    "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "Files": [
+      {
+        "Path": "erts/emulator/beam/erl_bif_binary.c",
+        "Bytes": 74129,
+        "Sha256": "7AE6B64C47A2A3F9DD74BDC44C1585F00492775693CABAE601C9C2FE65F1C16A"
+      },
+      {
+        "Path": "lib/stdlib/src/binary.erl",
+        "Bytes": 38508,
+        "Sha256": "824EB8574AB19B7DF1A80402562A6B05012E9B1B464916E5694E07E601FB24DC"
+      }
+    ]
+  },
+  "PerMfa": [
+    {
+      "Mfa": "binary:compile_pattern/1",
+      "Branches": [
+        "Accept nonempty byte-aligned binary or proper nonempty list of nonempty byte-aligned binaries; reject Nil/nonbinary/partialbits/improperlists and compiled tuples.",
+        "Single word or singleton list=>bm; two-plus list entries=>ac including duplicate words. Immutable trie preserves exactly all accepted words.",
+        "Return tuple2 with genuine runtime-owned BinarySearchPattern resource reference; each compile creates a new actual resource identity. No captured native word/PID/address is fabricated."
+      ]
+    },
+    {
+      "Mfa": "binary:match/2",
+      "Branches": [
+        "Subject must be binary; default full subject scope. Resolve raw patterns or exact genuine typed compiled tuple.",
+        "Test positions ascending; at first successful start consume trie to scope end and choose greatest terminal depth. Equal-position longest wins, independent of pattern order.",
+        "Return nomatch or exact absolute {position,length}; malformed arguments preserve whole original public args in binary BIF error_info frame."
+      ]
+    },
+    {
+      "Mfa": "binary:match/3",
+      "Branches": [
+        "Same match2 plus options parsed before pattern: scope tuple2 unsigned start/signed length, negative lengths move start backward, end must fit subject.",
+        "Every reached scope validates; last scope wins. Empty list valid; top nonlist invalid; valid Cons spine accepts arbitrary final improper tail as native C does. No global/trim options admitted."
+      ]
+    },
+    {
+      "Mfa": "binary:matches/2",
+      "Branches": [
+        "Same validated matching scope, global collection resumes at selected match end, no overlaps; unmatched empty scope returns Nil after pattern validation.",
+        "All positions absolute and ordered; longest chosen at every earliest next start. Result construction cooperates iteratively."
+      ]
+    },
+    {
+      "Mfa": "binary:matches/3",
+      "Branches": [
+        "Same matches2 plus exact match3 option validation/precedence/duplicate and improper-tail behavior."
+      ]
+    },
+    {
+      "Mfa": "binary:split/2",
+      "Branches": [
+        "Same subject/pattern validation; first match only; default scope full binary.",
+        "No match returns [original subject], including empty subject. Successful split retains all bytes before/after delimiter, including bytes outside explicit scopes in split3.",
+        "Parts materialize through Root genuine BitString.SliceBits, preserving actual backing/offset/short-copy policy rather than invented referenced-byte counts."
+      ]
+    },
+    {
+      "Mfa": "binary:split/3",
+      "Branches": [
+        "Scope parser same signed/unsigned ranges and last-wins, plus cumulative global/trim/trim_all flags. Valid option Cons spine accepts arbitrary tail; earlier invalid option cannot be rescued.",
+        "Global nonoverlap leftmost-longest; trim removes only trailing empty parts; trim_all all empty parts; bothflags equivalent trim_all. Empty no-match returns Nil when either trimflag set.",
+        "All scope-external bytes kept in first/last parts. No eager byte-value/representation normalization beyond genuine SliceBits."
+      ]
+    }
+  ],
+  "SharedProof": {
+    "TrieCorrectness": "At candidate start, every trie path corresponds to an input word prefix, and only complete input words mark terminal. Exhausting that path records max matching length. Ascending candidate starts proves leftmost selection; advancing by selected length proves nonoverlap. Duplicate words retain ac tag but cannot change semantic result. This is a C# trie adaptation, not a performance equivalence claim.",
+    "Errors": "Plain ErlangException badarg from registered native bindings uses existing RuntimeExceptionCapture.InvokeNative: binary/function/full saved public argument list plus exact error_info module erl_stdlib_errors, caller chain/depth/CP compression retained. No fabricated source file/line wrapper. All source failures occur before scan; no later trap-state error argument waiver. Actual whole OTP comparison remains required.",
+    "Resource": "New enum appended only, partial Create/Acquire delegates existing owner-gated weak registry and leased entries. Pair tag must equal immutable payload tag; wrongshape/tag/ordinaryref/forgedplainref/foreignowner/wrongkind/dead resources fail. Saved ETF identities rehydrate through existing real published-resource registry; resource roots survive producing process exit/alias/concurrent readers and retire on actual runtime close. No static state or fake reference.",
+    "Cooperative": "Entry ChargeAsync0 plus positive bounded work steps throughout options/pattern/trie/search/result-list phases; every search path iterative. Scope0 still validates pattern. Lifetime leases dispose in using/finally on success/error/cancel. HOST proposes actual parked continuation, public kill, physical unwound and survivor checks.",
+    "Storage": "Requires Root public SliceBits(offset,count) and logical ByteSpan normalization, now supplied independently; no Terms source overwrite."
+  },
+  "NotYetExecuted": [
+    "C# build / compiler parse / permanent tests",
+    "Original OTP source-built capture and complete raw stack comparison including CP reference relationships",
+    "Final Main canonical regression and source guards"
+  ],
+  "NoCompleteClaimFromSourceOrFiniteCases": true
+}

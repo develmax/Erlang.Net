@@ -1,0 +1,1 @@
+-module(oracle_map_operations). -export([run/0]). run()->try maps:with(wrong,#{}) of _->unexpected catch error:badarg->ok end,try maps:without(wrong,wrong) of _->unexpected catch error:{badmap,wrong}->ok end,done.

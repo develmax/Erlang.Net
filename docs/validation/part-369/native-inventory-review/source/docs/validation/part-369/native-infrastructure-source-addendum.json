@@ -1,0 +1,88 @@
+{
+  "Status": "DOC_ONLY_CURRENT_UNPUBLISHED_SOURCE_DELTA_NO_NATIVE_SCOPE_PROMOTION",
+  "PreviousRegistrySha256": "9493E144B54F3217222E95D8E626BE50F887B043C45CF1280D1D55151751561E",
+  "HistoricalSnapshotMainCommit": "372286a86767b4f677d49d9906df489d6d2dec7b",
+  "CurrentUnpublishedPart": 369,
+  "HistoricalSnapshotRemainsHistorical": true,
+  "CurrentBindingsAreWorkingTreeNotPublishedCommit": true,
+  "RosterRows": 24,
+  "BoundSourceFiles": 40,
+  "CountsUnchanged": {
+    "InventoryRows": 24,
+    "Implementation": {
+      "implemented": 17,
+      "partial": 1,
+      "not-implemented": 6
+    },
+    "Verification": {
+      "accepted-scoped": 7,
+      "local-tests-only": 10,
+      "missing": 6,
+      "source-only": 1
+    },
+    "InMain": 18,
+    "ScopedMilestonesMet": 7
+  },
+  "SourceChanges": [
+    {
+      "Path": "src/Erlang.Runtime/NifNativeBinaryCallbacks.cs",
+      "Before": "28DEE339BC33E53DCF5FE7CA5D637C5F35FEE20DC1D0F55A5ECD3AC294243A99",
+      "After": "284249C5C93F995E4477CE79324098DA4810959C63D92B864567D6586D2D64F5"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeBinaryStorage.cs",
+      "Before": "78732031E5ACE2AE66200F2B7A6B47EFF97199D3FA01A9171B6C35657C2123A9",
+      "After": "8AC72A9A1F6746EE1BD5C299B929C5BC911D4E0D9E30685B469B7CCA5EDBD43A"
+    }
+  ],
+  "SourceArgument": {
+    "NifNativeBinaryCallbacks.cs": "Inspect pins writable bitstrings before binary alignment rejection, as pinned enif_inspect_binary; static subbinary uses genuine logical SliceBits instead of losing parent storage. Existing descriptor/handle/callback ABI unchanged.",
+    "NifNativeBinaryStorage.cs": "New FreezeView performs live-pointer/range validation and copies native storage while holding the existing lifetime gate. Large returned views retain a real full-parent managed snapshot; <=64 child copies. No fabricated allocation count; existing physical managed limits remain explicit."
+  },
+  "PinnedOtp": {
+    "Tag": "OTP-29.1.1",
+    "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5"
+  },
+  "HistoricalTestedPlan": {
+    "Path": "docs/validation/part-361/tested-source-plan.json",
+    "Sha256": "26771833B3E7C2A70166C36ED0854354198F4DC5E6270E01CD1B00E97101A2E2",
+    "OriginalRegistry40HashesMatchThatPlan": true,
+    "Current40ExactMatches": 38,
+    "Current40ExactRawEquivalence": false,
+    "SameHeadExecutionInferred": false
+  },
+  "ReviewedCurrentSource": {
+    "Path": "docs/validation/part-369/source-guards/review.json",
+    "Sha256": "DE7995AF430FBD0E171E4281F2FA568D9C58BEB9EE9F36989EA8A8282DF0518A",
+    "GuardsPath": "docs/validation/part-369/source-guards/guarded-files-proposal.json",
+    "GuardsSha256": "DAA7205D6D0EDE7CAD4F1C6E892B5C04075FF96AFA4C4EA23D6757744C7CE6AA",
+    "Guards": 450,
+    "EveryCurrentGuardExact": true,
+    "SourceReviewIsNotIndependentNativeExecution": true
+  },
+  "CanonicalTestPhase": {
+    "ReportPath": "docs/validation/part-369/local-completion/canonical-tests.json",
+    "ReportSha256": "3756C34CF27EEB4DC63BAF7A80A161E547837FE221223CF37BDE0446E3C8454F",
+    "Passed": 7639,
+    "Failed": 0,
+    "OrderedUniqueNames": 7639,
+    "ReceiptPath": "docs/validation/part-369/canonical-tests-pass/canonical-full.exit.json",
+    "ReceiptSha256": "1E6F2CA34871B3E176EAE12DFEEC9CFDA3C578D0E3BC2A0C5094BAE2612F2104",
+    "StdoutPath": "docs/validation/part-369/canonical-tests-pass/canonical-full.stdout.log.gz",
+    "StoredStdoutSha256": "D50DDCE731FFC3D2301C8D5461F5361B9CA24C5E2B5B7CF14C0ACBB1BAF6E3C7",
+    "RawStdoutSha256": "00FC4F9589336468205E464E396B91C5BF3EA6C5A735C9EFF6A95FC75B165DB4",
+    "Pid": 307088,
+    "ElapsedSeconds": 342.9219999999914,
+    "ProcessExitCode": 1,
+    "SourceRows": 3360,
+    "SourceChanges": [],
+    "WholeCanonicalPipelinePassed": false,
+    "LaterFailure": "readiness rejected these stale native-infrastructure source hashes; all7639 test phase checks passed"
+  },
+  "ResumePolicy": "Root may apply this docs-only metadata successor and resume the exact readiness/packages suffix against unchanged production/test sources and preserved7639 receipts. No uninterrupted success, repeated test execution, same-head CI or native whole-module verification is inferred.",
+  "InventoryScopeUnchanged": true,
+  "HigherVerificationGranted": false,
+  "MfaCountDelta": 0,
+  "ImplementationPublished": false,
+  "MainChangedByReviewer": false
+}

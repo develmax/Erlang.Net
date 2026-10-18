@@ -2,6 +2,8 @@ namespace Erlang.Compiler;
 
 public abstract record ComprehensionQualifier
 {
+    public int SourceLine { get; init; }
+
     public sealed record Generator(Pattern Pattern, Expr Source, bool Strict = false) : ComprehensionQualifier;
     public sealed record BinaryGenerator(BitPattern Pattern, Expr Source, bool Strict = false) : ComprehensionQualifier;
     public sealed record MapGenerator(Pattern Pattern, Expr Source, bool Strict = false) : ComprehensionQualifier;

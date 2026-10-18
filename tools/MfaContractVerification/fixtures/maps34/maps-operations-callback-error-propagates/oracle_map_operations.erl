@@ -1,0 +1,1 @@
+-module(oracle_map_operations). -export([run/0]). run()->try maps:map(fun(_,_)->error(badarg) end,#{a=>b}) of _->unexpected catch error:badarg->ok end,done.

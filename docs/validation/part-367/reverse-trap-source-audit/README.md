@@ -1,0 +1,7 @@
+# Independent reverse trap argument audit
+
+Pinned source predicts a real missing observable branch: reverse traps forward its remaining list and accumulated tail as the next BIF arguments; ordinary badarg preserves that latest entry pair. Main QueueCoreLinear.Reverse always emits its initial list/Nil. Append deliberately restores initial arguments via ERTS_BIF_ERROR_TRAPPED2, so its behavior cannot be reused for reverse.
+
+The correct failing pair is the last BIF entry snapshot, not necessarily the final improper atom and full reversed prefix. Alloc lookahead detects an invalid final segment before copying it. Internal onheap-to-alloc calls do not change argument registers; explicit traps do. The existing257-cell cohort cannot establish this branch.
+
+Minimal own source-protocol adaptation retains and updates two actual trap-entry terms, then emits them on failure while preserving iterative/cancelable work and unchanged owner/caller frames. A racy Yielding poll or every arbitrary await is insufficient. Literal native trap partition depends on native budget/heap state, and must not be invented from the C# slice. New native observations must retain complete errors and snapshot argument lists, prove nonzero consumed prefix and exact reverse-tail/suffix decomposition, and preserve append/length controls. audit.json records exact authority hashes, source lines, fix boundaries and proposed new-only observations. No Main/native/SDK/CI execution occurred here.

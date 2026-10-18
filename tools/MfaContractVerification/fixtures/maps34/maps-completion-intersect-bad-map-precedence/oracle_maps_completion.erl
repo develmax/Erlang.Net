@@ -1,0 +1,1 @@
+-module(oracle_maps_completion). -export([run/0]). run()->try maps:intersect(first_wrong,second_wrong) of _->unexpected catch error:{badmap,first_wrong}->ok end,try maps:intersect(#{},second_wrong) of _->unexpected catch error:{badmap,second_wrong}->ok end,done.

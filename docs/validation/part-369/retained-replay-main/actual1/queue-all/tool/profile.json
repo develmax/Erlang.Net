@@ -1,0 +1,7430 @@
+{
+  "Family": "queue-all-remaining-thirty-exports",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Mfas": [
+    "queue:all/2",
+    "queue:any/2",
+    "queue:cons/2",
+    "queue:daeh/1",
+    "queue:delete/2",
+    "queue:delete_r/2",
+    "queue:delete_with/2",
+    "queue:delete_with_r/2",
+    "queue:drop/1",
+    "queue:drop_r/1",
+    "queue:filter/2",
+    "queue:filtermap/2",
+    "queue:fold/3",
+    "queue:get/1",
+    "queue:get_r/1",
+    "queue:head/1",
+    "queue:in_r/2",
+    "queue:init/1",
+    "queue:join/2",
+    "queue:lait/1",
+    "queue:last/1",
+    "queue:liat/1",
+    "queue:member/2",
+    "queue:out_r/1",
+    "queue:peek/1",
+    "queue:peek_r/1",
+    "queue:reverse/1",
+    "queue:snoc/2",
+    "queue:split/2",
+    "queue:tail/1"
+  ],
+  "Fixtures": [
+    {
+      "Id": "queue_ends_left",
+      "Location": "tool",
+      "Path": "original/queue_all368_queue_ends_left.erl",
+      "Module": "queue_all368_queue_ends_left",
+      "Names": [
+        "in_r_bad_atom",
+        "in_r_bad_tuple0",
+        "in_r_bad_tuple1",
+        "in_r_bad_tuple3",
+        "in_r_bad_rear",
+        "in_r_bad_front",
+        "in_r_empty",
+        "in_r_rear_one",
+        "in_r_rear_two",
+        "in_r_rear_three",
+        "in_r_front_one",
+        "in_r_front_two",
+        "in_r_front_three",
+        "in_r_split",
+        "in_r_rear_improper_one",
+        "in_r_rear_improper_three",
+        "in_r_front_improper_one",
+        "in_r_front_improper_three",
+        "in_r_both_improper",
+        "in_r_rear_improper_front_one",
+        "in_r_rear_one_front_improper",
+        "in_r_caller_bad",
+        "out_r_bad_atom",
+        "out_r_bad_tuple0",
+        "out_r_bad_tuple1",
+        "out_r_bad_tuple3",
+        "out_r_bad_rear",
+        "out_r_bad_front",
+        "out_r_empty",
+        "out_r_rear_one",
+        "out_r_rear_two",
+        "out_r_rear_three",
+        "out_r_front_one",
+        "out_r_front_two",
+        "out_r_front_three",
+        "out_r_split",
+        "out_r_rear_improper_one",
+        "out_r_rear_improper_three",
+        "out_r_front_improper_one",
+        "out_r_front_improper_three",
+        "out_r_both_improper",
+        "out_r_rear_improper_front_one",
+        "out_r_rear_one_front_improper",
+        "out_r_inline_split_2",
+        "out_r_inline_split_3",
+        "out_r_inline_split_4",
+        "out_r_inline_split_5",
+        "out_r_inline_split_32",
+        "out_r_inline_split_33",
+        "out_r_inline_split_257",
+        "out_r_caller_bad",
+        "get_bad_atom",
+        "get_bad_tuple0",
+        "get_bad_tuple1",
+        "get_bad_tuple3",
+        "get_bad_rear",
+        "get_bad_front",
+        "get_empty",
+        "get_rear_one",
+        "get_rear_two",
+        "get_rear_three",
+        "get_front_one",
+        "get_front_two",
+        "get_front_three",
+        "get_split",
+        "get_rear_improper_one",
+        "get_rear_improper_three",
+        "get_front_improper_one",
+        "get_front_improper_three",
+        "get_both_improper",
+        "get_rear_improper_front_one",
+        "get_rear_one_front_improper",
+        "get_last_improper_1",
+        "get_last_improper_3",
+        "get_last_improper_257",
+        "get_caller_bad",
+        "get_r_bad_atom",
+        "get_r_bad_tuple0",
+        "get_r_bad_tuple1",
+        "get_r_bad_tuple3",
+        "get_r_bad_rear",
+        "get_r_bad_front",
+        "get_r_empty",
+        "get_r_rear_one",
+        "get_r_rear_two",
+        "get_r_rear_three",
+        "get_r_front_one",
+        "get_r_front_two",
+        "get_r_front_three",
+        "get_r_split",
+        "get_r_rear_improper_one",
+        "get_r_rear_improper_three",
+        "get_r_front_improper_one",
+        "get_r_front_improper_three",
+        "get_r_both_improper",
+        "get_r_rear_improper_front_one",
+        "get_r_rear_one_front_improper",
+        "get_r_last_improper_1",
+        "get_r_last_improper_3",
+        "get_r_last_improper_257",
+        "get_r_caller_bad",
+        "peek_bad_atom",
+        "peek_bad_tuple0",
+        "peek_bad_tuple1",
+        "peek_bad_tuple3",
+        "peek_bad_rear",
+        "peek_bad_front",
+        "peek_empty",
+        "peek_rear_one",
+        "peek_rear_two",
+        "peek_rear_three",
+        "peek_front_one",
+        "peek_front_two",
+        "peek_front_three",
+        "peek_split",
+        "peek_rear_improper_one",
+        "peek_rear_improper_three",
+        "peek_front_improper_one",
+        "peek_front_improper_three",
+        "peek_both_improper",
+        "peek_rear_improper_front_one",
+        "peek_rear_one_front_improper",
+        "peek_last_improper_1",
+        "peek_last_improper_3",
+        "peek_last_improper_257",
+        "peek_caller_bad",
+        "peek_r_bad_atom",
+        "peek_r_bad_tuple0",
+        "peek_r_bad_tuple1",
+        "peek_r_bad_tuple3",
+        "peek_r_bad_rear",
+        "peek_r_bad_front",
+        "peek_r_empty",
+        "peek_r_rear_one",
+        "peek_r_rear_two",
+        "peek_r_rear_three",
+        "peek_r_front_one",
+        "peek_r_front_two",
+        "peek_r_front_three",
+        "peek_r_split",
+        "peek_r_rear_improper_one",
+        "peek_r_rear_improper_three",
+        "peek_r_front_improper_one",
+        "peek_r_front_improper_three",
+        "peek_r_both_improper",
+        "peek_r_rear_improper_front_one",
+        "peek_r_rear_one_front_improper",
+        "peek_r_last_improper_1",
+        "peek_r_last_improper_3",
+        "peek_r_last_improper_257",
+        "peek_r_caller_bad",
+        "drop_bad_atom",
+        "drop_bad_tuple0",
+        "drop_bad_tuple1",
+        "drop_bad_tuple3",
+        "drop_bad_rear",
+        "drop_bad_front",
+        "drop_empty",
+        "drop_rear_one",
+        "drop_rear_two",
+        "drop_rear_three",
+        "drop_front_one",
+        "drop_front_two",
+        "drop_front_three",
+        "drop_split",
+        "drop_rear_improper_one",
+        "drop_rear_improper_three",
+        "drop_front_improper_one",
+        "drop_front_improper_three",
+        "drop_both_improper",
+        "drop_rear_improper_front_one",
+        "drop_rear_one_front_improper",
+        "drop_inline_split_2",
+        "drop_inline_split_3",
+        "drop_inline_split_4",
+        "drop_inline_split_5",
+        "drop_inline_split_32",
+        "drop_inline_split_33",
+        "drop_inline_split_257",
+        "drop_caller_bad",
+        "drop_r_bad_atom",
+        "drop_r_bad_tuple0",
+        "drop_r_bad_tuple1",
+        "drop_r_bad_tuple3",
+        "drop_r_bad_rear",
+        "drop_r_bad_front",
+        "drop_r_empty",
+        "drop_r_rear_one",
+        "drop_r_rear_two",
+        "drop_r_rear_three",
+        "drop_r_front_one",
+        "drop_r_front_two",
+        "drop_r_front_three",
+        "drop_r_split",
+        "drop_r_rear_improper_one",
+        "drop_r_rear_improper_three",
+        "drop_r_front_improper_one",
+        "drop_r_front_improper_three",
+        "drop_r_both_improper",
+        "drop_r_rear_improper_front_one",
+        "drop_r_rear_one_front_improper",
+        "drop_r_inline_split_2",
+        "drop_r_inline_split_3",
+        "drop_r_inline_split_4",
+        "drop_r_inline_split_5",
+        "drop_r_inline_split_32",
+        "drop_r_inline_split_33",
+        "drop_r_inline_split_257",
+        "drop_r_caller_bad",
+        "cons_bad_atom",
+        "cons_bad_tuple0",
+        "cons_bad_tuple1",
+        "cons_bad_tuple3",
+        "cons_bad_rear",
+        "cons_bad_front",
+        "cons_empty",
+        "cons_rear_one",
+        "cons_rear_two",
+        "cons_rear_three",
+        "cons_front_one",
+        "cons_front_two",
+        "cons_front_three",
+        "cons_split",
+        "cons_rear_improper_one",
+        "cons_rear_improper_three",
+        "cons_front_improper_one",
+        "cons_front_improper_three",
+        "cons_both_improper",
+        "cons_rear_improper_front_one",
+        "cons_rear_one_front_improper",
+        "cons_caller_bad"
+      ],
+      "Run": "run",
+      "NamesEntry": "cases",
+      "StackModule": "queue_all368_queue_ends_left",
+      "StackEntry": "run_stacks",
+      "WorkerModule": "proplists_observation_worker",
+      "WorkerEntry": "run",
+      "StackShape": "depth_cases",
+      "Companions": [
+        "original/queue_all368_support.erl",
+        "original/proplists_observation_worker.erl"
+      ],
+      "Cases": [
+        {
+          "Name": "in_r_bad_atom",
+          "Mfas": [
+            "queue:in_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "in_r_bad_tuple0",
+          "Mfas": [
+            "queue:in_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "in_r_bad_tuple1",
+          "Mfas": [
+            "queue:in_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "in_r_bad_tuple3",
+          "Mfas": [
+            "queue:in_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "in_r_bad_rear",
+          "Mfas": [
+            "queue:in_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "in_r_bad_front",
+          "Mfas": [
+            "queue:in_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "in_r_empty",
+          "Mfas": [
+            "queue:in_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "in_r_rear_one",
+          "Mfas": [
+            "queue:in_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "in_r_rear_two",
+          "Mfas": [
+            "queue:in_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "in_r_rear_three",
+          "Mfas": [
+            "queue:in_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "in_r_front_one",
+          "Mfas": [
+            "queue:in_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "in_r_front_two",
+          "Mfas": [
+            "queue:in_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "in_r_front_three",
+          "Mfas": [
+            "queue:in_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "in_r_split",
+          "Mfas": [
+            "queue:in_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "in_r_rear_improper_one",
+          "Mfas": [
+            "queue:in_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "in_r_rear_improper_three",
+          "Mfas": [
+            "queue:in_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "in_r_front_improper_one",
+          "Mfas": [
+            "queue:in_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "in_r_front_improper_three",
+          "Mfas": [
+            "queue:in_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "in_r_both_improper",
+          "Mfas": [
+            "queue:in_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "in_r_rear_improper_front_one",
+          "Mfas": [
+            "queue:in_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "in_r_rear_one_front_improper",
+          "Mfas": [
+            "queue:in_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "in_r_caller_bad",
+          "Mfas": [
+            "queue:in_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r_bad_atom",
+          "Mfas": [
+            "queue:out_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r_bad_tuple0",
+          "Mfas": [
+            "queue:out_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r_bad_tuple1",
+          "Mfas": [
+            "queue:out_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r_bad_tuple3",
+          "Mfas": [
+            "queue:out_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r_bad_rear",
+          "Mfas": [
+            "queue:out_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r_bad_front",
+          "Mfas": [
+            "queue:out_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r_empty",
+          "Mfas": [
+            "queue:out_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r_rear_one",
+          "Mfas": [
+            "queue:out_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r_rear_two",
+          "Mfas": [
+            "queue:out_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r_rear_three",
+          "Mfas": [
+            "queue:out_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r_front_one",
+          "Mfas": [
+            "queue:out_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r_front_two",
+          "Mfas": [
+            "queue:out_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r_front_three",
+          "Mfas": [
+            "queue:out_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r_split",
+          "Mfas": [
+            "queue:out_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r_rear_improper_one",
+          "Mfas": [
+            "queue:out_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r_rear_improper_three",
+          "Mfas": [
+            "queue:out_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r_front_improper_one",
+          "Mfas": [
+            "queue:out_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r_front_improper_three",
+          "Mfas": [
+            "queue:out_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r_both_improper",
+          "Mfas": [
+            "queue:out_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r_rear_improper_front_one",
+          "Mfas": [
+            "queue:out_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r_rear_one_front_improper",
+          "Mfas": [
+            "queue:out_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r_inline_split_2",
+          "Mfas": [
+            "queue:out_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r_inline_split_3",
+          "Mfas": [
+            "queue:out_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r_inline_split_4",
+          "Mfas": [
+            "queue:out_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r_inline_split_5",
+          "Mfas": [
+            "queue:out_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r_inline_split_32",
+          "Mfas": [
+            "queue:out_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r_inline_split_33",
+          "Mfas": [
+            "queue:out_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r_inline_split_257",
+          "Mfas": [
+            "queue:out_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r_caller_bad",
+          "Mfas": [
+            "queue:out_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_bad_atom",
+          "Mfas": [
+            "queue:get/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_bad_tuple0",
+          "Mfas": [
+            "queue:get/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_bad_tuple1",
+          "Mfas": [
+            "queue:get/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_bad_tuple3",
+          "Mfas": [
+            "queue:get/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_bad_rear",
+          "Mfas": [
+            "queue:get/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_bad_front",
+          "Mfas": [
+            "queue:get/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_empty",
+          "Mfas": [
+            "queue:get/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_rear_one",
+          "Mfas": [
+            "queue:get/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_rear_two",
+          "Mfas": [
+            "queue:get/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_rear_three",
+          "Mfas": [
+            "queue:get/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_front_one",
+          "Mfas": [
+            "queue:get/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_front_two",
+          "Mfas": [
+            "queue:get/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_front_three",
+          "Mfas": [
+            "queue:get/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_split",
+          "Mfas": [
+            "queue:get/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_rear_improper_one",
+          "Mfas": [
+            "queue:get/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_rear_improper_three",
+          "Mfas": [
+            "queue:get/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_front_improper_one",
+          "Mfas": [
+            "queue:get/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_front_improper_three",
+          "Mfas": [
+            "queue:get/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_both_improper",
+          "Mfas": [
+            "queue:get/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_rear_improper_front_one",
+          "Mfas": [
+            "queue:get/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_rear_one_front_improper",
+          "Mfas": [
+            "queue:get/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_last_improper_1",
+          "Mfas": [
+            "queue:get/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_last_improper_3",
+          "Mfas": [
+            "queue:get/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_last_improper_257",
+          "Mfas": [
+            "queue:get/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_caller_bad",
+          "Mfas": [
+            "queue:get/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_r_bad_atom",
+          "Mfas": [
+            "queue:get_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_r_bad_tuple0",
+          "Mfas": [
+            "queue:get_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_r_bad_tuple1",
+          "Mfas": [
+            "queue:get_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_r_bad_tuple3",
+          "Mfas": [
+            "queue:get_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_r_bad_rear",
+          "Mfas": [
+            "queue:get_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_r_bad_front",
+          "Mfas": [
+            "queue:get_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_r_empty",
+          "Mfas": [
+            "queue:get_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_r_rear_one",
+          "Mfas": [
+            "queue:get_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_r_rear_two",
+          "Mfas": [
+            "queue:get_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_r_rear_three",
+          "Mfas": [
+            "queue:get_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_r_front_one",
+          "Mfas": [
+            "queue:get_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_r_front_two",
+          "Mfas": [
+            "queue:get_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_r_front_three",
+          "Mfas": [
+            "queue:get_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_r_split",
+          "Mfas": [
+            "queue:get_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_r_rear_improper_one",
+          "Mfas": [
+            "queue:get_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_r_rear_improper_three",
+          "Mfas": [
+            "queue:get_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_r_front_improper_one",
+          "Mfas": [
+            "queue:get_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_r_front_improper_three",
+          "Mfas": [
+            "queue:get_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_r_both_improper",
+          "Mfas": [
+            "queue:get_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_r_rear_improper_front_one",
+          "Mfas": [
+            "queue:get_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_r_rear_one_front_improper",
+          "Mfas": [
+            "queue:get_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_r_last_improper_1",
+          "Mfas": [
+            "queue:get_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_r_last_improper_3",
+          "Mfas": [
+            "queue:get_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_r_last_improper_257",
+          "Mfas": [
+            "queue:get_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_r_caller_bad",
+          "Mfas": [
+            "queue:get_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_bad_atom",
+          "Mfas": [
+            "queue:peek/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_bad_tuple0",
+          "Mfas": [
+            "queue:peek/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_bad_tuple1",
+          "Mfas": [
+            "queue:peek/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_bad_tuple3",
+          "Mfas": [
+            "queue:peek/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_bad_rear",
+          "Mfas": [
+            "queue:peek/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_bad_front",
+          "Mfas": [
+            "queue:peek/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_empty",
+          "Mfas": [
+            "queue:peek/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_rear_one",
+          "Mfas": [
+            "queue:peek/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_rear_two",
+          "Mfas": [
+            "queue:peek/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_rear_three",
+          "Mfas": [
+            "queue:peek/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_front_one",
+          "Mfas": [
+            "queue:peek/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_front_two",
+          "Mfas": [
+            "queue:peek/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_front_three",
+          "Mfas": [
+            "queue:peek/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_split",
+          "Mfas": [
+            "queue:peek/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_rear_improper_one",
+          "Mfas": [
+            "queue:peek/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_rear_improper_three",
+          "Mfas": [
+            "queue:peek/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_front_improper_one",
+          "Mfas": [
+            "queue:peek/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_front_improper_three",
+          "Mfas": [
+            "queue:peek/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_both_improper",
+          "Mfas": [
+            "queue:peek/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_rear_improper_front_one",
+          "Mfas": [
+            "queue:peek/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_rear_one_front_improper",
+          "Mfas": [
+            "queue:peek/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_last_improper_1",
+          "Mfas": [
+            "queue:peek/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_last_improper_3",
+          "Mfas": [
+            "queue:peek/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_last_improper_257",
+          "Mfas": [
+            "queue:peek/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_caller_bad",
+          "Mfas": [
+            "queue:peek/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_r_bad_atom",
+          "Mfas": [
+            "queue:peek_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_r_bad_tuple0",
+          "Mfas": [
+            "queue:peek_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_r_bad_tuple1",
+          "Mfas": [
+            "queue:peek_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_r_bad_tuple3",
+          "Mfas": [
+            "queue:peek_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_r_bad_rear",
+          "Mfas": [
+            "queue:peek_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_r_bad_front",
+          "Mfas": [
+            "queue:peek_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_r_empty",
+          "Mfas": [
+            "queue:peek_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_r_rear_one",
+          "Mfas": [
+            "queue:peek_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_r_rear_two",
+          "Mfas": [
+            "queue:peek_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_r_rear_three",
+          "Mfas": [
+            "queue:peek_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_r_front_one",
+          "Mfas": [
+            "queue:peek_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_r_front_two",
+          "Mfas": [
+            "queue:peek_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_r_front_three",
+          "Mfas": [
+            "queue:peek_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_r_split",
+          "Mfas": [
+            "queue:peek_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_r_rear_improper_one",
+          "Mfas": [
+            "queue:peek_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_r_rear_improper_three",
+          "Mfas": [
+            "queue:peek_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_r_front_improper_one",
+          "Mfas": [
+            "queue:peek_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_r_front_improper_three",
+          "Mfas": [
+            "queue:peek_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_r_both_improper",
+          "Mfas": [
+            "queue:peek_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_r_rear_improper_front_one",
+          "Mfas": [
+            "queue:peek_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_r_rear_one_front_improper",
+          "Mfas": [
+            "queue:peek_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_r_last_improper_1",
+          "Mfas": [
+            "queue:peek_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_r_last_improper_3",
+          "Mfas": [
+            "queue:peek_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_r_last_improper_257",
+          "Mfas": [
+            "queue:peek_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_r_caller_bad",
+          "Mfas": [
+            "queue:peek_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_bad_atom",
+          "Mfas": [
+            "queue:drop/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_bad_tuple0",
+          "Mfas": [
+            "queue:drop/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_bad_tuple1",
+          "Mfas": [
+            "queue:drop/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_bad_tuple3",
+          "Mfas": [
+            "queue:drop/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_bad_rear",
+          "Mfas": [
+            "queue:drop/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_bad_front",
+          "Mfas": [
+            "queue:drop/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_empty",
+          "Mfas": [
+            "queue:drop/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_rear_one",
+          "Mfas": [
+            "queue:drop/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_rear_two",
+          "Mfas": [
+            "queue:drop/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_rear_three",
+          "Mfas": [
+            "queue:drop/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_front_one",
+          "Mfas": [
+            "queue:drop/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_front_two",
+          "Mfas": [
+            "queue:drop/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_front_three",
+          "Mfas": [
+            "queue:drop/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_split",
+          "Mfas": [
+            "queue:drop/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_rear_improper_one",
+          "Mfas": [
+            "queue:drop/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_rear_improper_three",
+          "Mfas": [
+            "queue:drop/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_front_improper_one",
+          "Mfas": [
+            "queue:drop/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_front_improper_three",
+          "Mfas": [
+            "queue:drop/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_both_improper",
+          "Mfas": [
+            "queue:drop/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_rear_improper_front_one",
+          "Mfas": [
+            "queue:drop/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_rear_one_front_improper",
+          "Mfas": [
+            "queue:drop/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_inline_split_2",
+          "Mfas": [
+            "queue:drop/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_inline_split_3",
+          "Mfas": [
+            "queue:drop/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_inline_split_4",
+          "Mfas": [
+            "queue:drop/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_inline_split_5",
+          "Mfas": [
+            "queue:drop/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_inline_split_32",
+          "Mfas": [
+            "queue:drop/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_inline_split_33",
+          "Mfas": [
+            "queue:drop/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_inline_split_257",
+          "Mfas": [
+            "queue:drop/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_caller_bad",
+          "Mfas": [
+            "queue:drop/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_r_bad_atom",
+          "Mfas": [
+            "queue:drop_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_r_bad_tuple0",
+          "Mfas": [
+            "queue:drop_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_r_bad_tuple1",
+          "Mfas": [
+            "queue:drop_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_r_bad_tuple3",
+          "Mfas": [
+            "queue:drop_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_r_bad_rear",
+          "Mfas": [
+            "queue:drop_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_r_bad_front",
+          "Mfas": [
+            "queue:drop_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_r_empty",
+          "Mfas": [
+            "queue:drop_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_r_rear_one",
+          "Mfas": [
+            "queue:drop_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_r_rear_two",
+          "Mfas": [
+            "queue:drop_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_r_rear_three",
+          "Mfas": [
+            "queue:drop_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_r_front_one",
+          "Mfas": [
+            "queue:drop_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_r_front_two",
+          "Mfas": [
+            "queue:drop_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_r_front_three",
+          "Mfas": [
+            "queue:drop_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_r_split",
+          "Mfas": [
+            "queue:drop_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_r_rear_improper_one",
+          "Mfas": [
+            "queue:drop_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_r_rear_improper_three",
+          "Mfas": [
+            "queue:drop_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_r_front_improper_one",
+          "Mfas": [
+            "queue:drop_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_r_front_improper_three",
+          "Mfas": [
+            "queue:drop_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_r_both_improper",
+          "Mfas": [
+            "queue:drop_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_r_rear_improper_front_one",
+          "Mfas": [
+            "queue:drop_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_r_rear_one_front_improper",
+          "Mfas": [
+            "queue:drop_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_r_inline_split_2",
+          "Mfas": [
+            "queue:drop_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_r_inline_split_3",
+          "Mfas": [
+            "queue:drop_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_r_inline_split_4",
+          "Mfas": [
+            "queue:drop_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_r_inline_split_5",
+          "Mfas": [
+            "queue:drop_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_r_inline_split_32",
+          "Mfas": [
+            "queue:drop_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_r_inline_split_33",
+          "Mfas": [
+            "queue:drop_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_r_inline_split_257",
+          "Mfas": [
+            "queue:drop_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_r_caller_bad",
+          "Mfas": [
+            "queue:drop_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "cons_bad_atom",
+          "Mfas": [
+            "queue:cons/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "cons_bad_tuple0",
+          "Mfas": [
+            "queue:cons/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "cons_bad_tuple1",
+          "Mfas": [
+            "queue:cons/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "cons_bad_tuple3",
+          "Mfas": [
+            "queue:cons/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "cons_bad_rear",
+          "Mfas": [
+            "queue:cons/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "cons_bad_front",
+          "Mfas": [
+            "queue:cons/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "cons_empty",
+          "Mfas": [
+            "queue:cons/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "cons_rear_one",
+          "Mfas": [
+            "queue:cons/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "cons_rear_two",
+          "Mfas": [
+            "queue:cons/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "cons_rear_three",
+          "Mfas": [
+            "queue:cons/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "cons_front_one",
+          "Mfas": [
+            "queue:cons/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "cons_front_two",
+          "Mfas": [
+            "queue:cons/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "cons_front_three",
+          "Mfas": [
+            "queue:cons/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "cons_split",
+          "Mfas": [
+            "queue:cons/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "cons_rear_improper_one",
+          "Mfas": [
+            "queue:cons/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "cons_rear_improper_three",
+          "Mfas": [
+            "queue:cons/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "cons_front_improper_one",
+          "Mfas": [
+            "queue:cons/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "cons_front_improper_three",
+          "Mfas": [
+            "queue:cons/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "cons_both_improper",
+          "Mfas": [
+            "queue:cons/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "cons_rear_improper_front_one",
+          "Mfas": [
+            "queue:cons/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "cons_rear_one_front_improper",
+          "Mfas": [
+            "queue:cons/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "cons_caller_bad",
+          "Mfas": [
+            "queue:cons/2"
+          ],
+          "Policy": "exact"
+        }
+      ]
+    },
+    {
+      "Id": "queue_ends_right",
+      "Location": "tool",
+      "Path": "original/queue_all368_queue_ends_right.erl",
+      "Module": "queue_all368_queue_ends_right",
+      "Names": [
+        "head_bad_atom",
+        "head_bad_tuple0",
+        "head_bad_tuple1",
+        "head_bad_tuple3",
+        "head_bad_rear",
+        "head_bad_front",
+        "head_empty",
+        "head_rear_one",
+        "head_rear_two",
+        "head_rear_three",
+        "head_front_one",
+        "head_front_two",
+        "head_front_three",
+        "head_split",
+        "head_rear_improper_one",
+        "head_rear_improper_three",
+        "head_front_improper_one",
+        "head_front_improper_three",
+        "head_both_improper",
+        "head_rear_improper_front_one",
+        "head_rear_one_front_improper",
+        "head_last_improper_1",
+        "head_last_improper_3",
+        "head_last_improper_257",
+        "head_caller_bad",
+        "tail_bad_atom",
+        "tail_bad_tuple0",
+        "tail_bad_tuple1",
+        "tail_bad_tuple3",
+        "tail_bad_rear",
+        "tail_bad_front",
+        "tail_empty",
+        "tail_rear_one",
+        "tail_rear_two",
+        "tail_rear_three",
+        "tail_front_one",
+        "tail_front_two",
+        "tail_front_three",
+        "tail_split",
+        "tail_rear_improper_one",
+        "tail_rear_improper_three",
+        "tail_front_improper_one",
+        "tail_front_improper_three",
+        "tail_both_improper",
+        "tail_rear_improper_front_one",
+        "tail_rear_one_front_improper",
+        "tail_caller_bad",
+        "snoc_bad_atom",
+        "snoc_bad_tuple0",
+        "snoc_bad_tuple1",
+        "snoc_bad_tuple3",
+        "snoc_bad_rear",
+        "snoc_bad_front",
+        "snoc_empty",
+        "snoc_rear_one",
+        "snoc_rear_two",
+        "snoc_rear_three",
+        "snoc_front_one",
+        "snoc_front_two",
+        "snoc_front_three",
+        "snoc_split",
+        "snoc_rear_improper_one",
+        "snoc_rear_improper_three",
+        "snoc_front_improper_one",
+        "snoc_front_improper_three",
+        "snoc_both_improper",
+        "snoc_rear_improper_front_one",
+        "snoc_rear_one_front_improper",
+        "snoc_caller_bad",
+        "last_bad_atom",
+        "last_bad_tuple0",
+        "last_bad_tuple1",
+        "last_bad_tuple3",
+        "last_bad_rear",
+        "last_bad_front",
+        "last_empty",
+        "last_rear_one",
+        "last_rear_two",
+        "last_rear_three",
+        "last_front_one",
+        "last_front_two",
+        "last_front_three",
+        "last_split",
+        "last_rear_improper_one",
+        "last_rear_improper_three",
+        "last_front_improper_one",
+        "last_front_improper_three",
+        "last_both_improper",
+        "last_rear_improper_front_one",
+        "last_rear_one_front_improper",
+        "last_last_improper_1",
+        "last_last_improper_3",
+        "last_last_improper_257",
+        "last_caller_bad",
+        "daeh_bad_atom",
+        "daeh_bad_tuple0",
+        "daeh_bad_tuple1",
+        "daeh_bad_tuple3",
+        "daeh_bad_rear",
+        "daeh_bad_front",
+        "daeh_empty",
+        "daeh_rear_one",
+        "daeh_rear_two",
+        "daeh_rear_three",
+        "daeh_front_one",
+        "daeh_front_two",
+        "daeh_front_three",
+        "daeh_split",
+        "daeh_rear_improper_one",
+        "daeh_rear_improper_three",
+        "daeh_front_improper_one",
+        "daeh_front_improper_three",
+        "daeh_both_improper",
+        "daeh_rear_improper_front_one",
+        "daeh_rear_one_front_improper",
+        "daeh_last_improper_1",
+        "daeh_last_improper_3",
+        "daeh_last_improper_257",
+        "daeh_caller_bad",
+        "init_bad_atom",
+        "init_bad_tuple0",
+        "init_bad_tuple1",
+        "init_bad_tuple3",
+        "init_bad_rear",
+        "init_bad_front",
+        "init_empty",
+        "init_rear_one",
+        "init_rear_two",
+        "init_rear_three",
+        "init_front_one",
+        "init_front_two",
+        "init_front_three",
+        "init_split",
+        "init_rear_improper_one",
+        "init_rear_improper_three",
+        "init_front_improper_one",
+        "init_front_improper_three",
+        "init_both_improper",
+        "init_rear_improper_front_one",
+        "init_rear_one_front_improper",
+        "init_caller_bad",
+        "liat_bad_atom",
+        "liat_bad_tuple0",
+        "liat_bad_tuple1",
+        "liat_bad_tuple3",
+        "liat_bad_rear",
+        "liat_bad_front",
+        "liat_empty",
+        "liat_rear_one",
+        "liat_rear_two",
+        "liat_rear_three",
+        "liat_front_one",
+        "liat_front_two",
+        "liat_front_three",
+        "liat_split",
+        "liat_rear_improper_one",
+        "liat_rear_improper_three",
+        "liat_front_improper_one",
+        "liat_front_improper_three",
+        "liat_both_improper",
+        "liat_rear_improper_front_one",
+        "liat_rear_one_front_improper",
+        "liat_caller_bad",
+        "lait_bad_atom",
+        "lait_bad_tuple0",
+        "lait_bad_tuple1",
+        "lait_bad_tuple3",
+        "lait_bad_rear",
+        "lait_bad_front",
+        "lait_empty",
+        "lait_rear_one",
+        "lait_rear_two",
+        "lait_rear_three",
+        "lait_front_one",
+        "lait_front_two",
+        "lait_front_three",
+        "lait_split",
+        "lait_rear_improper_one",
+        "lait_rear_improper_three",
+        "lait_front_improper_one",
+        "lait_front_improper_three",
+        "lait_both_improper",
+        "lait_rear_improper_front_one",
+        "lait_rear_one_front_improper",
+        "lait_caller_bad"
+      ],
+      "Run": "run",
+      "NamesEntry": "cases",
+      "StackModule": "queue_all368_queue_ends_right",
+      "StackEntry": "run_stacks",
+      "WorkerModule": "proplists_observation_worker",
+      "WorkerEntry": "run",
+      "StackShape": "depth_cases",
+      "Companions": [
+        "original/queue_all368_support.erl",
+        "original/proplists_observation_worker.erl"
+      ],
+      "Cases": [
+        {
+          "Name": "head_bad_atom",
+          "Mfas": [
+            "queue:head/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "head_bad_tuple0",
+          "Mfas": [
+            "queue:head/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "head_bad_tuple1",
+          "Mfas": [
+            "queue:head/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "head_bad_tuple3",
+          "Mfas": [
+            "queue:head/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "head_bad_rear",
+          "Mfas": [
+            "queue:head/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "head_bad_front",
+          "Mfas": [
+            "queue:head/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "head_empty",
+          "Mfas": [
+            "queue:head/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "head_rear_one",
+          "Mfas": [
+            "queue:head/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "head_rear_two",
+          "Mfas": [
+            "queue:head/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "head_rear_three",
+          "Mfas": [
+            "queue:head/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "head_front_one",
+          "Mfas": [
+            "queue:head/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "head_front_two",
+          "Mfas": [
+            "queue:head/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "head_front_three",
+          "Mfas": [
+            "queue:head/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "head_split",
+          "Mfas": [
+            "queue:head/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "head_rear_improper_one",
+          "Mfas": [
+            "queue:head/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "head_rear_improper_three",
+          "Mfas": [
+            "queue:head/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "head_front_improper_one",
+          "Mfas": [
+            "queue:head/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "head_front_improper_three",
+          "Mfas": [
+            "queue:head/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "head_both_improper",
+          "Mfas": [
+            "queue:head/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "head_rear_improper_front_one",
+          "Mfas": [
+            "queue:head/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "head_rear_one_front_improper",
+          "Mfas": [
+            "queue:head/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "head_last_improper_1",
+          "Mfas": [
+            "queue:head/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "head_last_improper_3",
+          "Mfas": [
+            "queue:head/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "head_last_improper_257",
+          "Mfas": [
+            "queue:head/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "head_caller_bad",
+          "Mfas": [
+            "queue:head/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "tail_bad_atom",
+          "Mfas": [
+            "queue:tail/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "tail_bad_tuple0",
+          "Mfas": [
+            "queue:tail/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "tail_bad_tuple1",
+          "Mfas": [
+            "queue:tail/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "tail_bad_tuple3",
+          "Mfas": [
+            "queue:tail/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "tail_bad_rear",
+          "Mfas": [
+            "queue:tail/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "tail_bad_front",
+          "Mfas": [
+            "queue:tail/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "tail_empty",
+          "Mfas": [
+            "queue:tail/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "tail_rear_one",
+          "Mfas": [
+            "queue:tail/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "tail_rear_two",
+          "Mfas": [
+            "queue:tail/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "tail_rear_three",
+          "Mfas": [
+            "queue:tail/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "tail_front_one",
+          "Mfas": [
+            "queue:tail/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "tail_front_two",
+          "Mfas": [
+            "queue:tail/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "tail_front_three",
+          "Mfas": [
+            "queue:tail/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "tail_split",
+          "Mfas": [
+            "queue:tail/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "tail_rear_improper_one",
+          "Mfas": [
+            "queue:tail/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "tail_rear_improper_three",
+          "Mfas": [
+            "queue:tail/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "tail_front_improper_one",
+          "Mfas": [
+            "queue:tail/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "tail_front_improper_three",
+          "Mfas": [
+            "queue:tail/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "tail_both_improper",
+          "Mfas": [
+            "queue:tail/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "tail_rear_improper_front_one",
+          "Mfas": [
+            "queue:tail/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "tail_rear_one_front_improper",
+          "Mfas": [
+            "queue:tail/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "tail_caller_bad",
+          "Mfas": [
+            "queue:tail/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "snoc_bad_atom",
+          "Mfas": [
+            "queue:snoc/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "snoc_bad_tuple0",
+          "Mfas": [
+            "queue:snoc/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "snoc_bad_tuple1",
+          "Mfas": [
+            "queue:snoc/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "snoc_bad_tuple3",
+          "Mfas": [
+            "queue:snoc/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "snoc_bad_rear",
+          "Mfas": [
+            "queue:snoc/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "snoc_bad_front",
+          "Mfas": [
+            "queue:snoc/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "snoc_empty",
+          "Mfas": [
+            "queue:snoc/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "snoc_rear_one",
+          "Mfas": [
+            "queue:snoc/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "snoc_rear_two",
+          "Mfas": [
+            "queue:snoc/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "snoc_rear_three",
+          "Mfas": [
+            "queue:snoc/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "snoc_front_one",
+          "Mfas": [
+            "queue:snoc/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "snoc_front_two",
+          "Mfas": [
+            "queue:snoc/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "snoc_front_three",
+          "Mfas": [
+            "queue:snoc/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "snoc_split",
+          "Mfas": [
+            "queue:snoc/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "snoc_rear_improper_one",
+          "Mfas": [
+            "queue:snoc/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "snoc_rear_improper_three",
+          "Mfas": [
+            "queue:snoc/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "snoc_front_improper_one",
+          "Mfas": [
+            "queue:snoc/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "snoc_front_improper_three",
+          "Mfas": [
+            "queue:snoc/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "snoc_both_improper",
+          "Mfas": [
+            "queue:snoc/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "snoc_rear_improper_front_one",
+          "Mfas": [
+            "queue:snoc/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "snoc_rear_one_front_improper",
+          "Mfas": [
+            "queue:snoc/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "snoc_caller_bad",
+          "Mfas": [
+            "queue:snoc/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "last_bad_atom",
+          "Mfas": [
+            "queue:last/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "last_bad_tuple0",
+          "Mfas": [
+            "queue:last/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "last_bad_tuple1",
+          "Mfas": [
+            "queue:last/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "last_bad_tuple3",
+          "Mfas": [
+            "queue:last/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "last_bad_rear",
+          "Mfas": [
+            "queue:last/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "last_bad_front",
+          "Mfas": [
+            "queue:last/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "last_empty",
+          "Mfas": [
+            "queue:last/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "last_rear_one",
+          "Mfas": [
+            "queue:last/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "last_rear_two",
+          "Mfas": [
+            "queue:last/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "last_rear_three",
+          "Mfas": [
+            "queue:last/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "last_front_one",
+          "Mfas": [
+            "queue:last/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "last_front_two",
+          "Mfas": [
+            "queue:last/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "last_front_three",
+          "Mfas": [
+            "queue:last/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "last_split",
+          "Mfas": [
+            "queue:last/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "last_rear_improper_one",
+          "Mfas": [
+            "queue:last/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "last_rear_improper_three",
+          "Mfas": [
+            "queue:last/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "last_front_improper_one",
+          "Mfas": [
+            "queue:last/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "last_front_improper_three",
+          "Mfas": [
+            "queue:last/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "last_both_improper",
+          "Mfas": [
+            "queue:last/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "last_rear_improper_front_one",
+          "Mfas": [
+            "queue:last/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "last_rear_one_front_improper",
+          "Mfas": [
+            "queue:last/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "last_last_improper_1",
+          "Mfas": [
+            "queue:last/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "last_last_improper_3",
+          "Mfas": [
+            "queue:last/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "last_last_improper_257",
+          "Mfas": [
+            "queue:last/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "last_caller_bad",
+          "Mfas": [
+            "queue:last/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "daeh_bad_atom",
+          "Mfas": [
+            "queue:daeh/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "daeh_bad_tuple0",
+          "Mfas": [
+            "queue:daeh/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "daeh_bad_tuple1",
+          "Mfas": [
+            "queue:daeh/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "daeh_bad_tuple3",
+          "Mfas": [
+            "queue:daeh/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "daeh_bad_rear",
+          "Mfas": [
+            "queue:daeh/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "daeh_bad_front",
+          "Mfas": [
+            "queue:daeh/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "daeh_empty",
+          "Mfas": [
+            "queue:daeh/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "daeh_rear_one",
+          "Mfas": [
+            "queue:daeh/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "daeh_rear_two",
+          "Mfas": [
+            "queue:daeh/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "daeh_rear_three",
+          "Mfas": [
+            "queue:daeh/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "daeh_front_one",
+          "Mfas": [
+            "queue:daeh/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "daeh_front_two",
+          "Mfas": [
+            "queue:daeh/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "daeh_front_three",
+          "Mfas": [
+            "queue:daeh/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "daeh_split",
+          "Mfas": [
+            "queue:daeh/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "daeh_rear_improper_one",
+          "Mfas": [
+            "queue:daeh/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "daeh_rear_improper_three",
+          "Mfas": [
+            "queue:daeh/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "daeh_front_improper_one",
+          "Mfas": [
+            "queue:daeh/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "daeh_front_improper_three",
+          "Mfas": [
+            "queue:daeh/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "daeh_both_improper",
+          "Mfas": [
+            "queue:daeh/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "daeh_rear_improper_front_one",
+          "Mfas": [
+            "queue:daeh/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "daeh_rear_one_front_improper",
+          "Mfas": [
+            "queue:daeh/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "daeh_last_improper_1",
+          "Mfas": [
+            "queue:daeh/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "daeh_last_improper_3",
+          "Mfas": [
+            "queue:daeh/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "daeh_last_improper_257",
+          "Mfas": [
+            "queue:daeh/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "daeh_caller_bad",
+          "Mfas": [
+            "queue:daeh/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "init_bad_atom",
+          "Mfas": [
+            "queue:init/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "init_bad_tuple0",
+          "Mfas": [
+            "queue:init/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "init_bad_tuple1",
+          "Mfas": [
+            "queue:init/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "init_bad_tuple3",
+          "Mfas": [
+            "queue:init/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "init_bad_rear",
+          "Mfas": [
+            "queue:init/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "init_bad_front",
+          "Mfas": [
+            "queue:init/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "init_empty",
+          "Mfas": [
+            "queue:init/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "init_rear_one",
+          "Mfas": [
+            "queue:init/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "init_rear_two",
+          "Mfas": [
+            "queue:init/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "init_rear_three",
+          "Mfas": [
+            "queue:init/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "init_front_one",
+          "Mfas": [
+            "queue:init/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "init_front_two",
+          "Mfas": [
+            "queue:init/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "init_front_three",
+          "Mfas": [
+            "queue:init/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "init_split",
+          "Mfas": [
+            "queue:init/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "init_rear_improper_one",
+          "Mfas": [
+            "queue:init/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "init_rear_improper_three",
+          "Mfas": [
+            "queue:init/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "init_front_improper_one",
+          "Mfas": [
+            "queue:init/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "init_front_improper_three",
+          "Mfas": [
+            "queue:init/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "init_both_improper",
+          "Mfas": [
+            "queue:init/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "init_rear_improper_front_one",
+          "Mfas": [
+            "queue:init/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "init_rear_one_front_improper",
+          "Mfas": [
+            "queue:init/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "init_caller_bad",
+          "Mfas": [
+            "queue:init/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "liat_bad_atom",
+          "Mfas": [
+            "queue:liat/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "liat_bad_tuple0",
+          "Mfas": [
+            "queue:liat/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "liat_bad_tuple1",
+          "Mfas": [
+            "queue:liat/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "liat_bad_tuple3",
+          "Mfas": [
+            "queue:liat/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "liat_bad_rear",
+          "Mfas": [
+            "queue:liat/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "liat_bad_front",
+          "Mfas": [
+            "queue:liat/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "liat_empty",
+          "Mfas": [
+            "queue:liat/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "liat_rear_one",
+          "Mfas": [
+            "queue:liat/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "liat_rear_two",
+          "Mfas": [
+            "queue:liat/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "liat_rear_three",
+          "Mfas": [
+            "queue:liat/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "liat_front_one",
+          "Mfas": [
+            "queue:liat/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "liat_front_two",
+          "Mfas": [
+            "queue:liat/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "liat_front_three",
+          "Mfas": [
+            "queue:liat/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "liat_split",
+          "Mfas": [
+            "queue:liat/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "liat_rear_improper_one",
+          "Mfas": [
+            "queue:liat/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "liat_rear_improper_three",
+          "Mfas": [
+            "queue:liat/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "liat_front_improper_one",
+          "Mfas": [
+            "queue:liat/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "liat_front_improper_three",
+          "Mfas": [
+            "queue:liat/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "liat_both_improper",
+          "Mfas": [
+            "queue:liat/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "liat_rear_improper_front_one",
+          "Mfas": [
+            "queue:liat/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "liat_rear_one_front_improper",
+          "Mfas": [
+            "queue:liat/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "liat_caller_bad",
+          "Mfas": [
+            "queue:liat/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "lait_bad_atom",
+          "Mfas": [
+            "queue:lait/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "lait_bad_tuple0",
+          "Mfas": [
+            "queue:lait/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "lait_bad_tuple1",
+          "Mfas": [
+            "queue:lait/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "lait_bad_tuple3",
+          "Mfas": [
+            "queue:lait/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "lait_bad_rear",
+          "Mfas": [
+            "queue:lait/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "lait_bad_front",
+          "Mfas": [
+            "queue:lait/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "lait_empty",
+          "Mfas": [
+            "queue:lait/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "lait_rear_one",
+          "Mfas": [
+            "queue:lait/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "lait_rear_two",
+          "Mfas": [
+            "queue:lait/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "lait_rear_three",
+          "Mfas": [
+            "queue:lait/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "lait_front_one",
+          "Mfas": [
+            "queue:lait/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "lait_front_two",
+          "Mfas": [
+            "queue:lait/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "lait_front_three",
+          "Mfas": [
+            "queue:lait/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "lait_split",
+          "Mfas": [
+            "queue:lait/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "lait_rear_improper_one",
+          "Mfas": [
+            "queue:lait/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "lait_rear_improper_three",
+          "Mfas": [
+            "queue:lait/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "lait_front_improper_one",
+          "Mfas": [
+            "queue:lait/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "lait_front_improper_three",
+          "Mfas": [
+            "queue:lait/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "lait_both_improper",
+          "Mfas": [
+            "queue:lait/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "lait_rear_improper_front_one",
+          "Mfas": [
+            "queue:lait/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "lait_rear_one_front_improper",
+          "Mfas": [
+            "queue:lait/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "lait_caller_bad",
+          "Mfas": [
+            "queue:lait/1"
+          ],
+          "Policy": "exact"
+        }
+      ]
+    },
+    {
+      "Id": "queue_structural",
+      "Location": "tool",
+      "Path": "original/queue_all368_queue_structural.erl",
+      "Module": "queue_all368_queue_structural",
+      "Names": [
+        "member_bad_atom",
+        "member_bad_tuple0",
+        "member_bad_tuple1",
+        "member_bad_tuple3",
+        "member_bad_rear",
+        "member_bad_front",
+        "member_empty",
+        "member_rear_one",
+        "member_rear_two",
+        "member_rear_three",
+        "member_front_one",
+        "member_front_two",
+        "member_front_three",
+        "member_split",
+        "member_rear_improper_one",
+        "member_rear_improper_three",
+        "member_front_improper_one",
+        "member_front_improper_three",
+        "member_both_improper",
+        "member_rear_improper_front_one",
+        "member_rear_one_front_improper",
+        "reverse_bad_atom",
+        "reverse_bad_tuple0",
+        "reverse_bad_tuple1",
+        "reverse_bad_tuple3",
+        "reverse_bad_rear",
+        "reverse_bad_front",
+        "reverse_empty",
+        "reverse_rear_one",
+        "reverse_rear_two",
+        "reverse_rear_three",
+        "reverse_front_one",
+        "reverse_front_two",
+        "reverse_front_three",
+        "reverse_split",
+        "reverse_rear_improper_one",
+        "reverse_rear_improper_three",
+        "reverse_front_improper_one",
+        "reverse_front_improper_three",
+        "reverse_both_improper",
+        "reverse_rear_improper_front_one",
+        "reverse_rear_one_front_improper",
+        "delete_bad_atom",
+        "delete_bad_tuple0",
+        "delete_bad_tuple1",
+        "delete_bad_tuple3",
+        "delete_bad_rear",
+        "delete_bad_front",
+        "delete_empty",
+        "delete_rear_one",
+        "delete_rear_two",
+        "delete_rear_three",
+        "delete_front_one",
+        "delete_front_two",
+        "delete_front_three",
+        "delete_split",
+        "delete_rear_improper_one",
+        "delete_rear_improper_three",
+        "delete_front_improper_one",
+        "delete_front_improper_three",
+        "delete_both_improper",
+        "delete_rear_improper_front_one",
+        "delete_rear_one_front_improper",
+        "delete_r_bad_atom",
+        "delete_r_bad_tuple0",
+        "delete_r_bad_tuple1",
+        "delete_r_bad_tuple3",
+        "delete_r_bad_rear",
+        "delete_r_bad_front",
+        "delete_r_empty",
+        "delete_r_rear_one",
+        "delete_r_rear_two",
+        "delete_r_rear_three",
+        "delete_r_front_one",
+        "delete_r_front_two",
+        "delete_r_front_three",
+        "delete_r_split",
+        "delete_r_rear_improper_one",
+        "delete_r_rear_improper_three",
+        "delete_r_front_improper_one",
+        "delete_r_front_improper_three",
+        "delete_r_both_improper",
+        "delete_r_rear_improper_front_one",
+        "delete_r_rear_one_front_improper",
+        "member_float_exact",
+        "member_float_reverse_exact",
+        "member_tuple_exact",
+        "member_map_key",
+        "member_duplicates",
+        "member_front_hit_bad_rear",
+        "member_rear_hit_bad_front",
+        "member_false_tail_first",
+        "member_false_tail_later",
+        "member_opaque_tail_first",
+        "member_rear_improper_hit",
+        "delete_float_exact",
+        "delete_float_reverse_exact",
+        "delete_tuple_exact",
+        "delete_map_key",
+        "delete_duplicates",
+        "delete_front_hit_bad_rear",
+        "delete_rear_hit_bad_front",
+        "delete_false_tail_first",
+        "delete_false_tail_later",
+        "delete_opaque_tail_first",
+        "delete_rear_improper_hit",
+        "delete_r_float_exact",
+        "delete_r_float_reverse_exact",
+        "delete_r_tuple_exact",
+        "delete_r_map_key",
+        "delete_r_duplicates",
+        "delete_r_front_hit_bad_rear",
+        "delete_r_rear_hit_bad_front",
+        "delete_r_false_tail_first",
+        "delete_r_false_tail_later",
+        "delete_r_opaque_tail_first",
+        "delete_r_rear_improper_hit",
+        "join_empty_empty",
+        "join_left_empty",
+        "join_right_empty",
+        "join_two_full",
+        "join_both_bad",
+        "join_left_bad",
+        "join_right_bad",
+        "join_left_bad_field",
+        "join_right_bad_field",
+        "join_left_improper_empty",
+        "join_empty_right_improper",
+        "join_left_rear_improper",
+        "join_left_front_improper",
+        "join_right_front_improper_tail",
+        "join_both_improper_precedence",
+        "split_empty_0",
+        "split_empty_1",
+        "split_empty_2",
+        "split_empty_3",
+        "split_empty_4",
+        "split_empty_5",
+        "split_empty_minus1",
+        "split_empty_1p0",
+        "split_empty_bad",
+        "split_empty_1_bsl_128",
+        "split_balanced_0",
+        "split_balanced_1",
+        "split_balanced_2",
+        "split_balanced_3",
+        "split_balanced_4",
+        "split_balanced_5",
+        "split_balanced_minus1",
+        "split_balanced_1p0",
+        "split_balanced_bad",
+        "split_balanced_1_bsl_128",
+        "split_rear_only_0",
+        "split_rear_only_1",
+        "split_rear_only_2",
+        "split_rear_only_3",
+        "split_rear_only_4",
+        "split_rear_only_5",
+        "split_rear_only_minus1",
+        "split_rear_only_1p0",
+        "split_rear_only_bad",
+        "split_rear_only_1_bsl_128",
+        "split_front_only_0",
+        "split_front_only_1",
+        "split_front_only_2",
+        "split_front_only_3",
+        "split_front_only_4",
+        "split_front_only_5",
+        "split_front_only_minus1",
+        "split_front_only_1p0",
+        "split_front_only_bad",
+        "split_front_only_1_bsl_128",
+        "split_front_improper_0",
+        "split_front_improper_1",
+        "split_front_improper_2",
+        "split_front_improper_3",
+        "split_front_improper_4",
+        "split_front_improper_5",
+        "split_front_improper_minus1",
+        "split_front_improper_1p0",
+        "split_front_improper_bad",
+        "split_front_improper_1_bsl_128",
+        "split_rear_improper_0",
+        "split_rear_improper_1",
+        "split_rear_improper_2",
+        "split_rear_improper_3",
+        "split_rear_improper_4",
+        "split_rear_improper_5",
+        "split_rear_improper_minus1",
+        "split_rear_improper_1p0",
+        "split_rear_improper_bad",
+        "split_rear_improper_1_bsl_128",
+        "split_bad_0",
+        "split_bad_1",
+        "split_bad_2",
+        "split_bad_3",
+        "split_bad_4",
+        "split_bad_5",
+        "split_bad_minus1",
+        "split_bad_1p0",
+        "split_bad_bad",
+        "split_bad_1_bsl_128",
+        "member_caller_bad",
+        "reverse_caller_bad",
+        "join_caller_bad",
+        "split_caller_bad",
+        "delete_caller_bad",
+        "delete_r_caller_bad"
+      ],
+      "Run": "run",
+      "NamesEntry": "cases",
+      "StackModule": "queue_all368_queue_structural",
+      "StackEntry": "run_stacks",
+      "WorkerModule": "proplists_observation_worker",
+      "WorkerEntry": "run",
+      "StackShape": "depth_cases",
+      "Companions": [
+        "original/queue_all368_support.erl",
+        "original/proplists_observation_worker.erl"
+      ],
+      "Cases": [
+        {
+          "Name": "member_bad_atom",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "member_bad_tuple0",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "member_bad_tuple1",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "member_bad_tuple3",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "member_bad_rear",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "member_bad_front",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "member_empty",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "member_rear_one",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "member_rear_two",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "member_rear_three",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "member_front_one",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "member_front_two",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "member_front_three",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "member_split",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "member_rear_improper_one",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "member_rear_improper_three",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "member_front_improper_one",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "member_front_improper_three",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "member_both_improper",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "member_rear_improper_front_one",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "member_rear_one_front_improper",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "reverse_bad_atom",
+          "Mfas": [
+            "queue:reverse/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "reverse_bad_tuple0",
+          "Mfas": [
+            "queue:reverse/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "reverse_bad_tuple1",
+          "Mfas": [
+            "queue:reverse/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "reverse_bad_tuple3",
+          "Mfas": [
+            "queue:reverse/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "reverse_bad_rear",
+          "Mfas": [
+            "queue:reverse/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "reverse_bad_front",
+          "Mfas": [
+            "queue:reverse/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "reverse_empty",
+          "Mfas": [
+            "queue:reverse/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "reverse_rear_one",
+          "Mfas": [
+            "queue:reverse/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "reverse_rear_two",
+          "Mfas": [
+            "queue:reverse/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "reverse_rear_three",
+          "Mfas": [
+            "queue:reverse/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "reverse_front_one",
+          "Mfas": [
+            "queue:reverse/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "reverse_front_two",
+          "Mfas": [
+            "queue:reverse/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "reverse_front_three",
+          "Mfas": [
+            "queue:reverse/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "reverse_split",
+          "Mfas": [
+            "queue:reverse/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "reverse_rear_improper_one",
+          "Mfas": [
+            "queue:reverse/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "reverse_rear_improper_three",
+          "Mfas": [
+            "queue:reverse/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "reverse_front_improper_one",
+          "Mfas": [
+            "queue:reverse/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "reverse_front_improper_three",
+          "Mfas": [
+            "queue:reverse/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "reverse_both_improper",
+          "Mfas": [
+            "queue:reverse/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "reverse_rear_improper_front_one",
+          "Mfas": [
+            "queue:reverse/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "reverse_rear_one_front_improper",
+          "Mfas": [
+            "queue:reverse/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_bad_atom",
+          "Mfas": [
+            "queue:delete/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_bad_tuple0",
+          "Mfas": [
+            "queue:delete/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_bad_tuple1",
+          "Mfas": [
+            "queue:delete/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_bad_tuple3",
+          "Mfas": [
+            "queue:delete/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_bad_rear",
+          "Mfas": [
+            "queue:delete/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_bad_front",
+          "Mfas": [
+            "queue:delete/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_empty",
+          "Mfas": [
+            "queue:delete/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_rear_one",
+          "Mfas": [
+            "queue:delete/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_rear_two",
+          "Mfas": [
+            "queue:delete/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_rear_three",
+          "Mfas": [
+            "queue:delete/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_front_one",
+          "Mfas": [
+            "queue:delete/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_front_two",
+          "Mfas": [
+            "queue:delete/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_front_three",
+          "Mfas": [
+            "queue:delete/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_split",
+          "Mfas": [
+            "queue:delete/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_rear_improper_one",
+          "Mfas": [
+            "queue:delete/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_rear_improper_three",
+          "Mfas": [
+            "queue:delete/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_front_improper_one",
+          "Mfas": [
+            "queue:delete/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_front_improper_three",
+          "Mfas": [
+            "queue:delete/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_both_improper",
+          "Mfas": [
+            "queue:delete/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_rear_improper_front_one",
+          "Mfas": [
+            "queue:delete/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_rear_one_front_improper",
+          "Mfas": [
+            "queue:delete/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_r_bad_atom",
+          "Mfas": [
+            "queue:delete_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_r_bad_tuple0",
+          "Mfas": [
+            "queue:delete_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_r_bad_tuple1",
+          "Mfas": [
+            "queue:delete_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_r_bad_tuple3",
+          "Mfas": [
+            "queue:delete_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_r_bad_rear",
+          "Mfas": [
+            "queue:delete_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_r_bad_front",
+          "Mfas": [
+            "queue:delete_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_r_empty",
+          "Mfas": [
+            "queue:delete_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_r_rear_one",
+          "Mfas": [
+            "queue:delete_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_r_rear_two",
+          "Mfas": [
+            "queue:delete_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_r_rear_three",
+          "Mfas": [
+            "queue:delete_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_r_front_one",
+          "Mfas": [
+            "queue:delete_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_r_front_two",
+          "Mfas": [
+            "queue:delete_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_r_front_three",
+          "Mfas": [
+            "queue:delete_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_r_split",
+          "Mfas": [
+            "queue:delete_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_r_rear_improper_one",
+          "Mfas": [
+            "queue:delete_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_r_rear_improper_three",
+          "Mfas": [
+            "queue:delete_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_r_front_improper_one",
+          "Mfas": [
+            "queue:delete_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_r_front_improper_three",
+          "Mfas": [
+            "queue:delete_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_r_both_improper",
+          "Mfas": [
+            "queue:delete_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_r_rear_improper_front_one",
+          "Mfas": [
+            "queue:delete_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_r_rear_one_front_improper",
+          "Mfas": [
+            "queue:delete_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "member_float_exact",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "member_float_reverse_exact",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "member_tuple_exact",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "member_map_key",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "member_duplicates",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "member_front_hit_bad_rear",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "member_rear_hit_bad_front",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "member_false_tail_first",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "member_false_tail_later",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "member_opaque_tail_first",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "member_rear_improper_hit",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_float_exact",
+          "Mfas": [
+            "queue:delete/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_float_reverse_exact",
+          "Mfas": [
+            "queue:delete/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_tuple_exact",
+          "Mfas": [
+            "queue:delete/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_map_key",
+          "Mfas": [
+            "queue:delete/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_duplicates",
+          "Mfas": [
+            "queue:delete/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_front_hit_bad_rear",
+          "Mfas": [
+            "queue:delete/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_rear_hit_bad_front",
+          "Mfas": [
+            "queue:delete/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_false_tail_first",
+          "Mfas": [
+            "queue:delete/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_false_tail_later",
+          "Mfas": [
+            "queue:delete/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_opaque_tail_first",
+          "Mfas": [
+            "queue:delete/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_rear_improper_hit",
+          "Mfas": [
+            "queue:delete/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_r_float_exact",
+          "Mfas": [
+            "queue:delete_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_r_float_reverse_exact",
+          "Mfas": [
+            "queue:delete_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_r_tuple_exact",
+          "Mfas": [
+            "queue:delete_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_r_map_key",
+          "Mfas": [
+            "queue:delete_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_r_duplicates",
+          "Mfas": [
+            "queue:delete_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_r_front_hit_bad_rear",
+          "Mfas": [
+            "queue:delete_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_r_rear_hit_bad_front",
+          "Mfas": [
+            "queue:delete_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_r_false_tail_first",
+          "Mfas": [
+            "queue:delete_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_r_false_tail_later",
+          "Mfas": [
+            "queue:delete_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_r_opaque_tail_first",
+          "Mfas": [
+            "queue:delete_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_r_rear_improper_hit",
+          "Mfas": [
+            "queue:delete_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "join_empty_empty",
+          "Mfas": [
+            "queue:join/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "join_left_empty",
+          "Mfas": [
+            "queue:join/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "join_right_empty",
+          "Mfas": [
+            "queue:join/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "join_two_full",
+          "Mfas": [
+            "queue:join/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "join_both_bad",
+          "Mfas": [
+            "queue:join/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "join_left_bad",
+          "Mfas": [
+            "queue:join/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "join_right_bad",
+          "Mfas": [
+            "queue:join/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "join_left_bad_field",
+          "Mfas": [
+            "queue:join/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "join_right_bad_field",
+          "Mfas": [
+            "queue:join/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "join_left_improper_empty",
+          "Mfas": [
+            "queue:join/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "join_empty_right_improper",
+          "Mfas": [
+            "queue:join/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "join_left_rear_improper",
+          "Mfas": [
+            "queue:join/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "join_left_front_improper",
+          "Mfas": [
+            "queue:join/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "join_right_front_improper_tail",
+          "Mfas": [
+            "queue:join/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "join_both_improper_precedence",
+          "Mfas": [
+            "queue:join/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_empty_0",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_empty_1",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_empty_2",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_empty_3",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_empty_4",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_empty_5",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_empty_minus1",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_empty_1p0",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_empty_bad",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_empty_1_bsl_128",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_balanced_0",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_balanced_1",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_balanced_2",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_balanced_3",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_balanced_4",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_balanced_5",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_balanced_minus1",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_balanced_1p0",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_balanced_bad",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_balanced_1_bsl_128",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_rear_only_0",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_rear_only_1",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_rear_only_2",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_rear_only_3",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_rear_only_4",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_rear_only_5",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_rear_only_minus1",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_rear_only_1p0",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_rear_only_bad",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_rear_only_1_bsl_128",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_front_only_0",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_front_only_1",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_front_only_2",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_front_only_3",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_front_only_4",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_front_only_5",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_front_only_minus1",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_front_only_1p0",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_front_only_bad",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_front_only_1_bsl_128",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_front_improper_0",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_front_improper_1",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_front_improper_2",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_front_improper_3",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_front_improper_4",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_front_improper_5",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_front_improper_minus1",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_front_improper_1p0",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_front_improper_bad",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_front_improper_1_bsl_128",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_rear_improper_0",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_rear_improper_1",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_rear_improper_2",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_rear_improper_3",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_rear_improper_4",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_rear_improper_5",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_rear_improper_minus1",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_rear_improper_1p0",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_rear_improper_bad",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_rear_improper_1_bsl_128",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_bad_0",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_bad_1",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_bad_2",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_bad_3",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_bad_4",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_bad_5",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_bad_minus1",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_bad_1p0",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_bad_bad",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_bad_1_bsl_128",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "member_caller_bad",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "reverse_caller_bad",
+          "Mfas": [
+            "queue:reverse/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "join_caller_bad",
+          "Mfas": [
+            "queue:join/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_caller_bad",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_caller_bad",
+          "Mfas": [
+            "queue:delete/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_r_caller_bad",
+          "Mfas": [
+            "queue:delete_r/2"
+          ],
+          "Policy": "exact"
+        }
+      ]
+    },
+    {
+      "Id": "queue_callbacks",
+      "Location": "tool",
+      "Path": "original/queue_all368_queue_callbacks.erl",
+      "Module": "queue_all368_queue_callbacks",
+      "Names": [
+        "filter_empty",
+        "filter_front",
+        "filter_rear",
+        "filter_balanced",
+        "filter_bad",
+        "filter_bad_rear",
+        "filter_bad_front",
+        "filter_not_fun_empty",
+        "filter_not_fun_bad_queue",
+        "filter_tuple_fun_empty",
+        "filter_tuple_fun_bad_queue",
+        "filter_arity0_empty",
+        "filter_arity0_bad_queue",
+        "filter_wrong_arity_empty",
+        "filter_wrong_arity_bad_queue",
+        "filter_callback_throw",
+        "filter_callback_error",
+        "filter_callback_exit",
+        "filter_callback_badfun",
+        "filter_callback_badarity",
+        "filter_improper_front",
+        "filter_improper_rear",
+        "filter_improper_both",
+        "filter_improper_front257",
+        "filtermap_empty",
+        "filtermap_front",
+        "filtermap_rear",
+        "filtermap_balanced",
+        "filtermap_bad",
+        "filtermap_bad_rear",
+        "filtermap_bad_front",
+        "filtermap_not_fun_empty",
+        "filtermap_not_fun_bad_queue",
+        "filtermap_tuple_fun_empty",
+        "filtermap_tuple_fun_bad_queue",
+        "filtermap_arity0_empty",
+        "filtermap_arity0_bad_queue",
+        "filtermap_wrong_arity_empty",
+        "filtermap_wrong_arity_bad_queue",
+        "filtermap_callback_throw",
+        "filtermap_callback_error",
+        "filtermap_callback_exit",
+        "filtermap_callback_badfun",
+        "filtermap_callback_badarity",
+        "filtermap_improper_front",
+        "filtermap_improper_rear",
+        "filtermap_improper_both",
+        "filtermap_improper_front257",
+        "fold_empty",
+        "fold_front",
+        "fold_rear",
+        "fold_balanced",
+        "fold_bad",
+        "fold_bad_rear",
+        "fold_bad_front",
+        "fold_not_fun_empty",
+        "fold_not_fun_bad_queue",
+        "fold_tuple_fun_empty",
+        "fold_tuple_fun_bad_queue",
+        "fold_arity0_empty",
+        "fold_arity0_bad_queue",
+        "fold_wrong_arity_empty",
+        "fold_wrong_arity_bad_queue",
+        "fold_callback_throw",
+        "fold_callback_error",
+        "fold_callback_exit",
+        "fold_improper_front",
+        "fold_improper_rear",
+        "fold_improper_both",
+        "fold_improper_front257",
+        "any_empty",
+        "any_front",
+        "any_rear",
+        "any_balanced",
+        "any_bad",
+        "any_bad_rear",
+        "any_bad_front",
+        "any_not_fun_empty",
+        "any_not_fun_bad_queue",
+        "any_tuple_fun_empty",
+        "any_tuple_fun_bad_queue",
+        "any_arity0_empty",
+        "any_arity0_bad_queue",
+        "any_wrong_arity_empty",
+        "any_wrong_arity_bad_queue",
+        "any_callback_throw",
+        "any_callback_error",
+        "any_callback_exit",
+        "any_callback_badfun",
+        "any_callback_badarity",
+        "any_improper_front",
+        "any_improper_rear",
+        "any_improper_both",
+        "any_improper_front257",
+        "all_empty",
+        "all_front",
+        "all_rear",
+        "all_balanced",
+        "all_bad",
+        "all_bad_rear",
+        "all_bad_front",
+        "all_not_fun_empty",
+        "all_not_fun_bad_queue",
+        "all_tuple_fun_empty",
+        "all_tuple_fun_bad_queue",
+        "all_arity0_empty",
+        "all_arity0_bad_queue",
+        "all_wrong_arity_empty",
+        "all_wrong_arity_bad_queue",
+        "all_callback_throw",
+        "all_callback_error",
+        "all_callback_exit",
+        "all_callback_badfun",
+        "all_callback_badarity",
+        "all_improper_front",
+        "all_improper_rear",
+        "all_improper_both",
+        "all_improper_front257",
+        "delete_with_empty",
+        "delete_with_front",
+        "delete_with_rear",
+        "delete_with_balanced",
+        "delete_with_bad",
+        "delete_with_bad_rear",
+        "delete_with_bad_front",
+        "delete_with_not_fun_empty",
+        "delete_with_not_fun_bad_queue",
+        "delete_with_tuple_fun_empty",
+        "delete_with_tuple_fun_bad_queue",
+        "delete_with_arity0_empty",
+        "delete_with_arity0_bad_queue",
+        "delete_with_wrong_arity_empty",
+        "delete_with_wrong_arity_bad_queue",
+        "delete_with_callback_throw",
+        "delete_with_callback_error",
+        "delete_with_callback_exit",
+        "delete_with_callback_badfun",
+        "delete_with_callback_badarity",
+        "delete_with_improper_front",
+        "delete_with_improper_rear",
+        "delete_with_improper_both",
+        "delete_with_improper_front257",
+        "delete_with_r_empty",
+        "delete_with_r_front",
+        "delete_with_r_rear",
+        "delete_with_r_balanced",
+        "delete_with_r_bad",
+        "delete_with_r_bad_rear",
+        "delete_with_r_bad_front",
+        "delete_with_r_not_fun_empty",
+        "delete_with_r_not_fun_bad_queue",
+        "delete_with_r_tuple_fun_empty",
+        "delete_with_r_tuple_fun_bad_queue",
+        "delete_with_r_arity0_empty",
+        "delete_with_r_arity0_bad_queue",
+        "delete_with_r_wrong_arity_empty",
+        "delete_with_r_wrong_arity_bad_queue",
+        "delete_with_r_callback_throw",
+        "delete_with_r_callback_error",
+        "delete_with_r_callback_exit",
+        "delete_with_r_callback_badfun",
+        "delete_with_r_callback_badarity",
+        "delete_with_r_improper_front",
+        "delete_with_r_improper_rear",
+        "delete_with_r_improper_both",
+        "delete_with_r_improper_front257",
+        "filter_result_true_front",
+        "filter_result_true_rear",
+        "filter_result_false_front",
+        "filter_result_false_rear",
+        "filter_result_select_front",
+        "filter_result_select_rear",
+        "filter_result_replace_front",
+        "filter_result_replace_rear",
+        "filter_result_empty_front",
+        "filter_result_empty_rear",
+        "filter_result_one_front",
+        "filter_result_one_rear",
+        "filter_result_many_front",
+        "filter_result_many_rear",
+        "filter_result_improper_front",
+        "filter_result_improper_rear",
+        "filter_result_bad_front",
+        "filter_result_bad_rear",
+        "filter_result_error_later_front",
+        "filter_result_error_later_rear",
+        "filtermap_result_true_front",
+        "filtermap_result_true_rear",
+        "filtermap_result_false_front",
+        "filtermap_result_false_rear",
+        "filtermap_result_select_front",
+        "filtermap_result_select_rear",
+        "filtermap_result_replace_front",
+        "filtermap_result_replace_rear",
+        "filtermap_result_empty_front",
+        "filtermap_result_empty_rear",
+        "filtermap_result_one_front",
+        "filtermap_result_one_rear",
+        "filtermap_result_many_front",
+        "filtermap_result_many_rear",
+        "filtermap_result_improper_front",
+        "filtermap_result_improper_rear",
+        "filtermap_result_bad_front",
+        "filtermap_result_bad_rear",
+        "filtermap_result_error_later_front",
+        "filtermap_result_error_later_rear",
+        "any_predicate_true",
+        "any_predicate_false",
+        "any_predicate_select",
+        "any_predicate_bad",
+        "any_predicate_error_later",
+        "any_sentinel_false_tail_first",
+        "any_sentinel_false_tail_later",
+        "any_sentinel_other_tail",
+        "any_sentinel_rear_improper",
+        "all_predicate_true",
+        "all_predicate_false",
+        "all_predicate_select",
+        "all_predicate_bad",
+        "all_predicate_error_later",
+        "all_sentinel_false_tail_first",
+        "all_sentinel_false_tail_later",
+        "all_sentinel_other_tail",
+        "all_sentinel_rear_improper",
+        "delete_with_predicate_true",
+        "delete_with_predicate_false",
+        "delete_with_predicate_select",
+        "delete_with_predicate_bad",
+        "delete_with_predicate_error_later",
+        "delete_with_sentinel_false_tail_first",
+        "delete_with_sentinel_false_tail_later",
+        "delete_with_sentinel_other_tail",
+        "delete_with_sentinel_rear_improper",
+        "delete_with_r_predicate_true",
+        "delete_with_r_predicate_false",
+        "delete_with_r_predicate_select",
+        "delete_with_r_predicate_bad",
+        "delete_with_r_predicate_error_later",
+        "delete_with_r_sentinel_false_tail_first",
+        "delete_with_r_sentinel_false_tail_later",
+        "delete_with_r_sentinel_other_tail",
+        "delete_with_r_sentinel_rear_improper",
+        "any_shortcircuit_front_improper",
+        "any_shortcircuit_bad_rear_skipped",
+        "all_shortcircuit_front_improper",
+        "all_shortcircuit_bad_rear_skipped",
+        "fold_accumulator_empty_tuple",
+        "fold_accumulator_empty_map",
+        "fold_accumulator_nonempty_atom",
+        "filter_caller_bad",
+        "filtermap_caller_bad",
+        "fold_caller_bad",
+        "any_caller_bad",
+        "all_caller_bad",
+        "delete_with_caller_bad",
+        "delete_with_r_caller_bad"
+      ],
+      "Run": "run",
+      "NamesEntry": "cases",
+      "StackModule": "queue_all368_queue_callbacks",
+      "StackEntry": "run_stacks",
+      "WorkerModule": "proplists_observation_worker",
+      "WorkerEntry": "run",
+      "StackShape": "depth_cases",
+      "Companions": [
+        "original/queue_all368_support.erl",
+        "original/proplists_observation_worker.erl"
+      ],
+      "Cases": [
+        {
+          "Name": "filter_empty",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_front",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_rear",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_balanced",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_bad",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_bad_rear",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_bad_front",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_not_fun_empty",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_not_fun_bad_queue",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_tuple_fun_empty",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_tuple_fun_bad_queue",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_arity0_empty",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_arity0_bad_queue",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_wrong_arity_empty",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_wrong_arity_bad_queue",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_callback_throw",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_callback_error",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_callback_exit",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_callback_badfun",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_callback_badarity",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_improper_front",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_improper_rear",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_improper_both",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_improper_front257",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_empty",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_front",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_rear",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_balanced",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_bad",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_bad_rear",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_bad_front",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_not_fun_empty",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_not_fun_bad_queue",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_tuple_fun_empty",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_tuple_fun_bad_queue",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_arity0_empty",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_arity0_bad_queue",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_wrong_arity_empty",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_wrong_arity_bad_queue",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_callback_throw",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_callback_error",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_callback_exit",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_callback_badfun",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_callback_badarity",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_improper_front",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_improper_rear",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_improper_both",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_improper_front257",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "fold_empty",
+          "Mfas": [
+            "queue:fold/3"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "fold_front",
+          "Mfas": [
+            "queue:fold/3"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "fold_rear",
+          "Mfas": [
+            "queue:fold/3"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "fold_balanced",
+          "Mfas": [
+            "queue:fold/3"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "fold_bad",
+          "Mfas": [
+            "queue:fold/3"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "fold_bad_rear",
+          "Mfas": [
+            "queue:fold/3"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "fold_bad_front",
+          "Mfas": [
+            "queue:fold/3"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "fold_not_fun_empty",
+          "Mfas": [
+            "queue:fold/3"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "fold_not_fun_bad_queue",
+          "Mfas": [
+            "queue:fold/3"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "fold_tuple_fun_empty",
+          "Mfas": [
+            "queue:fold/3"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "fold_tuple_fun_bad_queue",
+          "Mfas": [
+            "queue:fold/3"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "fold_arity0_empty",
+          "Mfas": [
+            "queue:fold/3"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "fold_arity0_bad_queue",
+          "Mfas": [
+            "queue:fold/3"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "fold_wrong_arity_empty",
+          "Mfas": [
+            "queue:fold/3"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "fold_wrong_arity_bad_queue",
+          "Mfas": [
+            "queue:fold/3"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "fold_callback_throw",
+          "Mfas": [
+            "queue:fold/3"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "fold_callback_error",
+          "Mfas": [
+            "queue:fold/3"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "fold_callback_exit",
+          "Mfas": [
+            "queue:fold/3"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "fold_improper_front",
+          "Mfas": [
+            "queue:fold/3"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "fold_improper_rear",
+          "Mfas": [
+            "queue:fold/3"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "fold_improper_both",
+          "Mfas": [
+            "queue:fold/3"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "fold_improper_front257",
+          "Mfas": [
+            "queue:fold/3"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "any_empty",
+          "Mfas": [
+            "queue:any/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "any_front",
+          "Mfas": [
+            "queue:any/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "any_rear",
+          "Mfas": [
+            "queue:any/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "any_balanced",
+          "Mfas": [
+            "queue:any/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "any_bad",
+          "Mfas": [
+            "queue:any/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "any_bad_rear",
+          "Mfas": [
+            "queue:any/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "any_bad_front",
+          "Mfas": [
+            "queue:any/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "any_not_fun_empty",
+          "Mfas": [
+            "queue:any/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "any_not_fun_bad_queue",
+          "Mfas": [
+            "queue:any/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "any_tuple_fun_empty",
+          "Mfas": [
+            "queue:any/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "any_tuple_fun_bad_queue",
+          "Mfas": [
+            "queue:any/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "any_arity0_empty",
+          "Mfas": [
+            "queue:any/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "any_arity0_bad_queue",
+          "Mfas": [
+            "queue:any/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "any_wrong_arity_empty",
+          "Mfas": [
+            "queue:any/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "any_wrong_arity_bad_queue",
+          "Mfas": [
+            "queue:any/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "any_callback_throw",
+          "Mfas": [
+            "queue:any/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "any_callback_error",
+          "Mfas": [
+            "queue:any/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "any_callback_exit",
+          "Mfas": [
+            "queue:any/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "any_callback_badfun",
+          "Mfas": [
+            "queue:any/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "any_callback_badarity",
+          "Mfas": [
+            "queue:any/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "any_improper_front",
+          "Mfas": [
+            "queue:any/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "any_improper_rear",
+          "Mfas": [
+            "queue:any/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "any_improper_both",
+          "Mfas": [
+            "queue:any/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "any_improper_front257",
+          "Mfas": [
+            "queue:any/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "all_empty",
+          "Mfas": [
+            "queue:all/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "all_front",
+          "Mfas": [
+            "queue:all/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "all_rear",
+          "Mfas": [
+            "queue:all/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "all_balanced",
+          "Mfas": [
+            "queue:all/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "all_bad",
+          "Mfas": [
+            "queue:all/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "all_bad_rear",
+          "Mfas": [
+            "queue:all/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "all_bad_front",
+          "Mfas": [
+            "queue:all/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "all_not_fun_empty",
+          "Mfas": [
+            "queue:all/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "all_not_fun_bad_queue",
+          "Mfas": [
+            "queue:all/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "all_tuple_fun_empty",
+          "Mfas": [
+            "queue:all/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "all_tuple_fun_bad_queue",
+          "Mfas": [
+            "queue:all/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "all_arity0_empty",
+          "Mfas": [
+            "queue:all/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "all_arity0_bad_queue",
+          "Mfas": [
+            "queue:all/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "all_wrong_arity_empty",
+          "Mfas": [
+            "queue:all/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "all_wrong_arity_bad_queue",
+          "Mfas": [
+            "queue:all/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "all_callback_throw",
+          "Mfas": [
+            "queue:all/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "all_callback_error",
+          "Mfas": [
+            "queue:all/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "all_callback_exit",
+          "Mfas": [
+            "queue:all/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "all_callback_badfun",
+          "Mfas": [
+            "queue:all/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "all_callback_badarity",
+          "Mfas": [
+            "queue:all/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "all_improper_front",
+          "Mfas": [
+            "queue:all/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "all_improper_rear",
+          "Mfas": [
+            "queue:all/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "all_improper_both",
+          "Mfas": [
+            "queue:all/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "all_improper_front257",
+          "Mfas": [
+            "queue:all/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_empty",
+          "Mfas": [
+            "queue:delete_with/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_front",
+          "Mfas": [
+            "queue:delete_with/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_rear",
+          "Mfas": [
+            "queue:delete_with/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_balanced",
+          "Mfas": [
+            "queue:delete_with/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_bad",
+          "Mfas": [
+            "queue:delete_with/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_bad_rear",
+          "Mfas": [
+            "queue:delete_with/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_bad_front",
+          "Mfas": [
+            "queue:delete_with/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_not_fun_empty",
+          "Mfas": [
+            "queue:delete_with/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_not_fun_bad_queue",
+          "Mfas": [
+            "queue:delete_with/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_tuple_fun_empty",
+          "Mfas": [
+            "queue:delete_with/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_tuple_fun_bad_queue",
+          "Mfas": [
+            "queue:delete_with/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_arity0_empty",
+          "Mfas": [
+            "queue:delete_with/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_arity0_bad_queue",
+          "Mfas": [
+            "queue:delete_with/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_wrong_arity_empty",
+          "Mfas": [
+            "queue:delete_with/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_wrong_arity_bad_queue",
+          "Mfas": [
+            "queue:delete_with/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_callback_throw",
+          "Mfas": [
+            "queue:delete_with/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_callback_error",
+          "Mfas": [
+            "queue:delete_with/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_callback_exit",
+          "Mfas": [
+            "queue:delete_with/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_callback_badfun",
+          "Mfas": [
+            "queue:delete_with/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_callback_badarity",
+          "Mfas": [
+            "queue:delete_with/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_improper_front",
+          "Mfas": [
+            "queue:delete_with/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_improper_rear",
+          "Mfas": [
+            "queue:delete_with/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_improper_both",
+          "Mfas": [
+            "queue:delete_with/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_improper_front257",
+          "Mfas": [
+            "queue:delete_with/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_r_empty",
+          "Mfas": [
+            "queue:delete_with_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_r_front",
+          "Mfas": [
+            "queue:delete_with_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_r_rear",
+          "Mfas": [
+            "queue:delete_with_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_r_balanced",
+          "Mfas": [
+            "queue:delete_with_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_r_bad",
+          "Mfas": [
+            "queue:delete_with_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_r_bad_rear",
+          "Mfas": [
+            "queue:delete_with_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_r_bad_front",
+          "Mfas": [
+            "queue:delete_with_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_r_not_fun_empty",
+          "Mfas": [
+            "queue:delete_with_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_r_not_fun_bad_queue",
+          "Mfas": [
+            "queue:delete_with_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_r_tuple_fun_empty",
+          "Mfas": [
+            "queue:delete_with_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_r_tuple_fun_bad_queue",
+          "Mfas": [
+            "queue:delete_with_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_r_arity0_empty",
+          "Mfas": [
+            "queue:delete_with_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_r_arity0_bad_queue",
+          "Mfas": [
+            "queue:delete_with_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_r_wrong_arity_empty",
+          "Mfas": [
+            "queue:delete_with_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_r_wrong_arity_bad_queue",
+          "Mfas": [
+            "queue:delete_with_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_r_callback_throw",
+          "Mfas": [
+            "queue:delete_with_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_r_callback_error",
+          "Mfas": [
+            "queue:delete_with_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_r_callback_exit",
+          "Mfas": [
+            "queue:delete_with_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_r_callback_badfun",
+          "Mfas": [
+            "queue:delete_with_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_r_callback_badarity",
+          "Mfas": [
+            "queue:delete_with_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_r_improper_front",
+          "Mfas": [
+            "queue:delete_with_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_r_improper_rear",
+          "Mfas": [
+            "queue:delete_with_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_r_improper_both",
+          "Mfas": [
+            "queue:delete_with_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_r_improper_front257",
+          "Mfas": [
+            "queue:delete_with_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_result_true_front",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_result_true_rear",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_result_false_front",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_result_false_rear",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_result_select_front",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_result_select_rear",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_result_replace_front",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_result_replace_rear",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_result_empty_front",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_result_empty_rear",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_result_one_front",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_result_one_rear",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_result_many_front",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_result_many_rear",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_result_improper_front",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_result_improper_rear",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_result_bad_front",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_result_bad_rear",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_result_error_later_front",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_result_error_later_rear",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_result_true_front",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_result_true_rear",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_result_false_front",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_result_false_rear",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_result_select_front",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_result_select_rear",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_result_replace_front",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_result_replace_rear",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_result_empty_front",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_result_empty_rear",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_result_one_front",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_result_one_rear",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_result_many_front",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_result_many_rear",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_result_improper_front",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_result_improper_rear",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_result_bad_front",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_result_bad_rear",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_result_error_later_front",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_result_error_later_rear",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "any_predicate_true",
+          "Mfas": [
+            "queue:any/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "any_predicate_false",
+          "Mfas": [
+            "queue:any/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "any_predicate_select",
+          "Mfas": [
+            "queue:any/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "any_predicate_bad",
+          "Mfas": [
+            "queue:any/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "any_predicate_error_later",
+          "Mfas": [
+            "queue:any/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "any_sentinel_false_tail_first",
+          "Mfas": [
+            "queue:any/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "any_sentinel_false_tail_later",
+          "Mfas": [
+            "queue:any/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "any_sentinel_other_tail",
+          "Mfas": [
+            "queue:any/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "any_sentinel_rear_improper",
+          "Mfas": [
+            "queue:any/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "all_predicate_true",
+          "Mfas": [
+            "queue:all/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "all_predicate_false",
+          "Mfas": [
+            "queue:all/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "all_predicate_select",
+          "Mfas": [
+            "queue:all/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "all_predicate_bad",
+          "Mfas": [
+            "queue:all/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "all_predicate_error_later",
+          "Mfas": [
+            "queue:all/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "all_sentinel_false_tail_first",
+          "Mfas": [
+            "queue:all/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "all_sentinel_false_tail_later",
+          "Mfas": [
+            "queue:all/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "all_sentinel_other_tail",
+          "Mfas": [
+            "queue:all/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "all_sentinel_rear_improper",
+          "Mfas": [
+            "queue:all/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_predicate_true",
+          "Mfas": [
+            "queue:delete_with/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_predicate_false",
+          "Mfas": [
+            "queue:delete_with/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_predicate_select",
+          "Mfas": [
+            "queue:delete_with/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_predicate_bad",
+          "Mfas": [
+            "queue:delete_with/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_predicate_error_later",
+          "Mfas": [
+            "queue:delete_with/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_sentinel_false_tail_first",
+          "Mfas": [
+            "queue:delete_with/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_sentinel_false_tail_later",
+          "Mfas": [
+            "queue:delete_with/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_sentinel_other_tail",
+          "Mfas": [
+            "queue:delete_with/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_sentinel_rear_improper",
+          "Mfas": [
+            "queue:delete_with/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_r_predicate_true",
+          "Mfas": [
+            "queue:delete_with_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_r_predicate_false",
+          "Mfas": [
+            "queue:delete_with_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_r_predicate_select",
+          "Mfas": [
+            "queue:delete_with_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_r_predicate_bad",
+          "Mfas": [
+            "queue:delete_with_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_r_predicate_error_later",
+          "Mfas": [
+            "queue:delete_with_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_r_sentinel_false_tail_first",
+          "Mfas": [
+            "queue:delete_with_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_r_sentinel_false_tail_later",
+          "Mfas": [
+            "queue:delete_with_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_r_sentinel_other_tail",
+          "Mfas": [
+            "queue:delete_with_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_r_sentinel_rear_improper",
+          "Mfas": [
+            "queue:delete_with_r/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "any_shortcircuit_front_improper",
+          "Mfas": [
+            "queue:any/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "any_shortcircuit_bad_rear_skipped",
+          "Mfas": [
+            "queue:any/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "all_shortcircuit_front_improper",
+          "Mfas": [
+            "queue:all/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "all_shortcircuit_bad_rear_skipped",
+          "Mfas": [
+            "queue:all/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "fold_accumulator_empty_tuple",
+          "Mfas": [
+            "queue:fold/3"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "fold_accumulator_empty_map",
+          "Mfas": [
+            "queue:fold/3"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "fold_accumulator_nonempty_atom",
+          "Mfas": [
+            "queue:fold/3"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filter_caller_bad",
+          "Mfas": [
+            "queue:filter/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "filtermap_caller_bad",
+          "Mfas": [
+            "queue:filtermap/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "fold_caller_bad",
+          "Mfas": [
+            "queue:fold/3"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "any_caller_bad",
+          "Mfas": [
+            "queue:any/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "all_caller_bad",
+          "Mfas": [
+            "queue:all/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_caller_bad",
+          "Mfas": [
+            "queue:delete_with/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "delete_with_r_caller_bad",
+          "Mfas": [
+            "queue:delete_with_r/2"
+          ],
+          "Policy": "exact"
+        }
+      ]
+    },
+    {
+      "Id": "long_reverse_ends",
+      "Location": "tool",
+      "Path": "original/queue_all368_long_reverse_ends.erl",
+      "Module": "queue_all368_long_reverse_ends",
+      "Names": [
+        "out_r_front256017",
+        "drop_r_front256017"
+      ],
+      "Run": "run",
+      "NamesEntry": "cases",
+      "StackModule": "queue_all368_long_reverse_ends",
+      "StackEntry": "run_stacks",
+      "WorkerModule": "proplists_observation_worker",
+      "WorkerEntry": "run",
+      "StackShape": "depth_cases",
+      "Companions": [
+        "original/queue_all368_support.erl",
+        "original/proplists_observation_worker.erl"
+      ],
+      "Cases": [
+        {
+          "Name": "out_r_front256017",
+          "Mfas": [
+            "queue:out_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "drop_r_front256017",
+          "Mfas": [
+            "queue:drop_r/1"
+          ],
+          "Policy": "exact"
+        }
+      ]
+    },
+    {
+      "Id": "long_member",
+      "Location": "tool",
+      "Path": "original/queue_all368_long_member.erl",
+      "Module": "queue_all368_long_member",
+      "Names": [
+        "member_miss_256017",
+        "member_first_256017",
+        "member_last_256017",
+        "member_front_miss_256017"
+      ],
+      "Run": "run",
+      "NamesEntry": "cases",
+      "StackModule": "queue_all368_long_member",
+      "StackEntry": "run_stacks",
+      "WorkerModule": "proplists_observation_worker",
+      "WorkerEntry": "run",
+      "StackShape": "depth_cases",
+      "Companions": [
+        "original/queue_all368_support.erl",
+        "original/proplists_observation_worker.erl"
+      ],
+      "Cases": [
+        {
+          "Name": "member_miss_256017",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "member_first_256017",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "member_last_256017",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "member_front_miss_256017",
+          "Mfas": [
+            "queue:member/2"
+          ],
+          "Policy": "exact"
+        }
+      ]
+    },
+    {
+      "Id": "long_split",
+      "Location": "tool",
+      "Path": "original/queue_all368_long_split.erl",
+      "Module": "queue_all368_long_split",
+      "Names": [
+        "split_front256017",
+        "split_rear256017",
+        "split_zero_lazy64017"
+      ],
+      "Run": "run",
+      "NamesEntry": "cases",
+      "StackModule": "queue_all368_long_split",
+      "StackEntry": "run_stacks",
+      "WorkerModule": "proplists_observation_worker",
+      "WorkerEntry": "run",
+      "StackShape": "depth_cases",
+      "Companions": [
+        "original/queue_all368_support.erl",
+        "original/proplists_observation_worker.erl"
+      ],
+      "Cases": [
+        {
+          "Name": "split_front256017",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_rear256017",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "split_zero_lazy64017",
+          "Mfas": [
+            "queue:split/2"
+          ],
+          "Policy": "exact"
+        }
+      ]
+    },
+    {
+      "Id": "long_last",
+      "Location": "tool",
+      "Path": "original/queue_all368_long_last.erl",
+      "Module": "queue_all368_long_last",
+      "Names": [
+        "get_last64017",
+        "get_r_last64017",
+        "peek_last64017",
+        "peek_r_last64017"
+      ],
+      "Run": "run",
+      "NamesEntry": "cases",
+      "StackModule": "queue_all368_long_last",
+      "StackEntry": "run_stacks",
+      "WorkerModule": "proplists_observation_worker",
+      "WorkerEntry": "run",
+      "StackShape": "depth_cases",
+      "Companions": [
+        "original/queue_all368_support.erl",
+        "original/proplists_observation_worker.erl"
+      ],
+      "Cases": [
+        {
+          "Name": "get_last64017",
+          "Mfas": [
+            "queue:get/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "get_r_last64017",
+          "Mfas": [
+            "queue:get_r/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_last64017",
+          "Mfas": [
+            "queue:peek/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "peek_r_last64017",
+          "Mfas": [
+            "queue:peek_r/1"
+          ],
+          "Policy": "exact"
+        }
+      ]
+    }
+  ],
+  "FixtureSources": [
+    {
+      "Location": "tool",
+      "Path": "original/proplists_observation_worker.erl",
+      "Sha256": "34B743EB95A5937058AB8F208A1FB17C6ACED20AF7E08398EF6D154F574546BC"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/queue_all368_long_last.erl",
+      "Sha256": "DF1C7B9B5649E11381FE3F4D3EF886456027195F9FE94CA1C71307279DAC1C1C"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/queue_all368_long_member.erl",
+      "Sha256": "F36E8E6C0568CF348AFD4B1D422791846385A2F256F47AB12AB0F55D0F037FCC"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/queue_all368_long_reverse_ends.erl",
+      "Sha256": "10379286892072ADAFDACE76D5C253742E7E3A0FE95456DC2EA3DA436EE9B367"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/queue_all368_long_split.erl",
+      "Sha256": "5946372B1E241D9D67C5F86833DD83D0CDB7330F7D9F42D00266EA1CA51A7C20"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/queue_all368_queue_callbacks.erl",
+      "Sha256": "D6324B07C615E7805CE04725C28BD87961ECE1D47EAE628739F236CFA7287721"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/queue_all368_queue_ends_left.erl",
+      "Sha256": "324524653D6559D2137F608EDC9E87938F89A5307EEE8921EFC6A8B265AAA9E7"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/queue_all368_queue_ends_right.erl",
+      "Sha256": "5BF90FA8194A64624B2454C009F26BF8796A6FD747B31B36C6B7F1B43881988B"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/queue_all368_queue_structural.erl",
+      "Sha256": "5BE2D31581CC4A3447407EA743ECA7E2FD4696C176EE434722CF7D45AE28D6B3"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/queue_all368_support.erl",
+      "Sha256": "7F08761C9A493458FCA6AD29914EE2415B46212A29C33A8CC79F5BA745CC91DE"
+    }
+  ],
+  "ExpectedUniqueSourceCount": 10,
+  "SubjectModule": "queue",
+  "ObserverEntry": "Remaining30only. Exactrawclasses/reasons/allframes; namedlocal callbacks noenv. Originalacquisitionprecedessourcebound ownidentity/trapeligibility; no blanketwaiver/no SDK expectations.",
+  "PredeclaredMemberEntryPolicy": {
+    "Date": "2026-10-18",
+    "Status": "PREDECLARED_BEFORE_ORIGINAL_ACQUISITION",
+    "EligibleGroup": "long_member",
+    "EligibleCases": [
+      "member_miss_256017",
+      "member_front_miss_256017"
+    ],
+    "Authority": {
+      "ReviewPath": "artifacts/queue-member368-source-review1/review.json",
+      "ReviewSha256": "1D368493C538AEA9B4079A6E1BE1973A6B7D7B3F3B9ABCB223E9780C820A2C84",
+      "NativeSourceSha256": "473804029CBF4FE37C47637E5A7310BAB334872910E71933AD7C07CCE7D571B3",
+      "QueueSourceSha256": "61B322302ECF74578D72B442D2317EA200A5DEE4E0994B58C5E1E961F252B101"
+    },
+    "Relationship": "Only the actual lists:member/2 last-entry list may differ. It must be the complete unique integer suffix [k+1,...,256017|tail] for independently observed 0<=k<=256017. Every integer and improper tail is verified; no dropped elements, fabricated suffix, transformed item or native k copied into SDK is allowed.",
+    "RequiredOwnProof": [
+      "Actual budget checkpoint and source-bound 16 cells/reduction entry transition",
+      "Actual SDK DLL/source hashes match sealed executed closure",
+      "Effective first argument remains atom missing; class/reason unchanged",
+      "All other full stack fields/frame order/source locations/error_info exact; rear queue continuation retained and front tail omission source-authentic",
+      "Retain raw strict comparison and original/native suffix unchanged"
+    ],
+    "Noneligible": "member_first_256017 and member_last_256017 are exact whole-value controls. All other member cases remain exact; no blanket member/frame waiver.",
+    "Supersedes": "Packet1 no-member-relaxation statement only for these two specifically named long miss observations; length/split remain without waiver."
+  }
+}

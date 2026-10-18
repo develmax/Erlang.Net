@@ -54,10 +54,11 @@ internal static class LocalFunctionEntries
         string owner,
         int ownerArity,
         int index,
-        byte[] unique
+        byte[] unique,
+        int? coreOrdinal = null
     ) => new(
         Term.A(module),
-        Term.A("-" + owner + "/" + ownerArity.ToString(CultureInfo.InvariantCulture) + AnonymousSeparator + index.ToString(CultureInfo.InvariantCulture) + "-"),
+        Term.A("-" + owner + "/" + ownerArity.ToString(CultureInfo.InvariantCulture) + AnonymousSeparator + (coreOrdinal ?? index).ToString(CultureInfo.InvariantCulture) + "-"),
         index,
         (int)(BinaryPrimitives.ReadUInt32BigEndian(unique) >> (FunctionCodeLayout.UniquePrefixBits - FunctionCodeLayout.OldUniqueBits)),
         new BitString(unique)
@@ -81,7 +82,8 @@ internal static class LocalFunctionEntries
                             function.Name,
                             function.Arity,
                             Entries.Count,
-                            unique
+                            unique,
+                            fun.CoreOrdinal
                         ));
             foreach (var function in module.Functions)
                 NamedEntries.Add(
@@ -111,6 +113,8 @@ internal static class LocalFunctionEntries
                 yield return item;
     }
 
+    internal static IEnumerable<Expr> ClauseExpressions(IEnumerable<Clause> clauses) => Clauses(clauses);
+
     private static IEnumerable<Expr> Clauses(IEnumerable<Clause> clauses) => clauses.SelectMany(clause => clause.Patterns.SelectMany(PatternExpressions).Concat(clause.Guard is null ? [] : new[] { clause.Guard }).Append(clause.Body));
 
     private static IEnumerable<Expr> PatternExpressions(Pattern pattern) => pattern switch
@@ -134,7 +138,7 @@ internal static class LocalFunctionEntries
         _ => throw new NotSupportedException()
     });
 
-    private static IEnumerable<Expr> Children(Expr expression) => expression switch
+    internal static IEnumerable<Expr> Children(Expr expression) => expression switch
     {
         Expr.Literal or Expr.Variable or Expr.FunctionReference => [],
         NativeRecordExpression record => record.Children,

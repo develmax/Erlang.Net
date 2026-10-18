@@ -1918,9 +1918,57 @@ foreach (var export in exportRegistry.Exports.Where(export => Erlang.Tests.Funct
         $"mfa/{export.Module}:{export.Function}/{export.Arity}",
         async () =>
     {
+        if (Erlang.Tests.BinarySearchMfaContracts.Owns(export.Module, export.Function, export.Arity))
+        {
+            await Erlang.Tests.BinarySearchMfaContracts.Run(export.Function, export.Arity);
+
+            return;
+        }
+
+        if (Erlang.Tests.BinaryWrappersMfaContracts.Owns(export.Module, export.Function, export.Arity))
+        {
+            await Erlang.Tests.BinaryWrappersMfaContracts.Run(export.Function, export.Arity);
+
+            return;
+        }
+
+        if (Erlang.Tests.BinaryPrimitiveMfaContracts.Owns(export.Module, export.Function, export.Arity))
+        {
+            await Erlang.Tests.BinaryPrimitiveMfaContracts.Run(export.Function, export.Arity);
+
+            return;
+        }
+
+        if (Erlang.Tests.QueueEndsMfaContracts.Owns(export.Module, export.Function, export.Arity))
+        {
+            await Erlang.Tests.QueueEndsMfaContracts.Run(export.Function, export.Arity);
+
+            return;
+        }
+
+        if (Erlang.Tests.QueueHigherMfaContracts.Owns(export.Module, export.Function, export.Arity))
+        {
+            await Erlang.Tests.QueueHigherMfaContracts.Run(export.Function, export.Arity);
+
+            return;
+        }
+
+        if (Erlang.Tests.QueueCoreMfaContracts.Owns(export.Module, export.Function, export.Arity))
+        {
+            await Erlang.Tests.QueueCoreMfaContracts.Run(export.Function, export.Arity);
+
+            return;
+        }
+
         if (Erlang.Tests.ProplistGetValueMfaContracts.Owns(export.Module, export.Function, export.Arity))
         {
             await Erlang.Tests.ProplistGetValueMfaContracts.Run(export.Arity);
+
+            return;
+        }
+        if (Erlang.Tests.ProplistFamilyHostChecks.Owns(export.Module, export.Function, export.Arity))
+        {
+            await Erlang.Tests.ProplistFamilyHostChecks.Mfa(export.Function, export.Arity);
 
             return;
         }
@@ -5065,6 +5113,56 @@ try
 {
     Test(Erlang.Tests.ProplistStackHostNames.Test, Erlang.Tests.ProplistStackHostChecks.Run);
     tests = tests.OrderBy(test => Erlang.Tests.ProplistGetValueMfaContracts.OwnsTest(test.Name)).ToList();
+    Test(Erlang.Tests.ProplistFamilyTestNames.DirectTest, Erlang.Tests.ProplistFamilyHostChecks.Direct);
+    Test(Erlang.Tests.ProplistFamilyTestNames.CompiledTest, Erlang.Tests.ProplistFamilyHostChecks.Compiled);
+    Test(Erlang.Tests.ProplistFamilyTestNames.AstTest, Erlang.Tests.ProplistContinuationHostChecks.Ast);
+    Test(Erlang.Tests.ProplistFamilyTestNames.SafetyTest, Erlang.Tests.ProplistContinuationHostChecks.Runtime);
+    Test(Erlang.Tests.ProplistFamilyTestNames.ProperTest, Erlang.Tests.ProplistFamilyHistoryHostChecks.Proper);
+    Test(Erlang.Tests.ProplistFamilyTestNames.UnfoldTest, Erlang.Tests.ProplistFamilyHistoryHostChecks.Unfold);
+    Test(Erlang.Tests.ProplistFamilyTestNames.CompactTest, Erlang.Tests.ProplistFamilyHistoryHostChecks.Compact);
+    Test(Erlang.Tests.ProplistFamilyTestNames.DeleteTest, Erlang.Tests.ProplistFamilyHistoryHostChecks.Delete);
+    Test(Erlang.Tests.ProplistFamilyTestNames.CancellationTest, Erlang.Tests.ProplistFamilyHistoryHostChecks.Cancellation);
+    Test(Erlang.Tests.ProplistIteratorTestNames.Test, Erlang.Tests.ProplistIteratorHostChecks.Run);
+    Test(Erlang.Tests.ProplistHashHostNames.HashTest, Erlang.Tests.ProplistInternalHashHostChecks.NativeVectors);
+    Test(Erlang.Tests.ProplistHashHostNames.CursorTest, Erlang.Tests.ProplistRawHamtCursorHostChecks.IntegerAndBinaryStates);
+    Test(Erlang.Tests.ProplistOwnCursorNames.DomainsTest, Erlang.Tests.ProplistOwnCursorDomainHostChecks.Run);
+    Test(Erlang.Tests.ProplistOwnCursorNames.LifetimesTest, Erlang.Tests.ProplistOwnCursorLifetimeHostChecks.Run);
+    Test(Erlang.Tests.ProplistOwnCursorNames.CollisionsTest, Erlang.Tests.ProplistOwnCursorCollisionHostChecks.Run);
+    Test(Erlang.Tests.ProplistOwnCursorNames.CompilerTest, Erlang.Tests.ProplistOwnCursorCompilerHostChecks.Run);
+    Test(Erlang.Tests.ProplistOwnCursorNames.AliasTest, Erlang.Tests.ProplistOwnCursorAliasHostChecks.CountSensitive);
+
+    Test(Erlang.Tests.QueueEndsHostNames.Representation, Erlang.Tests.QueueEndsHostChecks.Representation);
+    Test(Erlang.Tests.QueueEndsHostNames.Improper, Erlang.Tests.QueueEndsHostChecks.ImproperLists);
+    Test(Erlang.Tests.QueueEndsHostNames.Compiled, Erlang.Tests.QueueEndsHostChecks.Compiled);
+    Test(Erlang.Tests.QueueHigherHostNames.CallbackOrder, Erlang.Tests.QueueHigherHostChecks.CallbackOrderAndImproperEvaluation);
+    Test(Erlang.Tests.QueueHigherCooperativeHostNames.Test, Erlang.Tests.QueueHigherCooperativeHostChecks.Run);
+    Test(Erlang.Tests.QueueCallbackRegressionNames.Test, Erlang.Tests.QueueCallbackRegressionHostChecks.Run);
+    Test(Erlang.Tests.StaticApplyRegressionNames.Test, Erlang.Tests.StaticApplyRegressionHostChecks.Run);
+    Test(Erlang.Tests.BinarySearchHostNames.ResourceTest, Erlang.Tests.BinarySearchResourceHostChecks.Run);
+    Test(Erlang.Tests.BinarySearchHostNames.OptionsTest, Erlang.Tests.BinarySearchOptionsHostChecks.Run);
+    Test(Erlang.Tests.BinarySearchHostNames.CooperativeTest, Erlang.Tests.BinarySearchCooperativeHostChecks.Run);
+    Test(Erlang.Tests.BinarySearchHostNames.CompiledTest, Erlang.Tests.BinarySearchCompiledHostChecks.Run);
+    Test(Erlang.Tests.BinaryWrappersHostNames.CallbackEffects, Erlang.Tests.BinaryWrappersHostChecks.CallbackEffectsAndOptions);
+    Test(Erlang.Tests.BinaryPrimitiveHostNames.Cooperative, Erlang.Tests.BinaryPrimitiveCooperativeHostChecks.Run);
+    Test(
+        Erlang.Tests.BinaryWrapperBackingHostNames.Test,
+        Erlang.Tests.BinaryWrapperBackingHostChecks.JoinBackingAndCallbackContext
+    );
+    Test(Erlang.Tests.BinaryPrimitiveHostNames.Storage, Erlang.Tests.BinaryPrimitiveHostChecks.Storage);
+    Test(Erlang.Tests.BinaryInsertHostNames.Test, Erlang.Tests.BinaryInsertHostChecks.Run);
+    Test(Erlang.Tests.QueueMemberHostNames.Test, Erlang.Tests.QueueMemberHostChecks.Run);
+    Test(Erlang.Tests.QueueCoreHostNames.Representation, Erlang.Tests.QueueCoreHostChecks.Representation);
+    Test(Erlang.Tests.QueueCoreHostNames.ImproperLists, Erlang.Tests.QueueCoreHostChecks.ImproperLists);
+    Test(Erlang.Tests.QueueCoreHostNames.Ordering, Erlang.Tests.QueueCoreHostChecks.Ordering);
+
+    Test(Erlang.Tests.QueueCooperativeHostNames.Test, Erlang.Tests.QueueCooperativeHostChecks.Run);
+
+    Test(Erlang.Tests.SizeSourceLocationHostNames.TestName, Erlang.Tests.SizeSourceLocationHostChecks.Run);
+
+    Test(Erlang.Tests.DynamicApplyHostNames.Test, Erlang.Tests.DynamicApplyHostChecks.Run);
+
+    Test(Erlang.Tests.SourceBifContinuationHostNames.Test, Erlang.Tests.SourceBifContinuationHostChecks.Run);
+
     var catalog = Erlang.Tests.TestRunCatalog.Create(tests.Select(test => test.Name));
     selectedTests = selection.Select(tests, catalog);
     if (selection.ListOnly)

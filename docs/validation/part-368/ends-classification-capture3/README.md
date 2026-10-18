@@ -1,0 +1,9 @@
+# Queue368 ends17 and member: complete-contract eligibility
+
+The certificate recommends complete eligibility for these18 MFAs only after Root's pending final HOST/canonical gates. It does not promote a ledger row. The argument combines exhaustive pinned clauses/guards/domains and helpers with current dependency applicability and actual whole-field evidence; finite passing samples alone are not the proof.
+
+All six ends production classes have exactly the same non-whitespace C# tokens as the frozen independently derived Ends branch proof. That proof covers all17 exported names, public guard precedence, arbitrary payloads, improper/noncanonical lists, target aliases, exact balancing representations and lists:last source errors. Current shared source applicability is bound by381 source3 guards. Member is separately total over the shallow queue domain and exact-search/error branches, with genuine16-cell reduction entries.
+
+Three runtime corrections (apply2 badarity source capture, higher rear-filter retained frame, member front retained frame) and the generic static apply3 compiler lowering are explicit. The old front-member omission inference is overridden by native truth, not by a new frame waiver. All20 predeclared own reverse/member entry snapshots verify every suffix/accumulator integer and all other full fields. All32 corruption controls reject altered values/proofs/frames. Actual selected comparison:2574/2574,2554strict+20source-bound,0unexpected.
+
+Native acceptance file SHA is350752253763C4A66D315FA9155CB78C2890C2B4EE37A624E0E8EDF3E009F3B1. C47FA74E8018889E6E3BCE118942C77B62397DF2AA5F1C003BC66C651724F840 identifies its nested provenance report, not the acceptance file. Both are bound separately. Root's final source3 HOST/full regression remains pending; no new API/whole-module/compiler-wide claim, Main edit, build, VM execution, CI or publication is performed here.

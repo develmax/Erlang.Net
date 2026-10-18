@@ -1,0 +1,9 @@
+# Part370 source attribution and boundaries
+
+Authority: Erlang/OTP OTP-29.1.1, commit ad05823719d77c8faee87348ea39513d4e2f99c5. Existing OTP license and port register remain in docs/OTP-LICENSE.txt and docs/OTP-PORTS.md. Attribution is centralized; no per-file license banners were added. LICENSE.local.txt is not committed or copied here.
+
+The port follows pinned erts/emulator/beam/erl_term.h and erl_bif_lists.c/erl_bif_guard.c tuple/type primitives; beam_common.c and emu/instrs.tab apply validation, tail transfer and error-BIF continuation rules; utils.c/erl_fun.h local-FUN term ordering and identity; and lib/compiler/src/beam_call_types.erl, beam_ssa_type.erl and beam_types.erl element return-type/continuation analysis. The retained source proof identifies exact native files and hashes. Embedded erlang provenance is derived from pinned erts/preloaded/ebin/erlang.beam plus make_preload and BEAM stripping, rather than equating a later installed companion image with the loaded image.
+
+C# reuses the existing source frame/tail loop, immutable terms, explicit comparison stack and BCL AsyncLocal/ConditionalWeakTable. No third-party dependency or production BEAM interpreter is added. The compiler rule is deliberately conservative for direct literal indices and one-hop variable-only forwarders; this does not claim complete OTP SSA optimization parity, general compiler/physical heap parity, timings, or full erlang closure. Runtime canonical selection is bound atomically to its actual dispatch body/image; real replacement declines the continuation optimization.
+
+All raw original statuses, source plans, exact fixtures, full-stack captures and intermediate failures are retained. The original failed producer remains failed; its raw observations have separate retrospective source admission. Successful closure CI and final actual Windows Main are distinct proofs. See local-completion/README.md for final gates and status counts.

@@ -1,0 +1,306 @@
+{
+  "Status": "SOURCE_REVIEW_ACCEPTED_FOR_FINAL_CANONICAL_VALIDATION_PENDING_FULL_NO_PROMOTIONS",
+  "BaseLedger": {
+    "Path": "docs/mfa-compatibility.json",
+    "Sha256": "0C5A5539979FAC12FCFB33F2496AA1D8A00EED61E9281D3B12E0EB8F300989A8"
+  },
+  "PreservedEntries": 678,
+  "PreservedStatuses": {
+    "Verified compatible": 107,
+    "Needs verification": 541,
+    "Known differences": 30
+  },
+  "BaselineGuards": 450,
+  "UnchangedGuards": 438,
+  "ChangedGuards": [
+    {
+      "Path": "src/Erlang.Compiler/CodeGeneration.cs",
+      "Before450Sha256": "9A71396FD913BE02BD4FCB57ECF9DA6BCA9884F5CE7A1D4F2E2D06D12A3D53D9",
+      "CurrentSha256": "EA3261A7296F41F76A1936B78FC150F1AA8B7B863DDDE3DB8FB0B0F26DDF7395",
+      "Review": "Generated C# serializes the new call metadata through the explicit Expr.Call constructor. Existing source line/arguments and legacy false defaults retained; no evaluator-only metadata loss.",
+      "PriorReview": null
+    },
+    {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "Before450Sha256": "7CC4267F967BB194B39B3B70181E739AF35A58653F8C415F95E192F5D8909D2B",
+      "CurrentSha256": "866E533B17161A12676460B2291FAAA13C2B6966CDD567C46B71C2B69E627C47",
+      "Review": "Previously reviewed bounded dynamic apply block plus reviewed direct/one-hop element successful-return transfer. Actual BIF dispatch executes inside source frame first; only a real successful result with canonical stamp can transfer. Real errors use existing source-frame path. Both named/anonymous frames catch the internal return value; guest try/catch semantics are not used to fabricate a result.",
+      "PriorReview": "artifacts/erlang370-verified-source-review1/review.json"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Expr.cs",
+      "Before450Sha256": "330551ABFE37F6EEA346A84D06AB20802A722E5780438375C7C8FED4D72ABECF",
+      "CurrentSha256": "9F7E5ABC621020D021F7A5CD94B2FAA613F280D9ACBA386A1C7C6C24130CAD0E",
+      "Review": "Adds body-continuation metadata and constructor overload; old constructor defaults false. Runtime values, equality and callback argument AST are unchanged.",
+      "PriorReview": null
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceContinuationBindings.cs",
+      "Before450Sha256": "450E0278CF29F22D92119828BF017448873A245878E02989F42AEA7C447AE2CE",
+      "CurrentSha256": "ED84A56C214BB6D27AB7C0434B2240EA65DC3BFF23423718482458D984071EB0",
+      "Review": "Retains existing Apply binding and invokes separate new BIF continuation visitor. The previous algorithm is not replaced with a general optimizer.",
+      "PriorReview": null
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceFunctionCode.cs",
+      "Before450Sha256": "BBDF5C9C76EF087CF9CC5C5036C8C1E303225AA58C8D161306DF467BC98A3D38",
+      "CurrentSha256": "95C3AD2B9563987CFBBFE799947072D8699E1EA3D263BAC23C41F1929F4F302C",
+      "Review": "Anonymous-function preparation binds the same lexical continuation rules as named module compilation; metadata follows actual source function image.",
+      "PriorReview": null
+    },
+    {
+      "Path": "src/Erlang.Runtime/CoreModules.cs",
+      "Before450Sha256": "48C353C3E01CE91B6CF9B234289C5B3FCE54EBD0DFE5F012A4E88D478A0EA480",
+      "CurrentSha256": "A538B78EE3F0B0E8A206C69BD0B6A3883F6A8B2F2B310A951C64E4382DBE788A",
+      "Review": "Stamps only genuine canonical element delegate/image after registration; no primitive value, index or badarg behavior rewrite. Host/source/custom installed overrides do not inherit the stamp.",
+      "PriorReview": null
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangBasicRegistrations.cs",
+      "Before450Sha256": "AC94CB5B10A7D3A6060AEE7A5127FD9FCF80ACD482CC3C610C37F4D9A5669F46",
+      "CurrentSha256": "499D27A10BE7CFFFEA561984F1331FF605CCAA794DF2A68F1B82F32481E429CE",
+      "Review": "Proper supported-length lists still materialize the same tuple values and order; improper list remains badarg. Explicit16777215 tuple arity bound rejects oversized inputs before construction. Existing apply/2 badarity and all other registration branches are byte-identical to accepted450 predecessor.",
+      "PriorReview": "artifacts/erlang370-verified-source-review1/review.json"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangSizeErrorFrames.cs",
+      "Before450Sha256": "572608F0D0509CD92AE97B4BFF9C50CA364797F0C5DC3EBE8220F4E184AA2696",
+      "CurrentSha256": "DBD6900803129EADAE99F8C5219562A5E71E9B2696A6275159E893D4FE3ACB67",
+      "Review": "Success branches and reason terms unchanged. Shared capture supplies native BIF error-info and original arguments while preserving correct caller frames. Existing accepted byte_size/bit_size-style callers require targeted metadata controls, not a blanket frame waiver.",
+      "PriorReview": "artifacts/erlang370-verified-source-review1/review.json"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.cs",
+      "Before450Sha256": "2F03900D215B975D18D474AC2CAC9800A47570E2B6A782716797C723AFA5F42D",
+      "CurrentSha256": "D1980A12DECDEA5902CB18E67EB12537F818FFC8E7FAF270D2A8E93A56E4B9FB",
+      "Review": "Selects canonical stamp atomically under existing gate with actual selected body/image. Avoids racy pre/post dispatch queries; ordinary dispatch-kind behavior remains unchanged.",
+      "PriorReview": null
+    },
+    {
+      "Path": "src/Erlang.Terms/MapTerm.cs",
+      "Before450Sha256": "1AAFECC8C729CA2F38540180E8AAA2303312BD346FAE67A7E684D684D728F7C3",
+      "CurrentSha256": "88248E0E3F87B231CEF4B97F41DEB6CD82D8D8CB4886FF443BF88FD5EE2D65AD",
+      "Review": "Dictionary insertion and exact key equality unchanged; managed storage NewUnique/index/arity semantics retained after public ordering switches to OldUnique. This explicitly avoids accidental collapse of distinct exact local FUN entries.",
+      "PriorReview": "artifacts/erlang370-verified-source-review1/review.json"
+    },
+    {
+      "Path": "src/Erlang.Terms/Term.cs",
+      "Before450Sha256": "32EE6669E0D4D5BAE2E780CD62FEAA1E56D3F49B6C3781927D5994E86C14A644",
+      "CurrentSha256": "D00E81EC8E725BE87D5F5D75D4B086B52AAC0C3B533D1E3D53DB478DC5D89363",
+      "Review": "Exact equality retains old canonical entry fields and exact child numeric policy; GetHashCode stays byte-identical. Numeric equality now uses native local FUN OldUnique branch. All non-FUN comparison branches are unchanged.",
+      "PriorReview": "artifacts/erlang370-verified-source-review1/review.json"
+    },
+    {
+      "Path": "src/Erlang.Terms/TermOrder.cs",
+      "Before450Sha256": "B2E92018FAE4A40A7A3A03910227AEBDDACE23473A650C7E6A6FEC649E79A589",
+      "CurrentSha256": "1A10BE0EFFC5005976DDDD7745E1C48774291498E77B57D0F8FF503167F40F14",
+      "Review": "Ordering/numeric local FUN compares module/index/OldUnique/free-count/environment. Exact/canonical mode keeps NewUnique/arity and exact environment. Existing Stack<IEnumerator<TermComparisonStep>>, single while traversal, NodeComparisonContext, finally disposal and hash implementation retained; no nested recursive Compare added.",
+      "PriorReview": "artifacts/erlang370-verified-source-review1/review.json"
+    }
+  ],
+  "AddedGuards": [
+    {
+      "Path": "src/Erlang.Compiler/DynamicApplySyntax.cs",
+      "Sha256": "1FBC4EF42CE59AC66BA5A331BFAA1D85E7CE3FA7956253144E883885D24F5ADF",
+      "Reason": "New evaluated tail apply target classifier used directly by changed Execution; validates module/function atom types, proper argument spine and shared maximum1023; excludes terminal error/exit/throw shapes."
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceBifContinuationBindings.cs",
+      "Sha256": "3F05DB61DBF0BF57DE978CE00E63222E8A7AE372827D69C66554807655EA8140",
+      "Reason": "New actual continuation protocol dependency: SourceBifContinuationBindings"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceBifForwardingContracts.cs",
+      "Sha256": "14CC25A3E76C801199FBA6E051E94BE54D602231DF3BA97156A7729E8C1F18E7",
+      "Reason": "New actual continuation protocol dependency: SourceBifForwardingContracts"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceBifReturnContracts.cs",
+      "Sha256": "D1C37FC214EB955ECFB64A6439E87F535E926D903FEA717518B3842D9A973637",
+      "Reason": "New actual continuation protocol dependency: SourceBifReturnContracts"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceBifReturnObservation.cs",
+      "Sha256": "97FF613CD3C4E4B829221F362F6108197779BBBE7F544E85CDF8D83D2AAD6571",
+      "Reason": "New actual continuation protocol dependency: SourceBifReturnObservation"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceBifReturnParameters.cs",
+      "Sha256": "D1203AF59B474F068FD031D475EE34216CB503EA70C987ADA0261FEA0B7A861B",
+      "Reason": "New actual continuation protocol dependency: SourceBifReturnParameters"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceContinuationReturn.cs",
+      "Sha256": "007F9A3C9996F3A39E5B39F1FB8AD1264299185546A87263E3383F8D55D6EC7C",
+      "Reason": "New actual continuation protocol dependency: SourceContinuationReturn"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangApplyLayout.cs",
+      "Sha256": "9186E3C29A2839381F481687D362D4F21CDB755313F8341051F2847154512463",
+      "Reason": "Shared apply/3 argument indices and module-apply arity consumed by new classifier; changing them could redirect any accepted compiled callback target."
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangTupleBifs.cs",
+      "Sha256": "B61B7D503514F0880FBD66B19B4442407FEE659F75DC0FB9FCA54EC799E06BDA",
+      "Reason": "Newly reachable list_to_tuple handler implementation and its current tuple helper branches; protect exact proper-list/limit/error behavior rather than only registration."
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangTupleLimits.cs",
+      "Sha256": "719BA972C47C493AF0BEFB8C63BE8535B19E838C502CA5411E6097ABD9503FE0",
+      "Reason": "Explicit maximum16777215 used by FromList; necessary transitive branch dependency of new handler."
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.ElementSourceContract.cs",
+      "Sha256": "66699853ACBBCFC2466A2CB887D7D1832067597C13286F5E7D35C55BEC6AC7DE",
+      "Reason": "New actual continuation protocol dependency: ModuleRegistry.ElementSourceContract"
+    },
+    {
+      "Path": "src/Erlang.Terms/TermComparisonPurpose.cs",
+      "Sha256": "D43AB4F7DB2FD7FB9E70E14F6FD3A06EDBFF7DADE6576F20F1BB19478030477E",
+      "Reason": "Mode discriminator controlling equality versus order and canonical map storage; a changed mode value/identity could redirect existing accepted exact-key behavior."
+    }
+  ],
+  "ProposedGuardCount": 462,
+  "PayloadClosure": {
+    "Path": "artifacts/erlang370-element-continuation-proposal2/copy-plan.json",
+    "Sha256": "2D4640912695BC18A05B62E97DFB1C00787D275E6F710D01AC5A9FD422064C2E",
+    "Rows": [
+      {
+        "Source": "source/src/Erlang.Compiler/CodeGeneration.cs",
+        "Target": "src/Erlang.Compiler/CodeGeneration.cs",
+        "Sha256": "A2ACCD78CB2B38A5FB0EF704924E3B6A4780E018287BB0452C8F807975F40F5F",
+        "Existing": true,
+        "BaseSha256": "9A71396FD913BE02BD4FCB57ECF9DA6BCA9884F5CE7A1D4F2E2D06D12A3D53D9",
+        "CurrentSha256": "EA3261A7296F41F76A1936B78FC150F1AA8B7B863DDDE3DB8FB0B0F26DDF7395",
+        "TokenEquivalentToReviewedPayload": true
+      },
+      {
+        "Source": "source/src/Erlang.Compiler/Execution.cs",
+        "Target": "src/Erlang.Compiler/Execution.cs",
+        "Sha256": "E90B17884ADBDAD1D159398CD226936711CBCABE5E51FFA126DAE068D8606BEE",
+        "Existing": true,
+        "BaseSha256": "025E38C3B42233E8B6B107EE319ADD83B8D19368DA93044B3EE2CBD2264BC621",
+        "CurrentSha256": "866E533B17161A12676460B2291FAAA13C2B6966CDD567C46B71C2B69E627C47",
+        "TokenEquivalentToReviewedPayload": true
+      },
+      {
+        "Source": "source/src/Erlang.Compiler/Expr.cs",
+        "Target": "src/Erlang.Compiler/Expr.cs",
+        "Sha256": "B56894C6A1FFC4E4B0F9E8D9933C98DE9FE472A2B92D01D12145134127667CB9",
+        "Existing": true,
+        "BaseSha256": "330551ABFE37F6EEA346A84D06AB20802A722E5780438375C7C8FED4D72ABECF",
+        "CurrentSha256": "9F7E5ABC621020D021F7A5CD94B2FAA613F280D9ACBA386A1C7C6C24130CAD0E",
+        "TokenEquivalentToReviewedPayload": true
+      },
+      {
+        "Source": "source/src/Erlang.Compiler/SourceBifContinuationBindings.cs",
+        "Target": "src/Erlang.Compiler/SourceBifContinuationBindings.cs",
+        "Sha256": "A311AF290CDDD676F1B1BFA07270C911350008D249217459AE977903967BD7E6",
+        "Existing": false,
+        "CurrentSha256": "3F05DB61DBF0BF57DE978CE00E63222E8A7AE372827D69C66554807655EA8140",
+        "TokenEquivalentToReviewedPayload": true
+      },
+      {
+        "Source": "source/src/Erlang.Compiler/SourceBifForwardingContracts.cs",
+        "Target": "src/Erlang.Compiler/SourceBifForwardingContracts.cs",
+        "Sha256": "1215D78A8BD67816CDA1AD1E734AEDA91741F9E9AB9DD35EA45D9C2478776626",
+        "Existing": false,
+        "CurrentSha256": "14CC25A3E76C801199FBA6E051E94BE54D602231DF3BA97156A7729E8C1F18E7",
+        "TokenEquivalentToReviewedPayload": true
+      },
+      {
+        "Source": "source/src/Erlang.Compiler/SourceBifReturnContracts.cs",
+        "Target": "src/Erlang.Compiler/SourceBifReturnContracts.cs",
+        "Sha256": "D1C37FC214EB955ECFB64A6439E87F535E926D903FEA717518B3842D9A973637",
+        "Existing": false,
+        "CurrentSha256": "D1C37FC214EB955ECFB64A6439E87F535E926D903FEA717518B3842D9A973637",
+        "TokenEquivalentToReviewedPayload": true
+      },
+      {
+        "Source": "source/src/Erlang.Compiler/SourceBifReturnObservation.cs",
+        "Target": "src/Erlang.Compiler/SourceBifReturnObservation.cs",
+        "Sha256": "81C95E846CEB2D71522F93BC7DC47DA85C7AF2F2ADD032CD685A9D87BEB3C5CB",
+        "Existing": false,
+        "CurrentSha256": "97FF613CD3C4E4B829221F362F6108197779BBBE7F544E85CDF8D83D2AAD6571",
+        "TokenEquivalentToReviewedPayload": true
+      },
+      {
+        "Source": "source/src/Erlang.Compiler/SourceBifReturnParameters.cs",
+        "Target": "src/Erlang.Compiler/SourceBifReturnParameters.cs",
+        "Sha256": "D1203AF59B474F068FD031D475EE34216CB503EA70C987ADA0261FEA0B7A861B",
+        "Existing": false,
+        "CurrentSha256": "D1203AF59B474F068FD031D475EE34216CB503EA70C987ADA0261FEA0B7A861B",
+        "TokenEquivalentToReviewedPayload": true
+      },
+      {
+        "Source": "source/src/Erlang.Compiler/SourceContinuationBindings.cs",
+        "Target": "src/Erlang.Compiler/SourceContinuationBindings.cs",
+        "Sha256": "ED84A56C214BB6D27AB7C0434B2240EA65DC3BFF23423718482458D984071EB0",
+        "Existing": true,
+        "BaseSha256": "450E0278CF29F22D92119828BF017448873A245878E02989F42AEA7C447AE2CE",
+        "CurrentSha256": "ED84A56C214BB6D27AB7C0434B2240EA65DC3BFF23423718482458D984071EB0",
+        "TokenEquivalentToReviewedPayload": true
+      },
+      {
+        "Source": "source/src/Erlang.Compiler/SourceContinuationReturn.cs",
+        "Target": "src/Erlang.Compiler/SourceContinuationReturn.cs",
+        "Sha256": "007F9A3C9996F3A39E5B39F1FB8AD1264299185546A87263E3383F8D55D6EC7C",
+        "Existing": false,
+        "CurrentSha256": "007F9A3C9996F3A39E5B39F1FB8AD1264299185546A87263E3383F8D55D6EC7C",
+        "TokenEquivalentToReviewedPayload": true
+      },
+      {
+        "Source": "source/src/Erlang.Compiler/SourceFunctionCode.cs",
+        "Target": "src/Erlang.Compiler/SourceFunctionCode.cs",
+        "Sha256": "BDC57BDDAB963DFCFF841175F6542825855611B410DD8B410AFFC27269444CD1",
+        "Existing": true,
+        "BaseSha256": "BBDF5C9C76EF087CF9CC5C5036C8C1E303225AA58C8D161306DF467BC98A3D38",
+        "CurrentSha256": "95C3AD2B9563987CFBBFE799947072D8699E1EA3D263BAC23C41F1929F4F302C",
+        "TokenEquivalentToReviewedPayload": true
+      },
+      {
+        "Source": "source/src/Erlang.Runtime/CoreModules.cs",
+        "Target": "src/Erlang.Runtime/CoreModules.cs",
+        "Sha256": "A538B78EE3F0B0E8A206C69BD0B6A3883F6A8B2F2B310A951C64E4382DBE788A",
+        "Existing": true,
+        "BaseSha256": "48C353C3E01CE91B6CF9B234289C5B3FCE54EBD0DFE5F012A4E88D478A0EA480",
+        "CurrentSha256": "A538B78EE3F0B0E8A206C69BD0B6A3883F6A8B2F2B310A951C64E4382DBE788A",
+        "TokenEquivalentToReviewedPayload": true
+      },
+      {
+        "Source": "source/src/Erlang.Runtime/ModuleRegistry.cs",
+        "Target": "src/Erlang.Runtime/ModuleRegistry.cs",
+        "Sha256": "6AB8B95AE06CF5C1B2A19906659ED7B6C44702E585E0192473F938346C671262",
+        "Existing": true,
+        "BaseSha256": "2F03900D215B975D18D474AC2CAC9800A47570E2B6A782716797C723AFA5F42D",
+        "CurrentSha256": "D1980A12DECDEA5902CB18E67EB12537F818FFC8E7FAF270D2A8E93A56E4B9FB",
+        "TokenEquivalentToReviewedPayload": true
+      },
+      {
+        "Source": "source/src/Erlang.Runtime/ModuleRegistry.ElementSourceContract.cs",
+        "Target": "src/Erlang.Runtime/ModuleRegistry.ElementSourceContract.cs",
+        "Sha256": "66699853ACBBCFC2466A2CB887D7D1832067597C13286F5E7D35C55BEC6AC7DE",
+        "Existing": false,
+        "CurrentSha256": "66699853ACBBCFC2466A2CB887D7D1832067597C13286F5E7D35C55BEC6AC7DE",
+        "TokenEquivalentToReviewedPayload": true
+      }
+    ]
+  },
+  "ApplyLimitRevert": "Actual current ErlangApplyLimits matches450 baseline exactly; remains internal with1023 unchanged. Prior public-surface amendment is superseded.",
+  "SourceProtocolReview": {
+    "Scope": "Conservative literal out-of-domain element and one-hop variable-only local forwarder; no SSA/global optimization claim.",
+    "Selection": "Canonical body/image stamp is captured inside ModuleRegistry gate. CWT ties lifetime to genuine delegate; custom/native override cannot acquire source proof from the signature alone.",
+    "Observation": "AsyncLocal scope matches same ModuleDefinition, ProcessContext, exact analyzed Expr.Call object, argument relationships, actual canonical selection and identical returned result object exactly once; nested predecessor restored and tuple/result references cleared on dispose. Child/late/unrelated events cannot qualify.",
+    "Protection": "Guard/pattern and catch operands blocked; try expression protected, of/catch bodies can inherit only when no after; regions with after declined; comprehensions declined; nested anonymous frames rebound; shared AST allowed/blocked collision blocks transfer.",
+    "Failure": "Actual primitive executes before continuation transfer; real badarg and caller source metadata therefore retained. Internal SourceContinuationReturn is a successful result transport, not a guest exception or a captured expected value.",
+    "Metadata": "Expr.Call annotation survives generated C# constructor, original source line remains, legacy constructor defaults false.",
+    "Resources": "No native resources or code lease owned by observation; existing frame/lease finally paths retain ownership. No additional deep CLR recursive traversal in Terms comparator."
+  },
+  "EvidenceBoundary": "Root reports final build8, all13 permanent continuation controls, old9582/9582 plus new264/264 strict comparisons (9846 total), no relations/differences. This reviewer read source/passive hashes only; canonical full regression remains required and is not claimed complete.",
+  "Residuals": [
+    "Known compound-map construction/order gaps remain explicit; no comparison-MFA promotion.",
+    "No claim all possible OTP SSA optimizations, physical GC/scheduler/reduction/performance identity.",
+    "No statuses, evidence arrays, limits or existing678 row metadata changed."
+  ],
+  "Integration": "Root may apply this exact462-guard proposal to run final canonical validation now: assert BaseLedger hash, all462 current source hashes, identical Entries. Any later source change requires a new scoped review."
+}

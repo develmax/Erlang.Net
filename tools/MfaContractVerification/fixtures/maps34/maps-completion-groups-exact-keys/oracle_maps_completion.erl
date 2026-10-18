@@ -1,0 +1,1 @@
+-module(oracle_maps_completion). -export([run/0]). run()->#{1:=[1,1],1.0:=[1.0]}=maps:groups_from_list(fun(X)->X end,[1,1.0,1]),done.

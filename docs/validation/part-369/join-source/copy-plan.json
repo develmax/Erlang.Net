@@ -1,0 +1,34 @@
+{
+  "ReviewSha256": "CF9D495C56676DB6ACA3CC27887EA86579A9B78D005054BB8A7D4FDF957AC81C",
+  "Files": [
+    {
+      "Source": "artifacts/binary-wrappers369-fix5/source/src/Erlang.Runtime/BinaryJoinExecution.cs",
+      "Target": "src/Erlang.Runtime/BinaryJoinExecution.cs",
+      "Sha256": "E4FFA3385333051858788F891862FED4278B5C9C5C83E8B556B5B0C3042034F3",
+      "ExistingTargetSha256": "A9FB8D94B20C58B1E47E2CDA68CEB328A1B8D83A3801A872B99C16A9CEDDF125",
+      "Mode": "Replace"
+    },
+    {
+      "Source": "artifacts/binary-wrappers369-fix5/source/src/Erlang.Runtime/BinaryJoinSource.cs",
+      "Target": "src/Erlang.Runtime/BinaryJoinSource.cs",
+      "Sha256": "EA777AFEED814949ABD9AA60DA535A8049B1BD04437B2C552BFDC63817B50E56",
+      "ExistingTargetSha256": null,
+      "Mode": "Add"
+    },
+    {
+      "Source": "artifacts/binary-wrappers369-fix5/source/tests/Erlang.Tests/BinaryWrapperBackingHostChecks.cs",
+      "Target": "tests/Erlang.Tests/BinaryWrapperBackingHostChecks.cs",
+      "Sha256": "7385FA185D8700B8387A69F64512269E12439C255BBD371C125597EC52859D86",
+      "ExistingTargetSha256": null,
+      "Mode": "Add"
+    },
+    {
+      "Source": "artifacts/binary-wrappers369-fix5/source/tests/Erlang.Tests/BinaryWrapperBackingHostNames.cs",
+      "Target": "tests/Erlang.Tests/BinaryWrapperBackingHostNames.cs",
+      "Sha256": "5C955AD32D616F71381D18F8F1E64DE1276AA6C4BBD2C115B7F4D730DA899F51",
+      "ExistingTargetSha256": null,
+      "Mode": "Add"
+    }
+  ],
+  "RootProgramAddition": "HOST(BinaryWrapperBackingHostNames.Test, BinaryWrapperBackingHostChecks.JoinBackingAndCallbackContext)"
+}

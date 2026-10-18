@@ -1,0 +1,1 @@
+-module(oracle_maps_completion). -export([run/0]). run()->G=maps:groups_from_list(fun(X)->X rem 2 end,lists:seq(1,256)),2=maps:size(G),128=length(maps:get(0,G)),128=length(maps:get(1,G)),2=hd(maps:get(0,G)),1=hd(maps:get(1,G)),done.

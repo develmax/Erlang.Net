@@ -1,0 +1,119 @@
+{
+  "Scope": "READ_ONLY_SOURCE_AUDIT_NO_NATIVE_OR_SDK_EXECUTION",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Authority": [
+    {
+      "Path": "erts/emulator/beam/erl_bif_lists.c",
+      "PinnedBlobBytes": 37624,
+      "Sha256": "473804029CBF4FE37C47637E5A7310BAB334872910E71933AD7C07CCE7D571B3",
+      "WorkingBytesMatchPinned": false
+    },
+    {
+      "Path": "erts/emulator/beam/bif.h",
+      "PinnedBlobBytes": 21390,
+      "Sha256": "0C5DFFFA51C20698D33473C8E7E5BC48BC748411D9782767928FA90D50B29F4E",
+      "WorkingBytesMatchPinned": false
+    },
+    {
+      "Path": "erts/emulator/beam/beam_common.c",
+      "PinnedBlobBytes": 65513,
+      "Sha256": "1AF6CF2D371975B0D9944B5857062A90091298373B3802639B25D03003AB3C47",
+      "WorkingBytesMatchPinned": false
+    },
+    {
+      "Path": "lib/stdlib/src/queue.erl",
+      "PinnedBlobBytes": 33226,
+      "Sha256": "61B322302ECF74578D72B442D2317EA200A5DEE4E0994B58C5E1E961F252B101",
+      "WorkingBytesMatchPinned": false
+    }
+  ],
+  "MainSource": {
+    "Path": "src/Erlang.Runtime/QueueCoreLinear.cs",
+    "Sha256": "B2C197A69C0B09A8879484F2C6315CAD397E7B2F8C901F55BDF2FD821B8A7576"
+  },
+  "Conclusion": "MAIN_MISSES_NATIVE_REVERSE_POST_TRAP_EFFECTIVE_ARGUMENT_BRANCH",
+  "Evidence": [
+    {
+      "Path": "erts/emulator/beam/erl_bif_lists.c",
+      "Lines": [
+        1144,
+        1191
+      ],
+      "Meaning": "alloc lookahead inspects bounded current invocation list; badarg occurs before copying that segment; successful partial segment traps with current list and accumulated tail."
+    },
+    {
+      "Path": "erts/emulator/beam/erl_bif_lists.c",
+      "Lines": [
+        1194,
+        1243
+      ],
+      "Meaning": "onheap copies prefix; internal call into alloc is not a BIF reentry; explicit trap writes remaining list and accumulated tail."
+    },
+    {
+      "Path": "erts/emulator/beam/bif.h",
+      "Lines": [
+        230,
+        233
+      ],
+      "Meaning": "ordinary BIF_ERROR sets reason and returns nonvalue; no original args restoration."
+    },
+    {
+      "Path": "erts/emulator/beam/bif.h",
+      "Lines": [
+        406,
+        413
+      ],
+      "Meaning": "BIF_TRAP2 installs reg0/reg1 from partial state for subsequent BIF entry."
+    },
+    {
+      "Path": "erts/emulator/beam/bif.h",
+      "Lines": [
+        251,
+        260
+      ],
+      "Meaning": "ERTS_BIF_ERROR_TRAPPED2 explicitly restores supplied original arguments; reverse does not use it."
+    },
+    {
+      "Path": "erts/emulator/beam/erl_bif_lists.c",
+      "Lines": [
+        326,
+        328
+      ],
+      "Meaning": "append uses explicit original lhs/rhs restoration, unlike reverse."
+    },
+    {
+      "Path": "erts/emulator/beam/beam_common.c",
+      "Lines": [
+        880,
+        1005
+      ],
+      "Meaning": "BIF stack capture saves argument registers using make_arglist(reg,bif_mfa->arity)."
+    }
+  ],
+  "ImportantDistinctions": [
+    "Short/nontrapped reverse failure reports the original entry arguments even after onheap prefix construction.",
+    "After one or more actual traps, failure reports the most recent BIF entry arguments, not necessarily the original input.",
+    "The final improper tail/full reversed prefix is not generally the correct pair: alloc lookahead can fail before processing its final entry segment.",
+    "An onheap-to-alloc internal call does not itself overwrite BIF argument registers.",
+    "257 cells is finite nontrap evidence, not evidence for arbitrary long improper lists. Native initial remaining reductions and heap branch affect trap partition.",
+    "Fresh960 comparison evidence remains valid for its actual160 cases. No promotion follows from extrapolating it."
+  ],
+  "MinimalOwnProtocolFix": [
+    "Keep saved reverse-entry list/tail pair, initialized to caller list/Nil.",
+    "Update this pair at an explicit genuine own reverse trap/reentry checkpoint, using reached suffix and accumulated reverse tail; do not poll a racy Yielding bool or treat arbitrary await/suspension as a trap.",
+    "On improper-list failure, emit the last saved pair into lists:reverse/2 dependency frame. Preserve existing queue owner frame and caller chain.",
+    "Keep append original-argument preservation unchanged. Keep iterative traversal, bounded cancellation checkpoints and existing result algorithm.",
+    "If exact native trap partition is required, port the relevant native budget/heap-sensitive segmentation; do not claim own scheduler slice number is a native ERTS equivalent. Under a deliberately declared own-VM source protocol, bind each runtime snapshot to its actual own trap history and prove full argument decomposition rather than discard/normalize arguments."
+  ],
+  "RequiredNativeSupplement": [
+    "Capture actual whole caught error (class/reason/FULL stack including first reverse arguments) for direct reverse2 and queue:to_list({ImproperRear,[]}) plus queue:out({[Marker|ImproperRear],[]}).",
+    "Use distinguishable increasing prefix cells and an improper terminal atom, with sufficiently long bounded lists (e.g.200000/400000 cells) so a transformed first-argument/tail pair is actually observed; a long length alone does not prove trapping.",
+    "Record initial list or hash-bound deterministic constructor, exact saved argument lists, their proper/improper shape/cardinality and element order. Verify consumed prefix k>0, savedTail=reverse(original prefix), savedList=original suffix and unchanged improper terminal tail. Retain raw args; summaries do not replace them.",
+    "Repeat with default/0/1/2/8 backtrace profiles and at least fresh versus preconsumed reduction entry when practical; report observed native partition rather than assume constant split.",
+    "Include append improper-prefix and length improper-list controls to show their original-argument contracts remain preserved, and short257 reverse control for unchanged nontrap branch.",
+    "Do not invoke native fixtures or alter Main from this passive audit. Root owns new-only original cohort/CI."
+  ],
+  "Classification": "Queue reverse-dependent APIs cannot be declared complete before the trapped branch is implemented or a truthful applicable contract is established; no new exclusion is proposed to hide it.",
+  "ActualObservedNativeLongTrap": false,
+  "MainModified": false
+}

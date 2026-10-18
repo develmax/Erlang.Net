@@ -1,0 +1,1435 @@
+{
+  "Family": "queue-core-eight-contracts",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Mfas": [
+    "queue:new/0",
+    "queue:is_queue/1",
+    "queue:is_empty/1",
+    "queue:len/1",
+    "queue:in/2",
+    "queue:out/1",
+    "queue:from_list/1",
+    "queue:to_list/1"
+  ],
+  "Fixtures": [
+    {
+      "Id": "queue_core",
+      "Location": "tool",
+      "Path": "original/queue_core_contract.erl",
+      "Module": "queue_core_contract",
+      "Names": [
+        "new",
+        "is_queue_bad_atom",
+        "is_queue_bad_tuple0",
+        "is_queue_bad_tuple1",
+        "is_queue_bad_tuple3",
+        "is_queue_bad_rear",
+        "is_queue_bad_front",
+        "is_queue_empty",
+        "is_queue_rear_one",
+        "is_queue_rear_two",
+        "is_queue_front_one",
+        "is_queue_front_two",
+        "is_queue_split_two",
+        "is_empty_bad_atom",
+        "is_empty_bad_tuple0",
+        "is_empty_bad_tuple1",
+        "is_empty_bad_tuple3",
+        "is_empty_bad_rear",
+        "is_empty_bad_front",
+        "is_empty_empty",
+        "is_empty_rear_one",
+        "is_empty_rear_two",
+        "is_empty_front_one",
+        "is_empty_front_two",
+        "is_empty_split_two",
+        "len_bad_atom",
+        "len_bad_tuple0",
+        "len_bad_tuple1",
+        "len_bad_tuple3",
+        "len_bad_rear",
+        "len_bad_front",
+        "len_empty",
+        "len_rear_one",
+        "len_rear_two",
+        "len_front_one",
+        "len_front_two",
+        "len_split_two",
+        "in_bad_atom",
+        "in_bad_tuple0",
+        "in_bad_tuple1",
+        "in_bad_tuple3",
+        "in_bad_rear",
+        "in_bad_front",
+        "in_empty",
+        "in_rear_one",
+        "in_rear_two",
+        "in_front_one",
+        "in_front_two",
+        "in_split_two",
+        "out_bad_atom",
+        "out_bad_tuple0",
+        "out_bad_tuple1",
+        "out_bad_tuple3",
+        "out_bad_rear",
+        "out_bad_front",
+        "out_empty",
+        "out_rear_one",
+        "out_rear_two",
+        "out_front_one",
+        "out_front_two",
+        "out_split_two",
+        "to_list_bad_atom",
+        "to_list_bad_tuple0",
+        "to_list_bad_tuple1",
+        "to_list_bad_tuple3",
+        "to_list_bad_rear",
+        "to_list_bad_front",
+        "to_list_empty",
+        "to_list_rear_one",
+        "to_list_rear_two",
+        "to_list_front_one",
+        "to_list_front_two",
+        "to_list_split_two",
+        "is_queue_nil",
+        "is_queue_integer",
+        "is_queue_float",
+        "is_queue_binary",
+        "is_queue_map",
+        "is_queue_list",
+        "is_queue_improper_value",
+        "is_queue_improper_rear_one",
+        "is_queue_improper_front_one",
+        "is_queue_improper_both",
+        "is_empty_improper_rear_one",
+        "is_empty_improper_front_one",
+        "is_empty_improper_both",
+        "len_improper_rear_one",
+        "len_improper_rear_three",
+        "len_improper_front_one",
+        "len_improper_front_three",
+        "len_improper_both",
+        "in_improper_rear_one",
+        "in_improper_front_one",
+        "in_improper_both",
+        "out_improper_rear_one",
+        "out_improper_rear_three",
+        "out_improper_front_one",
+        "out_improper_front_three",
+        "out_improper_both",
+        "to_list_improper_rear_one",
+        "to_list_improper_rear_three",
+        "to_list_improper_front_one",
+        "to_list_improper_front_three",
+        "to_list_improper_both",
+        "out_rear_3",
+        "out_rear_4",
+        "out_rear_5",
+        "out_rear_32",
+        "out_rear_33",
+        "out_rear_257",
+        "out_r2f_0",
+        "out_r2f_1",
+        "out_r2f_2",
+        "out_r2f_3",
+        "out_r2f_4",
+        "out_r2f_5",
+        "out_r2f_32",
+        "out_r2f_33",
+        "out_r2f_improper_one",
+        "out_r2f_improper_three",
+        "from_list_0",
+        "from_list_1",
+        "from_list_2",
+        "from_list_3",
+        "from_list_4",
+        "from_list_5",
+        "from_list_32",
+        "from_list_33",
+        "from_list_256",
+        "from_list_257",
+        "from_list_improper_1",
+        "from_list_improper_2",
+        "from_list_improper_3",
+        "from_list_improper_257",
+        "from_list_bad_atom",
+        "from_list_bad_tuple",
+        "from_list_bad_map",
+        "from_list_bad_integer",
+        "len_long_improper_rear",
+        "to_list_long_improper_rear",
+        "len_long_improper_front",
+        "to_list_long_improper_front",
+        "len_long_improper_both",
+        "to_list_long_improper_both",
+        "legacy_empty",
+        "legacy_representation",
+        "legacy_ordering",
+        "legacy_persistence",
+        "legacy_heterogeneous",
+        "legacy_errors",
+        "legacy_improper",
+        "legacy_raw_shapes",
+        "legacy_raw_observer",
+        "sequence_257",
+        "roundtrip_257",
+        "caller_explicit",
+        "caller_length",
+        "caller_reverse",
+        "opaque_raw",
+        "opaque_relationships"
+      ],
+      "Run": "run",
+      "NamesEntry": "cases",
+      "StackModule": "queue_core_contract",
+      "StackEntry": "run_stacks",
+      "WorkerModule": "proplists_observation_worker",
+      "WorkerEntry": "run",
+      "StackShape": "depth_cases",
+      "Companions": [
+        "original/proplists_observation_worker.erl",
+        "original/queue_core_empty.erl",
+        "original/queue_core_errors.erl",
+        "original/queue_core_heterogeneous.erl",
+        "original/queue_core_improper.erl",
+        "original/queue_core_observe.erl",
+        "original/queue_core_ordering.erl",
+        "original/queue_core_persistence.erl",
+        "original/queue_core_raw_shapes.erl",
+        "original/queue_core_representation.erl"
+      ],
+      "Cases": [
+        {
+          "Name": "new",
+          "Mfas": [
+            "queue:new/0"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_queue_bad_atom",
+          "Mfas": [
+            "queue:is_queue/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_queue_bad_tuple0",
+          "Mfas": [
+            "queue:is_queue/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_queue_bad_tuple1",
+          "Mfas": [
+            "queue:is_queue/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_queue_bad_tuple3",
+          "Mfas": [
+            "queue:is_queue/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_queue_bad_rear",
+          "Mfas": [
+            "queue:is_queue/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_queue_bad_front",
+          "Mfas": [
+            "queue:is_queue/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_queue_empty",
+          "Mfas": [
+            "queue:is_queue/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_queue_rear_one",
+          "Mfas": [
+            "queue:is_queue/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_queue_rear_two",
+          "Mfas": [
+            "queue:is_queue/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_queue_front_one",
+          "Mfas": [
+            "queue:is_queue/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_queue_front_two",
+          "Mfas": [
+            "queue:is_queue/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_queue_split_two",
+          "Mfas": [
+            "queue:is_queue/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_empty_bad_atom",
+          "Mfas": [
+            "queue:is_empty/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_empty_bad_tuple0",
+          "Mfas": [
+            "queue:is_empty/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_empty_bad_tuple1",
+          "Mfas": [
+            "queue:is_empty/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_empty_bad_tuple3",
+          "Mfas": [
+            "queue:is_empty/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_empty_bad_rear",
+          "Mfas": [
+            "queue:is_empty/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_empty_bad_front",
+          "Mfas": [
+            "queue:is_empty/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_empty_empty",
+          "Mfas": [
+            "queue:is_empty/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_empty_rear_one",
+          "Mfas": [
+            "queue:is_empty/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_empty_rear_two",
+          "Mfas": [
+            "queue:is_empty/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_empty_front_one",
+          "Mfas": [
+            "queue:is_empty/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_empty_front_two",
+          "Mfas": [
+            "queue:is_empty/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_empty_split_two",
+          "Mfas": [
+            "queue:is_empty/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "len_bad_atom",
+          "Mfas": [
+            "queue:len/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "len_bad_tuple0",
+          "Mfas": [
+            "queue:len/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "len_bad_tuple1",
+          "Mfas": [
+            "queue:len/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "len_bad_tuple3",
+          "Mfas": [
+            "queue:len/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "len_bad_rear",
+          "Mfas": [
+            "queue:len/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "len_bad_front",
+          "Mfas": [
+            "queue:len/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "len_empty",
+          "Mfas": [
+            "queue:len/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "len_rear_one",
+          "Mfas": [
+            "queue:len/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "len_rear_two",
+          "Mfas": [
+            "queue:len/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "len_front_one",
+          "Mfas": [
+            "queue:len/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "len_front_two",
+          "Mfas": [
+            "queue:len/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "len_split_two",
+          "Mfas": [
+            "queue:len/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "in_bad_atom",
+          "Mfas": [
+            "queue:in/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "in_bad_tuple0",
+          "Mfas": [
+            "queue:in/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "in_bad_tuple1",
+          "Mfas": [
+            "queue:in/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "in_bad_tuple3",
+          "Mfas": [
+            "queue:in/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "in_bad_rear",
+          "Mfas": [
+            "queue:in/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "in_bad_front",
+          "Mfas": [
+            "queue:in/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "in_empty",
+          "Mfas": [
+            "queue:in/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "in_rear_one",
+          "Mfas": [
+            "queue:in/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "in_rear_two",
+          "Mfas": [
+            "queue:in/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "in_front_one",
+          "Mfas": [
+            "queue:in/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "in_front_two",
+          "Mfas": [
+            "queue:in/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "in_split_two",
+          "Mfas": [
+            "queue:in/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_bad_atom",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_bad_tuple0",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_bad_tuple1",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_bad_tuple3",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_bad_rear",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_bad_front",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_empty",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_rear_one",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_rear_two",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_front_one",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_front_two",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_split_two",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "to_list_bad_atom",
+          "Mfas": [
+            "queue:to_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "to_list_bad_tuple0",
+          "Mfas": [
+            "queue:to_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "to_list_bad_tuple1",
+          "Mfas": [
+            "queue:to_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "to_list_bad_tuple3",
+          "Mfas": [
+            "queue:to_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "to_list_bad_rear",
+          "Mfas": [
+            "queue:to_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "to_list_bad_front",
+          "Mfas": [
+            "queue:to_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "to_list_empty",
+          "Mfas": [
+            "queue:to_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "to_list_rear_one",
+          "Mfas": [
+            "queue:to_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "to_list_rear_two",
+          "Mfas": [
+            "queue:to_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "to_list_front_one",
+          "Mfas": [
+            "queue:to_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "to_list_front_two",
+          "Mfas": [
+            "queue:to_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "to_list_split_two",
+          "Mfas": [
+            "queue:to_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_queue_nil",
+          "Mfas": [
+            "queue:is_queue/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_queue_integer",
+          "Mfas": [
+            "queue:is_queue/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_queue_float",
+          "Mfas": [
+            "queue:is_queue/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_queue_binary",
+          "Mfas": [
+            "queue:is_queue/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_queue_map",
+          "Mfas": [
+            "queue:is_queue/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_queue_list",
+          "Mfas": [
+            "queue:is_queue/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_queue_improper_value",
+          "Mfas": [
+            "queue:is_queue/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_queue_improper_rear_one",
+          "Mfas": [
+            "queue:is_queue/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_queue_improper_front_one",
+          "Mfas": [
+            "queue:is_queue/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_queue_improper_both",
+          "Mfas": [
+            "queue:is_queue/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_empty_improper_rear_one",
+          "Mfas": [
+            "queue:is_empty/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_empty_improper_front_one",
+          "Mfas": [
+            "queue:is_empty/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "is_empty_improper_both",
+          "Mfas": [
+            "queue:is_empty/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "len_improper_rear_one",
+          "Mfas": [
+            "queue:len/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "len_improper_rear_three",
+          "Mfas": [
+            "queue:len/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "len_improper_front_one",
+          "Mfas": [
+            "queue:len/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "len_improper_front_three",
+          "Mfas": [
+            "queue:len/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "len_improper_both",
+          "Mfas": [
+            "queue:len/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "in_improper_rear_one",
+          "Mfas": [
+            "queue:in/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "in_improper_front_one",
+          "Mfas": [
+            "queue:in/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "in_improper_both",
+          "Mfas": [
+            "queue:in/2"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_improper_rear_one",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_improper_rear_three",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_improper_front_one",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_improper_front_three",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_improper_both",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "to_list_improper_rear_one",
+          "Mfas": [
+            "queue:to_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "to_list_improper_rear_three",
+          "Mfas": [
+            "queue:to_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "to_list_improper_front_one",
+          "Mfas": [
+            "queue:to_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "to_list_improper_front_three",
+          "Mfas": [
+            "queue:to_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "to_list_improper_both",
+          "Mfas": [
+            "queue:to_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_rear_3",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_rear_4",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_rear_5",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_rear_32",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_rear_33",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_rear_257",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r2f_0",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r2f_1",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r2f_2",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r2f_3",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r2f_4",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r2f_5",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r2f_32",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r2f_33",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r2f_improper_one",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "out_r2f_improper_three",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "from_list_0",
+          "Mfas": [
+            "queue:from_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "from_list_1",
+          "Mfas": [
+            "queue:from_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "from_list_2",
+          "Mfas": [
+            "queue:from_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "from_list_3",
+          "Mfas": [
+            "queue:from_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "from_list_4",
+          "Mfas": [
+            "queue:from_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "from_list_5",
+          "Mfas": [
+            "queue:from_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "from_list_32",
+          "Mfas": [
+            "queue:from_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "from_list_33",
+          "Mfas": [
+            "queue:from_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "from_list_256",
+          "Mfas": [
+            "queue:from_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "from_list_257",
+          "Mfas": [
+            "queue:from_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "from_list_improper_1",
+          "Mfas": [
+            "queue:from_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "from_list_improper_2",
+          "Mfas": [
+            "queue:from_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "from_list_improper_3",
+          "Mfas": [
+            "queue:from_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "from_list_improper_257",
+          "Mfas": [
+            "queue:from_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "from_list_bad_atom",
+          "Mfas": [
+            "queue:from_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "from_list_bad_tuple",
+          "Mfas": [
+            "queue:from_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "from_list_bad_map",
+          "Mfas": [
+            "queue:from_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "from_list_bad_integer",
+          "Mfas": [
+            "queue:from_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "len_long_improper_rear",
+          "Mfas": [
+            "queue:len/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "to_list_long_improper_rear",
+          "Mfas": [
+            "queue:to_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "len_long_improper_front",
+          "Mfas": [
+            "queue:len/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "to_list_long_improper_front",
+          "Mfas": [
+            "queue:to_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "len_long_improper_both",
+          "Mfas": [
+            "queue:len/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "to_list_long_improper_both",
+          "Mfas": [
+            "queue:to_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "legacy_empty",
+          "Mfas": [
+            "queue:is_empty/1",
+            "queue:is_queue/1",
+            "queue:len/1",
+            "queue:new/0",
+            "queue:out/1",
+            "queue:to_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "legacy_representation",
+          "Mfas": [
+            "queue:from_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "legacy_ordering",
+          "Mfas": [
+            "queue:in/2",
+            "queue:len/1",
+            "queue:new/0",
+            "queue:out/1",
+            "queue:to_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "legacy_persistence",
+          "Mfas": [
+            "queue:in/2",
+            "queue:len/1",
+            "queue:new/0",
+            "queue:out/1",
+            "queue:to_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "legacy_heterogeneous",
+          "Mfas": [
+            "queue:from_list/1",
+            "queue:is_empty/1",
+            "queue:is_queue/1",
+            "queue:len/1",
+            "queue:to_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "legacy_errors",
+          "Mfas": [
+            "queue:from_list/1",
+            "queue:in/2",
+            "queue:is_empty/1",
+            "queue:is_queue/1",
+            "queue:len/1",
+            "queue:out/1",
+            "queue:to_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "legacy_improper",
+          "Mfas": [
+            "queue:from_list/1",
+            "queue:in/2",
+            "queue:is_empty/1",
+            "queue:is_queue/1",
+            "queue:len/1",
+            "queue:out/1",
+            "queue:to_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "legacy_raw_shapes",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "legacy_raw_observer",
+          "Mfas": [
+            "queue:new/0",
+            "queue:is_queue/1",
+            "queue:is_empty/1",
+            "queue:len/1",
+            "queue:in/2",
+            "queue:out/1",
+            "queue:from_list/1",
+            "queue:to_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "sequence_257",
+          "Mfas": [
+            "queue:new/0",
+            "queue:in/2",
+            "queue:out/1",
+            "queue:to_list/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "roundtrip_257",
+          "Mfas": [
+            "queue:from_list/1",
+            "queue:len/1",
+            "queue:to_list/1",
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "caller_explicit",
+          "Mfas": [
+            "queue:len/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "caller_length",
+          "Mfas": [
+            "queue:len/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "caller_reverse",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "opaque_raw",
+          "Mfas": [
+            "queue:from_list/1",
+            "queue:to_list/1",
+            "queue:out/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "opaque_relationships",
+          "Mfas": [
+            "queue:from_list/1",
+            "queue:out/1",
+            "queue:is_queue/1",
+            "queue:is_empty/1",
+            "queue:len/1",
+            "queue:to_list/1"
+          ],
+          "Policy": "exact"
+        }
+      ]
+    }
+  ],
+  "FixtureSources": [
+    {
+      "Location": "tool",
+      "Path": "original/proplists_observation_worker.erl",
+      "Sha256": "34B743EB95A5937058AB8F208A1FB17C6ACED20AF7E08398EF6D154F574546BC"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/queue_core_contract.erl",
+      "Sha256": "A154FA54B05D56A0F442B4CCBFAFAA8CE8D5C8FEA67017EA582B7FCCFEA45DC2"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/queue_core_empty.erl",
+      "Sha256": "637087C81FA2E195CF4C70C4374D923C5828D4D94C29D951E492DC4BC5453E02"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/queue_core_errors.erl",
+      "Sha256": "01C6ED4A754D3C81A153C6E55800A8242AEE9D1F95A6A8B8747DCF59216839AB"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/queue_core_heterogeneous.erl",
+      "Sha256": "E30BC7C9D07EC9481FCF330FC3F47FA70E5A1638FE54B6C63A5E5EBAABAEA9C8"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/queue_core_improper.erl",
+      "Sha256": "7DCC2C5C58323DCE7AC1E6950CD2B5113A09F6C7AE1BF7F9FE6BD13765293928"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/queue_core_observe.erl",
+      "Sha256": "A84D651049C61528D3034D40D522E6023A43AF95927CF8B03295BEFC5FE1B1B9"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/queue_core_ordering.erl",
+      "Sha256": "4059C3BD555C66C1F181E02FC2C2C84DB13DE78E90D836D01D29EFAAF1E9C2CE"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/queue_core_persistence.erl",
+      "Sha256": "41E074A8C277EF5AC61ADD9A0A417F2ADFE67C7FDA0BA8755C2E76153D51E5C6"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/queue_core_raw_shapes.erl",
+      "Sha256": "CDD1AA66626A95B2DA0C876381DD962FDA2239C2F28D2A89E4BB83D3EB500DB6"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/queue_core_representation.erl",
+      "Sha256": "F146B1DAF861505799DD18158B99FF67527BAF286A8AFAF14E3F631C182A32A8"
+    }
+  ],
+  "ExpectedUniqueSourceCount": 11,
+  "ObserverEntry": "Queue8 broad sourcebranches/fullstack matchedworker; original-only acquisition; raw opaque identity differences remain explicit.",
+  "SubjectModule": "queue",
+  "OriginalCollectorSubjectParameterizationRequired": true
+}

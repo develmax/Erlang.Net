@@ -1,0 +1,119 @@
+{
+  "Status": "CURRENT293_MATCH_AUDIT59_INCLUDED_BUT_ADDITIONAL_DIRECT_DEPENDENCIES_REQUIRED",
+  "CurrentGuardCount": 293,
+  "CurrentGuardAllHashesMatch": true,
+  "Audit59AlreadyCovered": 59,
+  "Audit59Stale": 0,
+  "AdditionalMissingGuardFiles": [
+    {
+      "Path": "src/Erlang.Runtime/RuntimeFunctionEntries.cs",
+      "Sha256": "F3F04C4A88E3C6EFE9546B5917C0144E33E19F4A337A8144956F7BDC4ADE1C71",
+      "Reason": "to_map genuine local callback publication/restore and per-runtime repeated identity"
+    },
+    {
+      "Path": "src/Erlang.Runtime/LocalFunctionPublication.cs",
+      "Sha256": "F6EF074535DA3D5597068A3466F797BD0AD5F57DA883B562279AD1FA41EC5BC2",
+      "Reason": "callback code identity/factory descriptor"
+    },
+    {
+      "Path": "src/Erlang.Runtime/LocalFunctionPublicationCell.cs",
+      "Sha256": "3953F49940903496E57CE8926E84C9B96B4F0A27349A1EF295519A65F5E8125A",
+      "Reason": "same-runtime current function identity/factory publication"
+    },
+    {
+      "Path": "src/Erlang.Runtime/LocalFunctionInvocation.cs",
+      "Sha256": "CCD15CF00005490DD573CC361CF28A3DD84A31F35F0BAE65AA43E7DF0FE89451",
+      "Reason": "restored local callback entry invocation relationship"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleInformationSnapshot.cs",
+      "Sha256": "01D740A048C3562032529023E1BCEFC7165F7E3663566FD01910B515646B68C9",
+      "Reason": "to_map callback code fingerprint obtained from actual module_info(md5)"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleInformationKeys.cs",
+      "Sha256": "2085A5E30763FB4E51A3F6E182A187C5D56B29B0B2F0551F2B1A8163967A9434",
+      "Reason": "same-runtime module MD5 field semantic name"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleCodeFingerprints.cs",
+      "Sha256": "1617EC7E63A621DFB18F7EB2AD91F61DFB215F0A3716AC3D3DEA96A698F67FCF",
+      "Reason": "actual registered module fingerprint generation used by genuine callback"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleCodeMetadataNames.cs",
+      "Sha256": "AEFDFB1DD26DF3A050BD22916375343A0AE343C548927997D9C12A55EB83DB42",
+      "Reason": "registered fingerprint serialization separators/domain"
+    },
+    {
+      "Path": "src/Erlang.Runtime/MapModuleNames.cs",
+      "Sha256": "AE59C339C99FFC23A181A625888D2F35ADDE5F06C25B702EB3835643CC87C134",
+      "Reason": "genuine callback maps:remove branch dispatch and source error helper naming"
+    },
+    {
+      "Path": "src/Erlang.Terms/FunctionCodeLayout.cs",
+      "Sha256": "741A8731C242DBABD745473C07D9A0B955D4A83596D32A9B2623CE642821AD9F",
+      "Reason": "local fun olduniq prefix width and code identity format"
+    },
+    {
+      "Path": "src/Erlang.Terms/LocalFunctionIdentity.cs",
+      "Sha256": "1470CE427E4B7F469EB145F49D7D6161F1C9996E51C8E52E6E44A5025D4A4F40",
+      "Reason": "callback fields and legacy index access; arbitrary local-function key identity"
+    },
+    {
+      "Path": "src/Erlang.Terms/ExternalFunctionIdentity.cs",
+      "Sha256": "FBAA695597D5C8588BA9DC447CC2E58F9C6076E26439C323DE657C44BE980459",
+      "Reason": "arbitrary external-function key identity record"
+    },
+    {
+      "Path": "src/Erlang.Terms/NodeComparisonContext.cs",
+      "Sha256": "FA8519C8BA6C3A3FD2944DBA85E11E3257670F414616EB977C1D2D0D463269A7",
+      "Reason": "stable snapshot while comparing nested opaque PID/ref/port keys"
+    },
+    {
+      "Path": "src/Erlang.Terms/NodeIdentityTraversal.cs",
+      "Sha256": "A3F4CCEC937015CB9EC64A1791E67FEB674492F81D9BF291410659B1E07C6201",
+      "Reason": "MapTerm key node snapshot discovery including nested opaque terms"
+    },
+    {
+      "Path": "src/Erlang.Terms/LocalNodeIdentity.cs",
+      "Sha256": "274B904B674413887C01F6AC7EC874ACCF23E0F2CC2E8796273B5FEBDB2306B7",
+      "Reason": "genuine supported local node epoch/name identity snapshots"
+    },
+    {
+      "Path": "src/Erlang.Terms/LocalNodeSnapshot.cs",
+      "Sha256": "03B943247147E97F21C0E67ED31B08254CD6F81A999508DF144F31501AFB7E5F",
+      "Reason": "node name/creation fields consumed by exact term comparison"
+    },
+    {
+      "Path": "src/Erlang.Terms/BitStringLayout.cs",
+      "Sha256": "3DFB1692F57CC99E27EF02D08064E789A7A47D8188BB2384EF61557AE0C3EA40",
+      "Reason": "partial-bitstring key indexing arithmetic"
+    },
+    {
+      "Path": "src/Erlang.Terms/ErlangErrorReasons.cs",
+      "Sha256": "A0D5A0D9013390620E31F7CC4AB0225B78757A5AABFC6D9035ECF467AC61E630",
+      "Reason": "language exception reason atoms for full-spine/generator/operator errors"
+    },
+    {
+      "Path": "src/Erlang.Terms/ErlangErrorMetadataNames.cs",
+      "Sha256": "4713EEF72034CEA060667E62DD07CF471B3D9BF2EA86011B438A4B73FB30F774",
+      "Reason": "error_info metadata atom names"
+    },
+    {
+      "Path": "src/Erlang.Terms/ErlangExceptionClasses.cs",
+      "Sha256": "9020562B97ABB050F82BFCC342F67FBCDC1ABD625911AF158A4C606383FAAF8B",
+      "Reason": "Erlang error/throw/exit class atoms in observable errors"
+    },
+    {
+      "Path": "src/Erlang.Terms/ErlangExceptionTraceOrigin.cs",
+      "Sha256": "A59056984B35CF74A15803A41A7BCCFE30D32D24005B6E4775F43BF3729E51C0",
+      "Reason": "selected-handler provenance capture origin enum"
+    }
+  ],
+  "AlreadyGuardedCandidates": [],
+  "RecommendedMetadataAction": "Root append these actual current source bindings to VerifiedSourceFiles and evidence graph after review. No Main source rebuild or new original execution required solely for guard metadata additions; current final execution graph still must be bound.",
+  "ClosureLimit": "This is direct semantic dependency review, not a claim every SDK/build framework/native/runtime source is closed by293 or this increment. Existing supported term/source profile and final build-source manifest provide other boundaries.",
+  "Existing19SourceEligibilityUnchanged": true,
+  "NoMainOrLedgerEdits": true
+}

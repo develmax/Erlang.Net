@@ -1,0 +1,11 @@
+Final original ordered-reference cursor admission
+
+Run39068386094, head e81acb6f613ef5cf7c779aef6440faf9d42afefc: ZIP9E010022... rehashed with all54 download-manifest rows. Corrected sourceplanBECA9B... and31 local/committed tool inputs match; repository inputs bind to the executing Git head. All12008 pinned OTP blobs/modes/content hashes were independently reconstructed from local Git and equal the retained build source-before/source-after records. No downloaded code, native VM, SDK, build, CI or network operation was executed.
+
+Three actual cases and15 full profiles establish both sides of cursor lookup: flat aliases1..5 all succeed; the count1-reference HAMT accepts count1 and rejects2..5 with wholecursorbadmap; an equal count1/count2 pair with distinct fullhashes but the same consumedrootnibble succeeds when the other33keys avoid that slot. The successful query retains its count2 key representation.
+
+Complete returned values, metadata and all raw caller stacks are retained in decoded-full.json and raw file hashes. Topframe is maps:to_list with wholecursorarguments, maps.erl1303 and erl_stdlib_errors error_info. Duplicate LC frames are preserved. Depth0/1 retain the explicit mapsframe; depth2 retains2frames; default/8 retain8frames. The initial local analysis script had a syntax typo before any analysis ran; its exact source/failure note remain separate and the corrected passive script passed.
+
+Recommendation: Root may classify from_map complete under the explicitly approved original-protocol/genuine-own-state contract. Final source345guards/3224rows are exact, finalfocus283/283 and six-cohort replay5/37corruptioncontrols are admitted, and two finalpackages contain the latestMain runtime/compiler/terms/serialization bytes with freshconsumer/CLIreadiness success. No canonical status was changed by this reviewer.
+
+Literal crossVM atomtopology differences remain rawdifferences; they are separately justified by genuine ownword sourceprotocol and independentphysical HOST controls. Get_keys ordinary listordering remains separately unordered. Canonical full1 passed7541/7541+11integrations+2packages before the final5file flatdelta; finalaffected/replay/package gates validate that bounded delta. This is not a claim that the fullsuite was rerun on the latest2runtimehashes.

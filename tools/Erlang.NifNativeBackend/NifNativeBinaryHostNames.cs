@@ -2,6 +2,7 @@ namespace Erlang.NifNativeBackend;
 
 internal static class NifNativeBinaryHostNames
 {
+    internal const int SubviewParentBytes = 96;
     internal const string Module = "nif_binary_callback_host";
     internal const string Atom = "binary_callback_atom";
     internal const string Failure = "NIF binary Windows table assertion failed.";

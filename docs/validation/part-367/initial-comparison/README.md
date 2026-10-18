@@ -1,0 +1,9 @@
+# Queue8 actual Main versus pinned original
+
+PASS for160 values and800 complete stack observations. Strict whole decoded equality gives159/160 values and795/800 observations. The only six differences are opaque_raw. Every nonopaque queue value, error class/reason/effective argument/source location and complete caller chain is exact. initial-strict-differences.json retains every difference; captures are unchanged.
+
+The six arbitrary-value results pass the previously declared all-field relation. The original fixture BEAM has one actual FunT row, named local_identity/1, index0/free0; the SDK actual resolver binds the same source function at own index15. The unchanged trusted source_binding helper checks both actual module MD5/newuniq/olduniq/code indices and exact arity/environment/owner/encoded size. Raw FUN wire spans are bound to each original file. PID/reference identities pair only source self()/make_ref() anchors and repeated occurrences. Reference complete words remain bound without normalization. Literal external port logical fields and external FUN module/function/arity stay exact. No general identity waiver applies elsewhere.
+
+All22 passive corruption controls reject changed FUN identity/arity/owner/environment, PID/reference occurrences and stored word count, literal port ID, external FUN, arbitrary scalar, code metadata/resolver, error class/reason/file/line/effective arguments and removed caller frames. Original provenance is independently admitted by map_size_finish; acceptance.json cross-links hashes for12008 pinned blobs, normal receipts and24 actual raw local-FUN spans/FunT entries.
+
+No Main files, SDK/VM execution, CI or publication were changed. Finite comparisons do not establish complete source contracts. Root's separate long reverse trap effective-argument audit and final affected/full regression remain required before any per-MFA promotion.

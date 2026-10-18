@@ -1,0 +1,1845 @@
+{
+  "OwnedHelper": "artifacts/spawn-priority351-preparation/execute-root.py",
+  "OwnedHelperSha256": "C66ACEC6FFE57C57EFAABC96FD1DB00598D7AAD7D05C2EA814A146B759D4171A",
+  "Stages": [
+    {
+      "Name": "queue-all",
+      "Harness": "artifacts/queue-integration368/main-capture",
+      "HarnessSha256": "5D294EC9C919658CC5ACBD67EBAB97BA652D9321CEAB80CDE92302F53E53A34A",
+      "HarnessSource": [
+        {
+          "Path": "artifacts/queue-integration368/main-capture/FamilyCaptureNames.cs",
+          "Sha256": "365E8EB982954AEBE13898BE372ABFB4456CECA62D5FA77B931533F9AD727901"
+        },
+        {
+          "Path": "artifacts/queue-integration368/main-capture/FamilyRuntimeMetadataNames.cs",
+          "Sha256": "2BEA4A524E9BC271DEB80AA75A77E0DCC2CA8E6C2A554DB8DEB663FB312373FE"
+        },
+        {
+          "Path": "artifacts/queue-integration368/main-capture/MainCapture.csproj",
+          "Sha256": "44D165E307115962CAE247C3BE395E4234702048016249F7996F640F5EBE8E4F"
+        },
+        {
+          "Path": "artifacts/queue-integration368/main-capture/Program.cs",
+          "Sha256": "E1D41BBA7B129A4F1BE33483D33BE4A1DBA70074DAEB6680C45763F0A73F5015"
+        },
+        {
+          "Path": "artifacts/queue-integration368/main-capture/SourceFunctionObservation.cs",
+          "Sha256": "3F2F947079CEF8180C593D515F15F9B470DB51014F28F071149393136B4A64C6"
+        },
+        {
+          "Path": "artifacts/queue-integration368/main-capture/SourceFunctionObservationNames.cs",
+          "Sha256": "373446831DD4AD78A3D572D0EA0F5CE45B002C4A3782A919359B212BBCACFBC9"
+        }
+      ],
+      "Tool": "artifacts/queue-original368-original1/tool",
+      "ProfileSha256": "1F0F1CA646438FEF4D138DDBA014BBD3E344D7F1D0C9508D30FFFCD95BFD8471",
+      "Sources": [
+        {
+          "Path": "original/proplists_observation_worker.erl",
+          "Location": "tool",
+          "Sha256": "34B743EB95A5937058AB8F208A1FB17C6ACED20AF7E08398EF6D154F574546BC",
+          "Bytes": 1038
+        },
+        {
+          "Path": "original/queue_all368_long_last.erl",
+          "Location": "tool",
+          "Sha256": "DF1C7B9B5649E11381FE3F4D3EF886456027195F9FE94CA1C71307279DAC1C1C",
+          "Bytes": 677
+        },
+        {
+          "Path": "original/queue_all368_long_member.erl",
+          "Location": "tool",
+          "Sha256": "F36E8E6C0568CF348AFD4B1D422791846385A2F256F47AB12AB0F55D0F037FCC",
+          "Bytes": 760
+        },
+        {
+          "Path": "original/queue_all368_long_reverse_ends.erl",
+          "Location": "tool",
+          "Sha256": "10379286892072ADAFDACE76D5C253742E7E3A0FE95456DC2EA3DA436EE9B367",
+          "Bytes": 508
+        },
+        {
+          "Path": "original/queue_all368_long_split.erl",
+          "Location": "tool",
+          "Sha256": "5946372B1E241D9D67C5F86833DD83D0CDB7330F7D9F42D00266EA1CA51A7C20",
+          "Bytes": 602
+        },
+        {
+          "Path": "original/queue_all368_queue_callbacks.erl",
+          "Location": "tool",
+          "Sha256": "D6324B07C615E7805CE04725C28BD87961ECE1D47EAE628739F236CFA7287721",
+          "Bytes": 34443
+        },
+        {
+          "Path": "original/queue_all368_queue_ends_left.erl",
+          "Location": "tool",
+          "Sha256": "324524653D6559D2137F608EDC9E87938F89A5307EEE8921EFC6A8B265AAA9E7",
+          "Bytes": 21817
+        },
+        {
+          "Path": "original/queue_all368_queue_ends_right.erl",
+          "Location": "tool",
+          "Sha256": "5BF90FA8194A64624B2454C009F26BF8796A6FD747B31B36C6B7F1B43881988B",
+          "Bytes": 17133
+        },
+        {
+          "Path": "original/queue_all368_queue_structural.erl",
+          "Location": "tool",
+          "Sha256": "5BE2D31581CC4A3447407EA743ECA7E2FD4696C176EE434722CF7D45AE28D6B3",
+          "Bytes": 20731
+        },
+        {
+          "Path": "original/queue_all368_support.erl",
+          "Location": "tool",
+          "Sha256": "7F08761C9A493458FCA6AD29914EE2415B46212A29C33A8CC79F5BA745CC91DE",
+          "Bytes": 3501
+        }
+      ],
+      "Timeout": 540,
+      "Fixtures": [
+        {
+          "Id": "queue_ends_left",
+          "Cases": 231
+        },
+        {
+          "Id": "queue_ends_right",
+          "Cases": 185
+        },
+        {
+          "Id": "queue_structural",
+          "Cases": 208
+        },
+        {
+          "Id": "queue_callbacks",
+          "Cases": 256
+        },
+        {
+          "Id": "long_reverse_ends",
+          "Cases": 2
+        },
+        {
+          "Id": "long_member",
+          "Cases": 4
+        },
+        {
+          "Id": "long_split",
+          "Cases": 3
+        },
+        {
+          "Id": "long_last",
+          "Cases": 4
+        }
+      ],
+      "Native": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture",
+      "NativeHead": "29be5d7c68c5ad04784a57ee399cc99d14a655a4",
+      "NativeFiles": [
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/completion.json",
+          "Sha256": "5A5FF82E889A2B0D4CF6EA0B16D14A9E50D45CC466A91D98A57630EFF07EA8E6"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_ends_left/compile.process.json",
+          "Sha256": "DAF55073FDBE6C7CDB8E15C4EBFB429D025D695BD24F628EE04337C1418ED164"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_ends_left/compile.stage.json",
+          "Sha256": "B9B735B688C9DD0C63FC0691848251C7D5BBCE96D7C4EC39250D3D72F458E2B4"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_ends_left/metadata.etf",
+          "Sha256": "594A89527C4F5E183DC63D6AECD196CE3D01973CE5DDBFD50D84C88E781FED22"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_ends_left/observe.process.json",
+          "Sha256": "036FAC14315A310A47A3CBDFCE306282CAF31F91FA4330D35C03872E8BBBD85A"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_ends_left/observe.stage.json",
+          "Sha256": "7ABC75905B61312F6BD215C537A88FCCE10FAC9D7AFF869BBBEE82C71DAAB40C"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_ends_left/queue-loaded.beam",
+          "Sha256": "759B1FE208F8A0DE292147EB00FFCE98F929263ADCFCD4AABB485E3B3EB4538D"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_ends_left/returned.etf",
+          "Sha256": "82116BBE16FD4007593FADADD0F84F8DAC6E9212A070CD7404D1D7EE6525E2F9"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_ends_left/stack-observations.etf",
+          "Sha256": "96AB993BD7954A4E8312208A6BD74B150A7BE720970D66EB21EC1F68AC07C915"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_ends_left/ebin/proplists_observation_worker.beam",
+          "Sha256": "A27E1046C610DBFF434E2C50F73004623EEB0E96A8103BEF380FF1485BCC432B"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_ends_left/ebin/queue_all368_queue_ends_left.beam",
+          "Sha256": "C30332F9D6A124FB11B36E9461D80CA0B7AFCE2F6B77FB35E7F43A92FFCB4734"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_ends_left/ebin/queue_all368_support.beam",
+          "Sha256": "ED105B8C25D566B5C05C2A14A1828E23273D152528BADE9895BEA46F947C5ABF"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_ends_right/compile.process.json",
+          "Sha256": "08019C70B5E34D9AACB9B4EB2578A919B5E4C33ACAE23B0C1BA050032EAC3745"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_ends_right/compile.stage.json",
+          "Sha256": "21563FBA4F9174B47EE23093B9DE84B0F2DA5CC4BE51AFAA0AB62E694AEC9F01"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_ends_right/metadata.etf",
+          "Sha256": "1496D37EDD87709E1688EB5A3550D10815C5D9FF9D1C9A40C461B0EF46831431"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_ends_right/observe.process.json",
+          "Sha256": "66AE478E3A433DDD336D45D84D3C1148F60BC7AF9F41D55FA3D84F77A69A665D"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_ends_right/observe.stage.json",
+          "Sha256": "19B7D377FAA712269AC873473C1E4376D826525D30431C7F46A601185DA7FDAB"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_ends_right/queue-loaded.beam",
+          "Sha256": "759B1FE208F8A0DE292147EB00FFCE98F929263ADCFCD4AABB485E3B3EB4538D"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_ends_right/returned.etf",
+          "Sha256": "D90C52A059DBEE8E91E9E6FFC58F7767827268A9A016C07FEC0C33B394A9B14C"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_ends_right/stack-observations.etf",
+          "Sha256": "1DABF2D8DFFCC673B45DEE5F14FFCA07B4467D029E5C4917671B4E55E99AC064"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_ends_right/ebin/proplists_observation_worker.beam",
+          "Sha256": "A27E1046C610DBFF434E2C50F73004623EEB0E96A8103BEF380FF1485BCC432B"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_ends_right/ebin/queue_all368_queue_ends_right.beam",
+          "Sha256": "164D605584CE381E9F8099F98190ABF7CE850E714C7AAA366E5A5CFD7988F7FD"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_ends_right/ebin/queue_all368_support.beam",
+          "Sha256": "ED105B8C25D566B5C05C2A14A1828E23273D152528BADE9895BEA46F947C5ABF"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_structural/compile.process.json",
+          "Sha256": "C2A429DA6DF48C0E061F2B7A65C4BC6449FF7C226F8221C4F8512850E0E6687F"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_structural/compile.stage.json",
+          "Sha256": "82F766E8819C69E8130842A963DCEC718A507BDF3BDA3C0E1F43B50BD8B64175"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_structural/metadata.etf",
+          "Sha256": "7D50657DD01ABBBD7D5AA971D1FF242DA671E9D27E2BA7089181F431CE34A4AA"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_structural/observe.process.json",
+          "Sha256": "A6D5273A709951FAD43F4FCE77E7613C690F39D59A9255F3C66576C6AFFA6157"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_structural/observe.stage.json",
+          "Sha256": "4F9780F505E0E81EC25B180329218353A58C66A8DB5CC77BDA3DCC6738260F68"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_structural/queue-loaded.beam",
+          "Sha256": "759B1FE208F8A0DE292147EB00FFCE98F929263ADCFCD4AABB485E3B3EB4538D"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_structural/returned.etf",
+          "Sha256": "6C97FDC3384EE8D2DB3BEC55BCE8C853C32946982F86AFA144CA053F5E2703C5"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_structural/stack-observations.etf",
+          "Sha256": "40ABC80AFE5479705204DABE559A62C7A0FDAAF4764141DCBBEF0F6AA165E7B9"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_structural/ebin/proplists_observation_worker.beam",
+          "Sha256": "A27E1046C610DBFF434E2C50F73004623EEB0E96A8103BEF380FF1485BCC432B"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_structural/ebin/queue_all368_queue_structural.beam",
+          "Sha256": "66F68CDBE50FE307B00759628F4060BBC5AA68BF2BB429B0241242094BCDC57E"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_structural/ebin/queue_all368_support.beam",
+          "Sha256": "ED105B8C25D566B5C05C2A14A1828E23273D152528BADE9895BEA46F947C5ABF"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_callbacks/compile.process.json",
+          "Sha256": "1FC582C7AB2AB39963E30AF058F9CC972FF2ABCC26349D447F50F7E9E602E8CC"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_callbacks/compile.stage.json",
+          "Sha256": "FAFDF7668EA96E935F6454D0D2C9803F9130BD4DCA6A7FEBB2E3108ECEFA7040"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_callbacks/metadata.etf",
+          "Sha256": "D2C82CFB8EC75136764A48B550235481A417AEE2CBB355EAFE207CCE469C7E49"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_callbacks/observe.process.json",
+          "Sha256": "C2917574427F3F67C9B47D7C8F56C91B2DF856FD2404CC139133361FE9D5937B"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_callbacks/observe.stage.json",
+          "Sha256": "8B846114D67502C6DE739CA3019F47186AB587884131318E6FB12ABADE69A80C"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_callbacks/queue-loaded.beam",
+          "Sha256": "759B1FE208F8A0DE292147EB00FFCE98F929263ADCFCD4AABB485E3B3EB4538D"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_callbacks/returned.etf",
+          "Sha256": "CB67249591342A22611E35D4F1C5399E2A02C032DD9625385F6055C12BDAB5E1"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_callbacks/stack-observations.etf",
+          "Sha256": "A31CD1D975FE6F20EFF985BCAB138E915B3BC84D30443F9ADE6440A35B3894ED"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_callbacks/ebin/proplists_observation_worker.beam",
+          "Sha256": "A27E1046C610DBFF434E2C50F73004623EEB0E96A8103BEF380FF1485BCC432B"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_callbacks/ebin/queue_all368_queue_callbacks.beam",
+          "Sha256": "19988064289034AB11AE11A05A1C141BF51376BEF251B78FD1589507BF9B6DFB"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_callbacks/ebin/queue_all368_support.beam",
+          "Sha256": "ED105B8C25D566B5C05C2A14A1828E23273D152528BADE9895BEA46F947C5ABF"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_reverse_ends/compile.process.json",
+          "Sha256": "759E19BD2BF65BD813B6072650019B71D09D48A5C670E0ACC2069E3C1818964C"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_reverse_ends/compile.stage.json",
+          "Sha256": "0749237BFED936C890C58852125D3B8B2DD74A21407621F99AC4BDA1179A4628"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_reverse_ends/metadata.etf",
+          "Sha256": "B455B50D75D955F9F5DC55A8622DCE9984DE17376FEFA07D88F620A23EF7CFAB"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_reverse_ends/observe.process.json",
+          "Sha256": "84D16B367BD11CBECE083AAC576AA9CE7FE9DC48680E419A29C735A341E4FBD4"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_reverse_ends/observe.stage.json",
+          "Sha256": "FEFE46B7FE77EF54C08E2AB8357E40F6388FBB20825BD6EDB342313684C011EA"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_reverse_ends/queue-loaded.beam",
+          "Sha256": "759B1FE208F8A0DE292147EB00FFCE98F929263ADCFCD4AABB485E3B3EB4538D"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_reverse_ends/returned.etf",
+          "Sha256": "AFF5FAAEE11D572DF7A492144FA08E6BFA30CFCD3B92BE2B146AEEEDAA070515"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_reverse_ends/stack-observations.etf",
+          "Sha256": "2ED4E5BD301959D86C186B4620560E83FF77088C1D18469B3DBB2A8DDED818DD"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_reverse_ends/ebin/proplists_observation_worker.beam",
+          "Sha256": "A27E1046C610DBFF434E2C50F73004623EEB0E96A8103BEF380FF1485BCC432B"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_reverse_ends/ebin/queue_all368_long_reverse_ends.beam",
+          "Sha256": "876872890960118B9F662AF921DBDE43F9655C9E407D4692FE96AAB9CA43C609"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_reverse_ends/ebin/queue_all368_support.beam",
+          "Sha256": "ED105B8C25D566B5C05C2A14A1828E23273D152528BADE9895BEA46F947C5ABF"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_member/compile.process.json",
+          "Sha256": "7540DA9823DF8A2767B69671268E389B74E3DB59FFFBC780439CB78636889F58"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_member/compile.stage.json",
+          "Sha256": "AC0FF7623816993BBAD8E6BFBC269151F4A82B2C9291814C0E9382D16A29A0EA"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_member/metadata.etf",
+          "Sha256": "EC9BEDCFA74B6A03C94C45BE3DE765809B6143475AB24B696F5E967461DF808E"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_member/observe.process.json",
+          "Sha256": "3654ABF0912685C468FE28C26A173178DEE2E3EAAF13796A3D91E966D436481A"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_member/observe.stage.json",
+          "Sha256": "296978CA909B3E7082C3F8A73F0B3458687F45FAE1E2847377C7AB8046E3FFDF"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_member/queue-loaded.beam",
+          "Sha256": "759B1FE208F8A0DE292147EB00FFCE98F929263ADCFCD4AABB485E3B3EB4538D"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_member/returned.etf",
+          "Sha256": "B8670876FA3ABAB53D421A1B553EB1D1E8CA4F85C751E114071D1B33B3E09201"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_member/stack-observations.etf",
+          "Sha256": "396AC6C27CCBC203BDC768480E143D00248AD3C26031963467A9395A80C1EB5D"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_member/ebin/proplists_observation_worker.beam",
+          "Sha256": "A27E1046C610DBFF434E2C50F73004623EEB0E96A8103BEF380FF1485BCC432B"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_member/ebin/queue_all368_long_member.beam",
+          "Sha256": "F32A87F18C53A1D442D5F6BB285CBD7F4C16180D4BCB84A775C616F5ADB11E84"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_member/ebin/queue_all368_support.beam",
+          "Sha256": "ED105B8C25D566B5C05C2A14A1828E23273D152528BADE9895BEA46F947C5ABF"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_split/compile.process.json",
+          "Sha256": "F95F01E96EE1C33ABB65EFD7F61A8918A0494258804E0F74107A7486ACFE612C"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_split/compile.stage.json",
+          "Sha256": "9C20997A66F1C3FFCE44856F59E0922B9B0268E7E7C685A532E39C07C650130A"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_split/metadata.etf",
+          "Sha256": "C30869EFDDCE230BAD927A4EBEADB9C80672F6679DEE4A8733A9E15E17627A2A"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_split/observe.process.json",
+          "Sha256": "A433A627C9BDA0A3EF0B5B39B579C8009478697CE3FABBAE0C15B6053CE75639"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_split/observe.stage.json",
+          "Sha256": "2B6077A45DCB229F19DC092514C0AF0891D38A043264C8DDE818B022010A90E9"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_split/queue-loaded.beam",
+          "Sha256": "759B1FE208F8A0DE292147EB00FFCE98F929263ADCFCD4AABB485E3B3EB4538D"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_split/returned.etf",
+          "Sha256": "084EA4B1EC6AAEB6CE3859BD935BCFCFE23A0B2EFD1E649D72CD8C39C876E719"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_split/stack-observations.etf",
+          "Sha256": "87A4E7AA1A2D3061F8026191343E8C21E67AA3DB4516EFB0137826F91E26BFB0"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_split/ebin/proplists_observation_worker.beam",
+          "Sha256": "A27E1046C610DBFF434E2C50F73004623EEB0E96A8103BEF380FF1485BCC432B"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_split/ebin/queue_all368_long_split.beam",
+          "Sha256": "34A6D95D9815D9E359E24C0705E59B86B82E1B4FB7821960D8D58D2584F48487"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_split/ebin/queue_all368_support.beam",
+          "Sha256": "ED105B8C25D566B5C05C2A14A1828E23273D152528BADE9895BEA46F947C5ABF"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_last/compile.process.json",
+          "Sha256": "83767867C115D2F1DDA8ECF64E760630198C35ED5231FF16778BC3343F5C7D27"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_last/compile.stage.json",
+          "Sha256": "FCD9A27E85949E47678B4728B7A1FB198D28EAA3CFFC188E519FC162D195A97F"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_last/metadata.etf",
+          "Sha256": "2F426626E6A2DA8096216A745F90BBAC2210367E7758B16A0192BA561A5F3D21"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_last/observe.process.json",
+          "Sha256": "3C55200DAF24461FC687474FE6A2C95575C24BBDF32E4BC6C39D5606354BB426"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_last/observe.stage.json",
+          "Sha256": "836A5C0221B90ABDF6CF0C55F6FF5F9F7D1145E54392C9AC902A6C132E18336F"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_last/queue-loaded.beam",
+          "Sha256": "759B1FE208F8A0DE292147EB00FFCE98F929263ADCFCD4AABB485E3B3EB4538D"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_last/returned.etf",
+          "Sha256": "207904220C95F09DB9B235C1A4313E610565769540F10C9C56334ACC4D5AA057"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_last/stack-observations.etf",
+          "Sha256": "88B4687BECF4F4D0F3FA55C427F8C13D5149EDE35BDF115DC7D8712CD30231E9"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_last/ebin/proplists_observation_worker.beam",
+          "Sha256": "A27E1046C610DBFF434E2C50F73004623EEB0E96A8103BEF380FF1485BCC432B"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_last/ebin/queue_all368_long_last.beam",
+          "Sha256": "C617E2181FCC056441D13F4624825EA77F799A10C17F55A12AF13E2EE567E3C6"
+        },
+        {
+          "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/long_last/ebin/queue_all368_support.beam",
+          "Sha256": "ED105B8C25D566B5C05C2A14A1828E23273D152528BADE9895BEA46F947C5ABF"
+        }
+      ]
+    },
+    {
+      "Name": "queue-core",
+      "Harness": "artifacts/queue-integration368/main-capture",
+      "HarnessSha256": "5D294EC9C919658CC5ACBD67EBAB97BA652D9321CEAB80CDE92302F53E53A34A",
+      "HarnessSource": [
+        {
+          "Path": "artifacts/queue-integration368/main-capture/FamilyCaptureNames.cs",
+          "Sha256": "365E8EB982954AEBE13898BE372ABFB4456CECA62D5FA77B931533F9AD727901"
+        },
+        {
+          "Path": "artifacts/queue-integration368/main-capture/FamilyRuntimeMetadataNames.cs",
+          "Sha256": "2BEA4A524E9BC271DEB80AA75A77E0DCC2CA8E6C2A554DB8DEB663FB312373FE"
+        },
+        {
+          "Path": "artifacts/queue-integration368/main-capture/MainCapture.csproj",
+          "Sha256": "44D165E307115962CAE247C3BE395E4234702048016249F7996F640F5EBE8E4F"
+        },
+        {
+          "Path": "artifacts/queue-integration368/main-capture/Program.cs",
+          "Sha256": "E1D41BBA7B129A4F1BE33483D33BE4A1DBA70074DAEB6680C45763F0A73F5015"
+        },
+        {
+          "Path": "artifacts/queue-integration368/main-capture/SourceFunctionObservation.cs",
+          "Sha256": "3F2F947079CEF8180C593D515F15F9B470DB51014F28F071149393136B4A64C6"
+        },
+        {
+          "Path": "artifacts/queue-integration368/main-capture/SourceFunctionObservationNames.cs",
+          "Sha256": "373446831DD4AD78A3D572D0EA0F5CE45B002C4A3782A919359B212BBCACFBC9"
+        }
+      ],
+      "Tool": "artifacts/queue-original367-original1/tool",
+      "ProfileSha256": "EEEC735B8B5BADD36901536ECDA1FF365C87304CBC9258F9C24A356A8AE5BF1E",
+      "Sources": [
+        {
+          "Path": "original/proplists_observation_worker.erl",
+          "Location": "tool",
+          "Sha256": "34B743EB95A5937058AB8F208A1FB17C6ACED20AF7E08398EF6D154F574546BC",
+          "Bytes": 1038
+        },
+        {
+          "Path": "original/queue_core_contract.erl",
+          "Location": "tool",
+          "Sha256": "A154FA54B05D56A0F442B4CCBFAFAA8CE8D5C8FEA67017EA582B7FCCFEA45DC2",
+          "Bytes": 16933
+        },
+        {
+          "Path": "original/queue_core_empty.erl",
+          "Location": "tool",
+          "Sha256": "637087C81FA2E195CF4C70C4374D923C5828D4D94C29D951E492DC4BC5453E02",
+          "Bytes": 194
+        },
+        {
+          "Path": "original/queue_core_errors.erl",
+          "Location": "tool",
+          "Sha256": "01C6ED4A754D3C81A153C6E55800A8242AEE9D1F95A6A8B8747DCF59216839AB",
+          "Bytes": 549
+        },
+        {
+          "Path": "original/queue_core_heterogeneous.erl",
+          "Location": "tool",
+          "Sha256": "E30BC7C9D07EC9481FCF330FC3F47FA70E5A1638FE54B6C63A5E5EBAABAEA9C8",
+          "Bytes": 217
+        },
+        {
+          "Path": "original/queue_core_improper.erl",
+          "Location": "tool",
+          "Sha256": "7DCC2C5C58323DCE7AC1E6950CD2B5113A09F6C7AE1BF7F9FE6BD13765293928",
+          "Bytes": 542
+        },
+        {
+          "Path": "original/queue_core_observe.erl",
+          "Location": "tool",
+          "Sha256": "A84D651049C61528D3034D40D522E6023A43AF95927CF8B03295BEFC5FE1B1B9",
+          "Bytes": 799
+        },
+        {
+          "Path": "original/queue_core_ordering.erl",
+          "Location": "tool",
+          "Sha256": "4059C3BD555C66C1F181E02FC2C2C84DB13DE78E90D836D01D29EFAAF1E9C2CE",
+          "Bytes": 323
+        },
+        {
+          "Path": "original/queue_core_persistence.erl",
+          "Location": "tool",
+          "Sha256": "41E074A8C277EF5AC61ADD9A0A417F2ADFE67C7FDA0BA8755C2E76153D51E5C6",
+          "Bytes": 248
+        },
+        {
+          "Path": "original/queue_core_raw_shapes.erl",
+          "Location": "tool",
+          "Sha256": "CDD1AA66626A95B2DA0C876381DD962FDA2239C2F28D2A89E4BB83D3EB500DB6",
+          "Bytes": 254
+        },
+        {
+          "Path": "original/queue_core_representation.erl",
+          "Location": "tool",
+          "Sha256": "F146B1DAF861505799DD18158B99FF67527BAF286A8AFAF14E3F631C182A32A8",
+          "Bytes": 259
+        }
+      ],
+      "Timeout": 300,
+      "Fixtures": [
+        {
+          "Id": "queue_core",
+          "Cases": 160
+        }
+      ],
+      "Native": "artifacts/queue-original367-original1/download/run-39071324870/artifact-12114654364/capture",
+      "NativeHead": "1076e28999f314ef926475dd3c674657502d726b",
+      "NativeFiles": [
+        {
+          "Path": "artifacts/queue-original367-original1/download/run-39071324870/artifact-12114654364/capture/completion.json",
+          "Sha256": "2CE351CBED6ED8A1C19D97F8E8DC3E6A607878C500B1206596C69FCB48E427D7"
+        },
+        {
+          "Path": "artifacts/queue-original367-original1/download/run-39071324870/artifact-12114654364/capture/queue_core/compile.process.json",
+          "Sha256": "333E00885AE43E4B4D2DE262F4DDC5CFD7A534D8C9BC0900B717B2E34B446ACD"
+        },
+        {
+          "Path": "artifacts/queue-original367-original1/download/run-39071324870/artifact-12114654364/capture/queue_core/compile.stage.json",
+          "Sha256": "C81818040A4BFA77B85F38E5B9734F8C175A40A2CA9ABC31F9398F662A4CBCA9"
+        },
+        {
+          "Path": "artifacts/queue-original367-original1/download/run-39071324870/artifact-12114654364/capture/queue_core/metadata.etf",
+          "Sha256": "3F62E56A58D177B06937DBB0EA882BC8E89EE178D9F7CB4D1AED8C4AD5503F37"
+        },
+        {
+          "Path": "artifacts/queue-original367-original1/download/run-39071324870/artifact-12114654364/capture/queue_core/observe.process.json",
+          "Sha256": "8A99E6BF9ABB1A99723303B09D8515D1CB29B455CFFDDD39BC8FB557D6BEAFD3"
+        },
+        {
+          "Path": "artifacts/queue-original367-original1/download/run-39071324870/artifact-12114654364/capture/queue_core/observe.stage.json",
+          "Sha256": "6CAE625FEC2E51782FFFBF9721208DBA7358B9E1B9EF55BD80035E66C70E0266"
+        },
+        {
+          "Path": "artifacts/queue-original367-original1/download/run-39071324870/artifact-12114654364/capture/queue_core/queue-loaded.beam",
+          "Sha256": "759B1FE208F8A0DE292147EB00FFCE98F929263ADCFCD4AABB485E3B3EB4538D"
+        },
+        {
+          "Path": "artifacts/queue-original367-original1/download/run-39071324870/artifact-12114654364/capture/queue_core/returned.etf",
+          "Sha256": "07A3AACBAB37672D6BD621786B9D4C261E3640303FA19195C5B3AD6407ADBED1"
+        },
+        {
+          "Path": "artifacts/queue-original367-original1/download/run-39071324870/artifact-12114654364/capture/queue_core/stack-observations.etf",
+          "Sha256": "C6F014F3CF23A9BDDD1F419764BF124C0F16C5FB55F09AC325BC611F0DE882B8"
+        },
+        {
+          "Path": "artifacts/queue-original367-original1/download/run-39071324870/artifact-12114654364/capture/queue_core/ebin/proplists_observation_worker.beam",
+          "Sha256": "A27E1046C610DBFF434E2C50F73004623EEB0E96A8103BEF380FF1485BCC432B"
+        },
+        {
+          "Path": "artifacts/queue-original367-original1/download/run-39071324870/artifact-12114654364/capture/queue_core/ebin/queue_core_contract.beam",
+          "Sha256": "1CF3F6A2C3280088D444D5C7575738D8E9ED337EAF74850BBC06755DBBE5E959"
+        },
+        {
+          "Path": "artifacts/queue-original367-original1/download/run-39071324870/artifact-12114654364/capture/queue_core/ebin/queue_core_empty.beam",
+          "Sha256": "7D8B25DEBEACA0B57B6A44D09F9D318CA0DE48FC662D82F0D77D0D229797BE4F"
+        },
+        {
+          "Path": "artifacts/queue-original367-original1/download/run-39071324870/artifact-12114654364/capture/queue_core/ebin/queue_core_errors.beam",
+          "Sha256": "5EE7CF164A33B90E6806B112B093BFEC0DEB03D42144906B6D13C509E071E62A"
+        },
+        {
+          "Path": "artifacts/queue-original367-original1/download/run-39071324870/artifact-12114654364/capture/queue_core/ebin/queue_core_heterogeneous.beam",
+          "Sha256": "2037F2BEDE66D384BE9AFAA08C5D491E4EB3AE0D6BDCB200E8BBABDB81F5276F"
+        },
+        {
+          "Path": "artifacts/queue-original367-original1/download/run-39071324870/artifact-12114654364/capture/queue_core/ebin/queue_core_improper.beam",
+          "Sha256": "023E1C35F64246D0D153036464E8F99EAE563AAEDC68274E0C6FEC15A9FFF6E3"
+        },
+        {
+          "Path": "artifacts/queue-original367-original1/download/run-39071324870/artifact-12114654364/capture/queue_core/ebin/queue_core_observe.beam",
+          "Sha256": "0877C993B00200EEADCC2B02D31B215D7B11EF3CAD6043109F4A1C7487F54A9F"
+        },
+        {
+          "Path": "artifacts/queue-original367-original1/download/run-39071324870/artifact-12114654364/capture/queue_core/ebin/queue_core_ordering.beam",
+          "Sha256": "0D9FD7E342FA815817F964B573774110AF11A67D2E1B6C504F651A7FAD77BEE4"
+        },
+        {
+          "Path": "artifacts/queue-original367-original1/download/run-39071324870/artifact-12114654364/capture/queue_core/ebin/queue_core_persistence.beam",
+          "Sha256": "784A65A1FE4C6775702C34F16C84B8F408EF0E01932436DD7CCFAF5ACF168C00"
+        },
+        {
+          "Path": "artifacts/queue-original367-original1/download/run-39071324870/artifact-12114654364/capture/queue_core/ebin/queue_core_raw_shapes.beam",
+          "Sha256": "01F535A486EEF79FCCDA7A3CD49CEBEF36C025313B3DF752CA0C55659BD0CEE3"
+        },
+        {
+          "Path": "artifacts/queue-original367-original1/download/run-39071324870/artifact-12114654364/capture/queue_core/ebin/queue_core_representation.beam",
+          "Sha256": "4C4B38436612FAB3914110820B7CFF405A62B5573A43C80FD4BF65166B0741AE"
+        }
+      ]
+    },
+    {
+      "Name": "queue-long",
+      "Harness": "artifacts/queue-integration368/main-capture",
+      "HarnessSha256": "5D294EC9C919658CC5ACBD67EBAB97BA652D9321CEAB80CDE92302F53E53A34A",
+      "HarnessSource": [
+        {
+          "Path": "artifacts/queue-integration368/main-capture/FamilyCaptureNames.cs",
+          "Sha256": "365E8EB982954AEBE13898BE372ABFB4456CECA62D5FA77B931533F9AD727901"
+        },
+        {
+          "Path": "artifacts/queue-integration368/main-capture/FamilyRuntimeMetadataNames.cs",
+          "Sha256": "2BEA4A524E9BC271DEB80AA75A77E0DCC2CA8E6C2A554DB8DEB663FB312373FE"
+        },
+        {
+          "Path": "artifacts/queue-integration368/main-capture/MainCapture.csproj",
+          "Sha256": "44D165E307115962CAE247C3BE395E4234702048016249F7996F640F5EBE8E4F"
+        },
+        {
+          "Path": "artifacts/queue-integration368/main-capture/Program.cs",
+          "Sha256": "E1D41BBA7B129A4F1BE33483D33BE4A1DBA70074DAEB6680C45763F0A73F5015"
+        },
+        {
+          "Path": "artifacts/queue-integration368/main-capture/SourceFunctionObservation.cs",
+          "Sha256": "3F2F947079CEF8180C593D515F15F9B470DB51014F28F071149393136B4A64C6"
+        },
+        {
+          "Path": "artifacts/queue-integration368/main-capture/SourceFunctionObservationNames.cs",
+          "Sha256": "373446831DD4AD78A3D572D0EA0F5CE45B002C4A3782A919359B212BBCACFBC9"
+        }
+      ],
+      "Tool": "artifacts/queue-original367-original2/tool",
+      "ProfileSha256": "E9EC23DDA51F94D9E19F1DAA39169107E5B6AC4C4CCDBBB4D13950D195722EB3",
+      "Sources": [
+        {
+          "Path": "original/proplists_observation_worker.erl",
+          "Location": "tool",
+          "Sha256": "34B743EB95A5937058AB8F208A1FB17C6ACED20AF7E08398EF6D154F574546BC",
+          "Bytes": 1038
+        },
+        {
+          "Path": "original/queue_long_trap_contract.erl",
+          "Location": "tool",
+          "Sha256": "4E9A935C54769F254BA410A054F6FCA12298904FAC67B32B8A730801BDF1E189",
+          "Bytes": 2349
+        }
+      ],
+      "Timeout": 300,
+      "Fixtures": [
+        {
+          "Id": "reverse_direct",
+          "Cases": 2
+        },
+        {
+          "Id": "queue_to_list",
+          "Cases": 2
+        },
+        {
+          "Id": "queue_out",
+          "Cases": 2
+        },
+        {
+          "Id": "trap_controls",
+          "Cases": 5
+        }
+      ],
+      "Native": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture",
+      "NativeHead": "230eb081348a0c2b5056707b71c8b0086fe42b0c",
+      "NativeFiles": [
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/completion.json",
+          "Sha256": "09090AA99C1F6486D08F00480303080872534CA37AA0EC2C0EA8EF7F42F74672"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/reverse_direct/compile.process.json",
+          "Sha256": "A91C15D466BE2373779488B96F98C259372D393F4D495571AEAB23757ACC8273"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/reverse_direct/compile.stage.json",
+          "Sha256": "FBD5000A447E2A9CE5481B31BD724445FF25534599E71043BB729EED19B55E7C"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/reverse_direct/metadata.etf",
+          "Sha256": "8670DBF1C05F44134C4194D1EE152A7D8F6E700D77C839C6950CEF0D452ED9AC"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/reverse_direct/observe.process.json",
+          "Sha256": "334075F937EEB763F6ADDD1E82664823B34F20A2ABB5E9E8524DE52CE6EDEF34"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/reverse_direct/observe.stage.json",
+          "Sha256": "4C04A665940B2FCE556F41AC05F7BF2C3B8C83056B688085D03ACB84C21A2069"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/reverse_direct/queue-loaded.beam",
+          "Sha256": "759B1FE208F8A0DE292147EB00FFCE98F929263ADCFCD4AABB485E3B3EB4538D"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/reverse_direct/returned.etf",
+          "Sha256": "6C6213BE5E3CC9301EFCF01DD11EF063E02ED32232CCDE4A164B1426DF28B963"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/reverse_direct/stack-observations.etf",
+          "Sha256": "E3C7F3D56C06F27A6373CB99B32793A6A06D56ECF5AA3952C0259981860CCDF5"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/reverse_direct/ebin/proplists_observation_worker.beam",
+          "Sha256": "A27E1046C610DBFF434E2C50F73004623EEB0E96A8103BEF380FF1485BCC432B"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/reverse_direct/ebin/queue_long_trap_contract.beam",
+          "Sha256": "B1A88D8343CC0D95F98778FEEE16E45963216ED741EA91EF8773245F02DE6B85"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/queue_to_list/compile.process.json",
+          "Sha256": "CACDF2C4A412D401EC7657A9014E8A091048997FB71C5213A41C3BA080DDD784"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/queue_to_list/compile.stage.json",
+          "Sha256": "F14EE39135BC3C274F931690A5F822251F139E7B6E0CA8AA98E4248BF862E95B"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/queue_to_list/metadata.etf",
+          "Sha256": "7DF1C72C9967C35F511A68E478C65449A090C40212E67BCC5D6A02DFF6C532DC"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/queue_to_list/observe.process.json",
+          "Sha256": "97FA74DF087B0A743E2ED93DBA96342984BDD5756353F50145F31035DCED341E"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/queue_to_list/observe.stage.json",
+          "Sha256": "59ADD7D24EA6AC98358D8FA2ADDCCF9A0DB555573B77E4BCF7AE62BDD4E2C9C6"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/queue_to_list/queue-loaded.beam",
+          "Sha256": "759B1FE208F8A0DE292147EB00FFCE98F929263ADCFCD4AABB485E3B3EB4538D"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/queue_to_list/returned.etf",
+          "Sha256": "0123FB6A03CA84FAEFAFD390C1C307B9613FFAA2194F2669E75AC19B48AB6EBB"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/queue_to_list/stack-observations.etf",
+          "Sha256": "793B2088455342347488D38238584CAE14FD133145DB0E17D26AB871C4C6AC81"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/queue_to_list/ebin/proplists_observation_worker.beam",
+          "Sha256": "A27E1046C610DBFF434E2C50F73004623EEB0E96A8103BEF380FF1485BCC432B"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/queue_to_list/ebin/queue_long_trap_contract.beam",
+          "Sha256": "B1A88D8343CC0D95F98778FEEE16E45963216ED741EA91EF8773245F02DE6B85"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/queue_out/compile.process.json",
+          "Sha256": "2C1608711FA4D31BE0EF45FE0FB2D7F4C908C1C91A868CDB5E4E25CF0AE11E1C"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/queue_out/compile.stage.json",
+          "Sha256": "105AB3B36C0CF1B6CC108BC2C8B5D27B254888179E11EE51C63508DB6E085566"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/queue_out/metadata.etf",
+          "Sha256": "EE2CE5471112993BF7EA8088977076BFABA95AC15556B5B6BC096245388FD986"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/queue_out/observe.process.json",
+          "Sha256": "7FF5D40B80412A5402E22FE1D4062817C938B6EED265F9D7E50106BE4F78F6C8"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/queue_out/observe.stage.json",
+          "Sha256": "99B9B22A1AB24861A6F90EF5650A2DD75D0B07E29968704E61A6630B0FBF834D"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/queue_out/queue-loaded.beam",
+          "Sha256": "759B1FE208F8A0DE292147EB00FFCE98F929263ADCFCD4AABB485E3B3EB4538D"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/queue_out/returned.etf",
+          "Sha256": "C4D23965A815134FC0A3A179EE3FB5767FF423165933CC117D9B77A8269C2509"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/queue_out/stack-observations.etf",
+          "Sha256": "D394E82163C5A9FA1D8AC5478F13537AF923727DEBB6E19F720DE2F831839D81"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/queue_out/ebin/proplists_observation_worker.beam",
+          "Sha256": "A27E1046C610DBFF434E2C50F73004623EEB0E96A8103BEF380FF1485BCC432B"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/queue_out/ebin/queue_long_trap_contract.beam",
+          "Sha256": "B1A88D8343CC0D95F98778FEEE16E45963216ED741EA91EF8773245F02DE6B85"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/trap_controls/compile.process.json",
+          "Sha256": "927B73F6C4BB7C10A9762BCC09A8FB45DF5BE7090012DE9D0072CFD8BD9B42EB"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/trap_controls/compile.stage.json",
+          "Sha256": "A66FF8CEBFCB7912652733655D0F1D3F967491B0C705BE6466A5BC23E279C706"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/trap_controls/metadata.etf",
+          "Sha256": "19D36ECC5559E82293FC408F6681C27717C71B41B00275DE100E02CB26F420E6"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/trap_controls/observe.process.json",
+          "Sha256": "72F493662B37D39902CFBB63CEC85000454165D7503B4AD6A32402BD6549038C"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/trap_controls/observe.stage.json",
+          "Sha256": "E143AB71FBF2FC3F7B2C1D743EC308FEAC9C58AF11876702E283B763CA0C3254"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/trap_controls/queue-loaded.beam",
+          "Sha256": "759B1FE208F8A0DE292147EB00FFCE98F929263ADCFCD4AABB485E3B3EB4538D"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/trap_controls/returned.etf",
+          "Sha256": "166ECFAF93C40AA4A1C0E7FE39D95E2F9081306DB423DE38978FC4DDD0657214"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/trap_controls/stack-observations.etf",
+          "Sha256": "EFFF646AA1F3388CCFD98EA032BBC22A326A4EF4625B1D42E9040C8316DDA60A"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/trap_controls/ebin/proplists_observation_worker.beam",
+          "Sha256": "A27E1046C610DBFF434E2C50F73004623EEB0E96A8103BEF380FF1485BCC432B"
+        },
+        {
+          "Path": "artifacts/queue-original367-original2/download/run-39072770120/artifact-12116022082/capture/trap_controls/ebin/queue_long_trap_contract.beam",
+          "Sha256": "B1A88D8343CC0D95F98778FEEE16E45963216ED741EA91EF8773245F02DE6B85"
+        }
+      ]
+    },
+    {
+      "Name": "proplist-base",
+      "Harness": "artifacts/proplists-integration365/main-capture",
+      "HarnessSha256": "08815B017AC84C55C3103391EAE71BB26B93403D7B179DB21668BDB1B12F5D60",
+      "HarnessSource": [
+        {
+          "Path": "artifacts/proplists-integration365/main-capture/FamilyCaptureNames.cs",
+          "Sha256": "365E8EB982954AEBE13898BE372ABFB4456CECA62D5FA77B931533F9AD727901"
+        },
+        {
+          "Path": "artifacts/proplists-integration365/main-capture/FamilyRuntimeMetadataNames.cs",
+          "Sha256": "E7300955EA10AED1E10D80763D70D3EE129E404B89FA22B7DBE5ACE37F096DDB"
+        },
+        {
+          "Path": "artifacts/proplists-integration365/main-capture/MainCapture.csproj",
+          "Sha256": "44D165E307115962CAE247C3BE395E4234702048016249F7996F640F5EBE8E4F"
+        },
+        {
+          "Path": "artifacts/proplists-integration365/main-capture/Program.cs",
+          "Sha256": "E1D41BBA7B129A4F1BE33483D33BE4A1DBA70074DAEB6680C45763F0A73F5015"
+        },
+        {
+          "Path": "artifacts/proplists-integration365/main-capture/SourceFunctionObservation.cs",
+          "Sha256": "3F2F947079CEF8180C593D515F15F9B470DB51014F28F071149393136B4A64C6"
+        },
+        {
+          "Path": "artifacts/proplists-integration365/main-capture/SourceFunctionObservationNames.cs",
+          "Sha256": "F6524A3502A63702D8026E6FA6A2A6A82A0CCD158A0802D97D7A7BB001B7A170"
+        }
+      ],
+      "Tool": "artifacts/proplists-stack-next1/candidate/tools/Erlang.ProplistFamilyObservations",
+      "ProfileSha256": "9667E715AECC20EC9CD9374020482508D5FD1A523B06F737457BCB4859A19E89",
+      "Sources": [
+        {
+          "Path": "original/lc_source_frames_a.erl",
+          "Location": "tool",
+          "Sha256": "9125F3099BBDFA522A07D1AEF6C5E99847199ABC8C1F2EA558A67DC8446964AC",
+          "Bytes": 2039
+        },
+        {
+          "Path": "original/lc_source_frames_b.erl",
+          "Location": "tool",
+          "Sha256": "183AB02D7D5E854EF6162F644CEFBE7AC125783E3FBD74B759899A71D980DF59",
+          "Bytes": 2228
+        },
+        {
+          "Path": "original/proplists_family_capture.erl",
+          "Location": "tool",
+          "Sha256": "EB5B67BD9EDDDEDE9D4BC4B2A2FBBB13758A45738293A237F44FC8881F94EF47",
+          "Bytes": 597
+        },
+        {
+          "Path": "original/proplists_family_probe.erl",
+          "Location": "tool",
+          "Sha256": "720B6DB44B031F1FABBBF694391CD016243B510FD30E620DEE8C4F9FFD5C3D21",
+          "Bytes": 10867
+        },
+        {
+          "Path": "original/proplists_fun_semantics.erl",
+          "Location": "tool",
+          "Sha256": "E8FF34EFAA501C7B8A341EA4C89173EDA64F5711BDBED827F3C51700DB982F15",
+          "Bytes": 3291
+        },
+        {
+          "Path": "original/proplists_long_tail_frames.erl",
+          "Location": "tool",
+          "Sha256": "39D64FF761D5C8C51759D4F6B6EBD1C74BE1F5F881864766650C4FBFBA5E21FE",
+          "Bytes": 1233
+        },
+        {
+          "Path": "original/proplists_observation_worker.erl",
+          "Location": "tool",
+          "Sha256": "34B743EB95A5937058AB8F208A1FB17C6ACED20AF7E08398EF6D154F574546BC",
+          "Bytes": 1038
+        },
+        {
+          "Path": "tools/Erlang.ProplistGetValueObservations/original/proplist_get_value_contract.erl",
+          "Location": "repository",
+          "Sha256": "0E10E30B9CAF8BE69A1CA4918DB06C5A11E414D734E7D4AE2F06EAA988093CE6",
+          "Bytes": 11007
+        }
+      ],
+      "Timeout": 240,
+      "Fixtures": [
+        {
+          "Id": "family148",
+          "Cases": 148
+        },
+        {
+          "Id": "old59",
+          "Cases": 59
+        },
+        {
+          "Id": "fun_semantics",
+          "Cases": 20
+        },
+        {
+          "Id": "lc_source_frames_a",
+          "Cases": 16
+        },
+        {
+          "Id": "lc_source_frames_b",
+          "Cases": 16
+        },
+        {
+          "Id": "proplists_long_tail_frames",
+          "Cases": 8
+        }
+      ],
+      "Native": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture",
+      "NativeHead": "5658140879bf9fb5730a6cefa73dd6aed096e001",
+      "NativeFiles": [
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/completion.json",
+          "Sha256": "BB3908287F48D6A534F25509771DBD7DDF53F7C864F4D7271C82D61A2A348E83"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/family148/compile.process.json",
+          "Sha256": "4F7B0477A18A10E42886D3D6A97852A9273018B62A0F0CD071F2438825A431BC"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/family148/compile.stage.json",
+          "Sha256": "6059B062E5E36E51FCC85BDE31281A225D2555C2450F6F1E274B0D217512D8D5"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/family148/metadata.etf",
+          "Sha256": "2E5A61DF7AE24ABB0F86E1B7515AF1C7D71935A380E3D11A52EB085D3A9AB8DD"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/family148/observe.process.json",
+          "Sha256": "3F935CDCA1BC6BFADD1D05C18370B2AB2BE23E7CFD9A9B8EFD2A3EE6BD9FD579"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/family148/observe.stage.json",
+          "Sha256": "CBD4879CDD86E21C2D70435ADE9EE174CDFB46957546475E3E7CC6D3B298B8EC"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/family148/proplists-loaded.beam",
+          "Sha256": "7663F2E30544DB03BACFD47A1BFCB93447B53FAB3E528DD47B77C25B4925BAEC"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/family148/returned.etf",
+          "Sha256": "27F51A5E2FA34DECEAACF0EC237BFDB8689EA79A4C3C61CCE9429D526F063E21"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/family148/stack-observations.etf",
+          "Sha256": "D710D26263FAD1E723B9969C698007AA7934533310D9A66903C23265181A7171"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/family148/ebin/proplists_family_capture.beam",
+          "Sha256": "F6CA7E791A1B84B6A788B618F8021F0AB04EE56AB10DE7E7AFE49E4273DD0E59"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/family148/ebin/proplists_family_probe.beam",
+          "Sha256": "7D03CE6121B0E22FE3057A5F35EEE9E3F54D3537E933DC221C05E20B29F43141"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/family148/ebin/proplists_observation_worker.beam",
+          "Sha256": "A27E1046C610DBFF434E2C50F73004623EEB0E96A8103BEF380FF1485BCC432B"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/old59/compile.process.json",
+          "Sha256": "B56111DC54B55DC3A086BF0C777F6799D392CF1C2FDD53E4ECAC123438B2FE24"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/old59/compile.stage.json",
+          "Sha256": "EE319ACB1CEF25ACD536001BB21128A6DBD50D8471DA94A7CEAF028B9DBEC2BC"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/old59/metadata.etf",
+          "Sha256": "67007E457FBCC6894D2EAE68B7849A85E880F98764DFA19E3D2DA892B03C683E"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/old59/observe.process.json",
+          "Sha256": "402E0BE185B41F4E0601F2E55BBF72E2DAE85A75FFF29BE55A99728762F68ED7"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/old59/observe.stage.json",
+          "Sha256": "965C0B5376407D067EA0E55EC878847FE9D6CE3E4AD03CED9E7AAAE78E6B3591"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/old59/proplists-loaded.beam",
+          "Sha256": "7663F2E30544DB03BACFD47A1BFCB93447B53FAB3E528DD47B77C25B4925BAEC"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/old59/returned.etf",
+          "Sha256": "88065FCC70FE81C642693984744BEC7F09EF376FE7C4AE6C0BAF5EB13653DA49"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/old59/stack-observations.etf",
+          "Sha256": "7E3E50F08134DF6659AB6831420492CF3473C1FC17D54EBE02A99D580E67D2F2"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/old59/ebin/proplists_observation_worker.beam",
+          "Sha256": "A27E1046C610DBFF434E2C50F73004623EEB0E96A8103BEF380FF1485BCC432B"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/old59/ebin/proplist_get_value_contract.beam",
+          "Sha256": "28F151C89B856C0542DC5C3364C6383FE914592AB4C1BE9C20E099DD55D01988"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/fun_semantics/compile.process.json",
+          "Sha256": "77673DFB9E412A3A6E3C8B406D4FC851C9232CE1C59A4B476E12A4B064B56368"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/fun_semantics/compile.stage.json",
+          "Sha256": "31253C328B83793F5B6C5E44F7976724FF0C33926F38EEA7E5A93BB29F9D5E8D"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/fun_semantics/metadata.etf",
+          "Sha256": "570B51B11164CE6E9CC8D4471289B62A0CB65E839502AD9DD40B167622F01F5A"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/fun_semantics/observe.process.json",
+          "Sha256": "D58EEA588DE61531750849092CD5AEB98155DEC0854EF65B5A88164E09B9F8D4"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/fun_semantics/observe.stage.json",
+          "Sha256": "34F25512759D196BA1C3E010A82DEA65E1A1CCEEEAD085637AB2C2B9E684FE90"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/fun_semantics/proplists-loaded.beam",
+          "Sha256": "7663F2E30544DB03BACFD47A1BFCB93447B53FAB3E528DD47B77C25B4925BAEC"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/fun_semantics/returned.etf",
+          "Sha256": "516E121F2FA516B733CDECF6766234841CA9F7FF00FD61BB24750A95C2F8AF22"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/fun_semantics/stack-observations.etf",
+          "Sha256": "20FFB8F790A3DE35DFC5E051BC5D5E5A4BB1FDF28832C3A49F96D13FF2899592"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/fun_semantics/ebin/proplists_fun_semantics.beam",
+          "Sha256": "AD9374300D14F27AC0E35ED7449E59EB5BE66840B9281C8F9AC4EA939CA7CE8D"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/fun_semantics/ebin/proplists_observation_worker.beam",
+          "Sha256": "A27E1046C610DBFF434E2C50F73004623EEB0E96A8103BEF380FF1485BCC432B"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/lc_source_frames_a/compile.process.json",
+          "Sha256": "94ACD76F6005A4B09DC9DC520F01EFF4E39FA8A753C911D9DDE2C507EDD5EEFB"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/lc_source_frames_a/compile.stage.json",
+          "Sha256": "DD19B9F7455A20A877D8674691572AA60CCE85CF0BC71D7A313A0AC5CC571D9E"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/lc_source_frames_a/metadata.etf",
+          "Sha256": "1D8A9EBC36A622218786C1FB0727752DAF737476B28D5980A76213C107C9ED75"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/lc_source_frames_a/observe.process.json",
+          "Sha256": "12DFD46607CD0E184ABCE892858AAF12C92932193A1931AF2312BD46E8ABA12E"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/lc_source_frames_a/observe.stage.json",
+          "Sha256": "5B40A07772BB5451772AE234CB24A405E9A768D29DD74083096C6131CB8C4BE7"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/lc_source_frames_a/proplists-loaded.beam",
+          "Sha256": "7663F2E30544DB03BACFD47A1BFCB93447B53FAB3E528DD47B77C25B4925BAEC"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/lc_source_frames_a/returned.etf",
+          "Sha256": "9F34706F3A74D198E7472C286025E800305C425F8E32993B0DCFE3AEEFE72C9D"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/lc_source_frames_a/stack-observations.etf",
+          "Sha256": "392C3C83BE8D3BC729363735D7509BF1ECB71CFD06BC92637CB3F9FC4C6A90AA"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/lc_source_frames_a/ebin/lc_source_frames_a.beam",
+          "Sha256": "70E9779785FA68F2012135AAFCE7DA24416C3072E43EED43B9DF1BB1038C99CA"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/lc_source_frames_a/ebin/proplists_observation_worker.beam",
+          "Sha256": "A27E1046C610DBFF434E2C50F73004623EEB0E96A8103BEF380FF1485BCC432B"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/lc_source_frames_b/compile.process.json",
+          "Sha256": "98A8AC1F4BFFEE72615EF1E0996F121983CEBC22BE8F9BF72221C9CF1E73B09E"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/lc_source_frames_b/compile.stage.json",
+          "Sha256": "D3635DA12349A2800699B25B08443D4FA322B028DF2C04CC77249A4CDCFBA497"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/lc_source_frames_b/metadata.etf",
+          "Sha256": "A8D0A25E19DDCF0E18942928DC3AFBF1D2C3E8ED33135DCCBBD2BF0B4483C800"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/lc_source_frames_b/observe.process.json",
+          "Sha256": "BD6A347AC2119C8FD204FCEF27EC37D1375E6CBD91A5A3A8C851AFEB3FB8C9A7"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/lc_source_frames_b/observe.stage.json",
+          "Sha256": "CEAAC730DF09A8714E3603F3488ED696F3812B72D0C11811192203CB00E28888"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/lc_source_frames_b/proplists-loaded.beam",
+          "Sha256": "7663F2E30544DB03BACFD47A1BFCB93447B53FAB3E528DD47B77C25B4925BAEC"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/lc_source_frames_b/returned.etf",
+          "Sha256": "9F34706F3A74D198E7472C286025E800305C425F8E32993B0DCFE3AEEFE72C9D"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/lc_source_frames_b/stack-observations.etf",
+          "Sha256": "011635806A72C003DD7123ED78559A171A5372F13E62FB018A0554E0E81065D0"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/lc_source_frames_b/ebin/lc_source_frames_b.beam",
+          "Sha256": "B8ED1B52C8BFE0A06A373D283FA9DA9B84562F3F6D5C9228E77CA1CFD2A73103"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/lc_source_frames_b/ebin/proplists_observation_worker.beam",
+          "Sha256": "A27E1046C610DBFF434E2C50F73004623EEB0E96A8103BEF380FF1485BCC432B"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/proplists_long_tail_frames/compile.process.json",
+          "Sha256": "BC65F10C6D7C79C952A4BD9ED527C015B3FC79FCB022A1C24020517212D5DE0B"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/proplists_long_tail_frames/compile.stage.json",
+          "Sha256": "FAF806B32BFD3FF91507BB02A6CC92CD359E76B8762493BCE83FC5C22735F455"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/proplists_long_tail_frames/metadata.etf",
+          "Sha256": "C0D3BA74BC540836A55C4D086446E14178664178E2DDF7EA9A0F2C97E995C23D"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/proplists_long_tail_frames/observe.process.json",
+          "Sha256": "2FB9E1E692D1632AB77B729710BF7CC292BB75B2E292D388465B71A4493ECE15"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/proplists_long_tail_frames/observe.stage.json",
+          "Sha256": "59C062252C9E373F67C826EBA60FCFCCFA9820B1C726C51F6982CFBF51373F4C"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/proplists_long_tail_frames/proplists-loaded.beam",
+          "Sha256": "7663F2E30544DB03BACFD47A1BFCB93447B53FAB3E528DD47B77C25B4925BAEC"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/proplists_long_tail_frames/returned.etf",
+          "Sha256": "B5B2887C6E36C1EBFD2D6F42C7A4A3CA3E9452D19DC01AA5A285CBA8385DDD4A"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/proplists_long_tail_frames/stack-observations.etf",
+          "Sha256": "390AEEA790E72E5969302539F7E1DABF1A342AD89F436D770C9E3FA2FD3D661A"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/proplists_long_tail_frames/ebin/proplists_long_tail_frames.beam",
+          "Sha256": "EC10BC1A3847EAC7F7A65F47C1C485A3CE42D9F7189E8A801D615557B9CD72E0"
+        },
+        {
+          "Path": "artifacts/proplists-stack-original-ci-capture1/run-39053627861/artifact-12108698525/capture/proplists_long_tail_frames/ebin/proplists_observation_worker.beam",
+          "Sha256": "A27E1046C610DBFF434E2C50F73004623EEB0E96A8103BEF380FF1485BCC432B"
+        }
+      ]
+    },
+    {
+      "Name": "proplist-extra",
+      "Harness": "artifacts/proplists-integration365/main-capture",
+      "HarnessSha256": "08815B017AC84C55C3103391EAE71BB26B93403D7B179DB21668BDB1B12F5D60",
+      "HarnessSource": [
+        {
+          "Path": "artifacts/proplists-integration365/main-capture/FamilyCaptureNames.cs",
+          "Sha256": "365E8EB982954AEBE13898BE372ABFB4456CECA62D5FA77B931533F9AD727901"
+        },
+        {
+          "Path": "artifacts/proplists-integration365/main-capture/FamilyRuntimeMetadataNames.cs",
+          "Sha256": "E7300955EA10AED1E10D80763D70D3EE129E404B89FA22B7DBE5ACE37F096DDB"
+        },
+        {
+          "Path": "artifacts/proplists-integration365/main-capture/MainCapture.csproj",
+          "Sha256": "44D165E307115962CAE247C3BE395E4234702048016249F7996F640F5EBE8E4F"
+        },
+        {
+          "Path": "artifacts/proplists-integration365/main-capture/Program.cs",
+          "Sha256": "E1D41BBA7B129A4F1BE33483D33BE4A1DBA70074DAEB6680C45763F0A73F5015"
+        },
+        {
+          "Path": "artifacts/proplists-integration365/main-capture/SourceFunctionObservation.cs",
+          "Sha256": "3F2F947079CEF8180C593D515F15F9B470DB51014F28F071149393136B4A64C6"
+        },
+        {
+          "Path": "artifacts/proplists-integration365/main-capture/SourceFunctionObservationNames.cs",
+          "Sha256": "F6524A3502A63702D8026E6FA6A2A6A82A0CCD158A0802D97D7A7BB001B7A170"
+        }
+      ],
+      "Tool": "artifacts/proplists-stack-extra-original1/tool",
+      "ProfileSha256": "BE1CA5A58851863934EE431A6FCB3D26A445880D529BE7199219DCA056B6A12E",
+      "Sources": [
+        {
+          "Path": "original/lc_return_frames.erl",
+          "Location": "tool",
+          "Sha256": "D80ECDB0C600F6A3EC704B6A9A6911B31A25330C55A7C78C023DB0FB974D7A28",
+          "Bytes": 3427
+        },
+        {
+          "Path": "original/proplists_observation_worker.erl",
+          "Location": "tool",
+          "Sha256": "34B743EB95A5937058AB8F208A1FB17C6ACED20AF7E08398EF6D154F574546BC",
+          "Bytes": 1038
+        }
+      ],
+      "Timeout": 180,
+      "Fixtures": [
+        {
+          "Id": "lc_return_frames",
+          "Cases": 22
+        }
+      ],
+      "Native": "artifacts/proplists-stack-extra-original1/download/run-39055797975/artifact-12110170182/capture",
+      "NativeHead": "f087ff5dc4747bbe7086891b50df01e212a8bbe1",
+      "NativeFiles": [
+        {
+          "Path": "artifacts/proplists-stack-extra-original1/download/run-39055797975/artifact-12110170182/capture/completion.json",
+          "Sha256": "678D8BD64D59B968F48EE405635362798C5A6A90A6530847AC3C106DE86636A3"
+        },
+        {
+          "Path": "artifacts/proplists-stack-extra-original1/download/run-39055797975/artifact-12110170182/capture/lc_return_frames/compile.process.json",
+          "Sha256": "398F3A084027C62B98A03ED180204ED62C55217C128E0E69D85EFE349C2A926E"
+        },
+        {
+          "Path": "artifacts/proplists-stack-extra-original1/download/run-39055797975/artifact-12110170182/capture/lc_return_frames/compile.stage.json",
+          "Sha256": "CE74AE2C24C8610E60FA192B250287CB115C5A3EFF7C250FB6163A72AC756DD4"
+        },
+        {
+          "Path": "artifacts/proplists-stack-extra-original1/download/run-39055797975/artifact-12110170182/capture/lc_return_frames/metadata.etf",
+          "Sha256": "D8CA4F2F5BE8425ECA6D55E28BB64550DF58A7C8EE6714CE968E249266A72701"
+        },
+        {
+          "Path": "artifacts/proplists-stack-extra-original1/download/run-39055797975/artifact-12110170182/capture/lc_return_frames/observe.process.json",
+          "Sha256": "DAE6097B310F0F226A46DB6914E3F9DFC4E14AB6A17B5886C77E035060D04B74"
+        },
+        {
+          "Path": "artifacts/proplists-stack-extra-original1/download/run-39055797975/artifact-12110170182/capture/lc_return_frames/observe.stage.json",
+          "Sha256": "E1BDFA8BE1F8E0154BDDE1D02D589CD680E2CBDC95F2CFCC9864C385908258E9"
+        },
+        {
+          "Path": "artifacts/proplists-stack-extra-original1/download/run-39055797975/artifact-12110170182/capture/lc_return_frames/proplists-loaded.beam",
+          "Sha256": "7663F2E30544DB03BACFD47A1BFCB93447B53FAB3E528DD47B77C25B4925BAEC"
+        },
+        {
+          "Path": "artifacts/proplists-stack-extra-original1/download/run-39055797975/artifact-12110170182/capture/lc_return_frames/returned.etf",
+          "Sha256": "A0D25A08273EF59A1D91951DBF3733D390D98AF4F998A230065EEF26035E424B"
+        },
+        {
+          "Path": "artifacts/proplists-stack-extra-original1/download/run-39055797975/artifact-12110170182/capture/lc_return_frames/stack-observations.etf",
+          "Sha256": "1330D1B31154A8A8D8D1A1588E7247F5349C09191934F8DB46A45690D0A74198"
+        },
+        {
+          "Path": "artifacts/proplists-stack-extra-original1/download/run-39055797975/artifact-12110170182/capture/lc_return_frames/ebin/lc_return_frames.beam",
+          "Sha256": "08FFDB430810B0D1308652708FF9861FB57A581232B46A12F8E57AA50DB03D4E"
+        },
+        {
+          "Path": "artifacts/proplists-stack-extra-original1/download/run-39055797975/artifact-12110170182/capture/lc_return_frames/ebin/proplists_observation_worker.beam",
+          "Sha256": "A27E1046C610DBFF434E2C50F73004623EEB0E96A8103BEF380FF1485BCC432B"
+        }
+      ]
+    },
+    {
+      "Name": "proplist-strict",
+      "Harness": "artifacts/proplists-integration365/main-capture",
+      "HarnessSha256": "08815B017AC84C55C3103391EAE71BB26B93403D7B179DB21668BDB1B12F5D60",
+      "HarnessSource": [
+        {
+          "Path": "artifacts/proplists-integration365/main-capture/FamilyCaptureNames.cs",
+          "Sha256": "365E8EB982954AEBE13898BE372ABFB4456CECA62D5FA77B931533F9AD727901"
+        },
+        {
+          "Path": "artifacts/proplists-integration365/main-capture/FamilyRuntimeMetadataNames.cs",
+          "Sha256": "E7300955EA10AED1E10D80763D70D3EE129E404B89FA22B7DBE5ACE37F096DDB"
+        },
+        {
+          "Path": "artifacts/proplists-integration365/main-capture/MainCapture.csproj",
+          "Sha256": "44D165E307115962CAE247C3BE395E4234702048016249F7996F640F5EBE8E4F"
+        },
+        {
+          "Path": "artifacts/proplists-integration365/main-capture/Program.cs",
+          "Sha256": "E1D41BBA7B129A4F1BE33483D33BE4A1DBA70074DAEB6680C45763F0A73F5015"
+        },
+        {
+          "Path": "artifacts/proplists-integration365/main-capture/SourceFunctionObservation.cs",
+          "Sha256": "3F2F947079CEF8180C593D515F15F9B470DB51014F28F071149393136B4A64C6"
+        },
+        {
+          "Path": "artifacts/proplists-integration365/main-capture/SourceFunctionObservationNames.cs",
+          "Sha256": "F6524A3502A63702D8026E6FA6A2A6A82A0CCD158A0802D97D7A7BB001B7A170"
+        }
+      ],
+      "Tool": "artifacts/proplists-integration365/main-replay3/strict-tool",
+      "ProfileSha256": "C7E46E8CED82FA90FAFEE580C8C1B9808540D85D12FB256697917FFCF2B5E16F",
+      "Sources": [
+        {
+          "Path": "original/lc_strict_singleton.erl",
+          "Location": "tool",
+          "Sha256": "A0D21C7D898A56FE229831D942432161A62D90030085B4D6FD3CE00F15BEACF4",
+          "Bytes": 1545
+        },
+        {
+          "Path": "original/proplists_observation_worker.erl",
+          "Location": "tool",
+          "Sha256": "34B743EB95A5937058AB8F208A1FB17C6ACED20AF7E08398EF6D154F574546BC",
+          "Bytes": 1038
+        }
+      ],
+      "Timeout": 180,
+      "Fixtures": [
+        {
+          "Id": "lc_strict_singleton",
+          "Cases": 9
+        }
+      ],
+      "Native": "artifacts/proplists-stack-close-original1/download/run-39056890376/artifact-12109847910/capture",
+      "NativeHead": "093b13613646ba36b2c202f37b192cac24c385e3",
+      "NativeFiles": [
+        {
+          "Path": "artifacts/proplists-stack-close-original1/download/run-39056890376/artifact-12109847910/capture/completion.json",
+          "Sha256": "747B5BBD8C697C6513921C46CF263A9EA6B229B7C3B0FCBF2C031D003F017166"
+        },
+        {
+          "Path": "artifacts/proplists-stack-close-original1/download/run-39056890376/artifact-12109847910/capture/lc_strict_singleton/compile.process.json",
+          "Sha256": "59EA416A29097B32E5A1824EF9D95FBB3D6B501ED5D96793CFA1A706B5AF9FDA"
+        },
+        {
+          "Path": "artifacts/proplists-stack-close-original1/download/run-39056890376/artifact-12109847910/capture/lc_strict_singleton/compile.stage.json",
+          "Sha256": "C0DCEF1A8363ED93CD64682047FA18D3B34A76398283A94838C555F27B12710D"
+        },
+        {
+          "Path": "artifacts/proplists-stack-close-original1/download/run-39056890376/artifact-12109847910/capture/lc_strict_singleton/metadata.etf",
+          "Sha256": "6FD3BBE5570A52FC0EF78FD5120B9BC55C95862672272457B6C30A4A0BB7C18C"
+        },
+        {
+          "Path": "artifacts/proplists-stack-close-original1/download/run-39056890376/artifact-12109847910/capture/lc_strict_singleton/observe.process.json",
+          "Sha256": "EA53CBDDCFCC6655D0B5C5CE0C66EBEECEEFE42DA6B4F911E26846B741B52250"
+        },
+        {
+          "Path": "artifacts/proplists-stack-close-original1/download/run-39056890376/artifact-12109847910/capture/lc_strict_singleton/observe.stage.json",
+          "Sha256": "A7EC13AC578E00F6AF28AC56F39094A1691C5AC307839888F4401A25D5675E06"
+        },
+        {
+          "Path": "artifacts/proplists-stack-close-original1/download/run-39056890376/artifact-12109847910/capture/lc_strict_singleton/proplists-loaded.beam",
+          "Sha256": "7663F2E30544DB03BACFD47A1BFCB93447B53FAB3E528DD47B77C25B4925BAEC"
+        },
+        {
+          "Path": "artifacts/proplists-stack-close-original1/download/run-39056890376/artifact-12109847910/capture/lc_strict_singleton/returned.etf",
+          "Sha256": "683CF0009C0D3EF90AC337B5C987F95E1C170631E86B8B5C88DD610B9BBA9C8A"
+        },
+        {
+          "Path": "artifacts/proplists-stack-close-original1/download/run-39056890376/artifact-12109847910/capture/lc_strict_singleton/stack-observations.etf",
+          "Sha256": "ED48449D6ACB7B7834FDDD38D758D3FE425BC195556FD7E8A44D1ADA16D88E70"
+        },
+        {
+          "Path": "artifacts/proplists-stack-close-original1/download/run-39056890376/artifact-12109847910/capture/lc_strict_singleton/ebin/lc_strict_singleton.beam",
+          "Sha256": "44FA975942B83C7BBA2722DC18F1FB503450E9C80C75BBB7756A9D95F2B2422E"
+        },
+        {
+          "Path": "artifacts/proplists-stack-close-original1/download/run-39056890376/artifact-12109847910/capture/lc_strict_singleton/ebin/proplists_observation_worker.beam",
+          "Sha256": "74031D6771359B34A983C69E073456D96064C486B0063ECB1F17DBAFF94428C8"
+        }
+      ]
+    },
+    {
+      "Name": "proplist-binding",
+      "Harness": "artifacts/proplists-integration365/main-capture",
+      "HarnessSha256": "08815B017AC84C55C3103391EAE71BB26B93403D7B179DB21668BDB1B12F5D60",
+      "HarnessSource": [
+        {
+          "Path": "artifacts/proplists-integration365/main-capture/FamilyCaptureNames.cs",
+          "Sha256": "365E8EB982954AEBE13898BE372ABFB4456CECA62D5FA77B931533F9AD727901"
+        },
+        {
+          "Path": "artifacts/proplists-integration365/main-capture/FamilyRuntimeMetadataNames.cs",
+          "Sha256": "E7300955EA10AED1E10D80763D70D3EE129E404B89FA22B7DBE5ACE37F096DDB"
+        },
+        {
+          "Path": "artifacts/proplists-integration365/main-capture/MainCapture.csproj",
+          "Sha256": "44D165E307115962CAE247C3BE395E4234702048016249F7996F640F5EBE8E4F"
+        },
+        {
+          "Path": "artifacts/proplists-integration365/main-capture/Program.cs",
+          "Sha256": "E1D41BBA7B129A4F1BE33483D33BE4A1DBA70074DAEB6680C45763F0A73F5015"
+        },
+        {
+          "Path": "artifacts/proplists-integration365/main-capture/SourceFunctionObservation.cs",
+          "Sha256": "3F2F947079CEF8180C593D515F15F9B470DB51014F28F071149393136B4A64C6"
+        },
+        {
+          "Path": "artifacts/proplists-integration365/main-capture/SourceFunctionObservationNames.cs",
+          "Sha256": "F6524A3502A63702D8026E6FA6A2A6A82A0CCD158A0802D97D7A7BB001B7A170"
+        }
+      ],
+      "Tool": "artifacts/proplists-stack-binding-original1/tool",
+      "ProfileSha256": "AE6B3891831F6A577DA730284AE8573660E7E1267F122B0326653FD238007281",
+      "Sources": [
+        {
+          "Path": "original/fun_continuation_contract.erl",
+          "Location": "tool",
+          "Sha256": "5E3C6BB9CD4A288B026CCFEF4C33D84D1A50B3A734F387F99A3FE67A6B668AD3",
+          "Bytes": 1582
+        },
+        {
+          "Path": "original/proplists_observation_worker.erl",
+          "Location": "tool",
+          "Sha256": "34B743EB95A5937058AB8F208A1FB17C6ACED20AF7E08398EF6D154F574546BC",
+          "Bytes": 1038
+        }
+      ],
+      "Timeout": 180,
+      "Fixtures": [
+        {
+          "Id": "fun_continuation_contract",
+          "Cases": 6
+        }
+      ],
+      "Native": "artifacts/proplists-stack-binding-original1/download/run-39059210136/artifact-12110778492/capture",
+      "NativeHead": "63c987368e80db46e968546d0f1d199475a17dbe",
+      "NativeFiles": [
+        {
+          "Path": "artifacts/proplists-stack-binding-original1/download/run-39059210136/artifact-12110778492/capture/completion.json",
+          "Sha256": "534480A331238D28B759B6A65AEB9CEADEC058A9834B0D154B9389388E800A34"
+        },
+        {
+          "Path": "artifacts/proplists-stack-binding-original1/download/run-39059210136/artifact-12110778492/capture/fun_continuation_contract/compile.process.json",
+          "Sha256": "BFDA769C4A0961958F933A8ED1B1B8D292A6678D385EDD1F651BD43A19D05686"
+        },
+        {
+          "Path": "artifacts/proplists-stack-binding-original1/download/run-39059210136/artifact-12110778492/capture/fun_continuation_contract/compile.stage.json",
+          "Sha256": "BC021C2A7F923C3849E62537B1FA0799AD0D77FA80A4BEBF5E110E5AD568CAF3"
+        },
+        {
+          "Path": "artifacts/proplists-stack-binding-original1/download/run-39059210136/artifact-12110778492/capture/fun_continuation_contract/metadata.etf",
+          "Sha256": "B18B2545E95637CB7BD75674E4AA086B8C6FAFDAEA523D1F565C1E5B27AD3814"
+        },
+        {
+          "Path": "artifacts/proplists-stack-binding-original1/download/run-39059210136/artifact-12110778492/capture/fun_continuation_contract/observe.process.json",
+          "Sha256": "6C4D6FA9F7B97144E707A057A93FE385EC3BF746054B821799A728A57C81A268"
+        },
+        {
+          "Path": "artifacts/proplists-stack-binding-original1/download/run-39059210136/artifact-12110778492/capture/fun_continuation_contract/observe.stage.json",
+          "Sha256": "D48CEF1B6BC8BB95FBA1A21C7ADC08F38FE84308F3BB7DBB863B3E8D1772CDAD"
+        },
+        {
+          "Path": "artifacts/proplists-stack-binding-original1/download/run-39059210136/artifact-12110778492/capture/fun_continuation_contract/proplists-loaded.beam",
+          "Sha256": "7663F2E30544DB03BACFD47A1BFCB93447B53FAB3E528DD47B77C25B4925BAEC"
+        },
+        {
+          "Path": "artifacts/proplists-stack-binding-original1/download/run-39059210136/artifact-12110778492/capture/fun_continuation_contract/returned.etf",
+          "Sha256": "6B32B9C911F0438A3BE6FD114FCB19636D22743640E139F3A81D6C2305021A0E"
+        },
+        {
+          "Path": "artifacts/proplists-stack-binding-original1/download/run-39059210136/artifact-12110778492/capture/fun_continuation_contract/stack-observations.etf",
+          "Sha256": "65D875AA590FF120369C26F82F1A218308EFED51029BBC5D16AB18D746873429"
+        },
+        {
+          "Path": "artifacts/proplists-stack-binding-original1/download/run-39059210136/artifact-12110778492/capture/fun_continuation_contract/ebin/fun_continuation_contract.beam",
+          "Sha256": "E503A617510A9EFFD1FD7651F81093A42F09D8499BBB8D59E0F72367F3EC9E9A"
+        },
+        {
+          "Path": "artifacts/proplists-stack-binding-original1/download/run-39059210136/artifact-12110778492/capture/fun_continuation_contract/ebin/proplists_observation_worker.beam",
+          "Sha256": "A27E1046C610DBFF434E2C50F73004623EEB0E96A8103BEF380FF1485BCC432B"
+        }
+      ]
+    },
+    {
+      "Name": "proplist-iterator",
+      "Harness": "artifacts/proplists-integration365/main-capture",
+      "HarnessSha256": "08815B017AC84C55C3103391EAE71BB26B93403D7B179DB21668BDB1B12F5D60",
+      "HarnessSource": [
+        {
+          "Path": "artifacts/proplists-integration365/main-capture/FamilyCaptureNames.cs",
+          "Sha256": "365E8EB982954AEBE13898BE372ABFB4456CECA62D5FA77B931533F9AD727901"
+        },
+        {
+          "Path": "artifacts/proplists-integration365/main-capture/FamilyRuntimeMetadataNames.cs",
+          "Sha256": "E7300955EA10AED1E10D80763D70D3EE129E404B89FA22B7DBE5ACE37F096DDB"
+        },
+        {
+          "Path": "artifacts/proplists-integration365/main-capture/MainCapture.csproj",
+          "Sha256": "44D165E307115962CAE247C3BE395E4234702048016249F7996F640F5EBE8E4F"
+        },
+        {
+          "Path": "artifacts/proplists-integration365/main-capture/Program.cs",
+          "Sha256": "E1D41BBA7B129A4F1BE33483D33BE4A1DBA70074DAEB6680C45763F0A73F5015"
+        },
+        {
+          "Path": "artifacts/proplists-integration365/main-capture/SourceFunctionObservation.cs",
+          "Sha256": "3F2F947079CEF8180C593D515F15F9B470DB51014F28F071149393136B4A64C6"
+        },
+        {
+          "Path": "artifacts/proplists-integration365/main-capture/SourceFunctionObservationNames.cs",
+          "Sha256": "F6524A3502A63702D8026E6FA6A2A6A82A0CCD158A0802D97D7A7BB001B7A170"
+        }
+      ],
+      "Tool": "artifacts/proplists-integration365-original1/tool",
+      "ProfileSha256": "90ABFFB9B4BD4443A146D6283DB9854AA2E982A9F63CB38174B34FDF54691AB9",
+      "Sources": [
+        {
+          "Path": "original/proplists_iterator_contract.erl",
+          "Location": "tool",
+          "Sha256": "311320DE56CD96873CB428AC01A80455E1D14D7C5070403B6F1A6C7718045A7F",
+          "Bytes": 1404
+        },
+        {
+          "Path": "original/proplists_observation_worker.erl",
+          "Location": "tool",
+          "Sha256": "34B743EB95A5937058AB8F208A1FB17C6ACED20AF7E08398EF6D154F574546BC",
+          "Bytes": 1038
+        }
+      ],
+      "Timeout": 180,
+      "Fixtures": [
+        {
+          "Id": "proplists_iterator_contract",
+          "Cases": 8
+        }
+      ],
+      "Native": "artifacts/proplists-integration365-original1/download/run-39061299103/artifact-12111562130/capture",
+      "NativeHead": "a2d3d93e76e7a5f57d2158f0108b588d1ad544e3",
+      "NativeFiles": [
+        {
+          "Path": "artifacts/proplists-integration365-original1/download/run-39061299103/artifact-12111562130/capture/completion.json",
+          "Sha256": "D52A88DC9F7642AAA96856C3376662DBE120CD731C2774832278F064C43CF513"
+        },
+        {
+          "Path": "artifacts/proplists-integration365-original1/download/run-39061299103/artifact-12111562130/capture/proplists_iterator_contract/compile.process.json",
+          "Sha256": "18CA2C1E002AFEE98109C18122D52E485ADEAD99168D507F0B29966D4DA52392"
+        },
+        {
+          "Path": "artifacts/proplists-integration365-original1/download/run-39061299103/artifact-12111562130/capture/proplists_iterator_contract/compile.stage.json",
+          "Sha256": "E2725A2B1BE82A34DA443AEB9A33DE160CE9B58B0B04C55A8F0D1612DE12971E"
+        },
+        {
+          "Path": "artifacts/proplists-integration365-original1/download/run-39061299103/artifact-12111562130/capture/proplists_iterator_contract/metadata.etf",
+          "Sha256": "23EA2DED6A339AD8CEE134D506FCE3D1CFF5377499D9394B7B1D279E82704544"
+        },
+        {
+          "Path": "artifacts/proplists-integration365-original1/download/run-39061299103/artifact-12111562130/capture/proplists_iterator_contract/observe.process.json",
+          "Sha256": "1486F072E17EF317601CEBA0E0CF44B1BB4F425234A8C246FA2312E1E953612C"
+        },
+        {
+          "Path": "artifacts/proplists-integration365-original1/download/run-39061299103/artifact-12111562130/capture/proplists_iterator_contract/observe.stage.json",
+          "Sha256": "5241B0225B53452743FCE16B046265F41353C5F53027A5AF1A295BF05AF898C2"
+        },
+        {
+          "Path": "artifacts/proplists-integration365-original1/download/run-39061299103/artifact-12111562130/capture/proplists_iterator_contract/proplists-loaded.beam",
+          "Sha256": "7663F2E30544DB03BACFD47A1BFCB93447B53FAB3E528DD47B77C25B4925BAEC"
+        },
+        {
+          "Path": "artifacts/proplists-integration365-original1/download/run-39061299103/artifact-12111562130/capture/proplists_iterator_contract/returned.etf",
+          "Sha256": "7ADDAB898A07A29937C8998C87EC96D57E8586CC7D57BA26D3A382BA7D9C9919"
+        },
+        {
+          "Path": "artifacts/proplists-integration365-original1/download/run-39061299103/artifact-12111562130/capture/proplists_iterator_contract/stack-observations.etf",
+          "Sha256": "BCDFEF74575541987576B817949E18CA67314D25D3F3C5F815D1F139D6572259"
+        },
+        {
+          "Path": "artifacts/proplists-integration365-original1/download/run-39061299103/artifact-12111562130/capture/proplists_iterator_contract/ebin/proplists_iterator_contract.beam",
+          "Sha256": "AB40915343EAEBF36A279C87E1442A3098117AF9D957D13FF57487F0ECBC989F"
+        },
+        {
+          "Path": "artifacts/proplists-integration365-original1/download/run-39061299103/artifact-12111562130/capture/proplists_iterator_contract/ebin/proplists_observation_worker.beam",
+          "Sha256": "A27E1046C610DBFF434E2C50F73004623EEB0E96A8103BEF380FF1485BCC432B"
+        }
+      ]
+    },
+    {
+      "Name": "proplist-raw",
+      "Harness": "artifacts/proplists-integration365/main-capture",
+      "HarnessSha256": "08815B017AC84C55C3103391EAE71BB26B93403D7B179DB21668BDB1B12F5D60",
+      "HarnessSource": [
+        {
+          "Path": "artifacts/proplists-integration365/main-capture/FamilyCaptureNames.cs",
+          "Sha256": "365E8EB982954AEBE13898BE372ABFB4456CECA62D5FA77B931533F9AD727901"
+        },
+        {
+          "Path": "artifacts/proplists-integration365/main-capture/FamilyRuntimeMetadataNames.cs",
+          "Sha256": "E7300955EA10AED1E10D80763D70D3EE129E404B89FA22B7DBE5ACE37F096DDB"
+        },
+        {
+          "Path": "artifacts/proplists-integration365/main-capture/MainCapture.csproj",
+          "Sha256": "44D165E307115962CAE247C3BE395E4234702048016249F7996F640F5EBE8E4F"
+        },
+        {
+          "Path": "artifacts/proplists-integration365/main-capture/Program.cs",
+          "Sha256": "E1D41BBA7B129A4F1BE33483D33BE4A1DBA70074DAEB6680C45763F0A73F5015"
+        },
+        {
+          "Path": "artifacts/proplists-integration365/main-capture/SourceFunctionObservation.cs",
+          "Sha256": "3F2F947079CEF8180C593D515F15F9B470DB51014F28F071149393136B4A64C6"
+        },
+        {
+          "Path": "artifacts/proplists-integration365/main-capture/SourceFunctionObservationNames.cs",
+          "Sha256": "F6524A3502A63702D8026E6FA6A2A6A82A0CCD158A0802D97D7A7BB001B7A170"
+        }
+      ],
+      "Tool": "artifacts/proplists-integration365/main-replay3/raw-tool",
+      "ProfileSha256": "8CF188BE6DBBD2249008195557146A7F54BFD5F48669C37B4D0169C4A69B9B2E",
+      "Sources": [
+        {
+          "Path": "original/proplists_flat_iterator_contract.erl",
+          "Location": "tool",
+          "Sha256": "DA0C0BF86429A60C1F74BA5174C01A2D9048C03BC3EB455A5C0EB2CAF31BF9D1",
+          "Bytes": 1175
+        },
+        {
+          "Path": "original/proplists_observation_worker.erl",
+          "Location": "tool",
+          "Sha256": "34B743EB95A5937058AB8F208A1FB17C6ACED20AF7E08398EF6D154F574546BC",
+          "Bytes": 1038
+        },
+        {
+          "Path": "original/proplists_raw_cursor_contract.erl",
+          "Location": "tool",
+          "Sha256": "C8E391356BA060F25592F85418FEDDE9AE5C94EF030923DFFC0DB92ED69FD670",
+          "Bytes": 4017
+        }
+      ],
+      "Timeout": 240,
+      "Fixtures": [
+        {
+          "Id": "flat_iterators",
+          "Cases": 6
+        },
+        {
+          "Id": "raw_cursors",
+          "Cases": 18
+        }
+      ],
+      "Native": "artifacts/proplists-integration365-original2/download/run-39062211544/artifact-12112450983/capture",
+      "NativeHead": "c8613f589c5fb1f32c62ea7f93592eb5a9651d5d",
+      "NativeFiles": [
+        {
+          "Path": "artifacts/proplists-integration365-original2/download/run-39062211544/artifact-12112450983/capture/completion.json",
+          "Sha256": "5339D77191B64823A6176B58ECFFF4F9585DB68E3CFC44671818B91D8E5E9916"
+        },
+        {
+          "Path": "artifacts/proplists-integration365-original2/download/run-39062211544/artifact-12112450983/capture/flat_iterators/compile.process.json",
+          "Sha256": "12A930DB0A87779DE8604949A0CDFAC6220FFB32789541A0F86044940E09003A"
+        },
+        {
+          "Path": "artifacts/proplists-integration365-original2/download/run-39062211544/artifact-12112450983/capture/flat_iterators/compile.stage.json",
+          "Sha256": "FDA9A71B32C594B586DB0E144A0023B4483FF3648CE066724C595B7D903F34CF"
+        },
+        {
+          "Path": "artifacts/proplists-integration365-original2/download/run-39062211544/artifact-12112450983/capture/flat_iterators/metadata.etf",
+          "Sha256": "16F6D677C706791D07FE944E6C229466664A25F01A8F1596D64D1E821BB29027"
+        },
+        {
+          "Path": "artifacts/proplists-integration365-original2/download/run-39062211544/artifact-12112450983/capture/flat_iterators/observe.process.json",
+          "Sha256": "8E2CA5E59C3522AA3B6D6B326AD50FB30A83D4173A4E49F7FF9176202C4AD3A7"
+        },
+        {
+          "Path": "artifacts/proplists-integration365-original2/download/run-39062211544/artifact-12112450983/capture/flat_iterators/observe.stage.json",
+          "Sha256": "B8402F09F19BDCE2279491D9FCFEAC7D3A1C99573DAEE0E6FB1F0E8C0A2372D1"
+        },
+        {
+          "Path": "artifacts/proplists-integration365-original2/download/run-39062211544/artifact-12112450983/capture/flat_iterators/proplists-loaded.beam",
+          "Sha256": "7663F2E30544DB03BACFD47A1BFCB93447B53FAB3E528DD47B77C25B4925BAEC"
+        },
+        {
+          "Path": "artifacts/proplists-integration365-original2/download/run-39062211544/artifact-12112450983/capture/flat_iterators/returned.etf",
+          "Sha256": "D933B0CB770796DF4A02EC2C7950D042984CBB90B9441A1358DA6242A37F6E75"
+        },
+        {
+          "Path": "artifacts/proplists-integration365-original2/download/run-39062211544/artifact-12112450983/capture/flat_iterators/stack-observations.etf",
+          "Sha256": "215D2BF75B8EB1992E54F01CA80BB0582D413632DA41C88775A06E544EB3BE2E"
+        },
+        {
+          "Path": "artifacts/proplists-integration365-original2/download/run-39062211544/artifact-12112450983/capture/flat_iterators/ebin/proplists_flat_iterator_contract.beam",
+          "Sha256": "DBC69BDC7727C6AB7E941D542779BDF1DE7BF64A6A26CBA4B6F5F8CE67BD79C7"
+        },
+        {
+          "Path": "artifacts/proplists-integration365-original2/download/run-39062211544/artifact-12112450983/capture/flat_iterators/ebin/proplists_observation_worker.beam",
+          "Sha256": "A27E1046C610DBFF434E2C50F73004623EEB0E96A8103BEF380FF1485BCC432B"
+        },
+        {
+          "Path": "artifacts/proplists-integration365-original2/download/run-39062211544/artifact-12112450983/capture/raw_cursors/compile.process.json",
+          "Sha256": "9E8FBDACB57B719C9DD4DF78C85655BDCACF35444A7B29E8AAE4C9F42FD2AE93"
+        },
+        {
+          "Path": "artifacts/proplists-integration365-original2/download/run-39062211544/artifact-12112450983/capture/raw_cursors/compile.stage.json",
+          "Sha256": "613283D856F8FC4B8169F31AD9AFB434AF92A8EA97C08079C0BFFBC71B0BCFDF"
+        },
+        {
+          "Path": "artifacts/proplists-integration365-original2/download/run-39062211544/artifact-12112450983/capture/raw_cursors/metadata.etf",
+          "Sha256": "E5395DF803F171D35CCC1DB11D922BFEFD60A7C5DBC97C501D52C2A18C879D9A"
+        },
+        {
+          "Path": "artifacts/proplists-integration365-original2/download/run-39062211544/artifact-12112450983/capture/raw_cursors/observe.process.json",
+          "Sha256": "EB6F67A394954C0B2435727DC1E8833C8DAA564A262D7903F7B5827E8A6FE133"
+        },
+        {
+          "Path": "artifacts/proplists-integration365-original2/download/run-39062211544/artifact-12112450983/capture/raw_cursors/observe.stage.json",
+          "Sha256": "AE0B9DCAEC19BE20E024049C7CFA6FE9B972B7266D598D9722735A37F70F6AB6"
+        },
+        {
+          "Path": "artifacts/proplists-integration365-original2/download/run-39062211544/artifact-12112450983/capture/raw_cursors/proplists-loaded.beam",
+          "Sha256": "7663F2E30544DB03BACFD47A1BFCB93447B53FAB3E528DD47B77C25B4925BAEC"
+        },
+        {
+          "Path": "artifacts/proplists-integration365-original2/download/run-39062211544/artifact-12112450983/capture/raw_cursors/returned.etf",
+          "Sha256": "86A38F3C642F86B8BC51252A58E385BE12E02BE1D97720B0B9D06E15CD800322"
+        },
+        {
+          "Path": "artifacts/proplists-integration365-original2/download/run-39062211544/artifact-12112450983/capture/raw_cursors/stack-observations.etf",
+          "Sha256": "8F638595FBB3B9523EAC9BD20D4C9763EE049CB1D3A34EB7EFECE83EE5A557FE"
+        },
+        {
+          "Path": "artifacts/proplists-integration365-original2/download/run-39062211544/artifact-12112450983/capture/raw_cursors/ebin/proplists_observation_worker.beam",
+          "Sha256": "A27E1046C610DBFF434E2C50F73004623EEB0E96A8103BEF380FF1485BCC432B"
+        },
+        {
+          "Path": "artifacts/proplists-integration365-original2/download/run-39062211544/artifact-12112450983/capture/raw_cursors/ebin/proplists_raw_cursor_contract.beam",
+          "Sha256": "54EEF4A96313F348F53DA0901DD63117B849A7F416C8987C3DBFAC71CAC9AD6C"
+        }
+      ]
+    }
+  ],
+  "Status": "prepared only; Root executes current Main captures; no acceptance implied"
+}

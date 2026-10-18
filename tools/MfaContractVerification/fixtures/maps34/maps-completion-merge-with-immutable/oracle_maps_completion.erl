@@ -1,0 +1,1 @@
+-module(oracle_maps_completion). -export([run/0]). run()->L=#{a=>1},R=#{a=>2,b=>3},#{a:=3,b:=3}=maps:merge_with(fun(_,A,B)->A+B end,L,R),1=maps:get(a,L),2=maps:get(a,R),done.

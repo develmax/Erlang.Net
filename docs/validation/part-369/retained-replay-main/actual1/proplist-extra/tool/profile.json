@@ -1,0 +1,224 @@
+{
+  "Family": "compiler-tail-return-regression",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Mfas": [
+    "lc_return_frames:probe/1",
+    "lists:foldr/3"
+  ],
+  "Fixtures": [
+    {
+      "Id": "lc_return_frames",
+      "Location": "tool",
+      "Path": "original/lc_return_frames.erl",
+      "Module": "lc_return_frames",
+      "Names": [
+        "terminal_after_skip",
+        "may_return_after_skip",
+        "terminal_renamed",
+        "improper_identity",
+        "improper_effect",
+        "proper_identity",
+        "singleton_terminal",
+        "non_tail_terminal",
+        "dynamic_source",
+        "unknown_filter",
+        "named_fun_short",
+        "named_fun_long",
+        "anonymous_fun_short",
+        "anonymous_fun_long",
+        "named_fun_error",
+        "anonymous_fun_error",
+        "apply_badarity",
+        "apply_nontail",
+        "foldr_direct_error",
+        "foldr_short",
+        "foldr_long",
+        "foldr_catch"
+      ],
+      "Run": "run",
+      "NamesEntry": "cases",
+      "StackModule": "lc_return_frames",
+      "StackEntry": "run_stacks",
+      "WorkerModule": "proplists_observation_worker",
+      "WorkerEntry": "run",
+      "StackShape": "depth_cases",
+      "Companions": [
+        "original/proplists_observation_worker.erl"
+      ],
+      "Cases": [
+        {
+          "Name": "terminal_after_skip",
+          "Mfas": [
+            "lc_return_frames:probe/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "may_return_after_skip",
+          "Mfas": [
+            "lc_return_frames:probe/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "terminal_renamed",
+          "Mfas": [
+            "lc_return_frames:probe/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "improper_identity",
+          "Mfas": [
+            "lc_return_frames:probe/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "improper_effect",
+          "Mfas": [
+            "lc_return_frames:probe/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "proper_identity",
+          "Mfas": [
+            "lc_return_frames:probe/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "singleton_terminal",
+          "Mfas": [
+            "lc_return_frames:probe/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "non_tail_terminal",
+          "Mfas": [
+            "lc_return_frames:probe/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "dynamic_source",
+          "Mfas": [
+            "lc_return_frames:probe/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "unknown_filter",
+          "Mfas": [
+            "lc_return_frames:probe/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "named_fun_short",
+          "Mfas": [
+            "lc_return_frames:probe/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "named_fun_long",
+          "Mfas": [
+            "lc_return_frames:probe/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "anonymous_fun_short",
+          "Mfas": [
+            "lc_return_frames:probe/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "anonymous_fun_long",
+          "Mfas": [
+            "lc_return_frames:probe/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "named_fun_error",
+          "Mfas": [
+            "lc_return_frames:probe/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "anonymous_fun_error",
+          "Mfas": [
+            "lc_return_frames:probe/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "apply_badarity",
+          "Mfas": [
+            "lc_return_frames:probe/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "apply_nontail",
+          "Mfas": [
+            "lc_return_frames:probe/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "foldr_direct_error",
+          "Mfas": [
+            "lc_return_frames:probe/1",
+            "lists:foldr/3"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "foldr_short",
+          "Mfas": [
+            "lc_return_frames:probe/1",
+            "lists:foldr/3"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "foldr_long",
+          "Mfas": [
+            "lc_return_frames:probe/1",
+            "lists:foldr/3"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "foldr_catch",
+          "Mfas": [
+            "lc_return_frames:probe/1",
+            "lists:foldr/3"
+          ],
+          "Policy": "exact"
+        }
+      ]
+    }
+  ],
+  "FixtureSources": [
+    {
+      "Location": "tool",
+      "Path": "original/lc_return_frames.erl",
+      "Sha256": "D80ECDB0C600F6A3EC704B6A9A6911B31A25330C55A7C78C023DB0FB974D7A28"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/proplists_observation_worker.erl",
+      "Sha256": "34B743EB95A5937058AB8F208A1FB17C6ACED20AF7E08398EF6D154F574546BC"
+    }
+  ],
+  "ExpectedUniqueSourceCount": 2,
+  "ObserverEntry": "Same matched guest worker, whole terms retained; regression scopes not API promotions"
+}

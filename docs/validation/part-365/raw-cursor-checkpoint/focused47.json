@@ -1,0 +1,294 @@
+{
+  "Partial": true,
+  "SelectedCount": 47,
+  "TotalCount": 7536,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/proplists-family-compiled-contracts",
+    "compiler/source-fun-continuation-binding-safety",
+    "host_async_distribution_connected_staging_and_hard_bound",
+    "host_guest_connected_exit_profiles_tokens_and_ownership",
+    "host_restored_local_fun_publication_and_lambda_dispatch",
+    "mfa/proplists:append_values/2",
+    "mfa/proplists:compact/1",
+    "mfa/proplists:delete/2",
+    "mfa/proplists:expand/2",
+    "mfa/proplists:from_map/1",
+    "mfa/proplists:get_all_values/2",
+    "mfa/proplists:get_bool/2",
+    "mfa/proplists:get_keys/1",
+    "mfa/proplists:get_value/2",
+    "mfa/proplists:get_value/3",
+    "mfa/proplists:is_defined/2",
+    "mfa/proplists:lookup/2",
+    "mfa/proplists:lookup_all/2",
+    "mfa/proplists:normalize/2",
+    "mfa/proplists:property/1",
+    "mfa/proplists:property/2",
+    "mfa/proplists:split/2",
+    "mfa/proplists:substitute_aliases/2",
+    "mfa/proplists:substitute_negations/2",
+    "mfa/proplists:to_map/1",
+    "mfa/proplists:to_map/2",
+    "mfa/proplists:unfold/1",
+    "oracle/compiled-module/scheduler_first_instruction",
+    "oracle/compiled-module/scheduler_invalid_and_duplicate",
+    "oracle/compiled-module/scheduler_migration_previous_binding",
+    "oracle/compiled-module/scheduler_offline_bound_resume",
+    "oracle/compiled-module/scheduler_offline_pending_kill",
+    "runtime/code-purge-old-users-pending-funs-and-current-retention",
+    "runtime/common-undefined-lambda-handler-provenance",
+    "runtime/halt-dedicated-raw-process-numeric-errors-abort-and-real-dump",
+    "runtime/halt-live-port-drain-immediate-timeout-and-profile-ownership",
+    "runtime/maps/internal-hash-native-vectors",
+    "runtime/maps/raw-integer-binary-cursors",
+    "runtime/proplists-family-improper-compact-continuations",
+    "runtime/proplists-family-improper-delete-continuations",
+    "runtime/proplists-family-improper-unfold-continuations",
+    "runtime/proplists-family-long-proper-unfold",
+    "runtime/proplists-family-map-iterator-contracts",
+    "runtime/proplists-family-ordinary-contracts",
+    "runtime/proplists-family-traversal-cancellation",
+    "runtime/seq-trace-concurrent-token-snapshots-tracer-switch-and-self-isolation",
+    "runtime/source-fun-continuation-safety"
+  ],
+  "Passed": 47,
+  "Failed": 0,
+  "Tests": [
+    {
+      "Name": "runtime/halt-live-port-drain-immediate-timeout-and-profile-ownership",
+      "Status": "Passed",
+      "Milliseconds": 10100
+    },
+    {
+      "Name": "runtime/halt-dedicated-raw-process-numeric-errors-abort-and-real-dump",
+      "Status": "Passed",
+      "Milliseconds": 46940
+    },
+    {
+      "Name": "runtime/seq-trace-concurrent-token-snapshots-tracer-switch-and-self-isolation",
+      "Status": "Passed",
+      "Milliseconds": 17
+    },
+    {
+      "Name": "host_guest_connected_exit_profiles_tokens_and_ownership",
+      "Status": "Passed",
+      "Milliseconds": 1669
+    },
+    {
+      "Name": "host_async_distribution_connected_staging_and_hard_bound",
+      "Status": "Passed",
+      "Milliseconds": 120
+    },
+    {
+      "Name": "host_restored_local_fun_publication_and_lambda_dispatch",
+      "Status": "Passed",
+      "Milliseconds": 1142
+    },
+    {
+      "Name": "runtime/code-purge-old-users-pending-funs-and-current-retention",
+      "Status": "Passed",
+      "Milliseconds": 22
+    },
+    {
+      "Name": "mfa/proplists:append_values/2",
+      "Status": "Passed",
+      "Milliseconds": 13
+    },
+    {
+      "Name": "mfa/proplists:compact/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/proplists:delete/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/proplists:expand/2",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "mfa/proplists:from_map/1",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "mfa/proplists:get_all_values/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/proplists:get_bool/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/proplists:get_keys/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/proplists:is_defined/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/proplists:lookup/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/proplists:lookup_all/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/proplists:normalize/2",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "mfa/proplists:property/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/proplists:property/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/proplists:split/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/proplists:substitute_aliases/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/proplists:substitute_negations/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/proplists:to_map/1",
+      "Status": "Passed",
+      "Milliseconds": 12
+    },
+    {
+      "Name": "mfa/proplists:to_map/2",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "mfa/proplists:unfold/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiled-module/scheduler_first_instruction",
+      "Status": "Passed",
+      "Milliseconds": 84
+    },
+    {
+      "Name": "oracle/compiled-module/scheduler_migration_previous_binding",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "oracle/compiled-module/scheduler_invalid_and_duplicate",
+      "Status": "Passed",
+      "Milliseconds": 50
+    },
+    {
+      "Name": "oracle/compiled-module/scheduler_offline_bound_resume",
+      "Status": "Passed",
+      "Milliseconds": 50
+    },
+    {
+      "Name": "oracle/compiled-module/scheduler_offline_pending_kill",
+      "Status": "Passed",
+      "Milliseconds": 43
+    },
+    {
+      "Name": "runtime/common-undefined-lambda-handler-provenance",
+      "Status": "Passed",
+      "Milliseconds": 204
+    },
+    {
+      "Name": "mfa/proplists:get_value/2",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "mfa/proplists:get_value/3",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "runtime/proplists-family-ordinary-contracts",
+      "Status": "Passed",
+      "Milliseconds": 20
+    },
+    {
+      "Name": "compiler/proplists-family-compiled-contracts",
+      "Status": "Passed",
+      "Milliseconds": 414
+    },
+    {
+      "Name": "compiler/source-fun-continuation-binding-safety",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "runtime/source-fun-continuation-safety",
+      "Status": "Passed",
+      "Milliseconds": 75
+    },
+    {
+      "Name": "runtime/proplists-family-long-proper-unfold",
+      "Status": "Passed",
+      "Milliseconds": 102
+    },
+    {
+      "Name": "runtime/proplists-family-improper-unfold-continuations",
+      "Status": "Passed",
+      "Milliseconds": 80
+    },
+    {
+      "Name": "runtime/proplists-family-improper-compact-continuations",
+      "Status": "Passed",
+      "Milliseconds": 42
+    },
+    {
+      "Name": "runtime/proplists-family-improper-delete-continuations",
+      "Status": "Passed",
+      "Milliseconds": 66
+    },
+    {
+      "Name": "runtime/proplists-family-traversal-cancellation",
+      "Status": "Passed",
+      "Milliseconds": 630
+    },
+    {
+      "Name": "runtime/proplists-family-map-iterator-contracts",
+      "Status": "Passed",
+      "Milliseconds": 238
+    },
+    {
+      "Name": "runtime/maps/internal-hash-native-vectors",
+      "Status": "Passed",
+      "Milliseconds": 13
+    },
+    {
+      "Name": "runtime/maps/raw-integer-binary-cursors",
+      "Status": "Passed",
+      "Milliseconds": 293
+    }
+  ]
+}

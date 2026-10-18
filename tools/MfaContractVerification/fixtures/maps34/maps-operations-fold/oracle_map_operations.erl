@@ -1,0 +1,1 @@
+-module(oracle_map_operations). -export([run/0]). run()->33=maps:fold(fun(K,V,A)->K+V+A end,0,#{1=>10,2=>20}),seed=maps:fold(fun(_,_,_)->unexpected end,seed,#{}),done.

@@ -2,6 +2,23 @@ namespace Erlang;
 
 internal static class ErlangTupleBifs
 {
+    public static Term FromList(Term value)
+    {
+        int count = 0;
+        Term tail = value;
+        while (tail is Cons cell)
+        {
+            if (count == ErlangTupleLimits.MaximumArity)
+                throw new ErlangException(ErlangErrorReasons.BadArgument);
+            count++;
+            tail = cell.Tail;
+        }
+        if (tail is not Nil)
+            throw new ErlangException(ErlangErrorReasons.BadArgument);
+
+        return new TupleTerm(Cons.Items(value));
+    }
+
     public static int Index(Term value, int maximum)
     {
         if (value is not Integer integer || integer.Value < 1 || integer.Value > maximum)
@@ -14,6 +31,8 @@ internal static class ErlangTupleBifs
     {
         int tupleArgument = operation == ErlangBasicBifNames.AppendElement ? 0 : 1;
         if (arguments[tupleArgument] is not TupleTerm tuple)
+            throw new ErlangException(ErlangErrorReasons.BadArgument);
+        if (operation == ErlangBasicBifNames.AppendElement && tuple.Items.Count >= ErlangTupleLimits.MaximumArity)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
         var items = tuple.Items.ToList();
         if (operation == ErlangBasicBifNames.AppendElement)
@@ -28,8 +47,6 @@ internal static class ErlangTupleBifs
             else
                 items[index] = arguments[2];
         }
-        if (items.Count > ErlangTupleLimits.MaximumArity)
-            throw new ErlangException(ErlangErrorReasons.BadArgument);
 
         return new TupleTerm(items);
     }

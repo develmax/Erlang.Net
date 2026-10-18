@@ -7,7 +7,7 @@
     "Tag": "OTP-29.1.1",
     "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5"
   },
-  "Methodology": "Counts describe only this fixed versioned24-row engineering inventory. No percentage or whole-NIF/whole-loader compatibility total is defined. Accepted-scoped means only the explicitly bounded done criterion has accepted evidence; local-tests-only/source-only/missing cannot be promoted by MFA presence. InMain is source presence at SnapshotMainCommit,not same-head CI or feature completion. RemainingOrBlockers include explicitly excluded extensions even when a scoped milestone is met.",
+  "Methodology": "Counts describe only this fixed versioned24-row engineering inventory. No percentage or whole-NIF/whole-loader compatibility total is defined. Accepted-scoped means only the explicitly bounded done criterion has accepted evidence; local-tests-only/source-only/missing cannot be promoted by MFA presence. InMain is source presence at SnapshotMainCommit,not same-head CI or feature completion. RemainingOrBlockers include explicitly excluded extensions even when a scoped milestone is met. SnapshotMainCommit/MainCommit are historical publication/source-presence anchors. The two Part369 working-tree source bindings are explicitly current unpublished deltas; SourceEquivalence links their source/test addendum and does not assert raw equality with the historical Part361 plan.",
   "MfaAccounting": {
     "SeparateFrom": "docs/module-readiness.json",
     "CountedAsNewMfas": 0,
@@ -19,14 +19,33 @@
     "ImplementationSourceInMainAt": "372286a86767b4f677d49d9906df489d6d2dec7b",
     "SameHeadCiVerifiedByThisProposal": false,
     "ExecutionPerformedByReviewer": false,
-    "RegistryReleasePart": 362
+    "RegistryReleasePart": 362,
+    "CurrentUnpublishedSourcePart": 369,
+    "CurrentSourceBindingsAreWorkingTree": true,
+    "HistoricalImplementationCommitUnchanged": true
   },
   "SourceEquivalence": {
     "TestedPlanPath": "docs/validation/part-361/tested-source-plan.json",
     "TestedPlanSha256": "26771833B3E7C2A70166C36ED0854354198F4DC5E6270E01CD1B00E97101A2E2",
     "CurrentBoundSourceFiles": 40,
-    "ExactRawHashesMatchTestedPlan": true,
-    "SameHeadExecutionInferred": false
+    "ExactRawHashesMatchTestedPlan": false,
+    "SameHeadExecutionInferred": false,
+    "HistoricalCurrentBoundSourceFiles": 40,
+    "CurrentMatchesHistoricalTestedPlan": 38,
+    "CurrentUnpublishedDeltaFiles": [
+      {
+        "Path": "src/Erlang.Runtime/NifNativeBinaryCallbacks.cs",
+        "Before": "28DEE339BC33E53DCF5FE7CA5D637C5F35FEE20DC1D0F55A5ECD3AC294243A99",
+        "After": "284249C5C93F995E4477CE79324098DA4810959C63D92B864567D6586D2D64F5"
+      },
+      {
+        "Path": "src/Erlang.Runtime/NifNativeBinaryStorage.cs",
+        "Before": "78732031E5ACE2AE66200F2B7A6B47EFF97199D3FA01A9171B6C35657C2123A9",
+        "After": "8AC72A9A1F6746EE1BD5C299B929C5BC911D4E0D9E30685B469B7CCA5EDBD43A"
+      }
+    ],
+    "CurrentAddendumPath": "docs/validation/part-369/native-infrastructure-source-addendum.json",
+    "CurrentAddendumSha256": "4608CDC41E1706CCA33FE23475888C73EA1A307E1DE81534B993A1965E4DF71C"
   },
   "Counts": {
     "InventoryRows": 24,
@@ -93,6 +112,27 @@
       "Scope": "Actual integrated focused checks; retain declared count/scope",
       "Platform": "windows-x64",
       "ExecutionIdentity": "pre-publication Main integration"
+    },
+    "part369-source-delta": {
+      "Path": "docs/validation/part-369/native-infrastructure-source-addendum.json",
+      "Sha256": "4608CDC41E1706CCA33FE23475888C73EA1A307E1DE81534B993A1965E4DF71C",
+      "Scope": "Docs-only unpublished binary storage/inspect source delta; historical Part361 evidence remains bounded and raw equivalence is false. No higher inventory verification.",
+      "Platform": "source-audit",
+      "ExecutionIdentity": "part369 current working tree; historical Main372 anchor preserved"
+    },
+    "part369-reviewed-sources": {
+      "Path": "docs/validation/part-369/source-guards/review.json",
+      "Sha256": "DE7995AF430FBD0E171E4281F2FA568D9C58BEB9EE9F36989EA8A8282DF0518A",
+      "Scope": "450 reviewed current source guards; source argument, not same-head/native ABI execution.",
+      "Platform": "source-only",
+      "ExecutionIdentity": "part369 reviewed guard successor"
+    },
+    "part369-canonical-tests": {
+      "Path": "docs/validation/part-369/local-completion/canonical-tests.json",
+      "Sha256": "3756C34CF27EEB4DC63BAF7A80A161E547837FE221223CF37BDE0446E3C8454F",
+      "Scope": "Actual7639/0 Windows test phase; whole full2 command later exited1 at readiness inventory validation. Exact suffix resume is separate evidence.",
+      "Platform": "windows-x64",
+      "ExecutionIdentity": "full2 pid307088; test phase only"
     }
   },
   "Entries": [
@@ -366,11 +406,11 @@
       "SourceBindings": [
         {
           "Path": "src/Erlang.Runtime/NifNativeBinaryCallbacks.cs",
-          "Sha256": "28DEE339BC33E53DCF5FE7CA5D637C5F35FEE20DC1D0F55A5ECD3AC294243A99"
+          "Sha256": "284249C5C93F995E4477CE79324098DA4810959C63D92B864567D6586D2D64F5"
         },
         {
           "Path": "src/Erlang.Runtime/NifNativeBinaryStorage.cs",
-          "Sha256": "78732031E5ACE2AE66200F2B7A6B47EFF97199D3FA01A9171B6C35657C2123A9"
+          "Sha256": "8AC72A9A1F6746EE1BD5C299B929C5BC911D4E0D9E30685B469B7CCA5EDBD43A"
         },
         {
           "Path": "src/Erlang.Runtime/NifNativeWindowsCallbacks.cs",
@@ -378,7 +418,10 @@
         }
       ],
       "EvidenceRefs": [
-        "full"
+        "full",
+        "part369-source-delta",
+        "part369-reviewed-sources",
+        "part369-canonical-tests"
       ],
       "Platforms": [
         "windows-x64"

@@ -1,0 +1,28 @@
+{
+  "NativeRaw": {
+    "Path": "artifacts/queue-original368-original1/download/run-39078144460/artifact-12117323576/capture/queue_callbacks/stack-observations.etf",
+    "Sha256": "A31CD1D975FE6F20EFF985BCAB138E915B3BC84D30443F9ADE6440A35B3894ED"
+  },
+  "Discovery": {
+    "Path": "artifacts/queue-higher368-comparison-peer1/initial-discrepancies.json",
+    "Sha256": "201953EB86B880C05A46F2052845788789B80ABF6AFB45E1AC9EB60EE1F51CBE"
+  },
+  "Cases": 7,
+  "BadArityCallbackMfas": [
+    "filter/2",
+    "filtermap/2",
+    "any/2",
+    "all/2",
+    "delete_with/2",
+    "delete_with_r/2"
+  ],
+  "Assertions": [
+    "Real compiled callbackbad/1 tail-invokes realinvoke/2 using actualwrong/0 localFUN; no direct invalidFUNarity queueguardshortcut.",
+    "Ownreason checks badarity+actualLocalIdentity module/name/arity/environment and exact argumentvalues1 or3. No forced crossVMFUNindex/unique.",
+    "Entire stack term equality requires compiledinvoke/2 integerarity2 source23, exact pinned queue/list helper+public sourceframes, exact compiledcapture/run frames. Extra erlangapply/error_info or lost frame cannotpass.",
+    "Improperrear expansion requires full listsreverse effectiveargs[[1|callback_tail],[]], exact erl_stdlib_errors metadata, filter_r765 then filter_r754 then filter721 and exact compiled expansion/run callerframes.",
+    "Fixture sets backtrace8 and restores oldvalue in after. All seven independent record assertions aggregate; unexpected success or malformed record fails.",
+    "CompiledModuleExecution returns outcome wrapper; HOST explicitly validates ok and unwraps once."
+  ],
+  "NoActualNewFixtureSdkOrOriginalExecution": true
+}

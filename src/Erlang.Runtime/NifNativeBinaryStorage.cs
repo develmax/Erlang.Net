@@ -54,6 +54,27 @@ internal sealed unsafe class NifNativeBinaryStorage
         }
     }
 
+
+    internal BitString FreezeView(nuint offset, nuint length)
+    {
+        lock (gate)
+        {
+            if (pointer == 0)
+                throw new InvalidOperationException(NifNativeBinaryNames.ExpiredStorage);
+            if (offset > size || length > size - offset)
+                throw new InvalidOperationException(NifNativeBinaryNames.SubBinaryRange);
+            if (length > NifNativeBinaryNames.MaximumTermBytes)
+                throw new NotSupportedException(NifNativeBinaryNames.TermSizeBoundary);
+            if (length <= NifNativeBinaryNames.SmallSubBinaryBytes)
+                return new BitString(new ReadOnlySpan<byte>((byte*)pointer + offset, (int)length));
+            if (size > (nuint)Array.MaxLength)
+                throw new NotSupportedException(NifNativeBinaryNames.TermSizeBoundary);
+            var parent = new ReadOnlySpan<byte>((byte*)pointer, (int)size).ToArray();
+
+            return BitString.FromOwnedBacking(parent, (int)offset, checked((int)length * BitStringLayout.BitsPerByte));
+        }
+    }
+
     internal void RetainEnvironment()
     {
         lock (gate)

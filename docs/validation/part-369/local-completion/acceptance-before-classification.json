@@ -1,0 +1,82 @@
+{
+  "Status": "PASS_BINARY31_COMPLETE_OBSERVABLE_SOURCE_CONTRACT_GATES",
+  "Apis": 678,
+  "PreviousApis": 647,
+  "ApiDelta": 31,
+  "Complete": 107,
+  "PreviousComplete": 76,
+  "ContractDelta": 31,
+  "Known": 30,
+  "Needs": 541,
+  "Tests": 7639,
+  "PreviousTests": 7599,
+  "TestDelta": 40,
+  "PreviousOrderedTestsPreserved": 7599,
+  "IntegrationOutcomes": 11,
+  "LocalPackages": [
+    {
+      "Path": "artifacts/packages/Erlang.Net.CSharp.0.1.0.nupkg",
+      "Bytes": 14361351,
+      "Sha256": "1ABA5019343D0F611111FEF545ED7CC6BB05CDABAEE6C2663436694E845F6A07"
+    },
+    {
+      "Path": "artifacts/packages/Erlang.Net.Tool.0.1.0.nupkg",
+      "Bytes": 15645771,
+      "Sha256": "FB196B09B5476466AD54708B57AC4C564975A27C028962C0E4E2516DEE689F84"
+    }
+  ],
+  "SourceGuards": 450,
+  "SourceInputs": 3360,
+  "CanonicalSeconds": 391.8289999999979,
+  "CanonicalTestSeconds": 342.9219999999914,
+  "CanonicalSuffixSeconds": 48.90700000000652,
+  "SingleUninterruptedPipeline": false,
+  "AllRequiredStagesPassed": true,
+  "MetadataResumeReason": "Native infrastructure inventory had two stale current source hashes; independently reviewed docs-only amendment, no production/test changes, exact canonical suffix resumed.",
+  "Primary": {
+    "Compared": 3510,
+    "Strict": 3474,
+    "LiveActualReferences": 36
+  },
+  "Supplement": {
+    "Strict": 214,
+    "HistoricalUnmatchedEntryValues": 2,
+    "HistoricalFailuresPreserved": true
+  },
+  "Closure": {
+    "Strict": 84,
+    "MatchedWorkers": true
+  },
+  "Insertion": {
+    "Strict": 42,
+    "MatchedWorkers": true
+  },
+  "AcceptedBinaryObservations": 3850,
+  "Retained": {
+    "Compared": 8117,
+    "Strict": 7683,
+    "AcceptedWholeOrSourceBound": 8087,
+    "NativeOnlyDiagnostics": 18,
+    "OwnTopologySeparate": 12,
+    "Unexpected": 0,
+    "CorruptionControls": 68
+  },
+  "FirstCanonical": {
+    "Passed": 7638,
+    "Failed": 1,
+    "Reason": "Old HOST reflected former byte-array field; fixed to actual property, independently verifies retained sharing/normalization/weak lifetime; production unchanged."
+  },
+  "OriginalRuns": [
+    39083021286,
+    39083564610,
+    39084998283,
+    39085952486
+  ],
+  "OriginalPlatform": "Linux GitHub CI",
+  "MainPlatform": "Windows",
+  "ImplementationPublished": false,
+  "LicenseCommitted": false,
+  "FrameProjection": false,
+  "PhysicalHeapOrCompilerOptimizationIdentityClaimed": false,
+  "Basis": "Per-MFA source clause/domain/order/error/resource/storage arguments, independent pinned originals and genuine own identity/state, explicit source-subset reuse and retired closures, corruption controls, current full canonical and packages. Finite examples alone do not establish completeness."
+}

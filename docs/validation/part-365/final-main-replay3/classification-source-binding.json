@@ -1,0 +1,47 @@
+{
+  "Status": "CURRENT_MAIN_CAPTURE_AND_SOURCE_APPLICABILITY_BOUND_FINAL_GATES_PENDING",
+  "CurrentLedgerGuardCount": 314,
+  "CurrentLedgerGuardHashesExact": true,
+  "CurrentLedgerVerifiedCount": 18,
+  "NewMfaStatusesWritten": false,
+  "ClassificationAuditSha256": "4ADFF27D3F63802A5D00A9A921A2CEF4B34186F8D1D9ADB9F87237E5BD81C4C2",
+  "Classification59SourceBindingsExact": true,
+  "All59IncludedIn314": true,
+  "NineteenProposedMfas": [
+    "proplists:property/1",
+    "proplists:property/2",
+    "proplists:unfold/1",
+    "proplists:compact/1",
+    "proplists:lookup/2",
+    "proplists:lookup_all/2",
+    "proplists:is_defined/2",
+    "proplists:get_all_values/2",
+    "proplists:append_values/2",
+    "proplists:get_bool/2",
+    "proplists:get_keys/1",
+    "proplists:delete/2",
+    "proplists:substitute_aliases/2",
+    "proplists:substitute_negations/2",
+    "proplists:expand/2",
+    "proplists:normalize/2",
+    "proplists:split/2",
+    "proplists:to_map/1",
+    "proplists:to_map/2"
+  ],
+  "SourceReview3Sha256": "57A1CDCF8D4BFA6276AF84E3249260AE1B9D5B2DE92B62313D76053C900C598F",
+  "Replay3ComparisonSha256": "AF1C86CD277A873D40E4327491BD717C3B2995418C219ED353A1AE0E5D132374",
+  "AffectedChecks": {
+    "Passed": 278,
+    "Failed": 0,
+    "Milliseconds": 11641.00000000326,
+    "ReportSha256": "1070495E1165EDD2192FEB41D5368720063F4D4C8C112B7ED70DE4D0B930E0B0",
+    "ReceiptSha256": "405BFC711BE25153CB24132E496FDC47023E5AC242E4D1C8A00E0A6E4C0B1802"
+  },
+  "UnorderedGetKeys": "Pinned contract explicitly unordered: existing strict list-order residuals remain raw failures; scope membership/cardinality proof is separate. No ordered list normalized.",
+  "FromMap": "Excluded from nineteen proposals; mandatory native atom/HAMT physical cursor domain incomplete and raw2/10 differences retained.",
+  "StillRequired": [
+    "Root canonical full3 plus integrations/packages/children",
+    "Root final per-MFA gate acceptance and CI before any promotion/publication"
+  ],
+  "NoMainExecution": true
+}

@@ -1,0 +1,9 @@
+# New-only erlang370 closure packet
+
+Four independent groups: corrected localFUN20, renamed size-location8, dynamicapply14 and dynamic tuple-boundary2. Total44values+220full-depth profiles=264observations,6distinct sources,21selected erlangMFAs. Old1597originals are NOT repeated, replaced or reclassified. Values/profiles use the same frozen540-second compiled worker and outer600s owned observer limit; sourcebuild occurs once through the existing workflow. No expected SDK outcomes are seeded.
+
+Corrected FUN20 is byte-exact owner successor2 with different declared stub modules per pair kind and actual fun_info preconditions, avoiding oldcanonical interning contamination. Native output creator may require a scoped query/independent-runtime-init relation, never a general PID normalization. Size8 includes four renamed true non-tail size error callers and four guards. Dynamic14 covers tail/non-tail invalidmodule/function/improper arguments/1024proper arguments and specialerror/exit/throw caller retention. Tuple2 prevents constant-index source specialization, retains compact declared summaries only, and may hold two128MiB tuples; no huge tuple is serialized. Standard540sworker limit is explicit.
+
+The repaired preloaded policy predicts actual embedded checksum from pinned tracked erts/preloaded/ebin/erlang.beam after make_preload retention, while retaining final installedcompanion separately. Exactsource helper is inherited from erlang370-preloaded-repair-proposal1. Parserutility bytes inherit style2. No parser/build/VM/SDK/CI executed by this author. Root must parse all6, run full-tree Style before commit, and use the same existingworkflow on a test-only branch. Main/runtime edits and CI are Root-owned.
+
+Successor2 corrects only authority-summary SelectedMfas57→21 before any execution; unused proposal1 remains historical. Its44/220sourcefixtures are identical.
