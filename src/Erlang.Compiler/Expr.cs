@@ -58,8 +58,14 @@ public abstract record Expr
             CanDiscardContinuation = canDiscardContinuation;
         }
     }
-    public sealed record Unary(string Operator, Expr Operand) : Expr;
-    public sealed record Binary(string Operator, Expr Left, Expr Right) : Expr;
+    public sealed record Unary(string Operator, Expr Operand) : Expr
+    {
+        public int SourceLine { get; init; }
+    }
+    public sealed record Binary(string Operator, Expr Left, Expr Right) : Expr
+    {
+        public int SourceLine { get; init; }
+    }
     public sealed record Match(Pattern Pattern, Expr Value) : Expr;
     public sealed record MaybeMatch(Pattern Pattern, Expr Value) : Expr;
     public sealed record Maybe(IReadOnlyList<Expr> Items, IReadOnlyList<Clause> Clauses) : Expr;

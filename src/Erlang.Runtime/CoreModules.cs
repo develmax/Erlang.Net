@@ -856,6 +856,7 @@ public static class CoreModules
         ProplistModuleRegistrations.Register(r);
         ProplistFamilyRegistrations.Register(r);
         QueueCoreModule.Register(r);
+        OrdsetCoreModule.Register(r);
         foreach (string operation in new[] { TimerModuleNames.SendAfter, TimerModuleNames.StartTimer })
             r.Register(
                 ErlangModuleNames.Module,

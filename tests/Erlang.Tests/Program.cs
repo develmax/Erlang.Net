@@ -1953,6 +1953,20 @@ foreach (var export in exportRegistry.Exports.Where(export => Erlang.Tests.Funct
             return;
         }
 
+        if (Erlang.Tests.OrdsetFullMfaContracts.Owns(export.Module, export.Function, export.Arity))
+        {
+            await Erlang.Tests.OrdsetFullMfaContracts.Run(export.Function, export.Arity);
+
+            return;
+        }
+
+        if (Erlang.Tests.OrdsetCoreMfaContracts.Owns(export.Module, export.Function, export.Arity))
+        {
+            await Erlang.Tests.OrdsetCoreMfaContracts.Run(export.Function, export.Arity);
+
+            return;
+        }
+
         if (Erlang.Tests.QueueCoreMfaContracts.Owns(export.Module, export.Function, export.Arity))
         {
             await Erlang.Tests.QueueCoreMfaContracts.Run(export.Function, export.Arity);
@@ -5162,6 +5176,27 @@ try
     Test(Erlang.Tests.DynamicApplyHostNames.Test, Erlang.Tests.DynamicApplyHostChecks.Run);
 
     Test(Erlang.Tests.SourceBifContinuationHostNames.Test, Erlang.Tests.SourceBifContinuationHostChecks.Run);
+
+    Test(Erlang.Tests.OrdsetCoreHostNames.Test, Erlang.Tests.OrdsetCoreHostChecks.Run);
+
+    Test(Erlang.Tests.BoundedBifHostNames.TestName, Erlang.Tests.BoundedBifHostChecks.Run);
+
+    Test(Erlang.Tests.OrdsetFullHostNames.Test, Erlang.Tests.OrdsetFullHostChecks.Run);
+
+    Test(Erlang.Tests.NumericSourceContractHostNames.Test, Erlang.Tests.NumericSourceContractHostChecks.Run);
+
+    Test(Erlang.Tests.MapFunKeyOrderHostNames.TestName, Erlang.Tests.MapFunKeyOrderHostChecks.Run);
+
+    Test(Erlang.Tests.OrdsetListsDispatchHostNames.Test, Erlang.Tests.OrdsetListsDispatchHostChecks.Run);
+    Test(
+        Erlang.Tests.LocalFunctionCreatorHostNames.CanonicalizationTest,
+        Erlang.Tests.LocalFunctionCreatorHostChecks.Canonicalization
+    );
+    Test(Erlang.Tests.LocalFunctionCreatorHostNames.ValidationTest, Erlang.Tests.LocalFunctionCreatorHostChecks.Validation);
+
+    Test(Erlang.Tests.OperatorSourceLocationHostNames.Test, Erlang.Tests.OperatorSourceLocationHostChecks.Run);
+
+    Test(Erlang.Tests.ListUniqueSourceHostNames.TestName, Erlang.Tests.ListUniqueSourceHostChecks.Run);
 
     var catalog = Erlang.Tests.TestRunCatalog.Create(tests.Select(test => test.Name));
     selectedTests = selection.Select(tests, catalog);

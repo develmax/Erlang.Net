@@ -70,15 +70,15 @@ internal static class ListModuleRegistrations
             ListModuleNames.Module,
             ListModuleNames.FilterMapLegacy,
             2,
-            (c, a) => ListFunctions.Run(
-                c,
-                ListModuleNames.FilterMap,
-                a[0],
-                a[1]
-            )
+            (c, a) => ListCallbackSourceExecution.LegacyFilterMap(c, a[0], a[1])
         );
-        foreach (string operation in new[] { ListModuleNames.Sort, ListModuleNames.UniqueSort })
-            Add(operation, 1, a => ListSortOperations.Sort(a[0], operation == ListModuleNames.UniqueSort));
+        Add(ListModuleNames.Sort, 1, a => ListSortOperations.Sort(a[0]));
+        registry.Register(
+            ListModuleNames.Module,
+            ListModuleNames.UniqueSort,
+            1,
+            (context, arguments) => ValueTask.FromResult(ListSortOperations.Unique(context, arguments[0]))
+        );
         registry.Register(
             ListModuleNames.Module,
             ListModuleNames.UniqueSort,

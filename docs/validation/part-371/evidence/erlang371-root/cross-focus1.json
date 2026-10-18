@@ -1,0 +1,97 @@
+{
+  "Partial": true,
+  "SelectedCount": 14,
+  "TotalCount": 7672,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/operator-source-line-depth-and-operand-order",
+    "mfa/lists:all/2",
+    "mfa/lists:any/2",
+    "mfa/lists:filter/2",
+    "mfa/lists:filtermap/2",
+    "mfa/lists:foldl/3",
+    "mfa/lists:foldr/3",
+    "mfa/lists:map/2",
+    "mfa/lists:mapfoldl/3",
+    "mfa/lists:zf/2",
+    "otp/ordsets-callbacks-dispatch-actual-replaced-lists-code-and-frames",
+    "serialization/local-fun-foreign-creator-canonicalizes-to-init",
+    "serialization/local-fun-invalid-creator-rejected-before-factory",
+    "terms/map-fun-key-order-and-deep-comparison-scopes"
+  ],
+  "Passed": 13,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "mfa/lists:all/2",
+      "Status": "Passed",
+      "Milliseconds": 1925
+    },
+    {
+      "Name": "mfa/lists:any/2",
+      "Status": "Passed",
+      "Milliseconds": 51
+    },
+    {
+      "Name": "mfa/lists:filter/2",
+      "Status": "Passed",
+      "Milliseconds": 35
+    },
+    {
+      "Name": "mfa/lists:filtermap/2",
+      "Status": "Passed",
+      "Milliseconds": 36
+    },
+    {
+      "Name": "mfa/lists:foldl/3",
+      "Status": "Passed",
+      "Milliseconds": 32
+    },
+    {
+      "Name": "mfa/lists:foldr/3",
+      "Status": "Passed",
+      "Milliseconds": 51
+    },
+    {
+      "Name": "mfa/lists:map/2",
+      "Status": "Passed",
+      "Milliseconds": 11
+    },
+    {
+      "Name": "mfa/lists:mapfoldl/3",
+      "Status": "Passed",
+      "Milliseconds": 44
+    },
+    {
+      "Name": "mfa/lists:zf/2",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "terms/map-fun-key-order-and-deep-comparison-scopes",
+      "Status": "Passed",
+      "Milliseconds": 505
+    },
+    {
+      "Name": "otp/ordsets-callbacks-dispatch-actual-replaced-lists-code-and-frames",
+      "Status": "Failed",
+      "Error": "System.ArgumentException: An item with the same key has already been added. Key: (lists, foldl, 3)\r\n   at System.Collections.Generic.Dictionary\u00602.TryInsert(TKey key, TValue value, InsertionBehavior behavior)\r\n   at System.Collections.Generic.Dictionary\u00602.Add(TKey key, TValue value)\r\n   at Erlang.ModuleRegistry.Register(String module, String function, Int32 arity, ErlangFunction body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\ModuleRegistry.cs:line 133\r\n   at Erlang.ModuleRegistry.RegisterSource(String module, String function, Int32 arity, ErlangFunction body, Object sourceOwner) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\ModuleRegistry.cs:line 154\r\n   at Erlang.Compiler.ModuleDefinition.\u003CRegister\u003Eb__41_0(ModuleRegistry target) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Compiler\\ModuleDefinition.cs:line 52\r\n   at Erlang.ModuleRegistry.Apply(Action\u00601 configure) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\ModuleRegistry.cs:line 705\r\n   at Erlang.ModuleRegistry.ApplySourceCode(Action\u00601 configure) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\ModuleRegistry.SourceMutation.cs:line 71\r\n   at Erlang.Compiler.ModuleDefinition.Register(ModuleRegistry registry) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Compiler\\ModuleDefinition.cs:line 47\r\n   at Erlang.Tests.OrdsetListsDispatchHostChecks.Success() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\OrdsetListsDispatchHostChecks.cs:line 18\r\n   at Erlang.Tests.OrdsetListsDispatchHostChecks.Success() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\OrdsetListsDispatchHostChecks.cs:line 23\r\n   at Erlang.Tests.OrdsetListsDispatchHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\OrdsetListsDispatchHostChecks.cs:line 9\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 5232",
+      "Milliseconds": 113
+    },
+    {
+      "Name": "serialization/local-fun-foreign-creator-canonicalizes-to-init",
+      "Status": "Passed",
+      "Milliseconds": 20
+    },
+    {
+      "Name": "serialization/local-fun-invalid-creator-rejected-before-factory",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "compiler/operator-source-line-depth-and-operand-order",
+      "Status": "Passed",
+      "Milliseconds": 123
+    }
+  ]
+}

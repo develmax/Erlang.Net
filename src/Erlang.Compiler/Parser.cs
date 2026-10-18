@@ -323,12 +323,15 @@ public sealed class Parser
             int p = SyntaxToken ? Precedence(Current.Text) : 0;
             if (p < minimum || p == 0)
                 break;
-            string op = tokens[position++].Text;
+            Token operatorToken = tokens[position++];
+            string op = operatorToken.Text;
+            int operatorLineIndex = Array.BinarySearch(sourceLineStarts, operatorToken.Start);
+            int operatorLine = operatorLineIndex >= 0 ? operatorLineIndex + 1 : ~operatorLineIndex;
             var right = Expression(
                 op is ErlangOperators.Match or ErlangOperators.Send or ErlangOperators.Append or ErlangOperators.SubtractList or ErlangOperators.AndAlso or ErlangOperators.OrElse ? p : p + 1,
                 stopQualifier
             );
-            left = op == ErlangOperators.Match ? new Expr.Match(ToPattern(left), right) : new Expr.Binary(op, left, right);
+            left = op == ErlangOperators.Match ? new Expr.Match(ToPattern(left), right) : new Expr.Binary(op, left, right) { SourceLine = operatorLine };
             if (p == OperatorPrecedence.Comparison && SyntaxToken && Precedence(Current.Text) == OperatorPrecedence.Comparison)
                 throw Error(ParserDiagnostics.ChainedComparison);
         }
@@ -505,9 +508,12 @@ public sealed class Parser
         }
         if (SyntaxToken && Current.Text is ErlangOperators.Plus or ErlangOperators.Minus or ErlangOperators.Not or ErlangOperators.BitwiseNot)
         {
-            string op = tokens[position++].Text;
+            Token operatorToken = tokens[position++];
+            string op = operatorToken.Text;
+            int operatorLineIndex = Array.BinarySearch(sourceLineStarts, operatorToken.Start);
+            int operatorLine = operatorLineIndex >= 0 ? operatorLineIndex + 1 : ~operatorLineIndex;
 
-            return new Expr.Unary(op, bitSegment ? Primary(true) : Expression(OperatorPrecedence.Prefix, stopQualifier));
+            return new Expr.Unary(op, bitSegment ? Primary(true) : Expression(OperatorPrecedence.Prefix, stopQualifier)) { SourceLine = operatorLine };
         }
         if (Take(ErlangSyntaxTokens.OpenParenthesis))
         {

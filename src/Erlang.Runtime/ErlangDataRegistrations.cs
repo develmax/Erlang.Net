@@ -24,15 +24,17 @@ internal static class ErlangDataRegistrations
                 arity,
                 arguments => new BitString(Encoding.ASCII.GetBytes(ErlangIntegerText.Format(arguments[0], ErlangIntegerText.Base(arguments))))
             );
-            Add(
+            registry.Register(
+                ErlangModuleNames.Module,
                 ErlangDataBifNames.ListToInteger,
                 arity,
-                arguments => ErlangIntegerText.Parse(ErlangIntegerText.ListCharacters(arguments[0]), ErlangIntegerText.Base(arguments))
+                (context, arguments) => ValueTask.FromResult(ErlangIntegerParseBridge.Parse(context, arguments, false))
             );
-            Add(
+            registry.Register(
+                ErlangModuleNames.Module,
                 ErlangDataBifNames.BinaryToInteger,
                 arity,
-                arguments => ErlangIntegerText.Parse(ErlangIoData.Binary(arguments[0]).Select(number => (int)number), ErlangIntegerText.Base(arguments))
+                (context, arguments) => ValueTask.FromResult(ErlangIntegerParseBridge.Parse(context, arguments, true))
             );
         }
         Add(ErlangDataBifNames.ListToBinary, 1, arguments => ErlangIoData.Flatten(arguments[0], false, true));

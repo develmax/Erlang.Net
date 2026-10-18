@@ -1,0 +1,9 @@
+# Whole-module ordsets passive acceptance (source recipe only)
+
+Successor to the failed eight-API experiment, preserving that experiment and its original bad beam_lib:md5 return-shape assertion. This recipe expects the corrected ordinary module assertion `{ok,{ordsets,LoadedMd5}}`, full21MFAs/four groups/six parse sources,436values+2180full stacks=2616observations. Full profile includes14 raw map/FUN controls. The producer manifest/hash and exact head/run/job/artifact bindings remain required inputs; do not run against the earlier112-row packet or relabel its failure.
+
+CLI matches ../ordsets371-passive-proposal1/README.md with tool pointing to the final Root-admitted full21tool, new exact manifest hash and new original run. Admission output must live beneath this recipe directory. Comparator output must be fresh beneath repository artifacts. Original source audit verifies all12008blobs and modes and the complete shared buildmanifest transitive producer closure. Ordinary installedmodule metadata validates image bytes/hash/module MD5; twelve metadata corruption controls; eleven normal original processes and three independent preflight processes. Three original failed partial statuses cannot pass this admission.
+
+Typed comparison includes raw FUN creators/identities/environments and FUN map keys using only the final manifest-bound trusted local passive decoder. No creator substitution, mask, source line adjustment, frame removal, callback relation or equality waiver. Final DLL closure proof distinguishes a retained historical captured DLL set from current final Main DLLs; a live mismatch triggers FinalRecaptureRequired even if the old baseline compares strictly.
+
+No native or SDK execution by author. No compatibility promotion from source or finite observations. Root must freeze the final source manifest, run the recipes on the actual admitted Linux archive, repair any mismatches and recapture final Main.

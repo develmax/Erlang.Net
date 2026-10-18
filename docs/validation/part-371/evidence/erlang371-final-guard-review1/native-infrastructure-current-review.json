@@ -1,0 +1,425 @@
+{
+  "Status": "ALL_CLI_VALIDATED_SOURCE_AND_EVIDENCE_HASHES_MATCH",
+  "InventorySha256": "AAA25ED168B822482362FEED111C2D6851639EDE69BEE59A24F3AA57324B5E83",
+  "Validator": "tools/Erlang.Tool/NativeInfrastructureReport.cs",
+  "ValidatorSha256": "0FE780C7CAB13D6DD8978EF0084DCEA26AE96E9DB41845A079F152212E33ABA2",
+  "SourcePaths": 40,
+  "ReferencesIncludingEvidence": 64,
+  "Checks": [
+    {
+      "Path": "docs/validation/part-361/full4-acceptance.json",
+      "Sha256": "63640464A9ECC6560E1A2C6CD94A5EADC910A8E8B3AA49470BA8D88F5A0EE02A",
+      "Scope": "7438/0 Windows full suite,11 integrations,2 packages,12 normal children; not every NIF API",
+      "Platform": "windows-x64",
+      "ExecutionIdentity": "candidate5 source-plan26771833",
+      "ActualSha256": "63640464A9ECC6560E1A2C6CD94A5EADC910A8E8B3AA49470BA8D88F5A0EE02A",
+      "Matches": true
+    },
+    {
+      "Path": "docs/validation/part-361/windows-original-acceptance.json",
+      "Sha256": "20AE90F30EAF1CC87A0D7A9610B4CE1313293A10C358A82A173A58CEDDFE610F",
+      "Scope": "34 exact rows across map-size/reference reviewed and ordinary routes",
+      "Platform": "windows-x64",
+      "ExecutionIdentity": "original39029306519/39027923905 and recorded Windows routes",
+      "ActualSha256": "20AE90F30EAF1CC87A0D7A9610B4CE1313293A10C358A82A173A58CEDDFE610F",
+      "Matches": true
+    },
+    {
+      "Path": "docs/validation/part-361/linux-collector-acceptance.json",
+      "Sha256": "FDC7DE4963D4824865CC3E99816F6734EDD32D670AC2B71A3CD63AB2A33DD26E",
+      "Scope": "68 callback comparisons,16 managed counts,3 loader and3 destructor controls,50 normal receipts",
+      "Platform": "glibc-linux-x64",
+      "ExecutionIdentity": "91a281319529ee3aadb353e14e5e6b08d93cbb51",
+      "ActualSha256": "FDC7DE4963D4824865CC3E99816F6734EDD32D670AC2B71A3CD63AB2A33DD26E",
+      "Matches": true
+    },
+    {
+      "Path": "docs/validation/part-361/linux-to-final-source-review.json",
+      "Sha256": "9841FA8AEF280CDE88F66584F3BB94AB90E67093399E6DDCEF7A3222B4C2EF82",
+      "Scope": "Tested Linux source to final candidate source equivalence; no execution inferred",
+      "Platform": "source-only",
+      "ExecutionIdentity": "candidate5 source-plan26771833",
+      "ActualSha256": "9841FA8AEF280CDE88F66584F3BB94AB90E67093399E6DDCEF7A3222B4C2EF82",
+      "Matches": true
+    },
+    {
+      "Path": "docs/validation/part-361/CONTRACT-AUDIT.md",
+      "Sha256": "8CF68AEA771AE91CC145CBD2BB7DB7A98892EDD04A82A866A7AB4039AF0E4CD6",
+      "Scope": "Bounded map-size/reference contracts and stated exclusions",
+      "Platform": "source-audit",
+      "ExecutionIdentity": "OTP29.1.1",
+      "ActualSha256": "8CF68AEA771AE91CC145CBD2BB7DB7A98892EDD04A82A866A7AB4039AF0E4CD6",
+      "Matches": true
+    },
+    {
+      "Path": "docs/validation/part-361/integrated-build-receipt.json",
+      "Sha256": "70E43ED3E309F5856EB1C97884DCFE8E4FB49F06D566182CB2AD75A3E811562B",
+      "Scope": "Actual integrated Main test-project build; no general semantic proof",
+      "Platform": "windows-x64",
+      "ExecutionIdentity": "pre-publication Main integration",
+      "ActualSha256": "70E43ED3E309F5856EB1C97884DCFE8E4FB49F06D566182CB2AD75A3E811562B",
+      "Matches": true
+    },
+    {
+      "Path": "docs/validation/part-361/integrated-focused-tests.json",
+      "Sha256": "1DEED58509A1615E24967287F4E10ADE417706C41667919E94B0F4111839A719",
+      "Scope": "Actual integrated focused checks; retain declared count/scope",
+      "Platform": "windows-x64",
+      "ExecutionIdentity": "pre-publication Main integration",
+      "ActualSha256": "1DEED58509A1615E24967287F4E10ADE417706C41667919E94B0F4111839A719",
+      "Matches": true
+    },
+    {
+      "Path": "docs/validation/part-369/native-infrastructure-source-addendum.json",
+      "Sha256": "4608CDC41E1706CCA33FE23475888C73EA1A307E1DE81534B993A1965E4DF71C",
+      "Scope": "Docs-only unpublished binary storage/inspect source delta; historical Part361 evidence remains bounded and raw equivalence is false. No higher inventory verification.",
+      "Platform": "source-audit",
+      "ExecutionIdentity": "part369 current working tree; historical Main372 anchor preserved",
+      "ActualSha256": "4608CDC41E1706CCA33FE23475888C73EA1A307E1DE81534B993A1965E4DF71C",
+      "Matches": true
+    },
+    {
+      "Path": "docs/validation/part-369/source-guards/review.json",
+      "Sha256": "DE7995AF430FBD0E171E4281F2FA568D9C58BEB9EE9F36989EA8A8282DF0518A",
+      "Scope": "450 reviewed current source guards; source argument, not same-head/native ABI execution.",
+      "Platform": "source-only",
+      "ExecutionIdentity": "part369 reviewed guard successor",
+      "ActualSha256": "DE7995AF430FBD0E171E4281F2FA568D9C58BEB9EE9F36989EA8A8282DF0518A",
+      "Matches": true
+    },
+    {
+      "Path": "docs/validation/part-369/local-completion/canonical-tests.json",
+      "Sha256": "3756C34CF27EEB4DC63BAF7A80A161E547837FE221223CF37BDE0446E3C8454F",
+      "Scope": "Actual7639/0 Windows test phase; whole full2 command later exited1 at readiness inventory validation. Exact suffix resume is separate evidence.",
+      "Platform": "windows-x64",
+      "ExecutionIdentity": "full2 pid307088; test phase only",
+      "ActualSha256": "3756C34CF27EEB4DC63BAF7A80A161E547837FE221223CF37BDE0446E3C8454F",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeDefaultLoader.cs",
+      "Sha256": "F1F4C1D9A0B90F1C7D66EC237C9032DFE64DD8EE4FBA56C52F37065BCD8D68B8",
+      "ActualSha256": "F1F4C1D9A0B90F1C7D66EC237C9032DFE64DD8EE4FBA56C52F37065BCD8D68B8",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeCapabilityProfile.cs",
+      "Sha256": "BB02181953B06E0B31A70054D2BC1BB4BF4A192E836A0C5A88FCED88ED8C8164",
+      "ActualSha256": "BB02181953B06E0B31A70054D2BC1BB4BF4A192E836A0C5A88FCED88ED8C8164",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeAbi.cs",
+      "Sha256": "87D203E0B449BC2B865CED1124E86D4CFAFB48AFAA1FCCF9F1176154B1F1868A",
+      "ActualSha256": "87D203E0B449BC2B865CED1124E86D4CFAFB48AFAA1FCCF9F1176154B1F1868A",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeEntryReader.cs",
+      "Sha256": "4886AF66B25FD5A47331B6C0E0A95AA75D1C84DF7EA74B86273544BAB31B4A76",
+      "ActualSha256": "4886AF66B25FD5A47331B6C0E0A95AA75D1C84DF7EA74B86273544BAB31B4A76",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeEntryFunctions.cs",
+      "Sha256": "5E3F0F9F8B4225E6082212C34974370545FFB59D4591A4157922E6954F16197C",
+      "ActualSha256": "5E3F0F9F8B4225E6082212C34974370545FFB59D4591A4157922E6954F16197C",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifImageBindings.cs",
+      "Sha256": "BFF0CA2FB4965C1CCB2A87B63611DC3B836120C48D03BB27DD39A610E69E522C",
+      "ActualSha256": "BFF0CA2FB4965C1CCB2A87B63611DC3B836120C48D03BB27DD39A610E69E522C",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.NifAdmission.cs",
+      "Sha256": "676B054D12BBDF77D2C2169607C0F21CC277FA48C9313F853C11E50D98D2DDF7",
+      "ActualSha256": "676B054D12BBDF77D2C2169607C0F21CC277FA48C9313F853C11E50D98D2DDF7",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifImageBindingStore.cs",
+      "Sha256": "677108FD58314F4AA18407EF4F748457BA4300185CC407B6D83DBAAEA74D5C8E",
+      "ActualSha256": "677108FD58314F4AA18407EF4F748457BA4300185CC407B6D83DBAAEA74D5C8E",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLibraryOwner.cs",
+      "Sha256": "DC4B4590CF564229010370A616B362D2FEB1CC8715C87F638EA457D28F778E13",
+      "ActualSha256": "DC4B4590CF564229010370A616B362D2FEB1CC8715C87F638EA457D28F778E13",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeCallbackScope.cs",
+      "Sha256": "1911396A620D6F733F8F4F8558252F070EC83CE6753F41597864281DCE796893",
+      "ActualSha256": "1911396A620D6F733F8F4F8558252F070EC83CE6753F41597864281DCE796893",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeCallEnvironment.cs",
+      "Sha256": "52AA8BDB06D8BB924CDAC0B9F26398E53D5CD5BBDA48CF2A9FB889FEDC9FEBE9",
+      "ActualSha256": "52AA8BDB06D8BB924CDAC0B9F26398E53D5CD5BBDA48CF2A9FB889FEDC9FEBE9",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeTermValue.cs",
+      "Sha256": "DC059AC474603881FCFEBF11C3E84A284128CE3B1AB6282963FAF1A085D50E0C",
+      "ActualSha256": "DC059AC474603881FCFEBF11C3E84A284128CE3B1AB6282963FAF1A085D50E0C",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeAllocationOwner.cs",
+      "Sha256": "2884702F5A0934364639A6FCF29C069F94A432BDF8161AF57FB2E7A9EB40DF77",
+      "ActualSha256": "2884702F5A0934364639A6FCF29C069F94A432BDF8161AF57FB2E7A9EB40DF77",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeAllocationDomain.cs",
+      "Sha256": "046185BAA85056C832D96001B1D405E06550C14E14DEC8106E481289D25B9174",
+      "ActualSha256": "046185BAA85056C832D96001B1D405E06550C14E14DEC8106E481289D25B9174",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeReallocationExportRegistration.cs",
+      "Sha256": "05F345682FBEDB825A97271FC579E0BBFF4C525143B9685D53911959B8812D5E",
+      "ActualSha256": "05F345682FBEDB825A97271FC579E0BBFF4C525143B9685D53911959B8812D5E",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeEnvironmentCallbacks.cs",
+      "Sha256": "B24B8300202DBBD4CFB8BA5CF1072591A7D9BE0FC68F54E32D18C45012411B8B",
+      "ActualSha256": "B24B8300202DBBD4CFB8BA5CF1072591A7D9BE0FC68F54E32D18C45012411B8B",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeCallEnvironment.cs",
+      "Sha256": "52AA8BDB06D8BB924CDAC0B9F26398E53D5CD5BBDA48CF2A9FB889FEDC9FEBE9",
+      "ActualSha256": "52AA8BDB06D8BB924CDAC0B9F26398E53D5CD5BBDA48CF2A9FB889FEDC9FEBE9",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeBinaryCallbacks.cs",
+      "Sha256": "284249C5C93F995E4477CE79324098DA4810959C63D92B864567D6586D2D64F5",
+      "ActualSha256": "284249C5C93F995E4477CE79324098DA4810959C63D92B864567D6586D2D64F5",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeBinaryStorage.cs",
+      "Sha256": "8AC72A9A1F6746EE1BD5C299B929C5BC911D4E0D9E30685B469B7CCA5EDBD43A",
+      "ActualSha256": "8AC72A9A1F6746EE1BD5C299B929C5BC911D4E0D9E30685B469B7CCA5EDBD43A",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeWindowsCallbacks.cs",
+      "Sha256": "8614F45DF22B222E780CA5A67830C16E34E7DFD59031ABEA64CF0DC4903D583F",
+      "ActualSha256": "8614F45DF22B222E780CA5A67830C16E34E7DFD59031ABEA64CF0DC4903D583F",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeNumericCallbacks.cs",
+      "Sha256": "97B168D7A231922C2CEDCF4C80CC3C81DDA9A882071868C15B4E451F794AFDFA",
+      "ActualSha256": "97B168D7A231922C2CEDCF4C80CC3C81DDA9A882071868C15B4E451F794AFDFA",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLinuxNumericCallbacks.cs",
+      "Sha256": "175DB3B64F8584BA5D4C35DF9112C40C5D8A41AFEAE46D31B60F87B0F10880D0",
+      "ActualSha256": "175DB3B64F8584BA5D4C35DF9112C40C5D8A41AFEAE46D31B60F87B0F10880D0",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeTypeCallbacks.cs",
+      "Sha256": "33E7760C58CFF782789DC0D051AED0DD125B60A0D1BA316D4477A46642CDA2F8",
+      "ActualSha256": "33E7760C58CFF782789DC0D051AED0DD125B60A0D1BA316D4477A46642CDA2F8",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeArrayCallbacks.cs",
+      "Sha256": "670E396BE73D2F169699C4C9237039C7AC14634F4E3923BE69953BB9EE30AB90",
+      "ActualSha256": "670E396BE73D2F169699C4C9237039C7AC14634F4E3923BE69953BB9EE30AB90",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeAtomCallbacks.cs",
+      "Sha256": "5DC060495CB534FBB71CF982CCFA037340664454164822058E5C4FBCF3649ED9",
+      "ActualSha256": "5DC060495CB534FBB71CF982CCFA037340664454164822058E5C4FBCF3649ED9",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeStringCallbacks.cs",
+      "Sha256": "6097F7D29D15B23458C2D2A320796E6689901BEFFD815CE4ADDC2CBC4CF5D354",
+      "ActualSha256": "6097F7D29D15B23458C2D2A320796E6689901BEFFD815CE4ADDC2CBC4CF5D354",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeComparisonCallbacks.cs",
+      "Sha256": "24E7C71D1F89A098A5F912AE261D70AA203BA8508B9AED8B0F60AA2019732D63",
+      "ActualSha256": "24E7C71D1F89A098A5F912AE261D70AA203BA8508B9AED8B0F60AA2019732D63",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeWindowsCallbacks.cs",
+      "Sha256": "8614F45DF22B222E780CA5A67830C16E34E7DFD59031ABEA64CF0DC4903D583F",
+      "ActualSha256": "8614F45DF22B222E780CA5A67830C16E34E7DFD59031ABEA64CF0DC4903D583F",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeReferenceCallbacks.cs",
+      "Sha256": "DA9DEA07EA5B9D3424ACB70561274CE7F4279AABBAA05C185D782431E268D3AF",
+      "ActualSha256": "DA9DEA07EA5B9D3424ACB70561274CE7F4279AABBAA05C185D782431E268D3AF",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/ReferenceNumberLayout.cs",
+      "Sha256": "C83191FD063FD1DF4368AF997BE94B82CF7D6DA2FF031AEE563AA63729205154",
+      "ActualSha256": "C83191FD063FD1DF4368AF997BE94B82CF7D6DA2FF031AEE563AA63729205154",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeMapSizeCallbacks.cs",
+      "Sha256": "DB96E5019CA273E1A2F67D156AD0462FEAE306DAE7E946AC630AA1BC4F8B8969",
+      "ActualSha256": "DB96E5019CA273E1A2F67D156AD0462FEAE306DAE7E946AC630AA1BC4F8B8969",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLinuxNamespace.cs",
+      "Sha256": "CEDF8F3E936D14F6DF349E238E4AEF6239B41A1B7EDBD453C73313389911CBA9",
+      "ActualSha256": "CEDF8F3E936D14F6DF349E238E4AEF6239B41A1B7EDBD453C73313389911CBA9",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeElfCapsule.cs",
+      "Sha256": "4AEE9477F527B63CBB6E4EEE39BFB1D34D89402E6C21B0A6BC00768A36B5788C",
+      "ActualSha256": "4AEE9477F527B63CBB6E4EEE39BFB1D34D89402E6C21B0A6BC00768A36B5788C",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLibraryPath.cs",
+      "Sha256": "BD5215BDD63C35DCDD4E008158D8DF4BC6142471674B7F6DC132DA42A8AE26D2",
+      "ActualSha256": "BD5215BDD63C35DCDD4E008158D8DF4BC6142471674B7F6DC132DA42A8AE26D2",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeWindowsCallbacks.cs",
+      "Sha256": "8614F45DF22B222E780CA5A67830C16E34E7DFD59031ABEA64CF0DC4903D583F",
+      "ActualSha256": "8614F45DF22B222E780CA5A67830C16E34E7DFD59031ABEA64CF0DC4903D583F",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeWindowsCallbackLayout.cs",
+      "Sha256": "89A1D947502FF932E67E08BD066AE8CEECF173123A13C74D62C772F5367866DC",
+      "ActualSha256": "89A1D947502FF932E67E08BD066AE8CEECF173123A13C74D62C772F5367866DC",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativePlatformLoader.cs",
+      "Sha256": "4D7065CF652CF428BAAC78BED36227C51D168D80DC00A5A93F2151D7B3A103CF",
+      "ActualSha256": "4D7065CF652CF428BAAC78BED36227C51D168D80DC00A5A93F2151D7B3A103CF",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifImageBindings.cs",
+      "Sha256": "BFF0CA2FB4965C1CCB2A87B63611DC3B836120C48D03BB27DD39A610E69E522C",
+      "ActualSha256": "BFF0CA2FB4965C1CCB2A87B63611DC3B836120C48D03BB27DD39A610E69E522C",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLibraryOwner.cs",
+      "Sha256": "DC4B4590CF564229010370A616B362D2FEB1CC8715C87F638EA457D28F778E13",
+      "ActualSha256": "DC4B4590CF564229010370A616B362D2FEB1CC8715C87F638EA457D28F778E13",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLinuxCapsuleLease.cs",
+      "Sha256": "E64EF737BE2575301982145F2340F3FA8325ADA6E067EDE734EFD535D0D79B4C",
+      "ActualSha256": "E64EF737BE2575301982145F2340F3FA8325ADA6E067EDE734EFD535D0D79B4C",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLinuxPthreadControl.cs",
+      "Sha256": "88FF58339B486EF7E2C87AA19DE68485317C31F957518F69A2CE6C678DC0BDBB",
+      "ActualSha256": "88FF58339B486EF7E2C87AA19DE68485317C31F957518F69A2CE6C678DC0BDBB",
+      "Matches": true
+    },
+    {
+      "Path": "tools/Erlang.NifNativeBackend/native/nif_bridge_pthread_control.c",
+      "Sha256": "7280DAFAC7273E6470E80E6E476BBCDE3631D91D7F0031CC28ABCEDABD9E2D29",
+      "ActualSha256": "7280DAFAC7273E6470E80E6E476BBCDE3631D91D7F0031CC28ABCEDABD9E2D29",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeAbiEntry.cs",
+      "Sha256": "3970151D12A30FB5A946AFEC5E4B17BC94F22F4D972005D51473CB35CF873C9A",
+      "ActualSha256": "3970151D12A30FB5A946AFEC5E4B17BC94F22F4D972005D51473CB35CF873C9A",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeEntryFunctions.cs",
+      "Sha256": "5E3F0F9F8B4225E6082212C34974370545FFB59D4591A4157922E6954F16197C",
+      "ActualSha256": "5E3F0F9F8B4225E6082212C34974370545FFB59D4591A4157922E6954F16197C",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeNames.cs",
+      "Sha256": "7C9E4674218704D7F43100C4D09F5DDAAD53E9C63A2F420151784A0850C4F879",
+      "ActualSha256": "7C9E4674218704D7F43100C4D09F5DDAAD53E9C63A2F420151784A0850C4F879",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeAbiEntry.cs",
+      "Sha256": "3970151D12A30FB5A946AFEC5E4B17BC94F22F4D972005D51473CB35CF873C9A",
+      "ActualSha256": "3970151D12A30FB5A946AFEC5E4B17BC94F22F4D972005D51473CB35CF873C9A",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.NifAdmission.cs",
+      "Sha256": "676B054D12BBDF77D2C2169607C0F21CC277FA48C9313F853C11E50D98D2DDF7",
+      "ActualSha256": "676B054D12BBDF77D2C2169607C0F21CC277FA48C9313F853C11E50D98D2DDF7",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeMapSizeCallbacks.cs",
+      "Sha256": "DB96E5019CA273E1A2F67D156AD0462FEAE306DAE7E946AC630AA1BC4F8B8969",
+      "ActualSha256": "DB96E5019CA273E1A2F67D156AD0462FEAE306DAE7E946AC630AA1BC4F8B8969",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeWindowsCallbackLayout.cs",
+      "Sha256": "89A1D947502FF932E67E08BD066AE8CEECF173123A13C74D62C772F5367866DC",
+      "ActualSha256": "89A1D947502FF932E67E08BD066AE8CEECF173123A13C74D62C772F5367866DC",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativePlatformLoader.cs",
+      "Sha256": "4D7065CF652CF428BAAC78BED36227C51D168D80DC00A5A93F2151D7B3A103CF",
+      "ActualSha256": "4D7065CF652CF428BAAC78BED36227C51D168D80DC00A5A93F2151D7B3A103CF",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeAbi.cs",
+      "Sha256": "87D203E0B449BC2B865CED1124E86D4CFAFB48AFAA1FCCF9F1176154B1F1868A",
+      "ActualSha256": "87D203E0B449BC2B865CED1124E86D4CFAFB48AFAA1FCCF9F1176154B1F1868A",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLinuxNamespaceRetention.cs",
+      "Sha256": "9D84567A330D314EAE369BA85FCEDEFBBDFA3D2528170A83AE9F25B4ABF2C575",
+      "ActualSha256": "9D84567A330D314EAE369BA85FCEDEFBBDFA3D2528170A83AE9F25B4ABF2C575",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLibraryOwner.cs",
+      "Sha256": "DC4B4590CF564229010370A616B362D2FEB1CC8715C87F638EA457D28F778E13",
+      "ActualSha256": "DC4B4590CF564229010370A616B362D2FEB1CC8715C87F638EA457D28F778E13",
+      "Matches": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/NifNativeLinuxCapsuleLease.cs",
+      "Sha256": "E64EF737BE2575301982145F2340F3FA8325ADA6E067EDE734EFD535D0D79B4C",
+      "ActualSha256": "E64EF737BE2575301982145F2340F3FA8325ADA6E067EDE734EFD535D0D79B4C",
+      "Matches": true
+    }
+  ],
+  "Conclusion": "No native-infrastructure hash or classification changes are needed. This mirrors the exact CLI Evidence and Entries.SourceBindings validation, including non-src paths; the prior recursive src-only count was narrower."
+}

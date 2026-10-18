@@ -1,0 +1,1868 @@
+{
+  "OwnedHelper": "artifacts/spawn-priority351-preparation/execute-root.py",
+  "OwnedHelperSha256": "C66ACEC6FFE57C57EFAABC96FD1DB00598D7AAD7D05C2EA814A146B759D4171A",
+  "Stages": [
+    {
+      "Name": "erlang-old",
+      "Module": "erlang",
+      "Harness": "artifacts/erlang-integration370-final-old1/main-capture",
+      "Tool": "artifacts/erlang-original370-pure1/preparation1/tool",
+      "Values": 1597,
+      "Profiles": 7985,
+      "Stage": "erlang57-capture",
+      "Timeout": 1200,
+      "ManifestSha256": "D5C035FB9EC8FB96195B3781722E861BE8B4C60B71674797A9B03A34FB47F182",
+      "ProfileSha256": "A02FEA7FC7074FF592C8AF670E3E6B50E9E91458AAF0081B2BEE0F0327AEDDA6",
+      "ObserverSha256": "5FBDBA2A3E37CD8EFF6B4800FC83380FEE52053F31847A5792517FDF3123A1CB",
+      "HarnessSources": [
+        {
+          "Path": "artifacts/erlang-integration370-final-old1/main-capture/BinaryReferenceObservation.cs",
+          "Bytes": 6320,
+          "Sha256": "EE8A4EAE6D4E184A08F420655B3F5A3B156D989B408CB62A1E13352F99C293A9"
+        },
+        {
+          "Path": "artifacts/erlang-integration370-final-old1/main-capture/BinaryReferenceObservationNames.cs",
+          "Bytes": 883,
+          "Sha256": "E897FB78362C1173E367F8886BA9E67F1AD59C694CF64A7B821F5224CF0DC09E"
+        },
+        {
+          "Path": "artifacts/erlang-integration370-final-old1/main-capture/FamilyCaptureNames.cs",
+          "Bytes": 631,
+          "Sha256": "7C3FA8CC4DCA1365A4D2DA8D59C3C6B947CEF8E31270FFD67AFF729B0450C0A2"
+        },
+        {
+          "Path": "artifacts/erlang-integration370-final-old1/main-capture/FamilyRuntimeMetadataNames.cs",
+          "Bytes": 344,
+          "Sha256": "C13BCC9C7344F67624B3EF05E848BE16DCF381139909940F3AD3894F08729C89"
+        },
+        {
+          "Path": "artifacts/erlang-integration370-final-old1/main-capture/MainCapture.csproj",
+          "Bytes": 393,
+          "Sha256": "44D165E307115962CAE247C3BE395E4234702048016249F7996F640F5EBE8E4F"
+        },
+        {
+          "Path": "artifacts/erlang-integration370-final-old1/main-capture/Program.cs",
+          "Bytes": 8537,
+          "Sha256": "FEB05AEE906FE31AA6D751825B990883254DC36C893DDFA332ADE0B5B145A235"
+        },
+        {
+          "Path": "artifacts/erlang-integration370-final-old1/main-capture/SourceFunctionObservation.cs",
+          "Bytes": 4959,
+          "Sha256": "230C887E3FB15C50647570CA1B36AFD15CFC339E26E29BEFDB3FB259FC888648"
+        },
+        {
+          "Path": "artifacts/erlang-integration370-final-old1/main-capture/SourceFunctionObservationNames.cs",
+          "Bytes": 584,
+          "Sha256": "41C3221A03F20D4FDADECFA8EA1819346754A24E75073C7EBC2B088DA9F2F476"
+        }
+      ],
+      "CachedBinFiles": [
+        {
+          "Path": "cs/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 453968,
+          "Sha256": "4B76E1ACE7C4DD6D73F6577AF3B33A0D70DB8B65B10F292BB33F0CD364E869C7"
+        },
+        {
+          "Path": "cs/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 41296,
+          "Sha256": "AC9A260DE180F85B6AA6753698D941B91D93E8ABC760505E7AFAA4111ACCC73B"
+        },
+        {
+          "Path": "de/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 485672,
+          "Sha256": "6F79A685C5A6246B08416B95FE12AB2FB5782AD8AEEC2E8147B3C2BD216C50E3"
+        },
+        {
+          "Path": "de/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 42792,
+          "Sha256": "9D965A076507334A9B5BB5BC69B3AE60F9FF781101A8938EC597255843DCBCD8"
+        },
+        {
+          "Path": "Erlang.Compiler.dll",
+          "Bytes": 465920,
+          "Sha256": "A5A8FAC28CC1F1FC7492EE04935822009E0CBF0358924D6A9115A94CEC7CFDCA"
+        },
+        {
+          "Path": "Erlang.Compiler.pdb",
+          "Bytes": 150260,
+          "Sha256": "9364C304A57912447030533E53E3165841C224AAF9521760F15E1AE29F785376"
+        },
+        {
+          "Path": "Erlang.Differential.deps.json",
+          "Bytes": 6189,
+          "Sha256": "C5522AB866D1B4657F8AE79F9B4D5F3A1D8F209C2BC30A06B6F499D47FDB88CD"
+        },
+        {
+          "Path": "Erlang.Differential.dll",
+          "Bytes": 3081216,
+          "Sha256": "BA9EA1D0B34791E67E93F48298389E230C9AB2BEB0FBDB023C586D10FB540D41"
+        },
+        {
+          "Path": "Erlang.Differential.exe",
+          "Bytes": 162816,
+          "Sha256": "98100E612DAC82CF6F750522F62B4561CEE33BD42BA50F49F6C325DA1339396A"
+        },
+        {
+          "Path": "Erlang.Differential.pdb",
+          "Bytes": 134172,
+          "Sha256": "00D2D6563E6AAA0D8AF85A4859C307D84B89F0CA9D030E608D595786090A2466"
+        },
+        {
+          "Path": "Erlang.Differential.runtimeconfig.json",
+          "Bytes": 270,
+          "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+        },
+        {
+          "Path": "Erlang.Otp.Behaviours.dll",
+          "Bytes": 395776,
+          "Sha256": "DA9E8B72A0D683A2FECC4C2073DC678A8E3065AA30B44BCBF3F1E53EB0F2B901"
+        },
+        {
+          "Path": "Erlang.Otp.Behaviours.pdb",
+          "Bytes": 115156,
+          "Sha256": "466DF2971EEE0BB62980C92252072EE05A3EC3EB3A7645F4D0C657D855F53AB4"
+        },
+        {
+          "Path": "Erlang.PortProbe.deps.json",
+          "Bytes": 442,
+          "Sha256": "E542D177CB0866F255DB455D01E6F4AEFDB200462A5EF7E062355CC3E796F40E"
+        },
+        {
+          "Path": "Erlang.PortProbe.exe",
+          "Bytes": 162304,
+          "Sha256": "A92D5E9E875EEBC406049F6A0387ABB1B6BC9F13CCE5C5B18DB9CBF0461850DE"
+        },
+        {
+          "Path": "Erlang.PortProbe.runtimeconfig.json",
+          "Bytes": 270,
+          "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+        },
+        {
+          "Path": "Erlang.Runtime.dll",
+          "Bytes": 1830912,
+          "Sha256": "1EEEFC149EDFB06C3F5590CE33949B9C2D2D051697399A0CE614118431D58BF3"
+        },
+        {
+          "Path": "Erlang.Runtime.pdb",
+          "Bytes": 594308,
+          "Sha256": "93C2724AF1207E2E298C31AB03EACB112828073D3DF4F5215D7CB2A05EFEEE55"
+        },
+        {
+          "Path": "Erlang.Serialization.dll",
+          "Bytes": 76288,
+          "Sha256": "CDD56D1E2B3B7C18477B3F2E882E029D96EC0A554605D00954E98B3B59D2147A"
+        },
+        {
+          "Path": "Erlang.Serialization.pdb",
+          "Bytes": 38152,
+          "Sha256": "5467C78D1062DD33E99A8D3456646918CFAC877C34DA2E3899A583C0CEA3B0A9"
+        },
+        {
+          "Path": "Erlang.Terms.dll",
+          "Bytes": 116736,
+          "Sha256": "58B1994D4A47EA559DFDAFD9A97CC36965819BB18908117F28FADE523AFE7B0B"
+        },
+        {
+          "Path": "Erlang.Terms.pdb",
+          "Bytes": 37884,
+          "Sha256": "85916B3825ECD2FA9D25629D8FD9C1E864363A75904E292B94DDAD99F4A2489F"
+        },
+        {
+          "Path": "es/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 474960,
+          "Sha256": "985D0B52DA0FB045FF19F8FB88FC872AD21F61F2AA28F7D6521D5066FCCDECFE"
+        },
+        {
+          "Path": "es/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 42280,
+          "Sha256": "0407AAD7B8C7417777EFF8ADB11278EF5B0A04DB71674EC22686E5121EE2B81F"
+        },
+        {
+          "Path": "fr/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 488744,
+          "Sha256": "12FD3517FA99F8A7ADECB01FEA24761AFAC6BBF20A3BBBEEE852ED2BD56151BD"
+        },
+        {
+          "Path": "fr/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 42792,
+          "Sha256": "C3A076FED478E565C8E596F6FAD061E072DD262381C05B5F811D309EB0795420"
+        },
+        {
+          "Path": "it/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 481064,
+          "Sha256": "F4E4BF358A53C792ED7034D43BEAA89E06EEBD727FDB0AE79DF3EAEF63CE36EF"
+        },
+        {
+          "Path": "it/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 42792,
+          "Sha256": "B25CA4BDBDD6A5B9901F415F80A7A4341E22335C1266CC0DDF359D7D7339A9F9"
+        },
+        {
+          "Path": "ja/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 530728,
+          "Sha256": "3C35AEEE474EECF497249841ACE69CA6B2EF67209C001965599BEB4B80F14526"
+        },
+        {
+          "Path": "ja/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 45352,
+          "Sha256": "294617887471923FAB516DC337DBF927BC210041C76719DE7B72F78870E01796"
+        },
+        {
+          "Path": "ko/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 486696,
+          "Sha256": "0976B69643E5E3CC4453BDDC3AD64AF2A96B00F5F551DD608503842A0AD89FEC"
+        },
+        {
+          "Path": "ko/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 42832,
+          "Sha256": "9A9C7288B66F60934F4B37C272796775C21E209B2F3DA3C968196C7641AC894F"
+        },
+        {
+          "Path": "MainCapture.deps.json",
+          "Bytes": 9286,
+          "Sha256": "5878D7548AAD7D63EF2F2EA0B7E130CD9B64A59932369E2CBCDC8B7AB5B16AA6"
+        },
+        {
+          "Path": "MainCapture.dll",
+          "Bytes": 62464,
+          "Sha256": "5FBDBA2A3E37CD8EFF6B4800FC83380FEE52053F31847A5792517FDF3123A1CB"
+        },
+        {
+          "Path": "MainCapture.exe",
+          "Bytes": 162304,
+          "Sha256": "4DBCD570785BFE5A7A0C20316B5B05DE5BA6D4906E546DAF5F184D855385C7CA"
+        },
+        {
+          "Path": "MainCapture.pdb",
+          "Bytes": 24104,
+          "Sha256": "FA9A6C038E3296C2D4B6571E6656981876C2A04A313BC4ABEE43AC25166A23C3"
+        },
+        {
+          "Path": "MainCapture.runtimeconfig.json",
+          "Bytes": 270,
+          "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+        },
+        {
+          "Path": "Microsoft.CodeAnalysis.CSharp.dll",
+          "Bytes": 19191632,
+          "Sha256": "F5C3F59F88B65C04E16644CA7F53740B51859FAF214F812DD601137BEBE021EB"
+        },
+        {
+          "Path": "Microsoft.CodeAnalysis.dll",
+          "Bytes": 8292136,
+          "Sha256": "55E266AC4FFDF5D73FC861A35ED8C2E7C2292EBEBC2107D1722B6429D7E6AB78"
+        },
+        {
+          "Path": "pl/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 488272,
+          "Sha256": "F669D1F64392982180B69187C9F2926EF986A9D7666AA4D6EAF84DC630920CFE"
+        },
+        {
+          "Path": "pl/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 42832,
+          "Sha256": "B360DDAB71AF0DDD1E75CC24762ED9E906D623E1BE2D872AF9AB0CC341F86FB7"
+        },
+        {
+          "Path": "pt-BR/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 466256,
+          "Sha256": "ACBAD09049E61074A06FF8A0CB52158D5B3BC71B53CE6218DA33DCF1E40A4126"
+        },
+        {
+          "Path": "pt-BR/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 41768,
+          "Sha256": "46916D9A42BE1B6B3D9A4BD5F69DBBDD0487DA02FE4F1F4389C4F0B509F4B810"
+        },
+        {
+          "Path": "ru/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 640848,
+          "Sha256": "DA16D322D14792D9E5C4715DA1EB741F4A7B3B9C6935798696884B09A98CCF19"
+        },
+        {
+          "Path": "ru/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 51536,
+          "Sha256": "989A94DFF120217279BBC51BC475BF608EDD2514A9F47C063CD8830C92FE0467"
+        },
+        {
+          "Path": "tr/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 462120,
+          "Sha256": "4DA062643A7EF05AE43849EE8B2FCC54479AD93B256F1B6B104E466D56C8BD70"
+        },
+        {
+          "Path": "tr/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 41256,
+          "Sha256": "1C737EC8A28276DDA105A16AE6B4B3D576344A6D6AEF8BBA1D24F743CBB873AA"
+        },
+        {
+          "Path": "zh-Hans/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 411472,
+          "Sha256": "05C6D2CE8FFF9C81FE4E43022BD54271229C1E937B35406B93AA9C1EAF07488E"
+        },
+        {
+          "Path": "zh-Hans/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 38736,
+          "Sha256": "471FA8D76FA55D666BDECE15AD3720B407F06FD93547790AC778820FCFDD89C0"
+        },
+        {
+          "Path": "zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 410920,
+          "Sha256": "39C1A2ED241F86FA85B465CCFE4EE328F5DA39C15705CA9FD41271FDB46B72EA"
+        },
+        {
+          "Path": "zh-Hant/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 38736,
+          "Sha256": "E4BD4EBAE62948B4C7AB90931E8C0EE7F9CFF47E60822A5ADD2ED4005DC91087"
+        }
+      ]
+    },
+    {
+      "Name": "erlang-new",
+      "Module": "erlang",
+      "Harness": "artifacts/erlang-integration370-final-new1/main-capture",
+      "Tool": "artifacts/erlang-original370-closure1/preparation1/tool",
+      "Values": 44,
+      "Profiles": 220,
+      "Stage": "erlang57-capture",
+      "Timeout": 1200,
+      "ManifestSha256": "0258DDF97CE3940C7C07AD129747726CFB8263F6F196D9369A1EDCD4419A1182",
+      "ProfileSha256": "4D167FC62CEE935515DED2C21E07545C77E0B2C6CD065386495E040676C7C49B",
+      "ObserverSha256": "321DD4EE5B44B21B55908CF5D4A4434874BD951ED11046915F0203B2657BE9F0",
+      "HarnessSources": [
+        {
+          "Path": "artifacts/erlang-integration370-final-new1/main-capture/BinaryReferenceObservation.cs",
+          "Bytes": 6320,
+          "Sha256": "EE8A4EAE6D4E184A08F420655B3F5A3B156D989B408CB62A1E13352F99C293A9"
+        },
+        {
+          "Path": "artifacts/erlang-integration370-final-new1/main-capture/BinaryReferenceObservationNames.cs",
+          "Bytes": 883,
+          "Sha256": "E897FB78362C1173E367F8886BA9E67F1AD59C694CF64A7B821F5224CF0DC09E"
+        },
+        {
+          "Path": "artifacts/erlang-integration370-final-new1/main-capture/FamilyCaptureNames.cs",
+          "Bytes": 631,
+          "Sha256": "7C3FA8CC4DCA1365A4D2DA8D59C3C6B947CEF8E31270FFD67AFF729B0450C0A2"
+        },
+        {
+          "Path": "artifacts/erlang-integration370-final-new1/main-capture/FamilyRuntimeMetadataNames.cs",
+          "Bytes": 344,
+          "Sha256": "C13BCC9C7344F67624B3EF05E848BE16DCF381139909940F3AD3894F08729C89"
+        },
+        {
+          "Path": "artifacts/erlang-integration370-final-new1/main-capture/MainCapture.csproj",
+          "Bytes": 393,
+          "Sha256": "44D165E307115962CAE247C3BE395E4234702048016249F7996F640F5EBE8E4F"
+        },
+        {
+          "Path": "artifacts/erlang-integration370-final-new1/main-capture/Program.cs",
+          "Bytes": 8537,
+          "Sha256": "FEB05AEE906FE31AA6D751825B990883254DC36C893DDFA332ADE0B5B145A235"
+        },
+        {
+          "Path": "artifacts/erlang-integration370-final-new1/main-capture/SourceFunctionObservation.cs",
+          "Bytes": 4959,
+          "Sha256": "230C887E3FB15C50647570CA1B36AFD15CFC339E26E29BEFDB3FB259FC888648"
+        },
+        {
+          "Path": "artifacts/erlang-integration370-final-new1/main-capture/SourceFunctionObservationNames.cs",
+          "Bytes": 584,
+          "Sha256": "41C3221A03F20D4FDADECFA8EA1819346754A24E75073C7EBC2B088DA9F2F476"
+        }
+      ],
+      "CachedBinFiles": [
+        {
+          "Path": "cs/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 453968,
+          "Sha256": "4B76E1ACE7C4DD6D73F6577AF3B33A0D70DB8B65B10F292BB33F0CD364E869C7"
+        },
+        {
+          "Path": "cs/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 41296,
+          "Sha256": "AC9A260DE180F85B6AA6753698D941B91D93E8ABC760505E7AFAA4111ACCC73B"
+        },
+        {
+          "Path": "de/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 485672,
+          "Sha256": "6F79A685C5A6246B08416B95FE12AB2FB5782AD8AEEC2E8147B3C2BD216C50E3"
+        },
+        {
+          "Path": "de/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 42792,
+          "Sha256": "9D965A076507334A9B5BB5BC69B3AE60F9FF781101A8938EC597255843DCBCD8"
+        },
+        {
+          "Path": "Erlang.Compiler.dll",
+          "Bytes": 465920,
+          "Sha256": "A5A8FAC28CC1F1FC7492EE04935822009E0CBF0358924D6A9115A94CEC7CFDCA"
+        },
+        {
+          "Path": "Erlang.Compiler.pdb",
+          "Bytes": 150260,
+          "Sha256": "9364C304A57912447030533E53E3165841C224AAF9521760F15E1AE29F785376"
+        },
+        {
+          "Path": "Erlang.Differential.deps.json",
+          "Bytes": 6189,
+          "Sha256": "C5522AB866D1B4657F8AE79F9B4D5F3A1D8F209C2BC30A06B6F499D47FDB88CD"
+        },
+        {
+          "Path": "Erlang.Differential.dll",
+          "Bytes": 3081216,
+          "Sha256": "BA9EA1D0B34791E67E93F48298389E230C9AB2BEB0FBDB023C586D10FB540D41"
+        },
+        {
+          "Path": "Erlang.Differential.exe",
+          "Bytes": 162816,
+          "Sha256": "98100E612DAC82CF6F750522F62B4561CEE33BD42BA50F49F6C325DA1339396A"
+        },
+        {
+          "Path": "Erlang.Differential.pdb",
+          "Bytes": 134172,
+          "Sha256": "00D2D6563E6AAA0D8AF85A4859C307D84B89F0CA9D030E608D595786090A2466"
+        },
+        {
+          "Path": "Erlang.Differential.runtimeconfig.json",
+          "Bytes": 270,
+          "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+        },
+        {
+          "Path": "Erlang.Otp.Behaviours.dll",
+          "Bytes": 395776,
+          "Sha256": "DA9E8B72A0D683A2FECC4C2073DC678A8E3065AA30B44BCBF3F1E53EB0F2B901"
+        },
+        {
+          "Path": "Erlang.Otp.Behaviours.pdb",
+          "Bytes": 115156,
+          "Sha256": "466DF2971EEE0BB62980C92252072EE05A3EC3EB3A7645F4D0C657D855F53AB4"
+        },
+        {
+          "Path": "Erlang.PortProbe.deps.json",
+          "Bytes": 442,
+          "Sha256": "E542D177CB0866F255DB455D01E6F4AEFDB200462A5EF7E062355CC3E796F40E"
+        },
+        {
+          "Path": "Erlang.PortProbe.exe",
+          "Bytes": 162304,
+          "Sha256": "A92D5E9E875EEBC406049F6A0387ABB1B6BC9F13CCE5C5B18DB9CBF0461850DE"
+        },
+        {
+          "Path": "Erlang.PortProbe.runtimeconfig.json",
+          "Bytes": 270,
+          "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+        },
+        {
+          "Path": "Erlang.Runtime.dll",
+          "Bytes": 1830912,
+          "Sha256": "1EEEFC149EDFB06C3F5590CE33949B9C2D2D051697399A0CE614118431D58BF3"
+        },
+        {
+          "Path": "Erlang.Runtime.pdb",
+          "Bytes": 594308,
+          "Sha256": "93C2724AF1207E2E298C31AB03EACB112828073D3DF4F5215D7CB2A05EFEEE55"
+        },
+        {
+          "Path": "Erlang.Serialization.dll",
+          "Bytes": 76288,
+          "Sha256": "CDD56D1E2B3B7C18477B3F2E882E029D96EC0A554605D00954E98B3B59D2147A"
+        },
+        {
+          "Path": "Erlang.Serialization.pdb",
+          "Bytes": 38152,
+          "Sha256": "5467C78D1062DD33E99A8D3456646918CFAC877C34DA2E3899A583C0CEA3B0A9"
+        },
+        {
+          "Path": "Erlang.Terms.dll",
+          "Bytes": 116736,
+          "Sha256": "58B1994D4A47EA559DFDAFD9A97CC36965819BB18908117F28FADE523AFE7B0B"
+        },
+        {
+          "Path": "Erlang.Terms.pdb",
+          "Bytes": 37884,
+          "Sha256": "85916B3825ECD2FA9D25629D8FD9C1E864363A75904E292B94DDAD99F4A2489F"
+        },
+        {
+          "Path": "es/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 474960,
+          "Sha256": "985D0B52DA0FB045FF19F8FB88FC872AD21F61F2AA28F7D6521D5066FCCDECFE"
+        },
+        {
+          "Path": "es/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 42280,
+          "Sha256": "0407AAD7B8C7417777EFF8ADB11278EF5B0A04DB71674EC22686E5121EE2B81F"
+        },
+        {
+          "Path": "fr/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 488744,
+          "Sha256": "12FD3517FA99F8A7ADECB01FEA24761AFAC6BBF20A3BBBEEE852ED2BD56151BD"
+        },
+        {
+          "Path": "fr/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 42792,
+          "Sha256": "C3A076FED478E565C8E596F6FAD061E072DD262381C05B5F811D309EB0795420"
+        },
+        {
+          "Path": "it/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 481064,
+          "Sha256": "F4E4BF358A53C792ED7034D43BEAA89E06EEBD727FDB0AE79DF3EAEF63CE36EF"
+        },
+        {
+          "Path": "it/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 42792,
+          "Sha256": "B25CA4BDBDD6A5B9901F415F80A7A4341E22335C1266CC0DDF359D7D7339A9F9"
+        },
+        {
+          "Path": "ja/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 530728,
+          "Sha256": "3C35AEEE474EECF497249841ACE69CA6B2EF67209C001965599BEB4B80F14526"
+        },
+        {
+          "Path": "ja/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 45352,
+          "Sha256": "294617887471923FAB516DC337DBF927BC210041C76719DE7B72F78870E01796"
+        },
+        {
+          "Path": "ko/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 486696,
+          "Sha256": "0976B69643E5E3CC4453BDDC3AD64AF2A96B00F5F551DD608503842A0AD89FEC"
+        },
+        {
+          "Path": "ko/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 42832,
+          "Sha256": "9A9C7288B66F60934F4B37C272796775C21E209B2F3DA3C968196C7641AC894F"
+        },
+        {
+          "Path": "MainCapture.deps.json",
+          "Bytes": 9286,
+          "Sha256": "5878D7548AAD7D63EF2F2EA0B7E130CD9B64A59932369E2CBCDC8B7AB5B16AA6"
+        },
+        {
+          "Path": "MainCapture.dll",
+          "Bytes": 62464,
+          "Sha256": "321DD4EE5B44B21B55908CF5D4A4434874BD951ED11046915F0203B2657BE9F0"
+        },
+        {
+          "Path": "MainCapture.exe",
+          "Bytes": 162304,
+          "Sha256": "4DBCD570785BFE5A7A0C20316B5B05DE5BA6D4906E546DAF5F184D855385C7CA"
+        },
+        {
+          "Path": "MainCapture.pdb",
+          "Bytes": 24104,
+          "Sha256": "FED8F9B4EFC9A5644BF26004702669C159A9F724BCBF8307482D120E3FFFFD0F"
+        },
+        {
+          "Path": "MainCapture.runtimeconfig.json",
+          "Bytes": 270,
+          "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+        },
+        {
+          "Path": "Microsoft.CodeAnalysis.CSharp.dll",
+          "Bytes": 19191632,
+          "Sha256": "F5C3F59F88B65C04E16644CA7F53740B51859FAF214F812DD601137BEBE021EB"
+        },
+        {
+          "Path": "Microsoft.CodeAnalysis.dll",
+          "Bytes": 8292136,
+          "Sha256": "55E266AC4FFDF5D73FC861A35ED8C2E7C2292EBEBC2107D1722B6429D7E6AB78"
+        },
+        {
+          "Path": "pl/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 488272,
+          "Sha256": "F669D1F64392982180B69187C9F2926EF986A9D7666AA4D6EAF84DC630920CFE"
+        },
+        {
+          "Path": "pl/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 42832,
+          "Sha256": "B360DDAB71AF0DDD1E75CC24762ED9E906D623E1BE2D872AF9AB0CC341F86FB7"
+        },
+        {
+          "Path": "pt-BR/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 466256,
+          "Sha256": "ACBAD09049E61074A06FF8A0CB52158D5B3BC71B53CE6218DA33DCF1E40A4126"
+        },
+        {
+          "Path": "pt-BR/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 41768,
+          "Sha256": "46916D9A42BE1B6B3D9A4BD5F69DBBDD0487DA02FE4F1F4389C4F0B509F4B810"
+        },
+        {
+          "Path": "ru/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 640848,
+          "Sha256": "DA16D322D14792D9E5C4715DA1EB741F4A7B3B9C6935798696884B09A98CCF19"
+        },
+        {
+          "Path": "ru/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 51536,
+          "Sha256": "989A94DFF120217279BBC51BC475BF608EDD2514A9F47C063CD8830C92FE0467"
+        },
+        {
+          "Path": "tr/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 462120,
+          "Sha256": "4DA062643A7EF05AE43849EE8B2FCC54479AD93B256F1B6B104E466D56C8BD70"
+        },
+        {
+          "Path": "tr/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 41256,
+          "Sha256": "1C737EC8A28276DDA105A16AE6B4B3D576344A6D6AEF8BBA1D24F743CBB873AA"
+        },
+        {
+          "Path": "zh-Hans/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 411472,
+          "Sha256": "05C6D2CE8FFF9C81FE4E43022BD54271229C1E937B35406B93AA9C1EAF07488E"
+        },
+        {
+          "Path": "zh-Hans/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 38736,
+          "Sha256": "471FA8D76FA55D666BDECE15AD3720B407F06FD93547790AC778820FCFDD89C0"
+        },
+        {
+          "Path": "zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 410920,
+          "Sha256": "39C1A2ED241F86FA85B465CCFE4EE328F5DA39C15705CA9FD41271FDB46B72EA"
+        },
+        {
+          "Path": "zh-Hant/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 38736,
+          "Sha256": "E4BD4EBAE62948B4C7AB90931E8C0EE7F9CFF47E60822A5ADD2ED4005DC91087"
+        }
+      ]
+    },
+    {
+      "Name": "binary-primary",
+      "Module": "binary",
+      "Harness": "artifacts/binary-integration369-final2/main-capture",
+      "Tool": "artifacts/binary-original369-original1/tool",
+      "Values": 585,
+      "Profiles": 2925,
+      "Stage": "binary31-capture",
+      "Timeout": 540,
+      "ManifestSha256": "A54B3C119311C183D635FD8112507E979FE574031584240D78639BF637A4CBC0",
+      "ProfileSha256": "672871D3B7A8919BAFA41509805C10055D83A634BC619C614F6BD54EB90F03FB",
+      "ObserverSha256": "99188C5B2566FBCD79D9D3BC38C3B74038A6EA232626DB22213B26906A9898A5",
+      "HarnessSources": [
+        {
+          "Path": "artifacts/binary-integration369-final2/main-capture/BinaryReferenceObservation.cs",
+          "Bytes": 6320,
+          "Sha256": "EE8A4EAE6D4E184A08F420655B3F5A3B156D989B408CB62A1E13352F99C293A9"
+        },
+        {
+          "Path": "artifacts/binary-integration369-final2/main-capture/BinaryReferenceObservationNames.cs",
+          "Bytes": 883,
+          "Sha256": "E897FB78362C1173E367F8886BA9E67F1AD59C694CF64A7B821F5224CF0DC09E"
+        },
+        {
+          "Path": "artifacts/binary-integration369-final2/main-capture/FamilyCaptureNames.cs",
+          "Bytes": 377,
+          "Sha256": "991B748261555F2270416D3A33E962D7099FA8EC193F9E56104F4F7ECEADA454"
+        },
+        {
+          "Path": "artifacts/binary-integration369-final2/main-capture/FamilyRuntimeMetadataNames.cs",
+          "Bytes": 344,
+          "Sha256": "1B643B99F78CF586ACB81E747A2DA76A06791B3EBA360C199730F4C0D75EB9A7"
+        },
+        {
+          "Path": "artifacts/binary-integration369-final2/main-capture/MainCapture.csproj",
+          "Bytes": 393,
+          "Sha256": "44D165E307115962CAE247C3BE395E4234702048016249F7996F640F5EBE8E4F"
+        },
+        {
+          "Path": "artifacts/binary-integration369-final2/main-capture/Program.cs",
+          "Bytes": 8242,
+          "Sha256": "9B9D35C592F8671DBE2FB2605E7B7A208515D9599F03C09C33B48354EA428ADF"
+        },
+        {
+          "Path": "artifacts/binary-integration369-final2/main-capture/SourceFunctionObservation.cs",
+          "Bytes": 4959,
+          "Sha256": "230C887E3FB15C50647570CA1B36AFD15CFC339E26E29BEFDB3FB259FC888648"
+        },
+        {
+          "Path": "artifacts/binary-integration369-final2/main-capture/SourceFunctionObservationNames.cs",
+          "Bytes": 584,
+          "Sha256": "41C3221A03F20D4FDADECFA8EA1819346754A24E75073C7EBC2B088DA9F2F476"
+        }
+      ],
+      "CachedBinFiles": [
+        {
+          "Path": "cs/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 453968,
+          "Sha256": "4B76E1ACE7C4DD6D73F6577AF3B33A0D70DB8B65B10F292BB33F0CD364E869C7"
+        },
+        {
+          "Path": "cs/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 41296,
+          "Sha256": "AC9A260DE180F85B6AA6753698D941B91D93E8ABC760505E7AFAA4111ACCC73B"
+        },
+        {
+          "Path": "de/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 485672,
+          "Sha256": "6F79A685C5A6246B08416B95FE12AB2FB5782AD8AEEC2E8147B3C2BD216C50E3"
+        },
+        {
+          "Path": "de/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 42792,
+          "Sha256": "9D965A076507334A9B5BB5BC69B3AE60F9FF781101A8938EC597255843DCBCD8"
+        },
+        {
+          "Path": "Erlang.Compiler.dll",
+          "Bytes": 458240,
+          "Sha256": "F9224F10477C011A4C34994089A8C5CBA4B79DA3363487AC3D1BAA2F316418CB"
+        },
+        {
+          "Path": "Erlang.Compiler.pdb",
+          "Bytes": 146508,
+          "Sha256": "2FD377BE6C058A5F206E416BF0B94D7870CE75B7DB23E54EFFAB977CC830C0ED"
+        },
+        {
+          "Path": "Erlang.Differential.deps.json",
+          "Bytes": 6189,
+          "Sha256": "C5522AB866D1B4657F8AE79F9B4D5F3A1D8F209C2BC30A06B6F499D47FDB88CD"
+        },
+        {
+          "Path": "Erlang.Differential.dll",
+          "Bytes": 3081216,
+          "Sha256": "8B6FC898983C4DEB30B7EA65CD9A37FC4A4B6D906986A2A506B8AE1B86B60A82"
+        },
+        {
+          "Path": "Erlang.Differential.exe",
+          "Bytes": 162816,
+          "Sha256": "98100E612DAC82CF6F750522F62B4561CEE33BD42BA50F49F6C325DA1339396A"
+        },
+        {
+          "Path": "Erlang.Differential.pdb",
+          "Bytes": 134172,
+          "Sha256": "52B5CEBF6BE2CF59D73B389DB6F596215CF3A12727F1E55C28F29A2D4B880454"
+        },
+        {
+          "Path": "Erlang.Differential.runtimeconfig.json",
+          "Bytes": 270,
+          "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+        },
+        {
+          "Path": "Erlang.Otp.Behaviours.dll",
+          "Bytes": 395776,
+          "Sha256": "2FB9F672CD1D494F83C2E9D549A8C861C3D7BE980C355C49FBA89FB9454F4B9A"
+        },
+        {
+          "Path": "Erlang.Otp.Behaviours.pdb",
+          "Bytes": 115156,
+          "Sha256": "9D9A37AD5ECE708BF656BAC1CB46A8AAFA4E224836509CEF7E7914F4CEDF7CA2"
+        },
+        {
+          "Path": "Erlang.PortProbe.deps.json",
+          "Bytes": 442,
+          "Sha256": "E542D177CB0866F255DB455D01E6F4AEFDB200462A5EF7E062355CC3E796F40E"
+        },
+        {
+          "Path": "Erlang.PortProbe.exe",
+          "Bytes": 162304,
+          "Sha256": "A92D5E9E875EEBC406049F6A0387ABB1B6BC9F13CCE5C5B18DB9CBF0461850DE"
+        },
+        {
+          "Path": "Erlang.PortProbe.runtimeconfig.json",
+          "Bytes": 270,
+          "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+        },
+        {
+          "Path": "Erlang.Runtime.dll",
+          "Bytes": 1830400,
+          "Sha256": "47176562447EA5495717F3276423EBB9B0999AD33ADF0C9D2DA625F5ECA41578"
+        },
+        {
+          "Path": "Erlang.Runtime.pdb",
+          "Bytes": 593844,
+          "Sha256": "CA29AE2ED2BC10C71F1B19106BD7375229D501A7AA55BB43BFC44820D1B70A6C"
+        },
+        {
+          "Path": "Erlang.Serialization.dll",
+          "Bytes": 76288,
+          "Sha256": "98F7B0674C336192B96A441703730FE79A5B4A359EBECB7A786A1660EFFB998A"
+        },
+        {
+          "Path": "Erlang.Serialization.pdb",
+          "Bytes": 38152,
+          "Sha256": "11EB740367B9ABB59AFC1DF504327512C93E74B1BD5D2A36A0B458C405D84A12"
+        },
+        {
+          "Path": "Erlang.Terms.dll",
+          "Bytes": 116224,
+          "Sha256": "D0E41A7396C2C4642681F1A845781AC0F635C495AD27F651670EC951797DDCE5"
+        },
+        {
+          "Path": "Erlang.Terms.pdb",
+          "Bytes": 37592,
+          "Sha256": "997177C88DDA66A18FF0297E50B8DB05241EA656173BBF10A1F3B2449B416CFF"
+        },
+        {
+          "Path": "es/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 474960,
+          "Sha256": "985D0B52DA0FB045FF19F8FB88FC872AD21F61F2AA28F7D6521D5066FCCDECFE"
+        },
+        {
+          "Path": "es/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 42280,
+          "Sha256": "0407AAD7B8C7417777EFF8ADB11278EF5B0A04DB71674EC22686E5121EE2B81F"
+        },
+        {
+          "Path": "fr/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 488744,
+          "Sha256": "12FD3517FA99F8A7ADECB01FEA24761AFAC6BBF20A3BBBEEE852ED2BD56151BD"
+        },
+        {
+          "Path": "fr/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 42792,
+          "Sha256": "C3A076FED478E565C8E596F6FAD061E072DD262381C05B5F811D309EB0795420"
+        },
+        {
+          "Path": "it/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 481064,
+          "Sha256": "F4E4BF358A53C792ED7034D43BEAA89E06EEBD727FDB0AE79DF3EAEF63CE36EF"
+        },
+        {
+          "Path": "it/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 42792,
+          "Sha256": "B25CA4BDBDD6A5B9901F415F80A7A4341E22335C1266CC0DDF359D7D7339A9F9"
+        },
+        {
+          "Path": "ja/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 530728,
+          "Sha256": "3C35AEEE474EECF497249841ACE69CA6B2EF67209C001965599BEB4B80F14526"
+        },
+        {
+          "Path": "ja/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 45352,
+          "Sha256": "294617887471923FAB516DC337DBF927BC210041C76719DE7B72F78870E01796"
+        },
+        {
+          "Path": "ko/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 486696,
+          "Sha256": "0976B69643E5E3CC4453BDDC3AD64AF2A96B00F5F551DD608503842A0AD89FEC"
+        },
+        {
+          "Path": "ko/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 42832,
+          "Sha256": "9A9C7288B66F60934F4B37C272796775C21E209B2F3DA3C968196C7641AC894F"
+        },
+        {
+          "Path": "MainCapture.deps.json",
+          "Bytes": 9286,
+          "Sha256": "5878D7548AAD7D63EF2F2EA0B7E130CD9B64A59932369E2CBCDC8B7AB5B16AA6"
+        },
+        {
+          "Path": "MainCapture.dll",
+          "Bytes": 58368,
+          "Sha256": "99188C5B2566FBCD79D9D3BC38C3B74038A6EA232626DB22213B26906A9898A5"
+        },
+        {
+          "Path": "MainCapture.exe",
+          "Bytes": 162304,
+          "Sha256": "4DBCD570785BFE5A7A0C20316B5B05DE5BA6D4906E546DAF5F184D855385C7CA"
+        },
+        {
+          "Path": "MainCapture.pdb",
+          "Bytes": 23836,
+          "Sha256": "F5B5F1C8BBB85BA02E652FDA974BBCE25847DFAA98567E3C0AAA1F4F5E56A9A8"
+        },
+        {
+          "Path": "MainCapture.runtimeconfig.json",
+          "Bytes": 270,
+          "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+        },
+        {
+          "Path": "Microsoft.CodeAnalysis.CSharp.dll",
+          "Bytes": 19191632,
+          "Sha256": "F5C3F59F88B65C04E16644CA7F53740B51859FAF214F812DD601137BEBE021EB"
+        },
+        {
+          "Path": "Microsoft.CodeAnalysis.dll",
+          "Bytes": 8292136,
+          "Sha256": "55E266AC4FFDF5D73FC861A35ED8C2E7C2292EBEBC2107D1722B6429D7E6AB78"
+        },
+        {
+          "Path": "pl/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 488272,
+          "Sha256": "F669D1F64392982180B69187C9F2926EF986A9D7666AA4D6EAF84DC630920CFE"
+        },
+        {
+          "Path": "pl/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 42832,
+          "Sha256": "B360DDAB71AF0DDD1E75CC24762ED9E906D623E1BE2D872AF9AB0CC341F86FB7"
+        },
+        {
+          "Path": "pt-BR/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 466256,
+          "Sha256": "ACBAD09049E61074A06FF8A0CB52158D5B3BC71B53CE6218DA33DCF1E40A4126"
+        },
+        {
+          "Path": "pt-BR/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 41768,
+          "Sha256": "46916D9A42BE1B6B3D9A4BD5F69DBBDD0487DA02FE4F1F4389C4F0B509F4B810"
+        },
+        {
+          "Path": "ru/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 640848,
+          "Sha256": "DA16D322D14792D9E5C4715DA1EB741F4A7B3B9C6935798696884B09A98CCF19"
+        },
+        {
+          "Path": "ru/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 51536,
+          "Sha256": "989A94DFF120217279BBC51BC475BF608EDD2514A9F47C063CD8830C92FE0467"
+        },
+        {
+          "Path": "tr/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 462120,
+          "Sha256": "4DA062643A7EF05AE43849EE8B2FCC54479AD93B256F1B6B104E466D56C8BD70"
+        },
+        {
+          "Path": "tr/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 41256,
+          "Sha256": "1C737EC8A28276DDA105A16AE6B4B3D576344A6D6AEF8BBA1D24F743CBB873AA"
+        },
+        {
+          "Path": "zh-Hans/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 411472,
+          "Sha256": "05C6D2CE8FFF9C81FE4E43022BD54271229C1E937B35406B93AA9C1EAF07488E"
+        },
+        {
+          "Path": "zh-Hans/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 38736,
+          "Sha256": "471FA8D76FA55D666BDECE15AD3720B407F06FD93547790AC778820FCFDD89C0"
+        },
+        {
+          "Path": "zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 410920,
+          "Sha256": "39C1A2ED241F86FA85B465CCFE4EE328F5DA39C15705CA9FD41271FDB46B72EA"
+        },
+        {
+          "Path": "zh-Hant/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 38736,
+          "Sha256": "E4BD4EBAE62948B4C7AB90931E8C0EE7F9CFF47E60822A5ADD2ED4005DC91087"
+        }
+      ]
+    },
+    {
+      "Name": "binary-supplement",
+      "Module": "binary",
+      "Harness": "artifacts/binary-integration369-supplement-final/main-capture",
+      "Tool": "artifacts/binary-original369-supplement1/tool",
+      "Values": 36,
+      "Profiles": 180,
+      "Stage": "binary31-capture",
+      "Timeout": 540,
+      "ManifestSha256": "399F2F229896B4D7AA10B2E36C63103C4F2233A20974300591A5DF27D6734156",
+      "ProfileSha256": "AE3CDEE47AB1FAF891E70461EDDD387D40F4E799AC79F3573851B7F8C13734CA",
+      "ObserverSha256": "D8858BFB646CE7B0F08F1E26EDE2DD1BBAC2E5147F573241F0F7F0E6CBCDCA42",
+      "HarnessSources": [
+        {
+          "Path": "artifacts/binary-integration369-supplement-final/main-capture/FamilyCaptureNames.cs",
+          "Bytes": 377,
+          "Sha256": "991B748261555F2270416D3A33E962D7099FA8EC193F9E56104F4F7ECEADA454"
+        },
+        {
+          "Path": "artifacts/binary-integration369-supplement-final/main-capture/FamilyRuntimeMetadataNames.cs",
+          "Bytes": 344,
+          "Sha256": "1B643B99F78CF586ACB81E747A2DA76A06791B3EBA360C199730F4C0D75EB9A7"
+        },
+        {
+          "Path": "artifacts/binary-integration369-supplement-final/main-capture/MainCapture.csproj",
+          "Bytes": 393,
+          "Sha256": "44D165E307115962CAE247C3BE395E4234702048016249F7996F640F5EBE8E4F"
+        },
+        {
+          "Path": "artifacts/binary-integration369-supplement-final/main-capture/Program.cs",
+          "Bytes": 8148,
+          "Sha256": "DFD25719C6CC684E00E62B5796F324FB86D589E811388F7F5E5D4419D20B0647"
+        },
+        {
+          "Path": "artifacts/binary-integration369-supplement-final/main-capture/SourceFunctionObservation.cs",
+          "Bytes": 4959,
+          "Sha256": "230C887E3FB15C50647570CA1B36AFD15CFC339E26E29BEFDB3FB259FC888648"
+        },
+        {
+          "Path": "artifacts/binary-integration369-supplement-final/main-capture/SourceFunctionObservationNames.cs",
+          "Bytes": 584,
+          "Sha256": "41C3221A03F20D4FDADECFA8EA1819346754A24E75073C7EBC2B088DA9F2F476"
+        }
+      ],
+      "CachedBinFiles": [
+        {
+          "Path": "cs/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 453968,
+          "Sha256": "4B76E1ACE7C4DD6D73F6577AF3B33A0D70DB8B65B10F292BB33F0CD364E869C7"
+        },
+        {
+          "Path": "cs/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 41296,
+          "Sha256": "AC9A260DE180F85B6AA6753698D941B91D93E8ABC760505E7AFAA4111ACCC73B"
+        },
+        {
+          "Path": "de/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 485672,
+          "Sha256": "6F79A685C5A6246B08416B95FE12AB2FB5782AD8AEEC2E8147B3C2BD216C50E3"
+        },
+        {
+          "Path": "de/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 42792,
+          "Sha256": "9D965A076507334A9B5BB5BC69B3AE60F9FF781101A8938EC597255843DCBCD8"
+        },
+        {
+          "Path": "Erlang.Compiler.dll",
+          "Bytes": 458240,
+          "Sha256": "90F99570D25649321195739EFD0883BCAA6C3FCA098E7C36E7651782980EE858"
+        },
+        {
+          "Path": "Erlang.Compiler.pdb",
+          "Bytes": 146508,
+          "Sha256": "4DFEB2B4129E56F08199112C7D5EF2B32F4C9553C70E8DCEB30C80AE23C6C4B2"
+        },
+        {
+          "Path": "Erlang.Differential.deps.json",
+          "Bytes": 6189,
+          "Sha256": "C5522AB866D1B4657F8AE79F9B4D5F3A1D8F209C2BC30A06B6F499D47FDB88CD"
+        },
+        {
+          "Path": "Erlang.Differential.dll",
+          "Bytes": 3081216,
+          "Sha256": "80EB9E83EA0C6A5347CA73277F51C3C97E5ED47DFA95C9AD958E95BE38C0BA13"
+        },
+        {
+          "Path": "Erlang.Differential.exe",
+          "Bytes": 162816,
+          "Sha256": "98100E612DAC82CF6F750522F62B4561CEE33BD42BA50F49F6C325DA1339396A"
+        },
+        {
+          "Path": "Erlang.Differential.pdb",
+          "Bytes": 134172,
+          "Sha256": "63853A324BE1AB8BE042571792E6E4B972DD3B151ED9C22D5C6D3BD140436E14"
+        },
+        {
+          "Path": "Erlang.Differential.runtimeconfig.json",
+          "Bytes": 270,
+          "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+        },
+        {
+          "Path": "Erlang.Otp.Behaviours.dll",
+          "Bytes": 395776,
+          "Sha256": "1E118DBCBC0C25207C60EA6D9E7295DCADE8FBFA3C3A519C9A17D8724520776E"
+        },
+        {
+          "Path": "Erlang.Otp.Behaviours.pdb",
+          "Bytes": 115156,
+          "Sha256": "A6557F8952EFEB92D51B8932BE2BEDC83DFEBC3FE873453C0662062A75EDF92C"
+        },
+        {
+          "Path": "Erlang.PortProbe.deps.json",
+          "Bytes": 442,
+          "Sha256": "E542D177CB0866F255DB455D01E6F4AEFDB200462A5EF7E062355CC3E796F40E"
+        },
+        {
+          "Path": "Erlang.PortProbe.exe",
+          "Bytes": 162304,
+          "Sha256": "A92D5E9E875EEBC406049F6A0387ABB1B6BC9F13CCE5C5B18DB9CBF0461850DE"
+        },
+        {
+          "Path": "Erlang.PortProbe.runtimeconfig.json",
+          "Bytes": 270,
+          "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+        },
+        {
+          "Path": "Erlang.Runtime.dll",
+          "Bytes": 1829888,
+          "Sha256": "1B8047C09975D4F9834975A1C82A872AEF4B2F0A3458D084241E8F376B229D99"
+        },
+        {
+          "Path": "Erlang.Runtime.pdb",
+          "Bytes": 593796,
+          "Sha256": "957234123E8AEB989DF59709BA969FEEBD10250A36CAE32D4253EFFDA2266C7A"
+        },
+        {
+          "Path": "Erlang.Serialization.dll",
+          "Bytes": 76288,
+          "Sha256": "98F7B0674C336192B96A441703730FE79A5B4A359EBECB7A786A1660EFFB998A"
+        },
+        {
+          "Path": "Erlang.Serialization.pdb",
+          "Bytes": 38152,
+          "Sha256": "11EB740367B9ABB59AFC1DF504327512C93E74B1BD5D2A36A0B458C405D84A12"
+        },
+        {
+          "Path": "Erlang.Terms.dll",
+          "Bytes": 116224,
+          "Sha256": "D0E41A7396C2C4642681F1A845781AC0F635C495AD27F651670EC951797DDCE5"
+        },
+        {
+          "Path": "Erlang.Terms.pdb",
+          "Bytes": 37592,
+          "Sha256": "997177C88DDA66A18FF0297E50B8DB05241EA656173BBF10A1F3B2449B416CFF"
+        },
+        {
+          "Path": "es/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 474960,
+          "Sha256": "985D0B52DA0FB045FF19F8FB88FC872AD21F61F2AA28F7D6521D5066FCCDECFE"
+        },
+        {
+          "Path": "es/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 42280,
+          "Sha256": "0407AAD7B8C7417777EFF8ADB11278EF5B0A04DB71674EC22686E5121EE2B81F"
+        },
+        {
+          "Path": "fr/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 488744,
+          "Sha256": "12FD3517FA99F8A7ADECB01FEA24761AFAC6BBF20A3BBBEEE852ED2BD56151BD"
+        },
+        {
+          "Path": "fr/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 42792,
+          "Sha256": "C3A076FED478E565C8E596F6FAD061E072DD262381C05B5F811D309EB0795420"
+        },
+        {
+          "Path": "it/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 481064,
+          "Sha256": "F4E4BF358A53C792ED7034D43BEAA89E06EEBD727FDB0AE79DF3EAEF63CE36EF"
+        },
+        {
+          "Path": "it/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 42792,
+          "Sha256": "B25CA4BDBDD6A5B9901F415F80A7A4341E22335C1266CC0DDF359D7D7339A9F9"
+        },
+        {
+          "Path": "ja/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 530728,
+          "Sha256": "3C35AEEE474EECF497249841ACE69CA6B2EF67209C001965599BEB4B80F14526"
+        },
+        {
+          "Path": "ja/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 45352,
+          "Sha256": "294617887471923FAB516DC337DBF927BC210041C76719DE7B72F78870E01796"
+        },
+        {
+          "Path": "ko/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 486696,
+          "Sha256": "0976B69643E5E3CC4453BDDC3AD64AF2A96B00F5F551DD608503842A0AD89FEC"
+        },
+        {
+          "Path": "ko/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 42832,
+          "Sha256": "9A9C7288B66F60934F4B37C272796775C21E209B2F3DA3C968196C7641AC894F"
+        },
+        {
+          "Path": "MainCapture.deps.json",
+          "Bytes": 9286,
+          "Sha256": "5878D7548AAD7D63EF2F2EA0B7E130CD9B64A59932369E2CBCDC8B7AB5B16AA6"
+        },
+        {
+          "Path": "MainCapture.dll",
+          "Bytes": 45056,
+          "Sha256": "D8858BFB646CE7B0F08F1E26EDE2DD1BBAC2E5147F573241F0F7F0E6CBCDCA42"
+        },
+        {
+          "Path": "MainCapture.exe",
+          "Bytes": 162304,
+          "Sha256": "4DBCD570785BFE5A7A0C20316B5B05DE5BA6D4906E546DAF5F184D855385C7CA"
+        },
+        {
+          "Path": "MainCapture.pdb",
+          "Bytes": 20396,
+          "Sha256": "C947BD4288D0D0B8C1BC2BDA4B5808366D9512B3C88E4FAC5C1D78D44022ADE6"
+        },
+        {
+          "Path": "MainCapture.runtimeconfig.json",
+          "Bytes": 270,
+          "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+        },
+        {
+          "Path": "Microsoft.CodeAnalysis.CSharp.dll",
+          "Bytes": 19191632,
+          "Sha256": "F5C3F59F88B65C04E16644CA7F53740B51859FAF214F812DD601137BEBE021EB"
+        },
+        {
+          "Path": "Microsoft.CodeAnalysis.dll",
+          "Bytes": 8292136,
+          "Sha256": "55E266AC4FFDF5D73FC861A35ED8C2E7C2292EBEBC2107D1722B6429D7E6AB78"
+        },
+        {
+          "Path": "pl/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 488272,
+          "Sha256": "F669D1F64392982180B69187C9F2926EF986A9D7666AA4D6EAF84DC630920CFE"
+        },
+        {
+          "Path": "pl/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 42832,
+          "Sha256": "B360DDAB71AF0DDD1E75CC24762ED9E906D623E1BE2D872AF9AB0CC341F86FB7"
+        },
+        {
+          "Path": "pt-BR/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 466256,
+          "Sha256": "ACBAD09049E61074A06FF8A0CB52158D5B3BC71B53CE6218DA33DCF1E40A4126"
+        },
+        {
+          "Path": "pt-BR/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 41768,
+          "Sha256": "46916D9A42BE1B6B3D9A4BD5F69DBBDD0487DA02FE4F1F4389C4F0B509F4B810"
+        },
+        {
+          "Path": "ru/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 640848,
+          "Sha256": "DA16D322D14792D9E5C4715DA1EB741F4A7B3B9C6935798696884B09A98CCF19"
+        },
+        {
+          "Path": "ru/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 51536,
+          "Sha256": "989A94DFF120217279BBC51BC475BF608EDD2514A9F47C063CD8830C92FE0467"
+        },
+        {
+          "Path": "tr/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 462120,
+          "Sha256": "4DA062643A7EF05AE43849EE8B2FCC54479AD93B256F1B6B104E466D56C8BD70"
+        },
+        {
+          "Path": "tr/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 41256,
+          "Sha256": "1C737EC8A28276DDA105A16AE6B4B3D576344A6D6AEF8BBA1D24F743CBB873AA"
+        },
+        {
+          "Path": "zh-Hans/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 411472,
+          "Sha256": "05C6D2CE8FFF9C81FE4E43022BD54271229C1E937B35406B93AA9C1EAF07488E"
+        },
+        {
+          "Path": "zh-Hans/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 38736,
+          "Sha256": "471FA8D76FA55D666BDECE15AD3720B407F06FD93547790AC778820FCFDD89C0"
+        },
+        {
+          "Path": "zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 410920,
+          "Sha256": "39C1A2ED241F86FA85B465CCFE4EE328F5DA39C15705CA9FD41271FDB46B72EA"
+        },
+        {
+          "Path": "zh-Hant/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 38736,
+          "Sha256": "E4BD4EBAE62948B4C7AB90931E8C0EE7F9CFF47E60822A5ADD2ED4005DC91087"
+        }
+      ]
+    },
+    {
+      "Name": "binary-closure",
+      "Module": "binary",
+      "Harness": "artifacts/binary-integration369-closure/main-capture",
+      "Tool": "artifacts/binary-original369-closure1/tool",
+      "Values": 14,
+      "Profiles": 70,
+      "Stage": "binary31-capture",
+      "Timeout": 540,
+      "ManifestSha256": "11E72CB41047BA9442B442A747D281138697D58E10AFA08CF8555160280893EC",
+      "ProfileSha256": "ACC984F192FA25A0DE8B00EFBD3E4FCD2822E598D14C5D78F6A8B040164160AA",
+      "ObserverSha256": "C081C88181DB90CC68A2BECFC4B3562026AF823DA28D0DF26234CCF1C3ED4700",
+      "HarnessSources": [
+        {
+          "Path": "artifacts/binary-integration369-closure/main-capture/BinaryReferenceObservation.cs",
+          "Bytes": 6320,
+          "Sha256": "EE8A4EAE6D4E184A08F420655B3F5A3B156D989B408CB62A1E13352F99C293A9"
+        },
+        {
+          "Path": "artifacts/binary-integration369-closure/main-capture/BinaryReferenceObservationNames.cs",
+          "Bytes": 883,
+          "Sha256": "E897FB78362C1173E367F8886BA9E67F1AD59C694CF64A7B821F5224CF0DC09E"
+        },
+        {
+          "Path": "artifacts/binary-integration369-closure/main-capture/FamilyCaptureNames.cs",
+          "Bytes": 631,
+          "Sha256": "7C3FA8CC4DCA1365A4D2DA8D59C3C6B947CEF8E31270FFD67AFF729B0450C0A2"
+        },
+        {
+          "Path": "artifacts/binary-integration369-closure/main-capture/FamilyRuntimeMetadataNames.cs",
+          "Bytes": 344,
+          "Sha256": "1B643B99F78CF586ACB81E747A2DA76A06791B3EBA360C199730F4C0D75EB9A7"
+        },
+        {
+          "Path": "artifacts/binary-integration369-closure/main-capture/MainCapture.csproj",
+          "Bytes": 393,
+          "Sha256": "44D165E307115962CAE247C3BE395E4234702048016249F7996F640F5EBE8E4F"
+        },
+        {
+          "Path": "artifacts/binary-integration369-closure/main-capture/Program.cs",
+          "Bytes": 8576,
+          "Sha256": "58619991984B88BEF7D7AE5CD05D21BE6FC8AEDDCC4C0FE32FF4998DD4424366"
+        },
+        {
+          "Path": "artifacts/binary-integration369-closure/main-capture/SourceFunctionObservation.cs",
+          "Bytes": 4959,
+          "Sha256": "230C887E3FB15C50647570CA1B36AFD15CFC339E26E29BEFDB3FB259FC888648"
+        },
+        {
+          "Path": "artifacts/binary-integration369-closure/main-capture/SourceFunctionObservationNames.cs",
+          "Bytes": 584,
+          "Sha256": "41C3221A03F20D4FDADECFA8EA1819346754A24E75073C7EBC2B088DA9F2F476"
+        }
+      ],
+      "CachedBinFiles": [
+        {
+          "Path": "cs/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 453968,
+          "Sha256": "4B76E1ACE7C4DD6D73F6577AF3B33A0D70DB8B65B10F292BB33F0CD364E869C7"
+        },
+        {
+          "Path": "cs/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 41296,
+          "Sha256": "AC9A260DE180F85B6AA6753698D941B91D93E8ABC760505E7AFAA4111ACCC73B"
+        },
+        {
+          "Path": "de/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 485672,
+          "Sha256": "6F79A685C5A6246B08416B95FE12AB2FB5782AD8AEEC2E8147B3C2BD216C50E3"
+        },
+        {
+          "Path": "de/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 42792,
+          "Sha256": "9D965A076507334A9B5BB5BC69B3AE60F9FF781101A8938EC597255843DCBCD8"
+        },
+        {
+          "Path": "Erlang.Compiler.dll",
+          "Bytes": 458240,
+          "Sha256": "90F99570D25649321195739EFD0883BCAA6C3FCA098E7C36E7651782980EE858"
+        },
+        {
+          "Path": "Erlang.Compiler.pdb",
+          "Bytes": 146508,
+          "Sha256": "4DFEB2B4129E56F08199112C7D5EF2B32F4C9553C70E8DCEB30C80AE23C6C4B2"
+        },
+        {
+          "Path": "Erlang.Differential.deps.json",
+          "Bytes": 6189,
+          "Sha256": "C5522AB866D1B4657F8AE79F9B4D5F3A1D8F209C2BC30A06B6F499D47FDB88CD"
+        },
+        {
+          "Path": "Erlang.Differential.dll",
+          "Bytes": 3081216,
+          "Sha256": "80EB9E83EA0C6A5347CA73277F51C3C97E5ED47DFA95C9AD958E95BE38C0BA13"
+        },
+        {
+          "Path": "Erlang.Differential.exe",
+          "Bytes": 162816,
+          "Sha256": "98100E612DAC82CF6F750522F62B4561CEE33BD42BA50F49F6C325DA1339396A"
+        },
+        {
+          "Path": "Erlang.Differential.pdb",
+          "Bytes": 134172,
+          "Sha256": "63853A324BE1AB8BE042571792E6E4B972DD3B151ED9C22D5C6D3BD140436E14"
+        },
+        {
+          "Path": "Erlang.Differential.runtimeconfig.json",
+          "Bytes": 270,
+          "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+        },
+        {
+          "Path": "Erlang.Otp.Behaviours.dll",
+          "Bytes": 395776,
+          "Sha256": "1E118DBCBC0C25207C60EA6D9E7295DCADE8FBFA3C3A519C9A17D8724520776E"
+        },
+        {
+          "Path": "Erlang.Otp.Behaviours.pdb",
+          "Bytes": 115156,
+          "Sha256": "A6557F8952EFEB92D51B8932BE2BEDC83DFEBC3FE873453C0662062A75EDF92C"
+        },
+        {
+          "Path": "Erlang.PortProbe.deps.json",
+          "Bytes": 442,
+          "Sha256": "E542D177CB0866F255DB455D01E6F4AEFDB200462A5EF7E062355CC3E796F40E"
+        },
+        {
+          "Path": "Erlang.PortProbe.exe",
+          "Bytes": 162304,
+          "Sha256": "A92D5E9E875EEBC406049F6A0387ABB1B6BC9F13CCE5C5B18DB9CBF0461850DE"
+        },
+        {
+          "Path": "Erlang.PortProbe.runtimeconfig.json",
+          "Bytes": 270,
+          "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+        },
+        {
+          "Path": "Erlang.Runtime.dll",
+          "Bytes": 1829888,
+          "Sha256": "1B8047C09975D4F9834975A1C82A872AEF4B2F0A3458D084241E8F376B229D99"
+        },
+        {
+          "Path": "Erlang.Runtime.pdb",
+          "Bytes": 593796,
+          "Sha256": "957234123E8AEB989DF59709BA969FEEBD10250A36CAE32D4253EFFDA2266C7A"
+        },
+        {
+          "Path": "Erlang.Serialization.dll",
+          "Bytes": 76288,
+          "Sha256": "98F7B0674C336192B96A441703730FE79A5B4A359EBECB7A786A1660EFFB998A"
+        },
+        {
+          "Path": "Erlang.Serialization.pdb",
+          "Bytes": 38152,
+          "Sha256": "11EB740367B9ABB59AFC1DF504327512C93E74B1BD5D2A36A0B458C405D84A12"
+        },
+        {
+          "Path": "Erlang.Terms.dll",
+          "Bytes": 116224,
+          "Sha256": "D0E41A7396C2C4642681F1A845781AC0F635C495AD27F651670EC951797DDCE5"
+        },
+        {
+          "Path": "Erlang.Terms.pdb",
+          "Bytes": 37592,
+          "Sha256": "997177C88DDA66A18FF0297E50B8DB05241EA656173BBF10A1F3B2449B416CFF"
+        },
+        {
+          "Path": "es/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 474960,
+          "Sha256": "985D0B52DA0FB045FF19F8FB88FC872AD21F61F2AA28F7D6521D5066FCCDECFE"
+        },
+        {
+          "Path": "es/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 42280,
+          "Sha256": "0407AAD7B8C7417777EFF8ADB11278EF5B0A04DB71674EC22686E5121EE2B81F"
+        },
+        {
+          "Path": "fr/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 488744,
+          "Sha256": "12FD3517FA99F8A7ADECB01FEA24761AFAC6BBF20A3BBBEEE852ED2BD56151BD"
+        },
+        {
+          "Path": "fr/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 42792,
+          "Sha256": "C3A076FED478E565C8E596F6FAD061E072DD262381C05B5F811D309EB0795420"
+        },
+        {
+          "Path": "it/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 481064,
+          "Sha256": "F4E4BF358A53C792ED7034D43BEAA89E06EEBD727FDB0AE79DF3EAEF63CE36EF"
+        },
+        {
+          "Path": "it/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 42792,
+          "Sha256": "B25CA4BDBDD6A5B9901F415F80A7A4341E22335C1266CC0DDF359D7D7339A9F9"
+        },
+        {
+          "Path": "ja/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 530728,
+          "Sha256": "3C35AEEE474EECF497249841ACE69CA6B2EF67209C001965599BEB4B80F14526"
+        },
+        {
+          "Path": "ja/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 45352,
+          "Sha256": "294617887471923FAB516DC337DBF927BC210041C76719DE7B72F78870E01796"
+        },
+        {
+          "Path": "ko/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 486696,
+          "Sha256": "0976B69643E5E3CC4453BDDC3AD64AF2A96B00F5F551DD608503842A0AD89FEC"
+        },
+        {
+          "Path": "ko/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 42832,
+          "Sha256": "9A9C7288B66F60934F4B37C272796775C21E209B2F3DA3C968196C7641AC894F"
+        },
+        {
+          "Path": "MainCapture.deps.json",
+          "Bytes": 9286,
+          "Sha256": "5878D7548AAD7D63EF2F2EA0B7E130CD9B64A59932369E2CBCDC8B7AB5B16AA6"
+        },
+        {
+          "Path": "MainCapture.dll",
+          "Bytes": 62464,
+          "Sha256": "C081C88181DB90CC68A2BECFC4B3562026AF823DA28D0DF26234CCF1C3ED4700"
+        },
+        {
+          "Path": "MainCapture.exe",
+          "Bytes": 162304,
+          "Sha256": "4DBCD570785BFE5A7A0C20316B5B05DE5BA6D4906E546DAF5F184D855385C7CA"
+        },
+        {
+          "Path": "MainCapture.pdb",
+          "Bytes": 24124,
+          "Sha256": "2394C3F624906C28D55AB8EA61864A54404E64362D59F3617D1F540EC390000D"
+        },
+        {
+          "Path": "MainCapture.runtimeconfig.json",
+          "Bytes": 270,
+          "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+        },
+        {
+          "Path": "Microsoft.CodeAnalysis.CSharp.dll",
+          "Bytes": 19191632,
+          "Sha256": "F5C3F59F88B65C04E16644CA7F53740B51859FAF214F812DD601137BEBE021EB"
+        },
+        {
+          "Path": "Microsoft.CodeAnalysis.dll",
+          "Bytes": 8292136,
+          "Sha256": "55E266AC4FFDF5D73FC861A35ED8C2E7C2292EBEBC2107D1722B6429D7E6AB78"
+        },
+        {
+          "Path": "pl/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 488272,
+          "Sha256": "F669D1F64392982180B69187C9F2926EF986A9D7666AA4D6EAF84DC630920CFE"
+        },
+        {
+          "Path": "pl/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 42832,
+          "Sha256": "B360DDAB71AF0DDD1E75CC24762ED9E906D623E1BE2D872AF9AB0CC341F86FB7"
+        },
+        {
+          "Path": "pt-BR/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 466256,
+          "Sha256": "ACBAD09049E61074A06FF8A0CB52158D5B3BC71B53CE6218DA33DCF1E40A4126"
+        },
+        {
+          "Path": "pt-BR/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 41768,
+          "Sha256": "46916D9A42BE1B6B3D9A4BD5F69DBBDD0487DA02FE4F1F4389C4F0B509F4B810"
+        },
+        {
+          "Path": "ru/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 640848,
+          "Sha256": "DA16D322D14792D9E5C4715DA1EB741F4A7B3B9C6935798696884B09A98CCF19"
+        },
+        {
+          "Path": "ru/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 51536,
+          "Sha256": "989A94DFF120217279BBC51BC475BF608EDD2514A9F47C063CD8830C92FE0467"
+        },
+        {
+          "Path": "tr/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 462120,
+          "Sha256": "4DA062643A7EF05AE43849EE8B2FCC54479AD93B256F1B6B104E466D56C8BD70"
+        },
+        {
+          "Path": "tr/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 41256,
+          "Sha256": "1C737EC8A28276DDA105A16AE6B4B3D576344A6D6AEF8BBA1D24F743CBB873AA"
+        },
+        {
+          "Path": "zh-Hans/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 411472,
+          "Sha256": "05C6D2CE8FFF9C81FE4E43022BD54271229C1E937B35406B93AA9C1EAF07488E"
+        },
+        {
+          "Path": "zh-Hans/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 38736,
+          "Sha256": "471FA8D76FA55D666BDECE15AD3720B407F06FD93547790AC778820FCFDD89C0"
+        },
+        {
+          "Path": "zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 410920,
+          "Sha256": "39C1A2ED241F86FA85B465CCFE4EE328F5DA39C15705CA9FD41271FDB46B72EA"
+        },
+        {
+          "Path": "zh-Hant/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 38736,
+          "Sha256": "E4BD4EBAE62948B4C7AB90931E8C0EE7F9CFF47E60822A5ADD2ED4005DC91087"
+        }
+      ]
+    },
+    {
+      "Name": "binary-insert",
+      "Module": "binary",
+      "Harness": "artifacts/binary-integration369-insert/main-capture",
+      "Tool": "artifacts/binary-original369-insert1/tool",
+      "Values": 7,
+      "Profiles": 35,
+      "Stage": "binary31-capture",
+      "Timeout": 540,
+      "ManifestSha256": "DA790B2A72A0F1D821B51873FDC52F47FC5523E02A70CE4A77E5AA8DD4C0BD20",
+      "ProfileSha256": "78A1604C36243FD7770C8E6FA1FAB5BC1745AED661113461CD4EF08F01C6F167",
+      "ObserverSha256": "672CC6E73B1F0BB05E00519684D7ED44F1B4B0A5F658383285F16BAF2E08663D",
+      "HarnessSources": [
+        {
+          "Path": "artifacts/binary-integration369-insert/main-capture/BinaryReferenceObservation.cs",
+          "Bytes": 6320,
+          "Sha256": "EE8A4EAE6D4E184A08F420655B3F5A3B156D989B408CB62A1E13352F99C293A9"
+        },
+        {
+          "Path": "artifacts/binary-integration369-insert/main-capture/BinaryReferenceObservationNames.cs",
+          "Bytes": 883,
+          "Sha256": "E897FB78362C1173E367F8886BA9E67F1AD59C694CF64A7B821F5224CF0DC09E"
+        },
+        {
+          "Path": "artifacts/binary-integration369-insert/main-capture/FamilyCaptureNames.cs",
+          "Bytes": 631,
+          "Sha256": "7C3FA8CC4DCA1365A4D2DA8D59C3C6B947CEF8E31270FFD67AFF729B0450C0A2"
+        },
+        {
+          "Path": "artifacts/binary-integration369-insert/main-capture/FamilyRuntimeMetadataNames.cs",
+          "Bytes": 344,
+          "Sha256": "1B643B99F78CF586ACB81E747A2DA76A06791B3EBA360C199730F4C0D75EB9A7"
+        },
+        {
+          "Path": "artifacts/binary-integration369-insert/main-capture/MainCapture.csproj",
+          "Bytes": 393,
+          "Sha256": "44D165E307115962CAE247C3BE395E4234702048016249F7996F640F5EBE8E4F"
+        },
+        {
+          "Path": "artifacts/binary-integration369-insert/main-capture/Program.cs",
+          "Bytes": 8576,
+          "Sha256": "58619991984B88BEF7D7AE5CD05D21BE6FC8AEDDCC4C0FE32FF4998DD4424366"
+        },
+        {
+          "Path": "artifacts/binary-integration369-insert/main-capture/SourceFunctionObservation.cs",
+          "Bytes": 4959,
+          "Sha256": "230C887E3FB15C50647570CA1B36AFD15CFC339E26E29BEFDB3FB259FC888648"
+        },
+        {
+          "Path": "artifacts/binary-integration369-insert/main-capture/SourceFunctionObservationNames.cs",
+          "Bytes": 584,
+          "Sha256": "41C3221A03F20D4FDADECFA8EA1819346754A24E75073C7EBC2B088DA9F2F476"
+        }
+      ],
+      "CachedBinFiles": [
+        {
+          "Path": "cs/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 453968,
+          "Sha256": "4B76E1ACE7C4DD6D73F6577AF3B33A0D70DB8B65B10F292BB33F0CD364E869C7"
+        },
+        {
+          "Path": "cs/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 41296,
+          "Sha256": "AC9A260DE180F85B6AA6753698D941B91D93E8ABC760505E7AFAA4111ACCC73B"
+        },
+        {
+          "Path": "de/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 485672,
+          "Sha256": "6F79A685C5A6246B08416B95FE12AB2FB5782AD8AEEC2E8147B3C2BD216C50E3"
+        },
+        {
+          "Path": "de/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 42792,
+          "Sha256": "9D965A076507334A9B5BB5BC69B3AE60F9FF781101A8938EC597255843DCBCD8"
+        },
+        {
+          "Path": "Erlang.Compiler.dll",
+          "Bytes": 458240,
+          "Sha256": "F9224F10477C011A4C34994089A8C5CBA4B79DA3363487AC3D1BAA2F316418CB"
+        },
+        {
+          "Path": "Erlang.Compiler.pdb",
+          "Bytes": 146508,
+          "Sha256": "2FD377BE6C058A5F206E416BF0B94D7870CE75B7DB23E54EFFAB977CC830C0ED"
+        },
+        {
+          "Path": "Erlang.Differential.deps.json",
+          "Bytes": 6189,
+          "Sha256": "C5522AB866D1B4657F8AE79F9B4D5F3A1D8F209C2BC30A06B6F499D47FDB88CD"
+        },
+        {
+          "Path": "Erlang.Differential.dll",
+          "Bytes": 3081216,
+          "Sha256": "8B6FC898983C4DEB30B7EA65CD9A37FC4A4B6D906986A2A506B8AE1B86B60A82"
+        },
+        {
+          "Path": "Erlang.Differential.exe",
+          "Bytes": 162816,
+          "Sha256": "98100E612DAC82CF6F750522F62B4561CEE33BD42BA50F49F6C325DA1339396A"
+        },
+        {
+          "Path": "Erlang.Differential.pdb",
+          "Bytes": 134172,
+          "Sha256": "52B5CEBF6BE2CF59D73B389DB6F596215CF3A12727F1E55C28F29A2D4B880454"
+        },
+        {
+          "Path": "Erlang.Differential.runtimeconfig.json",
+          "Bytes": 270,
+          "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+        },
+        {
+          "Path": "Erlang.Otp.Behaviours.dll",
+          "Bytes": 395776,
+          "Sha256": "2FB9F672CD1D494F83C2E9D549A8C861C3D7BE980C355C49FBA89FB9454F4B9A"
+        },
+        {
+          "Path": "Erlang.Otp.Behaviours.pdb",
+          "Bytes": 115156,
+          "Sha256": "9D9A37AD5ECE708BF656BAC1CB46A8AAFA4E224836509CEF7E7914F4CEDF7CA2"
+        },
+        {
+          "Path": "Erlang.PortProbe.deps.json",
+          "Bytes": 442,
+          "Sha256": "E542D177CB0866F255DB455D01E6F4AEFDB200462A5EF7E062355CC3E796F40E"
+        },
+        {
+          "Path": "Erlang.PortProbe.exe",
+          "Bytes": 162304,
+          "Sha256": "A92D5E9E875EEBC406049F6A0387ABB1B6BC9F13CCE5C5B18DB9CBF0461850DE"
+        },
+        {
+          "Path": "Erlang.PortProbe.runtimeconfig.json",
+          "Bytes": 270,
+          "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+        },
+        {
+          "Path": "Erlang.Runtime.dll",
+          "Bytes": 1830400,
+          "Sha256": "47176562447EA5495717F3276423EBB9B0999AD33ADF0C9D2DA625F5ECA41578"
+        },
+        {
+          "Path": "Erlang.Runtime.pdb",
+          "Bytes": 593844,
+          "Sha256": "CA29AE2ED2BC10C71F1B19106BD7375229D501A7AA55BB43BFC44820D1B70A6C"
+        },
+        {
+          "Path": "Erlang.Serialization.dll",
+          "Bytes": 76288,
+          "Sha256": "98F7B0674C336192B96A441703730FE79A5B4A359EBECB7A786A1660EFFB998A"
+        },
+        {
+          "Path": "Erlang.Serialization.pdb",
+          "Bytes": 38152,
+          "Sha256": "11EB740367B9ABB59AFC1DF504327512C93E74B1BD5D2A36A0B458C405D84A12"
+        },
+        {
+          "Path": "Erlang.Terms.dll",
+          "Bytes": 116224,
+          "Sha256": "D0E41A7396C2C4642681F1A845781AC0F635C495AD27F651670EC951797DDCE5"
+        },
+        {
+          "Path": "Erlang.Terms.pdb",
+          "Bytes": 37592,
+          "Sha256": "997177C88DDA66A18FF0297E50B8DB05241EA656173BBF10A1F3B2449B416CFF"
+        },
+        {
+          "Path": "es/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 474960,
+          "Sha256": "985D0B52DA0FB045FF19F8FB88FC872AD21F61F2AA28F7D6521D5066FCCDECFE"
+        },
+        {
+          "Path": "es/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 42280,
+          "Sha256": "0407AAD7B8C7417777EFF8ADB11278EF5B0A04DB71674EC22686E5121EE2B81F"
+        },
+        {
+          "Path": "fr/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 488744,
+          "Sha256": "12FD3517FA99F8A7ADECB01FEA24761AFAC6BBF20A3BBBEEE852ED2BD56151BD"
+        },
+        {
+          "Path": "fr/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 42792,
+          "Sha256": "C3A076FED478E565C8E596F6FAD061E072DD262381C05B5F811D309EB0795420"
+        },
+        {
+          "Path": "it/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 481064,
+          "Sha256": "F4E4BF358A53C792ED7034D43BEAA89E06EEBD727FDB0AE79DF3EAEF63CE36EF"
+        },
+        {
+          "Path": "it/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 42792,
+          "Sha256": "B25CA4BDBDD6A5B9901F415F80A7A4341E22335C1266CC0DDF359D7D7339A9F9"
+        },
+        {
+          "Path": "ja/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 530728,
+          "Sha256": "3C35AEEE474EECF497249841ACE69CA6B2EF67209C001965599BEB4B80F14526"
+        },
+        {
+          "Path": "ja/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 45352,
+          "Sha256": "294617887471923FAB516DC337DBF927BC210041C76719DE7B72F78870E01796"
+        },
+        {
+          "Path": "ko/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 486696,
+          "Sha256": "0976B69643E5E3CC4453BDDC3AD64AF2A96B00F5F551DD608503842A0AD89FEC"
+        },
+        {
+          "Path": "ko/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 42832,
+          "Sha256": "9A9C7288B66F60934F4B37C272796775C21E209B2F3DA3C968196C7641AC894F"
+        },
+        {
+          "Path": "MainCapture.deps.json",
+          "Bytes": 9286,
+          "Sha256": "5878D7548AAD7D63EF2F2EA0B7E130CD9B64A59932369E2CBCDC8B7AB5B16AA6"
+        },
+        {
+          "Path": "MainCapture.dll",
+          "Bytes": 62464,
+          "Sha256": "672CC6E73B1F0BB05E00519684D7ED44F1B4B0A5F658383285F16BAF2E08663D"
+        },
+        {
+          "Path": "MainCapture.exe",
+          "Bytes": 162304,
+          "Sha256": "4DBCD570785BFE5A7A0C20316B5B05DE5BA6D4906E546DAF5F184D855385C7CA"
+        },
+        {
+          "Path": "MainCapture.pdb",
+          "Bytes": 24124,
+          "Sha256": "7CA72A223785F60C4D473B8C9509B78D6F29141F91AE6656B5FAE4468F4D7038"
+        },
+        {
+          "Path": "MainCapture.runtimeconfig.json",
+          "Bytes": 270,
+          "Sha256": "256DDA2706E1151BB95987B6B5BE610BF68D64E058285B19E7E958222FC90414"
+        },
+        {
+          "Path": "Microsoft.CodeAnalysis.CSharp.dll",
+          "Bytes": 19191632,
+          "Sha256": "F5C3F59F88B65C04E16644CA7F53740B51859FAF214F812DD601137BEBE021EB"
+        },
+        {
+          "Path": "Microsoft.CodeAnalysis.dll",
+          "Bytes": 8292136,
+          "Sha256": "55E266AC4FFDF5D73FC861A35ED8C2E7C2292EBEBC2107D1722B6429D7E6AB78"
+        },
+        {
+          "Path": "pl/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 488272,
+          "Sha256": "F669D1F64392982180B69187C9F2926EF986A9D7666AA4D6EAF84DC630920CFE"
+        },
+        {
+          "Path": "pl/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 42832,
+          "Sha256": "B360DDAB71AF0DDD1E75CC24762ED9E906D623E1BE2D872AF9AB0CC341F86FB7"
+        },
+        {
+          "Path": "pt-BR/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 466256,
+          "Sha256": "ACBAD09049E61074A06FF8A0CB52158D5B3BC71B53CE6218DA33DCF1E40A4126"
+        },
+        {
+          "Path": "pt-BR/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 41768,
+          "Sha256": "46916D9A42BE1B6B3D9A4BD5F69DBBDD0487DA02FE4F1F4389C4F0B509F4B810"
+        },
+        {
+          "Path": "ru/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 640848,
+          "Sha256": "DA16D322D14792D9E5C4715DA1EB741F4A7B3B9C6935798696884B09A98CCF19"
+        },
+        {
+          "Path": "ru/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 51536,
+          "Sha256": "989A94DFF120217279BBC51BC475BF608EDD2514A9F47C063CD8830C92FE0467"
+        },
+        {
+          "Path": "tr/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 462120,
+          "Sha256": "4DA062643A7EF05AE43849EE8B2FCC54479AD93B256F1B6B104E466D56C8BD70"
+        },
+        {
+          "Path": "tr/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 41256,
+          "Sha256": "1C737EC8A28276DDA105A16AE6B4B3D576344A6D6AEF8BBA1D24F743CBB873AA"
+        },
+        {
+          "Path": "zh-Hans/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 411472,
+          "Sha256": "05C6D2CE8FFF9C81FE4E43022BD54271229C1E937B35406B93AA9C1EAF07488E"
+        },
+        {
+          "Path": "zh-Hans/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 38736,
+          "Sha256": "471FA8D76FA55D666BDECE15AD3720B407F06FD93547790AC778820FCFDD89C0"
+        },
+        {
+          "Path": "zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll",
+          "Bytes": 410920,
+          "Sha256": "39C1A2ED241F86FA85B465CCFE4EE328F5DA39C15705CA9FD41271FDB46B72EA"
+        },
+        {
+          "Path": "zh-Hant/Microsoft.CodeAnalysis.resources.dll",
+          "Bytes": 38736,
+          "Sha256": "E4BD4EBAE62948B4C7AB90931E8C0EE7F9CFF47E60822A5ADD2ED4005DC91087"
+        }
+      ]
+    }
+  ]
+}

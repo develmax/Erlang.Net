@@ -1,0 +1,24 @@
+{
+  "BaseLedgerSha256": "40D36B1B04B89F0231AA145075B7B58208C3BE218CEEB281F2FA3FC7190CE30D",
+  "ExistingGuardCount": 462,
+  "NoChangedExistingGuardHashes": true,
+  "AdditionalGuardRows": [
+    {
+      "Path": "src/Erlang.Compiler/ExpressionBindings.cs",
+      "Bytes": 3357,
+      "Sha256": "FC38AC42C90BE1FD1FD322FD65F32A8D08A56D0965D1C6EFD42C195EE3962D51"
+    },
+    {
+      "Path": "src/Erlang.Compiler/CompiledExpressionBindings.cs",
+      "Bytes": 1899,
+      "Sha256": "C270D9BF48E183171B521AA7C9E98EC0ED7849A8D983EDDC4642EECE84404AF7"
+    },
+    {
+      "Path": "src/Erlang.Compiler/CompiledBindingScope.cs",
+      "Bytes": 3355,
+      "Sha256": "E3D670DE237A87C20277CCF82134FC049AED7AA643ACBC511D85D7BF0A00A0F3"
+    }
+  ],
+  "ProposedGuardCount": 465,
+  "Reason": "Bind argument evaluation helpers already used by compiled BIF calls. Their BIF-relevant effect is left-to-right once-only value capture; no complete Core lowering or compiler contract promotion is claimed."
+}

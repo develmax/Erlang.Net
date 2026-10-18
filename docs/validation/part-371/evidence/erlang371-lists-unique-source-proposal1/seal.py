@@ -1,0 +1,15 @@
+from pathlib import Path
+import hashlib,json
+OUT=Path(__file__).resolve().parent
+ROOT=OUT.parents[1]
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest().upper()
+planpath=OUT/'copy-plan.json'
+plan=json.loads(planpath.read_text())
+plan['Edits']=[{'File':'tests/Erlang.Tests/Program.cs','AppendBefore':'catalog snapshot','Insert':'Test(Erlang.Tests.ListUniqueSourceHostNames.TestName, Erlang.Tests.ListUniqueSourceHostChecks.Run);'},{'File':'tests/Erlang.Tests/Erlang.Tests.csproj','Insert':'<EmbeddedResource Include="Resources/Erlang371/lists_unique_source_contract.erl" />'}]
+planpath.write_text(json.dumps(plan,indent=2)+'\n',encoding='utf-8')
+parsed=json.loads((OUT/'parsed-source-clauses.json').read_text())
+review={'Status':'UNEXECUTED_SOURCE_PORT_PROPOSAL','PinnedCommit':'ad05823719d77c8faee87348ea39513d4e2f99c5','PinnedPath':'lib/stdlib/src/lists.erl','AuthorityLocal':'artifacts/erlang371-root/lists.erl.pinned.txt','AuthoritySha256':sha(ROOT/'artifacts/erlang371-root/lists.erl.pinned.txt'),'SourceFunctions':parsed['Functions'],'SourceClauseCount':len(parsed['Clauses']),'SourceInterval':[parsed['StartLine'],parsed['EndLine']],'CodeGeneration':'Fixed-source build-time adaptation only: direct C# conditions, state switch and immutable Term constructors. No production parser/interpreter. Alllocalcall targets asserted present; unsupported lexical/AST constructs rejected by generator.','PreservedRawSemantics':['Nil shortcuts and singleton outer run return preserve raw improper input when source does.','Allforward/reverse two/three-way representative and duplicate rules preserved clause-for-clause.','Function_clause uses actual current helper arguments and first source clause line.','Actuallists:reverse dispatch with genuine pending source callers.','Explicit state/continuation stack gives constant CLR recursion depth; scopes unwind on async failure/cancellation.','Registry zf alias remains current Root version; nonunique merge and other sorting APIs unchanged.'],'PublicUsortEntry':'Source shape rejection only with complete original argument and2075 location; proper sorting remains existingimplementation.','NoFullCompatibilityPromotion':True,'OpenGates':['Rootstyle/buildpermanentHOST andexistingaffectedlists/ordsetsregression','ComparefinalactualSDK full21packet against admitted original39113248779 withallfields','Widerusortprivateuspliterrorframes,comparison/map/HAMTdomain andotherlistsAPI source closure remain separate','No identicalallocationcapacity/reductiontiming/performance assertion'],'NoMainWrites':True,'NoBuildNetwork':True}
+(OUT/'review.json').write_text(json.dumps(review,indent=2)+'\n',encoding='utf-8')
+paths=[p for p in OUT.rglob('*') if p.is_file() and p.name!='source-freeze.json']
+(OUT/'source-freeze.json').write_text(json.dumps({'Files':[{'Path':str(p.relative_to(OUT)).replace('\\','/'),'Sha256':sha(p),'Bytes':p.stat().st_size} for p in sorted(paths)]},indent=2)+'\n',encoding='utf-8')
+print(json.dumps({'PlanSha256':sha(planpath),'FreezeSha256':sha(OUT/'source-freeze.json'),'ReviewSha256':sha(OUT/'review.json')}))

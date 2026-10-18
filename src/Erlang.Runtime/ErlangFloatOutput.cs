@@ -26,13 +26,15 @@ internal static class ErlangFloatOutput
                         break;
                     case TupleTerm { Items.Count: 2 } tuple when tuple.Items[0] is Atom { Name: ErlangFloatBifNames.Decimals or ErlangFloatBifNames.Scientific } kind && tuple.Items[1] is Integer digits && digits.Value >= ErlangFloatParameters.MinimumSmallInteger && digits.Value <= ErlangFloatParameters.MaximumSmallInteger:
                         format = kind.Name;
-                        precision = (long)digits.Value;
+                        precision = unchecked((int)(long)digits.Value);
                         break;
                     default:
                         throw new ErlangException(ErlangErrorReasons.BadArgument);
                 }
             }
         }
+        if (format == ErlangFloatBifNames.Scientific && precision < 0)
+            precision = ErlangFloatParameters.DefaultScientificPrecision;
         string result;
         if (format == ErlangFloatBifNames.Short)
             result = Short(number.Value);

@@ -1,0 +1,229 @@
+{
+  "Status": "INDEPENDENT_CURRENT_MAIN_SOURCE_REVIEW_ACCEPTED_CONDITIONAL_ON_CANONICAL_REGRESSION",
+  "BaseLedgerSha256": "40D36B1B04B89F0231AA145075B7B58208C3BE218CEEB281F2FA3FC7190CE30D",
+  "ExistingGuardCount": 462,
+  "ExistingGuardUpdates": [
+    {
+      "Path": "src/Erlang.Compiler/CodeGeneration.cs",
+      "Before": "EA3261A7296F41F76A1936B78FC150F1AA8B7B863DDDE3DB8FB0B0F26DDF7395",
+      "After": "75A38820BBB33D6B4316BD246FD4BC86BAE903976ADBB917D7A0D80F1E952486"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "Before": "866E533B17161A12676460B2291FAAA13C2B6966CDD567C46B71C2B69E627C47",
+      "After": "31CF6C6FEFF57F33D7CE9B751953FE241F71E3C50013654137D860372364AB91"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Expr.cs",
+      "Before": "9F7E5ABC621020D021F7A5CD94B2FAA613F280D9ACBA386A1C7C6C24130CAD0E",
+      "After": "EF3E0C14D976BF1DAF3F47EEA799BBA5C0EBCCE14C635B70EA9E60D33965AF95"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Parser.cs",
+      "Before": "6A1BC62CE606596DC43F52A4E96886DE33F357252432D357839BC68CFDCFEC3F",
+      "After": "BC5F4B668EDC616DF6FF4913F102FDDFD0DDC33210021336B03376CD48578307"
+    },
+    {
+      "Path": "src/Erlang.Runtime/CoreModules.cs",
+      "Before": "A538B78EE3F0B0E8A206C69BD0B6A3883F6A8B2F2B310A951C64E4382DBE788A",
+      "After": "14DDBBD97FC74E3BD730C877FC50B795A4E164DBA1DA88DCA4CDFFA5722AB47D"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListFunctions.cs",
+      "Before": "E887815A1B39A1F6AE0C7378CFF3E074D44A1FB7D9616E4C3D2683CE984A55AE",
+      "After": "233A5A00718A6D9B30B22FAB72D157C958D82F4F5E4B663780CA47B90427CA58"
+    },
+    {
+      "Path": "src/Erlang.Terms/TermComparisonStep.cs",
+      "Before": "DA1D1968DEEAF4D48382D0ED24FD37A3652225ED385F2E4276C24A90DDF13917",
+      "After": "8DE47174DEA7ED2EC5AE37EB23AB6DCC79B937CF7FAA215E4FF4F6AE359278AC"
+    },
+    {
+      "Path": "src/Erlang.Terms/TermOrder.cs",
+      "Before": "1A10BE0EFFC5005976DDDD7745E1C48774291498E77B57D0F8FF503167F40F14",
+      "After": "D54D6129488CA5497D366313EC2A54DA5A2EA831057F34EEF16A3AC43BA6467F"
+    }
+  ],
+  "AddedGuardRows": [
+    {
+      "Path": "src/Erlang.Compiler/CompiledBindingScope.cs",
+      "Sha256": "E3D670DE237A87C20277CCF82134FC049AED7AA643ACBC511D85D7BF0A00A0F3"
+    },
+    {
+      "Path": "src/Erlang.Compiler/CompiledExpressionBindings.cs",
+      "Sha256": "C270D9BF48E183171B521AA7C9E98EC0ED7849A8D983EDDC4642EECE84404AF7"
+    },
+    {
+      "Path": "src/Erlang.Compiler/ExpressionBindings.cs",
+      "Sha256": "FC38AC42C90BE1FD1FD322FD65F32A8D08A56D0965D1C6EFD42C195EE3962D51"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceOperatorCode.cs",
+      "Sha256": "C7C0FCA5B7FF2BDEDEC52944A089443E317F94989B15C6C81195E6913C32DB56"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangDataRegistrations.cs",
+      "Sha256": "DC46EF435E8C1DC21430C1A084EBC903E38633BA6DE032D19447A7F466ACEAEF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangFloatOutput.cs",
+      "Sha256": "2E9E0D3333956CD3B36C597B011C886B4AF0E435FFDCA8FCB7D25C6885C5D304"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangFloatParameters.cs",
+      "Sha256": "873BEA5195CB744A52EA89ED34644128BB792E8297BEF94F02B27C0D0C0F9E70"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangIntegerParseBridge.cs",
+      "Sha256": "F5A0F0464562AE53A9AB6B00B017ACD39A583521C74A7D7CCD981313ED604FF4"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListCallbackSourceExecution.cs",
+      "Sha256": "33D4E2011C39ADF138185C054A6C3FA79BBB871D6E7C1442E35FEEEF4F34149C"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListMergeOperations.cs",
+      "Sha256": "4B4DF2DC839401D058D4D370CF87D0FC28DDF48F5457479CB7B4459E29EE75B8"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListModuleRegistrations.cs",
+      "Sha256": "578EF151E10D4A8663192401009A7B71A631C011596BFCE90724C5156A97C4D3"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListSortOperations.cs",
+      "Sha256": "8BD32E4E416544764B0DCFF24A4AF5999E9B0DC1EBD63CA0219238CF3826E125"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListUniqueMergeContinuation.cs",
+      "Sha256": "AEEA87F601907D62EACDFFDEDAEE1C726AA51587D3DE07B43640B55B67D400EA"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListUniqueMergeMachine.cs",
+      "Sha256": "82A1F7F705DD8F5366A16EEB92DB256AF0F8F4AE9F9FAC6BFA964DF1E0583441"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListUniqueMergeNames.cs",
+      "Sha256": "9614588A5218881DC71264329A0B8212AD6F5850583C20B2AC960CE51F41E891"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListUniqueMergeScope.cs",
+      "Sha256": "EDA7251728F21A50D9AD22FE1B4CB1A1AF95469D654A934FB3FC6A9C7C03703A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListUniqueMergeState.cs",
+      "Sha256": "6EADD484B9BEECFE7A0358603D2B8225A49F944B8B9C7ECA0FEA36FBB6FDB046"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListUniqueMergeTrace.cs",
+      "Sha256": "EEA02651A68D3970C4AFD55C5D4ADC1D739D91F566978841815ADC226921DB3F"
+    },
+    {
+      "Path": "src/Erlang.Runtime/OrdsetCoreExecution.cs",
+      "Sha256": "AD2CF551B2F7A8E0527034868744099DDB82777791915930AFE3BD69994323EA"
+    },
+    {
+      "Path": "src/Erlang.Runtime/OrdsetCoreModule.cs",
+      "Sha256": "7B490D5B3DB6606483F9A4E19403E8B9DB77FF0300A392D352D988D1E04606F5"
+    },
+    {
+      "Path": "src/Erlang.Runtime/OrdsetCoreNames.cs",
+      "Sha256": "FABF3CD9EA3F5B6F96BACFB33A924CE07D6583F41F922BBB908964B29C867AAE"
+    },
+    {
+      "Path": "src/Erlang.Runtime/OrdsetCoreTrace.cs",
+      "Sha256": "777D80A039ACF481F864D824A9CAC80B56FF295DAC4C46486E4BE92F14D827C6"
+    },
+    {
+      "Path": "src/Erlang.Runtime/OrdsetFullCallbacks.cs",
+      "Sha256": "D996677E80D463454597A72C9D55E92BCB7BE94E411C546F74B587F65BADEC17"
+    },
+    {
+      "Path": "src/Erlang.Runtime/OrdsetFullExecution.cs",
+      "Sha256": "12E8A0CD9ADBF81BDDEC4CB581F06C1EB6412CC563DFC17BB469882D31ED7447"
+    },
+    {
+      "Path": "src/Erlang.Runtime/OrdsetFullFrame.cs",
+      "Sha256": "D982A7503C11D7C129B17DB25621E3331C15F4FE11DF4331D405CADF2678ED6C"
+    },
+    {
+      "Path": "src/Erlang.Runtime/OrdsetFullModule.cs",
+      "Sha256": "5F46E655DB6861B681EB9D3EA0BEF307FCD98E41E480295A55DE88D3CED695F8"
+    },
+    {
+      "Path": "src/Erlang.Runtime/OrdsetFullNames.cs",
+      "Sha256": "681C12BB7177F343F9E0F120D1ACBBD9D66CE50675B541917DD059D324D075CF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/OrdsetFullScope.cs",
+      "Sha256": "FA2CED75BCEFE83B380172AAA470D1EBA87F538457A6F7ECE1130E71E49AEAD1"
+    },
+    {
+      "Path": "src/Erlang.Runtime/OrdsetFullTrace.cs",
+      "Sha256": "F867D902984F6A7F751ED48F7431FB4A50F5A1F675385F025BD3F43B5E084F78"
+    },
+    {
+      "Path": "src/Erlang.Terms/TermComparisonResult.cs",
+      "Sha256": "772233E32B250DBBB8FB589D14A1F3310FC6745D8BFC5C9D5875E0C83007D9A7"
+    },
+    {
+      "Path": "src/Erlang.Terms/TermComparisonScope.cs",
+      "Sha256": "3BA974E5319D5F74F108A1100C1CC8E15E9E911EC7B3F980DC2C865D7435FA7F"
+    },
+    {
+      "Path": "src/Erlang.Terms/TermMapOrderParameters.cs",
+      "Sha256": "C66760F168262ED6DA8EF2FE348C4E838173260F81B476B16694CBD2CC274CBB"
+    },
+    {
+      "Path": "src/Erlang.Terms/TermMapOrdering.cs",
+      "Sha256": "C24A775A4D6CC88791D9CDD438E150E9CE6CD3DC7847347B61E1D99F5113B468"
+    },
+    {
+      "Path": "src/Erlang.Terms/TermMapOrderingResult.cs",
+      "Sha256": "8EE31F026B8ED2AC69F8D19FEFF746E4496E32249C8CE356C866B949EA238536"
+    }
+  ],
+  "FinalProposedGuardCount": 496,
+  "UnchangedOldGuards": 454,
+  "NoOldEntryRemoved": true,
+  "ProposalSourceEquivalence": {
+    "Files": 38,
+    "TokenEquivalent": 37,
+    "ExceptionsRequiringExplicitRootDeltaReview": [
+      {
+        "Path": "src/Erlang.Runtime/OrdsetCoreTrace.cs",
+        "MainSha256": "777D80A039ACF481F864D824A9CAC80B56FF295DAC4C46486E4BE92F14D827C6",
+        "ProposalPath": "artifacts/next-api371-proposal1/source/src/Erlang.Runtime/OrdsetCoreTrace.cs",
+        "ProposalSha256": "043F92F9F3C0D89C360727652232A3A3FECBCB524A9DAFC7BA7059082019F39A",
+        "TokenEquivalent": false
+      }
+    ]
+  },
+  "NoMainBuildNetworkOrGit": true,
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SemanticDeltaAcceptance": {
+    "CompilerFourFiles": "Only operator-token SourceLine propagation and its native error context are added. Unary/Binary public constructors/default 0 remain, guard and short-circuit branches unchanged. Operands execute once before entering operator context. Ordinary Expr.Call path, four bounded BIF dispatches and existing predicate handlers remain unchanged. Matches pinned erl_parse mkop1/mkop2 annotation. Actual final full-stack comparisons close the previously exposed operator-location cases.",
+    "CoreModules": "Byte-removing exactly OrdsetCoreModule.Register(r) restores the old guarded hash A538B78EE3F0B0E8A206C69BD0B6A3883F6A8B2F2B310A951C64E4382DBE788A. One new module registration after Queue; no existing handler changed.",
+    "ListFunctions": "FoldLeft/Filter/Map/FilterMap alone dispatch to source-faithful kernels extracted into ListCallbackSourceExecution. Ordsets use actual ModuleRegistry lists callbacks including replacement modules; zf preserves tail alias behavior. Remaining ListFunctions code unchanged. Existing verified queue/proplists callbacks use their own source execution kernels; this is not a blanket lists compatibility promotion.",
+    "TermOrderAndStep": "Narrow ordinary Ordering/non-exact flatmap key view (2..32 entries) uses pinned OLD_UNIQ key comparison, exact numeric key comparison and ordinary values. Stable iterative auxiliary scopes share comparison budget/context. Exact/NumericEquality/CanonicalKeyStorage and MapTerm/hash storage remain unchanged, preserving distinct NEW_UNIQ keys even when OLD_UNIQ ties. Actual 14 raw map/FUN cases close 84 observed differences; HAMT/whole ordering closure is not claimed.",
+    "OrdsetCoreTraceExplicitException": "Only proposed repeated pending-continuation loop becomes one if(pending > 0 && frames.Count < depth). Native add_element uses the same source continuation repeatedly, which OTP records once. Actual malformed recursive errors and full depth packet now match. This sole non-token-equivalent proposal source is explicitly accepted, not a blind hash replacement.",
+    "AddedDependencies": "34 added guard paths bind source metadata, new ordsets module, real lists source continuation machine, dispatch helpers, numeric BIF frames and iterative flatmap scope machinery. All 462 existing guard paths remain; 454 are byte unchanged. No existing status or evidence is revoked."
+  },
+  "OriginalComparisons": [
+    {
+      "Path": "artifacts/erlang371-final-comparison1/acceptance.json",
+      "Sha256": "62B532BABD305142B12C623F3927B56718392A698F94C375613FE7B72242F4F3",
+      "StrictObservations": 4506,
+      "Differences": 0,
+      "Normalization": false
+    },
+    {
+      "Path": "artifacts/ordsets371-fixed-comparison2/acceptance.json",
+      "Sha256": "631917B620CE4675B797BC9DA6BA07DF7C56F18DB56DE9669C6EFF30A39B0FE1",
+      "StrictObservations": 2616,
+      "Differences": 0,
+      "Normalization": false
+    }
+  ],
+  "ErlangReceiptFinalClosure": "erlang-final-live-dll-closure.json verifies all five live final Main DLLs against captured hashes; immutable comparison receipt FinalRecaptureRequired flag is historical and not silently edited.",
+  "CanonicalExecutionGate": "Parent owns final canonical acceptance; source review does not claim its completion."
+}

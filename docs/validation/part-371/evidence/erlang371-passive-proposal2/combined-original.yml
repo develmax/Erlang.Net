@@ -1,0 +1,124 @@
+name: Original erlang conversions and ordsets contracts
+on:
+  workflow_dispatch:
+    inputs:
+      expected_head:
+        description: Exact reviewed validation branch head
+        type: string
+        required: true
+      source_inputs_sha256:
+        description: Reviewed erlang source manifest SHA256
+        type: string
+        required: true
+      ordsets_source_inputs_sha256:
+        description: Reviewed ordsets source manifest SHA256
+        type: string
+        required: true
+        default: 699A359762EA9EBBA64B6369BDCA92814E437C5F0A3F56246FA2E9F1A04F0829
+permissions:
+  contents: read
+jobs:
+  original-queue8:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    env:
+      EXPECTED_HEAD: ${{ inputs.expected_head }}
+      SOURCE_INPUTS_SHA256: ${{ inputs.source_inputs_sha256 }}
+      ORDSETS_SOURCE_INPUTS_SHA256: ${{ inputs.ordsets_source_inputs_sha256 }}
+      ERLC_USE_SERVER: 'false'
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Admit exact reviewed head and erlang source
+        id: head_admit
+        run: python3 -B tools/Erlang.ProplistFamilyObservations/ci-gates.py admit --head "$EXPECTED_HEAD" --manifest-sha256 "$SOURCE_INPUTS_SHA256"
+      - uses: actions/setup-dotnet@v6
+        id: sdk_setup
+        with:
+          global-json-file: global.json
+      - name: Prepare erlang fixtures independently
+        id: erlang_preflight
+        if: ${{ always() && steps.head_admit.outcome == 'success' && steps.sdk_setup.outcome == 'success' }}
+        run: python3 -B tools/Erlang.ProplistFamilyObservations/ci-gates.py parse --head "$EXPECTED_HEAD" --manifest-sha256 "$SOURCE_INPUTS_SHA256"
+      - name: Prepare ordsets fixtures independently
+        id: ordsets_preflight
+        if: ${{ always() && steps.head_admit.outcome == 'success' && steps.sdk_setup.outcome == 'success' }}
+        run: python3 -B tools/Erlang.OrdsetsCoreOriginalObservations/ci-preflight.py --head "$EXPECTED_HEAD" --manifest-sha256 "$ORDSETS_SOURCE_INPUTS_SHA256"
+      - name: Clone pinned OTP source once
+        id: otp_clone
+        if: ${{ always() && steps.head_admit.outcome == 'success' && (steps.erlang_preflight.outcome == 'success' || steps.ordsets_preflight.outcome == 'success') }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 --branch OTP-29.1.1 https://github.com/erlang/otp.git artifacts/proplists22-otp-source \
+            2>&1 | tee artifacts/proplists22-original/clone.log
+          test "$(git -C artifacts/proplists22-otp-source rev-parse HEAD)" = ad05823719d77c8faee87348ea39513d4e2f99c5
+      - name: Build and seal one original OTP installation
+        id: otp_build
+        if: ${{ always() && steps.otp_clone.outcome == 'success' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -B tools/Erlang.SchedulerAffinityOriginalObservations/build-original.py \
+            --repository "$GITHUB_WORKSPACE" --manifest-sha256 4C9A79CD6E8BC18F68316D42B2F30DB171E67A242CA81CA84BB8A022E8BA5BFB \
+            --expected-head "$EXPECTED_HEAD" --otp-source "$GITHUB_WORKSPACE/artifacts/proplists22-otp-source" \
+            --prefix "$GITHUB_WORKSPACE/artifacts/proplists22-otp" \
+            --output "$GITHUB_WORKSPACE/artifacts/proplists22-original/build" \
+            2>&1 | tee artifacts/proplists22-original/build.log
+      - name: Collect erlang values and full stacks
+        id: erlang_collect
+        if: ${{ always() && steps.otp_build.outcome == 'success' && steps.erlang_preflight.outcome == 'success' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          BUILD_RECEIPT="$GITHUB_WORKSPACE/artifacts/proplists22-original/build/build-receipt.json"
+          PARSE_GATE="$GITHUB_WORKSPACE/artifacts/proplists22-original/preflight/parse-receipt.json"
+          python3 -B tools/Erlang.ProplistFamilyObservations/collect-original-corrected.py \
+            --repository "$GITHUB_WORKSPACE" --expected-head "$EXPECTED_HEAD" --source-inputs-sha256 "$SOURCE_INPUTS_SHA256" \
+            --parse-gate "$PARSE_GATE" --parse-gate-sha256 "$(sha256sum "$PARSE_GATE" | cut -d ' ' -f 1)" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/proplists22-otp-source" --runtime-root "$GITHUB_WORKSPACE/artifacts/proplists22-otp/lib/erlang" \
+            --build-receipt "$BUILD_RECEIPT" --approved-build-receipt-sha256 "$(sha256sum "$BUILD_RECEIPT" | cut -d ' ' -f 1)" \
+            --output "$GITHUB_WORKSPACE/artifacts/proplists22-original/capture" 2>&1 | tee artifacts/proplists22-original/collection.log
+      - name: Collect ordsets values and full stacks independently
+        id: ordsets_collect
+        if: ${{ always() && steps.otp_build.outcome == 'success' && steps.ordsets_preflight.outcome == 'success' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          BUILD_RECEIPT="$GITHUB_WORKSPACE/artifacts/proplists22-original/build/build-receipt.json"
+          PARSE_GATE="$GITHUB_WORKSPACE/artifacts/proplists22-original/ordsets-preflight/parse-receipt.json"
+          python3 -B tools/Erlang.OrdsetsCoreOriginalObservations/collect-original.py \
+            --repository "$GITHUB_WORKSPACE" --expected-head "$EXPECTED_HEAD" --source-inputs-sha256 "$ORDSETS_SOURCE_INPUTS_SHA256" \
+            --parse-gate "$PARSE_GATE" --parse-gate-sha256 "$(sha256sum "$PARSE_GATE" | cut -d ' ' -f 1)" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/proplists22-otp-source" --runtime-root "$GITHUB_WORKSPACE/artifacts/proplists22-otp/lib/erlang" \
+            --build-receipt "$BUILD_RECEIPT" --approved-build-receipt-sha256 "$(sha256sum "$BUILD_RECEIPT" | cut -d ' ' -f 1)" \
+            --output "$GITHUB_WORKSPACE/artifacts/proplists22-original/ordsets-capture" 2>&1 | tee artifacts/proplists22-original/ordsets-collection.log
+      - name: Require every preparation and independent collector to succeed
+        if: always()
+        env:
+          ERLANG_PREFLIGHT: ${{ steps.erlang_preflight.outcome }}
+          ORDSETS_PREFLIGHT: ${{ steps.ordsets_preflight.outcome }}
+          BUILD_OUTCOME: ${{ steps.otp_build.outcome }}
+          ERLANG_OUTCOME: ${{ steps.erlang_collect.outcome }}
+          ORDSETS_OUTCOME: ${{ steps.ordsets_collect.outcome }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,os
+          from pathlib import Path
+          names=['ERLANG_PREFLIGHT','ORDSETS_PREFLIGHT','BUILD_OUTCOME','ERLANG_OUTCOME','ORDSETS_OUTCOME']
+          results={name:os.environ[name] for name in names}
+          directory=Path('artifacts/proplists22-original');directory.mkdir(parents=True,exist_ok=True)
+          (directory/'combined-outcomes.json').write_text(json.dumps(results,indent=2)+'\n')
+          print(json.dumps(results))
+          if any(result!='success' for result in results.values()):raise SystemExit(1)
+          PY
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: original-queue8
+          path: artifacts/proplists22-original/**
+          if-no-files-found: warn

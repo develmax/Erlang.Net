@@ -676,12 +676,17 @@ public static partial class Execution
                     ) && await GuardAsync(clause.Guard, scope, ctx)
                 );
             case Expr.Unary u:
-                return Unary(u.Operator, await Evaluate(
-                    u.Operand,
-                    ctx,
-                    b,
-                    module
-                ), ctx);
+                {
+                    Term operand = await Evaluate(
+                        u.Operand,
+                        ctx,
+                        b,
+                        module
+                    );
+                    using var sourceLocation = ctx.EnterSourceLocation(SourceCallLocations.For(module, u.SourceLine));
+
+                    return Unary(u.Operator, operand, ctx);
+                }
             case Expr.Binary x:
                 {
                     bool shortCircuit = x.Operator is ErlangOperators.AndAlso or ErlangOperators.OrElse;
@@ -693,7 +698,11 @@ public static partial class Execution
                         module
                     );
                     if (shortCircuit && left is not Atom { Name: ErlangBooleanAtoms.True or ErlangBooleanAtoms.False })
-                        throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadArgument), left)).WithStackFrame(ErlangModuleNames.Module, x.Operator, [left]);
+                    {
+                        using var failureLocation = ctx.EnterSourceLocation(SourceCallLocations.For(module, x.SourceLine));
+
+                        throw ctx.CaptureSourceFailure(new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadArgument), left)).WithStackFrame(ErlangModuleNames.Module, x.Operator, [left]));
+                    }
                     if (x.Operator == ErlangOperators.AndAlso && left.Equals(Term.A(ErlangBooleanAtoms.False)))
                         return Term.A(ErlangBooleanAtoms.False);
                     if (x.Operator == ErlangOperators.OrElse && left.Equals(Term.A(ErlangBooleanAtoms.True)))
@@ -716,6 +725,7 @@ public static partial class Execution
                             b[binding.Key] = binding.Value;
                     }
 
+                    using var sourceLocation = ctx.EnterSourceLocation(SourceCallLocations.For(module, x.SourceLine));
                     if (x.Operator == ErlangOperators.Send)
                     {
                         await ErlangOperatorValues.TrySendAsync(ctx, left, right);

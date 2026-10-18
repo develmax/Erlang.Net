@@ -1,0 +1,30 @@
+{
+  "Status": "NOT_APPLIED_CONDITIONAL_ON_FINAL_ACTUAL_GATES",
+  "ExistingStatusesPreservedUntilGate": true,
+  "Changes": [
+    {
+      "Mfa": "erlang:hd/1",
+      "From": "Needs verification",
+      "To": "Verified compatible",
+      "Scope": "Cons -> return the exact stored Head term without traversal, conversion or reconstruction. Any non-Cons term (Nil included) -> error:badarg. Complete observable Erlang logical API contract on supported valid term model; resource capacity, timing, performance and host-only invalid term extensions are not claimed identical."
+    },
+    {
+      "Mfa": "erlang:tl/1",
+      "From": "Needs verification",
+      "To": "Verified compatible",
+      "Scope": "Cons -> return the exact stored Tail term, including an improper non-list tail. Any non-Cons term (Nil included) -> error:badarg. Complete observable Erlang logical API contract on supported valid term model; resource capacity, timing, performance and host-only invalid term extensions are not claimed identical."
+    },
+    {
+      "Mfa": "erlang:tuple_size/1",
+      "From": "Needs verification",
+      "To": "Verified compatible",
+      "Scope": "Tuple -> integer arity; every non-Tuple term -> error:badarg. Complete observable Erlang logical API contract on supported valid term model; resource capacity, timing, performance and host-only invalid term extensions are not claimed identical."
+    },
+    {
+      "Mfa": "erlang:is_integer/3",
+      "From": "Needs verification",
+      "To": "Verified compatible",
+      "Scope": "Validate bounds first: either bound noninteger -> error:badarg, regardless of Value. Otherwise noninteger Value ->false. Otherwise compare inclusive Min <= Value <= Max with arbitrary-precision signed integer comparisons. Complete observable Erlang logical API contract on supported valid term model; resource capacity, timing, performance and host-only invalid term extensions are not claimed identical."
+    }
+  ]
+}

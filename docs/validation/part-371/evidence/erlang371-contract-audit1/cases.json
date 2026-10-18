@@ -1,0 +1,452 @@
+[
+  {
+    "Name": "hd_guard_accept",
+    "Expression": "guard_hd([sentinel|sentinel])",
+    "Mfas": [
+      "erlang:hd/1"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "hd_guard_reject",
+    "Expression": "guard_hd([])",
+    "Mfas": [
+      "erlang:hd/1"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "hd_guard_native_record",
+    "Expression": "guard_hd(records:create(bounded_owner,rec,[{value,1}],#{is_exported=>true}))",
+    "Mfas": [
+      "erlang:hd/1"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "hd_non_tail_success",
+    "Expression": "context_hd([sentinel|sentinel])",
+    "Mfas": [
+      "erlang:hd/1"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "hd_non_tail_badarg",
+    "Expression": "context_hd(invalid)",
+    "Mfas": [
+      "erlang:hd/1"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "hd_invalid_pid",
+    "Expression": "erlang370_pure_support:invoke(hd,[binary_to_term(<<131,88,119,13,\"external@host\",0,0,0,1,0,0,0,0,0,0,0,0>>)])",
+    "Mfas": [
+      "erlang:hd/1"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "hd_invalid_reference",
+    "Expression": "erlang370_pure_support:invoke(hd,[binary_to_term(<<131,90,0,1,119,13,\"external@host\",0,0,0,0,0,0,0,1>>)])",
+    "Mfas": [
+      "erlang:hd/1"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "hd_invalid_function",
+    "Expression": "erlang370_pure_support:invoke(hd,[fun erlang:self/0])",
+    "Mfas": [
+      "erlang:hd/1"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "hd_invalid_tuple",
+    "Expression": "erlang370_pure_support:invoke(hd,[{a,b}])",
+    "Mfas": [
+      "erlang:hd/1"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "hd_identity_payload",
+    "Expression": "begin P=binary_to_term(<<131,88,119,13,\"external@host\",0,0,0,1,0,0,0,0,0,0,0,0>>), R=binary_to_term(<<131,90,0,1,119,13,\"external@host\",0,0,0,0,0,0,0,1>>), F=fun erlang:self/0, erlang370_pure_support:invoke(hd,[[{P,R,F}|{P,R,F}]]) end",
+    "Mfas": [
+      "erlang:hd/1"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "tl_guard_accept",
+    "Expression": "guard_tl([sentinel|sentinel])",
+    "Mfas": [
+      "erlang:tl/1"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "tl_guard_reject",
+    "Expression": "guard_tl([])",
+    "Mfas": [
+      "erlang:tl/1"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "tl_guard_native_record",
+    "Expression": "guard_tl(records:create(bounded_owner,rec,[{value,1}],#{is_exported=>true}))",
+    "Mfas": [
+      "erlang:tl/1"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "tl_non_tail_success",
+    "Expression": "context_tl([sentinel|sentinel])",
+    "Mfas": [
+      "erlang:tl/1"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "tl_non_tail_badarg",
+    "Expression": "context_tl(invalid)",
+    "Mfas": [
+      "erlang:tl/1"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "tl_invalid_pid",
+    "Expression": "erlang370_pure_support:invoke(tl,[binary_to_term(<<131,88,119,13,\"external@host\",0,0,0,1,0,0,0,0,0,0,0,0>>)])",
+    "Mfas": [
+      "erlang:tl/1"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "tl_invalid_reference",
+    "Expression": "erlang370_pure_support:invoke(tl,[binary_to_term(<<131,90,0,1,119,13,\"external@host\",0,0,0,0,0,0,0,1>>)])",
+    "Mfas": [
+      "erlang:tl/1"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "tl_invalid_function",
+    "Expression": "erlang370_pure_support:invoke(tl,[fun erlang:self/0])",
+    "Mfas": [
+      "erlang:tl/1"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "tl_invalid_tuple",
+    "Expression": "erlang370_pure_support:invoke(tl,[{a,b}])",
+    "Mfas": [
+      "erlang:tl/1"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "tl_identity_payload",
+    "Expression": "begin P=binary_to_term(<<131,88,119,13,\"external@host\",0,0,0,1,0,0,0,0,0,0,0,0>>), R=binary_to_term(<<131,90,0,1,119,13,\"external@host\",0,0,0,0,0,0,0,1>>), F=fun erlang:self/0, erlang370_pure_support:invoke(tl,[[{P,R,F}|{P,R,F}]]) end",
+    "Mfas": [
+      "erlang:tl/1"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "tuple_size_guard_accept",
+    "Expression": "guard_tuple_size({a,b})",
+    "Mfas": [
+      "erlang:tuple_size/1"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "tuple_size_guard_reject",
+    "Expression": "guard_tuple_size([])",
+    "Mfas": [
+      "erlang:tuple_size/1"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "tuple_size_guard_native_record",
+    "Expression": "guard_tuple_size(records:create(bounded_owner,rec,[{value,1}],#{is_exported=>true}))",
+    "Mfas": [
+      "erlang:tuple_size/1"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "tuple_size_non_tail_success",
+    "Expression": "context_tuple_size({a,b})",
+    "Mfas": [
+      "erlang:tuple_size/1"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "tuple_size_non_tail_badarg",
+    "Expression": "context_tuple_size(invalid)",
+    "Mfas": [
+      "erlang:tuple_size/1"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "tuple_size_arity_257",
+    "Expression": "erlang370_pure_support:invoke(tuple_size,[erlang:make_tuple(257,payload)])",
+    "Mfas": [
+      "erlang:tuple_size/1"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "is_integer_guard_inside",
+    "Expression": "guard_integer(5,0,10)",
+    "Mfas": [
+      "erlang:is_integer/3"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "is_integer_guard_outside",
+    "Expression": "guard_integer(11,0,10)",
+    "Mfas": [
+      "erlang:is_integer/3"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "is_integer_guard_reversed",
+    "Expression": "guard_integer(5,10,0)",
+    "Mfas": [
+      "erlang:is_integer/3"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "is_integer_guard_invalid_min",
+    "Expression": "guard_integer(5,invalid,10)",
+    "Mfas": [
+      "erlang:is_integer/3"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "is_integer_guard_invalid_max",
+    "Expression": "guard_integer(5,0,invalid)",
+    "Mfas": [
+      "erlang:is_integer/3"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "is_integer_guard_both_invalid",
+    "Expression": "guard_integer(atom,invalid,invalid)",
+    "Mfas": [
+      "erlang:is_integer/3"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "is_integer_guard_native_record",
+    "Expression": "guard_integer(records:create(bounded_owner,rec,[{value,1}],#{is_exported=>true}),0,10)",
+    "Mfas": [
+      "erlang:is_integer/3"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "is_integer_non_tail_success",
+    "Expression": "context_integer(5,0,10)",
+    "Mfas": [
+      "erlang:is_integer/3"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "is_integer_non_tail_invalid_min",
+    "Expression": "context_integer(atom,invalid,10)",
+    "Mfas": [
+      "erlang:is_integer/3"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "is_integer_non_tail_invalid_max",
+    "Expression": "context_integer(atom,0,invalid)",
+    "Mfas": [
+      "erlang:is_integer/3"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "is_integer_non_tail_both_invalid",
+    "Expression": "context_integer(atom,invalid,invalid)",
+    "Mfas": [
+      "erlang:is_integer/3"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "is_integer_big_equal",
+    "Expression": "erlang370_pure_support:invoke(is_integer,[1 bsl 4096,1 bsl 4096,1 bsl 4096])",
+    "Mfas": [
+      "erlang:is_integer/3"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "is_integer_big_below",
+    "Expression": "erlang370_pure_support:invoke(is_integer,[-(1 bsl 4096),-(1 bsl 4096)+1,1 bsl 4096])",
+    "Mfas": [
+      "erlang:is_integer/3"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "is_integer_big_above",
+    "Expression": "erlang370_pure_support:invoke(is_integer,[1 bsl 4096,-(1 bsl 4096),(1 bsl 4096)-1])",
+    "Mfas": [
+      "erlang:is_integer/3"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "is_integer_noninteger_nil",
+    "Expression": "erlang370_pure_support:invoke(is_integer,[[],-(1 bsl 4096),1 bsl 4096])",
+    "Mfas": [
+      "erlang:is_integer/3"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "is_integer_noninteger_cons",
+    "Expression": "erlang370_pure_support:invoke(is_integer,[[a|tail],-(1 bsl 4096),1 bsl 4096])",
+    "Mfas": [
+      "erlang:is_integer/3"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "is_integer_noninteger_tuple",
+    "Expression": "erlang370_pure_support:invoke(is_integer,[{},-(1 bsl 4096),1 bsl 4096])",
+    "Mfas": [
+      "erlang:is_integer/3"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "is_integer_noninteger_map",
+    "Expression": "erlang370_pure_support:invoke(is_integer,[#{},-(1 bsl 4096),1 bsl 4096])",
+    "Mfas": [
+      "erlang:is_integer/3"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "is_integer_noninteger_binary",
+    "Expression": "erlang370_pure_support:invoke(is_integer,[<<>>,-(1 bsl 4096),1 bsl 4096])",
+    "Mfas": [
+      "erlang:is_integer/3"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "is_integer_noninteger_bits",
+    "Expression": "erlang370_pure_support:invoke(is_integer,[<<1:1>>,-(1 bsl 4096),1 bsl 4096])",
+    "Mfas": [
+      "erlang:is_integer/3"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "is_integer_noninteger_pid",
+    "Expression": "erlang370_pure_support:invoke(is_integer,[binary_to_term(<<131,88,119,13,\"external@host\",0,0,0,1,0,0,0,0,0,0,0,0>>),-(1 bsl 4096),1 bsl 4096])",
+    "Mfas": [
+      "erlang:is_integer/3"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "is_integer_noninteger_reference",
+    "Expression": "erlang370_pure_support:invoke(is_integer,[binary_to_term(<<131,90,0,1,119,13,\"external@host\",0,0,0,0,0,0,0,1>>),-(1 bsl 4096),1 bsl 4096])",
+    "Mfas": [
+      "erlang:is_integer/3"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "is_integer_noninteger_function",
+    "Expression": "erlang370_pure_support:invoke(is_integer,[fun erlang:self/0,-(1 bsl 4096),1 bsl 4096])",
+    "Mfas": [
+      "erlang:is_integer/3"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  },
+  {
+    "Name": "is_integer_noninteger_native_record",
+    "Expression": "erlang370_pure_support:invoke(is_integer,[records:create(bounded_owner,rec,[{value,1}],#{is_exported=>true}),-(1 bsl 4096),1 bsl 4096])",
+    "Mfas": [
+      "erlang:is_integer/3"
+    ],
+    "Scope": "Whole value, error class, reason, BIF arguments and full caller file/line metadata; no field projection.",
+    "ExpectedSeededOutcomes": false
+  }
+]

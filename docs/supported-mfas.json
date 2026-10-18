@@ -24,7 +24,7 @@
     "Status": "Implemented",
     "CompatibilityLedger": "mfa-compatibility.json",
     "Evidence": "mfa/erlang:hd/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Limits": "Complete observable source contract verified in part371; original values/full stacks and final-source regression passed. Physical layout and performance equivalence are not claimed."
   },
   {
     "Module": "erlang",
@@ -33,7 +33,7 @@
     "Status": "Implemented",
     "CompatibilityLedger": "mfa-compatibility.json",
     "Evidence": "mfa/erlang:tl/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Limits": "Complete observable source contract verified in part371; original values/full stacks and final-source regression passed. Physical layout and performance equivalence are not claimed."
   },
   {
     "Module": "erlang",
@@ -51,7 +51,7 @@
     "Status": "Implemented",
     "CompatibilityLedger": "mfa-compatibility.json",
     "Evidence": "mfa/erlang:tuple_size/1",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Limits": "Complete observable source contract verified in part371; original values/full stacks and final-source regression passed. Physical layout and performance equivalence are not claimed."
   },
   {
     "Module": "erlang",
@@ -1320,7 +1320,7 @@
     "Status": "Implemented",
     "CompatibilityLedger": "mfa-compatibility.json",
     "Evidence": "mfa/erlang:is_integer/3",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+    "Limits": "Complete observable source contract verified in part371; original values/full stacks and final-source regression passed. Physical layout and performance equivalence are not claimed."
   },
   {
     "Module": "erlang",
@@ -5020,6 +5020,195 @@
     "CompatibilityLedger": "mfa-compatibility.json",
     "Evidence": "mfa/queue:delete_with_r/2",
     "Limits": "Complete observable source-protocol contract audited against OTP-29.1.1, including exact errors/callers and genuine own member/reverse entry state; see mfa-compatibility.json and validation/part-368. All38 queue exports are implemented and classified."
+  },
+  {
+    "Module": "ordsets",
+    "Function": "new",
+    "Arity": 0,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/ordsets:new/0",
+    "Limits": "Complete observable source contract verified in part371; original values/full stacks and final-source regression passed. Physical layout and performance equivalence are not claimed."
+  },
+  {
+    "Module": "ordsets",
+    "Function": "is_empty",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/ordsets:is_empty/1",
+    "Limits": "Complete observable source contract verified in part371; original values/full stacks and final-source regression passed. Physical layout and performance equivalence are not claimed."
+  },
+  {
+    "Module": "ordsets",
+    "Function": "to_list",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/ordsets:to_list/1",
+    "Limits": "Complete observable source contract verified in part371; original values/full stacks and final-source regression passed. Physical layout and performance equivalence are not claimed."
+  },
+  {
+    "Module": "ordsets",
+    "Function": "is_set",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/ordsets:is_set/1",
+    "Limits": "All21 exports implemented and2616 original value/full-stack observations match strictly. Complete dependency source closure remains pending; see mfa-compatibility.json."
+  },
+  {
+    "Module": "ordsets",
+    "Function": "size",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/ordsets:size/1",
+    "Limits": "All21 exports implemented and2616 original value/full-stack observations match strictly. Complete dependency source closure remains pending; see mfa-compatibility.json."
+  },
+  {
+    "Module": "ordsets",
+    "Function": "is_equal",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/ordsets:is_equal/2",
+    "Limits": "All21 exports implemented and2616 original value/full-stack observations match strictly. Complete dependency source closure remains pending; see mfa-compatibility.json."
+  },
+  {
+    "Module": "ordsets",
+    "Function": "is_element",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/ordsets:is_element/2",
+    "Limits": "All21 exports implemented and2616 original value/full-stack observations match strictly. Complete dependency source closure remains pending; see mfa-compatibility.json."
+  },
+  {
+    "Module": "ordsets",
+    "Function": "add_element",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/ordsets:add_element/2",
+    "Limits": "All21 exports implemented and2616 original value/full-stack observations match strictly. Complete dependency source closure remains pending; see mfa-compatibility.json."
+  },
+  {
+    "Module": "ordsets",
+    "Function": "del_element",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/ordsets:del_element/2",
+    "Limits": "All21 exports implemented and2616 original value/full-stack observations match strictly. Complete dependency source closure remains pending; see mfa-compatibility.json."
+  },
+  {
+    "Module": "ordsets",
+    "Function": "union",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/ordsets:union/2",
+    "Limits": "All21 exports implemented and2616 original value/full-stack observations match strictly. Complete dependency source closure remains pending; see mfa-compatibility.json."
+  },
+  {
+    "Module": "ordsets",
+    "Function": "intersection",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/ordsets:intersection/2",
+    "Limits": "All21 exports implemented and2616 original value/full-stack observations match strictly. Complete dependency source closure remains pending; see mfa-compatibility.json."
+  },
+  {
+    "Module": "ordsets",
+    "Function": "is_disjoint",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/ordsets:is_disjoint/2",
+    "Limits": "All21 exports implemented and2616 original value/full-stack observations match strictly. Complete dependency source closure remains pending; see mfa-compatibility.json."
+  },
+  {
+    "Module": "ordsets",
+    "Function": "subtract",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/ordsets:subtract/2",
+    "Limits": "All21 exports implemented and2616 original value/full-stack observations match strictly. Complete dependency source closure remains pending; see mfa-compatibility.json."
+  },
+  {
+    "Module": "ordsets",
+    "Function": "is_subset",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/ordsets:is_subset/2",
+    "Limits": "All21 exports implemented and2616 original value/full-stack observations match strictly. Complete dependency source closure remains pending; see mfa-compatibility.json."
+  },
+  {
+    "Module": "ordsets",
+    "Function": "intersection",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/ordsets:intersection/1",
+    "Limits": "All21 exports implemented and2616 original value/full-stack observations match strictly. Complete dependency source closure remains pending; see mfa-compatibility.json."
+  },
+  {
+    "Module": "ordsets",
+    "Function": "from_list",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/ordsets:from_list/1",
+    "Limits": "All21 exports implemented and2616 original value/full-stack observations match strictly. Complete dependency source closure remains pending; see mfa-compatibility.json."
+  },
+  {
+    "Module": "ordsets",
+    "Function": "union",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/ordsets:union/1",
+    "Limits": "All21 exports implemented and2616 original value/full-stack observations match strictly. Complete dependency source closure remains pending; see mfa-compatibility.json."
+  },
+  {
+    "Module": "ordsets",
+    "Function": "fold",
+    "Arity": 3,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/ordsets:fold/3",
+    "Limits": "All21 exports implemented and2616 original value/full-stack observations match strictly. Complete dependency source closure remains pending; see mfa-compatibility.json."
+  },
+  {
+    "Module": "ordsets",
+    "Function": "filter",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/ordsets:filter/2",
+    "Limits": "All21 exports implemented and2616 original value/full-stack observations match strictly. Complete dependency source closure remains pending; see mfa-compatibility.json."
+  },
+  {
+    "Module": "ordsets",
+    "Function": "map",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/ordsets:map/2",
+    "Limits": "All21 exports implemented and2616 original value/full-stack observations match strictly. Complete dependency source closure remains pending; see mfa-compatibility.json."
+  },
+  {
+    "Module": "ordsets",
+    "Function": "filtermap",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/ordsets:filtermap/2",
+    "Limits": "All21 exports implemented and2616 original value/full-stack observations match strictly. Complete dependency source closure remains pending; see mfa-compatibility.json."
   },
   {
     "Module": "erlang",

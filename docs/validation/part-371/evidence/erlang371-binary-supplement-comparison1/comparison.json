@@ -1,0 +1,1804 @@
+{
+  "Status": "DIFFERENCES_OR_OPAQUE_PROVENANCE_PENDING",
+  "ExpectedRows": 216,
+  "Rows": [
+    {
+      "Group": "callback_supplement",
+      "Case": "byte_zero",
+      "Depth": "values",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "byte_255",
+      "Depth": "values",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "byte_256",
+      "Depth": "values",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "byte_negative",
+      "Depth": "values",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "improper_binary_tail",
+      "Depth": "values",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "nested_replace",
+      "Depth": "values",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "live_stack_three",
+      "Depth": "values",
+      "StrictEqual": false,
+      "OpaqueProvenancePending": false,
+      "Differences": [
+        {
+          "Path": "$[1][2][1][0][1][1][1][3][1]",
+          "Kind": "STRICT_FULL_FIELD_DIFFERENCE",
+          "Original": "(('tuple', (('atom', 'binary369_callback_supplement'), ('atom', 'live_stack'), ('integer', 1), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 51), ('integer', 54), ('integer', 57), ('integer', 95), ('integer', 99), ('integer', 97), ('integer', 108), ('integer', 108), ('integer', 98), ('integer', 97), ('integer', 99), ('integer', 107), ('integer', 95), ('integer', 115), ('integer', 117), ('integer', 112), ('integer', 112), ('integer', 108), ('integer', 101), ('integer', 109), ('integer', 101), ('integer', 110), ('integer', 116), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 22))))))), ('tuple', (('atom', 'binary'), ('atom', 'do_replace'), ('integer', 4), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 907))))))), ('tuple', (('atom', 'binary'), ('atom', 'replace'), ('integer', 4), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 895))))))), ('tuple', (('atom', 'binary'), ('atom', 'replace'), ('integer', 3), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 797))))))), ('tuple', (('atom', 'binary_all369_support'), ('atom', 'value'), ('integer', 2), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 95), ('integer', 97), ('integer', 108), ('integer', 108), ('integer', 51), ('integer', 54), ('integer', 57), ('integer', 95), ('integer', 115), ('integer', 117), ('integer', 112), ('integer', 112), ('integer', 111), ('integer', 114), ('integer', 116), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 8))))))), ('tuple', (('atom', 'binary_all369_support'), ('atom', '-run/2-lc$^0/1-0-'), ('integer', 2), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 95), ('integer', 97), ('integer', 108), ('integer', 108), ('integer', 51), ('integer', 54), ('integer', 57), ('integer', 95), ('integer', 115), ('integer', 117), ('integer', 112), ('integer', 112), ('integer', 111), ('integer', 114), ('integer', 116), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 5))))))), ('tuple', (('atom', 'binary_all369_support'), ('atom', '-run/2-lc$^0/1-0-'), ('integer', 2), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 95), ('integer', 97), ('integer', 108), ('integer', 108), ('integer', 51), ('integer', 54), ('integer', 57), ('integer', 95), ('integer', 115), ('integer', 117), ('integer', 112), ('integer', 112), ('integer', 111), ('integer', 114), ('integer', 116), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 5))))))), ('tuple', (('atom', 'erl_eval'), ('atom', 'do_apply'), ('integer', 7), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 101), ('integer', 114), ('integer', 108), ('integer', 95), ('integer', 101), ('integer', 118), ('integer', 97), ('integer', 108),",
+          "Sdk": "(('tuple', (('atom', 'binary369_callback_supplement'), ('atom', 'live_stack'), ('integer', 1), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 51), ('integer', 54), ('integer', 57), ('integer', 95), ('integer', 99), ('integer', 97), ('integer', 108), ('integer', 108), ('integer', 98), ('integer', 97), ('integer', 99), ('integer', 107), ('integer', 95), ('integer', 115), ('integer', 117), ('integer', 112), ('integer', 112), ('integer', 108), ('integer', 101), ('integer', 109), ('integer', 101), ('integer', 110), ('integer', 116), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 22))))))), ('tuple', (('atom', 'binary'), ('atom', 'do_replace'), ('integer', 4), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 907))))))), ('tuple', (('atom', 'binary'), ('atom', 'replace'), ('integer', 4), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 895))))))), ('tuple', (('atom', 'binary'), ('atom', 'replace'), ('integer', 3), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 797))))))), ('tuple', (('atom', 'binary_all369_support'), ('atom', 'value'), ('integer', 2), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 95), ('integer', 97), ('integer', 108), ('integer', 108), ('integer', 51), ('integer', 54), ('integer', 57), ('integer', 95), ('integer', 115), ('integer', 117), ('integer', 112), ('integer', 112), ('integer', 111), ('integer', 114), ('integer', 116), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 8))))))), ('tuple', (('atom', 'binary_all369_support'), ('atom', '-run/2-lc$^0/1-0-'), ('integer', 2), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 95), ('integer', 97), ('integer', 108), ('integer', 108), ('integer', 51), ('integer', 54), ('integer', 57), ('integer', 95), ('integer', 115), ('integer', 117), ('integer', 112), ('integer', 112), ('integer', 111), ('integer', 114), ('integer', 116), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 5))))))), ('tuple', (('atom', 'binary_all369_support'), ('atom', '-run/2-lc$^0/1-0-'), ('integer', 2), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 95), ('integer', 97), ('integer', 108), ('integer', 108), ('integer', 51), ('integer', 54), ('integer', 57), ('integer', 95), ('integer', 115), ('integer', 117), ('integer', 112), ('integer', 112), ('integer', 111), ('integer', 114), ('integer', 116), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 5))))))))"
+        }
+      ]
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "live_stack_four",
+      "Depth": "values",
+      "StrictEqual": false,
+      "OpaqueProvenancePending": false,
+      "Differences": [
+        {
+          "Path": "$[1][2][1][0][1][1][1][3][1]",
+          "Kind": "STRICT_FULL_FIELD_DIFFERENCE",
+          "Original": "(('tuple', (('atom', 'binary369_callback_supplement'), ('atom', 'live_stack'), ('integer', 1), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 51), ('integer', 54), ('integer', 57), ('integer', 95), ('integer', 99), ('integer', 97), ('integer', 108), ('integer', 108), ('integer', 98), ('integer', 97), ('integer', 99), ('integer', 107), ('integer', 95), ('integer', 115), ('integer', 117), ('integer', 112), ('integer', 112), ('integer', 108), ('integer', 101), ('integer', 109), ('integer', 101), ('integer', 110), ('integer', 116), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 22))))))), ('tuple', (('atom', 'binary'), ('atom', 'do_replace'), ('integer', 4), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 907))))))), ('tuple', (('atom', 'binary'), ('atom', 'replace'), ('integer', 4), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 895))))))), ('tuple', (('atom', 'binary_all369_support'), ('atom', 'value'), ('integer', 2), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 95), ('integer', 97), ('integer', 108), ('integer', 108), ('integer', 51), ('integer', 54), ('integer', 57), ('integer', 95), ('integer', 115), ('integer', 117), ('integer', 112), ('integer', 112), ('integer', 111), ('integer', 114), ('integer', 116), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 8))))))), ('tuple', (('atom', 'binary_all369_support'), ('atom', '-run/2-lc$^0/1-0-'), ('integer', 2), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 95), ('integer', 97), ('integer', 108), ('integer', 108), ('integer', 51), ('integer', 54), ('integer', 57), ('integer', 95), ('integer', 115), ('integer', 117), ('integer', 112), ('integer', 112), ('integer', 111), ('integer', 114), ('integer', 116), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 5))))))), ('tuple', (('atom', 'binary_all369_support'), ('atom', '-run/2-lc$^0/1-0-'), ('integer', 2), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 95), ('integer', 97), ('integer', 108), ('integer', 108), ('integer', 51), ('integer', 54), ('integer', 57), ('integer', 95), ('integer', 115), ('integer', 117), ('integer', 112), ('integer', 112), ('integer', 111), ('integer', 114), ('integer', 116), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 5))))))), ('tuple', (('atom', 'erl_eval'), ('atom', 'do_apply'), ('integer', 7), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 101), ('integer', 114), ('integer', 108), ('integer', 95), ('integer', 101), ('integer', 118), ('integer', 97), ('integer', 108), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 1044))))))), ('tuple', (('atom', 'erl_eval'), ('atom', 'expr'), ('integer', 6), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 101), ('integer', 114), ('integer', 108), ('integer', 95), ('integer', 101), ('integer', 118)",
+          "Sdk": "(('tuple', (('atom', 'binary369_callback_supplement'), ('atom', 'live_stack'), ('integer', 1), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 51), ('integer', 54), ('integer', 57), ('integer', 95), ('integer', 99), ('integer', 97), ('integer', 108), ('integer', 108), ('integer', 98), ('integer', 97), ('integer', 99), ('integer', 107), ('integer', 95), ('integer', 115), ('integer', 117), ('integer', 112), ('integer', 112), ('integer', 108), ('integer', 101), ('integer', 109), ('integer', 101), ('integer', 110), ('integer', 116), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 22))))))), ('tuple', (('atom', 'binary'), ('atom', 'do_replace'), ('integer', 4), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 907))))))), ('tuple', (('atom', 'binary'), ('atom', 'replace'), ('integer', 4), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 895))))))), ('tuple', (('atom', 'binary_all369_support'), ('atom', 'value'), ('integer', 2), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 95), ('integer', 97), ('integer', 108), ('integer', 108), ('integer', 51), ('integer', 54), ('integer', 57), ('integer', 95), ('integer', 115), ('integer', 117), ('integer', 112), ('integer', 112), ('integer', 111), ('integer', 114), ('integer', 116), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 8))))))), ('tuple', (('atom', 'binary_all369_support'), ('atom', '-run/2-lc$^0/1-0-'), ('integer', 2), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 95), ('integer', 97), ('integer', 108), ('integer', 108), ('integer', 51), ('integer', 54), ('integer', 57), ('integer', 95), ('integer', 115), ('integer', 117), ('integer', 112), ('integer', 112), ('integer', 111), ('integer', 114), ('integer', 116), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 5))))))), ('tuple', (('atom', 'binary_all369_support'), ('atom', '-run/2-lc$^0/1-0-'), ('integer', 2), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 95), ('integer', 97), ('integer', 108), ('integer', 108), ('integer', 51), ('integer', 54), ('integer', 57), ('integer', 95), ('integer', 115), ('integer', 117), ('integer', 112), ('integer', 112), ('integer', 111), ('integer', 114), ('integer', 116), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 5))))))))"
+        },
+        {
+          "Path": "$[1][2][1][0][1][3][1][3][1]",
+          "Kind": "STRICT_FULL_FIELD_DIFFERENCE",
+          "Original": "(('tuple', (('atom', 'binary369_callback_supplement'), ('atom', 'live_stack'), ('integer', 1), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 51), ('integer', 54), ('integer', 57), ('integer', 95), ('integer', 99), ('integer', 97), ('integer', 108), ('integer', 108), ('integer', 98), ('integer', 97), ('integer', 99), ('integer', 107), ('integer', 95), ('integer', 115), ('integer', 117), ('integer', 112), ('integer', 112), ('integer', 108), ('integer', 101), ('integer', 109), ('integer', 101), ('integer', 110), ('integer', 116), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 22))))))), ('tuple', (('atom', 'binary'), ('atom', 'do_replace'), ('integer', 4), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 907))))))), ('tuple', (('atom', 'binary'), ('atom', 'do_replace'), ('integer', 4), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 908))))))), ('tuple', (('atom', 'binary'), ('atom', 'replace'), ('integer', 4), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 895))))))), ('tuple', (('atom', 'binary_all369_support'), ('atom', 'value'), ('integer', 2), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 95), ('integer', 97), ('integer', 108), ('integer', 108), ('integer', 51), ('integer', 54), ('integer', 57), ('integer', 95), ('integer', 115), ('integer', 117), ('integer', 112), ('integer', 112), ('integer', 111), ('integer', 114), ('integer', 116), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 8))))))), ('tuple', (('atom', 'binary_all369_support'), ('atom', '-run/2-lc$^0/1-0-'), ('integer', 2), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 95), ('integer', 97), ('integer', 108), ('integer', 108), ('integer', 51), ('integer', 54), ('integer', 57), ('integer', 95), ('integer', 115), ('integer', 117), ('integer', 112), ('integer', 112), ('integer', 111), ('integer', 114), ('integer', 116), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 5))))))), ('tuple', (('atom', 'binary_all369_support'), ('atom', '-run/2-lc$^0/1-0-'), ('integer', 2), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 95), ('integer', 97), ('integer', 108), ('integer', 108), ('integer', 51), ('integer', 54), ('integer', 57), ('integer', 95), ('integer', 115), ('integer', 117), ('integer', 112), ('integer', 112), ('integer', 111), ('integer', 114), ('integer', 116), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 5))))))), ('tuple', (('atom', 'erl_eval'), ('atom', 'do_apply'), ('integer', 7), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 101), ('integer', 114), ('integer', 108), ('integer', 95), ('integer', 101), ('integer', 118), ('integer', 97), ('integer', 10",
+          "Sdk": "(('tuple', (('atom', 'binary369_callback_supplement'), ('atom', 'live_stack'), ('integer', 1), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 51), ('integer', 54), ('integer', 57), ('integer', 95), ('integer', 99), ('integer', 97), ('integer', 108), ('integer', 108), ('integer', 98), ('integer', 97), ('integer', 99), ('integer', 107), ('integer', 95), ('integer', 115), ('integer', 117), ('integer', 112), ('integer', 112), ('integer', 108), ('integer', 101), ('integer', 109), ('integer', 101), ('integer', 110), ('integer', 116), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 22))))))), ('tuple', (('atom', 'binary'), ('atom', 'do_replace'), ('integer', 4), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 907))))))), ('tuple', (('atom', 'binary'), ('atom', 'do_replace'), ('integer', 4), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 908))))))), ('tuple', (('atom', 'binary'), ('atom', 'replace'), ('integer', 4), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 895))))))), ('tuple', (('atom', 'binary_all369_support'), ('atom', 'value'), ('integer', 2), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 95), ('integer', 97), ('integer', 108), ('integer', 108), ('integer', 51), ('integer', 54), ('integer', 57), ('integer', 95), ('integer', 115), ('integer', 117), ('integer', 112), ('integer', 112), ('integer', 111), ('integer', 114), ('integer', 116), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 8))))))), ('tuple', (('atom', 'binary_all369_support'), ('atom', '-run/2-lc$^0/1-0-'), ('integer', 2), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 95), ('integer', 97), ('integer', 108), ('integer', 108), ('integer', 51), ('integer', 54), ('integer', 57), ('integer', 95), ('integer', 115), ('integer', 117), ('integer', 112), ('integer', 112), ('integer', 111), ('integer', 114), ('integer', 116), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 5))))))), ('tuple', (('atom', 'binary_all369_support'), ('atom', '-run/2-lc$^0/1-0-'), ('integer', 2), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 95), ('integer', 97), ('integer', 108), ('integer', 108), ('integer', 51), ('integer', 54), ('integer', 57), ('integer', 95), ('integer', 115), ('integer', 117), ('integer', 112), ('integer', 112), ('integer', 111), ('integer', 114), ('integer', 116), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 5))))))))"
+        },
+        {
+          "Path": "$[1][2][1][0][1][5][1][3][1]",
+          "Kind": "STRICT_FULL_FIELD_DIFFERENCE",
+          "Original": "(('tuple', (('atom', 'binary369_callback_supplement'), ('atom', 'live_stack'), ('integer', 1), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 51), ('integer', 54), ('integer', 57), ('integer', 95), ('integer', 99), ('integer', 97), ('integer', 108), ('integer', 108), ('integer', 98), ('integer', 97), ('integer', 99), ('integer', 107), ('integer', 95), ('integer', 115), ('integer', 117), ('integer', 112), ('integer', 112), ('integer', 108), ('integer', 101), ('integer', 109), ('integer', 101), ('integer', 110), ('integer', 116), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 22))))))), ('tuple', (('atom', 'binary'), ('atom', 'do_replace'), ('integer', 4), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 907))))))), ('tuple', (('atom', 'binary'), ('atom', 'do_replace'), ('integer', 4), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 908))))))), ('tuple', (('atom', 'binary'), ('atom', 'replace'), ('integer', 4), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 895))))))), ('tuple', (('atom', 'binary_all369_support'), ('atom', 'value'), ('integer', 2), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 95), ('integer', 97), ('integer', 108), ('integer', 108), ('integer', 51), ('integer', 54), ('integer', 57), ('integer', 95), ('integer', 115), ('integer', 117), ('integer', 112), ('integer', 112), ('integer', 111), ('integer', 114), ('integer', 116), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 8))))))), ('tuple', (('atom', 'binary_all369_support'), ('atom', '-run/2-lc$^0/1-0-'), ('integer', 2), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 95), ('integer', 97), ('integer', 108), ('integer', 108), ('integer', 51), ('integer', 54), ('integer', 57), ('integer', 95), ('integer', 115), ('integer', 117), ('integer', 112), ('integer', 112), ('integer', 111), ('integer', 114), ('integer', 116), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 5))))))), ('tuple', (('atom', 'binary_all369_support'), ('atom', '-run/2-lc$^0/1-0-'), ('integer', 2), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 95), ('integer', 97), ('integer', 108), ('integer', 108), ('integer', 51), ('integer', 54), ('integer', 57), ('integer', 95), ('integer', 115), ('integer', 117), ('integer', 112), ('integer', 112), ('integer', 111), ('integer', 114), ('integer', 116), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 5))))))), ('tuple', (('atom', 'erl_eval'), ('atom', 'do_apply'), ('integer', 7), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 101), ('integer', 114), ('integer', 108), ('integer', 95), ('integer', 101), ('integer', 118), ('integer', 97), ('integer', 10",
+          "Sdk": "(('tuple', (('atom', 'binary369_callback_supplement'), ('atom', 'live_stack'), ('integer', 1), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 51), ('integer', 54), ('integer', 57), ('integer', 95), ('integer', 99), ('integer', 97), ('integer', 108), ('integer', 108), ('integer', 98), ('integer', 97), ('integer', 99), ('integer', 107), ('integer', 95), ('integer', 115), ('integer', 117), ('integer', 112), ('integer', 112), ('integer', 108), ('integer', 101), ('integer', 109), ('integer', 101), ('integer', 110), ('integer', 116), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 22))))))), ('tuple', (('atom', 'binary'), ('atom', 'do_replace'), ('integer', 4), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 907))))))), ('tuple', (('atom', 'binary'), ('atom', 'do_replace'), ('integer', 4), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 908))))))), ('tuple', (('atom', 'binary'), ('atom', 'replace'), ('integer', 4), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 895))))))), ('tuple', (('atom', 'binary_all369_support'), ('atom', 'value'), ('integer', 2), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 95), ('integer', 97), ('integer', 108), ('integer', 108), ('integer', 51), ('integer', 54), ('integer', 57), ('integer', 95), ('integer', 115), ('integer', 117), ('integer', 112), ('integer', 112), ('integer', 111), ('integer', 114), ('integer', 116), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 8))))))), ('tuple', (('atom', 'binary_all369_support'), ('atom', '-run/2-lc$^0/1-0-'), ('integer', 2), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 95), ('integer', 97), ('integer', 108), ('integer', 108), ('integer', 51), ('integer', 54), ('integer', 57), ('integer', 95), ('integer', 115), ('integer', 117), ('integer', 112), ('integer', 112), ('integer', 111), ('integer', 114), ('integer', 116), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 5))))))), ('tuple', (('atom', 'binary_all369_support'), ('atom', '-run/2-lc$^0/1-0-'), ('integer', 2), ('list', (('tuple', (('atom', 'file'), ('list', (('integer', 98), ('integer', 105), ('integer', 110), ('integer', 97), ('integer', 114), ('integer', 121), ('integer', 95), ('integer', 97), ('integer', 108), ('integer', 108), ('integer', 51), ('integer', 54), ('integer', 57), ('integer', 95), ('integer', 115), ('integer', 117), ('integer', 112), ('integer', 112), ('integer', 111), ('integer', 114), ('integer', 116), ('integer', 46), ('integer', 101), ('integer', 114), ('integer', 108))))), ('tuple', (('atom', 'line'), ('integer', 5))))))))"
+        }
+      ]
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "byte_zero",
+      "Depth": "('atom', 'default')",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "byte_255",
+      "Depth": "('atom', 'default')",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "byte_256",
+      "Depth": "('atom', 'default')",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "byte_negative",
+      "Depth": "('atom', 'default')",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "improper_binary_tail",
+      "Depth": "('atom', 'default')",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "nested_replace",
+      "Depth": "('atom', 'default')",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "live_stack_three",
+      "Depth": "('atom', 'default')",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "live_stack_four",
+      "Depth": "('atom', 'default')",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "byte_zero",
+      "Depth": "('integer', 0)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "byte_255",
+      "Depth": "('integer', 0)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "byte_256",
+      "Depth": "('integer', 0)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "byte_negative",
+      "Depth": "('integer', 0)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "improper_binary_tail",
+      "Depth": "('integer', 0)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "nested_replace",
+      "Depth": "('integer', 0)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "live_stack_three",
+      "Depth": "('integer', 0)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "live_stack_four",
+      "Depth": "('integer', 0)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "byte_zero",
+      "Depth": "('integer', 1)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "byte_255",
+      "Depth": "('integer', 1)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "byte_256",
+      "Depth": "('integer', 1)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "byte_negative",
+      "Depth": "('integer', 1)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "improper_binary_tail",
+      "Depth": "('integer', 1)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "nested_replace",
+      "Depth": "('integer', 1)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "live_stack_three",
+      "Depth": "('integer', 1)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "live_stack_four",
+      "Depth": "('integer', 1)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "byte_zero",
+      "Depth": "('integer', 2)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "byte_255",
+      "Depth": "('integer', 2)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "byte_256",
+      "Depth": "('integer', 2)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "byte_negative",
+      "Depth": "('integer', 2)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "improper_binary_tail",
+      "Depth": "('integer', 2)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "nested_replace",
+      "Depth": "('integer', 2)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "live_stack_three",
+      "Depth": "('integer', 2)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "live_stack_four",
+      "Depth": "('integer', 2)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "byte_zero",
+      "Depth": "('integer', 8)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "byte_255",
+      "Depth": "('integer', 8)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "byte_256",
+      "Depth": "('integer', 8)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "byte_negative",
+      "Depth": "('integer', 8)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "improper_binary_tail",
+      "Depth": "('integer', 8)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "nested_replace",
+      "Depth": "('integer', 8)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "live_stack_three",
+      "Depth": "('integer', 8)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "live_stack_four",
+      "Depth": "('integer', 8)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_63",
+      "Depth": "values",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_64",
+      "Depth": "values",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_65",
+      "Depth": "values",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_257",
+      "Depth": "values",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "private_loop_65",
+      "Depth": "values",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "escaped_loop_65",
+      "Depth": "values",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "private_loop_257",
+      "Depth": "values",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "escaped_loop_257",
+      "Depth": "values",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "private_loop_4097",
+      "Depth": "values",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "escaped_loop_4097",
+      "Depth": "values",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "comprehension_65",
+      "Depth": "values",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "comprehension_257",
+      "Depth": "values",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_shared_growth",
+      "Depth": "values",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_repeated_segment",
+      "Depth": "values",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_zero",
+      "Depth": "values",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "pin_after_growth",
+      "Depth": "values",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "join_single_large_view",
+      "Depth": "values",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "join_pair_large_view",
+      "Depth": "values",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "replace_no_match_large_view",
+      "Depth": "values",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "replace_empty_scope_large_view",
+      "Depth": "values",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "replace_identity_large_view",
+      "Depth": "values",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "retained_partial_large",
+      "Depth": "values",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "hex_capacity_7",
+      "Depth": "values",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "hex_capacity_8",
+      "Depth": "values",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "hex_capacity_9",
+      "Depth": "values",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "hex_capacity_64",
+      "Depth": "values",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "hex_capacity_65",
+      "Depth": "values",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "hex_capacity_257",
+      "Depth": "values",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_63",
+      "Depth": "('atom', 'default')",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_64",
+      "Depth": "('atom', 'default')",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_65",
+      "Depth": "('atom', 'default')",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_257",
+      "Depth": "('atom', 'default')",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "private_loop_65",
+      "Depth": "('atom', 'default')",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "escaped_loop_65",
+      "Depth": "('atom', 'default')",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "private_loop_257",
+      "Depth": "('atom', 'default')",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "escaped_loop_257",
+      "Depth": "('atom', 'default')",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "private_loop_4097",
+      "Depth": "('atom', 'default')",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "escaped_loop_4097",
+      "Depth": "('atom', 'default')",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "comprehension_65",
+      "Depth": "('atom', 'default')",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "comprehension_257",
+      "Depth": "('atom', 'default')",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_shared_growth",
+      "Depth": "('atom', 'default')",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_repeated_segment",
+      "Depth": "('atom', 'default')",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_zero",
+      "Depth": "('atom', 'default')",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "pin_after_growth",
+      "Depth": "('atom', 'default')",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "join_single_large_view",
+      "Depth": "('atom', 'default')",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "join_pair_large_view",
+      "Depth": "('atom', 'default')",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "replace_no_match_large_view",
+      "Depth": "('atom', 'default')",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "replace_empty_scope_large_view",
+      "Depth": "('atom', 'default')",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "replace_identity_large_view",
+      "Depth": "('atom', 'default')",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "retained_partial_large",
+      "Depth": "('atom', 'default')",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "hex_capacity_7",
+      "Depth": "('atom', 'default')",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "hex_capacity_8",
+      "Depth": "('atom', 'default')",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "hex_capacity_9",
+      "Depth": "('atom', 'default')",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "hex_capacity_64",
+      "Depth": "('atom', 'default')",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "hex_capacity_65",
+      "Depth": "('atom', 'default')",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "hex_capacity_257",
+      "Depth": "('atom', 'default')",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_63",
+      "Depth": "('integer', 0)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_64",
+      "Depth": "('integer', 0)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_65",
+      "Depth": "('integer', 0)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_257",
+      "Depth": "('integer', 0)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "private_loop_65",
+      "Depth": "('integer', 0)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "escaped_loop_65",
+      "Depth": "('integer', 0)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "private_loop_257",
+      "Depth": "('integer', 0)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "escaped_loop_257",
+      "Depth": "('integer', 0)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "private_loop_4097",
+      "Depth": "('integer', 0)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "escaped_loop_4097",
+      "Depth": "('integer', 0)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "comprehension_65",
+      "Depth": "('integer', 0)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "comprehension_257",
+      "Depth": "('integer', 0)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_shared_growth",
+      "Depth": "('integer', 0)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_repeated_segment",
+      "Depth": "('integer', 0)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_zero",
+      "Depth": "('integer', 0)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "pin_after_growth",
+      "Depth": "('integer', 0)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "join_single_large_view",
+      "Depth": "('integer', 0)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "join_pair_large_view",
+      "Depth": "('integer', 0)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "replace_no_match_large_view",
+      "Depth": "('integer', 0)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "replace_empty_scope_large_view",
+      "Depth": "('integer', 0)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "replace_identity_large_view",
+      "Depth": "('integer', 0)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "retained_partial_large",
+      "Depth": "('integer', 0)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "hex_capacity_7",
+      "Depth": "('integer', 0)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "hex_capacity_8",
+      "Depth": "('integer', 0)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "hex_capacity_9",
+      "Depth": "('integer', 0)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "hex_capacity_64",
+      "Depth": "('integer', 0)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "hex_capacity_65",
+      "Depth": "('integer', 0)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "hex_capacity_257",
+      "Depth": "('integer', 0)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_63",
+      "Depth": "('integer', 1)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_64",
+      "Depth": "('integer', 1)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_65",
+      "Depth": "('integer', 1)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_257",
+      "Depth": "('integer', 1)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "private_loop_65",
+      "Depth": "('integer', 1)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "escaped_loop_65",
+      "Depth": "('integer', 1)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "private_loop_257",
+      "Depth": "('integer', 1)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "escaped_loop_257",
+      "Depth": "('integer', 1)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "private_loop_4097",
+      "Depth": "('integer', 1)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "escaped_loop_4097",
+      "Depth": "('integer', 1)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "comprehension_65",
+      "Depth": "('integer', 1)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "comprehension_257",
+      "Depth": "('integer', 1)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_shared_growth",
+      "Depth": "('integer', 1)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_repeated_segment",
+      "Depth": "('integer', 1)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_zero",
+      "Depth": "('integer', 1)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "pin_after_growth",
+      "Depth": "('integer', 1)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "join_single_large_view",
+      "Depth": "('integer', 1)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "join_pair_large_view",
+      "Depth": "('integer', 1)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "replace_no_match_large_view",
+      "Depth": "('integer', 1)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "replace_empty_scope_large_view",
+      "Depth": "('integer', 1)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "replace_identity_large_view",
+      "Depth": "('integer', 1)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "retained_partial_large",
+      "Depth": "('integer', 1)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "hex_capacity_7",
+      "Depth": "('integer', 1)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "hex_capacity_8",
+      "Depth": "('integer', 1)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "hex_capacity_9",
+      "Depth": "('integer', 1)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "hex_capacity_64",
+      "Depth": "('integer', 1)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "hex_capacity_65",
+      "Depth": "('integer', 1)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "hex_capacity_257",
+      "Depth": "('integer', 1)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_63",
+      "Depth": "('integer', 2)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_64",
+      "Depth": "('integer', 2)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_65",
+      "Depth": "('integer', 2)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_257",
+      "Depth": "('integer', 2)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "private_loop_65",
+      "Depth": "('integer', 2)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "escaped_loop_65",
+      "Depth": "('integer', 2)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "private_loop_257",
+      "Depth": "('integer', 2)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "escaped_loop_257",
+      "Depth": "('integer', 2)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "private_loop_4097",
+      "Depth": "('integer', 2)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "escaped_loop_4097",
+      "Depth": "('integer', 2)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "comprehension_65",
+      "Depth": "('integer', 2)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "comprehension_257",
+      "Depth": "('integer', 2)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_shared_growth",
+      "Depth": "('integer', 2)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_repeated_segment",
+      "Depth": "('integer', 2)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_zero",
+      "Depth": "('integer', 2)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "pin_after_growth",
+      "Depth": "('integer', 2)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "join_single_large_view",
+      "Depth": "('integer', 2)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "join_pair_large_view",
+      "Depth": "('integer', 2)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "replace_no_match_large_view",
+      "Depth": "('integer', 2)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "replace_empty_scope_large_view",
+      "Depth": "('integer', 2)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "replace_identity_large_view",
+      "Depth": "('integer', 2)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "retained_partial_large",
+      "Depth": "('integer', 2)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "hex_capacity_7",
+      "Depth": "('integer', 2)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "hex_capacity_8",
+      "Depth": "('integer', 2)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "hex_capacity_9",
+      "Depth": "('integer', 2)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "hex_capacity_64",
+      "Depth": "('integer', 2)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "hex_capacity_65",
+      "Depth": "('integer', 2)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "hex_capacity_257",
+      "Depth": "('integer', 2)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_63",
+      "Depth": "('integer', 8)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_64",
+      "Depth": "('integer', 8)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_65",
+      "Depth": "('integer', 8)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_257",
+      "Depth": "('integer', 8)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "private_loop_65",
+      "Depth": "('integer', 8)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "escaped_loop_65",
+      "Depth": "('integer', 8)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "private_loop_257",
+      "Depth": "('integer', 8)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "escaped_loop_257",
+      "Depth": "('integer', 8)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "private_loop_4097",
+      "Depth": "('integer', 8)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "escaped_loop_4097",
+      "Depth": "('integer', 8)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "comprehension_65",
+      "Depth": "('integer', 8)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "comprehension_257",
+      "Depth": "('integer', 8)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_shared_growth",
+      "Depth": "('integer', 8)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_repeated_segment",
+      "Depth": "('integer', 8)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "append_zero",
+      "Depth": "('integer', 8)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "pin_after_growth",
+      "Depth": "('integer', 8)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "join_single_large_view",
+      "Depth": "('integer', 8)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "join_pair_large_view",
+      "Depth": "('integer', 8)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "replace_no_match_large_view",
+      "Depth": "('integer', 8)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "replace_empty_scope_large_view",
+      "Depth": "('integer', 8)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "replace_identity_large_view",
+      "Depth": "('integer', 8)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "retained_partial_large",
+      "Depth": "('integer', 8)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "hex_capacity_7",
+      "Depth": "('integer', 8)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "hex_capacity_8",
+      "Depth": "('integer', 8)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "hex_capacity_9",
+      "Depth": "('integer', 8)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "hex_capacity_64",
+      "Depth": "('integer', 8)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "hex_capacity_65",
+      "Depth": "('integer', 8)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    },
+    {
+      "Group": "backing_supplement",
+      "Case": "hex_capacity_257",
+      "Depth": "('integer', 8)",
+      "StrictEqual": true,
+      "OpaqueProvenancePending": false,
+      "Differences": []
+    }
+  ],
+  "ActualRows": 216,
+  "StrictEqual": 214,
+  "OpaqueRowsNotAccepted": 0,
+  "Failures": [],
+  "Inputs": [
+    {
+      "Path": "artifacts\\binary369-supplement-remote1\\run-39083564610\\artifact-12120102622\\capture\\callback_supplement\\returned.etf",
+      "Sha256": "BD44BE9327EC8688BB20F3078BCE43132C8BFEBC460D94B80401492FDB3EE6E7"
+    },
+    {
+      "Path": "artifacts\\erlang371-binary-retained-main1\\binary-supplement\\capture1\\sdk\\callback_supplement\\returned.etf",
+      "Sha256": "51C9CA5A5407E7B685FB5E6510FB30B26116D88D07FD8BD59BD4091219B128EC"
+    },
+    {
+      "Path": "artifacts\\binary369-supplement-remote1\\run-39083564610\\artifact-12120102622\\capture\\callback_supplement\\stack-observations.etf",
+      "Sha256": "08FDB11514F4474268A5AE4EF70396E3F7A3F07DE96CEB8440F129DE16F7CF36"
+    },
+    {
+      "Path": "artifacts\\erlang371-binary-retained-main1\\binary-supplement\\capture1\\sdk\\callback_supplement\\stack-observations.etf",
+      "Sha256": "08FDB11514F4474268A5AE4EF70396E3F7A3F07DE96CEB8440F129DE16F7CF36"
+    },
+    {
+      "Path": "artifacts\\binary369-supplement-remote1\\run-39083564610\\artifact-12120102622\\capture\\backing_supplement\\returned.etf",
+      "Sha256": "13E0193DBEFF8BA8BAF2A2CB401599B7E6ED035BED19CB396637C0D5EE0AB3F9"
+    },
+    {
+      "Path": "artifacts\\erlang371-binary-retained-main1\\binary-supplement\\capture1\\sdk\\backing_supplement\\returned.etf",
+      "Sha256": "13E0193DBEFF8BA8BAF2A2CB401599B7E6ED035BED19CB396637C0D5EE0AB3F9"
+    },
+    {
+      "Path": "artifacts\\binary369-supplement-remote1\\run-39083564610\\artifact-12120102622\\capture\\backing_supplement\\stack-observations.etf",
+      "Sha256": "2FFA3859F028880B888ED8BEFAF6B9A3E9DFF2890B2EC65AB91C09EE2F088746"
+    },
+    {
+      "Path": "artifacts\\erlang371-binary-retained-main1\\binary-supplement\\capture1\\sdk\\backing_supplement\\stack-observations.etf",
+      "Sha256": "2FFA3859F028880B888ED8BEFAF6B9A3E9DFF2890B2EC65AB91C09EE2F088746"
+    }
+  ],
+  "ProfileSha256": "AE3CDEE47AB1FAF891E70461EDDD387D40F4E799AC79F3573851B7F8C13734CA",
+  "DecoderSha256": "E0ACDC8C7C53D89CADECA91327C9C4AF38AC5DD6250868EF889A2B36E22DC7E0",
+  "Projection": false,
+  "Normalization": false,
+  "ReferenceRelationsAccepted": 0,
+  "CompatibilityPromoted": false
+}

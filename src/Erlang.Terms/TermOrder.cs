@@ -150,7 +150,11 @@ public static class TermOrder
                     int count = x.Entries.Count.CompareTo(y.Entries.Count);
                     if (count != 0)
                         return count;
-                    pending.Push(MapSteps(x, y, exact).GetEnumerator());
+                    pending.Push((purpose == TermComparisonPurpose.Ordering && !exact
+                        && count == 0 && x.Entries.Count > 1
+                        && x.Entries.Count <= TermMapOrderParameters.FlatMapMaximumEntries
+                        ? TermMapOrdering.Steps(x, y)
+                        : MapSteps(x, y, exact)).GetEnumerator());
 
                     return 0;
                 }
@@ -280,42 +284,58 @@ public static class TermOrder
         TermComparisonPurpose purpose
     )
     {
-        var pending = new Stack<IEnumerator<TermComparisonStep>>();
-        var step = TermComparisonStep.Pair(a, b, exact);
+        var scopes = new Stack<TermComparisonScope>();
+        scopes.Push(new TermComparisonScope(
+            a,
+            b,
+            exact,
+            purpose
+        ));
         try
         {
             while (true)
             {
-                int comparison = step.Left is null
-                    ? step.Result
-                    : CompareCurrent(
-                        step.Left,
+                var scope = scopes.Peek();
+                var step = scope.Current;
+                if (step.Capture is { } capture)
+                {
+                    scopes.Push(new TermComparisonScope(
+                        step.Left!,
                         step.Right!,
                         step.Exact,
-                        ref context,
-                        pending,
-                        purpose
-                    );
-                if (comparison != 0)
-                    return comparison;
+                        step.Purpose ?? scope.Purpose,
+                        capture
+                    ));
+                    continue;
+                }
+                int comparison = step.Left is null ? step.Result : CompareCurrent(
+                    step.Left,
+                    step.Right!,
+                    step.Exact,
+                    ref context,
+                    scope.Pending,
+                    scope.Purpose
+                );
+                if (comparison == 0 && scope.MoveNext())
+                    continue;
                 while (true)
                 {
-                    if (pending.Count == 0)
-                        return 0;
-                    var sequence = pending.Peek();
-                    if (sequence.MoveNext())
-                    {
-                        step = sequence.Current;
+                    var finished = scopes.Pop();
+                    finished.Dispose();
+                    if (scopes.Count == 0)
+                        return comparison;
+                    finished.Capture!.Value = comparison;
+                    scope = scopes.Peek();
+                    if (scope.MoveNext())
                         break;
-                    }
-                    pending.Pop().Dispose();
+                    comparison = 0;
                 }
             }
         }
         finally
         {
-            foreach (var sequence in pending)
-                sequence.Dispose();
+            while (scopes.TryPop(out var scope))
+                scope.Dispose();
         }
     }
 

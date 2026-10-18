@@ -1,0 +1,129 @@
+{
+  "ExpectedOutcomesSeeded": false,
+  "MandatoryFullFieldErrorComparison": true,
+  "Controls": [
+    {
+      "Name": "union_role_switch_numeric",
+      "Expression": "ordsets:union([2.0],[1,2])",
+      "Mfa": "ordsets:union/2"
+    },
+    {
+      "Name": "intersection_role_switch_numeric",
+      "Expression": "ordsets:intersection([2.0],[1,2])",
+      "Mfa": "ordsets:intersection/2"
+    },
+    {
+      "Name": "union_role_switch_residual_error",
+      "Expression": "ordsets:union([2.0|left_tail],[1,3|right_tail])",
+      "Mfa": "ordsets:union/2"
+    },
+    {
+      "Name": "intersection_role_switch_residual_error",
+      "Expression": "ordsets:intersection([2.0|left_tail],[1,3|right_tail])",
+      "Mfa": "ordsets:intersection/2"
+    },
+    {
+      "Name": "disjoint_role_switch_residual_error",
+      "Expression": "ordsets:is_disjoint([2.0|left_tail],[1,3|right_tail])",
+      "Mfa": "ordsets:is_disjoint/2"
+    },
+    {
+      "Name": "union_nil_raw",
+      "Expression": "ordsets:union([],raw)",
+      "Mfa": "ordsets:union/2"
+    },
+    {
+      "Name": "union_raw_nil",
+      "Expression": "ordsets:union(raw,[])",
+      "Mfa": "ordsets:union/2"
+    },
+    {
+      "Name": "intersection_nil_raw",
+      "Expression": "ordsets:intersection([],raw)",
+      "Mfa": "ordsets:intersection/2"
+    },
+    {
+      "Name": "subtract_raw_nil",
+      "Expression": "ordsets:subtract(raw,[])",
+      "Mfa": "ordsets:subtract/2"
+    },
+    {
+      "Name": "subset_nil_raw",
+      "Expression": "ordsets:is_subset([],raw)",
+      "Mfa": "ordsets:is_subset/2"
+    },
+    {
+      "Name": "intersection_singleton_raw",
+      "Expression": "ordsets:intersection([raw])",
+      "Mfa": "ordsets:intersection/1"
+    },
+    {
+      "Name": "intersection_outer_improper_after_inner",
+      "Expression": "ordsets:intersection([[a],[a]|outer_tail])",
+      "Mfa": "ordsets:intersection/1"
+    },
+    {
+      "Name": "fold_invalid_callback_empty",
+      "Expression": "ordsets:fold(invalid,seed,[])",
+      "Mfa": "ordsets:fold/3"
+    },
+    {
+      "Name": "fold_wrong_arity_empty",
+      "Expression": "ordsets:fold(fun(X)->X end,seed,[])",
+      "Mfa": "ordsets:fold/3"
+    },
+    {
+      "Name": "fold_raw_list",
+      "Expression": "ordsets:fold(fun(E,A)->{E,A} end,seed,raw)",
+      "Mfa": "ordsets:fold/3"
+    },
+    {
+      "Name": "filter_invalid_callback_empty",
+      "Expression": "ordsets:filter(invalid,[])",
+      "Mfa": "ordsets:filter/2"
+    },
+    {
+      "Name": "filter_wrong_arity_empty",
+      "Expression": "ordsets:filter(fun(X,Y)->{X,Y} end,[])",
+      "Mfa": "ordsets:filter/2"
+    },
+    {
+      "Name": "filter_nonboolean",
+      "Expression": "ordsets:filter(fun(_)->{true,replacement} end,[value])",
+      "Mfa": "ordsets:filter/2"
+    },
+    {
+      "Name": "filtermap_invalid_shape",
+      "Expression": "ordsets:filtermap(fun(_)->{true,value,extra} end,[value])",
+      "Mfa": "ordsets:filtermap/2"
+    },
+    {
+      "Name": "map_callback_error",
+      "Expression": "ordsets:map(fun(_)->erlang:error(callback_failure) end,[value])",
+      "Mfa": "ordsets:map/2"
+    },
+    {
+      "Name": "filtermap_callback_error",
+      "Expression": "ordsets:filtermap(fun(_)->erlang:error(callback_failure) end,[value])",
+      "Mfa": "ordsets:filtermap/2"
+    },
+    {
+      "Name": "fold_callback_error",
+      "Expression": "ordsets:fold(fun(_,_)->erlang:error(callback_failure) end,seed,[value])",
+      "Mfa": "ordsets:fold/3"
+    },
+    {
+      "Name": "filter_callback_error",
+      "Expression": "ordsets:filter(fun(_)->erlang:error(callback_failure) end,[value])",
+      "Mfa": "ordsets:filter/2"
+    }
+  ],
+  "AdditionalOpaqueTermControls": [
+    "Nested maps with multiple distinct FUN keys whose same module/index OLD_UNIQ ties but NEW_UNIQ differs; preserve exact key identity despite comparison tie.",
+    "Multiple FUN keys with reversed NEW_UNIQ vs OLD_UNIQ order; inspect map comparison rather than assuming canonical key storage order equals native comparison order.",
+    "Native large map retaining equal reference aliases with differing externally encoded count1/2/5; preserve own-state HAMT protocol, do not change reference equality globally.",
+    "Real local source closures and external FUNs in payloads/keys; own hosting FUN code identity must have genuine provenance, never borrowed native pointer IDs.",
+    "Unaligned bitstrings, native record schema order, all signed integer/float ties and negative zero in nested payloads.",
+    "Callback side-effect ledger for improper inputs records reached prefix and exact error; preserve full raw capture, no dropped error field."
+  ]
+}

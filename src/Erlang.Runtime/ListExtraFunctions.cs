@@ -20,6 +20,14 @@ internal static class ListExtraFunctions
         Term list
     )
     {
+        if (operation == ListModuleNames.Filter)
+            return await ListCallbackSourceExecution.Run(
+                context,
+                operation,
+                function,
+                list,
+                null
+            );
         if (function is not FunctionTerm { Arity: 1 } callback)
             throw new ErlangException(ErlangErrorReasons.FunctionClause);
         var output = new List<Term>();

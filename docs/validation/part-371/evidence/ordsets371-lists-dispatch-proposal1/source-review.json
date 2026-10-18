@@ -1,0 +1,47 @@
+{
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Source": [
+    {
+      "Path": "lib/stdlib/src/ordsets.erl",
+      "Bytes": 13585,
+      "Sha256": "526D1505D6CC482497F812879CDB41C533EA4BFC103E74850245F84C465CD70D"
+    },
+    {
+      "Path": "lib/stdlib/src/lists.erl",
+      "Bytes": 123312,
+      "Sha256": "D429E541CA76ACA8C56BB9FF31130A3B636F33D3E1923A08683157BF5709AB47"
+    }
+  ],
+  "ActualDynamicModuleDispatch": true,
+  "RegistryStampsAdded": false,
+  "BeforeAfterModuleQueries": false,
+  "ProductionApiCountDelta": 0,
+  "BranchReview": [
+    {
+      "Mfa": "ordsets:fold/3",
+      "Pinned": "fold(F,Acc,Set)->lists:foldl(F,Acc,Set)",
+      "Frame": "tail; remove only own SourceWrapper; actual selected lists code owns validation"
+    },
+    {
+      "Mfa": "ordsets:filter/2",
+      "Pinned": "filter(F,Set)->lists:filter(F,Set)",
+      "Frame": "tail; actual selected lists code"
+    },
+    {
+      "Mfa": "ordsets:map/2",
+      "Pinned": "from_list(lists:map(F,Set))",
+      "Frame": "keep real ordsets:map/2 continuation at543 during actual lists call; remove before tail usort"
+    },
+    {
+      "Mfa": "ordsets:filtermap/2",
+      "Pinned": "from_list(lists:filtermap(F,Set))",
+      "Frame": "keep real ordsets:filtermap/2 continuation at581 during actual lists call; remove before tail usort"
+    },
+    {
+      "Mfa": "lists:zf/2",
+      "Pinned": "zf(F,L)->filtermap(F,L)",
+      "Frame": "alias strips only own zf SourceWrapper then dispatches actual lists:filtermap body"
+    }
+  ],
+  "KernelExtraction": "Existing Fold/Filter/TransformList branches copied without semantic edits except correct module owner and public operation name. Existing OrdsetFullTrace/frame/source constants reused to avoid unrelated refactor. Other ListFunctions operations retained byte-for-byte after new four-operation dispatch."
+}

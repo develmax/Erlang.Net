@@ -1,0 +1,101 @@
+{
+  "Status": "SOURCE_ONLY_CORRECTION_BASED_ON_ACTUAL_ORIGINAL_DIFFERENCES",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "AuthorityFiles": [
+    {
+      "Path": "erts/preloaded/src/erlang.erl",
+      "Sha256": "00D7672A16325E43CA221C6D6CEB4200390E2A961A243C2E31DDC141AC145047",
+      "Bytes": 475966
+    },
+    {
+      "Path": "erts/emulator/beam/bif.c",
+      "Sha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC",
+      "Bytes": 169612
+    },
+    {
+      "Path": "erts/emulator/sys/unix/sys_float.c",
+      "Sha256": "7DC6C4402691788D9EC4590443C670C26C05E9B2F86566DA858CB6E4BBABEA30",
+      "Bytes": 3720
+    },
+    {
+      "Path": "erts/emulator/sys/win32/sys_float.c",
+      "Sha256": "12A3DA070C5EAA51DCBA86D71F96524013E1E81AB05AE6C14E13D48EFB61FA6E",
+      "Bytes": 3630
+    },
+    {
+      "Path": "erts/emulator/sys/common/erl_sys_common_misc.c",
+      "Sha256": "E7748C89BA301599D722EBC2EB7FAD67C0C62D20178F729D4A8506A570BB1FD4",
+      "Bytes": 6842
+    },
+    {
+      "Path": "erts/lib_src/common/erl_printf_format.c",
+      "Sha256": "ACA39BF14C5F6E797C8A2A72FB0A557A1A1D9C7D396F49678A619F5CADED741C",
+      "Bytes": 23292
+    }
+  ],
+  "ObservedBaseline": {
+    "Path": "artifacts/erlang371-first-comparison1/differences.json",
+    "Sha256": "309CA3E1E302779B890AF58DA4C49D0EBE11F8387141C9CCD4DE608F81EC5B2A",
+    "AllComparisons": 4506,
+    "StrictBaseline": 4224,
+    "Differences": {
+      "integer_parse": 270,
+      "float_format": 12
+    }
+  },
+  "IntegerParse": {
+    "Mfas": [
+      "erlang:list_to_integer/1",
+      "erlang:list_to_integer/2",
+      "erlang:binary_to_integer/1",
+      "erlang:binary_to_integer/2"
+    ],
+    "Cause": "Preloaded Erlang wrappers deliberately reroute errors through error_with_info/badarg_with_info. Existing generic source wrapper only adds arity/noinfo. This is NOT a missing native BIF entry.",
+    "PinnedLines": {
+      "binary_to_integer/1": 1056,
+      "binary_to_integer/2": 1093,
+      "list_to_integer/1": 4111,
+      "list_to_integer/2": 4165,
+      "error_with_info/2": 13494,
+      "badarg_with_info/1": 13497
+    },
+    "Patch": "Context-aware existing registered parse body calls original parser then preserves ErlangException class/reason and captures actual args + erl_erts_errors info. Drops only its own source wrapper before native-shaped firstframe capture; caller file/line retained. No NativeBuiltinCatalog or is_builtin classification change.",
+    "Scope": "Only four parse overloads; integer formatting and parsing arithmetic untouched. Source callback/option behavior unaffected."
+  },
+  "FloatFormat": {
+    "Mfas": [
+      "erlang:float_to_list/2",
+      "erlang:float_to_binary/2"
+    ],
+    "ObservedCase": "[{scientific,-1}] is valid, original returns 1.250000e+00; current managed incorrectly badarg.",
+    "SourceChain": [
+      "bif.c:3378 do_float_to_charbuf stores decimals as C int and assigns signed_val at3405; scientific route3442",
+      "unix/sys_float.c:55 and win32/sys_float.c:112 forward %.*e through erts_snprintf",
+      "erl_printf_format.c:515 consumes dynamic precision as int; lines749-750 use6 whennegative",
+      "erl_sys_common_misc.c:sys_double_to_chars_fast explicitly rejects negative decimals for fixed mode"
+    ],
+    "Patch": "Narrow accepted small-integer option to signed32-bit int, like native C; only final scientific negative precision maps to named default6. Fixed negative remainsbadarg, Short ignores precision. Existing buffer/positive precision guards and numerical formatter unchanged.",
+    "AdditionalRegression": "-2147483648 negative default;4294967295 wraps-1;4294967298 wraps2 for bothscientificandfixed. Source-derived cases, not yet independently observed in original CI."
+  },
+  "PermanentRegression": {
+    "CompiledAssertions": 6,
+    "CapturedErrors": 8,
+    "FirstFrameChecks": [
+      "module/function",
+      "actual complete argument list",
+      "error class/reason",
+      "exact error_info formatter map",
+      "next source caller and file/line20 without duplicate wrapper"
+    ],
+    "NewTestName": "runtime/integer-parse-error-info-and-native-float-precision"
+  },
+  "NativeOrSdkExecutedByHelper": false,
+  "MainFilesChangedByHelper": false,
+  "RemainingGates": [
+    "Root style/build/focusedtest",
+    "Recapture original bound751+3755 packet against final Main",
+    "Observe additional source-derived precision boundary assertions in original if claimingtheirwholecontract",
+    "Affected final regression and publication-head CI"
+  ],
+  "NoCompatibilityPromotion": true
+}

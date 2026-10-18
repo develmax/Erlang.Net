@@ -10,6 +10,14 @@ public static class ListFunctions
         Term? accumulator = null
     )
     {
+        if (operation is ListModuleNames.FoldLeft or ListModuleNames.Filter or ListModuleNames.Map or ListModuleNames.FilterMap)
+            return await ListCallbackSourceExecution.Run(
+                context,
+                operation,
+                function,
+                list,
+                accumulator
+            );
         if (operation == ListModuleNames.FoldRight)
             return await ListFoldRight.Run(
                 context,

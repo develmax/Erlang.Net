@@ -104,8 +104,13 @@ public static class CodeGeneration
             "global::Erlang.Compiler.MapField"
         ) + ")",
         Expr.Bits bits => "new " + E + "Bits(" + Array(bits.Segments, BitSegmentCode, "global::Erlang.Compiler.BitSegment") + ")",
-        Expr.Unary u => "new " + E + "Unary(" + Quote(u.Operator) + "," + ExpressionCode(u.Operand) + ")",
-        Expr.Binary b => "new " + E + "Binary(" + Quote(b.Operator) + "," + ExpressionCode(b.Left) + "," + ExpressionCode(b.Right) + ")",
+        Expr.Unary u => SourceOperatorCode.Unary(u, Quote(u.Operator), ExpressionCode(u.Operand)),
+        Expr.Binary b => SourceOperatorCode.Binary(
+            b,
+            Quote(b.Operator),
+            ExpressionCode(b.Left),
+            ExpressionCode(b.Right)
+        ),
         Expr.Call c when RecordPredicateSyntax.HasLiteralNonpositiveSize(c) => "new " + E + "Literal(" + TermCode(Term.A(ErlangBooleanAtoms.False)) + ")",
         Expr.Call c => SourceFunctionCode.Call(
             c,

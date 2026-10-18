@@ -1,0 +1,82 @@
+{
+  "Status": "MANDATORY_SOURCE_CASE_PLAN_NOT_EXECUTED",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SmallWordDigits64": {
+    "Base2": 59,
+    "Base10": 17,
+    "Base16": 14
+  },
+  "NativeMaxLimbCount": 65535,
+  "NativeMaxMagnitudeBits": 4194240,
+  "PrecheckSignificantCharsAllBases": 4194304,
+  "PrecheckSignificantCharsBaseAtLeast10": 1262611,
+  "Cases": [
+    {
+      "Name": "decimal-precap-over-boundary",
+      "Input": "binary:copy(<<\"9\">>,1262612)",
+      "Base": 10,
+      "Obligation": "system_limit before segmentation; exactrawclass/reason/firstBIFargs+info/callerstack."
+    },
+    {
+      "Name": "decimal-precap-invalid-last",
+      "Input": "<< (binary:copy(<<\"1\">>,1262611))/binary, $! >>",
+      "Base": 10,
+      "Obligation": "Nativebigmarkerthenprechecksystem_limit outranksinvalidlastbyte; managedmustnotearlybadarg."
+    },
+    {
+      "Name": "binary-base2-precap",
+      "Input": "<<$1,(binary:copy(<<\"0\">>,4194304))/binary>>",
+      "Base": 2,
+      "Obligation": "system_limit significance4194305."
+    },
+    {
+      "Name": "binary-native-word-overflow",
+      "Input": "<<$1,(binary:copy(<<\"0\">>,4194240))/binary>>",
+      "Base": 2,
+      "Obligation": "Length4194241 underprecap4194304,butvaluebitlength4194241 exceeds65535nativewords =>system_limit from combine."
+    },
+    {
+      "Name": "binary-native-word-max-control",
+      "Input": "binary:copy(<<\"1\">>,4194240)",
+      "Base": 2,
+      "Obligation": "Representablemaximum (2^4194240)-1; parsedvaluebitlength andcanonicalbinary roundtrip authentic, no successsubsetwaiver."
+    },
+    {
+      "Name": "huge-leading-zero-control",
+      "Input": "<<(binary:copy(<<\"0\">>,4194305))/binary,$1>>",
+      "Base": 10,
+      "Obligation": "Value1; significantlength1, doNOT applycaptooriginaltextlength."
+    },
+    {
+      "Name": "huge-zero-only-control",
+      "Input": "binary:copy(<<\"0\">>,4194305)",
+      "Base": 36,
+      "Obligation": "Value0; nativeinternalzero-skip resultbeforebigpath."
+    },
+    {
+      "Name": "wide-list-char-short",
+      "Input": "[305] andlists:duplicate(17,305)",
+      "Base": 10,
+      "Obligation": "NativeSMALLbytecast successfulsmallinteger; originalpublicstackdoesnotexecuteerrors."
+    },
+    {
+      "Name": "wide-list-char-big-boundary",
+      "Input": "lists:duplicate(18,305)",
+      "Base": 10,
+      "Obligation": "Nativeinitialparserreturnsbig,thenoriginallist_to_binary bytevalidation causesbadarg; cannotapplymod256togeneralbigpath."
+    },
+    {
+      "Name": "huge-list-improper-before-limit",
+      "Input": "lists:duplicate(1262612,$1) ++ tail",
+      "Base": 10,
+      "Obligation": "Bigfallbacklist_to_binaryvalidatesentirespinebeforebigcap =>badarg (binaryequivalentproperbyteswouldsystem_limit)."
+    }
+  ],
+  "EvidencePlan": [
+    "Useownedeach-caseprocessandoneadmittedsharedOTPbuild; preserveordinary/fullstackresults independently; recordskiponlyaftersamecasedependentprepfailed.",
+    "Currentpassivedecoder16MiB/termcountlimitscannotadmitallgiantargumentstogether; useonefixture/case/profileperrawfilewithpredeclaredboundedstreamingorhigherlimitsreview,retainactualargumentbytes/hashes andalltypedmetadata.",
+    "Do notreplacefullstacks withsummarybooleans,dropfirstargs orwaivemetadata. Comparisonmustincludeoriginalcallerlocation andwrapperinfo.",
+    "Measureboundedruntime/cleanupbeforeheavywholeregression; resourcefailuremustremainvisible.",
+    "Forlargevalidintegerresults,sourcecomparisonrequireswholevalueorindependentexactroundtripverifiedagainstretainedrawbits,notonlybitlength."
+  ]
+}

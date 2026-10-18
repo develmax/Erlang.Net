@@ -1,0 +1,49 @@
+{
+  "Status": "CONDITIONAL_SOURCE_REVIEW_PENDING_ROOT_EXECUTION",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "EvidenceInput": "../next-api371-proposal1/ordsets.erl.pinned.txt",
+  "PotentialPromotions": [
+    "ordsets:new/0",
+    "ordsets:is_empty/1",
+    "ordsets:to_list/1",
+    "ordsets:size/1"
+  ],
+  "Review": {
+    "ordsets:new/0": {
+      "Source": "new() -> [].",
+      "Domain": "No arguments. Sole empty proper-list value. No error/options/callback branches.",
+      "Implementation": "Nil.Value returned as Term; immutable singleton. No comparer/equality/hash dependencies.",
+      "RemainingAcceptance": "Actual registration direct test + compiled fixture + admitted original compare + final-source full CI."
+    },
+    "ordsets:is_empty/1": {
+      "Source": "is_empty(S) -> S =:= [].",
+      "Domain": "Every Erlang term, including improper lists, arbitrary map/FUN/reference/port/pid. Only nil equals empty list. No input validation or error branch.",
+      "Implementation": "Outer constructor is Nil. Does not traverse or compare contents. CoreModules.Boolean canonical true/false. No map/FUN equality dependency.",
+      "RemainingAcceptance": "Actual direct raw shapes and source fixture + admitted original compare + final-source full CI."
+    },
+    "ordsets:to_list/1": {
+      "Source": "to_list(S) -> S.",
+      "Domain": "Every term, no shape validation or cloning. Returned same object semantically preserves identity and representation.",
+      "Implementation": "Returns arguments[0] directly. No term ordering/equality/hash dependency.",
+      "RemainingAcceptance": "Actual direct raw identity fixture + admitted original compare + final-source full CI."
+    },
+    "ordsets:size/1": {
+      "Source": "size(S) -> length(S). at line120",
+      "Domain": "Any proper list returns its spine length regardless element types/order/duplicates. Atom/tuple/nil/improper distinctions inherited length BIF. Invalid proper-prefix traversal must retain ORIGINAL length argument.",
+      "Implementation": "Existing ErlangListLength.ReadAsync uses explicit cursor/reductions, catches only native badarg and captures genuine BIF length args/error_info plus source frame line120. No element comparison/hash/map/FUN dependency.",
+      "RemainingAcceptance": "Actual raw improper/native badarg full-stack equivalence across default0/1/2/8; length cancellation/resource semantics retain existing original coverage; final-source regression + CI."
+    }
+  },
+  "BlockedPromotions": {
+    "ordsets:is_equal/2": "Depends on complete NumericEquals for arbitrary nested maps/FUNs; known core gaps block unqualified whole contract.",
+    "ordsets:is_set/1": "Depends on full arbitrary term order, including raw map construction and FUN ordering.",
+    "ordsets:is_element/2": "Depends on full arbitrary term order.",
+    "ordsets:add_element/2": "Depends on full arbitrary term order plus non-tail repeated stack continuations pending original observation."
+  },
+  "ExcludedClaims": [
+    "No API promoted now",
+    "No actual tests or original executions by helper",
+    "No Main code edits",
+    "No infinite tests substitute for source-domain review"
+  ]
+}

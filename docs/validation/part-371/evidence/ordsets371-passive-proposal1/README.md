@@ -1,0 +1,13 @@
+# Passive ordsets eight-API admission and exact comparator
+
+Source-only local review recipes; no native/SDK/network execution by author. Original packet remains 112 values + 560 full stacks at default/0/1/2/8 = 672 observations. Additional APIs require a distinct supplemental packet; this recipe does not change active CI inputs.
+
+Admission checks every extracted ZIP entry against the API-digested archive, API run/head/job/artifact identity, exact committed producer tool/build-manifest transitive inputs, all 12,008 pinned Git blobs and modes, ordinary installed ordsets image bytes and module MD5, matching worker launch expressions, five original owned process receipts and three ordsets preflight receipts/parse sources. Three metadata corruption controls reject changed module MD5, scheduler count and names. No downloaded executable code is imported or run; decoder imports are trusted source-only local inputs rechecked against producer Git.
+
+    python -B artifacts/ordsets371-passive-proposal1/audit.py --download-run REMOTE --artifact EXTRACTED --tool LOCAL_ADMITTED_ORDSETS_TOOL --bindings DISPATCH_INTENT --output artifacts/ordsets371-passive-proposal1/actual1 --expected-head HEAD --manifest-sha256 699A359762EA9EBBA64B6369BDCA92814E437C5F0A3F56246FA2E9F1A04F0829 --zip-sha256 ZIP_HASH --run-id RUN --job-id JOB --artifact-id ARTIFACT
+
+    python -B artifacts/ordsets371-passive-proposal1/compare.py --native EXTRACTED/ordsets-capture --sdk artifacts/ordsets371-main-first1/capture1/sdk --native-admission artifacts/ordsets371-passive-proposal1/actual1/acceptance.json --native-admission-sha256 ADMISSION_HASH --tool LOCAL_ADMITTED_ORDSETS_TOOL --expected-head HEAD --manifest-sha256 699A359762EA9EBBA64B6369BDCA92814E437C5F0A3F56246FA2E9F1A04F0829 --output FRESH
+
+Historical SDK capture acceptance checks its five private copied DLL files against their recorded hashes. It records live-vs-captured hashes, HistoricalCapture and FinalRecaptureRequired explicitly, rather than demanding unchanged live binaries or relabeling a historical result as final. SDK capture receipts, compile-source hashes and output seals remain mandatory. Final-source recapture and all required regression gates are necessary for publication and compatibility promotion.
+
+Comparator uses typed ETF equality: all returned terms, argument lists, error classes/reasons, frame order, file/line/error_info and IEEE float bits. No stack, PID, source-line or creator normalization. Any difference returns nonzero with full raw typed values retained. Passing finite observations alone never promotes full contracts.

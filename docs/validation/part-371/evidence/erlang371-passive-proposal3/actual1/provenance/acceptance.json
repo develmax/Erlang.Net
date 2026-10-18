@@ -1,0 +1,292 @@
+{
+  "Status": "PASS_PASSIVE_ERLANG371_PRELOADED_ORIGINAL_PROVENANCE",
+  "MetadataCorruptionControls": [
+    {
+      "Group": "integer_format",
+      "Corruption": "module_md5",
+      "Rejected": true
+    },
+    {
+      "Group": "integer_format",
+      "Corruption": "schedulers",
+      "Rejected": true
+    },
+    {
+      "Group": "integer_format",
+      "Corruption": "names",
+      "Rejected": true
+    },
+    {
+      "Group": "integer_parse",
+      "Corruption": "module_md5",
+      "Rejected": true
+    },
+    {
+      "Group": "integer_parse",
+      "Corruption": "schedulers",
+      "Rejected": true
+    },
+    {
+      "Group": "integer_parse",
+      "Corruption": "names",
+      "Rejected": true
+    },
+    {
+      "Group": "float_parse",
+      "Corruption": "module_md5",
+      "Rejected": true
+    },
+    {
+      "Group": "float_parse",
+      "Corruption": "schedulers",
+      "Rejected": true
+    },
+    {
+      "Group": "float_parse",
+      "Corruption": "names",
+      "Rejected": true
+    },
+    {
+      "Group": "float_format",
+      "Corruption": "module_md5",
+      "Rejected": true
+    },
+    {
+      "Group": "float_format",
+      "Corruption": "schedulers",
+      "Rejected": true
+    },
+    {
+      "Group": "float_format",
+      "Corruption": "names",
+      "Rejected": true
+    },
+    {
+      "Group": "bounded_contracts",
+      "Corruption": "module_md5",
+      "Rejected": true
+    },
+    {
+      "Group": "bounded_contracts",
+      "Corruption": "schedulers",
+      "Rejected": true
+    },
+    {
+      "Group": "bounded_contracts",
+      "Corruption": "names",
+      "Rejected": true
+    }
+  ],
+  "ParentRunConclusion": "failure",
+  "ParentJobConclusion": "failure",
+  "FamilyOnlyAdmission": true,
+  "ParentRunRelabelled": false,
+  "Head": "fd2faca8697f4c9ba9ea85a1b71ef4ca5582a359",
+  "Run": 39112151003,
+  "Values": 751,
+  "FullStackProfiles": 3755,
+  "OriginalNormalProcesses": [
+    {
+      "Name": "configure",
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\erlang371-original1\\download\\run-39112151003\\artifact-12130754382\\build",
+      "ReceiptSha256": "2E5B3CE0899C3D3E670268014480789F8E8F5EFCBAB0EBD7765FBFE6164D1928",
+      "Pid": 3130,
+      "ElapsedSeconds": 15.715682040000004,
+      "Normal": true
+    },
+    {
+      "Name": "make",
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\erlang371-original1\\download\\run-39112151003\\artifact-12130754382\\build",
+      "ReceiptSha256": "06CF21420DDC0F2E20218FD37622FBBE701FE50C46E8ABFCF874E4D16EBAD46A",
+      "Pid": 13363,
+      "ElapsedSeconds": 461.28323803099994,
+      "Normal": true
+    },
+    {
+      "Name": "install",
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\erlang371-original1\\download\\run-39112151003\\artifact-12130754382\\build",
+      "ReceiptSha256": "CD8845587C872AF4FFFF3AA1FCD808490C2E3D7B438E91D4B370ED5FB6664075",
+      "Pid": 78919,
+      "ElapsedSeconds": 5.4002730470000415,
+      "Normal": true
+    },
+    {
+      "Name": "compile",
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\erlang371-original1\\download\\run-39112151003\\artifact-12130754382\\capture\\integer_format",
+      "ReceiptSha256": "E6F21881C6B49AE74C2B8D0DDD74270A6E662B2798AAF8E124BFE5576EC864F6",
+      "Pid": 83463,
+      "ElapsedSeconds": 0.32720277900000383,
+      "Normal": true
+    },
+    {
+      "Name": "observe",
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\erlang371-original1\\download\\run-39112151003\\artifact-12130754382\\capture\\integer_format",
+      "ReceiptSha256": "89818D7843CCE177DD4A4AEB9B434FD805E8312B04533843680B735EE558DE73",
+      "Pid": 83491,
+      "ElapsedSeconds": 0.32702506299995093,
+      "Normal": true
+    },
+    {
+      "Name": "compile",
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\erlang371-original1\\download\\run-39112151003\\artifact-12130754382\\capture\\integer_parse",
+      "ReceiptSha256": "69EC3E3821C5E6511659125B9EB84C03F8606F455CFA56F67598A17B5E4AD2A1",
+      "Pid": 83521,
+      "ElapsedSeconds": 0.3270418840000957,
+      "Normal": true
+    },
+    {
+      "Name": "observe",
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\erlang371-original1\\download\\run-39112151003\\artifact-12130754382\\capture\\integer_parse",
+      "ReceiptSha256": "A033E3D014086DE6E7BA082E03F4BC4CF8CD33CAFEC1B15776212966D3C7239A",
+      "Pid": 83547,
+      "ElapsedSeconds": 0.32839393599999767,
+      "Normal": true
+    },
+    {
+      "Name": "compile",
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\erlang371-original1\\download\\run-39112151003\\artifact-12130754382\\capture\\float_parse",
+      "ReceiptSha256": "367CEB2BD3BE60228FF6E4B1BE7410487F3C3E4062087B9904CBEF3EC9AC9AFB",
+      "Pid": 83577,
+      "ElapsedSeconds": 0.30208328300000176,
+      "Normal": true
+    },
+    {
+      "Name": "observe",
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\erlang371-original1\\download\\run-39112151003\\artifact-12130754382\\capture\\float_parse",
+      "ReceiptSha256": "928414618A9385233C414F3A26EBEE21F2B442B813AA1D048FA58E4C3CE7FF79",
+      "Pid": 83603,
+      "ElapsedSeconds": 0.32697297799995795,
+      "Normal": true
+    },
+    {
+      "Name": "compile",
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\erlang371-original1\\download\\run-39112151003\\artifact-12130754382\\capture\\float_format",
+      "ReceiptSha256": "5F25E6B64687746E1B8EA8A0E3FCD9777FDE9DEDA6492E508F578B88D413104E",
+      "Pid": 83633,
+      "ElapsedSeconds": 0.3523777139999993,
+      "Normal": true
+    },
+    {
+      "Name": "observe",
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\erlang371-original1\\download\\run-39112151003\\artifact-12130754382\\capture\\float_format",
+      "ReceiptSha256": "C27D93848D2984E3548B8DE4F1E741801197C56EA9E54A8DDA7FA94C29A350B4",
+      "Pid": 83659,
+      "ElapsedSeconds": 0.3269631030000255,
+      "Normal": true
+    },
+    {
+      "Name": "compile",
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\erlang371-original1\\download\\run-39112151003\\artifact-12130754382\\capture\\bounded_contracts",
+      "ReceiptSha256": "CBFC8D23B77EA228A1BB1CEF93121323E6EDCA3E5B10F2F7B04BE29747C8FEA4",
+      "Pid": 83689,
+      "ElapsedSeconds": 0.3019340150000289,
+      "Normal": true
+    },
+    {
+      "Name": "observe",
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\erlang371-original1\\download\\run-39112151003\\artifact-12130754382\\capture\\bounded_contracts",
+      "ReceiptSha256": "FF5D6C747907E453721B542B62447F4CCB3A67E82605EF98725CC62250160D45",
+      "Pid": 83715,
+      "ElapsedSeconds": 0.3270988199999465,
+      "Normal": true
+    }
+  ],
+  "PreflightNormalProcesses": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\erlang371-original1\\download\\run-39112151003\\artifact-12130754382\\preflight\\parse-build.process.json",
+      "Sha256": "2A2B10A1AEED727D098BECA328904CF006D92C0F9D5630CAAFC50FD936654CBF",
+      "Pid": 2879,
+      "ElapsedSeconds": 26.05493632800001,
+      "Normal": true
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\erlang371-original1\\download\\run-39112151003\\artifact-12130754382\\preflight\\parse-sources.process.json",
+      "Sha256": "D67DCAC894EF6ED8B54DA84FB5551291463241ADD5C0DD0DF9B8F0E5A3D7466C",
+      "Pid": 3019,
+      "ElapsedSeconds": 0.25173261499999455,
+      "Normal": true
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\erlang371-original1\\download\\run-39112151003\\artifact-12130754382\\preflight\\collector-admit.process.json",
+      "Sha256": "7F58CAC1209BD3B68F894070A54C24B6516C948491DBA145A6A931BEFA83146F",
+      "Pid": 3030,
+      "ElapsedSeconds": 0.07583027699999434,
+      "Normal": true
+    }
+  ],
+  "Groups": [
+    {
+      "Id": "integer_format",
+      "MetadataAdmission": {
+        "MetadataPolicy": "erlang-preloaded-v1",
+        "ActualEmulatorBound": true,
+        "PreloadedModuleMd5MatchesPinnedEmbedding": true,
+        "CompanionIsLoadedObjectClaimed": false,
+        "RecordedExportCount": 353,
+        "SelectedMfasPresent": 18,
+        "OsPid": 83491,
+        "ValueAcquisition": "compiled-monitored-worker-values-and-stacks-v1"
+      },
+      "Values": 180
+    },
+    {
+      "Id": "integer_parse",
+      "MetadataAdmission": {
+        "MetadataPolicy": "erlang-preloaded-v1",
+        "ActualEmulatorBound": true,
+        "PreloadedModuleMd5MatchesPinnedEmbedding": true,
+        "CompanionIsLoadedObjectClaimed": false,
+        "RecordedExportCount": 353,
+        "SelectedMfasPresent": 18,
+        "OsPid": 83547,
+        "ValueAcquisition": "compiled-monitored-worker-values-and-stacks-v1"
+      },
+      "Values": 86
+    },
+    {
+      "Id": "float_parse",
+      "MetadataAdmission": {
+        "MetadataPolicy": "erlang-preloaded-v1",
+        "ActualEmulatorBound": true,
+        "PreloadedModuleMd5MatchesPinnedEmbedding": true,
+        "CompanionIsLoadedObjectClaimed": false,
+        "RecordedExportCount": 353,
+        "SelectedMfasPresent": 18,
+        "OsPid": 83603,
+        "ValueAcquisition": "compiled-monitored-worker-values-and-stacks-v1"
+      },
+      "Values": 63
+    },
+    {
+      "Id": "float_format",
+      "MetadataAdmission": {
+        "MetadataPolicy": "erlang-preloaded-v1",
+        "ActualEmulatorBound": true,
+        "PreloadedModuleMd5MatchesPinnedEmbedding": true,
+        "CompanionIsLoadedObjectClaimed": false,
+        "RecordedExportCount": 353,
+        "SelectedMfasPresent": 18,
+        "OsPid": 83659,
+        "ValueAcquisition": "compiled-monitored-worker-values-and-stacks-v1"
+      },
+      "Values": 372
+    },
+    {
+      "Id": "bounded_contracts",
+      "MetadataAdmission": {
+        "MetadataPolicy": "erlang-preloaded-v1",
+        "ActualEmulatorBound": true,
+        "PreloadedModuleMd5MatchesPinnedEmbedding": true,
+        "CompanionIsLoadedObjectClaimed": false,
+        "RecordedExportCount": 353,
+        "SelectedMfasPresent": 18,
+        "OsPid": 83715,
+        "ValueAcquisition": "compiled-monitored-worker-values-and-stacks-v1"
+      },
+      "Values": 50
+    }
+  ],
+  "CompanionIsLoadedObjectClaimed": false,
+  "DownloadedCodeExecuted": false,
+  "CompatibilityPromoted": false
+}

@@ -1,0 +1,91 @@
+{
+  "Family": "static-source-fun-continuation-regression",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Mfas": [
+    "fun_continuation_contract:opaque_call/1"
+  ],
+  "Fixtures": [
+    {
+      "Id": "fun_continuation_contract",
+      "Location": "tool",
+      "Path": "original/fun_continuation_contract.erl",
+      "Module": "fun_continuation_contract",
+      "Names": [
+        "opaque_named",
+        "opaque_anonymous",
+        "static_named",
+        "static_alias",
+        "protected_catch",
+        "protected_after"
+      ],
+      "Run": "run",
+      "NamesEntry": "cases",
+      "StackModule": "fun_continuation_contract",
+      "StackEntry": "run_stacks",
+      "WorkerModule": "proplists_observation_worker",
+      "WorkerEntry": "run",
+      "StackShape": "depth_cases",
+      "Companions": [
+        "original/proplists_observation_worker.erl"
+      ],
+      "Cases": [
+        {
+          "Name": "opaque_named",
+          "Mfas": [
+            "fun_continuation_contract:opaque_call/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "opaque_anonymous",
+          "Mfas": [
+            "fun_continuation_contract:opaque_call/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "static_named",
+          "Mfas": [
+            "fun_continuation_contract:opaque_call/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "static_alias",
+          "Mfas": [
+            "fun_continuation_contract:opaque_call/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "protected_catch",
+          "Mfas": [
+            "fun_continuation_contract:opaque_call/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "protected_after",
+          "Mfas": [
+            "fun_continuation_contract:opaque_call/1"
+          ],
+          "Policy": "exact"
+        }
+      ]
+    }
+  ],
+  "FixtureSources": [
+    {
+      "Location": "tool",
+      "Path": "original/fun_continuation_contract.erl",
+      "Sha256": "5E3C6BB9CD4A288B026CCFEF4C33D84D1A50B3A734F387F99A3FE67A6B668AD3"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/proplists_observation_worker.erl",
+      "Sha256": "34B743EB95A5937058AB8F208A1FB17C6ACED20AF7E08398EF6D154F574546BC"
+    }
+  ],
+  "ExpectedUniqueSourceCount": 2,
+  "ObserverEntry": "New six cases only; same matched guest worker, full original/SDK terms and frames retained; no API promotion"
+}

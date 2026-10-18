@@ -1,0 +1,108 @@
+{
+  "Status": "PINNED_SOURCE_PARTITION_AWAITING_FINAL13_IMPLEMENTATION_AND_ACTUAL_COMPARISONS",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "PinnedPath": "lib/stdlib/src/ordsets.erl",
+  "PinnedSha256": "526D1505D6CC482497F812879CDB41C533EA4BFC103E74850245F84C465CD70D",
+  "ExistingEightIndependentReview": "artifacts/erlang371-ordsets-independent-review1/review.json",
+  "Remaining13": [
+    {
+      "Mfa": "ordsets:from_list/1",
+      "Line": 194,
+      "CompleteBranchObligation": "Unconditional tail delegation to lists:usort/1. No ordsets argument guard. Correct raw argument/error/caller behavior belongs to usort, no extra ordsets continuation on failure. Sorting/unique representative behavior and arbitrary term ordering must match pinned usort, not an abstract mathematical set.",
+      "OrderingOrNumericEqualityDependency": true,
+      "EligibleNow": false
+    },
+    {
+      "Mfa": "ordsets:del_element/2",
+      "Line": 263,
+      "CompleteBranchObligation": "Cons branches test greater then less then numeric equivalence; greater preserves head in pending non-tail continuation; less returns original residual Set; equal returns residual Tail unchanged; Nil returns Nil. Invalid residual raises function_clause at263 with [E,residual] plus pending263frames.",
+      "OrderingOrNumericEqualityDependency": true,
+      "EligibleNow": false
+    },
+    {
+      "Mfa": "ordsets:union/2",
+      "Line": 288,
+      "CompleteBranchObligation": "Both Cons: less pushes E1 and recurses(Es1,Set2); greater pushes E2 and recurses(Es2,Set1), deliberately swapping roles; equal pushes E1 and recurses(Es1,Es2). First Nil returns second raw term; second Nil returns first raw term. Neither-base invalid patterns function_clause288; pending288constructors retain frames. Raw invalid branch must not eagerly validate both list spines.",
+      "OrderingOrNumericEqualityDependency": true,
+      "EligibleNow": false
+    },
+    {
+      "Mfa": "ordsets:union/1",
+      "Line": 318,
+      "CompleteBranchObligation": "Unconditional tail delegation to lists:umerge/1; preserve complete umerge helper/error behavior. It is not repeated abstract union fold; pair grouping can change numeric representatives, raw argument failure and remaining helper frames.",
+      "OrderingOrNumericEqualityDependency": true,
+      "EligibleNow": false
+    },
+    {
+      "Mfa": "ordsets:intersection/2",
+      "Line": 344,
+      "CompleteBranchObligation": "Both Cons: less tail-recurse(Es1,Set2); greater tail-recurse(Es2,Set1), swapping roles; equal pushes E1 and recurses(Es1,Es2), pending constructor frame at349. Either Nil returns Nil regardless other raw term. Otherwise function_clause344 effective residual arguments.",
+      "OrderingOrNumericEqualityDependency": true,
+      "EligibleNow": false
+    },
+    {
+      "Mfa": "ordsets:intersection/1",
+      "Line": 380,
+      "CompleteBranchObligation": "Two-or-more Cons heads: compute intersection(S1,S2) then call intersection1(result,Ss); singleton proper list returns its sole raw S unchanged. Nil/nonlist/one improper Cons fail public line380. intersection1 tail-repeats intersection(acc,S2), Nil returns accumulator; improper tail fails helper384 [acc,tail]. Compute inner intersection before testing outer remainder, preserving error priority and effects.",
+      "OrderingOrNumericEqualityDependency": true,
+      "EligibleNow": false
+    },
+    {
+      "Mfa": "ordsets:is_disjoint/2",
+      "Line": 412,
+      "CompleteBranchObligation": "Both Cons: less tail-recurse(Es1,Set2); greater tail-recurse(Es2,Set1), switching roles; numeric equivalent heads false. Either Nil true regardless other raw term. Otherwise function_clause412 with actual swapped/residual args. No pending source frames for tail scans.",
+      "OrderingOrNumericEqualityDependency": true,
+      "EligibleNow": false
+    },
+    {
+      "Mfa": "ordsets:subtract/2",
+      "Line": 443,
+      "CompleteBranchObligation": "Both Cons: less pushes E1 and recurse(Es1,Set2); greater tail-recurse(Set1,Es2), NO argument switch; equal tail-recurse(Es1,Es2). First Nil Nil; second Nil returns raw first term. Malformed residual function_clause443; pending preserved less-branch sourceframe444.",
+      "OrderingOrNumericEqualityDependency": true,
+      "EligibleNow": false
+    },
+    {
+      "Mfa": "ordsets:is_subset/2",
+      "Line": 473,
+      "CompleteBranchObligation": "Both Cons: less false immediately without inspecting suffix; greater tail-recurse(Set1,Es2), NO argument switch; equal tail-recurse(Es1,Es2). First Nil true, second Nil false. Otherwise function_clause473 effective residual args. Early false may avoid improper suffix error.",
+      "OrderingOrNumericEqualityDependency": true,
+      "EligibleNow": false
+    },
+    {
+      "Mfa": "ordsets:fold/3",
+      "Line": 501,
+      "CompleteBranchObligation": "Unconditional tail delegation to lists:foldl(F,Acc,Set). Compare exact callback arity/type guard, empty/nonlist/proper/improper handling, callback argument order [Element,Accumulator], once-only left-to-right effects, arbitrary accumulator identity, actual error class/reason/effective args and helper source frames. No ordsets tail frame should survive.",
+      "OrderingOrNumericEqualityDependency": false,
+      "EligibleNow": false
+    },
+    {
+      "Mfa": "ordsets:filter/2",
+      "Line": 521,
+      "CompleteBranchObligation": "Unconditional tail delegation to lists:filter(F,Set). Callback must accept arity1. It must run once per reached element in order, require exactly boolean true/false, retain original accepted term identity and handle malformed tail only after preceding callback effects. Full badfun/badarity/case_clause/function_clause frame distinctions are mandatory.",
+      "OrderingOrNumericEqualityDependency": false,
+      "EligibleNow": false
+    },
+    {
+      "Mfa": "ordsets:map/2",
+      "Line": 542,
+      "CompleteBranchObligation": "Non-tail lists:map(F,Set) first (ordsets:map continuation at543); on success tail from_list/1 ->lists:usort/1. All callbacks complete before sorting. Duplicate mapped values choose native usort representative, sorting may fail after callback effects. Reject wrong callback/list exactly as lists:map; do not eagerly enforce proper list or function before native source does.",
+      "OrderingOrNumericEqualityDependency": true,
+      "EligibleNow": false
+    },
+    {
+      "Mfa": "ordsets:filtermap/2",
+      "Line": 580,
+      "CompleteBranchObligation": "Non-tail lists:filtermap(F,Set) first (ordsets:filtermap continuation581); on success tail from_list/1->lists:usort/1. Callback true retains input element, false drops, {true,Value} replaces, every other return raises native lists helper error. Complete callback traversal precedes usort, no premature sorting/dedup.",
+      "OrderingOrNumericEqualityDependency": true,
+      "EligibleNow": false
+    }
+  ],
+  "NoOriginalOrMainExecution": true,
+  "NoMainEdits": true,
+  "NoWholeModulePromotionFromPresence": true,
+  "PotentialAdditionalComparisonFreeContracts": [
+    "ordsets:fold/3",
+    "ordsets:filter/2"
+  ],
+  "PotentialAdditionalRequirements": "Exhaustive delegated lists source graph and error/frame/callback effect proof, strict actual final Main comparison. Existing lists Needs verification does not automatically prohibit or establish a narrow independently proven wrapper contract."
+}

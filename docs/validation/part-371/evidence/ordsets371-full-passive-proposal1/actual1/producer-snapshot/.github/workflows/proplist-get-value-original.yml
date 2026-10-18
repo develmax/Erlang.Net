@@ -1,0 +1,88 @@
+name: Original ordsets21 contracts
+on:
+  workflow_dispatch:
+    inputs:
+      expected_head:
+        description: Exact reviewed validation head
+        type: string
+        required: true
+      source_inputs_sha256:
+        description: Reviewed full21 ordsets source manifest SHA256
+        type: string
+        required: true
+permissions:
+  contents: read
+jobs:
+  original-queue8:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    env:
+      EXPECTED_HEAD: ${{ inputs.expected_head }}
+      ORDSETS_SOURCE_INPUTS_SHA256: ${{ inputs.source_inputs_sha256 }}
+      ERLC_USE_SERVER: 'false'
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+      - name: Admit exact head and parse all five full21 sources
+        id: ordsets_preflight
+        run: python3 -B tools/Erlang.OrdsetsCoreOriginalObservations/ci-preflight.py --head "$EXPECTED_HEAD" --manifest-sha256 "$ORDSETS_SOURCE_INPUTS_SHA256"
+      - name: Clone pinned OTP source once
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 --branch OTP-29.1.1 https://github.com/erlang/otp.git artifacts/proplists22-otp-source \
+            2>&1 | tee artifacts/proplists22-original/clone.log
+          test "$(git -C artifacts/proplists22-otp-source rev-parse HEAD)" = ad05823719d77c8faee87348ea39513d4e2f99c5
+      - name: Build one original OTP installation for three independent ordsets groups
+        id: otp_build
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -B tools/Erlang.SchedulerAffinityOriginalObservations/build-original.py \
+            --repository "$GITHUB_WORKSPACE" --manifest-sha256 4C9A79CD6E8BC18F68316D42B2F30DB171E67A242CA81CA84BB8A022E8BA5BFB \
+            --expected-head "$EXPECTED_HEAD" --otp-source "$GITHUB_WORKSPACE/artifacts/proplists22-otp-source" \
+            --prefix "$GITHUB_WORKSPACE/artifacts/proplists22-otp" \
+            --output "$GITHUB_WORKSPACE/artifacts/proplists22-original/build" \
+            2>&1 | tee artifacts/proplists22-original/build.log
+      - name: Collect all21 ordsets exports with complete stacks
+        id: ordsets_collect
+        shell: bash
+        run: |
+          set -euo pipefail
+          BUILD_RECEIPT="$GITHUB_WORKSPACE/artifacts/proplists22-original/build/build-receipt.json"
+          PARSE_GATE="$GITHUB_WORKSPACE/artifacts/proplists22-original/ordsets-preflight/parse-receipt.json"
+          python3 -B tools/Erlang.OrdsetsCoreOriginalObservations/collect-original.py \
+            --repository "$GITHUB_WORKSPACE" --expected-head "$EXPECTED_HEAD" --source-inputs-sha256 "$ORDSETS_SOURCE_INPUTS_SHA256" \
+            --parse-gate "$PARSE_GATE" --parse-gate-sha256 "$(sha256sum "$PARSE_GATE" | cut -d ' ' -f 1)" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/proplists22-otp-source" --runtime-root "$GITHUB_WORKSPACE/artifacts/proplists22-otp/lib/erlang" \
+            --build-receipt "$BUILD_RECEIPT" --approved-build-receipt-sha256 "$(sha256sum "$BUILD_RECEIPT" | cut -d ' ' -f 1)" \
+            --output "$GITHUB_WORKSPACE/artifacts/proplists22-original/ordsets-capture" 2>&1 | tee artifacts/proplists22-original/ordsets-collection.log
+      - name: Require complete preparation, build and all independent observations
+        if: always()
+        env:
+          PREPARATION: ${{ steps.ordsets_preflight.outcome }}
+          BUILD: ${{ steps.otp_build.outcome }}
+          COLLECTION: ${{ steps.ordsets_collect.outcome }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,os
+          from pathlib import Path
+          results={name:os.environ[name] for name in ['PREPARATION','BUILD','COLLECTION']}
+          output=Path('artifacts/proplists22-original');output.mkdir(parents=True,exist_ok=True)
+          (output/'ordsets21-outcomes.json').write_text(json.dumps(results,indent=2)+'\n')
+          print(json.dumps(results))
+          if any(value!='success' for value in results.values()):raise SystemExit(1)
+          PY
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: original-queue8
+          path: artifacts/proplists22-original/**
+          if-no-files-found: warn

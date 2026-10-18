@@ -1,0 +1,87 @@
+{
+  "Status": "INDEPENDENT_FINAL_SOURCE_REVIEW_ACCEPTED_CONDITIONAL_ON_ACTUAL_ORIGINAL_AND_FINAL_MAIN_GATES",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "NoMainWrites": true,
+  "NoBuildOrNetwork": true,
+  "BaseLedgerSha256": "40D36B1B04B89F0231AA145075B7B58208C3BE218CEEB281F2FA3FC7190CE30D",
+  "BaseGuardCount": 462,
+  "FinalProposedGuardCount": 469,
+  "ChangedExistingGuards": [
+    {
+      "Path": "src/Erlang.Runtime/CoreModules.cs",
+      "Before": "A538B78EE3F0B0E8A206C69BD0B6A3883F6A8B2F2B310A951C64E4382DBE788A",
+      "After": "14DDBBD97FC74E3BD730C877FC50B795A4E164DBA1DA88DCA4CDFFA5722AB47D"
+    }
+  ],
+  "AdditionalGuards": [
+    {
+      "Path": "src/Erlang.Compiler/ExpressionBindings.cs",
+      "Sha256": "FC38AC42C90BE1FD1FD322FD65F32A8D08A56D0965D1C6EFD42C195EE3962D51"
+    },
+    {
+      "Path": "src/Erlang.Compiler/CompiledExpressionBindings.cs",
+      "Sha256": "C270D9BF48E183171B521AA7C9E98EC0ED7849A8D983EDDC4642EECE84404AF7"
+    },
+    {
+      "Path": "src/Erlang.Compiler/CompiledBindingScope.cs",
+      "Sha256": "E3D670DE237A87C20277CCF82134FC049AED7AA643ACBC511D85D7BF0A00A0F3"
+    },
+    {
+      "Path": "src/Erlang.Runtime/OrdsetCoreExecution.cs",
+      "Sha256": "AD2CF551B2F7A8E0527034868744099DDB82777791915930AFE3BD69994323EA"
+    },
+    {
+      "Path": "src/Erlang.Runtime/OrdsetCoreModule.cs",
+      "Sha256": "E44C9F49C7F353162CE9B872F5047A6848FD32CF7DA73A93BE19328B8B943454"
+    },
+    {
+      "Path": "src/Erlang.Runtime/OrdsetCoreNames.cs",
+      "Sha256": "FABF3CD9EA3F5B6F96BACFB33A924CE07D6583F41F922BBB908964B29C867AAE"
+    },
+    {
+      "Path": "src/Erlang.Runtime/OrdsetCoreTrace.cs",
+      "Sha256": "043F92F9F3C0D89C360727652232A3A3FECBCB524A9DAFC7BA7059082019F39A"
+    }
+  ],
+  "NarrowRegistrationProof": {
+    "CoreModulesBeforeSha256": "A538B78EE3F0B0E8A206C69BD0B6A3883F6A8B2F2B310A951C64E4382DBE788A",
+    "CoreModulesAfterSha256": "14DDBBD97FC74E3BD730C877FC50B795A4E164DBA1DA88DCA4CDFFA5722AB47D",
+    "ExactChange": "One OrdsetCoreModule.Register(r) call immediately after QueueCoreModule.Register(r), no other byte change.",
+    "ReversibleByteEquality": true
+  },
+  "PreservedFourErLangContractProof": {
+    "PriorProofPath": "artifacts/erlang371-contract-audit1/contract-proof.json",
+    "PriorProofSha256": "2439C10B9EFEC544F210914FE1FF82BB18F6DF6A57B7B7EFFF5A6929F6422715",
+    "SourceBindingChanges": [
+      {
+        "Path": "src/Erlang.Runtime/CoreModules.cs",
+        "Before": "A538B78EE3F0B0E8A206C69BD0B6A3883F6A8B2F2B310A951C64E4382DBE788A",
+        "After": "14DDBBD97FC74E3BD730C877FC50B795A4E164DBA1DA88DCA4CDFFA5722AB47D"
+      }
+    ],
+    "Review": "All hd/tl/tuple_size/is_integer3 handlers, error wrappers, guards, argument-binding and source metadata code remain byte-identical. New ordsets registration introduces eight distinct module ordsets signatures; no existing erlang signature is replaced and no erlang dispatch binding changes. New atoms/modules may alter VM own state, but these four handlers use type/member/count/BigInteger operations only. Their prior complete branch proofs remain valid on final sources."
+  },
+  "OrdsetsFinalSourceReview": {
+    "PriorReviewPath": "artifacts/erlang371-ordsets-independent-review1/review.json",
+    "PriorReviewSha256": "18B73E39581F4624BE7DDAA64228B2AF386D7CBC64389F4596E426566493F412",
+    "FourFilesTokenEquivalentToProposal": true,
+    "Review": "Style changes only; no altered token, literal or branch. Three comparison-free contracts new/0,is_empty/1,to_list/1 remain eligible after actual native/current-Main comparisons. size,is_equal,is_set,is_element,add_element remain Needs verification for source dependencies described in prior independent review."
+  },
+  "ArgumentBindingGuardAddition": "ExpressionBindings,CompiledExpressionBindings,CompiledBindingScope are unchanged existing call-evaluation helpers. New guard rows bind left-to-right once-only argument capture relevant to these APIs; no general Core/SSA parity claim.",
+  "ProposedPresenceDelta": 8,
+  "ConditionalCompleteContractDelta": 7,
+  "ConditionalErlangComplete": 20,
+  "ConditionalOrdsetsPresent": 8,
+  "ConditionalOrdsetsComplete": 3,
+  "ConditionalGlobalPresent": 686,
+  "ConditionalGlobalComplete": 114,
+  "NoStatusChangeApplied": true,
+  "NoActualSupplementExecutionCreditedByReviewer": true,
+  "RequiredRemainingGates": [
+    "Accept pinned original same-job source/module/build provenance and full raw packets.",
+    "Capture actual final Main DLL closure and compare every field of values/stacks without generic normalization.",
+    "Require all bounded four-MFA and comparison-free ordsets rows strict with zero differences.",
+    "Run affected final-source regression and preserve existing classifications/evidence.",
+    "Only Root then applies precise7 promotions, leaving5 remaining ordsets entries pending."
+  ]
+}

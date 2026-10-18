@@ -1,0 +1,843 @@
+{
+  "Family": "ordsets-core8",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SubjectModule": "ordsets",
+  "Mfas": [
+    "ordsets:add_element/2",
+    "ordsets:is_element/2",
+    "ordsets:is_empty/1",
+    "ordsets:is_equal/2",
+    "ordsets:is_set/1",
+    "ordsets:new/0",
+    "ordsets:size/1",
+    "ordsets:to_list/1"
+  ],
+  "Fixtures": [
+    {
+      "Id": "ordsets_core",
+      "Location": "tool",
+      "Path": "original/ordsets_core_observe.erl",
+      "Module": "ordsets_core_observe",
+      "NamesEntry": "cases",
+      "Run": "run",
+      "StackModule": "ordsets_core_observe",
+      "StackEntry": "run_stacks",
+      "StackShape": "depth_cases",
+      "WorkerModule": "ordsets_core_worker",
+      "WorkerEntry": "run",
+      "Companions": [
+        "original/ordsets_core_support.erl",
+        "original/ordsets_core_worker.erl"
+      ],
+      "Names": [
+        "new_empty",
+        "is_set_0",
+        "is_set_1",
+        "is_set_2",
+        "is_set_3",
+        "is_set_4",
+        "is_set_5",
+        "is_set_6",
+        "is_set_7",
+        "is_set_8",
+        "is_set_9",
+        "is_set_10",
+        "is_set_11",
+        "is_set_12",
+        "is_set_13",
+        "is_set_14",
+        "is_set_15",
+        "size_0",
+        "size_1",
+        "size_2",
+        "size_3",
+        "size_4",
+        "size_5",
+        "size_6",
+        "size_7",
+        "size_8",
+        "size_9",
+        "size_10",
+        "size_11",
+        "size_12",
+        "size_13",
+        "size_14",
+        "size_15",
+        "is_empty_0",
+        "is_empty_1",
+        "is_empty_2",
+        "is_empty_3",
+        "is_empty_4",
+        "is_empty_5",
+        "is_empty_6",
+        "is_empty_7",
+        "is_empty_8",
+        "is_empty_9",
+        "is_empty_10",
+        "is_empty_11",
+        "is_empty_12",
+        "is_empty_13",
+        "is_empty_14",
+        "is_empty_15",
+        "to_list_0",
+        "to_list_1",
+        "to_list_2",
+        "to_list_3",
+        "to_list_4",
+        "to_list_5",
+        "to_list_6",
+        "to_list_7",
+        "to_list_8",
+        "to_list_9",
+        "to_list_10",
+        "to_list_11",
+        "to_list_12",
+        "to_list_13",
+        "to_list_14",
+        "to_list_15",
+        "is_equal_0",
+        "is_equal_1",
+        "is_equal_2",
+        "is_equal_3",
+        "is_equal_4",
+        "is_equal_5",
+        "is_equal_6",
+        "is_equal_7",
+        "is_equal_8",
+        "is_equal_9",
+        "is_equal_10",
+        "is_equal_11",
+        "is_equal_12",
+        "is_element_0",
+        "is_element_1",
+        "is_element_2",
+        "is_element_3",
+        "is_element_4",
+        "is_element_5",
+        "is_element_6",
+        "is_element_7",
+        "is_element_8",
+        "is_element_9",
+        "is_element_10",
+        "is_element_11",
+        "is_element_12",
+        "is_element_13",
+        "is_element_14",
+        "is_element_15",
+        "is_element_16",
+        "add_element_0",
+        "add_element_1",
+        "add_element_2",
+        "add_element_3",
+        "add_element_4",
+        "add_element_5",
+        "add_element_6",
+        "add_element_7",
+        "add_element_8",
+        "add_element_9",
+        "add_element_10",
+        "add_element_11",
+        "add_element_12",
+        "add_element_13",
+        "add_element_14",
+        "add_element_15",
+        "add_element_16"
+      ],
+      "Cases": [
+        {
+          "Name": "new_empty",
+          "Mfas": [
+            "ordsets:new/0"
+          ]
+        },
+        {
+          "Name": "is_set_0",
+          "Mfas": [
+            "ordsets:is_set/1"
+          ]
+        },
+        {
+          "Name": "is_set_1",
+          "Mfas": [
+            "ordsets:is_set/1"
+          ]
+        },
+        {
+          "Name": "is_set_2",
+          "Mfas": [
+            "ordsets:is_set/1"
+          ]
+        },
+        {
+          "Name": "is_set_3",
+          "Mfas": [
+            "ordsets:is_set/1"
+          ]
+        },
+        {
+          "Name": "is_set_4",
+          "Mfas": [
+            "ordsets:is_set/1"
+          ]
+        },
+        {
+          "Name": "is_set_5",
+          "Mfas": [
+            "ordsets:is_set/1"
+          ]
+        },
+        {
+          "Name": "is_set_6",
+          "Mfas": [
+            "ordsets:is_set/1"
+          ]
+        },
+        {
+          "Name": "is_set_7",
+          "Mfas": [
+            "ordsets:is_set/1"
+          ]
+        },
+        {
+          "Name": "is_set_8",
+          "Mfas": [
+            "ordsets:is_set/1"
+          ]
+        },
+        {
+          "Name": "is_set_9",
+          "Mfas": [
+            "ordsets:is_set/1"
+          ]
+        },
+        {
+          "Name": "is_set_10",
+          "Mfas": [
+            "ordsets:is_set/1"
+          ]
+        },
+        {
+          "Name": "is_set_11",
+          "Mfas": [
+            "ordsets:is_set/1"
+          ]
+        },
+        {
+          "Name": "is_set_12",
+          "Mfas": [
+            "ordsets:is_set/1"
+          ]
+        },
+        {
+          "Name": "is_set_13",
+          "Mfas": [
+            "ordsets:is_set/1"
+          ]
+        },
+        {
+          "Name": "is_set_14",
+          "Mfas": [
+            "ordsets:is_set/1"
+          ]
+        },
+        {
+          "Name": "is_set_15",
+          "Mfas": [
+            "ordsets:is_set/1"
+          ]
+        },
+        {
+          "Name": "size_0",
+          "Mfas": [
+            "ordsets:size/1"
+          ]
+        },
+        {
+          "Name": "size_1",
+          "Mfas": [
+            "ordsets:size/1"
+          ]
+        },
+        {
+          "Name": "size_2",
+          "Mfas": [
+            "ordsets:size/1"
+          ]
+        },
+        {
+          "Name": "size_3",
+          "Mfas": [
+            "ordsets:size/1"
+          ]
+        },
+        {
+          "Name": "size_4",
+          "Mfas": [
+            "ordsets:size/1"
+          ]
+        },
+        {
+          "Name": "size_5",
+          "Mfas": [
+            "ordsets:size/1"
+          ]
+        },
+        {
+          "Name": "size_6",
+          "Mfas": [
+            "ordsets:size/1"
+          ]
+        },
+        {
+          "Name": "size_7",
+          "Mfas": [
+            "ordsets:size/1"
+          ]
+        },
+        {
+          "Name": "size_8",
+          "Mfas": [
+            "ordsets:size/1"
+          ]
+        },
+        {
+          "Name": "size_9",
+          "Mfas": [
+            "ordsets:size/1"
+          ]
+        },
+        {
+          "Name": "size_10",
+          "Mfas": [
+            "ordsets:size/1"
+          ]
+        },
+        {
+          "Name": "size_11",
+          "Mfas": [
+            "ordsets:size/1"
+          ]
+        },
+        {
+          "Name": "size_12",
+          "Mfas": [
+            "ordsets:size/1"
+          ]
+        },
+        {
+          "Name": "size_13",
+          "Mfas": [
+            "ordsets:size/1"
+          ]
+        },
+        {
+          "Name": "size_14",
+          "Mfas": [
+            "ordsets:size/1"
+          ]
+        },
+        {
+          "Name": "size_15",
+          "Mfas": [
+            "ordsets:size/1"
+          ]
+        },
+        {
+          "Name": "is_empty_0",
+          "Mfas": [
+            "ordsets:is_empty/1"
+          ]
+        },
+        {
+          "Name": "is_empty_1",
+          "Mfas": [
+            "ordsets:is_empty/1"
+          ]
+        },
+        {
+          "Name": "is_empty_2",
+          "Mfas": [
+            "ordsets:is_empty/1"
+          ]
+        },
+        {
+          "Name": "is_empty_3",
+          "Mfas": [
+            "ordsets:is_empty/1"
+          ]
+        },
+        {
+          "Name": "is_empty_4",
+          "Mfas": [
+            "ordsets:is_empty/1"
+          ]
+        },
+        {
+          "Name": "is_empty_5",
+          "Mfas": [
+            "ordsets:is_empty/1"
+          ]
+        },
+        {
+          "Name": "is_empty_6",
+          "Mfas": [
+            "ordsets:is_empty/1"
+          ]
+        },
+        {
+          "Name": "is_empty_7",
+          "Mfas": [
+            "ordsets:is_empty/1"
+          ]
+        },
+        {
+          "Name": "is_empty_8",
+          "Mfas": [
+            "ordsets:is_empty/1"
+          ]
+        },
+        {
+          "Name": "is_empty_9",
+          "Mfas": [
+            "ordsets:is_empty/1"
+          ]
+        },
+        {
+          "Name": "is_empty_10",
+          "Mfas": [
+            "ordsets:is_empty/1"
+          ]
+        },
+        {
+          "Name": "is_empty_11",
+          "Mfas": [
+            "ordsets:is_empty/1"
+          ]
+        },
+        {
+          "Name": "is_empty_12",
+          "Mfas": [
+            "ordsets:is_empty/1"
+          ]
+        },
+        {
+          "Name": "is_empty_13",
+          "Mfas": [
+            "ordsets:is_empty/1"
+          ]
+        },
+        {
+          "Name": "is_empty_14",
+          "Mfas": [
+            "ordsets:is_empty/1"
+          ]
+        },
+        {
+          "Name": "is_empty_15",
+          "Mfas": [
+            "ordsets:is_empty/1"
+          ]
+        },
+        {
+          "Name": "to_list_0",
+          "Mfas": [
+            "ordsets:to_list/1"
+          ]
+        },
+        {
+          "Name": "to_list_1",
+          "Mfas": [
+            "ordsets:to_list/1"
+          ]
+        },
+        {
+          "Name": "to_list_2",
+          "Mfas": [
+            "ordsets:to_list/1"
+          ]
+        },
+        {
+          "Name": "to_list_3",
+          "Mfas": [
+            "ordsets:to_list/1"
+          ]
+        },
+        {
+          "Name": "to_list_4",
+          "Mfas": [
+            "ordsets:to_list/1"
+          ]
+        },
+        {
+          "Name": "to_list_5",
+          "Mfas": [
+            "ordsets:to_list/1"
+          ]
+        },
+        {
+          "Name": "to_list_6",
+          "Mfas": [
+            "ordsets:to_list/1"
+          ]
+        },
+        {
+          "Name": "to_list_7",
+          "Mfas": [
+            "ordsets:to_list/1"
+          ]
+        },
+        {
+          "Name": "to_list_8",
+          "Mfas": [
+            "ordsets:to_list/1"
+          ]
+        },
+        {
+          "Name": "to_list_9",
+          "Mfas": [
+            "ordsets:to_list/1"
+          ]
+        },
+        {
+          "Name": "to_list_10",
+          "Mfas": [
+            "ordsets:to_list/1"
+          ]
+        },
+        {
+          "Name": "to_list_11",
+          "Mfas": [
+            "ordsets:to_list/1"
+          ]
+        },
+        {
+          "Name": "to_list_12",
+          "Mfas": [
+            "ordsets:to_list/1"
+          ]
+        },
+        {
+          "Name": "to_list_13",
+          "Mfas": [
+            "ordsets:to_list/1"
+          ]
+        },
+        {
+          "Name": "to_list_14",
+          "Mfas": [
+            "ordsets:to_list/1"
+          ]
+        },
+        {
+          "Name": "to_list_15",
+          "Mfas": [
+            "ordsets:to_list/1"
+          ]
+        },
+        {
+          "Name": "is_equal_0",
+          "Mfas": [
+            "ordsets:is_equal/2"
+          ]
+        },
+        {
+          "Name": "is_equal_1",
+          "Mfas": [
+            "ordsets:is_equal/2"
+          ]
+        },
+        {
+          "Name": "is_equal_2",
+          "Mfas": [
+            "ordsets:is_equal/2"
+          ]
+        },
+        {
+          "Name": "is_equal_3",
+          "Mfas": [
+            "ordsets:is_equal/2"
+          ]
+        },
+        {
+          "Name": "is_equal_4",
+          "Mfas": [
+            "ordsets:is_equal/2"
+          ]
+        },
+        {
+          "Name": "is_equal_5",
+          "Mfas": [
+            "ordsets:is_equal/2"
+          ]
+        },
+        {
+          "Name": "is_equal_6",
+          "Mfas": [
+            "ordsets:is_equal/2"
+          ]
+        },
+        {
+          "Name": "is_equal_7",
+          "Mfas": [
+            "ordsets:is_equal/2"
+          ]
+        },
+        {
+          "Name": "is_equal_8",
+          "Mfas": [
+            "ordsets:is_equal/2"
+          ]
+        },
+        {
+          "Name": "is_equal_9",
+          "Mfas": [
+            "ordsets:is_equal/2"
+          ]
+        },
+        {
+          "Name": "is_equal_10",
+          "Mfas": [
+            "ordsets:is_equal/2"
+          ]
+        },
+        {
+          "Name": "is_equal_11",
+          "Mfas": [
+            "ordsets:is_equal/2"
+          ]
+        },
+        {
+          "Name": "is_equal_12",
+          "Mfas": [
+            "ordsets:is_equal/2"
+          ]
+        },
+        {
+          "Name": "is_element_0",
+          "Mfas": [
+            "ordsets:is_element/2"
+          ]
+        },
+        {
+          "Name": "is_element_1",
+          "Mfas": [
+            "ordsets:is_element/2"
+          ]
+        },
+        {
+          "Name": "is_element_2",
+          "Mfas": [
+            "ordsets:is_element/2"
+          ]
+        },
+        {
+          "Name": "is_element_3",
+          "Mfas": [
+            "ordsets:is_element/2"
+          ]
+        },
+        {
+          "Name": "is_element_4",
+          "Mfas": [
+            "ordsets:is_element/2"
+          ]
+        },
+        {
+          "Name": "is_element_5",
+          "Mfas": [
+            "ordsets:is_element/2"
+          ]
+        },
+        {
+          "Name": "is_element_6",
+          "Mfas": [
+            "ordsets:is_element/2"
+          ]
+        },
+        {
+          "Name": "is_element_7",
+          "Mfas": [
+            "ordsets:is_element/2"
+          ]
+        },
+        {
+          "Name": "is_element_8",
+          "Mfas": [
+            "ordsets:is_element/2"
+          ]
+        },
+        {
+          "Name": "is_element_9",
+          "Mfas": [
+            "ordsets:is_element/2"
+          ]
+        },
+        {
+          "Name": "is_element_10",
+          "Mfas": [
+            "ordsets:is_element/2"
+          ]
+        },
+        {
+          "Name": "is_element_11",
+          "Mfas": [
+            "ordsets:is_element/2"
+          ]
+        },
+        {
+          "Name": "is_element_12",
+          "Mfas": [
+            "ordsets:is_element/2"
+          ]
+        },
+        {
+          "Name": "is_element_13",
+          "Mfas": [
+            "ordsets:is_element/2"
+          ]
+        },
+        {
+          "Name": "is_element_14",
+          "Mfas": [
+            "ordsets:is_element/2"
+          ]
+        },
+        {
+          "Name": "is_element_15",
+          "Mfas": [
+            "ordsets:is_element/2"
+          ]
+        },
+        {
+          "Name": "is_element_16",
+          "Mfas": [
+            "ordsets:is_element/2"
+          ]
+        },
+        {
+          "Name": "add_element_0",
+          "Mfas": [
+            "ordsets:add_element/2"
+          ]
+        },
+        {
+          "Name": "add_element_1",
+          "Mfas": [
+            "ordsets:add_element/2"
+          ]
+        },
+        {
+          "Name": "add_element_2",
+          "Mfas": [
+            "ordsets:add_element/2"
+          ]
+        },
+        {
+          "Name": "add_element_3",
+          "Mfas": [
+            "ordsets:add_element/2"
+          ]
+        },
+        {
+          "Name": "add_element_4",
+          "Mfas": [
+            "ordsets:add_element/2"
+          ]
+        },
+        {
+          "Name": "add_element_5",
+          "Mfas": [
+            "ordsets:add_element/2"
+          ]
+        },
+        {
+          "Name": "add_element_6",
+          "Mfas": [
+            "ordsets:add_element/2"
+          ]
+        },
+        {
+          "Name": "add_element_7",
+          "Mfas": [
+            "ordsets:add_element/2"
+          ]
+        },
+        {
+          "Name": "add_element_8",
+          "Mfas": [
+            "ordsets:add_element/2"
+          ]
+        },
+        {
+          "Name": "add_element_9",
+          "Mfas": [
+            "ordsets:add_element/2"
+          ]
+        },
+        {
+          "Name": "add_element_10",
+          "Mfas": [
+            "ordsets:add_element/2"
+          ]
+        },
+        {
+          "Name": "add_element_11",
+          "Mfas": [
+            "ordsets:add_element/2"
+          ]
+        },
+        {
+          "Name": "add_element_12",
+          "Mfas": [
+            "ordsets:add_element/2"
+          ]
+        },
+        {
+          "Name": "add_element_13",
+          "Mfas": [
+            "ordsets:add_element/2"
+          ]
+        },
+        {
+          "Name": "add_element_14",
+          "Mfas": [
+            "ordsets:add_element/2"
+          ]
+        },
+        {
+          "Name": "add_element_15",
+          "Mfas": [
+            "ordsets:add_element/2"
+          ]
+        },
+        {
+          "Name": "add_element_16",
+          "Mfas": [
+            "ordsets:add_element/2"
+          ]
+        }
+      ],
+      "ValueAcquisition": "compiled-monitored-worker-values-and-stacks-v1",
+      "ObserveTimeoutSeconds": 120
+    }
+  ],
+  "FixtureSources": [
+    {
+      "Location": "tool",
+      "Path": "original/ordsets_core_observe.erl",
+      "Sha256": "AC24957714C62AD1060F6ED605B6BF8E69DF65AA1DD20CE841723916090EA2B4"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/ordsets_core_support.erl",
+      "Sha256": "2A53C9438BCD781568BD0C9628512D1FA60531F9AE84F07459FB00DB63431323"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/ordsets_core_worker.erl",
+      "Sha256": "378F4D173BA6801FAF7363DEAA155FCA6B550F58CECF25B1B2864F12D435A547"
+    }
+  ],
+  "ExpectedUniqueSourceCount": 3,
+  "ValueAcquisition": "compiled-monitored-worker-values-and-stacks-v1"
+}
