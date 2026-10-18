@@ -1,0 +1,112 @@
+{
+  "Stages": [
+    {
+      "Name": "erlang-old",
+      "Script": "artifacts/erlang370-retrospective-peer1/compare.py",
+      "ScriptSha256": "C00E379CAB96E9EDAE04F10B64C37D73983FCC401502D3F10CA5B86242D5B7CF",
+      "Arguments": [
+        "--native",
+        "artifacts/erlang370-original-failure1/raw/capture",
+        "--native-admission",
+        "artifacts/erlang370-retrospective-peer1/acceptance.json"
+      ]
+    },
+    {
+      "Name": "erlang-new",
+      "Script": "artifacts/erlang370-closure-admission-proposal1/compare.py",
+      "ScriptSha256": "3434C77EDAB8208B29F04D9BC44F52D274D80DEC5F82B61E3EDDBFD0BB98F7DC",
+      "Arguments": [
+        "--native",
+        "artifacts/erlang-original370-closure-remote1/run-39108122243/artifact-12129576088/capture",
+        "--native-admission",
+        "artifacts/erlang370-closure-admission-proposal1/actual1/acceptance.json"
+      ]
+    },
+    {
+      "Name": "binary-primary",
+      "Script": "artifacts/binary369-comparison-successor1/compare.py",
+      "ScriptSha256": "85CE28664024AC36CF49F3BD265D5E7D0A3132CDC86AC3A3FDF286A881DE3365",
+      "Arguments": [
+        "--tool",
+        "artifacts/binary-original369-original1/tool",
+        "--native",
+        "artifacts/binary369-original-remote1/run-39083021286/artifact-12119578493/capture",
+        "--native-admission",
+        "artifacts/binary369-original-admission-proposal2/actual1/acceptance.json"
+      ]
+    },
+    {
+      "Name": "binary-supplement",
+      "Script": "artifacts/binary369-supplement-execution-proposal2/compare-binary.py",
+      "ScriptSha256": "EBE9AB1A1480FA7340F933E8FCE19D43148B942690061D75A78D952A0DF47D47",
+      "Arguments": [
+        "--tool",
+        "artifacts/binary-original369-supplement1/tool",
+        "--native",
+        "artifacts/binary369-supplement-remote1/run-39083564610/artifact-12120102622/capture"
+      ]
+    },
+    {
+      "Name": "binary-closure",
+      "Script": "artifacts/binary369-closure-execution-proposal1/compare-binary.py",
+      "ScriptSha256": "5D7A5C7BFA334E094F8C4BFFAC7FC0B152F714842EA7BBCC6ACDC3B3E4858D72",
+      "Arguments": [
+        "--tool",
+        "artifacts/binary-original369-closure1/tool",
+        "--native",
+        "artifacts/binary369-closure-remote1/run-39084998283/artifact-12120398030/capture"
+      ]
+    },
+    {
+      "Name": "binary-insert",
+      "Script": "artifacts/binary369-insert-execution-proposal1/compare-binary.py",
+      "ScriptSha256": "94EB50288F5B4F443E5C4F6676DD55356C20ED449A7F64E48291E8E8FF626FA2",
+      "Arguments": [
+        "--tool",
+        "artifacts/binary-original369-insert1/tool",
+        "--native",
+        "artifacts/binary369-insert-remote1/run-39085952486/artifact-12121017293/capture"
+      ]
+    },
+    {
+      "Name": "erlang371",
+      "Script": "artifacts/erlang371-root/compare-final-erlang.py",
+      "ScriptSha256": "E3A03C43AAC1BBB208C59B8516548B45AAFD9E9D5FC9CD6895C5788B2018A398",
+      "Arguments": [
+        "--native",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\erlang371-original1\\download\\run-39112151003\\artifact-12130754382\\capture",
+        "--native-admission",
+        "artifacts/erlang371-passive-proposal3/actual1/acceptance.json",
+        "--native-admission-sha256",
+        "CCCD1EFC506210932915362CA2A60141FE0EB2F920EDE152D8C6CE49EBAF6EFA",
+        "--tool",
+        "artifacts/erlang371-next-original-proposal1/tool",
+        "--expected-head",
+        "fd2faca8697f4c9ba9ea85a1b71ef4ca5582a359",
+        "--manifest-sha256",
+        "9A216480984F46A35178F3606B04D515E2639A71DB1A848578BEEB9C2B0871AF"
+      ]
+    },
+    {
+      "Name": "ordsets371",
+      "Script": "artifacts/ordsets371-full-passive-proposal1/compare.py",
+      "ScriptSha256": "E54182222C15A5400349CAA508C8C4EAAD68AE0C27ACE64879809DFC38CF25B4",
+      "Arguments": [
+        "--native",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\ordsets371-original1\\download\\run-39113248779\\artifact-12131801263\\ordsets-capture",
+        "--native-admission",
+        "artifacts/ordsets371-full-passive-proposal1/actual1/acceptance.json",
+        "--native-admission-sha256",
+        "019080B7B3B39F426DB22C7EE5C98775D516BB532A98DF17539C81592342EC85",
+        "--tool",
+        "artifacts/ordsets371-remaining-original-proposal3/tool",
+        "--expected-head",
+        "5baf7226c5a0bb7716968394d12c73ee11e0f1c6",
+        "--manifest-sha256",
+        "3C80B156E5E5704FFE172B1E23C2662C1F00FE6E7B191C19F9A11760BC4E0325"
+      ]
+    }
+  ],
+  "NoPolicyChanged": true,
+  "FreshFinalCapturedAndLiveDllEqualityRequired": true
+}

@@ -1,0 +1,31 @@
+{
+  "Status": "FAILED_RAW_RETAINED",
+  "Phase": "numeric_edges",
+  "Error": "RuntimeError('Independent original groups failed; raw outputs retained.')",
+  "Groups": [
+    {
+      "Id": "numeric_edges",
+      "ExpectedRows": 60,
+      "Acquired": false,
+      "VmSkipped": false,
+      "ValueAcquisition": "compiled-monitored-worker-values-and-stacks-v1",
+      "Failure": "RuntimeError('Owned original process failed: /home/runner/work/Erlang.Net/Erlang.Net/artifacts/part372-original/numeric-capture/numeric_edges/observe')"
+    }
+  ],
+  "OwnedStages": [
+    {
+      "Group": "numeric_edges",
+      "Name": "compile",
+      "ReceiptSha256": "99F78B158754F4E8CBE07146526CEA3AA9331878D4EA3962E27ADADEC7A5BA5D",
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Group": "numeric_edges",
+      "Name": "observe",
+      "ReceiptSha256": "0149761F8E0635B0DFC152838D02ADFAC5C1395476F859992B7A6A1D9BF7B503",
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "1685C6AD2A9CB6A93E44269CB43A98B3040BF4B42FC27EC236F5ABA85233F3CA"
+    }
+  ]
+}

@@ -8,10 +8,14 @@ internal static class ErlangIntegerParseBridge
         using var source = context.EnterSourceTailCall(ErlangModuleNames.Module, function);
         try
         {
-            return ErlangIntegerText.Parse(
-                binary ? ErlangIoData.Binary(arguments[0]).Select(value => (int)value) : ErlangIntegerText.ListCharacters(arguments[0]),
-                ErlangIntegerText.Base(arguments)
-            );
+            int radix = ErlangIntegerText.Base(arguments);
+
+            return binary
+                ? ErlangIntegerText.Parse(
+                    ErlangIoData.Binary(arguments[0]).Select(value => (int)value),
+                    radix
+                )
+                : ErlangIntegerListParse.Parse(arguments[0], radix);
         }
         catch (ErlangException error)
         {

@@ -2,12 +2,33 @@ namespace Erlang;
 
 internal static class ListUniqueMergeMachine
 {
-    internal static async ValueTask<Term> Run(ProcessContext context, Term lists)
+    internal static ValueTask<Term> Run(ProcessContext context, Term lists)
+        => Execute(
+            context,
+            lists,
+            ListUniqueMergeState.Umergel1,
+            ListModuleNames.UniqueMerge
+        );
+
+    internal static ValueTask<Term> Sort(ProcessContext context, Term list)
+        => Execute(
+            context,
+            list,
+            ListUniqueMergeState.Usort1,
+            ListModuleNames.UniqueSort
+        );
+
+    private static async ValueTask<Term> Execute(
+        ProcessContext context,
+        Term input,
+        ListUniqueMergeState initial,
+        string function
+    )
     {
-        using var tail = context.EnterSourceTailCall(ListModuleNames.Module, ListModuleNames.UniqueMerge);
+        using var tail = context.EnterSourceTailCall(ListModuleNames.Module, function);
         var continuations = new Stack<ListUniqueMergeContinuation>();
-        var state = ListUniqueMergeState.Umergel1;
-        Term[] arguments = [lists];
+        var state = initial;
+        Term[] arguments = [input];
         while (true)
         {
             await context.ReduceAsync();
@@ -15,6 +36,401 @@ internal static class ListUniqueMergeMachine
             bool complete = false;
             switch (state)
             {
+                case ListUniqueMergeState.Usort1:
+                    {
+                        if (arguments[0] is Cons { Tail: Cons second } first)
+                        {
+                            Term x = first.Head;
+                            Term y = second.Head;
+                            Term rest = second.Tail;
+                            if (TermOrder.Compare(x, y) < 0)
+                            {
+                                if (rest is Nil)
+                                    result = arguments[0];
+                                else if (rest is Cons { Tail: Nil } third)
+                                {
+                                    Term z = third.Head;
+                                    if (TermOrder.Compare(y, z) < 0)
+                                        result = arguments[0];
+                                    else if (y.NumericEquals(z))
+                                        result = new Cons(x, new Cons(y, Nil.Value));
+                                    else if (TermOrder.Compare(z, x) < 0)
+                                        result = new Cons(z, new Cons(x, new Cons(y, Nil.Value)));
+                                    else if (z.NumericEquals(x))
+                                        result = new Cons(x, new Cons(y, Nil.Value));
+                                    else
+                                        result = new Cons(x, new Cons(z, new Cons(y, Nil.Value)));
+                                }
+                                else
+                                {
+                                    state = ListUniqueMergeState.Usplit_15;
+                                    arguments = [x, y, rest, Nil.Value, Nil.Value];
+                                    continue;
+                                }
+                                complete = true;
+                                break;
+                            }
+                            if (TermOrder.Compare(x, y) > 0)
+                            {
+                                if (rest is Nil)
+                                    result = new Cons(y, new Cons(x, Nil.Value));
+                                else if (rest is Cons { Tail: Nil } third)
+                                {
+                                    Term z = third.Head;
+                                    if (TermOrder.Compare(x, z) < 0)
+                                        result = new Cons(y, new Cons(x, rest));
+                                    else if (x.NumericEquals(z))
+                                        result = new Cons(y, new Cons(x, Nil.Value));
+                                    else if (TermOrder.Compare(z, y) < 0)
+                                        result = new Cons(z, new Cons(y, new Cons(x, Nil.Value)));
+                                    else if (z.NumericEquals(y))
+                                        result = new Cons(y, new Cons(x, Nil.Value));
+                                    else
+                                        result = new Cons(y, new Cons(z, new Cons(x, Nil.Value)));
+                                }
+                                else
+                                {
+                                    state = ListUniqueMergeState.Usplit_25;
+                                    arguments = [x, y, rest, Nil.Value, Nil.Value];
+                                    continue;
+                                }
+                                complete = true;
+                                break;
+                            }
+                            state = ListUniqueMergeState.Usort_12;
+                            arguments = [x, rest];
+                            continue;
+                        }
+                        if (arguments[0] is Nil || arguments[0] is Cons { Tail: Nil })
+                        {
+                            result = arguments[0];
+                            complete = true;
+                            break;
+                        }
+                        throw ListUniqueMergeTrace.Clause(
+                            context,
+                            state,
+                            arguments,
+                            continuations
+                        );
+                    }
+                case ListUniqueMergeState.Usort_12:
+                    {
+                        {
+                            if (arguments[0] is var vX && arguments[1] is Cons cell0 && cell0.Head is var vY && cell0.Tail is var vL && vX.NumericEquals(vY))
+                            {
+                                state = ListUniqueMergeState.Usort_12;
+                                arguments = [vX, vL];
+                                continue;
+                            }
+                        }
+                        {
+                            if (arguments[0] is var vX && arguments[1] is Cons cell0 && cell0.Head is var vY && cell0.Tail is var vL && TermOrder.Compare(vX, vY) < 0)
+                            {
+                                state = ListUniqueMergeState.Usplit_15;
+                                arguments = [vX, vY, vL, Nil.Value, Nil.Value];
+                                continue;
+                            }
+                        }
+                        {
+                            if (arguments[0] is var vX && arguments[1] is Cons cell0 && cell0.Head is var vY && cell0.Tail is var vL)
+                            {
+                                state = ListUniqueMergeState.Usplit_25;
+                                arguments = [vX, vY, vL, Nil.Value, Nil.Value];
+                                continue;
+                            }
+                        }
+                        {
+                            if (arguments[0] is var vX && arguments[1] is Nil)
+                            {
+                                result = new Cons(vX, Nil.Value);
+                                complete = true;
+                                break;
+                            }
+                        }
+                        throw ListUniqueMergeTrace.Clause(
+                            context,
+                            state,
+                            arguments,
+                            continuations
+                        );
+                    }
+                case ListUniqueMergeState.Usplit_15:
+                    {
+                        {
+                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Cons cell0 && cell0.Head is var vZ && cell0.Tail is var vL && arguments[3] is var vR && arguments[4] is var vRs && TermOrder.Compare(vZ, vY) > 0)
+                            {
+                                state = ListUniqueMergeState.Usplit_15;
+                                arguments = [vY, vZ, vL, new Cons(vX, vR), vRs];
+                                continue;
+                            }
+                        }
+                        {
+                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Cons cell0 && cell0.Head is var vZ && cell0.Tail is var vL && arguments[3] is var vR && arguments[4] is var vRs && vZ.NumericEquals(vY))
+                            {
+                                state = ListUniqueMergeState.Usplit_15;
+                                arguments = [vX, vY, vL, vR, vRs];
+                                continue;
+                            }
+                        }
+                        {
+                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Cons cell0 && cell0.Head is var vZ && cell0.Tail is var vL && arguments[3] is var vR && arguments[4] is var vRs && TermOrder.Compare(vZ, vX) > 0)
+                            {
+                                state = ListUniqueMergeState.Usplit_15;
+                                arguments = [vZ, vY, vL, new Cons(vX, vR), vRs];
+                                continue;
+                            }
+                        }
+                        {
+                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Cons cell0 && cell0.Head is var vZ && cell0.Tail is var vL && arguments[3] is var vR && arguments[4] is var vRs && vZ.NumericEquals(vX))
+                            {
+                                state = ListUniqueMergeState.Usplit_15;
+                                arguments = [vX, vY, vL, vR, vRs];
+                                continue;
+                            }
+                        }
+                        {
+                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Cons cell0 && cell0.Head is var vZ && cell0.Tail is var vL && arguments[3] is Nil && arguments[4] is var vRs)
+                            {
+                                state = ListUniqueMergeState.Usplit_15;
+                                arguments = [vX, vY, vL, new Cons(vZ, Nil.Value), vRs];
+                                continue;
+                            }
+                        }
+                        {
+                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Cons cell0 && cell0.Head is var vZ && cell0.Tail is var vL && arguments[3] is var vR && arguments[4] is var vRs)
+                            {
+                                state = ListUniqueMergeState.Usplit_1_16;
+                                arguments = [vX, vY, vL, vR, vRs, vZ];
+                                continue;
+                            }
+                        }
+                        {
+                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Nil && arguments[3] is var vR && arguments[4] is var vRs)
+                            {
+                                state = ListUniqueMergeState.Rumergel3;
+                                arguments = [new Cons(new Cons(vY, new Cons(vX, vR)), vRs), Nil.Value, ListUniqueMergeNames.AscTerm];
+                                continue;
+                            }
+                        }
+                        throw ListUniqueMergeTrace.Clause(
+                            context,
+                            state,
+                            arguments,
+                            continuations
+                        );
+                    }
+                case ListUniqueMergeState.Usplit_1_16:
+                    {
+                        {
+                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Cons cell0 && cell0.Head is var vZ && cell0.Tail is var vL && arguments[3] is var vR && arguments[4] is var vRs && arguments[5] is var vS && TermOrder.Compare(vZ, vY) > 0)
+                            {
+                                state = ListUniqueMergeState.Usplit_1_16;
+                                arguments = [vY, vZ, vL, new Cons(vX, vR), vRs, vS];
+                                continue;
+                            }
+                        }
+                        {
+                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Cons cell0 && cell0.Head is var vZ && cell0.Tail is var vL && arguments[3] is var vR && arguments[4] is var vRs && arguments[5] is var vS && vZ.NumericEquals(vY))
+                            {
+                                state = ListUniqueMergeState.Usplit_1_16;
+                                arguments = [vX, vY, vL, vR, vRs, vS];
+                                continue;
+                            }
+                        }
+                        {
+                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Cons cell0 && cell0.Head is var vZ && cell0.Tail is var vL && arguments[3] is var vR && arguments[4] is var vRs && arguments[5] is var vS && TermOrder.Compare(vZ, vX) > 0)
+                            {
+                                state = ListUniqueMergeState.Usplit_1_16;
+                                arguments = [vZ, vY, vL, new Cons(vX, vR), vRs, vS];
+                                continue;
+                            }
+                        }
+                        {
+                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Cons cell0 && cell0.Head is var vZ && cell0.Tail is var vL && arguments[3] is var vR && arguments[4] is var vRs && arguments[5] is var vS && vZ.NumericEquals(vX))
+                            {
+                                state = ListUniqueMergeState.Usplit_1_16;
+                                arguments = [vX, vY, vL, vR, vRs, vS];
+                                continue;
+                            }
+                        }
+                        {
+                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Cons cell0 && cell0.Head is var vZ && cell0.Tail is var vL && arguments[3] is var vR && arguments[4] is var vRs && arguments[5] is var vS && TermOrder.Compare(vZ, vS) > 0)
+                            {
+                                state = ListUniqueMergeState.Usplit_15;
+                                arguments = [vS, vZ, vL, Nil.Value, new Cons(new Cons(vY, new Cons(vX, vR)), vRs)];
+                                continue;
+                            }
+                        }
+                        {
+                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Cons cell0 && cell0.Head is var vZ && cell0.Tail is var vL && arguments[3] is var vR && arguments[4] is var vRs && arguments[5] is var vS && vZ.NumericEquals(vS))
+                            {
+                                state = ListUniqueMergeState.Usplit_1_16;
+                                arguments = [vX, vY, vL, vR, vRs, vS];
+                                continue;
+                            }
+                        }
+                        {
+                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Cons cell0 && cell0.Head is var vZ && cell0.Tail is var vL && arguments[3] is var vR && arguments[4] is var vRs && arguments[5] is var vS)
+                            {
+                                state = ListUniqueMergeState.Usplit_15;
+                                arguments = [vZ, vS, vL, Nil.Value, new Cons(new Cons(vY, new Cons(vX, vR)), vRs)];
+                                continue;
+                            }
+                        }
+                        {
+                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Nil && arguments[3] is var vR && arguments[4] is var vRs && arguments[5] is var vS)
+                            {
+                                state = ListUniqueMergeState.Rumergel3;
+                                arguments = [new Cons(new Cons(vS, Nil.Value), new Cons(new Cons(vY, new Cons(vX, vR)), vRs)), Nil.Value, ListUniqueMergeNames.AscTerm];
+                                continue;
+                            }
+                        }
+                        throw ListUniqueMergeTrace.Clause(
+                            context,
+                            state,
+                            arguments,
+                            continuations
+                        );
+                    }
+                case ListUniqueMergeState.Usplit_25:
+                    {
+                        {
+                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Cons cell0 && cell0.Head is var vZ && cell0.Tail is var vL && arguments[3] is var vR && arguments[4] is var vRs && TermOrder.Compare(vZ, vY) < 0)
+                            {
+                                state = ListUniqueMergeState.Usplit_25;
+                                arguments = [vY, vZ, vL, new Cons(vX, vR), vRs];
+                                continue;
+                            }
+                        }
+                        {
+                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Cons cell0 && cell0.Head is var vZ && cell0.Tail is var vL && arguments[3] is var vR && arguments[4] is var vRs && vZ.NumericEquals(vY))
+                            {
+                                state = ListUniqueMergeState.Usplit_25;
+                                arguments = [vX, vY, vL, vR, vRs];
+                                continue;
+                            }
+                        }
+                        {
+                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Cons cell0 && cell0.Head is var vZ && cell0.Tail is var vL && arguments[3] is var vR && arguments[4] is var vRs && TermOrder.Compare(vZ, vX) < 0)
+                            {
+                                state = ListUniqueMergeState.Usplit_25;
+                                arguments = [vZ, vY, vL, new Cons(vX, vR), vRs];
+                                continue;
+                            }
+                        }
+                        {
+                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Cons cell0 && cell0.Head is var vZ && cell0.Tail is var vL && arguments[3] is var vR && arguments[4] is var vRs && vZ.NumericEquals(vX))
+                            {
+                                state = ListUniqueMergeState.Usplit_25;
+                                arguments = [vX, vY, vL, vR, vRs];
+                                continue;
+                            }
+                        }
+                        {
+                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Cons cell0 && cell0.Head is var vZ && cell0.Tail is var vL && arguments[3] is Nil && arguments[4] is var vRs)
+                            {
+                                state = ListUniqueMergeState.Usplit_25;
+                                arguments = [vX, vY, vL, new Cons(vZ, Nil.Value), vRs];
+                                continue;
+                            }
+                        }
+                        {
+                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Cons cell0 && cell0.Head is var vZ && cell0.Tail is var vL && arguments[3] is var vR && arguments[4] is var vRs)
+                            {
+                                state = ListUniqueMergeState.Usplit_2_16;
+                                arguments = [vX, vY, vL, vR, vRs, vZ];
+                                continue;
+                            }
+                        }
+                        {
+                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Nil && arguments[3] is var vR && arguments[4] is var vRs)
+                            {
+                                state = ListUniqueMergeState.Umergel3;
+                                arguments = [new Cons(new Cons(vY, new Cons(vX, vR)), vRs), Nil.Value, ListUniqueMergeNames.DescTerm];
+                                continue;
+                            }
+                        }
+                        throw ListUniqueMergeTrace.Clause(
+                            context,
+                            state,
+                            arguments,
+                            continuations
+                        );
+                    }
+                case ListUniqueMergeState.Usplit_2_16:
+                    {
+                        {
+                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Cons cell0 && cell0.Head is var vZ && cell0.Tail is var vL && arguments[3] is var vR && arguments[4] is var vRs && arguments[5] is var vS && TermOrder.Compare(vZ, vY) < 0)
+                            {
+                                state = ListUniqueMergeState.Usplit_2_16;
+                                arguments = [vY, vZ, vL, new Cons(vX, vR), vRs, vS];
+                                continue;
+                            }
+                        }
+                        {
+                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Cons cell0 && cell0.Head is var vZ && cell0.Tail is var vL && arguments[3] is var vR && arguments[4] is var vRs && arguments[5] is var vS && vZ.NumericEquals(vY))
+                            {
+                                state = ListUniqueMergeState.Usplit_2_16;
+                                arguments = [vX, vY, vL, vR, vRs, vS];
+                                continue;
+                            }
+                        }
+                        {
+                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Cons cell0 && cell0.Head is var vZ && cell0.Tail is var vL && arguments[3] is var vR && arguments[4] is var vRs && arguments[5] is var vS && TermOrder.Compare(vZ, vX) < 0)
+                            {
+                                state = ListUniqueMergeState.Usplit_2_16;
+                                arguments = [vZ, vY, vL, new Cons(vX, vR), vRs, vS];
+                                continue;
+                            }
+                        }
+                        {
+                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Cons cell0 && cell0.Head is var vZ && cell0.Tail is var vL && arguments[3] is var vR && arguments[4] is var vRs && arguments[5] is var vS && vZ.NumericEquals(vX))
+                            {
+                                state = ListUniqueMergeState.Usplit_2_16;
+                                arguments = [vX, vY, vL, vR, vRs, vS];
+                                continue;
+                            }
+                        }
+                        {
+                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Cons cell0 && cell0.Head is var vZ && cell0.Tail is var vL && arguments[3] is var vR && arguments[4] is var vRs && arguments[5] is var vS && TermOrder.Compare(vZ, vS) < 0)
+                            {
+                                state = ListUniqueMergeState.Usplit_25;
+                                arguments = [vS, vZ, vL, Nil.Value, new Cons(new Cons(vY, new Cons(vX, vR)), vRs)];
+                                continue;
+                            }
+                        }
+                        {
+                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Cons cell0 && cell0.Head is var vZ && cell0.Tail is var vL && arguments[3] is var vR && arguments[4] is var vRs && arguments[5] is var vS && vZ.NumericEquals(vS))
+                            {
+                                state = ListUniqueMergeState.Usplit_2_16;
+                                arguments = [vX, vY, vL, vR, vRs, vS];
+                                continue;
+                            }
+                        }
+                        {
+                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Cons cell0 && cell0.Head is var vZ && cell0.Tail is var vL && arguments[3] is var vR && arguments[4] is var vRs && arguments[5] is var vS)
+                            {
+                                state = ListUniqueMergeState.Usplit_25;
+                                arguments = [vZ, vS, vL, Nil.Value, new Cons(new Cons(vY, new Cons(vX, vR)), vRs)];
+                                continue;
+                            }
+                        }
+                        {
+                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Nil && arguments[3] is var vR && arguments[4] is var vRs && arguments[5] is var vS)
+                            {
+                                state = ListUniqueMergeState.Umergel3;
+                                arguments = [new Cons(new Cons(vS, Nil.Value), new Cons(new Cons(vY, new Cons(vX, vR)), vRs)), Nil.Value, ListUniqueMergeNames.DescTerm];
+                                continue;
+                            }
+                        }
+                        throw ListUniqueMergeTrace.Clause(
+                            context,
+                            state,
+                            arguments,
+                            continuations
+                        );
+                    }
                 case ListUniqueMergeState.Umergel1:
                     {
                         {

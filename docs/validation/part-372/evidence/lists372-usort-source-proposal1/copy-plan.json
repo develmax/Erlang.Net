@@ -1,0 +1,54 @@
+{
+  "Status": "SOURCE_ONLY_ROOT_REVIEW_INTEGRATES_AND_EXECUTES",
+  "Files": [
+    {
+      "Source": "artifacts/lists372-usort-source-proposal1/source/src/Erlang.Runtime/ListModuleRegistrations.cs",
+      "Destination": "src/Erlang.Runtime/ListModuleRegistrations.cs",
+      "BaseSha256": "578EF151E10D4A8663192401009A7B71A631C011596BFCE90724C5156A97C4D3",
+      "Sha256": "8003A26E6AA623529A1C3BDA77A4CCA91B1AA8F74276418C5D499E8E3391F0EB"
+    },
+    {
+      "Source": "artifacts/lists372-usort-source-proposal1/source/src/Erlang.Runtime/ListSortOperations.cs",
+      "Destination": "src/Erlang.Runtime/ListSortOperations.cs",
+      "BaseSha256": "8BD32E4E416544764B0DCFF24A4AF5999E9B0DC1EBD63CA0219238CF3826E125",
+      "Sha256": "12246D31747D2C84A9B7CC1C6F972768AD94FFDC6CA89FE84AEB3400DAAA05FF"
+    },
+    {
+      "Source": "artifacts/lists372-usort-source-proposal1/source/src/Erlang.Runtime/ListUniqueMergeMachine.cs",
+      "Destination": "src/Erlang.Runtime/ListUniqueMergeMachine.cs",
+      "BaseSha256": "82A1F7F705DD8F5366A16EEB92DB256AF0F8F4AE9F9FAC6BFA964DF1E0583441",
+      "Sha256": "3D926CD0DE35511DB3AB2A8E4D397D8B12751909AA4257FD014F5D1CAB7DD0F7"
+    },
+    {
+      "Source": "artifacts/lists372-usort-source-proposal1/source/src/Erlang.Runtime/ListUniqueMergeNames.cs",
+      "Destination": "src/Erlang.Runtime/ListUniqueMergeNames.cs",
+      "BaseSha256": "9614588A5218881DC71264329A0B8212AD6F5850583C20B2AC960CE51F41E891",
+      "Sha256": "98EBCFB36B49C27F82343D93D646CFA0A51A3768446F3833354C7DEE5EC5E39F"
+    },
+    {
+      "Source": "artifacts/lists372-usort-source-proposal1/source/src/Erlang.Runtime/ListUniqueMergeState.cs",
+      "Destination": "src/Erlang.Runtime/ListUniqueMergeState.cs",
+      "BaseSha256": "6EADD484B9BEECFE7A0358603D2B8225A49F944B8B9C7ECA0FEA36FBB6FDB046",
+      "Sha256": "77A4DEE338ADAA942921CE473CB98D07B406BCA20A9E6BDAA3DF3F1A8C1B3D8C"
+    },
+    {
+      "Source": "artifacts/lists372-usort-source-proposal1/source/tests/Erlang.Tests/ListUniqueSortSourceHostChecks.cs",
+      "Destination": "tests/Erlang.Tests/ListUniqueSortSourceHostChecks.cs",
+      "BaseSha256": null,
+      "Sha256": "1590BB0E0DB4FF3AE77FBCB56845DD30759E9C3CE040CF317BE4181DA7DE7397"
+    },
+    {
+      "Source": "artifacts/lists372-usort-source-proposal1/source/tests/Erlang.Tests/ListUniqueSortSourceHostNames.cs",
+      "Destination": "tests/Erlang.Tests/ListUniqueSortSourceHostNames.cs",
+      "BaseSha256": null,
+      "Sha256": "A015EE2A0C0287E64A7CF8E7DEC349CEA47490818154069A87789EC48375B540"
+    }
+  ],
+  "RegistrationEdit": {
+    "Destination": "tests/Erlang.Tests/Program.cs",
+    "BaseSha256": "C379B4973DAF435295155E4DF766544CB5F0910E1833903B5D6D9A776F421BBD",
+    "ExactUniqueAnchor": "    Test(Erlang.Tests.ListUniqueSourceHostNames.TestName, Erlang.Tests.ListUniqueSourceHostChecks.Run);",
+    "InsertAfter": "    Test(Erlang.Tests.ListUniqueSortSourceHostNames.IdentityTest, Erlang.Tests.ListUniqueSortSourceHostChecks.Identity);\n    Test(Erlang.Tests.ListUniqueSortSourceHostNames.MalformedTest, Erlang.Tests.ListUniqueSortSourceHostChecks.Malformed);\n    Test(Erlang.Tests.ListUniqueSortSourceHostNames.DeepTest, Erlang.Tests.ListUniqueSortSourceHostChecks.Deep);"
+  },
+  "NoMainEditsBuildOrTestsByHelper": true
+}

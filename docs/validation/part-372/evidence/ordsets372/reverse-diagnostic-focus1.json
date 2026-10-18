@@ -1,0 +1,19 @@
+{
+  "Partial": true,
+  "SelectedCount": 1,
+  "TotalCount": 7683,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/lists-usort-source-selects-current-reverse-after-admission"
+  ],
+  "Passed": 0,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "runtime/lists-usort-source-selects-current-reverse-after-admission",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Pinned unique sort source algorithm changed result representatives, sharing, malformed suffix arguments or source frames.\r\n   at Erlang.Tests.ListUniqueSortSourceHostChecks.Require(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\ListUniqueSortSourceHostChecks.cs:line 253\r\n   at Erlang.Tests.ListUniqueSortSourceHostChecks.DynamicReverse() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\ListUniqueSortSourceHostChecks.cs:line 224\r\n   at Erlang.Tests.ListUniqueSortSourceHostChecks.DynamicReverse() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\ListUniqueSortSourceHostChecks.cs:line 239\r\n   at Erlang.Tests.ListUniqueSortSourceHostChecks.DynamicReverse() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\ListUniqueSortSourceHostChecks.cs:line 239\r\n   at Erlang.Tests.ListUniqueSortSourceHostChecks.DynamicReverse() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\ListUniqueSortSourceHostChecks.cs:line 239\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 5245",
+      "Milliseconds": 141
+    }
+  ]
+}

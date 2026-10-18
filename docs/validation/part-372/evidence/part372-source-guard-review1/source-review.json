@@ -1,0 +1,97 @@
+{
+  "Status": "INDEPENDENT_SOURCE_GUARD_SUCCESSOR_CONDITIONAL_ON_FINAL_AFFECTED_REGRESSION",
+  "BaseLedgerSha256": "10C4A15847C1097C8ECAA218770BED53A19F0F4CB24F7C92BA47998EC5EEC9EA",
+  "ExistingGuardPaths": 496,
+  "ExistingGuardUpdates": [
+    {
+      "Path": "src/Erlang.Terms/TermOrder.cs",
+      "BeforeSha256": "D54D6129488CA5497D366313EC2A54DA5A2EA831057F34EEF16A3AC43BA6467F",
+      "AfterSha256": "E22F87A2D2CB77367EBFB4AE60F3D09C99C784ED70C55D36900A75756CD97B2E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangIntegerParseBridge.cs",
+      "BeforeSha256": "F5A0F0464562AE53A9AB6B00B017ACD39A583521C74A7D7CCD981313ED604FF4",
+      "AfterSha256": "5B8C84D98995CC682D5FFE2B1348A29818B31C7F2A8088A9DFDBCEDFEDD64150"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListCallbackSourceExecution.cs",
+      "BeforeSha256": "33D4E2011C39ADF138185C054A6C3FA79BBB871D6E7C1442E35FEEEF4F34149C",
+      "AfterSha256": "B5D4DAD8C819E6FBBD688BF5B87122E40AA8DA482B647E92BBD4BD13689837B0"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListModuleRegistrations.cs",
+      "BeforeSha256": "578EF151E10D4A8663192401009A7B71A631C011596BFCE90724C5156A97C4D3",
+      "AfterSha256": "5CF10ED1EA88562AA72A58FCEA73007F42D53983845709FDE459E3411FB36FCA"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListSortOperations.cs",
+      "BeforeSha256": "8BD32E4E416544764B0DCFF24A4AF5999E9B0DC1EBD63CA0219238CF3826E125",
+      "AfterSha256": "8D492AAB0B0E441B291CDD5BFD3D39B88DECEF981C536B8FC2811FCF66354864"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListUniqueMergeMachine.cs",
+      "BeforeSha256": "82A1F7F705DD8F5366A16EEB92DB256AF0F8F4AE9F9FAC6BFA964DF1E0583441",
+      "AfterSha256": "CC34DC2E305980E59BF9E23970A4159522F158358FB3C1397DD7887CF7E1FA36"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListUniqueMergeNames.cs",
+      "BeforeSha256": "9614588A5218881DC71264329A0B8212AD6F5850583C20B2AC960CE51F41E891",
+      "AfterSha256": "013F108DD7B448960A1D5F2EAE100875610DCAB320A099EEADFF955673D741A4"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListUniqueMergeState.cs",
+      "BeforeSha256": "6EADD484B9BEECFE7A0358603D2B8225A49F944B8B9C7ECA0FEA36FBB6FDB046",
+      "AfterSha256": "B7C2EE91C8DAA8747F041F3444C69D2FDF482659D686271DC08E9AB05B3E9A0E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/OrdsetFullFrame.cs",
+      "BeforeSha256": "D982A7503C11D7C129B17DB25621E3331C15F4FE11DF4331D405CADF2678ED6C",
+      "AfterSha256": "A59F18097C3A58C1DE51202BF86E6F3CC2598079D141315421FF3FCBB6586ECB"
+    },
+    {
+      "Path": "src/Erlang.Terms/TermMapOrdering.cs",
+      "BeforeSha256": "C24A775A4D6CC88791D9CDD438E150E9CE6CD3DC7847347B61E1D99F5113B468",
+      "AfterSha256": "6422BE459D1087654BCB72CC7A9DD18EC7F84A6EBB07DAD7E43B6C85940D30C9"
+    }
+  ],
+  "UnchangedOldGuardFiles": 486,
+  "AddedGuardFiles": [
+    {
+      "Path": "src/Erlang.Runtime/ErlangIntegerListParse.cs",
+      "Sha256": "EFDDB3260FC853C14FBF6055A480FB943B8117EC1C7FD4BA5EBA62F22853330C"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangIntegerParseParameters.cs",
+      "Sha256": "3AF5E633EB6EFED5C7EF999E94E0393CA50DD12CEC708E07EFD25731B8749C54"
+    },
+    {
+      "Path": "src/Erlang.Runtime/OrdsetFullContinuationKind.cs",
+      "Sha256": "E32A6BE087D1CA70283FE61477CD9768E7D465E47F164C42E408F0CA36A4AD87"
+    }
+  ],
+  "ProposedGuardFiles": 499,
+  "NoOldGuardRemoved": true,
+  "ExistingEntries": 699,
+  "ExistingStatuses": {
+    "Verified compatible": 114,
+    "Needs verification": 555,
+    "Known differences": 30
+  },
+  "NoStatusOrEvidenceChangeProposed": true,
+  "AllSelectedProductionFilesTokenEquivalentToReviewedProposals": true,
+  "SemanticReview": {
+    "UniqueSourceMachine": "Lists usort public5clause/case tree and34private clauses now share an explicit tail-state machine with the existing84merge clauses. Preserved19oldcurrentMain case bodies token-equivalent proof is in lists372-usort-source-proposal1/existing-merge-preservation.json. Existing reverse/continuation scopes unchanged, new async API used by sole ordinary usort/1 delegate. Parent actualafter1 usort45values225stacks all270strict, eliminating50previous private-helper-frame differences. No complete term-ordering claim.",
+    "ListSortAndRegistry": "Only Unique changes from generic LINQ unique Sort to async source machine; ordinary Sort body is byte-text unchanged, sort/1 and key/comparator sort registrations unchanged. Registry sole usort/1 lambda now returns true ValueTask; zf dynamic filtermap alias and callback registrations preserved. Lists public usort is not directly called by current verified queue/proplists/binary kernels; callback code remains actual module dispatch where source requires it.",
+    "SmallIntegerParse": "Bridge binary branch unchanged: same ErlangIoData.Binary byte enumeration to ErlangIntegerText.Parse; all arity/base/error capture remains unchanged. Only list_to_integer routes through new source SMALL-to-byte character scanner; two new dependencies bind byte-mask and ordinary improper/sign/radix parsing. list_to_integer currently Needs verification and no promotion is proposed: original numericVM aborted. None of20 existing verified erlang handlers or verified binary/queue/proplists implementations call the integer parse bridge as an internal dependency.",
+    "NumericMapEquality": "Only same-count multi-entry flat maps (2..32) in NumericEquality now reuse pinned source key order before exact key alignment and numeric value comparison; nested exact flag is propagated, so exact nested values remain exact. ExactEquality/CanonicalKeyStorage/MapTerm storage/hash routines are unchanged. Current source retains HAMT >32 path (one native6row gap); no whole equality/ordering promotion. Actualafter1 fixes24flatmap logical rows, while source records remaining6HAMT differences.",
+    "FilterPcRoles": "Record retains four-argument constructor and adds default Operation role. Every existing non-filter frame has default0, preserving equality/interning among those frames. Only successful filter cons-return pending frame gets named FilterConsReturn. Current error/predicate PC remains distinct from pending return PC despite same source metadata. Repeated cons returns still coalesce; global RuntimeExceptionCapture dedup unchanged. Actual18native differences justify this scope; exact after-fix replay remains required.",
+    "ExistingCompleteModules": "binary31 contracts manipulate binary content/options and numeric indexes, not generic unique sort or list_to_integer bridge. queue38 uses its independently ported source algorithms and callback helpers; proplists22 uses exact key/term operations and its own lists-helper/source-execution paths, including raw cursor protocol. Exact equality/storage/hash semantics remain untouched by numeric flatmap alignment. Generic user callbacks retain their own runtime/compiler contracts; opaque module callback wrappers are not broadened into claims about every user callback. Source changes are intentionally narrow; final affected regression is still mandatory, not inferred from source hashes.",
+    "ExistingBoundedErlang": "All20 existing complete erlang handlers, their guard allowlists, intrinsic admissions, argument preservation and native failure capture remain unchanged. Shared operator annotation/ModuleRegistry/RuntimeExceptionCapture/ProcessContext sources are byte unchanged in this part. The four newly bounded371 APIs do no payload comparison/parse/sort and do not depend on modified paths."
+  },
+  "ExpectedGates": [
+    "Exact after-filter correction21-case source packet full-stack replay.",
+    "Final affected binary31/queue38/proplists22 and shared deep/snapshot/cancellation regression from parent.",
+    "All new HOST groups including reverse failure diagnostic resolved or explicitly remaining; no green-zero-test credit."
+  ],
+  "NoMainBuildOrNetwork": true
+}

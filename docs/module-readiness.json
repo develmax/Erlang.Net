@@ -62,8 +62,16 @@
       "Sha256": "CFE6B9E98D61D7DCB05730A9F6665853134BDCEC32212F561ECA14E78EFA2949"
     },
     {
+      "Path": "src/Erlang.Compiler/CompiledBindingScope.cs",
+      "Sha256": "E3D670DE237A87C20277CCF82134FC049AED7AA643ACBC511D85D7BF0A00A0F3"
+    },
+    {
       "Path": "src/Erlang.Compiler/CompiledComprehensionFrames.cs",
       "Sha256": "A59D66339E3D3BB30CDAB1D49CDD1AFF6A2152AC915EC4791A463B5522E713E6"
+    },
+    {
+      "Path": "src/Erlang.Compiler/CompiledExpressionBindings.cs",
+      "Sha256": "C270D9BF48E183171B521AA7C9E98EC0ED7849A8D983EDDC4642EECE84404AF7"
     },
     {
       "Path": "src/Erlang.Compiler/CompilerDiagnosticCodes.cs",
@@ -148,6 +156,10 @@
     {
       "Path": "src/Erlang.Compiler/Expr.cs",
       "Sha256": "EF3E0C14D976BF1DAF3F47EEA799BBA5C0EBCCE14C635B70EA9E60D33965AF95"
+    },
+    {
+      "Path": "src/Erlang.Compiler/ExpressionBindings.cs",
+      "Sha256": "FC38AC42C90BE1FD1FD322FD65F32A8D08A56D0965D1C6EFD42C195EE3962D51"
     },
     {
       "Path": "src/Erlang.Compiler/GeneratedComprehensionFunction.cs",
@@ -288,6 +300,10 @@
     {
       "Path": "src/Erlang.Compiler/SourceInvocationTarget.cs",
       "Sha256": "B604CC389F630E0AD7D46DC46F094A6DB79C3B7BA672C7491AD7CB7B21D6A786"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceOperatorCode.cs",
+      "Sha256": "C7C0FCA5B7FF2BDEDEC52944A089443E317F94989B15C6C81195E6913C32DB56"
     },
     {
       "Path": "src/Erlang.Compiler/SourceReturnContracts.cs",
@@ -518,16 +534,48 @@
       "Sha256": "499D27A10BE7CFFFEA561984F1331FF605CCAA794DF2A68F1B82F32481E429CE"
     },
     {
+      "Path": "src/Erlang.Runtime/ErlangDataRegistrations.cs",
+      "Sha256": "DC46EF435E8C1DC21430C1A084EBC903E38633BA6DE032D19447A7F466ACEAEF"
+    },
+    {
       "Path": "src/Erlang.Runtime/ErlangExecutionFrame.cs",
       "Sha256": "B1C198FB27140016C9307146DC74B6936D11962B5E3E482C34381E43F89C5117"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangFloatOutput.cs",
+      "Sha256": "2E9E0D3333956CD3B36C597B011C886B4AF0E435FFDCA8FCB7D25C6885C5D304"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangFloatParameters.cs",
+      "Sha256": "873BEA5195CB744A52EA89ED34644128BB792E8297BEF94F02B27C0D0C0F9E70"
     },
     {
       "Path": "src/Erlang.Runtime/ErlangHashParameters.cs",
       "Sha256": "1D1CF4237FB9D58E24ACA04A3F42854EE2D34E06929FEA528B245CF54F5E376D"
     },
     {
+      "Path": "src/Erlang.Runtime/ErlangIntegerListParse.cs",
+      "Sha256": "EFDDB3260FC853C14FBF6055A480FB943B8117EC1C7FD4BA5EBA62F22853330C"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangIntegerParseBridge.cs",
+      "Sha256": "5B8C84D98995CC682D5FFE2B1348A29818B31C7F2A8088A9DFDBCEDFEDD64150"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangIntegerParseParameters.cs",
+      "Sha256": "3AF5E633EB6EFED5C7EF999E94E0393CA50DD12CEC708E07EFD25731B8749C54"
+    },
+    {
       "Path": "src/Erlang.Runtime/ErlangIoData.cs",
       "Sha256": "0584CEAF97CC5F4F60277152F8893D9701BBA44258582C22C833847F8B5A7CE7"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangListLength.cs",
+      "Sha256": "BEAF33D156B1C447D9D7285EDB3E7B4E9BB6E9F14310303B773581E310F83CFC"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangListLengthLimits.cs",
+      "Sha256": "6C7EF7D82006AC08F85A2DC65CD9F59F1EF3C5F2B83DEA46BD532AF181A6D4B7"
     },
     {
       "Path": "src/Erlang.Runtime/ErlangNativeHash.cs",
@@ -535,7 +583,7 @@
     },
     {
       "Path": "src/Erlang.Runtime/ErlangOperatorValues.cs",
-      "Sha256": "AECAA6EA5AEE4FA16BCA15B7A042785908BC1FA98B88BA6776EBB7DABA14A672"
+      "Sha256": "4C1F8C0B956F2C482C178D6D34B951EE94CC7A3A921E9A4E5571794A0D1B869D"
     },
     {
       "Path": "src/Erlang.Runtime/ErlangProcessQueryRegistrations.cs",
@@ -586,6 +634,10 @@
       "Sha256": "09AFA0B1C62AAD6A8B3228504BE0169E1AE5CC11552033D529246397DEF536E5"
     },
     {
+      "Path": "src/Erlang.Runtime/ListCallbackSourceExecution.cs",
+      "Sha256": "B5D4DAD8C819E6FBBD688BF5B87122E40AA8DA482B647E92BBD4BD13689837B0"
+    },
+    {
       "Path": "src/Erlang.Runtime/ListFoldRight.cs",
       "Sha256": "857CEDC0E1086C31FB7BCE56A9F4633211FC574F9D18606F710373D8CBC2F2AD"
     },
@@ -596,6 +648,42 @@
     {
       "Path": "src/Erlang.Runtime/ListFunctions.cs",
       "Sha256": "233A5A00718A6D9B30B22FAB72D157C958D82F4F5E4B663780CA47B90427CA58"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListMergeOperations.cs",
+      "Sha256": "4B4DF2DC839401D058D4D370CF87D0FC28DDF48F5457479CB7B4459E29EE75B8"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListModuleRegistrations.cs",
+      "Sha256": "5CF10ED1EA88562AA72A58FCEA73007F42D53983845709FDE459E3411FB36FCA"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListSortOperations.cs",
+      "Sha256": "8D492AAB0B0E441B291CDD5BFD3D39B88DECEF981C536B8FC2811FCF66354864"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListUniqueMergeContinuation.cs",
+      "Sha256": "AEEA87F601907D62EACDFFDEDAEE1C726AA51587D3DE07B43640B55B67D400EA"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListUniqueMergeMachine.cs",
+      "Sha256": "CC34DC2E305980E59BF9E23970A4159522F158358FB3C1397DD7887CF7E1FA36"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListUniqueMergeNames.cs",
+      "Sha256": "013F108DD7B448960A1D5F2EAE100875610DCAB320A099EEADFF955673D741A4"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListUniqueMergeScope.cs",
+      "Sha256": "EDA7251728F21A50D9AD22FE1B4CB1A1AF95469D654A934FB3FC6A9C7C03703A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListUniqueMergeState.cs",
+      "Sha256": "B7C2EE91C8DAA8747F041F3444C69D2FDF482659D686271DC08E9AB05B3E9A0E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListUniqueMergeTrace.cs",
+      "Sha256": "EEA02651A68D3970C4AFD55C5D4ADC1D739D91F566978841815ADC226921DB3F"
     },
     {
       "Path": "src/Erlang.Runtime/LocalFunctionInvocation.cs",
@@ -1042,6 +1130,54 @@
       "Sha256": "F5D0F711D02F756C5246C51AFD2724542A812FD636962DB254DF5A3C6C33510E"
     },
     {
+      "Path": "src/Erlang.Runtime/OrdsetCoreExecution.cs",
+      "Sha256": "C7AD57051C84DCFE29B6C64932E7503359632A88EA8FFFD79BC0841EECAC3761"
+    },
+    {
+      "Path": "src/Erlang.Runtime/OrdsetCoreModule.cs",
+      "Sha256": "7B490D5B3DB6606483F9A4E19403E8B9DB77FF0300A392D352D988D1E04606F5"
+    },
+    {
+      "Path": "src/Erlang.Runtime/OrdsetCoreNames.cs",
+      "Sha256": "FABF3CD9EA3F5B6F96BACFB33A924CE07D6583F41F922BBB908964B29C867AAE"
+    },
+    {
+      "Path": "src/Erlang.Runtime/OrdsetCoreTrace.cs",
+      "Sha256": "777D80A039ACF481F864D824A9CAC80B56FF295DAC4C46486E4BE92F14D827C6"
+    },
+    {
+      "Path": "src/Erlang.Runtime/OrdsetFullCallbacks.cs",
+      "Sha256": "D996677E80D463454597A72C9D55E92BCB7BE94E411C546F74B587F65BADEC17"
+    },
+    {
+      "Path": "src/Erlang.Runtime/OrdsetFullContinuationKind.cs",
+      "Sha256": "E32A6BE087D1CA70283FE61477CD9768E7D465E47F164C42E408F0CA36A4AD87"
+    },
+    {
+      "Path": "src/Erlang.Runtime/OrdsetFullExecution.cs",
+      "Sha256": "12E8A0CD9ADBF81BDDEC4CB581F06C1EB6412CC563DFC17BB469882D31ED7447"
+    },
+    {
+      "Path": "src/Erlang.Runtime/OrdsetFullFrame.cs",
+      "Sha256": "A59F18097C3A58C1DE51202BF86E6F3CC2598079D141315421FF3FCBB6586ECB"
+    },
+    {
+      "Path": "src/Erlang.Runtime/OrdsetFullModule.cs",
+      "Sha256": "5F46E655DB6861B681EB9D3EA0BEF307FCD98E41E480295A55DE88D3CED695F8"
+    },
+    {
+      "Path": "src/Erlang.Runtime/OrdsetFullNames.cs",
+      "Sha256": "681C12BB7177F343F9E0F120D1ACBBD9D66CE50675B541917DD059D324D075CF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/OrdsetFullScope.cs",
+      "Sha256": "FA2CED75BCEFE83B380172AAA470D1EBA87F538457A6F7ECE1130E71E49AEAD1"
+    },
+    {
+      "Path": "src/Erlang.Runtime/OrdsetFullTrace.cs",
+      "Sha256": "F867D902984F6A7F751ED48F7431FB4A50F5A1F675385F025BD3F43B5E084F78"
+    },
+    {
       "Path": "src/Erlang.Runtime/OtpMapHashIdentityProvider.cs",
       "Sha256": "BC9D7D772FAD0D985DBF2F6C032E2A39718E3CE87F252E67A6A82CA3F2F2767E"
     },
@@ -1196,6 +1332,10 @@
     {
       "Path": "src/Erlang.Runtime/ProcessSchedulerValues.cs",
       "Sha256": "6C1D99F74A8B1AAE9B12249CB8D93B21BEEEC4D6FCA492070969DA9E02EFA2DD"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessSchedulingLimits.cs",
+      "Sha256": "EC867DAD2F30F97AE607364EADBA346D0F6C0E61D900E11105300563618DD5AE"
     },
     {
       "Path": "src/Erlang.Runtime/ProcessSchedulingPriority.cs",
@@ -1471,7 +1611,7 @@
     },
     {
       "Path": "src/Erlang.Runtime/RuntimeActorExecutionTurn.cs",
-      "Sha256": "CBAE9C5F4551EA4D26A19F533F3DFA3C95DDB1D7E1ED4E73DA906E225E9F67D6"
+      "Sha256": "BFF1DE27732D09F82DE3BA2870606C162C498EA7529682BA7A8A8170BFF55207"
     },
     {
       "Path": "src/Erlang.Runtime/RuntimeActorRole.cs",
@@ -1556,6 +1696,14 @@
     {
       "Path": "src/Erlang.Runtime/RuntimeNodeIdentityParameters.cs",
       "Sha256": "40E58DE9319EE7534DC78D9C75B1DA43D722CDC4CA8A020F6829444BFB05F1AC"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeNumericMapComparison.cs",
+      "Sha256": "E8F0B463451267CE6A66FE2425B78B18511E8647168E886ECB6EE32EFEB2EA0E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeNumericMapLayout.cs",
+      "Sha256": "5E42333A2629CF6807AA4E93EFCC5DC008E9818D46EFB6DD92093807246A0AB8"
     },
     {
       "Path": "src/Erlang.Runtime/RuntimePorts.cs",
@@ -1762,6 +1910,10 @@
       "Sha256": "8013793770B68672658329B00AA9FFDB5DE5F6EAFFDB8D40FB3E15FBDCCB06E8"
     },
     {
+      "Path": "src/Erlang.Terms/ITermMapComparisonLayout.cs",
+      "Sha256": "2518696AC014133542A46EA42F0FE8F6E2EC8260C65BDADB1F10FF93A473B92B"
+    },
+    {
       "Path": "src/Erlang.Terms/Integer.cs",
       "Sha256": "CD4E5B3604C8194785FE20CD15A09A182BFBCA7128B95EE688ADB8719C30CC4F"
     },
@@ -1779,7 +1931,7 @@
     },
     {
       "Path": "src/Erlang.Terms/MapTerm.cs",
-      "Sha256": "88248E0E3F87B231CEF4B97F41DEB6CD82D8D8CB4886FF443BF88FD5EE2D65AD"
+      "Sha256": "29137A930A9DBA90FC2A9C6A13E317AC47746EBB36EFFC2E83660A4F3AB416A9"
     },
     {
       "Path": "src/Erlang.Terms/NativeRecordTerm.cs",
@@ -1826,6 +1978,14 @@
       "Sha256": "D43AB4F7DB2FD7FB9E70E14F6FD3A06EDBFF7DADE6576F20F1BB19478030477E"
     },
     {
+      "Path": "src/Erlang.Terms/TermComparisonResult.cs",
+      "Sha256": "772233E32B250DBBB8FB589D14A1F3310FC6745D8BFC5C9D5875E0C83007D9A7"
+    },
+    {
+      "Path": "src/Erlang.Terms/TermComparisonScope.cs",
+      "Sha256": "3BA974E5319D5F74F108A1100C1CC8E15E9E911EC7B3F980DC2C865D7435FA7F"
+    },
+    {
       "Path": "src/Erlang.Terms/TermComparisonStep.cs",
       "Sha256": "8DE47174DEA7ED2EC5AE37EB23AB6DCC79B937CF7FAA215E4FF4F6AE359278AC"
     },
@@ -1842,8 +2002,32 @@
       "Sha256": "B2CA8362745FCEAB745EA5AD67CBB99E31CE6AA33A4893089862C3C40EC18E40"
     },
     {
+      "Path": "src/Erlang.Terms/TermMapComparisonEnvironment.cs",
+      "Sha256": "B5970D13AC96A18106D6223561E7ADFAC169837F0225ADFD2DB4004D692A49D8"
+    },
+    {
+      "Path": "src/Erlang.Terms/TermMapComparisonNames.cs",
+      "Sha256": "D6E3A78F8DADE3138F3D6C4008CFFD191F656D191902E4D0D394B00916A7F1A1"
+    },
+    {
+      "Path": "src/Erlang.Terms/TermMapComparisonScope.cs",
+      "Sha256": "1C53B2F41EBF0DE5A62405D1462A37D4454944FBFC14C6B349DAE47236B6C447"
+    },
+    {
+      "Path": "src/Erlang.Terms/TermMapOrderParameters.cs",
+      "Sha256": "C66760F168262ED6DA8EF2FE348C4E838173260F81B476B16694CBD2CC274CBB"
+    },
+    {
+      "Path": "src/Erlang.Terms/TermMapOrdering.cs",
+      "Sha256": "8DD57EF74140940258F58DD6506DF69370B9015706F0626BF7B5CF006D82C3BF"
+    },
+    {
+      "Path": "src/Erlang.Terms/TermMapOrderingResult.cs",
+      "Sha256": "8EE31F026B8ED2AC69F8D19FEFF746E4496E32249C8CE356C866B949EA238536"
+    },
+    {
       "Path": "src/Erlang.Terms/TermOrder.cs",
-      "Sha256": "D54D6129488CA5497D366313EC2A54DA5A2EA831057F34EEF16A3AC43BA6467F"
+      "Sha256": "989AE653CC7D7B7E51AA2C2E752584521B0E5AC76A9ECF265C4C3E1A5D11E044"
     },
     {
       "Path": "src/Erlang.Terms/TermsAssemblyNames.cs",
@@ -1852,146 +2036,10 @@
     {
       "Path": "src/Erlang.Terms/TupleTerm.cs",
       "Sha256": "A3CDFE09E6855FCE67979373A06A2D3960AFB09BF0ED5A5E6E52B82068992080"
-    },
-    {
-      "Path": "src/Erlang.Compiler/CompiledBindingScope.cs",
-      "Sha256": "E3D670DE237A87C20277CCF82134FC049AED7AA643ACBC511D85D7BF0A00A0F3"
-    },
-    {
-      "Path": "src/Erlang.Compiler/CompiledExpressionBindings.cs",
-      "Sha256": "C270D9BF48E183171B521AA7C9E98EC0ED7849A8D983EDDC4642EECE84404AF7"
-    },
-    {
-      "Path": "src/Erlang.Compiler/ExpressionBindings.cs",
-      "Sha256": "FC38AC42C90BE1FD1FD322FD65F32A8D08A56D0965D1C6EFD42C195EE3962D51"
-    },
-    {
-      "Path": "src/Erlang.Compiler/SourceOperatorCode.cs",
-      "Sha256": "C7C0FCA5B7FF2BDEDEC52944A089443E317F94989B15C6C81195E6913C32DB56"
-    },
-    {
-      "Path": "src/Erlang.Runtime/ErlangDataRegistrations.cs",
-      "Sha256": "DC46EF435E8C1DC21430C1A084EBC903E38633BA6DE032D19447A7F466ACEAEF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/ErlangFloatOutput.cs",
-      "Sha256": "2E9E0D3333956CD3B36C597B011C886B4AF0E435FFDCA8FCB7D25C6885C5D304"
-    },
-    {
-      "Path": "src/Erlang.Runtime/ErlangFloatParameters.cs",
-      "Sha256": "873BEA5195CB744A52EA89ED34644128BB792E8297BEF94F02B27C0D0C0F9E70"
-    },
-    {
-      "Path": "src/Erlang.Runtime/ErlangIntegerParseBridge.cs",
-      "Sha256": "F5A0F0464562AE53A9AB6B00B017ACD39A583521C74A7D7CCD981313ED604FF4"
-    },
-    {
-      "Path": "src/Erlang.Runtime/ListCallbackSourceExecution.cs",
-      "Sha256": "33D4E2011C39ADF138185C054A6C3FA79BBB871D6E7C1442E35FEEEF4F34149C"
-    },
-    {
-      "Path": "src/Erlang.Runtime/ListMergeOperations.cs",
-      "Sha256": "4B4DF2DC839401D058D4D370CF87D0FC28DDF48F5457479CB7B4459E29EE75B8"
-    },
-    {
-      "Path": "src/Erlang.Runtime/ListModuleRegistrations.cs",
-      "Sha256": "578EF151E10D4A8663192401009A7B71A631C011596BFCE90724C5156A97C4D3"
-    },
-    {
-      "Path": "src/Erlang.Runtime/ListSortOperations.cs",
-      "Sha256": "8BD32E4E416544764B0DCFF24A4AF5999E9B0DC1EBD63CA0219238CF3826E125"
-    },
-    {
-      "Path": "src/Erlang.Runtime/ListUniqueMergeContinuation.cs",
-      "Sha256": "AEEA87F601907D62EACDFFDEDAEE1C726AA51587D3DE07B43640B55B67D400EA"
-    },
-    {
-      "Path": "src/Erlang.Runtime/ListUniqueMergeMachine.cs",
-      "Sha256": "82A1F7F705DD8F5366A16EEB92DB256AF0F8F4AE9F9FAC6BFA964DF1E0583441"
-    },
-    {
-      "Path": "src/Erlang.Runtime/ListUniqueMergeNames.cs",
-      "Sha256": "9614588A5218881DC71264329A0B8212AD6F5850583C20B2AC960CE51F41E891"
-    },
-    {
-      "Path": "src/Erlang.Runtime/ListUniqueMergeScope.cs",
-      "Sha256": "EDA7251728F21A50D9AD22FE1B4CB1A1AF95469D654A934FB3FC6A9C7C03703A"
-    },
-    {
-      "Path": "src/Erlang.Runtime/ListUniqueMergeState.cs",
-      "Sha256": "6EADD484B9BEECFE7A0358603D2B8225A49F944B8B9C7ECA0FEA36FBB6FDB046"
-    },
-    {
-      "Path": "src/Erlang.Runtime/ListUniqueMergeTrace.cs",
-      "Sha256": "EEA02651A68D3970C4AFD55C5D4ADC1D739D91F566978841815ADC226921DB3F"
-    },
-    {
-      "Path": "src/Erlang.Runtime/OrdsetCoreExecution.cs",
-      "Sha256": "AD2CF551B2F7A8E0527034868744099DDB82777791915930AFE3BD69994323EA"
-    },
-    {
-      "Path": "src/Erlang.Runtime/OrdsetCoreModule.cs",
-      "Sha256": "7B490D5B3DB6606483F9A4E19403E8B9DB77FF0300A392D352D988D1E04606F5"
-    },
-    {
-      "Path": "src/Erlang.Runtime/OrdsetCoreNames.cs",
-      "Sha256": "FABF3CD9EA3F5B6F96BACFB33A924CE07D6583F41F922BBB908964B29C867AAE"
-    },
-    {
-      "Path": "src/Erlang.Runtime/OrdsetCoreTrace.cs",
-      "Sha256": "777D80A039ACF481F864D824A9CAC80B56FF295DAC4C46486E4BE92F14D827C6"
-    },
-    {
-      "Path": "src/Erlang.Runtime/OrdsetFullCallbacks.cs",
-      "Sha256": "D996677E80D463454597A72C9D55E92BCB7BE94E411C546F74B587F65BADEC17"
-    },
-    {
-      "Path": "src/Erlang.Runtime/OrdsetFullExecution.cs",
-      "Sha256": "12E8A0CD9ADBF81BDDEC4CB581F06C1EB6412CC563DFC17BB469882D31ED7447"
-    },
-    {
-      "Path": "src/Erlang.Runtime/OrdsetFullFrame.cs",
-      "Sha256": "D982A7503C11D7C129B17DB25621E3331C15F4FE11DF4331D405CADF2678ED6C"
-    },
-    {
-      "Path": "src/Erlang.Runtime/OrdsetFullModule.cs",
-      "Sha256": "5F46E655DB6861B681EB9D3EA0BEF307FCD98E41E480295A55DE88D3CED695F8"
-    },
-    {
-      "Path": "src/Erlang.Runtime/OrdsetFullNames.cs",
-      "Sha256": "681C12BB7177F343F9E0F120D1ACBBD9D66CE50675B541917DD059D324D075CF"
-    },
-    {
-      "Path": "src/Erlang.Runtime/OrdsetFullScope.cs",
-      "Sha256": "FA2CED75BCEFE83B380172AAA470D1EBA87F538457A6F7ECE1130E71E49AEAD1"
-    },
-    {
-      "Path": "src/Erlang.Runtime/OrdsetFullTrace.cs",
-      "Sha256": "F867D902984F6A7F751ED48F7431FB4A50F5A1F675385F025BD3F43B5E084F78"
-    },
-    {
-      "Path": "src/Erlang.Terms/TermComparisonResult.cs",
-      "Sha256": "772233E32B250DBBB8FB589D14A1F3310FC6745D8BFC5C9D5875E0C83007D9A7"
-    },
-    {
-      "Path": "src/Erlang.Terms/TermComparisonScope.cs",
-      "Sha256": "3BA974E5319D5F74F108A1100C1CC8E15E9E911EC7B3F980DC2C865D7435FA7F"
-    },
-    {
-      "Path": "src/Erlang.Terms/TermMapOrderParameters.cs",
-      "Sha256": "C66760F168262ED6DA8EF2FE348C4E838173260F81B476B16694CBD2CC274CBB"
-    },
-    {
-      "Path": "src/Erlang.Terms/TermMapOrdering.cs",
-      "Sha256": "C24A775A4D6CC88791D9CDD438E150E9CE6CD3DC7847347B61E1D99F5113B468"
-    },
-    {
-      "Path": "src/Erlang.Terms/TermMapOrderingResult.cs",
-      "Sha256": "8EE31F026B8ED2AC69F8D19FEFF746E4496E32249C8CE356C866B949EA238536"
     }
   ],
-  "VerifiedCompatibleMfas": 114,
-  "NeedsVerificationMfas": 555,
+  "VerifiedCompatibleMfas": 118,
+  "NeedsVerificationMfas": 551,
   "KnownDifferenceMfas": 30,
   "MfaCompatibility": [
     {
@@ -2162,6 +2210,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -2171,8 +2231,8 @@
       "Module": "erlang",
       "Function": "length",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "List result/badarg logic and cooperative traversal are source-reviewed with 24 targeted checks. The earlier synchronous long-list scheduling difference was corrected in part343; the complete observable API contract remains under verification.",
+      "Status": "Verified compatible",
+      "Scope": "Complete logical length contract for finite immutable Erlang lists: Nil zero, opaque-head Cons traversal, exact count, every non-Nil terminus badarg with original argument, native error_info and configured full caller stack. Includes ordinary/indirect calls, guards, dynamic pattern and receive contexts, separate non-trapping match-spec path, own-VM cooperative progress, cancellation and suspend/resume. No claim of identical physical memory, native scheduling quantum, timing or performance.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
@@ -2197,12 +2257,39 @@
           "Path": "validation/part-343/length-source4-independent.json",
           "Sha256": "DB6F5E4D9B04892B662CAC0FCDA6ED8614B8F7F20225C738EBCBB561305DED0A",
           "Scope": "Current source correction and independently reviewed first24 targeted outcomes; no original OTP or full-contract compatibility claim."
+        },
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-372/evidence/length372-contract-proposal1/README.md",
+          "Sha256": "BA17CA756F427190A634C02823B21381655D54798E489A0A4C0BA3F2E01F4819",
+          "Scope": "Exhaustive finite immutable-list branch, progress, argument and source-callsite proof."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-372/evidence/length372-classification-proposal1/selected-native-witnesses.json",
+          "Sha256": "8C0E590350FE7E2156C315FBD628FE58FCE6CB594AFC7ABF0C32E8A1A9506F12",
+          "Scope": "Actual pinned original values and complete stack witnesses; final source replay retained."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/length372-classification-proposal1/promotion-candidates.json",
+          "Sha256": "AEE066F421D496BCC21C70287BA09C2CD9052C5A0BEFB34A8720E36AFB7F2110",
+          "Scope": "Independent bounded source closure and explicit exclusion of map_size and erlang:size."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
-      "Limits": [
-        "Actual pinned-original comparison of the nine fixtures and broader input/error/frame/interruption partitions remain required.",
-        "Source and targeted HOST controls do not establish full contract, physical VM or performance equivalence; full regression results are tracked separately."
-      ],
+      "Limits": [],
       "Key": "erlang:length/1"
     },
     {
@@ -2235,6 +2322,18 @@
           "Path": "validation/part-371/evidence/erlang371-contract-audit1/contract-proof.json",
           "Sha256": "2439C10B9EFEC544F210914FE1FF82BB18F6DF6A57B7B7EFFF5A6929F6422715",
           "Scope": "Exhaustive source branch, term partition, guard/error-frame and depth proof for the four bounded erlang APIs. Existing source bindings are superseded only by the reviewed registration addition and final guarded source hashes."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -2270,6 +2369,18 @@
           "Path": "validation/part-371/evidence/erlang371-contract-audit1/contract-proof.json",
           "Sha256": "2439C10B9EFEC544F210914FE1FF82BB18F6DF6A57B7B7EFFF5A6929F6422715",
           "Scope": "Exhaustive source branch, term partition, guard/error-frame and depth proof for the four bounded erlang APIs. Existing source bindings are superseded only by the reviewed registration addition and final guarded source hashes."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -2324,6 +2435,18 @@
           "Path": "validation/part-371/evidence/erlang371-contract-audit1/contract-proof.json",
           "Sha256": "2439C10B9EFEC544F210914FE1FF82BB18F6DF6A57B7B7EFFF5A6929F6422715",
           "Scope": "Exhaustive source branch, term partition, guard/error-frame and depth proof for the four bounded erlang APIs. Existing source bindings are superseded only by the reviewed registration addition and final guarded source hashes."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -2503,6 +2626,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -2682,6 +2817,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -2861,6 +3008,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -3040,6 +3199,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -3219,6 +3390,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -3392,6 +3575,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -3565,6 +3760,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -3720,6 +3927,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -3845,6 +4064,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -4018,6 +4249,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -5619,6 +5862,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -5744,6 +5999,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -5881,6 +6148,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -6006,6 +6285,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -6035,6 +6326,18 @@
           "Path": "validation/part-371/evidence/erlang371-contract-audit1/contract-proof.json",
           "Sha256": "2439C10B9EFEC544F210914FE1FF82BB18F6DF6A57B7B7EFFF5A6929F6422715",
           "Scope": "Exhaustive source branch, term partition, guard/error-frame and depth proof for the four bounded erlang APIs. Existing source bindings are superseded only by the reviewed registration addition and final guarded source hashes."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -6670,6 +6973,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -6741,6 +7056,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -6812,6 +7139,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -6883,6 +7222,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -6954,6 +7305,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -7025,6 +7388,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -7096,6 +7471,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -7167,6 +7554,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -7238,6 +7637,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -7309,6 +7720,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -7380,6 +7803,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -7451,6 +7886,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -7522,6 +7969,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -7593,6 +8052,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -7664,6 +8135,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -7735,6 +8218,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -7806,6 +8301,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -7877,6 +8384,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -7948,6 +8467,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -8019,6 +8550,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -8090,6 +8633,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -8161,6 +8716,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -8232,6 +8799,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -8303,6 +8882,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -8374,6 +8965,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -8445,6 +9048,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -8516,6 +9131,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -8587,6 +9214,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -8658,6 +9297,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -8729,6 +9380,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -8800,6 +9463,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -9465,6 +10140,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -12793,6 +13480,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -12870,6 +13569,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -12929,6 +13640,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -12988,6 +13711,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -13047,6 +13782,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -13106,6 +13853,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -13165,6 +13924,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -13224,6 +13995,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -13283,6 +14066,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -13342,6 +14137,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -13401,6 +14208,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -13460,6 +14279,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -13519,6 +14350,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -13578,6 +14421,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -13637,6 +14492,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -13696,6 +14563,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -13755,6 +14634,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -13814,6 +14705,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -13873,6 +14776,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -13932,6 +14847,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -13991,6 +14918,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -14050,6 +14989,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -14115,6 +15066,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -14180,6 +15143,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -14245,6 +15220,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -14310,6 +15297,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -14375,6 +15374,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -14440,6 +15451,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -14505,6 +15528,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -14570,6 +15605,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -14641,6 +15688,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -14712,6 +15771,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -14783,6 +15854,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -14854,6 +15937,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -14925,6 +16020,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -14996,6 +16103,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -15067,6 +16186,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -15138,6 +16269,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -15209,6 +16352,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -15280,6 +16435,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -15351,6 +16518,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -15422,6 +16601,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -15493,6 +16684,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -15564,6 +16767,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -15635,6 +16850,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -15706,6 +16933,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -15777,6 +17016,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -15848,6 +17099,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -15919,6 +17182,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -15990,6 +17265,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -16061,6 +17348,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -16132,6 +17431,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -16203,6 +17514,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -16274,6 +17597,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -16345,6 +17680,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -16416,6 +17763,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -16487,6 +17846,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -16558,6 +17929,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -16629,6 +18012,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -16700,6 +18095,18 @@
           "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
           "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
           "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -16735,6 +18142,18 @@
           "Path": "validation/part-371/evidence/erlang371-ordsets-independent-review1/review.json",
           "Sha256": "18B73E39581F4624BE7DDAA64228B2AF386D7CBC64389F4596E426566493F412",
           "Scope": "Pinned source clause and exhaustive valid-term partition proof for new/0, is_empty/1 and to_list/1, independently confirmed against final Main registration bodies. These three do not traverse payloads or invoke term ordering/equality helpers."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -16770,6 +18189,18 @@
           "Path": "validation/part-371/evidence/erlang371-ordsets-independent-review1/review.json",
           "Sha256": "18B73E39581F4624BE7DDAA64228B2AF386D7CBC64389F4596E426566493F412",
           "Scope": "Pinned source clause and exhaustive valid-term partition proof for new/0, is_empty/1 and to_list/1, independently confirmed against final Main registration bodies. These three do not traverse payloads or invoke term ordering/equality helpers."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -16805,6 +18236,18 @@
           "Path": "validation/part-371/evidence/erlang371-ordsets-independent-review1/review.json",
           "Sha256": "18B73E39581F4624BE7DDAA64228B2AF386D7CBC64389F4596E426566493F412",
           "Scope": "Pinned source clause and exhaustive valid-term partition proof for new/0, is_empty/1 and to_list/1, independently confirmed against final Main registration bodies. These three do not traverse payloads or invoke term ordering/equality helpers."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
       "Limits": [],
@@ -16839,8 +18282,8 @@
       "Module": "ordsets",
       "Function": "size",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim.",
+      "Status": "Verified compatible",
+      "Scope": "Complete logical source contract size(S)-\u003Elength(S), including unsorted/nonunique arbitrary opaque list elements, Nil and proper count, invalid and improper-tail original length error, ordsets.erl:120 source continuation and configured full caller stack, own-VM progress/cancellation/suspend/resume. Independent of term comparison, numeric equality, map construction/cardinality and raw cursor protocols. No physical VM/timing/performance identity claim.",
       "Evidence": [
         {
           "Kind": "SourceReview",
@@ -16853,11 +18296,39 @@
           "Path": "validation/part-371/evidence/ordsets371-fixed-comparison2/acceptance.json",
           "Sha256": "631917B620CE4675B797BC9DA6BA07DF7C56F18DB56DE9669C6EFF30A39B0FE1",
           "Scope": "436 actual original outcomes and 2180 full stacks across all 21 APIs; 2616 strict field comparisons, zero differences, no normalization."
+        },
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-372/evidence/length372-contract-proposal1/README.md",
+          "Sha256": "BA17CA756F427190A634C02823B21381655D54798E489A0A4C0BA3F2E01F4819",
+          "Scope": "Exhaustive finite immutable-list branch, progress, argument and source-callsite proof."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-372/evidence/length372-classification-proposal1/selected-native-witnesses.json",
+          "Sha256": "8C0E590350FE7E2156C315FBD628FE58FCE6CB594AFC7ABF0C32E8A1A9506F12",
+          "Scope": "Actual pinned original values and complete stack witnesses; final source replay retained."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/length372-classification-proposal1/promotion-candidates.json",
+          "Sha256": "AEE066F421D496BCC21C70287BA09C2CD9052C5A0BEFB34A8720E36AFB7F2110",
+          "Scope": "Independent bounded source closure and explicit exclusion of map_size and erlang:size."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
-      "Limits": [
-        "Whole-domain source dependency closure remains pending: complete term ordering/equality including HAMT map keys and all function terms, dependent lists private helper/error paths, or length trapping/resource lifetime as applicable. Finite samples do not establish these general contracts."
-      ],
+      "Limits": [],
       "Key": "ordsets:size/1"
     },
     {
@@ -17164,8 +18635,8 @@
       "Module": "ordsets",
       "Function": "fold",
       "Arity": 3,
-      "Status": "Needs verification",
-      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim.",
+      "Status": "Verified compatible",
+      "Scope": "Complete observable logical OTP contract over supported Erlang terms, including raw/nonlist inputs, callback kind/arity validation, callback order/identity, error class/reason/arguments and full source frames/depths. Tail delegates to the currently selected lists:foldl/3; folds arbitrary accumulator left-to-right without validating set ordering.",
       "Evidence": [
         {
           "Kind": "SourceReview",
@@ -17178,19 +18649,53 @@
           "Path": "validation/part-371/evidence/ordsets371-fixed-comparison2/acceptance.json",
           "Sha256": "631917B620CE4675B797BC9DA6BA07DF7C56F18DB56DE9669C6EFF30A39B0FE1",
           "Scope": "436 actual original outcomes and 2180 full stacks across all 21 APIs; 2616 strict field comparisons, zero differences, no normalization."
+        },
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-372/evidence/ordsets372-contract-closure-proposal1/source-contract-closure.json",
+          "Sha256": "4A8002CA3C182C737FA6043DEF060A5BEDD3D58AD549906CC935C91DDFF76D3C",
+          "Scope": "Exhaustive source partition proof, source PC correction and exact current original witnesses; conditional on final retained/canonical regression."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-372/evidence/ordsets372-contract-closure-proposal1/selected-original-witnesses.json",
+          "Sha256": "EBC6D5E2DE2B1E58C2BB1C31BFF7C2A4A97582101813DC147AD849FE99BA7303",
+          "Scope": "Per-MFA exact original rows: prior371168 each plus new372 fold60/filter66; all typed values/full stacks, zero waivers."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/ordsets372-contract-closure-proposal1/transitive-source-bindings.json",
+          "Sha256": "FAE1AF351216D186E5E4F76AF1C6F1D3219F93E2E0F5F844FDB76BA9667F5A01",
+          "Scope": "Exact current source dependency closure; no term ordering, length or usort dependency."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review1/source-review.json",
+          "Sha256": "BCB6D5C0234E4F9E83566F00DEDAB456F952B90590BC39D537504D8D467393C9",
+          "Scope": "Reviewed current shared source changes preserve prior verified contracts; exact source guard successor, no blind hash replacement."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
-      "Limits": [
-        "Whole-domain source dependency closure remains pending: complete term ordering/equality including HAMT map keys and all function terms, dependent lists private helper/error paths, or length trapping/resource lifetime as applicable. Finite samples do not establish these general contracts."
-      ],
+      "Limits": [],
       "Key": "ordsets:fold/3"
     },
     {
       "Module": "ordsets",
       "Function": "filter",
       "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim.",
+      "Status": "Verified compatible",
+      "Scope": "Complete observable logical OTP contract over supported Erlang terms, including raw/nonlist inputs, callback kind/arity validation, callback order/identity, error class/reason/arguments and full source frames/depths. Tail delegates to the currently selected lists:filter/2; retains original elements only for true, skips false, preserves source bad_filter/bad_generator errors and distinct current versus pending cons-return PCs. Does not sort or deduplicate output.",
       "Evidence": [
         {
           "Kind": "SourceReview",
@@ -17203,11 +18708,45 @@
           "Path": "validation/part-371/evidence/ordsets371-fixed-comparison2/acceptance.json",
           "Sha256": "631917B620CE4675B797BC9DA6BA07DF7C56F18DB56DE9669C6EFF30A39B0FE1",
           "Scope": "436 actual original outcomes and 2180 full stacks across all 21 APIs; 2616 strict field comparisons, zero differences, no normalization."
+        },
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-372/evidence/ordsets372-contract-closure-proposal1/source-contract-closure.json",
+          "Sha256": "4A8002CA3C182C737FA6043DEF060A5BEDD3D58AD549906CC935C91DDFF76D3C",
+          "Scope": "Exhaustive source partition proof, source PC correction and exact current original witnesses; conditional on final retained/canonical regression."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-372/evidence/ordsets372-contract-closure-proposal1/selected-original-witnesses.json",
+          "Sha256": "EBC6D5E2DE2B1E58C2BB1C31BFF7C2A4A97582101813DC147AD849FE99BA7303",
+          "Scope": "Per-MFA exact original rows: prior371168 each plus new372 fold60/filter66; all typed values/full stacks, zero waivers."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/ordsets372-contract-closure-proposal1/transitive-source-bindings.json",
+          "Sha256": "FAE1AF351216D186E5E4F76AF1C6F1D3219F93E2E0F5F844FDB76BA9667F5A01",
+          "Scope": "Exact current source dependency closure; no term ordering, length or usort dependency."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review1/source-review.json",
+          "Sha256": "BCB6D5C0234E4F9E83566F00DEDAB456F952B90590BC39D537504D8D467393C9",
+          "Scope": "Reviewed current shared source changes preserve prior verified contracts; exact source guard successor, no blind hash replacement."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-372/evidence/part372-source-guard-review2/source-review.json",
+          "Sha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+          "Scope": "Independent final source delta review: all496 prior paths preserved,508 exact production source guards and scoped semantic changes; actual final regressions retained."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-372/local-completion/source-local-acceptance.json",
+          "Sha256": "A22EFA9BCE1C4805394CF64BBFDCC8594C581FACAAACF13033F8DE3CC403FC1A",
+          "Scope": "Final7688-test checkpoint and original/retained comparison gates; numeric abort and unchanged legacy diagnostics explicitly retained. Publication-head CI remains pending."
         }
       ],
-      "Limits": [
-        "Whole-domain source dependency closure remains pending: complete term ordering/equality including HAMT map keys and all function terms, dependent lists private helper/error paths, or length trapping/resource lifetime as applicable. Finite samples do not establish these general contracts."
-      ],
+      "Limits": [],
       "Key": "ordsets:filter/2"
     },
     {
@@ -19290,11 +20829,11 @@
       "Key": "rpc:call/5"
     }
   ],
-  "ComparisonTestReport": "validation/part-370/local-completion/canonical-tests.json",
-  "LocalPassedTests": 7673,
+  "ComparisonTestReport": "validation/part-371/local-completion/canonical-tests.json",
+  "LocalPassedTests": 7688,
   "RegisteredMfas": 699,
-  "PreviousRegisteredMfas": 678,
-  "RegisteredMfaDelta": 21,
+  "PreviousRegisteredMfas": 699,
+  "RegisteredMfaDelta": 0,
   "SourceModuleRows": 1289,
   "ImplementedApiModules": 18,
   "Components": [
@@ -19325,7 +20864,7 @@
         "Native SSA environment layout/BEAM module hashes/indexes, unloaded-code and local ETF interoperability",
         "Physical BEAM heap/scheduler/resources,complete lint/spec/warnings/source stacks/code staging,connected distribution and full native/upstream/performance parity;native numeric record hashes independently matched in230, while general resource/lifecycle scope remains partial."
       ],
-      "RelatedPassedTests": 40
+      "RelatedPassedTests": 41
     },
     {
       "Id": "Serialization",
@@ -19492,7 +21031,7 @@
         "GC global CLR heap differs from BEAM per-process heap,physical roots/reductions/dirty-task/max-heap/resource/scheduler parity;CPU hardware topology assignment and full system flags/info unfinished.",
         "Physical BEAM heap/scheduler/resources,complete lint/spec/warnings/source stacks/code staging,connected distribution and full native/upstream/performance parity;native numeric record hashes independently matched in230, while general resource/lifecycle scope remains partial."
       ],
-      "RelatedPassedTests": 848
+      "RelatedPassedTests": 862
     },
     {
       "Id": "Compiler",
@@ -26190,8 +27729,8 @@
       "Name": "erlang",
       "Status": "Partially compatible",
       "RegisteredMfas": 351,
-      "VerifiedCompatibleMfas": 20,
-      "NeedsVerificationMfas": 318,
+      "VerifiedCompatibleMfas": 21,
+      "NeedsVerificationMfas": 317,
       "KnownDifferenceMfas": 13,
       "PreviousRegisteredMfas": 351,
       "Delta": 0,
@@ -32517,11 +34056,11 @@
       "Name": "ordsets",
       "Status": "Partially compatible",
       "RegisteredMfas": 21,
-      "VerifiedCompatibleMfas": 3,
-      "NeedsVerificationMfas": 18,
+      "VerifiedCompatibleMfas": 6,
+      "NeedsVerificationMfas": 15,
       "KnownDifferenceMfas": 0,
-      "PreviousRegisteredMfas": 0,
-      "Delta": 21,
+      "PreviousRegisteredMfas": 21,
+      "Delta": 0,
       "ReferenceDeclarations": 21,
       "ApiPresencePercent": 100,
       "RequiresPreprocessing": false,

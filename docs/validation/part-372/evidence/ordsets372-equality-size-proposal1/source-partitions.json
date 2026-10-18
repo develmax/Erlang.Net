@@ -1,0 +1,141 @@
+{
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ExhaustiveSourceBranchPartitionAudit": true,
+  "ExhaustiveInputEnumerationOrProofOfFullCompatibility": false,
+  "NativePacket371DoesNotCloseTheseNewWitnesses": true,
+  "Partitions": [
+    {
+      "Api": "ordsets:size/1",
+      "Partition": "Nil",
+      "Native": "length_1 initializes original/tail/zero; no cells; make_small(0)",
+      "Main": "ErlangListLength.ReadAsync cursor Nil, ChargeAsync(0), returns0",
+      "SourceStatus": "ALIGNED"
+    },
+    {
+      "Api": "ordsets:size/1",
+      "Partition": "Proper nonempty list; arbitrary terms as heads; all lengths representable by own VM",
+      "Native": "Traverse CDR only; no head comparison or set validation; length result",
+      "Main": "Traverse Cons.Tail only; long accumulated count; result Integer",
+      "SourceStatus": "ALIGNED"
+    },
+    {
+      "Api": "ordsets:size/1",
+      "Partition": "Nonlist or improper list at any prefix length, including slice boundary",
+      "Native": "BADARG, trapped BIF substitutes original argument; source size line120 retained by ordinary native frame capture",
+      "Main": "Kernel badarg rewritten to erlang:length frame [original] plus size/1 line120 plus caller/depth truncation",
+      "SourceStatus": "ALIGNED_PENDING_EXPANDED_NATIVE_DEPTH_BOUNDARY_WITNESSES"
+    },
+    {
+      "Api": "ordsets:size/1",
+      "Partition": "Reduction budget exhausted with further Cons",
+      "Native": "max_iter=REDS_LEFT*16; store tail and count; consume slice and trap; original retained separately",
+      "Main": "RemainingListTraversalReductions*16; await ChargeAsync(reductions); retain tail/count/original in async state",
+      "SourceStatus": "ALIGNED_RELEASE_BUILD_PROTOCOL"
+    },
+    {
+      "Api": "ordsets:size/1",
+      "Partition": "Final partial or exact chunk; improper precedence",
+      "Native": "Cons remains -> trap first; otherwise improper ->badarg before final partial charge; proper ->floor(cells/16)",
+      "Main": "Same branch order andfloor cells/16 charge",
+      "SourceStatus": "ALIGNED"
+    },
+    {
+      "Api": "ordsets:size/1",
+      "Partition": "Native DEBUG/VALGRIND diagnostic chunk50",
+      "Native": "max_iter50 under diagnostic compile macros",
+      "Main": "Release protocol16*budget",
+      "SourceStatus": "DIAGNOSTIC_BUILD_SCHEDULING_NOT_RELEASE_FUNCTIONAL_DIFFERENCE"
+    },
+    {
+      "Api": "ordsets:is_equal/2",
+      "Partition": "Either argument neither Nil nor Cons, including left/right/both invalid",
+      "Native": "is_list guards use list primary tag, accepts improperCons; guarded clause rejectsinvalid with function_clause originalargs line160",
+      "Main": "Both arguments Cons-or-Nil guard; same failurearg order/sourceframe",
+      "SourceStatus": "ALIGNED"
+    },
+    {
+      "Api": "ordsets:is_equal/2",
+      "Partition": "Nil/Cons combinations, arbitrary order/duplicates/improper lists; no ordset validation",
+      "Native": "S1==S2 callsCMP_EQ_ONLY; structure not sorted orvalidated",
+      "Main": "NumericEquals traversesLists; no normalization",
+      "SourceStatus": "ALIGNED_EXCEPT_CHILD_TERM_DEPENDENCIES"
+    },
+    {
+      "Api": "ordsets:is_equal/2",
+      "Partition": "Sameobject fastpath; mismatched primary categories",
+      "Native": "is_same ->true, rank mismatch ->nonzero",
+      "Main": "ReferenceEquals ->true after rank; same knownruntime subtype; rankmismatchnonzero",
+      "SourceStatus": "ALIGNED"
+    },
+    {
+      "Api": "ordsets:is_equal/2",
+      "Partition": "Integer/integer, finitefloat/finitefloat, mixedintegerfloat incl huge andsubnormal",
+      "Native": "cmp arithmetic; exact=0 ignores float signedzerobits; mixed exactrational comparisons",
+      "Main": "BigInteger compare; Double comparefinite; bit-decomposed IntegerFloat without rounding",
+      "SourceStatus": "SOURCE_MATH_ALIGNED_EXTREME_WITNESSES_PENDING"
+    },
+    {
+      "Api": "ordsets:is_equal/2",
+      "Partition": "Atoms, Nil, bitstrings including unequallength/unalignedsubbinaries",
+      "Native": "Atomidentity/name; bitlength and significant bits; eq_only can skip payloadiflen differs",
+      "Main": "Runelexname equality; BitLength and Bit; mayscan prefixbeforelen butsamebool",
+      "SourceStatus": "RESULT_ALIGNED_CANCELLATION_FAIRNESS_NOT_PROVEN_FOR_SYNCHRONOUS_COMPARE"
+    },
+    {
+      "Api": "ordsets:is_equal/2",
+      "Partition": "Pid,port,reference including localnode dynamic snapshot andzero-paddedrefaliases",
+      "Native": "Identity node/creation/number; references trim highzero words",
+      "Main": "NodeComparisonContext snapshots pertraversal; FullId zero-paddingcollapses",
+      "SourceStatus": "RESULT_ALIGNED_HAMT_HASH_PROTOCOL_SEPARATE"
+    },
+    {
+      "Api": "ordsets:is_equal/2",
+      "Partition": "Tuples and proper/improper list recursion; nested numeric tail",
+      "Native": "Explicit stacks; exactnumeric flaginherits; unequal tuplearity first",
+      "Main": "Iterative pending scopes/stacks and ListSteps tail; numeric flaginherits",
+      "SourceStatus": "ALIGNED_EXCEPT_CHILD_TERM_DEPENDENCIES"
+    },
+    {
+      "Api": "ordsets:is_equal/2",
+      "Partition": "ExternalFUNs, localFUNs, mixed local/external, captures",
+      "Native": "CMP localFUN uses module/index/OLD_UNIQ then environment numeric; arity/NEW_UNIQ not used bycmp; external MFA; external afterlocal",
+      "Main": "LocalFunctionSteps NumericEquality intentionally sameOLD_UNIQ; environments numeric; identityless hostFUN own ID",
+      "SourceStatus": "ALIGNED_DIRECT_FUN_DO_NOT_REPLACE_WITH_EXACTEQUALITY"
+    },
+    {
+      "Api": "ordsets:is_equal/2",
+      "Partition": "Native records definitionkeys/metadata and values",
+      "Native": "Definitioncomparison lexmodule/name/exported/fieldcount; sorted fieldnameorder then values in thatorder",
+      "Main": "RecordSteps compares stored FieldNames/Values sequence",
+      "SourceStatus": "CONCRETE_REORDER_GAP_IF_HOST_OR_DISTINCT_DECLARATION_ORDER_CAN_REACH_SAME_RECORD_IDENTITY"
+    },
+    {
+      "Api": "ordsets:is_equal/2",
+      "Partition": "Maps size mismatch/empty",
+      "Native": "size first,emptyimmediate",
+      "Main": "entrycountfirst,empty iterator",
+      "SourceStatus": "ALIGNED"
+    },
+    {
+      "Api": "ordsets:is_equal/2",
+      "Partition": "Flatmaps2..32 withcanonicalNEW_UNIQorder opposedOLD_UNIQorder",
+      "Native": "Physicalflatmap keys sortedCMP_TERM; NumericEquality keyphase exact1 then numericvaluephase",
+      "Main": "Currently canonicalexact-keyorder reused andnot nativekeyorder; fourFUN witness can pairwrongkeyslots",
+      "SourceStatus": "CONCRETE_SOURCE_GAP_PATCH_PROPOSED_NATIVE_WITNESS_REQUIRED"
+    },
+    {
+      "Api": "ordsets:is_equal/2",
+      "Partition": "Nestedmapkeys and fullflatmap valueexactness",
+      "Native": "Nested keycomparisons exact1 allwaydown; value exactrestored fromoutercontext",
+      "Main": "Candidatepassesexactflag into TermMapOrdering valuepairs; Sort Observe Ordering exact1 stillusesoldcanonicalnestedmaprepresentation",
+      "SourceStatus": "PARTIALLY_ADDRESSED_NESTED_EXACT_MAP_ORDER_STILL_OPEN"
+    },
+    {
+      "Api": "ordsets:is_equal/2",
+      "Partition": "HAMT33+maps; typedcmp0/exactneqkeys; refstoredcountaliases",
+      "Native": "eq_only uses simultaneous ownHAMT hash-order leafiteration and returns firstneq immediately; distinctcodekeys canordercmp0 yethashapart",
+      "Main": "MapSteps uses canonical keyorder not nativeownHAMT leaforder; noownhash-statecontrol here",
+      "SourceStatus": "OPEN_REQUIRES_GENERAL_VM_OWN_HAMT_STATE_PROTOCOL_NOT_ORACLE_SEEDED_LAYOUT"
+    }
+  ]
+}

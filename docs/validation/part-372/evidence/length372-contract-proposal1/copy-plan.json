@@ -1,0 +1,37 @@
+{
+  "Files": [
+    {
+      "Source": "artifacts/length372-contract-proposal1/source/tests/Erlang.Tests/ListLengthHostChecks.cs",
+      "Destination": "tests/Erlang.Tests/ListLengthHostChecks.cs",
+      "BeforeSha256": "3E8E3899E74B23794B3CD5177BFCE81733AE7BB7060C3984E13BDCE82EEC0AE6",
+      "AfterSha256": "5E0ECFC703A484DB7E946C6C6C9EEBA00B35C9A5D0F5F2C4874FC73D44C8E102"
+    },
+    {
+      "Source": "artifacts/length372-contract-proposal1/source/tests/Erlang.Tests/ListLengthHostNames.cs",
+      "Destination": "tests/Erlang.Tests/ListLengthHostNames.cs",
+      "BeforeSha256": "DBC264BD0F80836415F38F2C42A04EC4202BC00FD2E91FCF9ACB65E21051E271",
+      "AfterSha256": "9B852259912B8C671773D4EB4B37E66F7DADC9AFD938F7CB34A404E7035CC327"
+    }
+  ],
+  "ProgramAnchor": "Test(\"runtime/length-ordinary-progress\", Erlang.Tests.ListLengthHostChecks.OrdinaryProgress);",
+  "Registrations": [
+    {
+      "Name": "runtime/ordsets-size-progress",
+      "Method": "OrdsetSizeProgress"
+    },
+    {
+      "Name": "runtime/ordsets-size-cancellation",
+      "Method": "OrdsetSizeCancellation"
+    },
+    {
+      "Name": "runtime/ordsets-size-suspend-resume",
+      "Method": "OrdsetSizeSuspendResume"
+    },
+    {
+      "Name": "runtime/length-size-late-improper-original-argument",
+      "Method": "LateImproperOriginalArgument"
+    }
+  ],
+  "BuildOrTestExecuted": false,
+  "NoMainEdits": true
+}

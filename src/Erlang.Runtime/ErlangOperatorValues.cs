@@ -19,24 +19,32 @@ public static class ErlangOperatorValues
         Term first,
         Term second,
         ProcessContext? context
-    ) => operation switch
+    )
     {
-        ErlangOperators.And => CoreModules.Boolean(CoreModules.Bool(first) & CoreModules.Bool(second)),
-        ErlangOperators.Or => CoreModules.Boolean(CoreModules.Bool(first) | CoreModules.Bool(second)),
-        ErlangOperators.Xor => CoreModules.Boolean(CoreModules.Bool(first) ^ CoreModules.Bool(second)),
-        ErlangOperators.NumericEqual => CoreModules.Boolean(first.NumericEquals(second)),
-        ErlangOperators.NumericNotEqual => CoreModules.Boolean(!first.NumericEquals(second)),
-        ErlangOperators.ExactEqual => CoreModules.Boolean(first.Equals(second)),
-        ErlangOperators.ExactNotEqual => CoreModules.Boolean(!first.Equals(second)),
-        ErlangOperators.Less => CoreModules.Boolean(first.CompareTo(second) < 0),
-        ErlangOperators.Greater => CoreModules.Boolean(first.CompareTo(second) > 0),
-        ErlangOperators.LessOrEqual => CoreModules.Boolean(first.CompareTo(second) <= 0),
-        ErlangOperators.GreaterOrEqual => CoreModules.Boolean(first.CompareTo(second) >= 0),
-        ErlangOperators.Append => Cons.From(Cons.Items(first), second),
-        ErlangOperators.SubtractList => ListBasicOperations.Subtract(first, second),
-        ErlangOperators.Send when context is not null => Send(context, first, second),
-        _ => CoreModules.Arithmetic(operation, first, second)
-    };
+        using var comparison = context is not null
+            && operation is ErlangOperators.NumericEqual or ErlangOperators.NumericNotEqual
+            ? RuntimeNumericMapComparison.EnterThread(context.Runtime)
+            : default;
+
+        return operation switch
+        {
+            ErlangOperators.And => CoreModules.Boolean(CoreModules.Bool(first) & CoreModules.Bool(second)),
+            ErlangOperators.Or => CoreModules.Boolean(CoreModules.Bool(first) | CoreModules.Bool(second)),
+            ErlangOperators.Xor => CoreModules.Boolean(CoreModules.Bool(first) ^ CoreModules.Bool(second)),
+            ErlangOperators.NumericEqual => CoreModules.Boolean(first.NumericEquals(second)),
+            ErlangOperators.NumericNotEqual => CoreModules.Boolean(!first.NumericEquals(second)),
+            ErlangOperators.ExactEqual => CoreModules.Boolean(first.Equals(second)),
+            ErlangOperators.ExactNotEqual => CoreModules.Boolean(!first.Equals(second)),
+            ErlangOperators.Less => CoreModules.Boolean(first.CompareTo(second) < 0),
+            ErlangOperators.Greater => CoreModules.Boolean(first.CompareTo(second) > 0),
+            ErlangOperators.LessOrEqual => CoreModules.Boolean(first.CompareTo(second) <= 0),
+            ErlangOperators.GreaterOrEqual => CoreModules.Boolean(first.CompareTo(second) >= 0),
+            ErlangOperators.Append => Cons.From(Cons.Items(first), second),
+            ErlangOperators.SubtractList => ListBasicOperations.Subtract(first, second),
+            ErlangOperators.Send when context is not null => Send(context, first, second),
+            _ => CoreModules.Arithmetic(operation, first, second)
+        };
+    }
 
     public static async ValueTask<bool> TrySendAsync(
         ProcessContext context,

@@ -2,6 +2,12 @@ namespace Erlang;
 
 internal enum ListUniqueMergeState
 {
+    Usort1,
+    Usort_12,
+    Usplit_15,
+    Usplit_1_16,
+    Usplit_25,
+    Usplit_2_16,
     Umergel1,
     Umergel3,
     Rumergel3,

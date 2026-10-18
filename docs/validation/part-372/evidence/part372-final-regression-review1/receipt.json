@@ -1,0 +1,348 @@
+{
+  "Status": "PASS_BOUNDED_NO_NEW_BINARY_SUPPLEMENT_DIFFERENCES_NOT_ALL_EIGHT_STAGES_PASS",
+  "PublishedBaselineCommit": "230de4cafb1a67f34855fbea6b089e4b399a3c5d",
+  "PublishedGitBlobSha256": "FE94EA1806164F2C177EC4B518B482295BF6050EE7643274CB7E4B397AA73C08",
+  "ComparisonRowsExactlyEqual": true,
+  "FullRawInputBytesExactlyEqual": true,
+  "LegacyDifferencesNotWaived": [
+    {
+      "Group": "callback_supplement",
+      "Case": "live_stack_three",
+      "Depth": "values",
+      "Fields": 1,
+      "Paths": [
+        "$[1][2][1][0][1][1][1][3][1]"
+      ]
+    },
+    {
+      "Group": "callback_supplement",
+      "Case": "live_stack_four",
+      "Depth": "values",
+      "Fields": 3,
+      "Paths": [
+        "$[1][2][1][0][1][1][1][3][1]",
+        "$[1][2][1][0][1][3][1][3][1]",
+        "$[1][2][1][0][1][5][1][3][1]"
+      ]
+    }
+  ],
+  "InputChecks": [
+    {
+      "PublishedInput": "artifacts\\binary369-supplement-remote1\\run-39083564610\\artifact-12120102622\\capture\\callback_supplement\\returned.etf",
+      "FinalInput": "artifacts\\binary369-supplement-remote1\\run-39083564610\\artifact-12120102622\\capture\\callback_supplement\\returned.etf",
+      "Bytes": 7396,
+      "Sha256": "BD44BE9327EC8688BB20F3078BCE43132C8BFEBC460D94B80401492FDB3EE6E7",
+      "ByteIdentical": true
+    },
+    {
+      "PublishedInput": "artifacts\\erlang371-binary-retained-main1\\binary-supplement\\capture1\\sdk\\callback_supplement\\returned.etf",
+      "FinalInput": "artifacts\\erlang372-final-baselines1\\binary-supplement\\capture1\\sdk\\callback_supplement\\returned.etf",
+      "Bytes": 7070,
+      "Sha256": "51C9CA5A5407E7B685FB5E6510FB30B26116D88D07FD8BD59BD4091219B128EC",
+      "ByteIdentical": true
+    },
+    {
+      "PublishedInput": "artifacts\\binary369-supplement-remote1\\run-39083564610\\artifact-12120102622\\capture\\callback_supplement\\stack-observations.etf",
+      "FinalInput": "artifacts\\binary369-supplement-remote1\\run-39083564610\\artifact-12120102622\\capture\\callback_supplement\\stack-observations.etf",
+      "Bytes": 26853,
+      "Sha256": "08FDB11514F4474268A5AE4EF70396E3F7A3F07DE96CEB8440F129DE16F7CF36",
+      "ByteIdentical": true
+    },
+    {
+      "PublishedInput": "artifacts\\erlang371-binary-retained-main1\\binary-supplement\\capture1\\sdk\\callback_supplement\\stack-observations.etf",
+      "FinalInput": "artifacts\\erlang372-final-baselines1\\binary-supplement\\capture1\\sdk\\callback_supplement\\stack-observations.etf",
+      "Bytes": 26853,
+      "Sha256": "08FDB11514F4474268A5AE4EF70396E3F7A3F07DE96CEB8440F129DE16F7CF36",
+      "ByteIdentical": true
+    },
+    {
+      "PublishedInput": "artifacts\\binary369-supplement-remote1\\run-39083564610\\artifact-12120102622\\capture\\backing_supplement\\returned.etf",
+      "FinalInput": "artifacts\\binary369-supplement-remote1\\run-39083564610\\artifact-12120102622\\capture\\backing_supplement\\returned.etf",
+      "Bytes": 1569,
+      "Sha256": "13E0193DBEFF8BA8BAF2A2CB401599B7E6ED035BED19CB396637C0D5EE0AB3F9",
+      "ByteIdentical": true
+    },
+    {
+      "PublishedInput": "artifacts\\erlang371-binary-retained-main1\\binary-supplement\\capture1\\sdk\\backing_supplement\\returned.etf",
+      "FinalInput": "artifacts\\erlang372-final-baselines1\\binary-supplement\\capture1\\sdk\\backing_supplement\\returned.etf",
+      "Bytes": 1569,
+      "Sha256": "13E0193DBEFF8BA8BAF2A2CB401599B7E6ED035BED19CB396637C0D5EE0AB3F9",
+      "ByteIdentical": true
+    },
+    {
+      "PublishedInput": "artifacts\\binary369-supplement-remote1\\run-39083564610\\artifact-12120102622\\capture\\backing_supplement\\stack-observations.etf",
+      "FinalInput": "artifacts\\binary369-supplement-remote1\\run-39083564610\\artifact-12120102622\\capture\\backing_supplement\\stack-observations.etf",
+      "Bytes": 7874,
+      "Sha256": "2FFA3859F028880B888ED8BEFAF6B9A3E9DFF2890B2EC65AB91C09EE2F088746",
+      "ByteIdentical": true
+    },
+    {
+      "PublishedInput": "artifacts\\erlang371-binary-retained-main1\\binary-supplement\\capture1\\sdk\\backing_supplement\\stack-observations.etf",
+      "FinalInput": "artifacts\\erlang372-final-baselines1\\binary-supplement\\capture1\\sdk\\backing_supplement\\stack-observations.etf",
+      "Bytes": 7874,
+      "Sha256": "2FFA3859F028880B888ED8BEFAF6B9A3E9DFF2890B2EC65AB91C09EE2F088746",
+      "ByteIdentical": true
+    }
+  ],
+  "Stages": [
+    {
+      "Name": "erlang-old",
+      "ExitCode": 0,
+      "Summary": {
+        "Status": "PASS_ALL_FIELDS_WITH_DECLARED_FUN_CREATOR_RELATION",
+        "Rows": 9582,
+        "Strict": 9582,
+        "Relations": 0,
+        "Differences": 0,
+        "OriginalAdmissionSha256": "E98CFAF61B16E2C63C14F53DDBEB3DC1563E6333285D49C62E47EEA9AF9A2C38",
+        "SdkCaptureSealSha256": "241AA500F9EFB84B627817E6C9B7A90B4DBC1C0E68CE5F1808CA8E7413BCD210",
+        "NoPromotion": true
+      }
+    },
+    {
+      "Name": "erlang-new",
+      "ExitCode": 0,
+      "Summary": {
+        "Status": "PASS_ALL_FIELDS_WITH_DECLARED_FUN_CREATOR_RELATION",
+        "Rows": 264,
+        "Strict": 264,
+        "Relations": 0,
+        "Differences": 0,
+        "OriginalAdmissionSha256": "F2B0D216494898B31A7C430213BE8113B152739242FA5060EB4F94202A54C124",
+        "SdkCaptureSealSha256": "F781E20B94FFAF2CC7013FD48309944880C4F7892F4CA99771F56D940F7F8F7C",
+        "NoPromotion": true
+      }
+    },
+    {
+      "Name": "binary-primary",
+      "ExitCode": 0,
+      "Summary": {
+        "Status": "PASS_WHOLE_FIELDS_WITH_SOURCE_BOUND_OWN_REFERENCES",
+        "ExpectedRows": 3510,
+        "ActualRows": 3510,
+        "StrictEqual": 3474,
+        "SourceBoundReferenceRows": 36,
+        "NativeAdmissionSha256": "DAFEA0BFAD08C1BE2975C81D342C729B816717D5BA213FD6710BDE4EE6301FF6",
+        "Projection": false,
+        "Normalization": false,
+        "CompatibilityPromoted": false
+      }
+    },
+    {
+      "Name": "binary-supplement",
+      "ExitCode": 1,
+      "Summary": {
+        "Status": "DIFFERENCES_OR_OPAQUE_PROVENANCE_PENDING",
+        "ExpectedRows": 216,
+        "ActualRows": 216,
+        "StrictEqual": 214,
+        "OpaqueRowsNotAccepted": 0,
+        "ProfileSha256": "AE3CDEE47AB1FAF891E70461EDDD387D40F4E799AC79F3573851B7F8C13734CA",
+        "DecoderSha256": "E0ACDC8C7C53D89CADECA91327C9C4AF38AC5DD6250868EF889A2B36E22DC7E0",
+        "Projection": false,
+        "Normalization": false,
+        "ReferenceRelationsAccepted": 0,
+        "CompatibilityPromoted": false
+      }
+    },
+    {
+      "Name": "binary-closure",
+      "ExitCode": 0,
+      "Summary": {
+        "Status": "PASS_STRICT_PENDING_SOURCE_ADMISSION",
+        "ExpectedRows": 84,
+        "ActualRows": 84,
+        "StrictEqual": 84,
+        "OpaqueRowsNotAccepted": 0,
+        "ProfileSha256": "ACC984F192FA25A0DE8B00EFBD3E4FCD2822E598D14C5D78F6A8B040164160AA",
+        "DecoderSha256": "E0ACDC8C7C53D89CADECA91327C9C4AF38AC5DD6250868EF889A2B36E22DC7E0",
+        "Projection": false,
+        "Normalization": false,
+        "ReferenceRelationsAccepted": 0,
+        "CompatibilityPromoted": false
+      }
+    },
+    {
+      "Name": "binary-insert",
+      "ExitCode": 0,
+      "Summary": {
+        "Status": "PASS_STRICT_PENDING_SOURCE_ADMISSION",
+        "ExpectedRows": 42,
+        "ActualRows": 42,
+        "StrictEqual": 42,
+        "OpaqueRowsNotAccepted": 0,
+        "ProfileSha256": "78A1604C36243FD7770C8E6FA1FAB5BC1745AED661113461CD4EF08F01C6F167",
+        "DecoderSha256": "E0ACDC8C7C53D89CADECA91327C9C4AF38AC5DD6250868EF889A2B36E22DC7E0",
+        "Projection": false,
+        "Normalization": false,
+        "ReferenceRelationsAccepted": 0,
+        "CompatibilityPromoted": false
+      }
+    },
+    {
+      "Name": "erlang371",
+      "ExitCode": 0,
+      "Summary": {
+        "Status": "PASS_ALL4506_FIELDS_STRICT",
+        "Rows": 4506,
+        "Values": 751,
+        "FullStackProfiles": 3755,
+        "Strict": 4506,
+        "Differences": 0,
+        "NormalizedFields": 0,
+        "Relations": 0,
+        "OriginalAdmissionSha256": "CCCD1EFC506210932915362CA2A60141FE0EB2F920EDE152D8C6CE49EBAF6EFA",
+        "SdkCaptureSealSha256": "E6EE091A1C499902F0CE94B77D02E6BF30708485752E2AA11651EC6489F1CDF0",
+        "NoPromotion": true,
+        "HistoricalCapture": false,
+        "FinalRecaptureRequired": false
+      }
+    },
+    {
+      "Name": "ordsets371",
+      "ExitCode": 0,
+      "Summary": {
+        "Status": "PASS_ALL2616_FIELDS_STRICT",
+        "Rows": 2616,
+        "Values": 436,
+        "FullStackProfiles": 2180,
+        "Strict": 2616,
+        "Differences": 0,
+        "NormalizedFields": 0,
+        "Relations": 0,
+        "OriginalAdmissionSha256": "019080B7B3B39F426DB22C7EE5C98775D516BB532A98DF17539C81592342EC85",
+        "SdkCaptureSealSha256": "18F6F6AF8030EEF22BF0CE0A54C7CDB6992688607289D4E2B1929A18A74EA50C",
+        "FinalLiveDllClosure": true,
+        "HistoricalCapture": false,
+        "FinalRecaptureRequired": false,
+        "NoPromotion": true
+      }
+    }
+  ],
+  "SevenStagesExitZero": true,
+  "BinarySupplementExitCode": 1,
+  "AllEightStagesPassed": false,
+  "NineRetained": {
+    "Status": "PASS_BOUNDED_FIELDS_WITH_EXPLICIT_OWN_TOPOLOGY_PENDING",
+    "Observations": 8117,
+    "StrictWholeEqual": 7683,
+    "AcceptedWholeFields": 8087,
+    "All76Claimed": false,
+    "FramesProjected": false,
+    "CaptureRewritten": false,
+    "DownloadedCodeExecuted": false,
+    "RuntimeExecutedByReviewer": false,
+    "CompatibilityPromoted": false
+  },
+  "NineRetainedUnexpected": 0,
+  "NineRetainedRejectedMutationControls": 68,
+  "NineRetainedNotAccepted": 30,
+  "NineRetainedOwnTopologyPending": 12,
+  "NewPacket": {
+    "Status": "PARTIAL_COMPARISON_OR_DIFFERENCES_RETAINED",
+    "NativeRun": 39119539009,
+    "NativeHead": "76c034724be1b21da8c66ada0ec164307386cfcd",
+    "ParentRunConclusion": "failure",
+    "Rows": 642,
+    "Strict": 642,
+    "Differences": 0,
+    "ExpectedRows": 1002,
+    "BlockedOrMissingRows": 360,
+    "NormalizedFields": 0,
+    "Waivers": 0,
+    "Relations": 0,
+    "NativeAdmissionSha256": "7FD06171F7C9AF8F3C85F721C9344D288ED32F2070DB8D7E3E4E00CD1919EF76",
+    "ArtifactZipSha256": "1B07705B38A66F1B0C67947A74B24820E0DF18C7217FC7D49398F2200F349E8F",
+    "DecoderSha256": "BC8C8C15E0EF591DC00CB896F33B0BD799B44B6E30651A9984352D1028A05C12",
+    "SourceFreezeSha256": "AADFD21BBAB7432E961D122F43B8E64907F9307848E24D5B2C23FEDC11AD8481",
+    "DownloadedCodeExecuted": false,
+    "NoPromotion": true
+  },
+  "NewPacketBoundary": "Healthy original ordsets/usort families only: 642 strict. Numeric 360 observations remain blocked by actual native collector abort; parent CI failure is preserved.",
+  "Scope": "Passive review of existing bytes and receipts. No VM, build, network, normalization, projection, error masking, contract promotion or Main modification.",
+  "CanonicalFullSuite": {
+    "Passed": 7688,
+    "Total": 7688,
+    "ExitCode": 0,
+    "ElapsedSeconds": 386.36000000001513,
+    "StdoutAndStderrHashVerified": true,
+    "ExecutionOwner": "Root; reviewed passively here"
+  },
+  "Sources": [
+    {
+      "Path": "docs/validation/part-371/evidence/erlang371-binary-supplement-comparison1/comparison.json",
+      "Bytes": 80334,
+      "Sha256": "FE94EA1806164F2C177EC4B518B482295BF6050EE7643274CB7E4B397AA73C08"
+    },
+    {
+      "Path": "artifacts/erlang372-final-baseline-comparisons1/binary-supplement/comparison.json",
+      "Bytes": 80314,
+      "Sha256": "B7A550F7F9DA6B7C5752CFAD77175D5CE3C006B8D79B9EAAF87E095F56CBEA7A"
+    },
+    {
+      "Path": "artifacts/erlang372-final-baseline-comparisons1/completion.json",
+      "Bytes": 7765,
+      "Sha256": "813DC30632FAAF6F0AF3C736D78E6C10900EFA874160C1FBB4E8EA10AE8E8BBB"
+    },
+    {
+      "Path": "artifacts/erlang372-final-baseline-comparisons1/erlang-old/acceptance.json",
+      "Bytes": 365,
+      "Sha256": "0AAA3FAA0038D96D53707EBF3BE593989BE196B499969DF0ED872287327E9478"
+    },
+    {
+      "Path": "artifacts/erlang372-final-baseline-comparisons1/erlang-new/acceptance.json",
+      "Bytes": 363,
+      "Sha256": "0EC3BC84D94911CDBE54606C382FDF6B2C287D525F3F84001DF83D08E480B67E"
+    },
+    {
+      "Path": "artifacts/erlang372-final-baseline-comparisons1/binary-primary/comparison.json",
+      "Bytes": 816893,
+      "Sha256": "707EC15F48F6674F1EE44282EC3B8EFAF3FB1F144190897BBD2AC080510623C9"
+    },
+    {
+      "Path": "artifacts/erlang372-final-baseline-comparisons1/binary-closure/comparison.json",
+      "Bytes": 19026,
+      "Sha256": "70C05FBED061D6468839EB6ED921C1AD79E7FBDBCF8F4A172CF2D4F45F3E7380"
+    },
+    {
+      "Path": "artifacts/erlang372-final-baseline-comparisons1/binary-insert/comparison.json",
+      "Bytes": 10009,
+      "Sha256": "A69451020EA5D940AB963830945FD628F813D0AF35DF7036411F41759D068DB8"
+    },
+    {
+      "Path": "artifacts/erlang372-final-baseline-comparisons1/erlang371/acceptance.json",
+      "Bytes": 482,
+      "Sha256": "51B4130A94437D56D88BDB9D06005B63332290F64525CC80C24843B8ADED947D"
+    },
+    {
+      "Path": "artifacts/erlang372-final-baseline-comparisons1/ordsets371/acceptance.json",
+      "Bytes": 2672,
+      "Sha256": "3BB44D0808068567F31E312F08AF0AB7DF96F26B2FF195588864F8AA8D1DB9FC"
+    },
+    {
+      "Path": "artifacts/part372-nine-retained-comparison-proposal1/actual1/comparison.json",
+      "Bytes": 3679226,
+      "Sha256": "19CEAABBB5B90401B6F24B02D007CF479BFC74D0C69018EB7C76EE230C15FEEF"
+    },
+    {
+      "Path": "artifacts/binary-integration369/ordsets372-canonical-tests2/execution.exit.json",
+      "Bytes": 505,
+      "Sha256": "B19D1E0E24BA773ABFC210481089896BB74B5855FCF0BEDEEDB8024AA2FB3B16"
+    },
+    {
+      "Path": "artifacts/binary-integration369/ordsets372-canonical-tests2/execution.stdout.log",
+      "Bytes": 482206,
+      "Sha256": "851BC8E5CFC0106164BBFEE8C8C30DE1438E13893B1732B78F40F119079D3607"
+    },
+    {
+      "Path": "artifacts/binary-integration369/ordsets372-canonical-tests2/execution.stderr.log",
+      "Bytes": 1047,
+      "Sha256": "CA28DC90026E2F533157EF715CA259762FB2CDE0F743DD1591699AD5FBCAECA0"
+    },
+    {
+      "Path": "artifacts/part372-after-comparison3/acceptance.json",
+      "Bytes": 8572,
+      "Sha256": "8B34C9F1C9D092C50AD927ACC78038C165F426607221AE008D35C9D51B8631B1"
+    }
+  ]
+}

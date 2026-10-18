@@ -49,6 +49,8 @@ internal static class OrdsetCoreExecution
                 OrdsetCoreNames.IsEqualLine
             );
 
+        using var comparison = RuntimeNumericMapComparison.EnterThread(context.Runtime);
+
         return CoreModules.Boolean(first.NumericEquals(second));
     }
 

@@ -1,0 +1,25 @@
+{
+  "Status": "ROOT_INTEGRATES_AFTER_REVIEW_NO_EXECUTION_CREDIT",
+  "Files": [
+    {
+      "Source": "artifacts/ordsets372-fold-filter-proposal1/source/tests/Erlang.Tests/OrdsetFoldFilterHostChecks.cs",
+      "Destination": "tests/Erlang.Tests/OrdsetFoldFilterHostChecks.cs",
+      "BaseSha256": null,
+      "Sha256": "088238BFC7E72E53D0C04159C3B6D4965E12215B9F88C299BCB0AF72622BC5F9"
+    },
+    {
+      "Source": "artifacts/ordsets372-fold-filter-proposal1/source/tests/Erlang.Tests/OrdsetFoldFilterHostNames.cs",
+      "Destination": "tests/Erlang.Tests/OrdsetFoldFilterHostNames.cs",
+      "BaseSha256": null,
+      "Sha256": "4510034DECED06E227880DD47429975DCA5E4671995127F49CB615E5B47F57FC"
+    }
+  ],
+  "RegistrationEdit": {
+    "Destination": "tests/Erlang.Tests/Program.cs",
+    "BaseSha256": "502A67686611054137E9028A7D0DDB9D6B0BEA5AA27ADB618254A933D371C871",
+    "ExactUniqueAnchor": "    Test(Erlang.Tests.OrdsetListsDispatchHostNames.Test, Erlang.Tests.OrdsetListsDispatchHostChecks.Run);",
+    "InsertAfter": "    Test(Erlang.Tests.OrdsetFoldFilterHostNames.LateTest, Erlang.Tests.OrdsetFoldFilterHostChecks.LateFailures);\n    Test(Erlang.Tests.OrdsetFoldFilterHostNames.IdentityTest, Erlang.Tests.OrdsetFoldFilterHostChecks.IdentityAsync);\n    Test(Erlang.Tests.OrdsetFoldFilterHostNames.DeepTest, Erlang.Tests.OrdsetFoldFilterHostChecks.Deep);\n    Test(Erlang.Tests.OrdsetFoldFilterHostNames.CancellationTest, Erlang.Tests.OrdsetFoldFilterHostChecks.Cancellation);"
+  },
+  "BuildOrRun": false,
+  "HostScope": "Four new permanent test names; no existing name/order removed. No production edits or resource fixture needed."
+}

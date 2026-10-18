@@ -77,7 +77,7 @@ internal static class ListModuleRegistrations
             ListModuleNames.Module,
             ListModuleNames.UniqueSort,
             1,
-            (context, arguments) => ValueTask.FromResult(ListSortOperations.Unique(context, arguments[0]))
+            (context, arguments) => ListSortOperations.Unique(context, arguments[0])
         );
         registry.Register(
             ListModuleNames.Module,

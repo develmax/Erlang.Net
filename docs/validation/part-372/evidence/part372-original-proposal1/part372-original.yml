@@ -1,0 +1,118 @@
+name: Original Part372 source contract edges
+on:
+  workflow_dispatch:
+    inputs:
+      expected_head:
+        description: Exact reviewed validation head
+        type: string
+        required: true
+      ordsets_manifest_sha256:
+        description: Reviewed new-only ordsets source manifest SHA256
+        type: string
+        required: true
+      numeric_manifest_sha256:
+        description: Reviewed numeric source manifest SHA256
+        type: string
+        required: true
+permissions:
+  contents: read
+jobs:
+  original-part372:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    env:
+      EXPECTED_HEAD: ${{ inputs.expected_head }}
+      ORDSETS_MANIFEST: ${{ inputs.ordsets_manifest_sha256 }}
+      NUMERIC_MANIFEST: ${{ inputs.numeric_manifest_sha256 }}
+      ERLC_USE_SERVER: 'false'
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+      - name: Admit and parse independent ordsets cohort
+        id: ordsets_preflight
+        run: python3 -B tools/Erlang.Ordsets372OriginalObservations/ci-preflight.py --head "$EXPECTED_HEAD" --manifest-sha256 "$ORDSETS_MANIFEST"
+      - name: Admit and parse independent numeric cohort
+        id: numeric_preflight
+        if: always()
+        run: python3 -B tools/Erlang.Numeric372OriginalObservations/ci-preflight.py --head "$EXPECTED_HEAD" --manifest-sha256 "$NUMERIC_MANIFEST"
+      - name: Clone pinned source once after successful cohort preparation
+        id: otp_source
+        if: always() && (steps.ordsets_preflight.outcome == 'success' || steps.numeric_preflight.outcome == 'success')
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/part372-original
+          git clone --depth 1 --branch OTP-29.1.1 https://github.com/erlang/otp.git artifacts/part372-otp-source 2>&1 | tee artifacts/part372-original/clone.log
+          test "$(git -C artifacts/part372-otp-source rev-parse HEAD)" = ad05823719d77c8faee87348ea39513d4e2f99c5
+      - name: Build one pinned original installation shared by independent collectors
+        id: otp_build
+        if: always() && steps.otp_source.outcome == 'success'
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -B tools/Erlang.SchedulerAffinityOriginalObservations/build-original.py \
+            --repository "$GITHUB_WORKSPACE" --manifest-sha256 4C9A79CD6E8BC18F68316D42B2F30DB171E67A242CA81CA84BB8A022E8BA5BFB \
+            --expected-head "$EXPECTED_HEAD" --otp-source "$GITHUB_WORKSPACE/artifacts/part372-otp-source" \
+            --prefix "$GITHUB_WORKSPACE/artifacts/part372-otp" --output "$GITHUB_WORKSPACE/artifacts/part372-original/build" \
+            2>&1 | tee artifacts/part372-original/build.log
+      - name: Collect independent ordsets full outcomes and stacks
+        id: ordsets_collect
+        if: always() && steps.ordsets_preflight.outcome == 'success' && steps.otp_build.outcome == 'success'
+        shell: bash
+        run: |
+          set -euo pipefail
+          BUILD_RECEIPT="$GITHUB_WORKSPACE/artifacts/part372-original/build/build-receipt.json"
+          PARSE_GATE="$GITHUB_WORKSPACE/artifacts/part372-original/ordsets-preflight/parse-receipt.json"
+          python3 -B tools/Erlang.Ordsets372OriginalObservations/collect-original.py \
+            --repository "$GITHUB_WORKSPACE" --expected-head "$EXPECTED_HEAD" --source-inputs-sha256 "$ORDSETS_MANIFEST" \
+            --parse-gate "$PARSE_GATE" --parse-gate-sha256 "$(sha256sum "$PARSE_GATE" | cut -d ' ' -f 1)" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/part372-otp-source" --runtime-root "$GITHUB_WORKSPACE/artifacts/part372-otp/lib/erlang" \
+            --build-receipt "$BUILD_RECEIPT" --approved-build-receipt-sha256 "$(sha256sum "$BUILD_RECEIPT" | cut -d ' ' -f 1)" \
+            --output "$GITHUB_WORKSPACE/artifacts/part372-original/ordsets-capture" 2>&1 | tee artifacts/part372-original/ordsets-collection.log
+      - name: Collect independent numeric full outcomes and stacks
+        id: numeric_collect
+        if: always() && steps.numeric_preflight.outcome == 'success' && steps.otp_build.outcome == 'success'
+        shell: bash
+        run: |
+          set -euo pipefail
+          BUILD_RECEIPT="$GITHUB_WORKSPACE/artifacts/part372-original/build/build-receipt.json"
+          PARSE_GATE="$GITHUB_WORKSPACE/artifacts/part372-original/numeric-preflight/parse-receipt.json"
+          python3 -B tools/Erlang.Numeric372OriginalObservations/collect-original-corrected.py \
+            --repository "$GITHUB_WORKSPACE" --expected-head "$EXPECTED_HEAD" --source-inputs-sha256 "$NUMERIC_MANIFEST" \
+            --parse-gate "$PARSE_GATE" --parse-gate-sha256 "$(sha256sum "$PARSE_GATE" | cut -d ' ' -f 1)" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/part372-otp-source" --runtime-root "$GITHUB_WORKSPACE/artifacts/part372-otp/lib/erlang" \
+            --build-receipt "$BUILD_RECEIPT" --approved-build-receipt-sha256 "$(sha256sum "$BUILD_RECEIPT" | cut -d ' ' -f 1)" \
+            --output "$GITHUB_WORKSPACE/artifacts/part372-original/numeric-capture" 2>&1 | tee artifacts/part372-original/numeric-collection.log
+      - name: Aggregate all preparation and independent collection outcomes
+        if: always()
+        env:
+          ORDSETS_PREPARATION: ${{ steps.ordsets_preflight.outcome }}
+          NUMERIC_PREPARATION: ${{ steps.numeric_preflight.outcome }}
+          SOURCE: ${{ steps.otp_source.outcome }}
+          BUILD: ${{ steps.otp_build.outcome }}
+          ORDSETS_COLLECTION: ${{ steps.ordsets_collect.outcome }}
+          NUMERIC_COLLECTION: ${{ steps.numeric_collect.outcome }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,os
+          from pathlib import Path
+          keys=['ORDSETS_PREPARATION','NUMERIC_PREPARATION','SOURCE','BUILD','ORDSETS_COLLECTION','NUMERIC_COLLECTION']
+          results={key:os.environ[key] for key in keys}
+          out=Path('artifacts/part372-original');out.mkdir(parents=True,exist_ok=True)
+          (out/'outcomes.json').write_text(json.dumps(results,indent=2)+'\n')
+          print(json.dumps(results))
+          if any(value!='success' for value in results.values()):raise SystemExit(1)
+          PY
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: original-part372-contracts
+          path: artifacts/part372-original/**
+          if-no-files-found: warn

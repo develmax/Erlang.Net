@@ -2,20 +2,8 @@ namespace Erlang;
 
 internal static class ListSortOperations
 {
-    public static Term Unique(ProcessContext context, Term list)
-    {
-        using var tail = context.EnterSourceTailCall(ListModuleNames.Module, ListModuleNames.UniqueSort);
-        if (list is not Nil && list is not Cons { Tail: Nil or Cons })
-            throw ListUniqueMergeTrace.Clause(
-                context,
-                ListModuleNames.UniqueSort,
-                [list],
-                ListUniqueMergeNames.UniqueSortLine,
-                []
-            );
-
-        return Sort(list, true);
-    }
+    public static ValueTask<Term> Unique(ProcessContext context, Term list)
+        => ListUniqueMergeMachine.Sort(context, list);
 
     public static Term Sort(Term list, bool unique = false, Term? position = null)
     {

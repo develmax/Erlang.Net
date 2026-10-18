@@ -1,0 +1,73 @@
+{
+  "Partial": true,
+  "SelectedCount": 10,
+  "TotalCount": 7683,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/list-to-integer-small-byte-narrowing-and-fallback",
+    "runtime/lists-usort-source-all-private-malformed-tail-frames",
+    "runtime/lists-usort-source-deep-split-merge-trampoline",
+    "runtime/lists-usort-source-numeric-representatives-and-small-path-sharing",
+    "runtime/lists-usort-source-selects-current-reverse-after-admission",
+    "runtime/ordsets-fold-filter-async-object-identity",
+    "runtime/ordsets-fold-filter-callback-cancellation-cleans-source-scopes",
+    "runtime/ordsets-fold-filter-deep-iterative-spines",
+    "runtime/ordsets-fold-filter-late-source-failures",
+    "terms/numeric-map-fun-key-alignment-and-exact-nested-values"
+  ],
+  "Passed": 9,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "runtime/list-to-integer-small-byte-narrowing-and-fallback",
+      "Status": "Passed",
+      "Milliseconds": 91
+    },
+    {
+      "Name": "runtime/ordsets-fold-filter-late-source-failures",
+      "Status": "Passed",
+      "Milliseconds": 19
+    },
+    {
+      "Name": "runtime/ordsets-fold-filter-async-object-identity",
+      "Status": "Passed",
+      "Milliseconds": 7
+    },
+    {
+      "Name": "runtime/ordsets-fold-filter-deep-iterative-spines",
+      "Status": "Passed",
+      "Milliseconds": 639
+    },
+    {
+      "Name": "runtime/ordsets-fold-filter-callback-cancellation-cleans-source-scopes",
+      "Status": "Passed",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "terms/numeric-map-fun-key-alignment-and-exact-nested-values",
+      "Status": "Passed",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "runtime/lists-usort-source-numeric-representatives-and-small-path-sharing",
+      "Status": "Passed",
+      "Milliseconds": 20
+    },
+    {
+      "Name": "runtime/lists-usort-source-all-private-malformed-tail-frames",
+      "Status": "Passed",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "runtime/lists-usort-source-deep-split-merge-trampoline",
+      "Status": "Passed",
+      "Milliseconds": 294
+    },
+    {
+      "Name": "runtime/lists-usort-source-selects-current-reverse-after-admission",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Pinned unique sort source algorithm changed result representatives, sharing, malformed suffix arguments or source frames.\r\n   at Erlang.Tests.ListUniqueSortSourceHostChecks.Require(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\ListUniqueSortSourceHostChecks.cs:line 240\r\n   at Erlang.Tests.ListUniqueSortSourceHostChecks.DynamicReverse() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\ListUniqueSortSourceHostChecks.cs:line 211\r\n   at Erlang.Tests.ListUniqueSortSourceHostChecks.DynamicReverse() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\ListUniqueSortSourceHostChecks.cs:line 226\r\n   at Erlang.Tests.ListUniqueSortSourceHostChecks.DynamicReverse() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\ListUniqueSortSourceHostChecks.cs:line 226\r\n   at Erlang.Tests.ListUniqueSortSourceHostChecks.DynamicReverse() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\ListUniqueSortSourceHostChecks.cs:line 226\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 5245",
+      "Milliseconds": 82
+    }
+  ]
+}

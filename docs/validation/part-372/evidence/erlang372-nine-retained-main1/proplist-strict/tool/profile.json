@@ -1,0 +1,120 @@
+{
+  "Family": "strict-comprehension-and-code-image-regression",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Mfas": [
+    "erlang:check_process_code/2",
+    "lc_strict_singleton:probe/1"
+  ],
+  "Fixtures": [
+    {
+      "Id": "lc_strict_singleton",
+      "Location": "tool",
+      "Path": "original/lc_strict_singleton.erl",
+      "Module": "lc_strict_singleton",
+      "Names": [
+        "relaxed_variable",
+        "strict_variable",
+        "strict_match",
+        "strict_mismatch",
+        "strict_improper",
+        "strict_body_error",
+        "after_strict",
+        "unknown_singleton",
+        "strict_renamed"
+      ],
+      "Run": "run",
+      "NamesEntry": "cases",
+      "StackModule": "lc_strict_singleton",
+      "StackEntry": "run_stacks",
+      "WorkerModule": "proplists_observation_worker",
+      "WorkerEntry": "run",
+      "StackShape": "depth_cases",
+      "Companions": [
+        "original/proplists_observation_worker.erl"
+      ],
+      "Cases": [
+        {
+          "Name": "relaxed_variable",
+          "Mfas": [
+            "lc_strict_singleton:probe/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "strict_variable",
+          "Mfas": [
+            "lc_strict_singleton:probe/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "strict_match",
+          "Mfas": [
+            "lc_strict_singleton:probe/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "strict_mismatch",
+          "Mfas": [
+            "lc_strict_singleton:probe/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "strict_improper",
+          "Mfas": [
+            "lc_strict_singleton:probe/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "strict_body_error",
+          "Mfas": [
+            "lc_strict_singleton:probe/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "after_strict",
+          "Mfas": [
+            "lc_strict_singleton:probe/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "unknown_singleton",
+          "Mfas": [
+            "lc_strict_singleton:probe/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "strict_renamed",
+          "Mfas": [
+            "lc_strict_singleton:probe/1"
+          ],
+          "Policy": "exact"
+        }
+      ],
+      "OriginalCompilerOptions": [
+        "nowarn_nomatch"
+      ]
+    }
+  ],
+  "FixtureSources": [
+    {
+      "Location": "tool",
+      "Path": "original/lc_strict_singleton.erl",
+      "Sha256": "A0D21C7D898A56FE229831D942432161A62D90030085B4D6FD3CE00F15BEACF4"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/proplists_observation_worker.erl",
+      "Sha256": "34B743EB95A5937058AB8F208A1FB17C6ACED20AF7E08398EF6D154F574546BC"
+    }
+  ],
+  "ExpectedUniqueSourceCount": 2,
+  "ObserverEntry": "Same monitored compiled worker; code-image module original-only, equivalent SDK HOST controls separate; no API promotion",
+  "OriginalProfileSha256": "374913FA1E5538702BAC84EF19331793D86397B96116B4EB81B35E36011516C3"
+}

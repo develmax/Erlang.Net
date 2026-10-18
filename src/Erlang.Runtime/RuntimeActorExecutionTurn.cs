@@ -19,7 +19,12 @@ internal static class RuntimeActorExecutionTurn
 
     internal static Scope Enter(ProcessContext context, long currentEpoch, int currentLane)
     {
-        var previous = new Scope(owner, epoch, laneIdentity);
+        var previous = new Scope(
+            owner,
+            epoch,
+            laneIdentity,
+            RuntimeNumericMapComparison.EnterThread(context.Runtime)
+        );
         owner = context;
         epoch = currentEpoch;
         laneIdentity = currentLane;
@@ -27,10 +32,16 @@ internal static class RuntimeActorExecutionTurn
         return previous;
     }
 
-    internal readonly struct Scope(ProcessContext? previousOwner, long previousEpoch, int previousLane) : IDisposable
+    internal readonly struct Scope(
+        ProcessContext? previousOwner,
+        long previousEpoch,
+        int previousLane,
+        TermMapComparisonScope mapComparison
+    ) : IDisposable
     {
         public void Dispose()
         {
+            mapComparison.Dispose();
             owner = previousOwner;
             epoch = previousEpoch;
             laneIdentity = previousLane;

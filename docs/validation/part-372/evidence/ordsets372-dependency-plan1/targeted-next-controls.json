@@ -1,0 +1,48 @@
+{
+  "OriginalPacket": "One small successor packet, preserve existing 436 cases unchanged and append only genuinely missing controls; default/0/1/2/8 full stacks. No broad rerun until production changes require it.",
+  "Controls": [
+    {
+      "Id": "fold_late_error",
+      "Purpose": "Callback succeeds first then errors on second element; expect lists:foldl_1/3 source2470, current accumulated term and no ordsets frame."
+    },
+    {
+      "Id": "fold_late_throw_exit",
+      "Purpose": "One profile fixture returns tuple of two caught branches: late throw and late exit. Retain full class/reason/stack and real non-tail caller context."
+    },
+    {
+      "Id": "fold_local_fun_payloads",
+      "Purpose": "Local closure captures tuple/map/FUN payload; fold returns structured visited elements and final arbitrary accumulator with no comparisons. Checks local/external callback invocation equivalence without forcing ordering closure."
+    },
+    {
+      "Id": "filter_mixed_late_error",
+      "Purpose": "True then false then callback error. Native comprehension frame and deduplicated pending continuation must be exact."
+    },
+    {
+      "Id": "filter_mixed_late_bad_filter",
+      "Purpose": "True then false then nonboolean return, with arbitrary compound returned bad_filter value preserved."
+    },
+    {
+      "Id": "filter_mixed_improper_tail",
+      "Purpose": "True/false mixed prefix and improper suffix. Native bad_generator contains exact residual, not original list."
+    },
+    {
+      "Id": "filter_keep_payload_identity",
+      "Purpose": "Always-true callback on unsorted duplicate list of compound map/FUN elements; full returned value comparison, no sorting/equality. HOST separately asserts reference identity of every kept element."
+    },
+    {
+      "Id": "non_tail_source_callers",
+      "Purpose": "Place fold/filter calls inside real compiled non-tail tuple expressions, multiline callers, both local/export callbacks. Existing common worker context alone does not substitute this source-context branch."
+    }
+  ],
+  "HostOnly": [
+    "Very deep proper and improper fold/filter spines, bounded stack without CLR recursion.",
+    "Async yielding callback retains context/dictionary and order; cancellation disposes OrdsetFullScope/source-tail frames and next call sees clean context.",
+    "Reference identity of fold initial/last accumulator and filter retained elements; arbitrary term payloads never compare."
+  ],
+  "ExistingGatesReused": [
+    "Actual final native2616 zero differences and full raw observations.",
+    "Permanent replaced lists success/error HOST for all four callback APIs.",
+    "Final canonical Part371 regression at published head; do not restate pending CI as success."
+  ],
+  "PromotionGate": "Only a later part after source proof, exact-source original controls, focused final Main regression and accepted package checks. No status changes in Part371."
+}

@@ -1,0 +1,169 @@
+{
+  "Status": "PARTIAL_COMPARISON_OR_DIFFERENCES_RETAINED",
+  "NativeRun": 39119539009,
+  "NativeHead": "76c034724be1b21da8c66ada0ec164307386cfcd",
+  "ParentRunConclusion": "failure",
+  "Cohorts": [
+    {
+      "Status": "PASS_ALL_TYPED_FIELDS_STRICT",
+      "Cohort": "ordsets",
+      "Values": 62,
+      "FullStackProfiles": 310,
+      "Rows": 372,
+      "Strict": 372,
+      "Differences": 0,
+      "NormalizedFields": 0,
+      "Waivers": 0,
+      "Relations": 0,
+      "NativeFiles": [
+        {
+          "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\ordsets372\\download\\run-39119539009\\artifact-12133782860\\ordsets-capture\\fold_filter_edges\\returned.etf",
+          "Bytes": 1826,
+          "Sha256": "543FEC18971BE43A3AEF77E7E41B931AE62A625F90534DAC40630A4F730BEA06"
+        },
+        {
+          "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\ordsets372\\download\\run-39119539009\\artifact-12133782860\\ordsets-capture\\fold_filter_edges\\stack-observations.etf",
+          "Bytes": 34732,
+          "Sha256": "FA481C9505B10974BA513F9B15A5DC3E167754D2DFDE17D1313D672B84B454C8"
+        },
+        {
+          "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\ordsets372\\download\\run-39119539009\\artifact-12133782860\\ordsets-capture\\equality_size_edges\\returned.etf",
+          "Bytes": 1587,
+          "Sha256": "304773BB0883E40CA75F354AB27E87E726BC9B07A77108A71A790E349D711F71"
+        },
+        {
+          "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\ordsets372\\download\\run-39119539009\\artifact-12133782860\\ordsets-capture\\equality_size_edges\\stack-observations.etf",
+          "Bytes": 7234865,
+          "Sha256": "AFFF980CC9453FD461381B4D59111244A8ADC20B38A3D6C62BAB8CCE21F660C1"
+        }
+      ],
+      "SdkSealSha256": "79683FF2A553A7712445947DC751F5D3951FCBCC12571333B59584F48200A506",
+      "SdkDlls": [
+        {
+          "Path": "src/Erlang.Compiler/bin/Debug/net10.0/Erlang.Compiler.dll",
+          "CapturedSha256": "E8BE900BB5BC715015D99BB993C86F8DFE881808E040CD9C92E9CE4738DA15D5",
+          "CopiedPath": "artifacts/ordsets372-main-after3/ordsets/main-capture/bin/Debug/net10.0/Erlang.Compiler.dll",
+          "LiveSha256": "E8BE900BB5BC715015D99BB993C86F8DFE881808E040CD9C92E9CE4738DA15D5",
+          "MatchesLive": true
+        },
+        {
+          "Path": "src/Erlang.Runtime/bin/Debug/net10.0/Erlang.Runtime.dll",
+          "CapturedSha256": "691B6DC5A350335122D18041A652556911147A1E2B893227C5BF4FCCAA34AAC5",
+          "CopiedPath": "artifacts/ordsets372-main-after3/ordsets/main-capture/bin/Debug/net10.0/Erlang.Runtime.dll",
+          "LiveSha256": "691B6DC5A350335122D18041A652556911147A1E2B893227C5BF4FCCAA34AAC5",
+          "MatchesLive": true
+        },
+        {
+          "Path": "src/Erlang.Terms/bin/Debug/net10.0/Erlang.Terms.dll",
+          "CapturedSha256": "6B6FEA2B0051C7E4E773AE472CBD7CA4D39EA00BEDA655AEE4D03700ABF519C6",
+          "CopiedPath": "artifacts/ordsets372-main-after3/ordsets/main-capture/bin/Debug/net10.0/Erlang.Terms.dll",
+          "LiveSha256": "6B6FEA2B0051C7E4E773AE472CBD7CA4D39EA00BEDA655AEE4D03700ABF519C6",
+          "MatchesLive": true
+        },
+        {
+          "Path": "src/Erlang.Serialization/bin/Debug/net10.0/Erlang.Serialization.dll",
+          "CapturedSha256": "9F2B86747E29DADAFAB088D0BEF441FDC3744E74F221CA6D911D9E0AA3D4ACAF",
+          "CopiedPath": "artifacts/ordsets372-main-after3/ordsets/main-capture/bin/Debug/net10.0/Erlang.Serialization.dll",
+          "LiveSha256": "9F2B86747E29DADAFAB088D0BEF441FDC3744E74F221CA6D911D9E0AA3D4ACAF",
+          "MatchesLive": true
+        },
+        {
+          "Path": "tools/Erlang.Differential/bin/Debug/net10.0/Erlang.Differential.dll",
+          "CapturedSha256": "0A75448F6F2FF90CE3EC83635FEC57448194B3287A660A61EE4A90C62D445479",
+          "CopiedPath": "artifacts/ordsets372-main-after3/ordsets/main-capture/bin/Debug/net10.0/Erlang.Differential.dll",
+          "LiveSha256": "0A75448F6F2FF90CE3EC83635FEC57448194B3287A660A61EE4A90C62D445479",
+          "MatchesLive": true
+        }
+      ],
+      "HistoricalCapture": false,
+      "FinalRecaptureRequired": false,
+      "NoPromotion": true
+    },
+    {
+      "Cohort": "numeric",
+      "Status": "BLOCKED_NATIVE_COLLECTOR_NOT_ADMITTED",
+      "ExpectedValues": 60,
+      "ExpectedProfiles": 300,
+      "ParentRunConclusion": "failure"
+    },
+    {
+      "Status": "PASS_ALL_TYPED_FIELDS_STRICT",
+      "Cohort": "usort",
+      "Values": 45,
+      "FullStackProfiles": 225,
+      "Rows": 270,
+      "Strict": 270,
+      "Differences": 0,
+      "NormalizedFields": 0,
+      "Waivers": 0,
+      "Relations": 0,
+      "NativeFiles": [
+        {
+          "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\ordsets372\\download\\run-39119539009\\artifact-12133782860\\usort-capture\\usort_source_states\\returned.etf",
+          "Bytes": 2072,
+          "Sha256": "36535A0F83C889D536CA25FD76115B13F9CDEEDFE12F3E4F0036E23B5D634732"
+        },
+        {
+          "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\ordsets372\\download\\run-39119539009\\artifact-12133782860\\usort-capture\\usort_source_states\\stack-observations.etf",
+          "Bytes": 26639,
+          "Sha256": "684F2526E4636F7615CE6D9A77C87375F427ACF079AF330C9F7A8F09E601C9A6"
+        }
+      ],
+      "SdkSealSha256": "88B7D81E78FE6B62DB21FC44054652A5D7E07CDA38995D190E942221BF6DDE0B",
+      "SdkDlls": [
+        {
+          "Path": "src/Erlang.Compiler/bin/Debug/net10.0/Erlang.Compiler.dll",
+          "CapturedSha256": "E8BE900BB5BC715015D99BB993C86F8DFE881808E040CD9C92E9CE4738DA15D5",
+          "CopiedPath": "artifacts/ordsets372-main-after3/usort/main-capture/bin/Debug/net10.0/Erlang.Compiler.dll",
+          "LiveSha256": "E8BE900BB5BC715015D99BB993C86F8DFE881808E040CD9C92E9CE4738DA15D5",
+          "MatchesLive": true
+        },
+        {
+          "Path": "src/Erlang.Runtime/bin/Debug/net10.0/Erlang.Runtime.dll",
+          "CapturedSha256": "691B6DC5A350335122D18041A652556911147A1E2B893227C5BF4FCCAA34AAC5",
+          "CopiedPath": "artifacts/ordsets372-main-after3/usort/main-capture/bin/Debug/net10.0/Erlang.Runtime.dll",
+          "LiveSha256": "691B6DC5A350335122D18041A652556911147A1E2B893227C5BF4FCCAA34AAC5",
+          "MatchesLive": true
+        },
+        {
+          "Path": "src/Erlang.Terms/bin/Debug/net10.0/Erlang.Terms.dll",
+          "CapturedSha256": "6B6FEA2B0051C7E4E773AE472CBD7CA4D39EA00BEDA655AEE4D03700ABF519C6",
+          "CopiedPath": "artifacts/ordsets372-main-after3/usort/main-capture/bin/Debug/net10.0/Erlang.Terms.dll",
+          "LiveSha256": "6B6FEA2B0051C7E4E773AE472CBD7CA4D39EA00BEDA655AEE4D03700ABF519C6",
+          "MatchesLive": true
+        },
+        {
+          "Path": "src/Erlang.Serialization/bin/Debug/net10.0/Erlang.Serialization.dll",
+          "CapturedSha256": "9F2B86747E29DADAFAB088D0BEF441FDC3744E74F221CA6D911D9E0AA3D4ACAF",
+          "CopiedPath": "artifacts/ordsets372-main-after3/usort/main-capture/bin/Debug/net10.0/Erlang.Serialization.dll",
+          "LiveSha256": "9F2B86747E29DADAFAB088D0BEF441FDC3744E74F221CA6D911D9E0AA3D4ACAF",
+          "MatchesLive": true
+        },
+        {
+          "Path": "tools/Erlang.Differential/bin/Debug/net10.0/Erlang.Differential.dll",
+          "CapturedSha256": "0A75448F6F2FF90CE3EC83635FEC57448194B3287A660A61EE4A90C62D445479",
+          "CopiedPath": "artifacts/ordsets372-main-after3/usort/main-capture/bin/Debug/net10.0/Erlang.Differential.dll",
+          "LiveSha256": "0A75448F6F2FF90CE3EC83635FEC57448194B3287A660A61EE4A90C62D445479",
+          "MatchesLive": true
+        }
+      ],
+      "HistoricalCapture": false,
+      "FinalRecaptureRequired": false,
+      "NoPromotion": true
+    }
+  ],
+  "Rows": 642,
+  "Strict": 642,
+  "Differences": 0,
+  "ExpectedRows": 1002,
+  "BlockedOrMissingRows": 360,
+  "NormalizedFields": 0,
+  "Waivers": 0,
+  "Relations": 0,
+  "NativeAdmissionSha256": "7FD06171F7C9AF8F3C85F721C9344D288ED32F2070DB8D7E3E4E00CD1919EF76",
+  "ArtifactZipSha256": "1B07705B38A66F1B0C67947A74B24820E0DF18C7217FC7D49398F2200F349E8F",
+  "DecoderSha256": "BC8C8C15E0EF591DC00CB896F33B0BD799B44B6E30651A9984352D1028A05C12",
+  "SourceFreezeSha256": "AADFD21BBAB7432E961D122F43B8E64907F9307848E24D5B2C23FEDC11AD8481",
+  "DownloadedCodeExecuted": false,
+  "NoPromotion": true
+}

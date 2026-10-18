@@ -2,10 +2,17 @@ namespace Erlang.Tests;
 
 internal static class ListLengthHostNames
 {
+    internal const string OrdsetSizeProgressTest = "runtime/ordsets-size-progress";
+    internal const string OrdsetSizeCancellationTest = "runtime/ordsets-size-cancellation";
+    internal const string OrdsetSizeSuspendResumeTest = "runtime/ordsets-size-suspend-resume";
+    internal const string LateImproperOriginalArgumentTest = "runtime/length-size-late-improper-original-argument";
     internal const int Cells = 64017;
     internal const int TrailingBits = 3;
     internal const int BitsPerByte = 8;
     internal const int ByteRounding = BitsPerByte - 1;
+    internal const string Ordsets = "ordsets";
+    internal const string Size = "size";
+    internal const string ImproperTail = "length_late_improper_tail";
     internal const string Module = "length_host_guard";
     internal const string Run = "run";
     internal const string ReceiveSelectingMethod = "ReceiveSelectingAsync";

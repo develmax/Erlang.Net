@@ -1,0 +1,28 @@
+{
+  "Status": "HOST_ONLY_SUCCESSOR_NO_PRODUCTION_CHANGE_NOT_EXECUTED",
+  "Predecessor": "artifacts/lists372-usort-source-proposal1",
+  "Files": [
+    {
+      "Source": "artifacts/lists372-usort-reverse-proposal2/source/tests/Erlang.Tests/ListUniqueSortSourceHostChecks.cs",
+      "Destination": "tests/Erlang.Tests/ListUniqueSortSourceHostChecks.cs",
+      "BaseSha256": null,
+      "PredecessorProposalSha256": "1590BB0E0DB4FF3AE77FBCB56845DD30759E9C3CE040CF317BE4181DA7DE7397",
+      "Sha256": "72F857880FFA93BEF8C57584F01EA996A4C56953E7096DE9061E65E569530A5D"
+    },
+    {
+      "Source": "artifacts/lists372-usort-reverse-proposal2/source/tests/Erlang.Tests/ListUniqueSortSourceHostNames.cs",
+      "Destination": "tests/Erlang.Tests/ListUniqueSortSourceHostNames.cs",
+      "BaseSha256": null,
+      "PredecessorProposalSha256": "A015EE2A0C0287E64A7CF8E7DEC349CEA47490818154069A87789EC48375B540",
+      "Sha256": "BF5858503C8C8CFC63C24EF226A6A867BC4A1775E53B91BE36BB8A1AB1FA2615"
+    }
+  ],
+  "RegistrationEdit": {
+    "Destination": "tests/Erlang.Tests/Program.cs",
+    "BaseSha256": "C379B4973DAF435295155E4DF766544CB5F0910E1833903B5D6D9A776F421BBD",
+    "ExactUniqueAnchor": "    Test(Erlang.Tests.ListUniqueSourceHostNames.TestName, Erlang.Tests.ListUniqueSourceHostChecks.Run);",
+    "InsertAfter": "    Test(Erlang.Tests.ListUniqueSortSourceHostNames.IdentityTest, Erlang.Tests.ListUniqueSortSourceHostChecks.Identity);\n    Test(Erlang.Tests.ListUniqueSortSourceHostNames.MalformedTest, Erlang.Tests.ListUniqueSortSourceHostChecks.Malformed);\n    Test(Erlang.Tests.ListUniqueSortSourceHostNames.DeepTest, Erlang.Tests.ListUniqueSortSourceHostChecks.Deep);\n    Test(Erlang.Tests.ListUniqueSortSourceHostNames.ReverseTest, Erlang.Tests.ListUniqueSortSourceHostChecks.DynamicReverse);",
+    "IfFirstThreeAlreadyRegistered": "Insert only ReverseTest after DeepTest; do not duplicate prior registrations."
+  },
+  "ProductionSources": "Use exactly five frozen predecessor source files without changes."
+}

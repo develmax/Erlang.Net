@@ -1,0 +1,37 @@
+{
+  "Status": "IMMUTABLE_METADATA_CLARIFICATION_NO_RUNTIME_CHANGE",
+  "Proposal": "artifacts/lists372-usort-source-proposal1",
+  "ProposalFreezeSha256": "EA9432BDB382A5A4D96F27B3CD52D3A02E59066D055B5FCC5B021FACA4F57BE9",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "PinnedListsSha256": "D429E541CA76ACA8C56BB9FF31130A3B636F33D3E1923A08683157BF5709AB47",
+  "Correction": "The reused generator emits scalar StartLine3284 from its final merge extraction range. It is not the lower bound of the combined source coverage. Every individual parsed clause Line is correct; generated runtime function lines are correct. Do not treat that scalar as source coverage evidence.",
+  "SourcePartitions": [
+    {
+      "Function": "usort/1",
+      "FirstLine": 2075,
+      "LastLine": 2114,
+      "Form": "Manual literal public five-clause case tree in usort-state.fragment.cs"
+    },
+    {
+      "Function": "usort_1/2",
+      "FirstLine": 2116,
+      "LastLine": 2123,
+      "ParsedClauses": 4
+    },
+    {
+      "Function": "usplit_1/5,usplit_1_1/6,usplit_2/5,usplit_2_1/6",
+      "FirstLine": 3217,
+      "LastLine": 3280,
+      "ParsedClauses": 30
+    },
+    {
+      "Function": "Existing forward/reverse two/three-way unique merge source states",
+      "FirstLine": 3284,
+      "ExclusiveEndLine": 3495,
+      "ParsedClauses": 84,
+      "States": 19,
+      "ExactOldParsedAstAndCurrentMainCaseBodyPreservation": true
+    }
+  ],
+  "NoMainBuildRunNetworkOrPublication": true
+}

@@ -51,6 +51,13 @@ Test(
 );
 Test("runtime/length-parse-all", Erlang.Tests.ListLengthHostChecks.ParseAll);
 Test("runtime/length-ordinary-progress", Erlang.Tests.ListLengthHostChecks.OrdinaryProgress);
+Test(Erlang.Tests.ListLengthHostNames.OrdsetSizeProgressTest, Erlang.Tests.ListLengthHostChecks.OrdsetSizeProgress);
+Test(Erlang.Tests.ListLengthHostNames.OrdsetSizeCancellationTest, Erlang.Tests.ListLengthHostChecks.OrdsetSizeCancellation);
+Test(Erlang.Tests.ListLengthHostNames.OrdsetSizeSuspendResumeTest, Erlang.Tests.ListLengthHostChecks.OrdsetSizeSuspendResume);
+Test(
+    Erlang.Tests.ListLengthHostNames.LateImproperOriginalArgumentTest,
+    Erlang.Tests.ListLengthHostChecks.LateImproperOriginalArgument
+);
 Test("runtime/length-ordinary-cancellation", Erlang.Tests.ListLengthHostChecks.OrdinaryCancellation);
 Test("runtime/length-guard-progress", Erlang.Tests.ListLengthHostChecks.GuardProgress);
 Test("runtime/length-guard-cancellation", Erlang.Tests.ListLengthHostChecks.GuardCancellation);
@@ -5185,9 +5192,17 @@ try
 
     Test(Erlang.Tests.NumericSourceContractHostNames.Test, Erlang.Tests.NumericSourceContractHostChecks.Run);
 
+    Test(Erlang.Tests.NumericSmallParseHostNames.Test, Erlang.Tests.NumericSmallParseHostChecks.Run);
+
     Test(Erlang.Tests.MapFunKeyOrderHostNames.TestName, Erlang.Tests.MapFunKeyOrderHostChecks.Run);
 
     Test(Erlang.Tests.OrdsetListsDispatchHostNames.Test, Erlang.Tests.OrdsetListsDispatchHostChecks.Run);
+    Test(Erlang.Tests.OrdsetFoldFilterHostNames.LateTest, Erlang.Tests.OrdsetFoldFilterHostChecks.LateFailures);
+    Test(Erlang.Tests.OrdsetFoldFilterHostNames.IdentityTest, Erlang.Tests.OrdsetFoldFilterHostChecks.IdentityAsync);
+    Test(Erlang.Tests.OrdsetFoldFilterHostNames.DeepTest, Erlang.Tests.OrdsetFoldFilterHostChecks.Deep);
+    Test(Erlang.Tests.OrdsetFoldFilterHostNames.CancellationTest, Erlang.Tests.OrdsetFoldFilterHostChecks.Cancellation);
+    Test(Erlang.Tests.NumericMapEqualityHostNames.TestName, Erlang.Tests.NumericMapEqualityHostChecks.Run);
+    Test(Erlang.Tests.HamtNumericEqualityHostNames.Test, Erlang.Tests.HamtNumericEqualityHostChecks.Run);
     Test(
         Erlang.Tests.LocalFunctionCreatorHostNames.CanonicalizationTest,
         Erlang.Tests.LocalFunctionCreatorHostChecks.Canonicalization
@@ -5197,6 +5212,10 @@ try
     Test(Erlang.Tests.OperatorSourceLocationHostNames.Test, Erlang.Tests.OperatorSourceLocationHostChecks.Run);
 
     Test(Erlang.Tests.ListUniqueSourceHostNames.TestName, Erlang.Tests.ListUniqueSourceHostChecks.Run);
+    Test(Erlang.Tests.ListUniqueSortSourceHostNames.IdentityTest, Erlang.Tests.ListUniqueSortSourceHostChecks.Identity);
+    Test(Erlang.Tests.ListUniqueSortSourceHostNames.MalformedTest, Erlang.Tests.ListUniqueSortSourceHostChecks.Malformed);
+    Test(Erlang.Tests.ListUniqueSortSourceHostNames.DeepTest, Erlang.Tests.ListUniqueSortSourceHostChecks.Deep);
+    Test(Erlang.Tests.ListUniqueSortSourceHostNames.ReverseTest, Erlang.Tests.ListUniqueSortSourceHostChecks.DynamicReverse);
 
     var catalog = Erlang.Tests.TestRunCatalog.Create(tests.Select(test => test.Name));
     selectedTests = selection.Select(tests, catalog);

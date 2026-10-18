@@ -1,0 +1,37 @@
+{
+  "Status": "SOURCE_FAITHFUL_RETAINED_FLAT_LAYOUT_CANDIDATE_PENDING_ACTUAL_REGRESSION",
+  "ObservedRegression": "RuntimeNodeIdentityFoundationHostChecks.CheckMapFamily retainedMap.NumericEquals(reconstructed) expectedEqual differs afteridentityepoch publication",
+  "RootCause": "Comparison-timeSort observesliveNodeComparisonContext and repairs/reordersoldphysicalkeyarrays; nativeflatmapretainsconstructedkeys; MaincanonicalEntries alreadyretainthatarrayorder, butNEW_UNIQcanonicalview differsfromnativeOLD_UNIQcomparison view",
+  "Correction": "Create second arithmeticcomparison keyview onceatMapTerm construction using existing fullKeyNodes snapshotcontext; preserveit immutable thereafter; NumericEquality mapcomparison onlyreadsretainedview",
+  "GeneralNotTypePatch": true,
+  "Unchanged": [
+    "Exactdictionarylookup",
+    "CanonicalEntries NEW_UNIQ/arityidentity",
+    "Mapcardinality includingseparateFUNcodekeys",
+    "TermOrder comparison-time liveidentityreadingforactualkeycomparisons",
+    "AlloriginalHOSTassertions",
+    "Alloriginalnativefixtures",
+    "HAMTsource stateimplementation"
+  ],
+  "FunctorProof": "CompareSnapshot exacttrue usesOrdering purpose so module/index/OLD_UNIQnative comparator, notExactEquality NEW_UNIQ storageidentity",
+  "EpochProof": "SameNodeComparisonContext preseededKeyNodes beforecanonicalsort is reused for arithmeticview; no laterNodeSnapshot reads sort retainedview",
+  "Cost": "Secondviewonlyfor2..32entries; empty/singleton/HAMT shareexistingEntries; removes repeatedcomparison-time sorting/arrays/resortObserve scopes",
+  "ExplicitGates": [
+    "Existingunmodified runtime/local-node-identity-foundation-native-map-order mustpass",
+    "NumericMapEqualityHostChecks originalfourFUN controls mustpass",
+    "Freshoriginal41equalitysizecohort withoutHAMTfix expectedonlysame6HAMTrows remain",
+    "Affectedfullcanonical+retainedfamilies afterfinalintegration"
+  ],
+  "BoundOriginalTests": [
+    {
+      "Path": "tests/Erlang.Tests/RuntimeNodeIdentityFoundationHostChecks.cs",
+      "Sha256": "4054DFAE4144778E4B6214B15DB1FF85F2CBFEBC4A26191732EBC1FE53961905"
+    },
+    {
+      "Path": "tests/Erlang.Tests/NumericMapEqualityHostChecks.cs",
+      "Sha256": "C70F713F83AEDF8CC4CFDFCCF35960DB2016114AD4DA78BB771006D12A470368"
+    }
+  ],
+  "HAMTProposalCompatibility": "Hamtcandidate TermOrder patch base unchangedbythese2files; integrateflatfix+HAMTproposalwithactualCurrentBeforehashcheck; rootfullgatesrequiredafterfinalcombinedsources",
+  "NoBuildOrSubjectExecuted": true
+}

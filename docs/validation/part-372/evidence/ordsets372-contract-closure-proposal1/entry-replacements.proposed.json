@@ -1,0 +1,94 @@
+[
+  {
+    "Module": "ordsets",
+    "Function": "filter",
+    "Arity": 2,
+    "Status": "Verified compatible",
+    "Scope": "Complete observable logical OTP contract over supported Erlang terms, including raw/nonlist inputs, callback kind/arity validation, callback order/identity, error class/reason/arguments and full source frames/depths. Tail delegates to the currently selected lists:filter/2; retains original elements only for true, skips false, preserves source bad_filter/bad_generator errors and distinct current versus pending cons-return PCs. Does not sort or deduplicate output.",
+    "Evidence": [
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
+        "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
+        "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+      },
+      {
+        "Kind": "OriginalOtpComparison",
+        "Path": "validation/part-371/evidence/ordsets371-fixed-comparison2/acceptance.json",
+        "Sha256": "631917B620CE4675B797BC9DA6BA07DF7C56F18DB56DE9669C6EFF30A39B0FE1",
+        "Scope": "436 actual original outcomes and 2180 full stacks across all 21 APIs; 2616 strict field comparisons, zero differences, no normalization."
+      },
+      {
+        "Kind": "CompatibilityAudit",
+        "Path": "validation/part-372/evidence/ordsets372-contract-closure-proposal1/source-contract-closure.json",
+        "Sha256": "4A8002CA3C182C737FA6043DEF060A5BEDD3D58AD549906CC935C91DDFF76D3C",
+        "Scope": "Exhaustive source partition proof, source PC correction and exact current original witnesses; conditional on final retained/canonical regression."
+      },
+      {
+        "Kind": "OriginalOtpComparison",
+        "Path": "validation/part-372/evidence/ordsets372-contract-closure-proposal1/selected-original-witnesses.json",
+        "Sha256": "EBC6D5E2DE2B1E58C2BB1C31BFF7C2A4A97582101813DC147AD849FE99BA7303",
+        "Scope": "Per-MFA exact original rows: prior371168 each plus new372 fold60/filter66; all typed values/full stacks, zero waivers."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-372/evidence/ordsets372-contract-closure-proposal1/transitive-source-bindings.json",
+        "Sha256": "FAE1AF351216D186E5E4F76AF1C6F1D3219F93E2E0F5F844FDB76BA9667F5A01",
+        "Scope": "Exact current source dependency closure; no term ordering, length or usort dependency."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-372/evidence/part372-source-guard-review1/source-review.json",
+        "Sha256": "BCB6D5C0234E4F9E83566F00DEDAB456F952B90590BC39D537504D8D467393C9",
+        "Scope": "Reviewed current shared source changes preserve prior verified contracts; exact source guard successor, no blind hash replacement."
+      }
+    ],
+    "Limits": []
+  },
+  {
+    "Module": "ordsets",
+    "Function": "fold",
+    "Arity": 3,
+    "Status": "Verified compatible",
+    "Scope": "Complete observable logical OTP contract over supported Erlang terms, including raw/nonlist inputs, callback kind/arity validation, callback order/identity, error class/reason/arguments and full source frames/depths. Tail delegates to the currently selected lists:foldl/3; folds arbitrary accumulator left-to-right without validating set ordering.",
+    "Evidence": [
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-371/evidence/erlang371-final-guard-review1/source-review.json",
+        "Sha256": "D4BCB38322320433A9F3FC066555322678DD3B61110553FEB29B57A586D082A4",
+        "Scope": "Independent final Main source delta review; preserves previous verified evidence, binds 496 production sources, and records exact additive dependencies. Subject to final canonical acceptance."
+      },
+      {
+        "Kind": "OriginalOtpComparison",
+        "Path": "validation/part-371/evidence/ordsets371-fixed-comparison2/acceptance.json",
+        "Sha256": "631917B620CE4675B797BC9DA6BA07DF7C56F18DB56DE9669C6EFF30A39B0FE1",
+        "Scope": "436 actual original outcomes and 2180 full stacks across all 21 APIs; 2616 strict field comparisons, zero differences, no normalization."
+      },
+      {
+        "Kind": "CompatibilityAudit",
+        "Path": "validation/part-372/evidence/ordsets372-contract-closure-proposal1/source-contract-closure.json",
+        "Sha256": "4A8002CA3C182C737FA6043DEF060A5BEDD3D58AD549906CC935C91DDFF76D3C",
+        "Scope": "Exhaustive source partition proof, source PC correction and exact current original witnesses; conditional on final retained/canonical regression."
+      },
+      {
+        "Kind": "OriginalOtpComparison",
+        "Path": "validation/part-372/evidence/ordsets372-contract-closure-proposal1/selected-original-witnesses.json",
+        "Sha256": "EBC6D5E2DE2B1E58C2BB1C31BFF7C2A4A97582101813DC147AD849FE99BA7303",
+        "Scope": "Per-MFA exact original rows: prior371168 each plus new372 fold60/filter66; all typed values/full stacks, zero waivers."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-372/evidence/ordsets372-contract-closure-proposal1/transitive-source-bindings.json",
+        "Sha256": "FAE1AF351216D186E5E4F76AF1C6F1D3219F93E2E0F5F844FDB76BA9667F5A01",
+        "Scope": "Exact current source dependency closure; no term ordering, length or usort dependency."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-372/evidence/part372-source-guard-review1/source-review.json",
+        "Sha256": "BCB6D5C0234E4F9E83566F00DEDAB456F952B90590BC39D537504D8D467393C9",
+        "Scope": "Reviewed current shared source changes preserve prior verified contracts; exact source guard successor, no blind hash replacement."
+      }
+    ],
+    "Limits": []
+  }
+]

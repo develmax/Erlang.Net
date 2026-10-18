@@ -5,4 +5,7 @@ internal sealed record OrdsetFullFrame(
     string Function,
     int Arity,
     int Line
-);
+)
+{
+    internal OrdsetFullContinuationKind ContinuationKind { get; init; }
+}

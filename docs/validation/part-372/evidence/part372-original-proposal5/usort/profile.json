@@ -1,0 +1,462 @@
+{
+  "Family": "ordsets372-usort-source-states",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SubjectModule": "ordsets",
+  "Mfas": [
+    "lists:usort/1",
+    "ordsets:filtermap/2",
+    "ordsets:from_list/1",
+    "ordsets:map/2"
+  ],
+  "Fixtures": [
+    {
+      "Id": "usort_source_states",
+      "Location": "tool",
+      "Path": "original/ordsets372_usort_states.erl",
+      "Module": "ordsets372_usort_states",
+      "NamesEntry": "cases",
+      "Run": "run",
+      "StackModule": "ordsets372_usort_states",
+      "StackEntry": "run_stacks",
+      "StackShape": "depth_cases",
+      "WorkerModule": "ordsets_core_worker",
+      "WorkerEntry": "run",
+      "Companions": [
+        "original/ordsets_core_support.erl",
+        "original/ordsets_core_worker.erl"
+      ],
+      "Names": [
+        "public_empty",
+        "public_singleton",
+        "public_two_less",
+        "public_two_greater",
+        "public_two_equal",
+        "public_two_numeric_equal",
+        "public_two_numeric_equal_reverse",
+        "public_three_equal",
+        "three_ascending_above",
+        "three_ascending_equal_upper",
+        "three_ascending_below",
+        "three_ascending_equal_lower",
+        "three_ascending_between",
+        "three_descending_above",
+        "three_descending_equal_upper",
+        "three_descending_below",
+        "three_descending_equal_lower",
+        "three_descending_between",
+        "usort_1_improper",
+        "usort_1_proper",
+        "usort_1_direct_lists_improper",
+        "usplit_1_improper",
+        "usplit_1_proper",
+        "usplit_1_direct_lists_improper",
+        "usplit_2_improper",
+        "usplit_2_proper",
+        "usplit_2_direct_lists_improper",
+        "usplit_1_1_improper",
+        "usplit_1_1_proper",
+        "usplit_1_1_direct_lists_improper",
+        "usplit_2_1_improper",
+        "usplit_2_1_proper",
+        "usplit_2_1_direct_lists_improper",
+        "numeric_representative_0",
+        "numeric_representative_1",
+        "numeric_representative_2",
+        "zigzag_forward",
+        "zigzag_reverse",
+        "alternating_runs",
+        "equal_runs",
+        "all_equal_numeric",
+        "map_representatives_0",
+        "filtermap_representatives_0",
+        "map_representatives_1",
+        "filtermap_representatives_1"
+      ],
+      "ValueAcquisition": "compiled-monitored-worker-values-and-stacks-v1",
+      "Cases": [
+        {
+          "Name": "public_empty",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "public_singleton",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "public_two_less",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "public_two_greater",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "public_two_equal",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "public_two_numeric_equal",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "public_two_numeric_equal_reverse",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "public_three_equal",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "three_ascending_above",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "three_ascending_equal_upper",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "three_ascending_below",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "three_ascending_equal_lower",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "three_ascending_between",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "three_descending_above",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "three_descending_equal_upper",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "three_descending_below",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "three_descending_equal_lower",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "three_descending_between",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "usort_1_improper",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "usort_1_proper",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "usort_1_direct_lists_improper",
+          "Mfas": [
+            "lists:usort/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "usplit_1_improper",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "usplit_1_proper",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "usplit_1_direct_lists_improper",
+          "Mfas": [
+            "lists:usort/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "usplit_2_improper",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "usplit_2_proper",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "usplit_2_direct_lists_improper",
+          "Mfas": [
+            "lists:usort/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "usplit_1_1_improper",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "usplit_1_1_proper",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "usplit_1_1_direct_lists_improper",
+          "Mfas": [
+            "lists:usort/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "usplit_2_1_improper",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "usplit_2_1_proper",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "usplit_2_1_direct_lists_improper",
+          "Mfas": [
+            "lists:usort/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "numeric_representative_0",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "numeric_representative_1",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "numeric_representative_2",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "zigzag_forward",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "zigzag_reverse",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "alternating_runs",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "equal_runs",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "all_equal_numeric",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "map_representatives_0",
+          "Mfas": [
+            "ordsets:map/2"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "filtermap_representatives_0",
+          "Mfas": [
+            "ordsets:filtermap/2"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "map_representatives_1",
+          "Mfas": [
+            "ordsets:map/2"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "filtermap_representatives_1",
+          "Mfas": [
+            "ordsets:filtermap/2"
+          ],
+          "Scope": "Public/split-state source partition, exact malformed residual or numeric representative; full raw values/stacks.",
+          "ExpectedSeededOutcomes": false
+        }
+      ]
+    }
+  ],
+  "FixtureSources": [
+    {
+      "Location": "tool",
+      "Path": "original/ordsets372_usort_states.erl",
+      "Sha256": "97F03F489CC7D2CA446B7228D674094294BB261321FF6230E8A288B6283D9BB6"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/ordsets_core_support.erl",
+      "Sha256": "2A53C9438BCD781568BD0C9628512D1FA60531F9AE84F07459FB00DB63431323"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/ordsets_core_worker.erl",
+      "Sha256": "378F4D173BA6801FAF7363DEAA155FCA6B550F58CECF25B1B2864F12D435A547"
+    }
+  ],
+  "ExpectedUniqueSourceCount": 3,
+  "ValueAcquisition": "compiled-monitored-worker-values-and-stacks-v1",
+  "ExpectedValues": 45,
+  "ExpectedProfiles": 225,
+  "Scope": "New-only source contract controls; preserve Part371 original baseline without rerun; no compatibility promotion from observation alone."
+}

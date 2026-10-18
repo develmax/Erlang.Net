@@ -1,0 +1,81 @@
+{
+  "Status": "SOURCE_FAITHFUL_OWN_VM_HAMT_NUMERIC_EQUALITY_CANDIDATE_PENDING_EXECUTION",
+  "ActualCounterexample": {
+    "Path": "artifacts/part372-after-comparison1/differences.json",
+    "Sha256": "A13A68C0FD98242DD4AC09AEE3968A75D0AD60E9AB1C4597F001B80FB8008D48",
+    "Name": "map_hamt_swapped_fun",
+    "Original": "true",
+    "Main": "false",
+    "AffectedFullRows": 6
+  },
+  "NativeProtocol": {
+    "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "Utils": "erts_cmp_compound MAP_SUBTAG HASHMAP branch creates simultaneous hashmapiterators, compares keys exact1 andeachvalue with was_exact; eq_only returns firstnonzero, not phase2 min-key ordering",
+    "NativeLocations": [
+      "utils.c MAP_SUBTAG HAMT initialization",
+      "utils.c HASHMAP_PHASE1_ARE_KEYS_EQUAL",
+      "utils.c HASHMAP_PHASE1_CMP_VALUES/LOOP",
+      "utils.c not_equal guard !eq_only"
+    ],
+    "NoGeneralOrderPromotion": "Only NumericEquality receives simultaneousleaf strategy; generalOrdering andExactEquality remain separate obligations"
+  },
+  "OwnVMProtocol": {
+    "Provider": "runtime.MapHashIdentityProvider(OtpMapHashLayoutProtocol.Append)",
+    "LeafTraversal": "HamtCursorView.ReadIntegerCursor(map,BigInteger.Zero,provider.Hash)",
+    "SharedSnapshot": "One provider/rootcomparison, same ownruntime nodesnapshot/functioncanonicalentries/hashdomain acrossleft/right/nestedmaps",
+    "KeyComparison": "Iterative termcomparison exacttrue but NumericEquality purpose preserving nativeOLD_UNIQcmp semantics",
+    "ValueComparison": "Exactflag inherited/restoredfromincoming mapcontext",
+    "NoNativeStateSeeded": true,
+    "NoHardcodedOutcomeOrCaseSelection": true,
+    "NoCanonicalKeyStorageChange": true
+  },
+  "ScopeReview": {
+    "Ambient": "ThreadStatic factory only; not AsyncLocal orsharedglobalactiveprovider",
+    "Admission": "RuntimeProcessTaskScheduler.Execute entersRuntimeActorExecutionTurn around synchronousTryExecuteTask; everyadmittedcontinuation reinstalls itsruntime",
+    "NestedTurns": "Typed scope saves/restorespreviousfactory andexistingowner/epoch/lane; noawait inside threadscope",
+    "Allocation": "Onecachedfactory/runtimeviaConditionalWeakTable; typedstructscope; maplayoutallocatedonlyfirst33+map/rootNumericEquality",
+    "Disposal": "Iteratorsdispose first; layoutfinallydisposesprovider/nodeleases eveniteratorMoveNext/hash/cancellationthrow",
+    "Cancellation": "Noasyncproviderescape; explicitOperationCanceledExceptionnegativeHOSTcontrol; schedulerfairnessnotnewnativepromise",
+    "DirectHOSTEntry": "ErlangOperatorValues.Binary numeric arms andordsetsIsEqual entercontext-runtime factory synchronously; contextnullhostextensionsretainoldrepresentationfallback",
+    "Coverage": "Allnormal runtimeNumericEqualscallsinclCompiler/guards/erlangBIFs/ordsets/privateLists shareadmittedturnfactory, notselectivefixturewrapper"
+  },
+  "ExplicitRemainingGates": [
+    "Actualpatchbuild+HOST",
+    "Sameoriginalsourcefull732comparison afterfreshSDKcapture; expectmap_hamt6nowstrict",
+    "Affected full retained families +scheduler/resourcecleanup",
+    "Ownhashprotocol gate forreferencecountaliases, collisionFUNkeys, nestedHAMTkeymaps",
+    "NooutsideActor/context-freeHOSTfullnativecompatibilityclaim",
+    "NoOrdering/ExactEquality/HAMTstorageadmissionpromotionbyassociation"
+  ],
+  "NoMainEditsBuildNetworkOrCI": true,
+  "ReusedMainProtocolBindings": [
+    {
+      "Path": "src/Erlang.Runtime/HamtCursorView.cs",
+      "Sha256": "B0D3C832CCC8B496331053E9709C6D6E608F6BC286D680174E8E1408CDADB8D8"
+    },
+    {
+      "Path": "src/Erlang.Runtime/OtpMapRuntimeIdentityProvider.cs",
+      "Sha256": "B9C752BA66AE5C39265D2973E5CDC67A0179B4A33EA34C0CA1A5F28896E71BB3"
+    },
+    {
+      "Path": "src/Erlang.Runtime/OtpMapHashState64.cs",
+      "Sha256": "E2BB187613109F7A0BBCADDE86F6B46C1CD36D9227065A65C2722140C46F8A72"
+    },
+    {
+      "Path": "src/Erlang.Runtime/OtpMapHashLayoutProtocol.cs",
+      "Sha256": "D48BAB9B14D75AAECC6982C2D1346982F8B43F602AB880E8A767925180151E94"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeMapHashDomain.cs",
+      "Sha256": "93784B5B148D5BC71B56FA7F81CBD6C2180FE4F6695F2144B5D37BF75F5B91A1"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeProcessTaskScheduler.cs",
+      "Sha256": "195DE47E12A5B97872E870C232224952AB259B284CAB50D643DE7613C4F7CDE5"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.MapHashScope.cs",
+      "Sha256": "10E57D7044826684B05C87194AC9A72B127BB556A57483325404CBAB9B7997B8"
+    }
+  ]
+}

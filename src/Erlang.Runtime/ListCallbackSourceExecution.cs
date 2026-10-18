@@ -133,7 +133,7 @@ internal static class ListCallbackSourceExecution
             if (result is Atom { Name: ErlangBooleanAtoms.True })
             {
                 values.Add(cell.Head);
-                OrdsetFullTrace.Push(pending, frame);
+                OrdsetFullTrace.Push(pending, frame with { ContinuationKind = OrdsetFullContinuationKind.FilterConsReturn });
             }
             else if (result is not Atom { Name: ErlangBooleanAtoms.False })
                 throw OrdsetFullTrace.Error(

@@ -11,6 +11,12 @@ internal static class ListUniqueMergeNames
     internal const string SourceLineKey = "line";
     internal static readonly Atom AscTerm = Term.A(Asc);
     internal static readonly Atom DescTerm = Term.A(Desc);
+    internal const string Usort = "usort";
+    internal const string Usort_1 = "usort_1";
+    internal const string Usplit_1 = "usplit_1";
+    internal const string Usplit_1_1 = "usplit_1_1";
+    internal const string Usplit_2 = "usplit_2";
+    internal const string Usplit_2_1 = "usplit_2_1";
     internal const string Umergel = "umergel";
     internal const string Rumergel = "rumergel";
     internal const string Umerge3_1 = "umerge3_1";
@@ -42,6 +48,12 @@ internal static class ListUniqueMergeNames
 
     internal static string Function(ListUniqueMergeState state) => state switch
     {
+        ListUniqueMergeState.Usort1 => Usort,
+        ListUniqueMergeState.Usort_12 => Usort_1,
+        ListUniqueMergeState.Usplit_15 => Usplit_1,
+        ListUniqueMergeState.Usplit_1_16 => Usplit_1_1,
+        ListUniqueMergeState.Usplit_25 => Usplit_2,
+        ListUniqueMergeState.Usplit_2_16 => Usplit_2_1,
         ListUniqueMergeState.Umergel1 => Umergel,
         ListUniqueMergeState.Umergel3 => Umergel,
         ListUniqueMergeState.Rumergel3 => Rumergel,
@@ -66,6 +78,12 @@ internal static class ListUniqueMergeNames
 
     internal static int Line(ListUniqueMergeState state) => state switch
     {
+        ListUniqueMergeState.Usort1 => 2075,
+        ListUniqueMergeState.Usort_12 => 2116,
+        ListUniqueMergeState.Usplit_15 => 3217,
+        ListUniqueMergeState.Usplit_1_16 => 3232,
+        ListUniqueMergeState.Usplit_25 => 3250,
+        ListUniqueMergeState.Usplit_2_16 => 3265,
         ListUniqueMergeState.Umergel1 => 3284,
         ListUniqueMergeState.Umergel3 => 3287,
         ListUniqueMergeState.Rumergel3 => 3310,
@@ -90,6 +108,12 @@ internal static class ListUniqueMergeNames
 
     internal static int Arity(ListUniqueMergeState state) => state switch
     {
+        ListUniqueMergeState.Usort1 => 1,
+        ListUniqueMergeState.Usort_12 => 2,
+        ListUniqueMergeState.Usplit_15 => 5,
+        ListUniqueMergeState.Usplit_1_16 => 6,
+        ListUniqueMergeState.Usplit_25 => 5,
+        ListUniqueMergeState.Usplit_2_16 => 6,
         ListUniqueMergeState.Umergel1 => 1,
         ListUniqueMergeState.Umergel3 => 3,
         ListUniqueMergeState.Rumergel3 => 3,
