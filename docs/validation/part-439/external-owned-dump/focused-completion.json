@@ -1,0 +1,70 @@
+{
+  "Passed": true,
+  "Receipt": {
+    "Command": [
+      "C:/Program Files/dotnet/dotnet.exe",
+      "exec",
+      "--fx-version",
+      "10.0.11",
+      "tests/Erlang.Tests/bin/Debug/net10.0/Erlang.Tests.dll",
+      "--case",
+      "runtime/halt-dedicated-raw-process-numeric-errors-abort-and-real-dump",
+      "--report",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library439-halt-focused1\\focused.json"
+    ],
+    "Pid": 314932,
+    "ElapsedSeconds": 52.64100000006147,
+    "TimedOut": false,
+    "Settled": true,
+    "ExitCode": 0,
+    "Failures": [],
+    "StdoutSha256": "0A3E4BE7FD4B66ADE80599583C4FBE1CA87298C41022E8F0C45F5CF5BEFC9276",
+    "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  "SubprocessCases": 56,
+  "Dumps": [
+    {
+      "Backend": 0,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\5bcb663773de4780863fae2d9157e416",
+      "Identity": {
+        "ParentPid": 338524,
+        "OsCreatingParentPid": 338524,
+        "ParentCreationUtcTicks": 639282871250674983,
+        "HelperPid": 337676,
+        "ActualMiscInfoProcessIdVerified": true
+      },
+      "RawEvidence": {
+        "ProcessId": 338524,
+        "RawExitCode": 1,
+        "TimedOut": false,
+        "StandardOutputComplete": true,
+        "StandardErrorComplete": true,
+        "InfrastructureError": null
+      },
+      "DumpBytes": 489320
+    },
+    {
+      "Backend": 1,
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\halt-subprocess-cases\\bf845873d29248e4bbc839bef2b02430",
+      "Identity": {
+        "ParentPid": 345468,
+        "OsCreatingParentPid": 345468,
+        "ParentCreationUtcTicks": 639282871650435909,
+        "HelperPid": 349036,
+        "ActualMiscInfoProcessIdVerified": true
+      },
+      "RawEvidence": {
+        "ProcessId": 345468,
+        "RawExitCode": 1,
+        "TimedOut": false,
+        "StandardOutputComplete": true,
+        "StandardErrorComplete": true,
+        "InfrastructureError": null
+      },
+      "DumpBytes": 1031522
+    }
+  ],
+  "RawDumpsPublished": false,
+  "ProcessBudgetSeconds": 30,
+  "GroupBudgetSeconds": 300
+}

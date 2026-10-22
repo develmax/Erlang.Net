@@ -1,0 +1,22 @@
+{
+  "Run": 39818918224,
+  "Head": "908cde866334ddfdd0ded7b8648cada6c1190ec1",
+  "Passed": 8812,
+  "Total": 8813,
+  "Failure": [
+    "2026-10-22T17:10:57.2896700Z FAIL runtime/halt-dedicated-raw-process-numeric-errors-abort-and-real-dump: System.InvalidOperationException: Dedicated halt process contract failed:halt-real-clr-dump/Interpreted:System.TimeoutException: The operation has timed out.\r",
+    "2026-10-22T17:10:57.2901810Z    at Erlang.HaltProbe.HaltSubprocessRunner.Run(HaltSubprocessContract contract, HaltProcessBackend backend, String executable, String probeAssembly, String artifactRoot, CancellationToken cancellation) in D:\\a\\Erlang.Net\\Erlang.Net\\tools\\Erlang.HaltProbe\\HaltSubprocessRunner.cs:line 95,raw-exit-code:-1\r",
+    "2026-10-22T17:10:57.2906808Z    at Erlang.Tests.HaltSubprocessHostChecks.Run() in D:\\a\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\HaltSubprocessHostChecks.cs:line 33\r",
+    "2026-10-22T17:10:57.2908666Z    at Program.<Main>$(String[] args) in D:\\a\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 6789\r",
+    "2026-10-22T17:10:57.3055936Z PASS cpu topology configured state isolation and exchange\r",
+    "2026-10-22T17:10:57.4462915Z PASS runtime/statistics-two-owners-real-clock-user-cpu-cursors\r",
+    "2026-10-22T17:10:57.4555581Z PASS match-spec-shared-program-real-actions\r",
+    "2026-10-22T17:10:57.5887017Z PASS runtime/process-trace-concurrent-admission-barrier-sequence-composition\r",
+    "2026-10-22T17:10:57.6217027Z PASS runtime/seq-trace-concurrent-token-snapshots-tracer-switch-and-self-isolation\r"
+  ],
+  "Final": [
+    "2026-10-22T17:14:58.0768709Z 8812/8813 passed\r",
+    "2026-10-22T17:14:58.3497516Z ##[error]Process completed with exit code 1.\r"
+  ],
+  "RetainedOriginal": true
+}

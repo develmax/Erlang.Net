@@ -1,0 +1,44 @@
+{
+  "Passed": true,
+  "FocusedCases": 56,
+  "ActualDumps": 2,
+  "ActualTargetPidsVerified": true,
+  "WrongParentRefusedWithoutDump": true,
+  "Negative": {
+    "Command": [
+      "C:/Program Files/dotnet/dotnet.exe",
+      "exec",
+      "--fx-version",
+      "10.0.11",
+      "tools/Erlang.HaltProbe/bin/Debug/net10.0/Erlang.HaltProbe.dll",
+      "--internal-owned-parent-minidump",
+      "1",
+      "1",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library439-halt-final1\\refused.dmp"
+    ],
+    "Pid": 328848,
+    "ElapsedSeconds": 0.14099999994505197,
+    "TimedOut": false,
+    "Settled": true,
+    "ExitCode": 125,
+    "Failures": [],
+    "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "StderrSha256": "9BAE7A378F5F3B2DAD71075C5C1FB64BE628DAE7B77A0E764D576A2B07A2389C"
+  },
+  "Style": {
+    "Command": [
+      "C:/Program Files/dotnet/dotnet.exe",
+      "tools/Erlang.Style/bin/Debug/net10.0/Erlang.Style.dll",
+      "--check",
+      "."
+    ],
+    "Pid": 283684,
+    "ElapsedSeconds": 16.92200000002049,
+    "TimedOut": false,
+    "Settled": true,
+    "ExitCode": 0,
+    "Failures": [],
+    "StdoutSha256": "BB08B466C0BFDFB9FC2C1B90B9C6457E06E38B3336410FAE7964D8D1C4F32B1F",
+    "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  }
+}

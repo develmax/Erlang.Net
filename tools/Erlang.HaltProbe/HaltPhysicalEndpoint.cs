@@ -1,5 +1,3 @@
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace Erlang.HaltProbe;
@@ -38,42 +36,7 @@ internal static class HaltPhysicalEndpoint
         return result.Status;
     }
 
-    private static void WriteWindowsDump(string dump)
-    {
-        var complete = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
-        var writer = new Thread(() =>
-        {
-            try
-            {
-                using var process = Process.GetCurrentProcess();
-                using var file = new FileStream(
-                    dump,
-                    FileMode.CreateNew,
-                    FileAccess.Write,
-                    FileShare.None
-                );
-                if (!MiniDumpWriteDump(
-                    process.Handle,
-                    (uint)process.Id,
-                    file.SafeFileHandle.DangerousGetHandle(),
-                    HaltProbeNames.NormalDump,
-                    0,
-                    0,
-                    0
-                ))
-                    throw new Win32Exception(Marshal.GetLastPInvokeError());
-                file.Flush(true);
-                complete.SetResult();
-            }
-            catch (Exception error)
-            {
-                complete.SetException(error);
-            }
-        });
-        writer.Start();
-        writer.Join();
-        complete.Task.GetAwaiter().GetResult();
-    }
+    private static void WriteWindowsDump(string dump) => HaltWindowsDumpParent437.Write(dump);
 
     [DllImport(HaltProbeNames.WindowsRuntime, EntryPoint = "abort", CallingConvention = CallingConvention.Cdecl)]
     private static extern void WindowsAbort();
@@ -84,15 +47,4 @@ internal static class HaltPhysicalEndpoint
     [DllImport(HaltProbeNames.UnixRuntime, EntryPoint = "abort", CallingConvention = CallingConvention.Cdecl)]
     private static extern void UnixAbort();
 
-    [DllImport(HaltProbeNames.WindowsDumpLibrary, SetLastError = true)]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    private static extern bool MiniDumpWriteDump(
-        nint process,
-        uint processId,
-        nint file,
-        int type,
-        nint exceptions,
-        nint userStreams,
-        nint callbacks
-    );
 }
