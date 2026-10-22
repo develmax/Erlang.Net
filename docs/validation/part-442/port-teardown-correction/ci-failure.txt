@@ -1,0 +1,14 @@
+2026-10-22T21:03:45.4399012Z {"Passed": true, "WholeRows": 324, "OwnObservationRows": 324, "Errors": []}
+2026-10-22T21:15:54.1360724Z 8821/8822 passed
+2026-10-22T21:13:41.5756541Z FAIL oracle/compiled-module/erlang-port-observer-named: System.NotSupportedException: Stream does not support reading.
+2026-10-22T21:13:41.5758052Z    at System.IO.FileStream.ReadAsync(Memory`1 buffer, CancellationToken cancellationToken)
+2026-10-22T21:13:41.5759465Z    at Erlang.RuntimePorts.Pump(RuntimePort port) in D:\a\Erlang.Net\Erlang.Net\src\Erlang.Runtime\RuntimePorts.cs:line 564
+2026-10-22T21:13:41.5761115Z    at Erlang.ProcessRuntime.DisposeRuntimeCoreAsync() in D:\a\Erlang.Net\Erlang.Net\src\Erlang.Runtime\ProcessRuntime.cs:line 1837
+2026-10-22T21:13:41.5762656Z    at Erlang.ProcessRuntime.DisposeAsync() in D:\a\Erlang.Net\Erlang.Net\src\Erlang.Runtime\ProcessRuntime.cs:line 1723
+2026-10-22T21:13:41.5764018Z    at Erlang.ProcessRuntime.DisposeAsync() in D:\a\Erlang.Net\Erlang.Net\src\Erlang.Runtime\ProcessRuntime.cs:line 1790
+2026-10-22T21:13:41.5767039Z    at Erlang.Differential.CompiledModuleExecution.Execute(GeneratedModuleArtifact artifact, CompiledModuleCallerContext callerContext, RuntimeStandardStreams streams) in D:\a\Erlang.Net\Erlang.Net\tools\Erlang.Differential\CompiledModuleExecution.cs:line 44
+2026-10-22T21:13:41.5769593Z    at Program.<>c__DisplayClass0_85.<<<Main>$>b__572>d.MoveNext() in D:\a\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Program.cs:line 5613
+2026-10-22T21:13:41.5770626Z --- End of stack trace from previous location ---
+2026-10-22T21:13:41.5771592Z    at Program.<Main>$(String[] args) in D:\a\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Program.cs:line 6798
+2026-10-22T21:13:41.6163788Z PASS oracle/compiled-module/erlang-port-observer-qualified-name
+2026-10-22T21:13:41.6258581Z PASS oracle/compiled-module/erlang-port-observer-missing-name

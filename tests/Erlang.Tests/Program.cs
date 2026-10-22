@@ -173,6 +173,7 @@ Test(Erlang.Tests.EtsCodecCancellation442Names.EncodeTest, Erlang.Tests.EtsCompr
 Test(Erlang.Tests.EtsCodecCancellation442Names.DecodeTest, Erlang.Tests.EtsCompressed441Checks.MidDecodeCancellation442);
 Test(Erlang.Tests.EtsCodecCancellation442Names.ForeignTest, Erlang.Tests.EtsCompressed441Checks.ForeignOwners442);
 Test(Erlang.Tests.EtsCompressedMutations442Names.Test, Erlang.Tests.EtsCompressedMutations442Checks.Run);
+Test(Erlang.Tests.PortPumpTeardown442Names.Test, Erlang.Tests.PortPumpTeardown442Checks.Run);
 Test(Erlang.Tests.EtsConcurrency411Names.ConcurrentTest, Erlang.Tests.EtsConcurrency411Checks.ConcurrentRoundTrip);
 tests.Add((Erlang.Tests.CodeServerInteractive410Names.EmptyTest, Erlang.Tests.CodeServerInteractive410Checks.Empty));
 tests.Add((Erlang.Tests.CodeServerInteractive410Names.AppTest, Erlang.Tests.CodeServerInteractive410Checks.App));

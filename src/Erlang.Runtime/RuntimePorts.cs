@@ -622,6 +622,11 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
                 if (!port.Closed)
                     Close(port, Term.A(PortNames.IoError));
         }
+        catch (NotSupportedException) when (port.Stop.IsCancellationRequested && port.Closed)
+        {
+            // FileStream can reject a disposed reader before checking cancellation.
+            // Only an already canceled, closed port has completed this teardown.
+        }
     }
 
     public void Shutdown()

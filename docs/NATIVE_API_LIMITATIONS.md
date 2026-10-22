@@ -21,6 +21,8 @@ own-backend concurrency evidence, not an original concurrent transcript.
 Part442 local acceptance: RuntimeE9D3A017,156 unchanged original plus324 new observer outputs,11 focus,143 affected andboot79. The new324 split into192 full-term and132 own-state cursor-protocol rows, with complete opaque observations retained. Exact publication-head CI is tracked by the attached PR. Default708/full118 unchanged.
 Evidence: [Part441](validation/part-441/linked-initialization-visibility/README.md).
 
+Part442 publication follow-up: initial CI8821/8822 exposes a named-port FileStream shutdown race; the narrow terminal-only correction passes15 focus,409 affected,boot79 and actual cleanup. Exact final-head CI is recorded on PR3. Source1618/default708/full118 stay unchanged. [Correction evidence](validation/part-442/port-teardown-correction/README.md).
+
 ## Current work
 
 | Module | Current increment | Evidence and acceptance | Remaining work |

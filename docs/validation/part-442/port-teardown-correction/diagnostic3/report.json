@@ -1,0 +1,19 @@
+{
+  "Partial": true,
+  "SelectedCount": 1,
+  "TotalCount": 8823,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/ports442/unreadable-file-reader-cancellation-and-open-fault-control"
+  ],
+  "Passed": 0,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "runtime/ports442/unreadable-file-reader-cancellation-and-open-fault-control",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Port pump teardown must acknowledge only a canceled closed port\r\n   at Erlang.Tests.PortPumpTeardown442Checks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\PortPumpTeardown442Checks.cs:line 76\r\n   at Erlang.Tests.PortPumpTeardown442Checks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\PortPumpTeardown442Checks.cs:line 76\r\n   at Erlang.Tests.PortPumpTeardown442Checks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\PortPumpTeardown442Checks.cs:line 76\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 6799",
+      "Milliseconds": 111
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "ExpectedRed": true,
+  "ObservedFailed": 1,
+  "ExecutionFailure": "RuntimeError('Owned stage failed; all available raw evidence retained: execution')",
+  "Tests": [
+    {
+      "Name": "runtime/ports442/unreadable-file-reader-cancellation-and-open-fault-control",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Port pump teardown must acknowledge only a canceled closed port\r\n   at Erlang.Tests.PortPumpTeardown442Checks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\PortPumpTeardown442Checks.cs:line 76\r\n   at Erlang.Tests.PortPumpTeardown442Checks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\PortPumpTeardown442Checks.cs:line 76\r\n   at Erlang.Tests.PortPumpTeardown442Checks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\PortPumpTeardown442Checks.cs:line 76\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 6799",
+      "Milliseconds": 111
+    }
+  ]
+}
