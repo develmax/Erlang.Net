@@ -1,0 +1,82 @@
+{
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "OriginalVersion": "OTP-29.1.1",
+  "OwnedHelper": "artifacts/spawn-priority351-preparation/execute-root.py",
+  "InventoryHelper": "artifacts/library377-native-controls1/run-native-controls.py",
+  "OfficialAdmission": "artifacts/library376-official-compiler/official-admission.json",
+  "RecipeBindings": [
+    {
+      "Path": "artifacts/spawn-priority351-preparation/execute-root.py",
+      "Sha256": "C66ACEC6FFE57C57EFAABC96FD1DB00598D7AAD7D05C2EA814A146B759D4171A"
+    },
+    {
+      "Path": "artifacts/library377-native-controls1/run-native-controls.py",
+      "Sha256": "C097FDF1F1307220916935FDAD3E0483CC676E4EEB136581B632ACF6347F206F"
+    },
+    {
+      "Path": "artifacts/library376-official-compiler/official-admission.json",
+      "Sha256": "41CCC2FDE5493D85BEAA21996E12D0885D2919B0D4BF44137D0673DCDC9D5EA6"
+    }
+  ],
+  "EnvironmentPolicy": {
+    "InheritedAllowlist": [
+      "SystemRoot",
+      "WINDIR"
+    ],
+    "OwnedPathVariables": [
+      "HOME",
+      "TEMP",
+      "TMP",
+      "TMPDIR"
+    ],
+    "FixedVariables": {
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "ERL_FLAGS": "+S 1:1 +A 1",
+      "ERLC_USE_SERVER": "false"
+    },
+    "Synthetic": {
+      "ERLANG399_SEED": "seed_value"
+    },
+    "LinuxFixedPath": "/usr/bin:/bin",
+    "WindowsPath": "Allowed SystemRoot/System32 only if SystemRoot supplied",
+    "NoHostEnvironmentEnumeration": true,
+    "NoParentEnvironmentMutation": true,
+    "RawEnvOnlyCleanOwnedChild": true
+  },
+  "PassiveDecoderPath": "tools/Erlang.NifTermCallbackOriginalObservations/passive_etf.py",
+  "PassiveDecoderSha256": "9C3204CB29755C508D05B611EA02B3A3186F83B40A72BF6EEC366242040432EE",
+  "Source": "original/beam_identifier_retention403.erl",
+  "SourceSha256": "48853EBAA38D5A3D161604EE47F5307B33786BF96B406D58611EE6C287A3D5FD",
+  "Module": "beam_identifier_retention403",
+  "NativeOnly": true,
+  "Status": "PREPARED_NOT_PARSED_OR_EXECUTED",
+  "SourceIsPacketRelative": true,
+  "Cases": [
+    "pid",
+    "port",
+    "reference",
+    "fun_pid",
+    "nested_fun_reference"
+  ],
+  "Depths": [
+    "default",
+    0,
+    1,
+    2,
+    8
+  ],
+  "Values": 5,
+  "Profiles": 25,
+  "CompleteOutcomes": 30,
+  "ExpectedBefore": 37,
+  "ExpectedAfter": 1,
+  "ExpectedNode": "nonode@nohost",
+  "PostRootDropDeletionExpectation": "UNSPECIFIED_DO_NOT_INFER_GC_TIMING",
+  "NodeTableGcPolicy": {
+    "ExplicitStartupOverride": null,
+    "PinnedDefaultSeconds": 60,
+    "ProcessGarbageCollectForcesNodeTableDeletion": false,
+    "RetainedRootFiniteOutcomeAloneProvesCausality": false
+  }
+}

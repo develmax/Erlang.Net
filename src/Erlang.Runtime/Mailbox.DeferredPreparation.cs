@@ -21,7 +21,7 @@ public sealed partial class Mailbox
 
                 return;
             }
-            messages.AddLast(new Entry(
+            var pendingNode = new LinkedListNode<Entry>(new Entry(
                 Nil.Value,
                 null,
                 Control: true,
@@ -31,6 +31,8 @@ public sealed partial class Mailbox
                 DeferredRelease: release,
                 Deferred: true
             ));
+            AddPendingSignal428(pendingNode);
+            messages.AddLast(pendingNode);
             deferredPending++;
             pending++;
             mutationRevision++;
@@ -39,6 +41,7 @@ public sealed partial class Mailbox
             changed = NewSignal();
             previous.TrySetResult();
         }
+        PendingSignalAdded428?.Invoke(null);
     }
 
     internal MailboxDeferredPreparation? ClaimDeferred()
@@ -66,6 +69,7 @@ public sealed partial class Mailbox
         {
             if (!ReferenceEquals(node.List, messages))
                 return;
+            RemovePendingSignal428(node);
             deferredPending--;
             pending--;
             mutationRevision++;
@@ -80,9 +84,12 @@ public sealed partial class Mailbox
             }
             node.Value = node.Value with { Value = result.Message, Control = false };
             admittedCount++;
-            QueueLengthChanged?.Invoke(admittedCount);
+            ObserveQueueLength419(admittedCount);
             if (result.Priority)
             {
+                receiveMarkerPriorityRevision++;
+                BeforeBeamPriorityInsert(node.Value.Value);
+                BeforeBeamSaveUnlink(node);
                 messages.Remove(node);
                 if (lastPriority is null)
                     messages.AddFirst(node);

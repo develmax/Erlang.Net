@@ -1,0 +1,9 @@
+# HelloBeam: retained original assets
+
+Build/run with `dotnet run --project examples/HelloBeam`. This project packages two unchanged original-compiled test modules and executes three MFAs through our .NET runtime. It does not compile .erl during this build; the modules do not call each other. Original fixture source, BEAM and historical provenance are included in Modules. BEAM hashes and actual prepared source owners are checked before calls.
+
+The executable resolves resources relative to its own directory and runs from another working directory. No original VM/compiler is required at run time. The standalone opt-in build/Erlang.Beam.targets is also imported by the package's existing target. Add `<ErlangBeam Include="Modules/*.beam" />` to copy retained assets into build/publish. Put placement/pack metadata on the corresponding None item; existing SDK None metadata is preserved. Destination collisions, rooted/parent-traversing output paths, missing explicit files and non-BEAM inputs are refused. An empty wildcard is still an empty item list, not proof intended files exist.
+
+Existing ErlangSource -> generated C# remains separate. The standalone retained target refuses ErlangBeamSource; the separately imported source target provides the explicitly admitted compiler route demonstrated by [HelloBeamSource](../HelloBeamSource/README.md). A ready .beam copied by PreserveNewest is not a fresh compilation receipt. Transitive includes, parse transforms, applications/resources and releases remain separate project gates.
+
+Local example build and execution pass. The retained-target eight-case probe covers linked None metadata, spaces, collisions, missing/incorrect inputs, destination traversal, unsupported source route and opt-out projects. This is a packaging checkpoint, not universal project/OTP/performance compatibility. The copied source proof retains its historical scope.

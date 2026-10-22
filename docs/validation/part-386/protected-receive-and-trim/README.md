@@ -1,0 +1,9 @@
+# Part386 protected receive and retained active-tag trim
+
+Actual unchanged original Erlang observers compare25 values and125 default/0/1/2/8 profiles as complete typed terms and raw ETF. Protected selection/rejection, post-selection exception, nested handlers, zero/finite/infinite waits, and lazy invalid stable-Y timeouts match. Existing mailbox lazy-timeout implementation is reused; scratch-X timeout and binary/receive compositions remain outside admission. Failed baseline wait role and intermediate immediate-timeout planner refusal remain retained.
+
+Ordinary optimized Erlang did not emit active-tag trim. A separate explicit standard OTP assembly fixture passes actual original compiler validation/assembly and executes on both providers: retained and nested tags move across trim, then normal and exceptional paths match whole traces. Malformed removed-tag input is refused by original beam_validator (wrong_tag_type initialized) before any image/load. Do not relabel this protocol witness as ordinary source lowering.
+
+Actual held protected receive is observed waiting with one source-image reference; runtime cancellation bypasses guest catch, settles source/context/observer unwinds, and releases the reference. This is managed lifecycle evidence, not OTP cancellation equality. Negative admission and exact-object clone/trim controls are permanent.
+
+Final8161general preserves all8156 old names and adds5 tests;97focused,11integration outcomes/two packages/five equal ordinary-installed CLI reports pass. The historical receive-try-refused negative is refined to a malformed handler reading uninitialized X3 because ordinary protected receive is now supported.590src MFA guards and exact final subject identities remain bound. Two scoped observations close;17historical reasons/statuses retained,4open. Registry699/full118, deltas0/0. No commit/push/merge/publication/deletion. See completion and immutable bindings.

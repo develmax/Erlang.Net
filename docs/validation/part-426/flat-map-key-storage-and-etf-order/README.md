@@ -1,0 +1,3 @@
+# Native flat-map keys and ETF order
+
+Original90 full outcomes and both raw files match on the final runtime; own3 and HOST2 pass. The native body returns actual owned key storage. The encoder follows original flat-key and reverse HAMT LIFO wire traversal, preserving deterministic ordering. All expectations and the original worker are unchanged. Both failed raw comparisons remain. Affected1955/28 and standard79 with actual collector/persistent cleanup pass. This is not a full8725-test run or full-module compatibility. Last whole-image inventory remains frozenPart424256/258. Every binding has verified actual retained bytes; unchanged earlier snapshots are reused. No commit or publication.

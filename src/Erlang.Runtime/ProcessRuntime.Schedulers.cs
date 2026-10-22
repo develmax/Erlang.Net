@@ -40,6 +40,7 @@ public sealed partial class ProcessRuntime
     internal bool TrySchedulerInfo(ProcessContext context, Term query, out Term result)
     {
         result = Nil.Value;
+        if (TryDirtySchedulerInfo419(context, query, out result)) return true;
         if (query is not Atom atom)
             return false;
         var state = actorDispatcher.State();

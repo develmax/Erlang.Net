@@ -39,7 +39,8 @@ public sealed partial class Mailbox
         Term? DistributionTraceToken = null,
         Func<DeferredMailboxAdmission?>? DeferredPreparation = null,
         Action? DeferredRelease = null,
-        bool Deferred = false
+        bool Deferred = false,
+        BeamReceiveMarker? ReceiveMarker = null
     );
 
     private static TaskCompletionSource NewSignal() => new(TaskCreationOptions.RunContinuationsAsynchronously);
@@ -50,8 +51,12 @@ public sealed partial class Mailbox
         {
             mutationRevision++;
             precedenceRevision++;
+            ResetBeamSave();
+            beamSave = null;
             foreach (var entry in messages)
                 entry.DeferredRelease?.Invoke();
+            ClearReceiveMarkersForHalt();
+            ClearPendingSignals428();
             messages.Clear();
             pending = 0;
             deferredPending = 0;
@@ -94,6 +99,7 @@ public sealed partial class Mailbox
                 break;
             await Task.WhenAny(completion, changedTask).WaitAsync(cancellation);
         }
+        ThrowIfHalted();
         cancellation.ThrowIfCancellationRequested();
         await completion;
     }
@@ -140,6 +146,8 @@ public sealed partial class Mailbox
             if (CopySelfMessages || priority || from is null || !from.Equals(Owner) || token is not null)
                 BinarySharingCursor.Pin(message);
             if (priority)
+                BeforeBeamPriorityInsert(message);
+            if (priority)
                 lastPriority = lastPriority is null ? messages.AddFirst(new Entry(
                     message,
                     null,
@@ -172,9 +180,12 @@ public sealed partial class Mailbox
                 ));
             mutationRevision++;
             if (priority)
+            {
+                receiveMarkerPriorityRevision++;
                 precedenceRevision++;
+            }
             admittedCount++;
-            QueueLengthChanged?.Invoke(admittedCount);
+            ObserveQueueLength419(admittedCount);
             var previous = changed;
             changed = NewSignal();
             previous.TrySetResult();
@@ -192,6 +203,45 @@ public sealed partial class Mailbox
         bool traceAdmission = true,
         Term? distributionTraceToken = null
     )
+        => SendPendingCore428(
+            message,
+            admission,
+            token,
+            preserve,
+            from,
+            traceAdmission,
+            distributionTraceToken,
+            null
+        );
+
+    internal void SendPendingPriority428(
+        Term message,
+        Func<bool?> admission,
+        ProcessSchedulingPriority priority,
+        Term? from
+    )
+        => SendPendingCore428(
+            message,
+            admission,
+            null,
+            false,
+            from,
+            false,
+            null,
+            priority
+        );
+
+    private void SendPendingCore428(
+        Term message,
+        Func<bool?> admission,
+        SequenceTraceToken? token = null,
+        bool preserve = false,
+        Term? from = null,
+        bool traceAdmission = true,
+        Term? distributionTraceToken = null
+        ,
+        ProcessSchedulingPriority? notificationPriority428 = null
+    )
     {
         IncomingTerm?.Invoke(message);
         if (from is not null)
@@ -201,7 +251,7 @@ public sealed partial class Mailbox
             if (HaltRequested?.Invoke() == true)
                 return;
             BinarySharingCursor.Pin(message);
-            messages.AddLast(new Entry(
+            var pendingNode = new LinkedListNode<Entry>(new Entry(
                 message,
                 admission,
                 true,
@@ -211,6 +261,8 @@ public sealed partial class Mailbox
                 traceAdmission,
                 distributionTraceToken
             ));
+            AddPendingSignal428(pendingNode);
+            messages.AddLast(pendingNode);
             pending++;
             mutationRevision++;
             precedenceRevision++;
@@ -218,6 +270,7 @@ public sealed partial class Mailbox
             changed = NewSignal();
             previous.TrySetResult();
         }
+        PendingSignalAdded428?.Invoke(notificationPriority428);
     }
 
     internal void AdmitPending()
@@ -234,6 +287,7 @@ public sealed partial class Mailbox
                     break;
                 if (node.Value.Admission is { } admission)
                 {
+                    RemovePendingSignal428(node);
                     pending--;
                     mutationRevision++;
                     precedenceRevision++;
@@ -245,11 +299,14 @@ public sealed partial class Mailbox
                     {
                         node.Value = node.Value with { Control = false };
                         admittedCount++;
-                        QueueLengthChanged?.Invoke(admittedCount);
+                        ObserveQueueLength419(admittedCount);
                         if (node.Value.TraceAdmission)
                             admitted.Add((node.Value.Value, node.Value.From));
                         if (priority.Value)
                         {
+                            receiveMarkerPriorityRevision++;
+                            BeforeBeamPriorityInsert(node.Value.Value);
+                            BeforeBeamSaveUnlink(node);
                             messages.Remove(node);
                             if (lastPriority is null)
                                 messages.AddFirst(node);
@@ -415,7 +472,7 @@ public sealed partial class Mailbox
             lock (gate)
             {
                 retry = pending != 0;
-                if (!retry && messages.Count != 0)
+                if (!retry && admittedCount != 0)
                     return;
                 signal = changed.Task;
             }
@@ -485,11 +542,12 @@ public sealed partial class Mailbox
         }
     }
 
-    private async ValueTask<T?> ReceiveCore<T>(
+    private async ValueTask<T?> ReceiveMarkedCore<T>(
         Func<Term, ValueTask<T?>> select,
         TimeSpan? timeout,
         CancellationToken cancellation,
-        Func<TimeSpan?>? resolveTimeout = null
+        Func<TimeSpan?>? resolveTimeout,
+        ReceiveMarkerState? markerSelection
     ) where T : class
     {
         if (timeout < TimeSpan.Zero)
@@ -509,6 +567,8 @@ public sealed partial class Mailbox
             cancellation.ThrowIfCancellationRequested();
             if (WaitForExecution is not null)
                 start += await WaitForExecution();
+            lock (gate)
+                ValidateReceiveMarkerPriority(markerSelection);
             if (!firstBatch && timeout is { } finiteTimeout && finiteTimeout > TimeSpan.Zero && Stopwatch.GetElapsedTime(start) >= finiteTimeout)
             {
                 ReceiveTimedOut?.Invoke();
@@ -527,9 +587,10 @@ public sealed partial class Mailbox
             LinkedListNode<Entry>? capturedTail;
             lock (gate)
             {
+                ValidateReceiveMarkerPriority(markerSelection);
                 retry = pending != 0;
                 node = retry ? null : resumeAfter is not null && resumeRevision == precedenceRevision && IsAdmitted(resumeAfter)
-                    ? resumeAfter.Next : messages.First;
+                    ? resumeAfter.Next : ReceiveMarkerStart(markerSelection);
                 revision = precedenceRevision;
                 capturedPulse = pulseRevision;
                 capturedTail = messages.Last;
@@ -541,6 +602,7 @@ public sealed partial class Mailbox
                 Entry candidate;
                 lock (gate)
                 {
+                    ValidateReceiveMarkerPriority(markerSelection);
                     if (revision != precedenceRevision || pending != 0 || !ReferenceEquals(node.List, messages))
                     {
                         retry = true;
@@ -548,7 +610,9 @@ public sealed partial class Mailbox
                     }
                     if (!IsAdmitted(node))
                     {
-                        node = node.Next;
+                        var next = node.Next;
+                        ObserveReceiveMarkerPass(node);
+                        node = next;
                         continue;
                     }
                     candidate = node.Value;
@@ -562,6 +626,7 @@ public sealed partial class Mailbox
                 {
                     ThrowIfHalted();
                     cancellation.ThrowIfCancellationRequested();
+                    ValidateReceiveMarkerPriority(markerSelection);
                     if (revision != precedenceRevision || pending != 0 || !IsAdmitted(node)
                         || ExecutionBlocked?.Invoke() == true)
                     {
@@ -591,6 +656,7 @@ public sealed partial class Mailbox
             {
                 lock (gate)
                 {
+                    ValidateReceiveMarkerPriority(markerSelection);
                     previousConflict = revision != precedenceRevision || capturedPulse != pulseRevision || pending != 0;
                     retry |= previousConflict || !ReferenceEquals(capturedTail, messages.Last) || !ReferenceEquals(signal, changed.Task);
                     if (previousConflict)
@@ -659,6 +725,8 @@ public sealed partial class Mailbox
 
     private void RemoveNode(LinkedListNode<Entry> node)
     {
+        RemovePendingSignal428(node);
+        BeforeBeamSaveUnlink(node);
         bool ordinary = !node.Value.Control && node.Value.Admission is null;
         mutationRevision++;
         precedenceRevision++;
@@ -668,7 +736,7 @@ public sealed partial class Mailbox
             lastPriority = node.Previous;
         messages.Remove(node);
         if (ordinary)
-            QueueLengthChanged?.Invoke(admittedCount);
+            ObserveQueueLength419(admittedCount);
     }
 
     internal IReadOnlyList<Term> Snapshot()

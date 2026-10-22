@@ -113,6 +113,7 @@ public sealed partial class ModuleRegistry
             ModuleCodeImage[] images = (nifOwnedImages ?? Enumerable.Empty<ModuleCodeImage>())
                 .Concat(codeImages.Values)
                 .Concat(oldCode.Values.Select(old => old.Image))
+                .Concat(SavedOldImages432())
                 .Concat(pendingBeamImages.Values.Select(ticket => ticket.CodeImage))
                 .Distinct().ToArray();
             var queued = images.Select(QueueNifRetirement).ToArray();
@@ -175,6 +176,7 @@ public sealed partial class ModuleRegistry
             || nifRetirementFailures is { Count: > 0 }
             || codeImages.Values.Any(NifImageBindingStore.IsCreated)
             || oldCode.Values.Any(old => NifImageBindingStore.IsCreated(old.Image))
+            || SavedOldImages432().Any(NifImageBindingStore.IsCreated)
             || pendingBeamImages.Values.Any(ticket => NifImageBindingStore.IsCreated(ticket.CodeImage));
 
     internal Task StartOwnedNifShutdown()

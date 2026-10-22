@@ -1,0 +1,25 @@
+<Project>
+  <!-- Explicit retained inputs only: this target never invokes erlc or silently compiles ErlangSource. -->
+  <Target Name="ErlangBeamCollect" BeforeTargets="AssignTargetPaths" Condition="'@(ErlangBeam)' != ''">
+    <Error Condition="!Exists('%(ErlangBeam.Identity)')" Text="ErlangBeam retained asset is missing: %(ErlangBeam.Identity)" />
+    <Error Condition="'%(ErlangBeam.Extension)' != '.beam'" Text="ErlangBeam requires an explicit .beam asset: %(ErlangBeam.Identity)" />
+    <Error Condition="'%(ErlangBeam.Link)' != '' or '%(ErlangBeam.TargetPath)' != ''" Text="Set ErlangBeam placement metadata on the corresponding None item." />
+    <ItemGroup>
+      <None Update="@(ErlangBeam)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+      <None Include="@(ErlangBeam)" Exclude="@(None)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    </ItemGroup>
+  </Target>
+  <Target Name="ErlangBeamValidateDestinations" AfterTargets="AssignTargetPaths" Condition="'@(ErlangBeam)' != '' or '@(_ErlangLibraryFiles)' != ''">
+    <ItemGroup>
+      <_ErlangBeamCopyPaths Include="@(_NoneWithTargetPath)" Condition="'%(_NoneWithTargetPath.CopyToOutputDirectory)' != '' and '%(_NoneWithTargetPath.CopyToOutputDirectory)' != 'Never'" />
+    </ItemGroup>
+    <Error Condition="$([System.IO.Path]::IsPathRooted('%(_ErlangBeamCopyPaths.TargetPath)')) or $([System.Text.RegularExpressions.Regex]::IsMatch('%(_ErlangBeamCopyPaths.TargetPath)', '(^|[\\/])\.\.([\\/]|$)'))" Text="ErlangBeam copy destinations must stay within the output directory." />
+    <RemoveDuplicates Inputs="@(_ErlangBeamCopyPaths->'%(TargetPath)')">
+      <Output TaskParameter="Filtered" ItemName="_ErlangBeamUniquePaths" />
+    </RemoveDuplicates>
+    <Error Condition="'@(_ErlangBeamCopyPaths->Count())' != '@(_ErlangBeamUniquePaths->Count())'" Text="ErlangBeam copy destinations must be unique." />
+  </Target>
+  <Target Name="ErlangBeamSourceAdmission" BeforeTargets="PrepareForBuild" Condition="'@(ErlangBeamSource)' != ''">
+    <Error Text="ErlangBeamSource requires the separate admitted original compiler route, not implemented by this retained-asset target. No fallback compilation is permitted." />
+  </Target>
+</Project>

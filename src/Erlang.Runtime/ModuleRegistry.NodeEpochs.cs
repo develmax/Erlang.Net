@@ -10,6 +10,7 @@ public sealed partial class ModuleRegistry
         {
             if (owningRuntime is not null && !ReferenceEquals(owningRuntime, runtime))
                 throw new ArgumentException(RuntimeExternalTermDiagnostics.ForeignRegistry, nameof(runtime));
+            runtime.Functions.AttachSourceRegistry(this);
             owningRuntime = runtime;
         }
     }
@@ -19,7 +20,11 @@ public sealed partial class ModuleRegistry
         ProcessRuntime? runtime = owningRuntime;
         if (runtime is null)
             return new();
-        var options = new EtfDecodeOptions { LocalSeed = runtime.LocalTermSeed };
+        var options = new EtfDecodeOptions
+        {
+            LocalSeed = runtime.LocalTermSeed,
+            ExternalFunctionFactory = (identity, safe) => runtime.Functions.External(runtime, identity, safe)
+        };
 
         return options with { NodeAdmission = epochs => runtime.AdmitExternalDecode(options, epochs) };
     }

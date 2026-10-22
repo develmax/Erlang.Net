@@ -1,5 +1,80 @@
 # Decisions
 
+## Part403 — accepted local increment
+
+| Area | Verified | Remaining |
+| --- | --- | --- |
+| Ownership | observed external PID/port/reference and FUN graph retain exact DistEntry;real CLR GC and all3 shutdown paths | map-hash-only observation and native delayed table-GC |
+| Original comparisons |30 complete raw/typed outcomes and depth profiles;5 independent groups | broader native getter/abort contracts |
+| Regression |8385/8385 uninterrupted;16 new groups;1669 affected | broader platform/performance contracts |
+| Default API/full contracts |708 registered;118 complete;31known;559pending;delta0/0 | both402 entries remain Needs verification |
+| Native dependency frontier |402 subject:46 canonical/39 private/166 refused;180 images inspected | actual strict180 startup and remaining native families |
+| Original gen/sys/proc_lib |30/36/39 exports and cold72 process outcomes retained | complete dependency/runtime contracts |
+
+Part403 accepted locally:8385/8385 uninterrupted full regression (+16),1669 affected groups;all8369 prior ordered tests retained. Observed immutable external PID/port/reference and nested FUN graphs now retain authoritative DistEntry identity through an ephemeron,without a strong historical node cache. KnownNodes resolves outside its gate;closed observation returns without retaining,while unexpected open-owner errors propagate. All3 shutdown paths close observer roots;real live monitor/link,initializer death,halt and publication-race controls pass. 30 complete raw/typed original Windows OTP outcomes/profile tuples match in5groups of6. Actual CLR GC,exact CWT/current identity,foreign-domain/closed-root and concurrent/import-churn controls pass. 708 default APIs/21modules,118 complete contracts,31known/559pending remain unchanged;675source guards. Map-hash-only retention,native delayed-GC timing and broad abort effects remain open;both402 APIs stay Needs verification. Actual capture on402 baseline decoded180images and measured46canonical/39private/166refused among251 recognized stubs;this is not whole-image admission or delegate execution. Full441.859s;suffix60.969s. 11 integrations/two local packages/five equal readiness reports/13exact DLL copies;cold72 process outcomes and1488math comparisons per build/publish route pass without Erlang/PATH. Initial11/12 targeted run remains failed due15s group budget after23 exact results;split retains all30 and unchanged globalbudget. No failed full run or full-contract promotion. No commit,push,merge,external publication or fresh Linux/GitHub evidence. Evidence:docs/validation/part-403/external-identifier-ownership.
+
+Earlier checkpoints below are historical.
+
+## Part402 — accepted local increment
+
+| Area | Verified | Remaining |
+| --- | --- | --- |
+| Default API/full contracts |708 registered(+2);118complete(+0);31known;559pending |both new APIs need ownership/effects closure |
+| Native distribution state |actual get_creation/0 and abort_pending_connection/2;real state transitions |external identifier roots,delayed native table GC and all pending cleanup effects |
+| Original comparisons |180 complete portable outcomes/full stacks;60 complete raw identity-family rows retained;native4 ->1 source protocol reproduced |no whole raw-file equality or all-domain claim |
+| General regression |8369/8369 in one uninterrupted run;12new permanent groups |broader upstream/platform/performance contracts |
+| Original gen/sys/proc_lib |30/36/39 source exports and cold72process outcomes preserved |complete180 strict native/import startup |
+| Frame/native requirements |inherited401:180images/251recognized stubs;unchanged algorithms/images checked |actual per-provider capture availability;recognized is not missing |
+
+Part402 accepted locally:8369/8369 uninterrupted full regression (+12),1653 affected groups;all8357 prior ordered tests retained. Implemented actual native erts_internal:get_creation/0 and abort_pending_connection/2. Default708 APIs(+2)/21modules;118 complete(+0),31known/559pending;673source guards. Both new APIs remain Needs verification.180 complete portable independent original outcomes/full-stack profiles match;all60 identity-family outcomes remain fully retained,without whole-containing-file byte equality. A genuine original Noname-entry probe exposed LocalIdentity-based getter error:creation4 ->1 after controller/kernel retirement. Authoritative weak entry identities,strong current root and real pending backing now reproduce that source protocol;3shutdown paths release roots. External identifier/ErlNode retention,delayed node-table GC and broad pending cleanup effects remain open.12 final new controls pass;exact native error_info is checked. Full436.969s;suffix56.265s. 11 integrations/two local packages/five equal readiness reports/13exact DLL copies;cold72 process outcomes and1488 math comparisons per build/publish route pass without Erlang/PATH. Part401's180 frame checks/251recognized requirements are inherited with unchanged algorithms/images reverified;not rerun or relabeled as handler availability. Strict180 startup remains unfinished. No commit,push,merge,external publication or fresh Linux/GitHub evidence. Evidence:docs/validation/part-402/distribution-creation-and-abort.
+
+Earlier checkpoints below are historical.
+
+## Part401 — accepted local increment
+
+| Area | Verified | Remaining |
+| --- | --- | --- |
+| General regression |8357/8357 in one uninterrupted run;all8356 old ordered tests retained |broader upstream and performance contracts |
+| Original180 dependencies |all link/frame checks pass;17,727 retained functions |strict native/import startup and whole-module execution |
+| Native requirements |251 recognized stubs in19 modules;exact69 classification corrections |actual provider capture inventory;not a missing-handler count |
+| Default API/full contracts |706 registered;118 complete;31known;557pending;deltas0/0 |distribution,storage,regex and other native prerequisites |
+| gen/sys/proc_lib loading |30/36/39 original exports and cold72 process outcomes retained |complete180 strict dependency closure |
+
+Part401 accepted locally:8357/8357 uninterrupted full regression (+1),1641 affected groups;all8356 prior ordered names retained. Catalog-qualified exact native-stub recognition now accepts undef and undefined;atomic missing-handler refusal and actual canonical delegate capture are checked. All180 original modules retain17,727 function keys:17,476 actual frame validations and251 recognized stubs across19 modules. Exactly69 transitions:erts_internal57,code7,prim_file4,io1. The prior71 erts_internal undefined-form candidates include14 already recognized entries;71 is not an additional global delta. Recognition is not a missing-handler count or whole-image startup proof. Default706 APIs/21modules,118 complete contracts,31known and557pending remain unchanged;668 source guards. Full404.266s;inventory83.797s;suffix70.641s. 11 integrations/two local packages/five equal readiness reports/13 DLL copies;cold72 process outcomes and1488 math comparisons per build/publish route pass without Erlang/PATH. Strict180 startup and further native distribution/ETS/persistent/regex prerequisites remain unfinished. No commit,push,merge,external publication or fresh Linux/GitHub evidence. Evidence:docs/validation/part-401/native-stub-requirements.
+
+Earlier checkpoints below are historical.
+
+## Part400 native connection prerequisites — accepted local increment
+
+| Area | Verified progress | Remaining |
+| --- | --- | --- |
+| gen / sys / proc_lib |30/36/39 original public exports and existing cold72 outcomes preserved |whole180 strict native/import startup and full process/reporting contracts |
+| original net_kernel native |one real UnicodeIO primitive;138 complete raw/typed original outcomes;actual pending/connected/Exiting/disconnect controls |whole-module dependency execution and all-domain contracts |
+| erts_internal:new_connection/1 |one real canonical native API;102 complete original outcomes;source node grammar and generation/resource reuse |configured node-capacity difference;full original100-export module has71 catalog-native undefined-form stubs |
+| 180 original dependencies |180 linked and clean frame validation on final Runtime |frame admission does not establish native/import startup;repair exhaustive stub recognition next |
+| ETS |18-case/108-outcome original packet passes corrected exact passive gates;implementation proposals remain unregistered |all-term copied ownership,identity/resources,binary backing,function rebinding,table lifecycle and all51 native contracts |
+| default registry |706 APIs (+1),118 complete (+0),31 known differences,557 pending;667 guards |new API remains explicitly Known differences;no module promotion |
+
+Part400 accepted locally:8356/8356 cumulative (+6),1640 affected groups derived from the aggregate report,240 exact raw/typed original outcomes and full-stack profiles. Original net_kernel:dflag_unicode_io/1 reads live stored DistEntry UnicodeIO flags,including Exiting until retirement;native erts_internal:new_connection/1 allocates/reuses real pending generations. Fixed a measured shared-wide-term traversal OOM by identity-deduplicating before enqueue in both incoming-node observation and external-domain validation;the original16M-element test and a bounded allocation/foreign-PID control pass. Default706 APIs (+1),21 modules,118 full contracts (+0),31 known differences and557 pending;667 source guards. The new API is explicitly Known differences because configured node capacity is a host policy absent from the original BIF. Original-only native delta+1 is separate. All180 original dependencies still link/pass actual frame checks;strict native/import startup remains unfinished. The old182 recognized-stub count is not exhaustive:nif_error(undefined) catalog-native forms were missed;original erts_internal alone has71 such stubs/100 exports. No guessed global missing-native total or module completion claim. 11 integrations/two local packages/five equal readiness reports/13 DLL copies;cold72 process outcomes and1488 math comparisons per build/publish route pass without Erlang/PATH. Full attempts8352/8355 in383.390s,8354/8355 in459.515s and8355/8356 in562.360s remain retained. The last15s outer-budget timeout is repaired by respecting the unchanged deep group's120s inner budget plus setup/cleanup;final3 selected controls pass in9.719s. No single uninterrupted green full run or controlled speedup is claimed. Genuine pinned Windows OTP29.1.1;no new Linux/GitHub evidence,commit/push/merge/external publication. Evidence:docs/validation/part-400/net-kernel-and-pending-connection.
+
+Earlier checkpoints below are historical.
+
+## Part399 callback receive and original Windows OS — accepted local increment
+
+| Area | Verified progress | Remaining |
+| --- | --- | --- |
+| 180 original dependencies |180 linked/180 clean frame checks;last refused callback fixed;17545 actual validations and182 recognized native stubs |strict native/import startup closure and execution contracts |
+| prim_eval receive |shared save cursor;180 complete original outcomes;priority/nested/error/timeout/cancellation/marker controls |unadmitted matcher shapes,legacy receive opcodes and null-current behavior are not claimed complete |
+| original os on Windows |22 source-owned exports/10 real private native bodies;186 exact deterministic outcomes;54 raw own-state differences retained |Unix environment/signal backend;all-input/full-wrapper proof and wider dependencies |
+| Windows ports |36 exact whole outcomes including complete errors;real raw env inheritance/no-env versus env[] order;correct native executable search |ordinary bare shell builtins differ from OTP;application-header/quoting/general port contracts remain partial |
+| gen / sys / proc_lib |30/36/39 original exports and cold72 process outcomes preserved |complete180 strict startup and wider process/reporting/distribution contracts |
+| native source frontier |182 recognized exact stubs;41 default+38 conditional private source routes on Windows |103 routes:ets51,erts_debug20,erts_internal14,literal collector2,net_kernel1,persistent_term7,re8;source routes are not all-input compatibility |
+| default registry |705 APIs/21modules;118 complete contracts;661 guards;deltas0/0 |557 pending and30 known differences;no whole-module promotion |
+
+Part399 accepted locally:8350/8350 general (+20),1475/1475 affected groups from the final full report,402 exact raw/typed original outcomes and full-stack profiles. All180 original dependencies now link and pass frame validation;the final prim_eval:receive/2 refusal is fixed with no prior passing regression. This is link/frame admission,not complete strict startup or module compatibility. Source-faithful callback receive shares the actual save cursor across nested/priority/ordinary receives;180 complete callback outcomes match. Original Windows os has10 real private native bodies and22 source-owned exports;186 deterministic outcomes match,54 VM-state rows remain raw unequal. VM-owned UTF16 environment/tree/locale and real raw-port inheritance preserve parent isolation;no-env/env[] raw order and native executable search are checked.36 original port outcomes match complete values/stacks including generic13495/badopt13501 source lines. Default705 APIs/21modules and118 full contracts unchanged;661 guards;original-only Windows native delta+10.11 integrations/two packages/five equal reports/13 DLL copies;cold72 process outcomes and1488 math comparisons per package route pass without Erlang/PATH. General389.531s versus405.047s;suffix58.610s;final180 diagnostic92.843s versus83.469s,observational only. 103 source-level native routes remain missing on Windows;Unix OS native10 remains outside this capability. Genuine pinned Windows OTP29.1.1;no fresh Linux/GitHub evidence,commit/push/merge/external publication. Evidence:docs/validation/part-399/callback-receive-and-windows-os.
+
+Earlier checkpoints follow;their figures and CI/publication statements are historical.
+
 Part365 final local decision: accept19new source-complete proplists contracts after exact-source audits, final Main/original comparisons,37negative controls and canonical7536/full. Preserve mandatory from_map raw-cursor differences and clarify their VM-state criterion rather than silently excluding them. Restore34prior registry custom notes after the existing emitter resets them; keep589old rows byte-equivalent as objects. Metadata-only classification/readiness updates do not trigger another full runtime regression. No implementation publication.
 
 Part 352 — Verify exactly six unary predicates through a complete branch argument over 13 guest Term classes plus ResourceReferenceTerm, actual original 350 witnesses and current part 351 source, full validation and CI. The finite corpus of 38 term partitions in 12 contexts corroborates the proof. Root and independent review accepted the complete contracts; all other 581 ledger rows remain unchanged.

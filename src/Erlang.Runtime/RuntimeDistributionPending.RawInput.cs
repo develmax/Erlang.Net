@@ -17,6 +17,7 @@ public sealed partial class RuntimeDistributionPending
             RequireProcess(caller);
             try
             {
+                if (IsNativeConnectedHandle429(handle)) handle = ResolveNativeConnectedHandle429(handle);
                 entry = ReadHandle(handle, out connectionId, out resource);
             }
             catch (ArgumentException)

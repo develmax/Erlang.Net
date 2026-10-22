@@ -1,0 +1,715 @@
+{
+  "Path": "artifacts/library428-system-tasks-facet-original1/facet-ebin/erts_internal.beam",
+  "Sha256": "BBC7974FBC549ED75B757E7FA2273B61E16DDD96B11517100496FADB6A119F55",
+  "Bytes": 1232,
+  "Chunks": [
+    "AtU8",
+    "Code",
+    "StrT",
+    "ImpT",
+    "ExpT",
+    "Meta",
+    "LocT",
+    "Attr",
+    "CInf",
+    "Dbgi",
+    "Line",
+    "Type"
+  ],
+  "Imports": [
+    {
+      "Module": "erlang",
+      "Function": "nif_error",
+      "Arity": 1
+    },
+    {
+      "Module": "erlang",
+      "Function": "get_module_info",
+      "Arity": 1
+    },
+    {
+      "Module": "erlang",
+      "Function": "get_module_info",
+      "Arity": 2
+    }
+  ],
+  "Exports": [
+    {
+      "Function": "module_info",
+      "Arity": 1,
+      "Label": 14
+    },
+    {
+      "Function": "module_info",
+      "Arity": 0,
+      "Label": 12
+    },
+    {
+      "Function": "dirty_process_handle_signals",
+      "Arity": 1,
+      "Label": 10
+    },
+    {
+      "Function": "check_dirty_process_code",
+      "Arity": 2,
+      "Label": 8
+    },
+    {
+      "Function": "request_system_task",
+      "Arity": 4,
+      "Label": 6
+    },
+    {
+      "Function": "request_system_task",
+      "Arity": 3,
+      "Label": 4
+    },
+    {
+      "Function": "garbage_collect",
+      "Arity": 1,
+      "Label": 2
+    }
+  ],
+  "CodeHeader": [
+    0,
+    181,
+    15,
+    7
+  ],
+  "InstructionCount": 49,
+  "Roles": {
+    "call_ext_only": 7,
+    "func_info": 7,
+    "int_code_end": 1,
+    "label": 14,
+    "line": 12,
+    "move": 8
+  },
+  "RolesWithoutCurrentValidateRolesCase": [],
+  "AdmissionStatus": "PASSIVE_INVENTORY_ONLY_NOT_PREPARED_OR_EXECUTED",
+  "Functions": [
+    {
+      "Function": "garbage_collect",
+      "Arity": 1,
+      "Instructions": [
+        {
+          "Index": 2,
+          "Name": "func_info",
+          "Operands": [
+            {
+              "Tag": 2,
+              "Value": "erts_internal"
+            },
+            {
+              "Tag": 2,
+              "Value": "garbage_collect"
+            },
+            {
+              "Tag": 0,
+              "Value": 1
+            }
+          ]
+        },
+        {
+          "Index": 3,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 2
+            }
+          ]
+        },
+        {
+          "Index": 4,
+          "Name": "move",
+          "Operands": [
+            {
+              "Tag": 2,
+              "Value": "undefined"
+            },
+            {
+              "Tag": 3,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 5,
+          "Name": "line",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 2
+            }
+          ]
+        },
+        {
+          "Index": 6,
+          "Name": "call_ext_only",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 1
+            },
+            {
+              "Tag": 0,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 7,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 3
+            }
+          ]
+        },
+        {
+          "Index": 8,
+          "Name": "line",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Function": "request_system_task",
+      "Arity": 3,
+      "Instructions": [
+        {
+          "Index": 9,
+          "Name": "func_info",
+          "Operands": [
+            {
+              "Tag": 2,
+              "Value": "erts_internal"
+            },
+            {
+              "Tag": 2,
+              "Value": "request_system_task"
+            },
+            {
+              "Tag": 0,
+              "Value": 3
+            }
+          ]
+        },
+        {
+          "Index": 10,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 4
+            }
+          ]
+        },
+        {
+          "Index": 11,
+          "Name": "move",
+          "Operands": [
+            {
+              "Tag": 2,
+              "Value": "undefined"
+            },
+            {
+              "Tag": 3,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 12,
+          "Name": "line",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 4
+            }
+          ]
+        },
+        {
+          "Index": 13,
+          "Name": "call_ext_only",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 1
+            },
+            {
+              "Tag": 0,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 14,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 5
+            }
+          ]
+        },
+        {
+          "Index": 15,
+          "Name": "line",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Function": "request_system_task",
+      "Arity": 4,
+      "Instructions": [
+        {
+          "Index": 16,
+          "Name": "func_info",
+          "Operands": [
+            {
+              "Tag": 2,
+              "Value": "erts_internal"
+            },
+            {
+              "Tag": 2,
+              "Value": "request_system_task"
+            },
+            {
+              "Tag": 0,
+              "Value": 4
+            }
+          ]
+        },
+        {
+          "Index": 17,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 6
+            }
+          ]
+        },
+        {
+          "Index": 18,
+          "Name": "move",
+          "Operands": [
+            {
+              "Tag": 2,
+              "Value": "undefined"
+            },
+            {
+              "Tag": 3,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 19,
+          "Name": "line",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 6
+            }
+          ]
+        },
+        {
+          "Index": 20,
+          "Name": "call_ext_only",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 1
+            },
+            {
+              "Tag": 0,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 21,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 7
+            }
+          ]
+        },
+        {
+          "Index": 22,
+          "Name": "line",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Function": "check_dirty_process_code",
+      "Arity": 2,
+      "Instructions": [
+        {
+          "Index": 23,
+          "Name": "func_info",
+          "Operands": [
+            {
+              "Tag": 2,
+              "Value": "erts_internal"
+            },
+            {
+              "Tag": 2,
+              "Value": "check_dirty_process_code"
+            },
+            {
+              "Tag": 0,
+              "Value": 2
+            }
+          ]
+        },
+        {
+          "Index": 24,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 8
+            }
+          ]
+        },
+        {
+          "Index": 25,
+          "Name": "move",
+          "Operands": [
+            {
+              "Tag": 2,
+              "Value": "undefined"
+            },
+            {
+              "Tag": 3,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 26,
+          "Name": "line",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 8
+            }
+          ]
+        },
+        {
+          "Index": 27,
+          "Name": "call_ext_only",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 1
+            },
+            {
+              "Tag": 0,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 28,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 9
+            }
+          ]
+        },
+        {
+          "Index": 29,
+          "Name": "line",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Function": "dirty_process_handle_signals",
+      "Arity": 1,
+      "Instructions": [
+        {
+          "Index": 30,
+          "Name": "func_info",
+          "Operands": [
+            {
+              "Tag": 2,
+              "Value": "erts_internal"
+            },
+            {
+              "Tag": 2,
+              "Value": "dirty_process_handle_signals"
+            },
+            {
+              "Tag": 0,
+              "Value": 1
+            }
+          ]
+        },
+        {
+          "Index": 31,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 10
+            }
+          ]
+        },
+        {
+          "Index": 32,
+          "Name": "move",
+          "Operands": [
+            {
+              "Tag": 2,
+              "Value": "undefined"
+            },
+            {
+              "Tag": 3,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 33,
+          "Name": "line",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 10
+            }
+          ]
+        },
+        {
+          "Index": 34,
+          "Name": "call_ext_only",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 1
+            },
+            {
+              "Tag": 0,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 35,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 11
+            }
+          ]
+        },
+        {
+          "Index": 36,
+          "Name": "line",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Function": "module_info",
+      "Arity": 0,
+      "Instructions": [
+        {
+          "Index": 37,
+          "Name": "func_info",
+          "Operands": [
+            {
+              "Tag": 2,
+              "Value": "erts_internal"
+            },
+            {
+              "Tag": 2,
+              "Value": "module_info"
+            },
+            {
+              "Tag": 0,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 38,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 12
+            }
+          ]
+        },
+        {
+          "Index": 39,
+          "Name": "move",
+          "Operands": [
+            {
+              "Tag": 2,
+              "Value": "erts_internal"
+            },
+            {
+              "Tag": 3,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 40,
+          "Name": "call_ext_only",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 1
+            },
+            {
+              "Tag": 0,
+              "Value": 1
+            }
+          ]
+        },
+        {
+          "Index": 41,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 13
+            }
+          ]
+        },
+        {
+          "Index": 42,
+          "Name": "line",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Function": "module_info",
+      "Arity": 1,
+      "Instructions": [
+        {
+          "Index": 43,
+          "Name": "func_info",
+          "Operands": [
+            {
+              "Tag": 2,
+              "Value": "erts_internal"
+            },
+            {
+              "Tag": 2,
+              "Value": "module_info"
+            },
+            {
+              "Tag": 0,
+              "Value": 1
+            }
+          ]
+        },
+        {
+          "Index": 44,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 14
+            }
+          ]
+        },
+        {
+          "Index": 45,
+          "Name": "move",
+          "Operands": [
+            {
+              "Tag": 3,
+              "Value": 0
+            },
+            {
+              "Tag": 3,
+              "Value": 1
+            }
+          ]
+        },
+        {
+          "Index": 46,
+          "Name": "move",
+          "Operands": [
+            {
+              "Tag": 2,
+              "Value": "erts_internal"
+            },
+            {
+              "Tag": 3,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 47,
+          "Name": "call_ext_only",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 2
+            },
+            {
+              "Tag": 0,
+              "Value": 2
+            }
+          ]
+        },
+        {
+          "Index": 48,
+          "Name": "int_code_end",
+          "Operands": []
+        }
+      ]
+    }
+  ]
+}

@@ -35,4 +35,15 @@ public sealed partial class ModuleRegistry
         return body is not null && image is not null && intrinsicBindings.TryGetValue(signature, out var binding) &&
             ReferenceEquals(binding.Body, body) && ReferenceEquals(binding.Image, image);
     }
+
+    internal bool IsRuntimeIntrinsic(string module, string function, int arity)
+    {
+        lock (gate)
+        {
+            var signature = (module, function, arity);
+
+            return !sourceOwners.ContainsKey(signature)
+                && IsIntrinsic(signature, functions.GetValueOrDefault(signature), codeImages.GetValueOrDefault(module));
+        }
+    }
 }

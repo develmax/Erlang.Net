@@ -325,8 +325,8 @@ public static partial class DistributionPassThroughCodec
 
     private static void ValidateFlags(ulong flags)
     {
-        if ((flags & DistributionPassThroughFlags.Mandatory) != DistributionPassThroughFlags.Mandatory ||
-            (flags & DistributionPassThroughFlags.Unsupported) != 0)
+        if (!DistributionCapabilityProfile429.HasMandatory(flags) ||
+            DistributionCapabilityProfile429.HasUnsupported(flags))
             throw new NotSupportedException(DistributionPassThroughDiagnostics.Flags);
     }
 

@@ -46,6 +46,9 @@ internal static class NodeIdentityTraversal
                     foreach (var item in function.Environment)
                         pending.Push(item);
                     break;
+                case HamtBitmapTerm429 node:
+                    foreach (var child in node.Children) pending.Push(child);
+                    break;
                 case MapTerm map:
                     foreach (var entry in map.Entries)
                     {
@@ -64,7 +67,7 @@ internal static class NodeIdentityTraversal
         Pid pid => pid.LocalIdentity is not null,
         PortTerm port => port.LocalIdentity is not null,
         ReferenceTerm reference => reference.LocalIdentity is not null,
-        Cons or TupleTerm or NativeRecordTerm or MapTerm => true,
+        Cons or TupleTerm or NativeRecordTerm or MapTerm or HamtBitmapTerm429 => true,
         FunctionTerm function => function.Environment.Count != 0,
         _ => false
     };

@@ -6,5 +6,12 @@ public enum ReferenceResourceKind
     BinarySnapshot,
     DistributionEntry,
     ConnectedDistributionHandle,
-    BinarySearchPattern
+    BinarySearchPattern,
+    EtsTable,
+    PrimTty,
+    Regex411,
+    Atomics413,
+    CompiledMatchSpecification419,
+    Counters421,
+    TraceSession425
 }

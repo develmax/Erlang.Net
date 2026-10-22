@@ -1,0 +1,181 @@
+{
+  "Stage": 375,
+  "Publication": false,
+  "ApiDelta": 0,
+  "FullContractDelta": 0,
+  "Tests": {
+    "Passed": 8054,
+    "Failed": 0,
+    "PreservedOrderedNames": 7917,
+    "Added": 137
+  },
+  "IntegrationOutcomes": 11,
+  "LocalPackages": 2,
+  "SourceGuards": 553,
+  "RuntimeSha256": "9E3E219BC266BD55A16ED8A89FD395DEF677560CBDB7725970EAAA2600CAD295",
+  "Comparison": {
+    "Examined": 6384,
+    "StrictRawTypedEqual": 6003,
+    "NamedSourceFunIdentity": 331,
+    "PriorBoundCoreOpaqueIdentity": 6,
+    "SourceProtocolSavedEntry": 44,
+    "RawDifferencesPreserved": 44,
+    "ResidualDifferences": 0
+  },
+  "ProcessReceipts": [
+    {
+      "Stage": "library375-focused2",
+      "Seconds": 5.953000000008615,
+      "Sha256": "4BA3D345835DDFB2987F1AA178AAF72A3587E0194930BD532660DB859925A10B"
+    },
+    {
+      "Stage": "library375-phase1",
+      "Seconds": 0.7339999999967404,
+      "Sha256": "7758B1F569080A9071F2AB4DB64A667F1EC42582623BFF93F1062DA9233C470A"
+    },
+    {
+      "Stage": "library375-all-beam-replay2",
+      "Seconds": 96.81200000000536,
+      "Sha256": "2A5793A21AE996DE7D0685D33943D077720352FAB0DA693BE182B03440FE2574"
+    },
+    {
+      "Stage": "library375-core-beam-replay2",
+      "Seconds": 6.265999999974156,
+      "Sha256": "8BF80485D1783482D572A348B286A1D5658C96CE00B4514F3880EAF99177DAC5"
+    },
+    {
+      "Stage": "library375-long-beam-replay2",
+      "Seconds": 48.35899999999674,
+      "Sha256": "AB7C1EB2564D71BBA7FFB949BAB82EA4AF4E0A9D7B1CF79C234A4EBB935C3F80"
+    },
+    {
+      "Stage": "library375-final-full1",
+      "Seconds": 343.28100000001723,
+      "Sha256": "45B46C3647CC5C6F864F17673932B7D6B90940793DCB4AE05810A0FC9943C297"
+    },
+    {
+      "Stage": "library375-package-suffix2",
+      "Seconds": 54.35899999999674,
+      "Sha256": "A1BAB18EED97E8ACD09FD6D03F306DB218830B426E0A4A6627A80B32A35D21E9"
+    },
+    {
+      "Stage": "library375-incremental-recheck1",
+      "Seconds": 5.032000000006519,
+      "Sha256": "69F468B1E05A138E9E0690C36F5AAC8CE5498637A12235FF7F738665CC5DEEF7"
+    },
+    {
+      "Stage": "library375-package-selector-consumer1",
+      "Seconds": 4.702999999979511,
+      "Sha256": "F5EEC8D8CD03D5C629BEBDCE0BA7A180096DC3FDC40216CFFDC37461DB7F4590"
+    }
+  ],
+  "CancellationScope": "Pre-cancel, post-start token lifetime and deterministic private held-purge phase plus owner cleanup. Public factory mid-setup and post-acquired-lease cancellation not exhaustively executed.",
+  "RetainedFailure": "library375-package-suffix1: legitimate first example rebuild retimed generated outputs; both subsequent no-op builds preserve all14outputs and all measured inputs. No source or assertion weakened.",
+  "Next": "376 whole-project pipeline, then377hostinterop",
+  "Bindings": [
+    {
+      "Path": "docs/validation/part-375/local-completion/API_COMPATIBILITY.md",
+      "Sha256": "EC97AF70773A60F54DC8113655F1C89B6386AF8E70BD31DDCF06134E7B22D947"
+    },
+    {
+      "Path": "docs/validation/part-375/local-completion/cancellation-phase.json",
+      "Sha256": "3D1E228163531644FC3C41CC7A2CC1B97722B300F30A1E08A22674D0C798896F"
+    },
+    {
+      "Path": "docs/validation/part-375/local-completion/canonical-tests.json",
+      "Sha256": "F9ADD66A253F269DAE9A3809BE5BF2FEC65D1EB7ACC6849BA4ABADA2779683CE"
+    },
+    {
+      "Path": "docs/validation/part-375/local-completion/comparison-completion.json",
+      "Sha256": "7476DF4474BE240976B27F55C8304CFEBE80FD8456896159A488B33CE52114B5"
+    },
+    {
+      "Path": "docs/validation/part-375/local-completion/frozen-runtime-checkpoint.json",
+      "Sha256": "B4EE08C68EDB2F8D9724E8FF013B43818B758A089251CE992517266F23C6AC2B"
+    },
+    {
+      "Path": "docs/validation/part-375/local-completion/guard-update.json",
+      "Sha256": "D70C79448328D49F7B652053A86D5F51F068719A4841B0AF57F16D3E5B130376"
+    },
+    {
+      "Path": "docs/validation/part-375/local-completion/incremental-recheck.json",
+      "Sha256": "83B4B70A5E292DE8E73FF53F479F5491E18EB64073FC13325332E4D26DBFA3EB"
+    },
+    {
+      "Path": "docs/validation/part-375/local-completion/integration-results.json",
+      "Sha256": "A81E85C957BA308693B19E568B7C75222A3E5B2427B972C24F2E2072E66EAA1E"
+    },
+    {
+      "Path": "docs/validation/part-375/local-completion/library375-all-beam-replay2.exit.json",
+      "Sha256": "2A5793A21AE996DE7D0685D33943D077720352FAB0DA693BE182B03440FE2574"
+    },
+    {
+      "Path": "docs/validation/part-375/local-completion/library375-core-beam-replay2.exit.json",
+      "Sha256": "8BF80485D1783482D572A348B286A1D5658C96CE00B4514F3880EAF99177DAC5"
+    },
+    {
+      "Path": "docs/validation/part-375/local-completion/library375-final-full1.exit.json",
+      "Sha256": "45B46C3647CC5C6F864F17673932B7D6B90940793DCB4AE05810A0FC9943C297"
+    },
+    {
+      "Path": "docs/validation/part-375/local-completion/library375-focused2.exit.json",
+      "Sha256": "4BA3D345835DDFB2987F1AA178AAF72A3587E0194930BD532660DB859925A10B"
+    },
+    {
+      "Path": "docs/validation/part-375/local-completion/library375-incremental-recheck1.exit.json",
+      "Sha256": "69F468B1E05A138E9E0690C36F5AAC8CE5498637A12235FF7F738665CC5DEEF7"
+    },
+    {
+      "Path": "docs/validation/part-375/local-completion/library375-long-beam-replay2.exit.json",
+      "Sha256": "AB7C1EB2564D71BBA7FFB949BAB82EA4AF4E0A9D7B1CF79C234A4EBB935C3F80"
+    },
+    {
+      "Path": "docs/validation/part-375/local-completion/library375-package-selector-consumer1.exit.json",
+      "Sha256": "F5EEC8D8CD03D5C629BEBDCE0BA7A180096DC3FDC40216CFFDC37461DB7F4590"
+    },
+    {
+      "Path": "docs/validation/part-375/local-completion/library375-package-suffix2.exit.json",
+      "Sha256": "A1BAB18EED97E8ACD09FD6D03F306DB218830B426E0A4A6627A80B32A35D21E9"
+    },
+    {
+      "Path": "docs/validation/part-375/local-completion/library375-phase1.exit.json",
+      "Sha256": "7758B1F569080A9071F2AB4DB64A667F1EC42582623BFF93F1062DA9233C470A"
+    },
+    {
+      "Path": "docs/validation/part-375/local-completion/module-readiness.json",
+      "Sha256": "0625F4EBEA5B321E264D29BDFBD9044CD80E99904C575BFBFDFB08B57DBBCA0B"
+    },
+    {
+      "Path": "docs/validation/part-375/local-completion/MODULE_READINESS.md",
+      "Sha256": "8D78394ABB01A72558EBD070EBBA4598051E76700CD534B73492AA109A939D0D"
+    },
+    {
+      "Path": "docs/validation/part-375/local-completion/native-infrastructure.json",
+      "Sha256": "AAA25ED168B822482362FEED111C2D6851639EDE69BEE59A24F3AA57324B5E83"
+    },
+    {
+      "Path": "docs/validation/part-375/local-completion/native-infrastructure.md",
+      "Sha256": "D7ABCCD6575AF3F0F8A6D78D66CC3D1298EB9D32ACDCF2DB9305D1ED5EB2BBDE"
+    },
+    {
+      "Path": "docs/validation/part-375/local-completion/package-selector-consumer.json",
+      "Sha256": "81F6B50A5CB39ECF2CB9261D8F264623C0E9ECB9CF3877E8767470379203BC7A"
+    },
+    {
+      "Path": "docs/validation/part-375/local-completion/protocol-review.json",
+      "Sha256": "57143B3D8E7763E87A3F0CA8AB862613ACD7C4113C4705814856BA33FADEF442"
+    },
+    {
+      "Path": "docs/validation/part-375/local-completion/README.md",
+      "Sha256": "AF8DABD3AEE40FB171C46127FBD54F1776677FF9A55A362D620872F1E5B85DBB"
+    },
+    {
+      "Path": "docs/validation/part-375/local-completion/runtime-and-test-sources.zip",
+      "Sha256": "5FAE8FA0E9E07B0A6CB4D91EBB2CB8BB816D95C4C6375A813B716AA992A07C75"
+    },
+    {
+      "Path": "docs/validation/part-375/local-completion/source-review.json",
+      "Sha256": "68EDD1FA8545DAF6FA7DF29085F8A89776E66D3C2B95A87A49B1B0A70FABDEAB"
+    }
+  ]
+}

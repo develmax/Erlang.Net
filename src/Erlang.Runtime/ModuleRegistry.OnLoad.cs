@@ -28,6 +28,7 @@ public sealed partial class ModuleRegistry
                 codeDescriptors.GetValueOrDefault(image.Name),
                 functions.Where(entry => entry.Key.Module == image.Name).ToDictionary(entry => entry.Key, entry => entry.Value)
             );
+            RecordPreparedFunEntries(image);
             var ticket = new BeamOnLoadTicket(this, image, generation);
             pendingBeamImages.Add(image.Name, ticket);
             image.Consumed = true;

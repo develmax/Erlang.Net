@@ -14,6 +14,9 @@ internal static class RuntimeMapHashTraversal
                 foreach (Term item in tuple.Items)
                     yield return item;
                 break;
+            case HamtBitmapTerm429 node:
+                foreach (Term child in node.Children) yield return child;
+                break;
             case MapTerm map:
                 foreach (var pair in map.Entries)
                 {

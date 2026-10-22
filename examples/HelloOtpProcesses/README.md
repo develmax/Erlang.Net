@@ -1,0 +1,7 @@
+# Original OTP process libraries in an ordinary .NET application
+
+Run `dotnet run --project examples/HelloOtpProcesses` from the repository root. The output records 72 compiled observer outcomes involving original `gen`, `sys` and `proc_lib`: startup, calls/replies, system state and debug operations. Permanent tests compare these full outcomes against pinned OTP, including complete error stacks.
+
+The application verifies SHA-256 and atomically publishes unchanged BEAM images through `ModuleRegistry.PrepareBeam` and `PublishPreparedBeam`. Original pure bodies execute on our .NET runtime. C# provides runtime/native primitives and explicitly declared managed dependencies. No installed Erlang executable is needed to run the application. Original upstream sources and provenance are retained in `tests/Erlang.Tests/Resources/LibraryProcesses391`.
+
+This is the ordinary lazy import loader. Declaring imports does not supply every unexecuted dependency. The stricter `ErlangLibrary` startup selector retains its existing dependency-closure requirement; these modules are not yet added to its allowlist. Unexercised distribution, file/logging, complete formatter, crash-report and scheduler/resource branches are not certified by this example.

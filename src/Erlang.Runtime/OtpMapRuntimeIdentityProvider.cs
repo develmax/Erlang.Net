@@ -210,6 +210,7 @@ internal sealed class OtpMapRuntimeIdentityProvider(
     {
         return runtime.ReadMapHashIdentity(() =>
         {
+            runtime.KnownNodes.RetainMapHashIdentifierIdentity(term, snapshot);
             if (!nodeLeases.TryGetValue(snapshot, out var lease))
             {
                 lease = runtime.KnownNodes.AcquireMapHashNodeWord(term, snapshot);
@@ -226,6 +227,23 @@ internal sealed class OtpMapRuntimeIdentityProvider(
     {
         ObjectDisposedException.ThrowIf(closed, this);
         runtime.RequireMapHashOpen();
+    }
+
+    internal HamtHashLeases429 TransferHamtLeases429(HamtIndexOwner429 owner)
+    {
+        lock (scopeGate)
+        {
+            RequireOpen();
+            var row = new HamtHashLeaseRow429(nodeLeases.Values.ToArray(), owner);
+            var transferred = new HamtHashLeases429(row);
+            owner.RegisterLeases(row);
+            closed = true;
+            nodeLeases.Clear();
+            keyHashes.Clear();
+            plannedTerms.Clear();
+
+            return transferred;
+        }
     }
 
     public void Dispose()

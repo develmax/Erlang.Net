@@ -1,11 +1,18 @@
 namespace Erlang;
 
-internal sealed class HamtCursorLookup(MapTerm map, OtpMapRuntimeIdentityProvider? scope)
+internal sealed class HamtCursorLookup(MapTerm map, OtpMapRuntimeIdentityProvider? scope, HamtIndex429? ownedIndex429 = null)
 {
     private Dictionary<Term, (ulong Hash, ulong Mask)>? paths;
 
     internal bool TryGet(Term key, out Term? value)
     {
+        if (ownedIndex429 is not null)
+            return HamtIndexLookup429.TryGet(
+                ownedIndex429,
+                key,
+                scope!.Hash(key),
+                out value
+            );
         if (!map.TryGet(key, out value))
             return false;
         if (scope is null)

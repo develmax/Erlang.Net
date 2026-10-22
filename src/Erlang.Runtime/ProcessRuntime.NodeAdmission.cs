@@ -65,6 +65,7 @@ public sealed partial class ProcessRuntime
             uint selected = SelectObservedExternalEpochCreation(node.Name, requestedCreation);
             kernel.DistributionRole = RuntimeDistributionRole.Kernel;
             localNodeKernel = kernel;
+            SelectDistributionEntry(node, selected);
             LocalIdentity.Publish(node.Name, selected);
             localNodeEvents?.Notify(RuntimeLocalNodeAdmissionNames.NodeUp, node);
 
@@ -92,6 +93,7 @@ public sealed partial class ProcessRuntime
         localNodeKernel.DistributionRole = RuntimeDistributionRole.None;
         localNodeKernel = null;
         distributionPending?.LocalKernelStopped(reason);
+        SelectDistributionEntry(Term.A(ProcessNodeDefaults.Local));
         LocalIdentity.Publish(ProcessNodeDefaults.Local, 0);
         localNodeEvents?.NotifyLocalDown(previous, reason);
     }

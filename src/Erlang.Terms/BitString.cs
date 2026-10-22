@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Erlang;
 
-public sealed class BitString : Term
+public sealed partial class BitString : Term
 {
     private readonly BinaryBacking backing;
     private readonly object? writer;

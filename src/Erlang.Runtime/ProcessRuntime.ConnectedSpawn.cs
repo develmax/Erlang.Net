@@ -114,7 +114,8 @@ public sealed partial class ProcessRuntime
                 initialAsyncDistribution: options.AsyncDistribution,
                 initialPriority: options.Priority,
                 schedulerBinding: options.ResolveScheduler(ActorDispatchCapacity),
-                initialFullSweepAfter: options.FullSweepAfter
+                initialFullSweepAfter: options.FullSweepAfter,
+                initialMessageQueueData: options.MessageQueueData
             );
             // The actor first takes this same gate; none of its guest body can run yet.
             var context = processes[handle.Pid];

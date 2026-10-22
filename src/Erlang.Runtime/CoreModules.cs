@@ -7,6 +7,7 @@ public static class CoreModules
     public static void Register(ModuleRegistry r)
     {
         r.InstallPreloaded(RegisterCode);
+        r.SealCanonicalMatchSpecGuards419();
     }
 
     private static void RegisterCode(ModuleRegistry r)
@@ -150,7 +151,7 @@ public static class CoreModules
             ErlangModuleNames.Module,
             ErlangModuleNames.IsMap,
             1,
-            (c, a) => Boolean(a[0] is MapTerm)
+            (c, a) => Boolean(a[0] is MapTerm or HamtBitmapTerm429)
         );
         Add(
             ErlangModuleNames.Module,
@@ -284,6 +285,8 @@ public static class CoreModules
          return c.Runtime.ChangeErrorHandler(c, a[1]);
      if (a[0] is Atom { Name: ProcessSchedulerNames.Binding })
          return await c.Runtime.ChangeSchedulerBinding(c, a[1]);
+     if (a[0] is Atom { Name: ProcessMessageQueueDataNames411.Flag })
+         return ProcessMessageQueueData411.ChangeSelf(c, a[1]);
      if (a[0] is Atom { Name: ProcessFullSweepNames.Flag })
          return ProcessFullSweepAfter.SetSelf(c, a[1]);
      if (a[0] is Atom { Name: ProcessPriorityNames.Flag })
@@ -349,7 +352,7 @@ public static class CoreModules
             ErlangModuleNames.Module,
             ErlangModuleNames.Get,
             1,
-            (c, a) => c.Dictionary.GetValueOrDefault(a[0], Term.A(ProcessDictionaryAtoms.Undefined))
+            (c, a) => ErlangInfallibleBifValues.Get(c, a[0])
         );
         Add(
             ErlangModuleNames.Module,
@@ -369,11 +372,11 @@ public static class CoreModules
             1,
             (c, a) => ListOperations.Reverse(a[0])
         );
-        Add(
+        r.Register(
             ListModuleNames.Module,
             ListModuleNames.Reverse,
             2,
-            (c, a) => ListOperations.Reverse(a[0], a[1])
+            (c, a) => ListNativeTraversal.Reverse(c, a[0], a[1])
         );
         Add(
             ListModuleNames.Module,
@@ -405,11 +408,11 @@ public static class CoreModules
             2,
             (c, a) => ListOperations.Flatten(a[0], a[1])
         );
-        Add(
+        r.Register(
             ListModuleNames.Module,
             ListModuleNames.Member,
             2,
-            (c, a) => Boolean(Cons.Items(a[1]).Any(x => x.Equals(a[0])))
+            (c, a) => ListNativeTraversal.Member(c, a[0], a[1])
         );
         Add(
             ListModuleNames.Module,
@@ -451,7 +454,7 @@ public static class CoreModules
             ListModuleNames.Module,
             ListModuleNames.Last,
             1,
-            (c, a) => ListOperations.Last(a[0])
+            (c, a) => ListLastExecution.Read(c, a[0])
         );
         Add(
             ListModuleNames.Module,
@@ -842,6 +845,10 @@ public static class CoreModules
         CpuTopologyStateRegistrations.Register(r);
         ProcessExitRegistrations.Register(r);
         RecordPredicateRegistrations.Register(r);
+        MapNativeBridge.Register(r);
+        DistributionPendingNativeBridge.Register(r);
+        CollectionMathBridge.Register(r);
+        StringFloatNative.Register(r);
         NativeRecordRegistrations.Register(r);
         DynamicTraceRegistrations.Register(r);
         SequenceTraceRegistrations.Register(r);
@@ -851,6 +858,7 @@ public static class CoreModules
         MatchSpecRegistrations.Register(r);
         RuntimeStatisticsRegistrations.Register(r);
         ErlangErrorRegistrations.Register(r);
+        r.SealCanonicalNoReturnContracts();
         ErlangLoadNifRegistrations.Register(r);
         ListModuleRegistrations.Register(r);
         ProplistModuleRegistrations.Register(r);

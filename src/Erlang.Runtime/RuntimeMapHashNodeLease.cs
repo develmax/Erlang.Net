@@ -1,9 +1,21 @@
 namespace Erlang;
 
-internal sealed class RuntimeMapHashNodeLease(ulong word, Action release) : IDisposable
+internal sealed class RuntimeMapHashNodeLease : IDisposable
 {
-    private Action? pending = release;
-    internal ulong Word { get; } = word;
+    private readonly WeakReference<RuntimeKnownNodes> owner;
+    private RuntimeMapHashEpoch? entry;
+    internal ulong Word { get; }
 
-    public void Dispose() => Interlocked.Exchange(ref pending, null)?.Invoke();
+    internal RuntimeMapHashNodeLease(ulong word, RuntimeKnownNodes owner, RuntimeMapHashEpoch entry)
+    {
+        Word = word;
+        this.owner = new(owner);
+        this.entry = entry;
+    }
+
+    public void Dispose()
+    {
+        RuntimeMapHashEpoch? release = Interlocked.Exchange(ref entry, null);
+        if (release is not null && owner.TryGetTarget(out var live)) live.ReleaseMapHashNode(release);
+    }
 }

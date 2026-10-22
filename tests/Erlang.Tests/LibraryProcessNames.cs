@@ -1,0 +1,86 @@
+namespace Erlang.Tests;
+
+internal static class LibraryProcessNames
+{
+    internal const string GenServer = "gen_sys_server391";
+    internal const string StatusCallback = "gen_status_callback391";
+    internal const string StatusLegacy = "gen_status_legacy391";
+    internal const string PidWorker = "beam_proc_badopts_worker391";
+    internal const string GenPrefix = "gen-sys-";
+    internal const string ProcPrefix = "proc-";
+    internal const string PidPrefix = "pid-";
+    internal const string ConstructionObserver = "beam_construct_order391";
+    internal const string ConstructionPrefix = "construction-";
+    internal const string ConstructionTest = "runtime/library391/original-construction-precedence-whole-values-and-stacks";
+    internal const string FieldsObserver = "beam_fields_observer391";
+    internal const string FieldsPrefix = "fields-";
+    internal const string FieldsTest = "runtime/library391/original-binary-fields-whole-values-and-stacks";
+    internal const string Prefix = "Erlang.Tests.LibraryProcesses391.";
+    internal const string GenSysObserver = "gen_sys_observer391";
+    internal const string ProcessObserver = "beam_proc_observer391";
+    internal const string PidObserver = "beam_proc_badopts_observer391";
+    internal const string ProcessSubject = "beam_proc_subject391";
+    internal const string ProcessModule = "proc_lib";
+    internal const string StringModule = "string";
+    internal const string All = "all";
+    internal const string Run = "run";
+    internal const string Stacks = "run_stacks";
+    internal const string Values = "values.etf";
+    internal const string Trace = "stacks.etf";
+    internal const string Beam = ".beam";
+    internal const string CaseWithOwnPid = "spawn_opt_badopts";
+    internal const string SourceCheck = "source_check";
+    internal const string CompleteRaw = "complete_raw";
+    internal const string Failure = "Original process-library complete outcome failed";
+    internal const string GenSysTest = "runtime/library391/original-gen-sys-whole-values-and-stacks";
+    internal const string ProcessTest = "runtime/library391/original-proc-lib-whole-state-independent-terms";
+    internal const string PidTest = "runtime/library391/original-proc-lib-owned-pid-complete-stack";
+    internal static readonly string[] Libraries = ["gen", "sys", "proc_lib", "io_lib", "io_lib_format", "string", "unicode_util"];
+    internal static readonly string[] Dependencies = [ConstructionObserver, FieldsObserver, "beam_proc_badopts_observer391", "beam_proc_badopts_worker391", "beam_proc_observer391", "beam_proc_subject391", "binary", "c", "code", "epp", "erl_error", "erl_scan", "erlang", "error_logger", "erts_internal", "file", "gen", "gen_status_callback391", "gen_status_legacy391", "gen_sys_observer391", "gen_sys_server391", "global", "io", "io_lib", "io_lib_format", "io_lib_fread", "io_lib_pretty", "lists", "logger", "maps", "proc_lib", "records", "rpc", "string", "sys", "unicode", "unicode_util"];
+    internal static readonly IReadOnlyDictionary<string, string> Digests = new Dictionary<string, string>
+    {
+        ["beam_proc_badopts_observer391.beam"] = "6D6D05686F8C4CDAB0865CFEA05718615DEAE573B1A3F92564F6F7F961961C35",
+        ["beam_proc_badopts_observer391.erl"] = "6D952195495F705A8A359B55B39239A6B52891164181AD359C0B921002730B7D",
+        ["beam_proc_badopts_worker391.beam"] = "30BDD2E0AD4C6FF9856B17DB14E392B2DCFDFA08C9B3C984352EFD3151CA0246",
+        ["beam_proc_badopts_worker391.erl"] = "37A5F660E6D0AEC6A4D2FD20A0CE8FE16EE96A124C5FE79E886CA7915DD535F2",
+        ["beam_proc_observer391.beam"] = "FD184625935ECD2F08051FD2BAD095252E438CEE204B49959FD7BAF26400E012",
+        ["beam_proc_observer391.erl"] = "6C21BF3626EC54AE2021EC6C137E08926DA1484D7804929266BA72ADB0824D31",
+        ["beam_proc_subject391.beam"] = "BFFCFB5283C715B25DB0BB1D679129D6CF396A7CC72F3B5984A584F25F335EB2",
+        ["beam_proc_subject391.erl"] = "73360B9887C7D054D4B7B202F740BECF7FD77A4D6F4A55422F0D295224D04E74",
+        ["gen-sys-stacks.etf"] = "B8D26E5115FB160597324D3A751F7FF8119738CD40B69CA9777ED635A32D2943",
+        ["gen-sys-values.etf"] = "3EF98A914FEE9C3CDBB1475BCE7E64341F5F4D25BCD0664079C785CA0B800171",
+        ["gen.beam"] = "DA61198004C493A12F7F5CFEEC60B696E71407300CB6D83544FF04D9413AACB2",
+        ["gen.erl"] = "B828697B055865DF24AAD48EC4CD7F23821FA54A7AA2BAA0408A444A5D0D04BE",
+        ["gen_status_callback391.beam"] = "8B32037C28451F247366C1C40D42B6962AC6A197699D80DF4DF624420FB3FD84",
+        ["gen_status_callback391.erl"] = "20103E8F3608DF511BCF19F457D9B02A72C9FEF4E8609BE2C00E94798DF0EA8C",
+        ["gen_status_legacy391.beam"] = "DCAF11B311F26B6C99A1D36F361B687FF6125763055CFAFBCD9F07FD53B2962E",
+        ["gen_status_legacy391.erl"] = "F94CCBF0A9D289921677230ABD7572AC7A94A9EE3D90223A2ED96AFB1682A249",
+        ["gen_sys_observer391.beam"] = "560D9386E834CD33E29908AFEDAE2A1BE21A6467EAB1540D43DC16DCDB9EF560",
+        ["gen_sys_observer391.erl"] = "A2DDF5CEF0350A0DC9F0DEF08DA09F58C2BA57507C39F9C5875D663B2392D3DD",
+        ["gen_sys_server391.beam"] = "C6639AC0E7A3C736D2BA5D69699F89B532C41C3396511325E3360BB842F55470",
+        ["gen_sys_server391.erl"] = "92CF7D6229C531A886CBA3B14CCEDEF9FCEC97C46054065FF0440637E126C140",
+        ["io_lib.beam"] = "2C7C6039401447EAB90C103EDDFDFC489F4F8745F56ADCE86FACBC796BC58E04",
+        ["io_lib_format.beam"] = "5F6E24D7EDDBB7266575D78C4E8B7C7196D8DFEA269361939517D68DF6D1A225",
+        ["pid-stacks.etf"] = "7779D343CC022AE9F23B566BE1BCE01E3319AF976A8D1BCFF29B2F9151DE4F66",
+        ["pid-values.etf"] = "14BF94E1DF3DF6F5EBBDA500DF2DE7B922B2474074E9B3C20937C8377BEA0303",
+        ["proc-stacks.etf"] = "9E9D03C0FDCB8F2E282ED0EFE11345784A9B198B483F91E3D02B2EF4FFAD1827",
+        ["proc-values.etf"] = "4FDD722CF8C0EB72A6718B8D969F2F4CD152C60774F116741599B8E4A38E1234",
+        ["proc_lib.beam"] = "D16CF269C1A728428B10A6ECA58912F59249B6B939D825D724AF34C0AE380131",
+        ["proc_lib.erl"] = "A8FC8E94F9AD47ACE46CD204FC5EB6FD227C09787F3BE906D80D2E4547E6A8C5",
+        ["provenance.json"] = "29B931C9CD94FA44AFEC2B8F854B5D72ADF4F528788D70258414B65DDC3767E9",
+        ["string.beam"] = "37C66C6A5DF38AE239CA1EEDEDBD2CE2FBC4B8B4F3EB7605E115D0AB73FDA697",
+        ["sys.beam"] = "1E5724A6AD245B8B9AFF7568DA5126C955FA883F37EE6A9E26B53F5618D84207",
+        ["sys.erl"] = "1DDC9165F892EE139E378111CEDFD6BE199B87CBF5C1BF617A0C457CB05B4804",
+        ["unicode_util.beam"] = "5CDC886E30216B5DE33B6F4BDC1DEA006EAA3392EC4A83EC90CD7B946B5759FF",
+        ["beam_fields_observer391.beam"] = "26FF269776341D99A9A3F6132B634EBCF672144BE238CA40E8231FB1B026004E",
+        ["beam_fields_observer391.erl"] = "7C152E69512435109FD4E7689CA0F380B11AB6CE356CED592C9324B35EDB2972",
+        ["fields-values.etf"] = "85CD2F6CF59F17E1944AE3BE026910A1AC06405B86B2066650318D51270716A7",
+        ["fields-stacks.etf"] = "59B5D7F2A4F6B7FDAA5979A27DD2EB1A2A22E85CAD3776CFE7FEF2411CF93C12",
+        ["fields-completion.json"] = "F07DC81E3C41F7B6733A02D72137F418D7331CD26EB1FBB282B89A6EFA3C538A",
+        ["beam_construct_order391.beam"] = "C0C435379ADBE71F897E45BB8F057F1C902DE12ADACEFF2423F50E1C23E0BEE8",
+        ["beam_construct_order391.erl"] = "6F5FEE7439BA15661CB7F47C7B4E4214FAB013AD4048EFB9272A4B84617285C3",
+        ["construction-values.etf"] = "B6C2EC033250230B5C642B7C69AC86945F20AAC0523D71F3B53B0C6107FF1503",
+        ["construction-stacks.etf"] = "AC1A6C8808E06D5F23BC3ED9AC54A1ECE2732CE2B00C69401649A1FB18F6A705",
+        ["construction-completion.json"] = "60F7A8C60F9E77D13578E98A33DCE3BEE399BEF26FF55787DAC0ED397BBF0479",
+    };
+}

@@ -36,8 +36,8 @@ public sealed partial class RuntimeDistributionPending
             RequireProcess(controller);
             if (!ReferenceEquals(runtime.RequireDistributionKernel(), kernel))
                 throw new InvalidOperationException(DistributionConnectedDiagnostics.Kernel);
-            if ((negotiatedFlags & DistributionPassThroughFlags.Mandatory) != DistributionPassThroughFlags.Mandatory ||
-                (negotiatedFlags & DistributionPassThroughFlags.Unsupported) != 0)
+            if (!DistributionCapabilityProfile429.HasMandatory(negotiatedFlags) ||
+                DistributionCapabilityProfile429.HasUnsupported(negotiatedFlags))
                 throw new NotSupportedException(DistributionConnectedDiagnostics.Flags);
             if (exitingInputControllers.Contains(controller) ||
                 controller.DistributionRole != RuntimeDistributionRole.None || ReferenceEquals(controller, kernel))
@@ -75,6 +75,7 @@ public sealed partial class RuntimeDistributionPending
                     negotiatedFlags,
                     remoteCreation
                 );
+                entry.Identity.Creation = remoteCreation;
                 entry.ReservedController = controller;
                 controllers[controller.Self] = entry;
                 controller.DistributionRole = RuntimeDistributionRole.Controller;

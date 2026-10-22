@@ -1,0 +1,43 @@
+<Project>
+  <!-- Import AFTER Erlang.Beam.targets: replace its explicit source-refusal target with an admitted route. -->
+  <PropertyGroup>
+    <ErlangBeamBuildToolPath Condition="'$(ErlangBeamBuildToolPath)' == '' and Exists('$(MSBuildThisFileDirectory)../tools/beam/net10.0/Erlang.BeamBuild.dll')">$(MSBuildThisFileDirectory)../tools/beam/net10.0/Erlang.BeamBuild.dll</ErlangBeamBuildToolPath>
+    <ErlangBeamBuildToolPath Condition="'$(ErlangBeamBuildToolPath)' == ''">$(MSBuildThisFileDirectory)../tools/Erlang.BeamBuild/bin/$(Configuration)/net10.0/Erlang.BeamBuild.dll</ErlangBeamBuildToolPath>
+    <ErlangBeamDotNetHost Condition="'$(ErlangBeamDotNetHost)' == ''">$(DotNetHostPath)</ErlangBeamDotNetHost>
+  </PropertyGroup>
+  <UsingTask TaskName="Erlang.BeamBuild.BeamSourceBuildTask" AssemblyFile="$(ErlangBeamBuildToolPath)" />
+  <Target Name="ErlangBeamSourceAdmission" BeforeTargets="PrepareForBuild" Condition="'@(ErlangBeamSource)' != ''">
+    <Error Condition="'$(ErlangBeamInstalledRoot)' == '' or '$(ErlangBeamProvenanceKind)' == '' or '$(ErlangBeamAdmissionReceipt)' == '' or '$(ErlangBeamAdmissionReceiptSha256)' == '' or '$(ErlangBeamCompilerSha256)' == '' or '$(ErlangBeamDotNetHost)' == ''" Text="ErlangBeamSource requires explicit admitted compiler properties and an absolute DotNet host; no PATH or retained-asset fallback." />
+  </Target>
+  <!-- Intentionally no Inputs/Outputs shortcut: tool always validates closure/content and makes its own skips. -->
+  <Target Name="ErlangBeamCompileSources" BeforeTargets="ErlangBeamCollect;AssignTargetPaths" DependsOnTargets="ResolveProjectReferences;ErlangBeamSourceAdmission" Condition="'@(ErlangBeamSource)' != ''">
+    <Error Condition="!Exists('$(ErlangBeamBuildToolPath)')" Text="Build/configure the admitted Erlang.BeamBuild tool before using ErlangBeamSource." />
+    <PropertyGroup>
+      <ErlangBeamOutputDirectory Condition="'$(ErlangBeamOutputDirectory)' == ''">$([System.IO.Path]::GetFullPath('$(IntermediateOutputPath)beam', '$(MSBuildProjectDirectory)'))</ErlangBeamOutputDirectory>
+    </PropertyGroup>
+    <Erlang.BeamBuild.BeamSourceBuildTask
+      Sources="@(ErlangBeamSource)"
+      InstalledRoot="$(ErlangBeamInstalledRoot)"
+      ProvenanceKind="$(ErlangBeamProvenanceKind)"
+      AdmissionReceipt="$(ErlangBeamAdmissionReceipt)"
+      AdmissionReceiptSha256="$(ErlangBeamAdmissionReceiptSha256)"
+      CompilerSha256="$(ErlangBeamCompilerSha256)"
+      OutputDirectory="$(ErlangBeamOutputDirectory)"
+      DotNetHost="$(ErlangBeamDotNetHost)"
+      SourcePolicy="$(ErlangBeamSourcePolicy)"
+      SourceRoot="$(ErlangBeamSourceRoot)"
+      RuntimeSha256="$(ErlangBeamRuntimeSha256)"
+      Headers="@(ErlangBeamHeader)"
+      IncludeDirectories="@(ErlangBeamIncludeDirectory)"
+      Defines="@(ErlangBeamDefine)"
+      ToolAssemblyPath="$([System.IO.Path]::GetFullPath('$(ErlangBeamBuildToolPath)'))">
+      <Output TaskParameter="BeamFiles" ItemName="_ErlangVerifiedBeam" />
+    </Erlang.BeamBuild.BeamSourceBuildTask>
+    <ItemGroup>
+      <None Include="@(_ErlangVerifiedBeam)" Link="Modules/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+      <None Include="$(ErlangBeamOutputDirectory)/beam-build-state.json" Link="Modules/beam-build-state.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+      <ErlangBeam Include="@(_ErlangVerifiedBeam)" RemoveMetadata="Link;TargetPath" />
+      <FileWrites Include="@(_ErlangVerifiedBeam);$(ErlangBeamOutputDirectory)/beam-build-state.json" />
+    </ItemGroup>
+  </Target>
+</Project>

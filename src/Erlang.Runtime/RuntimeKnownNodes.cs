@@ -2,22 +2,34 @@ using System.Runtime.CompilerServices;
 
 namespace Erlang;
 
-internal sealed partial class RuntimeKnownNodes(LocalNodeIdentity localIdentity)
+internal sealed partial class RuntimeKnownNodes(
+    LocalNodeIdentity localIdentity,
+    Func<Atom, RuntimeDistributionEntryIdentity?> resolveDistributionEntry
+)
 {
     private readonly object gate = new();
     private readonly Dictionary<string, List<WeakReference<Term>>> nodes = new(StringComparer.Ordinal);
     private readonly ConditionalWeakTable<Term, object> observed = new();
+    private bool observedIdentitiesClosed;
 
     public void Observe(Term term)
     {
         var pending = new Stack<Term>();
         var visited = new HashSet<Term>(ReferenceEqualityComparer.Instance);
-        pending.Push(term);
+
+        void Enqueue(Term value)
+        {
+            if (visited.Add(value))
+                pending.Push(value);
+        }
+        Enqueue(term);
+        var discoveries = new List<(Term Value, string Name, bool External)>();
         lock (gate)
+        {
+            if (observedIdentitiesClosed)
+                return;
             while (pending.TryPop(out var value))
             {
-                if (!visited.Add(value))
-                    continue;
                 string? name = value switch
                 {
                     Pid pid => pid.Node,
@@ -34,38 +46,66 @@ internal sealed partial class RuntimeKnownNodes(LocalNodeIdentity localIdentity)
                 };
                 if (name is not null && !local && !observed.TryGetValue(value, out _))
                 {
-                    observed.Add(value, new object());
-                    if (!nodes.TryGetValue(name, out var references))
-                        nodes.Add(name, references = new());
-                    references.Add(new(value));
+                    bool external = value switch
+                    {
+                        Pid pid => pid.LocalIdentity is null,
+                        PortTerm port => port.LocalIdentity is null,
+                        ReferenceTerm reference => reference.LocalIdentity is null,
+                        _ => false
+                    };
+                    discoveries.Add((value, name, external));
                 }
                 switch (value)
                 {
                     case Cons list:
-                        pending.Push(list.Head);
-                        pending.Push(list.Tail);
+                        Enqueue(list.Head);
+                        Enqueue(list.Tail);
                         break;
                     case NativeRecordTerm record:
                         foreach (Term item in record.Values)
-                            pending.Push(item);
+                            Enqueue(item);
                         break;
                     case TupleTerm tuple:
                         foreach (Term item in tuple.Items)
-                            pending.Push(item);
+                            Enqueue(item);
+                        break;
+                    case HamtBitmapTerm429 node:
+                        foreach (Term child in node.Children) Enqueue(child);
                         break;
                     case MapTerm map:
                         foreach (var pair in map.Entries)
                         {
-                            pending.Push(pair.Key);
-                            pending.Push(pair.Value);
+                            Enqueue(pair.Key);
+                            Enqueue(pair.Value);
                         }
                         break;
                     case FunctionTerm function:
                         foreach (Term item in function.Environment)
-                            pending.Push(item);
+                            Enqueue(item);
                         break;
                 }
             }
+        }
+        foreach (var discovery in discoveries)
+        {
+            // Never acquire the runtime gate/call a resolver while holding this gate.
+            // Foreign runtime local identities retain existing observation behavior only.
+            object? retention = discovery.External
+                ? resolveDistributionEntry(Term.A(discovery.Name))
+                : new object();
+            lock (gate)
+            {
+                if (observedIdentitiesClosed)
+                    return;
+                ObjectDisposedException.ThrowIf(retention is null, this);
+                if (observed.TryGetValue(discovery.Value, out _))
+                    continue;
+                observed.Add(discovery.Value, retention!);
+                if (!nodes.TryGetValue(discovery.Name, out var references))
+                    nodes.Add(discovery.Name, references = new());
+                references.Add(new(discovery.Value));
+            }
+        }
     }
 
     internal bool HasRetainedExternalEpoch(string name, uint creation)
@@ -98,7 +138,8 @@ internal sealed partial class RuntimeKnownNodes(LocalNodeIdentity localIdentity)
                     nodes.Remove(pair.Key);
             }
 
-            return nodes.Keys.Where(name => name != localIdentity.Snapshot.Node).Order(StringComparer.Ordinal).ToArray();
+            return nodes.Keys.Concat(reservedEpochs.Keys.Select(epoch => epoch.Node)).Distinct(StringComparer.Ordinal)
+                .Where(name => name != localIdentity.Snapshot.Node).Order(StringComparer.Ordinal).ToArray();
         }
     }
 }

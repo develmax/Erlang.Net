@@ -406,7 +406,7 @@ internal sealed partial class SequenceTracing(ProcessRuntime runtime, object gat
                 details,
                 Term.Tuple(
                     new Integer(ErlangClockState.MonotonicNanoseconds),
-                    ErlangClockState.Unique([Cons.From([Term.A(ErlangClockNames.Monotonic)])])
+                    runtime.UniqueMonotonic436.Next(false)
                 )
             );
         else if ((token.Flags & SequenceTraceFlags.MonotonicTimestamp) != 0)

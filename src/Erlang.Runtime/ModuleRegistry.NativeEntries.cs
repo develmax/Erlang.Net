@@ -7,6 +7,9 @@ public sealed partial class ModuleRegistry
         lock (gate)
         {
             var signature = (module, function, arity);
+            if (sourceOwners.GetValueOrDefault(signature) is PreparedBeamImage prepared
+                && ReferenceEquals(codeImages.GetValueOrDefault(module), prepared.ExecutionIdentity.Image))
+                return prepared.ExecutionIdentity.NativePrimitives.ContainsKey((function, arity));
 
             return !sourceOwners.ContainsKey(signature)
                 && runtimeErrorBindings.TryGetValue(signature, out var binding)

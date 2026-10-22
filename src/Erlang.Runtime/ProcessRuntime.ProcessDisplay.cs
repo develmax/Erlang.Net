@@ -4,7 +4,18 @@ public sealed partial class ProcessRuntime
 {
     internal async ValueTask<Term> DisplayProcess(ProcessContext requester, Pid target)
     {
+        Term result = RequestDisplay425(requester, new Term[] { target, Term.A(ProcessDisplayNames.Backtrace) });
+        if (result is not ReferenceTerm reference) return result;
+        var reply = await requester.ReceiveAsync(message => message is TupleTerm { Items.Count: 2 } tuple && tuple.Items[0].Equals(reference) ? tuple : null);
+
+        return reply!.Items[1];
+    }
+
+    internal Term RequestDisplay425(ProcessContext requester, IReadOnlyList<Term> arguments)
+    {
         requester.Cancellation.ThrowIfCancellationRequested();
+        if (arguments[1] is not Atom { Name: ProcessDisplayNames.Backtrace }) return Term.A(ProcessSuspensionNames.BadOption);
+        if (arguments[0] is not Pid target || !IsCurrentLocal(target)) return Term.A(ErlangErrorReasons.BadArgument);
         ProcessDisplayRequest request;
         lock (gate)
         {
@@ -32,9 +43,8 @@ public sealed partial class ProcessRuntime
             }
             );
         }
-        var reply = await requester.ReceiveAsync(message => message is TupleTerm { Items.Count: 2 } tuple && tuple.Items[0].Equals(request.Id) ? tuple : null);
 
-        return reply!.Items[1];
+        return request.Id;
     }
 
     private Term DisplayOwnedProcess(ProcessContext process)

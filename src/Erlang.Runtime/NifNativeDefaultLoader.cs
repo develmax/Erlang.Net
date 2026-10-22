@@ -9,6 +9,10 @@ internal static class NifNativeDefaultLoader
         Func<string, NifNativeReviewedBasicAbi?>? approve
     )
     {
+        if (captured.Image.Module == RuntimeBootstrapFileNames.Module && context.Runtime.Modules.HasBootstrapFileSystem)
+            return await PrimFileBuiltinLoader.LoadAsync(context, captured, arguments).ConfigureAwait(false);
+        if (captured.Image.Module == PrimTtyNames.Module && context.Runtime.Modules.IsBootstrapTtyImage(captured.Image))
+            return await PrimTtyBuiltinLoader.LoadAsync(context, captured, arguments).ConfigureAwait(false);
         NifNativeLibraryPath nativePath = NifNativeFilename.ResolveNative(arguments[0], reviewed: approve is not null);
         string path = nativePath.DisplayPath;
         SourceCodeEntry caller = captured.Consume(context);

@@ -17,6 +17,10 @@ internal static class LocalFunctionEntries
     public static LocalFunctionIdentity GetNamed(ModuleDefinition module, string name, int arity) =>
         Modules.GetValue(module, value => new ModuleEntries(value)).NamedEntries[(name, arity)];
 
+    internal static IReadOnlyList<(LocalFunctionIdentity Identity, int Arity)> Identities(ModuleDefinition module)
+        => Modules.GetValue(module, value => new ModuleEntries(value)).Resolved
+            .Select(entry => (entry.Value.Identity, entry.Key.Arity)).ToArray();
+
     public static Expr.Fun Anonymous(ModuleDefinition module, int index) =>
         Modules.GetValue(module, value => new ModuleEntries(value)).Entries.Single(entry => entry.Value.Index == index).Key;
 

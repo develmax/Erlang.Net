@@ -944,42 +944,18 @@ public static partial class Execution
                     var image = module is null ? null : ctx.ExecutingSourceImage(module) ?? ctx.Runtime.Modules.SourceImage(module.Name, module);
                     string[] names = capture.Keys.ToArray();
 
-                    FunctionTerm Create(IReadOnlyList<Term> environment, LocalFunctionInvocation? invocation = null)
-                    {
-                        if (environment.Count != names.Length)
-                            throw new ErlangException(ErlangErrorReasons.BadArgument);
-                        var restored = names.Select((name, index) => new KeyValuePair<string, Term>(name, environment[index])).ToDictionary(pair => pair.Key, pair => pair.Value, StringComparer.Ordinal);
-
-                        FunctionTerm? result = null;
-                        result = new FunctionTerm(
-                            identity,
-                            f.Clauses[0].Patterns.Count,
-                            environment,
-                            (context, args) => SourceFunctionInvocation.Anonymous(
-                                module,
-                                identity,
-                                f,
-                                restored,
-                                (ProcessContext)context,
-                                image,
-                                args,
-                                invocation?.OriginalFunction ?? result!,
-                                invocation
-                            )
-                        );
-
-                        SourceFunctionTailDispatch.Register(result);
-
-                        return result;
-                    }
-                    identity = ctx.Runtime.Functions.RegisterSourceFactory(
+                    SourceStoredFunctionRecipe recipe = SourceStoredFunctionRecipe.Register(
+                        ctx.Runtime.Functions,
+                        module,
                         identity,
-                        f.Clauses[0].Patterns.Count,
-                        names.Length,
-                        Create
+                        f,
+                        null,
+                        names,
+                        image,
+                        f.Clauses[0].Patterns.Count
                     );
 
-                    return Create(capture.Values.ToArray());
+                    return recipe.Create(capture.Values.ToArray());
                 }
             case Expr.FunctionReference reference:
                 return NamedFunctionReferences.Evaluate(module, reference, ctx);

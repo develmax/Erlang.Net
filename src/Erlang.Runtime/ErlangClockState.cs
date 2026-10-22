@@ -9,7 +9,6 @@ internal static class ErlangClockState
     private static readonly BigInteger initialSystemNanoseconds = (new BigInteger(DateTimeOffset.UtcNow.Ticks) - DateTimeOffset.UnixEpoch.Ticks) * ErlangClockParameters.NanosecondsPerTick;
     private static readonly object counterGate = new();
     private static BigInteger unique = -1;
-    private static BigInteger uniqueMonotonic = -1;
     private static BigInteger previousNow;
 
     public static BigInteger MonotonicNanoseconds => ErlangClockParameters.InitialMonotonicNanoseconds + new BigInteger(Stopwatch.GetTimestamp() - started) * ErlangClockParameters.NanosecondsPerSecond / Stopwatch.Frequency;
@@ -21,11 +20,12 @@ internal static class ErlangClockState
     public static BigInteger Unit(Term value) => value switch
     {
         Integer integer when integer.Value > 0 => integer.Value,
-        Atom { Name: ErlangClockNames.Native or ErlangClockNames.Nanosecond or ErlangClockNames.NanoSeconds } => ErlangClockParameters.NanosecondsPerSecond,
+        Atom { Name: ErlangClockNames.Native } => ErlangClockUnits413.NativeFrequency,
+        Atom { Name: ErlangClockNames.Nanosecond or ErlangClockNames.NanoSeconds } => ErlangClockParameters.NanosecondsPerSecond,
         Atom { Name: ErlangClockNames.Microsecond or ErlangClockNames.MicroSeconds } => ErlangClockParameters.MicrosecondsPerSecond,
         Atom { Name: ErlangClockNames.Millisecond or ErlangClockNames.MilliSeconds } => ErlangClockParameters.MillisecondsPerSecond,
         Atom { Name: ErlangClockNames.Second or ErlangClockNames.Seconds } => BigInteger.One,
-        Atom { Name: ErlangClockNames.PerfCounter } => Stopwatch.Frequency,
+        Atom { Name: ErlangClockNames.PerfCounter } => ErlangClockUnits413.PerformanceFrequency,
         _ => throw new ErlangException(ErlangErrorReasons.BadArgument)
     };
 
@@ -48,7 +48,7 @@ internal static class ErlangClockState
 
     public static Term Clock(string name, IReadOnlyList<Term> arguments)
     {
-        BigInteger unit = arguments.Count == 0 ? ErlangClockParameters.NanosecondsPerSecond : Unit(arguments[0]);
+        BigInteger unit = arguments.Count == 0 ? ErlangClockUnits413.NativeFrequency : Unit(arguments[0]);
         BigInteger time = name switch
         {
             ErlangClockNames.MonotonicTime => MonotonicNanoseconds,
@@ -78,7 +78,7 @@ internal static class ErlangClockState
         return Term.Tuple(new Integer(megaSeconds), new Integer(remainder), new Integer(microseconds));
     }
 
-    public static Term Unique(IReadOnlyList<Term> arguments)
+    public static Term Unique(ProcessContext context, IReadOnlyList<Term> arguments)
     {
         bool monotonic = false;
         bool positive = false;
@@ -94,9 +94,12 @@ internal static class ErlangClockState
                     throw new ErlangException(ErlangErrorReasons.BadArgument);
             }
         }
+        if (monotonic)
+            return context.Runtime.UniqueMonotonic436.Next(positive);
+
         lock (counterGate)
         {
-            BigInteger raw = monotonic ? ++uniqueMonotonic : ++unique;
+            BigInteger raw = ++unique;
 
             return new Integer(raw + (positive ? 1 : ErlangClockParameters.SmallIntegerMinimum));
         }

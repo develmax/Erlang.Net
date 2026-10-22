@@ -1,0 +1,315 @@
+using System.Diagnostics;
+
+namespace Erlang;
+
+public sealed partial class Mailbox
+{
+    private BeamSaveCursor? beamSave;
+
+    private sealed class BeamSaveCursor
+    {
+        internal LinkedListNode<Entry>? After;
+        internal LinkedListNode<Entry>? PriorityContinuation;
+        internal bool InPriority;
+        internal ReceiveMarkerState? Marker;
+    }
+
+    private void EnableBeamSave()
+    {
+        beamSave ??= new() { InPriority = lastPriority is not null };
+    }
+
+    private void SetBeamSaveMarker(ReceiveMarkerState marker)
+    {
+        if (beamSave is not { } save)
+            return;
+        ResetBeamSave();
+        save.After = marker.Node;
+        save.Marker = marker;
+        marker.CursorUsers++;
+        save.InPriority = false;
+        if (marker.SeenInBeamPriority && lastPriority is not null)
+        {
+            save.PriorityContinuation = messages.AddAfter(marker.Node, new Entry(Nil.Value, null, Control: true));
+            mutationRevision++;
+            save.After = null;
+            save.InPriority = true;
+        }
+    }
+
+    private void ResetBeamSave()
+    {
+        if (beamSave is not { } save)
+            return;
+        save.After = null;
+        save.InPriority = lastPriority is not null;
+        if (save.PriorityContinuation is { } continuation)
+        {
+            save.PriorityContinuation = null;
+            if (ReferenceEquals(continuation.List, messages))
+                RemoveNode(continuation);
+        }
+        if (save.Marker is { } marker)
+        {
+            save.Marker = null;
+            marker.CursorUsers--;
+            ReleaseReceiveMarkerNode(marker);
+        }
+    }
+
+    private void BeforeBeamSaveUnlink(LinkedListNode<Entry> node)
+    {
+        if (beamSave is not { } save)
+            return;
+        if (ReferenceEquals(save.After, node))
+            save.After = node.Previous;
+        if (ReferenceEquals(save.PriorityContinuation, node))
+            save.PriorityContinuation = null;
+    }
+
+    private LinkedListNode<Entry>? PeekBeamSave()
+    {
+        BeamSaveCursor save = beamSave!;
+        while (true)
+        {
+            if (save.InPriority && (lastPriority is null || ReferenceEquals(save.After, lastPriority)))
+            {
+                save.InPriority = false;
+                if (save.PriorityContinuation is { } continuation)
+                {
+                    save.PriorityContinuation = null;
+                    save.After = continuation;
+                    RemoveNode(continuation);
+                }
+            }
+            LinkedListNode<Entry>? node = save.After is null ? messages.First : save.After.Next;
+            if (node is null || IsAdmitted(node))
+                return node;
+            save.After = node;
+            ObserveReceiveMarkerPass(node);
+        }
+    }
+
+    private void AdvanceBeamSave()
+    {
+        LinkedListNode<Entry> current = PeekBeamSave() ?? throw new InvalidDataException(BeamReceiveNames.InvalidPlan);
+        beamSave!.After = current;
+    }
+
+    private void BeforeBeamPriorityInsert(Term message)
+    {
+        if (beamSave is not { } save)
+            return;
+        if (lastPriority is null)
+        {
+            foreach (ReceiveMarkerState marker in receiveMarkers)
+                marker.SeenInBeamPriority = false;
+            if (save.Marker is { Retired: true } retired)
+                retired.SeenInBeamPriority = false;
+        }
+        var pending = new Stack<Term>();
+        var visited = new HashSet<Term>(ReferenceEqualityComparer.Instance);
+        pending.Push(message);
+        while (pending.TryPop(out Term? term))
+        {
+            if (!visited.Add(term))
+                continue;
+            if (TryReceiveMarkerReference(term, out var reference))
+                foreach (ReceiveMarkerState marker in receiveMarkers)
+                    if (marker.ReferenceId == reference)
+                        marker.SeenInBeamPriority = true;
+            switch (term)
+            {
+                case Cons list:
+                    pending.Push(list.Head);
+                    pending.Push(list.Tail);
+                    break;
+                case TupleTerm tuple:
+                    foreach (Term value in tuple.Items)
+                        pending.Push(value);
+                    break;
+                case NativeRecordTerm record:
+                    foreach (Term value in record.Values)
+                        pending.Push(value);
+                    break;
+                case MapTerm map:
+                    foreach (var pair in map.Entries)
+                    {
+                        pending.Push(pair.Key);
+                        pending.Push(pair.Value);
+                    }
+                    break;
+                case FunctionTerm function:
+                    foreach (Term value in function.Environment)
+                        pending.Push(value);
+                    break;
+            }
+        }
+        if (save.InPriority || save.Marker is { SeenInBeamPriority: false })
+            return;
+        if (save.PriorityContinuation is { } prior)
+            RemoveNode(prior);
+        LinkedListNode<Entry>? current = save.After is null ? messages.First : save.After.Next;
+        var entry = new Entry(Nil.Value, null, Control: true);
+        save.PriorityContinuation = current is null ? messages.AddLast(entry) : messages.AddBefore(current, entry);
+        mutationRevision++;
+        save.After = lastPriority;
+        save.InPriority = true;
+    }
+
+    internal async ValueTask<T?> ReceiveBeamAsync<T>(
+        Func<Term, ValueTask<T?>> select,
+        Term timeout,
+        CancellationToken cancellation
+    ) where T : class
+    {
+        lock (gate)
+            EnableBeamSave();
+        try
+        {
+            TimeSpan? initial = timeout is Integer integer && integer.Value.IsZero ? TimeSpan.Zero : null;
+
+            return await ReceiveCore(
+                select,
+                initial,
+                cancellation,
+                () => ReceiveTimeoutValue.Parse(timeout)
+            );
+        }
+        finally
+        {
+            WaitingStateChanged?.Invoke(false);
+        }
+    }
+
+    private async ValueTask<T?> ReceiveBeamSaveCore<T>(
+        Func<Term, ValueTask<T?>> select,
+        TimeSpan? timeout,
+        CancellationToken cancellation,
+        Func<TimeSpan?>? resolveTimeout
+    ) where T : class
+    {
+        if (timeout < TimeSpan.Zero)
+            throw new ErlangException(ErlangErrorReasons.BadArgument);
+        long start = Stopwatch.GetTimestamp();
+        bool resolved = resolveTimeout is null;
+        while (true)
+        {
+            ThrowIfHalted();
+            cancellation.ThrowIfCancellationRequested();
+            ProcessSignals?.Invoke();
+            if (WaitForExecution is not null)
+                start += await WaitForExecution();
+            Task signal;
+            Entry candidate = default;
+            bool found;
+            bool admissionPending;
+            lock (gate)
+            {
+                admissionPending = pending != 0;
+                var node = admissionPending ? null : PeekBeamSave();
+                found = node is not null;
+                if (found)
+                    candidate = node!.Value;
+                signal = changed.Task;
+            }
+            if (admissionPending || ExecutionBlocked?.Invoke() == true)
+                continue;
+            if (found)
+            {
+                long suspended = SuspensionTime?.Invoke() ?? 0;
+                T? result = await select(candidate.Value);
+                start += (SuspensionTime?.Invoke() ?? 0) - suspended;
+                while (true)
+                {
+                    ThrowIfHalted();
+                    cancellation.ThrowIfCancellationRequested();
+                    ProcessSignals?.Invoke();
+                    if (WaitForExecution is not null)
+                        start += await WaitForExecution();
+                    Entry consumed = default;
+                    bool retry;
+                    lock (gate)
+                    {
+                        ThrowIfHalted();
+                        cancellation.ThrowIfCancellationRequested();
+                        retry = pending != 0 || ExecutionBlocked?.Invoke() == true;
+                        if (!retry)
+                        {
+                            if (result is null)
+                                AdvanceBeamSave();
+                            else
+                            {
+                                var current = PeekBeamSave() ?? throw new InvalidDataException(BeamReceiveNames.InvalidPlan);
+                                consumed = current.Value;
+                                RemoveNode(current);
+                                ResetBeamSave();
+                            }
+                        }
+                    }
+                    if (retry)
+                        continue;
+                    if (result is null)
+                        break;
+                    MessageReceived?.Invoke();
+                    SequenceTraceToken? traceToken = consumed.TraceToken;
+                    bool preserve = consumed.PreserveTrace;
+                    if (consumed.DistributionTraceToken is { } raw)
+                    {
+                        var reception = DistributionSequenceTraceToken.Decode(raw);
+                        traceToken = reception.Token;
+                        preserve = reception.Preserve;
+                    }
+                    TraceReceived?.Invoke(consumed.Value, traceToken, preserve);
+
+                    return result;
+                }
+                continue;
+            }
+            if (!resolved)
+            {
+                try
+                {
+                    timeout = resolveTimeout!();
+                }
+                catch
+                {
+                    lock (gate)
+                        ResetBeamSave();
+                    throw;
+                }
+                resolved = true;
+                start = Stopwatch.GetTimestamp();
+            }
+            TimeSpan? remaining = timeout - Stopwatch.GetElapsedTime(start);
+            if (remaining <= TimeSpan.Zero)
+            {
+                lock (gate)
+                    ResetBeamSave();
+                ReceiveTimedOut?.Invoke();
+
+                return null;
+            }
+            try
+            {
+                WaitingStateChanged?.Invoke(true);
+                if (remaining is { } finite)
+                    await signal.WaitAsync(
+                        finite > TimeSpan.FromMilliseconds(MailboxWaitParameters.MaximumSegmentMilliseconds)
+                            ? TimeSpan.FromMilliseconds(MailboxWaitParameters.MaximumSegmentMilliseconds) : finite,
+                        cancellation
+                    );
+                else
+                    await signal.WaitAsync(cancellation);
+            }
+            catch (TimeoutException)
+            {
+                // Resume at the wait instruction, preserving the existing timer.
+            }
+            finally
+            {
+                WaitingStateChanged?.Invoke(false);
+            }
+        }
+    }
+}

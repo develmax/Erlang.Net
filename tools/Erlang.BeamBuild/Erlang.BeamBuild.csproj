@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType></PropertyGroup>
+  <ItemGroup><ProjectReference Include="../../src/Erlang.Compiler/Erlang.Compiler.csproj" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Drivers/beam_include_driver377.erl" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Drivers/beam_application_driver379.erl" /></ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Build.Framework" HintPath="$(MSBuildBinPath)/Microsoft.Build.Framework.dll" Private="false" />
+    <Reference Include="Microsoft.Build.Utilities.Core" HintPath="$(MSBuildBinPath)/Microsoft.Build.Utilities.Core.dll" Private="false" />
+  </ItemGroup>
+</Project>

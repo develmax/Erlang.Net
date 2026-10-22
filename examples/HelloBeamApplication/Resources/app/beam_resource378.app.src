@@ -1,0 +1,7 @@
+{application, beam_resource378,
+ [{description, "Stage378 resource-only fixture"},
+  {vsn, "0.1.0"},
+  {modules, [resource378]},
+  {registered, []},
+  {applications, [kernel, stdlib]},
+  {env, [{mode, default}, {limit, 7}]}]}.

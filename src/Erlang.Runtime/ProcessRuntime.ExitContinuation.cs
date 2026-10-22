@@ -51,6 +51,25 @@ public sealed partial class ProcessRuntime
         try
         {
             await Task.Yield();
+            if (continuation.StorageRetirement is { } storage)
+            {
+                var preparation = continuation.PreparationFailures!;
+                try
+                {
+                    await storage.ConfigureAwait(false);
+                }
+                catch (Exception error)
+                {
+                    preparation.Add(error);
+                }
+                lock (gate)
+                    FinishTermination(
+                        continuation.Process,
+                        continuation.Reason,
+                        preparation,
+                        continuation
+                    );
+            }
             await continuation.LocalCleanup.Task.ConfigureAwait(false);
             localCleanupCompleted = true;
             var failures = new List<Exception>();

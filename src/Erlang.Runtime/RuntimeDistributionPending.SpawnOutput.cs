@@ -27,9 +27,6 @@ public sealed partial class RuntimeDistributionPending
                 throw new ErlangException(DistributionSpawnNames.NotSupported);
             if (owner.AsyncDistribution)
                 throw new ErlangException(DistributionSpawnNames.NotSupported);
-            if (options.Spawn.Monitor &&
-                (connected.Flags & DistributionPassThroughFlags.ProcessMonitors) != DistributionPassThroughFlags.ProcessMonitors)
-                throw new ErlangException(DistributionSpawnNames.NotSupported);
             resource = runtime.ReferenceResources.AcquireDistributionEntry(entry.Reference)
                 ?? throw new InvalidOperationException(DistributionOutputLifecycleDiagnostics.Retired);
             try

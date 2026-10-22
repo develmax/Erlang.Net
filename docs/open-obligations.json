@@ -1,0 +1,425 @@
+{
+  "Status": "CANONICAL_ASSIGNED_BACKLOG_WITH_SCOPED_SUCCESSOR_EVIDENCE",
+  "Counts": {
+    "Total": 17,
+    "Partial": 15,
+    "NotExecuted": 2,
+    "Open": 14,
+    "ResolvedScopedGuards": 2,
+    "ResolvedScopedNoop": 1
+  },
+  "Sources": [
+    {
+      "Path": "docs/open-obligations-377-378.json",
+      "Sha256": "F615E68E83B592C513E23C049B3B1517FC64A8369037DC7C32DCB99A3AB753EF"
+    },
+    {
+      "Path": "docs/validation/part-379/local-checkpoint/partition-crosswalk.json",
+      "Sha256": "66C75DBD5E6FA406F78B12807268192BB7EFA2CDBB9BEFBCF39453D134E7539B"
+    }
+  ],
+  "PacketOrder": [
+    380,
+    381,
+    382,
+    383,
+    384
+  ],
+  "Rows": [
+    {
+      "Stage": 377,
+      "Name": "transform_in_active_header",
+      "Status": "PARTIAL",
+      "Reason": "Public raw policy already refuses; later expanded-form rejection was not reached.",
+      "Dependency": "Reviewed entry to the actual production expanded-form validator; preserve raw policy.",
+      "NextVerifiableStep": "Pass hash-bound original epp forms with compile/transform attribute to the real validator; prove refusal before compiler and untouched positive-sensitive sentinel.",
+      "AssignedOwner": "Root common implementation/execution; helpers source/fixture review only",
+      "ProposedPacket": 380,
+      "NextAction": "Pass hash-bound original epp forms with compile/transform attribute to the real validator; prove refusal before compiler and untouched positive-sensitive sentinel.",
+      "NewExecutionOrPromotionCredit": false,
+      "SuccessorResolution": {
+        "Status": "CLOSED_SCOPED_GUARD",
+        "Part": 380,
+        "Evidence": "validation/part-380/scoped-guards/completion.json",
+        "Sha256": "1E37F22B6DE9235F16FBD3F30ECE8BFE1A644CAB0C7BA4843AE2672ADDFFD9A3",
+        "ApiPromotion": false,
+        "CallbackExecutionSupport": false
+      },
+      "Open": false
+    },
+    {
+      "Stage": 377,
+      "Name": "on_load_attribute",
+      "Status": "PARTIAL",
+      "Reason": "Public raw policy refuses first; later form and output defenses are distinct.",
+      "Dependency": "Actual expanded-form validator plus retained BEAM on_load output gate.",
+      "NextVerifiableStep": "Execute the actual later validator on original forms and separately retain output-image on_load refusal; do not weaken admission merely to reach it.",
+      "AssignedOwner": "Root common implementation/execution; helpers source/fixture review only",
+      "ProposedPacket": 380,
+      "NextAction": "Execute the actual later validator on original forms and separately retain output-image on_load refusal; do not weaken admission merely to reach it.",
+      "NewExecutionOrPromotionCredit": false,
+      "SuccessorResolution": {
+        "Status": "CLOSED_SCOPED_GUARD",
+        "Part": 380,
+        "Evidence": "validation/part-380/scoped-guards/completion.json",
+        "Sha256": "1E37F22B6DE9235F16FBD3F30ECE8BFE1A644CAB0C7BA4843AE2672ADDFFD9A3",
+        "ApiPromotion": false,
+        "CallbackExecutionSupport": false
+      },
+      "Open": false
+    },
+    {
+      "Stage": 377,
+      "Name": "owned_stage_changes_during_child",
+      "Status": "PARTIAL",
+      "Reason": "After-snapshot mutation refused, but request-marker sampling does not prove exact native-child phase.",
+      "Dependency": "Reviewed deterministic process-start/phase observation using admitted original child.",
+      "NextVerifiableStep": "Observe child identity/alive phase, mutate owned file, and prove failed settlement preserves previous outputs/manifest and drains the owned process.",
+      "AssignedOwner": "Root common implementation/execution; helpers source/fixture review only",
+      "ProposedPacket": 381,
+      "NextAction": "Observe child identity/alive phase, mutate owned file, and prove failed settlement preserves previous outputs/manifest and drains the owned process.",
+      "NewExecutionOrPromotionCredit": false,
+      "Open": false,
+      "SuccessorResolution": {
+        "Status": "CLOSED_SCOPED_SAME_ORIGINAL_CHILD_ALIVE_MUTATION",
+        "Part": 383,
+        "Evidence": "validation/part-383/build-inspection-and-controls/snapshot/artifacts/library383-implementation/owned-mutations1/completion.json",
+        "Sha256": "962B928658265A78E4682AA4AA2C359B413F6B666CDFEDBE0C2AD1BEBDBE1302",
+        "Scope": "Retained actual admitted emulator handle alive immediately before and after staged source/header write; native input_admission refuses before compile, prior accepted state unchanged, physical settlement and System recovery. No exact EPP/ReadFile instruction claim.",
+        "ApiPromotion": false
+      }
+    },
+    {
+      "Stage": 377,
+      "Name": "preprocess_compile_timeout",
+      "Status": "PARTIAL",
+      "Reason": "120-second production wrapper was tested with a test-owned worker; full original orchestration timeout was not.",
+      "Dependency": "Actual orchestration with admitted original process and a controlled bounded timeout schedule.",
+      "NextVerifiableStep": "Measure timeout through the real build orchestration, unchanged prior output/manifest and owned-process cleanup; retain descendant-proof limits and normal deadline.",
+      "AssignedOwner": "Root common implementation/execution; helpers source/fixture review only",
+      "ProposedPacket": 381,
+      "NextAction": "Measure timeout through the real build orchestration, unchanged prior output/manifest and owned-process cleanup; retain descendant-proof limits and normal deadline.",
+      "NewExecutionOrPromotionCredit": false,
+      "Open": false,
+      "SuccessorResolution": {
+        "Status": "CLOSED_SCOPED_ORIGINAL_SOURCE_ORCHESTRATION_TIMEOUT",
+        "Part": 383,
+        "Evidence": "validation/part-383/build-inspection-and-controls/snapshot/artifacts/library383-implementation/timeouts1/source/completion.json",
+        "Sha256": "0C6BFE7E76E80DC70A58F4267286D140421ADD4877F2D5C53B56E8D54C3DA863",
+        "Scope": "Actual source/epp orchestrator and alive admitted original emulator; early delivery of configured120second timer, real TimedOut receipt, retained process settlement, old-state preservation and System recovery. No wall/virtual120 elapsed or universal descendant claim.",
+        "ApiPromotion": false
+      }
+    },
+    {
+      "Stage": 378,
+      "Name": "error-class",
+      "Status": "PARTIAL",
+      "Reason": "error/1 matches; badarg/error_info variants lack full native coverage.",
+      "Dependency": "Reached BIF/import support and matched child-root fixtures.",
+      "NextVerifiableStep": "Compare whole original/managed outcomes for badarg BIF and error_info variants, including all frame arguments and locations.",
+      "AssignedOwner": "Root common implementation/execution; helpers source/fixture review only",
+      "ProposedPacket": 382,
+      "NextAction": "Compare whole original/managed outcomes for badarg BIF and error_info variants, including all frame arguments and locations.",
+      "NewExecutionOrPromotionCredit": false,
+      "Open": false,
+      "SuccessorResolution": {
+        "Part": 384,
+        "Status": "CLOSED_SCOPED_ORIGINAL_RAISE_TRACE_OBSERVATION",
+        "Evidence": "validation/part-384/raise-trace-contracts/snapshot/artifacts/library384-implementation/scope-resolution.json",
+        "Sha256": "F571014417D9C09706DEC0FE4AA8A2EA044CE95C5488439B500C0991E0E78127",
+        "Scope": "Scoped original error-class observation: actual length/byte_size badarg and supplied error/3 Args/error_info, nine empty/malformed/multiple option partitions, complete source/BIF locations at default/0/1/2/8. Not every native BIF or arbitrary Term contract.",
+        "ApiPromotion": false
+      }
+    },
+    {
+      "Stage": 378,
+      "Name": "explicit-raise",
+      "Status": "PARTIAL",
+      "Reason": "One explicit literal cooked trace passed; frame forms/error_info/invalid spines are broader.",
+      "Dependency": "Cooked erlang:raise/3 contract, separate from raw opcodes.",
+      "NextVerifiableStep": "Run valid nonstandard frame shapes, error_info and invalid stack variants against native; preserve full traces and proper-spine validation.",
+      "AssignedOwner": "Root common implementation/execution; helpers source/fixture review only",
+      "ProposedPacket": 382,
+      "NextAction": "Run valid nonstandard frame shapes, error_info and invalid stack variants against native; preserve full traces and proper-spine validation.",
+      "NewExecutionOrPromotionCredit": false,
+      "Open": false,
+      "SuccessorResolution": {
+        "Part": 384,
+        "Status": "CLOSED_SCOPED_ORIGINAL_RAISE_TRACE_OBSERVATION",
+        "Evidence": "validation/part-384/raise-trace-contracts/snapshot/artifacts/library384-implementation/scope-resolution.json",
+        "Sha256": "F571014417D9C09706DEC0FE4AA8A2EA044CE95C5488439B500C0991E0E78127",
+        "Scope": "Scoped cooked raise observation: MFA3/FUN2 normalization, MFA4/FUN3, arbitrary Args, nonempty improper Location, ordered source/error_info fields, invalid classes/frames/outer spine and invalid frame beyond clipping. Exact whole outcomes at default/0/1/2/8; not exhaustive local-FUN physical identity or arbitrary Term proof.",
+        "ApiPromotion": false
+      }
+    },
+    {
+      "Stage": 378,
+      "Name": "raw-raise",
+      "Status": "PARTIAL",
+      "Reason": "Valid rethrow passed; invalid-class normal badarg fallthrough was not executed.",
+      "Dependency": "Compiler witness with raw trace provenance and unknown runtime class.",
+      "NextVerifiableStep": "Compile and inventory a caught-stack raise with caller-selected class; compare valid class/reason overrides and invalid-class badarg fallthrough without cooked fallback.",
+      "AssignedOwner": "Root common implementation/execution; helpers source/fixture review only",
+      "ProposedPacket": 382,
+      "NextAction": "Compile and inventory a caught-stack raise with caller-selected class; compare valid class/reason overrides and invalid-class badarg fallthrough without cooked fallback.",
+      "NewExecutionOrPromotionCredit": false,
+      "Open": false,
+      "CurrentRemainingStep": "Part384 proves actual raw opcode/class override/invalid-class normal badarg and saved-depth behavior. Add independently changed raw reason with caller-selected class; retain this original row open until that remaining named condition is compared.",
+      "SuccessorResolution": {
+        "Part": 385,
+        "Status": "CLOSED_SCOPED_ORIGINAL_UNCAUGHT_OR_RAW_OVERRIDE",
+        "Evidence": "validation/part-385/uncaught-and-raw-override/snapshot/artifacts/library385-implementation/raw1/semantic-admission.json",
+        "Sha256": "FD98745A3C8FAEB6682F719DA54854EEE2BDB527EF0F60C9CBC1F9DAF80B2F57",
+        "Scope": "Scoped actual raw_raise with dynamic caller-supplied error/throw/exit/invalid class and independently replaced complete tuple/map/list reason, retaining original raw saved trace.24 exact whole outcomes default/0/1/2/8 supplement frozen384 saved-depth/class/invalid-fallthrough evidence. No cooked build_stacktrace/import in raw_override/2 and no arbitrary-Term/raw-sentinel exhaustive claim.",
+        "ApiPromotion": false
+      }
+    },
+    {
+      "Stage": 378,
+      "Name": "remote-await",
+      "Status": "PARTIAL",
+      "Reason": "Managed same-owner awaited failure passed; native cross-module/entry parity is missing.",
+      "Dependency": "Matched cross-module BEAM entry, actual await/handshake and source leases.",
+      "NextVerifiableStep": "Hold a real peer receive/import await then release into failure; compare whole matched-root traces and physical cleanup.",
+      "AssignedOwner": "Root common implementation/execution; helpers source/fixture review only",
+      "ProposedPacket": 383,
+      "NextAction": "Hold a real peer receive/import await then release into failure; compare whole matched-root traces and physical cleanup.",
+      "NewExecutionOrPromotionCredit": false,
+      "Open": false,
+      "SuccessorResolution": {
+        "Part": 387,
+        "Status": "CLOSED_SCOPED_ORIGINAL_CROSS_MODULE_OR_NATIVE_ENTRY",
+        "Evidence": "validation/part-387/remote-await-and-native-entry/snapshot/artifacts/library387-implementation/scope-resolution.json",
+        "Sha256": "22F0193E0330D2AFD1ED75E496C3F8748A6517BE7E6486BCF076B0A2C2028015",
+        "Scope": "Actual unchanged three-module original source observer: caller non-tail protected import waits in peer selective receive, original observer proves waiting before release, then normal/error/throw/exit and rejected-prefix retrieval match24 whole outcomes/default0/1/2/8. Another24 actual compiled start/ready/finish outcomes require both exact image references live before release and zero after actual normal completion/unwind. Separate context cancellation settles identical compiled caller/peer references1to0, bypassing guest handler; no OTP cancellation-equivalence or distributed-node claim.",
+        "ApiPromotion": false
+      }
+    },
+    {
+      "Stage": 378,
+      "Name": "native-primitive-entry",
+      "Status": "NOTEXECUTED",
+      "Reason": "Distinct entering.NativePrimitives replacement path was not exercised under a caller handler.",
+      "Dependency": "Explicit original BEAM/native primitive selection and entry observation.",
+      "NextVerifiableStep": "Reach a selected native replacement in an original image under the installed caller handler; compare full reference error and verify lease settlement.",
+      "AssignedOwner": "Root common implementation/execution; helpers source/fixture review only",
+      "ProposedPacket": 383,
+      "NextAction": "Reach a selected native replacement in an original image under the installed caller handler; compare full reference error and verify lease settlement.",
+      "NewExecutionOrPromotionCredit": false,
+      "Open": false,
+      "SuccessorResolution": {
+        "Part": 387,
+        "Status": "CLOSED_SCOPED_ORIGINAL_CROSS_MODULE_OR_NATIVE_ENTRY",
+        "Evidence": "validation/part-387/remote-await-and-native-entry/snapshot/artifacts/library387-implementation/scope-resolution.json",
+        "Sha256": "22F0193E0330D2AFD1ED75E496C3F8748A6517BE7E6486BCF076B0A2C2028015",
+        "Scope": "The same unchanged original lists image is explicitly loaded on original OTP and selected in .NET; allfive exact NativePrimitiveExports and registered SourceOwner values are checked. Prepared source-owned exports enter ExecuteCore NativePrimitives, not ordinary native import dispatch. Ten valid/badarg scenarios and50 full stack profiles match60 whole original outcomes; selected guest/lists image leases settle. No same-interpreter local-handler/native-stub composition or exhaustive primitive contract claim.",
+        "ApiPromotion": false
+      }
+    },
+    {
+      "Stage": 378,
+      "Name": "trace-depth",
+      "Status": "PARTIAL",
+      "Reason": "Default trace passed; explicit 0/1/2/8 profiles were not executed.",
+      "Dependency": "Backtrace-depth controls and capture-before-unwind/raw rethrow semantics.",
+      "NextVerifiableStep": "Compare whole native/managed traces at 0/1/2/8, including depth change after capture before rethrow; never reclip saved raw trace.",
+      "AssignedOwner": "Root common implementation/execution; helpers source/fixture review only",
+      "ProposedPacket": 382,
+      "NextAction": "Compare whole native/managed traces at 0/1/2/8, including depth change after capture before rethrow; never reclip saved raw trace.",
+      "NewExecutionOrPromotionCredit": false,
+      "Open": false,
+      "SuccessorResolution": {
+        "Part": 384,
+        "Status": "CLOSED_SCOPED_ORIGINAL_RAISE_TRACE_OBSERVATION",
+        "Evidence": "validation/part-384/raise-trace-contracts/snapshot/artifacts/library384-implementation/scope-resolution.json",
+        "Sha256": "F571014417D9C09706DEC0FE4AA8A2EA044CE95C5488439B500C0991E0E78127",
+        "Scope": "Scoped original default/0/1/2/8 whole traces and actual raw/cooked depth-change behavior. Function-bound raw_raise preserves three captured frames at 8-to0 and one at1-to8; cooked materialization clips to one. Schedule cases override outer profiles; no exhaustive scheduling or all producer-path claim.",
+        "ApiPromotion": false
+      }
+    },
+    {
+      "Stage": 378,
+      "Name": "receive-clone",
+      "Status": "NOTEXECUTED",
+      "Reason": "Same-function receive+try is currently refused; storage clone tests do not prove runtime composition.",
+      "Dependency": "Reviewed typed exceptional CFG/receive-plan composition and stable frame/tag identities.",
+      "NextVerifiableStep": "Compile actual same-function protected receive, observe message-induced clone and subsequent throw, compare full outcomes; verify timeout/cancellation separately.",
+      "AssignedOwner": "Root common implementation/execution; helpers source/fixture review only",
+      "ProposedPacket": 383,
+      "NextAction": "Compile actual same-function protected receive, observe message-induced clone and subsequent throw, compare full outcomes; verify timeout/cancellation separately.",
+      "NewExecutionOrPromotionCredit": false,
+      "Open": false,
+      "SuccessorResolution": {
+        "Part": 386,
+        "Status": "CLOSED_SCOPED_PROTECTED_RECEIVE_OR_RETAINED_TAG_TRIM",
+        "Evidence": "validation/part-386/protected-receive-and-trim/snapshot/artifacts/library386-implementation/semantic-admission.json",
+        "Sha256": "E7CCEE4990A8BA5A3010C6E34B02D47E39B4BA633BD776FB327CC41CCA7EB1EE",
+        "Scope": "Scoped ordinary same-function receive/try: original compiled observer and capture roots, selected/rejected message clones, later throw/error, nested handler, immediate/finite timeout, lazy invalid-Y timeout selected versus miss. Whole25 values/125 profiles across independent packets match typed terms/raw ETF. Held real receive cancellation bypasses guest catch and physically settles source references to zero; no OTP cancellation-equivalence claim. Arbitrary X timeout and binary/receive compositions remain unproven.",
+        "ApiPromotion": false
+      }
+    },
+    {
+      "Stage": 378,
+      "Name": "trim-tag",
+      "Status": "PARTIAL",
+      "Reason": "Storage relocation/refusal passed; native compiled active-tag trim did not run.",
+      "Dependency": "Original-compiler witness emitting trim while a tag is live.",
+      "NextVerifiableStep": "Inventory the actual lowering, compare full caught result after relocation, and retain malformed trimmed-away-tag refusal controls.",
+      "AssignedOwner": "Root common implementation/execution; helpers source/fixture review only",
+      "ProposedPacket": 383,
+      "NextAction": "Inventory the actual lowering, compare full caught result after relocation, and retain malformed trimmed-away-tag refusal controls.",
+      "NewExecutionOrPromotionCredit": false,
+      "Open": false,
+      "SuccessorResolution": {
+        "Part": 386,
+        "Status": "CLOSED_SCOPED_PROTECTED_RECEIVE_OR_RETAINED_TAG_TRIM",
+        "Evidence": "validation/part-386/protected-receive-and-trim/snapshot/artifacts/library386-implementation/semantic-admission.json",
+        "Sha256": "E7CCEE4990A8BA5A3010C6E34B02D47E39B4BA633BD776FB327CC41CCA7EB1EE",
+        "Scope": "Scoped retained active-tag trim protocol: explicit standard OTP assembly input is validated by actual pinned compiler before assembly/load, not ordinary high-level emission. One and two nested tags move Y3->Y2 and Y4/Y3->Y3/Y2, then normal end/throw/error produce complete matching source-root outcomes and stacks. Malformed removed-tag input is refused by original beam_validator with wrong_tag_type initialized and never loaded. Static clone/trim/foreign-tag/removed-tag controls pass. Not arbitrary relocation graphs or ordinary optimizer-emission parity.",
+        "ApiPromotion": false
+      }
+    },
+    {
+      "Stage": 378,
+      "Name": "deep-trampoline",
+      "Status": "PARTIAL",
+      "Reason": "Depth-8 sample is not genuinely deep trampoline/resource proof.",
+      "Dependency": "Iterative local-call/unwind path, bounded resource and owned actor cleanup.",
+      "NextVerifiableStep": "Run a declared large finite depth in original and managed; compare complete observed traces, ensure no CLR recursion/stranded frames; add cancellation cleanup.",
+      "AssignedOwner": "Root common implementation/execution; helpers source/fixture review only",
+      "ProposedPacket": 384,
+      "NextAction": "Run a declared large finite depth in original and managed; compare complete observed traces, ensure no CLR recursion/stranded frames; add cancellation cleanup.",
+      "NewExecutionOrPromotionCredit": false,
+      "Open": false,
+      "SuccessorResolution": {
+        "Part": 388,
+        "Status": "CLOSED_SCOPED_DEEP_AND_IMAGE_LIFECYCLE",
+        "Evidence": "validation/part-388/deep-trampoline-and-image-identity/snapshot/artifacts/library388-implementation/semantic-admission.json",
+        "Sha256": "5FC98972CEDE864488F78BFB0532FABAB0BB8AF7559E1B14064EF745615C061A",
+        "Scope": "Original depth8192/16384 success/error/throw/nested and actual alternating non-tail full traces under six requested/effective profiles. Separate HOST sampling observes16385 guest source frames with bounded CLR frames and held cancellation settling actual contexts/source references to zero; no OTP CLR, heap, latency or cancellation equality claim.",
+        "ApiPromotion": false
+      }
+    },
+    {
+      "Stage": 378,
+      "Name": "cross-image-identity",
+      "Status": "PARTIAL",
+      "Reason": "Prepared source-owner identity passed; replacement/purge/multiple generations were not exercised.",
+      "Dependency": "Code-image leases, registry generation/purge protocol and held guest work.",
+      "NextVerifiableStep": "Replace/purge images during held caught work; require correct original handler image, current image for new calls and physical lease release.",
+      "AssignedOwner": "Root common implementation/execution; helpers source/fixture review only",
+      "ProposedPacket": 384,
+      "NextAction": "Replace/purge images during held caught work; require correct original handler image, current image for new calls and physical lease release.",
+      "NewExecutionOrPromotionCredit": false,
+      "Open": false,
+      "SuccessorResolution": {
+        "Part": 388,
+        "Status": "CLOSED_SCOPED_DEEP_AND_IMAGE_LIFECYCLE",
+        "Evidence": "validation/part-388/deep-trampoline-and-image-identity/snapshot/artifacts/library388-implementation/semantic-admission.json",
+        "Sha256": "5FC98972CEDE864488F78BFB0532FABAB0BB8AF7559E1B14064EF745615C061A",
+        "Scope": "Original source held under old handler across second/third generation publication; old local handler identity, current fresh calls, not_purged while held and eventual purge match12whole outcomes. Managed test controller uses production publication/check/purge fences; this does not implement a new code:* public API.",
+        "ApiPromotion": false
+      }
+    },
+    {
+      "Stage": 378,
+      "Name": "uncaught-regression",
+      "Status": "PARTIAL",
+      "Reason": "Full 8080 regression passed, but the named broader native no-handler matrix remains separate.",
+      "Dependency": "Matched root-MFA DOWN/Completion profiles and preserved ordinary outward capture.",
+      "NextVerifiableStep": "Compare unhandled error/throw/exit plus badarg/function_clause argument metadata against original whole exit reasons; retain full frames.",
+      "AssignedOwner": "Root common implementation/execution; helpers source/fixture review only",
+      "ProposedPacket": 382,
+      "NextAction": "Compare unhandled error/throw/exit plus badarg/function_clause argument metadata against original whole exit reasons; retain full frames.",
+      "NewExecutionOrPromotionCredit": false,
+      "Open": false,
+      "SuccessorResolution": {
+        "Part": 385,
+        "Status": "CLOSED_SCOPED_ORIGINAL_UNCAUGHT_OR_RAW_OVERRIDE",
+        "Evidence": "validation/part-385/uncaught-and-raw-override/snapshot/artifacts/library385-implementation/uncaught1/semantic-admission.json",
+        "Sha256": "335851E895004BA883F970AE63481276E9B0E4E8B9A6CF19D3DA63F59D99A3ED",
+        "Scope": "Scoped unhandled error/throw/nocatch/exit/normal/badarg length/byte_size and real two-argument function_clause source-root reasons at default/0/1/2/8.42 exact native whole reasons plus42 same-child ordinary DOWN/Completion checks; local identity-bearing envelopes retained, not normalized cross-VM. Not every BIF/monitor option/lifecycle/resource-release behavior.",
+        "ApiPromotion": false
+      }
+    },
+    {
+      "Stage": 379,
+      "Name": "noop-zero-native-and-writes",
+      "Status": "PARTIAL",
+      "Reason": "Zero native children and unchanged accepted final outputs/state are proven. Every warm invocation still writes its request and private input/diagnostic stage; literal zero total generated/copied writes is not achieved.",
+      "Dependency": "Source/resource task request identity and stage/cache admission ordering; preserve pre-child immutable snapshots on cache misses.",
+      "NextVerifiableStep": "Prepare content-addressed stable request files and cache-hit validation before private stage materialization; measure entire source+resource tree file set/hashes/mtimes and child receipts on cold/warm, then mutation/conflict/cache refusal and cold-package regression.",
+      "NextAction": "Prepare content-addressed stable request files and cache-hit validation before private stage materialization; measure entire source+resource tree file set/hashes/mtimes and child receipts on cold/warm, then mutation/conflict/cache refusal and cold-package regression.",
+      "AssignedOwner": "Root common implementation/execution; helpers source/fixture review only",
+      "ProposedPacket": 381,
+      "NewExecutionOrPromotionCredit": false,
+      "Open": false,
+      "SuccessorResolution": {
+        "Status": "CLOSED_SCOPED_WARM_V1",
+        "Part": 381,
+        "Evidence": "validation/part-381/warm-build/completion.json",
+        "Sha256": "5FAE099043509ABD5C1576B6CCFD63DFA28727AF4A6E8910014A69C1A8FDE11D",
+        "Scope": "Windows V1 real source/application warm MSBuild; all69owned entries and mutation observers; not universal syscalls or unrelated MSBuild trees",
+        "ApiPromotion": false
+      }
+    },
+    {
+      "Stage": 379,
+      "Name": "resource-child-failure-and-timeout",
+      "Status": "PARTIAL",
+      "Reason": "Actual resource-child failures preserve the previous accepted outputs. The shared120s worker timeout is inherited, but a full resource orchestration timeout using an admitted original child was not executed.",
+      "Dependency": "Real admitted original child plus actual source/resource orchestration deadline/cleanup path; preserve default production120s.",
+      "NextVerifiableStep": "Review a scoped internal controlled-time/deadline seam (not public request input), trigger it only with an observed alive admitted original child, invoke the actual orchestrator, verify timeout receipts/settlement/unchanged accepted output/state and normal System-time positive. Label controlled-time coverage separately from wall-time/original instruction coverage.",
+      "NextAction": "Review a scoped internal controlled-time/deadline seam (not public request input), trigger it only with an observed alive admitted original child, invoke the actual orchestrator, verify timeout receipts/settlement/unchanged accepted output/state and normal System-time positive. Label controlled-time coverage separately from wall-time/original instruction coverage.",
+      "AssignedOwner": "Root common implementation/execution; helpers source/fixture review only",
+      "ProposedPacket": 381,
+      "NewExecutionOrPromotionCredit": false,
+      "Open": false,
+      "SuccessorResolution": {
+        "Status": "CLOSED_SCOPED_ORIGINAL_RESOURCE_ORCHESTRATION_TIMEOUT",
+        "Part": 383,
+        "Evidence": "validation/part-383/build-inspection-and-controls/snapshot/artifacts/library383-implementation/timeouts1/application/completion.json",
+        "Sha256": "302C833B5739C6348EF2FDDACCFF29840685334B016909560A1CBFC84BA9ED4D",
+        "Scope": "Actual application-resource orchestrator and alive admitted original emulator; early delivery of configured120second timer, real TimedOut receipt, retained process settlement, old-state preservation and System recovery. No startup/config application, wall/virtual120 elapsed or universal descendant claim.",
+        "ApiPromotion": false
+      }
+    }
+  ],
+  "SeparateFuturePolicy": {
+    "Name": "User packaging source/diagnostic policy",
+    "AssignedOwner": "Root design and explicit user-facing packaging contract",
+    "NextAction": "Document/configure intentional .erl source and local source-state diagnostic output policies with existing None metadata and old projects preserved; verify both chosen opt-in policy and legacy behavior. No automatic unrelated file deletion.",
+    "CountedIn17": false
+  },
+  "Scope": "Packet numbers assign next actions, not dates or acceptance. Raw policy remains strict, upstream execution stays distinct from guard rejection, and no publication is authorized.",
+  "HistoricalCountsPreserved": true,
+  "CurrentCounts": {
+    "Total": 17,
+    "Open": 0,
+    "Partial": 0,
+    "NotExecuted": 0,
+    "ClosedScopedGuards": 2,
+    "ClosedScopedNoop": 1,
+    "ClosedScopedOriginalChildMutation": 1,
+    "ClosedScopedOriginalOrchestrationTimeouts": 2,
+    "ClosedScopedOriginalRaiseTrace": 3,
+    "ClosedScopedOriginalUncaughtRaw": 2,
+    "ClosedScopedProtectedReceiveTrim": 2,
+    "ClosedScopedCrossModuleNativeEntry": 2,
+    "ClosedScopedDeepAndImageLifecycle": 2
+  },
+  "SeparateFunctionalRequirements": [
+    {
+      "Name": "Declared source-build parse transforms",
+      "NextAction": "Add an explicit declared/pinned build-time transform capability through the original compiler, preserving cache dependencies and positive effects/error/timeout comparisons; current raw/expanded refusal remains until admitted.",
+      "CountedIn17": false
+    },
+    {
+      "Name": "SDK source on_load integration",
+      "NextAction": "Connect a declared source-build option to the existing staged .NET on_load loader lifecycle; verify callback execution, rollback, cancellation, linked resources and no partial exposure. Current SDK source rejection remains.",
+      "CountedIn17": false
+    }
+  ],
+  "HistoricalStatusCountsUnchanged": true,
+  "CountsScope": "Counts preserves the pre383 historical aggregate; CurrentCounts and Rows.Open describe current openness."
+}

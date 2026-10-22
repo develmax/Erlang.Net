@@ -91,6 +91,7 @@ internal sealed partial class NifNativeAllocationDomain
             if (owner.Count != 0 || owner.RequestedBytes != 0 || owner.BackingRequestBytes != 0)
                 throw new InvalidOperationException(NifNativeAllocationDomainDiagnostics.NonemptyMembership);
             owners.Remove(membership);
+            scanOwners434.Remove(membership);
         }
         finally
         {

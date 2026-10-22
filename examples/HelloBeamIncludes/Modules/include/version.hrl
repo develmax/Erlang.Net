@@ -1,0 +1,5 @@
+-ifndef(VERSION_HRL).
+-define(VERSION_HRL, true).
+-define(GREETING, hello).
+-include("nested/payload.hrl").
+-endif.

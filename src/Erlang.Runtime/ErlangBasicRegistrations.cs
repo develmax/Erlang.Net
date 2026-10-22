@@ -21,8 +21,8 @@ internal static class ErlangBasicRegistrations
             ));
         foreach (string operation in new[] { ErlangBasicBifNames.Absolute, ErlangBasicBifNames.Float, ErlangBasicBifNames.Round, ErlangBasicBifNames.Truncate, ErlangBasicBifNames.Floor, ErlangBasicBifNames.Ceiling })
             Add(operation, 1, (_, arguments) => ErlangNumericBifs.Run(operation, arguments[0]));
-        Add(ErlangBasicBifNames.Minimum, 2, (_, arguments) => arguments[0].CompareTo(arguments[1]) > 0 ? arguments[1] : arguments[0]);
-        Add(ErlangBasicBifNames.Maximum, 2, (_, arguments) => arguments[0].CompareTo(arguments[1]) < 0 ? arguments[1] : arguments[0]);
+        Add(ErlangBasicBifNames.Minimum, 2, (_, arguments) => ErlangInfallibleBifValues.Minimum(arguments[0], arguments[1]));
+        Add(ErlangBasicBifNames.Maximum, 2, (_, arguments) => ErlangInfallibleBifValues.Maximum(arguments[0], arguments[1]));
         Add(
             ErlangBasicBifNames.IsBoolean,
             1,

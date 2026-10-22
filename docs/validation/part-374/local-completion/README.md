@@ -1,0 +1,11 @@
+# Part374 local acceptance: original lists and queue BEAM
+
+Final full regression7917/7917 (338.890seconds), all7777previous ordered names retained (+140). Existing package/CLI suffix passes11integration outcomes/two local packages (48.828seconds); five current/installed reports agree byte-for-byte. All539source guards match. No publication.
+
+Unchanged installed lists.beam has93exports:86pure Erlang bodies, five explicitly captured native BIF boundaries and two generated metadata entries. All91API success scenarios and38queue scenarios run on this backend. Original queue+lists comparison covers6384observations:6003strict,337source-bound identities and44source-protocol saved-entry arguments, with zero residual differences. All frames/callers/error metadata remain strict. Whole lists source-contract promotion remains pending; API/full-contract delta0/0, totals699registered/118complete.
+
+Retained failures: capture1 lost a source caller on three stack depths; qualified native dispatch fixes all three in capture2. Full1passed7915/7916, failing only the old flat_at_end expectation. Actual frozen373DLLs reproduce the same fixed-order failure under b-before-a priming. Pinned OTP flat-map keys follow own atom indices. The test-only correction orders expected literal tuples for that one profile; actual output, expected values, errors and stacks are untouched. Both fresh priming orders now pass; wrong order/value/missing/duplicate controls remain unequal. Earlier probe1-4 harness failures do not count as baseline proof; physical frozen5does. No runtime algorithm changed for this test correction.
+
+[Root acceptance](completion.json), [instruction coverage and limits](OPCODE_MATRIX.md), [full tests](canonical-tests.json), [first full failure](first-full-failure.json), [original comparison](comparison-completion.json), [fresh source/protocol review](source-review.json), [test correction independent review](flat-expectation-independent-review.json). Snapshot manifests distinguish sources, binaries and raw packets; part373 remains separately accepted using maintained C# lists.
+
+Next: explicit startup backend selection, retaining maintained C# and supplied BEAM alternatives without hidden fallback. Then whole-project build/package/run and bidirectional host interop by dependency order. No performance or whole-VM parity claim.

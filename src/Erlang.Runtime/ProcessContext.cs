@@ -18,6 +18,7 @@ public sealed partial class ProcessContext : ITermExecutionContext
             IncomingTerm = Runtime.ObserveIncomingTerm,
             HaltRequested = () => Runtime.IsHaltRequested,
             ProcessSignals = () => Runtime.AdmitSignals(this),
+            PendingSignalAdded428 = priority => Runtime.NotifyDirtySignalHandler428(this, priority),
             WaitForExecution = WaitIfSuspended,
             SuspensionTime = () => Interlocked.Read(ref cumulativeSuspensionTicks),
             ExecutionBlocked = () => SuspensionRequested,
@@ -315,7 +316,12 @@ public sealed partial class ProcessContext : ITermExecutionContext
         true
     );
 
-    internal Term CaptureErrorStack(Term arguments, MapTerm? info, string? builtin = null)
+    internal Term CaptureErrorStack(
+        Term arguments,
+        MapTerm? info,
+        string? builtin = null,
+        Term? builtinSourceLocation = null
+    )
     {
         var frames = new List<Term>();
         Term location = info is null ? Nil.Value : Term.List(Term.Tuple(Term.A(ErlangErrorMetadataNames.ErrorInfo), info));
@@ -325,7 +331,9 @@ public sealed partial class ProcessContext : ITermExecutionContext
                 Term.A(ErlangModuleNames.Module),
                 Term.A(builtin),
                 arguments,
-                location
+                builtinSourceLocation is null
+                    ? location
+                    : Cons.From(Cons.Items(builtinSourceLocation).Concat(Cons.Items(location)))
             ));
         if (builtin is not null && frame is { SourceWrapper: true }
             && frame.Module == ErlangModuleNames.Module && frame.Function == builtin
@@ -333,13 +341,22 @@ public sealed partial class ProcessContext : ITermExecutionContext
             frame = frame.Parent;
         bool first = builtin is null;
         int depth = Math.Max(1, Runtime.BacktraceDepth);
+        object? previousContinuation = null;
         while (frame is not null && frames.Count < depth)
         {
+            if (frame.ContinuationIdentity is { } continuation && ReferenceEquals(continuation, previousContinuation))
+            {
+                frame = frame.Parent;
+                continue;
+            }
+            previousContinuation = frame.ContinuationIdentity;
             frames.Add(Term.Tuple(
                 Term.A(frame.Module),
                 Term.A(frame.Function),
                 first && arguments is Cons or Nil ? arguments : Term.I(frame.Arity),
-                first ? location : Nil.Value
+                first && info is not null
+                    ? Cons.From(Cons.Items(frame.SourceLocation ?? Nil.Value).Concat(Cons.Items(location)))
+                    : frame.SourceLocation ?? Nil.Value
             ));
             first = false;
             frame = frame.Parent;

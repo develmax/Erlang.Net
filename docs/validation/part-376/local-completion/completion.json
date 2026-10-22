@@ -1,0 +1,230 @@
+{
+  "Stage": 376,
+  "Publication": false,
+  "ApiDelta": 0,
+  "FullContractDelta": 0,
+  "RegisteredApis": 699,
+  "CompleteContracts": 118,
+  "KnownDifferences": 30,
+  "NeedsVerification": 551,
+  "Tests": {
+    "Passed": 8056,
+    "Failed": 0,
+    "PreservedOrderedNames": 8054,
+    "Added": 2
+  },
+  "IntegrationOutcomes": 11,
+  "LocalPackages": 2,
+  "SourceGuards": 555,
+  "StandaloneSourceScenarios": 18,
+  "MsBuildSourceSteps": 11,
+  "RetainedTargetCases": 8,
+  "SourcePackageSteps": 6,
+  "PublicCancellationCases": 2,
+  "PublicCancellationSingleLaneCases": 2,
+  "PriorCheckpointsPreserved": [
+    373,
+    374,
+    375
+  ],
+  "RuntimeSha256": "7DB051FD08B623902BE88AD8DBEBCE0AAD4B1EAF6CF187078BD13539C0724C65",
+  "BuildToolSha256": "F2F62C6EF727C32B26588D988F11A490003BEEDAC45A48B1F2DA2A642DD88227",
+  "PackageSha256": "ABC800674E05B2D862AF1FEECA330E10E126C7FD5B6CDFF004BFFF099050C120",
+  "ProcessReceipts": [
+    {
+      "Stage": "library376-final-build1",
+      "Seconds": 42.64000000001397,
+      "Receipt": "library376-final-build1.exit.json",
+      "Sha256": "958D853876FC85B1C367424C7C463E3642308498C178E2050389F2039A9FF3AD"
+    },
+    {
+      "Stage": "library376-public-cancel1",
+      "Seconds": 1.3429999999934807,
+      "Receipt": "library376-public-cancel1.exit.json",
+      "Sha256": "B5B3E88C50596694E77AF1D7EAD43BFAA25EE0E065F44B7312A041B99EFF7746"
+    },
+    {
+      "Stage": "library376-public-single-lane1",
+      "Seconds": 1.8910000000032596,
+      "Receipt": "library376-public-single-lane1.exit.json",
+      "Sha256": "677F58C02DC1BC049E2982F5A46D9D6310FBE6693A5F3060811A7D3BEF5F007F"
+    },
+    {
+      "Stage": "library376-final-full1",
+      "Seconds": 371.56300000002375,
+      "Receipt": "library376-final-full1.exit.json",
+      "Sha256": "E33AEEC09B339211EBDABBCFF658B896E4984A29E1359B0413A6BB0477BCAF5A"
+    },
+    {
+      "Stage": "library376-final-source-cases2",
+      "Seconds": 54.93800000002375,
+      "Receipt": "library376-final-source-cases2.exit.json",
+      "Sha256": "193B515AA3EB4A7CD6A775714D7B44405D6119B40C7C4CFD442B9ADADE906BE4"
+    },
+    {
+      "Stage": "library376-final-package-suffix2",
+      "Seconds": 63.76600000000326,
+      "Receipt": "library376-final-package-suffix2.exit.json",
+      "Sha256": "BDA9F06A18CD79C8515B5E174DB8035AF569F0803CC4DE9CA6A01F34F586FD27"
+    },
+    {
+      "Stage": "library376-final-project-gates1",
+      "Seconds": 137.23399999999674,
+      "Receipt": "library376-final-project-gates1.exit.json",
+      "Sha256": "DD51E0048EF5AE286B2FCAEA7D0C535B552016CC09F76B56B03AFA6CA75BB697"
+    },
+    {
+      "Stage": "library376-final-report-gates2",
+      "Seconds": 9.077999999979511,
+      "Receipt": "library376-final-report-gates2.exit.json",
+      "Sha256": "91E6AE7AF6C499AF4984582E5CD01BDBC645377FFF0878C1F4445AA61D8F2908"
+    }
+  ],
+  "OriginalEvidenceScope": "No new original API-contract capture in376. Retain frozen375 original6384 observations separately; current final8056 regression is not relabelled original replay. Fresh original compiler process execution is separately proven.",
+  "ProjectScope": "Minimal module/export-only fresh .erl project; three generated modules, actual cross-module calls, explicit C# host MFA/integer-list snapshot, clean/no-op/publish/PackageReference/away execution. Original compiler is build-time only.",
+  "Remaining": [
+    "Includes/macros/.hrl/dependency closure and generated modules/parse transforms",
+    "OTP applications/.app.src/dependencies/priv/config, rebar3/escript/release/boot",
+    "General DTO/schema/error/cancellation/handle lifetime and reentrancy contracts",
+    "Linux source MSBuild package execution; compiler-task timeout/kill-failure schedules and independent descendant quiescence"
+  ],
+  "RetainedFailures": [
+    "Intermediate initial project builds: unqualified copy metadata and demo BigInteger helper misuse; repaired before final gates",
+    "Initial retained tamper run timed out; successor preflight/controlled failure passed, root cause not asserted",
+    "Final report-gates1: added documentation component omitted TestPrefixes; both emitters failed identically. Schema row repaired; report-gates2 passes, no runtime/package change"
+  ],
+  "Bindings": [
+    {
+      "Path": "API_COMPATIBILITY.md",
+      "Sha256": "EC97AF70773A60F54DC8113655F1C89B6386AF8E70BD31DDCF06134E7B22D947"
+    },
+    {
+      "Path": "build-source-review.json",
+      "Sha256": "4A038ADCF47875DF3B541370703F75C9FF069ADA333B72F40BFCF75E53F07302"
+    },
+    {
+      "Path": "canonical-tests.json",
+      "Sha256": "FABC78955523FB4CADCDFF1920A360C0B3D9ABED53CDC259FAEFF91458AEAC20"
+    },
+    {
+      "Path": "frozen-runtime-checkpoint.json",
+      "Sha256": "5716A28F3554AF981CD31BD56E010E5B3F16EEF954032B6E5E0793B4811A937E"
+    },
+    {
+      "Path": "guard-update.json",
+      "Sha256": "755165C0A1F18291E3B8FAB49D647AC7B09652B48C8D939F4B891775D1B79EE9"
+    },
+    {
+      "Path": "integration-results.json",
+      "Sha256": "D631AFDCC9551EFF5B15A33B50C55602481091347000D26F0A8A5F5FEEBEE7C7"
+    },
+    {
+      "Path": "library376-final-build1.exit.json",
+      "Sha256": "958D853876FC85B1C367424C7C463E3642308498C178E2050389F2039A9FF3AD"
+    },
+    {
+      "Path": "library376-final-full1.exit.json",
+      "Sha256": "E33AEEC09B339211EBDABBCFF658B896E4984A29E1359B0413A6BB0477BCAF5A"
+    },
+    {
+      "Path": "library376-final-package-suffix2.exit.json",
+      "Sha256": "BDA9F06A18CD79C8515B5E174DB8035AF569F0803CC4DE9CA6A01F34F586FD27"
+    },
+    {
+      "Path": "library376-final-project-gates1.exit.json",
+      "Sha256": "DD51E0048EF5AE286B2FCAEA7D0C535B552016CC09F76B56B03AFA6CA75BB697"
+    },
+    {
+      "Path": "library376-final-report-gates2.exit.json",
+      "Sha256": "91E6AE7AF6C499AF4984582E5CD01BDBC645377FFF0878C1F4445AA61D8F2908"
+    },
+    {
+      "Path": "library376-final-source-cases2.exit.json",
+      "Sha256": "193B515AA3EB4A7CD6A775714D7B44405D6119B40C7C4CFD442B9ADADE906BE4"
+    },
+    {
+      "Path": "library376-public-cancel1.exit.json",
+      "Sha256": "B5B3E88C50596694E77AF1D7EAD43BFAA25EE0E065F44B7312A041B99EFF7746"
+    },
+    {
+      "Path": "library376-public-single-lane1.exit.json",
+      "Sha256": "677F58C02DC1BC049E2982F5A46D9D6310FBE6693A5F3060811A7D3BEF5F007F"
+    },
+    {
+      "Path": "module-readiness.json",
+      "Sha256": "BF3DAB32A66E82A8EF43E1D26512A1D5675DD44F65EC035030A63A7D62B58200"
+    },
+    {
+      "Path": "MODULE_READINESS.md",
+      "Sha256": "D1CAF35D3261C052CD131D70F76D0608D8CEEE951101E242DA6E16145FB96B44"
+    },
+    {
+      "Path": "native-infrastructure.json",
+      "Sha256": "AAA25ED168B822482362FEED111C2D6851639EDE69BEE59A24F3AA57324B5E83"
+    },
+    {
+      "Path": "native-infrastructure.md",
+      "Sha256": "D7ABCCD6575AF3F0F8A6D78D66CC3D1298EB9D32ACDCF2DB9305D1ED5EB2BBDE"
+    },
+    {
+      "Path": "official-compiler-admission.json",
+      "Sha256": "41CCC2FDE5493D85BEAA21996E12D0885D2919B0D4BF44137D0673DCDC9D5EA6"
+    },
+    {
+      "Path": "official-compiler-download.json",
+      "Sha256": "FF56F66498CA16B39054AC61DD9F4FD25B9269B8D68AD8519C4D2106C007C025"
+    },
+    {
+      "Path": "official-compiler-file-closure.json",
+      "Sha256": "AF5EA3DA317E2ABC8A0CF1874D4E6BFB93AC1A47E864A7B92BBE7A03D1607E99"
+    },
+    {
+      "Path": "project-gates.json",
+      "Sha256": "250CA1BE866D2C821A4AD1B8E492B29B0D481F0C2F7983E810A9D320E23DC0A4"
+    },
+    {
+      "Path": "public-cancellation-single-lane-environment.json",
+      "Sha256": "30C55C1ED03B14B31885AB452405E8882571EEA74E35275C2CD9FC25033CA149"
+    },
+    {
+      "Path": "public-cancellation-single-lane.json",
+      "Sha256": "FD715A5DD48231D70376013F621646C8773F7540932B016EEC1A46377CA99DE1"
+    },
+    {
+      "Path": "public-cancellation-source-review.json",
+      "Sha256": "858652AF9DE27706DE4E4167957CBDC593DCA24E93FDCEC45F8E9D016FF58577"
+    },
+    {
+      "Path": "public-cancellation.json",
+      "Sha256": "42A545732EAAA605E295615B2F5204331117FC332E711ECF2831D84553787770"
+    },
+    {
+      "Path": "report-gates.json",
+      "Sha256": "A2B04FB8829A20A3E231F659AE74877037EA838F64EFDD7484674961C2B1B6E7"
+    },
+    {
+      "Path": "retained-package-consumer.json",
+      "Sha256": "6AD704C412996012814DAB35244C704CC1A68D0CF8EFBCC3A86879A690F4B7C5"
+    },
+    {
+      "Path": "retained-target-cases.json",
+      "Sha256": "26775A899310015BF5D6A7392B9C954A6AA2DF3B911A514DE8E513C45E7EE8ED"
+    },
+    {
+      "Path": "runtime-test-build-sources.zip",
+      "Sha256": "177FF9A3669FB509CEC2307522FDEF431BBD4D7701150C86773CD4AD7AA69A81"
+    },
+    {
+      "Path": "source-build-cases.json",
+      "Sha256": "BDCC2A94B5036AC094EE63A5EF3A93E3852EA90480979A1197AAFA3DEC078ED2"
+    },
+    {
+      "Path": "source-msbuild-cases.json",
+      "Sha256": "76FF0ABF675CAC2F152C321DAB975392CD31C4925AF5D06A519C83B7FDA42523"
+    },
+    {
+      "Path": "source-package-consumer.json",
+      "Sha256": "127DE18E53C88B2722D38DA1371ED378B8C98090239FD698EE5E2104BCC06E07"
+    }
+  ]
+}

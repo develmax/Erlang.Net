@@ -22,6 +22,8 @@ internal sealed class SourcePurgeFenceSession
     {
         get;
     }
+    internal SourcePurgeOnLoad432? OnLoad432 { get; set; }
+
     internal TaskCompletionSource Pending { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
     internal TaskCompletionSource<bool> Completion { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
     internal bool Settled

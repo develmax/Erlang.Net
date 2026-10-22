@@ -1,0 +1,69 @@
+{
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Bindings": [
+    {
+      "Path": "artifacts/spawn-priority351-preparation/execute-root.py",
+      "Sha256": "C66ACEC6FFE57C57EFAABC96FD1DB00598D7AAD7D05C2EA814A146B759D4171A"
+    },
+    {
+      "Path": "artifacts/library377-native-controls1/run-native-controls.py",
+      "Sha256": "C097FDF1F1307220916935FDAD3E0483CC676E4EEB136581B632ACF6347F206F"
+    },
+    {
+      "Path": "tools/Erlang.NifTermCallbackOriginalObservations/passive_etf.py",
+      "Sha256": "9C3204CB29755C508D05B611EA02B3A3186F83B40A72BF6EEC366242040432EE"
+    },
+    {
+      "Path": "artifacts/library376-official-compiler/official-admission.json",
+      "Sha256": "41CCC2FDE5493D85BEAA21996E12D0885D2919B0D4BF44137D0673DCDC9D5EA6"
+    },
+    {
+      "Path": "artifacts/library384-inventory.py",
+      "Sha256": "075068A19E2FB2BDA30374B1558BB6536A67B87F163C87B1DBDA73734C1AC397"
+    },
+    {
+      "Path": "artifacts/library381-functional-audit1/passive-inventory.py",
+      "Sha256": "7866257D1CC741763708F809BE6CD3455B283A4888E247B565F1F21B95EF965C"
+    }
+  ],
+  "Cases": [
+    "same",
+    "cross",
+    "same_twice",
+    "missing_pending",
+    "bad_node",
+    "bad_controller",
+    "bad_flags",
+    "bad_flags_negative",
+    "bad_flags_huge",
+    "bad_creation_negative",
+    "bad_creation_huge",
+    "dead_controller",
+    "wrong_arity_one",
+    "wrong_arity_two"
+  ],
+  "ExpectedValues": 14,
+  "ExpectedStackRows": 70,
+  "WholeRows": 84,
+  "Sources": [
+    {
+      "Path": "original/beam_dist_channel429.erl",
+      "Sha256": "A03600A4168D480A9AA1B08CAB3A3743C8D5A152069D0EFAFADBF3FFF36602CE"
+    },
+    {
+      "Path": "facet/erts_internal.erl",
+      "Sha256": "B8B623A991095566E54583E1798F79C1A2724E01DFE88101A672C107916C1B52"
+    },
+    {
+      "Path": "bounded_inventory.py",
+      "Sha256": "502862EB7045D780115D046A02FA56DB11FB67EBC7A1883CA58D06BEC6C7910A"
+    }
+  ],
+  "ProfileRecordCrossVmRawEqualityClaim": false,
+  "NoExactOtpCapabilityBitmapClaim": true,
+  "OwnProtocolPredicates": true,
+  "PortControllerOrPendingDownClaim": false,
+  "OriginalDirectory": "artifacts/library429-dist-channel-original1",
+  "OriginalRecipeManifestSha256": "B0B42E11ED3D429AA96003ED22E99B02AD98C9B3C239E1A14424C82382941491",
+  "ActualRootCaptureRequired": true
+}

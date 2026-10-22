@@ -4,6 +4,7 @@ public sealed record EtfEncodingOptions
 {
     internal LocalNodeIdentity? NodeIdentity { get; init; }
     internal LocalNodeSnapshot? NodeSnapshot { get; init; }
+    internal Func<MapTerm, IReadOnlyList<KeyValuePair<Term, Term>>>? MapEntries { get; init; }
     public int MinorVersion { get; init; } = EtfEncodingParameters.DefaultMinorVersion;
     public int CompressionLevel { get; init; }
     public bool Deterministic { get; init; }

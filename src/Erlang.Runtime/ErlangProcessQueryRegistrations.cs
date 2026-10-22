@@ -2,6 +2,14 @@ namespace Erlang;
 
 internal static class ErlangProcessQueryRegistrations
 {
+    internal static Term NodeOf(Term value) => Term.A(value switch
+    {
+        Pid pid => pid.Node,
+        PortTerm port => port.Node,
+        ReferenceTerm reference => reference.Node,
+        _ => throw new ErlangException(ErlangErrorReasons.BadArgument)
+    });
+
     public static void Register(ModuleRegistry registry)
     {
         void Add(string name, int arity, ErlangFunction body) => registry.Register(
@@ -14,13 +22,7 @@ internal static class ErlangProcessQueryRegistrations
         Add(
             ErlangProcessQueryNames.Node,
             1,
-            (_, arguments) => ValueTask.FromResult<Term>(Term.A(arguments[0] switch
-            {
-                Pid pid => pid.Node,
-                PortTerm port => port.Node,
-                ReferenceTerm reference => reference.Node,
-                _ => throw new ErlangException(ErlangErrorReasons.BadArgument)
-            }))
+            (_, arguments) => ValueTask.FromResult(NodeOf(arguments[0]))
         );
         Add(ErlangProcessQueryNames.Processes, 0, (context, _) => ValueTask.FromResult(Cons.From(context.Runtime.ProcessSnapshot())));
         Add(

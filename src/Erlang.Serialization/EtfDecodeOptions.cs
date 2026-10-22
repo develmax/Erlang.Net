@@ -4,6 +4,8 @@ public sealed record EtfDecodeOptions
 {
     internal Func<IReadOnlyList<EtfNodeEpoch>, EtfDecodeAdmission>? NodeAdmission { get; init; }
     internal LocalNodeIdentity? NodeIdentity { get; init; }
+    internal bool DistributionDebug423 { get; init; }
+    internal Atom[]? AtomTranslationCache423 { get; init; }
     public bool Safe { get; init; }
     public string? LocalNode { get; init; }
     public uint LocalCreation { get; init; }

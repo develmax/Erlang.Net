@@ -1,0 +1,36 @@
+{
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "OriginalModuleSha256": "79775431D627FC04612726BF0D486A18A639B064EA3698D884EB7CCA0959ED5F",
+  "FacetSha256": "228189228615FF2D3A883B7783D7E799E6C5395B738F7220E61D558FD0E7DEB5",
+  "NativeStubs": [
+    {
+      "Function": "dirty_cpu",
+      "Arity": 2,
+      "Body": "dirty_cpu(_, _) ->\n    erlang:nif_error(undef).",
+      "SourceStartLine": 220
+    },
+    {
+      "Function": "dirty_io",
+      "Arity": 2,
+      "Body": "dirty_io(_, _) ->\n    erlang:nif_error(undef).",
+      "SourceStartLine": 227
+    },
+    {
+      "Function": "dirty",
+      "Arity": 3,
+      "Body": "dirty(_, _, _) ->\n    erlang:nif_error(undef).",
+      "SourceStartLine": 235
+    },
+    {
+      "Function": "same",
+      "Arity": 2,
+      "Body": "same(_, _) ->\n    erlang:nif_error(undef).",
+      "SourceStartLine": 189,
+      "ExistingPreviouslyImplementedBody": true
+    }
+  ],
+  "OriginalVendorLicensePreserved": true,
+  "Whole20AdmissionClaim": false,
+  "NewNativeBodies": 3,
+  "ExistingSupportingNativeBodies": 1
+}

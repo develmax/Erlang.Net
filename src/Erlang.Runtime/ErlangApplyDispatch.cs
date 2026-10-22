@@ -26,7 +26,7 @@ internal static class ErlangApplyDispatch
         );
     }
 
-    private static async ValueTask<Term> InvokeTarget(
+    internal static async ValueTask<Term> InvokeTarget(
         ProcessContext context,
         string module,
         string function,

@@ -1,0 +1,53 @@
+{
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Bindings": [
+    {
+      "Path": "artifacts/spawn-priority351-preparation/execute-root.py",
+      "Sha256": "C66ACEC6FFE57C57EFAABC96FD1DB00598D7AAD7D05C2EA814A146B759D4171A"
+    },
+    {
+      "Path": "artifacts/library377-native-controls1/run-native-controls.py",
+      "Sha256": "C097FDF1F1307220916935FDAD3E0483CC676E4EEB136581B632ACF6347F206F"
+    },
+    {
+      "Path": "tools/Erlang.NifTermCallbackOriginalObservations/passive_etf.py",
+      "Sha256": "9C3204CB29755C508D05B611EA02B3A3186F83B40A72BF6EEC366242040432EE"
+    },
+    {
+      "Path": "artifacts/library376-official-compiler/official-admission.json",
+      "Sha256": "41CCC2FDE5493D85BEAA21996E12D0885D2919B0D4BF44137D0673DCDC9D5EA6"
+    },
+    {
+      "Path": "artifacts/library384-inventory.py",
+      "Sha256": "075068A19E2FB2BDA30374B1558BB6536A67B87F163C87B1DBDA73734C1AC397"
+    },
+    {
+      "Path": "artifacts/library381-functional-audit1/passive-inventory.py",
+      "Sha256": "7866257D1CC741763708F809BE6CD3455B283A4888E247B565F1F21B95EF965C"
+    }
+  ],
+  "Cases": [
+    "minor",
+    "major",
+    "bad_integer",
+    "bad_list",
+    "bad_boolean",
+    "bad_tuple"
+  ],
+  "ExpectedValues": 6,
+  "ExpectedStackRows": 30,
+  "WholeRows": 36,
+  "Sources": [
+    {
+      "Path": "facet/erts_internal.erl",
+      "Sha256": "8C8B1C4D408FDCAC8C394C88E02FB955CF334C1F049F7C5536CC7A0263275C82"
+    },
+    {
+      "Path": "bounded_inventory.py",
+      "Sha256": "502862EB7045D780115D046A02FA56DB11FB67EBC7A1883CA58D06BEC6C7910A"
+    }
+  ],
+  "CompileOnlyFacet": true,
+  "CapturedOriginalDirectory": "artifacts/library428-internal-gc-original1",
+  "OriginalCompletionSha256": "4E407214ADC4253C368AC30536B202027DB8A1982726669208F8A2B162088187"
+}

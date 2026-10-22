@@ -9,6 +9,7 @@ internal static class BeamTypeWire
     internal const int BitString = 1 << 1;
     internal const int Float = 1 << 3;
     internal const int Integer = 1 << 5;
+    internal const int Tuple = 1 << 11;
     internal const int Any = (1 << 13) - 1;
     internal const int LowerBound = 1 << 13;
     internal const int UpperBound = 1 << 14;

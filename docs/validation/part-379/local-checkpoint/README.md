@@ -1,0 +1,13 @@
+# Part379 scoped local resource checkpoint
+
+The opt-in SDK route packages concrete .app/.app.src, exact admitted BEAMs, declared priv bytes and ordered inert config. The admitted original parser is build-time only; published hosts load the BEAM on our .NET runtime. Original application/controller startup/config application is not implemented or credited.
+
+Fresh final regression8081/8081 in381.0s preserves all8080 prior names/order and adds one deterministic halt election regression. The first general run failed8079/8080 on a latent race in unchanged378 runtime; an old-runtime controlled witness fails, pinned source review explains the two exit elections, and a private pending-flush latch fixes the winner without moving physical completion. Four focused lifecycle/live-port controls pass. Both reds are preserved.
+
+Final-runtime packet results:40input,41actual parsed guards,16CLI,5source-CLI steps,7MSBuild groups,2observed original-child mutations,5extra ownership/descriptor controls,6isolated local NuGet steps;11integration outcomes/two local packages and matching current/installed five reports.570production source guards retain all569old bindings; test bindings are separate. Native five parse observations remain whole raw packets; unchanged parser-source identity is distinct from runtime repair.
+
+The original16proposal partitions are14FULL/2PARTIAL only at named bounded SDK/source/observation layers. Warm final outputs/state and native-child counts are stable, but private requests/input snapshots are still written. Full original resource-orchestration timeout remains unexecuted; the existing shared worker timeout is not relabeled. See partition-crosswalk.json. All15inherited377/378 obligations remain unchanged.
+
+The public application-resources.json is relative-only. The whole publish tree is not source-free/path-free: own Source/resource378.erl and Modules/beam-build-state.json diagnostics with local paths remain. Erlang.Compiler.dll in the NuGet consumer is the existing public managed compiler library, not the original compiler/build task. Actual publish inventories exclude original erl/erlc/compiler/driver and task families.
+
+Totals699registered APIs/118complete contracts/30known differences/551needing verification;delta0APIs/0contracts,+1canonical test. Frozen373–378 remain unchanged. No commit/push/merge/remote publication. Source/binary archives are exact local evidence, not a clean-checkout reproducibility claim. Next380 has six real postcompile component checks and an unintegrated expanded-form entry proposal; it promotes no inherited whole row yet.

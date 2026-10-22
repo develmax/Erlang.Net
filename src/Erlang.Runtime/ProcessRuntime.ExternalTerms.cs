@@ -17,7 +17,7 @@ public sealed partial class ProcessRuntime
 
     internal void ObserveIncomingTerm(Term term)
     {
-        if (term is Pid or ReferenceTerm or PortTerm or Cons or TupleTerm or MapTerm or NativeRecordTerm ||
+        if (term is Pid or ReferenceTerm or PortTerm or Cons or TupleTerm or MapTerm or NativeRecordTerm or HamtBitmapTerm429 ||
             term is FunctionTerm { Environment.Count: > 0 })
             KnownNodes.Observe(term);
     }
@@ -26,11 +26,15 @@ public sealed partial class ProcessRuntime
     {
         var pending = new Stack<Term>();
         var visited = new HashSet<Term>(ReferenceEqualityComparer.Instance);
-        pending.Push(root);
+
+        void Enqueue(Term value)
+        {
+            if (visited.Add(value))
+                pending.Push(value);
+        }
+        Enqueue(root);
         while (pending.TryPop(out var term))
         {
-            if (!visited.Add(term))
-                continue;
             LocalNodeIdentity? owner = term switch
             {
                 Pid pid => pid.LocalIdentity,
@@ -43,27 +47,32 @@ public sealed partial class ProcessRuntime
             switch (term)
             {
                 case Cons list:
-                    pending.Push(list.Head);
-                    pending.Push(list.Tail);
+                    Enqueue(list.Head);
+                    Enqueue(list.Tail);
                     break;
                 case TupleTerm tuple:
                     foreach (Term item in tuple.Items)
-                        pending.Push(item);
+                        Enqueue(item);
+                    break;
+                case HamtBitmapTerm429 node:
+                    if (hamtIndex429 is null || !ReferenceEquals(hamtIndex429.Domain, node.Domain))
+                        throw new ArgumentException(HamtIndexNames429.Foreign, nameof(root));
+                    foreach (Term child in node.Children) Enqueue(child);
                     break;
                 case MapTerm map:
                     foreach (var entry in map.Entries)
                     {
-                        pending.Push(entry.Key);
-                        pending.Push(entry.Value);
+                        Enqueue(entry.Key);
+                        Enqueue(entry.Value);
                     }
                     break;
                 case NativeRecordTerm record:
                     foreach (Term item in record.Values)
-                        pending.Push(item);
+                        Enqueue(item);
                     break;
                 case FunctionTerm function:
                     foreach (Term item in function.Environment)
-                        pending.Push(item);
+                        Enqueue(item);
                     break;
             }
         }

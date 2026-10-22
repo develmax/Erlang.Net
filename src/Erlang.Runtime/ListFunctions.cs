@@ -10,6 +10,13 @@ public static class ListFunctions
         Term? accumulator = null
     )
     {
+        if (operation is ListModuleNames.Any or ListModuleNames.All)
+            return await ListPredicateExecution.Run(
+                context,
+                operation,
+                function,
+                list
+            );
         if (operation is ListModuleNames.FoldLeft or ListModuleNames.Filter or ListModuleNames.Map or ListModuleNames.FilterMap)
             return await ListCallbackSourceExecution.Run(
                 context,

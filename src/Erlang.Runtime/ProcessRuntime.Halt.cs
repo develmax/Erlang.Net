@@ -8,6 +8,7 @@ public sealed partial class ProcessRuntime
     private readonly TaskCompletionSource haltQuiescence = new(TaskCreationOptions.RunContinuationsAsynchronously);
     private RuntimeHaltResult? haltResult;
     private int haltState;
+    private bool haltFlushPending;
 
     public Task<RuntimeHaltResult> HaltCompletion => haltCompletion.Task;
     public Task HaltQuiescence => haltQuiescence.Task;
@@ -45,8 +46,9 @@ public sealed partial class ProcessRuntime
         {
             if (haltResult is not null)
             {
-                if (!options.Flush && !haltCompletion.Task.IsCompleted)
+                if (haltFlushPending && !options.Flush && !haltCompletion.Task.IsCompleted)
                 {
+                    haltFlushPending = false;
                     result = new RuntimeHaltResult(status & RuntimeHaltNames.StatusMask) { Kind = request.Kind, Slogan = request.Slogan, LogicalStack = request.LogicalStack };
                     Volatile.Write(ref haltResult, result);
                     _ = Ports.ForceHalt();
@@ -57,6 +59,7 @@ public sealed partial class ProcessRuntime
             }
             ObjectDisposedException.ThrowIf(disposed, this);
             result = new RuntimeHaltResult(status & RuntimeHaltNames.StatusMask) { Kind = request.Kind, Slogan = request.Slogan, LogicalStack = request.LogicalStack };
+            haltFlushPending = options.Flush;
             selectedAt = Stopwatch.GetTimestamp();
             Volatile.Write(ref haltState, (int)RuntimeLifecycleState.Stopping);
             Volatile.Write(ref haltResult, result);
@@ -65,6 +68,21 @@ public sealed partial class ProcessRuntime
             disposed = true;
             _ = actorDispatcher.CompleteWhenIdle();
             distributionPending?.Close();
+            OsEnvironment?.Dispose();
+            CloseDistributionEntryIdentities();
+            etsFoundation?.Close();
+            _ = ClosePersistentTerms();
+            _ = CloseSystemTasks428();
+            _ = CloseDirtyNative419();
+            _ = CloseDebugDispatch432();
+            _ = CloseCounters421();
+            _ = CloseHamtIndex429();
+            _ = CloseRegex411();
+            _ = CloseDriverFrontend422();
+            CloseAtomics413();
+            CloseCollectors413();
+            _ = CloseCodePurger432();
+            ProcessTracing.CloseTraceSessions425();
             ReferenceResources.Close();
             stopped = processes.Values.ToArray();
             executions = executingProcesses.Select(process => process.Unwound.Task).ToArray();
@@ -72,6 +90,8 @@ public sealed partial class ProcessRuntime
             monitoring = SystemMonitoring.StopForHalt();
             SystemProfiling.ClearForHalt();
             SequenceTracing.StopForHalt(stopped.Concat(executingProcesses).Distinct());
+            CloseProcessAlive425();
+            internalGroupLeaderRequests425.Clear();
             processes.Clear();
             names.Clear();
             aliases.Clear();
@@ -91,11 +111,12 @@ public sealed partial class ProcessRuntime
                 process.PriorityLinks.Clear();
                 process.PortLinks.Clear();
                 process.PriorityPortLinks.Clear();
-                process.Done.TrySetResult(process.ExitReason);
+                if (etsFoundation?.HasPendingRetirements != true && PersistentTermRetirementCompletedSuccessfully && RegexRetirementCompleted411 && DirtyNativeRetirementCompleted419 && DebugDispatchRetirementCompleted432 && CountersRetirementCompleted421 && DriverFrontendRetirementCompleted422 && CodePurgerRetirementCompleted432 && AllocatorGatherRetirementCompleted434)
+                    process.Done.TrySetResult(process.ExitReason);
             }
             deadlineStop = new CancellationTokenSource();
             deadline = options.Flush && options.FlushTimeoutMilliseconds is uint milliseconds ? WaitHaltDeadline(milliseconds, selectedAt, deadlineStop.Token) : Task.Delay(Timeout.Infinite, deadlineStop.Token);
-            portDrain = Ports.BeginHalt(options.Flush);
+            portDrain = Task.WhenAll(Ports.BeginHalt(options.Flush), DrainDriverFrontend422());
         }
         _ = Task.Run(NifImageInitializationFlow.IsolateActor(NifRetirementFlow.IsolateActor(() => FinishHalt(
             stopped,
@@ -166,6 +187,14 @@ public sealed partial class ProcessRuntime
                     ownerCancellation.Add(Task.FromException(exception));
                 }
             }
+            try
+            {
+                await CompleteHaltEtsRetirements(stopped).ConfigureAwait(false);
+            }
+            catch (Exception error)
+            {
+                failures.Add(error);
+            }
             Task sourceShutdown = Modules.CloseSourceMutationsAsync();
             Task nativeShutdown;
             try
@@ -184,6 +213,7 @@ public sealed partial class ProcessRuntime
                 {
                     if (!haltCompletion.Task.IsCompleted)
                     {
+                        haltFlushPending = false;
                         if (winner == deadline)
                         {
                             Volatile.Write(ref haltResult, new RuntimeHaltResult(RuntimeHaltParameters.FlushTimeoutExitStatus));
@@ -237,7 +267,20 @@ public sealed partial class ProcessRuntime
             }
             try
             {
-                await DrainExitContinuations().ConfigureAwait(false);
+                await Task.WhenAll(
+                    DrainExitContinuations(),
+                    DrainEtsRetirements(),
+                    DrainPersistentTerms(),
+                    DrainRegex411(),
+                    DrainSystemTasks428(),
+                    DrainDirtyNative419(),
+                    DrainDebugDispatch432(),
+                    DrainCounters421(),
+                    DrainHamtIndex429(),
+                    DrainDriverFrontend422(),
+                    DrainCodePurger432(),
+                    DrainAllocatorGather434()
+                ).ConfigureAwait(false);
             }
             catch (Exception exception)
             {

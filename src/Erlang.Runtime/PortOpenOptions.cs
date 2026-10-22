@@ -7,6 +7,8 @@ internal sealed class PortOpenOptions
 {
     public ProcessStartInfo Start { get; } = new() { UseShellExecute = false, RedirectStandardInput = true, RedirectStandardOutput = true };
     public string Name { get; private set; } = string.Empty;
+    internal IReadOnlyList<KeyValuePair<string, string>>? NativeEnvironment { get; private set; }
+    internal bool SearchExecutableInPath { get; private set; } = true;
     public bool IsDescriptor { get; private set; }
     public int InputDescriptor { get; private set; }
     public int OutputDescriptor { get; private set; }
@@ -25,14 +27,28 @@ internal sealed class PortOpenOptions
     public PortDirectionFlags Directions { get; private set; }
     public bool Read => (Directions & PortDirectionFlags.Read) != 0;
     public bool Write => (Directions & PortDirectionFlags.Write) != 0;
-    public bool NativeRequired => !Read || !Write || MergeStandardError || ArgumentZero is not null ||
+    public bool NativeRequired => NativeEnvironment is not null || !Read || !Write || MergeStandardError || ArgumentZero is not null ||
         !UseStdio || OperatingSystem.IsWindows() && OverlappedIo;
     public ulong MessageHighWatermark { get; private set; } = PortMessageParameters.DefaultHighWatermark;
     public ulong MessageLowWatermark { get; private set; } = PortMessageParameters.DefaultLowWatermark;
 
     public static PortOpenOptions Parse(Term specification, Term settings)
+        => Parse(
+            specification,
+            settings,
+            null,
+            CancellationToken.None
+        );
+
+    internal static PortOpenOptions Parse(
+        Term specification,
+        Term settings,
+        RuntimeOsEnvironment? environment,
+        CancellationToken cancellation
+    )
     {
-        var options = new PortOpenOptions();
+        IReadOnlyList<KeyValuePair<string, string>>? baseline = environment?.PortSnapshot(cancellation);
+        var options = new PortOpenOptions { NativeEnvironment = environment is null ? null : environment.PortOverlay(baseline!, Array.Empty<KeyValuePair<string, string?>>(), cancellation) };
         string[]? arguments = null;
         foreach (Term setting in Settings(settings))
         {
@@ -104,6 +120,28 @@ internal sealed class PortOpenOptions
                             options.Start.WorkingDirectory = Text(tuple.Items[1]);
                             break;
                         case Atom { Name: PortNames.Environment }:
+                            if (environment is not null)
+                            {
+                                var changes = new List<KeyValuePair<string, string?>>();
+                                foreach (Term entry in Settings(tuple.Items[1]))
+                                {
+                                    cancellation.ThrowIfCancellationRequested();
+                                    if (entry is not TupleTerm { Items.Count: 2 } pair) throw BadOption();
+                                    try
+                                    {
+                                        string key = WindowsOsEnvironmentCodec.Read(pair.Items[0], true, cancellation);
+                                        string? value = pair.Items[1] is Nil or Atom { Name: ErlangBooleanAtoms.False }
+                                            ? null : WindowsOsEnvironmentCodec.Read(pair.Items[1], false, cancellation);
+                                        changes.Add(new(key, value));
+                                    }
+                                    catch (ErlangException)
+                                    {
+                                        throw BadOption();
+                                    }
+                                }
+                                options.NativeEnvironment = environment.PortOverlay(baseline!, changes, cancellation);
+                                break;
+                            }
                             options.Start.Environment.Clear();
                             foreach (System.Collections.DictionaryEntry entry in System.Environment.GetEnvironmentVariables())
                                 options.Start.Environment[(string)entry.Key] = (string?)entry.Value;
@@ -150,6 +188,7 @@ internal sealed class PortOpenOptions
         options.Name = Text(name.Items[1]);
         if (name.Items[0] is Atom { Name: PortNames.SpawnExecutable })
         {
+            options.SearchExecutableInPath = false;
             options.Start.FileName = options.Name;
             if (arguments is not null)
                 foreach (string argument in arguments)

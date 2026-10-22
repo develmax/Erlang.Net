@@ -1,0 +1,20 @@
+# Part397: original handler, context and map prerequisites
+
+Part397 accepted locally:8312/8312 general (+11),666/666 affected,198 raw/typed complete original outcomes/full-stack profiles. All180 originals link;170/180 clean link/frame (94.4%, not full compatibility);44 old failing entries fixed,0 prior passing regressions;99 entry refusals remain. Conservative local no-return continuation proof, transparent binary-context forwarding and pure receive map extraction preserve handler/opaque/GC/override guards. Default705 APIs/21modules,118 full contracts and636 source guards unchanged; original-only native math24/file1 preserved.11 integrations/two local packages/five equal reports/13 DLL copies; cold72 process outcomes and math1488 per package route pass. General445.250s versus prior406.000s;suffix65.875s. Same180 diagnostic94.453s versus80.782s; expanded reached paths, observational only. Strict180 startup/native frontier still unfinished. Genuine pinned Windows OTP29.1.1, no fresh Linux/GitHub run, whole-module100% promotion, commit/push/merge/external publication. Evidence:docs/validation/part-397/handler-context-and-map-prerequisites.
+
+## Part397 original dependency handler, context and map prerequisites — accepted local increment
+
+| Area | Verified progress | Remaining |
+| --- | --- | --- |
+|180 original dependencies |180/180 linked;170/180 clean link/frame;44 old failures fixed;0 old passing regressions |99 entry failures; strict imports/native binding/startup remain separate |
+| handler routing |42 complete original observations;3 permanent groups including returning host overrides; actual handler gates unchanged | no general shared-handler exemption or blanket callback equivalence |
+| binary context forwarding |48 complete original observations;paired mask/resume/entry resolver through transparent first local call;positive and6 refusal controls |81 saved-position failures,7 receive/binary composition failures |
+| receive map fields |108 complete original observations;3 permanent groups;aliased source and atomic success-only writes;4 logger callers now pass | binary matcher9 and callback1;Y destinations remain refused |
+| gen / sys / proc_lib |30/36/39 original exports and cold72 process observations preserved | full180 strict startup and wider complete contracts |
+| default registry |705 APIs/21modules;118 full contracts;636 source guards | default API/full-contract delta0/0;native math24/file1 unchanged |
+| native source audit |182 recognized stub MFAs in16 modules;41 default source registration routes and27 conditional private capture routes |114 have no current route; recognition/source route does not prove binding or execution |
+
+Part397 accepted locally:8312/8312 general (+11),666/666 affected,198 raw/typed complete original outcomes/full-stack profiles. All180 originals link;170/180 clean link/frame (94.4%, not full compatibility);44 old failing entries fixed,0 prior passing regressions;99 entry refusals remain. Conservative local no-return continuation proof, transparent binary-context forwarding and pure receive map extraction preserve handler/opaque/GC/override guards. Default705 APIs/21modules,118 full contracts and636 source guards unchanged; original-only native math24/file1 preserved.11 integrations/two local packages/five equal reports/13 DLL copies; cold72 process outcomes and math1488 per package route pass. General445.250s versus prior406.000s;suffix65.875s. Same180 diagnostic94.453s versus80.782s; expanded reached paths, observational only. Strict180 startup/native frontier still unfinished. Genuine pinned Windows OTP29.1.1, no fresh Linux/GitHub run, whole-module100% promotion, commit/push/merge/external publication. Evidence:docs/validation/part-397/handler-context-and-map-prerequisites.
+
+
+Frozen source, original full captures, actual refused runs and all owned receipts are bound by bindings.json. No whole-module compatibility or full strict180 admission is claimed. Prior396 frozen bindings were independently reverified; LICENSE.local.txt is excluded.

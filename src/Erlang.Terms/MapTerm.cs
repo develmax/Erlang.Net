@@ -12,7 +12,13 @@ public sealed class MapTerm : Term
 
     internal IReadOnlyList<KeyValuePair<Term, Term>> ArithmeticKeyEntries { get; }
 
-    public MapTerm(IEnumerable<KeyValuePair<Term, Term>> entries)
+    internal TupleTerm? FlatKeys426 { get; }
+
+    public MapTerm(IEnumerable<KeyValuePair<Term, Term>> entries) : this(entries, null)
+    {
+    }
+
+    internal MapTerm(IEnumerable<KeyValuePair<Term, Term>> entries, TupleTerm? copiedFlatKeys)
     {
         var d = new Dictionary<Term, Term>();
         foreach (var entry in entries)
@@ -44,6 +50,26 @@ public sealed class MapTerm : Term
                     ref context
                 ))
             ).ToArray());
+        if (d.Count <= TermMapOrderParameters.FlatMapMaximumEntries)
+        {
+            var keys = Entries.OrderBy(
+                entry => entry.Key,
+                Comparer<Term>.Create((left, right) => left is Atom first && right is Atom second
+                    ? AtomNameRegistry.IndexOf(first.Name).CompareTo(AtomNameRegistry.IndexOf(second.Name))
+                    : TermOrder.CompareSnapshot(
+                        left,
+                        right,
+                        true,
+                        ref context
+                    ))
+            ).Select(entry => entry.Key).ToArray();
+            if (copiedFlatKeys is not null && (copiedFlatKeys.Items.Count != keys.Length
+                || keys.Where((key, index) => !ReferenceEquals(key, copiedFlatKeys.Items[index])).Any()))
+                throw new ArgumentException(MapFlatKeyNames426.InvalidCopiedKeys, nameof(copiedFlatKeys));
+            FlatKeys426 = copiedFlatKeys ?? new TupleTerm(keys);
+        }
+        else if (copiedFlatKeys is not null)
+            throw new ArgumentException(MapFlatKeyNames426.InvalidCopiedKeys, nameof(copiedFlatKeys));
     }
 
     public Term Get(Term key) => lookup.TryGetValue(key, out var value) ? value : throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadKey), key));

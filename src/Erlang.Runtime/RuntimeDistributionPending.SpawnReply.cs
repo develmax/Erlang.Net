@@ -107,7 +107,8 @@ public sealed partial class RuntimeDistributionPending
         if (request.Child is not { } child ||
             !IsConnectedSignalGeneration(request.Entry, request.Connection, request.ConnectionId))
             return;
-        if ((request.ReplyFlags & DistributionSpawnLayout.MonitorFlag) != 0)
+        if ((request.ReplyFlags & DistributionSpawnLayout.MonitorFlag) != 0 &&
+            (request.Connection.Flags & DistributionPassThroughFlags.ProcessMonitors) == DistributionPassThroughFlags.ProcessMonitors)
             ScheduleConnectedControlSignal(
                 request.Entry,
                 request.Connection,

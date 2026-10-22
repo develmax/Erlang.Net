@@ -1,0 +1,11 @@
+# HelloBeamIncludes
+
+Draft example of the opt-in DeclaredIncludesV1 source route: one original Erlang source, two nested headers, an empty first include search root and typed BUILD_FLAVOR atom definition. Expected hello_include:hello/0 result is {hello,{included,377},test}. Source/header bytes are copied unchanged from the sealed stage377 fixture; these are project test fixtures, not unchanged upstream OTP library modules.
+
+Pass an explicit absolute ErlangBeamCompilerProps property referring to a Root-created local props file. It must supply admitted InstalledRoot, ProvenanceKind, AdmissionReceipt and its SHA256, CompilerSha256, RuntimeSha256 and the absolute DotNet host properties used by the source target. No compiler/user paths are hardcoded here. The runtime SHA is separately required: this mode invokes the admitted original runtime/epp driver, not just erlc. Keep local machine props outside tracked source. Both separate Beam.targets and Beam.Source.targets imports are intentional.
+
+Before source admission the project creates Modules/empty. No .gitkeep is needed; only declared source/header bytes enter the owned input tree. Include search directories are ordered empty then include, relative to the declared Modules root. Native epp handles nested headers and macros; the tool validates the captured raw/expanded forms and compiles exactly those validated forms.
+
+At execution, generated manifest must contain exactly the expected module, its current BEAM SHA must match, and the hello/0 binding must have the actual PreparedBeamImage source owner. The actor checks the tuple value and normal exit. Assets resolve from AppContext.BaseDirectory so Root should also run build/publish outputs from another working directory. Runtime execution requires no original OTP installation after generated assets are packaged.
+
+Proposed Root validation: first build reports one source compiler child; identical rebuild reports zero; mutate nested header or ordered macro/include configuration and verify invalidation; run packaged output; original reference comparison and all rejection/cleanup partitions remain separate. This candidate was not built or executed by its author. No full Erlang source, compiler, whole-project, compatibility or performance completion is claimed.

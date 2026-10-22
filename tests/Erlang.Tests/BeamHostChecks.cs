@@ -11,7 +11,7 @@ public static class BeamHostChecks
         original[0] = BeamHostCheckNames.InvalidFormFirstByte;
         Require(constant.Name == BeamHostCheckNames.Constant && constant.Supports(BeamHostCheckNames.Run, BeamHostCheckNames.NoArgumentsArity));
         Require(constant.Exports.Any(value => value.Name == BeamHostCheckNames.ModuleInfo));
-        Require(!constant.Supports(BeamHostCheckNames.ModuleInfo, BeamHostCheckNames.NoArgumentsArity) && !constant.Supports(BeamHostCheckNames.MissingExport, BeamHostCheckNames.NoArgumentsArity));
+        Require(constant.Supports(BeamHostCheckNames.ModuleInfo, BeamHostCheckNames.NoArgumentsArity) && !constant.Supports(BeamHostCheckNames.MissingExport, BeamHostCheckNames.NoArgumentsArity));
         Require(!constant.HasOnLoad);
         Require(constant.Exports is System.Collections.IList list && list.IsReadOnly);
         await using var runtime = new ProcessRuntime();
@@ -45,7 +45,16 @@ public static class BeamHostChecks
         Require(receive.Supports(BeamHostCheckNames.Run, BeamHostCheckNames.NoArgumentsArity));
         BeamModule onLoad = BeamModule.Prepare(Resource(BeamHostCheckNames.OnLoad + BeamHostCheckNames.BeamExtension));
         Require(onLoad.HasOnLoad && !onLoad.Supports(BeamHostCheckNames.Run, BeamHostCheckNames.NoArgumentsArity));
-        await Reject<NotSupportedException>(() => Invoke(runtime, constant, BeamHostCheckNames.ModuleInfo));
+        try
+        {
+            await Invoke(runtime, constant, BeamHostCheckNames.ModuleInfo);
+            Require(false);
+        }
+        catch (ErlangException error)
+        {
+            Require(error.Reason.Equals(Term.A(ErlangErrorReasons.BadArgument))
+                && !runtime.Modules.IsModuleLoaded(BeamHostCheckNames.Constant));
+        }
         await Reject<InvalidDataException>(() => Invoke(runtime, constant, BeamHostCheckNames.MissingExport));
         try
         {

@@ -1,6 +1,6 @@
 namespace Erlang;
 
-internal sealed class RuntimeProcessTaskScheduler(RuntimeActorDispatcher dispatcher, ProcessContext owner, RuntimeActorRole role = RuntimeActorRole.Guest) : TaskScheduler
+internal sealed partial class RuntimeProcessTaskScheduler(RuntimeActorDispatcher dispatcher, ProcessContext owner, RuntimeActorRole role = RuntimeActorRole.Guest) : TaskScheduler
 {
     internal ProcessContext Owner { get; } = owner;
     internal RuntimeActorRole Role { get; } = role;

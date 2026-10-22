@@ -3,10 +3,17 @@ namespace Erlang;
 public sealed partial class ModuleRegistry
 {
     public PreparedBeamImage PrepareBeam(ReadOnlyMemory<byte> bytes)
+        => PrepareBeam(bytes, new BeamDependencySelection(Array.Empty<string>()));
+
+    public PreparedBeamImage PrepareBeam(ReadOnlyMemory<byte> bytes, BeamDependencySelection dependencies)
     {
+        ArgumentNullException.ThrowIfNull(dependencies);
         byte[] owned = ObservedPayloadStorage.Code(bytes.ToArray());
         EtfDecodeOptions decoding = PreparationDecodeOptions();
-        BeamLinkedCode code = BeamLinkedCodeReader.Read(BeamStructureReader.Read(owned, decoding));
+        BeamLinkedCode code = BeamLinkedCodeReader.Read(BeamStructureReader.Read(owned, decoding)) with
+        {
+            RegistryModuleDependencies = dependencies.RegistryModules
+        };
         if (code.OnLoadEntryLabel is int callbackLabel)
         {
             BeamLinkedFunction callback = code.Functions.Single(function => function.EntryLabel == callbackLabel);
@@ -18,6 +25,8 @@ public sealed partial class ModuleRegistry
         foreach (BeamLinkedFunction function in code.Exports)
             if (!BeamGeneratedMetadata.IsGenerated(code, function))
                 BeamRegisterValidation.Validate(code, function);
+
+        owningRuntime?.MarkPreparedLiterals425(code.Structure.Literals);
 
         return new PreparedBeamImage(
             this,
@@ -59,6 +68,7 @@ public sealed partial class ModuleRegistry
             {
                 foreach (PreparedBeamImage image in owned)
                 {
+                    RecordPreparedFunEntries(image);
                     if (loadedModules.ContainsKey(image.Name))
                         registry.DeleteModule(image.Name);
                     for (int index = 0; index < image.Code.Exports.Count; index++)

@@ -30,7 +30,7 @@ internal static class QueueMemberExecution
         return CoreModules.Boolean(found);
     }
 
-    private static async ValueTask<bool> Search(
+    internal static async ValueTask<bool> Search(
         ProcessContext context,
         Term item,
         Term list,

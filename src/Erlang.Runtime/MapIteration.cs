@@ -64,7 +64,9 @@ public static class MapIteration
             var entries = new List<KeyValuePair<Term, Term>>();
             using var lookupScope = runtime is not null && map.Entries.Count > MapIteratorLayout.FlatMapMaximumEntries
                 ? runtime.MapHashIdentityProvider(OtpMapHashLayoutProtocol.Append) : null;
-            var lookup = new HamtCursorLookup(map, lookupScope);
+            using var index = runtime is not null && map.Entries.Count > MapIteratorLayout.FlatMapMaximumEntries
+                ? runtime.AcquireHamtIndex429(map) : null;
+            var lookup = new HamtCursorLookup(map, lookupScope, index?.Index);
             foreach (Term key in Cons.Items(keys))
             {
                 if (!lookup.TryGet(key, out var value))

@@ -1,6 +1,6 @@
 namespace Erlang;
 
-internal sealed class ProcessSlotTable
+internal sealed partial class ProcessSlotTable
 {
     private readonly List<Pid?> slots = new();
     internal long AllocatedPayloadBytes => (long)slots.Capacity * IntPtr.Size;

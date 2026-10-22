@@ -7,7 +7,7 @@ public sealed partial class ModuleRegistry
         var source = SourceLocalFunction(identity);
         var resolved = source?.Resolver.ResolveLocalIdentity(identity, arity);
 
-        return resolved is null ? null : identity with { Name = resolved.Name };
+        return resolved;
     }
 
     internal FunctionTerm? ResolveSourceLocalFunction(
@@ -41,6 +41,21 @@ public sealed partial class ModuleRegistry
         lock (gate)
         {
             string module = identity.Module.Name;
+            if (codeDescriptors.TryGetValue(module, out var beamDescriptor)
+                && beamDescriptor.Fingerprint.Equals(identity.Unique)
+                && codeImages[module].ExecutionOwner is PreparedBeamImage beam
+                && ReferenceEquals(beam.Owner, this)
+                && ReferenceEquals(beam.ExecutionIdentity.Image, codeImages[module])
+                && sourceOwners.Any(entry => entry.Key.Module == module && ReferenceEquals(entry.Value, beam)))
+                return (beam, beam.ExecutionIdentity.Image);
+            if (oldCode.TryGetValue(module, out var oldBeam)
+                && oldBeam.Descriptor is { } oldBeamDescriptor
+                && oldBeamDescriptor.Fingerprint.Equals(identity.Unique)
+                && oldBeam.Image.ExecutionOwner is PreparedBeamImage previousBeam
+                && ReferenceEquals(previousBeam.Owner, this)
+                && ReferenceEquals(previousBeam.ExecutionIdentity.Image, oldBeam.Image)
+                && oldBeam.SourceOwners.Any(owner => ReferenceEquals(owner, previousBeam)))
+                return (previousBeam, oldBeam.Image);
             if (codeDescriptors.TryGetValue(module, out var descriptor) &&
                 descriptor.Fingerprint.Equals(identity.Unique) &&
                 descriptor.SourceOwner is ISourceLocalFunctionResolver current &&
@@ -53,7 +68,7 @@ public sealed partial class ModuleRegistry
                 old.SourceOwners.Any(owner => ReferenceEquals(owner, previous)))
                 return (previous, old.Image);
 
-            return null;
+            return SavedOldFunction432(identity);
         }
     }
 }

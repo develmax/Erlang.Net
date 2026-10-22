@@ -26,8 +26,13 @@ internal static class HamtCursorDispatch
         }
         else
         {
-            using var scope = runtime.MapHashIdentityProvider(OtpMapHashLayoutProtocol.Append);
-            list = HamtCursorView.ReadIntegerCursor(map, path, scope.Hash);
+            using var index = runtime.AcquireHamtIndex429(map);
+            list = HamtCursorView.ReadIntegerCursor(
+                map,
+                path,
+                null!,
+                index.Index.Root
+            );
         }
         var pairs = Cons.Items(list).Cast<TupleTerm>().ToArray();
         cursor = Term.A(MapIteratorAtoms.None);

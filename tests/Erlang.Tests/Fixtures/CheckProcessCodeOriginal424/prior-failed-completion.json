@@ -1,0 +1,181 @@
+{
+  "Passed": false,
+  "WholeRows": 0,
+  "ExpectedWholeRows": 78,
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ExpectedRewritten": false,
+  "ActualTwoDifferentHelperImages": true,
+  "TailNonTailEmittedGate": true,
+  "FullInternalImageClaim": false,
+  "Stages": {
+    "compile-v1": true,
+    "compile-v2": true,
+    "compile-observer": true,
+    "original": false
+  },
+  "Errors": [
+    {
+      "Stage": "original",
+      "Failure": "RuntimeError('Owned stage failed; all available raw evidence retained: original')"
+    }
+  ],
+  "ClosureChecks": [
+    {
+      "Stage": "compile-v1",
+      "BeforeEqual": true,
+      "AfterEqual": true,
+      "Failure": null
+    },
+    {
+      "Stage": "compile-v2",
+      "BeforeEqual": true,
+      "AfterEqual": true,
+      "Failure": null
+    },
+    {
+      "Stage": "compile-observer",
+      "BeforeEqual": true,
+      "AfterEqual": true,
+      "Failure": null
+    },
+    {
+      "Stage": "original",
+      "BeforeEqual": true,
+      "AfterEqual": true,
+      "Failure": "RuntimeError('Owned stage failed; all available raw evidence retained: original')"
+    }
+  ],
+  "ExecutionManifestSha256": "AF5EA3DA317E2ABC8A0CF1874D4E6BFB93AC1A47E864A7B92BBE7A03D1607E99",
+  "Files": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library423-check-process-code-original1\\closure-checks.json",
+      "Bytes": 532,
+      "Sha256": "CE8F766D73384830CC368CE3ED0F4F7B9945B100C75F41A09EE388EC5B979885"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library423-check-process-code-original1\\compile-observer.exit.json",
+      "Bytes": 776,
+      "Sha256": "5DCFABE6970C1D28BB8C4FB44E4A7D9958A39E6D0350304591D2C4A4D79BDCCC"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library423-check-process-code-original1\\compile-observer.live.json",
+      "Bytes": 525,
+      "Sha256": "D471D452B5F19D3EAE5B485456B0C087CC50EB4F75A2DF8EF83292136FB18E40"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library423-check-process-code-original1\\compile-observer.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library423-check-process-code-original1\\compile-observer.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library423-check-process-code-original1\\compile-v1.exit.json",
+      "Bytes": 770,
+      "Sha256": "3BA36017176302FA908300437F2351F57D01675586ACB5DC82F3517A3B1C02E8"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library423-check-process-code-original1\\compile-v1.live.json",
+      "Bytes": 535,
+      "Sha256": "10A1B0C21BCE4100715CAAA26ED6A91E8E9B824768BC1CEA9924402A74601144"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library423-check-process-code-original1\\compile-v1.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library423-check-process-code-original1\\compile-v1.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library423-check-process-code-original1\\compile-v2.exit.json",
+      "Bytes": 785,
+      "Sha256": "96EC16A9CC4584152DB5C99DCD9E7E62A545704F7034148F588D05AA6DDE5195"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library423-check-process-code-original1\\compile-v2.live.json",
+      "Bytes": 535,
+      "Sha256": "61060799CBF02AD11AA837BDA685356F147073C933957ECA36A3F8E5F9CF3080"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library423-check-process-code-original1\\compile-v2.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library423-check-process-code-original1\\compile-v2.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library423-check-process-code-original1\\inventory-v1.json",
+      "Bytes": 38490,
+      "Sha256": "7B39FC50493D4917796E8E671086CEBC0ECA50FDA79E229623A845E6F45CE22E"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library423-check-process-code-original1\\inventory-v2.json",
+      "Bytes": 38490,
+      "Sha256": "94DB5381C36336154CC71D88733A3858D3ACBAB9A9AA0243EDDFC6502D3CE0F9"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library423-check-process-code-original1\\observer-ebin\\beam_check_code423.beam",
+      "Bytes": 7844,
+      "Sha256": "052E1F256679C4A40830D594CB5305E8C110F77F878D32844475CD77AAA26A28"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library423-check-process-code-original1\\original.exit.json",
+      "Bytes": 775,
+      "Sha256": "BDFDA320C4E883A9EB076929F5EF8A1957ACF4FE72E74C31D0D27F23493A99A5"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library423-check-process-code-original1\\original.live.json",
+      "Bytes": 526,
+      "Sha256": "AA0B585FE10F240B9CF6FF005DFEC492A9503A6014ADCEE225C9C5EFD962A954"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library423-check-process-code-original1\\original.stderr.log",
+      "Bytes": 258,
+      "Sha256": "5A81D67DCCF13A3EE4DEF472098D5973138A14B55AEC3CCC49889D8E93ED2698"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library423-check-process-code-original1\\original.stdout.log",
+      "Bytes": 534,
+      "Sha256": "0061293DBAB4EE86EFB26D95D0A9C20E5AA358D0C1B35C6CAB058AF7D3A962C7"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library423-check-process-code-original1\\source\\beam_check_code423.erl",
+      "Bytes": 2855,
+      "Sha256": "156897E12EDADC18882A1893F6E7763815D2EF5509F7EC1426AAD2CAE5A2304C"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library423-check-process-code-original1\\source\\erl_crash.dump",
+      "Bytes": 1663008,
+      "Sha256": "4EDF2B162CB8ED2B235658B9C8C7DD16CA01FE3A5EF00B08AAFCFDAE3107C4F0"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library423-check-process-code-original1\\source\\v1\\beam_check_code_subject423.erl",
+      "Bytes": 697,
+      "Sha256": "720F9A1749EA9B159948F3A8091A8C0B6A3D065B165EC288C3B279477F39F883"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library423-check-process-code-original1\\source\\v2\\beam_check_code_subject423.erl",
+      "Bytes": 697,
+      "Sha256": "C94C60C543C0C64007C431ECCA3C8E0DD80D0356F24EF0FEC7A1B0C02C0CE17E"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library423-check-process-code-original1\\subject-v1\\beam_check_code_subject423.beam",
+      "Bytes": 2184,
+      "Sha256": "527AB2DE0A5DF2E46395BABB8A15FE804369BF2E64A0AC413E1225927EF17C52"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library423-check-process-code-original1\\subject-v2\\beam_check_code_subject423.beam",
+      "Bytes": 2184,
+      "Sha256": "26C4CAB82E123D2825D76B84E459082B05355410D5506AC91BEE7F3F8376EDD0"
+    }
+  ]
+}

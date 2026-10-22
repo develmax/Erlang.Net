@@ -1,6 +1,6 @@
 namespace Erlang;
 
-internal sealed class ProcessTracing(ProcessRuntime runtime, object gate, Dictionary<Pid, ProcessContext> processes)
+internal sealed partial class ProcessTracing(ProcessRuntime runtime, object gate, Dictionary<Pid, ProcessContext> processes)
 {
     private readonly Dictionary<Pid, ProcessTraceSettings> settings = new();
     private readonly Dictionary<(string Module, string Function, int Arity), ProcessTracePattern> patterns = new();
@@ -11,7 +11,7 @@ internal sealed class ProcessTracing(ProcessRuntime runtime, object gate, Dictio
     private readonly ProcessTraceActions callActions = new();
     private readonly ProcessTraceActions eventActions = new();
 
-    public Term Configure(ProcessContext caller, IReadOnlyList<Term> arguments)
+    public Term Configure(ProcessContext caller, IReadOnlyList<Term> arguments, Pid? defaultTracer425 = null)
     {
         ProcessTraceFlags flags = ProcessTraceFlags.None;
         Pid? tracer = null;
@@ -50,11 +50,12 @@ internal sealed class ProcessTracing(ProcessRuntime runtime, object gate, Dictio
         lock (gate)
         {
             runtime.ThrowIfHalted();
-            tracer ??= caller.Self;
-            if (tracer.Node != runtime.Node || !processes.ContainsKey(tracer))
+            RequireTraceLive425();
+            tracer ??= defaultTracer425 ?? caller.Self;
+            if (!runtime.IsCurrentLocal(tracer) || !processes.ContainsKey(tracer))
                 throw Invalid(caller, arguments, ProcessTraceNames.Configure);
             Pid[] targets;
-            if (arguments[0] is Pid pid && pid.Node == runtime.Node && processes.ContainsKey(pid))
+            if (arguments[0] is Pid pid && runtime.IsCurrentLocal(pid) && processes.ContainsKey(pid))
                 targets = [pid];
             else if (arguments[0] is Atom { Name: ProcessTraceNames.Existing or ProcessTraceNames.ExistingProcesses })
                 targets = flags == ProcessTraceFlags.None ? [] : processes.Keys.ToArray();
@@ -128,6 +129,7 @@ internal sealed class ProcessTracing(ProcessRuntime runtime, object gate, Dictio
             lock (gate)
             {
                 runtime.ThrowIfHalted();
+                RequireTraceLive425();
                 if (eventName.Name == ProcessTraceNames.Send)
                 {
                     traceSend = enable;
@@ -151,6 +153,7 @@ internal sealed class ProcessTracing(ProcessRuntime runtime, object gate, Dictio
         lock (gate)
         {
             runtime.ThrowIfHalted();
+            RequireTraceLive425();
             foreach (var match in matches)
                 if (enable)
                     patterns[match] = pattern;
@@ -163,13 +166,21 @@ internal sealed class ProcessTracing(ProcessRuntime runtime, object gate, Dictio
 
     public Term Info(ProcessContext caller, IReadOnlyList<Term> arguments)
     {
-        if (arguments[1] is not Atom key)
-            throw Invalid(caller, arguments, ProcessTraceNames.Info);
         lock (gate)
         {
             runtime.ThrowIfHalted();
+            RequireTraceLive425();
+            // A decoded external PID for this node's old creation denotes no
+            // live process. Source trace_info_pid returns undefined before
+            // inspecting Key. A foreign runtime-owned local PID must not take
+            // this external-value branch, even when every wire field collides.
+            if (arguments[0] is Pid external && external.LocalIdentity is null
+                && external.Node == runtime.Node && !runtime.IsCurrentLocal(external))
+                return Term.A(ProcessTraceNames.Undefined);
+            if (arguments[1] is not Atom key)
+                throw Invalid(caller, arguments, ProcessTraceNames.Info);
             Term value;
-            if (arguments[0] is Pid pid && pid.Node == runtime.Node)
+            if (arguments[0] is Pid pid && runtime.IsCurrentLocal(pid))
             {
                 if (key.Name is not (ProcessTraceNames.Flags or ProcessTraceNames.Tracer))
                     throw Invalid(caller, arguments, ProcessTraceNames.Info);
@@ -231,6 +242,12 @@ internal sealed class ProcessTracing(ProcessRuntime runtime, object gate, Dictio
         bool exists
     )
     {
+        foreach (var view in LiveTraceViews425()) view.Sent(
+            sender,
+            destination,
+            message,
+            exists
+        );
         lock (gate)
         {
             if (runtime.IsHaltRequested)
@@ -257,6 +274,7 @@ internal sealed class ProcessTracing(ProcessRuntime runtime, object gate, Dictio
 
     public void Admitted(ProcessContext receiver, Term message, Term? from = null)
     {
+        foreach (var view in LiveTraceViews425()) view.Admitted(receiver, message, from);
         lock (gate)
         {
             if (runtime.IsHaltRequested)
@@ -285,6 +303,42 @@ internal sealed class ProcessTracing(ProcessRuntime runtime, object gate, Dictio
     }
 
     public ProcessTraceInvocation? Called(
+        ProcessContext context,
+        string module,
+        string function,
+        IReadOnlyList<Term> arguments
+    )
+    {
+        lock (gate)
+        {
+            if (sessionView425 || sessionsClosed425 || namedSessions425.Count == 0)
+                return CalledLocal425(
+                    context,
+                    module,
+                    function,
+                    arguments
+                );
+            var children = new List<ProcessTraceChildInvocation425>();
+            foreach (var view in LiveTraceViews425())
+                if (view.CalledLocal425(
+                    context,
+                    module,
+                    function,
+                    arguments
+                ) is { } invocation)
+                    children.Add(new(view, invocation));
+            ProcessTraceInvocation? legacy = CalledLocal425(
+                context,
+                module,
+                function,
+                arguments
+            );
+
+            return children.Count == 0 ? legacy : (legacy ?? new ProcessTraceInvocation(Nil.Value, false, false)) with { Children425 = children.ToArray() };
+        }
+    }
+
+    private ProcessTraceInvocation? CalledLocal425(
         ProcessContext context,
         string module,
         string function,
@@ -322,7 +376,7 @@ internal sealed class ProcessTracing(ProcessRuntime runtime, object gate, Dictio
 
     public ValueTask<Term> Complete(ProcessContext context, ProcessTraceInvocation? invocation, ValueTask<Term> pending)
     {
-        if (invocation is null || !invocation.ReturnTrace && !invocation.ExceptionTrace)
+        if (invocation is null || !invocation.ReturnTrace && !invocation.ExceptionTrace && invocation.Children425 is null)
             return pending;
         if (pending.IsCompletedSuccessfully)
         {
@@ -353,6 +407,8 @@ internal sealed class ProcessTracing(ProcessRuntime runtime, object gate, Dictio
 
     private void Returned(ProcessContext context, ProcessTraceInvocation invocation, Term value)
     {
+        if (invocation.Children425 is { } children)
+            foreach (var child in children) child.Owner.Returned(context, child.Invocation, value);
         lock (gate)
             if (invocation.ReturnTrace || invocation.ExceptionTrace)
                 Output(context.Self, ProcessTraceFlags.Call, [Term.A(ProcessTraceNames.Return), invocation.Mfa, value]);
@@ -360,6 +416,8 @@ internal sealed class ProcessTracing(ProcessRuntime runtime, object gate, Dictio
 
     public void Failed(ProcessContext context, ProcessTraceInvocation? invocation, ErlangException exception)
     {
+        if (invocation?.Children425 is { } children)
+            foreach (var child in children) child.Owner.Failed(context, child.Invocation, exception);
         lock (gate)
             if (invocation?.ExceptionTrace == true)
                 Output(
@@ -397,12 +455,14 @@ internal sealed class ProcessTracing(ProcessRuntime runtime, object gate, Dictio
 
     public void Terminated(Pid tracee)
     {
+        foreach (var view in LiveTraceViews425()) view.Terminated(tracee);
         lock (gate)
             settings.Remove(tracee);
     }
 
     internal void StopForHalt()
     {
+        CloseTraceSessions425();
         lock (gate)
         {
             settings.Clear();
@@ -448,7 +508,7 @@ internal sealed class ProcessTracing(ProcessRuntime runtime, object gate, Dictio
         else if ((current.Flags & ProcessTraceFlags.StrictMonotonicTimestamp) != 0)
             timestamp = Term.Tuple(
                 new Integer(ErlangClockState.MonotonicNanoseconds),
-                ErlangClockState.Unique([Cons.From([Term.A(ErlangClockNames.Monotonic)])])
+                runtime.UniqueMonotonic436.Next(false)
             );
         else if ((current.Flags & ProcessTraceFlags.MonotonicTimestamp) != 0)
             timestamp = new Integer(ErlangClockState.MonotonicNanoseconds);
@@ -499,10 +559,13 @@ internal sealed class ProcessTracing(ProcessRuntime runtime, object gate, Dictio
         if (cause is not null)
             fields.Add(new(Term.A(ProcessTraceNames.Cause), Term.A(cause)));
 
+        var info = new MapTerm(fields);
+        if (TraceErrorOrigin427.TryCapture(caller, info, out ErlangException nativeError)) return nativeError;
+
         return new ErlangException(ErlangErrorReasons.BadArgument)
         {
             ExplicitStackTrace = true,
-            StackTraceTerm = caller.CaptureErrorStack(Cons.From(arguments), new MapTerm(fields), function)
+            StackTraceTerm = caller.CaptureErrorStack(Cons.From(arguments), info, function)
         };
     }
 }

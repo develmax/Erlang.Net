@@ -1,0 +1,168 @@
+{
+  "Status": "CANONICAL_OPEN_OBLIGATIONS_PLAN_NOT_NEW_EXECUTION_OR_PROMOTION",
+  "ObservedUtc": "2026-10-18 18:13:39 UTC",
+  "Authorities": [
+    {
+      "Path": "docs/validation/part-377/local-checkpoint/partition-crosswalk.json"
+    },
+    {
+      "Path": "docs/validation/part-378/local-checkpoint/partition-crosswalk.json"
+    }
+  ],
+  "Counts": {
+    "Stage377Partial": 4,
+    "Stage378Partial": 9,
+    "Stage378NotExecuted": 2
+  },
+  "Owner": "Main integrator owns shared implementation/builds; helpers own independent source audits/fixtures only",
+  "Rows": [
+    {
+      "Stage": 377,
+      "Name": "transform_in_active_header",
+      "Status": "PARTIAL",
+      "Reason": "Public raw policy already refuses; later expanded-form rejection was not reached.",
+      "Dependency": "Reviewed entry to the actual production expanded-form validator; preserve raw policy.",
+      "NextVerifiableStep": "Pass hash-bound original epp forms with compile/transform attribute to the real validator; prove refusal before compiler and untouched positive-sensitive sentinel."
+    },
+    {
+      "Stage": 377,
+      "Name": "on_load_attribute",
+      "Status": "PARTIAL",
+      "Reason": "Public raw policy refuses first; later form and output defenses are distinct.",
+      "Dependency": "Actual expanded-form validator plus retained BEAM on_load output gate.",
+      "NextVerifiableStep": "Execute the actual later validator on original forms and separately retain output-image on_load refusal; do not weaken admission merely to reach it."
+    },
+    {
+      "Stage": 377,
+      "Name": "owned_stage_changes_during_child",
+      "Status": "PARTIAL",
+      "Reason": "After-snapshot mutation refused, but request-marker sampling does not prove exact native-child phase.",
+      "Dependency": "Reviewed deterministic process-start/phase observation using admitted original child.",
+      "NextVerifiableStep": "Observe child identity/alive phase, mutate owned file, and prove failed settlement preserves previous outputs/manifest and drains the owned process."
+    },
+    {
+      "Stage": 377,
+      "Name": "preprocess_compile_timeout",
+      "Status": "PARTIAL",
+      "Reason": "120-second production wrapper was tested with a test-owned worker; full original orchestration timeout was not.",
+      "Dependency": "Actual orchestration with admitted original process and a controlled bounded timeout schedule.",
+      "NextVerifiableStep": "Measure timeout through the real build orchestration, unchanged prior output/manifest and owned-process cleanup; retain descendant-proof limits and normal deadline."
+    },
+    {
+      "Stage": 378,
+      "Name": "error-class",
+      "Status": "PARTIAL",
+      "Reason": "error/1 matches; badarg/error_info variants lack full native coverage.",
+      "Dependency": "Reached BIF/import support and matched child-root fixtures.",
+      "NextVerifiableStep": "Compare whole original/managed outcomes for badarg BIF and error_info variants, including all frame arguments and locations."
+    },
+    {
+      "Stage": 378,
+      "Name": "explicit-raise",
+      "Status": "PARTIAL",
+      "Reason": "One explicit literal cooked trace passed; frame forms/error_info/invalid spines are broader.",
+      "Dependency": "Cooked erlang:raise/3 contract, separate from raw opcodes.",
+      "NextVerifiableStep": "Run valid nonstandard frame shapes, error_info and invalid stack variants against native; preserve full traces and proper-spine validation."
+    },
+    {
+      "Stage": 378,
+      "Name": "raw-raise",
+      "Status": "PARTIAL",
+      "Reason": "Valid rethrow passed; invalid-class normal badarg fallthrough was not executed.",
+      "Dependency": "Compiler witness with raw trace provenance and unknown runtime class.",
+      "NextVerifiableStep": "Compile and inventory a caught-stack raise with caller-selected class; compare valid class/reason overrides and invalid-class badarg fallthrough without cooked fallback."
+    },
+    {
+      "Stage": 378,
+      "Name": "remote-await",
+      "Status": "PARTIAL",
+      "Reason": "Managed same-owner awaited failure passed; native cross-module/entry parity is missing.",
+      "Dependency": "Matched cross-module BEAM entry, actual await/handshake and source leases.",
+      "NextVerifiableStep": "Hold a real peer receive/import await then release into failure; compare whole matched-root traces and physical cleanup."
+    },
+    {
+      "Stage": 378,
+      "Name": "native-primitive-entry",
+      "Status": "NOTEXECUTED",
+      "Reason": "Distinct entering.NativePrimitives replacement path was not exercised under a caller handler.",
+      "Dependency": "Explicit original BEAM/native primitive selection and entry observation.",
+      "NextVerifiableStep": "Reach a selected native replacement in an original image under the installed caller handler; compare full reference error and verify lease settlement."
+    },
+    {
+      "Stage": 378,
+      "Name": "trace-depth",
+      "Status": "PARTIAL",
+      "Reason": "Default trace passed; explicit 0/1/2/8 profiles were not executed.",
+      "Dependency": "Backtrace-depth controls and capture-before-unwind/raw rethrow semantics.",
+      "NextVerifiableStep": "Compare whole native/managed traces at 0/1/2/8, including depth change after capture before rethrow; never reclip saved raw trace."
+    },
+    {
+      "Stage": 378,
+      "Name": "receive-clone",
+      "Status": "NOTEXECUTED",
+      "Reason": "Same-function receive+try is currently refused; storage clone tests do not prove runtime composition.",
+      "Dependency": "Reviewed typed exceptional CFG/receive-plan composition and stable frame/tag identities.",
+      "NextVerifiableStep": "Compile actual same-function protected receive, observe message-induced clone and subsequent throw, compare full outcomes; verify timeout/cancellation separately."
+    },
+    {
+      "Stage": 378,
+      "Name": "trim-tag",
+      "Status": "PARTIAL",
+      "Reason": "Storage relocation/refusal passed; native compiled active-tag trim did not run.",
+      "Dependency": "Original-compiler witness emitting trim while a tag is live.",
+      "NextVerifiableStep": "Inventory the actual lowering, compare full caught result after relocation, and retain malformed trimmed-away-tag refusal controls."
+    },
+    {
+      "Stage": 378,
+      "Name": "deep-trampoline",
+      "Status": "PARTIAL",
+      "Reason": "Depth-8 sample is not genuinely deep trampoline/resource proof.",
+      "Dependency": "Iterative local-call/unwind path, bounded resource and owned actor cleanup.",
+      "NextVerifiableStep": "Run a declared large finite depth in original and managed; compare complete observed traces, ensure no CLR recursion/stranded frames; add cancellation cleanup."
+    },
+    {
+      "Stage": 378,
+      "Name": "cross-image-identity",
+      "Status": "PARTIAL",
+      "Reason": "Prepared source-owner identity passed; replacement/purge/multiple generations were not exercised.",
+      "Dependency": "Code-image leases, registry generation/purge protocol and held guest work.",
+      "NextVerifiableStep": "Replace/purge images during held caught work; require correct original handler image, current image for new calls and physical lease release."
+    },
+    {
+      "Stage": 378,
+      "Name": "uncaught-regression",
+      "Status": "PARTIAL",
+      "Reason": "Full 8080 regression passed, but the named broader native no-handler matrix remains separate.",
+      "Dependency": "Matched root-MFA DOWN/Completion profiles and preserved ordinary outward capture.",
+      "NextVerifiableStep": "Compare unhandled error/throw/exit plus badarg/function_clause argument metadata against original whole exit reasons; retain full frames."
+    }
+  ],
+  "AdditionalBoundariesOutsideCounts": [
+    {
+      "Name": "mixed ordinary/raw joins",
+      "Reason": "Conservative refusal; no implicit conversion or raw leak",
+      "Next": "Obtain a valid pinned-compiler witness before widening lattice/edge rules; retain refusal without such evidence."
+    },
+    {
+      "Name": "raw Nil/manual opaque payloads",
+      "Reason": "Not covered by compiler-derived captured trace profile",
+      "Next": "Review exact pinned source and loader admissibility first; never manufacture unsafe trace state or accept cooked fallback."
+    },
+    {
+      "Name": "stale/unloaded tail fun dispatch",
+      "Reason": "Live callable/arity preflight does not prove purged source-entry/error-handler behavior",
+      "Next": "Matched lifecycle fixtures for retained fun across load/purge; compare complete source frames using narrowly declared own-VM identity rules."
+    }
+  ],
+  "SuggestedDependencyGroups": [
+    "Small exception source companions: badarg/error_info, cooked raise forms, invalid raw class, uncaught/depth profiles",
+    "Shared runtime composition: receive+try, cross-module await, native entry, active-tag trim",
+    "Resource/lifecycle scale: deep trampoline, cross-image/purge and stale fun",
+    "Build control-plane coverage: expanded defenses, native-phase mutation and original orchestration timeout"
+  ],
+  "Packaging379DoesNotCloseThese": true,
+  "Publication": false,
+  "ExecutionByObserver": false,
+  "SourceCoordinationSha256": "6A4EAFDE8A63BCC7A3F502467FBCFE05052ADB25C92CEB25B7F39E46641A015B",
+  "Scope": "379 resource packaging does not close these obligations. Each status changes only with separately bound evidence."
+}

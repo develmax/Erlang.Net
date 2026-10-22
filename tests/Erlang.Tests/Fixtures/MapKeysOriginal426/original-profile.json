@@ -1,0 +1,57 @@
+{
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Bindings": [
+    {
+      "Path": "artifacts/spawn-priority351-preparation/execute-root.py",
+      "Sha256": "C66ACEC6FFE57C57EFAABC96FD1DB00598D7AAD7D05C2EA814A146B759D4171A"
+    },
+    {
+      "Path": "artifacts/library377-native-controls1/run-native-controls.py",
+      "Sha256": "C097FDF1F1307220916935FDAD3E0483CC676E4EEB136581B632ACF6347F206F"
+    },
+    {
+      "Path": "tools/Erlang.NifTermCallbackOriginalObservations/passive_etf.py",
+      "Sha256": "9C3204CB29755C508D05B611EA02B3A3186F83B40A72BF6EEC366242040432EE"
+    },
+    {
+      "Path": "artifacts/library376-official-compiler/official-admission.json",
+      "Sha256": "41CCC2FDE5493D85BEAA21996E12D0885D2919B0D4BF44137D0673DCDC9D5EA6"
+    },
+    {
+      "Path": "artifacts/library384-inventory.py",
+      "Sha256": "075068A19E2FB2BDA30374B1558BB6536A67B87F163C87B1DBDA73734C1AC397"
+    },
+    {
+      "Path": "artifacts/library381-functional-audit1/passive-inventory.py",
+      "Sha256": "7866257D1CC741763708F809BE6CD3455B283A4888E247B565F1F21B95EF965C"
+    }
+  ],
+  "Cases": [
+    "empty",
+    "one",
+    "numeric32",
+    "mixed_numbers",
+    "nested_keys",
+    "large33",
+    "large64",
+    "bad_integer",
+    "bad_float",
+    "bad_atom",
+    "bad_nil",
+    "bad_list",
+    "bad_tuple",
+    "bad_binary",
+    "bad_bits"
+  ],
+  "OwnCases": [
+    "repeat_identity",
+    "atom_storage",
+    "key_identity"
+  ],
+  "Sources": [
+    {
+      "Path": "original/beam_map_keys426.erl",
+      "Sha256": "C792F754AE78D03D02193428AB7DD4B706E12E72B167B1372D8BD41E3CDCE81E"
+    }
+  ]
+}

@@ -25,6 +25,7 @@ internal static class WindowsPortParameters
     public const int ExitPollMilliseconds = 10;
     public const int StreamBufferBytes = 4096;
     public const int PathBufferCharacters = 32768;
+    public const string CurrentDirectorySearchPath = ".";
     public const string ExecutableExtension = ".exe";
     public static readonly string[] SearchExtensions = [string.Empty, ".com", ExecutableExtension, ".bat"];
 }

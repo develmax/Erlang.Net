@@ -1,0 +1,330 @@
+{
+  "Stage": 379,
+  "Status": "LOCAL_SCOPED_APPLICATION_RESOURCES_CHECKPOINT",
+  "Whole16Accepted": false,
+  "PartitionCounts": {
+    "FULL": 14,
+    "PARTIAL": 2
+  },
+  "ApiDelta": 0,
+  "FullContractDelta": 0,
+  "RegisteredApis": 699,
+  "CompleteContracts": 118,
+  "KnownDifferences": 30,
+  "NeedsVerification": 551,
+  "Tests": {
+    "Passed": 8081,
+    "Failed": 0,
+    "FreshExecution": true,
+    "PreservedOrderedNames": 8080,
+    "Added": 1,
+    "Seconds": 381.0
+  },
+  "IntegrationOutcomes": 11,
+  "LocalPackages": 2,
+  "ProductionSourceGuards": 570,
+  "ToolSha256": "7F9B14E7F04AD23D9A9C10B5B6A2E71BA714AD2E17A1B7B5916155944A7BFC53",
+  "DotNetRuntimeSha256": "897181D2747427D534BBA6727D3FAAAB6D21B359CBD02753D0B5E96DBA083146",
+  "OriginalRuntimeSha256": "D91699E88F417E00470D224934D47CD92358CC1B3B37CA1F15BCF5D4731D8F4E",
+  "PriorCheckpointsPreserved": [
+    {
+      "Stage": 373,
+      "Path": "docs/validation/part-373/local-completion/frozen-runtime-checkpoint.json",
+      "Sha256": "F203100C0D9F22630CFB6BB2B0C453202807C66B604CFCC04249D4F0EC38F702"
+    },
+    {
+      "Stage": 374,
+      "Path": "docs/validation/part-374/local-completion/frozen-runtime-checkpoint.json",
+      "Sha256": "1ADFAD18A12ECD0519D0EC78852A03826BAA3CD4108483BFF4069958541361D5"
+    },
+    {
+      "Stage": 375,
+      "Path": "docs/validation/part-375/local-completion/frozen-runtime-checkpoint.json",
+      "Sha256": "B4EE08C68EDB2F8D9724E8FF013B43818B758A089251CE992517266F23C6AC2B"
+    },
+    {
+      "Stage": 376,
+      "Path": "docs/validation/part-376/local-completion/frozen-runtime-checkpoint.json",
+      "Sha256": "5716A28F3554AF981CD31BD56E010E5B3F16EEF954032B6E5E0793B4811A937E"
+    },
+    {
+      "Stage": 377,
+      "Path": "docs/validation/part-377/local-checkpoint/frozen-runtime-checkpoint.json",
+      "Sha256": "775D7A2907D33D5800B82CECBDC5493CDEE15496E5A97202BAFA40AA7A4ACE9B"
+    },
+    {
+      "Stage": 378,
+      "Path": "docs/validation/part-378/local-checkpoint/frozen-runtime-checkpoint.json",
+      "Sha256": "8FBD2BC89D1E1B9E35E56019D3669CA6859793B5512DBACD432A58150E5CF1C1"
+    }
+  ],
+  "ProcessReceipts": [
+    {
+      "Path": "artifacts/binary-integration369/library379-halt-final-solution-build1/execution.exit.json",
+      "Sha256": "B9DDCD80F8041BFCA7390C54D683039BC8CDC35F0D47B206694DA430F5FBEE36"
+    },
+    {
+      "Path": "artifacts/binary-integration369/library379-halt-focused1/execution.exit.json",
+      "Sha256": "63720339DAC10AF14028B425D93008F1B511AF3E49E772325C34BFB0BE775709"
+    },
+    {
+      "Path": "artifacts/binary-integration369/library379-final-full2/execution.exit.json",
+      "Sha256": "FCFCC95915E54586BD91E7D339BE26241D238D1F668BB14400091A719385841E"
+    },
+    {
+      "Path": "artifacts/binary-integration369/library379-input-probe-final2/execution.exit.json",
+      "Sha256": "CF8595092C3FF2C6CB43C9F48223CF394B50EA7A572C892B0F2287E241F21EE7"
+    },
+    {
+      "Path": "artifacts/binary-integration369/library379-parsed-probe-final2/execution.exit.json",
+      "Sha256": "6CFD63D56B31E713DA1CA2D9A87B22D61216772A627E433571AB56AB7046F3F1"
+    },
+    {
+      "Path": "artifacts/binary-integration369/library379-cli-acceptance3/execution.exit.json",
+      "Sha256": "A1256D1284E76ABA2DF356F1EE99FAEDDF5FC92A17B4EC5B72DDC6BEC53AA199"
+    },
+    {
+      "Path": "artifacts/binary-integration369/library379-source-cli-regression2/execution.exit.json",
+      "Sha256": "0FBE9BC92550128053BD5602B540AA4C81E0DEBCF48926B8D2019970E40E1AAF"
+    },
+    {
+      "Path": "artifacts/binary-integration369/library379-msbuild-acceptance2/execution.exit.json",
+      "Sha256": "BF159B3D1A4237040F59330CE9C15B9248E51DDF2C71F5FFF2D74678310CA718"
+    },
+    {
+      "Path": "artifacts/binary-integration369/library379-child-mutation2/execution.exit.json",
+      "Sha256": "9CDDCF56547426B88FA57F384E2C7DCB3D06AE826EE5062ADDC21CF12F7F794D"
+    },
+    {
+      "Path": "artifacts/binary-integration369/library379-extra-contracts2/execution.exit.json",
+      "Sha256": "9C5B5AF0C2C8DEF47A910A7AEB8EC8DE96DE89AB36A1D748EBA4D0D5D60518F3"
+    },
+    {
+      "Path": "artifacts/binary-integration369/library379-package-suffix3/execution.exit.json",
+      "Sha256": "D494DE8E21E8FECD79DBF51618A49E107255B5261A2DB09AA66B23DA191EBD01"
+    },
+    {
+      "Path": "artifacts/binary-integration369/library379-cold-package3/execution.exit.json",
+      "Sha256": "F0EDE0A4C15289B3D717E987EA0037CAD9F826235CE84C4F896F1178DBB841BE"
+    },
+    {
+      "Path": "artifacts/binary-integration369/library379-final-report-gates2/execution.exit.json",
+      "Sha256": "EE54309D08844DA712D91FA304BA07680842C0CDE09DA14D1FA1BB04C5A7F596"
+    }
+  ],
+  "Publication": false,
+  "Bindings": [
+    {
+      "Path": "API_COMPATIBILITY.md",
+      "Sha256": "EC97AF70773A60F54DC8113655F1C89B6386AF8E70BD31DDCF06134E7B22D947"
+    },
+    {
+      "Path": "canonical-tests.json",
+      "Sha256": "6B37D6D0C51B1C9822DC6F0D6CC2D688048EC75A39843C5A16C52CE95D2CE17C"
+    },
+    {
+      "Path": "child-mutation2.json",
+      "Sha256": "970E6E948ACA3D01E25685D44E9699518F63754B17DF86C0685A37ABD9826227"
+    },
+    {
+      "Path": "cli16.json",
+      "Sha256": "10B0954CA6010EB6BA9CEFF383DDA6E59FAC752199998AA67BE91D9A25C4CB90"
+    },
+    {
+      "Path": "cold-package6.json",
+      "Sha256": "6E49CA228C4450DF1187C0C77F4C66E4AB03F3B0195CF072E36F9BCFCF0F7D73"
+    },
+    {
+      "Path": "extra5.json",
+      "Sha256": "128D8E0D10075617391EF2AABC266A68CBB3B5F9627C43158597A77F69BDDE73"
+    },
+    {
+      "Path": "failed-cold-package-noop-analysis.json",
+      "Sha256": "1E3F310CC4DA157E9478BE662BC2195B0D99CF010D3E5CC95722FB1CB84CD59E"
+    },
+    {
+      "Path": "failed-pre-fix-full.json",
+      "Sha256": "3319333D383E1A16B3DC5DFBDE3569B92FF6342D21498BD702789C5EC5ECB916"
+    },
+    {
+      "Path": "final-report-gates.json",
+      "Sha256": "859A232BD2ABCF45C3F981F4AF7A9BA271BF17BD0605D11784F2E963BA1BBB2F"
+    },
+    {
+      "Path": "frozen-runtime-checkpoint.json",
+      "Sha256": "585CFDF97BBBBB3107B5CE2B35C15C3F0F1C5DB5900AD95A343C07EA7C947E83"
+    },
+    {
+      "Path": "halt-election-authority.json",
+      "Sha256": "F9C677743CD6F8A4D50A32881459FF71A14A186EBDBB20540EB69EF808FF7C79"
+    },
+    {
+      "Path": "halt-election-source-review.json",
+      "Sha256": "AC5261E676D72BF9311893E65A02C4E20110B8879D5F0041C9EC7F2812D3F51F"
+    },
+    {
+      "Path": "halt-focused4.json",
+      "Sha256": "DFA6627E63D1B60D99227C4A23FF00485BB243D11938F0CE689C3A89E5F374B9"
+    },
+    {
+      "Path": "halt-old-witness.json",
+      "Sha256": "5D77731649670E3F4E0237F66399639FCE32AA9E5EE3CFE0853305AF998F7E6B"
+    },
+    {
+      "Path": "halt-test-source-bindings.json",
+      "Sha256": "69AF104B4DBE6BBE1BC44B0837B08DB97038AD4EB8DAD1EAFA374DCDFEFA2110"
+    },
+    {
+      "Path": "input40.json",
+      "Sha256": "E7677545AE6C1CAC0421E992906DAA46B96AF21B79FC81D8F5A4C948BCF7A7D3"
+    },
+    {
+      "Path": "integration-results.json",
+      "Sha256": "6C7FB5008569A7621DBA3AA2A5ABFC6C90323A4F48EE4732DEF3FB412C0B9AE9"
+    },
+    {
+      "Path": "module-readiness.json",
+      "Sha256": "6993AF867AFBA7B827D24250C85EA4E6AB1961F7F30D522A81AA89DA8C6DE8B9"
+    },
+    {
+      "Path": "MODULE_READINESS.md",
+      "Sha256": "7C0057CEC3DB969EA8926F80F796354AEECD77A21C419CBF55462D10FB7145F0"
+    },
+    {
+      "Path": "msbuild7.json",
+      "Sha256": "A606C85F078F946CF13810B7004A6D10B1659B78FC9261AFFA3668539B12CAE4"
+    },
+    {
+      "Path": "native-infrastructure.json",
+      "Sha256": "AAA25ED168B822482362FEED111C2D6851639EDE69BEE59A24F3AA57324B5E83"
+    },
+    {
+      "Path": "native-infrastructure.md",
+      "Sha256": "D7ABCCD6575AF3F0F8A6D78D66CC3D1298EB9D32ACDCF2DB9305D1ED5EB2BBDE"
+    },
+    {
+      "Path": "native-parser5.json",
+      "Sha256": "F6F83E8E87D926D40A8C30388A21C47F9CC9235CDA29A3034740FC18310C12F2"
+    },
+    {
+      "Path": "native-source-authority.json",
+      "Sha256": "B9BA13803EB400D8930C52AD0B54239BC7A3E94258DCC5F9E1E42595B7A3E6CF"
+    },
+    {
+      "Path": "original-parser-packets/concrete-app.etf",
+      "Sha256": "BA4BDCEEF8B2895C16B9FFACFFF28EE098495734A13A4CC43DBB5B30281B0398"
+    },
+    {
+      "Path": "original-parser-packets/concrete-appsrc.etf",
+      "Sha256": "BA4BDCEEF8B2895C16B9FFACFFF28EE098495734A13A4CC43DBB5B30281B0398"
+    },
+    {
+      "Path": "original-parser-packets/descriptor-two-terms.etf",
+      "Sha256": "F2B7A5C79460DB838AB9816A9A66AD067AEE236539EF1C2AB4A25F97343226E2"
+    },
+    {
+      "Path": "original-parser-packets/malformed-config.etf",
+      "Sha256": "912F9BD442C5273E1865F6B297156309C923A6C9BF34DBE6250BF71FA2E5A83E"
+    },
+    {
+      "Path": "original-parser-packets/nonliteral-descriptor.etf",
+      "Sha256": "A0537BC17D63FA3996514BD413395BAC5430BB05882E286849AECD40CF04D3FB"
+    },
+    {
+      "Path": "owned-process-receipts/library379-child-mutation2.json",
+      "Sha256": "9CDDCF56547426B88FA57F384E2C7DCB3D06AE826EE5062ADDC21CF12F7F794D"
+    },
+    {
+      "Path": "owned-process-receipts/library379-cli-acceptance3.json",
+      "Sha256": "A1256D1284E76ABA2DF356F1EE99FAEDDF5FC92A17B4EC5B72DDC6BEC53AA199"
+    },
+    {
+      "Path": "owned-process-receipts/library379-cold-package1.red.json",
+      "Sha256": "34D1CF4D6E7F4211DCDF8EB63522FF4A98B230E9678B2B3B3C469B1FEFBE85B8"
+    },
+    {
+      "Path": "owned-process-receipts/library379-cold-package3.json",
+      "Sha256": "F0EDE0A4C15289B3D717E987EA0037CAD9F826235CE84C4F896F1178DBB841BE"
+    },
+    {
+      "Path": "owned-process-receipts/library379-extra-contracts2.json",
+      "Sha256": "9C5B5AF0C2C8DEF47A910A7AEB8EC8DE96DE89AB36A1D748EBA4D0D5D60518F3"
+    },
+    {
+      "Path": "owned-process-receipts/library379-final-full1.red.json",
+      "Sha256": "C1A01EBAEB6F1A957ACA3A6216EEAC7BBFE789BF1D0F2CD30EE9EFAD2B5D36CA"
+    },
+    {
+      "Path": "owned-process-receipts/library379-final-full2.json",
+      "Sha256": "FCFCC95915E54586BD91E7D339BE26241D238D1F668BB14400091A719385841E"
+    },
+    {
+      "Path": "owned-process-receipts/library379-final-report-gates2.json",
+      "Sha256": "EE54309D08844DA712D91FA304BA07680842C0CDE09DA14D1FA1BB04C5A7F596"
+    },
+    {
+      "Path": "owned-process-receipts/library379-halt-final-solution-build1.json",
+      "Sha256": "B9DDCD80F8041BFCA7390C54D683039BC8CDC35F0D47B206694DA430F5FBEE36"
+    },
+    {
+      "Path": "owned-process-receipts/library379-halt-focused1.json",
+      "Sha256": "63720339DAC10AF14028B425D93008F1B511AF3E49E772325C34BFB0BE775709"
+    },
+    {
+      "Path": "owned-process-receipts/library379-halt-old-witness1.red.json",
+      "Sha256": "08FE8ED49DA120B97358CAC5421A03D843703BAFB72B4EE370345F8F933CADED"
+    },
+    {
+      "Path": "owned-process-receipts/library379-input-probe-final2.json",
+      "Sha256": "CF8595092C3FF2C6CB43C9F48223CF394B50EA7A572C892B0F2287E241F21EE7"
+    },
+    {
+      "Path": "owned-process-receipts/library379-input-probe-run1.red.json",
+      "Sha256": "8E762997596703EA2503A56624FECB41853654B120B92B5D01DC0B9DDDACCB75"
+    },
+    {
+      "Path": "owned-process-receipts/library379-msbuild-acceptance2.json",
+      "Sha256": "BF159B3D1A4237040F59330CE9C15B9248E51DDF2C71F5FFF2D74678310CA718"
+    },
+    {
+      "Path": "owned-process-receipts/library379-package-suffix2.red.json",
+      "Sha256": "9A8BBD706051949F6A238A50FEFC7A1014F65911D7FBB93E555C205699BCFEA4"
+    },
+    {
+      "Path": "owned-process-receipts/library379-package-suffix3.json",
+      "Sha256": "D494DE8E21E8FECD79DBF51618A49E107255B5261A2DB09AA66B23DA191EBD01"
+    },
+    {
+      "Path": "owned-process-receipts/library379-parsed-probe-final2.json",
+      "Sha256": "6CFD63D56B31E713DA1CA2D9A87B22D61216772A627E433571AB56AB7046F3F1"
+    },
+    {
+      "Path": "owned-process-receipts/library379-source-cli-regression2.json",
+      "Sha256": "0FBE9BC92550128053BD5602B540AA4C81E0DEBCF48926B8D2019970E40E1AAF"
+    },
+    {
+      "Path": "parsed41.json",
+      "Sha256": "79F9DE34C6879B4D422D36EE32CDAD5E073DA4C1F9A2EE9B4F997325163E862D"
+    },
+    {
+      "Path": "partition-crosswalk.json",
+      "Sha256": "66C75DBD5E6FA406F78B12807268192BB7EFA2CDBB9BEFBCF39453D134E7539B"
+    },
+    {
+      "Path": "README.md",
+      "Sha256": "551DE18149EE0131E959481521970E9CE0B525C5762EADB8D5F764A7AAC2EE05"
+    },
+    {
+      "Path": "runtime-test-build-sources.zip",
+      "Sha256": "21651314742F7D1A69DFF72C0D86065BBD895FEB8E5AF193DF9FA308F30B6B50"
+    },
+    {
+      "Path": "source-cli5.json",
+      "Sha256": "40C35252960B0272A326BC9115257DEAEE53BC324D207FC318A932AA2F6EFBF3"
+    },
+    {
+      "Path": "structural-gates.json",
+      "Sha256": "458AAFF12AA37B2BE6893BB5F00BF54F5BEDF04437DF4C2DC0408741A2ADB4C6"
+    }
+  ]
+}

@@ -2,6 +2,9 @@ namespace Erlang;
 
 internal static class EtfTags
 {
+    public const byte AtomCacheReference = 82;
+    public const byte InternalAtomReference2 = 73;
+    public const byte InternalAtomReference3 = 75;
     public const byte Record = 67;
     public const byte Binary = 109;
     public const byte BitBinary = 77;

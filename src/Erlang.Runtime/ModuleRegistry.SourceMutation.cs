@@ -277,6 +277,9 @@ public sealed partial class ModuleRegistry
     private bool FinishPurgeCore(SourcePurgeFenceSession session, bool complete, out bool release)
     {
         release = false;
+        // A rejected on_load image has no source-level soft-abort route.
+        // Internal owner shutdown retires it and restores the saved actual old image.
+        complete |= session.OnLoad432 is not null;
         lock (gate)
         {
             if (!ReferenceEquals(session.Registry, this)
@@ -297,6 +300,7 @@ public sealed partial class ModuleRegistry
                 _ = QueueNifRetirement(session.Image);
                 oldCode.Remove(session.Module);
                 state.Retired = true;
+                RestoreSavedOld432(session);
             }
             state.Pending = null;
             sourcePurgeSessions.Remove(session.Image);

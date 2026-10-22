@@ -46,6 +46,8 @@ internal static class ProplistIteratorHostChecks
                     Term input = await Execution.EvaluateAsync(new Parser(row.Input).ParseExpression(), context);
                     Term expected = row.Expected is null ? Term.Tuple(Term.A(ProplistIteratorTestNames.BadMap), input)
                         : await Execution.EvaluateAsync(new Parser(row.Expected).ParseExpression(), context);
+                    if (row.Expected is not null)
+                        expected = ProplistFlatCursorExpectation.ForProfile(file, expected);
                     Term outcome = row.Expected is null
                         ? Term.Tuple(Term.A(ProplistIteratorTestNames.Error), Term.A(ProplistIteratorTestNames.Error), expected)
                         : Term.Tuple(Term.A(ProplistIteratorTestNames.Ok), expected);

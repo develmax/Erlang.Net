@@ -204,6 +204,8 @@ public sealed partial class ModuleRegistry
                 return codeImages[module];
             if (oldCode.TryGetValue(module, out var old) && old.SourceOwners.Any(value => ReferenceEquals(value, owner)))
                 return old.Image;
+            if (SavedOldCode432(module) is { } saved && saved.SourceOwners.Any(value => ReferenceEquals(value, owner)))
+                return saved.Image;
 
             return null;
         }
@@ -298,7 +300,12 @@ public sealed partial class ModuleRegistry
             if (body is null)
             {
                 if (!functions.TryGetValue((selectedHandler.Name, ProcessErrorHandlerNames.UndefinedFunction, ProcessErrorHandlerNames.Arity), out body))
-                    throw new ErlangException(ErlangErrorReasons.UndefinedFunction);
+                    throw context.CaptureCallFailure(
+                        new ErlangException(ErlangErrorReasons.UndefinedFunction),
+                        module,
+                        function,
+                        arguments
+                    );
                 arguments = [Term.A(module), Term.A(function), Cons.From(arguments)];
                 module = selectedHandler.Name;
                 function = ProcessErrorHandlerNames.UndefinedFunction;
@@ -546,6 +553,8 @@ public sealed partial class ModuleRegistry
         {
             ThrowIfSourceClosing();
             PublishModule(module);
+            if (descriptor.SourceOwner is ISourceLocalFunctionResolver sourceFunctions)
+                RecordSourceFunEntries(sourceFunctions);
             codeDescriptors[module] = descriptor;
             informationSnapshots.Remove(module);
         }
@@ -570,6 +579,10 @@ public sealed partial class ModuleRegistry
                 if (descriptor is null && entries.Length == 0)
                     throw new ErlangException(ErlangErrorReasons.BadArgument);
                 var exports = entries.Select(entry => entry.Signature).ToArray();
+                if (currentImage?.ExecutionOwner is PreparedBeamImage prepared
+                    && ReferenceEquals(currentImage, prepared.ExecutionIdentity.Image))
+                    exports = prepared.Code.Exports.Reverse().Select(export => (export.Name, export.Arity))
+                        .Where(signature => exports.Contains(signature)).Concat(exports).Distinct().ToArray();
                 var signatures = descriptor is null ? exports : descriptor.Functions.Concat(exports);
                 var additional = descriptor is null ? entries : entries.Where(entry => !descriptor.Exports.Contains(entry.Signature)).ToArray();
                 BitString fingerprint = descriptor is not null && additional.Length == 0 ? descriptor.Fingerprint : ModuleCodeFingerprints.Registered(module, additional, descriptor?.Fingerprint);
@@ -700,12 +713,14 @@ public sealed partial class ModuleRegistry
                 var previousOld = new Dictionary<string, ModuleCodeSnapshot>(oldCode, StringComparer.Ordinal);
                 var previousOwners = new Dictionary<(string Module, string Function, int Arity), object>(sourceOwners);
                 var previousImages = new Dictionary<string, ModuleCodeImage>(codeImages, StringComparer.Ordinal);
+                var previousBootstrapTtyImage = bootstrapTtyImage;
                 try
                 {
                     configure(this);
                 }
                 catch
                 {
+                    bootstrapTtyImage = previousBootstrapTtyImage;
                     runtimeErrorBindings.Clear();
                     foreach (var entry in previousNativeErrors)
                         runtimeErrorBindings.Add(entry.Key, entry.Value);

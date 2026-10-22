@@ -37,13 +37,18 @@ public sealed partial class RuntimeDistributionPending
             {
                 if (entries.Count >= MaximumNodes)
                     throw new InvalidOperationException(DistributionPendingDiagnostics.Capacity);
-                entry = new(
+                var identity = runtime.GetDistributionEntryIdentity(remoteNode);
+                entry = identity.PendingEntry ?? new(
                     this,
                     runtime.ReferenceResources,
-                    remoteNode,
+                    identity,
                     unchecked((uint)Stopwatch.GetTimestamp()) & DistributionHandleLayout.ConnectionIdMask
                 );
-                entry.Reference = runtime.ReferenceResources.CreateDistributionEntry(entry);
+                if (identity.PendingEntry is null)
+                {
+                    entry.Reference = runtime.ReferenceResources.CreateDistributionEntry(entry);
+                    identity.PendingEntry = entry;
+                }
                 entries.Add(remoteNode.Name, new(entry));
             }
             if (entry.State == DistributionPendingState.Idle)
@@ -311,6 +316,7 @@ public sealed partial class RuntimeDistributionPending
 
     private void SweepIdle()
     {
+        runtime.SweepDistributionEntryIdentities();
         foreach (var pair in entries.ToArray())
             if (!pair.Value.TryGetTarget(out _))
                 entries.Remove(pair.Key);

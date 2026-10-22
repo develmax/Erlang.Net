@@ -2,6 +2,9 @@ namespace Erlang.Compiler;
 
 public sealed partial record ModuleDefinition
 {
+    IReadOnlyList<(LocalFunctionIdentity Identity, int Arity)> ISourceLocalFunctionResolver.LocalFunctionIdentities()
+        => LocalFunctionEntries.Identities(this);
+
     LocalFunctionIdentity? ISourceLocalFunctionResolver.ResolveLocalIdentity(LocalFunctionIdentity identity, int arity)
         => LocalFunctionEntries.Resolve(this, identity, arity)?.Identity;
 

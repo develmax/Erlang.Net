@@ -12,7 +12,12 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
     public Term Open(ProcessContext owner, Term specification, Term settings)
     {
         runtime.ThrowIfHalted();
-        PortOpenOptions options = PortOpenOptions.Parse(specification, settings);
+        PortOpenOptions options = PortOpenOptions.Parse(
+            specification,
+            settings,
+            runtime.OsEnvironment,
+            owner.Cancellation
+        );
         var operation = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         lock (gate)
         {
@@ -80,24 +85,29 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
 
     private RuntimePort Require(Term identity) => Find(identity) ?? throw new ErlangException(ErlangErrorReasons.BadArgument);
 
-    public bool Alive(PortTerm identity) => ports.ContainsKey(identity);
+    public bool Alive(PortTerm identity) => ports.ContainsKey(identity) || runtime.DriverFrontendForPort422(identity) is not null;
 
     public Term Snapshot()
     {
         lock (gate)
-            return Cons.From(ports.Keys);
+        {
+            PortTerm[] native = runtime.DriverPortSnapshot422();
+
+            return native.Length == 0 ? Cons.From(ports.Keys) : Cons.From(ports.Keys.Concat(native));
+        }
     }
 
     public Term GetData(Term identity)
     {
         lock (gate)
-            return Require(identity).Data;
+            return runtime.DriverFrontendForPort422(identity) is { } native ? native.GetPortData(identity) : Require(identity).Data;
     }
 
     public Term SetData(Term identity, Term data)
     {
         lock (gate)
-            Require(identity).Data = data;
+            if (runtime.DriverFrontendForPort422(identity) is { } native) native.SetPortData(identity, data);
+            else Require(identity).Data = data;
 
         return Term.A(ErlangBooleanAtoms.True);
     }
@@ -105,13 +115,15 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
     public Term Close(Term identity)
     {
         lock (gate)
-            Close(Require(identity), Term.A(ProcessExitReasons.Normal));
+            if (runtime.DriverFrontendForPort422(identity) is { } native) native.QueueClosePort(identity);
+            else Close(Require(identity), Term.A(ProcessExitReasons.Normal));
 
         return Term.A(ErlangBooleanAtoms.True);
     }
 
     public ValueTask<Term> CloseOrdered(Term identity, CancellationToken cancellation = default)
     {
+        if (runtime.DriverFrontendForPort422(identity) is { } native) return native.ClosePort(identity, cancellation);
         Task<Term> operation;
         lock (gate)
         {
@@ -144,6 +156,12 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
 
     public async ValueTask AwaitCommands(Term identity, CancellationToken cancellation = default)
     {
+        if (runtime.DriverFrontendForPort422(identity) is { } native)
+        {
+            await native.AwaitPortCommands(identity, cancellation);
+
+            return;
+        }
         Task previous;
         lock (gate)
             previous = Find(identity)?.Commands ?? Task.CompletedTask;
@@ -206,6 +224,11 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
 
     public Term Connect(Term identity, Term destination)
     {
+        if (runtime.DriverFrontendForPort422(identity) is not null)
+        {
+            if (destination is not Pid target || !runtime.DriverTargetAlive422(target)) throw new ErlangException(ErlangErrorReasons.BadArgument);
+            throw new NotSupportedException(NativeDriverPortNames422.ConnectUnsupported);
+        }
         lock (gate)
         {
             RuntimePort port = Require(identity);
@@ -220,6 +243,12 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
 
     public void Link(ProcessContext owner, PortTerm identity, bool priority = false)
     {
+        if (runtime.DriverFrontendForPort422(identity) is { } native)
+        {
+            native.LinkPort(owner, identity, priority);
+
+            return;
+        }
         lock (gate)
         {
             if (identity.Node != runtime.Node)
@@ -245,6 +274,12 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
 
     public void Unlink(ProcessContext owner, PortTerm identity)
     {
+        if (runtime.DriverFrontendForPort422(identity) is { } native)
+        {
+            native.UnlinkPort(owner, identity);
+
+            return;
+        }
         lock (gate)
         {
             if (identity.Node != runtime.Node)
@@ -272,6 +307,7 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
 
     public Term Info(Term identity, Term? item)
     {
+        if (runtime.DriverFrontendForPort422(identity) is { } native) return native.PortInfo(identity, item);
         lock (gate)
         {
             if (identity is not Atom && (identity is not PortTerm foreign || foreign.Node != runtime.Node))
@@ -324,6 +360,19 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
         ProcessContext? caller = null
     )
     {
+        var nativeFlags = ParseCommandFlags(flags);
+        if (runtime.DriverFrontendForPort422(identity) is { } native)
+        {
+            if (caller is null) throw new NotSupportedException(NativeDriverPortNames422.CallerRequired);
+
+            return await native.Command(
+                caller,
+                identity,
+                data,
+                nativeFlags.NoSuspend,
+                nativeFlags.Force
+            );
+        }
         await AwaitCommands(identity, caller?.Cancellation ?? CancellationToken.None);
 
         return await CommandCore(
@@ -334,16 +383,8 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
         );
     }
 
-    private async ValueTask<Term> CommandCore(
-        Term identity,
-        Term data,
-        Term flags,
-        bool accepted = false,
-        ProcessContext? caller = null
-    )
+    private static (bool NoSuspend, bool Force) ParseCommandFlags(Term flags)
     {
-        if (!accepted)
-            runtime.ThrowIfHalted();
         bool noSuspend = false;
         bool force = false;
         Term[] flagItems;
@@ -366,6 +407,21 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
                 throw new ErlangException(PortNames.BadOption);
             noSuspend = true;
         }
+
+        return (noSuspend, force);
+    }
+
+    private async ValueTask<Term> CommandCore(
+        Term identity,
+        Term data,
+        Term flags,
+        bool accepted = false,
+        ProcessContext? caller = null
+    )
+    {
+        if (!accepted)
+            runtime.ThrowIfHalted();
+        (bool noSuspend, bool force) = ParseCommandFlags(flags);
         RuntimePort port;
         lock (gate)
             port = Require(identity);
@@ -576,6 +632,12 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
 
     public void SendExit(ProcessContext sender, PortTerm identity, Term reason)
     {
+        if (runtime.DriverFrontendForPort422(identity) is { } native)
+        {
+            native.QueuePortExit(identity, reason.Equals(Term.A(ProcessExitSignals.Kill)) ? Term.A(ProcessExitReasons.Killed) : reason);
+
+            return;
+        }
         lock (gate)
         {
             if (identity.Node != runtime.Node)
@@ -610,6 +672,7 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
         ProcessContext? caller = null
     )
     {
+        if (runtime.DriverFrontendForPort422(identity) is not null) throw new NotSupportedException(NativeDriverPortNames422.RawMessageUnsupported);
         while (true)
         {
             Task? wait;
@@ -645,6 +708,7 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
 
     public Term Send(Term identity, Term message)
     {
+        if (runtime.DriverFrontendForPort422(identity) is not null) throw new NotSupportedException(NativeDriverPortNames422.RawMessageUnsupported);
         lock (gate)
         {
             RuntimePort? port = Find(identity);

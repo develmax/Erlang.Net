@@ -43,6 +43,26 @@ public static class AtomNameRegistry
         return name;
     }
 
+    // The authoritative registration ordinal is already stored in names. No second
+    // reverse cache or guessed OTP index is introduced by this diagnostic path.
+    internal static bool TryNameAt423(int index, out string name)
+    {
+        lock (gate)
+        {
+            if ((uint)index < (uint)names.Count)
+                foreach (var entry in names)
+                    if (entry.Value == index)
+                    {
+                        name = entry.Key;
+
+                        return true;
+                    }
+        }
+        name = string.Empty;
+
+        return false;
+    }
+
     public static int Count => names.Count;
 
     public static bool Exists(string name) => names.ContainsKey(name);

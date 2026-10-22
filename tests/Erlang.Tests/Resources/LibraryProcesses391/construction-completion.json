@@ -1,0 +1,123 @@
+{
+  "Passed": true,
+  "Failure": null,
+  "Phase": "captured-not-compared",
+  "OriginalPin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Provider": "Genuine admitted local Windows OTP-29.1.1",
+  "ProfileSha256": "7E587AA9EC641FC0D62C89AFF749CA4DBECC126D13BAB1CF738113E4217A5525",
+  "OfficialAdmissionSha256": "41CCC2FDE5493D85BEAA21996E12D0885D2919B0D4BF44137D0673DCDC9D5EA6",
+  "ImageManifestSha256": "E1966F92B22010BE9FE703F34F2B7DF55B9CD3CB6C3E4950309429711C6AD5C3",
+  "CompanionImages": [
+    {
+      "Module": "lists",
+      "Sha256": "8941092DC34F0470CD404979E1890DF514D83F2EEB3B0AA8A276553E76471262"
+    },
+    {
+      "Module": "string",
+      "Sha256": "37C66C6A5DF38AE239CA1EEDEDBD2CE2FBC4B8B4F3EB7605E115D0AB73FDA697"
+    },
+    {
+      "Module": "unicode_util",
+      "Sha256": "5CDC886E30216B5DE33B6F4BDC1DEA006EAA3392EC4A83EC90CD7B946B5759FF"
+    },
+    {
+      "Module": "beam_construct_order391",
+      "Sha256": "C0C435379ADBE71F897E45BB8F057F1C902DE12ADACEFF2423F50E1C23E0BEE8"
+    }
+  ],
+  "ActualChildRoot": "beam_construct_order391:worker/1",
+  "SameCompiledSourceBothProviders": true,
+  "ExpectedValues": 4,
+  "ExpectedStackProfiles": 20,
+  "ExpectedWholeComparisons": 24,
+  "WholeTermsAndStacks": true,
+  "FrameProjectionOrNormalization": false,
+  "ApiOrContractPromotions": 0,
+  "Files": [
+    {
+      "Path": "closure-checks.json",
+      "Sha256": "A11543F8CE4E5D85B486551766767605CF39FD0834BF612B548FC3869F39A3BC",
+      "Bytes": 384
+    },
+    {
+      "Path": "compile.exit.json",
+      "Sha256": "6F34E95CAC2F4DB4A218EECD36CD715175303DA8EA90D9394EC44E81AA94CF60",
+      "Bytes": 777
+    },
+    {
+      "Path": "compile.live.json",
+      "Sha256": "C162C702098D7A37418A2CBDCFDA64F18CF2B16D00561E592B9E199249737458",
+      "Bytes": 542
+    },
+    {
+      "Path": "compile.stderr.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "compile.stdout.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "ebin/beam_construct_order391.beam",
+      "Sha256": "C0C435379ADBE71F897E45BB8F057F1C902DE12ADACEFF2423F50E1C23E0BEE8",
+      "Bytes": 6668
+    },
+    {
+      "Path": "ebin/lists.beam",
+      "Sha256": "8941092DC34F0470CD404979E1890DF514D83F2EEB3B0AA8A276553E76471262",
+      "Bytes": 124180
+    },
+    {
+      "Path": "ebin/string.beam",
+      "Sha256": "37C66C6A5DF38AE239CA1EEDEDBD2CE2FBC4B8B4F3EB7605E115D0AB73FDA697",
+      "Bytes": 106500
+    },
+    {
+      "Path": "ebin/unicode_util.beam",
+      "Sha256": "5CDC886E30216B5DE33B6F4BDC1DEA006EAA3392EC4A83EC90CD7B946B5759FF",
+      "Bytes": 1177636
+    },
+    {
+      "Path": "image-manifest.json",
+      "Sha256": "E1966F92B22010BE9FE703F34F2B7DF55B9CD3CB6C3E4950309429711C6AD5C3",
+      "Bytes": 481
+    },
+    {
+      "Path": "original.exit.json",
+      "Sha256": "714CD30A7CEB87303511AE6CB81F08BBFCB18DA52710481D3359C19623779B52",
+      "Bytes": 2487
+    },
+    {
+      "Path": "original.live.json",
+      "Sha256": "59A1556A6D801E74E61D0935E8E163CE271E30C19700B743B8E7E0C668585952",
+      "Bytes": 2237
+    },
+    {
+      "Path": "original.stderr.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "original.stdout.log",
+      "Sha256": "12BBEAF085BB799A5CD1FC7AC02B141D2CC7DF9E2F8A7826834C04C52825D32D",
+      "Bytes": 19
+    },
+    {
+      "Path": "source/beam_construct_order391.erl",
+      "Sha256": "6F5FEE7439BA15661CB7F47C7B4E4214FAB013AD4048EFB9272A4B84617285C3",
+      "Bytes": 1964
+    },
+    {
+      "Path": "stacks.etf",
+      "Sha256": "AC1A6C8808E06D5F23BC3ED9AC54A1ECE2732CE2B00C69401649A1FB18F6A705",
+      "Bytes": 18993
+    },
+    {
+      "Path": "values.etf",
+      "Sha256": "B6C2EC033250230B5C642B7C69AC86945F20AAC0523D71F3B53B0C6107FF1503",
+      "Bytes": 4334
+    }
+  ]
+}

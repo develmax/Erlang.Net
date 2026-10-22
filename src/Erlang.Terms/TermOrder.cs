@@ -16,7 +16,7 @@ public static class TermOrder
         Pid => 5,
         TupleTerm => 6,
         NativeRecordTerm => 7,
-        MapTerm => 8,
+        MapTerm or HamtBitmapTerm429 => 8,
         Nil => 9,
         Cons => 10,
         BitString => 11,
@@ -147,6 +147,18 @@ public static class TermOrder
                 pending.Push(RecordSteps(x, y, exact).GetEnumerator());
 
                 return 0;
+            case (HamtBitmapTerm429 x, HamtBitmapTerm429 y):
+                {
+                    int bitmap = x.Bitmap.CompareTo(y.Bitmap);
+                    if (bitmap != 0) return bitmap;
+                    pending.Push(SequenceSteps(x.Children, y.Children, exact).GetEnumerator());
+
+                    return 0;
+                }
+            // Interior source nodes have no complete-map size/key array. Keep
+            // their own protocol ordering distinct; never read fake map fields.
+            case (HamtBitmapTerm429, MapTerm): return -1;
+            case (MapTerm, HamtBitmapTerm429): return 1;
             case (MapTerm x, MapTerm y):
                 {
                     int count = x.Entries.Count.CompareTo(y.Entries.Count);
@@ -565,6 +577,10 @@ public static class TermOrder
                     yield return TermHashStep.Child(field);
                 foreach (var value in x.Values)
                     yield return TermHashStep.Child(value);
+                break;
+            case HamtBitmapTerm429 x:
+                yield return TermHashStep.Scalar(x.Bitmap);
+                foreach (var child in x.Children) yield return TermHashStep.Child(child);
                 break;
             case MapTerm x:
                 foreach (var item in x.Entries)

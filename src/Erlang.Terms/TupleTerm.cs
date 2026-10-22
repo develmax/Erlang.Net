@@ -6,12 +6,20 @@ namespace Erlang;
 
 public sealed class TupleTerm : Term
 {
+    private static readonly IReadOnlyList<Term> GlobalEmptyStorage428 = Array.AsReadOnly(Array.Empty<Term>());
+
+    internal bool HasGlobalEmptyStorage428 => ReferenceEquals(Items, GlobalEmptyStorage428);
+
     public IReadOnlyList<Term> Items
     {
         get;
     }
 
-    public TupleTerm(IEnumerable<Term> items) => Items = Array.AsReadOnly(items.ToArray());
+    public TupleTerm(IEnumerable<Term> items)
+    {
+        Term[] owned = items.ToArray();
+        Items = owned.Length == 0 ? GlobalEmptyStorage428 : Array.AsReadOnly(owned);
+    }
 
     public override string ToString() => "{" + string.Join(',', Items) + "}";
 }

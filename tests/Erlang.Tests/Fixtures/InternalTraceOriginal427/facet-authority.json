@@ -1,0 +1,69 @@
+{
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "PinnedPath": "erts/preloaded/src/erts_internal.erl",
+  "PinnedSourceArtifact": "artifacts/library425-internal-trace-proposal1/authority/erts_internal.erl",
+  "PinnedSourceSha256": "22B6A291C32778EDB84DC1E9BB2CFD5AF44CA7E9F0AE53CB01F3A674218BC260",
+  "FacetPath": "facet/erts_internal.erl",
+  "FacetSha256": "3EC07D3EBFF37EA781703ECBEBA2B228A9DBE9A54AE271CBF9FA6B9439E30409",
+  "Forms": [
+    {
+      "Function": "trace",
+      "Arity": 3,
+      "StartLine": 616,
+      "EndLine": 617,
+      "ExactPinnedForm": "trace(_PidSpec, _How, _FlagList) ->\n    erlang:nif_error(undefined).",
+      "Sha256": "BDA5F11464BB9C3C5C80B2DA0BF497B8B54A00297332835E19DBAE5B65DA362F"
+    },
+    {
+      "Function": "trace",
+      "Arity": 4,
+      "StartLine": 627,
+      "EndLine": 628,
+      "ExactPinnedForm": "trace(_Session, _PidSpec, _How, _FlagList) ->\n    erlang:nif_error(undefined).",
+      "Sha256": "03C0F94C54C71444D34B7181017070485BAC10A697975907D8A316FFC9DFECD3"
+    },
+    {
+      "Function": "trace_info",
+      "Arity": 3,
+      "StartLine": 642,
+      "EndLine": 643,
+      "ExactPinnedForm": "trace_info(_Session, _PidPortFuncEvent, _Item) ->\n    erlang:nif_error(undefined).",
+      "Sha256": "3D05BF784F27178DAD4C4595E1DCF8B97170B9FF8C9D8820122B85CCF3D5C169"
+    },
+    {
+      "Function": "trace_pattern",
+      "Arity": 3,
+      "StartLine": 658,
+      "EndLine": 659,
+      "ExactPinnedForm": "trace_pattern(_MFA, _MatchSpec, _FlagList) ->\n    erlang:nif_error(undefined).",
+      "Sha256": "9B0688772E83658A0620FB40B6EE887C68A7DDFBD728EB30D15E97B7061818D5"
+    },
+    {
+      "Function": "trace_pattern",
+      "Arity": 4,
+      "StartLine": 669,
+      "EndLine": 670,
+      "ExactPinnedForm": "trace_pattern(_Session, _MFA, _MatchSpec, _FlagList) ->\n    erlang:nif_error(undefined).",
+      "Sha256": "441C007279110B44B61B7DD9DFDB38376F948AED3193651D1A8CA3E28732E3D5"
+    },
+    {
+      "Function": "trace_session_create",
+      "Arity": 3,
+      "StartLine": 676,
+      "EndLine": 677,
+      "ExactPinnedForm": "trace_session_create(_Name, _Tracer, _TracerOpts) ->\n    erlang:nif_error(undefined).",
+      "Sha256": "AF09540D6E2DE48044750F3CC9E3BFF2F7CA2E6E27A3B03C30B6586DFAFE3BCF"
+    },
+    {
+      "Function": "trace_session_destroy",
+      "Arity": 1,
+      "StartLine": 680,
+      "EndLine": 681,
+      "ExactPinnedForm": "trace_session_destroy(_TraceSession) ->\n    erlang:nif_error(undefined).",
+      "Sha256": "0E3EA8BE955DA85E747F0AA6A658DB4526A1BD21CD1AC0E16422F14DE8C15765"
+    }
+  ],
+  "ExactWholeOriginalImage": false,
+  "ExpectedNativeStubs": 7,
+  "ExpectedExportsIncludingGeneratedMetadata": 9
+}

@@ -1,0 +1,53 @@
+namespace Erlang.Tests;
+
+internal static class CodeServerOriginal410Names
+{
+    internal const string Prefix = "Erlang.Tests.CodeServerOriginal410.";
+    internal const string Manifest = "manifest.json";
+    internal const string Subject = "beam_code_server_subject410";
+    internal const string Observer = "beam_code_server_observer410";
+    internal const string ModuleInfo = "module_info";
+    internal const string ActualPrefix = "actual-";
+    internal const string ExpectedPrefix = "expected-";
+    internal const string Json = ".json";
+    internal const string Receipt = "comparison.json";
+    internal const string Init = "init";
+    internal const string Boot = "boot";
+    internal const string Erts = "erlang";
+    internal const string Whereis = "whereis";
+    internal const string Encode = "term_to_binary";
+    internal const string Run = "run";
+    internal const string Stacks = "run_stacks";
+    internal const string Shutdown = "shutdown";
+    internal const string Beam = ".beam";
+    internal const string ValuesFile = "values.etf";
+    internal const string StacksFile = "stacks.etf";
+    internal const string ShutdownFile = "shutdown.etf";
+    internal const string OutputRoot = "artifacts/code-server410";
+    internal const string GuidFormat = "N";
+    internal const string BootBase = "managed-code-server410";
+    internal const string BootExtension = ".boot";
+    internal const string FixtureRoot = "fixture-root";
+    internal const string Script = "script";
+    internal const string Version = "1";
+    internal const string PreLoaded = "preLoaded";
+    internal const string Path = "path";
+    internal const string PrimLoad = "primLoad";
+    internal const string LoadCompleted = "kernel_load_completed";
+    internal const string Apply = "apply";
+    internal const string Loader = "erl_prim_loader";
+    internal const string SetPath = "set_path";
+    internal const string Kernel = "kernelProcess";
+    internal const string Owner = "code_server410_owner";
+    internal const string StartLink = "start_link";
+    internal const string Progress = "progress";
+    internal const string Started = "started";
+    internal const string RootOption = "-root";
+    internal const string BindirOption = "-bindir";
+    internal const string BootOption = "-boot";
+    internal const string ModeOption = "-mode";
+    internal const string Embedded = "embedded";
+    internal const string Missing = "Real original boot/worker identity or complete61 observations differ";
+    internal const int Rows = 10;
+    internal const int WholeRows = 61;
+}

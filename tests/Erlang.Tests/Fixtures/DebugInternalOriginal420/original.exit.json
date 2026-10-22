@@ -1,0 +1,26 @@
+{
+  "Command": [
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+    "-noshell",
+    "-noinput",
+    "-boot",
+    "no_dot_erlang",
+    "-pa",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library420-debug-internal-original1\\ebin",
+    "-eval",
+    "[B,A,V,S]=init:get_plain_arguments(),{module,beam_debug_internal_subject420}=code:load_abs(filename:rootname(A)),{ok,SubjectBytes}=file:read_file(A),{beam_debug_internal_subject420,SubjectBytes,_}=code:get_object_code(beam_debug_internal_subject420),{module,beam_debug_internal_observer420}=code:load_abs(filename:rootname(B)),{ok,GuestBeam}=file:read_file(B),{beam_debug_internal_observer420,GuestBeam,_}=code:get_object_code(beam_debug_internal_observer420),LibraryObjects=[begin {module,L}=code:ensure_loaded(L),{L,LB,LP}=code:get_object_code(L),{ok,LB}=file:read_file(LP),{ok,{L,MD5}}=beam_lib:md5(LB),MD5=L:module_info(md5),{L,LP,MD5,byte_size(LB)} end || L <- [erts_debug]],ok=file:write_file(\"original-library-objects.etf\",term_to_binary(LibraryObjects,[{minor_version,2}])),false=erlang:system_info(lock_counting),Values=beam_debug_internal_observer420:run(),Stacks=beam_debug_internal_observer420:run_stacks(),ok=file:write_file(V,term_to_binary(Values,[{minor_version,2}])),ok=file:write_file(S,term_to_binary(Stacks,[{minor_version,2}])),ok=beam_debug_internal_observer420:verify(Values),ok=lists:foreach(fun({_Requested,_Effective,Rows})->beam_debug_internal_observer420:verify(Rows) end,Stacks),io:format(\"CASES=~p PROFILES=~p~n\",[length(Values),length(Stacks)]),halt(0).",
+    "-extra",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library420-debug-internal-original1\\ebin\\beam_debug_internal_observer420.beam",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library420-debug-internal-original1\\ebin\\beam_debug_internal_subject420.beam",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library420-debug-internal-original1\\values.etf",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library420-debug-internal-original1\\stacks.etf"
+  ],
+  "Pid": 150332,
+  "ElapsedSeconds": 0.18700000003445894,
+  "TimedOut": false,
+  "Settled": true,
+  "ExitCode": 0,
+  "Failures": [],
+  "StdoutSha256": "783E36F8902D9B9E383D454AFB64020FFA4543431F4861960144FB08BAF4D92E",
+  "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+}

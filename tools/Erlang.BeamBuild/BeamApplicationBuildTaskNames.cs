@@ -1,0 +1,53 @@
+namespace Erlang.BeamBuild;
+
+internal static class BeamApplicationBuildTaskNames
+{
+    internal const string ConfigurationSha256 = "ConfigurationSha256";
+    internal const string RequestSha256 = "RequestSha256";
+    internal const string NativeEvidence = "NativeEvidence";
+    internal const string AdmissionReceiptSha256 = "AdmissionReceiptSha256";
+    internal const string CompilerSha256 = "CompilerSha256";
+    internal const string RuntimeSha256 = "RuntimeSha256";
+    internal const string ToolAssemblySha256 = "ToolAssemblySha256";
+    internal const string ParsedEtfSha256 = "ParsedEtfSha256";
+    internal const string ParsedEtfPath = "ParsedEtfPath";
+    internal const string DriverSourceSha256 = "DriverSourceSha256";
+    internal const string DriverBeamSha256 = "DriverBeamSha256";
+    internal const string Files = "Files";
+    internal const string Path = "Path";
+    internal const string Kind = "Kind";
+    internal const string Sha256 = "Sha256";
+    internal const string Bytes = "Bytes";
+    internal const int Sha256Characters = 64;
+    internal const string InvalidPortableCharacters = "<>:\"|?*";
+    internal const string ComDevicePrefix = "com";
+    internal const string LptDevicePrefix = "lpt";
+    internal static readonly HashSet<string> ReservedDeviceStems = new(StringComparer.OrdinalIgnoreCase) { "con", "prn", "aux", "nul" };
+    internal const string ApplicationName = "ApplicationName";
+    internal const string Version = "Version";
+    internal const string LogicalPath = "LogicalPath";
+    internal const string Link = "Link";
+    internal const string TargetPath = "TargetPath";
+    internal const string CopyToOutput = "CopyToOutputDirectory";
+    internal const string CopyToPublish = "CopyToPublishDirectory";
+    internal const string Never = "Never";
+    internal const string PreserveNewest = "PreserveNewest";
+    internal const string ModulesPrefix = "Modules/";
+    internal const string LibraryPrefix = "lib/";
+    internal const string EbinPrefix = "ebin/";
+    internal const string PrivPrefix = "priv/";
+    internal const string ConfigurationPrefix = "config/";
+    internal const string AppExtension = ".app";
+    internal const string AppSourceExtension = ".app.src";
+    internal const string Manifest = "application-resources.json";
+    internal const string State = "beam-application-state.json";
+    internal const string RequestPrefix = ".application-request-";
+    internal const string CliMode = "--application-request";
+    internal const string Invalid = "Invalid admitted BEAM application task inputs, destinations or outputs";
+    internal const string Failed = "Admitted BEAM application tool failed";
+    internal const string BeamKind = "beam";
+    internal const string DescriptorKind = "descriptor";
+    internal const string PrivKind = "priv";
+    internal const string ConfigurationKind = "config";
+    internal const string ManifestKind = "manifest";
+}

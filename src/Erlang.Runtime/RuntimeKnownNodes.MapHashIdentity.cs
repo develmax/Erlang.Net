@@ -31,7 +31,7 @@ internal sealed partial class RuntimeKnownNodes
                 throw new ErlangException(ErlangErrorReasons.SystemLimit);
             entry.ActiveScopes++;
 
-            return new(entry.Word, () => ReleaseMapHashNode(entry));
+            return new(entry.Word, this, entry);
         }
     }
 
@@ -46,7 +46,7 @@ internal sealed partial class RuntimeKnownNodes
         }
     }
 
-    private void ReleaseMapHashNode(RuntimeMapHashEpoch entry)
+    internal void ReleaseMapHashNode(RuntimeMapHashEpoch entry)
     {
         lock (gate)
         {
