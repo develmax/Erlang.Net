@@ -16,9 +16,14 @@ internal sealed partial class RuntimeEtsFoundation
             context.Cancellation.ThrowIfCancellationRequested();
             var next = new Dictionary<long, RuntimeEtsObjectSlot>();
             var order = new LinkedList<RuntimeEtsObjectSlot>();
-            var change420=CoreStageIndex420(table,order,CoreRows420(table).Select(slot=>slot.Payload),context.Cancellation);
-            var prepared=CorePrepareRetirement407(context.Self,change420.Retired);
-            CorePublishIndex420(table,change420);
+            var change420 = CoreStageIndex420(
+                table,
+                order,
+                CoreRows420(table).Select(slot => slot.Payload),
+                context.Cancellation
+            );
+            var prepared = CorePrepareRetirement407(context.Self, change420.Retired);
+            CorePublishIndex420(table, change420);
             retirement = CoreBeginRetirement407(prepared);
         }
         await retirement.ConfigureAwait(false);

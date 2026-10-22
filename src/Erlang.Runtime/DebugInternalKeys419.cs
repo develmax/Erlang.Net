@@ -8,4 +8,3 @@ internal static class DebugInternalKeys419
     internal static readonly HashSet<string> GetTuple2 = new(StringComparer.Ordinal) { "atom", "atom_out_cache_index", "binary_info", "channel_number", "connection_id", "dist_ctrl", "fake_scheduler_bindings", "internal_hash", "link_list", "magic_ref", "monitor_list", "native_record_def", "node_and_dist_references", "process_status", "reader_groups_map" };
     internal static readonly HashSet<string> GetTuple3 = new(StringComparer.Ordinal) { "check_time_config", "make_unique_integer", "term_to_binary" };
 }
-

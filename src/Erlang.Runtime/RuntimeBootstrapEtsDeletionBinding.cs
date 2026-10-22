@@ -1,10 +1,12 @@
 namespace Erlang;
+
 internal sealed class RuntimeBootstrapEtsDeletionBinding
 {
     private readonly ModuleRegistry registry;
     private readonly string function;
     internal ProcessRuntime Runtime { get; }
     internal ErlangFunction Body { get; }
+
     internal RuntimeBootstrapEtsDeletionBinding(ProcessRuntime runtime, ModuleRegistry registry, string function)
     {
         Runtime = runtime;
@@ -12,6 +14,7 @@ internal sealed class RuntimeBootstrapEtsDeletionBinding
         this.function = function;
         Body = Invoke;
     }
+
     private async ValueTask<Term> Invoke(ProcessContext context, IReadOnlyList<Term> arguments)
     {
         if (!ReferenceEquals(context.Runtime, Runtime) || !ReferenceEquals(context.Runtime.Modules, registry))
@@ -36,8 +39,13 @@ internal sealed class RuntimeBootstrapEtsDeletionBinding
                 _ => null
             };
             if (cause is not null) entries.Add(new(Term.A(RuntimeEtsFacetNames407.Cause), Term.A(cause)));
-            throw context.CaptureNativeFailureWithInfo(new ErlangException(ErlangErrorReasons.BadArgument),
-                RuntimeEtsSelectDeleteNames412.Module, function, arguments, new MapTerm(entries));
+            throw context.CaptureNativeFailureWithInfo(
+                new ErlangException(ErlangErrorReasons.BadArgument),
+                RuntimeEtsSelectDeleteNames412.Module,
+                function,
+                arguments,
+                new MapTerm(entries)
+            );
         }
     }
 }

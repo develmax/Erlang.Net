@@ -39,7 +39,7 @@ public sealed partial class ModuleRegistry
         if (function == ErlangRaiseBifNames.Raise
             && (arguments.Length != BeamRaiseEmptyTraceNames.Arity
                 || arguments[BeamTryParameters.RawRaiseClassRegister] is not Atom
-                    { Name: ErlangExceptionClasses.Error or ErlangExceptionClasses.Exit or ErlangExceptionClasses.Throw }
+                { Name: ErlangExceptionClasses.Error or ErlangExceptionClasses.Exit or ErlangExceptionClasses.Throw }
                 || arguments[BeamTryParameters.RawRaiseTraceRegister] is not Nil))
             return false;
         context.Runtime.ThrowIfHalted();

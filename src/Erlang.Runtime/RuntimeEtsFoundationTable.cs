@@ -11,12 +11,12 @@ internal sealed class RuntimeEtsFoundationTable(
 {
     internal int CreationLane420 { get; } = creationLane420;
     internal LinkedListNode<RuntimeEtsFoundationTable>? CreationLink420 { get; set; }
-    internal EtsPrimaryIndex420? Primary420 {get;set;}
-    internal System.Numerics.BigInteger FixedAtMonotonic420 {get;set;}
-    internal System.Numerics.BigInteger FixedOffset420 {get;set;}
-    internal long FixedCount420 {get;set;}
-    internal Dictionary<Pid,RuntimeEtsFixation420> Fixations420 {get;}=new();
-    internal LinkedList<RuntimeEtsFixation420> FixedOrder420 {get;set;}=new();
+    internal EtsPrimaryIndex420? Primary420 { get; set; }
+    internal System.Numerics.BigInteger FixedAtMonotonic420 { get; set; }
+    internal System.Numerics.BigInteger FixedOffset420 { get; set; }
+    internal long FixedCount420 { get; set; }
+    internal Dictionary<Pid, RuntimeEtsFixation420> Fixations420 { get; } = new();
+    internal LinkedList<RuntimeEtsFixation420> FixedOrder420 { get; set; } = new();
     internal Pid Owner { get; set; } = owner;
     internal Atom Name { get; set; } = name;
     internal bool Named { get; } = named;

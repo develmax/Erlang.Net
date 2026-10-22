@@ -30,8 +30,10 @@ internal static class NativeProviderMetadataOriginal411Checks
                 && module.Backend == RuntimeModuleBackend.Managed)
             && runtime.Modules.Exports.Where(value => value.Module == prepared.Name)
                 .All(value => ReferenceEquals(runtime.Modules.SourceOwner(value.Module, value.Function, value.Arity), prepared)));
-        string output = Path.Combine(NativeProviderMetadataOriginal411Names.ArtifactRoot,
-            Guid.NewGuid().ToString(NativeProviderMetadataOriginal411Names.GuidFormat));
+        string output = Path.Combine(
+            NativeProviderMetadataOriginal411Names.ArtifactRoot,
+            Guid.NewGuid().ToString(NativeProviderMetadataOriginal411Names.GuidFormat)
+        );
         Directory.CreateDirectory(output);
         await using var actor = new RuntimeNodeFoundationHostActor(runtime);
         var errors = new List<object>();
@@ -61,8 +63,11 @@ internal static class NativeProviderMetadataOriginal411Checks
                 return (null, null);
             }
         }
-        var actualValues = await Capture(NativeProviderMetadataOriginal411Names.Run,
-            NativeProviderMetadataOriginal411Names.ActualValues, NativeProviderMetadataOriginal411Names.TypedActualValues);
+        var actualValues = await Capture(
+            NativeProviderMetadataOriginal411Names.Run,
+            NativeProviderMetadataOriginal411Names.ActualValues,
+            NativeProviderMetadataOriginal411Names.TypedActualValues
+        );
         var actualStacks = await Capture(
             NativeProviderMetadataOriginal411Names.Stacks,
             NativeProviderMetadataOriginal411Names.ActualStacks,

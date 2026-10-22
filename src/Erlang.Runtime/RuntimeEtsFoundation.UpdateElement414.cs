@@ -122,9 +122,14 @@ internal sealed partial class RuntimeEtsFoundation
                         next.Add(slot.Id, slot);
                     }
                     context.Cancellation.ThrowIfCancellationRequested();
-                    var change420=CoreStageIndex420(table,order,current is null?Array.Empty<RuntimeEtsStoredObject>():new[]{current.Payload},context.Cancellation);
-                    prepared=CorePrepareRetirement407(context.Self,change420.Retired);
-                    CorePublishIndex420(table,change420);
+                    var change420 = CoreStageIndex420(
+                        table,
+                        order,
+                        current is null ? Array.Empty<RuntimeEtsStoredObject>() : new[] { current.Payload },
+                        context.Cancellation
+                    );
+                    prepared = CorePrepareRetirement407(context.Self, change420.Retired);
+                    CorePublishIndex420(table, change420);
                     table.LastObjectId = last;
                     committed = true;
                     retirement = CoreBeginRetirement407(prepared);

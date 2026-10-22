@@ -1,4 +1,5 @@
 namespace Erlang;
+
 public static class RuntimeBootstrapEtsDeletion
 {
     public static void Register(ProcessRuntime runtime, ModuleRegistry registry)

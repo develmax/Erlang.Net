@@ -76,7 +76,12 @@ public sealed partial class ModuleRegistry
         InstallPreloaded(registry =>
         {
             foreach (var body in metadata)
-                registry.Register(module, body.Key.Function, body.Key.Arity, body.Value);
+                registry.Register(
+                    module,
+                    body.Key.Function,
+                    body.Key.Arity,
+                    body.Value
+                );
             foreach (var body in bodies)
                 registry.Register(
                     module,
@@ -154,6 +159,7 @@ public sealed partial class ModuleRegistry
 
             if (Complete(ReNames411.Module, RuntimeNativePrimitives.RegexCore411, ReFacetNames411.Signatures))
                 selection |= RuntimeNativePrimitives.RegexCore411;
+
             return new(selection, bindings);
         }
     }

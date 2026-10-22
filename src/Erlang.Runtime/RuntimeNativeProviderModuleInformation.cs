@@ -12,6 +12,7 @@ internal sealed class RuntimeNativeProviderModuleInformation(ModuleRegistry owne
     {
         if (!ReferenceEquals(context.Runtime.Modules, owner))
             throw new ArgumentException(RuntimeNativePrimitiveNames.ForeignRegistry, nameof(context));
+
         // Original native modules retain their module_info frame when the
         // metadata BIF rejects a key. Preserve this actual provider frame.
 

@@ -1,4 +1,5 @@
 namespace Erlang;
+
 public sealed partial class ModuleRegistry
 {
     internal void InstallBootstrapEtsDeletion(ProcessRuntime runtime)
@@ -17,7 +18,12 @@ public sealed partial class ModuleRegistry
                 if (functions.ContainsKey(key) || sourceOwners.ContainsKey(key))
                     throw new InvalidOperationException(RuntimeEtsSelectDeleteNames412.Conflict);
                 var binding = new RuntimeBootstrapEtsDeletionBinding(runtime, this, function);
-                InstallPreloaded(target => target.Register(key.Item1, key.Item2, key.Item3, binding.Body));
+                InstallPreloaded(target => target.Register(
+                    key.Item1,
+                    key.Item2,
+                    key.Item3,
+                    binding.Body
+                ));
                 if (!IsNativeEntry(key.Item1, key.Item2, key.Item3) || !ReferenceEquals(functions[key], binding.Body))
                     throw new InvalidOperationException(RuntimeEtsSelectDeleteNames412.Conflict);
             }

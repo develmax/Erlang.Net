@@ -27,10 +27,20 @@ internal static class NativeProviderMetadata411Checks
                 NativeProvider408Access.Require(ReferenceEquals(all, runtime.Modules.ModuleInformation(module)));
                 foreach (string key in new[] { ModuleKey, ExportsKey, Md5Key, CompileKey })
                 {
-                    Term actual = await runtime.Modules.Call(context, module, Function, Term.A(key));
+                    Term actual = await runtime.Modules.Call(
+                        context,
+                        module,
+                        Function,
+                        Term.A(key)
+                    );
                     NativeProvider408Access.Require(actual.Equals(runtime.Modules.ModuleInformation(module, key)));
                 }
-                Term identity = await runtime.Modules.Call(context, module, Function, Term.A(ModuleKey));
+                Term identity = await runtime.Modules.Call(
+                    context,
+                    module,
+                    Function,
+                    Term.A(ModuleKey)
+                );
                 NativeProvider408Access.Require(identity.Equals(Term.A(module)));
                 var exports = Cons.Items(runtime.Modules.ModuleInformation(module, ExportsKey))
                     .Cast<TupleTerm>().Select(value => (((Atom)value.Items[0]).Name, (int)((Integer)value.Items[1]).Value)).ToHashSet();
@@ -38,8 +48,15 @@ internal static class NativeProviderMetadata411Checks
                     .Select(value => (value.Function, value.Arity))));
                 for (int arity = 0; arity <= 1; arity++)
                     NativeProvider408Access.Require(runtime.Modules.SourceOwner(module, Function, arity) is null
-                        && !(bool)BeamBinaryHostAccess.Call(runtime.Modules, NativeMethod, module, Function, arity));
+                        && !(bool)BeamBinaryHostAccess.Call(
+                            runtime.Modules,
+                            NativeMethod,
+                            module,
+                            Function,
+                            arity
+                        ));
             }
+
             return true;
         });
     }
@@ -55,7 +72,15 @@ internal static class NativeProviderMetadata411Checks
                 foreach (Term key in new Term[] { Term.A(UnknownKey), Term.I(1), Nil.Value })
                 {
                     bool refused = false;
-                    try { await runtime.Modules.Call(context, module, Function, key); }
+                    try
+                    {
+                        await runtime.Modules.Call(
+                            context,
+                            module,
+                            Function,
+                            key
+                        );
+                    }
                     catch (ErlangException error)
                     {
                         refused = error.Reason.Equals(Term.A(ErlangErrorReasons.BadArgument))
@@ -66,6 +91,7 @@ internal static class NativeProviderMetadata411Checks
                     }
                     NativeProvider408Access.Require(refused);
                 }
+
             return true;
         });
         await using var foreign = new ProcessRuntime();
@@ -73,9 +99,16 @@ internal static class NativeProviderMetadata411Checks
         await foreignActor.InvokeAsync(async context =>
         {
             bool refused = false;
-            try { await runtime.Modules.Call(context, NativeProvider408Names.Ets, Function); }
-            catch (ArgumentException) { refused = true; }
+            try
+            {
+                await runtime.Modules.Call(context, NativeProvider408Names.Ets, Function);
+            }
+            catch (ArgumentException)
+            {
+                refused = true;
+            }
             NativeProvider408Access.Require(refused && foreign.NativePrimitives.Bindings.Count == 0);
+
             return true;
         });
     }
@@ -90,22 +123,43 @@ internal static class NativeProviderMetadata411Checks
             await NativeProvider408Access.Enable(runtime);
             NativeProvider408Access.Require(before.SetEquals(runtime.Modules.Exports)
                 && fingerprint.Equals(runtime.Modules.ModuleInformation(NativeProvider408Names.Ets, Md5Key)));
-            await runtime.InitializeModulesAsync(registry => registry.Register(NativeProvider408Names.Ets, OtherFunction, 0,
-                (_, _) => ValueTask.FromResult<Term>(Nil.Value)));
+            await runtime.InitializeModulesAsync(registry => registry.Register(
+                NativeProvider408Names.Ets,
+                OtherFunction,
+                0,
+                (_, _) => ValueTask.FromResult<Term>(Nil.Value)
+            ));
             bool refused = false;
-            try { await NativeProvider408Access.Enable(runtime); }
-            catch (InvalidOperationException) { refused = true; }
+            try
+            {
+                await NativeProvider408Access.Enable(runtime);
+            }
+            catch (InvalidOperationException)
+            {
+                refused = true;
+            }
             NativeProvider408Access.Require(refused && runtime.NativePrimitives.Bindings.Count == NativeCount);
         }
         await using (var occupied = new ProcessRuntime())
         {
             var owner = new object();
-            await occupied.InitializeModulesAsync(registry => registry.RegisterSource(NativeProvider408Names.Ets, Function, 0,
-                (_, _) => ValueTask.FromResult<Term>(Nil.Value), owner));
+            await occupied.InitializeModulesAsync(registry => registry.RegisterSource(
+                NativeProvider408Names.Ets,
+                Function,
+                0,
+                (_, _) => ValueTask.FromResult<Term>(Nil.Value),
+                owner
+            ));
             var before = occupied.Modules.Exports.ToHashSet();
             bool refused = false;
-            try { await NativeProvider408Access.Enable(occupied); }
-            catch (InvalidOperationException) { refused = true; }
+            try
+            {
+                await NativeProvider408Access.Enable(occupied);
+            }
+            catch (InvalidOperationException)
+            {
+                refused = true;
+            }
             NativeProvider408Access.Require(refused && before.SetEquals(occupied.Modules.Exports)
                 && occupied.NativePrimitives.Bindings.Count == 0
                 && ReferenceEquals(owner, occupied.Modules.SourceOwner(NativeProvider408Names.Ets, Function, 0))

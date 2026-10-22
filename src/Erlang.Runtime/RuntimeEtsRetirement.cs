@@ -11,7 +11,7 @@ internal sealed class RuntimeEtsRetirement(
     internal LinkedList<RuntimeEtsOwnerTables> Groups { get; } = groups;
     internal Pid? Actor { get; } = actor;
     internal LinkedList<RuntimeEtsObjectSlot>? Objects { get; set; }
-    internal LinkedList<RuntimeEtsFixation420>? Fixations420 {get;set;}
+    internal LinkedList<RuntimeEtsFixation420>? Fixations420 { get; set; }
     internal Task Execution { get; set; } = Task.CompletedTask;
 
     internal async Task ExecuteAsync()
@@ -25,7 +25,7 @@ internal sealed class RuntimeEtsRetirement(
             {
                 try
                 {
-                    if(transfer is not null)owner.CompleteHeirTransfer419(this,transfer);
+                    if (transfer is not null) owner.CompleteHeirTransfer419(this, transfer);
                     else value?.Release();
                 }
                 catch (Exception error)

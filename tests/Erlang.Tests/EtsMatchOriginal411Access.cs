@@ -20,7 +20,7 @@ internal static class EtsMatchOriginal411Access
 
             return output.ToArray();
         }
-        var hashes = JsonSerializer.Deserialize<Dictionary<string,string>>(Read(EtsMatchOriginal411Names.Manifest))!;
+        var hashes = JsonSerializer.Deserialize<Dictionary<string, string>>(Read(EtsMatchOriginal411Names.Manifest))!;
         byte[] bytes = Read(name);
         Require(hashes.TryGetValue(name, out string? hash) && hash == Convert.ToHexString(SHA256.HashData(bytes)));
 

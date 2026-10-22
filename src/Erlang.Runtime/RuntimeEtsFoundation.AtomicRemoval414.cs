@@ -47,9 +47,14 @@ internal sealed partial class RuntimeEtsFoundation
             // Construct/copy the returned value before the linearization point.
             result = take ? Cons.From(returned) : Term.A(ErlangBooleanAtoms.True);
             context.Cancellation.ThrowIfCancellationRequested();
-            var change420=CoreStageIndex420(table,order,removed,context.Cancellation);
-            var prepared=CorePrepareRetirement407(context.Self,change420.Retired);
-            CorePublishIndex420(table,change420);
+            var change420 = CoreStageIndex420(
+                table,
+                order,
+                removed,
+                context.Cancellation
+            );
+            var prepared = CorePrepareRetirement407(context.Self, change420.Retired);
+            CorePublishIndex420(table, change420);
             retirement = CoreBeginRetirement407(prepared);
         }
         // Every materialization lease was scoped by CoreRead407. None survives

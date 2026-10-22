@@ -42,6 +42,7 @@ internal static class EtsLookupOriginal411Checks
         Directory.CreateDirectory(output);
         await using var actor = new RuntimeNodeFoundationHostActor(runtime);
         var errors = new List<object>();
+
         async Task<(Term? Value, byte[]? Bytes)> Capture(string function, string raw, string typed)
         {
             try
@@ -50,7 +51,10 @@ internal static class EtsLookupOriginal411Checks
                     context, EtsLookupOriginal411Names.Module, function
                 ));
                 BitString bytes = (BitString)await actor.InvokeAsync(async context => await runtime.Modules.Call(
-                    context, EtsLookupOriginal411Names.Runtime, EtsLookupOriginal411Names.Encode, value
+                    context,
+                    EtsLookupOriginal411Names.Runtime,
+                    EtsLookupOriginal411Names.Encode,
+                    value
                 ));
                 File.WriteAllBytes(Path.Combine(output, raw), bytes.ToArray());
                 File.WriteAllText(Path.Combine(output, typed), JsonSerializer.Serialize(OwnedFunctionOriginal407Terms.Typed(value)));
@@ -75,47 +79,86 @@ internal static class EtsLookupOriginal411Checks
         Term expectedStacks = OwnedFunctionOriginal407Terms.Decode(originalStacks);
         File.WriteAllBytes(Path.Combine(output, EtsLookupOriginal411Names.ExpectedValues), originalValues);
         File.WriteAllBytes(Path.Combine(output, EtsLookupOriginal411Names.ExpectedStacks), originalStacks);
-        File.WriteAllText(Path.Combine(output, EtsLookupOriginal411Names.TypedExpectedValues),
-            JsonSerializer.Serialize(OwnedFunctionOriginal407Terms.Typed(expectedValues)));
-        File.WriteAllText(Path.Combine(output, EtsLookupOriginal411Names.TypedExpectedStacks),
-            JsonSerializer.Serialize(OwnedFunctionOriginal407Terms.Typed(expectedStacks)));
+        File.WriteAllText(
+            Path.Combine(output, EtsLookupOriginal411Names.TypedExpectedValues),
+            JsonSerializer.Serialize(OwnedFunctionOriginal407Terms.Typed(expectedValues))
+        );
+        File.WriteAllText(
+            Path.Combine(output, EtsLookupOriginal411Names.TypedExpectedStacks),
+            JsonSerializer.Serialize(OwnedFunctionOriginal407Terms.Typed(expectedStacks))
+        );
         var differences = new List<object>();
         int examined = 0, equal = 0;
         if (actualValues.Value is not null)
-            equal += IoPrintableOriginal404Comparison.Rows(expectedValues, actualValues.Value,
-                EtsLookupOriginal411Names.Run, EtsLookupOriginal411Names.Rows, differences, ref examined);
+            equal += IoPrintableOriginal404Comparison.Rows(
+                expectedValues,
+                actualValues.Value,
+                EtsLookupOriginal411Names.Run,
+                EtsLookupOriginal411Names.Rows,
+                differences,
+                ref examined
+            );
         if (actualStacks.Value is not null)
-            equal += Profiles(expectedStacks, actualStacks.Value, differences, ref examined);
+            equal += Profiles(
+                expectedStacks,
+                actualStacks.Value,
+                differences,
+                ref examined
+            );
         bool wholeValues = expectedValues.Equals(actualValues.Value);
         bool wholeStacks = expectedStacks.Equals(actualStacks.Value);
         bool rawValues = actualValues.Bytes is not null && originalValues.AsSpan().SequenceEqual(actualValues.Bytes);
         bool rawStacks = actualStacks.Bytes is not null && originalStacks.AsSpan().SequenceEqual(actualStacks.Bytes);
-        File.WriteAllText(Path.Combine(output, EtsLookupOriginal411Names.Receipt), JsonSerializer.Serialize(new
-        {
-            Expected = EtsLookupOriginal411Names.WholeRows, Examined = examined, Equal = equal,
-            WholeValuesEqual = wholeValues, WholeStacksEqual = wholeStacks,
-            WholeRawValuesEqual = rawValues, WholeRawStacksEqual = rawStacks,
-            MissingProviderRefused = missingProviderRefused, NativeProviders = runtime.NativePrimitives,
-            SourceImageSha256 = Convert.ToHexString(SHA256.HashData(image)),
-            SourceImages = runtime.LibrarySelection.Modules.Select(module => new { module.Module, module.Backend, module.InputSha256 }),
-            Errors = errors, Differences = differences, FrameProjection = false,
-            ProfileArity = 2, ProfileEnvelopeRewritten = false, WholeEts51Claim = false,
-            ManagedBinaryExplicitlySelected = true, ZeroHeaderProjectionNativeCompared = false,
-            FullLookupElementContractClaim = false, CompatibilityPromotion = false
-        }));
+        File.WriteAllText(
+            Path.Combine(output, EtsLookupOriginal411Names.Receipt),
+            JsonSerializer.Serialize(new
+            {
+                Expected = EtsLookupOriginal411Names.WholeRows,
+                Examined = examined,
+                Equal = equal,
+                WholeValuesEqual = wholeValues,
+                WholeStacksEqual = wholeStacks,
+                WholeRawValuesEqual = rawValues,
+                WholeRawStacksEqual = rawStacks,
+                MissingProviderRefused = missingProviderRefused,
+                NativeProviders = runtime.NativePrimitives,
+                SourceImageSha256 = Convert.ToHexString(SHA256.HashData(image)),
+                SourceImages = runtime.LibrarySelection.Modules.Select(module => new { module.Module, module.Backend, module.InputSha256 }),
+                Errors = errors,
+                Differences = differences,
+                FrameProjection = false,
+                ProfileArity = 2,
+                ProfileEnvelopeRewritten = false,
+                WholeEts51Claim = false,
+                ManagedBinaryExplicitlySelected = true,
+                ZeroHeaderProjectionNativeCompared = false,
+                FullLookupElementContractClaim = false,
+                CompatibilityPromotion = false
+            })
+        );
         EtsLookupOriginal411Access.Require(errors.Count == 0 && differences.Count == 0
             && examined == EtsLookupOriginal411Names.WholeRows && equal == examined
             && wholeValues && wholeStacks && rawValues && rawStacks);
     }
 
-    private static int Profiles(Term expected, Term actual, List<object> differences, ref int examined)
+    private static int Profiles(
+        Term expected,
+        Term actual,
+        List<object> differences,
+        ref int examined
+    )
     {
         Term[] left = IoPrintableOriginal404Terms.List(expected, out bool originalProper);
         Term[] right = IoPrintableOriginal404Terms.List(actual, out bool actualProper);
         if (!originalProper || !actualProper || left.Length != EtsLookupOriginal411Names.ProfileCount
             || right.Length != EtsLookupOriginal411Names.ProfileCount)
-            differences.Add(new { OriginalProper = originalProper, ActualProper = actualProper,
-                OriginalProfiles = left.Length, ActualProfiles = right.Length });
+            differences.Add(new
+            {
+                OriginalProper = originalProper,
+                ActualProper = actualProper,
+                OriginalProfiles = left.Length,
+                ActualProfiles = right.Length
+            });
         int equal = 0;
         for (int index = 0; index < Math.Max(left.Length, right.Length); index++)
         {
@@ -123,16 +166,31 @@ internal static class EtsLookupOriginal411Checks
             Term? observed = index < right.Length ? right[index] : null;
             if (original is not TupleTerm { Items.Count: 2 } first || observed is not TupleTerm { Items.Count: 2 } second)
             {
-                differences.Add(new { Profile = index, InvalidShape = true,
+                differences.Add(new
+                {
+                    Profile = index,
+                    InvalidShape = true,
                     Original = original is null ? null : OwnedFunctionOriginal407Terms.Typed(original),
-                    Actual = observed is null ? null : OwnedFunctionOriginal407Terms.Typed(observed) });
+                    Actual = observed is null ? null : OwnedFunctionOriginal407Terms.Typed(observed)
+                });
                 continue;
             }
             if (!first.Items[0].Equals(second.Items[0]))
-                differences.Add(new { Profile = index, HeaderEqual = false,
-                    Original = OwnedFunctionOriginal407Terms.Typed(first), Actual = OwnedFunctionOriginal407Terms.Typed(second) });
-            equal += IoPrintableOriginal404Comparison.Rows(first.Items[1], second.Items[1], index,
-                EtsLookupOriginal411Names.Rows, differences, ref examined);
+                differences.Add(new
+                {
+                    Profile = index,
+                    HeaderEqual = false,
+                    Original = OwnedFunctionOriginal407Terms.Typed(first),
+                    Actual = OwnedFunctionOriginal407Terms.Typed(second)
+                });
+            equal += IoPrintableOriginal404Comparison.Rows(
+                first.Items[1],
+                second.Items[1],
+                index,
+                EtsLookupOriginal411Names.Rows,
+                differences,
+                ref examined
+            );
         }
 
         return equal;

@@ -17,16 +17,26 @@ internal sealed partial class RuntimeEtsFoundation
         try
         {
             if (requested.Heir is not null && requested.Gift is not null)
-                staged = RuntimeEtsStoredObject.Capture(accounting, runtime, Term.Tuple(requested.Gift), context.Cancellation);
+                staged = RuntimeEtsStoredObject.Capture(
+                    accounting,
+                    runtime,
+                    Term.Tuple(requested.Gift),
+                    context.Cancellation
+                );
             lock (gate)
             {
                 RequireActor(context);
-                RuntimeEtsHeir419? heir = requested.Heir is {} pid && runtime.ReadEtsHeirProcess419(pid) is {} generation
+                RuntimeEtsHeir419? heir = requested.Heir is { } pid && runtime.ReadEtsHeirProcess419(pid) is { } generation
                     ? new(pid, new(generation), staged) : null;
                 ResourceReferenceTerm handle;
                 try
                 {
-                    handle = CreateOwnerTable(context, atom, parsed.Named, parsed.Protection);
+                    handle = CreateOwnerTable(
+                        context,
+                        atom,
+                        parsed.Named,
+                        parsed.Protection
+                    );
                 }
                 catch (InvalidOperationException error) when (error.Message == RuntimeEtsFoundationNames.NameInUse)
                 {
@@ -36,7 +46,15 @@ internal sealed partial class RuntimeEtsFoundation
                 try
                 {
                     coreOptions407.Add(table, parsed);
-                    CorePublishIndex420(table,CoreStageIndex420(table,Array.Empty<RuntimeEtsObjectSlot>(),Array.Empty<RuntimeEtsStoredObject>(),context.Cancellation));
+                    CorePublishIndex420(
+                        table,
+                        CoreStageIndex420(
+                            table,
+                            Array.Empty<RuntimeEtsObjectSlot>(),
+                            Array.Empty<RuntimeEtsStoredObject>(),
+                            context.Cancellation
+                        )
+                    );
                 }
                 catch
                 {
@@ -45,6 +63,7 @@ internal sealed partial class RuntimeEtsFoundation
                 } // Still empty and no heir root is published on this failure path.
                 table.Heir419 = heir;
                 consumed = heir?.Data is not null;
+
                 return parsed.Named ? atom : handle;
             }
         }
@@ -217,9 +236,14 @@ internal sealed partial class RuntimeEtsFoundation
                 }
                 foreach (var old in existing) if (!retained.Contains(old.Payload)) removed.Add(old.Payload);
                 context.Cancellation.ThrowIfCancellationRequested();
-                var change420=CoreStageIndex420(table,order,removed.Concat(staged.Where(value=>!retained.Contains(value))),context.Cancellation);
-                preparedRetirement=CorePrepareRetirement407(context.Self,change420.Retired);
-                CorePublishIndex420(table,change420);
+                var change420 = CoreStageIndex420(
+                    table,
+                    order,
+                    removed.Concat(staged.Where(value => !retained.Contains(value))),
+                    context.Cancellation
+                );
+                preparedRetirement = CorePrepareRetirement407(context.Self, change420.Retired);
+                CorePublishIndex420(table, change420);
                 table.LastObjectId = last;
                 committed = true;
                 retirement = CoreBeginRetirement407(preparedRetirement);
@@ -248,9 +272,13 @@ internal sealed partial class RuntimeEtsFoundation
         {
             var table = CoreResolve407(context, identifier, false);
             var metadata = coreOptions407.GetValue(table, _ => throw new InvalidOperationException());
-            var result=new List<Term>();
-            if(CoreKeyGroup420(table,key,context.Cancellation) is{} group)
-                foreach(var slot in group.Rows){context.Cancellation.ThrowIfCancellationRequested();result.Add(CoreRead407(slot.Payload,context.Cancellation));}
+            var result = new List<Term>();
+            if (CoreKeyGroup420(table, key, context.Cancellation) is { } group)
+                foreach (var slot in group.Rows)
+                {
+                    context.Cancellation.ThrowIfCancellationRequested();
+                    result.Add(CoreRead407(slot.Payload, context.Cancellation));
+                }
 
             return Cons.From(result);
         }
@@ -262,7 +290,7 @@ internal sealed partial class RuntimeEtsFoundation
         {
             var table = CoreResolve407(context, identifier, false);
             var metadata = coreOptions407.GetValue(table, _ => throw new InvalidOperationException());
-            if(CoreKeyGroup420(table,key,context.Cancellation) is{Deleted:false})return Term.A(ErlangBooleanAtoms.True);
+            if (CoreKeyGroup420(table, key, context.Cancellation) is { Deleted: false }) return Term.A(ErlangBooleanAtoms.True);
 
             return Term.A(ErlangBooleanAtoms.False);
         }
@@ -291,9 +319,14 @@ internal sealed partial class RuntimeEtsFoundation
                 }
             }
             context.Cancellation.ThrowIfCancellationRequested();
-            var change420=CoreStageIndex420(table,order,removed,context.Cancellation);
-            var prepared=CorePrepareRetirement407(context.Self,change420.Retired);
-            CorePublishIndex420(table,change420);
+            var change420 = CoreStageIndex420(
+                table,
+                order,
+                removed,
+                context.Cancellation
+            );
+            var prepared = CorePrepareRetirement407(context.Self, change420.Retired);
+            CorePublishIndex420(table, change420);
             retirement = CoreBeginRetirement407(prepared);
         }
         await retirement.ConfigureAwait(false);

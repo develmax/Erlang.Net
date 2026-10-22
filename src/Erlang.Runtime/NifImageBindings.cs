@@ -173,26 +173,47 @@ internal sealed class NifImageBindings
             // owner can initiate cancellation before blocked active calls drain.
             (cleanup as INifImageRetirementPreparation)?.BeginRetirement();
         }
-        catch (Exception error) { preparationFailure = error; }
-        Task driver = CompleteRetirement(drain, cleanup, completion, preparationFailure);
+        catch (Exception error)
+        {
+            preparationFailure = error;
+        }
+        Task driver = CompleteRetirement(
+            drain,
+            cleanup,
+            completion,
+            preparationFailure
+        );
         lock (gate)
             retirementDriver = driver;
 
         return completion.Task;
     }
 
-    private static async Task CompleteRetirement(Task drain, IAsyncDisposable? cleanup,
-        TaskCompletionSource completion, Exception? preparationFailure)
+    private static async Task CompleteRetirement(
+        Task drain,
+        IAsyncDisposable? cleanup,
+        TaskCompletionSource completion,
+        Exception? preparationFailure
+    )
     {
         var errors = new List<Exception>();
         if (preparationFailure is not null) errors.Add(preparationFailure);
-        try { await drain.ConfigureAwait(false); }
-        catch (Exception error) { errors.Add(error); }
+        try
+        {
+            await drain.ConfigureAwait(false);
+        }
+        catch (Exception error)
+        {
+            errors.Add(error);
+        }
         try
         {
             if (cleanup is not null) await cleanup.DisposeAsync().ConfigureAwait(false);
         }
-        catch (Exception error) { errors.Add(error); }
+        catch (Exception error)
+        {
+            errors.Add(error);
+        }
         if (errors.Count == 0) completion.TrySetResult();
         else completion.TrySetException(errors.Count == 1 ? errors[0] : new AggregateException(errors));
     }

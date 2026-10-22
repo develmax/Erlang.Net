@@ -16,12 +16,20 @@ internal static class EtsMatch411Access
     }
 
     internal static ValueTask<Term> Call(ProcessContext context, string name, params Term[] arguments)
-        => context.Runtime.Modules.Call(context, EtsMatch411Names.ModuleName, name, arguments);
+        => context.Runtime.Modules.Call(
+            context,
+            EtsMatch411Names.ModuleName,
+            name,
+            arguments
+        );
 
     internal static async Task BadArgument(Func<ValueTask<Term>> operation)
     {
         bool caught = false;
-        try { _ = await operation(); }
+        try
+        {
+            _ = await operation();
+        }
         catch (ErlangException error)
         {
             caught = error.Reason.Equals(Term.A(ErlangErrorReasons.BadArgument))

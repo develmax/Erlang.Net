@@ -100,8 +100,8 @@ internal sealed partial class RuntimeEtsFoundation
             group.Retired = true;
             if (group.Tables.First is { } tableNode)
             {
-                transfer=PrepareHeirTransfer419(tableNode.Value,group);
-                if(transfer is null)retirement.Objects = Detach(tableNode.Value);
+                transfer = PrepareHeirTransfer419(tableNode.Value, group);
+                if (transfer is null) retirement.Objects = Detach(tableNode.Value);
             }
             else
                 retirement.Groups.RemoveFirst();
@@ -158,7 +158,7 @@ internal sealed partial class RuntimeEtsFoundation
             Task[] current;
             lock (gate)
             {
-                current = retirements.Select(item => item.Execution).Concat(allRequests420.Select(request=>request.Completion)).ToArray();
+                current = retirements.Select(item => item.Execution).Concat(allRequests420.Select(request => request.Completion)).ToArray();
                 if (current.Length == 0)
                 {
                     if (retirementFailures.Count != 0)

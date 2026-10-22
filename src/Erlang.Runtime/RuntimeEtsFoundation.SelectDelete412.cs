@@ -103,9 +103,14 @@ internal sealed partial class RuntimeEtsFoundation
                 }
             }
             context.Cancellation.ThrowIfCancellationRequested();
-            var change420=CoreStageIndex420(table,order,removed,context.Cancellation);
-            var prepared=CorePrepareRetirement407(context.Self,change420.Retired);
-            CorePublishIndex420(table,change420);
+            var change420 = CoreStageIndex420(
+                table,
+                order,
+                removed,
+                context.Cancellation
+            );
+            var prepared = CorePrepareRetirement407(context.Self, change420.Retired);
+            CorePublishIndex420(table, change420);
             retirement = CoreBeginRetirement407(prepared);
         }
         // No snapshot lease remains; cancellation after commit cannot skip drain.

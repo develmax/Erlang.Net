@@ -53,8 +53,11 @@ internal static class WritableReceiveOriginal411Checks
                 return (null, null);
             }
         }
-        var actualValues = await Capture(WritableReceiveOriginal411Names.Run,
-            WritableReceiveOriginal411Names.ActualValues, WritableReceiveOriginal411Names.TypedActualValues);
+        var actualValues = await Capture(
+            WritableReceiveOriginal411Names.Run,
+            WritableReceiveOriginal411Names.ActualValues,
+            WritableReceiveOriginal411Names.TypedActualValues
+        );
         var actualStacks = await Capture(
             WritableReceiveOriginal411Names.Stacks,
             WritableReceiveOriginal411Names.ActualStacks,

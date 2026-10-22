@@ -30,17 +30,24 @@ internal static class DelayBinaryOriginal411Admission
                 module.Module == DelayBinaryOriginal411Names.Runtime && module.Backend == RuntimeModuleBackend.Managed));
         string output = Path.Combine(DelayBinaryOriginal411Names.ArtifactRoot, Guid.NewGuid().ToString(DelayBinaryOriginal411Names.GuidFormat));
         Directory.CreateDirectory(output);
-        File.WriteAllText(Path.Combine(output, DelayBinaryOriginal411Names.AdmissionReceipt), JsonSerializer.Serialize(new
-        {
-            OriginalImageSha256 = Convert.ToHexString(SHA256.HashData(bytes)),
-            NativeMd5 = Convert.ToHexString(image.NativeMd5.ToArray()),
-            Prepared = true, Published = image.IsConsumed, SourceOwnersExact = owners, ExportsExact = exactExports,
-            Exports = exports.Select(value => new { value.Function, value.Arity }),
-            DeclaredImportModules = image.RegistryModuleDependencies,
-            SelectedModules = runtime.LibrarySelection.Modules.Select(value => new { value.Module, value.Backend }),
-            ImageExecuted = false, StrictDependencyClosureClaim = false,
-            PriorCallerFramesOpaqueAbsenceClaim = false,
-            CompatibilityPromotion = false
-        }));
+        File.WriteAllText(
+            Path.Combine(output, DelayBinaryOriginal411Names.AdmissionReceipt),
+            JsonSerializer.Serialize(new
+            {
+                OriginalImageSha256 = Convert.ToHexString(SHA256.HashData(bytes)),
+                NativeMd5 = Convert.ToHexString(image.NativeMd5.ToArray()),
+                Prepared = true,
+                Published = image.IsConsumed,
+                SourceOwnersExact = owners,
+                ExportsExact = exactExports,
+                Exports = exports.Select(value => new { value.Function, value.Arity }),
+                DeclaredImportModules = image.RegistryModuleDependencies,
+                SelectedModules = runtime.LibrarySelection.Modules.Select(value => new { value.Module, value.Backend }),
+                ImageExecuted = false,
+                StrictDependencyClosureClaim = false,
+                PriorCallerFramesOpaqueAbsenceClaim = false,
+                CompatibilityPromotion = false
+            })
+        );
     }
 }
