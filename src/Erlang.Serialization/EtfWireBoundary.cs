@@ -3,7 +3,13 @@ using System.Text;
 
 namespace Erlang;
 
-internal ref struct EtfWireBoundary(ReadOnlySpan<byte> data, uint? localSeed, Action<EtfNodeEpoch>? observe = null)
+internal ref struct EtfWireBoundary(
+    ReadOnlySpan<byte> data,
+    uint? localSeed,
+    Action<EtfNodeEpoch>? observe = null,
+    Atom[]? atomCache = null,
+    bool distributionDebug = false
+)
 {
     private readonly ReadOnlySpan<byte> data = data;
     private int offset;
@@ -16,6 +22,15 @@ internal ref struct EtfWireBoundary(ReadOnlySpan<byte> data, uint? localSeed, Ac
         int tag = Byte();
         switch (tag)
         {
+            case EtfTags.AtomCacheReference:
+                EtfAtomTranslationCache423.Read(atomCache, Byte());
+                break;
+            case EtfTags.InternalAtomReference2:
+                EtfDistAtoms423.ReadInternal(distributionDebug, U16());
+                break;
+            case EtfTags.InternalAtomReference3:
+                EtfDistAtoms423.ReadInternal(distributionDebug, (Byte() << 16) | U16());
+                break;
             case EtfTags.SmallInteger:
                 Skip(1);
                 break;
@@ -157,7 +172,7 @@ internal ref struct EtfWireBoundary(ReadOnlySpan<byte> data, uint? localSeed, Ac
                     int start = offset;
                     localNodes = true;
                     Measure(depth);
-                    if (localSeed is null || expected != ErlangBlockHash.Hash(data.Slice(start, offset - start), localSeed.Value))
+                    if (!distributionDebug && (localSeed is null || expected != ErlangBlockHash.Hash(data.Slice(start, offset - start), localSeed.Value)))
                         throw new ErlangException(ErlangErrorReasons.BadArgument);
                     break;
                 }
@@ -191,6 +206,23 @@ internal ref struct EtfWireBoundary(ReadOnlySpan<byte> data, uint? localSeed, Ac
         if (node.IsEmpty)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
         int tag = node[0];
+        if (tag == EtfTags.AtomCacheReference)
+        {
+            if (node.Length != 2) throw new ErlangException(ErlangErrorReasons.BadArgument);
+            Atom atom = EtfAtomTranslationCache423.Read(atomCache, node[1]);
+            observe(new(atom.Name, creation, false));
+
+            return;
+        }
+        if (tag is EtfTags.InternalAtomReference2 or EtfTags.InternalAtomReference3)
+        {
+            int width = tag == EtfTags.InternalAtomReference2 ? EtfFieldWidths.UInt16Bytes : EtfDistScanLayout423.InternalAtom3Bytes;
+            if (node.Length != 1 + width) throw new ErlangException(ErlangErrorReasons.BadArgument);
+            int index = width == EtfFieldWidths.UInt16Bytes ? BinaryPrimitives.ReadUInt16BigEndian(node[1..]) : (node[1] << 16) | BinaryPrimitives.ReadUInt16BigEndian(node[2..]);
+            observe(new(EtfDistAtoms423.ReadInternal(distributionDebug, index).Name, creation, false));
+
+            return;
+        }
         bool small = tag is EtfTags.SmallLatin1Atom or EtfTags.SmallUtf8Atom;
         if (!small && tag is not EtfTags.Latin1Atom and not EtfTags.Utf8Atom)
             throw new ErlangException(ErlangErrorReasons.BadArgument);

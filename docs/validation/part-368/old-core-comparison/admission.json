@@ -1,0 +1,138 @@
+{
+  "Status": "PASS_PASSIVE_MAIN_CAPTURE_ADMISSION_ORIGINAL_PENDING",
+  "Values": 160,
+  "FullStackObservations": 800,
+  "Profiles": 5,
+  "CompiledSources": 11,
+  "ExactNamesOrder": true,
+  "ExactRawSeals": true,
+  "MainDlls": [
+    {
+      "Path": "src/Erlang.Compiler/bin/Debug/net10.0/Erlang.Compiler.dll",
+      "Sha256": "623B6AC1F6EB9AA9AD634BDDA53E00759721C45F3B706436AA6A496698CCF782",
+      "CopiedTo": "artifacts/queue-integration368/main-capture/bin/Debug/net10.0/Erlang.Compiler.dll"
+    },
+    {
+      "Path": "src/Erlang.Runtime/bin/Debug/net10.0/Erlang.Runtime.dll",
+      "Sha256": "0655D807553A4E83FB7F40F1A485AA41766E65ED81B0B7B322F6C13425FA6B9D",
+      "CopiedTo": "artifacts/queue-integration368/main-capture/bin/Debug/net10.0/Erlang.Runtime.dll"
+    },
+    {
+      "Path": "src/Erlang.Terms/bin/Debug/net10.0/Erlang.Terms.dll",
+      "Sha256": "58E7603F8AE5601CB7300F9169CFE201F59A230EC0EF6EA6F1AA092C680FC7DA",
+      "CopiedTo": "artifacts/queue-integration368/main-capture/bin/Debug/net10.0/Erlang.Terms.dll"
+    },
+    {
+      "Path": "src/Erlang.Serialization/bin/Debug/net10.0/Erlang.Serialization.dll",
+      "Sha256": "9D91CEAC81D1CEAD1622738DBCB42BAC724523217114D8BFACB0E3C8782E9E70",
+      "CopiedTo": "artifacts/queue-integration368/main-capture/bin/Debug/net10.0/Erlang.Serialization.dll"
+    },
+    {
+      "Path": "tools/Erlang.Differential/bin/Debug/net10.0/Erlang.Differential.dll",
+      "Sha256": "B953ECCB77699089B785E90F2169B68229CFDAA34C945D5FE2FF437D778795E4",
+      "CopiedTo": "artifacts/queue-integration368/main-capture/bin/Debug/net10.0/Erlang.Differential.dll"
+    }
+  ],
+  "Receipts": [
+    {
+      "Lane": "build",
+      "ReceiptSha256": "11B7E7DF6ED0D61AA3D0E6AE0602E02FE0E297CC7D23BDD1A82AC13DF9C092EA",
+      "Pid": 296076,
+      "ElapsedSeconds": 3.48499999998603,
+      "Normal": true
+    },
+    {
+      "Lane": "core-regression",
+      "ReceiptSha256": "46F71BCD30E2411CCAF9FBB7672321D05E335888B2F408766E7612D97F3A08B1",
+      "Pid": 273508,
+      "ElapsedSeconds": 5.2189999999827705,
+      "Normal": true
+    }
+  ],
+  "SourceBindings": 6,
+  "OpaqueProfiles": [
+    {
+      "Profile": "values",
+      "Pid": "('pid', ('atom', 'nonode@nohost'), 1, 0, 0, 88)",
+      "Reference": "('reference', ('atom', 'nonode@nohost'), 0, (1, 0, 0), 90)",
+      "LocalFunSourceBound": true,
+      "All14ValuesPreserved": true,
+      "All13Relationships": true,
+      "RawFunWireRepeatedIdentically": true
+    },
+    {
+      "Profile": "('atom', 'default')",
+      "Pid": "('pid', ('atom', 'nonode@nohost'), 2, 0, 0, 88)",
+      "Reference": "('reference', ('atom', 'nonode@nohost'), 0, (4, 0, 0), 90)",
+      "LocalFunSourceBound": true,
+      "All14ValuesPreserved": true,
+      "All13Relationships": true,
+      "RawFunWireRepeatedIdentically": true
+    },
+    {
+      "Profile": "('integer', 0)",
+      "Pid": "('pid', ('atom', 'nonode@nohost'), 2, 0, 0, 88)",
+      "Reference": "('reference', ('atom', 'nonode@nohost'), 0, (6, 0, 0), 90)",
+      "LocalFunSourceBound": true,
+      "All14ValuesPreserved": true,
+      "All13Relationships": true,
+      "RawFunWireRepeatedIdentically": true
+    },
+    {
+      "Profile": "('integer', 1)",
+      "Pid": "('pid', ('atom', 'nonode@nohost'), 2, 0, 0, 88)",
+      "Reference": "('reference', ('atom', 'nonode@nohost'), 0, (8, 0, 0), 90)",
+      "LocalFunSourceBound": true,
+      "All14ValuesPreserved": true,
+      "All13Relationships": true,
+      "RawFunWireRepeatedIdentically": true
+    },
+    {
+      "Profile": "('integer', 2)",
+      "Pid": "('pid', ('atom', 'nonode@nohost'), 2, 0, 0, 88)",
+      "Reference": "('reference', ('atom', 'nonode@nohost'), 0, (10, 0, 0), 90)",
+      "LocalFunSourceBound": true,
+      "All14ValuesPreserved": true,
+      "All13Relationships": true,
+      "RawFunWireRepeatedIdentically": true
+    },
+    {
+      "Profile": "('integer', 8)",
+      "Pid": "('pid', ('atom', 'nonode@nohost'), 2, 0, 0, 88)",
+      "Reference": "('reference', ('atom', 'nonode@nohost'), 0, (12, 0, 0), 90)",
+      "LocalFunSourceBound": true,
+      "All14ValuesPreserved": true,
+      "All13Relationships": true,
+      "RawFunWireRepeatedIdentically": true
+    }
+  ],
+  "SourceBoundLocalFun": true,
+  "Subject": "queue",
+  "QueueOwnModuleMd5": "AE7677DE611267E3223D254739E7CEA1",
+  "SdkSealSha256": "19C60ABDEF926810EFBA91A98E308ABFF1D1EC299F9E1BB18DA5EC9658DCFB8E",
+  "ProfileSha256": "EEEC735B8B5BADD36901536ECDA1FF365C87304CBC9258F9C24A356A8AE5BF1E",
+  "SourceInputsSha256": "CF9BF92475E3B4CFA559AF6F1AB04001DB3B210197D7DE048E7C653A92E8925D",
+  "DecoderSha256": "3FD608A393500356D8C3A39545A02F4A0A4DC863FECD9EB007CD9B242DE61D1E",
+  "TrustedSourceBindingHelper": {
+    "Path": "artifacts/proplists-stack-relational-peer3/source_binding.py",
+    "Sha256": "7E37DC00E1F28C4E7CC56D6779F8A052B0FAD62BBE9871F867143FE577AED2A9",
+    "Use": "Unmodified helper reserved for actual original FunT/module metadata comparison; no fake original table supplied."
+  },
+  "All960OutcomeShapes": {
+    "success": 594,
+    "error": 366
+  },
+  "Normalization": false,
+  "Projection": false,
+  "RawDecoderSpanIsDiagnosticNotWireField": true,
+  "OriginalCompared": false,
+  "CompatibilityPromoted": false,
+  "MainModified": false,
+  "ExecutedCompiledOrDownloadedContent": false,
+  "Limitations": [
+    "Normal OS process exit is receipt-bound; capture harness awaits process completion and runtime disposal but does not emit a separate internal scheduler-unwind receipt.",
+    "Current five Main DLLs equal captured DLLs; source-to-binary identity relies on recorded build/project-reference provenance, not an independent rebuild.",
+    "Raw native numeric PID/reference/code identities remain exact differences until source-bound all-field relational comparison; no frames or values will be stripped.",
+    "Source-input metadata retains inherited correction prose about older cohorts; actual profile/source roster is checked as11 sources/160 names, not inferred from that prose."
+  ]
+}

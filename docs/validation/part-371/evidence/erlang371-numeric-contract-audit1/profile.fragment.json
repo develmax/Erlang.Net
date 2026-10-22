@@ -1,0 +1,455 @@
+{
+  "Status": "SOURCE_ONLY_NOT_EXECUTED",
+  "ExpectedValues": 60,
+  "ExpectedProfiles": 300,
+  "Fixtures": [
+    {
+      "Id": "numeric_edges",
+      "Location": "tool",
+      "Path": "original/numeric371_contract_edges.erl",
+      "Module": "numeric371_contract_edges",
+      "NamesEntry": "cases",
+      "Run": "run",
+      "StackModule": "numeric371_contract_edges",
+      "StackEntry": "run_stacks",
+      "StackShape": "depth_cases",
+      "WorkerModule": "erlang370_observation_worker",
+      "WorkerEntry": "run",
+      "ValueAcquisition": "compiled-monitored-worker-values-and-stacks-v1",
+      "ObserveTimeoutSeconds": 120,
+      "Companions": [
+        "original/erlang370_pure_support.erl",
+        "original/erlang370_observation_worker.erl"
+      ],
+      "Names": [
+        "list_wide_ascii_digit",
+        "list_negative_low_digit",
+        "list_wide_unicode_digit",
+        "list_wrapped_zero",
+        "list_actual_minus_wide_digit",
+        "list_wrapped_minus_not_sign",
+        "list_wrapped_zero_then_digit",
+        "list_small_max_low_digit",
+        "list_small_min_low_digit",
+        "list_bignum_positive_not_small",
+        "list_bignum_negative_not_small",
+        "list_wide_digit_improper",
+        "list_wrapped_plus_not_sign",
+        "list_actual_plus_wide_digit",
+        "list_native_small_17_wide_digits",
+        "list_native_big_18_wide_digits",
+        "list_native_small_17_actual_digits",
+        "list_native_big_18_actual_digits",
+        "list_base_upperwide",
+        "list_base_lowerwide",
+        "list_base_binarywrappedzero",
+        "list_base_binarywrappeddigitinvalid",
+        "list_base_native_small_hexwide",
+        "list_base_native_big_hexwide",
+        "float_to_list_scientific_min_int",
+        "float_to_list_scientific_below_min_int",
+        "float_to_list_scientific_max_int",
+        "float_to_list_scientific_above_max_int",
+        "float_to_list_scientific_wrap_minus_one",
+        "float_to_list_scientific_wrap_zero",
+        "float_to_list_scientific_wrap_two",
+        "float_to_list_scientific_small_max",
+        "float_to_list_scientific_small_min",
+        "float_to_list_scientific_bignum_rejected",
+        "float_to_list_fixed_wrap_two",
+        "float_to_list_fixed_wrap_negative",
+        "float_to_list_fixed_small_min",
+        "float_to_list_short_ignores_negative",
+        "float_to_list_scientific_overrides_short",
+        "float_to_list_fixed_overrides_negative",
+        "float_to_list_scientific_overrides_fixed",
+        "float_to_list_short_after_huge",
+        "float_to_binary_scientific_min_int",
+        "float_to_binary_scientific_below_min_int",
+        "float_to_binary_scientific_max_int",
+        "float_to_binary_scientific_above_max_int",
+        "float_to_binary_scientific_wrap_minus_one",
+        "float_to_binary_scientific_wrap_zero",
+        "float_to_binary_scientific_wrap_two",
+        "float_to_binary_scientific_small_max",
+        "float_to_binary_scientific_small_min",
+        "float_to_binary_scientific_bignum_rejected",
+        "float_to_binary_fixed_wrap_two",
+        "float_to_binary_fixed_wrap_negative",
+        "float_to_binary_fixed_small_min",
+        "float_to_binary_short_ignores_negative",
+        "float_to_binary_scientific_overrides_short",
+        "float_to_binary_fixed_overrides_negative",
+        "float_to_binary_scientific_overrides_fixed",
+        "float_to_binary_short_after_huge"
+      ],
+      "Cases": [
+        {
+          "Name": "list_wide_ascii_digit",
+          "Mfas": [
+            "erlang:list_to_integer/1"
+          ]
+        },
+        {
+          "Name": "list_negative_low_digit",
+          "Mfas": [
+            "erlang:list_to_integer/1"
+          ]
+        },
+        {
+          "Name": "list_wide_unicode_digit",
+          "Mfas": [
+            "erlang:list_to_integer/1"
+          ]
+        },
+        {
+          "Name": "list_wrapped_zero",
+          "Mfas": [
+            "erlang:list_to_integer/1"
+          ]
+        },
+        {
+          "Name": "list_actual_minus_wide_digit",
+          "Mfas": [
+            "erlang:list_to_integer/1"
+          ]
+        },
+        {
+          "Name": "list_wrapped_minus_not_sign",
+          "Mfas": [
+            "erlang:list_to_integer/1"
+          ]
+        },
+        {
+          "Name": "list_wrapped_zero_then_digit",
+          "Mfas": [
+            "erlang:list_to_integer/1"
+          ]
+        },
+        {
+          "Name": "list_small_max_low_digit",
+          "Mfas": [
+            "erlang:list_to_integer/1"
+          ]
+        },
+        {
+          "Name": "list_small_min_low_digit",
+          "Mfas": [
+            "erlang:list_to_integer/1"
+          ]
+        },
+        {
+          "Name": "list_bignum_positive_not_small",
+          "Mfas": [
+            "erlang:list_to_integer/1"
+          ]
+        },
+        {
+          "Name": "list_bignum_negative_not_small",
+          "Mfas": [
+            "erlang:list_to_integer/1"
+          ]
+        },
+        {
+          "Name": "list_wide_digit_improper",
+          "Mfas": [
+            "erlang:list_to_integer/1"
+          ]
+        },
+        {
+          "Name": "list_wrapped_plus_not_sign",
+          "Mfas": [
+            "erlang:list_to_integer/1"
+          ]
+        },
+        {
+          "Name": "list_actual_plus_wide_digit",
+          "Mfas": [
+            "erlang:list_to_integer/1"
+          ]
+        },
+        {
+          "Name": "list_native_small_17_wide_digits",
+          "Mfas": [
+            "erlang:list_to_integer/1"
+          ]
+        },
+        {
+          "Name": "list_native_big_18_wide_digits",
+          "Mfas": [
+            "erlang:list_to_integer/1"
+          ]
+        },
+        {
+          "Name": "list_native_small_17_actual_digits",
+          "Mfas": [
+            "erlang:list_to_integer/1"
+          ]
+        },
+        {
+          "Name": "list_native_big_18_actual_digits",
+          "Mfas": [
+            "erlang:list_to_integer/1"
+          ]
+        },
+        {
+          "Name": "list_base_upperwide",
+          "Mfas": [
+            "erlang:list_to_integer/2"
+          ]
+        },
+        {
+          "Name": "list_base_lowerwide",
+          "Mfas": [
+            "erlang:list_to_integer/2"
+          ]
+        },
+        {
+          "Name": "list_base_binarywrappedzero",
+          "Mfas": [
+            "erlang:list_to_integer/2"
+          ]
+        },
+        {
+          "Name": "list_base_binarywrappeddigitinvalid",
+          "Mfas": [
+            "erlang:list_to_integer/2"
+          ]
+        },
+        {
+          "Name": "list_base_native_small_hexwide",
+          "Mfas": [
+            "erlang:list_to_integer/2"
+          ]
+        },
+        {
+          "Name": "list_base_native_big_hexwide",
+          "Mfas": [
+            "erlang:list_to_integer/2"
+          ]
+        },
+        {
+          "Name": "float_to_list_scientific_min_int",
+          "Mfas": [
+            "erlang:float_to_list/2"
+          ]
+        },
+        {
+          "Name": "float_to_list_scientific_below_min_int",
+          "Mfas": [
+            "erlang:float_to_list/2"
+          ]
+        },
+        {
+          "Name": "float_to_list_scientific_max_int",
+          "Mfas": [
+            "erlang:float_to_list/2"
+          ]
+        },
+        {
+          "Name": "float_to_list_scientific_above_max_int",
+          "Mfas": [
+            "erlang:float_to_list/2"
+          ]
+        },
+        {
+          "Name": "float_to_list_scientific_wrap_minus_one",
+          "Mfas": [
+            "erlang:float_to_list/2"
+          ]
+        },
+        {
+          "Name": "float_to_list_scientific_wrap_zero",
+          "Mfas": [
+            "erlang:float_to_list/2"
+          ]
+        },
+        {
+          "Name": "float_to_list_scientific_wrap_two",
+          "Mfas": [
+            "erlang:float_to_list/2"
+          ]
+        },
+        {
+          "Name": "float_to_list_scientific_small_max",
+          "Mfas": [
+            "erlang:float_to_list/2"
+          ]
+        },
+        {
+          "Name": "float_to_list_scientific_small_min",
+          "Mfas": [
+            "erlang:float_to_list/2"
+          ]
+        },
+        {
+          "Name": "float_to_list_scientific_bignum_rejected",
+          "Mfas": [
+            "erlang:float_to_list/2"
+          ]
+        },
+        {
+          "Name": "float_to_list_fixed_wrap_two",
+          "Mfas": [
+            "erlang:float_to_list/2"
+          ]
+        },
+        {
+          "Name": "float_to_list_fixed_wrap_negative",
+          "Mfas": [
+            "erlang:float_to_list/2"
+          ]
+        },
+        {
+          "Name": "float_to_list_fixed_small_min",
+          "Mfas": [
+            "erlang:float_to_list/2"
+          ]
+        },
+        {
+          "Name": "float_to_list_short_ignores_negative",
+          "Mfas": [
+            "erlang:float_to_list/2"
+          ]
+        },
+        {
+          "Name": "float_to_list_scientific_overrides_short",
+          "Mfas": [
+            "erlang:float_to_list/2"
+          ]
+        },
+        {
+          "Name": "float_to_list_fixed_overrides_negative",
+          "Mfas": [
+            "erlang:float_to_list/2"
+          ]
+        },
+        {
+          "Name": "float_to_list_scientific_overrides_fixed",
+          "Mfas": [
+            "erlang:float_to_list/2"
+          ]
+        },
+        {
+          "Name": "float_to_list_short_after_huge",
+          "Mfas": [
+            "erlang:float_to_list/2"
+          ]
+        },
+        {
+          "Name": "float_to_binary_scientific_min_int",
+          "Mfas": [
+            "erlang:float_to_binary/2"
+          ]
+        },
+        {
+          "Name": "float_to_binary_scientific_below_min_int",
+          "Mfas": [
+            "erlang:float_to_binary/2"
+          ]
+        },
+        {
+          "Name": "float_to_binary_scientific_max_int",
+          "Mfas": [
+            "erlang:float_to_binary/2"
+          ]
+        },
+        {
+          "Name": "float_to_binary_scientific_above_max_int",
+          "Mfas": [
+            "erlang:float_to_binary/2"
+          ]
+        },
+        {
+          "Name": "float_to_binary_scientific_wrap_minus_one",
+          "Mfas": [
+            "erlang:float_to_binary/2"
+          ]
+        },
+        {
+          "Name": "float_to_binary_scientific_wrap_zero",
+          "Mfas": [
+            "erlang:float_to_binary/2"
+          ]
+        },
+        {
+          "Name": "float_to_binary_scientific_wrap_two",
+          "Mfas": [
+            "erlang:float_to_binary/2"
+          ]
+        },
+        {
+          "Name": "float_to_binary_scientific_small_max",
+          "Mfas": [
+            "erlang:float_to_binary/2"
+          ]
+        },
+        {
+          "Name": "float_to_binary_scientific_small_min",
+          "Mfas": [
+            "erlang:float_to_binary/2"
+          ]
+        },
+        {
+          "Name": "float_to_binary_scientific_bignum_rejected",
+          "Mfas": [
+            "erlang:float_to_binary/2"
+          ]
+        },
+        {
+          "Name": "float_to_binary_fixed_wrap_two",
+          "Mfas": [
+            "erlang:float_to_binary/2"
+          ]
+        },
+        {
+          "Name": "float_to_binary_fixed_wrap_negative",
+          "Mfas": [
+            "erlang:float_to_binary/2"
+          ]
+        },
+        {
+          "Name": "float_to_binary_fixed_small_min",
+          "Mfas": [
+            "erlang:float_to_binary/2"
+          ]
+        },
+        {
+          "Name": "float_to_binary_short_ignores_negative",
+          "Mfas": [
+            "erlang:float_to_binary/2"
+          ]
+        },
+        {
+          "Name": "float_to_binary_scientific_overrides_short",
+          "Mfas": [
+            "erlang:float_to_binary/2"
+          ]
+        },
+        {
+          "Name": "float_to_binary_fixed_overrides_negative",
+          "Mfas": [
+            "erlang:float_to_binary/2"
+          ]
+        },
+        {
+          "Name": "float_to_binary_scientific_overrides_fixed",
+          "Mfas": [
+            "erlang:float_to_binary/2"
+          ]
+        },
+        {
+          "Name": "float_to_binary_short_after_huge",
+          "Mfas": [
+            "erlang:float_to_binary/2"
+          ]
+        }
+      ]
+    }
+  ],
+  "FixtureSource": {
+    "Location": "tool",
+    "Path": "original/numeric371_contract_edges.erl",
+    "Sha256": "A58B4E565BB16E792B2DF19FE03D750E0B4EA2B767F186586ED0866CA06CA1A3"
+  }
+}

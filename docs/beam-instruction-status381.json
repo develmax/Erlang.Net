@@ -1,0 +1,68 @@
+{
+  "Part": 381,
+  "Status": "ACTIVE_SHARED_RUNTIME_IMPLEMENTATION",
+  "BaselineRuntimeSha256": "897181D2747427D534BBA6727D3FAAAB6D21B359CBD02753D0B5E96DBA083146",
+  "RetainedOriginalValues": 112,
+  "RetainedOriginalStackProfiles": 560,
+  "RetainedFixtureDirectory": "../artifacts/library381-ordsets-core1/ebin",
+  "ApiPromotion": false,
+  "Rows": [
+    {
+      "Instruction": "apply",
+      "Link": "IMPLEMENTED_BOUNDED_FOCUSED_PASS",
+      "StaticValidation": "IMPLEMENTED_BOUNDED_FOCUSED_PASS",
+      "Execution": "IMPLEMENTED_FOCUSED_PASS",
+      "NativeComparison": "UNCHANGED_CORE112_VALUES_560_FULL_PROFILES_WHOLE_TERMS_AND_RAW_ETF_PASS",
+      "Scope": "N+2 ordinary typed registers, continuation await, admitted target modules/native primitives, apply3 badarg frame; apply_last separate"
+    },
+    {
+      "Instruction": "select_tuple_arity",
+      "Link": "IMPLEMENTED_BOUNDED_FOCUSED_PASS",
+      "StaticValidation": "IMPLEMENTED_BOUNDED_FOCUSED_PASS",
+      "Execution": "IMPLEMENTED_FOCUSED_PASS",
+      "NativeComparison": "UNCHANGED_CORE112_VALUES_560_FULL_PROFILES_WHOLE_TERMS_AND_RAW_ETF_PASS",
+      "Scope": "Adjacent successful tuple guard proof, ordinary and receive CFG branches"
+    },
+    {
+      "Instruction": "recv_marker_reserve",
+      "Link": "IMPLEMENTED_BOUNDED_FOCUSED_PASS",
+      "StaticValidation": "IMPLEMENTED_BOUNDED_FOCUSED_PASS",
+      "Execution": "IMPLEMENTED_BOUNDED_FOCUSED_PASS",
+      "NativeComparison": "UNCHANGED_CORE112_VALUES_560_FULL_PROFILES_WHOLE_TERMS_AND_RAW_ETF_PASS",
+      "Scope": "Opaque non-Term register slots; process-owned physical mailbox anchor; selected cursor survives clear; priority interactions and second duplicate live binding explicitly refused; same-function try/receive remains refused"
+    },
+    {
+      "Instruction": "recv_marker_bind",
+      "Link": "IMPLEMENTED_BOUNDED_FOCUSED_PASS",
+      "StaticValidation": "IMPLEMENTED_BOUNDED_FOCUSED_PASS",
+      "Execution": "IMPLEMENTED_BOUNDED_FOCUSED_PASS",
+      "NativeComparison": "UNCHANGED_CORE112_VALUES_560_FULL_PROFILES_WHOLE_TERMS_AND_RAW_ETF_PASS",
+      "Scope": "Opaque non-Term register slots; process-owned physical mailbox anchor; selected cursor survives clear; priority interactions and second duplicate live binding explicitly refused; same-function try/receive remains refused"
+    },
+    {
+      "Instruction": "recv_marker_clear",
+      "Link": "IMPLEMENTED_BOUNDED_FOCUSED_PASS",
+      "StaticValidation": "IMPLEMENTED_BOUNDED_FOCUSED_PASS",
+      "Execution": "IMPLEMENTED_BOUNDED_FOCUSED_PASS",
+      "NativeComparison": "UNCHANGED_CORE112_VALUES_560_FULL_PROFILES_WHOLE_TERMS_AND_RAW_ETF_PASS",
+      "Scope": "Opaque non-Term register slots; process-owned physical mailbox anchor; selected cursor survives clear; priority interactions and second duplicate live binding explicitly refused; same-function try/receive remains refused"
+    },
+    {
+      "Instruction": "recv_marker_use",
+      "Link": "IMPLEMENTED_BOUNDED_FOCUSED_PASS",
+      "StaticValidation": "IMPLEMENTED_BOUNDED_FOCUSED_PASS",
+      "Execution": "IMPLEMENTED_BOUNDED_FOCUSED_PASS",
+      "NativeComparison": "UNCHANGED_CORE112_VALUES_560_FULL_PROFILES_WHOLE_TERMS_AND_RAW_ETF_PASS",
+      "Scope": "Opaque non-Term register slots; process-owned physical mailbox anchor; selected cursor survives clear; priority interactions and second duplicate live binding explicitly refused; same-function try/receive remains refused"
+    }
+  ],
+  "CurrentRuntimeSha256": "18688CB013B19D250C7EA259D0B07E4ADDF26E8CCF7ED23834035721222D1340",
+  "FocusedTestEvidence": "../artifacts/library381-runtime-implementation/marker-focused4/focused.json",
+  "CurrentPermanentTestCount": 8118,
+  "FreshGeneralRunCompleted": false,
+  "DispatchNativeComparison": "../artifacts/library381-dispatch-comparison3/comparison.json",
+  "ManagedCoreValuesCompared": 112,
+  "ManagedCoreProfilesCompared": 560,
+  "ManagedCoreEvidence": "../artifacts/library381-ordsets-marker-core4/completion.json",
+  "ClearMatcherScope": "Only terminal straight-line metadata/move/tuple extraction/additional clear to remove_message; effects commit after successful removal, clear-before-rejection plans refused"
+}

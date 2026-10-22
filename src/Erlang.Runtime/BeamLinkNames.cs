@@ -26,6 +26,7 @@ internal static class BeamLinkNames
     internal const string LoopReceiveEnd = "loop_rec_end";
     internal const string RemoveMessage = "remove_message";
     internal const string WaitTimeout = "wait_timeout";
+    internal const string Wait = "wait";
     internal const string Timeout = "timeout";
     internal const string OnLoad = "on_load";
 }

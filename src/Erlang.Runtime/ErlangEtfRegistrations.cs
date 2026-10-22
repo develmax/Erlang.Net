@@ -39,6 +39,7 @@ internal static class ErlangEtfRegistrations
             LocalCreation = wire.Creation,
             NodeIdentity = context.Runtime.LocalIdentity,
             NodeSnapshot = wire,
+            MapEntries = map => EtfMapEntries426.Read(context.Runtime, map),
             LocalSeed = context.Runtime.LocalTermSeed,
             FunctionOwner = context.Runtime.InitializationPid
         };

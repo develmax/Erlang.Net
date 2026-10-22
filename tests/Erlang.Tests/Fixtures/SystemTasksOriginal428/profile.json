@@ -1,0 +1,73 @@
+{
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Bindings": [
+    {
+      "Path": "artifacts/spawn-priority351-preparation/execute-root.py",
+      "Sha256": "C66ACEC6FFE57C57EFAABC96FD1DB00598D7AAD7D05C2EA814A146B759D4171A"
+    },
+    {
+      "Path": "artifacts/library377-native-controls1/run-native-controls.py",
+      "Sha256": "C097FDF1F1307220916935FDAD3E0483CC676E4EEB136581B632ACF6347F206F"
+    },
+    {
+      "Path": "tools/Erlang.NifTermCallbackOriginalObservations/passive_etf.py",
+      "Sha256": "9C3204CB29755C508D05B611EA02B3A3186F83B40A72BF6EEC366242040432EE"
+    },
+    {
+      "Path": "artifacts/library376-official-compiler/official-admission.json",
+      "Sha256": "41CCC2FDE5493D85BEAA21996E12D0885D2919B0D4BF44137D0673DCDC9D5EA6"
+    },
+    {
+      "Path": "artifacts/library384-inventory.py",
+      "Sha256": "075068A19E2FB2BDA30374B1558BB6536A67B87F163C87B1DBDA73734C1AC397"
+    },
+    {
+      "Path": "artifacts/library381-functional-audit1/passive-inventory.py",
+      "Sha256": "7866257D1CC741763708F809BE6CD3455B283A4888E247B565F1F21B95EF965C"
+    }
+  ],
+  "Cases": [
+    "test_low",
+    "test_normal",
+    "test_high",
+    "test_max",
+    "test_inherit",
+    "test4",
+    "gc_minor",
+    "gc_major",
+    "gc4_minor",
+    "gc4_major",
+    "cpc",
+    "cpc4",
+    "dead_test",
+    "dead_gc",
+    "dead_cpc",
+    "sink4",
+    "bad_target3",
+    "bad_target4",
+    "ordinary_check_zero",
+    "ordinary_check_atoms",
+    "ordinary_handle_zero",
+    "ordinary_handle_tuple",
+    "actual_roles",
+    "actual_handler_cpc"
+  ],
+  "ExpectedValues": 24,
+  "ExpectedStackRows": 120,
+  "WholeRows": 144,
+  "Sources": [
+    {
+      "Path": "facet/erts_internal.erl",
+      "Sha256": "A891AE6DE0B7559594B1DB0218B3D5677045897139B9D7F72E712B9ED69A275E"
+    },
+    {
+      "Path": "bounded_inventory.py",
+      "Sha256": "502862EB7045D780115D046A02FA56DB11FB67EBC7A1883CA58D06BEC6C7910A"
+    }
+  ],
+  "CompileOnlyFacet": true,
+  "CapturedOriginalDirectory": "artifacts/library428-system-tasks-original1",
+  "OriginalCompletionSha256": "3D4451697D5C4A25AAF706961D60D647C41C0E878367EF996C907E03B8C4220A",
+  "OwnRoleActorRows": 3,
+  "HandlerImageSha256": "67CF9A522039DD3807C09BCA1603DD06DF04158127EE4FD4EC2AC5D4D60AD58C"
+}

@@ -36,6 +36,7 @@ internal sealed class ProcessSuspensions(object gate, IReadOnlyDictionary<Pid, P
         public long Count = 1;
         public TaskCompletionSource<Atom> Acknowledged { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
         public List<Term> Tags { get; } = new();
+        public List<KeyValuePair<ReferenceTerm, bool>> NativeReplies { get; } = new();
     }
 
     private sealed class Target(ProcessContext context)
@@ -46,7 +47,12 @@ internal sealed class ProcessSuspensions(object gate, IReadOnlyDictionary<Pid, P
         public TaskCompletionSource Resumed { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
     }
 
-    public async ValueTask<Term> Suspend(ProcessContext caller, Pid pid, ProcessSuspensionOptions options)
+    public async ValueTask<Term> Suspend(
+        ProcessContext caller,
+        Pid pid,
+        ProcessSuspensionOptions options,
+        bool internalProtocol = false
+    )
     {
         Task<Atom>? acknowledgement;
         bool result = true;
@@ -90,6 +96,13 @@ internal sealed class ProcessSuspensions(object gate, IReadOnlyDictionary<Pid, P
             if (target.Active)
                 Acknowledge(owner, Term.A(ProcessSuspensionNames.Suspended), pid);
             context.Mailbox.Pulse();
+            if (internalProtocol && !options.Async && !target.Active)
+            {
+                ReferenceTerm reference = caller.Runtime.MakeReference();
+                owner.NativeReplies.Add(new(reference, result));
+
+                return reference;
+            }
             acknowledgement = options.Async ? null : owner.Acknowledged.Task;
         }
         if (acknowledgement is not null)
@@ -147,6 +160,7 @@ internal sealed class ProcessSuspensions(object gate, IReadOnlyDictionary<Pid, P
                 foreach (Owner owner in target.Owners.Values)
                 {
                     owner.Tags.Clear();
+                    owner.NativeReplies.Clear();
                     owner.Acknowledged.TrySetCanceled();
                 }
                 target.Owners.Clear();
@@ -190,6 +204,19 @@ internal sealed class ProcessSuspensions(object gate, IReadOnlyDictionary<Pid, P
                 from: from
             );
         owner.Tags.Clear();
+        foreach (var reply in owner.NativeReplies)
+            owner.Context.Mailbox.SendTraced(
+                Term.Tuple(
+                    reply.Key,
+                    result.Name == ProcessSuspensionNames.Suspended
+                    ? CoreModules.Boolean(reply.Value) : Term.A(result.Name == ProcessSuspensionNames.Exited
+                        ? ErlangErrorReasons.BadArgument : ProcessSuspensionNames.InternalError)
+                ),
+                null,
+                preserve: true,
+                from: from
+            );
+        owner.NativeReplies.Clear();
     }
 
     private void ReleaseIfEmpty(Pid pid, Target target)

@@ -1,0 +1,16 @@
+{
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Source": "lib/kernel/src/erts_debug.erl",
+  "SourceSha256": "79775431D627FC04612726BF0D486A18A639B064EA3698D884EB7CCA0959ED5F",
+  "ExactBodies": [
+    "flat_size(_) ->\n    erlang:nif_error(undef).",
+    "size_shared(_) ->\n    erlang:nif_error(undef).",
+    "copy_shared(Term) ->\n    copy_shared(Term, false).",
+    "same(_, _) ->\n    erlang:nif_error(undef).",
+    "copy_shared(_, _) ->\n    erlang:nif_error(undef)."
+  ],
+  "NewNatives": 3,
+  "ExistingNative": 1,
+  "GenuineErlangWrapper": 1,
+  "FullDebug20Claim": false
+}

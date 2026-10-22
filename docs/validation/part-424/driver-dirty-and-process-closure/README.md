@@ -1,0 +1,3 @@
+# Driver, dirty scheduling and process-query checkpoint
+
+The configured genuine Windows/x64 driver path removes the erl_ddll image refusal. Together with ETS, fresh strict admission prepares256/258 original images. erts_debug and erts_internal remain open. New native focus14, real driver10, standard boot79 and composite affected1277 pass within their recorded scopes. The composite reuses1207 unchanged-production checks and rechecks70 after two test-only observer corrections; the initial failure is retained. It is not one uninterrupted final-test-assembly run. Bindings preserve actual bytes and reuse verified immutable earlier snapshots. No full-module compatibility, whole application boot, Linux/CI or publication claim.

@@ -1,0 +1,1 @@
+-module(oracle_map_operations). -export([run/0]). run()->try maps:filter(fun(_,_)->wrong end,#{a=>b}) of _->unexpected catch error:{case_clause,wrong}->ok end,try maps:filtermap(fun(_,_)->{false,new} end,#{a=>b}) of _->unexpected catch error:{case_clause,{false,new}}->ok end,done.

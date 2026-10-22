@@ -1,0 +1,378 @@
+{
+  "Stage": 377,
+  "Status": "LOCAL_SCOPED_IMPLEMENTATION_CHECKPOINT",
+  "Whole40Accepted": false,
+  "PartitionFull": 36,
+  "PartitionPartial": 4,
+  "ApiDelta": 0,
+  "FullContractDelta": 0,
+  "RegisteredApis": 699,
+  "CompleteContracts": 118,
+  "KnownDifferences": 30,
+  "NeedsVerification": 551,
+  "Tests": {
+    "Passed": 8056,
+    "Failed": 0,
+    "PreservedOrderedNames": 8056,
+    "Added": 0,
+    "FreshExecution": true
+  },
+  "IntegrationOutcomes": 11,
+  "LocalPackages": 2,
+  "SourceGuards": 555,
+  "RawEtfPairs": 27,
+  "RuntimeSha256": "7DB051FD08B623902BE88AD8DBEBCE0AAD4B1EAF6CF187078BD13539C0724C65",
+  "BuildToolSha256": "EA6DA4CEA80719052C3B867604E05D8FFA7442B482A44C727BF450B633F662DC",
+  "PackageSha256": "167AB913C0CCE5869EE62B072CA08AE0AE27784BB73FA9A9EEDD3D0F552F99D6",
+  "Publication": false,
+  "PriorCheckpointsPreserved": [
+    {
+      "Stage": 373,
+      "Path": "docs/validation/part-373/local-completion/frozen-runtime-checkpoint.json",
+      "Sha256": "F203100C0D9F22630CFB6BB2B0C453202807C66B604CFCC04249D4F0EC38F702"
+    },
+    {
+      "Stage": 374,
+      "Path": "docs/validation/part-374/local-completion/frozen-runtime-checkpoint.json",
+      "Sha256": "1ADFAD18A12ECD0519D0EC78852A03826BAA3CD4108483BFF4069958541361D5"
+    },
+    {
+      "Stage": 375,
+      "Path": "docs/validation/part-375/local-completion/frozen-runtime-checkpoint.json",
+      "Sha256": "B4EE08C68EDB2F8D9724E8FF013B43818B758A089251CE992517266F23C6AC2B"
+    },
+    {
+      "Stage": 376,
+      "Path": "docs/validation/part-376/local-completion/frozen-runtime-checkpoint.json",
+      "Sha256": "5716A28F3554AF981CD31BD56E010E5B3F16EEF954032B6E5E0793B4811A937E"
+    }
+  ],
+  "ProcessReceipts": [
+    {
+      "Stage": "library377-current-tool-build1",
+      "Seconds": 3.235000000044238,
+      "Sha256": "745A33F5FBE69327C1154B0B3FF791B199AB9FE8F052E3003FF58CB41832DE07"
+    },
+    {
+      "Stage": "library377-native-packet1",
+      "Seconds": 432.625,
+      "Sha256": "C02D30C532F6EFDD018FB36DC92A98F3F4FDDC702ABE0F38CE59C2C49ECA4AE3"
+    },
+    {
+      "Stage": "library377-cli-cache-controls1",
+      "Seconds": 214.75,
+      "Sha256": "0108952B8E8646C4C5DDBDCE7EF9481F2052314C8C87C5783B86CE81483202D8"
+    },
+    {
+      "Stage": "library377-msbuild-controls1",
+      "Seconds": 116.23399999999674,
+      "Sha256": "3440999BAC40C0EB8735FB2399BDCB7B81070A2190EA7867CBB26DDE559B652D"
+    },
+    {
+      "Stage": "library377-cold-package1",
+      "Seconds": 23.43699999997625,
+      "Sha256": "06D960DA350B43FED68304BFC4BE24096A6DD4E3ACE34C6B7831F6A5768FF009"
+    },
+    {
+      "Stage": "library377-restricted-regression1",
+      "Seconds": 53.79699999996228,
+      "Sha256": "03F9747A03FCC0BC36875B25AF4018EB72099AD46F53D06DE123AFEE7DDBAC04"
+    },
+    {
+      "Stage": "library377-package-suffix1",
+      "Seconds": 75.14100000000326,
+      "Sha256": "D01513A4806C1E8466C5AC007FBA6FB8C800A10F71E9BB2DBDA14AE5C7B4E3FC"
+    },
+    {
+      "Stage": "library377-live-mutations1",
+      "Seconds": 54.14100000000326,
+      "Sha256": "46CDFEB3DCBC7CD7404FB17486059616D559C4FAA591FD2DCEABA208DC6C36C7"
+    },
+    {
+      "Stage": "library377-process-probe1",
+      "Seconds": 121.39100000000326,
+      "Sha256": "8204831C7EC0A9EE2A12763F452EAC22AAAA310616FDB09BA488BA08639B103A"
+    },
+    {
+      "Stage": "library377-policy-real1",
+      "Seconds": 3.5939999999827705,
+      "Sha256": "8E1E40FCAC5593D0B6832B574CDE45D6B77191C924BC9968EBBFF7DF04BC6164"
+    },
+    {
+      "Stage": "library377-cache-successor1",
+      "Seconds": 268.1719999999623,
+      "Sha256": "AE2AB6365357CB8A7A4828154A1BF314EFA8CFC1EC5513AEFBA7F859680D46DD"
+    },
+    {
+      "Stage": "library377-leaf-stack2",
+      "Seconds": 37.21899999998277,
+      "Sha256": "08A84786D1AA7576268DCF41E63F9CCDBFFFA26AC5B8E8AFEAC4E1A216FC63D3"
+    },
+    {
+      "Stage": "library377-header-diagnostic1",
+      "Seconds": 13.437999999965541,
+      "Sha256": "E61FE730B9778D3C536AA62730F375916771D318688DAF482F9A8B186FC0E315"
+    },
+    {
+      "Stage": "library377-owned-file-mutations1",
+      "Seconds": 55.93800000002375,
+      "Sha256": "07945E2E92088F9B1DB21A036E0E3ED2128C7463A37A4EB8508B2E59E1AB05E6"
+    },
+    {
+      "Stage": "library377-project-cache-specifics1",
+      "Seconds": 144.125,
+      "Sha256": "B8F501EDCEF5422082370BA28BEE46102669A40F99A2409315CF0BE4D649A4A1"
+    },
+    {
+      "Stage": "library377-final-identity-values1",
+      "Seconds": 34.65600000001723,
+      "Sha256": "B2AD1CEFE641B5825D440C5FA7967CC1E3641F428981F997A8E0E0BD9A5F62DD"
+    },
+    {
+      "Stage": "library377-selected-header-removal1",
+      "Seconds": 5.73399999999674,
+      "Sha256": "4A0698588A4D7C9FE2C455A8BA985079F7980E5509FF75C4E975A61F6525636C"
+    },
+    {
+      "Stage": "library377-final-solution-build1",
+      "Seconds": 29.04700000002049,
+      "Sha256": "C4344CA1C46D056780C214A16467D04DADA9D9E196E7D35359281B109288F12C"
+    },
+    {
+      "Stage": "library377-final-full1",
+      "Seconds": 358.76600000000326,
+      "Sha256": "D30735F242F9C6F94CC40318AA13F4C837E77A47A2A2D59E46A6F3DE23DAEA5B"
+    },
+    {
+      "Stage": "library377-final-report-gates2",
+      "Seconds": 8.85899999999674,
+      "Sha256": "B089DF8CA498D83B11AD9EC64DE073FBA71C9E85A4F92A7A25C6987BCB93AE75"
+    }
+  ],
+  "Scope": "Opt-in declared source/header tree, ordered includes and typed macros, original epp and noenv compilation of unchanged admitted forms, .NET BEAM execution, MSBuild/cache/package gates",
+  "RemainingPlanBoundaries": [
+    "Two named later expanded defensive branches unexercised; public early raw refusals pass",
+    "Exact mutation during already-running native child is not proven by sampled request marker",
+    "Original full-orchestration timeout is unexercised; actual shared120s wrapper verified with test-owned worker"
+  ],
+  "NextRuntimeGap": [
+    "try",
+    "try_case",
+    "build_stacktrace"
+  ],
+  "RetainedFailures": [
+    "Full guest try/catch fixture is unsupported at linker, not a normalized stack pass",
+    "Unused malformed macro token fixture was valid original syntax; retain wrong negative expectation and isolated true directive diagnostic successor",
+    "Leaf recipe LF/CRLF seal mismatch refused before native; successor binds persisted bytes"
+  ],
+  "Bindings": [
+    {
+      "Path": "API_COMPATIBILITY.md",
+      "Sha256": "EC97AF70773A60F54DC8113655F1C89B6386AF8E70BD31DDCF06134E7B22D947"
+    },
+    {
+      "Path": "canonical-tests.json",
+      "Sha256": "BB4E43FA259F198F3F7E417B0078F11D0664AB5A8BC0BCD323228F22CA9BA4F0"
+    },
+    {
+      "Path": "cli-cache10.json",
+      "Sha256": "4A295E9AE1BBA9B90715D1AC3ACEF70F613CEDD94C2038E9DD58031908689D5F"
+    },
+    {
+      "Path": "cli-cache9.json",
+      "Sha256": "72654AE273A3548EC4F6A38741F1682A81E8822150E058F33137DF17B904D736"
+    },
+    {
+      "Path": "cold-package.json",
+      "Sha256": "603BC864D69E5C70A0AA55442A5AAE1D1D1D563DE172979078B9C01078EF2F6D"
+    },
+    {
+      "Path": "compiler-admission.json",
+      "Sha256": "41CCC2FDE5493D85BEAA21996E12D0885D2919B0D4BF44137D0673DCDC9D5EA6"
+    },
+    {
+      "Path": "final-report-gates.json",
+      "Sha256": "E0EAD6CD34B8EBE42FD7ED9272FCB0B6D3C75E4B90C181317558D8DB56F8BD6C"
+    },
+    {
+      "Path": "frozen-runtime-checkpoint.json",
+      "Sha256": "775D7A2907D33D5800B82CECBDC5493CDEE15496E5A97202BAFA40AA7A4ACE9B"
+    },
+    {
+      "Path": "header-diagnostic.json",
+      "Sha256": "CB21DEA4A1E9F3A88387A3C3093905266F95BFBDA9584D8375A81FD5F4C47AA7"
+    },
+    {
+      "Path": "identity-and-retained-values.json",
+      "Sha256": "0BD6AD217957DD221C0D56C0FCF94C66215EBB7AB09DB5877DD5A1E158C59303"
+    },
+    {
+      "Path": "input-component.json",
+      "Sha256": "2AFDDC32B0D529C87CE7D2272517ADAB1EE2A869D0AE0C27B15DDB8B240453C1"
+    },
+    {
+      "Path": "integration-results.json",
+      "Sha256": "5B7E6787E385F25F80B5359FC5857AF160ED5D03D729DB6D42D7DC80A18C35EA"
+    },
+    {
+      "Path": "leaf-full-exit-stack.json",
+      "Sha256": "F211D1D48A0D5496581D7ACAD01B047393E4DC6BFCC3456B56203CFB0AC60B88"
+    },
+    {
+      "Path": "library377-cache-successor1.exit.json",
+      "Sha256": "AE2AB6365357CB8A7A4828154A1BF314EFA8CFC1EC5513AEFBA7F859680D46DD"
+    },
+    {
+      "Path": "library377-cli-cache-controls1.exit.json",
+      "Sha256": "0108952B8E8646C4C5DDBDCE7EF9481F2052314C8C87C5783B86CE81483202D8"
+    },
+    {
+      "Path": "library377-cold-package1.exit.json",
+      "Sha256": "06D960DA350B43FED68304BFC4BE24096A6DD4E3ACE34C6B7831F6A5768FF009"
+    },
+    {
+      "Path": "library377-current-tool-build1.exit.json",
+      "Sha256": "745A33F5FBE69327C1154B0B3FF791B199AB9FE8F052E3003FF58CB41832DE07"
+    },
+    {
+      "Path": "library377-final-full1.exit.json",
+      "Sha256": "D30735F242F9C6F94CC40318AA13F4C837E77A47A2A2D59E46A6F3DE23DAEA5B"
+    },
+    {
+      "Path": "library377-final-identity-values1.exit.json",
+      "Sha256": "B2AD1CEFE641B5825D440C5FA7967CC1E3641F428981F997A8E0E0BD9A5F62DD"
+    },
+    {
+      "Path": "library377-final-report-gates2.exit.json",
+      "Sha256": "B089DF8CA498D83B11AD9EC64DE073FBA71C9E85A4F92A7A25C6987BCB93AE75"
+    },
+    {
+      "Path": "library377-final-solution-build1.exit.json",
+      "Sha256": "C4344CA1C46D056780C214A16467D04DADA9D9E196E7D35359281B109288F12C"
+    },
+    {
+      "Path": "library377-header-diagnostic1.exit.json",
+      "Sha256": "E61FE730B9778D3C536AA62730F375916771D318688DAF482F9A8B186FC0E315"
+    },
+    {
+      "Path": "library377-leaf-stack2.exit.json",
+      "Sha256": "08A84786D1AA7576268DCF41E63F9CCDBFFFA26AC5B8E8AFEAC4E1A216FC63D3"
+    },
+    {
+      "Path": "library377-live-mutations1.exit.json",
+      "Sha256": "46CDFEB3DCBC7CD7404FB17486059616D559C4FAA591FD2DCEABA208DC6C36C7"
+    },
+    {
+      "Path": "library377-msbuild-controls1.exit.json",
+      "Sha256": "3440999BAC40C0EB8735FB2399BDCB7B81070A2190EA7867CBB26DDE559B652D"
+    },
+    {
+      "Path": "library377-native-packet1.exit.json",
+      "Sha256": "C02D30C532F6EFDD018FB36DC92A98F3F4FDDC702ABE0F38CE59C2C49ECA4AE3"
+    },
+    {
+      "Path": "library377-owned-file-mutations1.exit.json",
+      "Sha256": "07945E2E92088F9B1DB21A036E0E3ED2128C7463A37A4EB8508B2E59E1AB05E6"
+    },
+    {
+      "Path": "library377-package-suffix1.exit.json",
+      "Sha256": "D01513A4806C1E8466C5AC007FBA6FB8C800A10F71E9BB2DBDA14AE5C7B4E3FC"
+    },
+    {
+      "Path": "library377-policy-real1.exit.json",
+      "Sha256": "8E1E40FCAC5593D0B6832B574CDE45D6B77191C924BC9968EBBFF7DF04BC6164"
+    },
+    {
+      "Path": "library377-process-probe1.exit.json",
+      "Sha256": "8204831C7EC0A9EE2A12763F452EAC22AAAA310616FDB09BA488BA08639B103A"
+    },
+    {
+      "Path": "library377-project-cache-specifics1.exit.json",
+      "Sha256": "B8F501EDCEF5422082370BA28BEE46102669A40F99A2409315CF0BE4D649A4A1"
+    },
+    {
+      "Path": "library377-restricted-regression1.exit.json",
+      "Sha256": "03F9747A03FCC0BC36875B25AF4018EB72099AD46F53D06DE123AFEE7DDBAC04"
+    },
+    {
+      "Path": "library377-selected-header-removal1.exit.json",
+      "Sha256": "4A0698588A4D7C9FE2C455A8BA985079F7980E5509FF75C4E975A61F6525636C"
+    },
+    {
+      "Path": "live-owned-mutation.json",
+      "Sha256": "0835D144DD143C0AA5744306DFFC7948AD04201F0EF611F5B91493AF926D05AD"
+    },
+    {
+      "Path": "measured-role-gap.json",
+      "Sha256": "7F63FFB1CF1278BCC39C96026D307E977CC40D1202E0C1DCEAA68549903DA52C"
+    },
+    {
+      "Path": "metadata-controls.json",
+      "Sha256": "D42D1A2AB7FC23EE803F764F2B7A2211D25AF38947DB995CCF76063608E46453"
+    },
+    {
+      "Path": "module-readiness.json",
+      "Sha256": "C7DBE690A41025E237DD22CAA72D03C278270E7E59FA6CF79C6DBCEF0C36102E"
+    },
+    {
+      "Path": "MODULE_READINESS.md",
+      "Sha256": "17A1C9B358B5AB80CEB462DF4F32934A35CBDB1BFF3F1BBCFBA6FAC7126C4FD8"
+    },
+    {
+      "Path": "msbuild-includes.json",
+      "Sha256": "DFFD8CDC9DF53D034E0F57D7F16DB4F04F0AD6BCCBC29F1EF2CDD4DB4962DB42"
+    },
+    {
+      "Path": "native-infrastructure.json",
+      "Sha256": "AAA25ED168B822482362FEED111C2D6851639EDE69BEE59A24F3AA57324B5E83"
+    },
+    {
+      "Path": "native-infrastructure.md",
+      "Sha256": "D7ABCCD6575AF3F0F8A6D78D66CC3D1298EB9D32ACDCF2DB9305D1ED5EB2BBDE"
+    },
+    {
+      "Path": "native-semantic18-of19.json",
+      "Sha256": "E2F2F7C86468C69BF29168071847813D34127467209B774902CA5E83420F221A"
+    },
+    {
+      "Path": "native22.json",
+      "Sha256": "2398A28B24C4CC3C3AF5D700D69F1775191EA2C5C74725157E1A43B0D42E5ADF"
+    },
+    {
+      "Path": "owned-add-delete.json",
+      "Sha256": "6176771868F0685CC0D51539AEE90195B9A37CFF620D4D219274DD6DF41AFE7D"
+    },
+    {
+      "Path": "partition-crosswalk.json",
+      "Sha256": "232C212E9234241AD50D9969494DF3AA6FE8EB3532BE9BF63421F925B1455B0E"
+    },
+    {
+      "Path": "real-policy-refusals.json",
+      "Sha256": "17F919E347B711464D3C4FAFE57CF8130226F603DA0122BA5BAD65D2DEDB7855"
+    },
+    {
+      "Path": "restricted18.json",
+      "Sha256": "A934D646F39E8988D0D4E750AD0E57A228DDEEAEDF6882F9EB574D177039C81A"
+    },
+    {
+      "Path": "retained-full-program-failure.json",
+      "Sha256": "67E6152AD842C28A8CF0E297A645CB849DA3009AEFEA929C6C7EA4F3A7C7971A"
+    },
+    {
+      "Path": "runtime-test-build-sources.zip",
+      "Sha256": "3EA42FFCA69DAF1FF0EA8A58FB6D157318F3806D5B0DB9CE5E8F3DD1B75526DC"
+    },
+    {
+      "Path": "selected-header-omission.json",
+      "Sha256": "CC57396EBCAEFE34374ADFB538D416314C5DCA229FC26560D5230111EEA318D2"
+    },
+    {
+      "Path": "test-worker-timeout.json",
+      "Sha256": "55E330C8DCF4F1A1166702897012311CB331350904690C1A8CB1425234A8B48A"
+    },
+    {
+      "Path": "two-module-and-typed-values.json",
+      "Sha256": "EB530A2B0DE2BEEBDE271255B88E45A586A8D5AE47461598E5144189BA749650"
+    }
+  ]
+}

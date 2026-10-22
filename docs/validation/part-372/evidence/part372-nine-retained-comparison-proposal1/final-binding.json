@@ -1,0 +1,26 @@
+{
+  "GuardCount": 508,
+  "GuardReviewPath": "artifacts/part372-source-guard-review2/source-review.json",
+  "GuardReviewSha256": "8CF9ACAFEAAE55F1BB2A16E5A9E0DE2006C0FEA04B12324744AB6B9447382EDC",
+  "BindingsPath": "artifacts/part372-source-guard-review2/verified-source-files.proposed.json",
+  "BindingsSha256": "F1D47547CC8E11DFC57945816B6DC22694DB52B31CDF7B30FC1B7AF74AEC9506",
+  "ExactOldBindingChanges": [
+    {
+      "Path": "src/Erlang.Compiler/StaticApplySyntax.cs",
+      "Before": "3BE405FB880B8B6821F2A8C796DD28AA7BB68958EF5CAD1AD6CEB31412D358C4",
+      "After": "0903535093CA9ED3CED27B487846118EF2951FA0B67D4C5424BFF612F10A8E68",
+      "Reason": "Prior reviewed Part369 static native apply classification retained; exact final guard binds current source."
+    },
+    {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "Before": "9279946C7BFFEAAF8283EFDB8F9B89E250817FF3BDBAFFC79DBBC3EAFDEEC141",
+      "After": "31CF6C6FEFF57F33D7CE9B751953FE241F71E3C50013654137D860372364AB91",
+      "Reason": "Existing Part369 native-tail/load_nif boundary changes plus Part371 source operator locations after operand evaluation; callback call/guard control and saved-entry runtime kernels remain reviewed; fresh full typed stack replay required."
+    }
+  ],
+  "PreservedAll496PublishedGuardPaths": true,
+  "NoComparisonPolicyChanged": true,
+  "NoNativePacketEdited": true,
+  "RequiresFreshFinalDllEquality": true,
+  "NoNewBindingDeltaSilentlyAccepted": true
+}

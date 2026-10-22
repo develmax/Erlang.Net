@@ -11,4 +11,350 @@
   <ItemGroup><EmbeddedResource Include="Resources/BeamOnLoadResourceHashes.json" /></ItemGroup>
   <ItemGroup><EmbeddedResource Include="Resources/BeamLoader/*" /></ItemGroup>
   <ItemGroup><EmbeddedResource Include="Resources/BeamGzip/**/*" /><EmbeddedResource Include="Resources/BeamGzipControls/*" /></ItemGroup>
-<ItemGroup><EmbeddedResource Include="Resources/RawOnLoadDeferredExports/*" /></ItemGroup></Project>
+<ItemGroup><EmbeddedResource Include="Resources/RawOnLoadDeferredExports/*" /></ItemGroup>  <ItemGroup>
+    <EmbeddedResource Include="Resources/ProplistFamily/cases.json" LogicalName="Erlang.Tests.ProplistFamily.cases.json" />
+    <EmbeddedResource Include="Resources/ProplistFamily/proplists_family_probe.erl" LogicalName="Erlang.Tests.ProplistFamily.proplists_family_probe.erl" />
+    <EmbeddedResource Include="Resources/ProplistFamily/continuation_safety.erl" LogicalName="Erlang.Tests.ProplistFamily.continuation_safety.erl" />
+  </ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Resources/ProplistFamily/proplists_iterator_contract.erl" LogicalName="Erlang.Tests.ProplistFamily.proplists_iterator_contract.erl" /></ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources/ProplistFamily/proplists_flat_iterator_contract.erl" LogicalName="Erlang.Tests.ProplistFamily.proplists_flat_iterator_contract.erl" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources/ProplistInternalHash/native-hashes.etf" LogicalName="Erlang.Tests.ProplistInternalHash.native-hashes.etf" />
+    <EmbeddedResource Include="Resources/ProplistInternalHash/raw-cursors.etf" LogicalName="Erlang.Tests.ProplistInternalHash.raw-cursors.etf" />
+    <EmbeddedResource Include="Resources/ProplistInternalHash/proplists_raw_cursor_contract.erl" LogicalName="Erlang.Tests.ProplistInternalHash.proplists_raw_cursor_contract.erl" />
+  </ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Fixtures/queue_ends368_contract.erl" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Fixtures/queue_callback368_regression.erl" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Fixtures/binary_search_contract.erl" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Resources/BinaryInsert/binary_insert369_host.erl" /></ItemGroup>
+<ItemGroup><EmbeddedResource Include="Resources/Erlang370/size_source_location_contract.erl" /></ItemGroup>
+<ItemGroup><EmbeddedResource Include="Resources/Erlang370/dynamic_apply370_host.erl" /></ItemGroup>
+<ItemGroup><EmbeddedResource Include="Resources/Erlang370/source_bif_continuation_contract.erl" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Resources/Ordsets371/ordsets_core_contract.erl" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Resources/Erlang371/bounded_bif_contract.erl" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Resources/Ordsets371/ordsets_full_contract.erl" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Resources/Erlang371/numeric371_source_contract.erl" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Resources/OrdsetFull/ordset_lists_replacement_failure.erl" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Resources/OrdsetFull/ordset_lists_replacement_success.erl" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Resources/Erlang371/operator371_source_lines.erl" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Resources/Erlang371/lists_unique_source_contract.erl" /></ItemGroup>
+<ItemGroup>
+  <EmbeddedResource Include="Resources/BeamTry378/beam_try_fixture378.beam" LogicalName="Erlang.Tests.BeamTry378.guest.beam" />
+  <EmbeddedResource Include="Resources/BeamTry378/original-outcomes.etf" LogicalName="Erlang.Tests.BeamTry378.original.etf" />
+</ItemGroup>
+
+<ItemGroup>
+  <EmbeddedResource Include="Resources/BeamOrdsets381/*" LogicalName="Erlang.Tests.BeamOrdsets381.%(Filename)%(Extension)" />
+</ItemGroup>
+<ItemGroup>
+  <EmbeddedResource Include="Resources/BeamOrdsets382/*" LogicalName="Erlang.Tests.BeamOrdsets382.%(Filename)%(Extension)" />
+</ItemGroup>
+<ItemGroup>
+<EmbeddedResource Include="Resources/EtfFlatMap382/original-values.etf" LogicalName="Erlang.Tests.Resources.EtfFlatMap382.original-values.etf" />
+</ItemGroup>
+<ItemGroup>
+  <EmbeddedResource Include="Resources/BeamRaiseTrace384/*" LogicalName="Erlang.Tests.BeamRaiseTrace384.%(Filename)%(Extension)" />
+</ItemGroup>
+<ItemGroup>
+  <EmbeddedResource Include="Resources/BeamProtectedReceive386/*" LogicalName="Erlang.Tests.BeamProtectedReceive386.%(Filename)%(Extension)" />
+</ItemGroup>
+<ItemGroup>
+  <EmbeddedResource Include="Resources/BeamReceiveExtended386/Lazy/*" LogicalName="Erlang.Tests.BeamReceiveExtended386.Lazy.%(Filename)%(Extension)" />
+  <EmbeddedResource Include="Resources/BeamReceiveExtended386/Asm/*" LogicalName="Erlang.Tests.BeamReceiveExtended386.Asm.%(Filename)%(Extension)" />
+</ItemGroup>
+<ItemGroup>
+  <EmbeddedResource Include="Resources/BeamAwaitEntry387/Remote/*" LogicalName="Erlang.Tests.BeamAwaitEntry387.Remote.%(Filename)%(Extension)" />
+  <EmbeddedResource Include="Resources/BeamAwaitEntry387/Native/*" LogicalName="Erlang.Tests.BeamAwaitEntry387.Native.%(Filename)%(Extension)" />
+</ItemGroup>
+<ItemGroup>
+  <EmbeddedResource Include="Resources/BeamAwaitEntry387/Delay/*" LogicalName="Erlang.Tests.BeamAwaitEntry387.Delay.%(Filename)%(Extension)" />
+</ItemGroup>
+<ItemGroup>
+  <EmbeddedResource Include="Resources/BeamLifecycle388/Alternating/*" LogicalName="Erlang.Tests.BeamLifecycle388.Alternating.%(Filename)%(Extension)" />
+  <EmbeddedResource Include="Resources/BeamLifecycle388/Deep/*" LogicalName="Erlang.Tests.BeamLifecycle388.Deep.%(Filename)%(Extension)" />
+  <EmbeddedResource Include="Resources/BeamLifecycle388/Image/*" LogicalName="Erlang.Tests.BeamLifecycle388.Image.%(Filename)%(Extension)" />
+</ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Resources/LibraryManifest389/*" LogicalName="Erlang.Tests.LibraryManifest389.%(Filename)%(Extension)" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Resources/LibraryCollections390/*" LogicalName="Erlang.Tests.LibraryCollections390.%(Filename)%(Extension)" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Resources/LibraryBinary390/*" LogicalName="Erlang.Tests.LibraryBinary390.%(Filename)%(Extension)" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Resources/LibraryMapsProplists390/*" LogicalName="Erlang.Tests.LibraryMapsProplists390.%(Filename)%(Extension)" /></ItemGroup>
+<ItemGroup><EmbeddedResource Include="Resources/LibraryProcesses391/*" LogicalName="Erlang.Tests.LibraryProcesses391.%(Filename)%(Extension)" /></ItemGroup><ItemGroup><EmbeddedResource Include="Resources/LibraryDependencies392/*" LogicalName="Erlang.Tests.LibraryDependencies392.%(Filename)%(Extension)" /></ItemGroup>  <ItemGroup><EmbeddedResource Include="Resources/OsNative399/os.beam" LogicalName="Erlang.Tests.OsNative399.os.beam" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Resources/NetKernelNative400/*" LogicalName="Erlang.Tests.NetKernelNative400.%(Filename)%(Extension)" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Resources/NativeProviders408/*" LogicalName="Erlang.Tests.NativeProviders408.%(Filename)%(Extension)" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Resources/CodeServerOriginal410/*" LogicalName="Erlang.Tests.CodeServerOriginal410.%(Filename)%(Extension)" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Resources/CodeServerInteractive410/*" LogicalName="Erlang.Tests.CodeServerInteractive410.%(Filename)%(Extension)" /></ItemGroup>
+<ItemGroup><EmbeddedResource Include="Resources/StrictChain411/*" LogicalName="Erlang.Tests.Resources.StrictChain411.%(Filename)%(Extension)" /></ItemGroup>  <ItemGroup><EmbeddedResource Include="Resources/EtsConcurrencyOriginal411/*" LogicalName="Erlang.Tests.EtsConcurrencyOriginal411.%(Filename)%(Extension)" /></ItemGroup>
+<ItemGroup><EmbeddedResource Include="Resources/InterpreterCode411/*" LogicalName="Erlang.Tests.Resources.InterpreterCode411.%(Filename)%(Extension)" /></ItemGroup>  <ItemGroup><EmbeddedResource Include="Resources/UnicodeSkipOriginal411/*" LogicalName="Erlang.Tests.UnicodeSkipOriginal411.%(Filename)%(Extension)" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Resources/MessageQueueOriginal411/*" LogicalName="Erlang.Tests.MessageQueueOriginal411.%(Filename)%(Extension)" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Resources/EtsLookupOriginal411/*" LogicalName="Erlang.Tests.EtsLookupOriginal411.%(Filename)%(Extension)" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Resources/EtsMatchOriginal411/*" LogicalName="Erlang.Tests.EtsMatchOriginal411.%(Filename)%(Extension)" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Resources/DelayBinaryOriginal411/*" LogicalName="Erlang.Tests.DelayBinaryOriginal411.%(Filename)%(Extension)" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Resources/WritableReceiveOriginal411/*" LogicalName="Erlang.Tests.WritableReceiveOriginal411.%(Filename)%(Extension)" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Resources/NativeProviderMetadataOriginal411/*" LogicalName="Erlang.Tests.NativeProviderMetadataOriginal411.%(Filename)%(Extension)" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Resources/PrimTtyOriginal412/*" LogicalName="Erlang.Tests.PrimTtyOriginal412.%(Filename)%(Extension)" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Resources/ClosedWaitOriginal412/*" LogicalName="Erlang.Tests.ClosedWaitOriginal412.%(Filename)%(Extension)" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Resources/RegexNative411/*" LogicalName="Erlang.Tests.RegexNative411.%(Filename)%(Extension)" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Resources/RaiseEmptyOriginal412/*" LogicalName="Erlang.Tests.RaiseEmptyOriginal412.%(Filename)%(Extension)" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Resources/SystemLoggerOriginal412/*" LogicalName="Erlang.Tests.SystemLoggerOriginal412.%(Filename)%(Extension)" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Resources/BootstrapSchedulerOriginal412/*" LogicalName="Erlang.Tests.BootstrapSchedulerOriginal412.%(Filename)%(Extension)" /></ItemGroup>
+<ItemGroup>
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/application.beam" LogicalName="Erlang.Tests.StandardBootOriginal412.application.beam" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/beam_standard_observer411.beam" LogicalName="Erlang.Tests.StandardBootOriginal412.beam_standard_observer411.beam" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/beam_standard_observer411.erl" LogicalName="Erlang.Tests.StandardBootOriginal412.beam_standard_observer411.erl" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/beam_standard_subject411.beam" LogicalName="Erlang.Tests.StandardBootOriginal412.beam_standard_subject411.beam" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/beam_standard_subject411.erl" LogicalName="Erlang.Tests.StandardBootOriginal412.beam_standard_subject411.erl" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/binary.beam" LogicalName="Erlang.Tests.StandardBootOriginal412.binary.beam" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/bootstrap-proof.etf" LogicalName="Erlang.Tests.StandardBootOriginal412.bootstrap-proof.etf" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/code_server.beam" LogicalName="Erlang.Tests.StandardBootOriginal412.code_server.beam" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/dependencies.json" LogicalName="Erlang.Tests.StandardBootOriginal412.dependencies.json" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/erl_prim_loader.beam" LogicalName="Erlang.Tests.StandardBootOriginal412.erl_prim_loader.beam" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/erpc.beam" LogicalName="Erlang.Tests.StandardBootOriginal412.erpc.beam" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/error_logger.beam" LogicalName="Erlang.Tests.StandardBootOriginal412.error_logger.beam" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/file.beam" LogicalName="Erlang.Tests.StandardBootOriginal412.file.beam" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/filename.beam" LogicalName="Erlang.Tests.StandardBootOriginal412.filename.beam" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/gb_sets.beam" LogicalName="Erlang.Tests.StandardBootOriginal412.gb_sets.beam" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/gb_trees.beam" LogicalName="Erlang.Tests.StandardBootOriginal412.gb_trees.beam" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/gen_server.beam" LogicalName="Erlang.Tests.StandardBootOriginal412.gen_server.beam" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/init.beam" LogicalName="Erlang.Tests.StandardBootOriginal412.init.beam" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/io.beam" LogicalName="Erlang.Tests.StandardBootOriginal412.io.beam" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/io_lib.beam" LogicalName="Erlang.Tests.StandardBootOriginal412.io_lib.beam" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/lists.beam" LogicalName="Erlang.Tests.StandardBootOriginal412.lists.beam" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/logger.beam" LogicalName="Erlang.Tests.StandardBootOriginal412.logger.beam" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/manifest.json" LogicalName="Erlang.Tests.StandardBootOriginal412.manifest.json" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/maps.beam" LogicalName="Erlang.Tests.StandardBootOriginal412.maps.beam" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/math.beam" LogicalName="Erlang.Tests.StandardBootOriginal412.math.beam" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/modules.json" LogicalName="Erlang.Tests.StandardBootOriginal412.modules.json" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/no_dot_erlang.boot" LogicalName="Erlang.Tests.StandardBootOriginal412.no_dot_erlang.boot" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/ordsets.beam" LogicalName="Erlang.Tests.StandardBootOriginal412.ordsets.beam" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/os.beam" LogicalName="Erlang.Tests.StandardBootOriginal412.os.beam" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/prim_file.beam" LogicalName="Erlang.Tests.StandardBootOriginal412.prim_file.beam" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/prim_tty.beam" LogicalName="Erlang.Tests.StandardBootOriginal412.prim_tty.beam" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/proc_lib.beam" LogicalName="Erlang.Tests.StandardBootOriginal412.proc_lib.beam" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/proplists.beam" LogicalName="Erlang.Tests.StandardBootOriginal412.proplists.beam" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/queue.beam" LogicalName="Erlang.Tests.StandardBootOriginal412.queue.beam" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/records.beam" LogicalName="Erlang.Tests.StandardBootOriginal412.records.beam" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/rpc.beam" LogicalName="Erlang.Tests.StandardBootOriginal412.rpc.beam" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/stacks.etf" LogicalName="Erlang.Tests.StandardBootOriginal412.stacks.etf" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/start_clean.boot" LogicalName="Erlang.Tests.StandardBootOriginal412.start_clean.boot" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/string.beam" LogicalName="Erlang.Tests.StandardBootOriginal412.string.beam" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/supervisor.beam" LogicalName="Erlang.Tests.StandardBootOriginal412.supervisor.beam" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/sys.beam" LogicalName="Erlang.Tests.StandardBootOriginal412.sys.beam" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/unicode.beam" LogicalName="Erlang.Tests.StandardBootOriginal412.unicode.beam" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/unicode_util.beam" LogicalName="Erlang.Tests.StandardBootOriginal412.unicode_util.beam" />
+  <EmbeddedResource Include="Fixtures/StandardBootOriginal412/values.etf" LogicalName="Erlang.Tests.StandardBootOriginal412.values.etf" />
+</ItemGroup>
+
+<ItemGroup>
+  <EmbeddedResource Include="Fixtures/EtsDeletionOriginal412/beam_ets_delete412.beam" LogicalName="Erlang.Tests.EtsDeletionOriginal412.beam_ets_delete412.beam" />
+  <EmbeddedResource Include="Fixtures/EtsDeletionOriginal412/beam_ets_delete412.erl" LogicalName="Erlang.Tests.EtsDeletionOriginal412.beam_ets_delete412.erl" />
+  <EmbeddedResource Include="Fixtures/EtsDeletionOriginal412/ets.beam" LogicalName="Erlang.Tests.EtsDeletionOriginal412.ets.beam" />
+  <EmbeddedResource Include="Fixtures/EtsDeletionOriginal412/ets.erl" LogicalName="Erlang.Tests.EtsDeletionOriginal412.ets.erl" />
+  <EmbeddedResource Include="Fixtures/EtsDeletionOriginal412/lists.beam" LogicalName="Erlang.Tests.EtsDeletionOriginal412.lists.beam" />
+  <EmbeddedResource Include="Fixtures/EtsDeletionOriginal412/manifest.json" LogicalName="Erlang.Tests.EtsDeletionOriginal412.manifest.json" />
+  <EmbeddedResource Include="Fixtures/EtsDeletionOriginal412/original-ets-authority.etf" LogicalName="Erlang.Tests.EtsDeletionOriginal412.original-ets-authority.etf" />
+  <EmbeddedResource Include="Fixtures/EtsDeletionOriginal412/stacks.etf" LogicalName="Erlang.Tests.EtsDeletionOriginal412.stacks.etf" />
+  <EmbeddedResource Include="Fixtures/EtsDeletionOriginal412/values.etf" LogicalName="Erlang.Tests.EtsDeletionOriginal412.values.etf" />
+</ItemGroup>
+
+<ItemGroup>
+  <EmbeddedResource Include="Resources/InternalScalarOriginal413/*" LogicalName="Erlang.Tests.InternalScalarOriginal413.%(Filename)%(Extension)" />
+</ItemGroup>
+
+<ItemGroup><EmbeddedResource Include="Resources/DebuggerDisabled413/*" LogicalName="Erlang.Tests.Resources.DebuggerDisabled413.%(Filename)%(Extension)" /></ItemGroup>
+<ItemGroup>
+  <EmbeddedResource Include="Resources/RegexThreeOriginal413/*" LogicalName="Erlang.Tests.RegexThreeOriginal413.%(Filename)%(Extension)" />
+</ItemGroup>
+
+<ItemGroup>
+  <EmbeddedResource Include="Fixtures/AtomicsNative413/atomics.beam" LogicalName="Erlang.Tests.AtomicsNative413.atomics.beam" />
+  <EmbeddedResource Include="Fixtures/AtomicsNative413/atomics.erl" LogicalName="Erlang.Tests.AtomicsNative413.atomics.erl" />
+  <EmbeddedResource Include="Fixtures/AtomicsNative413/beam_atomics413.beam" LogicalName="Erlang.Tests.AtomicsNative413.beam_atomics413.beam" />
+  <EmbeddedResource Include="Fixtures/AtomicsNative413/beam_atomics413.erl" LogicalName="Erlang.Tests.AtomicsNative413.beam_atomics413.erl" />
+  <EmbeddedResource Include="Fixtures/AtomicsNative413/lists.beam" LogicalName="Erlang.Tests.AtomicsNative413.lists.beam" />
+  <EmbeddedResource Include="Fixtures/AtomicsNative413/manifest.json" LogicalName="Erlang.Tests.AtomicsNative413.manifest.json" />
+  <EmbeddedResource Include="Fixtures/AtomicsNative413/maps.beam" LogicalName="Erlang.Tests.AtomicsNative413.maps.beam" />
+  <EmbeddedResource Include="Fixtures/AtomicsNative413/original-atomics-authority.etf" LogicalName="Erlang.Tests.AtomicsNative413.original-atomics-authority.etf" />
+  <EmbeddedResource Include="Fixtures/AtomicsNative413/resource-stacks.etf" LogicalName="Erlang.Tests.AtomicsNative413.resource-stacks.etf" />
+  <EmbeddedResource Include="Fixtures/AtomicsNative413/stacks.etf" LogicalName="Erlang.Tests.AtomicsNative413.stacks.etf" />
+  <EmbeddedResource Include="Fixtures/AtomicsNative413/values.etf" LogicalName="Erlang.Tests.AtomicsNative413.values.etf" />
+</ItemGroup>
+
+<ItemGroup><EmbeddedResource Include="Resources/DebuggerOriginal413/*" LogicalName="Erlang.Tests.Resources.DebuggerOriginal413.%(Filename)%(Extension)" /></ItemGroup>
+<ItemGroup>
+  <EmbeddedResource Include="Fixtures/EtsQueriesOriginal414/*" LogicalName="Erlang.Tests.EtsQueriesOriginal414.%(Filename)%(Extension)" />
+</ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Fixtures\EtsMutationsOriginal414\beam_ets_mutations414.beam" LogicalName="Erlang.Tests.EtsMutationsOriginal414.beam_ets_mutations414.beam" />
+    <EmbeddedResource Include="Fixtures\EtsMutationsOriginal414\beam_ets_mutations414.erl" LogicalName="Erlang.Tests.EtsMutationsOriginal414.beam_ets_mutations414.erl" />
+    <EmbeddedResource Include="Fixtures\EtsMutationsOriginal414\ets.beam" LogicalName="Erlang.Tests.EtsMutationsOriginal414.ets.beam" />
+    <EmbeddedResource Include="Fixtures\EtsMutationsOriginal414\ets.erl" LogicalName="Erlang.Tests.EtsMutationsOriginal414.ets.erl" />
+    <EmbeddedResource Include="Fixtures\EtsMutationsOriginal414\lists.beam" LogicalName="Erlang.Tests.EtsMutationsOriginal414.lists.beam" />
+    <EmbeddedResource Include="Fixtures\EtsMutationsOriginal414\manifest.json" LogicalName="Erlang.Tests.EtsMutationsOriginal414.manifest.json" />
+    <EmbeddedResource Include="Fixtures\EtsMutationsOriginal414\original-ets-authority.etf" LogicalName="Erlang.Tests.EtsMutationsOriginal414.original-ets-authority.etf" />
+    <EmbeddedResource Include="Fixtures\EtsMutationsOriginal414\stacks.etf" LogicalName="Erlang.Tests.EtsMutationsOriginal414.stacks.etf" />
+    <EmbeddedResource Include="Fixtures\EtsMutationsOriginal414\values.etf" LogicalName="Erlang.Tests.EtsMutationsOriginal414.values.etf" />
+  </ItemGroup>
+
+<ItemGroup><EmbeddedResource Include="Resources/ManagedCollectors413/*" LogicalName="Erlang.Tests.Resources.ManagedCollectors413.%(Filename)%(Extension)" /></ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Fixtures\CollectorsOriginal415\beam_collectors415.beam" LogicalName="Erlang.Tests.CollectorsOriginal415.beam_collectors415.beam" />
+    <EmbeddedResource Include="Fixtures\CollectorsOriginal415\beam_collectors415.erl" LogicalName="Erlang.Tests.CollectorsOriginal415.beam_collectors415.erl" />
+    <EmbeddedResource Include="Fixtures\CollectorsOriginal415\erts_literal_area_collector.beam" LogicalName="Erlang.Tests.CollectorsOriginal415.erts_literal_area_collector.beam" />
+    <EmbeddedResource Include="Fixtures\CollectorsOriginal415\erts_trace_cleaner.beam" LogicalName="Erlang.Tests.CollectorsOriginal415.erts_trace_cleaner.beam" />
+    <EmbeddedResource Include="Fixtures\CollectorsOriginal415\manifest.json" LogicalName="Erlang.Tests.CollectorsOriginal415.manifest.json" />
+    <EmbeddedResource Include="Fixtures\CollectorsOriginal415\original-authority.etf" LogicalName="Erlang.Tests.CollectorsOriginal415.original-authority.etf" />
+    <EmbeddedResource Include="Fixtures\CollectorsOriginal415\stacks.etf" LogicalName="Erlang.Tests.CollectorsOriginal415.stacks.etf" />
+    <EmbeddedResource Include="Fixtures\CollectorsOriginal415\values.etf" LogicalName="Erlang.Tests.CollectorsOriginal415.values.etf" />
+  </ItemGroup>
+
+<ItemGroup><EmbeddedResource Include="Fixtures/InternalPortsOriginal416/*" LogicalName="Erlang.Tests.InternalPortsOriginal416.%(Filename)%(Extension)" /></ItemGroup>
+<ItemGroup><EmbeddedResource Include="Fixtures/DdllErrorOriginal416/*" LogicalName="Erlang.Tests.DdllErrorOriginal416.%(Filename)%(Extension)" />
+</ItemGroup>
+<ItemGroup><EmbeddedResource Include="Fixtures/EtsTraversalOriginal416/*" LogicalName="Erlang.Tests.EtsTraversalOriginal416.%(Filename)%(Extension)" /></ItemGroup>
+<ItemGroup><EmbeddedResource Include="Fixtures/ApplyTailOriginal416/*" LogicalName="Erlang.Tests.ApplyTailOriginal416.%(Filename)%(Extension)" /></ItemGroup>
+<ItemGroup><EmbeddedResource Include="Fixtures/EtsCountersOriginal417/*" LogicalName="Erlang.Tests.EtsCountersOriginal417.%(Filename)%(Extension)" />
+</ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Fixtures\EtsRenameOriginal418\*" LogicalName="Erlang.Tests.EtsRenameOriginal418.%(Filename)%(Extension)" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Fixtures/BeamfileChunkOriginal418/*" LogicalName="Erlang.Tests.BeamfileChunkOriginal418.%(Filename)%(Extension)" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Fixtures/EtsHeirOriginal419/*" LogicalName="Erlang.Tests.EtsHeirOriginal419.%(Filename)%(Extension)" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Fixtures/EtsNewHeirOriginal419/*" LogicalName="Erlang.Tests.EtsNewHeirOriginal419.%(Filename)%(Extension)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Fixtures/InternalOwnerOriginal419/*" LogicalName="Erlang.Tests.InternalOwnerOriginal419.%(Filename)%(Extension)" />
+  </ItemGroup>
+<ItemGroup><EmbeddedResource Include="Fixtures/EtsCompiledOriginal419/*" LogicalName="Erlang.Tests.EtsCompiledOriginal419.%(Filename)%(Extension)" /></ItemGroup>
+<ItemGroup><EmbeddedResource Include="Fixtures/DebugLocks419/*" LogicalName="Erlang.Tests.DebugLocks419.%(Filename)%(Extension)" /></ItemGroup>
+<ItemGroup><EmbeddedResource Include="Fixtures/DebugLocksOriginal419/*" LogicalName="Erlang.Tests.DebugLocksOriginal419.%(Filename)%(Extension)" /></ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Fixtures/EtsAllOriginal420/*" LogicalName="Erlang.Tests.EtsAllOriginal420.%(Filename)%(Extension)" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Fixtures/EtsIndexOriginal420/*" LogicalName="Erlang.Tests.EtsIndexOriginal420.%(Filename)%(Extension)" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Fixtures/CountersOriginal421/*" LogicalName="Erlang.Tests.CountersOriginal421.%(Filename)%(Extension)" />
+  </ItemGroup>
+<ItemGroup><EmbeddedResource Include="Fixtures/DebugInternal420/*" LogicalName="Erlang.Tests.DebugInternal420.%(Filename)%(Extension)" /><EmbeddedResource Include="Fixtures/DebugInternalOriginal420/*" LogicalName="Erlang.Tests.DebugInternalOriginal420.%(Filename)%(Extension)" /></ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Fixtures/EtsCursorsOriginal420/*" LogicalName="Erlang.Tests.EtsCursorsOriginal420.%(Filename)%(Extension)" />
+    <EmbeddedResource Include="Fixtures/MatchSpecLeafOriginal420/*" LogicalName="Erlang.Tests.MatchSpecLeafOriginal420.%(Filename)%(Extension)" />
+  </ItemGroup>
+<ItemGroup><EmbeddedResource Include="Fixtures/DebugSame420/*" LogicalName="Erlang.Tests.DebugSame420.%(Filename)%(Extension)" /><EmbeddedResource Include="Fixtures/DebugSameOriginal420/*" LogicalName="Erlang.Tests.DebugSameOriginal420.%(Filename)%(Extension)" /></ItemGroup>
+<ItemGroup>
+    <EmbeddedResource Include="Fixtures/EtsReplaceOriginal420/*" LogicalName="Erlang.Tests.EtsReplaceOriginal420.%(Filename)%(Extension)" />
+</ItemGroup>
+<ItemGroup><EmbeddedResource Include="Fixtures/DebugUnaligned421/*" LogicalName="Erlang.Tests.DebugUnaligned421.%(Filename)%(Extension)" /></ItemGroup>
+<ItemGroup><EmbeddedResource Include="Fixtures/DebugUnalignedOriginal421/*" LogicalName="Erlang.Tests.DebugUnalignedOriginal421.%(Filename)%(Extension)" /></ItemGroup>
+
+<ItemGroup>
+    <EmbeddedResource Include="Fixtures/EtsInfoOriginal422/*" LogicalName="Erlang.Tests.EtsInfoOriginal422.%(Filename)%(Extension)" />
+</ItemGroup>
+<ItemGroup><EmbeddedResource Include="Fixtures/DirtyQueryOriginal423/*" LogicalName="Erlang.Tests.DirtyQueryOriginal423.%(Filename)%(Extension)" /></ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Fixtures/DistDecodeOriginal423/*" LogicalName="Erlang.Tests.DistDecodeOriginal423.%(Filename)%(Extension)" />
+  </ItemGroup>
+
+<ItemGroup>
+    <EmbeddedResource Include="Fixtures/BeamfileMd5Original423/*">
+      <LogicalName>Erlang.Tests.BeamfileMd5Original423.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+
+</ItemGroup>
+<ItemGroup>
+    <EmbeddedResource Include="Fixtures/BeamfileMd5WidthOriginal423/*">
+      <LogicalName>Erlang.Tests.BeamfileMd5WidthOriginal423.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+
+</ItemGroup>
+<ItemGroup>
+<EmbeddedResource Include="Fixtures/CheckProcessCodeOriginal424/*">
+      <LogicalName>Erlang.Tests.CheckProcessCodeOriginal424.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+<EmbeddedResource Include="Fixtures/ProcessAliveOriginal425/*">
+      <LogicalName>Erlang.Tests.ProcessAliveOriginal425.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fixtures/DebugDirtyOriginal424/*" LogicalName="Erlang.Tests.DebugDirtyOriginal424.%(Filename)%(Extension)" />
+</ItemGroup>
+<ItemGroup><EmbeddedResource Include="Fixtures/MapKeysOriginal426/*" LogicalName="Erlang.Tests.MapKeysOriginal426.%(Filename)%(Extension)" /></ItemGroup>
+<ItemGroup><EmbeddedResource Include="Fixtures/InternalProcessOriginal425/*" LogicalName="Erlang.Tests.InternalProcessOriginal425.%(Filename)%(Extension)" /></ItemGroup>
+<ItemGroup>
+    <EmbeddedResource Include="Fixtures/InternalTraceOriginal427/*">
+      <LogicalName>Erlang.Tests.InternalTraceOriginal427.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+
+</ItemGroup>
+<ItemGroup>
+    <EmbeddedResource Include="Fixtures/DebugSharingOriginal425/*">
+      <LogicalName>Erlang.Tests.DebugSharingOriginal425.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+</ItemGroup>
+<ItemGroup>
+    <EmbeddedResource Include="Fixtures/DebugCodeOriginal427/*">
+      <LogicalName>Erlang.Tests.DebugCodeOriginal427.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+</ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Fixtures/InternalGcOriginal428/*">
+      <LogicalName>Erlang.Tests.InternalGcOriginal428.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+<EmbeddedResource Include="Fixtures/SystemTaskOwner428/erts_dirty_process_signal_handler.beam">
+      <LogicalName>Erlang.Tests.SystemTaskOwner428.erts_dirty_process_signal_handler.beam</LogicalName>
+    </EmbeddedResource>
+<EmbeddedResource Include="Fixtures\HamtOriginal430\*" LogicalName="Erlang.Tests.HamtOriginal430.%(Filename)%(Extension)" />
+<EmbeddedResource Include="Fixtures/InternalPortLoader428/*" LogicalName="Erlang.Tests.InternalPortLoader428.%(Filename)%(Extension)" />
+<EmbeddedResource Include="Fixtures/InternalSpawnOriginal429/*" LogicalName="Erlang.Tests.InternalSpawnOriginal429.%(Filename)%(Extension)" />
+<EmbeddedResource Include="Fixtures/InternalTextAuxOriginal430/*" LogicalName="Erlang.Tests.InternalTextAuxOriginal430.%(Filename)%(Extension)" />
+<EmbeddedResource Include="Fixtures/InternalSystemCheckOriginal431/*" LogicalName="Erlang.Tests.InternalSystemCheckOriginal431.%(Filename)%(Extension)" />
+<EmbeddedResource Include="Fixtures/SystemTasksOriginal428/*">
+      <LogicalName>Erlang.Tests.SystemTasksOriginal428.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+<EmbeddedResource Include="Fixtures\ExportGlobalOriginal431\*" LogicalName="Erlang.Tests.ExportGlobalOriginal431.%(Filename)%(Extension)" />  </ItemGroup>
+  <ItemGroup>
+<EmbeddedResource Include="Fixtures\DebugDispatchOriginal432\*" LogicalName="Erlang.Tests.DebugDispatchOriginal432.%(Filename)%(Extension)" />
+<EmbeddedResource Include="Fixtures/DistributionProfile429/dist_util.beam">
+      <LogicalName>Erlang.Tests.DistributionProfile429.dist_util.beam</LogicalName>
+    </EmbeddedResource>  </ItemGroup>
+<ItemGroup>
+    <EmbeddedResource Include="Fixtures/DistributionProfileOriginal429/*">
+      <LogicalName>Erlang.Tests.DistributionProfileOriginal429.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+</ItemGroup>
+<ItemGroup>
+    <EmbeddedResource Include="Fixtures\DebugDispatchMatched433\*" LogicalName="Erlang.Tests.DebugDispatchMatched433.%(Filename)%(Extension)" />
+</ItemGroup>
+<ItemGroup><EmbeddedResource Include="Fixtures/CodePurgerOriginal432/*" LogicalName="Erlang.Tests.CodePurgerOriginal432.%(Filename)%(Extension)" /></ItemGroup>
+<ItemGroup>
+<EmbeddedResource Include="Fixtures/DistChannelOriginal429/*">
+      <LogicalName>Erlang.Tests.DistChannelOriginal429.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+</ItemGroup>
+<ItemGroup>
+<EmbeddedResource Include="Fixtures/AllocatorGatherOriginal434/*" LogicalName="Erlang.Tests.AllocatorGatherOriginal434.%(Filename)%(Extension)" />
+</ItemGroup>
+<ItemGroup>
+<EmbeddedResource Include="Fixtures/DistSpawnOriginal430/*">
+      <LogicalName>Erlang.Tests.DistSpawnOriginal430.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+</ItemGroup>
+<ItemGroup><EmbeddedResource Include="Fixtures/DebugUniqueOriginal436/*" LogicalName="Erlang.Tests.DebugUniqueOriginal436.%(Filename)%(Extension)" /></ItemGroup>
+<ItemGroup><EmbeddedResource Include="Fixtures/EtsCounterHintsOriginal436/*" LogicalName="Erlang.Tests.EtsCounterHintsOriginal436.%(Filename)%(Extension)" /></ItemGroup>
+<ItemGroup>
+<EmbeddedResource Include="Fixtures/SpawnMonitorOriginal431/*">
+      <LogicalName>Erlang.Tests.SpawnMonitorOriginal431.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+</ItemGroup>
+</Project>

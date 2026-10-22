@@ -1,0 +1,1 @@
+-module(oracle_map_operations). -export([run/0]). run()->true=maps:is_key(1,#{1=>integer}),false=maps:is_key(1.0,#{1=>integer}),done.

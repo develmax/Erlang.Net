@@ -1,0 +1,5 @@
+# SMALL list integer parsing candidate
+
+Three source files, no Main edits/build/runtime execution. The bridge routes list parsing through the native SMALL-list state partition; binary parsing is unchanged. The new constants contain the exact35-entry pinned64-bit digits-per-small table, independently checked against big.c. A positive or negative59-bit SMALL element narrows to a byte only on the native small path; the existing strict original-byte parser remains the big fallback. This preserves wrapped sign rejection, wrapped-zero skipping, nonempty/improper residual rejection and the17decimal/14hex threshold.
+
+Use the prepared numeric371_contract_edges60 native cohort to validate actual results and full stacks, then retain final Main focused regression and permanent branch checks. This proposal does not close all large-bignum, system_limit or cancellation contracts and makes no compatibility promotion. Root owns style/build/test/integration. The current methods and constants are separate files; no license headers/private license file are added.

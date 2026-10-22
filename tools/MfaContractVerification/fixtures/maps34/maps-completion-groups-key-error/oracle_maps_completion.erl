@@ -1,0 +1,1 @@
+-module(oracle_maps_completion). -export([run/0]). run()->try maps:groups_from_list(fun(_)->error(callback_failed) end,[a]) of _->unexpected catch error:callback_failed->ok end,done.

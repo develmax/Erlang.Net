@@ -1,0 +1,51 @@
+{
+  "Status": "PASS_FINAL_LONG_PAIRED8_40",
+  "Counts": {
+    "Values": {
+      "Total": 8,
+      "Strict": 8,
+      "SourceBound": 8
+    },
+    "FullObservations": {
+      "Total": 40,
+      "Strict": 30,
+      "SourceBound": 40
+    },
+    "NativeOnly": {
+      "Values": 3,
+      "FullObservations": 15
+    },
+    "Unexpected": 0,
+    "NegativeControlsRejected": 20
+  },
+  "OriginalRun": 39072770120,
+  "OriginalHead": "230eb081348a0c2b5056707b71c8b0086fe42b0c",
+  "NativeArtifact": 12116022082,
+  "ComparisonSha256": "E7CE89D9676BAAF786953903394287EC3808F15C79829336FE016BEB35E68B16",
+  "IndependentNativeAdmission": {
+    "Path": "artifacts/queue-original367-peer2/acceptance.json",
+    "Sha256": "ED8F4BCB0E2B387B7ED958B9471AA5134295BE05596E449864C3B4DF4FEF22D3",
+    "PartitionProofPath": "artifacts/queue-original367-peer2/actual1/partitions.json",
+    "PartitionProofSha256": "502F810A4C8D156F571E2DF8A17B7FC33E25402E6867A5300BD67493BDD13FC7"
+  },
+  "SdkCapture": "artifacts/queue-integration367/capture3/long-sdk",
+  "SdkAdmissionSha256": "0CB63F96466CAB3E4D21B0C24A96263D28EEDE2FA976020CAC54034D6018B682",
+  "OwnSourceReview": {
+    "ActualOwnTrapEntrySnapshotsSourceReviewed": true,
+    "NativePartitionSeededIntoMain": false,
+    "EveryBudgetHeapStateDifferenceExplained": true,
+    "SourceProofSha256": "2F78BF48C9EC0001D49F9710D0B93281A6ABABFE86E8AEA8933565BC54A71595",
+    "HostBudget1ReviewSha256": "03A390CCDD8704C2A13FA058C6D4FD17726DD2757D00B4B35106E4C5DFFF8FA6",
+    "FinalDllClosureSha256": "34BFA589D351B3EFEE35C8675456DADCE40C467F33650883D2AD87EDDD0642A3"
+  },
+  "AllNonAllowedFieldsAndFramesExact": true,
+  "Native64017ObservedKZero": true,
+  "Native256017ActuallyTrapped": true,
+  "SourceGuardCount": 357,
+  "MainModified": false,
+  "SdkOrNativeExecutedByReview": false,
+  "Normalization": false,
+  "Projection": false,
+  "CompatibilityPromoted": false,
+  "Scope": "Final source-bound complete-field finite evidence under explicit own allocation-path state protocol. Physical native heap choices/scheduler quantum/partition numbers are not claimed equal. Complete API classification remains Root source-contract/full-regression decision."
+}

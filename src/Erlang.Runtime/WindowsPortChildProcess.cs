@@ -106,10 +106,12 @@ internal sealed class WindowsPortChildProcess : PortChildProcess
             };
             string entries = string.Join(
                 NativePortNames.EnvironmentTerminator,
-                options.Start.Environment.Where(pair => pair.Value is not null).OrderBy(pair => pair.Key, StringComparer.OrdinalIgnoreCase).Select(pair => pair.Key + NativePortNames.EnvironmentSeparator + pair.Value)
+                options.NativeEnvironment is { } nativeEnvironment
+                    ? nativeEnvironment.Select(pair => pair.Key + NativePortNames.EnvironmentSeparator + pair.Value)
+                    : options.Start.Environment.Where(pair => pair.Value is not null).OrderBy(pair => pair.Key, StringComparer.OrdinalIgnoreCase).Select(pair => pair.Key + NativePortNames.EnvironmentSeparator + pair.Value)
             ) + NativePortNames.EnvironmentTerminator;
             environment = Marshal.StringToHGlobalUni(entries);
-            string executable = Resolve(options.Start.FileName);
+            string executable = Resolve(options.Start.FileName, options.SearchExecutableInPath);
             options.Start.FileName = executable;
             uint flags = WindowsPortParameters.ExtendedStartup | WindowsPortParameters.UnicodeEnvironment;
             if (options.Start.CreateNoWindow)
@@ -239,13 +241,13 @@ internal sealed class WindowsPortChildProcess : PortChildProcess
 
     private static Win32Exception Error() => new(Marshal.GetLastPInvokeError());
 
-    private static string Resolve(string executable)
+    private static string Resolve(string executable, bool searchInPath)
     {
         foreach (string extension in WindowsPortParameters.SearchExtensions)
         {
             var path = new StringBuilder(WindowsPortParameters.PathBufferCharacters);
             uint count = WindowsPortNative.SearchPathW(
-                null,
+                searchInPath ? null : WindowsPortParameters.CurrentDirectorySearchPath,
                 executable + extension,
                 null,
                 path.Capacity,

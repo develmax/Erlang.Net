@@ -1,0 +1,18 @@
+{"Partial":true,"SelectedCount":10,"TotalCount":7683}
+PASS runtime/list-to-integer-small-byte-narrowing-and-fallback
+PASS runtime/ordsets-fold-filter-late-source-failures
+PASS runtime/ordsets-fold-filter-async-object-identity
+PASS runtime/ordsets-fold-filter-deep-iterative-spines
+PASS runtime/ordsets-fold-filter-callback-cancellation-cleans-source-scopes
+PASS terms/numeric-map-fun-key-alignment-and-exact-nested-values
+PASS runtime/lists-usort-source-numeric-representatives-and-small-path-sharing
+PASS runtime/lists-usort-source-all-private-malformed-tail-frames
+PASS runtime/lists-usort-source-deep-split-merge-trampoline
+FAIL runtime/lists-usort-source-selects-current-reverse-after-admission: System.InvalidOperationException: Pinned unique sort source algorithm changed result representatives, sharing, malformed suffix arguments or source frames.
+   at Erlang.Tests.ListUniqueSortSourceHostChecks.Require(Boolean condition) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\ListUniqueSortSourceHostChecks.cs:line 240
+   at Erlang.Tests.ListUniqueSortSourceHostChecks.DynamicReverse() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\ListUniqueSortSourceHostChecks.cs:line 211
+   at Erlang.Tests.ListUniqueSortSourceHostChecks.DynamicReverse() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\ListUniqueSortSourceHostChecks.cs:line 226
+   at Erlang.Tests.ListUniqueSortSourceHostChecks.DynamicReverse() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\ListUniqueSortSourceHostChecks.cs:line 226
+   at Erlang.Tests.ListUniqueSortSourceHostChecks.DynamicReverse() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\ListUniqueSortSourceHostChecks.cs:line 226
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Program.cs:line 5245
+9/10 passed

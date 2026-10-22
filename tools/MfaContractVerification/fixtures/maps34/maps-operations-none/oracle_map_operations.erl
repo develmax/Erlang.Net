@@ -1,0 +1,1 @@
+-module(oracle_map_operations). -export([run/0]). -compile(no_ssa_opt). run()->#{}=maps:map(fun(_,V)->V end,none),#{}=maps:filter(fun(_,_)->true end,none),seed=maps:fold(fun(_,_,_)->unexpected end,seed,none),done.

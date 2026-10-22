@@ -1,0 +1,435 @@
+{
+  "Family": "binary-new-only-callback-backing-supplement",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SubjectModule": "binary",
+  "Mfas": [
+    "binary:decode_hex/1",
+    "binary:encode_hex/1",
+    "binary:join/2",
+    "binary:referenced_byte_size/1",
+    "binary:replace/3",
+    "binary:replace/4"
+  ],
+  "Fixtures": [
+    {
+      "Id": "callback_supplement",
+      "Location": "tool",
+      "Path": "original/binary369_callback_supplement.erl",
+      "Module": "binary369_callback_supplement",
+      "Run": "run",
+      "NamesEntry": "cases",
+      "Names": [
+        "byte_zero",
+        "byte_255",
+        "byte_256",
+        "byte_negative",
+        "improper_binary_tail",
+        "nested_replace",
+        "live_stack_three",
+        "live_stack_four"
+      ],
+      "StackModule": "binary369_callback_supplement",
+      "StackEntry": "run_stacks",
+      "WorkerModule": "proplists_observation_worker",
+      "WorkerEntry": "run",
+      "StackShape": "depth_cases",
+      "Companions": [
+        "original/binary_all369_support.erl",
+        "original/proplists_observation_worker.erl"
+      ],
+      "Cases": [
+        {
+          "Name": "byte_zero",
+          "Mfas": [
+            "binary:replace/4"
+          ],
+          "Scope": "Replacement callback result/side effects and full live helper stacks; acquire all fields independently from pinned OTP.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "byte_255",
+          "Mfas": [
+            "binary:replace/4"
+          ],
+          "Scope": "Replacement callback result/side effects and full live helper stacks; acquire all fields independently from pinned OTP.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "byte_256",
+          "Mfas": [
+            "binary:replace/4"
+          ],
+          "Scope": "Replacement callback result/side effects and full live helper stacks; acquire all fields independently from pinned OTP.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "byte_negative",
+          "Mfas": [
+            "binary:replace/4"
+          ],
+          "Scope": "Replacement callback result/side effects and full live helper stacks; acquire all fields independently from pinned OTP.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "improper_binary_tail",
+          "Mfas": [
+            "binary:replace/4"
+          ],
+          "Scope": "Replacement callback result/side effects and full live helper stacks; acquire all fields independently from pinned OTP.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "nested_replace",
+          "Mfas": [
+            "binary:replace/4"
+          ],
+          "Scope": "Replacement callback result/side effects and full live helper stacks; acquire all fields independently from pinned OTP.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "live_stack_three",
+          "Mfas": [
+            "binary:replace/3"
+          ],
+          "Scope": "Replacement callback result/side effects and full live helper stacks; acquire all fields independently from pinned OTP.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "live_stack_four",
+          "Mfas": [
+            "binary:replace/4"
+          ],
+          "Scope": "Replacement callback result/side effects and full live helper stacks; acquire all fields independently from pinned OTP.",
+          "OpaqueReferenceAdmissionRequired": false
+        }
+      ]
+    },
+    {
+      "Id": "backing_supplement",
+      "Location": "tool",
+      "Path": "original/binary369_backing_supplement.erl",
+      "Module": "binary369_backing_supplement",
+      "Run": "run",
+      "NamesEntry": "cases",
+      "Names": [
+        "append_63",
+        "append_64",
+        "append_65",
+        "append_257",
+        "private_loop_65",
+        "escaped_loop_65",
+        "private_loop_257",
+        "escaped_loop_257",
+        "private_loop_4097",
+        "escaped_loop_4097",
+        "comprehension_65",
+        "comprehension_257",
+        "append_shared_growth",
+        "append_repeated_segment",
+        "append_zero",
+        "pin_after_growth",
+        "join_single_large_view",
+        "join_pair_large_view",
+        "replace_no_match_large_view",
+        "replace_empty_scope_large_view",
+        "replace_identity_large_view",
+        "retained_partial_large",
+        "hex_capacity_7",
+        "hex_capacity_8",
+        "hex_capacity_9",
+        "hex_capacity_64",
+        "hex_capacity_65",
+        "hex_capacity_257"
+      ],
+      "StackModule": "binary369_backing_supplement",
+      "StackEntry": "run_stacks",
+      "WorkerModule": "proplists_observation_worker",
+      "WorkerEntry": "run",
+      "StackShape": "depth_cases",
+      "Companions": [
+        "original/binary_all369_support.erl",
+        "original/proplists_observation_worker.erl",
+        "original/binary369_callback_supplement.erl"
+      ],
+      "Cases": [
+        {
+          "Name": "append_63",
+          "Mfas": [
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Observe actual byte_size/referenced_byte_size for source construction and retained views; no capacity or orig_size value seeded from C#.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "append_64",
+          "Mfas": [
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Observe actual byte_size/referenced_byte_size for source construction and retained views; no capacity or orig_size value seeded from C#.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "append_65",
+          "Mfas": [
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Observe actual byte_size/referenced_byte_size for source construction and retained views; no capacity or orig_size value seeded from C#.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "append_257",
+          "Mfas": [
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Observe actual byte_size/referenced_byte_size for source construction and retained views; no capacity or orig_size value seeded from C#.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "private_loop_65",
+          "Mfas": [
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Observe actual byte_size/referenced_byte_size for source construction and retained views; no capacity or orig_size value seeded from C#.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "escaped_loop_65",
+          "Mfas": [
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Observe actual byte_size/referenced_byte_size for source construction and retained views; no capacity or orig_size value seeded from C#.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "private_loop_257",
+          "Mfas": [
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Observe actual byte_size/referenced_byte_size for source construction and retained views; no capacity or orig_size value seeded from C#.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "escaped_loop_257",
+          "Mfas": [
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Observe actual byte_size/referenced_byte_size for source construction and retained views; no capacity or orig_size value seeded from C#.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "private_loop_4097",
+          "Mfas": [
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Observe actual byte_size/referenced_byte_size for source construction and retained views; no capacity or orig_size value seeded from C#.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "escaped_loop_4097",
+          "Mfas": [
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Observe actual byte_size/referenced_byte_size for source construction and retained views; no capacity or orig_size value seeded from C#.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "comprehension_65",
+          "Mfas": [
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Observe actual byte_size/referenced_byte_size for source construction and retained views; no capacity or orig_size value seeded from C#.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "comprehension_257",
+          "Mfas": [
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Observe actual byte_size/referenced_byte_size for source construction and retained views; no capacity or orig_size value seeded from C#.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "append_shared_growth",
+          "Mfas": [
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Observe actual byte_size/referenced_byte_size for source construction and retained views; no capacity or orig_size value seeded from C#.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "append_repeated_segment",
+          "Mfas": [
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Observe actual byte_size/referenced_byte_size for source construction and retained views; no capacity or orig_size value seeded from C#.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "append_zero",
+          "Mfas": [
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Observe actual byte_size/referenced_byte_size for source construction and retained views; no capacity or orig_size value seeded from C#.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "pin_after_growth",
+          "Mfas": [
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Observe actual byte_size/referenced_byte_size for source construction and retained views; no capacity or orig_size value seeded from C#.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "join_single_large_view",
+          "Mfas": [
+            "binary:join/2",
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Observe actual byte_size/referenced_byte_size for source construction and retained views; no capacity or orig_size value seeded from C#.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "join_pair_large_view",
+          "Mfas": [
+            "binary:join/2",
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Observe actual byte_size/referenced_byte_size for source construction and retained views; no capacity or orig_size value seeded from C#.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "replace_no_match_large_view",
+          "Mfas": [
+            "binary:replace/3",
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Observe actual byte_size/referenced_byte_size for source construction and retained views; no capacity or orig_size value seeded from C#.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "replace_empty_scope_large_view",
+          "Mfas": [
+            "binary:replace/4",
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Observe actual byte_size/referenced_byte_size for source construction and retained views; no capacity or orig_size value seeded from C#.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "replace_identity_large_view",
+          "Mfas": [
+            "binary:replace/3",
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Observe actual byte_size/referenced_byte_size for source construction and retained views; no capacity or orig_size value seeded from C#.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "retained_partial_large",
+          "Mfas": [
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Observe actual byte_size/referenced_byte_size for source construction and retained views; no capacity or orig_size value seeded from C#.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "hex_capacity_7",
+          "Mfas": [
+            "binary:encode_hex/1",
+            "binary:decode_hex/1",
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Observe actual byte_size/referenced_byte_size for source construction and retained views; no capacity or orig_size value seeded from C#.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "hex_capacity_8",
+          "Mfas": [
+            "binary:encode_hex/1",
+            "binary:decode_hex/1",
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Observe actual byte_size/referenced_byte_size for source construction and retained views; no capacity or orig_size value seeded from C#.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "hex_capacity_9",
+          "Mfas": [
+            "binary:encode_hex/1",
+            "binary:decode_hex/1",
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Observe actual byte_size/referenced_byte_size for source construction and retained views; no capacity or orig_size value seeded from C#.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "hex_capacity_64",
+          "Mfas": [
+            "binary:encode_hex/1",
+            "binary:decode_hex/1",
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Observe actual byte_size/referenced_byte_size for source construction and retained views; no capacity or orig_size value seeded from C#.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "hex_capacity_65",
+          "Mfas": [
+            "binary:encode_hex/1",
+            "binary:decode_hex/1",
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Observe actual byte_size/referenced_byte_size for source construction and retained views; no capacity or orig_size value seeded from C#.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "hex_capacity_257",
+          "Mfas": [
+            "binary:encode_hex/1",
+            "binary:decode_hex/1",
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Observe actual byte_size/referenced_byte_size for source construction and retained views; no capacity or orig_size value seeded from C#.",
+          "OpaqueReferenceAdmissionRequired": false
+        }
+      ]
+    }
+  ],
+  "FixtureSources": [
+    {
+      "Location": "tool",
+      "Path": "original/binary369_backing_supplement.erl",
+      "Sha256": "0434CA0450A79A8DE488574E07F47C46DF9AA4F88CCC070014F695FCF6EE50CD"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/binary369_callback_supplement.erl",
+      "Sha256": "119534A9FEF8810A2E11C244176E3BC253386E73199580AA48B185DA7C1A6059"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/binary_all369_support.erl",
+      "Sha256": "6E499A37D39D12E93F0FD1BF3ACC64FFF4382DBE2894D9D259AFC1EA748E0F34"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/proplists_observation_worker.erl",
+      "Sha256": "34B743EB95A5937058AB8F208A1FB17C6ACED20AF7E08398EF6D154F574546BC"
+    }
+  ],
+  "ExpectedUniqueSourceCount": 4,
+  "ObservationSchema": "raw-values-effects-and-whole-stacks-v1",
+  "ValueShape": "{ok,Value,Effects}|{error,Class,Reason,Effects}",
+  "StackShape": "{ok,Value,Effects}|{error,Class,Reason,WholeStack,Effects}",
+  "EffectsShape": "{OrderedCallbackArguments,SourceCreatedReferenceProvenance}; full live callback stacks are nested in Effects and retained exactly.",
+  "ExpectedSeededOutcomes": false,
+  "OpaquePolicy": {
+    "EligibleCases": [],
+    "Rule": "No opaque projection or field waiver. Every callback is a genuine external source function."
+  },
+  "Prior585": {
+    "Reexecuted": false,
+    "SourceSealSha256": "58E077C4D9D9E33F1BA37F85439D1E289B4841FAA28D0A09CC94C0DF90796D7D"
+  }
+}

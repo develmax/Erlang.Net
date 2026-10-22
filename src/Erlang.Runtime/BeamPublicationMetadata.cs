@@ -19,7 +19,10 @@ internal static class BeamPublicationMetadata
             compilation.Value,
             attributes.Value,
             attributePolicy: ModuleAttributePolicy.PreserveDecoded
-        );
+        )
+        {
+            DeclaredNifs = BeamNifDeclarations.Read(code)
+        };
 
         return new(descriptor, attributes.Provenance, compilation.Provenance);
     }

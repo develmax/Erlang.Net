@@ -1,0 +1,31 @@
+Process: <nonode@nohost.1.0>
+Current function: erlang:process_display/2
+Called from: process_display_contract:run/0
+Process: <nonode@nohost.1.0>
+Current function: erlang:process_display/2
+Called from: process_display_contract:run/0
+Process: <nonode@nohost.2.0>
+Current function: process_display_contract:'-run/0-fun-0-'/0
+Process: <nonode@nohost.2.0>
+Current function: process_display_contract:'-run/0-fun-0-'/0
+Process: <nonode@nohost.2.0>
+Current function: process_display_contract:'-run/0-fun-0-'/0
+Process: <nonode@nohost.1.0>
+Current function: erlang:process_display/2
+Called from: process_display_contract:run/0
+Process: <nonode@nohost.2.0>
+Current function: joint_platform_contract:hold/0
+Process: <nonode@nohost.1.0>
+Current function: erlang:process_display/2
+Called from: joint_platform_contract:run/0
+Process: <nonode@nohost.3.0>
+Current function: joint_platform_contract:hold/0
+Process: <nonode@nohost.2.0>
+Current function: joint_platform_contract:queue/1
+Process: <nonode@nohost.2.0>
+Current function: joint_platform_contract:queue/1
+Exception: D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tools\validate.ps1:38
+Line |
+  38 |  … ASTEXITCODE -ne 0) { throw "dotnet failed: $($Arguments -join ' ')" }
+     |                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | dotnet failed: run --project tests/Erlang.Tests --no-build -- artifacts/tests.json docs/supported-mfas.json

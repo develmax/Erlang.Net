@@ -1,0 +1,1 @@
+-module(oracle_map_operations). -export([run/0]). run()->#{1.0:=keep}=maps:remove(1,#{1=>remove,1.0=>keep}),#{}=maps:remove(absent,#{}),done.

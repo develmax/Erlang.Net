@@ -1,0 +1,71 @@
+{
+  "Status": "SOURCE_DERIVED_NOT_EXECUTED",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Authority": [
+    {
+      "Path": "artifacts/erlang371-numeric-contract-audit1/authority/erts/emulator/beam/big.c",
+      "Sha256": "7E68A6FF381701F2B5BF3BD4AFE65EF545D97B34B884F227B637FF259B0FCDDE",
+      "Lines": "4258-4359",
+      "Rule": "is_small input, exact sign term before byte narrowing, zero prefix stripping, digits_per_small threshold, original-list byte validation on big fallback"
+    },
+    {
+      "Path": "artifacts/erlang371-numeric-contract-audit1/authority/erts/preloaded/src/erlang.erl",
+      "Lines": "4111-4135 and 4165-4189",
+      "Rule": "Only {Integer,[]} accepted; big reparses list_to_binary(original), other results become badarg with original arguments"
+    }
+  ],
+  "NativeDigitsLookup": {
+    "Entries": 35,
+    "Values": [
+      59,
+      37,
+      29,
+      25,
+      22,
+      21,
+      19,
+      18,
+      17,
+      17,
+      16,
+      15,
+      15,
+      15,
+      14,
+      14,
+      14,
+      13,
+      13,
+      13,
+      13,
+      13,
+      12,
+      12,
+      12,
+      12,
+      12,
+      12,
+      12,
+      11,
+      11,
+      11,
+      11,
+      11,
+      11
+    ],
+    "ByteExactNumericArrayVerified": true
+  },
+  "Branches": [
+    "Nonlist/empty rejected with captured original arguments.",
+    "Only actual Integer43/45 recognizes sign; wrapped43/45 is an invalid digit.",
+    "All small signed values narrow modulo256 after checking59-bit representability.",
+    "Leading wrapped zeroes bypass nonzero digit threshold, matching native skip loop.",
+    "At most source threshold nonzero digits accepts narrowed ASCII digits only if original residual is Nil.",
+    "Threshold+1 requests unchanged strict original-byte parsing, rejecting wide or negative list elements.",
+    "Binary integer parsing and float options are untouched."
+  ],
+  "Deferred": [
+    "Full large-bignum limit/system_limit/error precedence and dirty-scheduler cancellation obligations remain open.",
+    "No status promotion before original60 edge comparisons and final Main focused regression."
+  ]
+}

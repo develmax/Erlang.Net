@@ -1,0 +1,53 @@
+--- D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/binary369-retained-comparison-peer1/compare.py
++++ D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/erlang371-retained-comparison1/compare.py
+@@ -24,7 +24,7 @@
+  result=walk(n);assert done;return result
+ 
+ def main():
+- ap=argparse.ArgumentParser();ap.add_argument('--capture',type=Path,required=True);ap.add_argument('--output',type=Path,required=True);ap.add_argument('--allow-reviewed-runtime-retirement',action='store_true');a=ap.parse_args()
++ ap=argparse.ArgumentParser();ap.add_argument('--capture',type=Path,required=True);ap.add_argument('--output',type=Path,required=True);a=ap.parse_args()
+  assert not a.output.exists() and a.output.resolve().is_relative_to(O);a.output.mkdir(parents=True)
+  manifest=J(R/'artifacts/binary369-retained-replay-proposal1/inputs.json')
+  settlement=J(a.capture/'completion.json');assert settlement['Status']=='CAPTURED_PENDING_PASSIVE_COMPARISON' and settlement['MainDllClosureUnchanged']
+@@ -43,16 +43,19 @@
+  exec(compile(ast.Module(body=[cls],type_ignores=[]),str(oldcore),'exec'),coreglobals)
+  Core=coreglobals['Compare']
+  oldproof=J(R/'artifacts/queue-ends368-comparison-peer3/bindings.json')
+- source_proof=[]
++ proof=J(O/'source-binding.json')
++ assert H(O/'source-binding.json')=='B8F4E214B2F8C06D08F4C9FBDBDBA217CC0584799CD1B88F427BC3885511E3B2'
++ assert proof['GuardCount']==496 and H(R/proof['GuardReviewPath'])==proof['GuardReviewSha256'] and H(R/proof['BindingsPath'])==proof['BindingsSha256']
++ guards=J(R/proof['BindingsPath']);assert len(guards)==496 and len({x['Path'] for x in guards})==496
++ for row in guards:assert H(R/row['Path'])==row['Sha256'],row['Path']
++ actual=[]
+  for row in oldproof['Files']:
+   if row['Path'].endswith('.dll'):continue
+   now=H(R/row['Path'])
+-  if now!=row['Sha256']:
+-   assert row['Path'] in {'src/Erlang.Compiler/Execution.cs','src/Erlang.Compiler/StaticApplySyntax.cs'},row['Path']
+-   source_proof.append({'Path':row['Path'],'OldSha256':row['Sha256'],'CurrentSha256':now,'Reason':'Prior source5 load_nif exclusion/LF equivalence or current NativeEntries reviewed native-tail correction; fresh whole caller fields remain exact.'})
+- proofrows=J(R/'artifacts/binary369-reviewed-guards-proposal1/review.json')
+- assert any(x['Path']=='src/Erlang.Compiler/Execution.cs' for x in proofrows['ChangedOld'])
+- binding={'ActualOwnTrapEntrySnapshotsSourceReviewed':True,'EveryBudgetHeapStateDifferenceExplained':True,'NativePartitionSeededIntoMain':False,'SourceReviewSha256':H(R/'artifacts/binary369-reviewed-guards-proposal1/review.json')}
++  if now!=row['Sha256']:actual.append({'Path':row['Path'],'Before':row['Sha256'],'After':now})
++ assert actual==[{k:x[k] for k in ['Path','Before','After']} for x in proof['ExactOldBindingChanges']]
++ source_proof=proof['ExactOldBindingChanges']
++ binding={'ActualOwnTrapEntrySnapshotsSourceReviewed':True,'EveryBudgetHeapStateDifferenceExplained':True,'NativePartitionSeededIntoMain':False,'SourceReviewSha256':proof['GuardReviewSha256']}
+  binding['Files']=[{'Path':r['Path'],'Sha256':H(R/r['Path'])} for r in oldproof['Files'] if not r['Path'].endswith('.dll')]
+  binding['Files'].extend({'Path':r['CopiedTo'],'Sha256':r['Sha256']} for r in J(a.capture/'queue-all/main-dll-closure.json')['Files'])
+  def admit(b):
+@@ -75,13 +78,7 @@
+   for row in closure['Files']:
+    assert H(R/row['CopiedTo'])==row['Sha256']
+    live=H(R/row['Path'])
+-   if live!=row['Sha256']:
+-    assert a.allow_reviewed_runtime_retirement and row['Path'] in {'src/Erlang.Runtime/bin/Debug/net10.0/Erlang.Runtime.dll','src/Erlang.Compiler/bin/Debug/net10.0/Erlang.Compiler.dll','tools/Erlang.Differential/bin/Debug/net10.0/Erlang.Differential.dll'}
+-    for sr in st['Sources']:
+-     source=(R/st['Tool'] if sr['Location']=='tool' else R)/sr['Path'];text=source.read_text(encoding='utf-8-sig')
+-     import re
+-     assert not re.search(r'\bbinary\s*:\s*replace\b|\bapply\s*\(\s*binary\s*,\s*replace\b',text),str(source)
+-    retirements.append({'Stage':stage,'Captured':row['Sha256'],'Current':live,'Path':row['Path'],'Reason':'Root confirmed only BinaryReplacePlan fix6 + test/fixture metadata after these captures; Compiler/Terms/Serialization production sources unchanged. Compiler and Differential were also rebuilt with the changed reference closure. Bound old fixtures exclude changed binary:replace paths. Captured DLL is not relabeled as new.'})
++   assert live==row['Sha256'],('fresh final current DLL required',row['Path'])
+   receipt=J(base/'capture.exit.json');assert receipt['Settled'] and not receipt['TimedOut'] and receipt['ExitCode']==0 and not receipt['Failures']
+   for stream in ['Stdout','Stderr']:assert H(base/('capture.'+stream.lower()+'.log'))==receipt[stream+'Sha256']
+   V.admit_sdk(sdk)

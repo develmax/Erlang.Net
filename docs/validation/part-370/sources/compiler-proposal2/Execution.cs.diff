@@ -1,0 +1,67 @@
+--- src/Erlang.Compiler/Execution.cs
++++ src/Erlang.Compiler/Execution.cs
+@@ -104,6 +104,10 @@
+                 module,
+                 true
+             );
++        }
++        catch (SourceContinuationReturn returned)
++        {
++            return returned.Value;
+         }
+         catch (ErlangException exception)
+         {
+@@ -212,6 +216,10 @@
+             }
+ 
+             throw new ErlangException(ErlangErrorReasons.FunctionClause);
++        }
++        catch (SourceContinuationReturn returned)
++        {
++            return returned.Value;
+         }
+         catch (ErlangException exception)
+         {
+@@ -757,12 +765,17 @@
+                         if (tail)
+                             throw new TailCall(x.Function, args, ctx.ExecutingSourceImage(module));
+ 
+-                        return await InvokeAsync(
++                        using var observation = SourceBifReturnObservation.Enter(module, ctx, x, args);
++                        var result = await InvokeAsync(
+                             module,
+                             x.Function,
+                             ctx,
+                             args
+                         );
++                        if (observation?.Matches(result) == true)
++                            throw new SourceContinuationReturn(result);
++
++                        return result;
+                     }
+ 
+                     if (tail && targetModule is not null &&
+@@ -790,13 +803,21 @@
+                         if (CompilerLoaderSyntax.IsStaticApply(x))
+                             return await ctx.Runtime.Modules.InvokeLoaderOnLoad(ctx, ((Cons)args[CompilerLoaderSyntaxArity.ArgumentList]).Head);
+ 
+-                        return await ctx.Runtime.Modules.CallWithDispatch(
++                        var result = await ctx.Runtime.Modules.CallWithDispatch(
+                             ctx,
+                             targetModule ?? ErlangModuleNames.Module,
+                             x.Function,
+                             args,
+-                            out dispatch
++                            out dispatch,
++                            out bool selectedElementSourceContract
+                         );
++                        SourceBifReturnObservation.Record(module, ctx, x, args, result, selectedElementSourceContract);
++                        if (!tail && x.CanDiscardBifContinuation && module is not null
++                            && targetModule == ErlangModuleNames.Module && selectedElementSourceContract
++                            && SourceBifReturnContracts.IsCandidate(module, x))
++                            throw new SourceContinuationReturn(result);
++
++                        return result;
+                     }
+                     catch (ErlangException exception)
+                     {

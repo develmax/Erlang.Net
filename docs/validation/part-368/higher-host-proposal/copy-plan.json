@@ -1,0 +1,87 @@
+{
+  "Status": "NEW_TEST_SOURCE_ONLY_NOT_BUILT_OR_RUN",
+  "Files": [
+    {
+      "Source": "artifacts/queue-higher368-cooperative-proposal1/source/tests/Erlang.Tests/QueueHigherCooperativeHostChecks.cs",
+      "Destination": "tests/Erlang.Tests/QueueHigherCooperativeHostChecks.cs",
+      "BaseSha256": null,
+      "Bytes": 9992,
+      "Sha256": "F2B8CF94266F3466C5E42AF3D0A741AE2223EC3BC25FB812DC3A63B0302686F9"
+    },
+    {
+      "Source": "artifacts/queue-higher368-cooperative-proposal1/source/tests/Erlang.Tests/QueueHigherCooperativeHostNames.cs",
+      "Destination": "tests/Erlang.Tests/QueueHigherCooperativeHostNames.cs",
+      "BaseSha256": null,
+      "Bytes": 762,
+      "Sha256": "185FA214B5C6A264103B8A458B089A337C139DA3F2FAA9BF05AB5F9978BCE424"
+    },
+    {
+      "Source": "artifacts/queue-higher368-cooperative-proposal1/source/tests/Erlang.Tests/QueueHigherCooperativeScenario.cs",
+      "Destination": "tests/Erlang.Tests/QueueHigherCooperativeScenario.cs",
+      "BaseSha256": null,
+      "Bytes": 234,
+      "Sha256": "B559CE31A398F3C68654B981E25CC20BAF2B62404FCAB795C2AA5C4D3B115A55"
+    },
+    {
+      "Source": "artifacts/queue-higher368-cooperative-proposal1/source/tests/Erlang.Tests/QueueHigherYieldContext.cs",
+      "Destination": "tests/Erlang.Tests/QueueHigherYieldContext.cs",
+      "BaseSha256": null,
+      "Bytes": 2008,
+      "Sha256": "6EFA014F26106931344D4EE3E10631D46252A56CABB5E6E843D4B89770B6E1DF"
+    }
+  ],
+  "Dependencies": [
+    {
+      "Path": "tests/Erlang.Tests/RuntimeNodeFoundationHostActor.cs",
+      "Sha256": "2B92247A71D03AE6E0C62EF4033037435726844AA8AFEB3B413D45C981D18448"
+    },
+    {
+      "Path": "tests/Erlang.Tests/RuntimeNodeFoundationHostActorParameters.cs",
+      "Sha256": "FC7CD922A949F390A1958FE6113791BC5A1A784F5CE033845230D75BF222F2B0"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Program.cs",
+      "Sha256": "5A4B1208CCACC754515B92CB47077FE14051692D5599357DAA00BBA74CCA2DCE"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueHigherFilters.cs",
+      "Sha256": "1B57C35E565E1186BA8B0681BFCBC2F2A978E5B9ED798EA4E16B45D3785FA8A1"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueHigherDelete.cs",
+      "Sha256": "4D67A2D8F3CDE0644BFCC2C1440ADCFBE960064E7FFC1EDB6B5FFACB3621D5B6"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueHigherExecution.cs",
+      "Sha256": "B74A47E477486A7480BA7AD7C355803B3E199E1C4B253EB5ADD0DAE46F8A082E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueHigherTrace.cs",
+      "Sha256": "41F789E0828A9AD643247FC4DE2AD5765386A0F29C3F3B964BBE1D637E823753"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueHigherHistory.cs",
+      "Sha256": "A33CF2D4767F6B017799D509243F11D1E562737986A6A8844D13FD1060A32A7D"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreLinear.cs",
+      "Sha256": "5CBE233B039EC6CB9EE7BD336A4D1B17F3A06B160209B9E3050491D8771B74C6"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreReverse.cs",
+      "Sha256": "06FFD9CDC6466BA3770465B2D6F382A159B6004491A820C721A9551131601EF7"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.cs",
+      "Sha256": "24EBFDE634CC465D2F7561C7A19D48FEC5EE14CDAEB2F8FA2F4DA0DC11201891"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessSchedulingLimits.cs",
+      "Sha256": "EC867DAD2F30F97AE607364EADBA346D0F6C0E61D900E11105300563618DD5AE"
+    }
+  ],
+  "RootOnlyRegistration": "Test(Erlang.Tests.QueueHigherCooperativeHostNames.Test, Erlang.Tests.QueueHigherCooperativeHostChecks.Run);",
+  "NewHostNames": 1,
+  "RuntimeChanges": 0,
+  "ExistingCoreTestsChanged": 0
+}

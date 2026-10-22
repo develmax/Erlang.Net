@@ -16,7 +16,7 @@ public static class BeamClosureHostChecks
         BeamModule image = BeamModule.Prepare(bytes);
         bytes[0] = 0;
         Require(image.Name == BeamClosureHostNames.Module && image.Supports(BeamClosureHostNames.Run, 0)
-            && image.Supports(BeamClosureHostNames.Make, 1) && !image.Supports(BeamClosureHostNames.ModuleInfo, 0));
+            && image.Supports(BeamClosureHostNames.Make, 1) && image.Supports(BeamClosureHostNames.ModuleInfo, 0));
         await using var runtime = new ProcessRuntime();
         Require(!runtime.Modules.IsModuleLoaded(BeamClosureHostNames.Module));
         byte[] valid = Resource(BeamClosureHostNames.Module + BeamClosureHostNames.BeamExtension);

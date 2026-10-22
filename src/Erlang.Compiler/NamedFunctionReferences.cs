@@ -9,38 +9,18 @@ internal static class NamedFunctionReferences
             var identity = LocalFunctionEntries.GetNamed(module, reference.Name, reference.Arity);
             var image = context.ExecutingSourceImage(module) ?? context.Runtime.Modules.SourceImage(module.Name, module);
 
-            FunctionTerm Create(IReadOnlyList<Term> environment, LocalFunctionInvocation? invocation = null)
-            {
-                if (environment.Count != 0)
-                    throw new ErlangException(ErlangErrorReasons.BadArgument);
-
-                FunctionTerm? result = null;
-                result = new FunctionTerm(
-                    identity,
-                    reference.Arity,
-                    environment,
-                    (execution, arguments) => SourceFunctionInvocation.Named(
-                        module,
-                        identity,
-                        reference.Name,
-                        (ProcessContext)execution,
-                        image,
-                        arguments,
-                        invocation?.OriginalFunction ?? result!,
-                        invocation
-                    )
-                );
-
-                return result;
-            }
-            identity = context.Runtime.Functions.RegisterSourceFactory(
+            SourceStoredFunctionRecipe recipe = SourceStoredFunctionRecipe.Register(
+                context.Runtime.Functions,
+                module,
                 identity,
-                reference.Arity,
-                0,
-                Create
+                null,
+                reference.Name,
+                [],
+                image,
+                reference.Arity
             );
 
-            return Create([]);
+            return recipe.Create([]);
         }
         string? target = SourceCallResolution.ExternalModule(module, reference.Name, reference.Arity);
         if (target is null)

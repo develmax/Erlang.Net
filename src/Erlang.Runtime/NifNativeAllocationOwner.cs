@@ -2,7 +2,7 @@ using System.Runtime.InteropServices;
 
 namespace Erlang;
 
-internal sealed unsafe class NifNativeAllocationOwner
+internal sealed unsafe partial class NifNativeAllocationOwner
 {
     private readonly object gate = new();
     private readonly Dictionary<nint, nuint> owned = new();

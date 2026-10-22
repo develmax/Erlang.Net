@@ -1,0 +1,92 @@
+{
+  "Status": "SOURCE_APPLICABILITY_ONLY_NO_EXECUTION_PROMOTION",
+  "MainWritten": false,
+  "DocsWritten": false,
+  "BuildExecuted": false,
+  "RuntimeExecuted": false,
+  "ReviewedRuntimePaths": [
+    {
+      "Path": "src/Erlang.Runtime/CoreModules.cs",
+      "PreviousSha256": "8C750F4D7EF4171EC5F975B2009B5BBC34D8E4DFF059F270E44536F24382963D",
+      "Sha256": "EEA8D29E434559427457D58546939922D423ACD799F90D004A7B58685778FCE6"
+    },
+    {
+      "Path": "src/Erlang.Runtime/MapIteration.cs",
+      "PreviousSha256": "58771997A8EF84601102B33767DFF3ADF8C51DE62DAADAA80A9F0F276A8F3250",
+      "Sha256": "43C3723854E1837007F6576137EEBD6F6DD6C241E4EB010A5A08B87B99894AEE"
+    }
+  ],
+  "ExactDeltaProof": [
+    {
+      "Path": "src/Erlang.Runtime/CoreModules.cs",
+      "ChangedExpressionSites": 2,
+      "InverseOnlyReplacementsReproducePreviousGuard": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/MapIteration.cs",
+      "ChangedExpressionSites": 1,
+      "InverseOnlyReplacementsReproducePreviousGuard": true
+    }
+  ],
+  "ExistingVerifiedCount": 18,
+  "ExistingVerifiedPreservation": "No source invalidation found: self/node identity and fourteen unary predicate handlers unchanged; get_value registration/lookup/default/shadowing/source error top frame unchanged.",
+  "Proposed19Mfas": [
+    "proplists:property/1",
+    "proplists:property/2",
+    "proplists:unfold/1",
+    "proplists:compact/1",
+    "proplists:lookup/2",
+    "proplists:lookup_all/2",
+    "proplists:is_defined/2",
+    "proplists:get_all_values/2",
+    "proplists:append_values/2",
+    "proplists:get_bool/2",
+    "proplists:get_keys/1",
+    "proplists:delete/2",
+    "proplists:substitute_aliases/2",
+    "proplists:substitute_negations/2",
+    "proplists:expand/2",
+    "proplists:normalize/2",
+    "proplists:split/2",
+    "proplists:to_map/1",
+    "proplists:to_map/2"
+  ],
+  "Proposed19SourceEligibilityPreservation": "No invalidation by these iteration-order-only edits found. Their source audit recommendations remain conditional on Root final current-source SDK/original/regression/CI evidence.",
+  "SourceFindings": [
+    "MapIteration.Entries(MapTerm) now uses Iterator(map), then the same Next traversal as a supplied unordered cursor. Flat maps retain their previous all-entry enumeration; supported large maps use the current own hash/HAMT path0 view.",
+    "maps:keys/1 and maps:values/1 retain RequireMap validation, and select keys/values from exactly that same Entries traversal; order and pairing are coherent with to_list/default iterator.",
+    "MapTerm storage, Term equality/hash/order, actual input keys/values and map identity are not modified by this adapter traversal change.",
+    "Only ProplistFamilyProjection.FromMap calls MapOperations.ToList/MapIteration in the family; other nineteen newly proposed helpers do not call the changed traversal or keys/values routes.",
+    "ProplistFamilyToMapFunction uses map.Entries to construct its local map update; that source branch and callback body are unchanged.",
+    "Native/selected-handler provenance fixes remain unchanged from source-review2. The new CoreModules body changes the runtime assembly/fingerprint, so fresh metadata/own-code fun bindings must accompany capture3 rather than reuse old raw identities."
+  ],
+  "MandatoryIncomplete": [
+    "proplists:from_map/1 full supported-term iterator and raw cursor closure, including atom-dependent physical HAMT topology",
+    "Native atom table identity and structured key topology remain distinct from OTP; these edits do not resolve the two mandatory raw cases",
+    "Any unsupported key-domain nonzero raw cursor semantics remain unpromoted"
+  ],
+  "GuardProposal": {
+    "Previous": 293,
+    "Refresh": 2,
+    "Add": 21,
+    "Total": 314,
+    "All21ReviewedHashesMatch": true
+  },
+  "Authorities": [
+    {
+      "Path": "artifacts\\proplists-integration365-contract-audit1\\final-19-guard-applicability.json",
+      "Sha256": "092C1DDE0A613D8D8788740D13ED75ADCA9B2E2AF94366C0175961478A956473"
+    },
+    {
+      "Path": "artifacts\\proplists-integration365-contract-audit1\\final-19-classification.json",
+      "Sha256": "4ADFF27D3F63802A5D00A9A921A2CEF4B34186F8D1D9ADB9F87237E5BD81C4C2"
+    }
+  ],
+  "RequiredFreshGates": [
+    "Root focused all-iteration-consistency-large and affected checks",
+    "Root capture3 whole raw comparison, real current DLL/fingerprint binding",
+    "Root canonical full3/integration/package/child/CI"
+  ],
+  "ClassificationChangesPerformed": [],
+  "PreviousFullFailurePreserved": "artifacts/proplists-integration365/map-order-fix1/failed-full2-tests.json"
+}

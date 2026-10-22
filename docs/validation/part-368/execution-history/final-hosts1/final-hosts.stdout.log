@@ -1,0 +1,22 @@
+{"Partial":true,"SelectedCount":7,"TotalCount":7599}
+PASS mfa/erlang:apply/2
+PASS mfa/erlang:apply/3
+PASS runtime/queue/higher/later-phase-cooperative-cancellation-cleanup
+PASS queue/higher-compiled-apply-badarity-and-rear-expansion-frames
+FAIL compiler/static-apply-three-resolution-effects-and-source-frames: System.AggregateException: Static apply lowering changed binding, evaluation, native validation or source continuation behavior. (Undefined function apply/3)
+ ---> Erlang.Compiler.CompileException: Undefined function apply/3
+   at Erlang.Compiler.LocalCallValidation.Validate(ModuleDefinition module) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Compiler\LocalCallValidation.cs:line 40
+   at Erlang.Compiler.Semantics.Validate(ModuleDefinition module) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Compiler\Semantics.cs:line 20
+   at Erlang.Compiler.Parser.ParseModule() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Compiler\Parser.cs:line 240
+   at Erlang.Compiler.CodeGeneration.CompileModule(String source, String sourcePath) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Compiler\CodeGeneration.cs:line 143
+   at Erlang.Differential.GeneratedModuleCompiler.Compile(String source, String sourceFile) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tools\Erlang.Differential\GeneratedModuleCompiler.cs:line 14
+   at Erlang.Tests.StaticApplyRegressionHostChecks.RunSource(String source, String file, Boolean other) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\StaticApplyRegressionHostChecks.cs:line 47
+   at Erlang.Tests.StaticApplyRegressionHostChecks.<>c.<<Run>b__0_5>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\StaticApplyRegressionHostChecks.cs:line 30
+--- End of stack trace from previous location ---
+   at Erlang.Tests.StaticApplyRegressionHostChecks.<>c__DisplayClass0_0.<<Run>g__Check|0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\StaticApplyRegressionHostChecks.cs:line 15
+   --- End of inner exception stack trace ---
+   at Erlang.Tests.StaticApplyRegressionHostChecks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\StaticApplyRegressionHostChecks.cs:line 42
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Program.cs:line 5160
+PASS runtime/queue/member/own-entry-and-short-circuit
+PASS runtime/queue/core/cooperative-cancellation-cleanup
+6/7 passed

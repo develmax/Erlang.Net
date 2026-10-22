@@ -1,0 +1,24 @@
+{
+  "Command": [
+    "C:/Program Files/dotnet/dotnet.exe",
+    "tests/Erlang.Tests/bin/Debug/net10.0/Erlang.Tests.dll",
+    "--case",
+    "runtime/ordsets-fold-filter-late-source-failures",
+    "--case",
+    "runtime/ordsets-fold-filter-async-object-identity",
+    "--case",
+    "runtime/ordsets-fold-filter-deep-iterative-spines",
+    "--case",
+    "runtime/ordsets-fold-filter-callback-cancellation-cleans-source-scopes",
+    "--report",
+    "artifacts/ordsets372/fold-focus1.json"
+  ],
+  "Pid": 260588,
+  "ElapsedSeconds": 1.9690000000118744,
+  "TimedOut": false,
+  "Settled": true,
+  "ExitCode": 0,
+  "Failures": [],
+  "StdoutSha256": "529BB9269C0C26E72B9A83EE1807A73ACFC027B7C3ADB29075336AA23616B30C",
+  "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+}

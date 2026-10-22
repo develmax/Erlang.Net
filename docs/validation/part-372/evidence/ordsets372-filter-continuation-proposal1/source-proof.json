@@ -1,0 +1,21 @@
+{
+  "Status": "SOURCE_AND_ACTUAL_NATIVE_FIX_PROPOSAL_NOT_EXECUTED_NOT_PROMOTED",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "PinnedLists": "lib/stdlib/src/lists.erl:2526",
+  "NativeObservations": 18,
+  "NativeCases": 7,
+  "Cause": "Comprehension predicate-call/error location and successful-cons recursive return location have the same Erlang source file/line/function/arity, but they are distinct instruction/continuation roles. The old record key merges them, so RuntimeExceptionCapture deduplicates two native frames into one. Repeated cons-return continuations themselves must still deduplicate.",
+  "Fix": [
+    "Keep original four-argument OrdsetFullFrame constructor. Add an init-only internal named ContinuationKind property whose default Operation preserves every existing caller and comparer key.",
+    "Set FilterConsReturn only when a true predicate result records the pending recursive-cons return. Current callback/error/generator frames stay Operation. Record equality and its interned continuation identity now distinguish these two actual source roles without changing emitted Erlang stack fields.",
+    "Repeated true-prefix pending frames all share FilterConsReturn and remain coalesced by OrdsetFullTrace.Push and RuntimeExceptionCapture. False branches remain tail calls and add no pending frame. No global duplicate-frame rule changes.",
+    "Fold, map, filtermap and all other frame construction paths keep default Operation and their existing semantics unchanged. This intentionally fixes only native-confirmed filter branches; no unrelated API promotion.",
+    "Strengthen existing permanent HOST assertions: late callback failure, late bad_filter and improper generator after true-prefix require exactly two matching comprehension frames; deep improper traversal likewise. Fold helper still requires exactly one. Previously Any(frame) assertions could not detect this source-identity bug."
+  ],
+  "RequiredGates": [
+    "Root style/build, strengthened four HOST groups and actual same21 source cases/full stacks against after-fix Main capture.",
+    "Exact source guard successor and final affected regression.",
+    "Only then source-close/promote filter/2; native parent run remains failed due independent numeric abort."
+  ],
+  "NoMainEditsOrRuntimeExecution": true
+}

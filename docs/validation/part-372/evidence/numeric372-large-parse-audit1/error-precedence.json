@@ -1,0 +1,37 @@
+{
+  "SourceDerivedNotExecuted": true,
+  "Partitions": [
+    {
+      "Input": "binary, invalidbyte atfirst ORlast, significant length above publiccap",
+      "Result": "system_limit before digit validation"
+    },
+    {
+      "Input": "binary, validprefix too large for maxlimbs but significance below publiccap, invalidsuffix",
+      "Result": "badarg before combine/bitcap"
+    },
+    {
+      "Input": "list, invalidnondigit before SMALL threshold+1, even if total length huge",
+      "Result": "badarg before flatten/publiccap"
+    },
+    {
+      "Input": "list, valid SMALL prefix threshold+1 then nestedvalid digit iodata",
+      "Result": "flatten then parse; success possible; currentflatfallback rejects"
+    },
+    {
+      "Input": "list, valid SMALL prefix threshold+1 then illegalbyte or improper nonbinarytail beyondpubliccap",
+      "Result": "badarg from list_to_binary before publiccap"
+    },
+    {
+      "Input": "list, valid SMALL prefix threshold+1 then validiodata plus invalidASCIIbyte and overpubliccap",
+      "Result": "system_limit afterflatten before digit validation"
+    },
+    {
+      "Input": "all ASCIIzero binary ORall wrappedSMALLzero list of arbitrary admitted length",
+      "Result": "zero before significant-size cap; never cap untrimmed source length"
+    },
+    {
+      "Input": "valid allbytes, significant size belowpubliccap but magnitude>4194240 bits",
+      "Result": "system_limit duringcombine/nativeintegernormalization"
+    }
+  ]
+}

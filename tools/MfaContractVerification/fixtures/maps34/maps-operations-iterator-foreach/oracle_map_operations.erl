@@ -1,0 +1,1 @@
+-module(oracle_map_operations). -export([run/0]). run()->put(order,[]),ok=maps:foreach(fun(K,_)->put(order,[K|get(order)]) end,maps:iterator(#{1=>10,2=>20},ordered)),[2,1]=get(order),done.

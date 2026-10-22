@@ -1,0 +1,1 @@
+-module(oracle_map_operations). -export([run/0]). run()->#{1:=value,1.0:=value}=maps:from_keys([1,1.0,1],value),#{}=maps:from_keys([],unused),done.

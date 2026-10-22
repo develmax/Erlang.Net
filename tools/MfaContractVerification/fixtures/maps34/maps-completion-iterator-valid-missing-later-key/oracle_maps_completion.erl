@@ -1,0 +1,1 @@
+-module(oracle_maps_completion). -export([run/0]). run()->I=[[a,missing]|#{a=>1}],false=maps:is_iterator_valid(I),try maps:to_list(I) of _->unexpected catch error:{badmap,I}->ok end,done.

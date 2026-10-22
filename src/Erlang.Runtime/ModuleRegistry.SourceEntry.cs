@@ -5,7 +5,8 @@ public sealed partial class ModuleRegistry
     internal async ValueTask<SourceCodeLease> AcquireSourceEntry(
         ProcessContext context,
         ModuleCodeImage image,
-        SourceCodeAdmissionKind kind
+        SourceCodeAdmissionKind kind,
+        LocalFunctionInvocation? invocation = null
     )
     {
         while (true)
@@ -13,6 +14,8 @@ public sealed partial class ModuleRegistry
             Task? pending;
             lock (gate)
             {
+                if (invocation is not null && !invocation.IsCurrent)
+                    throw new LocalFunctionPublicationChangedException(invocation);
                 var state = purgeStates.GetOrCreateValue(image);
                 if (state.Retired)
                     throw new ErlangException(ErlangErrorReasons.UndefinedFunction);

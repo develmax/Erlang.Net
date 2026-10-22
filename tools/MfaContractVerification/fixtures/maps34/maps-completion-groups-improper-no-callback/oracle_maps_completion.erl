@@ -1,0 +1,1 @@
+-module(oracle_maps_completion). -export([run/0]). run()->put(called,false),try maps:groups_from_list(fun(_)->put(called,true),same end,[a|wrong]) of _->unexpected catch error:badarg->ok end,false=get(called),done.

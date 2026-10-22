@@ -195,6 +195,8 @@ internal static class ListMergeOperations
 
     public static async ValueTask<Term> MergeMany(ProcessContext context, Term lists, bool unique)
     {
+        if (unique)
+            return await ListUniqueMergeMachine.Run(context, lists);
         Term accumulated = Nil.Value;
         bool descending = false;
         while (true)

@@ -1,4 +1,4 @@
-param([switch]$SkipPackage)
+param([switch]$SkipPackage, [string]$TestRuntimeVersion)
 $ErrorActionPreference = 'Stop'
 $validationRoot = Split-Path -Parent $PSScriptRoot
 Push-Location $validationRoot
@@ -40,7 +40,14 @@ try {
     Invoke-DotNet @('build', '-m:1', '--nologo')
     Invoke-DotNet @('run', '--project', 'tools/Erlang.Style', '--no-build', '--', '--check', '.')
     Invoke-DotNet @('run', '--project', 'tools/Erlang.NifNativeBackend', '--no-build')
-    Invoke-DotNet @('run', '--project', 'tests/Erlang.Tests', '--no-build', '--', 'artifacts/tests.json', 'docs/supported-mfas.json')
+    if ($TestRuntimeVersion) {
+        if ($TestRuntimeVersion -notmatch '^\d+\.\d+\.\d+$') { throw 'Invalid explicit test runtime version' }
+        # Native managed-object census has a source/hash-admitted CLR profile.
+        # Execute the identical full test assembly on that explicit runtime.
+        Invoke-DotNet @('exec', '--fx-version', $TestRuntimeVersion, 'tests/Erlang.Tests/bin/Debug/net10.0/Erlang.Tests.dll', 'artifacts/tests.json', 'docs/supported-mfas.json')
+    } else {
+        Invoke-DotNet @('run', '--project', 'tests/Erlang.Tests', '--no-build', '--', 'artifacts/tests.json', 'docs/supported-mfas.json')
+    }
     Invoke-DotNet @('run', '--project', 'tools/Erlang.Tool', '--no-build', '--', 'readiness', 'docs', 'artifacts/tests.json', 'artifacts/readiness')
     $missingOracle = Join-Path $validationRoot 'artifacts/nonexistent-oracle/erl'
     if (Test-Path -LiteralPath $missingOracle) { throw 'Negative oracle fixture must not exist' }

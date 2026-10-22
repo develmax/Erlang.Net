@@ -1,0 +1,760 @@
+{
+  "Status": "SOURCE_AND_CURRENT_NATIVE_ELIGIBILITY_18_FINAL_ROOT_GATES_PENDING",
+  "PinnedOtp": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Mfas": [
+    {
+      "Mfa": "queue:in_r/2",
+      "ExhaustivePinnedClauses": [
+        "Exact {[],[Only]} redistributes to {[Only],[X]}; other shallow Cons/Nil pairs prepend front without traversing improper tails.",
+        "Fallback error badarg effective[X,Q], public in_r317."
+      ],
+      "Applicability": "Exact six-file token match extends the frozen clause/guard/helper proof to the source3 execution; current shared dependencies are bound by all381 guards and corrections below.",
+      "ClassificationRecommendation": "COMPLETE_ELIGIBLE_CONDITIONAL_ROOT_FINAL_GATES"
+    },
+    {
+      "Mfa": "queue:out_r/1",
+      "ExhaustivePinnedClauses": [
+        "Empty returns {empty,Q}; front-only singleton returns removed/new; front-only Cons uses reverse(Tail,[]) then keeps first element in front.",
+        "Rear singleton and shallow front invokes inlined f2r; rear Cons with non-Nil tail removes head and retains arbitrary tail unvalidated.",
+        "Fallback badarg[Q] out_r389. Reverse ownerout_r382; inlined f2r length/reverse ownerout_r1310."
+      ],
+      "Applicability": "Exact six-file token match extends the frozen clause/guard/helper proof to the source3 execution; current shared dependencies are bound by all381 guards and corrections below.",
+      "ClassificationRecommendation": "COMPLETE_ELIGIBLE_CONDITIONAL_ROOT_FINAL_GATES"
+    },
+    {
+      "Mfa": "queue:get/1",
+      "ExhaustivePinnedClauses": [
+        "Shallow pair guard precedes tail get/2. Empty public empty[Q]413; fallback badarg[Q]417.",
+        "Front Cons returns head ignoring tail; rear-only singleton returns it; rear-only other Cons tail-calls lists:last on rear tail, with no retained get frame."
+      ],
+      "Applicability": "Exact six-file token match extends the frozen clause/guard/helper proof to the source3 execution; current shared dependencies are bound by all381 guards and corrections below.",
+      "ClassificationRecommendation": "COMPLETE_ELIGIBLE_CONDITIONAL_ROOT_FINAL_GATES"
+    },
+    {
+      "Mfa": "queue:get_r/1",
+      "ExhaustivePinnedClauses": [
+        "Empty empty[Q]446; rear Cons plus shallow front returns head ignoring rear tail; front-only singleton returns it; front-only other Cons tail-calls lists:last(front tail).",
+        "Fallback badarg[Q]454; no retained get_r continuation for lists:last errors."
+      ],
+      "Applicability": "Exact six-file token match extends the frozen clause/guard/helper proof to the source3 execution; current shared dependencies are bound by all381 guards and corrections below.",
+      "ClassificationRecommendation": "COMPLETE_ELIGIBLE_CONDITIONAL_ROOT_FINAL_GATES"
+    },
+    {
+      "Mfa": "queue:peek/1",
+      "ExhaustivePinnedClauses": [
+        "Empty atomempty; front Cons and shallow rear returns {value,H}; rear-only singleton returns value; other rear-only Cons wraps lists:last(rear tail).",
+        "Fallback badarg[Q]482. lists:last failure retains queue:peek/1 at480 because tuple construction follows."
+      ],
+      "Applicability": "Exact six-file token match extends the frozen clause/guard/helper proof to the source3 execution; current shared dependencies are bound by all381 guards and corrections below.",
+      "ClassificationRecommendation": "COMPLETE_ELIGIBLE_CONDITIONAL_ROOT_FINAL_GATES"
+    },
+    {
+      "Mfa": "queue:peek_r/1",
+      "ExhaustivePinnedClauses": [
+        "Mirror peek with rear priority and front fallback.",
+        "Fallback badarg[Q]510; wrapping lists:last retains peek_r508."
+      ],
+      "Applicability": "Exact six-file token match extends the frozen clause/guard/helper proof to the source3 execution; current shared dependencies are bound by all381 guards and corrections below.",
+      "ClassificationRecommendation": "COMPLETE_ELIGIBLE_CONDITIONAL_ROOT_FINAL_GATES"
+    },
+    {
+      "Mfa": "queue:drop/1",
+      "ExhaustivePinnedClauses": [
+        "Empty empty[Q]532; rear-only singleton new; other rear-only Cons reverse tail and remove reversed head while keeping original first rear item.",
+        "Front singleton plus shallow rear invokes inline r2f; other front Cons returns its tail verbatim, including nonlist.",
+        "Fallback badarg[Q]543; reverse ownerdrop536; inline r2f ownerdrop1299."
+      ],
+      "Applicability": "Exact six-file token match extends the frozen clause/guard/helper proof to the source3 execution; current shared dependencies are bound by all381 guards and corrections below.",
+      "ClassificationRecommendation": "COMPLETE_ELIGIBLE_CONDITIONAL_ROOT_FINAL_GATES"
+    },
+    {
+      "Mfa": "queue:drop_r/1",
+      "ExhaustivePinnedClauses": [
+        "Empty empty[Q]565; front-only singleton new; other front-only Cons reverse tail and remove reversed head while keeping original first front item.",
+        "Rear singleton plus shallow front invokes inline f2r; other rear Cons returns tail verbatim.",
+        "Fallback badarg[Q]576; reverse ownerdrop_r569; inline f2r ownerdrop_r1310."
+      ],
+      "Applicability": "Exact six-file token match extends the frozen clause/guard/helper proof to the source3 execution; current shared dependencies are bound by all381 guards and corrections below.",
+      "ClassificationRecommendation": "COMPLETE_ELIGIBLE_CONDITIONAL_ROOT_FINAL_GATES"
+    },
+    {
+      "Mfa": "queue:cons/2",
+      "ExhaustivePinnedClauses": [
+        "Unconditional tail call in_r(X,Q): including publicbadarg[X,Q], ownerin_r, no cons continuation."
+      ],
+      "Applicability": "Exact six-file token match extends the frozen clause/guard/helper proof to the source3 execution; current shared dependencies are bound by all381 guards and corrections below.",
+      "ClassificationRecommendation": "COMPLETE_ELIGIBLE_CONDITIONAL_ROOT_FINAL_GATES"
+    },
+    {
+      "Mfa": "queue:head/1",
+      "ExhaustivePinnedClauses": [
+        "Own empty[Q]1154 and badarg[Q]1158, shallow pair guard then tailcall get/2; successful selection and lists:last failure same helper chain as get, not public get/1."
+      ],
+      "Applicability": "Exact six-file token match extends the frozen clause/guard/helper proof to the source3 execution; current shared dependencies are bound by all381 guards and corrections below.",
+      "ClassificationRecommendation": "COMPLETE_ELIGIBLE_CONDITIONAL_ROOT_FINAL_GATES"
+    },
+    {
+      "Mfa": "queue:tail/1",
+      "ExhaustivePinnedClauses": [
+        "Unconditional tail call drop(Q), including empty/badarg ownerdrop and dependency ownerdrop."
+      ],
+      "Applicability": "Exact six-file token match extends the frozen clause/guard/helper proof to the source3 execution; current shared dependencies are bound by all381 guards and corrections below.",
+      "ClassificationRecommendation": "COMPLETE_ELIGIBLE_CONDITIONAL_ROOT_FINAL_GATES"
+    },
+    {
+      "Mfa": "queue:snoc/2",
+      "ExhaustivePinnedClauses": [
+        "Unconditional tail call in(X,Q) swaps public parameters Q,X. Reuses QueueCoreExecution.In, correct ownerin292 and effective[X,Q], no snoc frame."
+      ],
+      "Applicability": "Exact six-file token match extends the frozen clause/guard/helper proof to the source3 execution; current shared dependencies are bound by all381 guards and corrections below.",
+      "ClassificationRecommendation": "COMPLETE_ELIGIBLE_CONDITIONAL_ROOT_FINAL_GATES"
+    },
+    {
+      "Mfa": "queue:last/1",
+      "ExhaustivePinnedClauses": [
+        "Unconditional tail call get_r(Q), including empty/badarg ownerget_r and tail lists:last chain."
+      ],
+      "Applicability": "Exact six-file token match extends the frozen clause/guard/helper proof to the source3 execution; current shared dependencies are bound by all381 guards and corrections below.",
+      "ClassificationRecommendation": "COMPLETE_ELIGIBLE_CONDITIONAL_ROOT_FINAL_GATES"
+    },
+    {
+      "Mfa": "queue:daeh/1",
+      "ExhaustivePinnedClauses": [
+        "Unconditional tail call get_r(Q), no daeh frame."
+      ],
+      "Applicability": "Exact six-file token match extends the frozen clause/guard/helper proof to the source3 execution; current shared dependencies are bound by all381 guards and corrections below.",
+      "ClassificationRecommendation": "COMPLETE_ELIGIBLE_CONDITIONAL_ROOT_FINAL_GATES"
+    },
+    {
+      "Mfa": "queue:init/1",
+      "ExhaustivePinnedClauses": [
+        "Unconditional tail call drop_r(Q), no init frame."
+      ],
+      "Applicability": "Exact six-file token match extends the frozen clause/guard/helper proof to the source3 execution; current shared dependencies are bound by all381 guards and corrections below.",
+      "ClassificationRecommendation": "COMPLETE_ELIGIBLE_CONDITIONAL_ROOT_FINAL_GATES"
+    },
+    {
+      "Mfa": "queue:liat/1",
+      "ExhaustivePinnedClauses": [
+        "Unconditional tail call drop_r(Q), no liat frame."
+      ],
+      "Applicability": "Exact six-file token match extends the frozen clause/guard/helper proof to the source3 execution; current shared dependencies are bound by all381 guards and corrections below.",
+      "ClassificationRecommendation": "COMPLETE_ELIGIBLE_CONDITIONAL_ROOT_FINAL_GATES"
+    },
+    {
+      "Mfa": "queue:lait/1",
+      "ExhaustivePinnedClauses": [
+        "Unconditional tail call drop_r(Q), deprecated name still registered; compiled fixture uses apply to avoid erlc deprecation warning."
+      ],
+      "Applicability": "Exact six-file token match extends the frozen clause/guard/helper proof to the source3 execution; current shared dependencies are bound by all381 guards and corrections below.",
+      "ClassificationRecommendation": "COMPLETE_ELIGIBLE_CONDITIONAL_ROOT_FINAL_GATES"
+    },
+    {
+      "Mfa": "queue:member/2",
+      "ExhaustivePinnedClauses": [
+        "Shallow tuple2 and Cons/Nil rear/front validation, otherwise badarg effective[item,Q] queue264; no eager proper-list normalization.",
+        "Exact equality searches rear first; first match returns before remaining rear or front malformed tails. Miss then searches front. Proper end returns false; improper reached end fails lists:member/2 with original item and actual last-entry list.",
+        "Entry capacity16*actual remaining reductions; pre-entry retained list, integer ceil(visited/16) charges and exact-capacity Nil/improper endpoint handled in that entry. Iterative loops perform actual cancellation/cooperative admissions.",
+        "Both rear and front dependency errors retain queue:member/2 at262. Original front profiles disproved earlier front-tail omission prediction; source3 true flag corrects it. All other fields exact.",
+        "Every supported Term payload is opaque to traversal except strict equality. Existing own VM identity semantics apply to opaque elements; no captured native pointers, atom indexes or partition state are injected."
+      ],
+      "Applicability": "Current MemberExecution exact hash is reviewed in source3, current entry parameters/context covered by381 guard closure, actual429+2145 selected observations and own-bound suffix checks.",
+      "ClassificationRecommendation": "COMPLETE_ELIGIBLE_CONDITIONAL_ROOT_FINAL_GATES"
+    }
+  ],
+  "EndsImplementationProof": [
+    {
+      "Path": "src/Erlang.Runtime/QueueEndsBalance.cs",
+      "CurrentSha256": "049D86947A5EC0E10E070A1DE813EFB6F57DEC1D02F62D6D18E6167FE16622F0",
+      "FrozenSource": "artifacts/queue-ends368-proposal1/source/src/Erlang.Runtime/QueueEndsBalance.cs",
+      "FrozenSha256": "9935A36E410B0AE22C4002025F4D5793EFB3507F185A46F04A5B8CA58A8EA160",
+      "TokenExactIgnoringWhitespace": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueEndsExecution.cs",
+      "CurrentSha256": "DD054F7C7E08BC677A8AE22C2D1D950DA538D03497BFD8883833EB70AF299953",
+      "FrozenSource": "artifacts/queue-ends368-proposal1/source/src/Erlang.Runtime/QueueEndsExecution.cs",
+      "FrozenSha256": "E553EF7D4B78A3A1FD20BF3556408DD0E2D9F4C20136C24C96A8B951B16F4C8C",
+      "TokenExactIgnoringWhitespace": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueEndsLast.cs",
+      "CurrentSha256": "477E75105577D8AA542DD4783D0FDE905E785ABB6C1494921AC4ECCBB67853F0",
+      "FrozenSource": "artifacts/queue-ends368-proposal1/source/src/Erlang.Runtime/QueueEndsLast.cs",
+      "FrozenSha256": "8188F9967A0E37E487C513973E861DC63717AFFDA13106AC3E8D811D8AED809B",
+      "TokenExactIgnoringWhitespace": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueEndsModule.cs",
+      "CurrentSha256": "97E49DD5F0D2ABCC279092C29E4CC11829B1A0C6EFA02CF0E6F037BF2E53AB95",
+      "FrozenSource": "artifacts/queue-ends368-proposal1/source/src/Erlang.Runtime/QueueEndsModule.cs",
+      "FrozenSha256": "CC9D8C740618DDF598604681BE6FC0017F99B0E3D9FEF696D83729A3DCF8D3AD",
+      "TokenExactIgnoringWhitespace": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueEndsSource.cs",
+      "CurrentSha256": "C6CA87A6F792DE30C54164CE236821D4AF3525B78068F6313145AAE859C34B6D",
+      "FrozenSource": "artifacts/queue-ends368-proposal1/source/src/Erlang.Runtime/QueueEndsSource.cs",
+      "FrozenSha256": "BB3F1914C787109D8EB25D2E28CB3EEA4C400DFA103261AAA84741442DFD1607",
+      "TokenExactIgnoringWhitespace": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueEndsTrace.cs",
+      "CurrentSha256": "A497D43B019C57049E7B88E9A877D4E7910A07446F7FC4BCDBAA6A3C1E56580C",
+      "FrozenSource": "artifacts/queue-ends368-proposal1/source/src/Erlang.Runtime/QueueEndsTrace.cs",
+      "FrozenSha256": "149E5A099B0922BE050C55DDEA261BF8970364928E6965766B595CA0B412ED08",
+      "TokenExactIgnoringWhitespace": true
+    }
+  ],
+  "DomainProof": [
+    "Queue source shallow is_list means Cons or Nil, including improper spines, with exact tuple arity2; wrong shapes of any supported Term are covered by fallback guards. No new malformed-state exclusion.",
+    "Payload elements may be arbitrary supported terms. End operations move/store them without type inspection; member uses source exact equality. No scalar-only restriction is inferred from finite fixtures.",
+    "Singleton, empty, general proper and improper clauses partition all finite supported list spines. Balancing preserves source 0/1/2 representations; general floor(N/2), length-before-split and reverse reconstruction apply to every count, not only sampled parity/count boundaries.",
+    "Last traversal partitions nonCons/Cons+Nil/Cons+Cons/Cons+nonlist tails; preserves last1/2 effectiveargs, no error_info, and source tails vs peek wrapping continuations. Helpers are iterative/cooperative.",
+    "Aliases inherit exact target owner/argument order and do not fabricate alias source frames; head owns distinct public errors. Deprecated lait remains an exported alias.",
+    "Source3 shared wrapper/caller behavior and three runtime corrections are explicit below. Resource exhaustion, actual scheduling/heap budgets need not equal native snapshot; saved-entry protocols must still satisfy their own actual source-bound state and every other field remains exact."
+  ],
+  "Corrections": [
+    {
+      "Change": "erlang:apply/2 wrong-arity FunctionTerm error captures actual source caller before native wrapper fabrication",
+      "Authority": "source-review2 apply2 branch proof; no callback executed, complete badarity reason preserved",
+      "ApplicabilityTo18": "Does not change ends algorithms; correct generic supported caller/error behavior remains guarded."
+    },
+    {
+      "Change": "QueueHigherFilters rear reverse retains genuine current filter_r765 frame",
+      "Authority": "source-review2 native actual counterexample",
+      "ApplicabilityTo18": "Separate higher owner correction, shared reverse algorithm unchanged; no blanket tail-frame rule transferred."
+    },
+    {
+      "Change": "QueueMemberExecution front Search retainQueueCaller false to true",
+      "Authority": "source-review3 plus actual original front-member complete profiles",
+      "ApplicabilityTo18": "Corrected source interpretation; no original or SDK frame projected/dropped."
+    },
+    {
+      "Change": "Compiler StaticApplySyntax lowers resolved erlang apply/3 with literal module/function atoms and proper syntactic argument list via existing direct call",
+      "Authority": "Pinned sys_core_fold.erl1015-1053; source-review3 hash and inverse-byte proof",
+      "ApplicabilityTo18": "Preserves source/tail/argument evaluation and fixes actual lait caller without fixture hardcoding. Other call forms retain existing dispatch; no claim compiler-wide total OTP completion."
+    }
+  ],
+  "Observations": {
+    "Values": 429,
+    "FullStackProfiles": 2145,
+    "StrictWhole": 2554,
+    "AdditionalSourceBound": 20,
+    "Unexpected": 0,
+    "NegativeControls": 32,
+    "AllNegativeControlsRejected": true,
+    "All381GuardsCurrentAtComparison": true,
+    "All5DllsCurrentAndCopiedExactAtComparison": true
+  },
+  "OwnState20": [
+    {
+      "Case": "out_r_front256017",
+      "Depth": "('atom', 'default')",
+      "StrictWholeEqual": false,
+      "Accepted": true,
+      "OriginalSnapshot": {
+        "Consumed": 239880,
+        "Remaining": 16137,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "SdkSnapshot": {
+        "Consumed": 238320,
+        "Remaining": 17697,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "OtherWholeFieldsExact": true,
+      "StrictArgumentsEqual": false
+    },
+    {
+      "Case": "drop_r_front256017",
+      "Depth": "('atom', 'default')",
+      "StrictWholeEqual": false,
+      "Accepted": true,
+      "OriginalSnapshot": {
+        "Consumed": 239880,
+        "Remaining": 16137,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "SdkSnapshot": {
+        "Consumed": 221160,
+        "Remaining": 34857,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "OtherWholeFieldsExact": true,
+      "StrictArgumentsEqual": false
+    },
+    {
+      "Case": "out_r_front256017",
+      "Depth": "('integer', 0)",
+      "StrictWholeEqual": false,
+      "Accepted": true,
+      "OriginalSnapshot": {
+        "Consumed": 239880,
+        "Remaining": 16137,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "SdkSnapshot": {
+        "Consumed": 202960,
+        "Remaining": 53057,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "OtherWholeFieldsExact": true,
+      "StrictArgumentsEqual": false
+    },
+    {
+      "Case": "drop_r_front256017",
+      "Depth": "('integer', 0)",
+      "StrictWholeEqual": false,
+      "Accepted": true,
+      "OriginalSnapshot": {
+        "Consumed": 239880,
+        "Remaining": 16137,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "SdkSnapshot": {
+        "Consumed": 185800,
+        "Remaining": 70217,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "OtherWholeFieldsExact": true,
+      "StrictArgumentsEqual": false
+    },
+    {
+      "Case": "out_r_front256017",
+      "Depth": "('integer', 1)",
+      "StrictWholeEqual": false,
+      "Accepted": true,
+      "OriginalSnapshot": {
+        "Consumed": 239880,
+        "Remaining": 16137,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "SdkSnapshot": {
+        "Consumed": 248120,
+        "Remaining": 7897,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "OtherWholeFieldsExact": true,
+      "StrictArgumentsEqual": false
+    },
+    {
+      "Case": "drop_r_front256017",
+      "Depth": "('integer', 1)",
+      "StrictWholeEqual": false,
+      "Accepted": true,
+      "OriginalSnapshot": {
+        "Consumed": 207000,
+        "Remaining": 49017,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "SdkSnapshot": {
+        "Consumed": 230960,
+        "Remaining": 25057,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "OtherWholeFieldsExact": true,
+      "StrictArgumentsEqual": false
+    },
+    {
+      "Case": "out_r_front256017",
+      "Depth": "('integer', 2)",
+      "StrictWholeEqual": false,
+      "Accepted": true,
+      "OriginalSnapshot": {
+        "Consumed": 222660,
+        "Remaining": 33357,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "SdkSnapshot": {
+        "Consumed": 213280,
+        "Remaining": 42737,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "OtherWholeFieldsExact": true,
+      "StrictArgumentsEqual": false
+    },
+    {
+      "Case": "drop_r_front256017",
+      "Depth": "('integer', 2)",
+      "StrictWholeEqual": false,
+      "Accepted": true,
+      "OriginalSnapshot": {
+        "Consumed": 131498,
+        "Remaining": 124519,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "SdkSnapshot": {
+        "Consumed": 196120,
+        "Remaining": 59897,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "OtherWholeFieldsExact": true,
+      "StrictArgumentsEqual": false
+    },
+    {
+      "Case": "out_r_front256017",
+      "Depth": "('integer', 8)",
+      "StrictWholeEqual": false,
+      "Accepted": true,
+      "OriginalSnapshot": {
+        "Consumed": 98100,
+        "Remaining": 157917,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "SdkSnapshot": {
+        "Consumed": 178440,
+        "Remaining": 77577,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "OtherWholeFieldsExact": true,
+      "StrictArgumentsEqual": false
+    },
+    {
+      "Case": "drop_r_front256017",
+      "Depth": "('integer', 8)",
+      "StrictWholeEqual": false,
+      "Accepted": true,
+      "OriginalSnapshot": {
+        "Consumed": 239880,
+        "Remaining": 16137,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "SdkSnapshot": {
+        "Consumed": 241280,
+        "Remaining": 14737,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "OtherWholeFieldsExact": true,
+      "StrictArgumentsEqual": false
+    },
+    {
+      "Case": "member_miss_256017",
+      "Depth": "('atom', 'default')",
+      "StrictWholeEqual": false,
+      "Accepted": true,
+      "OriginalSnapshot": {
+        "Consumed": 255968,
+        "Remaining": 49,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "SdkSnapshot": {
+        "Consumed": 255312,
+        "Remaining": 705,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "OtherWholeFieldsExact": true,
+      "StrictArgumentsEqual": false
+    },
+    {
+      "Case": "member_front_miss_256017",
+      "Depth": "('atom', 'default')",
+      "StrictWholeEqual": false,
+      "Accepted": true,
+      "OriginalSnapshot": {
+        "Consumed": 255952,
+        "Remaining": 65,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "SdkSnapshot": {
+        "Consumed": 253952,
+        "Remaining": 2065,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "OtherWholeFieldsExact": true,
+      "StrictArgumentsEqual": false
+    },
+    {
+      "Case": "member_miss_256017",
+      "Depth": "('integer', 0)",
+      "StrictWholeEqual": false,
+      "Accepted": true,
+      "OriginalSnapshot": {
+        "Consumed": 255968,
+        "Remaining": 49,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "SdkSnapshot": {
+        "Consumed": 253056,
+        "Remaining": 2961,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "OtherWholeFieldsExact": true,
+      "StrictArgumentsEqual": false
+    },
+    {
+      "Case": "member_front_miss_256017",
+      "Depth": "('integer', 0)",
+      "StrictWholeEqual": false,
+      "Accepted": true,
+      "OriginalSnapshot": {
+        "Consumed": 255952,
+        "Remaining": 65,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "SdkSnapshot": {
+        "Consumed": 251696,
+        "Remaining": 4321,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "OtherWholeFieldsExact": true,
+      "StrictArgumentsEqual": false
+    },
+    {
+      "Case": "member_miss_256017",
+      "Depth": "('integer', 1)",
+      "StrictWholeEqual": false,
+      "Accepted": true,
+      "OriginalSnapshot": {
+        "Consumed": 251248,
+        "Remaining": 4769,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "SdkSnapshot": {
+        "Consumed": 251008,
+        "Remaining": 5009,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "OtherWholeFieldsExact": true,
+      "StrictArgumentsEqual": false
+    },
+    {
+      "Case": "member_front_miss_256017",
+      "Depth": "('integer', 1)",
+      "StrictWholeEqual": false,
+      "Accepted": true,
+      "OriginalSnapshot": {
+        "Consumed": 251392,
+        "Remaining": 4625,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "SdkSnapshot": {
+        "Consumed": 249648,
+        "Remaining": 6369,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "OtherWholeFieldsExact": true,
+      "StrictArgumentsEqual": false
+    },
+    {
+      "Case": "member_miss_256017",
+      "Depth": "('integer', 2)",
+      "StrictWholeEqual": false,
+      "Accepted": true,
+      "OriginalSnapshot": {
+        "Consumed": 255968,
+        "Remaining": 49,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "SdkSnapshot": {
+        "Consumed": 248960,
+        "Remaining": 7057,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "OtherWholeFieldsExact": true,
+      "StrictArgumentsEqual": false
+    },
+    {
+      "Case": "member_front_miss_256017",
+      "Depth": "('integer', 2)",
+      "StrictWholeEqual": false,
+      "Accepted": true,
+      "OriginalSnapshot": {
+        "Consumed": 255952,
+        "Remaining": 65,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "SdkSnapshot": {
+        "Consumed": 247600,
+        "Remaining": 8417,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "OtherWholeFieldsExact": true,
+      "StrictArgumentsEqual": false
+    },
+    {
+      "Case": "member_miss_256017",
+      "Depth": "('integer', 8)",
+      "StrictWholeEqual": false,
+      "Accepted": true,
+      "OriginalSnapshot": {
+        "Consumed": 255968,
+        "Remaining": 49,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "SdkSnapshot": {
+        "Consumed": 246912,
+        "Remaining": 9105,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "OtherWholeFieldsExact": true,
+      "StrictArgumentsEqual": false
+    },
+    {
+      "Case": "member_front_miss_256017",
+      "Depth": "('integer', 8)",
+      "StrictWholeEqual": false,
+      "Accepted": true,
+      "OriginalSnapshot": {
+        "Consumed": 255952,
+        "Remaining": 65,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "SdkSnapshot": {
+        "Consumed": 245552,
+        "Remaining": 10465,
+        "EveryIntegerVerified": true,
+        "Terminal": "tail",
+        "OwnEntryState": true
+      },
+      "OtherWholeFieldsExact": true,
+      "StrictArgumentsEqual": false
+    }
+  ],
+  "References": [
+    {
+      "Path": "artifacts/queue-ends368-proposal1/branch-proof.json",
+      "Bytes": 10468,
+      "Sha256": "7DF121E26377D757271DA5D8AA31CEAC635C15A7D4D07E9026634554C81388F4"
+    },
+    {
+      "Path": "artifacts/queue-ends368-proposal1/source-seal.json",
+      "Bytes": 3280,
+      "Sha256": "B1302592468525EE7B78B69F083CCAFE9F9E6834A439BD81AB5AF9E09383F974"
+    },
+    {
+      "Path": "artifacts/queue-all368-source-review2/defaults-proof.json",
+      "Bytes": 1293,
+      "Sha256": "FBAB39FCFD8F2D41A5B3C677DCEABE46E9183BDA0E5D0F2402E7A3357877E877"
+    },
+    {
+      "Path": "artifacts/queue-higher368-source-review2/review.json",
+      "Bytes": 5146,
+      "Sha256": "8BA8DD96B2E0528DC3D76D1E26F77BDDCBE1A6ADF783BFF660A5B10EA62D9E67"
+    },
+    {
+      "Path": "artifacts/queue-higher368-source-review3/review.json",
+      "Bytes": 3967,
+      "Sha256": "A59C4F5969541ACDB26490D35327ACA1FDDF5506DE811B3118F7E776C1932B18"
+    },
+    {
+      "Path": "artifacts/queue-higher368-source-review3/guarded-files-proposal.json",
+      "Bytes": 61597,
+      "Sha256": "A6554455FC71BDD8316E4922354FB63A20011886E4EDA401FD81DDECC37AC183"
+    },
+    {
+      "Path": "artifacts/queue-ends368-comparison-peer2/source-freeze.json",
+      "Bytes": 981,
+      "Sha256": "12F86D81D4C9943C45EE840769E2E8C088DB2BC2B42E7E461462C088C683ACC8"
+    },
+    {
+      "Path": "artifacts/queue-ends368-comparison-peer2/actual1/comparison.json",
+      "Bytes": 492725,
+      "Sha256": "B736842DE4A3F06DED12EDC0294149083736CF4D73C71AC2B21CF581B7E8C0FF"
+    },
+    {
+      "Path": "artifacts/queue-ends368-comparison-peer2/bindings.json",
+      "Bytes": 5972,
+      "Sha256": "8E73E89FFA25ED53FD6BDC9E367960EFABF5CDC88EB1A9A3C4F78B62D1B1CFF6"
+    },
+    {
+      "Path": "artifacts/queue-original368-peer1/actual1/acceptance.json",
+      "Bytes": 775,
+      "Sha256": "350752253763C4A66D315FA9155CB78C2890C2B4EE37A624E0E8EDF3E009F3B1"
+    },
+    {
+      "Path": "artifacts/queue-original368-peer1/actual1/provenance/acceptance.json",
+      "Bytes": 12796,
+      "Sha256": "C47FA74E8018889E6E3BCE118942C77B62397DF2AA5F1C003BC66C651724F840"
+    }
+  ],
+  "OriginalAcceptanceSha256": "350752253763C4A66D315FA9155CB78C2890C2B4EE37A624E0E8EDF3E009F3B1",
+  "OriginalProvenanceSha256": "C47FA74E8018889E6E3BCE118942C77B62397DF2AA5F1C003BC66C651724F840",
+  "PendingRootGates": [
+    "New source3 permanent HOST controls / static apply semantic boundaries and corrected member continuation expectation",
+    "Final canonical full regression and source/DLL guard refresh after any change",
+    "Root-only final ledger classification/integration; no Main publication authorized here"
+  ],
+  "CompatibilityPromoted": false,
+  "MainModified": false,
+  "SdkNativeVmNetworkExecutedByCertificate": false,
+  "FinitePassAloneUsedForFullClaim": false
+}

@@ -1,0 +1,1 @@
+-module(oracle_map_operations). -export([run/0]). run()->try maps:update_with(a,wrong,#{}) of _->unexpected catch error:badarg->ok end,try maps:update_with(a,fun(_,_) -> wrong end,initial,#{}) of _->unexpected catch error:badarg->ok end,done.

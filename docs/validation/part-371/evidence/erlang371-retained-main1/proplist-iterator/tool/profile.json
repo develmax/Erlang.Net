@@ -1,0 +1,107 @@
+{
+  "Family": "proplists-map-iterator-delegation",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Mfas": [
+    "proplists:from_map/1"
+  ],
+  "Fixtures": [
+    {
+      "Id": "proplists_iterator_contract",
+      "Location": "tool",
+      "Path": "original/proplists_iterator_contract.erl",
+      "Module": "proplists_iterator_contract",
+      "Names": [
+        "none",
+        "literal_next",
+        "ordered",
+        "reversed",
+        "wrapped_iterator",
+        "malformed_atom",
+        "malformed_tail",
+        "malformed_keys"
+      ],
+      "Run": "run",
+      "NamesEntry": "cases",
+      "StackModule": "proplists_iterator_contract",
+      "StackEntry": "run_stacks",
+      "WorkerModule": "proplists_observation_worker",
+      "WorkerEntry": "run",
+      "StackShape": "depth_cases",
+      "Companions": [
+        "original/proplists_observation_worker.erl"
+      ],
+      "Cases": [
+        {
+          "Name": "none",
+          "Mfas": [
+            "proplists:from_map/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "literal_next",
+          "Mfas": [
+            "proplists:from_map/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "ordered",
+          "Mfas": [
+            "proplists:from_map/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "reversed",
+          "Mfas": [
+            "proplists:from_map/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "wrapped_iterator",
+          "Mfas": [
+            "proplists:from_map/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "malformed_atom",
+          "Mfas": [
+            "proplists:from_map/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "malformed_tail",
+          "Mfas": [
+            "proplists:from_map/1"
+          ],
+          "Policy": "exact"
+        },
+        {
+          "Name": "malformed_keys",
+          "Mfas": [
+            "proplists:from_map/1"
+          ],
+          "Policy": "exact"
+        }
+      ]
+    }
+  ],
+  "FixtureSources": [
+    {
+      "Location": "tool",
+      "Path": "original/proplists_iterator_contract.erl",
+      "Sha256": "311320DE56CD96873CB428AC01A80455E1D14D7C5070403B6F1A6C7718045A7F"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/proplists_observation_worker.erl",
+      "Sha256": "34B743EB95A5937058AB8F208A1FB17C6ACED20AF7E08398EF6D154F574546BC"
+    }
+  ],
+  "ExpectedUniqueSourceCount": 2,
+  "ObserverEntry": "New8iterator branch cases only, full matched-worker frames retained; final integrated SDK replay remains local"
+}

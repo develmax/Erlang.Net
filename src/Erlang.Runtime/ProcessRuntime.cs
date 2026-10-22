@@ -142,15 +142,38 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         RuntimeStandardStreams? standardStreams,
         int maximumActorConcurrency
     )
+        : this(
+            node,
+            output,
+            maximumProcesses,
+            standardStreams,
+            maximumActorConcurrency,
+            new ProcessRuntimeOptions()
+        )
     {
+    }
+
+    public ProcessRuntime(
+        string node,
+        TextWriter? output,
+        int maximumProcesses,
+        RuntimeStandardStreams? standardStreams,
+        int maximumActorConcurrency,
+        ProcessRuntimeOptions options
+    )
+    {
+        ArgumentNullException.ThrowIfNull(options);
+        WarningMapping = options.WarningMapping;
+        PrintableRange = options.PrintableRange;
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(maximumActorConcurrency);
         processSlots = new(maximumProcesses);
+        OsEnvironment = OperatingSystem.IsWindows() ? RuntimeOsEnvironment.CaptureWindows() : null;
         actorDispatcher = new(maximumActorConcurrency);
         AtomNameRegistry.Observe(node);
         ConfiguredNode = node;
         LocalIdentity = new(ProcessNodeDefaults.Local);
         ReferenceResources = new(Modules, LocalIdentity);
-        KnownNodes = new(LocalIdentity);
+        KnownNodes = new(LocalIdentity, TryGetDistributionEntryIdentity);
         Modules.AttachRuntime(this);
         Output = output ?? Console.Out;
         ownsStandardStreams = standardStreams is null;
@@ -162,7 +185,10 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         SequenceTracing = new(this, gate, processes);
         SystemProfiling = new(this, gate, processes);
         ProcessTracing = new(this, gate, processes);
-        var initial = new ProcessContext(this, new Pid(LocalIdentity, InitializationNames.ProcessId));
+        var initial = new ProcessContext(this, new Pid(LocalIdentity, InitializationNames.ProcessId))
+        {
+            IsSystemProcess = true
+        };
         InitializationPid = initial.Self;
         processes.Add(initial.Self, initial);
         processSlots.Add(initial.Self);
@@ -193,7 +219,9 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         bool initialAsyncDistribution = false,
         ProcessSchedulingPriority initialPriority = ProcessSchedulingPriority.Normal,
         int schedulerBinding = ProcessSchedulerNames.Unbound,
-        ushort? initialFullSweepAfter = null
+        ushort? initialFullSweepAfter = null,
+        bool systemProcess = false,
+        ProcessMessageQueueDataMode411 initialMessageQueueData = ProcessMessageQueueData411.Default
     )
     {
         ProcessContext ctx;
@@ -207,9 +235,13 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 this,
                 new Pid(LocalIdentity, (ulong)++nextPid),
                 description?.Mfa
-            );
+            )
+            {
+                IsSystemProcess = systemProcess
+            };
             ctx.GarbageCollectionPolicy.ExchangeThreshold(initialFullSweepAfter ?? DefaultFullSweepAfter);
             ctx.AsyncDistribution = initialAsyncDistribution;
+            ctx.Mailbox.ExchangeMessageQueueData411(initialMessageQueueData);
             ctx.SchedulingPriorityLevel = initialPriority;
             ctx.SchedulerBinding = schedulerBinding;
             ctx.GroupLeader = parent?.GroupLeader ?? processes[InitializationPid].GroupLeader;
@@ -261,6 +293,10 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                     catch (OperationCanceledException) when (IsHaltRequested)
                     {
                         return;
+                    }
+                    catch (ReOwnerClosing411 closing) when (ReferenceEquals(closing.Owner, this))
+                    {
+                        reason = Term.A(ProcessExitReasons.Shutdown);
                     }
                     catch (ModuleSourceMutationClosedException closing) when (ReferenceEquals(closing.Registry, Modules))
                     {
@@ -341,7 +377,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 initialAsyncDistribution: options.AsyncDistribution,
                 initialPriority: options.Priority,
                 schedulerBinding: options.ResolveScheduler(ActorDispatchCapacity),
-                initialFullSweepAfter: options.FullSweepAfter
+                initialFullSweepAfter: options.FullSweepAfter,
+                initialMessageQueueData: options.MessageQueueData
             );
             if (options.PriorityLink)
                 parent.PriorityLinks.Add(process.Pid);
@@ -433,7 +470,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                         options.Spawn.AsyncDistribution,
                         options.Spawn.Priority,
                         options.Spawn.ResolveScheduler(ActorDispatchCapacity),
-                        options.Spawn.FullSweepAfter
+                        options.Spawn.FullSweepAfter,
+                        initialMessageQueueData: options.Spawn.MessageQueueData
                     );
                 }
                 catch (ErlangException exception) when (exception.Reason.Equals(Term.A(ErlangErrorReasons.SystemLimit)))
@@ -683,6 +721,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
 
     internal void AdmitSignals(ProcessContext owner)
     {
+        using var signalOwner428 = TryBeginSignalOwner428(owner);
+        if (signalOwner428 is null) return;
         using var outputTransfer = distributionPending?.BeginOutputTransfer();
         if (owner.DeferredSignalDrain is { } drain && (drain.IsCurrent || owner.Mailbox.HasDeferredPending))
         {
@@ -775,6 +815,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                     ProcessInfoLogicalNames.Priority => process.SchedulingPriority,
                     ProcessFullSweepNames.Flag => Term.I(process.GarbageCollectionPolicy.Threshold),
                     ProcessAsyncDistributionNames.Flag => CoreModules.Boolean(process.AsyncDistribution),
+                    ProcessMessageQueueDataNames411.Flag => ProcessMessageQueueData411.Atom(process.Mailbox.MessageQueueData411),
                     ProcessInfoLogicalNames.Reductions => Term.I(process.CumulativeReductions),
                     ProcessInfoNames.Links => Cons.From(process.Links.Cast<Term>().Concat(process.PortLinks)),
                     ProcessInfoNames.PriorityMessages => Term.A(PriorityPermissionCount(process) != 0 ? ErlangBooleanAtoms.True : ErlangBooleanAtoms.False),
@@ -878,7 +919,19 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         Term value
     )
     {
+        Term started = RequestFlag425(requester, new Term[] { target, flag, value });
+        if (started is not ReferenceTerm reference) return started;
+        var reply = await requester.ReceiveAsync(message => message is TupleTerm { Items.Count: 2 } tuple && tuple.Items[0].Equals(reference) ? tuple : null);
+
+        return reply!.Items[1];
+    }
+
+    internal Term RequestFlag425(ProcessContext requester, IReadOnlyList<Term> arguments)
+    {
         requester.Cancellation.ThrowIfCancellationRequested();
+        if (arguments[0] is not Pid target || !IsCurrentLocal(target)) return Term.A(ProcessSavedCallNames.BadType);
+        Term flag = arguments[1];
+        Term value = arguments[2];
         if (target.Equals(requester.Self))
             return ApplySavedCallFlag(requester, flag, value);
         var id = MakeReference();
@@ -907,9 +960,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 }
             );
         }
-        var reply = await requester.ReceiveAsync(message => message is TupleTerm { Items.Count: 2 } tuple && tuple.Items[0].Equals(id) ? tuple : null);
 
-        return reply!.Items[1];
+        return id;
     }
 
     private static Term ApplySavedCallFlag(ProcessContext process, Term flag, Term value)
@@ -1421,115 +1473,52 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             if (!processes.Remove(ctx.Self))
                 return;
             var failures = new List<Exception>();
-            ProcessExitContinuation? exit = null;
-            // Public FREE and runtime-owned cleanup have separate lifetimes.
             processSlots.Remove(ctx.Self);
             ctx.Terminated = true;
             ctx.ExitReason = reason;
             if (ctx.Self.Equals(InitializationPid))
                 CleanupStep(StartNifShutdown);
-            CleanupStep(() =>
+            IReadOnlyList<DistributionExitOutput> remoteOutput = Array.Empty<DistributionExitOutput>();
+            CleanupStep(() => remoteOutput = CaptureDistributionExitOutput(ctx, reason));
+            Task storage = Task.CompletedTask;
+            CleanupStep(() => storage = etsFoundation?.ProcessTerminated(ctx.Self) ?? Task.CompletedTask);
+            CleanupStep(() => storage = RegexProcessRetirement411(ctx, storage));
+            CleanupStep(() => storage = PersistentProcessRetirement417(ctx, storage));
+            CleanupStep(() => storage = SystemTaskProcessRetirement428(ctx, storage));
+            CleanupStep(() => storage = DirtyNativeProcessRetirement419(ctx, storage));
+            CleanupStep(() => storage = DebugDispatchProcessRetirement432(ctx, storage));
+            CleanupStep(() => storage = CountersProcessRetirement421(ctx, storage));
+            CleanupStep(() => storage = HamtProcessRetirement429(ctx, storage));
+            CleanupStep(() => storage = EtsQueueRetirement419(ctx, storage));
+            CleanupStep(() => storage = DriverFrontendProcessRetirement422(ctx, storage));
+            CleanupStep(() => storage = CodePurgerProcessRetirement432(ctx, storage));
+            CleanupStep(() => storage = AllocatorGatherProcessRetirement434(ctx, storage));
+            ProcessExitContinuation? exit = null;
+            if (!storage.IsCompleted)
             {
-                var remoteOutput = CaptureDistributionExitOutput(ctx, reason);
-                if (remoteOutput.Count != 0)
+                exit = new(ctx, reason, remoteOutput)
                 {
-                    exit = new(ctx, reason, remoteOutput);
-                    StartExitContinuation(exit);
-                }
-            });
-            CleanupStep(() => LocalNodeProcessTerminated(ctx, reason));
-            CleanupStep(() => distributionPending?.ProcessTerminated(ctx, reason));
-            CleanupStep(() => ProcessTracing.Terminated(ctx.Self));
-            CleanupStep(() => SystemMonitoring.Terminated(ctx.Self));
-            CleanupStep(() => SystemProfiling.Terminated(ctx.Self));
-            foreach (var request in ctx.PendingCodeChecks)
-                CleanupStep(() => ReplyCodeCheck(request, false, ctx.Self));
-            ctx.PendingCodeChecks.Clear();
-            foreach (var request in ctx.PendingInfoRequests)
-                CleanupStep(() => ReplyProcessInfo(request, ProcessInfoAtoms.Undefined, ctx.Self));
-            ctx.PendingInfoRequests.Clear();
-            foreach (var request in ctx.PendingDisplayRequests)
-                CleanupStep(() => ReplyProcessDisplay(request, Term.A(ErlangErrorReasons.BadArgument)));
-            ctx.PendingDisplayRequests.Clear();
-            foreach (var request in ctx.PendingGarbageCollections)
-                CleanupStep(() => ReplyGarbageCollection(request, false, ctx.Self));
-            ctx.PendingGarbageCollections.Clear();
-            foreach (var request in ctx.PendingSavedCallRequests)
-                CleanupStep(() => ReplySavedCallRequest(request, Term.A(ErlangErrorReasons.BadArgument), ctx.Self));
-            ctx.PendingSavedCallRequests.Clear();
-            CleanupStep(() => Timers.RecipientTerminated(ctx.Self));
-            CleanupStep(() => Suspensions.Terminated(ctx));
-            CleanupStep(ctx.Mailbox.DiscardPending);
-            foreach (var request in spawnRequests.Where(pair => pair.Value.Owner.Equals(ctx.Self)).Select(pair => pair.Key).ToArray())
-                spawnRequests.Remove(request);
-            foreach (var alias in aliases.Where(pair => pair.Value.Owner.Equals(ctx.Self)).Select(pair => pair.Key).ToArray())
-                aliases.Remove(alias);
-            CleanupStep(() => Ports.OwnerTerminated(ctx, reason));
-            foreach (var name in names.Where(pair => pair.Value.Equals(ctx.Self)).Select(pair => pair.Key).ToArray())
-                names.Remove(name);
-            var linkedExits = ctx.Links.Select(pid => (Pid: pid, Reason: reason))
-                .Concat(ctx.PendingLinkOrigins.Values.Select(pid => (Pid: pid, Reason: (Term)Term.A(ErlangErrorReasons.NoProcess))))
-                .ToArray();
-            ctx.PendingLinkOrigins.Clear();
-            ctx.Links.Clear();
-            ctx.LinkIdentities.Clear();
-            ctx.PriorityLinks.Clear();
-            foreach (var monitor in monitors.ToArray())
-            {
-                if (monitor.Value.Target?.Equals(ctx.Self) == true)
-                {
-                    if (processes.TryGetValue(monitor.Value.Observer, out var observer))
-                        CleanupStep(() => MonitorDown(
-                            observer,
-                            monitor.Key,
-                            monitor.Value,
-                            reason
-                        ));
-                }
-                else if (monitor.Value.Observer.Equals(ctx.Self))
-                    monitors.Remove(monitor.Key);
+                    StorageRetirement = storage,
+                    PreparationFailures = failures
+                };
+                StartExitContinuation(exit);
+                // Stop the actor before retirement; its finally may release a read lease.
+                CleanupStep(ctx.Stop.Cancel);
+
+                return;
             }
-            CleanupStep(ctx.Stop.Cancel);
-            foreach (var linkedExit in linkedExits)
+            CleanupStep(() => storage.GetAwaiter().GetResult());
+            if (remoteOutput.Count != 0)
             {
-                CleanupStep(() =>
-                {
-                    SequenceTraceToken? exitToken = SequenceTracing.LinkedExit(ctx, linkedExit.Pid, linkedExit.Reason);
-                    if (processes.TryGetValue(linkedExit.Pid, out var linked))
-                    {
-                        QueueExit(
-                            linked,
-                            ctx.Self,
-                            linkedExit.Reason,
-                            false,
-                            false,
-                            false,
-                            null,
-                            true,
-                            exitToken
-                        );
-                    }
-                });
+                exit = new(ctx, reason, remoteOutput);
+                StartExitContinuation(exit);
             }
-            if (failures.Count == 0)
-            {
-                if (exit is not null)
-                    exit.LocalCleanup.TrySetResult();
-                else
-                    ctx.Done.TrySetResult(reason);
-            }
-            else
-            {
-                var failure = new AggregateException(failures);
-                if (exit is not null)
-                    exit.LocalCleanup.TrySetException(failure);
-                else
-                {
-                    exitContinuationFailures.Add(failure);
-                    ctx.Done.TrySetException(failure);
-                }
-                throw failure;
-            }
+            FinishTermination(
+                ctx,
+                reason,
+                failures,
+                exit
+            );
 
             void CleanupStep(Action cleanup)
             {
@@ -1537,10 +1526,129 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 {
                     cleanup();
                 }
-                catch (Exception exception)
+                catch (Exception error)
                 {
-                    failures.Add(exception);
+                    failures.Add(error);
                 }
+            }
+        }
+    }
+
+    // Called under runtime.gate, after owned storage retirement and before DOWN/links/Done.
+    private void FinishTermination(
+        ProcessContext ctx,
+        Term reason,
+        List<Exception> failures,
+        ProcessExitContinuation? exit
+    )
+    {
+        CleanupStep(() => DirtySystemHandlerEnded428(ctx));
+        CleanupStep(() => CollectorProcessEnded413(ctx));
+        CleanupStep(() => LocalNodeProcessTerminated(ctx, reason));
+        CleanupStep(() => distributionPending?.ProcessTerminated(ctx, reason));
+        CleanupStep(() => ProcessTracing.Terminated(ctx.Self));
+        CleanupStep(() => SystemMonitoring.Terminated(ctx.Self));
+        CleanupStep(() => SystemProfiling.Terminated(ctx.Self));
+        CleanupStep(() => FinishProcessAlive425(ctx));
+        CleanupStep(() => FinishInternalGroupLeader425(ctx));
+        foreach (var request in ctx.PendingCodeChecks)
+            CleanupStep(() => ReplyCodeCheck(request, false, ctx.Self));
+        ctx.PendingCodeChecks.Clear();
+        foreach (var request in ctx.PendingInfoRequests)
+            CleanupStep(() => ReplyProcessInfo(request, ProcessInfoAtoms.Undefined, ctx.Self));
+        ctx.PendingInfoRequests.Clear();
+        foreach (var request in ctx.PendingDisplayRequests)
+            CleanupStep(() => ReplyProcessDisplay(request, Term.A(ErlangErrorReasons.BadArgument)));
+        ctx.PendingDisplayRequests.Clear();
+        foreach (var request in ctx.PendingGarbageCollections)
+            CleanupStep(() => ReplyGarbageCollection(request, false, ctx.Self));
+        ctx.PendingGarbageCollections.Clear();
+        foreach (var request in ctx.PendingSavedCallRequests)
+            CleanupStep(() => ReplySavedCallRequest(request, Term.A(ErlangErrorReasons.BadArgument), ctx.Self));
+        ctx.PendingSavedCallRequests.Clear();
+        CleanupStep(() => Timers.RecipientTerminated(ctx.Self));
+        CleanupStep(() => Suspensions.Terminated(ctx));
+        CleanupStep(ctx.Mailbox.DiscardPending);
+        foreach (var request in spawnRequests.Where(pair => pair.Value.Owner.Equals(ctx.Self)).Select(pair => pair.Key).ToArray())
+            spawnRequests.Remove(request);
+        foreach (var alias in aliases.Where(pair => pair.Value.Owner.Equals(ctx.Self)).Select(pair => pair.Key).ToArray())
+            aliases.Remove(alias);
+        CleanupStep(() => Ports.OwnerTerminated(ctx, reason));
+        foreach (var name in names.Where(pair => pair.Value.Equals(ctx.Self)).Select(pair => pair.Key).ToArray())
+            names.Remove(name);
+        var linkedExits = ctx.Links.Select(pid => (Pid: pid, Reason: reason))
+            .Concat(ctx.PendingLinkOrigins.Values.Select(pid => (Pid: pid, Reason: (Term)Term.A(ErlangErrorReasons.NoProcess))))
+            .ToArray();
+        ctx.PendingLinkOrigins.Clear();
+        ctx.Links.Clear();
+        ctx.LinkIdentities.Clear();
+        ctx.PriorityLinks.Clear();
+        foreach (var monitor in monitors.ToArray())
+        {
+            if (monitor.Value.Target?.Equals(ctx.Self) == true)
+            {
+                if (processes.TryGetValue(monitor.Value.Observer, out var observer))
+                    CleanupStep(() => MonitorDown(
+                        observer,
+                        monitor.Key,
+                        monitor.Value,
+                        reason
+                    ));
+            }
+            else if (monitor.Value.Observer.Equals(ctx.Self))
+                monitors.Remove(monitor.Key);
+        }
+        CleanupStep(ctx.Stop.Cancel);
+        foreach (var linkedExit in linkedExits)
+        {
+            CleanupStep(() =>
+            {
+                SequenceTraceToken? exitToken = SequenceTracing.LinkedExit(ctx, linkedExit.Pid, linkedExit.Reason);
+                if (processes.TryGetValue(linkedExit.Pid, out var linked))
+                {
+                    QueueExit(
+                        linked,
+                        ctx.Self,
+                        linkedExit.Reason,
+                        false,
+                        false,
+                        false,
+                        null,
+                        true,
+                        exitToken
+                    );
+                }
+            });
+        }
+        if (failures.Count == 0)
+        {
+            if (exit is not null)
+                exit.LocalCleanup.TrySetResult();
+            else
+                ctx.Done.TrySetResult(reason);
+        }
+        else
+        {
+            var failure = new AggregateException(failures);
+            if (exit is not null)
+                exit.LocalCleanup.TrySetException(failure);
+            else
+            {
+                exitContinuationFailures.Add(failure);
+                ctx.Done.TrySetException(failure);
+            }
+            throw failure;
+        }
+
+        void CleanupStep(Action cleanup)
+        {
+            try
+            {
+                cleanup();
+            }
+            catch (Exception exception)
+            {
+                failures.Add(exception);
             }
         }
     }
@@ -1568,6 +1676,21 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 _ = actorDispatcher.CompleteWhenIdle();
                 Timers.Dispose();
                 distributionPending?.Close();
+                OsEnvironment?.Dispose();
+                CloseDistributionEntryIdentities();
+                etsFoundation?.Close();
+                _ = ClosePersistentTerms();
+                _ = CloseSystemTasks428();
+                _ = CloseDirtyNative419();
+                _ = CloseDebugDispatch432();
+                _ = CloseCounters421();
+                _ = CloseHamtIndex429();
+                _ = CloseRegex411();
+                _ = CloseDriverFrontend422();
+                CloseAtomics413();
+                CloseCollectors413();
+                _ = CloseCodePurger432();
+                ProcessTracing.CloseTraceSessions425();
                 ReferenceResources.Close();
                 Ports.Shutdown();
                 foreach (var process in processes.Values.ToArray())
@@ -1598,6 +1721,33 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         try
         {
             await DisposeRuntimeCoreAsync().ConfigureAwait(false);
+        }
+        catch (Exception failure)
+        {
+            failures.Add(failure);
+        }
+        try
+        {
+            await DrainEtsRetirements().ConfigureAwait(false);
+        }
+        catch (Exception failure)
+        {
+            failures.Add(failure);
+        }
+        try
+        {
+            await Task.WhenAll(
+                DrainPersistentTerms(),
+                DrainRegex411(),
+                DrainSystemTasks428(),
+                DrainDirtyNative419(),
+                DrainDebugDispatch432(),
+                DrainCounters421(),
+                DrainHamtIndex429(),
+                DrainDriverFrontend422(),
+                DrainCodePurger432(),
+                DrainAllocatorGather434()
+            ).ConfigureAwait(false);
         }
         catch (Exception failure)
         {
@@ -1656,6 +1806,21 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 _ = actorDispatcher.CompleteWhenIdle();
                 Timers.Dispose();
                 distributionPending?.Close();
+                OsEnvironment?.Dispose();
+                CloseDistributionEntryIdentities();
+                etsFoundation?.Close();
+                _ = ClosePersistentTerms();
+                _ = CloseSystemTasks428();
+                _ = CloseDirtyNative419();
+                _ = CloseDebugDispatch432();
+                _ = CloseCounters421();
+                _ = CloseHamtIndex429();
+                _ = CloseRegex411();
+                _ = CloseDriverFrontend422();
+                CloseAtomics413();
+                CloseCollectors413();
+                _ = CloseCodePurger432();
+                ProcessTracing.CloseTraceSessions425();
                 ReferenceResources.Close();
                 Ports.Shutdown();
                 foreach (var p in processes.Values.ToArray())
@@ -1672,7 +1837,18 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         await Ports.Drain().ConfigureAwait(false);
         await Task.WhenAll(
             distributionPending?.DrainOwnedOutputOperations() ?? Task.CompletedTask,
-            DrainExitContinuations()
+            DrainExitContinuations(),
+            DrainEtsRetirements(),
+            DrainPersistentTerms(),
+            DrainRegex411(),
+            DrainSystemTasks428(),
+            DrainDirtyNative419(),
+            DrainDebugDispatch432(),
+            DrainCounters421(),
+            DrainHamtIndex429(),
+            DrainDriverFrontend422(),
+            DrainCodePurger432(),
+            DrainAllocatorGather434()
         ).ConfigureAwait(false);
         if (ownsStandardStreams)
             StandardStreams.Dispose();

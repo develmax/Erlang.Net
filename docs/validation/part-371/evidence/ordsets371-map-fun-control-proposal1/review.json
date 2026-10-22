@@ -1,0 +1,8 @@
+{
+  "Status": "SOURCE_COUNTEREXAMPLE_CANDIDATE_NOT_EXECUTED",
+  "SourceReason": "MapTerm CanonicalKeyStorage compares NEW_UNIQ, whereas pinned native map ordering uses source FUN key comparison OLD_UNIQ. Same two keys with reversed order fields and swapped associated numeric values isolate map key enumeration from direct FUN ordering. Actual original execution decides this witness; no native expected values are seeded.",
+  "FixtureSha256": "C10F564C80E7065517EAF915B158BD9BB3EB2A55B5B561B0C79F026E2F37880E",
+  "CreatorProtocol": "Owner is a literal valid NEW_PID_EXT external@host id1/serial0/creation0 in every NEW_FUN_EXT. These are legal decoded code-entry stub values, not borrowed host/native pointers or fabricated runtime process IDs. Full raw FUN payloads and map/list results remain in capture.",
+  "EntryPreconditions": "Distinct NEW_UNIQ values, same actual own module/index/arity, fun_info OldUnique1/2 asserted after canonical interning. No repeated same module/index/NEW_UNIQ with conflicting old fields.",
+  "NoMainBuildNetwork": true
+}

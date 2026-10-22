@@ -1,0 +1,417 @@
+{
+  "Status": "PASS_FINAL_LONG_SDK_CAPTURE_ADMISSION_ORIGINAL2_PENDING",
+  "Values": 11,
+  "FullObservations": 55,
+  "Groups": [
+    {
+      "Id": "reverse_direct",
+      "Values": 2,
+      "FullObservations": 10,
+      "ObserverVisitedTerms": 3200965,
+      "SourceFunctionsAbsent": true,
+      "ReturnedSha256": "6C6213BE5E3CC9301EFCF01DD11EF063E02ED32232CCDE4A164B1426DF28B963",
+      "StacksSha256": "67D212681B7ED3783DCFEF770C9A90A0D0B019D860E25ECB3950A9DA7DDFE41A"
+    },
+    {
+      "Id": "queue_to_list",
+      "Values": 2,
+      "FullObservations": 10,
+      "ObserverVisitedTerms": 3201000,
+      "SourceFunctionsAbsent": true,
+      "ReturnedSha256": "0123FB6A03CA84FAEFAFD390C1C307B9613FFAA2194F2669E75AC19B48AB6EBB",
+      "StacksSha256": "4D5B48623EF7A408501BD6BDBBAF006A14F3031D48FB42C06329772FFB1F3293"
+    },
+    {
+      "Id": "queue_out",
+      "Values": 2,
+      "FullObservations": 10,
+      "ObserverVisitedTerms": 3201000,
+      "SourceFunctionsAbsent": true,
+      "ReturnedSha256": "C4D23965A815134FC0A3A179EE3FB5767FF423165933CC117D9B77A8269C2509",
+      "StacksSha256": "821CDCD2822889B147F150A181A49C6D2DF3B5AD962A77A22ED3FE191D94A802"
+    },
+    {
+      "Id": "trap_controls",
+      "Values": 5,
+      "FullObservations": 25,
+      "ObserverVisitedTerms": 1921654,
+      "SourceFunctionsAbsent": true,
+      "ReturnedSha256": "166ECFAF93C40AA4A1C0E7FE39D95E2F9081306DB423DE38978FC4DDD0657214",
+      "StacksSha256": "53E85B98D97CAFE9D0DCC1D4F4B057D506657820C7CA1A44E2251BB36D35C197"
+    }
+  ],
+  "QueueReverseSnapshots": [
+    {
+      "Group": "queue_to_list",
+      "Depth": "('atom', 'default')",
+      "Case": "to_list_rear_64017",
+      "State": {
+        "Consumed": 0,
+        "Remaining": 64017,
+        "Terminal": [
+          "atom",
+          "tail"
+        ],
+        "InitialCount": 64017,
+        "ExactUniqueSuffix": true,
+        "ExactReversedAccumulator": true
+      },
+      "OwnAllocation40CellMultiple": true
+    },
+    {
+      "Group": "queue_to_list",
+      "Depth": "('atom', 'default')",
+      "Case": "to_list_rear_256017",
+      "State": {
+        "Consumed": 253680,
+        "Remaining": 2337,
+        "Terminal": [
+          "atom",
+          "tail"
+        ],
+        "InitialCount": 256017,
+        "ExactUniqueSuffix": true,
+        "ExactReversedAccumulator": true
+      },
+      "OwnAllocation40CellMultiple": true
+    },
+    {
+      "Group": "queue_to_list",
+      "Depth": "('integer', 0)",
+      "Case": "to_list_rear_64017",
+      "State": {
+        "Consumed": 0,
+        "Remaining": 64017,
+        "Terminal": [
+          "atom",
+          "tail"
+        ],
+        "InitialCount": 64017,
+        "ExactUniqueSuffix": true,
+        "ExactReversedAccumulator": true
+      },
+      "OwnAllocation40CellMultiple": true
+    },
+    {
+      "Group": "queue_to_list",
+      "Depth": "('integer', 0)",
+      "Case": "to_list_rear_256017",
+      "State": {
+        "Consumed": 250840,
+        "Remaining": 5177,
+        "Terminal": [
+          "atom",
+          "tail"
+        ],
+        "InitialCount": 256017,
+        "ExactUniqueSuffix": true,
+        "ExactReversedAccumulator": true
+      },
+      "OwnAllocation40CellMultiple": true
+    },
+    {
+      "Group": "queue_to_list",
+      "Depth": "('integer', 1)",
+      "Case": "to_list_rear_64017",
+      "State": {
+        "Consumed": 0,
+        "Remaining": 64017,
+        "Terminal": [
+          "atom",
+          "tail"
+        ],
+        "InitialCount": 64017,
+        "ExactUniqueSuffix": true,
+        "ExactReversedAccumulator": true
+      },
+      "OwnAllocation40CellMultiple": true
+    },
+    {
+      "Group": "queue_to_list",
+      "Depth": "('integer', 1)",
+      "Case": "to_list_rear_256017",
+      "State": {
+        "Consumed": 248520,
+        "Remaining": 7497,
+        "Terminal": [
+          "atom",
+          "tail"
+        ],
+        "InitialCount": 256017,
+        "ExactUniqueSuffix": true,
+        "ExactReversedAccumulator": true
+      },
+      "OwnAllocation40CellMultiple": true
+    },
+    {
+      "Group": "queue_to_list",
+      "Depth": "('integer', 2)",
+      "Case": "to_list_rear_64017",
+      "State": {
+        "Consumed": 0,
+        "Remaining": 64017,
+        "Terminal": [
+          "atom",
+          "tail"
+        ],
+        "InitialCount": 64017,
+        "ExactUniqueSuffix": true,
+        "ExactReversedAccumulator": true
+      },
+      "OwnAllocation40CellMultiple": true
+    },
+    {
+      "Group": "queue_to_list",
+      "Depth": "('integer', 2)",
+      "Case": "to_list_rear_256017",
+      "State": {
+        "Consumed": 246200,
+        "Remaining": 9817,
+        "Terminal": [
+          "atom",
+          "tail"
+        ],
+        "InitialCount": 256017,
+        "ExactUniqueSuffix": true,
+        "ExactReversedAccumulator": true
+      },
+      "OwnAllocation40CellMultiple": true
+    },
+    {
+      "Group": "queue_to_list",
+      "Depth": "('integer', 8)",
+      "Case": "to_list_rear_64017",
+      "State": {
+        "Consumed": 0,
+        "Remaining": 64017,
+        "Terminal": [
+          "atom",
+          "tail"
+        ],
+        "InitialCount": 64017,
+        "ExactUniqueSuffix": true,
+        "ExactReversedAccumulator": true
+      },
+      "OwnAllocation40CellMultiple": true
+    },
+    {
+      "Group": "queue_to_list",
+      "Depth": "('integer', 8)",
+      "Case": "to_list_rear_256017",
+      "State": {
+        "Consumed": 243880,
+        "Remaining": 12137,
+        "Terminal": [
+          "atom",
+          "tail"
+        ],
+        "InitialCount": 256017,
+        "ExactUniqueSuffix": true,
+        "ExactReversedAccumulator": true
+      },
+      "OwnAllocation40CellMultiple": true
+    },
+    {
+      "Group": "queue_out",
+      "Depth": "('atom', 'default')",
+      "Case": "out_rear_64017",
+      "State": {
+        "Consumed": 0,
+        "Remaining": 64017,
+        "Terminal": [
+          "atom",
+          "tail"
+        ],
+        "InitialCount": 64017,
+        "ExactUniqueSuffix": true,
+        "ExactReversedAccumulator": true
+      },
+      "OwnAllocation40CellMultiple": true
+    },
+    {
+      "Group": "queue_out",
+      "Depth": "('atom', 'default')",
+      "Case": "out_rear_256017",
+      "State": {
+        "Consumed": 253520,
+        "Remaining": 2497,
+        "Terminal": [
+          "atom",
+          "tail"
+        ],
+        "InitialCount": 256017,
+        "ExactUniqueSuffix": true,
+        "ExactReversedAccumulator": true
+      },
+      "OwnAllocation40CellMultiple": true
+    },
+    {
+      "Group": "queue_out",
+      "Depth": "('integer', 0)",
+      "Case": "out_rear_64017",
+      "State": {
+        "Consumed": 0,
+        "Remaining": 64017,
+        "Terminal": [
+          "atom",
+          "tail"
+        ],
+        "InitialCount": 64017,
+        "ExactUniqueSuffix": true,
+        "ExactReversedAccumulator": true
+      },
+      "OwnAllocation40CellMultiple": true
+    },
+    {
+      "Group": "queue_out",
+      "Depth": "('integer', 0)",
+      "Case": "out_rear_256017",
+      "State": {
+        "Consumed": 250520,
+        "Remaining": 5497,
+        "Terminal": [
+          "atom",
+          "tail"
+        ],
+        "InitialCount": 256017,
+        "ExactUniqueSuffix": true,
+        "ExactReversedAccumulator": true
+      },
+      "OwnAllocation40CellMultiple": true
+    },
+    {
+      "Group": "queue_out",
+      "Depth": "('integer', 1)",
+      "Case": "out_rear_64017",
+      "State": {
+        "Consumed": 0,
+        "Remaining": 64017,
+        "Terminal": [
+          "atom",
+          "tail"
+        ],
+        "InitialCount": 64017,
+        "ExactUniqueSuffix": true,
+        "ExactReversedAccumulator": true
+      },
+      "OwnAllocation40CellMultiple": true
+    },
+    {
+      "Group": "queue_out",
+      "Depth": "('integer', 1)",
+      "Case": "out_rear_256017",
+      "State": {
+        "Consumed": 248040,
+        "Remaining": 7977,
+        "Terminal": [
+          "atom",
+          "tail"
+        ],
+        "InitialCount": 256017,
+        "ExactUniqueSuffix": true,
+        "ExactReversedAccumulator": true
+      },
+      "OwnAllocation40CellMultiple": true
+    },
+    {
+      "Group": "queue_out",
+      "Depth": "('integer', 2)",
+      "Case": "out_rear_64017",
+      "State": {
+        "Consumed": 0,
+        "Remaining": 64017,
+        "Terminal": [
+          "atom",
+          "tail"
+        ],
+        "InitialCount": 64017,
+        "ExactUniqueSuffix": true,
+        "ExactReversedAccumulator": true
+      },
+      "OwnAllocation40CellMultiple": true
+    },
+    {
+      "Group": "queue_out",
+      "Depth": "('integer', 2)",
+      "Case": "out_rear_256017",
+      "State": {
+        "Consumed": 245560,
+        "Remaining": 10457,
+        "Terminal": [
+          "atom",
+          "tail"
+        ],
+        "InitialCount": 256017,
+        "ExactUniqueSuffix": true,
+        "ExactReversedAccumulator": true
+      },
+      "OwnAllocation40CellMultiple": true
+    },
+    {
+      "Group": "queue_out",
+      "Depth": "('integer', 8)",
+      "Case": "out_rear_64017",
+      "State": {
+        "Consumed": 0,
+        "Remaining": 64017,
+        "Terminal": [
+          "atom",
+          "tail"
+        ],
+        "InitialCount": 64017,
+        "ExactUniqueSuffix": true,
+        "ExactReversedAccumulator": true
+      },
+      "OwnAllocation40CellMultiple": true
+    },
+    {
+      "Group": "queue_out",
+      "Depth": "('integer', 8)",
+      "Case": "out_rear_256017",
+      "State": {
+        "Consumed": 243080,
+        "Remaining": 12937,
+        "Terminal": [
+          "atom",
+          "tail"
+        ],
+        "InitialCount": 256017,
+        "ExactUniqueSuffix": true,
+        "ExactReversedAccumulator": true
+      },
+      "OwnAllocation40CellMultiple": true
+    }
+  ],
+  "SdkSealSha256": "7E4948794C17FEDF6EF2868758674D0EF89DB6EDBA5FD2AD31771FBEC14E9E45",
+  "ProfileSha256": "E9EC23DDA51F94D9E19F1DAA39169107E5B6AC4C4CCDBBB4D13950D195722EB3",
+  "DecoderSha256": "2A7CE62661669FA91D03A0231D0911FEDACAB6C37B0D2FBE76F2DA325726A519",
+  "Receipts": [
+    {
+      "Lane": "build",
+      "Pid": 288232,
+      "Normal": true,
+      "Seconds": 3.375,
+      "ReceiptSha256": "ADA3EA7CB684F45B95C0F24CEA576A8DF54F6B99631CA92460B8B4C11EBF81B3"
+    },
+    {
+      "Lane": "long-capture",
+      "Pid": 307296,
+      "Normal": true,
+      "Seconds": 18.562000000005355,
+      "ReceiptSha256": "CA25DE59933F457E8710CDABC1C429FF75D20FAE3BC920BB557871D1A79F38BB"
+    }
+  ],
+  "MainDllClosureSha256": "34BFA589D351B3EFEE35C8675456DADCE40C467F33650883D2AD87EDDD0642A3",
+  "ObserverSuccessorSha256": "F263C4E2054767B203D491980D2CFA349E332D60CF9A888CD73BADC06B4C5521",
+  "OwnSourceProtocolReviewSha256": "2F78BF48C9EC0001D49F9710D0B93281A6ABABFE86E8AEA8933565BC54A71595",
+  "Production357GuardsCurrent": true,
+  "FinalHostReviewSha256": "03A390CCDD8704C2A13FA058C6D4FD17726DD2757D00B4B35106E4C5DFFF8FA6",
+  "FailedCapture2Preserved": true,
+  "OwnStateInterpretation": "Allocation-path40cells per actual own remaining reduction; two genuine entry snapshot terms; lookahead error before copy; native heap branch/quantum is not asserted identical.",
+  "SourceProtocolConformanceClaim": "Reviewed actual own allocation branch, not arbitrary valid-prefix selection. No original partition is loaded into Main.",
+  "Original2Compared": false,
+  "CompatibilityPromoted": false,
+  "RuntimeOrNativeExecutedByReview": false,
+  "Projection": false,
+  "Normalization": false
+}

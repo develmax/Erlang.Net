@@ -1,0 +1,653 @@
+{
+  "Status": "SOURCE_PROPOSAL_PENDING_ROOT_BUILD_AND_NEW_ORIGINAL",
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "InstalledBinaryBeam": "21B69CF854190356313B6F52E52189EE610C59F9C9988BAC74E757C48B89B480",
+  "BeamDecodeSha256": "06CCF99428006E7ED53758DDFD69583845592624A1A8AE3E4DFA70BECF502151",
+  "ActualInstructions": [
+    {
+      "Offset": 1341,
+      "Operation": "label",
+      "Operands": [
+        [
+          "u",
+          76
+        ]
+      ]
+    },
+    {
+      "Offset": 1344,
+      "Operation": "is_function2",
+      "Operands": [
+        [
+          "f",
+          77
+        ],
+        [
+          "typed",
+          [
+            "y",
+            3
+          ],
+          [
+            "u",
+            7
+          ]
+        ],
+        [
+          "i",
+          1
+        ]
+      ]
+    },
+    {
+      "Offset": 1351,
+      "Operation": "jump",
+      "Operands": [
+        [
+          "f",
+          78
+        ]
+      ]
+    },
+    {
+      "Offset": 1354,
+      "Operation": "label",
+      "Operands": [
+        [
+          "u",
+          77
+        ]
+      ]
+    },
+    {
+      "Offset": 1357,
+      "Operation": "is_atom",
+      "Operands": [
+        [
+          "f",
+          79
+        ],
+        [
+          "y",
+          1
+        ]
+      ]
+    },
+    {
+      "Offset": 1361,
+      "Operation": "is_eq_exact",
+      "Operands": [
+        [
+          "f",
+          80
+        ],
+        [
+          "typed",
+          [
+            "y",
+            1
+          ],
+          [
+            "u",
+            1
+          ]
+        ],
+        [
+          "a",
+          "true"
+        ]
+      ]
+    },
+    {
+      "Offset": 1368,
+      "Operation": "label",
+      "Operands": [
+        [
+          "u",
+          78
+        ]
+      ]
+    },
+    {
+      "Offset": 1371,
+      "Operation": "move",
+      "Operands": [
+        [
+          "y",
+          3
+        ],
+        [
+          "x",
+          2
+        ]
+      ]
+    },
+    {
+      "Offset": 1374,
+      "Operation": "jump",
+      "Operands": [
+        [
+          "f",
+          82
+        ]
+      ]
+    },
+    {
+      "Offset": 1377,
+      "Operation": "label",
+      "Operands": [
+        [
+          "u",
+          79
+        ]
+      ]
+    },
+    {
+      "Offset": 1380,
+      "Operation": "is_nil",
+      "Operands": [
+        [
+          "f",
+          80
+        ],
+        [
+          "y",
+          1
+        ]
+      ]
+    },
+    {
+      "Offset": 1384,
+      "Operation": "test_heap",
+      "Operands": [
+        [
+          "alloc",
+          [
+            [
+              [
+                "u",
+                0
+              ],
+              [
+                "u",
+                1
+              ]
+            ],
+            [
+              [
+                "u",
+                1
+              ],
+              [
+                "u",
+                0
+              ]
+            ],
+            [
+              [
+                "u",
+                2
+              ],
+              [
+                "u",
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "u",
+          0
+        ]
+      ]
+    },
+    {
+      "Offset": 1394,
+      "Operation": "make_fun3",
+      "Operands": [
+        [
+          "u",
+          0
+        ],
+        [
+          "x",
+          2
+        ],
+        [
+          "list",
+          [
+            [
+              "y",
+              3
+            ]
+          ]
+        ]
+      ]
+    },
+    {
+      "Offset": 1400,
+      "Operation": "jump",
+      "Operands": [
+        [
+          "f",
+          82
+        ]
+      ]
+    },
+    {
+      "Offset": 1403,
+      "Operation": "label",
+      "Operands": [
+        [
+          "u",
+          80
+        ]
+      ]
+    },
+    {
+      "Offset": 1406,
+      "Operation": "is_integer",
+      "Operands": [
+        [
+          "f",
+          81
+        ],
+        [
+          "typed",
+          [
+            "y",
+            1
+          ],
+          [
+            "u",
+            8
+          ]
+        ]
+      ]
+    },
+    {
+      "Offset": 1412,
+      "Operation": "bs_start_match3",
+      "Operands": [
+        [
+          "f",
+          85
+        ],
+        [
+          "y",
+          3
+        ],
+        [
+          "u",
+          0
+        ],
+        [
+          "x",
+          0
+        ]
+      ]
+    },
+    {
+      "Offset": 1418,
+      "Operation": "bs_get_binary2",
+      "Operands": [
+        [
+          "f",
+          85
+        ],
+        [
+          "typed",
+          [
+            "x",
+            0
+          ],
+          [
+            "u",
+            9
+          ]
+        ],
+        [
+          "u",
+          1
+        ],
+        [
+          "typed",
+          [
+            "y",
+            1
+          ],
+          [
+            "u",
+            10
+          ]
+        ],
+        [
+          "u",
+          8
+        ],
+        [
+          "u",
+          0
+        ],
+        [
+          "x",
+          1
+        ]
+      ]
+    },
+    {
+      "Offset": 1431,
+      "Operation": "bs_match",
+      "Operands": [
+        [
+          "f",
+          85
+        ],
+        [
+          "x",
+          0
+        ],
+        [
+          "list",
+          [
+            [
+              "a",
+              "ensure_at_least"
+            ],
+            [
+              "u",
+              0
+            ],
+            [
+              "u",
+              8
+            ],
+            [
+              "a",
+              "get_tail"
+            ],
+            [
+              "u",
+              2
+            ],
+            [
+              "u",
+              8
+            ],
+            [
+              "x",
+              0
+            ]
+          ]
+        ]
+      ]
+    },
+    {
+      "Offset": 1446,
+      "Operation": "test_heap",
+      "Operands": [
+        [
+          "alloc",
+          [
+            [
+              [
+                "u",
+                0
+              ],
+              [
+                "u",
+                2
+              ]
+            ],
+            [
+              [
+                "u",
+                1
+              ],
+              [
+                "u",
+                0
+              ]
+            ],
+            [
+              [
+                "u",
+                2
+              ],
+              [
+                "u",
+                1
+              ]
+            ]
+          ]
+        ],
+        [
+          "u",
+          2
+        ]
+      ]
+    },
+    {
+      "Offset": 1456,
+      "Operation": "make_fun3",
+      "Operands": [
+        [
+          "u",
+          1
+        ],
+        [
+          "x",
+          2
+        ],
+        [
+          "list",
+          [
+            [
+              "x",
+              1
+            ],
+            [
+              "x",
+              0
+            ]
+          ]
+        ]
+      ]
+    },
+    {
+      "Offset": 1463,
+      "Operation": "jump",
+      "Operands": [
+        [
+          "f",
+          82
+        ]
+      ]
+    },
+    {
+      "Offset": 1466,
+      "Operation": "label",
+      "Operands": [
+        [
+          "u",
+          81
+        ]
+      ]
+    },
+    {
+      "Offset": 1469,
+      "Operation": "is_nonempty_list",
+      "Operands": [
+        [
+          "f",
+          86
+        ],
+        [
+          "y",
+          1
+        ]
+      ]
+    },
+    {
+      "Offset": 1473,
+      "Operation": "move",
+      "Operands": [
+        [
+          "y",
+          1
+        ],
+        [
+          "x",
+          0
+        ]
+      ]
+    },
+    {
+      "Offset": 1476,
+      "Operation": "init_yregs",
+      "Operands": [
+        [
+          "list",
+          [
+            [
+              "y",
+              1
+            ]
+          ]
+        ]
+      ]
+    },
+    {
+      "Offset": 1480,
+      "Operation": "line",
+      "Operands": [
+        [
+          "u",
+          60
+        ]
+      ],
+      "Location": [
+        "binary.erl",
+        892
+      ]
+    },
+    {
+      "Offset": 1483,
+      "Operation": "call_ext",
+      "Operands": [
+        [
+          "u",
+          1
+        ],
+        [
+          "u",
+          13
+        ]
+      ],
+      "Import": [
+        "lists",
+        "sort",
+        1
+      ]
+    },
+    {
+      "Offset": 1486,
+      "Operation": "move",
+      "Operands": [
+        [
+          "i",
+          0
+        ],
+        [
+          "x",
+          1
+        ]
+      ]
+    },
+    {
+      "Offset": 1489,
+      "Operation": "move",
+      "Operands": [
+        [
+          "x",
+          0
+        ],
+        [
+          "x",
+          2
+        ]
+      ]
+    },
+    {
+      "Offset": 1492,
+      "Operation": "move",
+      "Operands": [
+        [
+          "y",
+          3
+        ],
+        [
+          "x",
+          0
+        ]
+      ]
+    },
+    {
+      "Offset": 1495,
+      "Operation": "call",
+      "Operands": [
+        [
+          "u",
+          3
+        ],
+        [
+          "f",
+          92
+        ]
+      ]
+    }
+  ],
+  "Clauses": [
+    {
+      "Mfa": "binary:replace/4",
+      "Source": "binary.erl883-890",
+      "Path": "is_function(Replacement,1) orelse Insert yields literaltrue; truearm returnsReplacement unmodified.",
+      "Effect": "Binary+Inserttrue is a deferred dynamic call: nomatch succeeds without callingbinary; matchattempt throwsbadfun andcatchrethrowspublicbadarg. FunctionReplacement still ignoresInsert.",
+      "ManagedFix": "ExplicitdeferredBadFunctionplan retainsactualReplacement; Applythrowsactualbadfun tupleonlywhenmatchneedsit, outerexistingcatchcreatespublicbadarg. No eagerInserttrue rejection."
+    },
+    {
+      "Mfa": "binary:replace/4",
+      "Source": "binary.erl889, actualbs_start_match3@1412 beforebs_get_binary2@1418",
+      "Path": "IntegerInsert",
+      "Effect": "PinactualwritableReplacement beforeintegerbounds/matchvalidation, includingnegative/outside. Searchmustalreadyhavecompleted; invalidpattern/options mustnotreachthisphase.",
+      "ManagedFix": "binary.PinForMatch insideIntegerbranchonly, before positions.Add andvalidation."
+    },
+    {
+      "Mfa": "binary:replace/4",
+      "Source": "binary.erl892,910-913",
+      "Path": "ListInsert",
+      "Effect": "lists:sort thenbinary:part recursion; nointegerarmmatch andnoblanketPinForMatch. Nilhasownclosurebranch.",
+      "ManagedFix": "List/Nil/function paths unchanged."
+    },
+    {
+      "Mfa": "binary:replace/3",
+      "Effect": "DelegateswithNilinsert, so newtrue/integerbranches notselected. Existingcallback/error/sourceprotocol unchanged."
+    }
+  ],
+  "OriginalFixture": {
+    "Path": "original/binary369_insert_contract.erl",
+    "Sha256": "AB3C9439BD9286BD2EF0591605F6EC9A407938EEB36D43A44B538B12B585A555",
+    "Cases": 7,
+    "ValuesAndFullProfiles": "Matchedworker forvaluesANDprofiles viaexistingbinary_all369_support. Everycase retainsbefore/afterbacking andcaughtfullstack; noexpectednativevalues seeded."
+  },
+  "PermanentHost": {
+    "Name": "compiler/binary/insert-true-deferred-call-and-integer-match-pin",
+    "Fixture": "source/tests/Erlang.Tests/Resources/BinaryInsert/binary_insert369_host.erl",
+    "Assertions": "Nomatchtrue exactsuccess;matchedtrue publicbadarg;integer0/-1/258 realwritablepin;list[0]/Nil preserveunmatchedstorageprotocol. No reflection/fakehash/nativeidentity."
+  },
+  "RegressionImpact": "NarrowtwoBinaryReplacePlanbranches; keeps originalsearchbeforeplan, optionsprecedence, callbackarityguard, allcallbackorder, finaliodata deferrederrors, ownsourceframegeneration andexistingpubliccatch. Finalactualgatesstillrequired.",
+  "Build": false,
+  "NativeExecution": false,
+  "MainEdited": false,
+  "CompatibilityPromoted": false
+}

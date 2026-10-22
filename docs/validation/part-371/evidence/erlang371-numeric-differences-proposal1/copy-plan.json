@@ -1,0 +1,73 @@
+{
+  "Files": [
+    {
+      "Source": "artifacts/erlang371-numeric-differences-proposal1/source/src/Erlang.Runtime/ErlangDataRegistrations.cs",
+      "Destination": "src/Erlang.Runtime/ErlangDataRegistrations.cs",
+      "Sha256": "DC46EF435E8C1DC21430C1A084EBC903E38633BA6DE032D19447A7F466ACEAEF",
+      "Bytes": 3877,
+      "ReplacesExisting": true,
+      "ExpectedPreviousSha256": "F288AFBC6B461046F90916CEA3E39D44A25414242FB7C5D8CB1D444878CCB891"
+    },
+    {
+      "Source": "artifacts/erlang371-numeric-differences-proposal1/source/src/Erlang.Runtime/ErlangFloatOutput.cs",
+      "Destination": "src/Erlang.Runtime/ErlangFloatOutput.cs",
+      "Sha256": "2E9E0D3333956CD3B36C597B011C886B4AF0E435FFDCA8FCB7D25C6885C5D304",
+      "Bytes": 6175,
+      "ReplacesExisting": true,
+      "ExpectedPreviousSha256": "A723AF8B3A91C0C3CF52E0EF0031A1E6BFB8B8D334DC488568BC93EE3B6FBC58"
+    },
+    {
+      "Source": "artifacts/erlang371-numeric-differences-proposal1/source/src/Erlang.Runtime/ErlangFloatParameters.cs",
+      "Destination": "src/Erlang.Runtime/ErlangFloatParameters.cs",
+      "Sha256": "873BEA5195CB744A52EA89ED34644128BB792E8297BEF94F02B27C0D0C0F9E70",
+      "Bytes": 896,
+      "ReplacesExisting": true,
+      "ExpectedPreviousSha256": "3928BBB5DC34FA87A5914E1A36C51FA6D1A6AC746C4401C6E4C9DD8FE5536867"
+    },
+    {
+      "Source": "artifacts/erlang371-numeric-differences-proposal1/source/src/Erlang.Runtime/ErlangIntegerParseBridge.cs",
+      "Destination": "src/Erlang.Runtime/ErlangIntegerParseBridge.cs",
+      "Sha256": "F5A0F0464562AE53A9AB6B00B017ACD39A583521C74A7D7CCD981313ED604FF4",
+      "Bytes": 895,
+      "ReplacesExisting": false,
+      "ExpectedPreviousSha256": null
+    },
+    {
+      "Source": "artifacts/erlang371-numeric-differences-proposal1/source/tests/Erlang.Tests/NumericSourceContractHostChecks.cs",
+      "Destination": "tests/Erlang.Tests/NumericSourceContractHostChecks.cs",
+      "Sha256": "22556F09A56090CF536F00F2038079938BAB41CA36D32124739BFA525E5776A2",
+      "Bytes": 2912,
+      "ReplacesExisting": false,
+      "ExpectedPreviousSha256": null
+    },
+    {
+      "Source": "artifacts/erlang371-numeric-differences-proposal1/source/tests/Erlang.Tests/NumericSourceContractHostNames.cs",
+      "Destination": "tests/Erlang.Tests/NumericSourceContractHostNames.cs",
+      "Sha256": "F9B66DB74853412010FE5E60D9C5FDDE417BB3A363FEA966DB17D4CDF8E87176",
+      "Bytes": 853,
+      "ReplacesExisting": false,
+      "ExpectedPreviousSha256": null
+    },
+    {
+      "Source": "artifacts/erlang371-numeric-differences-proposal1/source/tests/Erlang.Tests/Resources/Erlang371/numeric371_source_contract.erl",
+      "Destination": "tests/Erlang.Tests/Resources/Erlang371/numeric371_source_contract.erl",
+      "Sha256": "DA7808B437AD34794A4FC6808A81FC4A1D19416772BC00C34D9C531BCE95827E",
+      "Bytes": 1033,
+      "ReplacesExisting": false,
+      "ExpectedPreviousSha256": null
+    }
+  ],
+  "Edits": [
+    {
+      "File": "tests/Erlang.Tests/Program.cs",
+      "Before": "catalog creation",
+      "Insert": "Test(Erlang.Tests.NumericSourceContractHostNames.Test, Erlang.Tests.NumericSourceContractHostChecks.Run);"
+    },
+    {
+      "File": "tests/Erlang.Tests/Erlang.Tests.csproj",
+      "Insert": "<EmbeddedResource Include=\"Resources/Erlang371/numeric371_source_contract.erl\" />"
+    }
+  ],
+  "DeltaApiPresence": 0,
+  "AdditionalPermanentTests": 1
+}

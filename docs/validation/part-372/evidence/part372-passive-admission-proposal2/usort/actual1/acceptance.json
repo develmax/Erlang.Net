@@ -1,0 +1,108 @@
+{
+  "Status": "PASS_PASSIVE_USORT372_ORDINARY_PROVENANCE",
+  "ParentRunConclusion": "failure",
+  "FamilyOnlyAdmission": true,
+  "ParentRunRelabelled": false,
+  "Head": "76c034724be1b21da8c66ada0ec164307386cfcd",
+  "Run": 39119539009,
+  "Values": 45,
+  "FullStackProfiles": 225,
+  "MetadataCorruptionControls": [
+    {
+      "Group": "usort_source_states",
+      "Corruption": "module_md5",
+      "Rejected": true
+    },
+    {
+      "Group": "usort_source_states",
+      "Corruption": "schedulers",
+      "Rejected": true
+    },
+    {
+      "Group": "usort_source_states",
+      "Corruption": "names",
+      "Rejected": true
+    }
+  ],
+  "OriginalNormalProcesses": [
+    {
+      "Name": "configure",
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\ordsets372\\download\\run-39119539009\\artifact-12133782860\\build",
+      "ReceiptSha256": "611965961895B6A563D49B2C955CD2EECF14D5544E36C977B588065D4242F2B6",
+      "Pid": 2995,
+      "ElapsedSeconds": 12.593525682000006,
+      "Normal": true
+    },
+    {
+      "Name": "make",
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\ordsets372\\download\\run-39119539009\\artifact-12133782860\\build",
+      "ReceiptSha256": "5C41CEA89C64E3F2E1EF0AF2338795FB4B3B5040D08798DE5BCE946138FA52A6",
+      "Pid": 13227,
+      "ElapsedSeconds": 352.815885318,
+      "Normal": true
+    },
+    {
+      "Name": "install",
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\ordsets372\\download\\run-39119539009\\artifact-12133782860\\build",
+      "ReceiptSha256": "1ADB6F0C845A86852A7B91B388B46451BD0982A26B68094DA05C73C94AC3CC93",
+      "Pid": 78707,
+      "ElapsedSeconds": 4.391554057000008,
+      "Normal": true
+    },
+    {
+      "Name": "compile",
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\ordsets372\\download\\run-39119539009\\artifact-12133782860\\usort-capture\\usort_source_states",
+      "ReceiptSha256": "88AFB2575162928D7EB0C214D6540EAAC1797038512DF3B5C03D4F02BE0474EC",
+      "Pid": 83612,
+      "ElapsedSeconds": 0.22647771999993438,
+      "Normal": true
+    },
+    {
+      "Name": "observe",
+      "Directory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\ordsets372\\download\\run-39119539009\\artifact-12133782860\\usort-capture\\usort_source_states",
+      "ReceiptSha256": "83C769D19E316D5B72A25B75C8E2C0E5CDCCA245290A7CB3717DBE4038CAB988",
+      "Pid": 83638,
+      "ElapsedSeconds": 0.15177296299998488,
+      "Normal": true
+    }
+  ],
+  "PreflightNormalProcesses": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\ordsets372\\download\\run-39119539009\\artifact-12133782860\\usort-preflight\\parse-build.process.json",
+      "Sha256": "BA58B4048A98E80CFE7D9278CC865125CAA93D2523E77680AD6B3BEC3795CE89",
+      "Pid": 2902,
+      "ElapsedSeconds": 3.065666090999997,
+      "Normal": true
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\ordsets372\\download\\run-39119539009\\artifact-12133782860\\usort-preflight\\parse-sources.process.json",
+      "Sha256": "DF2E0C73B97B4354845E8C1334E860D336AA89E8DB019A01C603CBB636F839B0",
+      "Pid": 2940,
+      "ElapsedSeconds": 0.1763781040000083,
+      "Normal": true
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\ordsets372\\download\\run-39119539009\\artifact-12133782860\\usort-preflight\\collector-admit.process.json",
+      "Sha256": "C1635312E20D9C452707DBC3F66A7662068B55A6D4FF1F44170636020E99456C",
+      "Pid": 2951,
+      "ElapsedSeconds": 0.050688997999998264,
+      "Normal": true
+    }
+  ],
+  "Groups": [
+    {
+      "Id": "usort_source_states",
+      "Metadata": {
+        "Subject": "ordsets",
+        "InstalledImage": true,
+        "ModuleMd5": "B8C87AE21CAB86A3C9D1FEAE5B86069B",
+        "Schedulers": 2,
+        "Names": 45
+      },
+      "Values": 45,
+      "StackProfiles": 225
+    }
+  ],
+  "DownloadedCodeExecuted": false,
+  "CompatibilityPromoted": false
+}

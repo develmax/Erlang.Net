@@ -1,0 +1,349 @@
+{
+  "Status": "SOURCE_CONTRACT_AUDIT_NOT_PROMOTION",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "AuthorityFiles": [
+    {
+      "Path": "erts/preloaded/src/erlang.erl",
+      "Bytes": 475966,
+      "Sha256": "00D7672A16325E43CA221C6D6CEB4200390E2A961A243C2E31DDC141AC145047"
+    },
+    {
+      "Path": "erts/emulator/beam/big.c",
+      "Bytes": 116351,
+      "Sha256": "7E68A6FF381701F2B5BF3BD4AFE65EF545D97B34B884F227B637FF259B0FCDDE"
+    },
+    {
+      "Path": "erts/emulator/beam/big.h",
+      "Bytes": 5785,
+      "Sha256": "07133B1FB09864BCF905F94335F5CDE2600DFEF644CFFAD99C3D1D6B6BA97F47"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_term.h",
+      "Bytes": 59494,
+      "Sha256": "8E016126FB7A1BC1DB8D31111601C0BEA21D72207211BF91E1F3C127E943B5C2"
+    },
+    {
+      "Path": "erts/emulator/beam/bif.c",
+      "Bytes": 169612,
+      "Sha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC"
+    },
+    {
+      "Path": "erts/emulator/beam/binary.c",
+      "Bytes": 13986,
+      "Sha256": "381E560A653FFF056A4EDC78774AF0F42A7C24C663231C88CBC3C5E32DE12F88"
+    },
+    {
+      "Path": "erts/emulator/beam/utils.c",
+      "Bytes": 108163,
+      "Sha256": "D899860F79ADAE3CF1C52A9E644AAD3C58BFE5A2242EE9FD61163AE0BED9800F"
+    },
+    {
+      "Path": "erts/emulator/sys/common/erl_sys_common_misc.c",
+      "Bytes": 6842,
+      "Sha256": "E7748C89BA301599D722EBC2EB7FAD67C0C62D20178F729D4A8506A570BB1FD4"
+    },
+    {
+      "Path": "erts/emulator/sys/unix/sys_float.c",
+      "Bytes": 3720,
+      "Sha256": "7DC6C4402691788D9EC4590443C670C26C05E9B2F86566DA858CB6E4BBABEA30"
+    },
+    {
+      "Path": "erts/emulator/sys/win32/sys_float.c",
+      "Bytes": 3630,
+      "Sha256": "12A3DA070C5EAA51DCBA86D71F96524013E1E81AB05AE6C14E13D48EFB61FA6E"
+    },
+    {
+      "Path": "erts/lib_src/common/erl_printf_format.c",
+      "Bytes": 23292,
+      "Sha256": "ACA39BF14C5F6E797C8A2A72FB0A557A1A1D9C7D396F49678A619F5CADED741C"
+    },
+    {
+      "Path": "erts/emulator/ryu/to_chars.h",
+      "Bytes": 15487,
+      "Sha256": "34ECB3A61097017854668A64E75160E77E2948A94A1C6E0A7F66C92C9468455D"
+    },
+    {
+      "Path": "erts/emulator/ryu/d2s.c",
+      "Bytes": 14001,
+      "Sha256": "5567D89F1714435990B30391C678BE0DFC821CC6F392813B1E355A7CA74471FB"
+    }
+  ],
+  "ManagedSourceInputs": [
+    {
+      "Path": "src/Erlang.Runtime/ErlangIntegerText.cs",
+      "Sha256": "AC00CE83EAAE417710D5BB399A21AD7A1D632D110010BDC345A9D39B168FDEF3",
+      "Bytes": 4040
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangDataLimits.cs",
+      "Sha256": "B5E63B4D35C128F825B1846519C5383FB1DCD847F841F7615693EB6EFE0D6F94",
+      "Bytes": 515
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangDataRegistrations.cs",
+      "Sha256": "DC46EF435E8C1DC21430C1A084EBC903E38633BA6DE032D19447A7F466ACEAEF",
+      "Bytes": 3877
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangIntegerParseBridge.cs",
+      "Sha256": "F5A0F0464562AE53A9AB6B00B017ACD39A583521C74A7D7CCD981313ED604FF4",
+      "Bytes": 895
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangIoData.cs",
+      "Sha256": "0584CEAF97CC5F4F60277152F8893D9701BBA44258582C22C833847F8B5A7CE7",
+      "Bytes": 6961
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangFloatOutput.cs",
+      "Sha256": "2E9E0D3333956CD3B36C597B011C886B4AF0E435FFDCA8FCB7D25C6885C5D304",
+      "Bytes": 6175
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangFloatParameters.cs",
+      "Sha256": "873BEA5195CB744A52EA89ED34644128BB792E8297BEF94F02B27C0D0C0F9E70",
+      "Bytes": 896
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangFloatRegistrations.cs",
+      "Sha256": "95FEAC94510E48197941B38860589324D0603290D949E8110D4F108991BCF700",
+      "Bytes": 786
+    },
+    {
+      "Path": "src/Erlang.Runtime/NativeBuiltinCatalog.cs",
+      "Sha256": "17D47C563EAC30308F96719F5232FDB6FAB84C4F5EF195F4FA146823993BBDBF",
+      "Bytes": 21505
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeExceptionCapture.cs",
+      "Sha256": "BDA882AF75249C5C067BEB61A842C5D4D4D9E5599303AF9F7F2FF8C99F19112F",
+      "Bytes": 7225
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.GeneratedFrames.cs",
+      "Sha256": "C16FF0A3AFA8CC509DF58DC7E8263145B29122F8C80921F8085367B0F335205A",
+      "Bytes": 1196
+    },
+    {
+      "Path": "src/Erlang.Terms/ErlangFloatText.cs",
+      "Sha256": "D09119366B19F8E61C1DC5EA47FEEBCC67532DC4490C30C812374B0447CF3510",
+      "Bytes": 1798
+    },
+    {
+      "Path": "src/Erlang.Terms/ErlangFloatScientific.cs",
+      "Sha256": "4E8EC7DE453906F398A0C1EA5432EC78886AC49C7C6D39A4162A0E21C9D16B51",
+      "Bytes": 2332
+    },
+    {
+      "Path": "src/Erlang.Terms/ListFloatFormat.cs",
+      "Sha256": "286C1C755DA3B98507EDC1A34E191A393389659C96BA28E63E6B404C0CE197AF",
+      "Bytes": 375
+    }
+  ],
+  "ObservedFixedPacket": {
+    "Path": "artifacts/erlang371-fixed-comparison1/acceptance.json",
+    "Sha256": "BDBD8A425133B34AEF467CB2B6FB63F03F0A7649031889779A074B1FF8299DAF",
+    "Claim": "Root reports actual4506/4506strict final recapture. This finite corpus is necessary, not complete domain proof."
+  },
+  "ApiPartitions": [
+    {
+      "Mfa": "erlang:integer_to_list/1",
+      "SourceValueErrorClosure": "CANDIDATE_AFTER_FINAL_REGRESSION_AND_GUARDS",
+      "Domain": [
+        "Integer input only; any other term badarg.",
+        "Unary defaultsdecimal10; binaryarity integerbase2..36, rejectnoninteger/bignum/out-of-rangebase.",
+        "Zero => digit0; negativeleadingminus; noleadingplus/zeros; uppercaseA..Z.",
+        "Outputlistconsbytechars vsbinaryASCIIbytes exact; no Unicode encoding ambiguity."
+      ],
+      "Proof": "Repeated BigInteger.DivRem identity N=q*B+r,0<=r<B and iteration terminatingat0 yields unique canonical digits. Reverse + minus exactly pinned erts_big_to_list/integer_to_binary alphabet. Decimal BigInteger invariant ToString returns same canonical signed decimal. Base-first validation order cannot change error class/reason/actualargs because inputs are immutable terms, with no callbacks. NativeBuiltinCatalog and current errorboundary already classifythese4asBIF.",
+      "CapacityScope": "All source-representable integers (64-bit BIG_ARITY_MAX65535limbs) have bounded digit output below CLR maximum string/array lengths; output format has noadditional fixed arbitraryvalue cap. Native dirty scheduler charges16digits/reduction; current synchronous formatter does not prove equivalent long conversion cancellation/scheduler behavior.",
+      "Remaining": "Final-source regression, required guards, actualcurrent-headCI; explicit decision whether global scheduling/cancellationcontract is part of command completeness before promotion."
+    },
+    {
+      "Mfa": "erlang:integer_to_list/2",
+      "SourceValueErrorClosure": "CANDIDATE_AFTER_FINAL_REGRESSION_AND_GUARDS",
+      "Domain": [
+        "Integer input only; any other term badarg.",
+        "Unary defaultsdecimal10; binaryarity integerbase2..36, rejectnoninteger/bignum/out-of-rangebase.",
+        "Zero => digit0; negativeleadingminus; noleadingplus/zeros; uppercaseA..Z.",
+        "Outputlistconsbytechars vsbinaryASCIIbytes exact; no Unicode encoding ambiguity."
+      ],
+      "Proof": "Repeated BigInteger.DivRem identity N=q*B+r,0<=r<B and iteration terminatingat0 yields unique canonical digits. Reverse + minus exactly pinned erts_big_to_list/integer_to_binary alphabet. Decimal BigInteger invariant ToString returns same canonical signed decimal. Base-first validation order cannot change error class/reason/actualargs because inputs are immutable terms, with no callbacks. NativeBuiltinCatalog and current errorboundary already classifythese4asBIF.",
+      "CapacityScope": "All source-representable integers (64-bit BIG_ARITY_MAX65535limbs) have bounded digit output below CLR maximum string/array lengths; output format has noadditional fixed arbitraryvalue cap. Native dirty scheduler charges16digits/reduction; current synchronous formatter does not prove equivalent long conversion cancellation/scheduler behavior.",
+      "Remaining": "Final-source regression, required guards, actualcurrent-headCI; explicit decision whether global scheduling/cancellationcontract is part of command completeness before promotion."
+    },
+    {
+      "Mfa": "erlang:integer_to_binary/1",
+      "SourceValueErrorClosure": "CANDIDATE_AFTER_FINAL_REGRESSION_AND_GUARDS",
+      "Domain": [
+        "Integer input only; any other term badarg.",
+        "Unary defaultsdecimal10; binaryarity integerbase2..36, rejectnoninteger/bignum/out-of-rangebase.",
+        "Zero => digit0; negativeleadingminus; noleadingplus/zeros; uppercaseA..Z.",
+        "Outputlistconsbytechars vsbinaryASCIIbytes exact; no Unicode encoding ambiguity."
+      ],
+      "Proof": "Repeated BigInteger.DivRem identity N=q*B+r,0<=r<B and iteration terminatingat0 yields unique canonical digits. Reverse + minus exactly pinned erts_big_to_list/integer_to_binary alphabet. Decimal BigInteger invariant ToString returns same canonical signed decimal. Base-first validation order cannot change error class/reason/actualargs because inputs are immutable terms, with no callbacks. NativeBuiltinCatalog and current errorboundary already classifythese4asBIF.",
+      "CapacityScope": "All source-representable integers (64-bit BIG_ARITY_MAX65535limbs) have bounded digit output below CLR maximum string/array lengths; output format has noadditional fixed arbitraryvalue cap. Native dirty scheduler charges16digits/reduction; current synchronous formatter does not prove equivalent long conversion cancellation/scheduler behavior.",
+      "Remaining": "Final-source regression, required guards, actualcurrent-headCI; explicit decision whether global scheduling/cancellationcontract is part of command completeness before promotion."
+    },
+    {
+      "Mfa": "erlang:integer_to_binary/2",
+      "SourceValueErrorClosure": "CANDIDATE_AFTER_FINAL_REGRESSION_AND_GUARDS",
+      "Domain": [
+        "Integer input only; any other term badarg.",
+        "Unary defaultsdecimal10; binaryarity integerbase2..36, rejectnoninteger/bignum/out-of-rangebase.",
+        "Zero => digit0; negativeleadingminus; noleadingplus/zeros; uppercaseA..Z.",
+        "Outputlistconsbytechars vsbinaryASCIIbytes exact; no Unicode encoding ambiguity."
+      ],
+      "Proof": "Repeated BigInteger.DivRem identity N=q*B+r,0<=r<B and iteration terminatingat0 yields unique canonical digits. Reverse + minus exactly pinned erts_big_to_list/integer_to_binary alphabet. Decimal BigInteger invariant ToString returns same canonical signed decimal. Base-first validation order cannot change error class/reason/actualargs because inputs are immutable terms, with no callbacks. NativeBuiltinCatalog and current errorboundary already classifythese4asBIF.",
+      "CapacityScope": "All source-representable integers (64-bit BIG_ARITY_MAX65535limbs) have bounded digit output below CLR maximum string/array lengths; output format has noadditional fixed arbitraryvalue cap. Native dirty scheduler charges16digits/reduction; current synchronous formatter does not prove equivalent long conversion cancellation/scheduler behavior.",
+      "Remaining": "Final-source regression, required guards, actualcurrent-headCI; explicit decision whether global scheduling/cancellationcontract is part of command completeness before promotion."
+    },
+    {
+      "Mfa": "erlang:list_to_integer/1",
+      "SourceValueErrorClosure": "BLOCKED_CONCRETE_SOURCE_DIFFERENCES",
+      "Domain": [
+        "Unarydecimal10; binaryarity exactintegerbase2..36; actualoriginalarglist+error_info onerror.",
+        "Single actual+/- sign; atleastonedigit; onlyallowedbaseASCIIletters/digits, no whitespace orprefixseparator.",
+        "Leadingzeroes removed before biginputsizecaps; zero/signnormalizesinteger0.",
+        "Smallprefix classification before big path; full leftover/improper list is publicbadarg."
+      ],
+      "Fixed": "Actualarglist/erl_erts_errorsinfo/callerstack bridge nowobserved strict in4506packet; publicfunctions remain preloaded Erlang wrappers and is_builtin=false.",
+      "ConcreteGaps": [
+        "Managed parser omits pinnedtrimmedlength>4194304 allbases, >1262611 forbase>=10 system_limit checks and maximum65535nativewords after combining.",
+        "Native earlybig marker and sizecap can precede later invalidbyte; managed directwholeparse may emitbadarg instead ofsystem_limit.",
+        "Native short-list parser uses byte c=unsigned_val(SMALL_HEAD), accepting wrapped low8bit digits/zeroes (e.g305->49), and recognizes sign onlyonactual45/43. Bigpath later list_to_binary validatesoriginalbytes and canrejectthe samewidechars afterdigits_per_small threshold. Managed ListCharacters rejects alloutside0..255."
+      ],
+      "Remaining": "Run supplied60scalarvalues/300stacks; addseparateheavycapraw-evidence packet; repair source-class dispatch/limit precedence and bounded resource behavior before claimingwholeAPI."
+    },
+    {
+      "Mfa": "erlang:list_to_integer/2",
+      "SourceValueErrorClosure": "BLOCKED_CONCRETE_SOURCE_DIFFERENCES",
+      "Domain": [
+        "Unarydecimal10; binaryarity exactintegerbase2..36; actualoriginalarglist+error_info onerror.",
+        "Single actual+/- sign; atleastonedigit; onlyallowedbaseASCIIletters/digits, no whitespace orprefixseparator.",
+        "Leadingzeroes removed before biginputsizecaps; zero/signnormalizesinteger0.",
+        "Smallprefix classification before big path; full leftover/improper list is publicbadarg."
+      ],
+      "Fixed": "Actualarglist/erl_erts_errorsinfo/callerstack bridge nowobserved strict in4506packet; publicfunctions remain preloaded Erlang wrappers and is_builtin=false.",
+      "ConcreteGaps": [
+        "Managed parser omits pinnedtrimmedlength>4194304 allbases, >1262611 forbase>=10 system_limit checks and maximum65535nativewords after combining.",
+        "Native earlybig marker and sizecap can precede later invalidbyte; managed directwholeparse may emitbadarg instead ofsystem_limit.",
+        "Native short-list parser uses byte c=unsigned_val(SMALL_HEAD), accepting wrapped low8bit digits/zeroes (e.g305->49), and recognizes sign onlyonactual45/43. Bigpath later list_to_binary validatesoriginalbytes and canrejectthe samewidechars afterdigits_per_small threshold. Managed ListCharacters rejects alloutside0..255."
+      ],
+      "Remaining": "Run supplied60scalarvalues/300stacks; addseparateheavycapraw-evidence packet; repair source-class dispatch/limit precedence and bounded resource behavior before claimingwholeAPI."
+    },
+    {
+      "Mfa": "erlang:binary_to_integer/1",
+      "SourceValueErrorClosure": "BLOCKED_CONCRETE_SOURCE_DIFFERENCES",
+      "Domain": [
+        "Unarydecimal10; binaryarity exactintegerbase2..36; actualoriginalarglist+error_info onerror.",
+        "Single actual+/- sign; atleastonedigit; onlyallowedbaseASCIIletters/digits, no whitespace orprefixseparator.",
+        "Leadingzeroes removed before biginputsizecaps; zero/signnormalizesinteger0.",
+        "Smallprefix classification before big path; full leftover/improper list is publicbadarg."
+      ],
+      "Fixed": "Actualarglist/erl_erts_errorsinfo/callerstack bridge nowobserved strict in4506packet; publicfunctions remain preloaded Erlang wrappers and is_builtin=false.",
+      "ConcreteGaps": [
+        "Managed parser omits pinnedtrimmedlength>4194304 allbases, >1262611 forbase>=10 system_limit checks and maximum65535nativewords after combining.",
+        "Native earlybig marker and sizecap can precede later invalidbyte; managed directwholeparse may emitbadarg instead ofsystem_limit."
+      ],
+      "Remaining": "Run supplied60scalarvalues/300stacks; addseparateheavycapraw-evidence packet; repair source-class dispatch/limit precedence and bounded resource behavior before claimingwholeAPI."
+    },
+    {
+      "Mfa": "erlang:binary_to_integer/2",
+      "SourceValueErrorClosure": "BLOCKED_CONCRETE_SOURCE_DIFFERENCES",
+      "Domain": [
+        "Unarydecimal10; binaryarity exactintegerbase2..36; actualoriginalarglist+error_info onerror.",
+        "Single actual+/- sign; atleastonedigit; onlyallowedbaseASCIIletters/digits, no whitespace orprefixseparator.",
+        "Leadingzeroes removed before biginputsizecaps; zero/signnormalizesinteger0.",
+        "Smallprefix classification before big path; full leftover/improper list is publicbadarg."
+      ],
+      "Fixed": "Actualarglist/erl_erts_errorsinfo/callerstack bridge nowobserved strict in4506packet; publicfunctions remain preloaded Erlang wrappers and is_builtin=false.",
+      "ConcreteGaps": [
+        "Managed parser omits pinnedtrimmedlength>4194304 allbases, >1262611 forbase>=10 system_limit checks and maximum65535nativewords after combining.",
+        "Native earlybig marker and sizecap can precede later invalidbyte; managed directwholeparse may emitbadarg instead ofsystem_limit."
+      ],
+      "Remaining": "Run supplied60scalarvalues/300stacks; addseparateheavycapraw-evidence packet; repair source-class dispatch/limit precedence and bounded resource behavior before claimingwholeAPI."
+    },
+    {
+      "Mfa": "erlang:list_to_float/1",
+      "SourceValueErrorClosure": "GRAMMAR_AND_ERROR_SHAPE_REVIEWED_NUMERIC_ROUNDING_DEPENDENCY_PENDING",
+      "Domain": [
+        "List properbyte-only spine; binary aligned bytes only, even when storedatnonzero bitoffset.",
+        "Validateentirelist byte/spine shape before parsing; valid byte NUL terminatesCstring, trailingvalidbytes ignored.",
+        "Singleactualsign,>=1ASCII digit,mandatory dot/comma,>=1fractiondigit,optional e/E+sign+>=1exponentdigit; rejectspaces,NaN/Inf,trailingcharacters.",
+        "Overflow/nonfinitebadarg; underflow to signedzero accepted when wholevalidinputconsumed; nonzerosubnormals accepted."
+      ],
+      "Proof": "Managed grammar and fullinputvalidation match pinned intlist_to_buf/do_charbuf_to_float/sys_chars_to_double; comma replacement matches original locale fallback. Returnedbinary64sign,subnormal and rounding dependon.NET TryParse versus source-builtlibc strtod; actualpacket covers extremals but doesnot prove every midpoint/longmantissa.",
+      "Remaining": "Retain nativeIEEEbits, addmidpoint/longmantissa/subnormal boundary controls and inspect precise underlying decimal-to-binary rounding guarantee before unqualifiedfullpromotion. No currently identified corpus difference."
+    },
+    {
+      "Mfa": "erlang:binary_to_float/1",
+      "SourceValueErrorClosure": "GRAMMAR_AND_ERROR_SHAPE_REVIEWED_NUMERIC_ROUNDING_DEPENDENCY_PENDING",
+      "Domain": [
+        "List properbyte-only spine; binary aligned bytes only, even when storedatnonzero bitoffset.",
+        "Validateentirelist byte/spine shape before parsing; valid byte NUL terminatesCstring, trailingvalidbytes ignored.",
+        "Singleactualsign,>=1ASCII digit,mandatory dot/comma,>=1fractiondigit,optional e/E+sign+>=1exponentdigit; rejectspaces,NaN/Inf,trailingcharacters.",
+        "Overflow/nonfinitebadarg; underflow to signedzero accepted when wholevalidinputconsumed; nonzerosubnormals accepted."
+      ],
+      "Proof": "Managed grammar and fullinputvalidation match pinned intlist_to_buf/do_charbuf_to_float/sys_chars_to_double; comma replacement matches original locale fallback. Returnedbinary64sign,subnormal and rounding dependon.NET TryParse versus source-builtlibc strtod; actualpacket covers extremals but doesnot prove every midpoint/longmantissa.",
+      "Remaining": "Retain nativeIEEEbits, addmidpoint/longmantissa/subnormal boundary controls and inspect precise underlying decimal-to-binary rounding guarantee before unqualifiedfullpromotion. No currently identified corpus difference."
+    },
+    {
+      "Mfa": "erlang:float_to_list/1",
+      "SourceValueErrorClosure": "UNARY_SCIENTIFIC_CANDIDATE",
+      "Domain": [
+        "Floatonly finite sourcevalues; unarydefault20fraction scientific,explicitsign+minimum2exponentdigits.",
+        "Binaryarity properoptionsspine; compact flag,short,2tuples {decimals|scientific,SMALL_INTEGER}; unknownshape/tag/bignumprecision rejected.",
+        "NativeCint32narrowing foracceptedSMALLprecision; lastformatoptionwins; short ignoresretainedprecision; fixednegativebadarg; scientificnegative usesprintfdefault6.",
+        "Fixedfastmagnitude<=2^53 andprecision<=18 usesfloor,roundawayfromzero,carry; fallback usesnearest fixedtext. Compacttrimszeros preservingfraction0, andsourcefallbackwithprecision0also trimsintegerzeros.",
+        "Outputbuffer256 excludeslength>=256;scientificmax249/fixedmax253are safeouterboundsplusactualfinalsizecheck.",
+        "Shortest policy matchespinnedRyunotationthresholds bytextlengthtie->fixed and2^53specialcase; shortestdigits stilldepend on.NET R nearest-shortesttiepolicy."
+      ],
+      "Proof": "Scientific formatter decodes exactbinary significand/power2 into BigInteger rational,normalizesdecimalexponent,scalesby10^precision,DivRem nearestties-even,carryadjust. This matchesprintfscientificrounding for finitebinary64, including signedzero andallsubnormals. Optioncast/default6 followsactualC/printfsource chain, notbadoptionfixturelabel.",
+      "Remaining": "Unary candidate afterfinalgates. Binaryarity requires supplied36format edgecontrols, precise R-formatrounding/tieguarantee andfallbackrounding audit before blanketfullcontract. Physical outputbufferlimit mustremainchecked before publishing, no normalizedformattercomparison."
+    },
+    {
+      "Mfa": "erlang:float_to_list/2",
+      "SourceValueErrorClosure": "OPTION_DOMAIN_CORRECTED_PENDING_EXTENDED_CONTROLS_AND_ROUNDING_REVIEW",
+      "Domain": [
+        "Floatonly finite sourcevalues; unarydefault20fraction scientific,explicitsign+minimum2exponentdigits.",
+        "Binaryarity properoptionsspine; compact flag,short,2tuples {decimals|scientific,SMALL_INTEGER}; unknownshape/tag/bignumprecision rejected.",
+        "NativeCint32narrowing foracceptedSMALLprecision; lastformatoptionwins; short ignoresretainedprecision; fixednegativebadarg; scientificnegative usesprintfdefault6.",
+        "Fixedfastmagnitude<=2^53 andprecision<=18 usesfloor,roundawayfromzero,carry; fallback usesnearest fixedtext. Compacttrimszeros preservingfraction0, andsourcefallbackwithprecision0also trimsintegerzeros.",
+        "Outputbuffer256 excludeslength>=256;scientificmax249/fixedmax253are safeouterboundsplusactualfinalsizecheck.",
+        "Shortest policy matchespinnedRyunotationthresholds bytextlengthtie->fixed and2^53specialcase; shortestdigits stilldepend on.NET R nearest-shortesttiepolicy."
+      ],
+      "Proof": "Scientific formatter decodes exactbinary significand/power2 into BigInteger rational,normalizesdecimalexponent,scalesby10^precision,DivRem nearestties-even,carryadjust. This matchesprintfscientificrounding for finitebinary64, including signedzero andallsubnormals. Optioncast/default6 followsactualC/printfsource chain, notbadoptionfixturelabel.",
+      "Remaining": "Unary candidate afterfinalgates. Binaryarity requires supplied36format edgecontrols, precise R-formatrounding/tieguarantee andfallbackrounding audit before blanketfullcontract. Physical outputbufferlimit mustremainchecked before publishing, no normalizedformattercomparison."
+    },
+    {
+      "Mfa": "erlang:float_to_binary/1",
+      "SourceValueErrorClosure": "UNARY_SCIENTIFIC_CANDIDATE",
+      "Domain": [
+        "Floatonly finite sourcevalues; unarydefault20fraction scientific,explicitsign+minimum2exponentdigits.",
+        "Binaryarity properoptionsspine; compact flag,short,2tuples {decimals|scientific,SMALL_INTEGER}; unknownshape/tag/bignumprecision rejected.",
+        "NativeCint32narrowing foracceptedSMALLprecision; lastformatoptionwins; short ignoresretainedprecision; fixednegativebadarg; scientificnegative usesprintfdefault6.",
+        "Fixedfastmagnitude<=2^53 andprecision<=18 usesfloor,roundawayfromzero,carry; fallback usesnearest fixedtext. Compacttrimszeros preservingfraction0, andsourcefallbackwithprecision0also trimsintegerzeros.",
+        "Outputbuffer256 excludeslength>=256;scientificmax249/fixedmax253are safeouterboundsplusactualfinalsizecheck.",
+        "Shortest policy matchespinnedRyunotationthresholds bytextlengthtie->fixed and2^53specialcase; shortestdigits stilldepend on.NET R nearest-shortesttiepolicy."
+      ],
+      "Proof": "Scientific formatter decodes exactbinary significand/power2 into BigInteger rational,normalizesdecimalexponent,scalesby10^precision,DivRem nearestties-even,carryadjust. This matchesprintfscientificrounding for finitebinary64, including signedzero andallsubnormals. Optioncast/default6 followsactualC/printfsource chain, notbadoptionfixturelabel.",
+      "Remaining": "Unary candidate afterfinalgates. Binaryarity requires supplied36format edgecontrols, precise R-formatrounding/tieguarantee andfallbackrounding audit before blanketfullcontract. Physical outputbufferlimit mustremainchecked before publishing, no normalizedformattercomparison."
+    },
+    {
+      "Mfa": "erlang:float_to_binary/2",
+      "SourceValueErrorClosure": "OPTION_DOMAIN_CORRECTED_PENDING_EXTENDED_CONTROLS_AND_ROUNDING_REVIEW",
+      "Domain": [
+        "Floatonly finite sourcevalues; unarydefault20fraction scientific,explicitsign+minimum2exponentdigits.",
+        "Binaryarity properoptionsspine; compact flag,short,2tuples {decimals|scientific,SMALL_INTEGER}; unknownshape/tag/bignumprecision rejected.",
+        "NativeCint32narrowing foracceptedSMALLprecision; lastformatoptionwins; short ignoresretainedprecision; fixednegativebadarg; scientificnegative usesprintfdefault6.",
+        "Fixedfastmagnitude<=2^53 andprecision<=18 usesfloor,roundawayfromzero,carry; fallback usesnearest fixedtext. Compacttrimszeros preservingfraction0, andsourcefallbackwithprecision0also trimsintegerzeros.",
+        "Outputbuffer256 excludeslength>=256;scientificmax249/fixedmax253are safeouterboundsplusactualfinalsizecheck.",
+        "Shortest policy matchespinnedRyunotationthresholds bytextlengthtie->fixed and2^53specialcase; shortestdigits stilldepend on.NET R nearest-shortesttiepolicy."
+      ],
+      "Proof": "Scientific formatter decodes exactbinary significand/power2 into BigInteger rational,normalizesdecimalexponent,scalesby10^precision,DivRem nearestties-even,carryadjust. This matchesprintfscientificrounding for finitebinary64, including signedzero andallsubnormals. Optioncast/default6 followsactualC/printfsource chain, notbadoptionfixturelabel.",
+      "Remaining": "Unary candidate afterfinalgates. Binaryarity requires supplied36format edgecontrols, precise R-formatrounding/tieguarantee andfallbackrounding audit before blanketfullcontract. Physical outputbufferlimit mustremainchecked before publishing, no normalizedformattercomparison."
+    }
+  ],
+  "GlobalScope": "Reference64-bit OTP-29.1.1 and actual representable Erlang terms. Physical memory capacity and dirty-scheduler timing are not claimed equivalent; long conversion cancellation/fairness remains a separately measured runtime obligation. Do not use unbounded CLR BigInteger input space to silently redefine pinned OTP integer capacity."
+}

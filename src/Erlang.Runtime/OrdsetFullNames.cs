@@ -1,0 +1,56 @@
+namespace Erlang;
+
+internal static class OrdsetFullNames
+{
+    internal const string FromList = "from_list";
+    internal const string DeleteElement = "del_element";
+    internal const string Union = "union";
+    internal const string Intersection = "intersection";
+    internal const string IntersectionHelper = "intersection1";
+    internal const string Disjoint = "is_disjoint";
+    internal const string Subtract = "subtract";
+    internal const string Subset = "is_subset";
+    internal const string Fold = "fold";
+    internal const string Filter = "filter";
+    internal const string Map = "map";
+    internal const string FilterMap = "filtermap";
+    internal const string ListsFile = "lists.erl";
+    internal const string FoldHelper = "foldl_1";
+    internal const string MapHelper = "map_1";
+    internal const string FilterMapHelper = "filtermap_1";
+    internal const string FilterComprehension = "-filter/2-lc$^0/1-0-";
+    internal const int DeleteLine = 263;
+    internal const int UnionLine = 288;
+    internal const int UnionLeftCall = 289;
+    internal const int UnionRightCall = 291;
+    internal const int UnionEqualCall = 293;
+    internal const int IntersectionLine = 344;
+    internal const int IntersectionEqualCall = 349;
+    internal const int IntersectionManyLine = 380;
+    internal const int IntersectionManyCall = 381;
+    internal const int IntersectionHelperLine = 384;
+    internal const int IntersectionHelperCall = 385;
+    internal const int DisjointLine = 412;
+    internal const int SubtractLine = 443;
+    internal const int SubtractLeftCall = 444;
+    internal const int SubsetLine = 473;
+    internal const int MapCall = 543;
+    internal const int FilterMapCall = 581;
+    internal const int ListsFoldLine = 2463;
+    internal const int ListsFoldCase = 2464;
+    internal const int ListsFoldCall = 2465;
+    internal const int ListsFoldHelperLine = 2469;
+    internal const int ListsFoldHelperCall = 2470;
+    internal const int ListsFilterLine = 2526;
+    internal const int ListsFilterCall = 2527;
+    internal const int ListsMapLine = 2382;
+    internal const int ListsMapCase = 2383;
+    internal const int ListsMapCall = 2384;
+    internal const int ListsMapHelperLine = 2388;
+    internal const int ListsMapHelperCall = 2389;
+    internal const int ListsFilterMapLine = 2604;
+    internal const int ListsFilterMapHelperLine = 2607;
+    internal const int ListsFilterMapCall = 2608;
+    internal const int ListsFilterMapKeep = 2610;
+    internal const int ListsFilterMapReplace = 2612;
+}

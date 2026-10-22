@@ -1,0 +1,50 @@
+{
+  "Scope": "PREDECLARED_ALL_FIELD_RELATIONS_ORIGINAL_PENDING",
+  "RawStrictComparison": "First compare every whole decoded value and full stack observation; retain each raw difference without modifying captures.",
+  "AllowedSourceBoundRelations": [
+    {
+      "Term": "PID",
+      "Rule": "Only actual opaque_raw self() positions and their repeated occurrences may pair source-bound own process identities. Validate tag/form, actual node/creation and one-to-one repeated identity within each runtime; all ordinary tuple/list/frame fields exact."
+    },
+    {
+      "Term": "Reference",
+      "Rule": "Only make_ref() opaque_raw positions may pair fresh identities, bind the full observed node/creation/word sequence within each runtime, require consistent repeated references, node/creation consistent with own process state and distinct identities across fresh constructions. No trailing-word normalization."
+    },
+    {
+      "Term": "LocalFUN",
+      "Rule": "Reuse unmodified source_binding.bind_named against independently parsed original fixture BEAM FunT/module MD5 and current SDK source-function-bindings/module metadata. Require actual named local_identity/1, no free variables, each unique and oldunique derived from its own module code image, own initializer PID, exact arity and complete encoded shape. Inspect raw ETF span bounds/size; offsets are diagnostic metadata, not wire fields."
+    },
+    {
+      "Term": "ExternalFUN",
+      "Rule": "All module/function/arity fields exact erlang:abs/1; no relation exception."
+    },
+    {
+      "Term": "Port",
+      "Rule": "Fixture literal external port queue_opaque@remote id17 creation1 must be exact logical port fields; legacy PORT_EXT and V4_PORT_EXT wire-width differences are retained strict wire differences, not semantic identifier changes."
+    }
+  ],
+  "IdentityScope": "Only opaque_raw in returned values plus default/0/1/2/8 full observations. Opaque_relationships all13 results remain exact. No generalized identity exemption for any other case or any frame.",
+  "WholeTraversal": "Visit every tuple/list/map/improper-list field recursively, retain order, cardinality, all scalars/error class/reason/effective args/file+line and complete caller chains. Raw function diagnostic spans checked against actual original file bytes, never injected.",
+  "NegativeControls": [
+    "Alter source module MD5 or raw FUN unique; reject own-code relation.",
+    "Alter FUN arity/module/environment/owner PID/OldIndex/OldUnique; reject.",
+    "Alter a repeated PID/reference occurrence while leaving its source anchor unchanged; reject.",
+    "Alter a reference stored word count; reject.",
+    "Alter literal port node/id/creation or external FUN fields; reject.",
+    "Alter any queue association/order/cardinality, error reason, stack file/line/argument/frame; reject."
+  ],
+  "OriginalAdmissionRequired": [
+    "Run/head/job/artifact ZIP digest and full normal receipts from Root.",
+    "Profile+corrected source-inputs hashes, pinned OTP commit and installed/loaded queue BEAM provenance.",
+    "Fixture11 compiled exact deterministic basenames, actual module code MD5 and original FunT entries for named local_identity/1.",
+    "All160 raw values and800 raw stack observations complete and ordered; no acquisition problems or failed groups."
+  ],
+  "TrustedHelper": {
+    "Path": "artifacts/proplists-stack-relational-peer3/source_binding.py",
+    "Sha256": "7E37DC00E1F28C4E7CC56D6779F8A052B0FAD62BBE9871F867143FE577AED2A9"
+  },
+  "NoPromotionByFinitePassAlone": true,
+  "NoNormalization": true,
+  "NoProjection": true,
+  "NoVmOrSdkExecution": true
+}

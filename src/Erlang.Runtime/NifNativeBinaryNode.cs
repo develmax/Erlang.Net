@@ -19,6 +19,6 @@ internal sealed unsafe class NifNativeBinaryNode(
         if (length > NifNativeBinaryNames.MaximumTermBytes)
             throw new NotSupportedException(NifNativeBinaryNames.TermSizeBoundary);
 
-        return new BitString(new ReadOnlySpan<byte>(Data, (int)length));
+        return storage.FreezeView(offset, length);
     }
 }

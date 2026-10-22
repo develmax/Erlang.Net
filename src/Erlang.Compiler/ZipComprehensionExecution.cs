@@ -9,14 +9,21 @@ internal static class ZipComprehensionExecution
         ProcessContext context,
         bool compiled,
         Func<Expr, Dictionary<string, Term>, ValueTask<Term>> evaluate,
-        Func<Dictionary<string, Term>, ValueTask> body
+        Func<Dictionary<string, Term>, ValueTask> body,
+        Action? entered = null,
+        Action? iteration = null
     )
     {
         var definitions = ComprehensionGenerator.Flatten(zip.Generators).ToArray();
         var cursors = new ZipGeneratorCursor[definitions.Length];
         var sourceScope = CompiledBindingScope.Copy(incoming);
         for (int index = 0; index < definitions.Length; index++)
-            cursors[index] = new(definitions[index], await evaluate(definitions[index].Source, compiled ? sourceScope : CompiledBindingScope.Copy(incoming)));
+            cursors[index] = new(
+                definitions[index],
+                await evaluate(definitions[index].Source, compiled ? sourceScope : CompiledBindingScope.Copy(incoming)),
+                context.Runtime
+            );
+        entered?.Invoke();
         var strictVariables = definitions.Where(generator => generator.Strict).SelectMany(generator => Semantics.Variables(generator.Pattern)).ToHashSet(StringComparer.Ordinal);
         var skipPatterns = definitions.Select(generator => generator.Strict ? generator.Pattern : ZipSkipPattern.Create(generator.Pattern, strictVariables)).ToArray();
         var patterns = definitions.Select(generator => generator.Pattern).ToArray();
@@ -24,6 +31,7 @@ internal static class ZipComprehensionExecution
         var consumed = new int[cursors.Length];
         while (true)
         {
+            iteration?.Invoke();
             await context.ReduceAsync();
             for (int index = 0; index < cursors.Length; index++)
                 complete[index] = (await cursors[index].ReadAsync(

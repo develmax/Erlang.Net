@@ -1,0 +1,58 @@
+{
+  "Status": "ACCEPT_SOURCE_BOUNDED_NARROWING_FINAL_CAPTURE4_PENDING",
+  "AuthorityCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Authority": [
+    {
+      "Path": "erts/emulator/beam/erl_vm.h",
+      "Sha256": "C362C2C222F5342BC0EDD3B666BA58EF571DFF6D6F37542169316C208FAB9816",
+      "Definitions": [
+        {
+          "Line": 54,
+          "Text": "#define MAX_ARG      255             /* Max number of arguments allowed */"
+        }
+      ]
+    },
+    {
+      "Path": "lib/compiler/src/beam_asm.erl",
+      "Sha256": "5C8F303F851100BA2EBD42BB618ED21F76BA06AFBB5210CBC93D62877B71187E",
+      "Definitions": [
+        {
+          "Line": 43,
+          "Text": "-define(MAX_ARGUMENTS, 255)."
+        }
+      ]
+    },
+    {
+      "Path": "lib/compiler/src/sys_core_fold.erl",
+      "Sha256": "8B29294DC2019A0FD858AFEF1E9AEF60BF42BB94FB0889763F1BD8B423FD0775",
+      "Definitions": [
+        {
+          "Line": 99,
+          "Text": "-define(MAX_FUNC_ARGS, 255)."
+        }
+      ]
+    }
+  ],
+  "PreviousReviewSha256": "A59C4F5969541ACDB26490D35327ACA1FDDF5506DE811B3118F7E776C1932B18",
+  "GuardBefore": 381,
+  "GuardAfter": 382,
+  "Changed": [
+    {
+      "Path": "src/Erlang.Compiler/StaticApplySyntax.cs",
+      "BeforeSha256": "F90181C706F0522F0A01DFB2479F4A991860586EAF6D04D708D0DC1EBECBADEA",
+      "AfterSha256": "3BE405FB880B8B6821F2A8C796DD28AA7BB68958EF5CAD1AD6CEB31412D358C4"
+    }
+  ],
+  "Added": "src/Erlang.Compiler/StaticApplyParameters.cs",
+  "Branch": "Only source literal proper argument lists with Count<=byte.MaxValue255 lower. Count256+ declines before argument evaluation; unchanged apply3 route evaluates/validates/traverses with existing1023argument runtime limit. No oversized call bypasses apply dispatch.",
+  "Soundness": "Pinned direct-function MAX_ARG255/MAX_FUNC_ARGS255 motivates conservative lowering bound. This source subset is deliberately narrower than all native Core optimizations; no complete compiler optimizer parity claim. All admitted queue fixture arities<=3 unchanged.",
+  "Old617And46": "No preceding registration or metadata changed. Other source calls/dynamic/list-tail/local-shadow/import branches decline identically. Previous617 rows and46 complete contracts require final actual preservation/full gates.",
+  "PermanentBoundaries": [
+    "255 syntax arguments eligible, preservingSourceLine and elementorder.",
+    "256 syntax arguments decline to original apply3.",
+    "1023/1024 runtime argument validation cannot be bypassed by new lowering."
+  ],
+  "MainChanged": false,
+  "Built": false,
+  "CompatibilityPromoted": false
+}

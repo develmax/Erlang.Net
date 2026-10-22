@@ -1,0 +1,113 @@
+{
+  "Rows": [
+    {
+      "Name": "empty",
+      "ExpectedNative": 9376759162891905861,
+      "ActualOwnVm": 9376759162891905861,
+      "Passed": true,
+      "Policy": "exact_identity_free_protocol"
+    },
+    {
+      "Name": "one",
+      "ExpectedNative": 1266052133724126830,
+      "ActualOwnVm": 1266052133724126830,
+      "Passed": true,
+      "Policy": "exact_identity_free_protocol"
+    },
+    {
+      "Name": "two",
+      "ExpectedNative": 15591365687953090300,
+      "ActualOwnVm": 15591365687953090300,
+      "Passed": true,
+      "Policy": "exact_identity_free_protocol"
+    },
+    {
+      "Name": "flat32",
+      "ExpectedNative": 14226805730798326734,
+      "ActualOwnVm": 14226805730798326734,
+      "Passed": true,
+      "Policy": "exact_identity_free_protocol"
+    },
+    {
+      "Name": "hamt33",
+      "ExpectedNative": 10381814281192288782,
+      "ActualOwnVm": 10381814281192288782,
+      "Passed": true,
+      "Policy": "exact_identity_free_protocol"
+    },
+    {
+      "Name": "hamt64",
+      "ExpectedNative": 1033206038747529231,
+      "ActualOwnVm": 1033206038747529231,
+      "Passed": true,
+      "Policy": "exact_identity_free_protocol"
+    },
+    {
+      "Name": "hamt256",
+      "ExpectedNative": 11079702824342307698,
+      "ActualOwnVm": 11079702824342307698,
+      "Passed": true,
+      "Policy": "exact_identity_free_protocol"
+    },
+    {
+      "Name": "nested_flat",
+      "ExpectedNative": 14835114105658117121,
+      "ActualOwnVm": 14835114105658117121,
+      "Passed": true,
+      "Policy": "exact_identity_free_protocol"
+    },
+    {
+      "Name": "nested_hamt",
+      "ExpectedNative": 15801940147587649046,
+      "ActualOwnVm": 15801940147587649046,
+      "Passed": true,
+      "Policy": "exact_identity_free_protocol"
+    },
+    {
+      "Name": "map_keys",
+      "ExpectedNative": 3433022342902430302,
+      "ActualOwnVm": 3433022342902430302,
+      "Passed": true,
+      "Policy": "exact_identity_free_protocol"
+    },
+    {
+      "Name": "atom_flat",
+      "ExpectedNative": 7444301992456830298,
+      "ActualOwnVm": 1539527634413238156,
+      "Passed": null,
+      "Policy": "native_atom_indexes_are_observations_only_own_state_tests_required"
+    },
+    {
+      "Name": "collision_first",
+      "ExpectedNative": 16412418448801491146,
+      "ActualOwnVm": 16412418448801491146,
+      "Passed": true,
+      "Policy": "exact_identity_free_protocol"
+    },
+    {
+      "Name": "collision_second",
+      "ExpectedNative": 16412418448801491146,
+      "ActualOwnVm": 16412418448801491146,
+      "Passed": true,
+      "Policy": "exact_identity_free_protocol"
+    },
+    {
+      "Name": "collision_map",
+      "ExpectedNative": 11409996217944998433,
+      "ActualOwnVm": 11409996217944998433,
+      "Passed": true,
+      "Policy": "exact_identity_free_protocol"
+    },
+    {
+      "Name": "collision_tuple",
+      "ExpectedNative": 11365517531812632185,
+      "ActualOwnVm": 11365517531812632185,
+      "Passed": true,
+      "Policy": "exact_identity_free_protocol"
+    }
+  ],
+  "Total": 15,
+  "StrictComparisons": 14,
+  "Failures": 0,
+  "NativeSnapshotEmulated": false
+}

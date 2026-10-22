@@ -1,5 +1,12 @@
 name: Validate CLR implementation
-on: [push, pull_request]
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+concurrency:
+  group: validate-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 jobs:
   local-regressions:
     runs-on: windows-latest
@@ -9,7 +16,21 @@ jobs:
         with:
           global-json-file: global.json
       - shell: pwsh
-        run: ./tools/validate.ps1
+        run: |
+          $runtimes = dotnet --list-runtimes
+          if ($LASTEXITCODE -ne 0 -or -not ($runtimes -match '^Microsoft.NETCore.App 10\.0\.11 ')) { throw 'Required source-admitted test CLR 10.0.11 is missing' }
+          New-Item -ItemType Directory -Path artifacts -Force | Out-Null
+          $runtimes | Set-Content artifacts/runtime-profile.log
+          ./tools/prepare-regex-provider.ps1 -Repository $PWD.Path
+      - shell: pwsh
+        run: |
+          python -B tools/Erlang.DdllFormatterOriginalObservations/collect-same-host.py --repository $PWD.Path --admission artifacts/library376-official-compiler/official-admission.json --output artifacts/library437-ddll-same-host-original1
+          if ($LASTEXITCODE -ne 0) { throw 'Same-host original formatter capture failed' }
+          $proof = Join-Path $PWD.Path 'artifacts/library437-ddll-same-host-original1/completion.json'
+          "ERLANG_DDLL_FORMATTER_ORIGINAL_PROFILE=$proof" | Add-Content $env:GITHUB_ENV
+          "ERLANG_DDLL_FORMATTER_ORIGINAL_PROFILE_SHA256=$((Get-FileHash -LiteralPath $proof -Algorithm SHA256).Hash)" | Add-Content $env:GITHUB_ENV
+      - shell: pwsh
+        run: ./tools/validate.ps1 -TestRuntimeVersion 10.0.11
       - uses: actions/upload-artifact@v7
         if: always()
         with:
@@ -18,3 +39,16 @@ jobs:
             artifacts/tests.json
             artifacts/integration-results.json
             artifacts/preprocessing-disabled.log
+            artifacts/library376-official-compiler/ci-provider-ready.json
+            artifacts/runtime-profile.log
+            artifacts/library437-ddll-same-host-original1/**
+            artifacts/library404-permanent-comparisons/**
+            artifacts/library416-ddll-error*/**
+            artifacts/library420-ets-info*/**
+            artifacts/library436-ets-counter-hints-permanent/**
+            artifacts/halt-subprocess-host-results.json
+            artifacts/halt-subprocess-cases/**/process-raw-evidence.json
+            artifacts/halt-subprocess-cases/**/probe-evidence.json
+            artifacts/halt-subprocess-cases/**/requested-clr.dmp.identity.json
+            artifacts/halt-subprocess-cases/**/process-stdout.raw
+            artifacts/halt-subprocess-cases/**/process-stderr.raw

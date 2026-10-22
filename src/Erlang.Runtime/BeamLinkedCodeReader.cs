@@ -121,7 +121,10 @@ internal static class BeamLinkedCodeReader
             exports.AsReadOnly(),
             onLoad,
             lambdas
-        );
+        )
+        {
+            SourceLocations = BeamLineTableReader.Read(structure)
+        };
     }
 
     private static void ValidateRoles(
@@ -134,6 +137,314 @@ internal static class BeamLinkedCodeReader
         var operands = instruction.Operands;
         switch (instruction.Definition.Name)
         {
+            case BeamCollectionOpcodeNames.UpdateRecord:
+                Require(operands[0].Kind == BeamOperandParameters.Atom, BeamLinkDiagnostics.OperandRole);
+                int recordSize = Unsigned(operands[1]);
+                Require(recordSize > 0 && recordSize < BeamOperandParameters.MaximumRegister, BeamLinkDiagnostics.OperandRole);
+                Source(operands[2]);
+                Destination(operands[3]);
+                Require(
+                    operands[4].Kind == BeamOperandParameters.Count && operands[4].Value == operands.Count - 5
+                    && operands[4].Value > 0 && operands[4].Value % 2 == 0
+                    && operands[4].Value / 2 <= recordSize,
+                    BeamLinkDiagnostics.OperandRole
+                );
+                for (int field = 5; field < operands.Count; field += 2)
+                {
+                    int position = Unsigned(operands[field]);
+                    Require(position >= 1 && position <= recordSize, BeamLinkDiagnostics.OperandRole);
+                    Source(operands[field + 1]);
+                }
+                break;
+            case BeamCollectionOpcodeNames.BadRecord:
+                Source(operands[0]);
+                break;
+            case BeamCollectionOpcodeNames.FloatMove:
+                Require(
+                    (operands[0].Kind == BeamOperandParameters.Float) != (operands[1].Kind == BeamOperandParameters.Float),
+                    BeamLinkDiagnostics.OperandRole
+                );
+                if (operands[0].Kind == BeamOperandParameters.Float)
+                    Destination(operands[1]);
+                else
+                    Source(operands[0]);
+                break;
+            case BeamCollectionOpcodeNames.FloatConvert:
+                Source(operands[0]);
+                Require(operands[1].Kind == BeamOperandParameters.Float, BeamLinkDiagnostics.OperandRole);
+                break;
+            case BeamCollectionOpcodeNames.FloatNegate:
+                Require(
+                    operands[0].Kind == BeamOperandParameters.Failure
+                    && operands[1].Kind == BeamOperandParameters.Float
+                    && operands[2].Kind == BeamOperandParameters.Float,
+                    BeamLinkDiagnostics.OperandRole
+                );
+                break;
+            case BeamCollectionOpcodeNames.FloatMultiply:
+            case BeamCollectionOpcodeNames.FloatAdd:
+            case BeamCollectionOpcodeNames.FloatSubtract:
+            case BeamCollectionOpcodeNames.FloatDivide:
+                Require(
+                    operands[0].Kind == BeamOperandParameters.Failure
+                    && operands[1].Kind == BeamOperandParameters.Float
+                    && operands[2].Kind == BeamOperandParameters.Float
+                    && operands[3].Kind == BeamOperandParameters.Float,
+                    BeamLinkDiagnostics.OperandRole
+                );
+                break;
+            case BeamCatchNames.Install:
+            case BeamTryNames.Install:
+                Require(operands[0].Kind == BeamOperandParameters.Y, BeamLinkDiagnostics.OperandRole);
+                Require(operands[1].Kind == BeamOperandParameters.Label, BeamLinkDiagnostics.OperandRole);
+                break;
+            case BeamTryNames.Case:
+            case BeamCatchNames.End:
+            case BeamTryNames.End:
+                Require(operands[0].Kind == BeamOperandParameters.Y, BeamLinkDiagnostics.OperandRole);
+                break;
+            case BeamTryNames.BuildStacktrace:
+            case BeamTryNames.RawRaise:
+                break;
+            case BeamTryNames.CaseEnd:
+                Source(operands[0]);
+                break;
+            case BeamTryNames.Raise:
+                Source(operands[0]);
+                Source(operands[1]);
+                break;
+            case BeamGeneralOpcodeNames.NilTest:
+            case BeamGeneralOpcodeNames.NonemptyListTest:
+            case BeamGeneralOpcodeNames.ListTest:
+            case BeamGeneralOpcodeNames.TupleTest:
+            case BeamGeneralOpcodeNames.FloatTest:
+            case BeamGeneralOpcodeNames.MapTest:
+            case BeamGeneralOpcodeNames.NumberTest:
+            case BeamGeneralOpcodeNames.BinaryTest:
+            case BeamGeneralOpcodeNames.AtomTest:
+            case BeamGeneralOpcodeNames.BooleanTest:
+            case BeamGeneralOpcodeNames.ReferenceTest:
+            case BeamGeneralOpcodeNames.AnyFunctionTest:
+            case BeamGeneralOpcodeNames.BitStringTest:
+            case BeamGeneralOpcodeNames.PortTest:
+            case BeamGeneralOpcodeNames.NativeRecordTest:
+                Branch(operands[0]);
+                Source(operands[1]);
+                break;
+            case BeamGeneralOpcodeNames.TupleArity:
+                Branch(operands[0]);
+                Source(operands[1]);
+                _ = Unsigned(operands[2]);
+                break;
+            case BeamGeneralOpcodeNames.FunctionTest:
+            case BeamGeneralOpcodeNames.ArithmeticEqual:
+            case BeamGeneralOpcodeNames.ArithmeticNotEqual:
+            case BeamGeneralOpcodeNames.ExactNotEqual:
+            case BeamGeneralOpcodeNames.GreaterOrEqual:
+            case BeamGeneralOpcodeNames.Less:
+                Branch(operands[0]);
+                Source(operands[1]);
+                Source(operands[2]);
+                break;
+            case BeamGeneralOpcodeNames.GetList:
+                Source(operands[0]);
+                Destination(operands[1]);
+                Destination(operands[2]);
+                break;
+            case BeamGeneralOpcodeNames.GetHead:
+            case BeamGeneralOpcodeNames.GetTail:
+                Source(operands[0]);
+                Destination(operands[1]);
+                break;
+            case BeamGeneralOpcodeNames.Swap:
+                Destination(operands[0]);
+                Destination(operands[1]);
+                break;
+            case BeamGeneralOpcodeNames.Trim:
+                _ = Unsigned(operands[0]);
+                _ = Unsigned(operands[1]);
+                break;
+            case BeamGeneralOpcodeNames.Jump:
+                Require(operands[0].Kind == BeamOperandParameters.Label, BeamLinkDiagnostics.OperandRole);
+                break;
+            case BeamBinaryNames.Create:
+            case BeamBinaryNames.Start:
+            case BeamBinaryNames.StartLegacy:
+            case BeamBinaryNames.ExtractBinary:
+            case BeamBinaryNames.ExtractInteger:
+            case BeamFloatStringNames.ExtractFloat:
+            case BeamBinaryNames.ExtractUtf8:
+            case BeamBinaryNames.ExtractUtf16:
+            case BeamBinaryNames.ExtractUtf32:
+            case BeamBinaryNames.SkipUtf16:
+            case BeamBinaryNames.SkipUtf32:
+            case BeamBinaryNames.SkipUtf8:
+            case BeamBinaryNames.SkipBits:
+            case BeamBinaryNames.InitializeWritable:
+            case BeamBinaryNames.ExtractTail:
+            case BeamBinaryNames.SavePosition:
+            case BeamBinaryNames.RestorePosition:
+            case BeamFloatStringNames.MatchString:
+            case BeamBinaryNames.Match:
+                BeamBinaryInstructionValidation.Validate(instruction, structure);
+                break;
+            case BeamReceiveMarkerNames.Reserve:
+                Destination(operands[0]);
+                break;
+            case BeamReceiveMarkerNames.Bind:
+                Require(operands[0].Kind is BeamOperandParameters.X or BeamOperandParameters.Y, BeamLinkDiagnostics.OperandRole);
+                Require(operands[1].Kind is BeamOperandParameters.X or BeamOperandParameters.Y, BeamLinkDiagnostics.OperandRole);
+                break;
+            case BeamReceiveMarkerNames.Clear:
+            case BeamReceiveMarkerNames.Use:
+                Require(operands[0].Kind is BeamOperandParameters.X or BeamOperandParameters.Y, BeamLinkDiagnostics.OperandRole);
+                break;
+            case BeamGeneralOpcodeNames.SelectValue:
+                Source(operands[0]);
+                Branch(operands[1]);
+                Require(
+                    operands[2].Kind == BeamOperandParameters.Count && operands[2].Value == operands.Count - 3
+                    && operands[2].Value % 2 == 0,
+                    BeamLinkDiagnostics.OperandRole
+                );
+                for (int index = 3; index < operands.Count; index += 2)
+                {
+                    Source(operands[index]);
+                    Require(operands[index].Kind is not (BeamOperandParameters.X or BeamOperandParameters.Y), BeamLinkDiagnostics.OperandRole);
+                    Require(operands[index + 1].Kind == BeamOperandParameters.Label, BeamLinkDiagnostics.OperandRole);
+                }
+                BeamSelectValueValidation.Validate(structure, operands);
+                break;
+            case BeamGeneralOpcodeNames.SelectTupleArity:
+                Destination(operands[0]);
+                Branch(operands[1]);
+                Require(
+                    operands[2].Kind == BeamOperandParameters.Count
+                    && operands[2].Value == operands.Count - 3 && operands[2].Value % 2 == 0,
+                    BeamLinkDiagnostics.OperandRole
+                );
+                var arities = new HashSet<int>();
+                for (int index = 3; index < operands.Count; index += 2)
+                {
+                    Require(arities.Add(Unsigned(operands[index])), BeamLinkDiagnostics.OperandRole);
+                    Require(operands[index + 1].Kind == BeamOperandParameters.Label, BeamLinkDiagnostics.OperandRole);
+                }
+                break;
+            case BeamGeneralOpcodeNames.BinaryBif:
+                Branch(operands[0]);
+                CheckImport(structure, Unsigned(operands[1]), 2);
+                Source(operands[2]);
+                Source(operands[3]);
+                Destination(operands[4]);
+                break;
+            case BeamApplyNames.Opcode:
+                Require(Unsigned(operands[0]) <= BeamLinkParameters.MaximumFunctionArity, BeamLambdaDiagnostics.Call);
+                break;
+            case BeamApplyNames.Last:
+                Require(Unsigned(operands[0]) <= BeamLinkParameters.MaximumFunctionArity, BeamLambdaDiagnostics.Call);
+                _ = Unsigned(operands[1]);
+                break;
+            case BeamGeneralOpcodeNames.DynamicCall:
+                Require(Unsigned(operands[0]) <= BeamLinkParameters.MaximumFunctionArity, BeamLambdaDiagnostics.Call);
+                break;
+            case BeamGeneralOpcodeNames.MapFields:
+                Branch(operands[0]);
+                Source(operands[1]);
+                Require(operands[2].Kind == BeamOperandParameters.Count && operands[2].Value == operands.Count - 3, BeamLinkDiagnostics.OperandRole);
+                BeamMapOperands.ValidateKeys(
+                    structure,
+                    operands,
+                    3,
+                    1
+                );
+                foreach (BeamOperand key in operands.Skip(3))
+                    Source(key);
+                break;
+            case BeamGeneralOpcodeNames.MapElements:
+                Branch(operands[0]);
+                Source(operands[1]);
+                Require(
+                    operands[2].Kind == BeamOperandParameters.Count && operands[2].Value == operands.Count - 3
+                    && operands[2].Value % 2 == 0,
+                    BeamLinkDiagnostics.OperandRole
+                );
+                BeamMapOperands.ValidateKeys(
+                    structure,
+                    operands,
+                    3,
+                    2
+                );
+                for (int pair = 3; pair < operands.Count; pair += 2)
+                {
+                    Source(operands[pair]);
+                    Destination(operands[pair + 1]);
+                }
+                break;
+            case BeamGeneralOpcodeNames.MapExact:
+            case BeamGeneralOpcodeNames.MapAssociate:
+                if (instruction.Definition.Name == BeamGeneralOpcodeNames.MapAssociate)
+                    Require(operands[0].Kind == BeamOperandParameters.Failure, BeamLinkDiagnostics.OperandRole);
+                else
+                    Branch(operands[0]);
+                Source(operands[1]);
+                Destination(operands[2]);
+                _ = Unsigned(operands[3]);
+                Require(
+                    operands[4].Kind == BeamOperandParameters.Count && operands[4].Value == operands.Count - 5 && operands[4].Value % 2 == 0,
+                    BeamLinkDiagnostics.OperandRole
+                );
+                BeamMapOperands.ValidateKeys(
+                    structure,
+                    operands,
+                    5,
+                    2
+                );
+                foreach (BeamOperand value in operands.Skip(5))
+                    Source(value);
+                break;
+            case BeamGeneralOpcodeNames.UnaryBif:
+                Branch(operands[0]);
+                CheckImport(structure, Unsigned(operands[1]), 1);
+                Source(operands[2]);
+                Destination(operands[3]);
+                break;
+            case BeamGeneralOpcodeNames.UnaryGcBif:
+                Branch(operands[0]);
+                _ = Unsigned(operands[1]);
+                CheckImport(structure, Unsigned(operands[2]), 1);
+                Source(operands[3]);
+                Destination(operands[4]);
+                break;
+            case BeamGeneralOpcodeNames.TernaryBif:
+                Branch(operands[0]);
+                CheckImport(structure, Unsigned(operands[1]), 3);
+                foreach (BeamOperand source in operands.Skip(2).Take(3))
+                    Source(source);
+                Destination(operands[5]);
+                break;
+            case BeamGeneralOpcodeNames.TernaryGcBif:
+                Branch(operands[0]);
+                _ = Unsigned(operands[1]);
+                CheckImport(structure, Unsigned(operands[2]), 3);
+                foreach (BeamOperand source in operands.Skip(3).Take(3))
+                    Source(source);
+                Destination(operands[6]);
+                break;
+            case BeamGeneralOpcodeNames.IfEnd:
+                break;
+            case BeamGeneralOpcodeNames.LocalLast:
+                int lastArity = Unsigned(operands[0]);
+                Require(
+                    operands[1].Kind == BeamOperandParameters.Label
+                    && functions.TryGetValue((int)operands[1].Value, out BeamLinkedFunction? lastTarget)
+                    && lastTarget.Arity == lastArity,
+                    BeamLinkDiagnostics.LocalCall
+                );
+                _ = Unsigned(operands[2]);
+                break;
+            case BeamGeneralOpcodeNames.CaseEnd:
+                Source(operands[0]);
+                break;
             case BeamLinkNames.Label:
             case BeamLinkNames.Line:
                 _ = Unsigned(operands[0]);
@@ -228,6 +539,9 @@ internal static class BeamLinkedCodeReader
             case BeamLinkNames.WaitTimeout:
                 Branch(operands[0]);
                 Source(operands[1]);
+                break;
+            case BeamLinkNames.Wait:
+                Branch(operands[0]);
                 break;
             case BeamRegisterNames.Call:
             case BeamLinkNames.LocalCall:

@@ -1,0 +1,10 @@
+namespace Erlang;
+
+internal static class DebugInternalKeys419
+{
+    internal static readonly HashSet<string> GetAtoms = new(StringComparer.Ordinal) { "DbTable_words", "available_internal_state", "check_io_debug", "check_no_empty_boxed_non_literal_on_heap", "debugger_support", "dirty_gc_limit", "flxctr_memory_usage", "force_heap_frags", "hashmap_collision_bonanza", "lc_graph", "max_atom_out_cache_index", "memory", "min_unique_integer", "min_unique_monotonic_integer", "mmap", "monitoring_nodes", "nbalance", "next_pid", "next_port", "node_and_dist_references", "persistent_term", "process_info_args", "processes", "processes_bif_info", "re_yield_coverage", "reds_left", "scheduler_dump", "stack_check", "unique_monotonic_integer_state" };
+    internal static readonly HashSet<string> SetAtoms = new(StringComparer.Ordinal) { "abort", "available_internal_state", "binary", "binary_loop_limit", "block", "block_scheduler", "broken_halt", "code_mod_permission", "colliding_names", "debugger_support", "ets_debug_random_split_join", "ets_force_split", "ets_force_trap", "fill_heap", "force_gc", "gc_state", "inconsistent_heap", "jit_asm_dump", "kill_dist_connection", "make", "mbuf", "multizero_timeout_in_timeout", "next_pid", "next_port", "node_tab_delayed_delete", "proc_sig_block", "proc_sig_buffers", "process_uniq_counter", "re_loop_limit", "reds_left", "remove_dflags", "sleep", "test_long_gc_sleep", "unicode_loop_limit", "unique_monotonic_integer_state", "wait" };
+    internal static readonly HashSet<string> SetTuples = new(StringComparer.Ordinal) { };
+    internal static readonly HashSet<string> GetTuple2 = new(StringComparer.Ordinal) { "atom", "atom_out_cache_index", "binary_info", "channel_number", "connection_id", "dist_ctrl", "fake_scheduler_bindings", "internal_hash", "link_list", "magic_ref", "monitor_list", "native_record_def", "node_and_dist_references", "process_status", "reader_groups_map" };
+    internal static readonly HashSet<string> GetTuple3 = new(StringComparer.Ordinal) { "check_time_config", "make_unique_integer", "term_to_binary" };
+}

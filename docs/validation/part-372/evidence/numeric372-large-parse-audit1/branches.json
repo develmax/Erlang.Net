@@ -1,0 +1,46 @@
+{
+  "Mfas": [
+    "erlang:list_to_integer/1",
+    "erlang:list_to_integer/2",
+    "erlang:binary_to_integer/1",
+    "erlang:binary_to_integer/2"
+  ],
+  "Branches": [
+    {
+      "Id": "binary_small_frontend",
+      "Source": "big.c chars_to_integer and erts_internal_binary_to_integer_2, around4164-4255",
+      "Rule": "Validate base/native binary; recognize one actual ASCII sign; trim ASCII zeroes; reject no digit; size above digits_per_small yields big before validating remaining digit bytes."
+    },
+    {
+      "Id": "list_small_frontend",
+      "Source": "big.c4258-4359",
+      "Rule": "Actual sign term; signed SMALL eligibility and byte narrowing; wrapped-zero skip; validate SMALL prefix until threshold+1; shorter invalid/residual rejects; threshold+1 yields big even with residual remaining."
+    },
+    {
+      "Id": "list_big_flatten",
+      "Source": "erlang.erl4111-4135,4165-4189",
+      "Rule": "Native big marker triggers list_to_binary(original) before big_binary_to_int. This admits nested iodata/binary tails only after sufficient actual prefix; any illegal original byte/type/tail fails before size cap."
+    },
+    {
+      "Id": "public_precap",
+      "Source": "erlang.erl1108-1137",
+      "Rule": "Strip sign and leading zeroes from complete byte input. Significant byte size>4194304 =>system_limit all bases; size>1262611 withbase>=10 =>system_limit. This happens before segment digit validation."
+    },
+    {
+      "Id": "segment_validation",
+      "Source": "erlang.erl1139-1165",
+      "Rule": "All segments validated using native binary_to_integer on short chunks before any combine; malformed byte below publicprecap =>badarg even when mathematical validprefix would exceed maxlimbs."
+    },
+    {
+      "Id": "combine_and_limit",
+      "Source": "erlang.erl1167-1180;erl_term.h465-469;big.c3341-3371",
+      "Rule": "Nonnegative segments combined associatively; native65535 64-bit limbs =>4194240 magnitudebits. Arithmetic failure returned as reason then public error_with_info(original arguments). Final bit cap is not a replacement for prior publicprecap/validation precedence."
+    },
+    {
+      "Id": "schedule_and_cleanup",
+      "Source": "Current ProcessContext cancellation/ChargeAsync and list traversal scopes",
+      "Rule": "Long prepass/flatten/validation/combine must yield/check cancellation and retain original native error arguments while disposing all transient traversal/source scopes. Existing synchronous pure Parse has no ProcessContext and cannot independently establish this obligation."
+    }
+  ],
+  "NoContractPromotion": true
+}

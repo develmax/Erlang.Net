@@ -4,6 +4,9 @@ internal static class ClrMemoryPublicHostParameters
 {
     internal const int PublicFunctions = 2;
     internal const int Payload = 17;
+    internal const int RetainedPayload = 128;
+    internal const int RetainedOffsetBits = 8;
+    internal const int RetainedSliceBits = 520;
     internal const int PartialBits = 5;
     internal const int FirstNative = 7;
     internal const int SecondNative = 13;

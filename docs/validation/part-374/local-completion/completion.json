@@ -1,0 +1,163 @@
+{
+  "Stage": "374 original lists BEAM plus original queue local acceptance",
+  "Publication": false,
+  "ApiDelta": 0,
+  "FullContractDelta": 0,
+  "Tests": {
+    "Passed": 7917,
+    "Failed": 0,
+    "PreservedOrderedNames": 7777,
+    "Added": 140
+  },
+  "IntegrationOutcomes": 11,
+  "LocalPackages": 2,
+  "SourceGuards": 539,
+  "ListsSmokeApis": 91,
+  "OriginalListsPureExports": 86,
+  "NativePrimitiveBoundaries": 5,
+  "OriginalQueueApis": 38,
+  "Comparison": {
+    "Examined": 6384,
+    "StrictRawTypedEqual": 6003,
+    "NamedSourceFunIdentity": 331,
+    "PriorBoundCoreOpaqueIdentity": 6,
+    "SourceProtocolSavedEntry": 44,
+    "RawDifferencesPreserved": 44,
+    "ResidualDifferences": 0
+  },
+  "ProcessReceipts": [
+    {
+      "Stage": "lists374-all-beam-replay2",
+      "Seconds": 92.15700000000652,
+      "Sha256": "78908891555AB2D814D39FD791A8187DB51BC19DADBAC4F2CFAE11FC5BCE8F85"
+    },
+    {
+      "Stage": "lists374-core-beam-replay2",
+      "Seconds": 6.578000000008615,
+      "Sha256": "FFE392B68819A01A4750D5CDAEF68F5C304767E84EEE8BC39BB123CC7FFA7C73"
+    },
+    {
+      "Stage": "lists374-long-beam-replay2",
+      "Seconds": 46.75,
+      "Sha256": "640FB06F818AD0CF5563E58888638688FB7E4B88024D051561CA388B7022D68D"
+    },
+    {
+      "Stage": "lists374-final-full2",
+      "Seconds": 338.89000000001397,
+      "Sha256": "6D5D43CCBF50FCCA556DA32E54099E90193754AD2E2A30531D9892C114EFCD52"
+    },
+    {
+      "Stage": "lists374-package-suffix1",
+      "Seconds": 48.828000000008615,
+      "Sha256": "E47C2387A2BA62E6995CD185F793BBF9CAA911B319EEF375D08E328DF18C3535"
+    }
+  ],
+  "WholeListsContractPromotion": false,
+  "Next": "375 explicit startup backend selection, retaining C# and BEAM alternatives",
+  "Bindings": [
+    {
+      "Path": "docs/validation/part-374/local-completion/API_COMPATIBILITY.md",
+      "Sha256": "EC97AF70773A60F54DC8113655F1C89B6386AF8E70BD31DDCF06134E7B22D947"
+    },
+    {
+      "Path": "docs/validation/part-374/local-completion/canonical-tests.json",
+      "Sha256": "514EAC94165D5C401FBD5A837D7184331B6EF14657BE9EE8F5419461D63E5623"
+    },
+    {
+      "Path": "docs/validation/part-374/local-completion/comparison-completion.json",
+      "Sha256": "41C3155CA87BE418693BBBFBF92C094446E84C8D9F94FCC67B83829FEFB9DB29"
+    },
+    {
+      "Path": "docs/validation/part-374/local-completion/first-full-failure.json",
+      "Sha256": "ED49BC45904DCEC27532AC9CE8C318A795F9190643639A820A6A1ABBEA08F019"
+    },
+    {
+      "Path": "docs/validation/part-374/local-completion/flat-expectation-focused.json",
+      "Sha256": "C9123DDDBF5C62F2D62101760ACEC5D9BBA69674F1085330646EEEAADD2830AD"
+    },
+    {
+      "Path": "docs/validation/part-374/local-completion/flat-expectation-independent-review.json",
+      "Sha256": "971B13AA725312CD77D00DAA20670911A5229FA86570EA1743B087DA864250E9"
+    },
+    {
+      "Path": "docs/validation/part-374/local-completion/flat-expectation-source-review.json",
+      "Sha256": "375DB2AA408F2472B6AE40BCD9A22A51A457E165F519DDB87062D8FF4F099A32"
+    },
+    {
+      "Path": "docs/validation/part-374/local-completion/focused-edge-tests.json",
+      "Sha256": "2AA3865D64FA8921335728EC738BBC72EB51676F37DB67784130D7F1527CA064"
+    },
+    {
+      "Path": "docs/validation/part-374/local-completion/frozen-runtime-checkpoint.json",
+      "Sha256": "1ADFAD18A12ECD0519D0EC78852A03826BAA3CD4108483BFF4069958541361D5"
+    },
+    {
+      "Path": "docs/validation/part-374/local-completion/guard-update.json",
+      "Sha256": "718F12BE106E747BAD77E00EC02398E4A12B7B09A1ADF83AE5F64638BBC74F0D"
+    },
+    {
+      "Path": "docs/validation/part-374/local-completion/integration-results.json",
+      "Sha256": "5D4400AAED91A21AE6F7CA9D6CAFE99B34E73719334E0CA1E444F876C9DBDF3A"
+    },
+    {
+      "Path": "docs/validation/part-374/local-completion/lists374-all-beam-replay2.exit.json",
+      "Sha256": "78908891555AB2D814D39FD791A8187DB51BC19DADBAC4F2CFAE11FC5BCE8F85"
+    },
+    {
+      "Path": "docs/validation/part-374/local-completion/lists374-core-beam-replay2.exit.json",
+      "Sha256": "FFE392B68819A01A4750D5CDAEF68F5C304767E84EEE8BC39BB123CC7FFA7C73"
+    },
+    {
+      "Path": "docs/validation/part-374/local-completion/lists374-final-full2.exit.json",
+      "Sha256": "6D5D43CCBF50FCCA556DA32E54099E90193754AD2E2A30531D9892C114EFCD52"
+    },
+    {
+      "Path": "docs/validation/part-374/local-completion/lists374-long-beam-replay2.exit.json",
+      "Sha256": "640FB06F818AD0CF5563E58888638688FB7E4B88024D051561CA388B7022D68D"
+    },
+    {
+      "Path": "docs/validation/part-374/local-completion/lists374-package-suffix1.exit.json",
+      "Sha256": "E47C2387A2BA62E6995CD185F793BBF9CAA911B319EEF375D08E328DF18C3535"
+    },
+    {
+      "Path": "docs/validation/part-374/local-completion/module-readiness.json",
+      "Sha256": "B8A0F1BFCE3D5A44C23F9112F807F21C0B56DD84F2C03A2BB399AD2189E0BB65"
+    },
+    {
+      "Path": "docs/validation/part-374/local-completion/MODULE_READINESS.md",
+      "Sha256": "FFA21E594E76F6F662421DF55534192B3AC028496CF9FD75CD607201F3941768"
+    },
+    {
+      "Path": "docs/validation/part-374/local-completion/native-infrastructure.json",
+      "Sha256": "AAA25ED168B822482362FEED111C2D6851639EDE69BEE59A24F3AA57324B5E83"
+    },
+    {
+      "Path": "docs/validation/part-374/local-completion/native-infrastructure.md",
+      "Sha256": "D7ABCCD6575AF3F0F8A6D78D66CC3D1298EB9D32ACDCF2DB9305D1ED5EB2BBDE"
+    },
+    {
+      "Path": "docs/validation/part-374/local-completion/OPCODE_MATRIX.md",
+      "Sha256": "F39DC1B40EBF9DFEB2F03C71242CAB974E4CABDC37590D07E5B46CEA0E57B5C9"
+    },
+    {
+      "Path": "docs/validation/part-374/local-completion/original-image-receipt.json",
+      "Sha256": "A9EFEDEFCE3A47885042C8472D8EC53B08E041338D3EEF37EC8645CA25927F2B"
+    },
+    {
+      "Path": "docs/validation/part-374/local-completion/README.md",
+      "Sha256": "A615F3F1A6413BF117B3D839A6652BEC28381FC2978C890FF9C1D24BE8C16FA0"
+    },
+    {
+      "Path": "docs/validation/part-374/local-completion/root-acceptance-before-final-docs.json",
+      "Sha256": "76FA3AFC5F88A3D9134DF3D745ACAC615C74B8072EC21DC4EC8B37FD19A52D2C"
+    },
+    {
+      "Path": "docs/validation/part-374/local-completion/runtime-and-test-sources.zip",
+      "Sha256": "6C9E286F466997DDB3659EDB491929B4AB78C09A6C6CC15297B64DAC4F676745"
+    },
+    {
+      "Path": "docs/validation/part-374/local-completion/source-review.json",
+      "Sha256": "1738363CEE869B403EB6AE89DBA84DD9BA9014955B2195F3B6AFFE2397E0727B"
+    }
+  ]
+}

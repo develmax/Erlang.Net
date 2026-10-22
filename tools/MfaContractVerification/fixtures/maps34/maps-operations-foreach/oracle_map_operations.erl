@@ -1,0 +1,1 @@
+-module(oracle_map_operations). -export([run/0]). run()->ok=maps:foreach(fun(K,V)->put(K,V),ignored end,#{1=>10,2=>20}),10=get(1),20=get(2),done.

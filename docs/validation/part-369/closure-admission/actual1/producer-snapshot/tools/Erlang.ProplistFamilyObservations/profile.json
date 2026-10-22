@@ -1,0 +1,210 @@
+{
+  "Family": "binary-new-only-matched-worker-closure",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SubjectModule": "binary",
+  "Mfas": [
+    "binary:decode_hex/1",
+    "binary:encode_hex/1",
+    "binary:join/2",
+    "binary:referenced_byte_size/1",
+    "binary:replace/3",
+    "binary:replace/4"
+  ],
+  "Fixtures": [
+    {
+      "Id": "closure",
+      "Location": "tool",
+      "Path": "original/binary369_closure_contract.erl",
+      "Module": "binary369_closure_contract",
+      "Run": "run",
+      "NamesEntry": "cases",
+      "Names": [
+        "live_stack_three_matched_worker",
+        "live_stack_four_matched_worker",
+        "hex_before_decode_7",
+        "hex_before_decode_8",
+        "hex_before_decode_9",
+        "hex_before_decode_64",
+        "hex_before_decode_65",
+        "hex_before_decode_257",
+        "external_size_writable",
+        "term_to_binary_writable",
+        "self_send_default",
+        "cross_process_send",
+        "join_writable_input",
+        "encode_writable_input"
+      ],
+      "StackModule": "binary369_closure_contract",
+      "StackEntry": "run_stacks",
+      "WorkerModule": "proplists_observation_worker",
+      "WorkerEntry": "run",
+      "ValueAcquisition": "compiled-monitored-worker-values-and-stacks-v1",
+      "StackShape": "depth_cases",
+      "Companions": [
+        "original/binary_all369_support.erl",
+        "original/binary369_callback_supplement.erl",
+        "original/proplists_observation_worker.erl"
+      ],
+      "Cases": [
+        {
+          "Name": "live_stack_three_matched_worker",
+          "Mfas": [
+            "binary:replace/3"
+          ],
+          "Scope": "Same original callback bytes; values and profiles now both execute in the compiled monitored worker. Old unmatched value captures remain unaccepted.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "live_stack_four_matched_worker",
+          "Mfas": [
+            "binary:replace/4"
+          ],
+          "Scope": "Same original callback bytes; values and profiles now both execute in the compiled monitored worker. Old unmatched value captures remain unaccepted.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "hex_before_decode_7",
+          "Mfas": [
+            "binary:encode_hex/1",
+            "binary:decode_hex/1",
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Record encode output backing BEFORE decoding may pin it; retain both before/after numeric observations without seeded capacity.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "hex_before_decode_8",
+          "Mfas": [
+            "binary:encode_hex/1",
+            "binary:decode_hex/1",
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Record encode output backing BEFORE decoding may pin it; retain both before/after numeric observations without seeded capacity.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "hex_before_decode_9",
+          "Mfas": [
+            "binary:encode_hex/1",
+            "binary:decode_hex/1",
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Record encode output backing BEFORE decoding may pin it; retain both before/after numeric observations without seeded capacity.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "hex_before_decode_64",
+          "Mfas": [
+            "binary:encode_hex/1",
+            "binary:decode_hex/1",
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Record encode output backing BEFORE decoding may pin it; retain both before/after numeric observations without seeded capacity.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "hex_before_decode_65",
+          "Mfas": [
+            "binary:encode_hex/1",
+            "binary:decode_hex/1",
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Record encode output backing BEFORE decoding may pin it; retain both before/after numeric observations without seeded capacity.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "hex_before_decode_257",
+          "Mfas": [
+            "binary:encode_hex/1",
+            "binary:decode_hex/1",
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Record encode output backing BEFORE decoding may pin it; retain both before/after numeric observations without seeded capacity.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "external_size_writable",
+          "Mfas": [
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Acquire actual writable input/backing before and after an explicit source operation. No guessed pin event, GC timing or native capacity seeded into expectations.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "term_to_binary_writable",
+          "Mfas": [
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Acquire actual writable input/backing before and after an explicit source operation. No guessed pin event, GC timing or native capacity seeded into expectations.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "self_send_default",
+          "Mfas": [
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Acquire actual writable input/backing before and after an explicit source operation. No guessed pin event, GC timing or native capacity seeded into expectations.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "cross_process_send",
+          "Mfas": [
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Acquire actual writable input/backing before and after an explicit source operation. No guessed pin event, GC timing or native capacity seeded into expectations.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "join_writable_input",
+          "Mfas": [
+            "binary:join/2",
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Acquire actual writable input/backing before and after an explicit source operation. No guessed pin event, GC timing or native capacity seeded into expectations.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "encode_writable_input",
+          "Mfas": [
+            "binary:encode_hex/1",
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Acquire actual writable input/backing before and after an explicit source operation. No guessed pin event, GC timing or native capacity seeded into expectations.",
+          "OpaqueReferenceAdmissionRequired": false
+        }
+      ]
+    }
+  ],
+  "FixtureSources": [
+    {
+      "Location": "tool",
+      "Path": "original/binary369_callback_supplement.erl",
+      "Sha256": "119534A9FEF8810A2E11C244176E3BC253386E73199580AA48B185DA7C1A6059"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/binary369_closure_contract.erl",
+      "Sha256": "264984DE8B571A4B3A02553B0E9C24FB95E1A68671B8445812C83A0BB90A8DF2"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/binary_all369_support.erl",
+      "Sha256": "6E499A37D39D12E93F0FD1BF3ACC64FFF4382DBE2894D9D259AFC1EA748E0F34"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/proplists_observation_worker.erl",
+      "Sha256": "34B743EB95A5937058AB8F208A1FB17C6ACED20AF7E08398EF6D154F574546BC"
+    }
+  ],
+  "ExpectedUniqueSourceCount": 4,
+  "ValueAcquisition": "compiled-monitored-worker-values-and-stacks-v1",
+  "ObservationSchema": "raw-values-effects-and-whole-stacks-v1",
+  "ExpectedSeededOutcomes": false,
+  "OpaquePolicy": {
+    "EligibleCases": [],
+    "Rule": "Strict all-field comparison including nested live callback stacks; no context waiver."
+  },
+  "Prior585Reexecuted": false,
+  "Prior36Reexecuted": false
+}

@@ -1,0 +1,2478 @@
+{
+  "Fixtures": [
+    {
+      "Id": "ordsets_set_operations",
+      "Location": "tool",
+      "Path": "original/ordsets371_set_operations.erl",
+      "Module": "ordsets371_set_operations",
+      "NamesEntry": "cases",
+      "Run": "run",
+      "StackModule": "ordsets371_set_operations",
+      "StackEntry": "run_stacks",
+      "StackShape": "depth_cases",
+      "WorkerModule": "ordsets_core_worker",
+      "WorkerEntry": "run",
+      "Companions": [
+        "original/ordsets_core_support.erl",
+        "original/ordsets_core_worker.erl"
+      ],
+      "Names": [
+        "from_list_0",
+        "from_list_1",
+        "from_list_2",
+        "from_list_3",
+        "from_list_4",
+        "from_list_5",
+        "from_list_6",
+        "from_list_7",
+        "from_list_8",
+        "from_list_9",
+        "from_list_10",
+        "from_list_11",
+        "from_list_merge_boundary",
+        "from_list_numeric_stability",
+        "del_element_0_0",
+        "del_element_0_1",
+        "del_element_0_2",
+        "del_element_0_3",
+        "del_element_1_0",
+        "del_element_1_1",
+        "del_element_1_2",
+        "del_element_1_3",
+        "del_element_2_0",
+        "del_element_2_1",
+        "del_element_2_2",
+        "del_element_2_3",
+        "del_element_3_0",
+        "del_element_3_1",
+        "del_element_3_2",
+        "del_element_3_3",
+        "del_element_4_0",
+        "del_element_4_1",
+        "del_element_4_2",
+        "del_element_4_3",
+        "del_element_5_0",
+        "del_element_5_1",
+        "del_element_5_2",
+        "del_element_5_3",
+        "del_element_6_0",
+        "del_element_6_1",
+        "del_element_6_2",
+        "del_element_6_3",
+        "del_element_7_0",
+        "del_element_7_1",
+        "del_element_7_2",
+        "del_element_7_3",
+        "del_element_8_0",
+        "del_element_8_1",
+        "del_element_8_2",
+        "del_element_8_3",
+        "del_element_9_0",
+        "del_element_9_1",
+        "del_element_9_2",
+        "del_element_9_3",
+        "del_element_10_0",
+        "del_element_10_1",
+        "del_element_10_2",
+        "del_element_10_3",
+        "del_element_11_0",
+        "del_element_11_1",
+        "del_element_11_2",
+        "del_element_11_3",
+        "union_pair_0",
+        "union_pair_1",
+        "union_pair_2",
+        "union_pair_3",
+        "union_pair_4",
+        "union_pair_5",
+        "union_pair_6",
+        "union_pair_7",
+        "union_pair_8",
+        "union_pair_9",
+        "union_pair_10",
+        "union_pair_11",
+        "union_pair_12",
+        "union_pair_13",
+        "union_pair_14",
+        "union_pair_15",
+        "union_pair_16",
+        "union_pair_17",
+        "intersection_pair_0",
+        "intersection_pair_1",
+        "intersection_pair_2",
+        "intersection_pair_3",
+        "intersection_pair_4",
+        "intersection_pair_5",
+        "intersection_pair_6",
+        "intersection_pair_7",
+        "intersection_pair_8",
+        "intersection_pair_9",
+        "intersection_pair_10",
+        "intersection_pair_11",
+        "intersection_pair_12",
+        "intersection_pair_13",
+        "intersection_pair_14",
+        "intersection_pair_15",
+        "intersection_pair_16",
+        "intersection_pair_17",
+        "is_disjoint_pair_0",
+        "is_disjoint_pair_1",
+        "is_disjoint_pair_2",
+        "is_disjoint_pair_3",
+        "is_disjoint_pair_4",
+        "is_disjoint_pair_5",
+        "is_disjoint_pair_6",
+        "is_disjoint_pair_7",
+        "is_disjoint_pair_8",
+        "is_disjoint_pair_9",
+        "is_disjoint_pair_10",
+        "is_disjoint_pair_11",
+        "is_disjoint_pair_12",
+        "is_disjoint_pair_13",
+        "is_disjoint_pair_14",
+        "is_disjoint_pair_15",
+        "is_disjoint_pair_16",
+        "is_disjoint_pair_17",
+        "subtract_pair_0",
+        "subtract_pair_1",
+        "subtract_pair_2",
+        "subtract_pair_3",
+        "subtract_pair_4",
+        "subtract_pair_5",
+        "subtract_pair_6",
+        "subtract_pair_7",
+        "subtract_pair_8",
+        "subtract_pair_9",
+        "subtract_pair_10",
+        "subtract_pair_11",
+        "subtract_pair_12",
+        "subtract_pair_13",
+        "subtract_pair_14",
+        "subtract_pair_15",
+        "subtract_pair_16",
+        "subtract_pair_17",
+        "is_subset_pair_0",
+        "is_subset_pair_1",
+        "is_subset_pair_2",
+        "is_subset_pair_3",
+        "is_subset_pair_4",
+        "is_subset_pair_5",
+        "is_subset_pair_6",
+        "is_subset_pair_7",
+        "is_subset_pair_8",
+        "is_subset_pair_9",
+        "is_subset_pair_10",
+        "is_subset_pair_11",
+        "is_subset_pair_12",
+        "is_subset_pair_13",
+        "is_subset_pair_14",
+        "is_subset_pair_15",
+        "is_subset_pair_16",
+        "is_subset_pair_17",
+        "union_outer_0",
+        "union_outer_1",
+        "union_outer_2",
+        "union_outer_3",
+        "union_outer_4",
+        "union_outer_5",
+        "union_outer_6",
+        "union_outer_7",
+        "union_outer_8",
+        "union_outer_9",
+        "union_outer_10",
+        "union_outer_11",
+        "union_outer_12",
+        "union_outer_13",
+        "union_outer_14",
+        "union_outer_15",
+        "union_outer_16",
+        "intersection_outer_0",
+        "intersection_outer_1",
+        "intersection_outer_2",
+        "intersection_outer_3",
+        "intersection_outer_4",
+        "intersection_outer_5",
+        "intersection_outer_6",
+        "intersection_outer_7",
+        "intersection_outer_8",
+        "intersection_outer_9",
+        "intersection_outer_10",
+        "intersection_outer_11",
+        "intersection_outer_12",
+        "intersection_outer_13",
+        "intersection_outer_14",
+        "intersection_outer_15",
+        "intersection_outer_16"
+      ],
+      "Cases": [
+        {
+          "Name": "from_list_0",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "from_list_1",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "from_list_2",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "from_list_3",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "from_list_4",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "from_list_5",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "from_list_6",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "from_list_7",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "from_list_8",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "from_list_9",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "from_list_10",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "from_list_11",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "from_list_merge_boundary",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "from_list_numeric_stability",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_0_0",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_0_1",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_0_2",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_0_3",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_1_0",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_1_1",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_1_2",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_1_3",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_2_0",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_2_1",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_2_2",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_2_3",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_3_0",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_3_1",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_3_2",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_3_3",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_4_0",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_4_1",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_4_2",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_4_3",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_5_0",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_5_1",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_5_2",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_5_3",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_6_0",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_6_1",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_6_2",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_6_3",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_7_0",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_7_1",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_7_2",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_7_3",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_8_0",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_8_1",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_8_2",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_8_3",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_9_0",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_9_1",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_9_2",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_9_3",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_10_0",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_10_1",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_10_2",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_10_3",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_11_0",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_11_1",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_11_2",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "del_element_11_3",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "union_pair_0",
+          "Mfas": [
+            "ordsets:union/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "union_pair_1",
+          "Mfas": [
+            "ordsets:union/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "union_pair_2",
+          "Mfas": [
+            "ordsets:union/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "union_pair_3",
+          "Mfas": [
+            "ordsets:union/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "union_pair_4",
+          "Mfas": [
+            "ordsets:union/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "union_pair_5",
+          "Mfas": [
+            "ordsets:union/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "union_pair_6",
+          "Mfas": [
+            "ordsets:union/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "union_pair_7",
+          "Mfas": [
+            "ordsets:union/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "union_pair_8",
+          "Mfas": [
+            "ordsets:union/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "union_pair_9",
+          "Mfas": [
+            "ordsets:union/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "union_pair_10",
+          "Mfas": [
+            "ordsets:union/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "union_pair_11",
+          "Mfas": [
+            "ordsets:union/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "union_pair_12",
+          "Mfas": [
+            "ordsets:union/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "union_pair_13",
+          "Mfas": [
+            "ordsets:union/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "union_pair_14",
+          "Mfas": [
+            "ordsets:union/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "union_pair_15",
+          "Mfas": [
+            "ordsets:union/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "union_pair_16",
+          "Mfas": [
+            "ordsets:union/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "union_pair_17",
+          "Mfas": [
+            "ordsets:union/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "intersection_pair_0",
+          "Mfas": [
+            "ordsets:intersection/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "intersection_pair_1",
+          "Mfas": [
+            "ordsets:intersection/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "intersection_pair_2",
+          "Mfas": [
+            "ordsets:intersection/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "intersection_pair_3",
+          "Mfas": [
+            "ordsets:intersection/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "intersection_pair_4",
+          "Mfas": [
+            "ordsets:intersection/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "intersection_pair_5",
+          "Mfas": [
+            "ordsets:intersection/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "intersection_pair_6",
+          "Mfas": [
+            "ordsets:intersection/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "intersection_pair_7",
+          "Mfas": [
+            "ordsets:intersection/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "intersection_pair_8",
+          "Mfas": [
+            "ordsets:intersection/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "intersection_pair_9",
+          "Mfas": [
+            "ordsets:intersection/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "intersection_pair_10",
+          "Mfas": [
+            "ordsets:intersection/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "intersection_pair_11",
+          "Mfas": [
+            "ordsets:intersection/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "intersection_pair_12",
+          "Mfas": [
+            "ordsets:intersection/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "intersection_pair_13",
+          "Mfas": [
+            "ordsets:intersection/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "intersection_pair_14",
+          "Mfas": [
+            "ordsets:intersection/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "intersection_pair_15",
+          "Mfas": [
+            "ordsets:intersection/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "intersection_pair_16",
+          "Mfas": [
+            "ordsets:intersection/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "intersection_pair_17",
+          "Mfas": [
+            "ordsets:intersection/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "is_disjoint_pair_0",
+          "Mfas": [
+            "ordsets:is_disjoint/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "is_disjoint_pair_1",
+          "Mfas": [
+            "ordsets:is_disjoint/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "is_disjoint_pair_2",
+          "Mfas": [
+            "ordsets:is_disjoint/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "is_disjoint_pair_3",
+          "Mfas": [
+            "ordsets:is_disjoint/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "is_disjoint_pair_4",
+          "Mfas": [
+            "ordsets:is_disjoint/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "is_disjoint_pair_5",
+          "Mfas": [
+            "ordsets:is_disjoint/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "is_disjoint_pair_6",
+          "Mfas": [
+            "ordsets:is_disjoint/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "is_disjoint_pair_7",
+          "Mfas": [
+            "ordsets:is_disjoint/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "is_disjoint_pair_8",
+          "Mfas": [
+            "ordsets:is_disjoint/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "is_disjoint_pair_9",
+          "Mfas": [
+            "ordsets:is_disjoint/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "is_disjoint_pair_10",
+          "Mfas": [
+            "ordsets:is_disjoint/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "is_disjoint_pair_11",
+          "Mfas": [
+            "ordsets:is_disjoint/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "is_disjoint_pair_12",
+          "Mfas": [
+            "ordsets:is_disjoint/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "is_disjoint_pair_13",
+          "Mfas": [
+            "ordsets:is_disjoint/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "is_disjoint_pair_14",
+          "Mfas": [
+            "ordsets:is_disjoint/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "is_disjoint_pair_15",
+          "Mfas": [
+            "ordsets:is_disjoint/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "is_disjoint_pair_16",
+          "Mfas": [
+            "ordsets:is_disjoint/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "is_disjoint_pair_17",
+          "Mfas": [
+            "ordsets:is_disjoint/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "subtract_pair_0",
+          "Mfas": [
+            "ordsets:subtract/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "subtract_pair_1",
+          "Mfas": [
+            "ordsets:subtract/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "subtract_pair_2",
+          "Mfas": [
+            "ordsets:subtract/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "subtract_pair_3",
+          "Mfas": [
+            "ordsets:subtract/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "subtract_pair_4",
+          "Mfas": [
+            "ordsets:subtract/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "subtract_pair_5",
+          "Mfas": [
+            "ordsets:subtract/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "subtract_pair_6",
+          "Mfas": [
+            "ordsets:subtract/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "subtract_pair_7",
+          "Mfas": [
+            "ordsets:subtract/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "subtract_pair_8",
+          "Mfas": [
+            "ordsets:subtract/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "subtract_pair_9",
+          "Mfas": [
+            "ordsets:subtract/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "subtract_pair_10",
+          "Mfas": [
+            "ordsets:subtract/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "subtract_pair_11",
+          "Mfas": [
+            "ordsets:subtract/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "subtract_pair_12",
+          "Mfas": [
+            "ordsets:subtract/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "subtract_pair_13",
+          "Mfas": [
+            "ordsets:subtract/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "subtract_pair_14",
+          "Mfas": [
+            "ordsets:subtract/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "subtract_pair_15",
+          "Mfas": [
+            "ordsets:subtract/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "subtract_pair_16",
+          "Mfas": [
+            "ordsets:subtract/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "subtract_pair_17",
+          "Mfas": [
+            "ordsets:subtract/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "is_subset_pair_0",
+          "Mfas": [
+            "ordsets:is_subset/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "is_subset_pair_1",
+          "Mfas": [
+            "ordsets:is_subset/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "is_subset_pair_2",
+          "Mfas": [
+            "ordsets:is_subset/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "is_subset_pair_3",
+          "Mfas": [
+            "ordsets:is_subset/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "is_subset_pair_4",
+          "Mfas": [
+            "ordsets:is_subset/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "is_subset_pair_5",
+          "Mfas": [
+            "ordsets:is_subset/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "is_subset_pair_6",
+          "Mfas": [
+            "ordsets:is_subset/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "is_subset_pair_7",
+          "Mfas": [
+            "ordsets:is_subset/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "is_subset_pair_8",
+          "Mfas": [
+            "ordsets:is_subset/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "is_subset_pair_9",
+          "Mfas": [
+            "ordsets:is_subset/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "is_subset_pair_10",
+          "Mfas": [
+            "ordsets:is_subset/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "is_subset_pair_11",
+          "Mfas": [
+            "ordsets:is_subset/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "is_subset_pair_12",
+          "Mfas": [
+            "ordsets:is_subset/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "is_subset_pair_13",
+          "Mfas": [
+            "ordsets:is_subset/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "is_subset_pair_14",
+          "Mfas": [
+            "ordsets:is_subset/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "is_subset_pair_15",
+          "Mfas": [
+            "ordsets:is_subset/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "is_subset_pair_16",
+          "Mfas": [
+            "ordsets:is_subset/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "is_subset_pair_17",
+          "Mfas": [
+            "ordsets:is_subset/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "union_outer_0",
+          "Mfas": [
+            "ordsets:union/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "union_outer_1",
+          "Mfas": [
+            "ordsets:union/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "union_outer_2",
+          "Mfas": [
+            "ordsets:union/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "union_outer_3",
+          "Mfas": [
+            "ordsets:union/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "union_outer_4",
+          "Mfas": [
+            "ordsets:union/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "union_outer_5",
+          "Mfas": [
+            "ordsets:union/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "union_outer_6",
+          "Mfas": [
+            "ordsets:union/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "union_outer_7",
+          "Mfas": [
+            "ordsets:union/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "union_outer_8",
+          "Mfas": [
+            "ordsets:union/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "union_outer_9",
+          "Mfas": [
+            "ordsets:union/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "union_outer_10",
+          "Mfas": [
+            "ordsets:union/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "union_outer_11",
+          "Mfas": [
+            "ordsets:union/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "union_outer_12",
+          "Mfas": [
+            "ordsets:union/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "union_outer_13",
+          "Mfas": [
+            "ordsets:union/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "union_outer_14",
+          "Mfas": [
+            "ordsets:union/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "union_outer_15",
+          "Mfas": [
+            "ordsets:union/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "union_outer_16",
+          "Mfas": [
+            "ordsets:union/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "intersection_outer_0",
+          "Mfas": [
+            "ordsets:intersection/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "intersection_outer_1",
+          "Mfas": [
+            "ordsets:intersection/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "intersection_outer_2",
+          "Mfas": [
+            "ordsets:intersection/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "intersection_outer_3",
+          "Mfas": [
+            "ordsets:intersection/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "intersection_outer_4",
+          "Mfas": [
+            "ordsets:intersection/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "intersection_outer_5",
+          "Mfas": [
+            "ordsets:intersection/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "intersection_outer_6",
+          "Mfas": [
+            "ordsets:intersection/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "intersection_outer_7",
+          "Mfas": [
+            "ordsets:intersection/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "intersection_outer_8",
+          "Mfas": [
+            "ordsets:intersection/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "intersection_outer_9",
+          "Mfas": [
+            "ordsets:intersection/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "intersection_outer_10",
+          "Mfas": [
+            "ordsets:intersection/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "intersection_outer_11",
+          "Mfas": [
+            "ordsets:intersection/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "intersection_outer_12",
+          "Mfas": [
+            "ordsets:intersection/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "intersection_outer_13",
+          "Mfas": [
+            "ordsets:intersection/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "intersection_outer_14",
+          "Mfas": [
+            "ordsets:intersection/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "intersection_outer_15",
+          "Mfas": [
+            "ordsets:intersection/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "intersection_outer_16",
+          "Mfas": [
+            "ordsets:intersection/1"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        }
+      ],
+      "ValueAcquisition": "compiled-monitored-worker-values-and-stacks-v1",
+      "ObserveTimeoutSeconds": 120
+    },
+    {
+      "Id": "ordsets_callbacks",
+      "Location": "tool",
+      "Path": "original/ordsets371_callbacks.erl",
+      "Module": "ordsets371_callbacks",
+      "NamesEntry": "cases",
+      "Run": "run",
+      "StackModule": "ordsets371_callbacks",
+      "StackEntry": "run_stacks",
+      "StackShape": "depth_cases",
+      "WorkerModule": "ordsets_core_worker",
+      "WorkerEntry": "run",
+      "Companions": [
+        "original/ordsets_core_support.erl",
+        "original/ordsets_core_worker.erl"
+      ],
+      "Names": [
+        "fold_order_0",
+        "filter_even_0",
+        "map_reverse_0",
+        "filtermap_mixed_0",
+        "fold_order_1",
+        "filter_even_1",
+        "map_reverse_1",
+        "filtermap_mixed_1",
+        "fold_order_2",
+        "filter_even_2",
+        "map_reverse_2",
+        "filtermap_mixed_2",
+        "fold_order_3",
+        "filter_even_3",
+        "map_reverse_3",
+        "filtermap_mixed_3",
+        "fold_order_4",
+        "filter_even_4",
+        "map_reverse_4",
+        "filtermap_mixed_4",
+        "fold_order_5",
+        "filter_even_5",
+        "map_reverse_5",
+        "filtermap_mixed_5",
+        "fold_order_6",
+        "filter_even_6",
+        "map_reverse_6",
+        "filtermap_mixed_6",
+        "fold_order_7",
+        "filter_even_7",
+        "map_reverse_7",
+        "filtermap_mixed_7",
+        "fold_callback_kind_0_set_0",
+        "fold_callback_kind_0_set_1",
+        "fold_callback_kind_0_set_2",
+        "fold_callback_kind_0_set_3",
+        "fold_callback_kind_1_set_0",
+        "fold_callback_kind_1_set_1",
+        "fold_callback_kind_1_set_2",
+        "fold_callback_kind_1_set_3",
+        "fold_callback_kind_2_set_0",
+        "fold_callback_kind_2_set_1",
+        "fold_callback_kind_2_set_2",
+        "fold_callback_kind_2_set_3",
+        "fold_callback_kind_3_set_0",
+        "fold_callback_kind_3_set_1",
+        "fold_callback_kind_3_set_2",
+        "fold_callback_kind_3_set_3",
+        "fold_error",
+        "fold_throw",
+        "fold_exit",
+        "fold_invalid_return",
+        "filter_callback_kind_0_set_0",
+        "filter_callback_kind_0_set_1",
+        "filter_callback_kind_0_set_2",
+        "filter_callback_kind_0_set_3",
+        "filter_callback_kind_1_set_0",
+        "filter_callback_kind_1_set_1",
+        "filter_callback_kind_1_set_2",
+        "filter_callback_kind_1_set_3",
+        "filter_callback_kind_2_set_0",
+        "filter_callback_kind_2_set_1",
+        "filter_callback_kind_2_set_2",
+        "filter_callback_kind_2_set_3",
+        "filter_callback_kind_3_set_0",
+        "filter_callback_kind_3_set_1",
+        "filter_callback_kind_3_set_2",
+        "filter_callback_kind_3_set_3",
+        "filter_error",
+        "filter_throw",
+        "filter_exit",
+        "filter_invalid_return",
+        "map_callback_kind_0_set_0",
+        "map_callback_kind_0_set_1",
+        "map_callback_kind_0_set_2",
+        "map_callback_kind_0_set_3",
+        "map_callback_kind_1_set_0",
+        "map_callback_kind_1_set_1",
+        "map_callback_kind_1_set_2",
+        "map_callback_kind_1_set_3",
+        "map_callback_kind_2_set_0",
+        "map_callback_kind_2_set_1",
+        "map_callback_kind_2_set_2",
+        "map_callback_kind_2_set_3",
+        "map_callback_kind_3_set_0",
+        "map_callback_kind_3_set_1",
+        "map_callback_kind_3_set_2",
+        "map_callback_kind_3_set_3",
+        "map_error",
+        "map_throw",
+        "map_exit",
+        "map_invalid_return",
+        "filtermap_callback_kind_0_set_0",
+        "filtermap_callback_kind_0_set_1",
+        "filtermap_callback_kind_0_set_2",
+        "filtermap_callback_kind_0_set_3",
+        "filtermap_callback_kind_1_set_0",
+        "filtermap_callback_kind_1_set_1",
+        "filtermap_callback_kind_1_set_2",
+        "filtermap_callback_kind_1_set_3",
+        "filtermap_callback_kind_2_set_0",
+        "filtermap_callback_kind_2_set_1",
+        "filtermap_callback_kind_2_set_2",
+        "filtermap_callback_kind_2_set_3",
+        "filtermap_callback_kind_3_set_0",
+        "filtermap_callback_kind_3_set_1",
+        "filtermap_callback_kind_3_set_2",
+        "filtermap_callback_kind_3_set_3",
+        "filtermap_error",
+        "filtermap_throw",
+        "filtermap_exit",
+        "filtermap_invalid_return",
+        "map_deduplicates",
+        "filtermap_deduplicates",
+        "filtermap_keep_identity"
+      ],
+      "Cases": [
+        {
+          "Name": "fold_order_0",
+          "Mfas": [
+            "ordsets:fold/3"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filter_even_0",
+          "Mfas": [
+            "ordsets:filter/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "map_reverse_0",
+          "Mfas": [
+            "ordsets:map/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filtermap_mixed_0",
+          "Mfas": [
+            "ordsets:filtermap/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "fold_order_1",
+          "Mfas": [
+            "ordsets:fold/3"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filter_even_1",
+          "Mfas": [
+            "ordsets:filter/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "map_reverse_1",
+          "Mfas": [
+            "ordsets:map/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filtermap_mixed_1",
+          "Mfas": [
+            "ordsets:filtermap/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "fold_order_2",
+          "Mfas": [
+            "ordsets:fold/3"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filter_even_2",
+          "Mfas": [
+            "ordsets:filter/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "map_reverse_2",
+          "Mfas": [
+            "ordsets:map/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filtermap_mixed_2",
+          "Mfas": [
+            "ordsets:filtermap/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "fold_order_3",
+          "Mfas": [
+            "ordsets:fold/3"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filter_even_3",
+          "Mfas": [
+            "ordsets:filter/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "map_reverse_3",
+          "Mfas": [
+            "ordsets:map/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filtermap_mixed_3",
+          "Mfas": [
+            "ordsets:filtermap/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "fold_order_4",
+          "Mfas": [
+            "ordsets:fold/3"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filter_even_4",
+          "Mfas": [
+            "ordsets:filter/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "map_reverse_4",
+          "Mfas": [
+            "ordsets:map/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filtermap_mixed_4",
+          "Mfas": [
+            "ordsets:filtermap/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "fold_order_5",
+          "Mfas": [
+            "ordsets:fold/3"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filter_even_5",
+          "Mfas": [
+            "ordsets:filter/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "map_reverse_5",
+          "Mfas": [
+            "ordsets:map/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filtermap_mixed_5",
+          "Mfas": [
+            "ordsets:filtermap/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "fold_order_6",
+          "Mfas": [
+            "ordsets:fold/3"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filter_even_6",
+          "Mfas": [
+            "ordsets:filter/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "map_reverse_6",
+          "Mfas": [
+            "ordsets:map/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filtermap_mixed_6",
+          "Mfas": [
+            "ordsets:filtermap/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "fold_order_7",
+          "Mfas": [
+            "ordsets:fold/3"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filter_even_7",
+          "Mfas": [
+            "ordsets:filter/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "map_reverse_7",
+          "Mfas": [
+            "ordsets:map/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filtermap_mixed_7",
+          "Mfas": [
+            "ordsets:filtermap/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "fold_callback_kind_0_set_0",
+          "Mfas": [
+            "ordsets:fold/3"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "fold_callback_kind_0_set_1",
+          "Mfas": [
+            "ordsets:fold/3"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "fold_callback_kind_0_set_2",
+          "Mfas": [
+            "ordsets:fold/3"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "fold_callback_kind_0_set_3",
+          "Mfas": [
+            "ordsets:fold/3"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "fold_callback_kind_1_set_0",
+          "Mfas": [
+            "ordsets:fold/3"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "fold_callback_kind_1_set_1",
+          "Mfas": [
+            "ordsets:fold/3"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "fold_callback_kind_1_set_2",
+          "Mfas": [
+            "ordsets:fold/3"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "fold_callback_kind_1_set_3",
+          "Mfas": [
+            "ordsets:fold/3"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "fold_callback_kind_2_set_0",
+          "Mfas": [
+            "ordsets:fold/3"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "fold_callback_kind_2_set_1",
+          "Mfas": [
+            "ordsets:fold/3"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "fold_callback_kind_2_set_2",
+          "Mfas": [
+            "ordsets:fold/3"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "fold_callback_kind_2_set_3",
+          "Mfas": [
+            "ordsets:fold/3"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "fold_callback_kind_3_set_0",
+          "Mfas": [
+            "ordsets:fold/3"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "fold_callback_kind_3_set_1",
+          "Mfas": [
+            "ordsets:fold/3"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "fold_callback_kind_3_set_2",
+          "Mfas": [
+            "ordsets:fold/3"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "fold_callback_kind_3_set_3",
+          "Mfas": [
+            "ordsets:fold/3"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "fold_error",
+          "Mfas": [
+            "ordsets:fold/3"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "fold_throw",
+          "Mfas": [
+            "ordsets:fold/3"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "fold_exit",
+          "Mfas": [
+            "ordsets:fold/3"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "fold_invalid_return",
+          "Mfas": [
+            "ordsets:fold/3"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filter_callback_kind_0_set_0",
+          "Mfas": [
+            "ordsets:filter/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filter_callback_kind_0_set_1",
+          "Mfas": [
+            "ordsets:filter/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filter_callback_kind_0_set_2",
+          "Mfas": [
+            "ordsets:filter/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filter_callback_kind_0_set_3",
+          "Mfas": [
+            "ordsets:filter/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filter_callback_kind_1_set_0",
+          "Mfas": [
+            "ordsets:filter/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filter_callback_kind_1_set_1",
+          "Mfas": [
+            "ordsets:filter/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filter_callback_kind_1_set_2",
+          "Mfas": [
+            "ordsets:filter/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filter_callback_kind_1_set_3",
+          "Mfas": [
+            "ordsets:filter/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filter_callback_kind_2_set_0",
+          "Mfas": [
+            "ordsets:filter/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filter_callback_kind_2_set_1",
+          "Mfas": [
+            "ordsets:filter/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filter_callback_kind_2_set_2",
+          "Mfas": [
+            "ordsets:filter/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filter_callback_kind_2_set_3",
+          "Mfas": [
+            "ordsets:filter/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filter_callback_kind_3_set_0",
+          "Mfas": [
+            "ordsets:filter/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filter_callback_kind_3_set_1",
+          "Mfas": [
+            "ordsets:filter/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filter_callback_kind_3_set_2",
+          "Mfas": [
+            "ordsets:filter/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filter_callback_kind_3_set_3",
+          "Mfas": [
+            "ordsets:filter/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filter_error",
+          "Mfas": [
+            "ordsets:filter/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filter_throw",
+          "Mfas": [
+            "ordsets:filter/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filter_exit",
+          "Mfas": [
+            "ordsets:filter/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filter_invalid_return",
+          "Mfas": [
+            "ordsets:filter/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "map_callback_kind_0_set_0",
+          "Mfas": [
+            "ordsets:map/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "map_callback_kind_0_set_1",
+          "Mfas": [
+            "ordsets:map/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "map_callback_kind_0_set_2",
+          "Mfas": [
+            "ordsets:map/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "map_callback_kind_0_set_3",
+          "Mfas": [
+            "ordsets:map/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "map_callback_kind_1_set_0",
+          "Mfas": [
+            "ordsets:map/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "map_callback_kind_1_set_1",
+          "Mfas": [
+            "ordsets:map/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "map_callback_kind_1_set_2",
+          "Mfas": [
+            "ordsets:map/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "map_callback_kind_1_set_3",
+          "Mfas": [
+            "ordsets:map/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "map_callback_kind_2_set_0",
+          "Mfas": [
+            "ordsets:map/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "map_callback_kind_2_set_1",
+          "Mfas": [
+            "ordsets:map/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "map_callback_kind_2_set_2",
+          "Mfas": [
+            "ordsets:map/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "map_callback_kind_2_set_3",
+          "Mfas": [
+            "ordsets:map/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "map_callback_kind_3_set_0",
+          "Mfas": [
+            "ordsets:map/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "map_callback_kind_3_set_1",
+          "Mfas": [
+            "ordsets:map/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "map_callback_kind_3_set_2",
+          "Mfas": [
+            "ordsets:map/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "map_callback_kind_3_set_3",
+          "Mfas": [
+            "ordsets:map/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "map_error",
+          "Mfas": [
+            "ordsets:map/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "map_throw",
+          "Mfas": [
+            "ordsets:map/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "map_exit",
+          "Mfas": [
+            "ordsets:map/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "map_invalid_return",
+          "Mfas": [
+            "ordsets:map/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filtermap_callback_kind_0_set_0",
+          "Mfas": [
+            "ordsets:filtermap/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filtermap_callback_kind_0_set_1",
+          "Mfas": [
+            "ordsets:filtermap/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filtermap_callback_kind_0_set_2",
+          "Mfas": [
+            "ordsets:filtermap/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filtermap_callback_kind_0_set_3",
+          "Mfas": [
+            "ordsets:filtermap/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filtermap_callback_kind_1_set_0",
+          "Mfas": [
+            "ordsets:filtermap/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filtermap_callback_kind_1_set_1",
+          "Mfas": [
+            "ordsets:filtermap/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filtermap_callback_kind_1_set_2",
+          "Mfas": [
+            "ordsets:filtermap/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filtermap_callback_kind_1_set_3",
+          "Mfas": [
+            "ordsets:filtermap/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filtermap_callback_kind_2_set_0",
+          "Mfas": [
+            "ordsets:filtermap/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filtermap_callback_kind_2_set_1",
+          "Mfas": [
+            "ordsets:filtermap/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filtermap_callback_kind_2_set_2",
+          "Mfas": [
+            "ordsets:filtermap/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filtermap_callback_kind_2_set_3",
+          "Mfas": [
+            "ordsets:filtermap/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filtermap_callback_kind_3_set_0",
+          "Mfas": [
+            "ordsets:filtermap/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filtermap_callback_kind_3_set_1",
+          "Mfas": [
+            "ordsets:filtermap/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filtermap_callback_kind_3_set_2",
+          "Mfas": [
+            "ordsets:filtermap/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filtermap_callback_kind_3_set_3",
+          "Mfas": [
+            "ordsets:filtermap/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filtermap_error",
+          "Mfas": [
+            "ordsets:filtermap/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filtermap_throw",
+          "Mfas": [
+            "ordsets:filtermap/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filtermap_exit",
+          "Mfas": [
+            "ordsets:filtermap/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filtermap_invalid_return",
+          "Mfas": [
+            "ordsets:filtermap/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "map_deduplicates",
+          "Mfas": [
+            "ordsets:map/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filtermap_deduplicates",
+          "Mfas": [
+            "ordsets:filtermap/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        },
+        {
+          "Name": "filtermap_keep_identity",
+          "Mfas": [
+            "ordsets:filtermap/2"
+          ],
+          "Scope": "Source-defined ordered-set value/type/traversal boundary; entire value and complete five-depth error stack retained."
+        }
+      ],
+      "ValueAcquisition": "compiled-monitored-worker-values-and-stacks-v1",
+      "ObserveTimeoutSeconds": 120
+    }
+  ],
+  "SelectedMfas": [
+    "ordsets:del_element/2",
+    "ordsets:filter/2",
+    "ordsets:filtermap/2",
+    "ordsets:fold/3",
+    "ordsets:from_list/1",
+    "ordsets:intersection/1",
+    "ordsets:intersection/2",
+    "ordsets:is_disjoint/2",
+    "ordsets:is_subset/2",
+    "ordsets:map/2",
+    "ordsets:subtract/2",
+    "ordsets:union/1",
+    "ordsets:union/2"
+  ],
+  "ExpectedValues": 301,
+  "ExpectedProfiles": 1505,
+  "ExpectedUniqueAdditionalSourceCount": 2,
+  "SeededOutcomes": false,
+  "Scope": "Remaining13 plus existing8 cover21 exports; compare full fields before complete-contract classification."
+}

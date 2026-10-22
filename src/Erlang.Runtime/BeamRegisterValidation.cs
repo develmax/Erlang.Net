@@ -17,6 +17,7 @@ internal static class BeamRegisterValidation
             {
                 continue;
             }
+            BeamTupleSelectValidation.Validate(code, function);
             var receives = new Dictionary<int, BeamReceivePlan>();
             var handled = new HashSet<int>();
             for (int scan = function.FirstInstructionIndex; scan < function.EndInstructionIndex; scan++)
@@ -27,7 +28,18 @@ internal static class BeamRegisterValidation
                 receives.Add(scan, plan);
                 handled.UnionWith(plan.MatcherInstructions);
                 handled.Add(plan.WaitInstructionIndex);
-                handled.Add(plan.TimeoutInstructionIndex);
+                if (plan.HasTimeout)
+                    handled.Add(plan.TimeoutInstructionIndex);
+            }
+            for (int wait = function.FirstInstructionIndex; wait < function.EndInstructionIndex; wait++)
+            {
+                if (handled.Contains(wait) || code.Instructions[wait].Definition.Name is not (BeamLinkNames.WaitTimeout or BeamLinkNames.Wait or BeamLinkNames.Timeout))
+                    continue;
+                BeamReceivePlan delay = BeamReceivePlanner.BuildDelay(code, function, wait);
+                receives.Add(wait, delay);
+                handled.Add(wait);
+                if (delay.HasTimeout)
+                    handled.Add(delay.TimeoutInstructionIndex);
             }
             for (int index = function.FirstInstructionIndex; index < function.EndInstructionIndex; index++)
             {
@@ -35,6 +47,274 @@ internal static class BeamRegisterValidation
                 var operands = instruction.Operands;
                 switch (instruction.Definition.Name)
                 {
+                    case BeamCollectionOpcodeNames.UpdateRecord:
+                        Source(operands[2]);
+                        for (int field = 6; field < operands.Count; field += 2)
+                            Source(operands[field]);
+                        Destination(operands[3]);
+                        break;
+                    case BeamCollectionOpcodeNames.BadRecord:
+                        Source(operands[0]);
+                        break;
+                    case BeamCollectionOpcodeNames.FloatMove:
+                        if (operands[0].Kind == BeamOperandParameters.Float)
+                            Destination(operands[1]);
+                        else
+                            Source(operands[0]);
+                        break;
+                    case BeamCollectionOpcodeNames.FloatConvert:
+                        Source(operands[0]);
+                        break;
+                    case BeamCollectionOpcodeNames.FloatNegate:
+                    case BeamCollectionOpcodeNames.FloatMultiply:
+                    case BeamCollectionOpcodeNames.FloatAdd:
+                    case BeamCollectionOpcodeNames.FloatSubtract:
+                    case BeamCollectionOpcodeNames.FloatDivide:
+                        break;
+                    case BeamBinaryNames.Create:
+                        Branch(code, function, operands[0]);
+                        Live(operands[2]);
+                        foreach (BeamOperand value in operands.Skip(BeamBinaryNames.CreatePrefix))
+                            if (value.Kind is BeamOperandParameters.X or BeamOperandParameters.Y)
+                                Source(value);
+                        Destination(operands[4]);
+                        break;
+                    case BeamBinaryNames.Start:
+                        Live(operands[1]);
+                        Source(operands[2]);
+                        Destination(operands[3]);
+                        break;
+                    case BeamBinaryNames.StartLegacy:
+                        Branch(code, function, operands[0]);
+                        Source(operands[1]);
+                        Live(operands[2]);
+                        Destination(operands[3]);
+                        break;
+                    case BeamBinaryNames.ExtractInteger:
+                    case BeamFloatStringNames.ExtractFloat:
+                    case BeamBinaryNames.ExtractBinary:
+                        Branch(code, function, operands[0]);
+                        Destination(operands[1]);
+                        Live(operands[2]);
+                        Source(operands[3]);
+                        Destination(operands[6]);
+                        break;
+                    case BeamBinaryNames.ExtractUtf8:
+                    case BeamBinaryNames.ExtractUtf16:
+                    case BeamBinaryNames.ExtractUtf32:
+                    case BeamBinaryNames.SkipUtf16:
+                    case BeamBinaryNames.SkipUtf32:
+                    case BeamBinaryNames.SkipUtf8:
+                        Branch(code, function, operands[0]);
+                        Destination(operands[1]);
+                        Live(operands[2]);
+                        if (instruction.Definition.Name is not (BeamBinaryNames.SkipUtf8 or BeamBinaryNames.SkipUtf16 or BeamBinaryNames.SkipUtf32))
+                            Destination(operands[4]);
+                        break;
+                    case BeamFloatStringNames.MatchString:
+                        Branch(code, function, operands[0]);
+                        Destination(operands[1]);
+                        break;
+                    case BeamBinaryNames.SkipBits:
+                        Branch(code, function, operands[0]);
+                        Destination(operands[1]);
+                        Source(operands[2]);
+                        break;
+                    case BeamBinaryNames.ExtractTail:
+                    case BeamBinaryNames.SavePosition:
+                        Destination(operands[0]);
+                        Destination(operands[1]);
+                        Live(operands[2]);
+                        break;
+                    case BeamBinaryNames.RestorePosition:
+                        Destination(operands[0]);
+                        Destination(operands[1]);
+                        break;
+                    case BeamBinaryNames.InitializeWritable:
+                        break;
+                    case BeamBinaryNames.Match:
+                        Branch(code, function, operands[0]);
+                        Destination(operands[1]);
+                        foreach (BeamBinaryCommand command in BeamBinaryCommands.Read(code.Structure, operands))
+                        {
+                            if (command.Live >= 0)
+                                Live(new(BeamOperandParameters.Unsigned, command.Live));
+                            if (command.Destination is { } destination)
+                                Destination(destination);
+                        }
+                        break;
+                    case BeamReceiveMarkerNames.Reserve:
+                        Destination(operands[0]);
+                        break;
+                    case BeamReceiveMarkerNames.Bind:
+                        Destination(operands[0]);
+                        Destination(operands[1]);
+                        break;
+                    case BeamReceiveMarkerNames.Clear:
+                    case BeamReceiveMarkerNames.Use:
+                        Destination(operands[0]);
+                        break;
+                    case BeamCatchNames.Install:
+                    case BeamTryNames.Install:
+                        if (operands[0].Kind != BeamOperandParameters.Y
+                            || operands[1].Kind != BeamOperandParameters.Label
+                            || operands[1].Value == function.InfoLabel
+                            || operands[1].Value == function.EntryLabel)
+                            throw new InvalidDataException(BeamOnLoadDiagnostics.Frame);
+                        Branch(code, function, operands[1]);
+                        break;
+                    case BeamTryNames.Case:
+                    case BeamCatchNames.End:
+                    case BeamTryNames.End:
+                        if (operands[0].Kind != BeamOperandParameters.Y)
+                            throw new InvalidDataException(BeamOnLoadDiagnostics.Frame);
+                        break;
+                    case BeamTryNames.BuildStacktrace:
+                    case BeamTryNames.RawRaise:
+                        break;
+                    case BeamTryNames.CaseEnd:
+                        Source(operands[0]);
+                        break;
+                    case BeamTryNames.Raise:
+                        Source(operands[0]);
+                        Source(operands[1]);
+                        break;
+                    case BeamGeneralOpcodeNames.NilTest:
+                    case BeamGeneralOpcodeNames.NonemptyListTest:
+                    case BeamGeneralOpcodeNames.ListTest:
+                    case BeamGeneralOpcodeNames.TupleTest:
+                    case BeamGeneralOpcodeNames.FloatTest:
+                    case BeamGeneralOpcodeNames.MapTest:
+                    case BeamGeneralOpcodeNames.NumberTest:
+                    case BeamGeneralOpcodeNames.BinaryTest:
+                    case BeamGeneralOpcodeNames.AtomTest:
+                    case BeamGeneralOpcodeNames.BooleanTest:
+                    case BeamGeneralOpcodeNames.ReferenceTest:
+                    case BeamGeneralOpcodeNames.AnyFunctionTest:
+                    case BeamGeneralOpcodeNames.BitStringTest:
+                    case BeamGeneralOpcodeNames.PortTest:
+                    case BeamGeneralOpcodeNames.NativeRecordTest:
+                        Branch(code, function, operands[0]);
+                        Source(operands[1]);
+                        break;
+                    case BeamGeneralOpcodeNames.TupleArity:
+                        Branch(code, function, operands[0]);
+                        Source(operands[1]);
+                        break;
+                    case BeamGeneralOpcodeNames.FunctionTest:
+                    case BeamGeneralOpcodeNames.ArithmeticEqual:
+                    case BeamGeneralOpcodeNames.ArithmeticNotEqual:
+                    case BeamGeneralOpcodeNames.ExactNotEqual:
+                    case BeamGeneralOpcodeNames.GreaterOrEqual:
+                    case BeamGeneralOpcodeNames.Less:
+                        Branch(code, function, operands[0]);
+                        Source(operands[1]);
+                        Source(operands[2]);
+                        break;
+                    case BeamGeneralOpcodeNames.GetList:
+                        Source(operands[0]);
+                        Destination(operands[1]);
+                        Destination(operands[2]);
+                        break;
+                    case BeamGeneralOpcodeNames.GetHead:
+                    case BeamGeneralOpcodeNames.GetTail:
+                        Source(operands[0]);
+                        Destination(operands[1]);
+                        break;
+                    case BeamGeneralOpcodeNames.Swap:
+                        Destination(operands[0]);
+                        Destination(operands[1]);
+                        break;
+                    case BeamGeneralOpcodeNames.Trim:
+                        if (operands[0].Value > BeamFrameParameters.MaximumSlots || operands[1].Value > BeamFrameParameters.MaximumSlots)
+                            throw new NotSupportedException(BeamOnLoadDiagnostics.Frame);
+                        break;
+                    case BeamGeneralOpcodeNames.Jump:
+                        Branch(code, function, operands[0]);
+                        break;
+                    case BeamGeneralOpcodeNames.SelectValue:
+                    case BeamGeneralOpcodeNames.SelectTupleArity:
+                        Source(operands[0]);
+                        Branch(code, function, operands[1]);
+                        for (int target = 4; target < operands.Count; target += 2)
+                            Branch(code, function, operands[target]);
+                        break;
+                    case BeamGeneralOpcodeNames.BinaryBif:
+                        _ = BinaryImport(code, (int)operands[1].Value);
+                        Branch(code, function, operands[0]);
+                        Source(operands[2]);
+                        Source(operands[3]);
+                        Destination(operands[4]);
+                        break;
+                    case BeamApplyNames.Opcode:
+                    case BeamApplyNames.Last:
+                        if (operands[0].Value + BeamApplyNames.ExtraRegisters > BeamOperandParameters.MaximumRegister)
+                            throw new InvalidDataException(BeamRegisterNames.Unsupported);
+                        break;
+                    case BeamGeneralOpcodeNames.DynamicCall:
+                        Live(operands[0]);
+                        break;
+                    case BeamGeneralOpcodeNames.MapFields:
+                        Branch(code, function, operands[0]);
+                        Source(operands[1]);
+                        foreach (BeamOperand key in operands.Skip(3))
+                            Source(key);
+                        break;
+                    case BeamGeneralOpcodeNames.MapElements:
+                        Branch(code, function, operands[0]);
+                        Source(operands[1]);
+                        for (int pair = 3; pair < operands.Count; pair += 2)
+                        {
+                            Source(operands[pair]);
+                            Destination(operands[pair + 1]);
+                        }
+                        break;
+                    case BeamGeneralOpcodeNames.MapExact:
+                    case BeamGeneralOpcodeNames.MapAssociate:
+                        Branch(code, function, operands[0]);
+                        Source(operands[1]);
+                        Destination(operands[2]);
+                        Live(operands[3]);
+                        foreach (BeamOperand value in operands.Skip(5))
+                            Source(value);
+                        break;
+                    case BeamGeneralOpcodeNames.UnaryBif:
+                        _ = UnaryImport(code, (int)operands[1].Value);
+                        Branch(code, function, operands[0]);
+                        Source(operands[2]);
+                        Destination(operands[3]);
+                        break;
+                    case BeamGeneralOpcodeNames.UnaryGcBif:
+                        _ = UnaryImport(code, (int)operands[2].Value);
+                        Branch(code, function, operands[0]);
+                        Live(operands[1]);
+                        Source(operands[3]);
+                        Destination(operands[4]);
+                        break;
+                    case BeamGeneralOpcodeNames.TernaryBif:
+                        _ = TernaryBifImport(code, (int)operands[1].Value);
+                        Branch(code, function, operands[0]);
+                        foreach (BeamOperand source in operands.Skip(2).Take(3))
+                            Source(source);
+                        Destination(operands[5]);
+                        break;
+                    case BeamGeneralOpcodeNames.TernaryGcBif:
+                        _ = TernaryImport(code, (int)operands[2].Value);
+                        Branch(code, function, operands[0]);
+                        Live(operands[1]);
+                        foreach (BeamOperand source in operands.Skip(3).Take(3))
+                            Source(source);
+                        Destination(operands[6]);
+                        break;
+                    case BeamGeneralOpcodeNames.IfEnd:
+                        break;
+                    case BeamGeneralOpcodeNames.LocalLast:
+                        Live(operands[0]);
+                        pending.Push(code.Functions.Single(target => target.EntryLabel == operands[1].Value));
+                        break;
+                    case BeamGeneralOpcodeNames.CaseEnd:
+                        Source(operands[0]);
+                        break;
                     case BeamLinkNames.OnLoad:
                         if (function.EntryLabel != code.OnLoadEntryLabel)
                             throw new InvalidDataException(BeamOnLoadDiagnostics.OnLoadRequired);
@@ -90,6 +370,7 @@ internal static class BeamRegisterValidation
                     case BeamLinkNames.RemoveMessage:
                     case BeamLinkNames.LoopReceiveEnd:
                     case BeamLinkNames.WaitTimeout:
+                    case BeamLinkNames.Wait:
                     case BeamLinkNames.Timeout:
                         if (!handled.Contains(index))
                             throw new NotSupportedException(BeamReceiveNames.InvalidPlan);
@@ -107,12 +388,9 @@ internal static class BeamRegisterValidation
                         pending.Push(code.Functions.Single(target => target.EntryLabel == code.Lambdas[(int)operands[0].Value].Label));
                         break;
                     case BeamLambdaNames.Call:
-                        if (operands[0].Kind != BeamOperandParameters.Unsigned)
-                        {
-                            throw new NotSupportedException(BeamRegisterNames.Unsupported);
-                        }
                         Source(operands[2]);
-                        pending.Push(code.Functions.Single(target => target.EntryLabel == code.Lambdas[(int)operands[0].Value].Label));
+                        if (operands[0].Kind == BeamOperandParameters.Unsigned)
+                            pending.Push(code.Functions.Single(target => target.EntryLabel == code.Lambdas[(int)operands[0].Value].Label));
                         break;
                     case BeamRegisterNames.Call:
                     case BeamLinkNames.LocalCall:
@@ -165,21 +443,60 @@ internal static class BeamRegisterValidation
     {
         BeamImport import = code.Structure.Imports[index];
         if (code.Structure.Atoms[import.ModuleAtomIndex] != ErlangModuleNames.Module
-            || code.Structure.Atoms[import.FunctionAtomIndex] != ErlangModuleNames.Self || import.Arity != 0)
+            || code.Structure.Atoms[import.FunctionAtomIndex] is not (ErlangModuleNames.Self or ErlangProcessQueryNames.Node) || import.Arity != 0)
             throw new NotSupportedException(BeamRegisterNames.Unsupported);
+    }
+
+    internal static BeamExternalImport TernaryBifImport(BeamLinkedCode code, int index)
+    {
+        BeamExternalImport import = BeamExternalImports.Resolve(code, index);
+        if (import.Module != ErlangModuleNames.Module || import.Function != ErlangModuleNames.IsInteger || import.Arity != 3)
+            throw new NotSupportedException(BeamRegisterNames.Unsupported);
+
+        return import;
+    }
+
+    internal static BeamExternalImport TernaryImport(BeamLinkedCode code, int index)
+    {
+        BeamExternalImport import = BeamExternalImports.Resolve(code, index);
+        if (import.Module != ErlangModuleNames.Module || import.Function != ErlangDataBifNames.BinaryPart || import.Arity != 3)
+            throw new NotSupportedException(BeamRegisterNames.Unsupported);
+
+        return import;
     }
 
     public static string ArithmeticImport(BeamLinkedCode code, int index)
     {
-        BeamImport import = code.Structure.Imports[index];
-        string module = code.Structure.Atoms[import.ModuleAtomIndex]!;
-        string function = code.Structure.Atoms[import.FunctionAtomIndex]!;
-        if (module != BeamRegisterNames.Erlang || import.Arity != 2 || function is not (BeamRegisterNames.Add or BeamRegisterNames.Subtract))
+        BeamExternalImport import = BeamExternalImports.Resolve(code, index);
+        if (import.Module != ErlangModuleNames.Module || import.Arity != 2
+            || import.Function is not (ErlangOperators.Plus or ErlangOperators.Minus or ErlangOperators.Multiply
+                or ErlangOperators.Divide or ErlangOperators.IntegerDivide or ErlangOperators.Remainder
+                or ErlangOperators.BitwiseAnd or ErlangOperators.BitwiseOr or ErlangOperators.BitwiseXor
+                or ErlangOperators.ShiftLeft or ErlangOperators.ShiftRight))
         {
             throw new NotSupportedException(BeamRegisterNames.Unsupported);
         }
 
-        return function;
+        return import.Function;
+    }
+
+    internal static BeamExternalImport BinaryImport(BeamLinkedCode code, int index)
+    {
+        BeamExternalImport import = BeamExternalImports.Resolve(code, index);
+        if (import.Module != ErlangModuleNames.Module || import.Arity != 2 || !NativeBuiltinCatalog.Contains(import.Module, import.Function, import.Arity))
+            throw new NotSupportedException(BeamRegisterNames.Unsupported);
+
+        return import;
+    }
+
+    internal static BeamExternalImport UnaryImport(BeamLinkedCode code, int index)
+    {
+        BeamExternalImport import = BeamExternalImports.Resolve(code, index);
+        if (import.Module != ErlangModuleNames.Module || import.Arity != 1
+            || !NativeBuiltinCatalog.Contains(import.Module, import.Function, import.Arity))
+            throw new NotSupportedException(BeamRegisterNames.Unsupported);
+
+        return import;
     }
 
     private static void Branch(BeamLinkedCode code, BeamLinkedFunction function, BeamOperand operand)

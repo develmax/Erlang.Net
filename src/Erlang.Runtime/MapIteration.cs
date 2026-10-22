@@ -32,7 +32,9 @@ public static class MapIteration
         return new Cons(Cons.From(keys), value);
     }
 
-    public static Term Next(Term iterator)
+    public static Term Next(Term iterator) => Next(iterator, null);
+
+    public static Term Next(Term iterator, ProcessRuntime? runtime)
     {
         if (iterator is TupleTerm { Items.Count: MapIteratorLayout.TupleArity })
             return iterator;
@@ -41,12 +43,33 @@ public static class MapIteration
         if (iterator is Cons { Tail: MapTerm map } state)
         {
             Term keys = state.Head;
-            if (keys is Integer path && path.Value == MapIteratorLayout.InitialPath)
-                keys = Cons.From(map.Entries.Select(entry => entry.Key));
+            if (keys is Integer path)
+            {
+                if (HamtCursorDispatch.TryRead(
+                    map,
+                    path.Value,
+                    runtime,
+                    out Term cursor
+                ))
+                    return cursor;
+                bool accepted = path.Value == MapIteratorLayout.InitialPath
+                    || map.Entries.Count <= MapIteratorLayout.FlatMapMaximumEntries
+                    && path.Value >= 0 && path.Value <= map.Entries.Count;
+                if (!accepted)
+                    throw new ErlangException(ErlangErrorReasons.BadArgument);
+                var physicalEntries = map.Entries.Count <= MapIteratorLayout.FlatMapMaximumEntries
+                    ? OtpMapHashLayoutProtocol.FlatEntries(map) : map.Entries;
+                keys = Cons.From(physicalEntries.Select(entry => entry.Key));
+            }
             var entries = new List<KeyValuePair<Term, Term>>();
+            using var lookupScope = runtime is not null && map.Entries.Count > MapIteratorLayout.FlatMapMaximumEntries
+                ? runtime.MapHashIdentityProvider(OtpMapHashLayoutProtocol.Append) : null;
+            using var index = runtime is not null && map.Entries.Count > MapIteratorLayout.FlatMapMaximumEntries
+                ? runtime.AcquireHamtIndex429(map) : null;
+            var lookup = new HamtCursorLookup(map, lookupScope, index?.Index);
             foreach (Term key in Cons.Items(keys))
             {
-                if (!map.TryGet(key, out var value))
+                if (!lookup.TryGet(key, out var value))
                     throw new ErlangException(ErlangErrorReasons.BadArgument);
                 entries.Add(new(key, value!));
             }
@@ -60,13 +83,15 @@ public static class MapIteration
         throw new ErlangException(ErlangErrorReasons.BadArgument);
     }
 
-    public static IReadOnlyList<KeyValuePair<Term, Term>> Entries(Term source)
+    public static IReadOnlyList<KeyValuePair<Term, Term>> Entries(Term source) => Entries(source, null);
+
+    public static IReadOnlyList<KeyValuePair<Term, Term>> Entries(Term source, ProcessRuntime? runtime)
     {
         if (source is MapTerm map)
-            return map.Entries;
+            source = Iterator(map);
         var entries = new List<KeyValuePair<Term, Term>>();
         Term iterator = source;
-        while (Next(iterator) is TupleTerm pair)
+        while (Next(iterator, runtime) is TupleTerm pair)
         {
             entries.Add(new(pair.Items[MapIteratorLayout.KeyIndex], pair.Items[MapIteratorLayout.ValueIndex]));
             iterator = pair.Items[MapIteratorLayout.ContinuationIndex];

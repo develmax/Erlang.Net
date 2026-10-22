@@ -1,0 +1,1997 @@
+{
+  "Path": "artifacts/library423-check-process-code-original2/subject-v1/beam_check_code_subject423.beam",
+  "Sha256": "527AB2DE0A5DF2E46395BABB8A15FE804369BF2E64A0AC413E1225927EF17C52",
+  "Bytes": 2184,
+  "Chunks": [
+    "AtU8",
+    "Code",
+    "StrT",
+    "ImpT",
+    "ExpT",
+    "FunT",
+    "Meta",
+    "LocT",
+    "Attr",
+    "CInf",
+    "Dbgi",
+    "Line",
+    "Type"
+  ],
+  "Imports": [
+    {
+      "Module": "erts_internal",
+      "Function": "check_process_code",
+      "Arity": 1
+    },
+    {
+      "Module": "erlang",
+      "Function": "self",
+      "Arity": 0
+    },
+    {
+      "Module": "beam_check_code423",
+      "Function": "reply",
+      "Arity": 1
+    },
+    {
+      "Module": "beam_check_code423",
+      "Function": "probe",
+      "Arity": 0
+    },
+    {
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 1
+    },
+    {
+      "Module": "erlang",
+      "Function": "get_module_info",
+      "Arity": 1
+    },
+    {
+      "Module": "erlang",
+      "Function": "get_module_info",
+      "Arity": 2
+    }
+  ],
+  "Exports": [
+    {
+      "Function": "module_info",
+      "Arity": 1,
+      "Label": 32
+    },
+    {
+      "Function": "module_info",
+      "Arity": 0,
+      "Label": 30
+    },
+    {
+      "Function": "wait_tail_native",
+      "Arity": 1,
+      "Label": 25
+    },
+    {
+      "Function": "trace",
+      "Arity": 0,
+      "Label": 21
+    },
+    {
+      "Function": "make_fun",
+      "Arity": 0,
+      "Label": 19
+    },
+    {
+      "Function": "retain",
+      "Arity": 1,
+      "Label": 17
+    },
+    {
+      "Function": "tail",
+      "Arity": 1,
+      "Label": 15
+    },
+    {
+      "Function": "wait",
+      "Arity": 1,
+      "Label": 6
+    },
+    {
+      "Function": "check",
+      "Arity": 0,
+      "Label": 4
+    },
+    {
+      "Function": "version",
+      "Arity": 0,
+      "Label": 2
+    }
+  ],
+  "CodeHeader": [
+    0,
+    181,
+    35,
+    11
+  ],
+  "InstructionCount": 137,
+  "Roles": {
+    "allocate": 2,
+    "allocate_heap": 2,
+    "bif0": 2,
+    "build_stacktrace": 1,
+    "call": 1,
+    "call_ext": 2,
+    "call_ext_last": 1,
+    "call_ext_only": 4,
+    "call_last": 4,
+    "call_only": 1,
+    "deallocate": 2,
+    "func_info": 11,
+    "get_tuple_element": 2,
+    "init_yregs": 1,
+    "int_code_end": 1,
+    "is_eq_exact": 4,
+    "is_tuple": 1,
+    "label": 34,
+    "line": 11,
+    "loop_rec": 2,
+    "loop_rec_end": 2,
+    "make_fun3": 1,
+    "move": 16,
+    "put_tuple2": 4,
+    "raise": 1,
+    "remove_message": 5,
+    "return": 4,
+    "select_val": 1,
+    "send": 4,
+    "test_arity": 1,
+    "test_heap": 3,
+    "trim": 2,
+    "try": 1,
+    "try_case": 1,
+    "wait": 2
+  },
+  "RolesWithoutCurrentValidateRolesCase": [],
+  "AdmissionStatus": "PASSIVE_INVENTORY_ONLY_NOT_PREPARED_OR_EXECUTED",
+  "Functions": [
+    {
+      "Function": "version",
+      "Arity": 0,
+      "Instructions": [
+        {
+          "Index": 2,
+          "Name": "func_info",
+          "Operands": [
+            {
+              "Tag": 2,
+              "Value": "beam_check_code_subject423"
+            },
+            {
+              "Tag": 2,
+              "Value": "version"
+            },
+            {
+              "Tag": 0,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 3,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 2
+            }
+          ]
+        },
+        {
+          "Index": 4,
+          "Name": "move",
+          "Operands": [
+            {
+              "Tag": 2,
+              "Value": "v1"
+            },
+            {
+              "Tag": 3,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 5,
+          "Name": "return",
+          "Operands": []
+        },
+        {
+          "Index": 6,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 3
+            }
+          ]
+        },
+        {
+          "Index": 7,
+          "Name": "line",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Function": "check",
+      "Arity": 0,
+      "Instructions": [
+        {
+          "Index": 8,
+          "Name": "func_info",
+          "Operands": [
+            {
+              "Tag": 2,
+              "Value": "beam_check_code_subject423"
+            },
+            {
+              "Tag": 2,
+              "Value": "check"
+            },
+            {
+              "Tag": 0,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 9,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 4
+            }
+          ]
+        },
+        {
+          "Index": 10,
+          "Name": "move",
+          "Operands": [
+            {
+              "Tag": 2,
+              "Value": "beam_check_code_subject423"
+            },
+            {
+              "Tag": 3,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 11,
+          "Name": "call_ext_only",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 1
+            },
+            {
+              "Tag": 0,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 12,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 5
+            }
+          ]
+        },
+        {
+          "Index": 13,
+          "Name": "line",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Function": "wait",
+      "Arity": 1,
+      "Instructions": [
+        {
+          "Index": 14,
+          "Name": "func_info",
+          "Operands": [
+            {
+              "Tag": 2,
+              "Value": "beam_check_code_subject423"
+            },
+            {
+              "Tag": 2,
+              "Value": "wait"
+            },
+            {
+              "Tag": 0,
+              "Value": 1
+            }
+          ]
+        },
+        {
+          "Index": 15,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 6
+            }
+          ]
+        },
+        {
+          "Index": 16,
+          "Name": "allocate_heap",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 2
+            },
+            {
+              "Tag": 0,
+              "Value": 3
+            },
+            {
+              "Tag": 0,
+              "Value": 1
+            }
+          ]
+        },
+        {
+          "Index": 17,
+          "Name": "init_yregs",
+          "Operands": [
+            {
+              "Tag": 7,
+              "Extension": 1,
+              "Items": [
+                {
+                  "Tag": 4,
+                  "Value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "Index": 18,
+          "Name": "move",
+          "Operands": [
+            {
+              "Tag": 3,
+              "Value": 0
+            },
+            {
+              "Tag": 4,
+              "Value": 1
+            }
+          ]
+        },
+        {
+          "Index": 19,
+          "Name": "bif0",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 1
+            },
+            {
+              "Tag": 3,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 20,
+          "Name": "put_tuple2",
+          "Operands": [
+            {
+              "Tag": 3,
+              "Value": 1
+            },
+            {
+              "Tag": 7,
+              "Extension": 1,
+              "Items": [
+                {
+                  "Tag": 2,
+                  "Value": "ready"
+                },
+                {
+                  "Tag": 3,
+                  "Value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "Index": 21,
+          "Name": "move",
+          "Operands": [
+            {
+              "Tag": 4,
+              "Value": 1
+            },
+            {
+              "Tag": 3,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 22,
+          "Name": "send",
+          "Operands": []
+        },
+        {
+          "Index": 23,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 7
+            }
+          ]
+        },
+        {
+          "Index": 24,
+          "Name": "loop_rec",
+          "Operands": [
+            {
+              "Tag": 5,
+              "Value": 13
+            },
+            {
+              "Tag": 3,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 25,
+          "Name": "is_tuple",
+          "Operands": [
+            {
+              "Tag": 5,
+              "Value": 11
+            },
+            {
+              "Tag": 3,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 26,
+          "Name": "test_arity",
+          "Operands": [
+            {
+              "Tag": 5,
+              "Value": 12
+            },
+            {
+              "Tag": 3,
+              "Value": 0
+            },
+            {
+              "Tag": 0,
+              "Value": 2
+            }
+          ]
+        },
+        {
+          "Index": 27,
+          "Name": "get_tuple_element",
+          "Operands": [
+            {
+              "Tag": 3,
+              "Value": 0
+            },
+            {
+              "Tag": 0,
+              "Value": 0
+            },
+            {
+              "Tag": 3,
+              "Value": 1
+            }
+          ]
+        },
+        {
+          "Index": 28,
+          "Name": "get_tuple_element",
+          "Operands": [
+            {
+              "Tag": 3,
+              "Value": 0
+            },
+            {
+              "Tag": 0,
+              "Value": 1
+            },
+            {
+              "Tag": 3,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 29,
+          "Name": "select_val",
+          "Operands": [
+            {
+              "Tag": 3,
+              "Value": 1
+            },
+            {
+              "Tag": 5,
+              "Value": 12
+            },
+            {
+              "Tag": 7,
+              "Extension": 1,
+              "Items": [
+                {
+                  "Tag": 2,
+                  "Value": "probe"
+                },
+                {
+                  "Tag": 5,
+                  "Value": 10
+                },
+                {
+                  "Tag": 2,
+                  "Value": "retain"
+                },
+                {
+                  "Tag": 5,
+                  "Value": 9
+                },
+                {
+                  "Tag": 2,
+                  "Value": "tail"
+                },
+                {
+                  "Tag": 5,
+                  "Value": 8
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "Index": 30,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 8
+            }
+          ]
+        },
+        {
+          "Index": 31,
+          "Name": "remove_message",
+          "Operands": []
+        },
+        {
+          "Index": 32,
+          "Name": "call_last",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 1
+            },
+            {
+              "Tag": 5,
+              "Value": 15
+            },
+            {
+              "Tag": 0,
+              "Value": 2
+            }
+          ]
+        },
+        {
+          "Index": 33,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 9
+            }
+          ]
+        },
+        {
+          "Index": 34,
+          "Name": "remove_message",
+          "Operands": []
+        },
+        {
+          "Index": 35,
+          "Name": "call_last",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 1
+            },
+            {
+              "Tag": 5,
+              "Value": 17
+            },
+            {
+              "Tag": 0,
+              "Value": 2
+            }
+          ]
+        },
+        {
+          "Index": 36,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 10
+            }
+          ]
+        },
+        {
+          "Index": 37,
+          "Name": "move",
+          "Operands": [
+            {
+              "Tag": 3,
+              "Value": 0
+            },
+            {
+              "Tag": 4,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 38,
+          "Name": "remove_message",
+          "Operands": []
+        },
+        {
+          "Index": 39,
+          "Name": "call",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 0
+            },
+            {
+              "Tag": 5,
+              "Value": 4
+            }
+          ]
+        },
+        {
+          "Index": 40,
+          "Name": "test_heap",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 3
+            },
+            {
+              "Tag": 0,
+              "Value": 1
+            }
+          ]
+        },
+        {
+          "Index": 41,
+          "Name": "put_tuple2",
+          "Operands": [
+            {
+              "Tag": 3,
+              "Value": 1
+            },
+            {
+              "Tag": 7,
+              "Extension": 1,
+              "Items": [
+                {
+                  "Tag": 2,
+                  "Value": "answer"
+                },
+                {
+                  "Tag": 3,
+                  "Value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "Index": 42,
+          "Name": "move",
+          "Operands": [
+            {
+              "Tag": 4,
+              "Value": 0
+            },
+            {
+              "Tag": 3,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 43,
+          "Name": "trim",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 1
+            },
+            {
+              "Tag": 0,
+              "Value": 1
+            }
+          ]
+        },
+        {
+          "Index": 44,
+          "Name": "send",
+          "Operands": []
+        },
+        {
+          "Index": 45,
+          "Name": "move",
+          "Operands": [
+            {
+              "Tag": 4,
+              "Value": 0
+            },
+            {
+              "Tag": 3,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 46,
+          "Name": "call_last",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 1
+            },
+            {
+              "Tag": 5,
+              "Value": 6
+            },
+            {
+              "Tag": 0,
+              "Value": 1
+            }
+          ]
+        },
+        {
+          "Index": 47,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 11
+            }
+          ]
+        },
+        {
+          "Index": 48,
+          "Name": "is_eq_exact",
+          "Operands": [
+            {
+              "Tag": 5,
+              "Value": 12
+            },
+            {
+              "Tag": 3,
+              "Value": 0
+            },
+            {
+              "Tag": 2,
+              "Value": "stop"
+            }
+          ]
+        },
+        {
+          "Index": 49,
+          "Name": "remove_message",
+          "Operands": []
+        },
+        {
+          "Index": 50,
+          "Name": "move",
+          "Operands": [
+            {
+              "Tag": 2,
+              "Value": "ok"
+            },
+            {
+              "Tag": 3,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 51,
+          "Name": "deallocate",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 2
+            }
+          ]
+        },
+        {
+          "Index": 52,
+          "Name": "return",
+          "Operands": []
+        },
+        {
+          "Index": 53,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 12
+            }
+          ]
+        },
+        {
+          "Index": 54,
+          "Name": "loop_rec_end",
+          "Operands": [
+            {
+              "Tag": 5,
+              "Value": 7
+            }
+          ]
+        },
+        {
+          "Index": 55,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 13
+            }
+          ]
+        },
+        {
+          "Index": 56,
+          "Name": "wait",
+          "Operands": [
+            {
+              "Tag": 5,
+              "Value": 7
+            }
+          ]
+        },
+        {
+          "Index": 57,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 14
+            }
+          ]
+        },
+        {
+          "Index": 58,
+          "Name": "line",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Function": "tail",
+      "Arity": 1,
+      "Instructions": [
+        {
+          "Index": 59,
+          "Name": "func_info",
+          "Operands": [
+            {
+              "Tag": 2,
+              "Value": "beam_check_code_subject423"
+            },
+            {
+              "Tag": 2,
+              "Value": "tail"
+            },
+            {
+              "Tag": 0,
+              "Value": 1
+            }
+          ]
+        },
+        {
+          "Index": 60,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 15
+            }
+          ]
+        },
+        {
+          "Index": 61,
+          "Name": "call_ext_only",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 1
+            },
+            {
+              "Tag": 0,
+              "Value": 2
+            }
+          ]
+        },
+        {
+          "Index": 62,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 16
+            }
+          ]
+        },
+        {
+          "Index": 63,
+          "Name": "line",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Function": "retain",
+      "Arity": 1,
+      "Instructions": [
+        {
+          "Index": 64,
+          "Name": "func_info",
+          "Operands": [
+            {
+              "Tag": 2,
+              "Value": "beam_check_code_subject423"
+            },
+            {
+              "Tag": 2,
+              "Value": "retain"
+            },
+            {
+              "Tag": 0,
+              "Value": 1
+            }
+          ]
+        },
+        {
+          "Index": 65,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 17
+            }
+          ]
+        },
+        {
+          "Index": 66,
+          "Name": "allocate",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 1
+            },
+            {
+              "Tag": 0,
+              "Value": 1
+            }
+          ]
+        },
+        {
+          "Index": 67,
+          "Name": "move",
+          "Operands": [
+            {
+              "Tag": 3,
+              "Value": 0
+            },
+            {
+              "Tag": 4,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 68,
+          "Name": "call_ext",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 0
+            },
+            {
+              "Tag": 0,
+              "Value": 3
+            }
+          ]
+        },
+        {
+          "Index": 69,
+          "Name": "test_heap",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 3
+            },
+            {
+              "Tag": 0,
+              "Value": 1
+            }
+          ]
+        },
+        {
+          "Index": 70,
+          "Name": "put_tuple2",
+          "Operands": [
+            {
+              "Tag": 3,
+              "Value": 1
+            },
+            {
+              "Tag": 7,
+              "Extension": 1,
+              "Items": [
+                {
+                  "Tag": 2,
+                  "Value": "answer"
+                },
+                {
+                  "Tag": 3,
+                  "Value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "Index": 71,
+          "Name": "move",
+          "Operands": [
+            {
+              "Tag": 4,
+              "Value": 0
+            },
+            {
+              "Tag": 3,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 72,
+          "Name": "trim",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 1
+            },
+            {
+              "Tag": 0,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 73,
+          "Name": "send",
+          "Operands": []
+        },
+        {
+          "Index": 74,
+          "Name": "call_last",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 0
+            },
+            {
+              "Tag": 5,
+              "Value": 2
+            },
+            {
+              "Tag": 0,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 75,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 18
+            }
+          ]
+        },
+        {
+          "Index": 76,
+          "Name": "line",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 6
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Function": "make_fun",
+      "Arity": 0,
+      "Instructions": [
+        {
+          "Index": 77,
+          "Name": "func_info",
+          "Operands": [
+            {
+              "Tag": 2,
+              "Value": "beam_check_code_subject423"
+            },
+            {
+              "Tag": 2,
+              "Value": "make_fun"
+            },
+            {
+              "Tag": 0,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 78,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 19
+            }
+          ]
+        },
+        {
+          "Index": 79,
+          "Name": "test_heap",
+          "Operands": [
+            {
+              "Tag": 7,
+              "Extension": 3,
+              "Items": [
+                [
+                  {
+                    "Tag": 0,
+                    "Value": 0
+                  },
+                  {
+                    "Tag": 0,
+                    "Value": 0
+                  }
+                ],
+                [
+                  {
+                    "Tag": 0,
+                    "Value": 1
+                  },
+                  {
+                    "Tag": 0,
+                    "Value": 0
+                  }
+                ],
+                [
+                  {
+                    "Tag": 0,
+                    "Value": 2
+                  },
+                  {
+                    "Tag": 0,
+                    "Value": 1
+                  }
+                ]
+              ]
+            },
+            {
+              "Tag": 0,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 80,
+          "Name": "make_fun3",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 0
+            },
+            {
+              "Tag": 3,
+              "Value": 0
+            },
+            {
+              "Tag": 7,
+              "Extension": 1,
+              "Items": []
+            }
+          ]
+        },
+        {
+          "Index": 81,
+          "Name": "return",
+          "Operands": []
+        },
+        {
+          "Index": 82,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 20
+            }
+          ]
+        },
+        {
+          "Index": 83,
+          "Name": "line",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Function": "trace",
+      "Arity": 0,
+      "Instructions": [
+        {
+          "Index": 84,
+          "Name": "func_info",
+          "Operands": [
+            {
+              "Tag": 2,
+              "Value": "beam_check_code_subject423"
+            },
+            {
+              "Tag": 2,
+              "Value": "trace"
+            },
+            {
+              "Tag": 0,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 85,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 21
+            }
+          ]
+        },
+        {
+          "Index": 86,
+          "Name": "allocate",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 1
+            },
+            {
+              "Tag": 0,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 87,
+          "Name": "try",
+          "Operands": [
+            {
+              "Tag": 4,
+              "Value": 0
+            },
+            {
+              "Tag": 5,
+              "Value": 22
+            }
+          ]
+        },
+        {
+          "Index": 88,
+          "Name": "move",
+          "Operands": [
+            {
+              "Tag": 2,
+              "Value": "saved_code_trace423"
+            },
+            {
+              "Tag": 3,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 89,
+          "Name": "call_ext",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 1
+            },
+            {
+              "Tag": 0,
+              "Value": 4
+            }
+          ]
+        },
+        {
+          "Index": 90,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 22
+            }
+          ]
+        },
+        {
+          "Index": 91,
+          "Name": "try_case",
+          "Operands": [
+            {
+              "Tag": 4,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 92,
+          "Name": "is_eq_exact",
+          "Operands": [
+            {
+              "Tag": 5,
+              "Value": 23
+            },
+            {
+              "Tag": 7,
+              "Extension": 5,
+              "Items": [
+                {
+                  "Tag": 3,
+                  "Value": 0
+                },
+                {
+                  "Tag": 0,
+                  "Value": 1
+                }
+              ]
+            },
+            {
+              "Tag": 2,
+              "Value": "error"
+            }
+          ]
+        },
+        {
+          "Index": 93,
+          "Name": "is_eq_exact",
+          "Operands": [
+            {
+              "Tag": 5,
+              "Value": 23
+            },
+            {
+              "Tag": 3,
+              "Value": 1
+            },
+            {
+              "Tag": 2,
+              "Value": "saved_code_trace423"
+            }
+          ]
+        },
+        {
+          "Index": 94,
+          "Name": "move",
+          "Operands": [
+            {
+              "Tag": 3,
+              "Value": 2
+            },
+            {
+              "Tag": 3,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 95,
+          "Name": "build_stacktrace",
+          "Operands": []
+        },
+        {
+          "Index": 96,
+          "Name": "deallocate",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 1
+            }
+          ]
+        },
+        {
+          "Index": 97,
+          "Name": "return",
+          "Operands": []
+        },
+        {
+          "Index": 98,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 23
+            }
+          ]
+        },
+        {
+          "Index": 99,
+          "Name": "raise",
+          "Operands": [
+            {
+              "Tag": 3,
+              "Value": 2
+            },
+            {
+              "Tag": 3,
+              "Value": 1
+            }
+          ]
+        },
+        {
+          "Index": 100,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 24
+            }
+          ]
+        },
+        {
+          "Index": 101,
+          "Name": "line",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 8
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Function": "wait_tail_native",
+      "Arity": 1,
+      "Instructions": [
+        {
+          "Index": 102,
+          "Name": "func_info",
+          "Operands": [
+            {
+              "Tag": 2,
+              "Value": "beam_check_code_subject423"
+            },
+            {
+              "Tag": 2,
+              "Value": "wait_tail_native"
+            },
+            {
+              "Tag": 0,
+              "Value": 1
+            }
+          ]
+        },
+        {
+          "Index": 103,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 25
+            }
+          ]
+        },
+        {
+          "Index": 104,
+          "Name": "allocate_heap",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 0
+            },
+            {
+              "Tag": 0,
+              "Value": 3
+            },
+            {
+              "Tag": 0,
+              "Value": 1
+            }
+          ]
+        },
+        {
+          "Index": 105,
+          "Name": "bif0",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 1
+            },
+            {
+              "Tag": 3,
+              "Value": 1
+            }
+          ]
+        },
+        {
+          "Index": 106,
+          "Name": "put_tuple2",
+          "Operands": [
+            {
+              "Tag": 3,
+              "Value": 1
+            },
+            {
+              "Tag": 7,
+              "Extension": 1,
+              "Items": [
+                {
+                  "Tag": 2,
+                  "Value": "ready"
+                },
+                {
+                  "Tag": 3,
+                  "Value": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "Index": 107,
+          "Name": "send",
+          "Operands": []
+        },
+        {
+          "Index": 108,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 26
+            }
+          ]
+        },
+        {
+          "Index": 109,
+          "Name": "loop_rec",
+          "Operands": [
+            {
+              "Tag": 5,
+              "Value": 28
+            },
+            {
+              "Tag": 3,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 110,
+          "Name": "is_eq_exact",
+          "Operands": [
+            {
+              "Tag": 5,
+              "Value": 27
+            },
+            {
+              "Tag": 3,
+              "Value": 0
+            },
+            {
+              "Tag": 2,
+              "Value": "go"
+            }
+          ]
+        },
+        {
+          "Index": 111,
+          "Name": "remove_message",
+          "Operands": []
+        },
+        {
+          "Index": 112,
+          "Name": "move",
+          "Operands": [
+            {
+              "Tag": 2,
+              "Value": "beam_check_code_subject423"
+            },
+            {
+              "Tag": 3,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 113,
+          "Name": "call_ext_last",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 1
+            },
+            {
+              "Tag": 0,
+              "Value": 0
+            },
+            {
+              "Tag": 0,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 114,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 27
+            }
+          ]
+        },
+        {
+          "Index": 115,
+          "Name": "loop_rec_end",
+          "Operands": [
+            {
+              "Tag": 5,
+              "Value": 26
+            }
+          ]
+        },
+        {
+          "Index": 116,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 28
+            }
+          ]
+        },
+        {
+          "Index": 117,
+          "Name": "wait",
+          "Operands": [
+            {
+              "Tag": 5,
+              "Value": 26
+            }
+          ]
+        },
+        {
+          "Index": 118,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 29
+            }
+          ]
+        },
+        {
+          "Index": 119,
+          "Name": "line",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Function": "module_info",
+      "Arity": 0,
+      "Instructions": [
+        {
+          "Index": 120,
+          "Name": "func_info",
+          "Operands": [
+            {
+              "Tag": 2,
+              "Value": "beam_check_code_subject423"
+            },
+            {
+              "Tag": 2,
+              "Value": "module_info"
+            },
+            {
+              "Tag": 0,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 121,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 30
+            }
+          ]
+        },
+        {
+          "Index": 122,
+          "Name": "move",
+          "Operands": [
+            {
+              "Tag": 2,
+              "Value": "beam_check_code_subject423"
+            },
+            {
+              "Tag": 3,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 123,
+          "Name": "call_ext_only",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 1
+            },
+            {
+              "Tag": 0,
+              "Value": 5
+            }
+          ]
+        },
+        {
+          "Index": 124,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 31
+            }
+          ]
+        },
+        {
+          "Index": 125,
+          "Name": "line",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Function": "module_info",
+      "Arity": 1,
+      "Instructions": [
+        {
+          "Index": 126,
+          "Name": "func_info",
+          "Operands": [
+            {
+              "Tag": 2,
+              "Value": "beam_check_code_subject423"
+            },
+            {
+              "Tag": 2,
+              "Value": "module_info"
+            },
+            {
+              "Tag": 0,
+              "Value": 1
+            }
+          ]
+        },
+        {
+          "Index": 127,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 32
+            }
+          ]
+        },
+        {
+          "Index": 128,
+          "Name": "move",
+          "Operands": [
+            {
+              "Tag": 3,
+              "Value": 0
+            },
+            {
+              "Tag": 3,
+              "Value": 1
+            }
+          ]
+        },
+        {
+          "Index": 129,
+          "Name": "move",
+          "Operands": [
+            {
+              "Tag": 2,
+              "Value": "beam_check_code_subject423"
+            },
+            {
+              "Tag": 3,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 130,
+          "Name": "call_ext_only",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 2
+            },
+            {
+              "Tag": 0,
+              "Value": 6
+            }
+          ]
+        },
+        {
+          "Index": 131,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 33
+            }
+          ]
+        },
+        {
+          "Index": 132,
+          "Name": "line",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 6
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Function": "-make_fun/0-fun-0-",
+      "Arity": 0,
+      "Instructions": [
+        {
+          "Index": 133,
+          "Name": "func_info",
+          "Operands": [
+            {
+              "Tag": 2,
+              "Value": "beam_check_code_subject423"
+            },
+            {
+              "Tag": 2,
+              "Value": "-make_fun/0-fun-0-"
+            },
+            {
+              "Tag": 0,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Index": 134,
+          "Name": "label",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 34
+            }
+          ]
+        },
+        {
+          "Index": 135,
+          "Name": "call_only",
+          "Operands": [
+            {
+              "Tag": 0,
+              "Value": 0
+            },
+            {
+              "Tag": 5,
+              "Value": 2
+            }
+          ]
+        },
+        {
+          "Index": 136,
+          "Name": "int_code_end",
+          "Operands": []
+        }
+      ]
+    }
+  ]
+}

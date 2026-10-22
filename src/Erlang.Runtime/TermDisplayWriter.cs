@@ -9,11 +9,35 @@ internal sealed class TermDisplayWriter(ProcessRuntime runtime)
     private readonly ArrayBufferWriter<byte> buffer = new();
     private readonly record struct Work(Term? Value, string? Token = null, bool ConsCell = false);
 
+    private bool limited;
+    private long remaining;
+    private bool stopped;
+    private CancellationToken cancellation;
+
+    internal byte[] WriteLimited430(Term term, int precision, CancellationToken token)
+    {
+        limited = true;
+        remaining = precision;
+        cancellation = token;
+
+        return Write(term);
+    }
+
+    private bool Consume430()
+    {
+        if (!limited) return true;
+        cancellation.ThrowIfCancellationRequested();
+        if (remaining-- > 0) return true;
+        stopped = true;
+
+        return false;
+    }
+
     public byte[] Write(Term term)
     {
         var stack = new Stack<Work>();
         stack.Push(new(term));
-        while (stack.TryPop(out var work))
+        while (!stopped && stack.TryPop(out var work))
         {
             if (work.Token is not null)
             {
@@ -36,6 +60,7 @@ internal sealed class TermDisplayWriter(ProcessRuntime runtime)
                 stack.Push(new(cell.Head));
                 continue;
             }
+            if (!Consume430()) break;
             switch (work.Value)
             {
                 case Nil:
@@ -116,7 +141,11 @@ internal sealed class TermDisplayWriter(ProcessRuntime runtime)
                     throw new NotSupportedException(TermDisplaySyntax.Unsupported);
             }
         }
-        Byte(TermDisplayParameters.LineFeed);
+        if (limited)
+        {
+            if (remaining <= 0) Text(InternalTextAuxiliaryNames430.Truncated);
+        }
+        else Byte(TermDisplayParameters.LineFeed);
 
         return buffer.WrittenSpan.ToArray();
     }
@@ -152,6 +181,7 @@ internal sealed class TermDisplayWriter(ProcessRuntime runtime)
 
     private void Atom(string name)
     {
+        if (limited) remaining -= Encoding.UTF8.GetByteCount(name);
         var runes = name.EnumerateRunes().ToArray();
         bool quote = runes.Length == 0 || !Lower(runes[0].Value) || runes.Skip(1).Any(r => !AlphaNumeric(r.Value) && r.Value != '_');
         if (quote)
@@ -181,11 +211,12 @@ internal sealed class TermDisplayWriter(ProcessRuntime runtime)
             Text(TermDisplaySyntax.AtomQuote);
     }
 
-    private static bool Printable(Cons list)
+    private bool Printable(Cons list)
     {
         Term remaining = list;
         while (remaining is Cons cell)
         {
+            if (limited) cancellation.ThrowIfCancellationRequested();
             if (cell.Head is not Integer integer || integer.Value < 0 || integer.Value > TermDisplayParameters.ByteMaximum)
                 return false;
             int c = (int)integer.Value;
@@ -204,6 +235,8 @@ internal sealed class TermDisplayWriter(ProcessRuntime runtime)
         Term remaining = list;
         while (remaining is Cons cell)
         {
+            if (limited) cancellation.ThrowIfCancellationRequested();
+            if (!Consume430()) return;
             byte value = (byte)((Integer)cell.Head).Value;
             if (value == '\n')
                 Text(TermDisplaySyntax.NewLine);
@@ -248,6 +281,7 @@ internal sealed class TermDisplayWriter(ProcessRuntime runtime)
                     Number(tailBits);
                 }
             }
+            if (i < binary.BitLength / TermDisplayParameters.BitsPerByte && !Consume430()) return;
         }
         if (quoted)
             Text(TermDisplaySyntax.Quote);

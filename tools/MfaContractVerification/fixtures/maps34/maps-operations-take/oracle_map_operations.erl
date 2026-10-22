@@ -1,0 +1,1 @@
+-module(oracle_map_operations). -export([run/0]). run()->{value,#{b:=other}}=maps:take(a,#{a=>value,b=>other}),error=maps:take(absent,#{}),done.

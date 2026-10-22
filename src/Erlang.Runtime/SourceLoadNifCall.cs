@@ -10,6 +10,8 @@ internal sealed class SourceLoadNifCall(
     private SourceCodeLease? ownedLease = lease;
     private bool consumed;
 
+    internal ModuleCodeImage Image => caller.Image;
+
     internal SourceCodeEntry Consume(ProcessContext executingContext)
     {
         lock (gate)

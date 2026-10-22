@@ -1,0 +1,54 @@
+{
+  "Status": "IMPLEMENTABLE_FOLLOW_UP_NOT_A_PRODUCTION_PATCH",
+  "Steps": [
+    {
+      "Order": 1,
+      "Work": "Keep current SMALL frontend; replace only threshold fallback with a source-correct original list_to_binary semantic prepass, allowing nested iodatalist/binary tails and validating whole input before caps.",
+      "Files": [
+        "ErlangIntegerListParse",
+        "ErlangIoData primitive reuse/new dedicated byte-view helper"
+      ],
+      "Risk": "Do not stream digitvalidation ahead of whole-list bytevalidation; that changes native badarg/system_limit priority."
+    },
+    {
+      "Order": 2,
+      "Work": "Add dedicated parse limit constants4194304/1262611/65535limbs/64bits; trim only actual ASCII sign and zeros. Admit small zeros and use significant length only.",
+      "Files": [
+        "new ErlangIntegerParseLimits",
+        "shared binary/list-big parse helper"
+      ],
+      "Risk": "Do not apply digit cap to rawlen; keep radix>=10 special threshold exactly as source."
+    },
+    {
+      "Order": 3,
+      "Work": "Retain efficient BigInteger chunk/paircombination after complete ASCII digitvalidation. Enforce magnitude bits4194240 only after nativeprecap and digitvalidation; mathematically prove grouping preserves value and limit behavior.",
+      "Files": [
+        "ErlangIntegerText.Parse/source-correct byte parse helper"
+      ],
+      "Risk": "No global Integer constructor cap in this bounded change; other numeric API contracts are separate."
+    },
+    {
+      "Order": 4,
+      "Work": "Make long bridge path async/cooperative using existing ProcessContext charging/cancellation primitives; pass original arguments and source tail scope through awaits, clear buffers in finally.",
+      "Files": [
+        "ErlangIntegerParseBridge",
+        "ErlangDataRegistrations",
+        "new parse execution helper"
+      ],
+      "Risk": "Source failure metadata must still be original public MFA+argument Terms; cannot leak helperframes or cancellation/native diagnostics."
+    },
+    {
+      "Order": 5,
+      "Work": "Add small nested fallback controls and one-case/one-profile heavy native envelope after predeclared decoder size/term budgets; reuse single pinnedbuild and strict full fieldcomparison.",
+      "Files": [
+        "new independent nativefixture/collector profiles",
+        "focused HOSTs",
+        "passive validator"
+      ],
+      "Risk": "No summary-only outcomes, dropped args, blanket raised globaldecoder limits or unbound resource failure. Existing dispatched167 stay immutable."
+    }
+  ],
+  "MillionTermInputsCreated": false,
+  "SubjectExecuted": false,
+  "MainModified": false
+}

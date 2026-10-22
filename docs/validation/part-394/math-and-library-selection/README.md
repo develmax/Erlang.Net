@@ -1,0 +1,18 @@
+# Part394: original math and explicit strict library selection
+
+Part394 accepted locally:8286/8286 general (+16),640/640 affected,1488 raw/typed whole original math outcomes/full-stack profiles. Original math24 real native bodies (23 beyond bootstrap log),28 source-owned original exports; pure pi/tau/metadata stay BEAM. Explicit original module selection expands, actual delegate/image ownership and strict imports/atomic publication stay enforced. Default705 APIs/21modules and118 full contracts unchanged;625 guards.11 integrations/two packages/five equal reports/13 DLL copies pass. Cold package process72 outcomes and math1488 comparisons per build/publish route pass without Erlang/PATH; actual CRT identity retained. Whole180 diagnostic:147 clean,173 linked,16560 actual validations,182 recognized stubs;7 binary link failures/332 function failures remain. Strict startup is not complete. General370.265s versus prior387.531s; suffix54.344s. Observational timings only. Genuine Windows OTP29.1.1, no new Linux/GitHub run, whole-module promotion, commit/push/merge/external publication. Evidence:docs/validation/part-394/math-and-library-selection.
+
+## Part394 original math and strict module selection — accepted local increment
+
+| Module or runtime area | Completed | Remaining |
+| --- | --- | --- |
+| math |24/24 real native bodies, +23 beyond bootstrap;28 original exports;1488 exact whole outcomes/profiles; cold package/publish | all-input floating and cross-platform proof, complete contract classification |
+| gen / sys / proc_lib | prior original30/36/39 exports and cold72 outcomes preserved | full180 strict startup, missing native groups and wider behavior contracts |
+| ErlangLibrary selection | generic explicit original names; seven explicit managed alternatives including erlang; actual bootstrap ownership and atomic publication | unavailable imports/native bodies and operands still refuse; no automatic fallback |
+| whole180 diagnostic |180 processed in79.156s;147 clean,173 linked;16560 real validation calls;182 recognized native stubs |7 binary link failures and332 entry failures; recognized stubs are not necessarily bound |
+| default registry |705 APIs/21modules,118 complete contracts,625 guarded sources | default API/full-contract delta0/0; original-only native math delta+23 is separate |
+
+Part394 accepted locally:8286/8286 general (+16),640/640 affected,1488 raw/typed whole original math outcomes/full-stack profiles. Original math24 real native bodies (23 beyond bootstrap log),28 source-owned original exports; pure pi/tau/metadata stay BEAM. Explicit original module selection expands, actual delegate/image ownership and strict imports/atomic publication stay enforced. Default705 APIs/21modules and118 full contracts unchanged;625 guards.11 integrations/two packages/five equal reports/13 DLL copies pass. Cold package process72 outcomes and math1488 comparisons per build/publish route pass without Erlang/PATH; actual CRT identity retained. Whole180 diagnostic:147 clean,173 linked,16560 actual validations,182 recognized stubs;7 binary link failures/332 function failures remain. Strict startup is not complete. General370.265s versus prior387.531s; suffix54.344s. Observational timings only. Genuine Windows OTP29.1.1, no new Linux/GitHub run, whole-module promotion, commit/push/merge/external publication. Evidence:docs/validation/part-394/math-and-library-selection.
+
+
+Frozen source, original full captures, actual refused runs and all owned receipts are bound by bindings.json. No whole-module compatibility or full strict180 admission is claimed. Prior393 frozen bindings were independently reverified; LICENSE.local.txt is excluded.

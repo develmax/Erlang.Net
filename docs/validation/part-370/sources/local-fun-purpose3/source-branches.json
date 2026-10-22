@@ -1,0 +1,94 @@
+{
+  "Otp": "OTP-29.1.1",
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Authorities": [
+    {
+      "Path": "artifacts/erlang370-numeric-proposal1/authority/erts/emulator/beam/utils.c",
+      "Lines": "2157-2191 ordering local FUN; 1243-1281 exact eq local FUN"
+    },
+    {
+      "Path": "artifacts/erlang370-termorder-addendum1/authority/erts/emulator/beam/erl_fun.c",
+      "Lines": "90-97 canonical entry key"
+    },
+    {
+      "Path": "artifacts/erlang370-numeric-proposal1/authority/erts/emulator/beam/erl_bif_guard.c",
+      "Lines": "475-484 min/max retain first argument on comparator tie"
+    }
+  ],
+  "Predictions": [
+    {
+      "Pair": "olduniq1_vs2_newuniqFF_vs00",
+      "Results": [
+        false,
+        true,
+        false,
+        true,
+        true,
+        false,
+        true,
+        false,
+        "A",
+        "B"
+      ],
+      "Functions": [
+        "==",
+        "/=",
+        "=:=",
+        "=/=",
+        "<",
+        ">",
+        "=<",
+        ">=",
+        "min",
+        "max"
+      ],
+      "Status": "SOURCE_DERIVED_PREDICTION_NOT_EXECUTION_EXPECTATIONS_INJECTED_INTO_CAPTURE"
+    },
+    {
+      "Pair": "olduniq1_vs1_newuniqFF_vs00",
+      "Results": [
+        true,
+        false,
+        false,
+        true,
+        false,
+        false,
+        true,
+        true,
+        "A",
+        "A"
+      ],
+      "Functions": [
+        "==",
+        "/=",
+        "=:=",
+        "=/=",
+        "<",
+        ">",
+        "=<",
+        ">=",
+        "min",
+        "max"
+      ],
+      "Status": "SOURCE_DERIVED_PREDICTION_NOT_EXECUTION_EXPECTATIONS_INJECTED_INTO_CAPTURE"
+    }
+  ],
+  "CorrectedFixture": {
+    "Manifest": "artifacts/erlang370-local-fun-fixture-successor2/fixture-manifest.json",
+    "Sha256": "CCD8878C2407460926A02E0758F97F82FAFA64E3BD042853A0A8E0BF0C9600EE",
+    "Policy": "Use distinct stub-module descriptor for each pair kind. Do not reuse old input-module source identity relation for the successor. Bind actual min/max returned FUN and fun_info to the declared actual input entry; no native IDs injected."
+  },
+  "Proof": {
+    "OrderingAndNumericEquality": "module,index,OldUnique,free count,environment; per-child numeric exactness remains independent from semantic purpose.",
+    "ExactEquality": "module,index,NewUnique,arity,free count,exact environment; preserves existing managed canonical-entry equivalence and hash inputs.",
+    "CanonicalStorage": "Keeps previous managed NewUnique/index/arity sorting, explicitly an implementation detail, not native semantic map order.",
+    "DeepTraversal": "Existing single CompareSnapshot while-loop, Stack<IEnumerator<TermComparisonStep>>, step dispatch and finally disposal retained. Purpose is a constant per traversal, not a recursive call. Hash code is unchanged.",
+    "EntryFactory": "RuntimeFunctionEntries remains untouched; first canonical entry metadata preservation is correct native behavior."
+  },
+  "Unresolved": [
+    "Compound-map order uses existing canonical storage order and remains incomplete for local FUN key comparator ties; no complete eight-MFA classification from this patch.",
+    "Native flatmap comparator-based construction can collapse non-exact local FUN keys and replace last key object; current Dictionary construction differs.",
+    "Native HAMT comparison/layout protocol for opaque-key ties remains outside this narrow patch.",
+    "Build, corrected native/SDK observations, deep32768 and exact equality/hash regression validation remain Root responsibilities."
+  ]
+}

@@ -1,0 +1,17 @@
+<Project>
+  <UsingTask TaskName="Erlang.BeamBuild.BeamLibraryBuildTask" AssemblyFile="$(ErlangBeamBuildToolPath)" />
+  <Target Name="ErlangLibraryCollect" BeforeTargets="AssignTargetPaths" DependsOnTargets="ResolveProjectReferences;ErlangBeamCompileSources"
+          Condition="'@(ErlangLibrary)' != '' or '$(ErlangLibraryEnabled)' == 'true' or Exists('$(IntermediateOutputPath)erlang-libraries/erlang-libraries.json')">
+    <Error Condition="!Exists('$(ErlangBeamBuildToolPath)')" Text="Build/configure Erlang.BeamBuild before using ErlangLibrary." />
+    <PropertyGroup>
+      <_ErlangLibraryOutput>$([System.IO.Path]::GetFullPath('$(IntermediateOutputPath)erlang-libraries', '$(MSBuildProjectDirectory)'))</_ErlangLibraryOutput>
+    </PropertyGroup>
+    <BeamLibraryBuildTask Libraries="@(ErlangLibrary)" ProjectDirectory="$(MSBuildProjectDirectory)" OutputDirectory="$(_ErlangLibraryOutput)">
+      <Output TaskParameter="Files" ItemName="_ErlangLibraryFiles" />
+    </BeamLibraryBuildTask>
+    <ItemGroup>
+      <None Include="@(_ErlangLibraryFiles)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+      <FileWrites Include="@(_ErlangLibraryFiles)" />
+    </ItemGroup>
+  </Target>
+</Project>

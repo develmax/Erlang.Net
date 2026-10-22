@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/Erlang.Runtime/Erlang.Runtime.csproj" />
+    <ErlangBeam Include="Modules/*.beam" />
+    <None Update="Modules/*.erl;Modules/*.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+  <Import Project="../../build/Erlang.Beam.targets" />
+</Project>

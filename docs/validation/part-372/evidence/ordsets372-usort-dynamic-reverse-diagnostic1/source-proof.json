@@ -1,0 +1,45 @@
+{
+  "Status": "SOURCE_PATH_GUARANTEES_REVERSE_NO_WITNESS_CORRECTION_JUSTIFIED",
+  "Input": "Strictly ascending proper integer list0..32767",
+  "NativePath": [
+    "usort ascending long-list branch",
+    "usplit_1(X,Y,[Z|L],R,Rs) when Z>Y repeatedly",
+    "usplit_1(X,Y,[],R,Rs)->rumergel([[Y,X|R]|Rs],[],asc)",
+    "rumergel([L],Acc,O)->umergel([lists:reverse(L,[])|Acc],[],O)"
+  ],
+  "ExpectedSelectedArguments": "Nonempty reversed descending list32767..0 and Nil tail; exactlyone call before registeredthrow",
+  "CurrentAssertionCannotDistinguish": [
+    "zero remote handler calls",
+    "more thanone handlercall",
+    "changed exceptionreason",
+    "equal atomvalue but lost reasonobjectidentity"
+  ],
+  "Preserved": [
+    "Originalinput and deterministicadmission pause",
+    "Deletemodule+register replacement before resume",
+    "Argument Cons/Nil assertion",
+    "Exactlyone call",
+    "ReferenceEquals marker requirement",
+    "Processcompletion and cleanup"
+  ],
+  "TraceSideEffects": "Only stores selected argument reference copies and formats failure diagnostics; no subject output transformation",
+  "NoBuildOrSubjectExecuted": true,
+  "SourceBindings": [
+    {
+      "Path": "src/Erlang.Runtime/ListUniqueMergeMachine.cs",
+      "Sha256": "CC34DC2E305980E59BF9E23970A4159522F158358FB3C1397DD7887CF7E1FA36"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListUniqueMergeTrace.cs",
+      "Sha256": "EEA02651A68D3970C4AFD55C5D4ADC1D739D91F566978841815ADC226921DB3F"
+    },
+    {
+      "Path": "tests/Erlang.Tests/ListUniqueSortSourceHostChecks.cs",
+      "Sha256": "A4EB362FD310DF15F3824CBEDD0DEBD86CFDBF9170FE0259FF5FEB998BEBB204"
+    },
+    {
+      "Path": "tests/Erlang.Tests/ListUniqueSortSourceHostNames.cs",
+      "Sha256": "BF5858503C8C8CFC63C24EF226A6A867BC4A1775E53B91BE36BB8A1AB1FA2615"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "Arguments": [
+    "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/proplists22-otp/lib/erlang/bin/erl",
+    "+S",
+    "2:2",
+    "-noshell",
+    "-noinput",
+    "-eval",
+    "O=os:getenv(\"FAMILY_OUTPUT\"),E=os:getenv(\"FAMILY_EBIN\"),{module,queue_all368_queue_structural}=code:load_abs(filename:join(E,\"queue_all368_queue_structural\")),{module,queue_all368_support}=code:load_abs(filename:join(E,\"queue_all368_support\")),{module,proplists_observation_worker}=code:load_abs(filename:join(E,\"proplists_observation_worker\")),{module,queue}=code:ensure_loaded(queue),{queue,B,F}=code:get_object_code(queue),ok=file:write_file(filename:join(O,\"queue-loaded.beam\"),B),M={family_provenance,code:root_dir(),code:which(queue),F,erlang:md5(B),queue:module_info(md5),code:which(queue_all368_queue_structural),queue_all368_queue_structural:cases(),erlang:system_info(otp_release),erlang:system_info(schedulers),erlang:system_info(schedulers_online)},ok=file:write_file(filename:join(O,\"metadata.etf\"),term_to_binary(M)),Rows=queue_all368_queue_structural:run(),ok=file:write_file(filename:join(O,\"returned.etf\"),term_to_binary(Rows)),Stacks=proplists_observation_worker:run(queue_all368_queue_structural,run_stacks),ok=file:write_file(filename:join(O,\"stack-observations.etf\"),term_to_binary(Stacks)),halt()."
+  ],
+  "OwnedPid": 83482,
+  "OwnedProcessGroup": 83482,
+  "ExitCode": 0,
+  "ElapsedSeconds": 0.1764018970000052,
+  "TerminationRequested": false,
+  "RemainingGroupKillRequested": false,
+  "ParentReaped": true,
+  "CleanupFailure": null,
+  "StreamsClosed": true,
+  "StdoutBytes": 0,
+  "StderrBytes": 0,
+  "Scope": "Linux foreground private epmd/erl process groups; automatic epmd daemon disabled"
+}

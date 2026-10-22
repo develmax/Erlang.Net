@@ -1,0 +1,102 @@
+{
+  "TypedMfaChecks": 17,
+  "Mfas": [
+    {
+      "Module": "queue",
+      "Function": "in_r",
+      "Arity": 2
+    },
+    {
+      "Module": "queue",
+      "Function": "out_r",
+      "Arity": 1
+    },
+    {
+      "Module": "queue",
+      "Function": "get",
+      "Arity": 1
+    },
+    {
+      "Module": "queue",
+      "Function": "get_r",
+      "Arity": 1
+    },
+    {
+      "Module": "queue",
+      "Function": "peek",
+      "Arity": 1
+    },
+    {
+      "Module": "queue",
+      "Function": "peek_r",
+      "Arity": 1
+    },
+    {
+      "Module": "queue",
+      "Function": "drop",
+      "Arity": 1
+    },
+    {
+      "Module": "queue",
+      "Function": "drop_r",
+      "Arity": 1
+    },
+    {
+      "Module": "queue",
+      "Function": "cons",
+      "Arity": 2
+    },
+    {
+      "Module": "queue",
+      "Function": "head",
+      "Arity": 1
+    },
+    {
+      "Module": "queue",
+      "Function": "tail",
+      "Arity": 1
+    },
+    {
+      "Module": "queue",
+      "Function": "snoc",
+      "Arity": 2
+    },
+    {
+      "Module": "queue",
+      "Function": "last",
+      "Arity": 1
+    },
+    {
+      "Module": "queue",
+      "Function": "daeh",
+      "Arity": 1
+    },
+    {
+      "Module": "queue",
+      "Function": "init",
+      "Arity": 1
+    },
+    {
+      "Module": "queue",
+      "Function": "liat",
+      "Arity": 1
+    },
+    {
+      "Module": "queue",
+      "Function": "lait",
+      "Arity": 1
+    }
+  ],
+  "NewHostNames": [
+    "queue-ends-persistent-representation",
+    "queue-ends-improper-primary-tail",
+    "queue-ends-compiled-all-seventeen"
+  ],
+  "NewHostCount": 3,
+  "TypedChecks": "One valid representation, invalid argument/error owner per MFA; empty error for applicable unary selectors/removers.",
+  "HostCoverage": "Persistence/physical f2r representations0..65, reverse insertion/removal/drop; deliberately improper primary tails retained; lists:last1 error effective argument; compiled all17 aliases over sameQ.",
+  "ActualRuns": 0,
+  "Builds": 0,
+  "ExpectedDefaultNewNamesIfAllTypedDispatched": 20,
+  "OriginalWholeStackGates": "Root new30 batch, no promotion from these source-only tests."
+}

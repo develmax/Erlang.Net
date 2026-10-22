@@ -1,0 +1,1277 @@
+{
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Status": "SOURCE_CLOSURE_PROPOSAL_PENDING_ADDITIONAL_ORIGINAL_AND_FINAL_MAIN_EXECUTION",
+  "NoMainEdits": true,
+  "NoExecutedSupplementCredit": true,
+  "ProposedApiPresenceDelta": 0,
+  "ProposedVerifiedContractDeltaAfterGate": 4,
+  "ProposedErlangVerifiedAfterGate": 20,
+  "GlobalVerifiedAfterGate": 111,
+  "CommonExecutionProof": [
+    "All four entries are preloaded native runtime entries. ModuleRegistry.InvokeAdmittedSelection wraps native body through RuntimeExceptionCapture.InvokeNative, preserving admitted body and original immutable saved argument array.",
+    "InvokeNative captures synchronous ErlangException and asynchronous failure identically. Call emits error:badarg, erlang MFA, complete original argument list and [{error_info,#{module=>erl_erts_errors}}].",
+    "RuntimeExceptionCapture.Call captures caller SourceLocation, arity and continuation chain, removes duplicate continuation identities only, and applies depth max(1,BacktraceDepth). Existing actual original stack observations at default/0/1/2/8 verify these fields.",
+    "tuple_size pre-captures native failure using ErlangSizeErrorFrames.Invalid ->ProcessContext.CaptureNativeFailure ->same Call; AutomaticStackTraceCaptured prevents a duplicate BIF frame in outer wrapper.",
+    "hd,tl,is_integer3 throw ordinary ErlangException; native wrapper captures same complete native failure. No special error/exit/throw caller suppression branch applies.",
+    "Compiler GuardValueAsync handles all four as registered guard BIF calls and evaluates arguments before dispatch. GuardAsync catches ErlangException and yields false, matching BIF-failure guard rejection; no normal failure is converted to a guard result outside guard execution.",
+    "All four appear in Semantics.GuardBifs (is_integer3 via ErlangBasicBifNames.Guards) and AutoImportSignatures. Explicit erlang calls and normal auto-import resolve to the same runtime entry unless caller declares no_auto_import or overrides, which is outside any intrinsic BIF contract.",
+    "These contracts do not invoke term equality/ordering/hash on argument payloads. Known managed map hashing/order/reference alias gaps do not affect type test and direct member/count/BigInteger operations."
+  ],
+  "Rows": [
+    {
+      "Mfa": "erlang:hd/1",
+      "CurrentStatus": "Needs verification",
+      "ProposedStatusAfterFinalGate": "Verified compatible",
+      "Contract": "Cons -> return the exact stored Head term without traversal, conversion or reconstruction. Any non-Cons term (Nil included) -> error:badarg.",
+      "TermBranchProof": [
+        "Cons singleton/proper/improper: Head is identical reference to payload; arbitrary nested/cyclic host-only terms are not traversed.",
+        "Nil, Atom, Integer small/big, Float, Tuple, Map, BitString aligned/partial, Pid, Port, Reference, Function and NativeRecord all fail the same single type predicate.",
+        "No integer indexing, allocation limit, list length, recursion, trap or secondary payload comparison branch."
+      ],
+      "PinnedSource": {
+        "Path": "erts/emulator/beam/bif.c",
+        "Line": 2918,
+        "Sha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC"
+      },
+      "ManagedSource": {
+        "Path": "src/Erlang.Runtime/CoreModules.cs",
+        "Line": 39,
+        "Sha256": "A538B78EE3F0B0E8A206C69BD0B6A3883F6A8B2F2B310A951C64E4382DBE788A"
+      },
+      "ExistingOriginalWitnesses": [
+        {
+          "Name": "hd_empty",
+          "Group": "tuple",
+          "Source": "original/erlang370_tuple_contract.erl",
+          "ComparisonRowsZeroBased": [
+            8520,
+            8677,
+            8834,
+            8991,
+            9148,
+            9305
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "hd_atom",
+          "Group": "tuple",
+          "Source": "original/erlang370_tuple_contract.erl",
+          "ComparisonRowsZeroBased": [
+            8521,
+            8678,
+            8835,
+            8992,
+            9149,
+            9306
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "hd_integer",
+          "Group": "tuple",
+          "Source": "original/erlang370_tuple_contract.erl",
+          "ComparisonRowsZeroBased": [
+            8522,
+            8679,
+            8836,
+            8993,
+            9150,
+            9307
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "hd_float",
+          "Group": "tuple",
+          "Source": "original/erlang370_tuple_contract.erl",
+          "ComparisonRowsZeroBased": [
+            8523,
+            8680,
+            8837,
+            8994,
+            9151,
+            9308
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "hd_map",
+          "Group": "tuple",
+          "Source": "original/erlang370_tuple_contract.erl",
+          "ComparisonRowsZeroBased": [
+            8524,
+            8681,
+            8838,
+            8995,
+            9152,
+            9309
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "hd_binary",
+          "Group": "tuple",
+          "Source": "original/erlang370_tuple_contract.erl",
+          "ComparisonRowsZeroBased": [
+            8525,
+            8682,
+            8839,
+            8996,
+            9153,
+            9310
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "hd_bits",
+          "Group": "tuple",
+          "Source": "original/erlang370_tuple_contract.erl",
+          "ComparisonRowsZeroBased": [
+            8526,
+            8683,
+            8840,
+            8997,
+            9154,
+            9311
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "hd_singleton",
+          "Group": "tuple",
+          "Source": "original/erlang370_tuple_contract.erl",
+          "ComparisonRowsZeroBased": [
+            8527,
+            8684,
+            8841,
+            8998,
+            9155,
+            9312
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "hd_proper",
+          "Group": "tuple",
+          "Source": "original/erlang370_tuple_contract.erl",
+          "ComparisonRowsZeroBased": [
+            8528,
+            8685,
+            8842,
+            8999,
+            9156,
+            9313
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "hd_improper",
+          "Group": "tuple",
+          "Source": "original/erlang370_tuple_contract.erl",
+          "ComparisonRowsZeroBased": [
+            8529,
+            8686,
+            8843,
+            9000,
+            9157,
+            9314
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "hd_nested",
+          "Group": "tuple",
+          "Source": "original/erlang370_tuple_contract.erl",
+          "ComparisonRowsZeroBased": [
+            8530,
+            8687,
+            8844,
+            9001,
+            9158,
+            9315
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        }
+      ],
+      "ExistingStrictObservations": 66,
+      "SupplementCases": [
+        "hd_guard_accept",
+        "hd_guard_reject",
+        "hd_guard_native_record",
+        "hd_non_tail_success",
+        "hd_non_tail_badarg",
+        "hd_invalid_pid",
+        "hd_invalid_reference",
+        "hd_invalid_function",
+        "hd_invalid_tuple",
+        "hd_identity_payload"
+      ],
+      "MissingAcceptance": [
+        "Execute additive50/250 packet under pinned original GitHub CI and actual final Main; exact full-field comparison for this MFA must be zero-difference.",
+        "Root independently accepts source partition and exact current source guard bindings; if source changes after capture, rerun affected observations and review delta.",
+        "Retain actual badarg BIF frame, original arguments, error_info formatter and source caller file/line; no stack normalization or stale source substitution."
+      ],
+      "Limits": "Complete observable Erlang logical API contract on supported valid term model; resource capacity, timing, performance and host-only invalid term extensions are not claimed identical."
+    },
+    {
+      "Mfa": "erlang:tl/1",
+      "CurrentStatus": "Needs verification",
+      "ProposedStatusAfterFinalGate": "Verified compatible",
+      "Contract": "Cons -> return the exact stored Tail term, including an improper non-list tail. Any non-Cons term (Nil included) -> error:badarg.",
+      "TermBranchProof": [
+        "Cons singleton returns Nil; proper returns remaining Cons; improper returns arbitrary Tail exactly.",
+        "Nil and every non-Cons kind fail one type predicate. Valid improper tails are deliberately accepted and are not validated as lists.",
+        "No traversal, copying, reductions/trap state, tail equality, integer conversion or capacity branch."
+      ],
+      "PinnedSource": {
+        "Path": "erts/emulator/beam/bif.c",
+        "Line": 2931,
+        "Sha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC"
+      },
+      "ManagedSource": {
+        "Path": "src/Erlang.Runtime/CoreModules.cs",
+        "Line": 45,
+        "Sha256": "A538B78EE3F0B0E8A206C69BD0B6A3883F6A8B2F2B310A951C64E4382DBE788A"
+      },
+      "ExistingOriginalWitnesses": [
+        {
+          "Name": "tl_empty",
+          "Group": "tuple",
+          "Source": "original/erlang370_tuple_contract.erl",
+          "ComparisonRowsZeroBased": [
+            8531,
+            8688,
+            8845,
+            9002,
+            9159,
+            9316
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "tl_atom",
+          "Group": "tuple",
+          "Source": "original/erlang370_tuple_contract.erl",
+          "ComparisonRowsZeroBased": [
+            8532,
+            8689,
+            8846,
+            9003,
+            9160,
+            9317
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "tl_integer",
+          "Group": "tuple",
+          "Source": "original/erlang370_tuple_contract.erl",
+          "ComparisonRowsZeroBased": [
+            8533,
+            8690,
+            8847,
+            9004,
+            9161,
+            9318
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "tl_float",
+          "Group": "tuple",
+          "Source": "original/erlang370_tuple_contract.erl",
+          "ComparisonRowsZeroBased": [
+            8534,
+            8691,
+            8848,
+            9005,
+            9162,
+            9319
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "tl_map",
+          "Group": "tuple",
+          "Source": "original/erlang370_tuple_contract.erl",
+          "ComparisonRowsZeroBased": [
+            8535,
+            8692,
+            8849,
+            9006,
+            9163,
+            9320
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "tl_binary",
+          "Group": "tuple",
+          "Source": "original/erlang370_tuple_contract.erl",
+          "ComparisonRowsZeroBased": [
+            8536,
+            8693,
+            8850,
+            9007,
+            9164,
+            9321
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "tl_bits",
+          "Group": "tuple",
+          "Source": "original/erlang370_tuple_contract.erl",
+          "ComparisonRowsZeroBased": [
+            8537,
+            8694,
+            8851,
+            9008,
+            9165,
+            9322
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "tl_singleton",
+          "Group": "tuple",
+          "Source": "original/erlang370_tuple_contract.erl",
+          "ComparisonRowsZeroBased": [
+            8538,
+            8695,
+            8852,
+            9009,
+            9166,
+            9323
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "tl_proper",
+          "Group": "tuple",
+          "Source": "original/erlang370_tuple_contract.erl",
+          "ComparisonRowsZeroBased": [
+            8539,
+            8696,
+            8853,
+            9010,
+            9167,
+            9324
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "tl_improper",
+          "Group": "tuple",
+          "Source": "original/erlang370_tuple_contract.erl",
+          "ComparisonRowsZeroBased": [
+            8540,
+            8697,
+            8854,
+            9011,
+            9168,
+            9325
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "tl_nested",
+          "Group": "tuple",
+          "Source": "original/erlang370_tuple_contract.erl",
+          "ComparisonRowsZeroBased": [
+            8541,
+            8698,
+            8855,
+            9012,
+            9169,
+            9326
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        }
+      ],
+      "ExistingStrictObservations": 66,
+      "SupplementCases": [
+        "tl_guard_accept",
+        "tl_guard_reject",
+        "tl_guard_native_record",
+        "tl_non_tail_success",
+        "tl_non_tail_badarg",
+        "tl_invalid_pid",
+        "tl_invalid_reference",
+        "tl_invalid_function",
+        "tl_invalid_tuple",
+        "tl_identity_payload"
+      ],
+      "MissingAcceptance": [
+        "Execute additive50/250 packet under pinned original GitHub CI and actual final Main; exact full-field comparison for this MFA must be zero-difference.",
+        "Root independently accepts source partition and exact current source guard bindings; if source changes after capture, rerun affected observations and review delta.",
+        "Retain actual badarg BIF frame, original arguments, error_info formatter and source caller file/line; no stack normalization or stale source substitution."
+      ],
+      "Limits": "Complete observable Erlang logical API contract on supported valid term model; resource capacity, timing, performance and host-only invalid term extensions are not claimed identical."
+    },
+    {
+      "Mfa": "erlang:tuple_size/1",
+      "CurrentStatus": "Needs verification",
+      "ProposedStatusAfterFinalGate": "Verified compatible",
+      "Contract": "Tuple -> integer arity; every non-Tuple term -> error:badarg.",
+      "TermBranchProof": [
+        "Empty tuple ->0; every nonempty tuple -> immutable Items.Count as exact Integer.",
+        "Arity depends only on count, never element kind, identity, comparison, hash or structure.",
+        "TupleTerm snapshots constructor input into Array.AsReadOnly(items.ToArray()); Items.Count cannot change after construction.",
+        "NativeRecord is a distinct kind and is not treated as legacy tagged Tuple; tested in guard mode without dropping native-record error payload.",
+        "Tuple construction/allocation capacity is excluded exactly as in existing complete logical API contract definition; no claim of identical memory capacity or VM header layout. No new tuple constructor limit is imposed by this BIF."
+      ],
+      "PinnedSource": {
+        "Path": "erts/emulator/beam/bif.c",
+        "Line": 2963,
+        "Sha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC"
+      },
+      "ManagedSource": {
+        "Path": "src/Erlang.Runtime/CoreModules.cs",
+        "Line": 58,
+        "Sha256": "A538B78EE3F0B0E8A206C69BD0B6A3883F6A8B2F2B310A951C64E4382DBE788A"
+      },
+      "ExistingOriginalWitnesses": [
+        {
+          "Name": "tuple_size_nil",
+          "Group": "size_type",
+          "Source": "original/erlang370_size_type_contract.erl",
+          "ComparisonRowsZeroBased": [
+            7232,
+            7449,
+            7666,
+            7883,
+            8100,
+            8317
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "tuple_size_proper",
+          "Group": "size_type",
+          "Source": "original/erlang370_size_type_contract.erl",
+          "ComparisonRowsZeroBased": [
+            7233,
+            7450,
+            7667,
+            7884,
+            8101,
+            8318
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "tuple_size_improper",
+          "Group": "size_type",
+          "Source": "original/erlang370_size_type_contract.erl",
+          "ComparisonRowsZeroBased": [
+            7234,
+            7451,
+            7668,
+            7885,
+            8102,
+            8319
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "tuple_size_atom",
+          "Group": "size_type",
+          "Source": "original/erlang370_size_type_contract.erl",
+          "ComparisonRowsZeroBased": [
+            7235,
+            7452,
+            7669,
+            7886,
+            8103,
+            8320
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "tuple_size_integer",
+          "Group": "size_type",
+          "Source": "original/erlang370_size_type_contract.erl",
+          "ComparisonRowsZeroBased": [
+            7236,
+            7453,
+            7670,
+            7887,
+            8104,
+            8321
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "tuple_size_float",
+          "Group": "size_type",
+          "Source": "original/erlang370_size_type_contract.erl",
+          "ComparisonRowsZeroBased": [
+            7237,
+            7454,
+            7671,
+            7888,
+            8105,
+            8322
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "tuple_size_tuple",
+          "Group": "size_type",
+          "Source": "original/erlang370_size_type_contract.erl",
+          "ComparisonRowsZeroBased": [
+            7238,
+            7455,
+            7672,
+            7889,
+            8106,
+            8323
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "tuple_size_empty_tuple",
+          "Group": "size_type",
+          "Source": "original/erlang370_size_type_contract.erl",
+          "ComparisonRowsZeroBased": [
+            7239,
+            7456,
+            7673,
+            7890,
+            8107,
+            8324
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "tuple_size_map",
+          "Group": "size_type",
+          "Source": "original/erlang370_size_type_contract.erl",
+          "ComparisonRowsZeroBased": [
+            7240,
+            7457,
+            7674,
+            7891,
+            8108,
+            8325
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "tuple_size_binary",
+          "Group": "size_type",
+          "Source": "original/erlang370_size_type_contract.erl",
+          "ComparisonRowsZeroBased": [
+            7241,
+            7458,
+            7675,
+            7892,
+            8109,
+            8326
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "tuple_size_partial",
+          "Group": "size_type",
+          "Source": "original/erlang370_size_type_contract.erl",
+          "ComparisonRowsZeroBased": [
+            7242,
+            7459,
+            7676,
+            7893,
+            8110,
+            8327
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "tuple_size_pid",
+          "Group": "size_type",
+          "Source": "original/erlang370_size_type_contract.erl",
+          "ComparisonRowsZeroBased": [
+            7243,
+            7460,
+            7677,
+            7894,
+            8111,
+            8328
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "tuple_size_reference",
+          "Group": "size_type",
+          "Source": "original/erlang370_size_type_contract.erl",
+          "ComparisonRowsZeroBased": [
+            7244,
+            7461,
+            7678,
+            7895,
+            8112,
+            8329
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "tuple_size_function",
+          "Group": "size_type",
+          "Source": "original/erlang370_size_type_contract.erl",
+          "ComparisonRowsZeroBased": [
+            7245,
+            7462,
+            7679,
+            7896,
+            8113,
+            8330
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "guard_failure_tuple_size",
+          "Group": "size_type",
+          "Source": "original/erlang370_size_type_contract.erl",
+          "ComparisonRowsZeroBased": [
+            7420,
+            7637,
+            7854,
+            8071,
+            8288,
+            8505
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "non_tail_error_tuple_size",
+          "Group": "size_type",
+          "Source": "original/erlang370_size_type_contract.erl",
+          "ComparisonRowsZeroBased": [
+            7426,
+            7643,
+            7860,
+            8077,
+            8294,
+            8511
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        }
+      ],
+      "ExistingStrictObservations": 96,
+      "SupplementCases": [
+        "tuple_size_guard_accept",
+        "tuple_size_guard_reject",
+        "tuple_size_guard_native_record",
+        "tuple_size_non_tail_success",
+        "tuple_size_non_tail_badarg",
+        "tuple_size_arity_257"
+      ],
+      "MissingAcceptance": [
+        "Execute additive50/250 packet under pinned original GitHub CI and actual final Main; exact full-field comparison for this MFA must be zero-difference.",
+        "Root independently accepts source partition and exact current source guard bindings; if source changes after capture, rerun affected observations and review delta.",
+        "Retain actual badarg BIF frame, original arguments, error_info formatter and source caller file/line; no stack normalization or stale source substitution."
+      ],
+      "Limits": "Complete observable Erlang logical API contract on supported valid term model; resource capacity, timing, performance and host-only invalid term extensions are not claimed identical."
+    },
+    {
+      "Mfa": "erlang:is_integer/3",
+      "CurrentStatus": "Needs verification",
+      "ProposedStatusAfterFinalGate": "Verified compatible",
+      "Contract": "Validate bounds first: either bound noninteger -> error:badarg, regardless of Value. Otherwise noninteger Value ->false. Otherwise compare inclusive Min <= Value <= Max with arbitrary-precision signed integer comparisons.",
+      "TermBranchProof": [
+        "Invalid Min/valid Max, valid Min/invalid Max, both invalid ->same badarg; no conversion to float/native small integer.",
+        "Valid integer bounds and noninteger Value ->false for all noninteger kinds, including genuine NativeRecord.",
+        "Integer Value inside inclusive boundaries ->true; less than Min, greater than Max, and reversed bounds ->false.",
+        "All small/big signed cross-representations collapse to BigInteger total signed order; no numeric term-order coercion, allocation, summation overflow or hash path.",
+        "Both comparisons short-circuit left-to-right, but are pure and error-free after bound validation."
+      ],
+      "PinnedSource": {
+        "Path": "erts/emulator/beam/erl_bif_guard.c",
+        "Line": 337,
+        "Sha256": "6A254BCEDAF5F57A01A8CDD6CF94F8140693BE99B4735A9283D8BFFA4288CC67"
+      },
+      "ManagedSource": {
+        "Path": "src/Erlang.Runtime/ErlangBasicRegistrations.cs",
+        "Line": 40,
+        "Sha256": "499D27A10BE7CFFFEA561984F1331FF605CCAA794DF2A68F1B82F32481E429CE"
+      },
+      "ExistingOriginalWitnesses": [
+        {
+          "Name": "is_integer_range_inside",
+          "Group": "size_type",
+          "Source": "original/erlang370_size_type_contract.erl",
+          "ComparisonRowsZeroBased": [
+            7362,
+            7579,
+            7796,
+            8013,
+            8230,
+            8447
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "is_integer_range_minimum",
+          "Group": "size_type",
+          "Source": "original/erlang370_size_type_contract.erl",
+          "ComparisonRowsZeroBased": [
+            7363,
+            7580,
+            7797,
+            8014,
+            8231,
+            8448
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "is_integer_range_maximum",
+          "Group": "size_type",
+          "Source": "original/erlang370_size_type_contract.erl",
+          "ComparisonRowsZeroBased": [
+            7364,
+            7581,
+            7798,
+            8015,
+            8232,
+            8449
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "is_integer_range_outside",
+          "Group": "size_type",
+          "Source": "original/erlang370_size_type_contract.erl",
+          "ComparisonRowsZeroBased": [
+            7365,
+            7582,
+            7799,
+            8016,
+            8233,
+            8450
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "is_integer_range_reversed",
+          "Group": "size_type",
+          "Source": "original/erlang370_size_type_contract.erl",
+          "ComparisonRowsZeroBased": [
+            7366,
+            7583,
+            7800,
+            8017,
+            8234,
+            8451
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "is_integer_range_big",
+          "Group": "size_type",
+          "Source": "original/erlang370_size_type_contract.erl",
+          "ComparisonRowsZeroBased": [
+            7367,
+            7584,
+            7801,
+            8018,
+            8235,
+            8452
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "is_integer_range_negative_big",
+          "Group": "size_type",
+          "Source": "original/erlang370_size_type_contract.erl",
+          "ComparisonRowsZeroBased": [
+            7368,
+            7585,
+            7802,
+            8019,
+            8236,
+            8453
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "is_integer_range_noninteger",
+          "Group": "size_type",
+          "Source": "original/erlang370_size_type_contract.erl",
+          "ComparisonRowsZeroBased": [
+            7369,
+            7586,
+            7803,
+            8020,
+            8237,
+            8454
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "is_integer_range_invalid_min",
+          "Group": "size_type",
+          "Source": "original/erlang370_size_type_contract.erl",
+          "ComparisonRowsZeroBased": [
+            7370,
+            7587,
+            7804,
+            8021,
+            8238,
+            8455
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "is_integer_range_invalid_max",
+          "Group": "size_type",
+          "Source": "original/erlang370_size_type_contract.erl",
+          "ComparisonRowsZeroBased": [
+            7371,
+            7588,
+            7805,
+            8022,
+            8239,
+            8456
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "is_integer_range_both_invalid",
+          "Group": "size_type",
+          "Source": "original/erlang370_size_type_contract.erl",
+          "ComparisonRowsZeroBased": [
+            7372,
+            7589,
+            7806,
+            8023,
+            8240,
+            8457
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        },
+        {
+          "Name": "is_integer_range_float_min",
+          "Group": "size_type",
+          "Source": "original/erlang370_size_type_contract.erl",
+          "ComparisonRowsZeroBased": [
+            7373,
+            7590,
+            7807,
+            8024,
+            8241,
+            8458
+          ],
+          "Depths": [
+            "value",
+            "('atom', 'default')",
+            "('integer', 0)",
+            "('integer', 1)",
+            "('integer', 2)",
+            "('integer', 8)"
+          ]
+        }
+      ],
+      "ExistingStrictObservations": 72,
+      "SupplementCases": [
+        "is_integer_guard_inside",
+        "is_integer_guard_outside",
+        "is_integer_guard_reversed",
+        "is_integer_guard_invalid_min",
+        "is_integer_guard_invalid_max",
+        "is_integer_guard_both_invalid",
+        "is_integer_guard_native_record",
+        "is_integer_non_tail_success",
+        "is_integer_non_tail_invalid_min",
+        "is_integer_non_tail_invalid_max",
+        "is_integer_non_tail_both_invalid",
+        "is_integer_big_equal",
+        "is_integer_big_below",
+        "is_integer_big_above",
+        "is_integer_noninteger_nil",
+        "is_integer_noninteger_cons",
+        "is_integer_noninteger_tuple",
+        "is_integer_noninteger_map",
+        "is_integer_noninteger_binary",
+        "is_integer_noninteger_bits",
+        "is_integer_noninteger_pid",
+        "is_integer_noninteger_reference",
+        "is_integer_noninteger_function",
+        "is_integer_noninteger_native_record"
+      ],
+      "MissingAcceptance": [
+        "Execute additive50/250 packet under pinned original GitHub CI and actual final Main; exact full-field comparison for this MFA must be zero-difference.",
+        "Root independently accepts source partition and exact current source guard bindings; if source changes after capture, rerun affected observations and review delta.",
+        "Retain actual badarg BIF frame, original arguments, error_info formatter and source caller file/line; no stack normalization or stale source substitution."
+      ],
+      "Limits": "Complete observable Erlang logical API contract on supported valid term model; resource capacity, timing, performance and host-only invalid term extensions are not claimed identical."
+    }
+  ],
+  "OtherCandidatesNotPromoted": [
+    {
+      "Mfa": "erlang:is_function/2",
+      "Reason": "Existing external FUN witnesses alone do not cover local FUNs, restored ETF closure and arity guard contexts; FunctionTerm.Arity public host constructor accepts out-of-domain host arities. Add valid local/external closure controls and define only valid Erlang FUN domain before promotion."
+    },
+    {
+      "Mfa": "erlang:bit_size/1;erlang:byte_size/1;erlang:size/1",
+      "Reason": "The arithmetic source branch is clear, but logical length Int32 and large bitstring representability require explicit resource-model scope review. Do not transfer binary module complete classification mechanically."
+    },
+    {
+      "Mfa": "erlang:map_size/1",
+      "Reason": "Managed map canonicalization and native externally encoded reference word-count lookup anomalies remain explicit broader map-model gates. Count-only bounded review could be possible, but this proposal does not waive construction invariants."
+    }
+  ],
+  "ExistingEvidence": {
+    "RowsPath": "docs/validation/part-370/comparison/final-old/rows.json",
+    "RowsSha256": "3F2E91035DC9CB44AAEE6A6DA6B084A95E1A4B04F45E1848FE7625B0057B6BD9",
+    "AcceptancePath": "docs/validation/part-370/comparison/final-old/acceptance.json",
+    "AcceptanceSha256": "DD9DF9129295C9B5E03007F54CBA28082B0FA9402CE21712934A4B8E36903F57",
+    "OriginalRetrospectiveAdmissionPath": "docs/validation/part-370/history/original-failed-e62e/retrospective/acceptance.json",
+    "OriginalFailedRun": "https://github.com/develmax/Erlang.Net/actions/runs/39106192411",
+    "FailedRunRetainedAsFailed": true
+  }
+}

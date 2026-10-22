@@ -1,0 +1,1 @@
+-module(oracle_maps_completion). -export([run/0]). run()->#{1:={integer,right_integer},1.0:={float,right_float}}=maps:merge_with(fun(_,L,R)->{L,R} end,#{1=>integer,1.0=>float},#{1=>right_integer,1.0=>right_float}),done.

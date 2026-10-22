@@ -1,0 +1,100 @@
+{
+  "Status": "FINAL_STYLED_SOURCE_APPLICABILITY_PRESERVES38_QUEUE8_NOT_PROMOTED",
+  "BaseLedgerSha256": "41307263BD94F5A96D945A7B176123785BF90B8A2E6EACAB2B0B7B5FC0BBB5F0",
+  "GuardsBefore": 353,
+  "GuardsAfter": 357,
+  "VerifiedEntriesPreserved": 38,
+  "EntriesChanged": 0,
+  "NewClassifications": 0,
+  "OnlyChangedExistingGuard": "src/Erlang.Runtime/QueueCoreLinear.cs",
+  "OtherExistingGuardsExact": 352,
+  "FinalPayload": [
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreLinear.cs",
+      "Bytes": 2548,
+      "Sha256": "DDDB98A5975E67FB916A67C94C845B3CF20FE20422EFAA7B2573BE6A8AE76E58",
+      "FrozenPayloadSha256": "5ACBDD3CA5043B08BBDF79A123D20DA5ACC614D1239931F5B0B45BBFF7C913B7",
+      "OnlyWhitespaceStyleDelta": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreReverse.cs",
+      "Bytes": 1539,
+      "Sha256": "FBE292E9F7A01982B69EE5E9ABD391FD36DEEEDF3C07DEB91FE34D9D9D013609",
+      "FrozenPayloadSha256": "7DA294637E928C03B1D65E59D762511AF1B1C6585D3D5CC9259F6A38FAD7C0B2",
+      "OnlyWhitespaceStyleDelta": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreReverseEntry.cs",
+      "Bytes": 226,
+      "Sha256": "F5082B18C00C2098EEB28ABB1C3A4BB77012671296A565847457998B60B04B01",
+      "FrozenPayloadSha256": "82AB659946B4E21CBD895C4CA14FD756EF26BDCFE93BA6B9341FA8004D47E23B",
+      "OnlyWhitespaceStyleDelta": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreReverseParameters.cs",
+      "Bytes": 119,
+      "Sha256": "7CF481B69DCB307C23846AD505CDF4A06A4A55B24B2CE9C7D2DFA6062104F79B",
+      "FrozenPayloadSha256": "23353D69BEF03F2244B66758AEF4D6715D7629FD58FEC59D1A62B34B6948BD00",
+      "OnlyWhitespaceStyleDelta": true
+    },
+    {
+      "Path": "tests/Erlang.Tests/QueueCooperativeHostChecks.cs",
+      "Bytes": 6904,
+      "Sha256": "9A85C7E7CCAB7C1967021A147F6CB94660B2D295B6BF73EB80CEFA79DEB580F3",
+      "FrozenPayloadSha256": "714E5D5AC78770DA46A71DEDBE0849B704A8856A8AE5D4A151483055D6759276",
+      "OnlyWhitespaceStyleDelta": true
+    },
+    {
+      "Path": "tests/Erlang.Tests/QueueCooperativeHostNames.cs",
+      "Bytes": 593,
+      "Sha256": "144D13DCA79CB10DDA0131BB156C3AAD3A5DCEFF1E863CD4028D0BDE537841EC",
+      "FrozenPayloadSha256": "4F2EE075051A5E4B1C8FBB419A56F3E2D516D5B9166A21729CCCAD0CB4386BAF",
+      "OnlyWhitespaceStyleDelta": true
+    },
+    {
+      "Path": "tests/Erlang.Tests/QueueCoreReverseEntryHostChecks.cs",
+      "Bytes": 3481,
+      "Sha256": "DB79684F7FDD6D9A3F49F04FFB5F819631359983E30B20CC7177F5391208549D",
+      "FrozenPayloadSha256": "BEB9B57DE8ACFEAD79BBDC35FE88DC97821F026194FACE488EBA358F2DBA7B4C",
+      "OnlyWhitespaceStyleDelta": true
+    },
+    {
+      "Path": "tests/Erlang.Tests/QueueCoreReverseEntryHostNames.cs",
+      "Bytes": 653,
+      "Sha256": "3A0229026284C2D8A205F903C9DD3AAC6CB318E16FCE3CA09004BF80B7EDEF2A",
+      "FrozenPayloadSha256": "F4E178BDCFDDB21081F7EED8A6A282484DD5E0989CF17262D8902F56B26552DF",
+      "OnlyWhitespaceStyleDelta": true
+    }
+  ],
+  "AddedDependencies": [
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreReverse.cs",
+      "Sha256": "FBE292E9F7A01982B69EE5E9ABD391FD36DEEEDF3C07DEB91FE34D9D9D013609"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreReverseEntry.cs",
+      "Sha256": "F5082B18C00C2098EEB28ABB1C3A4BB77012671296A565847457998B60B04B01"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreReverseParameters.cs",
+      "Sha256": "7CF481B69DCB307C23846AD505CDF4A06A4A55B24B2CE9C7D2DFA6062104F79B"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.ListTraversal.cs",
+      "Sha256": "762E8A8590A6C47D40A8B9BEEFB6ECFD6E149A7A8B05E8F3A333AB330DE8283C"
+    }
+  ],
+  "Prior353PreservationProof": {
+    "Path": "artifacts/queue-integration367-source-review1/source-review.json",
+    "Sha256": "5DC78F85F9D508FC52C0C9D69298D49E62F0B3466EA30F6A2DF2EDCBAEC54A27"
+  },
+  "PriorFullGate": "Root reports7561/7561 plus11integrations/2packages on source before this reverse delta; not evidence for these final eight styled payloads.",
+  "RequiredFinalGates": [
+    "Root source/style/build",
+    "All160existingvalues/800fullprofiles recompare with unchangedoriginal; retain anydiff and only accept genuine sourcebound ownBIFentry relation wherejustified, never size-based exemption.",
+    "Deterministicactualownbudget HOST and enlarged4operationnormal/cancel/observer/unwind controls",
+    "Supplemental original longimproper reverse/append controls with actual trapped suffix/accumulator evidence; do not demand crossVMsame nativequantum/heapbranch.",
+    "Finalsource/DLL regression/delta gates before perMFApromotion"
+  ],
+  "NoMainWritesBuildSdkNativeCiNetwork": true
+}

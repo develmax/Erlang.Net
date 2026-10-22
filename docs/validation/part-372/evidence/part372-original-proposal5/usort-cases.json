@@ -1,0 +1,227 @@
+[
+  {
+    "Name": "public_empty",
+    "Expression": "ordsets:from_list([])",
+    "Mfa": "ordsets:from_list/1"
+  },
+  {
+    "Name": "public_singleton",
+    "Expression": "ordsets:from_list([a])",
+    "Mfa": "ordsets:from_list/1"
+  },
+  {
+    "Name": "public_two_less",
+    "Expression": "ordsets:from_list([1,2])",
+    "Mfa": "ordsets:from_list/1"
+  },
+  {
+    "Name": "public_two_greater",
+    "Expression": "ordsets:from_list([2,1])",
+    "Mfa": "ordsets:from_list/1"
+  },
+  {
+    "Name": "public_two_equal",
+    "Expression": "ordsets:from_list([1,1])",
+    "Mfa": "ordsets:from_list/1"
+  },
+  {
+    "Name": "public_two_numeric_equal",
+    "Expression": "ordsets:from_list([1.0,1])",
+    "Mfa": "ordsets:from_list/1"
+  },
+  {
+    "Name": "public_two_numeric_equal_reverse",
+    "Expression": "ordsets:from_list([1,1.0])",
+    "Mfa": "ordsets:from_list/1"
+  },
+  {
+    "Name": "public_three_equal",
+    "Expression": "ordsets:from_list([1,1.0,1])",
+    "Mfa": "ordsets:from_list/1"
+  },
+  {
+    "Name": "three_ascending_above",
+    "Expression": "ordsets:from_list([1,2,3])",
+    "Mfa": "ordsets:from_list/1"
+  },
+  {
+    "Name": "three_ascending_equal_upper",
+    "Expression": "ordsets:from_list([1,2,2.0])",
+    "Mfa": "ordsets:from_list/1"
+  },
+  {
+    "Name": "three_ascending_below",
+    "Expression": "ordsets:from_list([1,2,0])",
+    "Mfa": "ordsets:from_list/1"
+  },
+  {
+    "Name": "three_ascending_equal_lower",
+    "Expression": "ordsets:from_list([1,2,1.0])",
+    "Mfa": "ordsets:from_list/1"
+  },
+  {
+    "Name": "three_ascending_between",
+    "Expression": "ordsets:from_list([1,2,1.5])",
+    "Mfa": "ordsets:from_list/1"
+  },
+  {
+    "Name": "three_descending_above",
+    "Expression": "ordsets:from_list([2,1,3])",
+    "Mfa": "ordsets:from_list/1"
+  },
+  {
+    "Name": "three_descending_equal_upper",
+    "Expression": "ordsets:from_list([2,1,2.0])",
+    "Mfa": "ordsets:from_list/1"
+  },
+  {
+    "Name": "three_descending_below",
+    "Expression": "ordsets:from_list([2,1,0])",
+    "Mfa": "ordsets:from_list/1"
+  },
+  {
+    "Name": "three_descending_equal_lower",
+    "Expression": "ordsets:from_list([2,1,1.0])",
+    "Mfa": "ordsets:from_list/1"
+  },
+  {
+    "Name": "three_descending_between",
+    "Expression": "ordsets:from_list([2,1,1.5])",
+    "Mfa": "ordsets:from_list/1"
+  },
+  {
+    "Name": "usort_1_improper",
+    "Expression": "ordsets:from_list([1,1,1|bad])",
+    "Mfa": "ordsets:from_list/1"
+  },
+  {
+    "Name": "usort_1_proper",
+    "Expression": "ordsets:from_list([1,1,1])",
+    "Mfa": "ordsets:from_list/1"
+  },
+  {
+    "Name": "usort_1_direct_lists_improper",
+    "Expression": "lists:usort([1,1,1|bad])",
+    "Mfa": "lists:usort/1"
+  },
+  {
+    "Name": "usplit_1_improper",
+    "Expression": "ordsets:from_list([1,3|bad])",
+    "Mfa": "ordsets:from_list/1"
+  },
+  {
+    "Name": "usplit_1_proper",
+    "Expression": "ordsets:from_list([1,3])",
+    "Mfa": "ordsets:from_list/1"
+  },
+  {
+    "Name": "usplit_1_direct_lists_improper",
+    "Expression": "lists:usort([1,3|bad])",
+    "Mfa": "lists:usort/1"
+  },
+  {
+    "Name": "usplit_2_improper",
+    "Expression": "ordsets:from_list([3,1|bad])",
+    "Mfa": "ordsets:from_list/1"
+  },
+  {
+    "Name": "usplit_2_proper",
+    "Expression": "ordsets:from_list([3,1])",
+    "Mfa": "ordsets:from_list/1"
+  },
+  {
+    "Name": "usplit_2_direct_lists_improper",
+    "Expression": "lists:usort([3,1|bad])",
+    "Mfa": "lists:usort/1"
+  },
+  {
+    "Name": "usplit_1_1_improper",
+    "Expression": "ordsets:from_list([1,3,0,-1|bad])",
+    "Mfa": "ordsets:from_list/1"
+  },
+  {
+    "Name": "usplit_1_1_proper",
+    "Expression": "ordsets:from_list([1,3,0,-1])",
+    "Mfa": "ordsets:from_list/1"
+  },
+  {
+    "Name": "usplit_1_1_direct_lists_improper",
+    "Expression": "lists:usort([1,3,0,-1|bad])",
+    "Mfa": "lists:usort/1"
+  },
+  {
+    "Name": "usplit_2_1_improper",
+    "Expression": "ordsets:from_list([3,1,4,5|bad])",
+    "Mfa": "ordsets:from_list/1"
+  },
+  {
+    "Name": "usplit_2_1_proper",
+    "Expression": "ordsets:from_list([3,1,4,5])",
+    "Mfa": "ordsets:from_list/1"
+  },
+  {
+    "Name": "usplit_2_1_direct_lists_improper",
+    "Expression": "lists:usort([3,1,4,5|bad])",
+    "Mfa": "lists:usort/1"
+  },
+  {
+    "Name": "numeric_representative_0",
+    "Expression": "ordsets:from_list([2.0,1,2,0,1.0])",
+    "Mfa": "ordsets:from_list/1"
+  },
+  {
+    "Name": "numeric_representative_1",
+    "Expression": "ordsets:from_list([3,1.0,2,1,0,2.0])",
+    "Mfa": "ordsets:from_list/1"
+  },
+  {
+    "Name": "numeric_representative_2",
+    "Expression": "ordsets:from_list([1.0,1,1.0,2])",
+    "Mfa": "ordsets:from_list/1"
+  },
+  {
+    "Name": "zigzag_forward",
+    "Expression": "ordsets:from_list([5,1,6,2,7,3,8,4,9,0])",
+    "Mfa": "ordsets:from_list/1"
+  },
+  {
+    "Name": "zigzag_reverse",
+    "Expression": "ordsets:from_list([0,9,4,8,3,7,2,6,1,5])",
+    "Mfa": "ordsets:from_list/1"
+  },
+  {
+    "Name": "alternating_runs",
+    "Expression": "ordsets:from_list([1,2,3,9,8,7,0,4,5,6])",
+    "Mfa": "ordsets:from_list/1"
+  },
+  {
+    "Name": "equal_runs",
+    "Expression": "ordsets:from_list([3.0,3,3.0,1,1.0,2,2.0,2,0,0.0])",
+    "Mfa": "ordsets:from_list/1"
+  },
+  {
+    "Name": "all_equal_numeric",
+    "Expression": "ordsets:from_list([1.0,1,1.0,1,1.0,1])",
+    "Mfa": "ordsets:from_list/1"
+  },
+  {
+    "Name": "map_representatives_0",
+    "Expression": "ordsets:map(fun(E)->E end,[2.0,1,2,0,1.0])",
+    "Mfa": "ordsets:map/2"
+  },
+  {
+    "Name": "filtermap_representatives_0",
+    "Expression": "ordsets:filtermap(fun(E)->{true,E} end,[2.0,1,2,0,1.0])",
+    "Mfa": "ordsets:filtermap/2"
+  },
+  {
+    "Name": "map_representatives_1",
+    "Expression": "ordsets:map(fun(E)->E end,[3,1.0,2,1,0,2.0])",
+    "Mfa": "ordsets:map/2"
+  },
+  {
+    "Name": "filtermap_representatives_1",
+    "Expression": "ordsets:filtermap(fun(E)->{true,E} end,[3,1.0,2,1,0,2.0])",
+    "Mfa": "ordsets:filtermap/2"
+  }
+]

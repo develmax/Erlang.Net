@@ -1,0 +1,123 @@
+{
+  "Passed": true,
+  "Failure": null,
+  "Phase": "captured-not-compared",
+  "OriginalPin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Provider": "Genuine admitted local Windows OTP-29.1.1",
+  "ProfileSha256": "23A83CED8D666DAB3C632BB02E0CBD14890C9AF668D9D4B24F332A4C6A25F2C8",
+  "OfficialAdmissionSha256": "41CCC2FDE5493D85BEAA21996E12D0885D2919B0D4BF44137D0673DCDC9D5EA6",
+  "ImageManifestSha256": "6EF204CE619AA68CEF3B1D7F9D70AA111ACF0CB0F474A62A87757A145BE2A837",
+  "CompanionImages": [
+    {
+      "Module": "lists",
+      "Sha256": "8941092DC34F0470CD404979E1890DF514D83F2EEB3B0AA8A276553E76471262"
+    },
+    {
+      "Module": "string",
+      "Sha256": "37C66C6A5DF38AE239CA1EEDEDBD2CE2FBC4B8B4F3EB7605E115D0AB73FDA697"
+    },
+    {
+      "Module": "unicode_util",
+      "Sha256": "5CDC886E30216B5DE33B6F4BDC1DEA006EAA3392EC4A83EC90CD7B946B5759FF"
+    },
+    {
+      "Module": "beam_fields_observer391",
+      "Sha256": "26FF269776341D99A9A3F6132B634EBCF672144BE238CA40E8231FB1B026004E"
+    }
+  ],
+  "ActualChildRoot": "beam_fields_observer391:worker/1",
+  "SameCompiledSourceBothProviders": true,
+  "ExpectedValues": 31,
+  "ExpectedStackProfiles": 155,
+  "ExpectedWholeComparisons": 186,
+  "WholeTermsAndStacks": true,
+  "FrameProjectionOrNormalization": false,
+  "ApiOrContractPromotions": 0,
+  "Files": [
+    {
+      "Path": "closure-checks.json",
+      "Sha256": "A11543F8CE4E5D85B486551766767605CF39FD0834BF612B548FC3869F39A3BC",
+      "Bytes": 384
+    },
+    {
+      "Path": "compile.exit.json",
+      "Sha256": "0C685F37BBD36D295D25E05BA84B52AA076D3465E63132BDBA965562E8CFF7CD",
+      "Bytes": 780
+    },
+    {
+      "Path": "compile.live.json",
+      "Sha256": "5411A00946BF5606AE01AE8EE305630C554E2817EC329FD53B5A931ECF5DB2B8",
+      "Bytes": 529
+    },
+    {
+      "Path": "compile.stderr.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "compile.stdout.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "ebin/beam_fields_observer391.beam",
+      "Sha256": "26FF269776341D99A9A3F6132B634EBCF672144BE238CA40E8231FB1B026004E",
+      "Bytes": 8924
+    },
+    {
+      "Path": "ebin/lists.beam",
+      "Sha256": "8941092DC34F0470CD404979E1890DF514D83F2EEB3B0AA8A276553E76471262",
+      "Bytes": 124180
+    },
+    {
+      "Path": "ebin/string.beam",
+      "Sha256": "37C66C6A5DF38AE239CA1EEDEDBD2CE2FBC4B8B4F3EB7605E115D0AB73FDA697",
+      "Bytes": 106500
+    },
+    {
+      "Path": "ebin/unicode_util.beam",
+      "Sha256": "5CDC886E30216B5DE33B6F4BDC1DEA006EAA3392EC4A83EC90CD7B946B5759FF",
+      "Bytes": 1177636
+    },
+    {
+      "Path": "image-manifest.json",
+      "Sha256": "6EF204CE619AA68CEF3B1D7F9D70AA111ACF0CB0F474A62A87757A145BE2A837",
+      "Bytes": 481
+    },
+    {
+      "Path": "original.exit.json",
+      "Sha256": "F77BF77F527CCFF282D9C586309ACFDE2F587D74073409FB14084CFC41C8B21E",
+      "Bytes": 2444
+    },
+    {
+      "Path": "original.live.json",
+      "Sha256": "A6E21D0CDDDE9DB1CD8748E7632347A89009FCF48C54FCE72631170AB42E7C19",
+      "Bytes": 2195
+    },
+    {
+      "Path": "original.stderr.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "original.stdout.log",
+      "Sha256": "48E0B6C0A19651C4041320622C57F5799908036AFF7223E53FB35CC760AD1697",
+      "Bytes": 20
+    },
+    {
+      "Path": "source/beam_fields_observer391.erl",
+      "Sha256": "7C152E69512435109FD4E7689CA0F380B11AB6CE356CED592C9324B35EDB2972",
+      "Bytes": 4838
+    },
+    {
+      "Path": "stacks.etf",
+      "Sha256": "59B5D7F2A4F6B7FDAA5979A27DD2EB1A2A22E85CAD3776CFE7FEF2411CF93C12",
+      "Bytes": 13815
+    },
+    {
+      "Path": "values.etf",
+      "Sha256": "85CD2F6CF59F17E1944AE3BE026910A1AC06405B86B2066650318D51270716A7",
+      "Bytes": 3550
+    }
+  ]
+}

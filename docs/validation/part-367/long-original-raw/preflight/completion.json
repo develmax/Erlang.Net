@@ -1,0 +1,56 @@
+{
+  "Status": "PASS_LINUX_NAMED_FIXTURE_GATE",
+  "Stages": [
+    {
+      "Name": "parse-build",
+      "Arguments": [
+        "dotnet",
+        "build",
+        "/home/runner/work/Erlang.Net/Erlang.Net/tools/Erlang.ProplistFamilyObservations/parse-gate/ProplistFamily.ParseGate.csproj",
+        "--disable-build-servers",
+        "-m:1",
+        "-nr:false",
+        "--nologo",
+        "-p:UseSharedCompilation=false",
+        "-p:NuGetAudit=false"
+      ],
+      "Failure": null,
+      "ReceiptSha256": "E9B73CF32971172009382194C2DC9F92968608F13B126AE90FA5EC57FCF3DD15"
+    },
+    {
+      "Name": "parse-sources",
+      "Arguments": [
+        "dotnet",
+        "/home/runner/work/Erlang.Net/Erlang.Net/tools/Erlang.ProplistFamilyObservations/parse-gate/bin/Debug/net10.0/ProplistFamily.ParseGate.dll",
+        "/home/runner/work/Erlang.Net/Erlang.Net",
+        "/home/runner/work/Erlang.Net/Erlang.Net/tools/Erlang.ProplistFamilyObservations",
+        "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/proplists22-original/preflight/parse-receipt.json"
+      ],
+      "Failure": null,
+      "ReceiptSha256": "391BB32367FF07FE87FE56549E0CC107587E29BCF449E4A7A48D4772754D23C7"
+    },
+    {
+      "Name": "collector-admit",
+      "Arguments": [
+        "python3",
+        "-B",
+        "/home/runner/work/Erlang.Net/Erlang.Net/tools/Erlang.ProplistFamilyObservations/collect-original-corrected.py",
+        "--repository",
+        "/home/runner/work/Erlang.Net/Erlang.Net",
+        "--expected-head",
+        "230eb081348a0c2b5056707b71c8b0086fe42b0c",
+        "--source-inputs-sha256",
+        "DC8399C2E14E49B949365F5CCA441FDD1B047646AE27DA83C3102B565C10E148",
+        "--parse-gate",
+        "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/proplists22-original/preflight/parse-receipt.json",
+        "--parse-gate-sha256",
+        "ED69A6B89EE580CACC6F0310C415E789D9ECC07BE130F31C8C2FF8D3D385B455",
+        "--verify-only"
+      ],
+      "Failure": null,
+      "ReceiptSha256": "7B15B4F20AF74A90324F6E9A3466B480389A1B87CE748F978F01FD3003FEFF8B"
+    }
+  ],
+  "ParseGateSha256": "ED69A6B89EE580CACC6F0310C415E789D9ECC07BE130F31C8C2FF8D3D385B455",
+  "OriginalExecuted": false
+}

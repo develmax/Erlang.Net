@@ -1,0 +1,35 @@
+{
+  "Files": [
+    {
+      "Source": "artifacts/ordsets372-equality-size-proposal1/source/src/Erlang.Terms/TermOrder.cs",
+      "Destination": "src/Erlang.Terms/TermOrder.cs",
+      "BeforeSha256": "D54D6129488CA5497D366313EC2A54DA5A2EA831057F34EEF16A3AC43BA6467F",
+      "AfterSha256": "E22F87A2D2CB77367EBFB4AE60F3D09C99C784ED70C55D36900A75756CD97B2E",
+      "Reason": "Native flat-map NumericEquality source key-order alignment, preserving exact nested values; candidate requires actual OTP differential before promotion."
+    },
+    {
+      "Source": "artifacts/ordsets372-equality-size-proposal1/source/src/Erlang.Terms/TermMapOrdering.cs",
+      "Destination": "src/Erlang.Terms/TermMapOrdering.cs",
+      "BeforeSha256": "C24A775A4D6CC88791D9CDD438E150E9CE6CD3DC7847347B61E1D99F5113B468",
+      "AfterSha256": "6422BE459D1087654BCB72CC7A9DD18EC7F84A6EBB07DAD7E43B6C85940D30C9",
+      "Reason": "Native flat-map NumericEquality source key-order alignment, preserving exact nested values; candidate requires actual OTP differential before promotion."
+    },
+    {
+      "Source": "artifacts/ordsets372-equality-size-proposal1/source/tests/Erlang.Tests/NumericMapEqualityHostChecks.cs",
+      "Destination": "tests/Erlang.Tests/NumericMapEqualityHostChecks.cs",
+      "BeforeSha256": null,
+      "AfterSha256": "87B5B940D4573EAD6D1E8A24AB7872E9E79A4E4FEB8DCE5D39BBE28C52D7CD81",
+      "Reason": "Permanent source-derived numeric map alignment and exact nested key/number/FUN distinctness controls; root must register Run() in host runner."
+    },
+    {
+      "Source": "artifacts/ordsets372-equality-size-proposal1/source/tests/Erlang.Tests/NumericMapEqualityHostNames.cs",
+      "Destination": "tests/Erlang.Tests/NumericMapEqualityHostNames.cs",
+      "BeforeSha256": null,
+      "AfterSha256": "94F54DF9A4FE27985ECBB4F2ACD94D7B94EC495EBE57D4846CE679D2D8DA855E",
+      "Reason": "Permanent source-derived numeric map alignment and exact nested key/number/FUN distinctness controls; root must register Run() in host runner."
+    }
+  ],
+  "NoMainEdits": true,
+  "BuildOrTestExecuted": false,
+  "NativeWitnessPending": true
+}

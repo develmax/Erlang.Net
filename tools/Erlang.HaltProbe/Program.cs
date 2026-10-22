@@ -6,6 +6,9 @@ using Erlang.Compiler;
 using Erlang.Differential;
 using Erlang.HaltProbe;
 
+if (args.Length > 0 && args[0] == HaltWindowsDumpNames437.Command)
+    return HaltWindowsDumpHelper437.Run(args);
+
 if (args.Length > 0 && args[0] == NativeHaltTrackNames.Command)
     return await NativeHaltTrack.Run(args);
 

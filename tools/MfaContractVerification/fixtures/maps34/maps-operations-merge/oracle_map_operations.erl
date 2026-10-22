@@ -1,0 +1,1 @@
+-module(oracle_map_operations). -export([run/0]). run()->#{a:=right,b:=left,c:=third}=maps:merge(#{a=>left,b=>left},#{a=>right,c=>third}),done.

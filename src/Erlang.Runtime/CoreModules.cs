@@ -7,6 +7,7 @@ public static class CoreModules
     public static void Register(ModuleRegistry r)
     {
         r.InstallPreloaded(RegisterCode);
+        r.SealCanonicalMatchSpecGuards419();
     }
 
     private static void RegisterCode(ModuleRegistry r)
@@ -52,6 +53,7 @@ public static class CoreModules
             2,
             (c, a) => a[0] is Integer i && a[1] is TupleTerm t && i.Value > 0 && i.Value <= t.Items.Count ? t.Items[(int)i.Value - 1] : throw new ErlangException(ErlangErrorReasons.BadArgument)
         );
+        r.SealElementSourceContract();
         Add(
             ErlangModuleNames.Module,
             ErlangModuleNames.TupleSize,
@@ -149,7 +151,7 @@ public static class CoreModules
             ErlangModuleNames.Module,
             ErlangModuleNames.IsMap,
             1,
-            (c, a) => Boolean(a[0] is MapTerm)
+            (c, a) => Boolean(a[0] is MapTerm or HamtBitmapTerm429)
         );
         Add(
             ErlangModuleNames.Module,
@@ -283,6 +285,8 @@ public static class CoreModules
          return c.Runtime.ChangeErrorHandler(c, a[1]);
      if (a[0] is Atom { Name: ProcessSchedulerNames.Binding })
          return await c.Runtime.ChangeSchedulerBinding(c, a[1]);
+     if (a[0] is Atom { Name: ProcessMessageQueueDataNames411.Flag })
+         return ProcessMessageQueueData411.ChangeSelf(c, a[1]);
      if (a[0] is Atom { Name: ProcessFullSweepNames.Flag })
          return ProcessFullSweepAfter.SetSelf(c, a[1]);
      if (a[0] is Atom { Name: ProcessPriorityNames.Flag })
@@ -348,7 +352,7 @@ public static class CoreModules
             ErlangModuleNames.Module,
             ErlangModuleNames.Get,
             1,
-            (c, a) => c.Dictionary.GetValueOrDefault(a[0], Term.A(ProcessDictionaryAtoms.Undefined))
+            (c, a) => ErlangInfallibleBifValues.Get(c, a[0])
         );
         Add(
             ErlangModuleNames.Module,
@@ -368,11 +372,11 @@ public static class CoreModules
             1,
             (c, a) => ListOperations.Reverse(a[0])
         );
-        Add(
+        r.Register(
             ListModuleNames.Module,
             ListModuleNames.Reverse,
             2,
-            (c, a) => ListOperations.Reverse(a[0], a[1])
+            (c, a) => ListNativeTraversal.Reverse(c, a[0], a[1])
         );
         Add(
             ListModuleNames.Module,
@@ -404,11 +408,11 @@ public static class CoreModules
             2,
             (c, a) => ListOperations.Flatten(a[0], a[1])
         );
-        Add(
+        r.Register(
             ListModuleNames.Module,
             ListModuleNames.Member,
             2,
-            (c, a) => Boolean(Cons.Items(a[1]).Any(x => x.Equals(a[0])))
+            (c, a) => ListNativeTraversal.Member(c, a[0], a[1])
         );
         Add(
             ListModuleNames.Module,
@@ -450,7 +454,7 @@ public static class CoreModules
             ListModuleNames.Module,
             ListModuleNames.Last,
             1,
-            (c, a) => ListOperations.Last(a[0])
+            (c, a) => ListLastExecution.Read(c, a[0])
         );
         Add(
             ListModuleNames.Module,
@@ -562,7 +566,7 @@ public static class CoreModules
             MapModuleNames.Module,
             MapModuleNames.Next,
             1,
-            (c, a) => MapIteration.Next(a[0])
+            (c, a) => MapIteration.Next(a[0], c.Runtime)
         );
         Add(
             MapModuleNames.Module,
@@ -639,19 +643,19 @@ public static class CoreModules
             MapModuleNames.Module,
             MapModuleNames.Keys,
             1,
-            (c, a) => Cons.From(MapOperations.RequireMap(a[0]).Entries.Select(entry => entry.Key))
+            (c, a) => Cons.From(MapIteration.Entries(MapOperations.RequireMap(a[0]), c.Runtime).Select(entry => entry.Key))
         );
         Add(
             MapModuleNames.Module,
             MapModuleNames.Values,
             1,
-            (c, a) => Cons.From(MapOperations.RequireMap(a[0]).Entries.Select(entry => entry.Value))
+            (c, a) => Cons.From(MapIteration.Entries(MapOperations.RequireMap(a[0]), c.Runtime).Select(entry => entry.Value))
         );
         Add(
             MapModuleNames.Module,
             MapModuleNames.ToList,
             1,
-            (c, a) => MapOperations.ToList(a[0])
+            (c, a) => MapOperations.ToList(a[0], c.Runtime)
         );
         Add(
             MapModuleNames.Module,
@@ -669,7 +673,7 @@ public static class CoreModules
             MapModuleNames.Module,
             MapModuleNames.IsIteratorValid,
             1,
-            (c, a) => Boolean(MapOperations.IsIteratorValid(a[0]))
+            (c, a) => Boolean(MapOperations.IsIteratorValid(a[0], c.Runtime))
         );
         r.Register(
             MapModuleNames.Module,
@@ -792,6 +796,7 @@ public static class CoreModules
             );
         ErlangBasicRegistrations.Register(r);
         ErlangDataRegistrations.Register(r);
+        BinaryModule.Register(r);
         ErlangAtomRegistrations.Register(r);
         ErlangFloatRegistrations.Register(r);
         ErlangClockRegistrations.Register(r);
@@ -840,6 +845,10 @@ public static class CoreModules
         CpuTopologyStateRegistrations.Register(r);
         ProcessExitRegistrations.Register(r);
         RecordPredicateRegistrations.Register(r);
+        MapNativeBridge.Register(r);
+        DistributionPendingNativeBridge.Register(r);
+        CollectionMathBridge.Register(r);
+        StringFloatNative.Register(r);
         NativeRecordRegistrations.Register(r);
         DynamicTraceRegistrations.Register(r);
         SequenceTraceRegistrations.Register(r);
@@ -849,9 +858,13 @@ public static class CoreModules
         MatchSpecRegistrations.Register(r);
         RuntimeStatisticsRegistrations.Register(r);
         ErlangErrorRegistrations.Register(r);
+        r.SealCanonicalNoReturnContracts();
         ErlangLoadNifRegistrations.Register(r);
         ListModuleRegistrations.Register(r);
         ProplistModuleRegistrations.Register(r);
+        ProplistFamilyRegistrations.Register(r);
+        QueueCoreModule.Register(r);
+        OrdsetCoreModule.Register(r);
         foreach (string operation in new[] { TimerModuleNames.SendAfter, TimerModuleNames.StartTimer })
             r.Register(
                 ErlangModuleNames.Module,

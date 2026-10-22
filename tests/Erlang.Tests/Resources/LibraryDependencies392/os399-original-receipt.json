@@ -1,0 +1,102 @@
+{
+  "Passed": true,
+  "Phase": "captured-not-compared",
+  "Failure": null,
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "OfficialAdmissionSha256": "41CCC2FDE5493D85BEAA21996E12D0885D2919B0D4BF44137D0673DCDC9D5EA6",
+  "ExecutionManifestSha256": "AF5EA3DA317E2ABC8A0CF1874D4E6BFB93AC1A47E864A7B92BBE7A03D1607E99",
+  "OriginalCompilerSha256": "8F1CD8036F83AC45C4A3173DF965F6503059EB99E0C14322A5D376EDC8CF7769",
+  "OriginalRuntimeSha256": "D91699E88F417E00470D224934D47CD92358CC1B3B37CA1F15BCF5D4731D8F4E",
+  "ProfileSha256": "2F6801B91F3E540B746274FD76456D9C5D94FF8FBD7682DE18A890D50A28FA8E",
+  "Files": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library399-os-deterministic-original1\\source\\beam_os_deterministic_observer399.erl",
+      "Bytes": 2205,
+      "Sha256": "7A0A94082987DFF610241C707C492B1A7761D9CF8D24C4BDE70A6B9A707EBE79"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library399-os-deterministic-original1\\source\\beam_os_subject399.erl",
+      "Bytes": 4524,
+      "Sha256": "5D02D1F1A1D18D540E5F473DE14CBC4CEBDF9C10859487435B202EA1AD7645ED"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library399-os-deterministic-original1\\ebin\\beam_os_deterministic_observer399.beam",
+      "Bytes": 4400,
+      "Sha256": "735BE3554F8017D4E9CA220B7AC549A705F620AD962F106CF9344973423AC17A"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library399-os-deterministic-original1\\ebin\\beam_os_subject399.beam",
+      "Bytes": 9256,
+      "Sha256": "B5523C57E99B245E0657F02C8F2B6203C6B2788395DCAF59A76DD3D5E7F92A81"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library399-os-deterministic-original1\\clean_utf8-values.etf",
+      "Bytes": 5890,
+      "Sha256": "3732720E566BE7AC300239D6F3890D881FE4D81FCCFAEA37A00455C247E8A0FF"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library399-os-deterministic-original1\\clean_utf8-stacks.etf",
+      "Bytes": 23444,
+      "Sha256": "C35FE7CAAFDC1F7F6D8101A35A9014F65ACBE975B22ECAB914EE170A9013C520"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library399-os-deterministic-original1\\source\\clean_utf8-library-objects.etf",
+      "Bytes": 163,
+      "Sha256": "996EDA5A1F7C9AB6D8D94EFB0AB499D43C6FC14206AFEDF1513AD1D4A50437F4"
+    }
+  ],
+  "CompanionImages": [
+    {
+      "Module": "beam_os_deterministic_observer399",
+      "Sha256": "735BE3554F8017D4E9CA220B7AC549A705F620AD962F106CF9344973423AC17A"
+    },
+    {
+      "Module": "beam_os_subject399",
+      "Sha256": "B5523C57E99B245E0657F02C8F2B6203C6B2788395DCAF59A76DD3D5E7F92A81"
+    }
+  ],
+  "ImageManifestSha256": "16F486BCC50744108224892934DE5F3EBA8B9F7B88CCE5D2EBCFD5BD87BAFCF4",
+  "ActualChildRoot": "beam_os_subject399:worker/2",
+  "SameSourceObserverBothProviders": true,
+  "ExpectedValuesPerMode": 31,
+  "ExpectedStackProfilesPerMode": 155,
+  "NativeModes": [
+    {
+      "Name": "clean_utf8",
+      "Arguments": [
+        "+fnu"
+      ]
+    }
+  ],
+  "TotalRetainedOutcomes": 186,
+  "OwnStateRawCases": [],
+  "PlatformSpecificCases": [
+    "case_keys",
+    "signal_ignore",
+    "signal_handle",
+    "utf16_pair",
+    "utf16_lone"
+  ],
+  "CleanChildEnvironmentOnly": true,
+  "GuestFrameProjection": false,
+  "NoRuntimeOrLibrarySubstitution": true,
+  "OriginalLibraryImages": [
+    {
+      "Module": "os",
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\lib\\kernel-11.0.4\\ebin\\os.beam",
+      "Sha256": "BA66ABDDA4648BE491B992F42D39DC486B401473B760BF6C0F0816657950F442"
+    }
+  ],
+  "ExcludedPriorOwnStateRawCases": [
+    "env_raw",
+    "env_own_state",
+    "getpid_raw",
+    "getpid_own_state",
+    "perf_counter_raw",
+    "system_time_raw",
+    "system_time_seconds_raw",
+    "timestamp_raw",
+    "timestamp_own_state"
+  ],
+  "ApiOrContractPromotions": 0
+}

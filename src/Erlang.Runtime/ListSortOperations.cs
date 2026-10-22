@@ -2,6 +2,9 @@ namespace Erlang;
 
 internal static class ListSortOperations
 {
+    public static ValueTask<Term> Unique(ProcessContext context, Term list)
+        => ListUniqueMergeMachine.Sort(context, list);
+
     public static Term Sort(Term list, bool unique = false, Term? position = null)
     {
         int index = position is null ? 0 : ListKeyOperations.Position(position);

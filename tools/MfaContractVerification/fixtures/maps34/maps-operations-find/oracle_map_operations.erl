@@ -1,0 +1,1 @@
+-module(oracle_map_operations). -export([run/0]). run()->{ok,value}=maps:find(key,#{key=>value}),error=maps:find(absent,#{}),done.

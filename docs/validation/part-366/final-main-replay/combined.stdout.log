@@ -1,0 +1,68 @@
+{
+  "Combined": {
+    "returned.etf": {
+      "Total": 336,
+      "StrictEqual": 329,
+      "RelationalAllFields": 333,
+      "MandatoryRemaining": 3
+    },
+    "stack-observations.etf": {
+      "Total": 1397,
+      "StrictEqual": 1342,
+      "RelationalAllFields": 1382,
+      "MandatoryRemaining": 15
+    }
+  },
+  "NegativeControls": 37,
+  "Simple": [
+    {
+      "Cohort": "strict",
+      "File": "returned.etf",
+      "Total": 9,
+      "Exact": 9
+    },
+    {
+      "Cohort": "strict",
+      "File": "stack-observations.etf",
+      "Total": 45,
+      "Exact": 45
+    },
+    {
+      "Cohort": "iterator",
+      "File": "returned.etf",
+      "Total": 8,
+      "Exact": 8
+    },
+    {
+      "Cohort": "iterator",
+      "File": "stack-observations.etf",
+      "Total": 40,
+      "Exact": 40
+    },
+    {
+      "Cohort": "flat",
+      "File": "returned.etf",
+      "Total": 6,
+      "Exact": 6
+    },
+    {
+      "Cohort": "flat",
+      "File": "stack-observations.etf",
+      "Total": 30,
+      "Exact": 30
+    },
+    {
+      "Cohort": "raw",
+      "File": "returned.etf",
+      "Total": 18,
+      "Exact": 16
+    },
+    {
+      "Cohort": "raw",
+      "File": "stack-observations.etf",
+      "Total": 90,
+      "Exact": 80
+    }
+  ],
+  "Sha256": "2DBD8BDF3827B152B89E85149E18E2CE5DB3D43E68F1FD81AD1A8F40CCD1E4F4"
+}

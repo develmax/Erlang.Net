@@ -18,7 +18,10 @@ internal static class BeamClosureFactory
         BeamLinkedCode code,
         int tableIndex,
         IReadOnlyList<Term> environment,
-        BeamExecutionIdentity execution
+        BeamExecutionIdentity execution,
+        LocalFunctionInvocation? invocation = null,
+        RuntimeFunctionEntries? entries = null,
+        LocalFunctionIdentity? legacyIdentity = null
     )
     {
         BeamLambdaEntry lambda = code.Lambdas[tableIndex];
@@ -32,6 +35,9 @@ internal static class BeamClosureFactory
             BeamChecksumReader.Read(code),
             tableIndex
         );
+        LocalFunctionIdentity? first = legacyIdentity ?? entries?.GetCanonicalIdentityForHash(identity, lambda.TotalArity - lambda.FreeVariables);
+        if (first is not null)
+            identity = identity with { OldUnique = first.OldUnique, LegacyIndex = first.OldIndex };
         var function = new FunctionTerm(
             identity,
             lambda.TotalArity - lambda.FreeVariables,
@@ -43,13 +49,31 @@ internal static class BeamClosureFactory
                     target,
                     arguments,
                     captured,
-                    execution
+                    execution,
+                    invocation: invocation
                 )
                 : throw new ArgumentException(BeamClosureDiagnostics.Context)
         );
-        bindings.Add(function, new(code, tableIndex));
+        bindings.Add(function, new(
+            code,
+            tableIndex,
+            execution,
+            identity
+        ));
 
         return function;
+    }
+
+    internal static BeamClosureBinding CaptureStoredBinding(ProcessRuntime owner, FunctionTerm function)
+    {
+        if (!bindings.TryGetValue(function, out BeamClosureBinding? binding)
+            || binding.Execution.Owner is not PreparedBeamImage prepared
+            || !ReferenceEquals(prepared.Owner, owner.Modules)
+            || !ReferenceEquals(prepared.Code, binding.Code)
+            || !ReferenceEquals(prepared.ExecutionIdentity, binding.Execution))
+            throw new NotSupportedException(RuntimeEtsFoundationNames.UnsupportedFunction);
+
+        return binding;
     }
 
     internal static void RequireKnownTarget(Term value, BeamLinkedCode code, int tableIndex)

@@ -38,7 +38,10 @@ internal static unsafe class NifNativeBinaryCallbacks
 
             return 1;
         }
-        if (value.StaticTerm is not BitString { IsBinary: true } binary)
+        if (value.StaticTerm is not BitString binary)
+            return 0;
+        binary.PinForSharing();
+        if (!binary.IsBinary)
             return 0;
         RequireDescriptor(output);
         var storage = owner.InspectBinaryStorage(binary);
@@ -307,7 +310,7 @@ internal static unsafe class NifNativeBinaryCallbacks
             nuint wholeBytes = (nuint)(bits.BitLength / 8);
             RequireRange(position, size, wholeBytes);
 
-            return target.Add(new BitString(bits.ByteSpan.Slice((int)position, (int)size)));
+            return target.Add(bits.SliceBits((int)position * BinaryPrimitiveParameters.BitsPerByte, (int)size * BinaryPrimitiveParameters.BitsPerByte));
         }
         catch (Exception failure)
         {

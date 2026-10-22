@@ -1,0 +1,298 @@
+--- src/Erlang.Runtime/ErlangOperatorValues.cs
++++ artifacts/ordsets372-hamt-numeric-proposal1/source/src/Erlang.Runtime/ErlangOperatorValues.cs
+@@ -19,24 +19,32 @@
+         Term first,
+         Term second,
+         ProcessContext? context
+-    ) => operation switch
++    )
+     {
+-        ErlangOperators.And => CoreModules.Boolean(CoreModules.Bool(first) & CoreModules.Bool(second)),
+-        ErlangOperators.Or => CoreModules.Boolean(CoreModules.Bool(first) | CoreModules.Bool(second)),
+-        ErlangOperators.Xor => CoreModules.Boolean(CoreModules.Bool(first) ^ CoreModules.Bool(second)),
+-        ErlangOperators.NumericEqual => CoreModules.Boolean(first.NumericEquals(second)),
+-        ErlangOperators.NumericNotEqual => CoreModules.Boolean(!first.NumericEquals(second)),
+-        ErlangOperators.ExactEqual => CoreModules.Boolean(first.Equals(second)),
+-        ErlangOperators.ExactNotEqual => CoreModules.Boolean(!first.Equals(second)),
+-        ErlangOperators.Less => CoreModules.Boolean(first.CompareTo(second) < 0),
+-        ErlangOperators.Greater => CoreModules.Boolean(first.CompareTo(second) > 0),
+-        ErlangOperators.LessOrEqual => CoreModules.Boolean(first.CompareTo(second) <= 0),
+-        ErlangOperators.GreaterOrEqual => CoreModules.Boolean(first.CompareTo(second) >= 0),
+-        ErlangOperators.Append => Cons.From(Cons.Items(first), second),
+-        ErlangOperators.SubtractList => ListBasicOperations.Subtract(first, second),
+-        ErlangOperators.Send when context is not null => Send(context, first, second),
+-        _ => CoreModules.Arithmetic(operation, first, second)
+-    };
++        using var comparison = context is not null
++            && operation is ErlangOperators.NumericEqual or ErlangOperators.NumericNotEqual
++            ? RuntimeNumericMapComparison.EnterThread(context.Runtime)
++            : default;
++
++        return operation switch
++        {
++            ErlangOperators.And => CoreModules.Boolean(CoreModules.Bool(first) & CoreModules.Bool(second)),
++            ErlangOperators.Or => CoreModules.Boolean(CoreModules.Bool(first) | CoreModules.Bool(second)),
++            ErlangOperators.Xor => CoreModules.Boolean(CoreModules.Bool(first) ^ CoreModules.Bool(second)),
++            ErlangOperators.NumericEqual => CoreModules.Boolean(first.NumericEquals(second)),
++            ErlangOperators.NumericNotEqual => CoreModules.Boolean(!first.NumericEquals(second)),
++            ErlangOperators.ExactEqual => CoreModules.Boolean(first.Equals(second)),
++            ErlangOperators.ExactNotEqual => CoreModules.Boolean(!first.Equals(second)),
++            ErlangOperators.Less => CoreModules.Boolean(first.CompareTo(second) < 0),
++            ErlangOperators.Greater => CoreModules.Boolean(first.CompareTo(second) > 0),
++            ErlangOperators.LessOrEqual => CoreModules.Boolean(first.CompareTo(second) <= 0),
++            ErlangOperators.GreaterOrEqual => CoreModules.Boolean(first.CompareTo(second) >= 0),
++            ErlangOperators.Append => Cons.From(Cons.Items(first), second),
++            ErlangOperators.SubtractList => ListBasicOperations.Subtract(first, second),
++            ErlangOperators.Send when context is not null => Send(context, first, second),
++            _ => CoreModules.Arithmetic(operation, first, second)
++        };
++    }
+ 
+     public static async ValueTask<bool> TrySendAsync(
+         ProcessContext context,
+--- src/Erlang.Runtime/OrdsetCoreExecution.cs
++++ artifacts/ordsets372-hamt-numeric-proposal1/source/src/Erlang.Runtime/OrdsetCoreExecution.cs
+@@ -48,6 +48,8 @@
+                 [first, second],
+                 OrdsetCoreNames.IsEqualLine
+             );
++
++        using var comparison = RuntimeNumericMapComparison.EnterThread(context.Runtime);
+ 
+         return CoreModules.Boolean(first.NumericEquals(second));
+     }
+--- src/Erlang.Runtime/RuntimeActorExecutionTurn.cs
++++ artifacts/ordsets372-hamt-numeric-proposal1/source/src/Erlang.Runtime/RuntimeActorExecutionTurn.cs
+@@ -19,7 +19,12 @@
+ 
+     internal static Scope Enter(ProcessContext context, long currentEpoch, int currentLane)
+     {
+-        var previous = new Scope(owner, epoch, laneIdentity);
++        var previous = new Scope(
++            owner,
++            epoch,
++            laneIdentity,
++            RuntimeNumericMapComparison.EnterThread(context.Runtime)
++        );
+         owner = context;
+         epoch = currentEpoch;
+         laneIdentity = currentLane;
+@@ -27,10 +32,16 @@
+         return previous;
+     }
+ 
+-    internal readonly struct Scope(ProcessContext? previousOwner, long previousEpoch, int previousLane) : IDisposable
++    internal readonly struct Scope(
++        ProcessContext? previousOwner,
++        long previousEpoch,
++        int previousLane,
++        TermMapComparisonScope mapComparison
++    ) : IDisposable
+     {
+         public void Dispose()
+         {
++            mapComparison.Dispose();
+             owner = previousOwner;
+             epoch = previousEpoch;
+             laneIdentity = previousLane;
+--- src/Erlang.Runtime/RuntimeNumericMapComparison.cs
++++ artifacts/ordsets372-hamt-numeric-proposal1/source/src/Erlang.Runtime/RuntimeNumericMapComparison.cs
+@@ -0,0 +1,14 @@
++using System.Runtime.CompilerServices;
++
++namespace Erlang;
++
++internal static class RuntimeNumericMapComparison
++{
++    private static readonly ConditionalWeakTable<ProcessRuntime, Func<ITermMapComparisonLayout>> factories = new();
++
++    internal static TermMapComparisonScope EnterThread(ProcessRuntime runtime)
++        => TermMapComparisonEnvironment.EnterThread(factories.GetValue(
++            runtime,
++            owner => () => new RuntimeNumericMapLayout(owner)
++        ));
++}
+--- src/Erlang.Runtime/RuntimeNumericMapLayout.cs
++++ artifacts/ordsets372-hamt-numeric-proposal1/source/src/Erlang.Runtime/RuntimeNumericMapLayout.cs
+@@ -0,0 +1,26 @@
++using System.Numerics;
++
++namespace Erlang;
++
++internal sealed class RuntimeNumericMapLayout(ProcessRuntime runtime) : ITermMapComparisonLayout
++{
++    private OtpMapRuntimeIdentityProvider? identities;
++    private readonly Dictionary<MapTerm, IReadOnlyList<KeyValuePair<Term, Term>>> layouts = new(ReferenceEqualityComparer.Instance);
++
++    public IReadOnlyList<KeyValuePair<Term, Term>> ReadHashEntries(MapTerm map)
++    {
++        if (layouts.TryGetValue(map, out var known))
++            return known;
++        identities ??= runtime.MapHashIdentityProvider(OtpMapHashLayoutProtocol.Append);
++        Term cursor = HamtCursorView.ReadIntegerCursor(map, BigInteger.Zero, identities.Hash);
++        var result = Cons.Items(cursor)
++            .Cast<TupleTerm>()
++            .Select(pair => new KeyValuePair<Term, Term>(pair.Items[0], pair.Items[1]))
++            .ToArray();
++        layouts.Add(map, result);
++
++        return result;
++    }
++
++    public void Dispose() => identities?.Dispose();
++}
+--- src/Erlang.Terms/ITermMapComparisonLayout.cs
++++ artifacts/ordsets372-hamt-numeric-proposal1/source/src/Erlang.Terms/ITermMapComparisonLayout.cs
+@@ -0,0 +1,6 @@
++namespace Erlang;
++
++public interface ITermMapComparisonLayout : IDisposable
++{
++    IReadOnlyList<KeyValuePair<Term, Term>> ReadHashEntries(MapTerm map);
++}
+--- src/Erlang.Terms/TermMapComparisonEnvironment.cs
++++ artifacts/ordsets372-hamt-numeric-proposal1/source/src/Erlang.Terms/TermMapComparisonEnvironment.cs
+@@ -0,0 +1,22 @@
++namespace Erlang;
++
++public static class TermMapComparisonEnvironment
++{
++    [ThreadStatic]
++    private static Func<ITermMapComparisonLayout>? current;
++
++    internal static Func<ITermMapComparisonLayout>? Factory => current;
++
++    // This scope surrounds one synchronous admitted actor turn, never an await.
++    // The next actor continuation installs its own runtime before running again.
++    public static TermMapComparisonScope EnterThread(Func<ITermMapComparisonLayout> factory)
++    {
++        ArgumentNullException.ThrowIfNull(factory);
++        var previous = new TermMapComparisonScope(current, Environment.CurrentManagedThreadId);
++        current = factory;
++
++        return previous;
++    }
++
++    internal static void Restore(Func<ITermMapComparisonLayout>? previous) => current = previous;
++}
+--- src/Erlang.Terms/TermMapComparisonNames.cs
++++ artifacts/ordsets372-hamt-numeric-proposal1/source/src/Erlang.Terms/TermMapComparisonNames.cs
+@@ -0,0 +1,7 @@
++namespace Erlang;
++
++internal static class TermMapComparisonNames
++{
++    internal const string InvalidLayout = "The own VM map comparison layout did not preserve the map cardinality";
++    internal const string ThreadChanged = "A map comparison thread scope must end on its admitted execution thread";
++}
+--- src/Erlang.Terms/TermMapComparisonScope.cs
++++ artifacts/ordsets372-hamt-numeric-proposal1/source/src/Erlang.Terms/TermMapComparisonScope.cs
+@@ -0,0 +1,22 @@
++namespace Erlang;
++
++public readonly struct TermMapComparisonScope : IDisposable
++{
++    private readonly Func<ITermMapComparisonLayout>? previous;
++    private readonly int thread;
++
++    internal TermMapComparisonScope(Func<ITermMapComparisonLayout>? previous, int thread)
++    {
++        this.previous = previous;
++        this.thread = thread;
++    }
++
++    public void Dispose()
++    {
++        if (thread == 0)
++            return;
++        if (thread != Environment.CurrentManagedThreadId)
++            throw new InvalidOperationException(TermMapComparisonNames.ThreadChanged);
++        TermMapComparisonEnvironment.Restore(previous);
++    }
++}
+--- src/Erlang.Terms/TermOrder.cs
++++ artifacts/ordsets372-hamt-numeric-proposal1/source/src/Erlang.Terms/TermOrder.cs
+@@ -41,7 +41,9 @@
+         bool exact,
+         ref NodeComparisonContext context,
+         Stack<IEnumerator<TermComparisonStep>> pending,
+-        TermComparisonPurpose purpose
++        TermComparisonPurpose purpose,
++        Func<ITermMapComparisonLayout>? layoutFactory,
++        ref ITermMapComparisonLayout? mapLayout
+     )
+     {
+         int rank = Rank(a).CompareTo(Rank(b));
+@@ -150,6 +152,15 @@
+                     int count = x.Entries.Count.CompareTo(y.Entries.Count);
+                     if (count != 0)
+                         return count;
++                    if (purpose == TermComparisonPurpose.NumericEquality
++                        && x.Entries.Count > TermMapOrderParameters.FlatMapMaximumEntries
++                        && layoutFactory is not null)
++                    {
++                        mapLayout ??= layoutFactory();
++                        pending.Push(HashMapEqualitySteps(x, y, exact, mapLayout).GetEnumerator());
++
++                        return 0;
++                    }
+                     pending.Push(((purpose == TermComparisonPurpose.Ordering && !exact
+                         || purpose == TermComparisonPurpose.NumericEquality)
+                         && count == 0 && x.Entries.Count > 1
+@@ -285,6 +296,9 @@
+         TermComparisonPurpose purpose
+     )
+     {
++        ITermMapComparisonLayout? mapLayout = null;
++        Func<ITermMapComparisonLayout>? layoutFactory = purpose == TermComparisonPurpose.NumericEquality
++            ? TermMapComparisonEnvironment.Factory : null;
+         var scopes = new Stack<TermComparisonScope>();
+         scopes.Push(new TermComparisonScope(
+             a,
+@@ -315,7 +329,9 @@
+                     step.Exact,
+                     ref context,
+                     scope.Pending,
+-                    scope.Purpose
++                    scope.Purpose,
++                    layoutFactory,
++                    ref mapLayout
+                 );
+                 if (comparison == 0 && scope.MoveNext())
+                     continue;
+@@ -335,8 +351,33 @@
+         }
+         finally
+         {
+-            while (scopes.TryPop(out var scope))
+-                scope.Dispose();
++            try
++            {
++                while (scopes.TryPop(out var scope))
++                    scope.Dispose();
++            }
++            finally
++            {
++                mapLayout?.Dispose();
++            }
++        }
++    }
++
++    private static IEnumerable<TermComparisonStep> HashMapEqualitySteps(
++        MapTerm left,
++        MapTerm right,
++        bool exact,
++        ITermMapComparisonLayout layout
++    )
++    {
++        IReadOnlyList<KeyValuePair<Term, Term>> first = layout.ReadHashEntries(left);
++        IReadOnlyList<KeyValuePair<Term, Term>> second = layout.ReadHashEntries(right);
++        if (first.Count != left.Entries.Count || second.Count != right.Entries.Count)
++            throw new InvalidOperationException(TermMapComparisonNames.InvalidLayout);
++        for (int index = 0; index < first.Count; index++)
++        {
++            yield return TermComparisonStep.Pair(first[index].Key, second[index].Key, true);
++            yield return TermComparisonStep.Pair(first[index].Value, second[index].Value, exact);
+         }
+     }
+ 

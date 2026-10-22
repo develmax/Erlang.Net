@@ -1,0 +1,986 @@
+{
+  "Partial": true,
+  "SelectedCount": 162,
+  "TotalCount": 7637,
+  "Blocks": [],
+  "ExactCases": [
+    "binary/primitive/empty-iodata-copy-common-cancellation-unwind",
+    "binary/primitive/immutable-offset-backing-and-retention",
+    "binary/wrappers-replacement-effects-and-options",
+    "compiler/binary/search/seven-contracts-and-error-callers",
+    "compiler/proplists/from-map-own-context-routes",
+    "mfa/binary:at/2",
+    "mfa/binary:bin_to_list/1",
+    "mfa/binary:bin_to_list/2",
+    "mfa/binary:bin_to_list/3",
+    "mfa/binary:compile_pattern/1",
+    "mfa/binary:copy/1",
+    "mfa/binary:copy/2",
+    "mfa/binary:decode_hex/1",
+    "mfa/binary:decode_unsigned/1",
+    "mfa/binary:decode_unsigned/2",
+    "mfa/binary:encode_hex/1",
+    "mfa/binary:encode_hex/2",
+    "mfa/binary:encode_unsigned/1",
+    "mfa/binary:encode_unsigned/2",
+    "mfa/binary:first/1",
+    "mfa/binary:join/2",
+    "mfa/binary:last/1",
+    "mfa/binary:list_to_bin/1",
+    "mfa/binary:longest_common_prefix/1",
+    "mfa/binary:longest_common_suffix/1",
+    "mfa/binary:match/2",
+    "mfa/binary:match/3",
+    "mfa/binary:matches/2",
+    "mfa/binary:matches/3",
+    "mfa/binary:part/2",
+    "mfa/binary:part/3",
+    "mfa/binary:referenced_byte_size/1",
+    "mfa/binary:replace/3",
+    "mfa/binary:replace/4",
+    "mfa/binary:split/2",
+    "mfa/binary:split/3",
+    "mfa/erlang:is_atom/1",
+    "mfa/erlang:is_binary/1",
+    "mfa/erlang:is_bitstring/1",
+    "mfa/erlang:is_boolean/1",
+    "mfa/erlang:is_float/1",
+    "mfa/erlang:is_function/1",
+    "mfa/erlang:is_integer/1",
+    "mfa/erlang:is_list/1",
+    "mfa/erlang:is_map/1",
+    "mfa/erlang:is_number/1",
+    "mfa/erlang:is_pid/1",
+    "mfa/erlang:is_port/1",
+    "mfa/erlang:is_reference/1",
+    "mfa/erlang:is_tuple/1",
+    "mfa/erlang:node/0",
+    "mfa/erlang:self/0",
+    "mfa/proplists:append_values/2",
+    "mfa/proplists:compact/1",
+    "mfa/proplists:delete/2",
+    "mfa/proplists:expand/2",
+    "mfa/proplists:from_map/1",
+    "mfa/proplists:get_all_values/2",
+    "mfa/proplists:get_bool/2",
+    "mfa/proplists:get_keys/1",
+    "mfa/proplists:get_value/2",
+    "mfa/proplists:get_value/3",
+    "mfa/proplists:is_defined/2",
+    "mfa/proplists:lookup/2",
+    "mfa/proplists:lookup_all/2",
+    "mfa/proplists:normalize/2",
+    "mfa/proplists:property/1",
+    "mfa/proplists:property/2",
+    "mfa/proplists:split/2",
+    "mfa/proplists:substitute_aliases/2",
+    "mfa/proplists:substitute_negations/2",
+    "mfa/proplists:to_map/1",
+    "mfa/proplists:to_map/2",
+    "mfa/proplists:unfold/1",
+    "mfa/queue:all/2",
+    "mfa/queue:any/2",
+    "mfa/queue:cons/2",
+    "mfa/queue:daeh/1",
+    "mfa/queue:delete/2",
+    "mfa/queue:delete_r/2",
+    "mfa/queue:delete_with/2",
+    "mfa/queue:delete_with_r/2",
+    "mfa/queue:drop/1",
+    "mfa/queue:drop_r/1",
+    "mfa/queue:filter/2",
+    "mfa/queue:filtermap/2",
+    "mfa/queue:fold/3",
+    "mfa/queue:from_list/1",
+    "mfa/queue:get/1",
+    "mfa/queue:get_r/1",
+    "mfa/queue:head/1",
+    "mfa/queue:in/2",
+    "mfa/queue:in_r/2",
+    "mfa/queue:init/1",
+    "mfa/queue:is_empty/1",
+    "mfa/queue:is_queue/1",
+    "mfa/queue:join/2",
+    "mfa/queue:lait/1",
+    "mfa/queue:last/1",
+    "mfa/queue:len/1",
+    "mfa/queue:liat/1",
+    "mfa/queue:member/2",
+    "mfa/queue:new/0",
+    "mfa/queue:out/1",
+    "mfa/queue:out_r/1",
+    "mfa/queue:peek/1",
+    "mfa/queue:peek_r/1",
+    "mfa/queue:reverse/1",
+    "mfa/queue:snoc/2",
+    "mfa/queue:split/2",
+    "mfa/queue:tail/1",
+    "mfa/queue:to_list/1",
+    "oracle/compiled-module/queue/core/empty",
+    "oracle/compiled-module/queue/core/errors",
+    "oracle/compiled-module/queue/core/heterogeneous",
+    "oracle/compiled-module/queue/core/improper",
+    "oracle/compiled-module/queue/core/ordering",
+    "oracle/compiled-module/queue/core/persistence",
+    "oracle/compiled-module/queue/core/raw-shapes",
+    "oracle/compiled-module/queue/core/representation",
+    "oracle/compiled-module/source-call-binding-all-suppressed-qualified",
+    "oracle/compiled-module/source-call-binding-all-suppressed-reimport",
+    "oracle/compiled-module/source-call-binding-duplicate-within-form",
+    "oracle/compiled-module/source-call-binding-erlang-reimport-guard",
+    "oracle/compiled-module/source-call-binding-foreign-import-qualified-guard",
+    "oracle/compiled-module/source-call-binding-imported-call",
+    "oracle/compiled-module/source-call-binding-local-filter-failure-propagates",
+    "oracle/compiled-module/source-call-binding-local-filter-is-expression",
+    "oracle/compiled-module/source-call-binding-ordinary-guard",
+    "oracle/compiled-module/source-call-binding-qualified-guard-local-shadow",
+    "oracle/compiled-module/source-call-binding-qualified-pattern-keys-sizes",
+    "queue-ends-compiled-all-seventeen",
+    "queue-ends-improper-primary-tail",
+    "queue-ends-persistent-representation",
+    "queue/higher-callback-order-and-improper-evaluation",
+    "runtime/binary/search/compiled-resource-owner-etf-and-forgery",
+    "runtime/binary/search/cooperative-cancellation-unwind",
+    "runtime/binary/search/options-leftmost-longest-and-trimming",
+    "runtime/common-undefined-lambda-handler-provenance",
+    "runtime/nif-binary-windows-allocationacrosscalls",
+    "runtime/nif-binary-windows-containment",
+    "runtime/nif-binary-windows-deepgraph",
+    "runtime/nif-binary-windows-deferredcomposites",
+    "runtime/nif-binary-windows-exceptionalcleanup",
+    "runtime/nif-binary-windows-exceptiongraph",
+    "runtime/nif-binary-windows-inspection",
+    "runtime/nif-binary-windows-iolists",
+    "runtime/nif-binary-windows-readonlyreallocation",
+    "runtime/nif-binary-windows-subviewlifetimes",
+    "runtime/proplists/from-map-own-entry-epochs",
+    "runtime/proplists/from-map-own-key-domains",
+    "runtime/proplists/from-map-own-real-collisions",
+    "runtime/proplists/from-map-own-reference-stored-counts",
+    "runtime/queue/core/cooperative-cancellation-cleanup",
+    "runtime/queue/core/improper-lists",
+    "runtime/queue/core/ordering-persistence",
+    "runtime/queue/core/representation",
+    "runtime/queue/member/own-entry-and-short-circuit",
+    "runtime/term-order/deep-compare",
+    "runtime/term-order/deep-hash",
+    "runtime/term-order/retained-node-snapshot",
+    "runtime/term-order/shallow-fold-and-categories"
+  ],
+  "Passed": 160,
+  "Failed": 2,
+  "Tests": [
+    {
+      "Name": "runtime/term-order/deep-compare",
+      "Status": "Passed",
+      "Milliseconds": 2098
+    },
+    {
+      "Name": "runtime/term-order/deep-hash",
+      "Status": "Passed",
+      "Milliseconds": 1874
+    },
+    {
+      "Name": "runtime/term-order/shallow-fold-and-categories",
+      "Status": "Passed",
+      "Milliseconds": 171
+    },
+    {
+      "Name": "runtime/term-order/retained-node-snapshot",
+      "Status": "Passed",
+      "Milliseconds": 134
+    },
+    {
+      "Name": "mfa/binary:at/2",
+      "Status": "Passed",
+      "Milliseconds": 47
+    },
+    {
+      "Name": "mfa/binary:bin_to_list/1",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "mfa/binary:bin_to_list/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/binary:bin_to_list/3",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/binary:compile_pattern/1",
+      "Status": "Passed",
+      "Milliseconds": 15
+    },
+    {
+      "Name": "mfa/binary:copy/1",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "mfa/binary:copy/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/binary:decode_hex/1",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "mfa/binary:decode_unsigned/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/binary:decode_unsigned/2",
+      "Status": "Passed",
+      "Milliseconds": 9
+    },
+    {
+      "Name": "mfa/binary:encode_hex/1",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "mfa/binary:encode_hex/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/binary:encode_unsigned/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/binary:encode_unsigned/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/binary:first/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/binary:join/2",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "mfa/binary:last/1",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "mfa/binary:list_to_bin/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/binary:longest_common_prefix/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/binary:longest_common_suffix/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/binary:match/2",
+      "Status": "Passed",
+      "Milliseconds": 6
+    },
+    {
+      "Name": "mfa/binary:match/3",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/binary:matches/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/binary:matches/3",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/binary:part/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/binary:part/3",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/binary:referenced_byte_size/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/binary:replace/3",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "mfa/binary:replace/4",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/binary:split/2",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "mfa/binary:split/3",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/erlang:is_atom/1",
+      "Status": "Passed",
+      "Milliseconds": 14
+    },
+    {
+      "Name": "mfa/erlang:is_binary/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/erlang:is_bitstring/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:is_boolean/1",
+      "Status": "Passed",
+      "Milliseconds": 1406
+    },
+    {
+      "Name": "mfa/erlang:is_float/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/erlang:is_function/1",
+      "Status": "Passed",
+      "Milliseconds": 45
+    },
+    {
+      "Name": "mfa/erlang:is_integer/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/erlang:is_list/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/erlang:is_map/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/erlang:is_number/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/erlang:is_pid/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/erlang:is_port/1",
+      "Status": "Passed",
+      "Milliseconds": 21
+    },
+    {
+      "Name": "mfa/erlang:is_reference/1",
+      "Status": "Passed",
+      "Milliseconds": 21
+    },
+    {
+      "Name": "mfa/erlang:is_tuple/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/erlang:node/0",
+      "Status": "Passed",
+      "Milliseconds": 20
+    },
+    {
+      "Name": "mfa/erlang:self/0",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/proplists:append_values/2",
+      "Status": "Passed",
+      "Milliseconds": 22
+    },
+    {
+      "Name": "mfa/proplists:compact/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/proplists:delete/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/proplists:expand/2",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "mfa/proplists:from_map/1",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "mfa/proplists:get_all_values/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/proplists:get_bool/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/proplists:get_keys/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/proplists:is_defined/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/proplists:lookup/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/proplists:lookup_all/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/proplists:normalize/2",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "mfa/proplists:property/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/proplists:property/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/proplists:split/2",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "mfa/proplists:substitute_aliases/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/proplists:substitute_negations/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/proplists:to_map/1",
+      "Status": "Passed",
+      "Milliseconds": 13
+    },
+    {
+      "Name": "mfa/proplists:to_map/2",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "mfa/proplists:unfold/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/queue:all/2",
+      "Status": "Passed",
+      "Milliseconds": 7
+    },
+    {
+      "Name": "mfa/queue:any/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/queue:cons/2",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "mfa/queue:daeh/1",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "mfa/queue:delete/2",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "mfa/queue:delete_r/2",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "mfa/queue:delete_with/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/queue:delete_with_r/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/queue:drop/1",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "mfa/queue:drop_r/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/queue:filter/2",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "mfa/queue:filtermap/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/queue:fold/3",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "mfa/queue:from_list/1",
+      "Status": "Passed",
+      "Milliseconds": 9
+    },
+    {
+      "Name": "mfa/queue:get/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/queue:get_r/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/queue:head/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/queue:in/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/queue:in_r/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/queue:init/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/queue:is_empty/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/queue:is_queue/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/queue:join/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/queue:lait/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/queue:last/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/queue:len/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/queue:liat/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/queue:member/2",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "mfa/queue:new/0",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/queue:out/1",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "mfa/queue:out_r/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/queue:peek/1",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "mfa/queue:peek_r/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/queue:reverse/1",
+      "Status": "Passed",
+      "Milliseconds": 14
+    },
+    {
+      "Name": "mfa/queue:snoc/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/queue:split/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/queue:tail/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/queue:to_list/1",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "oracle/compiled-module/source-call-binding-ordinary-guard",
+      "Status": "Passed",
+      "Milliseconds": 77
+    },
+    {
+      "Name": "oracle/compiled-module/source-call-binding-qualified-guard-local-shadow",
+      "Status": "Passed",
+      "Milliseconds": 43
+    },
+    {
+      "Name": "oracle/compiled-module/source-call-binding-erlang-reimport-guard",
+      "Status": "Passed",
+      "Milliseconds": 28
+    },
+    {
+      "Name": "oracle/compiled-module/source-call-binding-all-suppressed-qualified",
+      "Status": "Passed",
+      "Milliseconds": 21
+    },
+    {
+      "Name": "oracle/compiled-module/source-call-binding-all-suppressed-reimport",
+      "Status": "Passed",
+      "Milliseconds": 23
+    },
+    {
+      "Name": "oracle/compiled-module/source-call-binding-foreign-import-qualified-guard",
+      "Status": "Passed",
+      "Milliseconds": 31
+    },
+    {
+      "Name": "oracle/compiled-module/source-call-binding-imported-call",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "oracle/compiled-module/source-call-binding-duplicate-within-form",
+      "Status": "Passed",
+      "Milliseconds": 22
+    },
+    {
+      "Name": "oracle/compiled-module/source-call-binding-local-filter-is-expression",
+      "Status": "Passed",
+      "Milliseconds": 41
+    },
+    {
+      "Name": "oracle/compiled-module/source-call-binding-local-filter-failure-propagates",
+      "Status": "Passed",
+      "Milliseconds": 35
+    },
+    {
+      "Name": "oracle/compiled-module/source-call-binding-qualified-pattern-keys-sizes",
+      "Status": "Passed",
+      "Milliseconds": 39
+    },
+    {
+      "Name": "oracle/compiled-module/queue/core/empty",
+      "Status": "Passed",
+      "Milliseconds": 26
+    },
+    {
+      "Name": "oracle/compiled-module/queue/core/representation",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "oracle/compiled-module/queue/core/persistence",
+      "Status": "Passed",
+      "Milliseconds": 31
+    },
+    {
+      "Name": "oracle/compiled-module/queue/core/raw-shapes",
+      "Status": "Passed",
+      "Milliseconds": 45
+    },
+    {
+      "Name": "oracle/compiled-module/queue/core/improper",
+      "Status": "Passed",
+      "Milliseconds": 49
+    },
+    {
+      "Name": "oracle/compiled-module/queue/core/ordering",
+      "Status": "Passed",
+      "Milliseconds": 421
+    },
+    {
+      "Name": "oracle/compiled-module/queue/core/errors",
+      "Status": "Passed",
+      "Milliseconds": 80
+    },
+    {
+      "Name": "oracle/compiled-module/queue/core/heterogeneous",
+      "Status": "Passed",
+      "Milliseconds": 43
+    },
+    {
+      "Name": "runtime/common-undefined-lambda-handler-provenance",
+      "Status": "Passed",
+      "Milliseconds": 250
+    },
+    {
+      "Name": "runtime/nif-binary-windows-inspection",
+      "Status": "Passed",
+      "Milliseconds": 12
+    },
+    {
+      "Name": "runtime/nif-binary-windows-iolists",
+      "Status": "Passed",
+      "Milliseconds": 10
+    },
+    {
+      "Name": "runtime/nif-binary-windows-allocationacrosscalls",
+      "Status": "Passed",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "runtime/nif-binary-windows-readonlyreallocation",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/nif-binary-windows-deferredcomposites",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "runtime/nif-binary-windows-subviewlifetimes",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "runtime/nif-binary-windows-exceptionalcleanup",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/nif-binary-windows-exceptiongraph",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "runtime/nif-binary-windows-deepgraph",
+      "Status": "Passed",
+      "Milliseconds": 20
+    },
+    {
+      "Name": "runtime/nif-binary-windows-containment",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/proplists:get_value/2",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "mfa/proplists:get_value/3",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/proplists/from-map-own-key-domains",
+      "Status": "Passed",
+      "Milliseconds": 111
+    },
+    {
+      "Name": "runtime/proplists/from-map-own-entry-epochs",
+      "Status": "Passed",
+      "Milliseconds": 14
+    },
+    {
+      "Name": "runtime/proplists/from-map-own-real-collisions",
+      "Status": "Passed",
+      "Milliseconds": 9
+    },
+    {
+      "Name": "compiler/proplists/from-map-own-context-routes",
+      "Status": "Passed",
+      "Milliseconds": 51
+    },
+    {
+      "Name": "runtime/proplists/from-map-own-reference-stored-counts",
+      "Status": "Passed",
+      "Milliseconds": 24
+    },
+    {
+      "Name": "queue-ends-persistent-representation",
+      "Status": "Passed",
+      "Milliseconds": 15
+    },
+    {
+      "Name": "queue-ends-improper-primary-tail",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "queue-ends-compiled-all-seventeen",
+      "Status": "Passed",
+      "Milliseconds": 50
+    },
+    {
+      "Name": "queue/higher-callback-order-and-improper-evaluation",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "runtime/binary/search/compiled-resource-owner-etf-and-forgery",
+      "Status": "Passed",
+      "Milliseconds": 7
+    },
+    {
+      "Name": "runtime/binary/search/options-leftmost-longest-and-trimming",
+      "Status": "Passed",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "runtime/binary/search/cooperative-cancellation-unwind",
+      "Status": "Passed",
+      "Milliseconds": 598
+    },
+    {
+      "Name": "compiler/binary/search/seven-contracts-and-error-callers",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Binary search source contract or resource ownership was not preserved.\r\n   at Erlang.Tests.BinarySearchMfaContracts.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\BinarySearchMfaContracts.cs:line 87\r\n   at Erlang.Tests.BinarySearchCompiledHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\BinarySearchCompiledHostChecks.cs:line 15\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 5188",
+      "Milliseconds": 114
+    },
+    {
+      "Name": "binary/wrappers-replacement-effects-and-options",
+      "Status": "Failed",
+      "Error": "System.InvalidCastException: Unable to cast object of type \u0027Erlang.Cons\u0027 to type \u0027Erlang.MapTerm\u0027.\r\n   at Erlang.Tests.BinaryWrappersHostChecks.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CCallbackEffectsAndOptions\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\BinaryWrappersHostChecks.cs:line 61\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.\u003C\u003Ec__DisplayClass9_0\u00601.\u003C\u003CInvokeAsync\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\RuntimeNodeFoundationHostActor.cs:line 43\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func\u00602 command) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\RuntimeNodeFoundationHostActor.cs:line 51\r\n   at Erlang.Tests.BinaryWrappersHostChecks.CallbackEffectsAndOptions() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\BinaryWrappersHostChecks.cs:line 9\r\n   at Erlang.Tests.BinaryWrappersHostChecks.CallbackEffectsAndOptions() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\BinaryWrappersHostChecks.cs:line 9\r\n   at Erlang.Tests.BinaryWrappersHostChecks.CallbackEffectsAndOptions() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\BinaryWrappersHostChecks.cs:line 9\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 5188",
+      "Milliseconds": 6
+    },
+    {
+      "Name": "binary/primitive/empty-iodata-copy-common-cancellation-unwind",
+      "Status": "Passed",
+      "Milliseconds": 1553
+    },
+    {
+      "Name": "binary/primitive/immutable-offset-backing-and-retention",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "runtime/queue/member/own-entry-and-short-circuit",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "runtime/queue/core/representation",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/queue/core/improper-lists",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/queue/core/ordering-persistence",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "runtime/queue/core/cooperative-cancellation-cleanup",
+      "Status": "Passed",
+      "Milliseconds": 1732
+    }
+  ]
+}

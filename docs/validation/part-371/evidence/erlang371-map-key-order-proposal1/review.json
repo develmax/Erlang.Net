@@ -1,0 +1,21 @@
+{
+  "Status": "SOURCE_ONLY_NARROW_FLATMAP_ORDERING_CANDIDATE_HOLD_FOR_NATIVE14",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "PinnedSource": "authority/utils.c",
+  "PinnedSourceSha256": "D899860F79ADAE3CF1C52A9E644AAD3C58BFE5A2242EE9FD61163AE0BED9800F",
+  "PinnedBranch": "utils.c1958-2065 flatmap equal size, non-exact ordering: native keys in term order except atom-index partition; keys compare in exact numeric mode then values in requested non-exact mode. Local FUN comparison2157+ module/index/OLD_UNIQ/free/env. Existing managed canonical storage instead uses NEW_UNIQ for exact identity.",
+  "Changed": "Only normal Ordering of equal-sized maps with2..32entries obtains a temporary source-order key view through auxiliary comparisons. Every other map branch, numeric equality, exact equality, canonical map key storage, lookup and hash stays unchanged.",
+  "NoMapTermFunctionSerializationChange": true,
+  "NoNewValidInputRejection": true,
+  "NoIdentityCollapse": true,
+  "IteratorSafety": "Bottom-up stable merge yields auxiliary comparisons; one explicit scope stack evaluates them. Never calls Compare recursively, LINQ Sort comparator, Dictionary lookup or hash from a comparison. One shared by-ref NodeComparisonContext spans all scopes, so local node aliases snapshot once. Finally drains every active scope and iterator on success, early inequality and exception.",
+  "PerformanceScope": "Temporary arrays/merge work only for small nontrivial flatmap ordering, bounded32entries; no whole-runtime map storage reorder/cache or resource hash layout introduced. Costs must be measured, no speed claim.",
+  "Unclosed": [
+    "HAMT >32 map ordering remains existing behavior, not promoted.",
+    "Exact nested map-key mode and OLD_UNIQ compare0/NEW_UNIQ exact-nequal key tie protocol remain source/actual-native gates. Stable sort retains both entries; it never coalesces them.",
+    "This patch cannot alone grant complete contracts for all ordsets term domains.",
+    "Final Main source/DLL capture, native14 comparison and existing deep comparison/hash/snapshot/cancellation cleanup regression required before acceptance."
+  ],
+  "CreatorCorrection": "Pinned OTP discards decoded NEW_FUN creator and serializes local init PID; existing Main follows that protocol. No creator-preservation patch or normalization proposed.",
+  "NoMainBuildNetworkOrGit": true
+}

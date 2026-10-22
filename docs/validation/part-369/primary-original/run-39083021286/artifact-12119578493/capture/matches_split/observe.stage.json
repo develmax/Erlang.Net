@@ -1,0 +1,14 @@
+{
+  "Name": "observe",
+  "Failure": null,
+  "Started": true,
+  "Arguments": [
+    "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/proplists22-otp/lib/erlang/bin/erl",
+    "+S",
+    "2:2",
+    "-noshell",
+    "-noinput",
+    "-eval",
+    "O=os:getenv(\"FAMILY_OUTPUT\"),E=os:getenv(\"FAMILY_EBIN\"),{module,binary_all369_matches_split}=code:load_abs(filename:join(E,\"binary_all369_matches_split\")),{module,binary_all369_support}=code:load_abs(filename:join(E,\"binary_all369_support\")),{module,proplists_observation_worker}=code:load_abs(filename:join(E,\"proplists_observation_worker\")),{module,binary}=code:ensure_loaded(binary),{binary,B,F}=code:get_object_code(binary),ok=file:write_file(filename:join(O,\"binary-loaded.beam\"),B),M={family_provenance,code:root_dir(),code:which(binary),F,erlang:md5(B),binary:module_info(md5),code:which(binary_all369_matches_split),binary_all369_matches_split:cases(),erlang:system_info(otp_release),erlang:system_info(schedulers),erlang:system_info(schedulers_online)},ok=file:write_file(filename:join(O,\"metadata.etf\"),term_to_binary(M)),Rows=binary_all369_matches_split:run(),ok=file:write_file(filename:join(O,\"returned.etf\"),term_to_binary(Rows)),Stacks=proplists_observation_worker:run(binary_all369_matches_split,run_stacks),ok=file:write_file(filename:join(O,\"stack-observations.etf\"),term_to_binary(Stacks)),halt()."
+  ]
+}

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Erlang;
 
-public static class ExternalTermFormat
+public static partial class ExternalTermFormat
 {
     public const int DefaultMaxBytes = 16 * 1024 * 1024;
 
@@ -178,8 +178,16 @@ public static class ExternalTermFormat
     )
     {
         List<EtfNodeEpoch>? epochs = options.NodeAdmission is null ? null : new();
-        var boundary = new EtfWireBoundary(data, options.LocalSeed, epochs is null ? null : epochs.Add);
-        boundary.Measure();
+        int distributionUsed = options.DistributionDebug423 ? new EtfDistSizeBoundary423(data, options.LocalSeed).Measure() : -1;
+        var boundary = new EtfWireBoundary(
+            data,
+            options.LocalSeed,
+            epochs is null ? null : epochs.Add,
+            options.AtomTranslationCache423,
+            options.DistributionDebug423
+        );
+        int measured = boundary.Measure();
+        if (distributionUsed >= 0 && distributionUsed != measured) throw new ErlangException(ErlangErrorReasons.BadArgument);
         using EtfDecodeAdmission? admission = options.NodeAdmission?.Invoke(epochs!);
         var reader = new Reader(data, maxBytes, admission?.Options ?? options);
         Term term = reader.Read(0);
@@ -390,7 +398,9 @@ public static class ExternalTermFormat
                 NodeComparisonContext nodeContext = default;
                 if (options.NodeIdentity is { } identity && options.NodeSnapshot is { } snapshot)
                     nodeContext.Read(identity, snapshot);
-                var entries = m.Entries;
+                // The owning runtime supplies its actual flat keys or HAMT traversal.
+                // Deterministic encoding remains independent of VM storage order.
+                var entries = options.Deterministic ? m.Entries : options.MapEntries?.Invoke(m) ?? m.ArithmeticKeyEntries;
                 s.WriteByte(EtfTags.Map);
                 U32(s, (uint)entries.Count);
                 foreach (var e in entries)
@@ -410,6 +420,7 @@ public static class ExternalTermFormat
                 }
                 break;
             case BitString b:
+                b.PinForSharing();
                 s.WriteByte((byte)(b.IsBinary ? EtfTags.Binary : EtfTags.BitBinary));
                 U32(s, (uint)b.ByteLength);
                 if (!b.IsBinary)
@@ -435,7 +446,7 @@ public static class ExternalTermFormat
                     depth + 1,
                     options
                 );
-                Write(
+                WriteFunctionScalar423(
                     s,
                     Term.I(f.Arity),
                     depth + 1,
@@ -462,13 +473,13 @@ public static class ExternalTermFormat
                         depth + 1,
                         options
                     );
-                    Write(
+                    WriteFunctionScalar423(
                         s,
                         Term.I(f.LocalIdentity.OldIndex),
                         depth + 1,
                         options
                     );
-                    Write(
+                    WriteFunctionScalar423(
                         s,
                         Term.I(f.LocalIdentity.OldUnique),
                         depth + 1,
@@ -620,8 +631,18 @@ public static class ExternalTermFormat
             return (int)n;
         }
 
+        private Term AtomField423(int depth)
+        {
+            if (options.DistributionDebug423 && (offset >= data.Length || !EtfDistAtoms423.IsAtomTag(data[offset])))
+                throw new ErlangException(ErlangErrorReasons.BadArgument);
+
+            return Read(depth);
+        }
+
         private string Node(int depth)
         {
+            if (options.DistributionDebug423 && (offset >= data.Length || data[offset] != EtfTags.Nil && !EtfDistAtoms423.IsAtomTag(data[offset])))
+                throw new ErlangException(ErlangErrorReasons.BadArgument);
             Term term = Read(depth);
             internalNode = term is Nil && localNodes && options.LocalNode is not null;
 
@@ -642,6 +663,12 @@ public static class ExternalTermFormat
                     localNodes = true;
 
                     return Read(depth);
+                case EtfTags.AtomCacheReference:
+                    return EtfAtomTranslationCache423.Read(options.AtomTranslationCache423, Byte());
+                case EtfTags.InternalAtomReference2:
+                    return EtfDistAtoms423.ReadInternal(options.DistributionDebug423, U16());
+                case EtfTags.InternalAtomReference3:
+                    return EtfDistAtoms423.ReadInternal(options.DistributionDebug423, (Byte() << 16) | U16());
                 case EtfTags.SmallInteger:
                     return Term.I(Byte());
                 case EtfTags.Integer:
@@ -672,12 +699,12 @@ public static class ExternalTermFormat
                         byte flags = Byte();
                         if (flags != EtfRecordLayout.Private && flags != EtfRecordLayout.Exported)
                             throw new ErlangException(ErlangErrorReasons.BadArgument);
-                        if (Read(depth + 1) is not Atom module || Read(depth + 1) is not Atom name)
+                        if (AtomField423(depth + 1) is not Atom module || AtomField423(depth + 1) is not Atom name)
                             throw new ErlangException(ErlangErrorReasons.BadArgument);
                         var keys = new Atom[count];
                         for (int index = 0; index < count; index++)
                         {
-                            if (Read(depth + 1) is not Atom key)
+                            if (AtomField423(depth + 1) is not Atom key)
                                 throw new ErlangException(ErlangErrorReasons.BadArgument);
                             keys[index] = key;
                         }
@@ -756,7 +783,7 @@ public static class ExternalTermFormat
                     }
                 case EtfTags.Export:
                     {
-                        if (Read(depth + 1) is not Atom module || Read(depth + 1) is not Atom function || Read(depth + 1) is not Integer arity || arity.Value < 0 || arity.Value > EtfFunctionLayout.MaximumArity || options.ExternalFunctionFactory is null)
+                        if (AtomField423(depth + 1) is not Atom module || AtomField423(depth + 1) is not Atom function || Read(depth + 1) is not Integer arity || arity.Value < 0 || arity.Value > EtfFunctionLayout.MaximumArity || options.ExternalFunctionFactory is null)
                             throw new ErlangException(ErlangErrorReasons.BadArgument);
 
                         return options.ExternalFunctionFactory(new ExternalFunctionIdentity(module, function, (int)arity.Value), options.Safe);
@@ -768,7 +795,7 @@ public static class ExternalTermFormat
                         var unique = new BitString(Bytes(EtfFunctionLayout.UniqueBytes));
                         uint index = U32();
                         int count = Count(U32());
-                        if (count > EtfFunctionLayout.MaximumEnvironment || Read(depth + 1) is not Atom module || Read(depth + 1) is not Integer oldIndex || oldIndex.Value < EtfFunctionLayout.MinimumSmall || oldIndex.Value > EtfFunctionLayout.MaximumSmall || Read(depth + 1) is not Integer oldUnique || oldUnique.Value < EtfFunctionLayout.MinimumSmall || oldUnique.Value > EtfFunctionLayout.MaximumSmall || Read(depth + 1) is not Pid || options.LocalFunctionFactory is null)
+                        if (count > EtfFunctionLayout.MaximumEnvironment || AtomField423(depth + 1) is not Atom module || Read(depth + 1) is not Integer oldIndex || oldIndex.Value < EtfFunctionLayout.MinimumSmall || oldIndex.Value > EtfFunctionLayout.MaximumSmall || Read(depth + 1) is not Integer oldUnique || oldUnique.Value < EtfFunctionLayout.MinimumSmall || oldUnique.Value > EtfFunctionLayout.MaximumSmall || Read(depth + 1) is not Pid || options.LocalFunctionFactory is null)
                             throw new ErlangException(ErlangErrorReasons.BadArgument);
                         var environment = new Term[count];
                         for (int at = 0; at < count; at++)

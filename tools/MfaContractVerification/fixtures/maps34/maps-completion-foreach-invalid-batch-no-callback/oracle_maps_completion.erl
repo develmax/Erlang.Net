@@ -1,0 +1,1 @@
+-module(oracle_maps_completion). -export([run/0]). run()->put(called,false),I=[[a,missing]|#{a=>1}],try maps:foreach(fun(_,_) ->put(called,true) end,I) of _->unexpected catch error:{badmap,I}->ok end,false=get(called),done.

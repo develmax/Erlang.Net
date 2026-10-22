@@ -1,0 +1,64 @@
+{
+  "Status": "SOURCE_APPLICABILITY_PRESERVES38_QUEUE8_NOT_PROMOTED",
+  "LedgerSha256": "F3CC371C1D34F06000E3E35FF12B207E7DA80C12D37822508FAF3D33895BC8FB",
+  "GuardsBefore": 345,
+  "GuardsAfter": 353,
+  "ExistingVerifiedEntries": 38,
+  "QueueMfas": 8,
+  "NewClassification": 0,
+  "CoreRegistrationOnlyDeltaProvedByteExactInverse": true,
+  "NewGuardedSources": [
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreExecution.cs",
+      "Sha256": "90FC6BFF1D590E7496BDC12D8B272850CBBCED786444A7A1801509D18134FC19"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreLinear.cs",
+      "Sha256": "B2C197A69C0B09A8879484F2C6315CAD397E7B2F8C901F55BDF2FD821B8A7576"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreModule.cs",
+      "Sha256": "DB5F161CD8281BB6C949CF5E8B65009741E4A2B6B47BD9BCCE63B3D059500202"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreParameters.cs",
+      "Sha256": "94C77DFFFE8D6FBD76818A6C7F1E28CC5588855AF3DCAA08BEBECE8778D9126E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreSource.cs",
+      "Sha256": "3486FB328298CD93FAE93BB1EB702248DEB0EACBCF7B34C2F851D88D5E2EA857"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreTrace.cs",
+      "Sha256": "D9E9EA3AB0298F516D1CE13C71FC0778691740906DEDE7BFC15F668225684A0E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueModuleNames.cs",
+      "Sha256": "10BADBC7B25CBCE06E533F3A787A55814A1866FA326D3924F34C2D4F99C5CEEB"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueOperations.cs",
+      "Sha256": "A1D321D10FEBC5A65D726BC4821447AF265DEF76981578CCD8ECD961B66F9B91"
+    }
+  ],
+  "RefreshedSources": [
+    {
+      "Path": "src/Erlang.Runtime/CoreModules.cs",
+      "PreviousSha256": "C4727BBF3BD7D9A9850E5A1DC52AFCF806683D556E5C261198716FD20385CADA",
+      "Sha256": "5E16E7F9B2F96FEB59A69840F8EEFCA2B7ECDBFB42211938CE7ACA5BBA72E848"
+    }
+  ],
+  "Current38SourceApplicability": [
+    "Allprior345guardsmatch exceptCoreModules singlequeue-registrationline; inverse reproducesoldCorebyteshash exactly.",
+    "No change to runtime/compiler/term/serialization implementation supporting prior38; queuefunctions use separateclasses and module namespace.",
+    "Newqueueatom registrations may change genuine ownVM atomindexes, which priorapprovedownstate physicalmapcontract permits; no old literalnativewordvector promoted.",
+    "Generic RuntimeExceptionCapture/SourceContinuation/BacktraceDepth code reused but not modified; QueueCoreTrace only used newqueuecallbacks."
+  ],
+  "Queue8Pending": "Original fullvalues/errorstackmetadata/effectiveargs/default0/1/2/8 comparison, especially inlinef2r/r2fsourceannotation and longBIFtrapargs; no unrun8completeclaim.",
+  "PassiveInputsAdmitted": {
+    "Focus76Passed": true,
+    "CaptureSealRows": 6,
+    "MainDlls": 5
+  },
+  "NoMainWritesOrBuildSdkNativeCiNetwork": true
+}

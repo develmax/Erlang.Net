@@ -1,0 +1,1595 @@
+{
+  "Status": "SOURCE_PROPOSAL_NOT_BUILT",
+  "InstalledBindingSha256": "64CAF56FE3EE4EA9A11BD237435A44F2899D70C898B6872C908618E0B4C3ABEE",
+  "DecodedBeamSha256": "06CCF99428006E7ED53758DDFD69583845592624A1A8AE3E4DFA70BECF502151",
+  "NativeInstalledBeamSha256": "21B69CF854190356313B6F52E52189EE610C59F9C9988BAC74E757C48B89B480",
+  "Functions": [
+    {
+      "Name": "encode_hex",
+      "Arity": 1,
+      "Phases": [
+        {
+          "Offset": 2202,
+          "Operation": "call_only",
+          "Operands": [
+            [
+              "u",
+              2
+            ],
+            [
+              "f",
+              105
+            ]
+          ]
+        },
+        {
+          "Offset": 2223,
+          "Operation": "line",
+          "Operands": [
+            [
+              "u",
+              5
+            ]
+          ],
+          "Location": [
+            "binary.erl",
+            1147
+          ]
+        },
+        {
+          "Offset": 2231,
+          "Operation": "line",
+          "Operands": [
+            [
+              "u",
+              76
+            ]
+          ],
+          "Location": [
+            "binary.erl",
+            964
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "encode_hex",
+      "Arity": 2,
+      "Phases": [
+        {
+          "Offset": 2266,
+          "Operation": "call_only",
+          "Operands": [
+            [
+              "u",
+              2
+            ],
+            [
+              "f",
+              110
+            ]
+          ]
+        },
+        {
+          "Offset": 2281,
+          "Operation": "call_only",
+          "Operands": [
+            [
+              "u",
+              2
+            ],
+            [
+              "f",
+              110
+            ]
+          ]
+        },
+        {
+          "Offset": 2306,
+          "Operation": "line",
+          "Operands": [
+            [
+              "u",
+              5
+            ]
+          ],
+          "Location": [
+            "binary.erl",
+            1147
+          ]
+        },
+        {
+          "Offset": 2314,
+          "Operation": "line",
+          "Operands": [
+            [
+              "u",
+              77
+            ]
+          ],
+          "Location": [
+            "binary.erl",
+            971
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "encode_hex1",
+      "Arity": 2,
+      "Phases": [
+        {
+          "Offset": 2331,
+          "Operation": "line",
+          "Operands": [
+            [
+              "u",
+              78
+            ]
+          ],
+          "Location": [
+            "binary.erl",
+            972
+          ]
+        },
+        {
+          "Offset": 2380,
+          "Operation": "line",
+          "Operands": [
+            [
+              "u",
+              0
+            ]
+          ],
+          "Location": null
+        },
+        {
+          "Offset": 2412,
+          "Operation": "bs_init_writable",
+          "Operands": []
+        },
+        {
+          "Offset": 2425,
+          "Operation": "line",
+          "Operands": [
+            [
+              "u",
+              79
+            ]
+          ],
+          "Location": [
+            "binary.erl",
+            973
+          ]
+        },
+        {
+          "Offset": 2428,
+          "Operation": "call",
+          "Operands": [
+            [
+              "u",
+              3
+            ],
+            [
+              "f",
+              144
+            ]
+          ]
+        },
+        {
+          "Offset": 2441,
+          "Operation": "call_last",
+          "Operands": [
+            [
+              "u",
+              3
+            ],
+            [
+              "f",
+              113
+            ],
+            [
+              "u",
+              2
+            ]
+          ]
+        },
+        {
+          "Offset": 2453,
+          "Operation": "line",
+          "Operands": [
+            [
+              "u",
+              78
+            ]
+          ],
+          "Location": [
+            "binary.erl",
+            972
+          ]
+        },
+        {
+          "Offset": 2461,
+          "Operation": "line",
+          "Operands": [
+            [
+              "u",
+              80
+            ]
+          ],
+          "Location": [
+            "binary.erl",
+            978
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "encode_hex2",
+      "Arity": 3,
+      "Phases": [
+        {
+          "Offset": 2495,
+          "Operation": "line",
+          "Operands": [
+            [
+              "u",
+              81
+            ]
+          ],
+          "Location": [
+            "binary.erl",
+            984
+          ]
+        },
+        {
+          "Offset": 2519,
+          "Operation": "line",
+          "Operands": [
+            [
+              "u",
+              82
+            ]
+          ],
+          "Location": [
+            "binary.erl",
+            979
+          ]
+        },
+        {
+          "Offset": 2522,
+          "Operation": "bs_create_bin",
+          "Operands": [
+            [
+              "f",
+              0
+            ],
+            [
+              "u",
+              0
+            ],
+            [
+              "u",
+              4
+            ],
+            [
+              "u",
+              16
+            ],
+            [
+              "x",
+              2
+            ],
+            [
+              "list",
+              [
+                [
+                  "a",
+                  "private_append"
+                ],
+                [
+                  "u",
+                  1
+                ],
+                [
+                  "u",
+                  8
+                ],
+                [
+                  "a",
+                  null
+                ],
+                [
+                  "typed",
+                  [
+                    "x",
+                    2
+                  ],
+                  [
+                    "u",
+                    16
+                  ]
+                ],
+                [
+                  "a",
+                  "all"
+                ],
+                [
+                  "a",
+                  "integer"
+                ],
+                [
+                  "u",
+                  2
+                ],
+                [
+                  "u",
+                  1
+                ],
+                [
+                  "a",
+                  null
+                ],
+                [
+                  "typed",
+                  [
+                    "x",
+                    3
+                  ],
+                  [
+                    "u",
+                    17
+                  ]
+                ],
+                [
+                  "i",
+                  16
+                ]
+              ]
+            ]
+          ]
+        },
+        {
+          "Offset": 2553,
+          "Operation": "call_only",
+          "Operands": [
+            [
+              "u",
+              3
+            ],
+            [
+              "f",
+              113
+            ]
+          ]
+        },
+        {
+          "Offset": 2567,
+          "Operation": "line",
+          "Operands": [
+            [
+              "u",
+              83
+            ]
+          ],
+          "Location": [
+            "binary.erl",
+            1076
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "decode_hex",
+      "Arity": 1,
+      "Phases": [
+        {
+          "Offset": 2613,
+          "Operation": "line",
+          "Operands": [
+            [
+              "u",
+              84
+            ]
+          ],
+          "Location": [
+            "binary.erl",
+            1078
+          ]
+        },
+        {
+          "Offset": 2616,
+          "Operation": "call",
+          "Operands": [
+            [
+              "u",
+              1
+            ],
+            [
+              "f",
+              121
+            ]
+          ]
+        },
+        {
+          "Offset": 2656,
+          "Operation": "line",
+          "Operands": [
+            [
+              "u",
+              8
+            ]
+          ],
+          "Location": [
+            "binary.erl",
+            1144
+          ]
+        },
+        {
+          "Offset": 2685,
+          "Operation": "line",
+          "Operands": [
+            [
+              "u",
+              8
+            ]
+          ],
+          "Location": [
+            "binary.erl",
+            1144
+          ]
+        },
+        {
+          "Offset": 2693,
+          "Operation": "line",
+          "Operands": [
+            [
+              "u",
+              85
+            ]
+          ],
+          "Location": [
+            "binary.erl",
+            1086
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "decode_hex1",
+      "Arity": 1,
+      "Phases": [
+        {
+          "Offset": 2714,
+          "Operation": "line",
+          "Operands": [
+            [
+              "u",
+              86
+            ]
+          ],
+          "Location": [
+            "binary.erl",
+            1087
+          ]
+        },
+        {
+          "Offset": 2769,
+          "Operation": "line",
+          "Operands": [
+            [
+              "u",
+              0
+            ]
+          ],
+          "Location": null
+        },
+        {
+          "Offset": 2800,
+          "Operation": "bs_init_writable",
+          "Operands": []
+        },
+        {
+          "Offset": 2810,
+          "Operation": "line",
+          "Operands": [
+            [
+              "u",
+              87
+            ]
+          ],
+          "Location": [
+            "binary.erl",
+            1088
+          ]
+        },
+        {
+          "Offset": 2813,
+          "Operation": "call",
+          "Operands": [
+            [
+              "u",
+              2
+            ],
+            [
+              "f",
+              141
+            ]
+          ]
+        },
+        {
+          "Offset": 2823,
+          "Operation": "call_last",
+          "Operands": [
+            [
+              "u",
+              2
+            ],
+            [
+              "f",
+              124
+            ],
+            [
+              "u",
+              1
+            ]
+          ]
+        },
+        {
+          "Offset": 2838,
+          "Operation": "line",
+          "Operands": [
+            [
+              "u",
+              86
+            ]
+          ],
+          "Location": [
+            "binary.erl",
+            1087
+          ]
+        },
+        {
+          "Offset": 2846,
+          "Operation": "line",
+          "Operands": [
+            [
+              "u",
+              88
+            ]
+          ],
+          "Location": [
+            "binary.erl",
+            1093
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "decode_hex2",
+      "Arity": 2,
+      "Phases": [
+        {
+          "Offset": 2880,
+          "Operation": "line",
+          "Operands": [
+            [
+              "u",
+              89
+            ]
+          ],
+          "Location": [
+            "binary.erl",
+            1099
+          ]
+        },
+        {
+          "Offset": 2893,
+          "Operation": "line",
+          "Operands": [
+            [
+              "u",
+              90
+            ]
+          ],
+          "Location": [
+            "binary.erl",
+            1094
+          ]
+        },
+        {
+          "Offset": 2896,
+          "Operation": "bs_create_bin",
+          "Operands": [
+            [
+              "f",
+              0
+            ],
+            [
+              "u",
+              0
+            ],
+            [
+              "u",
+              3
+            ],
+            [
+              "u",
+              4
+            ],
+            [
+              "x",
+              1
+            ],
+            [
+              "list",
+              [
+                [
+                  "a",
+                  "private_append"
+                ],
+                [
+                  "u",
+                  1
+                ],
+                [
+                  "u",
+                  4
+                ],
+                [
+                  "a",
+                  null
+                ],
+                [
+                  "typed",
+                  [
+                    "x",
+                    1
+                  ],
+                  [
+                    "u",
+                    20
+                  ]
+                ],
+                [
+                  "a",
+                  "all"
+                ],
+                [
+                  "a",
+                  "integer"
+                ],
+                [
+                  "u",
+                  2
+                ],
+                [
+                  "u",
+                  1
+                ],
+                [
+                  "a",
+                  null
+                ],
+                [
+                  "typed",
+                  [
+                    "x",
+                    2
+                  ],
+                  [
+                    "u",
+                    21
+                  ]
+                ],
+                [
+                  "i",
+                  4
+                ]
+              ]
+            ]
+          ]
+        },
+        {
+          "Offset": 2925,
+          "Operation": "call_only",
+          "Operands": [
+            [
+              "u",
+              2
+            ],
+            [
+              "f",
+              124
+            ]
+          ]
+        },
+        {
+          "Offset": 2939,
+          "Operation": "line",
+          "Operands": [
+            [
+              "u",
+              91
+            ]
+          ],
+          "Location": [
+            "binary.erl",
+            1123
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "-decode_hex1/1-lbc$^0/2-0-",
+      "Arity": 2,
+      "Phases": [
+        {
+          "Offset": 3347,
+          "Operation": "line",
+          "Operands": [
+            [
+              "u",
+              89
+            ]
+          ],
+          "Location": [
+            "binary.erl",
+            1099
+          ]
+        },
+        {
+          "Offset": 3430,
+          "Operation": "line",
+          "Operands": [
+            [
+              "u",
+              87
+            ]
+          ],
+          "Location": [
+            "binary.erl",
+            1088
+          ]
+        },
+        {
+          "Offset": 3433,
+          "Operation": "bs_create_bin",
+          "Operands": [
+            [
+              "f",
+              0
+            ],
+            [
+              "u",
+              0
+            ],
+            [
+              "u",
+              10
+            ],
+            [
+              "u",
+              32
+            ],
+            [
+              "x",
+              1
+            ],
+            [
+              "list",
+              [
+                [
+                  "a",
+                  "private_append"
+                ],
+                [
+                  "u",
+                  1
+                ],
+                [
+                  "u",
+                  1
+                ],
+                [
+                  "a",
+                  null
+                ],
+                [
+                  "typed",
+                  [
+                    "x",
+                    1
+                  ],
+                  [
+                    "u",
+                    23
+                  ]
+                ],
+                [
+                  "a",
+                  "all"
+                ],
+                [
+                  "a",
+                  "integer"
+                ],
+                [
+                  "u",
+                  2
+                ],
+                [
+                  "u",
+                  1
+                ],
+                [
+                  "a",
+                  null
+                ],
+                [
+                  "typed",
+                  [
+                    "x",
+                    2
+                  ],
+                  [
+                    "u",
+                    21
+                  ]
+                ],
+                [
+                  "i",
+                  4
+                ],
+                [
+                  "a",
+                  "integer"
+                ],
+                [
+                  "u",
+                  3
+                ],
+                [
+                  "u",
+                  1
+                ],
+                [
+                  "a",
+                  null
+                ],
+                [
+                  "typed",
+                  [
+                    "x",
+                    3
+                  ],
+                  [
+                    "u",
+                    21
+                  ]
+                ],
+                [
+                  "i",
+                  4
+                ],
+                [
+                  "a",
+                  "integer"
+                ],
+                [
+                  "u",
+                  4
+                ],
+                [
+                  "u",
+                  1
+                ],
+                [
+                  "a",
+                  null
+                ],
+                [
+                  "typed",
+                  [
+                    "x",
+                    4
+                  ],
+                  [
+                    "u",
+                    21
+                  ]
+                ],
+                [
+                  "i",
+                  4
+                ],
+                [
+                  "a",
+                  "integer"
+                ],
+                [
+                  "u",
+                  5
+                ],
+                [
+                  "u",
+                  1
+                ],
+                [
+                  "a",
+                  null
+                ],
+                [
+                  "typed",
+                  [
+                    "x",
+                    5
+                  ],
+                  [
+                    "u",
+                    21
+                  ]
+                ],
+                [
+                  "i",
+                  4
+                ],
+                [
+                  "a",
+                  "integer"
+                ],
+                [
+                  "u",
+                  6
+                ],
+                [
+                  "u",
+                  1
+                ],
+                [
+                  "a",
+                  null
+                ],
+                [
+                  "typed",
+                  [
+                    "x",
+                    6
+                  ],
+                  [
+                    "u",
+                    21
+                  ]
+                ],
+                [
+                  "i",
+                  4
+                ],
+                [
+                  "a",
+                  "integer"
+                ],
+                [
+                  "u",
+                  7
+                ],
+                [
+                  "u",
+                  1
+                ],
+                [
+                  "a",
+                  null
+                ],
+                [
+                  "typed",
+                  [
+                    "x",
+                    7
+                  ],
+                  [
+                    "u",
+                    21
+                  ]
+                ],
+                [
+                  "i",
+                  4
+                ],
+                [
+                  "a",
+                  "integer"
+                ],
+                [
+                  "u",
+                  8
+                ],
+                [
+                  "u",
+                  1
+                ],
+                [
+                  "a",
+                  null
+                ],
+                [
+                  "typed",
+                  [
+                    "x",
+                    8
+                  ],
+                  [
+                    "u",
+                    21
+                  ]
+                ],
+                [
+                  "i",
+                  4
+                ],
+                [
+                  "a",
+                  "integer"
+                ],
+                [
+                  "u",
+                  9
+                ],
+                [
+                  "u",
+                  1
+                ],
+                [
+                  "a",
+                  null
+                ],
+                [
+                  "typed",
+                  [
+                    "x",
+                    9
+                  ],
+                  [
+                    "u",
+                    21
+                  ]
+                ],
+                [
+                  "i",
+                  4
+                ]
+              ]
+            ]
+          ]
+        },
+        {
+          "Offset": 3534,
+          "Operation": "call_only",
+          "Operands": [
+            [
+              "u",
+              2
+            ],
+            [
+              "f",
+              141
+            ]
+          ]
+        },
+        {
+          "Offset": 3548,
+          "Operation": "line",
+          "Operands": [
+            [
+              "u",
+              79
+            ]
+          ],
+          "Location": [
+            "binary.erl",
+            973
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "-encode_hex1/2-lbc$^0/2-0-",
+      "Arity": 3,
+      "Phases": [
+        {
+          "Offset": 3633,
+          "Operation": "line",
+          "Operands": [
+            [
+              "u",
+              81
+            ]
+          ],
+          "Location": [
+            "binary.erl",
+            984
+          ]
+        },
+        {
+          "Offset": 3804,
+          "Operation": "line",
+          "Operands": [
+            [
+              "u",
+              79
+            ]
+          ],
+          "Location": [
+            "binary.erl",
+            973
+          ]
+        },
+        {
+          "Offset": 3807,
+          "Operation": "bs_create_bin",
+          "Operands": [
+            [
+              "f",
+              0
+            ],
+            [
+              "u",
+              0
+            ],
+            [
+              "u",
+              11
+            ],
+            [
+              "u",
+              128
+            ],
+            [
+              "x",
+              1
+            ],
+            [
+              "list",
+              [
+                [
+                  "a",
+                  "private_append"
+                ],
+                [
+                  "u",
+                  1
+                ],
+                [
+                  "u",
+                  1
+                ],
+                [
+                  "a",
+                  null
+                ],
+                [
+                  "typed",
+                  [
+                    "x",
+                    1
+                  ],
+                  [
+                    "u",
+                    24
+                  ]
+                ],
+                [
+                  "a",
+                  "all"
+                ],
+                [
+                  "a",
+                  "integer"
+                ],
+                [
+                  "u",
+                  2
+                ],
+                [
+                  "u",
+                  1
+                ],
+                [
+                  "a",
+                  null
+                ],
+                [
+                  "typed",
+                  [
+                    "x",
+                    3
+                  ],
+                  [
+                    "u",
+                    17
+                  ]
+                ],
+                [
+                  "i",
+                  16
+                ],
+                [
+                  "a",
+                  "integer"
+                ],
+                [
+                  "u",
+                  3
+                ],
+                [
+                  "u",
+                  1
+                ],
+                [
+                  "a",
+                  null
+                ],
+                [
+                  "typed",
+                  [
+                    "x",
+                    4
+                  ],
+                  [
+                    "u",
+                    17
+                  ]
+                ],
+                [
+                  "i",
+                  16
+                ],
+                [
+                  "a",
+                  "integer"
+                ],
+                [
+                  "u",
+                  4
+                ],
+                [
+                  "u",
+                  1
+                ],
+                [
+                  "a",
+                  null
+                ],
+                [
+                  "typed",
+                  [
+                    "x",
+                    5
+                  ],
+                  [
+                    "u",
+                    17
+                  ]
+                ],
+                [
+                  "i",
+                  16
+                ],
+                [
+                  "a",
+                  "integer"
+                ],
+                [
+                  "u",
+                  5
+                ],
+                [
+                  "u",
+                  1
+                ],
+                [
+                  "a",
+                  null
+                ],
+                [
+                  "typed",
+                  [
+                    "x",
+                    6
+                  ],
+                  [
+                    "u",
+                    17
+                  ]
+                ],
+                [
+                  "i",
+                  16
+                ],
+                [
+                  "a",
+                  "integer"
+                ],
+                [
+                  "u",
+                  6
+                ],
+                [
+                  "u",
+                  1
+                ],
+                [
+                  "a",
+                  null
+                ],
+                [
+                  "typed",
+                  [
+                    "x",
+                    7
+                  ],
+                  [
+                    "u",
+                    17
+                  ]
+                ],
+                [
+                  "i",
+                  16
+                ],
+                [
+                  "a",
+                  "integer"
+                ],
+                [
+                  "u",
+                  7
+                ],
+                [
+                  "u",
+                  1
+                ],
+                [
+                  "a",
+                  null
+                ],
+                [
+                  "typed",
+                  [
+                    "x",
+                    8
+                  ],
+                  [
+                    "u",
+                    17
+                  ]
+                ],
+                [
+                  "i",
+                  16
+                ],
+                [
+                  "a",
+                  "integer"
+                ],
+                [
+                  "u",
+                  8
+                ],
+                [
+                  "u",
+                  1
+                ],
+                [
+                  "a",
+                  null
+                ],
+                [
+                  "typed",
+                  [
+                    "x",
+                    9
+                  ],
+                  [
+                    "u",
+                    17
+                  ]
+                ],
+                [
+                  "i",
+                  16
+                ],
+                [
+                  "a",
+                  "integer"
+                ],
+                [
+                  "u",
+                  9
+                ],
+                [
+                  "u",
+                  1
+                ],
+                [
+                  "a",
+                  null
+                ],
+                [
+                  "typed",
+                  [
+                    "x",
+                    10
+                  ],
+                  [
+                    "u",
+                    17
+                  ]
+                ],
+                [
+                  "i",
+                  16
+                ]
+              ]
+            ]
+          ]
+        },
+        {
+          "Offset": 3916,
+          "Operation": "call_only",
+          "Operands": [
+            [
+              "u",
+              3
+            ],
+            [
+              "f",
+              144
+            ]
+          ]
+        },
+        {
+          "Offset": 3930,
+          "Operation": "line",
+          "Operands": [
+            [
+              "u",
+              95
+            ]
+          ],
+          "Location": [
+            "binary.erl",
+            890
+          ]
+        }
+      ]
+    }
+  ],
+  "Scope": [
+    "encode validation/casing and decode rounded-byte guard unchanged.",
+    "Encoding public clauses are both native call_only; matching managed source wrapper removed for valid encode.",
+    "Encode init uses encode_hex1/2 with nil source location because actual last line before bs_init_writable is line0. The own supported-capacity guard is captured there; no enormous native allocation experiment claimed.",
+    "Encode LBC arity3 printed generated name contains /2; use actual func_info arity3. Its caller encode_hex1/2 retains973; after LBC return encode_hex1 tail-calls encode_hex2/3.",
+    "Decode wrapper call1078 survives due to try handler. decode_hex1/1 partial-match1087 kept. LBC arity2/caller1088; residual decode_hex2/2 tail-replaces decode_hex1.",
+    "Decode invaliddigit public badarg is constructed only after generated helper scopes dispose, reproducing catch/rethrow frame erasure.",
+    "Writable initial capacity source matches observed compiled bs_init_writable input: encode2*(8*floor(inputbytes/8)); decode(8*floor(inputbytes/8))/2. Residual private_append executes same number of byte/nibble construction steps. Native measured capacities remain supplemental comparison obligation.",
+    "Bulk first comprehension is a pure byte transformation with no callbacks. It is filled once and committed once, avoiding quadratic cumulative copies. Only atmost7 byte residual or6 nibble residual full-prefix copies follow; O(n) time, higher bounded factor, no performance parity claim.",
+    "No native data/heap/code identity injected; backing growth is existing genuine own runtime BinaryBacking protocol.",
+    "All source loops retain cooperative reductions. Own checkpoint profile gives real logical helper context; physical OTP instruction scheduling/reduction-count parity is not claimed."
+  ],
+  "PermanentControlsRecommended": [
+    {
+      "Case": "encode-comprehension-live-context",
+      "InputBytes": 64,
+      "ExpectedTop": [
+        "binary",
+        "-encode_hex1/2-lbc$^0/2-0-",
+        3,
+        973
+      ],
+      "ExpectedParent": [
+        "binary",
+        "encode_hex1",
+        2,
+        973
+      ],
+      "NoPublicEncodeCaller": true
+    },
+    {
+      "Case": "encode-remainder-live-context",
+      "InputBytes": 9,
+      "ExpectedTop": [
+        "binary",
+        "encode_hex2",
+        3,
+        979
+      ],
+      "NoEncodeFirstOrPublicCaller": true
+    },
+    {
+      "Case": "decode-comprehension-live-context",
+      "InputBytes": 16,
+      "ExpectedTop": [
+        "binary",
+        "-decode_hex1/1-lbc$^0/2-0-",
+        2,
+        1088
+      ],
+      "ExpectedParent": [
+        "binary",
+        "decode_hex1",
+        1,
+        1088
+      ],
+      "ExpectedGrandparent": [
+        "binary",
+        "decode_hex",
+        1,
+        1078
+      ]
+    },
+    {
+      "Case": "decode-remainder-live-context",
+      "InputBytes": 10,
+      "ExpectedTop": [
+        "binary",
+        "decode_hex2",
+        2,
+        1094
+      ],
+      "ExpectedParent": [
+        "binary",
+        "decode_hex",
+        1,
+        1078
+      ]
+    },
+    {
+      "Case": "partialdecode-original-regression",
+      "InputBits": [
+        9,
+        15,
+        63
+      ],
+      "Expectation": "same original error:badmatch whole input and helper1087/public1078, all remaining caller fields exact"
+    },
+    {
+      "Case": "invalidhex-catch-erasure",
+      "InputBytes": [
+        2,
+        10,
+        16
+      ],
+      "Expectation": "invalid ASCII in first and residual phases gives same exact public badarg metadata and original arguments, no generated helper leakage"
+    },
+    {
+      "Case": "hex-backing",
+      "InputBytes": [
+        7,
+        8,
+        9,
+        64,
+        65,
+        257
+      ],
+      "Expectation": "capture encoded backing BEFORE decode match, then capture encoded backing after pin, decoded backing and actual output; compare all fields against supplemental original; no normalization"
+    }
+  ],
+  "CorruptionControls": [
+    "Change LBC actual arity3 to printed arity2 -> reject",
+    "Swap973 and979/helper caller -> reject",
+    "Keep public encode wrapper in helper path -> reject",
+    "Remove decode public1078 parent -> reject",
+    "Leak decode helper into caughtbadarg -> reject",
+    "Change output backing capacity while bytes same -> reject",
+    "Alter admitted BEAM hash -> reject",
+    "Missing/extra source caller frame -> reject"
+  ],
+  "Execution": {
+    "Build": false,
+    "Native": false,
+    "Sdk": false,
+    "PassiveInstalledBeamDecoded": true
+  },
+  "MainModified": false
+}

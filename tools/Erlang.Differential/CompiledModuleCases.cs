@@ -656,6 +656,7 @@ public static class CompiledModuleCases
         .. MonitorOptionOrderCases.Modules,
         .. SchedulerStatisticsCases.Modules,
         .. BusyPortCases.Modules,
-        .. NativeHostDefaultCases.Modules
+        .. NativeHostDefaultCases.Modules,
+        .. QueueCoreCases.Modules
     ];
 }

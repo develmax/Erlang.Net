@@ -39,12 +39,111 @@ public static class ListLengthHostChecks
 
     public static Task ReceiveSuspendResume() => Boundary(ListLengthHostNames.Receive, false, suspend: true);
 
+    public static Task OrdsetSizeProgress() => Boundary(null, false, ordset: true);
+
+    public static Task OrdsetSizeCancellation() => Boundary(null, true, ordset: true);
+
+    public static Task OrdsetSizeSuspendResume() => Boundary(
+        null,
+        false,
+        suspend: true,
+        ordset: true
+    );
+
+    public static async Task LateImproperOriginalArgument()
+    {
+        foreach (bool ordset in new[] { false, true })
+        {
+            await using var runtime = new ProcessRuntime();
+            await using var actor = new RuntimeNodeFoundationHostActor(runtime);
+            await using var observer = new RuntimeNodeFoundationHostActor(runtime);
+            var queue = new ListLengthYieldContext();
+            var entered = new TaskCompletionSource<Task<Term>>(TaskCreationOptions.RunContinuationsAsynchronously);
+            Term original = Term.A(ListLengthHostNames.ImproperTail);
+            for (int index = 0; index < ListLengthHostNames.Cells; index++)
+                original = new Cons(new MapTerm([]), original);
+            Task<Term> invocation = actor.InvokeAsync(async context =>
+            {
+                var previous = SynchronizationContext.Current;
+                Task<Term> operation;
+                SynchronizationContext.SetSynchronizationContext(queue);
+                try
+                {
+                    operation = runtime.Modules.Call(
+                        context,
+                        ordset ? ListLengthHostNames.Ordsets : ErlangModuleNames.Module,
+                        ordset ? ListLengthHostNames.Size : ErlangModuleNames.Length,
+                        original
+                    ).AsTask();
+                }
+                finally
+                {
+                    SynchronizationContext.SetSynchronizationContext(previous);
+                }
+                entered.TrySetResult(operation);
+
+                return await operation;
+            });
+            Task<Term> pending = await entered.Task.WaitAsync(ListLengthHostNames.Deadline);
+            try
+            {
+                if (pending.IsCompleted || !await observer.Invoke(_ => true))
+                    throw new InvalidOperationException(ListLengthHostNames.Failure);
+                await queue.ResumeUntil(pending);
+                ErlangException? error = null;
+                try
+                {
+                    await invocation;
+                }
+                catch (ErlangException failure)
+                {
+                    error = failure;
+                }
+                if (error is null || error.ExceptionClass != ErlangExceptionClasses.Error || !error.Reason.Equals(Term.A(ErlangErrorReasons.BadArgument)))
+                    throw new InvalidOperationException(ListLengthHostNames.Failure);
+                Term[] frames = Cons.Items(error.StackTraceTerm).ToArray();
+                if (frames.Length == 0 || frames[0] is not TupleTerm { Items.Count: 4 } first
+                    || !first.Items[0].Equals(Term.A(ErlangModuleNames.Module))
+                    || !first.Items[1].Equals(Term.A(ErlangModuleNames.Length))
+                    || first.Items[2] is not Cons { Tail: Nil } args
+                    || !ReferenceEquals(args.Head, original))
+                    throw new InvalidOperationException(ListLengthHostNames.Failure);
+                if (ordset && (frames.Length < 2 || frames[1] is not TupleTerm { Items.Count: 4 } wrapper
+                    || !wrapper.Items[0].Equals(Term.A(ListLengthHostNames.Ordsets))
+                    || !wrapper.Items[1].Equals(Term.A(ListLengthHostNames.Size))))
+                    throw new InvalidOperationException(ListLengthHostNames.Failure);
+                Term followup = await actor.InvokeAsync(context => runtime.Modules.Call(
+                    context,
+                    ErlangModuleNames.Module,
+                    ErlangModuleNames.Length,
+                    Nil.Value
+                ).AsTask());
+                if (!followup.Equals(Term.I(0)))
+                    throw new InvalidOperationException(ListLengthHostNames.Failure);
+            }
+            finally
+            {
+                if (!pending.IsCompleted)
+                {
+                    await observer.Invoke(context =>
+                    {
+                        runtime.Exit(context, actor.Process.Pid, Term.A(ListLengthHostNames.Kill));
+
+                        return true;
+                    });
+                    await queue.ResumeUntil(pending);
+                }
+            }
+        }
+    }
+
     private static async Task Boundary(
         string? function,
         bool cancel,
         bool priority = false,
         bool suspend = false,
-        bool removal = false
+        bool removal = false,
+        bool ordset = false
     )
     {
         using var compiled = GeneratedModuleCompiler.Compile(ListLengthHostNames.Source);
@@ -79,8 +178,8 @@ public static class ListLengthHostChecks
             {
                 operation = runtime.Modules.Call(
                     context,
-                    function is not null ? ListLengthHostNames.Module : ErlangModuleNames.Module,
-                    function ?? ErlangModuleNames.Length,
+                    ordset ? ListLengthHostNames.Ordsets : function is not null ? ListLengthHostNames.Module : ErlangModuleNames.Module,
+                    ordset ? ListLengthHostNames.Size : function ?? ErlangModuleNames.Length,
                     arguments
                 ).AsTask();
             }

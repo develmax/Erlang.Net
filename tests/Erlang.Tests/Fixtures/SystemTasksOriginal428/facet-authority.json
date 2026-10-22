@@ -1,0 +1,45 @@
+{
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "PinnedSourceSha256": "22B6A291C32778EDB84DC1E9BB2CFD5AF44CA7E9F0AE53CB01F3A674218BC260",
+  "Forms": [
+    {
+      "Function": "garbage_collect",
+      "Arity": 1,
+      "StartLine": 303,
+      "ExactPinnedForm": "garbage_collect(_Mode) ->\n    erlang:nif_error(undefined).",
+      "Sha256": "02C1F72DB86516090BCBFAD85659996DC9D9F0360E11C89AEC0F4491E557DC5C"
+    },
+    {
+      "Function": "request_system_task",
+      "Arity": 3,
+      "StartLine": 287,
+      "ExactPinnedForm": "request_system_task(_Pid, _Prio, _Request) ->\n    erlang:nif_error(undefined).",
+      "Sha256": "442DAF8986C5859C73A1760F4E819AE7293AA86DA28BA30DCF74D29DEED624F7"
+    },
+    {
+      "Function": "request_system_task",
+      "Arity": 4,
+      "StartLine": 298,
+      "ExactPinnedForm": "request_system_task(_RequesterPid, _TargetPid, _Prio, _Request) ->\n    erlang:nif_error(undefined).",
+      "Sha256": "967E9567F5E7EF25F112AE52C0EA834D78CB7D89731C77315289DCADA8FB3D9E"
+    },
+    {
+      "Function": "check_dirty_process_code",
+      "Arity": 2,
+      "StartLine": 360,
+      "ExactPinnedForm": "check_dirty_process_code(_Pid,_Module) ->\n    erlang:nif_error(undefined).",
+      "Sha256": "DF00FE14AA3D2A4C10C1BDC45DABFC9F3A6A4395FB49D93FB35295D2AAFB886C"
+    },
+    {
+      "Function": "dirty_process_handle_signals",
+      "Arity": 1,
+      "StartLine": 372,
+      "ExactPinnedForm": "dirty_process_handle_signals(_Pid) ->\n    erlang:nif_error(undefined).",
+      "Sha256": "36FCBB95AB099C5F8E0C745A858695931F0437F8E6409569A98DDC3D7804567D"
+    }
+  ],
+  "NativeCount": 5,
+  "TruthfulPartialExports": 7,
+  "WholeOriginal71Claim": false,
+  "PinnedSourceArtifact": "artifacts/library428-internal-system-tasks-proposal1/authority/erts/preloaded/src/erts_internal.erl"
+}

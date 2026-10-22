@@ -1,0 +1,207 @@
+{
+  "Family": "queue-long-reverse-trap-supplement",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Mfas": [
+    "lists:reverse/2",
+    "queue:from_list/1",
+    "queue:len/1",
+    "queue:out/1",
+    "queue:to_list/1"
+  ],
+  "Fixtures": [
+    {
+      "Id": "reverse_direct",
+      "Location": "tool",
+      "Path": "original/queue_long_trap_contract.erl",
+      "Module": "queue_long_trap_contract",
+      "Names": [
+        "reverse_64017",
+        "reverse_256017"
+      ],
+      "Run": "reverse_run",
+      "NamesEntry": "reverse_cases",
+      "StackModule": "queue_long_trap_contract",
+      "StackEntry": "reverse_stacks",
+      "WorkerModule": "proplists_observation_worker",
+      "WorkerEntry": "run",
+      "StackShape": "depth_cases",
+      "Companions": [
+        "original/proplists_observation_worker.erl"
+      ],
+      "Cases": [
+        {
+          "Name": "reverse_64017",
+          "Mfas": [
+            "lists:reverse/2"
+          ],
+          "Policy": "exact",
+          "OriginalOnlyDependencyControl": true
+        },
+        {
+          "Name": "reverse_256017",
+          "Mfas": [
+            "lists:reverse/2"
+          ],
+          "Policy": "exact",
+          "OriginalOnlyDependencyControl": true
+        }
+      ]
+    },
+    {
+      "Id": "queue_to_list",
+      "Location": "tool",
+      "Path": "original/queue_long_trap_contract.erl",
+      "Module": "queue_long_trap_contract",
+      "Names": [
+        "to_list_rear_64017",
+        "to_list_rear_256017"
+      ],
+      "Run": "to_list_run",
+      "NamesEntry": "to_list_cases",
+      "StackModule": "queue_long_trap_contract",
+      "StackEntry": "to_list_stacks",
+      "WorkerModule": "proplists_observation_worker",
+      "WorkerEntry": "run",
+      "StackShape": "depth_cases",
+      "Companions": [
+        "original/proplists_observation_worker.erl"
+      ],
+      "Cases": [
+        {
+          "Name": "to_list_rear_64017",
+          "Mfas": [
+            "queue:to_list/1"
+          ],
+          "Policy": "exact",
+          "OriginalOnlyDependencyControl": false
+        },
+        {
+          "Name": "to_list_rear_256017",
+          "Mfas": [
+            "queue:to_list/1"
+          ],
+          "Policy": "exact",
+          "OriginalOnlyDependencyControl": false
+        }
+      ]
+    },
+    {
+      "Id": "queue_out",
+      "Location": "tool",
+      "Path": "original/queue_long_trap_contract.erl",
+      "Module": "queue_long_trap_contract",
+      "Names": [
+        "out_rear_64017",
+        "out_rear_256017"
+      ],
+      "Run": "out_run",
+      "NamesEntry": "out_cases",
+      "StackModule": "queue_long_trap_contract",
+      "StackEntry": "out_stacks",
+      "WorkerModule": "proplists_observation_worker",
+      "WorkerEntry": "run",
+      "StackShape": "depth_cases",
+      "Companions": [
+        "original/proplists_observation_worker.erl"
+      ],
+      "Cases": [
+        {
+          "Name": "out_rear_64017",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact",
+          "OriginalOnlyDependencyControl": false
+        },
+        {
+          "Name": "out_rear_256017",
+          "Mfas": [
+            "queue:out/1"
+          ],
+          "Policy": "exact",
+          "OriginalOnlyDependencyControl": false
+        }
+      ]
+    },
+    {
+      "Id": "trap_controls",
+      "Location": "tool",
+      "Path": "original/queue_long_trap_contract.erl",
+      "Module": "queue_long_trap_contract",
+      "Names": [
+        "short_reverse_direct",
+        "short_reverse_rear",
+        "long_append_64017",
+        "long_length_64017",
+        "long_from_list_64017"
+      ],
+      "Run": "control_run",
+      "NamesEntry": "control_cases",
+      "StackModule": "queue_long_trap_contract",
+      "StackEntry": "control_stacks",
+      "WorkerModule": "proplists_observation_worker",
+      "WorkerEntry": "run",
+      "StackShape": "depth_cases",
+      "Companions": [
+        "original/proplists_observation_worker.erl"
+      ],
+      "Cases": [
+        {
+          "Name": "short_reverse_direct",
+          "Mfas": [
+            "lists:reverse/2"
+          ],
+          "Policy": "exact",
+          "OriginalOnlyDependencyControl": true
+        },
+        {
+          "Name": "short_reverse_rear",
+          "Mfas": [
+            "queue:to_list/1"
+          ],
+          "Policy": "exact",
+          "OriginalOnlyDependencyControl": false
+        },
+        {
+          "Name": "long_append_64017",
+          "Mfas": [
+            "queue:to_list/1"
+          ],
+          "Policy": "exact",
+          "OriginalOnlyDependencyControl": false
+        },
+        {
+          "Name": "long_length_64017",
+          "Mfas": [
+            "queue:len/1"
+          ],
+          "Policy": "exact",
+          "OriginalOnlyDependencyControl": false
+        },
+        {
+          "Name": "long_from_list_64017",
+          "Mfas": [
+            "queue:from_list/1"
+          ],
+          "Policy": "exact",
+          "OriginalOnlyDependencyControl": false
+        }
+      ]
+    }
+  ],
+  "FixtureSources": [
+    {
+      "Location": "tool",
+      "Path": "original/queue_long_trap_contract.erl",
+      "Sha256": "4E9A935C54769F254BA410A054F6FCA12298904FAC67B32B8A730801BDF1E189"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/proplists_observation_worker.erl",
+      "Sha256": "34B743EB95A5937058AB8F208A1FB17C6ACED20AF7E08398EF6D154F574546BC"
+    }
+  ],
+  "ExpectedUniqueSourceCount": 2,
+  "SubjectModule": "queue",
+  "ObserverEntry": "Supplementary11/55 only, old160 unchanged/notrerun. Directreverse diagnostics original-only, not queueMFApromotion. Full raw arguments/stacks; own partition proof separate, no nativek seeding."
+}

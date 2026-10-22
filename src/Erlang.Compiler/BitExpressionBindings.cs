@@ -32,6 +32,16 @@ internal static class BitExpressionBindings
             segments.Add((value, size, segment));
         }
         var result = BitConstruction.Create(segments, encodeFloatInOrder: !compiled);
+        if (compiled && bits.Segments.Count > 0 && segments.Count > 0)
+        {
+            var first = bits.Segments[0];
+            if (first.Value is not Expr.Literal && !first.IsStringLiteral
+                && first.Type == BitSegmentTypes.Binary
+                && (first.Size is null || first.Size is Expr.Literal { Value: Atom { Name: BitSizeAtoms.All } })
+                && segments[0].Value is BitString prefix)
+                result = BitString.FromValidatedAppend(prefix, result);
+        }
+
         foreach (var binding in scope)
             bindings[binding.Key] = binding.Value;
 

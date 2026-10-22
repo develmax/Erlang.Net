@@ -18,7 +18,12 @@ internal static class ErlangClockRegistrations
         }
         Add(ErlangClockNames.Timestamp, 0, _ => ErlangClockState.Timestamp(false));
         Add(ErlangClockNames.Now, 0, _ => ErlangClockState.Timestamp(true));
-        Add(ErlangClockNames.UniqueInteger, 0, ErlangClockState.Unique);
-        Add(ErlangClockNames.UniqueInteger, 1, ErlangClockState.Unique);
+        foreach (int arity in new[] { 0, 1 })
+            registry.Register(
+                ErlangModuleNames.Module,
+                ErlangClockNames.UniqueInteger,
+                arity,
+                (context, arguments) => ValueTask.FromResult(ErlangClockState.Unique(context, arguments))
+            );
     }
 }

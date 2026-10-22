@@ -1,0 +1,210 @@
+{
+  "Status": "PRIVATE_ADDITIONAL_ORIGINAL_REGRESSION_SOURCE",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ExistingBuildManifestSha256": "4C9A79CD6E8BC18F68316D42B2F30DB171E67A242CA81CA84BB8A022E8BA5BFB",
+  "RepositoryInputs": [
+    {
+      "Path": "tools/Erlang.SchedulerAffinityOriginalObservations/manifest.json",
+      "Bytes": 4966,
+      "Sha256": "4C9A79CD6E8BC18F68316D42B2F30DB171E67A242CA81CA84BB8A022E8BA5BFB"
+    },
+    {
+      "Path": "tools/Erlang.SchedulerAffinityOriginalObservations/build-original.py",
+      "Bytes": 4256,
+      "Sha256": "B7C199B249AFF4C7C7E6ED06C1A26A2A1450991E810CD9388D50F521CCC97A35"
+    },
+    {
+      "Path": "tools/Erlang.SchedulerAffinityOriginalObservations/source_inputs.py",
+      "Bytes": 3091,
+      "Sha256": "2030FCE7BDDDE4DB0C5AE7B15A75B2227E02C144DE4300CAF384862241F6112F"
+    },
+    {
+      "Path": "tools/Erlang.GuestConnectedSendObservations/owned_process.py",
+      "Bytes": 3675,
+      "Sha256": "846101AD4F92121ACB128EAFB3228DD66D8A524CE0539A25E020A77010CFF071"
+    },
+    {
+      "Path": "tools/Erlang.GuestConnectedSendObservations/passive_etf.py",
+      "Bytes": 7105,
+      "Sha256": "A069AD650B3EA1BE6B90DE60117B84ED7A1A6B67128CC41E7ECAEFD2889C1713"
+    },
+    {
+      "Path": "tools/Erlang.ProplistGetValueObservations/original/proplist_get_value_contract.erl",
+      "Bytes": 11007,
+      "Sha256": "0E10E30B9CAF8BE69A1CA4918DB06C5A11E414D734E7D4AE2F06EAA988093CE6"
+    },
+    {
+      "Path": "tools/Erlang.ProplistGetValueObservations/source-inputs.json",
+      "Bytes": 3538,
+      "Sha256": "0BB871D42C1220FF0092F890E846AE5BA9B95AF54F9E47A315884487CCB521EF"
+    }
+  ],
+  "ToolInputs": [
+    {
+      "Path": "ci-gates.py",
+      "Bytes": 4001,
+      "Sha256": "29B953372F670C15C50267207F834E5AE759B9A1D136D36DB4D52606F9CE5785"
+    },
+    {
+      "Path": "collect-original-corrected.py",
+      "Bytes": 14229,
+      "Sha256": "1CEDE49762F90F35632C8A4B3E32754A53AEC2B8490D295AE9895F7147010E4C"
+    },
+    {
+      "Path": "collect-original.py",
+      "Bytes": 12611,
+      "Sha256": "5ABFAA37DB608F7A116BEAEED52618D24C7C88BCB759F8BD897897A7D0969C0C"
+    },
+    {
+      "Path": "compare-corrected.py",
+      "Bytes": 4557,
+      "Sha256": "73E12CF5C7D57113BCBAAB520065B755986451F27B1AA4FB8CACB27A53339810"
+    },
+    {
+      "Path": "compare.py",
+      "Bytes": 6163,
+      "Sha256": "4D0E54FD1030A87B1B7D6E6300CDB8EE13F25098C4AA54D11E22C655CBC25C80"
+    },
+    {
+      "Path": "original/cases.json",
+      "Bytes": 36179,
+      "Sha256": "7D44FC6D0539A9D924A4E62C28DE0D4A8675E651EB3B14496B7E6D869AB51522"
+    },
+    {
+      "Path": "original/code_image_tail_contract.erl",
+      "Bytes": 4000,
+      "Sha256": "7DAF4D04326BC5DEBCAE02155763CBB4961A5E0BF6DAA678B5CB0A12D68E73ED"
+    },
+    {
+      "Path": "original/fun_continuation_contract.erl",
+      "Bytes": 1582,
+      "Sha256": "5E3C6BB9CD4A288B026CCFEF4C33D84D1A50B3A734F387F99A3FE67A6B668AD3"
+    },
+    {
+      "Path": "original/lc_return_frames.erl",
+      "Bytes": 3427,
+      "Sha256": "D80ECDB0C600F6A3EC704B6A9A6911B31A25330C55A7C78C023DB0FB974D7A28"
+    },
+    {
+      "Path": "original/lc_source_frames_a.erl",
+      "Bytes": 2039,
+      "Sha256": "9125F3099BBDFA522A07D1AEF6C5E99847199ABC8C1F2EA558A67DC8446964AC"
+    },
+    {
+      "Path": "original/lc_source_frames_b.erl",
+      "Bytes": 2228,
+      "Sha256": "183AB02D7D5E854EF6162F644CEFBE7AC125783E3FBD74B759899A71D980DF59"
+    },
+    {
+      "Path": "original/lc_strict_singleton.erl",
+      "Bytes": 1545,
+      "Sha256": "A0D21C7D898A56FE229831D942432161A62D90030085B4D6FD3CE00F15BEACF4"
+    },
+    {
+      "Path": "original/proplists_family_capture.erl",
+      "Bytes": 597,
+      "Sha256": "EB5B67BD9EDDDEDE9D4BC4B2A2FBBB13758A45738293A237F44FC8881F94EF47"
+    },
+    {
+      "Path": "original/proplists_family_probe.erl",
+      "Bytes": 10867,
+      "Sha256": "720B6DB44B031F1FABBBF694391CD016243B510FD30E620DEE8C4F9FFD5C3D21"
+    },
+    {
+      "Path": "original/proplists_flat_iterator_contract.erl",
+      "Bytes": 1175,
+      "Sha256": "DA0C0BF86429A60C1F74BA5174C01A2D9048C03BC3EB455A5C0EB2CAF31BF9D1"
+    },
+    {
+      "Path": "original/proplists_fun_semantics.erl",
+      "Bytes": 3291,
+      "Sha256": "E8FF34EFAA501C7B8A341EA4C89173EDA64F5711BDBED827F3C51700DB982F15"
+    },
+    {
+      "Path": "original/proplists_iterator_contract.erl",
+      "Bytes": 1404,
+      "Sha256": "311320DE56CD96873CB428AC01A80455E1D14D7C5070403B6F1A6C7718045A7F"
+    },
+    {
+      "Path": "original/proplists_long_tail_frames.erl",
+      "Bytes": 1233,
+      "Sha256": "39D64FF761D5C8C51759D4F6B6EBD1C74BE1F5F881864766650C4FBFBA5E21FE"
+    },
+    {
+      "Path": "original/proplists_observation_worker.erl",
+      "Bytes": 1038,
+      "Sha256": "34B743EB95A5937058AB8F208A1FB17C6ACED20AF7E08398EF6D154F574546BC"
+    },
+    {
+      "Path": "original/proplists_raw_cursor_contract.erl",
+      "Bytes": 4017,
+      "Sha256": "C8E391356BA060F25592F85418FEDDE9AE5C94EF030923DFFC0DB92ED69FD670"
+    },
+    {
+      "Path": "parse-gate/ParseGateNames.cs",
+      "Bytes": 436,
+      "Sha256": "F27FF1BE79C681248253444F3573292B19D6B3CE8F1AFEB609AC85183EC04F8F"
+    },
+    {
+      "Path": "parse-gate/Program.cs",
+      "Bytes": 1719,
+      "Sha256": "87B7F22AE652437CCA35E7A8101009D9D2576A25D64B5E3E14E9A3D5C41A69A8"
+    },
+    {
+      "Path": "parse-gate/ProplistFamily.ParseGate.csproj",
+      "Bytes": 209,
+      "Sha256": "54B9E929E84EE26F44C74A0C99450E2F9BFD210DFE3EC6D7181F639692C6672A"
+    },
+    {
+      "Path": "passive_etf_family.py",
+      "Bytes": 7409,
+      "Sha256": "9AD5CC91181114CD5A33603EB792DFF06534E24E2D6F3806E10FDE12FC2090A9"
+    },
+    {
+      "Path": "profile.json",
+      "Bytes": 1878,
+      "Sha256": "06D13611668D52B7DF20AA328568D07CFEACD95DE051CDDC9BD74C372CEB8A5C"
+    },
+    {
+      "Path": "self-test.py",
+      "Bytes": 2604,
+      "Sha256": "98A4DE2A1597FE87CA4805BF716010C87D37AD967920652B82150D832188F660"
+    },
+    {
+      "Path": "source-admission-controls.py",
+      "Bytes": 2626,
+      "Sha256": "30CA6BDCF48D86AB9D6BE2346508617B6DAB7D1783BF9C2DD384E528AED60EF8"
+    },
+    {
+      "Path": "source-inputs.json",
+      "Bytes": 3520,
+      "Sha256": "52FBA0CEF0CABB45A1A2D67F41FE8DB70BE6FD905F5AE5DBF42673732620E56F"
+    },
+    {
+      "Path": "original/proplists_map_hash_contract.erl",
+      "Bytes": 1810,
+      "Sha256": "26D0C6896BCD2CDAD4D871B444D50D181D99FF02A26B6807AF4B772EAB87970F"
+    },
+    {
+      "Path": "original/proplists_reference_hash_contract.erl",
+      "Bytes": 1405,
+      "Sha256": "FBE23466805175F28BBCCB5C8DCAAF74C7C103FDBD50F44F46A579D502C8E833"
+    },
+    {
+      "Path": "original/proplists_reference_cursor_contract.erl",
+      "Bytes": 2999,
+      "Sha256": "67A93D39D68AA98DCDC0C4180174499C9AAEE446637001F299EA1DE9D07F2A53"
+    }
+  ],
+  "DeclaredSourceFilenames": "Pinned deterministic compiler option; SDK uses same basenames",
+  "OriginalExecutionPending": true,
+  "FamilyPublicationAuthorized": false,
+  "OriginalAdapterSourceInputsSha256": "52FBA0CEF0CABB45A1A2D67F41FE8DB70BE6FD905F5AE5DBF42673732620E56F",
+  "Corrections": [
+    "Only18newdiagnostics/90profiles:maphash15andexternalrefrepresentation3; unchangedpriorcohortsnotrepeated.",
+    "Userrequiresoriginalrawcursorprotocolrelative togenuineownVMstate.",
+    "Genuinebinarycollisionvectors exercisecollisionmapandtupleprotocol; no forcedhash injection.",
+    "Original-onlydiagnostics; no runtime/compiler implementationpublication."
+  ],
+  "WorkerObservationSchema": "shared-guest-worker-1"
+}

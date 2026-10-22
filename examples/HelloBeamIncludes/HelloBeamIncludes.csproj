@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+  <Import Project="$(ErlangBeamCompilerProps)" Condition="'$(ErlangBeamCompilerProps)' != '' and Exists('$(ErlangBeamCompilerProps)')" />
+  <PropertyGroup>
+    <ErlangBeamSourcePolicy>DeclaredIncludesV1</ErlangBeamSourcePolicy>
+    <ErlangBeamSourceRoot>$([System.IO.Path]::GetFullPath('Modules', '$(MSBuildProjectDirectory)'))</ErlangBeamSourceRoot>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/Erlang.Runtime/Erlang.Runtime.csproj" />
+    <ProjectReference Include="../../tools/Erlang.BeamBuild/Erlang.BeamBuild.csproj" ReferenceOutputAssembly="false" Private="false" />
+    <ErlangBeamSource Include="Modules/src/*.erl" />
+    <ErlangBeamHeader Include="Modules/include/**/*.hrl" />
+    <ErlangBeamIncludeDirectory Include="empty;include" />
+    <ErlangBeamDefine Include="BUILD_FLAVOR" Kind="Atom" Text="test" />
+  </ItemGroup>
+  <Target Name="HelloBeamIncludesInputs" BeforeTargets="ErlangBeamSourceAdmission">
+    <Error Condition="'$(ErlangBeamCompilerProps)' == '' or !Exists('$(ErlangBeamCompilerProps)')" Text="HelloBeamIncludes requires an explicit existing ErlangBeamCompilerProps file." />
+    <Error Condition="'$(ErlangBeamRuntimeSha256)' == ''" Text="HelloBeamIncludes requires the admitted original runtime SHA256 in CompilerProps." />
+    <MakeDir Directories="$(ErlangBeamSourceRoot)/empty" />
+  </Target>
+  <Import Project="../../build/Erlang.Beam.targets" />
+  <Import Project="../../build/Erlang.Beam.Source.targets" />
+</Project>

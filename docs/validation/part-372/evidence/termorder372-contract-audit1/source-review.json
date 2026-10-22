@@ -1,0 +1,84 @@
+{
+  "PinnedOtp": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "OriginalBlobsSha256": {
+    "erts/emulator/beam/utils.c": "D899860F79ADAE3CF1C52A9E644AAD3C58BFE5A2242EE9FD61163AE0BED9800F",
+    "erts/emulator/beam/erl_map.c": "47F77A3456ED1D17BAB547F50427ACA109564ED072D0945096790D84F998EA69",
+    "erts/emulator/beam/erl_record.c": "845A5EBCD55C90FFA5BD95A11DD2613983B3752ECCC309EDC0EE410DD8569A48",
+    "erts/emulator/beam/erl_term.h": "8E016126FB7A1BC1DB8D31111601C0BEA21D72207211BF91E1F3C127E943B5C2"
+  },
+  "CurrentMainGuards": [
+    {
+      "Path": "src/Erlang.Terms/TermOrder.cs",
+      "Sha256": "989AE653CC7D7B7E51AA2C2E752584521B0E5AC76A9ECF265C4C3E1A5D11E044"
+    },
+    {
+      "Path": "src/Erlang.Terms/TermMapOrdering.cs",
+      "Sha256": "8DD57EF74140940258F58DD6506DF69370B9015706F0626BF7B5CF006D82C3BF"
+    },
+    {
+      "Path": "src/Erlang.Terms/MapTerm.cs",
+      "Sha256": "29137A930A9DBA90FC2A9C6A13E317AC47746EBB36EFFC2E83660A4F3AB416A9"
+    },
+    {
+      "Path": "src/Erlang.Terms/NativeRecordTerm.cs",
+      "Sha256": "30DE73CCB8E5F8E19D31A4D1A9F79ADA24F424F06094DE1D169251740FDA7850"
+    },
+    {
+      "Path": "src/Erlang.Terms/FloatTerm.cs",
+      "Sha256": "15947C4D813909CD7B1C8A163D4FFBC3509E8E5DDEB026C88F1D308B7BC15229"
+    },
+    {
+      "Path": "src/Erlang.Terms/Pid.cs",
+      "Sha256": "CFB58C5E4A782C21CD612E16FB361CBFB6C5A1C7A4422A0A987B2752C353F80D"
+    },
+    {
+      "Path": "src/Erlang.Terms/PortTerm.cs",
+      "Sha256": "083E9B55E3BB8265E7C575FFE84E1BA1DD17B8E11A9C272586138A197E19AF21"
+    },
+    {
+      "Path": "src/Erlang.Terms/ReferenceTerm.cs",
+      "Sha256": "8AF2B4C481E2D58E0AEEE23F30EA9DD8047EF502FB2A024B7C125D397DDB22C4"
+    },
+    {
+      "Path": "src/Erlang.Terms/TermComparisonScope.cs",
+      "Sha256": "3BA974E5319D5F74F108A1100C1CC8E15E9E911EC7B3F980DC2C865D7435FA7F"
+    },
+    {
+      "Path": "src/Erlang.Terms/TermComparisonStep.cs",
+      "Sha256": "8DE47174DEA7ED2EC5AE37EB23AB6DCC79B937CF7FAA215E4FF4F6AE359278AC"
+    },
+    {
+      "Path": "src/Erlang.Terms/TermMapComparisonEnvironment.cs",
+      "Sha256": "B5970D13AC96A18106D6223561E7ADFAC169837F0225ADFD2DB4004D692A49D8"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeActorExecutionTurn.cs",
+      "Sha256": "BFF1DE27732D09F82DE3BA2870606C162C498EA7529682BA7A8A8170BFF55207"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeNumericMapComparison.cs",
+      "Sha256": "E8F0B463451267CE6A66FE2425B78B18511E8647168E886ECB6EE32EFEB2EA0E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeNumericMapLayout.cs",
+      "Sha256": "5E42333A2629CF6807AA4E93EFCC5DC008E9818D46EFB6DD92093807246A0AB8"
+    },
+    {
+      "Path": "src/Erlang.Runtime/HamtCursorView.cs",
+      "Sha256": "B0D3C832CCC8B496331053E9709C6D6E608F6BC286D680174E8E1408CDADB8D8"
+    },
+    {
+      "Path": "src/Erlang.Runtime/HamtViewLayout.cs",
+      "Sha256": "A01653886A13CE598CC6031613D7CAF9A778F2F38BEEE4A113A5D4188EFE525A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/OtpMapRuntimeIdentityProvider.cs",
+      "Sha256": "B9C752BA66AE5C39265D2973E5CDC67A0179B4A33EA34C0CA1A5F28896E71BB3"
+    }
+  ],
+  "SourceProvenAlgorithmGap": "HAMT Ordering still falls back to canonical MapSteps; NumericEquality own-layout path is distinct",
+  "NativeRecordComparatorDefectFound": false,
+  "NextIncrementCandidate": "artifacts/termorder373-hamt-ordering-proposal1",
+  "NoMainChanges": true,
+  "BuildOrTestExecuted": false
+}

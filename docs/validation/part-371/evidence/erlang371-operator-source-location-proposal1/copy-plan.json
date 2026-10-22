@@ -1,0 +1,82 @@
+{
+  "Files": [
+    {
+      "Source": "artifacts/erlang371-operator-source-location-proposal1/source/src/Erlang.Compiler/CodeGeneration.cs",
+      "Destination": "src/Erlang.Compiler/CodeGeneration.cs",
+      "Bytes": 21314,
+      "Sha256": "75A38820BBB33D6B4316BD246FD4BC86BAE903976ADBB917D7A0D80F1E952486",
+      "ReplacesExisting": true,
+      "ExpectedPreviousSha256": "EA3261A7296F41F76A1936B78FC150F1AA8B7B863DDDE3DB8FB0B0F26DDF7395"
+    },
+    {
+      "Source": "artifacts/erlang371-operator-source-location-proposal1/source/src/Erlang.Compiler/Execution.cs",
+      "Destination": "src/Erlang.Compiler/Execution.cs",
+      "Bytes": 42387,
+      "Sha256": "31CF6C6FEFF57F33D7CE9B751953FE241F71E3C50013654137D860372364AB91",
+      "ReplacesExisting": true,
+      "ExpectedPreviousSha256": "866E533B17161A12676460B2291FAAA13C2B6966CDD567C46B71C2B69E627C47"
+    },
+    {
+      "Source": "artifacts/erlang371-operator-source-location-proposal1/source/src/Erlang.Compiler/Expr.cs",
+      "Destination": "src/Erlang.Compiler/Expr.cs",
+      "Bytes": 3952,
+      "Sha256": "EF3E0C14D976BF1DAF3F47EEA799BBA5C0EBCCE14C635B70EA9E60D33965AF95",
+      "ReplacesExisting": true,
+      "ExpectedPreviousSha256": "9F7E5ABC621020D021F7A5CD94B2FAA613F280D9ACBA386A1C7C6C24130CAD0E"
+    },
+    {
+      "Source": "artifacts/erlang371-operator-source-location-proposal1/source/src/Erlang.Compiler/Parser.cs",
+      "Destination": "src/Erlang.Compiler/Parser.cs",
+      "Bytes": 51792,
+      "Sha256": "BC5F4B668EDC616DF6FF4913F102FDDFD0DDC33210021336B03376CD48578307",
+      "ReplacesExisting": true,
+      "ExpectedPreviousSha256": "6A1BC62CE606596DC43F52A4E96886DE33F357252432D357839BC68CFDCFEC3F"
+    },
+    {
+      "Source": "artifacts/erlang371-operator-source-location-proposal1/source/src/Erlang.Compiler/SourceOperatorCode.cs",
+      "Destination": "src/Erlang.Compiler/SourceOperatorCode.cs",
+      "Bytes": 846,
+      "Sha256": "C7C0FCA5B7FF2BDEDEC52944A089443E317F94989B15C6C81195E6913C32DB56",
+      "ReplacesExisting": false,
+      "ExpectedPreviousSha256": null
+    },
+    {
+      "Source": "artifacts/erlang371-operator-source-location-proposal1/source/tests/Erlang.Tests/OperatorSourceLocationHostChecks.cs",
+      "Destination": "tests/Erlang.Tests/OperatorSourceLocationHostChecks.cs",
+      "Bytes": 6862,
+      "Sha256": "6D464CB95781266897B654A7316274638EAAEC48A27707FCE0E579640521A6EA",
+      "ReplacesExisting": false,
+      "ExpectedPreviousSha256": null
+    },
+    {
+      "Source": "artifacts/erlang371-operator-source-location-proposal1/source/tests/Erlang.Tests/OperatorSourceLocationHostNames.cs",
+      "Destination": "tests/Erlang.Tests/OperatorSourceLocationHostNames.cs",
+      "Bytes": 1653,
+      "Sha256": "54F91FB16D5250C70AA171A187573AF3FDD715BD4F448190621A81F9FD247370",
+      "ReplacesExisting": false,
+      "ExpectedPreviousSha256": null
+    },
+    {
+      "Source": "artifacts/erlang371-operator-source-location-proposal1/source/tests/Erlang.Tests/Resources/Erlang371/operator371_source_lines.erl",
+      "Destination": "tests/Erlang.Tests/Resources/Erlang371/operator371_source_lines.erl",
+      "Bytes": 1045,
+      "Sha256": "DB893A8DDE98FE76CCF4CE352733214CFE849B15EB7801889CFFD6B696DD1A45",
+      "ReplacesExisting": false,
+      "ExpectedPreviousSha256": null
+    }
+  ],
+  "Edits": [
+    {
+      "File": "tests/Erlang.Tests/Program.cs",
+      "Before": "catalog creation",
+      "Insert": "Test(Erlang.Tests.OperatorSourceLocationHostNames.Test, Erlang.Tests.OperatorSourceLocationHostChecks.Run);"
+    },
+    {
+      "File": "tests/Erlang.Tests/Erlang.Tests.csproj",
+      "Insert": "<EmbeddedResource Include=\"Resources/Erlang371/operator371_source_lines.erl\" />"
+    }
+  ],
+  "ProductionFiles": 5,
+  "AddedHostTests": 1,
+  "ApiPresenceDelta": 0
+}

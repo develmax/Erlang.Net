@@ -1,0 +1,1 @@
+-module(oracle_maps_completion). -export([run/0]). run()->0=maps:size(maps:groups_from_list(fun(_)->error(called) end,[])),0=maps:size(maps:groups_from_list(fun(_)->error(called) end,fun(_)->error(called) end,[])),done.

@@ -1,0 +1,37 @@
+{
+  "Partial": true,
+  "SelectedCount": 4,
+  "TotalCount": 7638,
+  "Blocks": [],
+  "ExactCases": [
+    "binary/wrappers-join-backing-and-callback-context",
+    "binary/wrappers-replacement-effects-and-options",
+    "compiler/binary/search/seven-contracts-and-error-callers",
+    "runtime/nif-binary-windows-subviewlifetimes"
+  ],
+  "Passed": 3,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "runtime/nif-binary-windows-subviewlifetimes",
+      "Status": "Passed",
+      "Milliseconds": 60
+    },
+    {
+      "Name": "compiler/binary/search/seven-contracts-and-error-callers",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Binary search source contract or resource ownership was not preserved.\r\n   at Erlang.Tests.BinarySearchMfaContracts.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\BinarySearchMfaContracts.cs:line 87\r\n   at Erlang.Tests.BinarySearchCompiledHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\BinarySearchCompiledHostChecks.cs:line 15\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 5192",
+      "Milliseconds": 1647
+    },
+    {
+      "Name": "binary/wrappers-replacement-effects-and-options",
+      "Status": "Passed",
+      "Milliseconds": 15
+    },
+    {
+      "Name": "binary/wrappers-join-backing-and-callback-context",
+      "Status": "Passed",
+      "Milliseconds": 8
+    }
+  ]
+}

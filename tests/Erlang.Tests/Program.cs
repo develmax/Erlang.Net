@@ -10,6 +10,24 @@ using Erlang.Otp;
 if (args.Length > 0 && args[0] == Erlang.Tests.TermOrderHostNames.ChildSwitch)
     return Erlang.Tests.TermOrderProbeHostMain.Run(args);
 
+if (args.Length > 0 && args[0] == Erlang.Tests.PrimTtyOriginal412Names.ChildSwitch)
+    return await Erlang.Tests.PrimTtyOriginal412ChildMain.Run(args);
+
+if (args.Length > 0 && args[0] == Erlang.Tests.StandardBootPersistent417Names.ChildSwitch)
+    return await Erlang.Tests.StandardBootPersistent417ChildMain.Run(args);
+
+if (args.Length > 0 && args[0] == Erlang.Tests.StandardBootCollectors415Names.ChildSwitch)
+    return await Erlang.Tests.StandardBootCollectors415ChildMain.Run(args);
+
+if (args.Length > 0 && args[0] == Erlang.Tests.CollectorHibernate415Names.ChildSwitch)
+    return await Erlang.Tests.CollectorHibernate415ChildMain.Run(args);
+
+if (args.Length > 0 && args[0] == Erlang.Tests.StandardBootOriginal412Names.ChildSwitch)
+    return await Erlang.Tests.StandardBootOriginal412ChildMain.Run(args);
+
+if (args.Length > 0 && args[0] == Erlang.Tests.AtomicsOriginal413Names.ChildSwitch)
+    return await Erlang.Tests.AtomicsOriginal413ChildMain.Run(args);
+
 Erlang.Tests.TestRunSelection selection;
 try
 {
@@ -23,6 +41,1257 @@ catch (ArgumentException failure)
 }
 
 var tests = new List<(string Name, Func<Task> Body)>();
+Test(Erlang.Tests.EtsQueriesOriginal414Names.Test, Erlang.Tests.EtsQueriesOriginal414Checks.Run);
+Test(Erlang.Tests.CollectorsOriginal415Names.Test, Erlang.Tests.CollectorsOriginal415Checks.Run);
+Test(Erlang.Tests.InternalPortsOriginal416Names.Test, Erlang.Tests.InternalPortsOriginal416Checks.Run);
+Test(Erlang.Tests.InternalPorts416Names.AdmissionTest, Erlang.Tests.InternalPorts416Checks.Admission);
+Test(Erlang.Tests.InternalPorts416Names.LiveTest, Erlang.Tests.InternalPorts416Checks.Live);
+Test(Erlang.Tests.InternalPortOrder416Names.BadFlagsTest, Erlang.Tests.InternalPortOrder416Checks.BadFlags);
+Test(Erlang.Tests.InternalPortOrder416Names.ConnectTest, Erlang.Tests.InternalPortOrder416Checks.ConnectOrdering);
+Test(Erlang.Tests.EtsTraversal416HostNames.OrderedTest, Erlang.Tests.EtsTraversal416HostChecks.Ordered);
+Test(Erlang.Tests.EtsTraversal416HostNames.HashTest, Erlang.Tests.EtsTraversal416HostChecks.HashGroups);
+Test(Erlang.Tests.EtsTraversal416HostNames.RightsTest, Erlang.Tests.EtsTraversal416HostChecks.RightsAndDetached);
+Test(Erlang.Tests.EtsTraversal416HostNames.RegistrationTest, Erlang.Tests.EtsTraversal416HostChecks.Registration);
+Test(Erlang.Tests.EtsTraversalOriginal416Names.Test, Erlang.Tests.EtsTraversalOriginal416Checks.Run);
+Test(Erlang.Tests.ApplyTailOriginal416Names.Test, Erlang.Tests.ApplyTailOriginal416Checks.Run);
+Test(Erlang.Tests.ApplyTailReturn416Names.Test, Erlang.Tests.ApplyTailReturn416Checks.Run);
+Test(Erlang.Tests.EtsCounter417HostNames.Basics, Erlang.Tests.EtsCounter417HostChecks.Basics);
+Test(Erlang.Tests.EtsCounter417HostNames.Atomic, Erlang.Tests.EtsCounter417HostChecks.AtomicAndRollback);
+Test(Erlang.Tests.EtsCounter417HostNames.Admission, Erlang.Tests.EtsCounter417HostChecks.Admission);
+Test(Erlang.Tests.EtsCountersOriginal417Names.Test, Erlang.Tests.EtsCountersOriginal417Checks.Run);
+
+if (OperatingSystem.IsWindows() && Environment.Is64BitProcess)
+{
+    Test(Erlang.Tests.DdllErrorOriginal416Names.Test, Erlang.Tests.DdllErrorOriginal416Checks.Run);
+    Test(Erlang.Tests.DdllErrorHost416Names.Test, Erlang.Tests.DdllErrorHost416Checks.Run);
+}
+
+Test(Erlang.Tests.EtsMutationsOriginal414Names.Test, Erlang.Tests.EtsMutationsOriginal414Checks.Run);
+Test(Erlang.Tests.EtsMutations414Names.ValuesTest, Erlang.Tests.EtsMutations414Checks.Values);
+Test(Erlang.Tests.EtsMutations414Names.RaceTest, Erlang.Tests.EtsMutations414RaceChecks.SingleWinners);
+Test(Erlang.Tests.EtsMutations414Names.UpdateRaceTest, Erlang.Tests.EtsMutations414RaceChecks.Updates);
+Test(Erlang.Tests.EtsMutations414Names.ReaderTest, Erlang.Tests.EtsMutations414Checks.HeldReader);
+Test(Erlang.Tests.EtsMutations414Names.RightsTest, Erlang.Tests.EtsMutations414AdmissionChecks.Rights);
+Test(Erlang.Tests.EtsMutations414Names.RegistrationTest, Erlang.Tests.EtsMutations414AdmissionChecks.Registration);
+Test(Erlang.Tests.EtsQueries414Names.ValuesTest, Erlang.Tests.EtsQueries414Checks.Values);
+Test(Erlang.Tests.EtsQueries414Names.CallbackTest, Erlang.Tests.EtsQueries414CallbackChecks.ReverseBeforeCallback);
+Test(Erlang.Tests.EtsQueries414Names.PermissionsTest, Erlang.Tests.EtsQueries414Checks.Permissions);
+Test(Erlang.Tests.EtsQueries414Names.RegistrationTest, Erlang.Tests.EtsQueries414Checks.Registration);
+Test(Erlang.Tests.ClockUnit413Names.Test, Erlang.Tests.ClockUnit413Checks.Run);
+Test(Erlang.Tests.AtomicsHost413Names.AdmissionTest, Erlang.Tests.AtomicsHost413Checks.AdmissionAndValues);
+Test(Erlang.Tests.AtomicsHost413Names.ConcurrencyTest, Erlang.Tests.AtomicsHost413Checks.ConcurrentTickets);
+Test(Erlang.Tests.AtomicsHost413Names.LifetimeTest, Erlang.Tests.AtomicsHost413Checks.ResourceLifetime);
+Test(Erlang.Tests.AtomicsHost413Names.CloseTest, Erlang.Tests.AtomicsHost413Checks.CloseBarriers);
+Test(Erlang.Tests.AtomicsHost413Names.RollbackTest, Erlang.Tests.AtomicsHost413Checks.RollbackAndBinding);
+Test(Erlang.Tests.AtomicsHost413Names.GcTest, Erlang.Tests.AtomicsHost413Checks.GcNoGuestRoots);
+Test(Erlang.Tests.RegexThreeOriginal413Names.Test, Erlang.Tests.RegexThreeOriginal413Checks.Whole);
+Test(Erlang.Tests.InternalScalarOriginal413Names.Test, Erlang.Tests.InternalScalarOriginal413Checks.Whole);
+Test(Erlang.Tests.InternalScalar413Names.IntegerTest, Erlang.Tests.InternalScalar413Checks.Integers);
+Test(Erlang.Tests.InternalScalar413Names.OwnerTest, Erlang.Tests.InternalScalar413Checks.Ownership);
+Test(Erlang.Tests.EtsDeleteOutside412Names.ReentryTest, Erlang.Tests.EtsDeleteOutside412Checks.ReentryAndUnchanged);
+Test(Erlang.Tests.EtsDeleteOutside412Names.ReplaceTest, Erlang.Tests.EtsDeleteOutside412Checks.ReplacedPayload);
+Test(Erlang.Tests.EtsDeletionOriginal412Names.Test, Erlang.Tests.EtsDeletionOriginal412Checks.Run);
+Test(Erlang.Tests.EtsDeletion412Names.KernelTest, Erlang.Tests.EtsDeletion412Checks.Kernels);
+Test(Erlang.Tests.EtsDeletion412Names.InvalidTest, Erlang.Tests.EtsDeletion412Checks.InvalidDoesNotMutate);
+Test(Erlang.Tests.EtsDeletion412Names.AccessTest, Erlang.Tests.EtsDeletion412AccessChecks.Permissions);
+Test(Erlang.Tests.EtsDeletion412Names.RegistrationTest, Erlang.Tests.EtsDeletion412AccessChecks.Registration);
+Test(Erlang.Tests.BootstrapSchedulerOriginal412Names.Test, Erlang.Tests.BootstrapSchedulerOriginal412Checks.Run);
+Test(Erlang.Tests.BootstrapScheduler412Names.BindingTest, Erlang.Tests.BootstrapScheduler412Checks.Binding);
+Test(Erlang.Tests.BootstrapScheduler412Names.MeasurementTest, Erlang.Tests.BootstrapScheduler412Checks.Measurement);
+Test(Erlang.Tests.BootstrapScheduler412Names.ValuesTest, Erlang.Tests.BootstrapScheduler412Checks.Values);
+Test(Erlang.Tests.SystemLoggerOriginal412Names.Test, Erlang.Tests.SystemLoggerOriginal412Checks.Run);
+Test(Erlang.Tests.SystemLogger412Names.ValuesTest, Erlang.Tests.SystemLogger412Checks.Values);
+Test(Erlang.Tests.SystemLogger412Names.IdentityTest, Erlang.Tests.SystemLogger412Checks.Identity);
+Test(Erlang.Tests.SystemLogger412Names.InvalidTest, Erlang.Tests.SystemLogger412Checks.Invalid);
+Test(Erlang.Tests.RaiseEmptyOriginal412Names.Test, Erlang.Tests.RaiseEmptyOriginal412Checks.Run);
+Test(Erlang.Tests.BeamRaiseEmpty412Names.OverrideTest, Erlang.Tests.BeamRaiseEmpty412Checks.ChangedBinding);
+Test(Erlang.Tests.BeamRaiseEmpty412Names.ValidTest, Erlang.Tests.BeamRaiseEmpty412Checks.Valid);
+Test(Erlang.Tests.BeamRaiseEmpty412Names.NegativeTest, Erlang.Tests.BeamRaiseEmpty412Checks.Negatives);
+Test(Erlang.Tests.BeamRaiseEmpty412Names.ReturnTest, Erlang.Tests.BeamRaiseEmpty412Checks.OrdinaryReturn);
+Test(Erlang.Tests.RegexNativeOriginal411Names.Test, Erlang.Tests.RegexNativeOriginal411Checks.Whole);
+Test(Erlang.Tests.RegexNative411Names.NativeResultsTest, Erlang.Tests.RegexNative411Checks.NativeAndErrors);
+Test(Erlang.Tests.RegexNative411Names.OwnershipTest, Erlang.Tests.RegexNative411Checks.OwnershipAndRollback);
+Test(Erlang.Tests.RegexNative411Names.UnicodeTest, Erlang.Tests.RegexNative411ConcurrencyChecks.LargeUnicodeResume);
+Test(
+    Erlang.Tests.RegexNative411Names.ConcurrentTest,
+    Erlang.Tests.RegexNative411ConcurrencyChecks.ConcurrentRunsAndHeldCapability
+);
+Test(Erlang.Tests.RegexNative411Names.CancellationTest, Erlang.Tests.RegexNative411LifecycleChecks.RealCancellation);
+Test(Erlang.Tests.RegexNative411Names.DisposeTest, Erlang.Tests.RegexNative411LifecycleChecks.DisposeClose);
+Test(Erlang.Tests.RegexNative411Names.HaltTest, Erlang.Tests.RegexNative411LifecycleChecks.HaltClose);
+Test(Erlang.Tests.RegexNative411Names.InitializerTest, Erlang.Tests.RegexNative411LifecycleChecks.InitializerClose);
+Test(Erlang.Tests.ClosedWaitOriginal412Names.Test, Erlang.Tests.ClosedWaitOriginal412Checks.Run);
+Test(Erlang.Tests.ClosedWaitOriginal412Names.AdmissionTest, Erlang.Tests.ClosedWaitOriginal412Admission.Run);
+Test(Erlang.Tests.BeamClosedWait412Names.ExecutionTest, Erlang.Tests.BeamClosedWait412Checks.Execution);
+Test(Erlang.Tests.BeamClosedWait412Names.ComponentTest, Erlang.Tests.BeamClosedWait412Checks.Component);
+Test(Erlang.Tests.BeamClosedWait412Names.NegativeTest, Erlang.Tests.BeamClosedWait412Checks.Negatives);
+Test(Erlang.Tests.NativeProviderMetadataOriginal411Names.Test, Erlang.Tests.NativeProviderMetadataOriginal411Checks.Run);
+Test(Erlang.Tests.NativeProviderMetadata411Names.ValuesTest, Erlang.Tests.NativeProviderMetadata411Checks.Values);
+Test(Erlang.Tests.NativeProviderMetadata411Names.ErrorsTest, Erlang.Tests.NativeProviderMetadata411Checks.Errors);
+Test(Erlang.Tests.NativeProviderMetadata411Names.OwnershipTest, Erlang.Tests.NativeProviderMetadata411Checks.Ownership);
+Test(Erlang.Tests.WritableReceiveOriginal411Names.Test, Erlang.Tests.WritableReceiveOriginal411Checks.Run);
+Test(Erlang.Tests.WritableReceiveOriginal411Names.AdmissionTest, Erlang.Tests.WritableReceiveOriginal411Admission.Run);
+Test(Erlang.Tests.StandaloneTimeout411Names.Positive, Erlang.Tests.StandaloneTimeout411Checks.Positive);
+Test(Erlang.Tests.StandaloneTimeout411Names.Refusal, Erlang.Tests.StandaloneTimeout411Checks.Refusal);
+
+Test(Erlang.Tests.BeamWritableReceive411Names.AfterTest, Erlang.Tests.BeamWritableReceive411Checks.After);
+Test(Erlang.Tests.BeamWritableReceive411Names.BeforeTest, Erlang.Tests.BeamWritableReceive411Checks.Before);
+Test(Erlang.Tests.BeamWritableReceive411Names.RefuseTest, Erlang.Tests.BeamWritableReceive411Checks.Refuse);
+Test(Erlang.Tests.DelayBinaryOriginal411Names.Test, Erlang.Tests.DelayBinaryOriginal411Checks.Run);
+Test(Erlang.Tests.DelayBinaryOriginal411Names.AdmissionTest, Erlang.Tests.DelayBinaryOriginal411Admission.Run);
+Test(Erlang.Tests.BeamDelayBinary411Names.SafeTest, Erlang.Tests.BeamDelayBinary411Checks.Safe);
+Test(Erlang.Tests.BeamDelayBinary411Names.OpaqueTest, Erlang.Tests.BeamDelayBinary411Checks.Opaque);
+Test(Erlang.Tests.BeamDelayBinary411Names.JoinTest, Erlang.Tests.BeamDelayBinary411Checks.Join);
+tests.Add((Erlang.Tests.EtsMatchOriginal411Names.Test, Erlang.Tests.EtsMatchOriginal411Checks.Run));
+
+Test(Erlang.Tests.EtsMatch411Names.ValuesTest, Erlang.Tests.EtsMatch411Checks.Values);
+Test(Erlang.Tests.EtsMatch411Names.ErrorsTest, Erlang.Tests.EtsMatch411Checks.Errors);
+Test(Erlang.Tests.EtsMatch411Names.ResourcesTest, Erlang.Tests.EtsMatch411Checks.Resources);
+
+tests.Add((Erlang.Tests.EtsLookupOriginal411Names.Test, Erlang.Tests.EtsLookupOriginal411Checks.Run));
+
+tests.Add((Erlang.Tests.MessageQueueOriginal411Names.Test, Erlang.Tests.MessageQueueOriginal411Checks.Run));
+
+Test(Erlang.Tests.EtsLookupElement411Names.ValuesTest, Erlang.Tests.EtsLookupElement411Checks.Values);
+Test(Erlang.Tests.EtsLookupElement411Names.ErrorsTest, Erlang.Tests.EtsLookupElement411Checks.Errors);
+Test(Erlang.Tests.EtsLookupElement411Names.ResourcesTest, Erlang.Tests.EtsLookupElement411Checks.Resources);
+Test(Erlang.Tests.EtsLookupElement411Names.BoundaryTest, Erlang.Tests.EtsLookupElement411Checks.Boundary);
+tests.Add((Erlang.Tests.UnicodeSkipOriginal411Names.Test, Erlang.Tests.UnicodeSkipOriginal411Checks.Run));
+
+Test(Erlang.Tests.BeamUnicodeSkip411Names.Success, Erlang.Tests.BeamUnicodeSkip411Checks.Success);
+Test(Erlang.Tests.BeamUnicodeSkip411Names.Failure, Erlang.Tests.BeamUnicodeSkip411Checks.Failure);
+Test(Erlang.Tests.BeamUnicodeSkip411Names.Admission, Erlang.Tests.BeamUnicodeSkip411Checks.Admission);
+tests.Add((Erlang.Tests.EtsConcurrencyOriginal411Names.Test, Erlang.Tests.EtsConcurrencyOriginal411Checks.Run));
+
+Test(Erlang.Tests.EtsConcurrency411Names.FlagsTest, Erlang.Tests.EtsConcurrency411Checks.Flags);
+Test(Erlang.Tests.EtsConcurrency411Names.InvalidTest, Erlang.Tests.EtsConcurrency411Checks.Invalid);
+Test(Erlang.Tests.EtsConcurrency411Names.ConcurrentTest, Erlang.Tests.EtsConcurrency411Checks.ConcurrentRoundTrip);
+tests.Add((Erlang.Tests.CodeServerInteractive410Names.EmptyTest, Erlang.Tests.CodeServerInteractive410Checks.Empty));
+tests.Add((Erlang.Tests.CodeServerInteractive410Names.AppTest, Erlang.Tests.CodeServerInteractive410Checks.App));
+
+Test(Erlang.Tests.BeamLoaderDependencies410Names.Positive, Erlang.Tests.BeamLoaderDependencies410Checks.Declared);
+Test(Erlang.Tests.BeamLoaderDependencies410Names.Undeclared, Erlang.Tests.BeamLoaderDependencies410Checks.Undeclared);
+Test(Erlang.Tests.BeamLoaderDependencies410Names.Host, Erlang.Tests.BeamLoaderDependencies410Checks.Host);
+Test(Erlang.Tests.BeamLoaderDependencies410Names.Foreign, Erlang.Tests.BeamLoaderDependencies410Checks.Foreign);
+Test(Erlang.Tests.BeamLoaderDependencies410Names.Ended, Erlang.Tests.BeamLoaderDependencies410Checks.Ended);
+Test(Erlang.Tests.BeamLoaderDependencies410Names.Nearest, Erlang.Tests.BeamLoaderDependencies410Checks.Nearest);
+
+Test(Erlang.Tests.CodeServerBootstrap410LifecycleNames.Test, Erlang.Tests.CodeServerBootstrap410LifecycleChecks.Run);
+Test(Erlang.Tests.BeamNifMarkers410Names.ActualTest, Erlang.Tests.BeamNifMarkers410Checks.ActualPrimFile);
+Test(Erlang.Tests.BeamNifMarkers410Names.VariantsTest, Erlang.Tests.BeamNifMarkers410Checks.Variants);
+Test(Erlang.Tests.BootstrapPid410Names.Test, Erlang.Tests.BootstrapPid410Checks.Run);
+if (OperatingSystem.IsWindows())
+    Test(Erlang.Tests.PrimFileEncodingOriginal410Names.Test, Erlang.Tests.PrimFileEncodingOriginal410Checks.Whole);
+Test(Erlang.Tests.CodeServerRuntime410Names.Test, Erlang.Tests.CodeServerRuntime410Checks.Run);
+Test(Erlang.Tests.MessageQueuePolicy411Names.FlagsTest, Erlang.Tests.MessageQueuePolicy411Checks.Flags);
+Test(Erlang.Tests.MessageQueuePolicy411Names.SpawnTest, Erlang.Tests.MessageQueuePolicy411Checks.Spawn);
+Test(Erlang.Tests.MessageQueuePolicy411Names.InvalidTest, Erlang.Tests.MessageQueuePolicy411Checks.Invalid);
+Test(Erlang.Tests.InterpreterCode411Names.Test, Erlang.Tests.InterpreterCode411Checks.Run);
+Test(Erlang.Tests.DebuggerDisabled413Names.Test, Erlang.Tests.DebuggerDisabled413Checks.Run);
+Test(Erlang.Tests.ManagedCollectors413Names.AuthorityTest, Erlang.Tests.ManagedCollectors413Checks.Authority);
+Test(Erlang.Tests.ManagedCollectorPrestart415Names.Test, Erlang.Tests.ManagedCollectorPrestart415Checks.Run);
+Test(Erlang.Tests.ManagedCollectors413Names.ProtocolTest, Erlang.Tests.ManagedCollectors413Checks.Protocol);
+Test(Erlang.Tests.ManagedCollectors413Names.ShutdownTest, Erlang.Tests.ManagedCollectors413Checks.Shutdown);
+Test(Erlang.Tests.PersistentArena416HostNames.ValuesTest, Erlang.Tests.PersistentArena416ValuesChecks.Run);
+Test(Erlang.Tests.PersistentArena416HostNames.RetiredTest, Erlang.Tests.PersistentArena416RetirementChecks.Run);
+Test(Erlang.Tests.PersistentArena416HostNames.RollbackTest, Erlang.Tests.PersistentArena416RollbackChecks.Run);
+Test(Erlang.Tests.PersistentArena416HostNames.WeakTest, Erlang.Tests.PersistentArena416WeakChecks.Run);
+Test(Erlang.Tests.PersistentArena416HostNames.WritersTest, Erlang.Tests.PersistentArena416WritersChecks.Run);
+Test(Erlang.Tests.PersistentArena416HostNames.SlotsTest, Erlang.Tests.PersistentArena416SlotsChecks.Run);
+Test(Erlang.Tests.PersistentEpoch416HostNames.PidTest, Erlang.Tests.PersistentEpoch416HostChecks.PidKey);
+Test(Erlang.Tests.PersistentEpoch416HostNames.PortTest, Erlang.Tests.PersistentEpoch416HostChecks.PortKey);
+Test(Erlang.Tests.PersistentEpoch416HostNames.ReferenceTest, Erlang.Tests.PersistentEpoch416HostChecks.ReferenceKey);
+Test(Erlang.Tests.PersistentEpoch416HostNames.CreationTest, Erlang.Tests.PersistentEpoch416HostChecks.CreationReuse);
+Test(Erlang.Tests.PersistentNative417Names.ImageTest, Erlang.Tests.PersistentNative417Checks.OriginalImage);
+Test(Erlang.Tests.PersistentNative417Names.OwnerTest, Erlang.Tests.PersistentNative417Checks.Owner);
+Test(Erlang.Tests.PersistentNative417Names.HaltHeldTest, Erlang.Tests.PersistentNative417Checks.HaltHeld);
+Test(Erlang.Tests.PersistentNative417Names.InitHeldTest, Erlang.Tests.PersistentNative417Checks.InitializerHeld);
+Test(Erlang.Tests.PersistentNative417Names.AmbientTest, Erlang.Tests.PersistentNative417AmbientChecks.Run);
+Test(Erlang.Tests.BeamfileChunk418Names.ValidTest, Erlang.Tests.BeamfileChunk418Checks.Valid);
+Test(Erlang.Tests.BeamfileChunk418Names.MalformedTest, Erlang.Tests.BeamfileChunk418Checks.Malformed);
+Test(Erlang.Tests.BeamfileChunk418Names.OwnerTest, Erlang.Tests.BeamfileChunk418Checks.Owner);
+Test(Erlang.Tests.CountersOriginal421Names.Test, Erlang.Tests.CountersOriginal421Checks.Run);
+Test(Erlang.Tests.CountersHost421Names.ValuesTest, Erlang.Tests.CountersHost421Checks.Values);
+Test(Erlang.Tests.CountersHost421Names.UnusedInitializerTest, Erlang.Tests.CountersHost421Checks.UnusedInitializer);
+Test(Erlang.Tests.CountersHost421Names.ConcurrencyTest, Erlang.Tests.CountersHost421Checks.Concurrency);
+Test(Erlang.Tests.CountersHost421Names.GcTest, Erlang.Tests.CountersHost421Checks.Gc);
+Test(Erlang.Tests.CountersHost421Names.CloseTest, Erlang.Tests.CountersHost421Checks.Shutdown);
+Test(Erlang.Tests.EtsReplace420Names.BindingTest, Erlang.Tests.EtsReplace420Checks.Binding);
+Test(Erlang.Tests.EtsReplace420Names.BasicsTest, Erlang.Tests.EtsReplace420Checks.Basics);
+Test(Erlang.Tests.EtsReplace420Names.MutableTest, Erlang.Tests.EtsReplace420Checks.Mutable);
+Test(Erlang.Tests.EtsReplaceOriginal420Names.Test, Erlang.Tests.EtsReplaceOriginal420Checks.Run);
+Test(Erlang.Tests.EtsInspection420Names.BindingTest, Erlang.Tests.EtsInspection420Checks.Binding);
+Test(Erlang.Tests.EtsInspection420Names.PrivilegeTest, Erlang.Tests.EtsInspection420Checks.Privilege);
+Test(Erlang.Tests.EtsInspection420Names.RawTest, Erlang.Tests.EtsInspection420Checks.Raw);
+Test(Erlang.Tests.EtsInfo420Names.BindingTest, Erlang.Tests.EtsInfo420Checks.Binding);
+Test(Erlang.Tests.EtsInfo420Names.MemoryTest, Erlang.Tests.EtsInfo420Checks.MemoryGraph);
+Test(Erlang.Tests.EtsInfo420Names.CensusTest, Erlang.Tests.EtsInfo420Checks.CensusBoundaries);
+Test(Erlang.Tests.EtsInfoOriginal422Names.Test, Erlang.Tests.EtsInfoOriginal422Checks.Run);
+Test(Erlang.Tests.DirtyQueryOriginal423Names.Test, Erlang.Tests.DirtyQueryOriginal423Checks.Run);
+Test(Erlang.Tests.CheckProcessCodeHost423Names.BindingTest, Erlang.Tests.CheckProcessCodeHost423Checks.Bindings);
+Test(Erlang.Tests.CheckProcessCodeHost423Names.OwnershipTest, Erlang.Tests.CheckProcessCodeHost423Checks.Ownership);
+Test(Erlang.Tests.CheckProcessCodeHost423Names.ExitTest, Erlang.Tests.CheckProcessCodeHost423Checks.Exit);
+Test(Erlang.Tests.CheckProcessCodeOriginal424Names.Test, Erlang.Tests.CheckProcessCodeOriginal424Checks.Run);
+Test(Erlang.Tests.ProcessAlive425HostNames.BindingTest, Erlang.Tests.ProcessAlive425HostChecks.Binding);
+Test(Erlang.Tests.ProcessAlive425HostNames.OrderingTest, Erlang.Tests.ProcessAlive425HostChecks.Ordering);
+Test(Erlang.Tests.ProcessAliveOriginal425Names.Test, Erlang.Tests.ProcessAliveOriginal425Checks.Run);
+Test(Erlang.Tests.InternalProcess425HostNames.StateTest, Erlang.Tests.InternalProcess425HostChecks.StateAndReplies);
+Test(Erlang.Tests.InternalProcess425HostNames.SuspendTest, Erlang.Tests.InternalProcess425HostChecks.Suspension);
+Test(Erlang.Tests.InternalProcess425HostNames.OwnerTest, Erlang.Tests.InternalProcess425HostChecks.OwnersAndMonitor);
+Test(Erlang.Tests.InternalProcessOriginal425Names.Test, Erlang.Tests.InternalProcessOriginal425Checks.Run);
+Test(Erlang.Tests.InternalProcess425HostNames.TerminationTest, Erlang.Tests.InternalProcess425HostChecks.TerminationReplies);
+Test(Erlang.Tests.InternalTraceOriginal427Names.Test, Erlang.Tests.InternalTraceOriginal427Checks.Run);
+Test(Erlang.Tests.MailboxCompletion427Names.Test, Erlang.Tests.MailboxCompletion427Checks.Run);
+Test(Erlang.Tests.ExportGlobal431Names.Test, Erlang.Tests.ExportGlobal431Checks.Run);
+Test(Erlang.Tests.CodePurger432HostNames.TestRole, Erlang.Tests.CodePurger432HostChecks.RoleAndWindow);
+Test(Erlang.Tests.CodePurger432HostNames.TestFence, Erlang.Tests.CodePurger432HostChecks.PrepareAbortFence);
+Test(Erlang.Tests.CodePurger432HostNames.TestOnLoad, Erlang.Tests.CodePurger432HostChecks.OnLoadSavedOld);
+Test(Erlang.Tests.CodePurger432HostNames.TestDeath, Erlang.Tests.CodePurger432HostChecks.OwnerDeath);
+Test(Erlang.Tests.CodePurger432HostNames.TestShutdown, Erlang.Tests.CodePurger432HostChecks.Shutdown);
+Test(Erlang.Tests.CodePurgerOriginal432Names.Test, Erlang.Tests.CodePurgerOriginal432Checks.Run);
+Test(Erlang.Tests.DebugUniqueOriginal436Names.Test, Erlang.Tests.DebugUniqueOriginal436Checks.Run);
+Test(Erlang.Tests.SpawnMonitor431Names.LifeTest, Erlang.Tests.SpawnMonitor431Checks.Lifetime);
+Test(Erlang.Tests.SpawnMonitor431Names.DemonitorTest, Erlang.Tests.SpawnMonitor431Checks.Demonitor);
+Test(Erlang.Tests.SpawnMonitor431Names.AbandonTest, Erlang.Tests.SpawnMonitor431Checks.Abandon);
+Test(Erlang.Tests.SpawnMonitorOriginal431Names.Test, Erlang.Tests.SpawnMonitorOriginal431Checks.Run);
+Test(Erlang.Tests.EtsCounterHintsOriginal436Names.Test, Erlang.Tests.EtsCounterHintsOriginal436Checks.Run);
+Test(Erlang.Tests.DebugUnique436HostNames.Isolation, Erlang.Tests.DebugUnique436HostChecks.Isolation);
+Test(Erlang.Tests.DebugUnique436HostNames.Parallel, Erlang.Tests.DebugUnique436HostChecks.Parallel);
+Test(Erlang.Tests.DistSpawnOriginal430Names.Test, Erlang.Tests.DistSpawnOriginal430Checks.Run);
+Test(Erlang.Tests.AllocatorGatherOriginal434Names.Test, Erlang.Tests.AllocatorGatherOriginal434Checks.Run);
+Test(Erlang.Tests.AllocatorGatherHost434Names.HistTest, Erlang.Tests.AllocatorGatherHost434Checks.NifSpans);
+Test(Erlang.Tests.AllocatorGatherHost434Names.ArrayTest, Erlang.Tests.AllocatorGatherHost434Checks.ArrayAndPersistent);
+Test(Erlang.Tests.AllocatorGatherHost434Names.RetirementTest, Erlang.Tests.AllocatorGatherHost434Checks.PhysicalRetirement);
+Test(Erlang.Tests.DistChannel429HostNames.SameTest, Erlang.Tests.DistChannel429HostChecks.Same);
+Test(Erlang.Tests.DistChannel429HostNames.CrossTest, Erlang.Tests.DistChannel429HostChecks.Cross);
+Test(Erlang.Tests.DistChannel429HostNames.GenerationTest, Erlang.Tests.DistChannel429HostChecks.Generation);
+Test(Erlang.Tests.DistChannel429HostNames.LegacyTest, Erlang.Tests.DistChannel429HostChecks.Legacy);
+Test(Erlang.Tests.DistChannelOriginal429Names.Test, Erlang.Tests.DistChannelOriginal429Checks.Run);
+Test(Erlang.Tests.DistSpawn430HostNames.ErrorTest, Erlang.Tests.DistSpawn430HostChecks.Errors);
+Test(Erlang.Tests.DistSpawn430HostNames.RoundTripTest, Erlang.Tests.DistSpawn430HostChecks.RoundTrip);
+Test(Erlang.Tests.DistSpawn430HostNames.FrontierTest, Erlang.Tests.DistSpawn430HostChecks.Frontier);
+Test(Erlang.Tests.DistSpawn430HostNames.AsyncTest, Erlang.Tests.DistSpawn430HostChecks.AsyncBusy);
+Test(Erlang.Tests.DistributionProfileOriginal429Names.Test, Erlang.Tests.DistributionProfileOriginal429Checks.Run);
+Test(Erlang.Tests.DebugDispatch432Names.Test, Erlang.Tests.DebugDispatch432Checks.Run);
+Test(Erlang.Tests.DebugDispatchOriginal432Names.Test, Erlang.Tests.DebugDispatchOriginal432Checks.Run);
+Test(Erlang.Tests.DebugDispatch432Names.CloseTest, Erlang.Tests.DebugDispatch432LifecycleChecks.Run);
+Test(Erlang.Tests.DistributionProfile429Names.BindingTest, Erlang.Tests.DistributionProfile429Checks.Binding);
+Test(Erlang.Tests.DistributionProfile429Names.CodecTest, Erlang.Tests.DistributionProfile429Checks.Codec);
+Test(Erlang.Tests.DistributionProfile429Names.SourceTest, Erlang.Tests.DistributionProfile429Checks.OriginalReaders);
+Test(Erlang.Tests.HamtIndex429HostNames.Graph, Erlang.Tests.HamtIndex429HostChecks.Graph);
+Test(Erlang.Tests.HamtIndex429HostNames.Lifetime, Erlang.Tests.HamtIndex429HostChecks.Lifetime);
+Test(Erlang.Tests.HamtIndex429HostNames.Close, Erlang.Tests.HamtIndex429HostChecks.Close);
+Test(Erlang.Tests.ActorControlOwner428Names.Test, Erlang.Tests.ActorControlOwner428Checks.Exclusion);
+Test(Erlang.Tests.SystemTaskOwner428Names.BindingTest, Erlang.Tests.SystemTaskOwner428Checks.Binding);
+Test(Erlang.Tests.SystemTaskOwner428Names.PriorityTest, Erlang.Tests.SystemTaskOwner428Checks.Priority);
+Test(Erlang.Tests.SystemTaskOwner428Names.DeathTest, Erlang.Tests.SystemTaskOwner428Checks.Death);
+Test(Erlang.Tests.SystemTaskOwner428Names.DirtyTest, Erlang.Tests.SystemTaskOwner428Checks.DirtySignals);
+Test(Erlang.Tests.HamtNative430Names.Graph, Erlang.Tests.HamtNative430Checks.Graph);
+Test(Erlang.Tests.HamtNative430Names.Types, Erlang.Tests.HamtNative430Checks.Types);
+Test(Erlang.Tests.HamtOriginal430Names.Test, Erlang.Tests.HamtOriginal430Checks.Run);
+Test(Erlang.Tests.InternalPortLoader428HostNames.StatusTest, Erlang.Tests.InternalPortLoader428HostChecks.StatusAndOwner);
+Test(Erlang.Tests.InternalPortLoader428HostNames.PrepareTest, Erlang.Tests.InternalPortLoader428HostChecks.PreparedImage);
+Test(Erlang.Tests.InternalSpawnRequest429HostNames.StatusTest, Erlang.Tests.InternalSpawnRequest429HostChecks.StatusAndOwner);
+Test(Erlang.Tests.InternalSpawnRequest429HostNames.AbandonTest, Erlang.Tests.InternalSpawnRequest429HostChecks.Abandonment);
+Test(Erlang.Tests.InternalSpawnRequest429HostNames.OwnerTest, Erlang.Tests.InternalSpawnRequest429HostChecks.OwnerDeath);
+Test(Erlang.Tests.InternalSpawnOriginal429Names.Test, Erlang.Tests.InternalSpawnOriginal429Checks.Run);
+Test(Erlang.Tests.InternalTextAux430HostNames.TextTest, Erlang.Tests.InternalTextAux430HostChecks.TextBudget);
+Test(Erlang.Tests.InternalTextAux430HostNames.OwnerTest, Erlang.Tests.InternalTextAux430HostChecks.OwnerAndFailure);
+Test(Erlang.Tests.InternalTextAux430HostNames.AuxiliaryTest, Erlang.Tests.InternalTextAux430HostChecks.AuxiliaryParticipants);
+Test(Erlang.Tests.InternalTextAuxOriginal430Names.Test, Erlang.Tests.InternalTextAuxOriginal430Checks.Run);
+Test(Erlang.Tests.InternalSystemCheck431HostNames.StatusTest, Erlang.Tests.InternalSystemCheck431HostChecks.StatusAndOwner);
+Test(Erlang.Tests.InternalSystemCheck431HostNames.AckTest, Erlang.Tests.InternalSystemCheck431HostChecks.ActualAcks);
+Test(Erlang.Tests.InternalSystemCheck431HostNames.CancelTest, Erlang.Tests.InternalSystemCheck431HostChecks.CallerExitJoin);
+Test(Erlang.Tests.InternalSystemCheckOriginal431Names.Test, Erlang.Tests.InternalSystemCheckOriginal431Checks.Run);
+Test(Erlang.Tests.SystemTasksOriginal428Names.Test, Erlang.Tests.SystemTasksOriginal428Checks.Run);
+Test(Erlang.Tests.ExportGlobalOriginal431Names.Test, Erlang.Tests.ExportGlobalOriginal431Checks.Run);
+Test(
+    Erlang.Tests.InternalGarbageCollection428HostNames.KernelTest,
+    Erlang.Tests.InternalGarbageCollection428HostChecks.Kernel
+);
+Test(
+    Erlang.Tests.InternalGarbageCollection428HostNames.BindingTest,
+    Erlang.Tests.InternalGarbageCollection428HostChecks.Binding
+);
+Test(Erlang.Tests.InternalGcOriginal428Names.Test, Erlang.Tests.InternalGcOriginal428Checks.Run);
+
+Test(Erlang.Tests.InternalMonitor425HostNames.Test, Erlang.Tests.InternalMonitor425HostChecks.Run);
+
+Test(Erlang.Tests.TraceOriginIdentity427Names.IdentityTest, Erlang.Tests.TraceOriginIdentity427Checks.Identity);
+Test(Erlang.Tests.TraceOriginIdentity427Names.OriginTest, Erlang.Tests.TraceOriginIdentity427Checks.Origin);
+
+Test(Erlang.Tests.InternalTrace425HostNames.EventsTest, Erlang.Tests.InternalTrace425HostChecks.Events);
+Test(Erlang.Tests.InternalTrace425HostNames.CallsTest, Erlang.Tests.InternalTrace425HostChecks.Calls);
+Test(Erlang.Tests.InternalTrace425HostNames.LifetimeTest, Erlang.Tests.InternalTrace425HostChecks.Lifetime);
+
+Test(Erlang.Tests.MapKeysOriginal426Names.StorageTest, Erlang.Tests.MapKeysHost426Checks.Storage);
+Test(Erlang.Tests.MapKeysOriginal426Names.OwnerTest, Erlang.Tests.MapKeysHost426Checks.Ownership);
+Test(Erlang.Tests.MapKeysOriginal426Names.Test, Erlang.Tests.MapKeysOriginal426Checks.Run);
+Test(Erlang.Tests.DebugDirtyOriginal424Names.Test, Erlang.Tests.DebugDirtyOriginal424Checks.Run);
+Test(Erlang.Tests.DebugDirty424Names.Values, Erlang.Tests.DebugDirty424Checks.Values);
+Test(Erlang.Tests.DebugDirty424Names.Copies, Erlang.Tests.DebugDirty424Checks.Copies);
+Test(Erlang.Tests.DebugDirty424Names.Reschedule, Erlang.Tests.DebugDirty424Checks.Reschedule);
+Test(Erlang.Tests.DebugDirty424Names.Messages, Erlang.Tests.DebugDirty424Checks.Messages);
+Test(Erlang.Tests.DebugDirty424Names.Exiting, Erlang.Tests.DebugDirty424Checks.Exiting);
+Test(Erlang.Tests.DebugDirty424Names.Binding, Erlang.Tests.DebugDirty424Checks.Binding);
+Test(Erlang.Tests.DebugSharing425Names.Graph, Erlang.Tests.DebugSharing425Checks.Graph);
+Test(Erlang.Tests.DebugSharing425Names.Storage, Erlang.Tests.DebugSharing425Checks.Storage);
+Test(Erlang.Tests.DebugSharing425Names.Functions, Erlang.Tests.DebugSharing425Checks.Functions);
+Test(Erlang.Tests.DebugSharing425Names.Source, Erlang.Tests.DebugSharing425Checks.Source);
+Test(Erlang.Tests.DebugSharing425Names.Binding, Erlang.Tests.DebugSharing425Checks.Binding);
+Test(Erlang.Tests.DebugSharingOriginal425Names.Test, Erlang.Tests.DebugSharingOriginal425Checks.Run);
+Test(Erlang.Tests.DebugCode427Names.Owner, Erlang.Tests.DebugCode427Checks.Owner);
+Test(Erlang.Tests.DebugCode427Names.Values, Erlang.Tests.DebugCode427Checks.Values);
+Test(Erlang.Tests.DebugCodeOriginal427Names.Test, Erlang.Tests.DebugCodeOriginal427Checks.Run);
+Test(Erlang.Tests.DistDecode423Names.CacheTest, Erlang.Tests.DistDecode423Checks.Cache);
+Test(Erlang.Tests.DistDecode423Names.EpochTest, Erlang.Tests.DistDecode423Checks.Epoch);
+Test(Erlang.Tests.DistDecode423Names.LocalTest, Erlang.Tests.DistDecode423Checks.Local);
+Test(Erlang.Tests.DistDecode423Names.OwnerTest, Erlang.Tests.DistDecode423Checks.Owner);
+Test(Erlang.Tests.DistDecode423Names.RawAtomTest, Erlang.Tests.DistDecode423Checks.RawAtom);
+Test(Erlang.Tests.LocalFunctionScalars423Names.LocalTest, Erlang.Tests.LocalFunctionScalars423Checks.Local);
+Test(Erlang.Tests.LocalFunctionScalars423Names.ExportTest, Erlang.Tests.LocalFunctionScalars423Checks.Export);
+Test(Erlang.Tests.BeamfileMd5Host423Names.RawTest, Erlang.Tests.BeamfileMd5Host423Checks.Raw);
+Test(Erlang.Tests.BeamfileMd5Host423Names.OwnerTest, Erlang.Tests.BeamfileMd5Host423Checks.Owner);
+Test(Erlang.Tests.BeamfileMd5Host423Names.LiteralTest, Erlang.Tests.BeamfileMd5Host423Checks.Literals);
+Test(Erlang.Tests.BeamfileMd5WidthOriginal423Names.Test, Erlang.Tests.BeamfileMd5WidthOriginal423Checks.Run);
+Test(Erlang.Tests.BeamfileMd5Original423Names.Test, Erlang.Tests.BeamfileMd5Original423Checks.Run);
+Test(Erlang.Tests.DistDecodeOriginal423Names.Test, Erlang.Tests.DistDecodeOriginal423Checks.Run);
+Test(Erlang.Tests.DirtyQuery423Names.CpuTest, Erlang.Tests.DirtyQuery423Checks.Cpu);
+Test(Erlang.Tests.DirtyQuery423Names.IoTest, Erlang.Tests.DirtyQuery423Checks.Io);
+Test(Erlang.Tests.DirtyQuery423Names.BindingTest, Erlang.Tests.DirtyQuery423Checks.Binding);
+Test(Erlang.Tests.EtsCursorEnd420Names.Test, Erlang.Tests.EtsCursorEnd420Checks.Run);
+Test(Erlang.Tests.EtsCursors420Names.Binding, Erlang.Tests.EtsCursors420Checks.Binding);
+Test(Erlang.Tests.EtsCursors420Names.Tree, Erlang.Tests.EtsCursors420Checks.Tree);
+Test(Erlang.Tests.EtsCursors420Names.Hash, Erlang.Tests.EtsCursors420Checks.Hash);
+Test(Erlang.Tests.EtsCursors420Names.Mutable, Erlang.Tests.EtsCursors420Checks.Mutable);
+Test(Erlang.Tests.EtsCursorsOriginal420Names.Test, Erlang.Tests.EtsCursorsOriginal420Checks.Run);
+Test(Erlang.Tests.MatchSpecLeafOriginal420Names.Test, Erlang.Tests.MatchSpecLeafOriginal420Checks.Run);
+Test(Erlang.Tests.EtsIndex420Names.Binding, Erlang.Tests.EtsIndex420Checks.Binding);
+Test(Erlang.Tests.EtsIndex420Names.Buckets, Erlang.Tests.EtsIndex420Checks.Buckets);
+Test(Erlang.Tests.EtsIndex420Names.Fixed, Erlang.Tests.EtsIndex420Checks.Fixed);
+Test(Erlang.Tests.EtsIndex420Names.Death, Erlang.Tests.EtsIndex420Checks.Death);
+Test(Erlang.Tests.EtsIndex420Names.Mutations, Erlang.Tests.EtsIndex420Checks.Mutations);
+Test(Erlang.Tests.EtsIndexOriginal420Names.Test, Erlang.Tests.EtsIndexOriginal420Checks.Run);
+Test(Erlang.Tests.EtsAll420Names.Binding, Erlang.Tests.EtsAll420Checks.Binding);
+Test(Erlang.Tests.EtsAll420Names.Directory, Erlang.Tests.EtsAll420Checks.Directory);
+Test(Erlang.Tests.EtsAll420Names.Auxiliary, Erlang.Tests.EtsAll420Checks.Auxiliary);
+Test(Erlang.Tests.EtsAll420Names.Close, Erlang.Tests.EtsAll420Checks.Close);
+Test(Erlang.Tests.EtsAllOriginal420Names.Test, Erlang.Tests.EtsAllOriginal420Checks.Run);
+Test(Erlang.Tests.DirtyNative419Names.Lanes, Erlang.Tests.DirtyNative419Checks.Lanes);
+
+Test(Erlang.Tests.DirtyNative419Names.Cancellation, Erlang.Tests.DirtyNative419Checks.Cancellation);
+
+Test(Erlang.Tests.DirtyNative419Names.Close, Erlang.Tests.DirtyNative419Checks.Close);
+
+Test(Erlang.Tests.DirtyNative419Names.Roots, Erlang.Tests.DirtyNative419Checks.Roots);
+
+Test(Erlang.Tests.DirtyNative419Names.Shutdown, Erlang.Tests.DirtyNative419Checks.Shutdown);
+
+Test(Erlang.Tests.DebugDirtyRouting420Names.Test, Erlang.Tests.DebugDirtyRouting420Checks.Run);
+
+Test(Erlang.Tests.DebugLoggerLiveness420Names.Test, Erlang.Tests.DebugLoggerLiveness420Checks.Run);
+
+Test(Erlang.Tests.DebugInternal420Names.SourceTest, Erlang.Tests.DebugInternal420Checks.Source);
+
+
+Test(Erlang.Tests.DebugInternal420Names.OwnerTest, Erlang.Tests.DebugInternal420Checks.Owner);
+
+
+Test(Erlang.Tests.DebugInternal420Names.WarningTest, Erlang.Tests.DebugInternal420Checks.Warning);
+
+
+Test(Erlang.Tests.DebugInternalOriginal420Names.Test, Erlang.Tests.DebugInternalOriginal420Checks.Run);
+
+
+Test(Erlang.Tests.DebugSame420HostNames.SourceTest, Erlang.Tests.DebugSame420HostChecks.Source);
+
+Test(Erlang.Tests.DebugSame420HostNames.OwnerTest, Erlang.Tests.DebugSame420HostChecks.Owner);
+
+Test(Erlang.Tests.DebugSameOriginal420Names.Test, Erlang.Tests.DebugSameOriginal420Checks.Run);
+
+Test(Erlang.Tests.DebugUnaligned421Names.SourceTest, Erlang.Tests.DebugUnaligned421Checks.Source);
+
+Test(Erlang.Tests.DebugUnaligned421Names.OwnerTest, Erlang.Tests.DebugUnaligned421Checks.Owner);
+
+Test(Erlang.Tests.DebugUnalignedOriginal421Names.Test, Erlang.Tests.DebugUnalignedOriginal421Checks.Run);
+
+
+Test(Erlang.Tests.DebugLocks419Names.SourceTest, Erlang.Tests.DebugLocks419Checks.Source);
+Test(Erlang.Tests.DebugLocks419Names.OwnerTest, Erlang.Tests.DebugLocks419Checks.Owner);
+Test(Erlang.Tests.DebugLocksOriginal419Names.Test, Erlang.Tests.DebugLocksOriginal419Checks.Run);
+Test(Erlang.Tests.EtsCompiledOriginal419Names.StrictTest, Erlang.Tests.EtsCompiledOriginal419Checks.Strict);
+Test(Erlang.Tests.EtsCompiledOriginal419Names.OwnTest, Erlang.Tests.EtsCompiledOriginal419Checks.Own);
+Test(Erlang.Tests.InternalOwner419HostNames.ResetTest, Erlang.Tests.InternalOwner419HostChecks.Reset);
+Test(Erlang.Tests.InternalOwner419HostNames.CursorTest, Erlang.Tests.InternalOwner419HostChecks.Cursor);
+Test(Erlang.Tests.InternalOwnerOriginal419Names.Test, Erlang.Tests.InternalOwnerOriginal419Checks.Run);
+Test(Erlang.Tests.EtsNewHeirOriginal419Names.Test, Erlang.Tests.EtsNewHeirOriginal419Checks.Run);
+Test(Erlang.Tests.EtsNewHeir419Names.Lifetime, Erlang.Tests.EtsNewHeir419Checks.Lifetime);
+Test(Erlang.Tests.EtsNewHeir419Names.Rollback, Erlang.Tests.EtsNewHeir419Checks.Rollback);
+Test(Erlang.Tests.EtsCompiled419Names.BasicTest, Erlang.Tests.EtsCompiled419Checks.Basic);
+Test(Erlang.Tests.EtsCompiled419Names.CanonicalTest, Erlang.Tests.EtsCompiled419Checks.Canonical);
+Test(Erlang.Tests.EtsCompiled419Names.TrapTest, Erlang.Tests.EtsCompiled419Checks.Trap);
+Test(Erlang.Tests.EtsCompiled419Names.OwnerTest, Erlang.Tests.EtsCompiled419OwnerChecks.Run);
+Test(Erlang.Tests.EtsCompiled419Names.LifetimeTest, Erlang.Tests.EtsCompiled419LifetimeChecks.Run);
+Test(Erlang.Tests.EtsHeir419HostNames.Lifetime, Erlang.Tests.EtsHeir419HostChecks.Lifetime);
+Test(Erlang.Tests.EtsHeir419HostNames.AtomicQueue, Erlang.Tests.EtsHeir419HostChecks.AtomicQueue);
+Test(Erlang.Tests.EtsHeir419HostNames.DeadHeir, Erlang.Tests.EtsHeir419HostChecks.DeadHeir);
+Test(Erlang.Tests.EtsHeir419HostNames.Options, Erlang.Tests.EtsHeir419HostChecks.Options);
+Test(Erlang.Tests.EtsHeir419HostNames.Monitor, Erlang.Tests.EtsHeir419MonitorChecks.Run);
+Test(Erlang.Tests.EtsHeir419HostNames.Lease, Erlang.Tests.EtsHeir419LeaseChecks.Run);
+Test(Erlang.Tests.EtsHeir419HostNames.Deferred, Erlang.Tests.EtsHeir419DeferredChecks.Run);
+Test(Erlang.Tests.EtsHeirOriginal419Names.Test, Erlang.Tests.EtsHeirOriginal419Checks.Run);
+Test(Erlang.Tests.EtsRename418HostNames.Basics, Erlang.Tests.EtsRename418HostChecks.Basics);
+Test(Erlang.Tests.EtsRename418HostNames.Access, Erlang.Tests.EtsRename418HostChecks.Access);
+Test(Erlang.Tests.EtsRename418HostNames.RetiredName, Erlang.Tests.EtsRename418HostChecks.RetiredName);
+Test(Erlang.Tests.EtsRename418HostNames.Admission, Erlang.Tests.EtsRename418HostChecks.Admission);
+Test(Erlang.Tests.EtsRenameOriginal418Names.Test, Erlang.Tests.EtsRenameOriginal418Checks.Run);
+Test(Erlang.Tests.BeamfileChunkOriginal418Names.Test, Erlang.Tests.BeamfileChunkOriginal418Checks.Run);
+Test(Erlang.Tests.DebuggerOriginal413Names.Test, Erlang.Tests.DebuggerOriginal413Checks.Default);
+Test(Erlang.Tests.StrictChain411Names.OrderTest, Erlang.Tests.StrictChain411Checks.OrderAndMixedImports);
+Test(Erlang.Tests.StrictChain411Names.RefusalTest, Erlang.Tests.StrictChain411Checks.Refusals);
+Test(Erlang.Tests.StrictChain411Names.PreCanceledTest, Erlang.Tests.StrictChain411Checks.PreCanceled);
+Test(Erlang.Tests.StrictChain411Names.HeldTest, Erlang.Tests.StrictChain411Checks.CancelActualBlockedCallback);
+Test(Erlang.Tests.PrimFileEncoding410Names.RoutingTest, Erlang.Tests.PrimFileEncoding410Checks.Routing);
+Test(Erlang.Tests.PrimFileEncoding410Names.WordTest, Erlang.Tests.PrimFileEncoding410Checks.Words);
+Test(Erlang.Tests.PrimFileEncoding410Names.NormalizeTest, Erlang.Tests.PrimFileEncoding410Checks.NormalizeSource);
+Test(Erlang.Tests.PrimFileWindows410HostNames.Test, Erlang.Tests.PrimFileWindows410HostChecks.Run);
+tests.Add((Erlang.Tests.NativeProvider408Names.DefaultTest, Erlang.Tests.NativeProvider408Checks.DefaultUnchanged));
+tests.Add((Erlang.Tests.NativeProvider408Names.ActualTest, Erlang.Tests.NativeProvider408Checks.ConfiguredActual));
+tests.Add((Erlang.Tests.NativeProvider408Names.InvalidTest, Erlang.Tests.NativeProvider408Checks.InvalidAndForeign));
+tests.Add((Erlang.Tests.NativeProvider408Names.SourceTest, Erlang.Tests.NativeProvider408Checks.ExistingSourceRefused));
+tests.Add((Erlang.Tests.NativeProvider408Names.DriftTest, Erlang.Tests.NativeProvider408Checks.IdempotentAndDriftRefused));
+tests.Add((Erlang.Tests.NativeProvider408Names.RollbackTest, Erlang.Tests.NativeProvider408Checks.OuterRollback));
+tests.Add((Erlang.Tests.NativeProvider408Names.StubTest, Erlang.Tests.NativeProvider408Checks.WholeStubRefused));
+tests.Add((Erlang.Tests.NativeProvider408Names.LifecycleTest, Erlang.Tests.NativeProvider408Checks.Lifecycle));
+tests.Add((Erlang.Tests.NativeProvider408Names.FactoryTest, Erlang.Tests.NativeProvider408Checks.FactoryGuards));
+tests.Add((Erlang.Tests.NativeProvider408Names.ConsumerTest, Erlang.Tests.NativeProvider408ConsumerChecks.Run));
+
+Test(Erlang.Tests.EtsSelectOriginal409Names.Test, Erlang.Tests.EtsSelectOriginal409Checks.Whole);
+Test(Erlang.Tests.EtsSelect409Names.GeneralTest, Erlang.Tests.EtsSelect409Checks.General);
+Test(Erlang.Tests.EtsSelect409Names.ErrorTest, Erlang.Tests.EtsSelect409Checks.Errors);
+Test(Erlang.Tests.EtsSelect409Names.CopyTest, Erlang.Tests.EtsSelect409Checks.DetachedFunction);
+Test(Erlang.Tests.PersistentLifecycle408Names.Test, Erlang.Tests.PersistentLifecycle408Checks.Whole);
+
+Test(Erlang.Tests.EtsKernelOriginal407Names.Test, Erlang.Tests.EtsKernelOriginal407Checks.Whole);
+Test(
+    Erlang.Tests.PersistentTerm408HostNames.ValueTest,
+    Erlang.Tests.PersistentTerm408HostChecks.ExactValues
+);
+Test(
+    Erlang.Tests.PersistentTerm408HostNames.LifetimeTest,
+    Erlang.Tests.PersistentTerm408HostChecks.ProcessIndependentAndAtomicNew
+);
+Test(
+    Erlang.Tests.PersistentTerm408HostNames.LeaseTest,
+    Erlang.Tests.PersistentTerm408HostChecks.RetiredReaderAndClose
+);
+Test(
+    Erlang.Tests.FunEntryPublication407Names.HistoryTest,
+    Erlang.Tests.FunEntryPublication407Checks.History
+);
+Test(
+    Erlang.Tests.FunEntryPublication407Names.PreflightTest,
+    Erlang.Tests.FunEntryPublication407Checks.Preflight
+);
+Test(
+    Erlang.Tests.FunEntryPublication407Names.ConcurrencyTest,
+    Erlang.Tests.FunEntryPublication407Checks.LockOrder
+);
+Test(Erlang.Tests.EtsKeyKernel407Names.DefaultTest, Erlang.Tests.EtsKeyKernel407Checks.CodeServerDefaultVectors);
+Test(Erlang.Tests.EtsKeyKernel407Names.KindsTest, Erlang.Tests.EtsKeyKernel407Checks.FourFamiliesAndAtomicBatch);
+Test(Erlang.Tests.EtsKeyKernel407Names.AccessTest, Erlang.Tests.EtsKeyKernel407Checks.ProtectionAndPublicDelete);
+
+Test(
+    Erlang.Tests.OwnedFunctionOriginal407Names.Test,
+    Erlang.Tests.OwnedFunctionOriginal407Checks.Whole
+);
+Test(
+    Erlang.Tests.GuestStoredFunction407Names.AstTest,
+    Erlang.Tests.GuestStoredFunction407Checks.SourceAndExternal
+);
+Test(
+    Erlang.Tests.GuestStoredFunction407Names.RestoredTest,
+    Erlang.Tests.GuestStoredFunction407Checks.RestoredHasNoReadCallback
+);
+Test(
+    Erlang.Tests.GuestStoredFunction407Names.BeamTest,
+    Erlang.Tests.GuestStoredFunction407Checks.OriginalBeamRestored
+);
+Test(Erlang.Tests.EtsRetirement407Names.OwnerTest, Erlang.Tests.EtsRetirement407Checks.OwnerDown);
+Test(Erlang.Tests.EtsRetirement407Names.DeleteTest, Erlang.Tests.EtsRetirement407Checks.ExplicitDelete);
+Test(Erlang.Tests.EtsRetirement407Names.LeaseTest, Erlang.Tests.EtsRetirement407Checks.SparseAndReader);
+Test(Erlang.Tests.EtsRetirement407Names.ShutdownTest, Erlang.Tests.EtsRetirement407Checks.GlobalShutdown);
+Test(
+    Erlang.Tests.BeamStoredFunction406Names.GraphTest,
+    Erlang.Tests.BeamStoredFunction406Checks.GraphAndAuthenticity
+);
+Test(
+    Erlang.Tests.BeamStoredFunction406Names.PurgeTest,
+    Erlang.Tests.BeamStoredFunction406Checks.OriginalImageAndPurge
+);
+Test(Erlang.Tests.EtsPayloadDrop406Names.LeaseTest, Erlang.Tests.EtsPayloadDrop406Checks.LastReadLeaseRoots);
+Test(Erlang.Tests.EtsPayloadDrop406Names.CopyTest, Erlang.Tests.EtsPayloadDrop406Checks.CopyOutRoots);
+Test(
+    Erlang.Tests.EtsFoundation405Names.GraphTest,
+    Erlang.Tests.EtsFoundation405Checks.DetachedGraphAndRollback
+);
+Test(
+    Erlang.Tests.EtsFoundation405Names.LifetimeTest,
+    Erlang.Tests.EtsFoundation405Checks.IdentityAndOwnerDeath
+);
+Test(
+    Erlang.Tests.EtsFoundation405Names.ResourceTest,
+    Erlang.Tests.EtsFoundation405Checks.ResourceRetentionAndReadLease
+);
+Test(
+    Erlang.Tests.EtsFoundation405Names.CancellationTest,
+    Erlang.Tests.EtsFoundation405Checks.CancellationCloseAndHalt
+);
+Test(
+    Erlang.Tests.IoPrintableOriginal404Names.DefaultTest,
+    Erlang.Tests.IoPrintableOriginal404Checks.Default
+);
+Test(
+    Erlang.Tests.IoPrintableOriginal404Names.Latin1Test,
+    Erlang.Tests.IoPrintableOriginal404Checks.Latin1
+);
+Test(
+    Erlang.Tests.IoPrintableOriginal404Names.UnicodeTest,
+    Erlang.Tests.IoPrintableOriginal404Checks.Unicode
+);
+Test(
+    Erlang.Tests.IoPrintableRange404Names.Test,
+    Erlang.Tests.IoPrintableRange404Checks.Run
+);
+Test(
+    Erlang.Tests.IdentifierLifetimeHostNames.PidTest,
+    Erlang.Tests.IdentifierLifetimeHostChecks.PidLifetime
+);
+
+Test(
+    Erlang.Tests.IdentifierLifetimeHostNames.PortTest,
+    Erlang.Tests.IdentifierLifetimeHostChecks.PortLifetime
+);
+
+Test(
+    Erlang.Tests.IdentifierLifetimeHostNames.ReferenceTest,
+    Erlang.Tests.IdentifierLifetimeHostChecks.ReferenceLifetime
+);
+
+Test(
+    Erlang.Tests.IdentifierLifetimeHostNames.FunctionTest,
+    Erlang.Tests.IdentifierLifetimeHostChecks.NestedFunctionLifetime
+);
+
+Test(
+    Erlang.Tests.IdentifierLifetimeHostNames.DomainTest,
+    Erlang.Tests.IdentifierLifetimeHostChecks.LocalForeignAndClosedRoots
+);
+
+Test(
+    Erlang.Tests.IdentifierLifetimeHostNames.ConcurrentTest,
+    Erlang.Tests.IdentifierLifetimeHostChecks.ConcurrentIdentityAndImportChurn
+);
+
+Test(
+    Erlang.Tests.IdentifierOriginal403Names.PidTest,
+    Erlang.Tests.IdentifierOriginal403Checks.PidWhole
+);
+Test(
+    Erlang.Tests.IdentifierOriginal403Names.PortTest,
+    Erlang.Tests.IdentifierOriginal403Checks.PortWhole
+);
+Test(
+    Erlang.Tests.IdentifierOriginal403Names.ReferenceTest,
+    Erlang.Tests.IdentifierOriginal403Checks.ReferenceWhole
+);
+Test(
+    Erlang.Tests.IdentifierOriginal403Names.FunctionPidTest,
+    Erlang.Tests.IdentifierOriginal403Checks.FunctionPidWhole
+);
+Test(
+    Erlang.Tests.IdentifierOriginal403Names.NestedFunctionReferenceTest,
+    Erlang.Tests.IdentifierOriginal403Checks.NestedFunctionReferenceWhole
+);
+Test(
+    Erlang.Tests.MapHashRetentionHostNames.ScalarTest,
+    Erlang.Tests.MapHashRetentionHostChecks.ScalarsAndEpochs
+);
+
+Test(
+    Erlang.Tests.MapHashRetentionHostNames.NestedTest,
+    Erlang.Tests.MapHashRetentionHostChecks.NormalOrderAndNestedEnvironment
+);
+
+Test(
+    Erlang.Tests.MapHashRetentionHostNames.ForeignTest,
+    Erlang.Tests.MapHashRetentionHostChecks.LocalForeignAndCapturedSnapshot
+);
+
+Test(
+    Erlang.Tests.MapHashRetentionHostNames.ClosedTest,
+    Erlang.Tests.MapHashRetentionHostChecks.CloseAndRelease
+);
+
+Test(
+    Erlang.Tests.MapHashRetentionHostNames.WeakTest,
+    Erlang.Tests.MapHashRetentionHostChecks.WeakKeysAndChurn
+);
+
+Test(
+    Erlang.Tests.MapHashRetentionHostNames.ConcurrentTest,
+    Erlang.Tests.MapHashRetentionHostChecks.ConcurrentScopes
+);
+
+Test(
+    Erlang.Tests.MapHashRetentionHostNames.PidTest,
+    Erlang.Tests.MapHashRetentionHostChecks.HeldPid
+);
+
+Test(
+    Erlang.Tests.MapHashRetentionHostNames.PortTest,
+    Erlang.Tests.MapHashRetentionHostChecks.HeldPort
+);
+
+Test(
+    Erlang.Tests.MapHashRetentionHostNames.ReferenceTest,
+    Erlang.Tests.MapHashRetentionHostChecks.HeldReference
+);
+
+Test(
+    Erlang.Tests.MapHashRetentionHostNames.FunctionTest,
+    Erlang.Tests.MapHashRetentionHostChecks.HeldFunction
+);
+
+
+Test(
+    Erlang.Tests.IdentifierObservationShutdownHostNames.DisposeWithMonitorAndLinkTest,
+    Erlang.Tests.IdentifierObservationShutdownHostChecks.DisposeWithMonitorAndLink
+);
+Test(
+    Erlang.Tests.IdentifierObservationShutdownHostNames.InitializerDeathWithMonitorAndLinkTest,
+    Erlang.Tests.IdentifierObservationShutdownHostChecks.InitializerDeathWithMonitorAndLink
+);
+Test(
+    Erlang.Tests.IdentifierObservationShutdownHostNames.HaltWithLiveCallbacksTest,
+    Erlang.Tests.IdentifierObservationShutdownHostChecks.HaltWithLiveCallbacks
+);
+Test(
+    Erlang.Tests.IdentifierObservationShutdownHostNames.ClosedPublicationRaceTest,
+    Erlang.Tests.IdentifierObservationResolverHostChecks.ClosedPublicationRace
+);
+Test(
+    Erlang.Tests.IdentifierObservationShutdownHostNames.UnexpectedOpenResolverErrorTest,
+    Erlang.Tests.IdentifierObservationResolverHostChecks.UnexpectedOpenResolverError
+);
+Test(
+    Erlang.Tests.DistributionOriginal402Names.CoreTest,
+    Erlang.Tests.DistributionOriginal402Checks.CorePortable
+);
+Test(
+    Erlang.Tests.DistributionOriginal402Names.ConnectedTest,
+    Erlang.Tests.DistributionOriginal402Checks.ConnectedPortable
+);
+Test(
+    Erlang.Tests.DistributionOriginal402Names.ReuseTest,
+    Erlang.Tests.DistributionOriginal402Checks.CreationReuse
+);
+
+Test(
+    Erlang.Tests.DistributionEntryCreationHostNames.FreshTest,
+    Erlang.Tests.DistributionEntryCreationHostChecks.FreshAndLazyBudget
+);
+Test(
+    Erlang.Tests.DistributionEntryCreationHostNames.UnsignedTest,
+    Erlang.Tests.DistributionEntryCreationHostChecks.StartedUnsigned
+);
+Test(
+    Erlang.Tests.DistributionEntryCreationHostNames.RetainedTest,
+    Erlang.Tests.DistributionEntryCreationHostChecks.RetainedDormantAndGeneration
+);
+Test(
+    Erlang.Tests.DistributionEntryCreationHostNames.ClosedTest,
+    Erlang.Tests.DistributionEntryCreationHostChecks.ClosedReleasesRuntimeRoots
+);
+Test(
+    Erlang.Tests.DistributionState402Names.PendingTest,
+    Erlang.Tests.DistributionState402Checks.PendingIdleStaleAndForeign
+);
+Test(
+    Erlang.Tests.DistributionState402Names.CreationTest,
+    Erlang.Tests.DistributionState402Checks.CreationAndConnected
+);
+Test(
+    Erlang.Tests.DistributionState402Names.ExitingTest,
+    Erlang.Tests.DistributionState402Checks.RealExitingTransition
+);
+Test(
+    Erlang.Tests.NativeStubShape400Names.Test,
+    Erlang.Tests.NativeStubShape400Checks.Run
+);
+Test(
+    Erlang.Tests.ExternalTermTraversal400Names.Test,
+    Erlang.Tests.ExternalTermTraversal400Checks.Run
+);
+Test(
+    Erlang.Tests.LibraryDependencyOriginalNames.NewConnection400Test,
+    Erlang.Tests.LibraryDependencyOriginalHostChecks.NewConnection400Whole
+);
+Test(
+    Erlang.Tests.NewConnection400HostNames.Test,
+    Erlang.Tests.NewConnection400HostChecks.Run
+);
+Test(
+    Erlang.Tests.LibraryDependencyOriginalNames.NetKernel400Test,
+    Erlang.Tests.LibraryDependencyOriginalHostChecks.NetKernel400Whole
+);
+Test(
+    Erlang.Tests.NetKernel400HostNames.Test,
+    Erlang.Tests.NetKernel400HostChecks.Run
+);
+Test(
+    Erlang.Tests.PortErrorStack399Names.CompleteStacksTest,
+    Erlang.Tests.PortErrorStack399Checks.CompleteOpenAndUnchangedCloseStacks
+);
+Test(
+    Erlang.Tests.PortErrorStack399Names.SourceWrapperTest,
+    Erlang.Tests.PortErrorStack399Checks.OptionalPrefixPreservesSourceWrapperRule
+);
+Test(
+    Erlang.Tests.LibraryDependencyOriginalNames.Callback399Test,
+    Erlang.Tests.LibraryDependencyOriginalHostChecks.Callback399Whole
+);
+Test(
+    Erlang.Tests.LibraryDependencyOriginalNames.Nested399Test,
+    Erlang.Tests.LibraryDependencyOriginalHostChecks.Nested399Whole
+);
+Test(
+    Erlang.Tests.MailboxBeamCallback399TestNames.CurrentSavePriority,
+    Erlang.Tests.MailboxBeamCallback399Checks.PriorityConsumesCurrentSave
+);
+Test(
+    Erlang.Tests.MailboxBeamCallback399TestNames.PrioritySourceRepeats,
+    Erlang.Tests.MailboxBeamCallback399Checks.PriorityRejectionRepeatsSourceAttempt
+);
+Test(
+    Erlang.Tests.MailboxBeamCallback399TestNames.ExceptionNestedSave,
+    Erlang.Tests.MailboxBeamCallback399Checks.ExceptionAndNestedShareCursor
+);
+Test(
+    Erlang.Tests.MailboxBeamCallback399TestNames.CancellationReset,
+    Erlang.Tests.MailboxBeamCallback399Checks.VisibilityCancellationAndReset
+);
+Test(
+    Erlang.Tests.MailboxBeamCallback399TestNames.MarkerPriority,
+    Erlang.Tests.MailboxBeamCallback399Checks.MarkerReferencePriorityComposition
+);
+Test(
+    Erlang.Tests.BeamCallbackPlan399TestNames.ShapeFrameOpaque,
+    Erlang.Tests.BeamCallbackPlan399Checks.ExactShapeAndFrameProof
+);
+Test(
+    Erlang.Tests.MailboxBeamCallback399TestNames.DeferredPriority,
+    Erlang.Tests.MailboxBeamCallback399Checks.DeferredPriorityRetainsAdmissionOwnership
+);
+Test(
+    Erlang.Tests.MailboxBeamCallback399TestNames.NestedCurrentConsume,
+    Erlang.Tests.MailboxBeamCallback399Checks.NestedConsumesCurrentBeforeOuterCommit
+);
+Test(Erlang.Tests.LibraryDependencyOriginalNames.Sofs398Test, Erlang.Tests.LibraryDependencyOriginalHostChecks.Sofs398Whole);
+Test(Erlang.Tests.Library398TestNames.TupleGuarded, Erlang.Tests.BeamGuardedTuple398Checks.GuardedKernelAndRemoteOverride);
+Test(
+    Erlang.Tests.Library398TestNames.TupleRefusals,
+    Erlang.Tests.BeamGuardedTuple398Checks.UnprovedMutationEntryAndRootsRefuse
+);
+Test(
+    Erlang.Tests.Library398TestNames.TupleIdentity,
+    Erlang.Tests.BeamTupleProofIdentity398Checks.WarmedCacheStillRejectsForeignInstruction
+);
+Test(
+    Erlang.Tests.LibraryDependencyOriginalNames.Position398Test,
+    Erlang.Tests.LibraryDependencyOriginalHostChecks.Position398Whole
+);
+Test(
+    Erlang.Tests.LibraryDependencyOriginalNames.Receive398Test,
+    Erlang.Tests.LibraryDependencyOriginalHostChecks.Receive398Whole
+);
+Test(
+    Erlang.Tests.LibraryDependencyOriginalNames.WarningDefault398Test,
+    Erlang.Tests.LibraryDependencyOriginalHostChecks.WarningDefault398Whole
+);
+Test(
+    Erlang.Tests.LibraryDependencyOriginalNames.WarningInfo398Test,
+    Erlang.Tests.LibraryDependencyOriginalHostChecks.WarningInfo398Whole
+);
+Test(
+    Erlang.Tests.LibraryDependencyOriginalNames.WarningError398Test,
+    Erlang.Tests.LibraryDependencyOriginalHostChecks.WarningError398Whole
+);
+Test(
+    Erlang.Tests.LibraryDependencyOriginalNames.WarningWarning398Test,
+    Erlang.Tests.LibraryDependencyOriginalHostChecks.WarningWarning398Whole
+);
+Test(
+    Erlang.Tests.Library398TestNames.PositionGuarded,
+    Erlang.Tests.BeamGuardedTail398Checks.AlignedTailAfterPositionOverwrite
+);
+Test(Erlang.Tests.Library398TestNames.PositionRealFailures, Erlang.Tests.BeamGuardedTail398Checks.RealFailuresStillRefuse);
+Test(Erlang.Tests.Library398TestNames.PositionOwner, Erlang.Tests.BeamPositionOwner398Checks.SourceIdentityStillRequired);
+Test(Erlang.Tests.Library398TestNames.BinaryFresh, Erlang.Tests.BeamReceiveBinary398Checks.FreshContextAndCandidateRollback);
+Test(
+    Erlang.Tests.Library398TestNames.BinaryOpaque,
+    Erlang.Tests.BeamReceiveBinary398Checks.IncomingOpaqueContextAndPositionRefused
+);
+Test(
+    Erlang.Tests.Library398TestNames.BinaryRefusals,
+    Erlang.Tests.BeamReceiveBinary398Checks.UnconsumedAndMutatingPairsRefused
+);
+Test(
+    Erlang.Tests.Library398TestNames.BinaryBoundary,
+    Erlang.Tests.BeamReceiveBinaryBoundary398Checks.StandaloneLegacyOutsideMatcherRefused
+);
+Test(Erlang.Tests.Library398TestNames.WarningOwner, Erlang.Tests.LibraryDependencyOriginalHostChecks.WarningMap398Owner);
+Test(Erlang.Tests.LibraryDependencyOriginalNames.Os399Test, Erlang.Tests.LibraryDependencyOriginalHostChecks.Os399Whole);
+Test(Erlang.Tests.LibraryDependencyOriginalNames.Port399Test, Erlang.Tests.LibraryDependencyOriginalHostChecks.Port399Whole);
+Test(Erlang.Tests.Os399HostNames.ClockTest, () =>
+ {
+     Erlang.Tests.OsClock399HostChecks.Run();
+
+     return Task.CompletedTask;
+ });
+Test(Erlang.Tests.Os399HostNames.CodecTest, Erlang.Tests.Os399HostChecks.Codec);
+Test(Erlang.Tests.Os399HostNames.StoreTest, Erlang.Tests.Os399HostChecks.StoreCancelClose);
+Test(Erlang.Tests.Os399HostNames.TreeTest, Erlang.Tests.Os399HostChecks.Tree);
+Test(Erlang.Tests.Os399HostNames.OwnerTest, Erlang.Tests.Os399HostChecks.Owner);
+Test(Erlang.Tests.Os399HostNames.ImageTest, Erlang.Tests.Os399ImageHostChecks.Run);
+
+Test(
+    Erlang.Tests.LibraryDependencyOriginalNames.Handler397Test,
+    Erlang.Tests.LibraryDependencyOriginalHostChecks.Handler397Whole
+);
+Test(Erlang.Tests.LibraryDependencyOriginalNames.Map397Test, Erlang.Tests.LibraryDependencyOriginalHostChecks.Map397Whole);
+Test(
+    Erlang.Tests.LibraryDependencyOriginalNames.Context397Test,
+    Erlang.Tests.LibraryDependencyOriginalHostChecks.Context397Whole
+);
+Test(Erlang.Tests.Library397TestNames.HandlerAdmission, Erlang.Tests.BeamHandlerRouting396Checks.Admission);
+Test(Erlang.Tests.Library397TestNames.HandlerRuntime, Erlang.Tests.BeamHandlerRouting396Checks.CaughtRuntime);
+Test(
+    Erlang.Tests.Library397TestNames.HandlerOverride,
+    Erlang.Tests.BeamHandlerRouting396Checks.ReturningImportCannotForgeHandler
+);
+Test(Erlang.Tests.Library397TestNames.ContextTransport, Erlang.Tests.BeamContextForward397Checks.OptionalAndRequired);
+Test(Erlang.Tests.Library397TestNames.ContextRefusals, Erlang.Tests.BeamContextForward397Checks.Refusals);
+Test(Erlang.Tests.BeamContextTail412Names.TransportTest, Erlang.Tests.BeamContextTail412Checks.Transport);
+Test(Erlang.Tests.BeamContextTail412Names.RefusalsTest, Erlang.Tests.BeamContextTail412Checks.Refusals);
+Test(Erlang.Tests.BeamOpaqueJoin412Names.TransportTest, Erlang.Tests.BeamOpaqueJoin412Checks.Transport);
+Test(Erlang.Tests.BeamOpaqueJoin412Names.RefusalsTest, Erlang.Tests.BeamOpaqueJoin412Checks.Refusals);
+Test(Erlang.Tests.BeamOpaqueJoin412Names.BudgetTest, Erlang.Tests.BeamOpaqueJoin412Checks.Budget);
+if (OperatingSystem.IsWindows())
+{
+    Test(Erlang.Tests.PrimTtyNative412Names.PureTest, Erlang.Tests.PrimTtyNative412Checks.Pure);
+    Test(Erlang.Tests.PrimTtyNative412Names.ResourceTest, Erlang.Tests.PrimTtyNative412Checks.Resource);
+    Test(Erlang.Tests.PrimTtyNative412Names.BarrierTest, Erlang.Tests.PrimTtyNative412Checks.Barrier);
+    Test(Erlang.Tests.PrimTtyNative412Names.BlockedReadTest, Erlang.Tests.PrimTtyNative412Checks.BlockedRead);
+}
+Test(Erlang.Tests.Library397TestNames.MapAlias, Erlang.Tests.BeamReceiveMap397Checks.AliasAndCandidateRollback);
+Test(
+    Erlang.Tests.Library397TestNames.MapAtomic,
+    Erlang.Tests.BeamReceiveMap397Checks.FailureWritesNoDestinationsAndOpaqueReadRefused
+);
+Test(
+    Erlang.Tests.Library397TestNames.MapRefusals,
+    Erlang.Tests.BeamReceiveMap397Checks.FrameDestinationAndCallbackRemainRefused
+);
+Test(
+    Erlang.Tests.LibraryDependencyOriginalNames.Receive396Test,
+    Erlang.Tests.LibraryDependencyOriginalHostChecks.Receive396Whole
+);
+Test(
+    Erlang.Tests.LibraryDependencyOriginalNames.Encoding396Test,
+    Erlang.Tests.LibraryDependencyOriginalHostChecks.Encoding396Whole
+);
+Test(
+    Erlang.Tests.BeamPureReceive396Names.CandidateRollbackAndOpaqueSlots,
+    Erlang.Tests.BeamPureReceive396Checks.CandidateRollbackAndOpaqueSlots
+);
+Test(
+    Erlang.Tests.BeamPureReceive396Names.PureBoundariesAndCallbackRefusal,
+    Erlang.Tests.BeamPureReceive396Checks.PureBoundariesAndCallbackRefusal
+);
+
+Test(
+    "runtime/library396/file-encoding-private-source-owner",
+    Erlang.Tests.LibraryDependencyOriginalHostChecks.FileEncoding396Owner
+);
+Test(
+    Erlang.Tests.LibraryDependencyOriginalNames.Binary395Test,
+    Erlang.Tests.LibraryDependencyOriginalHostChecks.Binary395Whole
+);
+Test(Erlang.Tests.LibraryDependencyOriginalNames.Bif395Test, Erlang.Tests.LibraryDependencyOriginalHostChecks.Bif395Whole);
+Test(
+    Erlang.Tests.LibraryDependencyOriginalNames.Frame395Test,
+    Erlang.Tests.LibraryDependencyOriginalHostChecks.Frame395Whole
+);
+Test(
+    Erlang.Tests.BeamBinaryFlags395Names.IntegerEndianSignAndOffset,
+    Erlang.Tests.BeamBinaryFlags395Checks.IntegerEndianSignAndOffset
+);
+Test(
+    Erlang.Tests.BeamBinaryFlags395Names.NativeFlagsAndRefusals,
+    Erlang.Tests.BeamBinaryFlags395Checks.NativeFlagsAndRefusals
+);
+Test(
+    Erlang.Tests.BeamBinaryFlags395Names.DynamicFloatBytesAndHalfRounding,
+    Erlang.Tests.BeamBinaryFlags395Checks.DynamicFloatBytesAndHalfRounding
+);
+Test(
+    "runtime/library394/infallible-opcode-kernel-preserves-remote-overrides",
+    Erlang.Tests.BeamInfallibleBifControlHostChecks.CanonicalOpcodeAndRemoteOverride
+);
+Test(
+    "runtime/library394/infallible-bif-preserves-gc-fallible-opaque-refusals",
+    Erlang.Tests.BeamInfallibleBifControlHostChecks.FallibleGcAndOpaqueRefusals
+);
+Test("runtime/library395/frame-Admission", Erlang.Tests.BeamFrameJoin394Checks.Admission);
+Test("runtime/library395/frame-ActualBodyOverride", Erlang.Tests.BeamFrameJoin394Checks.ActualBodyOverride);
+Test(Erlang.Tests.LibraryDependencyOriginalNames.Math394Test, Erlang.Tests.LibraryDependencyOriginalHostChecks.Math394Whole);
+Test(
+    Erlang.Tests.LibraryDependencyOriginalNames.Math394OwnerTest,
+    Erlang.Tests.LibraryDependencyOriginalHostChecks.Math394Owner
+);
+Test(Erlang.Tests.MathNative392Names.ErrorsAndConversion, Erlang.Tests.MathNative392Checks.ErrorsAndConversion);
+Test(Erlang.Tests.MathNative392Names.SignedZeroUnderflowAndFmod, Erlang.Tests.MathNative392Checks.SignedZeroUnderflowAndFmod);
+Test(Erlang.Tests.MathNative392Names.HostSpecialFunctions, Erlang.Tests.MathNative392Checks.HostSpecialFunctions);
+Test(
+    "runtime/library394/selection/ManagedRuntimeDependency",
+    Erlang.Tests.LibrarySelectionPolicyControlChecks.ManagedRuntimeDependency
+);
+Test(
+    "runtime/library394/selection/NativeBootstrapOwnership",
+    Erlang.Tests.LibrarySelectionPolicyControlChecks.NativeBootstrapOwnership
+);
+Test("runtime/library394/selection/ExplicitPureCycle", Erlang.Tests.LibrarySelectionPolicyControlChecks.ExplicitPureCycle);
+Test(
+    "runtime/library394/selection/StrictMissingWrapperSelection",
+    Erlang.Tests.LibrarySelectionPolicyControlChecks.StrictMissingWrapperSelection
+);
+Test("runtime/library394/selection/FactoryRefusals", Erlang.Tests.LibrarySelectionPolicyNegativeChecks.FactoryRefusals);
+Test(
+    "runtime/library394/selection/BootstrapBodyMutation",
+    Erlang.Tests.LibrarySelectionPolicyNegativeChecks.BootstrapBodyMutation
+);
+Test(
+    "runtime/library394/selection/ManagedWrapperUnbound",
+    Erlang.Tests.LibrarySelectionPolicyNegativeChecks.ManagedWrapperUnbound
+);
+Test(
+    "runtime/library394/selection/MissingCaptureAndExport",
+    Erlang.Tests.LibrarySelectionPolicyNegativeChecks.MissingCaptureAndExport
+);
+Test(
+    "runtime/library394/selection/SourceOwnerAndOldGeneration",
+    Erlang.Tests.LibrarySelectionPolicyNegativeChecks.SourceOwnerAndOldGeneration
+);
+Test("runtime/library394/selection/NativeSourceOwner", Erlang.Tests.LibrarySelectionPolicyNegativeChecks.NativeSourceOwner);
+Test("runtime/library394/selection/MissingSelectedMfa", Erlang.Tests.LibrarySelectionPolicyNegativeChecks.MissingSelectedMfa);
+Test(
+    Erlang.Tests.LibraryDependencyOriginalNames.Small393Test,
+    Erlang.Tests.LibraryDependencyOriginalHostChecks.Small393Whole
+);
+Test(
+    Erlang.Tests.LibraryDependencyOriginalNames.FloatString393Test,
+    Erlang.Tests.LibraryDependencyOriginalHostChecks.FloatString393Whole
+);
+Test(Erlang.Tests.BeamSmallOpcodeControlNames.NumericInequality, Erlang.Tests.BeamSmallOpcodeControlChecks.NumericInequality);
+Test(
+    Erlang.Tests.BeamSmallOpcodeControlNames.SelectiveReceiveNumericInequality,
+    Erlang.Tests.BeamSmallOpcodeControlChecks.SelectiveReceiveNumericInequality
+);
+Test(Erlang.Tests.BeamSmallOpcodeControlNames.NegationBits, Erlang.Tests.BeamSmallOpcodeControlChecks.NegationBits);
+Test(
+    Erlang.Tests.BeamSmallOpcodeControlNames.NegationUninitialized,
+    Erlang.Tests.BeamSmallOpcodeControlChecks.NegationUninitialized
+);
+Test(
+    Erlang.Tests.BeamSmallOpcodeControlNames.NegationStaleAfterCall,
+    Erlang.Tests.BeamSmallOpcodeControlChecks.NegationStaleAfterCall
+);
+Test(
+    Erlang.Tests.BeamSmallOpcodeControlNames.NegationFreshAfterCall,
+    Erlang.Tests.BeamSmallOpcodeControlChecks.NegationFreshAfterCall
+);
+Test(
+    Erlang.Tests.BeamSmallOpcodeControlNames.NegationWrongDestination,
+    Erlang.Tests.BeamSmallOpcodeControlChecks.NegationWrongDestination
+);
+Test(
+    Erlang.Tests.BeamSmallOpcodeControlNames.InequalityUninitializedY,
+    Erlang.Tests.BeamSmallOpcodeControlChecks.InequalityUninitializedY
+);
+Test(
+    Erlang.Tests.BeamFloatString392Names.FloatWidthsEndianAndZero,
+    Erlang.Tests.BeamFloatString392Checks.FloatWidthsEndianAndZero
+);
+Test(Erlang.Tests.BeamFloatString392Names.FloatFailuresAndFlags, Erlang.Tests.BeamFloatString392Checks.FloatFailuresAndFlags);
+Test(
+    Erlang.Tests.BeamFloatString392Names.StringOffsetBoundsAndFailure,
+    Erlang.Tests.BeamFloatString392Checks.StringOffsetBoundsAndFailure
+);
+Test(
+    Erlang.Tests.LibraryDependencyOriginalNames.MetadataTest,
+    Erlang.Tests.LibraryDependencyOriginalHostChecks.MetadataWhole
+);
+Test(
+    Erlang.Tests.LibraryDependencyOriginalNames.UnicodeFieldsTest,
+    Erlang.Tests.LibraryDependencyOriginalHostChecks.UnicodeFieldsWhole
+);
+Test(Erlang.Tests.UnicodeTraversalCancellationNames.Test, Erlang.Tests.UnicodeTraversalCancellationHostChecks.Run);
+Test(Erlang.Tests.BeamUnicodeField392Names.RoundTrip, Erlang.Tests.BeamUnicodeField392Checks.RoundTrip);
+Test(
+    Erlang.Tests.BeamUnicodeField392Names.IndependentBytesAndOffset,
+    Erlang.Tests.BeamUnicodeField392Checks.IndependentBytesAndOffset
+);
+Test(Erlang.Tests.BeamUnicodeField392Names.InvalidAndFlags, Erlang.Tests.BeamUnicodeField392Checks.InvalidAndFlags);
+
+Test(Erlang.Tests.LibraryDependencyOriginalNames.Test0, Erlang.Tests.LibraryDependencyOriginalHostChecks.CatchWhole);
+Test(Erlang.Tests.LibraryDependencyOriginalNames.Test1, Erlang.Tests.LibraryDependencyOriginalHostChecks.Bif3Whole);
+Test(Erlang.Tests.LibraryDependencyOriginalNames.Test2, Erlang.Tests.LibraryDependencyOriginalHostChecks.WideWhole);
+Test(Erlang.Tests.LibraryDependencyOriginalNames.Test3, Erlang.Tests.LibraryDependencyOriginalHostChecks.PrettyWhole);
+Test(Erlang.Tests.LibraryDependencyOriginalNames.Test4, Erlang.Tests.LibraryDependencyOriginalHostChecks.UnicodeWhole);
+Test(Erlang.Tests.LibraryDependencyOriginalNames.Test5, Erlang.Tests.LibraryDependencyOriginalHostChecks.ReceiveWhole);
+Test(
+    Erlang.Tests.LibraryDependencyOriginalNames.Test6,
+    Erlang.Tests.LibraryDependencyOriginalHostChecks.ForeignAndMalformedNativeHelper
+);
+Test(Erlang.Tests.LibraryDependencyOriginalNames.FixedTest, Erlang.Tests.LibraryDependencyOriginalHostChecks.FixedWhole);
+Test(Erlang.Tests.BeamFixedBinary392Names.LargeAndUnaligned, Erlang.Tests.BeamFixedBinary392Checks.LargeAndUnaligned);
+Test(
+    Erlang.Tests.BeamFixedBinary392Names.EmptyBitstringAndAlias,
+    Erlang.Tests.BeamFixedBinary392Checks.EmptyBitstringAndAlias
+);
+Test(Erlang.Tests.BeamFixedBinary392Names.ShortFlagsAndOverflow, Erlang.Tests.BeamFixedBinary392Checks.ShortFlagsAndOverflow);
+
+Test(Erlang.Tests.BeamPrettyEquality392Names.Width16, Erlang.Tests.BeamPrettyEquality392Checks.Width16);
+Test(Erlang.Tests.BeamPrettyEquality392Names.Unaligned16, Erlang.Tests.BeamPrettyEquality392Checks.Unaligned16);
+Test(Erlang.Tests.BeamPrettyEquality392Names.ParserBounds, Erlang.Tests.BeamPrettyEquality392Checks.ParserBounds);
+Test(Erlang.Tests.BeamPrettyEquality392Names.WideHost, Erlang.Tests.BeamPrettyEquality392Checks.WideHost);
+Test(Erlang.Tests.BeamWideInteger392Names.Values, Erlang.Tests.BeamWideInteger392Checks.Values);
+Test(Erlang.Tests.BeamWideInteger392Names.OffsetAndUnit, Erlang.Tests.BeamWideInteger392Checks.OffsetAndUnit);
+Test(Erlang.Tests.BeamWideInteger392Names.ShortAndBounds, Erlang.Tests.BeamWideInteger392Checks.ShortAndBounds);
+Test(Erlang.Tests.BeamTailFailure392Names.UnitOne, Erlang.Tests.BeamTailFailure392Checks.UnitOne);
+Test(
+    Erlang.Tests.BeamTailFailure392Names.RealFailuresStillRefuse,
+    Erlang.Tests.BeamTailFailure392Checks.RealFailuresStillRefuse
+);
+Test(Erlang.Tests.BeamCatchProtocolControlNames.Test0, Erlang.Tests.BeamCatchProtocolControlHostChecks.Refusals);
+Test(Erlang.Tests.BeamCatchProtocolControlNames.Test1, Erlang.Tests.BeamCatchProtocolControlHostChecks.NormalAndExceptional);
+Test(Erlang.Tests.BeamCatchProtocolControlNames.Test2, Erlang.Tests.BeamPureMailboxControlHostChecks.SelectionAndRetention);
+Test(Erlang.Tests.BeamCatchProtocolControlNames.Test3, Erlang.Tests.BeamPureMailboxControlHostChecks.ImpureImportRefused);
+Test(Erlang.Tests.LibraryProcessNames.ConstructionTest, Erlang.Tests.LibraryProcessHostChecks.Construction);
+Test(Erlang.Tests.BeamBinaryField391Names.Utf8Failures, Erlang.Tests.BeamBinaryField391Checks.Utf8Failures);
+Test(Erlang.Tests.BeamBinaryField391Names.Utf8Unaligned, Erlang.Tests.BeamBinaryField391Checks.Utf8Unaligned);
+Test(Erlang.Tests.BeamBinaryField391Names.IntegerWide, Erlang.Tests.BeamBinaryField391Checks.IntegerWide);
+Test(Erlang.Tests.BeamBinaryField391Names.SkipBounds, Erlang.Tests.BeamBinaryField391Checks.SkipBounds);
+Test(Erlang.Tests.BeamBinaryField391Names.RoleRefusals, Erlang.Tests.BeamBinaryField391Checks.RoleRefusals);
+Test(Erlang.Tests.BeamBinaryField391Names.OpaqueContext, Erlang.Tests.BeamBinaryField391Checks.OpaqueContext);
+
+Test(Erlang.Tests.LibraryProcessNames.FieldsTest, Erlang.Tests.LibraryProcessHostChecks.Fields);
+Test(Erlang.Tests.LibraryProcessNames.GenSysTest, Erlang.Tests.LibraryProcessHostChecks.GenSys);
+Test(Erlang.Tests.LibraryProcessNames.ProcessTest, Erlang.Tests.LibraryProcessHostChecks.Process);
+Test(Erlang.Tests.LibraryProcessNames.PidTest, Erlang.Tests.LibraryProcessHostChecks.OwnPid);
+Test(Erlang.Tests.BeamInitializedRootNames.GcOnlyTest, Erlang.Tests.BeamInitializedRootChecks.GcOnly);
+Test(Erlang.Tests.BeamInitializedRootNames.TrimGcTest, Erlang.Tests.BeamInitializedRootChecks.TrimGc);
+Test(Erlang.Tests.BeamInitializedRootNames.TransportEscapeTest, Erlang.Tests.BeamInitializedRootChecks.TransportEscape);
+Test(Erlang.Tests.BeamInitializedRootNames.TupleEscapeTest, Erlang.Tests.BeamInitializedRootChecks.TupleEscape);
+Test(Erlang.Tests.BeamInitializedRootNames.TrimEscapeTest, Erlang.Tests.BeamInitializedRootChecks.TrimEscape);
+Test(
+    Erlang.Tests.BeamInitializedRootNames.ReallocateUninitializedTest,
+    Erlang.Tests.BeamInitializedRootChecks.ReallocateUninitialized
+);
+Test(Erlang.Tests.BeamInitializedRootNames.OverwriteThenReadTest, Erlang.Tests.BeamInitializedRootChecks.OverwriteThenRead);
+
+Test(Erlang.Tests.BeamMissingHeaderLineNames.Test, Erlang.Tests.BeamMissingHeaderLineHostChecks.Run);
+Test(Erlang.Tests.BeamBinaryProtocol390Names.PositionRoundtrip, Erlang.Tests.BeamBinaryProtocol390Checks.PositionRoundtrip);
+Test(
+    Erlang.Tests.BeamBinaryProtocol390Names.OpaquePositionEscape,
+    Erlang.Tests.BeamBinaryProtocol390Checks.OpaquePositionEscape
+);
+Test(
+    Erlang.Tests.BeamBinaryProtocol390Names.ResumeRejectsOrdinary,
+    Erlang.Tests.BeamBinaryProtocol390Checks.ResumeRejectsOrdinary
+);
+Test(
+    Erlang.Tests.BeamBinaryProtocol390Names.LocalContextTransport,
+    Erlang.Tests.BeamBinaryProtocol390Checks.LocalContextTransport
+);
+Test(Erlang.Tests.BeamBinaryProtocol390Names.UnitTwo, Erlang.Tests.BeamBinaryProtocol390Checks.UnitTwo);
+Test(Erlang.Tests.BeamBinaryProtocol390Names.LiteralNoFail, Erlang.Tests.BeamBinaryProtocol390Checks.LiteralNoFail);
+Test(Erlang.Tests.LibraryMapProtocolNames.Test, Erlang.Tests.LibraryMapProtocolHostChecks.RunIndependent);
+Test(Erlang.Tests.LibraryMapProtocolNames.OwnState, Erlang.Tests.LibraryMapProtocolHostChecks.OwnLayout);
+Test(Erlang.Tests.LibraryBinaryNames.Test, Erlang.Tests.LibraryBinaryHostChecks.Run);
+Test(Erlang.Tests.LibraryCollectionsNames.Test, Erlang.Tests.LibraryCollectionsHostChecks.Run);
+Test(Erlang.Tests.LibraryCollectionsNames.Refusals, Erlang.Tests.LibraryCollectionsHostChecks.InvalidSelections);
+Test(Erlang.Tests.BeamCollectionFloatControlNames.LocalStale, Erlang.Tests.BeamCollectionFloatControlChecks.LocalCallStale);
+Test(Erlang.Tests.BeamCollectionFloatControlNames.LocalFresh, Erlang.Tests.BeamCollectionFloatControlChecks.LocalCallFresh);
+Test(Erlang.Tests.BeamCollectionFloatControlNames.NativeStale, Erlang.Tests.BeamCollectionFloatControlChecks.NativeCallStale);
+Test(Erlang.Tests.BeamCollectionFloatControlNames.NativeFresh, Erlang.Tests.BeamCollectionFloatControlChecks.NativeCallFresh);
+Test(Erlang.Tests.BeamCollectionFloatControlNames.Heap, Erlang.Tests.BeamCollectionFloatControlChecks.HeapRetains);
+Test(Erlang.Tests.BeamCollectionFloatControlNames.Uninitialized, Erlang.Tests.BeamCollectionFloatControlChecks.InitialRead);
+Test(
+    Erlang.Tests.LibrarySelectionHostNames.Prefix + Erlang.Tests.LibrarySelectionHostNames.Defaults,
+    Erlang.Tests.LibrarySelectionHostChecks.Defaults
+);
+Test(
+    Erlang.Tests.LibrarySelectionHostNames.Prefix + Erlang.Tests.LibrarySelectionHostNames.Both,
+    Erlang.Tests.LibrarySelectionHostChecks.BothOrders
+);
+Test(
+    Erlang.Tests.LibrarySelectionHostNames.Prefix + Erlang.Tests.LibrarySelectionHostNames.Mixed,
+    Erlang.Tests.LibrarySelectionHostChecks.Mixed
+);
+Test(
+    Erlang.Tests.LibrarySelectionHostNames.Prefix + Erlang.Tests.LibrarySelectionHostNames.Immutable,
+    Erlang.Tests.LibrarySelectionHostChecks.Immutable
+);
+Test(
+    Erlang.Tests.LibrarySelectionHostNames.Prefix + Erlang.Tests.LibrarySelectionHostNames.Refusals,
+    Erlang.Tests.LibrarySelectionHostChecks.Refusals
+);
+Test(
+    Erlang.Tests.LibrarySelectionHostNames.Prefix + Erlang.Tests.LibrarySelectionHostNames.Reload,
+    Erlang.Tests.LibrarySelectionHostChecks.Reload
+);
+Test(
+    Erlang.Tests.LibrarySelectionHostNames.Prefix + Erlang.Tests.LibrarySelectionHostNames.Cancellation,
+    Erlang.Tests.LibrarySelectionHostChecks.Cancellation
+);
+foreach (var signature in Erlang.Tests.ListsBeamSmokeCases.Create())
+{
+    var selected = signature;
+    Test(
+        Erlang.Tests.LibrarySelectionHostNames.ListsPrefix + selected.Function + "/" + selected.Arity,
+        () => Erlang.Tests.ListBeamHostChecks.Export(selected.Function, selected.Arity, startupSelection: true)
+    );
+}
+foreach (var signature in Erlang.Tests.QueueBeamFullSmokeCases.Exports)
+{
+    var selected = signature;
+    Test(
+        Erlang.Tests.LibrarySelectionHostNames.QueuePrefix + selected.Function + "/" + selected.Arity,
+        () => Erlang.Tests.QueueBeamFullSmokeCases.Run(
+            selected.Function,
+            selected.Arity,
+            beamBackend: true,
+            originalLists: true,
+            startupSelection: true
+        )
+    );
+}
+Test(
+    Erlang.Tests.LibrarySelectionCancellationPhaseNames.Test,
+    Erlang.Tests.LibrarySelectionCancellationPhaseHostChecks.Run
+);
+Test(
+    Erlang.Tests.LibrarySelectionPublicCancellationNames.SetupTest,
+    Erlang.Tests.LibrarySelectionPublicCancellationChecks.DuringSetup
+);
+Test(
+    Erlang.Tests.LibrarySelectionPublicCancellationNames.PermitTest,
+    Erlang.Tests.LibrarySelectionPublicCancellationChecks.AfterPurgerPermit
+);
+Test(Erlang.Tests.ProplistFlatExpectationNames.Test, Erlang.Tests.ProplistFlatExpectationHostChecks.Run);
+Test(
+    Erlang.Tests.ListBeamHostNames.QueuePrefix + Erlang.Tests.QueueBeamFullSmokeNames.LongSuffix,
+    () => Erlang.Tests.QueueBeamEffectsHostChecks.Long(true, true)
+);
+Test(
+    Erlang.Tests.ListBeamHostNames.QueuePrefix + Erlang.Tests.QueueBeamFullSmokeNames.CallbackSuffix,
+    () => Erlang.Tests.QueueBeamEffectsHostChecks.CallbackFailures(true, true)
+);
+Test(
+    Erlang.Tests.ListBeamHostNames.QueuePrefix + Erlang.Tests.QueueBeamFullSmokeNames.CancellationSuffix,
+    () => Erlang.Tests.QueueBeamEffectsHostChecks.Cancellation(true, true)
+);
+Test(Erlang.Tests.ListBeamHostNames.NativeCallerTest, Erlang.Tests.ListBeamHostChecks.NativeCaller);
+Test(
+    Erlang.Tests.ListsOpcodeEdgeNames.Prefix + Erlang.Tests.ListsOpcodeEdgeNames.Bif,
+    Erlang.Tests.ListsOpcodeEdgeHostChecks.BinaryBif
+);
+Test(
+    Erlang.Tests.ListsOpcodeEdgeNames.Prefix + Erlang.Tests.ListsOpcodeEdgeNames.Fun,
+    Erlang.Tests.ListsOpcodeEdgeHostChecks.DynamicFun
+);
+Test(
+    Erlang.Tests.ListsOpcodeEdgeNames.Prefix + Erlang.Tests.ListsOpcodeEdgeNames.Equality,
+    Erlang.Tests.ListsOpcodeEdgeHostChecks.Equality
+);
+Test(
+    Erlang.Tests.ListsOpcodeEdgeNames.Prefix + Erlang.Tests.ListsOpcodeEdgeNames.Map,
+    Erlang.Tests.ListsOpcodeEdgeHostChecks.Maps
+);
+Test(
+    Erlang.Tests.ListsOpcodeEdgeNames.Prefix + Erlang.Tests.ListsOpcodeEdgeNames.MapReject,
+    Erlang.Tests.ListsOpcodeEdgeHostChecks.MapRefusals
+);
+foreach (var signature in Erlang.Tests.ListsBeamSmokeCases.Create())
+{
+    string function = signature.Function;
+    int arity = signature.Arity;
+    Test(
+        Erlang.Tests.ListBeamHostNames.ExportPrefix + function + "/" + arity,
+        () => Erlang.Tests.ListBeamHostChecks.Export(function, arity)
+    );
+}
+
+Test(Erlang.Tests.ListBeamHostNames.AdmissionTest, Erlang.Tests.ListBeamHostChecks.NativeAndPure);
+foreach (var signature in Erlang.Tests.QueueBeamFullSmokeCases.Exports)
+{
+    var selected = signature;
+    Test(
+        Erlang.Tests.ListBeamHostNames.QueuePrefix + selected.Function,
+        () => Erlang.Tests.QueueBeamFullSmokeCases.Run(
+            selected.Function,
+            selected.Arity,
+            true,
+            true
+        )
+    );
+}
+
+Test(Erlang.Tests.QueueBeamFullSmokeNames.PredicateInvalidTest, Erlang.Tests.QueueBeamEffectsHostChecks.PredicateInvalidList);
+Test(Erlang.Tests.BeamOpcodeEdgeNames.AliasesTest, Erlang.Tests.BeamOpcodeEdgeHostChecks.GetListAliases);
+Test(Erlang.Tests.BeamOpcodeEdgeNames.TrimTest, Erlang.Tests.BeamOpcodeEdgeHostChecks.TrimZeroTailContinuation);
+Test(Erlang.Tests.BeamOpcodeEdgeNames.BifTest, Erlang.Tests.BeamOpcodeEdgeHostChecks.GuardBifDestination);
+Test(Erlang.Tests.BeamOpcodeEdgeNames.SelectTest, Erlang.Tests.BeamOpcodeEdgeHostChecks.SelectTableAdmission);
+foreach (bool beam in new[] { false, true })
+{
+    bool selected = beam;
+    string prefix = selected ? Erlang.Tests.QueueBeamFullSmokeNames.BeamPrefix : Erlang.Tests.QueueBeamFullSmokeNames.CSharpPrefix;
+    Test(prefix + Erlang.Tests.QueueBeamFullSmokeNames.LongSuffix, () => Erlang.Tests.QueueBeamEffectsHostChecks.Long(selected));
+    Test(
+        prefix + Erlang.Tests.QueueBeamFullSmokeNames.CallbackSuffix,
+        () => Erlang.Tests.QueueBeamEffectsHostChecks.CallbackFailures(selected)
+    );
+    Test(
+        prefix + Erlang.Tests.QueueBeamFullSmokeNames.CancellationSuffix,
+        () => Erlang.Tests.QueueBeamEffectsHostChecks.Cancellation(selected)
+    );
+}
+foreach (var entry in Erlang.Tests.QueueBeamFullSmokeCases.Exports)
+{
+    var selected = entry;
+    Test(
+        Erlang.Tests.QueueBeamFullSmokeNames.CSharpPrefix + selected.Function,
+        () => Erlang.Tests.QueueBeamFullSmokeCases.Run(selected.Function, selected.Arity, false)
+    );
+    Test(
+        Erlang.Tests.QueueBeamFullSmokeNames.BeamPrefix + selected.Function,
+        () => Erlang.Tests.QueueBeamFullSmokeCases.Run(selected.Function, selected.Arity, true)
+    );
+}
+Test(Erlang.Tests.QueueBeamAdmissionHostNames.DirectTest, Erlang.Tests.QueueBeamAdmissionHostChecks.Direct);
+Test(Erlang.Tests.QueueBeamAdmissionHostNames.PublishedTest, Erlang.Tests.QueueBeamAdmissionHostChecks.Published);
 Test(Erlang.Tests.ProplistGetValueHostNames.ParseTest, Erlang.Tests.ProplistGetValueHostChecks.ParseAll);
 Test(Erlang.Tests.ProplistGetValueHostNames.IdentityTest, Erlang.Tests.ProplistGetValueHostChecks.Identity);
 Test(Erlang.Tests.ProplistGetValueHostNames.ProgressTest, Erlang.Tests.ProplistGetValueHostChecks.Progress);
@@ -51,6 +1320,13 @@ Test(
 );
 Test("runtime/length-parse-all", Erlang.Tests.ListLengthHostChecks.ParseAll);
 Test("runtime/length-ordinary-progress", Erlang.Tests.ListLengthHostChecks.OrdinaryProgress);
+Test(Erlang.Tests.ListLengthHostNames.OrdsetSizeProgressTest, Erlang.Tests.ListLengthHostChecks.OrdsetSizeProgress);
+Test(Erlang.Tests.ListLengthHostNames.OrdsetSizeCancellationTest, Erlang.Tests.ListLengthHostChecks.OrdsetSizeCancellation);
+Test(Erlang.Tests.ListLengthHostNames.OrdsetSizeSuspendResumeTest, Erlang.Tests.ListLengthHostChecks.OrdsetSizeSuspendResume);
+Test(
+    Erlang.Tests.ListLengthHostNames.LateImproperOriginalArgumentTest,
+    Erlang.Tests.ListLengthHostChecks.LateImproperOriginalArgument
+);
 Test("runtime/length-ordinary-cancellation", Erlang.Tests.ListLengthHostChecks.OrdinaryCancellation);
 Test("runtime/length-guard-progress", Erlang.Tests.ListLengthHostChecks.GuardProgress);
 Test("runtime/length-guard-cancellation", Erlang.Tests.ListLengthHostChecks.GuardCancellation);
@@ -1918,9 +3194,95 @@ foreach (var export in exportRegistry.Exports.Where(export => Erlang.Tests.Funct
         $"mfa/{export.Module}:{export.Function}/{export.Arity}",
         async () =>
     {
+        if (Erlang.Tests.LibraryStringFloatMfaContracts.Owns(export.Module, export.Function, export.Arity))
+        {
+            await Erlang.Tests.LibraryStringFloatMfaContracts.Run();
+
+            return;
+        }
+        if (Erlang.Tests.DistributionState402MfaContracts.Owns(export.Module, export.Function, export.Arity))
+        {
+            await Erlang.Tests.DistributionState402MfaContracts.Run(export.Function);
+
+            return;
+        }
+        if (Erlang.Tests.NewConnection400MfaContracts.Owns(export.Module, export.Function, export.Arity))
+        {
+            await Erlang.Tests.NewConnection400MfaContracts.Run();
+
+            return;
+        }
+        if (Erlang.Tests.LibraryRuntimePrimitiveMfaContracts.Owns(export.Module, export.Function, export.Arity))
+        {
+            await Erlang.Tests.LibraryRuntimePrimitiveMfaContracts.Run(export.Module, export.Function);
+
+            return;
+        }
+        if (Erlang.Tests.BinarySearchMfaContracts.Owns(export.Module, export.Function, export.Arity))
+        {
+            await Erlang.Tests.BinarySearchMfaContracts.Run(export.Function, export.Arity);
+
+            return;
+        }
+
+        if (Erlang.Tests.BinaryWrappersMfaContracts.Owns(export.Module, export.Function, export.Arity))
+        {
+            await Erlang.Tests.BinaryWrappersMfaContracts.Run(export.Function, export.Arity);
+
+            return;
+        }
+
+        if (Erlang.Tests.BinaryPrimitiveMfaContracts.Owns(export.Module, export.Function, export.Arity))
+        {
+            await Erlang.Tests.BinaryPrimitiveMfaContracts.Run(export.Function, export.Arity);
+
+            return;
+        }
+
+        if (Erlang.Tests.QueueEndsMfaContracts.Owns(export.Module, export.Function, export.Arity))
+        {
+            await Erlang.Tests.QueueEndsMfaContracts.Run(export.Function, export.Arity);
+
+            return;
+        }
+
+        if (Erlang.Tests.QueueHigherMfaContracts.Owns(export.Module, export.Function, export.Arity))
+        {
+            await Erlang.Tests.QueueHigherMfaContracts.Run(export.Function, export.Arity);
+
+            return;
+        }
+
+        if (Erlang.Tests.OrdsetFullMfaContracts.Owns(export.Module, export.Function, export.Arity))
+        {
+            await Erlang.Tests.OrdsetFullMfaContracts.Run(export.Function, export.Arity);
+
+            return;
+        }
+
+        if (Erlang.Tests.OrdsetCoreMfaContracts.Owns(export.Module, export.Function, export.Arity))
+        {
+            await Erlang.Tests.OrdsetCoreMfaContracts.Run(export.Function, export.Arity);
+
+            return;
+        }
+
+        if (Erlang.Tests.QueueCoreMfaContracts.Owns(export.Module, export.Function, export.Arity))
+        {
+            await Erlang.Tests.QueueCoreMfaContracts.Run(export.Function, export.Arity);
+
+            return;
+        }
+
         if (Erlang.Tests.ProplistGetValueMfaContracts.Owns(export.Module, export.Function, export.Arity))
         {
             await Erlang.Tests.ProplistGetValueMfaContracts.Run(export.Arity);
+
+            return;
+        }
+        if (Erlang.Tests.ProplistFamilyHostChecks.Owns(export.Module, export.Function, export.Arity))
+        {
+            await Erlang.Tests.ProplistFamilyHostChecks.Mfa(export.Function, export.Arity);
 
             return;
         }
@@ -5065,6 +6427,335 @@ try
 {
     Test(Erlang.Tests.ProplistStackHostNames.Test, Erlang.Tests.ProplistStackHostChecks.Run);
     tests = tests.OrderBy(test => Erlang.Tests.ProplistGetValueMfaContracts.OwnsTest(test.Name)).ToList();
+    Test(Erlang.Tests.ProplistFamilyTestNames.DirectTest, Erlang.Tests.ProplistFamilyHostChecks.Direct);
+    Test(Erlang.Tests.ProplistFamilyTestNames.CompiledTest, Erlang.Tests.ProplistFamilyHostChecks.Compiled);
+    Test(Erlang.Tests.ProplistFamilyTestNames.AstTest, Erlang.Tests.ProplistContinuationHostChecks.Ast);
+    Test(Erlang.Tests.ProplistFamilyTestNames.SafetyTest, Erlang.Tests.ProplistContinuationHostChecks.Runtime);
+    Test(Erlang.Tests.ProplistFamilyTestNames.ProperTest, Erlang.Tests.ProplistFamilyHistoryHostChecks.Proper);
+    Test(Erlang.Tests.ProplistFamilyTestNames.UnfoldTest, Erlang.Tests.ProplistFamilyHistoryHostChecks.Unfold);
+    Test(Erlang.Tests.ProplistFamilyTestNames.CompactTest, Erlang.Tests.ProplistFamilyHistoryHostChecks.Compact);
+    Test(Erlang.Tests.ProplistFamilyTestNames.DeleteTest, Erlang.Tests.ProplistFamilyHistoryHostChecks.Delete);
+    Test(Erlang.Tests.ProplistFamilyTestNames.CancellationTest, Erlang.Tests.ProplistFamilyHistoryHostChecks.Cancellation);
+    Test(Erlang.Tests.ProplistIteratorTestNames.Test, Erlang.Tests.ProplistIteratorHostChecks.Run);
+    Test(Erlang.Tests.ProplistHashHostNames.HashTest, Erlang.Tests.ProplistInternalHashHostChecks.NativeVectors);
+    Test(Erlang.Tests.ProplistHashHostNames.CursorTest, Erlang.Tests.ProplistRawHamtCursorHostChecks.IntegerAndBinaryStates);
+    Test(Erlang.Tests.ProplistOwnCursorNames.DomainsTest, Erlang.Tests.ProplistOwnCursorDomainHostChecks.Run);
+    Test(Erlang.Tests.ProplistOwnCursorNames.LifetimesTest, Erlang.Tests.ProplistOwnCursorLifetimeHostChecks.Run);
+    Test(Erlang.Tests.ProplistOwnCursorNames.CollisionsTest, Erlang.Tests.ProplistOwnCursorCollisionHostChecks.Run);
+    Test(Erlang.Tests.ProplistOwnCursorNames.CompilerTest, Erlang.Tests.ProplistOwnCursorCompilerHostChecks.Run);
+    Test(Erlang.Tests.ProplistOwnCursorNames.AliasTest, Erlang.Tests.ProplistOwnCursorAliasHostChecks.CountSensitive);
+
+    Test(Erlang.Tests.QueueEndsHostNames.Representation, Erlang.Tests.QueueEndsHostChecks.Representation);
+    Test(Erlang.Tests.QueueEndsHostNames.Improper, Erlang.Tests.QueueEndsHostChecks.ImproperLists);
+    Test(Erlang.Tests.QueueEndsHostNames.Compiled, Erlang.Tests.QueueEndsHostChecks.Compiled);
+    Test(Erlang.Tests.QueueHigherHostNames.CallbackOrder, Erlang.Tests.QueueHigherHostChecks.CallbackOrderAndImproperEvaluation);
+    Test(Erlang.Tests.QueueHigherCooperativeHostNames.Test, Erlang.Tests.QueueHigherCooperativeHostChecks.Run);
+    Test(Erlang.Tests.QueueCallbackRegressionNames.Test, Erlang.Tests.QueueCallbackRegressionHostChecks.Run);
+    Test(Erlang.Tests.StaticApplyRegressionNames.Test, Erlang.Tests.StaticApplyRegressionHostChecks.Run);
+    Test(Erlang.Tests.BinarySearchHostNames.ResourceTest, Erlang.Tests.BinarySearchResourceHostChecks.Run);
+    Test(Erlang.Tests.BinarySearchHostNames.OptionsTest, Erlang.Tests.BinarySearchOptionsHostChecks.Run);
+    Test(Erlang.Tests.BinarySearchHostNames.CooperativeTest, Erlang.Tests.BinarySearchCooperativeHostChecks.Run);
+    Test(Erlang.Tests.BinarySearchHostNames.CompiledTest, Erlang.Tests.BinarySearchCompiledHostChecks.Run);
+    Test(Erlang.Tests.BinaryWrappersHostNames.CallbackEffects, Erlang.Tests.BinaryWrappersHostChecks.CallbackEffectsAndOptions);
+    Test(Erlang.Tests.BinaryPrimitiveHostNames.Cooperative, Erlang.Tests.BinaryPrimitiveCooperativeHostChecks.Run);
+    Test(
+        Erlang.Tests.BinaryWrapperBackingHostNames.Test,
+        Erlang.Tests.BinaryWrapperBackingHostChecks.JoinBackingAndCallbackContext
+    );
+    Test(Erlang.Tests.BinaryPrimitiveHostNames.Storage, Erlang.Tests.BinaryPrimitiveHostChecks.Storage);
+    Test(Erlang.Tests.BinaryInsertHostNames.Test, Erlang.Tests.BinaryInsertHostChecks.Run);
+    Test(Erlang.Tests.QueueMemberHostNames.Test, Erlang.Tests.QueueMemberHostChecks.Run);
+    Test(Erlang.Tests.QueueCoreHostNames.Representation, Erlang.Tests.QueueCoreHostChecks.Representation);
+    Test(Erlang.Tests.QueueCoreHostNames.ImproperLists, Erlang.Tests.QueueCoreHostChecks.ImproperLists);
+    Test(Erlang.Tests.QueueCoreHostNames.Ordering, Erlang.Tests.QueueCoreHostChecks.Ordering);
+
+    Test(Erlang.Tests.QueueCooperativeHostNames.Test, Erlang.Tests.QueueCooperativeHostChecks.Run);
+
+    Test(Erlang.Tests.SizeSourceLocationHostNames.TestName, Erlang.Tests.SizeSourceLocationHostChecks.Run);
+
+    Test(Erlang.Tests.DynamicApplyHostNames.Test, Erlang.Tests.DynamicApplyHostChecks.Run);
+
+    Test(Erlang.Tests.SourceBifContinuationHostNames.Test, Erlang.Tests.SourceBifContinuationHostChecks.Run);
+
+    Test(Erlang.Tests.OrdsetCoreHostNames.Test, Erlang.Tests.OrdsetCoreHostChecks.Run);
+
+    Test(Erlang.Tests.BoundedBifHostNames.TestName, Erlang.Tests.BoundedBifHostChecks.Run);
+
+    Test(Erlang.Tests.OrdsetFullHostNames.Test, Erlang.Tests.OrdsetFullHostChecks.Run);
+
+    Test(Erlang.Tests.NumericSourceContractHostNames.Test, Erlang.Tests.NumericSourceContractHostChecks.Run);
+
+    Test(Erlang.Tests.NumericSmallParseHostNames.Test, Erlang.Tests.NumericSmallParseHostChecks.Run);
+
+    Test(Erlang.Tests.MapFunKeyOrderHostNames.TestName, Erlang.Tests.MapFunKeyOrderHostChecks.Run);
+
+    Test(Erlang.Tests.OrdsetListsDispatchHostNames.Test, Erlang.Tests.OrdsetListsDispatchHostChecks.Run);
+    Test(Erlang.Tests.OrdsetFoldFilterHostNames.LateTest, Erlang.Tests.OrdsetFoldFilterHostChecks.LateFailures);
+    Test(Erlang.Tests.OrdsetFoldFilterHostNames.IdentityTest, Erlang.Tests.OrdsetFoldFilterHostChecks.IdentityAsync);
+    Test(Erlang.Tests.OrdsetFoldFilterHostNames.DeepTest, Erlang.Tests.OrdsetFoldFilterHostChecks.Deep);
+    Test(Erlang.Tests.OrdsetFoldFilterHostNames.CancellationTest, Erlang.Tests.OrdsetFoldFilterHostChecks.Cancellation);
+    Test(Erlang.Tests.NumericMapEqualityHostNames.TestName, Erlang.Tests.NumericMapEqualityHostChecks.Run);
+    Test(Erlang.Tests.HamtNumericEqualityHostNames.Test, Erlang.Tests.HamtNumericEqualityHostChecks.Run);
+    Test(
+        Erlang.Tests.LocalFunctionCreatorHostNames.CanonicalizationTest,
+        Erlang.Tests.LocalFunctionCreatorHostChecks.Canonicalization
+    );
+    Test(Erlang.Tests.LocalFunctionCreatorHostNames.ValidationTest, Erlang.Tests.LocalFunctionCreatorHostChecks.Validation);
+
+    Test(Erlang.Tests.OperatorSourceLocationHostNames.Test, Erlang.Tests.OperatorSourceLocationHostChecks.Run);
+
+    Test(Erlang.Tests.ListUniqueSourceHostNames.TestName, Erlang.Tests.ListUniqueSourceHostChecks.Run);
+    Test(Erlang.Tests.ListUniqueSortSourceHostNames.IdentityTest, Erlang.Tests.ListUniqueSortSourceHostChecks.Identity);
+    Test(Erlang.Tests.ListUniqueSortSourceHostNames.MalformedTest, Erlang.Tests.ListUniqueSortSourceHostChecks.Malformed);
+    Test(Erlang.Tests.ListUniqueSortSourceHostNames.DeepTest, Erlang.Tests.ListUniqueSortSourceHostChecks.Deep);
+    Test(Erlang.Tests.ListUniqueSortSourceHostNames.ReverseTest, Erlang.Tests.ListUniqueSortSourceHostChecks.DynamicReverse);
+
+    foreach (string scenario in Erlang.Tests.BeamTryHostCaseNames.Ordered)
+    {
+        string selected = scenario;
+        Test(
+            Erlang.Tests.BeamTryHostNames.Prefix + selected,
+            () => Erlang.Tests.BeamTryHostChecks.Run(selected)
+        );
+    }
+
+    Test(Erlang.Tests.BeamTryLifecycleHostNames.NormalTest, Erlang.Tests.BeamTryLifecycleHostChecks.Normal);
+
+    Test(Erlang.Tests.BeamTryLifecycleHostNames.ErlangTest, Erlang.Tests.BeamTryLifecycleHostChecks.ErlangException);
+
+    Test(Erlang.Tests.BeamTryLifecycleHostNames.ClrTest, Erlang.Tests.BeamTryLifecycleHostChecks.ClrFailure);
+
+    Test(Erlang.Tests.BeamTryLifecycleHostNames.CancellationTest, Erlang.Tests.BeamTryLifecycleHostChecks.Cancellation);
+
+    Test(Erlang.Tests.BeamTryExtensionHostNames.AsyncTest, Erlang.Tests.BeamTryExtensionHostChecks.AsyncErlangFailure);
+    Test(Erlang.Tests.BeamTryExtensionHostNames.TailErrorsTest, Erlang.Tests.BeamTryExtensionHostChecks.TailErrors);
+    Test(Erlang.Tests.BeamTryExtensionHostNames.TailReturnTest, Erlang.Tests.BeamTryExtensionHostChecks.TailReturn);
+
+    Test(Erlang.Tests.HaltElectionHostNames.Test, Erlang.Tests.HaltElectionHostChecks.Run);
+
+    Test(Erlang.Tests.BeamTupleSelectHostNames.Branches, Erlang.Tests.BeamTupleSelectHostChecks.Branches);
+    Test(Erlang.Tests.BeamTupleSelectHostNames.Rejections, Erlang.Tests.BeamTupleSelectHostChecks.Rejections);
+    Test(Erlang.Tests.BeamTupleSelectHostNames.Receive, Erlang.Tests.BeamTupleSelectHostChecks.Receive);
+
+    Test(Erlang.Tests.BeamApplyHostNames.Calls, Erlang.Tests.BeamApplyHostChecks.Calls);
+    Test(Erlang.Tests.BeamApplyHostNames.Errors, Erlang.Tests.BeamApplyHostChecks.Errors);
+
+    Test(
+        Erlang.Tests.MailboxReceiveMarkerHostNames.CasePositionAndClear,
+        Erlang.Tests.MailboxReceiveMarkerHostChecks.PositionAndClear
+    );
+    Test(
+        Erlang.Tests.MailboxReceiveMarkerHostNames.CaseRemovalAndExpiration,
+        Erlang.Tests.MailboxReceiveMarkerHostChecks.RemovalAndExpiration
+    );
+    Test(
+        Erlang.Tests.MailboxReceiveMarkerHostNames.CaseInvalidAndForeign,
+        Erlang.Tests.MailboxReceiveMarkerHostChecks.InvalidAndForeign
+    );
+    Test(
+        Erlang.Tests.MailboxReceiveMarkerHostNames.CasePassExpiration,
+        Erlang.Tests.MailboxReceiveMarkerHostChecks.PassExpiration
+    );
+    Test(
+        Erlang.Tests.MailboxReceiveMarkerHostNames.CaseDuplicateBindingRefused,
+        Erlang.Tests.MailboxReceiveMarkerHostChecks.DuplicateBindingRefused
+    );
+    Test(
+        Erlang.Tests.MailboxReceiveMarkerHostNames.CaseControlOnlyWait,
+        Erlang.Tests.MailboxReceiveMarkerHostChecks.ControlOnlyWait
+    );
+    Test(
+        Erlang.Tests.MailboxReceiveMarkerHostNames.CasePriorityRefusalBeforeUse,
+        Erlang.Tests.MailboxReceiveMarkerHostChecks.PriorityRefusalBeforeUse
+    );
+    Test(
+        Erlang.Tests.MailboxReceiveMarkerHostNames.CasePriorityRefusalAfterAwait,
+        Erlang.Tests.MailboxReceiveMarkerHostChecks.PriorityRefusalAfterAwait
+    );
+    Test(
+        Erlang.Tests.MailboxReceiveMarkerHostNames.CaseDeferredPhysicalOrder,
+        Erlang.Tests.MailboxReceiveMarkerHostChecks.DeferredPhysicalOrder
+    );
+    Test(
+        Erlang.Tests.MailboxReceiveMarkerHostNames.CaseDeferredPriorityRefused,
+        Erlang.Tests.MailboxReceiveMarkerHostChecks.DeferredPriorityRefused
+    );
+
+    Test(
+        Erlang.Tests.MailboxReceiveMarkerHostNames.CasePriorityRefusalAfterExecutionWait,
+        Erlang.Tests.MailboxReceiveMarkerHostChecks.PriorityRefusalAfterExecutionWait
+    );
+
+    Test(Erlang.Tests.BeamReceiveMarkerTypeHostNames.CaseSlotLayout, Erlang.Tests.BeamReceiveMarkerTypeHostChecks.SlotLayout);
+    Test(
+        Erlang.Tests.BeamReceiveMarkerTypeHostNames.CaseStorageIdentity,
+        Erlang.Tests.BeamReceiveMarkerTypeHostChecks.StorageIdentity
+    );
+    Test(Erlang.Tests.BeamReceiveMarkerTypeHostNames.CaseReadRefusals, Erlang.Tests.BeamReceiveMarkerTypeHostChecks.ReadRefusals);
+    Test(Erlang.Tests.BeamReceiveMarkerTypeHostNames.CaseLiveRoots, Erlang.Tests.BeamReceiveMarkerTypeHostChecks.LiveRoots);
+    Test(Erlang.Tests.BeamReceiveMarkerTypeHostNames.CaseBindTypes, Erlang.Tests.BeamReceiveMarkerTypeHostChecks.BindTypes);
+    Test(Erlang.Tests.BeamReceiveMarkerTypeHostNames.CaseOperandRoles, Erlang.Tests.BeamReceiveMarkerTypeHostChecks.OperandRoles);
+    Test(
+        Erlang.Tests.BeamReceiveMarkerTypeHostNames.CaseConsumerLeaks,
+        Erlang.Tests.BeamReceiveMarkerTypeHostChecks.ConsumerLeaks
+    );
+    Test(Erlang.Tests.BeamReceiveMarkerTypeHostNames.CaseJoinKinds, Erlang.Tests.BeamReceiveMarkerTypeHostChecks.JoinKinds);
+    Test(Erlang.Tests.BeamReceiveMarkerTypeHostNames.CaseCallClobber, Erlang.Tests.BeamReceiveMarkerTypeHostChecks.CallClobber);
+    Test(
+        Erlang.Tests.BeamReceiveMarkerTypeHostNames.CaseTimeoutClobber,
+        Erlang.Tests.BeamReceiveMarkerTypeHostChecks.TimeoutClobber
+    );
+    Test(Erlang.Tests.BeamReceiveMarkerTypeHostNames.CaseTrimFlow, Erlang.Tests.BeamReceiveMarkerTypeHostChecks.TrimFlow);
+    Test(
+        Erlang.Tests.BeamReceiveMarkerTypeHostNames.CaseHandlerOverlap,
+        Erlang.Tests.BeamReceiveMarkerTypeHostChecks.HandlerOverlap
+    );
+    Test(
+        Erlang.Tests.BeamReceiveMarkerTypeHostNames.CaseReceiveSelected,
+        Erlang.Tests.BeamReceiveMarkerTypeHostChecks.ReceiveSelected
+    );
+    Test(
+        Erlang.Tests.BeamReceiveMarkerTypeHostNames.CaseReceiveTimedOut,
+        Erlang.Tests.BeamReceiveMarkerTypeHostChecks.ReceiveTimedOut
+    );
+    Test(
+        Erlang.Tests.BeamReceiveMarkerTypeHostNames.CaseRejectedScratch,
+        Erlang.Tests.BeamReceiveMarkerTypeHostChecks.RejectedScratch
+    );
+    Test(
+        Erlang.Tests.BeamReceiveMarkerTypeHostNames.CaseReceiveTryRefused,
+        Erlang.Tests.BeamReceiveMarkerTypeHostChecks.ReceiveTryRefused
+    );
+    Test(Erlang.Tests.BeamReceiveMarkerTypeHostNames.CaseGcRoots, Erlang.Tests.BeamReceiveMarkerTypeHostChecks.GcRoots);
+    Test(
+        Erlang.Tests.BeamReceiveMarkerTypeHostNames.CaseMissingReserve,
+        Erlang.Tests.BeamReceiveMarkerTypeHostChecks.MissingReserve
+    );
+    Test(
+        Erlang.Tests.BeamReceiveMarkerTypeHostNames.CaseClearBeforeRejection,
+        Erlang.Tests.BeamReceiveMarkerTypeHostChecks.ClearBeforeRejection
+    );
+    Test(
+        Erlang.Tests.BeamReceiveMarkerTypeHostNames.CaseClearThenExtract,
+        Erlang.Tests.BeamReceiveMarkerTypeHostChecks.ClearThenExtract
+    );
+
+    Test(Erlang.Tests.BeamOrdsetsCoreHostNames.Case, Erlang.Tests.BeamOrdsetsCoreHostChecks.Run);
+
+    Test(Erlang.Tests.BeamLiteralExportHostNames.Pointer, Erlang.Tests.BeamLiteralExportHostChecks.Pointer);
+    Test(Erlang.Tests.BeamLiteralExportHostNames.Interning, Erlang.Tests.BeamLiteralExportHostChecks.Interning);
+    Test(Erlang.Tests.BeamLiteralExportHostNames.General, Erlang.Tests.BeamLiteralExportHostChecks.GeneralPolicy);
+    Test(Erlang.Tests.BeamLiteralExportHostNames.Malformed, Erlang.Tests.BeamLiteralExportHostChecks.Malformed);
+    Test(Erlang.Tests.BeamLiteralExportHostNames.Local, Erlang.Tests.BeamLiteralExportHostChecks.LocalStillRequiresFactory);
+
+    Test(Erlang.Tests.BeamBinaryHostNames.CaseStorage, Erlang.Tests.BeamBinaryHostChecks.Storage);
+    Test(Erlang.Tests.BeamBinaryHostNames.CaseStartAlias, Erlang.Tests.BeamBinaryHostChecks.StartAlias);
+    Test(Erlang.Tests.BeamBinaryHostNames.CaseCursorConsumption, Erlang.Tests.BeamBinaryHostChecks.CursorConsumption);
+    Test(Erlang.Tests.BeamBinaryHostNames.CaseTailAlias, Erlang.Tests.BeamBinaryHostChecks.TailAlias);
+    Test(Erlang.Tests.BeamBinaryHostNames.CaseIntegerTruncation, Erlang.Tests.BeamBinaryHostChecks.IntegerTruncation);
+    Test(Erlang.Tests.BeamBinaryHostNames.CaseBinaryAll, Erlang.Tests.BeamBinaryHostChecks.BinaryAll);
+    Test(Erlang.Tests.BeamBinaryHostNames.CaseStringRange, Erlang.Tests.BeamBinaryHostChecks.StringRange);
+    Test(Erlang.Tests.BeamBinaryHostNames.CaseMalformedShapes, Erlang.Tests.BeamBinaryHostChecks.MalformedShapes);
+    Test(Erlang.Tests.BeamBinaryHostNames.CaseContextFlow, Erlang.Tests.BeamBinaryHostChecks.ContextFlow);
+
+    foreach (var group in Erlang.Tests.BeamOrdsetsFamilyHostNames.Groups)
+        Test(group.Case, () => Erlang.Tests.BeamOrdsetsFamilyHostChecks.Run(group.Group));
+
+    Test("serialization/flatmap382/opposing-unique-native-golden", Erlang.Tests.FlatMapEtfHostChecks.OpposingUniqueNativeGolden);
+    Test("serialization/flatmap382/exact-numeric-bindings", Erlang.Tests.FlatMapEtfHostChecks.ExactNumericBindings);
+    Test("serialization/flatmap382/equal-old-unique-distinct-code", Erlang.Tests.FlatMapEtfHostChecks.EqualOldUniqueDistinctCode);
+    Test("serialization/flatmap382/deterministic-baseline", Erlang.Tests.FlatMapEtfHostChecks.DeterministicBaseline);
+    Test("serialization/flatmap382/cardinality-boundaries", Erlang.Tests.FlatMapEtfHostChecks.CardinalityBoundaries);
+    Test("serialization/flatmap382/nested-map-value", Erlang.Tests.FlatMapEtfHostChecks.NestedMapValue);
+    Test("serialization/flatmap382/scalar-encoding-unchanged", Erlang.Tests.FlatMapEtfHostChecks.ScalarEncodingUnchanged);
+    Test("serialization/flatmap382/construction-node-snapshot", Erlang.Tests.FlatMapEtfHostChecks.ConstructionNodeSnapshot);
+
+    Test(
+        Erlang.Tests.BeamBinaryErrorPriorityHostNames.IntegerSizeFirst,
+        Erlang.Tests.BeamBinaryErrorPriorityHostChecks.IntegerSizeFirst
+    );
+    Test(
+        Erlang.Tests.BeamBinaryErrorPriorityHostNames.BinarySizeFirst,
+        Erlang.Tests.BeamBinaryErrorPriorityHostChecks.BinarySizeFirst
+    );
+    Test(
+        Erlang.Tests.BeamBinaryErrorPriorityHostNames.ZeroWidthChecksType,
+        Erlang.Tests.BeamBinaryErrorPriorityHostChecks.ZeroWidthChecksType
+    );
+    Test(
+        Erlang.Tests.BeamBinaryErrorPriorityHostNames.LaterSizeBeforeEarlierValue,
+        Erlang.Tests.BeamBinaryErrorPriorityHostChecks.LaterSizeBeforeEarlierValue
+    );
+    Test(
+        Erlang.Tests.BeamBinaryErrorPriorityHostNames.BinaryAllTypeStaysFirstPass,
+        Erlang.Tests.BeamBinaryErrorPriorityHostChecks.BinaryAllTypeStaysFirstPass
+    );
+    Test(
+        Erlang.Tests.BeamBinaryErrorPriorityHostNames.BinaryAllUnitAfterLaterSize,
+        Erlang.Tests.BeamBinaryErrorPriorityHostChecks.BinaryAllUnitAfterLaterSize
+    );
+
+    Test(
+        "runtime/beam/artifact-inspector383/retained-original-callbacks",
+        Erlang.Tests.ArtifactInspectorHostChecks.RetainedOriginalCallbacks
+    );
+    Test(
+        "runtime/beam/artifact-inspector383/no-runtime-table-or-invocation-leak",
+        Erlang.Tests.ArtifactInspectorHostChecks.InspectionDoesNotPopulateRuntime
+    );
+    Test(
+        "runtime/beam/artifact-inspector383/default-and-runtime-policies-distinct",
+        Erlang.Tests.ArtifactInspectorHostChecks.DefaultAndRuntimePoliciesRemainDistinct
+    );
+    Test(
+        "runtime/beam/artifact-inspector383/malformed-export-refuses",
+        Erlang.Tests.ArtifactInspectorHostChecks.MalformedExportRemainsInvalid
+    );
+    Test(
+        "runtime/beam/artifact-inspector383/on-load-metadata-no-execution",
+        Erlang.Tests.ArtifactInspectorHostChecks.OnLoadIsMetadataNotExecution
+    );
+    Test(
+        "runtime/beam/artifact-inspector383/new-fun-literal-still-refuses",
+        Erlang.Tests.ArtifactInspectorHostChecks.NewFunLiteralStillRefuses
+    );
+
+    Test(Erlang.Tests.BeamRaiseTraceHostNames.Test, Erlang.Tests.BeamRaiseTraceHostChecks.Run);
+
+    Test(Erlang.Tests.BeamProtectedReceiveProtocolNames.AdmissionTest, Erlang.Tests.BeamProtectedReceiveProtocolChecks.Admission);
+    Test(
+        Erlang.Tests.BeamProtectedReceiveProtocolNames.IdentityTest,
+        Erlang.Tests.BeamProtectedReceiveProtocolChecks.CloneAndTrim
+    );
+    Test(Erlang.Tests.BeamProtectedReceiveHostNames.Test, Erlang.Tests.BeamProtectedReceiveHostChecks.Run);
+    Test(Erlang.Tests.BeamReceiveExtendedHostAssets.LazyTest, Erlang.Tests.BeamReceiveExtendedHostAssets.Lazy);
+    Test(Erlang.Tests.BeamReceiveExtendedHostAssets.AsmTest, Erlang.Tests.BeamReceiveExtendedHostAssets.Asm);
+    Test(Erlang.Tests.BeamAwaitEntryHostNames.RemoteTest, Erlang.Tests.BeamAwaitEntryHostChecks.Remote);
+    Test(Erlang.Tests.BeamAwaitEntryHostNames.NativeTest, Erlang.Tests.BeamAwaitEntryHostChecks.Native);
+    Test(Erlang.Tests.BeamDelayProtocolNames.AdmissionTest, Erlang.Tests.BeamDelayProtocolChecks.Admission);
+    Test(Erlang.Tests.BeamDelayProtocolNames.OriginalTest, Erlang.Tests.BeamAwaitEntryHostChecks.Delay);
+    Test(Erlang.Tests.BeamLifecycleHostNames.DeepTest, Erlang.Tests.BeamLifecycleHostChecks.Deep);
+    Test(Erlang.Tests.BeamLifecycleHostNames.ImageTest, Erlang.Tests.BeamLifecycleHostChecks.Image);
+    Test(Erlang.Tests.BeamLifecycleHostNames.PhysicalTest, Erlang.Tests.BeamDeepFrameHostChecks.Run);
+    Test(Erlang.Tests.BeamClosureProtocolNames.AllRaise, Erlang.Tests.BeamClosureProtocolHostChecks.AllRaise);
+    Test(Erlang.Tests.BeamClosureProtocolNames.OneReturns, Erlang.Tests.BeamClosureProtocolHostChecks.OneReturns);
+    Test(Erlang.Tests.BeamClosureProtocolNames.DefaultReturns, Erlang.Tests.BeamClosureProtocolHostChecks.DefaultReturns);
+    Test(Erlang.Tests.BeamClosureProtocolNames.EntryCycle, Erlang.Tests.BeamClosureProtocolHostChecks.EntryCycle);
+    Test(Erlang.Tests.BeamClosureProtocolNames.LocalCycle, Erlang.Tests.BeamClosureProtocolHostChecks.LocalCycle);
+    Test(Erlang.Tests.BeamClosureProtocolNames.CaughtReturn, Erlang.Tests.BeamClosureProtocolHostChecks.CaughtReturn);
+    Test(Erlang.Tests.BeamClosureProtocolNames.SharedDag, Erlang.Tests.BeamClosureProtocolHostChecks.SharedDag);
+    Test(Erlang.Tests.BeamClosureProtocolNames.YCommit, Erlang.Tests.BeamClosureProtocolHostChecks.YCommit);
+    Test(Erlang.Tests.BeamClosureProtocolNames.YReject, Erlang.Tests.BeamClosureProtocolHostChecks.YReject);
+    Test(Erlang.Tests.BeamClosureProtocolNames.HandlerOverwrite, Erlang.Tests.BeamClosureProtocolHostChecks.HandlerOverwrite);
+
+    Test(Erlang.Tests.BeamLifecycleHostNames.AlternatingTest, Erlang.Tests.BeamLifecycleHostChecks.Alternating);
+    Test(Erlang.Tests.LibraryManifestHostNames.Beam, Erlang.Tests.LibraryManifestHostChecks.Beam);
+    Test(Erlang.Tests.LibraryManifestHostNames.Mixed, Erlang.Tests.LibraryManifestHostChecks.Mixed);
+    Test(Erlang.Tests.LibraryManifestHostNames.Invalid, Erlang.Tests.LibraryManifestHostChecks.Invalid);
+    Test(Erlang.Tests.LibraryManifestHostNames.NoFallback, Erlang.Tests.LibraryManifestHostChecks.NoFallback);
+    Test(Erlang.Tests.LibraryManifestOriginalNames.Test, Erlang.Tests.LibraryManifestOriginalHostChecks.Run);
+    Test(Erlang.Tests.LibraryManifestOriginalNames.FrameTest, Erlang.Tests.LibraryManifestOriginalHostChecks.StoredFunBounds);
+
     var catalog = Erlang.Tests.TestRunCatalog.Create(tests.Select(test => test.Name));
     selectedTests = selection.Select(tests, catalog);
     if (selection.ListOnly)
@@ -5095,10 +6786,7 @@ foreach (var test in selectedTests)
     var watch = Stopwatch.StartNew();
     try
     {
-        int timeoutSeconds = test.Name == Erlang.Tests.HaltSubprocessHostNames.Test
-            ? Erlang.Tests.HaltSubprocessHostNames.OuterHostBudgetSeconds
-            : 15;
-        await test.Body().WaitAsync(TimeSpan.FromSeconds(timeoutSeconds));
+        await test.Body().WaitAsync(Erlang.Tests.TestExecutionBudgets.For(test.Name));
         Console.WriteLine("PASS " + test.Name);
         results.Add(new
         {

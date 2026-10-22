@@ -1,0 +1,11 @@
+# Part369 binary search seven: isolated source proposal
+
+Implements exactly compile_pattern/1, match/2,3, matches/2,3 and split/2,3. Pinned OTP-29.1.1 authority is exported from commit ad05823719d77c8faee87348ea39513d4e2f99c5 into authority/. Compiled tags are bm/ac, not am. Production17new files include the partial resource seam; one guarded shared enum append preserves existing values. Tests add six C# files plus one Erlang resource: typed7 and four HOST entrypoints, no Main catalog edits.
+
+Root integrates the guarded copy plan, invokes BinarySearchModule.Register(registry), hooks BinarySearchMfaContracts.Owns/Run, registers four HOST Run methods and embeds Fixtures/binary_search_contract.erl. Public BinaryModuleNames constants are Root-owned. No overlapping wrappers/basic/Terms files are provided. The only required shared extension is ReferenceResourceKind.BinarySearchPattern and its new partial Create/Acquire file, delegating actual existing weak/leased owner registry and ETF publication/rehydration.
+
+Raw matching uses a managed immutable trie for leftmost-longest results and nonoverlapping global progression. bm/ac resource tags follow source pattern count; algorithm timing/layout equality is not claimed. Options preserve native shallow improper-tail acceptance and last scope overwrite. Split uses Root SliceBits for genuine storage backing. All input/result loops cooperate; first and later whole error metadata remain existing native binding capture rather than new stack formatting.
+
+branch-proof.json records each complete clause/domain/error/resource argument and remaining gates. HOST tests propose genuine ETF restore, wrongtag/wrongkind/plain-forged/foreign-owner refusal, multi-actor readers after origin exit, options/trim/overlap, real parked cancellation and physical unwind, and compiled error callers. Native observer ownership remains independent; no managed-derived expected native values.
+
+Status: source-only, not compiled or executed. Root must run parse/build/focused SDK, source-built original whole-field profiles, independent own-resource identity relationships and canonical full regression. No complete classification follows from this proposal alone. No Main/shared writes, build, VM, network, CI or Git mutation was performed. Files have LF and no license banners.

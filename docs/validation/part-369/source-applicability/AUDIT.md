@@ -1,0 +1,37 @@
+# Part369 binary31 applicability checkpoint
+
+Independent read-only source audit. OTP29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5; exact binary.erl and erl_bif_binary.c blobs are bound by earlier source proposals. `per-mfa.json` partitions all31 exports into18 primitives,7 search and6 wrappers. This is conditional source applicability, not a finite-test-to-full promotion or final classification certificate.
+
+The current selected source checkpoint binds64 files. Root must reject/review changed hashes before using it with final DLL evidence. Main and canonical metadata were not edited by this helper.
+
+## Source argument
+
+Primitives partition every existing supported term by type/alignment, empty/nonempty, integer sign/machine bounds, exact tuple/list shape and reached improper tail, logical byte ranges, endian and output size. Logical offsets are used throughout; byte_size partial-bit ceiling is separate from referenced_byte_size heap floor. List conversion charges structural visits including empty nodes, fixing the earlier segment-only cancellation hole. Common prefix/suffix validates the entire list before trivialempty handling. Copies and output allocations use real arrays and supported BitLength bounds, with system_limit where explicitly implemented. Native absolute maximum allocation sizes, exact reduction counts and timing are not claimed identical.
+
+Search uses an immutable byte trie implementing earliest position, longest match at that position, then nonoverlapping advancement. Raw patterns require nonempty binary/proper nonempty list; compiled tuples require exact tag/resource kind, actual own registry ownership and live lease. Wrong tag/kind, ordinary/forged/restored/foreign references cannot acquire that resource merely by sharing printed reference fields. Options validate each reached scope in order, last valid scope wins, including the pinned C loop's valid-Cons-spine/improper-final-tail behavior. Split preserves whole subject outside search scope, trims only declared empty positions, and retains actual backing views. Cancellation releases leases through using/finally.
+
+Wrappers preserve pinned call/validation/catch order: replacement type before options/search, insertion plan after search, source callback order and delayed invalid iodata validation, distinct throw:badopt cause; hex includes all bytes/case/empty/partial-bit match branches and actual helper phases; join validates separator before empty/singleton, preserves singleton object/backing and uses real private-style allocation capacity for multi-element results. Public arguments, reason/class, error_info/source locations and callback/caller continuations remain full, not sliced/projected. Preliminary proposal frame cautions are superseded by current source and actual primary observations; per-MFA rows record that explicitly.
+
+## Genuine own VM state
+
+Compiled resource refs are actual own allocated identities and have actual registry provenance. Reference IDs are relationally bound only with live source evidence; no captured original IDs are injected. Source callback FUN metadata likewise belongs to each runtime and must be independently bound to actual source/resolver metadata wherever it appears in full errors.
+
+BitString now separates actual BinaryBacking capacity/refc kind from immutable visible offset/length. Generic append consumes an actual writer token, stale aliases allocate independently, retained views follow buffer growth, and pin clears writable state and shrinks eligible actual arrays. Native-to-managed NIF freeze snapshots actual full parent storage under the lifetime lock before creating large views; small views copy. ObservedPayloadStorage tracks physical arrays, not an invented referenced size. ETF encoding/size, binary matching, generator snapshots, NIF inspect and selected mailbox copy events have explicit source mappings.
+
+An own-state comparison must verify these relationships against each runtime's actual state. It cannot demand identical native heap addresses/allocator capacity, equal optimizer decisions, absolute timing or reduction partition. Conversely, this scope is not permission to ignore arbitrary refsize mismatches: each permitted relationship needs the named source protocol and actual backing/state evidence, with strict bytes/stacks retained separately. Missing event mapping cannot be waived merely by calling the size VM-dependent.
+
+General compiler private-append CFG optimization and comprehension size inference are not certified. Own generic append must preserve logical values and real capacity; it must not be described as native optimizer equivalence. Port driver outputv vs scalar flatten, additional spawn/signal/copy routes, offheap message_queue_data and exact native scheduling remain separately named infrastructure/compiler applicability obligations. Current runtime has no implemented message_queue_data mode; default self/onheap/no-seq send must not be blanket-pinned. These limitations must remain visible in final scope rather than silently promoting whole compiler, NIF or port infrastructure.
+
+## Retained76 and shared delta
+
+`retained-ledger.json` independently verifies all76 prior Verified entries are byte-for-byte semantically equal JSON objects to the frozen part369 baseline. This proves no ledger weakening or silent promotion; it does not prove old implementation behavior.
+
+BitString logical read/slice changes preserve immutable visible bits and original integer/term shape; new observable effects are explicit backing ownership/capacity. NIF freeze changes storage retention, not returned byte values; ETF adds the pinned required sharing effect, not wire-field rewriting; mailbox changes classify actual copy events, preserving self/no-copy. Queue/proplists source-wrapper registrations remain non-native, so the NativeEntries optimization predicate does not convert them to BIFs. NativeEntries requires actual catalog-native binding, same body, same current code image and no source owner; user replacement/source modules fail that predicate.
+
+Nevertheless Compiler Execution now retains native BIF caller continuations where its prior blanket non-erlang tail transfer discarded them. This broader correction needs fresh old whole-stack replay, especially BIFs reached inside queue/proplist callbacks. No claim that all76 semantics are proven solely from a registry check or typed smoke tests. Root-owned fresh queue/proplist observers and complete regression are required before final acceptance.
+
+## Evidence and final gates
+
+Independent primary acceptance is actual3510 observations:3474 strict and36 source-bound live reference pairs, including18 ordinary and18 compiled-resource pairs. It is bounded evidence alongside the source partition, not proof by sample count. Historical supplement is208/216 before join repair; those failures remain immutable. Six join repairs and two launcher-context differences have a separate new14 closure packet; do not rewrite the old report as passed.
+
+Pending Root gates: independently admit closure14 source/head/process provenance and full returned fields; fresh final Main/DLL capture with all protocol/source changes; focused own backing/sharing/cancellation controls; retained76 whole-original replay and canonical full regression; final source guards and publication policy. No final31/full-module/published status is asserted by this audit.

@@ -1,0 +1,1 @@
+-module(oracle_map_operations). -export([run/0]). run()->try maps:update_with(a,wrong,wrong) of _->unexpected catch error:{badmap,wrong}->ok end,try maps:merge(wrong,other) of _->unexpected catch error:{badmap,wrong}->ok end,done.

@@ -1,0 +1,1 @@
+-module(oracle_maps_completion). -export([run/0]). run()->{a,1,{b,2,none}}=maps:next(maps:iterator(#{a=>1,b=>2},ordered)),done.

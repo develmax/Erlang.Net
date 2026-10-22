@@ -1,0 +1,46 @@
+{
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Finding": "Decoded NEW_FUN creator PID is validated as PID then discarded; encoding and fun_info(pid) use local initialization PID since OTP27.",
+  "PreserveExternalCreatorCompatible": false,
+  "ProductionChangesRequired": false,
+  "EarlierAgentGapClaim": "RETRACTED_BY_PINNED_SOURCE",
+  "Sources": [
+    {
+      "Path": "erts/emulator/beam/external.c",
+      "Bytes": 212461,
+      "Sha256": "CBFDFCEF0F756C468C6F2FC8A23D478A01DAEDDB3A4DB8E240A8590252A4414B",
+      "Evidence": [
+        {
+          "Line": 3989,
+          "Text": "ep = enc_pid(acmp, erts_init_process_id, ep, dflags);"
+        },
+        {
+          "Line": 5153,
+          "Text": "/* Creator pid, discarded */"
+        }
+      ]
+    },
+    {
+      "Path": "erts/emulator/beam/erl_bif_info.c",
+      "Bytes": 195383,
+      "Sha256": "9A86723F7BCE38BCB64B4CF3E7759FFC51CEFA9973CB11B36DC26A263A329149",
+      "Evidence": [
+        {
+          "Line": 3944,
+          "Text": "val = is_local_fun(funp) ? erts_init_process_id : am_undefined;"
+        }
+      ]
+    },
+    {
+      "Path": "erts/preloaded/src/erlang.erl",
+      "Bytes": 475966,
+      "Sha256": "00D7672A16325E43CA221C6D6CEB4200390E2A961A243C2E31DDC141AC145047",
+      "Evidence": [
+        {
+          "Line": 11717,
+          "Text": "> Starting in Erlang/OTP 27, `Pid` always points to the local `init` process,"
+        }
+      ]
+    }
+  ]
+}

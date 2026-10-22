@@ -1,0 +1,614 @@
+{
+  "Status": "SOURCE_CONTRACT_ELIGIBILITY_19_CURRENT_MAIN_NOT_EXECUTION_ACCEPTANCE",
+  "PinnedOtp": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "PinnedProplistSha256": "A0CABB89DD3FC82DDCEFC2C14502D12B6A4E0503A84B45867FCC18EE1F2E96A0",
+  "Mfas": [
+    {
+      "Mfa": "proplists:property/1",
+      "Recommendation": "ELIGIBLE_VERIFIED_COMPATIBLE_AFTER_CURRENT_FINAL_GATES",
+      "PinnedEntry": "property/1 @73",
+      "BranchAndEqualityProof": "Exhaustive pair arity2 + atom key + exact true value branch; every other supported term is returned unchanged.",
+      "ErrorAndStackApplicability": "No traversal or language exception branch; host allocation failures are existing physical resource scope.",
+      "ActualUnresolvedModuleBranchFound": false,
+      "InheritedScope": "Same supported Erlang term/source model and physical VM exclusions as existing get_value/2,3; no raw-cursor exclusion imported into these19 APIs.",
+      "OriginalMatrixCases": [
+        "case_001",
+        "case_002",
+        "case_003",
+        "case_004",
+        "case_005",
+        "case_006",
+        "case_007",
+        "case_008"
+      ],
+      "FinalGate": "Root must bind final Main source to fresh SDK/original comparisons, source/stack cases and full regression/CI; this source review does not claim those gates passed."
+    },
+    {
+      "Mfa": "proplists:property/2",
+      "Recommendation": "ELIGIBLE_VERIFIED_COMPATIBLE_AFTER_CURRENT_FINAL_GATES",
+      "PinnedEntry": "property/2 @91",
+      "BranchAndEqualityProof": "Atom key and exact true returns key; every other Key/Value pair is preserved in a tuple.",
+      "ErrorAndStackApplicability": "No type rejection or traversal; arbitrary opaque terms are passed unchanged.",
+      "ActualUnresolvedModuleBranchFound": false,
+      "InheritedScope": "Same supported Erlang term/source model and physical VM exclusions as existing get_value/2,3; no raw-cursor exclusion imported into these19 APIs.",
+      "OriginalMatrixCases": [
+        "case_009",
+        "case_010",
+        "case_011",
+        "case_012",
+        "case_013"
+      ],
+      "FinalGate": "Root must bind final Main source to fresh SDK/original comparisons, source/stack cases and full regression/CI; this source review does not claim those gates passed."
+    },
+    {
+      "Mfa": "proplists:unfold/1",
+      "Recommendation": "ELIGIBLE_VERIFIED_COMPATIBLE_AFTER_CURRENT_FINAL_GATES",
+      "PinnedEntry": "unfold/1 @108",
+      "BranchAndEqualityProof": "One loop iteration corresponds to each list clause: atom becomes pair; every other head retained; order/duplicates preserved.",
+      "ErrorAndStackApplicability": "Reached non-Nil tail emits function_clause with reached tail and source CP history; no eager global proper-list guard.",
+      "ActualUnresolvedModuleBranchFound": false,
+      "InheritedScope": "Same supported Erlang term/source model and physical VM exclusions as existing get_value/2,3; no raw-cursor exclusion imported into these19 APIs.",
+      "OriginalMatrixCases": [
+        "case_014",
+        "case_015",
+        "case_016",
+        "case_017"
+      ],
+      "FinalGate": "Root must bind final Main source to fresh SDK/original comparisons, source/stack cases and full regression/CI; this source review does not claim those gates passed."
+    },
+    {
+      "Mfa": "proplists:compact/1",
+      "Recommendation": "ELIGIBLE_VERIFIED_COMPATIBLE_AFTER_CURRENT_FINAL_GATES",
+      "PinnedEntry": "compact/1 @127",
+      "BranchAndEqualityProof": "property/1 applied once per head, preserving all heads/order except the exact compacting pair branch.",
+      "ErrorAndStackApplicability": "Reached malformed generator emits bad_generator with pinned LC helper metadata; return-site identity suppresses only adjacent same CP.",
+      "ActualUnresolvedModuleBranchFound": false,
+      "InheritedScope": "Same supported Erlang term/source model and physical VM exclusions as existing get_value/2,3; no raw-cursor exclusion imported into these19 APIs.",
+      "OriginalMatrixCases": [
+        "case_018",
+        "case_019",
+        "case_020",
+        "case_021"
+      ],
+      "FinalGate": "Root must bind final Main source to fresh SDK/original comparisons, source/stack cases and full regression/CI; this source review does not claim those gates passed."
+    },
+    {
+      "Mfa": "proplists:lookup/2",
+      "Recommendation": "ELIGIBLE_VERIFIED_COMPATIBLE_AFTER_CURRENT_FINAL_GATES",
+      "PinnedEntry": "lookup/2 @144",
+      "BranchAndEqualityProof": "Exact atom or nonempty tuple-key match returns first entry; singleton/triple match shadows later entries; otherwise none.",
+      "ErrorAndStackApplicability": "Early return leaves improper suffix unexamined; exhausted invalid suffix uses effective key/reached-tail args.",
+      "ActualUnresolvedModuleBranchFound": false,
+      "InheritedScope": "Same supported Erlang term/source model and physical VM exclusions as existing get_value/2,3; no raw-cursor exclusion imported into these19 APIs.",
+      "OriginalMatrixCases": [
+        "case_022",
+        "case_030",
+        "case_031",
+        "case_032",
+        "case_054",
+        "case_063",
+        "case_065"
+      ],
+      "FinalGate": "Root must bind final Main source to fresh SDK/original comparisons, source/stack cases and full regression/CI; this source review does not claim those gates passed."
+    },
+    {
+      "Mfa": "proplists:lookup_all/2",
+      "Recommendation": "ELIGIBLE_VERIFIED_COMPATIBLE_AFTER_CURRENT_FINAL_GATES",
+      "PinnedEntry": "lookup_all/2 @166",
+      "BranchAndEqualityProof": "Exact matching atoms become true pairs; all matching nonempty tuples retained in order; no malformed tuple shadow.",
+      "ErrorAndStackApplicability": "Full spine traversed even after match; effective reached-tail args and pending matched-head return sites.",
+      "ActualUnresolvedModuleBranchFound": false,
+      "InheritedScope": "Same supported Erlang term/source model and physical VM exclusions as existing get_value/2,3; no raw-cursor exclusion imported into these19 APIs.",
+      "OriginalMatrixCases": [
+        "case_023",
+        "case_033",
+        "case_034",
+        "case_035",
+        "case_058"
+      ],
+      "FinalGate": "Root must bind final Main source to fresh SDK/original comparisons, source/stack cases and full regression/CI; this source review does not claim those gates passed."
+    },
+    {
+      "Mfa": "proplists:is_defined/2",
+      "Recommendation": "ELIGIBLE_VERIFIED_COMPATIBLE_AFTER_CURRENT_FINAL_GATES",
+      "PinnedEntry": "is_defined/2 @188",
+      "BranchAndEqualityProof": "First exact key match on atom/nonempty tuple true; missing false, independent of tuple arity/value.",
+      "ErrorAndStackApplicability": "Lazy successful return bypasses invalid suffix; failed search invalid suffix function_clause.",
+      "ActualUnresolvedModuleBranchFound": false,
+      "InheritedScope": "Same supported Erlang term/source model and physical VM exclusions as existing get_value/2,3; no raw-cursor exclusion imported into these19 APIs.",
+      "OriginalMatrixCases": [
+        "case_024",
+        "case_036",
+        "case_037",
+        "case_038",
+        "case_055"
+      ],
+      "FinalGate": "Root must bind final Main source to fresh SDK/original comparisons, source/stack cases and full regression/CI; this source review does not claim those gates passed."
+    },
+    {
+      "Mfa": "proplists:get_all_values/2",
+      "Recommendation": "ELIGIBLE_VERIFIED_COMPATIBLE_AFTER_CURRENT_FINAL_GATES",
+      "PinnedEntry": "get_all_values/2 @247",
+      "BranchAndEqualityProof": "Atoms contribute true; exact matching pairs contribute value; matching wrong arity skipped; full output order retained.",
+      "ErrorAndStackApplicability": "Full traversal, error even after prior values; effective reached tail and matched-return locations.",
+      "ActualUnresolvedModuleBranchFound": false,
+      "InheritedScope": "Same supported Erlang term/source model and physical VM exclusions as existing get_value/2,3; no raw-cursor exclusion imported into these19 APIs.",
+      "OriginalMatrixCases": [
+        "case_026",
+        "case_042",
+        "case_043",
+        "case_044",
+        "case_059"
+      ],
+      "FinalGate": "Root must bind final Main source to fresh SDK/original comparisons, source/stack cases and full regression/CI; this source review does not claim those gates passed."
+    },
+    {
+      "Mfa": "proplists:append_values/2",
+      "Recommendation": "ELIGIBLE_VERIFIED_COMPATIBLE_AFTER_CURRENT_FINAL_GATES",
+      "PinnedEntry": "append_values/2 @285",
+      "BranchAndEqualityProof": "Same value selection; list-shaped value concatenates exactly one level, nonlist contributes singleton.",
+      "ErrorAndStackApplicability": "Deferred right-to-left reconstruction preserves tail-before-plusplus error precedence and rightmost malformed list failure; badarg plusplus args and pending source sites captured.",
+      "ActualUnresolvedModuleBranchFound": false,
+      "InheritedScope": "Same supported Erlang term/source model and physical VM exclusions as existing get_value/2,3; no raw-cursor exclusion imported into these19 APIs.",
+      "OriginalMatrixCases": [
+        "case_027",
+        "case_045",
+        "case_046",
+        "case_047",
+        "case_060",
+        "case_077",
+        "case_078",
+        "case_079",
+        "case_080",
+        "case_081"
+      ],
+      "FinalGate": "Root must bind final Main source to fresh SDK/original comparisons, source/stack cases and full regression/CI; this source review does not claim those gates passed."
+    },
+    {
+      "Mfa": "proplists:get_bool/2",
+      "Recommendation": "ELIGIBLE_VERIFIED_COMPATIBLE_AFTER_CURRENT_FINAL_GATES",
+      "PinnedEntry": "get_bool/2 @317",
+      "BranchAndEqualityProof": "First matching atom/exact true pair true; all other matching tuple arities/values false; missing false.",
+      "ErrorAndStackApplicability": "First match stops even if false, so later bad tail is unexamined; no-match invalid suffix emits function_clause.",
+      "ActualUnresolvedModuleBranchFound": false,
+      "InheritedScope": "Same supported Erlang term/source model and physical VM exclusions as existing get_value/2,3; no raw-cursor exclusion imported into these19 APIs.",
+      "OriginalMatrixCases": [
+        "case_028",
+        "case_048",
+        "case_049",
+        "case_050",
+        "case_056",
+        "case_072",
+        "case_073",
+        "case_074",
+        "case_075",
+        "case_076"
+      ],
+      "FinalGate": "Root must bind final Main source to fresh SDK/original comparisons, source/stack cases and full regression/CI; this source review does not claim those gates passed."
+    },
+    {
+      "Mfa": "proplists:get_keys/1",
+      "Recommendation": "ELIGIBLE_VERIFIED_COMPATIBLE_AFTER_CURRENT_FINAL_GATES",
+      "PinnedEntry": "get_keys/1 @341",
+      "BranchAndEqualityProof": "Atoms/nonempty tuple first elements form exact-key set; duplicates removed, all other entries ignored. HashSet implementation preserves exact equality; result order explicitly unspecified by pinned API.",
+      "ErrorAndStackApplicability": "Entire spine traversed; error helper get_keys/2 includes accumulated key=>[] map, reached tail and public caller CP.",
+      "ActualUnresolvedModuleBranchFound": false,
+      "InheritedScope": "Same supported Erlang term/source model and physical VM exclusions as existing get_value/2,3; no raw-cursor exclusion imported into these19 APIs.",
+      "OriginalMatrixCases": [
+        "case_082",
+        "case_083",
+        "case_084"
+      ],
+      "FinalGate": "Root must bind final Main source to fresh SDK/original comparisons, source/stack cases and full regression/CI; this source review does not claim those gates passed."
+    },
+    {
+      "Mfa": "proplists:delete/2",
+      "Recommendation": "ELIGIBLE_VERIFIED_COMPATIBLE_AFTER_CURRENT_FINAL_GATES",
+      "PinnedEntry": "delete/2 @363",
+      "BranchAndEqualityProof": "Remove all exact matching atoms/nonempty tuples; retain arbitrary other heads in order.",
+      "ErrorAndStackApplicability": "Entire spine traversed; retained-head CP only, matching removal tail-calls do not create false return sites.",
+      "ActualUnresolvedModuleBranchFound": false,
+      "InheritedScope": "Same supported Erlang term/source model and physical VM exclusions as existing get_value/2,3; no raw-cursor exclusion imported into these19 APIs.",
+      "OriginalMatrixCases": [
+        "case_029",
+        "case_051",
+        "case_052",
+        "case_053",
+        "case_061"
+      ],
+      "FinalGate": "Root must bind final Main source to fresh SDK/original comparisons, source/stack cases and full regression/CI; this source review does not claim those gates passed."
+    },
+    {
+      "Mfa": "proplists:substitute_aliases/2",
+      "Recommendation": "ELIGIBLE_VERIFIED_COMPATIBLE_AFTER_CURRENT_FINAL_GATES",
+      "PinnedEntry": "substitute_aliases/2 @396",
+      "BranchAndEqualityProof": "First exact table match only; atom uses property(NewKey,true), tuple replaces first field then compacts; nonmatching unchanged; no chaining.",
+      "ErrorAndStackApplicability": "Empty properties never inspect table; each nonempty property scans table lazily; malformed reached table element/tail errors with effective table/property helper args.",
+      "ActualUnresolvedModuleBranchFound": false,
+      "InheritedScope": "Same supported Erlang term/source model and physical VM exclusions as existing get_value/2,3; no raw-cursor exclusion imported into these19 APIs.",
+      "OriginalMatrixCases": [
+        "case_085",
+        "case_086",
+        "case_087",
+        "case_088",
+        "case_089",
+        "case_090",
+        "case_091",
+        "case_092"
+      ],
+      "FinalGate": "Root must bind final Main source to fresh SDK/original comparisons, source/stack cases and full regression/CI; this source review does not claim those gates passed."
+    },
+    {
+      "Mfa": "proplists:substitute_negations/2",
+      "Recommendation": "ELIGIBLE_VERIFIED_COMPATIBLE_AFTER_CURRENT_FINAL_GATES",
+      "PinnedEntry": "substitute_negations/2 @438",
+      "BranchAndEqualityProof": "First exact match maps true/shorthand to false, every other matching tuple to true; property normalization uses arbitrary replacement key.",
+      "ErrorAndStackApplicability": "Same lazy per-property table validation as aliases; source LC and selected helper frames preserved.",
+      "ActualUnresolvedModuleBranchFound": false,
+      "InheritedScope": "Same supported Erlang term/source model and physical VM exclusions as existing get_value/2,3; no raw-cursor exclusion imported into these19 APIs.",
+      "OriginalMatrixCases": [
+        "case_093",
+        "case_094",
+        "case_095",
+        "case_096",
+        "case_097",
+        "case_098",
+        "case_099",
+        "case_100"
+      ],
+      "FinalGate": "Root must bind final Main source to fresh SDK/original comparisons, source/stack cases and full regression/CI; this source review does not claim those gates passed."
+    },
+    {
+      "Mfa": "proplists:expand/2",
+      "Recommendation": "ELIGIBLE_VERIFIED_COMPATIBLE_AFTER_CURRENT_FINAL_GATES",
+      "PinnedEntry": "expand/2 @502",
+      "BranchAndEqualityProof": "Rule LC filters nonpairs; property-normalize rules; adjacent normalized-property duplicates removed; ordered rules act on first key match, delete later same-key entries only on normalized equality; existing/new lists flatten once.",
+      "ErrorAndStackApplicability": "Cons/Nil shape guard matches OTP is_list; staged scans and deferred plusplus retain source evaluation/error precedence. Non-property rule and unused expansion are not eagerly validated.",
+      "ActualUnresolvedModuleBranchFound": false,
+      "InheritedScope": "Same supported Erlang term/source model and physical VM exclusions as existing get_value/2,3; no raw-cursor exclusion imported into these19 APIs.",
+      "OriginalMatrixCases": [
+        "case_101",
+        "case_102",
+        "case_103",
+        "case_104",
+        "case_105",
+        "case_106",
+        "case_107",
+        "case_108",
+        "case_109",
+        "case_110",
+        "case_111",
+        "case_112",
+        "case_113",
+        "case_114"
+      ],
+      "FinalGate": "Root must bind final Main source to fresh SDK/original comparisons, source/stack cases and full regression/CI; this source review does not claim those gates passed."
+    },
+    {
+      "Mfa": "proplists:normalize/2",
+      "Recommendation": "ELIGIBLE_VERIFIED_COMPATIBLE_AFTER_CURRENT_FINAL_GATES",
+      "PinnedEntry": "normalize/2 @611",
+      "BranchAndEqualityProof": "Apply aliases/expand/negations stages left-to-right with their complete contracts, then compact; empty stages still compact.",
+      "ErrorAndStackApplicability": "Unknown/wrong-arity/malformed stage spine reports apply_stages/2 with current transformed properties and remaining stages; stage errors precede compact.",
+      "ActualUnresolvedModuleBranchFound": false,
+      "InheritedScope": "Same supported Erlang term/source model and physical VM exclusions as existing get_value/2,3; no raw-cursor exclusion imported into these19 APIs.",
+      "OriginalMatrixCases": [
+        "case_115",
+        "case_116",
+        "case_117",
+        "case_118",
+        "case_119",
+        "case_120",
+        "case_121",
+        "case_122"
+      ],
+      "FinalGate": "Root must bind final Main source to fresh SDK/original comparisons, source/stack cases and full regression/CI; this source review does not claim those gates passed."
+    },
+    {
+      "Mfa": "proplists:split/2",
+      "Recommendation": "ELIGIBLE_VERIFIED_COMPATIBLE_AFTER_CURRENT_FINAL_GATES",
+      "PinnedEntry": "split/2 @651",
+      "BranchAndEqualityProof": "Build exact key buckets first; stable property/rest order; duplicate requested keys repeat the same final bucket.",
+      "ErrorAndStackApplicability": "Key generator error takes precedence over property error; property-tail split/3 error includes reversed buckets/remainder and reached suffix.",
+      "ActualUnresolvedModuleBranchFound": false,
+      "InheritedScope": "Same supported Erlang term/source model and physical VM exclusions as existing get_value/2,3; no raw-cursor exclusion imported into these19 APIs.",
+      "OriginalMatrixCases": [
+        "case_123",
+        "case_124",
+        "case_125",
+        "case_126",
+        "case_127",
+        "case_128",
+        "case_129",
+        "case_130"
+      ],
+      "FinalGate": "Root must bind final Main source to fresh SDK/original comparisons, source/stack cases and full regression/CI; this source review does not claim those gates passed."
+    },
+    {
+      "Mfa": "proplists:to_map/1",
+      "Recommendation": "ELIGIBLE_VERIFIED_COMPATIBLE_AFTER_CURRENT_FINAL_GATES",
+      "PinnedEntry": "to_map/1 @716",
+      "BranchAndEqualityProof": "Right-fold pure operation: pair sets value, atom sets true, wrong-arity nonempty tuple removes key, other term ignored. Batched dictionary reverse fold is extensionally identical because no guest callbacks occur on valid map accumulator.",
+      "ErrorAndStackApplicability": "Full list validation occurs before callback branches as foldr does; invalid spine authentic lists:foldr_1 helper args include genuine registered local callback, empty map/reached tail and correct single CP. Own build code identity is genuine and retained, never original bytes injected.",
+      "ActualUnresolvedModuleBranchFound": false,
+      "InheritedScope": "Same supported Erlang term/source model and physical VM exclusions as existing get_value/2,3; no raw-cursor exclusion imported into these19 APIs.",
+      "OriginalMatrixCases": [
+        "case_131",
+        "case_132",
+        "case_133",
+        "case_134",
+        "case_135",
+        "case_136",
+        "case_137",
+        "case_138"
+      ],
+      "FinalGate": "Root must bind final Main source to fresh SDK/original comparisons, source/stack cases and full regression/CI; this source review does not claim those gates passed."
+    },
+    {
+      "Mfa": "proplists:to_map/2",
+      "Recommendation": "ELIGIBLE_VERIFIED_COMPATIBLE_AFTER_CURRENT_FINAL_GATES",
+      "PinnedEntry": "to_map/2 @752",
+      "BranchAndEqualityProof": "Same complete stages composition followed by to_map/1, with no extra compact phase.",
+      "ErrorAndStackApplicability": "Stage errors retain /2 pending caller where source non-tail; successful stage result tail-delegates to /1/foldr without fabricated /2 wrapper.",
+      "ActualUnresolvedModuleBranchFound": false,
+      "InheritedScope": "Same supported Erlang term/source model and physical VM exclusions as existing get_value/2,3; no raw-cursor exclusion imported into these19 APIs.",
+      "OriginalMatrixCases": [
+        "case_139",
+        "case_140",
+        "case_141",
+        "case_142",
+        "case_143"
+      ],
+      "FinalGate": "Root must bind final Main source to fresh SDK/original comparisons, source/stack cases and full regression/CI; this source review does not claim those gates passed."
+    }
+  ],
+  "Count": 19,
+  "ActualUnresolvedBranchesForThese19": [],
+  "FromMapNotIncluded": "Mandatory manually forged raw HAMT cursor/hash identity work remains a separate real from_map/1 blocker; no classification shortcut.",
+  "ResidualReassessment": {
+    "DeepEqualityHash": "No independent proplist-specific gap: closed supported Term classes use exact comparison and explicit-stack structural hashing. Hash omits some equality fields only to allow collisions; equal terms still have equal hashes. Predicate/equality source dependencies are bound below. Integer vs float and signed float bits remain exact per pinned utils.c float equality. Nested/opaque keys retain same runtime identity relation as get_value.",
+    "Backtrace64": "Already bounded in accepted get_value scope. First frame retained at0; pending storage63 permits configured depth increase up to64; CP identities distinct from printed MFA. Not a new exception to scope.",
+    "ReconstructionCancellation": "Source-visible result/error contract unchanged; scans reduce/yield. Synchronous result materialization does not prove bounded latency, physical reductions or scheduling. Those timing/resource guarantees were already excluded; no source-only evidence of failure to unwind or a leaked resource in these pure methods. Root physical-finally cleanup regression remains required.",
+    "OwnFunctorIdentity": "Existing supported term model already uses genuine own runtime code/fun/PID identities. Retain raw hash/code-ID mismatch and validate same-runtime module fingerprint/identity/apply/ETF relationships; never replace full errors/metadata with a projection.",
+    "UnorderedKeys": "Pinned get_keys explicitly unordered; cardinality/exact key membership is complete output contract. Raw mismatches retained; do not reinterpret other ordered lists as sets."
+  },
+  "MainBindings": [
+    {
+      "Path": "src/Erlang.Compiler/CodeGeneration.cs",
+      "Sha256": "9A71396FD913BE02BD4FCB57ECF9DA6BCA9884F5CE7A1D4F2E2D06D12A3D53D9"
+    },
+    {
+      "Path": "src/Erlang.Compiler/CompiledComprehensionFrames.cs",
+      "Sha256": "A59D66339E3D3BB30CDAB1D49CDD1AFF6A2152AC915EC4791A463B5522E713E6"
+    },
+    {
+      "Path": "src/Erlang.Compiler/ComprehensionExecution.cs",
+      "Sha256": "8965C694457D0074C3C7151960A820853ABDD08CAA7879A867164DE14FEF6D9F"
+    },
+    {
+      "Path": "src/Erlang.Compiler/ComprehensionFrameScope.cs",
+      "Sha256": "C81864C9FCBF0D8D2659F06AA0DB32AA5B095939E6E15BB0B1111899A2007C85"
+    },
+    {
+      "Path": "src/Erlang.Compiler/ComprehensionGeneratorFrames.cs",
+      "Sha256": "FD6302AC91017CFE5174565CE50FF57A90FEA47BFF80E79B9B400F023074AFC9"
+    },
+    {
+      "Path": "src/Erlang.Compiler/ComprehensionLogicalFrame.cs",
+      "Sha256": "774BBD4782628A4B3186E777343930494CB5DE0892C48395E27C6DBB9876EAA5"
+    },
+    {
+      "Path": "src/Erlang.Compiler/ComprehensionLowering.cs",
+      "Sha256": "7855AAFE0AD7544F19EC3AD940D9D79E817EB5870A4D67B46D69F61A8BB33C06"
+    },
+    {
+      "Path": "src/Erlang.Compiler/ComprehensionQualifier.cs",
+      "Sha256": "9560FF32B0FA34259DFBD97DAD890EE93F1C48A49FADF68B756CC8A33E253267"
+    },
+    {
+      "Path": "src/Erlang.Compiler/ComprehensionReturnAnalysis.cs",
+      "Sha256": "257DCF8D42E3E1DCD41BCE081DBD1C9016BB5E23477FC2869F17654EF9E6421F"
+    },
+    {
+      "Path": "src/Erlang.Compiler/ComprehensionReturnParameters.cs",
+      "Sha256": "5F1A6D0F70A3DAC453E45F31CEA665480C7F8700EB361974E62445234FB28337"
+    },
+    {
+      "Path": "src/Erlang.Compiler/ComprehensionSource.cs",
+      "Sha256": "AA7DF0090F9C76C5FB29D751F055E17E714F11D97D028037CF76CCCE9E227FB3"
+    },
+    {
+      "Path": "src/Erlang.Compiler/ComprehensionSourceBindings.cs",
+      "Sha256": "34B63AB34B7216CB760F38AC45011311CAF05B7D03C68708B6BDEC419639CC8B"
+    },
+    {
+      "Path": "src/Erlang.Compiler/ComprehensionSourceCode.cs",
+      "Sha256": "9DD3C1614685A3E3FFF164F4F87CF753429DD2E7EC7EE5CAD3987A0248B67D3C"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Execution.FunctionTailCall.cs",
+      "Sha256": "4C32A9A97F9504262EF04B3504D68DDDB4EEABA14C03667788848527E628428E"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Execution.GeneratedTail.cs",
+      "Sha256": "F1F7E76F09872B3283CE211F8FA8A74113FCFE47252081AC00715221A40F99A5"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Execution.InvocationLoop.cs",
+      "Sha256": "6A59041AE9715920B2FD25986452098EF457157C52BD88AB085BC92856E650E7"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Execution.cs",
+      "Sha256": "4BFFB7877871BD5FE4E4670FA3F2EEB776B8BEE05B64950C66B5EC075CE878B5"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Expr.cs",
+      "Sha256": "330551ABFE37F6EEA346A84D06AB20802A722E5780438375C7C8FED4D72ABECF"
+    },
+    {
+      "Path": "src/Erlang.Compiler/GeneratedComprehensionFunction.cs",
+      "Sha256": "5A9113EB8EA70EA8DBB31DE48DF06A08F24AE0DB6F44EBFB41B34B21BD3B39ED"
+    },
+    {
+      "Path": "src/Erlang.Compiler/GeneratedComprehensionNames.cs",
+      "Sha256": "3302B70AED0CE93F8E2FDBEA1C548525C18AB740B13DCC252B5E4D0CDCE8386C"
+    },
+    {
+      "Path": "src/Erlang.Compiler/LocalFunctionEntries.cs",
+      "Sha256": "F6C00A2A0CACED3C238A1EA599907BB0CE47CF4293CF3D73B0E9AA3B834D4AF1"
+    },
+    {
+      "Path": "src/Erlang.Compiler/NamedFunctionReferences.cs",
+      "Sha256": "F86ED5A8A0E82CC349FD4984520349DBA19D9A34BEA8DF0756BF30539AEE15E4"
+    },
+    {
+      "Path": "src/Erlang.Compiler/Parser.cs",
+      "Sha256": "6A1BC62CE606596DC43F52A4E96886DE33F357252432D357839BC68CFDCFEC3F"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceArgumentBindings.cs",
+      "Sha256": "C1C732FFAAC45D2D818E5D98397347155D638067AC920C7ADD3923AD672AB2F4"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceContinuationBindings.cs",
+      "Sha256": "450E0278CF29F22D92119828BF017448873A245878E02989F42AEA7C447AE2CE"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceFunctionCode.cs",
+      "Sha256": "BBDF5C9C76EF087CF9CC5C5036C8C1E303225AA58C8D161306DF467BC98A3D38"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceFunctionInvocation.cs",
+      "Sha256": "8397AFBC95F8D435AA44CE3E4F85606D8375DCFDD8278AB1E71329328ED8B16F"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceFunctionTailDispatch.cs",
+      "Sha256": "A87789AFA96CB2D08AEEFD69B9C892B1B8D89D0428842823F91AECBCB4AC477F"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceFunctionTailScope.cs",
+      "Sha256": "4658EFDDC51682FC52F6E13443CDF33E89E68BEFDA7CF58EBAE87D22FDDDB412"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceFunctionTransfer.cs",
+      "Sha256": "622A29EC9F5424A26612DADC7635982F3B8B257E5F22F0E97247D6F6BC257182"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceInvocationTarget.cs",
+      "Sha256": "B604CC389F630E0AD7D46DC46F094A6DB79C3B7BA672C7491AD7CB7B21D6A786"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceReturnContracts.cs",
+      "Sha256": "2E46A70DC6E61ABA3F9F751447E88306AEEEA5C030249ACF952C0BB9E2DDF21C"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceReturnPurity.cs",
+      "Sha256": "AC077FE6EBF4D33D8E70279D672644592FBC183C020AE54D645398381E515EDA"
+    },
+    {
+      "Path": "src/Erlang.Compiler/SourceReturnSafety.cs",
+      "Sha256": "7158781D2641CC741DA80A16D3CA1913D2A84F4E9DDC4BDECB0C75BCF82D8496"
+    },
+    {
+      "Path": "src/Erlang.Compiler/ZipComprehensionExecution.cs",
+      "Sha256": "A4842D3FFC09984E5D865BA4D53881EA2741FDC97B55C79DC0733A2A2BF45088"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ErlangExecutionFrame.cs",
+      "Sha256": "B1C198FB27140016C9307146DC74B6936D11962B5E3E482C34381E43F89C5117"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListFoldRight.cs",
+      "Sha256": "857CEDC0E1086C31FB7BCE56A9F4633211FC574F9D18606F710373D8CBC2F2AD"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListFoldRightSource.cs",
+      "Sha256": "E76D15C53E420C019E485087B44CD70C0808FEBD8AF88AD84184C10FC435D97C"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.GeneratedFrames.cs",
+      "Sha256": "C16FF0A3AFA8CC509DF58DC7E8263145B29122F8C80921F8085367B0F335205A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.SourceLocations.cs",
+      "Sha256": "D6F1417262F40797A249BB8472297C05F2323CC467AD44DA2CE01D6114BADBCE"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProplistFamilyContinuations.cs",
+      "Sha256": "C1CFE4E8F2E4267DBA206346D3692CD3137BF325DCB56D784626C211E97CCD73"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProplistFamilyExpansion.cs",
+      "Sha256": "CCFA8C4A31D6AE0D0B85CF0F90A7809AA18AA14E931CCC5D9210930CD10BFC37"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProplistFamilyFoldDiagnostics.cs",
+      "Sha256": "CE44FC10EC3CE7536AF8FD29C2084566FDE22BC1A947D6F4D0D122382C0BA181"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProplistFamilyFoldNames.cs",
+      "Sha256": "4F38E99B5D4E06812969C96B4F85117396C4C704A426A739CFA2CC73E31B1E1A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProplistFamilyFrame.cs",
+      "Sha256": "0E780A46218E32E94AC2169BCBF2CFAEF6ED0BA2923AEC43EA1B2814621793C2"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProplistFamilyLists.cs",
+      "Sha256": "25ADE462E26ACE7E9F69CDC893AFE41EE465EB51D05822A4A62D8069E716AFF3"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProplistFamilyLookup.cs",
+      "Sha256": "BCB84627E19102A62C78220BBDE1A89CF1800FCA6662BA36175B5560F73A8248"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProplistFamilyNames.cs",
+      "Sha256": "4A39714DC944D3037AF119CA910C5E182C7931561151751E1C083D62814A9E44"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProplistFamilyProjection.cs",
+      "Sha256": "72820FD5EE0D7AE2772A6781D9BD4F89E8026F0721E584A0AB8E2EC2CA31B5AD"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProplistFamilyRegistrations.cs",
+      "Sha256": "372097CDDFE66B6E96019AE1E03C251128A4FADE675EFC2DBCD4CFCC4A39B883"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProplistFamilySource.cs",
+      "Sha256": "1E78FC99A5C56B7BB57DBD225EDB81EABE0C97AE4F698610A4F82B77B0C4343A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProplistFamilySubstitution.cs",
+      "Sha256": "EBA2E0D4AA497E168ABFA1910B1FEB0FB0FBA0E031F079852D7872996B5A4FD3"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProplistFamilyToMapFunction.cs",
+      "Sha256": "48241D1EC6568062EA456FD5003372969FDF93F0F63B7F9D1D5029B3691DDF0A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProplistFamilyTrace.cs",
+      "Sha256": "FD165708D9CEFFDDD4430B4A6F0DB06517AADC3A38370EC2205545D37C36249B"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeExceptionCapture.cs",
+      "Sha256": "BDA882AF75249C5C067BEB61A842C5D4D4D9E5599303AF9F7F2FF8C99F19112F"
+    },
+    {
+      "Path": "src/Erlang.Terms/FloatTerm.cs",
+      "Sha256": "15947C4D813909CD7B1C8A163D4FFBC3509E8E5DDEB026C88F1D308B7BC15229"
+    },
+    {
+      "Path": "src/Erlang.Terms/MapTerm.cs",
+      "Sha256": "1AAFECC8C729CA2F38540180E8AAA2303312BD346FAE67A7E684D684D728F7C3"
+    },
+    {
+      "Path": "src/Erlang.Terms/Term.cs",
+      "Sha256": "32EE6669E0D4D5BAE2E780CD62FEAA1E56D3F49B6C3781927D5994E86C14A644"
+    },
+    {
+      "Path": "src/Erlang.Terms/TermOrder.cs",
+      "Sha256": "B2E92018FAE4A40A7A3A03910227AEBDDACE23473A650C7E6A6FEC649E79A589"
+    }
+  ],
+  "NoMainWritesOrBuilds": true
+}

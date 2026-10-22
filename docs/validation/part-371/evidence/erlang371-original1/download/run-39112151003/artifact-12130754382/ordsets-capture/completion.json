@@ -1,0 +1,37 @@
+{
+  "Status": "FAIL_ORIGINAL_CAPTURE_GROUPS_RETAINED",
+  "SubjectHead": "fd2faca8697f4c9ba9ea85a1b71ef4ca5582a359",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SourceInputsSha256": "699A359762EA9EBBA64B6369BDCA92814E437C5F0A3F56246FA2E9F1A04F0829",
+  "ProfileSha256": "2B8BD5A71C179525371636F81E37B8E8288C596171884C9F631B76431C894411",
+  "BuildReceiptSha256": "01069E74971E03243065E46CAB744522F800F0FBF5DF57CCC922F63F67EE6C18",
+  "Groups": [
+    {
+      "Id": "ordsets_core",
+      "ExpectedRows": 112,
+      "Acquired": false,
+      "VmSkipped": false,
+      "Failure": "RuntimeError('Owned original process failed: /home/runner/work/Erlang.Net/Erlang.Net/artifacts/proplists22-original/ordsets-capture/ordsets_core/observe')"
+    }
+  ],
+  "OwnedStages": [
+    {
+      "Group": "ordsets_core",
+      "Name": "compile",
+      "ReceiptSha256": "14B712C0C4E820FF1E2CB6D4AE2019863AC5793FB50996A20878A5D3088812C8",
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Group": "ordsets_core",
+      "Name": "observe",
+      "ReceiptSha256": "5D5E2EF3AF31A2FA2349EFC447998BE4EE99402B50F80E86D7A9A0F169332882",
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "EAFF3340EFE1E457AC66B53EF4CFD68A8C71361E83CDABCC6CABDF6E7827ACC7"
+    }
+  ],
+  "FailedGroups": 1,
+  "AllGroupsAttempted": true,
+  "CompatibilityPromoted": false,
+  "OriginalBuildsByCollector": 0
+}

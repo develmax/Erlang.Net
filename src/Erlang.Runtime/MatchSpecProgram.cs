@@ -32,6 +32,29 @@ public sealed class MatchSpecProgram
         Term against,
         MatchSpecRunMode mode = MatchSpecRunMode.Test,
         IMatchSpecTraceActions? actions = null
+    ) => RunCore(
+        context,
+        against,
+        mode,
+        actions,
+        null
+    );
+
+    internal MatchSpecResult RunNative419(ProcessContext context, Term against)
+        => RunCore(
+            context,
+            against,
+            MatchSpecRunMode.Production,
+            null,
+            CanonicalMatchSpecGuards419.Invoke
+        );
+
+    private MatchSpecResult RunCore(
+        ProcessContext context,
+        Term against,
+        MatchSpecRunMode mode,
+        IMatchSpecTraceActions? actions,
+        Func<ProcessContext, string, Term[], Term>? pureGuards
     )
     {
         if (mode is not MatchSpecRunMode.Test and not MatchSpecRunMode.Production)
@@ -59,7 +82,8 @@ public sealed class MatchSpecProgram
                 context,
                 against,
                 mode,
-                actions
+                actions,
+                pureGuards
             );
             Term pattern = clause.Items[0];
             Term input = against;
@@ -91,6 +115,7 @@ public sealed class MatchSpecProgram
             }
             if (!accepted)
                 continue;
+            state.CatchBodyOperations = Dialect == MatchSpecDialect.Table;
             Term value = Term.A(ErlangBooleanAtoms.True);
             foreach (Term body in Cons.Items(clause.Items[2]))
             {
@@ -124,17 +149,20 @@ public sealed class MatchSpecProgram
         ProcessContext context,
         Term against,
         MatchSpecRunMode mode,
-        IMatchSpecTraceActions? actions
+        IMatchSpecTraceActions? actions,
+        Func<ProcessContext, string, Term[], Term>? pureGuards
     )
     {
         public ProcessContext Context { get; } = context;
         public Term Against { get; } = against;
         public MatchSpecRunMode Mode { get; } = mode;
         public IMatchSpecTraceActions? Actions { get; } = actions;
+        public Func<ProcessContext, string, Term[], Term>? PureGuards { get; } = pureGuards;
         public SortedDictionary<int, Term> Bindings { get; } = new();
         public Term TraceValue = Term.A(ErlangBooleanAtoms.True);
         public bool ReturnTrace;
         public bool ExceptionTrace;
+        public bool CatchBodyOperations;
     }
 
     private static bool Matches(
@@ -208,6 +236,19 @@ public sealed class MatchSpecProgram
     }
 
     private static Term Evaluate(Term expression, State state, int depth)
+    {
+        if (!state.CatchBodyOperations) return EvaluateCore(expression, state, depth);
+        try
+        {
+            return EvaluateCore(expression, state, depth);
+        }
+        catch (ErlangException)
+        {
+            return Term.A(MatchSpecNames.Exit);
+        }
+    }
+
+    private static Term EvaluateCore(Term expression, State state, int depth)
     {
         MatchSpecCompiler.CheckDepth(depth);
         if (MatchSpecCompiler.Variable(expression, out int variable))
@@ -310,6 +351,8 @@ public sealed class MatchSpecProgram
                 state.Context
             );
 
-        return state.Context.Runtime.Modules.CallMatchSpecGuard(state.Context, name, arguments);
+        return state.PureGuards is { } native
+            ? native(state.Context, name, arguments)
+            : state.Context.Runtime.Modules.CallMatchSpecGuard(state.Context, name, arguments);
     }
 }

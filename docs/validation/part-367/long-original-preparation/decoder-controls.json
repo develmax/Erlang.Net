@@ -1,0 +1,62 @@
+{
+  "Status": "PASS_SYNTHETIC_DECODER_LIMIT_CONTROLS",
+  "Positive": [
+    {
+      "Length": 64017,
+      "Bytes": 320097,
+      "FullUniquePrefixExact": true,
+      "Sha256": "563AEE743E9B4B40AB26A57329DFDABF3B9093CCE9938DA6DC730DE544C96897"
+    },
+    {
+      "Length": 256017,
+      "Bytes": 1280097,
+      "FullUniquePrefixExact": true,
+      "Sha256": "932A078E1BBD3CA561D32FEAD5C0768B8F6D6852E1072F5FB22742F048A48B3E"
+    }
+  ],
+  "Negative": [
+    {
+      "Bytes": 8000008,
+      "Rejection": "Container exceeds remaining term budget"
+    },
+    {
+      "Bytes": 16777217,
+      "Rejection": "ETF version/size"
+    },
+    {
+      "Bytes": 262,
+      "Rejection": "ETF diagnostic depth limit"
+    },
+    {
+      "Bytes": 3,
+      "Rejection": "Trailing bytes in result ETF"
+    },
+    {
+      "Bytes": 6,
+      "Rejection": "List size exceeds available data"
+    },
+    {
+      "Bytes": 6,
+      "Rejection": "Unsupported ETF tag: 80"
+    },
+    {
+      "Bytes": 2,
+      "Rejection": "ETF version/size"
+    },
+    {
+      "Bytes": 31,
+      "Rejection": "Container exceeds remaining term budget",
+      "AggregateNestedBudgetFaultControl": true
+    }
+  ],
+  "PositiveCount": 2,
+  "NegativeCount": 8,
+  "FinalLimits": {
+    "Terms": 8000000,
+    "Bytes": 16777216,
+    "Depth": 128
+  },
+  "ElapsedSeconds": 0.389999999984866,
+  "OriginalExecuted": false,
+  "SdkExecuted": false
+}

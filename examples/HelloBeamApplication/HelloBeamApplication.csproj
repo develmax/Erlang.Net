@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RepositoryRoot Condition="'$(RepositoryRoot)' == ''">$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)../../'))</RepositoryRoot>
+    <ErlangPreprocessEnabled>false</ErlangPreprocessEnabled>
+    <ErlangBeamSourcePolicy>DeclaredIncludesV1</ErlangBeamSourcePolicy>
+    <ErlangBeamSourceRoot>$(MSBuildProjectDirectory)/Source</ErlangBeamSourceRoot>
+    <ErlangBeamApplicationSourceRoot>$(MSBuildProjectDirectory)/Resources</ErlangBeamApplicationSourceRoot>
+  </PropertyGroup>
+  <Import Project="$(AdmissionPropertiesFile)" Condition="'$(AdmissionPropertiesFile)' != ''" />
+  <ItemGroup>
+    <ProjectReference Include="$(RepositoryRoot)/src/Erlang.Runtime/Erlang.Runtime.csproj" />
+    <ProjectReference Include="$(RepositoryRoot)/tools/Erlang.BeamBuild/Erlang.BeamBuild.csproj" ReferenceOutputAssembly="false" Private="false" />
+    <ErlangBeamSource Include="Source/resource378.erl" Module="resource378" />
+    <ErlangBeamApplication Include="Resources/app/beam_resource378.app.src" ApplicationName="beam_resource378" Version="0.1.0" />
+    <ErlangBeamPriv Include="Resources/app/priv/message.txt" LogicalPath="message.txt" />
+    <ErlangBeamConfiguration Include="Resources/config/base.config" LogicalPath="base.config" />
+    <ErlangBeamConfiguration Include="Resources/config/overlay.config" LogicalPath="overlay.config" />
+  </ItemGroup>
+  <Import Project="$(RepositoryRoot)/build/Erlang.Net.targets" />
+</Project>

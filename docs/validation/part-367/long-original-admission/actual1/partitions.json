@@ -1,0 +1,1718 @@
+{
+  "Status": "PASS_PASSIVE_QUEUE_LONG11_55_NATIVE_UNIQUE_PARTITIONS",
+  "Values": 11,
+  "StackProfiles": 55,
+  "Groups": [
+    {
+      "Id": "reverse_direct",
+      "Names": [
+        "reverse_64017",
+        "reverse_256017"
+      ],
+      "NamedValues": 2,
+      "StackProfiles": 10,
+      "ReturnedSha256": "6C6213BE5E3CC9301EFCF01DD11EF063E02ED32232CCDE4A164B1426DF28B963",
+      "StacksSha256": "E3C7F3D56C06F27A6373CB99B32793A6A06D56ECF5AA3952C0259981860CCDF5",
+      "StacksBytes": 7997369
+    },
+    {
+      "Id": "queue_to_list",
+      "Names": [
+        "to_list_rear_64017",
+        "to_list_rear_256017"
+      ],
+      "NamedValues": 2,
+      "StackProfiles": 10,
+      "ReturnedSha256": "0123FB6A03CA84FAEFAFD390C1C307B9613FFAA2194F2669E75AC19B48AB6EBB",
+      "StacksSha256": "793B2088455342347488D38238584CAE14FD133145DB0E17D26AB871C4C6AC81",
+      "StacksBytes": 7997203
+    },
+    {
+      "Id": "queue_out",
+      "Names": [
+        "out_rear_64017",
+        "out_rear_256017"
+      ],
+      "NamedValues": 2,
+      "StackProfiles": 10,
+      "ReturnedSha256": "C4D23965A815134FC0A3A179EE3FB5767FF423165933CC117D9B77A8269C2509",
+      "StacksSha256": "D394E82163C5A9FA1D8AC5478F13537AF923727DEBB6E19F720DE2F831839D81",
+      "StacksBytes": 7997157
+    },
+    {
+      "Id": "trap_controls",
+      "Names": [
+        "short_reverse_direct",
+        "short_reverse_rear",
+        "long_append_64017",
+        "long_length_64017",
+        "long_from_list_64017"
+      ],
+      "NamedValues": 5,
+      "StackProfiles": 25,
+      "ReturnedSha256": "166ECFAF93C40AA4A1C0E7FE39D95E2F9081306DB423DE38978FC4DDD0657214",
+      "StacksSha256": "EFFF646AA1F3388CCFD98EA032BBC22A326A4EF4625B1D42E9040C8316DDA60A",
+      "StacksBytes": 4799942
+    }
+  ],
+  "OriginalOnlyDependencyControls": [
+    "reverse_64017",
+    "reverse_256017",
+    "short_reverse_direct"
+  ],
+  "ReverseStateObservations": [
+    {
+      "Group": "reverse_direct",
+      "Name": "reverse_64017",
+      "Depth": "default",
+      "Length": 64017,
+      "K": 0,
+      "Remaining": 64017,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": false,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "probe",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "capture",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^0/1-0-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "stack_names",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "proplists_observation_worker",
+          "Function": "worker",
+          "ArgumentKind": "integer"
+        }
+      ]
+    },
+    {
+      "Group": "reverse_direct",
+      "Name": "reverse_256017",
+      "Depth": "default",
+      "Length": 256017,
+      "K": 239940,
+      "Remaining": 16077,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": true,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "probe",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "capture",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^0/1-0-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^0/1-0-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "stack_names",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "proplists_observation_worker",
+          "Function": "worker",
+          "ArgumentKind": "integer"
+        }
+      ]
+    },
+    {
+      "Group": "reverse_direct",
+      "Name": "reverse_64017",
+      "Depth": 0,
+      "Length": 64017,
+      "K": 0,
+      "Remaining": 64017,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": false,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        }
+      ]
+    },
+    {
+      "Group": "reverse_direct",
+      "Name": "reverse_256017",
+      "Depth": 0,
+      "Length": 256017,
+      "K": 98880,
+      "Remaining": 157137,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": true,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        }
+      ]
+    },
+    {
+      "Group": "reverse_direct",
+      "Name": "reverse_64017",
+      "Depth": 1,
+      "Length": 64017,
+      "K": 0,
+      "Remaining": 64017,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": false,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        }
+      ]
+    },
+    {
+      "Group": "reverse_direct",
+      "Name": "reverse_256017",
+      "Depth": 1,
+      "Length": 256017,
+      "K": 239940,
+      "Remaining": 16077,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": true,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        }
+      ]
+    },
+    {
+      "Group": "reverse_direct",
+      "Name": "reverse_64017",
+      "Depth": 2,
+      "Length": 64017,
+      "K": 0,
+      "Remaining": 64017,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": false,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "probe",
+          "ArgumentKind": "integer"
+        }
+      ]
+    },
+    {
+      "Group": "reverse_direct",
+      "Name": "reverse_256017",
+      "Depth": 2,
+      "Length": 256017,
+      "K": 239940,
+      "Remaining": 16077,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": true,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "probe",
+          "ArgumentKind": "integer"
+        }
+      ]
+    },
+    {
+      "Group": "reverse_direct",
+      "Name": "reverse_64017",
+      "Depth": 8,
+      "Length": 64017,
+      "K": 0,
+      "Remaining": 64017,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": false,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "probe",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "capture",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "at_depth",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^1/1-1-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^1/1-1-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "stack_names",
+          "ArgumentKind": "integer"
+        }
+      ]
+    },
+    {
+      "Group": "reverse_direct",
+      "Name": "reverse_256017",
+      "Depth": 8,
+      "Length": 256017,
+      "K": 239940,
+      "Remaining": 16077,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": true,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "probe",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "capture",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "at_depth",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^1/1-1-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^1/1-1-",
+          "ArgumentKind": "integer"
+        }
+      ]
+    },
+    {
+      "Group": "queue_to_list",
+      "Name": "to_list_rear_64017",
+      "Depth": "default",
+      "Length": 64017,
+      "K": 0,
+      "Remaining": 64017,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": false,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        },
+        {
+          "Module": "queue",
+          "Function": "to_list",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "capture",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^0/1-0-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "stack_names",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "proplists_observation_worker",
+          "Function": "worker",
+          "ArgumentKind": "integer"
+        }
+      ]
+    },
+    {
+      "Group": "queue_to_list",
+      "Name": "to_list_rear_256017",
+      "Depth": "default",
+      "Length": 256017,
+      "K": 239880,
+      "Remaining": 16137,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": true,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        },
+        {
+          "Module": "queue",
+          "Function": "to_list",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "capture",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^0/1-0-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^0/1-0-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "stack_names",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "proplists_observation_worker",
+          "Function": "worker",
+          "ArgumentKind": "integer"
+        }
+      ]
+    },
+    {
+      "Group": "queue_to_list",
+      "Name": "to_list_rear_64017",
+      "Depth": 0,
+      "Length": 64017,
+      "K": 0,
+      "Remaining": 64017,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": false,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        }
+      ]
+    },
+    {
+      "Group": "queue_to_list",
+      "Name": "to_list_rear_256017",
+      "Depth": 0,
+      "Length": 256017,
+      "K": 74370,
+      "Remaining": 181647,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": true,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        }
+      ]
+    },
+    {
+      "Group": "queue_to_list",
+      "Name": "to_list_rear_64017",
+      "Depth": 1,
+      "Length": 64017,
+      "K": 0,
+      "Remaining": 64017,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": false,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        }
+      ]
+    },
+    {
+      "Group": "queue_to_list",
+      "Name": "to_list_rear_256017",
+      "Depth": 1,
+      "Length": 256017,
+      "K": 239880,
+      "Remaining": 16137,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": true,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        }
+      ]
+    },
+    {
+      "Group": "queue_to_list",
+      "Name": "to_list_rear_64017",
+      "Depth": 2,
+      "Length": 64017,
+      "K": 0,
+      "Remaining": 64017,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": false,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        },
+        {
+          "Module": "queue",
+          "Function": "to_list",
+          "ArgumentKind": "integer"
+        }
+      ]
+    },
+    {
+      "Group": "queue_to_list",
+      "Name": "to_list_rear_256017",
+      "Depth": 2,
+      "Length": 256017,
+      "K": 239880,
+      "Remaining": 16137,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": true,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        },
+        {
+          "Module": "queue",
+          "Function": "to_list",
+          "ArgumentKind": "integer"
+        }
+      ]
+    },
+    {
+      "Group": "queue_to_list",
+      "Name": "to_list_rear_64017",
+      "Depth": 8,
+      "Length": 64017,
+      "K": 0,
+      "Remaining": 64017,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": false,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        },
+        {
+          "Module": "queue",
+          "Function": "to_list",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "capture",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "at_depth",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^1/1-1-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^1/1-1-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "stack_names",
+          "ArgumentKind": "integer"
+        }
+      ]
+    },
+    {
+      "Group": "queue_to_list",
+      "Name": "to_list_rear_256017",
+      "Depth": 8,
+      "Length": 256017,
+      "K": 215100,
+      "Remaining": 40917,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": true,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        },
+        {
+          "Module": "queue",
+          "Function": "to_list",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "capture",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "at_depth",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^1/1-1-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^1/1-1-",
+          "ArgumentKind": "integer"
+        }
+      ]
+    },
+    {
+      "Group": "queue_out",
+      "Name": "out_rear_64017",
+      "Depth": "default",
+      "Length": 64017,
+      "K": 0,
+      "Remaining": 64017,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": false,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        },
+        {
+          "Module": "queue",
+          "Function": "out",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "capture",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^0/1-0-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "stack_names",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "proplists_observation_worker",
+          "Function": "worker",
+          "ArgumentKind": "integer"
+        }
+      ]
+    },
+    {
+      "Group": "queue_out",
+      "Name": "out_rear_256017",
+      "Depth": "default",
+      "Length": 256017,
+      "K": 239880,
+      "Remaining": 16137,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": true,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        },
+        {
+          "Module": "queue",
+          "Function": "out",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "capture",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^0/1-0-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^0/1-0-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "stack_names",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "proplists_observation_worker",
+          "Function": "worker",
+          "ArgumentKind": "integer"
+        }
+      ]
+    },
+    {
+      "Group": "queue_out",
+      "Name": "out_rear_64017",
+      "Depth": 0,
+      "Length": 64017,
+      "K": 0,
+      "Remaining": 64017,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": false,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        }
+      ]
+    },
+    {
+      "Group": "queue_out",
+      "Name": "out_rear_256017",
+      "Depth": 0,
+      "Length": 256017,
+      "K": 74369,
+      "Remaining": 181648,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": true,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        }
+      ]
+    },
+    {
+      "Group": "queue_out",
+      "Name": "out_rear_64017",
+      "Depth": 1,
+      "Length": 64017,
+      "K": 0,
+      "Remaining": 64017,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": false,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        }
+      ]
+    },
+    {
+      "Group": "queue_out",
+      "Name": "out_rear_256017",
+      "Depth": 1,
+      "Length": 256017,
+      "K": 239880,
+      "Remaining": 16137,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": true,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        }
+      ]
+    },
+    {
+      "Group": "queue_out",
+      "Name": "out_rear_64017",
+      "Depth": 2,
+      "Length": 64017,
+      "K": 0,
+      "Remaining": 64017,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": false,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        },
+        {
+          "Module": "queue",
+          "Function": "out",
+          "ArgumentKind": "integer"
+        }
+      ]
+    },
+    {
+      "Group": "queue_out",
+      "Name": "out_rear_256017",
+      "Depth": 2,
+      "Length": 256017,
+      "K": 239880,
+      "Remaining": 16137,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": true,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        },
+        {
+          "Module": "queue",
+          "Function": "out",
+          "ArgumentKind": "integer"
+        }
+      ]
+    },
+    {
+      "Group": "queue_out",
+      "Name": "out_rear_64017",
+      "Depth": 8,
+      "Length": 64017,
+      "K": 0,
+      "Remaining": 64017,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": false,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        },
+        {
+          "Module": "queue",
+          "Function": "out",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "capture",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "at_depth",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^1/1-1-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^1/1-1-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "stack_names",
+          "ArgumentKind": "integer"
+        }
+      ]
+    },
+    {
+      "Group": "queue_out",
+      "Name": "out_rear_256017",
+      "Depth": 8,
+      "Length": 256017,
+      "K": 215040,
+      "Remaining": 40977,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": true,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        },
+        {
+          "Module": "queue",
+          "Function": "out",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "capture",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "at_depth",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^1/1-1-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^1/1-1-",
+          "ArgumentKind": "integer"
+        }
+      ]
+    },
+    {
+      "Group": "trap_controls",
+      "Name": "short_reverse_direct",
+      "Depth": "default",
+      "Length": 3,
+      "K": 0,
+      "Remaining": 3,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": false,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "probe",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "capture",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^0/1-0-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "stack_names",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "proplists_observation_worker",
+          "Function": "worker",
+          "ArgumentKind": "integer"
+        }
+      ]
+    },
+    {
+      "Group": "trap_controls",
+      "Name": "short_reverse_rear",
+      "Depth": "default",
+      "Length": 3,
+      "K": 0,
+      "Remaining": 3,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": false,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        },
+        {
+          "Module": "queue",
+          "Function": "to_list",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "capture",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^0/1-0-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^0/1-0-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "stack_names",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "proplists_observation_worker",
+          "Function": "worker",
+          "ArgumentKind": "integer"
+        }
+      ]
+    },
+    {
+      "Group": "trap_controls",
+      "Name": "short_reverse_direct",
+      "Depth": 0,
+      "Length": 3,
+      "K": 0,
+      "Remaining": 3,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": false,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        }
+      ]
+    },
+    {
+      "Group": "trap_controls",
+      "Name": "short_reverse_rear",
+      "Depth": 0,
+      "Length": 3,
+      "K": 0,
+      "Remaining": 3,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": false,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        }
+      ]
+    },
+    {
+      "Group": "trap_controls",
+      "Name": "short_reverse_direct",
+      "Depth": 1,
+      "Length": 3,
+      "K": 0,
+      "Remaining": 3,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": false,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        }
+      ]
+    },
+    {
+      "Group": "trap_controls",
+      "Name": "short_reverse_rear",
+      "Depth": 1,
+      "Length": 3,
+      "K": 0,
+      "Remaining": 3,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": false,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        }
+      ]
+    },
+    {
+      "Group": "trap_controls",
+      "Name": "short_reverse_direct",
+      "Depth": 2,
+      "Length": 3,
+      "K": 0,
+      "Remaining": 3,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": false,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "probe",
+          "ArgumentKind": "integer"
+        }
+      ]
+    },
+    {
+      "Group": "trap_controls",
+      "Name": "short_reverse_rear",
+      "Depth": 2,
+      "Length": 3,
+      "K": 0,
+      "Remaining": 3,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": false,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        },
+        {
+          "Module": "queue",
+          "Function": "to_list",
+          "ArgumentKind": "integer"
+        }
+      ]
+    },
+    {
+      "Group": "trap_controls",
+      "Name": "short_reverse_direct",
+      "Depth": 8,
+      "Length": 3,
+      "K": 0,
+      "Remaining": 3,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": false,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "probe",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "capture",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "at_depth",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^1/1-1-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^1/1-1-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "stack_names",
+          "ArgumentKind": "integer"
+        }
+      ]
+    },
+    {
+      "Group": "trap_controls",
+      "Name": "short_reverse_rear",
+      "Depth": 8,
+      "Length": 3,
+      "K": 0,
+      "Remaining": 3,
+      "EveryIntegerAndTailExact": true,
+      "NativeNonzero": false,
+      "Frames": [
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "ArgumentKind": "list"
+        },
+        {
+          "Module": "queue",
+          "Function": "to_list",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "capture",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "at_depth",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^1/1-1-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^1/1-1-",
+          "ArgumentKind": "integer"
+        }
+      ]
+    }
+  ],
+  "OtherControlObservations": [
+    {
+      "Group": "trap_controls",
+      "Name": "long_append_64017",
+      "Depth": "default",
+      "Frames": [
+        {
+          "Module": "erlang",
+          "Function": "++",
+          "ArgumentKind": "list"
+        },
+        {
+          "Module": "queue",
+          "Function": "to_list",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "capture",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^0/1-0-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^0/1-0-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "stack_names",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "proplists_observation_worker",
+          "Function": "worker",
+          "ArgumentKind": "integer"
+        }
+      ],
+      "FullRawClassReasonArgumentsLocationsRetained": true
+    },
+    {
+      "Group": "trap_controls",
+      "Name": "long_length_64017",
+      "Depth": "default",
+      "Frames": [
+        {
+          "Module": "erlang",
+          "Function": "length",
+          "ArgumentKind": "list"
+        },
+        {
+          "Module": "queue",
+          "Function": "len",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "capture",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^0/1-0-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^0/1-0-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "stack_names",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "proplists_observation_worker",
+          "Function": "worker",
+          "ArgumentKind": "integer"
+        }
+      ],
+      "FullRawClassReasonArgumentsLocationsRetained": true
+    },
+    {
+      "Group": "trap_controls",
+      "Name": "long_from_list_64017",
+      "Depth": "default",
+      "Frames": [
+        {
+          "Module": "erlang",
+          "Function": "length",
+          "ArgumentKind": "list"
+        },
+        {
+          "Module": "queue",
+          "Function": "from_list",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "capture",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^0/1-0-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^0/1-0-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "stack_names",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "proplists_observation_worker",
+          "Function": "worker",
+          "ArgumentKind": "integer"
+        }
+      ],
+      "FullRawClassReasonArgumentsLocationsRetained": true
+    },
+    {
+      "Group": "trap_controls",
+      "Name": "long_append_64017",
+      "Depth": 0,
+      "Frames": [
+        {
+          "Module": "erlang",
+          "Function": "++",
+          "ArgumentKind": "list"
+        }
+      ],
+      "FullRawClassReasonArgumentsLocationsRetained": true
+    },
+    {
+      "Group": "trap_controls",
+      "Name": "long_length_64017",
+      "Depth": 0,
+      "Frames": [
+        {
+          "Module": "erlang",
+          "Function": "length",
+          "ArgumentKind": "list"
+        }
+      ],
+      "FullRawClassReasonArgumentsLocationsRetained": true
+    },
+    {
+      "Group": "trap_controls",
+      "Name": "long_from_list_64017",
+      "Depth": 0,
+      "Frames": [
+        {
+          "Module": "erlang",
+          "Function": "length",
+          "ArgumentKind": "list"
+        }
+      ],
+      "FullRawClassReasonArgumentsLocationsRetained": true
+    },
+    {
+      "Group": "trap_controls",
+      "Name": "long_append_64017",
+      "Depth": 1,
+      "Frames": [
+        {
+          "Module": "erlang",
+          "Function": "++",
+          "ArgumentKind": "list"
+        }
+      ],
+      "FullRawClassReasonArgumentsLocationsRetained": true
+    },
+    {
+      "Group": "trap_controls",
+      "Name": "long_length_64017",
+      "Depth": 1,
+      "Frames": [
+        {
+          "Module": "erlang",
+          "Function": "length",
+          "ArgumentKind": "list"
+        }
+      ],
+      "FullRawClassReasonArgumentsLocationsRetained": true
+    },
+    {
+      "Group": "trap_controls",
+      "Name": "long_from_list_64017",
+      "Depth": 1,
+      "Frames": [
+        {
+          "Module": "erlang",
+          "Function": "length",
+          "ArgumentKind": "list"
+        }
+      ],
+      "FullRawClassReasonArgumentsLocationsRetained": true
+    },
+    {
+      "Group": "trap_controls",
+      "Name": "long_append_64017",
+      "Depth": 2,
+      "Frames": [
+        {
+          "Module": "erlang",
+          "Function": "++",
+          "ArgumentKind": "list"
+        },
+        {
+          "Module": "queue",
+          "Function": "to_list",
+          "ArgumentKind": "integer"
+        }
+      ],
+      "FullRawClassReasonArgumentsLocationsRetained": true
+    },
+    {
+      "Group": "trap_controls",
+      "Name": "long_length_64017",
+      "Depth": 2,
+      "Frames": [
+        {
+          "Module": "erlang",
+          "Function": "length",
+          "ArgumentKind": "list"
+        },
+        {
+          "Module": "queue",
+          "Function": "len",
+          "ArgumentKind": "integer"
+        }
+      ],
+      "FullRawClassReasonArgumentsLocationsRetained": true
+    },
+    {
+      "Group": "trap_controls",
+      "Name": "long_from_list_64017",
+      "Depth": 2,
+      "Frames": [
+        {
+          "Module": "erlang",
+          "Function": "length",
+          "ArgumentKind": "list"
+        },
+        {
+          "Module": "queue",
+          "Function": "from_list",
+          "ArgumentKind": "integer"
+        }
+      ],
+      "FullRawClassReasonArgumentsLocationsRetained": true
+    },
+    {
+      "Group": "trap_controls",
+      "Name": "long_append_64017",
+      "Depth": 8,
+      "Frames": [
+        {
+          "Module": "erlang",
+          "Function": "++",
+          "ArgumentKind": "list"
+        },
+        {
+          "Module": "queue",
+          "Function": "to_list",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "capture",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "at_depth",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^1/1-1-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^1/1-1-",
+          "ArgumentKind": "integer"
+        }
+      ],
+      "FullRawClassReasonArgumentsLocationsRetained": true
+    },
+    {
+      "Group": "trap_controls",
+      "Name": "long_length_64017",
+      "Depth": 8,
+      "Frames": [
+        {
+          "Module": "erlang",
+          "Function": "length",
+          "ArgumentKind": "list"
+        },
+        {
+          "Module": "queue",
+          "Function": "len",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "capture",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "at_depth",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^1/1-1-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^1/1-1-",
+          "ArgumentKind": "integer"
+        }
+      ],
+      "FullRawClassReasonArgumentsLocationsRetained": true
+    },
+    {
+      "Group": "trap_controls",
+      "Name": "long_from_list_64017",
+      "Depth": 8,
+      "Frames": [
+        {
+          "Module": "erlang",
+          "Function": "length",
+          "ArgumentKind": "list"
+        },
+        {
+          "Module": "queue",
+          "Function": "from_list",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "capture",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-at_depth/2-lc$^0/1-0-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "at_depth",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^1/1-1-",
+          "ArgumentKind": "integer"
+        },
+        {
+          "Module": "queue_long_trap_contract",
+          "Function": "-stack_names/1-lc$^1/1-1-",
+          "ArgumentKind": "integer"
+        }
+      ],
+      "FullRawClassReasonArgumentsLocationsRetained": true
+    }
+  ],
+  "NonzeroNativePartitions": 15,
+  "ObservedKValues": [
+    0,
+    74369,
+    74370,
+    98880,
+    215040,
+    215100,
+    239880,
+    239940
+  ],
+  "DiagnosticPredictionCorrection": "64017 may remain k0; source-proposal nonzero-per-case prediction was not an acceptance rule. Actual256017 nonzero required and proved in all3routes.",
+  "EverySavedListTailElementVerified": true,
+  "FramesDropped": 0,
+  "ArgumentsReplaced": false,
+  "NativePartitionInjected": false,
+  "OwnRuntimePartitionEqualityRequired": false,
+  "FullRawCapturePreserved": true,
+  "DownloadedCodeExecuted": false,
+  "SdkComparisonClaim": false,
+  "DecoderSha256": "2A7CE62661669FA91D03A0231D0911FEDACAB6C37B0D2FBE76F2DA325726A519",
+  "DecoderLimits": {
+    "Terms": 8000000,
+    "Bytes": 16777216,
+    "Depth": 128
+  }
+}

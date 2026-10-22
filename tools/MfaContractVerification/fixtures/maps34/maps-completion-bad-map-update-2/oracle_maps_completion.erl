@@ -1,0 +1,1 @@
+-module(oracle_maps_completion). -export([run/0]). run()->try maps:update(k,v,wrong) of _->unexpected catch error:{badmap,wrong}->ok end,done.

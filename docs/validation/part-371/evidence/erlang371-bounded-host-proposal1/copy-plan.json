@@ -1,0 +1,36 @@
+{
+  "Files": [
+    {
+      "Source": "artifacts/erlang371-bounded-host-proposal1/source/tests/Erlang.Tests/BoundedBifHostChecks.cs",
+      "Destination": "tests/Erlang.Tests/BoundedBifHostChecks.cs",
+      "Sha256": "C531AFF7266DEC8CD60FE6F9F1424E297B13FCF41E0E981055FF900FF9FE75CC",
+      "Bytes": 4827
+    },
+    {
+      "Source": "artifacts/erlang371-bounded-host-proposal1/source/tests/Erlang.Tests/BoundedBifHostNames.cs",
+      "Destination": "tests/Erlang.Tests/BoundedBifHostNames.cs",
+      "Sha256": "7D958A431A6778986B98E78E5F48A7AD0E6F9D1A6D0EAF0FC7825B7E87261305",
+      "Bytes": 1651
+    },
+    {
+      "Source": "artifacts/erlang371-bounded-host-proposal1/source/tests/Erlang.Tests/Resources/Erlang371/bounded_bif_contract.erl",
+      "Destination": "tests/Erlang.Tests/Resources/Erlang371/bounded_bif_contract.erl",
+      "Sha256": "FD11F8A7221F9FBA5630F1358BDF8FADDE0347FDF2CE0B572DBABEB2A9A555E9",
+      "Bytes": 1956
+    }
+  ],
+  "Edits": [
+    {
+      "File": "tests/Erlang.Tests/Program.cs",
+      "AppendBefore": "catalog snapshot",
+      "Insert": "Test(Erlang.Tests.BoundedBifHostNames.TestName, Erlang.Tests.BoundedBifHostChecks.Run);"
+    },
+    {
+      "File": "tests/Erlang.Tests/Erlang.Tests.csproj",
+      "Insert": "<EmbeddedResource Include=\"Resources/Erlang371/bounded_bif_contract.erl\" />"
+    }
+  ],
+  "NoMainEditsByHelper": true,
+  "NoBuildByHelper": true,
+  "NoOriginalExecutionCredit": true
+}

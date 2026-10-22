@@ -80,7 +80,7 @@ internal static class NifNativeTypeCallbacks
                 NifNativeTypeKind.List => term is Cons or Nil,
                 NifNativeTypeKind.Tuple => term is TupleTerm,
                 NifNativeTypeKind.Number => term is Integer or FloatTerm,
-                NifNativeTypeKind.Map => term is MapTerm,
+                NifNativeTypeKind.Map => term is MapTerm or HamtBitmapTerm429,
                 _ => false
             };
 

@@ -1,6 +1,6 @@
 namespace Erlang;
 
-public sealed class PreparedBeamImage
+public sealed partial class PreparedBeamImage : ISourceLocalFunctionResolver
 {
     internal PreparedBeamImage(
         ModuleRegistry owner,
@@ -13,17 +13,18 @@ public sealed class PreparedBeamImage
         Descriptor = metadata.Descriptor;
         AttributeProvenance = metadata.Attributes;
         CompilationProvenance = metadata.Compilation;
-        ExecutionIdentity = new(new ModuleCodeImage(Name, this), this);
+        ExecutionIdentity = new(new ModuleCodeImage(Name, this), this)
+        {
+            NativePrimitives = owner.CaptureBeamPrimitives(code)
+        };
         Bodies = Array.AsReadOnly(ObservedPayloadStorage.Code(code.Exports.Select<BeamLinkedFunction, ErlangFunction>(function =>
-            BeamGeneratedMetadata.IsGenerated(code, function)
-                ? (context, arguments) => BeamGeneratedMetadata.Invoke(context, function.Module, arguments)
-                : (context, arguments) => BeamRegisterInterpreter.Execute(
-                    context,
-                    code,
-                    function.Name,
-                    Array.AsReadOnly(arguments.ToArray()),
-                    ExecutionIdentity
-                )
+            (context, arguments) => BeamRegisterInterpreter.Execute(
+                context,
+                code,
+                function.Name,
+                Array.AsReadOnly(arguments.ToArray()),
+                ExecutionIdentity
+            )
         ).ToArray()));
     }
 
@@ -53,6 +54,10 @@ public sealed class PreparedBeamImage
         get; set;
     }
     public bool HasOnLoad => Code.OnLoadEntryLabel is not null;
+    public IReadOnlySet<string> RegistryModuleDependencies => Code.RegistryModuleDependencies;
+    public IReadOnlyList<BeamFunctionSignature> NativePrimitiveExports => Array.AsReadOnly(
+        ExecutionIdentity.NativePrimitives.Keys.Select(key => new BeamFunctionSignature(key.Function, key.Arity)).ToArray()
+    );
     public string Name => Code.Structure.Atoms[1]!;
     public BitString NativeMd5 => Descriptor.Fingerprint;
     public Term Attributes => Descriptor.Attributes!;

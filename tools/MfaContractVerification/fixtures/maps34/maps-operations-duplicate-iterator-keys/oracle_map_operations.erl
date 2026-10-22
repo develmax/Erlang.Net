@@ -1,0 +1,1 @@
+-module(oracle_map_operations). -export([run/0]). -compile(no_ssa_opt). run()->put(counter,0),#{a:=2}=maps:map(fun(_,_)->V=get(counter)+1,put(counter,V),V end,[ [a,a] | #{a=>old} ]),done.

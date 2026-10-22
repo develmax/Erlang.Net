@@ -1,0 +1,16 @@
+--- src/Erlang.Compiler/Expr.cs
++++ src/Erlang.Compiler/Expr.cs
+@@ -35,6 +35,13 @@
+     public sealed record Call(string? Module, string Function, IReadOnlyList<Expr> Arguments) : Expr
+     {
+         public int SourceLine { get; init; }
++        public bool CanDiscardBifContinuation { get; internal set; }
++
++        public Call(string? module, string function, IReadOnlyList<Expr> arguments, bool canDiscardBifContinuation)
++            : this(module, function, arguments)
++        {
++            CanDiscardBifContinuation = canDiscardBifContinuation;
++        }
+     }
+     public sealed record Apply(Expr Function, IReadOnlyList<Expr> Arguments) : Expr
+     {

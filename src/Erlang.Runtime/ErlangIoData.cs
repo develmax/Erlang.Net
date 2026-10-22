@@ -145,15 +145,17 @@ internal static class ErlangIoData
 
     public static Term Part(Term binary, Term position, Term length)
     {
-        byte[] bytes = Binary(binary);
+        BitString bits = Bits(binary);
+        if (!bits.IsBinary)
+            throw new ErlangException(ErlangErrorReasons.BadArgument);
         if (position is not Integer start || length is not Integer count || start.Value < 0)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
         BigInteger offset = count.Value < 0 ? start.Value + count.Value : start.Value;
         BigInteger size = BigInteger.Abs(count.Value);
-        if (offset < 0 || offset + size > bytes.Length)
+        if (offset < 0 || offset + size > bits.ByteLength)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
 
-        return new BitString(bytes.AsSpan((int)offset, (int)size));
+        return bits.SliceBits((int)offset * ErlangDataLimits.BitsPerByte, (int)size * ErlangDataLimits.BitsPerByte);
     }
 
     public static Term Split(Term value, Term offset)
@@ -162,11 +164,10 @@ internal static class ErlangIoData
         if (offset is not Integer index || index.Value < 0 || index.Value > bits.BitLength / ErlangDataLimits.BitsPerByte)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
         int position = (int)index.Value;
-        byte[] bytes = bits.ToArray();
 
         return Term.Tuple(
-            new BitString(bytes.AsSpan(0, position)),
-            new BitString(bytes.AsSpan(position), bits.BitLength - position * ErlangDataLimits.BitsPerByte)
+            bits.SliceBits(0, position * ErlangDataLimits.BitsPerByte),
+            bits.SliceBits(position * ErlangDataLimits.BitsPerByte, bits.BitLength - position * ErlangDataLimits.BitsPerByte)
         );
     }
 }

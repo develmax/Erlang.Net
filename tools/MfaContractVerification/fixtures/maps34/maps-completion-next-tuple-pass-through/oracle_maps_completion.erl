@@ -1,0 +1,1 @@
+-module(oracle_maps_completion). -export([run/0]). run()->T={a,b,wrong},T=maps:next(T),false=maps:is_iterator_valid(T),none=maps:next(none),done.

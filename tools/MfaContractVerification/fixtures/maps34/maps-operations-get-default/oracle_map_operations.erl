@@ -1,0 +1,1 @@
+-module(oracle_map_operations). -export([run/0]). run()->missing=maps:get(absent,#{},missing),value=maps:get(key,#{key=>value},missing),done.

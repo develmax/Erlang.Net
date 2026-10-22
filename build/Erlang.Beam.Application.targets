@@ -1,0 +1,49 @@
+<Project>
+  <PropertyGroup><_ErlangBeamApplicationTargetsImported>true</_ErlangBeamApplicationTargetsImported></PropertyGroup>
+  <!-- Import after both retained and source targets. No application item means this route is inactive. -->
+  <UsingTask TaskName="Erlang.BeamBuild.BeamApplicationBuildTask" AssemblyFile="$(ErlangBeamBuildToolPath)" />
+  <Target Name="ErlangBeamApplicationAdmission" BeforeTargets="PrepareForBuild" Condition="'@(ErlangBeamApplication)' != ''">
+    <Error Condition="'@(ErlangBeamApplication->Count())' != '1'" Text="Application resource packaging V1 requires exactly one explicit .app or concrete .app.src descriptor." />
+    <Error Condition="'$(ErlangBeamApplicationSourceRoot)' == '' or '$(ErlangBeamInstalledRoot)' == '' or '$(ErlangBeamProvenanceKind)' == '' or '$(ErlangBeamAdmissionReceipt)' == '' or '$(ErlangBeamAdmissionReceiptSha256)' == '' or '$(ErlangBeamCompilerSha256)' == '' or '$(ErlangBeamRuntimeSha256)' == '' or '$(ErlangBeamDotNetHost)' == ''" Text="Application packaging requires explicit source root and admitted compiler/runtime properties; no PATH, controller or environment fallback." />
+  </Target>
+  <Target Name="ErlangBeamPackageApplication" BeforeTargets="AssignTargetPaths"
+          DependsOnTargets="ErlangBeamCompileSources;ErlangBeamCollect;ErlangBeamApplicationAdmission"
+          Condition="'@(ErlangBeamApplication)' != ''">
+    <Error Condition="!Exists('$(ErlangBeamBuildToolPath)')" Text="Configure the admitted BEAM build tool before application packaging." />
+    <PropertyGroup>
+      <ErlangBeamApplicationOutputDirectory Condition="'$(ErlangBeamApplicationOutputDirectory)' == ''">$([System.IO.Path]::GetFullPath('$(IntermediateOutputPath)beam-application', '$(MSBuildProjectDirectory)'))</ErlangBeamApplicationOutputDirectory>
+    </PropertyGroup>
+    <!-- Use the SAME SDK task as AssignTargetPaths before final assignment; Link alone misses inferred targets. -->
+    <AssignTargetPath Files="@(None)" RootFolder="$(MSBuildProjectDirectory)">
+      <Output TaskParameter="AssignedFiles" ItemName="_ErlangApplicationComputedNone" />
+    </AssignTargetPath>
+    <AssignTargetPath Files="@(Content)" RootFolder="$(MSBuildProjectDirectory)">
+      <Output TaskParameter="AssignedFiles" ItemName="_ErlangApplicationComputedContent" />
+    </AssignTargetPath>
+    <ItemGroup>
+      <_ErlangApplicationCopyItems Include="@(_ErlangApplicationComputedNone)"
+          Condition="('%(_ErlangApplicationComputedNone.CopyToOutputDirectory)' != '' and '%(_ErlangApplicationComputedNone.CopyToOutputDirectory)' != 'Never') or ('%(_ErlangApplicationComputedNone.CopyToPublishDirectory)' != '' and '%(_ErlangApplicationComputedNone.CopyToPublishDirectory)' != 'Never')" />
+      <_ErlangApplicationCopyItems Include="@(_ErlangApplicationComputedContent)"
+          Condition="('%(_ErlangApplicationComputedContent.CopyToOutputDirectory)' != '' and '%(_ErlangApplicationComputedContent.CopyToOutputDirectory)' != 'Never') or ('%(_ErlangApplicationComputedContent.CopyToPublishDirectory)' != '' and '%(_ErlangApplicationComputedContent.CopyToPublishDirectory)' != 'Never')" />
+    </ItemGroup>
+    <Erlang.BeamBuild.BeamApplicationBuildTask
+        Applications="@(ErlangBeamApplication)" Modules="@(ErlangBeam)"
+        Priv="@(ErlangBeamPriv)" Configuration="@(ErlangBeamConfiguration)"
+        RawNone="@(None)" RawContent="@(Content)" ComputedCopyItems="@(_ErlangApplicationCopyItems)"
+        InstalledRoot="$(ErlangBeamInstalledRoot)" ProvenanceKind="$(ErlangBeamProvenanceKind)"
+        AdmissionReceipt="$(ErlangBeamAdmissionReceipt)" AdmissionReceiptSha256="$(ErlangBeamAdmissionReceiptSha256)"
+        CompilerSha256="$(ErlangBeamCompilerSha256)" RuntimeSha256="$(ErlangBeamRuntimeSha256)"
+        SourceRoot="$(ErlangBeamApplicationSourceRoot)" OutputDirectory="$(ErlangBeamApplicationOutputDirectory)"
+        DotNetHost="$(ErlangBeamDotNetHost)" ToolAssemblyPath="$([System.IO.Path]::GetFullPath('$(ErlangBeamBuildToolPath)'))">
+      <Output TaskParameter="AppFiles" ItemName="_ErlangApplicationFiles" />
+      <Output TaskParameter="OriginalInputs" ItemName="_ErlangApplicationOriginalInputs" />
+      <Output TaskParameter="ModulesToRelocate" ItemName="_ErlangApplicationModulesToRelocate" />
+    </Erlang.BeamBuild.BeamApplicationBuildTask>
+    <ItemGroup>
+      <!-- Exact FullPath identity only: remove verified module/resource originals, never unrelated None entries. -->
+      <None Remove="@(_ErlangApplicationOriginalInputs)" MatchOnMetadata="FullPath" MatchOnMetadataOptions="PathLike" />
+      <None Include="@(_ErlangApplicationFiles)" />
+      <FileWrites Include="@(_ErlangApplicationFiles);$(ErlangBeamApplicationOutputDirectory)/beam-application-state.json" />
+    </ItemGroup>
+  </Target>
+</Project>

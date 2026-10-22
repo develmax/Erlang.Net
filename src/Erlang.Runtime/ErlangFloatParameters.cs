@@ -3,6 +3,7 @@ namespace Erlang;
 internal static class ErlangFloatParameters
 {
     public const int OutputBufferBytes = 256;
+    public const int DefaultScientificPrecision = 6;
     public const int MaximumFixedPrecision = 253;
     public const int MaximumScientificPrecision = 249;
     public const int MaximumFastPrecision = 18;

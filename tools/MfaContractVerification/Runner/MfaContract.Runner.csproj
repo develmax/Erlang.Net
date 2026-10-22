@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType></PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Erlang.Differential"><HintPath>$(ContractLibraryDirectory)/Erlang.Differential.dll</HintPath></Reference>
+    <Reference Include="Erlang.Compiler"><HintPath>$(ContractLibraryDirectory)/Erlang.Compiler.dll</HintPath></Reference>
+    <Reference Include="Erlang.Runtime"><HintPath>$(ContractLibraryDirectory)/Erlang.Runtime.dll</HintPath></Reference>
+    <Reference Include="Erlang.Terms"><HintPath>$(ContractLibraryDirectory)/Erlang.Terms.dll</HintPath></Reference>
+    <Reference Include="Erlang.Serialization"><HintPath>$(ContractLibraryDirectory)/Erlang.Serialization.dll</HintPath></Reference>
+    <Reference Include="Erlang.Otp.Behaviours"><HintPath>$(ContractLibraryDirectory)/Erlang.Otp.Behaviours.dll</HintPath></Reference>
+    <Reference Include="Microsoft.CodeAnalysis"><HintPath>$(ContractLibraryDirectory)/Microsoft.CodeAnalysis.dll</HintPath></Reference>
+    <Reference Include="Microsoft.CodeAnalysis.CSharp"><HintPath>$(ContractLibraryDirectory)/Microsoft.CodeAnalysis.CSharp.dll</HintPath></Reference>
+  </ItemGroup>
+</Project>

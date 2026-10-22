@@ -1,0 +1,185 @@
+{
+  "Status": "FAILED_RAW_RETAINED",
+  "Phase": "local_fun_order",
+  "Error": "RuntimeError('Independent original groups failed; raw outputs retained.')",
+  "Groups": [
+    {
+      "Id": "numeric",
+      "ExpectedRows": 246,
+      "Acquired": false,
+      "VmSkipped": false,
+      "ValueAcquisition": "compiled-monitored-worker-values-and-stacks-v1",
+      "Failure": "AssertionError()"
+    },
+    {
+      "Id": "arithmetic",
+      "ExpectedRows": 314,
+      "Acquired": false,
+      "VmSkipped": false,
+      "ValueAcquisition": "compiled-monitored-worker-values-and-stacks-v1",
+      "Failure": "AssertionError()"
+    },
+    {
+      "Id": "bitwise",
+      "ExpectedRows": 204,
+      "Acquired": false,
+      "VmSkipped": false,
+      "ValueAcquisition": "compiled-monitored-worker-values-and-stacks-v1",
+      "Failure": "AssertionError()"
+    },
+    {
+      "Id": "boolean",
+      "ExpectedRows": 159,
+      "Acquired": false,
+      "VmSkipped": false,
+      "ValueAcquisition": "compiled-monitored-worker-values-and-stacks-v1",
+      "Failure": "AssertionError()"
+    },
+    {
+      "Id": "comparison",
+      "ExpectedRows": 280,
+      "Acquired": false,
+      "VmSkipped": false,
+      "ValueAcquisition": "compiled-monitored-worker-values-and-stacks-v1",
+      "Failure": "AssertionError()"
+    },
+    {
+      "Id": "size_type",
+      "ExpectedRows": 217,
+      "Acquired": false,
+      "VmSkipped": false,
+      "ValueAcquisition": "compiled-monitored-worker-values-and-stacks-v1",
+      "Failure": "AssertionError()"
+    },
+    {
+      "Id": "tuple",
+      "ExpectedRows": 157,
+      "Acquired": false,
+      "VmSkipped": false,
+      "ValueAcquisition": "compiled-monitored-worker-values-and-stacks-v1",
+      "Failure": "AssertionError()"
+    },
+    {
+      "Id": "local_fun_order",
+      "ExpectedRows": 20,
+      "Acquired": false,
+      "VmSkipped": false,
+      "ValueAcquisition": "compiled-monitored-worker-values-and-stacks-v1",
+      "Failure": "AssertionError()"
+    }
+  ],
+  "OwnedStages": [
+    {
+      "Group": "numeric",
+      "Name": "compile",
+      "ReceiptSha256": "8D9B83E40FFA11A1A5F284E6E5797CAE72864AD9E3D57A22F95C6F428E397F53",
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Group": "numeric",
+      "Name": "observe",
+      "ReceiptSha256": "6A7595982AE9472B8800686B8765A7578279ED027AB1E9F047256D7AED84B581",
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Group": "arithmetic",
+      "Name": "compile",
+      "ReceiptSha256": "9C4A63051A3EACA93ED9DACCE1D7C79EDF796A5CB11DDCC3AE119F3B8F4360C2",
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Group": "arithmetic",
+      "Name": "observe",
+      "ReceiptSha256": "D3C39B2734E38335E6DEACDEFACF55A3B4D889020EDD0EEE04A5CF65A1FC2B5A",
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Group": "bitwise",
+      "Name": "compile",
+      "ReceiptSha256": "004709120ADAFF626938087D29FC8A0DEC066DD757ABFA0C64A70D9D7F46DFDA",
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Group": "bitwise",
+      "Name": "observe",
+      "ReceiptSha256": "321F3D2F5BF2F8A57F36B60AE5D45E3D51407DAAD50D094F51D314AD2EF7A05B",
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Group": "boolean",
+      "Name": "compile",
+      "ReceiptSha256": "9C5393BD5A3541FE9461E4B9D42A6789A9F98C19C1F5C0023B60C7853B3046E1",
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Group": "boolean",
+      "Name": "observe",
+      "ReceiptSha256": "97D554A8A46F255FA660BBD85DC6184C84A6A52C29E03AA2C1CD398BEA71E7C7",
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Group": "comparison",
+      "Name": "compile",
+      "ReceiptSha256": "678581D82338D9BC74F50C331E555921B6B63A4652F093883EE25FEAEF9730B4",
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Group": "comparison",
+      "Name": "observe",
+      "ReceiptSha256": "C8351D82C1D15F61F16CEAF3DA1481987B57FF820A6BE679E4A56C92AF3C1AFC",
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Group": "size_type",
+      "Name": "compile",
+      "ReceiptSha256": "828E2AAAFE263850CE7FC58E7860B62CCC84E6F56A2143B6E9626C21BE52E44B",
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Group": "size_type",
+      "Name": "observe",
+      "ReceiptSha256": "CBD6FC553800D98C32676F6F1F9816B6A893E0D6D90917B238835EC699080C14",
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Group": "tuple",
+      "Name": "compile",
+      "ReceiptSha256": "156E391E1D183F71D16413289939C0A501898CD39745DDBE5715B2477DBF7F33",
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Group": "tuple",
+      "Name": "observe",
+      "ReceiptSha256": "4D71CB61D9FEFF41E10747F0C1386E11C85301E2A7359A663F21F291F7B9BF09",
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Group": "local_fun_order",
+      "Name": "compile",
+      "ReceiptSha256": "337331D9D59E9FEFB4C37CA103425286C2CD7CB6AFFF3B2B7CAAA2736122389D",
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Group": "local_fun_order",
+      "Name": "observe",
+      "ReceiptSha256": "669DE77FAF20BE7ADBFBEF70F1D41D46E3B4E21B75094C4B5AF052EC95422CDF",
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    }
+  ]
+}

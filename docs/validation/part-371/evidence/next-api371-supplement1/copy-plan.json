@@ -1,0 +1,26 @@
+{
+  "Files": [
+    {
+      "Source": "artifacts/next-api371-supplement1/source/tests/Erlang.Tests/OrdsetCoreMfaContracts.cs",
+      "Destination": "tests/Erlang.Tests/OrdsetCoreMfaContracts.cs",
+      "Bytes": 4779,
+      "Sha256": "7AD2B93DB403A46B15509A9AD95C41C427A7839177B98FACBFA2AE0BC62415D4"
+    },
+    {
+      "Source": "artifacts/next-api371-supplement1/source/tests/Erlang.Tests/OrdsetCoreMfaNames.cs",
+      "Destination": "tests/Erlang.Tests/OrdsetCoreMfaNames.cs",
+      "Bytes": 671,
+      "Sha256": "9998F9F241F8F6986D2485064C2AE950B2547C9F1EC1E3CBB01F5AA9DECA5ED1"
+    }
+  ],
+  "Edit": {
+    "File": "tests/Erlang.Tests/Program.cs",
+    "Before": "if (Erlang.Tests.QueueCoreMfaContracts.Owns(export.Module, export.Function, export.Arity))",
+    "Insert": "if (Erlang.Tests.OrdsetCoreMfaContracts.Owns(export.Module, export.Function, export.Arity))\n{\n    await Erlang.Tests.OrdsetCoreMfaContracts.Run(export.Function, export.Arity);\n\n    return;\n}"
+  },
+  "ExpectedNewTests": {
+    "DirectMfa": 8,
+    "Host": 1,
+    "Total": 9
+  }
+}

@@ -39,6 +39,7 @@ public sealed record BitPattern(IReadOnlyList<BitPatternSegment> Segments) : Pat
     {
         if (value is not BitString input)
             return false;
+        input.PinForMatch();
 
         return ReadFields(
             input,
@@ -191,6 +192,11 @@ public sealed record BitPattern(IReadOnlyList<BitPatternSegment> Segments) : Pat
                     number -= BigInteger.One << count;
                 extracted = new Integer(number);
             }
+            else if (!floating)
+            {
+                extracted = input.SliceBits(position, count);
+                position += count;
+            }
             else
             {
                 var part = new byte[(int)(((long)count + BitStorageLayout.ByteRoundingOffset) / BitStorageLayout.BitsPerByte)];
@@ -242,6 +248,7 @@ public sealed record BitPattern(IReadOnlyList<BitPatternSegment> Segments) : Pat
     {
         if (value is not BitString input)
             return false;
+        input.PinForMatch();
         var result = await ReadFieldsAsync(
             input,
             input.ToArray(),
@@ -386,6 +393,11 @@ public sealed record BitPattern(IReadOnlyList<BitPatternSegment> Segments) : Pat
                 if (spec.Signed && count > 0 && (number & (BigInteger.One << (count - 1))) != 0)
                     number -= BigInteger.One << count;
                 extracted = new Integer(number);
+            }
+            else if (!floating)
+            {
+                extracted = input.SliceBits(position, count);
+                position += count;
             }
             else
             {

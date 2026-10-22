@@ -1,0 +1,18 @@
+{
+  "Status": "SOURCE_ONLY_CAP_APPLICABILITY_ACCEPTED_FINAL_CAPTURE4_PENDING",
+  "Prior18CertificateSha256": "DCC995F196F0FCBE07D9A1CBBC4EFEDE8448EA60DBA03038ED0D550A4580A31A",
+  "InverseExactPriorSyntaxSha256": "F90181C706F0522F0A01DFB2479F4A991860586EAF6D04D708D0DC1EBECBADEA",
+  "CurrentSyntaxSha256": "3BE405FB880B8B6821F2A8C796DD28AA7BB68958EF5CAD1AD6CEB31412D358C4",
+  "ParametersSha256": "F25A5D33B5886BD34A81B1881EDF503CC28ED5279A852FB416F51AE5E19206A6",
+  "MaximumDirectArguments": 255,
+  "ExactInverseByteProof": true,
+  "Argument": [
+    "Only additional guard rejects fixed syntactic argument lists above255; no existing lowering/annotation/evaluation branch changes below that cap.",
+    "Current profile is893/4465 unchanged; queue APIs arities<=3 and literal lait apply uses1 argument. Dynamic module/function/list calls and apply2 remain existing paths. No observed queue branch is deoptimized by the cap.",
+    "Calls above255 return null from syntax lowering and preserve old runtime apply3 systemlimit path; no direct-call arity truncation or fabricated validation.",
+    "Prior18 source/guard/domain proof remains applicable modulo final382 guards and new actual5DLL capture4 proof; Root canonical/HOST gates still pending."
+  ],
+  "ExecutionPerformed": false,
+  "OriginalRerunNeededForThisCap": false,
+  "CompatibilityPromoted": false
+}

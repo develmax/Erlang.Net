@@ -1,0 +1,284 @@
+{
+  "QueueProplists": {
+    "Examined": 8117,
+    "Accepted": 8087,
+    "Unexpected": 0,
+    "NegativeControls": 68,
+    "StrictWholeEqual": 7683,
+    "OwnTopologyPending": [
+      {
+        "Stage": "proplist-raw",
+        "Group": "raw_cursors",
+        "File": "returned.etf",
+        "Depth": "values",
+        "Case": "hamt33_tuple_keys",
+        "StrictWholeEqual": false,
+        "AcceptedWholeFields": false,
+        "Kind": "OWN_HAMT_TOPOLOGY_SOURCE_REVIEW_REQUIRED",
+        "Relations": [],
+        "Errors": [
+          {
+            "Path": "$[1][1][1]",
+            "Reason": "TUPLE_OR_FRAME_COUNT",
+            "Original": "(('tuple', (('tuple', (('atom', 'key'), ('integer', 30))), ('integer', 30))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 28))), ('integer', 28))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 15))), ('integer', 15))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 19))), ('integer', 19))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 6))), ('integer', 6))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 18))), ('integer', 18))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 29))), ('integer', 29))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 25))), ('integer', 25))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 12))), ('integer', 12))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 24))), ('integer', 24))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 20))), ('integer', 20))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 14))), ('integer', 14))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 0))), ('integer', 0))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 9))), ('integer', 9))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 22))), ('integer', 22))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 17))), ('integer', 17))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 13))), ('integer', 13))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 23))), ('integer', 23))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 32))), ('integer', 32))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 16))), ('integer', 16))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 7))), ('integer', 7))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 27))), ('integer', 27))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 5))), ('integer', 5))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 8))), ('integer', 8))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 3))), ('integer', 3))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 1))), ('integer', 1))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 10))), ('integer', 10))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 4))), ('integer', 4))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 31))), ('integer', 31))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 2))), ('integer', 2))))",
+            "Sdk": "(('tuple', (('tuple', (('atom', 'key'), ('integer', 24))), ('integer', 24))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 15))), ('integer', 15))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 4))), ('integer', 4))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 20))), ('integer', 20))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 25))), ('integer', 25))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 32))), ('integer', 32))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 2))), ('integer', 2))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 7))), ('integer', 7))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 29))), ('integer', 29))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 27))), ('integer', 27))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 5))), ('integer', 5))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 13))), ('integer', 13))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 18))), ('integer', 18))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 12))), ('integer', 12))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 9))), ('integer', 9))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 21))), ('integer', 21))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 23))), ('integer', 23))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 8))), ('integer', 8))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 17))), ('integer', 17))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 11))), ('integer', 11))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 10))), ('integer', 10))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 19))), ('integer', 19))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 30))), ('integer', 30))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 0))), ('integer', 0))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 16))), ('integer', 16))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 3))), ('integer', 3))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 26))), ('integer', 26))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 28))), ('integer', 28))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 14))), ('integer', 14))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 31))), ('integer', 31))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 22))), ('integer', 22))))"
+          }
+        ]
+      },
+      {
+        "Stage": "proplist-raw",
+        "Group": "raw_cursors",
+        "File": "returned.etf",
+        "Depth": "values",
+        "Case": "hamt33_atom_keys",
+        "StrictWholeEqual": false,
+        "AcceptedWholeFields": false,
+        "Kind": "OWN_HAMT_TOPOLOGY_SOURCE_REVIEW_REQUIRED",
+        "Relations": [],
+        "Errors": [
+          {
+            "Path": "$[1][1][1]",
+            "Reason": "TUPLE_OR_FRAME_COUNT",
+            "Original": "(('tuple', (('atom', 'a27'), ('atom', 'a27'))), ('tuple', (('atom', 'a24'), ('atom', 'a24'))), ('tuple', (('atom', 'a32'), ('atom', 'a32'))), ('tuple', (('atom', 'a09'), ('atom', 'a09'))), ('tuple', (('atom', 'a22'), ('atom', 'a22'))), ('tuple', (('atom', 'a12'), ('atom', 'a12'))), ('tuple', (('atom', 'a02'), ('atom', 'a02'))), ('tuple', (('atom', 'a03'), ('atom', 'a03'))), ('tuple', (('atom', 'a11'), ('atom', 'a11'))), ('tuple', (('atom', 'a13'), ('atom', 'a13'))), ('tuple', (('atom', 'a06'), ('atom', 'a06'))), ('tuple', (('atom', 'a05'), ('atom', 'a05'))), ('tuple', (('atom', 'a01'), ('atom', 'a01'))), ('tuple', (('atom', 'a04'), ('atom', 'a04'))), ('tuple', (('atom', 'a21'), ('atom', 'a21'))), ('tuple', (('atom', 'a15'), ('atom', 'a15'))), ('tuple', (('atom', 'a08'), ('atom', 'a08'))), ('tuple', (('atom', 'a26'), ('atom', 'a26'))), ('tuple', (('atom', 'a25'), ('atom', 'a25'))), ('tuple', (('atom', 'a07'), ('atom', 'a07'))), ('tuple', (('atom', 'a20'), ('atom', 'a20'))), ('tuple', (('atom', 'a31'), ('atom', 'a31'))), ('tuple', (('atom', 'a28'), ('atom', 'a28'))), ('tuple', (('atom', 'a23'), ('atom', 'a23'))), ('tuple', (('atom', 'a16'), ('atom', 'a16'))), ('tuple', (('atom', 'a19'), ('atom', 'a19'))), ('tuple', (('atom', 'a29'), ('atom', 'a29'))), ('tuple', (('atom', 'a14'), ('atom', 'a14'))), ('tuple', (('atom', 'a00'), ('atom', 'a00'))), ('tuple', (('atom', 'a18'), ('atom', 'a18'))), ('tuple', (('atom', 'a30'), ('atom', 'a30'))), ('tuple', (('atom', 'a17'), ('atom', 'a17'))))",
+            "Sdk": "(('tuple', (('atom', 'a25'), ('atom', 'a25'))), ('tuple', (('atom', 'a19'), ('atom', 'a19'))), ('tuple', (('atom', 'a16'), ('atom', 'a16'))), ('tuple', (('atom', 'a12'), ('atom', 'a12'))), ('tuple', (('atom', 'a02'), ('atom', 'a02'))), ('tuple', (('atom', 'a20'), ('atom', 'a20'))), ('tuple', (('atom', 'a09'), ('atom', 'a09'))), ('tuple', (('atom', 'a22'), ('atom', 'a22'))), ('tuple', (('atom', 'a01'), ('atom', 'a01'))), ('tuple', (('atom', 'a30'), ('atom', 'a30'))), ('tuple', (('atom', 'a27'), ('atom', 'a27'))), ('tuple', (('atom', 'a23'), ('atom', 'a23'))), ('tuple', (('atom', 'a17'), ('atom', 'a17'))), ('tuple', (('atom', 'a08'), ('atom', 'a08'))), ('tuple', (('atom', 'a14'), ('atom', 'a14'))), ('tuple', (('atom', 'a07'), ('atom', 'a07'))), ('tuple', (('atom', 'a31'), ('atom', 'a31'))), ('tuple', (('atom', 'a29'), ('atom', 'a29'))), ('tuple', (('atom', 'a15'), ('atom', 'a15'))), ('tuple', (('atom', 'a06'), ('atom', 'a06'))), ('tuple', (('atom', 'a32'), ('atom', 'a32'))), ('tuple', (('atom', 'a11'), ('atom', 'a11'))), ('tuple', (('atom', 'a13'), ('atom', 'a13'))), ('tuple', (('atom', 'a04'), ('atom', 'a04'))), ('tuple', (('atom', 'a10'), ('atom', 'a10'))), ('tuple', (('atom', 'a00'), ('atom', 'a00'))), ('tuple', (('atom', 'a26'), ('atom', 'a26'))), ('tuple', (('atom', 'a28'), ('atom', 'a28'))), ('tuple', (('atom', 'a05'), ('atom', 'a05'))), ('tuple', (('atom', 'a18'), ('atom', 'a18'))), ('tuple', (('atom', 'a21'), ('atom', 'a21'))))"
+          }
+        ]
+      },
+      {
+        "Stage": "proplist-raw",
+        "Group": "raw_cursors",
+        "File": "stack-observations.etf",
+        "Depth": "('atom', 'default')",
+        "Case": "hamt33_tuple_keys",
+        "StrictWholeEqual": false,
+        "AcceptedWholeFields": false,
+        "Kind": "OWN_HAMT_TOPOLOGY_SOURCE_REVIEW_REQUIRED",
+        "Relations": [],
+        "Errors": [
+          {
+            "Path": "$[1][1][1]",
+            "Reason": "TUPLE_OR_FRAME_COUNT",
+            "Original": "(('tuple', (('tuple', (('atom', 'key'), ('integer', 30))), ('integer', 30))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 28))), ('integer', 28))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 15))), ('integer', 15))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 19))), ('integer', 19))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 6))), ('integer', 6))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 18))), ('integer', 18))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 29))), ('integer', 29))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 25))), ('integer', 25))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 12))), ('integer', 12))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 24))), ('integer', 24))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 20))), ('integer', 20))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 14))), ('integer', 14))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 0))), ('integer', 0))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 9))), ('integer', 9))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 22))), ('integer', 22))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 17))), ('integer', 17))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 13))), ('integer', 13))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 23))), ('integer', 23))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 32))), ('integer', 32))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 16))), ('integer', 16))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 7))), ('integer', 7))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 27))), ('integer', 27))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 5))), ('integer', 5))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 8))), ('integer', 8))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 3))), ('integer', 3))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 1))), ('integer', 1))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 10))), ('integer', 10))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 4))), ('integer', 4))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 31))), ('integer', 31))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 2))), ('integer', 2))))",
+            "Sdk": "(('tuple', (('tuple', (('atom', 'key'), ('integer', 24))), ('integer', 24))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 15))), ('integer', 15))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 4))), ('integer', 4))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 20))), ('integer', 20))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 25))), ('integer', 25))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 32))), ('integer', 32))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 2))), ('integer', 2))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 7))), ('integer', 7))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 29))), ('integer', 29))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 27))), ('integer', 27))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 5))), ('integer', 5))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 13))), ('integer', 13))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 18))), ('integer', 18))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 12))), ('integer', 12))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 9))), ('integer', 9))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 21))), ('integer', 21))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 23))), ('integer', 23))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 8))), ('integer', 8))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 17))), ('integer', 17))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 11))), ('integer', 11))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 10))), ('integer', 10))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 19))), ('integer', 19))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 30))), ('integer', 30))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 0))), ('integer', 0))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 16))), ('integer', 16))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 3))), ('integer', 3))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 26))), ('integer', 26))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 28))), ('integer', 28))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 14))), ('integer', 14))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 31))), ('integer', 31))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 22))), ('integer', 22))))"
+          }
+        ]
+      },
+      {
+        "Stage": "proplist-raw",
+        "Group": "raw_cursors",
+        "File": "stack-observations.etf",
+        "Depth": "('atom', 'default')",
+        "Case": "hamt33_atom_keys",
+        "StrictWholeEqual": false,
+        "AcceptedWholeFields": false,
+        "Kind": "OWN_HAMT_TOPOLOGY_SOURCE_REVIEW_REQUIRED",
+        "Relations": [],
+        "Errors": [
+          {
+            "Path": "$[1][1][1]",
+            "Reason": "TUPLE_OR_FRAME_COUNT",
+            "Original": "(('tuple', (('atom', 'a27'), ('atom', 'a27'))), ('tuple', (('atom', 'a24'), ('atom', 'a24'))), ('tuple', (('atom', 'a32'), ('atom', 'a32'))), ('tuple', (('atom', 'a09'), ('atom', 'a09'))), ('tuple', (('atom', 'a22'), ('atom', 'a22'))), ('tuple', (('atom', 'a12'), ('atom', 'a12'))), ('tuple', (('atom', 'a02'), ('atom', 'a02'))), ('tuple', (('atom', 'a03'), ('atom', 'a03'))), ('tuple', (('atom', 'a11'), ('atom', 'a11'))), ('tuple', (('atom', 'a13'), ('atom', 'a13'))), ('tuple', (('atom', 'a06'), ('atom', 'a06'))), ('tuple', (('atom', 'a05'), ('atom', 'a05'))), ('tuple', (('atom', 'a01'), ('atom', 'a01'))), ('tuple', (('atom', 'a04'), ('atom', 'a04'))), ('tuple', (('atom', 'a21'), ('atom', 'a21'))), ('tuple', (('atom', 'a15'), ('atom', 'a15'))), ('tuple', (('atom', 'a08'), ('atom', 'a08'))), ('tuple', (('atom', 'a26'), ('atom', 'a26'))), ('tuple', (('atom', 'a25'), ('atom', 'a25'))), ('tuple', (('atom', 'a07'), ('atom', 'a07'))), ('tuple', (('atom', 'a20'), ('atom', 'a20'))), ('tuple', (('atom', 'a31'), ('atom', 'a31'))), ('tuple', (('atom', 'a28'), ('atom', 'a28'))), ('tuple', (('atom', 'a23'), ('atom', 'a23'))), ('tuple', (('atom', 'a16'), ('atom', 'a16'))), ('tuple', (('atom', 'a19'), ('atom', 'a19'))), ('tuple', (('atom', 'a29'), ('atom', 'a29'))), ('tuple', (('atom', 'a14'), ('atom', 'a14'))), ('tuple', (('atom', 'a00'), ('atom', 'a00'))), ('tuple', (('atom', 'a18'), ('atom', 'a18'))), ('tuple', (('atom', 'a30'), ('atom', 'a30'))), ('tuple', (('atom', 'a17'), ('atom', 'a17'))))",
+            "Sdk": "(('tuple', (('atom', 'a25'), ('atom', 'a25'))), ('tuple', (('atom', 'a19'), ('atom', 'a19'))), ('tuple', (('atom', 'a16'), ('atom', 'a16'))), ('tuple', (('atom', 'a12'), ('atom', 'a12'))), ('tuple', (('atom', 'a02'), ('atom', 'a02'))), ('tuple', (('atom', 'a20'), ('atom', 'a20'))), ('tuple', (('atom', 'a09'), ('atom', 'a09'))), ('tuple', (('atom', 'a22'), ('atom', 'a22'))), ('tuple', (('atom', 'a01'), ('atom', 'a01'))), ('tuple', (('atom', 'a30'), ('atom', 'a30'))), ('tuple', (('atom', 'a27'), ('atom', 'a27'))), ('tuple', (('atom', 'a23'), ('atom', 'a23'))), ('tuple', (('atom', 'a17'), ('atom', 'a17'))), ('tuple', (('atom', 'a08'), ('atom', 'a08'))), ('tuple', (('atom', 'a14'), ('atom', 'a14'))), ('tuple', (('atom', 'a07'), ('atom', 'a07'))), ('tuple', (('atom', 'a31'), ('atom', 'a31'))), ('tuple', (('atom', 'a29'), ('atom', 'a29'))), ('tuple', (('atom', 'a15'), ('atom', 'a15'))), ('tuple', (('atom', 'a06'), ('atom', 'a06'))), ('tuple', (('atom', 'a32'), ('atom', 'a32'))), ('tuple', (('atom', 'a11'), ('atom', 'a11'))), ('tuple', (('atom', 'a13'), ('atom', 'a13'))), ('tuple', (('atom', 'a04'), ('atom', 'a04'))), ('tuple', (('atom', 'a10'), ('atom', 'a10'))), ('tuple', (('atom', 'a00'), ('atom', 'a00'))), ('tuple', (('atom', 'a26'), ('atom', 'a26'))), ('tuple', (('atom', 'a28'), ('atom', 'a28'))), ('tuple', (('atom', 'a05'), ('atom', 'a05'))), ('tuple', (('atom', 'a18'), ('atom', 'a18'))), ('tuple', (('atom', 'a21'), ('atom', 'a21'))))"
+          }
+        ]
+      },
+      {
+        "Stage": "proplist-raw",
+        "Group": "raw_cursors",
+        "File": "stack-observations.etf",
+        "Depth": "('integer', 0)",
+        "Case": "hamt33_tuple_keys",
+        "StrictWholeEqual": false,
+        "AcceptedWholeFields": false,
+        "Kind": "OWN_HAMT_TOPOLOGY_SOURCE_REVIEW_REQUIRED",
+        "Relations": [],
+        "Errors": [
+          {
+            "Path": "$[1][1][1]",
+            "Reason": "TUPLE_OR_FRAME_COUNT",
+            "Original": "(('tuple', (('tuple', (('atom', 'key'), ('integer', 30))), ('integer', 30))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 28))), ('integer', 28))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 15))), ('integer', 15))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 19))), ('integer', 19))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 6))), ('integer', 6))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 18))), ('integer', 18))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 29))), ('integer', 29))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 25))), ('integer', 25))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 12))), ('integer', 12))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 24))), ('integer', 24))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 20))), ('integer', 20))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 14))), ('integer', 14))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 0))), ('integer', 0))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 9))), ('integer', 9))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 22))), ('integer', 22))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 17))), ('integer', 17))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 13))), ('integer', 13))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 23))), ('integer', 23))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 32))), ('integer', 32))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 16))), ('integer', 16))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 7))), ('integer', 7))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 27))), ('integer', 27))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 5))), ('integer', 5))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 8))), ('integer', 8))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 3))), ('integer', 3))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 1))), ('integer', 1))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 10))), ('integer', 10))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 4))), ('integer', 4))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 31))), ('integer', 31))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 2))), ('integer', 2))))",
+            "Sdk": "(('tuple', (('tuple', (('atom', 'key'), ('integer', 24))), ('integer', 24))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 15))), ('integer', 15))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 4))), ('integer', 4))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 20))), ('integer', 20))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 25))), ('integer', 25))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 32))), ('integer', 32))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 2))), ('integer', 2))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 7))), ('integer', 7))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 29))), ('integer', 29))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 27))), ('integer', 27))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 5))), ('integer', 5))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 13))), ('integer', 13))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 18))), ('integer', 18))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 12))), ('integer', 12))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 9))), ('integer', 9))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 21))), ('integer', 21))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 23))), ('integer', 23))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 8))), ('integer', 8))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 17))), ('integer', 17))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 11))), ('integer', 11))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 10))), ('integer', 10))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 19))), ('integer', 19))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 30))), ('integer', 30))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 0))), ('integer', 0))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 16))), ('integer', 16))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 3))), ('integer', 3))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 26))), ('integer', 26))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 28))), ('integer', 28))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 14))), ('integer', 14))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 31))), ('integer', 31))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 22))), ('integer', 22))))"
+          }
+        ]
+      },
+      {
+        "Stage": "proplist-raw",
+        "Group": "raw_cursors",
+        "File": "stack-observations.etf",
+        "Depth": "('integer', 0)",
+        "Case": "hamt33_atom_keys",
+        "StrictWholeEqual": false,
+        "AcceptedWholeFields": false,
+        "Kind": "OWN_HAMT_TOPOLOGY_SOURCE_REVIEW_REQUIRED",
+        "Relations": [],
+        "Errors": [
+          {
+            "Path": "$[1][1][1]",
+            "Reason": "TUPLE_OR_FRAME_COUNT",
+            "Original": "(('tuple', (('atom', 'a27'), ('atom', 'a27'))), ('tuple', (('atom', 'a24'), ('atom', 'a24'))), ('tuple', (('atom', 'a32'), ('atom', 'a32'))), ('tuple', (('atom', 'a09'), ('atom', 'a09'))), ('tuple', (('atom', 'a22'), ('atom', 'a22'))), ('tuple', (('atom', 'a12'), ('atom', 'a12'))), ('tuple', (('atom', 'a02'), ('atom', 'a02'))), ('tuple', (('atom', 'a03'), ('atom', 'a03'))), ('tuple', (('atom', 'a11'), ('atom', 'a11'))), ('tuple', (('atom', 'a13'), ('atom', 'a13'))), ('tuple', (('atom', 'a06'), ('atom', 'a06'))), ('tuple', (('atom', 'a05'), ('atom', 'a05'))), ('tuple', (('atom', 'a01'), ('atom', 'a01'))), ('tuple', (('atom', 'a04'), ('atom', 'a04'))), ('tuple', (('atom', 'a21'), ('atom', 'a21'))), ('tuple', (('atom', 'a15'), ('atom', 'a15'))), ('tuple', (('atom', 'a08'), ('atom', 'a08'))), ('tuple', (('atom', 'a26'), ('atom', 'a26'))), ('tuple', (('atom', 'a25'), ('atom', 'a25'))), ('tuple', (('atom', 'a07'), ('atom', 'a07'))), ('tuple', (('atom', 'a20'), ('atom', 'a20'))), ('tuple', (('atom', 'a31'), ('atom', 'a31'))), ('tuple', (('atom', 'a28'), ('atom', 'a28'))), ('tuple', (('atom', 'a23'), ('atom', 'a23'))), ('tuple', (('atom', 'a16'), ('atom', 'a16'))), ('tuple', (('atom', 'a19'), ('atom', 'a19'))), ('tuple', (('atom', 'a29'), ('atom', 'a29'))), ('tuple', (('atom', 'a14'), ('atom', 'a14'))), ('tuple', (('atom', 'a00'), ('atom', 'a00'))), ('tuple', (('atom', 'a18'), ('atom', 'a18'))), ('tuple', (('atom', 'a30'), ('atom', 'a30'))), ('tuple', (('atom', 'a17'), ('atom', 'a17'))))",
+            "Sdk": "(('tuple', (('atom', 'a25'), ('atom', 'a25'))), ('tuple', (('atom', 'a19'), ('atom', 'a19'))), ('tuple', (('atom', 'a16'), ('atom', 'a16'))), ('tuple', (('atom', 'a12'), ('atom', 'a12'))), ('tuple', (('atom', 'a02'), ('atom', 'a02'))), ('tuple', (('atom', 'a20'), ('atom', 'a20'))), ('tuple', (('atom', 'a09'), ('atom', 'a09'))), ('tuple', (('atom', 'a22'), ('atom', 'a22'))), ('tuple', (('atom', 'a01'), ('atom', 'a01'))), ('tuple', (('atom', 'a30'), ('atom', 'a30'))), ('tuple', (('atom', 'a27'), ('atom', 'a27'))), ('tuple', (('atom', 'a23'), ('atom', 'a23'))), ('tuple', (('atom', 'a17'), ('atom', 'a17'))), ('tuple', (('atom', 'a08'), ('atom', 'a08'))), ('tuple', (('atom', 'a14'), ('atom', 'a14'))), ('tuple', (('atom', 'a07'), ('atom', 'a07'))), ('tuple', (('atom', 'a31'), ('atom', 'a31'))), ('tuple', (('atom', 'a29'), ('atom', 'a29'))), ('tuple', (('atom', 'a15'), ('atom', 'a15'))), ('tuple', (('atom', 'a06'), ('atom', 'a06'))), ('tuple', (('atom', 'a32'), ('atom', 'a32'))), ('tuple', (('atom', 'a11'), ('atom', 'a11'))), ('tuple', (('atom', 'a13'), ('atom', 'a13'))), ('tuple', (('atom', 'a04'), ('atom', 'a04'))), ('tuple', (('atom', 'a10'), ('atom', 'a10'))), ('tuple', (('atom', 'a00'), ('atom', 'a00'))), ('tuple', (('atom', 'a26'), ('atom', 'a26'))), ('tuple', (('atom', 'a28'), ('atom', 'a28'))), ('tuple', (('atom', 'a05'), ('atom', 'a05'))), ('tuple', (('atom', 'a18'), ('atom', 'a18'))), ('tuple', (('atom', 'a21'), ('atom', 'a21'))))"
+          }
+        ]
+      },
+      {
+        "Stage": "proplist-raw",
+        "Group": "raw_cursors",
+        "File": "stack-observations.etf",
+        "Depth": "('integer', 1)",
+        "Case": "hamt33_tuple_keys",
+        "StrictWholeEqual": false,
+        "AcceptedWholeFields": false,
+        "Kind": "OWN_HAMT_TOPOLOGY_SOURCE_REVIEW_REQUIRED",
+        "Relations": [],
+        "Errors": [
+          {
+            "Path": "$[1][1][1]",
+            "Reason": "TUPLE_OR_FRAME_COUNT",
+            "Original": "(('tuple', (('tuple', (('atom', 'key'), ('integer', 30))), ('integer', 30))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 28))), ('integer', 28))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 15))), ('integer', 15))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 19))), ('integer', 19))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 6))), ('integer', 6))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 18))), ('integer', 18))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 29))), ('integer', 29))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 25))), ('integer', 25))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 12))), ('integer', 12))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 24))), ('integer', 24))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 20))), ('integer', 20))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 14))), ('integer', 14))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 0))), ('integer', 0))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 9))), ('integer', 9))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 22))), ('integer', 22))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 17))), ('integer', 17))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 13))), ('integer', 13))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 23))), ('integer', 23))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 32))), ('integer', 32))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 16))), ('integer', 16))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 7))), ('integer', 7))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 27))), ('integer', 27))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 5))), ('integer', 5))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 8))), ('integer', 8))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 3))), ('integer', 3))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 1))), ('integer', 1))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 10))), ('integer', 10))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 4))), ('integer', 4))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 31))), ('integer', 31))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 2))), ('integer', 2))))",
+            "Sdk": "(('tuple', (('tuple', (('atom', 'key'), ('integer', 24))), ('integer', 24))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 15))), ('integer', 15))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 4))), ('integer', 4))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 20))), ('integer', 20))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 25))), ('integer', 25))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 32))), ('integer', 32))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 2))), ('integer', 2))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 7))), ('integer', 7))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 29))), ('integer', 29))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 27))), ('integer', 27))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 5))), ('integer', 5))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 13))), ('integer', 13))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 18))), ('integer', 18))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 12))), ('integer', 12))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 9))), ('integer', 9))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 21))), ('integer', 21))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 23))), ('integer', 23))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 8))), ('integer', 8))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 17))), ('integer', 17))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 11))), ('integer', 11))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 10))), ('integer', 10))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 19))), ('integer', 19))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 30))), ('integer', 30))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 0))), ('integer', 0))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 16))), ('integer', 16))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 3))), ('integer', 3))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 26))), ('integer', 26))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 28))), ('integer', 28))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 14))), ('integer', 14))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 31))), ('integer', 31))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 22))), ('integer', 22))))"
+          }
+        ]
+      },
+      {
+        "Stage": "proplist-raw",
+        "Group": "raw_cursors",
+        "File": "stack-observations.etf",
+        "Depth": "('integer', 1)",
+        "Case": "hamt33_atom_keys",
+        "StrictWholeEqual": false,
+        "AcceptedWholeFields": false,
+        "Kind": "OWN_HAMT_TOPOLOGY_SOURCE_REVIEW_REQUIRED",
+        "Relations": [],
+        "Errors": [
+          {
+            "Path": "$[1][1][1]",
+            "Reason": "TUPLE_OR_FRAME_COUNT",
+            "Original": "(('tuple', (('atom', 'a27'), ('atom', 'a27'))), ('tuple', (('atom', 'a24'), ('atom', 'a24'))), ('tuple', (('atom', 'a32'), ('atom', 'a32'))), ('tuple', (('atom', 'a09'), ('atom', 'a09'))), ('tuple', (('atom', 'a22'), ('atom', 'a22'))), ('tuple', (('atom', 'a12'), ('atom', 'a12'))), ('tuple', (('atom', 'a02'), ('atom', 'a02'))), ('tuple', (('atom', 'a03'), ('atom', 'a03'))), ('tuple', (('atom', 'a11'), ('atom', 'a11'))), ('tuple', (('atom', 'a13'), ('atom', 'a13'))), ('tuple', (('atom', 'a06'), ('atom', 'a06'))), ('tuple', (('atom', 'a05'), ('atom', 'a05'))), ('tuple', (('atom', 'a01'), ('atom', 'a01'))), ('tuple', (('atom', 'a04'), ('atom', 'a04'))), ('tuple', (('atom', 'a21'), ('atom', 'a21'))), ('tuple', (('atom', 'a15'), ('atom', 'a15'))), ('tuple', (('atom', 'a08'), ('atom', 'a08'))), ('tuple', (('atom', 'a26'), ('atom', 'a26'))), ('tuple', (('atom', 'a25'), ('atom', 'a25'))), ('tuple', (('atom', 'a07'), ('atom', 'a07'))), ('tuple', (('atom', 'a20'), ('atom', 'a20'))), ('tuple', (('atom', 'a31'), ('atom', 'a31'))), ('tuple', (('atom', 'a28'), ('atom', 'a28'))), ('tuple', (('atom', 'a23'), ('atom', 'a23'))), ('tuple', (('atom', 'a16'), ('atom', 'a16'))), ('tuple', (('atom', 'a19'), ('atom', 'a19'))), ('tuple', (('atom', 'a29'), ('atom', 'a29'))), ('tuple', (('atom', 'a14'), ('atom', 'a14'))), ('tuple', (('atom', 'a00'), ('atom', 'a00'))), ('tuple', (('atom', 'a18'), ('atom', 'a18'))), ('tuple', (('atom', 'a30'), ('atom', 'a30'))), ('tuple', (('atom', 'a17'), ('atom', 'a17'))))",
+            "Sdk": "(('tuple', (('atom', 'a25'), ('atom', 'a25'))), ('tuple', (('atom', 'a19'), ('atom', 'a19'))), ('tuple', (('atom', 'a16'), ('atom', 'a16'))), ('tuple', (('atom', 'a12'), ('atom', 'a12'))), ('tuple', (('atom', 'a02'), ('atom', 'a02'))), ('tuple', (('atom', 'a20'), ('atom', 'a20'))), ('tuple', (('atom', 'a09'), ('atom', 'a09'))), ('tuple', (('atom', 'a22'), ('atom', 'a22'))), ('tuple', (('atom', 'a01'), ('atom', 'a01'))), ('tuple', (('atom', 'a30'), ('atom', 'a30'))), ('tuple', (('atom', 'a27'), ('atom', 'a27'))), ('tuple', (('atom', 'a23'), ('atom', 'a23'))), ('tuple', (('atom', 'a17'), ('atom', 'a17'))), ('tuple', (('atom', 'a08'), ('atom', 'a08'))), ('tuple', (('atom', 'a14'), ('atom', 'a14'))), ('tuple', (('atom', 'a07'), ('atom', 'a07'))), ('tuple', (('atom', 'a31'), ('atom', 'a31'))), ('tuple', (('atom', 'a29'), ('atom', 'a29'))), ('tuple', (('atom', 'a15'), ('atom', 'a15'))), ('tuple', (('atom', 'a06'), ('atom', 'a06'))), ('tuple', (('atom', 'a32'), ('atom', 'a32'))), ('tuple', (('atom', 'a11'), ('atom', 'a11'))), ('tuple', (('atom', 'a13'), ('atom', 'a13'))), ('tuple', (('atom', 'a04'), ('atom', 'a04'))), ('tuple', (('atom', 'a10'), ('atom', 'a10'))), ('tuple', (('atom', 'a00'), ('atom', 'a00'))), ('tuple', (('atom', 'a26'), ('atom', 'a26'))), ('tuple', (('atom', 'a28'), ('atom', 'a28'))), ('tuple', (('atom', 'a05'), ('atom', 'a05'))), ('tuple', (('atom', 'a18'), ('atom', 'a18'))), ('tuple', (('atom', 'a21'), ('atom', 'a21'))))"
+          }
+        ]
+      },
+      {
+        "Stage": "proplist-raw",
+        "Group": "raw_cursors",
+        "File": "stack-observations.etf",
+        "Depth": "('integer', 2)",
+        "Case": "hamt33_tuple_keys",
+        "StrictWholeEqual": false,
+        "AcceptedWholeFields": false,
+        "Kind": "OWN_HAMT_TOPOLOGY_SOURCE_REVIEW_REQUIRED",
+        "Relations": [],
+        "Errors": [
+          {
+            "Path": "$[1][1][1]",
+            "Reason": "TUPLE_OR_FRAME_COUNT",
+            "Original": "(('tuple', (('tuple', (('atom', 'key'), ('integer', 30))), ('integer', 30))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 28))), ('integer', 28))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 15))), ('integer', 15))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 19))), ('integer', 19))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 6))), ('integer', 6))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 18))), ('integer', 18))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 29))), ('integer', 29))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 25))), ('integer', 25))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 12))), ('integer', 12))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 24))), ('integer', 24))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 20))), ('integer', 20))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 14))), ('integer', 14))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 0))), ('integer', 0))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 9))), ('integer', 9))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 22))), ('integer', 22))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 17))), ('integer', 17))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 13))), ('integer', 13))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 23))), ('integer', 23))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 32))), ('integer', 32))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 16))), ('integer', 16))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 7))), ('integer', 7))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 27))), ('integer', 27))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 5))), ('integer', 5))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 8))), ('integer', 8))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 3))), ('integer', 3))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 1))), ('integer', 1))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 10))), ('integer', 10))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 4))), ('integer', 4))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 31))), ('integer', 31))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 2))), ('integer', 2))))",
+            "Sdk": "(('tuple', (('tuple', (('atom', 'key'), ('integer', 24))), ('integer', 24))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 15))), ('integer', 15))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 4))), ('integer', 4))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 20))), ('integer', 20))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 25))), ('integer', 25))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 32))), ('integer', 32))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 2))), ('integer', 2))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 7))), ('integer', 7))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 29))), ('integer', 29))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 27))), ('integer', 27))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 5))), ('integer', 5))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 13))), ('integer', 13))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 18))), ('integer', 18))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 12))), ('integer', 12))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 9))), ('integer', 9))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 21))), ('integer', 21))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 23))), ('integer', 23))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 8))), ('integer', 8))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 17))), ('integer', 17))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 11))), ('integer', 11))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 10))), ('integer', 10))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 19))), ('integer', 19))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 30))), ('integer', 30))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 0))), ('integer', 0))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 16))), ('integer', 16))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 3))), ('integer', 3))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 26))), ('integer', 26))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 28))), ('integer', 28))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 14))), ('integer', 14))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 31))), ('integer', 31))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 22))), ('integer', 22))))"
+          }
+        ]
+      },
+      {
+        "Stage": "proplist-raw",
+        "Group": "raw_cursors",
+        "File": "stack-observations.etf",
+        "Depth": "('integer', 2)",
+        "Case": "hamt33_atom_keys",
+        "StrictWholeEqual": false,
+        "AcceptedWholeFields": false,
+        "Kind": "OWN_HAMT_TOPOLOGY_SOURCE_REVIEW_REQUIRED",
+        "Relations": [],
+        "Errors": [
+          {
+            "Path": "$[1][1][1]",
+            "Reason": "TUPLE_OR_FRAME_COUNT",
+            "Original": "(('tuple', (('atom', 'a27'), ('atom', 'a27'))), ('tuple', (('atom', 'a24'), ('atom', 'a24'))), ('tuple', (('atom', 'a32'), ('atom', 'a32'))), ('tuple', (('atom', 'a09'), ('atom', 'a09'))), ('tuple', (('atom', 'a22'), ('atom', 'a22'))), ('tuple', (('atom', 'a12'), ('atom', 'a12'))), ('tuple', (('atom', 'a02'), ('atom', 'a02'))), ('tuple', (('atom', 'a03'), ('atom', 'a03'))), ('tuple', (('atom', 'a11'), ('atom', 'a11'))), ('tuple', (('atom', 'a13'), ('atom', 'a13'))), ('tuple', (('atom', 'a06'), ('atom', 'a06'))), ('tuple', (('atom', 'a05'), ('atom', 'a05'))), ('tuple', (('atom', 'a01'), ('atom', 'a01'))), ('tuple', (('atom', 'a04'), ('atom', 'a04'))), ('tuple', (('atom', 'a21'), ('atom', 'a21'))), ('tuple', (('atom', 'a15'), ('atom', 'a15'))), ('tuple', (('atom', 'a08'), ('atom', 'a08'))), ('tuple', (('atom', 'a26'), ('atom', 'a26'))), ('tuple', (('atom', 'a25'), ('atom', 'a25'))), ('tuple', (('atom', 'a07'), ('atom', 'a07'))), ('tuple', (('atom', 'a20'), ('atom', 'a20'))), ('tuple', (('atom', 'a31'), ('atom', 'a31'))), ('tuple', (('atom', 'a28'), ('atom', 'a28'))), ('tuple', (('atom', 'a23'), ('atom', 'a23'))), ('tuple', (('atom', 'a16'), ('atom', 'a16'))), ('tuple', (('atom', 'a19'), ('atom', 'a19'))), ('tuple', (('atom', 'a29'), ('atom', 'a29'))), ('tuple', (('atom', 'a14'), ('atom', 'a14'))), ('tuple', (('atom', 'a00'), ('atom', 'a00'))), ('tuple', (('atom', 'a18'), ('atom', 'a18'))), ('tuple', (('atom', 'a30'), ('atom', 'a30'))), ('tuple', (('atom', 'a17'), ('atom', 'a17'))))",
+            "Sdk": "(('tuple', (('atom', 'a25'), ('atom', 'a25'))), ('tuple', (('atom', 'a19'), ('atom', 'a19'))), ('tuple', (('atom', 'a16'), ('atom', 'a16'))), ('tuple', (('atom', 'a12'), ('atom', 'a12'))), ('tuple', (('atom', 'a02'), ('atom', 'a02'))), ('tuple', (('atom', 'a20'), ('atom', 'a20'))), ('tuple', (('atom', 'a09'), ('atom', 'a09'))), ('tuple', (('atom', 'a22'), ('atom', 'a22'))), ('tuple', (('atom', 'a01'), ('atom', 'a01'))), ('tuple', (('atom', 'a30'), ('atom', 'a30'))), ('tuple', (('atom', 'a27'), ('atom', 'a27'))), ('tuple', (('atom', 'a23'), ('atom', 'a23'))), ('tuple', (('atom', 'a17'), ('atom', 'a17'))), ('tuple', (('atom', 'a08'), ('atom', 'a08'))), ('tuple', (('atom', 'a14'), ('atom', 'a14'))), ('tuple', (('atom', 'a07'), ('atom', 'a07'))), ('tuple', (('atom', 'a31'), ('atom', 'a31'))), ('tuple', (('atom', 'a29'), ('atom', 'a29'))), ('tuple', (('atom', 'a15'), ('atom', 'a15'))), ('tuple', (('atom', 'a06'), ('atom', 'a06'))), ('tuple', (('atom', 'a32'), ('atom', 'a32'))), ('tuple', (('atom', 'a11'), ('atom', 'a11'))), ('tuple', (('atom', 'a13'), ('atom', 'a13'))), ('tuple', (('atom', 'a04'), ('atom', 'a04'))), ('tuple', (('atom', 'a10'), ('atom', 'a10'))), ('tuple', (('atom', 'a00'), ('atom', 'a00'))), ('tuple', (('atom', 'a26'), ('atom', 'a26'))), ('tuple', (('atom', 'a28'), ('atom', 'a28'))), ('tuple', (('atom', 'a05'), ('atom', 'a05'))), ('tuple', (('atom', 'a18'), ('atom', 'a18'))), ('tuple', (('atom', 'a21'), ('atom', 'a21'))))"
+          }
+        ]
+      },
+      {
+        "Stage": "proplist-raw",
+        "Group": "raw_cursors",
+        "File": "stack-observations.etf",
+        "Depth": "('integer', 8)",
+        "Case": "hamt33_tuple_keys",
+        "StrictWholeEqual": false,
+        "AcceptedWholeFields": false,
+        "Kind": "OWN_HAMT_TOPOLOGY_SOURCE_REVIEW_REQUIRED",
+        "Relations": [],
+        "Errors": [
+          {
+            "Path": "$[1][1][1]",
+            "Reason": "TUPLE_OR_FRAME_COUNT",
+            "Original": "(('tuple', (('tuple', (('atom', 'key'), ('integer', 30))), ('integer', 30))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 28))), ('integer', 28))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 15))), ('integer', 15))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 19))), ('integer', 19))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 6))), ('integer', 6))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 18))), ('integer', 18))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 29))), ('integer', 29))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 25))), ('integer', 25))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 12))), ('integer', 12))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 24))), ('integer', 24))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 20))), ('integer', 20))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 14))), ('integer', 14))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 0))), ('integer', 0))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 9))), ('integer', 9))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 22))), ('integer', 22))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 17))), ('integer', 17))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 13))), ('integer', 13))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 23))), ('integer', 23))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 32))), ('integer', 32))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 16))), ('integer', 16))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 7))), ('integer', 7))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 27))), ('integer', 27))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 5))), ('integer', 5))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 8))), ('integer', 8))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 3))), ('integer', 3))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 1))), ('integer', 1))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 10))), ('integer', 10))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 4))), ('integer', 4))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 31))), ('integer', 31))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 2))), ('integer', 2))))",
+            "Sdk": "(('tuple', (('tuple', (('atom', 'key'), ('integer', 24))), ('integer', 24))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 15))), ('integer', 15))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 4))), ('integer', 4))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 20))), ('integer', 20))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 25))), ('integer', 25))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 32))), ('integer', 32))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 2))), ('integer', 2))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 7))), ('integer', 7))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 29))), ('integer', 29))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 27))), ('integer', 27))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 5))), ('integer', 5))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 13))), ('integer', 13))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 18))), ('integer', 18))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 12))), ('integer', 12))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 9))), ('integer', 9))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 21))), ('integer', 21))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 23))), ('integer', 23))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 8))), ('integer', 8))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 17))), ('integer', 17))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 11))), ('integer', 11))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 10))), ('integer', 10))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 19))), ('integer', 19))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 30))), ('integer', 30))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 0))), ('integer', 0))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 16))), ('integer', 16))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 3))), ('integer', 3))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 26))), ('integer', 26))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 28))), ('integer', 28))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 14))), ('integer', 14))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 31))), ('integer', 31))), ('tuple', (('tuple', (('atom', 'key'), ('integer', 22))), ('integer', 22))))"
+          }
+        ]
+      },
+      {
+        "Stage": "proplist-raw",
+        "Group": "raw_cursors",
+        "File": "stack-observations.etf",
+        "Depth": "('integer', 8)",
+        "Case": "hamt33_atom_keys",
+        "StrictWholeEqual": false,
+        "AcceptedWholeFields": false,
+        "Kind": "OWN_HAMT_TOPOLOGY_SOURCE_REVIEW_REQUIRED",
+        "Relations": [],
+        "Errors": [
+          {
+            "Path": "$[1][1][1]",
+            "Reason": "TUPLE_OR_FRAME_COUNT",
+            "Original": "(('tuple', (('atom', 'a27'), ('atom', 'a27'))), ('tuple', (('atom', 'a24'), ('atom', 'a24'))), ('tuple', (('atom', 'a32'), ('atom', 'a32'))), ('tuple', (('atom', 'a09'), ('atom', 'a09'))), ('tuple', (('atom', 'a22'), ('atom', 'a22'))), ('tuple', (('atom', 'a12'), ('atom', 'a12'))), ('tuple', (('atom', 'a02'), ('atom', 'a02'))), ('tuple', (('atom', 'a03'), ('atom', 'a03'))), ('tuple', (('atom', 'a11'), ('atom', 'a11'))), ('tuple', (('atom', 'a13'), ('atom', 'a13'))), ('tuple', (('atom', 'a06'), ('atom', 'a06'))), ('tuple', (('atom', 'a05'), ('atom', 'a05'))), ('tuple', (('atom', 'a01'), ('atom', 'a01'))), ('tuple', (('atom', 'a04'), ('atom', 'a04'))), ('tuple', (('atom', 'a21'), ('atom', 'a21'))), ('tuple', (('atom', 'a15'), ('atom', 'a15'))), ('tuple', (('atom', 'a08'), ('atom', 'a08'))), ('tuple', (('atom', 'a26'), ('atom', 'a26'))), ('tuple', (('atom', 'a25'), ('atom', 'a25'))), ('tuple', (('atom', 'a07'), ('atom', 'a07'))), ('tuple', (('atom', 'a20'), ('atom', 'a20'))), ('tuple', (('atom', 'a31'), ('atom', 'a31'))), ('tuple', (('atom', 'a28'), ('atom', 'a28'))), ('tuple', (('atom', 'a23'), ('atom', 'a23'))), ('tuple', (('atom', 'a16'), ('atom', 'a16'))), ('tuple', (('atom', 'a19'), ('atom', 'a19'))), ('tuple', (('atom', 'a29'), ('atom', 'a29'))), ('tuple', (('atom', 'a14'), ('atom', 'a14'))), ('tuple', (('atom', 'a00'), ('atom', 'a00'))), ('tuple', (('atom', 'a18'), ('atom', 'a18'))), ('tuple', (('atom', 'a30'), ('atom', 'a30'))), ('tuple', (('atom', 'a17'), ('atom', 'a17'))))",
+            "Sdk": "(('tuple', (('atom', 'a25'), ('atom', 'a25'))), ('tuple', (('atom', 'a19'), ('atom', 'a19'))), ('tuple', (('atom', 'a16'), ('atom', 'a16'))), ('tuple', (('atom', 'a12'), ('atom', 'a12'))), ('tuple', (('atom', 'a02'), ('atom', 'a02'))), ('tuple', (('atom', 'a20'), ('atom', 'a20'))), ('tuple', (('atom', 'a09'), ('atom', 'a09'))), ('tuple', (('atom', 'a22'), ('atom', 'a22'))), ('tuple', (('atom', 'a01'), ('atom', 'a01'))), ('tuple', (('atom', 'a30'), ('atom', 'a30'))), ('tuple', (('atom', 'a27'), ('atom', 'a27'))), ('tuple', (('atom', 'a23'), ('atom', 'a23'))), ('tuple', (('atom', 'a17'), ('atom', 'a17'))), ('tuple', (('atom', 'a08'), ('atom', 'a08'))), ('tuple', (('atom', 'a14'), ('atom', 'a14'))), ('tuple', (('atom', 'a07'), ('atom', 'a07'))), ('tuple', (('atom', 'a31'), ('atom', 'a31'))), ('tuple', (('atom', 'a29'), ('atom', 'a29'))), ('tuple', (('atom', 'a15'), ('atom', 'a15'))), ('tuple', (('atom', 'a06'), ('atom', 'a06'))), ('tuple', (('atom', 'a32'), ('atom', 'a32'))), ('tuple', (('atom', 'a11'), ('atom', 'a11'))), ('tuple', (('atom', 'a13'), ('atom', 'a13'))), ('tuple', (('atom', 'a04'), ('atom', 'a04'))), ('tuple', (('atom', 'a10'), ('atom', 'a10'))), ('tuple', (('atom', 'a00'), ('atom', 'a00'))), ('tuple', (('atom', 'a26'), ('atom', 'a26'))), ('tuple', (('atom', 'a28'), ('atom', 'a28'))), ('tuple', (('atom', 'a05'), ('atom', 'a05'))), ('tuple', (('atom', 'a18'), ('atom', 'a18'))), ('tuple', (('atom', 'a21'), ('atom', 'a21'))))"
+          }
+        ]
+      }
+    ]
+  },
+  "Binary": {
+    "Raw": 3852,
+    "Accepted": 3850,
+    "LegacyUnmatchedContexts": 2,
+    "RawSupplementStatus": "DIFFERENCES_OR_OPAQUE_PROVENANCE_PENDING"
+  },
+  "ErlangRetained": {
+    "OldStrict": 9582,
+    "NewStrict": 264,
+    "Differences": 0
+  },
+  "Canonical1": {
+    "Status": "FAILURE_RETAINED",
+    "Passed": 7657,
+    "Total": 7673,
+    "AccessDeniedFailures": 16
+  },
+  "SourceUnchangedOutsidePortAccessControl": {
+    "ExpectedPasses": 4,
+    "RawReceiptsIncluded": true
+  },
+  "Canonical2Status": "PASS_ACTUAL_FINAL_MAIN",
+  "NoAutomaticCompatibilityPromotion": true,
+  "Canonical2": {
+    "Passed": 7673,
+    "Total": 7673,
+    "ExitCode": 0,
+    "ElapsedSeconds": 349.63999999998487,
+    "RawTestsSnapshot": "canonical-final/tests.json",
+    "MetadataSuffix": "PASS_SETTLED_EXIT_ZERO"
+  },
+  "MetadataSuffix": {
+    "Status": "PASS",
+    "ElapsedSeconds": 54.34299999999348,
+    "InstalledReadinessFilesByteEqual": 5,
+    "NativeBackendPassed": true,
+    "FinalDllsUnchanged": true,
+    "FinalRegistry": 699,
+    "Implemented": 114,
+    "Partial": 30,
+    "Remaining": 555,
+    "CanonicalTests": 7673,
+    "Modules": 18,
+    "NewApis": 21
+  }
+}

@@ -5,6 +5,12 @@ internal sealed record BeamReceivePlan(
     int MessageRegister,
     int WaitInstructionIndex,
     int TimeoutInstructionIndex,
-    TimeSpan? Timeout,
+    BeamOperand? TimeoutOperand,
     IReadOnlySet<int> MatcherInstructions
-);
+)
+{
+    internal BeamReceiveCallbackPlan? Callback { get; init; }
+
+    internal bool HasTimeout => TimeoutInstructionIndex != BeamReceiveNames.NoTimeoutInstruction;
+    internal bool HasMatcher => MessageRegister != BeamReceiveNames.NoMessageRegister;
+}

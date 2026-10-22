@@ -45,6 +45,7 @@ internal sealed unsafe class NifNativeLibraryOwner : IAsyncDisposable
             initializationStarted = true;
             reallocationEnabled = profile.ReallocationEnabled;
             allocations.JoinDomain(initializationContext.Runtime.NativeAllocationDomain);
+            allocations.RegisterWindow434(image.Module);
             NifNativePlatformLoader.VerifyPlatform();
             try
             {

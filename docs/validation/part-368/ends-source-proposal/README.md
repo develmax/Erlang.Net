@@ -1,0 +1,9 @@
+# Queue ends and aliases, Part368 isolated proposal
+
+This new-only packet implements17 explicit pinned OTP queue exports: in_r/2, out_r/1, get/1, get_r/1, peek/1, peek_r/1, drop/1, drop_r/1, cons/2, head/1, tail/1, snoc/2, last/1, daeh/1, init/1, liat/1 and lait/1. The other13 remaining exports are owned separately. Existing Part367 implementation and evidence remain unchanged.
+
+Six production classes separate registrations, algorithms, balance helpers, source positions, last-list traversal and error capture. Public MFA strings reuse Root's current QueueModuleNames. Shared CoreLinear/Trace are reused without modifying them. This packet does not call public from_list for balancing or misattribute alias failures to alias names. Head has its own public errors; other true aliases tail-transfer to the pinned target owners. Lists:last errors preserve effective helper arguments, source files, optional peek continuation, actual callers and depth. Proper and improper shallow guards are intentionally distinct from full list validation.
+
+Typed tests cover17 registry MFAs. Three new consolidated HOST names cover representation/persistence, improper tails/helper errors and all17 compiled calls. All accesses use public registry APIs; no internal runtime tests or public diagnostic hooks are introduced. See integration.txt for the exact minimal Root edits and resource registration.
+
+No build, SDK, original VM, CI, Main write, Git mutation or network execution was performed. All native metadata and complete classifications remain conditional on actual whole-value/full-stack comparisons and final gates. Source clauses and pending obligations are explicit in branch-proof.json. Immutable copy-plan destinations are all new; listed current integration/dependency hashes bind the source assumptions and must be re-reviewed if Root's shared-seam edits change them. They are not permission to overwrite those files.

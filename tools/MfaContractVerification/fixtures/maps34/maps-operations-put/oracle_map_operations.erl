@@ -1,0 +1,1 @@
+-module(oracle_map_operations). -export([run/0]). run()->M=#{1=>old},N=maps:put(1.0,new,M),2=maps:size(N),old=maps:get(1,M),new=maps:get(1.0,N),done.

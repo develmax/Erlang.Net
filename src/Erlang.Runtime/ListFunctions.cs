@@ -10,6 +10,28 @@ public static class ListFunctions
         Term? accumulator = null
     )
     {
+        if (operation is ListModuleNames.Any or ListModuleNames.All)
+            return await ListPredicateExecution.Run(
+                context,
+                operation,
+                function,
+                list
+            );
+        if (operation is ListModuleNames.FoldLeft or ListModuleNames.Filter or ListModuleNames.Map or ListModuleNames.FilterMap)
+            return await ListCallbackSourceExecution.Run(
+                context,
+                operation,
+                function,
+                list,
+                accumulator
+            );
+        if (operation == ListModuleNames.FoldRight)
+            return await ListFoldRight.Run(
+                context,
+                function,
+                accumulator!,
+                list
+            );
         bool fold = operation is ListModuleNames.FoldLeft or ListModuleNames.FoldRight or ListModuleNames.MapFoldLeft or ListModuleNames.MapFoldRight;
         if (function is not FunctionTerm callback || callback.Arity != (fold ? 2 : 1))
             throw new ErlangException(ErlangErrorReasons.FunctionClause);

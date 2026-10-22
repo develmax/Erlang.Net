@@ -1,0 +1,104 @@
+{
+  "Files": [
+    {
+      "Source": "artifacts/erlang371-lists-unique-source-proposal1/source/src/Erlang.Runtime/ListMergeOperations.cs",
+      "Destination": "src/Erlang.Runtime/ListMergeOperations.cs",
+      "Sha256": "3B050E40F33D39ABE2E207E8B4524319286F52B286821F3FA5E2A66E2A9D642B",
+      "Bytes": 11062,
+      "ExpectedCurrentSha256": "7F66E3EB51B895D3EB6630708134953F107E766FE7F2E50A0A1563013E851CC6"
+    },
+    {
+      "Source": "artifacts/erlang371-lists-unique-source-proposal1/source/src/Erlang.Runtime/ListModuleRegistrations.cs",
+      "Destination": "src/Erlang.Runtime/ListModuleRegistrations.cs",
+      "Sha256": "54076777516413DEDBD133D30B355BFB90A1CC60A590759CD791353F984CB0B8",
+      "Bytes": 8744,
+      "ExpectedCurrentSha256": "71B3AB6D6E9146CB336320E4DA7B22CD79B175B9A8AFB1E3BB1CD7FF9AC03F49"
+    },
+    {
+      "Source": "artifacts/erlang371-lists-unique-source-proposal1/source/src/Erlang.Runtime/ListSortOperations.cs",
+      "Destination": "src/Erlang.Runtime/ListSortOperations.cs",
+      "Sha256": "2F46918F789AB10FCDDB8CEEE2854AE532E8603B191C56AFD093E0497BF1AB9F",
+      "Bytes": 1756,
+      "ExpectedCurrentSha256": "FC999EA390729FE33BAF8BF511F0A2DB15B4CC21993A22F1CDD07D3DC69355B8"
+    },
+    {
+      "Source": "artifacts/erlang371-lists-unique-source-proposal1/source/src/Erlang.Runtime/ListUniqueMergeContinuation.cs",
+      "Destination": "src/Erlang.Runtime/ListUniqueMergeContinuation.cs",
+      "Sha256": "AEEA87F601907D62EACDFFDEDAEE1C726AA51587D3DE07B43640B55B67D400EA",
+      "Bytes": 219,
+      "ExpectedCurrentSha256": null
+    },
+    {
+      "Source": "artifacts/erlang371-lists-unique-source-proposal1/source/src/Erlang.Runtime/ListUniqueMergeMachine.cs",
+      "Destination": "src/Erlang.Runtime/ListUniqueMergeMachine.cs",
+      "Sha256": "710819C1F220E8DC274D19632B1480131F52B15860AAE93EC430D4C3E5E1CD48",
+      "Bytes": 54028,
+      "ExpectedCurrentSha256": null
+    },
+    {
+      "Source": "artifacts/erlang371-lists-unique-source-proposal1/source/src/Erlang.Runtime/ListUniqueMergeNames.cs",
+      "Destination": "src/Erlang.Runtime/ListUniqueMergeNames.cs",
+      "Sha256": "43755B5DB8805F27E3C426BED2721053F98895035B2761CDF81EE2CF17CDD037",
+      "Bytes": 5435,
+      "ExpectedCurrentSha256": null
+    },
+    {
+      "Source": "artifacts/erlang371-lists-unique-source-proposal1/source/src/Erlang.Runtime/ListUniqueMergeScope.cs",
+      "Destination": "src/Erlang.Runtime/ListUniqueMergeScope.cs",
+      "Sha256": "EDA7251728F21A50D9AD22FE1B4CB1A1AF95469D654A934FB3FC6A9C7C03703A",
+      "Bytes": 539,
+      "ExpectedCurrentSha256": null
+    },
+    {
+      "Source": "artifacts/erlang371-lists-unique-source-proposal1/source/src/Erlang.Runtime/ListUniqueMergeState.cs",
+      "Destination": "src/Erlang.Runtime/ListUniqueMergeState.cs",
+      "Sha256": "C710221F888090A9161DE276C2BAE6CCC06DA69E11F0E8688B527638DE0DEF8C",
+      "Bytes": 406,
+      "ExpectedCurrentSha256": null
+    },
+    {
+      "Source": "artifacts/erlang371-lists-unique-source-proposal1/source/src/Erlang.Runtime/ListUniqueMergeTrace.cs",
+      "Destination": "src/Erlang.Runtime/ListUniqueMergeTrace.cs",
+      "Sha256": "EEA02651A68D3970C4AFD55C5D4ADC1D739D91F566978841815ADC226921DB3F",
+      "Bytes": 2401,
+      "ExpectedCurrentSha256": null
+    },
+    {
+      "Source": "artifacts/erlang371-lists-unique-source-proposal1/source/tests/Erlang.Tests/ListUniqueSourceHostChecks.cs",
+      "Destination": "tests/Erlang.Tests/ListUniqueSourceHostChecks.cs",
+      "Sha256": "FDD350846AAAF82D24D135D0946E6C297853107233F4F875C1D8E061F5A3B5CF",
+      "Bytes": 3368,
+      "ExpectedCurrentSha256": null
+    },
+    {
+      "Source": "artifacts/erlang371-lists-unique-source-proposal1/source/tests/Erlang.Tests/ListUniqueSourceHostNames.cs",
+      "Destination": "tests/Erlang.Tests/ListUniqueSourceHostNames.cs",
+      "Sha256": "9D5A271A0607FF0A3AE91EB7C6D67A23D46864CD60B5BB7B4D4BED9DE6B8C60C",
+      "Bytes": 1364,
+      "ExpectedCurrentSha256": null
+    },
+    {
+      "Source": "artifacts/erlang371-lists-unique-source-proposal1/source/tests/Erlang.Tests/Resources/Erlang371/lists_unique_source_contract.erl",
+      "Destination": "tests/Erlang.Tests/Resources/Erlang371/lists_unique_source_contract.erl",
+      "Sha256": "B53D3E3F277751731B1A0D8DB921FBFA2258C38B0C3BCE23AF06D5DCAB4B48BF",
+      "Bytes": 704,
+      "ExpectedCurrentSha256": null
+    }
+  ],
+  "Edits": [
+    {
+      "File": "tests/Erlang.Tests/Program.cs",
+      "AppendBefore": "catalog snapshot",
+      "Insert": "Test(Erlang.Tests.ListUniqueSourceHostNames.TestName, Erlang.Tests.ListUniqueSourceHostChecks.Run);"
+    },
+    {
+      "File": "tests/Erlang.Tests/Erlang.Tests.csproj",
+      "Insert": "<EmbeddedResource Include=\"Resources/Erlang371/lists_unique_source_contract.erl\" />"
+    }
+  ],
+  "PreservedListModuleRegistrationsZf": true,
+  "RegistrationOnlyUsortBlockBefore": "        foreach (string operation in new[] { ListModuleNames.Sort, ListModuleNames.UniqueSort })\n            Add(operation, 1, a => ListSortOperations.Sort(a[0], operation == ListModuleNames.UniqueSort));",
+  "RegistrationOnlyUsortBlockAfter": "        Add(ListModuleNames.Sort, 1, a => ListSortOperations.Sort(a[0]));\n        registry.Register(\n            ListModuleNames.Module,\n            ListModuleNames.UniqueSort,\n            1,\n            (context, arguments) => ValueTask.FromResult(ListSortOperations.Unique(context, arguments[0]))\n        );",
+  "NoMainWrites": true,
+  "NoBuildNetwork": true
+}

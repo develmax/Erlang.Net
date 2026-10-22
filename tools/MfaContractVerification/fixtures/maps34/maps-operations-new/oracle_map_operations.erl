@@ -1,0 +1,1 @@
+-module(oracle_map_operations). -export([run/0]). run()->#{}=maps:new(),0=maps:size(maps:new()),done.

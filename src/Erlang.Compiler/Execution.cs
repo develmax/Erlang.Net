@@ -29,7 +29,7 @@ public static partial class Execution
         null
     );
 
-    internal static async ValueTask<Term> InvokeAsync(
+    internal static ValueTask<Term> InvokeAsync(
         ModuleDefinition module,
         string function,
         ProcessContext context,
@@ -39,57 +39,16 @@ public static partial class Execution
     )
     {
         image ??= context.ExecutingSourceImage(module) ?? context.Runtime.Modules.SourceImage(module.Name, module);
-        try
-        {
-            while (true)
-            {
-                if (lease is null && image is not null)
-                    lease = await context.Runtime.Modules.AcquireSourceCode(context, image);
-                try
-                {
-                    using var flow = lease?.Attach(module);
 
-                    return await InvokeFrame(
-                        module,
-                        function,
-                        context,
-                        arguments,
-                        image
-                    );
-                }
-                catch (TailCall next)
-                {
-                    function = next.Function;
-                    arguments = next.Arguments;
-                    image = next.Image;
-                }
-                catch (SourceTailCall next)
-                {
-                    lease?.Dispose();
-                    lease = null;
-                    module = next.Module;
-                    function = next.Function;
-                    arguments = next.Arguments;
-                    image = next.Image;
-                }
-                catch (RuntimeTailCall next)
-                {
-                    lease?.Dispose();
-                    lease = null;
-
-                    return await CallRuntime(
-                        context,
-                        next.Module,
-                        next.Function,
-                        next.Arguments
-                    );
-                }
-            }
-        }
-        finally
-        {
-            lease?.Dispose();
-        }
+        return InvokeTargetAsync(new(
+            module,
+            function,
+            null,
+            null,
+            null,
+            image,
+            lease
+        ), context, arguments);
     }
 
     private static async ValueTask<Term> InvokeFrame(
@@ -146,6 +105,10 @@ public static partial class Execution
                 true
             );
         }
+        catch (SourceContinuationReturn returned)
+        {
+            return returned.Value;
+        }
         catch (ErlangException exception)
         {
             throw context.CaptureSourceFailure(
@@ -187,7 +150,7 @@ public static partial class Execution
         }
     }
 
-    internal static async ValueTask<Term> InvokeAnonymousAsync(
+    internal static ValueTask<Term> InvokeAnonymousAsync(
         ModuleDefinition? module,
         LocalFunctionIdentity identity,
         Expr.Fun expression,
@@ -196,68 +159,15 @@ public static partial class Execution
         ModuleCodeImage? image,
         IReadOnlyList<Term> arguments,
         SourceCodeLease? lease = null
-    )
-    {
-        try
-        {
-            if (lease is null && image is not null)
-                lease = await context.Runtime.Modules.AcquireSourceCode(context, image);
-            using var flow = module is null ? null : lease?.Attach(module);
-
-            return await InvokeAnonymousFrame(
-                module,
-                identity,
-                expression,
-                environment,
-                context,
-                image,
-                arguments
-            );
-        }
-        catch (TailCall next) when (module is not null)
-        {
-            var transferred = lease;
-            lease = null;
-
-            return await InvokeAsync(
-                module,
-                next.Function,
-                context,
-                next.Arguments,
-                next.Image,
-                transferred
-            );
-        }
-        catch (SourceTailCall next)
-        {
-            lease?.Dispose();
-            lease = null;
-
-            return await InvokeAsync(
-                next.Module,
-                next.Function,
-                context,
-                next.Arguments,
-                next.Image
-            );
-        }
-        catch (RuntimeTailCall next)
-        {
-            lease?.Dispose();
-            lease = null;
-
-            return await CallRuntime(
-                context,
-                next.Module,
-                next.Function,
-                next.Arguments
-            );
-        }
-        finally
-        {
-            lease?.Dispose();
-        }
-    }
+    ) => InvokeTargetAsync(new(
+        module,
+        null,
+        identity,
+        expression,
+        environment,
+        image,
+        lease
+    ), context, arguments);
 
     private static async ValueTask<Term> InvokeAnonymousFrame(
         ModuleDefinition? module,
@@ -306,6 +216,10 @@ public static partial class Execution
             }
 
             throw new ErlangException(ErlangErrorReasons.FunctionClause);
+        }
+        catch (SourceContinuationReturn returned)
+        {
+            return returned.Value;
         }
         catch (ErlangException exception)
         {
@@ -599,7 +513,22 @@ public static partial class Execution
                         ctx,
                         scope,
                         module
-                    )
+                    ),
+                    tail,
+                    (expression, scope) => tail
+                        ? Evaluate(
+                            expression,
+                            ctx,
+                            scope,
+                            module,
+                            true
+                        )
+                        : EvaluateGeneratedTail(
+                            expression,
+                            ctx,
+                            scope,
+                            module
+                        )
                 );
             case Expr.BinaryComprehension binaryComprehension:
                 return await ComprehensionExecution.Evaluate(
@@ -747,12 +676,17 @@ public static partial class Execution
                     ) && await GuardAsync(clause.Guard, scope, ctx)
                 );
             case Expr.Unary u:
-                return Unary(u.Operator, await Evaluate(
-                    u.Operand,
-                    ctx,
-                    b,
-                    module
-                ), ctx);
+                {
+                    Term operand = await Evaluate(
+                        u.Operand,
+                        ctx,
+                        b,
+                        module
+                    );
+                    using var sourceLocation = ctx.EnterSourceLocation(SourceCallLocations.For(module, u.SourceLine));
+
+                    return Unary(u.Operator, operand, ctx);
+                }
             case Expr.Binary x:
                 {
                     bool shortCircuit = x.Operator is ErlangOperators.AndAlso or ErlangOperators.OrElse;
@@ -764,7 +698,11 @@ public static partial class Execution
                         module
                     );
                     if (shortCircuit && left is not Atom { Name: ErlangBooleanAtoms.True or ErlangBooleanAtoms.False })
-                        throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadArgument), left)).WithStackFrame(ErlangModuleNames.Module, x.Operator, [left]);
+                    {
+                        using var failureLocation = ctx.EnterSourceLocation(SourceCallLocations.For(module, x.SourceLine));
+
+                        throw ctx.CaptureSourceFailure(new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadArgument), left)).WithStackFrame(ErlangModuleNames.Module, x.Operator, [left]));
+                    }
                     if (x.Operator == ErlangOperators.AndAlso && left.Equals(Term.A(ErlangBooleanAtoms.False)))
                         return Term.A(ErlangBooleanAtoms.False);
                     if (x.Operator == ErlangOperators.OrElse && left.Equals(Term.A(ErlangBooleanAtoms.True)))
@@ -787,6 +725,7 @@ public static partial class Execution
                             b[binding.Key] = binding.Value;
                     }
 
+                    using var sourceLocation = ctx.EnterSourceLocation(SourceCallLocations.For(module, x.SourceLine));
                     if (x.Operator == ErlangOperators.Send)
                     {
                         await ErlangOperatorValues.TrySendAsync(ctx, left, right);
@@ -804,10 +743,30 @@ public static partial class Execution
             case Expr.Call x:
                 {
                     string? targetModule = x.Module ?? (module?.Functions.Any(f => f.Name == x.Function && f.Arity == x.Arguments.Count) == true ? null : SourceCallResolution.ExternalModule(module, x.Function, x.Arguments.Count));
+                    if (StaticApplySyntax.Lower(x, targetModule) is { } lowered)
+                        return await Evaluate(
+                            lowered,
+                            ctx,
+                            b,
+                            module,
+                            tail
+                        );
                     if (targetModule == ErlangModuleNames.Module && RecordPredicateSyntax.HasLiteralNonpositiveSize(x))
                         return Term.A(ErlangBooleanAtoms.False);
                     var args = await Arguments(x.Arguments);
                     using var sourceLocation = ctx.EnterSourceLocation(SourceCallLocations.For(module, x.SourceLine));
+                    if (tail && DynamicApplySyntax.ResolveTailTarget(x, targetModule, args) is { } applied)
+                    {
+                        if (ctx.Runtime.Modules.SourceEntry(applied.Module, applied.Function, applied.Arguments.Length) is { Owner: ModuleDefinition appliedSource } appliedEntry)
+                            throw new SourceTailCall(
+                                appliedSource,
+                                applied.Function,
+                                applied.Arguments,
+                                appliedEntry.Image
+                            );
+
+                        throw applied;
+                    }
                     if (x.Module == ErlangModuleNames.Module && x.Function == SourceLoadNifNames.Function
                         && args.Length == SourceLoadNifNames.Arity)
                         return await CallSourceLoadNif(ctx, args);
@@ -816,12 +775,22 @@ public static partial class Execution
                         if (tail)
                             throw new TailCall(x.Function, args, ctx.ExecutingSourceImage(module));
 
-                        return await InvokeAsync(
+                        using var observation = SourceBifReturnObservation.Enter(
+                            module,
+                            ctx,
+                            x,
+                            args
+                        );
+                        var result = await InvokeAsync(
                             module,
                             x.Function,
                             ctx,
                             args
                         );
+                        if (observation?.Matches(result) == true)
+                            throw new SourceContinuationReturn(result);
+
+                        return result;
                     }
 
                     if (tail && targetModule is not null &&
@@ -833,7 +802,7 @@ public static partial class Execution
                             entry.Image
                         );
 
-                    if (tail && (targetModule is not null && targetModule != ErlangModuleNames.Module || targetModule == ErlangModuleNames.Module && ErlangSourceWrapperSignatures.Contains(x.Function, args.Length)))
+                    if (tail && (targetModule is not null && targetModule != ErlangModuleNames.Module && !ctx.Runtime.Modules.IsNativeEntry(targetModule, x.Function, args.Length) || targetModule == ErlangModuleNames.Module && ErlangSourceWrapperSignatures.Contains(x.Function, args.Length)))
                         throw new RuntimeTailCall(targetModule ?? ErlangModuleNames.Module, x.Function, args);
 
                     ModuleCallDispatchKind dispatch = ModuleCallDispatchKind.Direct;
@@ -849,13 +818,28 @@ public static partial class Execution
                         if (CompilerLoaderSyntax.IsStaticApply(x))
                             return await ctx.Runtime.Modules.InvokeLoaderOnLoad(ctx, ((Cons)args[CompilerLoaderSyntaxArity.ArgumentList]).Head);
 
-                        return await ctx.Runtime.Modules.CallWithDispatch(
+                        var result = await ctx.Runtime.Modules.CallWithDispatch(
                             ctx,
                             targetModule ?? ErlangModuleNames.Module,
                             x.Function,
                             args,
-                            out dispatch
+                            out dispatch,
+                            out bool selectedElementSourceContract
                         );
+                        SourceBifReturnObservation.Record(
+                            module,
+                            ctx,
+                            x,
+                            args,
+                            result,
+                            selectedElementSourceContract
+                        );
+                        if (!tail && x.CanDiscardBifContinuation && module is not null
+                            && targetModule == ErlangModuleNames.Module && selectedElementSourceContract
+                            && SourceBifReturnContracts.IsCandidate(module, x))
+                            throw new SourceContinuationReturn(result);
+
+                        return result;
                     }
                     catch (ErlangException exception)
                     {
@@ -881,10 +865,25 @@ public static partial class Execution
                     var args = await Arguments(x.Arguments);
                     using var sourceLocation = ctx.EnterSourceLocation(SourceCallLocations.For(module, x.SourceLine));
 
-                    if (fun is not FunctionTerm f)
-                        throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadFunction), fun));
+                    try
+                    {
+                        if (fun is not FunctionTerm f)
+                        {
+                            throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadFunction), fun));
+                        }
+                        bool noReturn = !tail && x.CanDiscardContinuation && module is not null
+                            && SourceReturnContracts.IsTerminal(module, ctx, f);
+                        if ((tail || noReturn) && args.Length == f.Arity)
+                        {
+                            throw new FunctionTailCall(f, args);
+                        }
 
-                    return await f.Invoke(ctx, args);
+                        return await f.Invoke(ctx, args);
+                    }
+                    catch (ErlangException exception)
+                    {
+                        throw ctx.CaptureSourceFailure(exception);
+                    }
                 }
             case Expr.Case x:
                 {
@@ -945,40 +944,18 @@ public static partial class Execution
                     var image = module is null ? null : ctx.ExecutingSourceImage(module) ?? ctx.Runtime.Modules.SourceImage(module.Name, module);
                     string[] names = capture.Keys.ToArray();
 
-                    FunctionTerm Create(IReadOnlyList<Term> environment, LocalFunctionInvocation? invocation = null)
-                    {
-                        if (environment.Count != names.Length)
-                            throw new ErlangException(ErlangErrorReasons.BadArgument);
-                        var restored = names.Select((name, index) => new KeyValuePair<string, Term>(name, environment[index])).ToDictionary(pair => pair.Key, pair => pair.Value, StringComparer.Ordinal);
-
-                        FunctionTerm? result = null;
-                        result = new FunctionTerm(
-                            identity,
-                            f.Clauses[0].Patterns.Count,
-                            environment,
-                            (context, args) => SourceFunctionInvocation.Anonymous(
-                                module,
-                                identity,
-                                f,
-                                restored,
-                                (ProcessContext)context,
-                                image,
-                                args,
-                                invocation?.OriginalFunction ?? result!,
-                                invocation
-                            )
-                        );
-
-                        return result;
-                    }
-                    identity = ctx.Runtime.Functions.RegisterSourceFactory(
+                    SourceStoredFunctionRecipe recipe = SourceStoredFunctionRecipe.Register(
+                        ctx.Runtime.Functions,
+                        module,
                         identity,
-                        f.Clauses[0].Patterns.Count,
-                        names.Length,
-                        Create
+                        f,
+                        null,
+                        names,
+                        image,
+                        f.Clauses[0].Patterns.Count
                     );
 
-                    return Create(capture.Values.ToArray());
+                    return recipe.Create(capture.Values.ToArray());
                 }
             case Expr.FunctionReference reference:
                 return NamedFunctionReferences.Evaluate(module, reference, ctx);

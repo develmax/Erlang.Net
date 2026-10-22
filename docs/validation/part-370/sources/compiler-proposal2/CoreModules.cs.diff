@@ -1,0 +1,10 @@
+--- src/Erlang.Runtime/CoreModules.cs
++++ src/Erlang.Runtime/CoreModules.cs
+@@ -52,6 +52,7 @@
+             2,
+             (c, a) => a[0] is Integer i && a[1] is TupleTerm t && i.Value > 0 && i.Value <= t.Items.Count ? t.Items[(int)i.Value - 1] : throw new ErlangException(ErlangErrorReasons.BadArgument)
+         );
++        r.SealElementSourceContract();
+         Add(
+             ErlangModuleNames.Module,
+             ErlangModuleNames.TupleSize,

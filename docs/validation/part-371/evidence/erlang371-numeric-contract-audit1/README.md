@@ -1,0 +1,9 @@
+# Full14 numeric source-contract audit and next scalar packet
+
+Source-only, no Main/build/network/native execution. Root reports fixedpacket4506/4506strict; contract-partitions.json hashes that evidence and currentimplementation, separates14individualMFAs and identifiesunclosedsourcebranches. No automaticpromotion.
+
+Fourintegerformat APIs havea completevalue/error-path mathematicalcandidate overreference-representableintegers; longconversiondirtyscheduler/cancellation behavior remainsanexplicitruntimeobligation. Fourintegerparse APIs have concrete source differences: byte-narrowedSMALLlistcharacters, bigfallbackoriginalbytevalidation, trimmed-inputearlycaps, maximum65535limbs anderrorprecedence. Sixfloat APIs retainexactIEEErounding/frameworkdependencyreview; unaryscientificformat has exactrationalroundingcandidate, binaryformatoptions requirethe providedwrapcontrols.
+
+numeric371_contract_edges.erl andprofile.fragment.json prepare60values/300stacks/360strictcomparisons for the next checkpoint, using existing erlang370_pure_support andmonitoredworker. No seededexpectedresults; actualsuccess/errorfullstacks arecaptured. Do not amend alreadyrunningfullordsetsCIinput. Root owns newsource-inventorybinding/manifest/profile/parse-gate andsingle-buildoriginaldispatch.
+
+large-cap-mandatory-plan.json specifies separateheavycases andraw-evidence bounds. Milliondigitargumentscannotbesilentlyprojectedaroundexisting16MiB/termdecoderlimits. Unexecutedplansarenotcompletionevidence.

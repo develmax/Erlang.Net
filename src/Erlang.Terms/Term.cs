@@ -6,13 +6,13 @@ namespace Erlang;
 
 public abstract class Term : IEquatable<Term>, IComparable<Term>
 {
-    public bool Equals(Term? other) => other is not null && TermOrder.Compare(this, other, true) == 0;
+    public bool Equals(Term? other) => other is not null && TermOrder.ExactEquals(this, other);
 
     public override bool Equals(object? other) => other is Term term && Equals(term);
 
     public int CompareTo(Term? other) => other is null ? 1 : TermOrder.Compare(this, other);
 
-    public bool NumericEquals(Term other) => TermOrder.Compare(this, other) == 0;
+    public bool NumericEquals(Term other) => TermOrder.NumericEquals(this, other);
 
     public override int GetHashCode() => TermOrder.Hash(this);
 

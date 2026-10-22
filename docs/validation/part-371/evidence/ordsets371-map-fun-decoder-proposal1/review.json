@@ -1,0 +1,33 @@
+{
+  "Status": "SOURCE_REVIEWED_PROPOSAL_ROOT_MUST_EXECUTE_CONTROLS",
+  "BasePath": "artifacts/ordsets371-remaining-original-proposal2/tool/passive_etf_family.py",
+  "BaseSha256": "2A7CE62661669FA91D03A0231D0911FEDACAB6C37B0D2FBE76F2DA325726A519",
+  "ProposalSha256": "BC8C8C15E0EF591DC00CB896F33B0BD799B44B6E30651A9984352D1028A05C12",
+  "SemanticFieldsRetained": [
+    "declared size",
+    "arity",
+    "NEW_UNIQ all16bytes",
+    "index",
+    "module",
+    "old_index",
+    "old_uniq",
+    "creator PID allfields and wiretag",
+    "free environment allterms"
+  ],
+  "SoleRemovedStructuralItem": "raw_span offset/length transport bookkeeping; all raw ETF bytes remain in original capture and span boundaries are independently checked on every NEW_FUN parse. Optional decode_exact_with_fun_spans returns source spans+SHA256 sidechannel.",
+  "NewMapKeyProfile": "Only NEW_FUN with fully parsed fixed field types/ranges and exactlyzero free terms. No blanket allowance for arbitrary FUN environments, PIDs, ports or native record map keys. Existing supported key profile unchanged.",
+  "BoundsPreserved": [
+    "MAX_BYTES",
+    "MAX_DEPTH",
+    "MAX_TERMS",
+    "aggregate container budget",
+    "declared NEW_FUN end",
+    "free-count room",
+    "exact new_fun end",
+    "truncation and trailing data rejection",
+    "duplicate structural map key rejection"
+  ],
+  "Comparison": "All serialized FUN fields remain in semantic tuples and therefore strict equality/frozenset map identity. No creator normalization, no OLD_UNIQ approximation, no result projection, no drop of arity/index/size or environment. Raw span positions may differ when physical map pair order changes; they are evidence sidechannel, not Erlang map semantics.",
+  "KnownProducerGap": "Actual Main reader/writer may fail to preserve restored FUN creator PID. This proposal explicitly keeps creator so such a mismatch stays visible, rather than being normalized away.",
+  "NoBuildNetworkMainWrites": true
+}

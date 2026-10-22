@@ -92,10 +92,10 @@ internal sealed partial class RuntimeActorDispatcher
             long activeEpoch = RuntimeActorExecutionTurn.Epoch(scheduler.Owner);
             ProcessExecutionAdmission admission = task.AsyncState is RuntimeActorContinuation continuation
                 ? continuation.Admission : ProcessExecutionAdmission.Continuation;
-            bool freshWakeup = activeEpoch == 0 && !scheduler.Running && scheduler.Pending.Count == 0;
+            bool freshWakeup = activeEpoch == 0 && !scheduler.Running && scheduler.WorkCount428 == 0;
             long epoch = admission == ProcessExecutionAdmission.Reduction || scheduler.NextEpoch == 0 || freshWakeup
                 ? ++scheduler.NextEpoch : activeEpoch == 0 ? scheduler.NextEpoch : activeEpoch;
-            scheduler.Pending.Enqueue(new RuntimeScheduledTask(task, epoch));
+            scheduler.EnqueueWork428(new RuntimeScheduledTask(task, epoch));
             if (!scheduler.Running && scheduler.ReadyNode is null)
                 Ready(scheduler);
             StartWorkers();
@@ -105,7 +105,7 @@ internal sealed partial class RuntimeActorDispatcher
     internal Task[] Snapshot(RuntimeProcessTaskScheduler scheduler)
     {
         lock (gate)
-            return scheduler.Pending.Select(work => work.Task).ToArray();
+            return scheduler.Pending.Concat(scheduler.SystemPending428).Select(work => work.Task).ToArray();
     }
 
     internal (int Online, int Active) State()
@@ -142,7 +142,7 @@ internal sealed partial class RuntimeActorDispatcher
             if (!scheduler.Running)
             {
                 AssignLane(scheduler);
-                if (scheduler.Pending.Count != 0)
+                if (scheduler.WorkCount428 != 0)
                     Ready(scheduler);
             }
             StartWorkers();
@@ -278,13 +278,14 @@ internal sealed partial class RuntimeActorDispatcher
 
     private void Ready(RuntimeProcessTaskScheduler scheduler, bool reprioritized = false)
     {
+        if (controls428.ContainsKey(scheduler)) return;
         AssignLane(scheduler);
         bool sameTurn = !reprioritized && scheduler.LastExecutedEpoch != 0 &&
-            scheduler.Pending.Peek().Epoch == scheduler.LastExecutedEpoch;
-        scheduler.SkipCount = !sameTurn && scheduler.Owner.SchedulingPriorityLevel == ProcessSchedulingPriority.Low
+            scheduler.PeekWork428().Epoch == scheduler.LastExecutedEpoch;
+        scheduler.SkipCount = !sameTurn && scheduler.Owner.DispatchPriority428 == ProcessSchedulingPriority.Low
             ? ProcessPriorityNames.LowRescheduleCount : 1;
         var queue = scheduler.Owner.Cancellation.IsCancellationRequested && (scheduler.Lane.Online || retiring)
-            ? scheduler.Lane.Cleanup : scheduler.Lane.Queue(scheduler.Owner.SchedulingPriorityLevel);
+            ? scheduler.Lane.Cleanup : scheduler.Lane.Queue(scheduler.Owner.DispatchPriority428);
         scheduler.ReadyNode = sameTurn ? queue.AddFirst(scheduler) : queue.AddLast(scheduler);
     }
 
@@ -317,7 +318,7 @@ internal sealed partial class RuntimeActorDispatcher
         if (queue.First is null)
             return null;
         while (ReferenceEquals(queue, lane.Ordinary) && queue.Count > 1 &&
-            queue.First!.Value.Owner.SchedulingPriorityLevel == ProcessSchedulingPriority.Low &&
+            queue.First!.Value.Owner.DispatchPriority428 == ProcessSchedulingPriority.Low &&
             --queue.First.Value.SkipCount > 0)
         {
             var skipped = queue.First!;
@@ -329,6 +330,7 @@ internal sealed partial class RuntimeActorDispatcher
         best.ReadyNode = null;
         best.Running = true;
         lane.Running = best;
+        WallTimeBecameActive(lane);
 
         return best;
     }
@@ -339,14 +341,22 @@ internal sealed partial class RuntimeActorDispatcher
         {
             if (lane.Online && !lane.Pumping && lane.Empty)
                 TrySteal(lane);
-            if (lane.Pumping || lane.Empty || !lane.Online && (!retiring || lane.Cleanup.Count == 0))
+            if (lane.Pumping || lane.Empty || !lane.Online && lane.Auxiliary420.Count == 0 && (!retiring || lane.Cleanup.Count == 0))
                 continue;
             lane.Pumping = true;
-            if (ExecutionContext.IsFlowSuppressed())
-                _ = Task.Run(() => Pump(lane));
-            else
-                using (ExecutionContext.SuppressFlow())
+            try
+            {
+                if (ExecutionContext.IsFlowSuppressed())
                     _ = Task.Run(() => Pump(lane));
+                else
+                    using (ExecutionContext.SuppressFlow())
+                        _ = Task.Run(() => Pump(lane));
+            }
+            catch
+            {
+                lane.Pumping = false;
+                throw;
+            }
         }
     }
 
@@ -366,7 +376,7 @@ internal sealed partial class RuntimeActorDispatcher
                     queue.Remove(node);
                     scheduler.Lane = destination;
                     var destinationQueue = ReferenceEquals(queue, source.Cleanup)
-                        ? destination.Cleanup : destination.Queue(scheduler.Owner.SchedulingPriorityLevel);
+                        ? destination.Cleanup : destination.Queue(scheduler.Owner.DispatchPriority428);
                     scheduler.ReadyNode = destinationQueue.AddLast(scheduler);
 
                     return;
@@ -379,43 +389,73 @@ internal sealed partial class RuntimeActorDispatcher
     {
         while (true)
         {
-            RuntimeProcessTaskScheduler? scheduler;
-            RuntimeScheduledTask task;
+            RuntimeProcessTaskScheduler? scheduler = null;
+            RuntimeScheduledTask? task = null;
+            RuntimeSchedulerAuxiliary420? auxiliary = null;
             lock (gate)
             {
-                scheduler = Select(lane);
-                if (scheduler is null && lane.Online)
+                if (lane.Auxiliary420.First is { } first && DriverAuxiliaryMayRun422(lane))
                 {
-                    TrySteal(lane);
+                    lane.Auxiliary420.RemoveFirst();
+                    auxiliary = first.Value;
+                    lane.AuxiliaryRunning420 = true;
+                    DriverAuxiliarySelected422(lane, true);
+                    WallTimeBecameActive(lane);
+                }
+                else
+                {
                     scheduler = Select(lane);
-                }
-                if (scheduler is null)
-                {
-                    lane.Pumping = false;
-                    CompleteTransition();
-                    CompleteIfIdle();
+                    if (scheduler is null && lane.Online)
+                    {
+                        TrySteal(lane);
+                        scheduler = Select(lane);
+                    }
+                    if (scheduler is null && lane.Auxiliary420.First is { } fallback)
+                    {
+                        lane.Auxiliary420.RemoveFirst();
+                        auxiliary = fallback.Value;
+                        lane.AuxiliaryRunning420 = true;
+                        DriverAuxiliarySelected422(lane, true);
+                        WallTimeBecameActive(lane);
+                    }
+                    else if (scheduler is null)
+                    {
+                        lane.Pumping = false;
+                        CompleteTransition();
+                        CompleteIfIdle();
 
-                    return;
+                        return;
+                    }
+                    if (scheduler is not null)
+                    {
+                        DriverAuxiliarySelected422(lane, false);
+                        task = scheduler.DequeueWork428();
+                        scheduler.LastExecutedEpoch = task.Epoch;
+                    }
                 }
-                task = scheduler.Pending.Dequeue();
-                scheduler.LastExecutedEpoch = task.Epoch;
             }
             try
             {
-                scheduler.Execute(task, lane.Identity);
+                if (auxiliary is not null) auxiliary.Execute(lane.Identity);
+                else scheduler!.Execute(task!, lane.Identity);
             }
             finally
             {
                 lock (gate)
                 {
-                    scheduler.Running = false;
-                    lane.Running = null;
-                    AssignLane(scheduler);
-                    if (scheduler.Pending.Count != 0)
-                        Ready(scheduler);
+                    WallTimeBecameIdle(lane);
+                    if (auxiliary is not null) lane.AuxiliaryRunning420 = false;
+                    else
+                    {
+                        scheduler!.Running = false;
+                        lane.Running = null;
+                        AssignLane(scheduler);
+                        if (scheduler.WorkCount428 != 0) Ready(scheduler);
+                    }
                     CompleteTransition();
                     StartWorkers();
                 }
+                if (scheduler is not null) scheduler.Owner.Runtime.DirtyTurnEnded428(scheduler.Owner);
             }
         }
     }
@@ -495,7 +535,7 @@ internal sealed partial class RuntimeActorDispatcher
 
     private void CompleteIfIdle()
     {
-        if (!retiring || active != 0 || !initializerStop.IsCompleted || lanes.Any(lane => lane.Pumping || !lane.Empty))
+        if (!retiring || driverOwners422 != 0 || active != 0 || !initializerStop.IsCompleted || lanes.Any(lane => lane.Pumping || !lane.Empty))
             return;
         if (initializerStop.Exception is { } failure)
             completion.TrySetException(failure.InnerExceptions);

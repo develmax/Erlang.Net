@@ -1,0 +1,217 @@
+{
+  "Status": "PREDECLARED_SOURCE_PROTOCOL_NOT_OBSERVATIONS",
+  "Cases": [
+    {
+      "Name": "reverse_64017",
+      "Group": "reverse_direct",
+      "Length": 64017,
+      "OriginalOnlyDependencyControl": true,
+      "ActualApis": [
+        "lists:reverse/2"
+      ],
+      "InputProperPrefix": "unique integers1..N",
+      "InputImproperTail": "atom tail",
+      "ReverseOriginalTail": [],
+      "OutExtraRemovedRearHead": null,
+      "FullRawCaptureRequired": true,
+      "AllFramesAndFieldsCompared": true,
+      "OriginalObservationPending": true,
+      "NoNativePartitionSeed": true,
+      "EligibleRelationalProof": "saved reverse args must independently be suffix[k+1..N|tail] and reversed prefix[k..1] for some own observed k; no projection or replacement",
+      "NonzeroNativePartitionRequiredAsDiagnostic": true
+    },
+    {
+      "Name": "reverse_256017",
+      "Group": "reverse_direct",
+      "Length": 256017,
+      "OriginalOnlyDependencyControl": true,
+      "ActualApis": [
+        "lists:reverse/2"
+      ],
+      "InputProperPrefix": "unique integers1..N",
+      "InputImproperTail": "atom tail",
+      "ReverseOriginalTail": [],
+      "OutExtraRemovedRearHead": null,
+      "FullRawCaptureRequired": true,
+      "AllFramesAndFieldsCompared": true,
+      "OriginalObservationPending": true,
+      "NoNativePartitionSeed": true,
+      "EligibleRelationalProof": "saved reverse args must independently be suffix[k+1..N|tail] and reversed prefix[k..1] for some own observed k; no projection or replacement",
+      "NonzeroNativePartitionRequiredAsDiagnostic": true
+    },
+    {
+      "Name": "to_list_rear_64017",
+      "Group": "queue_to_list",
+      "Length": 64017,
+      "OriginalOnlyDependencyControl": false,
+      "ActualApis": [
+        "queue:to_list/1"
+      ],
+      "InputProperPrefix": "unique integers1..N",
+      "InputImproperTail": "atom tail",
+      "ReverseOriginalTail": [],
+      "OutExtraRemovedRearHead": null,
+      "FullRawCaptureRequired": true,
+      "AllFramesAndFieldsCompared": true,
+      "OriginalObservationPending": true,
+      "NoNativePartitionSeed": true,
+      "EligibleRelationalProof": "saved reverse args must independently be suffix[k+1..N|tail] and reversed prefix[k..1] for some own observed k; no projection or replacement",
+      "NonzeroNativePartitionRequiredAsDiagnostic": true
+    },
+    {
+      "Name": "to_list_rear_256017",
+      "Group": "queue_to_list",
+      "Length": 256017,
+      "OriginalOnlyDependencyControl": false,
+      "ActualApis": [
+        "queue:to_list/1"
+      ],
+      "InputProperPrefix": "unique integers1..N",
+      "InputImproperTail": "atom tail",
+      "ReverseOriginalTail": [],
+      "OutExtraRemovedRearHead": null,
+      "FullRawCaptureRequired": true,
+      "AllFramesAndFieldsCompared": true,
+      "OriginalObservationPending": true,
+      "NoNativePartitionSeed": true,
+      "EligibleRelationalProof": "saved reverse args must independently be suffix[k+1..N|tail] and reversed prefix[k..1] for some own observed k; no projection or replacement",
+      "NonzeroNativePartitionRequiredAsDiagnostic": true
+    },
+    {
+      "Name": "out_rear_64017",
+      "Group": "queue_out",
+      "Length": 64017,
+      "OriginalOnlyDependencyControl": false,
+      "ActualApis": [
+        "queue:out/1"
+      ],
+      "InputProperPrefix": "unique integers1..N",
+      "InputImproperTail": "atom tail",
+      "ReverseOriginalTail": [],
+      "OutExtraRemovedRearHead": "atom head",
+      "FullRawCaptureRequired": true,
+      "AllFramesAndFieldsCompared": true,
+      "OriginalObservationPending": true,
+      "NoNativePartitionSeed": true,
+      "EligibleRelationalProof": "saved reverse args must independently be suffix[k+1..N|tail] and reversed prefix[k..1] for some own observed k; no projection or replacement",
+      "NonzeroNativePartitionRequiredAsDiagnostic": true
+    },
+    {
+      "Name": "out_rear_256017",
+      "Group": "queue_out",
+      "Length": 256017,
+      "OriginalOnlyDependencyControl": false,
+      "ActualApis": [
+        "queue:out/1"
+      ],
+      "InputProperPrefix": "unique integers1..N",
+      "InputImproperTail": "atom tail",
+      "ReverseOriginalTail": [],
+      "OutExtraRemovedRearHead": "atom head",
+      "FullRawCaptureRequired": true,
+      "AllFramesAndFieldsCompared": true,
+      "OriginalObservationPending": true,
+      "NoNativePartitionSeed": true,
+      "EligibleRelationalProof": "saved reverse args must independently be suffix[k+1..N|tail] and reversed prefix[k..1] for some own observed k; no projection or replacement",
+      "NonzeroNativePartitionRequiredAsDiagnostic": true
+    },
+    {
+      "Name": "short_reverse_direct",
+      "Group": "trap_controls",
+      "Length": 3,
+      "OriginalOnlyDependencyControl": true,
+      "ActualApis": [
+        "lists:reverse/2"
+      ],
+      "InputProperPrefix": "unique integers1..N",
+      "InputImproperTail": "atom tail",
+      "ReverseOriginalTail": [],
+      "OutExtraRemovedRearHead": null,
+      "FullRawCaptureRequired": true,
+      "AllFramesAndFieldsCompared": true,
+      "OriginalObservationPending": true,
+      "NoNativePartitionSeed": true,
+      "EligibleRelationalProof": "saved reverse args must independently be suffix[k+1..N|tail] and reversed prefix[k..1] for some own observed k; no projection or replacement",
+      "NonzeroNativePartitionRequiredAsDiagnostic": false
+    },
+    {
+      "Name": "short_reverse_rear",
+      "Group": "trap_controls",
+      "Length": 3,
+      "OriginalOnlyDependencyControl": false,
+      "ActualApis": [
+        "queue:to_list/1"
+      ],
+      "InputProperPrefix": "unique integers1..N",
+      "InputImproperTail": "atom tail",
+      "ReverseOriginalTail": [],
+      "OutExtraRemovedRearHead": null,
+      "FullRawCaptureRequired": true,
+      "AllFramesAndFieldsCompared": true,
+      "OriginalObservationPending": true,
+      "NoNativePartitionSeed": true,
+      "EligibleRelationalProof": "saved reverse args must independently be suffix[k+1..N|tail] and reversed prefix[k..1] for some own observed k; no projection or replacement",
+      "NonzeroNativePartitionRequiredAsDiagnostic": false
+    },
+    {
+      "Name": "long_append_64017",
+      "Group": "trap_controls",
+      "Length": 64017,
+      "OriginalOnlyDependencyControl": false,
+      "ActualApis": [
+        "queue:to_list/1"
+      ],
+      "InputProperPrefix": "unique integers1..N",
+      "InputImproperTail": "atom tail",
+      "ReverseOriginalTail": null,
+      "OutExtraRemovedRearHead": null,
+      "FullRawCaptureRequired": true,
+      "AllFramesAndFieldsCompared": true,
+      "OriginalObservationPending": true,
+      "NoNativePartitionSeed": true,
+      "EligibleRelationalProof": "full exact native stack/sourceerror baseline; no reverse partition relaxation",
+      "NonzeroNativePartitionRequiredAsDiagnostic": false
+    },
+    {
+      "Name": "long_length_64017",
+      "Group": "trap_controls",
+      "Length": 64017,
+      "OriginalOnlyDependencyControl": false,
+      "ActualApis": [
+        "queue:len/1"
+      ],
+      "InputProperPrefix": "unique integers1..N",
+      "InputImproperTail": "atom tail",
+      "ReverseOriginalTail": null,
+      "OutExtraRemovedRearHead": null,
+      "FullRawCaptureRequired": true,
+      "AllFramesAndFieldsCompared": true,
+      "OriginalObservationPending": true,
+      "NoNativePartitionSeed": true,
+      "EligibleRelationalProof": "full exact native stack/sourceerror baseline; no reverse partition relaxation",
+      "NonzeroNativePartitionRequiredAsDiagnostic": false
+    },
+    {
+      "Name": "long_from_list_64017",
+      "Group": "trap_controls",
+      "Length": 64017,
+      "OriginalOnlyDependencyControl": false,
+      "ActualApis": [
+        "queue:from_list/1"
+      ],
+      "InputProperPrefix": "unique integers1..N",
+      "InputImproperTail": "atom tail",
+      "ReverseOriginalTail": null,
+      "OutExtraRemovedRearHead": null,
+      "FullRawCaptureRequired": true,
+      "AllFramesAndFieldsCompared": true,
+      "OriginalObservationPending": true,
+      "NoNativePartitionSeed": true,
+      "EligibleRelationalProof": "full exact native stack/sourceerror baseline; no reverse partition relaxation",
+      "NonzeroNativePartitionRequiredAsDiagnostic": false
+    }
+  ],
+  "PinnedSourceAuditPath": "artifacts/queue367-reverse-trap-peer1/audit.json",
+  "PinnedSourceAuditSha256": "FFAE1BECD60A71039A018D96FF20D9A13A6D8729618C4AF293BEF6CE9C53A633",
+  "RuntimeProtocolStateCaptured": false
+}

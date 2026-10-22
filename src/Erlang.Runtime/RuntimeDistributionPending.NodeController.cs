@@ -24,9 +24,9 @@ public sealed partial class RuntimeDistributionPending
             var owner = runtime.RequireDistributionControllerTarget(pid);
             if (remoteNode.Name == runtime.Node || !pending.TryGetValue(remoteNode.Name, out var entry) ||
                 entry.State != DistributionPendingState.Pending ||
-                ((ulong)flags.Value & DistributionPassThroughFlags.Mandatory) != DistributionPassThroughFlags.Mandatory)
+                !DistributionCapabilityProfile429.HasMandatory((ulong)flags.Value))
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
-            if (((ulong)flags.Value & DistributionPassThroughFlags.Unsupported) != 0)
+            if (DistributionCapabilityProfile429.HasUnsupported((ulong)flags.Value))
                 throw new ErlangException(DistributionControllerNames.NotSupported);
             request = new(
                 entry,
@@ -73,6 +73,7 @@ public sealed partial class RuntimeDistributionPending
     {
         lock (gate)
         {
+            if (IsNativeConnectedHandle429(handle)) return ResolveNativeConnectedHandle429(handle);
             var entry = ReadHandle(handle, out uint connectionId, out var lease);
             using (lease)
             {
@@ -89,6 +90,12 @@ public sealed partial class RuntimeDistributionPending
         {
             try
             {
+                if (IsNativeConnectedHandle429(handle))
+                {
+                    _ = ResolveNativeConnectedHandle429(handle);
+
+                    return true;
+                }
                 _ = ReadHandle(handle, out _, out var lease);
                 lease.Dispose();
 
@@ -137,6 +144,7 @@ public sealed partial class RuntimeDistributionPending
 
     private void RetireControllerAdoptions(RuntimeDistributionPendingEntry? entry = null, ProcessContext? controller = null)
     {
+        RetireNativeChannelRequests429(entry, controller);
         foreach (var request in controllerAdoptions.Where(request =>
             ReferenceEquals(request.Entry, entry) || ReferenceEquals(request.Controller, controller)).ToArray())
         {

@@ -1,0 +1,56 @@
+namespace Erlang;
+
+internal sealed class EtsQueryBinding414
+{
+    private readonly ModuleRegistry registry;
+    private readonly string function;
+    internal ProcessRuntime Runtime { get; }
+    internal ErlangFunction Body { get; }
+
+    internal EtsQueryBinding414(ProcessRuntime runtime, ModuleRegistry registry, string function)
+    {
+        Runtime = runtime;
+        this.registry = registry;
+        this.function = function;
+        Body = Invoke;
+    }
+
+    private ValueTask<Term> Invoke(ProcessContext context, IReadOnlyList<Term> arguments)
+    {
+        if (!ReferenceEquals(context.Runtime, Runtime) || !ReferenceEquals(context.Runtime.Modules, registry))
+            throw new ArgumentException(EtsQueryNames414.Foreign, nameof(context));
+        if (arguments.Count != 2) throw new ArgumentException(EtsQueryNames414.Signature);
+        context.Cancellation.ThrowIfCancellationRequested();
+        try
+        {
+            var core = Runtime.EtsFoundation;
+
+            return ValueTask.FromResult(function switch
+            {
+                EtsQueryNames414.MatchObject => core.CoreMatchObject414(context, arguments[0], arguments[1]),
+                EtsQueryNames414.Count => core.CoreSelectCount414(context, arguments[0], arguments[1]),
+                EtsQueryNames414.Reverse => core.CoreSelectReverse414(context, arguments[0], arguments[1]),
+                _ => throw new InvalidOperationException(EtsQueryNames414.Signature)
+            });
+        }
+        catch (RuntimeEtsCoreFailure407 failure)
+        {
+            var entries = new List<KeyValuePair<Term, Term>> { new(Term.A(RuntimeExceptionNames.Module), Term.A(RuntimeEtsFacetNames407.Formatter)) };
+            string? cause = failure.Cause switch
+            {
+                RuntimeEtsCoreCause407.Type => RuntimeEtsFacetNames407.Type,
+                RuntimeEtsCoreCause407.Id => RuntimeEtsFacetNames407.Id,
+                RuntimeEtsCoreCause407.Access => RuntimeEtsFacetNames407.Access,
+                _ => null
+            };
+            if (cause is not null) entries.Add(new(Term.A(RuntimeEtsFacetNames407.Cause), Term.A(cause)));
+            throw context.CaptureNativeFailureWithInfo(
+                new ErlangException(ErlangErrorReasons.BadArgument),
+                EtsQueryNames414.Module,
+                function,
+                arguments,
+                new MapTerm(entries)
+            );
+        }
+    }
+}

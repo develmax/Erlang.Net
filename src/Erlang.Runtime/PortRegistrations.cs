@@ -32,7 +32,12 @@ internal static class PortRegistrations
                     throw new ErlangException(reason)
                     {
                         ExplicitStackTrace = true,
-                        StackTraceTerm = context.CaptureErrorStack(Cons.From(arguments), new MapTerm(entries), function)
+                        StackTraceTerm = context.CaptureErrorStack(
+                            Cons.From(arguments),
+                            new MapTerm(entries),
+                            function,
+                            function == PortNames.Open ? PortErrorSourceLocations.Open(exception.Reason) : null
+                        )
                     };
                 }
             }
@@ -40,7 +45,7 @@ internal static class PortRegistrations
         Add(
             PortNames.Open,
             2,
-            (context, arguments) => ValueTask.FromResult(context.Runtime.Ports.Open(context, arguments[0], arguments[1]))
+            (context, arguments) => context.Runtime.OpenConfiguredPort422(context, arguments[0], arguments[1])
         );
         Add(PortNames.Ports, 0, (context, _) => ValueTask.FromResult(context.Runtime.Ports.Snapshot()));
         Add(PortNames.Close, 1, (context, arguments) => context.Runtime.Ports.CloseOrdered(arguments[0], context.Cancellation));
@@ -88,11 +93,27 @@ internal static class PortRegistrations
             context
         ));
 
-        // Ordinary guest call/control operations are unsupported by this backend.
-        // The Unix driver's private forker/SIGCHLD memory protocol is not a guest handler.
-        ValueTask<Term> Unsupported(ProcessContext context, IReadOnlyList<Term> arguments) => throw new ErlangException(ErlangErrorReasons.BadArgument);
-        Add(PortNames.Call, 2, Unsupported);
-        Add(PortNames.Call, 3, Unsupported);
-        Add(PortNames.Control, 3, Unsupported);
+        Add(PortNames.Call, 2, (context, arguments) => context.Runtime.DriverCall422(
+            context,
+            arguments[0],
+            Term.I(0),
+            arguments[1]
+        ));
+        Add(PortNames.Call, 3, (context, arguments) => context.Runtime.DriverCall422(
+            context,
+            arguments[0],
+            arguments[1],
+            arguments[2]
+        ));
+        Add(
+            PortNames.Control,
+            3,
+            (context, arguments) => context.Runtime.DriverControl422(
+                context,
+                arguments[0],
+                arguments[1],
+                arguments[2]
+            )
+        );
     }
 }

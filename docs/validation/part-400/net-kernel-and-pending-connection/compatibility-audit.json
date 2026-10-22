@@ -1,0 +1,35 @@
+{
+  "Module": "erts_internal",
+  "Function": "new_connection",
+  "Arity": 1,
+  "Classification": "Known differences",
+  "CompleteContract": false,
+  "OriginalPin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ConfirmedGap": "Configured per-runtime node budget (default1024) can reject a valid new remote node with system_limit. The pinned BIF has no equivalent per-runtime node-count budget.",
+  "SourceFaithfulBranches": [
+    "node-name validation and own-node rejection",
+    "IDLE to PENDING generation increment",
+    "PENDING/CONNECTED/EXITING current-generation reuse",
+    "owned distribution-resource handle"
+  ],
+  "OriginalWholeComparisons": 102,
+  "Sources": [
+    {
+      "Path": "src/Erlang.Runtime/DistributionPendingNativeBridge.cs",
+      "Sha256": "F6648833B373F67E005C04684003949CCF836B99817A8374CDEAE52AB0DA0F86"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeDistributionPending.cs",
+      "Sha256": "0C611B06B41B8A53F8400E8A032ABFBB123B83C5601793B1A91077827E1EEE07"
+    },
+    {
+      "Path": "src/Erlang.Runtime/DistributionPendingParameters.cs",
+      "Sha256": "4B51B6028A5AAA4B0B44EB632BB04403118EB9FE819557046B0A7F3F739E29FE"
+    },
+    {
+      "Path": "src/Erlang.Runtime/DistributionNodeIdentity.cs",
+      "Sha256": "559041C1DE8139566B8B31C27A795F898D2196C03887B475949D4EFC75D11584"
+    }
+  ],
+  "OriginalErtsInternalWholeModuleLoaded": false
+}

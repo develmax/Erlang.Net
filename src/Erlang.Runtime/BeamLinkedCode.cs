@@ -1,3 +1,6 @@
+using System.Collections.Frozen;
+using System.Collections.Concurrent;
+
 namespace Erlang;
 
 internal sealed record BeamLinkedCode(
@@ -9,4 +12,9 @@ internal sealed record BeamLinkedCode(
     IReadOnlyList<BeamLinkedFunction> Exports,
     int? OnLoadEntryLabel,
     IReadOnlyList<BeamLambdaEntry> Lambdas
-);
+)
+{
+    internal IReadOnlySet<string> RegistryModuleDependencies { get; init; } = FrozenSet<string>.Empty;
+    internal IReadOnlyList<Term> SourceLocations { get; init; } = Array.Empty<Term>();
+    internal ConcurrentDictionary<int, object> ContinuationIdentities { get; } = new();
+}

@@ -4,6 +4,7 @@ internal sealed class ProcessSpawnOptions
 {
     internal List<Term> SchedulerOptions { get; } = new();
     internal ushort? FullSweepAfter { get; private set; }
+    internal ProcessMessageQueueDataMode411 MessageQueueData { get; private set; } = ProcessMessageQueueData411.Default;
 
     internal int ResolveScheduler(int configured)
     {
@@ -55,6 +56,8 @@ internal sealed class ProcessSpawnOptions
                 result.Priority = current.Priority;
             if (option is TupleTerm { Items: [Atom { Name: ProcessFullSweepNames.Flag }, _] })
                 result.FullSweepAfter = current.FullSweepAfter;
+            if (option is TupleTerm { Items: [Atom { Name: ProcessMessageQueueDataNames411.Flag }, _] })
+                result.MessageQueueData = current.MessageQueueData;
             result.Link |= current.Link;
             if (option is TupleTerm { Items: [Atom { Name: ProcessSpawnOptionNames.Link }, _] })
                 result.PriorityLink |= current.PriorityLink;
@@ -78,6 +81,9 @@ internal sealed class ProcessSpawnOptions
                     break;
                 case TupleTerm { Items: [Atom { Name: ProcessAsyncDistributionNames.Flag }, Atom { Name: ErlangBooleanAtoms.False }] }:
                     result.AsyncDistribution = false;
+                    break;
+                case TupleTerm { Items: [Atom { Name: ProcessMessageQueueDataNames411.Flag }, var queueValue] }:
+                    result.MessageQueueData = ProcessMessageQueueData411.Parse(queueValue);
                     break;
                 case TupleTerm { Items: [Atom { Name: ProcessFullSweepNames.Flag }, var sweepValue] }:
                     result.FullSweepAfter = ProcessFullSweepAfter.ParseProcess(sweepValue);

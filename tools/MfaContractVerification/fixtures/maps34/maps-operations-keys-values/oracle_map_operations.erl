@@ -1,0 +1,1 @@
+-module(oracle_map_operations). -export([run/0]). run()->[1,2]=lists:sort(fun(A,B)->A=<B end,maps:keys(#{1=>a,2=>b})),[a,b]=lists:sort(fun(A,B)->A=<B end,maps:values(#{1=>a,2=>b})),done.

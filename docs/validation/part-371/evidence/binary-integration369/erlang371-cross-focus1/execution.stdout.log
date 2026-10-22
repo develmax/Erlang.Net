@@ -1,0 +1,28 @@
+{"Partial":true,"SelectedCount":14,"TotalCount":7672}
+PASS mfa/lists:all/2
+PASS mfa/lists:any/2
+PASS mfa/lists:filter/2
+PASS mfa/lists:filtermap/2
+PASS mfa/lists:foldl/3
+PASS mfa/lists:foldr/3
+PASS mfa/lists:map/2
+PASS mfa/lists:mapfoldl/3
+PASS mfa/lists:zf/2
+PASS terms/map-fun-key-order-and-deep-comparison-scopes
+FAIL otp/ordsets-callbacks-dispatch-actual-replaced-lists-code-and-frames: System.ArgumentException: An item with the same key has already been added. Key: (lists, foldl, 3)
+   at System.Collections.Generic.Dictionary`2.TryInsert(TKey key, TValue value, InsertionBehavior behavior)
+   at System.Collections.Generic.Dictionary`2.Add(TKey key, TValue value)
+   at Erlang.ModuleRegistry.Register(String module, String function, Int32 arity, ErlangFunction body) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Runtime\ModuleRegistry.cs:line 133
+   at Erlang.ModuleRegistry.RegisterSource(String module, String function, Int32 arity, ErlangFunction body, Object sourceOwner) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Runtime\ModuleRegistry.cs:line 154
+   at Erlang.Compiler.ModuleDefinition.<Register>b__41_0(ModuleRegistry target) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Compiler\ModuleDefinition.cs:line 52
+   at Erlang.ModuleRegistry.Apply(Action`1 configure) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Runtime\ModuleRegistry.cs:line 705
+   at Erlang.ModuleRegistry.ApplySourceCode(Action`1 configure) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Runtime\ModuleRegistry.SourceMutation.cs:line 71
+   at Erlang.Compiler.ModuleDefinition.Register(ModuleRegistry registry) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Compiler\ModuleDefinition.cs:line 47
+   at Erlang.Tests.OrdsetListsDispatchHostChecks.Success() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\OrdsetListsDispatchHostChecks.cs:line 18
+   at Erlang.Tests.OrdsetListsDispatchHostChecks.Success() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\OrdsetListsDispatchHostChecks.cs:line 23
+   at Erlang.Tests.OrdsetListsDispatchHostChecks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\OrdsetListsDispatchHostChecks.cs:line 9
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Program.cs:line 5232
+PASS serialization/local-fun-foreign-creator-canonicalizes-to-init
+PASS serialization/local-fun-invalid-creator-rejected-before-factory
+PASS compiler/operator-source-line-depth-and-operand-order
+13/14 passed

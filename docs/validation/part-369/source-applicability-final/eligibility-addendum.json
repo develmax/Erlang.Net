@@ -1,0 +1,57 @@
+{
+  "Status": "SOURCE_ELIGIBILITY_AFTER_FINAL_GATES; ROOT_DISCHARGES_ACTUAL_EVIDENCE_NO_PROMOTION_HERE",
+  "OtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Mfas": 31,
+  "Families": {
+    "primitive": 18,
+    "search": 7,
+    "wrapper": 6
+  },
+  "PreviousAuditSha256": "96344B8EDC95E72ECF5CE2E878BA97D0BAD79CC222764DD153E502B3595C53F9",
+  "ReviewedGuards": 450,
+  "GuardProposalSha256": "DAA7205D6D0EDE7CAD4F1C6E892B5C04075FF96AFA4C4EA23D6757744C7CE6AA",
+  "CurrentAll450Exact": true,
+  "Old64SourceChanges": [
+    {
+      "Path": "src/Erlang.Runtime/BinaryReplacePlan.cs",
+      "Before": "407A8F315730EF48FCA16FBEC2A4E16B998CF570E63A129202DB494FBB99F2FE",
+      "After": "2920F795BA59C29ECE6ED94F80C1E84F15A0EB7EE77DAC5C3ECCD2BB37233F83"
+    }
+  ],
+  "UnsignedFinalSource": {
+    "Path": "src/Erlang.Runtime/BinaryUnsigned.cs",
+    "Sha256": "9971306BFA41A59F445737277F267F6743D224F53EBEC76C2B9B10C2303B0B97",
+    "Proof": "Compute unsigned byteCount once and reject output above genuine own BitLength binary limit before allocation/overflow. Valid byte-order/minimal-zero branches unchanged."
+  },
+  "RetainedReplay": {
+    "Report": "artifacts/binary369-retained-comparison-peer1/attempt3/comparison.json",
+    "Sha256": "856F3E2324679A333B2D2442F03C0DB027F34EF60A68416C95B78743EFD1A85D",
+    "Observations": 8117,
+    "Strict": 7683,
+    "WholeOrSourceBound": 8087,
+    "Unexpected": 0,
+    "Controls": 68,
+    "NativeOnlyDiagnostics": 18,
+    "OwnTopologyRows": 12,
+    "OwnTopologyMeaning": "Two raw atom/tuple cursor inputs across value+5depths. Native literal topology is not the approved own-state equivalence criterion; source hashing/cursor algorithms remain unchanged, actual atom indices may change after module registration. Require canonical own-state HOST controls; do not rewrite the strict failures or silently call them literal matches."
+  },
+  "CurrentMainClosure": "Use Root final2 primary/closure7 and final canonical evidence. Retained replay uses its explicitly older immutable five-DLL closure plus reviewed fix6 source-subset argument, not a claim it executed finalDLLs.",
+  "SourceProtocolPerMfa": "per-mfa-final.json preserves all31 type/clause/domain/order/error/caller/resource/storage partitions. Actual state is own genuine registry/backing/layout; no captured native IDs/capacity/partitions injected.",
+  "PendingRootDischarge": [
+    "wrapper certificate including new7 original/fullfield source-counterexample witnesses",
+    "final primary3510 plus closure14/backing and sharing wholefield/source-bound admission",
+    "final canonical7639 exact names/outcomes/receipts/source stability, including mandatory own hash/cursor HOST checks",
+    "retained76 source/delta proof plus this wholefamily replay;16 unchanged CoreModules bodies separately accounted",
+    "final450guards/source plan to actual final build/DLL evidence"
+  ],
+  "Boundaries": [
+    "No native heap address/absolute allocator-capacity/timing identity claim",
+    "No general compiler private_append/SSA sizing optimizer completeness claim",
+    "No whole port/NIF/compiler infrastructure promotion",
+    "Genuine own-state protocol still mandatory; missing event proof cannot be waived as VM-dependent",
+    "Finite observations alone never establish full source contract"
+  ],
+  "MainMutatedByReviewer": false,
+  "CompatibilityPromoted": false,
+  "ImplementationPublished": false
+}

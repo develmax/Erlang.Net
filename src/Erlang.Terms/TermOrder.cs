@@ -16,7 +16,7 @@ public static class TermOrder
         Pid => 5,
         TupleTerm => 6,
         NativeRecordTerm => 7,
-        MapTerm => 8,
+        MapTerm or HamtBitmapTerm429 => 8,
         Nil => 9,
         Cons => 10,
         BitString => 11,
@@ -40,7 +40,10 @@ public static class TermOrder
         Term b,
         bool exact,
         ref NodeComparisonContext context,
-        Stack<IEnumerator<TermComparisonStep>> pending
+        Stack<IEnumerator<TermComparisonStep>> pending,
+        TermComparisonPurpose purpose,
+        Func<ITermMapComparisonLayout>? layoutFactory,
+        ref ITermMapComparisonLayout? mapLayout
     )
     {
         int rank = Rank(a).CompareTo(Rank(b));
@@ -121,7 +124,8 @@ public static class TermOrder
                         y,
                         localLeft,
                         localRight,
-                        exact
+                        exact,
+                        purpose
                     ).GetEnumerator());
 
                     return 0;
@@ -143,12 +147,43 @@ public static class TermOrder
                 pending.Push(RecordSteps(x, y, exact).GetEnumerator());
 
                 return 0;
+            case (HamtBitmapTerm429 x, HamtBitmapTerm429 y):
+                {
+                    int bitmap = x.Bitmap.CompareTo(y.Bitmap);
+                    if (bitmap != 0) return bitmap;
+                    pending.Push(SequenceSteps(x.Children, y.Children, exact).GetEnumerator());
+
+                    return 0;
+                }
+            // Interior source nodes have no complete-map size/key array. Keep
+            // their own protocol ordering distinct; never read fake map fields.
+            case (HamtBitmapTerm429, MapTerm): return -1;
+            case (MapTerm, HamtBitmapTerm429): return 1;
             case (MapTerm x, MapTerm y):
                 {
                     int count = x.Entries.Count.CompareTo(y.Entries.Count);
                     if (count != 0)
                         return count;
-                    pending.Push(MapSteps(x, y, exact).GetEnumerator());
+                    if (purpose == TermComparisonPurpose.NumericEquality
+                        && x.Entries.Count > TermMapOrderParameters.FlatMapMaximumEntries
+                        && layoutFactory is not null)
+                    {
+                        mapLayout ??= layoutFactory();
+                        pending.Push(HashMapEqualitySteps(
+                            x,
+                            y,
+                            exact,
+                            mapLayout
+                        ).GetEnumerator());
+
+                        return 0;
+                    }
+                    pending.Push(((purpose == TermComparisonPurpose.Ordering && !exact
+                        || purpose == TermComparisonPurpose.NumericEquality)
+                        && count == 0 && x.Entries.Count > 1
+                        && x.Entries.Count <= TermMapOrderParameters.FlatMapMaximumEntries
+                        ? TermMapOrdering.Steps(x, y, exact)
+                        : MapSteps(x, y, exact)).GetEnumerator());
 
                     return 0;
                 }
@@ -224,43 +259,142 @@ public static class TermOrder
         Term b,
         bool exact,
         ref NodeComparisonContext context
+    ) => ComparePurposeSnapshot(
+        a,
+        b,
+        exact,
+        ref context,
+        TermComparisonPurpose.Ordering
+    );
+
+    internal static int CompareCanonicalSnapshot(
+        Term a,
+        Term b,
+        ref NodeComparisonContext context
+    ) => ComparePurposeSnapshot(
+        a,
+        b,
+        true,
+        ref context,
+        TermComparisonPurpose.CanonicalKeyStorage
+    );
+
+    internal static bool ExactEquals(Term a, Term b)
+    {
+        NodeComparisonContext context = default;
+
+        return ComparePurposeSnapshot(
+            a,
+            b,
+            true,
+            ref context,
+            TermComparisonPurpose.ExactEquality
+        ) == 0;
+    }
+
+    internal static bool NumericEquals(Term a, Term b)
+    {
+        NodeComparisonContext context = default;
+
+        return ComparePurposeSnapshot(
+            a,
+            b,
+            false,
+            ref context,
+            TermComparisonPurpose.NumericEquality
+        ) == 0;
+    }
+
+    private static int ComparePurposeSnapshot(
+        Term a,
+        Term b,
+        bool exact,
+        ref NodeComparisonContext context,
+        TermComparisonPurpose purpose
     )
     {
-        var pending = new Stack<IEnumerator<TermComparisonStep>>();
-        var step = TermComparisonStep.Pair(a, b, exact);
+        ITermMapComparisonLayout? mapLayout = null;
+        Func<ITermMapComparisonLayout>? layoutFactory = purpose == TermComparisonPurpose.NumericEquality
+            ? TermMapComparisonEnvironment.Factory : null;
+        var scopes = new Stack<TermComparisonScope>();
+        scopes.Push(new TermComparisonScope(
+            a,
+            b,
+            exact,
+            purpose
+        ));
         try
         {
             while (true)
             {
-                int comparison = step.Left is null
-                    ? step.Result
-                    : CompareCurrent(
-                        step.Left,
+                var scope = scopes.Peek();
+                var step = scope.Current;
+                if (step.Capture is { } capture)
+                {
+                    scopes.Push(new TermComparisonScope(
+                        step.Left!,
                         step.Right!,
                         step.Exact,
-                        ref context,
-                        pending
-                    );
-                if (comparison != 0)
-                    return comparison;
+                        step.Purpose ?? scope.Purpose,
+                        capture
+                    ));
+                    continue;
+                }
+                int comparison = step.Left is null ? step.Result : CompareCurrent(
+                    step.Left,
+                    step.Right!,
+                    step.Exact,
+                    ref context,
+                    scope.Pending,
+                    scope.Purpose,
+                    layoutFactory,
+                    ref mapLayout
+                );
+                if (comparison == 0 && scope.MoveNext())
+                    continue;
                 while (true)
                 {
-                    if (pending.Count == 0)
-                        return 0;
-                    var sequence = pending.Peek();
-                    if (sequence.MoveNext())
-                    {
-                        step = sequence.Current;
+                    var finished = scopes.Pop();
+                    finished.Dispose();
+                    if (scopes.Count == 0)
+                        return comparison;
+                    finished.Capture!.Value = comparison;
+                    scope = scopes.Peek();
+                    if (scope.MoveNext())
                         break;
-                    }
-                    pending.Pop().Dispose();
+                    comparison = 0;
                 }
             }
         }
         finally
         {
-            foreach (var sequence in pending)
-                sequence.Dispose();
+            try
+            {
+                while (scopes.TryPop(out var scope))
+                    scope.Dispose();
+            }
+            finally
+            {
+                mapLayout?.Dispose();
+            }
+        }
+    }
+
+    private static IEnumerable<TermComparisonStep> HashMapEqualitySteps(
+        MapTerm left,
+        MapTerm right,
+        bool exact,
+        ITermMapComparisonLayout layout
+    )
+    {
+        IReadOnlyList<KeyValuePair<Term, Term>> first = layout.ReadHashEntries(left);
+        IReadOnlyList<KeyValuePair<Term, Term>> second = layout.ReadHashEntries(right);
+        if (first.Count != left.Entries.Count || second.Count != right.Entries.Count)
+            throw new InvalidOperationException(TermMapComparisonNames.InvalidLayout);
+        for (int index = 0; index < first.Count; index++)
+        {
+            yield return TermComparisonStep.Pair(first[index].Key, second[index].Key, true);
+            yield return TermComparisonStep.Pair(first[index].Value, second[index].Value, exact);
         }
     }
 
@@ -284,13 +418,19 @@ public static class TermOrder
         FunctionTerm b,
         LocalFunctionIdentity left,
         LocalFunctionIdentity right,
-        bool exact
+        bool exact,
+        TermComparisonPurpose purpose
     )
     {
         yield return TermComparisonStep.Pair(left.Module, right.Module, true);
         yield return TermComparisonStep.Scalar(left.Index.CompareTo(right.Index));
-        yield return TermComparisonStep.Pair(left.Unique, right.Unique, true);
-        yield return TermComparisonStep.Scalar(a.Arity.CompareTo(b.Arity));
+        if (purpose is TermComparisonPurpose.ExactEquality or TermComparisonPurpose.CanonicalKeyStorage)
+        {
+            yield return TermComparisonStep.Pair(left.Unique, right.Unique, true);
+            yield return TermComparisonStep.Scalar(a.Arity.CompareTo(b.Arity));
+        }
+        else
+            yield return TermComparisonStep.Scalar(left.OldUnique.CompareTo(right.OldUnique));
         yield return TermComparisonStep.Scalar(a.Environment.Count.CompareTo(b.Environment.Count));
         for (int i = 0; i < a.Environment.Count; i++)
             yield return TermComparisonStep.Pair(a.Environment[i], b.Environment[i], exact);
@@ -437,6 +577,10 @@ public static class TermOrder
                     yield return TermHashStep.Child(field);
                 foreach (var value in x.Values)
                     yield return TermHashStep.Child(value);
+                break;
+            case HamtBitmapTerm429 x:
+                yield return TermHashStep.Scalar(x.Bitmap);
+                foreach (var child in x.Children) yield return TermHashStep.Child(child);
                 break;
             case MapTerm x:
                 foreach (var item in x.Entries)

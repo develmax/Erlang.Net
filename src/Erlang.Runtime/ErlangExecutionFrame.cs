@@ -7,5 +7,6 @@ internal sealed record ErlangExecutionFrame(
     ErlangExecutionFrame? Parent,
     bool SourceWrapper = false,
     IReadOnlyList<Term>? HostHandlerArguments = null,
-    Term? SourceLocation = null
+    Term? SourceLocation = null,
+    object? ContinuationIdentity = null
 );

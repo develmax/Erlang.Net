@@ -1,0 +1,40 @@
+{
+  "NoNewCompatibilityPromotion": true,
+  "Matrix": [
+    {
+      "Priority": 1,
+      "Area": "NumericEquality flatmap key-order alignment",
+      "Action": "Integrate proposed two-filepatch onlyafter native fourFUN witness; check exactnested valuesfalse and numericordinary valuestrue; recaptureaffected erlang/maps/ordsets comparers",
+      "Scope": "ordsets:is_equal/2 +erlang:==/2,/= /2 +nestedtuple/list equality",
+      "Gate": "41case packet + retained affectedfamilies; existing2616 remains baseline not witness"
+    },
+    {
+      "Priority": 2,
+      "Area": "General exact-order nested flatmaps",
+      "Action": "Separate storageidentityorder, semantic exacttermorder and numeric-equality keyphases; native exact map comparator traverses VMphysical atomindex key tuples, so do not route all exact ordering through runelex sortwithout source protocol",
+      "Scope": "Nested mapkeys for all14 comparisondependent ordsets; anyusort/umerge",
+      "Gate": "Nestedmaps2/32/33 containingFUNkeys, numericmapvalues-as-keys, atomcreationpermutations"
+    },
+    {
+      "Priority": 3,
+      "Area": "HAMT simultaneousiteration equality",
+      "Action": "Use existing ownVM internalmaphash/traversal implementations; nativeeq_only branch mustalign hash-order andnot canonicalexact-keyorder. Native ordering algorithm phase1/phase2 differs: preserve each purpose. Neverseednativepointer/hashstate intoMain.",
+      "Scope": "is_equal andordering APIs33+",
+      "Gate": "Ownstate leafsequence source proof, ref1/2/5wordaliases, FUNOLDtie/NEWdiff,collisionnodes,bothdirections,nestedHAMTkeys"
+    },
+    {
+      "Priority": 4,
+      "Area": "Native record sorted field traversal",
+      "Action": "Audit reachable definition fieldordering across languageconstructor/externaldecode/hostconstruction; ifnotnormalized, implement iterative sortedfield view for comparison (pairedvalues) without changing exposed record declaration order",
+      "Scope": "NumericEquals/ExactEquals/Ordering/Hash dependency all modules",
+      "Gate": "sameidentity declarationfieldorderpermutations and numericvalues; source-definedeq vscompare separation"
+    },
+    {
+      "Priority": 5,
+      "Area": "Synchronous NumericEquals cooperation",
+      "Action": "Measure/processcancellation forlargeequal list/tree comparisons; ordinary resultsemantics matched but noReduceAsync insideTermOrder; consider general resumable comparison admission reused byerlang operators andordsets",
+      "Scope": "Resource cleanup/fairness, not sourcevalue mismatch",
+      "Gate": "Owned SDK cancellation/checkpoint tests + native semantic outcome comparison; no wall-clock equality claim"
+    }
+  ]
+}

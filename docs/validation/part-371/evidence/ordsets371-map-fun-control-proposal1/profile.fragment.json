@@ -1,0 +1,171 @@
+{
+  "Fixtures": [
+    {
+      "Location": "tool",
+      "NamesEntry": "cases",
+      "Run": "run",
+      "StackEntry": "run_stacks",
+      "StackShape": "depth_cases",
+      "WorkerModule": "ordsets_core_worker",
+      "WorkerEntry": "run",
+      "Companions": [
+        "original/ordsets_core_support.erl",
+        "original/ordsets_core_worker.erl"
+      ],
+      "ValueAcquisition": "compiled-monitored-worker-values-and-stacks-v1",
+      "ObserveTimeoutSeconds": 120,
+      "Id": "map_fun_keys",
+      "Path": "original/ordsets371_map_fun_keys.erl",
+      "Module": "ordsets371_map_fun_keys",
+      "StackModule": "ordsets371_map_fun_keys",
+      "Names": [
+        "fun_map_is_set",
+        "fun_map_is_element",
+        "fun_map_add_element",
+        "fun_map_del_element",
+        "fun_map_from_list",
+        "fun_map_union_two",
+        "fun_map_union_many",
+        "fun_map_intersection_two",
+        "fun_map_intersection_many",
+        "fun_map_is_disjoint",
+        "fun_map_subtract",
+        "fun_map_is_subset",
+        "fun_map_map",
+        "fun_map_filtermap"
+      ],
+      "Cases": [
+        {
+          "Name": "fun_map_is_set",
+          "Mfas": [
+            "ordsets:is_set/1"
+          ],
+          "Scope": "Whole actual result/error and full stack; portable external creator PID retained literally; no generic FUN/creator normalization.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "fun_map_is_element",
+          "Mfas": [
+            "ordsets:is_element/2"
+          ],
+          "Scope": "Whole actual result/error and full stack; portable external creator PID retained literally; no generic FUN/creator normalization.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "fun_map_add_element",
+          "Mfas": [
+            "ordsets:add_element/2"
+          ],
+          "Scope": "Whole actual result/error and full stack; portable external creator PID retained literally; no generic FUN/creator normalization.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "fun_map_del_element",
+          "Mfas": [
+            "ordsets:del_element/2"
+          ],
+          "Scope": "Whole actual result/error and full stack; portable external creator PID retained literally; no generic FUN/creator normalization.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "fun_map_from_list",
+          "Mfas": [
+            "ordsets:from_list/1"
+          ],
+          "Scope": "Whole actual result/error and full stack; portable external creator PID retained literally; no generic FUN/creator normalization.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "fun_map_union_two",
+          "Mfas": [
+            "ordsets:union/2"
+          ],
+          "Scope": "Whole actual result/error and full stack; portable external creator PID retained literally; no generic FUN/creator normalization.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "fun_map_union_many",
+          "Mfas": [
+            "ordsets:union/1"
+          ],
+          "Scope": "Whole actual result/error and full stack; portable external creator PID retained literally; no generic FUN/creator normalization.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "fun_map_intersection_two",
+          "Mfas": [
+            "ordsets:intersection/2"
+          ],
+          "Scope": "Whole actual result/error and full stack; portable external creator PID retained literally; no generic FUN/creator normalization.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "fun_map_intersection_many",
+          "Mfas": [
+            "ordsets:intersection/1"
+          ],
+          "Scope": "Whole actual result/error and full stack; portable external creator PID retained literally; no generic FUN/creator normalization.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "fun_map_is_disjoint",
+          "Mfas": [
+            "ordsets:is_disjoint/2"
+          ],
+          "Scope": "Whole actual result/error and full stack; portable external creator PID retained literally; no generic FUN/creator normalization.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "fun_map_subtract",
+          "Mfas": [
+            "ordsets:subtract/2"
+          ],
+          "Scope": "Whole actual result/error and full stack; portable external creator PID retained literally; no generic FUN/creator normalization.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "fun_map_is_subset",
+          "Mfas": [
+            "ordsets:is_subset/2"
+          ],
+          "Scope": "Whole actual result/error and full stack; portable external creator PID retained literally; no generic FUN/creator normalization.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "fun_map_map",
+          "Mfas": [
+            "ordsets:map/2"
+          ],
+          "Scope": "Whole actual result/error and full stack; portable external creator PID retained literally; no generic FUN/creator normalization.",
+          "ExpectedSeededOutcomes": false
+        },
+        {
+          "Name": "fun_map_filtermap",
+          "Mfas": [
+            "ordsets:filtermap/2"
+          ],
+          "Scope": "Whole actual result/error and full stack; portable external creator PID retained literally; no generic FUN/creator normalization.",
+          "ExpectedSeededOutcomes": false
+        }
+      ]
+    }
+  ],
+  "ValueCount": 14,
+  "StackCount": 70,
+  "Mfas": [
+    "ordsets:add_element/2",
+    "ordsets:del_element/2",
+    "ordsets:filtermap/2",
+    "ordsets:from_list/1",
+    "ordsets:intersection/1",
+    "ordsets:intersection/2",
+    "ordsets:is_disjoint/2",
+    "ordsets:is_element/2",
+    "ordsets:is_set/1",
+    "ordsets:is_subset/2",
+    "ordsets:map/2",
+    "ordsets:subtract/2",
+    "ordsets:union/1",
+    "ordsets:union/2"
+  ]
+}

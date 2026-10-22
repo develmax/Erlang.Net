@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <ErlangPreprocessEnabled>false</ErlangPreprocessEnabled>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(UseInstalledPackage)' != 'true'">
+    <ProjectReference Include="../../src/Erlang.Runtime/Erlang.Runtime.csproj" />
+    <ProjectReference Include="../../tools/Erlang.BeamBuild/Erlang.BeamBuild.csproj" ReferenceOutputAssembly="false" Private="false" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(UseInstalledPackage)' == 'true'">
+    <PackageReference Include="Erlang.Net.CSharp" Version="0.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ErlangLibrary Include="lists" Backend="Beam" Image="Otp/lists.beam" Sha256="8941092DC34F0470CD404979E1890DF514D83F2EEB3B0AA8A276553E76471262" />
+    <ErlangLibrary Include="queue" Backend="Beam" Image="Otp/queue.beam" Sha256="93DA2CC6E6110DBFA39F512ED2C80A1497BE14B0167CFDF80FBC2CE79D812248" Dependencies="lists" />
+    <ErlangLibrary Include="ordsets" Backend="Beam" Image="Otp/ordsets.beam" Sha256="A72097155EDAF57113FD8DF1BAA4F7F1360626F3E938180CA8D26461B7708E93" Dependencies="lists" />
+    <ErlangLibrary Include="sets" Backend="Beam" Image="Otp/sets.beam" Sha256="90D3C1A11CEACA05EC072328BC55E8753B2E8EF1D488C5DAE67820E6818E5FB3" Dependencies="lists;maps;proplists" />
+    <ErlangLibrary Include="dict" Backend="Beam" Image="Otp/dict.beam" Sha256="03C6221D87460F29CC813EDCC7B4541DEAF61A25F87EAEE0A8A60E9D2438490C" Dependencies="lists" />
+    <ErlangLibrary Include="orddict" Backend="Beam" Image="Otp/orddict.beam" Sha256="346C4B0200A2F88031CB57BA555741896F088E13C38C4E44BA9C0A6CED7B1E42" Dependencies="lists" />
+    <ErlangLibrary Include="gb_sets" Backend="Beam" Image="Otp/gb_sets.beam" Sha256="FEEE25741573E77EDDC07BD98625A2ABCBE7D60722A8619D13A6CE2B59D9CBF7" Dependencies="ordsets" />
+    <ErlangLibrary Include="gb_trees" Backend="Beam" Image="Otp/gb_trees.beam" Sha256="78BAECF006A8639A2076DA71A2C606927D09A26B5C629C9A44B7C4E4F130B026" Dependencies="orddict" />
+    <ErlangLibrary Include="maps" Backend="Beam" Image="Otp/maps.beam" Sha256="DCDBAF8551AE63258BDA7BC1415C7DCD2D3310AAA9036A34BD09F24E90966454" Dependencies="lists" />
+    <ErlangLibrary Include="proplists" Backend="Beam" Image="Otp/proplists.beam" Sha256="E77939A89B0ECAB0986CA46DFEDD04DEB4C1FB8ED406BB0568F83523E3A9B5D1" Dependencies="lists;maps;sets" />
+    <ErlangLibrary Include="binary" Backend="Beam" Image="Otp/binary.beam" Sha256="E398EE7CFEEFFBE73A47AF70BFCB7D7BE1B221F101F7BC52ABF28EE70DB19553" Dependencies="lists" />
+    <None Include="../../docs/OTP-LICENSE.txt" Link="licenses/OTP-LICENSE.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" Condition="'$(UseInstalledPackage)' != 'true'" />
+  </ItemGroup>
+  <Import Project="../../build/Erlang.Net.targets" Condition="'$(UseInstalledPackage)' != 'true'" />
+</Project>

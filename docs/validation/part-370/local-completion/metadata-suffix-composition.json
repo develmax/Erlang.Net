@@ -1,0 +1,12 @@
+{
+  "OriginalSha256": "DD493EA079090EE138723794C6EE23DB6D8CC4A10EB49731069A635C4093BA47",
+  "SuffixSha256": "D8864EC1F2F7B4267B854D943AB762D626D497AF6146155060928AA6868ACCB0",
+  "AlreadyCompletedSteps": [
+    "    Invoke-DotNet @('build', '-m:1', '--nologo')",
+    "    Invoke-DotNet @('run', '--project', 'tools/Erlang.Style', '--no-build', '--', '--check', '.')",
+    "    Invoke-DotNet @('run', '--project', 'tools/Erlang.NifNativeBackend', '--no-build')",
+    "    Invoke-DotNet @('run', '--project', 'tests/Erlang.Tests', '--no-build', '--', 'artifacts/tests.json', 'docs/supported-mfas.json')"
+  ],
+  "Reason": "Full canonical passed uninterrupted in383.125s. Restore123 emitter-reset MFA Limits notes and advance previous-count/test comparison baseline from368 to369. Repeat exact readiness/integration/package suffix on unchanged production/tests; no repeat functional full suite.",
+  "ProductionAndTestsUnchanged": true
+}

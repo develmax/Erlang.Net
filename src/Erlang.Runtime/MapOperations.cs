@@ -67,11 +67,13 @@ public static class MapOperations
         return new MapTerm(groups);
     }
 
-    public static Term ToList(Term source)
+    public static Term ToList(Term source) => ToList(source, null);
+
+    public static Term ToList(Term source, ProcessRuntime? runtime)
     {
         try
         {
-            return Cons.From(MapIteration.Entries(source).Select(entry => Term.Tuple(entry.Key, entry.Value)));
+            return Cons.From(MapIteration.Entries(source, runtime).Select(entry => Term.Tuple(entry.Key, entry.Value)));
         }
         catch (ErlangException)
         {
@@ -81,13 +83,15 @@ public static class MapOperations
 
     public static MapTerm RequireMap(Term source) => source as MapTerm ?? throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadMap), source));
 
-    public static bool IsIteratorValid(Term iterator)
+    public static bool IsIteratorValid(Term iterator) => IsIteratorValid(iterator, null);
+
+    public static bool IsIteratorValid(Term iterator, ProcessRuntime? runtime)
     {
         try
         {
             while (iterator is TupleTerm { Items.Count: 3 } pair)
-                iterator = MapIteration.Next(pair.Items[2]);
-            MapIteration.Next(iterator);
+                iterator = MapIteration.Next(pair.Items[2], runtime);
+            MapIteration.Next(iterator, runtime);
 
             return true;
         }
@@ -194,7 +198,7 @@ public static class MapOperations
             Term next;
             try
             {
-                next = MapIteration.Next(iterator);
+                next = MapIteration.Next(iterator, context.Runtime);
             }
             catch (ErlangException error) when (error.Reason.Equals(Term.A(ErlangErrorReasons.BadArgument)))
             {

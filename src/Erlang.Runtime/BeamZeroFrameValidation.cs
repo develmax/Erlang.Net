@@ -27,6 +27,9 @@ internal static class BeamZeroFrameValidation
             int depth = current.Depth;
             switch (instruction.Definition.Name)
             {
+                case BeamCollectionOpcodeNames.BadRecord:
+                case BeamGeneralOpcodeNames.IfEnd:
+                    break;
                 case BeamLinkNames.Allocate:
                 case BeamLinkNames.AllocateHeap:
                     Next(current.Pc + 1, depth + 1);

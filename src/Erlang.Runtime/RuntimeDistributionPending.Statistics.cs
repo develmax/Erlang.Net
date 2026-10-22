@@ -8,6 +8,7 @@ public sealed partial class RuntimeDistributionPending
         {
             try
             {
+                if (IsNativeConnectedHandle429(handle)) handle = ResolveNativeConnectedHandle429(handle);
                 var entry = ReadHandle(handle, out uint connectionId, out var lease);
                 using (lease)
                     return Statistics(entry, connectionId);

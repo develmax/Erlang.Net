@@ -1,0 +1,1 @@
+-module(oracle_maps_completion). -export([run/0]). run()->M=#{a=>1,b=>2,z=>26,m=>13},K=maps:keys(M),V=maps:values(M),V=[maps:get(X,M)||X<-K],P=maps:to_list(M),P=[{X,maps:get(X,M)}||X<-K],P=maps:to_list(maps:iterator(M)),P=[{X,Y}||X:=Y<-M],done.

@@ -35,17 +35,26 @@ public sealed class BeamModule
     }
     public bool HasOnLoad => code.OnLoadEntryLabel is not null;
 
+    public IReadOnlySet<string> RegistryModuleDependencies => code.RegistryModuleDependencies;
+
     public static BeamModule Prepare(ReadOnlyMemory<byte> bytes)
+        => Prepare(bytes, new BeamDependencySelection(Array.Empty<string>()));
+
+    public static BeamModule Prepare(ReadOnlyMemory<byte> bytes, BeamDependencySelection dependencies)
     {
+        ArgumentNullException.ThrowIfNull(dependencies);
         byte[] owned = bytes.ToArray();
-        BeamLinkedCode linked = BeamLinkedCodeReader.Read(BeamStructureReader.Read(owned));
+        BeamLinkedCode linked = BeamLinkedCodeReader.Read(BeamStructureReader.Read(owned)) with
+        {
+            RegistryModuleDependencies = dependencies.RegistryModules
+        };
 
         return new(linked, Convert.ToHexString(SHA256.HashData(owned)));
     }
 
     public bool Supports(string function, int arity)
     {
-        if (HasOnLoad)
+        if (HasOnLoad || code.Functions.Any(function => BeamNativePrimitives.IsStub(code, function)))
             return false;
         BeamLinkedFunction? entry = code.Exports.SingleOrDefault(value => value.Name == function && value.Arity == arity);
         if (entry is null)
@@ -74,7 +83,7 @@ public sealed class BeamModule
             context.Runtime.ObserveIncomingTerm(literal);
         foreach (Term argument in arguments)
             context.Runtime.ObserveIncomingTerm(argument);
-        if (HasOnLoad)
+        if (HasOnLoad || code.Functions.Any(value => BeamNativePrimitives.IsStub(code, value)))
         {
             if (!code.Exports.Any(entry => entry.Name == function && entry.Arity == arguments.Length))
                 throw new InvalidDataException(BeamModuleDiagnostics.MissingExport);

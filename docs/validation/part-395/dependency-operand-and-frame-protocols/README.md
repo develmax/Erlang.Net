@@ -1,0 +1,19 @@
+# Part395: dependency operand and frame protocols
+
+Part395 accepted locally:8296/8296 general (+10),650/650 affected,348 exact raw/typed original outcomes/profiles. All180 original modules now link;175 earlier failing entries fixed,0 earlier passing regressions;985 newly observed entries expose52 additional refusals.160 clean link/frame modules;209 function failures remain. Strict startup/native frontier not complete. Signed/little/native binary operations, exact Half rounding, bounded terminal frame partitions, actual sealed canonical no-return and non-GC get/min/max opcode kernels retain original metadata, callbacks/GC/opaque/tag protections. Default705 APIs/21modules,118 full contracts unchanged;633 source guards.11 integrations/two packages/five equal reports/13 DLL copies/cold72 process outcomes and math1488 per package route pass. General376.328s versus prior370.265s; suffix57.390s. Diagnostic104.735s versus79.156s with985 extra entries, not a speed benchmark. Genuine pinned Windows OTP29.1.1; no fresh Linux/GitHub run, whole-module100% promotion, commit/push/merge/external publication. Evidence:docs/validation/part-395/dependency-operand-and-frame-protocols.
+
+## Part395 dependency operand and frame protocols — accepted local increment
+
+| Area | Verified progress | Remaining |
+| --- | --- | --- |
+|180 original dependencies |180/180 link (previous173);160/180 clean link/frame (previous147);0 previous passing regressions |209 entry failures; native/import/strict startup gates remain separate |
+| binary operands |61 unsupported forms implemented across seven previously blocked images;240 complete original observations | full APIs of ZIP/DNS/compiler libraries are not promoted by operand witnesses |
+| terminal frame paths |60 exact original assembly/observer outcomes;175 old entry failures fixed jointly with BIF work | opaque positions/local contexts, handler routing, combined binary receive |
+| get/min/max VM instructions |48 full original outcomes; actual uninitialized-Y-root-before-try layout; mutable remote overrides preserved | tuple_size type proof and remaining fallible/GC paths stay checked |
+| gen / sys / proc_lib and math | previous30/36/39 exports, math24 native/28 original exports, cold72 process and1488 math outcomes preserved | strict180 startup and wider full contracts |
+| default registry |705 APIs/21modules,118 complete contracts;633 guarded sources | default API/full-contract delta0/0; original-only native math24 unchanged |
+
+Part395 accepted locally:8296/8296 general (+10),650/650 affected,348 exact raw/typed original outcomes/profiles. All180 original modules now link;175 earlier failing entries fixed,0 earlier passing regressions;985 newly observed entries expose52 additional refusals.160 clean link/frame modules;209 function failures remain. Strict startup/native frontier not complete. Signed/little/native binary operations, exact Half rounding, bounded terminal frame partitions, actual sealed canonical no-return and non-GC get/min/max opcode kernels retain original metadata, callbacks/GC/opaque/tag protections. Default705 APIs/21modules,118 full contracts unchanged;633 source guards.11 integrations/two packages/five equal reports/13 DLL copies/cold72 process outcomes and math1488 per package route pass. General376.328s versus prior370.265s; suffix57.390s. Diagnostic104.735s versus79.156s with985 extra entries, not a speed benchmark. Genuine pinned Windows OTP29.1.1; no fresh Linux/GitHub run, whole-module100% promotion, commit/push/merge/external publication. Evidence:docs/validation/part-395/dependency-operand-and-frame-protocols.
+
+
+Frozen source, original full captures, actual refused runs and all owned receipts are bound by bindings.json. No whole-module compatibility or full strict180 admission is claimed. Prior393 frozen bindings were independently reverified; LICENSE.local.txt is excluded.

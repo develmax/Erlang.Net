@@ -15,14 +15,21 @@ internal static class RuntimeExceptionCapture
         int depth = Math.Max(1, context.Runtime.BacktraceDepth);
         var trace = new List<Term>();
         bool first = true;
+        object? previousContinuation = null;
         while (frame is not null && trace.Count < depth)
         {
+            if (frame.ContinuationIdentity is { } continuation && ReferenceEquals(continuation, previousContinuation))
+            {
+                frame = frame.Parent;
+                continue;
+            }
+            previousContinuation = frame.ContinuationIdentity;
             trace.Add(Term.Tuple(
                 Term.A(frame.Module),
                 Term.A(frame.Function),
                 first && arguments is not null ? Cons.From(arguments)
                     : frame.HostHandlerArguments is { } handlerArguments ? Cons.From(handlerArguments) : Term.I(frame.Arity),
-                Nil.Value
+                (first && selectedHandler) || frame.HostHandlerArguments is not null ? Nil.Value : frame.SourceLocation ?? Nil.Value
             ));
             first = false;
             frame = frame.Parent;
@@ -69,13 +76,20 @@ internal static class RuntimeExceptionCapture
                 location
             )
         };
+        object? previousContinuation = null;
         while (frame is not null && trace.Count < depth)
         {
+            if (frame.ContinuationIdentity is { } continuation && ReferenceEquals(continuation, previousContinuation))
+            {
+                frame = frame.Parent;
+                continue;
+            }
+            previousContinuation = frame.ContinuationIdentity;
             trace.Add(Term.Tuple(
                 Term.A(frame.Module),
                 Term.A(frame.Function),
                 frame.HostHandlerArguments is { } handlerArguments ? Cons.From(handlerArguments) : Term.I(frame.Arity),
-                sourceLocation is not null ? frame.SourceLocation ?? Nil.Value : Nil.Value
+                frame.HostHandlerArguments is not null ? Nil.Value : frame.SourceLocation ?? Nil.Value
             ));
             frame = frame.Parent;
         }

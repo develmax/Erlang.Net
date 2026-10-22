@@ -1,0 +1,147 @@
+{
+  "Partial": true,
+  "SelectedCount": 22,
+  "TotalCount": 8813,
+  "Blocks": [],
+  "ExactCases": [
+    "HOST debug logger rejects stopping/retiring recipients and resets dead explicit target",
+    "HOST/ets-concurrency411/validation-order-and-held-policies",
+    "oracle/compiled-module/ddll-error416-windows264-full-typed-raw",
+    "oracle/compiled-module/ets-source-info422-all216-full-typed-raw",
+    "oracle/compiled-module/ets436-counter-hints192-whole-static-stacks-own-pid-proof",
+    "runtime/allocator434/actual-aux-request-kill-physical-join",
+    "runtime/ets-info420/exact-owned-census-dedup-boundaries",
+    "runtime/ets-info420/native-binding-capability-rollback",
+    "runtime/ets-info420/owned-dag-growth-and-fixation-retirement",
+    "runtime/library404/original-printable-range-default-whole-terms",
+    "runtime/library404/original-printable-range-latin1-whole-terms",
+    "runtime/library404/original-printable-range-unicode-whole-terms",
+    "runtime/library412/real-re-core-original-whole-terms-and-stacks",
+    "runtime/library413/original-re8-inspect-internal-run-import-full-outcomes",
+    "runtime/re412/active-actor-cancellation",
+    "runtime/re412/concurrent-runs-and-held-capability",
+    "runtime/re412/dispose-close",
+    "runtime/re412/halt-close",
+    "runtime/re412/initializer-close",
+    "runtime/re412/large-unicode-native-resumption",
+    "runtime/re412/native-results-and-errors",
+    "runtime/re412/ownership-and-installation-rollback"
+  ],
+  "Passed": 19,
+  "Failed": 3,
+  "Tests": [
+    {
+      "Name": "oracle/compiled-module/ddll-error416-windows264-full-typed-raw",
+      "Status": "Passed",
+      "Milliseconds": 444
+    },
+    {
+      "Name": "runtime/library413/original-re8-inspect-internal-run-import-full-outcomes",
+      "Status": "Passed",
+      "Milliseconds": 76853
+    },
+    {
+      "Name": "runtime/library412/real-re-core-original-whole-terms-and-stacks",
+      "Status": "Passed",
+      "Milliseconds": 1594
+    },
+    {
+      "Name": "runtime/re412/native-results-and-errors",
+      "Status": "Passed",
+      "Milliseconds": 1429
+    },
+    {
+      "Name": "runtime/re412/ownership-and-installation-rollback",
+      "Status": "Passed",
+      "Milliseconds": 2865
+    },
+    {
+      "Name": "runtime/re412/large-unicode-native-resumption",
+      "Status": "Passed",
+      "Milliseconds": 1443
+    },
+    {
+      "Name": "runtime/re412/concurrent-runs-and-held-capability",
+      "Status": "Passed",
+      "Milliseconds": 1497
+    },
+    {
+      "Name": "runtime/re412/active-actor-cancellation",
+      "Status": "Passed",
+      "Milliseconds": 1461
+    },
+    {
+      "Name": "runtime/re412/dispose-close",
+      "Status": "Passed",
+      "Milliseconds": 1426
+    },
+    {
+      "Name": "runtime/re412/halt-close",
+      "Status": "Passed",
+      "Milliseconds": 1594
+    },
+    {
+      "Name": "runtime/re412/initializer-close",
+      "Status": "Passed",
+      "Milliseconds": 1435
+    },
+    {
+      "Name": "HOST/ets-concurrency411/validation-order-and-held-policies",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "runtime/ets-info420/native-binding-capability-rollback",
+      "Status": "Passed",
+      "Milliseconds": 30
+    },
+    {
+      "Name": "runtime/ets-info420/owned-dag-growth-and-fixation-retirement",
+      "Status": "Passed",
+      "Milliseconds": 45
+    },
+    {
+      "Name": "runtime/ets-info420/exact-owned-census-dedup-boundaries",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "oracle/compiled-module/ets-source-info422-all216-full-typed-raw",
+      "Status": "Passed",
+      "Milliseconds": 708
+    },
+    {
+      "Name": "oracle/compiled-module/ets436-counter-hints192-whole-static-stacks-own-pid-proof",
+      "Status": "Passed",
+      "Milliseconds": 164
+    },
+    {
+      "Name": "runtime/allocator434/actual-aux-request-kill-physical-join",
+      "Status": "Passed",
+      "Milliseconds": 17
+    },
+    {
+      "Name": "HOST debug logger rejects stopping/retiring recipients and resets dead explicit target",
+      "Status": "Passed",
+      "Milliseconds": 28
+    },
+    {
+      "Name": "runtime/library404/original-printable-range-default-whole-terms",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Printable original404 full outcome comparison failed; all differences retained.\r\n   at Erlang.Tests.IoPrintableOriginal404Checks.Compare(LibraryDependencyOriginalSuite suite) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\IoPrintableOriginal404Checks.cs:line 96\r\n   at Erlang.Tests.IoPrintableOriginal404Checks.Compare(LibraryDependencyOriginalSuite suite) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\IoPrintableOriginal404Checks.cs:line 96\r\n   at Erlang.Tests.IoPrintableOriginal404Checks.Compare(LibraryDependencyOriginalSuite suite) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\IoPrintableOriginal404Checks.cs:line 96\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 6789",
+      "Milliseconds": 1687
+    },
+    {
+      "Name": "runtime/library404/original-printable-range-latin1-whole-terms",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Printable original404 full outcome comparison failed; all differences retained.\r\n   at Erlang.Tests.IoPrintableOriginal404Checks.Compare(LibraryDependencyOriginalSuite suite) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\IoPrintableOriginal404Checks.cs:line 96\r\n   at Erlang.Tests.IoPrintableOriginal404Checks.Compare(LibraryDependencyOriginalSuite suite) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\IoPrintableOriginal404Checks.cs:line 96\r\n   at Erlang.Tests.IoPrintableOriginal404Checks.Compare(LibraryDependencyOriginalSuite suite) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\IoPrintableOriginal404Checks.cs:line 96\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 6789",
+      "Milliseconds": 1854
+    },
+    {
+      "Name": "runtime/library404/original-printable-range-unicode-whole-terms",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Printable original404 full outcome comparison failed; all differences retained.\r\n   at Erlang.Tests.IoPrintableOriginal404Checks.Compare(LibraryDependencyOriginalSuite suite) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\IoPrintableOriginal404Checks.cs:line 96\r\n   at Erlang.Tests.IoPrintableOriginal404Checks.Compare(LibraryDependencyOriginalSuite suite) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\IoPrintableOriginal404Checks.cs:line 96\r\n   at Erlang.Tests.IoPrintableOriginal404Checks.Compare(LibraryDependencyOriginalSuite suite) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\IoPrintableOriginal404Checks.cs:line 96\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 6789",
+      "Milliseconds": 2419
+    }
+  ]
+}

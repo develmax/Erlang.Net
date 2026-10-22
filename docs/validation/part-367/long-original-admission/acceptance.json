@@ -1,0 +1,53 @@
+{
+  "Status": "PASS_INDEPENDENT_PASSIVE_QUEUE_LONG_ORIGINAL_ADMISSION",
+  "Run": 39072770120,
+  "Head": "230eb081348a0c2b5056707b71c8b0086fe42b0c",
+  "ManifestSha256": "DC8399C2E14E49B949365F5CCA441FDD1B047646AE27DA83C3102B565C10E148",
+  "OriginalValues": 11,
+  "OriginalFullStackProfiles": 55,
+  "Groups": 4,
+  "OriginalOnlyDependencyCases": [
+    "reverse_64017",
+    "reverse_256017",
+    "short_reverse_direct"
+  ],
+  "PairedQueueCases": 8,
+  "PairedQueueProfiles": 40,
+  "NativeNormalReceipts": 11,
+  "PreflightNormalReceipts": 3,
+  "PinnedOtpBlobChecks": 12008,
+  "ProducerGitInputBlobChecks": 51,
+  "NativeNonzeroReverseObservations": 15,
+  "EveryIntegerAndTailDecompositionVerified": true,
+  "AllNative256017RoutesHaveNonzeroWitness": true,
+  "Native64017AllKZero": true,
+  "SourcePredictionCorrectionRetained": "64017 may remain k0; source-proposal nonzero-per-case prediction was not an acceptance rule. Actual256017 nonzero required and proved in all3routes.",
+  "RawPreserved": true,
+  "NoFramesDropped": true,
+  "NoNativeKInjection": true,
+  "SdkComparisonClaim": false,
+  "DownloadedCodeExecuted": false,
+  "Reports": [
+    {
+      "Path": "actual1/acceptance.json",
+      "Sha256": "AED9B43AF96C3BA802B41A2622542A75C1B2030F6FAE99B7FC57C1848A2EC70A"
+    },
+    {
+      "Path": "actual1/partitions.json",
+      "Sha256": "502F810A4C8D156F571E2DF8A17B7FC33E25402E6867A5300BD67493BDD13FC7"
+    },
+    {
+      "Path": "pinned-blobs.json",
+      "Sha256": "39CA423A0AE330AC4AEC3F14FC061ADA0F8F96C39E27AAD255B34B09EDF97CCA"
+    },
+    {
+      "Path": "producer-authority.json",
+      "Sha256": "F14C701C91D3052E2B7B10EDE1C04B02373082AA870DA36C0C0C10271F84F95B"
+    },
+    {
+      "Path": "commit-scope.json",
+      "Sha256": "FED1988458B24C26590F398C8CCC557A16C2B385E33FDBDB645AFB78A02B86C4"
+    }
+  ],
+  "ReusedDecoderControlsSha256": "4768969069B0D504ABD5CFCFE8B7651029AE8E9B2C7E855865DAFFAFE19E4ACD"
+}

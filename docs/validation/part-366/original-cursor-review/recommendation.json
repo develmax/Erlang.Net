@@ -1,0 +1,104 @@
+{
+  "Status": "RECOMMEND_FROM_MAP_COMPLETE_UNDER_APPROVED_OWN_STATE_CONTRACT_ROOT_CLASSIFICATION_ONLY",
+  "Mfa": "proplists:from_map/1",
+  "ReviewerChangedCanonicalStatus": false,
+  "CanonicalVerifiedBeforeRootDecision": 37,
+  "LedgerSha256AtReview": "45038FA985E8FA073BD7DF10E1C159786BBF037D9A316C67DBAF377912066FA0",
+  "Current345GuardsExact": true,
+  "Final3224SourceRowsExact": true,
+  "FinalSourceClosureSha256": "C8DF5CA071E56B83253A7520686C4F8557605EC689207D5F1A01686411DCF7A8",
+  "AllSevenSourceClausesReviewed": {
+    "SourceReview": "artifacts/proplists-integration366-source-review3/source-review.json",
+    "Sha256": "B3A55F4C3F24BFB7FDAAF98C6356EA03793276E7AAE515CAB09B8CA60F5E8FE5"
+  },
+  "NativeCursorAdmission": {
+    "Path": "report.json",
+    "Sha256": "E5829FFC773591326446D946ED7E7B62F4680ACE9D477706EA0F70F0B984EF6C",
+    "Cases": 3,
+    "FullProfiles": 15,
+    "PinnedSourceBlobsIndependentlyReconstructed": 12008
+  },
+  "LatestMainEvidence": {
+    "Replay5SealSha256": "90F252AF06A7C10D1E7FE1B3BD433DDEE2224D5ACABA33C0D544D687A1C9B78C",
+    "Replay5ComparisonSha256": "2DBD8BDF3827B152B89E85149E18E2CE5DB3D43E68F1FD81AD1A8F40CCD1E4F4",
+    "Focus3ReportSha256": "E8F36F704280E06DBB94E79ACA1ECF3586784817BEEF161A4AB33C155E7D3F48",
+    "Focus283Passed": true,
+    "NegativeControls": 37,
+    "FinalPackagesReceiptSha256": "410315B4F3775A8C1B8217B002057F1CC2AB70BE1A058059A03BD4EF116BA538",
+    "FinalPackagesSeconds": 14.546999999991385,
+    "Packages": [
+      {
+        "Path": "artifacts/packages/Erlang.Net.CSharp.0.1.0.nupkg",
+        "Sha256": "483204006509D0CDD41F5AB6FF712A2C4B18D73DB1E79255C23EC030BE24A885",
+        "FinalMainEmbeddedDlls": [
+          {
+            "Entry": "lib/net10.0/Erlang.Compiler.dll",
+            "Sha256": "78B0411CE2E72E416DE3CE407895B965D9E4FEF473E179AF3018B0E95960F3F2"
+          },
+          {
+            "Entry": "lib/net10.0/Erlang.Runtime.dll",
+            "Sha256": "B5B32A9CA4E9BEF97A1DF7AA3AE32A3F56C4DC888AB326D06B33EC233A80E435"
+          },
+          {
+            "Entry": "lib/net10.0/Erlang.Serialization.dll",
+            "Sha256": "9D91CEAC81D1CEAD1622738DBCB42BAC724523217114D8BFACB0E3C8782E9E70"
+          },
+          {
+            "Entry": "lib/net10.0/Erlang.Terms.dll",
+            "Sha256": "58E7603F8AE5601CB7300F9169CFE201F59A230EC0EF6EA6F1AA092C680FC7DA"
+          },
+          {
+            "Entry": "tools/net10.0/Erlang.Compiler.dll",
+            "Sha256": "78B0411CE2E72E416DE3CE407895B965D9E4FEF473E179AF3018B0E95960F3F2"
+          },
+          {
+            "Entry": "tools/net10.0/Erlang.Runtime.dll",
+            "Sha256": "B5B32A9CA4E9BEF97A1DF7AA3AE32A3F56C4DC888AB326D06B33EC233A80E435"
+          },
+          {
+            "Entry": "tools/net10.0/Erlang.Serialization.dll",
+            "Sha256": "9D91CEAC81D1CEAD1622738DBCB42BAC724523217114D8BFACB0E3C8782E9E70"
+          },
+          {
+            "Entry": "tools/net10.0/Erlang.Terms.dll",
+            "Sha256": "58E7603F8AE5601CB7300F9169CFE201F59A230EC0EF6EA6F1AA092C680FC7DA"
+          }
+        ]
+      },
+      {
+        "Path": "artifacts/packages/Erlang.Net.Tool.0.1.0.nupkg",
+        "Sha256": "27BBDB90D943E20FD96DE77B0BFA42F1304617045BD1F53C8E92AE8A888C4749",
+        "FinalMainEmbeddedDlls": [
+          {
+            "Entry": "tools/net10.0/any/Erlang.Compiler.dll",
+            "Sha256": "78B0411CE2E72E416DE3CE407895B965D9E4FEF473E179AF3018B0E95960F3F2"
+          },
+          {
+            "Entry": "tools/net10.0/any/Erlang.Runtime.dll",
+            "Sha256": "B5B32A9CA4E9BEF97A1DF7AA3AE32A3F56C4DC888AB326D06B33EC233A80E435"
+          },
+          {
+            "Entry": "tools/net10.0/any/Erlang.Serialization.dll",
+            "Sha256": "9D91CEAC81D1CEAD1622738DBCB42BAC724523217114D8BFACB0E3C8782E9E70"
+          },
+          {
+            "Entry": "tools/net10.0/any/Erlang.Terms.dll",
+            "Sha256": "58E7603F8AE5601CB7300F9169CFE201F59A230EC0EF6EA6F1AA092C680FC7DA"
+          }
+        ]
+      }
+    ]
+  },
+  "SourceClosureConclusion": [
+    "Native3case witnesses confirm all5flat aliases, count-sensitive HAMT missing aliases and same-consumed-prefix success despite distinct fullhashes. Full maps1303errorinfo/wholecursor/caller/depth observations are retained, not projected.",
+    "SharedFlatEntries restores rawflat ownatomword order; explicitordered input stillsuppliedsemanticorder.",
+    "Nativeflat/HAMT/nested/collision protocol now applies to genuine own atom/code/export/node state; no excluded valid guest keydomain, copiednativewords or fakeoracle identities. Public metadata-less hostFUN and widerhost numeric/envvalues remain genuine own extensions.",
+    "No remaining concrete from_map semantic source blocker found under the user-approved ownstate criterion. Existing37 verified contracts remain preserved."
+  ],
+  "RawComparisonResidualsRetained": [
+    "Literal original/SDK atom-bearing cursor sequences2values+10profiles differ because actual own atomindexes differ; ownphysicalsourceprotocol and independently assertedHOST topology establish the approved relation, not rawbyte equality.",
+    "Existing get_keys unordered returned-listorder1value+5profiles remains separately justified, not normalized."
+  ],
+  "FullGateScope": "Canonical full1 passed7541/7541+11integrations+2packages before final5file delta; latestdelta hasfocus283/replay5/14nativehashvectors/final2packages and freshconsumer/CLIreadiness. Do not claim full7541 rerun against the final2runtimehashes.",
+  "PendingBeforePublication": "Root alone applies any ledger classification/durable documentation and checks resulting metadata bindings; no Main publication authorized by this reviewer."
+}

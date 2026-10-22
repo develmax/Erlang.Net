@@ -1,0 +1,31 @@
+{
+  "Status": "ACCEPT_NARROW_CALLBACK_ADMISSION_CHECKPOINT_FINAL_CAPTURE4_AND_HOST_PENDING",
+  "PriorCapReviewSha256": "FF368439956C74704409A587C3E4DF3E02A1880364B4B16ECEFB7044D98EEC5A",
+  "GuardCount": 382,
+  "Changed": [
+    {
+      "Path": "src/Erlang.Runtime/QueueHigherTrace.cs",
+      "BeforeSha256": "41F789E0828A9AD643247FC4DE2AD5765386A0F29C3F3B964BBE1D637E823753",
+      "AfterSha256": "E7C6F93F9067A19E5DF45EE37F44B288E6A8D2A4BC1E043055F1F37D80BBEA38"
+    }
+  ],
+  "ExactInverseOldBytes": true,
+  "NewSource": "QueueHigherTrace.Invoke awaits context.ChargeAsync(0) immediately on entry, before generated helper/history scopes and callback.Invoke.",
+  "ActualSharedSemantics": {
+    "ProcessContextSha256": "24EBFDE634CC465D2F7561C7A19D48FEC5EE14CDAEB2F8FA2F4DA0DC11201891",
+    "Checks": "ChargeAsync starts with Runtime.ThrowIfHalted and Cancellation.ThrowIfCancellationRequested, then honors suspension. Charge0 adds zero reductions/statistics/slice debit. Normal entry with no pending suspension and nonexpired slice completes without forcing yield.",
+    "Purpose": "Previously a lower ReduceAsync continuation could be parked after its own post-yield cancellation check, then resume into callback after directKill had canceled Stop. New boundary rechecks actual cancellation in the resumed higher-operation invocation path.",
+    "NotClaimed": "No atomic lock between signal arrival and future callback instructions. Cooperative checkpoint semantics, not impossible immediate arbitrary-instruction preemption guarantee."
+  },
+  "Preserved": [
+    "Every callback argument/order/function identity and resulting term.",
+    "No positive budget charge, fixture predicate or length-based hook.",
+    "No normal source/helper/frame creation before or after existing scopes.",
+    "All exception/source capture branches unchanged; cancellation is checked before callback work rather than captured as a guest Erlang error.",
+    "Direct member,ends and existing eight queue bodies are untouched."
+  ],
+  "Old46Applicability": "Only new HigherTrace shared by new higher/listdependency paths changes; old registered46 bodies unchanged. Arbitrary guest callbacks can use these new APIs; their entry now follows ordinary actual cancellation/halt/suspension rules. Final current-source old/full regression and actual later-phase controls remain required.",
+  "MainModified": false,
+  "Built": false,
+  "CompatibilityPromoted": false
+}

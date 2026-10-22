@@ -1,0 +1,12 @@
+{
+  "OriginalPath": "tools/validate.ps1",
+  "OriginalSha256": "DD493EA079090EE138723794C6EE23DB6D8CC4A10EB49731069A635C4093BA47",
+  "SuffixSha256": "D8864EC1F2F7B4267B854D943AB762D626D497AF6146155060928AA6868ACCB0",
+  "RemovedCommands": [
+    "    Invoke-DotNet @('build', '-m:1', '--nologo')\n",
+    "    Invoke-DotNet @('run', '--project', 'tools/Erlang.Style', '--no-build', '--', '--check', '.')\n",
+    "    Invoke-DotNet @('run', '--project', 'tools/Erlang.NifNativeBackend', '--no-build')\n",
+    "    Invoke-DotNet @('run', '--project', 'tests/Erlang.Tests', '--no-build', '--', 'artifacts/tests.json', 'docs/supported-mfas.json')\n"
+  ],
+  "Reason": "Final DLL build/style/native gate and full tests executed separately with retained receipts; do not repeat the full tests for docs-only registry metadata restoration."
+}

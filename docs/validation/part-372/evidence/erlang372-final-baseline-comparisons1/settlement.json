@@ -1,0 +1,168 @@
+{
+  "Stages": [
+    {
+      "Name": "erlang-old",
+      "ExitCode": 0,
+      "Command": [
+        "C:\\Users\\Maksim\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "artifacts/erlang370-retrospective-peer1/compare.py",
+        "--native",
+        "artifacts/erlang370-original-failure1/raw/capture",
+        "--native-admission",
+        "artifacts/erlang370-retrospective-peer1/acceptance.json",
+        "--sdk",
+        "artifacts\\erlang372-final-baselines1\\erlang-old\\capture1\\sdk",
+        "--output",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\erlang372-final-baseline-comparisons1\\erlang-old"
+      ],
+      "Acceptance": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\erlang372-final-baseline-comparisons1\\erlang-old\\acceptance.json"
+    },
+    {
+      "Name": "erlang-new",
+      "ExitCode": 0,
+      "Command": [
+        "C:\\Users\\Maksim\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "artifacts/erlang370-closure-admission-proposal1/compare.py",
+        "--native",
+        "artifacts/erlang-original370-closure-remote1/run-39108122243/artifact-12129576088/capture",
+        "--native-admission",
+        "artifacts/erlang370-closure-admission-proposal1/actual1/acceptance.json",
+        "--sdk",
+        "artifacts\\erlang372-final-baselines1\\erlang-new\\capture1\\sdk",
+        "--output",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\erlang372-final-baseline-comparisons1\\erlang-new"
+      ],
+      "Acceptance": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\erlang372-final-baseline-comparisons1\\erlang-new\\acceptance.json"
+    },
+    {
+      "Name": "binary-primary",
+      "ExitCode": 0,
+      "Command": [
+        "C:\\Users\\Maksim\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "artifacts/binary369-comparison-successor1/compare.py",
+        "--tool",
+        "artifacts/binary-original369-original1/tool",
+        "--native",
+        "artifacts/binary369-original-remote1/run-39083021286/artifact-12119578493/capture",
+        "--native-admission",
+        "artifacts/binary369-original-admission-proposal2/actual1/acceptance.json",
+        "--sdk",
+        "artifacts\\erlang372-final-baselines1\\binary-primary\\capture1\\sdk",
+        "--output",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\erlang372-final-baseline-comparisons1\\binary-primary"
+      ],
+      "Acceptance": null
+    },
+    {
+      "Name": "binary-supplement",
+      "ExitCode": 1,
+      "Command": [
+        "C:\\Users\\Maksim\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "artifacts/binary369-supplement-execution-proposal2/compare-binary.py",
+        "--tool",
+        "artifacts/binary-original369-supplement1/tool",
+        "--native",
+        "artifacts/binary369-supplement-remote1/run-39083564610/artifact-12120102622/capture",
+        "--sdk",
+        "artifacts\\erlang372-final-baselines1\\binary-supplement\\capture1\\sdk",
+        "--output",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\erlang372-final-baseline-comparisons1\\binary-supplement"
+      ],
+      "Acceptance": null
+    },
+    {
+      "Name": "binary-closure",
+      "ExitCode": 0,
+      "Command": [
+        "C:\\Users\\Maksim\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "artifacts/binary369-closure-execution-proposal1/compare-binary.py",
+        "--tool",
+        "artifacts/binary-original369-closure1/tool",
+        "--native",
+        "artifacts/binary369-closure-remote1/run-39084998283/artifact-12120398030/capture",
+        "--sdk",
+        "artifacts\\erlang372-final-baselines1\\binary-closure\\capture1\\sdk",
+        "--output",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\erlang372-final-baseline-comparisons1\\binary-closure"
+      ],
+      "Acceptance": null
+    },
+    {
+      "Name": "binary-insert",
+      "ExitCode": 0,
+      "Command": [
+        "C:\\Users\\Maksim\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "artifacts/binary369-insert-execution-proposal1/compare-binary.py",
+        "--tool",
+        "artifacts/binary-original369-insert1/tool",
+        "--native",
+        "artifacts/binary369-insert-remote1/run-39085952486/artifact-12121017293/capture",
+        "--sdk",
+        "artifacts\\erlang372-final-baselines1\\binary-insert\\capture1\\sdk",
+        "--output",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\erlang372-final-baseline-comparisons1\\binary-insert"
+      ],
+      "Acceptance": null
+    },
+    {
+      "Name": "erlang371",
+      "ExitCode": 0,
+      "Command": [
+        "C:\\Users\\Maksim\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "artifacts/erlang371-root/compare-final-erlang.py",
+        "--native",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\erlang371-original1\\download\\run-39112151003\\artifact-12130754382\\capture",
+        "--native-admission",
+        "artifacts/erlang371-passive-proposal3/actual1/acceptance.json",
+        "--native-admission-sha256",
+        "CCCD1EFC506210932915362CA2A60141FE0EB2F920EDE152D8C6CE49EBAF6EFA",
+        "--tool",
+        "artifacts/erlang371-next-original-proposal1/tool",
+        "--expected-head",
+        "fd2faca8697f4c9ba9ea85a1b71ef4ca5582a359",
+        "--manifest-sha256",
+        "9A216480984F46A35178F3606B04D515E2639A71DB1A848578BEEB9C2B0871AF",
+        "--sdk",
+        "artifacts\\erlang372-final-baselines1\\erlang371\\capture1\\sdk",
+        "--output",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\erlang372-final-baseline-comparisons1\\erlang371"
+      ],
+      "Acceptance": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\erlang372-final-baseline-comparisons1\\erlang371\\acceptance.json"
+    },
+    {
+      "Name": "ordsets371",
+      "ExitCode": 0,
+      "Command": [
+        "C:\\Users\\Maksim\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "artifacts/ordsets371-full-passive-proposal1/compare.py",
+        "--native",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\ordsets371-original1\\download\\run-39113248779\\artifact-12131801263\\ordsets-capture",
+        "--native-admission",
+        "artifacts/ordsets371-full-passive-proposal1/actual1/acceptance.json",
+        "--native-admission-sha256",
+        "019080B7B3B39F426DB22C7EE5C98775D516BB532A98DF17539C81592342EC85",
+        "--tool",
+        "artifacts/ordsets371-remaining-original-proposal3/tool",
+        "--expected-head",
+        "5baf7226c5a0bb7716968394d12c73ee11e0f1c6",
+        "--manifest-sha256",
+        "3C80B156E5E5704FFE172B1E23C2662C1F00FE6E7B191C19F9A11760BC4E0325",
+        "--sdk",
+        "artifacts\\erlang372-final-baselines1\\ordsets371\\capture1\\sdk",
+        "--output",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\erlang372-final-baseline-comparisons1\\ordsets371"
+      ],
+      "Acceptance": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\erlang372-final-baseline-comparisons1\\ordsets371\\acceptance.json"
+    }
+  ],
+  "NoSubjectExecuted": true,
+  "SourceGuardsSha256": "F1D47547CC8E11DFC57945816B6DC22694DB52B31CDF7B30FC1B7AF74AEC9506"
+}

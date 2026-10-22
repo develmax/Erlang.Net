@@ -1,0 +1,44 @@
+{
+  "Status": "UNEXECUTED_SOURCE_PATCH_BASED_ON_ACTUAL_FULL_STACK_DIFFERENCES",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "PinnedAuthority": {
+    "Path": "lib/stdlib/src/erl_parse.yrl",
+    "Sha256": "59339E13BB69E0E539B2EF7088AB9115C31CA8CAB47900E1752AA6755C53DB69",
+    "Rule": "mkop1(OpAnno,A) andmkop2(L,OpAnno,R) extract operator token Anno, notoperand/call start. expr andbit_expr prefix/infix rules propagate thisannotation."
+  },
+  "ActualDifferences": {
+    "Path": "artifacts/ordsets371-first-comparison1/differences.json",
+    "Sha256": "C0BB107DA814B280FF50BA790DC815D516F493BEAC719389549E9D740B6B9B66",
+    "CallbackOnlyRows": 15,
+    "ClassesReasonsArgumentsErrorInfo": "Alreadymatch; missing callbacksourcefile/line fromoperatorfailures."
+  },
+  "Patch": [
+    "Addinit-onlySourceLine toexistingExpr.Unary2arg/Binary3arg records; keepbothconstructors anddefault0 unchanged.",
+    "Captureactualoperator tokenStart beforeconsuming; sourceLineStarts determines1-basedline. Do not useleft/rightoperandline.",
+    "CodeGeneration delegatesnewSourceOperatorCode emitter preservinglineinadditiveobjectinitializer, sameasexistingExpr.Callmetadata.",
+    "Unary: awaitoperandonce BEFORE enteringoperatorsourcescope; nativeerrorcaptureinsideUnary seesactivefile/line.",
+    "Binary: completeleft/right evaluation andexistingbindingmerge BEFORE enteringoperatorsourcescope. Existing shortcircuitreturns staybefore RHS evaluation.",
+    "Invalidshortcircuitleft capturesordinarysourcefailure whileoperatorsourcescopeactive; no alteredreason/firstframeconstructionpolicy.",
+    "Sendoperator entersscopearoundactualsend afterbothoperands; noargumentsreorder.",
+    "GuardValuepathunchanged; guardoperatorfailurestillfalse ratherthanescaping."
+  ],
+  "PermanentControls": [
+    "ParsedANDgeneratedASTretainunaryline8/binaryline13; oldconstructorsstillSourceLine0.",
+    "Compileddefault/0/1/2/8depths compareBIFerror_infoandcallbackfile/line.",
+    "Operandsmarkersshowleftthenright(exactprocessdictionarylist[right,left]),eachoncebeforebinaryfailure; orderoperatorline26 independentofoperandcallline.",
+    "Failingunaryoperand keepsoperand_failureline21 andoutercallline18; outeroperatorline17mustnotreplaceeither.",
+    "Guardbadarithfallthroughother; falseandalso/trueorelserightsideeffectsnotexecuted."
+  ],
+  "NewHostTests": 1,
+  "NewApiPresence": 0,
+  "NoMainEdits": true,
+  "NoBuilds": true,
+  "NoOriginalOrSdkExecutionByHelper": true,
+  "RequiredRootGates": [
+    "Copyhashguarded5productionfiles+3testfiles; stylethenbuild.",
+    "NewpermanentcompiledHOSTtest.",
+    "Freshactualordsets2616capture/comparisonandcurrenterlang4506regression.",
+    "Existingcompiler/guard/operatorSourceGuardsandfullregressiononfinalsources."
+  ],
+  "NotClaimed": "Noexpectedfixture/ordsetskerneltraceadjustment; actualdata mustdemonstrate15repairedwithoutbroaderregressions."
+}

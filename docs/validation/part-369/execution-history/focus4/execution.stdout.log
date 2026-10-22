@@ -1,0 +1,9 @@
+{"Partial":true,"SelectedCount":4,"TotalCount":7638}
+PASS runtime/nif-binary-windows-subviewlifetimes
+FAIL compiler/binary/search/seven-contracts-and-error-callers: System.InvalidOperationException: Binary search source contract or resource ownership was not preserved.
+   at Erlang.Tests.BinarySearchMfaContracts.Require(Boolean value) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\BinarySearchMfaContracts.cs:line 87
+   at Erlang.Tests.BinarySearchCompiledHostChecks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\BinarySearchCompiledHostChecks.cs:line 15
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Program.cs:line 5192
+PASS binary/wrappers-replacement-effects-and-options
+PASS binary/wrappers-join-backing-and-callback-context
+3/4 passed

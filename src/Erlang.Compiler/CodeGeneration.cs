@@ -91,7 +91,7 @@ public static class CodeGeneration
         Expr.Variable v => "new " + E + "Variable(" + Quote(v.Name) + ")",
         Expr.Tuple t => "new " + E + "Tuple(" + Expressions(t.Items) + ")",
         Expr.List l => "new " + E + "List(" + Expressions(l.Items) + "," + Optional(l.Tail) + ")",
-        Expr.ListComprehension c => "new " + E + "ListComprehension(" + Expressions(c.Items) + "," + Array(c.Qualifiers, ComprehensionQualifierCode, "global::Erlang.Compiler.ComprehensionQualifier") + ")",
+        Expr.ListComprehension c => "new " + E + "ListComprehension(" + Expressions(c.Items) + "," + Array(c.Qualifiers, ComprehensionQualifierCode, "global::Erlang.Compiler.ComprehensionQualifier") + ")" + ComprehensionSourceCode.Initializer(c.Source),
         Expr.BinaryComprehension c => "new " + E + "BinaryComprehension(" + ExpressionCode(c.Body) + "," + Array(c.Qualifiers, ComprehensionQualifierCode, "global::Erlang.Compiler.ComprehensionQualifier") + ")",
         Expr.MapComprehension m => "new " + E + "MapComprehension(" + Array(
             m.Fields,
@@ -104,11 +104,21 @@ public static class CodeGeneration
             "global::Erlang.Compiler.MapField"
         ) + ")",
         Expr.Bits bits => "new " + E + "Bits(" + Array(bits.Segments, BitSegmentCode, "global::Erlang.Compiler.BitSegment") + ")",
-        Expr.Unary u => "new " + E + "Unary(" + Quote(u.Operator) + "," + ExpressionCode(u.Operand) + ")",
-        Expr.Binary b => "new " + E + "Binary(" + Quote(b.Operator) + "," + ExpressionCode(b.Left) + "," + ExpressionCode(b.Right) + ")",
+        Expr.Unary u => SourceOperatorCode.Unary(u, Quote(u.Operator), ExpressionCode(u.Operand)),
+        Expr.Binary b => SourceOperatorCode.Binary(
+            b,
+            Quote(b.Operator),
+            ExpressionCode(b.Left),
+            ExpressionCode(b.Right)
+        ),
         Expr.Call c when RecordPredicateSyntax.HasLiteralNonpositiveSize(c) => "new " + E + "Literal(" + TermCode(Term.A(ErlangBooleanAtoms.False)) + ")",
-        Expr.Call c => "new " + E + "Call(" + (c.Module is null ? "null" : Quote(c.Module)) + "," + Quote(c.Function) + "," + Expressions(c.Arguments) + "){SourceLine=" + c.SourceLine + "}",
-        Expr.Apply a => "new " + E + "Apply(" + ExpressionCode(a.Function) + "," + Expressions(a.Arguments) + "){SourceLine=" + a.SourceLine + "}",
+        Expr.Call c => SourceFunctionCode.Call(
+            c,
+            c.Module is null ? "null" : Quote(c.Module),
+            Quote(c.Function),
+            Expressions(c.Arguments)
+        ),
+        Expr.Apply a => SourceFunctionCode.Apply(a, ExpressionCode(a.Function), Expressions(a.Arguments)),
         Expr.Match m => "new " + E + "Match(" + PatternCode(m.Pattern) + "," + ExpressionCode(m.Value) + ")",
         Expr.MaybeMatch m => "new " + E + "MaybeMatch(" + PatternCode(m.Pattern) + "," + ExpressionCode(m.Value) + ")",
         Expr.Maybe conditional => "new " + E + "Maybe(" + Expressions(conditional.Items) + "," + Clauses(conditional.Clauses) + ")",
@@ -120,12 +130,15 @@ public static class CodeGeneration
         Expr.Case c => "new " + E + "Case(" + ExpressionCode(c.Value) + "," + Clauses(c.Clauses) + ")",
         Expr.If i => "new " + E + "If(" + Clauses(i.Clauses) + ")",
         Expr.Receive r => "new " + E + "Receive(" + Clauses(r.Clauses) + "," + Optional(r.Timeout) + "," + Optional(r.After) + ")",
-        Expr.Fun f => "new " + E + "Fun(" + Clauses(f.Clauses) + ")",
+        Expr.Fun f => SourceFunctionCode.Anonymous(f, Clauses(f.Clauses)),
         Expr.FunctionReference f => "new " + E + "FunctionReference(" + Quote(f.Name) + "," + f.Arity.ToString(CultureInfo.InvariantCulture) + ")",
         _ => throw new NotSupportedException()
     };
 
-    private static string ComprehensionQualifierCode(ComprehensionQualifier qualifier) => qualifier switch
+    private static string ComprehensionQualifierCode(ComprehensionQualifier qualifier)
+        => ComprehensionQualifierExpression(qualifier) + "{SourceLine=" + qualifier.SourceLine + "}";
+
+    private static string ComprehensionQualifierExpression(ComprehensionQualifier qualifier) => qualifier switch
     {
         ComprehensionQualifier.Generator g => "new global::Erlang.Compiler.ComprehensionQualifier.Generator(" + PatternCode(g.Pattern) + "," + ExpressionCode(g.Source) + "," + (g.Strict ? "true" : "false") + ")",
         ComprehensionQualifier.BinaryGenerator g => "new global::Erlang.Compiler.ComprehensionQualifier.BinaryGenerator((global::Erlang.Compiler.BitPattern)" + PatternCode(g.Pattern) + "," + ExpressionCode(g.Source) + "," + (g.Strict ? "true" : "false") + ")",

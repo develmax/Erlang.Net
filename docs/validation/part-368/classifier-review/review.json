@@ -1,0 +1,73 @@
+{
+  "Status": "REVIEW_CONDITIONAL_ADD_EXPLICIT_GATE_ASSERTS_BEFORE_MUTATION",
+  "ReviewedScript": {
+    "Path": "artifacts\\queue-integration368\\classify-final1.py",
+    "Sha256": "2B7F510158FB50CAD3AE060266C59465FDE5A62CCDA52BF1831FEAB3F0D5F4BE"
+  },
+  "NoClassifierExecuted": true,
+  "MainModified": false,
+  "ActualDurableReports": {
+    "NewObservations": 5358,
+    "NewStrict": 5007,
+    "NamedCodeRelations": 331,
+    "OwnEntryRelations": 20,
+    "OldObservations": 960,
+    "Controls": 72,
+    "AllActualReportCriteriaSatisfied": true
+  },
+  "LosslessDurableReads": [
+    {
+      "Path": "docs\\validation\\part-368\\ends-comparison\\actual1\\comparison.json.gz",
+      "Compressed": true,
+      "LosslessDecodedSha256": "C865F38F4A7DBC408DEBED11C435D20FE3E6C29D83466E303E698EBF4466A7B6",
+      "RawBytes": 492725,
+      "AcceptanceBindingExact": true
+    },
+    {
+      "Path": "docs\\validation\\part-368\\higher-comparison\\final-capture4\\comparison.json.gz",
+      "Compressed": true,
+      "LosslessDecodedSha256": "12667E8B974281751E4E8E3CE052860AA3545EC0C9DC8D0C52F63C7F9C6CA7BE",
+      "RawBytes": 964705,
+      "AcceptanceBindingExact": true
+    },
+    {
+      "Path": "docs\\validation\\part-368\\old-core-comparison\\comparison.json.gz",
+      "Compressed": true,
+      "LosslessDecodedSha256": "D3C0A921799D5D0DD29273F9AA597204FA855604D81A120BC390481EE8A7D3CE",
+      "RawBytes": 264611,
+      "AcceptanceBindingExact": true
+    }
+  ],
+  "ConfirmedDesign": [
+    "J supports .json.gz losslessly. Every referenced existing evidence file is currently raw .json; large comparator streams are correctly admitted by J fallback. Generated local-completion acceptance is created before evidence() hashes it.",
+    "Old617 non-Limits fields are checked before restoration; baseline row dictionaries restore all previous fields. Only queue Limits are deliberately replaced; baseline contains exact8 old queue identities.",
+    "Promotion key scope is set difference current registry minus immutable617 baseline; script requires30queue-only and changes only pending entries in that set, retaining known30 and oldverified46. Additional identity assertions recommended below.",
+    "module-readiness-scope ComparisonTestReport must remain immutable617 baseline. Readiness.cs51/71 uses it to derive previousMfas and delta, not current passed totals. Changing it to final647 would erase+30. Current handling is correct."
+  ],
+  "Findings": [
+    {
+      "Priority": "MUST_GATE",
+      "Issue": "72controls acceptance count is not fully asserted: ends only checks length32; oldcore only PASS prefix, not Whole960/22controls.",
+      "ActualEvidence": "All32 ends Rejected=true and oldcore960/954strict/6opaque/22controls independently confirmed.",
+      "Fix": "Assert every ends control Rejected, old exact counts, and18+32+22==72 before any registry writes."
+    },
+    {
+      "Priority": "MUST_GATE",
+      "Issue": "5358/5007/331/20 acceptance summary partly hardcoded without exact child count assertions.",
+      "ActualEvidence": "Actual durable reports5358/5007/331/20 confirmed.",
+      "Fix": "Assert higher2453strict+331named and ends429values/2145profiles/20permitted plus full counts; use computed acceptance totals."
+    },
+    {
+      "Priority": "RECOMMENDED_GUARD",
+      "Issue": "Exactly8 oldqueue Limits corrections and exact pinned30 promotion set are inferred from current inputs, not explicitly asserted.",
+      "Fix": "Assert newkeys==activeprofile Mfas; assert ledger keys equal registry keys; assert corrections equals baseline queue8 identities."
+    },
+    {
+      "Priority": "FAIL_FAST",
+      "Issue": "Registry is rewritten before all evidence paths/scope preconditions are validated. A late missing evidence path or scope assertion could leave partial local metadata changes.",
+      "Fix": "Preflight all existing evidence paths and scope/components before rawpath/ledger writes; generated acceptance path remains staged in memory or created afterward."
+    }
+  ],
+  "CurrentNotReadyByDesign": "full3 completion absent during review; canonical registry may remain617 until emitter finishes. Existing647 gate prevents early execution. Do not execute classifier until terminal pipeline success.",
+  "Scope": "Read-only script/data review only; no runtime/build/CI/network or classification action."
+}

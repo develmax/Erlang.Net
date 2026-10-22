@@ -1,0 +1,46 @@
+{
+  "Status": "SOURCE_REVIEW_ONLY_NOT_EXECUTED",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "PinnedPath": "lib/stdlib/src/ordsets.erl",
+  "PinnedSourceSha256": "526D1505D6CC482497F812879CDB41C533EA4BFC103E74850245F84C465CD70D",
+  "ModuleExports": 21,
+  "ProposedMfas": [
+    "ordsets:add_element/2",
+    "ordsets:is_element/2",
+    "ordsets:is_empty/1",
+    "ordsets:is_equal/2",
+    "ordsets:is_set/1",
+    "ordsets:new/0",
+    "ordsets:size/1",
+    "ordsets:to_list/1"
+  ],
+  "DeltaPresence": 8,
+  "DeltaFullContractVerified": 0,
+  "Cases": 112,
+  "DepthProfiles": 5,
+  "StackObservations": 560,
+  "Observations": 672,
+  "ImplementationFiles": 4,
+  "SourceAudit": {
+    "new/0": "literal []; exact immutable singleton",
+    "is_empty/1": "S =:= [] with no type guard; atom/tuple/improper accepted and return false",
+    "to_list/1": "identity for every term, including invalid/raw input",
+    "is_equal/2": "is_list checks outer constructor only (improper cons admitted); recursive Erlang == comparison, not CLR record equality",
+    "is_set/1": "outer nonlist false; strict ascending numeric term order; improper tail raises is_set/2 function_clause only if prior prefix comparisons succeed",
+    "is_element/2": "tail-recursive scan; preserve actual residual list argument at failure; comparisons can return before malformed suffix",
+    "add_element/2": "source recursion represented as explicit prefix; preserve original numeric representative, raw sharing/untraversed suffix; pending source continuation exposed in full-stack fixture",
+    "size/1": "reuse existing cancellable/reduction-aware length implementation; preserve length BIF badarg/error_info and ordsets caller line"
+  },
+  "Unverified": [
+    "No original or SDK execution by helper; Root owns actual build/CI/comparison",
+    "add_element non-tail duplicate source frames must be compared and repaired if OTP collapse differs",
+    "All compound/FUN/numeric ordering inherits current TermOrder; whole-domain ordering gaps must block full-contract promotion if relevant",
+    "Not yet migrated remaining ordsets APIs from_list/del_element/union/intersection/is_disjoint/subtract/is_subset/fold/filter/map/filtermap",
+    "No performance improvement or full module completion claimed"
+  ],
+  "NoMainEdits": true,
+  "NoBuilds": true,
+  "NoNetwork": true,
+  "NoLicensingBannerChanges": true,
+  "AdapterManifestSha256": "699A359762EA9EBBA64B6369BDCA92814E437C5F0A3F56246FA2E9F1A04F0829"
+}

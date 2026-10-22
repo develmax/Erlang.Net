@@ -1,0 +1,1 @@
+-module(oracle_maps_completion). -export([run/0]). run()->put(called,false),ok=maps:foreach(fun(_,_) ->put(called,true),#{anything=>returned} end,#{a=>1}),true=get(called),done.

@@ -1,0 +1,34 @@
+{
+  "Status": "TWO_CANDIDATES_PENDING_ROOT_FINAL_GATES_NOT_A_REGISTRY_EDIT",
+  "Entries": [
+    {
+      "Mfa": "erlang:length/1",
+      "ProposedStatusAfterAllGates": "Verified compatible",
+      "Scope": "Complete logical length contract for finite immutable Erlang lists: Nil zero, opaque-head Cons traversal, exact count, every non-Nil terminus badarg with original argument, native error_info and configured full caller stack. Includes ordinary/indirect calls, guards, dynamic pattern and receive contexts, separate non-trapping match-spec path, own-VM cooperative progress, cancellation and suspend/resume. No claim of identical physical memory, native scheduling quantum, timing or performance.",
+      "Proof": "artifacts/length372-contract-proposal1/README.md",
+      "ProofSha256": "BA17CA756F427190A634C02823B21381655D54798E489A0A4C0BA3F2E01F4819"
+    },
+    {
+      "Mfa": "ordsets:size/1",
+      "ProposedStatusAfterAllGates": "Verified compatible",
+      "Scope": "Complete logical source contract size(S)->length(S), including unsorted/nonunique arbitrary opaque list elements, Nil and proper count, invalid and improper-tail original length error, ordsets.erl:120 source continuation and configured full caller stack, own-VM progress/cancellation/suspend/resume. Independent of term comparison, numeric equality, map construction/cardinality and raw cursor protocols. No physical VM/timing/performance identity claim.",
+      "Proof": "artifacts/length372-contract-proposal1/README.md",
+      "ProofSha256": "BA17CA756F427190A634C02823B21381655D54798E489A0A4C0BA3F2E01F4819"
+    }
+  ],
+  "RequiredFinalGates": [
+    "Actual four new HOST checks pass final source; existing lifecycle and receive timer checks retained",
+    "Strict final-source comparison preserves all120 length fields and126 current size fields plus retained96 size fields",
+    "Source guards independently reviewed at actual final source",
+    "Full final canonical, packaging and publication-head CI pass before published completion"
+  ],
+  "PromotionDeltaOnlyIfAllGatesPass": {
+    "erlang": 1,
+    "ordsets": 1,
+    "Total": 2
+  },
+  "ExcludedFromCandidates": [
+    "erlang:map_size/1",
+    "erlang:size/1"
+  ]
+}

@@ -45,7 +45,8 @@ public sealed partial class ProcessRuntime
         if (remote is null)
             return;
         distributionProcessMonitors.Remove(remote);
-        if (remote.Entry.Owner.IsConnectedSignalGeneration(remote.Entry, remote.Connection, remote.ConnectionId))
+        if ((remote.Connection.Flags & DistributionPassThroughFlags.ProcessMonitors) == DistributionPassThroughFlags.ProcessMonitors &&
+            remote.Entry.Owner.IsConnectedSignalGeneration(remote.Entry, remote.Connection, remote.ConnectionId))
             remote.Entry.Owner.ScheduleConnectedControlSignal(
                 remote.Entry,
                 remote.Connection,

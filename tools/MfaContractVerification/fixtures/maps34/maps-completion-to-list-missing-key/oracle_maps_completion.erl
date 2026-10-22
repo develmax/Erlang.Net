@@ -1,0 +1,1 @@
+-module(oracle_maps_completion). -export([run/0]). run()->put(input,[[missing]|#{a=>1}]),T=get(input),try maps:to_list(T) of _->unexpected catch error:{badmap,T}->ok end,done.

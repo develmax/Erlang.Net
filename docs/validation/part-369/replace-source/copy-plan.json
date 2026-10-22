@@ -1,0 +1,31 @@
+{
+  "SourceProofSha256": "E159B342B6D236B4B0C15072B5682CC1A07FFA22C013FEFD68110AFCBB8A0B34",
+  "Files": [
+    {
+      "Source": "artifacts/binary-replace369-fix6/source/src/Erlang.Runtime/BinaryReplacePlan.cs",
+      "Target": "src/Erlang.Runtime/BinaryReplacePlan.cs",
+      "Sha256": "2E9154621EF7EF08CBA5E3F263669A705A3E0F4CD25E466BAA72A3D8B805C489",
+      "ExistingTargetSha256": "407A8F315730EF48FCA16FBEC2A4E16B998CF570E63A129202DB494FBB99F2FE"
+    },
+    {
+      "Source": "artifacts/binary-replace369-fix6/source/tests/Erlang.Tests/BinaryInsertHostChecks.cs",
+      "Target": "tests/Erlang.Tests/BinaryInsertHostChecks.cs",
+      "Sha256": "49E7C665D804717A0D92ECF45E1B614CDC0126463B9BE802C59163969DA4D2CB",
+      "ExistingTargetSha256": null
+    },
+    {
+      "Source": "artifacts/binary-replace369-fix6/source/tests/Erlang.Tests/BinaryInsertHostNames.cs",
+      "Target": "tests/Erlang.Tests/BinaryInsertHostNames.cs",
+      "Sha256": "961AF2F38E37A5607470C62007DCA353E27D8853B14C19F0D2709FCAFA1F4B76",
+      "ExistingTargetSha256": null
+    },
+    {
+      "Source": "artifacts/binary-replace369-fix6/source/tests/Erlang.Tests/Resources/BinaryInsert/binary_insert369_host.erl",
+      "Target": "tests/Erlang.Tests/Resources/BinaryInsert/binary_insert369_host.erl",
+      "Sha256": "C166BA69FD4F68FB279901759DB55D2FA923B91CD3892E4BC789EA06A35AA0BD",
+      "ExistingTargetSha256": null
+    }
+  ],
+  "ProgramAddition": "HOST(BinaryInsertHostNames.Test, BinaryInsertHostChecks.Run)",
+  "CsprojAddition": "<EmbeddedResource Include=\"Resources/BinaryInsert/binary_insert369_host.erl\" />"
+}

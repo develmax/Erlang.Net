@@ -1,0 +1,1 @@
+-module(oracle_map_operations). -export([run/0]). run()->#{1:=11,2:=22}=maps:map(fun(K,V)->K+V end,#{1=>10,2=>20}),done.

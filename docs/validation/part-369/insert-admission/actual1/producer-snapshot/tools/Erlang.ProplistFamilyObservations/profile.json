@@ -1,0 +1,131 @@
+{
+  "Family": "binary-new-only-replacement-insert-branches",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SubjectModule": "binary",
+  "Mfas": [
+    "binary:referenced_byte_size/1",
+    "binary:replace/4"
+  ],
+  "Fixtures": [
+    {
+      "Id": "insert",
+      "Location": "tool",
+      "Path": "original/binary369_insert_contract.erl",
+      "Module": "binary369_insert_contract",
+      "Run": "run",
+      "NamesEntry": "cases",
+      "Names": [
+        "insert_true_no_match",
+        "insert_true_match",
+        "integer_zero_pin",
+        "integer_negative_pin",
+        "integer_outside_pin",
+        "list_zero_no_pin",
+        "no_insert_no_pin"
+      ],
+      "StackModule": "binary369_insert_contract",
+      "StackEntry": "run_stacks",
+      "WorkerModule": "proplists_observation_worker",
+      "WorkerEntry": "run",
+      "ValueAcquisition": "compiled-monitored-worker-values-and-stacks-v1",
+      "StackShape": "depth_cases",
+      "Companions": [
+        "original/binary_all369_support.erl",
+        "original/proplists_observation_worker.erl"
+      ],
+      "Cases": [
+        {
+          "Name": "insert_true_no_match",
+          "Mfas": [
+            "binary:replace/4",
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Owner-authored source branch observation; genuine writable replacement before/result/full caught stack/after. No capacity or expected result seeded.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "insert_true_match",
+          "Mfas": [
+            "binary:replace/4",
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Owner-authored source branch observation; genuine writable replacement before/result/full caught stack/after. No capacity or expected result seeded.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "integer_zero_pin",
+          "Mfas": [
+            "binary:replace/4",
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Owner-authored source branch observation; genuine writable replacement before/result/full caught stack/after. No capacity or expected result seeded.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "integer_negative_pin",
+          "Mfas": [
+            "binary:replace/4",
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Owner-authored source branch observation; genuine writable replacement before/result/full caught stack/after. No capacity or expected result seeded.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "integer_outside_pin",
+          "Mfas": [
+            "binary:replace/4",
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Owner-authored source branch observation; genuine writable replacement before/result/full caught stack/after. No capacity or expected result seeded.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "list_zero_no_pin",
+          "Mfas": [
+            "binary:replace/4",
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Owner-authored source branch observation; genuine writable replacement before/result/full caught stack/after. No capacity or expected result seeded.",
+          "OpaqueReferenceAdmissionRequired": false
+        },
+        {
+          "Name": "no_insert_no_pin",
+          "Mfas": [
+            "binary:replace/4",
+            "binary:referenced_byte_size/1"
+          ],
+          "Scope": "Owner-authored source branch observation; genuine writable replacement before/result/full caught stack/after. No capacity or expected result seeded.",
+          "OpaqueReferenceAdmissionRequired": false
+        }
+      ]
+    }
+  ],
+  "FixtureSources": [
+    {
+      "Location": "tool",
+      "Path": "original/binary369_insert_contract.erl",
+      "Sha256": "AB3C9439BD9286BD2EF0591605F6EC9A407938EEB36D43A44B538B12B585A555"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/binary_all369_support.erl",
+      "Sha256": "6E499A37D39D12E93F0FD1BF3ACC64FFF4382DBE2894D9D259AFC1EA748E0F34"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/proplists_observation_worker.erl",
+      "Sha256": "34B743EB95A5937058AB8F208A1FB17C6ACED20AF7E08398EF6D154F574546BC"
+    }
+  ],
+  "ExpectedUniqueSourceCount": 3,
+  "ValueAcquisition": "compiled-monitored-worker-values-and-stacks-v1",
+  "ObservationSchema": "raw-values-effects-and-whole-stacks-v1",
+  "ExpectedSeededOutcomes": false,
+  "OpaquePolicy": {
+    "EligibleCases": [],
+    "Rule": "Strict complete outputs, including nested full caught stacks and backing numbers. No identity or context waiver."
+  },
+  "Prior585Reexecuted": false,
+  "Prior36Reexecuted": false,
+  "Prior14Reexecuted": false
+}

@@ -1,6 +1,6 @@
 namespace Erlang;
 
-public sealed class RuntimeFunctionEntries
+public sealed partial class RuntimeFunctionEntries
 {
     private readonly object gate = new();
     private readonly Dictionary<(string Module, int Index, int Arity, string Unique), LocalFunctionPublicationCell> entries = new();
@@ -20,19 +20,36 @@ public sealed class RuntimeFunctionEntries
                 return previous;
             if (safe && !runtime.Modules.HasExport(identity.Module.Name, identity.Function.Name, identity.Arity))
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
-            var function = new FunctionTerm(
-                identity,
-                (context, arguments) => ((ProcessContext)context).Runtime.Modules.Call(
-                    (ProcessContext)context,
-                    identity.Module.Name,
-                    identity.Function.Name,
-                    arguments.ToArray()
-                )
-            );
-            externalEntries.Add(identity, function);
 
-            return function;
+            return AddExternalPointer(identity);
         }
+    }
+
+    internal FunctionTerm ExternalForArtifactInspection(ExternalFunctionIdentity identity)
+    {
+        lock (gate)
+        {
+            if (externalEntries.TryGetValue(identity, out FunctionTerm? previous))
+                return previous;
+
+            return AddExternalPointer(identity);
+        }
+    }
+
+    private FunctionTerm AddExternalPointer(ExternalFunctionIdentity identity)
+    {
+        var function = new FunctionTerm(
+            identity,
+            (context, arguments) => ((ProcessContext)context).Runtime.Modules.Call(
+                (ProcessContext)context,
+                identity.Module.Name,
+                identity.Function.Name,
+                arguments.ToArray()
+            )
+        );
+        externalEntries.Add(identity, function);
+
+        return function;
     }
 
     public LocalFunctionIdentity Register(
@@ -69,6 +86,7 @@ public sealed class RuntimeFunctionEntries
         bool sourceFactory
     )
     {
+        identity = CanonicalMetadata(identity, arity);
         lock (gate)
         {
             var key = Key(identity, arity);
@@ -106,6 +124,7 @@ public sealed class RuntimeFunctionEntries
         IReadOnlyList<Term> environment
     )
     {
+        identity = CanonicalMetadata(runtime.Modules.ResolveSourceLocalIdentity(identity, arity) ?? identity, arity);
         var values = Array.AsReadOnly(environment.ToArray());
         LocalFunctionPublicationCell cell;
         LocalFunctionPublication publication;
@@ -116,13 +135,37 @@ public sealed class RuntimeFunctionEntries
         }
         if (!publication.IsSourceFactory && publication.Factory is not null && publication.EnvironmentCount == values.Count)
             return publication.Factory(values, null);
+
+        return CreateStoredRestored(
+            runtime,
+            identity,
+            arity,
+            values
+        );
+    }
+
+    internal FunctionTerm CreateStoredRestored(
+        ProcessRuntime runtime,
+        LocalFunctionIdentity identity,
+        int arity,
+        IReadOnlyList<Term> environment
+    )
+    {
+        identity = CanonicalMetadata(identity, arity);
+        var values = Array.AsReadOnly(environment.ToArray());
+        LocalFunctionPublicationCell cell;
+        lock (gate)
+            cell = FindOrAdd(identity, arity);
         FunctionTerm? restored = null;
         restored = new FunctionTerm(
             () =>
             {
                 var current = cell.Current.Identity;
 
-                return current.Name is not null ? current : runtime.Modules.ResolveSourceLocalIdentity(current, arity) ?? current;
+                if (current.Name is not null) return current;
+                LocalFunctionIdentity? resolved = runtime.Modules.ResolveSourceLocalIdentity(current, arity);
+
+                return resolved is null ? current : current with { Name = resolved.Name };
             },
             arity,
             values,
@@ -135,6 +178,14 @@ public sealed class RuntimeFunctionEntries
                 arguments
             )
         );
+
+        if (ReferenceEquals(runtime.Functions, this))
+            RegisterStoredSource(restored, new RestoredStoredFunctionRecipe(
+                this,
+                runtime,
+                identity,
+                arity
+            ));
 
         return restored;
     }
@@ -194,12 +245,20 @@ public sealed class RuntimeFunctionEntries
 
     internal LocalFunctionInvocation Capture(LocalFunctionIdentity identity, int arity, FunctionTerm original)
     {
+        identity = CanonicalMetadata(identity, arity);
         lock (gate)
         {
             var cell = FindOrAdd(identity, arity);
 
             return new(original, cell, cell.Current);
         }
+    }
+
+    internal LocalFunctionIdentity GetCanonicalIdentityForHash(LocalFunctionIdentity identity, int arity)
+    {
+        identity = CanonicalMetadata(identity, arity);
+        lock (gate)
+            return FindOrAdd(identity, arity).Current.Identity;
     }
 
     private LocalFunctionPublicationCell FindOrAdd(LocalFunctionIdentity identity, int arity)

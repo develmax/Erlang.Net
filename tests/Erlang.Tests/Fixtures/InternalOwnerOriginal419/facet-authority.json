@@ -1,0 +1,17 @@
+{
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "WholeSourceSha256": "22B6A291C32778EDB84DC1E9BB2CFD5AF44CA7E9F0AE53CB01F3A674218BC260",
+  "AuthorityPacketManifestSha256": "8702666F355DB740BFF82A016FF87AA6C6F3E62CCC323726CE3A444AA6CFE00B",
+  "SelectedClauses": [
+    "erase_persistent_terms() ->\n    erlang:nif_error(undefined).",
+    "processes_next(_IterRef) ->\n    erlang:nif_error(undefined).",
+    "notify_breakpoint_hit(_, _, _) ->\n    erlang:nif_error(undefined)."
+  ],
+  "NativeCount": 3,
+  "PublicExports": 5,
+  "ExpectedWholeRows": 90,
+  "Whole71Claim": false,
+  "Launch": "Same actual compiled child/2 entry in an independently spawned Erlang process on both VMs; no erl_eval/init frame projection",
+  "PriorCapture": "artifacts/library419-internal-owner-original1",
+  "PriorDirectComparison": "79/90; default errors retain original launcher frames; all profile rows match"
+}

@@ -1,0 +1,149 @@
+{
+  "Status": "NARROW_SOURCE_PROPOSAL_FULL1_FAILURE_OBSERVED_BY_ROOT_FULL2_REQUIRED",
+  "AuthorityCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Authority": [
+    {
+      "Path": "lib/compiler/src/v3_core.erl",
+      "Sha256": "B406F7F4C6F7B58DC9AA4608703C82EAF302714C874F38DD1C7FEC62D4017637"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_nif.c",
+      "Sha256": "66F06AB32AEDB5D1E02140C37E0215E797FB80D78C1AA4091EB52BE01465299A"
+    }
+  ],
+  "PinnedDirectSource": "v3_core.erl918-920 marks only explicit erlang:load_nif/2 in initial AST core translation with load_nif=true. Later simplified apply call does not retroactively create that explicit-direct annotation.",
+  "PinnedStub": "erl_nif.c4618-4625: direct loader is an instruction needing caller origin; BIF load_nif_2 explicitly returns bad_lib saying apply3 forbidden.",
+  "CurrentBug": "StaticApplySyntax turns literal apply3 destination erlang:load_nif into indistinguishable direct Expr.Call; existing Execution detects direct x.Module/function/arity2 and calls capability-bearing CallSourceLoadNif. It wrongly treats optimized indirect syntax as a source-direct caller.",
+  "ProposedChange": "Decline any erlang:load_nif destination, all arities, before lowering. Preserve full original apply route/list validation/argument effects and indirect error stub. No new provenance flag or global loader refactor.",
+  "ActualOriginalLoaderBranchesUnchanged": [
+    "Source-explicit load_nif/2 caller identity, image ownership/lease and single-use capability.",
+    "Indirect apply3 and external FUN refuse direct capability via existing load_nif stub.",
+    "Other modules functions named load_nif retain ordinary lowering.",
+    "Local/shadowed apply binding, dynamic/improper/oversized lists retain previous branches."
+  ],
+  "ObservedRootFailure": "runtime/direct-source-load-nif-exact-caller-capability in canonical full1; no independent execution by this review. Root keeps sources frozen until full1 settles and preserves failure.",
+  "ExistingPermanentControl": "SourceLoadNifHostNames.Source dynamic(X)->erlang:apply(erlang,load_nif,[X,42]); SourceLoadNifHostChecks.GeneratedIndirectRoutes expects exact IndirectCallError and zero direct handler invocations; direct/last/non-tail/cross/lease/argument/generated routes remain checked.",
+  "Old617And46": "No registry row or shared runtime/term implementation changes; old metadata remains preserved. Important correction of existing capability boundary means affected direct-loader checks and a fresh canonical full2 are required, not waived as unrelated.",
+  "QueueCaptureReuse": {
+    "FixturesScanned": 21,
+    "AllNoLoadNif": true,
+    "Details": [
+      {
+        "Path": "artifacts/queue-original368-original1/tool/original/proplists_observation_worker.erl",
+        "Sha256": "34B743EB95A5937058AB8F208A1FB17C6ACED20AF7E08398EF6D154F574546BC",
+        "MentionsLoadNif": false
+      },
+      {
+        "Path": "artifacts/queue-original368-original1/tool/original/queue_all368_long_last.erl",
+        "Sha256": "DF1C7B9B5649E11381FE3F4D3EF886456027195F9FE94CA1C71307279DAC1C1C",
+        "MentionsLoadNif": false
+      },
+      {
+        "Path": "artifacts/queue-original368-original1/tool/original/queue_all368_long_member.erl",
+        "Sha256": "F36E8E6C0568CF348AFD4B1D422791846385A2F256F47AB12AB0F55D0F037FCC",
+        "MentionsLoadNif": false
+      },
+      {
+        "Path": "artifacts/queue-original368-original1/tool/original/queue_all368_long_reverse_ends.erl",
+        "Sha256": "10379286892072ADAFDACE76D5C253742E7E3A0FE95456DC2EA3DA436EE9B367",
+        "MentionsLoadNif": false
+      },
+      {
+        "Path": "artifacts/queue-original368-original1/tool/original/queue_all368_long_split.erl",
+        "Sha256": "5946372B1E241D9D67C5F86833DD83D0CDB7330F7D9F42D00266EA1CA51A7C20",
+        "MentionsLoadNif": false
+      },
+      {
+        "Path": "artifacts/queue-original368-original1/tool/original/queue_all368_queue_callbacks.erl",
+        "Sha256": "D6324B07C615E7805CE04725C28BD87961ECE1D47EAE628739F236CFA7287721",
+        "MentionsLoadNif": false
+      },
+      {
+        "Path": "artifacts/queue-original368-original1/tool/original/queue_all368_queue_ends_left.erl",
+        "Sha256": "324524653D6559D2137F608EDC9E87938F89A5307EEE8921EFC6A8B265AAA9E7",
+        "MentionsLoadNif": false
+      },
+      {
+        "Path": "artifacts/queue-original368-original1/tool/original/queue_all368_queue_ends_right.erl",
+        "Sha256": "5BF90FA8194A64624B2454C009F26BF8796A6FD747B31B36C6B7F1B43881988B",
+        "MentionsLoadNif": false
+      },
+      {
+        "Path": "artifacts/queue-original368-original1/tool/original/queue_all368_queue_structural.erl",
+        "Sha256": "5BE2D31581CC4A3447407EA743ECA7E2FD4696C176EE434722CF7D45AE28D6B3",
+        "MentionsLoadNif": false
+      },
+      {
+        "Path": "artifacts/queue-original368-original1/tool/original/queue_all368_support.erl",
+        "Sha256": "7F08761C9A493458FCA6AD29914EE2415B46212A29C33A8CC79F5BA745CC91DE",
+        "MentionsLoadNif": false
+      },
+      {
+        "Path": "artifacts/queue-original367-original1/tool/original/proplists_observation_worker.erl",
+        "Sha256": "34B743EB95A5937058AB8F208A1FB17C6ACED20AF7E08398EF6D154F574546BC",
+        "MentionsLoadNif": false
+      },
+      {
+        "Path": "artifacts/queue-original367-original1/tool/original/queue_core_contract.erl",
+        "Sha256": "A154FA54B05D56A0F442B4CCBFAFAA8CE8D5C8FEA67017EA582B7FCCFEA45DC2",
+        "MentionsLoadNif": false
+      },
+      {
+        "Path": "artifacts/queue-original367-original1/tool/original/queue_core_empty.erl",
+        "Sha256": "637087C81FA2E195CF4C70C4374D923C5828D4D94C29D951E492DC4BC5453E02",
+        "MentionsLoadNif": false
+      },
+      {
+        "Path": "artifacts/queue-original367-original1/tool/original/queue_core_errors.erl",
+        "Sha256": "01C6ED4A754D3C81A153C6E55800A8242AEE9D1F95A6A8B8747DCF59216839AB",
+        "MentionsLoadNif": false
+      },
+      {
+        "Path": "artifacts/queue-original367-original1/tool/original/queue_core_heterogeneous.erl",
+        "Sha256": "E30BC7C9D07EC9481FCF330FC3F47FA70E5A1638FE54B6C63A5E5EBAABAEA9C8",
+        "MentionsLoadNif": false
+      },
+      {
+        "Path": "artifacts/queue-original367-original1/tool/original/queue_core_improper.erl",
+        "Sha256": "7DCC2C5C58323DCE7AC1E6950CD2B5113A09F6C7AE1BF7F9FE6BD13765293928",
+        "MentionsLoadNif": false
+      },
+      {
+        "Path": "artifacts/queue-original367-original1/tool/original/queue_core_observe.erl",
+        "Sha256": "A84D651049C61528D3034D40D522E6023A43AF95927CF8B03295BEFC5FE1B1B9",
+        "MentionsLoadNif": false
+      },
+      {
+        "Path": "artifacts/queue-original367-original1/tool/original/queue_core_ordering.erl",
+        "Sha256": "4059C3BD555C66C1F181E02FC2C2C84DB13DE78E90D836D01D29EFAAF1E9C2CE",
+        "MentionsLoadNif": false
+      },
+      {
+        "Path": "artifacts/queue-original367-original1/tool/original/queue_core_persistence.erl",
+        "Sha256": "41E074A8C277EF5AC61ADD9A0A417F2ADFE67C7FDA0BA8755C2E76153D51E5C6",
+        "MentionsLoadNif": false
+      },
+      {
+        "Path": "artifacts/queue-original367-original1/tool/original/queue_core_raw_shapes.erl",
+        "Sha256": "CDD1AA66626A95B2DA0C876381DD962FDA2239C2F28D2A89E4BB83D3EB500DB6",
+        "MentionsLoadNif": false
+      },
+      {
+        "Path": "artifacts/queue-original367-original1/tool/original/queue_core_representation.erl",
+        "Sha256": "F146B1DAF861505799DD18158B99FF67527BAF286A8AFAF14E3F631C182A32A8",
+        "MentionsLoadNif": false
+      }
+    ],
+    "Reason": "Only excluded target erlang:load_nif differs; all admitted original queue/new and priorcore sources contain none. Capture4 raw comparison remains valid for identical selected queue call paths, with explicit reviewed sourcehash delta rather than falsely claiming capture4 binaries include the patch."
+  },
+  "GuardCount": 382,
+  "ChangedGuard": {
+    "Path": "src/Erlang.Compiler/StaticApplySyntax.cs",
+    "BeforeSha256": "3BE405FB880B8B6821F2A8C796DD28AA7BB68958EF5CAD1AD6CEB31412D358C4",
+    "AfterSha256": "921B7A56E769F910BEE6D6835F3E0BF773073AF798014880C9DB253385F97C5D"
+  },
+  "MainModified": false,
+  "Built": false,
+  "OriginalExecuted": false,
+  "CompatibilityPromoted": false
+}

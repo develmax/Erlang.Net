@@ -1,0 +1,9 @@
+# Part380: scoped compiler-policy guard successor
+
+The actual Main-produced cached original driver rejects compile/transform and on_load attributes in unchanged original epp forms. Nine controls pass, including a positive transform that really creates a sentinel and a guarded negative using the identical forms hash. Both public raw-source refusals still start zero native children. The production change is only an explicit validate_forms/4 export; every function body remains unchanged.
+
+Six separate actual RequireModule component controls retain normal/on_load/wrong-name image admission behavior. These tests neither execute on_load callbacks nor establish transform execution support. They close the two named later-defense observations inherited from377; frozen377 records are not rewritten.
+
+The final tool also passes five source/include/cache steps, eleven integration outcomes/two local packages, six isolated PackageReference build/no-op/run/publish steps, style and byte equality of five current/installed readiness reports. Package suffix takes49.906s; prior379 took54.031s. Each is one local suffix run, not a controlled speed benchmark. No general runtime regression was repeated: Runtime897181D2747427D534BBA6727D3FAAAB6D21B359CBD02753D0B5E96DBA083146 is unchanged from379, whose8081/8081 result remains separately attributed.
+
+ToolE0FF5CCE7658D6EAB786EEC0DC30941031FC2EBB0EDBC958E5E5C15961DCD564 and CSharp package4B4E1F14AA88AD59A83C327F63596537A6D021062730C310139C5F2810791726 are retained locally. [Completion](completion.json) and [185 hash bindings](bindings.json) preserve the actual forms, ETF results, process receipts, cache images, source, binaries and packages. The bindings were copied and verified before starting the next functional lane. API/full-contract delta0/0. Fifteen of the original seventeen obligations remain open. No commit, push, remote publication or compatibility promotion.

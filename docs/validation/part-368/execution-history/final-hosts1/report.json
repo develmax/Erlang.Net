@@ -1,0 +1,55 @@
+{
+  "Partial": true,
+  "SelectedCount": 7,
+  "TotalCount": 7599,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/static-apply-three-resolution-effects-and-source-frames",
+    "mfa/erlang:apply/2",
+    "mfa/erlang:apply/3",
+    "queue/higher-compiled-apply-badarity-and-rear-expansion-frames",
+    "runtime/queue/core/cooperative-cancellation-cleanup",
+    "runtime/queue/higher/later-phase-cooperative-cancellation-cleanup",
+    "runtime/queue/member/own-entry-and-short-circuit"
+  ],
+  "Passed": 6,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "mfa/erlang:apply/2",
+      "Status": "Passed",
+      "Milliseconds": 1541
+    },
+    {
+      "Name": "mfa/erlang:apply/3",
+      "Status": "Passed",
+      "Milliseconds": 42
+    },
+    {
+      "Name": "runtime/queue/higher/later-phase-cooperative-cancellation-cleanup",
+      "Status": "Passed",
+      "Milliseconds": 2244
+    },
+    {
+      "Name": "queue/higher-compiled-apply-badarity-and-rear-expansion-frames",
+      "Status": "Passed",
+      "Milliseconds": 105
+    },
+    {
+      "Name": "compiler/static-apply-three-resolution-effects-and-source-frames",
+      "Status": "Failed",
+      "Error": "System.AggregateException: Static apply lowering changed binding, evaluation, native validation or source continuation behavior. (Undefined function apply/3)\r\n ---\u003E Erlang.Compiler.CompileException: Undefined function apply/3\r\n   at Erlang.Compiler.LocalCallValidation.Validate(ModuleDefinition module) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Compiler\\LocalCallValidation.cs:line 40\r\n   at Erlang.Compiler.Semantics.Validate(ModuleDefinition module) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Compiler\\Semantics.cs:line 20\r\n   at Erlang.Compiler.Parser.ParseModule() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Compiler\\Parser.cs:line 240\r\n   at Erlang.Compiler.CodeGeneration.CompileModule(String source, String sourcePath) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Compiler\\CodeGeneration.cs:line 143\r\n   at Erlang.Differential.GeneratedModuleCompiler.Compile(String source, String sourceFile) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.Differential\\GeneratedModuleCompiler.cs:line 14\r\n   at Erlang.Tests.StaticApplyRegressionHostChecks.RunSource(String source, String file, Boolean other) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\StaticApplyRegressionHostChecks.cs:line 47\r\n   at Erlang.Tests.StaticApplyRegressionHostChecks.\u003C\u003Ec.\u003C\u003CRun\u003Eb__0_5\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\StaticApplyRegressionHostChecks.cs:line 30\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.StaticApplyRegressionHostChecks.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CRun\u003Eg__Check|0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\StaticApplyRegressionHostChecks.cs:line 15\r\n   --- End of inner exception stack trace ---\r\n   at Erlang.Tests.StaticApplyRegressionHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\StaticApplyRegressionHostChecks.cs:line 42\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 5160",
+      "Milliseconds": 179
+    },
+    {
+      "Name": "runtime/queue/member/own-entry-and-short-circuit",
+      "Status": "Passed",
+      "Milliseconds": 40
+    },
+    {
+      "Name": "runtime/queue/core/cooperative-cancellation-cleanup",
+      "Status": "Passed",
+      "Milliseconds": 1711
+    }
+  ]
+}

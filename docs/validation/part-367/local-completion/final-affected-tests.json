@@ -1,0 +1,468 @@
+{
+  "Partial": true,
+  "SelectedCount": 76,
+  "TotalCount": 7561,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/proplists/from-map-own-context-routes",
+    "mfa/erlang:is_atom/1",
+    "mfa/erlang:is_binary/1",
+    "mfa/erlang:is_bitstring/1",
+    "mfa/erlang:is_boolean/1",
+    "mfa/erlang:is_float/1",
+    "mfa/erlang:is_function/1",
+    "mfa/erlang:is_integer/1",
+    "mfa/erlang:is_list/1",
+    "mfa/erlang:is_map/1",
+    "mfa/erlang:is_number/1",
+    "mfa/erlang:is_pid/1",
+    "mfa/erlang:is_port/1",
+    "mfa/erlang:is_reference/1",
+    "mfa/erlang:is_tuple/1",
+    "mfa/erlang:node/0",
+    "mfa/erlang:self/0",
+    "mfa/proplists:append_values/2",
+    "mfa/proplists:compact/1",
+    "mfa/proplists:delete/2",
+    "mfa/proplists:expand/2",
+    "mfa/proplists:from_map/1",
+    "mfa/proplists:get_all_values/2",
+    "mfa/proplists:get_bool/2",
+    "mfa/proplists:get_keys/1",
+    "mfa/proplists:get_value/2",
+    "mfa/proplists:get_value/3",
+    "mfa/proplists:is_defined/2",
+    "mfa/proplists:lookup/2",
+    "mfa/proplists:lookup_all/2",
+    "mfa/proplists:normalize/2",
+    "mfa/proplists:property/1",
+    "mfa/proplists:property/2",
+    "mfa/proplists:split/2",
+    "mfa/proplists:substitute_aliases/2",
+    "mfa/proplists:substitute_negations/2",
+    "mfa/proplists:to_map/1",
+    "mfa/proplists:to_map/2",
+    "mfa/proplists:unfold/1",
+    "mfa/queue:from_list/1",
+    "mfa/queue:in/2",
+    "mfa/queue:is_empty/1",
+    "mfa/queue:is_queue/1",
+    "mfa/queue:len/1",
+    "mfa/queue:new/0",
+    "mfa/queue:out/1",
+    "mfa/queue:to_list/1",
+    "oracle/compiled-module/queue/core/empty",
+    "oracle/compiled-module/queue/core/errors",
+    "oracle/compiled-module/queue/core/heterogeneous",
+    "oracle/compiled-module/queue/core/improper",
+    "oracle/compiled-module/queue/core/ordering",
+    "oracle/compiled-module/queue/core/persistence",
+    "oracle/compiled-module/queue/core/raw-shapes",
+    "oracle/compiled-module/queue/core/representation",
+    "oracle/compiled-module/source-call-binding-all-suppressed-qualified",
+    "oracle/compiled-module/source-call-binding-all-suppressed-reimport",
+    "oracle/compiled-module/source-call-binding-duplicate-within-form",
+    "oracle/compiled-module/source-call-binding-erlang-reimport-guard",
+    "oracle/compiled-module/source-call-binding-foreign-import-qualified-guard",
+    "oracle/compiled-module/source-call-binding-imported-call",
+    "oracle/compiled-module/source-call-binding-local-filter-failure-propagates",
+    "oracle/compiled-module/source-call-binding-local-filter-is-expression",
+    "oracle/compiled-module/source-call-binding-ordinary-guard",
+    "oracle/compiled-module/source-call-binding-qualified-guard-local-shadow",
+    "oracle/compiled-module/source-call-binding-qualified-pattern-keys-sizes",
+    "runtime/common-undefined-lambda-handler-provenance",
+    "runtime/halt-dedicated-raw-process-numeric-errors-abort-and-real-dump",
+    "runtime/proplists/from-map-own-entry-epochs",
+    "runtime/proplists/from-map-own-key-domains",
+    "runtime/proplists/from-map-own-real-collisions",
+    "runtime/proplists/from-map-own-reference-stored-counts",
+    "runtime/queue/core/cooperative-cancellation-cleanup",
+    "runtime/queue/core/improper-lists",
+    "runtime/queue/core/ordering-persistence",
+    "runtime/queue/core/representation"
+  ],
+  "Passed": 76,
+  "Failed": 0,
+  "Tests": [
+    {
+      "Name": "runtime/halt-dedicated-raw-process-numeric-errors-abort-and-real-dump",
+      "Status": "Passed",
+      "Milliseconds": 46622
+    },
+    {
+      "Name": "mfa/erlang:is_atom/1",
+      "Status": "Passed",
+      "Milliseconds": 22
+    },
+    {
+      "Name": "mfa/erlang:is_binary/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/erlang:is_bitstring/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/erlang:is_boolean/1",
+      "Status": "Passed",
+      "Milliseconds": 1305
+    },
+    {
+      "Name": "mfa/erlang:is_float/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/erlang:is_function/1",
+      "Status": "Passed",
+      "Milliseconds": 43
+    },
+    {
+      "Name": "mfa/erlang:is_integer/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/erlang:is_list/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/erlang:is_map/1",
+      "Status": "Passed",
+      "Milliseconds": 8
+    },
+    {
+      "Name": "mfa/erlang:is_number/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/erlang:is_pid/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/erlang:is_port/1",
+      "Status": "Passed",
+      "Milliseconds": 41
+    },
+    {
+      "Name": "mfa/erlang:is_reference/1",
+      "Status": "Passed",
+      "Milliseconds": 21
+    },
+    {
+      "Name": "mfa/erlang:is_tuple/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/erlang:node/0",
+      "Status": "Passed",
+      "Milliseconds": 20
+    },
+    {
+      "Name": "mfa/erlang:self/0",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/proplists:append_values/2",
+      "Status": "Passed",
+      "Milliseconds": 22
+    },
+    {
+      "Name": "mfa/proplists:compact/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/proplists:delete/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/proplists:expand/2",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "mfa/proplists:from_map/1",
+      "Status": "Passed",
+      "Milliseconds": 6
+    },
+    {
+      "Name": "mfa/proplists:get_all_values/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/proplists:get_bool/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/proplists:get_keys/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/proplists:is_defined/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/proplists:lookup/2",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/proplists:lookup_all/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/proplists:normalize/2",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "mfa/proplists:property/1",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/proplists:property/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/proplists:split/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/proplists:substitute_aliases/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/proplists:substitute_negations/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/proplists:to_map/1",
+      "Status": "Passed",
+      "Milliseconds": 12
+    },
+    {
+      "Name": "mfa/proplists:to_map/2",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "mfa/proplists:unfold/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/queue:from_list/1",
+      "Status": "Passed",
+      "Milliseconds": 9
+    },
+    {
+      "Name": "mfa/queue:in/2",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/queue:is_empty/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/queue:is_queue/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/queue:len/1",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mfa/queue:new/0",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mfa/queue:out/1",
+      "Status": "Passed",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "mfa/queue:to_list/1",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "oracle/compiled-module/source-call-binding-ordinary-guard",
+      "Status": "Passed",
+      "Milliseconds": 62
+    },
+    {
+      "Name": "oracle/compiled-module/source-call-binding-qualified-guard-local-shadow",
+      "Status": "Passed",
+      "Milliseconds": 36
+    },
+    {
+      "Name": "oracle/compiled-module/source-call-binding-erlang-reimport-guard",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "oracle/compiled-module/source-call-binding-all-suppressed-qualified",
+      "Status": "Passed",
+      "Milliseconds": 28
+    },
+    {
+      "Name": "oracle/compiled-module/source-call-binding-all-suppressed-reimport",
+      "Status": "Passed",
+      "Milliseconds": 23
+    },
+    {
+      "Name": "oracle/compiled-module/source-call-binding-foreign-import-qualified-guard",
+      "Status": "Passed",
+      "Milliseconds": 23
+    },
+    {
+      "Name": "oracle/compiled-module/source-call-binding-imported-call",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "oracle/compiled-module/source-call-binding-duplicate-within-form",
+      "Status": "Passed",
+      "Milliseconds": 32
+    },
+    {
+      "Name": "oracle/compiled-module/source-call-binding-local-filter-is-expression",
+      "Status": "Passed",
+      "Milliseconds": 38
+    },
+    {
+      "Name": "oracle/compiled-module/source-call-binding-local-filter-failure-propagates",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "oracle/compiled-module/source-call-binding-qualified-pattern-keys-sizes",
+      "Status": "Passed",
+      "Milliseconds": 37
+    },
+    {
+      "Name": "oracle/compiled-module/queue/core/empty",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "oracle/compiled-module/queue/core/representation",
+      "Status": "Passed",
+      "Milliseconds": 30
+    },
+    {
+      "Name": "oracle/compiled-module/queue/core/persistence",
+      "Status": "Passed",
+      "Milliseconds": 31
+    },
+    {
+      "Name": "oracle/compiled-module/queue/core/raw-shapes",
+      "Status": "Passed",
+      "Milliseconds": 39
+    },
+    {
+      "Name": "oracle/compiled-module/queue/core/improper",
+      "Status": "Passed",
+      "Milliseconds": 53
+    },
+    {
+      "Name": "oracle/compiled-module/queue/core/ordering",
+      "Status": "Passed",
+      "Milliseconds": 470
+    },
+    {
+      "Name": "oracle/compiled-module/queue/core/errors",
+      "Status": "Passed",
+      "Milliseconds": 72
+    },
+    {
+      "Name": "oracle/compiled-module/queue/core/heterogeneous",
+      "Status": "Passed",
+      "Milliseconds": 43
+    },
+    {
+      "Name": "runtime/common-undefined-lambda-handler-provenance",
+      "Status": "Passed",
+      "Milliseconds": 223
+    },
+    {
+      "Name": "mfa/proplists:get_value/2",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "mfa/proplists:get_value/3",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "runtime/proplists/from-map-own-key-domains",
+      "Status": "Passed",
+      "Milliseconds": 99
+    },
+    {
+      "Name": "runtime/proplists/from-map-own-entry-epochs",
+      "Status": "Passed",
+      "Milliseconds": 17
+    },
+    {
+      "Name": "runtime/proplists/from-map-own-real-collisions",
+      "Status": "Passed",
+      "Milliseconds": 10
+    },
+    {
+      "Name": "compiler/proplists/from-map-own-context-routes",
+      "Status": "Passed",
+      "Milliseconds": 59
+    },
+    {
+      "Name": "runtime/proplists/from-map-own-reference-stored-counts",
+      "Status": "Passed",
+      "Milliseconds": 23
+    },
+    {
+      "Name": "runtime/queue/core/representation",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "runtime/queue/core/improper-lists",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/queue/core/ordering-persistence",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/queue/core/cooperative-cancellation-cleanup",
+      "Status": "Passed",
+      "Milliseconds": 813
+    }
+  ]
+}

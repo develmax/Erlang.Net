@@ -1,0 +1,17 @@
+# Part400: native connection prerequisites
+
+## Part400 native connection prerequisites — accepted local increment
+
+| Area | Verified progress | Remaining |
+| --- | --- | --- |
+| gen / sys / proc_lib |30/36/39 original public exports and existing cold72 outcomes preserved |whole180 strict native/import startup and full process/reporting contracts |
+| original net_kernel native |one real UnicodeIO primitive;138 complete raw/typed original outcomes;actual pending/connected/Exiting/disconnect controls |whole-module dependency execution and all-domain contracts |
+| erts_internal:new_connection/1 |one real canonical native API;102 complete original outcomes;source node grammar and generation/resource reuse |configured node-capacity difference;full original100-export module has71 catalog-native undefined-form stubs |
+| 180 original dependencies |180 linked and clean frame validation on final Runtime |frame admission does not establish native/import startup;repair exhaustive stub recognition next |
+| ETS |18-case/108-outcome original packet passes corrected exact passive gates;implementation proposals remain unregistered |all-term copied ownership,identity/resources,binary backing,function rebinding,table lifecycle and all51 native contracts |
+| default registry |706 APIs (+1),118 complete (+0),31 known differences,557 pending;667 guards |new API remains explicitly Known differences;no module promotion |
+
+Part400 accepted locally:8356/8356 cumulative (+6),1640 affected groups derived from the aggregate report,240 exact raw/typed original outcomes and full-stack profiles. Original net_kernel:dflag_unicode_io/1 reads live stored DistEntry UnicodeIO flags,including Exiting until retirement;native erts_internal:new_connection/1 allocates/reuses real pending generations. Fixed a measured shared-wide-term traversal OOM by identity-deduplicating before enqueue in both incoming-node observation and external-domain validation;the original16M-element test and a bounded allocation/foreign-PID control pass. Default706 APIs (+1),21 modules,118 full contracts (+0),31 known differences and557 pending;667 source guards. The new API is explicitly Known differences because configured node capacity is a host policy absent from the original BIF. Original-only native delta+1 is separate. All180 original dependencies still link/pass actual frame checks;strict native/import startup remains unfinished. The old182 recognized-stub count is not exhaustive:nif_error(undefined) catalog-native forms were missed;original erts_internal alone has71 such stubs/100 exports. No guessed global missing-native total or module completion claim. 11 integrations/two local packages/five equal readiness reports/13 DLL copies;cold72 process outcomes and1488 math comparisons per build/publish route pass without Erlang/PATH. Full attempts8352/8355 in383.390s,8354/8355 in459.515s and8355/8356 in562.360s remain retained. The last15s outer-budget timeout is repaired by respecting the unchanged deep group's120s inner budget plus setup/cleanup;final3 selected controls pass in9.719s. No single uninterrupted green full run or controlled speedup is claimed. Genuine pinned Windows OTP29.1.1;no new Linux/GitHub evidence,commit/push/merge/external publication. Evidence:docs/validation/part-400/net-kernel-and-pending-connection.
+
+
+All actual failures and corrected final evidence are retained. Earlier Part399 bindings were reverified unchanged. This is a local bounded increment,not complete whole180 loading or all-domain compatibility.

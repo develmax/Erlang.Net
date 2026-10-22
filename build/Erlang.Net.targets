@@ -25,4 +25,8 @@
   <Target Name="ErlangCompileModules" Inputs="%(_ErlangModule.FullPath);@(_ErlangToolDependency);$(MSBuildThisFileFullPath)" Outputs="%(_ErlangModule.GeneratedFile)" Condition="'$(ErlangPreprocessEnabled)' == 'true'">
     <Exec Command="dotnet &quot;$(ErlangToolPath)&quot; compile &quot;%(_ErlangModule.FullPath)&quot; &quot;%(_ErlangModule.GeneratedFile)&quot;" />
   </Target>
+  <Import Project="$(MSBuildThisFileDirectory)Erlang.Beam.targets" />
+  <Import Project="$(MSBuildThisFileDirectory)Erlang.Beam.Source.targets" />
+  <Import Project="$(MSBuildThisFileDirectory)Erlang.Beam.Application.targets" />
+  <Import Project="$(MSBuildThisFileDirectory)Erlang.Library.targets" />
 </Project>

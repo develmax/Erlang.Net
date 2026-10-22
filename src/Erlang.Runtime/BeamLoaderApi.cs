@@ -36,7 +36,7 @@ internal static class BeamLoaderApi
         }
     }
 
-    private static Term PrepareImage(ProcessContext context, Term module, Term bytes)
+    internal static Term PrepareImage(ProcessContext context, Term module, Term bytes)
     {
         if (module is not Atom name || bytes is not BitString { IsBinary: true } binary)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
@@ -46,7 +46,11 @@ internal static class BeamLoaderApi
             BeamStructure structure = BeamStructureReader.Read(input, context.Runtime.Modules.PreparationDecodeOptions());
             if (structure.Atoms[1] != name.Name)
                 return Error(BeamLoaderNames.BadFile);
-            PreparedBeamImage image = context.Runtime.Modules.PrepareBeam(input);
+            PreparedBeamImage? caller = context.CaptureBeamLoaderSource();
+            PreparedBeamImage image = caller is not null
+                ? context.Runtime.Modules.PrepareBeam(input,
+                    new BeamDependencySelection(caller.Code.RegistryModuleDependencies.Append(name.Name)))
+                : context.Runtime.Modules.PrepareBeam(input);
 
             return context.Runtime.ReferenceResources.CreatePrepared(image);
         }

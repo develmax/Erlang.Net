@@ -1,0 +1,113 @@
+{
+  "scope": "Source-only proposal. No build, SDK execution, OTP execution, or compatibility promotion performed by this agent.",
+  "otpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "authority": [
+    "lib/stdlib/src/queue.erl",
+    "lib/stdlib/src/lists.erl"
+  ],
+  "mfas": [
+    {
+      "module": "queue",
+      "function": "member",
+      "arity": 2,
+      "clausesEvaluation": "Root QueueMemberExecution ports rear-first lists:member/2 trap protocol; second front invocation is tail. Exact term equality, no traversal after hit.",
+      "errorsFrames": "Root-owned implementation, not duplicated here."
+    },
+    {
+      "module": "queue",
+      "function": "reverse",
+      "arity": 1,
+      "clausesEvaluation": "Shallow tuple/list guard only. Swaps physical halves; does not traverse improper Cons tails.",
+      "errorsFrames": "public badarg queue:reverse/1 line599"
+    },
+    {
+      "module": "queue",
+      "function": "join",
+      "arity": 2,
+      "clausesEvaluation": "Validate both queue shapes; second empty branch precedes first empty branch; return input queue object for empty identity. Nonempty evaluates reverse(R1,F2) before append(F1,...).",
+      "errorsFrames": "reverse/2 and ++/2 retain queue:join/2 line623; reverse uses genuine own allocation entry snapshots"
+    },
+    {
+      "module": "queue",
+      "function": "split",
+      "arity": 2,
+      "clausesEvaluation": "Integer nonnegative plus shallow shape; zero returns without lengths. Positive front length first; N<Lf moves front prefix, N>Lf rear length then range guard or rear prefix movement; equality evaluates f2r(F) before r2f(R).",
+      "errorsFrames": "badarg public line670/range659; length dependency651/656 or inline1299/1310; unbounded Integer index retained"
+    },
+    {
+      "module": "queue",
+      "function": "filter",
+      "arity": 2,
+      "clausesEvaluation": "Guard fun arity1 and shallow queue; complete front before rear; front callback order head-to-tail, rear callback order tail-to-head after validating entire rear. Front expansion waits for recursive suffix before append; rear expansion calls reverse tail. true/false/[]/[replacement]/Cons expansion distinct; malformed Cons expansion admitted by is_list then fails actual append/reverse.",
+      "errorsFrames": "filter_f reached-tail clause733, callback case736, distinct CP738/740/746; filter_r clause751, recursion754, callback755, tail reverse765"
+    },
+    {
+      "module": "queue",
+      "function": "filtermap",
+      "arity": 2,
+      "clausesEvaluation": "Same physical evaluation direction as filter; accepts only true, false, {true,Replacement}. Front dependency authentic lists:filtermap_1; rear queue:filtermap_r; balances only after both sides completed.",
+      "errorsFrames": "lists helper2607/case2608/distinct CP2610/2612; rear helper810/CP813/case814; guard807"
+    },
+    {
+      "module": "queue",
+      "function": "fold",
+      "arity": 3,
+      "clausesEvaluation": "Guard fun arity2 plus shallow queue; lists:foldl front first then explicit tail lists:foldr rear. Front accumulated value changes effective helper arguments; no callbacks after reached improper tail.",
+      "errorsFrames": "front lists:foldl2465 then foldl_1 helper2469/callback2470 under queue851; rear shared exact ListFoldRight, public queue frame removed"
+    },
+    {
+      "module": "queue",
+      "function": "any",
+      "arity": 2,
+      "clausesEvaluation": "fun1 guard; front forward then rear forward, returns immediately on true; no validation of later malformed tail or opposite half after hit. Nonboolean callback result raises case_clause.",
+      "errorsFrames": "lists:any2349 then any_1 helper2356/callback2357; queue875 only front, rear explicit tail removes queue"
+    },
+    {
+      "module": "queue",
+      "function": "all",
+      "arity": 2,
+      "clausesEvaluation": "fun1 guard; front forward then rear forward, returns immediately on false; nonboolean raises case_clause. Empty returns true; do not traverse after decisive callback.",
+      "errorsFrames": "lists:all2312 then all_1 helper2319/callback2320; queue899 only front, rear explicit tail removes queue"
+    },
+    {
+      "module": "queue",
+      "function": "delete",
+      "arity": 2,
+      "clausesEvaluation": "Exact equality, first logical match only. Front head-first; rear validates whole list before equality and searches physical tail-first. No-match returns original queue. Matched improper tail can propagate as result; atom false is actual helper sentinel and suppresses reconstruction.",
+      "errorsFrames": "front helper969/recurse972; rear979/recurse980, public dependency925/927; inline balancing on empty found result"
+    },
+    {
+      "module": "queue",
+      "function": "delete_r",
+      "arity": 2,
+      "clausesEvaluation": "Validate outer shape, call canonical delete on swapped queue then swap result. The call is NOT tail: outer delete_r frame964 remains on failure.",
+      "errorsFrames": "same delete branch/error behavior, outer guard967"
+    },
+    {
+      "module": "queue",
+      "function": "delete_with",
+      "arity": 2,
+      "clausesEvaluation": "fun1 guard; same front/rear traversal and false sentinel as delete. Predicate only until found; rear callback starts only after reaching proper Nil. Nonboolean predicate is case_clause at actual helper.",
+      "errorsFrames": "front1056/case1057/CP1061; rear1071/CP1072/case1074; public1012/1014; guard1028"
+    },
+    {
+      "module": "queue",
+      "function": "delete_with_r",
+      "arity": 2,
+      "clausesEvaluation": "fun1 guard then genuine non-tail canonical delete_with on swapped queue; return swaps result. Callback shortcircuit/order follows canonical helper.",
+      "errorsFrames": "outer1051 preserved, guard1054"
+    }
+  ],
+  "complexity": {
+    "iteration": "All scans/reconstruction are iterative with ReduceAsync checkpoints. Output-dependent histories store original values needed for rebuilding, not recursive CLR frames.",
+    "logicalStack": "One token per actual source return site, adjacent identical CP suppression by runtime. Front filter history coalesces runs and reads at most supported maximum64 frames, independent of list length.",
+    "callbackContext": "Actual callback invoked through FunctionTerm.Invoke on same ProcessContext. Error capture preserves callback-selected own code identity and all existing source/caller fields. No native captured identities or expected frame bytes injected."
+  },
+  "integrationObligations": [
+    "Root QueueMemberExecution real native member trap protocol.",
+    "Owner-aware QueueCoreTrace.Capture plus canonical tail alias matching.",
+    "CoreLinear Length/Append ownerArity and Reverse ownerArity/tail/includeOwner overloads.",
+    "Final build, original892/4460 fixture capture and all-field source-bound comparison; required affected/full regressions.",
+    "Long higher-operation callback/cancellation controls remain integration validation, not claimed executed by source package."
+  ]
+}

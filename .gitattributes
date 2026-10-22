@@ -1,4 +1,5 @@
 *.cs -text
+tools/Erlang.DdllFormatterOriginalObservations/** -text -whitespace
 *.beam binary
 *.etf binary
 tests/Erlang.Tests/Resources/Beam/*.erl -text
@@ -205,3 +206,41 @@ docs/validation/part-361/** -text whitespace=trailing-space,space-before-tab,cr-
 tools/Erlang.ProplistGetValueObservations/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
 .github/workflows/proplist-get-value-original.yml text eol=lf
 docs/validation/part-362/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
+
+# Preserve raw immutable validation evidence, including captured line endings.
+docs/validation/part-363/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
+docs/validation/part-364/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
+docs/validation/part-365/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
+docs/validation/part-366/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
+docs/validation/part-367/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
+docs/validation/part-368/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
+docs/validation/part-369/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
+docs/validation/part-370/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
+docs/validation/part-371/** -text -whitespace
+tools/Erlang.OrdsetsCoreOriginalObservations/*.erl -text -whitespace
+
+docs/validation/part-372/** -text -whitespace
+*.bundle binary
+
+# Preserve exact byte hashes of source-derived fixtures and immutable evidence.
+tests/Erlang.Tests/Fixtures/** -text -whitespace
+docs/validation/part-3[7-9][0-9]/** -text -whitespace
+docs/validation/part-4[0-9][0-9]/** -text -whitespace
+docs/validation/otp-source-reuse-migration373/** -text -whitespace
+
+# Original Erlang source/provenance assets retain their admitted bytes.
+*.erl -text
+*.hrl -text
+examples/**/Otp/** -text -whitespace
+tests/Erlang.Tests/Resources/** -text -whitespace
+
+# CRLF is intentional in byte-bound source; spaces/tabs remain checked.
+*.cs whitespace=trailing-space,space-before-tab,cr-at-eol
+*.erl whitespace=trailing-space,space-before-tab,cr-at-eol
+*.hrl whitespace=trailing-space,space-before-tab,cr-at-eol
+
+# Imported source and captured resources keep upstream whitespace verbatim.
+examples/**/Otp/** -whitespace
+tests/Erlang.Tests/Fixtures/** -whitespace
+tests/Erlang.Tests/Resources/** -whitespace
+docs/validation/** -whitespace

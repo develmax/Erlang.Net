@@ -1,0 +1,82 @@
+{
+  "Status": "FINAL_FLAT_DELTA_SOURCE_REVIEW_NO_CONCRETE_BLOCKER_PENDING_ORIGINAL_REPLAY5_PACKAGE_GATES",
+  "NoMainWritesOrBuildNativeSdkCiNetwork": true,
+  "GuardRows": 345,
+  "PreservedVerifiedEntries": 37,
+  "ClassificationChanges": 0,
+  "Refreshed": [
+    {
+      "Path": "src/Erlang.Runtime/MapIteration.cs",
+      "PreviousSha256": "9F1D369E10F234E0A534A507A9A6308893D159C14D9C7FA8E431B54C83E42BB0",
+      "Sha256": "CDB92A0172BA8EE4685D9906AF038B4C314969005CC50236C7377578814375A6"
+    },
+    {
+      "Path": "src/Erlang.Runtime/OtpMapHashLayoutProtocol.cs",
+      "PreviousSha256": "10B12BD9204ACB3F4C2B29DA000570435EC073911238014B61CC48A5367A8D25",
+      "Sha256": "D48BAB9B14D75AAECC6982C2D1346982F8B43F602AB880E8A767925180151E94"
+    }
+  ],
+  "FlatOrderingProof": [
+    "Shared FlatEntries(map,state) sorts atompairs by actual immediate atomword; other pairs by exact TermOrder, matching pinned internal flatmap comparator.",
+    "AppendFlat and integerflat cursor Next now consume the same FlatEntries ordering, closing lexical-versus-ownphysical inconsistency.",
+    "Raw overload constructs genuine ownAtomIdentityProvider solely for atompair comparison; it never hashes unsupported other terms or invents a runtime/node/export domain.",
+    "Only integerpath branch chooses physical order. Explicit ordered/reversed/custom key-list cursors retain supplied semantic ordering.",
+    "Flat0..count acceptance and pathignored/fullmap behavior are unchanged; empty/invalidpaths retain existing error policy.",
+    "HAMT prefix lookup, collision path, provider lifetime/identity and FromMap error wrappers are unchanged by the final2source delta."
+  ],
+  "ClauseClosure": [
+    {
+      "Input": "Plain MapTerm",
+      "Result": "Ordinary full association list via path0; arbitrary crossVM list order remains allowed; ownflat/HAMT physical protocol internally coherent."
+    },
+    {
+      "Input": "none",
+      "Result": "Empty list."
+    },
+    {
+      "Input": "3tuple cursor",
+      "Result": "Include supplied key/value and recursively consume continuation; any malformed tail wraps badmap of whole input."
+    },
+    {
+      "Input": "integerpath with flatmap",
+      "Result": "Accept native signed-small0..size and return entire physical entry order, including fresh atompairindex order; invalidpath badmap."
+    },
+    {
+      "Input": "integerpath with HAMT",
+      "Result": "Native compressed child-index path and suffix with ownwords/hash layout, fullcollision boundaries; invalidpath badmap."
+    },
+    {
+      "Input": "explicit keylist with map",
+      "Result": "Keep supplied keyorder/keyrepresentative; flat uses equality; HAMT consumes existingkeyhashprefix then equality, including missing and sameprefix externalrefaliases; missing/improper list badmap."
+    },
+    {
+      "Input": "Any remaining supportedTerm",
+      "Result": "Badmap whole original input with pinned maps:to_list frame/source/errorinfo."
+    }
+  ],
+  "SourceRecommendation": "Complete from_map source argument is eligible under user-approved genuine ownstate criterion, conditional on outstanding direct original3cursor admission, fresh finalreplay5/37controls and finaldelta package checks. This review changes no ledger classification.",
+  "ResidualInterpretation": "Two historical atom-bearing HAMT raw rows differ literally across VMs because their real atomregistries differ; shared ownword/native source protocol plus independent ownphysical HOST assertions are required instead of replacing those bytes. They remain recorded rawdifferences, not semantic failure solely for distinct ownindex.",
+  "FinalFocus3": {
+    "ReportSha256": "E8F36F704280E06DBB94E79ACA1ECF3586784817BEEF161A4AB33C155E7D3F48",
+    "ReceiptSha256": "6986AAE2A5B4854D877B917FE9C39EDB21FCBA6724EDE3E2B3FE65DD90D9CA26",
+    "Passed": 283,
+    "Failed": 0,
+    "PermanentFlatSupplement": "ExistingDomains HOST executes independent freshzeta-beforealpha raw0/1/2, publicfrom_map/mapsToList/compiledgenerator and lexicalexplicitordered controls."
+  },
+  "HostSources": [
+    {
+      "Path": "tests/Erlang.Tests/ProplistOwnFlatCursorHostChecks.cs",
+      "Sha256": "6F64307241F9944290F141EB4CB987B218E0919B7AEFF0FC10AC888171AA5A30"
+    },
+    {
+      "Path": "tests/Erlang.Tests/ProplistOwnFlatCursorNames.cs",
+      "Sha256": "680FF2BF0E31FBE7702794771BDA6040075F89A3757BB7F4E5A88C1A67A59F35"
+    },
+    {
+      "Path": "tests/Erlang.Tests/ProplistOwnCursorDomainHostChecks.cs",
+      "Sha256": "7BECBBAD1F05DC823B1FA74B03DE4F9F1431207D437976D84DBE45E5442E0503"
+    }
+  ],
+  "FullScope": "Root full1 PASS7541/7541+11integrations+2packages before finalflatdelta on3222unchangedsources. It is not a full run of these latest2productionhashes. Finalaffected283/freshreplay5/packagechecks validate the boundeddelta; do not relabel preflatfull as latestsourcefull.",
+  "PriorSupplementClosed": "Flatatomraw order concern99336A... closed by sharedFlatEntries; earlierfullhashlookup blocker closed by consumedprefix planner."
+}

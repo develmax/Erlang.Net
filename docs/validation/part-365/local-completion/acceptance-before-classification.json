@@ -1,0 +1,64 @@
+{
+  "Status": "PASS_LOCAL_INTEGRATED_SOURCE_AND_ORIGINAL_CI_GATES_NOT_FULL22",
+  "RegisteredMfas": 609,
+  "AddedMfas": 20,
+  "Tests": 7536,
+  "AddedTests": 32,
+  "PreservedOrderedPreviousTests": 7504,
+  "PreservedPreviousRegistryRows": 589,
+  "IntegrationOutcomes": 11,
+  "CanonicalSeconds": 385.64100000000326,
+  "SourceGuards": 314,
+  "OriginalExecutedOnGitHubCI": true,
+  "MainExecutedOnWindows": true,
+  "LinuxMainExecuted": false,
+  "MainPublished": false,
+  "Full22ProplistsClaimed": false,
+  "OriginalComparison": {
+    "returned.etf": {
+      "Total": 336,
+      "StrictEqual": 329,
+      "RelationalAllFields": 333,
+      "MandatoryRemaining": 3
+    },
+    "stack-observations.etf": {
+      "Total": 1397,
+      "StrictEqual": 1342,
+      "RelationalAllFields": 1382,
+      "MandatoryRemaining": 15
+    }
+  },
+  "NewContractSourceAuditSha256": "4ADFF27D3F63802A5D00A9A921A2CEF4B34186F8D1D9ADB9F87237E5BD81C4C2",
+  "Replay3ComparisonSha256": "AF1C86CD277A873D40E4327491BD717C3B2995418C219ED353A1AE0E5D132374",
+  "CurrentMainClosure": {
+    "Files": [
+      {
+        "Path": "src/Erlang.Compiler/bin/Debug/net10.0/Erlang.Compiler.dll",
+        "Sha256": "88C4A0426A29EF66AF0C53A5BD72AE518AB36ECC0F21EDAA99EED385F0DF9CF1",
+        "CopiedTo": "artifacts/proplists-integration365/main-capture/bin/Debug/net10.0/Erlang.Compiler.dll"
+      },
+      {
+        "Path": "src/Erlang.Runtime/bin/Debug/net10.0/Erlang.Runtime.dll",
+        "Sha256": "93025BB1C9D331799AEB76128C983A417B32CE5D2C4970DC26B6F94BD771EC91",
+        "CopiedTo": "artifacts/proplists-integration365/main-capture/bin/Debug/net10.0/Erlang.Runtime.dll"
+      },
+      {
+        "Path": "src/Erlang.Terms/bin/Debug/net10.0/Erlang.Terms.dll",
+        "Sha256": "58E7603F8AE5601CB7300F9169CFE201F59A230EC0EF6EA6F1AA092C680FC7DA",
+        "CopiedTo": "artifacts/proplists-integration365/main-capture/bin/Debug/net10.0/Erlang.Terms.dll"
+      },
+      {
+        "Path": "src/Erlang.Serialization/bin/Debug/net10.0/Erlang.Serialization.dll",
+        "Sha256": "9D91CEAC81D1CEAD1622738DBCB42BAC724523217114D8BFACB0E3C8782E9E70",
+        "CopiedTo": "artifacts/proplists-integration365/main-capture/bin/Debug/net10.0/Erlang.Serialization.dll"
+      },
+      {
+        "Path": "tools/Erlang.Differential/bin/Debug/net10.0/Erlang.Differential.dll",
+        "Sha256": "88FE79A2CDA24C1D9002A64A06BAA83C971BF59AAE8CF76C076643B800771E6E",
+        "CopiedTo": "artifacts/proplists-integration365/main-capture/bin/Debug/net10.0/Erlang.Differential.dll"
+      }
+    ],
+    "MainSource": true,
+    "PrivateCandidateDllsUsed": false
+  }
+}

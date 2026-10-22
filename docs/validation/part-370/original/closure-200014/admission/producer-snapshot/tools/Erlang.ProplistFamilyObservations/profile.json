@@ -1,0 +1,883 @@
+{
+  "Family": "erlang-new-only-closure21",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SubjectModule": "erlang",
+  "MetadataPolicy": "erlang-preloaded-v1",
+  "ValueAcquisition": "compiled-monitored-worker-values-and-stacks-v1",
+  "TargetMfaCount": 351,
+  "TargetMfas": [
+    "erlang:!/2",
+    "erlang:*/2",
+    "erlang:++/2",
+    "erlang:+/1",
+    "erlang:+/2",
+    "erlang:--/2",
+    "erlang:-/1",
+    "erlang:-/2",
+    "erlang://2",
+    "erlang:/=/2",
+    "erlang:</2",
+    "erlang:=/=/2",
+    "erlang:=:=/2",
+    "erlang:=</2",
+    "erlang:==/2",
+    "erlang:>/2",
+    "erlang:>=/2",
+    "erlang:abs/1",
+    "erlang:adler32/1",
+    "erlang:adler32/2",
+    "erlang:adler32_combine/3",
+    "erlang:alias/0",
+    "erlang:alias/1",
+    "erlang:alloc_info/1",
+    "erlang:alloc_sizes/1",
+    "erlang:and/2",
+    "erlang:append/2",
+    "erlang:append_element/2",
+    "erlang:apply/2",
+    "erlang:apply/3",
+    "erlang:atom_to_binary/1",
+    "erlang:atom_to_binary/2",
+    "erlang:atom_to_list/1",
+    "erlang:band/2",
+    "erlang:binary_part/2",
+    "erlang:binary_part/3",
+    "erlang:binary_to_atom/1",
+    "erlang:binary_to_atom/2",
+    "erlang:binary_to_existing_atom/1",
+    "erlang:binary_to_existing_atom/2",
+    "erlang:binary_to_float/1",
+    "erlang:binary_to_integer/1",
+    "erlang:binary_to_integer/2",
+    "erlang:binary_to_list/1",
+    "erlang:binary_to_list/3",
+    "erlang:binary_to_term/1",
+    "erlang:binary_to_term/2",
+    "erlang:bit_size/1",
+    "erlang:bitstring_to_list/1",
+    "erlang:bnot/1",
+    "erlang:bor/2",
+    "erlang:bsl/2",
+    "erlang:bsr/2",
+    "erlang:bump_reductions/1",
+    "erlang:bxor/2",
+    "erlang:byte_size/1",
+    "erlang:call_on_load_function/1",
+    "erlang:cancel_timer/1",
+    "erlang:cancel_timer/2",
+    "erlang:ceil/1",
+    "erlang:check_old_code/1",
+    "erlang:check_process_code/2",
+    "erlang:check_process_code/3",
+    "erlang:convert_time_unit/3",
+    "erlang:crc32/1",
+    "erlang:crc32/2",
+    "erlang:crc32_combine/3",
+    "erlang:date/0",
+    "erlang:decode_packet/3",
+    "erlang:delay_trap/2",
+    "erlang:delete_element/2",
+    "erlang:delete_module/1",
+    "erlang:demonitor/1",
+    "erlang:demonitor/2",
+    "erlang:disconnect_node/1",
+    "erlang:display/1",
+    "erlang:display_string/1",
+    "erlang:display_string/2",
+    "erlang:dist_ctrl_get_data/1",
+    "erlang:dist_ctrl_get_data_notification/1",
+    "erlang:dist_ctrl_get_opt/2",
+    "erlang:dist_ctrl_input_handler/2",
+    "erlang:dist_ctrl_put_data/2",
+    "erlang:dist_ctrl_set_opt/3",
+    "erlang:dist_get_stat/1",
+    "erlang:div/2",
+    "erlang:dmonitor_node/3",
+    "erlang:dt_append_vm_tag_data/1",
+    "erlang:dt_get_tag/0",
+    "erlang:dt_get_tag_data/0",
+    "erlang:dt_prepend_vm_tag_data/1",
+    "erlang:dt_put_tag/1",
+    "erlang:dt_restore_tag/1",
+    "erlang:dt_spread_tag/1",
+    "erlang:element/2",
+    "erlang:erase/0",
+    "erlang:erase/1",
+    "erlang:error/1",
+    "erlang:error/2",
+    "erlang:error/3",
+    "erlang:exit/1",
+    "erlang:exit/2",
+    "erlang:exit/3",
+    "erlang:exit_signal/2",
+    "erlang:exit_signal/3",
+    "erlang:external_size/1",
+    "erlang:external_size/2",
+    "erlang:finish_after_on_load/2",
+    "erlang:finish_loading/1",
+    "erlang:float/1",
+    "erlang:float_to_binary/1",
+    "erlang:float_to_binary/2",
+    "erlang:float_to_list/1",
+    "erlang:float_to_list/2",
+    "erlang:floor/1",
+    "erlang:format_cpu_topology/1",
+    "erlang:fun_info/1",
+    "erlang:fun_info/2",
+    "erlang:fun_info_mfa/1",
+    "erlang:fun_to_list/1",
+    "erlang:function_exported/3",
+    "erlang:garbage_collect/0",
+    "erlang:garbage_collect/1",
+    "erlang:garbage_collect/2",
+    "erlang:garbage_collect_message_area/0",
+    "erlang:gather_gc_info_result/1",
+    "erlang:get/0",
+    "erlang:get/1",
+    "erlang:get_cookie/0",
+    "erlang:get_cookie/1",
+    "erlang:get_keys/0",
+    "erlang:get_keys/1",
+    "erlang:get_module_info/1",
+    "erlang:get_module_info/2",
+    "erlang:group_leader/0",
+    "erlang:group_leader/2",
+    "erlang:halt/0",
+    "erlang:halt/1",
+    "erlang:halt/2",
+    "erlang:has_prepared_code_on_load/1",
+    "erlang:hd/1",
+    "erlang:hibernate/0",
+    "erlang:hibernate/3",
+    "erlang:insert_element/3",
+    "erlang:integer_to_binary/1",
+    "erlang:integer_to_binary/2",
+    "erlang:integer_to_list/1",
+    "erlang:integer_to_list/2",
+    "erlang:iolist_size/1",
+    "erlang:iolist_to_binary/1",
+    "erlang:iolist_to_iovec/1",
+    "erlang:is_alive/0",
+    "erlang:is_atom/1",
+    "erlang:is_binary/1",
+    "erlang:is_bitstring/1",
+    "erlang:is_boolean/1",
+    "erlang:is_builtin/3",
+    "erlang:is_float/1",
+    "erlang:is_function/1",
+    "erlang:is_function/2",
+    "erlang:is_integer/1",
+    "erlang:is_integer/3",
+    "erlang:is_list/1",
+    "erlang:is_map/1",
+    "erlang:is_map_key/2",
+    "erlang:is_number/1",
+    "erlang:is_pid/1",
+    "erlang:is_port/1",
+    "erlang:is_process_alive/1",
+    "erlang:is_record/1",
+    "erlang:is_record/2",
+    "erlang:is_record/3",
+    "erlang:is_reference/1",
+    "erlang:is_tuple/1",
+    "erlang:length/1",
+    "erlang:link/1",
+    "erlang:link/2",
+    "erlang:list_to_atom/1",
+    "erlang:list_to_binary/1",
+    "erlang:list_to_bitstring/1",
+    "erlang:list_to_existing_atom/1",
+    "erlang:list_to_float/1",
+    "erlang:list_to_integer/1",
+    "erlang:list_to_integer/2",
+    "erlang:list_to_pid/1",
+    "erlang:list_to_port/1",
+    "erlang:list_to_ref/1",
+    "erlang:list_to_tuple/1",
+    "erlang:load_module/2",
+    "erlang:load_nif/2",
+    "erlang:loaded/0",
+    "erlang:localtime/0",
+    "erlang:localtime_to_universaltime/1",
+    "erlang:localtime_to_universaltime/2",
+    "erlang:make_fun/3",
+    "erlang:make_ref/0",
+    "erlang:make_tuple/2",
+    "erlang:make_tuple/3",
+    "erlang:map_get/2",
+    "erlang:map_size/1",
+    "erlang:match_spec_test/3",
+    "erlang:max/2",
+    "erlang:md5/1",
+    "erlang:md5_final/1",
+    "erlang:md5_init/0",
+    "erlang:md5_update/2",
+    "erlang:memory/0",
+    "erlang:memory/1",
+    "erlang:min/2",
+    "erlang:module_loaded/1",
+    "erlang:monitor/2",
+    "erlang:monitor/3",
+    "erlang:monitor_node/2",
+    "erlang:monitor_node/3",
+    "erlang:monotonic_time/0",
+    "erlang:monotonic_time/1",
+    "erlang:nif_error/1",
+    "erlang:nif_error/2",
+    "erlang:node/0",
+    "erlang:node/1",
+    "erlang:nodes/0",
+    "erlang:nodes/1",
+    "erlang:nodes/2",
+    "erlang:not/1",
+    "erlang:now/0",
+    "erlang:open_port/2",
+    "erlang:or/2",
+    "erlang:phash/2",
+    "erlang:phash2/1",
+    "erlang:phash2/2",
+    "erlang:pid_to_list/1",
+    "erlang:port_call/2",
+    "erlang:port_call/3",
+    "erlang:port_close/1",
+    "erlang:port_command/2",
+    "erlang:port_command/3",
+    "erlang:port_connect/2",
+    "erlang:port_control/3",
+    "erlang:port_get_data/1",
+    "erlang:port_info/1",
+    "erlang:port_info/2",
+    "erlang:port_set_data/2",
+    "erlang:port_to_list/1",
+    "erlang:ports/0",
+    "erlang:posixtime_to_universaltime/1",
+    "erlang:pre_loaded/0",
+    "erlang:prepare_loading/2",
+    "erlang:process_display/2",
+    "erlang:process_flag/2",
+    "erlang:process_flag/3",
+    "erlang:process_info/1",
+    "erlang:process_info/2",
+    "erlang:processes/0",
+    "erlang:processes_iterator/0",
+    "erlang:processes_next/1",
+    "erlang:purge_module/1",
+    "erlang:put/2",
+    "erlang:raise/3",
+    "erlang:read_timer/1",
+    "erlang:read_timer/2",
+    "erlang:ref_to_list/1",
+    "erlang:register/2",
+    "erlang:registered/0",
+    "erlang:rem/2",
+    "erlang:resume_process/1",
+    "erlang:round/1",
+    "erlang:self/0",
+    "erlang:send/2",
+    "erlang:send/3",
+    "erlang:send_after/3",
+    "erlang:send_after/4",
+    "erlang:send_nosuspend/2",
+    "erlang:send_nosuspend/3",
+    "erlang:seq_trace/2",
+    "erlang:seq_trace_info/1",
+    "erlang:seq_trace_print/1",
+    "erlang:seq_trace_print/2",
+    "erlang:set_cookie/1",
+    "erlang:set_cookie/2",
+    "erlang:set_cpu_topology/1",
+    "erlang:setelement/3",
+    "erlang:setnode/2",
+    "erlang:setnode/3",
+    "erlang:size/1",
+    "erlang:spawn/1",
+    "erlang:spawn/2",
+    "erlang:spawn/3",
+    "erlang:spawn/4",
+    "erlang:spawn_link/1",
+    "erlang:spawn_link/2",
+    "erlang:spawn_link/3",
+    "erlang:spawn_link/4",
+    "erlang:spawn_monitor/1",
+    "erlang:spawn_monitor/2",
+    "erlang:spawn_monitor/3",
+    "erlang:spawn_monitor/4",
+    "erlang:spawn_opt/2",
+    "erlang:spawn_opt/3",
+    "erlang:spawn_opt/4",
+    "erlang:spawn_opt/5",
+    "erlang:spawn_request/1",
+    "erlang:spawn_request/2",
+    "erlang:spawn_request/3",
+    "erlang:spawn_request/4",
+    "erlang:spawn_request/5",
+    "erlang:spawn_request_abandon/1",
+    "erlang:split_binary/2",
+    "erlang:start_timer/3",
+    "erlang:start_timer/4",
+    "erlang:statistics/1",
+    "erlang:subtract/2",
+    "erlang:suspend_process/1",
+    "erlang:suspend_process/2",
+    "erlang:system_flag/2",
+    "erlang:system_info/1",
+    "erlang:system_monitor/0",
+    "erlang:system_monitor/1",
+    "erlang:system_monitor/2",
+    "erlang:system_profile/0",
+    "erlang:system_profile/2",
+    "erlang:system_time/0",
+    "erlang:system_time/1",
+    "erlang:term_to_binary/1",
+    "erlang:term_to_binary/2",
+    "erlang:term_to_iovec/1",
+    "erlang:term_to_iovec/2",
+    "erlang:throw/1",
+    "erlang:time/0",
+    "erlang:time_offset/0",
+    "erlang:time_offset/1",
+    "erlang:timestamp/0",
+    "erlang:tl/1",
+    "erlang:trace/3",
+    "erlang:trace_delivered/1",
+    "erlang:trace_info/2",
+    "erlang:trace_pattern/2",
+    "erlang:trace_pattern/3",
+    "erlang:trunc/1",
+    "erlang:tuple_size/1",
+    "erlang:tuple_to_list/1",
+    "erlang:unalias/1",
+    "erlang:unique_integer/0",
+    "erlang:unique_integer/1",
+    "erlang:universaltime/0",
+    "erlang:universaltime_to_localtime/1",
+    "erlang:universaltime_to_posixtime/1",
+    "erlang:unlink/1",
+    "erlang:unregister/1",
+    "erlang:whereis/1",
+    "erlang:xor/2",
+    "erlang:yield/0"
+  ],
+  "Mfas": [
+    "erlang:/=/2",
+    "erlang:</2",
+    "erlang:=/=/2",
+    "erlang:=:=/2",
+    "erlang:=</2",
+    "erlang:==/2",
+    "erlang:>/2",
+    "erlang:>=/2",
+    "erlang:apply/3",
+    "erlang:bit_size/1",
+    "erlang:byte_size/1",
+    "erlang:element/2",
+    "erlang:error/1",
+    "erlang:exit/1",
+    "erlang:insert_element/3",
+    "erlang:make_tuple/2",
+    "erlang:map_size/1",
+    "erlang:max/2",
+    "erlang:min/2",
+    "erlang:throw/1",
+    "erlang:tuple_size/1"
+  ],
+  "Fixtures": [
+    {
+      "Id": "local_fun_order2",
+      "Module": "erlang370_local_fun_order2",
+      "Path": "original/erlang370_local_fun_order2.erl",
+      "Names": [
+        "local_fun_olduniq_equal",
+        "local_fun_olduniq_notequal",
+        "local_fun_olduniq_exact",
+        "local_fun_olduniq_notexact",
+        "local_fun_olduniq_less",
+        "local_fun_olduniq_greater",
+        "local_fun_olduniq_lessequal",
+        "local_fun_olduniq_greaterequal",
+        "local_fun_olduniq_minimum",
+        "local_fun_olduniq_maximum",
+        "local_fun_equal_olduniq_equal",
+        "local_fun_equal_olduniq_notequal",
+        "local_fun_equal_olduniq_exact",
+        "local_fun_equal_olduniq_notexact",
+        "local_fun_equal_olduniq_less",
+        "local_fun_equal_olduniq_greater",
+        "local_fun_equal_olduniq_lessequal",
+        "local_fun_equal_olduniq_greaterequal",
+        "local_fun_equal_olduniq_minimum",
+        "local_fun_equal_olduniq_maximum"
+      ],
+      "Cases": [
+        {
+          "Name": "local_fun_olduniq_equal",
+          "Mfas": [
+            "erlang:==/2"
+          ],
+          "Scope": "Corrected distinct codekey per pair kind; full actual FUN result+fun_info retained."
+        },
+        {
+          "Name": "local_fun_olduniq_notequal",
+          "Mfas": [
+            "erlang:/=/2"
+          ],
+          "Scope": "Corrected distinct codekey per pair kind; full actual FUN result+fun_info retained."
+        },
+        {
+          "Name": "local_fun_olduniq_exact",
+          "Mfas": [
+            "erlang:=:=/2"
+          ],
+          "Scope": "Corrected distinct codekey per pair kind; full actual FUN result+fun_info retained."
+        },
+        {
+          "Name": "local_fun_olduniq_notexact",
+          "Mfas": [
+            "erlang:=/=/2"
+          ],
+          "Scope": "Corrected distinct codekey per pair kind; full actual FUN result+fun_info retained."
+        },
+        {
+          "Name": "local_fun_olduniq_less",
+          "Mfas": [
+            "erlang:</2"
+          ],
+          "Scope": "Corrected distinct codekey per pair kind; full actual FUN result+fun_info retained."
+        },
+        {
+          "Name": "local_fun_olduniq_greater",
+          "Mfas": [
+            "erlang:>/2"
+          ],
+          "Scope": "Corrected distinct codekey per pair kind; full actual FUN result+fun_info retained."
+        },
+        {
+          "Name": "local_fun_olduniq_lessequal",
+          "Mfas": [
+            "erlang:=</2"
+          ],
+          "Scope": "Corrected distinct codekey per pair kind; full actual FUN result+fun_info retained."
+        },
+        {
+          "Name": "local_fun_olduniq_greaterequal",
+          "Mfas": [
+            "erlang:>=/2"
+          ],
+          "Scope": "Corrected distinct codekey per pair kind; full actual FUN result+fun_info retained."
+        },
+        {
+          "Name": "local_fun_olduniq_minimum",
+          "Mfas": [
+            "erlang:min/2"
+          ],
+          "Scope": "Corrected distinct codekey per pair kind; full actual FUN result+fun_info retained."
+        },
+        {
+          "Name": "local_fun_olduniq_maximum",
+          "Mfas": [
+            "erlang:max/2"
+          ],
+          "Scope": "Corrected distinct codekey per pair kind; full actual FUN result+fun_info retained."
+        },
+        {
+          "Name": "local_fun_equal_olduniq_equal",
+          "Mfas": [
+            "erlang:==/2"
+          ],
+          "Scope": "Corrected distinct codekey per pair kind; full actual FUN result+fun_info retained."
+        },
+        {
+          "Name": "local_fun_equal_olduniq_notequal",
+          "Mfas": [
+            "erlang:/=/2"
+          ],
+          "Scope": "Corrected distinct codekey per pair kind; full actual FUN result+fun_info retained."
+        },
+        {
+          "Name": "local_fun_equal_olduniq_exact",
+          "Mfas": [
+            "erlang:=:=/2"
+          ],
+          "Scope": "Corrected distinct codekey per pair kind; full actual FUN result+fun_info retained."
+        },
+        {
+          "Name": "local_fun_equal_olduniq_notexact",
+          "Mfas": [
+            "erlang:=/=/2"
+          ],
+          "Scope": "Corrected distinct codekey per pair kind; full actual FUN result+fun_info retained."
+        },
+        {
+          "Name": "local_fun_equal_olduniq_less",
+          "Mfas": [
+            "erlang:</2"
+          ],
+          "Scope": "Corrected distinct codekey per pair kind; full actual FUN result+fun_info retained."
+        },
+        {
+          "Name": "local_fun_equal_olduniq_greater",
+          "Mfas": [
+            "erlang:>/2"
+          ],
+          "Scope": "Corrected distinct codekey per pair kind; full actual FUN result+fun_info retained."
+        },
+        {
+          "Name": "local_fun_equal_olduniq_lessequal",
+          "Mfas": [
+            "erlang:=</2"
+          ],
+          "Scope": "Corrected distinct codekey per pair kind; full actual FUN result+fun_info retained."
+        },
+        {
+          "Name": "local_fun_equal_olduniq_greaterequal",
+          "Mfas": [
+            "erlang:>=/2"
+          ],
+          "Scope": "Corrected distinct codekey per pair kind; full actual FUN result+fun_info retained."
+        },
+        {
+          "Name": "local_fun_equal_olduniq_minimum",
+          "Mfas": [
+            "erlang:min/2"
+          ],
+          "Scope": "Corrected distinct codekey per pair kind; full actual FUN result+fun_info retained."
+        },
+        {
+          "Name": "local_fun_equal_olduniq_maximum",
+          "Mfas": [
+            "erlang:max/2"
+          ],
+          "Scope": "Corrected distinct codekey per pair kind; full actual FUN result+fun_info retained."
+        }
+      ],
+      "Location": "tool",
+      "Run": "run",
+      "NamesEntry": "cases",
+      "StackModule": "erlang370_local_fun_order2",
+      "StackEntry": "run_stacks",
+      "WorkerModule": "erlang370_observation_worker",
+      "WorkerEntry": "run",
+      "ValueAcquisition": "compiled-monitored-worker-values-and-stacks-v1",
+      "ObserveTimeoutSeconds": 600,
+      "WorkerTimeoutMilliseconds": 540000,
+      "StackShape": "depth_cases",
+      "OutcomeSchema": "pure-full-values-and-stacks-v1",
+      "Companions": [
+        "original/erlang370_pure_support.erl",
+        "original/erlang370_observation_worker.erl"
+      ]
+    },
+    {
+      "Id": "erlang370_size_locations",
+      "Module": "erlang370_size_locations",
+      "Path": "original/erlang370_size_locations.erl",
+      "Names": [
+        "renamed_tuple_error",
+        "renamed_bits_error",
+        "renamed_bytes_error",
+        "renamed_map_error",
+        "tuple_guard_failure",
+        "bits_guard_failure",
+        "bytes_guard_failure",
+        "map_guard_failure"
+      ],
+      "Cases": [
+        {
+          "Name": "renamed_tuple_error",
+          "Mfas": [
+            "erlang:tuple_size/1"
+          ],
+          "Scope": "New-only source observation; all returned outcomes and complete errors retained."
+        },
+        {
+          "Name": "renamed_bits_error",
+          "Mfas": [
+            "erlang:bit_size/1"
+          ],
+          "Scope": "New-only source observation; all returned outcomes and complete errors retained."
+        },
+        {
+          "Name": "renamed_bytes_error",
+          "Mfas": [
+            "erlang:byte_size/1"
+          ],
+          "Scope": "New-only source observation; all returned outcomes and complete errors retained."
+        },
+        {
+          "Name": "renamed_map_error",
+          "Mfas": [
+            "erlang:map_size/1"
+          ],
+          "Scope": "New-only source observation; all returned outcomes and complete errors retained."
+        },
+        {
+          "Name": "tuple_guard_failure",
+          "Mfas": [
+            "erlang:tuple_size/1"
+          ],
+          "Scope": "New-only source observation; all returned outcomes and complete errors retained."
+        },
+        {
+          "Name": "bits_guard_failure",
+          "Mfas": [
+            "erlang:bit_size/1"
+          ],
+          "Scope": "New-only source observation; all returned outcomes and complete errors retained."
+        },
+        {
+          "Name": "bytes_guard_failure",
+          "Mfas": [
+            "erlang:byte_size/1"
+          ],
+          "Scope": "New-only source observation; all returned outcomes and complete errors retained."
+        },
+        {
+          "Name": "map_guard_failure",
+          "Mfas": [
+            "erlang:map_size/1"
+          ],
+          "Scope": "New-only source observation; all returned outcomes and complete errors retained."
+        }
+      ],
+      "Location": "tool",
+      "Run": "run",
+      "NamesEntry": "cases",
+      "StackModule": "erlang370_size_locations",
+      "StackEntry": "run_stacks",
+      "WorkerModule": "erlang370_observation_worker",
+      "WorkerEntry": "run",
+      "ValueAcquisition": "compiled-monitored-worker-values-and-stacks-v1",
+      "ObserveTimeoutSeconds": 600,
+      "WorkerTimeoutMilliseconds": 540000,
+      "StackShape": "depth_cases",
+      "OutcomeSchema": "pure-full-values-and-stacks-v1",
+      "Companions": [
+        "original/erlang370_pure_support.erl",
+        "original/erlang370_observation_worker.erl"
+      ]
+    },
+    {
+      "Id": "erlang370_dynamic_apply",
+      "Module": "erlang370_dynamic_apply",
+      "Path": "original/erlang370_dynamic_apply.erl",
+      "Names": [
+        "tail_invalid_module",
+        "tail_invalid_function",
+        "tail_improper_arguments",
+        "tail_arguments_1024",
+        "tail_special_error",
+        "tail_special_exit",
+        "tail_special_throw",
+        "non_tail_invalid_module",
+        "non_tail_invalid_function",
+        "non_tail_improper_arguments",
+        "non_tail_arguments_1024",
+        "non_tail_special_error",
+        "non_tail_special_exit",
+        "non_tail_special_throw"
+      ],
+      "Cases": [
+        {
+          "Name": "tail_invalid_module",
+          "Mfas": [
+            "erlang:apply/3"
+          ],
+          "Scope": "New-only source observation; all returned outcomes and complete errors retained."
+        },
+        {
+          "Name": "tail_invalid_function",
+          "Mfas": [
+            "erlang:apply/3"
+          ],
+          "Scope": "New-only source observation; all returned outcomes and complete errors retained."
+        },
+        {
+          "Name": "tail_improper_arguments",
+          "Mfas": [
+            "erlang:apply/3"
+          ],
+          "Scope": "New-only source observation; all returned outcomes and complete errors retained."
+        },
+        {
+          "Name": "tail_arguments_1024",
+          "Mfas": [
+            "erlang:apply/3"
+          ],
+          "Scope": "New-only source observation; all returned outcomes and complete errors retained."
+        },
+        {
+          "Name": "tail_special_error",
+          "Mfas": [
+            "erlang:error/1"
+          ],
+          "Scope": "New-only source observation; all returned outcomes and complete errors retained."
+        },
+        {
+          "Name": "tail_special_exit",
+          "Mfas": [
+            "erlang:exit/1"
+          ],
+          "Scope": "New-only source observation; all returned outcomes and complete errors retained."
+        },
+        {
+          "Name": "tail_special_throw",
+          "Mfas": [
+            "erlang:throw/1"
+          ],
+          "Scope": "New-only source observation; all returned outcomes and complete errors retained."
+        },
+        {
+          "Name": "non_tail_invalid_module",
+          "Mfas": [
+            "erlang:apply/3"
+          ],
+          "Scope": "New-only source observation; all returned outcomes and complete errors retained."
+        },
+        {
+          "Name": "non_tail_invalid_function",
+          "Mfas": [
+            "erlang:apply/3"
+          ],
+          "Scope": "New-only source observation; all returned outcomes and complete errors retained."
+        },
+        {
+          "Name": "non_tail_improper_arguments",
+          "Mfas": [
+            "erlang:apply/3"
+          ],
+          "Scope": "New-only source observation; all returned outcomes and complete errors retained."
+        },
+        {
+          "Name": "non_tail_arguments_1024",
+          "Mfas": [
+            "erlang:apply/3"
+          ],
+          "Scope": "New-only source observation; all returned outcomes and complete errors retained."
+        },
+        {
+          "Name": "non_tail_special_error",
+          "Mfas": [
+            "erlang:error/1"
+          ],
+          "Scope": "New-only source observation; all returned outcomes and complete errors retained."
+        },
+        {
+          "Name": "non_tail_special_exit",
+          "Mfas": [
+            "erlang:exit/1"
+          ],
+          "Scope": "New-only source observation; all returned outcomes and complete errors retained."
+        },
+        {
+          "Name": "non_tail_special_throw",
+          "Mfas": [
+            "erlang:throw/1"
+          ],
+          "Scope": "New-only source observation; all returned outcomes and complete errors retained."
+        }
+      ],
+      "Location": "tool",
+      "Run": "run",
+      "NamesEntry": "cases",
+      "StackModule": "erlang370_dynamic_apply",
+      "StackEntry": "run_stacks",
+      "WorkerModule": "erlang370_observation_worker",
+      "WorkerEntry": "run",
+      "ValueAcquisition": "compiled-monitored-worker-values-and-stacks-v1",
+      "ObserveTimeoutSeconds": 600,
+      "WorkerTimeoutMilliseconds": 540000,
+      "StackShape": "depth_cases",
+      "OutcomeSchema": "pure-full-values-and-stacks-v1",
+      "Companions": [
+        "original/erlang370_pure_support.erl",
+        "original/erlang370_observation_worker.erl"
+      ]
+    },
+    {
+      "Id": "tuple_limit",
+      "Module": "erlang370_tuple_limit_contract",
+      "Path": "original/erlang370_tuple_limit_contract.erl",
+      "Names": [
+        "insert_runtime_only_summary",
+        "insert_exported_index_summary"
+      ],
+      "Cases": [
+        {
+          "Name": "insert_runtime_only_summary",
+          "Mfas": [
+            "erlang:make_tuple/2",
+            "erlang:insert_element/3",
+            "erlang:tuple_size/1",
+            "erlang:element/2"
+          ],
+          "Scope": "New dynamic/exported index source boundary; declared four-field summary avoids huge ETF arguments."
+        },
+        {
+          "Name": "insert_exported_index_summary",
+          "Mfas": [
+            "erlang:make_tuple/2",
+            "erlang:insert_element/3",
+            "erlang:tuple_size/1",
+            "erlang:element/2"
+          ],
+          "Scope": "New dynamic/exported index source boundary; declared four-field summary avoids huge ETF arguments."
+        }
+      ],
+      "Location": "tool",
+      "Run": "run",
+      "NamesEntry": "cases",
+      "StackModule": "erlang370_tuple_limit_contract",
+      "StackEntry": "run_stacks",
+      "WorkerModule": "erlang370_observation_worker",
+      "WorkerEntry": "run",
+      "ValueAcquisition": "compiled-monitored-worker-values-and-stacks-v1",
+      "ObserveTimeoutSeconds": 600,
+      "WorkerTimeoutMilliseconds": 540000,
+      "StackShape": "depth_cases",
+      "OutcomeSchema": "pure-full-values-and-stacks-v1",
+      "Companions": [
+        "original/erlang370_pure_support.erl",
+        "original/erlang370_observation_worker.erl"
+      ]
+    }
+  ],
+  "FixtureSources": [
+    {
+      "Location": "tool",
+      "Path": "original/erlang370_dynamic_apply.erl",
+      "Sha256": "2A0E0B22AD848AB4E6B225AF87F4AF8B8657CEDBDAA13547A8A653354F1A17E6"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/erlang370_local_fun_order2.erl",
+      "Sha256": "1C21080197210462140FD53172C71E91694D687576BCCE6309A494D36AAE7E26"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/erlang370_observation_worker.erl",
+      "Sha256": "EA2E90E1FA683737FB5623C3A292590DA5BF1451C83EC003B032A76E2F2803CA"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/erlang370_pure_support.erl",
+      "Sha256": "D73BE9C502B86DF44C37C2E4F20F333BD47CABD1A5D66479E9BDC0AAD412CF29"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/erlang370_size_locations.erl",
+      "Sha256": "010667A4158F61704BEE373BEAC204522B8015825E86896B824203BF4CE690FD"
+    },
+    {
+      "Location": "tool",
+      "Path": "original/erlang370_tuple_limit_contract.erl",
+      "Sha256": "42BD4043AFCF496591A7463ABAC77B7888AF4245B2F1403C93FD56DFE65AF89E"
+    }
+  ],
+  "ExpectedUniqueSourceCount": 6,
+  "ExpectedSeededOutcomes": false,
+  "Scope": "NEW ONLY44 observations; original1597 not rerun or relabelled. Selected21 not whole351 completion.",
+  "ExpectedValues": 44,
+  "ExpectedProfiles": 220,
+  "ValueShape": "{ok,Value}|{error,Class,Reason}",
+  "StackShape": "{ok,Value}|{error,Class,Reason,WholeStack}"
+}
