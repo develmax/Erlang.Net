@@ -15,3 +15,10 @@ commit. A local native/original run, source audit, targeted test report and
 headless CI run remain distinct evidence; none substitutes for the others.
 
 The separately requested `LICENSE.local.txt` remains outside publication.
+
+Files required by live readiness and compatibility inputs are an exception to
+the local-archive policy. Part440 publishes the exact historical Part402
+8369-test comparison report and four400/402 JSON authorities. Their original
+hashes and outcomes are unchanged. The actual8813-case CI report and compact
+clean-checkout suffix receipts are retained under Part440; this does not
+publish unrelated raw snapshots or process-memory dump files.

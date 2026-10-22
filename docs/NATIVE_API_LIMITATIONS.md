@@ -10,11 +10,14 @@ Default MFA708 and complete-contract118 classifications remain unchanged.
 Part436 affected regression passes3528/3528 by a read-only composite receipt
 audit of324 settled blocks; the first OOM/interruption and retry metadata
 aggregation errors remain retained. Focus258/258 and boot79/79 pass separately.
-Published commits60b44ddd,4a365af6 and908cde86 are in draft PR1. GitHub run
-39818918224 passes build/style and8812/8813: all22 previous failures are
-closed. The remaining real CLR dump timeout is addressed by Part439's
-separate owned-parent writer; local56/56 halt subprocess scenarios and a
-wrong-parent refusal pass. Clean exact-head complete CI is still required.
+Published commits60b44ddd,4a365af6,908cde86 and0ceebcbd are in draft PR1.
+GitHub run39823990063 passes all8813/8813 tests, including real CLR dumps.
+The workflow then fails in readiness on an unpublished historical report.
+Part440 publishes all five exact required authorities and reviews six stale
+native source bindings without changing compatibility counters. A clean
+published-source build and the actual remaining validation suffix pass,
+including eleven integration results and two local packages. New exact-head
+complete CI is still required; the previous workflow is retained as failed.
 Part438 DDLL serial rollback passes36 complete original comparisons and194
 affected checks locally; concurrent parent visibility remains open and these
 production edits remain outside the tools-only Part439 publication.

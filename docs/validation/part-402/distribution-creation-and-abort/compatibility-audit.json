@@ -1,0 +1,73 @@
+{
+  "Part": 402,
+  "Status": "Needs verification",
+  "CompleteContract": false,
+  "Sources": [
+    {
+      "Path": "src/Erlang.Runtime/DistributionPendingNativeBridge.cs",
+      "Sha256": "628AD4257E23EBF917560B39F3235A6B1109E504F0B4CD2DBAE0B0120041C84F"
+    },
+    {
+      "Path": "src/Erlang.Runtime/DistributionStateNativeBridge.cs",
+      "Sha256": "2AEEDED6C43E2D1CDCDAF481263EA4965DF6C04FABB3FDAFB8F8B2316C65BDE7"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeDistributionPending.NativeAbort.cs",
+      "Sha256": "2734A6B186067A497BFAC960A2FC74997DCCC6791594C19987F96858DEBB38F0"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.NativeCreation.cs",
+      "Sha256": "B2A6D2E091155CAF6FC96DE2B0A150BAF167D4CD24E0C9AD3ABF00031DEB43B1"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.DistributionEntries.cs",
+      "Sha256": "EAEAADF06F7C82F8D4F1A85F7F6043DB3BE8186853F5F2E57B0ABE2A6E0F9C25"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeDistributionEntryIdentity.cs",
+      "Sha256": "08B6F548733FB9E1FF306BE92C14872286C808B74AB7B02C31CB77FAAB532E4B"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeDistributionPending.cs",
+      "Sha256": "40A4E4D882872EFA08CEC73AA67E014A35D6328ECADE19FE008BC6B1EBB93D17"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeDistributionPendingEntry.cs",
+      "Sha256": "E3FCEE6DC8B527EAE749A2D924156189E8038696B0C3F8496FEDB46BD58F869C"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeDistributionPending.Connected.cs",
+      "Sha256": "89AE4AA13364C7359C33DCF2AD3FB8CACBA8409C32D821EF905C7493F7B140B0"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.NodeAdmission.cs",
+      "Sha256": "365F11B4AA521DAF997AB1CF4B4BD4C7582818398AEC9654791F3D84A16FF146"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
+      "Sha256": "A181A2DBDCE62A214B94CD2D09E2790372F48C5E27D6A965CCBC881151DFB83E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.Halt.cs",
+      "Sha256": "CCBA7D1D6F65CA8272CF482236872E1DAAD7C5640F9FC9AE1AB5F64253126EDF"
+    }
+  ],
+  "GetterConfirmedCorrection": "Current DistEntry.creation, not LocalIdentity creation; preserves real adopted creation across retirement and Noname selection; original4 ->1 witness matches within each VM.",
+  "GetterOpenObligations": [
+    "External PID/port/reference ErlNode roots must retain the same DistEntry identity after magic handles vanish.",
+    "Native delayed node-table garbage-collection lifetime remains unproved."
+  ],
+  "AbortConfirmedScope": [
+    "atom-only node validation; real owned handle and current-node rejection",
+    "native-small uint32 aliases and stale-generation successful no-op",
+    "same-generation Connected false without retirement; Pending cleanup true; Idle/Exiting true unchanged",
+    "complete portable values/errors/stacks including exact erl_erts_errors metadata"
+  ],
+  "AbortOpenObligations": [
+    "All pending-output/suspended-process/link/monitor cleanup routes require full native ownership/effects closure.",
+    "Native raw reference identity is a same-VM protocol, not cross-VM byte equality."
+  ],
+  "WholeOriginalErtsInternalLoaded": false,
+  "ExistingNewConnectionCapacityKnownDifferencePreserved": true,
+  "NoAutomaticPromotionFromFiniteComparison": true
+}

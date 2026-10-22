@@ -7,7 +7,7 @@
     "Tag": "OTP-29.1.1",
     "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5"
   },
-  "Methodology": "Counts describe only this fixed versioned24-row engineering inventory. No percentage or whole-NIF/whole-loader compatibility total is defined. Accepted-scoped means only the explicitly bounded done criterion has accepted evidence; local-tests-only/source-only/missing cannot be promoted by MFA presence. InMain is source presence at SnapshotMainCommit,not same-head CI or feature completion. RemainingOrBlockers include explicitly excluded extensions even when a scoped milestone is met. SnapshotMainCommit/MainCommit are historical publication/source-presence anchors. The two Part369 working-tree source bindings are explicitly current unpublished deltas; SourceEquivalence links their source/test addendum and does not assert raw equality with the historical Part361 plan.",
+  "Methodology": "Historical24-row engineering inventory and scoped status counters retain their original authorities and platform limits. Current40 source bindings identify published0ceebcbd, reviewed after the two Part369 changes and six further boot, retirement, allocation-window and HAMT changes. Current binding hashes are not raw equivalence to the historical Part361 tested plan. Actual Windows CI8813 passes; its later readiness failure is retained. No new Linux/original execution, whole-NIF, physical-layout or expanded map contract is inferred.",
   "MfaAccounting": {
     "SeparateFrom": "docs/module-readiness.json",
     "CountedAsNewMfas": 0,
@@ -20,9 +20,11 @@
     "SameHeadCiVerifiedByThisProposal": false,
     "ExecutionPerformedByReviewer": false,
     "RegistryReleasePart": 362,
-    "CurrentUnpublishedSourcePart": 369,
-    "CurrentSourceBindingsAreWorkingTree": true,
-    "HistoricalImplementationCommitUnchanged": true
+    "CurrentSourceBindingsAreWorkingTree": false,
+    "HistoricalImplementationCommitUnchanged": true,
+    "HistoricalCurrentUnpublishedSourcePart": 369,
+    "CurrentSourceBindingPart": 440,
+    "CurrentBoundSourceCommit": "0ceebcbd7025f7b347082293d5f56eb6d86a8377"
   },
   "SourceEquivalence": {
     "TestedPlanPath": "docs/validation/part-361/tested-source-plan.json",
@@ -31,8 +33,11 @@
     "ExactRawHashesMatchTestedPlan": false,
     "SameHeadExecutionInferred": false,
     "HistoricalCurrentBoundSourceFiles": 40,
-    "CurrentMatchesHistoricalTestedPlan": 38,
-    "CurrentUnpublishedDeltaFiles": [
+    "CurrentMatchesHistoricalTestedPlan": 32,
+    "CurrentAddendumPath": "docs/validation/part-440/readiness-publication/publication-source-review.json",
+    "CurrentAddendumSha256": "838FBD920ED236384A0E8E59682A2D13899D36721A221AAE2B2A40B4B08DB900",
+    "HistoricalPart369MatchesTestedPlan": 38,
+    "HistoricalPart369DeltaFiles": [
       {
         "Path": "src/Erlang.Runtime/NifNativeBinaryCallbacks.cs",
         "Before": "28DEE339BC33E53DCF5FE7CA5D637C5F35FEE20DC1D0F55A5ECD3AC294243A99",
@@ -44,8 +49,51 @@
         "After": "8AC72A9A1F6746EE1BD5C299B929C5BC911D4E0D9E30685B469B7CCA5EDBD43A"
       }
     ],
-    "CurrentAddendumPath": "docs/validation/part-369/native-infrastructure-source-addendum.json",
-    "CurrentAddendumSha256": "4608CDC41E1706CCA33FE23475888C73EA1A307E1DE81534B993A1965E4DF71C"
+    "CurrentPublishedDeltaFiles": [
+      {
+        "Path": "src/Erlang.Runtime/NifNativeDefaultLoader.cs",
+        "Before": "F1F4C1D9A0B90F1C7D66EC237C9032DFE64DD8EE4FBA56C52F37065BCD8D68B8",
+        "After": "8F0466A42FB5C8C5C532D318CF28C49D8E12B93B44FEA0FB6ECEB6BE7B08742A"
+      },
+      {
+        "Path": "src/Erlang.Runtime/NifImageBindings.cs",
+        "Before": "BFF0CA2FB4965C1CCB2A87B63611DC3B836120C48D03BB27DD39A610E69E522C",
+        "After": "9468F2BAD4F3CBE81DF8DBF30C9F31E1504C9B65D7D22A9ED163C0FA162A77AF"
+      },
+      {
+        "Path": "src/Erlang.Runtime/NifNativeLibraryOwner.cs",
+        "Before": "DC4B4590CF564229010370A616B362D2FEB1CC8715C87F638EA457D28F778E13",
+        "After": "73A83F7DE7ADBA4966A87E712CFE5B37C3C2286FB5AC7C08E30ED2CBBD3F5286"
+      },
+      {
+        "Path": "src/Erlang.Runtime/NifNativeAllocationOwner.cs",
+        "Before": "2884702F5A0934364639A6FCF29C069F94A432BDF8161AF57FB2E7A9EB40DF77",
+        "After": "2BEAAEA461C6736E0648D42B12CA4AF1F8FC0CFBDA3C075B29C77E781A1946BA"
+      },
+      {
+        "Path": "src/Erlang.Runtime/NifNativeAllocationDomain.cs",
+        "Before": "046185BAA85056C832D96001B1D405E06550C14E14DEC8106E481289D25B9174",
+        "After": "1F53727DE1C4E4E94F00B0329FB632B49E67A4EEE3ACCD0252DD25DFBC41EE74"
+      },
+      {
+        "Path": "src/Erlang.Runtime/NifNativeBinaryCallbacks.cs",
+        "Before": "28DEE339BC33E53DCF5FE7CA5D637C5F35FEE20DC1D0F55A5ECD3AC294243A99",
+        "After": "284249C5C93F995E4477CE79324098DA4810959C63D92B864567D6586D2D64F5"
+      },
+      {
+        "Path": "src/Erlang.Runtime/NifNativeBinaryStorage.cs",
+        "Before": "78732031E5ACE2AE66200F2B7A6B47EFF97199D3FA01A9171B6C35657C2123A9",
+        "After": "8AC72A9A1F6746EE1BD5C299B929C5BC911D4E0D9E30685B469B7CCA5EDBD43A"
+      },
+      {
+        "Path": "src/Erlang.Runtime/NifNativeTypeCallbacks.cs",
+        "Before": "33E7760C58CFF782789DC0D051AED0DD125B60A0D1BA316D4477A46642CDA2F8",
+        "After": "042FBB3E13629A768FD943FE3D07F8A9AF5D6F393B5485C8DC4C8F5C034F8EFB"
+      }
+    ],
+    "HistoricalAddendumPath": "docs/validation/part-369/native-infrastructure-source-addendum.json",
+    "HistoricalAddendumSha256": "4608CDC41E1706CCA33FE23475888C73EA1A307E1DE81534B993A1965E4DF71C",
+    "CurrentBoundSourceCommit": "0ceebcbd7025f7b347082293d5f56eb6d86a8377"
   },
   "Counts": {
     "InventoryRows": 24,
@@ -133,6 +181,13 @@
       "Scope": "Actual7639/0 Windows test phase; whole full2 command later exited1 at readiness inventory validation. Exact suffix resume is separate evidence.",
       "Platform": "windows-x64",
       "ExecutionIdentity": "full2 pid307088; test phase only"
+    },
+    "part440-current-source-review": {
+      "Path": "docs/validation/part-440/readiness-publication/publication-source-review.json",
+      "Sha256": "838FBD920ED236384A0E8E59682A2D13899D36721A221AAE2B2A40B4B08DB900",
+      "Scope": "Current six-file semantic delta, authentic CI8813 and independent source audit; historical24-row scopes and platform limits retained, no new native certification.",
+      "Platform": "source-audit; windows-x64 CI",
+      "ExecutionIdentity": "0ceebcbd7025f7b347082293d5f56eb6d86a8377"
     }
   },
   "Entries": [
@@ -149,7 +204,7 @@
       "SourceBindings": [
         {
           "Path": "src/Erlang.Runtime/NifNativeDefaultLoader.cs",
-          "Sha256": "F1F4C1D9A0B90F1C7D66EC237C9032DFE64DD8EE4FBA56C52F37065BCD8D68B8"
+          "Sha256": "8F0466A42FB5C8C5C532D318CF28C49D8E12B93B44FEA0FB6ECEB6BE7B08742A"
         },
         {
           "Path": "src/Erlang.Runtime/NifNativeCapabilityProfile.cs",
@@ -159,7 +214,8 @@
       "EvidenceRefs": [
         "linux",
         "windows-original",
-        "contract"
+        "contract",
+        "part440-current-source-review"
       ],
       "Platforms": [
         "windows-x64",
@@ -222,7 +278,7 @@
       "SourceBindings": [
         {
           "Path": "src/Erlang.Runtime/NifImageBindings.cs",
-          "Sha256": "BFF0CA2FB4965C1CCB2A87B63611DC3B836120C48D03BB27DD39A610E69E522C"
+          "Sha256": "9468F2BAD4F3CBE81DF8DBF30C9F31E1504C9B65D7D22A9ED163C0FA162A77AF"
         },
         {
           "Path": "src/Erlang.Runtime/ModuleRegistry.NifAdmission.cs",
@@ -235,7 +291,8 @@
       ],
       "EvidenceRefs": [
         "full",
-        "main-focus"
+        "main-focus",
+        "part440-current-source-review"
       ],
       "Platforms": [
         "windows-x64",
@@ -264,7 +321,7 @@
       "SourceBindings": [
         {
           "Path": "src/Erlang.Runtime/NifNativeLibraryOwner.cs",
-          "Sha256": "DC4B4590CF564229010370A616B362D2FEB1CC8715C87F638EA457D28F778E13"
+          "Sha256": "73A83F7DE7ADBA4966A87E712CFE5B37C3C2286FB5AC7C08E30ED2CBBD3F5286"
         },
         {
           "Path": "src/Erlang.Runtime/NifNativeCallbackScope.cs",
@@ -272,7 +329,8 @@
         }
       ],
       "EvidenceRefs": [
-        "full"
+        "full",
+        "part440-current-source-review"
       ],
       "Platforms": [
         "windows-x64",
@@ -329,11 +387,11 @@
       "SourceBindings": [
         {
           "Path": "src/Erlang.Runtime/NifNativeAllocationOwner.cs",
-          "Sha256": "2884702F5A0934364639A6FCF29C069F94A432BDF8161AF57FB2E7A9EB40DF77"
+          "Sha256": "2BEAAEA461C6736E0648D42B12CA4AF1F8FC0CFBDA3C075B29C77E781A1946BA"
         },
         {
           "Path": "src/Erlang.Runtime/NifNativeAllocationDomain.cs",
-          "Sha256": "046185BAA85056C832D96001B1D405E06550C14E14DEC8106E481289D25B9174"
+          "Sha256": "1F53727DE1C4E4E94F00B0329FB632B49E67A4EEE3ACCD0252DD25DFBC41EE74"
         },
         {
           "Path": "src/Erlang.Runtime/NifNativeReallocationExportRegistration.cs",
@@ -341,7 +399,8 @@
         }
       ],
       "EvidenceRefs": [
-        "full"
+        "full",
+        "part440-current-source-review"
       ],
       "Platforms": [
         "windows-x64",
@@ -478,7 +537,7 @@
       "SourceBindings": [
         {
           "Path": "src/Erlang.Runtime/NifNativeTypeCallbacks.cs",
-          "Sha256": "33E7760C58CFF782789DC0D051AED0DD125B60A0D1BA316D4477A46642CDA2F8"
+          "Sha256": "042FBB3E13629A768FD943FE3D07F8A9AF5D6F393B5485C8DC4C8F5C034F8EFB"
         },
         {
           "Path": "src/Erlang.Runtime/NifNativeArrayCallbacks.cs",
@@ -494,7 +553,8 @@
         }
       ],
       "EvidenceRefs": [
-        "full"
+        "full",
+        "part440-current-source-review"
       ],
       "Platforms": [
         "windows-x64",
@@ -703,11 +763,11 @@
       "SourceBindings": [
         {
           "Path": "src/Erlang.Runtime/NifImageBindings.cs",
-          "Sha256": "BFF0CA2FB4965C1CCB2A87B63611DC3B836120C48D03BB27DD39A610E69E522C"
+          "Sha256": "9468F2BAD4F3CBE81DF8DBF30C9F31E1504C9B65D7D22A9ED163C0FA162A77AF"
         },
         {
           "Path": "src/Erlang.Runtime/NifNativeLibraryOwner.cs",
-          "Sha256": "DC4B4590CF564229010370A616B362D2FEB1CC8715C87F638EA457D28F778E13"
+          "Sha256": "73A83F7DE7ADBA4966A87E712CFE5B37C3C2286FB5AC7C08E30ED2CBBD3F5286"
         },
         {
           "Path": "src/Erlang.Runtime/NifNativeLinuxCapsuleLease.cs",
@@ -717,7 +777,8 @@
       "EvidenceRefs": [
         "full",
         "linux",
-        "contract"
+        "contract",
+        "part440-current-source-review"
       ],
       "Platforms": [
         "windows-x64",
@@ -932,7 +993,7 @@
         },
         {
           "Path": "src/Erlang.Runtime/NifNativeLibraryOwner.cs",
-          "Sha256": "DC4B4590CF564229010370A616B362D2FEB1CC8715C87F638EA457D28F778E13"
+          "Sha256": "73A83F7DE7ADBA4966A87E712CFE5B37C3C2286FB5AC7C08E30ED2CBBD3F5286"
         },
         {
           "Path": "src/Erlang.Runtime/NifNativeLinuxCapsuleLease.cs",
@@ -941,7 +1002,8 @@
       ],
       "EvidenceRefs": [
         "source-chain",
-        "contract"
+        "contract",
+        "part440-current-source-review"
       ],
       "Platforms": [
         "glibc-linux-x64"

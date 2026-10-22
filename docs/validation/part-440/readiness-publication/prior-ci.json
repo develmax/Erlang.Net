@@ -1,0 +1,22 @@
+{
+  "Head": "0ceebcbd7025f7b347082293d5f56eb6d86a8377",
+  "Run": 39823990063,
+  "Job": 119982294740,
+  "TestsPassed": 8813,
+  "TestsFailed": 0,
+  "WorkflowConclusion": "failure",
+  "Halt": "2026-10-22T17:43:49.8226630Z PASS runtime/halt-dedicated-raw-process-numeric-errors-abort-and-real-dump\r",
+  "ReadinessFailure": [
+    "2026-10-22T17:46:54.8012423Z 8813/8813 passed\r",
+    "2026-10-22T17:46:55.7268501Z erlang: error ERL999: Could not find a part of the path 'D:\\a\\Erlang.Net\\Erlang.Net\\docs\\validation\\part-402\\distribution-creation-and-abort\\snapshot\\artifacts\\tests.json'.\r",
+    "2026-10-22T17:46:55.8712983Z \u001b[31;1mException: \u001b[0mD:\\a\\Erlang.Net\\Erlang.Net\\tools\\validate.ps1:38\u001b[0m\r",
+    "2026-10-22T17:46:55.8713483Z \u001b[31;1m\u001b[0m\u001b[36;1mLine |\u001b[0m\r",
+    "2026-10-22T17:46:55.8714052Z \u001b[31;1m\u001b[0m\u001b[36;1m\u001b[36;1m  38 | \u001b[0m … ASTEXITCODE -ne 0) { \u001b[36;1mthrow \"dotnet failed: $($Arguments -join ' ')\"\u001b[0m }\u001b[0m\r",
+    "2026-10-22T17:46:55.8714658Z \u001b[31;1m\u001b[0m\u001b[36;1m\u001b[36;1m\u001b[0m\u001b[36;1m\u001b[0m\u001b[36;1m     | \u001b[31;1m                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[0m\r",
+    "2026-10-22T17:46:55.8715401Z \u001b[31;1m\u001b[0m\u001b[36;1m\u001b[36;1m\u001b[0m\u001b[36;1m\u001b[0m\u001b[36;1m\u001b[31;1m\u001b[31;1m\u001b[36;1m     | \u001b[31;1mdotnet failed: run --project tools/Erlang.Tool --no-build -- readiness docs artifacts/tests.json\u001b[0m\r",
+    "2026-10-22T17:46:55.8716421Z \u001b[31;1m\u001b[0m\u001b[36;1m\u001b[36;1m\u001b[0m\u001b[36;1m\u001b[0m\u001b[36;1m\u001b[31;1m\u001b[31;1m\u001b[36;1m\u001b[31;1m\u001b[36;1m     | \u001b[31;1martifacts/readiness\u001b[0m\r",
+    "2026-10-22T17:46:55.8927698Z ##[error]Process completed with exit code 1.\r"
+  ],
+  "ArtifactId": 12447115166,
+  "ActualTestReportSha256": "864401AE3D9F72C04ED3C6ACBD6B769B1ED570C95D5BFB8302EB7DAA2E9BA758"
+}

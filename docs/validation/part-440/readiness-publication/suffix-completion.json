@@ -1,0 +1,87 @@
+{
+  "Passed": true,
+  "Stages": {
+    "build-differential": {
+      "Command": [
+        "C:/Program Files/dotnet/dotnet.exe",
+        "build",
+        "tools/Erlang.Differential/Erlang.Differential.csproj",
+        "--ignore-failed-sources",
+        "-m:1",
+        "-nr:false",
+        "--nologo",
+        "--disable-build-servers",
+        "-p:UseSharedCompilation=false",
+        "-p:ConcurrentBuild=false",
+        "-p:BuildInParallel=false"
+      ],
+      "Pid": 342312,
+      "ElapsedSeconds": 7.078000000095926,
+      "TimedOut": false,
+      "Settled": true,
+      "ExitCode": 0,
+      "Failures": [],
+      "StdoutSha256": "8158303208F4D0115C9371FB1E07EEB2688534BBC396B8FF105EE6EAE7633468",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "build-example": {
+      "Command": [
+        "C:/Program Files/dotnet/dotnet.exe",
+        "build",
+        "examples/HelloHybrid/HelloHybrid.csproj",
+        "--ignore-failed-sources",
+        "-m:1",
+        "-nr:false",
+        "--nologo",
+        "--disable-build-servers",
+        "-p:UseSharedCompilation=false",
+        "-p:ConcurrentBuild=false",
+        "-p:BuildInParallel=false"
+      ],
+      "Pid": 348672,
+      "ElapsedSeconds": 6.64000000001397,
+      "TimedOut": false,
+      "Settled": true,
+      "ExitCode": 0,
+      "Failures": [],
+      "StdoutSha256": "EB316C8941CF0B577F00E2F05FB124CE7F5BC78A61BC28892D74F208E71D2109",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "suffix": {
+      "Command": [
+        "C:/Users/Maksim/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+        "-NoProfile",
+        "-File",
+        "tools/validate440-suffix.ps1"
+      ],
+      "Pid": 236908,
+      "ElapsedSeconds": 76.10900000005495,
+      "TimedOut": false,
+      "Settled": true,
+      "ExitCode": 0,
+      "Failures": [],
+      "StdoutSha256": "74B230F682FC1AE56823DE947CAF76641A3950EB290D541CB3ECB428ED02D12E",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    }
+  },
+  "Integration": {
+    "CleanRebuild": "Passed",
+    "Readiness": "Passed",
+    "PackagedReadiness": "Passed",
+    "Tests": "Passed",
+    "Incremental": "Passed",
+    "PackageConsumer": "Passed",
+    "OracleUnavailableReport": "Expected failure recorded",
+    "HybridOutput": "Hello World",
+    "Build": "Passed",
+    "DisabledPreprocessing": "Expected failure",
+    "LocalTool": "Passed"
+  },
+  "ReadinessTests": 8813,
+  "RegisteredApis": 708,
+  "FullContracts": 118,
+  "ActualCiReportUnchanged": true,
+  "TestsRerun": false,
+  "ProductionSourcesFromExactPublishedHead": true,
+  "MainDdLlChangesExcluded": true
+}
