@@ -10,8 +10,11 @@ Default MFA708 and complete-contract118 classifications remain unchanged.
 Part436 affected regression passes3528/3528 by a read-only composite receipt
 audit of324 settled blocks; the first OOM/interruption and retry metadata
 aggregation errors remain retained. Focus258/258 and boot79/79 pass separately.
-Published commit60b44ddd is in draft PR1; its GitHub solution build passes,
-while the style gate requires a follow-up correction. CI is not yet green.
+Published commits60b44ddd and4a365af6 are in draft PR1. GitHub build/style
+pass; full validation8791/8813 exposes22 failures. Part437 repairs clean
+native-provider preparation, the source-admitted CLR profile and fixture/
+HOST dependency/lifecycle assumptions. CI is not yet green. New DDLL rollback
+source is preserved outside this published composition until separately proven.
 
 ## Current work
 

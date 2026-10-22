@@ -11,6 +11,7 @@ internal static class EtsConcurrency411Names
     internal const string FixedLocks = "debug_hash_fixed_number_of_locks";
     internal const string ReadProperty = "RequestedReadConcurrency", WriteProperty = "RequestedWriteConcurrency", LocksProperty = "RequestedFixedWriteLocks";
     internal const string ProtectionProperty = "Protection", PrivateProtection = "Private";
+    internal const string CountersProperty = "RequestedDecentralizedCounters";
     internal const string Disabled = "Disabled", Enabled = "Enabled", Automatic = "Automatic", Fixed = "FixedHashLocks";
     internal const string Invalid = "invalid_concurrency411", BadArgumentType = "RuntimeEtsCoreFailure407";
     internal const string Private = "private", Public = "public", Ordered = "ordered_set";

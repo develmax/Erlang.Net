@@ -218,18 +218,37 @@ internal static class AllocatorGatherHost434Checks
         catch (ErlangException error) when (error.Reason.Equals(Term.A("badarg"))) { }
 
         object dispatcher = AllocatorGatherHost434Access.Get(runtime, "actorDispatcher");
-        RuntimeNodeFoundationHostActor target = (int)AllocatorGatherHost434Access.Call(dispatcher, "AssignedLane420", a)! == 2 ? first : second;
-        AllocatorGatherHost434Access.Require((int)AllocatorGatherHost434Access.Call(dispatcher, "AssignedLane420", await target.Ready)! == 2);
+        // Unbound actors can migrate. Bind the actual caller before holding the
+        // other lane so this control does not depend on incidental scheduling.
+        await first.InvokeAsync(async context =>
+        {
+            _ = await runtime.Modules.Call(
+                context,
+                AllocatorGatherHost434Names.Runtime,
+                AllocatorGatherHost434Names.ProcessFlag,
+                Term.A(AllocatorGatherHost434Names.Scheduler),
+                Term.I(AllocatorGatherHost434Names.CallerLane)
+            );
+            await Task.Yield();
+
+            return true;
+        });
+        RuntimeNodeFoundationHostActor target = first;
+        AllocatorGatherHost434Access.Require((int)AllocatorGatherHost434Access.Call(dispatcher, "AssignedLane420", await target.Ready)! == AllocatorGatherHost434Names.CallerLane);
         using var entered = new ManualResetEventSlim();
         using var release = new ManualResetEventSlim();
-        object batch = AllocatorGatherHost434Access.Call(dispatcher, "PrepareAuxiliary420", (Action<int>)(lane =>
+        object batch = AllocatorGatherHost434Access.Call(
+            dispatcher,
+            "PrepareAuxiliary420",
+            (Action<int>)(lane =>
       {
-          if (lane == 1)
+          if (lane == AllocatorGatherHost434Names.HeldLane)
           {
               entered.Set();
               release.Wait();
           }
-      }))!;
+      })
+        )!;
         AllocatorGatherHost434Access.Call(batch, "Publish");
         try
         {

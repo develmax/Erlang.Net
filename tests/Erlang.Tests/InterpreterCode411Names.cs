@@ -4,6 +4,7 @@ internal static class InterpreterCode411Names
 {
     internal const string Test = "HOST/library411/original-code-seven-interpreter-capability-profile";
     internal const string Module = "code";
+    internal const int NativeCount = 7;
     internal const string CoverageSupport = "coverage_support";
     internal const string Resource = "Erlang.Tests.Resources.InterpreterCode411.code.beam";
     internal const string ManifestResource = "Erlang.Tests.Resources.InterpreterCode411.manifest.json";

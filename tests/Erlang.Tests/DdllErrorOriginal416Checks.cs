@@ -83,7 +83,7 @@ internal static class DdllErrorOriginal416Checks
         var raw = new Dictionary<string, bool>();
         foreach (string file in new[] { DdllErrorOriginal416Names.Values, DdllErrorOriginal416Names.StackValues })
         {
-            byte[] bytes = DdllErrorOriginal416Access.Resource(file);
+            byte[] bytes = DdllFormatterSameHost437.Expected(file);
             Term expected = OwnedFunctionOriginal407Terms.Decode(bytes);
             File.WriteAllBytes(Path.Combine(output, DdllErrorOriginal416Names.Expected + file), bytes);
             File.WriteAllText(
@@ -114,6 +114,7 @@ internal static class DdllErrorOriginal416Checks
             Path.Combine(output, DdllErrorOriginal416Names.Receipt),
             JsonSerializer.Serialize(new
             {
+                OriginalProfile = DdllFormatterSameHost437.ProfileIdentity(),
                 Expected = DdllErrorOriginal416Names.WholeRows,
                 Examined = examined,
                 Equal = equal,

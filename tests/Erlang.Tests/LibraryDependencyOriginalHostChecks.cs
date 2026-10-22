@@ -162,6 +162,7 @@ internal static class LibraryDependencyOriginalHostChecks
 
     private static async Task<ProcessRuntime> Start(LibraryDependencyOriginalSuite suite)
     {
+        bool requiresCodeServer = suite.AdditionalLibraries.Contains(IoPrintableOriginal404Names.CodeModule, StringComparer.Ordinal);
         var runtime = suite.PrintableRange is { } range
             ? new ProcessRuntime(
                 ProcessNodeDefaults.Local,
@@ -183,14 +184,21 @@ internal static class LibraryDependencyOriginalHostChecks
             : new ProcessRuntime();
         try
         {
+            if (requiresCodeServer)
+                await CodeServerRuntime410Checks.Prepare(runtime, suite.Fixtures);
             await runtime.InitializeModulesAsync(registry =>
             {
                 Erlang.Otp.OtpModules.Register(registry);
                 string[] declared = JsonSerializer.Deserialize<string[]>(Read(Dependencies)) ?? throw new InvalidDataException(Failure);
                 Require(declared.Length >= 180 && declared.Distinct(StringComparer.Ordinal).Count() == declared.Length);
                 var dependencies = new BeamDependencySelection(declared.Concat([ErlangModuleNames.Module]).Concat(suite.Fixtures));
-                string[] modules = Libraries.Concat(suite.AdditionalLibraries).Concat(suite.Fixtures).ToArray();
-                PreparedBeamImage[] images = modules.Select(module => registry.PrepareBeam(Read(module + Beam), dependencies)).ToArray();
+                string[] modules = Libraries.Concat(suite.AdditionalLibraries).Concat(suite.Fixtures)
+                    .Where(module => !requiresCodeServer || !CodeServerRuntime410Names.Modules.Contains(module, StringComparer.Ordinal))
+                    .ToArray();
+                PreparedBeamImage[] images = modules.Select(module => registry.PrepareBeam(
+                    module == IoPrintableOriginal404Names.CodeModule ? InterpreterCode411Resources.Read() : Read(module + Beam),
+                    dependencies
+                )).ToArray();
                 Require(registry.PublishPreparedBeam(images).Status == BeamPublicationStatus.Published);
                 foreach (PreparedBeamImage image in images)
                 {
@@ -204,6 +212,7 @@ internal static class LibraryDependencyOriginalHostChecks
                         MathModule => 24,
                         NetKernelModule => 1,
                         IoPrintableRange404Names.ModuleName => 1,
+                        IoPrintableOriginal404Names.CodeModule => InterpreterCode411Names.NativeCount,
                         FileModule => 1,
                         PrimFileEncodingOriginal410Names.ModuleName => PrimFileEncodingOriginal410Names.NativeCount,
                         WarningMap398HostNames.ModuleName => 1,
@@ -216,6 +225,18 @@ internal static class LibraryDependencyOriginalHostChecks
                             .SequenceEqual(UnicodeNative.Order(StringComparer.Ordinal)));
                 }
             });
+
+            if (requiresCodeServer)
+            {
+                string output = Path.GetFullPath(Path.Combine(
+                    IoPrintableOriginal404Names.CodeServerBootRoot,
+                    Guid.NewGuid().ToString(IoPrintableOriginal404Names.GuidFormat)
+                ));
+                Directory.CreateDirectory(output);
+                using var startup = new CancellationTokenSource(LibraryDependencyOriginalNames.Deadline);
+                RuntimeOtpBootSession session = await runtime.StartOtpBootAsync(CodeServerOriginal410Fixture.Create(output), startup.Token);
+                Require(!session.Completion.IsCompleted);
+            }
 
             return runtime;
         }

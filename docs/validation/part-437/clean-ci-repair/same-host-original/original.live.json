@@ -1,0 +1,19 @@
+{
+  "Pid": 308444,
+  "Command": [
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library437-ci-provider-clean-test1\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+    "-noshell",
+    "-noinput",
+    "-boot",
+    "no_dot_erlang",
+    "-pa",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library437-ddll-same-host-original1\\ebin",
+    "-eval",
+    "[V,S,A]=init:get_plain_arguments(),{module,erl_ddll}=code:ensure_loaded(erl_ddll),P=code:which(erl_ddll),{ok,B}=prim_file:read_file(P),ok=prim_file:write_file(A,term_to_binary({erl_ddll,P,erlang:md5(B),erl_ddll:module_info(exports)},[{minor_version,2}])),ok=prim_file:write_file(V,term_to_binary(beam_ddll_error416:run(),[{minor_version,2}])),ok=prim_file:write_file(S,term_to_binary(beam_ddll_error416:run_stacks(),[{minor_version,2}])),erlang:halt(0).",
+    "-extra",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library437-ddll-same-host-original1\\values.etf",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library437-ddll-same-host-original1\\stacks.etf",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library437-ddll-same-host-original1\\authority.etf"
+  ],
+  "StartedUnixSeconds": 1792687384.7355497
+}

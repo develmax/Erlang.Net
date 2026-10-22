@@ -63,7 +63,7 @@ internal static class DebugLoggerLiveness420Checks
         finally
         {
             release.Set();
-            if (held is not null) await held;
+            await SettleHeld(victim, held);
         }
     }
 
@@ -147,7 +147,24 @@ internal static class DebugLoggerLiveness420Checks
         finally
         {
             release.Set();
-            if (held is not null) await held;
+            await SettleHeld(logger, held);
         }
+    }
+
+    private static async Task SettleHeld(RuntimeNodeFoundationHostActor actor, Task<bool>? held)
+    {
+        if (held is null) return;
+        ProcessContext context = await actor.Ready;
+        try
+        {
+            await held;
+        }
+        catch (OperationCanceledException) when (context.Cancellation.IsCancellationRequested)
+        {
+            // The test explicitly canceled this owner while native work was held.
+            // Its invocation may observe cancellation before the physical exit.
+        }
+        if (context.Cancellation.IsCancellationRequested)
+            await actor.Process.Completion.WaitAsync(DebugInternal420Names.Deadline);
     }
 }

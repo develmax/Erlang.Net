@@ -12,9 +12,11 @@ internal static class CodeServerRuntime410Checks
 
     internal static Task<ProcessRuntime> Create() => Create(Array.Empty<string>());
 
-    internal static async Task<ProcessRuntime> Create(IEnumerable<string> fixtures)
+    internal static Task<ProcessRuntime> Create(IEnumerable<string> fixtures)
+        => Prepare(new ProcessRuntime(), fixtures);
+
+    internal static async Task<ProcessRuntime> Prepare(ProcessRuntime runtime, IEnumerable<string> fixtures)
     {
-        var runtime = new ProcessRuntime();
         try
         {
             await runtime.InitializeModulesAsync(registry =>
@@ -38,6 +40,15 @@ internal static class CodeServerRuntime410Checks
                     .ToArray();
                 if (registry.PublishPreparedBeam(images).Status != BeamPublicationStatus.Published)
                     throw new InvalidOperationException(CodeServerRuntime410Names.Failure);
+                foreach (PreparedBeamImage image in images)
+                {
+                    var exports = registry.Exports.Where(export => export.Module == image.Name).ToArray();
+                    if (exports.Length == 0 || exports.Any(export => !ReferenceEquals(
+                        registry.SourceOwner(export.Module, export.Function, export.Arity),
+                        image
+                    )))
+                        throw new InvalidOperationException(CodeServerRuntime410Names.Failure);
+                }
             });
             await using (var actor = new RuntimeNodeFoundationHostActor(runtime))
                 _ = await actor.InvokeAsync(async context => await runtime.Modules.Call(context,
