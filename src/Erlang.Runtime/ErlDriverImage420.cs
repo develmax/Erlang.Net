@@ -49,7 +49,8 @@ internal sealed class ErlDriverImage420
         int nativePathByteCount,
         ReadOnlyMemory<byte> name,
         Func<ErlDriverImage420, IDisposable> enterOwner,
-        bool schedulerThread
+        bool schedulerThread,
+        Func<ErlDriverLinkedInitialization435> beginInitialization435
     )
     {
         var owner = new ErlDriverImage420(callbacks, enterOwner);
@@ -65,7 +66,12 @@ internal sealed class ErlDriverImage420
             int error;
             using (enterOwner(owner))
             using (new ErlDriverThreadRole420(schedulerThread))
-                error = owner.Initialize(call, layout, name);
+                error = owner.Initialize(
+                    call,
+                    layout,
+                    name,
+                    beginInitialization435
+                );
             if (error != ErlDriverLoadErrors420.NoError) return await owner.Refuse(error).ConfigureAwait(false);
 
             return (owner, ErlDriverLoadErrors420.NoError);
@@ -85,7 +91,12 @@ internal sealed class ErlDriverImage420
         }
     }
 
-    private int Initialize(ErlDriverEntryTypes420.DriverInitialize initialize, ErlDriverAbiLayout420 layout, ReadOnlyMemory<byte> name)
+    private int Initialize(
+        ErlDriverEntryTypes420.DriverInitialize initialize,
+        ErlDriverAbiLayout420 layout,
+        ReadOnlyMemory<byte> name,
+        Func<ErlDriverLinkedInitialization435> beginInitialization435
+    )
     {
         nint entry = initialize(callbacks.DangerousGetHandle());
         if (entry == nint.Zero) return ErlDriverLoadErrors420.FailedInitialize;
@@ -93,7 +104,22 @@ internal sealed class ErlDriverImage420
         if (!Entry.HasValidVersion) return ErlDriverLoadErrors420.IncorrectVersion;
         if (!Entry.NameEquals(name.Span)) return ErlDriverLoadErrors420.BadName;
         var init = Entry.Callback<ErlDriverEntryTypes420.Initialize>(ErlDriverEntryNames420.Init);
-        if (init is not null && init() != 0) return ErlDriverLoadErrors420.FailedInitialize;
+        if (init is not null)
+        {
+            using var linkedInitialization435 = beginInitialization435();
+            int initializedResult;
+            try
+            {
+                initializedResult = init();
+            }
+            catch
+            {
+                linkedInitialization435.Fail438();
+                throw;
+            }
+            if (initializedResult != 0) return ErlDriverLoadErrors420.FailedInitialize;
+            linkedInitialization435.Commit();
+        }
         initialized = true;
 
         return ErlDriverLoadErrors420.NoError;

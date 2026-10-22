@@ -28,6 +28,8 @@ internal sealed class ErlDriverHostPeer420 : IAsyncDisposable
     private ulong admittedEvents;
     private TaskCompletionSource eventProgress = new(TaskCreationOptions.RunContinuationsAsynchronously);
 
+    internal string Session438 => session;
+
     internal Task EventsDrained => eventDrain.Task;
     internal Task Completion => controlReader;
 

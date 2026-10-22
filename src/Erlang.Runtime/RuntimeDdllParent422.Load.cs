@@ -23,7 +23,7 @@ internal sealed partial class RuntimeDdllParent422
             {
                 runtime.RequireDriverParentActor422(context);
                 ObjectDisposedException.ThrowIf(closing, this);
-                pending = mutation?.Task;
+                pending = PendingMutation438;
                 if (pending is null)
                 {
                     DdllParentRow422? row = Find(name);

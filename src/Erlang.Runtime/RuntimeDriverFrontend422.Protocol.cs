@@ -20,18 +20,34 @@ internal sealed partial class RuntimeDriverFrontend422
         var identity = new ErlDriverPortIdentity420(request.Driver, request.Port);
         switch (request.Operation)
         {
+            case ErlDriverHostOperation420.BeginLinkedInitialization438:
+                if (request.Driver == 0 || request.Port != 0 || request.Command != 0 || request.Data is not null)
+                    throw new InvalidDataException(DriverParentWireNames422.Invalid);
+                output = ErlDriverPrimitiveWire420.Encode(drivers.BeginLinkedInitialization438(request.Driver));
+                break;
+            case ErlDriverHostOperation420.EndLinkedInitialization438:
+                {
+                    if (request.Driver == 0 || request.Port != 0 || request.Command != 0)
+                        throw new InvalidDataException(DriverParentWireNames422.Invalid);
+                    var end = ErlDriverPrimitiveWire420.Decode<ErlDriverLinkedEnd438>(request.Data);
+                    if (end.Scope.OwnerImage != request.Driver)
+                        throw new InvalidDataException(DriverParentWireNames422.Invalid);
+                    drivers.EndLinkedInitialization438(end.Scope, end.CleanupSucceeded);
+                    break;
+                }
             case ErlDriverHostOperation420.RegisterLinkedEntry:
                 {
                     if (request.Port != 0 || request.Command != 0) throw new InvalidDataException(DriverParentWireNames422.Invalid);
-                    var entry = ErlDriverPrimitiveWire420.Decode<ErlDriverLinkedEntryRequest420>(request.Data);
+                    var registration = ErlDriverPrimitiveWire420.Decode<ErlDriverLinkedRegistration438>(request.Data);
+                    var entry = registration.Entry;
                     if (entry.OwnerImage != request.Driver) throw new InvalidDataException(DriverParentWireNames422.Invalid);
-                    output = ErlDriverPrimitiveWire420.Encode(drivers.RegisterLinked(entry));
+                    output = ErlDriverPrimitiveWire420.Encode(drivers.RegisterLinked(entry, registration.Scope));
                     break;
                 }
             case ErlDriverHostOperation420.RemoveLinkedEntry:
-                if (request.Port != 0 || request.Command != 0 || request.Data is not null)
+                if (request.Driver == 0 || request.Port != 0 || request.Command != 0)
                     throw new InvalidDataException(DriverParentWireNames422.Invalid);
-                result = drivers.RemoveLinked(request.Driver);
+                result = drivers.RemoveLinked(request.Driver, ErlDriverPrimitiveWire420.Decode<ErlDriverLinkedScope438>(request.Data));
                 if (result != 1) throw new InvalidDataException(DriverParentWireNames422.Invalid);
                 result = 0;
                 break;

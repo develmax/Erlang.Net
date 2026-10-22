@@ -134,7 +134,12 @@ internal sealed partial class ErlDriverHostEngine420
             engine.table = new(abi, callbacks, services);
             engine.start = Marshal.GetDelegateForFunctionPointer<ErlDriverStartEntry420.Invoke>(
                 engine.bridge.ExportPointer(ErlDriverHostNativeNames420.StartEntry));
-            engine.images.Configure(engine.bridge, engine.table, abi);
+            engine.images.Configure(
+                engine.bridge,
+                engine.table,
+                abi,
+                engine.linked.BeginInitialization435
+            );
 
             return engine;
         }

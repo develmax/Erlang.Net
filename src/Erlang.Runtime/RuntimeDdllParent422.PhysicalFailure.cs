@@ -21,6 +21,7 @@ internal sealed partial class RuntimeDdllParent422
             // Existing native calls will observe the actual aborted peer;
             // pending stable waiters must not hang on a lost physical owner.
             mutation?.TrySetException(failure);
+            FaultLinkedVisibility438(failure);
             wake.Release();
         }
     }

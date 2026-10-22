@@ -10,17 +10,15 @@ Default MFA708 and complete-contract118 classifications remain unchanged.
 Part436 affected regression passes3528/3528 by a read-only composite receipt
 audit of324 settled blocks; the first OOM/interruption and retry metadata
 aggregation errors remain retained. Focus258/258 and boot79/79 pass separately.
-Published commits60b44ddd,4a365af6,908cde86 and0ceebcbd are in draft PR1.
-GitHub run39823990063 passes all8813/8813 tests, including real CLR dumps.
-The workflow then fails in readiness on an unpublished historical report.
-Part440 publishes all five exact required authorities and reviews six stale
-native source bindings without changing compatibility counters. A clean
-published-source build and the actual remaining validation suffix pass,
-including eleven integration results and two local packages. New exact-head
-complete CI is still required; the previous workflow is retained as failed.
-Part438 DDLL serial rollback passes36 complete original comparisons and194
-affected checks locally; concurrent parent visibility remains open and these
-production edits remain outside the tools-only Part439 publication.
+Part440 exact head `70c5128a` has green GitHub run39829338668:8813/8813,
+all mandatory steps and both packages. User-authorized PR1 merge is3235cd28
+in main. Part441 remains a distinct increment with next-head CI pending.
+Final local Runtime9A73800D and package65CFB47A pass fresh original36
+whole typed/raw observations,8 native/HOST scenarios,194 affected cases,
+standard boot79 and real collector/persistent cleanup. Failed prior timed
+port witness and two-Open concurrency observer are retained. Native8 is
+own-backend concurrency evidence, not an original concurrent transcript.
+Evidence: [Part441](validation/part-441/linked-initialization-visibility/README.md).
 
 ## Current work
 
@@ -29,7 +27,7 @@ production edits remain outside the tools-only Part439 publication.
 | `erts_debug` | Both unique minima, raw monotonic state read/write, real per-runtime modulo64 counter shared by public unique_integer and both strict trace producers | Original144 outcomes/full profiles captured; actual replay and two-runtime/16-actor controls pass in first bounded block. Focus258/258 in7 immutable blocks passes; affected3528/3528 composite audit passes. | Other `get_internal_state`/`set_internal_state` keys, including actual memory/atom/binary/node diagnostics and execution controls; managed handler/heap layout remains its own backend profile. |
 | `ets` | Strict boolean `decentralized_counters` hints and source-ordered last-wins metadata; actual coarse storage reports effective false | Original192 outcomes captured. Initial186/192 exact: six own-PID-bearing stack observations differ only by real VM PID. Original/actual raw retained. Successor source explicitly verifies own PID in the native argument/error-info frame;192 source outcomes and both whole raw/source-produced replay files match. Focus258/258 passes; affected3528/3528 composite audit passes. | Genuine compressed row codec/ownership/census; actual fine-lock/decentralized backend if effective=true is required; unsafe raw-header and physical memory-layout boundaries remain separate. |
 | `erts_internal` | Monitored spawn without traditional monitor bits: real connection-only supervision and omission of unsupported MONITOR/DEMONITOR/MONITOR_EXIT wire controls | Original42 complete outcomes/full profiles captured; actual source replay and real two-runtime child-death/node-down/demonitor/abandon controls pass in first bounded block. Focus258/258 in7 immutable blocks passes; affected3528/3528 composite audit passes. | Pending/autoconnect generation-owned output, driver-port distribution controller, pending-node-down retry, unsupported wire capabilities; binary/driver-child allocator attribution and other recorded physical profile boundaries. |
-| `erl_ddll` | Genuine nested driver registration rollback when entry.init fails | Local Part438:36/36 complete original outcomes/full profiles, genuine native child exit/cleanup and zero leases;194/194 affected cases. Six production source units remain unpublished. | Atomic parent visibility during linked initialization; other load/unload/reload/monitor partitions and additional platform/native profiles. Adjacent erlang port APIs are tracked separately. |
+| `erl_ddll` | Genuine failed-init rollback and atomic linked-initialization visibility | Part441 local: fresh36 complete original outcomes/raw files;8 native/HOST scenarios,194 affected,boot79 and actual zero leases/physical cleanup. Exact-head CI pending. | Failed outer initialization combined with removal of the previous list boundary; additional load/unload/reload/monitor partitions and additional platform/native profiles. Adjacent erlang port APIs are tracked separately. |
 
 ## Acceptance order
 

@@ -13,8 +13,14 @@ internal sealed class ErlDriverHostImages420
     private ErlDriverAbiLayout420? layout;
     private ulong lastIdentity;
     private bool closing;
+    private Func<ErlDriverLinkedInitialization435>? beginInitialization435;
 
-    internal void Configure(ErlDriverThreadBridge420 bridge, ErlDriverCallbackTable420 callbacks, ErlDriverAbiLayout420 layout)
+    internal void Configure(
+        ErlDriverThreadBridge420 bridge,
+        ErlDriverCallbackTable420 callbacks,
+        ErlDriverAbiLayout420 layout,
+        Func<ErlDriverLinkedInitialization435> beginInitialization435
+    )
     {
         lock (gate)
         {
@@ -23,6 +29,7 @@ internal sealed class ErlDriverHostImages420
             this.bridge = bridge;
             this.callbacks = callbacks;
             this.layout = layout;
+            this.beginInitialization435 = beginInitialization435 ?? throw new ArgumentNullException(nameof(beginInitialization435));
         }
     }
 
@@ -102,7 +109,8 @@ internal sealed class ErlDriverHostImages420
                 path.ByteCount,
                 name,
                 image => Enter(row, image),
-                schedulerThread
+                schedulerThread,
+                beginInitialization435 ?? throw new InvalidOperationException(ErlDriverHostNames420.InvalidFrame)
             ).ConfigureAwait(false);
             if (admitted.Owner is null)
             {
