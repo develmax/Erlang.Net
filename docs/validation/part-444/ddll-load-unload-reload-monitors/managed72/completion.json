@@ -1,0 +1,48 @@
+{
+  "Passed": true,
+  "Stages": {
+    "compile-consumer": true,
+    "actual-full-native-ddll": true
+  },
+  "Errors": [],
+  "ActualReport": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library444-ddll-modes-managed1\\observations\\completion.json",
+  "SourceChecks": [
+    {
+      "Stage": "compile-consumer",
+      "InputsBeforeUnchanged": true,
+      "InputsAfterUnchanged": true,
+      "ProviderScope": "complete-batch-envelope",
+      "Failure": null
+    },
+    {
+      "Stage": "actual-full-native-ddll",
+      "InputsBeforeUnchanged": true,
+      "InputsAfterUnchanged": true,
+      "ProviderScope": "complete-batch-envelope",
+      "Failure": null
+    }
+  ],
+  "ProviderChecks": [
+    {
+      "Phase": "before",
+      "CompleteInventoryAttempted": true,
+      "ExpectedFiles": 6427,
+      "Equal": true,
+      "Failure": null,
+      "DurationSeconds": 1.213586200028658
+    },
+    {
+      "Phase": "after",
+      "CompleteInventoryAttempted": true,
+      "ExpectedFiles": 6427,
+      "Equal": true,
+      "Failure": null,
+      "DurationSeconds": 1.2123895999975502
+    }
+  ],
+  "CompleteProviderScans": 2,
+  "ProviderScope": "batch-before-and-after",
+  "OriginalVmRerun": false,
+  "RuntimeSha256": "05674E2BCE40D0F78C443D56D76901D8431AAE1CBEB562292AD9FC0A0E6564B4",
+  "PackageSha256": "70AEA7EECD9D98FD374F2013E9F6A2D1EE3D538D7E1B7A11BDED69668A636162"
+}
