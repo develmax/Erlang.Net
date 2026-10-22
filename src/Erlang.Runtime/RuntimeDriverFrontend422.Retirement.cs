@@ -11,7 +11,10 @@ internal sealed partial class RuntimeDriverFrontend422
         using var bound = new CancellationTokenSource(configuration.Launch.ShutdownTimeout);
         try
         {
-            await drain.WaitAsync(bound.Token).ConfigureAwait(false);
+            // A dead child cannot finish a retained native initialization.
+            // Join physical cleanup below before faulting its waiting owners.
+            Task ended = await Task.WhenAny(drain, child.PhysicalExit).WaitAsync(bound.Token).ConfigureAwait(false);
+            await ended.ConfigureAwait(false);
         }
         catch (Exception failure)
         {

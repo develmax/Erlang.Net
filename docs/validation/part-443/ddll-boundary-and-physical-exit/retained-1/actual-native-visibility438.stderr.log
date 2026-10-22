@@ -1,0 +1,10 @@
+Unhandled exception. System.AggregateException: One or more errors occurred. (PhysicalChildFailure)
+ ---> System.IO.InvalidDataException: PhysicalChildFailure
+ ---> System.IO.InvalidDataException: Native driver parent received an invalid authenticated operation result
+   at Erlang.DriverParentHarnessAccess423.Require(Boolean value) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\library443-ddll-retained-managed1\harness\DriverParentHarnessAccess423.cs:line 11
+   at Erlang.DdllVisibility438Checks.Held(DriverParentHarnessInput423 input, DdllVisibility438Mode mode) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\library443-ddll-retained-managed1\harness\DdllVisibility438Checks.cs:line 220
+   at Erlang.DdllVisibility438Checks.Run(DriverParentHarnessInput423 input) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\library443-ddll-retained-managed1\harness\DdllVisibility438Checks.cs:line 16
+   --- End of inner exception stack trace ---
+   --- End of inner exception stack trace ---
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\library443-ddll-retained-managed1\harness\DdllVisibility438Program.cs:line 16
+   at Program.<Main>(String[] args)

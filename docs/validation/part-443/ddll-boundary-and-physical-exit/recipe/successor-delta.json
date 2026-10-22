@@ -1,0 +1,38 @@
+{
+  "PredecessorManifestSha256": "CB91A5719BA2E52A667486892D5A547590F44D950799537E71B357F4209206B2",
+  "PredecessorFreezeSha256": "F792003B1DA4C9E0E8DC6DA0FEFE4AE481562114372BB2913DA58D950274F89B",
+  "OrchestrationOnly": true,
+  "ProviderScansPerBatch": 2,
+  "PerStageBoundInputHashes": true,
+  "AfterScanInFinally": true,
+  "NativeObserverHarness": [
+    {
+      "Path": "native/ddll_boundary443.c",
+      "Sha256": "93D3DD9904D7D5E49D0F10E12967B0BB24290428A4EE558E6FDC9350F07EC373",
+      "ByteIdentical": true
+    },
+    {
+      "Path": "original/beam_ddll_boundary443.erl",
+      "Sha256": "C25F9257AA06E910B87B2E6FB5477189139ED280F76240E54867CB6883443BC6",
+      "ByteIdentical": true
+    },
+    {
+      "Path": "harness/DdllBoundary443Checks.cs",
+      "Sha256": "2F6830ED39A144E2410F4B8E5587C453EF66D19D275BF040561F1D2809AE72DA",
+      "ByteIdentical": true
+    },
+    {
+      "Path": "harness/DdllBoundary443Names.cs",
+      "Sha256": "52B0F2D5B2403C4A8EA698DAB85719F7EB6903770316C5633DCB2FC9D8AAC3AE",
+      "ByteIdentical": true
+    },
+    {
+      "Path": "harness/DdllBoundary443Program.cs",
+      "Sha256": "475033941A155049BAB844CE9DA5784F798A592E15635E37ACB474F906230A28",
+      "ByteIdentical": true
+    }
+  ],
+  "OriginalRows": 60,
+  "RuntimePatch": false,
+  "Executed": false
+}
