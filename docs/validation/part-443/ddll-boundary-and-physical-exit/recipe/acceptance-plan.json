@@ -1,0 +1,38 @@
+{
+  "SourceOnly": true,
+  "RuntimePatch": false,
+  "Cases": 10,
+  "WholeRows": 60,
+  "RequiredOriginal": [
+    "compile-native",
+    "compile-observer",
+    "capture-values",
+    "capture-stacks",
+    "provider6427 unchanged",
+    "all source inputs stable"
+  ],
+  "RequiredManaged": [
+    "whole values typed/raw",
+    "whole five stack profiles typed/raw",
+    "actual child PhysicalExit success",
+    "actual child PhysicalCleanup success",
+    "child Completion success",
+    "ZeroLeases actual owner cleanup"
+  ],
+  "Untested": [
+    "all compilation/execution",
+    "original expected snapshots",
+    "managed comparison",
+    "concurrent/cross-image partitions",
+    "physical ERTS allocation parity"
+  ],
+  "OldReceiptsRewritten": false,
+  "ProviderEnvelope": {
+    "CompleteScansPerBatch": 2,
+    "Before": true,
+    "AfterFinally": true,
+    "PerStageBoundInputs": true,
+    "CachedInventory": false,
+    "PerStageFullProviderClaim": false
+  }
+}

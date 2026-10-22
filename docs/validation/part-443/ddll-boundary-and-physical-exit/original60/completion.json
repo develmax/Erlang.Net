@@ -1,0 +1,219 @@
+{
+  "Passed": true,
+  "WholeRows": 60,
+  "ExpectedWholeRows": 60,
+  "BoundaryControls": true,
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Stages": {
+    "compile-native": true,
+    "compile-observer": true,
+    "capture-values": true,
+    "capture-stacks": true
+  },
+  "Errors": [],
+  "ClosureChecks": [
+    {
+      "Stage": "compile-native",
+      "InputsBeforeUnchanged": true,
+      "InputsAfterUnchanged": true,
+      "ProviderScope": "complete-batch-envelope",
+      "Failure": null
+    },
+    {
+      "Stage": "compile-observer",
+      "InputsBeforeUnchanged": true,
+      "InputsAfterUnchanged": true,
+      "ProviderScope": "complete-batch-envelope",
+      "Failure": null
+    },
+    {
+      "Stage": "capture-values",
+      "InputsBeforeUnchanged": true,
+      "InputsAfterUnchanged": true,
+      "ProviderScope": "complete-batch-envelope",
+      "Failure": null
+    },
+    {
+      "Stage": "capture-stacks",
+      "InputsBeforeUnchanged": true,
+      "InputsAfterUnchanged": true,
+      "ProviderScope": "complete-batch-envelope",
+      "Failure": null
+    }
+  ],
+  "ProviderBatchChecks": [
+    {
+      "Phase": "before",
+      "CompleteInventoryAttempted": true,
+      "ExpectedFiles": 6427,
+      "Equal": true,
+      "Failure": null,
+      "DurationSeconds": 1.266004899982363
+    },
+    {
+      "Phase": "after",
+      "CompleteInventoryAttempted": true,
+      "ExpectedFiles": 6427,
+      "Equal": true,
+      "Failure": null,
+      "DurationSeconds": 1.2888155999826267
+    }
+  ],
+  "CompleteProviderScans": 2,
+  "ProviderScope": "batch-before-and-after",
+  "Files": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library443-ddll-boundary-original1\\capture-stacks.exit.json",
+      "Bytes": 959,
+      "Sha256": "782EDD2806EEAD6287A571835B9689E43B1F1A2BA1778D1A689A88A10CAE196B"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library443-ddll-boundary-original1\\capture-stacks.live.json",
+      "Bytes": 709,
+      "Sha256": "FBDAC96E4C020B7A825C8ECC2940538F4327AF8C98ACE00206D65398EBE076FA"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library443-ddll-boundary-original1\\capture-stacks.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library443-ddll-boundary-original1\\capture-stacks.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library443-ddll-boundary-original1\\capture-values.exit.json",
+      "Bytes": 959,
+      "Sha256": "9A537A4DA2C70DE1F885B49387282C80B66C7EF10A2607C520723172B0476785"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library443-ddll-boundary-original1\\capture-values.live.json",
+      "Bytes": 709,
+      "Sha256": "5CFF706981582003E929FCED4DDEE8E679ABA4BA51074D9C8C904DC1A680B09B"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library443-ddll-boundary-original1\\capture-values.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library443-ddll-boundary-original1\\capture-values.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library443-ddll-boundary-original1\\closure-checks.json",
+      "Bytes": 743,
+      "Sha256": "AD369980FD68F79C77F4009A8B25655ADC10EFA991B49DDDE925BF5B746B26C0"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library443-ddll-boundary-original1\\compile-native.exit.json",
+      "Bytes": 1040,
+      "Sha256": "DCB2BA27C1B739C77B0BD73A13666DA8E03A0073BB3D97E92864AA9D8BA4ED0D"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library443-ddll-boundary-original1\\compile-native.live.json",
+      "Bytes": 790,
+      "Sha256": "E3C665D5BB3A645484F78A3E38C63F93FC3BE2439BAB682E39F16A76B920DB70"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library443-ddll-boundary-original1\\compile-native.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library443-ddll-boundary-original1\\compile-native.stdout.log",
+      "Bytes": 94,
+      "Sha256": "586329A99D1CAE2FDDA1B9A42631EFD695648C2B43C4411E7D7317272F91EF73"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library443-ddll-boundary-original1\\compile-observer.exit.json",
+      "Bytes": 768,
+      "Sha256": "EC5B87D83316E7385C2F82B0F0F922DABC111F1677EF7FB61726BB908ED31413"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library443-ddll-boundary-original1\\compile-observer.live.json",
+      "Bytes": 519,
+      "Sha256": "3B23A5D466A5B78C09D5FA2951D6D4B387C5A09D810BD422E907389C568EC544"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library443-ddll-boundary-original1\\compile-observer.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library443-ddll-boundary-original1\\compile-observer.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library443-ddll-boundary-original1\\drivers\\ddll_boundary443.dll",
+      "Bytes": 10240,
+      "Sha256": "BECC0A22739C94685682872A6C9034ECA5488A6BCE35D85866F7DAD368C47ECE"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library443-ddll-boundary-original1\\drivers\\ddll_boundary443.obj",
+      "Bytes": 7162,
+      "Sha256": "746CAAE10491592DA5E72066BE108618E0028DE5268FFF1931664C580BCC7438"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library443-ddll-boundary-original1\\inputs-before.json",
+      "Bytes": 5380,
+      "Sha256": "C70B400F4733CCFB5E1875C1563DC66CC94555DC9C668BBB760A122CA4A93CC8"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library443-ddll-boundary-original1\\observer-ebin\\beam_ddll_boundary443.beam",
+      "Bytes": 7708,
+      "Sha256": "F2E70EA27957D229182CAAA27781C7D707A7E7AD9372E97224504927517EDBAC"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library443-ddll-boundary-original1\\provider-batch-checks.json",
+      "Bytes": 381,
+      "Sha256": "FF477AB18D22735F28008D0C7493418823E6AC642624DD9E28A97D585C74F8F0"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library443-ddll-boundary-original1\\source\\beam_ddll_boundary443.erl",
+      "Bytes": 2888,
+      "Sha256": "C25F9257AA06E910B87B2E6FB5477189139ED280F76240E54867CB6883443BC6"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library443-ddll-boundary-original1\\source\\ddll_boundary443.c",
+      "Bytes": 2693,
+      "Sha256": "93D3DD9904D7D5E49D0F10E12967B0BB24290428A4EE558E6FDC9350F07EC373"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library443-ddll-boundary-original1\\source\\ddll_boundary443.exp",
+      "Bytes": 759,
+      "Sha256": "72F2E6A42CCD07784D4EABD95C0AA2B2CCBE4A1462563491AE7C3E5F530C7005"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library443-ddll-boundary-original1\\source\\ddll_boundary443.lib",
+      "Bytes": 1908,
+      "Sha256": "AE0E694DFD5C3BBD7A12AE0370D724D74D2EA1C926CC32B5A414B7589D2BBCBC"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library443-ddll-boundary-original1\\stacks.etf",
+      "Bytes": 31850,
+      "Sha256": "7006D1D5A18B4DA5409D68FDE8082119AC877179BE7C55995D304F3480412992"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library443-ddll-boundary-original1\\stock\\erl_ddll.beam",
+      "Bytes": 20280,
+      "Sha256": "3FA1034243C56854ED9BE22A948DF39E1FE8F524F51FE48B969A4F4EA0D973AD"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library443-ddll-boundary-original1\\values.etf",
+      "Bytes": 6545,
+      "Sha256": "B4BB939A12D45E24312B270149D60B0FB3A0D69F65DB55391BF65B5418BB2533"
+    }
+  ],
+  "ExecutionManifestSha256": "AF5EA3DA317E2ABC8A0CF1874D4E6BFB93AC1A47E864A7B92BBE7A03D1607E99",
+  "RawValuesRewritten": false,
+  "GoldenConstructed": false,
+  "SeparateValuesStacksVms": true,
+  "Original228Rerun": false,
+  "PhysicalAllocationParityClaim": false,
+  "FullDdllCompatibilityClaim": false
+}

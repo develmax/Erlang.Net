@@ -1,0 +1,66 @@
+{
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Bindings": [
+    {
+      "Path": "artifacts/spawn-priority351-preparation/execute-root.py",
+      "Sha256": "C66ACEC6FFE57C57EFAABC96FD1DB00598D7AAD7D05C2EA814A146B759D4171A"
+    },
+    {
+      "Path": "artifacts/library377-native-controls1/run-native-controls.py",
+      "Sha256": "C097FDF1F1307220916935FDAD3E0483CC676E4EEB136581B632ACF6347F206F"
+    },
+    {
+      "Path": "tools/Erlang.NifTermCallbackOriginalObservations/passive_etf.py",
+      "Sha256": "9C3204CB29755C508D05B611EA02B3A3186F83B40A72BF6EEC366242040432EE"
+    },
+    {
+      "Path": "artifacts/library376-official-compiler/official-admission.json",
+      "Sha256": "41CCC2FDE5493D85BEAA21996E12D0885D2919B0D4BF44137D0673DCDC9D5EA6"
+    }
+  ],
+  "BoundedInventory": {
+    "Path": "artifacts/library426-trace-low-memory-original-proposal1/bounded_inventory.py",
+    "Sha256": "502862EB7045D780115D046A02FA56DB11FB67EBC7A1883CA58D06BEC6C7910A"
+  },
+  "ReuseStock": {
+    "Receipt": "artifacts/library420-erldrv-original1/completion.json",
+    "ReceiptSha256": "CE523C6CDB11C345138A512DF8D772106F20B98ACA647D8B897A9785032DE86E",
+    "Path": "artifacts/library420-erldrv-original1/stock/erl_ddll.beam",
+    "Sha256": "3FA1034243C56854ED9BE22A948DF39E1FE8F524F51FE48B969A4F4EA0D973AD"
+  },
+  "Cases": [
+    "success_keep",
+    "success_immediate",
+    "success_deeper",
+    "success_both",
+    "fail_keep",
+    "fail_immediate",
+    "fail_deeper",
+    "fail_both",
+    "bad_load_options",
+    "bad_unload_options"
+  ],
+  "ExpectedValues": 10,
+  "ExpectedStackRows": 50,
+  "WholeRows": 60,
+  "NativeFixture": "ddll_boundary443",
+  "Worker": "beam_ddll_boundary443",
+  "Sources": [
+    {
+      "Path": "native/ddll_boundary443.c",
+      "Sha256": "93D3DD9904D7D5E49D0F10E12967B0BB24290428A4EE558E6FDC9350F07EC373"
+    },
+    {
+      "Path": "original/beam_ddll_boundary443.erl",
+      "Sha256": "C25F9257AA06E910B87B2E6FB5477189139ED280F76240E54867CB6883443BC6"
+    }
+  ],
+  "OriginalRoutePolicy": "Independent values and stacks after successful shared preparations; full raw results retained, no projected golden construction",
+  "NativeDriverListCallbacks": [
+    "start",
+    "control",
+    "stop"
+  ],
+  "DynamicInitListCalls": false,
+  "FinishDriverListCalls": false
+}
