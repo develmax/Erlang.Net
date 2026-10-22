@@ -25,5 +25,7 @@ internal enum ErlDriverHostOperation420
     LockDriver,
     PrimitiveHost,
     SchedulePortTask,
-    InvokePortTask
+    InvokePortTask,
+    BeginLinkedInitialization438,
+    EndLinkedInitialization438
 }

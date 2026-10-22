@@ -1,0 +1,513 @@
+{
+  "Passed": true,
+  "Scope": "Windows DDLL linked initialization visibility and serial rollback",
+  "RuntimeSha256": "9A73800DA0A7077511C2FBC2E6763EFC63B37157172347C5DDECA599A13387F1",
+  "PackageSha256": "65CFB47ACE8914A1D5AA400CDD330314CB461103D81E798A5931079F5456F866",
+  "OriginalWholeComparisons": 36,
+  "NativeHostScenarios": 8,
+  "Affected": 194,
+  "StandardBoot": 79,
+  "PriorFailurePreserved": true,
+  "WholeDdllCompatibility": false,
+  "ExactHeadCi": "pending",
+  "Files": [
+    {
+      "Path": "library441-visibility-native2/completion.json",
+      "Sha256": "0EBB55F2F6B34B1741A629FBA4768CD70D4141EFADE9B6921A76F7F284319377",
+      "Bytes": 13156,
+      "OriginalPath": "artifacts/library441-visibility-native2/completion.json"
+    },
+    {
+      "Path": "library441-visibility-original2/completion.json",
+      "Sha256": "F99B677D8ECAD13CF13A41E41FD37918285783F555818891CB9236CF76748475",
+      "Bytes": 3255,
+      "OriginalPath": "artifacts/library441-visibility-original2/completion.json"
+    },
+    {
+      "Path": "library441-visibility-managed2/completion.json",
+      "Sha256": "32A4775A5F1EAF4DF40ED6703F96899A592ABD6CB0D81D2215BA55248208370F",
+      "Bytes": 795,
+      "OriginalPath": "artifacts/library441-visibility-managed2/completion.json"
+    },
+    {
+      "Path": "library441-native-affected-run1/completion.json",
+      "Sha256": "A980EAC8567EF3A15C0872CD9FC9162688124B4B91EA63FC03CB487E2151EF61",
+      "Bytes": 18477,
+      "OriginalPath": "artifacts/library441-native-affected-run1/completion.json"
+    },
+    {
+      "Path": "library441-standard79-final1/completion.json",
+      "Sha256": "D65096E82717957597A2D5CB1ACD4A5C9586C1EA39792E4663DF7C54C7DD0CF0",
+      "Bytes": 9125,
+      "OriginalPath": "artifacts/library441-standard79-final1/completion.json"
+    },
+    {
+      "Path": "library441-driver-package1/completion.json",
+      "Sha256": "76EE0E096E9B1049915909EC9A1F2B843EAD8E09985305F5DBA62393E9C0BD59",
+      "Bytes": 631,
+      "OriginalPath": "artifacts/library441-driver-package1/completion.json"
+    },
+    {
+      "Path": "library441-visibility-managed1/observations/completion.json",
+      "Sha256": "10D443D00AAD328F903C5D8CAE52CCA43C72420998A0B1D64ACF2DAEB5F6407B",
+      "Bytes": 2212,
+      "OriginalPath": "artifacts/library441-visibility-managed1/observations/completion.json"
+    },
+    {
+      "Path": "library441-visibility-managed1/observations/visibility-all.json",
+      "Sha256": "E2C905B54D93470514F9D3C42E488F14540EF16EAEE1A76E529DD77476B32828",
+      "Bytes": 114244,
+      "OriginalPath": "artifacts/library441-visibility-managed1/observations/visibility-all.json"
+    },
+    {
+      "Path": "library441-visibility-managed1/observations/ddll-init-prefix435/comparison.json",
+      "Sha256": "035A31C19AD32723FB5AD1701F99543AF2BF241633C327B4A6D7A0F510B589A1",
+      "Bytes": 620,
+      "OriginalPath": "artifacts/library441-visibility-managed1/observations/ddll-init-prefix435/comparison.json"
+    },
+    {
+      "Path": "library441-visibility-managed1/observations/visibility438-CancelReader/visibility.json",
+      "Sha256": "B9C221607FC940069CDF4DCF33CD001E4FB7506E4305EFA8D6D2CDE7787F2207",
+      "Bytes": 2324,
+      "OriginalPath": "artifacts/library441-visibility-managed1/observations/visibility438-CancelReader/visibility.json"
+    },
+    {
+      "Path": "library441-visibility-managed1/observations/visibility438-CrossImageRemove/visibility.json",
+      "Sha256": "BE69BE732DABADCF82E3365DE31788DA1DC15CE0FACFDC4ADC6CDBB0A5CD0FF8",
+      "Bytes": 10471,
+      "OriginalPath": "artifacts/library441-visibility-managed1/observations/visibility438-CrossImageRemove/visibility.json"
+    },
+    {
+      "Path": "library441-visibility-managed1/observations/visibility438-DynamicInitializer/visibility.json",
+      "Sha256": "B9E7383972DBCD1A781B087388BA1F13A0F546F47707EFDD699CA958B0160348",
+      "Bytes": 369,
+      "OriginalPath": "artifacts/library441-visibility-managed1/observations/visibility438-DynamicInitializer/visibility.json"
+    },
+    {
+      "Path": "library441-visibility-managed1/observations/visibility438-Failed/visibility.json",
+      "Sha256": "0AAD630606F0A9B3B4DC3430D768C8C2B7691EFEB406EA3B44258C3C030FA8EE",
+      "Bytes": 2490,
+      "OriginalPath": "artifacts/library441-visibility-managed1/observations/visibility438-Failed/visibility.json"
+    },
+    {
+      "Path": "library441-visibility-managed1/observations/visibility438-Healthy/visibility.json",
+      "Sha256": "B160CCE96CB132DCC3887CDAA5D62133B04E0B188658B7272C03B9DC477A5967",
+      "Bytes": 6688,
+      "OriginalPath": "artifacts/library441-visibility-managed1/observations/visibility438-Healthy/visibility.json"
+    },
+    {
+      "Path": "library441-visibility-managed1/observations/visibility438-PhysicalChildFailure/visibility.json",
+      "Sha256": "BA8E0D404D97BDD7712FEB3D7B278E5C3A86CA75B49EE96F8DB9564851F35F16",
+      "Bytes": 81549,
+      "OriginalPath": "artifacts/library441-visibility-managed1/observations/visibility438-PhysicalChildFailure/visibility.json"
+    },
+    {
+      "Path": "library441-visibility-managed1/observations/visibility438-RuntimeClose/visibility.json",
+      "Sha256": "4E1533190079451EF24FFD2E1933493DC6CC3F94384EDAC1A0BACDAE0CBA212D",
+      "Bytes": 5378,
+      "OriginalPath": "artifacts/library441-visibility-managed1/observations/visibility438-RuntimeClose/visibility.json"
+    },
+    {
+      "Path": "library441-visibility-managed1/observations/visibility438-two-callbacks/two-callbacks.json",
+      "Sha256": "91B2A23170A919F7B6AA3CA548F908DABFAA8EDAE80BFF5966E2578E01D960A7",
+      "Bytes": 683,
+      "OriginalPath": "artifacts/library441-visibility-managed1/observations/visibility438-two-callbacks/two-callbacks.json"
+    },
+    {
+      "Path": "library441-visibility-managed2/observations/completion.json",
+      "Sha256": "B714B7A13B67EBA5DFA5C61AAF5B79EFBD3D5D3C13A8709A602F18069FD2D270",
+      "Bytes": 100349,
+      "OriginalPath": "artifacts/library441-visibility-managed2/observations/completion.json"
+    },
+    {
+      "Path": "library441-visibility-managed2/observations/visibility-all.json",
+      "Sha256": "B3E4F34FE1D44C627B5FBBEBDC25F413791DCC496447980C427B64CFC5139962",
+      "Bytes": 97047,
+      "OriginalPath": "artifacts/library441-visibility-managed2/observations/visibility-all.json"
+    },
+    {
+      "Path": "library441-visibility-managed2/observations/ddll-init-prefix435/comparison.json",
+      "Sha256": "035A31C19AD32723FB5AD1701F99543AF2BF241633C327B4A6D7A0F510B589A1",
+      "Bytes": 620,
+      "OriginalPath": "artifacts/library441-visibility-managed2/observations/ddll-init-prefix435/comparison.json"
+    },
+    {
+      "Path": "library441-visibility-managed2/observations/visibility438-CancelReader/visibility.json",
+      "Sha256": "DC00BB1C320D71DDD7E055D628C681253B77BEAE42B7224858CB97E119395B7A",
+      "Bytes": 2324,
+      "OriginalPath": "artifacts/library441-visibility-managed2/observations/visibility438-CancelReader/visibility.json"
+    },
+    {
+      "Path": "library441-visibility-managed2/observations/visibility438-CrossImageRemove/visibility.json",
+      "Sha256": "BE69BE732DABADCF82E3365DE31788DA1DC15CE0FACFDC4ADC6CDBB0A5CD0FF8",
+      "Bytes": 10471,
+      "OriginalPath": "artifacts/library441-visibility-managed2/observations/visibility438-CrossImageRemove/visibility.json"
+    },
+    {
+      "Path": "library441-visibility-managed2/observations/visibility438-DynamicInitializer/visibility.json",
+      "Sha256": "B9E7383972DBCD1A781B087388BA1F13A0F546F47707EFDD699CA958B0160348",
+      "Bytes": 369,
+      "OriginalPath": "artifacts/library441-visibility-managed2/observations/visibility438-DynamicInitializer/visibility.json"
+    },
+    {
+      "Path": "library441-visibility-managed2/observations/visibility438-Failed/visibility.json",
+      "Sha256": "0AAD630606F0A9B3B4DC3430D768C8C2B7691EFEB406EA3B44258C3C030FA8EE",
+      "Bytes": 2490,
+      "OriginalPath": "artifacts/library441-visibility-managed2/observations/visibility438-Failed/visibility.json"
+    },
+    {
+      "Path": "library441-visibility-managed2/observations/visibility438-Healthy/visibility.json",
+      "Sha256": "B160CCE96CB132DCC3887CDAA5D62133B04E0B188658B7272C03B9DC477A5967",
+      "Bytes": 6688,
+      "OriginalPath": "artifacts/library441-visibility-managed2/observations/visibility438-Healthy/visibility.json"
+    },
+    {
+      "Path": "library441-visibility-managed2/observations/visibility438-PhysicalChildFailure/visibility.json",
+      "Sha256": "FE08AC66EF5588998BF1E86DA1F6B9882E65779FA6358EC7189871C31E09F930",
+      "Bytes": 55719,
+      "OriginalPath": "artifacts/library441-visibility-managed2/observations/visibility438-PhysicalChildFailure/visibility.json"
+    },
+    {
+      "Path": "library441-visibility-managed2/observations/visibility438-RuntimeClose/visibility.json",
+      "Sha256": "888339DA718BB874C9296A81C94B6C084496698E174D77D08131F7FE2B0C8D25",
+      "Bytes": 5378,
+      "OriginalPath": "artifacts/library441-visibility-managed2/observations/visibility438-RuntimeClose/visibility.json"
+    },
+    {
+      "Path": "library441-visibility-managed2/observations/visibility438-two-callbacks/two-callbacks.json",
+      "Sha256": "3C7EAEA965019C07321532529616F2B66BBD5801A774B51D318D9957C040A535",
+      "Bytes": 8698,
+      "OriginalPath": "artifacts/library441-visibility-managed2/observations/visibility438-two-callbacks/two-callbacks.json"
+    },
+    {
+      "Path": "original/values.etf",
+      "Sha256": "BBA9719DDD856A93B2D071D663002D9CCAA3A562986A718192A276845D164B78",
+      "Bytes": 931,
+      "OriginalPath": "artifacts/library441-visibility-original2/values.etf"
+    },
+    {
+      "Path": "managed/actual-values.etf",
+      "Sha256": "BBA9719DDD856A93B2D071D663002D9CCAA3A562986A718192A276845D164B78",
+      "Bytes": 931,
+      "OriginalPath": "artifacts/library441-visibility-managed2/observations/ddll-init-prefix435/actual-values.etf"
+    },
+    {
+      "Path": "managed/expected-values.etf",
+      "Sha256": "BBA9719DDD856A93B2D071D663002D9CCAA3A562986A718192A276845D164B78",
+      "Bytes": 931,
+      "OriginalPath": "artifacts/library441-visibility-managed2/observations/ddll-init-prefix435/expected-values.etf"
+    },
+    {
+      "Path": "original/stacks.etf",
+      "Sha256": "12D470A1BB31661E7B713EFBFFC7F647E948942EFFD4CD4523DBCAB0EDCCD23A",
+      "Bytes": 3720,
+      "OriginalPath": "artifacts/library441-visibility-original2/stacks.etf"
+    },
+    {
+      "Path": "managed/actual-stacks.etf",
+      "Sha256": "12D470A1BB31661E7B713EFBFFC7F647E948942EFFD4CD4523DBCAB0EDCCD23A",
+      "Bytes": 3720,
+      "OriginalPath": "artifacts/library441-visibility-managed2/observations/ddll-init-prefix435/actual-stacks.etf"
+    },
+    {
+      "Path": "managed/expected-stacks.etf",
+      "Sha256": "12D470A1BB31661E7B713EFBFFC7F647E948942EFFD4CD4523DBCAB0EDCCD23A",
+      "Bytes": 3720,
+      "OriginalPath": "artifacts/library441-visibility-managed2/observations/ddll-init-prefix435/expected-stacks.etf"
+    },
+    {
+      "Path": "receipts/library441-visibility-managed1/completion.json",
+      "Sha256": "B4C96FB1989384EC9AB8BEA8ACD8D579E0394D870C9ED98626D8C0B0298582DE",
+      "Bytes": 983,
+      "OriginalPath": "artifacts/library441-visibility-managed1/completion.json"
+    },
+    {
+      "Path": "receipts/artifacts/library441-source-bindings.json",
+      "Sha256": "40D75CC2938E2CA14971C8CA57F916BAE90BEC44EEB364FADCCBBCC8D78BEC0D",
+      "Bytes": 5049,
+      "OriginalPath": "artifacts/library441-source-bindings.json"
+    },
+    {
+      "Path": "receipts/library441-three-lane-input1/completion.json",
+      "Sha256": "FE0B68EE787221204DA265ACC0D6C4B257A400FB7B1460AF165778917C991810",
+      "Bytes": 376,
+      "OriginalPath": "artifacts/library441-three-lane-input1/completion.json"
+    },
+    {
+      "Path": "receipts/library441-style1/style.exit.json",
+      "Sha256": "B5AD8EC7287B11BB72DB85ED5449B7FBB4EBF5B8D1163DD765F540D3649D3DA9",
+      "Bytes": 555,
+      "OriginalPath": "artifacts/library441-style1/style.exit.json"
+    },
+    {
+      "Path": "receipts/library441-style1/style.stdout.log",
+      "Sha256": "BB08B466C0BFDFB9FC2C1B90B9C6457E06E38B3336410FAE7964D8D1C4F32B1F",
+      "Bytes": 40,
+      "OriginalPath": "artifacts/library441-style1/style.stdout.log"
+    },
+    {
+      "Path": "receipts/library441-ddll-build1/execution.exit.json",
+      "Sha256": "FD5753DA53396E8F524EA9F639838E618712D6AD634DFC7AD4E303BB18F32186",
+      "Bytes": 646,
+      "OriginalPath": "artifacts/binary-integration369/library441-ddll-build1/execution.exit.json"
+    },
+    {
+      "Path": "receipts/library441-port-replay2/completion.json",
+      "Sha256": "7861CC4421DD048D6ADA677992615BFCA13D1560313431826B0DA7F4A47229CA",
+      "Bytes": 597,
+      "OriginalPath": "artifacts/library441-port-replay2/completion.json"
+    },
+    {
+      "Path": "receipts/library441-port-barrier1/completion.json",
+      "Sha256": "46E29069238B011511EC4947CC94FDAAF2468608FA2463B95D3B2CB5F5AA99F4",
+      "Bytes": 1096,
+      "OriginalPath": "artifacts/library441-port-barrier1/completion.json"
+    },
+    {
+      "Path": "acceptance-proposal1/baseline-bindings.json",
+      "Sha256": "7306934AC77CF0F47182C36553ABB79A55424D0C7B6C0C43D15FBBC92B85B41D",
+      "Bytes": 1334,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal1/baseline-bindings.json"
+    },
+    {
+      "Path": "acceptance-proposal1/compile-native-root.py",
+      "Sha256": "8CECCF911F17070B7F102CD984612AF1795346EB92EE4FB32BFEFAB7A1FA800B",
+      "Bytes": 4441,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal1/compile-native-root.py"
+    },
+    {
+      "Path": "acceptance-proposal1/freeze.json",
+      "Sha256": "DD39F98867E8389A49F5EFF93D4ACF4205196BD71B4D30A45E50471C1FE471AF",
+      "Bytes": 426,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal1/freeze.json"
+    },
+    {
+      "Path": "acceptance-proposal1/harness-helper-bindings.json",
+      "Sha256": "83C4ED6B928D384B513077E1B0FE2D7B2B13AB6C8AA721119F8724FF925E7D9C",
+      "Bytes": 1314,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal1/harness-helper-bindings.json"
+    },
+    {
+      "Path": "acceptance-proposal1/manifest.json",
+      "Sha256": "C11E9F62613E925BDFBC833AEE19C5DB14F905C8DB4760C5D621A3488A6E3318",
+      "Bytes": 3071,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal1/manifest.json"
+    },
+    {
+      "Path": "acceptance-proposal1/passive-preparation.json",
+      "Sha256": "9F7D79A68FCFA156B24356E031359887968D2D8E318710326C988ED7B299E45B",
+      "Bytes": 419,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal1/passive-preparation.json"
+    },
+    {
+      "Path": "acceptance-proposal1/README.md",
+      "Sha256": "C68B8010F750933B896BC11B791F49755377D5C2B864EBF1BAD213FD2EC371E9",
+      "Bytes": 7923,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal1/README.md"
+    },
+    {
+      "Path": "acceptance-proposal1/run-managed-root.py",
+      "Sha256": "26331861AB500FD373A1677DF2762D610C047BC1E34322A2694C417F23225E76",
+      "Bytes": 6990,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal1/run-managed-root.py"
+    },
+    {
+      "Path": "acceptance-proposal1/run-original-baseline-root.py",
+      "Sha256": "4397BC7532BC58F6E5C085E6B6AC54E58C9412130F48CAACC9B2B5AEAA7438E6",
+      "Bytes": 5584,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal1/run-original-baseline-root.py"
+    },
+    {
+      "Path": "acceptance-proposal1/harness/DdllInitPrefix435Checks.cs",
+      "Sha256": "8FD8143BE641246FC2B9A92852313C351B89058775D739635118958EF6006E2B",
+      "Bytes": 4528,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal1/harness/DdllInitPrefix435Checks.cs"
+    },
+    {
+      "Path": "acceptance-proposal1/harness/DdllInitPrefix435Names.cs",
+      "Sha256": "580462C470BF35B96352EFEAB47342BA12599B3F454CEF0BBE458530A6E3B5FC",
+      "Bytes": 465,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal1/harness/DdllInitPrefix435Names.cs"
+    },
+    {
+      "Path": "acceptance-proposal1/harness/DdllVisibility438Checks.cs",
+      "Sha256": "D56C772AD6CE82090B14055829EAC059E7E05A01DC030BE12B85F3E0C24DD27B",
+      "Bytes": 17238,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal1/harness/DdllVisibility438Checks.cs"
+    },
+    {
+      "Path": "acceptance-proposal1/harness/DdllVisibility438Events.cs",
+      "Sha256": "E42E3DEE267B30BA27CEAE70B0A7D398AAD2834E439F49ED640F12E0811B075C",
+      "Bytes": 2566,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal1/harness/DdllVisibility438Events.cs"
+    },
+    {
+      "Path": "acceptance-proposal1/harness/DdllVisibility438ForeignSession.cs",
+      "Sha256": "039A2DC0235CBB6FA664CACA54DEF1BB1F952A8E64CAC66AB3DCD23B260EBC3A",
+      "Bytes": 2949,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal1/harness/DdllVisibility438ForeignSession.cs"
+    },
+    {
+      "Path": "acceptance-proposal1/harness/DdllVisibility438Mode.cs",
+      "Sha256": "BD6A5071F718E62FEAC73182613AEBBAECCA84D2C6BA45FD22783C978F0F1511",
+      "Bytes": 191,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal1/harness/DdllVisibility438Mode.cs"
+    },
+    {
+      "Path": "acceptance-proposal1/harness/DdllVisibility438Names.cs",
+      "Sha256": "400E4CA14321B1A0B97F1DED62C26DF925741C8DF9BDB21B4E2F78502F1797F7",
+      "Bytes": 1523,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal1/harness/DdllVisibility438Names.cs"
+    },
+    {
+      "Path": "acceptance-proposal1/harness/DdllVisibility438Program.cs",
+      "Sha256": "8D3D99D0F8119ECBFE6A570F6715456094B9BBDB3C2198DA17F4E36871ED3BBE",
+      "Bytes": 998,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal1/harness/DdllVisibility438Program.cs"
+    },
+    {
+      "Path": "acceptance-proposal1/harness/DdllVisibility438TwoCallbacks.cs",
+      "Sha256": "48DA8C0D545D152356D8BFCA9510C10B90E3984DC6A50B5D1EB2888A1C1AFF52",
+      "Bytes": 5838,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal1/harness/DdllVisibility438TwoCallbacks.cs"
+    },
+    {
+      "Path": "acceptance-proposal1/native/ddll_init_prefix435.c",
+      "Sha256": "A52AE0FF818E201DAF92DBE287E59558CA917253C03F1ABA59210F1337B5FB52",
+      "Bytes": 4685,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal1/native/ddll_init_prefix435.c"
+    },
+    {
+      "Path": "acceptance-proposal1/native/ddll_visibility438_names.h",
+      "Sha256": "56D15E2CCD968FAEA206E859A41ED93445A09E30103253E643375FDAF0D63858",
+      "Bytes": 768,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal1/native/ddll_visibility438_names.h"
+    },
+    {
+      "Path": "acceptance-proposal2/baseline-bindings.json",
+      "Sha256": "A31FDF561CA891A15EE58717C23FB6D8C0D210F4F752FE8834EE8FA9DDEE1089",
+      "Bytes": 1480,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal2/baseline-bindings.json"
+    },
+    {
+      "Path": "acceptance-proposal2/compile-native-root.py",
+      "Sha256": "8CECCF911F17070B7F102CD984612AF1795346EB92EE4FB32BFEFAB7A1FA800B",
+      "Bytes": 4441,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal2/compile-native-root.py"
+    },
+    {
+      "Path": "acceptance-proposal2/freeze.json",
+      "Sha256": "25826E920F40418C8002B217D72189ACDC79EFF0EC22FBF2CAA80F96CE5F3A84",
+      "Bytes": 356,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal2/freeze.json"
+    },
+    {
+      "Path": "acceptance-proposal2/harness-helper-bindings.json",
+      "Sha256": "83C4ED6B928D384B513077E1B0FE2D7B2B13AB6C8AA721119F8724FF925E7D9C",
+      "Bytes": 1314,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal2/harness-helper-bindings.json"
+    },
+    {
+      "Path": "acceptance-proposal2/manifest.json",
+      "Sha256": "850DD35567334ED85E8A6D67F286D792D6B99463ABAB525B95DEA8AE5BA7CD0C",
+      "Bytes": 3231,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal2/manifest.json"
+    },
+    {
+      "Path": "acceptance-proposal2/passive-preparation.json",
+      "Sha256": "CF816E3DCC42483F43FC0968AA533D5ED917EF1D6E20E3DA1115AA44ABB6F736",
+      "Bytes": 262,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal2/passive-preparation.json"
+    },
+    {
+      "Path": "acceptance-proposal2/README.md",
+      "Sha256": "591025D08FBAA78A06F9AD5B723C331B3810E878EFE1069F63F756B09598A434",
+      "Bytes": 10156,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal2/README.md"
+    },
+    {
+      "Path": "acceptance-proposal2/run-managed-root.py",
+      "Sha256": "26331861AB500FD373A1677DF2762D610C047BC1E34322A2694C417F23225E76",
+      "Bytes": 6990,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal2/run-managed-root.py"
+    },
+    {
+      "Path": "acceptance-proposal2/run-original-baseline-root.py",
+      "Sha256": "4397BC7532BC58F6E5C085E6B6AC54E58C9412130F48CAACC9B2B5AEAA7438E6",
+      "Bytes": 5584,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal2/run-original-baseline-root.py"
+    },
+    {
+      "Path": "acceptance-proposal2/successor-delta.json",
+      "Sha256": "2F2A70DB97E9882F31263CD6CF54414074CCB1016AB17A22654F9BC026B0EDBA",
+      "Bytes": 618,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal2/successor-delta.json"
+    },
+    {
+      "Path": "acceptance-proposal2/harness/DdllInitPrefix435Checks.cs",
+      "Sha256": "8FD8143BE641246FC2B9A92852313C351B89058775D739635118958EF6006E2B",
+      "Bytes": 4528,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal2/harness/DdllInitPrefix435Checks.cs"
+    },
+    {
+      "Path": "acceptance-proposal2/harness/DdllInitPrefix435Names.cs",
+      "Sha256": "580462C470BF35B96352EFEAB47342BA12599B3F454CEF0BBE458530A6E3B5FC",
+      "Bytes": 465,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal2/harness/DdllInitPrefix435Names.cs"
+    },
+    {
+      "Path": "acceptance-proposal2/harness/DdllVisibility438Checks.cs",
+      "Sha256": "D56C772AD6CE82090B14055829EAC059E7E05A01DC030BE12B85F3E0C24DD27B",
+      "Bytes": 17238,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal2/harness/DdllVisibility438Checks.cs"
+    },
+    {
+      "Path": "acceptance-proposal2/harness/DdllVisibility438Events.cs",
+      "Sha256": "E42E3DEE267B30BA27CEAE70B0A7D398AAD2834E439F49ED640F12E0811B075C",
+      "Bytes": 2566,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal2/harness/DdllVisibility438Events.cs"
+    },
+    {
+      "Path": "acceptance-proposal2/harness/DdllVisibility438ForeignSession.cs",
+      "Sha256": "039A2DC0235CBB6FA664CACA54DEF1BB1F952A8E64CAC66AB3DCD23B260EBC3A",
+      "Bytes": 2949,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal2/harness/DdllVisibility438ForeignSession.cs"
+    },
+    {
+      "Path": "acceptance-proposal2/harness/DdllVisibility438Mode.cs",
+      "Sha256": "BD6A5071F718E62FEAC73182613AEBBAECCA84D2C6BA45FD22783C978F0F1511",
+      "Bytes": 191,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal2/harness/DdllVisibility438Mode.cs"
+    },
+    {
+      "Path": "acceptance-proposal2/harness/DdllVisibility438Names.cs",
+      "Sha256": "3445C2043425C2107F3004768A461A2A7021E614AB34EA34804176670BF219D1",
+      "Bytes": 1618,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal2/harness/DdllVisibility438Names.cs"
+    },
+    {
+      "Path": "acceptance-proposal2/harness/DdllVisibility438Program.cs",
+      "Sha256": "8D3D99D0F8119ECBFE6A570F6715456094B9BBDB3C2198DA17F4E36871ED3BBE",
+      "Bytes": 998,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal2/harness/DdllVisibility438Program.cs"
+    },
+    {
+      "Path": "acceptance-proposal2/harness/DdllVisibility438TwoCallbacks.cs",
+      "Sha256": "3D47FB993AACD745E6E7401BBFB592F163A3774764F88E8E5CD3FD73477FB3BC",
+      "Bytes": 7169,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal2/harness/DdllVisibility438TwoCallbacks.cs"
+    },
+    {
+      "Path": "acceptance-proposal2/native/ddll_init_prefix435.c",
+      "Sha256": "17EDCC25DFC5D6F4C72442A7A4BADF05F49A2FA67AA51FE7669E74A19D5DCF5E",
+      "Bytes": 5072,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal2/native/ddll_init_prefix435.c"
+    },
+    {
+      "Path": "acceptance-proposal2/native/ddll_visibility438_names.h",
+      "Sha256": "F5F1D8DEA05F4F5BC50335DC9AEE20B056D0C824DC5D9D9D3018268251273891",
+      "Bytes": 840,
+      "OriginalPath": "artifacts/library438-ddll-visibility-acceptance-proposal2/native/ddll_visibility438_names.h"
+    }
+  ]
+}

@@ -25,6 +25,8 @@ internal sealed class DriverParentPeerTransport422
         this.dispatcher = dispatcher;
     }
 
+    internal string Session438 => peer.Session438;
+
     internal void BindPortDispatcher(Func<ErlDriverPortIdentity420, Func<Task>, Task> value)
     {
         if (Interlocked.CompareExchange(ref portDispatcher, value, null) is not null)

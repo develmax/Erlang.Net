@@ -2,7 +2,7 @@ using System.Runtime.InteropServices;
 
 namespace Erlang;
 
-internal sealed class ErlDriverLinkedServices420
+internal sealed partial class ErlDriverLinkedServices420
 {
     private readonly object gate = new();
     private readonly LinkedList<ErlDriverLinkedRow420> entries = new();
@@ -60,6 +60,7 @@ internal sealed class ErlDriverLinkedServices420
             var entry = new ErlDriverEntry420(pointer, layout);
             if (!entry.HasValidVersion) throw new InvalidDataException(ErlDriverHostNames420.InvalidFrame);
             byte[] name = ReadName(entry.Name);
+            using var initialization435 = BeginInitialization435();
             var lease = image.AcquireWorker();
             ErlDriverLinkedRow420 row;
             LinkedListNode<ErlDriverLinkedRow420> node;
@@ -82,7 +83,7 @@ internal sealed class ErlDriverLinkedServices420
                 bool parentRegistered = false;
                 try
                 {
-                    row.Identity = host.Register(new(owner, name, unchecked((uint)entry.Flags)));
+                    row.Identity = host.Register(new(owner, name, unchecked((uint)entry.Flags)), CurrentScope438());
                     parentRegistered = row.Identity != 0;
                     if (!parentRegistered) throw new InvalidDataException(ErlDriverHostNames420.InvalidFrame);
                     entries.AddFirst(node);
@@ -93,7 +94,12 @@ internal sealed class ErlDriverLinkedServices420
                 {
                     failures.Add(error);
                 }
-                if (keep) return;
+                if (keep)
+                {
+                    initialization435.Commit();
+
+                    return;
+                }
                 // Native init errors are intentionally ignored by add, but
                 // each genuine owned descriptor/root is still rolled back.
                 if (node.List is not null) entries.Remove(node);
@@ -101,7 +107,7 @@ internal sealed class ErlDriverLinkedServices420
                 {
                     try
                     {
-                        host.Remove(row.Identity);
+                        host.Remove(row.Identity, CurrentScope438());
                     }
                     catch (Exception error)
                     {
@@ -116,11 +122,17 @@ internal sealed class ErlDriverLinkedServices420
                 {
                     failures.Add(error);
                 }
-                if (failures.Count != 0) throw new AggregateException(failures);
+                if (failures.Count != 0)
+                {
+                    FailLinkedVisibility438();
+                    throw new AggregateException(failures);
+                }
             }
         }
         catch (Exception error)
         {
+            lock (gate)
+                if (visibilityScope438 is not null) FailLinkedVisibility438();
             fault.Record(error);
         }
     }
@@ -135,7 +147,7 @@ internal sealed class ErlDriverLinkedServices420
                 while (node is not null && node.Value.Entry.EntryPointer != pointer) node = node.Next;
                 if (node is null) return images.IsDynamicEntry(pointer) ? -1 : 0;
                 var row = node.Value;
-                host.Remove(row.Identity);
+                host.Remove(row.Identity, CurrentScope438());
                 entries.Remove(node);
                 row.Lease.Dispose();
 
@@ -144,6 +156,8 @@ internal sealed class ErlDriverLinkedServices420
         }
         catch (Exception error)
         {
+            lock (gate)
+                if (visibilityScope438 is not null) FailLinkedVisibility438();
             fault.Record(error);
 
             return -1;

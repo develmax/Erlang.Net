@@ -33,7 +33,7 @@ internal sealed partial class RuntimeDdllParent422
             DdllParentRow422[]? rows = null;
             lock (gate)
             {
-                pending = mutation?.Task;
+                pending = PendingMutation438;
                 if (pending is null)
                 {
                     rows = drivers.Where(row => !row.Linked).ToArray();
@@ -104,7 +104,7 @@ internal sealed partial class RuntimeDdllParent422
                 TaskCompletionSource? transaction = null;
                 lock (gate)
                 {
-                    pending = mutation?.Task;
+                    pending = PendingMutation438;
                     if (pending is null)
                     {
                         while (retiring.TryDequeue(out var row))

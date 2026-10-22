@@ -93,17 +93,41 @@ internal sealed class ErlDriverHostParentProxy420 : IErlDriverPortHost420, IErlD
         => Request(ErlDriverHostOperation420.DemonitorProcess, port,
             data: ErlDriverPrimitiveWire420.Encode(attempt)).NativeResult;
 
-    public ulong Register(ErlDriverLinkedEntryRequest420 entry)
+    public string Session438 => peer.Session438;
+
+    public ulong Register(ErlDriverLinkedEntryRequest420 entry, ErlDriverLinkedScope438 scope)
     {
-        var result = Request(ErlDriverHostOperation420.RegisterLinkedEntry, new(entry.OwnerImage, 0),
-            data: ErlDriverPrimitiveWire420.Encode(entry));
+        var result = Request(
+            ErlDriverHostOperation420.RegisterLinkedEntry,
+            new(entry.OwnerImage, 0),
+            data: ErlDriverPrimitiveWire420.Encode(new ErlDriverLinkedRegistration438(entry, scope))
+        );
         RequireSuccess(result);
 
         return ErlDriverPrimitiveWire420.Decode<ulong>(result.Data);
     }
 
-    public void Remove(ulong identity)
-        => RequireSuccess(Request(ErlDriverHostOperation420.RemoveLinkedEntry, new(identity, 0)));
+    public void Remove(ulong identity, ErlDriverLinkedScope438 scope)
+        => RequireSuccess(Request(ErlDriverHostOperation420.RemoveLinkedEntry, new(identity, 0),
+            data: ErlDriverPrimitiveWire420.Encode(scope)));
+
+    public ErlDriverLinkedScope438 BeginInitialization438(ulong ownerImage)
+    {
+        var result = Request(ErlDriverHostOperation420.BeginLinkedInitialization438, new(ownerImage, 0));
+        RequireSuccess(result);
+        var scope = ErlDriverPrimitiveWire420.Decode<ErlDriverLinkedScope438>(result.Data);
+        if (!StringComparer.Ordinal.Equals(scope.Session, peer.Session438) || scope.OwnerImage != ownerImage || scope.Token == 0)
+            throw new InvalidDataException(ErlDriverHostNames420.InvalidFrame);
+
+        return scope;
+    }
+
+    public void EndInitialization438(ErlDriverLinkedScope438 scope, bool cleanupSucceeded)
+        => RequireSuccess(Request(
+            ErlDriverHostOperation420.EndLinkedInitialization438,
+            new(scope.OwnerImage, 0),
+            data: ErlDriverPrimitiveWire420.Encode(new ErlDriverLinkedEnd438(scope, cleanupSucceeded))
+        ));
 
     private static void RequireSuccess(ErlDriverHostFrame420 response)
     {

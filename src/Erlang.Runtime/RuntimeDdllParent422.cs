@@ -53,7 +53,7 @@ internal sealed partial class RuntimeDdllParent422
 
     private TaskCompletionSource BeginMutation()
     {
-        if (mutation is not null) throw new InvalidOperationException(DriverParentWireNames422.Invalid);
+        if (PendingMutation438 is not null) throw new InvalidOperationException(DriverParentWireNames422.Invalid);
 
         return mutation = new(TaskCreationOptions.RunContinuationsAsynchronously);
     }
@@ -74,7 +74,7 @@ internal sealed partial class RuntimeDdllParent422
             {
                 runtime.RequireDriverParentActor422(context);
                 ObjectDisposedException.ThrowIf(closing, this);
-                pending = mutation?.Task;
+                pending = PendingMutation438;
                 if (pending is null) return operation();
             }
             await pending.WaitAsync(context.Cancellation).ConfigureAwait(false);
@@ -113,14 +113,16 @@ internal sealed partial class RuntimeDdllParent422
         wake.Release();
     }
 
-    internal ulong RegisterLinked(ErlDriverLinkedEntryRequest420 request)
+    internal ulong RegisterLinked(ErlDriverLinkedEntryRequest420 request, ErlDriverLinkedScope438 scope)
     {
         lock (gate)
         {
             // Guest admission is closed independently. Authenticated native
             // finish/TLS cleanup may still add/remove a transient linked entry
             // while its exact image remains physically owned.
-            if (!identities.ContainsKey(request.OwnerImage))
+            RequireLinkedScope438(scope, requireRoot: true);
+            if (request.OwnerImage != scope.OwnerImage
+                || !identities.TryGetValue(request.OwnerImage, out var owner) || owner.Linked)
                 throw new InvalidDataException(DriverParentWireNames422.Invalid);
             ErlDriverName420 name = ErlDriverName420.Parse(new BitString(request.Name), CancellationToken.None);
             ulong identity = checked(nextIdentity + 1);
@@ -149,10 +151,11 @@ internal sealed partial class RuntimeDdllParent422
         }
     }
 
-    internal int RemoveLinked(ulong identity)
+    internal int RemoveLinked(ulong identity, ErlDriverLinkedScope438 scope)
     {
         lock (gate)
         {
+            RequireLinkedScope438(scope, requireRoot: false);
             if (!identities.TryGetValue(identity, out var row)) return 0;
             if (!row.Linked) return -1;
             if (row.Ports.Count != 0) throw new InvalidDataException(DriverParentWireNames422.Invalid);

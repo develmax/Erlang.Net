@@ -16,7 +16,7 @@ internal sealed partial class RuntimeDdllParent422
             {
                 runtime.RequireDriverParentActor422(context);
                 ObjectDisposedException.ThrowIf(closing, this);
-                pending = mutation?.Task;
+                pending = PendingMutation438;
                 if (pending is null)
                 {
                     DdllParentRow422? row = Find(name);
@@ -77,7 +77,7 @@ internal sealed partial class RuntimeDdllParent422
             var killed = new List<DdllParentRow422>();
             lock (gate)
             {
-                pending = mutation?.Task;
+                pending = PendingMutation438;
                 if (pending is null)
                 {
                     foreach (var row in drivers)
@@ -141,7 +141,7 @@ internal sealed partial class RuntimeDdllParent422
         // Native port open invokes this under the shared runtime gate after the
         // stable-mutation wait and before child start; reference covers rollback.
         ObjectDisposedException.ThrowIf(closing, this);
-        if (mutation is not null) throw new InvalidOperationException(DriverParentWireNames422.Invalid);
+        if (PendingMutation438 is not null) throw new InvalidOperationException(DriverParentWireNames422.Invalid);
         var row = Find(name) ?? throw new ErlangException(ErlangErrorReasons.BadArgument);
         if (row.State is DdllParentStateKind422.ForceUnloading or DdllParentStateKind422.ForceReloading)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
