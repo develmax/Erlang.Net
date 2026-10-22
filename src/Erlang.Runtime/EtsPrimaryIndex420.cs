@@ -67,7 +67,7 @@ internal sealed class EtsPrimaryIndex420
         IEnumerable<RuntimeEtsObjectSlot> source,
         RuntimeEtsCoreOptions407 options,
         bool fixedTable,
-        Func<RuntimeEtsStoredObject, TupleTerm> read,
+        Func<RuntimeEtsStoredObject, Term> readKey,
         Func<Term, ulong> hash,
         CancellationToken cancellation
     )
@@ -76,7 +76,7 @@ internal sealed class EtsPrimaryIndex420
         foreach (var slot in source)
         {
             cancellation.ThrowIfCancellationRequested();
-            Term key = EtsCorePlanner407.Key(read(slot.Payload), options.KeyPosition);
+            Term key = readKey(slot.Payload);
             ulong code = options.Kind == EtsCoreTableKind407.OrderedSet ? 0 : hash(key);
             EtsKeyGroupBuilder420? selected = null;
             foreach (var candidate in builders) if ((options.Kind == EtsCoreTableKind407.OrderedSet || candidate.Hash == code) && EtsCorePlanner407.SameKey(candidate.Key, key, options.Kind))
@@ -97,7 +97,7 @@ internal sealed class EtsPrimaryIndex420
             foreach (var old in previous.Groups)
             {
                 cancellation.ThrowIfCancellationRequested();
-                Term oldKey = EtsCorePlanner407.Key(read(old.KeyPayload), options.KeyPosition);
+                Term oldKey = readKey(old.KeyPayload);
                 EtsKeyGroupBuilder420? next = null;
                 foreach (var candidate in builders) if (EtsCorePlanner407.SameKey(oldKey, candidate.Key, options.Kind))
                 {
@@ -157,7 +157,7 @@ internal sealed class EtsPrimaryIndex420
             }
         }
         EtsKeyGroup420[] ordered = options.Kind == EtsCoreTableKind407.OrderedSet ? all.OrderBy(
-            group => EtsCorePlanner407.Key(read(group.KeyPayload), options.KeyPosition),
+            group => readKey(group.KeyPayload),
             Comparer<Term>.Create((left, right) => TermOrder.Compare(left, right))
         ).ToArray() : Array.Empty<EtsKeyGroup420>();
         EtsKeyGroup420[][] directory = buckets.Select(bucket => bucket.ToArray()).ToArray();

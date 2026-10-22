@@ -199,11 +199,13 @@ internal sealed partial class RuntimeEtsFoundation
         RuntimeEtsRetirement? preparedRetirement = null;
         try
         {
-            foreach (var value in values) staged.Add(RuntimeEtsStoredObject.Capture(
+            foreach (var value in values) staged.Add(RuntimeEtsStoredObject.CaptureCompressed438(
                 accounting,
                 runtime,
                 value,
-                context.Cancellation
+                context.Cancellation,
+                compressed: metadata.Compressed,
+                keyPosition: metadata.KeyPosition
             ));
             lock (gate)
             {

@@ -19,9 +19,31 @@ internal sealed partial class RuntimeEtsStoredObject
         ProcessRuntime owner,
         TupleTerm value,
         CancellationToken cancellation
+    ) => CaptureCompressed438(
+        accounting,
+        owner,
+        value,
+        cancellation,
+        false,
+        1
+    );
+
+    internal static RuntimeEtsStoredObject CaptureCompressed438(
+        RuntimeEtsArrayAccounting accounting,
+        ProcessRuntime owner,
+        TupleTerm value,
+        CancellationToken cancellation,
+        bool compressed,
+        long keyPosition
     )
     {
-        var payload = RuntimeEtsStoredPayload.Capture(owner, value, cancellation);
+        var payload = RuntimeEtsStoredPayload.Capture(
+            owner,
+            value,
+            cancellation,
+            compressed,
+            keyPosition
+        );
         try
         {
             return new(accounting, payload);

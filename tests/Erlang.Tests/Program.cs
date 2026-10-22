@@ -165,6 +165,15 @@ tests.Add((Erlang.Tests.EtsConcurrencyOriginal411Names.Test, Erlang.Tests.EtsCon
 
 Test(Erlang.Tests.EtsConcurrency411Names.FlagsTest, Erlang.Tests.EtsConcurrency411Checks.Flags);
 Test(Erlang.Tests.EtsConcurrency411Names.InvalidTest, Erlang.Tests.EtsConcurrency411Checks.Invalid);
+Test(Erlang.Tests.EtsCompressed441Names.StorageTest, Erlang.Tests.EtsCompressed441Checks.Storage);
+Test(Erlang.Tests.EtsCompressed441Names.LeaseTest, Erlang.Tests.EtsCompressed441Checks.LeaseAndCancellation);
+Test(Erlang.Tests.EtsCompressed441Names.FunctionTest, Erlang.Tests.EtsCompressed441Checks.FunctionsAndCensus);
+Test(Erlang.Tests.EtsCompressed441Names.CollectionTest, Erlang.Tests.EtsCompressed441Checks.SourceRootsAndRelease);
+Test(Erlang.Tests.EtsCodecCancellation442Names.EncodeTest, Erlang.Tests.EtsCompressed441Checks.MidEncodeCancellation442);
+Test(Erlang.Tests.EtsCodecCancellation442Names.DecodeTest, Erlang.Tests.EtsCompressed441Checks.MidDecodeCancellation442);
+Test(Erlang.Tests.EtsCodecCancellation442Names.ForeignTest, Erlang.Tests.EtsCompressed441Checks.ForeignOwners442);
+Test(Erlang.Tests.EtsCompressedMutations442Names.Test, Erlang.Tests.EtsCompressedMutations442Checks.Run);
+Test(Erlang.Tests.PortPumpTeardown442Names.Test, Erlang.Tests.PortPumpTeardown442Checks.Run);
 Test(Erlang.Tests.EtsConcurrency411Names.ConcurrentTest, Erlang.Tests.EtsConcurrency411Checks.ConcurrentRoundTrip);
 tests.Add((Erlang.Tests.CodeServerInteractive410Names.EmptyTest, Erlang.Tests.CodeServerInteractive410Checks.Empty));
 tests.Add((Erlang.Tests.CodeServerInteractive410Names.AppTest, Erlang.Tests.CodeServerInteractive410Checks.App));
@@ -255,6 +264,7 @@ Test(Erlang.Tests.SpawnMonitor431Names.DemonitorTest, Erlang.Tests.SpawnMonitor4
 Test(Erlang.Tests.SpawnMonitor431Names.AbandonTest, Erlang.Tests.SpawnMonitor431Checks.Abandon);
 Test(Erlang.Tests.SpawnMonitorOriginal431Names.Test, Erlang.Tests.SpawnMonitorOriginal431Checks.Run);
 Test(Erlang.Tests.EtsCounterHintsOriginal436Names.Test, Erlang.Tests.EtsCounterHintsOriginal436Checks.Run);
+Test(Erlang.Tests.EtsCompressedOriginal442Names.Test, Erlang.Tests.EtsCompressedOriginal442Checks.Run);
 Test(Erlang.Tests.DebugUnique436HostNames.Isolation, Erlang.Tests.DebugUnique436HostChecks.Isolation);
 Test(Erlang.Tests.DebugUnique436HostNames.Parallel, Erlang.Tests.DebugUnique436HostChecks.Parallel);
 Test(Erlang.Tests.DistSpawnOriginal430Names.Test, Erlang.Tests.DistSpawnOriginal430Checks.Run);

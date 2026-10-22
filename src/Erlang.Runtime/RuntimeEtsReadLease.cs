@@ -1,6 +1,6 @@
 namespace Erlang;
 
-internal sealed class RuntimeEtsReadLease : IDisposable
+internal sealed partial class RuntimeEtsReadLease : IDisposable
 {
     private readonly object gate = new();
     private RuntimeEtsStoredObject? owner;

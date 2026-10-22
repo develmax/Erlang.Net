@@ -1,0 +1,11 @@
+{
+  "Path": "src/Erlang.Runtime/RuntimePorts.cs",
+  "Before": "2098CA048564469693693732CE82008838EF109B537E36F7ED5BEC1509EDA25D",
+  "After": "D8ACE5CE147342B6F4B0DC934DA782793ECFFE383BE4B95E8526134E9CB8B70C",
+  "SourceGuards": 1618,
+  "ApiEntries": 708,
+  "FullContracts": 118,
+  "Review": "Only real NotSupportedException after Closed and Stop cancellation is acknowledged; genuine open faults are unchanged",
+  "ValidRed": "library442-port-red4",
+  "Green": "library442-ets-port-focus7"
+}

@@ -1,0 +1,169 @@
+# Unclosed default contracts — volume2
+
+- `erlang:make_tuple/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:map_get/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:map_size/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:match_spec_test/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:max/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:md5/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:md5_final/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:md5_init/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:md5_update/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:memory/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:memory/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:min/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:module_loaded/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:monitor/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:monitor/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:monitor_node/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:monitor_node/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:monotonic_time/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:monotonic_time/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:nif_error/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:nif_error/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:node/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:nodes/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:nodes/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:nodes/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:not/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:now/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:open_port/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:or/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:phash/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:phash2/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:phash2/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:pid_to_list/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:port_call/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:port_call/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:port_close/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:port_command/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:port_command/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:port_connect/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:port_control/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:port_get_data/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:port_info/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:port_info/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:port_set_data/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:port_to_list/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:ports/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:posixtime_to_universaltime/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:pre_loaded/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:prepare_loading/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:process_display/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:process_flag/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:process_flag/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:process_info/1` — **Known differences**. Logical default process information is implemented, but the default list omits pinned OTP total_heap_size, heap_size, stack_size and garbage_collection. This is a known observable contract difference, not merely missing verification.
+- `erlang:process_info/2` — **Known differences**. Supported logical information keys retain their existing query behavior. Four valid OTP resource keys (total_heap_size, heap_size, stack_size, garbage_collection) currently raise badarg, which is a known contract difference.
+- `erlang:processes/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:processes_iterator/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:processes_next/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:purge_module/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:put/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:raise/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:read_timer/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:read_timer/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:ref_to_list/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:register/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:registered/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:rem/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:resume_process/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:round/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:send/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:send/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:send_after/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:send_after/4` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:send_nosuspend/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:send_nosuspend/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:seq_trace/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:seq_trace_info/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:seq_trace_print/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:seq_trace_print/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:set_cookie/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:set_cookie/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:set_cpu_topology/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:setelement/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:setnode/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:setnode/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:size/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:spawn/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:spawn/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:spawn/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:spawn/4` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:spawn_link/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:spawn_link/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:spawn_link/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:spawn_link/4` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:spawn_monitor/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:spawn_monitor/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:spawn_monitor/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:spawn_monitor/4` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:spawn_opt/2` — **Known differences**. Existing local and connected spawn paths implement low/normal/high/max process scheduling priority and logical scheduler binding. Heap/GC tuning and message_queue_data remain source-proven valid OTP refusals, so the full option contract remains Known differences. Logical lanes do not certify native scheduler timing, throughput or physical CPU pinning.
+- `erlang:spawn_opt/3` — **Known differences**. Existing local and connected spawn paths implement low/normal/high/max process scheduling priority and logical scheduler binding. Heap/GC tuning and message_queue_data remain source-proven valid OTP refusals, so the full option contract remains Known differences. Logical lanes do not certify native scheduler timing, throughput or physical CPU pinning.
+- `erlang:spawn_opt/4` — **Known differences**. Existing local and connected spawn paths implement low/normal/high/max process scheduling priority and logical scheduler binding. Heap/GC tuning and message_queue_data remain source-proven valid OTP refusals, so the full option contract remains Known differences. Logical lanes do not certify native scheduler timing, throughput or physical CPU pinning.
+- `erlang:spawn_opt/5` — **Known differences**. Existing local and connected spawn paths implement low/normal/high/max process scheduling priority and logical scheduler binding. Heap/GC tuning and message_queue_data remain source-proven valid OTP refusals, so the full option contract remains Known differences. Logical lanes do not certify native scheduler timing, throughput or physical CPU pinning.
+- `erlang:spawn_request/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:spawn_request/2` — **Known differences**. Local and connected spawn-request/reply paths implement their existing link/monitor/reply, process priority and logical scheduler slices. Valid local heap/GC/message_queue_data creator options remain rejected.
+- `erlang:spawn_request/3` — **Known differences**. Local and connected spawn-request/reply paths implement their existing link/monitor/reply, process priority and logical scheduler slices. Valid local heap/GC/message_queue_data creator options remain rejected.
+- `erlang:spawn_request/4` — **Known differences**. Local and connected spawn-request/reply paths implement their existing link/monitor/reply, process priority and logical scheduler slices. Valid local heap/GC/message_queue_data creator options remain rejected.
+- `erlang:spawn_request/5` — **Known differences**. Local and connected spawn-request/reply paths implement their existing link/monitor/reply, process priority and logical scheduler slices. Valid local heap/GC/message_queue_data creator options remain rejected.
+- `erlang:spawn_request_abandon/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:split_binary/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:start_timer/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:start_timer/4` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:statistics/1` — **Known differences**. Wall-clock/runtime samples retain their current implementation. Valid pinned OTP garbage_collection queries are rejected with notsup by the managed physical-key gate: a concrete observable contract difference.
+- `erlang:subtract/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:suspend_process/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:suspend_process/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:system_flag/2` — **Known differences**. Partial system_flag/2; backtrace_depth state and common failure-origin capture are implemented privately. Valid fullsweep_after and min_heap_size setters remain unsupported.
+- `erlang:system_info/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:system_monitor/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:system_monitor/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:system_monitor/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:system_profile/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:system_profile/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:system_time/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:system_time/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:term_to_binary/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:term_to_binary/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:term_to_iovec/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:term_to_iovec/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:throw/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:time/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:time_offset/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:time_offset/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:timestamp/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:trace/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:trace_delivered/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:trace_info/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:trace_pattern/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:trace_pattern/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:trunc/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:tuple_to_list/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:unalias/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:unique_integer/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:unique_integer/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:universaltime/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:universaltime_to_localtime/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:universaltime_to_posixtime/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:unlink/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:unregister/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:whereis/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:xor/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:yield/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erpc:call/4` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `erpc:call/5` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `erpc:execute_call/4` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `error_logger:get_format_depth/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `error_logger:limit_term/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erts_internal:abort_pending_connection/2` — **Needs verification**. Real native distribution entry state with complete finite original values/errors/stacks; all-domain ownership/effects closure remains explicitly unfinished.
+- `erts_internal:cmp_term/2` — **Needs verification**. Explicit runtime primitive/compiler-helper boundary supporting original selected OTP libraries. Direct MFA presence and finite original-module execution do not establish this command's entire public contract.
+- `erts_internal:get_creation/0` — **Needs verification**. Real native distribution entry state with complete finite original values/errors/stacks; all-domain ownership/effects closure remains explicitly unfinished.
+- `erts_internal:map_next/3` — **Needs verification**. Explicit runtime primitive/compiler-helper boundary supporting original selected OTP libraries. Direct MFA presence and finite original-module execution do not establish this command's entire public contract.
+- `erts_internal:mc_iterator/1` — **Needs verification**. Explicit runtime primitive/compiler-helper boundary supporting original selected OTP libraries. Direct MFA presence and finite original-module execution do not establish this command's entire public contract.
+- `erts_internal:mc_refill/1` — **Needs verification**. Explicit runtime primitive/compiler-helper boundary supporting original selected OTP libraries. Direct MFA presence and finite original-module execution do not establish this command's entire public contract.
+- `erts_internal:new_connection/1` — **Known differences**. Real native connection-entry allocation and current-generation reuse through the runtime distribution table. Exact finite original values and full error stacks pass; configured resource policy prevents full-contract compatibility.
+- `gen_server:call/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `gen_server:call/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `gen_server:cast/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `gen_server:reply/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `gen_server:start/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.

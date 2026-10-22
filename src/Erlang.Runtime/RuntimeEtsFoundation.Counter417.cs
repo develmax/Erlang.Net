@@ -67,11 +67,13 @@ internal sealed partial class RuntimeEtsFoundation
             {
                 // An empty operation list preserves an existing object; default [] still inserts.
                 if (any || original is null)
-                    staged = RuntimeEtsStoredObject.Capture(
+                    staged = RuntimeEtsStoredObject.CaptureCompressed438(
                         accounting,
                         runtime,
                         changed,
-                        context.Cancellation
+                        context.Cancellation,
+                        compressed: metadata.Compressed,
+                        keyPosition: metadata.KeyPosition
                     );
                 lock (gate)
                 {

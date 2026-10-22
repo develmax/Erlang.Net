@@ -1,0 +1,16 @@
+{
+  "Passed": false,
+  "Error": "RuntimeError('Owned stage failed; all available raw evidence retained: focus')",
+  "Examined": 11,
+  "Requested": 11,
+  "FailedCases": [
+    {
+      "Name": "oracle/compiled-module/ets442-compressed-mutations324-values-stacks-and-own-cursors",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: ETS442 compressed complete original cohort differs; inspect raw and typed retained observations\r\n   at Erlang.Tests.EtsCompressedMutations442Access.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\EtsCompressedMutations442Access.cs:line 10\r\n   at Erlang.Tests.EtsCompressedMutations442Checks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\EtsCompressedMutations442Checks.cs:line 214\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 6798",
+      "Milliseconds": 119
+    }
+  ],
+  "RuntimeSha256": "E9D3A01707BE3B50DA5767932847A87C175CCF85E3BDD7297E7EF22166525C15",
+  "RuntimeUnchanged": true
+}

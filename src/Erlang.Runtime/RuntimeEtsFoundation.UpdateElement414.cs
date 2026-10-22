@@ -77,11 +77,13 @@ internal sealed partial class RuntimeEtsFoundation
             {
                 // Even unchanged existing objects need no copy. Default [] must insert.
                 if (any || original is null)
-                    staged = RuntimeEtsStoredObject.Capture(
+                    staged = RuntimeEtsStoredObject.CaptureCompressed438(
                         accounting,
                         runtime,
                         new TupleTerm(changed),
-                        context.Cancellation
+                        context.Cancellation,
+                        compressed: metadata.Compressed,
+                        keyPosition: metadata.KeyPosition
                     );
                 lock (gate)
                 {
