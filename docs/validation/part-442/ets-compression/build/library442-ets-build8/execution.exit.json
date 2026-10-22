@@ -1,0 +1,23 @@
+{
+  "Command": [
+    "C:/Program Files/dotnet/dotnet.exe",
+    "build",
+    "tests/Erlang.Tests/Erlang.Tests.csproj",
+    "--no-restore",
+    "-m:1",
+    "-nr:false",
+    "--nologo",
+    "--disable-build-servers",
+    "-p:UseSharedCompilation=false",
+    "-p:ConcurrentBuild=false",
+    "-p:BuildInParallel=false"
+  ],
+  "Pid": 339944,
+  "ElapsedSeconds": 5.890999999945052,
+  "TimedOut": false,
+  "Settled": true,
+  "ExitCode": 1,
+  "Failures": [],
+  "StdoutSha256": "8FAC2D982E3F1696F73B0D7C4FBA50BB4AC7ACFC468EC8D8B47C2FC281377F82",
+  "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+}

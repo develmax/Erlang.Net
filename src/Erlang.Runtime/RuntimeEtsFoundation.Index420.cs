@@ -20,9 +20,10 @@ internal sealed partial class RuntimeEtsFoundation
         return index.Find(
             key,
             index.Kind == EtsCoreTableKind407.OrderedSet ? 0 : CoreHash420(key),
-            group => CoreKey407(
-                CoreRead407(group.KeyPayload, cancellation),
-                coreOptions407.GetValue(table, _ => throw new InvalidOperationException(EtsIndexNames420.InvalidIndex)).KeyPosition
+            group => CoreReadKey438(
+                group.KeyPayload,
+                coreOptions407.GetValue(table, _ => throw new InvalidOperationException(EtsIndexNames420.InvalidIndex)).KeyPosition,
+                cancellation
             )
         );
     }
@@ -41,7 +42,7 @@ internal sealed partial class RuntimeEtsFoundation
             live,
             options,
             fixedTable ?? table.FixedCount420 != 0,
-            payload => CoreRead407(payload, cancellation),
+            payload => CoreReadKey438(payload, options.KeyPosition, cancellation),
             CoreHash420,
             cancellation
         );

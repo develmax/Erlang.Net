@@ -1,0 +1,38 @@
+{
+  "SourceGuards": 1618,
+  "Changes": [
+    {
+      "Path": "src/Erlang.Runtime/EtsCompressedWriter438.cs",
+      "Before": "F3278D3144E67E6F6F02BFAB21A5493848A2CC4EC1C8E15AD58582F4FD3D9495",
+      "After": "12955E3197A7EA66F01041FCDC7F7DFF777C4BC385F658A06DC0877041FBC7E9"
+    },
+    {
+      "Path": "src/Erlang.Runtime/EtsCompressedReader438.cs",
+      "Before": "4CE9E2D4CB3F08FF6FAF0AD5D59B324CBF1C4522339D31597363085630245741",
+      "After": "8CD70AC089962C1A07833F81DFC733EA7AD43F413BB75A9533079652EB087861"
+    },
+    {
+      "Path": "src/Erlang.Runtime/EtsCodecEvents442.cs",
+      "Before": null,
+      "After": "752F513FCC5380A94D4CAC2DD17911D90F55B807AC7AFF04403460CCEE712C02"
+    },
+    {
+      "Path": "src/Erlang.Runtime/EtsCodecEventNames442.cs",
+      "Before": null,
+      "After": "7ACC6FEFB127C4293731762870E963D0267D526DC40CFB3BA77AA078259DBD91"
+    }
+  ],
+  "EntriesUnchanged": true,
+  "DefaultApis": 708,
+  "FullContracts": 118,
+  "FocusProof": {
+    "Passed": true,
+    "Error": null,
+    "Examined": 11,
+    "Requested": 11,
+    "FailedCases": [],
+    "RuntimeSha256": "E9D3A01707BE3B50DA5767932847A87C175CCF85E3BDD7297E7EF22166525C15",
+    "RuntimeUnchanged": true
+  },
+  "SemanticReview": "Byte-count events occur only after genuine Brotli operations; no VM identity or mutable callback exposed"
+}

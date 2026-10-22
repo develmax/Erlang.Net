@@ -12,6 +12,7 @@ internal sealed record RuntimeEtsCoreOptions407(
     internal bool RequestedReadConcurrency { get; init; }
     internal EtsWriteConcurrency411 RequestedWriteConcurrency { get; init; }
     internal int RequestedFixedWriteLocks { get; init; }
+    internal bool Compressed { get; init; }
     internal bool? RequestedDecentralizedCounters { get; init; }
 
     internal static RuntimeEtsCoreOptions407 Parse(Term options, CancellationToken cancellation)
@@ -19,6 +20,7 @@ internal sealed record RuntimeEtsCoreOptions407(
         var kind = EtsCoreTableKind407.Set;
         var protection = RuntimeEtsProtection.Protected;
         bool named = false;
+        bool compressed = false;
         long keyPosition = 1;
         bool readConcurrency = false;
         var writeConcurrency = EtsWriteConcurrency411.Disabled;
@@ -77,8 +79,9 @@ internal sealed record RuntimeEtsCoreOptions407(
                         _ => throw new RuntimeEtsCoreFailure407(RuntimeEtsCoreCause407.None)
                     };
                     break;
-                // Compressed rows still require a real alternate storage codec.
                 case Atom { Name: RuntimeEtsCoreNames407.Compressed }:
+                    compressed = true;
+                    break;
                 case TupleTerm pair when pair.Items.Count > 0 && pair.Items[0] is Atom
                 {
                     Name:
@@ -101,6 +104,7 @@ internal sealed record RuntimeEtsCoreOptions407(
             keyPosition
         )
         {
+            Compressed = compressed,
             RequestedReadConcurrency = readConcurrency,
             RequestedWriteConcurrency = writeConcurrency,
             RequestedFixedWriteLocks = fixedWriteLocks,

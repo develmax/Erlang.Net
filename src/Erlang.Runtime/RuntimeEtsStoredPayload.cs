@@ -6,6 +6,7 @@ namespace Erlang;
 internal sealed partial class RuntimeEtsStoredPayload : IDisposable
 {
     private RuntimeEtsStoredNode[]? nodes;
+    private RuntimeEtsCompressed438? compressed438;
 
     private RuntimeEtsStoredPayload(RuntimeEtsStoredNode[] nodes)
     {
@@ -20,7 +21,13 @@ internal sealed partial class RuntimeEtsStoredPayload : IDisposable
 
     internal long ArrayPayloadBytes { get; }
 
-    internal static RuntimeEtsStoredPayload Capture(ProcessRuntime owner, Term root, CancellationToken cancellation)
+    internal static RuntimeEtsStoredPayload Capture(
+        ProcessRuntime owner,
+        Term root,
+        CancellationToken cancellation,
+        bool compressed = false,
+        long keyPosition = 1
+    )
     {
         var indices = new Dictionary<Term, int>(ReferenceEqualityComparer.Instance);
         var completed = new HashSet<Term>(ReferenceEqualityComparer.Instance);
@@ -85,7 +92,9 @@ internal sealed partial class RuntimeEtsStoredPayload : IDisposable
             }
             cancellation.ThrowIfCancellationRequested();
 
-            return new(nodes.ToArray());
+            RuntimeEtsStoredNode[] owned = nodes.ToArray();
+
+            return compressed ? new(EtsCompressedWriter438.Encode(owned, keyPosition, cancellation)) : new(owned);
         }
         catch
         {
@@ -96,10 +105,19 @@ internal sealed partial class RuntimeEtsStoredPayload : IDisposable
 
     internal Term Materialize(CancellationToken cancellation)
     {
-        RuntimeEtsStoredNode[] owned = Volatile.Read(ref nodes) ?? throw new ObjectDisposedException(nameof(RuntimeEtsStoredPayload));
+        RuntimeEtsCompressed438? compressed = Volatile.Read(ref compressed438);
+        RuntimeEtsStoredNode[] owned = compressed is null
+            ? Volatile.Read(ref nodes) ?? throw new ObjectDisposedException(nameof(RuntimeEtsStoredPayload))
+            : EtsCompressedReader438.Decode(compressed, cancellation);
+
+        return MaterializeNodes438(owned, 0, cancellation);
+    }
+
+    internal static Term MaterializeNodes438(RuntimeEtsStoredNode[] owned, int root, CancellationToken cancellation)
+    {
         var values = new Term?[owned.Length];
         var pending = new Stack<(int Index, bool Finish)>();
-        pending.Push((0, false));
+        pending.Push((root, false));
         while (pending.TryPop(out var item))
         {
             cancellation.ThrowIfCancellationRequested();
@@ -137,13 +155,14 @@ internal sealed partial class RuntimeEtsStoredPayload : IDisposable
             };
         }
 
-        return values[0]!;
+        return values[root]!;
     }
 
     public void Dispose()
     {
         // Nodes exclusively own managed reservations/bindings. Dropping the last
         // payload root relinquishes the graph; this does not force physical GC.
+        Interlocked.Exchange(ref compressed438, null);
         Interlocked.Exchange(ref nodes, null);
     }
 }

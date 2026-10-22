@@ -94,7 +94,8 @@ internal sealed partial class RuntimeEtsFoundation
                 RuntimeManagedObjectExtent420.Measure,
                 context.Cancellation
             ).Bytes) + IntPtr.Size - 1) / IntPtr.Size),
-            EtsInfoNames420.Compressed or EtsInfoNames420.WriteConcurrency or EtsInfoNames420.ReadConcurrency or EtsInfoNames420.Decentralized => Term.A(ErlangBooleanAtoms.False),
+            EtsInfoNames420.Compressed => CoreModules.Boolean(options.Compressed),
+            EtsInfoNames420.WriteConcurrency or EtsInfoNames420.ReadConcurrency or EtsInfoNames420.Decentralized => Term.A(ErlangBooleanAtoms.False),
             EtsInfoNames420.Id => table.Handle,
             EtsInfoNames420.Fixed => Term.A(table.FixedCount420 != 0 ? ErlangBooleanAtoms.True : ErlangBooleanAtoms.False),
             EtsInfoNames420.SafeFixed => CoreFixedInfo420(table, false),
@@ -223,7 +224,7 @@ internal sealed partial class RuntimeEtsFoundation
             options,
             EtsInfoNames420.Protection
         ));
-        Line(EtsInfoNames420.CompressedLabel, Term.A(ErlangBooleanAtoms.False));
+        Line(EtsInfoNames420.CompressedLabel, CoreModules.Boolean(options.Compressed));
         Line(EtsInfoNames420.WriteLabel, Term.A(ErlangBooleanAtoms.False));
         Line(EtsInfoNames420.ReadLabel, Term.A(ErlangBooleanAtoms.False));
 

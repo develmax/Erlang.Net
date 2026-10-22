@@ -1,0 +1,79 @@
+{
+  "Partial": true,
+  "SelectedCount": 11,
+  "TotalCount": 8822,
+  "Blocks": [],
+  "ExactCases": [
+    "HOST/ets-concurrency411/validation-order-and-held-policies",
+    "oracle/compiled-module/ets442-compressed-mutations324-values-stacks-and-own-cursors",
+    "oracle/compiled-module/ets442-compressed156-whole-values-and-stacks",
+    "runtime/library405/owned-storage-cancellation-close-and-halt",
+    "runtime/library441/ets-compressed-read-lease-and-canceled-capture",
+    "runtime/library441/ets-compressed-real-storage-and-mutations",
+    "runtime/library442/ets-compressed-authentic-fun-key-value-owned-census",
+    "runtime/library442/ets-compressed-foreign-owner-atomic-refusal",
+    "runtime/library442/ets-compressed-mid-decode-cancellation",
+    "runtime/library442/ets-compressed-mid-encode-cancellation",
+    "runtime/library442/ets-compressed-source-roots-and-owner-resource-release"
+  ],
+  "Passed": 10,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "HOST/ets-concurrency411/validation-order-and-held-policies",
+      "Status": "Passed",
+      "Milliseconds": 6
+    },
+    {
+      "Name": "runtime/library441/ets-compressed-real-storage-and-mutations",
+      "Status": "Passed",
+      "Milliseconds": 198
+    },
+    {
+      "Name": "runtime/library441/ets-compressed-read-lease-and-canceled-capture",
+      "Status": "Passed",
+      "Milliseconds": 8
+    },
+    {
+      "Name": "runtime/library442/ets-compressed-authentic-fun-key-value-owned-census",
+      "Status": "Passed",
+      "Milliseconds": 78
+    },
+    {
+      "Name": "runtime/library442/ets-compressed-source-roots-and-owner-resource-release",
+      "Status": "Passed",
+      "Milliseconds": 61
+    },
+    {
+      "Name": "runtime/library442/ets-compressed-mid-encode-cancellation",
+      "Status": "Passed",
+      "Milliseconds": 20
+    },
+    {
+      "Name": "runtime/library442/ets-compressed-mid-decode-cancellation",
+      "Status": "Passed",
+      "Milliseconds": 35
+    },
+    {
+      "Name": "runtime/library442/ets-compressed-foreign-owner-atomic-refusal",
+      "Status": "Passed",
+      "Milliseconds": 8
+    },
+    {
+      "Name": "oracle/compiled-module/ets442-compressed-mutations324-values-stacks-and-own-cursors",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: ETS442 compressed complete original cohort differs; inspect raw and typed retained observations\r\n   at Erlang.Tests.EtsCompressedMutations442Access.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\EtsCompressedMutations442Access.cs:line 10\r\n   at Erlang.Tests.EtsCompressedMutations442Checks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\EtsCompressedMutations442Checks.cs:line 214\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 6798",
+      "Milliseconds": 119
+    },
+    {
+      "Name": "oracle/compiled-module/ets442-compressed156-whole-values-and-stacks",
+      "Status": "Passed",
+      "Milliseconds": 388
+    },
+    {
+      "Name": "runtime/library405/owned-storage-cancellation-close-and-halt",
+      "Status": "Passed",
+      "Milliseconds": 18
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{"Partial":true,"SelectedCount":11,"TotalCount":8822}
+PASS HOST/ets-concurrency411/validation-order-and-held-policies
+PASS runtime/library441/ets-compressed-real-storage-and-mutations
+PASS runtime/library441/ets-compressed-read-lease-and-canceled-capture
+PASS runtime/library442/ets-compressed-authentic-fun-key-value-owned-census
+PASS runtime/library442/ets-compressed-source-roots-and-owner-resource-release
+PASS runtime/library442/ets-compressed-mid-encode-cancellation
+PASS runtime/library442/ets-compressed-mid-decode-cancellation
+PASS runtime/library442/ets-compressed-foreign-owner-atomic-refusal
+FAIL oracle/compiled-module/ets442-compressed-mutations324-values-stacks-and-own-cursors: System.InvalidOperationException: ETS442 compressed complete original cohort differs; inspect raw and typed retained observations
+   at Erlang.Tests.EtsCompressedMutations442Access.Require(Boolean value) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\EtsCompressedMutations442Access.cs:line 10
+   at Erlang.Tests.EtsCompressedMutations442Checks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\EtsCompressedMutations442Checks.cs:line 214
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Program.cs:line 6798
+PASS oracle/compiled-module/ets442-compressed156-whole-values-and-stacks
+PASS runtime/library405/owned-storage-cancellation-close-and-halt
+10/11 passed

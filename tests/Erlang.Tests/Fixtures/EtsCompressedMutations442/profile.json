@@ -1,0 +1,171 @@
+{
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Observer": "beam_ets_compressed_mutations_observer442",
+  "Subject": "beam_ets_compressed_mutations_subject442",
+  "Sources": [
+    "beam_ets_compressed_mutations_subject442.erl",
+    "beam_ets_compressed_mutations_observer442.erl"
+  ],
+  "Cases": [
+    "insert_new_set",
+    "insert_new_ordered",
+    "insert_new_bag",
+    "insert_new_duplicate",
+    "insert_new_dups_set",
+    "insert_new_dups_ordered",
+    "insert_new_dups_bag",
+    "insert_new_dups_duplicate",
+    "counter_default_set",
+    "counter_default_ordered",
+    "counter_default_keypos",
+    "counter_limits_set",
+    "counter_limits_ordered",
+    "counter_big_limits",
+    "counter_atomic_error",
+    "counter_key_error",
+    "counter_bad_default",
+    "counter_bag_error",
+    "counter_duplicate_error",
+    "replace_set",
+    "replace_ordered",
+    "replace_keypos",
+    "replace_partial",
+    "replace_changed_key",
+    "replace_bad_spec",
+    "replace_bag_error",
+    "replace_duplicate_error",
+    "fix_delete_set",
+    "fix_delete_ordered",
+    "fix_delete_bag",
+    "fix_delete_duplicate",
+    "select_chunks_set",
+    "select_chunks_ordered",
+    "select_chunks_bag",
+    "select_chunks_duplicate",
+    "match_chunks_set",
+    "match_chunks_ordered",
+    "match_chunks_bag",
+    "match_chunks_duplicate",
+    "object_chunks_set",
+    "object_chunks_ordered",
+    "object_chunks_bag",
+    "object_chunks_duplicate",
+    "cursor_mutation_ordered",
+    "cursor_keypos_ordered",
+    "cursor_cross_actor",
+    "cursor_foreign_table",
+    "cursor_roundtrip",
+    "cursor_stale",
+    "cursor_zero_limit",
+    "cursor_negative_limit",
+    "cursor_bad_limit",
+    "cursor_bad_shape",
+    "cursor_end"
+  ],
+  "OwnCases": [
+    "fix_delete_set",
+    "fix_delete_ordered",
+    "fix_delete_bag",
+    "fix_delete_duplicate",
+    "select_chunks_set",
+    "select_chunks_ordered",
+    "select_chunks_bag",
+    "select_chunks_duplicate",
+    "match_chunks_set",
+    "match_chunks_ordered",
+    "match_chunks_bag",
+    "match_chunks_duplicate",
+    "object_chunks_set",
+    "object_chunks_ordered",
+    "object_chunks_bag",
+    "object_chunks_duplicate",
+    "cursor_mutation_ordered",
+    "cursor_keypos_ordered",
+    "cursor_cross_actor",
+    "cursor_foreign_table",
+    "cursor_roundtrip",
+    "cursor_stale"
+  ],
+  "WholeRows": 324,
+  "PortableFullTermRows": 192,
+  "OwnStateProtocolRows": 132,
+  "Helpers": {
+    "Owned": "artifacts/spawn-priority351-preparation/execute-root.py",
+    "Inventory": "artifacts/library426-trace-low-memory-original-proposal1/bounded_inventory.py",
+    "Etf": "tools/Erlang.NifTermCallbackOriginalObservations/passive_etf.py",
+    "Environment": "artifacts/library377-native-controls1/run-native-controls.py"
+  },
+  "Dependencies": [
+    {
+      "Path": "artifacts/spawn-priority351-preparation/execute-root.py",
+      "Sha256": "C66ACEC6FFE57C57EFAABC96FD1DB00598D7AAD7D05C2EA814A146B759D4171A"
+    },
+    {
+      "Path": "artifacts/library426-trace-low-memory-original-proposal1/bounded_inventory.py",
+      "Sha256": "502862EB7045D780115D046A02FA56DB11FB67EBC7A1883CA58D06BEC6C7910A"
+    },
+    {
+      "Path": "tools/Erlang.NifTermCallbackOriginalObservations/passive_etf.py",
+      "Sha256": "9C3204CB29755C508D05B611EA02B3A3186F83B40A72BF6EEC366242040432EE"
+    },
+    {
+      "Path": "artifacts/library377-native-controls1/run-native-controls.py",
+      "Sha256": "C097FDF1F1307220916935FDAD3E0483CC676E4EEB136581B632ACF6347F206F"
+    },
+    {
+      "Path": "artifacts/library442-collect-original1.py",
+      "Sha256": "C37E7D52F4E578BC41BB7B2C249444D4150D34609E5B7D1BAC90C230D81C5851"
+    },
+    {
+      "Path": "artifacts/library442-compressed-observer1/beam_ets_compressed_subject442.erl",
+      "Sha256": "9F53BFB407A0D9546BC06730758429317EC6F1C52DD15D5BDE8F8ADAFE7430BC"
+    },
+    {
+      "Path": "artifacts/library442-compressed-observer1/beam_ets_compressed_observer442.erl",
+      "Sha256": "77B7B053089B69CC6238F95C5200E00DDE341B5C977370124D92DFBD3E1C3879"
+    },
+    {
+      "Path": "artifacts/library436-ets-counter-hints-original2/completion.json",
+      "Sha256": "78409241BADB575846FCA9417F68AB66D7A0314AC98A06F29D5580D3155BCAA4"
+    },
+    {
+      "Path": "artifacts/library417-ets-counters-proposal1/authority/erl_db.c",
+      "Sha256": "2A10D2A1124796FE3BDF428CFFCC3D4DBA99397E482034E9F16008B369885FEA"
+    },
+    {
+      "Path": "artifacts/library417-ets-counters-proposal1/authority/ets.erl",
+      "Sha256": "C630CEBFA444A279FC69999F5C60538068112114E55D9F6AA6A85262D526C3DF"
+    },
+    {
+      "Path": "artifacts/library420-ets-cursors-proposal1/authority/erts/emulator/beam/erl_db_hash.c",
+      "Sha256": "E7647155AECBC46B7683B5DC1F203843D5C902E9A91DC295AC1929F32B6A1B56"
+    },
+    {
+      "Path": "artifacts/library420-ets-cursors-proposal1/authority/erts/emulator/beam/erl_db_tree.c",
+      "Sha256": "9F5B65506275E6437CADE26A399B6E11DB965D9B1BB1AAB1A7270F10EFB8ACCF"
+    },
+    {
+      "Path": "artifacts/library420-ets-cursors-proposal1/authority/erts/emulator/beam/erl_db_util.c",
+      "Sha256": "9228A0FD19A784FE52EDAEBFC3F0F714DB9648FD939E268CEEB855E73181E1F5"
+    }
+  ],
+  "DecodeMaxBytes": 16777216,
+  "DecodeDepth": 128,
+  "DecodeTerms": "Isolated trusted capture parser uses exact file byte count; every ETF term consumes at least one byte; no global production change",
+  "OpaqueTags": [
+    "pid",
+    "port",
+    "reference",
+    "new_fun",
+    "export_fun"
+  ],
+  "Stages": [
+    "compile-observer",
+    "capture-values",
+    "capture-stacks"
+  ],
+  "CompileFacet": false,
+  "OriginalBaseline156Preserved": true,
+  "ConstructExpectedValues": false,
+  "MainIntegration": "Root prepares independent consumer; no test preimages supplied"
+}

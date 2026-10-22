@@ -76,11 +76,13 @@ internal sealed partial class RuntimeEtsFoundation
                 if (!selected.Matched) continue;
                 if (selected.Value is not TupleTerm tuple || tuple.Items.Count < options.KeyPosition)
                     throw new RuntimeEtsCoreFailure407(RuntimeEtsCoreCause407.None);
-                var copy = RuntimeEtsStoredObject.Capture(
+                var copy = RuntimeEtsStoredObject.CaptureCompressed438(
                     accounting,
                     runtime,
                     tuple,
-                    context.Cancellation
+                    context.Cancellation,
+                    compressed: options.Compressed,
+                    keyPosition: options.KeyPosition
                 );
                 try
                 {

@@ -72,7 +72,10 @@ internal static class EtsConcurrency411Checks
             Term.List(Option(Write, Term.Tuple(Term.A(FixedLocks), Term.I(8))), Term.A(Ordered)),
             Term.List(Term.A(Private), Term.A(Ordered), Option(Write, Term.Tuple(Term.A(FixedLocks), Term.I(8))))
         }) EtsConcurrency411Access.Refuse(options, BadArgumentType);
-        EtsConcurrency411Access.Refuse(Term.List(Term.A(Compressed)), nameof(NotSupportedException));
+        EtsFoundation405Access.Require((bool)EtsConcurrency411Access.Read(
+            EtsConcurrency411Access.Parse(Term.List(Term.A(Compressed))),
+            EtsCompressed441Names.CompressedProperty
+        ));
         EtsFoundation405Access.Require((bool)EtsConcurrency411Access.Read(
             EtsConcurrency411Access.Parse(Term.List(Option(Counters, yes))),
             CountersProperty

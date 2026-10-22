@@ -1,0 +1,60 @@
+# Unclosed default contracts — volume4
+
+- `proc_lib:init_fail/3` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `proc_lib:init_p/3` — **Known differences**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `proc_lib:init_p/5` — **Known differences**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `proc_lib:initial_call/1` — **Known differences**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `proc_lib:report_cb/2` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `proc_lib:set_label/1` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `proc_lib:spawn/1` — **Known differences**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `proc_lib:spawn/2` — **Known differences**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `proc_lib:spawn/3` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `proc_lib:spawn/4` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `proc_lib:spawn_link/1` — **Known differences**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `proc_lib:spawn_link/2` — **Known differences**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `proc_lib:spawn_link/3` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `proc_lib:spawn_link/4` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `proc_lib:spawn_opt/2` — **Known differences**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `proc_lib:spawn_opt/3` — **Known differences**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `proc_lib:spawn_opt/4` — **Known differences**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `proc_lib:spawn_opt/5` — **Known differences**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `proc_lib:start/3` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `proc_lib:start/4` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `proc_lib:start/5` — **Known differences**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `proc_lib:start_link/3` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `proc_lib:start_link/4` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `proc_lib:start_link/5` — **Known differences**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `proc_lib:start_monitor/3` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `proc_lib:start_monitor/4` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `proc_lib:start_monitor/5` — **Known differences**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `proc_lib:stop/1` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `proc_lib:stop/3` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `proc_lib:translate_initial_call/1` — **Known differences**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `proc_lib:wake_up/3` — **Known differences**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `records:create/4` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `records:get/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `records:get_definition/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `records:get_field_names/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `records:get_module/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `records:get_name/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `records:is_exported/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `records:update/4` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `rpc:call/4` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `rpc:call/5` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `string:list_to_float/1` — **Needs verification**. Native ERTS float-prefix boundary used by the unchanged original string module. Preserves the original suffix term and exponent rollback. Finite original-provider observations do not establish its entire public contract.
+- `supervisor:check_childspecs/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `supervisor:check_childspecs/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `supervisor:count_children/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `supervisor:delete_child/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `supervisor:get_childspec/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `supervisor:restart_child/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `supervisor:start_child/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `supervisor:start_link/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `supervisor:start_link/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `supervisor:stop/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `supervisor:stop/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `supervisor:terminate_child/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `supervisor:which_child/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `supervisor:which_children/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `sys:terminate/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `sys:terminate/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
