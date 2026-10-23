@@ -124,7 +124,7 @@ public static class ErlangOperatorValues
         {
             context.SavedCalls.Sent();
 
-            return context.Runtime.Ports.Send(target, message);
+            return context.Runtime.Ports.Send(target, message, context);
         }
         if (target is ReferenceTerm reference)
         {

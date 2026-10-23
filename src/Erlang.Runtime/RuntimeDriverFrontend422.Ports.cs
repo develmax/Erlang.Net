@@ -52,16 +52,44 @@ internal sealed partial class RuntimeDriverFrontend422
 
     internal Term PortInfo(Term identity, Term? item) => ports.Info(identity, item);
 
+    internal ValueTask<Term> PortInfoQueued454(ProcessContext caller, Term identity, Term? item)
+        => ports.InfoQueued454(caller, identity, item);
+
     internal void LinkPort(ProcessContext owner, PortTerm identity, bool priority) => ports.Link(owner, identity, priority);
 
     internal void UnlinkPort(ProcessContext owner, PortTerm identity) => ports.Unlink(owner, identity);
 
     internal void QueueClosePort(Term identity) => ports.QueueCloseSignal(identity, Term.A(ProcessExitReasons.Normal), transport);
 
-    internal void QueuePortExit(Term identity, Term reason) => ports.QueueCloseSignal(identity, reason, transport);
+    internal void QueuePortExit(Term identity, Term reason, Pid sender) => ports.QueueCloseSignal(
+        identity,
+        reason,
+        transport,
+        sender
+    );
 
-    internal async ValueTask AwaitPortCommands(Term identity, CancellationToken cancellation)
-        => await ports.AwaitCommands(identity).WaitAsync(cancellation).ConfigureAwait(false);
+    internal async ValueTask AwaitPortCommands(Term identity, CancellationToken cancellation, ProcessContext? caller = null)
+        => await ports.AwaitCommands(identity, caller).WaitAsync(cancellation).ConfigureAwait(false);
+
+    internal ValueTask<NativeDriverRawSendResult454> SendRaw(
+        ProcessContext caller,
+        Term identity,
+        Term message,
+        bool noSuspend,
+        CancellationToken cancellation
+    )
+    {
+        RequireReady();
+
+        return ports.SendRaw(
+            caller,
+            identity,
+            message,
+            noSuspend,
+            cancellation,
+            transport
+        );
+    }
 
     internal ValueTask<Term> Command(
         ProcessContext caller,
@@ -83,8 +111,13 @@ internal sealed partial class RuntimeDriverFrontend422
         );
     }
 
-    internal ValueTask<Term> ClosePort(Term identity, CancellationToken cancellation)
-        => ports.CloseOrdered(identity, transport, cancellation);
+    internal ValueTask<Term> ClosePort(Term identity, CancellationToken cancellation, ProcessContext? caller = null)
+        => ports.CloseOrdered(
+            identity,
+            transport,
+            cancellation,
+            caller
+        );
 
     internal ValueTask<Term> Control(
         ProcessContext caller,

@@ -39,6 +39,13 @@ internal sealed class NativeDriverPortRow422(
     internal byte[] Command = [];
     internal bool DriverSoftBusy;
     internal Task Commands = Task.CompletedTask;
+    internal LinkedList<NativeDriverSignal454> Signals { get; } = new();
+    internal HashSet<Task> SignalResults { get; } = new();
+    internal List<Exception> SignalFailures { get; } = new();
+    internal TaskCompletionSource? SignalsDrained;
+    internal Exception? SignalFailure;
+    internal bool SignalsRunning;
+    internal TaskCompletionSource SignalsChanged = new(TaskCreationOptions.RunContinuationsAsynchronously);
     internal TaskCompletionSource Writable = new(TaskCreationOptions.RunContinuationsAsynchronously);
     internal TaskCompletionSource Stopped { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
 }

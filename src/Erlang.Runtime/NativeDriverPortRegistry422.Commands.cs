@@ -11,18 +11,6 @@ internal sealed partial class NativeDriverPortRegistry422
             ? row : throw new ErlangException(ErlangErrorReasons.BadArgument);
     }
 
-    private static async Task<Term> After(Task previous, Task accepted, Func<Task<Term>> operation)
-    {
-        await accepted.ConfigureAwait(false);
-        try
-        {
-            await previous.ConfigureAwait(false);
-        }
-        catch (ErlangException) { /* A prior source badarg does not poison signals. */ }
-
-        return await operation().ConfigureAwait(false);
-    }
-
     internal async ValueTask<Term> Command(
         ProcessContext caller,
         Term identity,
@@ -50,29 +38,23 @@ internal sealed partial class NativeDriverPortRegistry422
                     throw new ErlangException(PortNames.NotSupported);
                 if (noSuspend && (row.ManualBusy && !force || row.MessageBusy))
                     return Term.A(ErlangBooleanAtoms.False);
-                if (row.MessageBusy) admission = row.Writable.Task;
+                if (row.MessageBusy || row.ManualBusy && !force) admission = row.Writable.Task;
                 else
                 {
                     ulong queued = checked(row.QueuedMessageBytes + (ulong)bytes.LongLength);
-                    var accepted = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
                     Pid sender = caller.Self;
-                    operation = After(row.Commands, accepted.Task, () => CommandCore(
+                    operation = EnqueueSignal454(
                         row,
                         sender,
-                        bytes,
-                        force,
-                        transport
-                    ));
-                    try
-                    {
-                        Track(operation);
-                    }
-                    catch
-                    {
-                        accepted.TrySetCanceled();
-                        throw;
-                    }
-                    row.Commands = operation;
+                        !force,
+                        () => CommandCore(
+                            row,
+                            sender,
+                            bytes,
+                            force,
+                            transport
+                        )
+                    );
                     row.QueuedMessageBytes = queued;
                     if (row.MessageLimitsEnabled && queued > row.MessageHigh)
                     {
@@ -80,7 +62,6 @@ internal sealed partial class NativeDriverPortRegistry422
                         if (row.Writable.Task.IsCompleted)
                             row.Writable = new(TaskCreationOptions.RunContinuationsAsynchronously);
                     }
-                    accepted.TrySetResult();
                     break;
                 }
             }
@@ -158,13 +139,14 @@ internal sealed partial class NativeDriverPortRegistry422
         lock (gate)
         {
             var row = Require(identity);
-            var accepted = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
             Pid sender = caller.Self;
-            operation = After(
-                row.Commands,
-                accepted.Task,
+            operation = EnqueueSignal454(
+                row,
+                sender,
+                false,
                 async () =>
             {
+                lock (gate) _ = Require(row.Identity);
                 var result = await transport.Control(
                     row.Native,
                     sender,
@@ -176,27 +158,15 @@ internal sealed partial class NativeDriverPortRegistry422
 
                 return result.Binary ? new BitString(result.Bytes)
                     : Cons.From(result.Bytes.Select(value => Term.I(value)));
-            }
-            );
-            if (responseReference428 is not null)
-                operation = ReplyInternalPort428(
+            },
+                responseReference428 is null ? null : pending => ReplyInternalPort428(
                     sender,
                     row.Identity,
                     responseReference428,
-                    operation,
+                    pending,
                     false
-                );
-            try
-            {
-                Track(operation);
-            }
-            catch
-            {
-                accepted.TrySetCanceled();
-                throw;
-            }
-            row.Commands = operation;
-            accepted.TrySetResult();
+                )
+            );
         }
 
         return responseReference428 is null ? new(operation.WaitAsync(caller.Cancellation))
@@ -217,13 +187,14 @@ internal sealed partial class NativeDriverPortRegistry422
         lock (gate)
         {
             var row = Require(identity);
-            var accepted = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
             Pid sender = caller.Self;
-            operation = After(
-                row.Commands,
-                accepted.Task,
+            operation = EnqueueSignal454(
+                row,
+                sender,
+                false,
                 async () =>
             {
+                lock (gate) _ = Require(row.Identity);
                 byte[] result = await transport.Call(
                     row.Native,
                     sender,
@@ -233,64 +204,44 @@ internal sealed partial class NativeDriverPortRegistry422
                 ).ConfigureAwait(false);
 
                 return runtime.ImportExternalTerm(result).Term;
-            }
-            );
-            if (responseReference428 is not null)
-                operation = ReplyInternalPort428(
+            },
+                responseReference428 is null ? null : pending => ReplyInternalPort428(
                     sender,
                     row.Identity,
                     responseReference428,
-                    operation,
+                    pending,
                     true
-                );
-            try
-            {
-                Track(operation);
-            }
-            catch
-            {
-                accepted.TrySetCanceled();
-                throw;
-            }
-            row.Commands = operation;
-            accepted.TrySetResult();
+                )
+            );
         }
 
         return responseReference428 is null ? new(operation.WaitAsync(caller.Cancellation))
             : ValueTask.FromResult<Term>(responseReference428);
     }
 
-    internal ValueTask<Term> CloseOrdered(Term identity, DriverParentPeerTransport422 transport,
-        CancellationToken cancellation)
+    internal ValueTask<Term> CloseOrdered(
+        Term identity,
+        DriverParentPeerTransport422 transport,
+        CancellationToken cancellation,
+        ProcessContext? caller = null
+    )
     {
         Task<Term> operation;
         lock (gate)
         {
             var row = Require(identity);
-            var accepted = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
-            operation = After(
-                row.Commands,
-                accepted.Task,
+            operation = EnqueueSignal454(
+                row,
+                caller?.Self,
+                false,
                 async () =>
-            {
-                await Close(row, transport).ConfigureAwait(false);
+                {
+                    lock (gate) _ = Require(row.Identity);
+                    await Close(row, transport).ConfigureAwait(false);
 
-                return Term.A(ErlangBooleanAtoms.True);
-            }
+                    return Term.A(ErlangBooleanAtoms.True);
+                }
             );
-            try
-            {
-                Track(operation);
-            }
-            catch
-            {
-                accepted.TrySetCanceled();
-                throw;
-            }
-            row.Commands = operation;
-            row.StopRequested = true;
-            row.Writable.TrySetResult();
-            accepted.TrySetResult();
         }
 
         return new(operation.WaitAsync(cancellation));

@@ -121,9 +121,13 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
         return Term.A(ErlangBooleanAtoms.True);
     }
 
-    public ValueTask<Term> CloseOrdered(Term identity, CancellationToken cancellation = default)
+    public ValueTask<Term> CloseOrdered(
+        Term identity,
+        CancellationToken cancellation = default,
+        ProcessContext? caller = null
+    )
     {
-        if (runtime.DriverFrontendForPort422(identity) is { } native) return native.ClosePort(identity, cancellation);
+        if (runtime.DriverFrontendForPort422(identity) is { } native) return native.ClosePort(identity, cancellation, caller);
         Task<Term> operation;
         lock (gate)
         {
@@ -154,11 +158,15 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
         return Close(port.Identity);
     }
 
-    public async ValueTask AwaitCommands(Term identity, CancellationToken cancellation = default)
+    public async ValueTask AwaitCommands(
+        Term identity,
+        CancellationToken cancellation = default,
+        ProcessContext? caller = null
+    )
     {
         if (runtime.DriverFrontendForPort422(identity) is { } native)
         {
-            await native.AwaitPortCommands(identity, cancellation);
+            await native.AwaitPortCommands(identity, cancellation, caller);
 
             return;
         }
@@ -303,6 +311,15 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
         }
         owner.PortLinks.Clear();
         owner.PriorityPortLinks.Clear();
+    }
+
+    internal async ValueTask<Term> InfoAsync454(ProcessContext caller, Term identity, Term? item)
+    {
+        if (runtime.DriverFrontendForPort422(identity) is { } frontend)
+            return await frontend.PortInfoQueued454(caller, identity, item).ConfigureAwait(false);
+        await AwaitCommands(identity, caller.Cancellation, caller).ConfigureAwait(false);
+
+        return Info(identity, item);
     }
 
     public Term Info(Term identity, Term? item)
@@ -639,7 +656,7 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
     {
         if (runtime.DriverFrontendForPort422(identity) is { } native)
         {
-            native.QueuePortExit(identity, reason.Equals(Term.A(ProcessExitSignals.Kill)) ? Term.A(ProcessExitReasons.Killed) : reason);
+            native.QueuePortExit(identity, reason.Equals(Term.A(ProcessExitSignals.Kill)) ? Term.A(ProcessExitReasons.Killed) : reason, sender.Self);
 
             return;
         }
@@ -677,16 +694,51 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
         ProcessContext? caller = null
     )
     {
-        if (runtime.DriverFrontendForPort422(identity) is not null) throw new NotSupportedException(NativeDriverPortNames422.RawMessageUnsupported);
         while (true)
         {
+            cancellation.ThrowIfCancellationRequested();
+            if (identity is Atom name)
+            {
+                Term target = runtime.WhereIs(name.Name);
+                if (target is Pid recipient)
+                {
+                    runtime.SendTraced(
+                        caller ?? throw new NotSupportedException(NativeDriverPortNames422.CallerRequired),
+                        recipient,
+                        message,
+                        identity
+                    );
+
+                    return true;
+                }
+                if (target is not PortTerm) throw new ErlangException(ErlangErrorReasons.BadArgument);
+            }
+            if (runtime.DriverFrontendForPort422(identity) is { } frontend)
+            {
+                NativeDriverRawSendResult454 result = await frontend.SendRaw(
+                    caller ?? throw new NotSupportedException(NativeDriverPortNames422.CallerRequired),
+                    identity,
+                    message,
+                    noSuspend,
+                    cancellation
+                ).ConfigureAwait(false);
+                if (result == NativeDriverRawSendResult454.RetryTarget) continue;
+
+                return result == NativeDriverRawSendResult454.Accepted;
+            }
             Task? wait;
             bool accepted = false;
             lock (gate)
             {
                 RuntimePort? port = Find(identity);
                 if (port is null)
+                {
+                    if (identity is Atom registered
+                        && (runtime.WhereIs(registered.Name) is not PortTerm || runtime.DriverFrontendForPort422(identity) is not null))
+                        continue;
+
                     return true;
+                }
                 wait = port.Busy ? port.Writable.Task : port.MessagesBusy ? port.MessageWritable.Task : null;
                 if (wait is null)
                 {
@@ -711,9 +763,20 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
         }
     }
 
-    public Term Send(Term identity, Term message)
+    public Term Send(Term identity, Term message, ProcessContext? caller = null)
     {
-        if (runtime.DriverFrontendForPort422(identity) is not null) throw new NotSupportedException(NativeDriverPortNames422.RawMessageUnsupported);
+        if (runtime.DriverFrontendForPort422(identity) is not null)
+        {
+            _ = SendAsync(
+                identity,
+                message,
+                false,
+                caller?.Cancellation ?? throw new NotSupportedException(NativeDriverPortNames422.CallerRequired),
+                caller
+            ).GetAwaiter().GetResult();
+
+            return message;
+        }
         lock (gate)
         {
             RuntimePort? port = Find(identity);

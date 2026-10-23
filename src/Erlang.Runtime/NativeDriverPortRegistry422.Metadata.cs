@@ -25,9 +25,20 @@ internal sealed partial class NativeDriverPortRegistry422
         lock (gate) return Require(identity).Data;
     }
 
-    internal Task AwaitCommands(Term identity)
+    internal Task AwaitCommands(Term identity, ProcessContext? caller = null)
     {
-        lock (gate) return Require(identity).Commands;
+        if (caller is not null) runtime.RequireDriverParentActor422(caller);
+        lock (gate)
+        {
+            var row = Require(identity);
+
+            return caller is null ? row.Commands : EnqueueSignal454(
+                row,
+                caller.Self,
+                false,
+                () => Task.FromResult<Term>(Nil.Value)
+            );
+        }
     }
 
     internal Term SetData(Term identity, Term data)
@@ -51,6 +62,32 @@ internal sealed partial class NativeDriverPortRegistry422
                 result.Add(InfoItem(row, Term.A(key)));
 
             return Cons.From(result);
+        }
+    }
+
+    internal ValueTask<Term> InfoQueued454(ProcessContext caller, Term identity, Term? item)
+    {
+        runtime.RequireDriverParentActor422(caller);
+        lock (gate)
+        {
+            var row = Require(identity);
+            Task<Term> operation = EnqueueSignal454(
+                row,
+                caller.Self,
+                false,
+                () =>
+            {
+                lock (gate)
+                {
+                    Term result = row.Closing || row.StopRequested || row.PhysicallyStopped
+                        ? Term.A(ProcessRegistryAtoms.Undefined) : Info(row.Identity, item);
+
+                    return Task.FromResult(result);
+                }
+            }
+            );
+
+            return new(operation.WaitAsync(caller.Cancellation));
         }
     }
 

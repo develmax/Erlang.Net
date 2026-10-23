@@ -1866,12 +1866,15 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
     internal string? PortRegisteredName(PortTerm port) => names.FirstOrDefault(pair => pair.Value.Equals(port)).Key;
 
     internal void PortBadSignal(RuntimePort port)
+        => QueuePortBadSignal454(port.Identity, port.Connected);
+
+    internal void QueuePortBadSignal454(PortTerm identity, Pid connected)
     {
-        if (!processes.TryGetValue(port.Connected, out var process))
+        if (!processes.TryGetValue(connected, out var process))
             return;
         Term reason = Term.A(PortNames.BadSignal);
         process.Mailbox.SendPending(
-            Term.Tuple(Term.A(ProcessMessageTags.LinkedExit), port.Identity, reason),
+            Term.Tuple(Term.A(ProcessMessageTags.LinkedExit), identity, reason),
             () =>
         {
             if (process.Terminated)

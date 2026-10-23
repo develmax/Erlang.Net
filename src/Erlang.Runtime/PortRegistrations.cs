@@ -48,7 +48,7 @@ internal static class PortRegistrations
             (context, arguments) => context.Runtime.OpenConfiguredPort422(context, arguments[0], arguments[1])
         );
         Add(PortNames.Ports, 0, (context, _) => ValueTask.FromResult(context.Runtime.Ports.Snapshot()));
-        Add(PortNames.Close, 1, (context, arguments) => context.Runtime.Ports.CloseOrdered(arguments[0], context.Cancellation));
+        Add(PortNames.Close, 1, (context, arguments) => context.Runtime.Ports.CloseOrdered(arguments[0], context.Cancellation, context));
         Add(
             PortNames.Connect,
             2,
@@ -65,9 +65,7 @@ internal static class PortRegistrations
             1,
             async (context, arguments) =>
         {
-            await context.Runtime.Ports.AwaitCommands(arguments[0], context.Cancellation);
-
-            return context.Runtime.Ports.Info(arguments[0], null);
+            return await context.Runtime.Ports.InfoAsync454(context, arguments[0], null);
         }
         );
         Add(
@@ -75,9 +73,7 @@ internal static class PortRegistrations
             2,
             async (context, arguments) =>
         {
-            await context.Runtime.Ports.AwaitCommands(arguments[0], context.Cancellation);
-
-            return context.Runtime.Ports.Info(arguments[0], arguments[1]);
+            return await context.Runtime.Ports.InfoAsync454(context, arguments[0], arguments[1]);
         }
         );
         Add(PortNames.Command, 2, (context, arguments) => context.Runtime.Ports.Command(
