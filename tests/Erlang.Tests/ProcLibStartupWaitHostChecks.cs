@@ -47,7 +47,7 @@ public static class ProcLibStartupWaitHostChecks
                     await child.Process.Completion;
                 else
                     await queued.Task;
-                var method = typeof(OtpModules).Assembly.GetType(ProcLibStartupWaitHostNames.Type, true)!.GetMethod(ProcLibStartupWaitHostNames.Method, BindingFlags.Static | BindingFlags.NonPublic)!;
+                var method = typeof(Erlang.ManagedStdlibRegistration456).Assembly.GetType(ProcLibStartupWaitHostNames.Type, true)!.GetMethod(ProcLibStartupWaitHostNames.Method, BindingFlags.Static | BindingFlags.NonPublic)!;
                 var operation = ((ValueTask<Term>)method.Invoke(null, [context, child.Process.Pid, child.Reference, Term.A(ProcLibStartupWaitHostNames.InvalidTimeout)])!).AsTask();
                 if (tag == ProcLibStartupWaitHostNames.Nack)
                 {

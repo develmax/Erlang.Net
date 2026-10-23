@@ -172,7 +172,7 @@ Read OTP-29.1.1 lib/stdlib/src/lists.erl last/1, last/2 and split/2, split/3. Re
 
 Part038 reuses pinned workflow, SDK Roslyn source/hash/layout audits and BCL JSON/SHA artifact tools for complete304/304 reference and same-head414-test CI. No new library, copied reference implementation, production BEAM dependency, public package publication or license choice. A direct dotnet run build of the optional layout helper failed without useful captured diagnostics; explicit serialized build -m:1 -nr:false then --no-build execution passed, with136 types and no violations. Root cause remains unconfirmed; mandatory production pipeline and remote CI passed.
 
-Additional existing C# reuse audit: src/Erlang.Terms/Cons.cs exposes immutable Head/Tail, but Cons.Items enforces proper termination with badarg. Using it for last would change function_clause, and enumerating a suffix for split would destroy the intended arbitrary-tail boundary. Dedicated traversal therefore reuses the term representation and Reverse, not the proper-list-only enumerator. Integer.Value is BigInteger and retains unrestricted count arithmetic.
+Additional existing C# reuse audit: src/Erlang.Terms/Collections/Lists/Cons.cs exposes immutable Head/Tail, but Cons.Items enforces proper termination with badarg. Using it for last would change function_clause, and enumerating a suffix for split would destroy the intended arbitrary-tail boundary. Dedicated traversal therefore reuses the term representation and Reverse, not the proper-list-only enumerator. Integer.Value is BigInteger and retains unrestricted count arithmetic.
 
 ## Part 039 — append/1 and existing member/2 contract audit
 
