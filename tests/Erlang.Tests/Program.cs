@@ -3141,6 +3141,7 @@ Test(Erlang.Tests.ConnectedDependencyHostNames.Host1, Erlang.Tests.ConnectedSpaw
 Test(Erlang.Tests.ConnectedDependencyHostNames.Host2, Erlang.Tests.ConnectedSpawnHostChecks.RealRequestReplyAndDeath);
 Test(Erlang.Tests.ConnectedRegisteredSendHostNames448.Test, Erlang.Tests.ConnectedRegisteredSendHostChecks448.Run);
 Test(Erlang.Tests.ConnectedRemoteEpochHostNames449.Test, Erlang.Tests.ConnectedRemoteEpochHostChecks449.Run);
+Test(Erlang.Tests.ConnectedCandidateHostNames450.Test, Erlang.Tests.ConnectedCandidateHostChecks450.Run);
 Test(Erlang.Tests.ConnectedDependencyHostNames.Host3, Erlang.Tests.ConnectedSpawnRetirementHostChecks.StaleReplyCannotRebind);
 Test(Erlang.Tests.ConnectedDependencyHostNames.Host4, Erlang.Tests.ConnectedSpawnCleanupHostChecks.ParentDeathBeforeReply);
 Test(Erlang.Tests.ConnectedDependencyHostNames.Host5, Erlang.Tests.ConnectedSpawnCleanupHostChecks.AbandonBeforeReply);
