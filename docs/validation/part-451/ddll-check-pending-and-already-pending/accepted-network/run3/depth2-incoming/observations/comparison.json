@@ -1,0 +1,381 @@
+{
+  "Passed": true,
+  "Depth": 2,
+  "Results": [
+    {
+      "Name": "peer-setup",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 0
+    },
+    {
+      "Name": "setup",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 0
+    },
+    {
+      "Name": "depth",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 0
+    },
+    {
+      "Name": "peer-handshake-identity",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 0
+    },
+    {
+      "Name": "real-node-visible",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 0
+    },
+    {
+      "Name": "peer-sees-managed",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 0
+    },
+    {
+      "Name": "genuine-peer-wire-via-distribution",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 0
+    },
+    {
+      "Name": "genuine-peer-reference-via-distribution",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 0
+    },
+    {
+      "Name": "foreign-reject-before-disconnect",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 0
+    },
+    {
+      "Name": "local-queued",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 0
+    },
+    {
+      "Name": "decode-on-real-peer",
+      "Passed": true,
+      "WholeTypedEqual": false,
+      "WholeRawEqual": false,
+      "OwnReferenceBindings": 1
+    },
+    {
+      "Name": "peer-foreign-reject",
+      "Passed": true,
+      "WholeTypedEqual": false,
+      "WholeRawEqual": false,
+      "OwnReferenceBindings": 1
+    },
+    {
+      "Name": "queue-one-after-peer-refusal",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 1
+    },
+    {
+      "Name": "returned-ref-cancels-owner",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 1
+    },
+    {
+      "Name": "queue-zero-after-roundtrip",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 1
+    },
+    {
+      "Name": "monitor-held-across-alive",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 1
+    },
+    {
+      "Name": "peer-stores-before-alive",
+      "Passed": true,
+      "WholeTypedEqual": false,
+      "WholeRawEqual": false,
+      "OwnReferenceBindings": 2
+    },
+    {
+      "Name": "peer-retains-across-alive",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 2
+    },
+    {
+      "Name": "queue-one-before-alive",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 2
+    },
+    {
+      "Name": "current-data-after-alive-false",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 2
+    },
+    {
+      "Name": "current-data-after-alive-bad-cookie",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 2
+    },
+    {
+      "Name": "current-data-while-false-candidate-held",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 2
+    },
+    {
+      "Name": "current-data-after-extra-refused-first-false",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 2
+    },
+    {
+      "Name": "current-data-while-true-candidate-held",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 2
+    },
+    {
+      "Name": "peer-keeps-memory-across-alive",
+      "Passed": true,
+      "WholeTypedEqual": false,
+      "WholeRawEqual": false,
+      "OwnReferenceBindings": 2
+    },
+    {
+      "Name": "alive-return-cancels-owner",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 2
+    },
+    {
+      "Name": "queue-zero-after-alive-return",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 2
+    },
+    {
+      "Name": "monitor-held-across-disconnect",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 2
+    },
+    {
+      "Name": "queue-one-before-disconnect",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 3
+    },
+    {
+      "Name": "actual-reference-crosses-before-disconnect",
+      "Passed": true,
+      "WholeTypedEqual": false,
+      "WholeRawEqual": false,
+      "OwnReferenceBindings": 3
+    },
+    {
+      "Name": "peer-retains-before-disconnect",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 3
+    },
+    {
+      "Name": "watch-peer-before-death",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 3
+    },
+    {
+      "Name": "actual-node-down-after-peer-halt",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 3
+    },
+    {
+      "Name": "actual-peer-absent-after-halt",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 3
+    },
+    {
+      "Name": "queue-one-after-actual-peer-death",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 3
+    },
+    {
+      "Name": "restarted-peer-identity",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 3
+    },
+    {
+      "Name": "restarted-peer-setup",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 3
+    },
+    {
+      "Name": "real-node-visible-after-reconnect",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 3
+    },
+    {
+      "Name": "foreign-reject-after-reconnect",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 3
+    },
+    {
+      "Name": "peer-memory-lost-after-actual-restart",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 3
+    },
+    {
+      "Name": "surviving-local-reference-sent-to-new-vm",
+      "Passed": true,
+      "WholeTypedEqual": false,
+      "WholeRawEqual": false,
+      "OwnReferenceBindings": 3
+    },
+    {
+      "Name": "held-ref-peer-foreign-reject",
+      "Passed": true,
+      "WholeTypedEqual": false,
+      "WholeRawEqual": false,
+      "OwnReferenceBindings": 3
+    },
+    {
+      "Name": "queue-one-reconnect-peer-refusal",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 3
+    },
+    {
+      "Name": "held-ref-return-cancels-owner",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 3
+    },
+    {
+      "Name": "queue-zero-reconnect-return",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 3
+    },
+    {
+      "Name": "repeat-completed-ref-after-reconnect",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 3
+    },
+    {
+      "Name": "new-peer-reference-wire",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 3
+    },
+    {
+      "Name": "old-peer-ref-rejected-by-new-peer",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 3
+    },
+    {
+      "Name": "new-peer-queue-survives-old-ref",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 3
+    },
+    {
+      "Name": "new-peer-reference-cancels-new-owner",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 3
+    },
+    {
+      "Name": "new-peer-queue-zero-after-new-ref",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 3
+    },
+    {
+      "Name": "physical-local-unload",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 3
+    },
+    {
+      "Name": "physical-peer-unload",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 3
+    }
+  ],
+  "Failures": [],
+  "PhysicalCleanup": true,
+  "Transport": "Original check_pending/already_pending with controlled discovery and actual connection handoff/restart; actual runtime input/output queues",
+  "WholeModuleClaim": false
+}

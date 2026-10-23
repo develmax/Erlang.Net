@@ -1,0 +1,8 @@
+from pathlib import Path
+r=Path.cwd()
+p=r/'tests/Erlang.Tests/Program.cs';s=p.read_text(encoding='utf-8-sig');needle='Test(Erlang.Tests.ConnectedCandidateHostNames450.Test, Erlang.Tests.ConnectedCandidateHostChecks450.Run);';assert needle in s;s=s.replace(needle,needle+'\nTest(Erlang.Tests.PendingCandidateHostNames451.Test, Erlang.Tests.PendingCandidateHostChecks451.Run);');p.write_text(s,encoding='utf-8')
+for old,new in [('library450-build-focus1.py','library451-build-focus1.py'),('library450-prepare-package1.py','library451-prepare-package1.py'),('library450-gates1.py','library451-gates1.py'),('library450-run-standard79.py','library451-run-standard79.py'),('library450-source-authority.py','library451-source-authority.py'),('library450-style-readiness.py','library451-style-readiness.py')]:
+ s=(r/'artifacts'/old).read_text().replace('library450','library451').replace('runtime/distribution450/losing-candidate-preserves-live-queue-and-generation','runtime/distribution451/concurrent-candidates-adopt-one-pending-generation').replace('CurrentCatalog8826NotFull','CurrentCatalog8827NotFull').replace('39951441544','39956702180')
+ (r/'artifacts'/new).write_text(s)
+s=(r/'artifacts/library450-select-affected.py').read_text().replace('library450-affected-selection1','library451-affected-selection1').replace('library449-affected-selection1','library450-affected-selection1').replace('==588','==589').replace('Cases=588','Cases=589').replace('Retained449','Retained450').replace('runtime/distribution450/','runtime/distribution451/')
+(r/'artifacts/library451-select-affected.py').write_text(s)
