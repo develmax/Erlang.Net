@@ -1,4 +1,6 @@
-# Native API compatibility checkpoints through Part448
+# Native API compatibility checkpoints through Part449
+
+Part449 scoped local acceptance: fresh incoming distribution-v6 authentication and actual graceful same-name original OS VM restart pass164/164 final observations (140paired+24aux;144whole typed/raw+20own-reference protocols). Eight incoming authenticated channels/four wrong-cookie refusals; actual ALIVE2 creation, new OS PID/peer creation/connection generation, immutable old refs, old peer memory loss, surviving local queue1→0 and replacement queue1→0 pass with full frames. Final Runtime8309B897/native package353C421D passes588/588 affected, one new permanent group, retained36/native8,boot79 and real cleanup. No production algorithm/source-guard delta:1621/default708/full118 unchanged, API/full deltas0/0; catalog8825 is not a full-suite claim. Part448 merged029f740c, exact merge CI39945517467 green8824/packages. Exact449 publication-head full CI/packages tracked in PR. Fresh inbound/graceful peer restart is scoped; simultaneous/alive, forced death,TLS,full managed transport boot/autoconnect/ALTACT/native platform remain separate. Evidence:docs/validation/part-449/ddll-incoming-and-peer-restart. LICENSE.local.txt excluded.
 
 Pinned development oracle: OTP-29.1.1, commit `ad05823719d77c8faee87348ea39513d4e2f99c5`.
 Production remains our .NET runtime. The user authorized commit and publication of the completed scope through Part436 on2026-10-22. Later prepared proposals remain separate until accepted.

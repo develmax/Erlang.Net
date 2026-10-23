@@ -1,0 +1,4 @@
+{
+  "Previous": "artifacts/library449-probe4",
+  "Reason": "Process.GetProcessById is not the process creator and .NET refuses ExitCode; retained handle still joins actual OS death before restart. Actual Python owner continues to require old process exit0/unforced in finally; no removal of exit-code acceptance condition."
+}

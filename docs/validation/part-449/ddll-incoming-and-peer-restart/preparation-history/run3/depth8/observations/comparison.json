@@ -1,0 +1,11 @@
+{
+  "Passed": false,
+  "Depth": 8,
+  "Results": [],
+  "Failures": [
+    "System.NotSupportedException: The BEAM external import is outside the supported host subset\r\n   at Erlang.BeamExternalImports.Resolve(BeamLinkedCode code, String module, String function, Int32 arity) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\BeamExternalImports.cs:line 38\r\n   at Erlang.BeamExternalImports.Resolve(BeamLinkedCode code, Int32 index) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\BeamExternalImports.cs:line 11\r\n   at Erlang.BeamRegisterValidation.Validate(BeamLinkedCode code, BeamLinkedFunction entry) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\BeamRegisterValidation.cs:line 409\r\n   at Erlang.ModuleRegistry.PrepareBeam(ReadOnlyMemory\u00601 bytes, BeamDependencySelection dependencies) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\ModuleRegistry.PreparedBeam.cs:line 27\r\n   at Program.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CMain\u003E$\u003Eb__2(ModuleRegistry registry) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library449-probe-run3\\harness\\Program.cs:line 19\r\n   at Erlang.ModuleRegistry.Apply(Action\u00601 configure) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\ModuleRegistry.cs:line 719\r\n   at Erlang.RuntimeInitializer.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\RuntimeInitializer.cs:line 73\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library449-probe-run3\\harness\\Program.cs:line 17"
+  ],
+  "PhysicalCleanup": true,
+  "Transport": "Incoming authenticated Erlang distribution v6 and actual remote OS VM halt/restart; actual runtime input/output queues",
+  "WholeModuleClaim": false
+}

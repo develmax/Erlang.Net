@@ -1,0 +1,19 @@
+{
+  "Partial": true,
+  "SelectedCount": 1,
+  "TotalCount": 8825,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/distribution449/remote-epoch-keeps-old-reference-and-rejects-stale-input"
+  ],
+  "Passed": 0,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "runtime/distribution449/remote-epoch-keeps-old-reference-and-rejects-stale-input",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Remote node creation changed retained reference identity or accepted stale generation input\r\n   at Erlang.Tests.ConnectedRemoteEpochHostChecks449.Require(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\ConnectedRemoteEpochHostChecks449.cs:line 106\r\n   at Erlang.Tests.ConnectedRemoteEpochHostChecks449.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\ConnectedRemoteEpochHostChecks449.cs:line 32\r\n   at Erlang.Tests.ConnectedRemoteEpochHostChecks449.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\ConnectedRemoteEpochHostChecks449.cs:line 64\r\n   at Erlang.Tests.ConnectedRemoteEpochHostChecks449.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\ConnectedRemoteEpochHostChecks449.cs:line 64\r\n   at Erlang.Tests.ConnectedRemoteEpochHostChecks449.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\ConnectedRemoteEpochHostChecks449.cs:line 64\r\n   at Erlang.Tests.ConnectedRemoteEpochHostChecks449.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\ConnectedRemoteEpochHostChecks449.cs:line 64\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 6801",
+      "Milliseconds": 167
+    }
+  ]
+}

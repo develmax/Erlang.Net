@@ -1,0 +1,24 @@
+{
+  "Passed": false,
+  "Groups": [],
+  "Failures": [
+    "RuntimeError('Owned stage failed; all available raw evidence retained: compile-consumer')"
+  ],
+  "InputsUnchanged": true,
+  "RuntimeSha256": "1A0592162FA6080CA2E14464074B28986C3C23C256C9D106462662EA5A3427E8",
+  "ProviderScans": [
+    {
+      "Phase": "before",
+      "Equal": true,
+      "Files": 6427,
+      "Seconds": 82.06200000003446
+    },
+    {
+      "Phase": "after",
+      "Equal": true,
+      "Files": 6427,
+      "Seconds": 1.3290000000270084
+    }
+  ],
+  "Transport": "two real distributed OTP OS nodes, authenticated Erlang distribution v6, physical TCP disconnect/reconnect and actual runtime data queues"
+}

@@ -1,3 +1,17 @@
+# Current checkpoint — Part449 — 2026-10-23
+
+| Module / area | Accepted scope in this part | Remaining |
+| --- | --- | --- |
+| Distribution runtime | Eight genuine incoming authenticated channels, four wrong-cookie refusals; actual private EPMD creation | Simultaneous/alive handoff, forced peer death, TLS, standard managed net_kernel transport boot, autoconnect and priority ALTACT |
+| DDLL / reference identity | Four actual same-name remote OS VM restarts, unchanged old reference bytes, local and new-peer queue1→0;164 scoped observations and full stacks | Broader reload/demonitor/force cross-products, held native teardown, other OS/ABI/native-thread profiles |
+| ETS / erts_debug / erts_internal | Previous scoped native bodies/loading retained; no new API or full-contract promotion | Complete semantic, physical and concurrency profiles listed in remaining-work/INDEX.md |
+| Regression |588 affected tests, one new permanent epoch/stale-input group; native8 + retained36, boot79 and cleanup | Exact449 publication-head full CI/packages are tracked in PR |
+| Registry |708 API entries /118 full contracts,1621 source guards; delta0/0 |590 unclosed default contracts; original library-module execution is separate from this default ledger |
+
+Part448 is merged as main029f740c; exact merge CI39945517467 passes8824/8824 and both package builds. Part449 final local Runtime8309B897 passes164/164 incoming/restart observations:140 paired common-source/protocol and24 auxiliary guards;144 entire typed/raw and20 own-reference protocols. No production algorithm discrepancy was confirmed. New canonical catalog8825 is not itself a full-suite pass. [Proof](validation/part-449/ddll-incoming-and-peer-restart/README.md); [English changelog](changelog/0079.md). This is Git/CI package validation, not a NuGet release.
+
+Next: simultaneous/alive connection handoff and forced remote termination, then TLS/standard transport boot as separately measured work. Earlier entries below are historical.
+
 # Next executable tasks
 
 ## Current work: Part404 command proof; Part406 internal function storage, guest ETS still open
