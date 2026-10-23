@@ -4,8 +4,9 @@ public sealed partial class RuntimeDistributionPending
 {
     private void AcceptRawConnectedProcessPacket(
         Term handle,
-        ProcessContext caller,
-        ReadOnlySpan<byte> packet
+        ProcessContext? caller,
+        ReadOnlySpan<byte> packet,
+        NativeDistributionBinding457? nativePort = null
     )
     {
         RuntimeDistributionPendingEntry entry;
@@ -19,7 +20,7 @@ public sealed partial class RuntimeDistributionPending
             try
             {
                 var connected = RequireConnected(entry, connectionId);
-                RequireInputHandler(connected, caller);
+                RequirePacketInput457(connected, caller, nativePort);
                 wire = runtime.LocalIdentity.Snapshot;
                 flags = connected.Flags;
             }
@@ -60,7 +61,8 @@ public sealed partial class RuntimeDistributionPending
                     entry,
                     connectionId,
                     caller,
-                    wire
+                    wire,
+                    nativePort
                 );
             if (deferredExit)
             {
@@ -72,10 +74,11 @@ public sealed partial class RuntimeDistributionPending
                         entry,
                         connectionId,
                         caller,
-                        wire
+                        wire,
+                        nativePort
                     );
                     RouteDeferredConnectedExit(entry, connected, envelope);
-                    connected.Queue.RecordAcceptedHostInput(connected.QueueHandle, caller);
+                    RecordPacketInput457(connected, caller, nativePort);
                 }
 
                 return;
@@ -93,7 +96,8 @@ public sealed partial class RuntimeDistributionPending
                     entry,
                     connectionId,
                     caller,
-                    wire
+                    wire,
+                    nativePort
                 );
                 if (DistributionPassThroughCodec.IsSpawnRequest(decoded.Control))
                     RouteConnectedSpawnRequest(
@@ -108,7 +112,7 @@ public sealed partial class RuntimeDistributionPending
                     RouteRawConnectedProcessControl(entry, connected, decoded.Control);
                 else
                     DeliverConnectedTracePayload(decoded.Control, decoded.Payload);
-                connected.Queue.RecordAcceptedHostInput(connected.QueueHandle, caller);
+                RecordPacketInput457(connected, caller, nativePort);
             }
         }
     }

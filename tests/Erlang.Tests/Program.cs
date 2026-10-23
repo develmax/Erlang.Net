@@ -87,6 +87,7 @@ Test(Erlang.Tests.AtomicsHost413Names.GcTest, Erlang.Tests.AtomicsHost413Checks.
 Test(Erlang.Tests.RegexThreeOriginal413Names.Test, Erlang.Tests.RegexThreeOriginal413Checks.Whole);
 Test(Erlang.Tests.ReUnicodeOriginal453Names.Test, Erlang.Tests.ReUnicodeOriginal453Checks.Whole);
 Test(Erlang.Tests.BeamTupleReceive454Names.Test, Erlang.Tests.BeamTupleReceive454Checks.Run);
+Test(Erlang.Tests.NativeDistribution457Names.Test, Erlang.Tests.NativeDistribution457Checks.Run);
 Test(Erlang.Tests.DriverIndependentTurn455Names.Test, Erlang.Tests.DriverIndependentTurn455Checks.Run);
 Test(Erlang.Tests.DriverExternal455Names.Test, Erlang.Tests.DriverExternal455Checks.Run);
 Test(Erlang.Tests.DriverOwnTerm455Names.Test, Erlang.Tests.DriverOwnTerm455Checks.Run);

@@ -157,6 +157,14 @@ internal sealed partial class NativeDriverPortRegistry422 : IErlDriverPortHost42
             var row = Find(identity) ?? throw new InvalidDataException(DriverParentWireNames422.Invalid);
             if (row.PhysicallyStopped) throw new InvalidDataException(DriverParentWireNames422.Invalid);
             if (row.Closing) return; // pinned driver_output returns success, discards closing data.
+            if (row.Distribution457 is { } binding)
+            {
+                byte[] packet = NativeDistributionInput457.Copy(output);
+                row.InputBytes = checked(row.InputBytes + packet.LongLength);
+                binding.Accept(packet);
+
+                return;
+            }
             long count = checked(output.Header.LongLength + (output.Kind == ErlDriverOutputKind420.Vector
                 ? output.Segments!.Sum(segment => segment.LongLength) : output.Body.LongLength));
             row.InputBytes = checked(row.InputBytes + count);

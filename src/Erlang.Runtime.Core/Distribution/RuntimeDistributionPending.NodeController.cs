@@ -11,6 +11,20 @@ public sealed partial class RuntimeDistributionPending
         Term options
     )
     {
+        if (controller is PortTerm)
+        {
+            // The default erlang:setnode/3 adapter shares the same native port
+            // admission as the original erlang wrapper/create_dist_channel path.
+            // Return the DHandle, not the native {ok,DHandle} envelope.
+            Term native = runtime.CreateDistChannel429(
+                requester,
+                node,
+                controller,
+                options
+            );
+            if (native is TupleTerm { Items: [Atom { Name: DistChannel429Names.Ok }, var handle] }) return handle;
+            throw new ErlangException(native is Atom nativeReason ? nativeReason.Name : ErlangErrorReasons.BadArgument);
+        }
         if (node is not Atom remoteNode || !DistributionNodeIdentity.IsValid(remoteNode) ||
             controller is not Pid pid || options is not TupleTerm { Items.Count: 2 } tuple ||
             tuple.Items[0] is not Integer flags || flags.Value < ulong.MinValue || flags.Value > ulong.MaxValue ||

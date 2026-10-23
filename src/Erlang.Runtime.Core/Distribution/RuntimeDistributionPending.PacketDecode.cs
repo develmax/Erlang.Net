@@ -7,12 +7,13 @@ public sealed partial class RuntimeDistributionPending
     private DistributionConnectedEntry RequireConnectedDecodeSnapshot(
         RuntimeDistributionPendingEntry entry,
         uint connectionId,
-        ProcessContext caller,
-        LocalNodeSnapshot snapshot
+        ProcessContext? caller,
+        LocalNodeSnapshot snapshot,
+        NativeDistributionBinding457? nativePort = null
     )
     {
         var connected = RequireConnected(entry, connectionId);
-        RequireInputHandler(connected, caller);
+        RequirePacketInput457(connected, caller, nativePort);
         if (!ReferenceEquals(runtime.LocalIdentity.Snapshot, snapshot))
             throw new InvalidOperationException(DistributionConnectedDiagnostics.Connected);
 

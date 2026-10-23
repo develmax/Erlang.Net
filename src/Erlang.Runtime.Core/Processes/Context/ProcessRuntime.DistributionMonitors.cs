@@ -191,7 +191,7 @@ public sealed partial class ProcessRuntime
             connected,
             connectionId,
             control,
-            from is Pid sender && IsCurrentLocal(sender) ? sender : connected.Controller.Self
+            from is Pid sender && IsCurrentLocal(sender) ? sender : connected.Controller?.Self ?? RequireDistributionKernel().Self
         );
     }
 }

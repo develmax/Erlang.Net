@@ -41,6 +41,15 @@ internal static class RuntimeStatisticsHostChecks
                     Require(exception.Reason.Equals(Term.A(RuntimeStatisticsNames.NotSupported)));
                 }
             }
+            var beforeGc = await Sample(context, RuntimeStatisticsNames.GarbageCollection);
+            Require(beforeGc.Items is [Integer { Value.Sign: >= 0 }, Integer { Value.Sign: >= 0 }, Integer { Value.IsZero: true }]);
+            // Exercise the real public collection path; this is managed-platform
+            // telemetry, not equality with physical ERTS heap counts.
+            await runtime.Modules.Call(context, ErlangModuleNames.Module, ProcessGarbageCollectionNames.Function);
+            var afterGc = await Sample(context, RuntimeStatisticsNames.GarbageCollection);
+            Require(((Integer)afterGc.Items[0]).Value > ((Integer)beforeGc.Items[0]).Value);
+            Require(((Integer)afterGc.Items[1]).Value >= ((Integer)beforeGc.Items[1]).Value);
+            Require(afterGc.Items[2].Equals(Term.I(0)));
             firstWall = await Sample(context, RuntimeStatisticsNames.WallClock);
             firstCpu = await Sample(context, RuntimeStatisticsNames.Runtime);
             Require(firstWall.Items[0].Equals(firstWall.Items[1]));

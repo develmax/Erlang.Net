@@ -32,7 +32,15 @@ public sealed partial class ProcessRuntime
              || tuple.Items[1] is not Integer creation || creation.Value < 0 || creation.Value > uint.MaxValue
              || !DistributionCapabilityProfile429.HasMandatory((ulong)flags.Value)) return Term.A(DistChannel429Names.BadArgument);
             if (DistributionCapabilityProfile429.HasUnsupported((ulong)flags.Value)) throw new NotSupportedException(DistChannel429Names.FlagsFrontier);
-            if (controller is PortTerm) throw new NotSupportedException(DistChannel429Names.PortFrontier);
+            if (controller is PortTerm port) return distributionPending?.CreateNativePortChannel457(
+                caller,
+                remote,
+                port,
+                kernel,
+                (ulong)flags.Value,
+                (uint)creation.Value
+            )
+                ?? Term.A(DistChannel429Names.BadArgument);
             var pid = (Pid)controller;
             if (pid.LocalIdentity is not null && !ReferenceEquals(pid.LocalIdentity, LocalIdentity)) throw new InvalidOperationException(DistChannel429Names.Foreign);
             ProcessContext? target = ReadNativeDistributionController429(pid);

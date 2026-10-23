@@ -1,0 +1,103 @@
+{
+  "Passed": true,
+  "ComposedAcceptance": true,
+  "Matrix2FirstRunPassed": false,
+  "PreservedPreparationFailure": [
+    {
+      "Stage": "retained-native-both-bridges",
+      "Passed": false,
+      "Failure": "RuntimeError('Owned stage failed; all available raw evidence retained: retained-native-both-bridges')",
+      "ProviderBeforeAfterEqual": true
+    }
+  ],
+  "NoNativeCaseExecutedInPreparationFailure": true,
+  "SupplementalNativeReport": "artifacts/kernel457-legacy-gates2/completion.json",
+  "RuntimeSha256": "3FE03B87F514575F60D47A2FCA9CA8AF4382BE4F450241825D97EEAC5F615DA9",
+  "NegativeStrictOriginalBytesEqual": true,
+  "OriginalProviderFiles": 6427,
+  "OriginalProviderBeforeAfterEqual": true,
+  "AffectedPassed": 231,
+  "Catalog": 8838,
+  "SourceGuards": 1671,
+  "DefaultApis": 708,
+  "FullContracts": 118,
+  "ApiDelta": 0,
+  "FullDelta": 0,
+  "KnownSourceOnlyExceptionalRetirementTestNotExecuted": true,
+  "FullModuleCompatibilityAccepted": false,
+  "ExactHeadCiRequired": true,
+  "Part": 457,
+  "PinnedOtp": "OTP-29.1.1",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "PositiveWholeRoles": 6,
+  "NegativeWholeRoles": 0,
+  "NativeControlsPerBridge": 8,
+  "RetainedWholeRowsPerBridge": 36,
+  "ChildLifecycle": 3,
+  "TcpWholeRoles": 4,
+  "ListenerWholeRoles": 5,
+  "ManagedGcIsEstimatedClrTelemetry": true,
+  "ExactErtsGcAccepted": false,
+  "OriginalNetworkModuleCount": 8,
+  "Platform": "Windows x64",
+  "OriginalNetworkSourceOwners": [
+    {
+      "Module": "net_kernel",
+      "Exports": 47,
+      "OriginalBeam": true,
+      "Md5": "5CE880E43831B6A54FD6464F4ADB801C"
+    },
+    {
+      "Module": "erl_epmd",
+      "Exports": 22,
+      "OriginalBeam": true,
+      "Md5": "D7BA487776A8E13E86D66464366594A0"
+    },
+    {
+      "Module": "inet_tcp_dist",
+      "Exports": 32,
+      "OriginalBeam": true,
+      "Md5": "ADA7E2E684744457A4E7CD71E63C9002"
+    },
+    {
+      "Module": "dist_util",
+      "Exports": 16,
+      "OriginalBeam": true,
+      "Md5": "454F1AA00B92EEED1E3562E882B89BD6"
+    },
+    {
+      "Module": "gen_tcp",
+      "Exports": 16,
+      "OriginalBeam": true,
+      "Md5": "799A83AC28D066C82EB249D6D51E8548"
+    },
+    {
+      "Module": "inet",
+      "Exports": 101,
+      "OriginalBeam": true,
+      "Md5": "4F27A519DE3B88AFBB8B06D784147B28"
+    },
+    {
+      "Module": "inet_tcp",
+      "Exports": 25,
+      "OriginalBeam": true,
+      "Md5": "ACD4215A51E0F17F2CC226A80EC0CBCA"
+    },
+    {
+      "Module": "prim_inet",
+      "Exports": 62,
+      "OriginalBeam": true,
+      "Md5": "D502BCFA45173C29F2FFCC39364866C8"
+    }
+  ],
+  "BridgeSha256": "540677E29D6FF508CECFEEEF0742F5EC0466AC99B8164F3C767946B7232B295B",
+  "KnownFrontiers": [
+    "Automatic peer restart/new creation and wider delayed-event/owner/busy races",
+    "Pending nodedown wait/retry",
+    "Transparent adoption allocation-failure rollback",
+    "Generic driver-controller capability/error partitions",
+    "Injected exceptional retirement callback proof",
+    "Complete outputv retention/busy/close stress",
+    "UDP/TLS/other platforms/full module compatibility/performance"
+  ]
+}

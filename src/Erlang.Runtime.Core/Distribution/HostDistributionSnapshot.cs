@@ -2,8 +2,8 @@ namespace Erlang;
 
 public sealed record HostDistributionSnapshot(
     ulong Generation,
-    Pid Controller,
-    Pid InputHandler,
+    Term Controller,
+    Term InputHandler,
     bool GetSize,
     bool NotificationArmed,
     long AcceptedInputPackets,

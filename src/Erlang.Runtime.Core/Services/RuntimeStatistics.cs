@@ -3,7 +3,7 @@ using System.Numerics;
 
 namespace Erlang;
 
-internal sealed class RuntimeStatistics
+internal sealed partial class RuntimeStatistics
 {
     private readonly RuntimeReductionStatistics reductions = new();
     private readonly object gate = new();
@@ -20,6 +20,7 @@ internal sealed class RuntimeStatistics
 
         lock (gate)
         {
+            if (key == RuntimeStatisticsNames.GarbageCollection) return SampleManagedGarbage457();
             BigInteger total;
             BigInteger previous;
             if (key == RuntimeStatisticsNames.WallClock)

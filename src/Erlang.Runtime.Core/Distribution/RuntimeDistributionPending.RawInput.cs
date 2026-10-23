@@ -79,8 +79,12 @@ public sealed partial class RuntimeDistributionPending
                         entry.State == DistributionPendingState.Connected)
                     {
                         entry.State = DistributionPendingState.Exiting;
-                        exitingInputControllers.Add(connected.Controller);
-                        runtime.QueueDistributionControllerKill(connected.Controller);
+                        if (connected.Controller is { } controller)
+                        {
+                            exitingInputControllers.Add(controller);
+                            runtime.QueueDistributionControllerKill(controller);
+                        }
+                        else RetirePending(entry);
                     }
                 }
             }

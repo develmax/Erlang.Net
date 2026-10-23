@@ -142,9 +142,9 @@ public sealed partial class RuntimeDistributionPending
             if (!ReferenceEquals(handle.Entry.Owner, this) || !envelope.Items[0].Equals(Term.I(handle.ConnectionId))) throw new ArgumentException(DistributionPendingDiagnostics.Handle, nameof(value));
             RequireOpen();
             if (handle.Entry.ConnectionId != handle.ConnectionId || handle.Entry.State != DistributionPendingState.Connected
-             || handle.Entry.Connected is not { } connected || connected.Controller.DistributionRole != RuntimeDistributionRole.Controller
+             || handle.Entry.Connected is not { } connected || (connected.NativePort457 is { } port ? !port.IsLive : connected.Controller?.DistributionRole != RuntimeDistributionRole.Controller)
              || runtime.ReadNativeDistributionKernel429(false) is null
-             || !ReferenceEquals(runtime.ReadNativeDistributionController429(connected.Controller.Self), connected.Controller))
+             || connected.Controller is { } controller && !ReferenceEquals(runtime.ReadNativeDistributionController429(controller.Self), controller))
                 throw new ArgumentException(DistributionPendingDiagnostics.Handle, nameof(value));
 
             return Term.Tuple(Term.I(handle.ConnectionId), handle.Entry.Reference);

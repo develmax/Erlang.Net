@@ -5,12 +5,13 @@ namespace Erlang;
 // Actual child-side callback data and image lease, one per real VM port. Driver
 // data is opaque even when NULL. Stop is deferred until the outer callback
 // returns, so driver_failure cannot free data from under a nested output call.
-internal sealed unsafe class ErlDriverPort420 : IDisposable
+internal sealed unsafe partial class ErlDriverPort420 : IDisposable
 {
     private readonly ErlDriverImage420 image;
     private readonly ErlDriverEntry420 entry;
     private readonly ErlDriverImageLease420 imageLease;
     private readonly ErlDriverPrimitiveAccess420 memory;
+    private readonly ErlDriverAbiLayout420 layout457;
     private readonly ErlDriverStartEntry420.Invoke start;
     private readonly Action<ErlDriverPort420> onStopped;
     private readonly Action<ErlDriverPort420, string, nint> missingReady;
@@ -52,6 +53,7 @@ internal sealed unsafe class ErlDriverPort420 : IDisposable
         image = slot.Image;
         entry = slot.Entry;
         this.memory = memory;
+        layout457 = layout;
         this.start = start;
         PortTerm = portTerm;
         Connected = connected;
