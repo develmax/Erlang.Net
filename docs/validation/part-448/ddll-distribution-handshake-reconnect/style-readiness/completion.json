@@ -1,0 +1,41 @@
+{
+  "Passed": true,
+  "SourceGuards": 1621,
+  "Entries": 708,
+  "FullContracts": 118,
+  "SourceGuardDelta": {
+    "Changed": [
+      {
+        "Path": "src/Erlang.Runtime/ErlangOperatorValues.cs",
+        "Before": "4C1F8C0B956F2C482C178D6D34B951EE94CC7A3A921E9A4E5571794A0D1B869D",
+        "After": "55ABEEAABCB8DC99DE762F046CAD2DA96F45CD5D1ECD40FD7F6089EA5FB20AE1",
+        "Added": false
+      },
+      {
+        "Path": "src/Erlang.Runtime/ProcessAliasRegistrations.cs",
+        "Before": null,
+        "After": "AFB98BBB92ACD79319E0A71CE57ACB89200704DEA70312D039B9FD2EDD6CAB9E",
+        "Added": true
+      },
+      {
+        "Path": "src/Erlang.Runtime/RuntimeDistributionPending.AliasSend.cs",
+        "Before": null,
+        "After": "63291A0D8BD3128AAD99C08F4B287308E15CA42E93CA09CBC984B253108098E3",
+        "Added": true
+      },
+      {
+        "Path": "src/Erlang.Runtime/RuntimeDistributionPending.GuestSend.cs",
+        "Before": null,
+        "After": "44DD6CF6FEA93666D33202A2D5E089AF30DB7E606185565CBD3A7E8127BA3A42",
+        "Added": true
+      }
+    ],
+    "EntriesUnchanged": true,
+    "SourceGuards": 1621,
+    "ProductReason": "Confirmed connected named-send drop: one existing guard updated, three newly reached implementation helpers guarded; all other entries untouched"
+  },
+  "EntriesUnchanged": true,
+  "Historical8813AuthorityOnly": true,
+  "CurrentCatalog8824NotFull": true,
+  "RuntimeSha256": "1A0592162FA6080CA2E14464074B28986C3C23C256C9D106462662EA5A3427E8"
+}

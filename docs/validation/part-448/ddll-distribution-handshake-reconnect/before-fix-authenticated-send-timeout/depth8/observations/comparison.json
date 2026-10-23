@@ -1,0 +1,40 @@
+{
+  "Passed": false,
+  "Depth": 8,
+  "Results": [
+    {
+      "Name": "peer-setup",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 0
+    },
+    {
+      "Name": "setup",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 0
+    },
+    {
+      "Name": "depth",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 0
+    },
+    {
+      "Name": "peer-handshake-identity",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 0
+    }
+  ],
+  "Failures": [
+    "Erlang.ErlangException: worker_timeout\r\n   at Erlang.BeamRegisterInterpreter.ExecuteCore(ProcessContext context, BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyList\u00601 arguments, IReadOnlyList\u00601 environment, BeamExecutionIdentity execution, SourceCodeAdmissionKind admission, Nullable\u00601 diagnosticInstructionBudget, LocalFunctionInvocation invocation) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\BeamRegisterInterpreter.cs:line 1243\r\n   at Erlang.ModuleRegistry.AwaitHaltBoundary(ValueTask\u00601 pending, ProcessContext context) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\ModuleRegistry.cs:line 454\r\n   at Program.\u003C\u003Ec__DisplayClass0_2.\u003C\u003C\u003CMain\u003E$\u003Eb__11\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library448-probe-run2\\harness\\Program.cs:line 22\r\n--- End of stack trace from previous location ---\r\n   at Erlang.DriverParentHarnessActor423.\u003C\u003Ec__DisplayClass8_0\u00601.\u003C\u003CInvoke\u003Eb__0\u003Ed.MoveNext()\r\n--- End of stack trace from previous location ---\r\n   at Erlang.DriverParentHarnessActor423.Invoke[T](Func\u00602 body)\r\n   at Program.\u003C\u003Ec__DisplayClass0_1.\u003C\u003C\u003CMain\u003E$\u003Eg__Managed|3\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library448-probe-run2\\harness\\Program.cs:line 22\r\n--- End of stack trace from previous location ---\r\n   at Program.\u003C\u003Ec__DisplayClass0_1.\u003C\u003C\u003CMain\u003E$\u003Eg__RemotePair|7\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library448-probe-run2\\harness\\Program.cs:line 45\r\n--- End of stack trace from previous location ---\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library448-probe-run2\\harness\\Program.cs:line 63"
+  ],
+  "PhysicalCleanup": true,
+  "Transport": "Authenticated real Erlang distribution v6 and physical TCP disconnect/reconnect; actual runtime input/output queues",
+  "WholeModuleClaim": false
+}

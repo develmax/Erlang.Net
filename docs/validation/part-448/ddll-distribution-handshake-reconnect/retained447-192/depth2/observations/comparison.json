@@ -1,0 +1,346 @@
+{
+  "Passed": true,
+  "Depth": 2,
+  "Results": [
+    {
+      "Name": "peer-setup",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 0
+    },
+    {
+      "Name": "peer-identity",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 0
+    },
+    {
+      "Name": "setup",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 0
+    },
+    {
+      "Name": "depth",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 0
+    },
+    {
+      "Name": "foreign-reference-full-stack",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 0
+    },
+    {
+      "Name": "peer-monitor-still-queued",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 0
+    },
+    {
+      "Name": "local-queue",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 0
+    },
+    {
+      "Name": "peer-rejects-primary-reference",
+      "Passed": true,
+      "WholeTypedEqual": false,
+      "WholeRawEqual": false,
+      "OwnReferenceBindings": 1
+    },
+    {
+      "Name": "peer-returned-reference",
+      "Passed": true,
+      "WholeTypedEqual": false,
+      "WholeRawEqual": false,
+      "OwnReferenceBindings": 1
+    },
+    {
+      "Name": "queue-one-foreign-caller-preserves",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 1
+    },
+    {
+      "Name": "returned-reference-cancels-owner",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 1
+    },
+    {
+      "Name": "queue-zero-after-return",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 1
+    },
+    {
+      "Name": "repeat-completed-reference",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 1
+    },
+    {
+      "Name": "pre-admission-ref",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 1
+    },
+    {
+      "Name": "pre-admission-wire",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 2
+    },
+    {
+      "Name": "public-node-admission",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 2
+    },
+    {
+      "Name": "pre-admission-wire-after-admission",
+      "Passed": true,
+      "WholeTypedEqual": false,
+      "WholeRawEqual": false,
+      "OwnReferenceBindings": 2
+    },
+    {
+      "Name": "queue-one-after-admission-reject",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 2
+    },
+    {
+      "Name": "retained-internal-after-admission",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 2
+    },
+    {
+      "Name": "queue-zero-after-internal-admission",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 2
+    },
+    {
+      "Name": "active-ref",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 2
+    },
+    {
+      "Name": "active-wire",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 3
+    },
+    {
+      "Name": "active-wire-local-roundtrip",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 3
+    },
+    {
+      "Name": "queue-zero-after-active-roundtrip",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 3
+    },
+    {
+      "Name": "active-ref-two",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 3
+    },
+    {
+      "Name": "active-wire-two",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 4
+    },
+    {
+      "Name": "kernel-death-node-reset",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 4
+    },
+    {
+      "Name": "prior-epoch-wire-after-reset",
+      "Passed": true,
+      "WholeTypedEqual": false,
+      "WholeRawEqual": false,
+      "OwnReferenceBindings": 4
+    },
+    {
+      "Name": "queue-one-after-reset-reject",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 4
+    },
+    {
+      "Name": "retained-internal-after-reset",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 4
+    },
+    {
+      "Name": "queue-zero-after-internal-reset",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 4
+    },
+    {
+      "Name": "next-node-admission",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 4
+    },
+    {
+      "Name": "prior-epoch-wire-after-next-admission",
+      "Passed": true,
+      "WholeTypedEqual": false,
+      "WholeRawEqual": false,
+      "OwnReferenceBindings": 4
+    },
+    {
+      "Name": "retained-internal-after-next-admission",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 4
+    },
+    {
+      "Name": "final-kernel-reset",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 4
+    },
+    {
+      "Name": "retain-real-prior-external-epoch",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 4
+    },
+    {
+      "Name": "same-name-epoch-collision",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 4
+    },
+    {
+      "Name": "prior-epoch-wire-after-same-name",
+      "Passed": true,
+      "WholeTypedEqual": false,
+      "WholeRawEqual": false,
+      "OwnReferenceBindings": 4
+    },
+    {
+      "Name": "retained-internal-after-same-name",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 4
+    },
+    {
+      "Name": "queue-zero-after-same-name",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 4
+    },
+    {
+      "Name": "same-name-new-ref",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 4
+    },
+    {
+      "Name": "same-name-new-wire",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 5
+    },
+    {
+      "Name": "same-name-new-roundtrip",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 5
+    },
+    {
+      "Name": "queue-zero-after-new-epoch",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 5
+    },
+    {
+      "Name": "last-kernel-reset",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 5
+    },
+    {
+      "Name": "physical-unload-notification",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 5
+    },
+    {
+      "Name": "peer-kernel-reset",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 5
+    },
+    {
+      "Name": "peer-cleanup",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 5
+    }
+  ],
+  "Failures": [],
+  "PhysicalCleanup": true,
+  "Transport": "Actual loopback TCP packet4 ETF; not Erlang distribution handshake",
+  "FullStackComparison": "All frames and fields; explicitly bound own-reference values compared by source protocol, no expected rewriting"
+}

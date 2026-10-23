@@ -1,0 +1,5 @@
+{
+  "Passed": true,
+  "Failure": "System.ArgumentException: The pending distribution handle is foreign, malformed or stale\r\n   at Erlang.RuntimeDistributionPending.ValidateEntry(RuntimeDistributionPendingEntry entry, UInt32 connectionId) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\RuntimeDistributionPending.cs:line 285\r\n   at Erlang.RuntimeDistributionPending.RequireConnected(RuntimeDistributionPendingEntry entry, UInt32 connectionId) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\RuntimeDistributionPending.Connected.cs:line 399\r\n   at Erlang.RuntimeDistributionPending.ConnectedSnapshot(Term handle) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\RuntimeDistributionPending.Connected.cs:line 103\r\n   at Program.\u003C\u003Ec__DisplayClass0_1.\u003C\u003C\u003CMain\u003E$\u003Eg__RejectOld|9\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library448-probe-run4\\harness\\Program.cs:line 108",
+  "OldConnection": 621059
+}

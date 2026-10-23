@@ -1,0 +1,24 @@
+{
+  "Passed": false,
+  "Groups": [],
+  "Failures": [
+    "FileNotFoundError(2, '\u041d\u0435 \u0443\u0434\u0430\u0435\u0442\u0441\u044f \u043d\u0430\u0439\u0442\u0438 \u0443\u043a\u0430\u0437\u0430\u043d\u043d\u044b\u0439 \u0444\u0430\u0439\u043b', None, 2, None)"
+  ],
+  "InputsUnchanged": true,
+  "RuntimeSha256": "94744C030C53C4B93E55168E8A14A852EFF5B5A8AB8DE0D7611E2B76F04B3A81",
+  "ProviderScans": [
+    {
+      "Phase": "before",
+      "Equal": true,
+      "Files": 6427,
+      "Seconds": 73.0
+    },
+    {
+      "Phase": "after",
+      "Equal": true,
+      "Files": 6427,
+      "Seconds": 1.4369999999180436
+    }
+  ],
+  "Transport": "two real distributed OTP OS nodes, authenticated Erlang distribution v6, physical TCP disconnect/reconnect and actual runtime data queues"
+}
