@@ -1,4 +1,4 @@
-# Native API compatibility checkpoints through Part446
+# Native API compatibility checkpoints through Part447
 
 Pinned development oracle: OTP-29.1.1, commit `ad05823719d77c8faee87348ea39513d4e2f99c5`.
 Production remains our .NET runtime. The user authorized commit and publication of the completed scope through Part436 on2026-10-22. Later prepared proposals remain separate until accepted.
@@ -30,7 +30,7 @@ Part442 publication follow-up: initial CI8821/8822 exposes a named-port FileStre
 | `erts_debug` | Both unique minima, raw monotonic state read/write, real per-runtime modulo64 counter shared by public unique_integer and both strict trace producers | Original144 outcomes/full profiles captured; actual replay and two-runtime/16-actor controls pass in first bounded block. Focus258/258 in7 immutable blocks passes; affected3528/3528 composite audit passes. | Other `get_internal_state`/`set_internal_state` keys, including actual memory/atom/binary/node diagnostics and execution controls; managed handler/heap layout remains its own backend profile. |
 | `ets` | Part442 genuine compressed storage, mid-codec cancellation, atomic mutations and cursor/foreign-owner protocols | Original156 plus324 source-observer results, final15 focus groups,409 affected andboot79 with real FUN census/weak-root cleanup. Published and merged; publication and merge CI pass8823/8823 and both packages. | Full ETS contracts, actual fine-lock/decentralized backend if effective=true is required, unsafe raw-header and physical memory-layout profiles remain separate. |
 | `erts_internal` | Monitored spawn without traditional monitor bits: real connection-only supervision and omission of unsupported MONITOR/DEMONITOR/MONITOR_EXIT wire controls | Original42 complete outcomes/full profiles captured; actual source replay and real two-runtime child-death/node-down/demonitor/abandon controls pass in first bounded block. Focus258/258 in7 immutable blocks passes; affected3528/3528 composite audit passes. | Pending/autoconnect generation-owned output, driver-port distribution controller, pending-node-down retry, unsupported wire capabilities; binary/driver-child allocator attribution and other recorded physical profile boundaries. |
-| `erl_ddll` | Part445 ordering fix retained; Part446 repeated permanence, real reference roundtrip/image generation, fixed external input and two-owner death | All36 new complete source-profile results/whole raw files match; prior60+72+36/native8, affected195 andboot79 pass locally with actual physical cleanup. No Part446 product change or API promotion. Part445 merge a72f6903 CI39922245233 green8823/8823 and packages; exact446 CI tracked in PR. | Actual VM creation/peer reference interoperability, held native teardown interleavings, broader option/reload/demonitor/force cross-products and additional OS/ABI/physical profiles. |
+| `erl_ddll` | Part447 genuine cross-VM TCP/ETF references and public node-identity/retained-epoch transitions | 192/192 composed actions (168 exact whole / 24 full own-reference protocols), retained72/native8, affected205 andboot79 with real cleanup; no product/API promotion. Part446 merge a2d58038 CI39930254918 green8823/packages; exact447 CI tracked in PR. | Erlang distribution handshake/connection-generation/reconnect paths, held native teardown interleavings, broader mode cross-products and additional OS/ABI/thread profiles. |
 
 ## Acceptance order
 
@@ -66,3 +66,5 @@ Part444 verifies12 prepared reference/load/unload/reload/monitor scenarios:72 ne
 Part445 scope and exact defect/evidence: [permanent, deferred reload and force](validation/part-445/ddll-permanent-reload-force/README.md). API/full-contract deltas0/0.
 
 Part446 exact scope/results: [six DDLL frontier scenarios](validation/part-446/ddll-permanence-references-and-owner-death/README.md). Source/default/full classifications unchanged.
+
+Part447 bounded acceptance: [real VM reference exchange and identity](validation/part-447/ddll-real-vm-identity/README.md).

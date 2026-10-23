@@ -1,0 +1,30 @@
+# Part447 — real VM DDLL reference exchange and node identity
+
+Oracle: OTP29.1.1 `ad05823719d77c8faee87348ea39513d4e2f99c5`. Part446 is merged as `a2d58038`; exact merge CI39930254918 passes8823/8823, all mandatory steps and both package checks. Git publication and CI package validation are not a NuGet release.
+
+## Accepted scope
+
+The original compiler compiles one common Erlang worker/actor. Its exact same BEAM executes on real OTP and our actual runtime with the native DriverHost and original `erl_ddll` facade. Each depth0/1/2/8 cohort owns two separate original OTP OS processes and one actual managed runtime/native child. A private loopback packet4 TCP channel exchanges genuine references with the second VM. The peer actually decodes, calls DDLL and re-encodes the reference; the returned wire must equal the original entire input bytes. This is physical VM/codec/DDLL interoperability over framed TCP ETF, **not an Erlang distribution handshake, epmd, net_kernel transport, disconnect/reconnect or full distributed-node conformance test**.
+
+- A genuine queued reference produced by the peer is rejected with complete `badarg` values and full source stacks. Both primary runtimes receive the same actual peer reference, permitting exact raw equality of that entire error.
+- The primary's actual queued reference is decoded on the peer. Foreign DDLL cancellation fails and the creator's real queue remains1. Re-encoding on the peer and decoding on the creator recovers its internal reference, cancellation succeeds and the queue becomes0. Repeated cancellation succeeds without recreating a monitor.
+- Public `setnode/2` with a real registered kernel process changes inactive node identity. A previously captured wire remains external and is rejected; the retained internal monitor still cancels correctly. A wire captured in the current epoch localizes correctly.
+- Actual kernel termination is joined and public `is_alive` is bounded until inactive. The prior active wire is external after reset; the internal reference remains valid. A different node name and then the original name are admitted through the same public operation.
+- The prior external epoch is retained by a genuine runtime `binary_to_term` value in the worker dictionary. Re-admitting the original name with requested creation4 selects5 on both VMs. Old wire is rejected, old internal reference remains valid, and a new-epoch wire roundtrip cancels a real new monitor with queue0.
+- Actual unload notification precedes native child shutdown; PhysicalExit, PhysicalCleanup, Completion and zero leases pass for all accepted cohorts. Original servers ACK only after joining their worker and exit normally; cleanup attempts for both processes are independent.
+
+All **192/192** accepted actions match across four profiles: **168 complete typed/raw equalities and 24 full own-reference protocol comparisons**. The latter preserve all raw terms and every stack frame/field; only specifically captured source reference pairs are compared by their actual ownership protocol. Expected values/stacks are not rewritten and opaque reference bits are not called equal. Binary wire observations remain separate from these192 action results. Standalone192 is not192 added canonical test registrations or API contract promotions.
+
+## Corrected observer and retained failed attempt
+
+Initial depth8 probe1 passes31 bounded actions but lacks the later queue/join/epoch fences. Unexecuted probe2 adds source-review fences. Probe3 runs all four profiles:1/2 each pass48;0/8 stop at an incorrect harness length assertion. The actual original and managed raw foreign-reference stacks already agree: cardinalities1/1/2/3 for0/1/2/8. Immutable successor4 corrects **only** `Min(depth,2)` to `Clamp(depth,1,3)`, retaining all frame comparisons. Erlang sources, BEAM bytes, product sources, assemblies and fixtures are unchanged. Only failed0/8 are repeated, each48/48. Final192 is explicitly a composition of96 unchanged successful rows and96 corrected-repeat rows, not one uninterrupted new four-profile run. No runtime discrepancy was found or product fix invented. All failed raw files and receipts remain archived.
+
+Each execution batch has complete uncached6427-file provider inventories before/finally-after and immutable input checks. The cold initial inventory took65.734s; warm final0/8 scans took1.375s/1.453s, not an algorithm-speedup claim. The correction avoids rerunning96 already accepted action comparisons and two extra VM pairs. Existing echo DLL and original facade are authenticated against Passed228 preparation; no native rebuild or old228 rerun is claimed.
+
+## Regression, readiness and remaining work
+
+Final Runtime723E93D7 passes retained72 source-profile DDLL results (36 previous visibility/init and36 Part446), all8 native/HOST groups, **205/205** affected tests in11 immutable shards (the original195 plus10 identity/node targets), standard79 and actual collector/persistent cleanup. Build has zero warnings/errors; source layout passes. Readiness uses explicitly historical8813 evidence and is not a new full-suite claim. Exact publication-head8823/full CI and both package outcomes are tracked in the attached PR.
+
+Source guards1618, default APIs708 and verified contracts118 remain unchanged; API/full deltas0/0. Native bodies/loading remain ETS51/51, DDLL7/7, debug20/20, internal71/71, separate from full compatibility. No whole-module promotion. Remaining DDLL work includes actual Erlang distribution handshake/connection-generation/reconnect paths, held native teardown interleavings, wider load/reload/force partitions and additional OS/ABI/thread profiles. Public setnode identity probes here do not prove standard net_kernel/application transport boot.
+
+This lossless source/provenance archive retains local workspace-relative preparation paths; it is not a fresh-clone turnkey native CI recipe. `.json.gz` decompresses to the original bytes and every stored/raw hash appears in archive-map; original ETF and BEAM remain unchanged. Vendor provider/package binaries are hash-referenced rather than copied. The uncommitted local license file is excluded.

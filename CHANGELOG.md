@@ -130,4 +130,6 @@ Append numbered English entries only to the last volume. Start the next sequenti
 - [0075.md](docs/changelog/0075.md) — parts421–423 (closed; scoped ETS closure, dirty query, distribution codec and actual driver child lifecycle)
 - [0076.md](docs/changelog/0076.md) — parts424-428 (closed; scoped remaining native images)
 - [0077.md](docs/changelog/0077.md) — parts433–439 (closed volume;439 tests pass, later readiness publication failure retained)
-- [0078.md](docs/changelog/0078.md) — part440 onward (active; readiness publication and remaining native contracts)
+- [0078.md](docs/changelog/0078.md) — parts440–446 (closed; readiness publication and native contracts)
+
+- [0079.md](docs/changelog/0079.md) — part447 onward (active; native interoperability and identity contracts)

@@ -1,0 +1,40 @@
+{
+  "Passed": false,
+  "Depth": 8,
+  "Results": [
+    {
+      "Name": "peer-setup",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 0
+    },
+    {
+      "Name": "peer-identity",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 0
+    },
+    {
+      "Name": "setup",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 0
+    },
+    {
+      "Name": "depth",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 0
+    }
+  ],
+  "Failures": [
+    "System.IO.InvalidDataException: Native driver parent received an invalid authenticated operation result\r\n   at Erlang.DriverParentHarnessAccess423.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library447-probe-run3\\harness\\DriverParentHarnessAccess423.cs:line 11\r\n   at Program.\u003C\u003CMain\u003E$\u003Eg__ValidateOutcome|0_1(String name, Term value, Int32 depth) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library447-probe-run3\\harness\\Program.cs:line 137\r\n   at Program.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CMain\u003E$\u003Eg__Save|6(String name, Term expected, Term actual, Boolean compare) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library447-probe-run3\\harness\\Program.cs:line 36\r\n   at Program.\u003C\u003Ec__DisplayClass0_1.\u003C\u003C\u003CMain\u003E$\u003Eg__Step|7\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library447-probe-run3\\harness\\Program.cs:line 42\r\n--- End of stack trace from previous location ---\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library447-probe-run3\\harness\\Program.cs:line 58"
+  ],
+  "PhysicalCleanup": true,
+  "Transport": "Actual loopback TCP packet4 ETF; not Erlang distribution handshake",
+  "FullStackComparison": "All frames and fields; explicitly bound own-reference values compared by source protocol, no expected rewriting"
+}
