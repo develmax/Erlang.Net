@@ -60,7 +60,7 @@ public static class ConnectedRpcTimeoutHostChecks
                     // Admit the genuine DOWN without selecting it before invoking the normal timeout race resolver.
                     Require(await context.ReceiveAsync<Term>(_ => null, TimeSpan.Zero) is null);
                 }
-                Type type = typeof(OtpModules).Assembly.GetType(ConnectedRpcHostNames.ErpcType)!;
+                Type type = typeof(Erlang.Otp.KernelModules).Assembly.GetType(ConnectedRpcHostNames.ErpcType)!;
                 MethodInfo method = type.GetMethod(
                     afterTimeout ? ConnectedRpcHostNames.AfterTimeout : ConnectedRpcHostNames.WaitResult,
                     BindingFlags.Static | BindingFlags.NonPublic

@@ -60,7 +60,7 @@ public static class ErrorLoggerTermLimitHostChecks
 
     private static Term Limit(Term value, int depth)
     {
-        MethodInfo method = typeof(GenServer).Assembly.GetType(ErrorLoggerTermLimitHostNames.Type, true)!
+        MethodInfo method = typeof(Erlang.Otp.KernelModules).Assembly.GetType(ErrorLoggerTermLimitHostNames.Type, true)!
             .GetMethod(ErrorLoggerTermLimitHostNames.Method)!;
         try
         {

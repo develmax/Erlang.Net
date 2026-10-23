@@ -174,7 +174,7 @@ internal static class CommonErrorCaptureHostChecks
                 Term.A(CommonErrorCaptureHostNames.BareFault)
             ));
             Require(bare.StackTraceTerm is Nil && !bare.ExplicitStackTrace && !bare.AutomaticStackTraceCaptured);
-            var erpc = typeof(Erlang.Otp.OtpModules).Assembly.GetType(CommonErrorCaptureHostNames.ErpcType, throwOnError: true)!;
+            var erpc = typeof(Erlang.Otp.KernelModules).Assembly.GetType(CommonErrorCaptureHostNames.ErpcType, throwOnError: true)!;
             var fallback = erpc.GetMethod(CommonErrorCaptureHostNames.ErpcStack, System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic)!;
             Term module = Term.A(CommonErrorCaptureHostNames.ActualTarget), function = Term.A(CommonErrorCaptureHostNames.ActualFunction), arguments = Term.List(Term.I(CommonErrorCaptureHostParameters.Payload));
             Term result = (Term)fallback.Invoke(null, [bare, module, function, arguments])!;

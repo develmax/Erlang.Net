@@ -14,7 +14,7 @@ admission=json.loads((new_bridge/'admission.json').read_bytes())
 assert admission['SubjectHead']=='f7399755673e510c15ddcdc573a376141c1c5965'
 check(args.source_plan,args.source_plan_sha256);plan=json.loads(pathlib.Path(args.source_plan).read_bytes())
 assert args.source_plan_sha256.upper()=='83667FC235724A7E618C6DA8AAE36FF6BCCA0C4616E1C1AE83E1BA1F25A43995'
-changed={'tools/Erlang.NifNativeBackend/NifLinuxCallbackDriver.cs','tools/Erlang.NifLinuxCallbackFocus/Program.cs','.github/workflows/nif-entry-original.yml','src/Erlang.Runtime/NifNativeLinuxNamespace.cs','tools/Erlang.NifNativeBackend/NifLinuxCallbackAdmission.cs'}
+changed={'tools/Erlang.NifNativeBackend/NifLinuxCallbackDriver.cs','tools/Erlang.NifLinuxCallbackFocus/Program.cs','.github/workflows/nif-entry-original.yml','src/Erlang.Runtime.Core/Native/Nif/NifNativeLinuxNamespace.cs','tools/Erlang.NifNativeBackend/NifLinuxCallbackAdmission.cs'}
 for row in plan['Files']:
     if row['Path'].replace('\\','/') not in changed:check(ROOT/row['Path'],row['Sha256'])
 check(admission['BridgePath'],admission['BridgeSha256']);check(admission['BridgeReceiptPath'],admission['BridgeReceiptSha256'])
