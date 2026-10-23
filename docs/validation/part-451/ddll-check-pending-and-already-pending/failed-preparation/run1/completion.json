@@ -1,0 +1,39 @@
+{
+  "Passed": false,
+  "Groups": [
+    {
+      "Depth": 8,
+      "Order": "incoming",
+      "Passed": false,
+      "Errors": [
+        "RuntimeError('Owned stage failed; all available raw evidence retained: compare-depth8-incoming')",
+        "peer did not exit normally or by its validated scenario kill",
+        "primary did not exit normally or by its validated scenario kill"
+      ]
+    },
+    {
+      "Depth": 8,
+      "Order": "outgoing",
+      "Passed": true,
+      "Errors": []
+    }
+  ],
+  "Failures": [],
+  "InputsUnchanged": true,
+  "RuntimeSha256": "A261E9763EEC072D08F69C0E186BC353B417FB0464F1D1F3D03F3160107835D3",
+  "ProviderScans": [
+    {
+      "Phase": "before",
+      "Equal": true,
+      "Files": 6427,
+      "Seconds": 82.18800000008196
+    },
+    {
+      "Phase": "after",
+      "Equal": true,
+      "Files": 6427,
+      "Seconds": 1.2650000000139698
+    }
+  ],
+  "Transport": "actual original pending collisions/alive status, runtime data queues and deliberate owned OS peer-tree termination/restart"
+}

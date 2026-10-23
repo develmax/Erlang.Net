@@ -1,0 +1,29 @@
+# Part451 — check_pending and already_pending
+
+Pinned OTP29.1.1 `ad05823719d77c8faee87348ea39513d4e2f99c5`. Part450 merged maindf3cccb1, exact merge CI39960005038 green8826/8826 and both packages. The source receipt reads exact pinned blobs; newer checkout HEAD is not the oracle. Actual original execution uses the authenticated release provider, verified6427 files before/after. Exact451 publication-head CI and both packages are recorded in PR; no NuGet release implied.
+
+## Actual original branches, explicit adapter boundary
+
+Temporarily configure a delegating original-only epmd_module callback after normal boot. Its address_please blocks real transport selection, before outgoing NAME. The real original net_kernel inserts check_pending, owns the actual checker PID/queued caller and handles incoming. Both lexical orders emit actual sok_simultaneous, stop checker with remarked and reply true to the original connect waiter. Connection identity is preserved and a genuine authenticated stream adopts the runtime's pre-created pending handle. No direct sys_dist insertion, hot patch or fictional CheckPending enum. This is controlled discovery, not default DNS, physical scheduling equivalence or complete managed standard net_kernel boot. The original kernel/state machine and the managed runtime queue/controller primitives are distinct evidence.
+
+On the actual established channel, hold first duplicate after salive before true/false. Capture whole up_pending source row/owner/controller/connid. A second actual NAME yields zero status bytes and physical EOF/reset, no challenge/auth/adoption; complete original row and whole managed snapshot stay unchanged. Capture actual kernel send replies to distinct first/second owners: internal up_pending then already_pending. Do not invent salready_pending or snok. First false closes and restores old connection; first valid true survives refusal and authenticates, retires/joins old controller before HOST ACK read, preserves same peer creation and genuine peer-held DDLL references. Old physical common-worker traffic continues while candidates are held and after refusal.
+
+Independent audits parse24 trace groups containing40 actual messages:8ok_pending,16up_pending,16already_pending, with real recipient roles. Original row/checker/waiter/source raw captures are own-VM observations, not cross-VM byte equality. The code restores discovery configuration on success; no alternate-config failure cleanup or default resolver claim is added.
+
+## Results and lifecycle
+
+Immutable packet2 passes both depth8 orders in run2 and all six0/1/2 orders in run3:424/424 observations=376 paired common-source/protocol+48 auxiliary controls;368 complete typed/raw matches+56 explicit own-reference protocols. Same final RuntimeA261E976/native package1FE86D4E, all three BEAMs identical,2698 bindings per batch unchanged. These are not424 complete API contracts or canonical tests.
+
+Eight actual check_pending takeovers and16 zero-status extras pass, with8 first-false/8 first-true completions and real data/DDLL evidence. Retain actual before/after original rows, status/challenge/reply/ACK/data bytes, full error/frame profiles0/1/2/8 and reference-role/raw identity.24 authenticated runtime channels drain bytes/packets/segments to0 and join. Eight deliberate original peer-tree exits match8 actually captured OS handles, each joined; no unseen child count is fabricated.16 normal oracle/replacement VM exits and2 normal EPMDs pass. Native PhysicalExit/Cleanup/Completion and zero leases pass. This is a captured process-family snapshot, not Job containment or an unload after death.
+
+One permanent HOST regression exercises two actual controller actors concurrently adopting one pending generation, one winner, losing actor disposal, connected abort inertness and real queued delivery/drain. Final590/590 affected retains589 prior cases; native8/DDLL36,boot79 and actual collector/persistent cleanup pass. Default708/full118/source1621 remain unchanged, deltas0/0; catalog8826→8827.
+
+## Preserved failures and final source
+
+Initial run1 incoming fails before guest/runtime startup: existing readiness file was still empty, int.Parse receives empty port. Two owned originals require forced failure cleanup, which is NOT counted as normal accepted cleanup. Outgoing run1 passes independently but is not substituted for final packet2 acceptance. Packet2 waits for actual numeric port in the same existing deadline in initial/restart readers; semantic observer/common BEAM/handshake expectations are unchanged. Raw failed packet/run are retained. Passive aggregator's old450 BEAM filename was corrected without rerunning VMs.
+
+Initial five-stage gate has four functional passes and style-only failure: registration script wrote Program.cs CRLF while existing source is LF. Final correction restores LF, verifies whole normalized source bytes identical and test/runtime DLLs unchanged, then style passes separately. Functional snapshots retain their original CRLF source binding; final-test-sources and explicit style-correction receipt bind the LF supplement. No semantic functional rerun is needed for endings; exact-head CI rebuilds and tests final sources. Nothing rewrites the failed gate as an uninterrupted pass.
+
+## Remaining work
+
+Late checker results/timers, additional setup/timeout/replacement races, malformed/legacy/dynamic negotiation,TLS,full managed original net_kernel standard transport/autoconnect/ALTACT, wider DDLL/native/platform/ABI/thread contracts. No whole-module or performance promotion; P0/P1/future architecture queue is unchanged. Recipes retain workspace authenticated helpers and are not a fresh-clone turnkey native CI guarantee. Complete raw ETF/protocol/source retained; large JSON may be losslessly gzip-compressed with stored/raw SHA manifests. LICENSE.local.txt is excluded.

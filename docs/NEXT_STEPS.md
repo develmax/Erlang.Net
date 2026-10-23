@@ -1,16 +1,16 @@
-# Current checkpoint — Part450 — 2026-10-23
+# Current checkpoint — Part451 — 2026-10-23
 
 | Module / area | Accepted scope | Remaining |
 | --- | --- | --- |
-| Distribution runtime | Both lexical pending collisions, alive false/bad-cookie/valid replacement;24 authenticated channels | check_pending/already_pending, broader setup/handoff races, TLS, full managed net_kernel transport boot/autoconnect/ALTACT |
-| DDLL / identity | Eight actual owned peer-tree kills/restarts; local queue survives, old refs retain bytes and replacement refs cancel only their owner | Wider mode/owner/native teardown interleavings and OS/ABI/native-thread profiles |
-| ETS / erts_debug / erts_internal | Previous scoped body/loading evidence retained; no new complete contracts | Full semantic/physical/concurrency partitions in remaining-work/INDEX.md |
-| Regression |589/589 affected, native8 + retained36, boot79/cleanup; new permanent losing-candidate queue/epoch group | Exact450 publication-head full CI/packages tracked in PR |
-| Default registry |708 APIs /118 full contracts;1621 source guards, delta0/0 |590 unclosed default contracts; native body presence is not whole-module compatibility |
+| Distribution runtime |8 real check_pending takeovers in both lexical orders;16 already_pending zero-status refusals;24 actual kernel reply-trace groups; first candidate false/true and old stream preserved | Late selection/timer/setup/replacement races, malformed/legacy/dynamic negotiation,TLS,full managed original net_kernel boot/autoconnect/ALTACT |
+| DDLL / identity | Retained genuine monitor/ref/error/frame and peer restart behavior across24 authenticated channels; all accepted OS/native/controller cleanup passes | Wider reload/demonitor/force/owner/native teardown and OS/ABI/native-thread profiles |
+| ETS / erts_debug / erts_internal | Earlier loading/native-body scopes retained; no new complete contracts | Full semantic/physical/concurrency partitions in remaining-work/INDEX.md |
+| Regression |590/590 affected,native8+retained36,boot79/cleanup; one new concurrent-adoption/queued-delivery group | Exact451 publication-head full CI/packages tracked in PR |
+| Default registry |708 APIs /118 verified full contracts;1621 source guards,delta0/0 |31 Known differences and559 Needs verification; not whole-library completion |
 
-Part449 is merged as main7e4a324d; exact merge CI39951441544 passes8825/8825 and both package builds. Part450 passes400 observations:352 paired common-source/protocol plus48 auxiliary guards;344 whole typed/raw and56 own-reference protocols. Runtime6B102A98 matches its fresh native package. No production algorithm discrepancy was confirmed. Canonical catalog8826 is distinct from a full-suite pass. [Proof](validation/part-450/ddll-simultaneous-alive-and-fatal-peer/README.md); [English changelog](changelog/0079.md).
+Part450 is merged as maindf3cccb1; exact merge CI39960005038 passes8826/8826 and both packages. Part451 accepts424 observations:376 paired common-source/protocol plus48 auxiliary guards;368 whole typed/raw and56 own-reference protocols. Final RuntimeA261E976/package1FE86D4E. Canonical catalog8827 is distinct from a full-suite pass. [Proof](validation/part-451/ddll-check-pending-and-already-pending/README.md); [English changelog](changelog/0079.md).
 
-Collision policy is observed in actual original net_kernel and an explicit evidence adapter driving real runtime queues; this does not introduce a production C# replacement for original Erlang net_kernel. Deliberate peer nonzero exits are planned scenario operations, not ignored cleanup failures. Next: check_pending/already_pending and wider handoff races, then TLS/full standard transport. Earlier entries below are historical.
+check_pending is reached before NAME through an original-only configured discovery callback barrier, without editing sys_dist or original net_kernel. already_pending is an actual INTERNAL reply: the extra socket closes without a status, not a fictional salready_pending. Original rows/PIDs/traces are raw own-state observations. Managed real queues/controller primitives and the explicit protocol adapter do not prove full managed standard net_kernel execution. No runtime algorithm discrepancy was confirmed. Earlier entries below are historical.
 
 # Next executable tasks
 
