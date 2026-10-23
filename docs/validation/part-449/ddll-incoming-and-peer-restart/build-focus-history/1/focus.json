@@ -1,0 +1,19 @@
+{
+  "Partial": true,
+  "SelectedCount": 1,
+  "TotalCount": 8825,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/distribution449/remote-epoch-keeps-old-reference-and-rejects-stale-input"
+  ],
+  "Passed": 0,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "runtime/distribution449/remote-epoch-keeps-old-reference-and-rejects-stale-input",
+      "Status": "Failed",
+      "Error": "System.ArgumentException: An item with the same key has already been added. Key: (erlang, self, 0)\r\n   at System.Collections.Generic.Dictionary\u00602.TryInsert(TKey key, TValue value, InsertionBehavior behavior)\r\n   at System.Collections.Generic.Dictionary\u00602.Add(TKey key, TValue value)\r\n   at Erlang.ModuleRegistry.Register(String module, String function, Int32 arity, ErlangFunction body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\ModuleRegistry.cs:line 133\r\n   at Erlang.CoreModules.\u003CRegisterCode\u003Eg__Add|1_0(String module, String name, Int32 arity, Func\u00603 f, \u003C\u003Ec__DisplayClass1_0\u0026) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\CoreModules.cs:line 20\r\n   at Erlang.CoreModules.RegisterCode(ModuleRegistry r) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\CoreModules.cs:line 26\r\n   at Erlang.ModuleRegistry.\u003C\u003Ec__DisplayClass87_0.\u003CInstallPreloaded\u003Eb__0(ModuleRegistry target) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\ModuleRegistry.cs:line 625\r\n   at Erlang.ModuleRegistry.Apply(Action\u00601 configure) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\ModuleRegistry.cs:line 719\r\n   at Erlang.ModuleRegistry.InstallPreloaded(Action\u00601 configure) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\ModuleRegistry.cs:line 621\r\n   at Erlang.CoreModules.Register(ModuleRegistry r) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\CoreModules.cs:line 9\r\n   at Erlang.Tests.ConnectedRemoteEpochHostChecks449.Initialize(ConnectedSpawnHostEndpoint endpoint, UInt32 creation) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\ConnectedRemoteEpochHostChecks449.cs:line 87\r\n   at Erlang.Tests.ConnectedRemoteEpochHostChecks449.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\ConnectedRemoteEpochHostChecks449.cs:line 11\r\n   at Erlang.Tests.ConnectedRemoteEpochHostChecks449.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\ConnectedRemoteEpochHostChecks449.cs:line 64\r\n   at Erlang.Tests.ConnectedRemoteEpochHostChecks449.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\ConnectedRemoteEpochHostChecks449.cs:line 64\r\n   at Erlang.Tests.ConnectedRemoteEpochHostChecks449.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\ConnectedRemoteEpochHostChecks449.cs:line 64\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 6801",
+      "Milliseconds": 103
+    }
+  ]
+}

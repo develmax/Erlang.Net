@@ -1,0 +1,18 @@
+{"Partial":true,"SelectedCount":1,"TotalCount":8825}
+FAIL runtime/distribution449/remote-epoch-keeps-old-reference-and-rejects-stale-input: System.ArgumentException: An item with the same key has already been added. Key: (erlang, self, 0)
+   at System.Collections.Generic.Dictionary`2.TryInsert(TKey key, TValue value, InsertionBehavior behavior)
+   at System.Collections.Generic.Dictionary`2.Add(TKey key, TValue value)
+   at Erlang.ModuleRegistry.Register(String module, String function, Int32 arity, ErlangFunction body) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Runtime\ModuleRegistry.cs:line 133
+   at Erlang.CoreModules.<RegisterCode>g__Add|1_0(String module, String name, Int32 arity, Func`3 f, <>c__DisplayClass1_0&) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Runtime\CoreModules.cs:line 20
+   at Erlang.CoreModules.RegisterCode(ModuleRegistry r) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Runtime\CoreModules.cs:line 26
+   at Erlang.ModuleRegistry.<>c__DisplayClass87_0.<InstallPreloaded>b__0(ModuleRegistry target) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Runtime\ModuleRegistry.cs:line 625
+   at Erlang.ModuleRegistry.Apply(Action`1 configure) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Runtime\ModuleRegistry.cs:line 719
+   at Erlang.ModuleRegistry.InstallPreloaded(Action`1 configure) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Runtime\ModuleRegistry.cs:line 621
+   at Erlang.CoreModules.Register(ModuleRegistry r) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Runtime\CoreModules.cs:line 9
+   at Erlang.Tests.ConnectedRemoteEpochHostChecks449.Initialize(ConnectedSpawnHostEndpoint endpoint, UInt32 creation) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\ConnectedRemoteEpochHostChecks449.cs:line 87
+   at Erlang.Tests.ConnectedRemoteEpochHostChecks449.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\ConnectedRemoteEpochHostChecks449.cs:line 11
+   at Erlang.Tests.ConnectedRemoteEpochHostChecks449.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\ConnectedRemoteEpochHostChecks449.cs:line 64
+   at Erlang.Tests.ConnectedRemoteEpochHostChecks449.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\ConnectedRemoteEpochHostChecks449.cs:line 64
+   at Erlang.Tests.ConnectedRemoteEpochHostChecks449.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\ConnectedRemoteEpochHostChecks449.cs:line 64
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Program.cs:line 6801
+0/1 passed
