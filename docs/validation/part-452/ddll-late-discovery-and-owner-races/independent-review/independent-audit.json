@@ -1,0 +1,444 @@
+{
+  "Passed": true,
+  "Counts": {
+    "NormalEPMD": 5,
+    "Rows": 1272,
+    "RawExact": 1104,
+    "OwnRefProtocol": 168,
+    "late_success": 8,
+    "OrderedMailboxes": 16,
+    "SilentExtras": 48,
+    "AuthenticatedChannels": 72,
+    "KilledFamilyHandles": 32,
+    "ExpectedFatalVMs": 24,
+    "NormalVMs": 48,
+    "ReferenceErrorSides": 48,
+    "late_error": 8,
+    "NaturalOldTimers": 8
+  },
+  "PairedRows": 1128,
+  "AuxiliaryRows": 144,
+  "Groups": [
+    {
+      "Run": 1,
+      "Depth": 8,
+      "Order": "incoming",
+      "Mode": "late_success",
+      "Rows": 53,
+      "Checker": {
+        "Kind": "Pid",
+        "Node": "ddll452z_peer8incominglate_success@127.0.0.1",
+        "Id": "89",
+        "Creation": 1792765838
+      },
+      "LateTimerOrResultVerified": true,
+      "ExplicitWireReferenceBindings": 3,
+      "PhysicalCleanup": true
+    },
+    {
+      "Run": 2,
+      "Depth": 8,
+      "Order": "incoming",
+      "Mode": "late_error",
+      "Rows": 53,
+      "Checker": {
+        "Kind": "Pid",
+        "Node": "ddll452z_peer8incominglate_error@127.0.0.1",
+        "Id": "89",
+        "Creation": 1792766019
+      },
+      "LateTimerOrResultVerified": true,
+      "ExplicitWireReferenceBindings": 3,
+      "PhysicalCleanup": true
+    },
+    {
+      "Run": 2,
+      "Depth": 8,
+      "Order": "incoming",
+      "Mode": "old_timer",
+      "Rows": 53,
+      "Checker": {
+        "Kind": "Pid",
+        "Node": "ddll452z_peer8incomingold_timer@127.0.0.1",
+        "Id": "89",
+        "Creation": 1792766026
+      },
+      "LateTimerOrResultVerified": true,
+      "ExplicitWireReferenceBindings": 3,
+      "PhysicalCleanup": true
+    },
+    {
+      "Run": 3,
+      "Depth": 8,
+      "Order": "outgoing",
+      "Mode": "late_success",
+      "Rows": 53,
+      "Checker": {
+        "Kind": "Pid",
+        "Node": "ddll452a_peer8outgoinglate_success@127.0.0.1",
+        "Id": "89",
+        "Creation": 1792766106
+      },
+      "LateTimerOrResultVerified": true,
+      "ExplicitWireReferenceBindings": 3,
+      "PhysicalCleanup": true
+    },
+    {
+      "Run": 3,
+      "Depth": 8,
+      "Order": "outgoing",
+      "Mode": "late_error",
+      "Rows": 53,
+      "Checker": {
+        "Kind": "Pid",
+        "Node": "ddll452a_peer8outgoinglate_error@127.0.0.1",
+        "Id": "89",
+        "Creation": 1792766113
+      },
+      "LateTimerOrResultVerified": true,
+      "ExplicitWireReferenceBindings": 3,
+      "PhysicalCleanup": true
+    },
+    {
+      "Run": 4,
+      "Depth": 8,
+      "Order": "outgoing",
+      "Mode": "old_timer",
+      "Rows": 53,
+      "Checker": {
+        "Kind": "Pid",
+        "Node": "ddll452a_peer8outgoingold_timer@127.0.0.1",
+        "Id": "89",
+        "Creation": 1792766359
+      },
+      "LateTimerOrResultVerified": true,
+      "ExplicitWireReferenceBindings": 3,
+      "PhysicalCleanup": true
+    },
+    {
+      "Run": 5,
+      "Depth": 0,
+      "Order": "incoming",
+      "Mode": "late_success",
+      "Rows": 53,
+      "Checker": {
+        "Kind": "Pid",
+        "Node": "ddll452z_peer0incominglate_success@127.0.0.1",
+        "Id": "89",
+        "Creation": 1792766614
+      },
+      "LateTimerOrResultVerified": true,
+      "ExplicitWireReferenceBindings": 3,
+      "PhysicalCleanup": true
+    },
+    {
+      "Run": 5,
+      "Depth": 0,
+      "Order": "incoming",
+      "Mode": "late_error",
+      "Rows": 53,
+      "Checker": {
+        "Kind": "Pid",
+        "Node": "ddll452z_peer0incominglate_error@127.0.0.1",
+        "Id": "89",
+        "Creation": 1792766622
+      },
+      "LateTimerOrResultVerified": true,
+      "ExplicitWireReferenceBindings": 3,
+      "PhysicalCleanup": true
+    },
+    {
+      "Run": 5,
+      "Depth": 0,
+      "Order": "incoming",
+      "Mode": "old_timer",
+      "Rows": 53,
+      "Checker": {
+        "Kind": "Pid",
+        "Node": "ddll452z_peer0incomingold_timer@127.0.0.1",
+        "Id": "89",
+        "Creation": 1792766628
+      },
+      "LateTimerOrResultVerified": true,
+      "ExplicitWireReferenceBindings": 3,
+      "PhysicalCleanup": true
+    },
+    {
+      "Run": 5,
+      "Depth": 0,
+      "Order": "outgoing",
+      "Mode": "late_success",
+      "Rows": 53,
+      "Checker": {
+        "Kind": "Pid",
+        "Node": "ddll452a_peer0outgoinglate_success@127.0.0.1",
+        "Id": "89",
+        "Creation": 1792766639
+      },
+      "LateTimerOrResultVerified": true,
+      "ExplicitWireReferenceBindings": 3,
+      "PhysicalCleanup": true
+    },
+    {
+      "Run": 5,
+      "Depth": 0,
+      "Order": "outgoing",
+      "Mode": "late_error",
+      "Rows": 53,
+      "Checker": {
+        "Kind": "Pid",
+        "Node": "ddll452a_peer0outgoinglate_error@127.0.0.1",
+        "Id": "89",
+        "Creation": 1792766645
+      },
+      "LateTimerOrResultVerified": true,
+      "ExplicitWireReferenceBindings": 3,
+      "PhysicalCleanup": true
+    },
+    {
+      "Run": 5,
+      "Depth": 0,
+      "Order": "outgoing",
+      "Mode": "old_timer",
+      "Rows": 53,
+      "Checker": {
+        "Kind": "Pid",
+        "Node": "ddll452a_peer0outgoingold_timer@127.0.0.1",
+        "Id": "89",
+        "Creation": 1792766653
+      },
+      "LateTimerOrResultVerified": true,
+      "ExplicitWireReferenceBindings": 3,
+      "PhysicalCleanup": true
+    },
+    {
+      "Run": 5,
+      "Depth": 1,
+      "Order": "incoming",
+      "Mode": "late_success",
+      "Rows": 53,
+      "Checker": {
+        "Kind": "Pid",
+        "Node": "ddll452z_peer1incominglate_success@127.0.0.1",
+        "Id": "89",
+        "Creation": 1792766664
+      },
+      "LateTimerOrResultVerified": true,
+      "ExplicitWireReferenceBindings": 3,
+      "PhysicalCleanup": true
+    },
+    {
+      "Run": 5,
+      "Depth": 1,
+      "Order": "incoming",
+      "Mode": "late_error",
+      "Rows": 53,
+      "Checker": {
+        "Kind": "Pid",
+        "Node": "ddll452z_peer1incominglate_error@127.0.0.1",
+        "Id": "89",
+        "Creation": 1792766671
+      },
+      "LateTimerOrResultVerified": true,
+      "ExplicitWireReferenceBindings": 3,
+      "PhysicalCleanup": true
+    },
+    {
+      "Run": 5,
+      "Depth": 1,
+      "Order": "incoming",
+      "Mode": "old_timer",
+      "Rows": 53,
+      "Checker": {
+        "Kind": "Pid",
+        "Node": "ddll452z_peer1incomingold_timer@127.0.0.1",
+        "Id": "89",
+        "Creation": 1792766678
+      },
+      "LateTimerOrResultVerified": true,
+      "ExplicitWireReferenceBindings": 3,
+      "PhysicalCleanup": true
+    },
+    {
+      "Run": 5,
+      "Depth": 1,
+      "Order": "outgoing",
+      "Mode": "late_success",
+      "Rows": 53,
+      "Checker": {
+        "Kind": "Pid",
+        "Node": "ddll452a_peer1outgoinglate_success@127.0.0.1",
+        "Id": "89",
+        "Creation": 1792766689
+      },
+      "LateTimerOrResultVerified": true,
+      "ExplicitWireReferenceBindings": 3,
+      "PhysicalCleanup": true
+    },
+    {
+      "Run": 5,
+      "Depth": 1,
+      "Order": "outgoing",
+      "Mode": "late_error",
+      "Rows": 53,
+      "Checker": {
+        "Kind": "Pid",
+        "Node": "ddll452a_peer1outgoinglate_error@127.0.0.1",
+        "Id": "89",
+        "Creation": 1792766696
+      },
+      "LateTimerOrResultVerified": true,
+      "ExplicitWireReferenceBindings": 3,
+      "PhysicalCleanup": true
+    },
+    {
+      "Run": 5,
+      "Depth": 1,
+      "Order": "outgoing",
+      "Mode": "old_timer",
+      "Rows": 53,
+      "Checker": {
+        "Kind": "Pid",
+        "Node": "ddll452a_peer1outgoingold_timer@127.0.0.1",
+        "Id": "89",
+        "Creation": 1792766704
+      },
+      "LateTimerOrResultVerified": true,
+      "ExplicitWireReferenceBindings": 3,
+      "PhysicalCleanup": true
+    },
+    {
+      "Run": 5,
+      "Depth": 2,
+      "Order": "incoming",
+      "Mode": "late_success",
+      "Rows": 53,
+      "Checker": {
+        "Kind": "Pid",
+        "Node": "ddll452z_peer2incominglate_success@127.0.0.1",
+        "Id": "89",
+        "Creation": 1792766716
+      },
+      "LateTimerOrResultVerified": true,
+      "ExplicitWireReferenceBindings": 3,
+      "PhysicalCleanup": true
+    },
+    {
+      "Run": 5,
+      "Depth": 2,
+      "Order": "incoming",
+      "Mode": "late_error",
+      "Rows": 53,
+      "Checker": {
+        "Kind": "Pid",
+        "Node": "ddll452z_peer2incominglate_error@127.0.0.1",
+        "Id": "89",
+        "Creation": 1792766723
+      },
+      "LateTimerOrResultVerified": true,
+      "ExplicitWireReferenceBindings": 3,
+      "PhysicalCleanup": true
+    },
+    {
+      "Run": 5,
+      "Depth": 2,
+      "Order": "incoming",
+      "Mode": "old_timer",
+      "Rows": 53,
+      "Checker": {
+        "Kind": "Pid",
+        "Node": "ddll452z_peer2incomingold_timer@127.0.0.1",
+        "Id": "89",
+        "Creation": 1792766729
+      },
+      "LateTimerOrResultVerified": true,
+      "ExplicitWireReferenceBindings": 3,
+      "PhysicalCleanup": true
+    },
+    {
+      "Run": 5,
+      "Depth": 2,
+      "Order": "outgoing",
+      "Mode": "late_success",
+      "Rows": 53,
+      "Checker": {
+        "Kind": "Pid",
+        "Node": "ddll452a_peer2outgoinglate_success@127.0.0.1",
+        "Id": "89",
+        "Creation": 1792766740
+      },
+      "LateTimerOrResultVerified": true,
+      "ExplicitWireReferenceBindings": 3,
+      "PhysicalCleanup": true
+    },
+    {
+      "Run": 5,
+      "Depth": 2,
+      "Order": "outgoing",
+      "Mode": "late_error",
+      "Rows": 53,
+      "Checker": {
+        "Kind": "Pid",
+        "Node": "ddll452a_peer2outgoinglate_error@127.0.0.1",
+        "Id": "89",
+        "Creation": 1792766746
+      },
+      "LateTimerOrResultVerified": true,
+      "ExplicitWireReferenceBindings": 3,
+      "PhysicalCleanup": true
+    },
+    {
+      "Run": 5,
+      "Depth": 2,
+      "Order": "outgoing",
+      "Mode": "old_timer",
+      "Rows": 53,
+      "Checker": {
+        "Kind": "Pid",
+        "Node": "ddll452a_peer2outgoingold_timer@127.0.0.1",
+        "Id": "89",
+        "Creation": 1792766753
+      },
+      "LateTimerOrResultVerified": true,
+      "ExplicitWireReferenceBindings": 3,
+      "PhysicalCleanup": true
+    }
+  ],
+  "Freezes": [
+    {
+      "Run": 1,
+      "Bindings": 2698,
+      "Drift": 0,
+      "Runtime": "18AE9106B6A4396D402BFCD9058ACE77CC2863A57C627EBFEBA496029625D307"
+    },
+    {
+      "Run": 2,
+      "Bindings": 2698,
+      "Drift": 0,
+      "Runtime": "18AE9106B6A4396D402BFCD9058ACE77CC2863A57C627EBFEBA496029625D307"
+    },
+    {
+      "Run": 3,
+      "Bindings": 2698,
+      "Drift": 0,
+      "Runtime": "18AE9106B6A4396D402BFCD9058ACE77CC2863A57C627EBFEBA496029625D307"
+    },
+    {
+      "Run": 4,
+      "Bindings": 2698,
+      "Drift": 0,
+      "Runtime": "18AE9106B6A4396D402BFCD9058ACE77CC2863A57C627EBFEBA496029625D307"
+    },
+    {
+      "Run": 5,
+      "Bindings": 2698,
+      "Drift": 0,
+      "Runtime": "18AE9106B6A4396D402BFCD9058ACE77CC2863A57C627EBFEBA496029625D307"
+    }
+  ],
+  "FailedPreparationPreserved": [
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library452-probe-run3\\depth8-outgoing-old_timer"
+  ],
+  "SuccessorControlScenarioSuffixEqual": true,
+  "SuccessorHostAndWorkerUnchanged": true
+}

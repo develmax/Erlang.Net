@@ -1,0 +1,111 @@
+{
+  "Passed": true,
+  "Head": "d4430b636685a4e7015cdddb4b1c512bd4885510",
+  "PullRequest": "https://github.com/develmax/Erlang.Net/pull/12",
+  "Run": "https://github.com/develmax/Erlang.Net/actions/runs/39963573865",
+  "RunId": 39963573865,
+  "JobId": 120447499506,
+  "RunAttempt": 1,
+  "CanonicalPassed": 8827,
+  "CanonicalTotal": 8827,
+  "AllMandatoryStepsSuccess": true,
+  "Packages": [
+    "Erlang.Net.CSharp.0.1.0.nupkg",
+    "Erlang.Net.Tool.0.1.0.nupkg"
+  ],
+  "PackageReleaseClaim": false,
+  "LocalOriginalNetworkEvidenceSeparateFromConfiguredCi": true,
+  "FinalLfSourceRebuiltAndFullCiVerified": true,
+  "ValidationStepSeconds": 828,
+  "Previous450ValidationStepSeconds": 576,
+  "PerformanceSpeedupClaim": false,
+  "LogEvidence": [
+    "2026-10-23T13:54:38.2958402Z PASS runtime/distribution451/concurrent-candidates-adopt-one-pending-generation",
+    "2026-10-23T13:58:05.4661118Z 8827/8827 passed",
+    "2026-10-23T13:59:05.8316715Z   Successfully created package 'D:\\a\\Erlang.Net\\Erlang.Net\\artifacts\\packages\\Erlang.Net.CSharp.0.1.0.nupkg'.",
+    "2026-10-23T13:59:10.1354954Z   Successfully created package 'D:\\a\\Erlang.Net\\Erlang.Net\\artifacts\\packages\\Erlang.Net.Tool.0.1.0.nupkg'.",
+    "2026-10-23T13:59:22.5499730Z Validation passed"
+  ],
+  "Steps": [
+    {
+      "name": "Set up job",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 1,
+      "started_at": "2026-10-23T13:43:31Z",
+      "completed_at": "2026-10-23T13:43:32Z"
+    },
+    {
+      "name": "Run actions/checkout@v7",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 2,
+      "started_at": "2026-10-23T13:43:32Z",
+      "completed_at": "2026-10-23T13:44:30Z"
+    },
+    {
+      "name": "Run actions/setup-dotnet@v6",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 3,
+      "started_at": "2026-10-23T13:44:30Z",
+      "completed_at": "2026-10-23T13:45:00Z"
+    },
+    {
+      "name": "Run $runtimes = dotnet --list-runtimes",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 4,
+      "started_at": "2026-10-23T13:45:00Z",
+      "completed_at": "2026-10-23T13:45:13Z"
+    },
+    {
+      "name": "Run $originalFailures = @()",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 5,
+      "started_at": "2026-10-23T13:45:13Z",
+      "completed_at": "2026-10-23T13:45:34Z"
+    },
+    {
+      "name": "Run ./tools/validate.ps1 -TestRuntimeVersion 10.0.11",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 6,
+      "started_at": "2026-10-23T13:45:34Z",
+      "completed_at": "2026-10-23T13:59:22Z"
+    },
+    {
+      "name": "Run actions/upload-artifact@v7",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 7,
+      "started_at": "2026-10-23T13:59:22Z",
+      "completed_at": "2026-10-23T13:59:24Z"
+    },
+    {
+      "name": "Post Run actions/setup-dotnet@v6",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 13,
+      "started_at": "2026-10-23T13:59:24Z",
+      "completed_at": "2026-10-23T13:59:24Z"
+    },
+    {
+      "name": "Post Run actions/checkout@v7",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 14,
+      "started_at": "2026-10-23T13:59:24Z",
+      "completed_at": "2026-10-23T13:59:26Z"
+    },
+    {
+      "name": "Complete job",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 15,
+      "started_at": "2026-10-23T13:59:26Z",
+      "completed_at": "2026-10-23T13:59:26Z"
+    }
+  ]
+}
