@@ -1,0 +1,30 @@
+{
+  "Passed": false,
+  "Groups": [
+    {
+      "Depth": 8,
+      "Passed": false,
+      "Errors": [
+        "RuntimeError('Owned stage failed; all available raw evidence retained: compare-depth8')"
+      ]
+    }
+  ],
+  "Failures": [],
+  "InputsUnchanged": true,
+  "RuntimeSha256": "94744C030C53C4B93E55168E8A14A852EFF5B5A8AB8DE0D7611E2B76F04B3A81",
+  "ProviderScans": [
+    {
+      "Phase": "before",
+      "Equal": true,
+      "Files": 6427,
+      "Seconds": 1.3599999999860302
+    },
+    {
+      "Phase": "after",
+      "Equal": true,
+      "Files": 6427,
+      "Seconds": 1.3589999999385327
+    }
+  ],
+  "Transport": "two real distributed OTP OS nodes, authenticated Erlang distribution v6, physical TCP disconnect/reconnect and actual runtime data queues"
+}

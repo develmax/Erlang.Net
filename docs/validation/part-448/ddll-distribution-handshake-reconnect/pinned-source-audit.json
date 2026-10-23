@@ -1,0 +1,49 @@
+{
+  "Passed": true,
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "CheckoutHead": "516126e9209377f003a4bcaa9822cdcb139f9a13",
+  "CheckoutUnchanged": true,
+  "AuthorityReadFromExactGitBlobs": true,
+  "RuntimeOracle": "Official OTP29.1.1 provider, all6427 inventory files matched before/after actual execution",
+  "Files": [
+    {
+      "Path": "lib/kernel/src/dist_util.erl",
+      "PinSha256": "6CE872A6A5F19D10ACC4BBA7360974892B5C4F5A258E35E69D99E71EE3F6A137",
+      "CheckoutSha256": "D44692AB87FB5962B8D924AD93CCE9A51F114C925CE06747730A839D142950F8",
+      "WholeNormalizedEqual": false,
+      "OnlyCheckoutDelta": "compile warning suppression outside handshake",
+      "AllOtherCodeIdentical": true
+    },
+    {
+      "Path": "lib/kernel/include/dist.hrl",
+      "PinSha256": "B9AA21E152EE8B8984300C045DD22C339F473594A4807AA0226A615193A731EE",
+      "CheckoutSha256": "6BB48ACF4F797AFA80CACCF918B27F104B1DB456C6D289F51529AF3E346200BF",
+      "WholeNormalizedEqual": true
+    },
+    {
+      "Path": "erts/emulator/beam/dist.c",
+      "PinSha256": "67711AB6A7C9FCE0F4D5B40B06D4DDE5F61E9C8BDFAAFB1D0A22988D04657EEB",
+      "CheckoutSha256": "B33AF6C48F9D9F596609A7ED374AF8532F464F5CBB1BD22C9D868FB62B47D45A",
+      "WholeNormalizedEqual": false,
+      "ReviewedSendSliceIdentical": true,
+      "PinFirstLine": 1646,
+      "PinLastLine": 1663,
+      "SliceSha256": "8D47CD2C35BA996094042C59DC9BEC02FF0E7E9ADE62C3B83E40F17814A39033",
+      "OtherCheckoutChanges": "receiver trace-token validation outside reviewed send slice; not used as pinned authority"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_bif_ddll.c",
+      "PinSha256": "41699B03ADF0ED6E765C5D0CB958A337DC3B82E72EA1FADC13895973AEB4A9FB",
+      "CheckoutSha256": "47D3561AEC5ED8E2CA5CC09F4593AABB7ED83530C6CE8D7AAE81C62F67ED7B88",
+      "WholeNormalizedEqual": true
+    },
+    {
+      "Path": "erts/emulator/beam/external.c",
+      "PinSha256": "CBFDFCEF0F756C468C6F2FC8A23D478A01DAEDDB3A4DB8E240A8590252A4414B",
+      "CheckoutSha256": "7C37CFF869C1771D3C625C28EE186A7E7FD8B8EC515687C525B852F198513221",
+      "WholeNormalizedEqual": true
+    }
+  ],
+  "NoRuntimeOrObserverChange": true,
+  "NoGoldenRewrite": true
+}

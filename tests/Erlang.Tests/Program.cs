@@ -3139,6 +3139,7 @@ Test(Erlang.Tests.ProcLibInitialCallHostNames.Test, Erlang.Tests.ProcLibInitialC
 Test(Erlang.Tests.ConnectedDependencyHostNames.ParseAll, Erlang.Tests.ConnectedDependencyMfaContracts.ParseAll);
 Test(Erlang.Tests.ConnectedDependencyHostNames.Host1, Erlang.Tests.ConnectedSpawnHostChecks.CodecFrames);
 Test(Erlang.Tests.ConnectedDependencyHostNames.Host2, Erlang.Tests.ConnectedSpawnHostChecks.RealRequestReplyAndDeath);
+Test(Erlang.Tests.ConnectedRegisteredSendHostNames448.Test, Erlang.Tests.ConnectedRegisteredSendHostChecks448.Run);
 Test(Erlang.Tests.ConnectedDependencyHostNames.Host3, Erlang.Tests.ConnectedSpawnRetirementHostChecks.StaleReplyCannotRebind);
 Test(Erlang.Tests.ConnectedDependencyHostNames.Host4, Erlang.Tests.ConnectedSpawnCleanupHostChecks.ParentDeathBeforeReply);
 Test(Erlang.Tests.ConnectedDependencyHostNames.Host5, Erlang.Tests.ConnectedSpawnCleanupHostChecks.AbandonBeforeReply);

@@ -108,6 +108,23 @@ internal static class ProcessAliasRegistrations
                     throw new ErlangException(ErlangErrorReasons.BadArgument);
             }
         }
+        if (target is TupleTerm { Items: [Atom, Atom namedNode] } namedTarget &&
+            namedNode.Name != context.Runtime.Node)
+        {
+            var result = await context.Runtime.DistributionPending.SendConnectedNameAsync(
+                context,
+                namedTarget,
+                message,
+                priority,
+                noSuspend
+            ).ConfigureAwait(false);
+            if (result == DistributionGuestSendResult.Accepted)
+                return Term.A(CommonAtomNames.Ok);
+            if (result == DistributionGuestSendResult.WouldSuspend)
+                return Term.A(ProcessSendResultNames.NoSuspend);
+            if (noConnect)
+                return Term.A(ProcessSendResultNames.NoConnect);
+        }
         if (target is Pid remotePid && remotePid.Node != context.Runtime.Node)
         {
             var result = await context.Runtime.DistributionPending.SendConnectedPidAsync(

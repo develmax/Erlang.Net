@@ -1,0 +1,23 @@
+# Independent source review: Part 448 registered remote sends
+
+Read-only review of the four existing product files and ConnectedRegisteredSendHostChecks448; no edit/build/VM/native/git/CI execution by reviewer. This review does not claim passing tests; Root owns final execution.
+
+## Confirmed source alignment
+
+- ErlangOperatorValues.TrySendAsync now recognizes {AtomName,AtomNode} addressed to a different node and calls the connected-name path. ProcessAliasRegistrations routes send/3 and send_nosuspend/2,3 through the same path, preserving accepted/ok, would-suspend/nosuspend and disconnected/noconnect distinctions.
+- Source execution Execution.cs:729-733, BeamRegisterInterpreter.cs:1016 and ErlangBasicRegistrations.cs:66-77 all use TrySendAsync for guest bang and erlang:send/2. Thus the genuine observer's remote/3 registered-send reaches the actual connected runtime queue instead of the old silent-drop synchronous fallback.
+- RuntimeDistributionPending.AliasSend generalizes the existing target-node/identity helpers for a named tuple, preserving original PID/reference foreign-runtime identity refusal. Atoms are ordinary data and do not acquire a foreign runtime identity.
+- RuntimeDistributionPending.GuestSend emits {6,SenderPid,EmptyCookieAtom,Name} or {16,SenderPid,EmptyCookieAtom,Name,Token} for registered destinations. This matches pinned OTP erts/emulator/beam/dist.c:1668-1679 DOP_REG_SEND and DOP_REG_SEND_TT including sender/cookie/name/token order.
+- The existing ordinary output-ticket/generation/queue-capacity owner is reused. noSuspend reserves immediate admission and checks actual capacity; async_dist uses the existing staged async owner, not an unowned fire-and-forget task. Existing sequence/process tracing and SavedCalls.Sent are recorded once on accepted paths. No new duplicated accepted admission was identified.
+- The new canonical host group exercises five guest entry routes with async_dist false/true, verifies correct return values, extracts actual output packets, checks REG_SEND and name/payload, feeds receiver distribution input and observes actual delivered guest payloads. These are ten controls in one group, not ten new API exports or whole API-contract proofs.
+
+## Explicit remaining capability partitions
+
+1. Priority named send with negotiated ALTACT is not implemented by this patch. OTP dist.c:1646-1667 chooses DOP_ALTACT_SIG_SEND(37), includes NAME flag for an atom destination and PRIO flag. The current tuple branch precedes the ALTACT priority branch and always emits REG_SEND/REG_SEND_TT, thereby losing the requested priority when ALTACT is available. The mandatory-only448 network profile does not negotiate ALTACT, so its observed behavior is the correct fallback for that profile. Keep the broader priority+ALTACT named-send partition documented as unsupported/unverified; do not promote full send API compatibility from these tests. Supporting named ALTACT would also need actual codec/input changes because DistributionAlternativePidSendLayout currently admits PID targets/flags only. This is a separate scoped increment rather than a reason to expand the current pilot silently.
+2. Public host synchronous ErlangOperatorValues.Send/Binary still contains the old remote named-target silent fallback. The actual source compiler, BEAM interpreter and registered Erlang BIF entrypoints use the fixed async route. This review supports those guest paths, not a claim that every direct synchronous C# helper now performs remote transport.
+3. No automatic connection establishment is added. An already-connected name routes correctly; explicit noconnect refusal is preserved. Disconnected ordinary bang/send retains the pre-existing fallback. The genuine448 handshake owner must establish the channel before measurement.
+4. Fresh10 controls do not alone test queue saturation/backpressure, REG_SEND_TT trace-token metadata, stale generation cancellation, local-name behavior, malformed tuple/options or all priority partitions. Reuse affected existing shared output/PID/alias/async/trace regressions on the final binaries, and keep exact original whole-result comparisons as the semantic authority.
+
+## Acceptance recommendation
+
+The ordinary registered-send transport correction is source-aligned and appropriately reuses existing owned output infrastructure. Accept only after meaningful focused/affected tests and the real authenticated distribution observer pass on the final source/package. Preserve the real pilot timeout as the initiating product defect; do not rewrite expected results to hide it. No new whole-module/full-contract claim follows from this bounded fix.

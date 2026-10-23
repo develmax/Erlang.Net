@@ -2,6 +2,21 @@ namespace Erlang;
 
 public sealed partial class RuntimeDistributionPending
 {
+    internal ValueTask<DistributionGuestSendResult> SendConnectedNameAsync(
+        ProcessContext producer,
+        TupleTerm remote,
+        Term payload,
+        bool priority,
+        bool noSuspend
+    )
+        => SendConnectedTargetAsync(
+            producer,
+            remote,
+            payload,
+            priority,
+            noSuspend
+        );
+
     internal ValueTask<DistributionGuestSendResult> SendConnectedPidAsync(
         ProcessContext producer,
         Pid remote,
@@ -36,6 +51,7 @@ public sealed partial class RuntimeDistributionPending
     {
         Pid pid => pid.Node,
         ReferenceTerm reference => reference.Node,
+        TupleTerm { Items: [Atom, Atom node] } => node.Name,
         _ => throw new ErlangException(ErlangErrorReasons.BadArgument)
     };
 
@@ -43,6 +59,7 @@ public sealed partial class RuntimeDistributionPending
     {
         Pid pid => pid.LocalIdentity is not null && !ReferenceEquals(pid.LocalIdentity, runtime.LocalIdentity),
         ReferenceTerm reference => reference.LocalIdentity is not null && !ReferenceEquals(reference.LocalIdentity, runtime.LocalIdentity),
+        TupleTerm { Items: [Atom, Atom] } => false,
         _ => throw new ErlangException(ErlangErrorReasons.BadArgument)
     };
 

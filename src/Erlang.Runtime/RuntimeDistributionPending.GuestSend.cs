@@ -180,6 +180,24 @@ public sealed partial class RuntimeDistributionPending
         bool sendToken = token is not null && ((flags & DistributionPassThroughFlags.BigSequenceTraceLabels) != 0 ||
             token.Label is Integer label && label.Value >= DistributionGuestSendLayout.MinimumLegacyTraceLabel &&
             label.Value <= DistributionGuestSendLayout.MaximumLegacyTraceLabel);
+        if (remote is TupleTerm { Items: [Atom name, Atom] })
+            return new(
+                sendToken
+                ? Term.Tuple(
+                    Term.I(DistributionControlOpcodes.RegisteredSendTrace),
+                    sender,
+                    Term.A(DistributionPassThroughLayout.EmptyCookie),
+                    name,
+                    token!.ToTerm()
+                )
+                : Term.Tuple(
+                    Term.I(DistributionControlOpcodes.RegisteredSend),
+                    sender,
+                    Term.A(DistributionPassThroughLayout.EmptyCookie),
+                    name
+                ),
+                payload
+            );
         if (remote is ReferenceTerm alias)
             return GuestAliasMessage(
                 flags,

@@ -54,6 +54,19 @@ public static class ErlangOperatorValues
         bool noSuspend = false
     )
     {
+        if (target is TupleTerm { Items: [Atom, Atom namedNode] } namedTarget &&
+            namedNode.Name != context.Runtime.Node)
+        {
+            var result = await context.Runtime.DistributionPending.SendConnectedNameAsync(
+                context,
+                namedTarget,
+                message,
+                priority,
+                noSuspend
+            ).ConfigureAwait(false);
+            if (result != DistributionGuestSendResult.NotConnected)
+                return result == DistributionGuestSendResult.Accepted;
+        }
         if (target is Pid remote && remote.Node != context.Runtime.Node)
         {
             var result = await context.Runtime.DistributionPending.SendConnectedPidAsync(
