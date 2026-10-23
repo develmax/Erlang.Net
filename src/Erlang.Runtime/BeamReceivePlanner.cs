@@ -230,7 +230,8 @@ internal static class BeamReceivePlanner
                     if (operands[gc ? 4 : 3].Kind != BeamOperandParameters.X)
                         throw new NotSupportedException(BeamReceiveNames.UnsupportedMatcher);
                     Source(operands[gc ? 3 : 2]);
-                    Visit(Label(code, operands[0]));
+                    if (operands[0].Kind != BeamOperandParameters.Failure)
+                        Visit(Label(code, operands[0]));
                     Visit(pc + 1);
                     break;
                 case BeamGeneralOpcodeNames.BinaryBif:
@@ -239,7 +240,8 @@ internal static class BeamReceivePlanner
                         throw new NotSupportedException(BeamReceiveNames.UnsupportedMatcher);
                     Source(operands[2]);
                     Source(operands[3]);
-                    Visit(Label(code, operands[0]));
+                    if (operands[0].Kind != BeamOperandParameters.Failure)
+                        Visit(Label(code, operands[0]));
                     Visit(pc + 1);
                     break;
                 case BeamLinkNames.PutTuple:

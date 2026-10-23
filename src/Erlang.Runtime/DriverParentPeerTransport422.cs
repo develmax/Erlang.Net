@@ -238,6 +238,19 @@ internal sealed class DriverParentPeerTransport422
         return reply.Data;
     }
 
+    internal async ValueTask SetConnected(ErlDriverPortIdentity420 identity, Pid connected)
+    {
+        var reply = await ActorOperation(
+            ErlDriverHostOperation420.PortConnected,
+            identity,
+            connected,
+            0,
+            [],
+            CancellationToken.None
+        ).ConfigureAwait(false);
+        if (reply.NativeResult != 0) throw new InvalidDataException(DriverParentWireNames422.Invalid);
+    }
+
     internal async ValueTask Close(ErlDriverPortIdentity420 identity)
     {
         var reply = await Request(

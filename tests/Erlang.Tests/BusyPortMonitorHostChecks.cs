@@ -579,7 +579,7 @@ public static class BusyPortMonitorHostChecks
     private static void QueueProtocolCommand(ProcessRuntime runtime, Term identity, Term message)
     {
         object ports = PortBackend(runtime);
-        _ = ports.GetType().GetMethod(BusyPortCancellationHostNames.Send)!.Invoke(ports, [identity, message]);
+        _ = ports.GetType().GetMethod(BusyPortCancellationHostNames.Send)!.Invoke(ports, [identity, message, null]);
     }
 
     private static Task PriorCommands(ProcessRuntime runtime, Term identity)
@@ -587,7 +587,7 @@ public static class BusyPortMonitorHostChecks
         object ports = PortBackend(runtime);
 
         return ((ValueTask)ports.GetType().GetMethod(BusyPortCancellationHostNames.AwaitCommands)!
-            .Invoke(ports, [identity, CancellationToken.None])!).AsTask();
+            .Invoke(ports, [identity, CancellationToken.None, null])!).AsTask();
     }
 
     // Runtime completion reports the exit reason; preserve guest delegate results separately.

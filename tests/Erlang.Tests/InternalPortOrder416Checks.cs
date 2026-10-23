@@ -14,14 +14,14 @@ internal static class InternalPortOrder416Checks
     private static void Send(ProcessRuntime runtime, Term port, Term message)
     {
         object backend = Backend(runtime);
-        _ = backend.GetType().GetMethod(BusyPortCancellationHostNames.Send)!.Invoke(backend, [port, message]);
+        _ = backend.GetType().GetMethod(BusyPortCancellationHostNames.Send)!.Invoke(backend, [port, message, null]);
     }
 
     private static Task Commands(ProcessRuntime runtime, Term port)
     {
         object backend = Backend(runtime);
 
-        return ((ValueTask)backend.GetType().GetMethod(BusyPortCancellationHostNames.AwaitCommands)!.Invoke(backend, [port, CancellationToken.None])!).AsTask();
+        return ((ValueTask)backend.GetType().GetMethod(BusyPortCancellationHostNames.AwaitCommands)!.Invoke(backend, [port, CancellationToken.None, null])!).AsTask();
     }
 
     internal static Task BadFlags() => Run(connect: false);

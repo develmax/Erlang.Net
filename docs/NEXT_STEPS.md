@@ -1,18 +1,17 @@
-# Current checkpoint — Part453 — 2026-10-23
+# Current checkpoint — Part454 — 2026-10-23
 
 | Module / area | Accepted scope | Remaining |
 | --- | --- | --- |
-| Original `net_kernel` | Standard named kernel/application boot, real registered source-owned server, live node, 24 scenarios ×6 value/stack profiles =144 matching complete terms | TCP/UDP builtin drivers, listener/EPMD, real peer channels through this original server, wider checker/timeout/owner schedules, TLS |
-| Native `re` + original wrappers | Unicode non-bitstring pattern/subject dispatch through unchanged original ucompile/urun;35 scenarios ×6=210 outcomes;48 actual retained resource patterns authenticated | Remaining valid options/textual run profiles and full native/platform contracts |
-| Bootstrap filesystem / `erts_internal` | Full original71-native-body image preserves exact canonical filesystem bindings; ordinary original prim_file:on_load and named boot work; substitute admission refused | Complete native semantic/physical and multi-image/concurrency partitions |
-| Resource cleanup | Compile/run interrupted during real original Unicode work, each by process kill and runtime close; four profiles settle leases/native counters | Wider native/transport/OS lifecycle matrices |
-| DDLL / distribution | Parts451/452 merged; previous24 delayed discovery/timer/owner scenarios and1272 observations remain historical accepted evidence | Wider actual transport races and complete standard distribution startup |
-| Default registry |708 APIs,118 verified full contracts;1623 source guards (+2),API/full delta0/0 |31 Known differences,559 Needs verification; no whole-module or performance promotion |
-| Delivery | main merge CI39978960949 green8828/packages; current catalog8833 and five new focus groups pass | Final affected/native/boot evidence and exact453 full CI/packages tracked with publication |
+| Native port runtime | 65 raw protocol profiles +15 actual busy-port alias races: full outcomes/stacks, authenticated actual caller/connected identities, explicit role bijections, real native callbacks and cleanup | Admitted-output WAIT_BUSY after a new busy transition, broader scheduler/OS/resource contracts, native port_connect BIF |
+| Original win32reg / registry driver | Six read-only original-source operations; whole typed/raw OTP equality through actual unchanged registry_drv.c | Complete registry mutation/platform/driver contracts |
+| BEAM receive | tuple_size guard and type-proven f0/no-fail form:16 values, one permanent regression group | General binary match-context frames adjacent to receive/try and failing f0 stack metadata |
+| Original net_kernel | Retain Part453 named standard boot with dist_listen=false/no_epmd and144 complete source-profile outcomes | Native TCP/UDP driver child ports, listener/EPMD, peer channels through the original server, wider races and TLS |
+| Default registry |708 APIs /118 verified full contracts; guard count1627, API/full delta0/0 |31 known differences /559 needing verification; no whole-module promotion |
+| Delivery | Main contains Parts451/452;13 merged branches archived and removed. Part453 exact CI39992897728 green8833/packages | Part454 final gates and exact-head CI are recorded with its publication |
 
-The six `get_state` rows differ only in map-entry serialization order. All keys/values, profile labels and complete stack fields match;138 other rows also match original raw ETF slices. Strict original whole-file equality is false and retained, never relabeled as byte-identical. The successful profile explicitly disables the TCP listener/EPMD. No performance parity follows from functional acceptance.
+The native observer compares each complete outcome after an explicit injective mapping of five or six declared actual actor/port roles. Arbitrary binary payloads and every stack field remain unchanged; this is not strict equality of unrelated VM identities. Failed fixture preparations and unsupported binary receive/try admission remain preserved. No TCP or performance parity is inferred.
 
-[Evidence](validation/part-453/original-named-kernel/README.md), [English changelog](changelog/0080.md), [remaining work](remaining-work/INDEX.md).
+[Evidence](validation/part-454/native-raw-port-protocol/README.md), [English changelog](changelog/0080.md), [remaining work](remaining-work/INDEX.md).
 
 Earlier entries below are historical.
 

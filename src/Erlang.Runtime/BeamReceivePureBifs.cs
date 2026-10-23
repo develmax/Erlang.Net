@@ -16,7 +16,7 @@ internal static class BeamReceivePureBifs
         {
             BeamLinkNames.Bif => import.Function == ErlangModuleNames.Self && import.Arity == 0,
             BeamGeneralOpcodeNames.BinaryBif => import.Function == ErlangModuleNames.Element && import.Arity == 2,
-            _ => (import.Function is ErlangProcessQueryNames.Node or ErlangModuleNames.ByteSize) && import.Arity == 1
+            _ => (import.Function is ErlangProcessQueryNames.Node or ErlangModuleNames.ByteSize or ErlangModuleNames.TupleSize) && import.Arity == 1
         });
         if (!accepted)
             throw new NotSupportedException(BeamReceiveNames.UnsupportedMatcher);
@@ -30,6 +30,8 @@ internal static class BeamReceivePureBifs
         ErlangModuleNames.ByteSize when value is BitString binary
             => Term.I((binary.BitLength + (long)BeamBinaryNames.BitsPerByte - 1) / BeamBinaryNames.BitsPerByte),
         ErlangModuleNames.ByteSize => throw new ErlangException(ErlangErrorReasons.BadArgument),
+        ErlangModuleNames.TupleSize when value is TupleTerm tuple => Term.I(tuple.Items.Count),
+        ErlangModuleNames.TupleSize => throw new ErlangException(ErlangErrorReasons.BadArgument),
         _ => throw new NotSupportedException(BeamReceiveNames.UnsupportedMatcher)
     };
 

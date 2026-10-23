@@ -39,7 +39,8 @@ internal sealed class InternalPortBinding416
                 PortNames.Connect => await Connect(context, arguments),
                 PortNames.Close => await Runtime.Ports.CloseOrdered(
                     arguments[0],
-                    context.Cancellation
+                    context.Cancellation,
+                    context
                 ),
                 PortNames.Info => await Info(context, arguments),
                 _ => throw new InvalidOperationException(InternalPortNames416.Conflict)
@@ -62,14 +63,12 @@ internal sealed class InternalPortBinding416
 
     private async ValueTask<Term> Info(ProcessContext context, IReadOnlyList<Term> arguments)
     {
-        await Runtime.Ports.AwaitCommands(arguments[0], context.Cancellation);
-
-        return Runtime.Ports.Info(arguments[0], arity == 1 ? null : arguments[1]);
+        return await Runtime.Ports.InfoAsync454(context, arguments[0], arity == 1 ? null : arguments[1]);
     }
 
     private async ValueTask<Term> Connect(ProcessContext context, IReadOnlyList<Term> arguments)
     {
-        await Runtime.Ports.AwaitCommands(arguments[0], context.Cancellation);
+        await Runtime.Ports.AwaitCommands(arguments[0], context.Cancellation, context);
 
         return Runtime.Ports.Connect(arguments[0], arguments[1]);
     }

@@ -75,7 +75,7 @@ internal static class BeamReceiveMatcher
                     {
                         registers.Write(operands[gc ? 4 : 3], BeamReceivePureBifs.Unary(unary.Function, argument));
                     }
-                    catch (ErlangException)
+                    catch (ErlangException) when (operands[0].Kind != BeamOperandParameters.Failure)
                     {
                         pc = code.Labels[(int)operands[0].Value];
                     }
@@ -88,7 +88,7 @@ internal static class BeamReceiveMatcher
                     {
                         registers.Write(operands[4], BeamReceivePureBifs.Element(first, second));
                     }
-                    catch (ErlangException)
+                    catch (ErlangException) when (operands[0].Kind != BeamOperandParameters.Failure)
                     {
                         pc = code.Labels[(int)operands[0].Value];
                     }
