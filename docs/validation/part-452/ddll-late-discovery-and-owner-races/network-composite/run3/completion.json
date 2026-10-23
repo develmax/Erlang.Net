@@ -1,0 +1,46 @@
+{
+  "Passed": false,
+  "Groups": [
+    {
+      "Depth": 8,
+      "Order": "outgoing",
+      "Mode": "late_success",
+      "Passed": true,
+      "Errors": []
+    },
+    {
+      "Depth": 8,
+      "Order": "outgoing",
+      "Mode": "late_error",
+      "Passed": true,
+      "Errors": []
+    },
+    {
+      "Depth": 8,
+      "Order": "outgoing",
+      "Mode": "old_timer",
+      "Passed": false,
+      "Errors": [
+        "RuntimeError('Owned stage failed; all available raw evidence retained: compare-depth8-outgoing-old_timer')"
+      ]
+    }
+  ],
+  "Failures": [],
+  "InputsUnchanged": true,
+  "RuntimeSha256": "18AE9106B6A4396D402BFCD9058ACE77CC2863A57C627EBFEBA496029625D307",
+  "ProviderScans": [
+    {
+      "Phase": "before",
+      "Equal": true,
+      "Files": 6427,
+      "Seconds": 1.827999999979511
+    },
+    {
+      "Phase": "after",
+      "Equal": true,
+      "Files": 6427,
+      "Seconds": 1.9849999999860302
+    }
+  ],
+  "Transport": "actual queued late discovery success/error and naturally fired old-checker timer across authentic owner replacement; actual runtime data queues"
+}

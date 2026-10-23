@@ -1,0 +1,25 @@
+[
+  {
+    "Depth": 8,
+    "Order": "outgoing",
+    "Mode": "late_success",
+    "Passed": true,
+    "Errors": []
+  },
+  {
+    "Depth": 8,
+    "Order": "outgoing",
+    "Mode": "late_error",
+    "Passed": true,
+    "Errors": []
+  },
+  {
+    "Depth": 8,
+    "Order": "outgoing",
+    "Mode": "old_timer",
+    "Passed": false,
+    "Errors": [
+      "RuntimeError('Owned stage failed; all available raw evidence retained: compare-depth8-outgoing-old_timer')"
+    ]
+  }
+]

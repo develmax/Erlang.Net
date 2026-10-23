@@ -1,0 +1,29 @@
+# Part452 immutable probe1 passive review
+
+Reviewed original-only `ddll_tcp452.erl`, `ddll452_epmd.erl`, host `Program.cs`, `DistributionTcp452.Initiator.cs`, existing queue/cleanup helper and runner setup. No builds, VM/native execution or shared edits. This is source feasibility review, not acceptance of run results. Part451 PR12 remains unmerged by this reviewer.
+
+## Correct genuine controls
+
+The host opens actual TCP but gates NAME. Original net_kernel send tracing observes its actual `{Kernel,controller,Pid}` message before the fixture suspends the kernel; this avoids suspending before the real transport acceptor can be initialized. The fixture uses actual `erlang:suspend_process/1` / `resume_process/1`, not the previously proposed sys:suspend. It is deliberate original-process scheduling instrumentation and should be described accurately.
+
+While kernel is suspended, real incoming NAME causes actual accept_pending to enter its mailbox. `wait_queue452` records full mailbox, exact selected messages and indices. Checker release is to actual callback owner PID, with explicit returned success or `{error,nxdomain}`; resulting real setup_check must be queued after accept_pending. Program validates selected checker PID, index order and expected ok/error result head before resuming. No fake setup_check/timeout/sys_dist insertion appears. The source's selective EXIT receive can consume old checker death before the previously queued result; this is expected, not FIFO violation.
+
+Discovery trace includes both actual setup_check and setup_check_timeout receives, with trace_delivered fence before collection. Check finish requires real DOWN remarked and original connect waiter true; the successful channel adopts the actual preexisting managed Pending handle. Both lexical orders remain meaningful even though the selected wire outcome is sok_simultaneous for either.
+
+Old_timer is separate and never releases discovery. Thus no stale-result setup/5 cancels its send_after timer. Runner boots kernel net_setuptime5, and timer assertion requires actual original connecttime5000. After real valid alive handoff, Program starts a new receive trace, sends actual managed-to-peer data, retains full original up row/live managed snapshot, waits for actual old-checker timeout event, fences via sys:get_state, then requires row/snapshot equality and more actual remote data. Dead checker must remain not alive. If timeout happened in an earlier phase or trace-off gap, the later wait fails; it cannot silently become successful timer proof. This five-second budget may still cause preparation timing failures under load; keep them as failures rather than treating missed traces as compatibility failures or inventing timeout delivery.
+
+## Mandatory acceptance audit, not yet enforced by Program
+
+`Program.cs` saves `original-discovery-receive-events` using compare=false but does not assert event contents. `late-discovery-owner-proof.json` hardcodes ActualSourceMessages=true. Before accepting a late_success/late_error run, independently require the saved exact received setup_check matches the queued Node, CheckPid, Timer reference and complete Res. Actual queue order alone proves enqueuing, not observed processing. Also inspect full ordered mailbox for absence of an old setup_check_timeout before the chosen accept/result pair. A successful takeover plus source tracing should provide this evidence without changing scenario semantics.
+
+For original status/recipient attribution, match actual accept_pending message PID with observed kernel reply recipient and final original row owner; match actual checker with queued result, receive trace and DOWN. Do not promote compare=false captures or self-comparisons into paired contracts. Existing common worker source-paired values/full errors and own-reference protocols remain separate from auxiliary schedule guards.
+
+The timer row `actual-data-before/after-old-timer` is a self-comparison saved compare=false; its actual remote execution and explicit true assertion are useful positive controls, not additional source-vs-managed value comparisons. The original-only received timeout is not emitted by the dead checker; it is the VM timer service delivering the source-created send_after message.
+
+## Failure-path cleanup gaps
+
+1. Initial `outgoing` is assigned to `link` only after connecting completes. An exception while waiting for acceptor, holding kernel, queue ordering or handshake can leave this socket without an explicit DisposeAsync receipt before host process exit. Ordinary accepted path does dispose it via priorLink/handoff. Preserve failure as failed cleanup; a future immutable preparation can retain it in an independently owned cleanup collection or assign cleanup ownership immediately after construction.
+2. `race_cleanup452` resumes kernel before barrier/config restore; resume failure skips subsequent restore inside that helper. Parent Program still independently attempts stopping the original VM, so failure is surfaced, but this is not independent success of every fixture cleanup operation.
+3. `check_finish` erases checker bookkeeping before waiting; exception there can lose local monitor/helper join bookkeeping. Under failure, owned original-VM settlement is the final boundary. Do not claim helper-level join evidence that was not captured. On successful path the checker monitor DOWN and connector result are real; connector result alone is not a separate process-DOWN join.
+
+There is no source behavior blocker for a successful pilot. Root should distinguish accepted-path physical cleanup from these preserved failed preparations and include the mandatory trace/mailbox assertions in passive acceptance. Final runtime/package/provider/BEAM hashes, actual queue/controller/native/OS/EPMD settlement and regression/CI remain Root's execution responsibility.

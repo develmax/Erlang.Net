@@ -1,0 +1,258 @@
+{
+  "Passed": false,
+  "Depth": 8,
+  "Mode": "old_timer",
+  "Results": [
+    {
+      "Name": "peer-setup",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 0
+    },
+    {
+      "Name": "setup",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 0
+    },
+    {
+      "Name": "depth",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 0
+    },
+    {
+      "Name": "peer-handshake-identity",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 0
+    },
+    {
+      "Name": "real-node-visible",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 0
+    },
+    {
+      "Name": "peer-sees-managed",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 0
+    },
+    {
+      "Name": "genuine-peer-wire-via-distribution",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 0
+    },
+    {
+      "Name": "genuine-peer-reference-via-distribution",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 0
+    },
+    {
+      "Name": "foreign-reject-before-disconnect",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 0
+    },
+    {
+      "Name": "local-queued",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 0
+    },
+    {
+      "Name": "decode-on-real-peer",
+      "Passed": true,
+      "WholeTypedEqual": false,
+      "WholeRawEqual": false,
+      "OwnReferenceBindings": 1
+    },
+    {
+      "Name": "peer-foreign-reject",
+      "Passed": true,
+      "WholeTypedEqual": false,
+      "WholeRawEqual": false,
+      "OwnReferenceBindings": 1
+    },
+    {
+      "Name": "queue-one-after-peer-refusal",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 1
+    },
+    {
+      "Name": "returned-ref-cancels-owner",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 1
+    },
+    {
+      "Name": "queue-zero-after-roundtrip",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 1
+    },
+    {
+      "Name": "monitor-held-across-alive",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 1
+    },
+    {
+      "Name": "peer-stores-before-alive",
+      "Passed": true,
+      "WholeTypedEqual": false,
+      "WholeRawEqual": false,
+      "OwnReferenceBindings": 2
+    },
+    {
+      "Name": "peer-retains-across-alive",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 2
+    },
+    {
+      "Name": "queue-one-before-alive",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 2
+    },
+    {
+      "Name": "current-data-after-alive-false",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 2
+    },
+    {
+      "Name": "current-data-after-alive-bad-cookie",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 2
+    },
+    {
+      "Name": "current-data-while-false-candidate-held",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 2
+    },
+    {
+      "Name": "current-data-after-extra-refused-first-false",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 2
+    },
+    {
+      "Name": "current-data-while-true-candidate-held",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 2
+    },
+    {
+      "Name": "peer-keeps-memory-across-alive",
+      "Passed": true,
+      "WholeTypedEqual": false,
+      "WholeRawEqual": false,
+      "OwnReferenceBindings": 2
+    },
+    {
+      "Name": "alive-return-cancels-owner",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 2
+    },
+    {
+      "Name": "queue-zero-after-alive-return",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 2
+    },
+    {
+      "Name": "monitor-held-across-disconnect",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 2
+    },
+    {
+      "Name": "queue-one-before-disconnect",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 3
+    },
+    {
+      "Name": "actual-reference-crosses-before-disconnect",
+      "Passed": true,
+      "WholeTypedEqual": false,
+      "WholeRawEqual": false,
+      "OwnReferenceBindings": 3
+    },
+    {
+      "Name": "peer-retains-before-disconnect",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 3
+    },
+    {
+      "Name": "watch-peer-before-death",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 3
+    },
+    {
+      "Name": "actual-node-down-after-peer-halt",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 3
+    },
+    {
+      "Name": "actual-peer-absent-after-halt",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 3
+    },
+    {
+      "Name": "queue-one-after-actual-peer-death",
+      "Passed": true,
+      "WholeTypedEqual": true,
+      "WholeRawEqual": true,
+      "OwnReferenceBindings": 3
+    }
+  ],
+  "Failures": [
+    "System.IO.IOException: The process cannot access the file \u0027D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library452-probe-run3\\depth8-outgoing-old_timer\\restarted-peer\\ready\u0027 because it is being used by another process.\r\n   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)\r\n   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable\u00601 unixCreateMode)\r\n   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable\u00601 unixCreateMode)\r\n   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable\u00601 unixCreateMode)\r\n   at System.IO.StreamReader.ValidateArgsAndOpenPath(String path, Int32 bufferSize)\r\n   at System.IO.File.ReadAllText(String path, Encoding encoding)\r\n   at RestartPeer452..ctor(String groupDirectory, Process old) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library452-probe-run3\\harness\\RestartPeer452.cs:line 46\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library452-probe-run3\\harness\\Program.cs:line 212"
+  ],
+  "PhysicalCleanup": true,
+  "Transport": "Original queued late discovery and actual old timer across owner replacement; actual runtime input/output queues",
+  "WholeModuleClaim": false
+}

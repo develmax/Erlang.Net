@@ -1,0 +1,8 @@
+from pathlib import Path
+r=Path.cwd();p=r/'tests/Erlang.Tests/Program.cs';raw=p.read_bytes();needle=b'Test(Erlang.Tests.PendingCandidateHostNames451.Test, Erlang.Tests.PendingCandidateHostChecks451.Run);';assert needle in raw and b'\r\n' not in raw
+p.write_bytes(raw.replace(needle,needle+b'\nTest(Erlang.Tests.RetiredCandidateHostNames452.Test, Erlang.Tests.RetiredCandidateHostChecks452.Run);'))
+for old,new in [('library451-build-focus1.py','library452-build-focus1.py'),('library451-prepare-package1.py','library452-prepare-package1.py'),('library451-gates1.py','library452-gates1.py'),('library451-run-standard79.py','library452-run-standard79.py'),('library451-source-authority.py','library452-source-authority.py'),('library451-style-readiness.py','library452-style-readiness.py')]:
+ s=(r/'artifacts'/old).read_text().replace('library451','library452').replace('runtime/distribution451/concurrent-candidates-adopt-one-pending-generation','runtime/distribution452/deferred-old-adoption-and-abort-preserve-new-owner').replace('CurrentCatalog8827NotFull','CurrentCatalog8828NotFull').replace('39956702180','39963573865')
+ (r/'artifacts'/new).write_bytes(s.encode())
+s=(r/'artifacts/library451-select-affected.py').read_text().replace('library451-affected-selection1','library452-affected-selection1').replace('library450-affected-selection1','library451-affected-selection1').replace('==589','==590').replace('Cases=589','Cases=590').replace('Retained450','Retained451').replace('runtime/distribution451/','runtime/distribution452/')
+(r/'artifacts/library452-select-affected.py').write_bytes(s.encode())

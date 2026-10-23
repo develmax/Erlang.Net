@@ -1,16 +1,16 @@
-# Current checkpoint — Part451 — 2026-10-23
+# Current checkpoint — Part452 — 2026-10-23
 
 | Module / area | Accepted scope | Remaining |
 | --- | --- | --- |
-| Distribution runtime |8 real check_pending takeovers in both lexical orders;16 already_pending zero-status refusals;24 actual kernel reply-trace groups; first candidate false/true and old stream preserved | Late selection/timer/setup/replacement races, malformed/legacy/dynamic negotiation,TLS,full managed original net_kernel boot/autoconnect/ALTACT |
-| DDLL / identity | Retained genuine monitor/ref/error/frame and peer restart behavior across24 authenticated channels; all accepted OS/native/controller cleanup passes | Wider reload/demonitor/force/owner/native teardown and OS/ABI/native-thread profiles |
-| ETS / erts_debug / erts_internal | Earlier loading/native-body scopes retained; no new complete contracts | Full semantic/physical/concurrency partitions in remaining-work/INDEX.md |
-| Regression |590/590 affected,native8+retained36,boot79/cleanup; one new concurrent-adoption/queued-delivery group | Exact451 publication-head full CI/packages tracked in PR |
+| Distribution runtime |24/24 discovery/timer races;16 actual late results,8 natural old timers after handoff; deferred old adoption/abort cannot steal the new owner | Wider setup/timeout/owner schedules, malformed/legacy/dynamic negotiation,TLS,full managed original net_kernel boot/autoconnect/ALTACT |
+| DDLL / identity |72 authenticated channels retain full monitor/reference/error/frame/restart evidence;48 silent extra-candidate refusals and real successful cleanup | Wider reload/demonitor/force/native teardown, OS/ABI/native-thread profiles |
+| ETS / erts_debug / erts_internal |Earlier loading/native-body scopes retained; no new complete contracts | Full semantic/physical/concurrency partitions in remaining-work/INDEX.md |
+| Regression |591 pre-guard tests; final composite590 retained+strengthened case1; native8/retained36,boot79/cleanup | Exact452 publication-head full CI and both package builds tracked in PR |
 | Default registry |708 APIs /118 verified full contracts;1621 source guards,delta0/0 |31 Known differences and559 Needs verification; not whole-library completion |
 
-Part450 is merged as maindf3cccb1; exact merge CI39960005038 passes8826/8826 and both packages. Part451 accepts424 observations:376 paired common-source/protocol plus48 auxiliary guards;368 whole typed/raw and56 own-reference protocols. Final RuntimeA261E976/package1FE86D4E. Canonical catalog8827 is distinct from a full-suite pass. [Proof](validation/part-451/ddll-check-pending-and-already-pending/README.md); [English changelog](changelog/0079.md).
+Part451 PR12 remains open at d4430b63; its exact CI39963573865 passes8827/8827 and both packages. Part452 catalog8828 is distinct from a full-suite pass. [Proof](validation/part-452/ddll-late-discovery-and-owner-races/README.md); [English changelog](changelog/0079.md).
 
-check_pending is reached before NAME through an original-only configured discovery callback barrier, without editing sys_dist or original net_kernel. already_pending is an actual INTERNAL reply: the extra socket closes without a status, not a fictional salready_pending. Original rows/PIDs/traces are raw own-state observations. Managed real queues/controller primitives and the explicit protocol adapter do not prove full managed standard net_kernel execution. No runtime algorithm discrepancy was confirmed. Earlier entries below are historical.
+Part452 accepts1272 observations:1128 paired+144 auxiliary;1104 whole typed/raw+168 explicit own-reference protocols. Five accepted batches include two independent passing groups from a failed batch, preserving its readiness-sharing failure and full fresh replacement. Original kernel mailbox scheduling, configured5s timers and discovery callback instrumentation are distinct from managed queues/controller primitives; no whole-module/default DNS/performance/full managed standard boot claim. Earlier entries below are historical.
 
 # Decisions
 
