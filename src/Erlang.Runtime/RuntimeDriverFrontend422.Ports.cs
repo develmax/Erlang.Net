@@ -2,6 +2,19 @@ namespace Erlang;
 
 internal sealed partial class RuntimeDriverFrontend422
 {
+    internal ValueTask<Term> ConnectPort455(ProcessContext caller, Term identity, Term destination)
+    {
+        runtime.RequireDriverParentActor422(caller);
+        RequireReady();
+
+        return ports.ConnectOrdered455(
+            caller,
+            identity,
+            destination,
+            transport
+        );
+    }
+
     internal async ValueTask<Term?> TryOpen(ProcessContext context, Term specification, Term settings)
     {
         runtime.RequireDriverParentActor422(context);

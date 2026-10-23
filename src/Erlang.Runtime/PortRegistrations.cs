@@ -52,7 +52,7 @@ internal static class PortRegistrations
         Add(
             PortNames.Connect,
             2,
-            (context, arguments) => ValueTask.FromResult(context.Runtime.Ports.Connect(arguments[0], arguments[1]))
+            (context, arguments) => context.Runtime.Ports.ConnectOrdered455(context, arguments[0], arguments[1])
         );
         Add(PortNames.GetData, 1, (context, arguments) => ValueTask.FromResult(context.Runtime.Ports.GetData(arguments[0])));
         Add(

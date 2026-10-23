@@ -68,8 +68,9 @@ internal sealed class InternalPortBinding416
 
     private async ValueTask<Term> Connect(ProcessContext context, IReadOnlyList<Term> arguments)
     {
-        await Runtime.Ports.AwaitCommands(arguments[0], context.Cancellation, context);
+        if (Runtime.DriverFrontendForPort422(arguments[0]) is null)
+            await Runtime.Ports.AwaitCommands(arguments[0], context.Cancellation, context);
 
-        return Runtime.Ports.Connect(arguments[0], arguments[1]);
+        return await Runtime.Ports.ConnectOrdered455(context, arguments[0], arguments[1]);
     }
 }

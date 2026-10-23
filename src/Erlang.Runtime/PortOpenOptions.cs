@@ -32,6 +32,9 @@ internal sealed class PortOpenOptions
     public ulong MessageHighWatermark { get; private set; } = PortMessageParameters.DefaultHighWatermark;
     public ulong MessageLowWatermark { get; private set; } = PortMessageParameters.DefaultLowWatermark;
 
+    internal static PortOpenOptions Child455(byte[] name, bool parallelism)
+        => new() { Name = Encoding.Latin1.GetString(name), Parallelism = parallelism, Directions = PortDirectionFlags.Read | PortDirectionFlags.Write };
+
     public static PortOpenOptions Parse(Term specification, Term settings)
         => Parse(
             specification,

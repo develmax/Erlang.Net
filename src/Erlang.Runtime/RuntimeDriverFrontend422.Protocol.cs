@@ -13,6 +13,49 @@ internal sealed partial class RuntimeDriverFrontend422
             return await primitives.Handle(request, cancellation).ConfigureAwait(false);
         if (request.Operation == ErlDriverHostOperation420.SchedulePortTask)
             return await tasks.Handle(request).ConfigureAwait(false);
+        if (request.Operation == ErlDriverHostOperation420.DecodeExternal455)
+        {
+            if (request.Driver != 0 || request.Port != 0 || request.Actor != 0 || request.Command != 0
+                || request.Name is not null || request.SchedulerThread || request.Data is null)
+                throw new InvalidDataException(DriverParentWireNames422.Invalid);
+            byte[]? decoded = null;
+            int status = 0;
+            try
+            {
+                decoded = runtime.DecodeDriverExternal455(request.Data);
+            }
+            catch (ErlangException)
+            {
+                status = -1;
+            }
+
+            return request with { Kind = ErlDriverHostKind420.Response, NativeResult = status, Name = null, Data = decoded };
+        }
+        if (request.Operation is ErlDriverHostOperation420.ReserveChild455 or ErlDriverHostOperation420.CommitChild455 or ErlDriverHostOperation420.AbortChild455)
+        {
+            RequirePortRequest(request);
+            if (request.Actor != 0 || request.Name is not null || request.SchedulerThread)
+                throw new InvalidDataException(DriverParentWireNames422.Invalid);
+            var creator = new ErlDriverPortIdentity420(request.Driver, request.Port);
+            byte[]? childOutput = null;
+            int status = 0;
+            if (request.Operation == ErlDriverHostOperation420.ReserveChild455)
+            {
+                var reserve = ErlDriverPrimitiveWire420.Decode<ErlDriverChildReserve455>(request.Data);
+                var reservation = ports.ReserveChild455(creator, reserve, actors.Resolve(reserve.Owner));
+                if (reservation is null) status = -1;
+                else childOutput = ErlDriverPrimitiveWire420.Encode(reservation);
+            }
+            else
+            {
+                var transition = ErlDriverPrimitiveWire420.Decode<ErlDriverChildTransition455>(request.Data);
+                if (request.Operation == ErlDriverHostOperation420.CommitChild455)
+                    status = ports.CommitChild455(creator, transition) ? 0 : -1;
+                else ports.AbortChild455(creator, transition);
+            }
+
+            return request with { Kind = ErlDriverHostKind420.Response, NativeResult = status, Name = null, Data = childOutput };
+        }
         if (request.Actor != 0 || request.Name is not null || request.SchedulerThread)
             throw new InvalidDataException(DriverParentWireNames422.Invalid);
         int result = 0;
@@ -103,13 +146,23 @@ internal sealed partial class RuntimeDriverFrontend422
                 {
                     if (request.Command != 0) throw new InvalidDataException(DriverParentWireNames422.Invalid);
                     var message = ErlDriverPrimitiveWire420.Decode<ErlDriverTermDelivery420>(request.Data);
-                    Pid recipient = actors.Resolve(message.RecipientActor);
-                    if (ExternalTermFormat.Decode(message.RecipientEtf) is not Pid wire || wire.Id != recipient.Id)
-                        throw new InvalidDataException(DriverParentWireNames422.Invalid);
-                    Term? sender = null;
-                    if (!message.UndefinedSender) sender = ports.OriginIdentity(identity);
-                    else if (request.Driver != 0 || request.Port != 0) throw new InvalidDataException(DriverParentWireNames422.Invalid);
-                    result = runtime.DeliverDriverTerm422(recipient, message.MessageEtf, sender);
+                    lock (gate)
+                    {
+                        Pid recipient = actors.Resolve(message.RecipientActor);
+                        if (ExternalTermFormat.Decode(message.RecipientEtf) is not Pid wire || wire.Id != recipient.Id)
+                            throw new InvalidDataException(DriverParentWireNames422.Invalid);
+                        Term? sender = null;
+                        if (!message.UndefinedSender) sender = ports.OriginIdentity(identity);
+                        else if (request.Driver != 0 || request.Port != 0) throw new InvalidDataException(DriverParentWireNames422.Invalid);
+                        byte[] payload = message.MessageEtf;
+                        if (message.OwnBindings455 is { Length: > 0 } bindings)
+                        {
+                            Term restored = ErlDriverOwnTermCodec455.Decode(payload, bindings,
+                                binding => binding.Actor ? actors.Resolve(binding.Handle) : ports.ResolveOwnPort455(binding.Handle));
+                            payload = runtime.EncodeDriverIdentity422(restored);
+                        }
+                        result = runtime.DeliverDriverTerm422(recipient, payload, sender);
+                    }
                     break;
                 }
             default: throw new InvalidDataException(DriverParentWireNames422.Invalid);

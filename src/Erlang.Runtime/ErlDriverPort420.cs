@@ -23,6 +23,8 @@ internal sealed unsafe class ErlDriverPort420 : IDisposable
     private bool stopRequested;
     private bool stopped;
     private nint data;
+    private readonly TaskCompletionSource? construction455;
+    private bool constructing455;
 
     internal ErlDriverPort420(
         nint nativePort,
@@ -36,9 +38,13 @@ internal sealed unsafe class ErlDriverPort420 : IDisposable
         nuint portTerm,
         nuint connected,
         Action<ErlDriverPort420> onStopped,
-        Action<ErlDriverPort420, string, nint> missingReady
+        Action<ErlDriverPort420, string, nint> missingReady,
+        bool constructing455 = false
     )
     {
+        this.constructing455 = constructing455;
+        if (constructing455) construction455 = new(TaskCreationOptions.RunContinuationsAsynchronously);
+        Slot455 = slot;
         NativePort = nativePort;
         Identity = identity;
         OpenFlags = openFlags;
@@ -52,8 +58,38 @@ internal sealed unsafe class ErlDriverPort420 : IDisposable
         this.onStopped = onStopped;
         this.missingReady = missingReady;
         callbackGate = (entry.Flags & ErlDriverPortNames420.PortLockingFlag) != 0 ? new object() : slot.DriverGate;
-        Queue = new(memory, layout);
         imageLease = image.Acquire();
+        try
+        {
+            Queue = new(memory, layout);
+        }
+        catch
+        {
+            imageLease.Dispose();
+            throw;
+        }
+    }
+
+    internal ErlDriverHostSlot420 Slot455 { get; }
+    internal Task Construction455 => construction455?.Task ?? Task.CompletedTask;
+
+    // Called only after parent commit. No allocations, IPC or throwing cleanup
+    // may follow this transfer of the source caller's opaque data pointer.
+    internal void AdoptData455(nint callerOwnedData)
+    {
+        data = callerOwnedData;
+        started = true;
+    }
+
+    internal void ReleaseConstruction455()
+    {
+        lock (callbackGate)
+        {
+            if (!constructing455) return;
+            constructing455 = false;
+            construction455!.TrySetResult();
+            if (stopRequested && callbackDepth == 0) StopCore();
+        }
     }
 
     internal nint NativePort { get; }
@@ -111,7 +147,14 @@ internal sealed unsafe class ErlDriverPort420 : IDisposable
             finally
             {
                 callbackDepth--;
-                if (stopRequested && callbackDepth == 0) StopCore();
+                try
+                {
+                    turn.ReleaseChildren455();
+                }
+                finally
+                {
+                    if (stopRequested && callbackDepth == 0 && !constructing455) StopCore();
+                }
             }
         }
     }
@@ -375,13 +418,13 @@ internal sealed unsafe class ErlDriverPort420 : IDisposable
         {
             if (stopped) return;
             stopRequested = true;
-            if (callbackDepth == 0) StopCore();
+            if (callbackDepth == 0 && !constructing455) StopCore();
         }
     }
 
     private void StopCore()
     {
-        if (stopped) return;
+        if (stopped || constructing455) return;
         stopped = true;
         lock (serviceGate)
         {

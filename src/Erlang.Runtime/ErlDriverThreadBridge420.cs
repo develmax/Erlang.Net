@@ -90,6 +90,13 @@ internal sealed class ErlDriverThreadBridge420 : SafeHandle
     public override bool IsInvalid => handle == nint.Zero;
     internal Exception? CloseFailure => closeFailure;
 
+    internal nint OptionalExport455(string name)
+    {
+        ObjectDisposedException.ThrowIf(IsClosed || servicesClosed, this);
+
+        return NativeLibrary.TryGetExport(handle, name, out nint pointer) ? pointer : nint.Zero;
+    }
+
     internal nint ExportPointer(string name)
     {
         ObjectDisposedException.ThrowIf(IsClosed || servicesClosed, this);
