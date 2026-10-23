@@ -1,0 +1,48 @@
+{
+  "Cases": [
+    "duplicate_ref_unload",
+    "duplicate_ref_reload_pending_driver",
+    "foreign_owner_unload_reload",
+    "unload_monitor_pending",
+    "unload_monitor_pending_driver",
+    "unload_cancel_regular_vs_only",
+    "loaded_monitor_during_unload",
+    "normal_load_during_reload",
+    "reload_repeat_while_pending",
+    "reload_cancel_by_final_unloads",
+    "foreign_demonitor_cannot_remove",
+    "monitor_owner_death"
+  ],
+  "WholeMainRows": 72,
+  "WholeOwnRows": 72,
+  "MainEquality": [
+    "whole typed values",
+    "whole raw values",
+    "whole typed five stack profiles",
+    "whole raw five stack profiles"
+  ],
+  "OwnEquality": false,
+  "OwnShape": [
+    "exact case names/order",
+    "five depth profiles",
+    "nonempty per-case events",
+    "actual observer PID first"
+  ],
+  "NativeRebuilt": false,
+  "RequiredFences": [
+    "actual helper DOWN",
+    "actual unloaded driver monitor",
+    "child PhysicalExit",
+    "child PhysicalCleanup",
+    "child Completion",
+    "real ZeroLeases"
+  ],
+  "ProviderFullScansPerBatch": 2,
+  "OriginalStages": [
+    "compile-observer",
+    "capture-values",
+    "capture-stacks"
+  ],
+  "CompatibilityClaim": false,
+  "Executed": false
+}

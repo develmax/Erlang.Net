@@ -1,0 +1,13 @@
+{
+  "CasesUnchangedFromInventory": true,
+  "CleanupCorrection": "No fixed retry loop. After real port/helper joins snapshot actual info(processes); count only self-owned refs; unload exactly N entries; actual unloaded_only notification proves physical retirement. Only absent-driver badarg maps count0; other errors propagate. All raw operations retained.",
+  "DeathBarrier": {
+    "Authority": "authority/erl_process.c",
+    "Before": "14416 erts_ddll_proc_dead in EXIT_FREE",
+    "After": "14441 detaches monitors;14560+ monitor exit delivery",
+    "OwnRuntime": "DriverFrontendProcessRetirement422 joins before FinishTermination/DOWN"
+  },
+  "ObserverIdentityProtocol": "Main source summaries preserve statuses/name/tag/order/role/count and exact identity predicates, raw public terms and messages remain separate own rows. No comparison-side normalization or full opaque public-term equality claim.",
+  "OriginalExecuted": false,
+  "ManagedExecuted": false
+}

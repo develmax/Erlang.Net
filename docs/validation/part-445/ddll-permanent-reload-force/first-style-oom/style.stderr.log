@@ -1,0 +1,9 @@
+Unhandled exception. System.TypeInitializationException: The type initializer for 'SourceLayout' threw an exception.
+ ---> System.OutOfMemoryException: Exception of type 'System.OutOfMemoryException' was thrown.
+   at Microsoft.CodeAnalysis.Host.Mef.MefHostServices.Create(IEnumerable`1 assemblies)
+   at Microsoft.CodeAnalysis.Host.Mef.MefHostServices.Create(IEnumerable`1 assemblies)
+   at SourceLayout..cctor() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tools\Erlang.Style\SourceLayout.cs:line 12
+   --- End of inner exception stack trace ---
+   at SourceLayout.ApplyPass(String source) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tools\Erlang.Style\SourceLayout.cs:line 134
+   at SourceLayout.Apply(String source) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tools\Erlang.Style\SourceLayout.cs:line 18
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tools\Erlang.Style\Program.cs:line 21

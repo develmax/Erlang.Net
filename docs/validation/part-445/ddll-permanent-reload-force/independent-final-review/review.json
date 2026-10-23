@@ -1,0 +1,97 @@
+{
+  "Blockers": [],
+  "SourceDelta": {
+    "SemanticChange": "single global monitor pass -> AwaitLoad,AwaitUnload,AwaitUnloadOnly passes in exact pinned source order",
+    "ExactReverseTextHashVerified": true,
+    "AfterSha256": "CD1BAAF05B59F5D1F2EE20C4186C16D617AC7D5CB326B93EAB1C0E80639256AE",
+    "BeforeSha256": "E290340C18D91308DDEEFFF9DDC24CE9DF465BBC99D3EEB3151D8D36B4E4060C",
+    "Unchanged": "same runtime gate, unknown/linked owner guard, per-kind record traversal and removal, monitor/ref/PID identities and Notify delivery, Process.Clear, Permanent state, ReloadPath clearing, return0, physical retirement fences"
+  },
+  "Groups": [
+    {
+      "WholeRawSha256Equal": true,
+      "PhysicalExit": true,
+      "OwnProvenanceValid": true,
+      "Group": "values",
+      "CaseCount": 10,
+      "WholeTypedJsonEqual": true,
+      "Failures": [],
+      "ChildCompletion": true,
+      "ReportPassed": true,
+      "PhysicalCleanup": true
+    },
+    {
+      "WholeRawSha256Equal": true,
+      "PhysicalExit": true,
+      "OwnProvenanceValid": true,
+      "Group": "default",
+      "CaseCount": 10,
+      "WholeTypedJsonEqual": true,
+      "Failures": [],
+      "ChildCompletion": true,
+      "ReportPassed": true,
+      "PhysicalCleanup": true
+    },
+    {
+      "WholeRawSha256Equal": true,
+      "PhysicalExit": true,
+      "OwnProvenanceValid": true,
+      "Group": "depth0",
+      "CaseCount": 10,
+      "WholeTypedJsonEqual": true,
+      "Failures": [],
+      "ChildCompletion": true,
+      "ReportPassed": true,
+      "PhysicalCleanup": true
+    },
+    {
+      "WholeRawSha256Equal": true,
+      "PhysicalExit": true,
+      "OwnProvenanceValid": true,
+      "Group": "depth1",
+      "CaseCount": 10,
+      "WholeTypedJsonEqual": true,
+      "Failures": [],
+      "ChildCompletion": true,
+      "ReportPassed": true,
+      "PhysicalCleanup": true
+    },
+    {
+      "WholeRawSha256Equal": true,
+      "PhysicalExit": true,
+      "OwnProvenanceValid": true,
+      "Group": "depth2",
+      "CaseCount": 10,
+      "WholeTypedJsonEqual": true,
+      "Failures": [],
+      "ChildCompletion": true,
+      "ReportPassed": true,
+      "PhysicalCleanup": true
+    },
+    {
+      "WholeRawSha256Equal": true,
+      "PhysicalExit": true,
+      "OwnProvenanceValid": true,
+      "Group": "depth8",
+      "CaseCount": 10,
+      "WholeTypedJsonEqual": true,
+      "Failures": [],
+      "ChildCompletion": true,
+      "ReportPassed": true,
+      "PhysicalCleanup": true
+    }
+  ],
+  "FullModuleCompatibilityPromotion": false,
+  "RuntimeSha256": "90EAF3A29E9DEDE3302FF8A5DC669386DEDA443646A381F60494197C07EA987A",
+  "ExecutionByReviewer": false,
+  "APIAvailabilityDelta": 0,
+  "RemainingScopes": [
+    "Broader concurrent monitor/demonitor/load/retire and multiple runtime/generation/ref-origin transitions beyond the actual enumerated444+445 cases",
+    "All force-mode and failure/recovery cross-products are not exhaustively enumerated by these ten cases",
+    "Non-Windows/x64 driver ABI and alternate deployment/AOT ownership",
+    "ERTS physical allocator/scheduler value parity and all native104 callback/TLS behavior remain separate evidence scopes"
+  ],
+  "OwnOpaqueBytesEqualityClaim": false,
+  "ReviewedSourceOnly": true,
+  "WholeMainRows": 60
+}

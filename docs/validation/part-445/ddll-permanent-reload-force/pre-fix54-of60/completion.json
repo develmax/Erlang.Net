@@ -1,0 +1,53 @@
+{
+  "Passed": false,
+  "Stages": {
+    "compile-consumer": true,
+    "actual-full-native-ddll": false
+  },
+  "Errors": [
+    {
+      "Stage": "actual-full-native-ddll",
+      "Failure": "RuntimeError('Owned stage failed; all available raw evidence retained: actual-full-native-ddll')"
+    }
+  ],
+  "ActualReport": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library445-ddll-final-managed1\\observations\\completion.json",
+  "SourceChecks": [
+    {
+      "Stage": "compile-consumer",
+      "InputsBeforeUnchanged": true,
+      "InputsAfterUnchanged": true,
+      "ProviderScope": "complete-batch-envelope",
+      "Failure": null
+    },
+    {
+      "Stage": "actual-full-native-ddll",
+      "InputsBeforeUnchanged": true,
+      "InputsAfterUnchanged": true,
+      "ProviderScope": "complete-batch-envelope",
+      "Failure": "RuntimeError('Owned stage failed; all available raw evidence retained: actual-full-native-ddll')"
+    }
+  ],
+  "ProviderChecks": [
+    {
+      "Phase": "before",
+      "CompleteInventoryAttempted": true,
+      "ExpectedFiles": 6427,
+      "Equal": true,
+      "Failure": null,
+      "DurationSeconds": 2.8983957999153063
+    },
+    {
+      "Phase": "after",
+      "CompleteInventoryAttempted": true,
+      "ExpectedFiles": 6427,
+      "Equal": true,
+      "Failure": null,
+      "DurationSeconds": 1.3232022000011057
+    }
+  ],
+  "CompleteProviderScans": 2,
+  "ProviderScope": "batch-before-and-after",
+  "OriginalVmRerun": false,
+  "RuntimeSha256": "92536F9555A84DB47E9326DED1DBF8403CCD7F0F1FEFD0E251FF3D300CB8375A",
+  "PackageSha256": "1824433A0A19A8E2402CE8FCC45F3A4A3EAA053F3177F189C850A8826A5162AF"
+}
