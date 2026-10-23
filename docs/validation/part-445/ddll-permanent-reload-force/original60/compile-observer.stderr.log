@@ -1,0 +1,12 @@
+beam_ddll_final_modes445.erl:43:1: Warning: function wait_two/2 is unused
+%   43| wait_two(A,B)->[wait_one(A,B),wait_one(A,B)].
+%     | ^
+
+beam_ddll_final_modes445.erl:44:1: Warning: function wait_one/2 is unused
+%   44| wait_one(A,B)->receive {Direction,R,driver,Name,Tag}=M when R=:=A;R=:=B->
+%     | ^
+
+beam_ddll_final_modes445.erl:57:1: Warning: function ask/2 is unused
+%   57| ask(P,Command)->R=make_ref(),P!{command,self(),R,Command},
+%     | ^
+

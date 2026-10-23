@@ -1,0 +1,29 @@
+{
+  "Cases": [
+    "permanent_transition_order",
+    "reload_missing_recover",
+    "reload_wrongname_recover",
+    "reload_initfail_recover",
+    "force_unload_option",
+    "force_loadflag_unload",
+    "force_loadflag_reload",
+    "force_multiowner_option",
+    "force_loadflag_owner_death",
+    "force_reload_pending_otherowner"
+  ],
+  "Groups": 6,
+  "WholeMainRows": 60,
+  "WholeOwnRows": 60,
+  "PermanentIsolation": "actual process/Runtime-child per profile",
+  "MainEquality": "six complete exact source-profile files raw and typed after physical cleanup",
+  "OpaqueOwnEquality": false,
+  "OriginalCaptureSubsetSha256": "B14DE65C25F8410939AFF6B8CEC967676A031F93E240D38668181424CF4BD6F2",
+  "RequiredPhysicalFences": [
+    "child PhysicalExit",
+    "child PhysicalCleanup",
+    "child Completion",
+    "actual ZeroLeases every group"
+  ],
+  "RootMustPreservePreFixRed": true,
+  "Executed": false
+}

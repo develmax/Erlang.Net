@@ -171,11 +171,26 @@ internal sealed partial class RuntimeDdllParent422
         lock (gate)
         {
             if (!identities.TryGetValue(identity, out var row) || row.Linked) return -1;
+            Term permanent = Term.A(DdllParentAtoms422.Permanent);
+            // OTP notifies each waiter kind in a separate pass. Preserve that
+            // order when one process owns monitors of several kinds.
             NotifyAll(
                 row,
-                kind => kind != DdllParentReferenceKind422.Loaded,
+                kind => kind == DdllParentReferenceKind422.AwaitingLoad,
                 DdllParentAtoms422.Up,
-                Term.A(DdllParentAtoms422.Permanent)
+                permanent
+            );
+            NotifyAll(
+                row,
+                kind => kind == DdllParentReferenceKind422.AwaitingUnload,
+                DdllParentAtoms422.Up,
+                permanent
+            );
+            NotifyAll(
+                row,
+                kind => kind == DdllParentReferenceKind422.AwaitingUnloadOnly,
+                DdllParentAtoms422.Up,
+                permanent
             );
             row.Processes.Clear();
             row.State = DdllParentStateKind422.Permanent;

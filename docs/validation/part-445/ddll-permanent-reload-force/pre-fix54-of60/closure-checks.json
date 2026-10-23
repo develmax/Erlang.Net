@@ -1,0 +1,16 @@
+[
+  {
+    "Stage": "compile-consumer",
+    "InputsBeforeUnchanged": true,
+    "InputsAfterUnchanged": true,
+    "ProviderScope": "complete-batch-envelope",
+    "Failure": null
+  },
+  {
+    "Stage": "actual-full-native-ddll",
+    "InputsBeforeUnchanged": true,
+    "InputsAfterUnchanged": true,
+    "ProviderScope": "complete-batch-envelope",
+    "Failure": "RuntimeError('Owned stage failed; all available raw evidence retained: actual-full-native-ddll')"
+  }
+]

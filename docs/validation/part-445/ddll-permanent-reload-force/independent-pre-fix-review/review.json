@@ -1,0 +1,170 @@
+{
+  "Finding": "Concrete product notification ordering mismatch; no observer/consumer schema or physical fence failure",
+  "Groups": [
+    {
+      "ExpectedLabels": [
+        "loaded_monitor",
+        "reload_request",
+        "unloaded_monitor",
+        "only_monitor"
+      ],
+      "DifferingCases": [
+        "permanent_transition_order"
+      ],
+      "PhysicalExit": true,
+      "ActualLabels": [
+        "only_monitor",
+        "unloaded_monitor",
+        "loaded_monitor",
+        "reload_request"
+      ],
+      "PermanentResultFieldIndexes": [
+        3
+      ],
+      "Own": true,
+      "ChildCompletion": true,
+      "Group": "values",
+      "Failures": [],
+      "PhysicalCleanup": true
+    },
+    {
+      "ExpectedLabels": [
+        "loaded_monitor",
+        "reload_request",
+        "unloaded_monitor",
+        "only_monitor"
+      ],
+      "DifferingCases": [
+        "permanent_transition_order"
+      ],
+      "PhysicalExit": true,
+      "ActualLabels": [
+        "only_monitor",
+        "unloaded_monitor",
+        "loaded_monitor",
+        "reload_request"
+      ],
+      "PermanentResultFieldIndexes": [
+        3
+      ],
+      "Own": true,
+      "ChildCompletion": true,
+      "Group": "default",
+      "Failures": [],
+      "PhysicalCleanup": true
+    },
+    {
+      "ExpectedLabels": [
+        "loaded_monitor",
+        "reload_request",
+        "unloaded_monitor",
+        "only_monitor"
+      ],
+      "DifferingCases": [
+        "permanent_transition_order"
+      ],
+      "PhysicalExit": true,
+      "ActualLabels": [
+        "only_monitor",
+        "unloaded_monitor",
+        "loaded_monitor",
+        "reload_request"
+      ],
+      "PermanentResultFieldIndexes": [
+        3
+      ],
+      "Own": true,
+      "ChildCompletion": true,
+      "Group": "depth0",
+      "Failures": [],
+      "PhysicalCleanup": true
+    },
+    {
+      "ExpectedLabels": [
+        "loaded_monitor",
+        "reload_request",
+        "unloaded_monitor",
+        "only_monitor"
+      ],
+      "DifferingCases": [
+        "permanent_transition_order"
+      ],
+      "PhysicalExit": true,
+      "ActualLabels": [
+        "only_monitor",
+        "unloaded_monitor",
+        "loaded_monitor",
+        "reload_request"
+      ],
+      "PermanentResultFieldIndexes": [
+        3
+      ],
+      "Own": true,
+      "ChildCompletion": true,
+      "Group": "depth1",
+      "Failures": [],
+      "PhysicalCleanup": true
+    },
+    {
+      "ExpectedLabels": [
+        "loaded_monitor",
+        "reload_request",
+        "unloaded_monitor",
+        "only_monitor"
+      ],
+      "DifferingCases": [
+        "permanent_transition_order"
+      ],
+      "PhysicalExit": true,
+      "ActualLabels": [
+        "only_monitor",
+        "unloaded_monitor",
+        "loaded_monitor",
+        "reload_request"
+      ],
+      "PermanentResultFieldIndexes": [
+        3
+      ],
+      "Own": true,
+      "ChildCompletion": true,
+      "Group": "depth2",
+      "Failures": [],
+      "PhysicalCleanup": true
+    },
+    {
+      "ExpectedLabels": [
+        "loaded_monitor",
+        "reload_request",
+        "unloaded_monitor",
+        "only_monitor"
+      ],
+      "DifferingCases": [
+        "permanent_transition_order"
+      ],
+      "PhysicalExit": true,
+      "ActualLabels": [
+        "only_monitor",
+        "unloaded_monitor",
+        "loaded_monitor",
+        "reload_request"
+      ],
+      "PermanentResultFieldIndexes": [
+        3
+      ],
+      "Own": true,
+      "ChildCompletion": true,
+      "Group": "depth8",
+      "Failures": [],
+      "PhysicalCleanup": true
+    }
+  ],
+  "ComparisonSideNormalization": false,
+  "CompilerNativeVmExecuted": false,
+  "ProductEdited": false,
+  "WholeModuleCompatibilityClaim": false,
+  "SourceAuthority": "Pinned erl_bif_ddll.c1022-1031 sequential AwaitLoad/AwaitUnload/AwaitUnloadOnly passes",
+  "CurrentPreFix": "RuntimeDdllParent422.LockDriver single NotifyAll(kind != Loaded) traverses global prepended records",
+  "RequiredCorrection": "Three genuine NotifyAll passes in source order; preserve each kind traversal order and same record/owner/ref identities, real Process.Clear and permanent state ownership",
+  "SourceOnly": true,
+  "ExpectedRewritten": false
+}
