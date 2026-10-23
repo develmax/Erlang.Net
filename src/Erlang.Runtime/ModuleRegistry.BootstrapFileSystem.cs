@@ -18,8 +18,24 @@ public sealed partial class ModuleRegistry
     {
         var key = (RuntimeBootstrapFileNames.InternalModule, function, arity);
 
-        return functions.TryGetValue(key, out ErlangFunction? actual) && ReferenceEquals(actual, body)
-            && !sourceOwners.ContainsKey(key) && IsNativeEntry(key.Item1, function, arity);
+        if (!functions.TryGetValue(key, out ErlangFunction? actual))
+            return false;
+        if (ReferenceEquals(actual, body) && !sourceOwners.ContainsKey(key) && IsNativeEntry(key.Item1, function, arity))
+            return true;
+        if (sourceOwners.GetValueOrDefault(key) is not PreparedBeamImage image
+            || !ReferenceEquals(image.Owner, this)
+            || !ReferenceEquals(codeImages.GetValueOrDefault(key.Item1), image.ExecutionIdentity.Image)
+            || !image.ExecutionIdentity.NativePrimitives.TryGetValue((function, arity), out ErlangFunction? primitive)
+            || !ReferenceEquals(primitive, body))
+            return false;
+        for (int index = 0; index < image.Code.Exports.Count; index++)
+        {
+            BeamLinkedFunction export = image.Code.Exports[index];
+            if (export.Name == function && export.Arity == arity)
+                return ReferenceEquals(image.Bodies[index], actual);
+        }
+
+        return false;
     }
 
     internal void InstallBootstrapFileSystem()

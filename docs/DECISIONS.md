@@ -1,16 +1,20 @@
-# Current checkpoint — Part452 — 2026-10-23
+# Current checkpoint — Part453 — 2026-10-23
 
 | Module / area | Accepted scope | Remaining |
 | --- | --- | --- |
-| Distribution runtime |24/24 discovery/timer races;16 actual late results,8 natural old timers after handoff; deferred old adoption/abort cannot steal the new owner | Wider setup/timeout/owner schedules, malformed/legacy/dynamic negotiation,TLS,full managed original net_kernel boot/autoconnect/ALTACT |
-| DDLL / identity |72 authenticated channels retain full monitor/reference/error/frame/restart evidence;48 silent extra-candidate refusals and real successful cleanup | Wider reload/demonitor/force/native teardown, OS/ABI/native-thread profiles |
-| ETS / erts_debug / erts_internal |Earlier loading/native-body scopes retained; no new complete contracts | Full semantic/physical/concurrency partitions in remaining-work/INDEX.md |
-| Regression |591 pre-guard tests; final composite590 retained+strengthened case1; native8/retained36,boot79/cleanup | Exact452 publication-head full CI and both package builds tracked in PR |
-| Default registry |708 APIs /118 verified full contracts;1621 source guards,delta0/0 |31 Known differences and559 Needs verification; not whole-library completion |
+| Original `net_kernel` | Standard named kernel/application boot, real registered source-owned server, live node, 24 scenarios ×6 value/stack profiles =144 matching complete terms | TCP/UDP builtin drivers, listener/EPMD, real peer channels through this original server, wider checker/timeout/owner schedules, TLS |
+| Native `re` + original wrappers | Unicode non-bitstring pattern/subject dispatch through unchanged original ucompile/urun;35 scenarios ×6=210 outcomes;48 actual retained resource patterns authenticated | Remaining valid options/textual run profiles and full native/platform contracts |
+| Bootstrap filesystem / `erts_internal` | Full original71-native-body image preserves exact canonical filesystem bindings; ordinary original prim_file:on_load and named boot work; substitute admission refused | Complete native semantic/physical and multi-image/concurrency partitions |
+| Resource cleanup | Compile/run interrupted during real original Unicode work, each by process kill and runtime close; four profiles settle leases/native counters | Wider native/transport/OS lifecycle matrices |
+| DDLL / distribution | Parts451/452 merged; previous24 delayed discovery/timer/owner scenarios and1272 observations remain historical accepted evidence | Wider actual transport races and complete standard distribution startup |
+| Default registry |708 APIs,118 verified full contracts;1623 source guards (+2),API/full delta0/0 |31 Known differences,559 Needs verification; no whole-module or performance promotion |
+| Delivery | main merge CI39978960949 green8828/packages; current catalog8833 and five new focus groups pass | Final affected/native/boot evidence and exact453 full CI/packages tracked with publication |
 
-Part451 PR12 remains open at d4430b63; its exact CI39963573865 passes8827/8827 and both packages. Part452 catalog8828 is distinct from a full-suite pass. [Proof](validation/part-452/ddll-late-discovery-and-owner-races/README.md); [English changelog](changelog/0079.md).
+The six `get_state` rows differ only in map-entry serialization order. All keys/values, profile labels and complete stack fields match;138 other rows also match original raw ETF slices. Strict original whole-file equality is false and retained, never relabeled as byte-identical. The successful profile explicitly disables the TCP listener/EPMD. No performance parity follows from functional acceptance.
 
-Part452 accepts1272 observations:1128 paired+144 auxiliary;1104 whole typed/raw+168 explicit own-reference protocols. Five accepted batches include two independent passing groups from a failed batch, preserving its readiness-sharing failure and full fresh replacement. Original kernel mailbox scheduling, configured5s timers and discovery callback instrumentation are distinct from managed queues/controller primitives; no whole-module/default DNS/performance/full managed standard boot claim. Earlier entries below are historical.
+[Evidence](validation/part-453/original-named-kernel/README.md), [English changelog](changelog/0080.md), [remaining work](remaining-work/INDEX.md).
+
+Earlier entries below are historical.
 
 # Decisions
 

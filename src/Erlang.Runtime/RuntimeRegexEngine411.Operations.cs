@@ -77,6 +77,14 @@ public sealed partial class RuntimeRegexEngine411
         try
         {
             bool unicode = ReOptions411.Compile(options);
+            if (unicode && pattern is not BitString)
+                return await UnicodeTrap453(
+                    context,
+                    ReUnicodeTrap453Names.Compile,
+                    pattern,
+                    options
+                ).ConfigureAwait(false);
+
             var compiled = CompileCode(await Bytes(context, pattern, unicode).ConfigureAwait(false), unicode);
             if (compiled.Code is null) return compiled.Error!;
             owned = compiled.Code;
@@ -198,6 +206,15 @@ public sealed partial class RuntimeRegexEngine411
                 code = candidate;
                 temporary = true;
             }
+            if (code.Unicode && subject is not BitString)
+                return await UnicodeTrap453(
+                    context,
+                    ReUnicodeTrap453Names.Run,
+                    subject,
+                    expression,
+                    options
+                ).ConfigureAwait(false);
+
             byte[] input = await Bytes(context, subject, code.Unicode).ConfigureAwait(false);
 
             return await MatchAsync(

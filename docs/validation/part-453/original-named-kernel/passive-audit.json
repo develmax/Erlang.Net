@@ -1,0 +1,1795 @@
+{
+  "Passed": true,
+  "Counts": {
+    "Rows": 210,
+    "RawEqual": 162,
+    "OwnReferenceRows": 48
+  },
+  "Profiles": [
+    "run default",
+    "run_stacks default",
+    0,
+    1,
+    2,
+    8
+  ],
+  "Scope": "complete ETF rows; re_pattern final-field reference bijections only, same node/creation required; no fields removed",
+  "Rows": [
+    {
+      "Route": "run",
+      "Profile": "default",
+      "Index": 0,
+      "Case": "kernel_host_ascii",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run",
+      "Profile": "default",
+      "Index": 1,
+      "Case": "kernel_host_latin1",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run",
+      "Profile": "default",
+      "Index": 2,
+      "Case": "kernel_host_rejected",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run",
+      "Profile": "default",
+      "Index": 3,
+      "Case": "kernel_name_valid",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run",
+      "Profile": "default",
+      "Index": 4,
+      "Case": "kernel_name_rejected",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run",
+      "Profile": "default",
+      "Index": 5,
+      "Case": "empty_pattern",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run",
+      "Profile": "default",
+      "Index": 6,
+      "Case": "syntax_error",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run",
+      "Profile": "default",
+      "Index": 7,
+      "Case": "unicode_syntax_error",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run",
+      "Profile": "default",
+      "Index": 8,
+      "Case": "nested_pattern",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run",
+      "Profile": "default",
+      "Index": 9,
+      "Case": "improper_binary_pattern",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run",
+      "Profile": "default",
+      "Index": 10,
+      "Case": "scalar_pattern",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run",
+      "Profile": "default",
+      "Index": 11,
+      "Case": "invalid_pattern_scalar",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run",
+      "Profile": "default",
+      "Index": 12,
+      "Case": "surrogate_pattern",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run",
+      "Profile": "default",
+      "Index": 13,
+      "Case": "negative_pattern_scalar",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run",
+      "Profile": "default",
+      "Index": 14,
+      "Case": "malformed_pattern_tail",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run",
+      "Profile": "default",
+      "Index": 15,
+      "Case": "malformed_pattern_item",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run",
+      "Profile": "default",
+      "Index": 16,
+      "Case": "incomplete_pattern_binary",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run",
+      "Profile": "default",
+      "Index": 17,
+      "Case": "invalid_pattern_binary",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run",
+      "Profile": "default",
+      "Index": 18,
+      "Case": "nested_subject",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run",
+      "Profile": "default",
+      "Index": 19,
+      "Case": "improper_binary_subject",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run",
+      "Profile": "default",
+      "Index": 20,
+      "Case": "scalar_subject",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run",
+      "Profile": "default",
+      "Index": 21,
+      "Case": "empty_subject",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run",
+      "Profile": "default",
+      "Index": 22,
+      "Case": "no_match_subject",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run",
+      "Profile": "default",
+      "Index": 23,
+      "Case": "invalid_subject_scalar",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31048, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [158175, 757989376, 1300055897]]"
+      }
+    },
+    {
+      "Route": "run",
+      "Profile": "default",
+      "Index": 24,
+      "Case": "surrogate_subject",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31050, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [257226, 1198653440, 2058576800]]"
+      }
+    },
+    {
+      "Route": "run",
+      "Profile": "default",
+      "Index": 25,
+      "Case": "negative_subject_scalar",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31052, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [5966, 1188167680, 329059486]]"
+      }
+    },
+    {
+      "Route": "run",
+      "Profile": "default",
+      "Index": 26,
+      "Case": "malformed_subject_tail",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31054, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [43840, 693501952, 1854193205]]"
+      }
+    },
+    {
+      "Route": "run",
+      "Profile": "default",
+      "Index": 27,
+      "Case": "malformed_subject_item",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31056, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [201632, 4195483648, 772481765]]"
+      }
+    },
+    {
+      "Route": "run",
+      "Profile": "default",
+      "Index": 28,
+      "Case": "incomplete_subject_binary",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31058, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [21157, 2245394432, 1331243361]]"
+      }
+    },
+    {
+      "Route": "run",
+      "Profile": "default",
+      "Index": 29,
+      "Case": "invalid_subject_binary",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31060, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [219762, 1451098112, 1969361311]]"
+      }
+    },
+    {
+      "Route": "run",
+      "Profile": "default",
+      "Index": 30,
+      "Case": "nonunicode_binary_control",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run",
+      "Profile": "default",
+      "Index": 31,
+      "Case": "unicode_binary_control",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run",
+      "Profile": "default",
+      "Index": 32,
+      "Case": "bad_compile_option",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run",
+      "Profile": "default",
+      "Index": 33,
+      "Case": "unicode_nonlist_pattern",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run",
+      "Profile": "default",
+      "Index": 34,
+      "Case": "unicode_nonlist_subject",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31067, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [95008, 888274944, 2628617945]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": "default",
+      "Index": 0,
+      "Case": "kernel_host_ascii",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": "default",
+      "Index": 1,
+      "Case": "kernel_host_latin1",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": "default",
+      "Index": 2,
+      "Case": "kernel_host_rejected",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": "default",
+      "Index": 3,
+      "Case": "kernel_name_valid",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": "default",
+      "Index": 4,
+      "Case": "kernel_name_rejected",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": "default",
+      "Index": 5,
+      "Case": "empty_pattern",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": "default",
+      "Index": 6,
+      "Case": "syntax_error",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": "default",
+      "Index": 7,
+      "Case": "unicode_syntax_error",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": "default",
+      "Index": 8,
+      "Case": "nested_pattern",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": "default",
+      "Index": 9,
+      "Case": "improper_binary_pattern",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": "default",
+      "Index": 10,
+      "Case": "scalar_pattern",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": "default",
+      "Index": 11,
+      "Case": "invalid_pattern_scalar",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": "default",
+      "Index": 12,
+      "Case": "surrogate_pattern",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": "default",
+      "Index": 13,
+      "Case": "negative_pattern_scalar",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": "default",
+      "Index": 14,
+      "Case": "malformed_pattern_tail",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": "default",
+      "Index": 15,
+      "Case": "malformed_pattern_item",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": "default",
+      "Index": 16,
+      "Case": "incomplete_pattern_binary",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": "default",
+      "Index": 17,
+      "Case": "invalid_pattern_binary",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": "default",
+      "Index": 18,
+      "Case": "nested_subject",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": "default",
+      "Index": 19,
+      "Case": "improper_binary_subject",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": "default",
+      "Index": 20,
+      "Case": "scalar_subject",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": "default",
+      "Index": 21,
+      "Case": "empty_subject",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": "default",
+      "Index": 22,
+      "Case": "no_match_subject",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": "default",
+      "Index": 23,
+      "Case": "invalid_subject_scalar",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31107, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [184352, 24248320, 3289955607]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": "default",
+      "Index": 24,
+      "Case": "surrogate_subject",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31109, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [105874, 1135214592, 4287634040]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": "default",
+      "Index": 25,
+      "Case": "negative_subject_scalar",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31111, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [73531, 3450732544, 2882922176]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": "default",
+      "Index": 26,
+      "Case": "malformed_subject_tail",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31113, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [130993, 4174774272, 956368897]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": "default",
+      "Index": 27,
+      "Case": "malformed_subject_item",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31115, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [133212, 4233756672, 2311368114]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": "default",
+      "Index": 28,
+      "Case": "incomplete_subject_binary",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31117, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [209744, 1267597312, 1087899867]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": "default",
+      "Index": 29,
+      "Case": "invalid_subject_binary",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31119, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [37779, 3426877440, 191899910]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": "default",
+      "Index": 30,
+      "Case": "nonunicode_binary_control",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": "default",
+      "Index": 31,
+      "Case": "unicode_binary_control",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": "default",
+      "Index": 32,
+      "Case": "bad_compile_option",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": "default",
+      "Index": 33,
+      "Case": "unicode_nonlist_pattern",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": "default",
+      "Index": 34,
+      "Case": "unicode_nonlist_subject",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31126, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [136744, 2240413696, 1196522270]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 0,
+      "Index": 0,
+      "Case": "kernel_host_ascii",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 0,
+      "Index": 1,
+      "Case": "kernel_host_latin1",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 0,
+      "Index": 2,
+      "Case": "kernel_host_rejected",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 0,
+      "Index": 3,
+      "Case": "kernel_name_valid",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 0,
+      "Index": 4,
+      "Case": "kernel_name_rejected",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 0,
+      "Index": 5,
+      "Case": "empty_pattern",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 0,
+      "Index": 6,
+      "Case": "syntax_error",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 0,
+      "Index": 7,
+      "Case": "unicode_syntax_error",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 0,
+      "Index": 8,
+      "Case": "nested_pattern",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 0,
+      "Index": 9,
+      "Case": "improper_binary_pattern",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 0,
+      "Index": 10,
+      "Case": "scalar_pattern",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 0,
+      "Index": 11,
+      "Case": "invalid_pattern_scalar",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 0,
+      "Index": 12,
+      "Case": "surrogate_pattern",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 0,
+      "Index": 13,
+      "Case": "negative_pattern_scalar",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 0,
+      "Index": 14,
+      "Case": "malformed_pattern_tail",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 0,
+      "Index": 15,
+      "Case": "malformed_pattern_item",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 0,
+      "Index": 16,
+      "Case": "incomplete_pattern_binary",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 0,
+      "Index": 17,
+      "Case": "invalid_pattern_binary",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 0,
+      "Index": 18,
+      "Case": "nested_subject",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 0,
+      "Index": 19,
+      "Case": "improper_binary_subject",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 0,
+      "Index": 20,
+      "Case": "scalar_subject",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 0,
+      "Index": 21,
+      "Case": "empty_subject",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 0,
+      "Index": 22,
+      "Case": "no_match_subject",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 0,
+      "Index": 23,
+      "Case": "invalid_subject_scalar",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31165, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [13107, 222429184, 2325517805]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 0,
+      "Index": 24,
+      "Case": "surrogate_subject",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31167, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [37490, 3742236672, 2088304336]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 0,
+      "Index": 25,
+      "Case": "negative_subject_scalar",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31169, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [215203, 982646784, 3391504766]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 0,
+      "Index": 26,
+      "Case": "malformed_subject_tail",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31171, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [152206, 2365194240, 3683748451]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 0,
+      "Index": 27,
+      "Case": "malformed_subject_item",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31173, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [162513, 3294494720, 708291669]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 0,
+      "Index": 28,
+      "Case": "incomplete_subject_binary",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31175, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [138005, 2461663232, 3446789773]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 0,
+      "Index": 29,
+      "Case": "invalid_subject_binary",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31177, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [180970, 3171024896, 1478610524]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 0,
+      "Index": 30,
+      "Case": "nonunicode_binary_control",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 0,
+      "Index": 31,
+      "Case": "unicode_binary_control",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 0,
+      "Index": 32,
+      "Case": "bad_compile_option",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 0,
+      "Index": 33,
+      "Case": "unicode_nonlist_pattern",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 0,
+      "Index": 34,
+      "Case": "unicode_nonlist_subject",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31184, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [37441, 1857683456, 1618624145]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 1,
+      "Index": 0,
+      "Case": "kernel_host_ascii",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 1,
+      "Index": 1,
+      "Case": "kernel_host_latin1",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 1,
+      "Index": 2,
+      "Case": "kernel_host_rejected",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 1,
+      "Index": 3,
+      "Case": "kernel_name_valid",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 1,
+      "Index": 4,
+      "Case": "kernel_name_rejected",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 1,
+      "Index": 5,
+      "Case": "empty_pattern",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 1,
+      "Index": 6,
+      "Case": "syntax_error",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 1,
+      "Index": 7,
+      "Case": "unicode_syntax_error",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 1,
+      "Index": 8,
+      "Case": "nested_pattern",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 1,
+      "Index": 9,
+      "Case": "improper_binary_pattern",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 1,
+      "Index": 10,
+      "Case": "scalar_pattern",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 1,
+      "Index": 11,
+      "Case": "invalid_pattern_scalar",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 1,
+      "Index": 12,
+      "Case": "surrogate_pattern",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 1,
+      "Index": 13,
+      "Case": "negative_pattern_scalar",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 1,
+      "Index": 14,
+      "Case": "malformed_pattern_tail",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 1,
+      "Index": 15,
+      "Case": "malformed_pattern_item",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 1,
+      "Index": 16,
+      "Case": "incomplete_pattern_binary",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 1,
+      "Index": 17,
+      "Case": "invalid_pattern_binary",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 1,
+      "Index": 18,
+      "Case": "nested_subject",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 1,
+      "Index": 19,
+      "Case": "improper_binary_subject",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 1,
+      "Index": 20,
+      "Case": "scalar_subject",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 1,
+      "Index": 21,
+      "Case": "empty_subject",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 1,
+      "Index": 22,
+      "Case": "no_match_subject",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 1,
+      "Index": 23,
+      "Case": "invalid_subject_scalar",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31223, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [24316, 2698641408, 1251500667]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 1,
+      "Index": 24,
+      "Case": "surrogate_subject",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31225, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [111143, 2593783808, 3860013532]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 1,
+      "Index": 25,
+      "Case": "negative_subject_scalar",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31227, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [152806, 1413611520, 1435447227]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 1,
+      "Index": 26,
+      "Case": "malformed_subject_tail",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31229, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [83370, 2751856640, 3335559858]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 1,
+      "Index": 27,
+      "Case": "malformed_subject_item",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31231, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [244819, 1781923840, 3690807511]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 1,
+      "Index": 28,
+      "Case": "incomplete_subject_binary",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31233, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [38842, 3487170560, 933125131]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 1,
+      "Index": 29,
+      "Case": "invalid_subject_binary",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31235, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [109104, 1432485888, 2067648369]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 1,
+      "Index": 30,
+      "Case": "nonunicode_binary_control",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 1,
+      "Index": 31,
+      "Case": "unicode_binary_control",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 1,
+      "Index": 32,
+      "Case": "bad_compile_option",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 1,
+      "Index": 33,
+      "Case": "unicode_nonlist_pattern",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 1,
+      "Index": 34,
+      "Case": "unicode_nonlist_subject",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31242, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [159546, 2382757888, 4068802381]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 2,
+      "Index": 0,
+      "Case": "kernel_host_ascii",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 2,
+      "Index": 1,
+      "Case": "kernel_host_latin1",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 2,
+      "Index": 2,
+      "Case": "kernel_host_rejected",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 2,
+      "Index": 3,
+      "Case": "kernel_name_valid",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 2,
+      "Index": 4,
+      "Case": "kernel_name_rejected",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 2,
+      "Index": 5,
+      "Case": "empty_pattern",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 2,
+      "Index": 6,
+      "Case": "syntax_error",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 2,
+      "Index": 7,
+      "Case": "unicode_syntax_error",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 2,
+      "Index": 8,
+      "Case": "nested_pattern",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 2,
+      "Index": 9,
+      "Case": "improper_binary_pattern",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 2,
+      "Index": 10,
+      "Case": "scalar_pattern",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 2,
+      "Index": 11,
+      "Case": "invalid_pattern_scalar",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 2,
+      "Index": 12,
+      "Case": "surrogate_pattern",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 2,
+      "Index": 13,
+      "Case": "negative_pattern_scalar",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 2,
+      "Index": 14,
+      "Case": "malformed_pattern_tail",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 2,
+      "Index": 15,
+      "Case": "malformed_pattern_item",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 2,
+      "Index": 16,
+      "Case": "incomplete_pattern_binary",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 2,
+      "Index": 17,
+      "Case": "invalid_pattern_binary",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 2,
+      "Index": 18,
+      "Case": "nested_subject",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 2,
+      "Index": 19,
+      "Case": "improper_binary_subject",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 2,
+      "Index": 20,
+      "Case": "scalar_subject",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 2,
+      "Index": 21,
+      "Case": "empty_subject",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 2,
+      "Index": 22,
+      "Case": "no_match_subject",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 2,
+      "Index": 23,
+      "Case": "invalid_subject_scalar",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31281, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [55347, 633995264, 1932009337]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 2,
+      "Index": 24,
+      "Case": "surrogate_subject",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31283, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [252315, 430833664, 1077733446]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 2,
+      "Index": 25,
+      "Case": "negative_subject_scalar",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31285, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [159706, 88735744, 739340477]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 2,
+      "Index": 26,
+      "Case": "malformed_subject_tail",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31287, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [21870, 1139408896, 2410395437]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 2,
+      "Index": 27,
+      "Case": "malformed_subject_item",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31289, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [98177, 1865023488, 947375271]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 2,
+      "Index": 28,
+      "Case": "incomplete_subject_binary",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31291, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [186486, 756154368, 1998540064]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 2,
+      "Index": 29,
+      "Case": "invalid_subject_binary",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31293, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [260793, 3395420160, 3273924188]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 2,
+      "Index": 30,
+      "Case": "nonunicode_binary_control",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 2,
+      "Index": 31,
+      "Case": "unicode_binary_control",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 2,
+      "Index": 32,
+      "Case": "bad_compile_option",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 2,
+      "Index": 33,
+      "Case": "unicode_nonlist_pattern",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 2,
+      "Index": 34,
+      "Case": "unicode_nonlist_subject",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31300, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [107765, 2629959680, 883367748]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 8,
+      "Index": 0,
+      "Case": "kernel_host_ascii",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 8,
+      "Index": 1,
+      "Case": "kernel_host_latin1",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 8,
+      "Index": 2,
+      "Case": "kernel_host_rejected",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 8,
+      "Index": 3,
+      "Case": "kernel_name_valid",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 8,
+      "Index": 4,
+      "Case": "kernel_name_rejected",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 8,
+      "Index": 5,
+      "Case": "empty_pattern",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 8,
+      "Index": 6,
+      "Case": "syntax_error",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 8,
+      "Index": 7,
+      "Case": "unicode_syntax_error",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 8,
+      "Index": 8,
+      "Case": "nested_pattern",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 8,
+      "Index": 9,
+      "Case": "improper_binary_pattern",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 8,
+      "Index": 10,
+      "Case": "scalar_pattern",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 8,
+      "Index": 11,
+      "Case": "invalid_pattern_scalar",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 8,
+      "Index": 12,
+      "Case": "surrogate_pattern",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 8,
+      "Index": 13,
+      "Case": "negative_pattern_scalar",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 8,
+      "Index": 14,
+      "Case": "malformed_pattern_tail",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 8,
+      "Index": 15,
+      "Case": "malformed_pattern_item",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 8,
+      "Index": 16,
+      "Case": "incomplete_pattern_binary",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 8,
+      "Index": 17,
+      "Case": "invalid_pattern_binary",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 8,
+      "Index": 18,
+      "Case": "nested_subject",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 8,
+      "Index": 19,
+      "Case": "improper_binary_subject",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 8,
+      "Index": 20,
+      "Case": "scalar_subject",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 8,
+      "Index": 21,
+      "Case": "empty_subject",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 8,
+      "Index": 22,
+      "Case": "no_match_subject",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 8,
+      "Index": 23,
+      "Case": "invalid_subject_scalar",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31339, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [259864, 2016280576, 3490009506]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 8,
+      "Index": 24,
+      "Case": "surrogate_subject",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31341, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [22476, 4174774272, 864540134]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 8,
+      "Index": 25,
+      "Case": "negative_subject_scalar",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31343, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [155932, 2417360896, 618358612]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 8,
+      "Index": 26,
+      "Case": "malformed_subject_tail",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31345, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [138852, 1275199488, 3692750693]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 8,
+      "Index": 27,
+      "Case": "malformed_subject_item",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31347, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [191150, 1742602240, 4203932592]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 8,
+      "Index": 28,
+      "Case": "incomplete_subject_binary",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31349, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [155625, 3059613696, 893791529]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 8,
+      "Index": 29,
+      "Case": "invalid_subject_binary",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31351, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [108941, 1165623296, 3404669129]]"
+      }
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 8,
+      "Index": 30,
+      "Case": "nonunicode_binary_control",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 8,
+      "Index": 31,
+      "Case": "unicode_binary_control",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 8,
+      "Index": 32,
+      "Case": "bad_compile_option",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 8,
+      "Index": 33,
+      "Case": "unicode_nonlist_pattern",
+      "RawEqual": true,
+      "ReferenceBindings": {}
+    },
+    {
+      "Route": "run_stacks",
+      "Profile": 8,
+      "Index": 34,
+      "Case": "unicode_nonlist_subject",
+      "RawEqual": false,
+      "ReferenceBindings": {
+        "[\"nonode@nohost\", 0, [31358, 1824915457, 189539224]]": "[\"nonode@nohost\", 0, [122, 1441792, 3675429815]]"
+      }
+    }
+  ]
+}

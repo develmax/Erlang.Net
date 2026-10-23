@@ -126,7 +126,7 @@ internal static class RegexThreeOriginal413Checks
 
     // Genuine original whole re8. Re5 is a prerequisite; private3 are captured
     // by the source-qualified preparation route, never separately registered.
-    private static async Task<ProcessRuntime> Start(LibraryDependencyOriginalSuite suite)
+    internal static async Task<ProcessRuntime> Start(LibraryDependencyOriginalSuite suite)
     {
         var runtime = new ProcessRuntime(2);
         try

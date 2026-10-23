@@ -6,6 +6,7 @@
 <Reference Include="System.Composition.Hosting"><HintPath>$(MSBuildToolsPath)/DotnetTools/dotnet-format/System.Composition.Hosting.dll</HintPath></Reference>
 <Reference Include="System.Composition.TypedParts"><HintPath>$(MSBuildToolsPath)/DotnetTools/dotnet-format/System.Composition.TypedParts.dll</HintPath></Reference>
 </ItemGroup><ItemGroup><EmbeddedResource Include="Resources/Beam/*" /></ItemGroup>  <ItemGroup>
+    <EmbeddedResource Include="Resources/KernelBootOriginal453/*" LogicalName="Erlang.Tests.KernelBootOriginal453.%(Filename)%(Extension)" />
     <EmbeddedResource Include="Resources\BeamOnLoad\**\*" />
   </ItemGroup>
   <ItemGroup><EmbeddedResource Include="Resources/BeamOnLoadResourceHashes.json" /></ItemGroup>
@@ -359,4 +360,6 @@
 </ItemGroup>
 <ItemGroup><EmbeddedResource Include="Fixtures/EtsCompressedOriginal442/*" LogicalName="Erlang.Tests.EtsCompressedOriginal442.%(Filename)%(Extension)" /></ItemGroup>
 <ItemGroup><EmbeddedResource Include="Fixtures/EtsCompressedMutations442/*" LogicalName="Erlang.Tests.EtsCompressedMutations442.%(Filename)%(Extension)" /></ItemGroup>
+
+<ItemGroup><EmbeddedResource Include="Resources/ReUnicodeOriginal453/*" LogicalName="Erlang.Tests.ReUnicodeOriginal453.%(Filename)%(Extension)" /></ItemGroup>
 </Project>

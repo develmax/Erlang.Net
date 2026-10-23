@@ -1,0 +1,50 @@
+namespace Erlang.Tests;
+
+internal static class KernelBootOriginal453Names
+{
+    internal const string Test = "runtime/library453/original-named-kernel-no-listener-full-outcomes";
+    internal const string Prefix = "Erlang.Tests.KernelBootOriginal453.";
+    internal const string Manifest = "manifest.json";
+    internal const string Worker = "beam_kernel_boot453";
+    internal const string Beam = ".beam";
+    internal const string Internal = "erts_internal";
+    internal const string Purger = "erts_code_purger";
+    internal const string Kernel = "net_kernel";
+    internal const string Init = "init";
+    internal const string Boot = "boot";
+    internal const string Start = "start";
+    internal const string SpawnSystem = "spawn_system_process";
+    internal const string Output = "artifacts/library453-kernel-permanent";
+    internal const string Receipt = "comparison.json";
+    internal const string Node = "managed453@localhost";
+    internal const string Cookie = "kernel453_cookie";
+    internal const string Installed = "InstalledOtpRoot";
+    internal const string Failure = "Original named kernel no-listener comparison failed";
+    internal const string RootOption = "-root";
+    internal const string BinOption = "-bindir";
+    internal const string ErtsBin = "erts-17.1/bin";
+    internal const string BootOption = "-boot";
+    internal const string BootBase = "bin/no_dot_erlang";
+    internal const string ModeOption = "-mode";
+    internal const string Interactive = "interactive";
+    internal const string NoShell = "-noshell";
+    internal const string NoInput = "-noinput";
+    internal const string CookieOption = "-setcookie";
+    internal const string StartEpmdOption = "-start_epmd";
+    internal const string False = "false";
+    internal const string ListenOption = "-dist_listen";
+    internal const string NoEpmd = "-no_epmd";
+    internal const string ProtocolOption = "-proto_dist";
+    internal const string Protocol = "inet_tcp";
+    internal const string ShortNameOption = "-sname";
+    internal const string Erts = "erlang";
+    internal const string WhereIs = "whereis";
+    internal const string Alive = "is_alive";
+    internal const string True = "true";
+    internal const string OnLoad = "on_load";
+    internal const string PrimFile = "prim_file";
+    internal const string Actual = "actual-";
+    internal const int Rows = 144;
+    internal const int Cases = 24;
+    internal const int BudgetSeconds = 150;
+}
