@@ -1,6 +1,6 @@
 # Remaining work — current checked checkpoint
 
-Baseline: OTP29.1.1 `ad05823719d77c8faee87348ea39513d4e2f99c5`. Main includes Parts442–450; parent451 PR12 remains open at d4430b63 (exact green8827/packages). Part452 validates delayed discovery results, natural stale timers after handoff and deferred old-owner adoption/abort. Exact452 full CI tracked in PR. Original libraries remain Erlang/BEAM; default API presence and selected protocols are not whole-module compatibility.
+Baseline: OTP29.1.1 `ad05823719d77c8faee87348ea39513d4e2f99c5`. Main includes Parts442–452 at b161ea9b; exact merge CI39978960949 is green8828/packages. Part453 starts the unchanged original named net_kernel/application chain on this runtime in the explicit no-listener/no-EPMD profile, with144 complete typed outcomes (138 strict raw and6 map-order-only) and210 Unicode re outcomes. Full TCP/UDP driver/listener/EPMD and original-server peer/race acceptance remain open. Exact453 full CI is tracked with publication. Original libraries remain Erlang/BEAM; selected protocols are not whole-module compatibility.
 
 ## Nearest owner queue after Part450
 

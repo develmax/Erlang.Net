@@ -132,4 +132,6 @@ Append numbered English entries only to the last volume. Start the next sequenti
 - [0077.md](docs/changelog/0077.md) — parts433–439 (closed volume;439 tests pass, later readiness publication failure retained)
 - [0078.md](docs/changelog/0078.md) — parts440–446 (closed; readiness publication and native contracts)
 
-- [0079.md](docs/changelog/0079.md) — part447 onward (active; native interoperability and identity contracts)
+- [0079.md](docs/changelog/0079.md) — parts447–452 (closed; native interoperability, identity and owner-race contracts)
+
+- [0080.md](docs/changelog/0080.md) — part453 onward (active; original named kernel boot and native prerequisites)

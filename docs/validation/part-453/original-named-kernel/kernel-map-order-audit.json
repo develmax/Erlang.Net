@@ -1,0 +1,1323 @@
+{
+  "Passed": true,
+  "Counts": {
+    "Rows": 144,
+    "StrictOriginalRawRows": 138,
+    "MapOrderOnlyRows": 6
+  },
+  "MapsOnlyRelaxation": "reorder identical raw keys with recursively identical values; all non-map leaf bytes and list/tuple headers unchanged",
+  "Files": [
+    {
+      "File": "values.etf",
+      "StrictOriginalBytesEqual": false,
+      "ExpectedSha256": "D1F6FA79713CD47F8DBB706662AE2F64D7D61FAB65E97402F1149D353EA29C28",
+      "ActualSha256": "5E3DFD84F8FC3A8A6EEA45AE2C30DC14B50779156C5CEC8798C1EF4474C9540D"
+    },
+    {
+      "File": "stacks.etf",
+      "StrictOriginalBytesEqual": false,
+      "ExpectedSha256": "C7E7C39BB7BEABD1C85F21F9476E9A527DA07296619F7958072EDCFAD05BCBD9",
+      "ActualSha256": "E7D1F7A0567BBCE589C0623960BAE0D931B367B9D9BC2BCF76CEEDF465FAFDA7"
+    }
+  ],
+  "Rows": [
+    {
+      "File": "values.etf",
+      "Profile": "default",
+      "Index": 0,
+      "Case": "registered_kernel",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "values.etf",
+      "Profile": "default",
+      "Index": 1,
+      "Case": "registered_auth",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "values.etf",
+      "Profile": "default",
+      "Index": 2,
+      "Case": "registered_purger",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "values.etf",
+      "Profile": "default",
+      "Index": 3,
+      "Case": "node_identity",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "values.etf",
+      "Profile": "default",
+      "Index": 4,
+      "Case": "alive",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "values.etf",
+      "Profile": "default",
+      "Index": 5,
+      "Case": "state",
+      "StrictOriginalRawEqual": false,
+      "MapOrderOnly": true,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "values.etf",
+      "Profile": "default",
+      "Index": 6,
+      "Case": "longnames",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "values.etf",
+      "Profile": "default",
+      "Index": 7,
+      "Case": "ticktime",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "values.etf",
+      "Profile": "default",
+      "Index": 8,
+      "Case": "connecttime",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "values.etf",
+      "Profile": "default",
+      "Index": 9,
+      "Case": "allowed",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "values.etf",
+      "Profile": "default",
+      "Index": 10,
+      "Case": "nodes",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "values.etf",
+      "Profile": "default",
+      "Index": 11,
+      "Case": "nodes_info",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "values.etf",
+      "Profile": "default",
+      "Index": 12,
+      "Case": "own_node_info",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "values.etf",
+      "Profile": "default",
+      "Index": 13,
+      "Case": "own_node_info_type",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "values.etf",
+      "Profile": "default",
+      "Index": 14,
+      "Case": "monitor_true",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "values.etf",
+      "Profile": "default",
+      "Index": 15,
+      "Case": "monitor_false",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "values.etf",
+      "Profile": "default",
+      "Index": 16,
+      "Case": "monitor_map",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "values.etf",
+      "Profile": "default",
+      "Index": 17,
+      "Case": "monitor_invalid_flag",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "values.etf",
+      "Profile": "default",
+      "Index": 18,
+      "Case": "monitor_invalid_options",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "values.etf",
+      "Profile": "default",
+      "Index": 19,
+      "Case": "allow_invalid",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "values.etf",
+      "Profile": "default",
+      "Index": 20,
+      "Case": "allow_invalid_name",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "values.etf",
+      "Profile": "default",
+      "Index": 21,
+      "Case": "apply_kernel",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "values.etf",
+      "Profile": "default",
+      "Index": 22,
+      "Case": "stop_static",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "values.etf",
+      "Profile": "default",
+      "Index": 23,
+      "Case": "getopts_disconnected",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": "default",
+      "Index": 0,
+      "Case": "registered_kernel",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": "default",
+      "Index": 1,
+      "Case": "registered_auth",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": "default",
+      "Index": 2,
+      "Case": "registered_purger",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": "default",
+      "Index": 3,
+      "Case": "node_identity",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": "default",
+      "Index": 4,
+      "Case": "alive",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": "default",
+      "Index": 5,
+      "Case": "state",
+      "StrictOriginalRawEqual": false,
+      "MapOrderOnly": true,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": "default",
+      "Index": 6,
+      "Case": "longnames",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": "default",
+      "Index": 7,
+      "Case": "ticktime",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": "default",
+      "Index": 8,
+      "Case": "connecttime",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": "default",
+      "Index": 9,
+      "Case": "allowed",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": "default",
+      "Index": 10,
+      "Case": "nodes",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": "default",
+      "Index": 11,
+      "Case": "nodes_info",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": "default",
+      "Index": 12,
+      "Case": "own_node_info",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": "default",
+      "Index": 13,
+      "Case": "own_node_info_type",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": "default",
+      "Index": 14,
+      "Case": "monitor_true",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": "default",
+      "Index": 15,
+      "Case": "monitor_false",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": "default",
+      "Index": 16,
+      "Case": "monitor_map",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": "default",
+      "Index": 17,
+      "Case": "monitor_invalid_flag",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": "default",
+      "Index": 18,
+      "Case": "monitor_invalid_options",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": "default",
+      "Index": 19,
+      "Case": "allow_invalid",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": "default",
+      "Index": 20,
+      "Case": "allow_invalid_name",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": "default",
+      "Index": 21,
+      "Case": "apply_kernel",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": "default",
+      "Index": 22,
+      "Case": "stop_static",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": "default",
+      "Index": 23,
+      "Case": "getopts_disconnected",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 0,
+      "Index": 0,
+      "Case": "registered_kernel",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 0,
+      "Index": 1,
+      "Case": "registered_auth",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 0,
+      "Index": 2,
+      "Case": "registered_purger",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 0,
+      "Index": 3,
+      "Case": "node_identity",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 0,
+      "Index": 4,
+      "Case": "alive",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 0,
+      "Index": 5,
+      "Case": "state",
+      "StrictOriginalRawEqual": false,
+      "MapOrderOnly": true,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 0,
+      "Index": 6,
+      "Case": "longnames",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 0,
+      "Index": 7,
+      "Case": "ticktime",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 0,
+      "Index": 8,
+      "Case": "connecttime",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 0,
+      "Index": 9,
+      "Case": "allowed",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 0,
+      "Index": 10,
+      "Case": "nodes",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 0,
+      "Index": 11,
+      "Case": "nodes_info",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 0,
+      "Index": 12,
+      "Case": "own_node_info",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 0,
+      "Index": 13,
+      "Case": "own_node_info_type",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 0,
+      "Index": 14,
+      "Case": "monitor_true",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 0,
+      "Index": 15,
+      "Case": "monitor_false",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 0,
+      "Index": 16,
+      "Case": "monitor_map",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 0,
+      "Index": 17,
+      "Case": "monitor_invalid_flag",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 0,
+      "Index": 18,
+      "Case": "monitor_invalid_options",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 0,
+      "Index": 19,
+      "Case": "allow_invalid",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 0,
+      "Index": 20,
+      "Case": "allow_invalid_name",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 0,
+      "Index": 21,
+      "Case": "apply_kernel",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 0,
+      "Index": 22,
+      "Case": "stop_static",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 0,
+      "Index": 23,
+      "Case": "getopts_disconnected",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 1,
+      "Index": 0,
+      "Case": "registered_kernel",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 1,
+      "Index": 1,
+      "Case": "registered_auth",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 1,
+      "Index": 2,
+      "Case": "registered_purger",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 1,
+      "Index": 3,
+      "Case": "node_identity",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 1,
+      "Index": 4,
+      "Case": "alive",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 1,
+      "Index": 5,
+      "Case": "state",
+      "StrictOriginalRawEqual": false,
+      "MapOrderOnly": true,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 1,
+      "Index": 6,
+      "Case": "longnames",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 1,
+      "Index": 7,
+      "Case": "ticktime",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 1,
+      "Index": 8,
+      "Case": "connecttime",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 1,
+      "Index": 9,
+      "Case": "allowed",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 1,
+      "Index": 10,
+      "Case": "nodes",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 1,
+      "Index": 11,
+      "Case": "nodes_info",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 1,
+      "Index": 12,
+      "Case": "own_node_info",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 1,
+      "Index": 13,
+      "Case": "own_node_info_type",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 1,
+      "Index": 14,
+      "Case": "monitor_true",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 1,
+      "Index": 15,
+      "Case": "monitor_false",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 1,
+      "Index": 16,
+      "Case": "monitor_map",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 1,
+      "Index": 17,
+      "Case": "monitor_invalid_flag",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 1,
+      "Index": 18,
+      "Case": "monitor_invalid_options",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 1,
+      "Index": 19,
+      "Case": "allow_invalid",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 1,
+      "Index": 20,
+      "Case": "allow_invalid_name",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 1,
+      "Index": 21,
+      "Case": "apply_kernel",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 1,
+      "Index": 22,
+      "Case": "stop_static",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 1,
+      "Index": 23,
+      "Case": "getopts_disconnected",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 2,
+      "Index": 0,
+      "Case": "registered_kernel",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 2,
+      "Index": 1,
+      "Case": "registered_auth",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 2,
+      "Index": 2,
+      "Case": "registered_purger",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 2,
+      "Index": 3,
+      "Case": "node_identity",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 2,
+      "Index": 4,
+      "Case": "alive",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 2,
+      "Index": 5,
+      "Case": "state",
+      "StrictOriginalRawEqual": false,
+      "MapOrderOnly": true,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 2,
+      "Index": 6,
+      "Case": "longnames",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 2,
+      "Index": 7,
+      "Case": "ticktime",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 2,
+      "Index": 8,
+      "Case": "connecttime",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 2,
+      "Index": 9,
+      "Case": "allowed",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 2,
+      "Index": 10,
+      "Case": "nodes",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 2,
+      "Index": 11,
+      "Case": "nodes_info",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 2,
+      "Index": 12,
+      "Case": "own_node_info",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 2,
+      "Index": 13,
+      "Case": "own_node_info_type",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 2,
+      "Index": 14,
+      "Case": "monitor_true",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 2,
+      "Index": 15,
+      "Case": "monitor_false",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 2,
+      "Index": 16,
+      "Case": "monitor_map",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 2,
+      "Index": 17,
+      "Case": "monitor_invalid_flag",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 2,
+      "Index": 18,
+      "Case": "monitor_invalid_options",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 2,
+      "Index": 19,
+      "Case": "allow_invalid",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 2,
+      "Index": 20,
+      "Case": "allow_invalid_name",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 2,
+      "Index": 21,
+      "Case": "apply_kernel",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 2,
+      "Index": 22,
+      "Case": "stop_static",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 2,
+      "Index": 23,
+      "Case": "getopts_disconnected",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 8,
+      "Index": 0,
+      "Case": "registered_kernel",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 8,
+      "Index": 1,
+      "Case": "registered_auth",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 8,
+      "Index": 2,
+      "Case": "registered_purger",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 8,
+      "Index": 3,
+      "Case": "node_identity",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 8,
+      "Index": 4,
+      "Case": "alive",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 8,
+      "Index": 5,
+      "Case": "state",
+      "StrictOriginalRawEqual": false,
+      "MapOrderOnly": true,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 8,
+      "Index": 6,
+      "Case": "longnames",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 8,
+      "Index": 7,
+      "Case": "ticktime",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 8,
+      "Index": 8,
+      "Case": "connecttime",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 8,
+      "Index": 9,
+      "Case": "allowed",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 8,
+      "Index": 10,
+      "Case": "nodes",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 8,
+      "Index": 11,
+      "Case": "nodes_info",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 8,
+      "Index": 12,
+      "Case": "own_node_info",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 8,
+      "Index": 13,
+      "Case": "own_node_info_type",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 8,
+      "Index": 14,
+      "Case": "monitor_true",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 8,
+      "Index": 15,
+      "Case": "monitor_false",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 8,
+      "Index": 16,
+      "Case": "monitor_map",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 8,
+      "Index": 17,
+      "Case": "monitor_invalid_flag",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 8,
+      "Index": 18,
+      "Case": "monitor_invalid_options",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 8,
+      "Index": 19,
+      "Case": "allow_invalid",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 8,
+      "Index": 20,
+      "Case": "allow_invalid_name",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 8,
+      "Index": 21,
+      "Case": "apply_kernel",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 8,
+      "Index": 22,
+      "Case": "stop_static",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    },
+    {
+      "File": "stacks.etf",
+      "Profile": 8,
+      "Index": 23,
+      "Case": "getopts_disconnected",
+      "StrictOriginalRawEqual": true,
+      "MapOrderOnly": false,
+      "WholeFramesAndLabelsPreserved": true
+    }
+  ],
+  "OriginalReceiptPreservedFailed": true,
+  "RuntimeSha256": "4AC4E537C77DBF71187B44CA18B5D7D1B46AA5FEBD77E8CF9224705801882B00"
+}

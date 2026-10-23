@@ -1,0 +1,35 @@
+# Part453 independent Unicode regex trap review
+
+Passive source/artifact review only: pinned `artifacts/library453-pinned-source/erl_bif_re.c`, original `../otp/lib/stdlib/src/re.erl`, three proposed runtime files, original-run1 and managed-run3. No VM/native/build/Git/CI execution or shared edits. The standard-library `passive-audit.py` only decodes saved ETF files and checks saved receipts/bindings.
+
+## Source agreement within the admitted subset
+
+Pinned C compile path lines905-923 parses options/rejects execution-only options before selecting `unicode && !is_bitstring(RE)` and BIF_TRAP2(re:ucompile). Operations CompileAsync performs existing option validation first and uses the same non-BitString predicate. This correctly includes Nil, nested/improper charlists and invalid nonlist terms: the original wrapper, rather than a new C# string conversion, decides conversion/error behavior.
+
+Original re:ucompile/2 lines1742-1753 invokes unicode:characters_to_binary then re:compile, catches error, constructs a fresh stack using original RE/options and raises with function compile. Original urun/3 lines1755-1766 does the analogous run-frame reconstruction; urun2 lines1768-1796 converts subject/RE, recursively calls re:run and maps capture return type. Calling actual prepared BEAM wrappers preserves these source branches instead of manually synthesizing errors/stacks. The source-owner guard refuses missing/non-BEAM wrapper ownership; it is an admission check, not proof of arbitrary image bytes being pinned.
+
+Pinned C run lines1528-1533 also traps textual regex when Unicode is requested and pattern or subject is non-bitstring, or nonglobal list capture is requested. Precompiled branch lines1581-1596 authenticates the tuple/magic ref, then traps for Unicode metadata and non-bitstring subject OR nonglobal list capture. Current RunCore authenticates a canonical compiled tuple first, then traps Unicode/non-BitString subject. This matches the admitted canonical-precompiled plus [] run-options subset. ReOptions411.Run explicitly refuses every nonempty otherwise-valid run option via NotSupported; textual [unicode], capture-list/global and other existing held options are NOT newly supported. Altered raw tuple metadata remains explicitly held; do not promote to whole re compatibility or claim exact C unsigned tuple metadata behavior.
+
+## Independently recomputed actual observations
+
+Independent raw ETF decoder confirms210/210 complete observer rows:35 cases from run plus35 ×5 stack profiles(default/0/1/2/8),162 entire row byte matches and48 explicit reference protocols. The decoder compares complete trees including case IDs, original input arguments, exception class/reason, complete frames/location/error metadata; it only permits a bijective ref replacement at field5 of a complete re_pattern tuple with exact preceding metadata and same node/creation. No generic reference/stack normalization or dropped fields.
+
+All48 reference rows are exactly8 invalid-subject cases ×6 observed routes/profiles: invalid scalar, surrogate, negative scalar, malformed tail/item, incomplete/invalid subject binary and nonlist subject. These are compiled-pattern refs in retained re:run error arguments, not successful compile resources returned by a failing compile. All other162 rows are raw exact, including invalid pattern syntax/scalars/nesting and error-info cases. Original completion binds actual source/BEAM/values/stacks to pinad058237; independent rehash succeeds. Both actual original and managed process exit receipts show settled, no timeout, exit0; managed cleanup reports Passed=true. This is finite artifact evidence, not final CI/native balance proof.
+
+Existing artifact comparator already restricts references to re_pattern and requires actual managed ResourceReferenceTerm. What is absent from these210 artifacts is an independent operation authenticating that each error-only ref actually names the intended live regex owner. Root's planned permanent observer should call inspect(namelist) on the SAME compiled RE before invalid run, assert expected result, then reuse that exact term; do not recompile/substitute it. A successful match or inspect on that same RE after caught conversion error proves unwound reader ownership did not invalidate it. No expected fixed ref ID should be invented.
+
+## Resource lifetime and required permanent controls
+
+No obvious unbalanced lifetime in the new awaits: CompileAsync outer Enter is paired with existing finally Exit even when original wrapper fails. RunCore authenticates/Read-locks the code first, awaits original urun while retaining reader+active admission, then EndRead and Exit in finally. RuntimeRegexEngine411.Enter supports same-context nesting via invocation.Count; nested source wrapper calls may safely reenter native compile/run. The retained outer read prevents guest finalization freeing native code during Unicode conversion. Engine Dispose waits active drain before native code/library free. A plain finally-path source review does not prove cancellation/close interleavings.
+
+Required permanent controls in addition to full210 raw/frame rows:
+
+1. Missing re:ucompile/urun image and non-BEAM replacement both refuse without native compile/data allocation or leaked active invocation; native binary-only control still works. Do not accept a C# stand-in as source execution.
+2. Authenticate the actual produced re_pattern through real inspect/positive native use, reuse it in malformed-subject error and after-error positive call; preserve complete native error frames with the same observed ref binding.
+3. Cancel during actual long source Unicode conversion, with evidence that the call entered original wrapper (not only cancellation before dispatch). Require outer invocation/reader drain and usable surviving pattern, then eventual created/freed code/data balance. Keep cancellation control outcome distinct from a fabricated OTP error.
+4. Close owning runtime from another live owner while source conversion is in progress; bound join, require active/readers drained, library retired once, actual code/data resources freed and no delayed use-after-close. Test compile-trap and precompiled-run-trap paths separately if claiming both lifetimes.
+5. Retain unaffected binary compile/run/internal_run controls and explicit unsupported option partitions. Additional Unicode split-binary/partial sequences or callback-heavy capture/global paths are separate cases, not implicit coverage from210.
+
+Current cleanup.json only says Passed=true after runtime disposal; it does not expose per-code/readers/created-freed balance or prove the above mid-conversion schedules. Parent is preparing these controls; this review does not precredit them. No direct source defect was found in the scoped trap forwarding. The missing original erts_code_purger preload/native-stub kernel blocker is a separate dependency investigation, not resolved by Unicode210 or this review.
+
+Files produced: `passive-audit.py`, `passive-audit.json`, this review. Root owns final source freeze, affected/permanent tests, bootstrap fix, CI and publication.
