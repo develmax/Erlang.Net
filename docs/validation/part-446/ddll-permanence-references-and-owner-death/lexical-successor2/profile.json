@@ -1,0 +1,88 @@
+{
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Bindings": [
+    {
+      "Path": "artifacts/spawn-priority351-preparation/execute-root.py",
+      "Sha256": "C66ACEC6FFE57C57EFAABC96FD1DB00598D7AAD7D05C2EA814A146B759D4171A"
+    },
+    {
+      "Path": "artifacts/library377-native-controls1/run-native-controls.py",
+      "Sha256": "C097FDF1F1307220916935FDAD3E0483CC676E4EEB136581B632ACF6347F206F"
+    },
+    {
+      "Path": "tools/Erlang.NifTermCallbackOriginalObservations/passive_etf.py",
+      "Sha256": "9C3204CB29755C508D05B611EA02B3A3186F83B40A72BF6EEC366242040432EE"
+    },
+    {
+      "Path": "artifacts/library376-official-compiler/official-admission.json",
+      "Sha256": "41CCC2FDE5493D85BEAA21996E12D0885D2919B0D4BF44137D0673DCDC9D5EA6"
+    }
+  ],
+  "BoundedInventory": {
+    "Path": "artifacts/library426-trace-low-memory-original-proposal1/bounded_inventory.py",
+    "Sha256": "502862EB7045D780115D046A02FA56DB11FB67EBC7A1883CA58D06BEC6C7910A"
+  },
+  "ReuseStock": {
+    "Receipt": "artifacts/library420-erldrv-original1/completion.json",
+    "ReceiptSha256": "CE523C6CDB11C345138A512DF8D772106F20B98ACA647D8B897A9785032DE86E",
+    "Path": "artifacts/library420-erldrv-original1/stock/erl_ddll.beam",
+    "Sha256": "3FA1034243C56854ED9BE22A948DF39E1FE8F524F51FE48B969A4F4EA0D973AD"
+  },
+  "Cases": [
+    "permanent_repeat_close_reopen_owner_exit",
+    "queued_reference_real_etf_roundtrip",
+    "completed_reference_after_image_generation",
+    "wellformed_external_reference_input",
+    "two_owner_deaths_keep_actual_port",
+    "two_owner_deaths_force_actual_port"
+  ],
+  "Groups": [
+    {
+      "Name": "values",
+      "Term": "values"
+    },
+    {
+      "Name": "default",
+      "Term": "default"
+    },
+    {
+      "Name": "depth0",
+      "Term": 0
+    },
+    {
+      "Name": "depth1",
+      "Term": 1
+    },
+    {
+      "Name": "depth2",
+      "Term": 2
+    },
+    {
+      "Name": "depth8",
+      "Term": 8
+    }
+  ],
+  "WholeRows": 36,
+  "OwnRows": 36,
+  "Worker": "beam_ddll_frontier446",
+  "Fixtures": {
+    "echo_drv": {
+      "Path": "artifacts/library420-erldrv-original1/drivers/echo_drv.dll",
+      "Sha256": "19F483FCEEFA8AA084E2DB393D70BA01A5039C3D9B699FB373986E5BD107D461"
+    }
+  },
+  "Sources": [
+    {
+      "Path": "original/beam_ddll_frontier446.erl",
+      "Sha256": "276A493BC20139C8ED22D724DE07DB15819D507F3D38A50404D49B1634E13FCF"
+    }
+  ],
+  "PermanentIsolation": "fresh actual originalVM/managedRuntime-child per source profile",
+  "ProviderScansPerBatch": 2,
+  "ReusePermanent": {
+    "Receipt": "artifacts/library445-ddll-final-original1/completion.json",
+    "ReceiptSha256": "B395D7907FE48C0DAAE5E8FF59458B8FEEB8ED2D2C7A3C9D4CD4799D0D3CBA06",
+    "Path": "artifacts/library445-ddll-final-original1/drivers/permanent_drv445.dll",
+    "Sha256": "29AD30F4EC0985BBACD61E918280B41792866394484184029600B6B718C11C06"
+  }
+}

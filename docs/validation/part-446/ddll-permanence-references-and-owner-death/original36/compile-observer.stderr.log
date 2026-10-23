@@ -1,0 +1,52 @@
+beam_ddll_frontier446.erl:37:1: Warning: function summary/1 is unused
+%   37| summary({ok,S,R}) when is_reference(R)->{ok,S,true};summary(V)->V.
+%     | ^
+
+beam_ddll_frontier446.erl:38:1: Warning: function ref/1 is unused
+%   38| ref({ok,_,R}) when is_reference(R)->R.
+%     | ^
+
+beam_ddll_frontier446.erl:41:1: Warning: function wait_two/2 is unused
+%   41| wait_two(A,B)->[wait_one(A,B),wait_one(A,B)].
+%     | ^
+
+beam_ddll_frontier446.erl:42:1: Warning: function wait_one/2 is unused
+%   42| wait_one(A,B)->receive {Direction,R,driver,Name,Tag}=M when R=:=A;R=:=B->
+%     | ^
+
+beam_ddll_frontier446.erl:50:1: Warning: function start_helper/2 is unused
+%   50| start_helper(Path,Loads)->start_helper(Path,Loads,[]).
+%     | ^
+
+beam_ddll_frontier446.erl:55:1: Warning: function ask/2 is unused
+%   55| ask(P,Command)->R=make_ref(),P!{command,self(),R,Command},
+%     | ^
+
+beam_ddll_frontier446.erl:116:1: Warning: function per_load/2 is unused
+%  116| per_load(P,O)->V=erl_ddll:try_load(P,permanent_drv445,O),remember({permanent_load,O,V}),V.
+%     | ^
+
+beam_ddll_frontier446.erl:117:1: Warning: function per_unload/0 is unused
+%  117| per_unload()->V=erl_ddll:try_unload(permanent_drv445,[]),remember({permanent_unload,V}),V.
+%     | ^
+
+beam_ddll_frontier446.erl:121:1: Warning: function collect_labels/1 is unused
+%  121| collect_labels([])->[];
+%     | ^
+
+beam_ddll_frontier446.erl:125:1: Warning: function take_label/2 is unused
+%  125| take_label(R,[{L,R}|T])->{L,T};
+%     | ^
+
+beam_ddll_frontier446.erl:127:1: Warning: function reload_failure/2 is unused
+%  127| reload_failure(P,Kind)->
+%     | ^
+
+beam_ddll_frontier446.erl:133:1: Warning: function force_unload/3 is unused
+%  133| force_unload(P,LoadOptions,UnloadOptions)->
+%     | ^
+
+beam_ddll_frontier446.erl:143:1: Warning: function probe_binary_monitor_name/0 is unused
+%  143| probe_binary_monitor_name()->
+%     | ^
+

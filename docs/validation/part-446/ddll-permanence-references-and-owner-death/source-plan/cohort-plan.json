@@ -1,0 +1,75 @@
+{
+  "NewNativeCompileRequired": false,
+  "CollectorPrepared": false,
+  "Isolation": "One permanent scenario per fresh actual originalVM/managedRuntime-child profile;6groups. Do not implement permanent substeps as independent cases in one VM because state persists.",
+  "RuntimePatch": false,
+  "Cases": [
+    {
+      "Own": "Complete old/new port/PID/ref values, every control/info/notification/close/DOWN",
+      "NewCoverage": "Repeated genuine lock on one live port, then close last source-owned port, exit original owner and reopen from another actual actor; not just one445 transition",
+      "Protocol": "Real helper loads permanent_drv445, opens and controls445 twice, records both actual results and permanent info, explicitly closes its only port and acknowledges; then actual helper DOWN. Observer checks immediate permanent monitor, opens a new actual port, proves distinct port identity and controls445 again, closes. Never wait unloaded or fabricate numeric port_count (source returns permanent).",
+      "Main": "Actual lock returns, permanent info, owner/port identity predicates and reopen outcomes",
+      "Barrier": "Actual helper close reply plus DOWN; actual new open/control return; fresh Runtime-child/OTPVM per profile",
+      "Name": "permanent_repeat_close_reopen_owner_exit",
+      "Priority": 1
+    },
+    {
+      "Own": "Exact ETF binary, original/decoded reference terms and info/messages",
+      "NewCoverage": "Same-creator queued DDLL reference survives genuine term_to_binary/binary_to_term roundtrip;444 only transferred authentic reference to another actor",
+      "Protocol": "Keep actual echo port and loaded ref. Create queued unloaded monitor R, encode/decode it through real BIF, observe equality, demonitor decoded R as creator, snapshot awaiting counts. Use a fresh unloaded_only monitor for real final retirement.",
+      "Main": "R==roundtrip predicate, full demonitor return and source role/count snapshot, final actual notification",
+      "Barrier": "Held actual port; synchronous demonitor/info; final real unloaded notification, no absence polling",
+      "Name": "queued_reference_real_etf_roundtrip",
+      "Priority": 1
+    },
+    {
+      "Own": "Both full reference values, raw old/new operation/info/notifications; no exposed numeric image-id parity",
+      "NewCoverage": "Actual old completed monitor reference presented after physical driver unload/reload;444 repeat demonitor used fresh make_ref and445 did not cross native image generation",
+      "Protocol": "Create first genuine queued monitor and unload image, receive actual unloaded. Load same exact DLL again, open new actual port, create new queued monitor, call demonitor with old completed ref, inspect new monitor remains and consume its actual final notification.",
+      "Main": "Old/new distinct-reference predicate, old demonitor result, preserved new waiting count and delivered new notification",
+      "Barrier": "Old unloaded notification before new load; real new open; final unloaded notification",
+      "Name": "completed_reference_after_image_generation",
+      "Priority": 1
+    },
+    {
+      "Protocol": "Build one explicitly documented valid ETF NEWER_REFERENCE_EXT input with constant external node/creation/logical words, decode using real binary_to_term, then call demonitor and capture full returned value or exception/error/stack. Do not create parent monitor rows or claim a real remote process generated it.",
+      "Own": "Full ETF bytes and decoded external reference retained",
+      "ScopeLimit": "This tests parsed external protocol input only, not remote-node interoperability, local node rename/restart or another Runtime collision",
+      "NewCoverage": "Internal-reference BIF admission boundary for actual decoded external-origin reference, unlike444 authentic foreign-actor monitor ownership",
+      "Name": "wellformed_external_reference_input",
+      "Main": "Complete actual source result/error/stack for deterministic external input; not a synthetic native backend",
+      "Priority": 2,
+      "Barrier": "Synchronous actual codec/BIF input; fixed external protocol identity, no opaque current-VM bits in main"
+    },
+    {
+      "Own": "Complete arrival order of both DOWN, process info, port and driver events; no cross-producer total-order parity",
+      "NewCoverage": "Two independently loaded helper owners die after both have ready handshakes, observer owns port but zero loaded refs;444/445 final-owner tests had only one helper and/or self-owned loaded entry",
+      "Protocol": "Helpers A/B each load same echo driver. Observer opens actual port, queues unloaded_only monitor, signals both helpers to stop before awaiting either DOWN, then joins both. After both source-proven DDLL cleanup barriers, snapshot empty loaded-owner records and prove port survives via real echo data; close port and receive final driver unloaded.",
+      "Main": "Per-role helper reasons, actual role/count info, echo data and final driver notification",
+      "Barrier": "Both actual helper DOWN (DDLL cleanup precedes original monitor delivery); actual echo; actual close plus unloaded",
+      "Name": "two_owner_deaths_keep_actual_port",
+      "Priority": 1
+    },
+    {
+      "Own": "Full actor/PID/reference/port terms and all unmodified observed arrival events",
+      "NewCoverage": "Same two independent owner deaths with persistent load kill_ports; tests shared last-owner zero transition, beyond445 one-helper death and forced reload",
+      "Protocol": "Both helpers load with consistent kill_ports. Observer has no loaded ref but owns actual port and unloaded_only monitor. Send both stop messages before joins. Await both helper DOWN and actual port EXIT plus driver unloaded by explicit per-role protocol, retaining actual arrival stream.",
+      "Main": "Complete source per-role reason/tag/identity predicates, no scheduling-dependent total-order promise",
+      "Barrier": "Two genuine owner death barriers and real port/driver terminal notifications; no sleep/poll",
+      "Name": "two_owner_deaths_force_actual_port",
+      "Priority": 1
+    }
+  ],
+  "ProposedWholeRows": 36,
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Profiles": [
+    "values",
+    "default",
+    0,
+    1,
+    2,
+    8
+  ],
+  "ExecutableWorkerPrepared": false,
+  "ProposedCases": 6
+}

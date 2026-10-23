@@ -1,0 +1,34 @@
+{
+  "PreparationReviewPassed": true,
+  "ActualExecutionReviewed": false,
+  "BoundFiles": {
+    "artifacts/library446-ddll-frontier-proposal3/capture-freeze.json": "8F16C41774B5055EFC3343821E3920E520FBB030EEA63769D2BF038167AAE26B",
+    "artifacts/library446-ddll-frontier-proposal3/capture-manifest.json": "A35E79CF86FB1BC32273A30465208E68792A106F6A280DD907DA4751FAF968DF",
+    "artifacts/library446-ddll-frontier-proposal3/collect-original-root.py": "1E7774EE924CBDCC50A291ED40618A27C70E2AABE6DF98BC9D0D4D456C5F5FC8",
+    "artifacts/library446-ddll-frontier-proposal3/freeze.json": "666DC57286CF48F8BDDD8289D406BE9597C2A31041DFCA8F86655844A78FA41A",
+    "artifacts/library446-ddll-frontier-proposal3/harness-helper-bindings.json": "83C4ED6B928D384B513077E1B0FE2D7B2B13AB6C8AA721119F8724FF925E7D9C",
+    "artifacts/library446-ddll-frontier-proposal3/manifest.json": "3A3C278FBC1F0338AB3E8FFCBA2CC17848772270EA840206564290A6E9E2718C",
+    "artifacts/library446-ddll-frontier-proposal3/profile.json": "723B8A79078B17A7B1FBD11ED57FE02ECF592EF1B558B084D287D92B8001D27E",
+    "artifacts/library446-ddll-frontier-proposal3/README.md": "FDA17A43E81177B6F7EABD7AE3CF229846D1A1697915C2B08A19C6325D1ED284",
+    "artifacts/library446-ddll-frontier-proposal3/root-pre-execution-review.json": "982401787F1340B47984236A20602E24691ECFF9A4F327CC0F5F8AF41F0FE93B",
+    "artifacts/library446-ddll-frontier-proposal3/run-managed-root.py": "D3708A612AD24D239105D7A6480F8C9B6072459ADBAB1D390B2213F7FF47F711",
+    "artifacts/library446-ddll-frontier-proposal3/source-bindings.json": "8DE88150254ECBCA0543A2D2FC69503DC32E31D52E9B8DCA05AB2D7D6C79F833",
+    "artifacts/library446-ddll-frontier-proposal3/successor-delta.json": "0D01C73DFD7BB1184AD773212DBB6C695BE1F69BD30839CA85640C864DF8ED2F",
+    "artifacts/library446-ddll-frontier-proposal3/harness/DdllFrontier446Checks.cs": "2BF0AC18066F2C4707685156F83501F9D8FD1D3FC154AA7F42F0492A71323AF4",
+    "artifacts/library446-ddll-frontier-proposal3/harness/DdllFrontier446Names.cs": "563F6A2E55B26BD4E7117DC3856C5C3864CDAF74E9F7079341CC2A3297E93989",
+    "artifacts/library446-ddll-frontier-proposal3/harness/DdllFrontier446Program.cs": "1F9CFA3E8C58F4E6FF62DE42ACB5B2161CDA390F767D2C5A3575FB3F1C3723B0",
+    "artifacts/library446-ddll-frontier-proposal3/original/beam_ddll_frontier446.erl": "D9FCF3ADE8020E5F3601300FF377042999D11A7F24630A2CBBAAB00782359AA2"
+  },
+  "Checks": [
+    "Capture and full manifest bytes agree with seals",
+    "Exactly six requested cases under six profiles",
+    "Actual owner snapshot verifies exactly two process rows and count1 per A/B before stops",
+    "Both owner stop requests precede first DOWN join",
+    "Worker external reference uses deterministic NEWER_REFERENCE_EXT node/creation/words",
+    "No opaque identity stripping from captured whole main; full own sidecars retained",
+    "Permanent close/reopen and helper termination use explicit source handshakes",
+    "Managed writes actual ETF and typed files before validation and compares only after cleanup"
+  ],
+  "ProvenanceNote": "proposal3 successor-delta.json is copied proposal2 metadata. Independent review records added owner snapshot strengthening; no running sealed artifact mutated.",
+  "Scope": "Passive source/hash review only. No compiler/native/VM/provider/Git/CI/product execution."
+}
