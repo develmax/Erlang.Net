@@ -27,5 +27,9 @@ internal enum ErlDriverHostOperation420
     SchedulePortTask,
     InvokePortTask,
     BeginLinkedInitialization438,
-    EndLinkedInitialization438
+    EndLinkedInitialization438,
+    ReserveChild455,
+    CommitChild455,
+    AbortChild455,
+    DecodeExternal455
 }

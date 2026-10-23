@@ -38,6 +38,7 @@ internal sealed class NativeDriverPortRow422(
     internal int CleanupStatus;
     internal byte[] Command = [];
     internal bool DriverSoftBusy;
+    internal ErlDriverChildAttempt455? ChildAttempt455;
     internal Task Commands = Task.CompletedTask;
     internal LinkedList<NativeDriverSignal454> Signals { get; } = new();
     internal HashSet<Task> SignalResults { get; } = new();

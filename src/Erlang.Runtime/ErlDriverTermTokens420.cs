@@ -5,7 +5,7 @@ namespace Erlang;
 
 // Own VM term identities are authenticated handles, never borrowed ERTS heap
 // words. PID/port maps retain immutable identifiers, not ProcessContext objects.
-internal sealed class ErlDriverTermTokens420 : IDisposable
+internal sealed partial class ErlDriverTermTokens420 : IDisposable
 {
     private const int MaximumAtomCharacters = 255;
     private const nuint NilToken = 1;
@@ -89,6 +89,24 @@ internal sealed class ErlDriverTermTokens420 : IDisposable
         throw new InvalidDataException(ErlDriverHostNames420.InvalidFrame);
     }
 
+    internal bool TryInternalActor455(nuint token, out ulong actor)
+    {
+        lock (gate)
+        {
+            if (!closed)
+                foreach (var pair in actors)
+                    if (pair.Value == token)
+                    {
+                        actor = pair.Key;
+
+                        return true;
+                    }
+            actor = 0;
+
+            return false;
+        }
+    }
+
     private nuint Bind(Dictionary<ulong, nuint> identities, ulong identity, Term value)
     {
         if (identity == 0) throw new InvalidDataException(ErlDriverHostNames420.InvalidFrame);
@@ -120,10 +138,12 @@ internal sealed class ErlDriverTermTokens420 : IDisposable
             nuint token = Add(owned);
             try
             {
+                ownIdentities455.Add(owned, new(value is Pid, identity));
                 identities.Add(identity, token);
             }
             catch
             {
+                ownIdentities455.Remove(owned);
                 values.Remove(token);
                 throw;
             }
@@ -142,6 +162,7 @@ internal sealed class ErlDriverTermTokens420 : IDisposable
             atoms.Clear();
             actors.Clear();
             ports.Clear();
+            ownIdentities455.Clear();
         }
     }
 }

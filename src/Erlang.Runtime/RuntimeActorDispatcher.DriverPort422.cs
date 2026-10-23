@@ -55,16 +55,25 @@ internal sealed partial class RuntimeActorDispatcher
             {
                 if (!owner.IsOwnedBy(this)) throw new ObjectDisposedException(nameof(DriverDispatcherLease422));
                 RuntimeSchedulerLane? chosen = null;
+                RuntimeSchedulerLane? fallback = null;
                 for (int index = 0; index < lanes.Length; index++)
                 {
                     if (nextDriverPortLane422 == lanes.Length) nextDriverPortLane422 = 0;
                     RuntimeSchedulerLane candidate = lanes[nextDriverPortLane422++];
                     if (candidate.Online)
                     {
-                        chosen = candidate;
-                        break;
+                        fallback ??= candidate;
+                        // Driver turns have no lane affinity. Do not strand an
+                        // independent controller behind a blocked native call
+                        // while another real normal lane can execute it.
+                        if (!candidate.HasRunningWork420 && candidate.Auxiliary420.Count == 0)
+                        {
+                            chosen = candidate;
+                            break;
+                        }
                     }
                 }
+                chosen ??= fallback;
                 if (chosen is null) throw new InvalidOperationException(DriverPortDispatchNames422.NoOnlineLane);
                 chosen.Auxiliary420.AddLast(work.Node);
                 StartWorkers();

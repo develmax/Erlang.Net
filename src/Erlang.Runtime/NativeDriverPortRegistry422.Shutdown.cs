@@ -92,6 +92,8 @@ internal sealed partial class NativeDriverPortRegistry422
                 row.Data = Nil.Value;
                 row.Reason = Nil.Value;
             }
+            childAttempts455.Clear();
+            ownPortIdentities455.Clear();
             native.Clear();
             ports.Clear();
         }

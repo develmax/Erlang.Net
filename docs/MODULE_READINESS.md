@@ -1,8 +1,19 @@
 # Module readiness
 
-Baseline **OTP-29.1.1**. Local tests **8813 passed**. Runtime MFAs **708** (previous snapshot **708**, delta **0**), in **21** modules. Reference inventory: **1289** source-module rows.
+Baseline **OTP-29.1.1**. Latest verified main CI **8834/8834 passed** at **42e83c9c**; Part455 catalog **8837**, exact feature-head full CI tracked in its PR. The historical generated table below retains its original registry baseline. Runtime MFAs **708** (previous snapshot **708**, delta **0**), in **21** modules. Reference inventory: **1289** source-module rows.
 
 API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.
+
+## Part455 execution milestones
+
+| Component | Verified scope | Still open |
+| --- | --- | --- |
+| Native child ports | Actual supplied-data adoption; lifecycle, construction-close and owner-exit fixture; physical cleanup | Wider rollback and construction races; cross-platform ABI |
+| gen_tcp / inet / inet_tcp / prim_inet | Original BEAM + unchanged native inet_drv; complete loopback observation versus OTP | Full options, error and scheduling matrices; UDP |
+| net_kernel / erl_epmd / inet_tcp_dist / dist_util | Original standard named boot, EPMD registration/query, TCP listener and incoming name/status sok versus OTP | Authenticated peer channel, reconnection and wider owner/checker races through this real boot |
+| erlang native prerequisites | Driver LOCAL_EXT reference decode; own PID/port identity after node naming; guest port_connect path | Full port_connect race contract, generic function transport and local-reference epoch transition |
+
+These are scoped execution milestones, not new complete API contracts. Default registry APIs **708**, full contracts **118**, delta **0/0**. Full observations, retained failures and final runtime hashes are in [Part455 evidence](validation/part-455/native-child-tcp-kernel/README.md).
 
 ## Erlang API modules
 

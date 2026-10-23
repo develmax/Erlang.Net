@@ -8,6 +8,7 @@ internal sealed partial class ErlDriverHostEngine420
     private readonly object gate = new();
     private readonly Dictionary<ulong, ErlDriverPort420> ports = new();
     private readonly Dictionary<nuint, ErlDriverPort420> termPorts = new();
+    private readonly HashSet<ulong> admittedPortIds455 = new();
     private readonly List<Task> retirement = new();
     private readonly ErlDriverHostImages420 images = new();
     private readonly ErlDriverNativeThreads420 threads = new();
@@ -28,7 +29,7 @@ internal sealed partial class ErlDriverHostEngine420
     private ErlDriverLinkedServices420? linked;
     private ErlDriverPrimitiveAccess420? memory;
     private ErlDriverStartEntry420.Invoke? start;
-    private ulong lastPort;
+    private ErlDriverChildServices455? children455;
     private bool closing;
     private Task? close;
 
@@ -100,7 +101,7 @@ internal sealed partial class ErlDriverHostEngine420
                 engine.fault
             );
             var program = new ErlDriverTermProgram420(engine.memory, engine.tokens.Resolve,
-                bytes => ExternalTermFormat.Decode(bytes.Span));
+                engine.DecodeExternal455);
             var term = new ErlDriverTermServices420(
                 engine.tokens,
                 program,
@@ -134,6 +135,12 @@ internal sealed partial class ErlDriverHostEngine420
             engine.table = new(abi, callbacks, services);
             engine.start = Marshal.GetDelegateForFunctionPointer<ErlDriverStartEntry420.Invoke>(
                 engine.bridge.ExportPointer(ErlDriverHostNativeNames420.StartEntry));
+            engine.children455 = new(
+                engine.bridge,
+                engine.CreateChild455,
+                engine.tokens,
+                engine.fault
+            );
             engine.images.Configure(
                 engine.bridge,
                 engine.table,
@@ -210,6 +217,7 @@ internal sealed partial class ErlDriverHostEngine420
     private int DeliverTerm(ErlDriverPort420? port, nuint recipient, Term term)
     {
         if (tokens.Resolve(recipient) is not Pid target) return -1;
+        var wire = tokens.CaptureOwnTerm455(term);
         var response = peer.RequestAsync(
             ErlDriverHostOperation420.PortTermOutput,
             port?.Identity.Driver ?? 0,
@@ -220,8 +228,9 @@ internal sealed partial class ErlDriverHostEngine420
             ErlDriverPrimitiveWire420.Encode(new ErlDriverTermDelivery420(
                 tokens.ActorIdentity(recipient),
                 ExternalTermFormat.Encode(target),
-                ExternalTermFormat.Encode(term),
-                port is null
+                wire.Bytes,
+                port is null,
+                wire.Bindings
             )),
             CancellationToken.None
         ).AsTask().GetAwaiter().GetResult();

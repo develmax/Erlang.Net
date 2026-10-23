@@ -51,6 +51,7 @@ internal sealed partial class ErlDriverHostEngine420
                 try
                 {
                     var port = ResolveOrdinary(request);
+                    await port.Construction455.ConfigureAwait(false);
                     switch (request.Operation)
                     {
                         case ErlDriverHostOperation420.Output:
@@ -96,6 +97,8 @@ internal sealed partial class ErlDriverHostEngine420
                     ErlDriverPrimitiveWire420.Decode<ulong>(request.Data)).ConfigureAwait(false);
                 break;
             case ErlDriverHostOperation420.InvokePortTask:
+                await WaitConstruction455(new(request.Driver, request.Port), (ErlDriverPortTaskKind420)request.Command).ConfigureAwait(false);
+
                 return jobs!.Invoke(request);
             case ErlDriverHostOperation420.PortConnected:
                 if (request.Driver == 0 || request.Port == 0 || request.Actor == 0 || request.Command != 0)
@@ -150,9 +153,8 @@ internal sealed partial class ErlDriverHostEngine420
         lock (gate)
         {
             ObjectDisposedException.ThrowIf(closing, this);
-            if (request.Port <= lastPort || request.Port > (ulong)nint.MaxValue)
+            if (request.Port == 0 || request.Port > (ulong)nint.MaxValue || !admittedPortIds455.Add(request.Port))
                 throw new InvalidDataException(ErlDriverHostNames420.InvalidFrame);
-            lastPort = request.Port;
             ErlDriverPortRetirement420? preparedRetirement = null;
             port = new(
                 checked((nint)request.Port),

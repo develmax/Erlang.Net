@@ -1,0 +1,109 @@
+{
+  "Passed": true,
+  "PinnedOtp": "OTP-29.1.1",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "RuntimeSha256": "5B34A98A785E0161D07DEB5E3042584014E04C054987DF51061DBC87C6FD3F07",
+  "BridgeSha256": "540677E29D6FF508CECFEEEF0742F5EC0466AC99B8164F3C767946B7232B295B",
+  "Catalog": 8837,
+  "NewPermanentGroups": 3,
+  "DefaultApis": 708,
+  "VerifiedFullContracts": 118,
+  "ApiDelta": 0,
+  "FullContractDelta": 0,
+  "SourceGuards": 1647,
+  "PrivateChildLifecycleControls": 3,
+  "PrivateChildControlsAreOtpDifferential": false,
+  "Comparisons": [
+    {
+      "Path": "artifacts/library455-tcp-comparison2/comparison.json",
+      "Sha256": "A5411FABDCC3B9A0655C09DEDA5C766DEB70DBD707D481389CBAC2975C643DB3",
+      "Roles": 4
+    },
+    {
+      "Path": "artifacts/library455-listener-comparison1/comparison.json",
+      "Sha256": "CB368BA00E20D1E852D23C1CC0F20C73799F954E8F06F7CE5ECE0005C8AEA08F",
+      "Roles": 5
+    }
+  ],
+  "OriginalNetworkSourceOwners": [
+    {
+      "Module": "net_kernel",
+      "Exports": 47,
+      "OriginalBeam": true,
+      "Md5": "5CE880E43831B6A54FD6464F4ADB801C"
+    },
+    {
+      "Module": "erl_epmd",
+      "Exports": 22,
+      "OriginalBeam": true,
+      "Md5": "D7BA487776A8E13E86D66464366594A0"
+    },
+    {
+      "Module": "inet_tcp_dist",
+      "Exports": 32,
+      "OriginalBeam": true,
+      "Md5": "ADA7E2E684744457A4E7CD71E63C9002"
+    },
+    {
+      "Module": "dist_util",
+      "Exports": 16,
+      "OriginalBeam": true,
+      "Md5": "454F1AA00B92EEED1E3562E882B89BD6"
+    },
+    {
+      "Module": "gen_tcp",
+      "Exports": 16,
+      "OriginalBeam": true,
+      "Md5": "799A83AC28D066C82EB249D6D51E8548"
+    },
+    {
+      "Module": "inet",
+      "Exports": 101,
+      "OriginalBeam": true,
+      "Md5": "4F27A519DE3B88AFBB8B06D784147B28"
+    },
+    {
+      "Module": "inet_tcp",
+      "Exports": 25,
+      "OriginalBeam": true,
+      "Md5": "ACD4215A51E0F17F2CC226A80EC0CBCA"
+    },
+    {
+      "Module": "prim_inet",
+      "Exports": 62,
+      "OriginalBeam": true,
+      "Md5": "D502BCFA45173C29F2FFCC39364866C8"
+    }
+  ],
+  "IncomingStatus": "sok",
+  "AuthenticatedConnectedPeerAccepted": false,
+  "FullModuleCompatibilityAccepted": false,
+  "ProviderFiles": 6427,
+  "FinalTcpCleanup": true,
+  "FinalListenerCleanup": true,
+  "PrivateAndOrdinaryNativeRegressions": true,
+  "ExactFeatureHeadCiRequired": true,
+  "MainGreen": {
+    "Passed": true,
+    "Head": "42e83c9c468c860b6ad49fa459f1a828d79bc446",
+    "Merge453": "368bcbf58395e474a1ac72cc5733883d634e6f26",
+    "Run": 40013502571,
+    "Job": 120620103138,
+    "FullTests": 8834,
+    "EvidenceLines": [
+      "2026-10-23T19:52:28.4830195Z 8834/8834 passed",
+      "2026-10-23T19:53:07.0320971Z   Successfully created package 'D:\\a\\Erlang.Net\\Erlang.Net\\artifacts\\packages\\Erlang.Net.CSharp.0.1.0.nupkg'.",
+      "2026-10-23T19:53:09.5482680Z   Successfully created package 'D:\\a\\Erlang.Net\\Erlang.Net\\artifacts\\packages\\Erlang.Net.Tool.0.1.0.nupkg'.",
+      "2026-10-23T19:53:17.3140700Z Validation passed"
+    ]
+  },
+  "KnownFrontiers": [
+    "Authenticated peer and reconnect through real named boot",
+    "UDP and full TCP options/errors",
+    "Full port_connect death/busy/ACK race contracts",
+    "Construction failure/rollback wider schedules",
+    "Generic EXT2TERM functions and local-reference node-transition window",
+    "Host map collapse before own-resource capture and nondefault nested ETF factory contexts",
+    "Cross-platform private bridge and complete native ABI"
+  ]
+}

@@ -44,6 +44,15 @@ internal sealed partial class NativeDriverPortRegistry422
                 try
                 {
                     ports.Add(identity, row);
+                    try
+                    {
+                        ownPortIdentities455.Add(identity.Id, identity);
+                    }
+                    catch
+                    {
+                        ports.Remove(identity);
+                        throw;
+                    }
                 }
                 catch
                 {
@@ -135,6 +144,7 @@ internal sealed partial class NativeDriverPortRegistry422
 
     private void FinishStopped(NativeDriverPortRow422 row)
     {
+        if (row.ChildAttempt455 is { } attempt) attempt.Row = null;
         native.Remove(row.Native);
         ports.Remove(row.Identity);
         row.Writable.TrySetResult();

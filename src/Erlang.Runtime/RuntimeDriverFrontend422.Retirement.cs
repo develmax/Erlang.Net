@@ -83,6 +83,7 @@ internal sealed partial class RuntimeDriverFrontend422
         try
         {
             actors.Dispose();
+            ports.ReleaseOwnPortIdentities455();
         }
         catch (Exception failure)
         {
