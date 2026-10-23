@@ -1,0 +1,34 @@
+# Part 447 independent source review (no execution)
+
+Scope: pinned OTP 29.1.1; source-only proposals. No build, VM, native, git, CI or shared source mutation was performed. These are unexecuted cases, not compatibility credit.
+
+## Authorities
+
+- ../otp/erts/emulator/beam/erl_bif_ddll.c:641-650: erl_ddll:demonitor/1 rejects a non-internal reference with badarg; otherwise removes only the calling process monitor and returns true even if no monitor exists.
+- ../otp/erts/emulator/beam/external.c:4802-4858: decoding a NEWER_REFERENCE_EXT resolves node/creation; it constructs an internal reference only when the resolved ErlNode equals erts_this_node. A genuine reference from another VM is external there; returning its actual ETF to its origin localizes it again.
+- ../otp/erts/emulator/beam/dist.c:5001-5073: setnode/2 requires valid name/creation, inactive distribution and a live registered net_kernel. Creation is at least 4 and skips retained external node epochs. Already-active rename is badarg.
+- ../otp/erts/emulator/beam/dist.c:854-882: actual distribution teardown resets local identity to nonode@nohost, creation 0.
+- src/Erlang.Runtime/ProcessRuntime.DdllParentServices422.cs:16-22: current admission uses owning LocalNodeIdentity object when present; wire-only reference uses current snapshot equality. This is the exact DDLL boundary to compare.
+- src/Erlang.Runtime/RuntimeDdllParent422.Reads.cs:195-217: demonitor removes only a matching caller/reference row. A different actor must not cancel the real owner monitor.
+- src/Erlang.Runtime/ProcessRuntime.NodeAdmission.cs:69,85-97 and src/Erlang.Terms/LocalNodeIdentity.cs:9-14: public admission/kernel death publish actual identity transitions; avoid reflection-only Publish as acceptance evidence.
+
+## Reusable real peer and node-transition infrastructure
+
+- tools/Erlang.GuestConnectedSendObservations/collect.py: original controller starts two separate OTP OS processes with -name at213/222; verify_actual at62-79 verifies both exact runtime roots, probe/driver BEAM MD5, actual node names and connected nodes before measurement. Its companion driver performs net_adm:ping/1, real distributed messaging, explicit stop/finish ACKs and writes actual shutdown observations. This is genuine TCP-connected OTP evidence; do not label managed packet adapters as physical TCP.
+- tools/Erlang.GuestConnectedSendObservations/owned_process.py provides bounded owner-process capture/cleanup; use the current reviewed owner convention rather than unbounded subprocess calls.
+- tools/Erlang.LocalNodeAdmissionContrasts/local_node_admission_probe.erl: actual registered kernel actor; setnode/2, actual kernel death, bounded inactive wait and raw nodeup/nodedown evidence. Reuse this public protocol for a genuine local identity transition without requiring complete net_kernel boot.
+- tests/Erlang.Tests/RuntimeSetNodeHostChecks.cs:AdmissionAndNotifications: corresponding managed real kernel actor, public erlang:setnode/2, actual kernel disposal/reset and notifications. This is a real runtime state transition, unlike reflection Publish in RuntimeNodeIdentityFoundationHostChecks.
+- tests/Erlang.Tests/ConnectedSpawnHostEndpoint.cs: two separate ProcessRuntime instances adopt actual distribution entries and transfer actual output packets via TakePacket/PutPacket. This proves runtime packet transport, not separate OS VMs or TCP handshake. If selected for the managed side, report this distinction explicitly; the request for real VMs is best met with separate owned host processes as well.
+
+## Minimal measured cohorts
+
+1. Genuine peer-produced reference: VM B actually creates R and sends R to VM A through their actual connection. A executes erl_ddll:demonitor(R), retaining complete error stack. B demonitor(R) returns true. Retain B's raw ref and A's decoded raw ref plus actual runtime identities; never substitute a fixed constructed ETF.
+2. Actual queued DDLL monitor return trip: owner A creates a real queued monitor R with a loaded driver held by an actual port. A sends R to B. B attempts demonitor(R) (badarg, full stack), then returns R unchanged. A must prove returned equality, real awaiting count before/after demonitor and physical final unload/cleanup. This tests actual reference localization and real monitor removal.
+3. Wrong local caller after genuine return trip: a second actor in A calls demonitor(returned R). It returns true but the creator's awaiting row remains. Creator then removes it; prove both actual counts and final unload/cleanup. This disambiguates internal-reference admission from monitor ownership.
+4. Inactive-to-active node transition: before public setnode create a real queued DDLL ref R and save its exact ETF W0. Start a real registered kernel via public setnode. Prove current node(R) and that direct R/current ETF roundtrip still cancel real monitors. Decoding old W0 under the new identity gives an external reference and demonitor must badarg; retain full stacks. Use distinct real monitors for direct/current/old paths so an already-removed row cannot make the test vacuous.
+5. Active-to-inactive transition: hold real queued refs/current ETF across actual net_kernel actor death, wait actual inactive state. Direct reference remains local; current ETF roundtrip localizes; pre-stop active ETF is external and rejected. Check genuine awaiting rows and driver/port cleanup remain intact across the reset.
+6. Restart and retained prior generation: retain an actually received external ref from old A in B, stop/restart A node identity through the public protocol, then B returns old R over the real new connection. A rejects stale-generation R; new A reference makes a genuine roundtrip and removes its real monitor. Record actual selected creations rather than asserting a guessed fixed value. If requesting the same name/creation with an actual retained external epoch, verify source-derived skip behavior separately from DDLL image generation.
+
+Use values/default/depth 0/1/2/8 profiles as separate fresh owners if retaining existing DDLL stack conventions. Compare entire portable result trees; retain both raw refs/node creations and full stacks separately. Opaque VM allocations are not byte-equality targets. Any own-state result should assert concrete relations (same origin, different peer, exact role/row counts), never discard a differing value after capture. Case 6 is larger than the first five; do not silently claim it from part446 native image-generation tests.
+
+Final acceptance must include actual peer connection and shutdown/join receipts, same final runtime/package hash, zero real native owner leases, PhysicalExit/PhysicalCleanup, all required retained DDLL scenarios, affected node/distribution regressions, and exact final-head CI. Neither this note nor a fixed reference ETF provides execution evidence.

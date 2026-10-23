@@ -1,0 +1,47 @@
+{
+  "Passed": false,
+  "Groups": [
+    {
+      "Depth": 0,
+      "Passed": false,
+      "Errors": [
+        "RuntimeError('Owned stage failed; all available raw evidence retained: compare-depth0')"
+      ]
+    },
+    {
+      "Depth": 1,
+      "Passed": true,
+      "Errors": []
+    },
+    {
+      "Depth": 2,
+      "Passed": true,
+      "Errors": []
+    },
+    {
+      "Depth": 8,
+      "Passed": false,
+      "Errors": [
+        "RuntimeError('Owned stage failed; all available raw evidence retained: compare-depth8')"
+      ]
+    }
+  ],
+  "Failures": [],
+  "InputsUnchanged": true,
+  "RuntimeSha256": "723E93D73FE05F5182FD7BAB3CC0DE7FEDC013AA98E37DF799145BE474F5E096",
+  "ProviderScans": [
+    {
+      "Phase": "before",
+      "Equal": true,
+      "Files": 6427,
+      "Seconds": 1.5929999999934807
+    },
+    {
+      "Phase": "after",
+      "Equal": true,
+      "Files": 6427,
+      "Seconds": 1.2809999999590218
+    }
+  ],
+  "Transport": "two real OTP OS processes and actual managed runtime over packet4 TCP ETF; no distribution handshake claim"
+}
