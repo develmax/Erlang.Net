@@ -1,16 +1,16 @@
-# Current checkpoint — Part449 — 2026-10-23
+# Current checkpoint — Part450 — 2026-10-23
 
-| Module / area | Accepted scope in this part | Remaining |
+| Module / area | Accepted scope | Remaining |
 | --- | --- | --- |
-| Distribution runtime | Eight genuine incoming authenticated channels, four wrong-cookie refusals; actual private EPMD creation | Simultaneous/alive handoff, forced peer death, TLS, standard managed net_kernel transport boot, autoconnect and priority ALTACT |
-| DDLL / reference identity | Four actual same-name remote OS VM restarts, unchanged old reference bytes, local and new-peer queue1→0;164 scoped observations and full stacks | Broader reload/demonitor/force cross-products, held native teardown, other OS/ABI/native-thread profiles |
-| ETS / erts_debug / erts_internal | Previous scoped native bodies/loading retained; no new API or full-contract promotion | Complete semantic, physical and concurrency profiles listed in remaining-work/INDEX.md |
-| Regression |588 affected tests, one new permanent epoch/stale-input group; native8 + retained36, boot79 and cleanup | Exact449 publication-head full CI/packages are tracked in PR |
-| Registry |708 API entries /118 full contracts,1621 source guards; delta0/0 |590 unclosed default contracts; original library-module execution is separate from this default ledger |
+| Distribution runtime | Both lexical pending collisions, alive false/bad-cookie/valid replacement;24 authenticated channels | check_pending/already_pending, broader setup/handoff races, TLS, full managed net_kernel transport boot/autoconnect/ALTACT |
+| DDLL / identity | Eight actual owned peer-tree kills/restarts; local queue survives, old refs retain bytes and replacement refs cancel only their owner | Wider mode/owner/native teardown interleavings and OS/ABI/native-thread profiles |
+| ETS / erts_debug / erts_internal | Previous scoped body/loading evidence retained; no new complete contracts | Full semantic/physical/concurrency partitions in remaining-work/INDEX.md |
+| Regression |589/589 affected, native8 + retained36, boot79/cleanup; new permanent losing-candidate queue/epoch group | Exact450 publication-head full CI/packages tracked in PR |
+| Default registry |708 APIs /118 full contracts;1621 source guards, delta0/0 |590 unclosed default contracts; native body presence is not whole-module compatibility |
 
-Part448 is merged as main029f740c; exact merge CI39945517467 passes8824/8824 and both package builds. Part449 final local Runtime8309B897 passes164/164 incoming/restart observations:140 paired common-source/protocol and24 auxiliary guards;144 entire typed/raw and20 own-reference protocols. No production algorithm discrepancy was confirmed. New canonical catalog8825 is not itself a full-suite pass. [Proof](validation/part-449/ddll-incoming-and-peer-restart/README.md); [English changelog](changelog/0079.md). This is Git/CI package validation, not a NuGet release.
+Part449 is merged as main7e4a324d; exact merge CI39951441544 passes8825/8825 and both package builds. Part450 passes400 observations:352 paired common-source/protocol plus48 auxiliary guards;344 whole typed/raw and56 own-reference protocols. Runtime6B102A98 matches its fresh native package. No production algorithm discrepancy was confirmed. Canonical catalog8826 is distinct from a full-suite pass. [Proof](validation/part-450/ddll-simultaneous-alive-and-fatal-peer/README.md); [English changelog](changelog/0079.md).
 
-Next: simultaneous/alive connection handoff and forced remote termination, then TLS/standard transport boot as separately measured work. Earlier entries below are historical.
+Collision policy is observed in actual original net_kernel and an explicit evidence adapter driving real runtime queues; this does not introduce a production C# replacement for original Erlang net_kernel. Deliberate peer nonzero exits are planned scenario operations, not ignored cleanup failures. Next: check_pending/already_pending and wider handoff races, then TLS/full standard transport. Earlier entries below are historical.
 
 # Decisions
 

@@ -1,0 +1,1543 @@
+{
+  "Passed": true,
+  "ObservationRows": 400,
+  "RawExact": 344,
+  "ProtocolOnly": 56,
+  "PairedRows": 352,
+  "AuxiliaryGuards": 48,
+  "AuthenticatedChannels": 24,
+  "AliveFalseRefusals": 8,
+  "AliveWrongCookieRefusals": 8,
+  "ExpectedFatalOldVmExits": 8,
+  "NormalOracleReplacementExits": 16,
+  "CapturedKilledFamilyHandles": 16,
+  "PrivateEpmdProcesses": 2,
+  "Groups": [
+    {
+      "Run": 1,
+      "Depth": 8,
+      "Order": "incoming",
+      "Rows": 50,
+      "Exact": 43,
+      "ProtocolOnly": 7,
+      "Simultaneous": {
+        "Passed": true,
+        "Order": "incoming",
+        "Managed": "ddll450a_managed8incoming@127.0.0.1",
+        "Peer": "ddll450z_peer8incoming@127.0.0.1",
+        "OriginalStatus": "nok",
+        "IncomingSelected": true,
+        "ActualOriginalConnect": true,
+        "LoserAdopted": false
+      },
+      "ListenerCreation": 1792758291,
+      "Channels": [
+        {
+          "Directory": "simultaneous-incoming",
+          "Authentication": {
+            "Authenticated": true,
+            "Local": "ddll450a_managed8incoming@127.0.0.1",
+            "Remote": "ddll450z_peer8incoming@127.0.0.1",
+            "LocalCreation": 1792758291,
+            "RemoteCreation": 1792758287,
+            "Flags": 17297788821,
+            "ChallengeReplyVerified": true,
+            "AckSent": true,
+            "Packet2Then4": true,
+            "Incoming": true
+          },
+          "Incoming": 11,
+          "Outgoing": 9,
+          "ConnectionId": 14047905
+        },
+        {
+          "Directory": "alive-handoff",
+          "Authentication": {
+            "Authenticated": true,
+            "Local": "ddll450a_managed8incoming@127.0.0.1",
+            "Remote": "ddll450z_peer8incoming@127.0.0.1",
+            "LocalCreation": 1792758291,
+            "RemoteCreation": 1792758287,
+            "Flags": 17297788821,
+            "ChallengeAckVerified": true,
+            "OriginalStatus": "alive",
+            "Incoming": false,
+            "Packet2Then4": true,
+            "OldControllerRetiredBeforeHostAckRead": true
+          },
+          "Incoming": 6,
+          "Outgoing": 4,
+          "ConnectionId": 14047906
+        },
+        {
+          "Directory": "connection2",
+          "Authentication": {
+            "Authenticated": true,
+            "Local": "ddll450a_managed8incoming@127.0.0.1",
+            "Remote": "ddll450z_peer8incoming@127.0.0.1",
+            "LocalCreation": 1792758291,
+            "RemoteCreation": 1792758288,
+            "Flags": 17297788821,
+            "ChallengeReplyVerified": true,
+            "AckSent": true,
+            "Packet2Then4": true,
+            "Incoming": true
+          },
+          "Incoming": 12,
+          "Outgoing": 10,
+          "ConnectionId": 14047907
+        }
+      ],
+      "OriginalControllerBefore": {
+        "Kind": "PortTerm",
+        "Node": "ddll450z_peer8incoming@127.0.0.1",
+        "Id": "9",
+        "Creation": 1792758287
+      },
+      "OriginalControllerAfter": {
+        "Kind": "PortTerm",
+        "Node": "ddll450z_peer8incoming@127.0.0.1",
+        "Id": "15",
+        "Creation": 1792758287
+      },
+      "Handoff": {
+        "Passed": true,
+        "Old": {
+          "Node": {
+            "Name": "ddll450z_peer8incoming@127.0.0.1"
+          },
+          "ConnectionId": 14047905,
+          "Flags": 17297788821,
+          "RemoteCreation": 1792758287,
+          "Controller": {
+            "Node": "ddll450a_managed8incoming@127.0.0.1",
+            "Id": 4,
+            "Creation": 1792758291
+          },
+          "InputHandler": {
+            "Node": "ddll450a_managed8incoming@127.0.0.1",
+            "Id": 4,
+            "Creation": 1792758291
+          },
+          "GetSize": false,
+          "NotificationArmed": false,
+          "AcceptedInputPackets": 9,
+          "ConsumedOutputPackets": 7,
+          "QueuedPacketBytes": 0,
+          "QueuedPackets": 0,
+          "QueuedSegments": 0,
+          "RawInputAttempts": 9
+        },
+        "Current": {
+          "Node": {
+            "Name": "ddll450z_peer8incoming@127.0.0.1"
+          },
+          "ConnectionId": 14047906,
+          "Flags": 17297788821,
+          "RemoteCreation": 1792758287,
+          "Controller": {
+            "Node": "ddll450a_managed8incoming@127.0.0.1",
+            "Id": 5,
+            "Creation": 1792758291
+          },
+          "InputHandler": {
+            "Node": "ddll450a_managed8incoming@127.0.0.1",
+            "Id": 5,
+            "Creation": 1792758291
+          },
+          "GetSize": false,
+          "NotificationArmed": false,
+          "AcceptedInputPackets": 0,
+          "ConsumedOutputPackets": 0,
+          "QueuedPacketBytes": 0,
+          "QueuedPackets": 0,
+          "QueuedSegments": 0,
+          "RawInputAttempts": 0
+        },
+        "OldControllerJoined": true,
+        "RetiredBeforeHostAckRead": true,
+        "SamePeerVmCreation": true
+      },
+      "Fatal": {
+        "Passed": true,
+        "OldPid": 349492,
+        "KillRequested": true,
+        "EntireOwnedTree": true,
+        "Family": [
+          {
+            "Pid": 349492,
+            "Executable": "erl.exe",
+            "StartedUtc": "2026-10-23T12:24:46.3675804Z",
+            "Settled": true
+          },
+          {
+            "Pid": 340804,
+            "Executable": "inet_gethost.exe",
+            "StartedUtc": "2026-10-23T12:24:50.1441249Z",
+            "Settled": true
+          }
+        ],
+        "Operation": "deliberate scenario kill, not cleanup fallback"
+      },
+      "ActualOldExit": {
+        "ExpectedScenarioTermination": true,
+        "ForcedCleanup": false,
+        "Pid": 349492,
+        "ExitCode": 4294967295,
+        "ForcedTermination": false,
+        "Settled": true,
+        "Seconds": 6.60999999998603
+      },
+      "Restart": {
+        "Passed": true,
+        "OldPid": 349492,
+        "NewPid": 340016,
+        "OldCreation": 1792758287,
+        "NewCreation": 1792758288,
+        "OldConnection": 14047906,
+        "NewConnection": 14047907,
+        "OldReferenceCreation": 1792758287,
+        "OldReferenceWireUnchanged": true
+      },
+      "NativeCleanup": true
+    },
+    {
+      "Run": 1,
+      "Depth": 8,
+      "Order": "outgoing",
+      "Rows": 50,
+      "Exact": 43,
+      "ProtocolOnly": 7,
+      "Simultaneous": {
+        "Passed": true,
+        "Order": "outgoing",
+        "Managed": "ddll450z_managed8outgoing@127.0.0.1",
+        "Peer": "ddll450a_peer8outgoing@127.0.0.1",
+        "OriginalStatus": "ok_simultaneous",
+        "IncomingSelected": false,
+        "ActualOriginalConnect": true,
+        "LoserAdopted": false
+      },
+      "ListenerCreation": 1792758298,
+      "Channels": [
+        {
+          "Directory": "simultaneous-outgoing",
+          "Authentication": {
+            "Authenticated": true,
+            "Local": "ddll450z_managed8outgoing@127.0.0.1",
+            "Remote": "ddll450a_peer8outgoing@127.0.0.1",
+            "LocalCreation": 1792758298,
+            "RemoteCreation": 1792758294,
+            "Flags": 17297788821,
+            "ChallengeAckVerified": true,
+            "OriginalStatus": "ok_simultaneous",
+            "Incoming": false,
+            "Packet2Then4": true,
+            "OldControllerRetiredBeforeHostAckRead": false
+          },
+          "Incoming": 11,
+          "Outgoing": 9,
+          "ConnectionId": 316338
+        },
+        {
+          "Directory": "alive-handoff",
+          "Authentication": {
+            "Authenticated": true,
+            "Local": "ddll450z_managed8outgoing@127.0.0.1",
+            "Remote": "ddll450a_peer8outgoing@127.0.0.1",
+            "LocalCreation": 1792758298,
+            "RemoteCreation": 1792758294,
+            "Flags": 17297788821,
+            "ChallengeAckVerified": true,
+            "OriginalStatus": "alive",
+            "Incoming": false,
+            "Packet2Then4": true,
+            "OldControllerRetiredBeforeHostAckRead": true
+          },
+          "Incoming": 6,
+          "Outgoing": 4,
+          "ConnectionId": 316339
+        },
+        {
+          "Directory": "connection2",
+          "Authentication": {
+            "Authenticated": true,
+            "Local": "ddll450z_managed8outgoing@127.0.0.1",
+            "Remote": "ddll450a_peer8outgoing@127.0.0.1",
+            "LocalCreation": 1792758298,
+            "RemoteCreation": 1792758295,
+            "Flags": 17297788821,
+            "ChallengeReplyVerified": true,
+            "AckSent": true,
+            "Packet2Then4": true,
+            "Incoming": true
+          },
+          "Incoming": 12,
+          "Outgoing": 10,
+          "ConnectionId": 316340
+        }
+      ],
+      "OriginalControllerBefore": {
+        "Kind": "PortTerm",
+        "Node": "ddll450a_peer8outgoing@127.0.0.1",
+        "Id": "10",
+        "Creation": 1792758294
+      },
+      "OriginalControllerAfter": {
+        "Kind": "PortTerm",
+        "Node": "ddll450a_peer8outgoing@127.0.0.1",
+        "Id": "15",
+        "Creation": 1792758294
+      },
+      "Handoff": {
+        "Passed": true,
+        "Old": {
+          "Node": {
+            "Name": "ddll450a_peer8outgoing@127.0.0.1"
+          },
+          "ConnectionId": 316338,
+          "Flags": 17297788821,
+          "RemoteCreation": 1792758294,
+          "Controller": {
+            "Node": "ddll450z_managed8outgoing@127.0.0.1",
+            "Id": 4,
+            "Creation": 1792758298
+          },
+          "InputHandler": {
+            "Node": "ddll450z_managed8outgoing@127.0.0.1",
+            "Id": 4,
+            "Creation": 1792758298
+          },
+          "GetSize": false,
+          "NotificationArmed": false,
+          "AcceptedInputPackets": 9,
+          "ConsumedOutputPackets": 7,
+          "QueuedPacketBytes": 0,
+          "QueuedPackets": 0,
+          "QueuedSegments": 0,
+          "RawInputAttempts": 9
+        },
+        "Current": {
+          "Node": {
+            "Name": "ddll450a_peer8outgoing@127.0.0.1"
+          },
+          "ConnectionId": 316339,
+          "Flags": 17297788821,
+          "RemoteCreation": 1792758294,
+          "Controller": {
+            "Node": "ddll450z_managed8outgoing@127.0.0.1",
+            "Id": 5,
+            "Creation": 1792758298
+          },
+          "InputHandler": {
+            "Node": "ddll450z_managed8outgoing@127.0.0.1",
+            "Id": 5,
+            "Creation": 1792758298
+          },
+          "GetSize": false,
+          "NotificationArmed": false,
+          "AcceptedInputPackets": 0,
+          "ConsumedOutputPackets": 0,
+          "QueuedPacketBytes": 0,
+          "QueuedPackets": 0,
+          "QueuedSegments": 0,
+          "RawInputAttempts": 0
+        },
+        "OldControllerJoined": true,
+        "RetiredBeforeHostAckRead": true,
+        "SamePeerVmCreation": true
+      },
+      "Fatal": {
+        "Passed": true,
+        "OldPid": 331612,
+        "KillRequested": true,
+        "EntireOwnedTree": true,
+        "Family": [
+          {
+            "Pid": 331612,
+            "Executable": "erl.exe",
+            "StartedUtc": "2026-10-23T12:24:53.2017626Z",
+            "Settled": true
+          },
+          {
+            "Pid": 305172,
+            "Executable": "inet_gethost.exe",
+            "StartedUtc": "2026-10-23T12:24:57.1384935Z",
+            "Settled": true
+          }
+        ],
+        "Operation": "deliberate scenario kill, not cleanup fallback"
+      },
+      "ActualOldExit": {
+        "ExpectedScenarioTermination": true,
+        "ForcedCleanup": false,
+        "Pid": 331612,
+        "ExitCode": 4294967295,
+        "ForcedTermination": false,
+        "Settled": true,
+        "Seconds": 5.85999999998603
+      },
+      "Restart": {
+        "Passed": true,
+        "OldPid": 331612,
+        "NewPid": 287884,
+        "OldCreation": 1792758294,
+        "NewCreation": 1792758295,
+        "OldConnection": 316339,
+        "NewConnection": 316340,
+        "OldReferenceCreation": 1792758294,
+        "OldReferenceWireUnchanged": true
+      },
+      "NativeCleanup": true
+    },
+    {
+      "Run": 2,
+      "Depth": 0,
+      "Order": "incoming",
+      "Rows": 50,
+      "Exact": 43,
+      "ProtocolOnly": 7,
+      "Simultaneous": {
+        "Passed": true,
+        "Order": "incoming",
+        "Managed": "ddll450a_managed0incoming@127.0.0.1",
+        "Peer": "ddll450z_peer0incoming@127.0.0.1",
+        "OriginalStatus": "nok",
+        "IncomingSelected": true,
+        "ActualOriginalConnect": true,
+        "LoserAdopted": false
+      },
+      "ListenerCreation": 1792758392,
+      "Channels": [
+        {
+          "Directory": "simultaneous-incoming",
+          "Authentication": {
+            "Authenticated": true,
+            "Local": "ddll450a_managed0incoming@127.0.0.1",
+            "Remote": "ddll450z_peer0incoming@127.0.0.1",
+            "LocalCreation": 1792758392,
+            "RemoteCreation": 1792758389,
+            "Flags": 17297788821,
+            "ChallengeReplyVerified": true,
+            "AckSent": true,
+            "Packet2Then4": true,
+            "Incoming": true
+          },
+          "Incoming": 11,
+          "Outgoing": 9,
+          "ConnectionId": 8208969
+        },
+        {
+          "Directory": "alive-handoff",
+          "Authentication": {
+            "Authenticated": true,
+            "Local": "ddll450a_managed0incoming@127.0.0.1",
+            "Remote": "ddll450z_peer0incoming@127.0.0.1",
+            "LocalCreation": 1792758392,
+            "RemoteCreation": 1792758389,
+            "Flags": 17297788821,
+            "ChallengeAckVerified": true,
+            "OriginalStatus": "alive",
+            "Incoming": false,
+            "Packet2Then4": true,
+            "OldControllerRetiredBeforeHostAckRead": true
+          },
+          "Incoming": 6,
+          "Outgoing": 4,
+          "ConnectionId": 8208970
+        },
+        {
+          "Directory": "connection2",
+          "Authentication": {
+            "Authenticated": true,
+            "Local": "ddll450a_managed0incoming@127.0.0.1",
+            "Remote": "ddll450z_peer0incoming@127.0.0.1",
+            "LocalCreation": 1792758392,
+            "RemoteCreation": 1792758390,
+            "Flags": 17297788821,
+            "ChallengeReplyVerified": true,
+            "AckSent": true,
+            "Packet2Then4": true,
+            "Incoming": true
+          },
+          "Incoming": 12,
+          "Outgoing": 10,
+          "ConnectionId": 8208971
+        }
+      ],
+      "OriginalControllerBefore": {
+        "Kind": "PortTerm",
+        "Node": "ddll450z_peer0incoming@127.0.0.1",
+        "Id": "9",
+        "Creation": 1792758389
+      },
+      "OriginalControllerAfter": {
+        "Kind": "PortTerm",
+        "Node": "ddll450z_peer0incoming@127.0.0.1",
+        "Id": "15",
+        "Creation": 1792758389
+      },
+      "Handoff": {
+        "Passed": true,
+        "Old": {
+          "Node": {
+            "Name": "ddll450z_peer0incoming@127.0.0.1"
+          },
+          "ConnectionId": 8208969,
+          "Flags": 17297788821,
+          "RemoteCreation": 1792758389,
+          "Controller": {
+            "Node": "ddll450a_managed0incoming@127.0.0.1",
+            "Id": 4,
+            "Creation": 1792758392
+          },
+          "InputHandler": {
+            "Node": "ddll450a_managed0incoming@127.0.0.1",
+            "Id": 4,
+            "Creation": 1792758392
+          },
+          "GetSize": false,
+          "NotificationArmed": false,
+          "AcceptedInputPackets": 9,
+          "ConsumedOutputPackets": 7,
+          "QueuedPacketBytes": 0,
+          "QueuedPackets": 0,
+          "QueuedSegments": 0,
+          "RawInputAttempts": 9
+        },
+        "Current": {
+          "Node": {
+            "Name": "ddll450z_peer0incoming@127.0.0.1"
+          },
+          "ConnectionId": 8208970,
+          "Flags": 17297788821,
+          "RemoteCreation": 1792758389,
+          "Controller": {
+            "Node": "ddll450a_managed0incoming@127.0.0.1",
+            "Id": 5,
+            "Creation": 1792758392
+          },
+          "InputHandler": {
+            "Node": "ddll450a_managed0incoming@127.0.0.1",
+            "Id": 5,
+            "Creation": 1792758392
+          },
+          "GetSize": false,
+          "NotificationArmed": false,
+          "AcceptedInputPackets": 0,
+          "ConsumedOutputPackets": 0,
+          "QueuedPacketBytes": 0,
+          "QueuedPackets": 0,
+          "QueuedSegments": 0,
+          "RawInputAttempts": 0
+        },
+        "OldControllerJoined": true,
+        "RetiredBeforeHostAckRead": true,
+        "SamePeerVmCreation": true
+      },
+      "Fatal": {
+        "Passed": true,
+        "OldPid": 325392,
+        "KillRequested": true,
+        "EntireOwnedTree": true,
+        "Family": [
+          {
+            "Pid": 325392,
+            "Executable": "erl.exe",
+            "StartedUtc": "2026-10-23T12:26:27.8663813Z",
+            "Settled": true
+          },
+          {
+            "Pid": 271268,
+            "Executable": "inet_gethost.exe",
+            "StartedUtc": "2026-10-23T12:26:31.879893Z",
+            "Settled": true
+          }
+        ],
+        "Operation": "deliberate scenario kill, not cleanup fallback"
+      },
+      "ActualOldExit": {
+        "ExpectedScenarioTermination": true,
+        "ForcedCleanup": false,
+        "Pid": 325392,
+        "ExitCode": 4294967295,
+        "ForcedTermination": false,
+        "Settled": true,
+        "Seconds": 6.98499999998603
+      },
+      "Restart": {
+        "Passed": true,
+        "OldPid": 325392,
+        "NewPid": 231744,
+        "OldCreation": 1792758389,
+        "NewCreation": 1792758390,
+        "OldConnection": 8208970,
+        "NewConnection": 8208971,
+        "OldReferenceCreation": 1792758389,
+        "OldReferenceWireUnchanged": true
+      },
+      "NativeCleanup": true
+    },
+    {
+      "Run": 2,
+      "Depth": 0,
+      "Order": "outgoing",
+      "Rows": 50,
+      "Exact": 43,
+      "ProtocolOnly": 7,
+      "Simultaneous": {
+        "Passed": true,
+        "Order": "outgoing",
+        "Managed": "ddll450z_managed0outgoing@127.0.0.1",
+        "Peer": "ddll450a_peer0outgoing@127.0.0.1",
+        "OriginalStatus": "ok_simultaneous",
+        "IncomingSelected": false,
+        "ActualOriginalConnect": true,
+        "LoserAdopted": false
+      },
+      "ListenerCreation": 1792758399,
+      "Channels": [
+        {
+          "Directory": "simultaneous-outgoing",
+          "Authentication": {
+            "Authenticated": true,
+            "Local": "ddll450z_managed0outgoing@127.0.0.1",
+            "Remote": "ddll450a_peer0outgoing@127.0.0.1",
+            "LocalCreation": 1792758399,
+            "RemoteCreation": 1792758396,
+            "Flags": 17297788821,
+            "ChallengeAckVerified": true,
+            "OriginalStatus": "ok_simultaneous",
+            "Incoming": false,
+            "Packet2Then4": true,
+            "OldControllerRetiredBeforeHostAckRead": false
+          },
+          "Incoming": 11,
+          "Outgoing": 9,
+          "ConnectionId": 9666779
+        },
+        {
+          "Directory": "alive-handoff",
+          "Authentication": {
+            "Authenticated": true,
+            "Local": "ddll450z_managed0outgoing@127.0.0.1",
+            "Remote": "ddll450a_peer0outgoing@127.0.0.1",
+            "LocalCreation": 1792758399,
+            "RemoteCreation": 1792758396,
+            "Flags": 17297788821,
+            "ChallengeAckVerified": true,
+            "OriginalStatus": "alive",
+            "Incoming": false,
+            "Packet2Then4": true,
+            "OldControllerRetiredBeforeHostAckRead": true
+          },
+          "Incoming": 6,
+          "Outgoing": 4,
+          "ConnectionId": 9666780
+        },
+        {
+          "Directory": "connection2",
+          "Authentication": {
+            "Authenticated": true,
+            "Local": "ddll450z_managed0outgoing@127.0.0.1",
+            "Remote": "ddll450a_peer0outgoing@127.0.0.1",
+            "LocalCreation": 1792758399,
+            "RemoteCreation": 1792758397,
+            "Flags": 17297788821,
+            "ChallengeReplyVerified": true,
+            "AckSent": true,
+            "Packet2Then4": true,
+            "Incoming": true
+          },
+          "Incoming": 12,
+          "Outgoing": 10,
+          "ConnectionId": 9666781
+        }
+      ],
+      "OriginalControllerBefore": {
+        "Kind": "PortTerm",
+        "Node": "ddll450a_peer0outgoing@127.0.0.1",
+        "Id": "10",
+        "Creation": 1792758396
+      },
+      "OriginalControllerAfter": {
+        "Kind": "PortTerm",
+        "Node": "ddll450a_peer0outgoing@127.0.0.1",
+        "Id": "15",
+        "Creation": 1792758396
+      },
+      "Handoff": {
+        "Passed": true,
+        "Old": {
+          "Node": {
+            "Name": "ddll450a_peer0outgoing@127.0.0.1"
+          },
+          "ConnectionId": 9666779,
+          "Flags": 17297788821,
+          "RemoteCreation": 1792758396,
+          "Controller": {
+            "Node": "ddll450z_managed0outgoing@127.0.0.1",
+            "Id": 4,
+            "Creation": 1792758399
+          },
+          "InputHandler": {
+            "Node": "ddll450z_managed0outgoing@127.0.0.1",
+            "Id": 4,
+            "Creation": 1792758399
+          },
+          "GetSize": false,
+          "NotificationArmed": false,
+          "AcceptedInputPackets": 9,
+          "ConsumedOutputPackets": 7,
+          "QueuedPacketBytes": 0,
+          "QueuedPackets": 0,
+          "QueuedSegments": 0,
+          "RawInputAttempts": 9
+        },
+        "Current": {
+          "Node": {
+            "Name": "ddll450a_peer0outgoing@127.0.0.1"
+          },
+          "ConnectionId": 9666780,
+          "Flags": 17297788821,
+          "RemoteCreation": 1792758396,
+          "Controller": {
+            "Node": "ddll450z_managed0outgoing@127.0.0.1",
+            "Id": 5,
+            "Creation": 1792758399
+          },
+          "InputHandler": {
+            "Node": "ddll450z_managed0outgoing@127.0.0.1",
+            "Id": 5,
+            "Creation": 1792758399
+          },
+          "GetSize": false,
+          "NotificationArmed": false,
+          "AcceptedInputPackets": 0,
+          "ConsumedOutputPackets": 0,
+          "QueuedPacketBytes": 0,
+          "QueuedPackets": 0,
+          "QueuedSegments": 0,
+          "RawInputAttempts": 0
+        },
+        "OldControllerJoined": true,
+        "RetiredBeforeHostAckRead": true,
+        "SamePeerVmCreation": true
+      },
+      "Fatal": {
+        "Passed": true,
+        "OldPid": 311632,
+        "KillRequested": true,
+        "EntireOwnedTree": true,
+        "Family": [
+          {
+            "Pid": 311632,
+            "Executable": "erl.exe",
+            "StartedUtc": "2026-10-23T12:26:35.0294627Z",
+            "Settled": true
+          },
+          {
+            "Pid": 284872,
+            "Executable": "inet_gethost.exe",
+            "StartedUtc": "2026-10-23T12:26:38.735955Z",
+            "Settled": true
+          }
+        ],
+        "Operation": "deliberate scenario kill, not cleanup fallback"
+      },
+      "ActualOldExit": {
+        "ExpectedScenarioTermination": true,
+        "ForcedCleanup": false,
+        "Pid": 311632,
+        "ExitCode": 4294967295,
+        "ForcedTermination": false,
+        "Settled": true,
+        "Seconds": 6.657000000006519
+      },
+      "Restart": {
+        "Passed": true,
+        "OldPid": 311632,
+        "NewPid": 9172,
+        "OldCreation": 1792758396,
+        "NewCreation": 1792758397,
+        "OldConnection": 9666780,
+        "NewConnection": 9666781,
+        "OldReferenceCreation": 1792758396,
+        "OldReferenceWireUnchanged": true
+      },
+      "NativeCleanup": true
+    },
+    {
+      "Run": 2,
+      "Depth": 1,
+      "Order": "incoming",
+      "Rows": 50,
+      "Exact": 43,
+      "ProtocolOnly": 7,
+      "Simultaneous": {
+        "Passed": true,
+        "Order": "incoming",
+        "Managed": "ddll450a_managed1incoming@127.0.0.1",
+        "Peer": "ddll450z_peer1incoming@127.0.0.1",
+        "OriginalStatus": "nok",
+        "IncomingSelected": true,
+        "ActualOriginalConnect": true,
+        "LoserAdopted": false
+      },
+      "ListenerCreation": 1792758406,
+      "Channels": [
+        {
+          "Directory": "simultaneous-incoming",
+          "Authentication": {
+            "Authenticated": true,
+            "Local": "ddll450a_managed1incoming@127.0.0.1",
+            "Remote": "ddll450z_peer1incoming@127.0.0.1",
+            "LocalCreation": 1792758406,
+            "RemoteCreation": 1792758402,
+            "Flags": 17297788821,
+            "ChallengeReplyVerified": true,
+            "AckSent": true,
+            "Packet2Then4": true,
+            "Incoming": true
+          },
+          "Incoming": 11,
+          "Outgoing": 9,
+          "ConnectionId": 10901184
+        },
+        {
+          "Directory": "alive-handoff",
+          "Authentication": {
+            "Authenticated": true,
+            "Local": "ddll450a_managed1incoming@127.0.0.1",
+            "Remote": "ddll450z_peer1incoming@127.0.0.1",
+            "LocalCreation": 1792758406,
+            "RemoteCreation": 1792758402,
+            "Flags": 17297788821,
+            "ChallengeAckVerified": true,
+            "OriginalStatus": "alive",
+            "Incoming": false,
+            "Packet2Then4": true,
+            "OldControllerRetiredBeforeHostAckRead": true
+          },
+          "Incoming": 6,
+          "Outgoing": 4,
+          "ConnectionId": 10901185
+        },
+        {
+          "Directory": "connection2",
+          "Authentication": {
+            "Authenticated": true,
+            "Local": "ddll450a_managed1incoming@127.0.0.1",
+            "Remote": "ddll450z_peer1incoming@127.0.0.1",
+            "LocalCreation": 1792758406,
+            "RemoteCreation": 1792758403,
+            "Flags": 17297788821,
+            "ChallengeReplyVerified": true,
+            "AckSent": true,
+            "Packet2Then4": true,
+            "Incoming": true
+          },
+          "Incoming": 12,
+          "Outgoing": 10,
+          "ConnectionId": 10901186
+        }
+      ],
+      "OriginalControllerBefore": {
+        "Kind": "PortTerm",
+        "Node": "ddll450z_peer1incoming@127.0.0.1",
+        "Id": "9",
+        "Creation": 1792758402
+      },
+      "OriginalControllerAfter": {
+        "Kind": "PortTerm",
+        "Node": "ddll450z_peer1incoming@127.0.0.1",
+        "Id": "15",
+        "Creation": 1792758402
+      },
+      "Handoff": {
+        "Passed": true,
+        "Old": {
+          "Node": {
+            "Name": "ddll450z_peer1incoming@127.0.0.1"
+          },
+          "ConnectionId": 10901184,
+          "Flags": 17297788821,
+          "RemoteCreation": 1792758402,
+          "Controller": {
+            "Node": "ddll450a_managed1incoming@127.0.0.1",
+            "Id": 4,
+            "Creation": 1792758406
+          },
+          "InputHandler": {
+            "Node": "ddll450a_managed1incoming@127.0.0.1",
+            "Id": 4,
+            "Creation": 1792758406
+          },
+          "GetSize": false,
+          "NotificationArmed": false,
+          "AcceptedInputPackets": 9,
+          "ConsumedOutputPackets": 7,
+          "QueuedPacketBytes": 0,
+          "QueuedPackets": 0,
+          "QueuedSegments": 0,
+          "RawInputAttempts": 9
+        },
+        "Current": {
+          "Node": {
+            "Name": "ddll450z_peer1incoming@127.0.0.1"
+          },
+          "ConnectionId": 10901185,
+          "Flags": 17297788821,
+          "RemoteCreation": 1792758402,
+          "Controller": {
+            "Node": "ddll450a_managed1incoming@127.0.0.1",
+            "Id": 5,
+            "Creation": 1792758406
+          },
+          "InputHandler": {
+            "Node": "ddll450a_managed1incoming@127.0.0.1",
+            "Id": 5,
+            "Creation": 1792758406
+          },
+          "GetSize": false,
+          "NotificationArmed": false,
+          "AcceptedInputPackets": 0,
+          "ConsumedOutputPackets": 0,
+          "QueuedPacketBytes": 0,
+          "QueuedPackets": 0,
+          "QueuedSegments": 0,
+          "RawInputAttempts": 0
+        },
+        "OldControllerJoined": true,
+        "RetiredBeforeHostAckRead": true,
+        "SamePeerVmCreation": true
+      },
+      "Fatal": {
+        "Passed": true,
+        "OldPid": 342712,
+        "KillRequested": true,
+        "EntireOwnedTree": true,
+        "Family": [
+          {
+            "Pid": 342712,
+            "Executable": "erl.exe",
+            "StartedUtc": "2026-10-23T12:26:41.8444957Z",
+            "Settled": true
+          },
+          {
+            "Pid": 23548,
+            "Executable": "inet_gethost.exe",
+            "StartedUtc": "2026-10-23T12:26:45.5736238Z",
+            "Settled": true
+          }
+        ],
+        "Operation": "deliberate scenario kill, not cleanup fallback"
+      },
+      "ActualOldExit": {
+        "ExpectedScenarioTermination": true,
+        "ForcedCleanup": false,
+        "Pid": 342712,
+        "ExitCode": 4294967295,
+        "ForcedTermination": false,
+        "Settled": true,
+        "Seconds": 6.077999999979511
+      },
+      "Restart": {
+        "Passed": true,
+        "OldPid": 342712,
+        "NewPid": 324316,
+        "OldCreation": 1792758402,
+        "NewCreation": 1792758403,
+        "OldConnection": 10901185,
+        "NewConnection": 10901186,
+        "OldReferenceCreation": 1792758402,
+        "OldReferenceWireUnchanged": true
+      },
+      "NativeCleanup": true
+    },
+    {
+      "Run": 2,
+      "Depth": 1,
+      "Order": "outgoing",
+      "Rows": 50,
+      "Exact": 43,
+      "ProtocolOnly": 7,
+      "Simultaneous": {
+        "Passed": true,
+        "Order": "outgoing",
+        "Managed": "ddll450z_managed1outgoing@127.0.0.1",
+        "Peer": "ddll450a_peer1outgoing@127.0.0.1",
+        "OriginalStatus": "ok_simultaneous",
+        "IncomingSelected": false,
+        "ActualOriginalConnect": true,
+        "LoserAdopted": false
+      },
+      "ListenerCreation": 1792758412,
+      "Channels": [
+        {
+          "Directory": "simultaneous-outgoing",
+          "Authentication": {
+            "Authenticated": true,
+            "Local": "ddll450z_managed1outgoing@127.0.0.1",
+            "Remote": "ddll450a_peer1outgoing@127.0.0.1",
+            "LocalCreation": 1792758412,
+            "RemoteCreation": 1792758409,
+            "Flags": 17297788821,
+            "ChallengeAckVerified": true,
+            "OriginalStatus": "ok_simultaneous",
+            "Incoming": false,
+            "Packet2Then4": true,
+            "OldControllerRetiredBeforeHostAckRead": false
+          },
+          "Incoming": 11,
+          "Outgoing": 9,
+          "ConnectionId": 7434067
+        },
+        {
+          "Directory": "alive-handoff",
+          "Authentication": {
+            "Authenticated": true,
+            "Local": "ddll450z_managed1outgoing@127.0.0.1",
+            "Remote": "ddll450a_peer1outgoing@127.0.0.1",
+            "LocalCreation": 1792758412,
+            "RemoteCreation": 1792758409,
+            "Flags": 17297788821,
+            "ChallengeAckVerified": true,
+            "OriginalStatus": "alive",
+            "Incoming": false,
+            "Packet2Then4": true,
+            "OldControllerRetiredBeforeHostAckRead": true
+          },
+          "Incoming": 6,
+          "Outgoing": 4,
+          "ConnectionId": 7434068
+        },
+        {
+          "Directory": "connection2",
+          "Authentication": {
+            "Authenticated": true,
+            "Local": "ddll450z_managed1outgoing@127.0.0.1",
+            "Remote": "ddll450a_peer1outgoing@127.0.0.1",
+            "LocalCreation": 1792758412,
+            "RemoteCreation": 1792758410,
+            "Flags": 17297788821,
+            "ChallengeReplyVerified": true,
+            "AckSent": true,
+            "Packet2Then4": true,
+            "Incoming": true
+          },
+          "Incoming": 12,
+          "Outgoing": 10,
+          "ConnectionId": 7434069
+        }
+      ],
+      "OriginalControllerBefore": {
+        "Kind": "PortTerm",
+        "Node": "ddll450a_peer1outgoing@127.0.0.1",
+        "Id": "10",
+        "Creation": 1792758409
+      },
+      "OriginalControllerAfter": {
+        "Kind": "PortTerm",
+        "Node": "ddll450a_peer1outgoing@127.0.0.1",
+        "Id": "15",
+        "Creation": 1792758409
+      },
+      "Handoff": {
+        "Passed": true,
+        "Old": {
+          "Node": {
+            "Name": "ddll450a_peer1outgoing@127.0.0.1"
+          },
+          "ConnectionId": 7434067,
+          "Flags": 17297788821,
+          "RemoteCreation": 1792758409,
+          "Controller": {
+            "Node": "ddll450z_managed1outgoing@127.0.0.1",
+            "Id": 4,
+            "Creation": 1792758412
+          },
+          "InputHandler": {
+            "Node": "ddll450z_managed1outgoing@127.0.0.1",
+            "Id": 4,
+            "Creation": 1792758412
+          },
+          "GetSize": false,
+          "NotificationArmed": false,
+          "AcceptedInputPackets": 9,
+          "ConsumedOutputPackets": 7,
+          "QueuedPacketBytes": 0,
+          "QueuedPackets": 0,
+          "QueuedSegments": 0,
+          "RawInputAttempts": 9
+        },
+        "Current": {
+          "Node": {
+            "Name": "ddll450a_peer1outgoing@127.0.0.1"
+          },
+          "ConnectionId": 7434068,
+          "Flags": 17297788821,
+          "RemoteCreation": 1792758409,
+          "Controller": {
+            "Node": "ddll450z_managed1outgoing@127.0.0.1",
+            "Id": 5,
+            "Creation": 1792758412
+          },
+          "InputHandler": {
+            "Node": "ddll450z_managed1outgoing@127.0.0.1",
+            "Id": 5,
+            "Creation": 1792758412
+          },
+          "GetSize": false,
+          "NotificationArmed": false,
+          "AcceptedInputPackets": 0,
+          "ConsumedOutputPackets": 0,
+          "QueuedPacketBytes": 0,
+          "QueuedPackets": 0,
+          "QueuedSegments": 0,
+          "RawInputAttempts": 0
+        },
+        "OldControllerJoined": true,
+        "RetiredBeforeHostAckRead": true,
+        "SamePeerVmCreation": true
+      },
+      "Fatal": {
+        "Passed": true,
+        "OldPid": 341692,
+        "KillRequested": true,
+        "EntireOwnedTree": true,
+        "Family": [
+          {
+            "Pid": 341692,
+            "Executable": "erl.exe",
+            "StartedUtc": "2026-10-23T12:26:48.1374886Z",
+            "Settled": true
+          },
+          {
+            "Pid": 40328,
+            "Executable": "inet_gethost.exe",
+            "StartedUtc": "2026-10-23T12:26:51.9359264Z",
+            "Settled": true
+          }
+        ],
+        "Operation": "deliberate scenario kill, not cleanup fallback"
+      },
+      "ActualOldExit": {
+        "ExpectedScenarioTermination": true,
+        "ForcedCleanup": false,
+        "Pid": 341692,
+        "ExitCode": 4294967295,
+        "ForcedTermination": false,
+        "Settled": true,
+        "Seconds": 5.75
+      },
+      "Restart": {
+        "Passed": true,
+        "OldPid": 341692,
+        "NewPid": 264080,
+        "OldCreation": 1792758409,
+        "NewCreation": 1792758410,
+        "OldConnection": 7434068,
+        "NewConnection": 7434069,
+        "OldReferenceCreation": 1792758409,
+        "OldReferenceWireUnchanged": true
+      },
+      "NativeCleanup": true
+    },
+    {
+      "Run": 2,
+      "Depth": 2,
+      "Order": "incoming",
+      "Rows": 50,
+      "Exact": 43,
+      "ProtocolOnly": 7,
+      "Simultaneous": {
+        "Passed": true,
+        "Order": "incoming",
+        "Managed": "ddll450a_managed2incoming@127.0.0.1",
+        "Peer": "ddll450z_peer2incoming@127.0.0.1",
+        "OriginalStatus": "nok",
+        "IncomingSelected": true,
+        "ActualOriginalConnect": true,
+        "LoserAdopted": false
+      },
+      "ListenerCreation": 1792758418,
+      "Channels": [
+        {
+          "Directory": "simultaneous-incoming",
+          "Authentication": {
+            "Authenticated": true,
+            "Local": "ddll450a_managed2incoming@127.0.0.1",
+            "Remote": "ddll450z_peer2incoming@127.0.0.1",
+            "LocalCreation": 1792758418,
+            "RemoteCreation": 1792758415,
+            "Flags": 17297788821,
+            "ChallengeReplyVerified": true,
+            "AckSent": true,
+            "Packet2Then4": true,
+            "Incoming": true
+          },
+          "Incoming": 11,
+          "Outgoing": 9,
+          "ConnectionId": 15844826
+        },
+        {
+          "Directory": "alive-handoff",
+          "Authentication": {
+            "Authenticated": true,
+            "Local": "ddll450a_managed2incoming@127.0.0.1",
+            "Remote": "ddll450z_peer2incoming@127.0.0.1",
+            "LocalCreation": 1792758418,
+            "RemoteCreation": 1792758415,
+            "Flags": 17297788821,
+            "ChallengeAckVerified": true,
+            "OriginalStatus": "alive",
+            "Incoming": false,
+            "Packet2Then4": true,
+            "OldControllerRetiredBeforeHostAckRead": true
+          },
+          "Incoming": 6,
+          "Outgoing": 4,
+          "ConnectionId": 15844827
+        },
+        {
+          "Directory": "connection2",
+          "Authentication": {
+            "Authenticated": true,
+            "Local": "ddll450a_managed2incoming@127.0.0.1",
+            "Remote": "ddll450z_peer2incoming@127.0.0.1",
+            "LocalCreation": 1792758418,
+            "RemoteCreation": 1792758416,
+            "Flags": 17297788821,
+            "ChallengeReplyVerified": true,
+            "AckSent": true,
+            "Packet2Then4": true,
+            "Incoming": true
+          },
+          "Incoming": 12,
+          "Outgoing": 10,
+          "ConnectionId": 15844828
+        }
+      ],
+      "OriginalControllerBefore": {
+        "Kind": "PortTerm",
+        "Node": "ddll450z_peer2incoming@127.0.0.1",
+        "Id": "9",
+        "Creation": 1792758415
+      },
+      "OriginalControllerAfter": {
+        "Kind": "PortTerm",
+        "Node": "ddll450z_peer2incoming@127.0.0.1",
+        "Id": "15",
+        "Creation": 1792758415
+      },
+      "Handoff": {
+        "Passed": true,
+        "Old": {
+          "Node": {
+            "Name": "ddll450z_peer2incoming@127.0.0.1"
+          },
+          "ConnectionId": 15844826,
+          "Flags": 17297788821,
+          "RemoteCreation": 1792758415,
+          "Controller": {
+            "Node": "ddll450a_managed2incoming@127.0.0.1",
+            "Id": 4,
+            "Creation": 1792758418
+          },
+          "InputHandler": {
+            "Node": "ddll450a_managed2incoming@127.0.0.1",
+            "Id": 4,
+            "Creation": 1792758418
+          },
+          "GetSize": false,
+          "NotificationArmed": false,
+          "AcceptedInputPackets": 9,
+          "ConsumedOutputPackets": 7,
+          "QueuedPacketBytes": 0,
+          "QueuedPackets": 0,
+          "QueuedSegments": 0,
+          "RawInputAttempts": 9
+        },
+        "Current": {
+          "Node": {
+            "Name": "ddll450z_peer2incoming@127.0.0.1"
+          },
+          "ConnectionId": 15844827,
+          "Flags": 17297788821,
+          "RemoteCreation": 1792758415,
+          "Controller": {
+            "Node": "ddll450a_managed2incoming@127.0.0.1",
+            "Id": 5,
+            "Creation": 1792758418
+          },
+          "InputHandler": {
+            "Node": "ddll450a_managed2incoming@127.0.0.1",
+            "Id": 5,
+            "Creation": 1792758418
+          },
+          "GetSize": false,
+          "NotificationArmed": false,
+          "AcceptedInputPackets": 0,
+          "ConsumedOutputPackets": 0,
+          "QueuedPacketBytes": 0,
+          "QueuedPackets": 0,
+          "QueuedSegments": 0,
+          "RawInputAttempts": 0
+        },
+        "OldControllerJoined": true,
+        "RetiredBeforeHostAckRead": true,
+        "SamePeerVmCreation": true
+      },
+      "Fatal": {
+        "Passed": true,
+        "OldPid": 93748,
+        "KillRequested": true,
+        "EntireOwnedTree": true,
+        "Family": [
+          {
+            "Pid": 93748,
+            "Executable": "erl.exe",
+            "StartedUtc": "2026-10-23T12:26:54.1031748Z",
+            "Settled": true
+          },
+          {
+            "Pid": 336660,
+            "Executable": "inet_gethost.exe",
+            "StartedUtc": "2026-10-23T12:26:57.8099227Z",
+            "Settled": true
+          }
+        ],
+        "Operation": "deliberate scenario kill, not cleanup fallback"
+      },
+      "ActualOldExit": {
+        "ExpectedScenarioTermination": true,
+        "ForcedCleanup": false,
+        "Pid": 93748,
+        "ExitCode": 4294967295,
+        "ForcedTermination": false,
+        "Settled": true,
+        "Seconds": 7.64000000001397
+      },
+      "Restart": {
+        "Passed": true,
+        "OldPid": 93748,
+        "NewPid": 78036,
+        "OldCreation": 1792758415,
+        "NewCreation": 1792758416,
+        "OldConnection": 15844827,
+        "NewConnection": 15844828,
+        "OldReferenceCreation": 1792758415,
+        "OldReferenceWireUnchanged": true
+      },
+      "NativeCleanup": true
+    },
+    {
+      "Run": 2,
+      "Depth": 2,
+      "Order": "outgoing",
+      "Rows": 50,
+      "Exact": 43,
+      "ProtocolOnly": 7,
+      "Simultaneous": {
+        "Passed": true,
+        "Order": "outgoing",
+        "Managed": "ddll450z_managed2outgoing@127.0.0.1",
+        "Peer": "ddll450a_peer2outgoing@127.0.0.1",
+        "OriginalStatus": "ok_simultaneous",
+        "IncomingSelected": false,
+        "ActualOriginalConnect": true,
+        "LoserAdopted": false
+      },
+      "ListenerCreation": 1792758426,
+      "Channels": [
+        {
+          "Directory": "simultaneous-outgoing",
+          "Authentication": {
+            "Authenticated": true,
+            "Local": "ddll450z_managed2outgoing@127.0.0.1",
+            "Remote": "ddll450a_peer2outgoing@127.0.0.1",
+            "LocalCreation": 1792758426,
+            "RemoteCreation": 1792758423,
+            "Flags": 17297788821,
+            "ChallengeAckVerified": true,
+            "OriginalStatus": "ok_simultaneous",
+            "Incoming": false,
+            "Packet2Then4": true,
+            "OldControllerRetiredBeforeHostAckRead": false
+          },
+          "Incoming": 11,
+          "Outgoing": 9,
+          "ConnectionId": 12026741
+        },
+        {
+          "Directory": "alive-handoff",
+          "Authentication": {
+            "Authenticated": true,
+            "Local": "ddll450z_managed2outgoing@127.0.0.1",
+            "Remote": "ddll450a_peer2outgoing@127.0.0.1",
+            "LocalCreation": 1792758426,
+            "RemoteCreation": 1792758423,
+            "Flags": 17297788821,
+            "ChallengeAckVerified": true,
+            "OriginalStatus": "alive",
+            "Incoming": false,
+            "Packet2Then4": true,
+            "OldControllerRetiredBeforeHostAckRead": true
+          },
+          "Incoming": 6,
+          "Outgoing": 4,
+          "ConnectionId": 12026742
+        },
+        {
+          "Directory": "connection2",
+          "Authentication": {
+            "Authenticated": true,
+            "Local": "ddll450z_managed2outgoing@127.0.0.1",
+            "Remote": "ddll450a_peer2outgoing@127.0.0.1",
+            "LocalCreation": 1792758426,
+            "RemoteCreation": 1792758424,
+            "Flags": 17297788821,
+            "ChallengeReplyVerified": true,
+            "AckSent": true,
+            "Packet2Then4": true,
+            "Incoming": true
+          },
+          "Incoming": 12,
+          "Outgoing": 10,
+          "ConnectionId": 12026743
+        }
+      ],
+      "OriginalControllerBefore": {
+        "Kind": "PortTerm",
+        "Node": "ddll450a_peer2outgoing@127.0.0.1",
+        "Id": "10",
+        "Creation": 1792758423
+      },
+      "OriginalControllerAfter": {
+        "Kind": "PortTerm",
+        "Node": "ddll450a_peer2outgoing@127.0.0.1",
+        "Id": "15",
+        "Creation": 1792758423
+      },
+      "Handoff": {
+        "Passed": true,
+        "Old": {
+          "Node": {
+            "Name": "ddll450a_peer2outgoing@127.0.0.1"
+          },
+          "ConnectionId": 12026741,
+          "Flags": 17297788821,
+          "RemoteCreation": 1792758423,
+          "Controller": {
+            "Node": "ddll450z_managed2outgoing@127.0.0.1",
+            "Id": 4,
+            "Creation": 1792758426
+          },
+          "InputHandler": {
+            "Node": "ddll450z_managed2outgoing@127.0.0.1",
+            "Id": 4,
+            "Creation": 1792758426
+          },
+          "GetSize": false,
+          "NotificationArmed": false,
+          "AcceptedInputPackets": 9,
+          "ConsumedOutputPackets": 7,
+          "QueuedPacketBytes": 0,
+          "QueuedPackets": 0,
+          "QueuedSegments": 0,
+          "RawInputAttempts": 9
+        },
+        "Current": {
+          "Node": {
+            "Name": "ddll450a_peer2outgoing@127.0.0.1"
+          },
+          "ConnectionId": 12026742,
+          "Flags": 17297788821,
+          "RemoteCreation": 1792758423,
+          "Controller": {
+            "Node": "ddll450z_managed2outgoing@127.0.0.1",
+            "Id": 5,
+            "Creation": 1792758426
+          },
+          "InputHandler": {
+            "Node": "ddll450z_managed2outgoing@127.0.0.1",
+            "Id": 5,
+            "Creation": 1792758426
+          },
+          "GetSize": false,
+          "NotificationArmed": false,
+          "AcceptedInputPackets": 0,
+          "ConsumedOutputPackets": 0,
+          "QueuedPacketBytes": 0,
+          "QueuedPackets": 0,
+          "QueuedSegments": 0,
+          "RawInputAttempts": 0
+        },
+        "OldControllerJoined": true,
+        "RetiredBeforeHostAckRead": true,
+        "SamePeerVmCreation": true
+      },
+      "Fatal": {
+        "Passed": true,
+        "OldPid": 28328,
+        "KillRequested": true,
+        "EntireOwnedTree": true,
+        "Family": [
+          {
+            "Pid": 28328,
+            "Executable": "erl.exe",
+            "StartedUtc": "2026-10-23T12:27:01.9564386Z",
+            "Settled": true
+          },
+          {
+            "Pid": 345388,
+            "Executable": "inet_gethost.exe",
+            "StartedUtc": "2026-10-23T12:27:05.8170144Z",
+            "Settled": true
+          }
+        ],
+        "Operation": "deliberate scenario kill, not cleanup fallback"
+      },
+      "ActualOldExit": {
+        "ExpectedScenarioTermination": true,
+        "ForcedCleanup": false,
+        "Pid": 28328,
+        "ExitCode": 4294967295,
+        "ForcedTermination": false,
+        "Settled": true,
+        "Seconds": 6.375
+      },
+      "Restart": {
+        "Passed": true,
+        "OldPid": 28328,
+        "NewPid": 281688,
+        "OldCreation": 1792758423,
+        "NewCreation": 1792758424,
+        "OldConnection": 12026742,
+        "NewConnection": 12026743,
+        "OldReferenceCreation": 1792758423,
+        "OldReferenceWireUnchanged": true
+      },
+      "NativeCleanup": true
+    }
+  ],
+  "InputFreezes": [
+    {
+      "Run": 1,
+      "Bindings": 2695,
+      "Mismatch": 0,
+      "RuntimeSha256": "6B102A987BFCE92CB494E608A190F947E2D4DEB978F2851D289AEFE5B513AE0C",
+      "Provider6427EqualBeforeAfter": true,
+      "EpmdNormal": true
+    },
+    {
+      "Run": 2,
+      "Bindings": 2695,
+      "Mismatch": 0,
+      "RuntimeSha256": "6B102A987BFCE92CB494E608A190F947E2D4DEB978F2851D289AEFE5B513AE0C",
+      "Provider6427EqualBeforeAfter": true,
+      "EpmdNormal": true
+    }
+  ]
+}

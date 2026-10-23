@@ -1,0 +1,61 @@
+{"Partial":true,"SelectedCount":20,"TotalCount":8826}
+[spawn_b@localhost]
+CONNECTED_RPC_RAW_PACKET spawn_a@localhost cINoBmEdWgADdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAQAAAACAAAAAAAAAABYdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAMAAAAAAAAABFh3EXNwYXduX2FAbG9jYWxob3N0AAAAAAAAAAAAAAAEaAN3BGVycGN3DGV4ZWN1dGVfY2FsbGEEbAAAAAF3B21vbml0b3Jqg2wAAAAEWgADdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAQAAAABAAAAAAAAAAB3BmVybGFuZ3cMcHJvY2Vzc19pbmZvbAAAAAJYdxFzcGF3bl9iQGxvY2FsaG9zdAAAAAMAAAAAAAAABGgCdwpkaWN0aW9uYXJ5dw4kcHJvY2Vzc19sYWJlbGpq
+CONNECTED_RPC_CONTROL {29,#Ref<spawn_a@localhost.2.4>,<spawn_a@localhost.3.4>,<spawn_a@localhost.0.4>,{erpc,execute_call,4},[monitor]}
+CONNECTED_RPC_CONNECTION DistributionConnectedSnapshot { Node = spawn_b@localhost, ConnectionId = 11413293, Flags = 55885369277, RemoteCreation = 4, Controller = <spawn_a@localhost.2.4>, InputHandler = <spawn_a@localhost.2.4>, GetSize = False, NotificationArmed = False, AcceptedInputPackets = 0, ConsumedOutputPackets = 1, QueuedPacketBytes = 0, QueuedPackets = 0, QueuedSegments = 0, RawInputAttempts = 0 }
+CONNECTED_RPC_RAW_PACKET spawn_b@localhost cINoBWEfWgADdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAQAAAACAAAAAAAAAABYdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAMAAAAAAAAABGECWHcRc3Bhd25fYkBsb2NhbGhvc3QAAAAEAAAAAAAAAAQ=
+CONNECTED_RPC_RAW_PACKET spawn_b@localhost cINoBWEVWHcRc3Bhd25fYkBsb2NhbGhvc3QAAAAEAAAAAAAAAARYdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAMAAAAAAAAABFoAA3cRc3Bhd25fYUBsb2NhbGhvc3QAAAAEAAAAAgAAAAAAAAAAaANaAAN3EXNwYXduX2FAbG9jYWxob3N0AAAABAAAAAEAAAAAAAAAAHcGcmV0dXJuaAJoAncKZGljdGlvbmFyeXcOJHByb2Nlc3NfbGFiZWx0AAAAAXcPcnBjX3VzZXJfcmVhc29uaAJtAAAAAwD/gGL4pDLr
+CONNECTED_RPC_RAW_PACKET spawn_a@localhost cINoBmEdWgADdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAQAAAAEAAAAAAAAAABYdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAMAAAAAAAAABFh3EXNwYXduX2FAbG9jYWxob3N0AAAAAAAAAAAAAAAEaAN3BGVycGN3DGV4ZWN1dGVfY2FsbGEEbAAAAAF3B21vbml0b3Jqg2wAAAAEWgADdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAQAAAADAAAAAAAAAAB3BmVybGFuZ3cMcHJvY2Vzc19pbmZvbAAAAAJYdxFzcGF3bl9iQGxvY2FsaG9zdAAAAAMAAAAAAAAABGgCdwpkaWN0aW9uYXJ5dw4kcHJvY2Vzc19sYWJlbGpq
+CONNECTED_RPC_CONTROL {29,#Ref<spawn_a@localhost.4.4>,<spawn_a@localhost.3.4>,<spawn_a@localhost.0.4>,{erpc,execute_call,4},[monitor]}
+CONNECTED_RPC_CONNECTION DistributionConnectedSnapshot { Node = spawn_b@localhost, ConnectionId = 11413293, Flags = 55885369277, RemoteCreation = 4, Controller = <spawn_a@localhost.2.4>, InputHandler = <spawn_a@localhost.2.4>, GetSize = False, NotificationArmed = False, AcceptedInputPackets = 2, ConsumedOutputPackets = 2, QueuedPacketBytes = 0, QueuedPackets = 0, QueuedSegments = 0, RawInputAttempts = 2 }
+CONNECTED_RPC_RAW_PACKET spawn_b@localhost cINoBWEfWgADdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAQAAAAEAAAAAAAAAABYdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAMAAAAAAAAABGECWHcRc3Bhd25fYkBsb2NhbGhvc3QAAAAFAAAAAAAAAAQ=
+CONNECTED_RPC_RAW_PACKET spawn_b@localhost cINoBWEVWHcRc3Bhd25fYkBsb2NhbGhvc3QAAAAFAAAAAAAAAARYdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAMAAAAAAAAABFoAA3cRc3Bhd25fYUBsb2NhbGhvc3QAAAAEAAAABAAAAAAAAAAAaANaAAN3EXNwYXduX2FAbG9jYWxob3N0AAAABAAAAAMAAAAAAAAAAHcGcmV0dXJudwl1bmRlZmluZWQ=
+PASS runtime/connected-rpc-connected-label-lifecycle
+PASS runtime/connected-rpc-queued-down-before-zero-wait
+PASS runtime/connected-rpc-timeout-loses-to-admitted-down
+CONNECTED_RPC_RAW_PACKET SpawnFun cINoBmEdWgADdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAQAAAABAAAAAAAAAABYdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAMAAAAAAAAABFh3EXNwYXduX2FAbG9jYWxob3N0AAAAAAAAAAAAAAAEaAN3CHByb2NfbGlidwZpbml0X3BhA2qDbAAAAAN3GWNvbm5lY3RlZF9wcm9jX2xpYl9wYXJlbnRsAAAAAXcXY29ubmVjdGVkX3Byb2NfbGliX3Jvb3RqcXccY29ubmVjdGVkX3Byb2NfbGliX25vZGVfaG9zdHcFY2hpbGRhAGo=
+CONNECTED_RPC_CONTROL {29,#Ref<spawn_a@localhost.1.4>,<spawn_a@localhost.3.4>,<spawn_a@localhost.0.4>,{proc_lib,init_p,3},[]}
+CONNECTED_RPC_CONNECTION DistributionConnectedSnapshot { Node = spawn_b@localhost, ConnectionId = 13417409, Flags = 55885369276, RemoteCreation = 4, Controller = <spawn_a@localhost.2.4>, InputHandler = <spawn_a@localhost.2.4>, GetSize = False, NotificationArmed = False, AcceptedInputPackets = 0, ConsumedOutputPackets = 1, QueuedPacketBytes = 0, QueuedPackets = 0, QueuedSegments = 0, RawInputAttempts = 0 }
+CONNECTED_RPC_RAW_PACKET spawn_b@localhost cINoBWEfWgADdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAQAAAABAAAAAAAAAABYdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAMAAAAAAAAABGEAWHcRc3Bhd25fYkBsb2NhbGhvc3QAAAADAAAAAAAAAAQ=
+PASS runtime/connected-proc-lib-node-spawnfun
+CONNECTED_RPC_RAW_PACKET SpawnMfa cINoBmEdWgADdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAQAAAABAAAAAAAAAABYdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAMAAAAAAAAABFh3EXNwYXduX2FAbG9jYWxob3N0AAAAAAAAAAAAAAAEaAN3CHByb2NfbGlidwZpbml0X3BhBWqDbAAAAAV3GWNvbm5lY3RlZF9wcm9jX2xpYl9wYXJlbnRsAAAAAXcXY29ubmVjdGVkX3Byb2NfbGliX3Jvb3Rqdxxjb25uZWN0ZWRfcHJvY19saWJfbm9kZV9ob3N0dwVjaGlsZGpq
+CONNECTED_RPC_CONTROL {29,#Ref<spawn_a@localhost.1.4>,<spawn_a@localhost.3.4>,<spawn_a@localhost.0.4>,{proc_lib,init_p,5},[]}
+CONNECTED_RPC_CONNECTION DistributionConnectedSnapshot { Node = spawn_b@localhost, ConnectionId = 13824121, Flags = 55885369276, RemoteCreation = 4, Controller = <spawn_a@localhost.2.4>, InputHandler = <spawn_a@localhost.2.4>, GetSize = False, NotificationArmed = False, AcceptedInputPackets = 0, ConsumedOutputPackets = 1, QueuedPacketBytes = 0, QueuedPackets = 0, QueuedSegments = 0, RawInputAttempts = 0 }
+CONNECTED_RPC_RAW_PACKET spawn_b@localhost cINoBWEfWgADdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAQAAAABAAAAAAAAAABYdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAMAAAAAAAAABGEAWHcRc3Bhd25fYkBsb2NhbGhvc3QAAAADAAAAAAAAAAQ=
+PASS runtime/connected-proc-lib-node-spawnmfa
+CONNECTED_RPC_RAW_PACKET SpawnLinkFun cINoBmEdWgADdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAQAAAABAAAAAAAAAABYdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAMAAAAAAAAABFh3EXNwYXduX2FAbG9jYWxob3N0AAAAAAAAAAAAAAAEaAN3CHByb2NfbGlidwZpbml0X3BhA2wAAAABdwRsaW5raoNsAAAAA3cZY29ubmVjdGVkX3Byb2NfbGliX3BhcmVudGwAAAABdxdjb25uZWN0ZWRfcHJvY19saWJfcm9vdGpxdxxjb25uZWN0ZWRfcHJvY19saWJfbm9kZV9ob3N0dwVjaGlsZGEAag==
+CONNECTED_RPC_CONTROL {29,#Ref<spawn_a@localhost.1.4>,<spawn_a@localhost.3.4>,<spawn_a@localhost.0.4>,{proc_lib,init_p,3},[link]}
+CONNECTED_RPC_CONNECTION DistributionConnectedSnapshot { Node = spawn_b@localhost, ConnectionId = 14028241, Flags = 55885369276, RemoteCreation = 4, Controller = <spawn_a@localhost.2.4>, InputHandler = <spawn_a@localhost.2.4>, GetSize = False, NotificationArmed = False, AcceptedInputPackets = 0, ConsumedOutputPackets = 1, QueuedPacketBytes = 0, QueuedPackets = 0, QueuedSegments = 0, RawInputAttempts = 0 }
+CONNECTED_RPC_RAW_PACKET spawn_b@localhost cINoBWEfWgADdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAQAAAABAAAAAAAAAABYdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAMAAAAAAAAABGEBWHcRc3Bhd25fYkBsb2NhbGhvc3QAAAADAAAAAAAAAAQ=
+CONNECTED_RPC_RAW_PACKET spawn_b@localhost cINoBGEDWHcRc3Bhd25fYkBsb2NhbGhvc3QAAAADAAAAAAAAAARYdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAMAAAAAAAAABHcGbm9ybWFs
+PASS runtime/connected-proc-lib-node-spawnlinkfun
+CONNECTED_RPC_RAW_PACKET SpawnLinkMfa cINoBmEdWgADdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAQAAAABAAAAAAAAAABYdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAMAAAAAAAAABFh3EXNwYXduX2FAbG9jYWxob3N0AAAAAAAAAAAAAAAEaAN3CHByb2NfbGlidwZpbml0X3BhBWwAAAABdwRsaW5raoNsAAAABXcZY29ubmVjdGVkX3Byb2NfbGliX3BhcmVudGwAAAABdxdjb25uZWN0ZWRfcHJvY19saWJfcm9vdGp3HGNvbm5lY3RlZF9wcm9jX2xpYl9ub2RlX2hvc3R3BWNoaWxkamo=
+CONNECTED_RPC_CONTROL {29,#Ref<spawn_a@localhost.1.4>,<spawn_a@localhost.3.4>,<spawn_a@localhost.0.4>,{proc_lib,init_p,5},[link]}
+CONNECTED_RPC_CONNECTION DistributionConnectedSnapshot { Node = spawn_b@localhost, ConnectionId = 14325978, Flags = 55885369276, RemoteCreation = 4, Controller = <spawn_a@localhost.2.4>, InputHandler = <spawn_a@localhost.2.4>, GetSize = False, NotificationArmed = False, AcceptedInputPackets = 0, ConsumedOutputPackets = 1, QueuedPacketBytes = 0, QueuedPackets = 0, QueuedSegments = 0, RawInputAttempts = 0 }
+CONNECTED_RPC_RAW_PACKET spawn_b@localhost cINoBWEfWgADdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAQAAAABAAAAAAAAAABYdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAMAAAAAAAAABGEBWHcRc3Bhd25fYkBsb2NhbGhvc3QAAAADAAAAAAAAAAQ=
+CONNECTED_RPC_RAW_PACKET spawn_b@localhost cINoBGEDWHcRc3Bhd25fYkBsb2NhbGhvc3QAAAADAAAAAAAAAARYdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAMAAAAAAAAABHcGbm9ybWFs
+PASS runtime/connected-proc-lib-node-spawnlinkmfa
+CONNECTED_RPC_RAW_PACKET SpawnOptFun cINoBmEdWgADdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAQAAAABAAAAAAAAAABYdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAMAAAAAAAAABFh3EXNwYXduX2FAbG9jYWxob3N0AAAAAAAAAAAAAAAEaAN3CHByb2NfbGlidwZpbml0X3BhA2wAAAABdwdtb25pdG9yaoNsAAAAA3cZY29ubmVjdGVkX3Byb2NfbGliX3BhcmVudGwAAAABdxdjb25uZWN0ZWRfcHJvY19saWJfcm9vdGpxdxxjb25uZWN0ZWRfcHJvY19saWJfbm9kZV9ob3N0dwVjaGlsZGEAag==
+CONNECTED_RPC_CONTROL {29,#Ref<spawn_a@localhost.1.4>,<spawn_a@localhost.3.4>,<spawn_a@localhost.0.4>,{proc_lib,init_p,3},[monitor]}
+CONNECTED_RPC_CONNECTION DistributionConnectedSnapshot { Node = spawn_b@localhost, ConnectionId = 14470855, Flags = 55885369276, RemoteCreation = 4, Controller = <spawn_a@localhost.2.4>, InputHandler = <spawn_a@localhost.2.4>, GetSize = False, NotificationArmed = False, AcceptedInputPackets = 0, ConsumedOutputPackets = 1, QueuedPacketBytes = 0, QueuedPackets = 0, QueuedSegments = 0, RawInputAttempts = 0 }
+CONNECTED_RPC_RAW_PACKET spawn_b@localhost cINoBWEfWgADdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAQAAAABAAAAAAAAAABYdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAMAAAAAAAAABGECWHcRc3Bhd25fYkBsb2NhbGhvc3QAAAADAAAAAAAAAAQ=
+CONNECTED_RPC_RAW_PACKET spawn_b@localhost cINoBWEVWHcRc3Bhd25fYkBsb2NhbGhvc3QAAAADAAAAAAAAAARYdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAMAAAAAAAAABFoAA3cRc3Bhd25fYUBsb2NhbGhvc3QAAAAEAAAAAQAAAAAAAAAAdwZub3JtYWw=
+PASS runtime/connected-proc-lib-node-spawnoptfun
+CONNECTED_RPC_RAW_PACKET SpawnOptMfa cINoBmEdWgADdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAQAAAABAAAAAAAAAABYdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAMAAAAAAAAABFh3EXNwYXduX2FAbG9jYWxob3N0AAAAAAAAAAAAAAAEaAN3CHByb2NfbGlidwZpbml0X3BhBWwAAAABdwdtb25pdG9yaoNsAAAABXcZY29ubmVjdGVkX3Byb2NfbGliX3BhcmVudGwAAAABdxdjb25uZWN0ZWRfcHJvY19saWJfcm9vdGp3HGNvbm5lY3RlZF9wcm9jX2xpYl9ub2RlX2hvc3R3BWNoaWxkamo=
+CONNECTED_RPC_CONTROL {29,#Ref<spawn_a@localhost.1.4>,<spawn_a@localhost.3.4>,<spawn_a@localhost.0.4>,{proc_lib,init_p,5},[monitor]}
+CONNECTED_RPC_CONNECTION DistributionConnectedSnapshot { Node = spawn_b@localhost, ConnectionId = 14774909, Flags = 55885369276, RemoteCreation = 4, Controller = <spawn_a@localhost.2.4>, InputHandler = <spawn_a@localhost.2.4>, GetSize = False, NotificationArmed = False, AcceptedInputPackets = 0, ConsumedOutputPackets = 1, QueuedPacketBytes = 0, QueuedPackets = 0, QueuedSegments = 0, RawInputAttempts = 0 }
+CONNECTED_RPC_RAW_PACKET spawn_b@localhost cINoBWEfWgADdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAQAAAABAAAAAAAAAABYdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAMAAAAAAAAABGECWHcRc3Bhd25fYkBsb2NhbGhvc3QAAAADAAAAAAAAAAQ=
+CONNECTED_RPC_RAW_PACKET spawn_b@localhost cINoBWEVWHcRc3Bhd25fYkBsb2NhbGhvc3QAAAADAAAAAAAAAARYdxFzcGF3bl9hQGxvY2FsaG9zdAAAAAMAAAAAAAAABFoAA3cRc3Bhd25fYUBsb2NhbGhvc3QAAAAEAAAAAQAAAAAAAAAAdwZub3JtYWw=
+PASS runtime/connected-proc-lib-node-spawnoptmfa
+PASS runtime/connected-nodes-real-connected-query
+PASS runtime/connected-native-three-monitor-alias-sequences
+PASS runtime/connected-native-legacy-traced-send3-noconnect
+PASS mfa/erlang:alias/0
+PASS mfa/erlang:alias/1
+PASS mfa/erlang:send/2
+PASS mfa/erlang:send/3
+PASS mfa/erlang:send_after/3
+PASS mfa/erlang:send_after/4
+PASS mfa/erlang:send_nosuspend/2
+PASS mfa/erlang:send_nosuspend/3
+20/20 passed
