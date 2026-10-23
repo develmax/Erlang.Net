@@ -399,9 +399,9 @@ public sealed partial class RuntimeDistributionPending
         ValidateEntry(entry, connectionId);
         _ = runtime.RequireDistributionKernel();
         if (entry.State != DistributionPendingState.Connected || entry.Connected is not { } connected ||
-            connected.Controller.DistributionRole != RuntimeDistributionRole.Controller)
+            (connected.NativePort457 is { } port ? !port.IsLive : connected.Controller?.DistributionRole != RuntimeDistributionRole.Controller))
             throw new InvalidOperationException(DistributionConnectedDiagnostics.Connected);
-        RequireProcess(connected.Controller);
+        if (connected.Controller is { } controller) RequireProcess(controller);
 
         return connected;
     }
@@ -435,8 +435,9 @@ public sealed partial class RuntimeDistributionPending
         // Reentrant internal signals must see a retired identity before any callbacks run.
         entry.Connected = null;
         entry.State = DistributionPendingState.Exiting;
-        connected.Controller.DistributionRole = RuntimeDistributionRole.None;
+        if (connected.Controller is { } controller) controller.DistributionRole = RuntimeDistributionRole.None;
         var failures = new List<Exception>();
+        RetireStep(() => connected.NativePort457?.Retire());
         RetireStep(connected.Output.Dispose);
         RetireStep(connected.Queue.Dispose);
         RetireStep(() => RetireControllerAdoptions(entry: entry));

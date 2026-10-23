@@ -81,6 +81,14 @@ internal sealed partial class ErlDriverHostEngine420
                     data = null;
                 }
                 break;
+            case ErlDriverHostOperation420.DistributionOutput457:
+                RequireMetadata(request, hasPort: true, hasActor: false);
+                if (!request.SchedulerThread || request.Data is null)
+                    throw new InvalidDataException(ErlDriverHostNames420.InvalidFrame);
+                var distributionPort = ResolveOrdinary(request);
+                await distributionPort.Construction455.ConfigureAwait(false);
+                distributionPort.OutputDistribution457(request.Data);
+                break;
             case ErlDriverHostOperation420.ClosePort:
                 RequireMetadata(request, hasPort: true, hasActor: false);
                 if (request.Data is not null || !request.SchedulerThread)

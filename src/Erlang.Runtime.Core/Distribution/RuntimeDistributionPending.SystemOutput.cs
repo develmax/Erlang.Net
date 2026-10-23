@@ -124,14 +124,14 @@ public sealed partial class RuntimeDistributionPending
                 return;
             // Cancel waiters before potentially throwing node-down callbacks. Never touch a replacement.
             connected.Output.Dispose();
-            exitingInputControllers.Add(connected.Controller);
+            if (connected.Controller is { } controller) exitingInputControllers.Add(controller);
             try
             {
                 RetirePending(entry);
             }
             finally
             {
-                runtime.QueueDistributionControllerKill(connected.Controller);
+                if (connected.Controller is { } failedController) runtime.QueueDistributionControllerKill(failedController);
             }
         }
     }

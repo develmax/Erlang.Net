@@ -4611,7 +4611,7 @@
       "Function": "statistics",
       "Arity": 1,
       "Status": "Known differences",
-      "Scope": "Wall-clock/runtime samples retain their current implementation. Valid pinned OTP garbage_collection queries are rejected with notsup by the managed physical-key gate: a concrete observable contract difference.",
+      "Scope": "Wall-clock/runtime samples retain their current implementation. Part457 accepts garbage_collection using actual process-global CLR collection counts and a non-forcing monotonic reclaimed-byte estimate expressed in host words. This supports original challenge generation; it is not ERTS per-process heap/native-word accounting or full statistics/1 compatibility.",
       "Evidence": [
         {
           "Kind": "SourceReview",
@@ -4639,7 +4639,7 @@
         }
       ],
       "Limits": [
-        "The valid garbage_collection key is explicitly rejected with notsup. Pinned OTP accepts this key and obtains GC statistics (or its internal undefined branch); the project has not implemented corresponding real GC accounting. Do not fabricate counter values or claim complete statistics/1 compatibility.",
+        "Part457 removes the garbage_collection notsup refusal and reports actual CLR counters/estimated reclamation without forcing collection. Exact ERTS collection/word accounting, complete physical keys and full statistics/1 compatibility remain unaccepted. Historical SourceReview receipts below preserve their original earlier refusal scope.",
         "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
         "Part357 adds real cooperative reductions/exact_reductions and nine dispatcher queue observations. Empty dirty aggregate entries represent no dirty backend; garbage_collection, native port task queues, scheduler wall time and complete native scheduling accounting remain incomplete."
       ]

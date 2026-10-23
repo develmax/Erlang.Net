@@ -28,6 +28,7 @@ internal sealed class NativeDriverPortRow422(
     internal ulong MessageHigh = options.MessageHighWatermark;
     internal DriverPortTurn422? Turn;
     internal Task NativeTurns = Task.CompletedTask;
+    internal NativeDistributionBinding457? Distribution457;
     internal bool Closing;
     internal bool StopRequested;
     internal Term Reason = Term.A(ProcessExitReasons.Normal);

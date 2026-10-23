@@ -78,8 +78,8 @@ public sealed partial class HostDistribution : IDisposable
 
             return new(
                 entry.Generation,
-                entry.Controller.Self,
-                entry.InputHandler,
+                entry.ControllerIdentity,
+                entry.InputHandler ?? (Term)Nil.Value,
                 entry.GetSize,
                 entry.NotificationArmed,
                 entry.InputPackets,
@@ -157,7 +157,7 @@ public sealed partial class HostDistribution : IDisposable
             if (!entry.NotificationArmed)
             {
                 if (entry.Output.Count != 0)
-                    notify = entry.Controller.Self;
+                    notify = entry.Controller?.Self;
                 else
                     entry.NotificationArmed = true;
             }
@@ -181,10 +181,11 @@ public sealed partial class HostDistribution : IDisposable
             entry.QueuedPayloadBytes += buffer.PayloadBytes;
             entry.QueuedAccountedBytes = accounted;
             entry.QueuedSegments += buffer.SegmentCount;
+            entry.NativePort457?.Wake();
             if (entry.NotificationArmed)
             {
                 entry.NotificationArmed = false;
-                notify = entry.Controller.Self;
+                notify = entry.Controller?.Self;
             }
         }
         Notify(notify);
@@ -218,21 +219,27 @@ public sealed partial class HostDistribution : IDisposable
         lock (gate)
         {
             var entry = RequireController(handle, caller);
-            getSize = entry.GetSize;
-            if (!entry.Output.TryPeek(out var buffer))
-                return null;
-            long count = checked(entry.OutputPackets + 1);
-            _ = entry.Output.Dequeue();
-            entry.QueuedPayloadBytes -= buffer.PayloadBytes;
-            entry.QueuedAccountedBytes -= buffer.AccountedBytes;
-            entry.QueuedSegments -= buffer.SegmentCount;
-            entry.OutputPackets = count;
-            var previous = entry.CapacityChanged;
-            entry.CapacityChanged = null;
-            previous?.TrySetResult();
 
-            return buffer;
+            return TakeBuffer457(entry, out getSize);
         }
+    }
+
+    private static HostDistributionBuffer? TakeBuffer457(HostDistributionEntry entry, out bool getSize)
+    {
+        getSize = entry.GetSize;
+        if (!entry.Output.TryPeek(out var buffer))
+            return null;
+        long count = checked(entry.OutputPackets + 1);
+        _ = entry.Output.Dequeue();
+        entry.QueuedPayloadBytes -= buffer.PayloadBytes;
+        entry.QueuedAccountedBytes -= buffer.AccountedBytes;
+        entry.QueuedSegments -= buffer.SegmentCount;
+        entry.OutputPackets = count;
+        var previous = entry.CapacityChanged;
+        entry.CapacityChanged = null;
+        previous?.TrySetResult();
+
+        return buffer;
     }
 
     public void Close(HostDistributionHandle handle)
@@ -264,7 +271,8 @@ public sealed partial class HostDistribution : IDisposable
         var entry = handle.Entry;
         if (closed || entry.Closed || !entries.TryGetValue(entry.Channel, out var current) || !ReferenceEquals(current, entry))
             throw new InvalidOperationException(HostDistributionDiagnostics.Closed);
-        RequireLive(entry.Controller);
+        if (entry.Controller is { } controller) RequireLive(controller);
+        else if (entry.NativePort457 is not { IsLive: true }) throw new InvalidOperationException(HostDistributionDiagnostics.Closed);
 
         return entry;
     }
@@ -296,7 +304,7 @@ public sealed partial class HostDistribution : IDisposable
     private void RemoveCompleted()
     {
         foreach (var entry in entries.Values.ToArray())
-            if (entry.Controller.Stop.IsCancellationRequested || entry.Controller.Done.Task.IsCompleted || !runtime.IsAlive(entry.Controller.Self))
+            if (entry.Controller is { } controller && (controller.Stop.IsCancellationRequested || controller.Done.Task.IsCompleted || !runtime.IsAlive(controller.Self)))
                 Retire(entry);
     }
 
@@ -320,8 +328,8 @@ public sealed partial class HostDistribution : IDisposable
         entry.QueuedSegments = 0;
         if (entries.TryGetValue(entry.Channel, out var current) && ReferenceEquals(current, entry))
             entries.Remove(entry.Channel);
-        if (controllers.TryGetValue(entry.Controller.Self, out current) && ReferenceEquals(current, entry))
-            controllers.Remove(entry.Controller.Self);
+        if (entry.Controller is { } controller && controllers.TryGetValue(controller.Self, out current) && ReferenceEquals(current, entry))
+            controllers.Remove(controller.Self);
     }
 
     private void Notify(Pid? controller)

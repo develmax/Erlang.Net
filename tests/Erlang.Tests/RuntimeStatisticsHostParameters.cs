@@ -12,7 +12,6 @@ internal static class RuntimeStatisticsHostParameters
     public static readonly string[] PhysicalKeys =
     [
         RuntimeStatisticsNames.ContextSwitches,
-        RuntimeStatisticsNames.GarbageCollection,
         RuntimeStatisticsNames.Io,
         RuntimeStatisticsNames.MicrostateAccounting,
         RuntimeStatisticsNames.SchedulerWallTime,

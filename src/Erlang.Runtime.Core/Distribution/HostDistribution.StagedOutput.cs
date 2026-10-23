@@ -54,13 +54,14 @@ public sealed partial class HostDistribution
             entry.QueuedPayloadBytes = queuedBytes;
             entry.QueuedAccountedBytes = accounted;
             entry.QueuedSegments = queuedSegments;
+            entry.NativePort457?.Wake();
             entry.StagedPayloadBytes = stagedBytes;
             entry.StagedAccountedBytes = stagedAccounted;
             entry.StagedSegments = stagedSegments;
             if (entry.NotificationArmed)
             {
                 entry.NotificationArmed = false;
-                notify = entry.Controller.Self;
+                notify = entry.Controller?.Self;
             }
         }
         Notify(notify);

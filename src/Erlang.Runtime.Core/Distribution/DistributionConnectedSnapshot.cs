@@ -5,7 +5,7 @@ public sealed record DistributionConnectedSnapshot(
     uint ConnectionId,
     ulong Flags,
     uint RemoteCreation,
-    Pid Controller,
+    Term Controller,
     Pid? InputHandler,
     bool GetSize,
     bool NotificationArmed,

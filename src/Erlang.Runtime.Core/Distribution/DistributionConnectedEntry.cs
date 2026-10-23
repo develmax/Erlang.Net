@@ -3,7 +3,7 @@ namespace Erlang;
 internal sealed class DistributionConnectedEntry(
     HostDistribution queue,
     HostDistributionHandle queueHandle,
-    ProcessContext controller,
+    ProcessContext? controller,
     ulong flags,
     uint remoteCreation
 )
@@ -13,7 +13,9 @@ internal sealed class DistributionConnectedEntry(
     internal Task SystemOutput { get; set; } = Task.CompletedTask;
 
     internal HostDistributionHandle QueueHandle { get; } = queueHandle;
-    internal ProcessContext Controller { get; } = controller;
+    internal ProcessContext? Controller { get; } = controller;
+    internal NativeDistributionBinding457? NativePort457 { get; init; }
+    internal Term ControllerIdentity => NativePort457 is { } port ? port.Identity : Controller!.Self;
     internal ulong Flags { get; } = flags;
     internal uint RemoteCreation { get; } = remoteCreation;
     internal Pid? InputHandler { get; set; }

@@ -31,5 +31,6 @@ internal enum ErlDriverHostOperation420
     ReserveChild455,
     CommitChild455,
     AbortChild455,
-    DecodeExternal455
+    DecodeExternal455,
+    DistributionOutput457
 }

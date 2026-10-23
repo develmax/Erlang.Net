@@ -130,7 +130,8 @@ public sealed partial class RuntimeDistributionPending
         DistributionConnectedEntry connected,
         uint connectionId
     ) => entry.ConnectionId == connectionId && entry.State == DistributionPendingState.Connected &&
-        ReferenceEquals(entry.Connected, connected) && runtime.IsOwnedLiveNodeProcess(connected.Controller);
+        ReferenceEquals(entry.Connected, connected) && (connected.NativePort457 is { } port
+            ? port.IsLive : connected.Controller is { } controller && runtime.IsOwnedLiveNodeProcess(controller));
 
 
 }

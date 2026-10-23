@@ -3,13 +3,15 @@ namespace Erlang;
 internal sealed class HostDistributionEntry(
     string channel,
     ulong generation,
-    ProcessContext controller
+    ProcessContext? controller
 )
 {
     internal string Channel { get; } = channel;
     internal ulong Generation { get; } = generation;
-    internal ProcessContext Controller { get; } = controller;
-    internal Pid InputHandler { get; set; } = controller.Self;
+    internal ProcessContext? Controller { get; } = controller;
+    internal NativeDistributionBinding457? NativePort457 { get; init; }
+    internal Term ControllerIdentity => NativePort457 is { } port ? port.Identity : Controller!.Self;
+    internal Pid? InputHandler { get; set; } = controller?.Self;
     internal TaskCompletionSource? CapacityChanged
     {
         get; set;

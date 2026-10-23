@@ -14,7 +14,7 @@ internal static class RuntimeStatisticsRegistrations
                 throw InvalidArguments(context, arguments);
             if (key.Name is RuntimeStatisticsNames.Reductions or RuntimeStatisticsNames.ExactReductions)
                 return ValueTask.FromResult(context.Runtime.Statistics.Sample(key.Name));
-            if (key.Name is RuntimeStatisticsNames.WallClock or RuntimeStatisticsNames.Runtime)
+            if (key.Name is RuntimeStatisticsNames.WallClock or RuntimeStatisticsNames.Runtime or RuntimeStatisticsNames.GarbageCollection)
             {
                 try
                 {

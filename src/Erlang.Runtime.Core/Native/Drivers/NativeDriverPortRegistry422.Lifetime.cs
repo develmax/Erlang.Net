@@ -150,8 +150,28 @@ internal sealed partial class NativeDriverPortRegistry422
         row.Writable.TrySetResult();
         try
         {
-            if (row.OpenSucceeded) runtime.PortRemoved(row.Identity, row.Links.ToArray(), row.Reason);
-            if (row.CleanupStatus != 0) throw new IOException(NativeDriverPortNames422.NativeCleanupFailed);
+            List<Exception>? failures = null;
+            // Dist retirement precedes linked-port notifications, but a failing
+            // callback cannot leave a physical row or its stop waiter stranded.
+            try
+            {
+                row.Distribution457?.PortStopped(row.Reason);
+            }
+            catch (Exception failure)
+            {
+                (failures ??= []).Add(failure);
+            }
+            try
+            {
+                if (row.OpenSucceeded) runtime.PortRemoved(row.Identity, row.Links.ToArray(), row.Reason);
+            }
+            catch (Exception failure)
+            {
+                (failures ??= []).Add(failure);
+            }
+            if (row.CleanupStatus != 0) (failures ??= []).Add(new IOException(NativeDriverPortNames422.NativeCleanupFailed));
+            if (failures is { Count: 1 }) throw failures[0];
+            if (failures is not null) throw new AggregateException(failures);
             row.Stopped.TrySetResult();
         }
         catch (Exception failure)

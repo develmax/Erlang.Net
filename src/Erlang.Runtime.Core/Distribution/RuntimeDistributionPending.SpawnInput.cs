@@ -85,7 +85,7 @@ public sealed partial class RuntimeDistributionPending
                     result,
                     replyToken.ToTerm()
                 ),
-            result as Pid ?? connected.Controller.Self
+            result as Pid ?? connected.Controller?.Self ?? runtime.RequireDistributionKernel().Self
         );
     }
 }

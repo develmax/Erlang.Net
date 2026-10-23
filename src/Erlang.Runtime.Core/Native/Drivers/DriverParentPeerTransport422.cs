@@ -4,7 +4,7 @@ namespace Erlang;
 // Native finish/unload uses the source non-scheduler role. Unrelated modules do
 // not gain a scheduler-thread bypass, and actor cancellation never abandons an
 // already accepted child response/created native owner.
-internal sealed class DriverParentPeerTransport422
+internal sealed partial class DriverParentPeerTransport422
 {
     private readonly ProcessRuntime runtime;
     private readonly ErlDriverHostPeer420 peer;
