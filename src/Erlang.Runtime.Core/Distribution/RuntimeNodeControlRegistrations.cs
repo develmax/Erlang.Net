@@ -78,7 +78,12 @@ internal static class RuntimeNodeControlRegistrations
         ))
             return Term.A(ErlangBooleanAtoms.True);
         if (!passive)
+        {
+            if (context.Runtime.DistributionPending.TryAutoMonitorNode460(context, node))
+                return Term.A(ErlangBooleanAtoms.True);
+
             return Down(context, node);
+        }
         while (true)
         {
             Term result = await RuntimeNodeKernelRequest.Call(context, Term.Tuple(Term.A(RuntimeNodeControlNames.PassiveRequest), node));
