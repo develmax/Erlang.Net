@@ -1,0 +1,125 @@
+{
+  "Passed": true,
+  "Rows": [
+    {
+      "Stage": "retained-fresh-original-and-managed-autoconnect-restart",
+      "Passed": true,
+      "ProviderBeforeAfterEqual": true
+    },
+    {
+      "Stage": "affected-and-style",
+      "Passed": true,
+      "Failure": null,
+      "ProviderBeforeAfterEqual": true
+    },
+    {
+      "Stage": "native-retained-both-bridges",
+      "Passed": true,
+      "Failure": null,
+      "ProviderBeforeAfterEqual": true
+    }
+  ],
+  "ProviderFiles": 6427,
+  "ProviderBeforeAfterEqual": true,
+  "RuntimeSha256": "FBAF5D859915C3D59FA185F47E47213374270BE63116413F86DD6868674F5FE6",
+  "Catalog": 8842,
+  "DefaultApis": 708,
+  "FullContracts": 118,
+  "SourceGuards": 1677,
+  "ApiDelta": 0,
+  "FullDelta": 0,
+  "InitialConnectedNodesAssertedEmpty": true,
+  "StrongerObserver": "artifacts/auto460-observer3/beam_kernel_peer458.erl",
+  "StrongerOriginal": "artifacts/auto460-original3",
+  "StrongerManaged": "artifacts/auto460-managed2",
+  "StrongerWholeComparisonPassed": true,
+  "FinalProviderFiles": 6427,
+  "FinalProviderInventoryEqual": true,
+  "RetainedAffected": 1555,
+  "UnchangedSuccessfulGatesReused": true,
+  "Part": 460,
+  "PinnedOtp": "OTP-29.1.1",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "WholeRoles": 10,
+  "PeerSession": {
+    "Passed": true,
+    "Mode": "managed",
+    "OriginalPeerNormal": true,
+    "Peers": [
+      {
+        "Index": 1,
+        "OsPid": 135852,
+        "ReadySha256": "0F680DFF817B284E6BE8EFB54FE0AFD177E2D5073AE32369A9EF632177EE4344"
+      },
+      {
+        "Index": 2,
+        "OsPid": 17948,
+        "ReadySha256": "FE3C3353955C9F83BAEFCBD781EE65FC355CF0C79AEC5A32435E382CCB82E664"
+      }
+    ],
+    "PeerExitCodes": [
+      0,
+      0
+    ],
+    "EpmdPort": 65281,
+    "EpmdPid": 154236,
+    "OwnedEpmdStopped": true
+  },
+  "OriginalNetworkSourceOwners": [
+    {
+      "Module": "net_kernel",
+      "Exports": 47,
+      "OriginalBeam": true,
+      "Md5": "5CE880E43831B6A54FD6464F4ADB801C"
+    },
+    {
+      "Module": "erl_epmd",
+      "Exports": 22,
+      "OriginalBeam": true,
+      "Md5": "D7BA487776A8E13E86D66464366594A0"
+    },
+    {
+      "Module": "inet_tcp_dist",
+      "Exports": 32,
+      "OriginalBeam": true,
+      "Md5": "ADA7E2E684744457A4E7CD71E63C9002"
+    },
+    {
+      "Module": "dist_util",
+      "Exports": 16,
+      "OriginalBeam": true,
+      "Md5": "454F1AA00B92EEED1E3562E882B89BD6"
+    },
+    {
+      "Module": "gen_tcp",
+      "Exports": 16,
+      "OriginalBeam": true,
+      "Md5": "799A83AC28D066C82EB249D6D51E8548"
+    },
+    {
+      "Module": "inet",
+      "Exports": 101,
+      "OriginalBeam": true,
+      "Md5": "4F27A519DE3B88AFBB8B06D784147B28"
+    },
+    {
+      "Module": "inet_tcp",
+      "Exports": 25,
+      "OriginalBeam": true,
+      "Md5": "ACD4215A51E0F17F2CC226A80EC0CBCA"
+    },
+    {
+      "Module": "prim_inet",
+      "Exports": 62,
+      "OriginalBeam": true,
+      "Md5": "D502BCFA45173C29F2FFCC39364866C8"
+    }
+  ],
+  "Platform": "Windows x64",
+  "NativeControlsPerBridge": 8,
+  "RetainedWholeRowsPerBridge": 36,
+  "AutomaticKernelProtocol": true,
+  "FirstConnectionHasExplicitConnect": false,
+  "MissingNodeRefusal": true,
+  "FullModuleCompatible": false
+}

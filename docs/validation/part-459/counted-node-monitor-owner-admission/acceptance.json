@@ -1,0 +1,129 @@
+{
+  "Passed": true,
+  "Rows": [
+    {
+      "Stage": "package",
+      "Passed": true,
+      "Failure": null,
+      "ProviderBeforeAfterEqual": true
+    },
+    {
+      "Stage": "compose",
+      "Passed": true,
+      "Failure": null,
+      "ProviderBeforeAfterEqual": true
+    },
+    {
+      "Stage": "retained-real-peer-restart",
+      "Passed": true,
+      "Failure": null,
+      "ProviderBeforeAfterEqual": true
+    },
+    {
+      "Stage": "affected-and-style",
+      "Passed": true,
+      "Failure": null,
+      "ProviderBeforeAfterEqual": true
+    },
+    {
+      "Stage": "native-retained-both-bridges",
+      "Passed": true,
+      "Failure": null,
+      "ProviderBeforeAfterEqual": true
+    }
+  ],
+  "ProviderFiles": 6427,
+  "ProviderBeforeAfterEqual": true,
+  "RuntimeSha256": "537F32D7DE71F4E895C054E5958A258BC0AE5D9BAE0EAC4EBF660C6296C14B3C",
+  "Catalog": 8841,
+  "DefaultApis": 708,
+  "FullContracts": 118,
+  "SourceGuards": 1676,
+  "ApiDelta": 0,
+  "FullDelta": 0,
+  "Part": 459,
+  "PinnedOtp": "OTP-29.1.1",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "WholeRoles": 10,
+  "PeerSession": {
+    "Passed": true,
+    "Mode": "managed",
+    "OriginalPeerNormal": true,
+    "Peers": [
+      {
+        "Index": 1,
+        "OsPid": 115840,
+        "ReadySha256": "270295D18517FDD7E3841917E99C39B715C1262781684D732523C5CDF0A84FE0"
+      },
+      {
+        "Index": 2,
+        "OsPid": 184152,
+        "ReadySha256": "23E58884C7D0F32891A496A3B6B36E87B817E79D8EEF76394642B8A920B6DF28"
+      }
+    ],
+    "PeerExitCodes": [
+      0,
+      0
+    ],
+    "EpmdPort": 52761,
+    "EpmdPid": 178064,
+    "OwnedEpmdStopped": true
+  },
+  "OriginalNetworkSourceOwners": [
+    {
+      "Module": "net_kernel",
+      "Exports": 47,
+      "OriginalBeam": true,
+      "Md5": "5CE880E43831B6A54FD6464F4ADB801C"
+    },
+    {
+      "Module": "erl_epmd",
+      "Exports": 22,
+      "OriginalBeam": true,
+      "Md5": "D7BA487776A8E13E86D66464366594A0"
+    },
+    {
+      "Module": "inet_tcp_dist",
+      "Exports": 32,
+      "OriginalBeam": true,
+      "Md5": "ADA7E2E684744457A4E7CD71E63C9002"
+    },
+    {
+      "Module": "dist_util",
+      "Exports": 16,
+      "OriginalBeam": true,
+      "Md5": "454F1AA00B92EEED1E3562E882B89BD6"
+    },
+    {
+      "Module": "gen_tcp",
+      "Exports": 16,
+      "OriginalBeam": true,
+      "Md5": "799A83AC28D066C82EB249D6D51E8548"
+    },
+    {
+      "Module": "inet",
+      "Exports": 101,
+      "OriginalBeam": true,
+      "Md5": "4F27A519DE3B88AFBB8B06D784147B28"
+    },
+    {
+      "Module": "inet_tcp",
+      "Exports": 25,
+      "OriginalBeam": true,
+      "Md5": "ACD4215A51E0F17F2CC226A80EC0CBCA"
+    },
+    {
+      "Module": "prim_inet",
+      "Exports": 62,
+      "OriginalBeam": true,
+      "Md5": "D502BCFA45173C29F2FFCC39364866C8"
+    }
+  ],
+  "Platform": "Windows x64",
+  "NativeControlsPerBridge": 8,
+  "RetainedWholeRowsPerBridge": 36,
+  "OriginalProfiles": 5,
+  "HostGenerationControls": 2,
+  "NativeGateSha256": "62857B8C5B541091FD46599E022200D719C43D6926B29D24849FF34565F28739",
+  "FullModuleCompatible": false
+}

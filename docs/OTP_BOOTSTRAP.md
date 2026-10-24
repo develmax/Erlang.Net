@@ -49,7 +49,7 @@ memory parity remain open. `system_info(debug_compiled)` describes our own
 build, not the original oracle's build.
 
 The executable host configuration is in
-`tests/Erlang.Tests/CodeServerRuntime410Checks.cs`; the source-owned boot fixture
+`tests/Erlang.Tests/Runtime/Modules/Loading/CodeServerRuntime410Checks.cs`; the source-owned boot fixture
 and whole-term/full-stack comparisons are in `CodeServerOriginal410*`. Test
 helpers used there are not public runtime APIs. Validation counts and retained
 failures are recorded in [the active changelog](changelog/0071.md).

@@ -106,22 +106,11 @@ public sealed partial class ProcessRuntime
 
     private void QueueConnectedMonitorDown(DistributionProcessMonitor monitor, Term watched, Term reason)
     {
-        if (monitor.SpawnOptions && monitors.TryGetValue(monitor.Reference, out var localOptions))
-        {
-            distributionProcessMonitors.Remove(monitor);
-            MonitorDown(
-                monitor.Local,
-                monitor.Reference,
-                localOptions,
-                reason
-            );
-
-            return;
-        }
+        ProcessMonitorEntry? localOptions = monitor.SpawnOptions ? monitors.GetValueOrDefault(monitor.Reference) : null;
         Term reported = watched is Atom name ? Term.Tuple(name, Term.A(monitor.Entry.Node.Name)) : watched;
         monitor.Local.Mailbox.SendPending(
             Term.Tuple(
-                Term.A(ProcessMessageTags.MonitorDown),
+                localOptions?.Tag ?? Term.A(ProcessMessageTags.MonitorDown),
                 monitor.Reference,
                 Term.A(ProcessMonitorKinds.Process),
                 reported,
@@ -134,7 +123,11 @@ public sealed partial class ProcessRuntime
                     if (!distributionProcessMonitors.Remove(monitor) || !IsOwnedLiveNodeProcess(monitor.Local))
                         return null;
 
-                    return false;
+                    if (localOptions is null) return false;
+                    if (!monitors.Remove(monitor.Reference)) return null;
+                    if (!localOptions.KeepAlias) aliases.Remove(monitor.Reference);
+
+                    return localOptions.Priority;
                 }
             },
             preserve: true,

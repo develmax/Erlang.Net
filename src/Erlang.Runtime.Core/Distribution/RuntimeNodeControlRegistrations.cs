@@ -68,10 +68,22 @@ internal static class RuntimeNodeControlRegistrations
                 ErlangErrorReasons.BadArgument,
                 false
             );
-        if (flag.Name == ErlangBooleanAtoms.False || node.Equals(context.Runtime.NodeAtom))
+        if (node.Equals(context.Runtime.NodeAtom))
+            return Term.A(ErlangBooleanAtoms.True);
+        if (context.Runtime.DistributionPending.TryMonitorNode458(
+            context,
+            node,
+            flag.Name == ErlangBooleanAtoms.True,
+            passive
+        ))
             return Term.A(ErlangBooleanAtoms.True);
         if (!passive)
+        {
+            if (context.Runtime.DistributionPending.TryAutoMonitorNode460(context, node))
+                return Term.A(ErlangBooleanAtoms.True);
+
             return Down(context, node);
+        }
         while (true)
         {
             Term result = await RuntimeNodeKernelRequest.Call(context, Term.Tuple(Term.A(RuntimeNodeControlNames.PassiveRequest), node));
@@ -79,6 +91,13 @@ internal static class RuntimeNodeControlRegistrations
                 return Down(context, node);
             if (result is not Atom { Name: ErlangBooleanAtoms.True })
                 throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.CaseClause), result));
+            if (context.Runtime.DistributionPending.TryMonitorNode458(
+                context,
+                node,
+                true,
+                passive
+            ))
+                return Term.A(ErlangBooleanAtoms.True);
             await context.ReduceAsync();
         }
     }

@@ -38,6 +38,12 @@ try {
         if ($LASTEXITCODE -ne 0) { throw "dotnet failed: $($Arguments -join ' ')" }
     }
     Invoke-DotNet @('build', '-m:1', '--nologo')
+    Invoke-DotNet @('run', '--project', 'tests/Erlang.Otp.Library.Tests', '--no-build')
+    foreach ($listsBackend in @('Managed', 'Beam')) {
+        foreach ($queueBackend in @('Managed', 'Beam')) {
+            Invoke-DotNet @('run', '--project', 'examples/HelloOtpLibraryReference', '--no-build', '--', $listsBackend, $queueBackend)
+        }
+    }
     Invoke-DotNet @('run', '--project', 'tools/Erlang.Style', '--no-build', '--', '--check', '.')
     Invoke-DotNet @('run', '--project', 'tools/Erlang.NifNativeBackend', '--no-build')
     if ($TestRuntimeVersion) {
@@ -75,6 +81,7 @@ try {
     if (-not $SkipPackage) {
         Invoke-DotNet @('pack', 'src/Erlang.CSharp.MSBuild', '-c', 'Debug', '-o', 'artifacts/packages', '-m:1', '--nologo')
         Invoke-DotNet @('pack', 'tools/Erlang.Tool', '-c', 'Debug', '-o', 'artifacts/packages', '-m:1', '--nologo')
+        & (Join-Path $PSScriptRoot 'validate-otp-library-package.ps1') -Feed (Join-Path $validationRoot 'artifacts/packages')
         $consumerRoot = Join-Path $validationRoot 'artifacts/package-consumer'
         New-Item -ItemType Directory -Path $consumerRoot -Force | Out-Null
         @'

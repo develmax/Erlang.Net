@@ -134,4 +134,6 @@ Append numbered English entries only to the last volume. Start the next sequenti
 
 - [0079.md](docs/changelog/0079.md) — parts447–452 (closed; native interoperability, identity and owner-race contracts)
 
-- [0080.md](docs/changelog/0080.md) — part453 onward (active; original named kernel boot and native prerequisites)
+- [0080.md](docs/changelog/0080.md) — parts453-458 (closed; original named kernel boot and native distribution)
+
+- [0081.md](docs/changelog/0081.md) — part459 onward (active; owner-admitted distribution signals)

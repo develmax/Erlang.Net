@@ -444,6 +444,7 @@ public sealed partial class RuntimeDistributionPending
         RetireStep(() => runtime.RetireConnectedProcessLinks(entry, connected));
         RetireStep(() => runtime.RetireConnectedProcessMonitors(entry, connected));
         RetireStep(() => RetireConnectedSpawnRequests(entry, connected));
+        RetireStep(() => RetireNodeMonitors458(entry));
         RetireStep(() => NotifyConnectedNode(
             entry,
             connected,
