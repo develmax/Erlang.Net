@@ -1369,7 +1369,8 @@ internal static class BeamFrameValidation
                     if (name == BeamLinkNames.ExternalCall && (BeamNoReturnAnalysis.Import(code, (int)operands[1].Value)
                             || Class(new(BeamOperandParameters.X, BeamTryParameters.RawRaiseClassRegister))
                                 && BeamRaiseEmptyTraceProof.Prove(code, function, state.Pc))
-                        || name == BeamRegisterNames.Call && BeamNoReturnAnalysis.Local(code, (int)operands[1].Value))
+                        || name == BeamRegisterNames.Call && (BeamNoReturnAnalysis.Local(code, (int)operands[1].Value)
+                            || BeamLiteralCallFailureProof.Prove(code, function, state.Pc)))
                         continue;
                     state = state with { InitializedX = BigInteger.Zero, TermX = Bit(0), RawX = BigInteger.Zero, MarkerX = BigInteger.Zero, ContextX = BigInteger.Zero, PositionX = BigInteger.Zero, ClassX = BigInteger.Zero };
                     break;

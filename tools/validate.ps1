@@ -49,6 +49,8 @@ try {
     & (Join-Path $PSScriptRoot 'validate-otp-compiler-original.ps1') -ManagedDirectory 'artifacts/otp-compiler-managed'
     Invoke-DotNet @('run', '--project', 'tests/Erlang.Otp.Tools.Library.Tests', '--no-build', '--', 'artifacts/otp-tools-managed')
     & (Join-Path $PSScriptRoot 'validate-otp-tools-original.ps1') -ManagedDirectory 'artifacts/otp-tools-managed'
+    Invoke-DotNet @('run', '--project', 'tests/Erlang.Otp.Documentation.Library.Tests', '--no-build', '--', 'artifacts/otp-documentation-managed')
+    & (Join-Path $PSScriptRoot 'validate-otp-documentation-original.ps1') -ManagedDirectory 'artifacts/otp-documentation-managed'
     foreach ($listsBackend in @('Managed', 'Beam')) {
         foreach ($queueBackend in @('Managed', 'Beam')) {
             Invoke-DotNet @('run', '--project', 'examples/HelloOtpLibraryReference', '--no-build', '--', $listsBackend, $queueBackend)
@@ -97,6 +99,7 @@ try {
         & (Join-Path $PSScriptRoot 'validate-otp-library-package.ps1') -Feed (Join-Path $validationRoot 'artifacts/packages') -Library Syntax
         & (Join-Path $PSScriptRoot 'validate-otp-library-package.ps1') -Feed (Join-Path $validationRoot 'artifacts/packages') -Library Compiler
         & (Join-Path $PSScriptRoot 'validate-otp-library-package.ps1') -Feed (Join-Path $validationRoot 'artifacts/packages') -Library Tools
+        & (Join-Path $PSScriptRoot 'validate-otp-library-package.ps1') -Feed (Join-Path $validationRoot 'artifacts/packages') -Library Documentation
         $consumerRoot = Join-Path $validationRoot 'artifacts/package-consumer'
         New-Item -ItemType Directory -Path $consumerRoot -Force | Out-Null
         @'
