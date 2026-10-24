@@ -1,0 +1,28 @@
+{
+  "Run": 40135279840,
+  "Head": "408fd54b49498198bab2a76fc705527366a73dbb",
+  "Job": 120995383898,
+  "Artifact": 12576238812,
+  "ArtifactSha256": "cdaed8e42fb8e688e99433934d9014ce9ffbd48683dabbcfc9c1b7250cb243df",
+  "Conclusion": "failure",
+  "Refusal": "Managed object extent requires a source-bound allocator admission for this runtime",
+  "Stage": "New ASN.1 project consumer before the 8843-test main catalog",
+  "CompletedEarlierLibraryConsumers": [
+    "Stdlib",
+    "Kernel",
+    "Boot",
+    "Syntax",
+    "Compiler",
+    "Tools",
+    "Documentation",
+    "Mnesia"
+  ],
+  "InstalledRuntimeVersionsInclude": [
+    "10.0.11",
+    "10.0.13"
+  ],
+  "Cause": "New test host allowed patch roll-forward to an unadmitted CLR; ETS info correctly refused its object-layout reader",
+  "Fix": "Pin this test/published consumer RuntimeFrameworkVersion=10.0.11 and RollForward=Disable; keep runtime admission unchanged",
+  "OriginalObserverOrExpectedValuesChanged": false,
+  "RuntimeSourcesChanged": false
+}
