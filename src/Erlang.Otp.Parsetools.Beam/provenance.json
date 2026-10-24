@@ -1,0 +1,77 @@
+{
+  "ReleaseTag": "OTP-29.1.1",
+  "SourceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ArchiveSha256": "337480AF988ECA993C2E98B68850F00FC6724D366346565E38941AC0D1B7C56B",
+  "ExecutionManifestSha256": "AF5EA3DA317E2ABC8A0CF1874D4E6BFB93AC1A47E864A7B92BBE7A03D1607E99",
+  "ReleaseUrl": "https://github.com/erlang/otp/releases/download/OTP-29.1.1/otp_win64_29.1.1.zip",
+  "Application": "parsetools",
+  "Version": "2.8",
+  "ProducerPlatform": "Windows x64 official release",
+  "DescriptorModules": [
+    "leex",
+    "yecc",
+    "yeccparser",
+    "yeccscan"
+  ],
+  "Files": [
+    {
+      "Path": "src/leex.erl",
+      "Sha256": "13D5AE6D297F284FB1DB18E00D93E856E3FA231CFDFFB884CDC9CC78DF81BF93"
+    },
+    {
+      "Path": "src/yecc.erl",
+      "Sha256": "B238AC0CDEE0BB0EC525C295EF9B5387AB7F679DEB2DC2D2A2BB8DA29D947A65"
+    },
+    {
+      "Path": "src/yeccparser.erl",
+      "Sha256": "5A567913AC1B1D0705E68048EC7D8A11AEF734D5B5A019BDFE0344E9AA3A5F45"
+    },
+    {
+      "Path": "src/yeccscan.erl",
+      "Sha256": "8F5B45A42643C764703EE6222BA51CC751B3A57D349E2ADDF4BD760C7A9F24CC"
+    },
+    {
+      "Path": "include/leexinc.hrl",
+      "Sha256": "318D611C405050125145DF745147A8FEE07F050FD98C173A0F526EF47090B040"
+    },
+    {
+      "Path": "include/yeccpre.hrl",
+      "Sha256": "DC22E775E0A642449DDB538327BD220810571680F01DA74F26ECD49B534E0516"
+    },
+    {
+      "Path": "ebin/leex.beam",
+      "Sha256": "4D81B4898393F20C826DD8A4C54525984D117BB246744E7DDA77F0C139CE367C"
+    },
+    {
+      "Path": "ebin/parsetools.app",
+      "Sha256": "6334DF3F24E6CDFEE770A56F603BFE5A27D3CFE174AD660C24001A6A9181AC97"
+    },
+    {
+      "Path": "ebin/parsetools.appup",
+      "Sha256": "51BB217A17945180D1B10629DC552AA0BCE805989CBB3F1269066DF626103D7E"
+    },
+    {
+      "Path": "ebin/yecc.beam",
+      "Sha256": "C08CB0B626BB04EC1D0C2164BAD0100634260A86B775589A31AF02848F06B79F"
+    },
+    {
+      "Path": "ebin/yeccparser.beam",
+      "Sha256": "F4AB0F4F6714AD3129D77ABC1318D5B7DE540433935038DBFE2025B9A48A8152"
+    },
+    {
+      "Path": "ebin/yeccscan.beam",
+      "Sha256": "63444C382AE6BFEBD10E837AF28B9D36527E9724F6E514A479CA7F9D733FC697"
+    }
+  ],
+  "PinnedSourceMatches": [
+    "lib/parsetools/src/leex.erl",
+    "lib/parsetools/src/yecc.erl",
+    "lib/parsetools/src/yeccparser.erl",
+    "lib/parsetools/src/yeccscan.erl",
+    "lib/parsetools/include/leexinc.hrl",
+    "lib/parsetools/include/yeccpre.hrl"
+  ],
+  "GeneratedReleaseSources": [
+    "src/yeccparser.erl"
+  ]
+}

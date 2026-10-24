@@ -8,14 +8,56 @@ Packaging progress counts module names in the admitted OTP29.1.1 application inv
 | kernel | 104 | 104 | 100% | 218 public-consumer checks; all104 image identities; eight inet_parse outcomes compared with fresh original OTP; cold NuGet/publish |
 | erts | 22 | 22 | 100% | Shared104 ERTS/SASL checks; all22 image identities; original counters/atomics wrappers and native resource cleanup; complete original outcomes/stacks |
 | sasl | 17 | 17 | 100% | Shared104 ERTS/SASL checks; all17 image identities; original misc_supp/systools_lib outcomes and complete errors; cold NuGet/publish |
+| syntax_tools | 9 | 9 | 100% | Shared53 checks; all9 image identities; original erl_syntax/prettypr execution and complete error stacks; cold NuGet/publish |
+| parsetools | 4 | 4 | 100% | Shared53 checks; all4 image identities; actual original yeccparser grammar declarations/rules/errors; cold NuGet/publish |
 
-These four applications total241/241 packaged module names (100% of these four application inventories). The ERTS descriptor lists19 modules and the distribution includes three additional implementation images; all22 are packaged and the distinction is recorded in provenance. This is not a project-wide completion percentage or full compatibility claim. The official kernel producer is Windows x64; platform identity remains explicit. No newly registered runtime APIs or full contracts are added by packaging.
+These six applications total254/254 packaged module names (100% of these six application inventories). The ERTS descriptor lists19 modules and the distribution includes three additional implementation images; all22 are packaged and the distinction is recorded in provenance. This is not a project-wide completion percentage or full compatibility claim. The official kernel producer is Windows x64; platform identity remains explicit. No newly registered runtime APIs or full contracts are added by packaging.
 
 Projects:
 
 - `src/Erlang.Otp.Stdlib.Beam`: original stdlib images, source and producer provenance; OtpStdlib.Select selects Beam or an established supported Managed alternative per module.
 - `src/Erlang.Otp.Kernel.Beam`: complete original kernel source/image/application-resource inventory; OtpKernel.ReadImage/ReadApplication/ReadApplicationUpgrade and explicit OtpKernel.Beam startup choices.
 - `src/Erlang.Otp.Erts.Beam` and `src/Erlang.Otp.Sasl.Beam`: complete original image/source/resource inventories and explicit OtpErts/OtpSasl readers/BEAM selection factories. ERTS native BIFs remain C# runtime primitives; no native ERTS executable is shipped.
+- `src/Erlang.Otp.SyntaxTools.Beam` and `src/Erlang.Otp.Parsetools.Beam`: all13 original images,16 source/header files and four application/upgrade resources; OtpSyntaxTools/OtpParsetools readers and explicit BEAM selectors.
 - `src/Erlang.Otp.Stdlib` and `src/Erlang.Otp.Kernel`: existing C# alternatives and their current registration/composition APIs. The strict startup selector's Managed support is narrower than every C# registration; unsupported choices fail explicitly.
 
 Next: extend other applications according to the boot dependency inventory, preserving admitted compilation variants and explicit dependency boundaries. Shipping an application descriptor does not automatically start it; native bindings, selected dependency images and the existing boot protocol remain required. Continue actual image ownership/execution checks and original OTP comparisons separately from file inventory checks.
+
+## Remaining official application inventories
+
+The admitted Windows release contains 1321 BEAM files across 34 applications (36 application directories including C/Java support). This batch packages254/1321 image names (19.2%); this is packaging progress only. Source names, descriptors, generated support and native platform prerequisites remain distinct. The complete module list is in [OTP_LIBRARY_INVENTORY.json](OTP_LIBRARY_INVENTORY.json).
+
+| Remaining application | BEAM images | Packaging state |
+| --- | ---: | --- |
+| asn1 | 22 | Not yet packaged |
+| common_test | 47 | Not yet packaged |
+| compiler | 59 | Not yet packaged |
+| crypto | 2 | Not yet packaged |
+| debugger | 24 | Not yet packaged |
+| dialyzer | 29 | Not yet packaged |
+| diameter | 47 | Not yet packaged |
+| edoc | 21 | Not yet packaged |
+| eldap | 2 | Not yet packaged |
+| erl_interface | 0 | C/Java support; no BEAM images |
+| et | 6 | Not yet packaged |
+| eunit | 13 | Not yet packaged |
+| ftp | 6 | Not yet packaged |
+| inets | 63 | Not yet packaged |
+| jinterface | 0 | C/Java support; no BEAM images |
+| megaco | 65 | Not yet packaged |
+| mnesia | 31 | Not yet packaged |
+| observer | 44 | Not yet packaged |
+| odbc | 3 | Not yet packaged |
+| os_mon | 8 | Not yet packaged |
+| public_key | 42 | Not yet packaged |
+| reltool | 9 | Not yet packaged |
+| runtime_tools | 13 | Not yet packaged |
+| snmp | 90 | Not yet packaged |
+| ssh | 43 | Not yet packaged |
+| ssl | 78 | Not yet packaged |
+| tftp | 8 | Not yet packaged |
+| tools | 16 | Not yet packaged |
+| wx | 241 | Not yet packaged |
+| xmerl | 35 | Not yet packaged |
+
+Next priority: compiler and its explicit build/runtime prerequisites; then tools/runtime_tools and application families. Packaging an image does not prove every export, I/O effect, on_load hook, native binding or application-start closure.
