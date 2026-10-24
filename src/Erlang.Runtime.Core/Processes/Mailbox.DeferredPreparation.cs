@@ -65,6 +65,7 @@ public sealed partial class Mailbox
     private void CompleteDeferred(LinkedListNode<Entry> node, DeferredMailboxAdmission? result)
     {
         Term? admitted = null, from = null;
+        System.Numerics.BigInteger copies = System.Numerics.BigInteger.Zero;
         lock (gate)
         {
             if (!ReferenceEquals(node.List, messages))
@@ -76,7 +77,7 @@ public sealed partial class Mailbox
             precedenceRevision++;
             node.Value.DeferredRelease?.Invoke();
             node.Value = node.Value with { Deferred = false, DeferredRelease = null };
-            if (result is null)
+            if (result is null || result.Copies <= 0)
             {
                 RemoveNode(node);
 
@@ -102,8 +103,20 @@ public sealed partial class Mailbox
                 admitted = result.Message;
                 from = node.Value.From;
             }
+            copies = result.Copies;
+            var tail = node;
+            for (System.Numerics.BigInteger remaining = copies - 1; remaining > 0; remaining--)
+            {
+                tail = messages.AddAfter(tail, node.Value);
+                admittedCount++;
+                mutationRevision++;
+                precedenceRevision++;
+                ObserveQueueLength419(admittedCount);
+                if (result.Priority) lastPriority = tail;
+            }
         }
         if (admitted is not null)
-            MessageAdmitted?.Invoke(admitted, from);
+            for (System.Numerics.BigInteger remaining = copies; remaining > 0; remaining--)
+                MessageAdmitted?.Invoke(admitted, from);
     }
 }
