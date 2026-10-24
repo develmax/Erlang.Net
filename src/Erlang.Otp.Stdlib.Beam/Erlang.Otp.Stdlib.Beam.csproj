@@ -17,7 +17,7 @@
     <EmbeddedResource Include="catalog.json" LogicalName="Erlang.Otp.Stdlib.Beam.catalog.json" />
     <None Include="README.md" Pack="true" PackagePath="/" />
     <None Include="../../docs/OTP-LICENSE.txt" Pack="true" PackagePath="/" />
-    <None Update="Otp/*.erl;Otp/*.json;catalog.json" Pack="true" PackagePath="otp/" />
-    <None Update="Variants/BackendSelection/*" Pack="true" PackagePath="otp/variants/backend-selection/" />
+    <None Update="Otp/*.erl;Otp/*.json;catalog.json" Pack="true" PackagePath="otp/%(Filename)%(Extension)" />
+    <None Update="Variants/BackendSelection/*" Pack="true" PackagePath="otp/variants/backend-selection/%(Filename)%(Extension)" />
   </ItemGroup>
 </Project>
