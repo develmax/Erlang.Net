@@ -1,13 +1,13 @@
 param(
     [Parameter(Mandatory)][string]$Feed,
     [string]$Configuration = 'Debug',
-    [ValidateSet('Stdlib', 'Kernel', 'Boot', 'Syntax', 'Compiler', 'Tools')][string]$Library = 'Stdlib'
+    [ValidateSet('Stdlib', 'Kernel', 'Boot', 'Syntax', 'Compiler', 'Tools', 'Documentation')][string]$Library = 'Stdlib'
 )
 $ErrorActionPreference = 'Stop'
 $repository = Split-Path -Parent $PSScriptRoot
 $feedPath = (Resolve-Path -LiteralPath $Feed).Path
 $work = Join-Path $repository ('artifacts/otp-library-consumer-' + [guid]::NewGuid().ToString('N'))
-$consumerProject = switch ($Library) { 'Kernel' { 'Erlang.Otp.Kernel.Library.Tests' } 'Boot' { 'Erlang.Otp.Boot.Library.Tests' } 'Syntax' { 'Erlang.Otp.Syntax.Library.Tests' } 'Compiler' { 'Erlang.Otp.Compiler.Library.Tests' } 'Tools' { 'Erlang.Otp.Tools.Library.Tests' } default { 'HelloOtpLibraryReference' } }
+$consumerProject = switch ($Library) { 'Kernel' { 'Erlang.Otp.Kernel.Library.Tests' } 'Boot' { 'Erlang.Otp.Boot.Library.Tests' } 'Syntax' { 'Erlang.Otp.Syntax.Library.Tests' } 'Compiler' { 'Erlang.Otp.Compiler.Library.Tests' } 'Tools' { 'Erlang.Otp.Tools.Library.Tests' } 'Documentation' { 'Erlang.Otp.Documentation.Library.Tests' } default { 'HelloOtpLibraryReference' } }
 $consumerDirectory = if ($Library -eq 'Stdlib') { 'examples/HelloOtpLibraryReference' } else { "tests/$consumerProject" }
 New-Item -ItemType Directory -Path $work | Out-Null
 function Invoke-LibraryDotNet {
@@ -17,12 +17,36 @@ function Invoke-LibraryDotNet {
 }
 Push-Location $repository
 try {
-    $packageLibraries = if ($Library -eq 'Boot') { @('Erts', 'Sasl') } elseif ($Library -eq 'Syntax') { @('SyntaxTools', 'Parsetools') } elseif ($Library -eq 'Tools') { @('Tools', 'RuntimeTools') } else { @($Library) }
+    $packageLibraries = if ($Library -eq 'Boot') { @('Erts', 'Sasl') } elseif ($Library -eq 'Syntax') { @('SyntaxTools', 'Parsetools') } elseif ($Library -eq 'Tools') { @('Tools', 'RuntimeTools') } elseif ($Library -eq 'Documentation') { @('Eunit', 'Edoc', 'Xmerl') } else { @($Library) }
     foreach ($packageLibrary in $packageLibraries) {
         Invoke-LibraryDotNet @('pack', "src/Erlang.Otp.$packageLibrary.Beam", '-c', $Configuration, '-m:1', '--nologo', '-p:UseInstalledPackage=true', "-p:RestoreSources=$feedPath", "-p:RestorePackagesPath=$work/build-cache", '-o', $feedPath)
     }
+    if ($Library -eq 'Documentation') {
+        $verifiedAssets = 0
+        foreach ($packageLibrary in $packageLibraries) {
+            $directory = "src/Erlang.Otp.$packageLibrary.Beam"
+            $provenance = Get-Content -LiteralPath "$directory/provenance.json" -Raw | ConvertFrom-Json
+            $archive = [IO.Compression.ZipFile]::OpenRead((Join-Path $feedPath "Erlang.Otp.$packageLibrary.Beam.0.1.0.nupkg"))
+            try {
+                foreach ($file in @($provenance.Files | Where-Object Path -Match '^(src|include|priv)/')) {
+                    $entry = $archive.GetEntry("otp/$($file.Path)")
+                    if ($null -eq $entry) { throw "Missing original package asset: $packageLibrary/$($file.Path)" }
+                    $input = $entry.Open()
+                    $bytes = [IO.MemoryStream]::new()
+                    try {
+                        $input.CopyTo($bytes)
+                        $actual = [Convert]::ToHexString([Security.Cryptography.SHA256]::HashData($bytes.ToArray()))
+                        if ($actual -cne $file.Sha256 -or (Get-FileHash -LiteralPath "$directory/Otp/$($file.Path)" -Algorithm SHA256).Hash -cne $actual) { throw "Original package asset differs: $packageLibrary/$($file.Path)" }
+                    } finally { $bytes.Dispose(); $input.Dispose() }
+                    $verifiedAssets++
+                }
+            } finally { $archive.Dispose() }
+        }
+        if ($verifiedAssets -ne 89) { throw 'Incomplete original Documentation source/support package inventory' }
+        Write-Output "Original Documentation source/support package assets: $verifiedAssets byte-verified"
+    }
     Copy-Item -LiteralPath (Get-ChildItem -LiteralPath $consumerDirectory -File | Where-Object Extension -In '.cs', '.csproj').FullName -Destination $work
-    if ($Library -in @('Boot', 'Syntax', 'Compiler', 'Tools')) { Copy-Item -LiteralPath (Join-Path $consumerDirectory 'Fixtures') -Destination (Join-Path $work 'Fixtures') -Recurse }
+    if ($Library -in @('Boot', 'Syntax', 'Compiler', 'Tools', 'Documentation')) { Copy-Item -LiteralPath (Join-Path $consumerDirectory 'Fixtures') -Destination (Join-Path $work 'Fixtures') -Recurse }
     Invoke-LibraryDotNet @('publish', "$work/$consumerProject.csproj", '-c', $Configuration, '-m:1', '--nologo', '-p:ImportDirectoryBuildProps=false', '-p:ImportDirectoryBuildTargets=false', '-p:UseInstalledPackage=true', "-p:RestoreSources=$feedPath", "-p:RestorePackagesPath=$work/consumer-cache", '-o', "$work/published")
     $dotnetHost = (Get-Command dotnet -CommandType Application | Select-Object -First 1).Source
     $savedPath = $env:PATH

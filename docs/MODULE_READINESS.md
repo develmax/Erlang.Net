@@ -1,10 +1,14 @@
 # Module readiness
 
-Baseline **OTP-29.1.1**. Latest verified main CI **8834/8834 passed** at **42e83c9c**; Part455 catalog **8837**, exact feature-head full CI tracked in its PR. The historical generated table below retains its original registry baseline. Runtime MFAs **708** (previous snapshot **708**, delta **0**), in **21** modules. Reference inventory: **1289** source-module rows.
+Baseline **OTP-29.1.1**. Exact Part466 main CI **8842/8842 passed** at **9e730212**. Part467 source tests **8843/8843 passed**; the initial readiness source-binding refusal and subsequent repair are retained separately. Exact publication-head workflow/package completion is tracked in PR28. Runtime MFAs **708** and complete contracts **118** (API/full deltas **0/0**), in **21** modules. Reference inventory: **1289** source-module rows.
 
 API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.
 
-## Part455 execution milestones
+## Part467 original library packaging
+
+Original EUnit13/13, EDoc21/21 and Xmerl35/35 images are packaged in independent src libraries. Complete image packaging is now **411/1321 (31.1%)**, with **910** names remaining.182 project/cold assertions and30 whole original outcomes/stacks are separate from complete-module compatibility. The authoritative source guard grows1677→1678 without changing any API classification; this generated mirror also catches up with the source-project extraction. See [application packaging and execution scope](OTP_LIBRARY_PACKAGING.md) and [Part467 receipts](validation/part-467/documentation-libraries/validation.json).
+
+## Part455 execution milestones (historical checkpoint)
 
 | Component | Verified scope | Still open |
 | --- | --- | --- |
