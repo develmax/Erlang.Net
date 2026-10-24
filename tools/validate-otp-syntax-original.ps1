@@ -17,7 +17,9 @@ $packagedFiles = 0
 foreach ($library in @('SyntaxTools', 'Parsetools')) {
     $directory = "src/Erlang.Otp.$library.Beam"
     $provenance = Get-Content -LiteralPath "$directory/provenance.json" -Raw | ConvertFrom-Json
-    if ($provenance.SourceCommit -cne $profile.SourceCommit -or $provenance.ExecutionManifestSha256 -cne $profile.ExecutionManifestSha256) { throw 'Packaged library provider differs' }
+    # The runner rebuilds its inventory JSON; ordering/serialization is not release identity.
+    # Bind the same immutable archive and verify every packaged file below.
+    if ($provenance.SourceCommit -cne $profile.SourceCommit -or $provenance.ArchiveSha256 -cne $profile.ArchiveSha256 -or $provenance.ReleaseTag -cne $profile.ReleaseTag) { throw 'Packaged library provider differs' }
     foreach ($file in $provenance.Files) {
         $relative = "lib/$($provenance.Application)-$($provenance.Version)/$($file.Path)"
         $binding = @($files | Where-Object Path -CEQ $relative)
