@@ -16,8 +16,9 @@ Packaging progress counts module names in the admitted OTP29.1.1 application inv
 | eunit | 13 | 13 | 100% | Shared182 checks; original eunit_lib values/errors; complete stacks and cold NuGet/publish |
 | edoc | 21 | 21 | 100% | Shared182 checks; original edoc_lib helpers/errors; four verified priv assets; cold NuGet/publish |
 | xmerl | 35 | 35 | 100% | Shared182 checks; original xmerl_lib helpers/errors and image identity; cold NuGet/publish |
+| mnesia | 31 | 31 | 100% | 82 checks; original fragmentation/hash-state and application callback helpers;24 complete outcomes/stacks and cold NuGet/publish |
 
-These twelve applications total411/411 packaged module names (100% of these twelve application inventories). The ERTS descriptor lists19 modules and the distribution includes three additional implementation images; all22 are packaged and the distinction is recorded in provenance. This is not a project-wide completion percentage or full compatibility claim. The official kernel producer is Windows x64; platform identity remains explicit. No newly registered runtime APIs or full contracts are added by packaging.
+These thirteen applications total442/442 packaged module names (100% of these thirteen application inventories). The ERTS descriptor lists19 modules and the distribution includes three additional implementation images; all22 are packaged and the distinction is recorded in provenance. This is not a project-wide completion percentage or full compatibility claim. The official kernel producer is Windows x64; platform identity remains explicit. No newly registered runtime APIs or full contracts are added by packaging.
 
 Projects:
 
@@ -28,13 +29,14 @@ Projects:
 - `src/Erlang.Otp.Compiler.Beam`: all59 original images,68 source/header files and compiler.app/appup; explicit OtpCompiler readers/selectors. Source compilation/self-hosting remains separate.
 - `src/Erlang.Otp.Tools.Beam` and `src/Erlang.Otp.RuntimeTools.Beam`: all29 original images,32 source/header files and four application resources. Explicit OtpTools/OtpRuntimeTools readers and selectors; live tracing/profiling/native driver compatibility remains separate.
 - `src/Erlang.Otp.Eunit.Beam`, `src/Erlang.Otp.Edoc.Beam` and `src/Erlang.Otp.Xmerl.Beam`: all69 original images,85 source/header/grammar files, six application resources and four EDoc support assets. OtpEunit/OtpEdoc/OtpXmerl provide explicit readers/selectors; OtpEdoc.ReadSupportFile reads a whitelisted hash-checked priv asset. The escript launcher is source data and is never executed by the reader.
+- `src/Erlang.Otp.Mnesia.Beam`: all31 original images,32 unchanged Erlang sources/headers and two application resources. OtpMnesia readers/selectors preserve explicit backend/dependency ownership.
 - `src/Erlang.Otp.Stdlib` and `src/Erlang.Otp.Kernel`: existing C# alternatives and their current registration/composition APIs. The strict startup selector's Managed support is narrower than every C# registration; unsupported choices fail explicitly.
 
 Next: extend other applications according to the boot dependency inventory, preserving admitted compilation variants and explicit dependency boundaries. Shipping an application descriptor does not automatically start it; native bindings, selected dependency images and the existing boot protocol remain required. Continue actual image ownership/execution checks and original OTP comparisons separately from file inventory checks.
 
 ## Remaining official application inventories
 
-The admitted Windows release contains 1321 BEAM files across 34 applications (36 application directories including C/Java support). This batch packages411/1321 image names (31.1%); this is packaging progress only. Source names, descriptors, generated support and native platform prerequisites remain distinct. The complete module list is in [OTP_LIBRARY_INVENTORY.json](OTP_LIBRARY_INVENTORY.json).
+The admitted Windows release contains 1321 BEAM files across 34 applications (36 application directories including C/Java support). This batch packages442/1321 image names (33.5%); this is packaging progress only. Source names, descriptors, generated support and native platform prerequisites remain distinct. The complete module list is in [OTP_LIBRARY_INVENTORY.json](OTP_LIBRARY_INVENTORY.json).
 
 | Remaining application | BEAM images | Packaging state |
 | --- | ---: | --- |
@@ -51,7 +53,6 @@ The admitted Windows release contains 1321 BEAM files across 34 applications (36
 | inets | 63 | Not yet packaged |
 | jinterface | 0 | C/Java support; no BEAM images |
 | megaco | 65 | Not yet packaged |
-| mnesia | 31 | Not yet packaged |
 | observer | 44 | Not yet packaged |
 | odbc | 3 | Not yet packaged |
 | os_mon | 8 | Not yet packaged |
@@ -66,3 +67,5 @@ The admitted Windows release contains 1321 BEAM files across 34 applications (36
 Next priority: remaining application families and the explicit runtime/filesystem/parse-transform prerequisites for executing the original compiler pipeline. Native profiling/tracing/driver effects must be validated separately from these finite pure calculations. Packaging an image does not prove every export, I/O effect, on_load hook, native binding or application-start closure.
 
 Part467 executes30 complete helper outcomes/stacks from unchanged eunit_lib/edoc_lib/xmerl_lib plus original lists/gb_trees. The shared loader proves a bounded concrete literal call cannot return before admitting the optimized try-case boundary. Unknown values, branching provenance, returning calls, cycles and malformed frame ownership remain refusals. This is not whole EUnit runner, EDoc rendering, XML parser or application boot certification.
+
+Part468 executes original mnesia_frag_hash and mnesia_app with original lists and an identical compiled observer:24 whole outcomes/stacks cover state initialization, split/merge transitions, legacy state, selected hash routing, fallback match-spec fragment ranges, invalid inputs and application callbacks. Single-key match-spec analysis through mnesia:has_var, live application startup, transactions, disk recovery, replication and distributed database semantics remain separate obligations.
