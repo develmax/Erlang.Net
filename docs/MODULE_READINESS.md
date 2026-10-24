@@ -4,6 +4,10 @@ Baseline **OTP-29.1.1**. Exact Part466 main CI **8842/8842 passed** at **9e73021
 
 API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.
 
+## Part469 ASN.1 packaging
+
+Original ASN.1 packages22/22 images with65 project/cold assertions and26 complete outcomes/stacks against OTP. Packaging advances442→464/1321 (33.5%→35.1%),879→857 remaining,13→14 complete application inventories. Actual EXTERNAL conversions and compiler-table lifecycle execute as original Erlang on .NET; whole deterministic ETF agrees. ASN.1 compiler self-hosting, generated codecs and native NIF compatibility remain open. Default708 APIs/118 full contracts/8843 groups are unchanged; API/full deltas0/0. Exact publication-head CI is tracked in the Part469 PR.
+
 ## Part468 Mnesia packaging
 
 Original Mnesia31/31 images are packaged under src with82 project/cold assertions and24 whole outcomes/stacks compared with OTP. Complete packaging becomes442/1321 (33.5%),879 remaining,13 applications. This is packaging and finite helper execution; database boot/transactions/recovery/replication remain open. Runtime708 APIs,118 full contracts and8843 main test groups are unchanged. Exact publication-head CI is tracked in the Part468 PR.
