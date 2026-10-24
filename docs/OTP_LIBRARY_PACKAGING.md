@@ -13,7 +13,6 @@ Packaging progress counts module names in the admitted OTP29.1.1 application inv
 | compiler | 59 | 59 | 100% | 138 consumer checks; all59 image identities; actual original beam_opcodes/erl_bifs results and complete stacks; cold NuGet/publish; not compiler self-hosting |
 | tools | 16 | 16 | 100% | Shared86 consumer checks; all16 image identities; actual xref_utils values/errors; cold NuGet/publish |
 | runtime_tools | 13 | 13 | 100% | Shared86 checks; all13 image identities; actual msacc calculations and application/supervisor callbacks, complete errors; cold NuGet/publish |
-
 | eunit | 13 | 13 | 100% | Shared182 checks; original eunit_lib values/errors; complete stacks and cold NuGet/publish |
 | edoc | 21 | 21 | 100% | Shared182 checks; original edoc_lib helpers/errors; four verified priv assets; cold NuGet/publish |
 | xmerl | 35 | 35 | 100% | Shared182 checks; original xmerl_lib helpers/errors and image identity; cold NuGet/publish |
