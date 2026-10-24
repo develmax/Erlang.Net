@@ -1,6 +1,6 @@
 # Compatibility matrix
 
-Evidence identifiers refer to permanent cases in `tests/Erlang.Tests/Program.cs`. Full source inventory: `otp-inventory.json`; actual registered MFAs and their direct tests: `supported-mfas.json`. Latest executable results live under artifacts and are copied to `docs/validation` at checkpoints. Nothing is globally Verified compatible before exact-version oracle evidence.
+Evidence identifiers refer to permanent cases in `tests/Erlang.Tests/Harness/Program.cs`. Full source inventory: `otp-inventory.json`; actual registered MFAs and their direct tests: `supported-mfas.json`. Latest executable results live under artifacts and are copied to `docs/validation` at checkpoints. Nothing is globally Verified compatible before exact-version oracle evidence.
 
 | Feature | Status | Evidence and remaining boundary |
 |---|---|---|

@@ -26,3 +26,5 @@ Project references remain the supported source integration route. The CSharp NuG
 This is a structural change. It adds no Erlang API or full compatibility claim. Original-library execution, C# backend execution, cold deployment, native ports and exact-commit CI are separate validation gates. Part457 supplies the scoped native port path for authenticated distribution, data exchange and same-peer reconnection through the original `net_kernel`; see `validation/part-457/original-net-kernel-native-distribution`. This finite Windows matrix is separate from full module/transport/platform compatibility.
 
 Native distribution snapshots now carry a `Term` controller identity (`Pid` or actual `PortTerm`); the host snapshot input-handler term is `Nil` for a native controller. C# consumers should rebuild and pattern-match these identities. Native ports own their queue pump and lifetime; no handshaker PID is substituted as controller.
+
+Part458 organizes the executable test harness by category without changing assembly or resource identities. See [test layout](TEST_LAYOUT.md).

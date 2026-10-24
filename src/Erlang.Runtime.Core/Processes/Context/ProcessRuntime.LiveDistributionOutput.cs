@@ -83,7 +83,8 @@ public sealed partial class ProcessRuntime
         DistributionConnectedEntry connected,
         ProcessContext observer,
         Term remote,
-        out bool publish
+        out bool publish,
+        ProcessMonitorOptions? sourceOptions = null
     )
     {
         lock (gate)
@@ -97,12 +98,12 @@ public sealed partial class ProcessRuntime
                 observer,
                 remote,
                 remote,
-                MakeReference(),
+                sourceOptions is null ? MakeReference() : ReserveMonitorReference(observer, sourceOptions),
                 true
             );
             publish = HasNegotiatedProcessMonitors(connected);
             if (!publish)
-                distributionProcessMonitors.Add(monitor);
+                AddConnectedOriginMonitor458(monitor, sourceOptions);
 
             return monitor;
         }

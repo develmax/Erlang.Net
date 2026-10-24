@@ -1,0 +1,144 @@
+{
+  "Passed": true,
+  "Rows": [
+    {
+      "Stage": "original",
+      "Passed": true,
+      "Failure": null,
+      "ProviderBeforeAfterEqual": true
+    },
+    {
+      "Stage": "package",
+      "Passed": true,
+      "Failure": null,
+      "ProviderBeforeAfterEqual": true
+    },
+    {
+      "Stage": "compose",
+      "Passed": true,
+      "Failure": null,
+      "ProviderBeforeAfterEqual": true
+    },
+    {
+      "Stage": "managed-whole-comparison",
+      "Passed": true,
+      "Failure": null,
+      "ProviderBeforeAfterEqual": true
+    },
+    {
+      "Stage": "affected-and-style",
+      "Passed": true,
+      "Failure": null,
+      "ProviderBeforeAfterEqual": true
+    },
+    {
+      "Stage": "native-retained-both-bridges",
+      "Passed": true,
+      "Failure": null,
+      "ProviderBeforeAfterEqual": true
+    }
+  ],
+  "ProviderFiles": 6427,
+  "ProviderBeforeAfterEqual": true,
+  "RuntimeSha256": "A1BE9D342ED00A5D1135EEA7713D9E0012F9C529D83D723D2D1D4E38CC5AB27B",
+  "Catalog": 8840,
+  "DefaultApis": 708,
+  "FullContracts": 118,
+  "SourceGuards": 1675,
+  "ApiDelta": 0,
+  "FullDelta": 0,
+  "Part": 458,
+  "PinnedOtp": "OTP-29.1.1",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "WholeRoles": 10,
+  "PeerSession": {
+    "Passed": true,
+    "Mode": "managed",
+    "OriginalPeerNormal": true,
+    "Peers": [
+      {
+        "Index": 1,
+        "OsPid": 340712,
+        "ReadySha256": "F63B60EF8A17FD7216F95043412BC519B35445DAFA87961FBF1C6EC0822E05AB"
+      },
+      {
+        "Index": 2,
+        "OsPid": 348028,
+        "ReadySha256": "007607D6D53D3290EEE6090985248F0240624362CCB6FC1664450963AC226DEF"
+      }
+    ],
+    "PeerExitCodes": [
+      0,
+      0
+    ],
+    "EpmdPort": 56714,
+    "EpmdPid": 337544,
+    "OwnedEpmdStopped": true
+  },
+  "OriginalNetworkSourceOwners": [
+    {
+      "Module": "net_kernel",
+      "Exports": 47,
+      "OriginalBeam": true,
+      "Md5": "5CE880E43831B6A54FD6464F4ADB801C"
+    },
+    {
+      "Module": "erl_epmd",
+      "Exports": 22,
+      "OriginalBeam": true,
+      "Md5": "D7BA487776A8E13E86D66464366594A0"
+    },
+    {
+      "Module": "inet_tcp_dist",
+      "Exports": 32,
+      "OriginalBeam": true,
+      "Md5": "ADA7E2E684744457A4E7CD71E63C9002"
+    },
+    {
+      "Module": "dist_util",
+      "Exports": 16,
+      "OriginalBeam": true,
+      "Md5": "454F1AA00B92EEED1E3562E882B89BD6"
+    },
+    {
+      "Module": "gen_tcp",
+      "Exports": 16,
+      "OriginalBeam": true,
+      "Md5": "799A83AC28D066C82EB249D6D51E8548"
+    },
+    {
+      "Module": "inet",
+      "Exports": 101,
+      "OriginalBeam": true,
+      "Md5": "4F27A519DE3B88AFBB8B06D784147B28"
+    },
+    {
+      "Module": "inet_tcp",
+      "Exports": 25,
+      "OriginalBeam": true,
+      "Md5": "ACD4215A51E0F17F2CC226A80EC0CBCA"
+    },
+    {
+      "Module": "prim_inet",
+      "Exports": 62,
+      "OriginalBeam": true,
+      "Md5": "D502BCFA45173C29F2FFCC39364866C8"
+    }
+  ],
+  "Platform": "Windows x64",
+  "NativeControlsPerBridge": 8,
+  "RetainedWholeRowsPerBridge": 36,
+  "Layout": {
+    "Passed": true,
+    "Moved": 1597,
+    "ByteIdenticalNow": 1596,
+    "IntentionalChanges": [
+      "tests/Erlang.Tests/Harness/Program.cs"
+    ],
+    "NewTests": 2,
+    "Catalog": 8840,
+    "ResourcesMoved": false,
+    "ProjectChanged": false
+  },
+  "FullModuleCompatible": false
+}

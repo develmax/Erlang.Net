@@ -243,15 +243,15 @@ public static class CoreModules
      return Term.A(ErlangBooleanAtoms.True);
  }
         );
-        Add(
+        r.Register(
             ErlangModuleNames.Module,
             ErlangModuleNames.Monitor,
             2,
-            (c, a) =>
+            async (c, a) =>
             {
                 string kind = AtomName(a[0]);
 
-                return c.Runtime.MonitorSource(
+                return await c.Runtime.MonitorSourceAsync458(
                     c,
                     kind,
                     a[1],

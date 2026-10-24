@@ -166,6 +166,7 @@ public sealed partial class RuntimeDistributionPending
         lock (gate)
         {
             exitingInputControllers.Remove(process);
+            nodeMonitors458.RemoveAll(item => ReferenceEquals(item.Owner, process));
             var failures = new List<Exception>();
             RetireStep(() => RetireControllerAdoptions(controller: process));
             RetireStep(() => ConnectedSpawnOwnerTerminated(process, reason));
@@ -245,6 +246,7 @@ public sealed partial class RuntimeDistributionPending
             pending.Clear();
             controllers.Clear();
             connectedSpawnRequests.Clear();
+            nodeMonitors458.Clear();
             kernelSetup = null;
         }
     }
@@ -311,6 +313,7 @@ public sealed partial class RuntimeDistributionPending
             entry.ReservedController = null;
             entry.State = DistributionPendingState.Idle;
             pending.Remove(entry.Node.Name);
+            RetireNodeMonitors458(entry);
         }
     }
 

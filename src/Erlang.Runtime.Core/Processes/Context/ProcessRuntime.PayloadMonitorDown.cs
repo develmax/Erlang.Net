@@ -52,14 +52,24 @@ public sealed partial class ProcessRuntime
                 if (monitor is null || !distributionProcessMonitors.Remove(monitor))
                     return null;
                 Term reported = watched is Atom name ? Term.Tuple(name, Term.A(entry.Node.Name)) : watched;
+                ProcessMonitorEntry? localOptions = monitor.SpawnOptions ? monitors.GetValueOrDefault(reference) : null;
+                if (monitor.SpawnOptions && localOptions is null) return null;
+                if (localOptions is not null)
+                {
+                    monitors.Remove(reference);
+                    if (!localOptions.KeepAlias) aliases.Remove(reference);
+                }
 
-                return new(Term.Tuple(
-                    Term.A(ProcessMessageTags.MonitorDown),
-                    reference,
-                    Term.A(ProcessMonitorKinds.Process),
-                    reported,
-                    decoded.Term
-                ));
+                return new(
+                    Term.Tuple(
+                        localOptions?.Tag ?? Term.A(ProcessMessageTags.MonitorDown),
+                        reference,
+                        Term.A(ProcessMonitorKinds.Process),
+                        reported,
+                        decoded.Term
+                    ),
+                    localOptions?.Priority ?? false
+                );
             }
         }
         QueueDeferredProcessSignal(

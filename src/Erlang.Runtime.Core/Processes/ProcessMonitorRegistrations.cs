@@ -8,7 +8,7 @@ internal static class ProcessMonitorRegistrations
             ErlangModuleNames.Module,
             ErlangModuleNames.Monitor,
             3,
-            (context, arguments) =>
+            async (context, arguments) =>
         {
             bool priority = false;
             string? mode = null;
@@ -33,12 +33,12 @@ internal static class ProcessMonitorRegistrations
             if (kind is not ProcessMonitorKinds.Process and not ProcessMonitorKinds.TimeOffset and not ProcessMonitorKinds.Port)
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
 
-            return ValueTask.FromResult<Term>(context.Runtime.MonitorSource(
+            return await context.Runtime.MonitorSourceAsync458(
                 context,
                 kind,
                 arguments[1],
                 new(priority, mode, tag)
-            ));
+            ).ConfigureAwait(false);
         }
         );
         registry.Register(
