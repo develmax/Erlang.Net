@@ -25,7 +25,7 @@ public sealed partial class RuntimeDistributionPending
             bool connected = entry.Connected is { } channel && IsConnectedSignalGeneration(entry, channel, entry.ConnectionId);
             if (!connected && (passive || entry.State != DistributionPendingState.Pending)) return false;
             var registration = nodeMonitors458.FirstOrDefault(item => ReferenceEquals(item.Owner, owner)
-                && ReferenceEquals(item.Entry, entry) && item.Generation == entry.ConnectionId);
+                && ReferenceEquals(item.Entry, entry) && item.Generation == entry.ConnectionId && !item.Retired);
             if (registration is null) nodeMonitors458.Add(new(owner, entry));
             else registration.Count++;
 
@@ -36,13 +36,24 @@ public sealed partial class RuntimeDistributionPending
     private void RetireNodeMonitors458(RuntimeDistributionPendingEntry entry)
     {
         foreach (var registration in nodeMonitors458.Where(item => ReferenceEquals(item.Entry, entry)
-            && item.Generation == entry.ConnectionId).ToArray())
+            && item.Generation == entry.ConnectionId && !item.Retired).ToArray())
         {
-            nodeMonitors458.Remove(registration);
-            if (!runtime.IsOwnedLiveNodeProcess(registration.Owner)) continue;
+            registration.Retired = true;
             Term message = Term.Tuple(Term.A(RuntimeNodeControlNames.NodeDown), entry.Node);
-            for (System.Numerics.BigInteger remaining = registration.Count; remaining > 0; remaining--)
-                runtime.SendSystem(registration.Owner.Self, message);
+            runtime.QueueDeferredProcessSignal(
+                registration.Owner,
+                () =>
+                {
+                    lock (gate)
+                    {
+                        if (!nodeMonitors458.Remove(registration)) return null;
+
+                        return new DeferredMailboxAdmission(message) { Copies = registration.Count };
+                    }
+                },
+                () => { },
+                traceToken: Term.A(DistributionSequenceTraceNames.PreserveMarker)
+            );
         }
     }
 }

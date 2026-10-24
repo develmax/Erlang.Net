@@ -8,4 +8,5 @@ internal sealed class RuntimeNodeRegistration458(ProcessContext owner, RuntimeDi
     internal RuntimeDistributionPendingEntry Entry { get; } = entry;
     internal uint Generation { get; } = entry.ConnectionId;
     internal BigInteger Count { get; set; } = BigInteger.One;
+    internal bool Retired { get; set; }
 }
