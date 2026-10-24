@@ -286,6 +286,47 @@ internal static class BeamBinaryHostChecks
     internal static Task IntegerTruncation()
     {
         object code = Code(BeamBinaryHostBytes.Image());
+        foreach (int bits in new[] { 128, 160, 256, 521, 4096 })
+        {
+            object context = New(MatchContext, new BitString(Enumerable.Repeat(byte.MaxValue, (bits + 7) / 8).ToArray()));
+            object state = State();
+            Call(
+                state,
+                WriteContext,
+                Xr(0),
+                context
+            );
+            Array operands = Ops(
+                O(Label, 3),
+                Xr(0),
+                O(Count, 6),
+                A(IntegerAtom),
+                U(1),
+                N(),
+                U(bits),
+                U(1),
+                Xr(1)
+            );
+            Validate(
+                code,
+                MatchName,
+                MatchOpcode,
+                3,
+                operands
+            );
+            Require(Match(code, state, operands));
+            Require(((Erlang.Integer)Call(state, Read, 1)).Value == (BigInteger.One << bits) - 1);
+            Require((int)Property(context, Position) == bits);
+            operands.SetValue(U(int.MaxValue), 6);
+            operands.SetValue(U(256), 7);
+            Refuses<NotSupportedException>(() => Validate(
+                code,
+                MatchName,
+                MatchOpcode,
+                3,
+                operands
+            ));
+        }
         foreach ((BigInteger value, int bits, byte[] expected) in new[]
         {
             (new BigInteger(0x1ff), 8, new byte[] { 0xff }),

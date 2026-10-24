@@ -52,7 +52,7 @@ internal static class BeamBinaryNames
     internal const string Unsupported = "The BEAM binary instruction is outside the admitted segment or command subset";
     internal const string InvalidContext = "A private BEAM binary match context is required";
     internal const int MaximumEqualityBits = 64;
-    internal const int MaximumIntegerCommandBits = 128;
+    internal const int MaximumIntegerCommandBits = int.MaxValue;
     internal const int BitsPerByte = 8;
     internal const int MaximumUnit = 256;
     internal const int CreatePrefix = 6;

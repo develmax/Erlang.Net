@@ -1,0 +1,43 @@
+{
+  "ChangedBindings": [
+    {
+      "Path": "src/Erlang.Runtime.Core/Execution/Beam/BeamBinaryInstructionValidation.cs",
+      "Before": "287190217981C4E2E00444DA412C685755A4803E6C0F91C6997F52E6DDE0FD5B",
+      "After": "2E0CDF9DE88AB8A9250207C2B691493534B78E3DE27EA52520F8DDDA7264DC30"
+    },
+    {
+      "Path": "src/Erlang.Runtime.Core/Execution/Beam/BeamBinaryNames.cs",
+      "Before": "DC266C67766539BA564D8D4CD6E21A1872CB35D5AD483E2396C018E2F20E2227",
+      "After": "A21973182651B452BC579C40700A593BA6BC516A684D4D0F28CEFCDB9CBFFD21"
+    }
+  ],
+  "OriginalSourceFiles": [
+    {
+      "Path": "erts/emulator/beam/emu/ops.tab",
+      "Sha256": "12F230BB9A12256A278BBF577DA4F348E755CB5C6D2D44A47CCC840671F4E857",
+      "Evidence": "bs_skip_bits2 consumes size/unit and discards the unsigned flags operand"
+    },
+    {
+      "Path": "erts/emulator/beam/jit/x86/ops.tab",
+      "Sha256": "BF6C0F5CB09DB030486713B3923BF0BBA1A9FBC98FE2684F425AB60B8FCAD711",
+      "Evidence": "bs_skip_bits2 consumes size/unit and discards the unsigned flags operand"
+    },
+    {
+      "Path": "erts/emulator/beam/jit/arm/ops.tab",
+      "Sha256": "45D439550A2D33635E464F5615DF747C0A169B20A7E5B65F53A3A165E236E14D",
+      "Evidence": "bs_skip_bits2 consumes size/unit and discards the unsigned flags operand"
+    }
+  ],
+  "PriorBindings": 1678,
+  "CurrentBindings": 1678,
+  "ApiEntriesUnchanged": true,
+  "ApiDelta": 0,
+  "FullContractDelta": 0,
+  "Reason": "Review two generic admission corrections: ignored unsigned skip flags and removal of an arbitrary128-bit integer command cap. Existing execution uses BigInteger with int-index bounds. Original1107 outcomes include132 skip and20 wide profiles; permanent role/overflow controls are strengthened. Preserve strict source hashing and all API classifications.",
+  "InitialFailures": [
+    "Missing BYTE macro in observer input header composition",
+    "Original image inspection rejected nonzero bs_skip_bits2 flags",
+    "Original ssh_transport integer160 commands exceeded128-bit admission",
+    "Explicit dbg import and original Unicode dependency composition were absent"
+  ]
+}

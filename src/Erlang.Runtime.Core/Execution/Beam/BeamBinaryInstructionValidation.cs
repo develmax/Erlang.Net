@@ -92,7 +92,8 @@ internal static class BeamBinaryInstructionValidation
                 Source(operands[2]);
                 Unsigned(operands[3]);
                 Unsigned(operands[4]);
-                Require(operands[3].Value > 0 && operands[3].Value <= BeamBinaryNames.MaximumUnit && operands[4].Value == 0);
+                // OTP discards this instruction's flags; size and unit determine the cursor change.
+                Require(operands[3].Value > 0 && operands[3].Value <= BeamBinaryNames.MaximumUnit);
                 break;
             case BeamBinaryNames.ExtractTail:
             case BeamBinaryNames.SavePosition:
