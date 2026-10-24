@@ -3,4 +3,13 @@
   <ItemGroup Condition="'$(UseInstalledPackage)' != 'true'"><ProjectReference Include="../../src/Erlang.Runtime/Erlang.Runtime.csproj" /><ProjectReference Include="../../src/Erlang.Otp.Behaviours/Erlang.Otp.Behaviours.csproj" /></ItemGroup>
   <ItemGroup Condition="'$(UseInstalledPackage)' == 'true'"><PackageReference Include="Erlang.Net.CSharp" Version="0.1.0" /></ItemGroup>
   <ItemGroup><None Include="Otp/*" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" /></ItemGroup>
+  <ItemGroup>
+    <None Include="../../src/Erlang.Otp.Stdlib.Beam/Otp/gen.beam" Link="Otp/gen.beam" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <None Include="../../src/Erlang.Otp.Stdlib.Beam/Otp/sys.beam" Link="Otp/sys.beam" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <None Include="../../src/Erlang.Otp.Stdlib.Beam/Otp/proc_lib.beam" Link="Otp/proc_lib.beam" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <None Include="../../src/Erlang.Otp.Stdlib.Beam/Otp/io_lib.beam" Link="Otp/io_lib.beam" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <None Include="../../src/Erlang.Otp.Stdlib.Beam/Otp/io_lib_format.beam" Link="Otp/io_lib_format.beam" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <None Include="../../src/Erlang.Otp.Stdlib.Beam/Otp/string.beam" Link="Otp/string.beam" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <None Include="../../src/Erlang.Otp.Stdlib.Beam/Otp/unicode_util.beam" Link="Otp/unicode_util.beam" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
 </Project>

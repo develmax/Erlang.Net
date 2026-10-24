@@ -8,6 +8,7 @@ Part456 separates the existing handwritten C# alternatives according to OTP appl
 | `Erlang.Serialization` | External Term Format and formatting primitives | Terms |
 | `Erlang.Runtime.Core` | Processes, scheduler, BEAM execution, BIF/NIF, native drivers, storage and bootstrap | Terms, Serialization |
 | `Erlang.Otp.Stdlib` | C# alternatives for collections, binary wrappers, proc_lib, gen_server, supervisor and sys support | Runtime.Core |
+| `Erlang.Otp.Stdlib.Beam` | Original OTP stdlib sources/provenance and 18 embedded BEAM images; explicit `OtpStdlib.Select` backend selection | Runtime composition (repository) or Erlang.Net.CSharp (package) |
 | `Erlang.Otp.Kernel` | C# application environment, logging, error_logger and RPC alternatives; public `KernelModules.Register` entry point | Runtime.Core, Stdlib |
 | `Erlang.Runtime` | Supported default VM + managed stdlib project composition | Runtime.Core, Stdlib |
 | `Erlang.Otp.Behaviours` | Existing public OTP registration/composition entry point | Runtime, Stdlib, Kernel |
@@ -28,3 +29,5 @@ This is a structural change. It adds no Erlang API or full compatibility claim. 
 Native distribution snapshots now carry a `Term` controller identity (`Pid` or actual `PortTerm`); the host snapshot input-handler term is `Nil` for a native controller. C# consumers should rebuild and pattern-match these identities. Native ports own their queue pump and lifetime; no handshaker PID is substituted as controller.
 
 Part458 organizes the executable test harness by category without changing assembly or resource identities. See [test layout](TEST_LAYOUT.md).
+
+Part461 moves reusable original OTP library assets out of examples into `src/Erlang.Otp.Stdlib.Beam/Otp`. Distinct historical compilation variants are retained under `Variants/BackendSelection`. Example observers/callbacks stay in examples. Ordinary .NET consumers can reference the project or package and select original BEAM or existing C# implementations through `OtpStdlib.Select`; no external image directory, original OTP installation or custom build import is needed for this embedded route. See the library README and `examples/HelloOtpLibraryReference`. The seven process/formatting images do not by themselves constitute a complete kernel startup closure.
