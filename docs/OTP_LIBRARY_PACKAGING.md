@@ -11,8 +11,10 @@ Packaging progress counts module names in the admitted OTP29.1.1 application inv
 | syntax_tools | 9 | 9 | 100% | Shared53 checks; all9 image identities; original erl_syntax/prettypr execution and complete error stacks; cold NuGet/publish |
 | parsetools | 4 | 4 | 100% | Shared53 checks; all4 image identities; actual original yeccparser grammar declarations/rules/errors; cold NuGet/publish |
 | compiler | 59 | 59 | 100% | 138 consumer checks; all59 image identities; actual original beam_opcodes/erl_bifs results and complete stacks; cold NuGet/publish; not compiler self-hosting |
+| tools | 16 | 16 | 100% | Shared86 consumer checks; all16 image identities; actual xref_utils values/errors; cold NuGet/publish |
+| runtime_tools | 13 | 13 | 100% | Shared86 checks; all13 image identities; actual msacc calculations and application/supervisor callbacks, complete errors; cold NuGet/publish |
 
-These seven applications total313/313 packaged module names (100% of these seven application inventories). The ERTS descriptor lists19 modules and the distribution includes three additional implementation images; all22 are packaged and the distinction is recorded in provenance. This is not a project-wide completion percentage or full compatibility claim. The official kernel producer is Windows x64; platform identity remains explicit. No newly registered runtime APIs or full contracts are added by packaging.
+These nine applications total342/342 packaged module names (100% of these nine application inventories). The ERTS descriptor lists19 modules and the distribution includes three additional implementation images; all22 are packaged and the distinction is recorded in provenance. This is not a project-wide completion percentage or full compatibility claim. The official kernel producer is Windows x64; platform identity remains explicit. No newly registered runtime APIs or full contracts are added by packaging.
 
 Projects:
 
@@ -21,13 +23,14 @@ Projects:
 - `src/Erlang.Otp.Erts.Beam` and `src/Erlang.Otp.Sasl.Beam`: complete original image/source/resource inventories and explicit OtpErts/OtpSasl readers/BEAM selection factories. ERTS native BIFs remain C# runtime primitives; no native ERTS executable is shipped.
 - `src/Erlang.Otp.SyntaxTools.Beam` and `src/Erlang.Otp.Parsetools.Beam`: all13 original images,16 source/header files and four application/upgrade resources; OtpSyntaxTools/OtpParsetools readers and explicit BEAM selectors.
 - `src/Erlang.Otp.Compiler.Beam`: all59 original images,68 source/header files and compiler.app/appup; explicit OtpCompiler readers/selectors. Source compilation/self-hosting remains separate.
+- `src/Erlang.Otp.Tools.Beam` and `src/Erlang.Otp.RuntimeTools.Beam`: all29 original images,32 source/header files and four application resources. Explicit OtpTools/OtpRuntimeTools readers and selectors; live tracing/profiling/native driver compatibility remains separate.
 - `src/Erlang.Otp.Stdlib` and `src/Erlang.Otp.Kernel`: existing C# alternatives and their current registration/composition APIs. The strict startup selector's Managed support is narrower than every C# registration; unsupported choices fail explicitly.
 
 Next: extend other applications according to the boot dependency inventory, preserving admitted compilation variants and explicit dependency boundaries. Shipping an application descriptor does not automatically start it; native bindings, selected dependency images and the existing boot protocol remain required. Continue actual image ownership/execution checks and original OTP comparisons separately from file inventory checks.
 
 ## Remaining official application inventories
 
-The admitted Windows release contains 1321 BEAM files across 34 applications (36 application directories including C/Java support). This batch packages313/1321 image names (23.7%); this is packaging progress only. Source names, descriptors, generated support and native platform prerequisites remain distinct. The complete module list is in [OTP_LIBRARY_INVENTORY.json](OTP_LIBRARY_INVENTORY.json).
+The admitted Windows release contains 1321 BEAM files across 34 applications (36 application directories including C/Java support). This batch packages342/1321 image names (25.9%); this is packaging progress only. Source names, descriptors, generated support and native platform prerequisites remain distinct. The complete module list is in [OTP_LIBRARY_INVENTORY.json](OTP_LIBRARY_INVENTORY.json).
 
 | Remaining application | BEAM images | Packaging state |
 | --- | ---: | --- |
@@ -52,13 +55,11 @@ The admitted Windows release contains 1321 BEAM files across 34 applications (36
 | os_mon | 8 | Not yet packaged |
 | public_key | 42 | Not yet packaged |
 | reltool | 9 | Not yet packaged |
-| runtime_tools | 13 | Not yet packaged |
 | snmp | 90 | Not yet packaged |
 | ssh | 43 | Not yet packaged |
 | ssl | 78 | Not yet packaged |
 | tftp | 8 | Not yet packaged |
-| tools | 16 | Not yet packaged |
 | wx | 241 | Not yet packaged |
 | xmerl | 35 | Not yet packaged |
 
-Next priority: tools/runtime_tools packaging and the explicit runtime/filesystem/parse-transform prerequisites for executing the original compiler pipeline; then remaining application families. Packaging an image does not prove every export, I/O effect, on_load hook, native binding or application-start closure.
+Next priority: remaining application families and the explicit runtime/filesystem/parse-transform prerequisites for executing the original compiler pipeline. Native profiling/tracing/driver effects must be validated separately from these finite pure calculations. Packaging an image does not prove every export, I/O effect, on_load hook, native binding or application-start closure.
