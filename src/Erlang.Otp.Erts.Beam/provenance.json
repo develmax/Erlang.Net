@@ -1,0 +1,222 @@
+{
+  "ReleaseTag": "OTP-29.1.1",
+  "SourceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Application": "erts",
+  "Version": "17.1",
+  "ProducerPlatform": "Windows x64 official release",
+  "ArchiveSha256": "337480AF988ECA993C2E98B68850F00FC6724D366346565E38941AC0D1B7C56B",
+  "ExecutionManifestSha256": "AF5EA3DA317E2ABC8A0CF1874D4E6BFB93AC1A47E864A7B92BBE7A03D1607E99",
+  "ReleaseUrl": "https://github.com/erlang/otp/releases/download/OTP-29.1.1/otp_win64_29.1.1.zip",
+  "DescriptorModules": [
+    "atomics",
+    "counters",
+    "erl_init",
+    "erl_prim_loader",
+    "erlang",
+    "erts_code_purger",
+    "erts_internal",
+    "erts_trace_cleaner",
+    "init",
+    "persistent_term",
+    "prim_buffer",
+    "prim_eval",
+    "prim_file",
+    "prim_inet",
+    "prim_net",
+    "prim_socket",
+    "prim_zip",
+    "socket_registry",
+    "zlib"
+  ],
+  "AdditionalImplementationModules": [
+    "erl_tracer",
+    "erts_dirty_process_signal_handler",
+    "erts_literal_area_collector"
+  ],
+  "Files": [
+    {
+      "Path": "src/atomics.erl",
+      "Sha256": "10B22C7D15BBE6782B5F61CA76B1848C9D6081432AE25BD085C2C64284EC3ED9"
+    },
+    {
+      "Path": "src/counters.erl",
+      "Sha256": "4A0A734151C2C8A87519FA46288EC94CE6BE7B588C1C8FAA4AC404574EC1112E"
+    },
+    {
+      "Path": "src/erl_init.erl",
+      "Sha256": "30A316386550655A8EA86F794A2CE259C9F83BD3FB1F5586F017D987363D6EB4"
+    },
+    {
+      "Path": "src/erl_prim_loader.erl",
+      "Sha256": "5BD40505A05451FEC423C1FB3349E59E3DE7B4B980B4F291620237BC4E1D278D"
+    },
+    {
+      "Path": "src/erl_tracer.erl",
+      "Sha256": "F34A5A27919EAB8746DAB41CAD79E032526CD5D41A9BB048DDBF6433918D19A8"
+    },
+    {
+      "Path": "src/erlang.erl",
+      "Sha256": "00D7672A16325E43CA221C6D6CEB4200390E2A961A243C2E31DDC141AC145047"
+    },
+    {
+      "Path": "src/erts_code_purger.erl",
+      "Sha256": "2A9A4D8642BE168AD818BAF29CFD4F4FF913D0F9BD5F1F669947B575BFFC443D"
+    },
+    {
+      "Path": "src/erts_dirty_process_signal_handler.erl",
+      "Sha256": "B2CAE00D536090F0F704F200738EFB8E36E1422356766F876A96B99709A451CE"
+    },
+    {
+      "Path": "src/erts_internal.erl",
+      "Sha256": "22B6A291C32778EDB84DC1E9BB2CFD5AF44CA7E9F0AE53CB01F3A674218BC260"
+    },
+    {
+      "Path": "src/erts_literal_area_collector.erl",
+      "Sha256": "747522376E342C5C32BB3321F669BE26C7268B71C80ECB27E59456D5EAE0CBE9"
+    },
+    {
+      "Path": "src/erts_trace_cleaner.erl",
+      "Sha256": "973112A821C763D1D119A18477F41195AD24B6527981CFEF1B2D1C03CFD422C0"
+    },
+    {
+      "Path": "src/init.erl",
+      "Sha256": "935964685D79D925A8B170C342B256B8FF57E0BF1D48A4343D83BD8CB7F763F8"
+    },
+    {
+      "Path": "src/persistent_term.erl",
+      "Sha256": "30A718F59E2FB5BA058240609327E04DDC971BD278BC43878CDD75643D2B981A"
+    },
+    {
+      "Path": "src/prim_buffer.erl",
+      "Sha256": "86ECEF2D7482159FBE0EE224E0292AD0BF89806CA08A1FE9D0A3DA41DD51B2A3"
+    },
+    {
+      "Path": "src/prim_eval.erl",
+      "Sha256": "A816F8CA52BA870142F326299E4D4387A9CF5A3997A9C24E825FE8270AD70E1A"
+    },
+    {
+      "Path": "src/prim_eval.S",
+      "Sha256": "841E527B0A1E8BE83A7EF1F9A951BB366453B95EEAE70FBF2571C0835E54ADE5"
+    },
+    {
+      "Path": "src/prim_file.erl",
+      "Sha256": "6A579BC8CA2F4A76258B7014FF2569C30524C62CFFC54527E4F8473E905F768A"
+    },
+    {
+      "Path": "src/prim_inet.erl",
+      "Sha256": "2F12A5B3391DED10CF1697DFD1105CB95271ED6C20A236DFFDB69624871C2E9D"
+    },
+    {
+      "Path": "src/prim_net.erl",
+      "Sha256": "B2F96E39A7C36018CD5190CDAED28A330CD88DF4FF9C6237D17A6CD5F30DA5A8"
+    },
+    {
+      "Path": "src/prim_socket.erl",
+      "Sha256": "D32062A90FB74838865465B8FDA566F7F9F42BA7C66DF854457EACB60E35C7E5"
+    },
+    {
+      "Path": "src/prim_zip.erl",
+      "Sha256": "BBB65BFDC2AAF36F81ECFB8E59003CADDF38BA02A755DDB8504642F367E06AF1"
+    },
+    {
+      "Path": "src/socket_registry.erl",
+      "Sha256": "497CEA29141322B4ACCB5F48509D22F6FB1E387B8F7202AA10A8B4234B84A8B5"
+    },
+    {
+      "Path": "src/zlib.erl",
+      "Sha256": "6657C86D46536BF23FD3EF653B90439D2B7394250C3497DE5A983B251D8F357D"
+    },
+    {
+      "Path": "ebin/atomics.beam",
+      "Sha256": "A683CBAC5176D979720C771C47908AEFE07252E9492EAF4940B81AA956FE2619"
+    },
+    {
+      "Path": "ebin/counters.beam",
+      "Sha256": "36E38C88D100C8BEE9E28EC1144B6F532CD681EFCEF1F9B3FCD0719DD612CB6F"
+    },
+    {
+      "Path": "ebin/erl_init.beam",
+      "Sha256": "F5373F9D1D678D8261E07FFAD0033663F762913C339729A4309DF2E6FD11ABDF"
+    },
+    {
+      "Path": "ebin/erl_prim_loader.beam",
+      "Sha256": "C014A33CA8C7BFA118ACA6BB96AE638200D8FD8E96EB9129747F25133ED7B7E8"
+    },
+    {
+      "Path": "ebin/erl_tracer.beam",
+      "Sha256": "CB002C3122B29120D84618754B04C13DB66FDDAFB6B50076F5651E7F4FB55E06"
+    },
+    {
+      "Path": "ebin/erlang.beam",
+      "Sha256": "F7CF9DAA675DA37CFEB5D03F685B3127A4B5D9B09350376D3FDFB55948B875BC"
+    },
+    {
+      "Path": "ebin/erts.app",
+      "Sha256": "E43640238871AD926053B29522E69A93644352541098F00C8389F256DB10C5AA"
+    },
+    {
+      "Path": "ebin/erts_code_purger.beam",
+      "Sha256": "E972CA3A2481A0083C6A12F858EFA110D9EBC7191B2A0F9EEC3D3BC2ED841556"
+    },
+    {
+      "Path": "ebin/erts_dirty_process_signal_handler.beam",
+      "Sha256": "67CF9A522039DD3807C09BCA1603DD06DF04158127EE4FD4EC2AC5D4D60AD58C"
+    },
+    {
+      "Path": "ebin/erts_internal.beam",
+      "Sha256": "6740F088697BCF6285227B95D3B91ECFF38AE89ADF9A1B6976413CEC2AF7B806"
+    },
+    {
+      "Path": "ebin/erts_literal_area_collector.beam",
+      "Sha256": "E5912D848CEF6599DBE539804AA814B9C1AD141A76600F74EF219B03C4A1D3B6"
+    },
+    {
+      "Path": "ebin/erts_trace_cleaner.beam",
+      "Sha256": "44CE918E91DBF0A0601A1AC9D95A56688E360BAF8C91DE7F77114A643D7D611C"
+    },
+    {
+      "Path": "ebin/init.beam",
+      "Sha256": "9DFA5F06201DB888A474228153E43FB34B5442DC3538B5C50369372A193B8DF8"
+    },
+    {
+      "Path": "ebin/persistent_term.beam",
+      "Sha256": "7059A696723804D090E3E4931ABF518FA438CAFD4E16000D76BA2ECC878A081D"
+    },
+    {
+      "Path": "ebin/prim_buffer.beam",
+      "Sha256": "DF84688DD8BEEA5D19D3DEBFBECE0AF8F0865698B29EE07984FF3FBB1D7E0BF7"
+    },
+    {
+      "Path": "ebin/prim_eval.beam",
+      "Sha256": "98D6E55B825361A4E2316BED02B97FD7506D57C34021BA95F4419FEA8ACC0936"
+    },
+    {
+      "Path": "ebin/prim_file.beam",
+      "Sha256": "6256AAAD081101F0F48BE42BEF3F2DD566BDCFE82308D5E6E7032FF9151E39CE"
+    },
+    {
+      "Path": "ebin/prim_inet.beam",
+      "Sha256": "E967D364E604D104CEBB6FD08475626C82DC9945DDA06B6CE9F1B14C29F62134"
+    },
+    {
+      "Path": "ebin/prim_net.beam",
+      "Sha256": "3A29D64D72EDD67C4B2AE2642BDAA7B9BB57069B92BED08400C3AC176ED14433"
+    },
+    {
+      "Path": "ebin/prim_socket.beam",
+      "Sha256": "BB6FA9A9818D333A442F4E7EA31389DAB6E609DB6C81FD5E765FA601C017B863"
+    },
+    {
+      "Path": "ebin/prim_zip.beam",
+      "Sha256": "A001ECDC01FC5DA0B1019D155CBB52B56213FC3350FE36FE49546D7ACA69DAED"
+    },
+    {
+      "Path": "ebin/socket_registry.beam",
+      "Sha256": "23F8CD42CEBC13A9A44ADD22833A216608B5EC2C120BBBC6E1B6ADB1A196D8AB"
+    },
+    {
+      "Path": "ebin/zlib.beam",
+      "Sha256": "9DF615E762363A839DB387A4B8652FCF52985EC13C8F2C0A52D3DDB84EECEFA5"
+    }
+  ]
+}

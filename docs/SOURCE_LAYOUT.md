@@ -10,6 +10,8 @@ Part456 separates the existing handwritten C# alternatives according to OTP appl
 | `Erlang.Otp.Stdlib` | C# alternatives for collections, binary wrappers, proc_lib, gen_server, supervisor and sys support | Runtime.Core |
 | `Erlang.Otp.Stdlib.Beam` | Original OTP stdlib sources/provenance and all98 embedded BEAM images; explicit `OtpStdlib.Select` backend selection | Runtime composition (repository) or Erlang.Net.CSharp (package) |
 | `Erlang.Otp.Kernel.Beam` | All104 original kernel images, original application/upgrade resources and source/include inventory | Runtime composition (repository) or Erlang.Net.CSharp (package) |
+| `Erlang.Otp.Erts.Beam` | All22 original preloaded/implementation images, sources and erts.app; native bindings remain in Runtime.Core | Runtime composition (repository) or Erlang.Net.CSharp (package) |
+| `Erlang.Otp.Sasl.Beam` | All17 original SASL images, sources and application/upgrade resources | Runtime composition (repository) or Erlang.Net.CSharp (package) |
 | `Erlang.Otp.Kernel` | C# application environment, logging, error_logger and RPC alternatives; public `KernelModules.Register` entry point | Runtime.Core, Stdlib |
 | `Erlang.Runtime` | Supported default VM + managed stdlib project composition | Runtime.Core, Stdlib |
 | `Erlang.Otp.Behaviours` | Existing public OTP registration/composition entry point | Runtime, Stdlib, Kernel |
@@ -36,3 +38,5 @@ Part461 moves reusable original OTP library assets out of examples into `src/Erl
 Part462 adds the complete original kernel application asset inventory under `src/Erlang.Otp.Kernel.Beam/Otp`, including104 images,104 Erlang sources, source/header support and kernel.app/kernel.appup. `OtpKernel.ReadImage` and the application-resource readers verify embedded hashes and return independent bytes. `OtpKernel.Beam` requires explicit dependencies. This is application packaging completeness; native setup, on_load and complete boot remain distinct runtime concerns. See [packaging progress](OTP_LIBRARY_PACKAGING.md).
 
 Part462 also completes the original stdlib catalog from18 to98 names without replacing the initial admitted images. The additional80 images, generated Erlang sources, source/include support and stdlib application/upgrade resources retain official release provenance. ReadImage and the resource readers verify their hashes; non-collection startup selections continue to require explicit dependencies.
+
+Part463 completes the ERTS/SASL asset inventories. Original wrappers and their explicit C# native bootstrap remain distinct. A common retained observer executes19 whole outcomes/stacks on original OTP and our runtime with exact raw ETF equality; this finite observation does not certify all BIFs, release management or whole application boot.

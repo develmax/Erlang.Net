@@ -1,14 +1,14 @@
 param(
     [Parameter(Mandatory)][string]$Feed,
     [string]$Configuration = 'Debug',
-    [ValidateSet('Stdlib', 'Kernel')][string]$Library = 'Stdlib'
+    [ValidateSet('Stdlib', 'Kernel', 'Boot')][string]$Library = 'Stdlib'
 )
 $ErrorActionPreference = 'Stop'
 $repository = Split-Path -Parent $PSScriptRoot
 $feedPath = (Resolve-Path -LiteralPath $Feed).Path
 $work = Join-Path $repository ('artifacts/otp-library-consumer-' + [guid]::NewGuid().ToString('N'))
-$consumerProject = if ($Library -eq 'Kernel') { 'Erlang.Otp.Kernel.Library.Tests' } else { 'HelloOtpLibraryReference' }
-$consumerDirectory = if ($Library -eq 'Kernel') { 'tests/Erlang.Otp.Kernel.Library.Tests' } else { 'examples/HelloOtpLibraryReference' }
+$consumerProject = switch ($Library) { 'Kernel' { 'Erlang.Otp.Kernel.Library.Tests' } 'Boot' { 'Erlang.Otp.Boot.Library.Tests' } default { 'HelloOtpLibraryReference' } }
+$consumerDirectory = if ($Library -eq 'Stdlib') { 'examples/HelloOtpLibraryReference' } else { "tests/$consumerProject" }
 New-Item -ItemType Directory -Path $work | Out-Null
 function Invoke-LibraryDotNet {
     param([string[]]$Arguments)
@@ -17,17 +17,21 @@ function Invoke-LibraryDotNet {
 }
 Push-Location $repository
 try {
-    Invoke-LibraryDotNet @('pack', "src/Erlang.Otp.$Library.Beam", '-c', $Configuration, '-m:1', '--nologo', '-p:UseInstalledPackage=true', "-p:RestoreSources=$feedPath", "-p:RestorePackagesPath=$work/build-cache", '-o', $feedPath)
+    $packageLibraries = if ($Library -eq 'Boot') { @('Erts', 'Sasl') } else { @($Library) }
+    foreach ($packageLibrary in $packageLibraries) {
+        Invoke-LibraryDotNet @('pack', "src/Erlang.Otp.$packageLibrary.Beam", '-c', $Configuration, '-m:1', '--nologo', '-p:UseInstalledPackage=true', "-p:RestoreSources=$feedPath", "-p:RestorePackagesPath=$work/build-cache", '-o', $feedPath)
+    }
     Copy-Item -LiteralPath (Get-ChildItem -LiteralPath $consumerDirectory -File | Where-Object Extension -In '.cs', '.csproj').FullName -Destination $work
+    if ($Library -eq 'Boot') { Copy-Item -LiteralPath (Join-Path $consumerDirectory 'Fixtures') -Destination (Join-Path $work 'Fixtures') -Recurse }
     Invoke-LibraryDotNet @('publish', "$work/$consumerProject.csproj", '-c', $Configuration, '-m:1', '--nologo', '-p:ImportDirectoryBuildProps=false', '-p:ImportDirectoryBuildTargets=false', '-p:UseInstalledPackage=true', "-p:RestoreSources=$feedPath", "-p:RestorePackagesPath=$work/consumer-cache", '-o', "$work/published")
     $dotnetHost = (Get-Command dotnet -CommandType Application | Select-Object -First 1).Source
     $savedPath = $env:PATH
     Push-Location $work
     try {
         $env:PATH = ''
-        if ($Library -eq 'Kernel') {
+        if ($Library -ne 'Stdlib') {
             & $dotnetHost "$work/published/$consumerProject.dll"
-            if ($LASTEXITCODE -ne 0) { throw 'Published original kernel consumer failed' }
+            if ($LASTEXITCODE -ne 0) { throw "Published original $Library consumer failed" }
         } else {
             foreach ($lists in @('Managed', 'Beam')) {
                 foreach ($queue in @('Managed', 'Beam')) {
@@ -40,5 +44,5 @@ try {
         $env:PATH = $savedPath
         Pop-Location
     }
-    @{ Passed = $true; Library = $Library; ConsumerRuns = $(if ($Library -eq 'Kernel') { 1 } else { 4 }); EmptyPath = $true; Directory = $work } | ConvertTo-Json | Set-Content "$work/completion.json"
+    @{ Passed = $true; Library = $Library; ConsumerRuns = $(if ($Library -eq 'Stdlib') { 4 } else { 1 }); EmptyPath = $true; Directory = $work } | ConvertTo-Json | Set-Content "$work/completion.json"
 } finally { Pop-Location }

@@ -1,0 +1,52 @@
+{
+  "Scope": "Original ERTS/SASL packaging and finite original-wrapper execution; no whole-module/API promotion",
+  "BaseMain": "5a83fafd3f2f6b195c3fffefddadcc16ca588a65",
+  "MainMergeCI": 40097274665,
+  "Applications": {
+    "erts": {
+      "Images": 22,
+      "DescriptorModules": 19,
+      "AdditionalImplementationModules": [
+        "erl_tracer",
+        "erts_dirty_process_signal_handler",
+        "erts_literal_area_collector"
+      ],
+      "ProviderFiles": 46,
+      "ApplicationUpgradeResource": false,
+      "PackageSha256": "6D93DF8B5BA878D9FEF715763BF75997210618F016D3489476C33EF97894705E"
+    },
+    "sasl": {
+      "Images": 17,
+      "DescriptorModules": 17,
+      "ProviderFiles": 37,
+      "ApplicationUpgradeResource": true,
+      "PackageSha256": "DF4FCFD9C2C8F0FCD8B4E6B8421570B377B680B3410768806C18B45F4B3D9869"
+    }
+  },
+  "PinnedUnchangedSourceHeaderFiles": 41,
+  "PublicConsumerChecks": 104,
+  "Outcomes": 19,
+  "RawEtfBytes": 3393,
+  "RawEtfSha256": "1DF3410EF552EFF9146853B06F1FCAC4C512B8A1C9EF5D9D89C445688E18C7EA",
+  "ProjectionOrFrameRemoval": false,
+  "NativeAtomicsAndCountersCreated": true,
+  "PostDisposeNativeArraysBytesAndInvocations": 0,
+  "ColdPublishedConsumerChecks": 104,
+  "ColdConsumerEmptyPath": true,
+  "ColdConsumerRepositoryBuildImports": false,
+  "NewRegisteredApis": 0,
+  "NewFullContracts": 0,
+  "DefaultApis": 708,
+  "DefaultFullContracts": 118,
+  "MainRuntimeCatalog": 8842,
+  "ExactPublicationHeadCI": "Pending",
+  "RuntimeSourceChanged": false,
+  "FinalSolutionBuild": {
+    "Configuration": "Release",
+    "Succeeded": true,
+    "Warnings": 0,
+    "Errors": 0,
+    "Seconds": 51.38
+  },
+  "FinalSourceLayoutFilesNeedingFormatting": 0
+}
