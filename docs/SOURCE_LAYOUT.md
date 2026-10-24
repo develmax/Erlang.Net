@@ -42,3 +42,5 @@ Part462 also completes the original stdlib catalog from18 to98 names without rep
 Part463 completes the ERTS/SASL asset inventories. Original wrappers and their explicit C# native bootstrap remain distinct. A common retained observer executes19 whole outcomes/stacks on original OTP and our runtime with exact raw ETF equality; this finite observation does not certify all BIFs, release management or whole application boot.
 
 Part464 adds independent original syntax_tools/parsetools libraries under src. They retain all13 images,16 unchanged source/header files and four application resources. The public OtpSyntaxTools/OtpParsetools readers and explicit dependency selections follow the existing original-library boundary.
+
+Part465 adds src/Erlang.Otp.Compiler.Beam, retaining all59 original compiler images,68 source/header files and two application resources. Sixty-five source/header files match pinned Git bytes; beam_opcodes.erl, beam_opcodes.hrl and core_parse.erl retain admitted generated release provenance. This is the original compiler application, separate from our Erlang.Compiler C# frontend.
