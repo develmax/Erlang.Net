@@ -1,0 +1,653 @@
+{
+  "ReleaseTag": "OTP-29.1.1",
+  "SourceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ArchiveSha256": "337480AF988ECA993C2E98B68850F00FC6724D366346565E38941AC0D1B7C56B",
+  "ExecutionManifestSha256": "AF5EA3DA317E2ABC8A0CF1874D4E6BFB93AC1A47E864A7B92BBE7A03D1607E99",
+  "ReleaseUrl": "https://github.com/erlang/otp/releases/download/OTP-29.1.1/otp_win64_29.1.1.zip",
+  "Application": "public_key",
+  "Version": "1.21.7",
+  "ProducerPlatform": "Windows x64 official release",
+  "DescriptorModules": [
+    "AlgorithmInformation-2009",
+    "AttributeCertificateVersion1-2009",
+    "CMSAesRsaesOaep-2009",
+    "CryptographicMessageSyntax-2009",
+    "CryptographicMessageSyntaxAlgorithms-2009",
+    "DSS",
+    "ECPrivateKey",
+    "EnrollmentMessageSyntax-2009",
+    "KEMAlgorithmInformation-2023",
+    "OCSP-2024-08",
+    "OTP-PKIX",
+    "OTP-PKIX-Relaxed",
+    "PKCS-1",
+    "PKCS-10",
+    "PKCS-3",
+    "PKCS-FRAME",
+    "PKIX-CommonTypes-2009",
+    "PKIX-X400Address-2009",
+    "PKIX1-PSS-OAEP-Algorithms-2009",
+    "PKIX1Explicit-2009",
+    "PKIX1Implicit-2009",
+    "PKIXAlgs-2009",
+    "PKIXAttributeCertificate-2009",
+    "PKIXCMP-2023",
+    "PKIXCRMF-2009",
+    "RFC5639",
+    "SLH-DSA-Module-2024",
+    "Safecurves-pkix-18",
+    "SecureMimeMessageV3dot1-2009",
+    "X509-ML-DSA-2025",
+    "X509-ML-KEM-2025",
+    "pubkey_cert",
+    "pubkey_cert_records",
+    "pubkey_crl",
+    "pubkey_ocsp",
+    "pubkey_os_cacerts",
+    "pubkey_pbe",
+    "pubkey_pem",
+    "pubkey_policy_tree",
+    "pubkey_ssh",
+    "pubkey_translation",
+    "public_key"
+  ],
+  "Files": [
+    {
+      "Path": "ebin/AlgorithmInformation-2009.beam",
+      "Sha256": "44BEE3E7FA9EBDAFB219DDC1F09438ED414BC6875C5D1D8CCEED986B9324C581"
+    },
+    {
+      "Path": "ebin/AttributeCertificateVersion1-2009.beam",
+      "Sha256": "4A8D73C9B934EFA63C3FCC8C83ADC2019331AC3EDD549F1EABBB3C65D131DD34"
+    },
+    {
+      "Path": "ebin/CMSAesRsaesOaep-2009.beam",
+      "Sha256": "D04D74B6FAC68BADFB339A86FC51D5BF2D4593EB2A0D4F3253699496D69550ED"
+    },
+    {
+      "Path": "ebin/CryptographicMessageSyntax-2009.beam",
+      "Sha256": "39A45EB4897A159C03DE59A3FA99848ED431E8C26E9DD5B2B403F2C8AA2720D5"
+    },
+    {
+      "Path": "ebin/CryptographicMessageSyntaxAlgorithms-2009.beam",
+      "Sha256": "2FDF23BB29867F7DDB75094A2C41DFB3252AE1387500D2C61EECA8B59189DD10"
+    },
+    {
+      "Path": "ebin/DSS.beam",
+      "Sha256": "D36CAC08D2AFD017A3C968318918B30A09FAF53B6CD220A204A6F42C03D8F986"
+    },
+    {
+      "Path": "ebin/ECPrivateKey.beam",
+      "Sha256": "0BD74AF833D519586F343DD46459F40DF8DB82A7578F0FCDE6429CB2137D805B"
+    },
+    {
+      "Path": "ebin/EnrollmentMessageSyntax-2009.beam",
+      "Sha256": "AD1F67280F2EBDDD70BE9151DE4610C85D70BF10A770489599743D2A36954045"
+    },
+    {
+      "Path": "ebin/KEMAlgorithmInformation-2023.beam",
+      "Sha256": "66C42A9F6142DF4209A2E27C0799A389A4EC3B71C2F12D92050B0A2C25561701"
+    },
+    {
+      "Path": "ebin/OCSP-2024-08.beam",
+      "Sha256": "9041C27DFEFC1E27786E08BEC1437AFC68946C2CD4BF01CB9830602F2F164497"
+    },
+    {
+      "Path": "ebin/OTP-PKIX-Relaxed.beam",
+      "Sha256": "736B66AB4ECD9A18C270231760F89B12C9CF8DBE5BB779C0E905A4321CDBB8BA"
+    },
+    {
+      "Path": "ebin/OTP-PKIX.beam",
+      "Sha256": "16438B4D748DC410F1ADD3FB043F1769446A2D065C8BD7F61409D31D1168F63C"
+    },
+    {
+      "Path": "ebin/PKCS-1.beam",
+      "Sha256": "5D9AFD05B2C1A02BF5F8D2DD8C886C9EFDE54EA393C23D8F5FDBFF396142E62B"
+    },
+    {
+      "Path": "ebin/PKCS-10.beam",
+      "Sha256": "0ACC46CA429937A35EE0ABAF85541F53AB4BB0A470CEA69B2A61B359626F506F"
+    },
+    {
+      "Path": "ebin/PKCS-3.beam",
+      "Sha256": "863F480F1CD5247F1E6C0809AD396C4FE3AE7FA3DA1E7F06B8A81719C7A1734C"
+    },
+    {
+      "Path": "ebin/PKCS-FRAME.beam",
+      "Sha256": "99CB65D6739A83D71DACEA8B92598A6BF1CE6659F87C68623DCB117048848517"
+    },
+    {
+      "Path": "ebin/PKIX-CommonTypes-2009.beam",
+      "Sha256": "DB8A1DC0E796B70BBD1C3AB729D25B29F619D0FC237F24412FAC7D7F283880F9"
+    },
+    {
+      "Path": "ebin/PKIX-X400Address-2009.beam",
+      "Sha256": "AEF91479C878358479430121DF991AAD15D7BFFF973DB720D4C041B4BB740B77"
+    },
+    {
+      "Path": "ebin/PKIX1-PSS-OAEP-Algorithms-2009.beam",
+      "Sha256": "9E4D8CFA9DBB39699C3F683BF1D0A9F12C59A532E82E0EDD551BD2A5716C736C"
+    },
+    {
+      "Path": "ebin/PKIX1Explicit-2009.beam",
+      "Sha256": "F7AC0196EE2DDF79CC3FC0A84597166B1894CB02C755E3972BEFEF0BDE4942DB"
+    },
+    {
+      "Path": "ebin/PKIX1Implicit-2009.beam",
+      "Sha256": "2E67439BD0A525610DC8B4B8B317A83F75E6B33508614DCCDB81EAE1581EF5CF"
+    },
+    {
+      "Path": "ebin/PKIXAlgs-2009.beam",
+      "Sha256": "DBCF238D0885C0CD16E517E5AF3397A35931B079E911D850B013AD10754F3824"
+    },
+    {
+      "Path": "ebin/PKIXAttributeCertificate-2009.beam",
+      "Sha256": "B05D69F57E8295828E22C36D3FB44D01395D4F3483849B28C5F97569E708B92C"
+    },
+    {
+      "Path": "ebin/PKIXCMP-2023.beam",
+      "Sha256": "BE1E59D5E8A9564963B67DE66AD03FB5AD998F61AC5C58FA454A360F4E6C4A9B"
+    },
+    {
+      "Path": "ebin/PKIXCRMF-2009.beam",
+      "Sha256": "5E65C0E0EF17B4428C9E41D36990D6305D1A99DED05904CB438A478FF2DE44FC"
+    },
+    {
+      "Path": "ebin/pubkey_cert.beam",
+      "Sha256": "874D5E93DF4AAFA55D3AAC11C0DA0DD457A55F7AD16397E5B601445BD92A92E1"
+    },
+    {
+      "Path": "ebin/pubkey_cert_records.beam",
+      "Sha256": "28B24F62F35520B7AB3C4AF42A1F8609A187016D67490DF22851DACFD7F3BF1E"
+    },
+    {
+      "Path": "ebin/pubkey_crl.beam",
+      "Sha256": "FACDA05E94D1D952F2F85A79C1B294EAE03F04B78935BA394D5A71FDEFF22B43"
+    },
+    {
+      "Path": "ebin/pubkey_ocsp.beam",
+      "Sha256": "34D5B172244D05A6119FD61FC71E6B82B4659393B33D48452B6A8E5FA4ECC5F3"
+    },
+    {
+      "Path": "ebin/pubkey_os_cacerts.beam",
+      "Sha256": "3CBCF8974F000AB0987576EDEEFE7F2F333C47B68C75221A4D5DDD2F53C74DD8"
+    },
+    {
+      "Path": "ebin/pubkey_pbe.beam",
+      "Sha256": "9D4A3BCC28A4911FDA63A5F3CA8692E66EF1576642F9FC0CE344BEB7CE54A96B"
+    },
+    {
+      "Path": "ebin/pubkey_pem.beam",
+      "Sha256": "09EC1D4863254F62B4656F81532FDB81BF77C680ABDDB2A98D757E6951737FEA"
+    },
+    {
+      "Path": "ebin/pubkey_policy_tree.beam",
+      "Sha256": "3B004E4BBA7EA9DE324C574A645E0F8244934D13476BE2B37B245F704E467202"
+    },
+    {
+      "Path": "ebin/pubkey_ssh.beam",
+      "Sha256": "00D040E2402FE1CAC873F4820C5D5E5FB508905001CF5989BA0F06DC0341B637"
+    },
+    {
+      "Path": "ebin/pubkey_translation.beam",
+      "Sha256": "E697B80A40875C243BA6146B33D3573D396D1AA79D7A755492C8204F7D6EC454"
+    },
+    {
+      "Path": "ebin/public_key.app",
+      "Sha256": "6675B5EEBE0EA62FA60652F300DCA2A5FBCC7948CE3C4AB83A3493C3E1913740"
+    },
+    {
+      "Path": "ebin/public_key.appup",
+      "Sha256": "6C5A96F6F5446CBEAD06CD027E46D3F6C7677D2BCF78F4A70E324BC8246D9E8A"
+    },
+    {
+      "Path": "ebin/public_key.beam",
+      "Sha256": "13050FE3D7832004CB6385CCE88281D08ADAEE0A444F24CF9547622D0C66DD21"
+    },
+    {
+      "Path": "ebin/RFC5639.beam",
+      "Sha256": "7CE8DF383CD66076202DD83A03EC377DBB1849C4392D6BE3B9C5F3A5B2812C70"
+    },
+    {
+      "Path": "ebin/Safecurves-pkix-18.beam",
+      "Sha256": "EC19880E4BCB77E749113953E73A3C030DBEF9300A3424E70789B272290150A6"
+    },
+    {
+      "Path": "ebin/SecureMimeMessageV3dot1-2009.beam",
+      "Sha256": "33121101AC97C1703CF03007AEC13BE2D0FFBBA1D0EDCCE5C9D5CCE21D47ED5E"
+    },
+    {
+      "Path": "ebin/SLH-DSA-Module-2024.beam",
+      "Sha256": "05D9C6216B3F9AA1753A4A150A134B54B92490786015D1DD77EED90AB5CBE5C1"
+    },
+    {
+      "Path": "ebin/X509-ML-DSA-2025.beam",
+      "Sha256": "AB5C717224EA7C59362CFEC158FA5D3668210452191CE9B5AD4ABCA5A2DABB29"
+    },
+    {
+      "Path": "ebin/X509-ML-KEM-2025.beam",
+      "Sha256": "DB0CE9B4073ECDAB1F4ECCB42912BD9EE7D205C6D825CE48E6199DE1F788F1FC"
+    },
+    {
+      "Path": "src/AlgorithmInformation-2009.erl",
+      "Sha256": "7F936591F99CAF4AEBAFC5BA09BBCCF7320CB682F211CBEE7C5FA42278DFBE2B"
+    },
+    {
+      "Path": "src/AttributeCertificateVersion1-2009.erl",
+      "Sha256": "A6FD2F9002FFD668A3E7AD767A069EA062EACB8BC3A743C7E891678F332854FA"
+    },
+    {
+      "Path": "src/CMSAesRsaesOaep-2009.erl",
+      "Sha256": "1FF0387B77C549BA1D58A8088584C2B4846D2B62E8D3E9073A6CC331F49AB7A9"
+    },
+    {
+      "Path": "src/CryptographicMessageSyntax-2009.erl",
+      "Sha256": "5439A80EE6A5578BEDCFC2A2D9386051E5EF3E09ED44DA4EFDDF92DD54325BD9"
+    },
+    {
+      "Path": "src/CryptographicMessageSyntaxAlgorithms-2009.erl",
+      "Sha256": "BBB0B27ABDADBD803232F9BB7E768F6FBF666231D66D9C9A2EAE64BE319DD9F8"
+    },
+    {
+      "Path": "src/DSS.erl",
+      "Sha256": "2303FF931F472E5324B232529E7134A86C3E315CDA62F0227BC4382F8BE49C78"
+    },
+    {
+      "Path": "src/ECPrivateKey.erl",
+      "Sha256": "9C211398AEEA71D5D950DF1FA3CFBB370E9183A81B97AF872FFDEE8237C1CEAB"
+    },
+    {
+      "Path": "src/EnrollmentMessageSyntax-2009.erl",
+      "Sha256": "BBFCE1B5BF9A4905C5FB6ADD167D3A16922613BDD4B11DEBEB26BAA7F6CA2AC7"
+    },
+    {
+      "Path": "src/KEMAlgorithmInformation-2023.erl",
+      "Sha256": "D4FED2E9A4E7C4091CA02D631437B3F67B275BB23DE201A0E14A69728913A213"
+    },
+    {
+      "Path": "src/OCSP-2024-08.erl",
+      "Sha256": "464348473DC6C060B041D8920B95F1EB3E3675DDB1DC7B231119F3EC42455FB4"
+    },
+    {
+      "Path": "src/OTP-PKIX-Relaxed.erl",
+      "Sha256": "AC664C8A8C3CB2AE5AD2AD19A2814844646BA729D361D31B3602B12DB1929618"
+    },
+    {
+      "Path": "src/OTP-PKIX.erl",
+      "Sha256": "E67F0EDE6DAF72A417CC66B18C7E7C099AEF8602DB846D4D95BFF49EC52FC646"
+    },
+    {
+      "Path": "src/PKCS-1.erl",
+      "Sha256": "672075FE8BCFDDEE0A4AC9D00429305818DD64175449A54278C281A7AABEBAA6"
+    },
+    {
+      "Path": "src/PKCS-10.erl",
+      "Sha256": "3D197E57021326D3F616D6DB4BD0856253C88E537D8802C3D6B359D44150F1AB"
+    },
+    {
+      "Path": "src/PKCS-3.erl",
+      "Sha256": "4CFA4BF7D34DED93882712FCBC886738F9820F1ED069EFB6B4FDF4D30B1C6BA9"
+    },
+    {
+      "Path": "src/PKCS-FRAME.erl",
+      "Sha256": "C30BC9F11585F8DC8DC5587A8E4B6FC9B3C9F252872D5A0D944E04D8B0CFE40F"
+    },
+    {
+      "Path": "src/PKIX-CommonTypes-2009.erl",
+      "Sha256": "9BB26DE2A789081E8245350926C1A69C9B36CDB475F166CD0848128693DBB034"
+    },
+    {
+      "Path": "src/PKIX-X400Address-2009.erl",
+      "Sha256": "FBB84D5D1C439519670F895AF40C675C63BA228A9F666738E747CACF40FE038E"
+    },
+    {
+      "Path": "src/PKIX1-PSS-OAEP-Algorithms-2009.erl",
+      "Sha256": "B6A15209FA2D922F8215F95E3F8ABD71C1BF851BD92FDE924678C2C4B946E16E"
+    },
+    {
+      "Path": "src/PKIX1Explicit-2009.erl",
+      "Sha256": "6DD34F20B6524088F2B62696600D88566A7A8C63BC95D4507323AA6071E2B34D"
+    },
+    {
+      "Path": "src/PKIX1Implicit-2009.erl",
+      "Sha256": "89F69EBF53C1F1213CC3A49D1D5A318B95BC13A0D5ECBD4C58AF75B792BDA330"
+    },
+    {
+      "Path": "src/PKIXAlgs-2009.erl",
+      "Sha256": "9C6FBDCE684B8435D789B0A459088CAB43847D0E010B9E253F50C0C530C8877E"
+    },
+    {
+      "Path": "src/PKIXAttributeCertificate-2009.erl",
+      "Sha256": "B7A6C3AAC810E83F4063A033FA6EF76752A125727431C492AF72F7F94CEF1CD2"
+    },
+    {
+      "Path": "src/PKIXCMP-2023.erl",
+      "Sha256": "780A067D8B498F1778CAD25D8E0AE4723089396015BF56E379E1216625290103"
+    },
+    {
+      "Path": "src/PKIXCRMF-2009.erl",
+      "Sha256": "53D35F8DFD8CF59F8724FCCF987E4E1D6C532FA4CA209CB5022FC0D49D8B2491"
+    },
+    {
+      "Path": "src/pubkey_cert.erl",
+      "Sha256": "28A6F5FDAB308E097314E4B3D2577C002C513A067D0BCF1AAC6B35B0F65A9E96"
+    },
+    {
+      "Path": "src/pubkey_cert_records.erl",
+      "Sha256": "C37E383204580AF3D857A633198319074A694CC2E028D7CDD277753B908EDCA5"
+    },
+    {
+      "Path": "src/pubkey_crl.erl",
+      "Sha256": "7EC288A1C4B4FADA2973D34F42B1C54D6829CB3222AE538346527F037D04810F"
+    },
+    {
+      "Path": "src/pubkey_moduli.hrl",
+      "Sha256": "ADF94BA8AD5DDF74BC0764181BED32A5CDFE0EF1894B05AEC3E5102C4FCB8579"
+    },
+    {
+      "Path": "src/pubkey_ocsp.erl",
+      "Sha256": "469A94E1C253A8D9D75C27382E8187A550E7B4B8915F704576C60E45504F1EF6"
+    },
+    {
+      "Path": "src/pubkey_os_cacerts.erl",
+      "Sha256": "2C694C5F43F44E336817CD218E140B8B700D1D016CB274EAD0B4B95A0480A3AA"
+    },
+    {
+      "Path": "src/pubkey_pbe.erl",
+      "Sha256": "FED5BBCC035788E7DC8A9161805C0400BB057EC470E3C1E37D0E780D2FA7F8C9"
+    },
+    {
+      "Path": "src/pubkey_pem.erl",
+      "Sha256": "B55DB7AFFD2684B2CD0FFEDD8FF1C9BCAEB2F6F12948FA24BCC41439C9CEE155"
+    },
+    {
+      "Path": "src/pubkey_policy_tree.erl",
+      "Sha256": "651154708CFC4078867B08B60A3F6525A95A959560F78AB9567C91B864D1BB31"
+    },
+    {
+      "Path": "src/pubkey_ssh.erl",
+      "Sha256": "8F4D8D27E96BD11218F771D2FA388DADDE9A36E71E9B9ABFFDB3C75AFC0381A1"
+    },
+    {
+      "Path": "src/pubkey_translation.erl",
+      "Sha256": "E926F72EE8197BAFDD3F1672F577C7B2C8B95B11EACA0A835430A1438A33BA00"
+    },
+    {
+      "Path": "src/public_key.erl",
+      "Sha256": "7E70D3BA79815525EE74C2B2942F392E93453CA9B8A5EBB58B0DF3F6F3F22CE3"
+    },
+    {
+      "Path": "src/public_key_internal.hrl",
+      "Sha256": "AB7725BE2032B93A138EB1D0F80535BCFBBF75DCCEBDC36045C277DA00B850A2"
+    },
+    {
+      "Path": "src/RFC5639.erl",
+      "Sha256": "83E9671A80B9121ADA7CC2E443CCAD663645011DA55AEE619E4679D55578AAFD"
+    },
+    {
+      "Path": "src/Safecurves-pkix-18.erl",
+      "Sha256": "D131682CD092C745B52E90F08630D3D70FD472F7F8E5D1B5AC9C92CAD1C4235E"
+    },
+    {
+      "Path": "src/SecureMimeMessageV3dot1-2009.erl",
+      "Sha256": "D3BCA0842378D9344472B344C47A812C1FA38534B46F0076F1DEA62CEE725750"
+    },
+    {
+      "Path": "src/SLH-DSA-Module-2024.erl",
+      "Sha256": "2C2AABCBD903F4791101F42511604EA15401F20404BE6392FF44F25A389F89C0"
+    },
+    {
+      "Path": "src/X509-ML-DSA-2025.erl",
+      "Sha256": "39136F1A74A961E494942A86154634C065D5CC49A3EF65533E819F6A142DDF99"
+    },
+    {
+      "Path": "src/X509-ML-KEM-2025.erl",
+      "Sha256": "E7EBC34431EADB98CB9A369EA8C323C2C9114064D485C43E674D9713CF92DDFA"
+    },
+    {
+      "Path": "include/OTP-PUB-KEY.hrl",
+      "Sha256": "D7826F40B1443F6C164DA8ECAF8F91E8D5AE66C574784499AEE8A41346ADC5D3"
+    },
+    {
+      "Path": "include/PKCS-FRAME.hrl",
+      "Sha256": "F15544F2958D1654914C3E3F2BCBDE1A73314E9C738E94650216F53796A58C22"
+    },
+    {
+      "Path": "include/PKIXCMP.hrl",
+      "Sha256": "9121D638901BCF4A0407816E2E5505745E58BCC59F0692B18C0501219F77BDB3"
+    },
+    {
+      "Path": "include/PKIXCRMF.hrl",
+      "Sha256": "42A62CF9FB0C2F1D723D7EE57C4B17D0F1E4A27391747201154C3BAA51B50051"
+    },
+    {
+      "Path": "include/public_key.hrl",
+      "Sha256": "54944C6AAF3FD08E337870E86E3B482FB3C5F988B11168EED35306D525501F26"
+    },
+    {
+      "Path": "asn1/AlgorithmInformation-2009.asn1",
+      "Sha256": "7E290995D3AC41267823E1756D249E3770723EB53D37A47B81ACEB30A5488D7F"
+    },
+    {
+      "Path": "asn1/AttributeCertificateVersion1-2009.asn1",
+      "Sha256": "FE655FB902674849189B8F89E914E09D35A2138A79588261E3012BFE116632EA"
+    },
+    {
+      "Path": "asn1/CMSAesRsaesOaep-2009.asn1",
+      "Sha256": "E618EE2CE7DF6D90EBAE5436D0E5786E4F67FF70BF5327FAAB8CF0FB0215B692"
+    },
+    {
+      "Path": "asn1/CryptographicMessageSyntax-2009.asn1",
+      "Sha256": "805C99A3B242A9C7B23CCEC9727934DE9D8F0CE3910DDC742B010EEC3AA81C35"
+    },
+    {
+      "Path": "asn1/CryptographicMessageSyntaxAlgorithms-2009.asn1",
+      "Sha256": "2CF8D54FFFA00148940FE7C98BDD21BD07D0659FA77D368EECE7088F3C500A74"
+    },
+    {
+      "Path": "asn1/DSS.asn1",
+      "Sha256": "F1F98246610D901749EFEE24086863ED35195E55158B6E3F34A5E47414ED195C"
+    },
+    {
+      "Path": "asn1/ECPrivateKey.asn1",
+      "Sha256": "5ABC0D6574F37747815923A4DD37AF8DF8BC518A78B355251AB630C882087B0F"
+    },
+    {
+      "Path": "asn1/EnrollmentMessageSyntax-2009.asn1",
+      "Sha256": "3594A41485D9FDF27B0657B5D8C4E92ED2E5643E4E1B1F51F5F263FA1748874F"
+    },
+    {
+      "Path": "asn1/KEMAlgorithmInformation-2023.asn1",
+      "Sha256": "619552A731DE197E58B2EFAFB535FB30C6C90FC953E2E45FCF5B16A4C6142639"
+    },
+    {
+      "Path": "asn1/OCSP-2024-08.asn1",
+      "Sha256": "D056A2D28EF7896FCF7755D9DE2EFAD9F5CCF6E4E920E9592C6458C4C9081823"
+    },
+    {
+      "Path": "asn1/OTP-PKIX-Relaxed.asn1",
+      "Sha256": "864EE6CC3E630FF99C736DDE262B24DE0F5ED2767187EA21ADD7A042FBDA1C94"
+    },
+    {
+      "Path": "asn1/OTP-PKIX-Relaxed.asn1config",
+      "Sha256": "FE4759916029D0D18B79E529B28BF0AC0EC382263B086ECB4ABFD52D54BEBD2D"
+    },
+    {
+      "Path": "asn1/OTP-PKIX.asn1",
+      "Sha256": "838E6D0333710C91D25679767E119088DB8296F51DA0D11BDB75B6D0890D4285"
+    },
+    {
+      "Path": "asn1/OTP-PKIX.asn1config",
+      "Sha256": "0351072DCF2EC1748D68C46736B9072C519742BE526E4CAD20F4939449CD18BD"
+    },
+    {
+      "Path": "asn1/PKCS-1.asn1",
+      "Sha256": "56D3F437B5EC3587E0372A6C7771F5DE619FE67EF8E38136180922689EFEE59B"
+    },
+    {
+      "Path": "asn1/PKCS-10.asn1",
+      "Sha256": "6547D14630BEB3CB8FFD2E0757A0A70A708E2996DC78E180C54486D2C718C8E3"
+    },
+    {
+      "Path": "asn1/PKCS-3.asn1",
+      "Sha256": "F100049A1A461EA564731B2F8778316C6A99FF8C97FAA905FA9D3BD0E6AD02CE"
+    },
+    {
+      "Path": "asn1/PKIX-CommonTypes-2009.asn1",
+      "Sha256": "5E6A55AE79EDE8480966FAA98D9CFD217DDA5DD6EFE787FAAB8CA7AB5B553EB8"
+    },
+    {
+      "Path": "asn1/PKIX-X400Address-2009.asn1",
+      "Sha256": "116888B89F0DEE910CDAF0607D724DC779C92137DBF96ED3DE9A33615E2834C6"
+    },
+    {
+      "Path": "asn1/PKIX1-PSS-OAEP-Algorithms-2009.asn1",
+      "Sha256": "424C14BECBD39EBCB1D4AEA2E82CD4090D643B5DB52941595C46EFF65A1FA012"
+    },
+    {
+      "Path": "asn1/PKIX1Explicit-2009.asn1",
+      "Sha256": "5093E523B48CDC195F0A208A28BB835B887B97DA1AC8110D4E48ACD6FBBDD722"
+    },
+    {
+      "Path": "asn1/PKIX1Explicit-2009.asn1config",
+      "Sha256": "C5CC0F1128CA22E15BFF68BA10BF5780624BEC4F99E01FA740CBA153404018C7"
+    },
+    {
+      "Path": "asn1/PKIX1Implicit-2009.asn1",
+      "Sha256": "0578D0F1F073AA6E89B1C25E3E31923B44EAEC3989830788337BCBFB409908FA"
+    },
+    {
+      "Path": "asn1/PKIXAlgs-2009.asn1",
+      "Sha256": "6AC79D673860F0C0A39677E56D103A6778B2B7CEECF63B95E0CC57DD78B66D6D"
+    },
+    {
+      "Path": "asn1/PKIXAttributeCertificate-2009.asn1",
+      "Sha256": "F84941D1468C58EF9DBA2B46DD0AA857D4AC8933AEF06D6E5A5883BB2D01EAEA"
+    },
+    {
+      "Path": "asn1/PKIXCMP-2023.asn1",
+      "Sha256": "1481878DA07E0DFA8115DF2BB321627FE66E87911F1C5EF9D862A656C4E23674"
+    },
+    {
+      "Path": "asn1/PKIXCRMF-2009.asn1",
+      "Sha256": "A8723E014EBE229D6C0603D7CE3D7C66CFF94536F0A4A92A022AFA8D4463CB66"
+    },
+    {
+      "Path": "asn1/RFC5639.asn1",
+      "Sha256": "827726DC35178899AA7958E2507AF25E109B1AE35FCC3488A3B00CDC35FA8D74"
+    },
+    {
+      "Path": "asn1/Safecurves-pkix-18.asn1",
+      "Sha256": "AD2319F29C44F55C62A5E7D7DF9BCB357E5405FDEA520878928C5B13C66FF113"
+    },
+    {
+      "Path": "asn1/SecureMimeMessageV3dot1-2009.asn1",
+      "Sha256": "CDB07568048C09F5F5616C9B01C3ED82576616C6710A4BDB5023AB9C23BE61C4"
+    },
+    {
+      "Path": "asn1/SLH-DSA-Module-2024.asn1",
+      "Sha256": "F5416C0E4C7AEA9C6F4656D95F0438E1D525DBDEC4C5A244D540FBEA3EBD2585"
+    },
+    {
+      "Path": "asn1/X509-ML-DSA-2025.asn1",
+      "Sha256": "45B2075AA50AE145B6855D58AB098CFB1DCEA90DE49329B066F317C59C142D56"
+    },
+    {
+      "Path": "asn1/X509-ML-KEM-2025.asn1",
+      "Sha256": "9C12C0D2FEB5AE0EE96FEB9C83730303846A6CE2CC0EFB49080645644941B59E"
+    }
+  ],
+  "PinnedSourceMatches": [
+    "lib/public_key/src/pubkey_cert.erl",
+    "lib/public_key/src/pubkey_cert_records.erl",
+    "lib/public_key/src/pubkey_crl.erl",
+    "lib/public_key/src/pubkey_moduli.hrl",
+    "lib/public_key/src/pubkey_ocsp.erl",
+    "lib/public_key/src/pubkey_os_cacerts.erl",
+    "lib/public_key/src/pubkey_pbe.erl",
+    "lib/public_key/src/pubkey_pem.erl",
+    "lib/public_key/src/pubkey_policy_tree.erl",
+    "lib/public_key/src/pubkey_ssh.erl",
+    "lib/public_key/src/pubkey_translation.erl",
+    "lib/public_key/src/public_key.erl",
+    "lib/public_key/src/public_key_internal.hrl",
+    "lib/public_key/include/OTP-PUB-KEY.hrl",
+    "lib/public_key/include/PKIXCMP.hrl",
+    "lib/public_key/include/PKIXCRMF.hrl",
+    "lib/public_key/include/public_key.hrl",
+    "lib/public_key/asn1/AlgorithmInformation-2009.asn1",
+    "lib/public_key/asn1/AttributeCertificateVersion1-2009.asn1",
+    "lib/public_key/asn1/CMSAesRsaesOaep-2009.asn1",
+    "lib/public_key/asn1/CryptographicMessageSyntax-2009.asn1",
+    "lib/public_key/asn1/CryptographicMessageSyntaxAlgorithms-2009.asn1",
+    "lib/public_key/asn1/DSS.asn1",
+    "lib/public_key/asn1/ECPrivateKey.asn1",
+    "lib/public_key/asn1/EnrollmentMessageSyntax-2009.asn1",
+    "lib/public_key/asn1/KEMAlgorithmInformation-2023.asn1",
+    "lib/public_key/asn1/OCSP-2024-08.asn1",
+    "lib/public_key/asn1/OTP-PKIX-Relaxed.asn1",
+    "lib/public_key/asn1/OTP-PKIX-Relaxed.asn1config",
+    "lib/public_key/asn1/OTP-PKIX.asn1",
+    "lib/public_key/asn1/OTP-PKIX.asn1config",
+    "lib/public_key/asn1/PKCS-1.asn1",
+    "lib/public_key/asn1/PKCS-10.asn1",
+    "lib/public_key/asn1/PKCS-3.asn1",
+    "lib/public_key/asn1/PKIX-CommonTypes-2009.asn1",
+    "lib/public_key/asn1/PKIX-X400Address-2009.asn1",
+    "lib/public_key/asn1/PKIX1-PSS-OAEP-Algorithms-2009.asn1",
+    "lib/public_key/asn1/PKIX1Explicit-2009.asn1",
+    "lib/public_key/asn1/PKIX1Explicit-2009.asn1config",
+    "lib/public_key/asn1/PKIX1Implicit-2009.asn1",
+    "lib/public_key/asn1/PKIXAlgs-2009.asn1",
+    "lib/public_key/asn1/PKIXAttributeCertificate-2009.asn1",
+    "lib/public_key/asn1/PKIXCMP-2023.asn1",
+    "lib/public_key/asn1/PKIXCRMF-2009.asn1",
+    "lib/public_key/asn1/RFC5639.asn1",
+    "lib/public_key/asn1/Safecurves-pkix-18.asn1",
+    "lib/public_key/asn1/SecureMimeMessageV3dot1-2009.asn1",
+    "lib/public_key/asn1/SLH-DSA-Module-2024.asn1",
+    "lib/public_key/asn1/X509-ML-DSA-2025.asn1",
+    "lib/public_key/asn1/X509-ML-KEM-2025.asn1"
+  ],
+  "GeneratedReleaseSources": [
+    "src/AlgorithmInformation-2009.erl",
+    "src/AttributeCertificateVersion1-2009.erl",
+    "src/CMSAesRsaesOaep-2009.erl",
+    "src/CryptographicMessageSyntax-2009.erl",
+    "src/CryptographicMessageSyntaxAlgorithms-2009.erl",
+    "src/DSS.erl",
+    "src/ECPrivateKey.erl",
+    "src/EnrollmentMessageSyntax-2009.erl",
+    "src/KEMAlgorithmInformation-2023.erl",
+    "src/OCSP-2024-08.erl",
+    "src/OTP-PKIX-Relaxed.erl",
+    "src/OTP-PKIX.erl",
+    "src/PKCS-1.erl",
+    "src/PKCS-10.erl",
+    "src/PKCS-3.erl",
+    "src/PKCS-FRAME.erl",
+    "src/PKIX-CommonTypes-2009.erl",
+    "src/PKIX-X400Address-2009.erl",
+    "src/PKIX1-PSS-OAEP-Algorithms-2009.erl",
+    "src/PKIX1Explicit-2009.erl",
+    "src/PKIX1Implicit-2009.erl",
+    "src/PKIXAlgs-2009.erl",
+    "src/PKIXAttributeCertificate-2009.erl",
+    "src/PKIXCMP-2023.erl",
+    "src/PKIXCRMF-2009.erl",
+    "src/RFC5639.erl",
+    "src/Safecurves-pkix-18.erl",
+    "src/SecureMimeMessageV3dot1-2009.erl",
+    "src/SLH-DSA-Module-2024.erl",
+    "src/X509-ML-DSA-2025.erl",
+    "src/X509-ML-KEM-2025.erl",
+    "include/PKCS-FRAME.hrl"
+  ],
+  "ExcludedNativeProducerFiles": [
+    {
+      "Path": "priv/lib/public_key.dll",
+      "Sha256": "33AEE67A7957D36F3B92F50F0E3D4C5BEB0F0E098F6C89D486FB4EE88E16B1D2",
+      "Reason": "Native producer binary; not admitted as an executable dependency of this asset package"
+    }
+  ]
+}

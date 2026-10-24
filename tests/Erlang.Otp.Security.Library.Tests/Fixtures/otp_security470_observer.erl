@@ -1,0 +1,71 @@
+-module(otp_security470_observer).
+-export([worker/1, run/0]).
+-file("otp_security470_observer.erl", 1).
+
+worker(Parent) -> Parent ! {finished, run()}.
+run() ->
+    Root=pubkey_policy_tree:root(),
+    N1=pubkey_policy_tree:policy_node({1,2},[],[{1,2}]),
+    N2=pubkey_policy_tree:policy_node({2,5,29,32,0},[],[{2,5,29,32,0}]),
+    {RootNode,_}=Root,
+    Tree={RootNode,[N1,N2]},
+    Curves=[secp112r1,secp112r2,secp128r1,secp128r2,secp160k1,secp160r1,secp160r2,secp192k1,secp224k1,secp224r1,secp256k1,secp384r1,secp521r1,prime192v1,prime192v2,prime192v3,prime239v1,prime239v2,prime239v3,prime256v1,sect113r1,sect113r2,sect131r1,sect131r2,sect163k1,sect163r1,sect163r2,sect193r1,sect193r2,sect233k1,sect233r1,sect239k1,sect283k1,sect283r1,sect409k1,sect409r1,sect571k1,sect571r1,c2pnb163v1,c2pnb163v2,c2pnb163v3,c2pnb176v1,c2tnb191v1,c2tnb191v2,c2tnb191v3,c2pnb208w1,c2tnb239v1,c2tnb239v2,c2tnb239v3,c2pnb272w1,c2pnb304w1,c2tnb359v1,c2pnb368w1,c2tnb431r1,wtls1,wtls3,wtls4,wtls5,wtls6,wtls7,wtls8,wtls9,wtls10,wtls11,wtls12,ipsec3,ipsec4,brainpoolP160r1,brainpoolP160t1,brainpoolP192r1,brainpoolP192t1,brainpoolP224r1,brainpoolP224t1,brainpoolP256r1,brainpoolP256t1,brainpoolP320r1,brainpoolP320t1,brainpoolP384r1,brainpoolP384t1,brainpoolP512r1,brainpoolP512t1],
+    CurveResults=lists:append([[observe({curve,C},fun()->crypto_ec_curves:curve(C) end),
+                               observe({named,C},fun()->crypto_ec_curves:curve_with_name(C) end)] || C <- Curves]),
+    CurveResults ++
+    [observe(curve_alias_192, fun() -> crypto_ec_curves:curve_with_name(secp192r1) end),
+     observe(curve_alias_256, fun() -> crypto_ec_curves:curve_with_name(secp256r1) end),
+     observe(curve_alias_data_192, fun() -> crypto_ec_curves:curve(secp192r1) end),
+     observe(curve_alias_data_256, fun() -> crypto_ec_curves:curve(secp256r1) end),
+     observe(curve_missing, fun() -> crypto_ec_curves:curve(missing) end),
+     observe(curve_bad_number, fun() -> crypto_ec_curves:curve(42) end),
+     observe(curve_bad_list, fun() -> crypto_ec_curves:curve_with_name([]) end),
+     observe(decode_dsa_params, fun() -> pubkey_translation:decode({'DSA-Params',11,13,17}) end),
+     observe(encode_dsa_params, fun() -> pubkey_translation:encode({params,{'Dss-Parms',11,13,17}}) end),
+     observe(decode_signature, fun() -> pubkey_translation:decode({'DSA-Sig-Value',19,23}) end),
+     observe(encode_signature, fun() -> pubkey_translation:encode({'Dss-Sig-Value',19,23}) end),
+     observe(decode_extension, fun() -> pubkey_translation:decode({'OTPExtension',{1,2},false,<<1,2>>}) end),
+     observe(decode_attribute, fun() -> pubkey_translation:decode({'SingleAttribute',{1,2},{'DSA-Sig-Value',1,2}}) end),
+     observe(encode_attribute, fun() -> pubkey_translation:encode({'AttributeTypeAndValue',{1,2},{'Dss-Sig-Value',1,2}}) end),
+     observe(decode_private_v1, fun() -> pubkey_translation:decode({'OneAsymmetricKey',v1,alg,<<1>>,[],<<2>>}) end),
+     observe(decode_private_v2, fun() -> pubkey_translation:decode({'OneAsymmetricKey',v2,alg,<<1>>,[],<<2>>}) end),
+     observe(encode_private, fun() -> pubkey_translation:encode({'PrivateKeyInfo',v1,alg,<<1>>,[],<<2>>}) end),
+     observe(translation_nested, fun() -> pubkey_translation:encode([{tag,{'Dss-Sig-Value',1,2}},42,<<1>>]) end),
+     observe(translation_open_type, fun() -> pubkey_translation:decode({asn1_OPENTYPE,<<1>>}) end),
+     observe(translation_empty_tuple, fun() -> pubkey_translation:encode({}) end),
+     observe(policy_empty, fun() -> pubkey_policy_tree:empty() end),
+     observe(policy_root, fun() -> pubkey_policy_tree:root() end),
+     observe(policy_is_empty, fun() -> {pubkey_policy_tree:is_empty({}),pubkey_policy_tree:is_empty(Root)} end),
+     observe(policy_node_none, fun() -> pubkey_policy_tree:policy_node({1,2},asn1_NOVALUE,[{1,2}]) end),
+     observe(policy_node_qualifier, fun() -> pubkey_policy_tree:policy_node({1,2},[qualifier],[{1,2}]) end),
+     observe(policy_add, fun() -> pubkey_policy_tree:add_leaves(Root,1,fun(_) -> [N1,N2] end) end),
+     observe(policy_all, fun() -> pubkey_policy_tree:all_leaves(Tree) end),
+     observe(policy_any, fun() -> pubkey_policy_tree:any_leaves(Tree) end),
+     observe(policy_in_set, fun() -> {pubkey_policy_tree:in_set({1,2},[N1,N2]),pubkey_policy_tree:in_set({9,9},[N1,N2])} end),
+     observe(policy_map, fun() -> pubkey_policy_tree:map_leaves(Tree,fun(N) -> N#{qualifier_set=>[updated]} end) end),
+     observe(policy_prune_leaves, fun() -> pubkey_policy_tree:prune_leaves(Tree,{1,2}) end),
+     observe(policy_prune_tree, fun() -> pubkey_policy_tree:prune_tree(Root) end),
+     observe(policy_prune_invalid, fun() -> pubkey_policy_tree:prune_invalid_nodes(Tree,[]) end),
+     observe(policy_siblings, fun() -> pubkey_policy_tree:add_leaf_siblings(Tree,3,fun(_) -> [N1] end) end),
+     observe(policy_valid_set, fun() -> pubkey_policy_tree:valid_policy_node_set(Tree) end),
+     observe(policy_constrained, fun() -> pubkey_policy_tree:constrained_policy_node_set(Tree) end),
+     observe(policy_qualifiers, fun() -> pubkey_policy_tree:collect_qualifiers(Tree,{1,2}) end),
+     observe(policy_any_bad, fun() -> pubkey_policy_tree:any_leaves(42) end),
+     observe(policy_in_set_bad, fun() -> pubkey_policy_tree:in_set({1,2},42) end),
+     observe(pkcs3_flags, fun() -> {'PKCS-3':encoding_rule(),'PKCS-3':maps(),'PKCS-3':bit_string_format(),'PKCS-3':legacy_erlang_types()} end),
+     observe(pkcs3_oids, fun() -> {'PKCS-3':'pkcs-3'(),'PKCS-3':dhKeyAgreement()} end),
+     observe(pkcs3_der_small, fun() -> 'PKCS-3':encode('DHParameter',{'DHParameter',23,5,asn1_NOVALUE}) end),
+     observe(pkcs3_der_signed, fun() -> 'PKCS-3':encode('DHParameter',{'DHParameter',128,-129,asn1_NOVALUE}) end),
+     observe(pkcs3_der_large, fun() -> 'PKCS-3':encode('DHParameter',{'DHParameter',1 bsl 1024,65537,asn1_NOVALUE}) end),
+     observe(pkcs3_der_optional, fun() -> 'PKCS-3':encode('DHParameter',{'DHParameter',23,5,32}) end),
+     observe(pkcs3_bad_record, fun() -> 'PKCS-3':encode('DHParameter',42) end),
+     observe(pkcs3_bad_integer, fun() -> 'PKCS-3':encode('DHParameter',{'DHParameter',bad,5,asn1_NOVALUE}) end),
+     observe(pkcs3_bad_type, fun() -> 'PKCS-3':encode(unknown,{}) end),
+     observe(pkcs3_dec_tlv, fun() -> 'PKCS-3':dec_DHParameter({16,[{2,<<23>>},{2,<<5>>}]},[16]) end),
+     observe(pkcs3_dec_optional, fun() -> 'PKCS-3':dec_DHParameter({16,[{2,<<23>>},{2,<<5>>},{2,<<32>>}]},[16]) end),
+     observe(pkcs3_dec_extra, fun() -> 'PKCS-3':dec_DHParameter({16,[{2,<<23>>},{2,<<5>>},{2,<<32>>},{2,<<1>>}]},[16]) end)].
+
+observe(Name, Fun) ->
+    try {Name, {returned, Fun()}}
+    catch Class:Reason:Stack -> {Name, {caught, Class, Reason, Stack}}
+    end.
