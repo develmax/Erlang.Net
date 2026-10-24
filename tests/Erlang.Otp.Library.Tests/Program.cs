@@ -21,7 +21,7 @@ void Reject(Action action)
     }
     Check(rejected);
 }
-Check(OtpStdlib.Modules.Count == 18);
+Check(OtpStdlib.Modules.Count == 98);
 foreach (string module in OtpStdlib.Modules)
 {
     byte[] image = OtpStdlib.ReadImage(module);
@@ -31,6 +31,13 @@ foreach (string module in OtpStdlib.Modules)
     Check(BeamArtifactInspector.Inspect(OtpStdlib.ReadImage(module)) == info);
 }
 Reject(() => OtpStdlib.ReadImage("../lists"));
+byte[] application = OtpStdlib.ReadApplication();
+byte[] upgrade = OtpStdlib.ReadApplicationUpgrade();
+Check(application.Length > 0 && upgrade.Length > 0);
+application[0] ^= byte.MaxValue;
+upgrade[0] ^= byte.MaxValue;
+Check(application[0] != OtpStdlib.ReadApplication()[0]);
+Check(upgrade[0] != OtpStdlib.ReadApplicationUpgrade()[0]);
 Reject(() => OtpStdlib.ReadImage("missing"));
 Reject(() => OtpStdlib.Select("lists", (RuntimeModuleBackend)int.MaxValue));
 Reject(() => OtpStdlib.Select("sets", RuntimeModuleBackend.Managed));

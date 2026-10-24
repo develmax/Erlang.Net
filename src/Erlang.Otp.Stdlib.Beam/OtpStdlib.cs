@@ -6,17 +6,30 @@ namespace Erlang.Otp;
 public static class OtpStdlib
 {
     private static readonly IReadOnlyDictionary<string, OtpStdlibImage> Catalog = LoadCatalog();
+    private static readonly IReadOnlyDictionary<string, string> ResourceHashes = LoadResourceHashes();
 
     public static IReadOnlyList<string> Modules { get; } = Array.AsReadOnly(Catalog.Keys.Order(StringComparer.Ordinal).ToArray());
 
     public static byte[] ReadImage(string module)
     {
         OtpStdlibImage entry = RequireModule(module);
-        using Stream input = OpenResource(module + OtpStdlibNames.BeamExtension);
+
+        return ReadVerified(module + OtpStdlibNames.BeamExtension, entry.Sha256);
+    }
+
+    public static byte[] ReadApplication()
+        => ReadVerified(OtpStdlibNames.Application, ResourceHashes[OtpStdlibNames.Application]);
+
+    public static byte[] ReadApplicationUpgrade()
+        => ReadVerified(OtpStdlibNames.Upgrade, ResourceHashes[OtpStdlibNames.Upgrade]);
+
+    private static byte[] ReadVerified(string name, string hash)
+    {
+        using Stream input = OpenResource(name);
         using var output = new MemoryStream();
         input.CopyTo(output);
         byte[] bytes = output.ToArray();
-        if (!Convert.ToHexString(SHA256.HashData(bytes)).Equals(entry.Sha256, StringComparison.Ordinal))
+        if (!Convert.ToHexString(SHA256.HashData(bytes)).Equals(hash, StringComparison.Ordinal))
             throw new InvalidDataException(OtpStdlibNames.HashMismatch);
 
         return bytes;
@@ -65,4 +78,12 @@ public static class OtpStdlib
     private static Stream OpenResource(string name)
         => typeof(OtpStdlib).Assembly.GetManifestResourceStream(OtpStdlibNames.ResourcePrefix + name)
             ?? throw new InvalidDataException(OtpStdlibNames.MissingResource);
+
+    private static IReadOnlyDictionary<string, string> LoadResourceHashes()
+    {
+        using Stream input = OpenResource(OtpStdlibNames.Resources);
+
+        return JsonSerializer.Deserialize<Dictionary<string, string>>(input)
+            ?? throw new InvalidDataException(OtpStdlibNames.MissingResource);
+    }
 }
