@@ -1,13 +1,13 @@
 param(
     [Parameter(Mandatory)][string]$Feed,
     [string]$Configuration = 'Debug',
-    [ValidateSet('Stdlib', 'Kernel', 'Boot', 'Syntax')][string]$Library = 'Stdlib'
+    [ValidateSet('Stdlib', 'Kernel', 'Boot', 'Syntax', 'Compiler')][string]$Library = 'Stdlib'
 )
 $ErrorActionPreference = 'Stop'
 $repository = Split-Path -Parent $PSScriptRoot
 $feedPath = (Resolve-Path -LiteralPath $Feed).Path
 $work = Join-Path $repository ('artifacts/otp-library-consumer-' + [guid]::NewGuid().ToString('N'))
-$consumerProject = switch ($Library) { 'Kernel' { 'Erlang.Otp.Kernel.Library.Tests' } 'Boot' { 'Erlang.Otp.Boot.Library.Tests' } 'Syntax' { 'Erlang.Otp.Syntax.Library.Tests' } default { 'HelloOtpLibraryReference' } }
+$consumerProject = switch ($Library) { 'Kernel' { 'Erlang.Otp.Kernel.Library.Tests' } 'Boot' { 'Erlang.Otp.Boot.Library.Tests' } 'Syntax' { 'Erlang.Otp.Syntax.Library.Tests' } 'Compiler' { 'Erlang.Otp.Compiler.Library.Tests' } default { 'HelloOtpLibraryReference' } }
 $consumerDirectory = if ($Library -eq 'Stdlib') { 'examples/HelloOtpLibraryReference' } else { "tests/$consumerProject" }
 New-Item -ItemType Directory -Path $work | Out-Null
 function Invoke-LibraryDotNet {
@@ -22,7 +22,7 @@ try {
         Invoke-LibraryDotNet @('pack', "src/Erlang.Otp.$packageLibrary.Beam", '-c', $Configuration, '-m:1', '--nologo', '-p:UseInstalledPackage=true', "-p:RestoreSources=$feedPath", "-p:RestorePackagesPath=$work/build-cache", '-o', $feedPath)
     }
     Copy-Item -LiteralPath (Get-ChildItem -LiteralPath $consumerDirectory -File | Where-Object Extension -In '.cs', '.csproj').FullName -Destination $work
-    if ($Library -in @('Boot', 'Syntax')) { Copy-Item -LiteralPath (Join-Path $consumerDirectory 'Fixtures') -Destination (Join-Path $work 'Fixtures') -Recurse }
+    if ($Library -in @('Boot', 'Syntax', 'Compiler')) { Copy-Item -LiteralPath (Join-Path $consumerDirectory 'Fixtures') -Destination (Join-Path $work 'Fixtures') -Recurse }
     Invoke-LibraryDotNet @('publish', "$work/$consumerProject.csproj", '-c', $Configuration, '-m:1', '--nologo', '-p:ImportDirectoryBuildProps=false', '-p:ImportDirectoryBuildTargets=false', '-p:UseInstalledPackage=true', "-p:RestoreSources=$feedPath", "-p:RestorePackagesPath=$work/consumer-cache", '-o', "$work/published")
     $dotnetHost = (Get-Command dotnet -CommandType Application | Select-Object -First 1).Source
     $savedPath = $env:PATH

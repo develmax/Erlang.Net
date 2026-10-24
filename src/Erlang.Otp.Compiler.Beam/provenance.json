@@ -1,0 +1,661 @@
+{
+  "ReleaseTag": "OTP-29.1.1",
+  "SourceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ArchiveSha256": "337480AF988ECA993C2E98B68850F00FC6724D366346565E38941AC0D1B7C56B",
+  "ExecutionManifestSha256": "AF5EA3DA317E2ABC8A0CF1874D4E6BFB93AC1A47E864A7B92BBE7A03D1607E99",
+  "ReleaseUrl": "https://github.com/erlang/otp/releases/download/OTP-29.1.1/otp_win64_29.1.1.zip",
+  "Application": "compiler",
+  "Version": "10.0.6",
+  "ProducerPlatform": "Windows x64 official release",
+  "DescriptorModules": [
+    "beam_a",
+    "beam_asm",
+    "beam_block",
+    "beam_bounds",
+    "beam_call_types",
+    "beam_clean",
+    "beam_core_to_ssa",
+    "beam_dict",
+    "beam_disasm",
+    "beam_doc",
+    "beam_flatten",
+    "beam_jump",
+    "beam_listing",
+    "beam_opcodes",
+    "beam_ssa",
+    "beam_ssa_alias",
+    "beam_ssa_bc_size",
+    "beam_ssa_bool",
+    "beam_ssa_bsm",
+    "beam_ssa_check",
+    "beam_ssa_codegen",
+    "beam_ssa_dead",
+    "beam_ssa_destructive_update",
+    "beam_ssa_lint",
+    "beam_ssa_opt",
+    "beam_ssa_pp",
+    "beam_ssa_pre_codegen",
+    "beam_ssa_recv",
+    "beam_ssa_share",
+    "beam_ssa_ss",
+    "beam_ssa_throw",
+    "beam_ssa_type",
+    "beam_trim",
+    "beam_types",
+    "beam_utils",
+    "beam_validator",
+    "beam_z",
+    "cerl",
+    "cerl_clauses",
+    "cerl_inline",
+    "cerl_trees",
+    "compile",
+    "core_lib",
+    "core_lint",
+    "core_parse",
+    "core_pp",
+    "core_scan",
+    "erl_bifs",
+    "rec_env",
+    "sys_core_alias",
+    "sys_core_bsm",
+    "sys_core_fold",
+    "sys_core_fold_lists",
+    "sys_core_inline",
+    "sys_core_prepare",
+    "sys_coverage",
+    "sys_messages",
+    "sys_pre_attributes",
+    "v3_core"
+  ],
+  "Files": [
+    {
+      "Path": "src/beam_a.erl",
+      "Sha256": "9940637931F1B580C91E2DCCA9DEACA44DF5A8F1EC9EA410DFF8ADF0920BE252"
+    },
+    {
+      "Path": "src/beam_asm.erl",
+      "Sha256": "5C8F303F851100BA2EBD42BB618ED21F76BA06AFBB5210CBC93D62877B71187E"
+    },
+    {
+      "Path": "src/beam_asm.hrl",
+      "Sha256": "5757E9F9CAAA1DF26F463A72EA9C386D13117FBF510C3B40F9FBABBEA3055EAE"
+    },
+    {
+      "Path": "src/beam_block.erl",
+      "Sha256": "FF9B98A1969C1C55A36614FE9EF1A3336D40A88F24B99580B4EBEE2DD7A28B17"
+    },
+    {
+      "Path": "src/beam_bounds.erl",
+      "Sha256": "2EEA3CB83AFF05D23D2C841E798B0F6C3B8F376B5EDCCFE6BFFEA735F89E8696"
+    },
+    {
+      "Path": "src/beam_call_types.erl",
+      "Sha256": "D8D17562DD004D5A5788B8D2F7FAA822D1DD98BFC42A8755C42BBDB7DAB36828"
+    },
+    {
+      "Path": "src/beam_clean.erl",
+      "Sha256": "EFF1BB88D2A32F9FADCD508387D3A0850413A3AC896AE101D17F29A9B23D17DC"
+    },
+    {
+      "Path": "src/beam_core_to_ssa.erl",
+      "Sha256": "BB0B219345B962C4F00CDEBDAE7995DF0529A7E2B3E6E273DC4B3457A5A23527"
+    },
+    {
+      "Path": "src/beam_dict.erl",
+      "Sha256": "703C99A580CAC1B0867EC12CD594BB646ED0FF8A294F72B3D03431756A1886F8"
+    },
+    {
+      "Path": "src/beam_disasm.erl",
+      "Sha256": "719679DF589ECA009C0B7327C7C7FEEBA2F503A77E71CE69945AD5DA2DCD2FBA"
+    },
+    {
+      "Path": "src/beam_disasm.hrl",
+      "Sha256": "0D29C9215731EC7E73C253404957EF7929A7A9437EF75CAC64622919E578996B"
+    },
+    {
+      "Path": "src/beam_doc.erl",
+      "Sha256": "012E8D5E2FE944A865C278D2747672EAF4B0B25E8CDB0C22A80BFF23D3BD0B57"
+    },
+    {
+      "Path": "src/beam_flatten.erl",
+      "Sha256": "10C3D7AA83E28D128E1CF9D4C9DD33137F911CC4BAD82CB36373DB3E82A6C8AC"
+    },
+    {
+      "Path": "src/beam_jump.erl",
+      "Sha256": "E18879776A0211BA208D5CEE6B5B05AAD28B80B2F2678AB5039E34A7CF733BA7"
+    },
+    {
+      "Path": "src/beam_listing.erl",
+      "Sha256": "FCA393E0F0A384ECC9021F86E95AD9A3D1291BDC369656E60CCE03507E4F8482"
+    },
+    {
+      "Path": "src/beam_opcodes.erl",
+      "Sha256": "3E3E2E4AD6984908910AC9E5990D069C024F3EE7BDFF701184B700F850CB72A5"
+    },
+    {
+      "Path": "src/beam_opcodes.hrl",
+      "Sha256": "6D431D02982F963B1AEF975F43CB4DC90F7FA7375AE4B296963A2FB0BC2AE4CE"
+    },
+    {
+      "Path": "src/beam_ssa.erl",
+      "Sha256": "5805424436760158325933359FE427441783E61F106CB76CC5A642E2DC070D06"
+    },
+    {
+      "Path": "src/beam_ssa.hrl",
+      "Sha256": "7ED5C591458EF6EF260FE8FD4591D797ACEE48D2A38A54B5EF1737A955AFAD62"
+    },
+    {
+      "Path": "src/beam_ssa_alias.erl",
+      "Sha256": "82FCA3F35ED0E6B923C513BDF3FCD8AD0AFC4FE7F8606F4C6901D62D9ADA132E"
+    },
+    {
+      "Path": "src/beam_ssa_alias_debug.hrl",
+      "Sha256": "8729F3B0E3DFA0AD2852C8AF49EF160D7454E9AB794D397B125DB0803D17BD23"
+    },
+    {
+      "Path": "src/beam_ssa_bc_size.erl",
+      "Sha256": "6107A9078CD434F5608AA3C6B1ED33A1360FD519BE7802663229E18B68612DD3"
+    },
+    {
+      "Path": "src/beam_ssa_bool.erl",
+      "Sha256": "F8A868BC6FA5E5D7EE25877E69057699292C77DA1DEAA70712BE65C6B1F9D702"
+    },
+    {
+      "Path": "src/beam_ssa_bsm.erl",
+      "Sha256": "F7CB069100AD21446669BF690CDA9E8EC3973E59E6C2C64E00D5A2772A7736C0"
+    },
+    {
+      "Path": "src/beam_ssa_check.erl",
+      "Sha256": "D20C66AA1F61C9EC43C39CB1943055881DCA3E1F526B0BB372C590D99FBAC42D"
+    },
+    {
+      "Path": "src/beam_ssa_codegen.erl",
+      "Sha256": "67A6BEC52055069DB56127DD74B4BABBA7AE0F01BDB77AFA9C6AC9FBAB5741CD"
+    },
+    {
+      "Path": "src/beam_ssa_dead.erl",
+      "Sha256": "CA2C38AB2C73A0400022A227086DB0FC77A2D4440F2BE76681CBCF2D5245C4B1"
+    },
+    {
+      "Path": "src/beam_ssa_destructive_update.erl",
+      "Sha256": "26FBD9B8319849C9B818FAD502D8B5B580D6509B62584F91C1928A1079E958CA"
+    },
+    {
+      "Path": "src/beam_ssa_lint.erl",
+      "Sha256": "C36BF8A0CA33C006FE7D4684E9AB0DF4BAE0A811D1ADCC73F3F5E7789BEDCE78"
+    },
+    {
+      "Path": "src/beam_ssa_opt.erl",
+      "Sha256": "DA7642F074EADB1529EF2B1188289D2E7D3703ED20FDECE9B047029D6F9447B2"
+    },
+    {
+      "Path": "src/beam_ssa_opt.hrl",
+      "Sha256": "B154285E8E85E4A6C61F92F2CE47BBADF138732BF2134657AAF43E59C23F173C"
+    },
+    {
+      "Path": "src/beam_ssa_pp.erl",
+      "Sha256": "881129865784A00A1B0892B0070CFD37B4B31675B1C1ED0376263C5D47F228CC"
+    },
+    {
+      "Path": "src/beam_ssa_pre_codegen.erl",
+      "Sha256": "F3AB1BAA7354283615CB62092AB6A1F1698DD91530D220C1094F6C7C1EE8C277"
+    },
+    {
+      "Path": "src/beam_ssa_recv.erl",
+      "Sha256": "B52F7AE2CC5EFC2430E6FCDF2FD9F89A7154B85A1839E07E2EB1547DCEBF0246"
+    },
+    {
+      "Path": "src/beam_ssa_share.erl",
+      "Sha256": "DDC290B56C1582BC0A9AC4CB6D153106A320061AFB192C090D23C94F28EC80F0"
+    },
+    {
+      "Path": "src/beam_ssa_ss.erl",
+      "Sha256": "402AB917C25651B9124B46E9A82C6917DA75896FFFBCC7DAE7AB8C69C8A674A7"
+    },
+    {
+      "Path": "src/beam_ssa_throw.erl",
+      "Sha256": "B06D13CA85B0CEB37E01971B7FC18E561862BA98C459102431AF075588174A3A"
+    },
+    {
+      "Path": "src/beam_ssa_type.erl",
+      "Sha256": "0CDC11A524B0BA5BC884B7DCF768D6127D057C0942E1663ACEC971F5D0BE015C"
+    },
+    {
+      "Path": "src/beam_trim.erl",
+      "Sha256": "7A083DE5E5BAB425A858771654BF037B63B2983B6CB8BD3C1B28BF50F51AF273"
+    },
+    {
+      "Path": "src/beam_types.erl",
+      "Sha256": "B9386F53DD990C2923107B263F379BB8B917DA48CA429E9B0593A7AA6A6B17D3"
+    },
+    {
+      "Path": "src/beam_types.hrl",
+      "Sha256": "8CA3D58B154829FD35BBBFB9DAEF9BE0CC217E86B61093AA9D322F16348FB7A9"
+    },
+    {
+      "Path": "src/beam_utils.erl",
+      "Sha256": "EDCB008120FADEB142FAFE3866D7C8E2258F680F5D25B159B9FDD9D51B497B2C"
+    },
+    {
+      "Path": "src/beam_validator.erl",
+      "Sha256": "F5F03B92EE252ECF4EC2D6D7ADA75F31AE620F5BDA911D9DD0260E4BDC70526B"
+    },
+    {
+      "Path": "src/beam_z.erl",
+      "Sha256": "68D6BC1CFB5B30CB18F8BAD398A898C7DAAB6486601CBDF841F7F32F1E425CCD"
+    },
+    {
+      "Path": "src/cerl.erl",
+      "Sha256": "98C7CC3CA9D7560A9B0FE44C405045AA1EAF13C8B400F9F7C2D9CDFF83B7C2D7"
+    },
+    {
+      "Path": "src/cerl_clauses.erl",
+      "Sha256": "0E41CFA03B9D504AC029CBDDE876709CA4F5E0C29596AAC7B9839A5FC8F7280E"
+    },
+    {
+      "Path": "src/cerl_inline.erl",
+      "Sha256": "079AC8B1EA8BBDC0F2D35B5A0AC9A511AE607466B05135DDA7FC9C100D6D0E14"
+    },
+    {
+      "Path": "src/cerl_trees.erl",
+      "Sha256": "E645417071F58FFA16F9527CF2F3AEE4ADD9EC45751BAF6FE1861EA1A0592429"
+    },
+    {
+      "Path": "src/compile.erl",
+      "Sha256": "C386A2B42181D7E1EF8964893E415FC723B374D697400D678BC15D70C4722541"
+    },
+    {
+      "Path": "src/core_lib.erl",
+      "Sha256": "393DB3B7C43184931DBF9665832CB0602100EFE2BB0EF3FA5443EDBA05413AD2"
+    },
+    {
+      "Path": "src/core_lint.erl",
+      "Sha256": "CE6752AFF1B30DBED5645687BA2DAD5BC6B8B348D958FD70308F7B31372D653B"
+    },
+    {
+      "Path": "src/core_parse.erl",
+      "Sha256": "F86FC9FF898E5FA1C61EFC90E183C3181A6BC36B4AFD2B7B51AF4DED27C1D51E"
+    },
+    {
+      "Path": "src/core_parse.hrl",
+      "Sha256": "D990CA44736908B7C418051758BC94040636DB6C55567A764548866623F6E16A"
+    },
+    {
+      "Path": "src/core_parse.yrl",
+      "Sha256": "842130FA752F6AFA4C34586C3FE9DE02F5410300C890D7B04A156096061133CB"
+    },
+    {
+      "Path": "src/core_pp.erl",
+      "Sha256": "6380991D3707C87EF72B025E2F653752CBCDB42AFC3C1E9868B5AC9A5A18970E"
+    },
+    {
+      "Path": "src/core_scan.erl",
+      "Sha256": "E5A5AA33FA05493467F4D7407F0D5CE58E38B2F57FB873773DEFA32ED0A68B9D"
+    },
+    {
+      "Path": "src/erl_bifs.erl",
+      "Sha256": "19B7FC0D4FAD216A81DBF086BF7D9EBCDDF76E21E1394572C756EF4DDDA30247"
+    },
+    {
+      "Path": "src/rec_env.erl",
+      "Sha256": "5299191E93A10249D63FF770C38F81184BFAEDF5CC461206E6F798D1E6F29F50"
+    },
+    {
+      "Path": "src/sys_core_alias.erl",
+      "Sha256": "C3113A1626C47D4541BE322FC3294228E302803120BF7179A1B006C1AB0EE4FA"
+    },
+    {
+      "Path": "src/sys_core_bsm.erl",
+      "Sha256": "DBCD94A502BBD8449B5AC366FF12B7BD2375AB809A7A0601AC1468842A5C4CB4"
+    },
+    {
+      "Path": "src/sys_core_fold.erl",
+      "Sha256": "8B29294DC2019A0FD858AFEF1E9AEF60BF42BB94FB0889763F1BD8B423FD0775"
+    },
+    {
+      "Path": "src/sys_core_fold_lists.erl",
+      "Sha256": "5CE369EA01C73CEFF6ED361241EEB1EEBDEC2D16F295336BCE12437DDEA2EBC8"
+    },
+    {
+      "Path": "src/sys_core_inline.erl",
+      "Sha256": "8A59C870E48CC6C9D745563996E83BBD145BE0C17203DF763FD037B70C920580"
+    },
+    {
+      "Path": "src/sys_core_prepare.erl",
+      "Sha256": "317140F35E0E7E6745CD3C77A3D4D8EFB71A91D0284862C875B06E97C9C41955"
+    },
+    {
+      "Path": "src/sys_coverage.erl",
+      "Sha256": "7F45D0A63FF1500ABBE70B7E179D4DF307E9D5E6F4685D61BE199CC0420CBEB6"
+    },
+    {
+      "Path": "src/sys_messages.erl",
+      "Sha256": "C0AC215455F14A888EA52AB5C073208D21F215B562BD9F409E051E9D42827851"
+    },
+    {
+      "Path": "src/sys_pre_attributes.erl",
+      "Sha256": "EF42806F9A822BF97B6E59989CE68712DA662FDAFBAD3055BD32663EAF95C8AB"
+    },
+    {
+      "Path": "src/v3_core.erl",
+      "Sha256": "B406F7F4C6F7B58DC9AA4608703C82EAF302714C874F38DD1C7FEC62D4017637"
+    },
+    {
+      "Path": "ebin/beam_a.beam",
+      "Sha256": "580F58BD4BB081D30EFE4D28CA97906A5A44BCC43DF4A939986B92CFC694C91F"
+    },
+    {
+      "Path": "ebin/beam_asm.beam",
+      "Sha256": "88871A9C8E47AE6DE75C8EAEB05A24150CC83ABB62DD47BC2C59B75B7CEA5879"
+    },
+    {
+      "Path": "ebin/beam_block.beam",
+      "Sha256": "541D5D5138C465D5FCF4D6D6E3FC1B8A4FD09566CE44B3341AD800E56F035743"
+    },
+    {
+      "Path": "ebin/beam_bounds.beam",
+      "Sha256": "FBD1FA479555F686421AA0C9022FF765ED42352E44CE65093DDF5933A0FD4571"
+    },
+    {
+      "Path": "ebin/beam_call_types.beam",
+      "Sha256": "B66852E44F4A53F6635A51635D435F960D971BB345BB8ED75CD0CDAD30FDAD20"
+    },
+    {
+      "Path": "ebin/beam_clean.beam",
+      "Sha256": "09E65456ABA47EE50BF59E0FBE548E7A7AB4145BF6985B820056863AEED1E153"
+    },
+    {
+      "Path": "ebin/beam_core_to_ssa.beam",
+      "Sha256": "9A066464BF67386832ADE592810AA7DFF17F21D9193B14B2BAF9684433B22685"
+    },
+    {
+      "Path": "ebin/beam_dict.beam",
+      "Sha256": "ECF341B35FAF580764AA66052B58A7B471B835912B5DD6638E6B09A2E0C5DCF0"
+    },
+    {
+      "Path": "ebin/beam_disasm.beam",
+      "Sha256": "080498152A4AF393BBB93ECA1E5B453F9B8284640D6EBE646BD0CBED94754904"
+    },
+    {
+      "Path": "ebin/beam_doc.beam",
+      "Sha256": "02480EB89F9DBA82F6E2877B5A2CC9268A8C11F7A2A9E97EA4A78B4E9285DFC5"
+    },
+    {
+      "Path": "ebin/beam_flatten.beam",
+      "Sha256": "4C9BA7B55D71BE71CB990DF7ADA1318B4A97C9C0C22DAA264B0715B6AA9BFC46"
+    },
+    {
+      "Path": "ebin/beam_jump.beam",
+      "Sha256": "4E15AF451AF1DE6713B2C1FCAF2CA4A96F80F8C81DE8C7C38B552C027AE2157A"
+    },
+    {
+      "Path": "ebin/beam_listing.beam",
+      "Sha256": "62EBF347CDB3AC44A15579E7869D34C16E834A89498A245FCCE8659A01EF7C7C"
+    },
+    {
+      "Path": "ebin/beam_opcodes.beam",
+      "Sha256": "2C68C15406A2CB6C2E1060A9F43A3DDDD174183A060CC164826A75809910BBBD"
+    },
+    {
+      "Path": "ebin/beam_ssa.beam",
+      "Sha256": "28B67113DE7FDA59E808AF52430900B4A8F3E0BC82D5955C2F04A1FBED4A67B6"
+    },
+    {
+      "Path": "ebin/beam_ssa_alias.beam",
+      "Sha256": "B3E46FEB8EACB45E29FF5E2F6A89042FF6A76115A1886AD1254C5DF50AEA166F"
+    },
+    {
+      "Path": "ebin/beam_ssa_bc_size.beam",
+      "Sha256": "01AD017C7AB2D5C5501C9CA389991A2218336D774CC6AB4087D37CA95D58FA81"
+    },
+    {
+      "Path": "ebin/beam_ssa_bool.beam",
+      "Sha256": "09BABD624BD7C32BA3C3822CA74EB64870B6C5790EDDB093980DB4E9C66BB729"
+    },
+    {
+      "Path": "ebin/beam_ssa_bsm.beam",
+      "Sha256": "3A7B12E0FDC0BF482807846B19EB2DD1CC043FC1FF41260A32D4CD7C5583CF6F"
+    },
+    {
+      "Path": "ebin/beam_ssa_check.beam",
+      "Sha256": "A40BBD5328E24702561C6DCF34B4E72C6F3D6356FF1BE08F2BD1A05B5617311D"
+    },
+    {
+      "Path": "ebin/beam_ssa_codegen.beam",
+      "Sha256": "D16C48D3BAD5275A250B515E7879959FAD236D8678C20323DEB05727CC7044AC"
+    },
+    {
+      "Path": "ebin/beam_ssa_dead.beam",
+      "Sha256": "AE90F3F62E92810A2AB490BFA05958E00D875D61CFAAF8435B1349C3356D91CE"
+    },
+    {
+      "Path": "ebin/beam_ssa_destructive_update.beam",
+      "Sha256": "5D0D6EE8DDAF444934B393AC9031CC2E31FB4D7B8D1AAC2AB00627ECD4B94FF2"
+    },
+    {
+      "Path": "ebin/beam_ssa_lint.beam",
+      "Sha256": "50F8058C5A4CAB1AD6CE4D0667790DE25DF6565F28991583BE8430A2BD70E6FA"
+    },
+    {
+      "Path": "ebin/beam_ssa_opt.beam",
+      "Sha256": "C293ABE739A514A78BCD7C904FD4D53E61957099C413CDAD04EF013D9D5D3721"
+    },
+    {
+      "Path": "ebin/beam_ssa_pp.beam",
+      "Sha256": "47CF80B0263252BD752EAA19AE619719FCB42AD2ECE3B3713A4857670C72C003"
+    },
+    {
+      "Path": "ebin/beam_ssa_pre_codegen.beam",
+      "Sha256": "1A9322001212B8FD857EC8C314943460079D6E52F255590346FCCB1E770FAFB3"
+    },
+    {
+      "Path": "ebin/beam_ssa_recv.beam",
+      "Sha256": "E393665A72E54BBD8BC1E05136ADE2F93582B4C2A6691774D934E3CDE0B60286"
+    },
+    {
+      "Path": "ebin/beam_ssa_share.beam",
+      "Sha256": "5C8977A35A2C2B872ADDB7EE7CA214FEDC938F4F0104A07B3F53A03B678FDA32"
+    },
+    {
+      "Path": "ebin/beam_ssa_ss.beam",
+      "Sha256": "5F5FDD02F346B570884DF2EB4EAC3FF68F2731D9D7E57AD54560F479520A09EB"
+    },
+    {
+      "Path": "ebin/beam_ssa_throw.beam",
+      "Sha256": "07E9C89F674FBE5C2A993D4C122215D7B1AB46359513E5FE0DCE7291CC4911CE"
+    },
+    {
+      "Path": "ebin/beam_ssa_type.beam",
+      "Sha256": "E23471C0D7EB3BB114C2B077C0D77DEA56749129420BB44D3122F6F8E59001DC"
+    },
+    {
+      "Path": "ebin/beam_trim.beam",
+      "Sha256": "4BE4FF61FE5F68684783D91E88138111EFE2999067AF97A3E75C69BDA44E6F0F"
+    },
+    {
+      "Path": "ebin/beam_types.beam",
+      "Sha256": "5425632DBA60A320B37FB15A1039D692BD267DCAA21B5030250FBD31E2690F19"
+    },
+    {
+      "Path": "ebin/beam_utils.beam",
+      "Sha256": "F2EC9543D1224A49CB323C7E91675BF81619992B98FB1ACBCC4238B88BB6B80A"
+    },
+    {
+      "Path": "ebin/beam_validator.beam",
+      "Sha256": "136091B2031857F4ECB5DB75EAFCB61031178654FE5E3A83EEF4E8EB95A46CF1"
+    },
+    {
+      "Path": "ebin/beam_z.beam",
+      "Sha256": "3321B5C5650585F52336BC9CEBAF378CE2903812FCAD8702A19301EEDDCE56CA"
+    },
+    {
+      "Path": "ebin/cerl.beam",
+      "Sha256": "14D405D2F92FB52A45197271011B5DAC68FBD970F6320E1AE896F86B22694897"
+    },
+    {
+      "Path": "ebin/cerl_clauses.beam",
+      "Sha256": "703A13B8A1E7337110C77B8ADD41593183EBC71971123599988340D6AFED6C02"
+    },
+    {
+      "Path": "ebin/cerl_inline.beam",
+      "Sha256": "FA44036141BE73AACF1D4A298D4595E7452C415365689FB0C6978156E6499A6E"
+    },
+    {
+      "Path": "ebin/cerl_trees.beam",
+      "Sha256": "8CBD73D3E54AE075D06FC7AE6686874878297813BA17AC2C95A3715B23F680E8"
+    },
+    {
+      "Path": "ebin/compile.beam",
+      "Sha256": "142D29BF0A3C0395B432F20F2568AEC3C9ED749213D6957FDE7AE132F14B3A3B"
+    },
+    {
+      "Path": "ebin/compiler.app",
+      "Sha256": "E2BF20E7D381498C9F67371A1BCF2A0972C5A633AFDE1AEAF2BFB329B1696291"
+    },
+    {
+      "Path": "ebin/compiler.appup",
+      "Sha256": "1064367C1B23A9EA68E7CAE8331E6DFD7AC98AF36F25872165420746350CC024"
+    },
+    {
+      "Path": "ebin/core_lib.beam",
+      "Sha256": "E4E28C8F4D4491250CC6765A7CF4ECF699927CB844279B9903F208102364E487"
+    },
+    {
+      "Path": "ebin/core_lint.beam",
+      "Sha256": "4707D06206AD4C573B1F4CAEFF9F5D4398FE79EDE45F76A542EB75370CC3E42B"
+    },
+    {
+      "Path": "ebin/core_parse.beam",
+      "Sha256": "99897C3567C3E993D96A8E12DD547EEBA9CC39F4776151D1E1041000BA8AAF37"
+    },
+    {
+      "Path": "ebin/core_pp.beam",
+      "Sha256": "50A5E08261C862D03723C2E4C37269FBF916F7930E4E7A2C544F21C5FA07A8B8"
+    },
+    {
+      "Path": "ebin/core_scan.beam",
+      "Sha256": "237305564DAAB61514FF4397A476F1A5CF785A068F3CB41884DB590C5DD588D7"
+    },
+    {
+      "Path": "ebin/erl_bifs.beam",
+      "Sha256": "D2C5B4C84FD99223278B25C41FD7E62F52C187D356E0687ABBF1AAEB3BE03987"
+    },
+    {
+      "Path": "ebin/rec_env.beam",
+      "Sha256": "37D06F15B4FB6052E78EE38BD4E0C7A22F68723F10A55ADDF9ECFA88238A70C0"
+    },
+    {
+      "Path": "ebin/sys_core_alias.beam",
+      "Sha256": "D4B4E75FDEAB8366C96320DE75D5F3CA30B40C6B61620D7A3F0B6A091653D6B4"
+    },
+    {
+      "Path": "ebin/sys_core_bsm.beam",
+      "Sha256": "4F9C206973FCE6B275F56FEB91FC49BE012298FF665930D71C7498D4C76F2280"
+    },
+    {
+      "Path": "ebin/sys_core_fold.beam",
+      "Sha256": "06768AB2549C709B12DDC9A7D38C688886BAFE9F89DCD67591D8A083437B62BA"
+    },
+    {
+      "Path": "ebin/sys_core_fold_lists.beam",
+      "Sha256": "59699D6807A6E1A475F0F252479DCEB163954B837477F04AAABDFD6362C8ECAB"
+    },
+    {
+      "Path": "ebin/sys_core_inline.beam",
+      "Sha256": "49F5464D24A26A5D075FCB444FD8F2C7BD7B39882FCE6A661B5275E667B493A7"
+    },
+    {
+      "Path": "ebin/sys_core_prepare.beam",
+      "Sha256": "0F7A0D39AFB54E8530395D2D0B9ED2D5F7D74E16AB55468E210133FC827C7D80"
+    },
+    {
+      "Path": "ebin/sys_coverage.beam",
+      "Sha256": "EC5A502CC3C45C63DB8AC92FE4F65E363500742DFA5288F879868D08A699F48B"
+    },
+    {
+      "Path": "ebin/sys_messages.beam",
+      "Sha256": "C8C944ED8BDE9D34AD7219A33E9B4BD8CE71CB2F26E59B8C4D764E551C946856"
+    },
+    {
+      "Path": "ebin/sys_pre_attributes.beam",
+      "Sha256": "38AD012A44977E9F654A9E0B40345100494808711C398A4268B17A0CC1B30CBD"
+    },
+    {
+      "Path": "ebin/v3_core.beam",
+      "Sha256": "868DEFDBED8248054C43CBD1AB213EF8B1B0E6FB7845398E374CB4CF06B837CB"
+    }
+  ],
+  "PinnedSourceMatches": [
+    "lib/compiler/src/beam_a.erl",
+    "lib/compiler/src/beam_asm.erl",
+    "lib/compiler/src/beam_asm.hrl",
+    "lib/compiler/src/beam_block.erl",
+    "lib/compiler/src/beam_bounds.erl",
+    "lib/compiler/src/beam_call_types.erl",
+    "lib/compiler/src/beam_clean.erl",
+    "lib/compiler/src/beam_core_to_ssa.erl",
+    "lib/compiler/src/beam_dict.erl",
+    "lib/compiler/src/beam_disasm.erl",
+    "lib/compiler/src/beam_disasm.hrl",
+    "lib/compiler/src/beam_doc.erl",
+    "lib/compiler/src/beam_flatten.erl",
+    "lib/compiler/src/beam_jump.erl",
+    "lib/compiler/src/beam_listing.erl",
+    "lib/compiler/src/beam_ssa.erl",
+    "lib/compiler/src/beam_ssa.hrl",
+    "lib/compiler/src/beam_ssa_alias.erl",
+    "lib/compiler/src/beam_ssa_alias_debug.hrl",
+    "lib/compiler/src/beam_ssa_bc_size.erl",
+    "lib/compiler/src/beam_ssa_bool.erl",
+    "lib/compiler/src/beam_ssa_bsm.erl",
+    "lib/compiler/src/beam_ssa_check.erl",
+    "lib/compiler/src/beam_ssa_codegen.erl",
+    "lib/compiler/src/beam_ssa_dead.erl",
+    "lib/compiler/src/beam_ssa_destructive_update.erl",
+    "lib/compiler/src/beam_ssa_lint.erl",
+    "lib/compiler/src/beam_ssa_opt.erl",
+    "lib/compiler/src/beam_ssa_opt.hrl",
+    "lib/compiler/src/beam_ssa_pp.erl",
+    "lib/compiler/src/beam_ssa_pre_codegen.erl",
+    "lib/compiler/src/beam_ssa_recv.erl",
+    "lib/compiler/src/beam_ssa_share.erl",
+    "lib/compiler/src/beam_ssa_ss.erl",
+    "lib/compiler/src/beam_ssa_throw.erl",
+    "lib/compiler/src/beam_ssa_type.erl",
+    "lib/compiler/src/beam_trim.erl",
+    "lib/compiler/src/beam_types.erl",
+    "lib/compiler/src/beam_types.hrl",
+    "lib/compiler/src/beam_utils.erl",
+    "lib/compiler/src/beam_validator.erl",
+    "lib/compiler/src/beam_z.erl",
+    "lib/compiler/src/cerl.erl",
+    "lib/compiler/src/cerl_clauses.erl",
+    "lib/compiler/src/cerl_inline.erl",
+    "lib/compiler/src/cerl_trees.erl",
+    "lib/compiler/src/compile.erl",
+    "lib/compiler/src/core_lib.erl",
+    "lib/compiler/src/core_lint.erl",
+    "lib/compiler/src/core_parse.hrl",
+    "lib/compiler/src/core_parse.yrl",
+    "lib/compiler/src/core_pp.erl",
+    "lib/compiler/src/core_scan.erl",
+    "lib/compiler/src/erl_bifs.erl",
+    "lib/compiler/src/rec_env.erl",
+    "lib/compiler/src/sys_core_alias.erl",
+    "lib/compiler/src/sys_core_bsm.erl",
+    "lib/compiler/src/sys_core_fold.erl",
+    "lib/compiler/src/sys_core_fold_lists.erl",
+    "lib/compiler/src/sys_core_inline.erl",
+    "lib/compiler/src/sys_core_prepare.erl",
+    "lib/compiler/src/sys_coverage.erl",
+    "lib/compiler/src/sys_messages.erl",
+    "lib/compiler/src/sys_pre_attributes.erl",
+    "lib/compiler/src/v3_core.erl"
+  ],
+  "GeneratedReleaseSources": [
+    "src/beam_opcodes.erl",
+    "src/beam_opcodes.hrl",
+    "src/core_parse.erl"
+  ]
+}
