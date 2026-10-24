@@ -41,6 +41,8 @@ try {
     Invoke-DotNet @('run', '--project', 'tests/Erlang.Otp.Library.Tests', '--no-build')
     Invoke-DotNet @('run', '--project', 'tests/Erlang.Otp.Kernel.Library.Tests', '--no-build', '--', 'artifacts/otp-kernel-values.txt')
     & (Join-Path $PSScriptRoot 'validate-otp-kernel-original.ps1') -ManagedValues 'artifacts/otp-kernel-values.txt'
+    Invoke-DotNet @('run', '--project', 'tests/Erlang.Otp.Boot.Library.Tests', '--no-build', '--', 'artifacts/otp-boot-managed')
+    & (Join-Path $PSScriptRoot 'validate-otp-boot-original.ps1') -ManagedDirectory 'artifacts/otp-boot-managed'
     foreach ($listsBackend in @('Managed', 'Beam')) {
         foreach ($queueBackend in @('Managed', 'Beam')) {
             Invoke-DotNet @('run', '--project', 'examples/HelloOtpLibraryReference', '--no-build', '--', $listsBackend, $queueBackend)
@@ -85,6 +87,7 @@ try {
         Invoke-DotNet @('pack', 'tools/Erlang.Tool', '-c', 'Debug', '-o', 'artifacts/packages', '-m:1', '--nologo')
         & (Join-Path $PSScriptRoot 'validate-otp-library-package.ps1') -Feed (Join-Path $validationRoot 'artifacts/packages')
         & (Join-Path $PSScriptRoot 'validate-otp-library-package.ps1') -Feed (Join-Path $validationRoot 'artifacts/packages') -Library Kernel
+        & (Join-Path $PSScriptRoot 'validate-otp-library-package.ps1') -Feed (Join-Path $validationRoot 'artifacts/packages') -Library Boot
         $consumerRoot = Join-Path $validationRoot 'artifacts/package-consumer'
         New-Item -ItemType Directory -Path $consumerRoot -Force | Out-Null
         @'
