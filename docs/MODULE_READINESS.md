@@ -4,6 +4,10 @@ Baseline **OTP-29.1.1**. Exact Part466 main CI **8842/8842 passed** at **9e73021
 
 API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.
 
+## Part470 crypto/public_key packaging
+
+Original crypto2/2 and public_key42/42 images are packaged with115 public/cold consumer assertions and213 complete outcomes/stacks matching OTP. Packaging advances464→508/1321 (35.1%→38.5%),857→813 remaining,14→16 complete application inventories. Original curve tables, policy/translation helpers and generated PKCS-3 DER encoding/prepared-TLV decoding execute on .NET. Native crypto/ASN.1 parsing, complete certificate validation and TLS remain open. Default708 APIs/118 full contracts/8843 groups/1678 source guards remain unchanged; API/full deltas0/0. Exact-head CI is tracked in the Part470 PR.
+
 ## Part469 ASN.1 packaging
 
 Original ASN.1 packages22/22 images with65 project/cold assertions and26 complete outcomes/stacks against OTP. Packaging advances442→464/1321 (33.5%→35.1%),879→857 remaining,13→14 complete application inventories. Actual EXTERNAL conversions and compiler-table lifecycle execute as original Erlang on .NET; whole deterministic ETF agrees. ASN.1 compiler self-hosting, generated codecs and native NIF compatibility remain open. Default708 APIs/118 full contracts/8843 groups are unchanged; API/full deltas0/0. Exact publication-head CI is tracked in the Part469 PR.

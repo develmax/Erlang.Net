@@ -18,8 +18,10 @@ Packaging progress counts module names in the admitted OTP29.1.1 application inv
 | xmerl | 35 | 35 | 100% | Shared182 checks; original xmerl_lib helpers/errors and image identity; cold NuGet/publish |
 | mnesia | 31 | 31 | 100% | 82 checks; original fragmentation/hash-state and application callback helpers;24 complete outcomes/stacks and cold NuGet/publish |
 | asn1 | 22 | 22 | 100% | 65 checks; original EXTERNAL tuple/map conversion and compiler-table lifecycle;26 complete outcomes/stacks with deterministic ETF; cold NuGet/publish |
+| crypto | 2 | 2 | 100% | Shared115 checks; all81 original curve tables, aliases and errors; native crypto operations remain separate |
+| public_key | 42 | 42 | 100% | Shared115 checks; translation/policy helpers and original PKCS-3 DER encoder/TLV decoder;213 complete outcomes/stacks with crypto;84 combined source/input archive entries |
 
-These fourteen applications total464/464 packaged module names (100% of these fourteen application inventories). The ERTS descriptor lists19 modules and the distribution includes three additional implementation images; all22 are packaged and the distinction is recorded in provenance. This is not a project-wide completion percentage or full compatibility claim. The official kernel producer is Windows x64; platform identity remains explicit. No newly registered runtime APIs or full contracts are added by packaging.
+These sixteen applications total508/508 packaged module names (100% of these sixteen application inventories). The ERTS descriptor lists19 modules and the distribution includes three additional implementation images; all22 are packaged and the distinction is recorded in provenance. This is not a project-wide completion percentage or full compatibility claim. The official kernel producer is Windows x64; platform identity remains explicit. No newly registered runtime APIs or full contracts are added by packaging.
 
 Projects:
 
@@ -32,18 +34,18 @@ Projects:
 - `src/Erlang.Otp.Eunit.Beam`, `src/Erlang.Otp.Edoc.Beam` and `src/Erlang.Otp.Xmerl.Beam`: all69 original images,85 source/header/grammar files, six application resources and four EDoc support assets. OtpEunit/OtpEdoc/OtpXmerl provide explicit readers/selectors; OtpEdoc.ReadSupportFile reads a whitelisted hash-checked priv asset. The escript launcher is source data and is never executed by the reader.
 - `src/Erlang.Otp.Mnesia.Beam`: all31 original images,32 unchanged Erlang sources/headers and two application resources. OtpMnesia readers/selectors preserve explicit backend/dependency ownership.
 - `src/Erlang.Otp.Asn1.Beam`: all22 original images,25 source/header files and two application resources. The descriptor names only asn1rt_nif; all21 additional compiler/implementation images are preserved. Two generated release sources are identified separately from23 Git-matched files.
+- `src/Erlang.Otp.Crypto.Beam` and `src/Erlang.Otp.PublicKey.Beam`: all44 images,four application resources and84 original Erlang/header/ASN.1 inputs:132 files in total. Fifty-two inputs match pinned Git;32 are generated release sources. Native producer DLLs are inventoried as exclusions and not shipped. OtpCrypto/OtpPublicKey provide hash-checked readers and explicit BEAM selectors.
 - `src/Erlang.Otp.Stdlib` and `src/Erlang.Otp.Kernel`: existing C# alternatives and their current registration/composition APIs. The strict startup selector's Managed support is narrower than every C# registration; unsupported choices fail explicitly.
 
 Next: extend other applications according to the boot dependency inventory, preserving admitted compilation variants and explicit dependency boundaries. Shipping an application descriptor does not automatically start it; native bindings, selected dependency images and the existing boot protocol remain required. Continue actual image ownership/execution checks and original OTP comparisons separately from file inventory checks.
 
 ## Remaining official application inventories
 
-The admitted Windows release contains 1321 BEAM files across 34 applications (36 application directories including C/Java support). This batch packages464/1321 image names (35.1%); this is packaging progress only. Source names, descriptors, generated support and native platform prerequisites remain distinct. The complete module list is in [OTP_LIBRARY_INVENTORY.json](OTP_LIBRARY_INVENTORY.json).
+The admitted Windows release contains 1321 BEAM files across 34 applications (36 application directories including C/Java support). This batch packages508/1321 image names (38.5%); this is packaging progress only. Source names, descriptors, generated support and native platform prerequisites remain distinct. The complete module list is in [OTP_LIBRARY_INVENTORY.json](OTP_LIBRARY_INVENTORY.json).
 
 | Remaining application | BEAM images | Packaging state |
 | --- | ---: | --- |
 | common_test | 47 | Not yet packaged |
-| crypto | 2 | Not yet packaged |
 | debugger | 24 | Not yet packaged |
 | dialyzer | 29 | Not yet packaged |
 | diameter | 47 | Not yet packaged |
@@ -57,7 +59,6 @@ The admitted Windows release contains 1321 BEAM files across 34 applications (36
 | observer | 44 | Not yet packaged |
 | odbc | 3 | Not yet packaged |
 | os_mon | 8 | Not yet packaged |
-| public_key | 42 | Not yet packaged |
 | reltool | 9 | Not yet packaged |
 | snmp | 90 | Not yet packaged |
 | ssh | 43 | Not yet packaged |
@@ -72,3 +73,5 @@ Part467 executes30 complete helper outcomes/stacks from unchanged eunit_lib/edoc
 Part468 executes original mnesia_frag_hash and mnesia_app with original lists and an identical compiled observer:24 whole outcomes/stacks cover state initialization, split/merge transitions, legacy state, selected hash routing, fallback match-spec fragment ranges, invalid inputs and application callbacks. Single-key match-spec analysis through mnesia:has_var, live application startup, transactions, disk recovery, replication and distributed database semantics remain separate obligations.
 
 Part469 executes original asn1ct_eval_ext and asn1ct_table, original lists/ets and an identical observer on .NET:26 complete outcomes/stacks cover EXTERNAL1994 tuple/map conversion, omitted/extra map keys, invalid inputs and the compiler-table create/reuse/insert/lookup/size/list/match/delete lifecycle. Existing native ETS primitives are composed explicitly. Complete typed results agree; ordinary ETF map serialization order differs. The accepted raw comparison uses OTP term_to_binary/2 with the deterministic option, preserving the whole result without frame removal or identity mapping. Original ASN.1 compilation, generated encoder/decoder execution and asn1rt_nif native ABI remain separate obligations.
+
+Part470 executes original crypto_ec_curves, pubkey_translation, pubkey_policy_tree, generated PKCS-3, lists and an identical observer.213 complete outcomes/stacks cover every81 canonical curve table through both readers, aliases/invalid names, key-structure translation, all16 policy-tree helper exports, DER encoding (signed/large INTEGER, optional fields, invalid records/types) and prepared-TLV decoding. Entire53492 deterministic ETF bytes match OTP. This is finite original execution: crypto NIF/OpenSSL operations, crypto:supports/curves enumeration, general ASN.1 native BER parsing, complete certificate validation, live native application boot and TLS are not certified.

@@ -1,0 +1,62 @@
+{
+  "ReleaseTag": "OTP-29.1.1",
+  "SourceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ArchiveSha256": "337480AF988ECA993C2E98B68850F00FC6724D366346565E38941AC0D1B7C56B",
+  "ExecutionManifestSha256": "AF5EA3DA317E2ABC8A0CF1874D4E6BFB93AC1A47E864A7B92BBE7A03D1607E99",
+  "ReleaseUrl": "https://github.com/erlang/otp/releases/download/OTP-29.1.1/otp_win64_29.1.1.zip",
+  "Application": "crypto",
+  "Version": "5.10",
+  "ProducerPlatform": "Windows x64 official release",
+  "DescriptorModules": [
+    "crypto",
+    "crypto_ec_curves"
+  ],
+  "Files": [
+    {
+      "Path": "ebin/crypto.app",
+      "Sha256": "76099CE2AFE7A454F6CC1800DFB459738445DE3EC50EDE151D8F1F2AF79855DE"
+    },
+    {
+      "Path": "ebin/crypto.appup",
+      "Sha256": "2456D1EE31EF1B7D741AEA383D0B67BED79E309505743C2D0FF2C5ABB051B680"
+    },
+    {
+      "Path": "ebin/crypto.beam",
+      "Sha256": "D0FF5973FEAD5133A5D7CCE5EC75B1430E98634424EF46F3DDAA9BCA7CD50CBF"
+    },
+    {
+      "Path": "ebin/crypto_ec_curves.beam",
+      "Sha256": "48D80123640F2E2EED5EFA9A63D95BFCBC8E82056DCCF4E85DD371AC891F9D15"
+    },
+    {
+      "Path": "src/crypto.erl",
+      "Sha256": "6D797BED4EBC28C75206A79864FA5A5F2BF07301E2C69CC03C973FF43A6ED4E2"
+    },
+    {
+      "Path": "src/crypto_ec_curves.erl",
+      "Sha256": "0680060137D545BEB60BC70D9E0568A7C5F86816F9A73505F4E1521F835FB628"
+    }
+  ],
+  "PinnedSourceMatches": [
+    "lib/crypto/src/crypto.erl",
+    "lib/crypto/src/crypto_ec_curves.erl"
+  ],
+  "GeneratedReleaseSources": [],
+  "ExcludedNativeProducerFiles": [
+    {
+      "Path": "priv/lib/crypto.dll",
+      "Sha256": "E7F34CC6E40A583B53A88B85D80FF94323AE23FF662FBB5FAEC284324A346072",
+      "Reason": "Native producer binary; not admitted as an executable dependency of this asset package"
+    },
+    {
+      "Path": "priv/lib/crypto_callback.dll",
+      "Sha256": "F8FDEA39B44A6CF0CBBF5F9122DA6A3938A0CDBDE40C3E71F9DD0D786A324591",
+      "Reason": "Native producer binary; not admitted as an executable dependency of this asset package"
+    },
+    {
+      "Path": "priv/lib/otp_test_engine.dll",
+      "Sha256": "31F10C59373A37DC88529E4534313460DF0EAC584B13D20BF3AFC39389268F2A",
+      "Reason": "Native producer binary; not admitted as an executable dependency of this asset package"
+    }
+  ]
+}
