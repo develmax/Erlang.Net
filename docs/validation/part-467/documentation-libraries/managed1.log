@@ -1,0 +1,20 @@
+System.InvalidOperationException: eunit_lib
+ ---> System.IO.InvalidDataException: The BEAM frame or Y-register ownership is unsupported
+   at Erlang.BeamFrameValidation.<ValidateExceptionalEntry>g__Enqueue|6_4(Int32 pc, ExceptionalState next, Boolean exceptional, <>c__DisplayClass6_0&) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Runtime.Core\Execution\Beam\BeamFrameValidation.cs:line 555
+   at Erlang.BeamFrameValidation.ValidateExceptionalEntry(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary`2 receives, BigInteger entryContexts) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Runtime.Core\Execution\Beam\BeamFrameValidation.cs:line 1429
+   at Erlang.BeamFrameValidation.ValidateExceptional(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary`2 receives) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Runtime.Core\Execution\Beam\BeamFrameValidation.cs:line 408
+   at Erlang.BeamFrameValidation.Validate(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary`2 receives) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Runtime.Core\Execution\Beam\BeamFrameValidation.cs:line 23
+   at Erlang.BeamRegisterValidation.Validate(BeamLinkedCode code, BeamLinkedFunction entry) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Runtime.Core\Execution\Beam\BeamRegisterValidation.cs:line 438
+   at Erlang.BeamPublicationMetadata.Read(BeamLinkedCode code, EtfDecodeOptions decoding) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Runtime.Core\Execution\Beam\BeamPublicationMetadata.cs:line 12
+   at Erlang.ModuleRegistry.PrepareBeam(ReadOnlyMemory`1 bytes, BeamDependencySelection dependencies) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Runtime.Core\Modules\ModuleRegistry.PreparedBeam.cs:line 22
+   at Erlang.Otp.Documentation.Library.Tests.DocumentationLibraryChecks.<>c__DisplayClass0_2.<Run>b__14(Byte[] image) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Otp.Documentation.Library.Tests\DocumentationLibraryChecks.cs:line 102
+   --- End of inner exception stack trace ---
+   at Erlang.Otp.Documentation.Library.Tests.DocumentationLibraryChecks.<>c__DisplayClass0_2.<Run>b__14(Byte[] image) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Otp.Documentation.Library.Tests\DocumentationLibraryChecks.cs:line 106
+   at System.Linq.Enumerable.ArraySelectIterator`2.Fill(ReadOnlySpan`1 source, Span`1 destination, Func`2 func)
+   at System.Linq.Enumerable.ArraySelectIterator`2.ToArray()
+   at Erlang.Otp.Documentation.Library.Tests.DocumentationLibraryChecks.<>c__DisplayClass0_0.<Run>b__12(ModuleRegistry registry) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Otp.Documentation.Library.Tests\DocumentationLibraryChecks.cs:line 98
+   at Erlang.ModuleRegistry.Apply(Action`1 configure) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Runtime.Core\Modules\ModuleRegistry.cs:line 719
+   at Erlang.RuntimeInitializer.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Erlang.Runtime.Core\Bootstrap\RuntimeInitializer.cs:line 70
+   at Erlang.Otp.Documentation.Library.Tests.DocumentationLibraryChecks.Run(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Otp.Documentation.Library.Tests\DocumentationLibraryChecks.cs:line 93
+   at Erlang.Otp.Documentation.Library.Tests.DocumentationLibraryChecks.Run(String[] args)
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Otp.Documentation.Library.Tests\Program.cs:line 5

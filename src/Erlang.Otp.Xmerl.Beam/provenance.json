@@ -1,0 +1,426 @@
+{
+  "ReleaseTag": "OTP-29.1.1",
+  "SourceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ArchiveSha256": "337480AF988ECA993C2E98B68850F00FC6724D366346565E38941AC0D1B7C56B",
+  "ExecutionManifestSha256": "AF5EA3DA317E2ABC8A0CF1874D4E6BFB93AC1A47E864A7B92BBE7A03D1607E99",
+  "ReleaseUrl": "https://github.com/erlang/otp/releases/download/OTP-29.1.1/otp_win64_29.1.1.zip",
+  "Application": "xmerl",
+  "Version": "2.2",
+  "ProducerPlatform": "Windows x64 official release",
+  "DescriptorModules": [
+    "xmerl",
+    "xmerl_b64Bin",
+    "xmerl_b64Bin_scan",
+    "xmerl_eventp",
+    "xmerl_html",
+    "xmerl_lib",
+    "xmerl_otpsgml",
+    "xmerl_sax_old_dom",
+    "xmerl_sax_parser",
+    "xmerl_sax_parser_latin1",
+    "xmerl_sax_parser_list",
+    "xmerl_sax_parser_utf16be",
+    "xmerl_sax_parser_utf16le",
+    "xmerl_sax_parser_utf8",
+    "xmerl_sax_simple_dom",
+    "xmerl_scan",
+    "xmerl_sgml",
+    "xmerl_simple",
+    "xmerl_text",
+    "xmerl_ucs",
+    "xmerl_uri",
+    "xmerl_validate",
+    "xmerl_xlate",
+    "xmerl_xml",
+    "xmerl_xml_indent",
+    "xmerl_xpath",
+    "xmerl_xpath_lib",
+    "xmerl_xpath_parse",
+    "xmerl_xpath_pred",
+    "xmerl_xpath_scan",
+    "xmerl_xs",
+    "xmerl_xsd",
+    "xmerl_xsd_re",
+    "xmerl_xsd_re_parse",
+    "xmerl_xsd_type"
+  ],
+  "Files": [
+    {
+      "Path": "src/xmerl.app.src",
+      "Sha256": "28417CC7AFB61A65ED21E66559A53BF3D8A10AF9893F402A7D57B9F86FD57E57"
+    },
+    {
+      "Path": "src/xmerl.appup.src",
+      "Sha256": "1F0680AB4D3CC848A65B8943E70749B559E9687C692199C49F1AB9216619764C"
+    },
+    {
+      "Path": "src/xmerl.erl",
+      "Sha256": "84A47E78165E17D738F9446331FF98BA3670DF685612EC1196042D19BF4C6794"
+    },
+    {
+      "Path": "src/xmerl_b64Bin.erl",
+      "Sha256": "093E82E13384C0AC5A396B37ED74C92F1C38889869F6777D9049A0547AF905B7"
+    },
+    {
+      "Path": "src/xmerl_b64Bin.yrl",
+      "Sha256": "423062189DAE2820B94D0119CBB4BD2BF14D6209B6F81886099233D71DCF4DAE"
+    },
+    {
+      "Path": "src/xmerl_b64Bin_scan.erl",
+      "Sha256": "FB5B541EF39619A79C299BF7B4F6BCD899B088C2C600518F04B3CCEFD11967FD"
+    },
+    {
+      "Path": "src/xmerl_eventp.erl",
+      "Sha256": "33056F397D0FA359E0E6FF1EEE4836AB873B7BC0606D3E7C7FC0EC7CB2AE7B2A"
+    },
+    {
+      "Path": "src/xmerl_html.erl",
+      "Sha256": "3294214863729C690C350E59FA4FAAD7661951130D476153F8E0EBD2D661FBFE"
+    },
+    {
+      "Path": "src/xmerl_internal.hrl",
+      "Sha256": "1EF4605DAC7362232EDF5E73B18CEEC6E0BA37849AD1296DA6C81163DF4D3711"
+    },
+    {
+      "Path": "src/xmerl_lib.erl",
+      "Sha256": "302F7228BBFE32E4A335F07B4C5DA33A1945C9A91F2897D521F39B0CD816DD48"
+    },
+    {
+      "Path": "src/xmerl_otpsgml.erl",
+      "Sha256": "1A809399684E1C872C1D77E3A49F74014DA4283268533300F320CC7CF9F30BBD"
+    },
+    {
+      "Path": "src/xmerl_sax_old_dom.erl",
+      "Sha256": "45D1A93E6BB8B1AECEA93D373F7A2A28BE23E558A59E2C6DC5A2E33B13E58721"
+    },
+    {
+      "Path": "src/xmerl_sax_old_dom.hrl",
+      "Sha256": "03944FAD56E045907ABD7531275D71BD10F3B1C321B6F25AF7074D555761FB5F"
+    },
+    {
+      "Path": "src/xmerl_sax_parser.erl",
+      "Sha256": "8DDEAE4CEC3E0D5D818CB413BC92195AA091B7343CC61A0FAFC3F43B169B525B"
+    },
+    {
+      "Path": "src/xmerl_sax_parser.hrl",
+      "Sha256": "6ED13321EEB107E954372CFFF8D319B7C0E2B3F0DE790CCAA4A4092CD323B4FF"
+    },
+    {
+      "Path": "src/xmerl_sax_parser_latin1.erl",
+      "Sha256": "51B4E7027C201D1F2AE749CC679CE861A548D92382D0625F769ACC282D0FB6E4"
+    },
+    {
+      "Path": "src/xmerl_sax_parser_list.erl",
+      "Sha256": "83500B7D7C4343004E09157B0C2F36E09CC5ECA78BEC5ADC9BBBFC63C9AF4EA0"
+    },
+    {
+      "Path": "src/xmerl_sax_parser_utf16be.erl",
+      "Sha256": "61ED6ABED39DBD40867875900AC60D6AABB4AD4E051E5E70580D8879451A64B7"
+    },
+    {
+      "Path": "src/xmerl_sax_parser_utf16le.erl",
+      "Sha256": "84D012EC2C6132E27D73FD342D7006FEEE0DC01BF8E752C9B7B454FF1A433A4A"
+    },
+    {
+      "Path": "src/xmerl_sax_parser_utf8.erl",
+      "Sha256": "409B59A6BABDF926C27B9D21901CFE6A821E8C2C8BCB7909BC48B6F095C1E506"
+    },
+    {
+      "Path": "src/xmerl_sax_simple_dom.erl",
+      "Sha256": "FDD55FE80F99050C9DB341FF8EA7C9DEB849D6DD2974472FA332A917444F95D9"
+    },
+    {
+      "Path": "src/xmerl_scan.erl",
+      "Sha256": "4FC9206EC5CCD6E71203657FB2C9408E1DC8F8E442500FB6E97EEC9847DD8D0B"
+    },
+    {
+      "Path": "src/xmerl_sgml.erl",
+      "Sha256": "EA12E8BB5A6930793C3C90DB5AA7E8DD6F0F81D333456F8491445B3B64007831"
+    },
+    {
+      "Path": "src/xmerl_simple.erl",
+      "Sha256": "85DBD4618D6A45DB7A52ECF4E0B6DC34819BD4DAD37B170F6D60244F63BC0DD4"
+    },
+    {
+      "Path": "src/xmerl_text.erl",
+      "Sha256": "2BDB808E33C0367F59E6EE752D8604C498D1402C0B1DCDEA2C614BCCFF3DD4D7"
+    },
+    {
+      "Path": "src/xmerl_ucs.erl",
+      "Sha256": "164B6FDC2DA3317178FC5BF888FC7662BE125B67079C6C161C5A03D6BDED13B7"
+    },
+    {
+      "Path": "src/xmerl_uri.erl",
+      "Sha256": "67270AAECE7679D0DB572D6DE87C4CB2FD86CC2E1C418EC19D4A4576A48A8D77"
+    },
+    {
+      "Path": "src/xmerl_validate.erl",
+      "Sha256": "ADF16CA552FA443B26C4C57F587BFCB273A1FFFFFA4A4C635FCB5BFEF2601301"
+    },
+    {
+      "Path": "src/xmerl_xlate.erl",
+      "Sha256": "E32E34B5438C217556B8991859C4635D4B73E57C9A0B190AE9590E2C5DC45B6B"
+    },
+    {
+      "Path": "src/xmerl_xml.erl",
+      "Sha256": "AB31BDE2FEFAFC3CEE038EC9E3216AC49FA8C95BBC5EEF136B6A50A3DBF08874"
+    },
+    {
+      "Path": "src/xmerl_xml_indent.erl",
+      "Sha256": "C4BAF5101F4D1C716FACE109AA9C79361FA61F6ABEE9B358BD4B5745D760A654"
+    },
+    {
+      "Path": "src/xmerl_xpath.erl",
+      "Sha256": "66778D62B6217ECC76D4113DBF326D6387F3953431E43D51872008C772E42633"
+    },
+    {
+      "Path": "src/xmerl_xpath_lib.erl",
+      "Sha256": "7C0CC0A284DDC32E366A4C0AAB69DB7B871B0378FA06ED6219D22D0D78B28027"
+    },
+    {
+      "Path": "src/xmerl_xpath_parse.erl",
+      "Sha256": "297CAC9A2D3BF5006C11AAA42C222D2B6E8E3A5FE59DCB348B974926A6363B18"
+    },
+    {
+      "Path": "src/xmerl_xpath_parse.yrl",
+      "Sha256": "207D369818B82A8E058BD31757B881DD27540EE0FA47C68547B6DFCA25741B14"
+    },
+    {
+      "Path": "src/xmerl_xpath_pred.erl",
+      "Sha256": "03358A2A984D26CC12C15264474CF259F783D4A718795A9643BED266416C337F"
+    },
+    {
+      "Path": "src/xmerl_xpath_scan.erl",
+      "Sha256": "9B9C960F0854D6FB66A4365732FECA0AD8D625BEDC74321CD787132AC46CDDC5"
+    },
+    {
+      "Path": "src/xmerl_xs.erl",
+      "Sha256": "56727DAD9B5176FBAD2080C794F3B59506DBCF036A5C024491A4E30A1CCB013A"
+    },
+    {
+      "Path": "src/xmerl_xsd.erl",
+      "Sha256": "81BC0DD48B2D0F84DA5C652A193B25488BB832326E1D3545FBAA512E9B273971"
+    },
+    {
+      "Path": "src/xmerl_xsd_re.erl",
+      "Sha256": "5818E30B74948EB33A41D922F43DD73B43347E7CD078D20DD1B3CB9D4C7ABE8A"
+    },
+    {
+      "Path": "src/xmerl_xsd_re_parse.erl",
+      "Sha256": "7C04AA65AB47FF76BEB3B48C94CA7282E996E833F988EC81524B777528E2AC53"
+    },
+    {
+      "Path": "src/xmerl_xsd_type.erl",
+      "Sha256": "8DADBD3F324A97DCC2FA71EB5B5B5DFA9F41502E4A0C1A37D144635DF9198181"
+    },
+    {
+      "Path": "include/xmerl.hrl",
+      "Sha256": "2A9253EEAE7C1B1B8F47C6C3933573404B8DA584A68343F76BC55453A84C21BC"
+    },
+    {
+      "Path": "include/xmerl_xpath.hrl",
+      "Sha256": "A5D076016A4D42389FC2E8AC160DEA8E792BAE55547A5CD35D91A4A5EE7AAD30"
+    },
+    {
+      "Path": "include/xmerl_xsd.hrl",
+      "Sha256": "852F257A67375F62BFE29AE2459FD57AE152DEDF3FD043D188A4626179FFCE36"
+    },
+    {
+      "Path": "ebin/xmerl.app",
+      "Sha256": "9F36361A35878F64DF69A34934EF97A79EE3772BDCAB5AAD2E1FB6DC7AD901F6"
+    },
+    {
+      "Path": "ebin/xmerl.appup",
+      "Sha256": "7839C05C30A24D4B9C27DD33036B673197045CC093BCE76265E762635291F564"
+    },
+    {
+      "Path": "ebin/xmerl.beam",
+      "Sha256": "725CC7444131B37200ECD3040DFBC2069C325D6585B09E29D25E7CBB722F0BF3"
+    },
+    {
+      "Path": "ebin/xmerl_b64Bin.beam",
+      "Sha256": "4B9FC4238A152C6223F51D6F2DA5348CAE7A75F046B8C233781BFD397ABCAF39"
+    },
+    {
+      "Path": "ebin/xmerl_b64Bin_scan.beam",
+      "Sha256": "7C507B90DFE7A42344201D9AA8E14B0D59C20C7EA6C4001107CDA54C9092A6A7"
+    },
+    {
+      "Path": "ebin/xmerl_eventp.beam",
+      "Sha256": "F0907ED093DBF1607D68AD80BB1A381286500ABCACB545462FFDADF3DC2304AF"
+    },
+    {
+      "Path": "ebin/xmerl_html.beam",
+      "Sha256": "6C0190947EF0F90EBFA0687CEF95BB1B676BC7160E5D5AC1DB264E6D0AB6D0B5"
+    },
+    {
+      "Path": "ebin/xmerl_lib.beam",
+      "Sha256": "41914BB4954125B221EC47F9B84956D07B52CEBE487456A651A1D87E65B617D1"
+    },
+    {
+      "Path": "ebin/xmerl_otpsgml.beam",
+      "Sha256": "3F400D9BB6E15122D90222017C0417688362D76AFA310EDE285D38C7D9C2CD2E"
+    },
+    {
+      "Path": "ebin/xmerl_sax_old_dom.beam",
+      "Sha256": "C8BFEF24C28CECD94DE969B6903342904A5685F5EF9CC282E50C5818930BF401"
+    },
+    {
+      "Path": "ebin/xmerl_sax_parser.beam",
+      "Sha256": "72517FF81934BB43B9D5E9341C075D7B40C34B8E995B04B42EA22689EF23E805"
+    },
+    {
+      "Path": "ebin/xmerl_sax_parser_latin1.beam",
+      "Sha256": "8247C37B52877328D7113FB5124D9F140541CADAE110B14DE53329CCAD8744DC"
+    },
+    {
+      "Path": "ebin/xmerl_sax_parser_list.beam",
+      "Sha256": "E8491B2571EF037987738F3D1F42AECB9E2683760C0EB0ABA2314A5D050E83B0"
+    },
+    {
+      "Path": "ebin/xmerl_sax_parser_utf16be.beam",
+      "Sha256": "AD0179A9DFF89C1F6DE688A61972E00D2325F58FA5E75EDD6EB2D3F22A06F77D"
+    },
+    {
+      "Path": "ebin/xmerl_sax_parser_utf16le.beam",
+      "Sha256": "DFFAD7E4D4BA8FDFD64B90D40F40318CDC54329FAFD91D857D66E8B51CC2AB30"
+    },
+    {
+      "Path": "ebin/xmerl_sax_parser_utf8.beam",
+      "Sha256": "CA5E576BAF498BEBFC6F0F2102E8FFD58AAD5F45BDFBD29B1B26ED2BDC1E3179"
+    },
+    {
+      "Path": "ebin/xmerl_sax_simple_dom.beam",
+      "Sha256": "9C16D788F7129230C617ED2B7872F19EA62337FA38709AE77291980ADB69D84A"
+    },
+    {
+      "Path": "ebin/xmerl_scan.beam",
+      "Sha256": "8F0A7B3CF05E0F8887A2DC080C203901A9FBDA38A8BCED7E82EE636E3B12F8D3"
+    },
+    {
+      "Path": "ebin/xmerl_sgml.beam",
+      "Sha256": "1582906E81B439E0AF6AEF4199635C49D947310EF1E107B40A55C8DBBD956C8C"
+    },
+    {
+      "Path": "ebin/xmerl_simple.beam",
+      "Sha256": "15F93C1CF5F1D7B8A47E8E09D91DEF0E6EF3DFB6DB229046E3BFE2A1E6686F2F"
+    },
+    {
+      "Path": "ebin/xmerl_text.beam",
+      "Sha256": "B090CB0BB95B7A9061F14AEF64F728DC2293A26C8EF0586390AB23A168B33B57"
+    },
+    {
+      "Path": "ebin/xmerl_ucs.beam",
+      "Sha256": "4544F0125500CC25C5D5B6DAB9D5068BF73953A3D997181FE5507D1616596A50"
+    },
+    {
+      "Path": "ebin/xmerl_uri.beam",
+      "Sha256": "F5476549F364883188856FA0B664165E849AE4B888FBFAA6CA0E247CDF7F6EAE"
+    },
+    {
+      "Path": "ebin/xmerl_validate.beam",
+      "Sha256": "444A10F811F005EE23D4F983B1335CE1554B83C51E93004ACBADD59F85D7F7C0"
+    },
+    {
+      "Path": "ebin/xmerl_xlate.beam",
+      "Sha256": "9BB39925B458C1A7BCD0E4DC59E5FCF0C4365FFFFDFDFC1E3166FAFB2790F557"
+    },
+    {
+      "Path": "ebin/xmerl_xml.beam",
+      "Sha256": "2E8963B35DCE3335678EB1FEA2594B330B67F626F923944A9B3366443CDAD8EF"
+    },
+    {
+      "Path": "ebin/xmerl_xml_indent.beam",
+      "Sha256": "D28478F17292874E35E391F22D18889E4E223D6D370A6E9033D0A887AE287A0C"
+    },
+    {
+      "Path": "ebin/xmerl_xpath.beam",
+      "Sha256": "FDF0A790FD1526C8F0196364F7190A9FF069B7901122734392E6311162B25ABB"
+    },
+    {
+      "Path": "ebin/xmerl_xpath_lib.beam",
+      "Sha256": "06DD488279CD37A4CF9D6DAD0384265A17042C7EFF24DBD8CBB78C713C8F3CA6"
+    },
+    {
+      "Path": "ebin/xmerl_xpath_parse.beam",
+      "Sha256": "672568C8A5E0179A80C7BCCA1E956D855644425588BC4B56F50612766C6879DB"
+    },
+    {
+      "Path": "ebin/xmerl_xpath_pred.beam",
+      "Sha256": "9DA9963144CEDE4AD533305B31A2D8838B6F6E84526F83A1EB122BAD45B99347"
+    },
+    {
+      "Path": "ebin/xmerl_xpath_scan.beam",
+      "Sha256": "34050A312DD26ACEA68E2C150E0658BBEA56086EA14C9F3A4C2B9A3D2A90CAA9"
+    },
+    {
+      "Path": "ebin/xmerl_xs.beam",
+      "Sha256": "E4634C317ACCF022D23551B9ED8058E400A7E1F4A9CE16E5B04BBD7CA0143A89"
+    },
+    {
+      "Path": "ebin/xmerl_xsd.beam",
+      "Sha256": "BAEF6795BBE99287CE4738B453FDAFAAC41C64BA9D1CE04EB07B7718160DCD89"
+    },
+    {
+      "Path": "ebin/xmerl_xsd_re.beam",
+      "Sha256": "EF44A3AC4EA4651FB222F6735A01BD884490D2220FD612D8CE3A4167CED45849"
+    },
+    {
+      "Path": "ebin/xmerl_xsd_re_parse.beam",
+      "Sha256": "8E272424190C0DD728068615A39CBB3A86F1AD17EA280C40FB43BC9C2F2EB854"
+    },
+    {
+      "Path": "ebin/xmerl_xsd_type.beam",
+      "Sha256": "B34479746094B4353A2F704F6CAD79CABD26734CCC44E1C0D545CFBC04290A91"
+    }
+  ],
+  "PinnedSourceMatches": [
+    "lib/xmerl/src/xmerl.app.src",
+    "lib/xmerl/src/xmerl.appup.src",
+    "lib/xmerl/src/xmerl.erl",
+    "lib/xmerl/src/xmerl_b64Bin.yrl",
+    "lib/xmerl/src/xmerl_b64Bin_scan.erl",
+    "lib/xmerl/src/xmerl_eventp.erl",
+    "lib/xmerl/src/xmerl_html.erl",
+    "lib/xmerl/src/xmerl_internal.hrl",
+    "lib/xmerl/src/xmerl_lib.erl",
+    "lib/xmerl/src/xmerl_otpsgml.erl",
+    "lib/xmerl/src/xmerl_sax_old_dom.erl",
+    "lib/xmerl/src/xmerl_sax_old_dom.hrl",
+    "lib/xmerl/src/xmerl_sax_parser.erl",
+    "lib/xmerl/src/xmerl_sax_parser.hrl",
+    "lib/xmerl/src/xmerl_sax_simple_dom.erl",
+    "lib/xmerl/src/xmerl_scan.erl",
+    "lib/xmerl/src/xmerl_sgml.erl",
+    "lib/xmerl/src/xmerl_simple.erl",
+    "lib/xmerl/src/xmerl_text.erl",
+    "lib/xmerl/src/xmerl_ucs.erl",
+    "lib/xmerl/src/xmerl_uri.erl",
+    "lib/xmerl/src/xmerl_validate.erl",
+    "lib/xmerl/src/xmerl_xlate.erl",
+    "lib/xmerl/src/xmerl_xml.erl",
+    "lib/xmerl/src/xmerl_xml_indent.erl",
+    "lib/xmerl/src/xmerl_xpath.erl",
+    "lib/xmerl/src/xmerl_xpath_lib.erl",
+    "lib/xmerl/src/xmerl_xpath_parse.yrl",
+    "lib/xmerl/src/xmerl_xpath_pred.erl",
+    "lib/xmerl/src/xmerl_xpath_scan.erl",
+    "lib/xmerl/src/xmerl_xs.erl",
+    "lib/xmerl/src/xmerl_xsd.erl",
+    "lib/xmerl/src/xmerl_xsd_re.erl",
+    "lib/xmerl/src/xmerl_xsd_type.erl",
+    "lib/xmerl/include/xmerl.hrl",
+    "lib/xmerl/include/xmerl_xpath.hrl",
+    "lib/xmerl/include/xmerl_xsd.hrl"
+  ],
+  "GeneratedReleaseSources": [
+    "src/xmerl_b64Bin.erl",
+    "src/xmerl_sax_parser_latin1.erl",
+    "src/xmerl_sax_parser_list.erl",
+    "src/xmerl_sax_parser_utf16be.erl",
+    "src/xmerl_sax_parser_utf16le.erl",
+    "src/xmerl_sax_parser_utf8.erl",
+    "src/xmerl_xpath_parse.erl",
+    "src/xmerl_xsd_re_parse.erl"
+  ]
+}

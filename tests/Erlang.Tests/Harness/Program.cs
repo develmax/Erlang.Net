@@ -978,6 +978,7 @@ Test(
     Erlang.Tests.BeamInfallibleBifControlHostChecks.FallibleGcAndOpaqueRefusals
 );
 Test("runtime/library395/frame-Admission", Erlang.Tests.BeamFrameJoin394Checks.Admission);
+Test(Erlang.Tests.BeamLiteralFailure467Names.AdmissionTest, Erlang.Tests.BeamLiteralFailure467Checks.Admission);
 Test("runtime/library395/frame-ActualBodyOverride", Erlang.Tests.BeamFrameJoin394Checks.ActualBodyOverride);
 Test(Erlang.Tests.LibraryDependencyOriginalNames.Math394Test, Erlang.Tests.LibraryDependencyOriginalHostChecks.Math394Whole);
 Test(
