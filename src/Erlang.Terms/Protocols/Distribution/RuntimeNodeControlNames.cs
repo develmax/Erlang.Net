@@ -4,6 +4,7 @@ public static class RuntimeNodeControlNames
 {
     public const string Monitor = "monitor_node";
     public const string MonitorTrap = "dmonitor_node";
+    public const string AutoConnect = "auto_connect";
     public const string Disconnect = "disconnect_node";
     public const string Kernel = "net_kernel";
     public const string DisconnectRequest = "disconnect";
