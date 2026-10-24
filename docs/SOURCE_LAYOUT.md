@@ -40,3 +40,5 @@ Part462 adds the complete original kernel application asset inventory under `src
 Part462 also completes the original stdlib catalog from18 to98 names without replacing the initial admitted images. The additional80 images, generated Erlang sources, source/include support and stdlib application/upgrade resources retain official release provenance. ReadImage and the resource readers verify their hashes; non-collection startup selections continue to require explicit dependencies.
 
 Part463 completes the ERTS/SASL asset inventories. Original wrappers and their explicit C# native bootstrap remain distinct. A common retained observer executes19 whole outcomes/stacks on original OTP and our runtime with exact raw ETF equality; this finite observation does not certify all BIFs, release management or whole application boot.
+
+Part464 adds independent original syntax_tools/parsetools libraries under src. They retain all13 images,16 unchanged source/header files and four application resources. The public OtpSyntaxTools/OtpParsetools readers and explicit dependency selections follow the existing original-library boundary.
