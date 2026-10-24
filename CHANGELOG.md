@@ -136,4 +136,6 @@ Append numbered English entries only to the last volume. Start the next sequenti
 
 - [0080.md](docs/changelog/0080.md) — parts453-458 (closed; original named kernel boot and native distribution)
 
-- [0081.md](docs/changelog/0081.md) — part459 onward (active; owner-admitted distribution signals)
+- [0081.md](docs/changelog/0081.md) — parts459–465 (closed; distribution and original OTP library packaging)
+
+- [0082.md](docs/changelog/0082.md) — part466 onward (active; original tools and runtime_tools libraries)
