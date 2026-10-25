@@ -3,6 +3,7 @@ param(
     [string]$Admission = 'artifacts/library376-official-compiler/official-admission.json',
     [string]$Output = 'artifacts/otp-apply-original'
 )
+. "$PSScriptRoot/project-layout.ps1"
 $ErrorActionPreference = 'Stop'
 $profile = Get-Content -LiteralPath $Admission -Raw | ConvertFrom-Json
 if ($profile.SourceCommit -cne 'ad05823719d77c8faee87348ea39513d4e2f99c5' -or -not $profile.EveryExtractedFileMatchesArchive) { throw 'Unadmitted original OTP provider' }
