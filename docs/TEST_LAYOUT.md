@@ -62,3 +62,7 @@ Part477: Resources/ApplyOriginal477 contains the actual original lists/odbc imag
 Part478: tests/Erlang.Otp.Gui.Library.Tests runs 975 public API/asset/selection assertions and 1415 complete source outcomes/stacks from 236 original application images plus four original stdlib dependencies and one compiled observer. The same consumer runs from cold NuGet with empty PATH and repository build imports disabled. Native GUI startup remains separate.
 
 Part479: Compiler/Beam/Frames holds seven synthetic admission/execution controls plus FloatStoreOriginal479Checks;Resources/FloatStoreOriginal479 preserves six original images,the original header and one compiled observer. The Gui library consumer repeats66 whole graph outcomes through public readers and cold packages;fresh original capture runs after the full runtime suite.
+
+## Part480 closed-wait controls
+
+Compiler/Beam/Receive contains separate names,byte-builder,control-check and original-comparison files. Resources/ClosedWaitOriginal480 retains unchanged original debugger/lists images plus the bounded observer/golden/provenance. GuiClosedWait480Checks uses the public original readers with fixtures under Fixtures/ClosedWait480;fresh original capture is tools/validate-closed-wait-original.ps1.

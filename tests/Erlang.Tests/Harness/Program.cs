@@ -58,6 +58,13 @@ Test(Erlang.Tests.ApplyTailReturn416Names.Test, Erlang.Tests.ApplyTailReturn416C
 Test(Erlang.Tests.DynamicApplyOriginal477Names.Test, Erlang.Tests.DynamicApplyOriginal477Checks.Run);
 Test(Erlang.Tests.DynamicApplyOriginal477Names.HostTest, Erlang.Tests.DynamicApplyOriginal477Checks.HostBindings);
 Test(Erlang.Tests.FloatStoreOriginal479Names.Test, Erlang.Tests.FloatStoreOriginal479Checks.Run);
+Test(Erlang.Tests.ClosedWaitOriginal480Names.Test, Erlang.Tests.ClosedWaitOriginal480Checks.Run);
+Test(Erlang.Tests.ClosedWaitOriginal480Names.AdmissionTest, Erlang.Tests.ClosedWaitOriginal480Checks.Admission);
+Test(Erlang.Tests.BeamClosedWait480Names.Valid, Erlang.Tests.BeamClosedWait480Checks.Valid);
+Test(Erlang.Tests.BeamClosedWait480Names.Returning, Erlang.Tests.BeamClosedWait480Checks.Returning);
+Test(Erlang.Tests.BeamClosedWait480Names.Foreign, Erlang.Tests.BeamClosedWait480Checks.Foreign);
+Test(Erlang.Tests.BeamClosedWait480Names.Roots, Erlang.Tests.BeamClosedWait480Checks.Roots);
+Test(Erlang.Tests.BeamClosedWait480Names.Unknown, Erlang.Tests.BeamClosedWait480Checks.Unknown);
 Test(Erlang.Tests.BeamFloatStore479Names.Store, Erlang.Tests.BeamFloatStore479Checks.Store);
 Test(Erlang.Tests.BeamFloatStore479Names.Trimmed, Erlang.Tests.BeamFloatStore479Checks.Trim);
 Test(Erlang.Tests.BeamFloatStore479Names.Gc, Erlang.Tests.BeamFloatStore479Checks.GcRoots);

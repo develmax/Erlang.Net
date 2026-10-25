@@ -1,0 +1,19 @@
+{
+  "Passed": 5303,
+  "Failed": 1,
+  "Selected": 5304,
+  "ReportSha256": "C281BCC5E8091AD0ADE854A3A3170ABDB6ADBE58A5871C4E037E191DF92E90A8",
+  "Failures": [
+    {
+      "Name": "runtime/source-stage-transaction-ownership-and-purge-generation",
+      "Status": "Failed",
+      "Error": "System.TimeoutException: The operation has timed out.\r\n   at Erlang.Tests.SourcePurgeStageHostChecks.UncaughtShutdown(Boolean prepare) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Modules\\CodeLifecycle\\SourcePurgeStageHostChecks.Settlement.cs:line 153\r\n   at Erlang.Tests.SourcePurgeStageHostChecks.UncaughtShutdown(Boolean prepare) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Modules\\CodeLifecycle\\SourcePurgeStageHostChecks.Settlement.cs:line 164\r\n   at Erlang.Tests.SourcePurgeStageHostChecks.UncaughtShutdown(Boolean prepare) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Modules\\CodeLifecycle\\SourcePurgeStageHostChecks.Settlement.cs:line 168\r\n   at Erlang.Tests.SourcePurgeStageHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Modules\\CodeLifecycle\\SourcePurgeStageHostChecks.cs:line 22\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 6836",
+      "Milliseconds": 10116
+    }
+  ],
+  "RecheckPassed": 8,
+  "RecheckFailed": 0,
+  "NoInterveningBuildBetweenInitialAndRecheck": true,
+  "TimingCauseUnproven": true,
+  "UninterruptedFullPass": false
+}
