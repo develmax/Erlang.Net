@@ -783,3 +783,7 @@ Reuse unchanged pinned original os_mon and odbc rather than translating their pu
 ## Part477 — dynamic apply is native VM control transfer
 
 Follow pinned OTP emu/ops.tab,instrs.tab and beam_common.c apply/fixed_apply/apply_bif_error_adjustment. Reuse current code-image,canonical no-return,async-context and owner-lease infrastructure. Do not add an actor library or translate pure OTP algorithms. Unwrap only actual canonical apply registrations;defer caller transfer until real argument validation,retain special no-return and source-load-NIF behavior,and preserve selected host bindings. Bind native function-apply error metadata to the original preloaded erlang source/image. Compare entire observations rather than stripping caller/comprehension frames.
+
+## Part478 — remaining original GUI/tool libraries
+
+Reuse unchanged pinned debugger, et, observer, reltool and wx source/images under their preserved upstream notices and existing OTP package license. Reuse the public library facade and explicit selection infrastructure. No new .NET GUI dependency or handwritten pure-module alternative is introduced. Original pixmap/header/source support stays data. Exclude producer wx DLLs and PDBs; they do not establish a portable native wx provider. Compare finite pure class/helper and process-dictionary behavior with whole original values and stacks. Live GUI, debugger, tracing and release-building application acceptance remains separate.
