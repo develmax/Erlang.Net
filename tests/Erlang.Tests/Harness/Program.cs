@@ -6855,6 +6855,8 @@ try
     Test(Erlang.Tests.TupleContract488Names.Test, Erlang.Tests.TupleContract488Checks.Run);
     foreach (var group in Erlang.Tests.TupleMutation489Names.Groups)
         Test(Erlang.Tests.TupleMutation489Names.TestPrefix + group.Group, () => Erlang.Tests.TupleMutation489Checks.Run(group));
+    foreach (var group in Erlang.Tests.OperatorContract490Names.Groups)
+        Test(Erlang.Tests.OperatorContract490Names.TestPrefix + group.Group, () => Erlang.Tests.OperatorContract490Checks.Run(group));
 
     var catalog = Erlang.Tests.TestRunCatalog.Create(tests.Select(test => test.Name));
     selectedTests = selection.Select(tests, catalog);

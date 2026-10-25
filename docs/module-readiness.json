@@ -6748,10 +6748,14 @@
     {
       "Path": "src/Runtime/Erlang.Terms/Values/TupleTerm.cs",
       "Sha256": "31EFD1F98D5853EC21C8A9915AC34AF55793016ACF5258B2FBCDAA96DBF040A8"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Support/ErlangOperators.cs",
+      "Sha256": "EEF9E55D3B9D58A4D58734B0E4A2CB5FEF6F1F3775CB9DDA5A48B5D7900F7C01"
     }
   ],
-  "VerifiedCompatibleMfas": 137,
-  "NeedsVerificationMfas": 546,
+  "VerifiedCompatibleMfas": 144,
+  "NeedsVerificationMfas": 539,
   "KnownDifferenceMfas": 25,
   "MfaCompatibility": [
     {
@@ -10100,48 +10104,116 @@
       "Module": "erlang",
       "Function": "\u002B",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+      "Status": "Verified compatible",
+      "Scope": "Complete observable native BIF contract on supported valid Erlang terms: Integer or finite FloatTerm returns the exact supplied term without allocation or conversion. Every other term raises badarith. Native errors and complete argument/source/caller stacks match pinned OTP. No whole compiler, timing or identical physical allocation ceiling claim.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-490/operator-contracts/source-audit.json",
+          "Sha256": "E8BB694EA57F4C20356322E6471EBF9CF908306BAB676C7EB1B54CE05B7E43E0",
+          "Scope": "Complete pinned source/type/Boolean table/numeric sign/reference/effect proof; exact current sources and raw fixture resources bound."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-490/operator-contracts/original/unary_plus/completion.json",
+          "Sha256": "E1A6FD429737BD40F973C399C2AAE1CFF8D804921977321D712BB99393C09C3B",
+          "Scope": "Admitted6427-file provider before/after, dynamic function dispatch, whole values/full stacks and original-process settlement."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-490/operator-contracts/focused-results.json",
+          "Sha256": "0101E2EB5064DCF2DE4519736AE9F2BCF41E7B78B415124CEAB97D9D306423AC",
+          "Scope": "605 complete values and3025 full stack profiles, seven independently bounded groups, no normalized fields."
+        }
       ],
+      "Limits": [],
       "Key": "erlang:\u002B/1"
     },
     {
       "Module": "erlang",
       "Function": "-",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+      "Status": "Verified compatible",
+      "Scope": "Complete observable native BIF contract on supported valid Erlang terms: Integer negation is exact arbitrary-precision subtraction from zero, including small/big boundaries; finite float negation flips its sign including both zeros and subnormals, creating a fresh float. All other terms raise badarith. Native errors and complete argument/source/caller stacks match pinned OTP. No whole compiler, timing or identical physical allocation ceiling claim.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-490/operator-contracts/source-audit.json",
+          "Sha256": "E8BB694EA57F4C20356322E6471EBF9CF908306BAB676C7EB1B54CE05B7E43E0",
+          "Scope": "Complete pinned source/type/Boolean table/numeric sign/reference/effect proof; exact current sources and raw fixture resources bound."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-490/operator-contracts/original/unary_minus/completion.json",
+          "Sha256": "F0D60975C7D471221AB8A8BD2BF1EE08E79D5B6ACCDA4976A9C3284F82C3AEDC",
+          "Scope": "Admitted6427-file provider before/after, dynamic function dispatch, whole values/full stacks and original-process settlement."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-490/operator-contracts/focused-results.json",
+          "Sha256": "0101E2EB5064DCF2DE4519736AE9F2BCF41E7B78B415124CEAB97D9D306423AC",
+          "Scope": "605 complete values and3025 full stack profiles, seven independently bounded groups, no normalized fields."
+        }
       ],
+      "Limits": [],
       "Key": "erlang:-/1"
     },
     {
       "Module": "erlang",
       "Function": "not",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+      "Status": "Verified compatible",
+      "Scope": "Complete observable native BIF contract on supported valid Erlang terms: Exactly true/false atoms are accepted and negated; every other term raises badarg. Canonical Boolean atoms are returned with no input mutation. Native errors and complete argument/source/caller stacks match pinned OTP. No whole compiler, timing or identical physical allocation ceiling claim.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-490/operator-contracts/source-audit.json",
+          "Sha256": "E8BB694EA57F4C20356322E6471EBF9CF908306BAB676C7EB1B54CE05B7E43E0",
+          "Scope": "Complete pinned source/type/Boolean table/numeric sign/reference/effect proof; exact current sources and raw fixture resources bound."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-490/operator-contracts/original/boolean_not/completion.json",
+          "Sha256": "DBFDA9EEB249E34958B800239EFB9FF97CBA68DEECBCD577F8332A6CD52B7D2A",
+          "Scope": "Admitted6427-file provider before/after, dynamic function dispatch, whole values/full stacks and original-process settlement."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-490/operator-contracts/focused-results.json",
+          "Sha256": "0101E2EB5064DCF2DE4519736AE9F2BCF41E7B78B415124CEAB97D9D306423AC",
+          "Scope": "605 complete values and3025 full stack profiles, seven independently bounded groups, no normalized fields."
+        }
       ],
+      "Limits": [],
       "Key": "erlang:not/1"
     },
     {
       "Module": "erlang",
       "Function": "bnot",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+      "Status": "Verified compatible",
+      "Scope": "Complete observable native BIF contract on supported valid Erlang terms: Integer-only infinite signed two-complement complement equals -x-1 for all integer magnitudes/signs. Small/big representations preserve the value and fresh boxed-result semantics. Noninteger terms raise badarith. No claim of identical VM physical allocation limits. Native errors and complete argument/source/caller stacks match pinned OTP. No whole compiler, timing or identical physical allocation ceiling claim.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-490/operator-contracts/source-audit.json",
+          "Sha256": "E8BB694EA57F4C20356322E6471EBF9CF908306BAB676C7EB1B54CE05B7E43E0",
+          "Scope": "Complete pinned source/type/Boolean table/numeric sign/reference/effect proof; exact current sources and raw fixture resources bound."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-490/operator-contracts/original/integer_complement/completion.json",
+          "Sha256": "4E7C576872EE5B386E4E1E24073BCD81F29195D131B3C7370BB794A76DC1DB0B",
+          "Scope": "Admitted6427-file provider before/after, dynamic function dispatch, whole values/full stacks and original-process settlement."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-490/operator-contracts/focused-results.json",
+          "Sha256": "0101E2EB5064DCF2DE4519736AE9F2BCF41E7B78B415124CEAB97D9D306423AC",
+          "Scope": "605 complete values and3025 full stack profiles, seven independently bounded groups, no normalized fields."
+        }
       ],
+      "Limits": [],
       "Key": "erlang:bnot/1"
     },
     {
@@ -10280,36 +10352,87 @@
       "Module": "erlang",
       "Function": "and",
       "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+      "Status": "Verified compatible",
+      "Scope": "Complete observable native BIF contract on supported valid Erlang terms: Both arguments must be true/false atoms. The exhaustive four-case truth table matches OTP; either invalid argument raises badarg, including false in first position. Eager native BIF semantics, not short-circuit source syntax. Native errors and complete argument/source/caller stacks match pinned OTP. No whole compiler, timing or identical physical allocation ceiling claim.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-490/operator-contracts/source-audit.json",
+          "Sha256": "E8BB694EA57F4C20356322E6471EBF9CF908306BAB676C7EB1B54CE05B7E43E0",
+          "Scope": "Complete pinned source/type/Boolean table/numeric sign/reference/effect proof; exact current sources and raw fixture resources bound."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-490/operator-contracts/original/boolean_and/completion.json",
+          "Sha256": "BA5839F2F5B87F1133E729DAE1DBE6DA1076557C0E4ADD70D935712FF14FCF3E",
+          "Scope": "Admitted6427-file provider before/after, dynamic function dispatch, whole values/full stacks and original-process settlement."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-490/operator-contracts/focused-results.json",
+          "Sha256": "0101E2EB5064DCF2DE4519736AE9F2BCF41E7B78B415124CEAB97D9D306423AC",
+          "Scope": "605 complete values and3025 full stack profiles, seven independently bounded groups, no normalized fields."
+        }
       ],
+      "Limits": [],
       "Key": "erlang:and/2"
     },
     {
       "Module": "erlang",
       "Function": "or",
       "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+      "Status": "Verified compatible",
+      "Scope": "Complete observable native BIF contract on supported valid Erlang terms: Both arguments must be true/false atoms. The exhaustive four-case truth table matches OTP; either invalid argument raises badarg, including true in first position. Eager native BIF semantics. Native errors and complete argument/source/caller stacks match pinned OTP. No whole compiler, timing or identical physical allocation ceiling claim.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-490/operator-contracts/source-audit.json",
+          "Sha256": "E8BB694EA57F4C20356322E6471EBF9CF908306BAB676C7EB1B54CE05B7E43E0",
+          "Scope": "Complete pinned source/type/Boolean table/numeric sign/reference/effect proof; exact current sources and raw fixture resources bound."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-490/operator-contracts/original/boolean_or/completion.json",
+          "Sha256": "51BE7F04D916F7C95D4B87A3037C32C718F928E37837FCC93855322667E6D4FF",
+          "Scope": "Admitted6427-file provider before/after, dynamic function dispatch, whole values/full stacks and original-process settlement."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-490/operator-contracts/focused-results.json",
+          "Sha256": "0101E2EB5064DCF2DE4519736AE9F2BCF41E7B78B415124CEAB97D9D306423AC",
+          "Scope": "605 complete values and3025 full stack profiles, seven independently bounded groups, no normalized fields."
+        }
       ],
+      "Limits": [],
       "Key": "erlang:or/2"
     },
     {
       "Module": "erlang",
       "Function": "xor",
       "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+      "Status": "Verified compatible",
+      "Scope": "Complete observable native BIF contract on supported valid Erlang terms: Both arguments must be true/false atoms. Return true iff they differ; either invalid argument raises badarg. Canonical atom result. Native errors and complete argument/source/caller stacks match pinned OTP. No whole compiler, timing or identical physical allocation ceiling claim.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-490/operator-contracts/source-audit.json",
+          "Sha256": "E8BB694EA57F4C20356322E6471EBF9CF908306BAB676C7EB1B54CE05B7E43E0",
+          "Scope": "Complete pinned source/type/Boolean table/numeric sign/reference/effect proof; exact current sources and raw fixture resources bound."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-490/operator-contracts/original/boolean_xor/completion.json",
+          "Sha256": "3882586E97A236E634DF1A88BC9F94AD870DF2314A7627E4629095736791BC4E",
+          "Scope": "Admitted6427-file provider before/after, dynamic function dispatch, whole values/full stacks and original-process settlement."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-490/operator-contracts/focused-results.json",
+          "Sha256": "0101E2EB5064DCF2DE4519736AE9F2BCF41E7B78B415124CEAB97D9D306423AC",
+          "Scope": "605 complete values and3025 full stack profiles, seven independently bounded groups, no normalized fields."
+        }
       ],
+      "Limits": [],
       "Key": "erlang:xor/2"
     },
     {
@@ -26243,7 +26366,7 @@
     }
   ],
   "ComparisonTestReport": "validation/part-485/native-catalog/previous-tests.json",
-  "LocalPassedTests": 8906,
+  "LocalPassedTests": 8913,
   "RegisteredMfas": 708,
   "PreviousRegisteredMfas": 708,
   "RegisteredMfaDelta": 0,
@@ -26471,7 +26594,7 @@
         "Physical BEAM heap/scheduler/resources,complete lint/spec/warnings/source stacks/code staging,connected distribution and full native/upstream/performance parity;native numeric record hashes independently matched in230, while general resource/lifecycle scope remains partial.",
         "Part378: same-function receive\u002Btry and mixed Term/raw joins remain conservative refusals; raw manual/Nil, native-entry-specific, full depth/deeper recursion/cross-image lifecycle and stale-fun dispatch profiles need separate proof."
       ],
-      "RelatedPassedTests": 1750
+      "RelatedPassedTests": 1757
     },
     {
       "Id": "Compiler",
@@ -33230,8 +33353,8 @@
       "Name": "erlang",
       "Status": "Partially compatible",
       "RegisteredMfas": 351,
-      "VerifiedCompatibleMfas": 40,
-      "NeedsVerificationMfas": 298,
+      "VerifiedCompatibleMfas": 47,
+      "NeedsVerificationMfas": 291,
       "KnownDifferenceMfas": 13,
       "PreviousRegisteredMfas": 351,
       "Delta": 0,
