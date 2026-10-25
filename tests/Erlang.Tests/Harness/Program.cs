@@ -6861,6 +6861,8 @@ try
         Test(Erlang.Tests.ArithmeticContract491Names.TestPrefix + group.Group, () => Erlang.Tests.ArithmeticContract491Checks.Run(group));
     foreach (var group in Erlang.Tests.AtomContract492Names.Groups)
         Test(Erlang.Tests.AtomContract492Names.TestPrefix + group.Group, () => Erlang.Tests.AtomContract492Checks.Run(group));
+    foreach (var group in Erlang.Tests.IntegerContract493Names.Groups)
+        Test(Erlang.Tests.IntegerContract493Names.TestPrefix + group.Group, () => Erlang.Tests.IntegerContract493Checks.Run(group));
 
     var catalog = Erlang.Tests.TestRunCatalog.Create(tests.Select(test => test.Name));
     selectedTests = selection.Select(tests, catalog);

@@ -2,8 +2,9 @@ namespace Erlang;
 
 internal static class ErlangIntegerListParse
 {
-    internal static Integer Parse(Term original, int radix)
+    internal static Integer Parse(Term original, int radix, out bool big)
     {
+        big = false;
         if (original is not Cons first)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
         bool negative = first.Head is Integer sign && sign.Value == '-';
@@ -31,6 +32,8 @@ internal static class ErlangIntegerListParse
             rest = cell.Tail;
             if (digits > limit)
             {
+                big = true;
+
                 return ErlangIntegerText.Parse(
                     ErlangIntegerText.ListCharacters(original),
                     radix

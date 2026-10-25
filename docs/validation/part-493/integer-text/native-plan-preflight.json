@@ -1,0 +1,36 @@
+{
+  "Passed": true,
+  "NativeAbiAcceptancePromoted": false,
+  "Plans": [
+    {
+      "Plan": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Workflow": ".github/workflows/nif-pending-native.yml",
+      "Seal": "E4A07EA9C049A0AF9BD027E584929A8689506C980E18DF885DD8D726B732B71B",
+      "Changed": [
+        "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangAtomRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangIntegerListParse.cs",
+        "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangIntegerParseBridge.cs"
+      ],
+      "Added": [
+        "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangErrorHelperMetadata.cs",
+        "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangErrorHelperNames.cs",
+        "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangIntegerBinaryParse.cs"
+      ],
+      "AllOtherRowsAndMetadataUnchanged": true
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Workflow": ".github/workflows/nif-reallocation-native.yml",
+      "Seal": "A3028AB982ADF51569743ACC5154EC358FEC3205FDC57C2100D614298FAD6165",
+      "Changed": [
+        "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangAtomRegistrations.cs"
+      ],
+      "Added": [
+        "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangErrorHelperMetadata.cs",
+        "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangErrorHelperNames.cs",
+        "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangIntegerBinaryParse.cs"
+      ],
+      "AllOtherRowsAndMetadataUnchanged": true
+    }
+  ]
+}

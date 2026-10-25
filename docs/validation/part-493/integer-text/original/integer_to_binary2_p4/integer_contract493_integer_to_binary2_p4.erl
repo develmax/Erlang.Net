@@ -1,0 +1,86 @@
+-module(integer_contract493_integer_to_binary2_p4).
+-export([run/0,run_stacks/0,probe/1]).
+run() -> ordsets_core_support:run(?MODULE,cases()).
+run_stacks() -> ordsets_core_support:profiles(?MODULE,cases()).
+cases() -> [c320,c321,c322,c323,c324,c325,c326,c327,c328,c329,c330,c331,c332,c333,c334,c335,c336,c337,c338,c339,c340,c341,c342,c343,c344,c345,c346,c347,c348,c349,c350,c351,c352,c353,c354,c355,c356,c357,c358,c359,c360,c361,c362,c363,c364,c365,c366,c367,c368,c369,c370,c371,c372,c373,c374,c375,c376,c377,c378,c379,c380,c381,c382,c383,c384,c385,c386,c387,c388,c389,c390,c391,c392,c393,c394,c395,c396,c397,c398,c399].
+probe(c320) -> erlang:apply(erlang,opaque(integer_to_binary),[(1 bsl 2048),24]);
+probe(c321) -> erlang:apply(erlang,opaque(integer_to_binary),[-(1 bsl 2048),24]);
+probe(c322) -> erlang:apply(erlang,opaque(integer_to_binary),[0,25]);
+probe(c323) -> erlang:apply(erlang,opaque(integer_to_binary),[1,25]);
+probe(c324) -> erlang:apply(erlang,opaque(integer_to_binary),[-1,25]);
+probe(c325) -> erlang:apply(erlang,opaque(integer_to_binary),[2,25]);
+probe(c326) -> erlang:apply(erlang,opaque(integer_to_binary),[-2,25]);
+probe(c327) -> erlang:apply(erlang,opaque(integer_to_binary),[576460752303423487,25]);
+probe(c328) -> erlang:apply(erlang,opaque(integer_to_binary),[576460752303423488,25]);
+probe(c329) -> erlang:apply(erlang,opaque(integer_to_binary),[-576460752303423488,25]);
+probe(c330) -> erlang:apply(erlang,opaque(integer_to_binary),[-576460752303423489,25]);
+probe(c331) -> erlang:apply(erlang,opaque(integer_to_binary),[18446744073709551616,25]);
+probe(c332) -> erlang:apply(erlang,opaque(integer_to_binary),[-18446744073709551616,25]);
+probe(c333) -> erlang:apply(erlang,opaque(integer_to_binary),[((1 bsl 1024)-1),25]);
+probe(c334) -> erlang:apply(erlang,opaque(integer_to_binary),[(1 bsl 2048),25]);
+probe(c335) -> erlang:apply(erlang,opaque(integer_to_binary),[-(1 bsl 2048),25]);
+probe(c336) -> erlang:apply(erlang,opaque(integer_to_binary),[0,26]);
+probe(c337) -> erlang:apply(erlang,opaque(integer_to_binary),[1,26]);
+probe(c338) -> erlang:apply(erlang,opaque(integer_to_binary),[-1,26]);
+probe(c339) -> erlang:apply(erlang,opaque(integer_to_binary),[2,26]);
+probe(c340) -> erlang:apply(erlang,opaque(integer_to_binary),[-2,26]);
+probe(c341) -> erlang:apply(erlang,opaque(integer_to_binary),[576460752303423487,26]);
+probe(c342) -> erlang:apply(erlang,opaque(integer_to_binary),[576460752303423488,26]);
+probe(c343) -> erlang:apply(erlang,opaque(integer_to_binary),[-576460752303423488,26]);
+probe(c344) -> erlang:apply(erlang,opaque(integer_to_binary),[-576460752303423489,26]);
+probe(c345) -> erlang:apply(erlang,opaque(integer_to_binary),[18446744073709551616,26]);
+probe(c346) -> erlang:apply(erlang,opaque(integer_to_binary),[-18446744073709551616,26]);
+probe(c347) -> erlang:apply(erlang,opaque(integer_to_binary),[((1 bsl 1024)-1),26]);
+probe(c348) -> erlang:apply(erlang,opaque(integer_to_binary),[(1 bsl 2048),26]);
+probe(c349) -> erlang:apply(erlang,opaque(integer_to_binary),[-(1 bsl 2048),26]);
+probe(c350) -> erlang:apply(erlang,opaque(integer_to_binary),[0,27]);
+probe(c351) -> erlang:apply(erlang,opaque(integer_to_binary),[1,27]);
+probe(c352) -> erlang:apply(erlang,opaque(integer_to_binary),[-1,27]);
+probe(c353) -> erlang:apply(erlang,opaque(integer_to_binary),[2,27]);
+probe(c354) -> erlang:apply(erlang,opaque(integer_to_binary),[-2,27]);
+probe(c355) -> erlang:apply(erlang,opaque(integer_to_binary),[576460752303423487,27]);
+probe(c356) -> erlang:apply(erlang,opaque(integer_to_binary),[576460752303423488,27]);
+probe(c357) -> erlang:apply(erlang,opaque(integer_to_binary),[-576460752303423488,27]);
+probe(c358) -> erlang:apply(erlang,opaque(integer_to_binary),[-576460752303423489,27]);
+probe(c359) -> erlang:apply(erlang,opaque(integer_to_binary),[18446744073709551616,27]);
+probe(c360) -> erlang:apply(erlang,opaque(integer_to_binary),[-18446744073709551616,27]);
+probe(c361) -> erlang:apply(erlang,opaque(integer_to_binary),[((1 bsl 1024)-1),27]);
+probe(c362) -> erlang:apply(erlang,opaque(integer_to_binary),[(1 bsl 2048),27]);
+probe(c363) -> erlang:apply(erlang,opaque(integer_to_binary),[-(1 bsl 2048),27]);
+probe(c364) -> erlang:apply(erlang,opaque(integer_to_binary),[0,28]);
+probe(c365) -> erlang:apply(erlang,opaque(integer_to_binary),[1,28]);
+probe(c366) -> erlang:apply(erlang,opaque(integer_to_binary),[-1,28]);
+probe(c367) -> erlang:apply(erlang,opaque(integer_to_binary),[2,28]);
+probe(c368) -> erlang:apply(erlang,opaque(integer_to_binary),[-2,28]);
+probe(c369) -> erlang:apply(erlang,opaque(integer_to_binary),[576460752303423487,28]);
+probe(c370) -> erlang:apply(erlang,opaque(integer_to_binary),[576460752303423488,28]);
+probe(c371) -> erlang:apply(erlang,opaque(integer_to_binary),[-576460752303423488,28]);
+probe(c372) -> erlang:apply(erlang,opaque(integer_to_binary),[-576460752303423489,28]);
+probe(c373) -> erlang:apply(erlang,opaque(integer_to_binary),[18446744073709551616,28]);
+probe(c374) -> erlang:apply(erlang,opaque(integer_to_binary),[-18446744073709551616,28]);
+probe(c375) -> erlang:apply(erlang,opaque(integer_to_binary),[((1 bsl 1024)-1),28]);
+probe(c376) -> erlang:apply(erlang,opaque(integer_to_binary),[(1 bsl 2048),28]);
+probe(c377) -> erlang:apply(erlang,opaque(integer_to_binary),[-(1 bsl 2048),28]);
+probe(c378) -> erlang:apply(erlang,opaque(integer_to_binary),[0,29]);
+probe(c379) -> erlang:apply(erlang,opaque(integer_to_binary),[1,29]);
+probe(c380) -> erlang:apply(erlang,opaque(integer_to_binary),[-1,29]);
+probe(c381) -> erlang:apply(erlang,opaque(integer_to_binary),[2,29]);
+probe(c382) -> erlang:apply(erlang,opaque(integer_to_binary),[-2,29]);
+probe(c383) -> erlang:apply(erlang,opaque(integer_to_binary),[576460752303423487,29]);
+probe(c384) -> erlang:apply(erlang,opaque(integer_to_binary),[576460752303423488,29]);
+probe(c385) -> erlang:apply(erlang,opaque(integer_to_binary),[-576460752303423488,29]);
+probe(c386) -> erlang:apply(erlang,opaque(integer_to_binary),[-576460752303423489,29]);
+probe(c387) -> erlang:apply(erlang,opaque(integer_to_binary),[18446744073709551616,29]);
+probe(c388) -> erlang:apply(erlang,opaque(integer_to_binary),[-18446744073709551616,29]);
+probe(c389) -> erlang:apply(erlang,opaque(integer_to_binary),[((1 bsl 1024)-1),29]);
+probe(c390) -> erlang:apply(erlang,opaque(integer_to_binary),[(1 bsl 2048),29]);
+probe(c391) -> erlang:apply(erlang,opaque(integer_to_binary),[-(1 bsl 2048),29]);
+probe(c392) -> erlang:apply(erlang,opaque(integer_to_binary),[0,30]);
+probe(c393) -> erlang:apply(erlang,opaque(integer_to_binary),[1,30]);
+probe(c394) -> erlang:apply(erlang,opaque(integer_to_binary),[-1,30]);
+probe(c395) -> erlang:apply(erlang,opaque(integer_to_binary),[2,30]);
+probe(c396) -> erlang:apply(erlang,opaque(integer_to_binary),[-2,30]);
+probe(c397) -> erlang:apply(erlang,opaque(integer_to_binary),[576460752303423487,30]);
+probe(c398) -> erlang:apply(erlang,opaque(integer_to_binary),[576460752303423488,30]);
+probe(c399) -> erlang:apply(erlang,opaque(integer_to_binary),[-576460752303423488,30]).
+opaque(Value) -> put(integer_contract493_input,Value),erase(integer_contract493_input).

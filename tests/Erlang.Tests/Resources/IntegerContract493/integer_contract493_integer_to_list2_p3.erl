@@ -1,0 +1,86 @@
+-module(integer_contract493_integer_to_list2_p3).
+-export([run/0,run_stacks/0,probe/1]).
+run() -> ordsets_core_support:run(?MODULE,cases()).
+run_stacks() -> ordsets_core_support:profiles(?MODULE,cases()).
+cases() -> [c240,c241,c242,c243,c244,c245,c246,c247,c248,c249,c250,c251,c252,c253,c254,c255,c256,c257,c258,c259,c260,c261,c262,c263,c264,c265,c266,c267,c268,c269,c270,c271,c272,c273,c274,c275,c276,c277,c278,c279,c280,c281,c282,c283,c284,c285,c286,c287,c288,c289,c290,c291,c292,c293,c294,c295,c296,c297,c298,c299,c300,c301,c302,c303,c304,c305,c306,c307,c308,c309,c310,c311,c312,c313,c314,c315,c316,c317,c318,c319].
+probe(c240) -> erlang:apply(erlang,opaque(integer_to_list),[-1,19]);
+probe(c241) -> erlang:apply(erlang,opaque(integer_to_list),[2,19]);
+probe(c242) -> erlang:apply(erlang,opaque(integer_to_list),[-2,19]);
+probe(c243) -> erlang:apply(erlang,opaque(integer_to_list),[576460752303423487,19]);
+probe(c244) -> erlang:apply(erlang,opaque(integer_to_list),[576460752303423488,19]);
+probe(c245) -> erlang:apply(erlang,opaque(integer_to_list),[-576460752303423488,19]);
+probe(c246) -> erlang:apply(erlang,opaque(integer_to_list),[-576460752303423489,19]);
+probe(c247) -> erlang:apply(erlang,opaque(integer_to_list),[18446744073709551616,19]);
+probe(c248) -> erlang:apply(erlang,opaque(integer_to_list),[-18446744073709551616,19]);
+probe(c249) -> erlang:apply(erlang,opaque(integer_to_list),[((1 bsl 1024)-1),19]);
+probe(c250) -> erlang:apply(erlang,opaque(integer_to_list),[(1 bsl 2048),19]);
+probe(c251) -> erlang:apply(erlang,opaque(integer_to_list),[-(1 bsl 2048),19]);
+probe(c252) -> erlang:apply(erlang,opaque(integer_to_list),[0,20]);
+probe(c253) -> erlang:apply(erlang,opaque(integer_to_list),[1,20]);
+probe(c254) -> erlang:apply(erlang,opaque(integer_to_list),[-1,20]);
+probe(c255) -> erlang:apply(erlang,opaque(integer_to_list),[2,20]);
+probe(c256) -> erlang:apply(erlang,opaque(integer_to_list),[-2,20]);
+probe(c257) -> erlang:apply(erlang,opaque(integer_to_list),[576460752303423487,20]);
+probe(c258) -> erlang:apply(erlang,opaque(integer_to_list),[576460752303423488,20]);
+probe(c259) -> erlang:apply(erlang,opaque(integer_to_list),[-576460752303423488,20]);
+probe(c260) -> erlang:apply(erlang,opaque(integer_to_list),[-576460752303423489,20]);
+probe(c261) -> erlang:apply(erlang,opaque(integer_to_list),[18446744073709551616,20]);
+probe(c262) -> erlang:apply(erlang,opaque(integer_to_list),[-18446744073709551616,20]);
+probe(c263) -> erlang:apply(erlang,opaque(integer_to_list),[((1 bsl 1024)-1),20]);
+probe(c264) -> erlang:apply(erlang,opaque(integer_to_list),[(1 bsl 2048),20]);
+probe(c265) -> erlang:apply(erlang,opaque(integer_to_list),[-(1 bsl 2048),20]);
+probe(c266) -> erlang:apply(erlang,opaque(integer_to_list),[0,21]);
+probe(c267) -> erlang:apply(erlang,opaque(integer_to_list),[1,21]);
+probe(c268) -> erlang:apply(erlang,opaque(integer_to_list),[-1,21]);
+probe(c269) -> erlang:apply(erlang,opaque(integer_to_list),[2,21]);
+probe(c270) -> erlang:apply(erlang,opaque(integer_to_list),[-2,21]);
+probe(c271) -> erlang:apply(erlang,opaque(integer_to_list),[576460752303423487,21]);
+probe(c272) -> erlang:apply(erlang,opaque(integer_to_list),[576460752303423488,21]);
+probe(c273) -> erlang:apply(erlang,opaque(integer_to_list),[-576460752303423488,21]);
+probe(c274) -> erlang:apply(erlang,opaque(integer_to_list),[-576460752303423489,21]);
+probe(c275) -> erlang:apply(erlang,opaque(integer_to_list),[18446744073709551616,21]);
+probe(c276) -> erlang:apply(erlang,opaque(integer_to_list),[-18446744073709551616,21]);
+probe(c277) -> erlang:apply(erlang,opaque(integer_to_list),[((1 bsl 1024)-1),21]);
+probe(c278) -> erlang:apply(erlang,opaque(integer_to_list),[(1 bsl 2048),21]);
+probe(c279) -> erlang:apply(erlang,opaque(integer_to_list),[-(1 bsl 2048),21]);
+probe(c280) -> erlang:apply(erlang,opaque(integer_to_list),[0,22]);
+probe(c281) -> erlang:apply(erlang,opaque(integer_to_list),[1,22]);
+probe(c282) -> erlang:apply(erlang,opaque(integer_to_list),[-1,22]);
+probe(c283) -> erlang:apply(erlang,opaque(integer_to_list),[2,22]);
+probe(c284) -> erlang:apply(erlang,opaque(integer_to_list),[-2,22]);
+probe(c285) -> erlang:apply(erlang,opaque(integer_to_list),[576460752303423487,22]);
+probe(c286) -> erlang:apply(erlang,opaque(integer_to_list),[576460752303423488,22]);
+probe(c287) -> erlang:apply(erlang,opaque(integer_to_list),[-576460752303423488,22]);
+probe(c288) -> erlang:apply(erlang,opaque(integer_to_list),[-576460752303423489,22]);
+probe(c289) -> erlang:apply(erlang,opaque(integer_to_list),[18446744073709551616,22]);
+probe(c290) -> erlang:apply(erlang,opaque(integer_to_list),[-18446744073709551616,22]);
+probe(c291) -> erlang:apply(erlang,opaque(integer_to_list),[((1 bsl 1024)-1),22]);
+probe(c292) -> erlang:apply(erlang,opaque(integer_to_list),[(1 bsl 2048),22]);
+probe(c293) -> erlang:apply(erlang,opaque(integer_to_list),[-(1 bsl 2048),22]);
+probe(c294) -> erlang:apply(erlang,opaque(integer_to_list),[0,23]);
+probe(c295) -> erlang:apply(erlang,opaque(integer_to_list),[1,23]);
+probe(c296) -> erlang:apply(erlang,opaque(integer_to_list),[-1,23]);
+probe(c297) -> erlang:apply(erlang,opaque(integer_to_list),[2,23]);
+probe(c298) -> erlang:apply(erlang,opaque(integer_to_list),[-2,23]);
+probe(c299) -> erlang:apply(erlang,opaque(integer_to_list),[576460752303423487,23]);
+probe(c300) -> erlang:apply(erlang,opaque(integer_to_list),[576460752303423488,23]);
+probe(c301) -> erlang:apply(erlang,opaque(integer_to_list),[-576460752303423488,23]);
+probe(c302) -> erlang:apply(erlang,opaque(integer_to_list),[-576460752303423489,23]);
+probe(c303) -> erlang:apply(erlang,opaque(integer_to_list),[18446744073709551616,23]);
+probe(c304) -> erlang:apply(erlang,opaque(integer_to_list),[-18446744073709551616,23]);
+probe(c305) -> erlang:apply(erlang,opaque(integer_to_list),[((1 bsl 1024)-1),23]);
+probe(c306) -> erlang:apply(erlang,opaque(integer_to_list),[(1 bsl 2048),23]);
+probe(c307) -> erlang:apply(erlang,opaque(integer_to_list),[-(1 bsl 2048),23]);
+probe(c308) -> erlang:apply(erlang,opaque(integer_to_list),[0,24]);
+probe(c309) -> erlang:apply(erlang,opaque(integer_to_list),[1,24]);
+probe(c310) -> erlang:apply(erlang,opaque(integer_to_list),[-1,24]);
+probe(c311) -> erlang:apply(erlang,opaque(integer_to_list),[2,24]);
+probe(c312) -> erlang:apply(erlang,opaque(integer_to_list),[-2,24]);
+probe(c313) -> erlang:apply(erlang,opaque(integer_to_list),[576460752303423487,24]);
+probe(c314) -> erlang:apply(erlang,opaque(integer_to_list),[576460752303423488,24]);
+probe(c315) -> erlang:apply(erlang,opaque(integer_to_list),[-576460752303423488,24]);
+probe(c316) -> erlang:apply(erlang,opaque(integer_to_list),[-576460752303423489,24]);
+probe(c317) -> erlang:apply(erlang,opaque(integer_to_list),[18446744073709551616,24]);
+probe(c318) -> erlang:apply(erlang,opaque(integer_to_list),[-18446744073709551616,24]);
+probe(c319) -> erlang:apply(erlang,opaque(integer_to_list),[((1 bsl 1024)-1),24]).
+opaque(Value) -> put(integer_contract493_input,Value),erase(integer_contract493_input).

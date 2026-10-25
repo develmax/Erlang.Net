@@ -5330,89 +5330,225 @@
       "Module": "erlang",
       "Function": "integer_to_list",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
+      "Status": "Verified compatible",
+      "Scope": "Complete observable default-backend contract on supported valid Erlang terms: Require an integer and, for arity2, an integer base2..36; arity1 uses10. Decimal invariant formatting and repeated exact DivRem produce the same sign/uppercase digit sequence, including zero. The list result has fresh cells/immediate characters; binary output is fresh ASCII storage. Invalid types/base raise the original native badarg with complete original arguments/stack. Full pinned arguments/source/caller/depth errors checked; no identical physical allocation/timing, dirty-thread scheduling or whole compiler claim.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-493/integer-text/source-audit.json",
+          "Sha256": "DF50AD020A8B828EA4337A169BFDB58A49D9E8FB11E8655CD215EDD13E0090D1",
+          "Scope": "Complete pinned formatting/parsing/type/base/sign/short-long/error/effect source partitions, current sources and exact chunk arithmetic."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-493/integer-text/original-comparison.json",
+          "Sha256": "6BB75862DA20261B6258B02B7A6705B2007ECF147E2588EFEE7450A68FC6E43D",
+          "Scope": "All2467 values/12335 complete stack profiles, full raw comparisons, dynamic dispatch,6427-file provider before/after and child settlement."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-493/integer-text/affected-final.json",
+          "Sha256": "D07911B9B2C4C354B78407BC73EB1A6EFF7B64E78881A938EC0D37190938B294",
+          "Scope": "All100 old/new contract groups pass on final rebuilt assembly;46584 whole comparisons; exact-head continuous CI remains a separate gate."
+        }
+      ],
+      "Limits": []
     },
     {
       "Module": "erlang",
       "Function": "integer_to_binary",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
+      "Status": "Verified compatible",
+      "Scope": "Complete observable default-backend contract on supported valid Erlang terms: Require an integer and, for arity2, an integer base2..36; arity1 uses10. Decimal invariant formatting and repeated exact DivRem produce the same sign/uppercase digit sequence, including zero. The list result has fresh cells/immediate characters; binary output is fresh ASCII storage. Invalid types/base raise the original native badarg with complete original arguments/stack. Full pinned arguments/source/caller/depth errors checked; no identical physical allocation/timing, dirty-thread scheduling or whole compiler claim.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-493/integer-text/source-audit.json",
+          "Sha256": "DF50AD020A8B828EA4337A169BFDB58A49D9E8FB11E8655CD215EDD13E0090D1",
+          "Scope": "Complete pinned formatting/parsing/type/base/sign/short-long/error/effect source partitions, current sources and exact chunk arithmetic."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-493/integer-text/original-comparison.json",
+          "Sha256": "6BB75862DA20261B6258B02B7A6705B2007ECF147E2588EFEE7450A68FC6E43D",
+          "Scope": "All2467 values/12335 complete stack profiles, full raw comparisons, dynamic dispatch,6427-file provider before/after and child settlement."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-493/integer-text/affected-final.json",
+          "Sha256": "D07911B9B2C4C354B78407BC73EB1A6EFF7B64E78881A938EC0D37190938B294",
+          "Scope": "All100 old/new contract groups pass on final rebuilt assembly;46584 whole comparisons; exact-head continuous CI remains a separate gate."
+        }
+      ],
+      "Limits": []
     },
     {
       "Module": "erlang",
       "Function": "list_to_integer",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
+      "Status": "Verified compatible",
+      "Scope": "Complete observable default-backend contract on supported valid Erlang terms: Validate base2..36 (default10). Preserve the pinned list scanner: exact sign recognition, leading zero skip, low-byte interpretation only for native-small head integers, base-specific short digit threshold, proper-tail requirement. Promote to the strict whole-byte long path exactly after that threshold, resetting to the original list. Parse groups of12 bounded digits with exact balanced BigInteger combination. Fast invalid input uses badarg_with_info; long-path errors use error_with_info. Return the exact signed integer, no input mutation. Full pinned arguments/source/caller/depth errors checked; no identical physical allocation/timing, dirty-thread scheduling or whole compiler claim.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-493/integer-text/source-audit.json",
+          "Sha256": "DF50AD020A8B828EA4337A169BFDB58A49D9E8FB11E8655CD215EDD13E0090D1",
+          "Scope": "Complete pinned formatting/parsing/type/base/sign/short-long/error/effect source partitions, current sources and exact chunk arithmetic."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-493/integer-text/original-comparison.json",
+          "Sha256": "6BB75862DA20261B6258B02B7A6705B2007ECF147E2588EFEE7450A68FC6E43D",
+          "Scope": "All2467 values/12335 complete stack profiles, full raw comparisons, dynamic dispatch,6427-file provider before/after and child settlement."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-493/integer-text/affected-final.json",
+          "Sha256": "D07911B9B2C4C354B78407BC73EB1A6EFF7B64E78881A938EC0D37190938B294",
+          "Scope": "All100 old/new contract groups pass on final rebuilt assembly;46584 whole comparisons; exact-head continuous CI remains a separate gate."
+        }
+      ],
+      "Limits": []
     },
     {
       "Module": "erlang",
       "Function": "binary_to_integer",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
+      "Status": "Verified compatible",
+      "Scope": "Complete observable default-backend contract on supported valid Erlang terms: Validate base and whole-byte bitstring. Match native optional sign/leading-zero scan, immediate all-zero result and remaining-length threshold before digit validation. Strict ASCII digits/signs and exact base arithmetic match the native short/long paths. Fast errors use badarg_with_info; long errors use error_with_info. No whitespace, separators, prefixes or malformed input accepted; no input mutation. Full pinned arguments/source/caller/depth errors checked; no identical physical allocation/timing, dirty-thread scheduling or whole compiler claim.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-493/integer-text/source-audit.json",
+          "Sha256": "DF50AD020A8B828EA4337A169BFDB58A49D9E8FB11E8655CD215EDD13E0090D1",
+          "Scope": "Complete pinned formatting/parsing/type/base/sign/short-long/error/effect source partitions, current sources and exact chunk arithmetic."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-493/integer-text/original-comparison.json",
+          "Sha256": "6BB75862DA20261B6258B02B7A6705B2007ECF147E2588EFEE7450A68FC6E43D",
+          "Scope": "All2467 values/12335 complete stack profiles, full raw comparisons, dynamic dispatch,6427-file provider before/after and child settlement."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-493/integer-text/affected-final.json",
+          "Sha256": "D07911B9B2C4C354B78407BC73EB1A6EFF7B64E78881A938EC0D37190938B294",
+          "Scope": "All100 old/new contract groups pass on final rebuilt assembly;46584 whole comparisons; exact-head continuous CI remains a separate gate."
+        }
+      ],
+      "Limits": []
     },
     {
       "Module": "erlang",
       "Function": "integer_to_list",
       "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
+      "Status": "Verified compatible",
+      "Scope": "Complete observable default-backend contract on supported valid Erlang terms: Require an integer and, for arity2, an integer base2..36; arity1 uses10. Decimal invariant formatting and repeated exact DivRem produce the same sign/uppercase digit sequence, including zero. The list result has fresh cells/immediate characters; binary output is fresh ASCII storage. Invalid types/base raise the original native badarg with complete original arguments/stack. Full pinned arguments/source/caller/depth errors checked; no identical physical allocation/timing, dirty-thread scheduling or whole compiler claim.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-493/integer-text/source-audit.json",
+          "Sha256": "DF50AD020A8B828EA4337A169BFDB58A49D9E8FB11E8655CD215EDD13E0090D1",
+          "Scope": "Complete pinned formatting/parsing/type/base/sign/short-long/error/effect source partitions, current sources and exact chunk arithmetic."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-493/integer-text/original-comparison.json",
+          "Sha256": "6BB75862DA20261B6258B02B7A6705B2007ECF147E2588EFEE7450A68FC6E43D",
+          "Scope": "All2467 values/12335 complete stack profiles, full raw comparisons, dynamic dispatch,6427-file provider before/after and child settlement."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-493/integer-text/affected-final.json",
+          "Sha256": "D07911B9B2C4C354B78407BC73EB1A6EFF7B64E78881A938EC0D37190938B294",
+          "Scope": "All100 old/new contract groups pass on final rebuilt assembly;46584 whole comparisons; exact-head continuous CI remains a separate gate."
+        }
+      ],
+      "Limits": []
     },
     {
       "Module": "erlang",
       "Function": "integer_to_binary",
       "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
+      "Status": "Verified compatible",
+      "Scope": "Complete observable default-backend contract on supported valid Erlang terms: Require an integer and, for arity2, an integer base2..36; arity1 uses10. Decimal invariant formatting and repeated exact DivRem produce the same sign/uppercase digit sequence, including zero. The list result has fresh cells/immediate characters; binary output is fresh ASCII storage. Invalid types/base raise the original native badarg with complete original arguments/stack. Full pinned arguments/source/caller/depth errors checked; no identical physical allocation/timing, dirty-thread scheduling or whole compiler claim.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-493/integer-text/source-audit.json",
+          "Sha256": "DF50AD020A8B828EA4337A169BFDB58A49D9E8FB11E8655CD215EDD13E0090D1",
+          "Scope": "Complete pinned formatting/parsing/type/base/sign/short-long/error/effect source partitions, current sources and exact chunk arithmetic."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-493/integer-text/original-comparison.json",
+          "Sha256": "6BB75862DA20261B6258B02B7A6705B2007ECF147E2588EFEE7450A68FC6E43D",
+          "Scope": "All2467 values/12335 complete stack profiles, full raw comparisons, dynamic dispatch,6427-file provider before/after and child settlement."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-493/integer-text/affected-final.json",
+          "Sha256": "D07911B9B2C4C354B78407BC73EB1A6EFF7B64E78881A938EC0D37190938B294",
+          "Scope": "All100 old/new contract groups pass on final rebuilt assembly;46584 whole comparisons; exact-head continuous CI remains a separate gate."
+        }
+      ],
+      "Limits": []
     },
     {
       "Module": "erlang",
       "Function": "list_to_integer",
       "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
+      "Status": "Verified compatible",
+      "Scope": "Complete observable default-backend contract on supported valid Erlang terms: Validate base2..36 (default10). Preserve the pinned list scanner: exact sign recognition, leading zero skip, low-byte interpretation only for native-small head integers, base-specific short digit threshold, proper-tail requirement. Promote to the strict whole-byte long path exactly after that threshold, resetting to the original list. Parse groups of12 bounded digits with exact balanced BigInteger combination. Fast invalid input uses badarg_with_info; long-path errors use error_with_info. Return the exact signed integer, no input mutation. Full pinned arguments/source/caller/depth errors checked; no identical physical allocation/timing, dirty-thread scheduling or whole compiler claim.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-493/integer-text/source-audit.json",
+          "Sha256": "DF50AD020A8B828EA4337A169BFDB58A49D9E8FB11E8655CD215EDD13E0090D1",
+          "Scope": "Complete pinned formatting/parsing/type/base/sign/short-long/error/effect source partitions, current sources and exact chunk arithmetic."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-493/integer-text/original-comparison.json",
+          "Sha256": "6BB75862DA20261B6258B02B7A6705B2007ECF147E2588EFEE7450A68FC6E43D",
+          "Scope": "All2467 values/12335 complete stack profiles, full raw comparisons, dynamic dispatch,6427-file provider before/after and child settlement."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-493/integer-text/affected-final.json",
+          "Sha256": "D07911B9B2C4C354B78407BC73EB1A6EFF7B64E78881A938EC0D37190938B294",
+          "Scope": "All100 old/new contract groups pass on final rebuilt assembly;46584 whole comparisons; exact-head continuous CI remains a separate gate."
+        }
+      ],
+      "Limits": []
     },
     {
       "Module": "erlang",
       "Function": "binary_to_integer",
       "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
+      "Status": "Verified compatible",
+      "Scope": "Complete observable default-backend contract on supported valid Erlang terms: Validate base and whole-byte bitstring. Match native optional sign/leading-zero scan, immediate all-zero result and remaining-length threshold before digit validation. Strict ASCII digits/signs and exact base arithmetic match the native short/long paths. Fast errors use badarg_with_info; long errors use error_with_info. No whitespace, separators, prefixes or malformed input accepted; no input mutation. Full pinned arguments/source/caller/depth errors checked; no identical physical allocation/timing, dirty-thread scheduling or whole compiler claim.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-493/integer-text/source-audit.json",
+          "Sha256": "DF50AD020A8B828EA4337A169BFDB58A49D9E8FB11E8655CD215EDD13E0090D1",
+          "Scope": "Complete pinned formatting/parsing/type/base/sign/short-long/error/effect source partitions, current sources and exact chunk arithmetic."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-493/integer-text/original-comparison.json",
+          "Sha256": "6BB75862DA20261B6258B02B7A6705B2007ECF147E2588EFEE7450A68FC6E43D",
+          "Scope": "All2467 values/12335 complete stack profiles, full raw comparisons, dynamic dispatch,6427-file provider before/after and child settlement."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-493/integer-text/affected-final.json",
+          "Sha256": "D07911B9B2C4C354B78407BC73EB1A6EFF7B64E78881A938EC0D37190938B294",
+          "Scope": "All100 old/new contract groups pass on final rebuilt assembly;46584 whole comparisons; exact-head continuous CI remains a separate gate."
+        }
+      ],
+      "Limits": []
     },
     {
       "Module": "erlang",
@@ -24089,11 +24225,11 @@
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangIntegerListParse.cs",
-      "Sha256": "EFDDB3260FC853C14FBF6055A480FB943B8117EC1C7FD4BA5EBA62F22853330C"
+      "Sha256": "7CD0B5704B93252DE54F8A91F69A66596E81CCC5A534B0D2A4E71C0CF8FA5DE8"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangIntegerParseBridge.cs",
-      "Sha256": "5B8C84D98995CC682D5FFE2B1348A29818B31C7F2A8088A9DFDBCEDFEDD64150"
+      "Sha256": "C9B9F6F70ADC853BB03AE7CA1A8BEE6EB365A3F21F5DFAA14B0FB8D7F6BE5D2B"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangIntegerParseParameters.cs",
@@ -26901,7 +27037,7 @@
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangAtomRegistrations.cs",
-      "Sha256": "9CE9E7981DAA00CFB92635E3F4E09D203C2A8A7C60464A24E57937B10E7A72FF"
+      "Sha256": "9F885A7409083627AE9493369F5183634175A03B51A322EF9E1BBC36747A8C32"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangAtomConversions.cs",
@@ -26918,6 +27054,30 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Atoms/AtomUtf8BinaryCache.cs",
       "Sha256": "231245380375591CA3FABD73525F405B5FDB0A799C174D573725C449982B05CC"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangIntegerBinaryParse.cs",
+      "Sha256": "E830EF3F020B02CAEDD41F2CF13BE1AB08DE19565CEFBA7F10B53D5E9ECC5837"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangErrorHelperMetadata.cs",
+      "Sha256": "D815D59D0CC151468DDED5CF55D1C47CAB380FB19456DF79819FC3CAED55671D"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangErrorHelperNames.cs",
+      "Sha256": "6F86A42608CB7FCCB20A0D49577486E1784153E2A9F3EFFC7530F78DF439FFC6"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangIntegerText.cs",
+      "Sha256": "AC00CE83EAAE417710D5BB399A21AD7A1D632D110010BDC345A9D39B168FDEF3"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangDataBifNames.cs",
+      "Sha256": "027224A58DF37862F2FE98CC29A78012D9EE853D1EA3C9828B65C79D0DC49059"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangDataLimits.cs",
+      "Sha256": "B5E63B4D35C128F825B1846519C5383FB1DCD847F841F7615693EB6EFE0D6F94"
     }
   ]
 }
