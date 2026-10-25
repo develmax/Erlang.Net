@@ -50,6 +50,12 @@ internal static class BeamApplyExecution
             functionAtom.Name,
             arity
         );
+        if (BeamModuleApplyTailScope.IsModuleApply(target) && context.Runtime.Modules.IsCanonicalModuleApply())
+        {
+            var prepared = ErlangApplyDispatch.Prepare(context, arguments);
+
+            return (new(prepared.Module, prepared.Function, prepared.Arguments.Length), prepared.Arguments);
+        }
 
         return (target, arguments);
     }

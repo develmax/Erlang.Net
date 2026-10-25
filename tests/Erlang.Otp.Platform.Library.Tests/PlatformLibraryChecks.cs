@@ -8,6 +8,12 @@ internal static class PlatformLibraryChecks
 {
     internal static async Task Run(string[] args)
     {
+        await RunCorpus(args, false);
+        await RunCorpus(args, true);
+    }
+
+    private static async Task RunCorpus(string[] args, bool legacy)
+    {
         int passed = 0;
 
         void Check(bool condition)
@@ -33,7 +39,7 @@ internal static class PlatformLibraryChecks
 
         byte[] Resource(string name)
         {
-            using Stream input = typeof(Erlang.Otp.Platform.Library.Tests.PlatformLibraryNames).Assembly.GetManifestResourceStream(Prefix + name)
+            using Stream input = typeof(Erlang.Otp.Platform.Library.Tests.PlatformLibraryNames).Assembly.GetManifestResourceStream(Prefix + (legacy ? LegacyPrefix : string.Empty) + name)
                 ?? throw new InvalidDataException(MissingResource);
             using var output = new MemoryStream();
             input.CopyTo(output);
@@ -151,9 +157,10 @@ internal static class PlatformLibraryChecks
             Term expected = ExternalTermFormat.Decode(original);
             if (args.Length == 1)
             {
-                Directory.CreateDirectory(args[0]);
-                File.WriteAllBytes(Path.Combine(args[0], ManagedValues), ExternalTermFormat.Encode(outcome));
-                File.WriteAllText(Path.Combine(args[0], ManagedText), outcome.ToString());
+                string output = legacy ? Path.Combine(args[0], LegacyDirectory) : args[0];
+                Directory.CreateDirectory(output);
+                File.WriteAllBytes(Path.Combine(output, ManagedValues), ExternalTermFormat.Encode(outcome));
+                File.WriteAllText(Path.Combine(output, ManagedText), outcome.ToString());
             }
             Check(outcome.Equals(expected));
             Check(ExternalTermFormat.Encode(outcome).AsSpan().SequenceEqual(original));
@@ -162,6 +169,6 @@ internal static class PlatformLibraryChecks
         {
             await runtime.DisposeAsync();
         }
-        Console.WriteLine($"Original os_mon/odbc packaging: {passed} checks passed; 875 complete outcomes/stacks match OTP");
+        Console.WriteLine($"Original os_mon/odbc packaging{(legacy ? LegacyPrefix : string.Empty)}: {passed} checks passed; 875 complete outcomes/stacks match OTP");
     }
 }

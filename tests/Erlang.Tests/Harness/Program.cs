@@ -55,6 +55,8 @@ Test(Erlang.Tests.EtsTraversal416HostNames.RegistrationTest, Erlang.Tests.EtsTra
 Test(Erlang.Tests.EtsTraversalOriginal416Names.Test, Erlang.Tests.EtsTraversalOriginal416Checks.Run);
 Test(Erlang.Tests.ApplyTailOriginal416Names.Test, Erlang.Tests.ApplyTailOriginal416Checks.Run);
 Test(Erlang.Tests.ApplyTailReturn416Names.Test, Erlang.Tests.ApplyTailReturn416Checks.Run);
+Test(Erlang.Tests.DynamicApplyOriginal477Names.Test, Erlang.Tests.DynamicApplyOriginal477Checks.Run);
+Test(Erlang.Tests.DynamicApplyOriginal477Names.HostTest, Erlang.Tests.DynamicApplyOriginal477Checks.HostBindings);
 Test(Erlang.Tests.EtsCounter417HostNames.Basics, Erlang.Tests.EtsCounter417HostChecks.Basics);
 Test(Erlang.Tests.EtsCounter417HostNames.Atomic, Erlang.Tests.EtsCounter417HostChecks.AtomicAndRollback);
 Test(Erlang.Tests.EtsCounter417HostNames.Admission, Erlang.Tests.EtsCounter417HostChecks.Admission);
