@@ -1,0 +1,22 @@
+{
+  "FailedHead": "547cac43411f0c936626fcbf55e3c3dfb5c270d7",
+  "FailedRun": 40185283493,
+  "FailedJob": 121144664329,
+  "Conclusion": "failure",
+  "FailureStage": "New original verifier ran after public warm consumer but before main harness produced its ETF",
+  "MissingArtifact": "artifacts/library484/permanent/managed-values.etf",
+  "FullHarnessNotStarted": true,
+  "FullHarnessPassClaim": false,
+  "PublicWarmNewOutcomes": 576,
+  "Fix": "Move the original length verifier after main harness and retained original receive verifier",
+  "RuntimeSourceChanged": false,
+  "TimeoutChanged": false,
+  "ExistingAssertionsWeakened": false,
+  "CleanOutputDirectoryBeforeLocalReproduction": true,
+  "FinalFocusPassed": 7,
+  "FreshOriginalFiniteOutcomes": 576,
+  "FreshOriginalPriorityWholeQueue": true,
+  "StaticPipelineOrderingPassed": true,
+  "FailedLogSha256": "586A7E6A726BF4CE84CF65609AE4F639C50B577254605B09895608249D7CA395",
+  "NewExactHeadFullCIRequired": true
+}

@@ -1,3 +1,5 @@
+Part484 CI ordering follow-up: initial547cac434 run40185283493 fails before main tests because the new verifier precedes its ETF producer. Move it after the harness;runtime/assertions/deadlines unchanged. Clean-output local7/7 plus fresh original576/priority pass. New exact-head full CI remains required.
+
 # Current executable plan — Part484
 
 1. Publish Part484 and verify its exact commit:8895 uninterrupted tests,all previous8888 ordered names,27 complete raw corpora (25 prior+length+priority),six retained original compiler refusals,36 package creations and17 cold families. Independently check original/main/public/cold receive484 ETF equality and the whole priority result/queue. Do not substitute the composed readiness preflight for full CI.

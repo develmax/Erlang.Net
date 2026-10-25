@@ -1,3 +1,5 @@
+Part484 CI ordering follow-up: initial547cac434 run40185283493 fails before main tests because the new verifier precedes its ETF producer. Move it after the harness;runtime/assertions/deadlines unchanged. Clean-output local7/7 plus fresh original576/priority pass. New exact-head full CI remains required.
+
 # Part484 — Current module progress
 
 Part483 is merged as **fa7afb371**;exact merge CI **40183200007** and downloaded artifact pass **8888/8888**,25 whole corpora and17 cold families. Part484 catalog **8895**,final affected **6539/6539**,final focus **13/13**,final resource metadata **7/7**;publication-head full CI is a separate gate. APIs **708**,full contracts **118**,known differences **31**,pending **559**,reviewed source bindings **1682**;API/full deltas **0/0**.
