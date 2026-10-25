@@ -67,6 +67,17 @@ Test(Erlang.Tests.FrameOriginal481Names.AdmissionTest, Erlang.Tests.FrameOrigina
 Test(Erlang.Tests.ComparisonOriginal482Names.ComparisonTest, Erlang.Tests.ComparisonOriginal482Checks.Comparison);
 Test(Erlang.Tests.ComparisonOriginal482Names.CrashdumpTest, Erlang.Tests.ComparisonOriginal482Checks.Crashdump);
 Test(Erlang.Tests.ComparisonOriginal482Names.AdmissionTest, Erlang.Tests.ComparisonOriginal482Checks.Admission);
+Test(Erlang.Tests.ReceiveOriginal483Names.Case, Erlang.Tests.ReceiveOriginal483Checks.Capture);
+Test(Erlang.Tests.ReceiveControl483Names.SubjectTest, Erlang.Tests.ReceiveControl483Checks.Subject);
+Test(Erlang.Tests.ReceiveControl483Names.ArityTest, Erlang.Tests.ReceiveControl483Checks.Arity);
+Test(Erlang.Tests.ReceiveControl483Names.KindTest, Erlang.Tests.ReceiveControl483Checks.Kind);
+Test(Erlang.Tests.ReceiveControl483Names.BranchTest, Erlang.Tests.ReceiveControl483Checks.Branch);
+foreach (string module483 in Erlang.Tests.ReceiveOriginal483Names.Modules)
+    Test(
+        Erlang.Tests.ReceiveOriginal483Names.AdmissionPrefix + module483,
+        () => Erlang.Tests.ReceiveOriginal483Checks.Admission(module483)
+    );
+
 Test(Erlang.Tests.ComparisonFrame482Names.UninitializedTest, Erlang.Tests.ComparisonFrame482Checks.Uninitialized);
 Test(Erlang.Tests.ComparisonFrame482Names.OpaqueTest, Erlang.Tests.ComparisonFrame482Checks.Opaque);
 Test(Erlang.Tests.ComparisonFrame482Names.RootsTest, Erlang.Tests.ComparisonFrame482Checks.Roots);

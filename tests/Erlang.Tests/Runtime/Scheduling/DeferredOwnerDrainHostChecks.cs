@@ -137,13 +137,22 @@ internal static class DeferredOwnerDrainHostChecks
                     Check(!Monitor.IsEntered(Gate(runtime)) && !Monitor.IsEntered(Gate(creator.Mailbox)));
                     Check(barrier.SignalAndWait(DeferredOwnerDrainHostNames.Deadline));
                     // Public registered owner RPC, not a synthetic fake snapshot.
-                    _ = runtime.Modules.Call(
-                        creator,
-                        ErlangModuleNames.Module,
-                        ProcessInfoNames.Function,
-                        other.Self,
-                        Term.A(ProcessInfoNames.Messages)
-                    ).GetAwaiter().GetResult();
+                    try
+                    {
+                        _ = runtime.Modules.Call(
+                            creator,
+                            ErlangModuleNames.Module,
+                            ProcessInfoNames.Function,
+                            other.Self,
+                            Term.A(ProcessInfoNames.Messages)
+                        ).GetAwaiter().GetResult();
+                    }
+                    finally
+                    {
+                        // Keep both drain scopes active until both nested requests
+                        // finish; the first refusal must not retire the other target.
+                        Check(barrier.SignalAndWait(DeferredOwnerDrainHostNames.Deadline));
+                    }
                 }
 
                 return new FunctionTerm(
@@ -194,8 +203,7 @@ internal static class DeferredOwnerDrainHostChecks
             }
         });
         string?[] outcomes = await Task.WhenAll(Drain(ownerA), Drain(ownerB)).WaitAsync(DeferredOwnerDrainHostNames.Deadline);
-        Check(outcomes.Any(value => value == DeferredOwnerDrainHostNames.CycleException));
-        Check(outcomes.All(value => value is null || value == DeferredOwnerDrainHostNames.CycleException));
+        Check(outcomes.All(value => value == DeferredOwnerDrainHostNames.CycleException));
         Check(released == 2);
         Check(!first.Process.Completion.IsCompleted && !second.Process.Completion.IsCompleted);
     }

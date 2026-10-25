@@ -1,0 +1,78 @@
+{
+  "Part": 483,
+  "SourceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Files": [
+    {
+      "Path": "src/Erlang.Runtime.Core/Execution/Beam/BeamFrameValidation.cs",
+      "Before": "705BF5CF07EAF9940157F08FA77B600016C4991A15C8FA2D03DDAA37C5ADAF1C",
+      "After": "C60AE68A84368BAF1EC94F614459721130CC081E1FBFA255917AC38988A7654F"
+    },
+    {
+      "Path": "src/Erlang.Runtime.Core/Execution/Beam/BeamReceivePlanner.cs",
+      "Before": "3A8FCD62C36679A9E32E16B3B7AFCB199FF2429BFF8D4F5935A2D72046605F06",
+      "After": "8102D1B278ABC59A3A83C2809F2CF51EE5A9A42465573BB5D0E02EB89C9D3109"
+    },
+    {
+      "Path": "src/Erlang.Runtime.Core/Execution/Beam/BeamReceiveMatcher.cs",
+      "Before": "CC448EE292D0111EB8162FB0B686FC3E7EE92B7BEDE70444D791732F2B8E4F32",
+      "After": "CA5E912C0738538977A6E919E124DA7E0F7B27700664B685F897886517428BFA"
+    }
+  ],
+  "OriginalSources": [
+    {
+      "Path": "erts/emulator/beam/emu/instrs.tab",
+      "Sha256": "35F9FDBB899B39E765123F14561075A8C4FC7A56BBA363A7DF930A8C2144F4C2"
+    },
+    {
+      "Path": "erts/emulator/beam/emu/bif_instrs.tab",
+      "Sha256": "EFA0551D5FFA27A197DE60FB6759530A00A891031627B58D948442FE0F313AEE"
+    },
+    {
+      "Path": "lib/compiler/src/beam_validator.erl",
+      "Sha256": "F5F03B92EE252ECF4EC2D6D7ADA75F31AE620F5BDA911D9DD0260E4BDC70526B"
+    },
+    {
+      "Path": "lib/common_test/src/ct_ssh.erl",
+      "Sha256": "B28B24E83B876E5FE07A71EDBA53527582364232D16606FFFC0A07275EB81361"
+    },
+    {
+      "Path": "lib/common_test/src/test_server_node.erl",
+      "Sha256": "DB16A6E084BED4F216D8B4739023E42F70EE4812ED0E5EAB1F2411D6CD59B2A4"
+    },
+    {
+      "Path": "lib/inets/src/http_server/mod_cgi.erl",
+      "Sha256": "30766998934CB15E3276F0DC51DDAC411598AC586B198B13CA967079CC795DE6"
+    },
+    {
+      "Path": "lib/inets/src/http_server/mod_esi.erl",
+      "Sha256": "E463399C82725304B56C3A87104EF79B492195A8DE2FB1A80E3764A13D06FCBD"
+    },
+    {
+      "Path": "lib/mnesia/src/mnesia_loader.erl",
+      "Sha256": "E2C7EEF6D1643E62A4BA9138F471ABA2671C9061F48DEC93AE6AD0C9261E07C9"
+    },
+    {
+      "Path": "lib/snmp/src/manager/snmpm_server.erl",
+      "Sha256": "C13C2129C1FBB2BE92DA2005E95A650A69ECAE22A25257584E5C1123274A541A"
+    },
+    {
+      "Path": "lib/tftp/src/tftp_engine.erl",
+      "Sha256": "0D1F22CFF8DB3E73115A97CA8110EF50990224F2EBC69415AD2CF8334BCA18B7"
+    }
+  ],
+  "SourceBindings": 1682,
+  "ApiDelta": 0,
+  "FullContractDelta": 0,
+  "NewDependencies": false,
+  "OriginalAlgorithmsRewritten": false,
+  "Reviews": [
+    "Pinned instrs.tab is_binary rejects non-bitstrings and a nonzero trailing bit count;is_function2 checks function identity and arity. Existing BeamGeneralTests implements these predicates;the receive matcher now delegates to it rather than duplicating semantics.",
+    "Planner checks the function arity operand shape in addition to the existing subject source shape,and traverses both the guard failure branch and next instruction. Existing local-branch,cycle,commit,marker and candidate scratch rules remain in force.",
+    "Two synthetic uninitialized-X controls exposed a missing boundary in the old simple-frame path. Receives using either newly admitted predicate select the existing exceptional/typed validator. This validates both reads,marks only the current candidate register,retains roots and handler ownership,and keeps rejected scratch away from later candidates and timeout.",
+    "Each negative managed control first admits an otherwise identical valid synthetic image,and requires the intended frame,operand-role or matcher diagnostic. Four controls cover uninitialized subject,uninitialized function arity,invalid operand role and foreign receive branch.",
+    "Original OTP rejects the invalid binary-subject assembly with uninitialized_reg x9. The original compiler accepts the separately explored uninitialized dynamic-arity assembly:its fallback is_function2 validator asserts the function subject but ignores the arity operand. That exploratory invalid program was not executed and is not counted as an original rejection or compatibility outcome. Managed fail-closed handling is explicitly a separate boundary.",
+    "Unchanged whole ct_ssh,test_server_node,mod_cgi,mod_esi,mnesia_loader,snmpm_server,tftp_engine images are prepared and published with their real imports and source owners. This is image acceptance,not full module or native application execution.",
+    "The 54 original observations encode binary selection,function arity selection,timeout and complete unmatched queues inside the observer. Function descriptions invoke the actual zero/one/two-argument closures in both runtimes to produce portable values;there is no post-hoc term projection,frame removal or identity mapping.",
+    "The next megaco_trans_sender refusal is an unsupported pre-commit BIF,independent of the two predicates. Four bare-registry native-capture refusals also remain. No configured-provider or performance equivalence is inferred from image preparation."
+  ]
+}

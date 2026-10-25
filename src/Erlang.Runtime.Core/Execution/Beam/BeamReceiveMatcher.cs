@@ -44,6 +44,8 @@ internal static class BeamReceiveMatcher
                 case BeamGeneralOpcodeNames.AtomTest:
                 case BeamGeneralOpcodeNames.ReferenceTest:
                 case BeamGeneralOpcodeNames.BooleanTest:
+                case BeamGeneralOpcodeNames.BinaryTest:
+                case BeamGeneralOpcodeNames.FunctionTest:
                 case BeamGeneralOpcodeNames.AnyFunctionTest:
                 case BeamGeneralOpcodeNames.GreaterOrEqual:
                 case BeamGeneralOpcodeNames.Less:

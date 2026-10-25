@@ -1,3 +1,17 @@
+# Current checkpoint — Part483
+
+Part483 CI follow-up: Part482 merge CI40178589036 has one existing cross-owner test-driver timeout (8875/8876). The same-runtime controlled schedule reproduces it. A second rendezvous preserves both drain scopes through both nested requests and requires both refusals; unchanged deadlines/runtime source,12/12 targeted two-core repeats and12/12 new guard groups pass. New exact-head full CI remains the delivery gate; see [follow-up evidence](validation/part-483/selective-receive-guards/merge-ci-followup.json).
+
+Finish exact-head full CI and independently verify 8888 ordered runtime tests, 25 complete original/managed/golden corpora, six original compiler refusals and 17 cold consumer families. The new receive corpus must match the actual uploaded isolated consumer ETF too. Track merge CI40178589036 separately.
+
+The next image refusal is megaco_trans_sender: a pre-commit BIF remains outside the selective receive matcher whitelist. Identify its exact opcode/import and compare its behavior, rejected-candidate scratch, roots and cancellation with pinned OTP before admitting it. Do not broaden all BIF/callback dispatch or substitute a whole-module fallback. A disassembly-only investigation is saved locally for the next part.
+
+Four bare-registry native capture refusals remain (erts_internal, erl_ddll, ets, re). Check these against actual configured providers and ErlangLibrary rather than calling them instruction failures. Then continue actual original net_kernel/kernel/application startup, two-node authentication, exchange, peer restart/reconnect and shutdown. Whole module API contracts, native capabilities and performance measurements remain separate from image admission.
+
+Keep the 60/40 focus on newly usable original OTP behavior with direct original comparisons and focused affected regression. Keep one runtime/native/CI owner; preserve all prior raw corpora and 17 cold consumer families. API/full-contract deltas remain 0/0 for Part483; 708 registered APIs and 118 full contracts are distinct counters. README readiness generation uses an explicitly composed preflight (prior exact CI plus current affected cases); only actual publication-head full CI establishes delivery.
+
+Earlier checkpoints below are historical; retained for their detailed outstanding scope.
+
 # Current checkpoint — Part482
 
 Finish exact-head full CI and independently verify8876 ordered runtime tests,24 complete original/managed/golden corpora,five expected original compiler refusals and17 cold consumer families. Inspect the eight remaining receive matcher refusals as a focused group:ct_ssh,test_server_node,mod_cgi,mod_esi,megaco_trans_sender,mnesia_loader,snmpm_server,tftp_engine. Identify the actual failing function/instruction and preserve selective receive,handler/register ownership,signal ordering and cleanup;do not substitute a whole-module fallback. Check the four bare-registry native captures (erts_internal,erl_ddll,ets,re) with actual configured providers/ErlangLibrary before calling them instruction failures. Reuse completed source-bound corpus and public NuGet tooling. All previously observed frame refusals are closed within this inventory,but earlier failures can hide additional paths. Primary packaging is1321/1321 in34 applications;43 separately inventoried examples stay unshipped and the historical42/43 preparation result is not refreshed here. Full crashdump/GUI sessions,application boot,native prerequisites,API completion and measured performance remain open.

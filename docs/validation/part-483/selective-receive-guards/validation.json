@@ -1,0 +1,73 @@
+{
+  "Part": 483,
+  "BaseMain": "52f4a7416fd772aa7c8c96db643d4a97564e5a20",
+  "MergedPart482PR": 43,
+  "ParentExactHead": "7bcb48654dce097e3bc55bd77ab15540762e2037",
+  "ParentExactCI": 40176715806,
+  "ParentArtifactSha256": "d491e4bd6028fb56cc0d8c2bdd16feba880a990a62a64f3082994bbed6535909",
+  "MergeCI": 40178589036,
+  "SourceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "RuntimeFiles": 3,
+  "NewRuntimeSourceLines": 9,
+  "FrameValidatorSelectionStrengthened": true,
+  "SharedTypeSemanticsReused": true,
+  "ApiDelta": 0,
+  "FullContractDelta": 0,
+  "ApiCount": 708,
+  "FullContracts": 118,
+  "KnownDifferences": 31,
+  "NeedsVerification": 559,
+  "SourceBindings": 1682,
+  "CatalogBefore": 8876,
+  "CatalogAfter": 8888,
+  "FinalFocused": {
+    "Passed": 12,
+    "Failed": 0
+  },
+  "FinalAffected": {
+    "Passed": 6532,
+    "Failed": 0,
+    "Blocks": [
+      "compiler",
+      "native",
+      "processes",
+      "terms"
+    ],
+    "Timing": "After final runtime changes;before test-only nested-drain coordination fix. Runtime source remains identical;build metadata changes after the commit;repaired test passed12 targeted repeats and12 new groups passed again. Final-head full CI required."
+  },
+  "EarlierSandboxAttempt": {
+    "Passed": 6412,
+    "Failed": 120,
+    "Errors": "119 eacces failures and one secondary no_port;not acceptance evidence;final unmodified runtime rerun with authorized child-process access"
+  },
+  "SetupCorrections": [
+    "Resolve synthetic Timeout identifier ambiguity before execution",
+    "Narrowed operand-role negative control expects linker diagnostic,not matcher diagnostic;product unchanged"
+  ],
+  "OriginalWholeOutcomes": 54,
+  "OriginalBytes": 3595,
+  "OriginalSha256": "197D7CEE1ABFCA6A1067688C8B93C2C29D6BE5CB0B0F56BB5CF308F5ABC2D426",
+  "ExecutionBindings": 20,
+  "WholeTermsAndQueues": true,
+  "PostHocProjection": false,
+  "FreshOriginalCompilerRefusals": 1,
+  "UninitializedDynamicArityOriginalCompilerAcceptedButNotExecuted": true,
+  "PrimaryPreparedBefore": 1309,
+  "PrimaryPreparedAfter": 1316,
+  "PrimaryImages": 1321,
+  "PrimaryPackaged": 1321,
+  "Applications": 34,
+  "ColdConsumer": "otp-library-consumer-01e76619f4bb47269df591a6f3e84ab3",
+  "ColdEmptyPath": true,
+  "WarmAndColdRawEquality": true,
+  "RuntimeSha256": "39C947E6F69A3CF82301499702DB8D7C326A0D91D0482C5ABB8822752D0AEBF8",
+  "PackageSha256": "89EB16B45AE895FFF6E22472CD867B7E316BF6819E4843D2632046E57C7A958B",
+  "PackageRuntimeCopies": [
+    "lib/net10.0/Erlang.Runtime.dll",
+    "tools/beam/net10.0/Erlang.Runtime.dll",
+    "tools/net10.0/Erlang.Runtime.dll"
+  ],
+  "FinalPublicationHeadCI": "Pending after commit;separate required delivery gate",
+  "FullModuleOrPerformanceParity": false,
+  "MergeCIFollowup": "merge-ci-followup.json"
+}
