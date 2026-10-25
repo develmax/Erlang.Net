@@ -93,6 +93,8 @@ try {
     & (Join-Path $PSScriptRoot 'validate-comparison-original.ps1')
     & (Join-Path $PSScriptRoot 'validate-receive-original.ps1')
     & (Join-Path $PSScriptRoot 'validate-receive-length-original.ps1')
+    & (Join-Path $PSScriptRoot 'validate-regex-captures-original.ps1')
+    & (Join-Path $PSScriptRoot 'validate-otp-catalog.ps1')
     Invoke-DotNet @('run', '--project', 'tools/Erlang.Tool', '--no-build', '--', 'readiness', 'docs', 'artifacts/tests.json', 'artifacts/readiness')
     $missingOracle = Join-Path $validationRoot 'artifacts/nonexistent-oracle/erl'
     if (Test-Path -LiteralPath $missingOracle) { throw 'Negative oracle fixture must not exist' }
@@ -119,6 +121,7 @@ try {
     if ($LASTEXITCODE -ne 0 -or (($rebuiltOutput -join "`n").Trim() -ne 'Hello World')) { throw 'Clean/rebuild output mismatch' }
     if (-not $SkipPackage) {
         Invoke-DotNet @('pack', 'src/Erlang.CSharp.MSBuild', '-c', 'Debug', '-o', 'artifacts/packages', '-m:1', '--nologo')
+        & (Join-Path $PSScriptRoot 'validate-otp-catalog-package.ps1') -Feed (Join-Path $validationRoot 'artifacts/packages')
         Invoke-DotNet @('pack', 'tools/Erlang.Tool', '-c', 'Debug', '-o', 'artifacts/packages', '-m:1', '--nologo')
         & (Join-Path $PSScriptRoot 'validate-otp-library-package.ps1') -Feed (Join-Path $validationRoot 'artifacts/packages')
         & (Join-Path $PSScriptRoot 'validate-otp-library-package.ps1') -Feed (Join-Path $validationRoot 'artifacts/packages') -Library Kernel

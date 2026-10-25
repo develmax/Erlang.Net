@@ -1,3 +1,15 @@
+# Current checkpoint — Part485
+
+Part485: explicit typed native provider composition prepares1321/1321 primary original images across34 libraries with an admitted DriverHost and regex provider; bare preparation remains1317/1321. Binary capture option {capture,all,binary} matches176 complete original outcomes/errors/stacks/backing sizes. Unaligned subjects copy; aligned offheap subjects pin before capture sharing. Nine portable native groups and own-state map protocol pass with raw key order differences preserved. API/full deltas0/0;708 registered,118 full contracts;no whole-module/application/performance promotion. Exact publication-head full CI remains a required delivery gate.
+
+Part484 PR45 merged as8f02ae057 after exact-head CI40187019114:8895/8895,27 whole raw corpora and17 cold families. Its final artifact proof is preserved in validation/part-485/native-catalog/previous484-ci-proof.json.
+
+1. Final local gates are complete:6540 affected tests and warm/cold1321/176/9 pluscleanup. Publish Part485;do not repeat unchanged local blocks.
+2. Publish Part485 and require green exact-head full CI, freshly compiled original observers,176 whole captures,all1321 preparations,native source ownership and physical child cleanup.
+3. Continue actual original kernel/application/net_kernel boot and concrete native contract frontiers;do not infer application completion from catalog preparation.
+
+Earlier checkpoints below are historical.
+
 Part484 CI ordering follow-up: initial547cac434 run40185283493 fails before main tests because the new verifier precedes its ETF producer. Move it after the harness;runtime/assertions/deadlines unchanged. Clean-output local7/7 plus fresh original576/priority pass. New exact-head full CI remains required.
 
 # Current executable plan — Part484

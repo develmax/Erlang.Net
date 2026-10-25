@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net10.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable><LangVersion>14.0</LangVersion></PropertyGroup>
+  <ItemGroup Condition="'$(UseInstalledPackage)' != 'true'"><ProjectReference Include="../../src/Erlang.Runtime/Erlang.Runtime.csproj" /></ItemGroup>
+  <ItemGroup Condition="'$(UseInstalledPackage)' == 'true'"><PackageReference Include="Erlang.Net.CSharp" Version="0.1.0" /></ItemGroup>
+</Project>

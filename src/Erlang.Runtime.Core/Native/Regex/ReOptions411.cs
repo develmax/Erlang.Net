@@ -59,10 +59,15 @@ internal static class ReOptions411
         return unicode;
     }
 
-    internal static void Run(Term options)
+    internal static bool Run(Term options)
     {
-        if (options is Nil) return;
-        foreach (var option in Items(options))
+        if (options is Nil) return false;
+        Term[] items = Items(options);
+        bool binary = items.Length == 1 && items[0] is TupleTerm { Items.Count: 3 } capture
+            && capture.Items[0].Equals(Term.A(ReOptionNames411.Capture))
+            && capture.Items[1] is Atom { Name: ReCaptureNames485.All }
+            && capture.Items[2] is Atom { Name: ReCaptureNames485.Binary };
+        foreach (var option in items)
         {
             if (option is Atom atom && (atom.Name == ReAtomNames411.Unicode || ReNames411.ValidHeldOptions.Contains(atom.Name))) continue;
             if (option is TupleTerm tuple)
@@ -72,6 +77,7 @@ internal static class ReOptions411
             }
             throw new ReBadOption411();
         }
+        if (binary) return true;
         throw new NotSupportedException(ReNames411.Unsupported);
     }
 }

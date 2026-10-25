@@ -1,0 +1,58 @@
+{
+  "Part": 485,
+  "Baseline": "OTP-29.1.1",
+  "SourceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Files": [
+    {
+      "Path": "src/Erlang.Runtime.Core/Native/Regex/ReOptions411.cs",
+      "Before": "81EE303C701737CB2FC866149BCC77FA2805315EB5CCAC41424EFF06C39680E9",
+      "After": "55B5495542CE4C3BEC7C76A0DC478897D148D77776BA7BC7B3157BBA1E4787F2"
+    },
+    {
+      "Path": "src/Erlang.Runtime.Core/Native/Regex/RuntimeRegexEngine411.Operations.cs",
+      "Before": "1A675F21E72C237FD6A0C239A9D70D721AA90A8FF49EF217A03A8D748B2C56AE",
+      "After": "C6463E772E505FD91E86733DF2C4231EBB9C445C612EED5A8990DB8EEFF08FB0"
+    },
+    {
+      "Path": "src/Erlang.Runtime.Core/Native/Regex/ReCaptureNames485.cs",
+      "Before": null,
+      "After": "1CFB352AA9FEB1345798A9445062E7C2B90C7046F9EF036D1C5184E987F6DCEF"
+    },
+    {
+      "Path": "src/Erlang.Runtime.Core/Bootstrap/RuntimeNativePrimitiveProviders.Catalog.cs",
+      "Before": null,
+      "After": "6F9A065AC9E1AFBEF3DC0BD19C7D97E9C26D4F8134C18F5AACE43D87FE06F21D"
+    },
+    {
+      "Path": "src/Erlang.Terms/Values/BitString.RegexCapture.cs",
+      "Before": null,
+      "After": "3474352E1DE2378A9E6BBD4B62D1CFAE948DFB97D2A8E95482CDF61E58730B2F"
+    }
+  ],
+  "SourceBindings": 1685,
+  "ApiDelta": 0,
+  "FullContractDelta": 0,
+  "OriginalSources": [
+    {
+      "Path": "erts/emulator/beam/erl_bif_re.c",
+      "Sha256": "76A6DB9D1680EE760141AC4E888585D781C2CB686E5D7172903E85A2A5D7C45F"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_bits.c",
+      "Sha256": "2B803014C329C7C2C30E60C0BFFDA90911985B9CE1703952E7315E28694CCDB6"
+    },
+    {
+      "Path": "lib/stdlib/src/re.erl",
+      "Sha256": "4F121979023D8E5011D2E026600250DEDD284C3A5B909E38688EFD34D5B74128"
+    }
+  ],
+  "Decisions": [
+    "Reuse the existing admitted original PCRE2 engine, capture vectors, native lifecycle and BitString backing/slicing; no managed regex substitution or new dependency.",
+    "Follow ERTS_PIN_BITSTRING before copying subject bytes. Revoke append ownership. Only aligned offheap binary subjects may share captures; unaligned, partial and onheap/iodata paths copy returned captures. Small slices retain existing copy behavior.",
+    "Register only the existing catalog providers through explicit typed calls. Regex and driver frontend remain separately admitted opt-in owners. Do not discover or replace providers through reflection.",
+    "Preserve complete raw values/errors/stacks and backing sizes for all176 capture outcomes. Do not promote the entire re module or unsupported options.",
+    "The map raw key tuple is state-dependent; retain original and managed bytes independently and compare the original protocol against each VM own storage, as authorized.",
+    "Reuse four exact ordinary driver service C files from the existing423 bridge compile receipt; rebuild them using admitted headers. Do not substitute the private455 child-port ABI.",
+    "Primary catalog1321 across34applications is unchanged. Two optional Common Test adapters and43example images remain separate; asset hashes of the two adapters are checked."
+  ]
+}

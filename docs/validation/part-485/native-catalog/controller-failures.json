@@ -1,0 +1,33 @@
+{
+  "Failures": [
+    {
+      "Scope": "permanent fixture startup",
+      "Log": "artifacts/library485/permanent-focus.log",
+      "Cause": "Explicit original imports omitted; guest execution did not start"
+    },
+    {
+      "Scope": "native preparation1",
+      "Log": "artifacts/library485/catalog-tool.log",
+      "Cause": "Windows python Store alias; no native compilation or child start"
+    },
+    {
+      "Scope": "native preparation2",
+      "Log": "artifacts/library485/catalog-tool2.log",
+      "Cause": "MSVC environment command quoting; no child start"
+    },
+    {
+      "Scope": "inventory preparation3",
+      "Log": "artifacts/library485/catalog-tool3.log",
+      "Cause": "1323 assets include two already supplementary Common Test adapters; no child start"
+    },
+    {
+      "Scope": "typed composition without driver",
+      "Log": "artifacts/library485/typed-all-no-driver.log",
+      "Prepared": 1320,
+      "Total": 1321,
+      "Refused": "erl_ddll"
+    }
+  ],
+  "Historical174Of176Retained": true,
+  "FinalFailuresMasked": false
+}
