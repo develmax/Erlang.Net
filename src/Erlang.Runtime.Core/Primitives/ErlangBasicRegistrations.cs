@@ -102,18 +102,8 @@ internal static class ErlangBasicRegistrations
         registry.Register(
             ErlangModuleNames.Module,
             ErlangBasicBifNames.Apply,
-            2,
-            (context, arguments) =>
-        {
-            Term[] values = Cons.Items(arguments[1]).ToArray();
-            if (arguments[0] is FunctionTerm callback && callback.Arity != values.Length)
-                throw context.CaptureSourceFailure(new ErlangException(Term.Tuple(
-                    Term.A(ErlangErrorReasons.BadArity),
-                    Term.Tuple(callback, Cons.From(values))
-                )));
-
-            return ListCallback.Invoke(context, arguments[0], values);
-        }
+            ErlangApplySourceLocation.FunctionApplyArity,
+            ErlangApplyFunctionDispatch.Invoke
         );
     }
 }

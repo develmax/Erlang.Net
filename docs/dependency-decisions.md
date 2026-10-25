@@ -779,3 +779,7 @@ Keep all original pure algorithms unchanged. Include both property-extension ima
 ## Part476 — original OS monitoring/ODBC libraries
 
 Reuse unchanged pinned original os_mon and odbc rather than translating their pure parameters,df parser or callbacks into C#. Preserve original C sources as source data and both package licenses;explicitly exclude producer nteventlog/win32sysinfo executables. Reuse existing genuine io:printable_range native binding through the original io image;no hand-written pure fallback or application startup. No external .NET monitoring/database dependency is introduced for image packaging. Live collection,drivers,connection lifecycle and full applications need separate acceptance. Keep complete identity-bearing error arguments and anonymous tail-apply discrepancy visible;do not call a reduced direct-MFA corpus full module compatibility.
+
+## Part477 — dynamic apply is native VM control transfer
+
+Follow pinned OTP emu/ops.tab,instrs.tab and beam_common.c apply/fixed_apply/apply_bif_error_adjustment. Reuse current code-image,canonical no-return,async-context and owner-lease infrastructure. Do not add an actor library or translate pure OTP algorithms. Unwrap only actual canonical apply registrations;defer caller transfer until real argument validation,retain special no-return and source-load-NIF behavior,and preserve selected host bindings. Bind native function-apply error metadata to the original preloaded erlang source/image. Compare entire observations rather than stripping caller/comprehension frames.

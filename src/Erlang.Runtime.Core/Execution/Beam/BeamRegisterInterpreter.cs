@@ -177,6 +177,17 @@ internal static partial class BeamRegisterInterpreter
             return true;
         }
 
+        void TransferModuleApply()
+        {
+            // The outer async execution context still needs its scope when it unwinds.
+            functionFrame?.Dispose();
+            if (continuations.Count == 0 && handlers.Count == 0 && callFrames.Count == 0)
+            {
+                flow.Dispose();
+                lease.Dispose();
+            }
+        }
+
         try
         {
             while (true)
@@ -912,6 +923,8 @@ internal static partial class BeamRegisterInterpreter
                             if (instruction.Definition.Name == BeamLinkNames.ExternalCall)
                                 functionFrame!.SetContinuation(code, pc);
                             Term imported;
+                            using (instruction.Definition.Name == BeamOnLoadNames.ExternalLast && BeamModuleApplyTailScope.IsModuleApply(import)
+                                ? new BeamModuleApplyTailScope(context, TransferModuleApply) : null)
                             using (BeamExternalImports.IsNativePrimitive(import) ? context.EnterBeamNativeCallSite419(code, pc - 1) : null)
                                 imported = await BeamExternalImports.Invoke(context, import, importedArguments);
                             if (instruction.Definition.Name == BeamLinkNames.ExternalCall)
@@ -1151,6 +1164,8 @@ internal static partial class BeamRegisterInterpreter
                                 }
                             }
                             Term externalResult;
+                            using (BeamModuleApplyTailScope.IsModuleApply(tailImport)
+                                ? new BeamModuleApplyTailScope(context, TransferModuleApply) : null)
                             using (BeamExternalImports.IsNativePrimitive(tailImport) ? context.EnterBeamNativeCallSite419(code, pc - 1) : null)
                                 externalResult = await BeamExternalImports.Invoke(context, tailImport, tailArguments);
                             registers.Write(0, externalResult);

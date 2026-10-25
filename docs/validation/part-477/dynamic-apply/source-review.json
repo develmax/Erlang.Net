@@ -1,0 +1,65 @@
+{
+  "ChangedBindings": [
+    {
+      "Path": "src/Erlang.Runtime.Core/Execution/Beam/BeamApplyExecution.cs",
+      "Before": "49229EB41C89ED8E5CC45C3C4F20FB08970079096E2CAB18278B9C76CBF4474B",
+      "After": "F3AD0E0E4D3DCDA2D7969F993E046B52C103EA09573224AC1CB2CBA990D1A355"
+    },
+    {
+      "Path": "src/Erlang.Runtime.Core/Execution/Beam/BeamRegisterInterpreter.cs",
+      "Before": "236FCA6C182174D6CD8F24D891BFC777ED714091905B1A685FAAFDE04D3D9DC4",
+      "After": "80CA8338E48B6B0BCCCC8E604CC8E96EC838E07E2D5E98F966A65153517C2374"
+    },
+    {
+      "Path": "src/Erlang.Runtime.Core/Primitives/ErlangApplyDispatch.cs",
+      "Before": "523D5A2FADF85C6102708AA448E8B1AE57260899498497F31252402F50168EE0",
+      "After": "37BBEC63B68C34B4AC0174969529777F7730AA17E7AD99D5EC795F062EB4E29A"
+    },
+    {
+      "Path": "src/Erlang.Runtime.Core/Primitives/ErlangBasicRegistrations.cs",
+      "Before": "29719B7742DB8AB626C55113E910B677916574D8BF4178C5507FAD89CA41C86B",
+      "After": "E7A27A6498346F1005919BD074AF7DCC5050BE9624D625AA4BC91CB5E14644B0"
+    }
+  ],
+  "AddedBindings": [
+    {
+      "Path": "src/Erlang.Runtime.Core/Execution/Beam/BeamModuleApplyTailScope.cs",
+      "Sha256": "30C10F8DF1AABBDBF86B8BE44905642E8F018AC32039F8157A9D48A7D6D035DE"
+    },
+    {
+      "Path": "src/Erlang.Runtime.Core/Modules/ModuleRegistry.CanonicalApply.cs",
+      "Sha256": "E55380A1F795C4F2C5066DB267032D94E19660A59F1B41E7E90EAD32DC2940B4"
+    },
+    {
+      "Path": "src/Erlang.Runtime.Core/Primitives/ErlangApplyFunctionDispatch.cs",
+      "Sha256": "75CD773E8318113516729F3A4FE87D116B37CA5281DF03BB67C9462F9A29B541"
+    },
+    {
+      "Path": "src/Erlang.Runtime.Core/Primitives/ErlangApplySourceLocation.cs",
+      "Sha256": "A6780FE6C0AFD4F933A5774CDFCFA142064AA68A1FC38C1F3F7FF9A4BF438F5F"
+    }
+  ],
+  "PriorBindings": 1678,
+  "CurrentBindings": 1682,
+  "ApiEntriesUnchanged": true,
+  "ApiDelta": 0,
+  "FullContractDelta": 0,
+  "OriginalWholeProfiles": 1865,
+  "NativeAndFormerLaunchFailuresPassed": 250,
+  "FinalFocusedPassed": 3,
+  "PriorRestrictedRun": {
+    "Selected": 4887,
+    "Passed": 4775,
+    "Failed": 112,
+    "Errors": "111 eacces and one no_port; all112 pass in the unrestricted250-case follow-up"
+  },
+  "Review": [
+    "Canonical body identity guards nested unwrapping and preserves real mutable host selections",
+    "Argument preparation precedes tail frame/lease transfer; nested apply triples match pinned VM validation order",
+    "Canonical error/exit/throw continuation handling remains identity-bound; load_nif retains its caller scope",
+    "Per-async-flow transfer scope is context-bound and consumed once;outer async scope still unwinds correctly",
+    "Function-apply badfun metadata uses the pinned preloaded erlang continuation and actual callback failure",
+    "Existing115 complete values/errors/stacks,two875 whole corpora,deep-dispatch and synchronous/asynchronous host controls pass",
+    "No complete apply API contract or classification promotion;full exact-head CI remains required"
+  ]
+}

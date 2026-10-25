@@ -1,3 +1,9 @@
+# Current checkpoint — Part477
+
+Finish exact-head full CI and independent artifact verification for dynamic apply. Resume original GUI/tool library packaging from the prepared file/import inventory:debugger24,et6,observer44,reltool9,wx241 (324 primary images). Exclude wx producer DLLs and native debug symbols explicitly. Expand native scheduling/closure identity and driver/application acceptance independently;the nine opaque creator-PID parser profiles remain unaccepted until the full identity protocol is exercised. Keep43 documentation/example images outside the primary denominator.
+
+Earlier checkpoints below are historical.
+
 # Current checkpoint — Part476
 
 Finish exact-head full CI and independent artifact verification for the two platform libraries. Next fix and independently compare the measured anonymous dynamic tail-apply caller-frame discrepancy;retain the nine VM-identity-bearing parser stacks as unaccepted until an explicit complete identity protocol is checked. Continue324 primary images in five GUI/tool application inventories:debugger24,et6,observer44,reltool9,wx241. Audit wx native prerequisites before service/GUI claims;43 additional documentation/example images remain separate. Full services,drivers and boot are not inferred from packaging.

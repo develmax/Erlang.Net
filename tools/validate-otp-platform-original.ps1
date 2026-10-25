@@ -71,5 +71,30 @@ try {
     & (Join-Path $profile.InstalledOtpRoot 'bin/erl.exe') '+S' '1' '-noshell' '-noinput' '-pa' $fixtureDirectory '-eval' $identityEvaluation
     if ($LASTEXITCODE -ne 0) { throw 'Original identity-reference collection failed' }
     @{ OriginalOnly = $true; ManagedAcceptance = $false; Outcomes = 9; RawEtfSha256 = (Get-FileHash -LiteralPath $identityPath -Algorithm SHA256).Hash; Boundary = $fixture.IdentityBoundary } | ConvertTo-Json | Set-Content (Join-Path $Output 'identity-reference.json')
+    $legacyFixture = Join-Path $fixtureDirectory 'ApplyLegacy477'
+    $legacyManifest = Get-Content -LiteralPath (Join-Path $legacyFixture 'fixture.json') -Raw | ConvertFrom-Json
+    if ($legacyManifest.Outcomes -ne 875 -or -not $legacyManifest.OriginalObserverUnchangedFrom476) { throw 'Legacy observer contract differs' }
+    foreach ($file in $legacyManifest.Files.PSObject.Properties) {
+        if ((Get-FileHash -LiteralPath (Join-Path $legacyFixture $file.Name) -Algorithm SHA256).Hash -cne $file.Value) { throw 'Legacy observer hash differs' }
+    }
+    $legacyOutput = Join-Path $Output 'legacy'
+    New-Item -ItemType Directory -Path $legacyOutput -Force | Out-Null
+    $legacyPath = [IO.Path]::GetFullPath((Join-Path $legacyOutput 'original-values.etf'))
+    $legacyBase64 = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($legacyPath))
+    $legacyEvaluation = $evaluation.Replace($pathBase64, $legacyBase64)
+    $start.ArgumentList[5] = $legacyFixture
+    $start.ArgumentList[7] = $legacyEvaluation
+    $legacyProcess = [Diagnostics.Process]::Start($start)
+    try {
+        $legacyStdout = $legacyProcess.StandardOutput.ReadToEndAsync()
+        $legacyStderr = $legacyProcess.StandardError.ReadToEndAsync()
+        if (-not $legacyProcess.WaitForExit(45000)) { $legacyProcess.Kill($true); $legacyProcess.WaitForExit(); throw 'Legacy original observer timed out' }
+        [IO.File]::WriteAllText((Join-Path $legacyOutput 'stdout.txt'), $legacyStdout.GetAwaiter().GetResult())
+        [IO.File]::WriteAllText((Join-Path $legacyOutput 'stderr.txt'), $legacyStderr.GetAwaiter().GetResult())
+        if ($legacyProcess.ExitCode -ne 0) { throw 'Legacy original observer failed' }
+    } finally { $legacyProcess.Dispose() }
+    $legacyHash = (Get-FileHash -LiteralPath $legacyPath -Algorithm SHA256).Hash
+    if ($legacyHash -cne $legacyManifest.Files.'original-values.etf' -or $legacyHash -cne (Get-FileHash -LiteralPath (Join-Path $ManagedDirectory 'legacy/managed-values.etf') -Algorithm SHA256).Hash) { throw 'Unchanged anonymous worker still differs from original OTP' }
+    @{ Passed = $true; Outcomes = 875; RawEtfSha256 = $legacyHash; ObserverUnchangedFrom476 = $true; Comparison = 'Whole deterministic raw ETF; no projection, frame removal or identity mapping' } | ConvertTo-Json | Set-Content (Join-Path $legacyOutput 'completion.json')
     @{ Passed = $true; Outcomes = 875; PackagedOriginalFiles = $packagedFiles; RawEtfSha256 = $originalHash; SourceCommit = $profile.SourceCommit; ExecutionBindings = $selected; Serialization = 'term_to_binary/2 deterministic'; Comparison = 'Whole deterministic raw ETF; no projection, frame removal or identity mapping' } | ConvertTo-Json -Depth 5 | Set-Content (Join-Path $Output 'completion.json')
 } finally { $process.Dispose() }

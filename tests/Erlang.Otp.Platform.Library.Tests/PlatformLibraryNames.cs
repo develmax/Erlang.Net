@@ -26,5 +26,7 @@ internal static class PlatformLibraryNames
     internal const string Traversal = "../erlang";
     internal const string Unknown = "missing";
     internal const string ManagedText = "managed-values.txt";
+    internal const string LegacyPrefix = "Legacy.";
+    internal const string LegacyDirectory = "legacy";
     internal static readonly string[] OriginalImports = ["alarm_handler", "application", "code", "erlang", "error_logger", "file", "filelib", "filename", "gen_server", "gen_tcp", "inet", "io_lib", "lists", "maps", "math", "os", "os_mon", "os_mon_sysinfo", "persistent_term", "string", "supervisor", "timer"];
 }
