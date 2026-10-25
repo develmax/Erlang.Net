@@ -144,4 +144,4 @@ Append numbered English entries only to the last volume. Start the next sequenti
 
 - [0084.md](docs/changelog/0084.md) — parts477–481 (original libraries,control transfer,frame and binary-context proofs)
 - [0085.md](docs/changelog/0085.md) — parts482–484 (closed; comparison frames and cooperative original receive guards)
-- [0086.md](docs/changelog/0086.md) — parts485–487 (active; native catalog, project layout and contract re-audit)
+- [0086.md](docs/changelog/0086.md) — parts485–488 (active; native catalog, layout and contract audits)
