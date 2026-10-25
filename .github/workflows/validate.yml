@@ -37,6 +37,16 @@ jobs:
           python -B tools/Collections/Erlang.EtsCompressedOriginalObservations442/collect-same-host.py --repository $PWD.Path --admission artifacts/library376-official-compiler/official-admission.json --output artifacts/library442-ets-same-host-original1
           if ($LASTEXITCODE -ne 0) { $originalFailures += 'Same-host original ETS442 capture failed' }
           if ($originalFailures.Count -ne 0) { throw ($originalFailures -join '; ') }
+      - name: Compare BIF contract re-audit with same-host pinned OTP
+        shell: pwsh
+        run: |
+          $PSNativeCommandUseErrorActionPreference = $false
+          $contractFailures = @()
+          foreach ($fixtureName in @('ContractReaudit487', 'NumericContract487')) {
+            python -B tools/Validation/ContractReaudit487/collect-original.py --repository $PWD.Path --admission artifacts/library376-official-compiler/official-admission.json --fixture "tests/Erlang.Tests/Resources/$fixtureName" --output "artifacts/contracts487/ci-original/$fixtureName" --check-golden
+            if ($LASTEXITCODE -ne 0) { $contractFailures += "Original contract acquisition failed: $fixtureName" }
+          }
+          if ($contractFailures.Count -ne 0) { throw ($contractFailures -join '; ') }
       - shell: pwsh
         run: ./tools/validate.ps1 -TestRuntimeVersion 10.0.11
       - uses: actions/upload-artifact@v7
@@ -45,6 +55,7 @@ jobs:
           name: validation
           path: |
             artifacts/tests.json
+            artifacts/contracts487/ci-original/**
             artifacts/library485/permanent/**
             artifacts/library485/catalog/**/results/**
             artifacts/library485/catalog/**/native/compile*.txt

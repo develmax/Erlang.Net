@@ -252,7 +252,7 @@ internal static class BeamReceiveMatcher
     {
         BeamOperandParameters.X => registers.Read((int)operand.Value),
         BeamOperandParameters.Y => registers.ReadY((int)operand.Value),
-        BeamOperandParameters.Integer => new Integer(operand.Value),
+        BeamOperandParameters.Integer => code.IntegerConstant(operand.Value),
         BeamOperandParameters.Atom => Term.A(code.Structure.Atoms[(int)operand.Value]!),
         BeamOperandParameters.Nil => Nil.Value,
         BeamOperandParameters.LiteralValue => code.Structure.Literals[(int)operand.Value],

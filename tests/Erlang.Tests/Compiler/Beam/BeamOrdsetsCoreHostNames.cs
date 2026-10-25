@@ -19,6 +19,9 @@ internal static class BeamOrdsetsCoreHostNames
     internal const string ModuleInfo = "module_info";
     internal const string Normal = "normal";
     internal const string Failure = "Original compiled ordsets corpus or backend ownership differs";
+    internal const string FailureDirectory = "artifacts/beam-contract-failures";
+    internal const string ActualSuffix = ".actual";
+    internal const string ExpectedSuffix = ".expected";
     internal const int ValueCount = 112;
     internal const int ProfileCount = 560;
     internal static readonly TimeSpan Deadline = TimeSpan.FromSeconds(75);
