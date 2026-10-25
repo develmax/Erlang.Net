@@ -791,3 +791,7 @@ Reuse unchanged pinned debugger, et, observer, reltool and wx source/images unde
 ## Part479 — non-GC floating stores
 
 Reuse pinned OTP emu/float_instrs.tab:fstore and the existing initialized-FP/destination/frame ownership checks. fstore performs PUT_DOUBLE and heap-pointer advancement using reserved space;it does not invoke GC. Keep actual GC root checks,arithmetic exception edges and handler guards unchanged. Execute original reltool_fgraph instead of translating force layout into C#. Preserve original header/notices;existing math native primitives and original lists/math wrappers remain explicit. No new external dependency or native GUI provider is introduced.
+
+## Part480 closed receive-loop dependency policy
+
+Do not translate original debugger loops into C#. Extend only the closed-wait lexical proof for already validated make_fun3,select_tuple_arity,update_record and put_tuple2. Existing typed validation remains authoritative;ordinary labels remain function-local,local tail targets are followed,unknown tails/returning arms/handlers still refuse,and a real wait remains required. Reuse existing public Debugger/Stdlib readers and cold consumer;no new external package or native GUI driver is introduced.

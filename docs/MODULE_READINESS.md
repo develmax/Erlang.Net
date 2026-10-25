@@ -1,8 +1,19 @@
 # Module readiness
 
-Baseline **OTP-29.1.1**. Exact Part466 main CI **8842/8842 passed** at **9e730212**. Part467 source tests **8843/8843 passed**; the initial readiness source-binding refusal and subsequent repair are retained separately. Exact publication-head workflow/package completion is tracked in PR28. Runtime MFAs **708** and complete contracts **118** (API/full deltas **0/0**), in **21** modules. Reference inventory: **1289** source-module rows.
+Baseline **OTP-29.1.1**. Part479 exact-head CI **8853/8853 passed**, with independently verified artifact and all17 cold library families. Part479 is merged into main **2bcbf3df**; merge CI40168019246 is tracked separately. Part480 catalog **8860**, affected initial **5303/5304**, exact failed-name/new-test recheck **8/8**, focus **11/11**; full exact-head CI remains pending. Runtime MFAs **708**, complete contracts **118**, known differences **31**, needs verification **559**, source bindings **1682**; API/full deltas **0/0**.
 
 API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.
+
+## Part480 closed receive loops
+
+| Area | Verified increment | Remaining |
+| --- | --- | --- |
+| BEAM no-return analysis | Four ordinary/dispatch instructions;12 complete OTP profiles plus five focused dispatch controls | Broader frame joins and receive matchers |
+| Original Debugger | All24/24 images prepare;new trace/view images publish with actual owners | GUI driver,live debugger sessions and full API contracts |
+| Whole primary inventory | 1306/1321 prepare,all prior1304 retained;1321/1321 packaged | Three frame,eight receive and four configured-native capture cases |
+| Public .NET consumption | Retained975 assertions/1415+66 whole outcomes plus12 new complete comparisons;warm and cold pass | Full application startup and physical/native/platform contracts |
+
+Part480 extends the conservative closed-wait no-return proof to tuple-arity dispatch, closure construction, record update and tuple construction. Existing register/frame/GC/handler validators and interpreter execution are unchanged. Both unchanged original dbg_wx_trace and dbg_wx_view images now prepare/publish with their actual source owners; Debugger image preparation improves22→24/24 and whole primary preparation1304→1306/1321 (98.9%). Twelve finite basic/closure/record profiles at0/1/2/8 iterations match fresh pinned OTP in complete exit stacks, final record state, actual captured-fun results, dictionary effects and retained messages (6397 deterministic ETF bytes). They also match through public original-library readers and a cold ordinary NuGet consumer with empty PATH and repository build imports disabled. Preserve all975 GUI assertions,1415 GUI whole outcomes and66 force-graph outcomes. Seven new permanent groups bring8853→8860. Final focus11/11 and solution build116.89s pass. The affected5304 run remains5303pass/1timeout; the exact failed source-stage shutdown case and seven new tests pass8/8 without an intervening build. Its timing cause remains unproven; this is composite affected coverage, not an uninterrupted full pass. Default708 APIs/118 full contracts,31 known differences,559 pending and1682 reviewed source bindings remain unchanged (API/full deltas0/0). Packaging stays1321/1321 primary images in34 applications. Exact publication-head full CI/artifact verification is the delivery gate; full GUI/debugger sessions, native providers, application startup and API compatibility remain separate.
 
 ## Part477 dynamic apply control transfer
 

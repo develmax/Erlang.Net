@@ -114,3 +114,7 @@ Part479 removes the pre-store whole-frame Roots check from floating-register-to-
 | reltool | 7/9 | 9/9 | both graph images now admit;66 actual original graph observations cover13 exports |
 
 These are explicit-import bare-registry preparation counts,not full application or API compatibility. Four native capture refusals require configured provider checks and are not counted as new instruction defects.
+
+## Part480 — original debugger image admission
+
+Packaging remains1321/1321 across34 applications. Original Debugger image preparation improves22→24/24;both dbg_wx_trace and dbg_wx_view retain original bytes/owners. Whole primary preparation improves1304→1306/1321,with all prior prepared images retained. This is loader/frame admission plus12 finite controlled receive-loop comparisons,not live GUI/debugger session or full module/API compatibility.

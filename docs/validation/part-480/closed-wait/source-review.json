@@ -1,0 +1,20 @@
+{
+  "Path": "src/Erlang.Runtime.Core/Execution/Beam/BeamNoReturnClosedWaitComponent.cs",
+  "Before": "5DF9F5F2F8F8C7D5DAB7B2F179B3AFB6BA60217777CC5B4D8CA80ABB445BC9C4",
+  "After": "B197D2A38D6FC92BFD4EC3DEC6CCC5ED28B11B77AB889259D8E5829FF34660C1",
+  "AddedLexicalInstructions": [
+    "select_tuple_arity",
+    "make_fun3",
+    "update_record",
+    "put_tuple2"
+  ],
+  "SourceBindings": 1682,
+  "RuntimeExecutionUnchanged": true,
+  "RegisterFrameGcAndHandlerValidatorsUnchanged": true,
+  "ReturnHandlerUnknownTailRefusalsUnchanged": true,
+  "FunctionLocalBranchChecksUnchanged": true,
+  "WaitRequired": true,
+  "ApiDelta": 0,
+  "FullContractDelta": 0,
+  "Review": "Tuple arity dispatch is terminal; closure creation, record update and tuple construction continue. The lexical proof still scans every instruction and all ordinary label operands, follows actual local tail targets, and refuses returning arms, handlers, foreign branches and unknown tail calls. Existing typed validators remain authoritative."
+}

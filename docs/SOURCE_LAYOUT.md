@@ -72,3 +72,7 @@ Part477: New separate runtime types BeamModuleApplyTailScope,ModuleRegistry.Cano
 Part478: Five separate src/Erlang.Otp.{Debugger,Et,Observer,Reltool,Wx}.Beam projects preserve 683 release files and complete primary inventories. Exclude all five wx producer native/debug binaries explicitly.
 
 Part479: One shared source change in BeamFrameValidation.cs removes only the floating store Roots call. Original algorithms remain in unchanged source/BEAM libraries.
+
+## Part480 closed-wait proof
+
+The sole production edit is Execution/Beam/BeamNoReturnClosedWaitComponent.cs in Erlang.Runtime.Core. Reuse existing semantic opcode-name classes;keep register/frame/GC/handler validation in their existing files and original debugger algorithms in their original library assets.

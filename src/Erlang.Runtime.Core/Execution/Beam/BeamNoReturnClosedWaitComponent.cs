@@ -64,6 +64,7 @@ internal static class BeamNoReturnClosedWaitComponent
                     continue;
                 }
                 if (name is BeamGeneralOpcodeNames.Jump or BeamGeneralOpcodeNames.SelectValue
+                    or BeamGeneralOpcodeNames.SelectTupleArity
                     or BeamLinkNames.Wait or BeamLinkNames.LoopReceiveEnd)
                 {
                     terminal = true;
@@ -94,6 +95,9 @@ internal static class BeamNoReturnClosedWaitComponent
                 or BeamGeneralOpcodeNames.TupleTest
                 or BeamLinkNames.LoopReceive
                 or BeamLinkNames.Move
+                or BeamLambdaNames.Create
+                or BeamCollectionOpcodeNames.UpdateRecord
+                or BeamLinkNames.PutTuple
                 or BeamLinkNames.PutList
                 or BeamLinkNames.RemoveMessage
                 or BeamGeneralOpcodeNames.Swap
