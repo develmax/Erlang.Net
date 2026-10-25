@@ -22,7 +22,9 @@ internal static class BeamFrameValidation
                 .Any(instruction => instruction.Definition.Name == BeamGeneralOpcodeNames.Swap)
                 && BeamNoReturnAnalysis.Local(code, function.EntryLabel)
             || BeamBinaryEntryProtocol.HasLocalContextCall(code, function)
-            || receives.Values.Any(plan => !plan.HasMatcher || BeamReceivePlanner.WritesFrame(code, plan)))
+            || receives.Values.Any(plan => !plan.HasMatcher || BeamReceivePlanner.WritesFrame(code, plan)
+                || plan.MatcherInstructions.Any(index => code.Instructions[index].Definition.Name
+                    is BeamGeneralOpcodeNames.BinaryTest or BeamGeneralOpcodeNames.FunctionTest)))
         {
             ValidateExceptional(code, function, receives);
 

@@ -1,0 +1,74 @@
+{
+  "Images": 1321,
+  "Before": 1309,
+  "After": 1316,
+  "Changed": [
+    "ct_ssh",
+    "mnesia_loader",
+    "mod_cgi",
+    "mod_esi",
+    "snmpm_server",
+    "test_server_node",
+    "tftp_engine"
+  ],
+  "AllPriorPreparedRetained": true,
+  "ReadOnlyPreparation": true,
+  "Published": 0,
+  "Executed": 0,
+  "Families": [
+    {
+      "Project": "Erlang.Otp.CommonTest.Beam",
+      "Before": 45,
+      "After": 47,
+      "Images": 47
+    },
+    {
+      "Project": "Erlang.Otp.Inets.Beam",
+      "Before": 61,
+      "After": 63,
+      "Images": 63
+    },
+    {
+      "Project": "Erlang.Otp.Mnesia.Beam",
+      "Before": 30,
+      "After": 31,
+      "Images": 31
+    },
+    {
+      "Project": "Erlang.Otp.Snmp.Beam",
+      "Before": 89,
+      "After": 90,
+      "Images": 90
+    },
+    {
+      "Project": "Erlang.Otp.Tftp.Beam",
+      "Before": 7,
+      "After": 8,
+      "Images": 8
+    }
+  ],
+  "Remaining": [
+    {
+      "Module": "erts_internal",
+      "ErrorType": "System.NotSupportedException"
+    },
+    {
+      "Module": "erl_ddll",
+      "ErrorType": "System.NotSupportedException"
+    },
+    {
+      "Module": "megaco_trans_sender",
+      "ErrorType": "System.NotSupportedException"
+    },
+    {
+      "Module": "ets",
+      "ErrorType": "System.NotSupportedException"
+    },
+    {
+      "Module": "re",
+      "ErrorType": "System.NotSupportedException"
+    }
+  ],
+  "BeforeReportSha256": "0012ECF987E4174C628314B08BFB0A55E70B3CCD71C75ABBABFD15DDE1DC0CF4",
+  "AfterReportSha256": "3212A8709B4D5D42A795B2ADA72E6E70AF7885BF9D628A812D27C94B1CEC57B6"
+}

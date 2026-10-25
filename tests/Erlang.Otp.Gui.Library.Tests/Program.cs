@@ -4,6 +4,7 @@ try
 {
     await GuiLibraryChecks.Run(args);
     await GuiComparison482Checks.Run(args);
+    await GuiReceive483Checks.Run(args);
 
     return 0;
 }

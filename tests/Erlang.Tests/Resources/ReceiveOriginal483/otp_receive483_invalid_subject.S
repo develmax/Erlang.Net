@@ -1,0 +1,23 @@
+{module,otp_receive483_invalid_subject}.
+{exports,[{run,1}]}.
+{attributes,[]}.
+{labels,7}.
+{function,run,1,2}.
+ {label,1}.
+ {func_info,{atom,otp_receive483_invalid_subject},{atom,run},1}.
+ {label,2}.
+ {allocate,0,1}.
+ {label,3}.
+ {loop_rec,{f,6},{x,0}}.
+ {test,is_binary,{f,5},[{x,9}]}.
+ remove_message.
+ {deallocate,0}.
+ return.
+ {label,5}.
+ {loop_rec_end,{f,3}}.
+ {label,6}.
+ {wait_timeout,{f,3},{integer,0}}.
+ timeout.
+ {move,{atom,timeout},{x,0}}.
+ {deallocate,0}.
+ return.

@@ -130,6 +130,9 @@ internal static class BeamReceivePlanner
                         RequireCommit(pc + 1);
                     Visit(pc + 1);
                     break;
+                case BeamGeneralOpcodeNames.FunctionTest:
+                    Source(operands[2]);
+                    goto case BeamGeneralOpcodeNames.AnyFunctionTest;
                 case BeamGeneralOpcodeNames.NonemptyListTest:
                 case BeamGeneralOpcodeNames.NilTest:
                 case BeamGeneralOpcodeNames.ListTest:
@@ -139,6 +142,7 @@ internal static class BeamReceivePlanner
                 case BeamGeneralOpcodeNames.AtomTest:
                 case BeamGeneralOpcodeNames.ReferenceTest:
                 case BeamGeneralOpcodeNames.BooleanTest:
+                case BeamGeneralOpcodeNames.BinaryTest:
                 case BeamGeneralOpcodeNames.AnyFunctionTest:
                 case BeamOnLoadNames.PidTest:
                 case BeamOnLoadNames.TaggedTupleTest:

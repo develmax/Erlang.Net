@@ -1,10 +1,25 @@
 # Module readiness
 
-Baseline **OTP-29.1.1**. Part481 merged into main **b9b2c82b** after exact-head CI **40173496119** and downloaded artifact passed **8868/8868**,22 whole corpora and17 cold consumer families. Part482 catalog **8876**,final affected **5320/5320**,new permanent groups **8/8**,fresh whole OTP comparisons **180/180**,expected original compiler refusals **5/5**;exact publication-head CI is tracked in the PR. Runtime MFAs **708**,complete contracts **118**,known differences **31**,needs verification **559**,source bindings **1682**;API/full deltas **0/0**.
+Baseline **OTP-29.1.1**. Part482 merged into main **52f4a741** after exact-head CI **40176715806** and downloaded artifact passed **8876/8876**, 24 whole corpora and 17 cold consumers. Part483 catalog **8888**, final affected **6532/6532**, permanent groups **12/12**, fresh complete receive comparisons **54/54**, original compiler refusal **1/1**. Exact publication-head full CI is tracked in the PR. Runtime MFAs **708**, complete contracts **118**, known differences **31**, needs verification **559**, source bindings **1682**; API/full deltas **0/0**.
 
 API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.
 
-## Part482 total comparison frames
+## Part483 original receive guards
+
+| Area | Verified increment | Remaining |
+| --- | --- | --- |
+| Primary image preparation | 1309→1316/1321 (99.6%); all prior images retained | megaco_trans_sender pre-commit BIF and four configured-native capture cases |
+| Selective receive runtime | 54 complete original binary/function selection, timeout and unmatched-queue outcomes; four paired boundary controls | Wider callback/BIF, cancellation and performance contracts |
+| Ordinary .NET use | Warm and isolated cold NuGet consumers match all 54 new outcomes and retain prior GUI checks | Full application and native GUI sessions |
+| Erlang.Otp.CommonTest.Beam | Image preparation 45→47/47 | Full module/API and application execution |
+| Erlang.Otp.Inets.Beam | Image preparation 61→63/63 | Full module/API and application execution |
+| Erlang.Otp.Mnesia.Beam | Image preparation 30→31/31 | Full module/API and application execution |
+| Erlang.Otp.Snmp.Beam | Image preparation 89→90/90 | Full module/API and application execution |
+| Erlang.Otp.Tftp.Beam | Image preparation 7→8/8 | Full module/API and application execution |
+
+Image preparation and finite observation profiles are not complete API compatibility. The default API ledger remains unchanged. The 8888-test readiness-generation preflight combines prior exact-head CI with current affected cases; it is not a final-head full-run receipt.
+
+## Historical Part482 total comparison frames
 
 | Area | Verified increment | Remaining |
 | --- | --- | --- |
