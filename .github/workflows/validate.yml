@@ -54,6 +54,10 @@ jobs:
             python -B tools/Validation/ContractReaudit487/collect-original.py --repository $PWD.Path --admission artifacts/library376-official-compiler/official-admission.json --fixture tests/Erlang.Tests/Resources/OperatorContract490 --subject $group.Subject --golden-prefix "$($group.Group)." --output "artifacts/contracts490/ci-original/$($group.Group)" --check-golden
             if ($LASTEXITCODE -ne 0) { $contractFailures += "Original operator acquisition failed: $($group.Group)" }
           }
+          foreach ($group in (Get-Content tests/Erlang.Tests/Resources/ArithmeticContract491/groups.json -Raw | ConvertFrom-Json)) {
+            python -B tools/Validation/ContractReaudit487/collect-original.py --repository $PWD.Path --admission artifacts/library376-official-compiler/official-admission.json --fixture tests/Erlang.Tests/Resources/ArithmeticContract491 --subject $group.Subject --golden-prefix "$($group.Group)." --output "artifacts/contracts491/ci-original/$($group.Group)" --check-golden
+            if ($LASTEXITCODE -ne 0) { $contractFailures += "Original arithmetic acquisition failed: $($group.Group)" }
+          }
           if ($contractFailures.Count -ne 0) { throw ($contractFailures -join '; ') }
       - shell: pwsh
         run: ./tools/validate.ps1 -TestRuntimeVersion 10.0.11
@@ -66,6 +70,7 @@ jobs:
             artifacts/contracts487/ci-original/**
             artifacts/contracts489/ci-original/**
             artifacts/contracts490/ci-original/**
+            artifacts/contracts491/ci-original/**
             artifacts/library485/permanent/**
             artifacts/library485/catalog/**/results/**
             artifacts/library485/catalog/**/native/compile*.txt

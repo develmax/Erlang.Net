@@ -494,6 +494,15 @@ public static class CoreModules
                 return new FloatTerm(numerator / denominator);
             }
 
+            if (op == ErlangOperators.Plus && x.Value.IsZero
+                || op == ErlangOperators.Multiply && x.Value.IsOne)
+                return b;
+
+            if ((op is ErlangOperators.Plus or ErlangOperators.Minus) && y.Value.IsZero
+                || op == ErlangOperators.Multiply && y.Value.IsOne
+                || op == ErlangOperators.Remainder && BigInteger.Abs(x.Value) < BigInteger.Abs(y.Value))
+                return a;
+
             return op switch
             {
                 ErlangOperators.Plus => new Integer(x.Value + y.Value),

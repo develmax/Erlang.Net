@@ -1,0 +1,769 @@
+PASS oracle/compiled-module/ets-source-queries414-all144-full-typed-raw
+PASS oracle/compiled-module/collectors-ordinary415-all36-full-typed-raw
+PASS oracle/compiled-module/internal-ports416-statuses-and-undef174-full-typed-raw
+PASS runtime/internal-ports416/atomic-registration-and-foreign-actor-refusal
+FAIL runtime/internal-ports416/real-open-command-connect-info-close-and-child-exit: System.InvalidCastException: Unable to cast object of type 'Erlang.Atom' to type 'Erlang.PortTerm'.
+   at Erlang.Tests.InternalPorts416Checks.<>c__DisplayClass2_0.<<Live>b__4>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Runtime\Native\Drivers\InternalPorts416Checks.cs:line 93
+--- End of stack trace from previous location ---
+   at Erlang.Tests.RuntimeNodeFoundationHostActor.<>c__DisplayClass9_0`1.<<InvokeAsync>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Runtime\Execution\RuntimeNodeFoundationHostActor.cs:line 43
+--- End of stack trace from previous location ---
+   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func`2 command) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Runtime\Execution\RuntimeNodeFoundationHostActor.cs:line 51
+   at Erlang.Tests.InternalPorts416Checks.Live() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Runtime\Native\Drivers\InternalPorts416Checks.cs:line 93
+   at Erlang.Tests.InternalPorts416Checks.Live() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Runtime\Native\Drivers\InternalPorts416Checks.cs:line 182
+   at Erlang.Tests.InternalPorts416Checks.Live() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Runtime\Native\Drivers\InternalPorts416Checks.cs:line 182
+   at Erlang.Tests.InternalPorts416Checks.Live() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Runtime\Native\Drivers\InternalPorts416Checks.cs:line 182
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 6893
+FAIL HOST/internal-ports416/bad-flags-before-real-blocked-command-queue: System.AggregateException: One or more errors occurred. (Unable to cast object of type 'Erlang.Atom' to type 'Erlang.TupleTerm'.)
+ ---> System.InvalidCastException: Unable to cast object of type 'Erlang.Atom' to type 'Erlang.TupleTerm'.
+   at Erlang.Tests.InternalPortOrder416Checks.<>c__DisplayClass6_2.<<Run>b__1>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Runtime\Native\Drivers\InternalPortOrder416Checks.cs:line 80
+--- End of stack trace from previous location ---
+   at Erlang.Tests.RuntimeNodeFoundationHostActor.<>c__DisplayClass9_0`1.<<InvokeAsync>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Runtime\Execution\RuntimeNodeFoundationHostActor.cs:line 43
+--- End of stack trace from previous location ---
+   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func`2 command) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Runtime\Execution\RuntimeNodeFoundationHostActor.cs:line 51
+   at Erlang.Tests.InternalPortOrder416Checks.Run(Boolean connect) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Runtime\Native\Drivers\InternalPortOrder416Checks.cs:line 49
+   --- End of inner exception stack trace ---
+   at Erlang.Tests.InternalPortOrder416Checks.Run(Boolean connect) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Runtime\Native\Drivers\InternalPortOrder416Checks.cs:line 237
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 6893
+FAIL HOST/internal-ports416/connect-after-real-queued-close-and-invalid-target-order: System.AggregateException: One or more errors occurred. (Unable to cast object of type 'Erlang.Atom' to type 'Erlang.TupleTerm'.)
+ ---> System.InvalidCastException: Unable to cast object of type 'Erlang.Atom' to type 'Erlang.TupleTerm'.
+   at Erlang.Tests.InternalPortOrder416Checks.<>c__DisplayClass6_2.<<Run>b__1>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Runtime\Native\Drivers\InternalPortOrder416Checks.cs:line 80
+--- End of stack trace from previous location ---
+   at Erlang.Tests.RuntimeNodeFoundationHostActor.<>c__DisplayClass9_0`1.<<InvokeAsync>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Runtime\Execution\RuntimeNodeFoundationHostActor.cs:line 43
+--- End of stack trace from previous location ---
+   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func`2 command) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Runtime\Execution\RuntimeNodeFoundationHostActor.cs:line 51
+   at Erlang.Tests.InternalPortOrder416Checks.Run(Boolean connect) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Runtime\Native\Drivers\InternalPortOrder416Checks.cs:line 49
+   --- End of inner exception stack trace ---
+   at Erlang.Tests.InternalPortOrder416Checks.Run(Boolean connect) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Runtime\Native\Drivers\InternalPortOrder416Checks.cs:line 237
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 6893
+PASS runtime/ets-traversal416/ordered-eight-native-numeric-gaps-and-end-sentinel
+PASS runtime/ets-traversal416/real-hash-key-groups-lookup-and-source-aliases
+PASS runtime/ets-traversal416/private-read-refusal-and-detached-returned-rows
+PASS runtime/ets-traversal416/foreign-conflict-rollback-default-unchanged
+PASS oracle/compiled-module/ets-source-traversal416-all300-full-typed-raw
+PASS oracle/compiled-module/apply-tail416-native-canonical84-full-typed-raw
+PASS HOST/apply-last416/actual-registry-error-replacements-may-return-sync-and-async
+PASS oracle/compiled-module/dynamic-apply477-whole-values-and-stacks
+PASS compiler/dynamic-apply477-selected-host-bindings
+PASS oracle/compiled-module/float-store479-original-fgraph-whole-values-and-stacks
+PASS oracle/compiled-module/closed-wait480-closure-record-whole-values-and-stacks
+PASS compiler/closed-wait480/original-debugger-image-publication
+PASS oracle/compiled-module/frame481-context-forwarding-whole-values-and-stacks
+PASS oracle/compiled-module/frame481-record-throw-whole-values-effects-and-stacks
+PASS oracle/compiled-module/frame481-original-ssl-extensions-whole-values-and-stacks
+PASS compiler/frame481/original-ssl-and-leex-publication
+PASS oracle/compiled-module/comparison482-eight-bifs-whole-values-and-stacks
+PASS oracle/compiled-module/comparison482-original-crashdump-whole-values-and-stacks
+PASS compiler/comparison482/original-crashdump-image-publication
+PASS runtime/beam/receive484/length-plus-whole-mailbox
+PASS runtime/native/regex485/binary-captures-whole-176
+PASS compiler/receive484/original-megaco-image
+PASS runtime/beam/receive484/cooperative-progress
+PASS runtime/beam/receive484/cooperative-cancel
+PASS runtime/beam/receive484/cooperative-priority
+PASS runtime/beam/receive484/cooperative-removal
+PASS runtime/beam/receive484/cooperative-suspend
+PASS oracle/compiled-module/receive483-binary-and-function-guards-whole-mailbox
+PASS compiler/receive483/uninitialized-binary-subject-refused
+PASS compiler/receive483/uninitialized-function-arity-refused
+PASS compiler/receive483/unsupported-function-arity-role-refused
+PASS compiler/receive483/foreign-receive-branch-refused
+PASS compiler/receive483/original-image/ct_ssh
+PASS compiler/receive483/original-image/test_server_node
+PASS compiler/receive483/original-image/mod_cgi
+PASS compiler/receive483/original-image/mod_esi
+PASS compiler/receive483/original-image/mnesia_loader
+PASS compiler/receive483/original-image/snmpm_server
+PASS compiler/receive483/original-image/tftp_engine
+PASS compiler/comparison482/uninitialized-operand-refused
+PASS compiler/comparison482/opaque-operand-refused
+PASS compiler/comparison482/uninitialized-gc-roots-refused
+PASS compiler/comparison482/failable-bif-roots-refused
+PASS compiler/comparison482/out-of-range-destination-refused
+PASS compiler/frame481/nil-atom-context-forwarding-resume-and-nofail
+PASS compiler/frame481/context-forgery-overwrite-position-and-cycle-refused
+PASS compiler/frame481/finite-swap-before-caught-exit
+PASS compiler/frame481/swap-return-uninitialized-and-unknown-tail-refused
+PASS compiler/closed-wait480/tuple-dispatch-caught-exit
+PASS compiler/closed-wait480/returning-dispatch-arm-refused
+PASS compiler/closed-wait480/foreign-dispatch-label-refused
+PASS compiler/closed-wait480/uninitialized-frame-root-refused
+PASS compiler/closed-wait480/unknown-tail-refused
+PASS compiler/float-store479/fills-frame-before-gc
+PASS compiler/float-store479/trim-discards-unused-slot
+PASS compiler/float-store479/gc-requires-initialized-roots
+PASS compiler/float-store479/uninitialized-y-read-refused
+PASS compiler/float-store479/uninitialized-float-refused
+PASS compiler/float-store479/destination-bounds-refused
+PASS compiler/float-store479/handler-overwrite-refused
+PASS HOST/library417/ets-counter-big-threshold-repetition-and-default
+PASS HOST/library417/ets-counter-concurrent-isolated-updates-and-rollback
+PASS HOST/library417/ets-counter-idempotent-owner-conflict-and-foreign
+PASS oracle/compiled-module/ets-source-counters417-all288-full-typed-raw
+PASS oracle/compiled-module/ddll-error416-windows264-full-typed-raw
+PASS runtime/ddll-error416/atomic-owner-platform-and-foreign-actor
+PASS oracle/compiled-module/ets-source-mutations414-all252-full-typed-raw
+PASS runtime/ets-mutations414/five-native-bodies-four-kinds-and-rollback
+PASS runtime/ets-mutations414/atomic-insert-new-and-take-single-winners
+PASS runtime/ets-mutations414/concurrent-update-fields-without-lost-writes
+PASS runtime/ets-mutations414/real-held-read-leases-survive-detach-and-retire
+PASS runtime/ets-mutations414/nonowner-write-refusal-for-all-five-signatures
+PASS runtime/ets-mutations414/foreign-conflict-rollback-and-default-provider-unchanged
+PASS runtime/ets-queries414/four-kinds-real-query-values
+PASS runtime/ets-queries414/reverse-before-mutable-guard-and-no-live-storage-lease
+PASS runtime/ets-queries414/read-access-and-invalid-specification-preserve-storage
+PASS runtime/ets-queries414/foreign-conflict-atomic-rollback-default-unchanged
+PASS HOST clock413 native defaults performance scale and negative conversion
+PASS runtime/atomics413/original-whole7-admission-and-owned-values
+PASS runtime/atomics413/interlocked-concurrent-distinct-tickets
+PASS runtime/atomics413/creator-death-canonical-reference-and-foreign-domain
+PASS runtime/atomics413/close-joins-real-invocation-and-array-leases
+PASS runtime/atomics413/constructor-rollback-registration-conflict-and-transaction
+PASS runtime/atomics413/gc-drops-guest-root-without-runtime-term-retention
+PASS runtime/library413/original-re8-inspect-internal-run-import-full-outcomes
+PASS runtime/library453/original-re-unicode-traps-full-outcomes
+PASS runtime/library454/original-tuple-size-selective-receive
+PASS runtime/distribution457/native-raw-input-and-output-wake-boundaries
+PASS runtime/distribution458/node-monitor-counts-cancellation-and-retired-generation
+PASS runtime/distribution459/node-monitor-owner-admission-counts-and-generations
+PASS runtime/distribution460/node-monitor-automatic-pending-kernel-request-and-abort
+PASS runtime/distribution458/source-monitor-wire-options-and-disconnect-order
+PASS runtime/library455/independent-driver-turn-uses-free-normal-lane
+PASS runtime/library455/native-external-term-keeps-own-local-reference
+PASS runtime/library455/native-own-identities-preserve-foreign-occurrences
+PASS runtime/library453/unicode-traps-refuse-missing-and-nonbeam-owners
+PASS runtime/library453/unicode-trap-active-conversion-cancel-and-close
+2026-10-26 01:00:40.804725 
+    args: [crypto,{badarg,[{erlang,system_info,[build_type],[{error_info,#{module=>erl_erts_errors}}]},{crypto,on_load,0,[{file,"crypto.erl"},{line,4446}]},{code_server,'-schedule_on_load/4-fun-0-',1,[{file,"code_server.erl"},{line,1392}]}]},10]
+    label: {error_logger,warning_msg}
+    format: "The on_load function for module ~s returned:~n~P\n"
+=WARNING REPORT==== 26-Oct-2026::01:00:40.804725 ===
+The on_load function for module crypto returned:
+{badarg,[{erlang,system_info,[build_type],[{error_info,...}]},
+         {crypto,on_load,0,[{...}|...]},
+         {code_server,'-schedule_on_load/4-fun-0-',1,[...]}]}
+
+PASS runtime/library453/original-named-kernel-no-listener-full-outcomes
+PASS runtime/library453/bootstrap-filesystem-refuses-substitute-bindings
+PASS runtime/library413/original-internal-four-whole-values-and-stacks
+PASS HOST internal413 fast integer result atoms byte narrowing and remainder
+PASS HOST internal413 private capture owner clock units and no publication
+PASS runtime/ets-delete412/guard-outside-gate-keeps-unrelated-insert
+PASS runtime/ets-delete412/guard-replaced-row-identity-survives
+PASS oracle/compiled-module/ets-source-deletion412-all72-full-typed-raw
+PASS runtime/ets-deletion412/real-four-kind-storage-and-counts
+PASS runtime/ets-deletion412/invalid-specification-keeps-live-rows
+PASS runtime/ets-deletion412/nonowner-write-refusal-keeps-both-table-kinds
+PASS runtime/ets-deletion412/foreign-registry-and-atomic-conflict-refusal
+PASS runtime/beam/bootstrap-scheduler412/original-whole72-strict-worker
+PASS runtime/bootstrap-scheduler412/optional-authentic-binding-and-refusal
+PASS runtime/bootstrap-scheduler412/actual-two-lane-wall-time-reset-and-disable
+PASS runtime/bootstrap-scheduler412/any-nontrue-term-disables-and-cancelled-caller
+PASS runtime/beam/system-logger412/original-whole72-strict-worker
+PASS runtime/system-logger412/atomic-oldvalue-and-per-runtime-state
+PASS runtime/system-logger412/dead-own-foreign-and-remote-pid
+PASS runtime/system-logger412/invalid-value-preserves-state-and-other-flags
+PASS runtime/beam/raise-empty412/original-whole36-strict-worker
+PASS runtime/beam/raise-empty412/changed-native-binding-refused-before-invocation
+PASS runtime/beam/raise-empty412/known-class-empty-trace-caught
+PASS runtime/beam/raise-empty412/class-trace-clobber-label-refused
+PASS runtime/beam/raise-empty412/ordinary-invalid-class-badarg-return
+PASS runtime/library412/real-re-core-original-whole-terms-and-stacks
+PASS runtime/re412/native-results-and-errors
+PASS runtime/re412/ownership-and-installation-rollback
+PASS runtime/re412/large-unicode-native-resumption
+PASS runtime/re412/concurrent-runs-and-held-capability
+PASS runtime/re412/active-actor-cancellation
+PASS runtime/re412/dispose-close
+PASS runtime/re412/halt-close
+PASS runtime/re412/initializer-close
+PASS runtime/beam/closed-wait412/original-whole36-strict-worker
+PASS runtime/beam/closed-wait412/original-inet-owned-publication
+PASS runtime/beam/closed-wait412/caught-wait-error-retains-rejected-message
+PASS runtime/beam/closed-wait412/mutual-tail-wait-component-admission
+PASS runtime/beam/closed-wait412/return-handler-unknown-tail-roots-still-refused
+PASS runtime/beam/native-provider411/original-whole36-explicit-source-loader
+PASS runtime/native-provider411/metadata-real-schema-native17-helper4
+PASS runtime/native-provider411/metadata-bif-errors-and-foreign-owner
+PASS runtime/native-provider411/metadata-idempotent-conflict-and-rollback
+PASS runtime/beam/writable-receive411/original-whole72-strict-worker
+PASS runtime/beam/writable-receive411/original-peer-owned-publication
+PASS runtime/beam/standalone-timeout411/literal-zero-y-and-active-handler
+PASS runtime/beam/standalone-timeout411/expired-x-uninitialized-y-and-opaque-refused
+PASS runtime/beam/writable-receive411/initialize-after-consume
+PASS runtime/beam/writable-receive411/initialize-before-scan-retained-alias
+PASS runtime/beam/writable-receive411/matcher-init-and-opaque-remain-refused
+PASS runtime/beam/delay-binary411/original-whole108-strict-worker
+PASS runtime/beam/delay-binary411/original-dist-util-owned-publication
+PASS runtime/beam/delay-binary411/disjoint-binary-and-finite-wait
+PASS runtime/beam/delay-binary411/opaque-x-y-context-position-refused
+PASS runtime/beam/delay-binary411/join-uninitialized-backedge-and-matcher-composition-still-refused
+PASS runtime/ets-match411/original-whole186-strict-native-provider
+PASS runtime/ets-match411/configured-binding-variables-ordered-logger-pattern
+PASS runtime/ets-match411/native-frame-table-access-and-invalid-map-key
+PASS runtime/ets-match411/copied-canonical-fun-after-table-retirement
+PASS runtime/ets-lookup-element411/original-whole252-strict-native-provider
+PASS runtime/message-queue411/original-whole126-strict-worker-policy
+PASS runtime/ets-lookup-element411/sets-bags-keypos-numeric-default
+PASS runtime/ets-lookup-element411/table-position-precedence-and-bag-short-row
+PASS runtime/ets-lookup-element411/detached-copy-after-table-retirement
+PASS runtime/ets-lookup-element411/host-zero-projection-representation-refusal
+PASS runtime/unicode-skip411/original-whole198-strict-worker-and-fileio-prepare
+PASS runtime/beam/unicode-skip411/no-destination-scalar-boundaries-offset
+PASS runtime/beam/unicode-skip411/invalid-atomic-position-and-registers
+PASS runtime/beam/unicode-skip411/roles-flags-no-context-escape
+PASS runtime/ets-concurrency411/original-whole234-strict-native-provider
+PASS HOST/ets-concurrency411/requested-option-metadata
+PASS HOST/ets-concurrency411/validation-order-and-held-policies
+PASS runtime/library441/ets-compressed-real-storage-and-mutations
+PASS runtime/library441/ets-compressed-read-lease-and-canceled-capture
+PASS runtime/library442/ets-compressed-authentic-fun-key-value-owned-census
+PASS runtime/library442/ets-compressed-source-roots-and-owner-resource-release
+PASS runtime/library442/ets-compressed-mid-encode-cancellation
+PASS runtime/library442/ets-compressed-mid-decode-cancellation
+PASS runtime/library442/ets-compressed-foreign-owner-atomic-refusal
+PASS oracle/compiled-module/ets442-compressed-mutations324-values-stacks-and-own-cursors
+PASS runtime/ports442/unreadable-file-reader-cancellation-and-open-fault-control
+PASS HOST/ets-concurrency411/actual-public-parallel-roundtrip
+PASS runtime/original-code-server410/interactive-empty-73-whole
+PASS runtime/original-code-server410/interactive-app-73-whole
+PASS HOST/loader410/source-declared-dependency-inherits-and-publishes
+PASS HOST/loader410/undeclared-pure-import-refuses
+PASS HOST/loader410/host-native-image-cannot-lend-declarations
+PASS HOST/loader410/foreign-registry-source-cannot-lend-declarations
+PASS HOST/loader410/ended-source-lease-cannot-lend-declarations
+PASS HOST/loader410/nearest-empty-source-shadows-broader-outer
+PASS runtime/otp-bootstrap410/preflight-and-cancelled-original-boot-cleanup
+PASS HOST/beam410/original-prim-file-exact33-nif-declarations
+PASS HOST/beam410/raw-nif-marker-eligibility-and-entry
+PASS HOST/bootstrap410/system-pid-foreign-wire-collision-and-old-creation
+PASS runtime/library410/windows-original-filename-helpers-whole-terms-and-stacks
+PASS runtime/otp-bootstrap410/original-init-loader-code-server-whole61
+PASS HOST/message-queue411/flags-and-queued-message-preservation
+PASS HOST/message-queue411/actual-child-first-instruction-and-request
+PASS HOST/message-queue411/invalid-immediate-and-remote-parser
+PASS HOST/library411/original-code-seven-interpreter-capability-profile
+PASS HOST/library413/real-original-debugger-disabled-thirteen-owner-lifecycle
+PASS HOST/library413/collectors-real-image-private-native-authority
+PASS HOST/library415/collector-prestart-death-releases-source-role
+PASS HOST/library413/collectors-real-designated-source-ordered-ack
+PASS HOST/library413/collectors-pending-roots-dispose-settlement
+PASS HOST/library416/persistent-authoritative-arena-all-term-values
+PASS HOST/library416/persistent-active-extents-exclude-real-read-leases
+PASS HOST/library416/persistent-arena-failed-stage-owner-and-cancel
+PASS HOST/library416/persistent-native-payload-does-not-retain-source-graph
+PASS HOST/library416/persistent-native-table-two-actor-put-new
+PASS HOST/library416/persistent-native-source-wrap-clone-grow-shrink
+PASS HOST/library416/persistent-native-external-pid-key-epoch-gc
+PASS HOST/library416/persistent-native-external-port-key-epoch-gc
+PASS HOST/library416/persistent-native-external-reference-key-epoch-gc
+PASS HOST/library416/persistent-native-external-root-real-creation-reuse
+PASS HOST/persistent-native417/original-seven-source-image-info-arena
+PASS HOST/persistent-native417/info-real-owner-cancel-and-closed
+PASS HOST/persistent-native417/halt-joins-held-native-reader
+PASS HOST/persistent-native417/initializer-down-joins-held-native-reader
+PASS HOST/persistent-native417/owner-worker-does-not-retain-first-handler-arguments
+PASS HOST/beamfile418/raw-iff-not-linker-duplicate-and-subrange
+PASS HOST/beamfile418/raw-iff-malformed-and-full-native-arguments
+PASS HOST/beamfile418/raw-iff-real-owner-cancel-and-closed
+PASS oracle/compiled-module/counters421-all192-full-typed-raw
+PASS HOST/counters421/owned-native-values-validation-and-foreign-kind
+PASS HOST/counters421/unused-owner-initializer-death-closes-admission-before-disposed
+PASS HOST/counters421/real-lane-add-and-base-put
+PASS HOST/counters421/actual-gc-retires-unreachable-native-array
+PASS HOST/counters421/all-three-shutdown-paths-join-real-leases
+PASS runtime/ets-replace420/native-binding-rollback
+PASS runtime/ets-replace420/key-proof-atomic-refusal
+PASS runtime/ets-replace420/mutable-guard-detached-generation-commit
+PASS oracle/compiled-module/ets-source-replace420-all180-full-typed-raw
+PASS runtime/ets-inspection420/authentic-native4-rollback
+PASS runtime/ets-inspection420/live-process-superuser-domain
+PASS runtime/ets-inspection420/actual-fixed-dead-key-inspection
+PASS runtime/ets-info420/native-binding-capability-rollback
+PASS runtime/ets-info420/owned-dag-growth-and-fixation-retirement
+PASS runtime/ets-info420/exact-owned-census-dedup-boundaries
+PASS oracle/compiled-module/ets-source-info422-all216-full-typed-raw
+PASS oracle/compiled-module/internal-dirty-query423-all72-full-typed-raw
+PASS runtime/internal-check-own-code423-binding-owner-cancel
+PASS runtime/internal-check-own-code423-real-old-source-continuation
+PASS runtime/internal-check-own-code423-exit-releases-real-source-ownership
+PASS oracle/compiled-module/internal-check-process-code424-all78-full-typed-raw
+PASS runtime/internal-is-alive425-binding-ref-validation
+PASS runtime/internal-is-alive425-pending-signal-death-order
+PASS oracle/compiled-module/internal-is-alive425-all60-own4-full-typed-raw
+Process: <nonode@nohost.2.0>
+PASS host/internal-process425-real-ack-refs-state
+PASS host/internal-process425-real-suspend-owner-ack
+PASS host/internal-process425-owner-monitor-session-guards
+Process: <nonode@nohost.8.0>
+Current function: beam_internal_process425:probe/1
+Called from: beam_internal_process425:child/3
+Process: <nonode@nohost.10.0>
+Current function: beam_internal_process425:held/0
+Process: <nonode@nohost.37.0>
+Current function: beam_internal_process425:probe/1
+Called from: beam_internal_process425:child/3
+Process: <nonode@nohost.39.0>
+Current function: beam_internal_process425:held/0
+Process: <nonode@nohost.66.0>
+Current function: beam_internal_process425:probe/1
+Called from: beam_internal_process425:child/3
+Process: <nonode@nohost.68.0>
+Current function: beam_internal_process425:held/0
+Process: <nonode@nohost.95.0>
+Current function: beam_internal_process425:probe/1
+Called from: beam_internal_process425:child/3
+Process: <nonode@nohost.97.0>
+Current function: beam_internal_process425:held/0
+Process: <nonode@nohost.124.0>
+Current function: beam_internal_process425:probe/1
+Called from: beam_internal_process425:child/3
+Process: <nonode@nohost.126.0>
+Current function: beam_internal_process425:held/0
+Process: <nonode@nohost.153.0>
+Current function: beam_internal_process425:probe/1
+Called from: beam_internal_process425:child/3
+Process: <nonode@nohost.155.0>
+Current function: beam_internal_process425:held/0
+PASS oracle/compiled-module/internal-process425-full150-typed-raw
+PASS host/internal-process425-queued-target-kill-exact-ack-lifetime
+PASS oracle/compiled-module/internal-trace427-all126-full-source-facet7-full-typed-raw
+PASS host/mailbox427-published-halt-before-completed-control-return
+PASS runtime/export431-real-global-owner-literal-dynamic-and-copied-fun
+PASS HOST/code-purger432-authentic-role-order-and-window
+PASS HOST/code-purger432-real-prepare-abort-fun-fence
+PASS HOST/code-purger432-rejected-on-load-saved-old
+PASS HOST/code-purger432-owner-death-before-down
+PASS HOST/code-purger432-dispose-halt-initializer-pending-session
+PASS oracle/compiled-module/code-purger432-full72-typed-raw
+PASS oracle/compiled-module/erts-debug436-unique-state-all144-full-typed-raw
+PASS runtime/spawn-monitor431-no-negotiated-monitor-bits-real-child-and-node-down
+PASS runtime/spawn-monitor431-live-reply-demonitor-no-monitor-bits
+PASS runtime/spawn-monitor431-abandoned-real-reply-no-unsupported-demonitor
+PASS oracle/compiled-module/spawn-monitor431-all42-full-source-facet4-full-typed-raw
+PASS oracle/compiled-module/ets436-counter-hints192-whole-static-stacks-own-pid-proof
+PASS oracle/compiled-module/ets442-compressed156-whole-values-and-stacks
+PASS runtime/debug-unique436/real-counter-vm-isolation
+PASS runtime/debug-unique436/real-counter-concurrent-actors
+PASS oracle/compiled-module/dist-spawn430-all84-full-source-facet1-full-typed-raw
+PASS oracle/compiled-module/allocator-gather434-full96-typed-raw
+PASS runtime/allocator434/actual-nif-span-histogram-and-realloc
+PASS runtime/allocator434/actual-array-and-persistent-owned-carriers
+PASS runtime/allocator434/actual-aux-request-kill-physical-join
+PASS runtime/dist-channel429-actual-self-controller-magic-input-output
+PASS runtime/dist-channel429-real-cross-controller-pending-and-death
+PASS runtime/dist-channel429-real-generation-and-foreign-resource-refusal
+PASS runtime/dist-channel429-preserves-actual-distribution-entry-connected-handle
+PASS oracle/compiled-module/dist-channel429-all84-full-source-facet3-full-typed-raw
+PASS runtime/dist-spawn430-genuine-notalive-and-badopt-mailbox-protocol
+PASS runtime/dist-spawn430-actual-two-runtime-request-reply
+PASS runtime/dist-spawn430-pending-owner-frontier-and-registration-identity
+PASS runtime/dist-spawn430-real-busy-async-output-survives-caller-death
+PASS oracle/compiled-module/distribution-profile429-all48-full-source-facet1-full-typed-raw
+PASS runtime/debug432-real-dispatch-entry-pause-resume-kill-and-image-generation
+PASS oracle/compiled-module/debug432-breakpoint96-full-stacks-and-real-handler-profile
+PASS runtime/debug432-real-stopped-entry-dispose-halt-and-initializer-retirement
+PASS runtime/distribution-profile429-real-owner-literal-and-binding
+PASS runtime/distribution-profile429-actual-codec-feature-negotiation
+PASS runtime/distribution-profile429-original-dist-util-readers
+PASS runtime/hamt429-owned-index-cursor-lookup-and-child-identities
+PASS runtime/hamt429-real-map-gc-escaped-node-epoch-release
+PASS runtime/hamt429-concurrent-publication-held-read-runtime-close
+PASS runtime/actor-control428-real-running-exclusion-and-ready-queue
+PASS runtime/internal-system-task428-binding-role-and-default-preservation
+PASS runtime/internal-system-task428-real-priority-queues-no-early-reply
+PASS runtime/internal-system-task428-pending-false-before-down
+PASS runtime/internal-system-task428-real-source-handler-drains-physical-dirty-target
+PASS runtime/hamt430-real-native-children-census-is-map-and-same
+PASS runtime/hamt430-real-word-view-identity-type-protocol-and-errors
+PASS oracle/compiled-module/hamt430-native3-all258-raw-full-stacks-and-own4
+PASS host/internal-port-loader428-native-status-owner-and-mfa
+PASS host/internal-port-loader428-real-prepared-magicref-publish-close
+PASS HOST/internal-spawn429-status-and-owner
+PASS HOST/internal-spawn429-real-abandon-ack-and-child
+PASS HOST/internal-spawn429-real-linked-owner-death
+PASS oracle/compiled-module/internal-spawn429-full126-typed-raw
+PASS HOST/internal-text430-shared-budget-and-unchanged-display
+PASS HOST/internal-text430-real-native-error-owner-closed
+PASS HOST/internal-aux430-real-registered-participants-and-jobs
+PASS oracle/compiled-module/internal-text-aux430-strict174-own6
+PASS HOST/internal-system-check431-status-owner-source-helper
+PASS HOST/internal-system-check431-real-held-auxiliary-acks
+PASS HOST/internal-system-check431-real-caller-exit-ack-join
+PASS oracle/compiled-module/internal-system-check431-full60-typed-raw
+PASS oracle/compiled-module/system-tasks428-all144-full-source-facet5-full-typed-raw
+PASS oracle/compiled-module/export431-entire-three-row-matrix-raw-and-typed
+PASS runtime/internal-gc428-real-managed-collection-policy
+PASS runtime/internal-gc428-binding-validation-owner
+PASS oracle/compiled-module/internal-gc428-all36-full-source-facet1-full-typed-raw
+PASS host/internal-process-trace425-authenticated-monitor-boundary
+PASS runtime/internal-trace427-colliding-owner-and-dead-tracer
+PASS runtime/internal-trace427-first-validation-native-origin
+PASS runtime/internal-trace425-session-isolation-send-retirement
+PASS runtime/internal-trace425-session-call-return-fanout
+PASS runtime/internal-trace425-strong-weak-gc-close-ownership
+PASS HOST map keys426 actual stable node key identity and copied storage
+PASS HOST map keys426 native owner cancellation and registration
+PASS oracle/compiled-module/internal-map-keys426-all90-own3-full-typed-raw
+PASS oracle/compiled-module/debug-dirty424-all948-full-typed-raw
+PASS HOST debug dirty3 actual scheduler kinds and original error arguments
+PASS HOST debug dirty3 genuine independent heap copies and resource identity
+PASS HOST debug dirty3 CPU IO normal physical transition queues
+PASS HOST debug dirty3 actual send and ready done protocol
+PASS HOST debug dirty3 post-exit physical work and real big allocation
+PASS HOST debug dirty3 atomic registration owner and source gates
+PASS HOST debug sharing425 actual DAG keys and iterative flat shared traversal
+PASS HOST debug sharing425 genuine binary and magic resource ownership
+PASS HOST debug sharing425 fresh trusted external FUN and shared copies
+PASS HOST debug sharing425 genuine prepared literal and local FUN ownership
+PASS HOST debug sharing425 source owner admission and invalid flag metadata
+PASS oracle/compiled-module/debug-sharing425-all624-full-typed-raw
+PASS HOST debug code427 actual managed entry state-machine and code-owner profile
+PASS HOST debug code427 no-threaded branch ignores every value and owns native entries
+PASS oracle/compiled-module/debug-code427-all126-full-typed-raw
+PASS runtime/dist-decode423/explicit-private-cache-and-default-denial
+PASS runtime/dist-decode423/cached-node-pid-port-reference-real-epoch
+PASS runtime/dist-decode423/local-seed-identities-and-trailing-prefix
+PASS runtime/dist-decode423/native-owner-cancel-and-closed-guards
+PASS runtime/dist-decode423/actual-internal-atom-ordinals-and-concurrent-registration
+PASS serialization/local-function-independent-scalar-envelopes423
+PASS serialization/local-export-function-arity-envelope423
+PASS runtime/raw-beam-md5423-metadata-not-link-validation
+PASS runtime/raw-beam-md5423-opt-in-owner-cancellation
+PASS runtime/raw-beam-md5423-literal-own-atoms-and-deferred-factory
+PASS oracle/compiled-module/internal-beamfile-md5423-all48-full-typed-raw
+PASS oracle/compiled-module/internal-beamfile-md5423-all318-full-typed-raw
+PASS oracle/compiled-module/debug-dist-decode423-all228-full-typed-raw
+PASS runtime/dirty-query423/actual-cpu-running-queued-and-settled
+PASS runtime/dirty-query423/actual-io-running-queued-and-settled
+PASS runtime/dirty-query423/native-owner-binding-and-live-dead-pid
+PASS runtime/ets-cursor420/raw-end-budget-boundary
+PASS HOST/library420/ets-cursor8-native-binding-rollback-and-alias-end
+PASS HOST/library420/ets-cursor-real-tree8-resource-bounds-and-raw-protocol
+PASS HOST/library420/ets-cursor-real-hash6-7-buffer-and-raw-zero
+PASS HOST/library420/ets-cursor-snapshot-leases-released-before-mutable-guard
+PASS oracle/compiled-module/ets-source-cursors420-all246-full-typed-raw
+PASS oracle/compiled-module/ets-table-matchspec-leaf420-all96-full-typed-raw
+PASS HOST/library420/ets-index-native-fixation-slot-binding-rollback
+PASS HOST/library420/ets-index-authoritative-buckets-growth-freeze-and-key-lookup
+PASS HOST/library420/ets-index-real-one-payload-tombstone-nested-fixation
+PASS HOST/library420/ets-index-fixer-death-and-fixed-table-retirement
+PASS HOST/library420/ets-index-key-mutation-published-owner-consistency
+PASS oracle/compiled-module/ets-source-index420-all120-full-typed-raw
+PASS HOST/library420/ets-all-native-binding-authentic-idempotent-rollback
+PASS HOST/library420/ets-all-created-lane-directory-rename-transfer-and-delete
+PASS HOST/library420/ets-all-real-auxiliary-offline-lanes-and-wall-time
+PASS HOST/library420/ets-all-owned-request-close-joins-blocked-admission
+PASS oracle/compiled-module/ets-source-all420-all48-full-typed-raw
+PASS HOST dirty native physical CPU/IO lanes and truthful counts
+PASS HOST queued dirty native cancellation skips body
+PASS HOST actual Dispose joins held dirty native work
+PASS HOST idle dirty native workers release invocation arguments and EC
+PASS HOST Halt and initializer death join real held dirty work
+PASS HOST actual source lcnt_clear/collect join occupied CPU queue
+PASS HOST debug logger rejects stopping/retiring recipients and resets dead explicit target
+PASS HOST internal debug2 real source owner and option partitions
+PASS HOST internal debug2 foreign/canceled/closed owner
+PASS HOST internal debug enable emits complete actual logger message
+PASS oracle/compiled-module/erts-debug419-internal-state-all114-full-typed-raw
+PASS HOST same actual source word identity and boxed alias distinction
+PASS HOST same source owner foreign/canceled/closed and full identifier domains
+PASS oracle/compiled-module/erts-debug419-word-identity-all144-full-typed-raw
+PASS HOST unaligned actual shifted reference backing and visible bits
+PASS HOST unaligned owner cancellation closed and argument refusal
+PASS oracle/compiled-module/erts-debug419-unaligned-all186-full-typed-raw
+PASS HOST/erts-debug419/no-lock-counting-real-source4-and-fullargs
+PASS HOST/erts-debug419/no-lock-counting-owner-cancel-close
+PASS oracle/compiled-module/erts-debug419-no-lock-counting-all78-full-typed-raw
+PASS oracle/compiled-module/ets-compiled419-252-full-typed-raw
+PASS oracle/compiled-module/ets-compiled419-24-whole-own-resource-protocol
+PASS HOST/internal-owner419/reset-keeps-real-reader-and-allows-new-publication
+PASS HOST/internal-owner419/raw-cursor-enumerates-actual-owned-slots
+PASS oracle/compiled-module/internal-owner419-all90-full-typed-raw
+PASS oracle/compiled-module/ets-source-new-heir419-all120-full-typed-raw
+PASS HOST/library419/ets-new-heir-last-wins-data-no-message-and-none
+PASS HOST/library419/ets-new-heir-validation-and-collision-release-staged-gift
+PASS HOST/ets-compiled419/authentic-resource-run-and-registry-rollback
+PASS HOST/ets-compiled419/native-guards-independent-of-host-overrides
+PASS HOST/ets-compiled419/residual-native-arguments-after4000-trap
+PASS HOST/ets-compiled419/foreign-canceled-closed-resource-authority
+PASS HOST/ets-compiled419/real-program-literal-roots-retire-on-close
+PASS HOST/library419/ets-heir-data-before-down-and-no-message-branch
+PASS HOST/library419/ets-transfer-prepared-before-owner-and-atomic-admission
+PASS HOST/library419/ets-dead-heir-generation-pending-name-reuse
+PASS HOST/library419/ets-setopts-validation-owner-protection-and-detached-gift
+PASS HOST/library419/ets-transfer-queue-monitor-order-and-recipient-death-fence
+PASS HOST/library419/ets-heir-gift-held-reader-clear-and-runtime-close
+PASS HOST/library419/ets-prepared-transfer-before-deferred-admission-monitor-order
+PASS oracle/compiled-module/ets-source-heir419-all192-full-typed-raw
+PASS HOST/library418/ets-rename-identity-collision-name-reuse-cleanup
+PASS HOST/library418/ets-rename-public-borrower-and-protected-private-refusal
+PASS HOST/library418/ets-rename-reuses-real-pending-owner-retirement-name
+PASS HOST/library418/ets-rename-own-native-binding-idempotence-conflicts
+PASS oracle/compiled-module/ets-source-rename418-all120-full-typed-raw
+PASS oracle/compiled-module/erts-internal-chunk418-all270-full-typed-raw
+PASS runtime/library413/original-debugger-default-disabled-thirteen-whole-terms
+PASS HOST/library411/explicit-order-mixed-source-imports
+PASS HOST/library411/exact-order-default-and-import-refusals
+PASS HOST/library411/pre-canceled-factory
+PASS HOST/library411/actual-held-callback-cancel-dispose
+PASS HOST/prim-file410/encoding-native-owner-routing
+PASS HOST/prim-file410/raw-word-and-filename-validation
+PASS HOST/prim-file410/source-composition-not-general-nfc
+PASS HOST/prim-file410/windows-native-files-and-validation
+PASS runtime/native-provider408/default-unchanged
+PASS runtime/native-provider408/configured-native-fourteen
+PASS runtime/native-provider408/invalid-and-foreign-selection
+PASS runtime/native-provider408/source-owner-refusal
+PASS runtime/native-provider408/idempotent-and-displaced-binding
+PASS runtime/native-provider408/outer-transaction-rollback
+PASS runtime/native-provider408/original-seven-stub-refused
+PASS runtime/native-provider408/process-and-runtime-lifecycle
+PASS runtime/native-provider408/strict-factory-and-cancellation
+PASS runtime/native-provider408/selected-original-manifest-consumer
+PASS runtime/library409/isolated-ets-select-original-whole-terms-and-stacks
+PASS HOST/ets-select409/general-match-program
+PASS HOST/ets-select409/native-errors-access-precedence
+PASS HOST/ets-select409/detached-function-after-delete
+PASS HOST/persistent-term408/actual-runtime-lifecycle-and-held-reader
+PASS runtime/library407/isolated-ets-kernel-original-whole-terms-and-stacks
+PASS HOST/persistent-term408/exact-values-and-owned-copy
+PASS HOST/persistent-term408/process-independent-and-atomic-new
+PASS HOST/persistent-term408/retired-read-lease-and-close
+PASS runtime/library407/fun-entry-load-purge-without-construction-history
+PASS runtime/library407/fun-entry-prepare-and-publication-preflight-boundaries
+PASS runtime/library407/fun-entry-publication-safe-external-lock-order
+PASS HOST/ets-key407/code-server-default-vectors
+PASS HOST/ets-key407/four-families-atomic-batch
+PASS HOST/ets-key407/protection-public-delete
+PASS runtime/library407/original-functions-whole-terms-and-stacks
+PASS runtime/library407/source-and-external-function-storage
+PASS runtime/library407/restored-function-storage-no-sdk-callback-on-read
+PASS runtime/library407/original-beam-restored-fun-entry-and-purge
+PASS HOST/ets-retirement407/owner-down-after-owned-drain
+PASS HOST/ets-retirement407/async-public-delete-name-generation
+PASS HOST/ets-retirement407/sparse-rows-and-held-reader
+PASS HOST/ets-retirement407/dispose-halt-initializer-drain
+PASS runtime/library406/beam-fun-detached-env-resource-and-authenticity
+PASS runtime/library406/beam-fun-stored-original-image-purge-entry
+PASS HOST/ets-owned-array406/last-read-lease-roots
+PASS HOST/ets-owned-array406/copy-out-root-survives-payload
+PASS runtime/library405/owned-storage-detached-graph-and-rollback
+PASS runtime/library405/owned-storage-table-identity-and-owner-death
+PASS runtime/library405/owned-storage-resource-retention-and-read-lease
+PASS runtime/library405/owned-storage-cancellation-close-and-halt
+PASS runtime/library404/original-printable-range-default-whole-terms
+PASS runtime/library404/original-printable-range-latin1-whole-terms
+PASS runtime/library404/original-printable-range-unicode-whole-terms
+PASS runtime/library404/io-printable-range-startup-and-source-owner
+PASS host_identifier403_imported_pid_lifetime
+PASS host_identifier403_imported_port_lifetime
+PASS host_identifier403_imported_reference_lifetime
+PASS host_identifier403_nested_fun_environment_lifetime
+PASS host_identifier403_local_foreign_closed_roots
+PASS host_identifier403_concurrent_identity_and_import_churn
+PASS host_original403_identifier_pid_six_whole_outcomes
+PASS host_original403_identifier_port_six_whole_outcomes
+PASS host_original403_identifier_reference_six_whole_outcomes
+PASS host_original403_identifier_fun_pid_six_whole_outcomes
+PASS host_original403_identifier_nested_fun_reference_six_whole_outcomes
+PASS HOST/map-hash404-scalar-repeated-epoch-identity
+PASS HOST/map-hash404-normal-order-nested-fun-discovery
+PASS HOST/map-hash404-local-foreign-snapshot-ownership
+PASS HOST/map-hash404-close-rejects-new-hash-releases-old-lease
+PASS HOST/map-hash404-weak-keys-identifier-only-churn
+PASS HOST/map-hash404-concurrent-scopes-exact-identity
+PASS HOST/map-hash404-held-noname-pid
+PASS HOST/map-hash404-held-noname-port
+PASS HOST/map-hash404-held-noname-reference
+PASS HOST/map-hash404-held-noname-fun-environment
+PASS HOST/identifier-observer-dispose-live-monitor-link
+PASS HOST/identifier-observer-init-death-live-monitor-link
+PASS HOST/identifier-observer-halt-live-callbacks
+PASS HOST/identifier-observer-close-resolve-publication-race
+PASS HOST/identifier-observer-unexpected-open-resolver-error
+PASS runtime/library402/original-distribution-core-portable-complete-outcomes
+PASS runtime/library402/original-connected-portable-and-same-vm-identity
+PASS runtime/library402/original-creation-reuse-semantic-and-owned-handle
+PASS host/distribution-entry-creation-fresh-lazy-budget
+PASS host/distribution-entry-creation-unsigned-started
+PASS host/distribution-entry-creation-retained-dormant-generation
+PASS host/distribution-entry-creation-closed-owner-releases-roots
+PASS host/distribution402-native-abort-pending-idle-stale-and-foreign
+PASS host/distribution402-native-creation-and-connected-abort
+PASS host/distribution402-native-abort-real-exiting-retains-entry
+PASS host/native-stub400-catalog-qualified-undefined-shape
+{"Role":"runtime/external-term-wide-shared-graph-bounded-work-and-domain-checks","Width":1048576,"AuxiliaryAllocatedBytes":1096,"BudgetBytes":1048576,"HostTraversalEvidenceOnly":true}
+PASS runtime/external-term-wide-shared-graph-bounded-work-and-domain-checks
+PASS runtime/library400/original-new-connection-native-whole-terms
+PASS host/new-connection400-native-pending-connected-exiting-and-capacity
+PASS runtime/library400/original-net-kernel-native-whole-terms
+PASS host/net-kernel400-original-primitive-owner-and-peer-flags
+PASS runtime/ports/open-error-source-lines399
+PASS runtime/ports/capture-error-source-wrapper399
+PASS runtime/library399/original-callback-whole-terms
+PASS runtime/library399/original-nested-whole-terms
+PASS runtime/mailbox/callback399/current-save-priority
+PASS runtime/mailbox/callback399/priority-source-repeats
+PASS runtime/mailbox/callback399/exception-nested-save
+PASS runtime/mailbox/callback399/cancellation-reset
+PASS runtime/mailbox/callback399/marker-priority
+PASS runtime/beam/callback399/shape-frame-opaque
+PASS runtime/mailbox/callback399/deferred-priority
+PASS runtime/mailbox/callback399/nested-current-consume
+PASS runtime/library398/original-sofs-relation-whole-terms
+PASS runtime/beam/tuple398/guarded-opcode-and-remote-override
+PASS runtime/beam/tuple398/unproved-mutation-label-root-refusals
+PASS runtime/beam/tuple398/warm-proof-actual-instruction-identity
+PASS runtime/library398/original-position-whole-terms
+PASS runtime/library398/original-receive-whole-terms
+PASS runtime/library398/original-warning-default-whole-terms
+PASS runtime/library398/original-warning-info-whole-terms
+PASS runtime/library398/original-warning-error-whole-terms
+PASS runtime/library398/original-warning-warning-whole-terms
+PASS runtime/beam/position398/proven-tail-after-position-overwrite
+PASS runtime/beam/position398/real-length-alignment-equality-refusals
+PASS runtime/beam/position398/source-reference-identity
+PASS runtime/beam/receive398/binary-fresh-rollback
+PASS runtime/beam/receive398/binary-opaque-source
+PASS runtime/beam/receive398/binary-pair-refusals
+PASS runtime/beam/receive398/binary-standalone-legacy-boundary
+PASS runtime/library398/warning-map-config-owner-lifetime
+PASS runtime/library399/original-os-windows31-whole-terms
+FAIL runtime/library399/original-port-windows6-whole-terms: System.InvalidOperationException: Original dependency-library full-term comparison failed
+   at Erlang.Tests.LibraryDependencyOriginalHostChecks.Require(Boolean value) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Compiler\Integration\LibraryDependencyOriginalHostChecks.cs:line 352
+   at Erlang.Tests.LibraryDependencyOriginalHostChecks.CheckRows(Term first, Term second, Int32 count) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Compiler\Integration\LibraryDependencyOriginalHostChecks.cs:line 146
+   at Erlang.Tests.LibraryDependencyOriginalHostChecks.<>c__DisplayClass40_1.<<Compare>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Compiler\Integration\LibraryDependencyOriginalHostChecks.cs:line 112
+--- End of stack trace from previous location ---
+   at Erlang.Tests.RuntimeNodeFoundationHostActor.<>c__DisplayClass9_0`1.<<InvokeAsync>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Runtime\Execution\RuntimeNodeFoundationHostActor.cs:line 43
+--- End of stack trace from previous location ---
+   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func`2 command) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Runtime\Execution\RuntimeNodeFoundationHostActor.cs:line 51
+   at Erlang.Tests.LibraryDependencyOriginalHostChecks.Compare(LibraryDependencyOriginalSuite suite) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Compiler\Integration\LibraryDependencyOriginalHostChecks.cs:line 100
+   at Erlang.Tests.LibraryDependencyOriginalHostChecks.Compare(LibraryDependencyOriginalSuite suite) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Compiler\Integration\LibraryDependencyOriginalHostChecks.cs:line 100
+   at Erlang.Tests.LibraryDependencyOriginalHostChecks.Compare(LibraryDependencyOriginalSuite suite) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Compiler\Integration\LibraryDependencyOriginalHostChecks.cs:line 100
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 6893
+PASS host/os399-clock-values
+PASS host/os399-utf16-codec
+PASS host/os399-owned-store-cancel-close
+PASS host/os399-tree-update-enumeration
+PASS host/os399-private-owner-boundary
+PASS host/os399-original-native-image-atomicity
+PASS runtime/library397/original-handler-whole-terms
+PASS runtime/library397/original-map-whole-terms
+PASS runtime/library397/original-context-whole-terms
+PASS runtime/beam/handler397/continuation-proof-admission
+PASS runtime/beam/handler397/actual-caught-runtime
+PASS runtime/beam/handler397/returning-override-cannot-forge-handler
+PASS runtime/beam/context397/optional-required-forwarding
+PASS runtime/beam/context397/opaque-entry-forwarding-refusals
+PASS runtime/beam/context412/expanded-tail-context-transport
+PASS runtime/beam/context412/expanded-tail-opaque-refusals
+PASS runtime/beam/opaque412/term-context-join-retains-both-paths
+PASS runtime/beam/opaque412/term-context-join-native-and-position-refused
+PASS runtime/beam/opaque412/variant-budget-fails-closed
+PASS runtime/prim-tty412/scoped-twenty-table-and-source-value-branches
+PASS runtime/prim-tty412/real-redirected-resource-foreign-and-closed-owner
+PASS runtime/prim-tty412/interruptible-invocation-joins-before-cancel-result
+PASS runtime/prim-tty412/actual-blocked-win32-pipe-read-cancel-and-join
+PASS runtime/beam/receive397/map-alias-rollback
+PASS runtime/beam/receive397/map-atomic-failure-opaque
+PASS runtime/beam/receive397/map-destination-refusals
+PASS runtime/library396/original-receive-whole-terms
+PASS runtime/library396/original-encoding-whole-terms
+PASS runtime/beam/pure-receive396/rejected-scratch-rollback-and-opaque-slots
+PASS runtime/beam/pure-receive396/pure-boundaries-callback-binary-still-refuse
+PASS runtime/library396/file-encoding-private-source-owner
+PASS runtime/library395/original-binary-whole-terms
+PASS runtime/library395/original-bif-whole-terms
+PASS runtime/library395/original-frame-whole-terms
+PASS runtime/beam/flags395/signed-little-partial-byte-offset3
+PASS runtime/beam/flags395/native-normalization-and-unknown-flags-refuse
+PASS runtime/beam/flags395/dynamic-float-and-single-round-half
+PASS runtime/library394/infallible-opcode-kernel-preserves-remote-overrides
+PASS runtime/library394/infallible-bif-preserves-gc-fallible-opaque-refusals
+PASS runtime/library395/frame-Admission
+PASS runtime/beam/literal-failure467/admission-controls
+PASS runtime/library395/frame-ActualBodyOverride
+PASS runtime/library394/original-math-whole-terms
+PASS runtime/library394/original-math-strict-startup-owner
+PASS runtime/math392/badarg-badarith-precedence-and-nearest-even
+PASS runtime/math392/signedzero-underflow-and-truncating-remainder
+PASS runtime/math392/system-crt-erf-erfc-real-bindings
+PASS runtime/library394/selection/ManagedRuntimeDependency
+PASS runtime/library394/selection/NativeBootstrapOwnership
+PASS runtime/library394/selection/ExplicitPureCycle
+PASS runtime/library394/selection/StrictMissingWrapperSelection
+PASS runtime/library394/selection/FactoryRefusals
+PASS runtime/library394/selection/BootstrapBodyMutation
+PASS runtime/library394/selection/ManagedWrapperUnbound
+PASS runtime/library394/selection/MissingCaptureAndExport
+PASS runtime/library394/selection/SourceOwnerAndOldGeneration
+PASS runtime/library394/selection/NativeSourceOwner
+PASS runtime/library394/selection/MissingSelectedMfa
+PASS runtime/library393/original-is-ne-fnegate-whole-terms
+PASS runtime/library393/original-float-string-whole-terms
+PASS runtime/beam/small393/numeric-inequality
+PASS runtime/beam/small393/selective-receive-numeric-inequality
+PASS runtime/beam/small393/negation-bits
+PASS runtime/beam/small393/negation-uninitialized
+PASS runtime/beam/small393/negation-stale-after-call
+PASS runtime/beam/small393/negation-fresh-after-call
+PASS runtime/beam/small393/negation-wrong-destination
+PASS runtime/beam/small393/inequality-uninitialized-y
+PASS runtime/beam/float-string392/float0-16-32-64-endian-and-negative-zero
+PASS runtime/beam/float-string392/nonfinite-truncated-size-and-flags-refuse
+PASS runtime/beam/float-string392/string-strt-offset-bounds-no-consume
+PASS runtime/library392/original-ordinary-metadata-whole-terms
+PASS runtime/library392/original-unicode-fields-whole-terms
+PASS runtime/library392/unicode-real-traversal-cancellation-settles
+PASS runtime/beam/unicode-fields392/scalar-boundaries-big-little
+PASS runtime/beam/unicode-fields392/independent-surrogate-bytes-offset3
+PASS runtime/beam/unicode-fields392/invalid-no-consume-no-write-and-flags
+PASS runtime/library392/original-catch-whole-terms
+PASS runtime/library392/original-bif3-whole-terms
+PASS runtime/library392/original-wide-whole-terms
+PASS runtime/library392/original-pretty-whole-terms
+PASS runtime/library392/original-unicode-whole-terms
+PASS runtime/library392/original-receive-whole-terms
+PASS runtime/library392/original-foreign-malformed-native-helper-whole-terms
+PASS runtime/library392/original-fixed-binary-whole-terms
+PASS runtime/beam/fixed-binary392/8192-byte-and-unaligned
+PASS runtime/beam/fixed-binary392/empty-bitstring-and-context-alias
+PASS runtime/beam/fixed-binary392/short-flags-unit-product-refusals
+PASS runtime/beam/pretty392/equal16-success-mismatch-and-short
+PASS runtime/beam/pretty392/equal16-at-bit-offset3
+PASS runtime/beam/pretty392/equal-width-value-kind-and-flags-refuse
+PASS runtime/beam/pretty392/equal64-private-plan-value-proof
+PASS runtime/beam/wide-integer392/unsigned128-values-and-context-noescape
+PASS runtime/beam/wide-integer392/unsigned128-offset3-and-unit2
+PASS runtime/beam/wide-integer392/short-input-preserves-destination-width-unit-flags-refuse
+PASS runtime/beam/tail392/unit1-no-spurious-position-edge
+PASS runtime/beam/tail392/unit2-equality-and-opaque-return-still-refuse
+PASS runtime/beam-catch/protocol-refusals
+PASS runtime/beam-catch/normal-exception-retained-trim
+PASS runtime/beam-receive/pure-node-range-queue-preserved
+PASS runtime/beam-receive/non-node-bif-matcher-refused
+PASS runtime/library391/original-construction-precedence-whole-values-and-stacks
+PASS runtime/beam/binary391/invalid-utf8-and-eof-consume-nothing
+PASS runtime/beam/binary391/unaligned-utf8-get-and-skip
+PASS runtime/beam/binary391/unsigned-integer-wide-and-zero
+PASS runtime/beam/binary391/skip-zero-negative-overflow-truncation
+PASS runtime/beam/binary391/units-flags-and-shapes-refuse
+PASS runtime/beam/binary391/new-field-opcodes-preserve-opaque-boundary
+PASS runtime/library391/original-binary-fields-whole-values-and-stacks
+PASS runtime/library391/original-gen-sys-whole-values-and-stacks
+PASS runtime/library391/original-proc-lib-whole-state-independent-terms
+PASS runtime/library391/original-proc-lib-owned-pid-complete-stack
+PASS runtime/beam/initialized-roots391/GcOnly
+PASS runtime/beam/initialized-roots391/TrimGc
+PASS runtime/beam/initialized-roots391/TransportEscape
+PASS runtime/beam/initialized-roots391/TupleEscape
+PASS runtime/beam/initialized-roots391/TrimEscape
+PASS runtime/beam/initialized-roots391/ReallocateUninitialized
+PASS runtime/beam/initialized-roots391/OverwriteThenRead
+PASS runtime/beam/line-location/missing-header-does-not-inherit-prior-function
+PASS runtime/beam/binary390/position-y-trim-roundtrip
+PASS runtime/beam/binary390/opaque-position-refuses-return-native-forgery
+PASS runtime/beam/binary390/resume-callee-rejects-ordinary-argument
+PASS runtime/beam/binary390/local-context-resume-transport
+PASS runtime/beam/binary390/match-unit-two-success-and-failure
+PASS runtime/beam/binary390/nofail-literal-binary-source

@@ -1,0 +1,70 @@
+{
+  "Partial": true,
+  "SelectedCount": 9,
+  "TotalCount": 8948,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/bif-contract491/add_identity",
+    "runtime/bif-contract491/divide_identity",
+    "runtime/bif-contract491/integer_and_identity",
+    "runtime/bif-contract491/integer_divide_identity",
+    "runtime/bif-contract491/integer_or_identity",
+    "runtime/bif-contract491/integer_xor_identity",
+    "runtime/bif-contract491/multiply_identity",
+    "runtime/bif-contract491/remainder_identity",
+    "runtime/bif-contract491/subtract_identity"
+  ],
+  "Passed": 5,
+  "Failed": 4,
+  "Tests": [
+    {
+      "Name": "runtime/bif-contract491/add_identity",
+      "Status": "Failed",
+      "Error": "System.IO.InvalidDataException: Original compiled ordsets corpus or backend ownership differs\r\nD:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\beam-contract-failures\\arithmetic_contract491_add_identity\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.\u003C\u003Ec__DisplayClass1_1.\u003C\u003CRunSubject\u003Eb__1\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 79\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.RunSubject(String observer, Func\u00602 read, Int32 valueCount, Int32 profileCount, Func\u00602 initialize) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 92\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.RunSubject(String observer, Func\u00602 read, Int32 valueCount, Int32 profileCount, Func\u00602 initialize) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 93\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 6893",
+      "Milliseconds": 458
+    },
+    {
+      "Name": "runtime/bif-contract491/subtract_identity",
+      "Status": "Failed",
+      "Error": "System.IO.InvalidDataException: Original compiled ordsets corpus or backend ownership differs\r\nD:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\beam-contract-failures\\arithmetic_contract491_subtract_identity\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.\u003C\u003Ec__DisplayClass1_1.\u003C\u003CRunSubject\u003Eb__1\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 79\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.RunSubject(String observer, Func\u00602 read, Int32 valueCount, Int32 profileCount, Func\u00602 initialize) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 92\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.RunSubject(String observer, Func\u00602 read, Int32 valueCount, Int32 profileCount, Func\u00602 initialize) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 93\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 6893",
+      "Milliseconds": 160
+    },
+    {
+      "Name": "runtime/bif-contract491/multiply_identity",
+      "Status": "Failed",
+      "Error": "System.IO.InvalidDataException: Original compiled ordsets corpus or backend ownership differs\r\nD:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\beam-contract-failures\\arithmetic_contract491_multiply_identity\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.\u003C\u003Ec__DisplayClass1_1.\u003C\u003CRunSubject\u003Eb__1\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 79\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.RunSubject(String observer, Func\u00602 read, Int32 valueCount, Int32 profileCount, Func\u00602 initialize) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 92\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.RunSubject(String observer, Func\u00602 read, Int32 valueCount, Int32 profileCount, Func\u00602 initialize) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 93\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 6893",
+      "Milliseconds": 145
+    },
+    {
+      "Name": "runtime/bif-contract491/divide_identity",
+      "Status": "Passed",
+      "Milliseconds": 163
+    },
+    {
+      "Name": "runtime/bif-contract491/integer_divide_identity",
+      "Status": "Passed",
+      "Milliseconds": 154
+    },
+    {
+      "Name": "runtime/bif-contract491/remainder_identity",
+      "Status": "Failed",
+      "Error": "System.IO.InvalidDataException: Original compiled ordsets corpus or backend ownership differs\r\nD:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\beam-contract-failures\\arithmetic_contract491_remainder_identity\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.\u003C\u003Ec__DisplayClass1_1.\u003C\u003CRunSubject\u003Eb__1\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 79\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.RunSubject(String observer, Func\u00602 read, Int32 valueCount, Int32 profileCount, Func\u00602 initialize) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 92\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.RunSubject(String observer, Func\u00602 read, Int32 valueCount, Int32 profileCount, Func\u00602 initialize) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 93\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 6893",
+      "Milliseconds": 153
+    },
+    {
+      "Name": "runtime/bif-contract491/integer_and_identity",
+      "Status": "Passed",
+      "Milliseconds": 152
+    },
+    {
+      "Name": "runtime/bif-contract491/integer_or_identity",
+      "Status": "Passed",
+      "Milliseconds": 172
+    },
+    {
+      "Name": "runtime/bif-contract491/integer_xor_identity",
+      "Status": "Passed",
+      "Milliseconds": 180
+    }
+  ]
+}
