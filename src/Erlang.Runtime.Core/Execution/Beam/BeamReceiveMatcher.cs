@@ -10,6 +10,46 @@ internal static class BeamReceiveMatcher
         Pid self
     )
     {
+        var result = SelectCore(
+            code,
+            plan,
+            before,
+            message,
+            self,
+            null
+        );
+        if (!result.IsCompleted)
+            throw new InvalidDataException(BeamReceiveNames.InvalidPlan);
+
+        return result.GetAwaiter().GetResult();
+    }
+
+    internal static ValueTask<BeamReceiveSelection?> SelectAsync(
+        BeamLinkedCode code,
+        BeamReceivePlan plan,
+        BeamRegisterState before,
+        Term message,
+        Pid self,
+        ProcessContext context
+    )
+        => SelectCore(
+            code,
+            plan,
+            before,
+            message,
+            self,
+            context
+        );
+
+    private static async ValueTask<BeamReceiveSelection?> SelectCore(
+        BeamLinkedCode code,
+        BeamReceivePlan plan,
+        BeamRegisterState before,
+        Term message,
+        Pid self,
+        ProcessContext? context
+    )
+    {
         BeamRegisterState registers = before.Clone();
         registers.Write(plan.MessageRegister, message);
         var clearMarkers = new List<Term>();
@@ -75,22 +115,38 @@ internal static class BeamReceiveMatcher
                         registers.CheckLive((int)operands[1].Value);
                     try
                     {
-                        registers.Write(operands[gc ? 4 : 3], BeamReceivePureBifs.Unary(unary.Function, argument));
+                        Term result = unary.Function == ErlangModuleNames.Length
+                            ? await ErlangListLength.ReadAsync(context ?? throw new InvalidDataException(BeamReceiveNames.InvalidPlan), argument)
+                            : BeamReceivePureBifs.Unary(unary.Function, argument);
+                        registers.Write(operands[gc ? 4 : 3], result);
                     }
-                    catch (ErlangException) when (operands[0].Kind != BeamOperandParameters.Failure)
+                    catch (ErlangException error) when (error.ExceptionClass == ErlangExceptionClasses.Error && operands[0].Kind != BeamOperandParameters.Failure)
                     {
                         pc = code.Labels[(int)operands[0].Value];
                     }
                     break;
                 case BeamGeneralOpcodeNames.BinaryBif:
-                    _ = BeamReceivePureBifs.Import(code, instruction);
-                    Term first = Read(code, registers, operands[2]);
-                    Term second = Read(code, registers, operands[3]);
+                case BeamLinkNames.GuardBif:
+                    BeamExternalImport binary = BeamReceivePureBifs.Import(code, instruction);
+                    bool binaryGc = instruction.Definition.Name == BeamLinkNames.GuardBif;
+                    int binaryOffset = binaryGc ? 1 : 0;
+                    Term first = Read(code, registers, operands[2 + binaryOffset]);
+                    Term second = Read(code, registers, operands[3 + binaryOffset]);
+                    if (binaryGc)
+                        registers.CheckLive((int)operands[1].Value);
                     try
                     {
-                        registers.Write(operands[4], BeamReceivePureBifs.Element(first, second));
+                        registers.Write(
+                            operands[4 + binaryOffset],
+                            binaryGc ? ErlangOperatorValues.Binary(
+                                binary.Function,
+                                first,
+                                second,
+                                context
+                            ) : BeamReceivePureBifs.Element(first, second)
+                        );
                     }
-                    catch (ErlangException) when (operands[0].Kind != BeamOperandParameters.Failure)
+                    catch (ErlangException error) when (error.ExceptionClass == ErlangExceptionClasses.Error && operands[0].Kind != BeamOperandParameters.Failure)
                     {
                         pc = code.Labels[(int)operands[0].Value];
                     }

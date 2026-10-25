@@ -2,12 +2,24 @@ namespace Erlang;
 
 public sealed partial class ProcessContext
 {
-    internal async ValueTask<T?> ReceiveBeamAsync<T>(Func<Term, ValueTask<T?>> select, Term timeout) where T : class
+    internal ValueTask<T?> ReceiveBeamAsync<T>(Func<Term, ValueTask<T?>> select, Term timeout) where T : class =>
+        ReceiveBeamSelectionAsync(select, timeout, rescanRemovedCandidate: false);
+
+    internal ValueTask<T?> ReceiveBeamGuardAsync<T>(Func<Term, ValueTask<T?>> select, Term timeout) where T : class =>
+        ReceiveBeamSelectionAsync(select, timeout, rescanRemovedCandidate: true);
+
+    private async ValueTask<T?> ReceiveBeamSelectionAsync<T>(
+        Func<Term, ValueTask<T?>> select,
+        Term timeout,
+        bool rescanRemovedCandidate
+    ) where T : class
     {
         Runtime.ThrowIfHalted();
         try
         {
-            T? result = await Mailbox.ReceiveBeamAsync(select, timeout, Cancellation);
+            T? result = await (rescanRemovedCandidate
+                ? Mailbox.ReceiveBeamGuardAsync(select, timeout, Cancellation)
+                : Mailbox.ReceiveBeamAsync(select, timeout, Cancellation));
             Runtime.ThrowIfHalted();
 
             return result;

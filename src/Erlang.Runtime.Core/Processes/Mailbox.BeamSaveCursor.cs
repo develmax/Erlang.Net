@@ -157,10 +157,33 @@ public sealed partial class Mailbox
         save.InPriority = true;
     }
 
-    internal async ValueTask<T?> ReceiveBeamAsync<T>(
+    internal ValueTask<T?> ReceiveBeamAsync<T>(
         Func<Term, ValueTask<T?>> select,
         Term timeout,
         CancellationToken cancellation
+    ) where T : class => ReceiveBeamSelectionAsync(
+        select,
+        timeout,
+        cancellation,
+        rescanRemovedCandidate: false
+    );
+
+    internal ValueTask<T?> ReceiveBeamGuardAsync<T>(
+        Func<Term, ValueTask<T?>> select,
+        Term timeout,
+        CancellationToken cancellation
+    ) where T : class => ReceiveBeamSelectionAsync(
+        select,
+        timeout,
+        cancellation,
+        rescanRemovedCandidate: true
+    );
+
+    private async ValueTask<T?> ReceiveBeamSelectionAsync<T>(
+        Func<Term, ValueTask<T?>> select,
+        Term timeout,
+        CancellationToken cancellation,
+        bool rescanRemovedCandidate = false
     ) where T : class
     {
         lock (gate)
@@ -173,7 +196,8 @@ public sealed partial class Mailbox
                 select,
                 initial,
                 cancellation,
-                () => ReceiveTimeoutValue.Parse(timeout)
+                () => ReceiveTimeoutValue.Parse(timeout),
+                rescanRemovedCandidate
             );
         }
         finally
@@ -186,7 +210,8 @@ public sealed partial class Mailbox
         Func<Term, ValueTask<T?>> select,
         TimeSpan? timeout,
         CancellationToken cancellation,
-        Func<TimeSpan?>? resolveTimeout
+        Func<TimeSpan?>? resolveTimeout,
+        bool rescanRemovedCandidate
     ) where T : class
     {
         if (timeout < TimeSpan.Zero)
@@ -202,12 +227,14 @@ public sealed partial class Mailbox
                 start += await WaitForExecution();
             Task signal;
             Entry candidate = default;
+            LinkedListNode<Entry>? candidateNode = null;
             bool found;
             bool admissionPending;
             lock (gate)
             {
                 admissionPending = pending != 0;
                 var node = admissionPending ? null : PeekBeamSave();
+                candidateNode = node;
                 found = node is not null;
                 if (found)
                     candidate = node!.Value;
@@ -229,12 +256,18 @@ public sealed partial class Mailbox
                         start += await WaitForExecution();
                     Entry consumed = default;
                     bool retry;
+                    bool rescan = false;
                     lock (gate)
                     {
                         ThrowIfHalted();
                         cancellation.ThrowIfCancellationRequested();
                         retry = pending != 0 || ExecutionBlocked?.Invoke() == true;
-                        if (!retry)
+                        // Priority insertion keeps the guard result for its prior candidate
+                        // and commits through the current save pointer, as OTP i_length does.
+                        // Host-side removal instead invalidates candidate ownership.
+                        if (!retry && rescanRemovedCandidate && !ReferenceEquals(candidateNode?.List, messages))
+                            rescan = true;
+                        if (!retry && !rescan)
                         {
                             if (result is null)
                                 AdvanceBeamSave();
@@ -249,6 +282,8 @@ public sealed partial class Mailbox
                     }
                     if (retry)
                         continue;
+                    if (rescan)
+                        break;
                     if (result is null)
                         break;
                     MessageReceived?.Invoke();

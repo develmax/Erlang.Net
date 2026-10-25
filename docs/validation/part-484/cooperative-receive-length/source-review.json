@@ -1,0 +1,85 @@
+{
+  "Part": 484,
+  "SourceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Files": [
+    {
+      "Path": "src/Erlang.Runtime.Core/Execution/Beam/BeamFrameValidation.cs",
+      "Before": "C60AE68A84368BAF1EC94F614459721130CC081E1FBFA255917AC38988A7654F",
+      "After": "ED2D5893199A88297FF5759EF64E1358DFD36457B82786A7E6A048552148D6CC"
+    },
+    {
+      "Path": "src/Erlang.Runtime.Core/Execution/Beam/BeamReceiveMatcher.cs",
+      "Before": "CA5E912C0738538977A6E919E124DA7E0F7B27700664B685F897886517428BFA",
+      "After": "71F3A19A23EE361F3F4E7730AFF3C06EF03AA16701C861D0F0568BA3A2BD7DEF"
+    },
+    {
+      "Path": "src/Erlang.Runtime.Core/Execution/Beam/BeamReceivePlanner.cs",
+      "Before": "8102D1B278ABC59A3A83C2809F2CF51EE5A9A42465573BB5D0E02EB89C9D3109",
+      "After": "8B6E0C5D8F16CF31A7066BA46106F2B5262574332AF87B1D768A7DF41FD21462"
+    },
+    {
+      "Path": "src/Erlang.Runtime.Core/Execution/Beam/BeamReceivePureBifs.cs",
+      "Before": "9328A68E0405C250510B3E68780DFEE86F5966EB248170EB65DE1570754AC43F",
+      "After": "E969EB9571C20696FD53C857ADE26A0F0A882BE9248EF8B276495989805C5A19"
+    },
+    {
+      "Path": "src/Erlang.Runtime.Core/Execution/Beam/BeamRegisterInterpreter.cs",
+      "Before": "80CA8338E48B6B0BCCCC8E604CC8E96EC838E07E2D5E98F966A65153517C2374",
+      "After": "63EE28E234D98A23BA22264ED5E744A002450BAF8B602F9A91385DC16A125782"
+    },
+    {
+      "Path": "src/Erlang.Runtime.Core/Processes/Context/ProcessContext.BeamReceive.cs",
+      "Before": "24B0B06D8FC356A21D25FE01E8C4D3C45E9E297C6ACA753FD4024F1D2B739C0B",
+      "After": "9BA5575273391400C395A7E8E7827A644DAD8B5A85C9EBD8A5048C0275386E02"
+    },
+    {
+      "Path": "src/Erlang.Runtime.Core/Processes/Mailbox.BeamSaveCursor.cs",
+      "Before": "61D24D3F83528A0FADED3BAF41C9AD802699EE81357C0EE4A9E52820E72074F2",
+      "After": "7174C5B7F27D6F15D8A88E0B533CF93A8E1A1AE8A4E7C186A46C17AB3B090E1C"
+    },
+    {
+      "Path": "src/Erlang.Runtime.Core/Processes/Mailbox.ReceiveMarkers.cs",
+      "Before": "1C6EF5F63AEE946FFDF8B22B1ADA878E0B0ABDBB1055EDB2B13395FD348D4651",
+      "After": "766BE8B83D6E7A0BA1C91DD7B723002F46A03937698D3FB7D8EBFAE682A4C4AE"
+    }
+  ],
+  "OriginalSources": [
+    {
+      "Path": "erts/emulator/beam/emu/bif_instrs.tab",
+      "Sha256": "EFA0551D5FFA27A197DE60FB6759530A00A891031627B58D948442FE0F313AEE"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_bif_guard.c",
+      "Sha256": "6A254BCEDAF5F57A01A8CDD6CF94F8140693BE99B4735A9283D8BFFA4288CC67"
+    },
+    {
+      "Path": "erts/emulator/beam/emu/msg_instrs.tab",
+      "Sha256": "C1E0C3B7572890A0354C66A79233614B16AE2CF1C543841B45DDA2C30DA8E830"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_proc_sig_queue.c",
+      "Sha256": "8C09013466104034A847E3439DF4D31C4D5184D2C46430A3CDB0F86710F2C519"
+    },
+    {
+      "Path": "lib/compiler/src/beam_validator.erl",
+      "Sha256": "F5F03B92EE252ECF4EC2D6D7ADA75F31AE620F5BDA911D9DD0260E4BDC70526B"
+    },
+    {
+      "Path": "lib/megaco/src/engine/megaco_trans_sender.erl",
+      "Sha256": "CDCA825F7C45C2919213F4F1AA435D6D6606B92AE0ED3CB9E65528B78AF247F2"
+    }
+  ],
+  "SourceBindings": 1682,
+  "ApiDelta": 0,
+  "FullContractDelta": 0,
+  "NewDependencies": false,
+  "Reviews": [
+    "Keep original megaco_trans_sender Erlang algorithm and complete image. The refusal is its receive guard length(Acks)+1, emitted as gc_bif1 length followed by gc_bif2 + before remove_message.",
+    "Reuse ErlangListLength.ReadAsync, existing cooperative sixteen-cells-per-reduction traversal and original argument error handling. Do not substitute synchronous ReadMatchSpec. Reuse ErlangOperatorValues for numeric addition; no new library/actor dependency or module fallback.",
+    "Both newly admitted operations use existing typed register/root/handler validation. Matcher import, destination, local branch and commit checks remain closed to arbitrary callbacks or impure imports.",
+    "Initial universal candidate revalidation broke four old prim_eval callback contracts. Preserve their exact original method signature and default current-save semantics; add a separate cooperative guard entry. Reflection-based tests retain their original binding.",
+    "An additional genuine single-scheduler original priority trace exposes a subtler discrepancy in the next candidate-revalidation prototype despite6539/6539 passing tests. The independent source observer waits for an actual out event in length_host_guard:receive_length/1, suspends the child, verifies its frame, sends through its priority alias, resumes and captures the complete result/queue. Original result is {ok,[OriginalList]}, not {{priority,retained},[]}. The candidate-revalidation prototype fails this exact64036-byte ETF; corrected current-save commit passes.",
+    "Only actual host-side unlinking rescans a removed guard candidate; priority insertion preserves the in-flight guard result and existing current-save consumption. Host RemoveFirst is a separate embedding boundary, not an operation available to an unrelated Erlang process.",
+    "Finite576 complete results/queues and one priority64017-cell complete result/queue are scoped observations. Other host cancellation/progress/suspension controls prove managed cooperative ownership, not original physical scheduler/cancellation equivalence. No performance equivalence or whole module/API promotion is claimed."
+  ]
+}

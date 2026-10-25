@@ -132,7 +132,7 @@ internal static class BeamPureReceive396Checks
             ErlangModuleNames.ByteSize,
             Nil.Value
         ));
-        Refuses<NotSupportedException>(() => Plan(Code(Image([10, F(5), U(0), X(0), X(1)], BeamOpcodeEdgeNames.Length, 1))));
+        Refuses<NotSupportedException>(() => Plan(Code(Image([10, F(5), U(0), X(0), X(1)], ReceiveLength484Names.StatefulImport, 1))));
         Refuses<NotSupportedException>(() => Plan(Code(Image([75, U(0)]))));
         Refuses<NotSupportedException>(() => Plan(Code(Image([166, F(5), X(0), U(1), X(1)]))));
 

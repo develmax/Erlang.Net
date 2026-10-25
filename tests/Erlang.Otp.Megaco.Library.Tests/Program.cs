@@ -3,6 +3,7 @@ using Erlang.Otp.Megaco.Library.Tests;
 try
 {
     await MegacoLibraryChecks.Run(args);
+    await MegacoReceive484Checks.Run(args);
 
     return 0;
 }

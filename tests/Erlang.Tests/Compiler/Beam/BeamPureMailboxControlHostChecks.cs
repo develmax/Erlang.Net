@@ -42,7 +42,7 @@ internal static class BeamPureMailboxControlHostChecks
         bool refused = false;
         try
         {
-            refused = !BeamModule.Prepare(BeamPureMailboxControlBytes.Image("length")).Supports(BeamOpcodeEdgeNames.Run, 0);
+            refused = !BeamModule.Prepare(BeamPureMailboxControlBytes.Image(ReceiveLength484Names.StatefulImport)).Supports(BeamOpcodeEdgeNames.Run, 0);
         }
         catch (Exception error) when (error is InvalidDataException or NotSupportedException)
         {

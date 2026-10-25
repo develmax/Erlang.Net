@@ -583,7 +583,7 @@
     },
     {
       "Path": "src/Erlang.Runtime.Core/Execution/Beam/BeamFrameValidation.cs",
-      "Sha256": "C60AE68A84368BAF1EC94F614459721130CC081E1FBFA255917AC38988A7654F"
+      "Sha256": "ED2D5893199A88297FF5759EF64E1358DFD36457B82786A7E6A048552148D6CC"
     },
     {
       "Path": "src/Erlang.Runtime.Core/Execution/Beam/BeamFunTailProtocol.cs",
@@ -727,7 +727,7 @@
     },
     {
       "Path": "src/Erlang.Runtime.Core/Execution/Beam/BeamReceiveMatcher.cs",
-      "Sha256": "CA5E912C0738538977A6E919E124DA7E0F7B27700664B685F897886517428BFA"
+      "Sha256": "71F3A19A23EE361F3F4E7730AFF3C06EF03AA16701C861D0F0568BA3A2BD7DEF"
     },
     {
       "Path": "src/Erlang.Runtime.Core/Execution/Beam/BeamReceiveNames.cs",
@@ -739,11 +739,11 @@
     },
     {
       "Path": "src/Erlang.Runtime.Core/Execution/Beam/BeamReceivePlanner.cs",
-      "Sha256": "8102D1B278ABC59A3A83C2809F2CF51EE5A9A42465573BB5D0E02EB89C9D3109"
+      "Sha256": "8B6E0C5D8F16CF31A7066BA46106F2B5262574332AF87B1D768A7DF41FD21462"
     },
     {
       "Path": "src/Erlang.Runtime.Core/Execution/Beam/BeamReceivePureBifs.cs",
-      "Sha256": "9328A68E0405C250510B3E68780DFEE86F5966EB248170EB65DE1570754AC43F"
+      "Sha256": "E969EB9571C20696FD53C857ADE26A0F0A882BE9248EF8B276495989805C5A19"
     },
     {
       "Path": "src/Erlang.Runtime.Core/Execution/Beam/BeamReceiveSelection.cs",
@@ -759,7 +759,7 @@
     },
     {
       "Path": "src/Erlang.Runtime.Core/Execution/Beam/BeamRegisterInterpreter.cs",
-      "Sha256": "80CA8338E48B6B0BCCCC8E604CC8E96EC838E07E2D5E98F966A65153517C2374"
+      "Sha256": "63EE28E234D98A23BA22264ED5E744A002450BAF8B602F9A91385DC16A125782"
     },
     {
       "Path": "src/Erlang.Runtime.Core/Execution/Beam/BeamRegisterProtocolNames.cs",
@@ -2771,7 +2771,7 @@
     },
     {
       "Path": "src/Erlang.Runtime.Core/Processes/Mailbox.BeamSaveCursor.cs",
-      "Sha256": "61D24D3F83528A0FADED3BAF41C9AD802699EE81357C0EE4A9E52820E72074F2"
+      "Sha256": "7174C5B7F27D6F15D8A88E0B533CF93A8E1A1AE8A4E7C186A46C17AB3B090E1C"
     },
     {
       "Path": "src/Erlang.Runtime.Core/Processes/Mailbox.DeferredPreparation.cs",
@@ -2795,7 +2795,7 @@
     },
     {
       "Path": "src/Erlang.Runtime.Core/Processes/Mailbox.ReceiveMarkers.cs",
-      "Sha256": "1C6EF5F63AEE946FFDF8B22B1ADA878E0B0ABDBB1055EDB2B13395FD348D4651"
+      "Sha256": "766BE8B83D6E7A0BA1C91DD7B723002F46A03937698D3FB7D8EBFAE682A4C4AE"
     },
     {
       "Path": "src/Erlang.Runtime.Core/Processes/Mailbox.SignalOwner428.cs",
@@ -4091,7 +4091,7 @@
     },
     {
       "Path": "src/Erlang.Runtime.Core/Processes/Context/ProcessContext.BeamReceive.cs",
-      "Sha256": "24B0B06D8FC356A21D25FE01E8C4D3C45E9E297C6ACA753FD4024F1D2B739C0B"
+      "Sha256": "9BA5575273391400C395A7E8E7827A644DAD8B5A85C9EBD8A5048C0275386E02"
     },
     {
       "Path": "src/Erlang.Runtime.Core/Processes/Context/ProcessContext.DebugInternal419.cs",
@@ -25683,8 +25683,8 @@
       "Key": "rpc:call/5"
     }
   ],
-  "ComparisonTestReport": "validation/part-402/distribution-creation-and-abort/snapshot/artifacts/tests.json",
-  "LocalPassedTests": 8888,
+  "ComparisonTestReport": "validation/part-484/cooperative-receive-length/previous-tests.json",
+  "LocalPassedTests": 8895,
   "RegisteredMfas": 708,
   "PreviousRegisteredMfas": 708,
   "RegisteredMfaDelta": 0,
@@ -25746,6 +25746,7 @@
       "Project": "src/Erlang.Runtime.Core",
       "Status": "Partially compatible",
       "Implemented": [
+        "Part484: unchanged megaco_trans_sender admits cooperative length/1 and numeric addition in original receive guards using existing native operations and typed frame validation. Genuine original priority trace proves retaining the running guard result and current-save consumption;only host-side candidate unlink rescans. Preserve old callback signatures/semantics. Original576 whole outcomes and one full priority result/64017-cell queue match;final affected6539/6539 and seven final resource controls pass. Whole-image preparation retains1316 and adds megaco:1317/1321,Megaco65/65;four bare-registry native captures remain. Warm/cold public Megaco consumers retain150 checks/2003 prior outcomes plus576 new. Registry708/full118/source1682 unchanged,API/full deltas0/0,catalog8895 (+7). Full API/application/native/scheduler/performance contracts remain partial;readiness uses an explicit prior8888+final-affected preflight;exact-head full CI is required.",
         "Part483: original receive guards is_binary/is_function2 use existing shared predicates;the planner retains source/branch/commit checks,and these new matchers select the existing typed frame validator. All seven newly accepted original images publish with real source owners:ct_ssh,test_server_node,mod_cgi,mod_esi,mnesia_loader,snmpm_server,tftp_engine. Fifty-four complete selection/timeout/unmatched-queue observations match pinned OTP,warm and isolated cold .NET consumption. Four paired valid/invalid synthetic controls retain operand initialization,roles and local receive branches;original compiler rejects the invalid binary subject. All prior1309 primary images retained:1316/1321;remaining megaco pre-commit BIF and four bare-registry native captures are separate. Catalog8888 (+12),final affected6532/6532;708 APIs/118 full contracts/1682 source bindings retained,API/full deltas0/0. Full module/application/native/performance scope remains partial;exact-head full CI and artifact verification are required separately.",
         "Part482: shared canonical comparison-BIF contract follows pinned erl_bifs is_safe/beam_validator cannot_fail semantics for all eight comparison operators;existing register reads,destination bounds,GC roots and handlers remain unchanged. Original crashdump_viewer now admits,with20 complete public helper outcomes/full stacks plus160 binary-context/Y-frame comparison observations matching OTP. All prior1308 primary images retained:1309/1321;Observer44/44. Five original compiler refusals and five matching managed frame controls retain uninitialized/opaque operand,failable BIF,GC-root and destination boundaries. Catalog8876 (+8);708 APIs/118 full contracts/1682 source bindings unchanged,API/full deltas0/0. GUI/application/native/full API and performance scope remains partial;exact-head CI and cold consumers are separate delivery gates.",
         "Part481: exact incoming context provenance through nil/atom/literal moves and modern resume/no_fail tail entries; duplicated live binary arguments remain ordinary-only. Finite swap/put_list/update_record helpers prove no return with existing typed swap validation. All prior1306 primary images retained and original ssl_handshake/leex added:1308/1321;110 complete OTP context/record/SSL observations,including96 actual public original SSL decoder outcomes/stacks. Eight new groups,catalog8868;708 APIs/118 full contracts/1682 source bindings unchanged,API/full deltas0/0. Full sessions,applications,native prerequisites and complete API contracts remain partial;exact-head CI is a separate delivery gate.",
@@ -25909,13 +25910,14 @@
         "Physical BEAM heap/scheduler/resources,complete lint/spec/warnings/source stacks/code staging,connected distribution and full native/upstream/performance parity;native numeric record hashes independently matched in230, while general resource/lifecycle scope remains partial.",
         "Part378: same-function receive\u002Btry and mixed Term/raw joins remain conservative refusals; raw manual/Nil, native-entry-specific, full depth/deeper recursion/cross-image lifecycle and stale-fun dispatch profiles need separate proof."
       ],
-      "RelatedPassedTests": 1733
+      "RelatedPassedTests": 1739
     },
     {
       "Id": "Compiler",
       "Project": "src/Erlang.Compiler",
       "Status": "Partially compatible",
       "Implemented": [
+        "Part484: unchanged megaco_trans_sender admits cooperative length/1 and numeric addition in original receive guards using existing native operations and typed frame validation. Genuine original priority trace proves retaining the running guard result and current-save consumption;only host-side candidate unlink rescans. Preserve old callback signatures/semantics. Original576 whole outcomes and one full priority result/64017-cell queue match;final affected6539/6539 and seven final resource controls pass. Whole-image preparation retains1316 and adds megaco:1317/1321,Megaco65/65;four bare-registry native captures remain. Warm/cold public Megaco consumers retain150 checks/2003 prior outcomes plus576 new. Registry708/full118/source1682 unchanged,API/full deltas0/0,catalog8895 (+7). Full API/application/native/scheduler/performance contracts remain partial;readiness uses an explicit prior8888+final-affected preflight;exact-head full CI is required.",
         "Part483: original receive guards is_binary/is_function2 use existing shared predicates;the planner retains source/branch/commit checks,and these new matchers select the existing typed frame validator. All seven newly accepted original images publish with real source owners:ct_ssh,test_server_node,mod_cgi,mod_esi,mnesia_loader,snmpm_server,tftp_engine. Fifty-four complete selection/timeout/unmatched-queue observations match pinned OTP,warm and isolated cold .NET consumption. Four paired valid/invalid synthetic controls retain operand initialization,roles and local receive branches;original compiler rejects the invalid binary subject. All prior1309 primary images retained:1316/1321;remaining megaco pre-commit BIF and four bare-registry native captures are separate. Catalog8888 (+12),final affected6532/6532;708 APIs/118 full contracts/1682 source bindings retained,API/full deltas0/0. Full module/application/native/performance scope remains partial;exact-head full CI and artifact verification are required separately.",
         "Part482: shared canonical comparison-BIF contract follows pinned erl_bifs is_safe/beam_validator cannot_fail semantics for all eight comparison operators;existing register reads,destination bounds,GC roots and handlers remain unchanged. Original crashdump_viewer now admits,with20 complete public helper outcomes/full stacks plus160 binary-context/Y-frame comparison observations matching OTP. All prior1308 primary images retained:1309/1321;Observer44/44. Five original compiler refusals and five matching managed frame controls retain uninitialized/opaque operand,failable BIF,GC-root and destination boundaries. Catalog8876 (+8);708 APIs/118 full contracts/1682 source bindings unchanged,API/full deltas0/0. GUI/application/native/full API and performance scope remains partial;exact-head CI and cold consumers are separate delivery gates.",
         "Part481: exact incoming context provenance through nil/atom/literal moves and modern resume/no_fail tail entries; duplicated live binary arguments remain ordinary-only. Finite swap/put_list/update_record helpers prove no return with existing typed swap validation. All prior1306 primary images retained and original ssl_handshake/leex added:1308/1321;110 complete OTP context/record/SSL observations,including96 actual public original SSL decoder outcomes/stacks. Eight new groups,catalog8868;708 APIs/118 full contracts/1682 source bindings unchanged,API/full deltas0/0. Full sessions,applications,native prerequisites and complete API contracts remain partial;exact-head CI is a separate delivery gate.",
@@ -25972,7 +25974,7 @@
         "full binary generator literal-string grouping/size/resource contracts; empty patterns unsupported and zero-progress local system_limit policy",
         "Physical BEAM heap/scheduler/resources,complete lint/spec/warnings/source stacks/code staging,connected distribution and full native/upstream/performance parity;native numeric record hashes independently matched in230, while general resource/lifecycle scope remains partial."
       ],
-      "RelatedPassedTests": 961
+      "RelatedPassedTests": 962
     },
     {
       "Id": "Core library modules",

@@ -65,6 +65,7 @@ try {
     & (Join-Path $PSScriptRoot 'validate-otp-management-original.ps1') -ManagedDirectory 'artifacts/otp-management-managed'
     Invoke-DotNet @('run', '--project', 'tests/Erlang.Otp.Megaco.Library.Tests', '--no-build', '--', 'artifacts/otp-megaco-managed')
     & (Join-Path $PSScriptRoot 'validate-otp-megaco-original.ps1') -ManagedDirectory 'artifacts/otp-megaco-managed'
+    & (Join-Path $PSScriptRoot 'validate-receive-length-original.ps1')
     Invoke-DotNet @('run', '--project', 'tests/Erlang.Otp.TestAnalysis.Library.Tests', '--no-build', '--', 'artifacts/otp-testanalysis-managed')
     & (Join-Path $PSScriptRoot 'validate-otp-testanalysis-original.ps1') -ManagedDirectory 'artifacts/otp-testanalysis-managed'
     Invoke-DotNet @('run', '--project', 'tests/Erlang.Otp.Platform.Library.Tests', '--no-build', '--', 'artifacts/otp-platform-managed')

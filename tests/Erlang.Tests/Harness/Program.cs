@@ -67,6 +67,25 @@ Test(Erlang.Tests.FrameOriginal481Names.AdmissionTest, Erlang.Tests.FrameOrigina
 Test(Erlang.Tests.ComparisonOriginal482Names.ComparisonTest, Erlang.Tests.ComparisonOriginal482Checks.Comparison);
 Test(Erlang.Tests.ComparisonOriginal482Names.CrashdumpTest, Erlang.Tests.ComparisonOriginal482Checks.Crashdump);
 Test(Erlang.Tests.ComparisonOriginal482Names.AdmissionTest, Erlang.Tests.ComparisonOriginal482Checks.Admission);
+Test(Erlang.Tests.ReceiveLength484Names.Case, Erlang.Tests.ReceiveLength484Checks.Capture);
+Test(Erlang.Tests.ReceiveLength484Names.AdmissionCase, Erlang.Tests.ReceiveLength484Checks.MegacoAdmission);
+Test(Erlang.Tests.ReceiveLength484Names.HostPrefix + "progress", () => Erlang.Tests.ListLengthHostChecks.BeamReceiveBoundary());
+Test(
+    Erlang.Tests.ReceiveLength484Names.HostPrefix + "cancel",
+    () => Erlang.Tests.ListLengthHostChecks.BeamReceiveBoundary(cancel: true)
+);
+Test(
+    Erlang.Tests.ReceiveLength484Names.HostPrefix + "priority",
+    () => Erlang.Tests.ListLengthHostChecks.BeamReceiveBoundary(priority: true)
+);
+Test(
+    Erlang.Tests.ReceiveLength484Names.HostPrefix + "removal",
+    () => Erlang.Tests.ListLengthHostChecks.BeamReceiveBoundary(removal: true)
+);
+Test(
+    Erlang.Tests.ReceiveLength484Names.HostPrefix + "suspend",
+    () => Erlang.Tests.ListLengthHostChecks.BeamReceiveBoundary(suspend: true)
+);
 Test(Erlang.Tests.ReceiveOriginal483Names.Case, Erlang.Tests.ReceiveOriginal483Checks.Capture);
 Test(Erlang.Tests.ReceiveControl483Names.SubjectTest, Erlang.Tests.ReceiveControl483Checks.Subject);
 Test(Erlang.Tests.ReceiveControl483Names.ArityTest, Erlang.Tests.ReceiveControl483Checks.Arity);

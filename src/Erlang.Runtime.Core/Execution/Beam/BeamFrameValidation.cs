@@ -24,7 +24,8 @@ internal static class BeamFrameValidation
             || BeamBinaryEntryProtocol.HasLocalContextCall(code, function)
             || receives.Values.Any(plan => !plan.HasMatcher || BeamReceivePlanner.WritesFrame(code, plan)
                 || plan.MatcherInstructions.Any(index => code.Instructions[index].Definition.Name
-                    is BeamGeneralOpcodeNames.BinaryTest or BeamGeneralOpcodeNames.FunctionTest)))
+                    is BeamGeneralOpcodeNames.BinaryTest or BeamGeneralOpcodeNames.FunctionTest)
+                || BeamReceivePureBifs.RequiresAsync(code, plan)))
         {
             ValidateExceptional(code, function, receives);
 

@@ -1,3 +1,14 @@
+# Current executable plan — Part484
+
+1. Publish Part484 and verify its exact commit:8895 uninterrupted tests,all previous8888 ordered names,27 complete raw corpora (25 prior+length+priority),six retained original compiler refusals,36 package creations and17 cold families. Independently check original/main/public/cold receive484 ETF equality and the whole priority result/queue. Do not substitute the composed readiness preflight for full CI.
+2. Whole primary preparation is1317/1321;all65 Megaco images prepare. Close the four configured-provider capture frontiers (erts_internal,erl_ddll,ets,re) with genuine native bindings and source-owner checks. Bare-registry refusal is not evidence that configured production providers are absent. Preserve original modules and existing supported native primitives.
+3. Exercise the admitted original megaco_trans_sender loop and standard kernel/application/net_kernel startup with real source modules,then follow concrete execution/native dependency failures. Keep full-session/distribution/native/performance claims separate from image preparation and finite guard comparisons.
+4. Continue native/BIF contracts against pinned OTP, retaining all previous tests and full stacks/effects. Registered708/full118,API/full deltas0/0;no whole-module promotion from this slice.
+
+Part483 merge CI40183200007 independently passes8888/8888 and artifact verification;Part484 delivery is tracked separately. English changelog0085 is active;LICENSE.local.txt stays uncommitted.
+
+Earlier plans below are historical.
+
 # Current checkpoint — Part483
 
 Part483 CI follow-up: Part482 merge CI40178589036 has one existing cross-owner test-driver timeout (8875/8876). The same-runtime controlled schedule reproduces it. A second rendezvous preserves both drain scopes through both nested requests and requires both refusals; unchanged deadlines/runtime source,12/12 targeted two-core repeats and12/12 new guard groups pass. New exact-head full CI remains the delivery gate; see [follow-up evidence](validation/part-483/selective-receive-guards/merge-ci-followup.json).
