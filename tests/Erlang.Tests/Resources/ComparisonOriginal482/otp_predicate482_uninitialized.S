@@ -1,0 +1,20 @@
+{module,otp_predicate482_uninitialized}.
+{exports,[{run,2}]}.
+{attributes,[]}.
+{labels,4}.
+{function,run,2,2}.
+  {label,1}.
+  {func_info,{atom,otp_predicate482_uninitialized},{atom,run},2}.
+  {label,2}.
+  {test,is_binary,{f,3},[{x,0}]}.
+  {bs_start_match4,{atom,no_fail},2,{x,0},{x,0}}.
+  {allocate,2,2}.
+  {move,{x,0},{y,0}}.
+  {bif,'<',{f,0},[{integer,10000},{x,2}],{y,1}}.
+  {bs_get_tail,{y,0},{x,0},0}.
+  {test_heap,3,1}.
+  {put_tuple2,{x,0},{list,[{x,0},{y,1}]}}.
+  {deallocate,2}.
+  return.
+  {label,3}.
+  {badmatch,{x,0}}.

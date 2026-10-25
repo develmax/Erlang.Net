@@ -1,0 +1,102 @@
+{
+  "Part": 482,
+  "BaseMain": "b9b2c82bdc8e917d89cfd0b14e0e45c58107f40e",
+  "MergedPart481PR": 42,
+  "ParentExactHead": "6bbee8e0a9f775f4f28ca9e13e57b78c03804343",
+  "ParentExactCI": 40173496119,
+  "ParentArtifactSha256": "0d0111f536de9c8ff0ef58dd57b889e0ae67f67bbbe10579c2d487d116c32624",
+  "SourceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "RuntimeSourceFilesChanged": 1,
+  "RuntimeExecutionChanged": true,
+  "SharedOperatorSemanticsReused": true,
+  "FrameGcRegisterHandlerValidationChanged": false,
+  "SourceBindings": 1682,
+  "DefaultApis": 708,
+  "FullContracts": 118,
+  "KnownDifferences": 31,
+  "NeedsVerification": 559,
+  "ApiDelta": 0,
+  "FullContractDelta": 0,
+  "PriorCatalog": 8868,
+  "RuntimeCatalog": 8876,
+  "NewPermanentGroups": 8,
+  "OriginalWholeOutcomes": 180,
+  "WholeComparisons": [
+    {
+      "Corpus": "comparison",
+      "Outcomes": 160,
+      "Bytes": 9143,
+      "Sha256": "54BA96367888089AD15D2575DE2AA035152771E06C07E8CA8402F333D3CCFE12",
+      "ExecutionBindings": 13,
+      "WholeTermsAndStacks": true,
+      "ProjectionOrFrameRemoval": false,
+      "PublicWarmAndColdConsumerMatch": true
+    },
+    {
+      "Corpus": "crashdump",
+      "Outcomes": 20,
+      "Bytes": 8347,
+      "Sha256": "C8B657F9F1B790FE6E09D8508FCE2D6EB01011895E06224BDEB18D30103D2992",
+      "ExecutionBindings": 13,
+      "WholeTermsAndStacks": true,
+      "ProjectionOrFrameRemoval": false,
+      "PublicWarmAndColdConsumerMatch": true
+    }
+  ],
+  "ExpectedOriginalCompilerRefusals": 5,
+  "InvalidOriginalProgramsExecuted": false,
+  "OriginalCompilerBindings": 3,
+  "Red": {
+    "Passed": 5,
+    "Failed": 3
+  },
+  "Green": {
+    "Passed": 8,
+    "Failed": 0
+  },
+  "FinalAffected": {
+    "Passed": 5320,
+    "Failed": 0
+  },
+  "ReleaseBuildSeconds": 106.3,
+  "BuildWarnings": 0,
+  "BuildErrors": 0,
+  "PrimaryPreparedBefore": 1308,
+  "PrimaryPreparedAfter": 1309,
+  "ObserverPrepared": 44,
+  "ObserverImages": 44,
+  "PrimaryPackaged": 1321,
+  "Applications": 34,
+  "PreviouslyObservedFrameRefusalsRemaining": 0,
+  "RemainingReceiveMatcherRefusals": 8,
+  "BareRegistryNativeCaptureRefusals": 4,
+  "ColdConsumer": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\otp-library-consumer-34f07917a2bd4252ada6a40796490455",
+  "ColdEmptyPath": true,
+  "ColdRepositoryBuildImports": false,
+  "RequiredClr": "10.0.11",
+  "RollForward": "Disable",
+  "RetainedGuiAssertions": 975,
+  "RetainedGuiWholeOutcomes": 1415,
+  "RetainedFloatStoreOutcomes": 66,
+  "RetainedClosedWaitOutcomes": 12,
+  "NewGuiWholeOutcomes": 180,
+  "GuiSourceAssets": 349,
+  "RuntimeDllSha256": "3DC515D533652E32C50D3EB59D163AEA022735AD0B1A7F541A3B90B21AD33A5C",
+  "PackageRuntimeCopies": [
+    "lib/net10.0/Erlang.Runtime.dll",
+    "tools/beam/net10.0/Erlang.Runtime.dll",
+    "tools/net10.0/Erlang.Runtime.dll"
+  ],
+  "AllThreePackagedRuntimeCopiesAndColdRuntimeEqual": true,
+  "ReadinessPreflight": "Strict CLI with explicit prior green8868 full receipt;not current full evidence",
+  "Main481MergeCI": "Tracked separately in publication PR",
+  "ExactPublicationHeadCI": "Pending;immutable post-commit proof recorded in PR",
+  "SetupFailuresPreserved": [
+    "scope helper first-row uniqueness assertion;corrected to locate each component by project without rewriting history"
+  ],
+  "Limits": [
+    "finite comparison/frame and original helper profiles;no full API promotion",
+    "no crashdump GUI session,full application boot or native/platform/performance equivalence",
+    "remaining failures may hide further unobserved frame paths"
+  ]
+}

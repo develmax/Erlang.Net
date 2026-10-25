@@ -70,3 +70,7 @@ Compiler/Beam/Receive contains separate names,byte-builder,control-check and ori
 ## Part481 frame/context controls
 
 Compiler/Beam/Calls contains separate context-forwarding and no-return-swap byte builders,names and checks;Compiler/Beam/Frames contains the original comparison checks/names. Resources/FrameOriginal481 binds three observers,three whole golden corpora and four unchanged original images. TransportFrame481Checks uses the public SSL/Stdlib readers;tools/validate-frame-original.ps1 refreshes all110 whole outcomes after the full runtime tests.
+
+## Part482 comparison and crashdump fixtures
+
+Compiler/Beam/Frames contains separate ComparisonOriginal482 and ComparisonFrame482 names/check classes. Resources/ComparisonOriginal482 binds the original crashdump/lists images,compiled comparison-frame assembly/two workers,two whole goldens and five invalid assembler sources plus five synthetic Code-chunk controls. GuiComparison482Checks uses public Observer/Stdlib readers and an isolated NuGet consumer. tools/validate-comparison-original.ps1 independently refreshes180 whole results and five intended original compiler refusals.

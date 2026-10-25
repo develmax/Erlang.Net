@@ -1,0 +1,37 @@
+[
+  {
+    "Name": "uninitialized",
+    "Assembly": "otp_predicate482_uninitialized.S",
+    "Synthetic": "uninitialized-patched.beam",
+    "ExpectedError": "{uninitialized_reg,{x,2}}",
+    "OriginalProgramsExecuted": false
+  },
+  {
+    "Name": "opaque",
+    "Assembly": "otp_predicate482_opaque.S",
+    "Synthetic": "opaque-patched.beam",
+    "ExpectedError": "{match_context,{x,0}}",
+    "OriginalProgramsExecuted": false
+  },
+  {
+    "Name": "gc_roots",
+    "Assembly": "otp_predicate482_gc_roots.S",
+    "Synthetic": "gc_roots-patched.beam",
+    "ExpectedError": "{uninitialized_reg,{y,2}}",
+    "OriginalProgramsExecuted": false
+  },
+  {
+    "Name": "failable",
+    "Assembly": "otp_predicate482_failable.S",
+    "Synthetic": "failable-patched.beam",
+    "ExpectedError": "{uninitialized_reg,{y,1}}",
+    "OriginalProgramsExecuted": false
+  },
+  {
+    "Name": "destination",
+    "Assembly": "otp_predicate482_destination.S",
+    "Synthetic": "destination-patched.beam",
+    "ExpectedError": "{invalid_store,{y,2}}",
+    "OriginalProgramsExecuted": false
+  }
+]
