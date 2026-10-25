@@ -64,3 +64,5 @@ Part473: Add independent Diameter/Snmp original asset libraries. Preserve nested
 Part474: src/Erlang.Otp.Megaco.Beam contains the complete65-image official inventory, nested source/header/grammar directories and two application resources. Namespace-level facade/catalog/names types have separate files. Generated release inputs remain distinct from79 pinned Git matches.
 
 Part475: Add Erlang.Otp.CommonTest.Beam and Erlang.Otp.Dialyzer.Beam in src with171 unchanged provider files and separate namespace facade/name/manifest files. Preserve Common Test proper_ext sources/images and five hash-checked support assets. Primary ebin counts and additional installed images remain distinct.
+
+Part476: src/Erlang.Otp.OsMon.Beam and src/Erlang.Otp.Odbc.Beam preserve all11 images and35 release files;C and Erlang source paths/notices remain original release data. Native monitor executables are hash-inventoried exclusions.

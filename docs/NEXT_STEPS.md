@@ -1,3 +1,9 @@
+# Current checkpoint — Part476
+
+Finish exact-head full CI and independent artifact verification for the two platform libraries. Next fix and independently compare the measured anonymous dynamic tail-apply caller-frame discrepancy;retain the nine VM-identity-bearing parser stacks as unaccepted until an explicit complete identity protocol is checked. Continue324 primary images in five GUI/tool application inventories:debugger24,et6,observer44,reltool9,wx241. Audit wx native prerequisites before service/GUI claims;43 additional documentation/example images remain separate. Full services,drivers and boot are not inferred from packaging.
+
+Earlier checkpoints below are historical.
+
 # Current checkpoint — Part475
 
 Finish exact-head CI and independent artifact verification. Continue335 primary images in seven remaining application inventories:debugger24,et6,observer44,odbc3,os_mon8,reltool9,wx241. The43 unshipped doc/example images are inventoried separately from the primary ebin denominator; two Common Test property extensions are already shipped. Next package debugger/et/observer/reltool with explicit wx prerequisites, and the smaller platform-dependent os_mon/odbc families. Keep full services/analyzer/GUI/native compatibility separate from image packaging.

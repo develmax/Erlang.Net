@@ -28,11 +28,13 @@ Packaging progress counts module names in the admitted OTP29.1.1 application inv
 | megaco | 65 | 65 | 100% |150 project/cold checks;2003 whole timer/configuration and binary termination-ID outcomes/stacks; finite helper execution, not live H.248 compatibility |
 | common_test | 47 | 47 | 100% | Plus two optional property-extension images;233 combined project/cold checks and281 complete configuration/group outcomes; full runner/external property frameworks remain separate |
 | dialyzer | 29 | 29 | 100% | Shared233 checks;2178 complete warning/Core-helper outcomes plus four formatter outcomes; full analyzer and PLT lifecycle remain separate |
+| os_mon | 8 | 8 | 100% | Shared65 checks;788 finite parameter/parser/callback outcomes;two native monitor executables excluded;nine identity-dependent errors are original-only |
+| odbc | 3 | 3 | 100% | Shared65 checks;87 finite argument-error/supervisor/callback observations with full stacks;live connections and native database drivers remain separate |
 | tftp | 8 | 8 | 100% | Shared207 project/cold assertions and1337 whole outcomes/stacks: All packet classes, wire encodings/decodings, limits and invalid inputs |
 | ftp | 6 | 6 | 100% | Shared207 project/cold assertions and1337 whole outcomes/stacks: All500 reply-code interpretations, error text and every two-chunk split of three responses |
 | inets | 63 | 63 | 100% | Shared207 project/cold assertions and1337 whole outcomes/stacks: HTTP status/date/case/HTML/hex/token helpers |
 
-These twenty-seven applications total986/986 packaged module names (100% of these twenty-seven primary ebin application inventories). The ERTS descriptor lists19 modules and the distribution includes three additional implementation images; all22 are packaged and the distinction is recorded in provenance. This is not a project-wide completion percentage or full compatibility claim. The official kernel producer is Windows x64; platform identity remains explicit. No newly registered runtime APIs or full contracts are added by packaging.
+These twenty-nine applications total997/997 packaged module names (100% of these twenty-nine primary ebin application inventories). The ERTS descriptor lists19 modules and the distribution includes three additional implementation images; all22 are packaged and the distinction is recorded in provenance. This is not a project-wide completion percentage or full compatibility claim. The official kernel producer is Windows x64; platform identity remains explicit. No newly registered runtime APIs or full contracts are added by packaging.
 
 Projects:
 
@@ -57,7 +59,7 @@ Next: extend other applications according to the boot dependency inventory, pres
 
 ## Remaining official application inventories
 
-The admitted Windows release contains1321 primary ebin BEAM files across34 applications (36 application directories including C/Java support). This batch packages986/1321 primary ebin image names (74.6%); this is packaging progress only. Source names, descriptors, generated support and native platform prerequisites remain distinct. The complete module list is in [OTP_LIBRARY_INVENTORY.json](OTP_LIBRARY_INVENTORY.json).
+The admitted Windows release contains1321 primary ebin BEAM files across34 applications (36 application directories including C/Java support). This batch packages997/1321 primary ebin image names (75.5%); this is packaging progress only. Source names, descriptors, generated support and native platform prerequisites remain distinct. The complete module list is in [OTP_LIBRARY_INVENTORY.json](OTP_LIBRARY_INVENTORY.json).
 
 | Remaining application | BEAM images | Packaging state |
 | --- | ---: | --- |
@@ -66,8 +68,6 @@ The admitted Windows release contains1321 primary ebin BEAM files across34 appli
 | et | 6 | Not yet packaged |
 | jinterface | 0 | C/Java support; no BEAM images |
 | observer | 44 | Not yet packaged |
-| odbc | 3 | Not yet packaged |
-| os_mon | 8 | Not yet packaged |
 | reltool | 9 | Not yet packaged |
 | wx | 241 | Not yet packaged |
 
@@ -92,3 +92,7 @@ Part474 packages all65 original Megaco4.9.2 images with95 source/header/grammar 
 Part475 packages common_test47/47 primary ebin images plus both optional proper_ext images, and dialyzer29/29. All171 provider files include84 original source/header inputs, four application resources and five support assets;89 source/support inputs match pinned Git. The233 project/cold assertions and2463 whole original outcomes/stacks (2310 returns/153 caught errors;1150566 deterministic ETF bytes) execute with an actual original init/file_server bootstrap on our .NET runtime. Packaging advances910→986/1321 primary ebin images (68.9%→74.6%),411→335 remaining and25→27 complete primary application inventories. Record separately45 installed non-ebin images:two shipped property extensions and43 unshipped documentation/example images. Runtime/compiler sources,708 APIs/118 full contracts,8843 runtime groups and1678 source guards remain unchanged (API/full deltas0/0). Finite helpers and minimal boot are not full Common Test/Dialyzer application compatibility; exact publication-head CI remains the delivery gate. All26 warning options and all676 ordered pairs run against three initial warning sets; retain invalid inputs with full errors. Common Test includes group selection, missing/cyclic references, nested property overrides, removal of subgroups, seven group exports and user-config normalization. Original cerl/sofs/Dialyzer helpers cover annotations, locations, foldability and families. Compose36 unchanged original images plus the identical observer; actual original init and file_server start through a minimal boot script, with explicit existing native ETS/persistent-term/filesystem primitives. This closes the observed formatter/feature-state and file:get_cwd dependencies without rewriting pure functions. Full test execution, code compilation/analysis, PLT persistence, distributed/GUI hooks and full application startup remain open.
 
 The1321 denominator has always counted primary ebin images. This inventory now explicitly lists all45 additional installed images with original hashes:two Common Test proper_ext images are shipped here;43 doc/example images (Megaco5,SNMP3,wx33,SASL1,SSL1) are outside the primary denominator and remain unshipped. This is a scope clarification, not a decrease in implemented APIs.
+
+Part476 adds complete original os_mon8/8 and odbc3/3 primary image inventories in separate src libraries. Preserve35 provider files (11 BEAM images,20 source/header/C inputs,four application resources);all20 source inputs match pinned Git,including seven recorded upstream relocations. Exclude both producer monitoring executables with hashes. All875 finite whole observations match original OTP on our .NET runtime (764 returns/111 caught errors,124284 deterministic ETF bytes),with65 project/cold assertions and explicit original io native binding. Nine identity-bearing parser errors remain original-only,not managed acceptance. An initial anonymous tail-apply observer exposes an unresolved extra caller frame;the accepted ODBC corpus uses an identical direct MFA worker on both VMs,without frame normalization. Packaging advances986→997/1321 primary images (74.6%→75.5%),335→324 remaining and27→29 complete primary inventories. The43 doc/example images remain unshipped. Default708 APIs/118 complete contracts,8843 runtime groups and1678 source guards remain unchanged (API/full deltas0/0). Live OS collection,ODBC databases/drivers,application boot and whole-module compatibility remain separate. Exact publication-head CI is the delivery gate.
+
+`src/Erlang.Otp.OsMon.Beam` and `src/Erlang.Otp.Odbc.Beam` expose OtpOsMon/OtpOdbc hash-checked readers and explicit BEAM selectors. Original C sources are data,not new native builds. Monitoring/ODBC programs are not installed or started. The accepted875 profiles use whole deterministic ETF equality;the nine retained NEW_FUN_EXT cases require actual creator-PID/code identity treatment before acceptance. The anonymous dynamic apply stack discrepancy remains explicitly open rather than being certified by the direct-MFA harness.
