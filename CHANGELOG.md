@@ -138,4 +138,6 @@ Append numbered English entries only to the last volume. Start the next sequenti
 
 - [0081.md](docs/changelog/0081.md) — parts459–465 (closed; distribution and original OTP library packaging)
 
-- [0082.md](docs/changelog/0082.md) — part466 onward (active; original tools and runtime_tools libraries)
+- [0082.md](docs/changelog/0082.md) — parts466–471 (closed; original tools, security and transport libraries)
+
+- [0083.md](docs/changelog/0083.md) — part472 onward (active; original network application libraries)

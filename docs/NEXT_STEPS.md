@@ -1,3 +1,9 @@
+# Current checkpoint — Part472
+
+Complete the exact-head full CI/package gate for the network application libraries. Next package remaining official application families according to the dependency inventory; independently expand real runtime/native/boot compatibility. Packaging is708/1321 images,613 remaining. Native network services, full application boot, ASN.1 primitives, secure handshakes and platform/performance parity are separate milestones.
+
+Earlier checkpoints below are historical.
+
 # Current checkpoint — Part454 — 2026-10-23
 
 | Module / area | Accepted scope | Remaining |
