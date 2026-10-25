@@ -1,3 +1,9 @@
+# Current checkpoint — Part474
+
+Finish exact-head full CI and independent artifact verification. Continue411 remaining images in nine original application inventories: common_test47,debugger24,dialyzer29,et6,observer44,odbc3,os_mon8,reltool9,wx241. Packaging remains separate from full API/application compatibility. Next expand original tooling inventories and runtime/native prerequisites; retain the18 Part473 native-dependent reference profiles as not managed acceptance.
+
+Earlier checkpoints below are historical.
+
 # Current checkpoint — Part473
 
 Finish the exact-head CI/package gate for Diameter/SNMP. Continue remaining original application inventories (476 images in ten applications). Keep native ASN.1 BER decoding and an explicitly configured portable PCRE provider as separate prerequisites before certifying the18 retained native-dependent profiles. Live Diameter/SNMP peers, agents/managers, native security, complete dictionary/MIB compilation and application boot remain separate from packaging.
