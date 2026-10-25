@@ -60,6 +60,14 @@ Test(Erlang.Tests.DynamicApplyOriginal477Names.HostTest, Erlang.Tests.DynamicApp
 Test(Erlang.Tests.FloatStoreOriginal479Names.Test, Erlang.Tests.FloatStoreOriginal479Checks.Run);
 Test(Erlang.Tests.ClosedWaitOriginal480Names.Test, Erlang.Tests.ClosedWaitOriginal480Checks.Run);
 Test(Erlang.Tests.ClosedWaitOriginal480Names.AdmissionTest, Erlang.Tests.ClosedWaitOriginal480Checks.Admission);
+Test(Erlang.Tests.FrameOriginal481Names.ContextTest, Erlang.Tests.FrameOriginal481Checks.Context);
+Test(Erlang.Tests.FrameOriginal481Names.RecordTest, Erlang.Tests.FrameOriginal481Checks.Record);
+Test(Erlang.Tests.FrameOriginal481Names.TlsTest, Erlang.Tests.FrameOriginal481Checks.Tls);
+Test(Erlang.Tests.FrameOriginal481Names.AdmissionTest, Erlang.Tests.FrameOriginal481Checks.Admission);
+Test(Erlang.Tests.BeamContextForward481Names.Transport, Erlang.Tests.BeamContextForward481Checks.Transport);
+Test(Erlang.Tests.BeamContextForward481Names.Refusals, Erlang.Tests.BeamContextForward481Checks.Refusals);
+Test(Erlang.Tests.BeamNoReturnSwap481Names.Execution, Erlang.Tests.BeamNoReturnSwap481Checks.Execution);
+Test(Erlang.Tests.BeamNoReturnSwap481Names.Refusals, Erlang.Tests.BeamNoReturnSwap481Checks.Refusals);
 Test(Erlang.Tests.BeamClosedWait480Names.Valid, Erlang.Tests.BeamClosedWait480Checks.Valid);
 Test(Erlang.Tests.BeamClosedWait480Names.Returning, Erlang.Tests.BeamClosedWait480Checks.Returning);
 Test(Erlang.Tests.BeamClosedWait480Names.Foreign, Erlang.Tests.BeamClosedWait480Checks.Foreign);

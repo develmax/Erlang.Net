@@ -1,0 +1,50 @@
+{
+  "Comparison": "Whole deterministic raw ETF; no projection, frame removal or identity mapping",
+  "SourceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Outcomes": 10,
+  "Passed": true,
+  "ExecutionBindings": [
+    {
+      "Path": "bin/erl.exe",
+      "Sha256": "D91699E88F417E00470D224934D47CD92358CC1B3B37CA1F15BCF5D4731D8F4E"
+    },
+    {
+      "Path": "erts-17.1/bin/beam.smp.dll",
+      "Sha256": "27E75CEAEB1C33BAA8089071A47DB1F3473B537906353F874D687AE9A0854B05"
+    },
+    {
+      "Path": "erts-17.1/bin/erl.exe",
+      "Sha256": "D91699E88F417E00470D224934D47CD92358CC1B3B37CA1F15BCF5D4731D8F4E"
+    },
+    {
+      "Path": "lib/parsetools-2.8/ebin/leex.beam",
+      "Sha256": "4D81B4898393F20C826DD8A4C54525984D117BB246744E7DDA77F0C139CE367C"
+    },
+    {
+      "Path": "lib/parsetools-2.8/src/leex.erl",
+      "Sha256": "13D5AE6D297F284FB1DB18E00D93E856E3FA231CFDFFB884CDC9CC78DF81BF93"
+    },
+    {
+      "Path": "lib/ssl-11.7.7/ebin/ssl_handshake.beam",
+      "Sha256": "0CB88953A2DC5A9170E792F13265672E998DD89393FA329B4C6A4040189A3CF1"
+    },
+    {
+      "Path": "lib/ssl-11.7.7/ebin/tls_v1.beam",
+      "Sha256": "052B09316E4F115581E9C3EEBE347543C67B6A946FDB68E617C2EB4E46747D76"
+    },
+    {
+      "Path": "lib/ssl-11.7.7/src/ssl_handshake.erl",
+      "Sha256": "C017462D300732E6A94ADD19C1B9E8B370C53296F564455E81A193FF415E27CF"
+    },
+    {
+      "Path": "lib/ssl-11.7.7/src/tls_v1.erl",
+      "Sha256": "C15E00C361E9C560F05B2D306A22DA8C3F2E8719B33143E773A5E8416E880CB0"
+    },
+    {
+      "Path": "lib/stdlib-8.1/ebin/lists.beam",
+      "Sha256": "8941092DC34F0470CD404979E1890DF514D83F2EEB3B0AA8A276553E76471262"
+    }
+  ],
+  "RawEtfSha256": "D290125657F0036DDE134E56DFBA806F13AB425488BF358C83E5EB999C41A63E",
+  "Serialization": "term_to_binary/2 deterministic"
+}

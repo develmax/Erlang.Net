@@ -76,3 +76,7 @@ Part479: One shared source change in BeamFrameValidation.cs removes only the flo
 ## Part480 closed-wait proof
 
 The sole production edit is Execution/Beam/BeamNoReturnClosedWaitComponent.cs in Erlang.Runtime.Core. Reuse existing semantic opcode-name classes;keep register/frame/GC/handler validation in their existing files and original debugger algorithms in their original library assets.
+
+## Part481 context and no-return frame proof
+
+Three production edits stay in Erlang.Runtime.Core/Execution/Beam:BeamBinaryEntryProtocol,BeamNoReturnAnalysis and BeamFrameValidation. Original SSL/Parsetools algorithms and image bytes remain in their original src libraries;no execution fallback or handwritten replacement is added.

@@ -118,3 +118,7 @@ These are explicit-import bare-registry preparation counts,not full application 
 ## Part480 — original debugger image admission
 
 Packaging remains1321/1321 across34 applications. Original Debugger image preparation improves22→24/24;both dbg_wx_trace and dbg_wx_view retain original bytes/owners. Whole primary preparation improves1304→1306/1321,with all prior prepared images retained. This is loader/frame admission plus12 finite controlled receive-loop comparisons,not live GUI/debugger session or full module/API compatibility.
+
+## Part481 — original SSL and Parsetools admission
+
+Packaging remains1321/1321 primary images across34 applications. SSL preparation77→78/78 and Parsetools3→4/4 add ssl_handshake/leex with actual original owners;all1306 previously prepared images remain,for1308/1321. Public original SSL decoder execution matches96 complete outcomes/stacks in warm and cold ordinary consumers,alongside272 checks/1107 prior outcomes and144 source assets. This is finite decoder and image-admission evidence,not complete TLS sessions/scanner generation or whole module compatibility.

@@ -487,7 +487,7 @@
     },
     {
       "Path": "src/Erlang.Runtime.Core/Execution/Beam/BeamBinaryEntryProtocol.cs",
-      "Sha256": "E92218EB4606A2B8BFEE783534FCAE222DD0F33B5BD983FD7431A42F7F780A49"
+      "Sha256": "6CFEB0BD0BF8BB5B81791DAC625B3082B46863B4C1F03AF1E535E03DAF7B47DF"
     },
     {
       "Path": "src/Erlang.Runtime.Core/Execution/Beam/BeamBinaryExecution.cs",
@@ -583,7 +583,7 @@
     },
     {
       "Path": "src/Erlang.Runtime.Core/Execution/Beam/BeamFrameValidation.cs",
-      "Sha256": "E50D618CAD10A3EF8B818F6E4F7F40AC0EFD821C301D6A18F18EC38B7634CB72"
+      "Sha256": "705BF5CF07EAF9940157F08FA77B600016C4991A15C8FA2D03DDAA37C5ADAF1C"
     },
     {
       "Path": "src/Erlang.Runtime.Core/Execution/Beam/BeamFunTailProtocol.cs",
@@ -687,7 +687,7 @@
     },
     {
       "Path": "src/Erlang.Runtime.Core/Execution/Beam/BeamNoReturnAnalysis.cs",
-      "Sha256": "A55581622FFA89C205052E960542E3DF066B504E72D7D965C08D9845AEF17091"
+      "Sha256": "129436418E36016781ABC67804328622EEEA1F74B44048BC668C470EFA60DEB1"
     },
     {
       "Path": "src/Erlang.Runtime.Core/Execution/Beam/BeamNoReturnClosedWaitComponent.cs",
@@ -25684,7 +25684,7 @@
     }
   ],
   "ComparisonTestReport": "validation/part-402/distribution-creation-and-abort/snapshot/artifacts/tests.json",
-  "LocalPassedTests": 8853,
+  "LocalPassedTests": 8860,
   "RegisteredMfas": 708,
   "PreviousRegisteredMfas": 708,
   "RegisteredMfaDelta": 0,
@@ -25746,6 +25746,7 @@
       "Project": "src/Erlang.Runtime.Core",
       "Status": "Partially compatible",
       "Implemented": [
+        "Part481: exact incoming context provenance through nil/atom/literal moves and modern resume/no_fail tail entries; duplicated live binary arguments remain ordinary-only. Finite swap/put_list/update_record helpers prove no return with existing typed swap validation. All prior1306 primary images retained and original ssl_handshake/leex added:1308/1321;110 complete OTP context/record/SSL observations,including96 actual public original SSL decoder outcomes/stacks. Eight new groups,catalog8868;708 APIs/118 full contracts/1682 source bindings unchanged,API/full deltas0/0. Full sessions,applications,native prerequisites and complete API contracts remain partial;exact-head CI is a separate delivery gate.",
         "Part454 scoped acceptance: genuine native raw port bang/send/nosuspend routes actual caller separately from envelope From; shared sender-dependency scheduler covers command/control/call/close/info/exit. Registered-name pre-admission retry resolves the original name again; info is captured inside its queue entry; one incremental drain fence replaces per-admission aggregate construction. Original65 raw protocol profiles plus15 actual busy_port-monitored alias races compare entire outcomes/stacks under explicit5/6 role bijections, with physical cleanup. Unchanged original registry driver and win32reg read-only6 compare whole typed/raw. Original BEAM tuple_size receive guards including f0/no-fail run16 values in one permanent group. Final runtime55D918E9; catalog8834 (\u002B1), default708/full118 unchanged, guards1627 (\u002B4), API/full deltas0/0. Final affected/native/boot receipts are separate. Full native TCP/UDP child ports, listener/EPMD/original net_kernel peer startup, admitted WAIT_BUSY after selector races and general binary-context receive/try remain open. LICENSE.local.txt excluded.",
         "Part453: Parts451/452 merged into main b161ea9b; exact merge CI39978960949 passes8828/8828 and both packages. Thirteen merged branches archived/verified and deleted locally/remotely; main and active ordsets worktree branch preserved. Original Unicode re ucompile/urun dispatch closes the observed named-kernel prerequisite:210 full observations,162 source-raw rows plus48 authenticated own-resource bijections. Four actual mid-conversion cancellation/owner-close profiles and substitute-binding refusals pass. Bootstrap filesystem recognition now retains exact current original-image canonical primitives. Original standard -sname boot with dist_listen=false/no_epmd passes144 full terms/stacks:138 strict source-raw rows and6 state-map-order-only rows; both whole-file strict byte mismatches remain explicit. Original repeat verifies all6427 provider files before/after. No TCP listener/EPMD/full net_kernel compatibility claim. Catalog8833 (\u002B5 groups), default708/full118 unchanged, source guards1623 (\u002B2); API/full deltas0/0. Final affected/native/boot gates and exact publication-head CI are recorded separately. LICENSE.local.txt excluded.",
         "Part452 scoped acceptance: 24/24 delayed-discovery/timer/owner scenarios across depths0/1/2/8 and both lexical orders;1272 observations=1128 paired\u002B144 auxiliary,1104 whole typed/raw\u002B168 own-reference protocols. Sixteen real queued late discovery success/error results and8 naturally fired old-checker timers after actual alive handoff preserve the new owner and actual data.72 authenticated channels,48 already_pending refusals,24 expected fatal old peers,48 normal oracle/replacement VMs,32 captured killed-family handles and5 normal private EPMDs settle. Accepted matrix is a five-batch composite; one readiness sharing failure is preserved and replaced by a complete fresh scenario. Runtime18AE9106/package6B4CE923 unchanged by final test guards. Affected591 passed before two stronger non-vacuity assertions; retain590 unchanged cases plus final strengthened case1/1. Native8/retained36 and boot79/cleanup pass. Exact452 full CI/packages tracked in PR, catalog8828. Default708/full118/source1621 unchanged, API/full deltas0/0. Parent451 PR12 remains open at green d4430b63,CI39963573865 passes8827/packages. Original-only configured discovery/scheduling and explicit managed queue adapter are not full managed net_kernel boot or default setup-time proof. Evidence:docs/validation/part-452/ddll-late-discovery-and-owner-races. LICENSE.local.txt excluded.",
@@ -25913,6 +25914,7 @@
       "Project": "src/Erlang.Compiler",
       "Status": "Partially compatible",
       "Implemented": [
+        "Part481: exact incoming context provenance through nil/atom/literal moves and modern resume/no_fail tail entries; duplicated live binary arguments remain ordinary-only. Finite swap/put_list/update_record helpers prove no return with existing typed swap validation. All prior1306 primary images retained and original ssl_handshake/leex added:1308/1321;110 complete OTP context/record/SSL observations,including96 actual public original SSL decoder outcomes/stacks. Eight new groups,catalog8868;708 APIs/118 full contracts/1682 source bindings unchanged,API/full deltas0/0. Full sessions,applications,native prerequisites and complete API contracts remain partial;exact-head CI is a separate delivery gate.",
         "clauses, closures, case/receive and private scope analysis",
         "if/begin/all ordinary operators; ordered guards and common branch exports",
         "catch/try/of/catch/after and maybe/?= selected value/error/else/exception/private-scope contracts",
@@ -25966,7 +25968,7 @@
         "full binary generator literal-string grouping/size/resource contracts; empty patterns unsupported and zero-progress local system_limit policy",
         "Physical BEAM heap/scheduler/resources,complete lint/spec/warnings/source stacks/code staging,connected distribution and full native/upstream/performance parity;native numeric record hashes independently matched in230, while general resource/lifecycle scope remains partial."
       ],
-      "RelatedPassedTests": 933
+      "RelatedPassedTests": 939
     },
     {
       "Id": "Core library modules",
@@ -26162,7 +26164,7 @@
         "Part134: all3248 comparable original cases pass at b1ed28e; six exact unsafe-original scenarios remain explicitly excluded while mandatory managed tests pass. No complete native coverage claim.",
         "Part136: complete3291 comparable original cases,3290 pass/one pending alias signal admission mismatch at569cba8;six explicit unsafe-native exclusions remain. Implement pending signal admission before promotion;latest successful comparable134."
       ],
-      "RelatedPassedTests": 5739
+      "RelatedPassedTests": 5740
     },
     {
       "Id": "Style checks",

@@ -795,3 +795,7 @@ Reuse pinned OTP emu/float_instrs.tab:fstore and the existing initialized-FP/des
 ## Part480 closed receive-loop dependency policy
 
 Do not translate original debugger loops into C#. Extend only the closed-wait lexical proof for already validated make_fun3,select_tuple_arity,update_record and put_tuple2. Existing typed validation remains authoritative;ordinary labels remain function-local,local tail targets are followed,unknown tails/returning arms/handlers still refuse,and a real wait remains required. Reuse existing public Debugger/Stdlib readers and cold consumer;no new external package or native GUI driver is introduced.
+
+## Part481 original binary context and finite record proof
+
+Reuse pinned beam_validator.erl match-context and typed-register semantics. Expand only transparent origin transport and conservative no-return CFG continuations;do not port original SSL/Parsetools algorithms. Nil/atom/literal writes remove their target origin and cannot authenticate contexts;duplicate active argument uses remain ordinary-only. Newly proven no-return swap helpers route through existing typed validation. Reject the broad swap-validation experiment that refused previous original modules. No new dependency/native TLS provider or compatibility promotion.

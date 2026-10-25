@@ -142,4 +142,4 @@ Append numbered English entries only to the last volume. Start the next sequenti
 
 - [0083.md](docs/changelog/0083.md) — parts472–476 (closed; original network,analysis and platform libraries)
 
-- [0084.md](docs/changelog/0084.md) — parts477–480 onward (active; dynamic apply,original libraries,floating stores and closed receive loops)
+- [0084.md](docs/changelog/0084.md) — parts477–481 onward (active; original libraries,control transfer,frame and binary-context proofs)

@@ -1,0 +1,33 @@
+{
+  "Prepared": 1304,
+  "PreviousPrepared": 1306,
+  "ReportSha256": "C3024F832CB4637A4CE13EA32EA9B4DAD74FBA915EB55719E1B7A6637DF0DB27",
+  "PreviouslyAdmittedRefusals": [
+    {
+      "Module": "ct_testspec",
+      "Prepared": false,
+      "ErrorType": "System.IO.InvalidDataException",
+      "Error": "System.IO.InvalidDataException: The BEAM frame or Y-register ownership is unsupported\r\n   at Erlang.BeamFrameValidation.<>c__DisplayClass6_1.<ValidateExceptionalEntry>g__Roots|13()\r\n   at Erlang.BeamFrameValidation.<>c__DisplayClass6_1.<ValidateExceptionalEntry>g__Exception|15(<>c__DisplayClass6_0&)\r\n   at Erlang.BeamFrameValidation.ValidateExceptionalEntry(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary`2 receives, BigInteger entryContexts)\r\n   at Erlang.BeamFrameValidation.ValidateExceptional(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary`2 receives)\r\n   at Erlang.BeamFrameValidation.Validate(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary`2 receives)\r\n   at Erlang.BeamRegisterValidation.Validate(BeamLinkedCode code, BeamLinkedFunction entry)\r\n   at Erlang.ModuleRegistry.PrepareBeam(ReadOnlyMemory`1 bytes, BeamDependencySelection dependencies)\r\n   at Program.<>c__DisplayClass0_0.<<Main>$>b__2(ModuleRegistry registry)"
+    },
+    {
+      "Module": "global",
+      "Prepared": false,
+      "ErrorType": "System.IO.InvalidDataException",
+      "Error": "System.IO.InvalidDataException: The BEAM frame or Y-register ownership is unsupported\r\n   at Erlang.BeamFrameValidation.<>c__DisplayClass6_1.<ValidateExceptionalEntry>g__Roots|13()\r\n   at Erlang.BeamFrameValidation.<>c__DisplayClass6_1.<ValidateExceptionalEntry>g__Exception|15(<>c__DisplayClass6_0&)\r\n   at Erlang.BeamFrameValidation.ValidateExceptionalEntry(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary`2 receives, BigInteger entryContexts)\r\n   at Erlang.BeamFrameValidation.ValidateExceptional(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary`2 receives)\r\n   at Erlang.BeamFrameValidation.Validate(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary`2 receives)\r\n   at Erlang.BeamRegisterValidation.Validate(BeamLinkedCode code, BeamLinkedFunction entry)\r\n   at Erlang.BeamPublicationMetadata.Read(BeamLinkedCode code, EtfDecodeOptions decoding)\r\n   at Erlang.ModuleRegistry.PrepareBeam(ReadOnlyMemory`1 bytes, BeamDependencySelection dependencies)\r\n   at Program.<>c__DisplayClass0_0.<<Main>$>b__2(ModuleRegistry registry)"
+    },
+    {
+      "Module": "observer_tv_table",
+      "Prepared": false,
+      "ErrorType": "System.IO.InvalidDataException",
+      "Error": "System.IO.InvalidDataException: The BEAM frame or Y-register ownership is unsupported\r\n   at Erlang.BeamFrameValidation.<>c__DisplayClass6_1.<ValidateExceptionalEntry>g__Roots|13()\r\n   at Erlang.BeamFrameValidation.<>c__DisplayClass6_1.<ValidateExceptionalEntry>g__Exception|15(<>c__DisplayClass6_0&)\r\n   at Erlang.BeamFrameValidation.ValidateExceptionalEntry(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary`2 receives, BigInteger entryContexts)\r\n   at Erlang.BeamFrameValidation.ValidateExceptional(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary`2 receives)\r\n   at Erlang.BeamFrameValidation.Validate(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary`2 receives)\r\n   at Erlang.BeamRegisterValidation.Validate(BeamLinkedCode code, BeamLinkedFunction entry)\r\n   at Erlang.BeamPublicationMetadata.Read(BeamLinkedCode code, EtfDecodeOptions decoding)\r\n   at Erlang.ModuleRegistry.PrepareBeam(ReadOnlyMemory`1 bytes, BeamDependencySelection dependencies)\r\n   at Program.<>c__DisplayClass0_0.<<Main>$>b__2(ModuleRegistry registry)"
+    },
+    {
+      "Module": "io_lib_format",
+      "Prepared": false,
+      "ErrorType": "System.IO.InvalidDataException",
+      "Error": "System.IO.InvalidDataException: The BEAM frame or Y-register ownership is unsupported\r\n   at Erlang.BeamFrameValidation.<>c__DisplayClass6_1.<ValidateExceptionalEntry>g__LocalArguments|20(BeamOperand arity, BeamOperand target, <>c__DisplayClass6_0&)\r\n   at Erlang.BeamFrameValidation.ValidateExceptionalEntry(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary`2 receives, BigInteger entryContexts)\r\n   at Erlang.BeamFrameValidation.ValidateExceptional(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary`2 receives)\r\n   at Erlang.BeamFrameValidation.Validate(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary`2 receives)\r\n   at Erlang.BeamRegisterValidation.Validate(BeamLinkedCode code, BeamLinkedFunction entry)\r\n   at Erlang.ModuleRegistry.PrepareBeam(ReadOnlyMemory`1 bytes, BeamDependencySelection dependencies)\r\n   at Program.<>c__DisplayClass0_0.<<Main>$>b__2(ModuleRegistry registry)"
+    }
+  ],
+  "Accepted": false,
+  "Replacement": "Only newly proven no-return swap helpers enter existing typed validation;context forwarding also requires unique live argument provenance"
+}
