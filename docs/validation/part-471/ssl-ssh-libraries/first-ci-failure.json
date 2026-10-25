@@ -1,0 +1,15 @@
+{
+  "Head": "22e6d9f1c0ffa1437a13576c405c1da74b5766d2",
+  "Run": 40144276770,
+  "Job": 121022190697,
+  "Artifact": 12579569822,
+  "ArtifactSha256": "050bad1ecb8e5fd7d7f94f2fb8bc6c986f6b7e69e316e0982fce549c5a7c7976",
+  "Passed": false,
+  "TestsPassed": 8842,
+  "TestsFailed": 1,
+  "Failure": "runtime/beam/wide-integer392/short-input-preserves-destination-width-unit-flags-refuse",
+  "Reason": "Existing Part392 control still required refusal for129/130-bit matches after the shared128-bit cap was removed. Replace those obsolete cap expectations with exact successful extraction and short-input destination/cursor preservation; retain invalid unit/flags/overflow controls.",
+  "RuntimeChangedForRepair": false,
+  "TransportWholeRawEquality": true,
+  "PackagesReached": false
+}
