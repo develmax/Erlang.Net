@@ -57,6 +57,14 @@ Test(Erlang.Tests.ApplyTailOriginal416Names.Test, Erlang.Tests.ApplyTailOriginal
 Test(Erlang.Tests.ApplyTailReturn416Names.Test, Erlang.Tests.ApplyTailReturn416Checks.Run);
 Test(Erlang.Tests.DynamicApplyOriginal477Names.Test, Erlang.Tests.DynamicApplyOriginal477Checks.Run);
 Test(Erlang.Tests.DynamicApplyOriginal477Names.HostTest, Erlang.Tests.DynamicApplyOriginal477Checks.HostBindings);
+Test(Erlang.Tests.FloatStoreOriginal479Names.Test, Erlang.Tests.FloatStoreOriginal479Checks.Run);
+Test(Erlang.Tests.BeamFloatStore479Names.Store, Erlang.Tests.BeamFloatStore479Checks.Store);
+Test(Erlang.Tests.BeamFloatStore479Names.Trimmed, Erlang.Tests.BeamFloatStore479Checks.Trim);
+Test(Erlang.Tests.BeamFloatStore479Names.Gc, Erlang.Tests.BeamFloatStore479Checks.GcRoots);
+Test(Erlang.Tests.BeamFloatStore479Names.YRead, Erlang.Tests.BeamFloatStore479Checks.UninitializedRead);
+Test(Erlang.Tests.BeamFloatStore479Names.FloatRead, Erlang.Tests.BeamFloatStore479Checks.UninitializedFloat);
+Test(Erlang.Tests.BeamFloatStore479Names.Bounds, Erlang.Tests.BeamFloatStore479Checks.DestinationBounds);
+Test(Erlang.Tests.BeamFloatStore479Names.Handler, Erlang.Tests.BeamFloatStore479Checks.HandlerOwnership);
 Test(Erlang.Tests.EtsCounter417HostNames.Basics, Erlang.Tests.EtsCounter417HostChecks.Basics);
 Test(Erlang.Tests.EtsCounter417HostNames.Atomic, Erlang.Tests.EtsCounter417HostChecks.AtomicAndRollback);
 Test(Erlang.Tests.EtsCounter417HostNames.Admission, Erlang.Tests.EtsCounter417HostChecks.Admission);

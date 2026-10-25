@@ -25,6 +25,7 @@
     <PackageReference Include="Erlang.Otp.Stdlib.Beam" Version="0.1.0" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Fixtures/FloatStore479/*" LogicalName="Erlang.Otp.Gui.Library.Tests.FloatStore479.%(Filename)%(Extension)" />
     <EmbeddedResource Include="Fixtures/*" LogicalName="Erlang.Otp.Gui.Library.Tests.%(Filename)%(Extension)" />
   </ItemGroup>
 </Project>

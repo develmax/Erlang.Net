@@ -9,6 +9,7 @@ internal static class GuiLibraryChecks
     internal static async Task Run(string[] args)
     {
         await RunCorpus(args);
+        await GuiFloatStore479Checks.Run(args);
     }
 
     private static async Task RunCorpus(string[] args)

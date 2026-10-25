@@ -796,7 +796,8 @@ internal static class BeamFrameValidation
                     {
                         if ((state.Floating & Bit((int)operands[0].Value)) == 0)
                             throw new InvalidDataException(BeamOnLoadDiagnostics.Frame);
-                        Roots();
+                        // OTP fstore uses already reserved heap space and cannot GC.
+                        // Its destination may be the next uninitialized frame slot.
                         Write(operands[1]);
                     }
                     else

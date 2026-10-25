@@ -787,3 +787,7 @@ Follow pinned OTP emu/ops.tab,instrs.tab and beam_common.c apply/fixed_apply/app
 ## Part478 — remaining original GUI/tool libraries
 
 Reuse unchanged pinned debugger, et, observer, reltool and wx source/images under their preserved upstream notices and existing OTP package license. Reuse the public library facade and explicit selection infrastructure. No new .NET GUI dependency or handwritten pure-module alternative is introduced. Original pixmap/header/source support stays data. Exclude producer wx DLLs and PDBs; they do not establish a portable native wx provider. Compare finite pure class/helper and process-dictionary behavior with whole original values and stacks. Live GUI, debugger, tracing and release-building application acceptance remains separate.
+
+## Part479 — non-GC floating stores
+
+Reuse pinned OTP emu/float_instrs.tab:fstore and the existing initialized-FP/destination/frame ownership checks. fstore performs PUT_DOUBLE and heap-pointer advancement using reserved space;it does not invoke GC. Keep actual GC root checks,arithmetic exception edges and handler guards unchanged. Execute original reltool_fgraph instead of translating force layout into C#. Preserve original header/notices;existing math native primitives and original lists/math wrappers remain explicit. No new external dependency or native GUI provider is introduced.

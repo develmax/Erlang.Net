@@ -1,0 +1,18 @@
+{
+  "Path": "src/Erlang.Runtime.Core/Execution/Beam/BeamFrameValidation.cs",
+  "Before": "C00C0CD4A57D064ECDEDDD9FCDB4087BC3E7C87D122CEB87A39B766D1F6E3BA9",
+  "After": "E50D618CAD10A3EF8B818F6E4F7F40AC0EFD821C301D6A18F18EC38B7634CB72",
+  "PriorSourceBindings": 1682,
+  "CurrentSourceBindings": 1682,
+  "RemovedRootsCalls": 1,
+  "ActualGcRootChecksUnchanged": true,
+  "FloatRegisterReadAndDestinationBoundsUnchanged": true,
+  "HandlerOwnershipUnchanged": true,
+  "RuntimeExecutionUnchanged": true,
+  "ApiEntriesAndClassificationsUnchanged": true,
+  "ApiDelta": 0,
+  "FullContractDelta": 0,
+  "ReferenceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ReferencePath": "erts/emulator/beam/emu/float_instrs.tab",
+  "Review": "fstore writes a float into preallocated heap, without GC; Write validates/marks the actual destination and retains tag/slot ownership. All other Roots calls and arithmetic exception edges remain unchanged."
+}

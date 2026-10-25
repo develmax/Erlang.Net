@@ -1,0 +1,56 @@
+{
+  "Partial": true,
+  "SelectedCount": 7,
+  "TotalCount": 8852,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/float-store479/destination-bounds-refused",
+    "compiler/float-store479/fills-frame-before-gc",
+    "compiler/float-store479/gc-requires-initialized-roots",
+    "compiler/float-store479/handler-overwrite-refused",
+    "compiler/float-store479/trim-discards-unused-slot",
+    "compiler/float-store479/uninitialized-float-refused",
+    "compiler/float-store479/uninitialized-y-read-refused"
+  ],
+  "Passed": 5,
+  "Failed": 2,
+  "Tests": [
+    {
+      "Name": "compiler/float-store479/fills-frame-before-gc",
+      "Status": "Failed",
+      "Error": "System.IO.InvalidDataException: The BEAM frame or Y-register ownership is unsupported\r\n   at Erlang.BeamFrameValidation.\u003C\u003Ec__DisplayClass6_1.\u003CValidateExceptionalEntry\u003Eg__Roots|13() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime.Core\\Execution\\Beam\\BeamFrameValidation.cs:line 680\r\n   at Erlang.BeamFrameValidation.ValidateExceptionalEntry(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary\u00602 receives, BigInteger entryContexts) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime.Core\\Execution\\Beam\\BeamFrameValidation.cs:line 799\r\n   at Erlang.BeamFrameValidation.ValidateExceptional(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary\u00602 receives) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime.Core\\Execution\\Beam\\BeamFrameValidation.cs:line 408\r\n   at Erlang.BeamFrameValidation.Validate(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary\u00602 receives) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime.Core\\Execution\\Beam\\BeamFrameValidation.cs:line 23\r\n   at Erlang.BeamRegisterValidation.Validate(BeamLinkedCode code, BeamLinkedFunction entry) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime.Core\\Execution\\Beam\\BeamRegisterValidation.cs:line 438\r\n   at Erlang.BeamModule.Supports(String function, Int32 arity) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime.Core\\Execution\\Beam\\BeamModule.cs:line 66\r\n   at Erlang.Tests.BeamFloatStore479Checks.Accept(Byte[] image) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\Frames\\BeamFloatStore479Checks.cs:line 41\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 6828",
+      "Milliseconds": 59
+    },
+    {
+      "Name": "compiler/float-store479/trim-discards-unused-slot",
+      "Status": "Failed",
+      "Error": "System.IO.InvalidDataException: The BEAM frame or Y-register ownership is unsupported\r\n   at Erlang.BeamFrameValidation.\u003C\u003Ec__DisplayClass6_1.\u003CValidateExceptionalEntry\u003Eg__Roots|13() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime.Core\\Execution\\Beam\\BeamFrameValidation.cs:line 680\r\n   at Erlang.BeamFrameValidation.ValidateExceptionalEntry(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary\u00602 receives, BigInteger entryContexts) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime.Core\\Execution\\Beam\\BeamFrameValidation.cs:line 799\r\n   at Erlang.BeamFrameValidation.ValidateExceptional(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary\u00602 receives) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime.Core\\Execution\\Beam\\BeamFrameValidation.cs:line 408\r\n   at Erlang.BeamFrameValidation.Validate(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary\u00602 receives) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime.Core\\Execution\\Beam\\BeamFrameValidation.cs:line 23\r\n   at Erlang.BeamRegisterValidation.Validate(BeamLinkedCode code, BeamLinkedFunction entry) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime.Core\\Execution\\Beam\\BeamRegisterValidation.cs:line 438\r\n   at Erlang.BeamModule.Supports(String function, Int32 arity) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime.Core\\Execution\\Beam\\BeamModule.cs:line 66\r\n   at Erlang.Tests.BeamFloatStore479Checks.Accept(Byte[] image) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\Frames\\BeamFloatStore479Checks.cs:line 41\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 6828",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/float-store479/gc-requires-initialized-roots",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/float-store479/uninitialized-y-read-refused",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/float-store479/uninitialized-float-refused",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/float-store479/destination-bounds-refused",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/float-store479/handler-overwrite-refused",
+      "Status": "Passed",
+      "Milliseconds": 1
+    }
+  ]
+}
