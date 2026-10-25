@@ -45,6 +45,15 @@ jobs:
           name: validation
           path: |
             artifacts/tests.json
+            artifacts/library485/permanent/**
+            artifacts/library485/catalog/**/results/**
+            artifacts/library485/catalog/**/native/compile*.txt
+            artifacts/library485/catalog/**/native/compile.json
+            artifacts/library485/catalog/latest.json
+            artifacts/library485/catalog/latest-run.json
+            artifacts/library485/cold-catalog/**/results/**
+            artifacts/library485/cold-catalog/**/completion.json
+            artifacts/otp-regex-captures-original/**
             artifacts/integration-results.json
             artifacts/otp-kernel-original/**
             artifacts/otp-kernel-values.txt

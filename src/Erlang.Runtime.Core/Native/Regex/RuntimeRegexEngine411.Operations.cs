@@ -187,7 +187,7 @@ public sealed partial class RuntimeRegexEngine411
         bool temporary = false;
         try
         {
-            ReOptions411.Run(options);
+            bool binaryCaptures = ReOptions411.Run(options);
             if (expression is TupleTerm) code = Authenticate(expression);
             else
             {
@@ -215,13 +215,16 @@ public sealed partial class RuntimeRegexEngine411
                     options
                 ).ConfigureAwait(false);
 
+            BitString? captureSource = (subject as BitString)?.PinRegexCaptureSource();
             byte[] input = await Bytes(context, subject, code.Unicode).ConfigureAwait(false);
 
             return await MatchAsync(
                 context,
                 code,
                 input,
-                validateUtf
+                validateUtf,
+                binaryCaptures,
+                captureSource
             ).ConfigureAwait(false);
         }
         finally
@@ -239,7 +242,9 @@ public sealed partial class RuntimeRegexEngine411
         ProcessContext context,
         ReCode411 code,
         byte[] input,
-        bool validateUtf
+        bool validateUtf,
+        bool binaryCaptures,
+        BitString? originalSubject
     )
     {
         using var subject = new ReBuffer411(input);
@@ -302,7 +307,20 @@ public sealed partial class RuntimeRegexEngine411
             {
                 long start = Marshal.ReadInt64(vector, checked(i * ReNativeConstants411.CapturePairBytes)),
                     end = Marshal.ReadInt64(vector, checked(i * ReNativeConstants411.CapturePairBytes + ReNativeConstants411.CaptureElementBytes));
-                captures[i] = start == -1 ? Term.Tuple(Term.I(-1), Term.I(0)) : Term.Tuple(Term.I(start), Term.I(checked(end - start)));
+                if (binaryCaptures)
+                {
+                    if (start == -1)
+                        captures[i] = new BitString([]);
+                    else
+                    {
+                        int offset = checked((int)start), count = checked((int)(end - start));
+                        captures[i] = originalSubject is null
+                            ? new BitString(input.AsSpan(offset, count))
+                            : originalSubject.SliceBits(checked(offset * ReCaptureNames485.BitsPerByte), checked(count * ReCaptureNames485.BitsPerByte));
+                    }
+                }
+                else
+                    captures[i] = start == -1 ? Term.Tuple(Term.I(-1), Term.I(0)) : Term.Tuple(Term.I(start), Term.I(checked(end - start)));
             }
 
             return Term.Tuple(Term.A(ReAtomNames411.Match), Term.List(captures));

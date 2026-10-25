@@ -1,3 +1,13 @@
+Final local Part485 acceptance:6540/6540 affected tests;warm and cold configured1321/1321,176 whole captures,9 portable native groups and own-state map protocol,balanced native cleanup and child exit0. Core/test/cold and three package runtime entries match41F9B1DF. Strict readiness preflight8896 preserves all8895 prior ordered names;1685 source bindings. Merge484 CI40189725678 is green. Publication-head full CI remains pending.
+
+# Current checkpoint — Part485
+
+Part485: explicit typed native provider composition prepares1321/1321 primary original images across34 libraries with an admitted DriverHost and regex provider; bare preparation remains1317/1321. Binary capture option {capture,all,binary} matches176 complete original outcomes/errors/stacks/backing sizes. Unaligned subjects copy; aligned offheap subjects pin before capture sharing. Nine portable native groups and own-state map protocol pass with raw key order differences preserved. API/full deltas0/0;708 registered,118 full contracts;no whole-module/application/performance promotion. Exact publication-head full CI remains a required delivery gate.
+
+Part484 PR45 merged as8f02ae057 after exact-head CI40187019114:8895/8895,27 whole raw corpora and17 cold families. Its final artifact proof is preserved in validation/part-485/native-catalog/previous484-ci-proof.json.
+
+Earlier checkpoints below are historical.
+
 Part484 CI ordering follow-up: initial547cac434 run40185283493 fails before main tests because the new verifier precedes its ETF producer. Move it after the harness;runtime/assertions/deadlines unchanged. Clean-output local7/7 plus fresh original576/priority pass. New exact-head full CI remains required.
 
 # Current checkpoint — Part484
