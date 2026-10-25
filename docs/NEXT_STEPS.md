@@ -1,3 +1,9 @@
+# Current checkpoint — Part478
+
+Finish exact-head CI and independent downloaded-artifact verification for all five GUI/tool libraries. Primary application packaging is complete (1321/1321, 34 applications); next inventory the 43 remaining installed documentation/example images without inflating primary counts. Continue actual application/dependency startup and native-provider execution: wx GUI driver/rendering, debugger sessions, observer/ET live tracing and reltool release generation are not established by finite helper comparisons. Retain nine identity-bearing parser stacks and eighteen native-dependent Management profiles as original-only until their full protocols are validated. Expand original net_kernel/application boot and runtime full contracts independently.
+
+Earlier checkpoints below are historical.
+
 # Current checkpoint — Part477
 
 Finish exact-head full CI and independent artifact verification for dynamic apply. Resume original GUI/tool library packaging from the prepared file/import inventory:debugger24,et6,observer44,reltool9,wx241 (324 primary images). Exclude wx producer DLLs and native debug symbols explicitly. Expand native scheduling/closure identity and driver/application acceptance independently;the nine opaque creator-PID parser profiles remain unaccepted until the full identity protocol is exercised. Keep43 documentation/example images outside the primary denominator.

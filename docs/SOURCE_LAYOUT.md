@@ -68,3 +68,5 @@ Part475: Add Erlang.Otp.CommonTest.Beam and Erlang.Otp.Dialyzer.Beam in src with
 Part476: src/Erlang.Otp.OsMon.Beam and src/Erlang.Otp.Odbc.Beam preserve all11 images and35 release files;C and Erlang source paths/notices remain original release data. Native monitor executables are hash-inventoried exclusions.
 
 Part477: New separate runtime types BeamModuleApplyTailScope,ModuleRegistry.CanonicalApply,ErlangApplyFunctionDispatch and ErlangApplySourceLocation implement runtime control-transfer/metadata;four existing shared source files are reviewed. Original pure libraries remain unchanged.
+
+Part478: Five separate src/Erlang.Otp.{Debugger,Et,Observer,Reltool,Wx}.Beam projects preserve 683 release files and complete primary inventories. Exclude all five wx producer native/debug binaries explicitly.

@@ -33,8 +33,13 @@ Packaging progress counts module names in the admitted OTP29.1.1 application inv
 | tftp | 8 | 8 | 100% | Shared207 project/cold assertions and1337 whole outcomes/stacks: All packet classes, wire encodings/decodings, limits and invalid inputs |
 | ftp | 6 | 6 | 100% | Shared207 project/cold assertions and1337 whole outcomes/stacks: All500 reply-code interpretations, error text and every two-chunk split of three responses |
 | inets | 63 | 63 | 100% | Shared207 project/cold assertions and1337 whole outcomes/stacks: HTTP status/date/case/HTML/hex/token helpers |
+| debugger | 24 | 24 | 100% | Shared 975 project/cold assertions and 1415 whole helper/class outcomes; GUI/native/application acceptance remains separate |
+| et | 6 | 6 | 100% | Shared 975 project/cold assertions and 1415 whole helper/class outcomes; GUI/native/application acceptance remains separate |
+| observer | 44 | 44 | 100% | Shared 975 project/cold assertions and 1415 whole helper/class outcomes; GUI/native/application acceptance remains separate |
+| reltool | 9 | 9 | 100% | Shared 975 project/cold assertions and 1415 whole helper/class outcomes; GUI/native/application acceptance remains separate |
+| wx | 241 | 241 | 100% | Shared 975 project/cold assertions and 1415 whole helper/class outcomes; GUI/native/application acceptance remains separate |
 
-These twenty-nine applications total997/997 packaged module names (100% of these twenty-nine primary ebin application inventories). The ERTS descriptor lists19 modules and the distribution includes three additional implementation images; all22 are packaged and the distinction is recorded in provenance. This is not a project-wide completion percentage or full compatibility claim. The official kernel producer is Windows x64; platform identity remains explicit. No newly registered runtime APIs or full contracts are added by packaging.
+These thirty-four applications total1321/1321 packaged module names (100% of these thirty-four primary ebin application inventories). The ERTS descriptor lists19 modules and the distribution includes three additional implementation images; all22 are packaged and the distinction is recorded in provenance. This is not a project-wide completion percentage or full compatibility claim. The official kernel producer is Windows x64; platform identity remains explicit. No newly registered runtime APIs or full contracts are added by packaging.
 
 Projects:
 
@@ -59,19 +64,14 @@ Next: extend other applications according to the boot dependency inventory, pres
 
 ## Remaining official application inventories
 
-The admitted Windows release contains1321 primary ebin BEAM files across34 applications (36 application directories including C/Java support). This batch packages997/1321 primary ebin image names (75.5%); this is packaging progress only. Source names, descriptors, generated support and native platform prerequisites remain distinct. The complete module list is in [OTP_LIBRARY_INVENTORY.json](OTP_LIBRARY_INVENTORY.json).
+The admitted Windows release contains1321 primary ebin BEAM files across34 applications (36 application directories including C/Java support). This batch packages1321/1321 primary ebin image names (100%); this is packaging progress only. Source names, descriptors, generated support and native platform prerequisites remain distinct. The complete module list is in [OTP_LIBRARY_INVENTORY.json](OTP_LIBRARY_INVENTORY.json).
 
 | Remaining application | BEAM images | Packaging state |
 | --- | ---: | --- |
-| debugger | 24 | Not yet packaged |
 | erl_interface | 0 | C/Java support; no BEAM images |
-| et | 6 | Not yet packaged |
 | jinterface | 0 | C/Java support; no BEAM images |
-| observer | 44 | Not yet packaged |
-| reltool | 9 | Not yet packaged |
-| wx | 241 | Not yet packaged |
 
-Next priority: remaining application families and the explicit runtime/filesystem/parse-transform prerequisites for executing the original compiler pipeline. Native profiling/tracing/driver effects must be validated separately from these finite pure calculations. Packaging an image does not prove every export, I/O effect, on_load hook, native binding or application-start closure.
+All primary application image inventories are now packaged. Next priority: the 43 additional documentation/example images and explicit runtime/filesystem/parse-transform prerequisites for executing the original compiler pipeline. Native profiling/tracing/driver effects must be validated separately from these finite pure calculations. Packaging an image does not prove every export, I/O effect, on_load hook, native binding or application-start closure.
 
 Part467 executes30 complete helper outcomes/stacks from unchanged eunit_lib/edoc_lib/xmerl_lib plus original lists/gb_trees. The shared loader proves a bounded concrete literal call cannot return before admitting the optimized try-case boundary. Unknown values, branching provenance, returning calls, cycles and malformed frame ownership remain refusals. This is not whole EUnit runner, EDoc rendering, XML parser or application boot certification.
 
@@ -98,3 +98,7 @@ Part476 adds complete original os_mon8/8 and odbc3/3 primary image inventories i
 `src/Erlang.Otp.OsMon.Beam` and `src/Erlang.Otp.Odbc.Beam` expose OtpOsMon/OtpOdbc hash-checked readers and explicit BEAM selectors. Original C sources are data,not new native builds. Monitoring/ODBC programs are not installed or started. The accepted875 profiles use whole deterministic ETF equality;the nine retained NEW_FUN_EXT cases require actual creator-PID/code identity treatment before acceptance. The anonymous dynamic apply stack discrepancy remains explicitly open rather than being certified by the direct-MFA harness.
 
 Part477: both the original direct-MFA Platform worker and the exact earlier anonymous worker now pass all875 complete observations on the corrected runtime. The extra native apply caller frame is closed,including all66 retained ODBC failures. Nine opaque-function/creator-PID parser errors remain original-only. Packaging counts stay997/1321;this runtime correction adds no image inventory or full API promotion.
+
+Part478 packages the remaining original debugger (24), et (6), observer (44), reltool (9) and wx (241) primary images in five separate src libraries. All 683 original release files retain their bytes and notices, including 349 source/header/support inputs and ten application resources. Explicitly exclude three wx producer DLLs and two PDBs with hashes. The public consumer checks all 324 image identities, independent readers, resources and explicit BEAM selectors. It publishes 232 original wx class images, four original application helper images, four original stdlib dependencies and one identical compiled observer. All 1415 complete observations match pinned OTP: 468 returns and 947 caught errors, without projection, stack removal or identity mapping. Packaging advances 997→1321/1321 primary images (75.5%→100%), 29→34 complete primary application inventories; 43 installed documentation/example images remain separate and unshipped. This completes the primary packaging inventory, not GUI/native/application/API compatibility. Runtime sources, 708 registered APIs, 118 full contracts, 8845 runtime test groups and 1682 source guards are unchanged (API/full deltas 0/0). Exact publication-head full CI remains the delivery gate.
+
+The five public facades are OtpDebugger, OtpEt, OtpObserver, OtpReltool and OtpWx. Their projects reside under src/Erlang.Otp.<Name>.Beam. All helpers execute unchanged original algorithms: debugger stack dictionary/serialization, ET trace-pattern construction, Observer color mixing/dark-mode decisions, Reltool application-name/library-path/condition helpers and 232 wx parent-class implementations. No native GUI objects are created. DLLs and debug symbols from the Windows producer are exclusions, not runtime dependencies shipped in the libraries.
