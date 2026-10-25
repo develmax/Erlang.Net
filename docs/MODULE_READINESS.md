@@ -1,8 +1,20 @@
 # Module readiness
 
-Baseline **OTP-29.1.1**. Part479 exact-head CI **8853/8853 passed**, with independently verified artifact and all17 cold library families. Part479 is merged into main **2bcbf3df**; merge CI40168019246 is tracked separately. Part480 catalog **8860**, affected initial **5303/5304**, exact failed-name/new-test recheck **8/8**, focus **11/11**; full exact-head CI remains pending. Runtime MFAs **708**, complete contracts **118**, known differences **31**, needs verification **559**, source bindings **1682**; API/full deltas **0/0**.
+Baseline **OTP-29.1.1**. Part480 merged into main **dcce1b83**;exact merge CI **40170562880**,downloaded artifact and all17 cold families pass **8860/8860**. Part481 catalog **8868**,final affected **5312/5312**,focus **11/11**,fresh whole OTP comparisons **110/110**;exact publication-head full CI is tracked in the PR. Runtime MFAs **708**,complete contracts **118**,known differences **31**,needs verification **559**,source bindings **1682**;API/full deltas **0/0**.
 
 API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.
+
+## Part481 binary context and record helpers
+
+| Area | Verified increment | Remaining |
+| --- | --- | --- |
+| Original SSL | Image preparation77→78/78;96 complete public decoder outcomes/stacks through actual original ssl_handshake | Full TLS sessions,native crypto and whole module contracts |
+| Original Parsetools | Image preparation3→4/4;original leex publishes with actual image owner | Full scanner generation and complete application contracts |
+| Shared BEAM runtime | Context/literal forwarding,finite record/throw proof,typed no-return swap checks;10+4 whole OTP outcomes | crashdump_viewer frame join,eight receive matchers |
+| Primary inventory | 1306→1308/1321 prepared;all previous images retained;1321/1321 packaged | One frame,eight receive,four configured-native capture cases |
+| Ordinary .NET consumer | 272 retained checks/1107 outcomes plus96 new SSL outcomes;warm and cold NuGet pass | Native providers,full applications and API/performance parity |
+
+Part481 admits unchanged original ssl_handshake and leex through stricter context provenance and finite no-return analysis. Nil/atom/literal moves kill target origins; modern resume/no_fail tail forwarding preserves one exact incoming context. Duplicate live uses stay ordinary-binary-only. Existing typed register validation also checks newly proven no-return swap helpers. No interpreter or original library algorithm changes. All prior1306 primary images remain admitted:1308/1321 (99.0%);SSL78/78 and Parsetools4/4. Fresh pinned OTP matches110 complete deterministic ETF outcomes:10 context-forwarding,4 record/throw/cleanup and96 actual ssl_handshake decode_extensions/3 and decode_hello_extensions/4 results/full stacks. The96 also match public library readers and cold ordinary NuGet consumption;all272 Transport assertions,1107 prior whole outcomes and144 original source assets remain verified. Final Release build106.41s,affected5312/5312,focus11/11 and strict source-bound readiness preflight pass. Eight new permanent groups bring8860→8868. Part480 is merged atdcce1b83;its exact merge CI40170562880 independently passes8860/8860,36 package creations,19 whole corpora and17 cold families. Default708 APIs/118 full contracts,31 known differences,559 pending and1682 reviewed source bindings remain unchanged (API/full deltas0/0). Packaging remains1321/1321 primary images in34 applications. One frame,eight receive matcher and four bare-registry native capture refusals remain. Full TLS sessions,GUI/application startup,native providers and full API/performance contracts remain separate;exact Part481 publication-head CI/artifact verification is still the delivery gate.
 
 ## Part480 closed receive loops
 

@@ -1,0 +1,35 @@
+{
+  "Part": 481,
+  "SourceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Files": [
+    {
+      "Path": "src/Erlang.Runtime.Core/Execution/Beam/BeamBinaryEntryProtocol.cs",
+      "Before": "E92218EB4606A2B8BFEE783534FCAE222DD0F33B5BD983FD7431A42F7F780A49",
+      "After": "6CFEB0BD0BF8BB5B81791DAC625B3082B46863B4C1F03AF1E535E03DAF7B47DF"
+    },
+    {
+      "Path": "src/Erlang.Runtime.Core/Execution/Beam/BeamFrameValidation.cs",
+      "Before": "E50D618CAD10A3EF8B818F6E4F7F40AC0EFD821C301D6A18F18EC38B7634CB72",
+      "After": "705BF5CF07EAF9940157F08FA77B600016C4991A15C8FA2D03DDAA37C5ADAF1C"
+    },
+    {
+      "Path": "src/Erlang.Runtime.Core/Execution/Beam/BeamNoReturnAnalysis.cs",
+      "Before": "A55581622FFA89C205052E960542E3DF066B504E72D7D965C08D9845AEF17091",
+      "After": "129436418E36016781ABC67804328622EEEA1F74B44048BC668C470EFA60DEB1"
+    }
+  ],
+  "SourceBindings": 1682,
+  "RuntimeExecutionChanged": false,
+  "ApiDelta": 0,
+  "FullContractDelta": 0,
+  "Reviews": [
+    "beam_validator.erl validate_bs_start_match: resume requires a context, no_fail accepts a binary or context; live and Y initialization remain checked.",
+    "Transparent literal/nil/atom moves kill their target origin; they never create a context. Preserve exact incoming origin, unique live argument use, local arity, bounds and cycle checks. A binary-preserving duplicate wrapper stays ordinary-only.",
+    "Finite swap, put_list and update_record continue the no-return CFG proof; return, handler, cycle and unknown tail still refuse. Existing typed execution/GC/source checks remain authoritative.",
+    "Newly proven no-return functions containing swap use existing exceptional typed register validation. Uninitialized X source is refused; unrelated returning swap functions retain their old validation route.",
+    "The broad swap-validation experiment refused four previously admitted images; reject that change. The initially narrowed route retained one io_lib_format refusal; unique-live-origin restriction fixes it. Final full inventory must retain every previous image."
+  ],
+  "NewDependencies": false,
+  "OriginalModuleAlgorithmsUnchanged": true,
+  "LicenseLocalExcluded": true
+}

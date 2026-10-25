@@ -66,3 +66,7 @@ Part479: Compiler/Beam/Frames holds seven synthetic admission/execution controls
 ## Part480 closed-wait controls
 
 Compiler/Beam/Receive contains separate names,byte-builder,control-check and original-comparison files. Resources/ClosedWaitOriginal480 retains unchanged original debugger/lists images plus the bounded observer/golden/provenance. GuiClosedWait480Checks uses the public original readers with fixtures under Fixtures/ClosedWait480;fresh original capture is tools/validate-closed-wait-original.ps1.
+
+## Part481 frame/context controls
+
+Compiler/Beam/Calls contains separate context-forwarding and no-return-swap byte builders,names and checks;Compiler/Beam/Frames contains the original comparison checks/names. Resources/FrameOriginal481 binds three observers,three whole golden corpora and four unchanged original images. TransportFrame481Checks uses the public SSL/Stdlib readers;tools/validate-frame-original.ps1 refreshes all110 whole outcomes after the full runtime tests.

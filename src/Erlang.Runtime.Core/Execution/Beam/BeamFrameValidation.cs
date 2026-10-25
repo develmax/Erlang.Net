@@ -17,6 +17,10 @@ internal static class BeamFrameValidation
                 or BeamBinaryNames.ExtractTail or BeamBinaryNames.SavePosition or BeamBinaryNames.RestorePosition
                 or BeamFloatStringNames.ExtractFloat or BeamFloatStringNames.MatchString or BeamBinaryNames.ExtractInteger or BeamBinaryNames.ExtractUtf16 or BeamBinaryNames.ExtractUtf32 or BeamBinaryNames.ExtractUtf8 or BeamBinaryNames.SkipUtf16 or BeamBinaryNames.SkipUtf32 or BeamBinaryNames.SkipUtf8 or BeamBinaryNames.SkipBits
                 or BeamCollectionOpcodeNames.FloatMove or BeamCollectionOpcodeNames.FloatConvert or BeamCollectionOpcodeNames.FloatNegate or BeamCollectionOpcodeNames.FloatMultiply or BeamCollectionOpcodeNames.FloatAdd or BeamCollectionOpcodeNames.FloatSubtract or BeamCollectionOpcodeNames.FloatDivide)
+            || code.Instructions.Skip(function.FirstInstructionIndex)
+                .Take(function.EndInstructionIndex - function.FirstInstructionIndex)
+                .Any(instruction => instruction.Definition.Name == BeamGeneralOpcodeNames.Swap)
+                && BeamNoReturnAnalysis.Local(code, function.EntryLabel)
             || BeamBinaryEntryProtocol.HasLocalContextCall(code, function)
             || receives.Values.Any(plan => !plan.HasMatcher || BeamReceivePlanner.WritesFrame(code, plan)))
         {

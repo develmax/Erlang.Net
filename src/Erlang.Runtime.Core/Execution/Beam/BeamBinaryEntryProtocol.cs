@@ -57,12 +57,14 @@ internal static class BeamBinaryEntryProtocol
                 {
                     if (movedTailPrefix && (name != BeamBinaryNames.Start
                         || instruction.Operands[0].Kind != BeamOperandParameters.Atom
-                        || code.Structure.Atoms[(int)instruction.Operands[0].Value] != BeamBinaryNames.Resume))
+                        || code.Structure.Atoms[(int)instruction.Operands[0].Value] is not (BeamBinaryNames.Resume or BeamBinaryNames.NoFail)))
                         return null;
                     BeamOperand source = instruction.Operands[name == BeamBinaryNames.StartLegacy ? 1 : 2];
 
                     return source.Kind == BeamOperandParameters.X && source.Value < function.Arity
                         && origins.TryGetValue((int)source.Value, out int argument)
+                        && !origins.Any(origin => origin.Key < function.Arity
+                            && origin.Key != source.Value && origin.Value == argument)
                         ? (instruction, argument) : null;
                 }
                 if (!allocated && name == BeamLinkNames.Move)
@@ -71,7 +73,8 @@ internal static class BeamBinaryEntryProtocol
                     BeamOperand source = instruction.Operands[0];
                     BeamOperand target = instruction.Operands[1];
                     if (target.Kind != BeamOperandParameters.X || target.Value >= BeamOperandParameters.MaximumRegister
-                        || source.Kind is not (BeamOperandParameters.X or BeamOperandParameters.Integer))
+                        || source.Kind is not (BeamOperandParameters.X or BeamOperandParameters.Integer
+                            or BeamOperandParameters.Nil or BeamOperandParameters.Atom or BeamOperandParameters.LiteralValue))
                         return null;
                     if (source.Kind == BeamOperandParameters.X && origins.TryGetValue((int)source.Value, out int argument))
                         origins[(int)target.Value] = argument;

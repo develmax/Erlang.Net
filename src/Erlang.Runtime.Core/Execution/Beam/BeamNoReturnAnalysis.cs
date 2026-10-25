@@ -68,6 +68,7 @@ internal static class BeamNoReturnAnalysis
                 case BeamLinkNames.Label:
                 case BeamLinkNames.Line:
                 case BeamLinkNames.Move:
+                case BeamGeneralOpcodeNames.Swap:
                 case BeamLinkNames.Allocate:
                 case BeamLinkNames.AllocateHeap:
                 case BeamLinkNames.HeapTest:
@@ -76,6 +77,8 @@ internal static class BeamNoReturnAnalysis
                 // resets receive state and falls through without returning.
                 case BeamLinkNames.Timeout:
                 case BeamLinkNames.PutTuple:
+                case BeamLinkNames.PutList:
+                case BeamCollectionOpcodeNames.UpdateRecord:
                 case BeamOnLoadNames.TupleElement:
                 case BeamGeneralOpcodeNames.Trim:
                     successors.Add((function, current.Pc + 1));
