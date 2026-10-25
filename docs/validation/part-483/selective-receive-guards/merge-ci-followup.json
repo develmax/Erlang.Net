@@ -1,0 +1,38 @@
+{
+  "ParentMergeHead": "52f4a7416fd772aa7c8c96db643d4a97564e5a20",
+  "FailedRun": 40178589036,
+  "FailedJob": 121124557476,
+  "FailedArtifact": 12593507176,
+  "FailedArtifactSha256": "ad606ad0f230740c63bbd039ff272c3cf94c46f1626569274c6a5e3b90afb680",
+  "Passed": 8875,
+  "Failed": 1,
+  "FailedTest": "runtime/private-ordered-deferred-owner-signal-drain",
+  "TestFile": "tests/Erlang.Tests/Runtime/Scheduling/DeferredOwnerDrainHostChecks.cs",
+  "BeforeSourceSha256": "700F4A088C5BD2E82BF5647A004A484DC1B2BBEBCA3D5F35917FD5885E82F3A2",
+  "AfterSourceSha256": "8AE6FF3854278E563EA62A2DF42B1735EC1A8BF1C025F927BA90409EF21A1DD4",
+  "RuntimeSourceUnchanged": true,
+  "FrozenReproductionRuntimeSha256": "39C947E6F69A3CF82301499702DB8D7C326A0D91D0482C5ABB8822752D0AEBF8",
+  "FocusedRuntimeSha256": "E7492C2D66F79CE869073C9CB8BA6F508F6D060389707EE420C6447DF2C6D454",
+  "ControlledReproduction": {
+    "SecondFactoryDelayMilliseconds": 100,
+    "OuterObservationSeconds": 3,
+    "TestDeadlineSecondsUnchanged": 5,
+    "Before": "bounded timeout reproduced",
+    "After": "completed",
+    "ScheduleOnlyNoRuntimeChanges": true
+  },
+  "AfterActualTestRepetitions": 12,
+  "AfterActualTestPassed": 12,
+  "ProcessorCount": 2,
+  "FinalNewGuardGroupsPassed": 12,
+  "AssertionStrengthenedToTwoNestedRefusals": true,
+  "TimeoutIncreased": false,
+  "ChecksExcluded": false,
+  "Reason": "The first expected nested-request refusal can retire its drain scope before the second requester checks it. The second queues an owner RPC to a host test actor waiting on its command channel,with no driver to service that mailbox. A second rendezvous in finally holds both scopes through both requests;both must refuse. This repairs test coordination,not runtime or timeout policy.",
+  "RebuiltRuntimeIlComparison": {
+    "AllMethodIlAndSignaturesEqual": true,
+    "OldSha256": "39C947E6F69A3CF82301499702DB8D7C326A0D91D0482C5ABB8822752D0AEBF8",
+    "NewSha256": "E7492C2D66F79CE869073C9CB8BA6F508F6D060389707EE420C6447DF2C6D454",
+    "InformationalVersionAndSourceLinkRebuiltAfterCommit": true
+  }
+}

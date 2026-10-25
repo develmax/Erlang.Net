@@ -32,7 +32,8 @@
       "native",
       "processes",
       "terms"
-    ]
+    ],
+    "Timing": "After final runtime changes;before test-only nested-drain coordination fix. Runtime source remains identical;build metadata changes after the commit;repaired test passed12 targeted repeats and12 new groups passed again. Final-head full CI required."
   },
   "EarlierSandboxAttempt": {
     "Passed": 6412,
@@ -67,5 +68,6 @@
     "tools/net10.0/Erlang.Runtime.dll"
   ],
   "FinalPublicationHeadCI": "Pending after commit;separate required delivery gate",
-  "FullModuleOrPerformanceParity": false
+  "FullModuleOrPerformanceParity": false,
+  "MergeCIFollowup": "merge-ci-followup.json"
 }

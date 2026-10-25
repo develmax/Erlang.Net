@@ -1,5 +1,7 @@
 # Module readiness
 
+Part483 CI follow-up: Part482 merge CI40178589036 has one existing cross-owner test-driver timeout (8875/8876). The same-runtime controlled schedule reproduces it. A second rendezvous preserves both drain scopes through both nested requests and requires both refusals; unchanged deadlines/runtime source,12/12 targeted two-core repeats and12/12 new guard groups pass. New exact-head full CI remains the delivery gate; see [follow-up evidence](validation/part-483/selective-receive-guards/merge-ci-followup.json).
+
 Baseline **OTP-29.1.1**. Part482 merged into main **52f4a741** after exact-head CI **40176715806** and downloaded artifact passed **8876/8876**, 24 whole corpora and 17 cold consumers. Part483 catalog **8888**, final affected **6532/6532**, permanent groups **12/12**, fresh complete receive comparisons **54/54**, original compiler refusal **1/1**. Exact publication-head full CI is tracked in the PR. Runtime MFAs **708**, complete contracts **118**, known differences **31**, needs verification **559**, source bindings **1682**; API/full deltas **0/0**.
 
 API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.

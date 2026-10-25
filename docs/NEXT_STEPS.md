@@ -1,5 +1,7 @@
 # Current checkpoint — Part483
 
+Part483 CI follow-up: Part482 merge CI40178589036 has one existing cross-owner test-driver timeout (8875/8876). The same-runtime controlled schedule reproduces it. A second rendezvous preserves both drain scopes through both nested requests and requires both refusals; unchanged deadlines/runtime source,12/12 targeted two-core repeats and12/12 new guard groups pass. New exact-head full CI remains the delivery gate; see [follow-up evidence](validation/part-483/selective-receive-guards/merge-ci-followup.json).
+
 Finish exact-head full CI and independently verify 8888 ordered runtime tests, 25 complete original/managed/golden corpora, six original compiler refusals and 17 cold consumer families. The new receive corpus must match the actual uploaded isolated consumer ETF too. Track merge CI40178589036 separately.
 
 The next image refusal is megaco_trans_sender: a pre-commit BIF remains outside the selective receive matcher whitelist. Identify its exact opcode/import and compare its behavior, rejected-candidate scratch, roots and cancellation with pinned OTP before admitting it. Do not broaden all BIF/callback dispatch or substitute a whole-module fallback. A disassembly-only investigation is saved locally for the next part.
