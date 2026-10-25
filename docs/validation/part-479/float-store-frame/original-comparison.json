@@ -1,0 +1,54 @@
+{
+  "ExecutionBindings": [
+    {
+      "Path": "bin/erl.exe",
+      "Sha256": "D91699E88F417E00470D224934D47CD92358CC1B3B37CA1F15BCF5D4731D8F4E"
+    },
+    {
+      "Path": "erts-17.1/bin/beam.smp.dll",
+      "Sha256": "27E75CEAEB1C33BAA8089071A47DB1F3473B537906353F874D687AE9A0854B05"
+    },
+    {
+      "Path": "erts-17.1/bin/erl.exe",
+      "Sha256": "D91699E88F417E00470D224934D47CD92358CC1B3B37CA1F15BCF5D4731D8F4E"
+    },
+    {
+      "Path": "lib/common_test-1.31.2/ebin/ct_property_test.beam",
+      "Sha256": "E8B790BA37B239BCD71D304F1177C009DBD009C3438BEAA5EA1CB8CAB25123B3"
+    },
+    {
+      "Path": "lib/observer-2.19/ebin/observer_perf_wx.beam",
+      "Sha256": "8B74E0E18E003C06DADFCDFE50D8395F2B3721FEB903EFF0A3D2C446FAF9D9DD"
+    },
+    {
+      "Path": "lib/reltool-1.1/ebin/reltool_fgraph.beam",
+      "Sha256": "19FA2CC7FA7F9B7AAECA2F3D48A9CD9569B154759281D31BD0C8DD2047EB7B2F"
+    },
+    {
+      "Path": "lib/reltool-1.1/ebin/reltool_fgraph_win.beam",
+      "Sha256": "9B9043EE2C036484496D8DE676CB5A853F8EF99121D3180B291BA98D55CF0AEA"
+    },
+    {
+      "Path": "lib/reltool-1.1/src/reltool_fgraph.erl",
+      "Sha256": "225777CEADA7A069565F23320BB164981750DEC91A198EE72A8958A9481685B8"
+    },
+    {
+      "Path": "lib/reltool-1.1/src/reltool_fgraph.hrl",
+      "Sha256": "0EB465809E45D4E31F6A90B4617F3FFC532BD0AC68A4012548F8DC4663056F06"
+    },
+    {
+      "Path": "lib/stdlib-8.1/ebin/lists.beam",
+      "Sha256": "8941092DC34F0470CD404979E1890DF514D83F2EEB3B0AA8A276553E76471262"
+    },
+    {
+      "Path": "lib/stdlib-8.1/ebin/math.beam",
+      "Sha256": "6096D864A1CFF42F9680A060AD34AE8D5340B7E1EFC2945BED52E00B80902D6A"
+    }
+  ],
+  "Comparison": "Whole deterministic raw ETF; no projection, frame removal or identity mapping",
+  "Serialization": "term_to_binary/2 deterministic",
+  "Passed": true,
+  "Outcomes": 66,
+  "SourceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "RawEtfSha256": "23CBBDAC9B6983B706725BDA098BAE030832164E467098C582B24FD85CB03D1A"
+}

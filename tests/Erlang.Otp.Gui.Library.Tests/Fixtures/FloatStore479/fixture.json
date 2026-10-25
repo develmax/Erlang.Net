@@ -1,0 +1,89 @@
+{
+  "SourceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ArchiveSha256": "337480AF988ECA993C2E98B68850F00FC6724D366346565E38941AC0D1B7C56B",
+  "Outcomes": 66,
+  "Returned": 54,
+  "Caught": 12,
+  "Serialization": "term_to_binary/2 deterministic; whole term",
+  "CompilerBindings": [
+    {
+      "Path": "bin/erlc.exe",
+      "Sha256": "8F1CD8036F83AC45C4A3173DF965F6503059EB99E0C14322A5D376EDC8CF7769"
+    },
+    {
+      "Path": "erts-17.1/bin/erlc.exe",
+      "Sha256": "8F1CD8036F83AC45C4A3173DF965F6503059EB99E0C14322A5D376EDC8CF7769"
+    },
+    {
+      "Path": "lib/compiler-10.0.6/ebin/compile.beam",
+      "Sha256": "142D29BF0A3C0395B432F20F2568AEC3C9ED749213D6957FDE7AE132F14B3A3B"
+    }
+  ],
+  "Files": {
+    "ct_property_test.beam": "E8B790BA37B239BCD71D304F1177C009DBD009C3438BEAA5EA1CB8CAB25123B3",
+    "lists.beam": "8941092DC34F0470CD404979E1890DF514D83F2EEB3B0AA8A276553E76471262",
+    "math.beam": "6096D864A1CFF42F9680A060AD34AE8D5340B7E1EFC2945BED52E00B80902D6A",
+    "observer_perf_wx.beam": "8B74E0E18E003C06DADFCDFE50D8395F2B3721FEB903EFF0A3D2C446FAF9D9DD",
+    "original-values.etf": "23CBBDAC9B6983B706725BDA098BAE030832164E467098C582B24FD85CB03D1A",
+    "otp_fgraph479_observer.beam": "7722216AA539A3C0B959DE644380D25EC7E954811042A382B7871F231C7F3715",
+    "otp_fgraph479_observer.erl": "6AB0C02939A4E53B6382C25F4AA4BF107A1CEA7CD8925A8B7C26782A03BF2947",
+    "reltool_fgraph.beam": "19FA2CC7FA7F9B7AAECA2F3D48A9CD9569B154759281D31BD0C8DD2047EB7B2F",
+    "reltool_fgraph.hrl": "0EB465809E45D4E31F6A90B4617F3FFC532BD0AC68A4012548F8DC4663056F06",
+    "reltool_fgraph_win.beam": "9B9043EE2C036484496D8DE676CB5A853F8EF99121D3180B291BA98D55CF0AEA"
+  },
+  "Imports": [
+    "code",
+    "ct",
+    "ct_property_test",
+    "erlang",
+    "error_logger",
+    "file",
+    "filename",
+    "io",
+    "io_lib",
+    "lists",
+    "make",
+    "math",
+    "observer_lib",
+    "observer_perf_wx",
+    "observer_wx",
+    "os",
+    "otp_fgraph479_observer",
+    "proplists",
+    "queue",
+    "rand",
+    "reltool_fgraph",
+    "reltool_fgraph_win",
+    "rpc",
+    "wx",
+    "wxBoxSizer",
+    "wxBrush",
+    "wxBufferedDC",
+    "wxBufferedPaintDC",
+    "wxButton",
+    "wxClientDC",
+    "wxDC",
+    "wxDialog",
+    "wxFont",
+    "wxGraphicsContext",
+    "wxGraphicsRenderer",
+    "wxPaintDC",
+    "wxPanel",
+    "wxPen",
+    "wxSizer",
+    "wxSlider",
+    "wxStaticText",
+    "wxSystemSettings",
+    "wxWindow",
+    "wx_object",
+    "wxe_util"
+  ],
+  "FullOriginalApplicationImages": 4,
+  "ExecutedApplicationImages": 1,
+  "CompilerIncludes": [
+    {
+      "Path": "src/Erlang.Otp.Reltool.Beam/Otp/src/reltool_fgraph.hrl",
+      "Sha256": "0EB465809E45D4E31F6A90B4617F3FFC532BD0AC68A4012548F8DC4663056F06"
+    }
+  ]
+}

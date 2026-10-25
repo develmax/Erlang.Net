@@ -1,3 +1,9 @@
+# Current checkpoint — Part479
+
+Finish exact-head full CI and independent artifact verification. Next address the remaining five pure frame-validation refusals (dbg_wx_trace,dbg_wx_view,crashdump_viewer,leex,ssl_handshake) and eight receive matcher refusals (ct_ssh,test_server_node,mod_cgi,mod_esi,megaco_trans_sender,mnesia_loader,snmpm_server,tftp_engine) against unchanged pinned images. Distinguish the four bare-registry native capture refusals (erts_internal,erl_ddll,ets,re) from instruction failures;check them with actual configured native providers/ErlangLibrary. Additional example preparation is42/43;megaco_codec_mstone_lib remains blocked by receive matching. All43 example images remain unshipped;their read-only inventory and111 associated files are prepared. Continue real application/GUI/native/startup closures separately from complete primary packaging.
+
+Earlier checkpoints below are historical.
+
 # Current checkpoint — Part478
 
 Finish exact-head CI and independent downloaded-artifact verification for all five GUI/tool libraries. Primary application packaging is complete (1321/1321, 34 applications); next inventory the 43 remaining installed documentation/example images without inflating primary counts. Continue actual application/dependency startup and native-provider execution: wx GUI driver/rendering, debugger sessions, observer/ET live tracing and reltool release generation are not established by finite helper comparisons. Retain nine identity-bearing parser stacks and eighteen native-dependent Management profiles as original-only until their full protocols are validated. Expand original net_kernel/application boot and runtime full contracts independently.
