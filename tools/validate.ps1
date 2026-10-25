@@ -92,6 +92,7 @@ try {
     & (Join-Path $PSScriptRoot 'validate-frame-original.ps1')
     & (Join-Path $PSScriptRoot 'validate-comparison-original.ps1')
     & (Join-Path $PSScriptRoot 'validate-receive-original.ps1')
+    & (Join-Path $PSScriptRoot 'validate-receive-length-original.ps1')
     Invoke-DotNet @('run', '--project', 'tools/Erlang.Tool', '--no-build', '--', 'readiness', 'docs', 'artifacts/tests.json', 'artifacts/readiness')
     $missingOracle = Join-Path $validationRoot 'artifacts/nonexistent-oracle/erl'
     if (Test-Path -LiteralPath $missingOracle) { throw 'Negative oracle fixture must not exist' }

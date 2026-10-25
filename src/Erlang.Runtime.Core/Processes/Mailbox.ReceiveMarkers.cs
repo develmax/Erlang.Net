@@ -167,7 +167,8 @@ public sealed partial class Mailbox
         Func<Term, ValueTask<T?>> select,
         TimeSpan? timeout,
         CancellationToken cancellation,
-        Func<TimeSpan?>? resolveTimeout = null
+        Func<TimeSpan?>? resolveTimeout = null,
+        bool rescanRemovedCandidate = false
     ) where T : class
     {
         ReceiveMarkerState? selected;
@@ -193,7 +194,8 @@ public sealed partial class Mailbox
                     select,
                     timeout,
                     cancellation,
-                    resolveTimeout
+                    resolveTimeout,
+                    rescanRemovedCandidate
                 );
 
             return await ReceiveMarkedCore(

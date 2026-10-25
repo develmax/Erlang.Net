@@ -8,21 +8,27 @@ internal static class BeamReceivePureBifs
         {
             BeamLinkNames.Bif => 0,
             BeamGeneralOpcodeNames.UnaryBif or BeamGeneralOpcodeNames.BinaryBif => 1,
-            BeamGeneralOpcodeNames.UnaryGcBif => 2,
+            BeamGeneralOpcodeNames.UnaryGcBif or BeamLinkNames.GuardBif => 2,
             _ => throw new NotSupportedException(BeamReceiveNames.UnsupportedMatcher)
         };
         BeamExternalImport import = BeamExternalImports.Resolve(code, (int)instruction.Operands[index].Value);
         bool accepted = import.Module == ErlangModuleNames.Module && (instruction.Definition.Name switch
         {
             BeamLinkNames.Bif => import.Function == ErlangModuleNames.Self && import.Arity == 0,
+            BeamLinkNames.GuardBif => import.Function == ErlangOperators.Plus && import.Arity == 2,
             BeamGeneralOpcodeNames.BinaryBif => import.Function == ErlangModuleNames.Element && import.Arity == 2,
-            _ => (import.Function is ErlangProcessQueryNames.Node or ErlangModuleNames.ByteSize or ErlangModuleNames.TupleSize) && import.Arity == 1
+            _ => (import.Function is ErlangProcessQueryNames.Node or ErlangModuleNames.ByteSize or ErlangModuleNames.TupleSize or ErlangModuleNames.Length) && import.Arity == 1
         });
         if (!accepted)
             throw new NotSupportedException(BeamReceiveNames.UnsupportedMatcher);
 
         return import;
     }
+
+    internal static bool RequiresAsync(BeamLinkedCode code, BeamReceivePlan plan)
+        => plan.MatcherInstructions.Any(index => code.Instructions[index].Definition.Name == BeamLinkNames.GuardBif
+            || code.Instructions[index].Definition.Name is BeamGeneralOpcodeNames.UnaryBif or BeamGeneralOpcodeNames.UnaryGcBif
+                && Import(code, code.Instructions[index]).Function == ErlangModuleNames.Length);
 
     internal static Term Unary(string function, Term value) => function switch
     {

@@ -239,11 +239,13 @@ internal static class BeamReceivePlanner
                     Visit(pc + 1);
                     break;
                 case BeamGeneralOpcodeNames.BinaryBif:
+                case BeamLinkNames.GuardBif:
                     _ = BeamReceivePureBifs.Import(code, instruction);
-                    if (operands[4].Kind != BeamOperandParameters.X)
+                    int binaryOffset = instruction.Definition.Name == BeamLinkNames.GuardBif ? 1 : 0;
+                    if (operands[4 + binaryOffset].Kind != BeamOperandParameters.X)
                         throw new NotSupportedException(BeamReceiveNames.UnsupportedMatcher);
-                    Source(operands[2]);
-                    Source(operands[3]);
+                    Source(operands[2 + binaryOffset]);
+                    Source(operands[3 + binaryOffset]);
                     if (operands[0].Kind != BeamOperandParameters.Failure)
                         Visit(Label(code, operands[0]));
                     Visit(pc + 1);

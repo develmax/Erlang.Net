@@ -137,18 +137,44 @@ public static class ListLengthHostChecks
         }
     }
 
+    internal static Task BeamReceiveBoundary(
+        bool cancel = false,
+        bool priority = false,
+        bool suspend = false,
+        bool removal = false
+    ) => Boundary(
+        ListLengthHostNames.Receive,
+        cancel,
+        priority,
+        suspend,
+        removal,
+        originalBeam: true
+    );
+
     private static async Task Boundary(
         string? function,
         bool cancel,
         bool priority = false,
         bool suspend = false,
         bool removal = false,
-        bool ordset = false
+        bool ordset = false,
+        bool originalBeam = false
     )
     {
-        using var compiled = GeneratedModuleCompiler.Compile(ListLengthHostNames.Source);
+        using var compiled = originalBeam ? null : GeneratedModuleCompiler.Compile(ListLengthHostNames.Source);
         await using var runtime = new ProcessRuntime();
-        compiled.Definition.Register(runtime.Modules);
+        if (compiled is not null)
+            compiled.Definition.Register(runtime.Modules);
+        else
+            await runtime.InitializeModulesAsync(registry =>
+            {
+                PreparedBeamImage image = registry.PrepareBeam(
+                    ReceiveLength484Checks.Read(ReceiveLength484Names.HostImage),
+                    new BeamDependencySelection([ErlangModuleNames.Module, ListLengthHostNames.Module])
+                );
+                if (registry.PublishPreparedBeam([image]).Status != BeamPublicationStatus.Published)
+                    throw new InvalidOperationException(ReceiveLength484Names.Failure);
+            });
         await using var observer = new RuntimeNodeFoundationHostActor(runtime);
         await using var cleanup = new RuntimeNodeFoundationHostActor(runtime);
         var queue = new ListLengthYieldContext();
@@ -272,7 +298,22 @@ public static class ListLengthHostChecks
                     : priority
                     ? Term.Tuple(Term.A(ListLengthHostNames.Priority), Term.A(ListLengthHostNames.Retained))
                     : function is not null ? Term.A(ListLengthHostNames.Ok) : Term.I(ListLengthHostNames.Cells);
-                if (!(await returned.Task.WaitAsync(ListLengthHostNames.Deadline)).Equals(expected))
+                Term actual = await returned.Task.WaitAsync(ListLengthHostNames.Deadline);
+                if (originalBeam)
+                {
+                    if (priority)
+                        expected = Term.A(ListLengthHostNames.Ok);
+                    expected = Term.Tuple(expected, priority ? Term.List(input) : Nil.Value);
+                    if (priority)
+                    {
+                        byte[] encoded = ExternalTermFormat.Encode(actual);
+                        Directory.CreateDirectory(ReceiveLength484Names.Output);
+                        File.WriteAllBytes(Path.Combine(ReceiveLength484Names.Output, ReceiveLength484Names.PriorityManaged), encoded);
+                        if (!encoded.AsSpan().SequenceEqual(ReceiveLength484Checks.Read(ReceiveLength484Names.PriorityGolden)))
+                            throw new InvalidOperationException(ReceiveLength484Names.Failure);
+                    }
+                }
+                if (!actual.Equals(expected))
                     throw new InvalidOperationException(ListLengthHostNames.Failure);
             }
         }

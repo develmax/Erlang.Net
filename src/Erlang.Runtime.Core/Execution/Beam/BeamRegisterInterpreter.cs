@@ -1065,6 +1065,18 @@ internal static partial class BeamRegisterInterpreter
                                     callbackTimeout
                                 );
                             }
+                            else if (BeamReceivePureBifs.RequiresAsync(code, plan))
+                                selected = await context.ReceiveBeamGuardAsync(
+                                    message => BeamReceiveMatcher.SelectAsync(
+                                        code,
+                                        plan,
+                                        before,
+                                        message,
+                                        context.Self,
+                                        context
+                                    ),
+                                    plan.TimeoutOperand is { } asyncTimeout ? Read(code, before, asyncTimeout) : Term.A(BeamReceiveNames.Infinity)
+                                );
                             else
                                 selected = plan.TimeoutOperand is { } receiveTimeout
                                     ? await context.ReceiveErlangAsync(selectMessage, Read(code, before, receiveTimeout))

@@ -1,3 +1,19 @@
+Part484 CI ordering follow-up: initial547cac434 run40185283493 fails before main tests because the new verifier precedes its ETF producer. Move it after the harness;runtime/assertions/deadlines unchanged. Clean-output local7/7 plus fresh original576/priority pass. New exact-head full CI remains required.
+
+# Part484 — Current module progress
+
+Part483 is merged as **fa7afb371**;exact merge CI **40183200007** and downloaded artifact pass **8888/8888**,25 whole corpora and17 cold families. Part484 catalog **8895**,final affected **6539/6539**,final focus **13/13**,final resource metadata **7/7**;publication-head full CI is a separate gate. APIs **708**,full contracts **118**,known differences **31**,pending **559**,reviewed source bindings **1682**;API/full deltas **0/0**.
+
+| Area | Current measured result | Remaining |
+| --- | --- | --- |
+| Megaco | **65/65** original images prepare;unchanged trans_sender image publishes;150 retained public checks,2003 prior outcomes and576 new outcomes pass warm/cold | Actual trans_sender lifecycle/full Megaco sessions |
+| Runtime receive | Cooperative length/addition;576 complete outcomes and one whole priority result/64017-cell queue match OTP;five managed host controls | Broader scheduling,resources and full API contracts |
+| All primary images | **1317/1321 (99.7%)** prepared;**1321/1321** packaged in34 applications | Configured native capture forerts_internal,erl_ddll,ets,re;actual application startup |
+
+The generated readiness preflight explicitly combines prior exact8888 CI with current final affected records. It is not a full8895 local run or a whole-project completion percentage. Full module/API compatibility and performance remain separate. [Evidence](validation/part-484/cooperative-receive-length/validation.json).
+
+Earlier checkpoints below are historical.
+
 # Module readiness
 
 Part483 CI follow-up: Part482 merge CI40178589036 has one existing cross-owner test-driver timeout (8875/8876). The same-runtime controlled schedule reproduces it. A second rendezvous preserves both drain scopes through both nested requests and requires both refusals; unchanged deadlines/runtime source,12/12 targeted two-core repeats and12/12 new guard groups pass. New exact-head full CI remains the delivery gate; see [follow-up evidence](validation/part-483/selective-receive-guards/merge-ci-followup.json).

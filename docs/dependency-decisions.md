@@ -803,3 +803,8 @@ Reuse pinned beam_validator.erl match-context and typed-register semantics. Expa
 ## Part482 total comparison BIF dependency policy
 
 Reuse the existing BeamInfallibleBifContract and ErlangOperatorValues instead of importing a second .NET comparator or rewriting original crashdump code. Pinned beam_validator skips exception state for BIFs proven cannot_fail;beam_call_types delegates totality to erl_bifs:is_safe,which explicitly lists all eight comparison operators. Canonical fixed BIF execution reuses runtime-aware equality semantics;ordinary source/import/native binding rules remain distinct. No new package,provider or native GUI dependency is added. Frame source reads,destination bounds,real GC roots and handlers remain checked. Original bytes/notices and the uncommitted local license are preserved.
+
+
+## Part484 — Cooperative native receive guards
+
+Retain the original OTP29.1.1 megaco_trans_sender algorithm. Reuse existing ErlangListLength.ReadAsync and ErlangOperatorValues.Binary with ProcessContext; no new .NET actor/collection dependency. The synchronous match-spec walker cannot preserve cooperative guard execution. Pinned original i_length/length trap and receive save-pointer sources plus a real priority trace require preserving an already executing guard result across priority insertion. Keep the old callback protocol and scope host-unlink revalidation separately. Source audit: [Part484](validation/part-484/cooperative-receive-length/source-review.json). No new dependency/license selection; LICENSE.local.txt remains excluded.
