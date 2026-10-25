@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <RuntimeFrameworkVersion>10.0.11</RuntimeFrameworkVersion>
+    <RollForward>Disable</RollForward>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <ErlangPreprocessEnabled>false</ErlangPreprocessEnabled>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(UseInstalledPackage)' != 'true'">
+    <ProjectReference Include="../../src/Erlang.Otp.Kernel.Beam/Erlang.Otp.Kernel.Beam.csproj" />
+    <ProjectReference Include="../../src/Erlang.Otp.CommonTest.Beam/Erlang.Otp.CommonTest.Beam.csproj" />
+    <ProjectReference Include="../../src/Erlang.Otp.Dialyzer.Beam/Erlang.Otp.Dialyzer.Beam.csproj" />
+    <ProjectReference Include="../../src/Erlang.Otp.Erts.Beam/Erlang.Otp.Erts.Beam.csproj" />
+    <ProjectReference Include="../../src/Erlang.Otp.Compiler.Beam/Erlang.Otp.Compiler.Beam.csproj" />
+    <ProjectReference Include="../../src/Erlang.Otp.Stdlib.Beam/Erlang.Otp.Stdlib.Beam.csproj" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(UseInstalledPackage)' == 'true'">
+    <PackageReference Include="Erlang.Otp.Kernel.Beam" Version="0.1.0" />
+    <PackageReference Include="Erlang.Otp.CommonTest.Beam" Version="0.1.0" />
+    <PackageReference Include="Erlang.Otp.Dialyzer.Beam" Version="0.1.0" />
+    <PackageReference Include="Erlang.Otp.Erts.Beam" Version="0.1.0" />
+    <PackageReference Include="Erlang.Otp.Compiler.Beam" Version="0.1.0" />
+    <PackageReference Include="Erlang.Otp.Stdlib.Beam" Version="0.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Fixtures/*" LogicalName="Erlang.Otp.TestAnalysis.Library.Tests.%(Filename)%(Extension)" />
+  </ItemGroup>
+</Project>

@@ -65,6 +65,8 @@ try {
     & (Join-Path $PSScriptRoot 'validate-otp-management-original.ps1') -ManagedDirectory 'artifacts/otp-management-managed'
     Invoke-DotNet @('run', '--project', 'tests/Erlang.Otp.Megaco.Library.Tests', '--no-build', '--', 'artifacts/otp-megaco-managed')
     & (Join-Path $PSScriptRoot 'validate-otp-megaco-original.ps1') -ManagedDirectory 'artifacts/otp-megaco-managed'
+    Invoke-DotNet @('run', '--project', 'tests/Erlang.Otp.TestAnalysis.Library.Tests', '--no-build', '--', 'artifacts/otp-testanalysis-managed')
+    & (Join-Path $PSScriptRoot 'validate-otp-testanalysis-original.ps1') -ManagedDirectory 'artifacts/otp-testanalysis-managed'
     foreach ($listsBackend in @('Managed', 'Beam')) {
         foreach ($queueBackend in @('Managed', 'Beam')) {
             Invoke-DotNet @('run', '--project', 'examples/HelloOtpLibraryReference', '--no-build', '--', $listsBackend, $queueBackend)
@@ -121,6 +123,7 @@ try {
         & (Join-Path $PSScriptRoot 'validate-otp-library-package.ps1') -Feed (Join-Path $validationRoot 'artifacts/packages') -Library Network
         & (Join-Path $PSScriptRoot 'validate-otp-library-package.ps1') -Feed (Join-Path $validationRoot 'artifacts/packages') -Library Management
         & (Join-Path $PSScriptRoot 'validate-otp-library-package.ps1') -Feed (Join-Path $validationRoot 'artifacts/packages') -Library Megaco
+        & (Join-Path $PSScriptRoot 'validate-otp-library-package.ps1') -Feed (Join-Path $validationRoot 'artifacts/packages') -Library TestAnalysis
         $consumerRoot = Join-Path $validationRoot 'artifacts/package-consumer'
         New-Item -ItemType Directory -Path $consumerRoot -Force | Out-Null
         @'
