@@ -3,7 +3,7 @@ namespace Erlang.Tests;
 internal static class PortHostParameters
 {
     public const string Test = "runtime/ports-real-executable-ownership-and-resource-cleanup";
-    public const string Probe = "tools/Erlang.PortProbe/bin/Debug/net10.0/Erlang.PortProbe.dll";
+    public const string Probe = "tools/Native/Erlang.PortProbe/bin/Debug/net10.0/Erlang.PortProbe.dll";
     public const string RuntimeRoot = "../../..";
     public const string WindowsHost = "dotnet.exe";
     public const string UnixHost = "dotnet";

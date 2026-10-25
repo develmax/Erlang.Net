@@ -31,7 +31,7 @@ jobs:
           set -euo pipefail
           test "$GITHUB_SHA" = "$EXPECTED_HEAD"
           mkdir -p artifacts/pure-api-original
-          python3 tools/Erlang.ProplistGetValueObservations/collect-original.py \
+          python3 tools/Collections/Erlang.ProplistGetValueObservations/collect-original.py \
             --expected-head "$EXPECTED_HEAD" --source-inputs-sha256 "$SOURCE_INPUTS_SHA256" --verify-only \
             2>&1 | tee artifacts/pure-api-original/source-admission.log
       - name: Clone the pinned original source once
@@ -45,8 +45,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          BUILD_MANIFEST_SHA256="$(sha256sum tools/Erlang.SchedulerAffinityOriginalObservations/manifest.json | cut -d ' ' -f 1)"
-          python3 tools/Erlang.SchedulerAffinityOriginalObservations/build-original.py \
+          BUILD_MANIFEST_SHA256="$(sha256sum tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/manifest.json | cut -d ' ' -f 1)"
+          python3 tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/build-original.py \
             --repository "$GITHUB_WORKSPACE" --manifest-sha256 "$BUILD_MANIFEST_SHA256" \
             --expected-head "$EXPECTED_HEAD" --otp-source "$GITHUB_WORKSPACE/artifacts/pure-api-otp-source" \
             --prefix "$GITHUB_WORKSPACE/artifacts/pure-api-otp" \
@@ -57,7 +57,7 @@ jobs:
         run: |
           set -euo pipefail
           BUILD_RECEIPT_SHA256="$(sha256sum artifacts/pure-api-original/build/build-receipt.json | cut -d ' ' -f 1)"
-          python3 tools/Erlang.ProplistGetValueObservations/collect-original.py \
+          python3 tools/Collections/Erlang.ProplistGetValueObservations/collect-original.py \
             --expected-head "$EXPECTED_HEAD" --source-inputs-sha256 "$SOURCE_INPUTS_SHA256" \
             --otp-source "$GITHUB_WORKSPACE/artifacts/pure-api-otp-source" \
             --runtime-root "$GITHUB_WORKSPACE/artifacts/pure-api-otp/lib/erlang" \

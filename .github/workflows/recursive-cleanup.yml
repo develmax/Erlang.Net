@@ -41,20 +41,20 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          dotnet build artifacts/subject/tools/Erlang.Differential --disable-build-servers -m:1 -nr:false -p:UseSharedCompilation=false -p:RestoreDisableParallel=true
-          dotnet build tools/Erlang.RecursiveCleanupObservations --disable-build-servers -m:1 -nr:false -p:UseSharedCompilation=false -p:RestoreDisableParallel=true -p:ApprovedBinaries="$GITHUB_WORKSPACE/artifacts/subject/tools/Erlang.Differential/bin/Debug/net10.0"
+          dotnet build artifacts/subject/tools/Validation/Erlang.Differential --disable-build-servers -m:1 -nr:false -p:UseSharedCompilation=false -p:RestoreDisableParallel=true
+          dotnet build tools/Runtime/Erlang.RecursiveCleanupObservations --disable-build-servers -m:1 -nr:false -p:UseSharedCompilation=false -p:RestoreDisableParallel=true -p:ApprovedBinaries="$GITHUB_WORKSPACE/artifacts/subject/tools/Validation/Erlang.Differential/bin/Debug/net10.0"
       - name: Compare recursive cleanup observations
         shell: bash
         env:
           SUBJECT_REF: ${{ inputs.subject_ref }}
         run: |
           set -euo pipefail
-          collector="$GITHUB_WORKSPACE/tools/Erlang.RecursiveCleanupObservations/bin/Debug/net10.0/SupplementalCleanup.dll"
+          collector="$GITHUB_WORKSPACE/tools/Runtime/Erlang.RecursiveCleanupObservations/bin/Debug/net10.0/SupplementalCleanup.dll"
           out="$GITHUB_WORKSPACE/artifacts/recursive-cleanup"
           subject="$GITHUB_WORKSPACE/artifacts/subject"
-          python3 tools/Erlang.RecursiveCleanupObservations/run.py sdk --collector "$collector" --out "$out" --subject-sha "$SUBJECT_REF" --subject-root "$subject" --verify-subject-git
-          python3 tools/Erlang.RecursiveCleanupObservations/run.py original --collector "$collector" --out "$out" --subject-sha "$SUBJECT_REF" --subject-root "$subject" --verify-subject-git --oracle "$GITHUB_WORKSPACE/artifacts/otp-oracle/bin/erl" --otp-source "$GITHUB_WORKSPACE/artifacts/otp-source"
-          python3 tools/Erlang.RecursiveCleanupObservations/run.py compare --out "$out" --subject-sha "$SUBJECT_REF" --subject-root "$subject" --verify-subject-git
+          python3 tools/Runtime/Erlang.RecursiveCleanupObservations/run.py sdk --collector "$collector" --out "$out" --subject-sha "$SUBJECT_REF" --subject-root "$subject" --verify-subject-git
+          python3 tools/Runtime/Erlang.RecursiveCleanupObservations/run.py original --collector "$collector" --out "$out" --subject-sha "$SUBJECT_REF" --subject-root "$subject" --verify-subject-git --oracle "$GITHUB_WORKSPACE/artifacts/otp-oracle/bin/erl" --otp-source "$GITHUB_WORKSPACE/artifacts/otp-source"
+          python3 tools/Runtime/Erlang.RecursiveCleanupObservations/run.py compare --out "$out" --subject-sha "$SUBJECT_REF" --subject-root "$subject" --verify-subject-git
       - uses: actions/upload-artifact@v7
         if: always()
         with:

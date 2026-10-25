@@ -8,8 +8,8 @@
     <ErlangBeamSourceRoot>$([System.IO.Path]::GetFullPath('Modules', '$(MSBuildProjectDirectory)'))</ErlangBeamSourceRoot>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="../../src/Erlang.Runtime/Erlang.Runtime.csproj" />
-    <ProjectReference Include="../../tools/Erlang.BeamBuild/Erlang.BeamBuild.csproj" ReferenceOutputAssembly="false" Private="false" />
+    <ProjectReference Include="../../src/Runtime/Erlang.Runtime/Erlang.Runtime.csproj" />
+    <ProjectReference Include="../../tools/Build/Erlang.BeamBuild/Erlang.BeamBuild.csproj" ReferenceOutputAssembly="false" Private="false" />
     <ErlangBeamSource Include="Modules/src/*.erl" />
     <ErlangBeamHeader Include="Modules/include/**/*.hrl" />
     <ErlangBeamIncludeDirectory Include="empty;include" />

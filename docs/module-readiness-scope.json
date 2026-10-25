@@ -3,7 +3,7 @@
   "Components": [
     {
       "Status": "Partially compatible",
-      "Project": "src/Erlang.Terms",
+      "Project": "src/Runtime/Erlang.Terms",
       "Remaining": [
         "Full configurable atom/resource/fatal-exhaustion semantics and native loaded-module lifecycle;distributed identity",
         "Native SSA environment layout/BEAM module hashes/indexes, unloaded-code and local ETF interoperability",
@@ -36,7 +36,7 @@
     },
     {
       "Status": "Partially compatible",
-      "Project": "src/Erlang.Serialization",
+      "Project": "src/Runtime/Erlang.Serialization",
       "Remaining": [
         "Native record ETF67,complete export-arity/native identity/lazy-code/purge interoperability",
         "Managed decode16MiB/depth256 policies;full binary_SUITE,scheduler/resource/error_info and native block-hash primitive proof",
@@ -59,7 +59,7 @@
     },
     {
       "Status": "Partially compatible",
-      "Project": "src/Erlang.Runtime.Core",
+      "Project": "src/Runtime/Erlang.Runtime.Core",
       "Remaining": [
         "Map-hash-only identifier retention and native delayed table-GC remain separate;both402 native contracts remain Needs verification. Actual capture on402 baseline:46canonical/39private/166refused,not whole180 startup. Next native io:printable_range has original540 captured but no managed acceptance yet.",
         "Both new APIs remain Needs verification:external identifier/DistEntry delayed-GC ownership and broad pending-output/monitor/link cleanup effects need closure. Complete originalerts_internal/strict180 startup remains unfinished.251 recognized requirements are not missing handlers;frame inventory inherited from unchanged401 algorithms/images.",
@@ -248,7 +248,7 @@
     },
     {
       "Status": "Partially compatible",
-      "Project": "src/Erlang.Compiler",
+      "Project": "src/Compiler/Erlang.Compiler",
       "Remaining": [
         "Typed/native/imported records, macros/includes and remaining grammar; full iterator/resource contracts, full zip input/iterator/Core contracts and ordinary match/filter qualifiers; full maybe pattern/lint/resource contracts; full try lint/stack/resource contracts",
         "complete source spans/debug mappings",
@@ -319,7 +319,7 @@
     },
     {
       "Status": "Partially compatible",
-      "Project": "src/Erlang.Runtime.Core/Primitives/CoreModules.cs",
+      "Project": "src/Runtime/Erlang.Runtime.Core/Primitives/CoreModules.cs",
       "Remaining": [
         "remaining reference MFAs and full input/error contracts",
         "default atom-map/HAMT traversal and comparator callback order are unspecified; opaque HAMT paths/full sort and map suites"
@@ -360,7 +360,7 @@
     },
     {
       "Status": "Partially compatible",
-      "Project": "src/Erlang.Otp.Stdlib/Processes/GenServer",
+      "Project": "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/GenServer",
       "Remaining": [
         "full sys/proc_lib, aliases, debug/start options, distribution and upgrades",
         "hibernate memory semantics, huge timeouts, stacks and lifecycle races"
@@ -381,7 +381,7 @@
     },
     {
       "Status": "Partially compatible",
-      "Project": "src/Erlang.Otp.Stdlib/Processes/Supervision",
+      "Project": "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Supervision",
       "Remaining": [
         "Full sys/upgrades/proc_lib/debug/logging and reason classification",
         "Complete timing/clock, priority/distributed signal, dead-child race and stack/resource contracts"
@@ -417,7 +417,7 @@
     },
     {
       "Status": "Partially compatible",
-      "Project": "src/Erlang.CSharp.MSBuild",
+      "Project": "src/Integration/Erlang.CSharp.MSBuild",
       "Remaining": [
         "cross-block bindings, full diagnostics and IDE debugging",
         "Application/controller startup and config application are separate runtime work; current resource orchestration timeout has no actual original full-orchestration witness. Exact inherited377/378 obligations remain in docs/open-obligations-377-378.json."
@@ -438,7 +438,7 @@
     },
     {
       "Status": "Implemented",
-      "Project": "tools/Erlang.Tool",
+      "Project": "tools/Build/Erlang.Tool",
       "Remaining": [
         "stable public release contract; no NuGet publication yet"
       ],
@@ -453,7 +453,7 @@
     },
     {
       "Status": "Partially compatible",
-      "Project": "tools/Erlang.Differential",
+      "Project": "tools/Validation/Erlang.Differential",
       "Remaining": [
         "full resource/input contracts",
         "broader compiled-module/optimizer/stacks/signals",
@@ -540,7 +540,7 @@
     },
     {
       "Status": "Implemented",
-      "Project": "tools/Erlang.Style",
+      "Project": "tools/Build/Erlang.Style",
       "Remaining": [
         "broader SDK matrix"
       ],
@@ -568,7 +568,7 @@
     },
     {
       "Id": "BEAM fixture evidence",
-      "Project": "tools/Erlang.BeamFixtures",
+      "Project": "tools/Compiler/Erlang.BeamFixtures",
       "Status": "Partially compatible",
       "Implemented": [
         "Standalone dev tool/solution/manual pinned-source workflow; five declared sources and four independent original outcomes; source/digest/provenance retention and local negative authenticity gates. Genuine original artifacts pending.",
@@ -581,7 +581,7 @@
     },
     {
       "Id": "NifFixtureHost",
-      "Project": "tools/Erlang.NifFixtureHost",
+      "Project": "tools/Native/Erlang.NifFixtureHost",
       "Status": "Partially compatible",
       "Implemented": [
         "Standalone target with zero warnings/errors; strict 17-file token/quoted-literal formatting guard; managed ownership checks and actual reviewed Windows x64 seven-callback fixture execution. These are tool gates, not additional Main tests.",
@@ -595,7 +595,7 @@
     },
     {
       "Id": "PressureObservations",
-      "Project": "tools/Erlang.DistributionPressureObservations",
+      "Project": "tools/Distribution/Erlang.DistributionPressureObservations",
       "Status": "Partially compatible",
       "Implemented": [
         "Part294: actual standalone Main tool target,14 pre-write CLI refusals and two supplied-DLL raw capture/owned-child cleanup controls pass. Two owned C# token streams and13 source-linked framework files are bound. These are infrastructure/tool checks, not new Main tests or original pressure results."
@@ -607,7 +607,7 @@
     },
     {
       "Id": "NifNativeBackend",
-      "Project": "tools/Erlang.NifNativeBackend",
+      "Project": "tools/Native/Erlang.NifNativeBackend",
       "Status": "Partially compatible",
       "Implemented": [
         "Part299: actual managed prerequisite integration plus separately gated Windows trusted fixture and compiled-source native checks; reviewed992-input seal and manual Linux SDK/original13 infrastructure. C veneer is bounded ABI forwarding only; original13 is a separate fixture/typed gate.",
@@ -620,7 +620,7 @@
     },
     {
       "Id": "proc_lib adapters",
-      "Project": "src/Erlang.Otp.Stdlib/Processes/ProcLib/ProcLib.cs",
+      "Project": "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/ProcLib/ProcLib.cs",
       "Status": "Partially compatible",
       "Implemented": [
         "Part331: six local spawn/1,3,spawn_link/1,3,init_ack/1,2 registrations; parent registered-name/ancestry, native wrapper initial_call, atomic links and arbitrary acknowledgement terms. Main6775/6775 and11 integrations,21 new compiled scenarios/six direct contracts/nine HOST translation controls; original331 comparison pending.",
@@ -650,7 +650,7 @@
     },
     {
       "Id": "sys system protocol",
-      "Project": "src/Erlang.Otp.Stdlib/Processes/Sys",
+      "Project": "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Sys",
       "Status": "Partially compatible",
       "Implemented": [
         "Part335 terminate/2,3; actual monitor/alias/reply protocol and ACK-before-termination; matching proc_lib stop shares original DOWN deadline.6952/11 local full; original335 pending."
@@ -667,7 +667,7 @@
     },
     {
       "Status": "Partially compatible",
-      "Project": "tools/Erlang.BeamBuild",
+      "Project": "tools/Build/Erlang.BeamBuild",
       "Implemented": [
         "Explicit pinned compiler admission with separate source-build/official-release evidence and complete installed-file content closure; no PATH selection",
         "Immutable source snapshots, module/export-only token policy, output identity/hash checks and content/config/tool-based skips; original compiler is build-time only",
@@ -684,7 +684,7 @@
       "TestPrefixes": []
     },
     {
-      "Project": "src/Erlang.Runtime",
+      "Project": "src/Runtime/Erlang.Runtime",
       "Status": "Partially compatible",
       "Remaining": [
         "VM + managed stdlib composition has separate project/deployment gates; it is not whole-runtime semantic completion."
@@ -699,7 +699,7 @@
       ]
     },
     {
-      "Project": "src/Erlang.Otp.Stdlib",
+      "Project": "src/Otp/Managed/Erlang.Otp.Stdlib",
       "Status": "Partially compatible",
       "Remaining": [
         "C# library alternatives are isolated from VM/native primitives; complete OTP contracts remain per-module and separate from project extraction."
@@ -717,7 +717,7 @@
       ]
     },
     {
-      "Project": "src/Erlang.Otp.Kernel",
+      "Project": "src/Otp/Managed/Erlang.Otp.Kernel",
       "Status": "Partially compatible",
       "Remaining": [
         "C# application/logging/RPC alternatives are isolated; original BEAM kernel boot and distribution acceptance remain separate."

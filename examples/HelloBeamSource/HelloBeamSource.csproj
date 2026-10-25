@@ -2,8 +2,8 @@
   <PropertyGroup><OutputType>Exe</OutputType></PropertyGroup>
   <Import Project="$(ErlangBeamCompilerProps)" Condition="'$(ErlangBeamCompilerProps)' != '' and Exists('$(ErlangBeamCompilerProps)')" />
   <ItemGroup>
-    <ProjectReference Include="../../src/Erlang.Runtime/Erlang.Runtime.csproj" />
-    <ProjectReference Include="../../tools/Erlang.BeamBuild/Erlang.BeamBuild.csproj" ReferenceOutputAssembly="false" Private="false" />
+    <ProjectReference Include="../../src/Runtime/Erlang.Runtime/Erlang.Runtime.csproj" />
+    <ProjectReference Include="../../tools/Build/Erlang.BeamBuild/Erlang.BeamBuild.csproj" ReferenceOutputAssembly="false" Private="false" />
     <ErlangBeamSource Include="Modules/*.erl" />
   </ItemGroup>
   <Import Project="../../build/Erlang.Beam.targets" />

@@ -9,19 +9,19 @@
     <QueueBackend Condition="'$(QueueBackend)' == ''">Beam</QueueBackend>
   </PropertyGroup>
   <ItemGroup Condition="'$(UseInstalledPackage)' != 'true'">
-    <ProjectReference Include="../../src/Erlang.Runtime/Erlang.Runtime.csproj" />
-    <ProjectReference Include="../../tools/Erlang.BeamBuild/Erlang.BeamBuild.csproj" ReferenceOutputAssembly="false" Private="false" />
+    <ProjectReference Include="../../src/Runtime/Erlang.Runtime/Erlang.Runtime.csproj" />
+    <ProjectReference Include="../../tools/Build/Erlang.BeamBuild/Erlang.BeamBuild.csproj" ReferenceOutputAssembly="false" Private="false" />
   </ItemGroup>
   <ItemGroup Condition="'$(UseInstalledPackage)' == 'true'">
     <PackageReference Include="Erlang.Net.CSharp" Version="0.1.0" />
   </ItemGroup>
   <ItemGroup>
     <ErlangLibrary Include="lists" Backend="$(ListsBackend)">
-      <Image Condition="'$(ListsBackend)' == 'Beam'">../../src/Erlang.Otp.Stdlib.Beam/Variants/BackendSelection/lists.beam</Image>
+      <Image Condition="'$(ListsBackend)' == 'Beam'">../../src/Otp/Original/Foundation/Erlang.Otp.Stdlib.Beam/Variants/BackendSelection/lists.beam</Image>
       <Sha256 Condition="'$(ListsBackend)' == 'Beam'">010FDB0A6C1441732EDF18934061E4C9B180FE9E3DAA9A93A7458E91352F1FCC</Sha256>
     </ErlangLibrary>
     <ErlangLibrary Include="queue" Backend="$(QueueBackend)">
-      <Image Condition="'$(QueueBackend)' == 'Beam'">../../src/Erlang.Otp.Stdlib.Beam/Variants/BackendSelection/queue.beam</Image>
+      <Image Condition="'$(QueueBackend)' == 'Beam'">../../src/Otp/Original/Foundation/Erlang.Otp.Stdlib.Beam/Variants/BackendSelection/queue.beam</Image>
       <Sha256 Condition="'$(QueueBackend)' == 'Beam'">759B1FE208F8A0DE292147EB00FFCE98F929263ADCFCD4AABB485E3B3EB4538D</Sha256>
       <Dependencies Condition="'$(QueueBackend)' == 'Beam'">lists</Dependencies>
     </ErlangLibrary>

@@ -19,7 +19,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p artifacts
-          dotnet build tools/Erlang.NodeIdentityContrasts -m:1 --disable-build-servers 2>&1 | tee artifacts/beam-fixture-tool-build.log
+          dotnet build tools/Distribution/Erlang.NodeIdentityContrasts -m:1 --disable-build-servers 2>&1 | tee artifacts/beam-fixture-tool-build.log
       - name: Build and attest the pinned development compiler
         shell: bash
         run: |
@@ -66,7 +66,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          dotnet run --project tools/Erlang.NodeIdentityContrasts --no-build -- artifacts/beam-otp-oracle/lib/erlang artifacts/node-identity artifacts/beam-source-build-evidence.json
+          dotnet run --project tools/Distribution/Erlang.NodeIdentityContrasts --no-build -- artifacts/beam-otp-oracle/lib/erlang artifacts/node-identity artifacts/beam-source-build-evidence.json
       - uses: actions/upload-artifact@v7
         if: always()
         with:

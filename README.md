@@ -2,6 +2,8 @@
 
 An experimental C#/.NET implementation targeting Erlang/OTP **29.1.1**, pinned to `ad05823719d77c8faee87348ea39513d4e2f99c5`. The full assignment is not complete. See [progress](docs/PROGRESS.md), [compatibility](docs/COMPATIBILITY.md), [detailed changelog](CHANGELOG.md) and [next steps](docs/NEXT_STEPS.md).
 
+Projects are categorized under `src/{Runtime,Compiler,Integration,Otp}` and `tools/{Build,Validation,Native,Distribution,Collections,Compiler,Runtime}`. See the [layout and assembly crosswalk](docs/project-layout.md) and the [current remaining-work list and module contract counts](docs/remaining-work/checkpoint-486.md). Test directories and root `tools/*.ps1` entry points retain their locations.
+
 Part304 tooling checkpoint: the failed original302 workflow is preserved. A narrow passive function-stack-frame repair reviews the SAME captured9 successfully (all certain assertions and predeclared hypotheses), with no new original execution, SDK comparison or runtime protocol change. Published303 runtime6622/full/native and CI6622/full remain the reused runtime checkpoint. See [the receipt](docs/validation/part-304/evidence-receipt.json).
 
 Development validation now compares **778 expressions**, **4027 comparable separately compiled fixture modules** and **132 compiler-diagnostic fixtures** against the pinned reference. The module track compiles generated C# Release assemblies and reference BEAM modules; selected outcomes match, full optimizer/debug/resource compatibility remains unfinished. [Verified evidence](docs/validation/part-214/strict-guard.json).
@@ -23,7 +25,7 @@ Selected Erlang behaviour adapters expose ten gen_server and fourteen supervisor
 Regenerate the report from the current successful test report and actual runtime registry:
 
 ```powershell
-dotnet run --project tools/Erlang.Tool --no-build -- readiness docs artifacts/tests.json docs
+dotnet run --project tools/Build/Erlang.Tool --no-build -- readiness docs artifacts/tests.json docs
 ```
 
 Term.A("ok") represents the Erlang atom ok, a symbolic value often used as a success marker; Term.String("ok") creates a character list. The factory reuses ten fixed common immutable atom values and leaves arbitrary Atom objects uncached; their names are retained in the VM-wide name table for existing-atom conversion. Compare terms by value, not CLR object identity. Domain constants retain their separate protocol meanings.
@@ -53,13 +55,13 @@ SDK 10.0.400 is pinned in `global.json`. On restricted hosts that prevent MSBuil
 Compile Erlang source to C#:
 
 ```powershell
-dotnet tools/Erlang.Tool/bin/Debug/net10.0/Erlang.Tool.dll compile examples/HelloHybrid/arithmetic.erl artifacts/arithmetic.g.cs
+dotnet tools/Build/Erlang.Tool/bin/Debug/net10.0/Erlang.Tool.dll compile examples/HelloHybrid/arithmetic.erl artifacts/arithmetic.g.cs
 ```
 
 Generate the pinned source inventory without changing the reference checkout:
 
 ```powershell
-dotnet tools/Erlang.Tool/bin/Debug/net10.0/Erlang.Tool.dll inventory ../otp docs
+dotnet tools/Build/Erlang.Tool/bin/Debug/net10.0/Erlang.Tool.dll inventory ../otp docs
 ```
 
 Validate build integration and a local NuGet consumer:
@@ -70,7 +72,7 @@ pwsh -File tools/validate.ps1
 
 No packages are published. The prototype package targets net10.0. Install the local tool package to run `dotnet erlang compile INPUT OUTPUT`; without installation, use the DLL command above. Compilation currently emits AST construction code evaluated by the C# runtime, rather than direct native lowering of every operation.
 
-Source formatting: `dotnet run --project tools/Erlang.Style -- --write .`. The full validation script checks layout with `--check`. This development tool uses the pinned SDK's Roslyn formatter and repository-specific spacing/argument rules; it does not process native-Erlang hybrid Program.cs. Detailed numbered work history is indexed in [CHANGELOG](CHANGELOG.md); append only to its latest volume, rolling over at 32 KiB or 400 lines.
+Source formatting: `dotnet run --project tools/Build/Erlang.Style -- --write .`. The full validation script checks layout with `--check`. This development tool uses the pinned SDK's Roslyn formatter and repository-specific spacing/argument rules; it does not process native-Erlang hybrid Program.cs. Detailed numbered work history is indexed in [CHANGELOG](CHANGELOG.md); append only to its latest volume, rolling over at 32 KiB or 400 lines.
 
 Tests are a dependency-free executable harness and return a failing exit code on any failed assertion. `dotnet test` is not the test entry point. A separate differential runner requires an exact OTP 29.1.1 development oracle; production execution and builds do not.
 

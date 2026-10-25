@@ -9,7 +9,7 @@ jobs:
     timeout-minutes: 60
     env:
       ERLC_USE_SERVER: 'false'
-      REVIEWED_SOURCE_PLAN_SHA256: 5DF3D68B882E61DAA4108CB3C80B63680A54F095B653D0F40B94392DBD22103B
+      REVIEWED_SOURCE_PLAN_SHA256: B5747837521B62BF6963796E6606FB53F4121C01E56307DE73F31BF5F6B92510
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-dotnet@v6
@@ -46,7 +46,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          recipe="$GITHUB_WORKSPACE/tools/Erlang.NifPendingVarargsObservations"
+          recipe="$GITHUB_WORKSPACE/tools/Native/Erlang.NifPendingVarargsObservations"
           python3 "$recipe/run-reviewed.py" native-build \
             --repository "$GITHUB_WORKSPACE" \
             --otp-source "$GITHUB_WORKSPACE/artifacts/nif-pending-otp-source" \
@@ -60,7 +60,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          recipe="$GITHUB_WORKSPACE/tools/Erlang.NifPendingVarargsObservations"
+          recipe="$GITHUB_WORKSPACE/tools/Native/Erlang.NifPendingVarargsObservations"
           read -r build_receipt_sha ignored < artifacts/nif-bounded-sdk-build-receipt.sha256
           python3 "$recipe/run-reviewed.py" sdk \
             --repository "$GITHUB_WORKSPACE" \
@@ -76,7 +76,7 @@ jobs:
         run: |
           set -euo pipefail
           prefix="$GITHUB_WORKSPACE/artifacts/nif-pending-otp-source/observer-install"
-          recipe="$GITHUB_WORKSPACE/tools/Erlang.NifPendingVarargsObservations/original"
+          recipe="$GITHUB_WORKSPACE/tools/Native/Erlang.NifPendingVarargsObservations/original"
           python3 "$recipe/collect.py" \
             --otp-source "$GITHUB_WORKSPACE/artifacts/nif-pending-otp-source" \
             --otp-include "$prefix/lib/erlang/usr/include" \
@@ -90,12 +90,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          recipe="$GITHUB_WORKSPACE/tools/Erlang.NifPendingVarargsObservations"
+          recipe="$GITHUB_WORKSPACE/tools/Native/Erlang.NifPendingVarargsObservations"
           python3 "$recipe/verify-original13.py" \
             --observations "$GITHUB_WORKSPACE/artifacts/nif-pending-original-observations" \
             --proposal "$recipe/original" \
             --build-provenance "$GITHUB_WORKSPACE/artifacts/nif-pending-otp-build-provenance.json" \
-            --decoder-source "$GITHUB_WORKSPACE/tools/Erlang.BeamFixtures/verify-metadata-mutations.py" \
+            --decoder-source "$GITHUB_WORKSPACE/tools/Compiler/Erlang.BeamFixtures/verify-metadata-mutations.py" \
             --report "$GITHUB_WORKSPACE/artifacts/nif-pending-original-typed-review.json" \
             2>&1 | tee artifacts/nif-pending-original-review-launch.log
       - uses: actions/upload-artifact@v7

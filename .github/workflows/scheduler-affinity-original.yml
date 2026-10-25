@@ -23,11 +23,11 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p artifacts/scheduler-affinity-original
-          python3 tools/Erlang.SchedulerAffinityOriginalObservations/verify-source.py \
+          python3 tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/verify-source.py \
             --repository "$GITHUB_WORKSPACE" --manifest-sha256 "$SOURCE_MANIFEST_SHA256" \
             --expected-head "$GITHUB_SHA" \
             2>&1 | tee artifacts/scheduler-affinity-original/source-verification.log
-          python3 tools/Erlang.SchedulerAffinityOriginalObservations/check-source-controls.py \
+          python3 tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/check-source-controls.py \
             --repository "$GITHUB_WORKSPACE" \
             2>&1 | tee artifacts/scheduler-affinity-original/source-controls.log
       - name: Clone exact pinned original source
@@ -41,7 +41,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python3 tools/Erlang.SchedulerAffinityOriginalObservations/build-original.py \
+          python3 tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/build-original.py \
             --repository "$GITHUB_WORKSPACE" --manifest-sha256 "$SOURCE_MANIFEST_SHA256" \
             --expected-head "$GITHUB_SHA" \
             --otp-source "$GITHUB_WORKSPACE/artifacts/scheduler-affinity-otp-source" \
@@ -52,7 +52,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python3 tools/Erlang.SchedulerAffinityOriginalObservations/collect-profile.py \
+          python3 tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/collect-profile.py \
             --repository "$GITHUB_WORKSPACE" --manifest-sha256 "$SOURCE_MANIFEST_SHA256" \
             --expected-head "$GITHUB_SHA" \
             --otp-source "$GITHUB_WORKSPACE/artifacts/scheduler-affinity-otp-source" \

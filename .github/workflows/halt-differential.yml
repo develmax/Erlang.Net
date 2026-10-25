@@ -30,8 +30,8 @@ jobs:
           export DOTNET_PROCESSOR_COUNT=2
           export MSBUILDDISABLENODEREUSE=1
           export DOTNET_GCConserveMemory=7
-          dotnet build tools/Erlang.HaltProbe -m:1 --disable-build-servers
-          dotnet run --project tools/Erlang.HaltProbe --no-build -- --halt "$GITHUB_WORKSPACE/artifacts/halt-otp-oracle/bin/erl" artifacts/halt-native.json artifacts/halt-native-cases
+          dotnet build tools/Runtime/Erlang.HaltProbe -m:1 --disable-build-servers
+          dotnet run --project tools/Runtime/Erlang.HaltProbe --no-build -- --halt "$GITHUB_WORKSPACE/artifacts/halt-otp-oracle/bin/erl" artifacts/halt-native.json artifacts/halt-native-cases
       - uses: actions/upload-artifact@v7
         if: always()
         with:

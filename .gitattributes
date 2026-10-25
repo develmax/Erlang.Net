@@ -1,6 +1,6 @@
 *.cs -text
-tools/Erlang.DdllFormatterOriginalObservations/** -text -whitespace
-tools/Erlang.EtsCompressedOriginalObservations442/** -text -whitespace
+tools/Native/Erlang.DdllFormatterOriginalObservations/** -text -whitespace
+tools/Collections/Erlang.EtsCompressedOriginalObservations442/** -text -whitespace
 *.beam binary
 *.etf binary
 tests/Erlang.Tests/Resources/Beam/*.erl -text
@@ -20,78 +20,78 @@ tests/Erlang.Tests/Resources/BeamGzip/** binary
 tests/Erlang.Tests/Resources/BeamGzipControls/** binary
 docs/validation/part-267/** binary
 docs/validation/part-268/** binary
-tools/Erlang.ApplyOptimizerContrasts/*.erl -text
+tools/Compiler/Erlang.ApplyOptimizerContrasts/*.erl -text
 docs/validation/part-269/** binary
-tools/Erlang.NodeIdentityContrasts/*.erl -text
+tools/Distribution/Erlang.NodeIdentityContrasts/*.erl -text
 docs/validation/part-270/** binary
 docs/validation/part-271/** binary
-tools/Erlang.DistributionPacketContrasts/*.erl -text
-tools/Erlang.MixedMapIdentityContrasts/*.erl -text
+tools/Distribution/Erlang.DistributionPacketContrasts/*.erl -text
+tools/Collections/Erlang.MixedMapIdentityContrasts/*.erl -text
 docs/validation/part-272/** binary
 docs/validation/part-273/** binary
 docs/validation/part-274/** binary
-tools/Erlang.LocalNodeAdmissionContrasts/*.erl binary
-tools/Erlang.LocalNodeAdmissionContrasts/source-plan.json binary
+tools/Distribution/Erlang.LocalNodeAdmissionContrasts/*.erl binary
+tools/Distribution/Erlang.LocalNodeAdmissionContrasts/source-plan.json binary
 docs/validation/part-275/** binary
-tools/Erlang.NodeCreationContrasts/*.erl binary
-tools/Erlang.NodeCreationContrasts/source-plan.json binary
+tools/Distribution/Erlang.NodeCreationContrasts/*.erl binary
+tools/Distribution/Erlang.NodeCreationContrasts/source-plan.json binary
 docs/validation/part-276/** binary
 docs/validation/part-277/** binary
-tools/Erlang.DistributionQueueContrasts/*.erl binary
-tools/Erlang.DistributionQueueContrasts/*source-plan.json binary
+tools/Distribution/Erlang.DistributionQueueContrasts/*.erl binary
+tools/Distribution/Erlang.DistributionQueueContrasts/*source-plan.json binary
 docs/validation/part-278/** binary
 docs/validation/part-279/** binary
 docs/validation/part-280/** binary
 docs/validation/part-281/** binary
 docs/validation/part-282/** binary
-tools/Erlang.DistributionSignalObservations/source-plan.json binary
-tools/Erlang.DistributionSignalObservations/distribution_signal_observer.erl binary
+tools/Distribution/Erlang.DistributionSignalObservations/source-plan.json binary
+tools/Distribution/Erlang.DistributionSignalObservations/distribution_signal_observer.erl binary
 docs/validation/part-283/** binary
-tools/Erlang.DistributionTraceObservations/source-plan.json binary
-tools/Erlang.DistributionTraceObservations/distribution_trace_probe.erl binary
+tools/Distribution/Erlang.DistributionTraceObservations/source-plan.json binary
+tools/Distribution/Erlang.DistributionTraceObservations/distribution_trace_probe.erl binary
 docs/validation/part-284/** binary
-tools/Erlang.DistributionSenderObservations/source-plan.json binary
-tools/Erlang.DistributionSenderObservations/distribution_sender_observer.erl binary
+tools/Distribution/Erlang.DistributionSenderObservations/source-plan.json binary
+tools/Distribution/Erlang.DistributionSenderObservations/distribution_sender_observer.erl binary
 docs/validation/part-285/** binary
 docs/validation/part-286/** binary
 docs/validation/part-287/** binary
-tools/Erlang.DistributionPayloadExitObservations/distribution_payload_exit_probe.erl -text whitespace=trailing-space,space-before-tab,cr-at-eol
-tools/Erlang.DistributionPayloadExitObservations/source-plan.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
-tools/Erlang.DistributionMonitorPayloadObservations/distribution_monitor_payload_observer.erl -text whitespace=trailing-space,space-before-tab,cr-at-eol
-tools/Erlang.DistributionMonitorPayloadObservations/source-plan.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Distribution/Erlang.DistributionPayloadExitObservations/distribution_payload_exit_probe.erl -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Distribution/Erlang.DistributionPayloadExitObservations/source-plan.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Distribution/Erlang.DistributionMonitorPayloadObservations/distribution_monitor_payload_observer.erl -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Distribution/Erlang.DistributionMonitorPayloadObservations/source-plan.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
 docs/validation/part-288/** binary
 docs/validation/part-289/** binary
-tools/Erlang.NifFixtureHost/native/* -text whitespace=trailing-space,space-before-tab,cr-at-eol
-tools/Erlang.NifFixtureHost/original/* -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Native/Erlang.NifFixtureHost/native/* -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Native/Erlang.NifFixtureHost/original/* -text whitespace=trailing-space,space-before-tab,cr-at-eol
 docs/validation/part-290/** binary
 docs/validation/part-291/** binary
 docs/validation/part-292/** binary
 docs/validation/part-293/** binary
-tools/Erlang.DistributionPressureObservations/distribution_pressure_probe.erl -text whitespace=trailing-space,space-before-tab,cr-at-eol
-tools/Erlang.DistributionPressureObservations/source-plan.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
-tools/Erlang.DistributionPressureObservations/expected-policy.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Distribution/Erlang.DistributionPressureObservations/distribution_pressure_probe.erl -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Distribution/Erlang.DistributionPressureObservations/source-plan.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Distribution/Erlang.DistributionPressureObservations/expected-policy.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
 docs/validation/part-294/** binary
 docs/validation/part-295/** binary
 docs/validation/part-296/** binary
 docs/validation/part-297/** binary
 docs/validation/part-298/** binary
-tools/Erlang.NifNativeBackend/native/* -text whitespace=trailing-space,space-before-tab,cr-at-eol
-tools/Erlang.NifNativeBackend/compiled_source_fixture.erl -text whitespace=trailing-space,space-before-tab,cr-at-eol
-tools/Erlang.NifPendingVarargsObservations/original/* -text whitespace=trailing-space,space-before-tab,cr-at-eol
-tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
-tools/Erlang.BeamFixtures/verify-metadata-mutations.py -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Native/Erlang.NifNativeBackend/native/* -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Native/Erlang.NifNativeBackend/compiled_source_fixture.erl -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Native/Erlang.NifPendingVarargsObservations/original/* -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Compiler/Erlang.BeamFixtures/verify-metadata-mutations.py -text whitespace=trailing-space,space-before-tab,cr-at-eol
 docs/validation/part-299/** binary
 docs/validation/part-300/** binary
 docs/validation/part-301/** binary
-tools/Erlang.RawOnLoadVisibilityObservations/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Native/Erlang.RawOnLoadVisibilityObservations/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
 .github/workflows/raw-onload-original-observations.yml -text whitespace=trailing-space,space-before-tab,cr-at-eol
-tools/Erlang.NifPendingVarargsObservations/verify-original13.py -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Native/Erlang.NifPendingVarargsObservations/verify-original13.py -text whitespace=trailing-space,space-before-tab,cr-at-eol
 docs/validation/part-302/** binary
 docs/validation/part-303/** binary
 docs/validation/part-304/** binary
 docs/validation/part-305/** binary
 tests/Erlang.Tests/Resources/RawOnLoadDeferredExports/** binary
-tools/Erlang.AllocatorMemoryObservations/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Runtime/Erlang.AllocatorMemoryObservations/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
 .github/workflows/allocator-memory-original-observations.yml -text whitespace=trailing-space,space-before-tab,cr-at-eol
 docs/validation/part-306/** binary
 docs/validation/part-307/** binary
@@ -100,52 +100,52 @@ docs/validation/part-309/** binary
 docs/validation/part-310/** binary
 docs/validation/part-311/** binary
 docs/validation/part-312/** binary
-tools/Erlang.NifReallocationObservations/native/reallocation_fixture.c -text whitespace=trailing-space,space-before-tab,cr-at-eol
-tools/Erlang.NifReallocationObservations/native/reallocation_probe_names.h -text whitespace=trailing-space,space-before-tab,cr-at-eol
-tools/Erlang.NifReallocationObservations/native/nif_reallocation_bridge.c -text whitespace=trailing-space,space-before-tab,cr-at-eol
-tools/Erlang.NifReallocationObservations/native/nif_reallocation_bridge.h -text whitespace=trailing-space,space-before-tab,cr-at-eol
-tools/Erlang.NifReallocationObservations/native/reallocation_windows_layout.c -text whitespace=trailing-space,space-before-tab,cr-at-eol
-tools/Erlang.NifReallocationObservations/native/reallocation_windows_layout_names.h -text whitespace=trailing-space,space-before-tab,cr-at-eol
-tools/Erlang.NifReallocationObservations/result-schema.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
-tools/Erlang.NifReallocationObservations/profile-source-identity.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
-tools/Erlang.NifReallocationObservations/profile-digest.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Native/Erlang.NifReallocationObservations/native/reallocation_fixture.c -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Native/Erlang.NifReallocationObservations/native/reallocation_probe_names.h -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Native/Erlang.NifReallocationObservations/native/nif_reallocation_bridge.c -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Native/Erlang.NifReallocationObservations/native/nif_reallocation_bridge.h -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Native/Erlang.NifReallocationObservations/native/reallocation_windows_layout.c -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Native/Erlang.NifReallocationObservations/native/reallocation_windows_layout_names.h -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Native/Erlang.NifReallocationObservations/result-schema.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Native/Erlang.NifReallocationObservations/profile-source-identity.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Native/Erlang.NifReallocationObservations/profile-digest.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
 docs/validation/part-313/** binary
 docs/validation/part-314/** binary
 docs/validation/part-315/** binary
-tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json text eol=lf
-tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json text eol=lf
+tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json text eol=lf
+tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json text eol=lf
 docs/validation/part-316/** binary
 docs/validation/part-317/** binary
-tools/Erlang.GroupLeaderOutboundObservations/source-plan.json text eol=lf
+tools/Distribution/Erlang.GroupLeaderOutboundObservations/source-plan.json text eol=lf
 docs/validation/part-318/** binary
-tools/Erlang.GuestConnectedSendObservations/source-plan.json text eol=lf
+tools/Distribution/Erlang.GuestConnectedSendObservations/source-plan.json text eol=lf
 docs/validation/part-319/** binary
 docs/validation/part-320/** binary
-tools/Erlang.GuestConnectedLinkObservations/source-plan.json text eol=lf
+tools/Distribution/Erlang.GuestConnectedLinkObservations/source-plan.json text eol=lf
 docs/validation/part-321/** binary
-tools/Erlang.GuestConnectedExitObservations/source-plan.json text eol=lf
+tools/Distribution/Erlang.GuestConnectedExitObservations/source-plan.json text eol=lf
 docs/validation/part-322/** binary
-tools/Erlang.DistributionControlWaitObservations/source-plan.json text eol=lf
+tools/Distribution/Erlang.DistributionControlWaitObservations/source-plan.json text eol=lf
 docs/validation/part-323/** binary
 tests/Erlang.Tests/Resources/Beam/guest_connected_bang322.provenance.json binary
 docs/validation/part-324/** binary
-tools/Erlang.DistributionLinkRetentionObservations/source-plan.json text eol=lf
+tools/Distribution/Erlang.DistributionLinkRetentionObservations/source-plan.json text eol=lf
 docs/validation/part-325/** binary
 docs/validation/part-326/** binary
 docs/validation/part-327/** binary
 docs/validation/part-328/** binary
 docs/validation/part-329/** binary
 
-tools/Erlang.ProcLibFormatOriginalObservations/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Runtime/Erlang.ProcLibFormatOriginalObservations/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
 .github/workflows/proc-lib-format-original.yml -text whitespace=trailing-space,space-before-tab,cr-at-eol
 
-tools/Erlang.ConnectedSpawnOriginalObservations/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Distribution/Erlang.ConnectedSpawnOriginalObservations/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
 .github/workflows/connected-spawn-original.yml -text whitespace=trailing-space,space-before-tab,cr-at-eol
 docs/validation/part-341/** binary
 docs/mfa-compatibility.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
 
 docs/validation/part-342/** binary
-tools/Erlang.ProcLibRealPeerObservations/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Distribution/Erlang.ProcLibRealPeerObservations/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
 .github/workflows/proc-lib-real-peer-original.yml -text whitespace=trailing-space,space-before-tab,cr-at-eol
 
 docs/validation/part-343/** binary
@@ -171,7 +171,7 @@ docs/validation/part-352/** binary
 docs/validation/part-353/** binary
 docs/validation/original351-completion/** binary
 docs/validation/corrected352-ci-completion/** binary
-tools/Erlang.SchedulerAffinityOriginalObservations/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
 .github/workflows/scheduler-affinity-original.yml text eol=lf
 
 docs/validation/part-354/** binary
@@ -179,32 +179,32 @@ docs/validation/part-354/** binary
 docs/validation/part-356/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
 
 # Live original-observation inputs keep declared raw bytes across checkouts.
-tools/Erlang.NifEntryOriginalObservations/*.json text eol=lf
-tools/Erlang.RemoteMonitorOrderOriginalObservations/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
-tools/Erlang.RemoteMonitorOrderOriginalObservations/*.json text eol=lf
+tools/Native/Erlang.NifEntryOriginalObservations/*.json text eol=lf
+tools/Distribution/Erlang.RemoteMonitorOrderOriginalObservations/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Distribution/Erlang.RemoteMonitorOrderOriginalObservations/*.json text eol=lf
 .github/workflows/remote-monitor-order-original.yml text eol=lf
 
 docs/validation/part-357/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
 
 docs/validation/part-359/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
 
-tools/Erlang.NifTermCallbackOriginalObservations/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
-tools/Erlang.NifTermCallbackOriginalObservations/*.json text eol=lf
+tools/Native/Erlang.NifTermCallbackOriginalObservations/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Native/Erlang.NifTermCallbackOriginalObservations/*.json text eol=lf
 .github/workflows/nif-term-callback-original.yml text eol=lf
 
 docs/validation/part-360/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
 
-tools/Erlang.NifTextBinaryOriginalObservations/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
-tools/Erlang.NifTextBinaryOriginalObservations/*.json text eol=lf
+tools/Native/Erlang.NifTextBinaryOriginalObservations/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Native/Erlang.NifTextBinaryOriginalObservations/*.json text eol=lf
 .github/workflows/nif-text-binary-original.yml text eol=lf
 
-tools/Erlang.NifUnixFilenameObservations/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
-tools/Erlang.NifUnixFilenameObservations/*.json text eol=lf
+tools/Native/Erlang.NifUnixFilenameObservations/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Native/Erlang.NifUnixFilenameObservations/*.json text eol=lf
 .github/workflows/nif-unix-filename-original.yml text eol=lf
 
 docs/validation/part-361/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
 
-tools/Erlang.ProplistGetValueObservations/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
+tools/Collections/Erlang.ProplistGetValueObservations/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
 .github/workflows/proplist-get-value-original.yml text eol=lf
 docs/validation/part-362/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
 
@@ -218,7 +218,7 @@ docs/validation/part-368/** -text whitespace=trailing-space,space-before-tab,cr-
 docs/validation/part-369/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
 docs/validation/part-370/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
 docs/validation/part-371/** -text -whitespace
-tools/Erlang.OrdsetsCoreOriginalObservations/*.erl -text -whitespace
+tools/Collections/Erlang.OrdsetsCoreOriginalObservations/*.erl -text -whitespace
 
 docs/validation/part-372/** -text -whitespace
 *.bundle binary
@@ -245,47 +245,47 @@ examples/**/Otp/** -whitespace
 tests/Erlang.Tests/Fixtures/** -whitespace
 tests/Erlang.Tests/Resources/** -whitespace
 docs/validation/** -whitespace
-src/Erlang.Otp.Stdlib.Beam/Otp/** -text -whitespace
-src/Erlang.Otp.Stdlib.Beam/Variants/** -text -whitespace
-src/Erlang.Otp.Kernel.Beam/Otp/** -text -whitespace
-src/Erlang.Otp.Erts.Beam/Otp/** -text -whitespace
-src/Erlang.Otp.Sasl.Beam/Otp/** -text -whitespace
-src/Erlang.Otp.SyntaxTools.Beam/Otp/** -text -whitespace
-src/Erlang.Otp.Parsetools.Beam/Otp/** -text -whitespace
-src/Erlang.Otp.Compiler.Beam/Otp/** -text -whitespace
-src/Erlang.Otp.Tools.Beam/Otp/** -text -whitespace
-src/Erlang.Otp.RuntimeTools.Beam/Otp/** -text -whitespace
-src/Erlang.Otp.Eunit.Beam/Otp/** -text -whitespace
-src/Erlang.Otp.Edoc.Beam/Otp/** -text -whitespace
-src/Erlang.Otp.Xmerl.Beam/Otp/** -text -whitespace
-src/Erlang.Otp.Mnesia.Beam/Otp/** -text -whitespace
-src/Erlang.Otp.Asn1.Beam/Otp/** -text -whitespace
-src/Erlang.Otp.Crypto.Beam/Otp/** -text -whitespace
-src/Erlang.Otp.PublicKey.Beam/Otp/** -text -whitespace
+src/Otp/Original/Foundation/Erlang.Otp.Stdlib.Beam/Otp/** -text -whitespace
+src/Otp/Original/Foundation/Erlang.Otp.Stdlib.Beam/Variants/** -text -whitespace
+src/Otp/Original/Foundation/Erlang.Otp.Kernel.Beam/Otp/** -text -whitespace
+src/Otp/Original/Foundation/Erlang.Otp.Erts.Beam/Otp/** -text -whitespace
+src/Otp/Original/Foundation/Erlang.Otp.Sasl.Beam/Otp/** -text -whitespace
+src/Otp/Original/Development/Erlang.Otp.SyntaxTools.Beam/Otp/** -text -whitespace
+src/Otp/Original/Development/Erlang.Otp.Parsetools.Beam/Otp/** -text -whitespace
+src/Otp/Original/Development/Erlang.Otp.Compiler.Beam/Otp/** -text -whitespace
+src/Otp/Original/Development/Erlang.Otp.Tools.Beam/Otp/** -text -whitespace
+src/Otp/Original/Development/Erlang.Otp.RuntimeTools.Beam/Otp/** -text -whitespace
+src/Otp/Original/Development/Erlang.Otp.Eunit.Beam/Otp/** -text -whitespace
+src/Otp/Original/Documentation/Erlang.Otp.Edoc.Beam/Otp/** -text -whitespace
+src/Otp/Original/Data/Erlang.Otp.Xmerl.Beam/Otp/** -text -whitespace
+src/Otp/Original/Data/Erlang.Otp.Mnesia.Beam/Otp/** -text -whitespace
+src/Otp/Original/Data/Erlang.Otp.Asn1.Beam/Otp/** -text -whitespace
+src/Otp/Original/Security/Erlang.Otp.Crypto.Beam/Otp/** -text -whitespace
+src/Otp/Original/Security/Erlang.Otp.PublicKey.Beam/Otp/** -text -whitespace
 tests/Erlang.Otp.Security.Library.Tests/Fixtures/curves.txt text eol=lf
-src/Erlang.Otp.Ssl.Beam/Otp/** -text -whitespace
-src/Erlang.Otp.Ssh.Beam/Otp/** -text -whitespace
-src/Erlang.Otp.Inets.Beam/Otp/** -text -whitespace
-src/Erlang.Otp.Ftp.Beam/Otp/** -text -whitespace
-src/Erlang.Otp.Tftp.Beam/Otp/** -text -whitespace
-src/Erlang.Otp.Eldap.Beam/Otp/** -text -whitespace
-src/Erlang.Otp.Diameter.Beam/Otp/** -text -whitespace
-src/Erlang.Otp.Snmp.Beam/Otp/** -text -whitespace
-src/Erlang.Otp.Megaco.Beam/Otp/** -text -whitespace
-src/Erlang.Otp.CommonTest.Beam/Otp/** -text -whitespace
-src/Erlang.Otp.Dialyzer.Beam/Otp/** -text -whitespace
-src/Erlang.Otp.OsMon.Beam/Otp/** -text -whitespace
-src/Erlang.Otp.Odbc.Beam/Otp/** -text -whitespace
-src/Erlang.Otp.Debugger.Beam/Otp/** -text -whitespace
-src/Erlang.Otp.Et.Beam/Otp/** -text -whitespace
-src/Erlang.Otp.Observer.Beam/Otp/** -text -whitespace
-src/Erlang.Otp.Reltool.Beam/Otp/** -text -whitespace
-src/Erlang.Otp.Wx.Beam/Otp/** -text -whitespace
+src/Otp/Original/Security/Erlang.Otp.Ssl.Beam/Otp/** -text -whitespace
+src/Otp/Original/Security/Erlang.Otp.Ssh.Beam/Otp/** -text -whitespace
+src/Otp/Original/Networking/Erlang.Otp.Inets.Beam/Otp/** -text -whitespace
+src/Otp/Original/Networking/Erlang.Otp.Ftp.Beam/Otp/** -text -whitespace
+src/Otp/Original/Networking/Erlang.Otp.Tftp.Beam/Otp/** -text -whitespace
+src/Otp/Original/Networking/Erlang.Otp.Eldap.Beam/Otp/** -text -whitespace
+src/Otp/Original/Networking/Erlang.Otp.Diameter.Beam/Otp/** -text -whitespace
+src/Otp/Original/Networking/Erlang.Otp.Snmp.Beam/Otp/** -text -whitespace
+src/Otp/Original/Networking/Erlang.Otp.Megaco.Beam/Otp/** -text -whitespace
+src/Otp/Original/Development/Erlang.Otp.CommonTest.Beam/Otp/** -text -whitespace
+src/Otp/Original/Development/Erlang.Otp.Dialyzer.Beam/Otp/** -text -whitespace
+src/Otp/Original/Platform/Erlang.Otp.OsMon.Beam/Otp/** -text -whitespace
+src/Otp/Original/Platform/Erlang.Otp.Odbc.Beam/Otp/** -text -whitespace
+src/Otp/Original/Gui/Erlang.Otp.Debugger.Beam/Otp/** -text -whitespace
+src/Otp/Original/Gui/Erlang.Otp.Et.Beam/Otp/** -text -whitespace
+src/Otp/Original/Gui/Erlang.Otp.Observer.Beam/Otp/** -text -whitespace
+src/Otp/Original/Gui/Erlang.Otp.Reltool.Beam/Otp/** -text -whitespace
+src/Otp/Original/Gui/Erlang.Otp.Wx.Beam/Otp/** -text -whitespace
 tests/Erlang.Otp.Gui.Library.Tests/Fixtures/FloatStore479/reltool_fgraph.hrl -text -whitespace
 tests/Erlang.Otp.Gui.Library.Tests/Fixtures/Comparison482/*.S -text -whitespace
 tests/Erlang.Otp.Gui.Library.Tests/Fixtures/Receive483/** -text -whitespace
 
 tests/Erlang.Otp.Megaco.Library.Tests/Fixtures/ReceiveLength484/** -text -whitespace
 tests/Erlang.Tests/Resources/RegexCaptures485/** -text -whitespace
-tools/Erlang.OtpCatalogValidation/fixtures/** -text -whitespace
-tools/Erlang.OtpCatalogValidation/native/** -text -whitespace
+tools/Validation/Erlang.OtpCatalogValidation/fixtures/** -text -whitespace
+tools/Validation/Erlang.OtpCatalogValidation/native/** -text -whitespace

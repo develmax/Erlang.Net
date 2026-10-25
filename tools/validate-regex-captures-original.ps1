@@ -59,7 +59,7 @@ Confirm-RegexBindings
 $receipt = [ordered]@{ Baseline = $profile.SourceCommit; Count = 176; Golden = $golden; Managed = $managed; Original = $original; WholeRawEqual = ($golden -ceq $managed -and $golden -ceq $original); IncludesFullErrorsStacksAndBackingSizes = $true }
 $receipt | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (Join-Path $outputPath 'comparison.json') -Encoding utf8
 if (-not $receipt.WholeRawEqual) { throw 'Whole regex outcomes differ; raw files retained' }
-$nativeFixtures = [IO.Path]::GetFullPath('tools/Erlang.OtpCatalogValidation/fixtures')
+$nativeFixtures = [IO.Path]::GetFullPath('tools/Validation/Erlang.OtpCatalogValidation/fixtures')
 $nativeManifest = Get-Content -LiteralPath (Join-Path $nativeFixtures 'manifest.json') -Raw | ConvertFrom-Json
 foreach ($file in $nativeManifest.PSObject.Properties) {
     if ((Get-FileHash -LiteralPath (Join-Path $nativeFixtures $file.Name) -Algorithm SHA256).Hash -cne $file.Value) { throw "Native observer changed: $($file.Name)" }

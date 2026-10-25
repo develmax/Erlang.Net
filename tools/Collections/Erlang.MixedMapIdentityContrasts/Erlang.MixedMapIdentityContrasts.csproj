@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../Distribution/Erlang.NodeIdentityContrasts/NodeProcess.cs" Link="Shared/NodeProcess.cs" />
+    <Compile Include="../../Distribution/Erlang.NodeIdentityContrasts/NodeProcessResult.cs" Link="Shared/NodeProcessResult.cs" />
+    <Compile Include="../../Distribution/Erlang.NodeIdentityContrasts/NodeCaptureProtocol.cs" Link="Shared/NodeCaptureProtocol.cs" />
+    <Compile Include="../../Distribution/Erlang.NodeIdentityContrasts/NodeDiagnostics.cs" Link="Shared/NodeDiagnostics.cs" />
+    <Compile Include="../../Distribution/Erlang.NodeIdentityContrasts/NodeNames.cs" Link="Shared/NodeNames.cs" />
+    <Compile Include="../../Distribution/Erlang.NodeIdentityContrasts/NodeErlangString.cs" Link="Shared/NodeErlangString.cs" />
+    <Compile Include="../../Distribution/Erlang.NodeIdentityContrasts/NodeStringSyntax.cs" Link="Shared/NodeStringSyntax.cs" />
+    <Compile Include="../../Distribution/Erlang.NodeIdentityContrasts/NodeFields.cs" Link="Shared/NodeFields.cs" />
+    <Compile Include="../../Distribution/Erlang.NodeIdentityContrasts/NodeModuleSource.cs" Link="Shared/NodeModuleSource.cs" />
+    <None Update="mixed_map_identity_probe.erl" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="source-plan.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

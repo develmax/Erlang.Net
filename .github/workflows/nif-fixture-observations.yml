@@ -24,15 +24,15 @@ jobs:
           git clone --depth 1 --branch OTP-29.1.1 https://github.com/erlang/otp.git ../otp
           if ($LASTEXITCODE -ne 0) { throw 'Pinned source clone failed' }
           if ((git -C ../otp rev-parse HEAD).Trim() -cne 'ad05823719d77c8faee87348ea39513d4e2f99c5') { throw 'OTP pin differs' }
-          dotnet build tools/Erlang.NifFixtureHost --disable-build-servers -m:1 -p:UseSharedCompilation=false 2>&1 | Tee-Object artifacts/nif-host-build.log
+          dotnet build tools/Native/Erlang.NifFixtureHost --disable-build-servers -m:1 -p:UseSharedCompilation=false 2>&1 | Tee-Object artifacts/nif-host-build.log
           if ($LASTEXITCODE -ne 0) { throw 'Development host build failed' }
-          dotnet tools/Erlang.NifFixtureHost/bin/Debug/net10.0/Erlang.NifFixtureHost.dll 2>&1 | Tee-Object artifacts/nif-host-managed.log
+          dotnet tools/Native/Erlang.NifFixtureHost/bin/Debug/net10.0/Erlang.NifFixtureHost.dll 2>&1 | Tee-Object artifacts/nif-host-managed.log
           if ($LASTEXITCODE -ne 0) { throw 'Internal managed contracts failed' }
       - name: Compile the exact reviewed fixture and verify its ABI
         shell: pwsh
         run: |
           $ErrorActionPreference = 'Stop'
-          python tools/Erlang.NifFixtureHost/native/build_fixture.py --plan tools/Erlang.NifFixtureHost/native/source-plan.json --approved-plan-sha256 D37C784308E2DB8238949A02FAF035736401AB86538D047D3E0E179A7F738E63 --output artifacts/nif-fixture-build 2>&1 | Tee-Object artifacts/nif-fixture-build-launch.log
+          python tools/Native/Erlang.NifFixtureHost/native/build_fixture.py --plan tools/Native/Erlang.NifFixtureHost/native/source-plan.json --approved-plan-sha256 D37C784308E2DB8238949A02FAF035736401AB86538D047D3E0E179A7F738E63 --output artifacts/nif-fixture-build 2>&1 | Tee-Object artifacts/nif-fixture-build-launch.log
           if ($LASTEXITCODE -ne 0) { throw 'Native build/layout/export verification failed' }
       - name: Execute only the source-bound fixture
         shell: pwsh
@@ -47,7 +47,7 @@ jobs:
           }
           if ((Get-FileHash "$root/fixture.dll").Hash -cne $receipt.FixtureDllSha256) { throw 'Fixture DLL differs' }
           if ((Get-Content "$root/fixture-pe-headers.log" -Raw) -notmatch '8664 machine \(x64\)') { throw 'Unexpected native machine' }
-          dotnet tools/Erlang.NifFixtureHost/bin/Debug/net10.0/Erlang.NifFixtureHost.dll "$root/fixture.dll" $receipt.FixtureDllSha256 2>&1 | Tee-Object artifacts/nif-host-native.log
+          dotnet tools/Native/Erlang.NifFixtureHost/bin/Debug/net10.0/Erlang.NifFixtureHost.dll "$root/fixture.dll" $receipt.FixtureDllSha256 2>&1 | Tee-Object artifacts/nif-host-native.log
           if ($LASTEXITCODE -ne 0) { throw 'Native fixture contracts failed' }
           @{ Passed = $true; FixtureDllSha256 = $receipt.FixtureDllSha256; GenericNifSupport = $false } | ConvertTo-Json | Set-Content artifacts/nif-host-native-result.json
       - uses: actions/upload-artifact@v7
@@ -67,7 +67,7 @@ jobs:
       - uses: actions/checkout@v7
       - name: Check raw exits and inherited pipe cleanup
         shell: bash
-        run: python3 tools/Erlang.NifFixtureHost/original/check_process_capture.py artifacts/nif-process-capture-checks
+        run: python3 tools/Native/Erlang.NifFixtureHost/original/check_process_capture.py artifacts/nif-process-capture-checks
       - name: Build the exact development oracle
         shell: bash
         run: |
@@ -98,11 +98,11 @@ jobs:
         run: |
           set -euo pipefail
           prefix="$GITHUB_WORKSPACE/artifacts/nif-otp-source/observer-install"
-          python3 tools/Erlang.NifFixtureHost/original/collect.py \
+          python3 tools/Native/Erlang.NifFixtureHost/original/collect.py \
             --otp-source "$GITHUB_WORKSPACE/artifacts/nif-otp-source" \
             --otp-include "$prefix/lib/erlang/usr/include" \
             --otp-bin "$prefix/bin" \
-            --fixture-source "$GITHUB_WORKSPACE/tools/Erlang.NifFixtureHost/native/fixture.c" \
+            --fixture-source "$GITHUB_WORKSPACE/tools/Native/Erlang.NifFixtureHost/native/fixture.c" \
             --output "$GITHUB_WORKSPACE/artifacts/nif-original-observations" \
             --approved-plan-sha256 49EB3B6C0F841122C04AE3A30BE19C7E606B92549F9B3DE03BC7BD708AC7639C \
             2>&1 | tee artifacts/nif-original-launch.log

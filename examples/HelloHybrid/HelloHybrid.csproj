@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup><OutputType>Exe</OutputType></PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="../../src/Erlang.Compiler/Erlang.Compiler.csproj" />
-    <ProjectReference Include="../../tools/Erlang.Tool/Erlang.Tool.csproj" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="../../src/Compiler/Erlang.Compiler/Erlang.Compiler.csproj" />
+    <ProjectReference Include="../../tools/Build/Erlang.Tool/Erlang.Tool.csproj" ReferenceOutputAssembly="false" />
     <ErlangHybrid Include="Program.cs" />
     <ErlangSource Include="arithmetic.erl" />
     <ErlangSource Include="map_source.erl" />

@@ -628,7 +628,7 @@ Resume commands:
 ```powershell
 dotnet build -m:1
 pwsh -File tools/validate.ps1
-dotnet tools/Erlang.Tool/bin/Debug/net10.0/Erlang.Tool.dll inventory ../otp docs
+dotnet tools/Build/Erlang.Tool/bin/Debug/net10.0/Erlang.Tool.dll inventory ../otp docs
 dotnet run --project benchmarks/Erlang.Benchmarks -c Release -- artifacts/benchmarks.json
 ```
 
@@ -640,7 +640,7 @@ Part 019 clarification: put compiler diagnostic codes and all messages, includin
 
 Part 020 file organization: put every namespace-level class/record/struct/interface/enum/delegate in its own matching TypeName.cs file. Keep nested declarations inside their owner and top-level executable statements in Program.cs. Preserve all HelloHybrid root C# files when building its external package consumer. Earlier composite compiler files have been replaced by Parser.cs, Lexer.cs, Expr.cs, CompilerDiagnosticCodes.cs and separate domain diagnostic/constant files.
 
-Part 021 conventions are enforced by tools/Erlang.Style in the full validation pipeline. Before committing source changes, run its --write command and validate; preserve domain-owned process/OTP constants and exception diagnostics. Read root CHANGELOG.md plus only the latest journal volume for current handoff. Append detailed English entries to that last volume; create the next before 32 KiB or 400 lines and update the index. The semantic feature sequence above is unchanged.
+Part 021 conventions are enforced by tools/Build/Erlang.Style in the full validation pipeline. Before committing source changes, run its --write command and validate; preserve domain-owned process/OTP constants and exception diagnostics. Read root CHANGELOG.md plus only the latest journal volume for current handoff. Append detailed English entries to that last volume; create the next before 32 KiB or 400 lines and update the index. The semantic feature sequence above is unchanged.
 
 Part 022: use EtfTags and the separate ETF layout/limit/tuning types when extending serialization. Keep wire values distinct from implementation caps and equal numeric values distinct by contract; preserve independent literal ETF reference fixtures. The implementation-only nesting/byte/reference limits remain narrower than full OTP coverage. Continue the prior semantic feature sequence after this refactor.
 

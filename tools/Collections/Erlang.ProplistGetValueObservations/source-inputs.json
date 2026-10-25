@@ -1,0 +1,113 @@
+{
+  "Status": "SOURCE_ONLY_NOT_EXECUTED",
+  "Family": "proplists59",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ExistingBuildManifestSha256": "4C9A79CD6E8BC18F68316D42B2F30DB171E67A242CA81CA84BB8A022E8BA5BFB",
+  "FixtureSha256": "0E10E30B9CAF8BE69A1CA4918DB06C5A11E414D734E7D4AE2F06EAA988093CE6",
+  "FixtureSourceOrigin": "Root part362 metadata successor",
+  "Names": [
+    "empty-two",
+    "empty-three",
+    "missing-two",
+    "missing-three",
+    "atom-shorthand",
+    "atom-before-tuple",
+    "tuple-before-atom",
+    "first-tuple-wins",
+    "explicit-undefined",
+    "singleton-stops-two",
+    "singleton-stops-three",
+    "triple-stops-two",
+    "triple-stops-three",
+    "empty-tuple-ignored",
+    "nonmatching-tuple-arities",
+    "nonproperties-ignored",
+    "integer-exact",
+    "float-exact",
+    "large-integer-key",
+    "tuple-key-exact",
+    "list-key-exact",
+    "improper-list-key",
+    "map-key-exact",
+    "empty-list-key",
+    "empty-tuple-key",
+    "binary-key",
+    "bitstring-key",
+    "reference-key",
+    "pid-key",
+    "function-key",
+    "default-reference-identity",
+    "value-function-identity",
+    "improper-atom-match",
+    "improper-tuple-match",
+    "improper-singleton-match",
+    "improper-triple-match",
+    "improper-reached-two",
+    "improper-reached-three",
+    "nonlist-atom-two",
+    "nonlist-atom-three",
+    "nonlist-integer-two",
+    "nonlist-integer-three",
+    "nonlist-float-two",
+    "nonlist-float-three",
+    "nonlist-tuple-two",
+    "nonlist-tuple-three",
+    "nonlist-map-two",
+    "nonlist-map-three",
+    "nonlist-binary-two",
+    "nonlist-binary-three",
+    "large-missing-two",
+    "large-terminal-match",
+    "large-improper-early-match",
+    "stack-depth-0-arity-2",
+    "stack-depth-1-arity-2",
+    "stack-depth-2-arity-2",
+    "stack-depth-0-arity-3",
+    "stack-depth-1-arity-3",
+    "stack-depth-2-arity-3"
+  ],
+  "Files": [
+    {
+      "Path": ".github/workflows/proplist-get-value-original.yml",
+      "Sha256": "4AE082D699510A12EB7A9A7D22C2618A99050A55744ABAA856DFF95158AAD3F5",
+      "Bytes": 3518
+    },
+    {
+      "Path": "tools/Collections/Erlang.ProplistGetValueObservations/collect-original.py",
+      "Sha256": "E533F1DCF9FA153B46CD7622C79DB24C44B48F0AA51B8C1D2F5C31B906B3F897",
+      "Bytes": 10755
+    },
+    {
+      "Path": "tools/Collections/Erlang.ProplistGetValueObservations/original/proplist_get_value_contract.erl",
+      "Sha256": "0E10E30B9CAF8BE69A1CA4918DB06C5A11E414D734E7D4AE2F06EAA988093CE6",
+      "Bytes": 11007
+    }
+  ],
+  "BoundSourceInputs": [
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/manifest.json",
+      "Sha256": "AEBBA0D2DCF97E1248CA38407E8EBE628EB08F9EA4D13F48EC0C83A7A0364E61",
+      "Bytes": 4992
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/build-original.py",
+      "Sha256": "B7C199B249AFF4C7C7E6ED06C1A26A2A1450991E810CD9388D50F521CCC97A35",
+      "Bytes": 4256
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/source_inputs.py",
+      "Sha256": "28B06562E1621DF049D4C1B603B5AD7D9EBDA6C0BE616D21D54CCD4B03A34F45",
+      "Bytes": 3099
+    },
+    {
+      "Path": "tools/Distribution/Erlang.GuestConnectedSendObservations/owned_process.py",
+      "Sha256": "846101AD4F92121ACB128EAFB3228DD66D8A524CE0539A25E020A77010CFF071",
+      "Bytes": 3675
+    },
+    {
+      "Path": "tools/Distribution/Erlang.GuestConnectedSendObservations/passive_etf.py",
+      "Sha256": "A069AD650B3EA1BE6B90DE60117B84ED7A1A6B67128CC41E7ECAEFD2889C1713",
+      "Bytes": 7105
+    }
+  ]
+}

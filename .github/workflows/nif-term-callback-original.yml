@@ -30,7 +30,7 @@ jobs:
           test "$EXPECTED_HEAD" = "$GITHUB_SHA"
           test "$(git --no-optional-locks rev-parse HEAD)" = "$GITHUB_SHA"
           mkdir -p artifacts/nif-term-callback-original
-          python3 -B tools/Erlang.NifTermCallbackOriginalObservations/verify-source.py \
+          python3 -B tools/Native/Erlang.NifTermCallbackOriginalObservations/verify-source.py \
             --repository "$GITHUB_WORKSPACE" --expected-head "$GITHUB_SHA" \
             --manifest-sha256 "$ENTRY_MANIFEST_SHA256" \
             2>&1 | tee artifacts/nif-term-callback-original/source-verification.log
@@ -46,7 +46,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python3 -B tools/Erlang.SchedulerAffinityOriginalObservations/build-original.py \
+          python3 -B tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/build-original.py \
             --repository "$GITHUB_WORKSPACE" --manifest-sha256 4C9A79CD6E8BC18F68316D42B2F30DB171E67A242CA81CA84BB8A022E8BA5BFB \
             --expected-head "$GITHUB_SHA" --otp-source "$GITHUB_WORKSPACE/artifacts/nif-entry-otp-source" \
             --prefix "$GITHUB_WORKSPACE/artifacts/nif-entry-otp" \
@@ -58,7 +58,7 @@ jobs:
           set -euo pipefail
           receipt="$GITHUB_WORKSPACE/artifacts/nif-term-callback-original/runtime-build/build-receipt.json"
           receipt_sha=$(python3 -c 'import hashlib,sys;print(hashlib.sha256(open(sys.argv[1],"rb").read()).hexdigest().upper())' "$receipt")
-          python3 -B tools/Erlang.NifTermCallbackOriginalObservations/build-native.py \
+          python3 -B tools/Native/Erlang.NifTermCallbackOriginalObservations/build-native.py \
             --repository "$GITHUB_WORKSPACE" --expected-head "$GITHUB_SHA" --manifest-sha256 "$ENTRY_MANIFEST_SHA256" \
             --otp-source "$GITHUB_WORKSPACE/artifacts/nif-entry-otp-source" --runtime-root "$GITHUB_WORKSPACE/artifacts/nif-entry-otp/lib/erlang" \
             --build-receipt "$receipt" --approved-build-receipt-sha256 "$receipt_sha" \
@@ -72,7 +72,7 @@ jobs:
           receipt_sha=$(python3 -c 'import hashlib,sys;print(hashlib.sha256(open(sys.argv[1],"rb").read()).hexdigest().upper())' "$receipt")
           native="$GITHUB_WORKSPACE/artifacts/nif-term-callback-original/native-build"
           native_sha=$(python3 -c 'import hashlib,sys;print(hashlib.sha256(open(sys.argv[1],"rb").read()).hexdigest().upper())' "$native/native-build-receipt.json")
-          python3 -B tools/Erlang.NifTermCallbackOriginalObservations/collect.py \
+          python3 -B tools/Native/Erlang.NifTermCallbackOriginalObservations/collect.py \
             --repository "$GITHUB_WORKSPACE" --expected-head "$GITHUB_SHA" --manifest-sha256 "$ENTRY_MANIFEST_SHA256" \
             --otp-source "$GITHUB_WORKSPACE/artifacts/nif-entry-otp-source" --runtime-root "$GITHUB_WORKSPACE/artifacts/nif-entry-otp/lib/erlang" \
             --build-receipt "$receipt" --approved-build-receipt-sha256 "$receipt_sha" \

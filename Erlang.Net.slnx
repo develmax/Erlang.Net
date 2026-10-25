@@ -10,52 +10,73 @@
     <Project Path="examples/HelloOtpLibraryReference/HelloOtpLibraryReference.csproj" />
     <Project Path="examples/HelloOtpProcesses/HelloOtpProcesses.csproj" />
   </Folder>
-  <Folder Name="/src/">
-    <Project Path="src/Erlang.Runtime.Core/Erlang.Runtime.Core.csproj" />
-    <Project Path="src/Erlang.Otp.Stdlib/Erlang.Otp.Stdlib.csproj" />
-    <Project Path="src/Erlang.Otp.Stdlib.Beam/Erlang.Otp.Stdlib.Beam.csproj" />
-    <Project Path="src/Erlang.Otp.Kernel/Erlang.Otp.Kernel.csproj" />
-    <Project Path="src/Erlang.Otp.Kernel.Beam/Erlang.Otp.Kernel.Beam.csproj" />
-  <Project Path="src/Erlang.Otp.Mnesia.Beam/Erlang.Otp.Mnesia.Beam.csproj" />
-  <Project Path="src/Erlang.Otp.Asn1.Beam/Erlang.Otp.Asn1.Beam.csproj" />
-  <Project Path="src/Erlang.Otp.Wx.Beam/Erlang.Otp.Wx.Beam.csproj" />
-  <Project Path="src/Erlang.Otp.Reltool.Beam/Erlang.Otp.Reltool.Beam.csproj" />
-  <Project Path="src/Erlang.Otp.Observer.Beam/Erlang.Otp.Observer.Beam.csproj" />
-  <Project Path="src/Erlang.Otp.Et.Beam/Erlang.Otp.Et.Beam.csproj" />
-  <Project Path="src/Erlang.Otp.Debugger.Beam/Erlang.Otp.Debugger.Beam.csproj" />
-  <Project Path="src/Erlang.Otp.Odbc.Beam/Erlang.Otp.Odbc.Beam.csproj" />
-  <Project Path="src/Erlang.Otp.OsMon.Beam/Erlang.Otp.OsMon.Beam.csproj" />
-  <Project Path="src/Erlang.Otp.Dialyzer.Beam/Erlang.Otp.Dialyzer.Beam.csproj" />
-  <Project Path="src/Erlang.Otp.CommonTest.Beam/Erlang.Otp.CommonTest.Beam.csproj" />
-  <Project Path="src/Erlang.Otp.Megaco.Beam/Erlang.Otp.Megaco.Beam.csproj" />
-  <Project Path="src/Erlang.Otp.Snmp.Beam/Erlang.Otp.Snmp.Beam.csproj" />
-  <Project Path="src/Erlang.Otp.Diameter.Beam/Erlang.Otp.Diameter.Beam.csproj" />
-  <Project Path="src/Erlang.Otp.Eldap.Beam/Erlang.Otp.Eldap.Beam.csproj" />
-  <Project Path="src/Erlang.Otp.Tftp.Beam/Erlang.Otp.Tftp.Beam.csproj" />
-  <Project Path="src/Erlang.Otp.Ftp.Beam/Erlang.Otp.Ftp.Beam.csproj" />
-  <Project Path="src/Erlang.Otp.Inets.Beam/Erlang.Otp.Inets.Beam.csproj" />
-  <Project Path="src/Erlang.Otp.Ssh.Beam/Erlang.Otp.Ssh.Beam.csproj" />
-  <Project Path="src/Erlang.Otp.Ssl.Beam/Erlang.Otp.Ssl.Beam.csproj" />
-  <Project Path="src/Erlang.Otp.PublicKey.Beam/Erlang.Otp.PublicKey.Beam.csproj" />
-  <Project Path="src/Erlang.Otp.Crypto.Beam/Erlang.Otp.Crypto.Beam.csproj" />
-    <Project Path="src/Erlang.Otp.Erts.Beam/Erlang.Otp.Erts.Beam.csproj" />
-    <Project Path="src/Erlang.Otp.Sasl.Beam/Erlang.Otp.Sasl.Beam.csproj" />
-    <Project Path="src/Erlang.Otp.SyntaxTools.Beam/Erlang.Otp.SyntaxTools.Beam.csproj" />
-    <Project Path="src/Erlang.Otp.Compiler.Beam/Erlang.Otp.Compiler.Beam.csproj" />
-    <Project Path="src/Erlang.Otp.Tools.Beam/Erlang.Otp.Tools.Beam.csproj" />
-    <Project Path="src/Erlang.Otp.Eunit.Beam/Erlang.Otp.Eunit.Beam.csproj" />
-    <Project Path="src/Erlang.Otp.Edoc.Beam/Erlang.Otp.Edoc.Beam.csproj" />
-    <Project Path="src/Erlang.Otp.Xmerl.Beam/Erlang.Otp.Xmerl.Beam.csproj" />
-    <Project Path="src/Erlang.Otp.RuntimeTools.Beam/Erlang.Otp.RuntimeTools.Beam.csproj" />
-    <Project Path="src/Erlang.Otp.Parsetools.Beam/Erlang.Otp.Parsetools.Beam.csproj" />
-
-    <Project Path="src/Erlang.Compiler/Erlang.Compiler.csproj" />
-    <Project Path="src/Erlang.DriverHost/Erlang.DriverHost.csproj" />
-    <Project Path="src/Erlang.CSharp.MSBuild/Erlang.CSharp.MSBuild.csproj" />
-    <Project Path="src/Erlang.Otp.Behaviours/Erlang.Otp.Behaviours.csproj" />
-    <Project Path="src/Erlang.Runtime/Erlang.Runtime.csproj" />
-    <Project Path="src/Erlang.Serialization/Erlang.Serialization.csproj" />
-    <Project Path="src/Erlang.Terms/Erlang.Terms.csproj" />
+  <Folder Name="/src/Compiler/">
+    <Project Path="src/Compiler/Erlang.Compiler/Erlang.Compiler.csproj" />
+  </Folder>
+  <Folder Name="/src/Integration/">
+    <Project Path="src/Integration/Erlang.CSharp.MSBuild/Erlang.CSharp.MSBuild.csproj" />
+  </Folder>
+  <Folder Name="/src/Otp/Managed/">
+    <Project Path="src/Otp/Managed/Erlang.Otp.Behaviours/Erlang.Otp.Behaviours.csproj" />
+    <Project Path="src/Otp/Managed/Erlang.Otp.Kernel/Erlang.Otp.Kernel.csproj" />
+    <Project Path="src/Otp/Managed/Erlang.Otp.Stdlib/Erlang.Otp.Stdlib.csproj" />
+  </Folder>
+  <Folder Name="/src/Otp/Original/Data/">
+    <Project Path="src/Otp/Original/Data/Erlang.Otp.Asn1.Beam/Erlang.Otp.Asn1.Beam.csproj" />
+    <Project Path="src/Otp/Original/Data/Erlang.Otp.Mnesia.Beam/Erlang.Otp.Mnesia.Beam.csproj" />
+    <Project Path="src/Otp/Original/Data/Erlang.Otp.Xmerl.Beam/Erlang.Otp.Xmerl.Beam.csproj" />
+  </Folder>
+  <Folder Name="/src/Otp/Original/Development/">
+    <Project Path="src/Otp/Original/Development/Erlang.Otp.CommonTest.Beam/Erlang.Otp.CommonTest.Beam.csproj" />
+    <Project Path="src/Otp/Original/Development/Erlang.Otp.Compiler.Beam/Erlang.Otp.Compiler.Beam.csproj" />
+    <Project Path="src/Otp/Original/Development/Erlang.Otp.Dialyzer.Beam/Erlang.Otp.Dialyzer.Beam.csproj" />
+    <Project Path="src/Otp/Original/Development/Erlang.Otp.Eunit.Beam/Erlang.Otp.Eunit.Beam.csproj" />
+    <Project Path="src/Otp/Original/Development/Erlang.Otp.Parsetools.Beam/Erlang.Otp.Parsetools.Beam.csproj" />
+    <Project Path="src/Otp/Original/Development/Erlang.Otp.RuntimeTools.Beam/Erlang.Otp.RuntimeTools.Beam.csproj" />
+    <Project Path="src/Otp/Original/Development/Erlang.Otp.SyntaxTools.Beam/Erlang.Otp.SyntaxTools.Beam.csproj" />
+    <Project Path="src/Otp/Original/Development/Erlang.Otp.Tools.Beam/Erlang.Otp.Tools.Beam.csproj" />
+  </Folder>
+  <Folder Name="/src/Otp/Original/Documentation/">
+    <Project Path="src/Otp/Original/Documentation/Erlang.Otp.Edoc.Beam/Erlang.Otp.Edoc.Beam.csproj" />
+  </Folder>
+  <Folder Name="/src/Otp/Original/Foundation/">
+    <Project Path="src/Otp/Original/Foundation/Erlang.Otp.Erts.Beam/Erlang.Otp.Erts.Beam.csproj" />
+    <Project Path="src/Otp/Original/Foundation/Erlang.Otp.Kernel.Beam/Erlang.Otp.Kernel.Beam.csproj" />
+    <Project Path="src/Otp/Original/Foundation/Erlang.Otp.Sasl.Beam/Erlang.Otp.Sasl.Beam.csproj" />
+    <Project Path="src/Otp/Original/Foundation/Erlang.Otp.Stdlib.Beam/Erlang.Otp.Stdlib.Beam.csproj" />
+  </Folder>
+  <Folder Name="/src/Otp/Original/Gui/">
+    <Project Path="src/Otp/Original/Gui/Erlang.Otp.Debugger.Beam/Erlang.Otp.Debugger.Beam.csproj" />
+    <Project Path="src/Otp/Original/Gui/Erlang.Otp.Et.Beam/Erlang.Otp.Et.Beam.csproj" />
+    <Project Path="src/Otp/Original/Gui/Erlang.Otp.Observer.Beam/Erlang.Otp.Observer.Beam.csproj" />
+    <Project Path="src/Otp/Original/Gui/Erlang.Otp.Reltool.Beam/Erlang.Otp.Reltool.Beam.csproj" />
+    <Project Path="src/Otp/Original/Gui/Erlang.Otp.Wx.Beam/Erlang.Otp.Wx.Beam.csproj" />
+  </Folder>
+  <Folder Name="/src/Otp/Original/Networking/">
+    <Project Path="src/Otp/Original/Networking/Erlang.Otp.Diameter.Beam/Erlang.Otp.Diameter.Beam.csproj" />
+    <Project Path="src/Otp/Original/Networking/Erlang.Otp.Eldap.Beam/Erlang.Otp.Eldap.Beam.csproj" />
+    <Project Path="src/Otp/Original/Networking/Erlang.Otp.Ftp.Beam/Erlang.Otp.Ftp.Beam.csproj" />
+    <Project Path="src/Otp/Original/Networking/Erlang.Otp.Inets.Beam/Erlang.Otp.Inets.Beam.csproj" />
+    <Project Path="src/Otp/Original/Networking/Erlang.Otp.Megaco.Beam/Erlang.Otp.Megaco.Beam.csproj" />
+    <Project Path="src/Otp/Original/Networking/Erlang.Otp.Snmp.Beam/Erlang.Otp.Snmp.Beam.csproj" />
+    <Project Path="src/Otp/Original/Networking/Erlang.Otp.Tftp.Beam/Erlang.Otp.Tftp.Beam.csproj" />
+  </Folder>
+  <Folder Name="/src/Otp/Original/Platform/">
+    <Project Path="src/Otp/Original/Platform/Erlang.Otp.Odbc.Beam/Erlang.Otp.Odbc.Beam.csproj" />
+    <Project Path="src/Otp/Original/Platform/Erlang.Otp.OsMon.Beam/Erlang.Otp.OsMon.Beam.csproj" />
+  </Folder>
+  <Folder Name="/src/Otp/Original/Security/">
+    <Project Path="src/Otp/Original/Security/Erlang.Otp.Crypto.Beam/Erlang.Otp.Crypto.Beam.csproj" />
+    <Project Path="src/Otp/Original/Security/Erlang.Otp.PublicKey.Beam/Erlang.Otp.PublicKey.Beam.csproj" />
+    <Project Path="src/Otp/Original/Security/Erlang.Otp.Ssh.Beam/Erlang.Otp.Ssh.Beam.csproj" />
+    <Project Path="src/Otp/Original/Security/Erlang.Otp.Ssl.Beam/Erlang.Otp.Ssl.Beam.csproj" />
+  </Folder>
+  <Folder Name="/src/Runtime/">
+    <Project Path="src/Runtime/Erlang.DriverHost/Erlang.DriverHost.csproj" />
+    <Project Path="src/Runtime/Erlang.Runtime.Core/Erlang.Runtime.Core.csproj" />
+    <Project Path="src/Runtime/Erlang.Runtime/Erlang.Runtime.csproj" />
+    <Project Path="src/Runtime/Erlang.Serialization/Erlang.Serialization.csproj" />
+    <Project Path="src/Runtime/Erlang.Terms/Erlang.Terms.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/Erlang.Otp.Library.Tests/Erlang.Otp.Library.Tests.csproj" />
@@ -63,27 +84,27 @@
     <Project Path="tests/Erlang.Otp.Boot.Library.Tests/Erlang.Otp.Boot.Library.Tests.csproj" />
     <Project Path="tests/Erlang.Otp.Syntax.Library.Tests/Erlang.Otp.Syntax.Library.Tests.csproj" />
     <Project Path="tests/Erlang.Otp.Compiler.Library.Tests/Erlang.Otp.Compiler.Library.Tests.csproj" />
-  <Project Path="tests/Erlang.Otp.Mnesia.Library.Tests/Erlang.Otp.Mnesia.Library.Tests.csproj" />
-  <Project Path="tests/Erlang.Otp.Security.Library.Tests/Erlang.Otp.Security.Library.Tests.csproj" />
-  <Project Path="tests/Erlang.Otp.Transport.Library.Tests/Erlang.Otp.Transport.Library.Tests.csproj" />
-  <Project Path="tests/Erlang.Otp.Network.Library.Tests/Erlang.Otp.Network.Library.Tests.csproj" />
-  <Project Path="tests/Erlang.Otp.Management.Library.Tests/Erlang.Otp.Management.Library.Tests.csproj" />
-  <Project Path="tests/Erlang.Otp.TestAnalysis.Library.Tests/Erlang.Otp.TestAnalysis.Library.Tests.csproj" />
-  <Project Path="tests/Erlang.Otp.Platform.Library.Tests/Erlang.Otp.Platform.Library.Tests.csproj" />
-  <Project Path="tests/Erlang.Otp.Gui.Library.Tests/Erlang.Otp.Gui.Library.Tests.csproj" />
-  <Project Path="tests/Erlang.Otp.Megaco.Library.Tests/Erlang.Otp.Megaco.Library.Tests.csproj" />
-  <Project Path="tests/Erlang.Otp.Asn1.Library.Tests/Erlang.Otp.Asn1.Library.Tests.csproj" />
+    <Project Path="tests/Erlang.Otp.Mnesia.Library.Tests/Erlang.Otp.Mnesia.Library.Tests.csproj" />
+    <Project Path="tests/Erlang.Otp.Security.Library.Tests/Erlang.Otp.Security.Library.Tests.csproj" />
+    <Project Path="tests/Erlang.Otp.Transport.Library.Tests/Erlang.Otp.Transport.Library.Tests.csproj" />
+    <Project Path="tests/Erlang.Otp.Network.Library.Tests/Erlang.Otp.Network.Library.Tests.csproj" />
+    <Project Path="tests/Erlang.Otp.Management.Library.Tests/Erlang.Otp.Management.Library.Tests.csproj" />
+    <Project Path="tests/Erlang.Otp.TestAnalysis.Library.Tests/Erlang.Otp.TestAnalysis.Library.Tests.csproj" />
+    <Project Path="tests/Erlang.Otp.Platform.Library.Tests/Erlang.Otp.Platform.Library.Tests.csproj" />
+    <Project Path="tests/Erlang.Otp.Gui.Library.Tests/Erlang.Otp.Gui.Library.Tests.csproj" />
+    <Project Path="tests/Erlang.Otp.Megaco.Library.Tests/Erlang.Otp.Megaco.Library.Tests.csproj" />
+    <Project Path="tests/Erlang.Otp.Asn1.Library.Tests/Erlang.Otp.Asn1.Library.Tests.csproj" />
     <Project Path="tests/Erlang.Otp.Tools.Library.Tests/Erlang.Otp.Tools.Library.Tests.csproj" />
     <Project Path="tests/Erlang.Otp.Documentation.Library.Tests/Erlang.Otp.Documentation.Library.Tests.csproj" />
     <Project Path="tests/Erlang.Tests/Erlang.Tests.csproj" />
   </Folder>
   <Folder Name="/tools/">
-    <Project Path="tools/Erlang.HaltProbe/Erlang.HaltProbe.csproj" />
-    <Project Path="tools/Erlang.NifNativeBackend/Erlang.NifNativeBackend.csproj" />
-    <Project Path="tools/Erlang.BeamFixtures/BeamFixtureExport.csproj" />
-    <Project Path="tools/Erlang.PortProbe/Erlang.PortProbe.csproj" />
-    <Project Path="tools/Erlang.Differential/Erlang.Differential.csproj" />
-    <Project Path="tools/Erlang.Style/Erlang.Style.csproj" />
-    <Project Path="tools/Erlang.Tool/Erlang.Tool.csproj" />
+    <Project Path="tools/Runtime/Erlang.HaltProbe/Erlang.HaltProbe.csproj" />
+    <Project Path="tools/Native/Erlang.NifNativeBackend/Erlang.NifNativeBackend.csproj" />
+    <Project Path="tools/Compiler/Erlang.BeamFixtures/BeamFixtureExport.csproj" />
+    <Project Path="tools/Native/Erlang.PortProbe/Erlang.PortProbe.csproj" />
+    <Project Path="tools/Validation/Erlang.Differential/Erlang.Differential.csproj" />
+    <Project Path="tools/Build/Erlang.Style/Erlang.Style.csproj" />
+    <Project Path="tools/Build/Erlang.Tool/Erlang.Tool.csproj" />
   </Folder>
 </Solution>

@@ -23,12 +23,12 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p artifacts/proc-lib-format-original
-          python3 tools/Erlang.ProcLibFormatOriginalObservations/collect-original.py verify \
+          python3 tools/Runtime/Erlang.ProcLibFormatOriginalObservations/collect-original.py verify \
             --repository "$GITHUB_WORKSPACE" \
             --manifest-sha256 "$SOURCE_MANIFEST_SHA256" \
             --expected-head "$GITHUB_SHA" \
             2>&1 | tee artifacts/proc-lib-format-original/source-verification.log
-          python3 tools/Erlang.ProcLibFormatOriginalObservations/check-source-controls.py \
+          python3 tools/Runtime/Erlang.ProcLibFormatOriginalObservations/check-source-controls.py \
             2>&1 | tee artifacts/proc-lib-format-original/source-controls.log
       - name: Build exact pinned original OTP
         shell: bash
@@ -47,7 +47,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python3 tools/Erlang.ProcLibFormatOriginalObservations/collect-original.py collect \
+          python3 tools/Runtime/Erlang.ProcLibFormatOriginalObservations/collect-original.py collect \
             --repository "$GITHUB_WORKSPACE" \
             --manifest-sha256 "$SOURCE_MANIFEST_SHA256" \
             --expected-head "$GITHUB_SHA" \

@@ -12,8 +12,8 @@
   </PropertyGroup>
   <Import Project="$(AdmissionPropertiesFile)" Condition="'$(AdmissionPropertiesFile)' != ''" />
   <ItemGroup>
-    <ProjectReference Include="$(RepositoryRoot)/src/Erlang.Runtime/Erlang.Runtime.csproj" />
-    <ProjectReference Include="$(RepositoryRoot)/tools/Erlang.BeamBuild/Erlang.BeamBuild.csproj" ReferenceOutputAssembly="false" Private="false" />
+    <ProjectReference Include="$(RepositoryRoot)/src/Runtime/Erlang.Runtime/Erlang.Runtime.csproj" />
+    <ProjectReference Include="$(RepositoryRoot)/tools/Build/Erlang.BeamBuild/Erlang.BeamBuild.csproj" ReferenceOutputAssembly="false" Private="false" />
     <ErlangBeamSource Include="Source/resource378.erl" Module="resource378" />
     <ErlangBeamApplication Include="Resources/app/beam_resource378.app.src" ApplicationName="beam_resource378" Version="0.1.0" />
     <ErlangBeamPriv Include="Resources/app/priv/message.txt" LogicalPath="message.txt" />
