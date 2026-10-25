@@ -1,13 +1,13 @@
 {
   "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "InitialPending": 559,
-  "Closed": 35,
-  "RemainingFromOriginalCohort": 524,
+  "Closed": 41,
+  "RemainingFromOriginalCohort": 518,
   "AdditionalReclassifiedContracts": 6,
   "CurrentLedgerCounts": {
-    "Verified compatible": 153,
-    "Needs verification": 530,
-    "Known differences": 25
+    "Verified compatible": 159,
+    "Needs verification": 521,
+    "Known differences": 28
   },
   "Contracts": [
     {
@@ -2450,7 +2450,7 @@
       "Module": "erlang",
       "Function": "atom_to_list",
       "Arity": 1,
-      "Status": "Needs verification",
+      "Status": "Verified compatible",
       "DirectTest": "mfa/erlang:atom_to_list/1",
       "RequiredClosure": [
         "source branches and dependent primitives",
@@ -2464,7 +2464,7 @@
       "Module": "erlang",
       "Function": "list_to_atom",
       "Arity": 1,
-      "Status": "Needs verification",
+      "Status": "Known differences",
       "DirectTest": "mfa/erlang:list_to_atom/1",
       "RequiredClosure": [
         "source branches and dependent primitives",
@@ -2478,7 +2478,7 @@
       "Module": "erlang",
       "Function": "list_to_existing_atom",
       "Arity": 1,
-      "Status": "Needs verification",
+      "Status": "Verified compatible",
       "DirectTest": "mfa/erlang:list_to_existing_atom/1",
       "RequiredClosure": [
         "source branches and dependent primitives",
@@ -2492,7 +2492,7 @@
       "Module": "erlang",
       "Function": "atom_to_binary",
       "Arity": 1,
-      "Status": "Needs verification",
+      "Status": "Verified compatible",
       "DirectTest": "mfa/erlang:atom_to_binary/1",
       "RequiredClosure": [
         "source branches and dependent primitives",
@@ -2506,7 +2506,7 @@
       "Module": "erlang",
       "Function": "binary_to_atom",
       "Arity": 1,
-      "Status": "Needs verification",
+      "Status": "Known differences",
       "DirectTest": "mfa/erlang:binary_to_atom/1",
       "RequiredClosure": [
         "source branches and dependent primitives",
@@ -2520,7 +2520,7 @@
       "Module": "erlang",
       "Function": "binary_to_existing_atom",
       "Arity": 1,
-      "Status": "Needs verification",
+      "Status": "Verified compatible",
       "DirectTest": "mfa/erlang:binary_to_existing_atom/1",
       "RequiredClosure": [
         "source branches and dependent primitives",
@@ -2534,7 +2534,7 @@
       "Module": "erlang",
       "Function": "atom_to_binary",
       "Arity": 2,
-      "Status": "Needs verification",
+      "Status": "Verified compatible",
       "DirectTest": "mfa/erlang:atom_to_binary/2",
       "RequiredClosure": [
         "source branches and dependent primitives",
@@ -2548,7 +2548,7 @@
       "Module": "erlang",
       "Function": "binary_to_atom",
       "Arity": 2,
-      "Status": "Needs verification",
+      "Status": "Known differences",
       "DirectTest": "mfa/erlang:binary_to_atom/2",
       "RequiredClosure": [
         "source branches and dependent primitives",
@@ -2562,7 +2562,7 @@
       "Module": "erlang",
       "Function": "binary_to_existing_atom",
       "Arity": 2,
-      "Status": "Needs verification",
+      "Status": "Verified compatible",
       "DirectTest": "mfa/erlang:binary_to_existing_atom/2",
       "RequiredClosure": [
         "source branches and dependent primitives",
@@ -7836,5 +7836,7 @@
         "pinned OTP whole comparison; finite samples alone do not close source proof"
       ]
     }
-  ]
+  ],
+  "OriginalCohortKnownDifferences": 3,
+  "OriginalCohortNeedsVerification": 515
 }

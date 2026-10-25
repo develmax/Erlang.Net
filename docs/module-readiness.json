@@ -6752,11 +6752,31 @@
     {
       "Path": "src/Runtime/Erlang.Terms/Support/ErlangOperators.cs",
       "Sha256": "EEF9E55D3B9D58A4D58734B0E4A2CB5FEF6F1F3775CB9DDA5A48B5D7900F7C01"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangAtomRegistrations.cs",
+      "Sha256": "9CE9E7981DAA00CFB92635E3F4E09D203C2A8A7C60464A24E57937B10E7A72FF"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangAtomConversions.cs",
+      "Sha256": "057521B8E5A41ABF700BBA91361E858225BCB0E311CFBB31A3476C56EE9E6335"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangAtomBifNames.cs",
+      "Sha256": "438961E13B833767C657BC3503BA9CFB129CFD380623339026DD8F361580691E"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangAtomParameters.cs",
+      "Sha256": "066768876D0519ABB7E26A3901399E79EC257A852A3D6BE6B2C84A905C43DBA1"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Atoms/AtomUtf8BinaryCache.cs",
+      "Sha256": "231245380375591CA3FABD73525F405B5FDB0A799C174D573725C449982B05CC"
     }
   ],
-  "VerifiedCompatibleMfas": 153,
-  "NeedsVerificationMfas": 530,
-  "KnownDifferenceMfas": 25,
+  "VerifiedCompatibleMfas": 159,
+  "NeedsVerificationMfas": 521,
+  "KnownDifferenceMfas": 28,
   "MfaCompatibility": [
     {
       "Module": "erlang",
@@ -15346,23 +15366,65 @@
       "Module": "erlang",
       "Function": "atom_to_list",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+      "Status": "Verified compatible",
+      "Scope": "Complete observable default-backend contract on supported valid Erlang terms: Atom name is a valid scalar sequence of at most255 characters. Enumerate Unicode scalars into fresh Cons cells with immediate integer codepoints in order; empty name returns nil. Nonatom arguments raise native badarg. No atom-table change. Full original values/argument/source/caller stacks and actual result/metadata identities are checked. No identical physical allocation/timing or whole compiler claim.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-492/atom-conversions/source-audit.json",
+          "Sha256": "1B32708A4AB4A1218F791753E192451845340C1273B4B90AD5799DFFB82E00A3",
+          "Scope": "Pinned complete read-conversion source/type/range/state/reference/error/effect partitions; creator capacity gap is explicit."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-492/atom-conversions/original-comparison.json",
+          "Sha256": "CC44AF06C559C9F0203672F9261512CD63C15C1A5A0792010C4390F976561E9D",
+          "Scope": "Thirteen actual original subjects,569 values/2845 full stacks, own-state existing-name protocols, actual native same and provider/child settlement."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-492/atom-conversions/affected-final.json",
+          "Sha256": "5B3C0B7E9617705FBE96DF0089B6C0130428149BF8DDA18A3555C480292BF5B6",
+          "Scope": "All65 old/new contract groups pass on final rebuilt assembly;31782 whole comparisons; continuous publication CI remains required."
+        }
       ],
+      "Limits": [],
       "Key": "erlang:atom_to_list/1"
     },
     {
       "Module": "erlang",
       "Function": "list_to_atom",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
+      "Status": "Known differences",
+      "Scope": "Ordinary conversion values and full stacks match the tested source partitions, but table saturation is not fully compatible: original OTP terminates its VM; managed registry throws catchable system_limit. Original configured-capacity termination is observed; managed boundary is source-inspected, not live-filled.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-492/atom-conversions/capacity-boundary-audit.json",
+          "Sha256": "71125461511F5F994FD2E7B55DDE6B89803BAA91C2422D6B44AAF761C5B0BCE9",
+          "Scope": "Source-confirmed table-boundary lifecycle difference; fresh isolated original VM exits1 without Erlang catch and settles; no live full managed table claim."
+        },
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-492/atom-conversions/source-audit.json",
+          "Sha256": "1B32708A4AB4A1218F791753E192451845340C1273B4B90AD5799DFFB82E00A3",
+          "Scope": "Pinned complete read-conversion source/type/range/state/reference/error/effect partitions; creator capacity gap is explicit."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-492/atom-conversions/original-comparison.json",
+          "Sha256": "CC44AF06C559C9F0203672F9261512CD63C15C1A5A0792010C4390F976561E9D",
+          "Scope": "Thirteen actual original subjects,569 values/2845 full stacks, own-state existing-name protocols, actual native same and provider/child settlement."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-492/atom-conversions/affected-final.json",
+          "Sha256": "5B3C0B7E9617705FBE96DF0089B6C0130428149BF8DDA18A3555C480292BF5B6",
+          "Scope": "All65 old/new contract groups pass on final rebuilt assembly;31782 whole comparisons; continuous publication CI remains required."
+        }
+      ],
       "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+        "Atom-table saturation lifecycle differs; no whole contract promotion."
       ],
       "Key": "erlang:list_to_atom/1"
     },
@@ -15370,35 +15432,94 @@
       "Module": "erlang",
       "Function": "list_to_existing_atom",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+      "Status": "Verified compatible",
+      "Scope": "Complete observable default-backend contract on supported valid Erlang terms: Require a proper list of at most255 valid Unicode scalar integers and an already registered exact name. Every malformed/overlong/absent name raises native badarg; return the existing atom word on success without registration. Exact ordinal scalar identity, no normalization. Full original values/argument/source/caller stacks and actual result/metadata identities are checked. No identical physical allocation/timing or whole compiler claim.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-492/atom-conversions/source-audit.json",
+          "Sha256": "1B32708A4AB4A1218F791753E192451845340C1273B4B90AD5799DFFB82E00A3",
+          "Scope": "Pinned complete read-conversion source/type/range/state/reference/error/effect partitions; creator capacity gap is explicit."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-492/atom-conversions/original-comparison.json",
+          "Sha256": "CC44AF06C559C9F0203672F9261512CD63C15C1A5A0792010C4390F976561E9D",
+          "Scope": "Thirteen actual original subjects,569 values/2845 full stacks, own-state existing-name protocols, actual native same and provider/child settlement."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-492/atom-conversions/affected-final.json",
+          "Sha256": "5B3C0B7E9617705FBE96DF0089B6C0130428149BF8DDA18A3555C480292BF5B6",
+          "Scope": "All65 old/new contract groups pass on final rebuilt assembly;31782 whole comparisons; continuous publication CI remains required."
+        }
       ],
+      "Limits": [],
       "Key": "erlang:list_to_existing_atom/1"
     },
     {
       "Module": "erlang",
       "Function": "atom_to_binary",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+      "Status": "Verified compatible",
+      "Scope": "Complete observable default-backend contract on supported valid Erlang terms: Default UTF8 conversion delegates to the same name binary as the two-argument UTF8 primitive. On error, pinned erlang.erl catches error and re-raises with original argument list, error_info literal and error_with_info source location; caller/depth behavior is preserved. Full original values/argument/source/caller stacks and actual result/metadata identities are checked. No identical physical allocation/timing or whole compiler claim.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-492/atom-conversions/source-audit.json",
+          "Sha256": "1B32708A4AB4A1218F791753E192451845340C1273B4B90AD5799DFFB82E00A3",
+          "Scope": "Pinned complete read-conversion source/type/range/state/reference/error/effect partitions; creator capacity gap is explicit."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-492/atom-conversions/original-comparison.json",
+          "Sha256": "CC44AF06C559C9F0203672F9261512CD63C15C1A5A0792010C4390F976561E9D",
+          "Scope": "Thirteen actual original subjects,569 values/2845 full stacks, own-state existing-name protocols, actual native same and provider/child settlement."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-492/atom-conversions/affected-final.json",
+          "Sha256": "5B3C0B7E9617705FBE96DF0089B6C0130428149BF8DDA18A3555C480292BF5B6",
+          "Scope": "All65 old/new contract groups pass on final rebuilt assembly;31782 whole comparisons; continuous publication CI remains required."
+        }
       ],
+      "Limits": [],
       "Key": "erlang:atom_to_binary/1"
     },
     {
       "Module": "erlang",
       "Function": "binary_to_atom",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
+      "Status": "Known differences",
+      "Scope": "Ordinary conversion values and full stacks match the tested source partitions, but table saturation is not fully compatible: original OTP terminates its VM; managed registry throws catchable system_limit. Original configured-capacity termination is observed; managed boundary is source-inspected, not live-filled.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-492/atom-conversions/capacity-boundary-audit.json",
+          "Sha256": "71125461511F5F994FD2E7B55DDE6B89803BAA91C2422D6B44AAF761C5B0BCE9",
+          "Scope": "Source-confirmed table-boundary lifecycle difference; fresh isolated original VM exits1 without Erlang catch and settles; no live full managed table claim."
+        },
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-492/atom-conversions/source-audit.json",
+          "Sha256": "1B32708A4AB4A1218F791753E192451845340C1273B4B90AD5799DFFB82E00A3",
+          "Scope": "Pinned complete read-conversion source/type/range/state/reference/error/effect partitions; creator capacity gap is explicit."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-492/atom-conversions/original-comparison.json",
+          "Sha256": "CC44AF06C559C9F0203672F9261512CD63C15C1A5A0792010C4390F976561E9D",
+          "Scope": "Thirteen actual original subjects,569 values/2845 full stacks, own-state existing-name protocols, actual native same and provider/child settlement."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-492/atom-conversions/affected-final.json",
+          "Sha256": "5B3C0B7E9617705FBE96DF0089B6C0130428149BF8DDA18A3555C480292BF5B6",
+          "Scope": "All65 old/new contract groups pass on final rebuilt assembly;31782 whole comparisons; continuous publication CI remains required."
+        }
+      ],
       "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+        "Atom-table saturation lifecycle differs; no whole contract promotion."
       ],
       "Key": "erlang:binary_to_atom/1"
     },
@@ -15406,35 +15527,94 @@
       "Module": "erlang",
       "Function": "binary_to_existing_atom",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+      "Status": "Verified compatible",
+      "Scope": "Complete observable default-backend contract on supported valid Erlang terms: Default UTF8 existing-name lookup has the same complete validation/lookup as arity2, with the actual source wrapper catch/re-raise metadata and original single argument on errors. No new name is registered. Full original values/argument/source/caller stacks and actual result/metadata identities are checked. No identical physical allocation/timing or whole compiler claim.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-492/atom-conversions/source-audit.json",
+          "Sha256": "1B32708A4AB4A1218F791753E192451845340C1273B4B90AD5799DFFB82E00A3",
+          "Scope": "Pinned complete read-conversion source/type/range/state/reference/error/effect partitions; creator capacity gap is explicit."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-492/atom-conversions/original-comparison.json",
+          "Sha256": "CC44AF06C559C9F0203672F9261512CD63C15C1A5A0792010C4390F976561E9D",
+          "Scope": "Thirteen actual original subjects,569 values/2845 full stacks, own-state existing-name protocols, actual native same and provider/child settlement."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-492/atom-conversions/affected-final.json",
+          "Sha256": "5B3C0B7E9617705FBE96DF0089B6C0130428149BF8DDA18A3555C480292BF5B6",
+          "Scope": "All65 old/new contract groups pass on final rebuilt assembly;31782 whole comparisons; continuous publication CI remains required."
+        }
       ],
+      "Limits": [],
       "Key": "erlang:binary_to_existing_atom/1"
     },
     {
       "Module": "erlang",
       "Function": "atom_to_binary",
       "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+      "Status": "Verified compatible",
+      "Scope": "Complete observable default-backend contract on supported valid Erlang terms: Validate atom and utf8/unicode/latin1 encoding. UTF8/unicode and ASCII Latin1 return the same immutable per-registered-name UTF8 binary. Non-ASCII Latin1 requires every codepoint\u003C=255 and allocates a fresh transcoded binary. Invalid inputs/encoding raise native badarg. No new atom is created. Full original values/argument/source/caller stacks and actual result/metadata identities are checked. No identical physical allocation/timing or whole compiler claim.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-492/atom-conversions/source-audit.json",
+          "Sha256": "1B32708A4AB4A1218F791753E192451845340C1273B4B90AD5799DFFB82E00A3",
+          "Scope": "Pinned complete read-conversion source/type/range/state/reference/error/effect partitions; creator capacity gap is explicit."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-492/atom-conversions/original-comparison.json",
+          "Sha256": "CC44AF06C559C9F0203672F9261512CD63C15C1A5A0792010C4390F976561E9D",
+          "Scope": "Thirteen actual original subjects,569 values/2845 full stacks, own-state existing-name protocols, actual native same and provider/child settlement."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-492/atom-conversions/affected-final.json",
+          "Sha256": "5B3C0B7E9617705FBE96DF0089B6C0130428149BF8DDA18A3555C480292BF5B6",
+          "Scope": "All65 old/new contract groups pass on final rebuilt assembly;31782 whole comparisons; continuous publication CI remains required."
+        }
       ],
+      "Limits": [],
       "Key": "erlang:atom_to_binary/2"
     },
     {
       "Module": "erlang",
       "Function": "binary_to_atom",
       "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
+      "Status": "Known differences",
+      "Scope": "Ordinary conversion values and full stacks match the tested source partitions, but table saturation is not fully compatible: original OTP terminates its VM; managed registry throws catchable system_limit. Original configured-capacity termination is observed; managed boundary is source-inspected, not live-filled.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-492/atom-conversions/capacity-boundary-audit.json",
+          "Sha256": "71125461511F5F994FD2E7B55DDE6B89803BAA91C2422D6B44AAF761C5B0BCE9",
+          "Scope": "Source-confirmed table-boundary lifecycle difference; fresh isolated original VM exits1 without Erlang catch and settles; no live full managed table claim."
+        },
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-492/atom-conversions/source-audit.json",
+          "Sha256": "1B32708A4AB4A1218F791753E192451845340C1273B4B90AD5799DFFB82E00A3",
+          "Scope": "Pinned complete read-conversion source/type/range/state/reference/error/effect partitions; creator capacity gap is explicit."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-492/atom-conversions/original-comparison.json",
+          "Sha256": "CC44AF06C559C9F0203672F9261512CD63C15C1A5A0792010C4390F976561E9D",
+          "Scope": "Thirteen actual original subjects,569 values/2845 full stacks, own-state existing-name protocols, actual native same and provider/child settlement."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-492/atom-conversions/affected-final.json",
+          "Sha256": "5B3C0B7E9617705FBE96DF0089B6C0130428149BF8DDA18A3555C480292BF5B6",
+          "Scope": "All65 old/new contract groups pass on final rebuilt assembly;31782 whole comparisons; continuous publication CI remains required."
+        }
+      ],
       "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+        "Atom-table saturation lifecycle differs; no whole contract promotion."
       ],
       "Key": "erlang:binary_to_atom/2"
     },
@@ -15442,12 +15622,29 @@
       "Module": "erlang",
       "Function": "binary_to_existing_atom",
       "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+      "Status": "Verified compatible",
+      "Scope": "Complete observable default-backend contract on supported valid Erlang terms: Require a whole-byte bitstring, supported encoding, at most255 decoded valid scalars and exact existing name. Latin1 maps bytes directly; UTF8/unicode reject invalid/noncanonical sequences and scalar/length violations. Return the existing atom word, else badarg. No name creation. Full original values/argument/source/caller stacks and actual result/metadata identities are checked. No identical physical allocation/timing or whole compiler claim.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-492/atom-conversions/source-audit.json",
+          "Sha256": "1B32708A4AB4A1218F791753E192451845340C1273B4B90AD5799DFFB82E00A3",
+          "Scope": "Pinned complete read-conversion source/type/range/state/reference/error/effect partitions; creator capacity gap is explicit."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-492/atom-conversions/original-comparison.json",
+          "Sha256": "CC44AF06C559C9F0203672F9261512CD63C15C1A5A0792010C4390F976561E9D",
+          "Scope": "Thirteen actual original subjects,569 values/2845 full stacks, own-state existing-name protocols, actual native same and provider/child settlement."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-492/atom-conversions/affected-final.json",
+          "Sha256": "5B3C0B7E9617705FBE96DF0089B6C0130428149BF8DDA18A3555C480292BF5B6",
+          "Scope": "All65 old/new contract groups pass on final rebuilt assembly;31782 whole comparisons; continuous publication CI remains required."
+        }
       ],
+      "Limits": [],
       "Key": "erlang:binary_to_existing_atom/2"
     },
     {
@@ -27437,7 +27634,7 @@
     }
   ],
   "ComparisonTestReport": "validation/part-485/native-catalog/previous-tests.json",
-  "LocalPassedTests": 8948,
+  "LocalPassedTests": 8961,
   "RegisteredMfas": 708,
   "PreviousRegisteredMfas": 708,
   "RegisteredMfaDelta": 0,
@@ -27665,7 +27862,7 @@
         "Physical BEAM heap/scheduler/resources,complete lint/spec/warnings/source stacks/code staging,connected distribution and full native/upstream/performance parity;native numeric record hashes independently matched in230, while general resource/lifecycle scope remains partial.",
         "Part378: same-function receive\u002Btry and mixed Term/raw joins remain conservative refusals; raw manual/Nil, native-entry-specific, full depth/deeper recursion/cross-image lifecycle and stale-fun dispatch profiles need separate proof."
       ],
-      "RelatedPassedTests": 1792
+      "RelatedPassedTests": 1805
     },
     {
       "Id": "Compiler",
@@ -34424,9 +34621,9 @@
       "Name": "erlang",
       "Status": "Partially compatible",
       "RegisteredMfas": 351,
-      "VerifiedCompatibleMfas": 56,
-      "NeedsVerificationMfas": 282,
-      "KnownDifferenceMfas": 13,
+      "VerifiedCompatibleMfas": 62,
+      "NeedsVerificationMfas": 273,
+      "KnownDifferenceMfas": 16,
       "PreviousRegisteredMfas": 351,
       "Delta": 0,
       "ReferenceDeclarations": 351,

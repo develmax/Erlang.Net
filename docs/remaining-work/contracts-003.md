@@ -1,13 +1,7 @@
 # Unclosed default contracts — volume3
 
-Current candidate: Part491. Whole contract evidence remains in the canonical [ledger](../mfa-compatibility.json); see [cohort progress](checkpoint-491.md).
+Current candidate: Part492. Whole contract evidence remains in the canonical [ledger](../mfa-compatibility.json); see [cohort progress](checkpoint-492.md).
 
-- `erpc:call/5` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
-- `erpc:execute_call/4` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
-- `error_logger:get_format_depth/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `error_logger:limit_term/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erts_internal:abort_pending_connection/2` — **Needs verification**. Real native distribution entry state with complete finite original values/errors/stacks; all-domain ownership/effects closure remains explicitly unfinished.
-- `erts_internal:cmp_term/2` — **Needs verification**. Explicit runtime primitive/compiler-helper boundary supporting original selected OTP libraries. Direct MFA presence and finite original-module execution do not establish this command's entire public contract.
 - `erts_internal:get_creation/0` — **Needs verification**. Real native distribution entry state with complete finite original values/errors/stacks; all-domain ownership/effects closure remains explicitly unfinished.
 - `erts_internal:map_next/3` — **Needs verification**. Explicit runtime primitive/compiler-helper boundary supporting original selected OTP libraries. Direct MFA presence and finite original-module execution do not establish this command's entire public contract.
 - `erts_internal:mc_iterator/1` — **Needs verification**. Explicit runtime primitive/compiler-helper boundary supporting original selected OTP libraries. Direct MFA presence and finite original-module execution do not establish this command's entire public contract.
@@ -152,3 +146,9 @@ Current candidate: Part491. Whole contract evidence remains in the canonical [le
 - `maps:get/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `maps:groups_from_list/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `maps:groups_from_list/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `maps:intersect/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `maps:intersect_with/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `maps:is_iterator_valid/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `maps:is_key/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `maps:iterator/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `maps:iterator/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.

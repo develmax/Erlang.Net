@@ -1,0 +1,87 @@
+{
+  "Partial": true,
+  "SelectedCount": 12,
+  "TotalCount": 8960,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/bif-contract492/atom_to_binary1_p0",
+    "runtime/bif-contract492/atom_to_binary2_p0",
+    "runtime/bif-contract492/atom_to_binary2_p1",
+    "runtime/bif-contract492/atom_to_list1_p0",
+    "runtime/bif-contract492/binary_to_atom1_p0",
+    "runtime/bif-contract492/binary_to_atom2_p0",
+    "runtime/bif-contract492/binary_to_atom2_p1",
+    "runtime/bif-contract492/binary_to_existing_atom1_p0",
+    "runtime/bif-contract492/binary_to_existing_atom2_p0",
+    "runtime/bif-contract492/binary_to_existing_atom2_p1",
+    "runtime/bif-contract492/list_to_atom1_p0",
+    "runtime/bif-contract492/list_to_existing_atom1_p0"
+  ],
+  "Passed": 9,
+  "Failed": 3,
+  "Tests": [
+    {
+      "Name": "runtime/bif-contract492/atom_to_list1_p0",
+      "Status": "Passed",
+      "Milliseconds": 572
+    },
+    {
+      "Name": "runtime/bif-contract492/list_to_atom1_p0",
+      "Status": "Passed",
+      "Milliseconds": 698
+    },
+    {
+      "Name": "runtime/bif-contract492/list_to_existing_atom1_p0",
+      "Status": "Passed",
+      "Milliseconds": 882
+    },
+    {
+      "Name": "runtime/bif-contract492/atom_to_binary1_p0",
+      "Status": "Failed",
+      "Error": "System.IO.InvalidDataException: Original compiled ordsets corpus or backend ownership differs\r\nD:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\beam-contract-failures\\atom_contract492_atom_to_binary1_p0\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.\u003C\u003Ec__DisplayClass1_1.\u003C\u003CRunSubject\u003Eb__1\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 79\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.RunSubject(String observer, Func\u00602 read, Int32 valueCount, Int32 profileCount, Func\u00602 initialize) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 92\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.RunSubject(String observer, Func\u00602 read, Int32 valueCount, Int32 profileCount, Func\u00602 initialize) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 93\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 6895",
+      "Milliseconds": 196
+    },
+    {
+      "Name": "runtime/bif-contract492/atom_to_binary2_p0",
+      "Status": "Passed",
+      "Milliseconds": 791
+    },
+    {
+      "Name": "runtime/bif-contract492/atom_to_binary2_p1",
+      "Status": "Passed",
+      "Milliseconds": 116
+    },
+    {
+      "Name": "runtime/bif-contract492/binary_to_atom1_p0",
+      "Status": "Failed",
+      "Error": "System.IO.InvalidDataException: Original compiled ordsets corpus or backend ownership differs\r\nD:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\beam-contract-failures\\atom_contract492_binary_to_atom1_p0\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.\u003C\u003Ec__DisplayClass1_1.\u003C\u003CRunSubject\u003Eb__1\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 79\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.RunSubject(String observer, Func\u00602 read, Int32 valueCount, Int32 profileCount, Func\u00602 initialize) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 92\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.RunSubject(String observer, Func\u00602 read, Int32 valueCount, Int32 profileCount, Func\u00602 initialize) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 93\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 6895",
+      "Milliseconds": 175
+    },
+    {
+      "Name": "runtime/bif-contract492/binary_to_atom2_p0",
+      "Status": "Passed",
+      "Milliseconds": 718
+    },
+    {
+      "Name": "runtime/bif-contract492/binary_to_atom2_p1",
+      "Status": "Passed",
+      "Milliseconds": 189
+    },
+    {
+      "Name": "runtime/bif-contract492/binary_to_existing_atom1_p0",
+      "Status": "Failed",
+      "Error": "System.IO.InvalidDataException: Original compiled ordsets corpus or backend ownership differs\r\nD:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\beam-contract-failures\\atom_contract492_binary_to_existing_atom1_p0\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.\u003C\u003Ec__DisplayClass1_1.\u003C\u003CRunSubject\u003Eb__1\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 79\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.RunSubject(String observer, Func\u00602 read, Int32 valueCount, Int32 profileCount, Func\u00602 initialize) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 92\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.RunSubject(String observer, Func\u00602 read, Int32 valueCount, Int32 profileCount, Func\u00602 initialize) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 93\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 6895",
+      "Milliseconds": 268
+    },
+    {
+      "Name": "runtime/bif-contract492/binary_to_existing_atom2_p0",
+      "Status": "Passed",
+      "Milliseconds": 968
+    },
+    {
+      "Name": "runtime/bif-contract492/binary_to_existing_atom2_p1",
+      "Status": "Passed",
+      "Milliseconds": 398
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "Pid": 243656,
+  "Command": [
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+    "+S",
+    "1:1",
+    "+A",
+    "1",
+    "+t",
+    "16384",
+    "-noshell",
+    "-noinput",
+    "-boot",
+    "no_dot_erlang",
+    "-eval",
+    "io:format(\"before=~p limit=~p~n\",[erlang:system_info(atom_count),erlang:system_info(atom_limit)]),try lists:foreach(fun(N)->list_to_atom(\"otp492cap_\"++integer_to_list(N)) end,lists:seq(1,16384)) of _->io:format(\"completed~n\") catch C:R->io:format(\"caught=~p:~p~n\",[C,R]) end,halt(0)."
+  ],
+  "StartedUnixSeconds": 1792969725.5771127
+}

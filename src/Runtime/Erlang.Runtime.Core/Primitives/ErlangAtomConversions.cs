@@ -5,8 +5,6 @@ namespace Erlang;
 
 internal static class ErlangAtomConversions
 {
-    private static readonly Encoding utf8 = new UTF8Encoding(false, true);
-
     public static string EncodingName(IReadOnlyList<Term> arguments)
     {
         if (arguments.Count == 1)
@@ -80,12 +78,14 @@ internal static class ErlangAtomConversions
             if (atom.Name.EnumerateRunes().Any(rune => rune.Value > ErlangAtomParameters.MaximumLatin1CodePoint))
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
 
-            return new BitString(Encoding.Latin1.GetBytes(atom.Name));
+            return atom.Name.All(char.IsAscii)
+                ? AtomUtf8BinaryCache.Get(atom)
+                : new BitString(Encoding.Latin1.GetBytes(atom.Name));
         }
 
         try
         {
-            return new BitString(utf8.GetBytes(atom.Name));
+            return AtomUtf8BinaryCache.Get(atom);
         }
         catch (EncoderFallbackException)
         {

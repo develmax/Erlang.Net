@@ -1,0 +1,49 @@
+{
+  "Passed": true,
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ProviderFiles": 6427,
+  "ProviderBeforeEqual": true,
+  "ProviderAfterEqual": true,
+  "SourceSha256": "149EB125B4FE0281D63FAFFE75A48C71C86211482FCE72D86CE974CC13F0A325",
+  "OriginalReceipt": {
+    "Command": [
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+      "+S",
+      "1:1",
+      "+A",
+      "1",
+      "-noshell",
+      "-noinput",
+      "-boot",
+      "no_dot_erlang",
+      "-pa",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\contracts492\\original-ownstate\\list_to_existing_atom1_p0",
+      "-eval",
+      "{ok,atom_contract492_list_to_existing_atom1_p0,_}=compile:file(\"atom_contract492_list_to_existing_atom1_p0.erl\",[return_errors,return_warnings]),[ok=prim_file:write_file(File,term_to_binary(ordsets_core_worker:run(atom_contract492_list_to_existing_atom1_p0,Entry),[{minor_version,2}])) || {File,Entry} <- [{\"values.etf\",run},{\"stacks.etf\",run_stacks}]],{beam_file,_,_,_,_,Functions}=beam_disasm:file(\"atom_contract492_list_to_existing_atom1_p0.beam\"),Instructions=lists:append([Is || {function,_,_,_,Is} <- Functions]),ApplySites=[I || I <- Instructions,is_tuple(I),lists:member(element(1,I),[apply,apply_last])],true=length(ApplySites)>0,ok=prim_file:write_file(\"dispatch-proof.etf\",term_to_binary({atom_contract492_list_to_existing_atom1_p0,length(ApplySites),ApplySites})),halt(0)."
+    ],
+    "Pid": 112680,
+    "ElapsedSeconds": 0.25,
+    "TimedOut": false,
+    "Settled": true,
+    "ExitCode": 0,
+    "Failures": [],
+    "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  "GoldenChecked": false,
+  "NormalizedFields": 0,
+  "Errors": [],
+  "Files": {
+    "atom_contract492_list_to_existing_atom1_p0.beam": "3AB1655350DD084110C60D1A2A20796BB4482AFB140F2F7231F2038458756ECD",
+    "atom_contract492_list_to_existing_atom1_p0.erl": "149EB125B4FE0281D63FAFFE75A48C71C86211482FCE72D86CE974CC13F0A325",
+    "dispatch-proof.etf": "571C43BA42F6AEF7BCF06AEFEF4A2ACBF019A0C2FF10D87A883A6C387E55CDDB",
+    "ordsets_core_support.beam": "E96720C753F9438E66367C71A90C5D0C1E3AA29091B178799986E36A8438022F",
+    "ordsets_core_worker.beam": "E345AE81943C41F82F3CBCA24B963D2D25CB24C0C15E2A0B21B72A65757D6B3F",
+    "original.exit.json": "DFEB25EFCD903EF8EA9608D816313F1A4F3F821884FCEA52B6CCB5AACCAB1AF8",
+    "original.live.json": "C7D00CD56F1651317ABD373D6EE6092F2BFF59EDBB7C0B9B22C5FD150C6855F8",
+    "original.stderr.log": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "original.stdout.log": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "stacks.etf": "DCC3A0B0AD814AD9117F8432991D405EB5AC09DD2AB954FB9A003B4871FBE50C",
+    "values.etf": "EE5B8E1914BA65BD5EC0CEED36812672BE72CBAB26F1777E7AB072E3FE543A98"
+  }
+}
