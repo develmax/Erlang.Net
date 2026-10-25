@@ -1,13 +1,13 @@
 param(
     [Parameter(Mandatory)][string]$Feed,
     [string]$Configuration = 'Debug',
-    [ValidateSet('Stdlib', 'Kernel', 'Boot', 'Syntax', 'Compiler', 'Tools', 'Documentation', 'Mnesia', 'Asn1', 'Security')][string]$Library = 'Stdlib'
+    [ValidateSet('Stdlib', 'Kernel', 'Boot', 'Syntax', 'Compiler', 'Tools', 'Documentation', 'Mnesia', 'Asn1', 'Security', 'Transport')][string]$Library = 'Stdlib'
 )
 $ErrorActionPreference = 'Stop'
 $repository = Split-Path -Parent $PSScriptRoot
 $feedPath = (Resolve-Path -LiteralPath $Feed).Path
 $work = Join-Path $repository ('artifacts/otp-library-consumer-' + [guid]::NewGuid().ToString('N'))
-$consumerProject = switch ($Library) { 'Kernel' { 'Erlang.Otp.Kernel.Library.Tests' } 'Boot' { 'Erlang.Otp.Boot.Library.Tests' } 'Syntax' { 'Erlang.Otp.Syntax.Library.Tests' } 'Compiler' { 'Erlang.Otp.Compiler.Library.Tests' } 'Tools' { 'Erlang.Otp.Tools.Library.Tests' } 'Documentation' { 'Erlang.Otp.Documentation.Library.Tests' } 'Mnesia' { 'Erlang.Otp.Mnesia.Library.Tests' } 'Asn1' { 'Erlang.Otp.Asn1.Library.Tests' } 'Security' { 'Erlang.Otp.Security.Library.Tests' } default { 'HelloOtpLibraryReference' } }
+$consumerProject = switch ($Library) { 'Kernel' { 'Erlang.Otp.Kernel.Library.Tests' } 'Boot' { 'Erlang.Otp.Boot.Library.Tests' } 'Syntax' { 'Erlang.Otp.Syntax.Library.Tests' } 'Compiler' { 'Erlang.Otp.Compiler.Library.Tests' } 'Tools' { 'Erlang.Otp.Tools.Library.Tests' } 'Documentation' { 'Erlang.Otp.Documentation.Library.Tests' } 'Mnesia' { 'Erlang.Otp.Mnesia.Library.Tests' } 'Asn1' { 'Erlang.Otp.Asn1.Library.Tests' } 'Security' { 'Erlang.Otp.Security.Library.Tests' } 'Transport' { 'Erlang.Otp.Transport.Library.Tests' } default { 'HelloOtpLibraryReference' } }
 $consumerDirectory = if ($Library -eq 'Stdlib') { 'examples/HelloOtpLibraryReference' } else { "tests/$consumerProject" }
 New-Item -ItemType Directory -Path $work | Out-Null
 function Invoke-LibraryDotNet {
@@ -17,11 +17,11 @@ function Invoke-LibraryDotNet {
 }
 Push-Location $repository
 try {
-    $packageLibraries = if ($Library -eq 'Boot') { @('Erts', 'Sasl') } elseif ($Library -eq 'Syntax') { @('SyntaxTools', 'Parsetools') } elseif ($Library -eq 'Tools') { @('Tools', 'RuntimeTools') } elseif ($Library -eq 'Documentation') { @('Eunit', 'Edoc', 'Xmerl') } elseif ($Library -eq 'Security') { @('Crypto', 'PublicKey') } else { @($Library) }
+    $packageLibraries = if ($Library -eq 'Boot') { @('Erts', 'Sasl') } elseif ($Library -eq 'Syntax') { @('SyntaxTools', 'Parsetools') } elseif ($Library -eq 'Tools') { @('Tools', 'RuntimeTools') } elseif ($Library -eq 'Documentation') { @('Eunit', 'Edoc', 'Xmerl') } elseif ($Library -eq 'Security') { @('Crypto', 'PublicKey') } elseif ($Library -eq 'Transport') { @('Ssl', 'Ssh') } else { @($Library) }
     foreach ($packageLibrary in $packageLibraries) {
         Invoke-LibraryDotNet @('pack', "src/Erlang.Otp.$packageLibrary.Beam", '-c', $Configuration, '-m:1', '--nologo', '-p:UseInstalledPackage=true', "-p:RestoreSources=$feedPath", "-p:RestorePackagesPath=$work/build-cache", '-o', $feedPath)
     }
-    if ($Library -in @('Documentation', 'Mnesia', 'Asn1', 'Security')) {
+    if ($Library -in @('Documentation', 'Mnesia', 'Asn1', 'Security', 'Transport')) {
         $verifiedAssets = 0
         foreach ($packageLibrary in $packageLibraries) {
             $directory = "src/Erlang.Otp.$packageLibrary.Beam"
@@ -42,12 +42,12 @@ try {
                 }
             } finally { $archive.Dispose() }
         }
-        $expectedAssets = if ($Library -eq 'Mnesia') { 32 } elseif ($Library -eq 'Asn1') { 25 } elseif ($Library -eq 'Security') { 84 } else { 89 }
+        $expectedAssets = if ($Library -eq 'Mnesia') { 32 } elseif ($Library -eq 'Asn1') { 25 } elseif ($Library -eq 'Security') { 84 } elseif ($Library -eq 'Transport') { 144 } else { 89 }
         if ($verifiedAssets -ne $expectedAssets) { throw 'Incomplete original source/support package inventory' }
         Write-Output "Original $Library source/support package assets: $verifiedAssets byte-verified"
     }
     Copy-Item -LiteralPath (Get-ChildItem -LiteralPath $consumerDirectory -File | Where-Object Extension -In '.cs', '.csproj').FullName -Destination $work
-    if ($Library -in @('Boot', 'Syntax', 'Compiler', 'Tools', 'Documentation', 'Mnesia', 'Asn1', 'Security')) { Copy-Item -LiteralPath (Join-Path $consumerDirectory 'Fixtures') -Destination (Join-Path $work 'Fixtures') -Recurse }
+    if ($Library -in @('Boot', 'Syntax', 'Compiler', 'Tools', 'Documentation', 'Mnesia', 'Asn1', 'Security', 'Transport')) { Copy-Item -LiteralPath (Join-Path $consumerDirectory 'Fixtures') -Destination (Join-Path $work 'Fixtures') -Recurse }
     Invoke-LibraryDotNet @('publish', "$work/$consumerProject.csproj", '-c', $Configuration, '-m:1', '--nologo', '-p:ImportDirectoryBuildProps=false', '-p:ImportDirectoryBuildTargets=false', '-p:UseInstalledPackage=true', "-p:RestoreSources=$feedPath", "-p:RestorePackagesPath=$work/consumer-cache", '-o', "$work/published")
     $dotnetHost = (Get-Command dotnet -CommandType Application | Select-Object -First 1).Source
     $savedPath = $env:PATH

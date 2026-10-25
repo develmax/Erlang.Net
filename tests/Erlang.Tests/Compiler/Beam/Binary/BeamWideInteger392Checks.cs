@@ -105,7 +105,19 @@ internal static class BeamWideInteger392Checks
         Require(!Match(code, state, Commands()));
         Require(((Integer)Call(state, BeamBinaryHostNames.Read, 1)).Value == 37);
         Require((int)Property(context, BeamBinaryHostNames.Position) == 0);
-        foreach (Array operands in new[] { Commands(129), Commands(65, 2), Commands(128, 0), Commands(1, 257), Commands(int.MaxValue, 256) })
+        foreach ((int size, int unit) in new[] { (129, 1), (65, 2) })
+        {
+            int bits = size * unit;
+            state = State(new(Enumerable.Repeat(byte.MaxValue, (bits + 7) / 8).ToArray()), out context);
+            Require(Match(code, state, Commands(size, unit)));
+            Require(((Integer)Call(state, BeamBinaryHostNames.Read, 1)).Value == (BigInteger.One << bits) - 1);
+            Require((int)Property(context, BeamBinaryHostNames.Position) == bits);
+            state = State(new(new byte[16]), out context);
+            Require(!Match(code, state, Commands(size, unit)));
+            Require(((Integer)Call(state, BeamBinaryHostNames.Read, 1)).Value == 37);
+            Require((int)Property(context, BeamBinaryHostNames.Position) == 0);
+        }
+        foreach (Array operands in new[] { Commands(128, 0), Commands(1, 257), Commands(int.MaxValue, 256) })
             Refuses<NotSupportedException>(() => Validate(
                 code,
                 BeamBinaryHostNames.MatchName,

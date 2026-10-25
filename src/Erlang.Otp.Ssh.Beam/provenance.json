@@ -1,0 +1,491 @@
+{
+  "ReleaseTag": "OTP-29.1.1",
+  "SourceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ArchiveSha256": "337480AF988ECA993C2E98B68850F00FC6724D366346565E38941AC0D1B7C56B",
+  "ExecutionManifestSha256": "AF5EA3DA317E2ABC8A0CF1874D4E6BFB93AC1A47E864A7B92BBE7A03D1607E99",
+  "ReleaseUrl": "https://github.com/erlang/otp/releases/download/OTP-29.1.1/otp_win64_29.1.1.zip",
+  "Application": "ssh",
+  "Version": "6.0.6",
+  "ProducerPlatform": "Windows x64 official release",
+  "DescriptorModules": [
+    "ssh",
+    "ssh_acceptor",
+    "ssh_acceptor_sup",
+    "ssh_agent",
+    "ssh_app",
+    "ssh_auth",
+    "ssh_bits",
+    "ssh_channel",
+    "ssh_channel_sup",
+    "ssh_cli",
+    "ssh_client_channel",
+    "ssh_client_key_api",
+    "ssh_connection",
+    "ssh_connection_handler",
+    "ssh_connection_sup",
+    "ssh_daemon_channel",
+    "ssh_dbg",
+    "ssh_file",
+    "ssh_fsm_kexinit",
+    "ssh_fsm_userauth_client",
+    "ssh_fsm_userauth_server",
+    "ssh_info",
+    "ssh_io",
+    "ssh_lib",
+    "ssh_lsocket",
+    "ssh_lsocket_sup",
+    "ssh_message",
+    "ssh_no_io",
+    "ssh_options",
+    "ssh_server_channel",
+    "ssh_server_key_api",
+    "ssh_sftp",
+    "ssh_sftpd",
+    "ssh_sftpd_file",
+    "ssh_sftpd_file_api",
+    "ssh_shell",
+    "ssh_system_sup",
+    "ssh_tcpip_forward_acceptor",
+    "ssh_tcpip_forward_acceptor_sup",
+    "ssh_tcpip_forward_client",
+    "ssh_tcpip_forward_srv",
+    "ssh_transport",
+    "ssh_xfer"
+  ],
+  "Files": [
+    {
+      "Path": "ebin/ssh.app",
+      "Sha256": "B6AC3E9F9D5C74DFCD8C7CBD0873BD198F053ACCD310387CBCF0E0A245FD1F8C"
+    },
+    {
+      "Path": "ebin/ssh.appup",
+      "Sha256": "24A1008823DD7333045F8D3486256A46DCA75FE9E110C0ECB25A2F4653BD1076"
+    },
+    {
+      "Path": "ebin/ssh.beam",
+      "Sha256": "78EE0F18FD5502F806725F05A0DA0B3A61A3491A4FC53DB6B65BF1C14BE4DE4B"
+    },
+    {
+      "Path": "ebin/ssh_acceptor.beam",
+      "Sha256": "F86E72ACF87DB89FB0BDFCAE3ADC9FAEA6751AC85C11BFD2C1E927FED8393EB4"
+    },
+    {
+      "Path": "ebin/ssh_acceptor_sup.beam",
+      "Sha256": "8E6A772CA475EFE182D627D9A77D1E136DF2D8EEF499640D67AD4E85E73D84DE"
+    },
+    {
+      "Path": "ebin/ssh_agent.beam",
+      "Sha256": "8A94B78A6C7CAEE8858AEB0926D8E39A15C95AD0EEC3A9A96B0C23BCC2861CE0"
+    },
+    {
+      "Path": "ebin/ssh_app.beam",
+      "Sha256": "4F6D49C2FE56ECD54915E09F6B9314D44047DA9E17F1E98D4D6836D5BE91181F"
+    },
+    {
+      "Path": "ebin/ssh_auth.beam",
+      "Sha256": "85165F85E040F960F97EFD847DF27FD44B530B31CFB48FCBE96B0355EF63FB88"
+    },
+    {
+      "Path": "ebin/ssh_bits.beam",
+      "Sha256": "F51D197A2647AA68149DEE7F9B7EC6870D0465436A51980BC5BE24F16D722037"
+    },
+    {
+      "Path": "ebin/ssh_channel.beam",
+      "Sha256": "5F85EB7F5CA9BBC9219CC43E111D21FD728CCEF751244D7DA8735FD95EE6F2D7"
+    },
+    {
+      "Path": "ebin/ssh_channel_sup.beam",
+      "Sha256": "730924FBF4A6D95E9318756115EC575F032B31D6E041FDAE8735913E07A851C6"
+    },
+    {
+      "Path": "ebin/ssh_cli.beam",
+      "Sha256": "DA6640B00E329341EEE771F4C3D27B75AA3B18AE78B8BBF93589A1EFD55110ED"
+    },
+    {
+      "Path": "ebin/ssh_client_channel.beam",
+      "Sha256": "C353768D529FDEB3D692EF6F916C90295D0C30091163821E392756061A7604A6"
+    },
+    {
+      "Path": "ebin/ssh_client_key_api.beam",
+      "Sha256": "AACF88F129BBF5C778CC79AA2694240E1AB4AAFCDFDB06E077E6F59DB78CC4EB"
+    },
+    {
+      "Path": "ebin/ssh_connection.beam",
+      "Sha256": "E78EB692720EAE48C63F854CA958FB24A47778D3D1B0518222C3E1990F2CD0FC"
+    },
+    {
+      "Path": "ebin/ssh_connection_handler.beam",
+      "Sha256": "E23598D886752ED6EA2EC78CB9B959533F3825E09C2D8FE88CAB69FEC138E87C"
+    },
+    {
+      "Path": "ebin/ssh_connection_sup.beam",
+      "Sha256": "C925A4A6FCDD2FA35638FA759BC196E461F7A8660A9086731B7CDB8D193B7975"
+    },
+    {
+      "Path": "ebin/ssh_daemon_channel.beam",
+      "Sha256": "12B5D9C99CAE98BAA15438C9C2F91E73599F028D4DDD2F8A917363876165EF13"
+    },
+    {
+      "Path": "ebin/ssh_dbg.beam",
+      "Sha256": "D654B919904F0455D5E2584539820DA2C3204C82B4EDF60F6BE637DE1F2CA9D0"
+    },
+    {
+      "Path": "ebin/ssh_file.beam",
+      "Sha256": "19A3AA9D8984A2E7C823FD8A4A92730734E363656DFC07AB47401E6C0074BED5"
+    },
+    {
+      "Path": "ebin/ssh_fsm_kexinit.beam",
+      "Sha256": "E4D9139423FB6016CCFD17815CC840561AC165B27B1CB1C0DB5092EF18B3668E"
+    },
+    {
+      "Path": "ebin/ssh_fsm_userauth_client.beam",
+      "Sha256": "2CE7BE6537C565134393F9D9A67B69BAA30C7ADCA9F1A6A51E75AFD601B0B5C1"
+    },
+    {
+      "Path": "ebin/ssh_fsm_userauth_server.beam",
+      "Sha256": "D4022202C3D2BE5C9E934492BCC2EDC83D535ED2F691FF425DFA4486F4DA6C25"
+    },
+    {
+      "Path": "ebin/ssh_info.beam",
+      "Sha256": "679AE664E5358720DEF37A85F0EB5544B5F0ACDA6AF3FDF40A591F2F0F19A9B1"
+    },
+    {
+      "Path": "ebin/ssh_io.beam",
+      "Sha256": "790D01056B0B63F3F81EAA9BC8BF488342D3BA0558837558079396454A312D0B"
+    },
+    {
+      "Path": "ebin/ssh_lib.beam",
+      "Sha256": "321558752CECE26D3042B9BC7385F51188DF7F26FC5B6B83456D95523B918DBA"
+    },
+    {
+      "Path": "ebin/ssh_lsocket.beam",
+      "Sha256": "762033ED1C787AE8F30AEAA13419879B75AC85F560B53FB9D503002EEE5C847A"
+    },
+    {
+      "Path": "ebin/ssh_lsocket_sup.beam",
+      "Sha256": "DFEA8D69B013DE0D93ABF4A5A9860526AAD08003D2DB81A627C3D09F75ECD799"
+    },
+    {
+      "Path": "ebin/ssh_message.beam",
+      "Sha256": "C0CF4A22DCCA590373DB94984E0440B730136C64B9CF00720CE05A57C03DF4C3"
+    },
+    {
+      "Path": "ebin/ssh_no_io.beam",
+      "Sha256": "21545723D99CBE52130DDDC2660BAEBAC4952E86443C88BD074BDAD269ACBEE7"
+    },
+    {
+      "Path": "ebin/ssh_options.beam",
+      "Sha256": "0C4CD543DFC1344C4C571D1B9E858AFD60D827CFAADD91CCE396690AB129522E"
+    },
+    {
+      "Path": "ebin/ssh_server_channel.beam",
+      "Sha256": "84771A29A5E52A5C49446D443A2B0CAB7F7B8126451DE390B5AF6C34146BCD0B"
+    },
+    {
+      "Path": "ebin/ssh_server_key_api.beam",
+      "Sha256": "EA4D061A2308C9A04F50488C5D9512DF39EC767C0D35C1FE4296A51A65458223"
+    },
+    {
+      "Path": "ebin/ssh_sftp.beam",
+      "Sha256": "8B541D6A144FD59244EB3FF14331339E590D376087F14E4DEDAD85141DC24776"
+    },
+    {
+      "Path": "ebin/ssh_sftpd.beam",
+      "Sha256": "A84F09F37FFFC21237C915AEB5F9DCF4EA05FC5F539C26FB9095FE24CBB74A14"
+    },
+    {
+      "Path": "ebin/ssh_sftpd_file.beam",
+      "Sha256": "AA6717D37DC47E1424EE918FF70786D0D6E69195BAFDF3808903C5F866C6E94D"
+    },
+    {
+      "Path": "ebin/ssh_sftpd_file_api.beam",
+      "Sha256": "FE128B9BB155BE1D59D1EAFED2917934E1B0CEE5BB876F423EE63B88AAD0E8BF"
+    },
+    {
+      "Path": "ebin/ssh_shell.beam",
+      "Sha256": "250E9DF2E846097C274DB1E5EDF531F1A72FE35E66F8FB5A4C3DFF134DFE8EDD"
+    },
+    {
+      "Path": "ebin/ssh_system_sup.beam",
+      "Sha256": "7C4FEE56B9ED1A8FBA27F0BDB561A26CFF933F47DC75BE78F72967CC0314DC22"
+    },
+    {
+      "Path": "ebin/ssh_tcpip_forward_acceptor.beam",
+      "Sha256": "E554352E89473BF2F123EEA4456EEEA11AD9A191999063A2F2AC4FA23D241C8F"
+    },
+    {
+      "Path": "ebin/ssh_tcpip_forward_acceptor_sup.beam",
+      "Sha256": "F62165297D731FABC9CE9A4FF1B3A02A1D4741EBE449E8456D392223A3486170"
+    },
+    {
+      "Path": "ebin/ssh_tcpip_forward_client.beam",
+      "Sha256": "1F9DA8258F5A9AC4B332A3DE8A3AF3F28D383A9BCFF11A06ADC8A7DAD011E76D"
+    },
+    {
+      "Path": "ebin/ssh_tcpip_forward_srv.beam",
+      "Sha256": "D659537C494C2F0DE23D2CBEBCC695775A1E2505922A25AE65B8E0FC5440FCE4"
+    },
+    {
+      "Path": "ebin/ssh_transport.beam",
+      "Sha256": "E2BE5D421A4254E915D05F0A898E5E0E813A4E7DA6AB3073CE1BC51A743B98AE"
+    },
+    {
+      "Path": "ebin/ssh_xfer.beam",
+      "Sha256": "3DCD482E820CD612AAEED52F0B58653257AB1916528B0065A6A6F76075BCBE02"
+    },
+    {
+      "Path": "src/ssh.erl",
+      "Sha256": "28577B5E0761F7B01B74461665A101F4D5F72A88EA39098482C6FE8B0E17291D"
+    },
+    {
+      "Path": "src/ssh.hrl",
+      "Sha256": "159665F9763868336A4E98928517A3E7E6444CFEA5D1ABAA904A6DFE26840ABF"
+    },
+    {
+      "Path": "src/ssh_acceptor.erl",
+      "Sha256": "78D10A1D7F621899B390DA1E1DBA9EA1AE2F2A66E06F41DACE79013472D03CB5"
+    },
+    {
+      "Path": "src/ssh_acceptor_sup.erl",
+      "Sha256": "B05696E27C388B5E174439813514CAAC3BEF4E37333C049F295606973B7EE4A8"
+    },
+    {
+      "Path": "src/ssh_agent.erl",
+      "Sha256": "5110009C48FB508DBFCCFFB4D8F9B9C04D00FB48E7339BF047689AFE9A36D94C"
+    },
+    {
+      "Path": "src/ssh_agent.hrl",
+      "Sha256": "72FFB00E10137C401CC85C14225331C013EB9DC9E853E3C84A56A17DB9A69D0C"
+    },
+    {
+      "Path": "src/ssh_app.erl",
+      "Sha256": "B56C54FE98F2311F3D226EEFDD235CA4A1E193E52FE858C70568659D0703CB32"
+    },
+    {
+      "Path": "src/ssh_auth.erl",
+      "Sha256": "181AE079B0C1A00CE2D348E2466C58C3325E830632623CA10FBF3836500C57F3"
+    },
+    {
+      "Path": "src/ssh_auth.hrl",
+      "Sha256": "A178B8E31F4CD6D6179E28BC165EABAFC8D55C8E83F8852AAF584636DAFABBF9"
+    },
+    {
+      "Path": "src/ssh_bits.erl",
+      "Sha256": "612F4DD4C6841C1823453549F834B7AD82C691ED1115B92A8B0912EAB6C82733"
+    },
+    {
+      "Path": "src/ssh_channel.erl",
+      "Sha256": "83DDC7460332019D071C7C7CB60E261C3C4791315C400658CC80939F8E0D3437"
+    },
+    {
+      "Path": "src/ssh_channel_sup.erl",
+      "Sha256": "B2CBF889FC18E36DE0F8A5CECE11A7BB70BB9DC6A5DF51353B3CDBF9BE5880EE"
+    },
+    {
+      "Path": "src/ssh_cli.erl",
+      "Sha256": "88043F864B7253A459F2AD5B46E8870A0B20F0FD6A307F9074DFFE824A2E781E"
+    },
+    {
+      "Path": "src/ssh_client_channel.erl",
+      "Sha256": "B718681FD71A0139967728B8A7377D19917357F3C5CBA5632C55D6F599FB96F1"
+    },
+    {
+      "Path": "src/ssh_client_key_api.erl",
+      "Sha256": "DF36B143A848ACCEC22DF6FE12C90CA760E6C67EA4799E93E3CFD8E59198245B"
+    },
+    {
+      "Path": "src/ssh_connect.hrl",
+      "Sha256": "5A8179FCE70336F0A4B423BA5B84D21E118EDBBB2F9CA829FB76B6E286BA2C5B"
+    },
+    {
+      "Path": "src/ssh_connection.erl",
+      "Sha256": "1009D539FAEF3586681B1A22A719FEF32124CCF889DBE138A43327CBC0C1C638"
+    },
+    {
+      "Path": "src/ssh_connection_handler.erl",
+      "Sha256": "0A7223586CCC5EBD9F8B386C792993C4EC6576FA1A2BDB0FB8D133B06980FBC9"
+    },
+    {
+      "Path": "src/ssh_connection_sup.erl",
+      "Sha256": "05F5FC507228DBC82FB405ECDE11292C875B15F8FD03510C86DDBE6959107A79"
+    },
+    {
+      "Path": "src/ssh_daemon_channel.erl",
+      "Sha256": "776E5F33CE4AA4005BF2D38FB875BFA2786935BFBB8C59EE76C40B84A7A7D4F9"
+    },
+    {
+      "Path": "src/ssh_dbg.erl",
+      "Sha256": "DE88EC2AAD10ACB87D8882F69F76372AFCA9645052EB61B65CB5DBB1CB400B34"
+    },
+    {
+      "Path": "src/ssh_file.erl",
+      "Sha256": "36CF0FB8E430C84E64A99FC3057120D23D9359408C8E6FF8D973478506BDFBD8"
+    },
+    {
+      "Path": "src/ssh_fsm.hrl",
+      "Sha256": "40D08D25A4B1303B0BDC5006A85D56C3E659359A22A469CA8A63BD8DE4CE1282"
+    },
+    {
+      "Path": "src/ssh_fsm_kexinit.erl",
+      "Sha256": "8CF6197297DA7C47576A7F12D058EE361C5414440695833EE215343C9E651E24"
+    },
+    {
+      "Path": "src/ssh_fsm_userauth_client.erl",
+      "Sha256": "32B1B853C3681CBEBFD230E828D7CE906E980B5A3D9E5B9211365325698B4B2E"
+    },
+    {
+      "Path": "src/ssh_fsm_userauth_server.erl",
+      "Sha256": "2EB5EC60AA5FE9778E8F79E6C2327519233F0D53F95A00AD84F7052BDFBB66AF"
+    },
+    {
+      "Path": "src/ssh_info.erl",
+      "Sha256": "EE3BE9CDCA0B16C1CB1E921BF00C57B169ADBA573E21604346E5D57E4F6DFF94"
+    },
+    {
+      "Path": "src/ssh_io.erl",
+      "Sha256": "4969F4BCDB6BACFA207EAB7B0669E5A0D8B532F8367A33D87108DF8D3EDC4DE0"
+    },
+    {
+      "Path": "src/ssh_lib.erl",
+      "Sha256": "9E48E7E56FF8994B96DDCF98C98293D5654846C772EBFA7E09DD159CAA928F2A"
+    },
+    {
+      "Path": "src/ssh_lsocket.erl",
+      "Sha256": "7FA962DD3DDAE4C4DC4FF6B4686B703E8F915F69579AF89C1F651C31F128E629"
+    },
+    {
+      "Path": "src/ssh_lsocket_sup.erl",
+      "Sha256": "720ECBFB77870F277567C911BFF173E421D5246B621D907B159498A669A76025"
+    },
+    {
+      "Path": "src/ssh_message.erl",
+      "Sha256": "4BFA08BA4F26847F797DFD85621EF00C7ADFD4F9B2E51CF0CF71BF84EC5F57B9"
+    },
+    {
+      "Path": "src/ssh_no_io.erl",
+      "Sha256": "21393E44A3E99451F3D848FBD51BBFE89297B28E4FC4319600649252B74AA7EC"
+    },
+    {
+      "Path": "src/ssh_options.erl",
+      "Sha256": "B115473200357776F9763A2CE89D54B24460860EC3EA960BDC4B8BC8294FEAA2"
+    },
+    {
+      "Path": "src/ssh_server_channel.erl",
+      "Sha256": "3D74BA3E5AAD349B7296AA3F2819FBB8F1D716DC3E8ED46FEA57D717908687C9"
+    },
+    {
+      "Path": "src/ssh_server_key_api.erl",
+      "Sha256": "0A5B5067A88EB84105BB92398637D3592AC50708CAC922D339855B8B0DDEF1B7"
+    },
+    {
+      "Path": "src/ssh_sftp.erl",
+      "Sha256": "717A2E4E3016908D2FD3572750B81CFE02FA76A805EDF0389C2C27A7365B86AA"
+    },
+    {
+      "Path": "src/ssh_sftpd.erl",
+      "Sha256": "405290FC08AC91475E54585A2D92F72C36D14489CC705CEB150050D8E2DB1B6D"
+    },
+    {
+      "Path": "src/ssh_sftpd_file.erl",
+      "Sha256": "B41432AD0D28C7B80B81F89152F8108584745777D1CB3D19E520414438F3E2D0"
+    },
+    {
+      "Path": "src/ssh_sftpd_file_api.erl",
+      "Sha256": "78BC338976D9A7F9E670477F774543907FA72A4848E65BF057BDAEC940A254F0"
+    },
+    {
+      "Path": "src/ssh_shell.erl",
+      "Sha256": "142DE6E92F65AE981ED2FF53861896495337C032903F95D4E2B3934B22A2CB6D"
+    },
+    {
+      "Path": "src/ssh_system_sup.erl",
+      "Sha256": "68A88E4D942452D10A8A6A78C8225E0E8DA51D435FD34EBFE1FD600B29E0DD01"
+    },
+    {
+      "Path": "src/ssh_tcpip_forward_acceptor.erl",
+      "Sha256": "E453B9561234D5F872F4C663A7A26864B6D4DDACF237C6A3C1F975E37D568E17"
+    },
+    {
+      "Path": "src/ssh_tcpip_forward_acceptor_sup.erl",
+      "Sha256": "4C1970B4CCC03D6D563D8856A999ED941CE51996FA8852DAB23FC4DEB4CAA9A0"
+    },
+    {
+      "Path": "src/ssh_tcpip_forward_client.erl",
+      "Sha256": "98CB17EE4A96A6F3B61F39ACD43A6B3E5A4BA33C542BA5BE8C7F8A6A22186D8F"
+    },
+    {
+      "Path": "src/ssh_tcpip_forward_srv.erl",
+      "Sha256": "A7F237EFAB285BC7729F5B09623EB1D14F74315D43FF94908C1C4426A85539BB"
+    },
+    {
+      "Path": "src/ssh_transport.erl",
+      "Sha256": "D6A75856827521A61AB8D61F5E2ED9C6FE9BA9BDF6CB9FC9284F79B6E7CB87C4"
+    },
+    {
+      "Path": "src/ssh_transport.hrl",
+      "Sha256": "0A1640B8B0B096E87C5A8264B9D27BAF8FEEC154135FF6ACBE11079A91B56832"
+    },
+    {
+      "Path": "src/ssh_xfer.erl",
+      "Sha256": "5E88A051D3019274609A00717A7241BFDDE5234B80DB738CB8000C2DA00EA80A"
+    },
+    {
+      "Path": "src/ssh_xfer.hrl",
+      "Sha256": "1A174C63B1A587A40CFD76F03BE19711552560DFB2B8A269CD57B7E1F55B5742"
+    }
+  ],
+  "PinnedSourceMatches": [
+    "lib/ssh/src/ssh.erl",
+    "lib/ssh/src/ssh.hrl",
+    "lib/ssh/src/ssh_acceptor.erl",
+    "lib/ssh/src/ssh_acceptor_sup.erl",
+    "lib/ssh/src/ssh_agent.erl",
+    "lib/ssh/src/ssh_agent.hrl",
+    "lib/ssh/src/ssh_app.erl",
+    "lib/ssh/src/ssh_auth.erl",
+    "lib/ssh/src/ssh_auth.hrl",
+    "lib/ssh/src/ssh_bits.erl",
+    "lib/ssh/src/ssh_channel.erl",
+    "lib/ssh/src/ssh_channel_sup.erl",
+    "lib/ssh/src/ssh_cli.erl",
+    "lib/ssh/src/ssh_client_channel.erl",
+    "lib/ssh/src/ssh_client_key_api.erl",
+    "lib/ssh/src/ssh_connect.hrl",
+    "lib/ssh/src/ssh_connection.erl",
+    "lib/ssh/src/ssh_connection_handler.erl",
+    "lib/ssh/src/ssh_connection_sup.erl",
+    "lib/ssh/src/ssh_daemon_channel.erl",
+    "lib/ssh/src/ssh_dbg.erl",
+    "lib/ssh/src/ssh_file.erl",
+    "lib/ssh/src/ssh_fsm.hrl",
+    "lib/ssh/src/ssh_fsm_kexinit.erl",
+    "lib/ssh/src/ssh_fsm_userauth_client.erl",
+    "lib/ssh/src/ssh_fsm_userauth_server.erl",
+    "lib/ssh/src/ssh_info.erl",
+    "lib/ssh/src/ssh_io.erl",
+    "lib/ssh/src/ssh_lib.erl",
+    "lib/ssh/src/ssh_lsocket.erl",
+    "lib/ssh/src/ssh_lsocket_sup.erl",
+    "lib/ssh/src/ssh_message.erl",
+    "lib/ssh/src/ssh_no_io.erl",
+    "lib/ssh/src/ssh_options.erl",
+    "lib/ssh/src/ssh_server_channel.erl",
+    "lib/ssh/src/ssh_server_key_api.erl",
+    "lib/ssh/src/ssh_sftp.erl",
+    "lib/ssh/src/ssh_sftpd.erl",
+    "lib/ssh/src/ssh_sftpd_file.erl",
+    "lib/ssh/src/ssh_sftpd_file_api.erl",
+    "lib/ssh/src/ssh_shell.erl",
+    "lib/ssh/src/ssh_system_sup.erl",
+    "lib/ssh/src/ssh_tcpip_forward_acceptor.erl",
+    "lib/ssh/src/ssh_tcpip_forward_acceptor_sup.erl",
+    "lib/ssh/src/ssh_tcpip_forward_client.erl",
+    "lib/ssh/src/ssh_tcpip_forward_srv.erl",
+    "lib/ssh/src/ssh_transport.erl",
+    "lib/ssh/src/ssh_transport.hrl",
+    "lib/ssh/src/ssh_xfer.erl",
+    "lib/ssh/src/ssh_xfer.hrl"
+  ],
+  "GeneratedReleaseSources": [],
+  "ExcludedNativeProducerFiles": []
+}

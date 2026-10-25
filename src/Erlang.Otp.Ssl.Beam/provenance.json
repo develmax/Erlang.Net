@@ -1,0 +1,886 @@
+{
+  "ReleaseTag": "OTP-29.1.1",
+  "SourceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ArchiveSha256": "337480AF988ECA993C2E98B68850F00FC6724D366346565E38941AC0D1B7C56B",
+  "ExecutionManifestSha256": "AF5EA3DA317E2ABC8A0CF1874D4E6BFB93AC1A47E864A7B92BBE7A03D1607E99",
+  "ReleaseUrl": "https://github.com/erlang/otp/releases/download/OTP-29.1.1/otp_win64_29.1.1.zip",
+  "Application": "ssl",
+  "Version": "11.7.7",
+  "ProducerPlatform": "Windows x64 official release",
+  "DescriptorModules": [
+    "dtls_client_connection",
+    "dtls_connection_sup",
+    "dtls_gen_connection",
+    "dtls_handshake",
+    "dtls_listener_sup",
+    "dtls_packet_demux",
+    "dtls_record",
+    "dtls_server_connection",
+    "dtls_server_session_cache_sup",
+    "dtls_server_sup",
+    "dtls_socket",
+    "dtls_sup",
+    "dtls_v1",
+    "inet6_tls_dist",
+    "inet_epmd_tls_socket",
+    "inet_tls_dist",
+    "ssl",
+    "ssl_admin_sup",
+    "ssl_alert",
+    "ssl_app",
+    "ssl_certificate",
+    "ssl_cipher",
+    "ssl_cipher_format",
+    "ssl_client_session_cache_db",
+    "ssl_config",
+    "ssl_connection_sup",
+    "ssl_crl",
+    "ssl_crl_cache",
+    "ssl_crl_cache_api",
+    "ssl_crl_hash_dir",
+    "ssl_dh_groups",
+    "ssl_dist_admin_sup",
+    "ssl_dist_connection_sup",
+    "ssl_dist_sup",
+    "ssl_gen_statem",
+    "ssl_handshake",
+    "ssl_listen_tracker_sup",
+    "ssl_logger",
+    "ssl_manager",
+    "ssl_pem_cache",
+    "ssl_pkix_db",
+    "ssl_record",
+    "ssl_server_session_cache",
+    "ssl_server_session_cache_db",
+    "ssl_server_session_cache_sup",
+    "ssl_session",
+    "ssl_session_cache_api",
+    "ssl_srp_primes",
+    "ssl_sup",
+    "ssl_trace",
+    "ssl_upgrade_server_session_cache_sup",
+    "tls_bloom_filter",
+    "tls_client_connection",
+    "tls_client_connection_1_3",
+    "tls_client_ticket_store",
+    "tls_connection_sup",
+    "tls_dist_server_sup",
+    "tls_dist_sup",
+    "tls_dtls_client_connection",
+    "tls_dtls_gen_connection",
+    "tls_dtls_server_connection",
+    "tls_dyn_connection_sup",
+    "tls_gen_connection",
+    "tls_gen_connection_1_3",
+    "tls_handshake",
+    "tls_handshake_1_3",
+    "tls_record",
+    "tls_record_1_3",
+    "tls_sender",
+    "tls_server_connection",
+    "tls_server_connection_1_3",
+    "tls_server_session_ticket",
+    "tls_server_session_ticket_sup",
+    "tls_server_sup",
+    "tls_socket",
+    "tls_socket_tcp",
+    "tls_sup",
+    "tls_v1"
+  ],
+  "Files": [
+    {
+      "Path": "ebin/dtls_client_connection.beam",
+      "Sha256": "7A69CDF65CB7F20FB7E4284DA21314CFC5EC6AB5D848F3BC8381902A973B55C0"
+    },
+    {
+      "Path": "ebin/dtls_connection_sup.beam",
+      "Sha256": "10F770A667A43F5B70494E19925A7F1FE33BAEE953CA6549B847A348255D2F80"
+    },
+    {
+      "Path": "ebin/dtls_gen_connection.beam",
+      "Sha256": "D8F66ACC2BB8F190236678282938DB8699096168D31BDA71F3037E7F9E5A6343"
+    },
+    {
+      "Path": "ebin/dtls_handshake.beam",
+      "Sha256": "AD3A568E7C38A190B9EC17F3FA7FF20986E6F5CA82E025E1B3C77C9366EB3877"
+    },
+    {
+      "Path": "ebin/dtls_listener_sup.beam",
+      "Sha256": "A620683FC51695A58663A6AB74C3329C66E0B919A3ADC657B73DFCF38D742E30"
+    },
+    {
+      "Path": "ebin/dtls_packet_demux.beam",
+      "Sha256": "1A55B103AA5BDFFD6513D264A17779079AAB7BD7FB275068EB6BEB0C276F6C95"
+    },
+    {
+      "Path": "ebin/dtls_record.beam",
+      "Sha256": "D78A449BD8F1E85E9A193569BE79AE79CE44ADE437A7A47C3F54F3AF30D664D5"
+    },
+    {
+      "Path": "ebin/dtls_server_connection.beam",
+      "Sha256": "32B1A72EE676D4A30B13F3D97DEC8E298BCE10DEEF9AB5268D4C6B10B81C8F4C"
+    },
+    {
+      "Path": "ebin/dtls_server_session_cache_sup.beam",
+      "Sha256": "AD1504E89008E0EB901D95CFBA94541D3FC92E8CCB6AE281629D185688A7F3A5"
+    },
+    {
+      "Path": "ebin/dtls_server_sup.beam",
+      "Sha256": "D1D83317FAF015B55BC3AA6FA629EA883EE18A9C4A8EEAFBE8272FDFEF050FF3"
+    },
+    {
+      "Path": "ebin/dtls_socket.beam",
+      "Sha256": "A32E2E60AC7A393A9FD8F215530AD5DE04AB4ABDD46E604014556E9509E11712"
+    },
+    {
+      "Path": "ebin/dtls_sup.beam",
+      "Sha256": "5E1AF22E67745D6AF445329EEC9EBA57E631DC332F2B191B7320FE03B2E1F490"
+    },
+    {
+      "Path": "ebin/dtls_v1.beam",
+      "Sha256": "3DDF4C9118AA98F2C5257EF5599BA03E5264D0EEF0D6755F5C3AB1437E7A6B1D"
+    },
+    {
+      "Path": "ebin/inet6_tls_dist.beam",
+      "Sha256": "557EE6573AD53FF141C3C5AE6F9279D067D1CB80418D98B4035FA820FB9D41B7"
+    },
+    {
+      "Path": "ebin/inet_epmd_tls_socket.beam",
+      "Sha256": "86856344ECA20A6722F58999B2A79616931DBB4D5CBA9F11DE0A14B336EF0B1E"
+    },
+    {
+      "Path": "ebin/inet_tls_dist.beam",
+      "Sha256": "EF80289F6C883D3E32C647F7090F07E2793B76ED0126FF0E6F92CB8E0D370208"
+    },
+    {
+      "Path": "ebin/ssl.app",
+      "Sha256": "769D2690BB668B38FEE9DBEF743BFF3D2AF5A9826B3C24DB7BD586174E4DA188"
+    },
+    {
+      "Path": "ebin/ssl.appup",
+      "Sha256": "42059DBB50E875E7E9608105C57AA37E3BED31341F0AA394CB47C90FE86F1407"
+    },
+    {
+      "Path": "ebin/ssl.beam",
+      "Sha256": "BAAAE23899F632C60864FFF57E81AE5FD68C3BDA1C986AE9E5A48F3C15BB69DA"
+    },
+    {
+      "Path": "ebin/ssl_admin_sup.beam",
+      "Sha256": "D43BF6E1CCC94FFF746BE4199C051C1C3AC0DF7BD5B50645A46A4849EC580D3A"
+    },
+    {
+      "Path": "ebin/ssl_alert.beam",
+      "Sha256": "049C69B65D525B346C6C0A57BEAA3C265D54027FB8D0796B1183C48AA6D237D8"
+    },
+    {
+      "Path": "ebin/ssl_app.beam",
+      "Sha256": "7D27527E12B2B8B1AAD2F30F13B19527666EF3324E1721AAF854C91DD7472488"
+    },
+    {
+      "Path": "ebin/ssl_certificate.beam",
+      "Sha256": "B425352D2B479454C461A72AA3731C45BEFAB6D9A392759F3696B9F5E7DAEC32"
+    },
+    {
+      "Path": "ebin/ssl_cipher.beam",
+      "Sha256": "D032348FFFFFA1EEB6A41D1BDB9318C44F5761DE80F3FA4B285DFDC85CB39D1D"
+    },
+    {
+      "Path": "ebin/ssl_cipher_format.beam",
+      "Sha256": "7CAC12AF9C600D059DBB8ED5530A10A78FF9C05C5954147A2389EC6F266F6C77"
+    },
+    {
+      "Path": "ebin/ssl_client_session_cache_db.beam",
+      "Sha256": "760908C060062787B56F49ADA3474389CEF81A9517AA37ABF01FBE89D33CCB3E"
+    },
+    {
+      "Path": "ebin/ssl_config.beam",
+      "Sha256": "96287C7D15E5E3EF17BDD5DC01AE6E7FF7D39831BD569B6FED89C22095E455E2"
+    },
+    {
+      "Path": "ebin/ssl_connection_sup.beam",
+      "Sha256": "6D47786E30F3607E6C75E6BC384A1523914A35F8440DCEF03FE821FF9F449BE2"
+    },
+    {
+      "Path": "ebin/ssl_crl.beam",
+      "Sha256": "C966FD874EEEA0F94568ED60B9DFE68C8DE985D1394F30DB243CAE92EB2AE67E"
+    },
+    {
+      "Path": "ebin/ssl_crl_cache.beam",
+      "Sha256": "716ABB92DF25AC65A02D38161ABB8619B39A7D9B085C4E377EB6B7E524BB73F3"
+    },
+    {
+      "Path": "ebin/ssl_crl_cache_api.beam",
+      "Sha256": "4E46A8D5B508E5F59F6C554154EA07E351A3AC9812C0FF6EF379037337DF09A3"
+    },
+    {
+      "Path": "ebin/ssl_crl_hash_dir.beam",
+      "Sha256": "977093ACA4A3D9E6097BC2E75C22600CE3CBFACB4D22AA8D6869DBCDDC2BB440"
+    },
+    {
+      "Path": "ebin/ssl_dh_groups.beam",
+      "Sha256": "BC261760AC03337738C1C1F7369F2535C03B0D0224E9167135C2E36D15987167"
+    },
+    {
+      "Path": "ebin/ssl_dist_admin_sup.beam",
+      "Sha256": "9336F15B5A270E50F5DEE20EB64C5C15E5026CDD5D8A8F1872E29FAE453ABFE3"
+    },
+    {
+      "Path": "ebin/ssl_dist_connection_sup.beam",
+      "Sha256": "B76BB58174DF5FC452417D5A3F15DB37B7C2B355B3E97774D006EEF3C8F0C5A4"
+    },
+    {
+      "Path": "ebin/ssl_dist_sup.beam",
+      "Sha256": "735D8AC88604651212D6501BF747181DE01097561DC028526E2E308CE22A75FE"
+    },
+    {
+      "Path": "ebin/ssl_gen_statem.beam",
+      "Sha256": "323104A143F8FD4DCE7608836CCCBB8487858232589A224BED9D8E85978E0567"
+    },
+    {
+      "Path": "ebin/ssl_handshake.beam",
+      "Sha256": "0CB88953A2DC5A9170E792F13265672E998DD89393FA329B4C6A4040189A3CF1"
+    },
+    {
+      "Path": "ebin/ssl_listen_tracker_sup.beam",
+      "Sha256": "38A79BCA45740102A41F3EB2558BC71B019938B6708887C71351E1FA55BF0AFA"
+    },
+    {
+      "Path": "ebin/ssl_logger.beam",
+      "Sha256": "3EBD8A5957182DAA8228A52112BEABD52162F3326CD011D1FAD672270EBB504A"
+    },
+    {
+      "Path": "ebin/ssl_manager.beam",
+      "Sha256": "5018CE1BB626F4E2262260823076789D57DF87FB9DE5DBB5F207EB8983D9A0E3"
+    },
+    {
+      "Path": "ebin/ssl_pem_cache.beam",
+      "Sha256": "95B61DD3AD6D9A4F5F0301DD0DFB4931F32A7D7DC3F26592E78C56C62D7EC95E"
+    },
+    {
+      "Path": "ebin/ssl_pkix_db.beam",
+      "Sha256": "BF5D6663C723A1F8AA13B5074F2343E3B7752092A69541583BF00134E38DECDF"
+    },
+    {
+      "Path": "ebin/ssl_record.beam",
+      "Sha256": "8AAB2DED4F26BCC412465C4F93068D93A7268E4EDDC6500415B9C447135D39BA"
+    },
+    {
+      "Path": "ebin/ssl_server_session_cache.beam",
+      "Sha256": "50056D01ECCF9FED26865410F782802F6230FC1CEDEE8F56E893371BD5757BB8"
+    },
+    {
+      "Path": "ebin/ssl_server_session_cache_db.beam",
+      "Sha256": "816BE05A56AF16EDDED175115D5119923581FCA74CE5A8714C84FC8B3FB2CACC"
+    },
+    {
+      "Path": "ebin/ssl_server_session_cache_sup.beam",
+      "Sha256": "9E7B1306D309ECCAA84581CA0C446023E3A17884722EF3402919C8B7770A207C"
+    },
+    {
+      "Path": "ebin/ssl_session.beam",
+      "Sha256": "656DA68F8BF14411C71BDC0B91639A2F4343AB058ADA3FE8A44A200B3A3D0FCE"
+    },
+    {
+      "Path": "ebin/ssl_session_cache_api.beam",
+      "Sha256": "3E8D4B2F4051F39DE56B2B4C2CE0E717BA5BA6808B12F690FCA3BA8025C123DF"
+    },
+    {
+      "Path": "ebin/ssl_srp_primes.beam",
+      "Sha256": "5F5047D352AFF9B78E9C86325A31BB580472FAD486417EF9D954351DC8868479"
+    },
+    {
+      "Path": "ebin/ssl_sup.beam",
+      "Sha256": "FDFE76870CE0D81644F803A14B90EC406D1FAB8200152D0622832A7E0A3ABB35"
+    },
+    {
+      "Path": "ebin/ssl_trace.beam",
+      "Sha256": "E30246663C62804E89B463048C6EEE51208BB80735EE44AED4F4219256D86905"
+    },
+    {
+      "Path": "ebin/ssl_upgrade_server_session_cache_sup.beam",
+      "Sha256": "37D4DF03AFC1AA6E42AD6AA6B55E7C057185DAFC1E0E370905E9994EB906DCA5"
+    },
+    {
+      "Path": "ebin/tls_bloom_filter.beam",
+      "Sha256": "BCF16D80AADBA70787009224EF4ACF55D372F91D58A130E4F036E65B8B3531F2"
+    },
+    {
+      "Path": "ebin/tls_client_connection.beam",
+      "Sha256": "AE518008783DF8932FD0E01A450688251813E7A574DD66F1B4882B15D61B463B"
+    },
+    {
+      "Path": "ebin/tls_client_connection_1_3.beam",
+      "Sha256": "5A745E90617C4F4375728AA7B84AE4B8527FD24D6A44AA077ED2AA9F16439698"
+    },
+    {
+      "Path": "ebin/tls_client_ticket_store.beam",
+      "Sha256": "FBCBD8538925993C3A82082B3090253368B98CE8393485D4FBF3D7C3D373360D"
+    },
+    {
+      "Path": "ebin/tls_connection_sup.beam",
+      "Sha256": "283924D5D2ABD18D963260C6EF3BB13A3BC11AD48D242CF39506553C196D9D6B"
+    },
+    {
+      "Path": "ebin/tls_dist_server_sup.beam",
+      "Sha256": "97681C6DFD5F6709AABB090C773EBE240C908D2CBC49CFE3881CC3FF9B4E3BB5"
+    },
+    {
+      "Path": "ebin/tls_dist_sup.beam",
+      "Sha256": "2B372E73C4C7831A07BCFCD9B2A9BA6ED6082517AF67B3CAF396FB06DFBCF0FF"
+    },
+    {
+      "Path": "ebin/tls_dtls_client_connection.beam",
+      "Sha256": "D3FBDBC1F1BB822FE8A9153300A77FFEE6C563FA4A4035856EE6E65FCB4A3839"
+    },
+    {
+      "Path": "ebin/tls_dtls_gen_connection.beam",
+      "Sha256": "FA6C02976D6FAF14ECF7E4ECA0050111BB2CB4BE36B319635E37E3219841CF90"
+    },
+    {
+      "Path": "ebin/tls_dtls_server_connection.beam",
+      "Sha256": "3A9FC78D5E97A955A80A6DFE077F9C205732F95938D7940FE9E19A640F414633"
+    },
+    {
+      "Path": "ebin/tls_dyn_connection_sup.beam",
+      "Sha256": "E8D5B32874BCE48F175D4052A5EE2598232EBC0BDB506749495EF848264C3B8F"
+    },
+    {
+      "Path": "ebin/tls_gen_connection.beam",
+      "Sha256": "4C6B69072D77A2556C2DD14F35C7F23BCB93DBA46DD78FE2874571FF4C65B4B9"
+    },
+    {
+      "Path": "ebin/tls_gen_connection_1_3.beam",
+      "Sha256": "8B05AF2678D38E559C0B025D0D8DED4D7A23404AEF14E08223AB94BE71C8DC82"
+    },
+    {
+      "Path": "ebin/tls_handshake.beam",
+      "Sha256": "BA7470035AD2876FD3CA881BBFA3BF4714BD2F6D10A064A5BE374BD8C0E46115"
+    },
+    {
+      "Path": "ebin/tls_handshake_1_3.beam",
+      "Sha256": "5E79414BC6DADD326BDDB34CE1AFC4FA5B64837B36CA0188BE0DAA30C47CF468"
+    },
+    {
+      "Path": "ebin/tls_record.beam",
+      "Sha256": "C307513E14C396DB6970745A80FEEE7C5E59A5AC6AAB8CBCF5E8B20FC59E674F"
+    },
+    {
+      "Path": "ebin/tls_record_1_3.beam",
+      "Sha256": "DEFB66F50A441423438E7793EBFDF04DA8AA6F00E9723B9070F65755AA5FF519"
+    },
+    {
+      "Path": "ebin/tls_sender.beam",
+      "Sha256": "C550A83607EC7B923AA7278CFE24473D149499F83DEA33596F3232DCDB01260A"
+    },
+    {
+      "Path": "ebin/tls_server_connection.beam",
+      "Sha256": "8E9FBB0E13B6A73335DD6AA3C72481215A02F32183DEBD824D15C68399B8A168"
+    },
+    {
+      "Path": "ebin/tls_server_connection_1_3.beam",
+      "Sha256": "23BC05E4D273B9325E823AF470777689F6F53DCB62A31C804CBE5FA89E6B7EEF"
+    },
+    {
+      "Path": "ebin/tls_server_session_ticket.beam",
+      "Sha256": "922D5DA12907700C58908C3BAE2181CD2E2C90046FCEDE74CB612F1290AB1BC0"
+    },
+    {
+      "Path": "ebin/tls_server_session_ticket_sup.beam",
+      "Sha256": "76650D24F16AEC1BFAD6D6515C9823405FB356208FA7477378F0A9CDE294DBA8"
+    },
+    {
+      "Path": "ebin/tls_server_sup.beam",
+      "Sha256": "9A29E8A85E35CF2EBA86E923EC534D99EB08DCBE1F0B55070A991AE81DCFEFFA"
+    },
+    {
+      "Path": "ebin/tls_socket.beam",
+      "Sha256": "3FE3C7016286390355B71ED0CC4A20D9C8505EFC5B3CE0EC0A45FC7C6047FE69"
+    },
+    {
+      "Path": "ebin/tls_socket_tcp.beam",
+      "Sha256": "6C34994EFDB7601BE71D6ACAF4088CA988D464ED1D5F3B409E34F467E3A53BEC"
+    },
+    {
+      "Path": "ebin/tls_sup.beam",
+      "Sha256": "40232A09732D811B22854B4F2EDB9986249D5C4B3920EC238A8019764A4B84ED"
+    },
+    {
+      "Path": "ebin/tls_v1.beam",
+      "Sha256": "052B09316E4F115581E9C3EEBE347543C67B6A946FDB68E617C2EB4E46747D76"
+    },
+    {
+      "Path": "src/dtls_client_connection.erl",
+      "Sha256": "5F1D5A5B0DB5CADE2B80B42B6D70A112644E27D7FB0719FBDD87DC07E9D659CE"
+    },
+    {
+      "Path": "src/dtls_connection.hrl",
+      "Sha256": "74F6235E336A1479FCF86AC5544E0D4169598AD86D05081C1DEA9E9F7BAB2F9E"
+    },
+    {
+      "Path": "src/dtls_connection_sup.erl",
+      "Sha256": "BB6FC9AC230B02136C7EC3932DC987C3C53CB08A01A1C9A2ED580E58122B4194"
+    },
+    {
+      "Path": "src/dtls_gen_connection.erl",
+      "Sha256": "B28D7D3A2A15D82EE04246D45A51364FCE4248918B367100B73C4CB15DA5ACE2"
+    },
+    {
+      "Path": "src/dtls_handshake.erl",
+      "Sha256": "7D05F27E454F67FD9F27212923FE83ED6559F2E6A64EB8D93D23B6917AF396DA"
+    },
+    {
+      "Path": "src/dtls_handshake.hrl",
+      "Sha256": "ABA15D154E3315B2A3F52863E00433D0AED9F19D0496FD437757D78972BE253C"
+    },
+    {
+      "Path": "src/dtls_listener_sup.erl",
+      "Sha256": "F8DDF7B305C37485E5284D9CA11723C8D03AD55BA877388840DA9EDAE0CFCF7D"
+    },
+    {
+      "Path": "src/dtls_packet_demux.erl",
+      "Sha256": "439B52950BE3CDFF90626A7904E758D231C735527428D2715CBA316B1B673CA0"
+    },
+    {
+      "Path": "src/dtls_record.erl",
+      "Sha256": "A10F7184385218B309E89B8CB51A876321F76E5EFB2C8C19F638EEE1CEB53545"
+    },
+    {
+      "Path": "src/dtls_record.hrl",
+      "Sha256": "78194526037413EE03B4DAD2B14F070858D733DC8084CA35DF24CF2FB75BD89A"
+    },
+    {
+      "Path": "src/dtls_server_connection.erl",
+      "Sha256": "D8AC505FDF10B48EC2F17B87043C7C5E3CCC51186FDCB26F7008CD190D38D8AD"
+    },
+    {
+      "Path": "src/dtls_server_session_cache_sup.erl",
+      "Sha256": "F0BABFBF378B6854F41424DAF5F6359D2F07D0021FF40CE7DF2DA9EC4345FB51"
+    },
+    {
+      "Path": "src/dtls_server_sup.erl",
+      "Sha256": "362C3FDE6F9F593D645A690DAEC7C0E6684D8D74C99A3B72EA0168CC81247732"
+    },
+    {
+      "Path": "src/dtls_socket.erl",
+      "Sha256": "C49307B2F0097DD433BEA769B98CA13B586F38FF2507FC1AA90AC608B453A98B"
+    },
+    {
+      "Path": "src/dtls_sup.erl",
+      "Sha256": "3ACBF027E7E17BBF60B916FE5602E5035B2693B2F16B1202591BF53F5CC361DD"
+    },
+    {
+      "Path": "src/dtls_v1.erl",
+      "Sha256": "2B70B0020F9B541CD5358D3B76324E560435B20B76E749CACBE84BE7F8476355"
+    },
+    {
+      "Path": "src/inet6_tls_dist.erl",
+      "Sha256": "595011EFCDC35956B582C05B2821DB931B2A1EECAD494EF07150108F66BEFCF4"
+    },
+    {
+      "Path": "src/inet_epmd_tls_socket.erl",
+      "Sha256": "CB04D03550976122427DB782A9442C4F7EDF3F726041A2D06AA395B6B3273E27"
+    },
+    {
+      "Path": "src/inet_tls_dist.erl",
+      "Sha256": "A02573EE364D6C3138720E5240CA547627EE5C7BBC06B885BD7D8B4A6313F2E6"
+    },
+    {
+      "Path": "src/ssl.erl",
+      "Sha256": "5A7CC7D251115E0A7815F04831441C60F05C498E33C3D15B0C31BEA33F9F6CB3"
+    },
+    {
+      "Path": "src/ssl_admin_sup.erl",
+      "Sha256": "CF9B383D425731AC567E325FB112E4DEC67A1014C243791B1C8BE819C117786D"
+    },
+    {
+      "Path": "src/ssl_alert.erl",
+      "Sha256": "CA2884EE4A4CF6FAECF4B10D595C4ED4CFD44790BF9AA69E2C71417BDED9A708"
+    },
+    {
+      "Path": "src/ssl_alert.hrl",
+      "Sha256": "A9ED9AB79C829059295CF1D895CD42584777E1D1130F40BBFBE6FE265E56D64C"
+    },
+    {
+      "Path": "src/ssl_api.hrl",
+      "Sha256": "410A6AE339A8578B097D3B0F8D883CDBB06B3A150740507B9BE6C5AE0934B8D3"
+    },
+    {
+      "Path": "src/ssl_app.erl",
+      "Sha256": "0B04C2A65741282E160A77366000743D0A9C83B9BE5A1E8EF7E5ACAF940C1973"
+    },
+    {
+      "Path": "src/ssl_certificate.erl",
+      "Sha256": "C1579E6F73682A67B7018E6215FE332411F8C82FD1522873DB218C83D58E04BE"
+    },
+    {
+      "Path": "src/ssl_cipher.erl",
+      "Sha256": "2BB44C38F44E526D5D4DB6AEBF5DBADD1DC71C6EB4ED6127F89A3F91C67A8037"
+    },
+    {
+      "Path": "src/ssl_cipher.hrl",
+      "Sha256": "402CF4DD49C48E2F9919E37A427EDE5FD4D158C81EFA50C373DAC0C2B4339612"
+    },
+    {
+      "Path": "src/ssl_cipher_format.erl",
+      "Sha256": "8C4E59A819169ADDF37067DABE9BC57C848DC01EFE314F5F3BACA89A78EA43B0"
+    },
+    {
+      "Path": "src/ssl_client_session_cache_db.erl",
+      "Sha256": "3C2620BEA7C2401469794465455C290B54C0D1D297BFA97578D9DF9FCF94D79C"
+    },
+    {
+      "Path": "src/ssl_config.erl",
+      "Sha256": "C4012D4D32493E2DA6C01293465DAD000C50A1DF5F81B39BB8FCEE8F1622932F"
+    },
+    {
+      "Path": "src/ssl_connection.hrl",
+      "Sha256": "52915433321A967590AE4E3A58B78AA5EFBC029B8D86AF5DFF936E88F7ECFB5C"
+    },
+    {
+      "Path": "src/ssl_connection_sup.erl",
+      "Sha256": "564DEC39295F7F6BA6A3958474BEEDACD24D0619C86656CB2EBC9E1A8C3E8CE1"
+    },
+    {
+      "Path": "src/ssl_crl.erl",
+      "Sha256": "D0EB35CCF1B4D4806BD35D9E7F52005590908C1F8E7B459BF3BC484CCB896258"
+    },
+    {
+      "Path": "src/ssl_crl_cache.erl",
+      "Sha256": "08C764CA344A6EC6A1F1EEC749C5EA907398B673859670AA0AE5DC487E3A0EEF"
+    },
+    {
+      "Path": "src/ssl_crl_cache_api.erl",
+      "Sha256": "E6FEE4AD080ADB1CD3016E6A8FEDBA062C2B8808D1C9D6E67012FDEAC36AE30D"
+    },
+    {
+      "Path": "src/ssl_crl_hash_dir.erl",
+      "Sha256": "2B8BA32EAB5060262A0C64B7EF5B1ACADBDE8F1703DB41E83087AF2EABA38E38"
+    },
+    {
+      "Path": "src/ssl_dh_groups.erl",
+      "Sha256": "E7B6752C5B9DD3DA8DE01A03435AB65A8BF528CE320FC88A771AC6F7CA44B288"
+    },
+    {
+      "Path": "src/ssl_dist_admin_sup.erl",
+      "Sha256": "7CE9A5E55673774CA83AAD505663AD726F61705A26ACC097B519E32F666F474F"
+    },
+    {
+      "Path": "src/ssl_dist_connection_sup.erl",
+      "Sha256": "16B4032EFCD4C072A121D86E7487ECDE3472CE52FCB38D24AE77CF507A04E986"
+    },
+    {
+      "Path": "src/ssl_dist_sup.erl",
+      "Sha256": "8E07B6ACE99380BA419AD66D50C71C834B310E10A3B7D92E6B9C5AC61CA8D1C1"
+    },
+    {
+      "Path": "src/ssl_gen_statem.erl",
+      "Sha256": "27263CA6808B4C023FB0F1D55437867E7E0B7848FCD0898B5765EB4EADC30B12"
+    },
+    {
+      "Path": "src/ssl_handshake.erl",
+      "Sha256": "C017462D300732E6A94ADD19C1B9E8B370C53296F564455E81A193FF415E27CF"
+    },
+    {
+      "Path": "src/ssl_handshake.hrl",
+      "Sha256": "2DD3F0746097ED1EF13A3CC067B69FBA80472129F189EB09130BF8C3CAD8AF65"
+    },
+    {
+      "Path": "src/ssl_internal.hrl",
+      "Sha256": "613A67C2B607B0DC59AB7895EBBFBE3FA04B55579CE0071F2CFFD3798E4B450F"
+    },
+    {
+      "Path": "src/ssl_listen_tracker_sup.erl",
+      "Sha256": "221152EFD64001BCCDEEE23A8B10A82A936B9128B43A866C6D1781257550EECF"
+    },
+    {
+      "Path": "src/ssl_logger.erl",
+      "Sha256": "B8D26697C82C4B789AF85C7A99923535A60EE0B0703CFBE441BC8AA5FB0005CD"
+    },
+    {
+      "Path": "src/ssl_manager.erl",
+      "Sha256": "5190D5A3CDF8054BB8945CFAF1FFD90C23FBA5CF77F2F6014554BAF89E2A6AB5"
+    },
+    {
+      "Path": "src/ssl_pem_cache.erl",
+      "Sha256": "0CE002914C8A73FC03C3D9EEA581BFED8E98706CDF49946FD93DCA3D3FA96623"
+    },
+    {
+      "Path": "src/ssl_pkix_db.erl",
+      "Sha256": "3D7BC193CDACEFC62BAE9ECB753E4D881619587B781B1092CF0F95A48A1B53E3"
+    },
+    {
+      "Path": "src/ssl_record.erl",
+      "Sha256": "56F119D4D5066F28BD7E519FE4252BB006DD97A7C54150EED7C75AB4C932A03C"
+    },
+    {
+      "Path": "src/ssl_record.hrl",
+      "Sha256": "9ECE990412395BC6ED2E1C8719D6603A98DC150DE3194526007DBCD79BBC468E"
+    },
+    {
+      "Path": "src/ssl_server_session_cache.erl",
+      "Sha256": "85B68B87A5A9102E01835A2A4D0B4EFAE91AEBB7E0CC40E863D908A05A860587"
+    },
+    {
+      "Path": "src/ssl_server_session_cache_db.erl",
+      "Sha256": "A0CCA73ABEDFFC2A8702FF1BEB6E92C8AE84A1DC12224A96D3394BB7FB4CA5DA"
+    },
+    {
+      "Path": "src/ssl_server_session_cache_sup.erl",
+      "Sha256": "BB9CFD088DCAD2A4F09431829F0F688A54DA17877FD770188126400AE1046C88"
+    },
+    {
+      "Path": "src/ssl_session.erl",
+      "Sha256": "E27CECDA18A50DF4A80A04FA5356D255E6BA2013CAA480D89F6F5B619E0ECE9D"
+    },
+    {
+      "Path": "src/ssl_session_cache_api.erl",
+      "Sha256": "1F2CB1272FDA0E2D01022C318BE5E3666B7FA8FADA16BE49A8CB5D6D6D0A0564"
+    },
+    {
+      "Path": "src/ssl_srp.hrl",
+      "Sha256": "8F170DC7AFDA1F6C597DC3939F8002651757E875B09879D64570A12B0108C485"
+    },
+    {
+      "Path": "src/ssl_srp_primes.erl",
+      "Sha256": "54AA3E92659DDD1CA164C8F6F1DD98E6DD90D6161FBAA4ECCB1E57B786B21E07"
+    },
+    {
+      "Path": "src/ssl_sup.erl",
+      "Sha256": "186430DE6ED811B4B4F9AEE7403BC09A307138229D73B3DC1CF0FDD8076A85B5"
+    },
+    {
+      "Path": "src/ssl_trace.erl",
+      "Sha256": "6BAB6D7DD71AB5A933389329E136389256AB1C083FDC38419F95589D99EFF6D5"
+    },
+    {
+      "Path": "src/ssl_upgrade_server_session_cache_sup.erl",
+      "Sha256": "1497CEBA1125BCBB46200DF8DC6FDF456015F2BA16F8E90F15A65887AB5E0E81"
+    },
+    {
+      "Path": "src/tls_bloom_filter.erl",
+      "Sha256": "6510936B25273B2D304F5B05736B64D605EFB4AC7D91E3AF3A7D3255D97A222C"
+    },
+    {
+      "Path": "src/tls_client_connection.erl",
+      "Sha256": "678C7FAC4E644C271065B862BEB248138CB4CF97FC903D0CDFF52A108A81FD37"
+    },
+    {
+      "Path": "src/tls_client_connection_1_3.erl",
+      "Sha256": "8C0B596ED19E983BFA287047F5FE8F4B9C32F7604B4BF397DDCD43917D9706CD"
+    },
+    {
+      "Path": "src/tls_client_ticket_store.erl",
+      "Sha256": "1C5D8C2157111717C2ACC5542AC97DD7D0F59304762FEE3BB8D68A3869A67CAE"
+    },
+    {
+      "Path": "src/tls_connection.hrl",
+      "Sha256": "10207DD8C89399FF1E510ABACCB9D7A0DA4086A294A9C1DA70F2C600CBA913A6"
+    },
+    {
+      "Path": "src/tls_connection_sup.erl",
+      "Sha256": "78FF6F2D4E725304B916EED782AE8EE56D9BAE4A9A08461FCD9310B6D38026BF"
+    },
+    {
+      "Path": "src/tls_dist_server_sup.erl",
+      "Sha256": "86B0825EDDD1EABD9483DBAA9E3D7DE1C50744FACEEB69122548182FB93053B0"
+    },
+    {
+      "Path": "src/tls_dist_sup.erl",
+      "Sha256": "A2B75D7B26DF950FFDDC08C0D287EC14F0831405535BF4F2523DE40FF8877F68"
+    },
+    {
+      "Path": "src/tls_dtls_client_connection.erl",
+      "Sha256": "33E1C2F6E578FCE7352F5C3AE08EDECF934BB09C6B97759BBEABD07E35F2BDFD"
+    },
+    {
+      "Path": "src/tls_dtls_gen_connection.erl",
+      "Sha256": "05585A4BF5CE646C7A5DEF69E2F5E66AAFADDE8583359885E7B0E1648F60FA9D"
+    },
+    {
+      "Path": "src/tls_dtls_server_connection.erl",
+      "Sha256": "91826F5ED5527913933919BC7EAAA2156E1E2DECA75B629063B7FA5968550D23"
+    },
+    {
+      "Path": "src/tls_dyn_connection_sup.erl",
+      "Sha256": "C88A2A2A46A854CDEBEA8831A1CB7558C8510F36F17CD7151FA4F68A2F4853E6"
+    },
+    {
+      "Path": "src/tls_gen_connection.erl",
+      "Sha256": "C281F3B8CDA54B861F80B3136263F1187755BA6F057885C3A2CBAB7EEBFD4B7B"
+    },
+    {
+      "Path": "src/tls_gen_connection_1_3.erl",
+      "Sha256": "6D42AF182B581872842D6943B1EFB56AAF92DECCA01AD0339FF9E2FE11B8CE5C"
+    },
+    {
+      "Path": "src/tls_handshake.erl",
+      "Sha256": "0CBA946EA1613BAF57A52D70D6F0890CD000F75C3381745F3B0E3688F4D2A715"
+    },
+    {
+      "Path": "src/tls_handshake.hrl",
+      "Sha256": "18C854F65BD83FBCD4F8F8679050D6AC7BB8901FB882A983F94B63130A725AAE"
+    },
+    {
+      "Path": "src/tls_handshake_1_3.erl",
+      "Sha256": "9591A5C14DAC095EA0C24BD26CF2B82D4DDAF60BF3B060E35AE43016C9395C54"
+    },
+    {
+      "Path": "src/tls_handshake_1_3.hrl",
+      "Sha256": "9E784DDE27D18123132220C2137E9FF5BFC4002A5FEC2246560D1BB1DD545257"
+    },
+    {
+      "Path": "src/tls_record.erl",
+      "Sha256": "CD877594440B089CCC38468F32F08D7881A2F95D9532E733AB317AC08352033A"
+    },
+    {
+      "Path": "src/tls_record.hrl",
+      "Sha256": "764EA3DDBB75928D785D1F5964A1578B241B38B26214ABFB82E7902BFB406512"
+    },
+    {
+      "Path": "src/tls_record_1_3.erl",
+      "Sha256": "5FE6E5A786F930A5F843307AEE7B42FF09B74BC59A75C4A51BCC259AC3CCAD96"
+    },
+    {
+      "Path": "src/tls_record_1_3.hrl",
+      "Sha256": "5B119A24A5CB2F991FBE3342AA31B191F3352DA38FC961A1F42419CCF2D3846A"
+    },
+    {
+      "Path": "src/tls_sender.erl",
+      "Sha256": "989D13E7D0A728705E83D98A6184B7F2CA74BC57AED220F052B1C73C23356E80"
+    },
+    {
+      "Path": "src/tls_server_connection.erl",
+      "Sha256": "B4D527D1F7EFFC8023E3EABC0EBF1FDF1120C9AFB3733F324E6659BF9ABA11B7"
+    },
+    {
+      "Path": "src/tls_server_connection_1_3.erl",
+      "Sha256": "6A50ADCFB85A088300193389235A08416E58B8847F0BB8325310BBF8798C8DDE"
+    },
+    {
+      "Path": "src/tls_server_session_ticket.erl",
+      "Sha256": "71769572645349A75BF82E958FB9175F436B256158A2235F664F4915ED16B5FE"
+    },
+    {
+      "Path": "src/tls_server_session_ticket_sup.erl",
+      "Sha256": "8640288F4091213FA86463D860A45CB82341AC3619C876D907D9E0DD105BD04B"
+    },
+    {
+      "Path": "src/tls_server_sup.erl",
+      "Sha256": "0DB51447A0457311110A2618C57C5B4B711FDFD41210B54333383AF804CAF0F4"
+    },
+    {
+      "Path": "src/tls_socket.erl",
+      "Sha256": "97F2F5434F4992527CFD54B0F2D710C22BDEFB243C6F869E211F07376DDF6591"
+    },
+    {
+      "Path": "src/tls_socket_tcp.erl",
+      "Sha256": "0561F687C39FB7512A49A492640F2BA50CD7E3424961CE8B3B1B5584CBA02310"
+    },
+    {
+      "Path": "src/tls_sup.erl",
+      "Sha256": "A708745AC3FC247B8FD37BD3D13F6CB62E1E8C87A090D36D12CFB26B2E93E2C5"
+    },
+    {
+      "Path": "src/tls_v1.erl",
+      "Sha256": "C15E00C361E9C560F05B2D306A22DA8C3F2E8719B33143E773A5E8416E880CB0"
+    }
+  ],
+  "PinnedSourceMatches": [
+    "lib/ssl/src/dtls_client_connection.erl",
+    "lib/ssl/src/dtls_connection.hrl",
+    "lib/ssl/src/dtls_connection_sup.erl",
+    "lib/ssl/src/dtls_gen_connection.erl",
+    "lib/ssl/src/dtls_handshake.erl",
+    "lib/ssl/src/dtls_handshake.hrl",
+    "lib/ssl/src/dtls_listener_sup.erl",
+    "lib/ssl/src/dtls_packet_demux.erl",
+    "lib/ssl/src/dtls_record.erl",
+    "lib/ssl/src/dtls_record.hrl",
+    "lib/ssl/src/dtls_server_connection.erl",
+    "lib/ssl/src/dtls_server_session_cache_sup.erl",
+    "lib/ssl/src/dtls_server_sup.erl",
+    "lib/ssl/src/dtls_socket.erl",
+    "lib/ssl/src/dtls_sup.erl",
+    "lib/ssl/src/dtls_v1.erl",
+    "lib/ssl/src/inet6_tls_dist.erl",
+    "lib/ssl/src/inet_epmd_tls_socket.erl",
+    "lib/ssl/src/inet_tls_dist.erl",
+    "lib/ssl/src/ssl.erl",
+    "lib/ssl/src/ssl_admin_sup.erl",
+    "lib/ssl/src/ssl_alert.erl",
+    "lib/ssl/src/ssl_alert.hrl",
+    "lib/ssl/src/ssl_api.hrl",
+    "lib/ssl/src/ssl_app.erl",
+    "lib/ssl/src/ssl_certificate.erl",
+    "lib/ssl/src/ssl_cipher.erl",
+    "lib/ssl/src/ssl_cipher.hrl",
+    "lib/ssl/src/ssl_cipher_format.erl",
+    "lib/ssl/src/ssl_client_session_cache_db.erl",
+    "lib/ssl/src/ssl_config.erl",
+    "lib/ssl/src/ssl_connection.hrl",
+    "lib/ssl/src/ssl_connection_sup.erl",
+    "lib/ssl/src/ssl_crl.erl",
+    "lib/ssl/src/ssl_crl_cache.erl",
+    "lib/ssl/src/ssl_crl_cache_api.erl",
+    "lib/ssl/src/ssl_crl_hash_dir.erl",
+    "lib/ssl/src/ssl_dh_groups.erl",
+    "lib/ssl/src/ssl_dist_admin_sup.erl",
+    "lib/ssl/src/ssl_dist_connection_sup.erl",
+    "lib/ssl/src/ssl_dist_sup.erl",
+    "lib/ssl/src/ssl_gen_statem.erl",
+    "lib/ssl/src/ssl_handshake.erl",
+    "lib/ssl/src/ssl_handshake.hrl",
+    "lib/ssl/src/ssl_internal.hrl",
+    "lib/ssl/src/ssl_listen_tracker_sup.erl",
+    "lib/ssl/src/ssl_logger.erl",
+    "lib/ssl/src/ssl_manager.erl",
+    "lib/ssl/src/ssl_pem_cache.erl",
+    "lib/ssl/src/ssl_pkix_db.erl",
+    "lib/ssl/src/ssl_record.erl",
+    "lib/ssl/src/ssl_record.hrl",
+    "lib/ssl/src/ssl_server_session_cache.erl",
+    "lib/ssl/src/ssl_server_session_cache_db.erl",
+    "lib/ssl/src/ssl_server_session_cache_sup.erl",
+    "lib/ssl/src/ssl_session.erl",
+    "lib/ssl/src/ssl_session_cache_api.erl",
+    "lib/ssl/src/ssl_srp.hrl",
+    "lib/ssl/src/ssl_srp_primes.erl",
+    "lib/ssl/src/ssl_sup.erl",
+    "lib/ssl/src/ssl_trace.erl",
+    "lib/ssl/src/ssl_upgrade_server_session_cache_sup.erl",
+    "lib/ssl/src/tls_bloom_filter.erl",
+    "lib/ssl/src/tls_client_connection.erl",
+    "lib/ssl/src/tls_client_connection_1_3.erl",
+    "lib/ssl/src/tls_client_ticket_store.erl",
+    "lib/ssl/src/tls_connection.hrl",
+    "lib/ssl/src/tls_connection_sup.erl",
+    "lib/ssl/src/tls_dist_server_sup.erl",
+    "lib/ssl/src/tls_dist_sup.erl",
+    "lib/ssl/src/tls_dtls_client_connection.erl",
+    "lib/ssl/src/tls_dtls_gen_connection.erl",
+    "lib/ssl/src/tls_dtls_server_connection.erl",
+    "lib/ssl/src/tls_dyn_connection_sup.erl",
+    "lib/ssl/src/tls_gen_connection.erl",
+    "lib/ssl/src/tls_gen_connection_1_3.erl",
+    "lib/ssl/src/tls_handshake.erl",
+    "lib/ssl/src/tls_handshake.hrl",
+    "lib/ssl/src/tls_handshake_1_3.erl",
+    "lib/ssl/src/tls_handshake_1_3.hrl",
+    "lib/ssl/src/tls_record.erl",
+    "lib/ssl/src/tls_record.hrl",
+    "lib/ssl/src/tls_record_1_3.erl",
+    "lib/ssl/src/tls_record_1_3.hrl",
+    "lib/ssl/src/tls_sender.erl",
+    "lib/ssl/src/tls_server_connection.erl",
+    "lib/ssl/src/tls_server_connection_1_3.erl",
+    "lib/ssl/src/tls_server_session_ticket.erl",
+    "lib/ssl/src/tls_server_session_ticket_sup.erl",
+    "lib/ssl/src/tls_server_sup.erl",
+    "lib/ssl/src/tls_socket.erl",
+    "lib/ssl/src/tls_socket_tcp.erl",
+    "lib/ssl/src/tls_sup.erl",
+    "lib/ssl/src/tls_v1.erl"
+  ],
+  "GeneratedReleaseSources": [],
+  "ExcludedNativeProducerFiles": []
+}

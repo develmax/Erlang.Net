@@ -275,11 +275,42 @@ internal static class BeamBinaryField391Checks
             BeamBinaryField391Names.GetIntegerOpcode,
             IntegerOperands(1, flags: 1)
         ));
+        foreach (int flags in new[] { 0, 1, 2, 4, 6, 16, 18, 31, int.MaxValue })
+        {
+            Array operands = SkipOperands(flags: flags);
+            Valid(
+                code,
+                BeamBinaryField391Names.SkipBitsOpcodeName,
+                BeamBinaryField391Names.SkipBitsOpcode,
+                operands
+            );
+            object state = State(new([1, 2]), Term.I(1), out object match);
+            Require((bool)Call(
+                Type(BeamBinaryField391Names.Execution),
+                BeamBinaryField391Names.Skip,
+                code,
+                state,
+                operands
+            ));
+            Require((int)Property(match, BeamBinaryHostNames.Position) == 8);
+        }
         Refuses<NotSupportedException>(() => Valid(
             code,
             BeamBinaryField391Names.SkipBitsOpcodeName,
             BeamBinaryField391Names.SkipBitsOpcode,
-            SkipOperands(flags: 1)
+            SkipOperands(flags: -1)
+        ));
+        Refuses<NotSupportedException>(() => Valid(
+            code,
+            BeamBinaryField391Names.SkipBitsOpcodeName,
+            BeamBinaryField391Names.SkipBitsOpcode,
+            Ops(
+                Fail(),
+                X(0),
+                X(1),
+                U(8),
+                X(2)
+            )
         ));
         foreach (bool skip in new[] { false, true })
             Refuses<NotSupportedException>(() => Valid(
