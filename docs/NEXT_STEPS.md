@@ -1,3 +1,9 @@
+# Current checkpoint — Part475
+
+Finish exact-head CI and independent artifact verification. Continue335 primary images in seven remaining application inventories:debugger24,et6,observer44,odbc3,os_mon8,reltool9,wx241. The43 unshipped doc/example images are inventoried separately from the primary ebin denominator; two Common Test property extensions are already shipped. Next package debugger/et/observer/reltool with explicit wx prerequisites, and the smaller platform-dependent os_mon/odbc families. Keep full services/analyzer/GUI/native compatibility separate from image packaging.
+
+Earlier checkpoints below are historical.
+
 # Current checkpoint — Part474
 
 Finish exact-head full CI and independent artifact verification. Continue411 remaining images in nine original application inventories: common_test47,debugger24,dialyzer29,et6,observer44,odbc3,os_mon8,reltool9,wx241. Packaging remains separate from full API/application compatibility. Next expand original tooling inventories and runtime/native prerequisites; retain the18 Part473 native-dependent reference profiles as not managed acceptance.

@@ -1,13 +1,13 @@
 {
   "ReleaseTag": "OTP-29.1.1",
   "SourceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
-  "Scope": "Official admitted Windows x64 application BEAM inventories, not compatible APIs; C/Java support-only applications have zero BEAM images",
+  "Scope": "Official admitted Windows x64 primary ebin application inventories, not compatible APIs; additional installed property-extension and doc/example images are recorded separately; C/Java support-only applications have zero primary images",
   "ApplicationDirectories": 36,
   "ApplicationsWithImages": 34,
-  "PackagedApplications": 25,
+  "PackagedApplications": 27,
   "TotalImages": 1321,
-  "PackagedImages": 910,
-  "RemainingImages": 411,
+  "PackagedImages": 986,
+  "RemainingImages": 335,
   "Applications": [
     {
       "Application": "asn1",
@@ -43,7 +43,7 @@
       "Application": "common_test",
       "Version": "1.31.2",
       "Images": 47,
-      "PackagedImages": 0,
+      "PackagedImages": 47,
       "Modules": [
         "ct",
         "ct_config",
@@ -92,6 +92,20 @@
         "test_server_node",
         "test_server_sup",
         "unix_telnet"
+      ],
+      "AdditionalInstalledImages": [
+        {
+          "Path": "proper_ext/ct_proper_ext.beam",
+          "Module": "ct_proper_ext",
+          "Sha256": "29E2F3FC49F293CE91E739F267C8B025A25E8DFF4D4EDD08C05AE5B32200633A",
+          "Packaged": true
+        },
+        {
+          "Path": "proper_ext/ct_quickcheck_ext.beam",
+          "Module": "ct_quickcheck_ext",
+          "Sha256": "8A84B907A1EBC02229CF006DEEEA2327F3A1D517791D6BE9EA1630003D578260",
+          "Packaged": true
+        }
       ]
     },
     {
@@ -207,7 +221,7 @@
       "Application": "dialyzer",
       "Version": "6.0.3",
       "Images": 29,
-      "PackagedImages": 0,
+      "PackagedImages": 29,
       "Modules": [
         "cerl_prettypr",
         "dialyzer",
@@ -681,6 +695,38 @@
         "megaco_udp_sup",
         "megaco_user",
         "megaco_user_default"
+      ],
+      "AdditionalInstalledImages": [
+        {
+          "Path": "doc/examples/meas/megaco_codec_meas.beam",
+          "Module": "megaco_codec_meas",
+          "Sha256": "615DC28A0741AD20279CE0A978BFECD7D5D74682DFEDFF51C0C987EB245462B4",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/meas/megaco_codec_mstone1.beam",
+          "Module": "megaco_codec_mstone1",
+          "Sha256": "37118BB739F055790417E435C9AF24D4E61C7277FE9A0EEE32ADD0ED7384F40E",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/meas/megaco_codec_mstone2.beam",
+          "Module": "megaco_codec_mstone2",
+          "Sha256": "A3F84F7A6A15BA5E6CA0855E39B67B74A90D16C63CC00F7FB4CDA14D2535EF04",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/meas/megaco_codec_mstone_lib.beam",
+          "Module": "megaco_codec_mstone_lib",
+          "Sha256": "20126EEB2F66B57FDC57667767FC41D7F1E4A2DBB35FF3BF15E2C3EF8325CA83",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/meas/megaco_codec_transform.beam",
+          "Module": "megaco_codec_transform",
+          "Sha256": "0A549E89F65908B8DBC3D6C1D7167E95A4148E08DF63B9E8226A192CABF6916C",
+          "Packaged": false
+        }
       ]
     },
     {
@@ -924,6 +970,14 @@
         "systools_make",
         "systools_rc",
         "systools_relup"
+      ],
+      "AdditionalInstalledImages": [
+        {
+          "Path": "doc/examples/ebin/target_system.beam",
+          "Module": "target_system",
+          "Sha256": "01A6C1BA2CF99C1C48346E8DD227C46251B8E882748C14AFFB07E0927620E496",
+          "Packaged": false
+        }
       ]
     },
     {
@@ -1022,6 +1076,26 @@
         "snmpm_user_default",
         "snmpm_user_old",
         "snmpm_usm"
+      ],
+      "AdditionalInstalledImages": [
+        {
+          "Path": "doc/examples/ex1/ex1.beam",
+          "Module": "ex1",
+          "Sha256": "4421E4EA7846DD191BAD4C0B7F09F2FAB1B98AB5DCABEF1A5D1031FEE1B3E24F",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/ex2/snmp_ex2_manager.beam",
+          "Module": "snmp_ex2_manager",
+          "Sha256": "EDD68FF859EF57BBF7F37AC5D64840B9A9495E394F2BBCAE1131D18E05429100",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/ex2/snmp_ex2_simple_standard_test.beam",
+          "Module": "snmp_ex2_simple_standard_test",
+          "Sha256": "D6C2EF1FDCD9578ABE36B77A54CAA34BD68F7E15AF9D5B43ED2EA52978FD7D4A",
+          "Packaged": false
+        }
       ]
     },
     {
@@ -1159,6 +1233,14 @@
         "tls_socket_tcp",
         "tls_sup",
         "tls_v1"
+      ],
+      "AdditionalInstalledImages": [
+        {
+          "Path": "doc/examples/ebin/client_server.beam",
+          "Module": "client_server",
+          "Sha256": "C1441D324368ECD92F2D50162A06BDE9E04EBD89C7F761B4531D926E3808F99C",
+          "Packaged": false
+        }
       ]
     },
     {
@@ -1571,6 +1653,206 @@
         "wxe_master",
         "wxe_server",
         "wxe_util"
+      ],
+      "AdditionalInstalledImages": [
+        {
+          "Path": "doc/examples/demo/demo.beam",
+          "Module": "demo",
+          "Sha256": "72865EFC5FC1688A98B9945C89CEF0D2532430FC5362A35107217A17FB06FFFC",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/demo/demo_html_tagger.beam",
+          "Module": "demo_html_tagger",
+          "Sha256": "7D9BF05D80325BDF7D6EFD5CD8E5A19C4B398B475E1F060DC0655F7EBF04390D",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/demo/ex_aui.beam",
+          "Module": "ex_aui",
+          "Sha256": "694BFE4406914A98787BB66FBD97548FB1B519103E9561C73856BA13BC13A054",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/demo/ex_button.beam",
+          "Module": "ex_button",
+          "Sha256": "1D2B79D5A9C1CBF757F204BC901CD8F9B18179E5347360F183921FD7135B521A",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/demo/ex_canvas.beam",
+          "Module": "ex_canvas",
+          "Sha256": "DBF0E68627496F32B278FCD0EFE661F465A91A85E2BE4706F44AD7040955DDD1",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/demo/ex_canvas_paint.beam",
+          "Module": "ex_canvas_paint",
+          "Sha256": "9DF17C5A6AC28F4894E822C021BD5E9807CCC33827C7B1496F24850C21CF4105",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/demo/ex_choices.beam",
+          "Module": "ex_choices",
+          "Sha256": "C996D9817947FFBE1AD029D55A058E8AA01F5A3D3E32B982D6DF88DEA039C203",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/demo/ex_cursor.beam",
+          "Module": "ex_cursor",
+          "Sha256": "714C854A2C33E458FB68763759CE40AE8CFCF3F1F3B122C16466F955FA514C96",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/demo/ex_dialogs.beam",
+          "Module": "ex_dialogs",
+          "Sha256": "DB690DD0EAF8AF076AD6D82AD907A2FFD51F7E1280BD341A88FA83C334A27ED3",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/demo/ex_frame_utils.beam",
+          "Module": "ex_frame_utils",
+          "Sha256": "62245E21B70506460BE0BEB7BFF820F40B6FE66783C564E3247CEA565E76F6A7",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/demo/ex_gauge.beam",
+          "Module": "ex_gauge",
+          "Sha256": "A963F6959522F9E29DDD43AAD457B5753BD9ADA5A4844D292DB017FB6F510AEC",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/demo/ex_gl.beam",
+          "Module": "ex_gl",
+          "Sha256": "4B5806C98862571A15E6F7994989C79A28889CAAC9ADBEB30E2F9B02DB428B87",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/demo/ex_graphicsContext.beam",
+          "Module": "ex_graphicsContext",
+          "Sha256": "1828A0279810601E4F97765AB3D1AA33384136BDCEBCC600FFF7DCAD76B0E189",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/demo/ex_grid.beam",
+          "Module": "ex_grid",
+          "Sha256": "7F73564F667FC643A58A81C14FBD44868CF62B48EC5E6EED4DCC723C99ED80F0",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/demo/ex_htmlWindow.beam",
+          "Module": "ex_htmlWindow",
+          "Sha256": "317F2CC3648BF825FAD37A39C638D8D43A0FD82B7FFF858C7BB3C244F22931DA",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/demo/ex_listCtrl.beam",
+          "Module": "ex_listCtrl",
+          "Sha256": "48B8AD2C5B322E6F00F568B037CD6D5086E65B138AE353E0E6BA20C154F1F7BB",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/demo/ex_notebook.beam",
+          "Module": "ex_notebook",
+          "Sha256": "D2CAD8300A5B21BFE31E96BF705153E7745D9E510EE2BEE1F136FB0593E4757D",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/demo/ex_notificationMessage.beam",
+          "Module": "ex_notificationMessage",
+          "Sha256": "53024AFA2B050FE841329DF99C1BEDF2085470BF94D9946EEABE5813B9261E2B",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/demo/ex_pickers.beam",
+          "Module": "ex_pickers",
+          "Sha256": "0FE72ED2A4E72D8692D78B88A8E6AF124AC48A877618BF1203F1FA0CE1CE70A1",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/demo/ex_popupMenu.beam",
+          "Module": "ex_popupMenu",
+          "Sha256": "80BFD115790288E5D48256D869A35B2DCE28A7B55DD374A33B3DC71CE5E1611C",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/demo/ex_radioBox.beam",
+          "Module": "ex_radioBox",
+          "Sha256": "73950BF828BA92DD9019C8CC09ABBD90BAB8FB3C28B654BB29790B4571C7480B",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/demo/ex_sashWindow.beam",
+          "Module": "ex_sashWindow",
+          "Sha256": "F9201A1A80AC465E4E2697F6EBB7947930CBE21B058912F67CA9A597922876D6",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/demo/ex_sizers.beam",
+          "Module": "ex_sizers",
+          "Sha256": "2B32F04EA1DFB452D482BFB9D53B6A289D61CA380C555161303D46507BA5E66E",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/demo/ex_slider.beam",
+          "Module": "ex_slider",
+          "Sha256": "8CAD516BBEC937F6B62B410C5108D09FC4A761D63219228D0F1DACE1A2EAFD6D",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/demo/ex_splitterWindow.beam",
+          "Module": "ex_splitterWindow",
+          "Sha256": "33DE6CA88A02950BDF9247E4A4CF3EF94B92B4C9C9EF9D1335CB98D4D06CFE87",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/demo/ex_static.beam",
+          "Module": "ex_static",
+          "Sha256": "A8F587A8F36EAAE4E4325D268AB7FC39EB023431D20C810ACA8E5EFBE78B3193",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/demo/ex_textCtrl.beam",
+          "Module": "ex_textCtrl",
+          "Sha256": "60C73B2DED2B022E83A6AFBD84D3EEB8F2A323864250DB65FF11E44F93CE8E9E",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/demo/ex_treeCtrl.beam",
+          "Module": "ex_treeCtrl",
+          "Sha256": "092E36C2E08C1233E72CD22861954B2463E2C37C2FB5B03734A3FAD9FF7CDC04",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/demo/ex_webview.beam",
+          "Module": "ex_webview",
+          "Sha256": "DA33F2BA77D225A8E1D808046175A6EF8AD36B50624D1AD3A909F8AC98B419F5",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/sudoku/sudoku.beam",
+          "Module": "sudoku",
+          "Sha256": "B0EF5D81D5E7938170238EBDFA109A559753DCD65556A867DE161E9DB58E0E1D",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/sudoku/sudoku_board.beam",
+          "Module": "sudoku_board",
+          "Sha256": "6E99B92A3C18BA76B914D4A7DDE2A17F2BFC36F3ACD429AEA0BB8FE41A22E458",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/sudoku/sudoku_game.beam",
+          "Module": "sudoku_game",
+          "Sha256": "3C2581D8D335D6D4966AD6FB6B4378D4FA242997A3A72DF5056B632D819DBA0B",
+          "Packaged": false
+        },
+        {
+          "Path": "doc/examples/sudoku/sudoku_gui.beam",
+          "Module": "sudoku_gui",
+          "Sha256": "38E046604F1E2F8E542E1D4ED21704CB6610F9F95E653430AD80EF047E0F84AB",
+          "Packaged": false
+        }
       ]
     },
     {
@@ -1616,5 +1898,11 @@
         "xmerl_xsd_type"
       ]
     }
-  ]
+  ],
+  "AdditionalInstalledImages": 45,
+  "PackagedAdditionalImages": 2,
+  "UnpackagedAdditionalImages": 43,
+  "TotalImageFilesIncludingAdditional": 1366,
+  "PackagedImageFilesIncludingAdditional": 988,
+  "AdditionalInventoryScope": "Two optional Common Test property extensions and43 doc/example images; outside primary ebin denominator"
 }

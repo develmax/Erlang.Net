@@ -771,3 +771,7 @@ Reuse unchanged pinned OTP29.1.1 Diameter2.7.2/SNMP5.20.5 source/image identitie
 ## Part474 — original Megaco images
 
 Reuse all original Megaco4.9.2 images and source inputs unchanged, executing selected original timer/configuration/termination-ID paths through the shared .NET interpreter. Compose original lists explicitly, preserve upstream source notices and license, and distinguish16 generated release files. No native scanner/BER substitute, handwritten protocol implementation, backend fallback or automatic application startup is introduced. Full gateway/controller services, transport and native providers remain separate obligations.
+
+## Part475 — original Common Test/Dialyzer and real bootstrap dependencies
+
+Keep all original pure algorithms unchanged. Include both property-extension images outside Common Test ebin, original source/support bytes and notices. Compose original formatter, preprocessor/scanner/features, Core/set helpers and a real minimal original init/file_server startup with explicit existing native ETS/persistent-term/bootstrap-filesystem providers. Do not mock init arguments, seed private feature state or normalize error stacks. Cold consumer disambiguates its authored module-list constants from imported types. Whole-app import audit still names debugger i/dbg_iserver; full runner/analyzer/PLT/distributed/GUI closure remains separate. Inventory43 doc/example images separately from primary application packaging.
