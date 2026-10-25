@@ -1,3 +1,9 @@
+# Current checkpoint — Part472
+
+Part472: original inets63/63,ftp6/6,tftp8/8,eldap2/2 images move to independent src libraries.207 project/cold assertions and1337 complete original outcomes/stacks cover finite HTTP/FTP/TFTP/LDAP helpers.177 provider files,89 pinned Git inputs and one generated header are preserved. Packaging advances629→708/1321 (47.6%→53.6%),692→613 remaining and18→22 complete application inventories. No runtime/compiler changes or default API/full-contract promotions:708/118,8843 groups and1678 guards remain unchanged. Live network services/authentication/transfers, native ASN.1 parsing and whole-module compatibility remain open. Exact-head publication CI is tracked in the Part472 PR.
+
+Earlier checkpoints below are historical.
+
 # Current checkpoint — Part454 — 2026-10-23
 
 | Module / area | Accepted scope | Remaining |

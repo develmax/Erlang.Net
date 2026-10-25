@@ -4,6 +4,10 @@ Baseline **OTP-29.1.1**. Exact Part466 main CI **8842/8842 passed** at **9e73021
 
 API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.
 
+## Part472 network application packaging
+
+Part472: original inets63/63,ftp6/6,tftp8/8,eldap2/2 images move to independent src libraries.207 project/cold assertions and1337 complete original outcomes/stacks cover finite HTTP/FTP/TFTP/LDAP helpers.177 provider files,89 pinned Git inputs and one generated header are preserved. Packaging advances629→708/1321 (47.6%→53.6%),692→613 remaining and18→22 complete application inventories. No runtime/compiler changes or default API/full-contract promotions:708/118,8843 groups and1678 guards remain unchanged. Live network services/authentication/transfers, native ASN.1 parsing and whole-module compatibility remain open. Exact-head publication CI is tracked in the Part472 PR.
+
 ## Part471 ssl/ssh packaging
 
 Original ssl78/78 and ssh43/43 images are packaged with272 project/cold assertions and1107 complete outcomes/stacks against OTP. Packaging advances508→629/1321 (38.5%→47.6%),813→692 remaining,16→18 complete inventories. Fix shared skip-flags and wide bs_match admission against pinned OTP, retaining structural/overflow refusals and strict source guards. Native crypto, authenticated handshakes, full certificate/key exchange and live secure sessions remain open. Default708 APIs/118 full contracts/8843 groups/1678 guards remain unchanged; API/full deltas0/0. Exact-head CI is tracked in the Part471 PR.

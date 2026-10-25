@@ -1,0 +1,57 @@
+{
+  "ReleaseTag": "OTP-29.1.1",
+  "SourceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ArchiveSha256": "337480AF988ECA993C2E98B68850F00FC6724D366346565E38941AC0D1B7C56B",
+  "ExecutionManifestSha256": "AF5EA3DA317E2ABC8A0CF1874D4E6BFB93AC1A47E864A7B92BBE7A03D1607E99",
+  "ReleaseUrl": "https://github.com/erlang/otp/releases/download/OTP-29.1.1/otp_win64_29.1.1.zip",
+  "Application": "eldap",
+  "Version": "1.3.1",
+  "ProducerPlatform": "Windows x64 official release",
+  "DescriptorModules": [
+    "ELDAPv3",
+    "eldap"
+  ],
+  "Files": [
+    {
+      "Path": "ebin/eldap.app",
+      "Sha256": "C8221DC54EE2B1115122B0FF675A94531F4F979CE8B156CF56614B3D5D37009E"
+    },
+    {
+      "Path": "ebin/eldap.appup",
+      "Sha256": "8D430CD0C70E5928587662EA9EB0833167F3B8F06AD23014809AA4A1A34B51C5"
+    },
+    {
+      "Path": "ebin/eldap.beam",
+      "Sha256": "598D516CC4EB0D41D413FF764554803199C8E6D231EFD519D275182A1B45BFFB"
+    },
+    {
+      "Path": "ebin/ELDAPv3.beam",
+      "Sha256": "F137904A4B15CE2FC382264B168B606AB9728B7A5A7C8D641C6937D87CB2ED9D"
+    },
+    {
+      "Path": "ebin/ELDAPv3.hrl",
+      "Sha256": "F7CCA5A2F3FCBB330B317A712D1602882DEDC392FBC7FB8496537897B444F68A"
+    },
+    {
+      "Path": "src/eldap.erl",
+      "Sha256": "549A0DEA90EF889B9CEB61C7F09776A0E4371B10C87FB25EF93A03F573A02CB7"
+    },
+    {
+      "Path": "include/eldap.hrl",
+      "Sha256": "E3B4D75467AAB1B3616AAF73E35D55D09D9163E9B69B3C4DB2CA3F809589127C"
+    },
+    {
+      "Path": "asn1/ELDAPv3.asn1",
+      "Sha256": "0797323839ECB59B95D6A56603186F86F8C2A4E820444A82317D76A72575FF00"
+    }
+  ],
+  "PinnedSourceMatches": [
+    "lib/eldap/src/eldap.erl",
+    "lib/eldap/include/eldap.hrl",
+    "lib/eldap/asn1/ELDAPv3.asn1"
+  ],
+  "GeneratedReleaseSources": [
+    "ebin/ELDAPv3.hrl"
+  ],
+  "ExcludedNativeProducerFiles": []
+}
