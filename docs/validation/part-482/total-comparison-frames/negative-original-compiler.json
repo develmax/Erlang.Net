@@ -1,0 +1,96 @@
+{
+  "Controls": [
+    {
+      "ExitCode": 1,
+      "InvalidOriginalProgramExecuted": false,
+      "Passed": true,
+      "Name": "uninitialized",
+      "ExpectedError": "{uninitialized_reg,{x,2}}"
+    },
+    {
+      "ExitCode": 1,
+      "InvalidOriginalProgramExecuted": false,
+      "Passed": true,
+      "Name": "opaque",
+      "ExpectedError": "{match_context,{x,0}}"
+    },
+    {
+      "ExitCode": 1,
+      "InvalidOriginalProgramExecuted": false,
+      "Passed": true,
+      "Name": "gc_roots",
+      "ExpectedError": "{uninitialized_reg,{y,2}}"
+    },
+    {
+      "ExitCode": 1,
+      "InvalidOriginalProgramExecuted": false,
+      "Passed": true,
+      "Name": "failable",
+      "ExpectedError": "{uninitialized_reg,{y,1}}"
+    },
+    {
+      "ExitCode": 1,
+      "InvalidOriginalProgramExecuted": false,
+      "Passed": true,
+      "Name": "destination",
+      "ExpectedError": "{invalid_store,{y,2}}"
+    }
+  ],
+  "ExpectedRefusals": 5,
+  "SourceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Passed": true,
+  "ExecutionBindings": [
+    {
+      "Path": "bin/erl.exe",
+      "Sha256": "D91699E88F417E00470D224934D47CD92358CC1B3B37CA1F15BCF5D4731D8F4E"
+    },
+    {
+      "Path": "erts-17.1/bin/beam.smp.dll",
+      "Sha256": "27E75CEAEB1C33BAA8089071A47DB1F3473B537906353F874D687AE9A0854B05"
+    },
+    {
+      "Path": "erts-17.1/bin/erl.exe",
+      "Sha256": "D91699E88F417E00470D224934D47CD92358CC1B3B37CA1F15BCF5D4731D8F4E"
+    },
+    {
+      "Path": "lib/compiler-10.0.6/ebin/beam_call_types.beam",
+      "Sha256": "B66852E44F4A53F6635A51635D435F960D971BB345BB8ED75CD0CDAD30FDAD20"
+    },
+    {
+      "Path": "lib/compiler-10.0.6/ebin/beam_validator.beam",
+      "Sha256": "136091B2031857F4ECB5DB75EAFCB61031178654FE5E3A83EEF4E8EB95A46CF1"
+    },
+    {
+      "Path": "lib/compiler-10.0.6/ebin/compile.beam",
+      "Sha256": "142D29BF0A3C0395B432F20F2568AEC3C9ED749213D6957FDE7AE132F14B3A3B"
+    },
+    {
+      "Path": "lib/compiler-10.0.6/ebin/erl_bifs.beam",
+      "Sha256": "D2C5B4C84FD99223278B25C41FD7E62F52C187D356E0687ABBF1AAEB3BE03987"
+    },
+    {
+      "Path": "lib/compiler-10.0.6/src/beam_call_types.erl",
+      "Sha256": "D8D17562DD004D5A5788B8D2F7FAA822D1DD98BFC42A8755C42BBDB7DAB36828"
+    },
+    {
+      "Path": "lib/compiler-10.0.6/src/beam_validator.erl",
+      "Sha256": "F5F03B92EE252ECF4EC2D6D7ADA75F31AE620F5BDA911D9DD0260E4BDC70526B"
+    },
+    {
+      "Path": "lib/compiler-10.0.6/src/erl_bifs.erl",
+      "Sha256": "19B7FC0D4FAD216A81DBF086BF7D9EBCDDF76E21E1394572C756EF4DDDA30247"
+    },
+    {
+      "Path": "lib/observer-2.19/ebin/crashdump_viewer.beam",
+      "Sha256": "E04FFE776D5366A9A27311ED357CAE5341F1FE6745F9A53905E76D1EF27383C5"
+    },
+    {
+      "Path": "lib/observer-2.19/src/crashdump_viewer.erl",
+      "Sha256": "FA1A0E1C225D6C8337DDC2CDAA2FDC5D9172332EFBA447BF41FED9F389F4EC38"
+    },
+    {
+      "Path": "lib/stdlib-8.1/ebin/lists.beam",
+      "Sha256": "8941092DC34F0470CD404979E1890DF514D83F2EEB3B0AA8A276553E76471262"
+    }
+  ]
+}

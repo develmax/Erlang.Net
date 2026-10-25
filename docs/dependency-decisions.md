@@ -799,3 +799,7 @@ Do not translate original debugger loops into C#. Extend only the closed-wait le
 ## Part481 original binary context and finite record proof
 
 Reuse pinned beam_validator.erl match-context and typed-register semantics. Expand only transparent origin transport and conservative no-return CFG continuations;do not port original SSL/Parsetools algorithms. Nil/atom/literal writes remove their target origin and cannot authenticate contexts;duplicate active argument uses remain ordinary-only. Newly proven no-return swap helpers route through existing typed validation. Reject the broad swap-validation experiment that refused previous original modules. No new dependency/native TLS provider or compatibility promotion.
+
+## Part482 total comparison BIF dependency policy
+
+Reuse the existing BeamInfallibleBifContract and ErlangOperatorValues instead of importing a second .NET comparator or rewriting original crashdump code. Pinned beam_validator skips exception state for BIFs proven cannot_fail;beam_call_types delegates totality to erl_bifs:is_safe,which explicitly lists all eight comparison operators. Canonical fixed BIF execution reuses runtime-aware equality semantics;ordinary source/import/native binding rules remain distinct. No new package,provider or native GUI dependency is added. Frame source reads,destination bounds,real GC roots and handlers remain checked. Original bytes/notices and the uncommitted local license are preserved.

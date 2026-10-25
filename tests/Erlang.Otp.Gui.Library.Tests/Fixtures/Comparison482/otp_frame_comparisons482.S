@@ -1,0 +1,132 @@
+{module,otp_frame_comparisons482}.
+{exports,[{lt,2},{le,2},{gt,2},{ge,2},{eq,2},{ne,2},{exact_eq,2},{exact_ne,2}]}.
+{attributes,[]}.
+{labels,25}.
+{function,lt,2,2}.
+  {label,1}.
+  {func_info,{atom,otp_frame_comparisons482},{atom,lt},2}.
+  {label,2}.
+  {test,is_binary,{f,3},[{x,0}]}.
+  {bs_start_match4,{atom,no_fail},2,{x,0},{x,0}}.
+  {allocate,2,2}.
+  {move,{x,0},{y,0}}.
+  {bif,'<',{f,0},[{integer,10000},{x,1}],{y,1}}.
+  {bs_get_tail,{y,0},{x,0},0}.
+  {test_heap,3,1}.
+  {put_tuple2,{x,0},{list,[{x,0},{y,1}]}}.
+  {deallocate,2}.
+  return.
+  {label,3}.
+  {badmatch,{x,0}}.
+{function,le,2,5}.
+  {label,4}.
+  {func_info,{atom,otp_frame_comparisons482},{atom,le},2}.
+  {label,5}.
+  {test,is_binary,{f,6},[{x,0}]}.
+  {bs_start_match4,{atom,no_fail},2,{x,0},{x,0}}.
+  {allocate,2,2}.
+  {move,{x,0},{y,0}}.
+  {bif,'=<',{f,0},[{integer,10000},{x,1}],{y,1}}.
+  {bs_get_tail,{y,0},{x,0},0}.
+  {test_heap,3,1}.
+  {put_tuple2,{x,0},{list,[{x,0},{y,1}]}}.
+  {deallocate,2}.
+  return.
+  {label,6}.
+  {badmatch,{x,0}}.
+{function,gt,2,8}.
+  {label,7}.
+  {func_info,{atom,otp_frame_comparisons482},{atom,gt},2}.
+  {label,8}.
+  {test,is_binary,{f,9},[{x,0}]}.
+  {bs_start_match4,{atom,no_fail},2,{x,0},{x,0}}.
+  {allocate,2,2}.
+  {move,{x,0},{y,0}}.
+  {bif,'>',{f,0},[{integer,10000},{x,1}],{y,1}}.
+  {bs_get_tail,{y,0},{x,0},0}.
+  {test_heap,3,1}.
+  {put_tuple2,{x,0},{list,[{x,0},{y,1}]}}.
+  {deallocate,2}.
+  return.
+  {label,9}.
+  {badmatch,{x,0}}.
+{function,ge,2,11}.
+  {label,10}.
+  {func_info,{atom,otp_frame_comparisons482},{atom,ge},2}.
+  {label,11}.
+  {test,is_binary,{f,12},[{x,0}]}.
+  {bs_start_match4,{atom,no_fail},2,{x,0},{x,0}}.
+  {allocate,2,2}.
+  {move,{x,0},{y,0}}.
+  {bif,'>=',{f,0},[{integer,10000},{x,1}],{y,1}}.
+  {bs_get_tail,{y,0},{x,0},0}.
+  {test_heap,3,1}.
+  {put_tuple2,{x,0},{list,[{x,0},{y,1}]}}.
+  {deallocate,2}.
+  return.
+  {label,12}.
+  {badmatch,{x,0}}.
+{function,eq,2,14}.
+  {label,13}.
+  {func_info,{atom,otp_frame_comparisons482},{atom,eq},2}.
+  {label,14}.
+  {test,is_binary,{f,15},[{x,0}]}.
+  {bs_start_match4,{atom,no_fail},2,{x,0},{x,0}}.
+  {allocate,2,2}.
+  {move,{x,0},{y,0}}.
+  {bif,'==',{f,0},[{integer,10000},{x,1}],{y,1}}.
+  {bs_get_tail,{y,0},{x,0},0}.
+  {test_heap,3,1}.
+  {put_tuple2,{x,0},{list,[{x,0},{y,1}]}}.
+  {deallocate,2}.
+  return.
+  {label,15}.
+  {badmatch,{x,0}}.
+{function,ne,2,17}.
+  {label,16}.
+  {func_info,{atom,otp_frame_comparisons482},{atom,ne},2}.
+  {label,17}.
+  {test,is_binary,{f,18},[{x,0}]}.
+  {bs_start_match4,{atom,no_fail},2,{x,0},{x,0}}.
+  {allocate,2,2}.
+  {move,{x,0},{y,0}}.
+  {bif,'/=',{f,0},[{integer,10000},{x,1}],{y,1}}.
+  {bs_get_tail,{y,0},{x,0},0}.
+  {test_heap,3,1}.
+  {put_tuple2,{x,0},{list,[{x,0},{y,1}]}}.
+  {deallocate,2}.
+  return.
+  {label,18}.
+  {badmatch,{x,0}}.
+{function,exact_eq,2,20}.
+  {label,19}.
+  {func_info,{atom,otp_frame_comparisons482},{atom,exact_eq},2}.
+  {label,20}.
+  {test,is_binary,{f,21},[{x,0}]}.
+  {bs_start_match4,{atom,no_fail},2,{x,0},{x,0}}.
+  {allocate,2,2}.
+  {move,{x,0},{y,0}}.
+  {bif,'=:=',{f,0},[{integer,10000},{x,1}],{y,1}}.
+  {bs_get_tail,{y,0},{x,0},0}.
+  {test_heap,3,1}.
+  {put_tuple2,{x,0},{list,[{x,0},{y,1}]}}.
+  {deallocate,2}.
+  return.
+  {label,21}.
+  {badmatch,{x,0}}.
+{function,exact_ne,2,23}.
+  {label,22}.
+  {func_info,{atom,otp_frame_comparisons482},{atom,exact_ne},2}.
+  {label,23}.
+  {test,is_binary,{f,24},[{x,0}]}.
+  {bs_start_match4,{atom,no_fail},2,{x,0},{x,0}}.
+  {allocate,2,2}.
+  {move,{x,0},{y,0}}.
+  {bif,'=/=',{f,0},[{integer,10000},{x,1}],{y,1}}.
+  {bs_get_tail,{y,0},{x,0},0}.
+  {test_heap,3,1}.
+  {put_tuple2,{x,0},{list,[{x,0},{y,1}]}}.
+  {deallocate,2}.
+  return.
+  {label,24}.
+  {badmatch,{x,0}}.

@@ -80,3 +80,7 @@ The sole production edit is Execution/Beam/BeamNoReturnClosedWaitComponent.cs in
 ## Part481 context and no-return frame proof
 
 Three production edits stay in Erlang.Runtime.Core/Execution/Beam:BeamBinaryEntryProtocol,BeamNoReturnAnalysis and BeamFrameValidation. Original SSL/Parsetools algorithms and image bytes remain in their original src libraries;no execution fallback or handwritten replacement is added.
+
+## Part482 total comparison contract
+
+The sole production edit is Execution/Beam/BeamInfallibleBifContract.cs in Erlang.Runtime.Core. Reuse existing ErlangOperators names and ErlangOperatorValues implementation;original crashdump_viewer stays unchanged in Erlang.Otp.Observer.Beam. General frame/register/GC/handler validators keep their existing ownership.

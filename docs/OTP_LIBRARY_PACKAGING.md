@@ -122,3 +122,7 @@ Packaging remains1321/1321 across34 applications. Original Debugger image prepar
 ## Part481 — original SSL and Parsetools admission
 
 Packaging remains1321/1321 primary images across34 applications. SSL preparation77→78/78 and Parsetools3→4/4 add ssl_handshake/leex with actual original owners;all1306 previously prepared images remain,for1308/1321. Public original SSL decoder execution matches96 complete outcomes/stacks in warm and cold ordinary consumers,alongside272 checks/1107 prior outcomes and144 source assets. This is finite decoder and image-admission evidence,not complete TLS sessions/scanner generation or whole module compatibility.
+
+## Part482 — original crashdump frame admission
+
+Packaging remains1321/1321 primary images in34 applications. Observer preparation improves43→44/44 by admitting unchanged crashdump_viewer;all prior1308 images remain,for1309/1321. Actual original to_value_list/1,to_proplist/2 and code_change/3 execute20 whole results/errors/stacks on our runtime. Public readers and cold ordinary NuGet execute the same20 and160 shared frame comparisons,alongside all975 prior assertions and1493 prior whole GUI/float/wait outcomes. This is finite helper/frame evidence,not a live crashdump or GUI session.

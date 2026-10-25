@@ -1,8 +1,19 @@
 # Module readiness
 
-Baseline **OTP-29.1.1**. Part480 merged into main **dcce1b83**;exact merge CI **40170562880**,downloaded artifact and all17 cold families pass **8860/8860**. Part481 catalog **8868**,final affected **5312/5312**,focus **11/11**,fresh whole OTP comparisons **110/110**;exact publication-head full CI is tracked in the PR. Runtime MFAs **708**,complete contracts **118**,known differences **31**,needs verification **559**,source bindings **1682**;API/full deltas **0/0**.
+Baseline **OTP-29.1.1**. Part481 merged into main **b9b2c82b** after exact-head CI **40173496119** and downloaded artifact passed **8868/8868**,22 whole corpora and17 cold consumer families. Part482 catalog **8876**,final affected **5320/5320**,new permanent groups **8/8**,fresh whole OTP comparisons **180/180**,expected original compiler refusals **5/5**;exact publication-head CI is tracked in the PR. Runtime MFAs **708**,complete contracts **118**,known differences **31**,needs verification **559**,source bindings **1682**;API/full deltas **0/0**.
 
 API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.
+
+## Part482 total comparison frames
+
+| Area | Verified increment | Remaining |
+| --- | --- | --- |
+| Original Observer | Image preparation43→44/44;20 complete public crashdump helper outcomes/stacks | Crashdump/GUI sessions and full API contracts |
+| Canonical comparison BIFs |160 live-context/Y-frame profiles across eight operators;five preserved register/root refusals | Full language/native/resource/performance contracts |
+| Primary inventory |1308→1309/1321 prepared;all prior images retained;1321/1321 packaged | Eight receive matcher and four configured-native capture refusals |
+| Ordinary .NET consumer |975 assertions,1415+66+12 prior outcomes and180 new outcomes;warm/cold NuGet pass | Native GUI drivers and full application startup |
+
+Part482 closes the observed crashdump_viewer frame refusal. The shared fixed-BIF contract recognizes all eight canonical total comparison operators and executes them through existing ErlangOperatorValues,including runtime-aware numeric map equality. Pinned erl_bifs:is_safe and beam_validator:cannot_fail establish why this BIF does not need an exception edge before its Y destination is initialized. Register reads,destination bounds,genuine GC roots and handler checks remain authoritative. All prior1308 primary images remain admitted:1309/1321 (99.1%);Observer44/44. Fresh pinned OTP matches180 complete deterministic ETF outcomes:160 binary-context/Y-frame comparison profiles and20 original crashdump_viewer:to_value_list/1,to_proplist/2,code_change/3 profiles with full error stacks. Five intentionally invalid assembler sources are rejected by the original compiler,and matching synthetic managed controls retain the same register/root boundaries. Warm and cold public GUI consumers match the same180 outcomes and retain975 assertions,1415 prior GUI outcomes,66 floating-store outcomes,12 closed-wait outcomes and349 original source assets. Final Release build106.30s,affected5320/5320 and all eight permanent groups pass. Catalog8868→8876;default708 APIs/118 complete contracts,31 known differences,559 pending and1682 source bindings remain unchanged (API/full deltas0/0). Part481 merged asb9b2c82b after exact-head CI40173496119 independently passed8868/8868,36 package creations,22 whole corpora and17 cold families. Primary packaging remains1321/1321 in34 applications. No previously observed frame refusal remains in this inventory;remaining eight receive matcher/four bare-registry native capture refusals may hide additional paths. GUI sessions,application boot,native providers,full API contracts and performance equivalence remain separate;exact Part482 publication-head CI/artifact verification is the delivery gate.
 
 ## Part481 binary context and record helpers
 

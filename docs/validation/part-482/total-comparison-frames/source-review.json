@@ -1,0 +1,52 @@
+{
+  "Part": 482,
+  "SourceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Files": [
+    {
+      "Path": "src/Erlang.Runtime.Core/Execution/Beam/BeamInfallibleBifContract.cs",
+      "Before": "F5642B09CC787AE2C28F9F302A7993C809FAF1EE87357763AA6D5515A6104AFA",
+      "After": "6FAF73C968BF8C8B43FD052ABE5BFCA7F08AE189B1431217507089EE0220ACE4"
+    }
+  ],
+  "OriginalSources": [
+    {
+      "Path": "lib/compiler/src/beam_validator.erl",
+      "Sha256": "F5F03B92EE252ECF4EC2D6D7ADA75F31AE620F5BDA911D9DD0260E4BDC70526B"
+    },
+    {
+      "Path": "lib/compiler/src/beam_call_types.erl",
+      "Sha256": "D8D17562DD004D5A5788B8D2F7FAA822D1DD98BFC42A8755C42BBDB7DAB36828"
+    },
+    {
+      "Path": "lib/compiler/src/erl_bifs.erl",
+      "Sha256": "19B7FC0D4FAD216A81DBF086BF7D9EBCDDF76E21E1394572C756EF4DDDA30247"
+    },
+    {
+      "Path": "lib/observer/src/crashdump_viewer.erl",
+      "Sha256": "FA1A0E1C225D6C8337DDC2CDAA2FDC5D9172332EFBA447BF41FED9F389F4EC38"
+    }
+  ],
+  "SourceBindings": 1682,
+  "Operators": [
+    "<",
+    "=<",
+    ">",
+    ">=",
+    "==",
+    "/=",
+    "=:=",
+    "=/="
+  ],
+  "ApiDelta": 0,
+  "FullContractDelta": 0,
+  "NewDependencies": false,
+  "OriginalAlgorithmsRewritten": false,
+  "FrameGcRegisterAndHandlerValidatorsUnchanged": true,
+  "Reviews": [
+    "beam_validator validate_bif uses cannot_fail when beam_call_types will_succeed returns yes,without updating exception state;erl_bifs is_safe explicitly marks all eight comparison operators safe.",
+    "Existing compiler binary_bif frame validation reads both term operands before testing the shared contract,and marks/bounds the destination afterward. Do not skip source reads or weaken general GC roots.",
+    "Canonical fixed BIF execution uses existing ErlangOperatorValues.Binary,including runtime-aware numeric map equality,just as registered canonical operators do. No name-only host callback is assumed safe.",
+    "Function still requires the erlang module,the expected two-argument BIF opcode/import and existing supported import resolution. Failable arithmetic,uninitialized/opaque reads,bad destinations and later GC roots retain their refusal.",
+    "Original crashdump_viewer uses a total comparison before completing its Y frame. Only the conservative false exception edge is removed for explicitly safe canonical operators;there is no original module or parser rewrite."
+  ]
+}

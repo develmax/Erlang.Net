@@ -64,6 +64,14 @@ Test(Erlang.Tests.FrameOriginal481Names.ContextTest, Erlang.Tests.FrameOriginal4
 Test(Erlang.Tests.FrameOriginal481Names.RecordTest, Erlang.Tests.FrameOriginal481Checks.Record);
 Test(Erlang.Tests.FrameOriginal481Names.TlsTest, Erlang.Tests.FrameOriginal481Checks.Tls);
 Test(Erlang.Tests.FrameOriginal481Names.AdmissionTest, Erlang.Tests.FrameOriginal481Checks.Admission);
+Test(Erlang.Tests.ComparisonOriginal482Names.ComparisonTest, Erlang.Tests.ComparisonOriginal482Checks.Comparison);
+Test(Erlang.Tests.ComparisonOriginal482Names.CrashdumpTest, Erlang.Tests.ComparisonOriginal482Checks.Crashdump);
+Test(Erlang.Tests.ComparisonOriginal482Names.AdmissionTest, Erlang.Tests.ComparisonOriginal482Checks.Admission);
+Test(Erlang.Tests.ComparisonFrame482Names.UninitializedTest, Erlang.Tests.ComparisonFrame482Checks.Uninitialized);
+Test(Erlang.Tests.ComparisonFrame482Names.OpaqueTest, Erlang.Tests.ComparisonFrame482Checks.Opaque);
+Test(Erlang.Tests.ComparisonFrame482Names.RootsTest, Erlang.Tests.ComparisonFrame482Checks.Roots);
+Test(Erlang.Tests.ComparisonFrame482Names.FailableTest, Erlang.Tests.ComparisonFrame482Checks.Failable);
+Test(Erlang.Tests.ComparisonFrame482Names.DestinationTest, Erlang.Tests.ComparisonFrame482Checks.Destination);
 Test(Erlang.Tests.BeamContextForward481Names.Transport, Erlang.Tests.BeamContextForward481Checks.Transport);
 Test(Erlang.Tests.BeamContextForward481Names.Refusals, Erlang.Tests.BeamContextForward481Checks.Refusals);
 Test(Erlang.Tests.BeamNoReturnSwap481Names.Execution, Erlang.Tests.BeamNoReturnSwap481Checks.Execution);

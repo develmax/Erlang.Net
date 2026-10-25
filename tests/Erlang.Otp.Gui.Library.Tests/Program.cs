@@ -3,6 +3,7 @@ using Erlang.Otp.Gui.Library.Tests;
 try
 {
     await GuiLibraryChecks.Run(args);
+    await GuiComparison482Checks.Run(args);
 
     return 0;
 }

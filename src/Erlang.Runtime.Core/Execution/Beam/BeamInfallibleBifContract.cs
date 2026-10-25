@@ -22,6 +22,14 @@ internal static class BeamInfallibleBifContract
         }
         result = function switch
         {
+            ErlangOperators.Less or ErlangOperators.LessOrEqual or ErlangOperators.Greater or ErlangOperators.GreaterOrEqual
+                or ErlangOperators.NumericEqual or ErlangOperators.NumericNotEqual or ErlangOperators.ExactEqual or ErlangOperators.ExactNotEqual
+                when arguments.Count == 2 => ErlangOperatorValues.Binary(
+                    function,
+                    arguments[0],
+                    arguments[1],
+                    context
+                ),
             BeamInfallibleBifNames.TupleSize when arguments.Count == 1 && arguments[0] is TupleTerm tuple => Term.I(tuple.Items.Count),
             BeamInfallibleBifNames.Get when arguments.Count == 1 => ErlangInfallibleBifValues.Get(context, arguments[0]),
             BeamInfallibleBifNames.Minimum when arguments.Count == 2 => ErlangInfallibleBifValues.Minimum(arguments[0], arguments[1]),
@@ -46,6 +54,9 @@ internal static class BeamInfallibleBifContract
 
         return import.Function switch
         {
+            ErlangOperators.Less or ErlangOperators.LessOrEqual or ErlangOperators.Greater or ErlangOperators.GreaterOrEqual
+                or ErlangOperators.NumericEqual or ErlangOperators.NumericNotEqual or ErlangOperators.ExactEqual or ErlangOperators.ExactNotEqual
+                when arity == 2 => import.Function,
             BeamInfallibleBifNames.TupleSize when arity == 1 && BeamGuardedTupleBifProof.HasTupleGuard(code, instruction) => import.Function,
             BeamInfallibleBifNames.Get when arity == 1 => import.Function,
             BeamInfallibleBifNames.Minimum or BeamInfallibleBifNames.Maximum when arity == 2 => import.Function,

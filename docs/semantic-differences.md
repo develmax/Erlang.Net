@@ -922,3 +922,7 @@ Part128: **complete original2822/2822=778/1951/93 and3284/full same-head CI** at
 ## Part481 — context entry and no-return boundaries
 
 Close the observed nil/atom/literal context-forwarding and finite record-helper admission refusals. Retain ordinary-only semantics for binary-preserving duplicate wrappers and require typed initialized swap sources in newly proven no-return helpers. One original frame refusal remains in crashdump_viewer;receive/native capture/full application and API-contract boundaries remain explicit. No full MFA classification is promoted from these110 finite profiles.
+
+## Part482 — observed frame refusal closed
+
+The observed safe comparison before an uninitialized Y destination no longer produces a false exception/root edge. All eight canonical comparison BIFs share the already implemented operator semantics. Five invalid operand/destination/root cases remain refused and agree with original compiler diagnostics. No previously observed frame refusal remains in the1321-image inventory;receive/native capture failures may conceal further paths. Full APIs,physical/native/application/performance compatibility are not promoted.
