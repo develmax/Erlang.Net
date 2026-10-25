@@ -60,3 +60,5 @@ Part471 adds src/Erlang.Otp.Ssl.Beam (78 images/94 source-header files) and src/
 Part472: Four original network application projects retain upstream directory layouts, including nested Inets HTTP client/server/library sources and generated ELDAPv3.hrl in ebin. Native runtime/BIF implementations remain in their existing projects; no handwritten protocol replacement is added.
 
 Part473: Add independent Diameter/Snmp original asset libraries. Preserve nested sources, dictionaries, generated headers, compiled MIB data and launcher source. ReadSupportFile only reads exact whitelisted hash-verified bytes; it does not execute code or install priv paths. Ten SNMP compiler source files map explicitly from release src/compiler to pinned Git src/compile; generated files remain distinct.
+
+Part474: src/Erlang.Otp.Megaco.Beam contains the complete65-image official inventory, nested source/header/grammar directories and two application resources. Namespace-level facade/catalog/names types have separate files. Generated release inputs remain distinct from79 pinned Git matches.

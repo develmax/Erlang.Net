@@ -1,0 +1,828 @@
+{
+  "ReleaseTag": "OTP-29.1.1",
+  "SourceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ArchiveSha256": "337480AF988ECA993C2E98B68850F00FC6724D366346565E38941AC0D1B7C56B",
+  "ExecutionManifestSha256": "AF5EA3DA317E2ABC8A0CF1874D4E6BFB93AC1A47E864A7B92BBE7A03D1607E99",
+  "ReleaseUrl": "https://github.com/erlang/otp/releases/download/OTP-29.1.1/otp_win64_29.1.1.zip",
+  "Application": "megaco",
+  "Version": "4.9.2",
+  "ProducerPlatform": "Windows x64 official release",
+  "DescriptorModules": [
+    "megaco",
+    "megaco_ber_encoder",
+    "megaco_ber_media_gateway_control_v1",
+    "megaco_ber_media_gateway_control_v2",
+    "megaco_ber_media_gateway_control_v3",
+    "megaco_binary_encoder",
+    "megaco_binary_encoder_lib",
+    "megaco_binary_name_resolver_v1",
+    "megaco_binary_name_resolver_v2",
+    "megaco_binary_name_resolver_v3",
+    "megaco_binary_term_id",
+    "megaco_binary_term_id_gen",
+    "megaco_binary_transformer_v1",
+    "megaco_binary_transformer_v2",
+    "megaco_binary_transformer_v3",
+    "megaco_compact_text_encoder",
+    "megaco_compact_text_encoder_v1",
+    "megaco_compact_text_encoder_v2",
+    "megaco_compact_text_encoder_v3",
+    "megaco_config",
+    "megaco_config_misc",
+    "megaco_digit_map",
+    "megaco_edist_compress",
+    "megaco_encoder",
+    "megaco_erl_dist_encoder",
+    "megaco_erl_dist_encoder_mc",
+    "megaco_filter",
+    "megaco_flex_scanner",
+    "megaco_flex_scanner_handler",
+    "megaco_messenger",
+    "megaco_messenger_misc",
+    "megaco_misc_sup",
+    "megaco_monitor",
+    "megaco_per_encoder",
+    "megaco_per_media_gateway_control_v1",
+    "megaco_per_media_gateway_control_v2",
+    "megaco_per_media_gateway_control_v3",
+    "megaco_pretty_text_encoder",
+    "megaco_pretty_text_encoder_v1",
+    "megaco_pretty_text_encoder_v2",
+    "megaco_pretty_text_encoder_v3",
+    "megaco_sdp",
+    "megaco_stats",
+    "megaco_sup",
+    "megaco_tcp",
+    "megaco_tcp_accept",
+    "megaco_tcp_accept_sup",
+    "megaco_tcp_connection",
+    "megaco_tcp_connection_sup",
+    "megaco_tcp_sup",
+    "megaco_text_mini_decoder",
+    "megaco_text_mini_parser",
+    "megaco_text_parser_v1",
+    "megaco_text_parser_v2",
+    "megaco_text_parser_v3",
+    "megaco_text_scanner",
+    "megaco_timer",
+    "megaco_trans_sender",
+    "megaco_trans_sup",
+    "megaco_transport",
+    "megaco_udp",
+    "megaco_udp_server",
+    "megaco_udp_sup",
+    "megaco_user",
+    "megaco_user_default"
+  ],
+  "Files": [
+    {
+      "Path": "ebin/megaco.app",
+      "Sha256": "5CBBAE3FC6B24A6895DB5CAA2797C923AC3972921E01224AD87516C13A05048D"
+    },
+    {
+      "Path": "ebin/megaco.appup",
+      "Sha256": "30AA1A414F564A99189C0EF117C4842E1001782A064860794706B91B367C5A4A"
+    },
+    {
+      "Path": "ebin/megaco.beam",
+      "Sha256": "580C34AB5CC58B56E9B574AD20D4044315EA921189E5165DCBC22E59EE543310"
+    },
+    {
+      "Path": "ebin/megaco_ber_encoder.beam",
+      "Sha256": "EFED00E46FF0412AD3B7CDA68F432FAA1FD0540CB28632C4225A26A45390EB2A"
+    },
+    {
+      "Path": "ebin/megaco_ber_media_gateway_control_v1.beam",
+      "Sha256": "BA8C64CAA4ADD2BBE9302CC077DDF6670D6EE2E4C013316A6AB8531716393095"
+    },
+    {
+      "Path": "ebin/megaco_ber_media_gateway_control_v2.beam",
+      "Sha256": "8A24110E2F4AA520E41C54EE7A63AC705A95F6DE247739E895A5BFC71B33F346"
+    },
+    {
+      "Path": "ebin/megaco_ber_media_gateway_control_v3.beam",
+      "Sha256": "D68EA968820F57BA8B92EA7E1B2D0BFC8A95CF35C4F4C7843C3D91FDC9F24764"
+    },
+    {
+      "Path": "ebin/megaco_binary_encoder.beam",
+      "Sha256": "B90E901D0CF53C4645ADB1637E1661B3453EA76F4068CA4DA2387A61AC355A1D"
+    },
+    {
+      "Path": "ebin/megaco_binary_encoder_lib.beam",
+      "Sha256": "F0C9A29390A5805B918BD83F40D213F1FBF029918CEB38462D5232A52A0E4C94"
+    },
+    {
+      "Path": "ebin/megaco_binary_name_resolver_v1.beam",
+      "Sha256": "70AB5F1F09FE3391995ECC39A886A4EBFCB7441FF9C549660FF0A16ABF56565C"
+    },
+    {
+      "Path": "ebin/megaco_binary_name_resolver_v2.beam",
+      "Sha256": "930BE40CF840FEE0C32BA93B63487EE77B25A72F7498919224746351C4C7CA76"
+    },
+    {
+      "Path": "ebin/megaco_binary_name_resolver_v3.beam",
+      "Sha256": "600A3CCE3162B5F9448B483FBB72181D20DBA752CB379D805A71BB29D7DD2C6B"
+    },
+    {
+      "Path": "ebin/megaco_binary_term_id.beam",
+      "Sha256": "C54831C51F9F87F2F485468686063A27EF715C0A21D5BB699F1A471DC8A74C65"
+    },
+    {
+      "Path": "ebin/megaco_binary_term_id_gen.beam",
+      "Sha256": "1429CDF039F6AF922D2AC08F709F7819F5BB4528EBBA060648391AF6567FFBC4"
+    },
+    {
+      "Path": "ebin/megaco_binary_transformer_v1.beam",
+      "Sha256": "17ED8B79BBBD5542E07597106BA5DCB760F7E503DA07A99746098C16031FD669"
+    },
+    {
+      "Path": "ebin/megaco_binary_transformer_v2.beam",
+      "Sha256": "5FCD924FA5E9D20D6647A57515338D7A952510ED0FB258096515BEB036560131"
+    },
+    {
+      "Path": "ebin/megaco_binary_transformer_v3.beam",
+      "Sha256": "2F27BCC2F67ED184DBBF1C453BC3703EC2C73BD5F8D5C63EBD6B3F6284D583D3"
+    },
+    {
+      "Path": "ebin/megaco_compact_text_encoder.beam",
+      "Sha256": "5ACA0BEB5F1B9E7DBA1AE34CB4E294B331C00DA20863DFDB4D9586169F73C5E4"
+    },
+    {
+      "Path": "ebin/megaco_compact_text_encoder_v1.beam",
+      "Sha256": "7323CF46A2E7FA7CD2656E0A0CB47F2D6B2856B18C2B36DB016C6605826EAD1F"
+    },
+    {
+      "Path": "ebin/megaco_compact_text_encoder_v2.beam",
+      "Sha256": "02142E3717AEA9A27D2CAFA40936A21B155BD8698D2CBCF0E936B0843F0DF641"
+    },
+    {
+      "Path": "ebin/megaco_compact_text_encoder_v3.beam",
+      "Sha256": "F445F220C0064754E3AF32EDE9200B836DFE9D18AEDE5EE56C9D5D5933F71527"
+    },
+    {
+      "Path": "ebin/megaco_config.beam",
+      "Sha256": "B9DDC3E46B45A05526F1B2CBC77DB07EE63E769DE707ED49F86E7B814E6AF98B"
+    },
+    {
+      "Path": "ebin/megaco_config_misc.beam",
+      "Sha256": "8D93EBF50C342FE4D5F348274B09850D7F429DB36B833C246AF9C22654F0BE17"
+    },
+    {
+      "Path": "ebin/megaco_digit_map.beam",
+      "Sha256": "8C47655B0A7DD5A3484423566D8B2464EA2A5B4BC2F9E53B1DD86D9289F1599E"
+    },
+    {
+      "Path": "ebin/megaco_edist_compress.beam",
+      "Sha256": "EE97D954F65964167C3BD3DD1365BA0DE964A68B0487185EC2D12A55D077688B"
+    },
+    {
+      "Path": "ebin/megaco_encoder.beam",
+      "Sha256": "4F55FEDB249E7B917659D14DE10B8954DA5077F4AD41B70664C2170F124A4A78"
+    },
+    {
+      "Path": "ebin/megaco_erl_dist_encoder.beam",
+      "Sha256": "35B31964E038FCFF243E4D14EFFD839380F3297F9B07278E595F4AE0F8E99109"
+    },
+    {
+      "Path": "ebin/megaco_erl_dist_encoder_mc.beam",
+      "Sha256": "15F658FABA697BC902B20B9F82BC73A49BFE66E10D891E0EE3C2592735A6578B"
+    },
+    {
+      "Path": "ebin/megaco_filter.beam",
+      "Sha256": "4310E6C2E28D1A070CE185065997947D03130DB2D6162F5684DD0A7D490058C7"
+    },
+    {
+      "Path": "ebin/megaco_flex_scanner.beam",
+      "Sha256": "2BEBFCF847E40EDAAA85647EDD386B72EB13E2E815385BE4E2DD7CD3E8B61028"
+    },
+    {
+      "Path": "ebin/megaco_flex_scanner_handler.beam",
+      "Sha256": "204DD4F915C68E7244792DB783D894D2F11399CD39714FBBB934F87119702855"
+    },
+    {
+      "Path": "ebin/megaco_messenger.beam",
+      "Sha256": "127D582E86639AB276980F8D0AE15CD696B6142F236A370C5C851DA5B5DDC66D"
+    },
+    {
+      "Path": "ebin/megaco_messenger_misc.beam",
+      "Sha256": "3E96C6873A70762A2A62A9A6BFC9B9C38A8E7E7AED470D4163F4B3632C635F0F"
+    },
+    {
+      "Path": "ebin/megaco_misc_sup.beam",
+      "Sha256": "59626E241CF8F22B894426ECC3A703C52E941472395C25905143036EF33DA9A9"
+    },
+    {
+      "Path": "ebin/megaco_monitor.beam",
+      "Sha256": "32AA39413C9203483AC33C02D43060178C5C1F2E782684D6942614A7E2E1ACF8"
+    },
+    {
+      "Path": "ebin/megaco_per_encoder.beam",
+      "Sha256": "A317B50C63AABE995CB9CCF23FAAD29218C3B27623A53C94E2E281F3399134C0"
+    },
+    {
+      "Path": "ebin/megaco_per_media_gateway_control_v1.beam",
+      "Sha256": "35926B1EAED512FD2D54CCA0D85D148D3A7D89C9D482E8FD0C2F77D50BB45093"
+    },
+    {
+      "Path": "ebin/megaco_per_media_gateway_control_v2.beam",
+      "Sha256": "14ADE8A65B8B3D3956F17F0518AD8B6F99DC222290195139C359FE49F4CC3570"
+    },
+    {
+      "Path": "ebin/megaco_per_media_gateway_control_v3.beam",
+      "Sha256": "774842DB701BACF47FDC031B99A9B88393019023B0985006DBC1026DEA2A9203"
+    },
+    {
+      "Path": "ebin/megaco_pretty_text_encoder.beam",
+      "Sha256": "EB3AF851E623342D92B8D3217BFA9DB41983C2A98DD3244A022B3C5CDBFBCB53"
+    },
+    {
+      "Path": "ebin/megaco_pretty_text_encoder_v1.beam",
+      "Sha256": "22CCC8460D7409FB84CC42BB10B2004D9D901A494CA5F828D57086AB34EA3106"
+    },
+    {
+      "Path": "ebin/megaco_pretty_text_encoder_v2.beam",
+      "Sha256": "D9167A144CD2D80E0DCC4D894BCD3906CE78F3759029CEE604760F82B36E8D39"
+    },
+    {
+      "Path": "ebin/megaco_pretty_text_encoder_v3.beam",
+      "Sha256": "B2F6B00370CE2E6A512F61823ECB3BEB42574A89090F630C68AFD20A3A0E47BD"
+    },
+    {
+      "Path": "ebin/megaco_sdp.beam",
+      "Sha256": "2064C68344CCBC82C83A2E85A9F719E3CCDFB870F3BAAB6272CFD28C19A9B344"
+    },
+    {
+      "Path": "ebin/megaco_stats.beam",
+      "Sha256": "F943BE57FEC7DA654D3CA3D068B16972849BF24590A4F1F5DED0472ACEE89F6A"
+    },
+    {
+      "Path": "ebin/megaco_sup.beam",
+      "Sha256": "F2B147D57974E84FD33C8BE564422CFABF54042FAAD01B3F7E03514A7C26D8AF"
+    },
+    {
+      "Path": "ebin/megaco_tcp.beam",
+      "Sha256": "610727EA6A00A03EB1D01DE790F99E17DF816DE1DC75B73495CF5BEC393D088E"
+    },
+    {
+      "Path": "ebin/megaco_tcp_accept.beam",
+      "Sha256": "44C5EC869255B654853AE6E21CC190C52C8E8A69E4591BB021EE27BC279A5D46"
+    },
+    {
+      "Path": "ebin/megaco_tcp_accept_sup.beam",
+      "Sha256": "7F28777F80B2A1A1CE30D2460A4EC8018C33D4FEBE1CA05B61655D5F46A098DB"
+    },
+    {
+      "Path": "ebin/megaco_tcp_connection.beam",
+      "Sha256": "7C239C6B42B15B2D3D0FA818A30636072F1940484DAB64D608C54E3D98550ADD"
+    },
+    {
+      "Path": "ebin/megaco_tcp_connection_sup.beam",
+      "Sha256": "ADBD26783AC5ABBCB6C9C51A9950F036D486DF09EAE1B58311F8EB82823FE225"
+    },
+    {
+      "Path": "ebin/megaco_tcp_sup.beam",
+      "Sha256": "763AC8A08073103F8C111D36FDA9641741F8416F96577C2CED5BDED5F3D05866"
+    },
+    {
+      "Path": "ebin/megaco_text_mini_decoder.beam",
+      "Sha256": "71CFB6E1D58497208FAFEB4561ECB58CEA509D27973AE1BCE781E53565C37444"
+    },
+    {
+      "Path": "ebin/megaco_text_mini_parser.beam",
+      "Sha256": "01521CD79D946DD3922E536EA05FDECEDE5987365DD1D2739E7FC39B486500C8"
+    },
+    {
+      "Path": "ebin/megaco_text_parser_v1.beam",
+      "Sha256": "B81B11B3C95A2CC1DB8E8D9400EE04365CA566405FCC7EAAD33FB0ED4B2B0E87"
+    },
+    {
+      "Path": "ebin/megaco_text_parser_v2.beam",
+      "Sha256": "A0D965332ED97531291E4B2AF1F3651D3B2D265837BF017B2736102E281523B1"
+    },
+    {
+      "Path": "ebin/megaco_text_parser_v3.beam",
+      "Sha256": "6FC61859E724277E8DD8B59E8C6292C7F8B04CC107C1F62469C143B9ACCCC732"
+    },
+    {
+      "Path": "ebin/megaco_text_scanner.beam",
+      "Sha256": "114C23113289DBB7113F77B3E92A232254E77717D9672AEAEC8A67E6DD1BC0A7"
+    },
+    {
+      "Path": "ebin/megaco_timer.beam",
+      "Sha256": "9D29C6948C516C5F9DCD505ABC953EE0697598EBDB6F61AF325ED0D6334E4B94"
+    },
+    {
+      "Path": "ebin/megaco_trans_sender.beam",
+      "Sha256": "2B3FE32A846C6D099242DD378B9C9AFF59F8137298B1BC5228B5F2378A8EBF8D"
+    },
+    {
+      "Path": "ebin/megaco_trans_sup.beam",
+      "Sha256": "F5C007A7411FFDBF400CC78EFEF96327DA966E6CB57075680712F191DA1D3252"
+    },
+    {
+      "Path": "ebin/megaco_transport.beam",
+      "Sha256": "21BD676C5B36689F11B8343F5CB51CF2B4B32FF3D17D8CC1C0BE137BEA59C627"
+    },
+    {
+      "Path": "ebin/megaco_udp.beam",
+      "Sha256": "71482DC197B5DCDE2DEC4D8A414025AD16BD8109D1EECFD96EB7E96F37F1F58C"
+    },
+    {
+      "Path": "ebin/megaco_udp_server.beam",
+      "Sha256": "E3453E3C6AEF74A6999E65D2D8DAE077D4BD9E9AB47D106EF4020D27CC90B3E4"
+    },
+    {
+      "Path": "ebin/megaco_udp_sup.beam",
+      "Sha256": "21D37C273015F0DD03CA7D3F6FEDA600DAADA00542AF3A8D625B7196C7C1A691"
+    },
+    {
+      "Path": "ebin/megaco_user.beam",
+      "Sha256": "A04C18C9A5F120A670AA775850C9FAA89AC8280A5332D5C8CDD00A4EC57F2420"
+    },
+    {
+      "Path": "ebin/megaco_user_default.beam",
+      "Sha256": "45A23A9634180D8E843CE22A941E261C6FE53CC0C4E33AEDFEEFB750EA5ACEA6"
+    },
+    {
+      "Path": "src/app/megaco.erl",
+      "Sha256": "A58A205B85E4F3C48A0586ABE4B469C2277185A356BBC15ED10D01AEC8094A72"
+    },
+    {
+      "Path": "src/app/megaco_internal.hrl",
+      "Sha256": "480EFC6654D2C5C3D90B80BF90910AA00A6B8739C8575D739F8E613E5C803E58"
+    },
+    {
+      "Path": "src/binary/MEDIA-GATEWAY-CONTROL-v1.asn",
+      "Sha256": "58519A0AFE3920CCD3A4268B93546535C801A173BA7F2AF173323338BF897343"
+    },
+    {
+      "Path": "src/binary/MEDIA-GATEWAY-CONTROL-v2.asn",
+      "Sha256": "2C3C680FD41DF0996636F83B25B4F0A9EF619BEB76083F67F9E57B8159EA886B"
+    },
+    {
+      "Path": "src/binary/MEDIA-GATEWAY-CONTROL-v3.asn",
+      "Sha256": "1DCFBD7BE0FF193EE69A07393811C626C9806D63046D5ED37A5D375DF1AE4584"
+    },
+    {
+      "Path": "src/binary/megaco_ber_encoder.erl",
+      "Sha256": "586E21BE39722E275AF62B99D1A6AAF57C6CCB507E9ED743B9FEA211F37DEF33"
+    },
+    {
+      "Path": "src/binary/megaco_ber_media_gateway_control_v1.erl",
+      "Sha256": "CF8579AC9E3F5A7012948848A7F54B64F691A6A7654255F9AB973C40B76343FB"
+    },
+    {
+      "Path": "src/binary/megaco_ber_media_gateway_control_v1.hrl",
+      "Sha256": "2598AD0190DBAF224377F499E1A6A4F79451BDC52ACE0294A996678C7D24CCF5"
+    },
+    {
+      "Path": "src/binary/megaco_ber_media_gateway_control_v2.erl",
+      "Sha256": "AE6F03CE58F31B50CE9C03569F7B35D6225445DCD8134E728B415094956659EC"
+    },
+    {
+      "Path": "src/binary/megaco_ber_media_gateway_control_v2.hrl",
+      "Sha256": "85D656145AB469935310F842C504C252B6DCC5C49517BF0E7B315ECE935E61D7"
+    },
+    {
+      "Path": "src/binary/megaco_ber_media_gateway_control_v3.erl",
+      "Sha256": "7514B51B08374C824828897E74CE73C5F324EC235EB0608178A3340F5EFB920E"
+    },
+    {
+      "Path": "src/binary/megaco_ber_media_gateway_control_v3.hrl",
+      "Sha256": "898114DF26C4D84A2DC3BC2C14C0830F9A30802BF9A8A33F9D399FAE587F0B35"
+    },
+    {
+      "Path": "src/binary/megaco_binary_encoder.erl",
+      "Sha256": "2A950A72A04202D9B8839A5B9A46967A0FA4CCD7AC314977357AF79DDBF72C99"
+    },
+    {
+      "Path": "src/binary/megaco_binary_encoder_lib.erl",
+      "Sha256": "75ADE189A3466ED2B19ADEBF369591A6EDF8327CFD1EE3141C2C9FCBA1272035"
+    },
+    {
+      "Path": "src/binary/megaco_binary_name_resolver_v1.erl",
+      "Sha256": "06BF9D38D1AC7C5C8608DE1DCF3B9852D292796848AF9B2BD3D555863EEEC94F"
+    },
+    {
+      "Path": "src/binary/megaco_binary_name_resolver_v2.erl",
+      "Sha256": "3DF1192924FDE682AB65F18154152B87524D1C6A5A0030AA9844CA82636B8EC0"
+    },
+    {
+      "Path": "src/binary/megaco_binary_name_resolver_v3.erl",
+      "Sha256": "EDCDDE50F73BDDD6B8F5017B6CD293538B30303E90B12E0B839BEE0CD151F5A6"
+    },
+    {
+      "Path": "src/binary/megaco_binary_term_id.erl",
+      "Sha256": "2C2A8BB636C909EADFB6C1C6F38816DC74E96C2EFE8155A3BAC1BFFF44C3DB67"
+    },
+    {
+      "Path": "src/binary/megaco_binary_term_id_gen.erl",
+      "Sha256": "648033EC9A850412F977758F11ACD23233AAF00853561F5EDA7B6721AA07813F"
+    },
+    {
+      "Path": "src/binary/megaco_binary_transformer_v1.erl",
+      "Sha256": "68D804131B7B9D8D3A41F63FC05D69CDA925B768E6D0CA39A1B3A91B047F514E"
+    },
+    {
+      "Path": "src/binary/megaco_binary_transformer_v2.erl",
+      "Sha256": "71C5D5D1DB8833A7401F84604D562590AFCD1C3AD4E8AA524E4FE77F8287664D"
+    },
+    {
+      "Path": "src/binary/megaco_binary_transformer_v3.erl",
+      "Sha256": "EE7D5C034F59C78E7654FCDB2501943395EBBAB038394EFB42A94C137BF32614"
+    },
+    {
+      "Path": "src/binary/megaco_per_encoder.erl",
+      "Sha256": "A233135E2CFFACAFB865A578B77BD6F8F04EF39610DC2EE7E345D8981B58A4ED"
+    },
+    {
+      "Path": "src/binary/megaco_per_media_gateway_control_v1.erl",
+      "Sha256": "0C4DFECFDFC691BD072936CBA42C1900CFED3FDDCA8E0E9B42904B48528B0D7A"
+    },
+    {
+      "Path": "src/binary/megaco_per_media_gateway_control_v1.hrl",
+      "Sha256": "C53CA7FEA3D4465C82B1559D8797A35EA9C22742D0084992E5B86280A08F1585"
+    },
+    {
+      "Path": "src/binary/megaco_per_media_gateway_control_v2.erl",
+      "Sha256": "58BF6B8FC8BB829CC35AB96D03692830B31A3214A63C26E26F0D28BFD1D99B3F"
+    },
+    {
+      "Path": "src/binary/megaco_per_media_gateway_control_v2.hrl",
+      "Sha256": "39C3BB1FFBFA5B066F0A2C72E71C255D3E8C0BF33DD36F08BB2604E0DDE688DE"
+    },
+    {
+      "Path": "src/binary/megaco_per_media_gateway_control_v3.erl",
+      "Sha256": "66B3896A83A6AD8AF1D5482D1D323D61EADB7D82421445A49B39254C2A4E51C5"
+    },
+    {
+      "Path": "src/binary/megaco_per_media_gateway_control_v3.hrl",
+      "Sha256": "86FAA4CDFB0566BE50304094F1F426D0C74100E15C1D43DE6DA36589C6721782"
+    },
+    {
+      "Path": "src/engine/megaco_config.erl",
+      "Sha256": "AAEBB642EF9374B0C41D1BEB6B6B1C37764BF7FD5A63A6100D4677F8397CB0E2"
+    },
+    {
+      "Path": "src/engine/megaco_config_misc.erl",
+      "Sha256": "F73D304A9F415D674A7E177595BC046D01E8D10F5CB4862423B938BF3173DFCD"
+    },
+    {
+      "Path": "src/engine/megaco_digit_map.erl",
+      "Sha256": "D35873CD69D802F444460CFE4E9BF3492A6670ED7B63F0F91D9B33C53DF2B89B"
+    },
+    {
+      "Path": "src/engine/megaco_edist_compress.erl",
+      "Sha256": "1B250935E4E6BACE74C57FCEF4D26E144D78E07A5BB114CE4656B65900A5ACF6"
+    },
+    {
+      "Path": "src/engine/megaco_encoder.erl",
+      "Sha256": "A0EE539CB1FD6AD6BC01056E92546E6FA71C247D00B976D119A5D222B25E6739"
+    },
+    {
+      "Path": "src/engine/megaco_erl_dist_encoder.erl",
+      "Sha256": "12AA7807BC3935F06ED8EF95A9C3181BF909FFED36A208EC9FD6B6E28707B740"
+    },
+    {
+      "Path": "src/engine/megaco_erl_dist_encoder_mc.erl",
+      "Sha256": "BF43E3CA9A9235F55D7E51DF47FCACF42C2AF75000E83C3FB113FFB86E112A24"
+    },
+    {
+      "Path": "src/engine/megaco_filter.erl",
+      "Sha256": "94992A3748C4732350E7C483B95448E022173F28A8B99758C3B105B211D7F113"
+    },
+    {
+      "Path": "src/engine/megaco_message_internal.hrl",
+      "Sha256": "1AF3096F8AD0418456EB97CFCF8752054B71BD9C6C21BCB966BBA9DD2E6D5F66"
+    },
+    {
+      "Path": "src/engine/megaco_messenger.erl",
+      "Sha256": "FE5681310BADCBAE8AAE5D459639462A22456A8FA123883D81FBB4171085E955"
+    },
+    {
+      "Path": "src/engine/megaco_messenger_misc.erl",
+      "Sha256": "8767487092A44BB5E95E3E1AC23CD0FADFF1E2B499EC9E291C3B329579480F28"
+    },
+    {
+      "Path": "src/engine/megaco_misc_sup.erl",
+      "Sha256": "6ECFDA20148488282C553C1AE5845D5B7EB7DC16598153350ECDBC7BE579AA24"
+    },
+    {
+      "Path": "src/engine/megaco_monitor.erl",
+      "Sha256": "6F3A4097AFA9FB80F83D59157903DAF9435F7340A52D408F9CC017FDD02196D0"
+    },
+    {
+      "Path": "src/engine/megaco_sdp.erl",
+      "Sha256": "39CF29F4D737CE8F07BAB380D58518517D98FB86DA08C2995B15A24C19F7E4FD"
+    },
+    {
+      "Path": "src/engine/megaco_stats.erl",
+      "Sha256": "75DC5ADFAA21881415CCFB3155EDE3962BD4D98BFC35D7B45038E43FF088B242"
+    },
+    {
+      "Path": "src/engine/megaco_sup.erl",
+      "Sha256": "D8CB57BD0A61B1BBE2006083E431D40027736294C38D3E661DBD8F6935ACA44B"
+    },
+    {
+      "Path": "src/engine/megaco_timer.erl",
+      "Sha256": "403D70D487FFEA846B0AB33684E423EDD51C6976F7E7B54176299B029F839CD9"
+    },
+    {
+      "Path": "src/engine/megaco_trans_sender.erl",
+      "Sha256": "CDCA825F7C45C2919213F4F1AA435D6D6606B92AE0ED3CB9E65528B78AF247F2"
+    },
+    {
+      "Path": "src/engine/megaco_trans_sup.erl",
+      "Sha256": "D803A6B2C116CEC37F156FECDAD811DC7CD597A080177766508563231E650AAB"
+    },
+    {
+      "Path": "src/engine/megaco_transport.erl",
+      "Sha256": "893E0EA8C7D9DDDF111EF38683B74290211EE16260B655C37B96699D11B31FD5"
+    },
+    {
+      "Path": "src/engine/megaco_user.erl",
+      "Sha256": "FD796E65F85F6AFBECB9A472331F4244A2EA7A7B0C0A1FCB9BAEBB50ECD391E8"
+    },
+    {
+      "Path": "src/engine/megaco_user_default.erl",
+      "Sha256": "5B4C972861B35970FF6926BA9DE10F1BF753FF3F69827F9B635EB354344F93D4"
+    },
+    {
+      "Path": "src/flex/megaco_flex_scanner.erl",
+      "Sha256": "858867F48B8C61A9EDF1FC9D132427312FF841A4CC10AB22262E8574C5ABEAC8"
+    },
+    {
+      "Path": "src/flex/megaco_flex_scanner_handler.erl",
+      "Sha256": "063DB8975E6E5A722660DE277AEFA70E5ADEC480BB03274B5156BF1C80F158CC"
+    },
+    {
+      "Path": "src/tcp/megaco_tcp.erl",
+      "Sha256": "38A9EE3A0D33C6DF561DA92E3CBF69B2A95447A08F6199ED0AC8A6A9EE4F1FCB"
+    },
+    {
+      "Path": "src/tcp/megaco_tcp.hrl",
+      "Sha256": "703C2A38041D6DDDA04FD763FBBA0704F9AF373655A887173BC0E6CA6A5503A1"
+    },
+    {
+      "Path": "src/tcp/megaco_tcp_accept.erl",
+      "Sha256": "5E7904282E92899D1B34090E21BF8452653295E11D7BE34C5983E9A4E4517C67"
+    },
+    {
+      "Path": "src/tcp/megaco_tcp_accept_sup.erl",
+      "Sha256": "93297F427CBDB7F276AEE4EE7FBB39F8CE59A6C30D512AF44A7206BF431C30E8"
+    },
+    {
+      "Path": "src/tcp/megaco_tcp_connection.erl",
+      "Sha256": "2F543A03D4960CD2E8B8F1125DE17F6C03299E52FAB8BF05A1AFF7AB2FFCDD91"
+    },
+    {
+      "Path": "src/tcp/megaco_tcp_connection_sup.erl",
+      "Sha256": "24253CC2E7D8CDAB656533383E652C8DCA579385D417EFE7E0E34BD276DC94F2"
+    },
+    {
+      "Path": "src/tcp/megaco_tcp_sup.erl",
+      "Sha256": "F122B1418DE4D1386E94D031B204B9F774C6021BA90575C5CC8CC9B99E40DF19"
+    },
+    {
+      "Path": "src/text/megaco_compact_text_encoder.erl",
+      "Sha256": "365C4B5E7134BFB424407C2CC4C91B842001721CDCFE88EB3CC4706EAEC77878"
+    },
+    {
+      "Path": "src/text/megaco_compact_text_encoder_v1.erl",
+      "Sha256": "C800EADE87B7D5321A8BB4A35ADE17F61883C451CB3444A1C1932B011D24C666"
+    },
+    {
+      "Path": "src/text/megaco_compact_text_encoder_v2.erl",
+      "Sha256": "217C299D47FA0D02BBC05675B7A058D7975840C53E265B8B8A1CEBC8A2C6972A"
+    },
+    {
+      "Path": "src/text/megaco_compact_text_encoder_v3.erl",
+      "Sha256": "D068362F47EEF4F13BC2803363E00C10FD7CF8C151B1B04BD260DC3D0053B82E"
+    },
+    {
+      "Path": "src/text/megaco_pretty_text_encoder.erl",
+      "Sha256": "1715B2A0D1385FC1238AB1B864BD35866685884B082A145E44B5B3D2CC67442F"
+    },
+    {
+      "Path": "src/text/megaco_pretty_text_encoder_v1.erl",
+      "Sha256": "638036A221D8F069D9FB4AAD7AF1681E8B2EABD9FFED1598D0B9B60EE5F54FE5"
+    },
+    {
+      "Path": "src/text/megaco_pretty_text_encoder_v2.erl",
+      "Sha256": "EC511C781F2EDAA6D11BEE37DD2DD0308983FD978C626FF006EC195CC699F223"
+    },
+    {
+      "Path": "src/text/megaco_pretty_text_encoder_v3.erl",
+      "Sha256": "CC84DC36B04D61845003C0637B57EF244D5EA3D294A8FAB4AAFF1E6FFBEC7DA0"
+    },
+    {
+      "Path": "src/text/megaco_text_gen_v1.hrl",
+      "Sha256": "E000D71B0A865441E472E17C51B0270BF192D69F9B09763295EAA563122E5EFE"
+    },
+    {
+      "Path": "src/text/megaco_text_gen_v2.hrl",
+      "Sha256": "51B5659E1B723E4ED0F52FC201CE36FE13EF8BA65195C70415D18839FA433BF4"
+    },
+    {
+      "Path": "src/text/megaco_text_gen_v3.hrl",
+      "Sha256": "84A2E4BBBC95F71A1B304131469E0232F9EB622618EA5F172A394C1CB3AE0A24"
+    },
+    {
+      "Path": "src/text/megaco_text_mini_decoder.erl",
+      "Sha256": "9EF18EDA041D216DAE202D08E5940F33CC86E737D0489027552E78986979A2CF"
+    },
+    {
+      "Path": "src/text/megaco_text_mini_parser.erl",
+      "Sha256": "08BA7F709A1641F12F0348A1C692A0F340CA5CBA2F1B8AD599E01F9FFA4EADD7"
+    },
+    {
+      "Path": "src/text/megaco_text_mini_parser.hrl",
+      "Sha256": "0DAD56A6D70387F53F985A6701D0393EDBF8F19F16FFD6601EC4FCF0A0E2C471"
+    },
+    {
+      "Path": "src/text/megaco_text_mini_parser.yrl",
+      "Sha256": "97AA56A34E2310BA05944460AB6DF408205641099561706CBD1D2CEF621CC452"
+    },
+    {
+      "Path": "src/text/megaco_text_parser_v1.erl",
+      "Sha256": "EB5E3064827572869EC47B4706FF4C7A2F00AC723BD92316E027C502DCDFAB68"
+    },
+    {
+      "Path": "src/text/megaco_text_parser_v1.hrl",
+      "Sha256": "516132B03881C334954833344A75D6BFBD5537D2A25BCE25EAC1A47063BFECB7"
+    },
+    {
+      "Path": "src/text/megaco_text_parser_v1.yrl",
+      "Sha256": "197505B779848312A0D08A5B5323CBCAB72FB0DFE59FC4A23B452DE7FF0628DC"
+    },
+    {
+      "Path": "src/text/megaco_text_parser_v2.erl",
+      "Sha256": "CA6CA287AAF9F432CA94123E5046FDB341F14D03203E175964043E50BA26D902"
+    },
+    {
+      "Path": "src/text/megaco_text_parser_v2.hrl",
+      "Sha256": "1CFD8BB0FCF4C44C7892926AC6AC58DA7184EE0C45C7C3F22524FC85DA07AE49"
+    },
+    {
+      "Path": "src/text/megaco_text_parser_v2.yrl",
+      "Sha256": "A4F7E390166905379B542D71698B241AF94A586CC4AF027EAED41B87D3279833"
+    },
+    {
+      "Path": "src/text/megaco_text_parser_v3.erl",
+      "Sha256": "A792D3AB01B0A365121B44FBC8F1399E097F8A88732C276CA3A7602196056593"
+    },
+    {
+      "Path": "src/text/megaco_text_parser_v3.hrl",
+      "Sha256": "A61F8CCB4F73D2C05BF8CCBE7A06D481A98896FD63CB5A5B6A04A6920861287F"
+    },
+    {
+      "Path": "src/text/megaco_text_parser_v3.yrl",
+      "Sha256": "6FD14DA248FC23214F22FE51FD08AAE7B294E661AB7DE788F5B8B065CF26949D"
+    },
+    {
+      "Path": "src/text/megaco_text_scanner.erl",
+      "Sha256": "3B8021652FBCE9C4DA7F4AEF9A5B0AE4B52C04EDA1818EF9D8DA5241216EC4D5"
+    },
+    {
+      "Path": "src/text/megaco_text_tokens.hrl",
+      "Sha256": "548E56367D9F8D10D7FCF2F0F27DAF1A00F85F6C29D4F1F395A56FE4934E1A77"
+    },
+    {
+      "Path": "src/udp/megaco_udp.erl",
+      "Sha256": "5CE734C481141CED245A4D1443C4C839CE98D4E709201247F9E5DAED15B7239A"
+    },
+    {
+      "Path": "src/udp/megaco_udp.hrl",
+      "Sha256": "CA31E96088972301A9984FE776BB72AD22965A237F7F51FA345777271ED2DE59"
+    },
+    {
+      "Path": "src/udp/megaco_udp_server.erl",
+      "Sha256": "F98FA7E7C6DF000720C1DB4330AF67C02F53858A4D70159B4B60EE1573F8C2A8"
+    },
+    {
+      "Path": "src/udp/megaco_udp_sup.erl",
+      "Sha256": "DCA4DC5909A5F0C4430DC9D3AD9704526127C330C18CAF09A26DB7C244D444CB"
+    },
+    {
+      "Path": "include/megaco.hrl",
+      "Sha256": "6430150EA394EDBABB621E01BE9AA24310790BEEDF89BDEF23216F2A7BCDC9C6"
+    },
+    {
+      "Path": "include/megaco_message_v1.hrl",
+      "Sha256": "D17AC29C2F4451DC88BA4B63D17C41AB637C1A56B7980FF50F103CFCABBD2892"
+    },
+    {
+      "Path": "include/megaco_message_v2.hrl",
+      "Sha256": "4D158141D00B15BF6B46434FD32201949DD2A0BF83C07D04EE045C022831B120"
+    },
+    {
+      "Path": "include/megaco_message_v3.hrl",
+      "Sha256": "57C877C02E1D665081272A3958089E534A7661E9659CBBFD11A7167542FD93E8"
+    },
+    {
+      "Path": "include/megaco_sdp.hrl",
+      "Sha256": "B71D6CAA440ADCBE637CFE430369D526BBB5A65D9D082DB1E777235EBFACC25A"
+    }
+  ],
+  "PinnedSourceMatches": [
+    "lib/megaco/src/app/megaco.erl",
+    "lib/megaco/src/app/megaco_internal.hrl",
+    "lib/megaco/src/binary/MEDIA-GATEWAY-CONTROL-v1.asn",
+    "lib/megaco/src/binary/MEDIA-GATEWAY-CONTROL-v2.asn",
+    "lib/megaco/src/binary/MEDIA-GATEWAY-CONTROL-v3.asn",
+    "lib/megaco/src/binary/megaco_ber_encoder.erl",
+    "lib/megaco/src/binary/megaco_binary_encoder.erl",
+    "lib/megaco/src/binary/megaco_binary_encoder_lib.erl",
+    "lib/megaco/src/binary/megaco_binary_name_resolver_v1.erl",
+    "lib/megaco/src/binary/megaco_binary_name_resolver_v2.erl",
+    "lib/megaco/src/binary/megaco_binary_name_resolver_v3.erl",
+    "lib/megaco/src/binary/megaco_binary_term_id.erl",
+    "lib/megaco/src/binary/megaco_binary_term_id_gen.erl",
+    "lib/megaco/src/binary/megaco_binary_transformer_v1.erl",
+    "lib/megaco/src/binary/megaco_binary_transformer_v2.erl",
+    "lib/megaco/src/binary/megaco_binary_transformer_v3.erl",
+    "lib/megaco/src/binary/megaco_per_encoder.erl",
+    "lib/megaco/src/engine/megaco_config.erl",
+    "lib/megaco/src/engine/megaco_config_misc.erl",
+    "lib/megaco/src/engine/megaco_digit_map.erl",
+    "lib/megaco/src/engine/megaco_edist_compress.erl",
+    "lib/megaco/src/engine/megaco_encoder.erl",
+    "lib/megaco/src/engine/megaco_erl_dist_encoder.erl",
+    "lib/megaco/src/engine/megaco_erl_dist_encoder_mc.erl",
+    "lib/megaco/src/engine/megaco_filter.erl",
+    "lib/megaco/src/engine/megaco_message_internal.hrl",
+    "lib/megaco/src/engine/megaco_messenger.erl",
+    "lib/megaco/src/engine/megaco_messenger_misc.erl",
+    "lib/megaco/src/engine/megaco_misc_sup.erl",
+    "lib/megaco/src/engine/megaco_monitor.erl",
+    "lib/megaco/src/engine/megaco_sdp.erl",
+    "lib/megaco/src/engine/megaco_stats.erl",
+    "lib/megaco/src/engine/megaco_sup.erl",
+    "lib/megaco/src/engine/megaco_timer.erl",
+    "lib/megaco/src/engine/megaco_trans_sender.erl",
+    "lib/megaco/src/engine/megaco_trans_sup.erl",
+    "lib/megaco/src/engine/megaco_transport.erl",
+    "lib/megaco/src/engine/megaco_user.erl",
+    "lib/megaco/src/engine/megaco_user_default.erl",
+    "lib/megaco/src/flex/megaco_flex_scanner.erl",
+    "lib/megaco/src/flex/megaco_flex_scanner_handler.erl",
+    "lib/megaco/src/tcp/megaco_tcp.erl",
+    "lib/megaco/src/tcp/megaco_tcp.hrl",
+    "lib/megaco/src/tcp/megaco_tcp_accept.erl",
+    "lib/megaco/src/tcp/megaco_tcp_accept_sup.erl",
+    "lib/megaco/src/tcp/megaco_tcp_connection.erl",
+    "lib/megaco/src/tcp/megaco_tcp_connection_sup.erl",
+    "lib/megaco/src/tcp/megaco_tcp_sup.erl",
+    "lib/megaco/src/text/megaco_compact_text_encoder.erl",
+    "lib/megaco/src/text/megaco_compact_text_encoder_v1.erl",
+    "lib/megaco/src/text/megaco_compact_text_encoder_v2.erl",
+    "lib/megaco/src/text/megaco_compact_text_encoder_v3.erl",
+    "lib/megaco/src/text/megaco_pretty_text_encoder.erl",
+    "lib/megaco/src/text/megaco_pretty_text_encoder_v1.erl",
+    "lib/megaco/src/text/megaco_pretty_text_encoder_v2.erl",
+    "lib/megaco/src/text/megaco_pretty_text_encoder_v3.erl",
+    "lib/megaco/src/text/megaco_text_gen_v1.hrl",
+    "lib/megaco/src/text/megaco_text_gen_v2.hrl",
+    "lib/megaco/src/text/megaco_text_gen_v3.hrl",
+    "lib/megaco/src/text/megaco_text_mini_decoder.erl",
+    "lib/megaco/src/text/megaco_text_mini_parser.hrl",
+    "lib/megaco/src/text/megaco_text_mini_parser.yrl",
+    "lib/megaco/src/text/megaco_text_parser_v1.hrl",
+    "lib/megaco/src/text/megaco_text_parser_v1.yrl",
+    "lib/megaco/src/text/megaco_text_parser_v2.hrl",
+    "lib/megaco/src/text/megaco_text_parser_v2.yrl",
+    "lib/megaco/src/text/megaco_text_parser_v3.hrl",
+    "lib/megaco/src/text/megaco_text_parser_v3.yrl",
+    "lib/megaco/src/text/megaco_text_scanner.erl",
+    "lib/megaco/src/text/megaco_text_tokens.hrl",
+    "lib/megaco/src/udp/megaco_udp.erl",
+    "lib/megaco/src/udp/megaco_udp.hrl",
+    "lib/megaco/src/udp/megaco_udp_server.erl",
+    "lib/megaco/src/udp/megaco_udp_sup.erl",
+    "lib/megaco/include/megaco.hrl",
+    "lib/megaco/include/megaco_message_v1.hrl",
+    "lib/megaco/include/megaco_message_v2.hrl",
+    "lib/megaco/include/megaco_message_v3.hrl",
+    "lib/megaco/include/megaco_sdp.hrl"
+  ],
+  "PinnedSourceRelocations": [],
+  "GeneratedReleaseSources": [
+    "src/binary/megaco_ber_media_gateway_control_v1.erl",
+    "src/binary/megaco_ber_media_gateway_control_v1.hrl",
+    "src/binary/megaco_ber_media_gateway_control_v2.erl",
+    "src/binary/megaco_ber_media_gateway_control_v2.hrl",
+    "src/binary/megaco_ber_media_gateway_control_v3.erl",
+    "src/binary/megaco_ber_media_gateway_control_v3.hrl",
+    "src/binary/megaco_per_media_gateway_control_v1.erl",
+    "src/binary/megaco_per_media_gateway_control_v1.hrl",
+    "src/binary/megaco_per_media_gateway_control_v2.erl",
+    "src/binary/megaco_per_media_gateway_control_v2.hrl",
+    "src/binary/megaco_per_media_gateway_control_v3.erl",
+    "src/binary/megaco_per_media_gateway_control_v3.hrl",
+    "src/text/megaco_text_mini_parser.erl",
+    "src/text/megaco_text_parser_v1.erl",
+    "src/text/megaco_text_parser_v2.erl",
+    "src/text/megaco_text_parser_v3.erl"
+  ],
+  "ExcludedNativeProducerFiles": []
+}

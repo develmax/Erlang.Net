@@ -1,3 +1,9 @@
+# Current checkpoint — Part474
+
+Part474 packages all65 original Megaco4.9.2 images with95 source/header/grammar inputs and two application resources (162 provider files). Seventy-nine inputs match pinned Git;16 are generated release sources. All2003 complete original outcomes/stacks (1852 returns/151 caught errors;341084 deterministic ETF bytes) match execution on our .NET runtime. The150 project/cold assertions cover image identities, application resources, selectors/refusals and six actual image owners. Packaging advances845→910/1321 (64.0%→68.9%),476→411 remaining and24→25 complete application inventories. Runtime/compiler sources,708 default APIs/118 full contracts,8843 runtime groups and1678 source guards remain unchanged (API/full deltas0/0). This is finite timer/configuration/termination-ID execution, not full Megaco application/protocol compatibility. Exact-head CI remains the delivery gate and is tracked in the PR.
+
+Earlier checkpoints below are historical.
+
 # Current checkpoint — Part473
 
 Part473: original diameter47/47 and snmp90/90 images move to separate src libraries with393 provider files and61 whitelisted support assets.439 project/cold assertions and768 complete OTP outcomes cover finite type/address/time/float and SNMP codec/flag/scoped/USM profiles. Eighteen native-dependent reference profiles are retained separately with managed acceptance false; raw ASN.1 BER and configured PCRE remain explicit boundaries. Packaging advances708→845/1321 (53.6%→64.0%),613→476 remaining,22→24 complete inventories. Runtime/compiler sources,708 default APIs/118 full contracts,8843 runtime groups and1678 source guards remain unchanged (API/full deltas0/0). Exact-head CI is tracked in the Part473 PR; live protocols, security, full compilation and application boot remain open.
