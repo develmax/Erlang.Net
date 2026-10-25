@@ -25,6 +25,8 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--check-golden', action='store_true')
     parser.add_argument('--fixture', type=Path, default=Path('tests/Erlang.Tests/Resources/ContractReaudit487'))
+    parser.add_argument('--subject')
+    parser.add_argument('--golden-prefix', default='')
     args = parser.parse_args()
     root, out = args.repository.resolve(), args.output.resolve()
     assert not out.exists() and out.is_relative_to(root / 'artifacts')
@@ -40,7 +42,10 @@ def main():
     assert len(expected) == 6427 and inventory.inventory(installed) == expected
     fixture = (root / args.fixture).resolve()
     assert fixture.is_relative_to(root / 'tests') or fixture.is_relative_to(root / 'artifacts')
-    sources = list(fixture.glob('*.erl'))
+    if args.subject:
+        assert re.fullmatch('[a-z][a-z0-9_]*', args.subject)
+    assert re.fullmatch('[a-z0-9_.]*', args.golden_prefix)
+    sources = [fixture / (args.subject + '.erl')] if args.subject else list(fixture.glob('*.erl'))
     assert len(sources) == 1
     source = sources[0]
     subject = source.stem
@@ -74,7 +79,7 @@ def main():
         receipt = owned.owned(command + ['-eval', expression], out, 'original', 120, env, str(out))
         if args.check_golden:
             for name in ['values.etf', 'stacks.etf']:
-                if (out / name).read_bytes() != (fixture / name).read_bytes():
+                if (out / name).read_bytes() != (fixture / (args.golden_prefix + name)).read_bytes():
                     errors.append('Whole original golden differs: ' + name)
     except Exception as error:
         errors.append(repr(error))
