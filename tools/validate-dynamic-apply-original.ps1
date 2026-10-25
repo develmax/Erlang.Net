@@ -20,7 +20,7 @@ if ($fixture.Serialization -cne 'term_to_binary/2 deterministic; whole term') { 
 $applySource = Join-Path $profile.InstalledOtpRoot 'lib/erts-17.1/src/erlang.erl'
 if ((Get-FileHash -LiteralPath $applySource -Algorithm SHA256).Hash -cne $fixture.ApplyFunctionSource.Sha256 -or $fixture.ApplyFunctionSource.Line -ne 10558 -or [IO.File]::ReadAllLines($applySource)[10557] -cne '    erlang:apply(Fun, Args).') { throw 'Pinned apply/2 continuation source differs' }
 foreach ($include in $fixture.CompilerIncludes) {
-    if ((Get-FileHash -LiteralPath $include.Path -Algorithm SHA256).Hash -cne $include.Sha256) { throw 'Original observer include differs' }
+    if ((Get-FileHash -LiteralPath (Resolve-OriginalFixturePath $include.Path) -Algorithm SHA256).Hash -cne $include.Sha256) { throw 'Original observer include differs' }
 }
 if ($fixture.CompilerBindings.Count -ne 3) { throw 'Observer compiler bindings are incomplete' }
 foreach ($binding in $fixture.CompilerBindings) {

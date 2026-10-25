@@ -34,7 +34,7 @@ $fixture = Get-Content -LiteralPath (Join-Path $fixtureDirectory 'fixture.json')
 if ($fixture.SourceCommit -cne $profile.SourceCommit -or $fixture.Outcomes -ne 2003) { throw 'Observer provenance differs' }
 if ($fixture.Serialization -cne 'term_to_binary/2 with deterministic option; whole term') { throw 'Original observer serialization contract differs' }
 foreach ($include in $fixture.CompilerIncludes) {
-    if ((Get-FileHash -LiteralPath $include.Path -Algorithm SHA256).Hash -cne $include.Sha256) { throw 'Original observer include differs' }
+    if ((Get-FileHash -LiteralPath (Resolve-OriginalFixturePath $include.Path) -Algorithm SHA256).Hash -cne $include.Sha256) { throw 'Original observer include differs' }
 }
 if ($fixture.CompilerBindings.Count -ne 3) { throw 'Observer compiler bindings are incomplete' }
 foreach ($binding in $fixture.CompilerBindings) {
