@@ -23,11 +23,13 @@ Packaging progress counts module names in the admitted OTP29.1.1 application inv
 | ssl | 78 | 78 | 100% | Shared272 checks;143 cipher-suite macro branches through six formatting/mapping routes and TLS alert decoding; complete original values/errors/stacks |
 | ssh | 43 | 43 | 100% | Shared272 checks; mpint boundaries,17 packet forms, curve/OID helpers; combined1107 whole outcomes/stacks and cold NuGet/publish |
 | eldap | 2 | 2 | 100% | Shared207 project/cold assertions and1337 whole outcomes/stacks: LDAP filters/modifications, DN/URL parsing, complete failures; generated ASN.1 header retained |
+| diameter | 47 | 47 | 100% | Shared439 project/cold checks;386 complete type/address/time/float outcomes;39 descriptor modules plus eight original compiler/diagnostic images |
+| snmp | 90 | 90 | 100% | Shared439 checks;382 complete value/PDU/scoped/USM/flag outcomes;61 combined support assets, including MIB data and launcher source |
 | tftp | 8 | 8 | 100% | Shared207 project/cold assertions and1337 whole outcomes/stacks: All packet classes, wire encodings/decodings, limits and invalid inputs |
 | ftp | 6 | 6 | 100% | Shared207 project/cold assertions and1337 whole outcomes/stacks: All500 reply-code interpretations, error text and every two-chunk split of three responses |
 | inets | 63 | 63 | 100% | Shared207 project/cold assertions and1337 whole outcomes/stacks: HTTP status/date/case/HTML/hex/token helpers |
 
-These twenty-two applications total708/708 packaged module names (100% of these twenty-two application inventories). The ERTS descriptor lists19 modules and the distribution includes three additional implementation images; all22 are packaged and the distinction is recorded in provenance. This is not a project-wide completion percentage or full compatibility claim. The official kernel producer is Windows x64; platform identity remains explicit. No newly registered runtime APIs or full contracts are added by packaging.
+These twenty-four applications total845/845 packaged module names (100% of these twenty-four application inventories). The ERTS descriptor lists19 modules and the distribution includes three additional implementation images; all22 are packaged and the distinction is recorded in provenance. This is not a project-wide completion percentage or full compatibility claim. The official kernel producer is Windows x64; platform identity remains explicit. No newly registered runtime APIs or full contracts are added by packaging.
 
 Projects:
 
@@ -43,20 +45,20 @@ Projects:
 - `src/Erlang.Otp.Crypto.Beam` and `src/Erlang.Otp.PublicKey.Beam`: all44 images,four application resources and84 original Erlang/header/ASN.1 inputs:132 files in total. Fifty-two inputs match pinned Git;32 are generated release sources. Native producer DLLs are inventoried as exclusions and not shipped. OtpCrypto/OtpPublicKey provide hash-checked readers and explicit BEAM selectors.
 - `src/Erlang.Otp.Ssl.Beam` and `src/Erlang.Otp.Ssh.Beam`: all121 original images,144 source/header files and four application resources (269 files). Every source/header file matches pinned Git; no generated sources or native producer exclusions are needed. OtpSsl/OtpSsh provide hash-checked readers and explicit BEAM selectors.
 - `src/Erlang.Otp.Inets.Beam`, `src/Erlang.Otp.Ftp.Beam`, `src/Erlang.Otp.Tftp.Beam` and `src/Erlang.Otp.Eldap.Beam`: all79 original images,90 source/header/schema inputs and eight application resources (177 files). Eighty-nine inputs match pinned Git; generated ebin/ELDAPv3.hrl retains official-release provenance and its package path. Inets source subdirectories are preserved. Explicit OtpInets/OtpFtp/OtpTftp/OtpEldap readers/selectors do not start network services.
+- `src/Erlang.Otp.Diameter.Beam` and `src/Erlang.Otp.Snmp.Beam`:137 original images,191 source/header/dictionary inputs, four application resources and61 support assets (393 files). SupportFiles/ReadSupportFile expose whitelisted hash-checked MIB/config/launcher data without execution or automatic code:priv_dir installation. Preserve33 generated release sources and23 generated MIB binaries; ten SNMP compiler sources have explicit pinned-Git relocation mappings.
 - `src/Erlang.Otp.Stdlib` and `src/Erlang.Otp.Kernel`: existing C# alternatives and their current registration/composition APIs. The strict startup selector's Managed support is narrower than every C# registration; unsupported choices fail explicitly.
 
 Next: extend other applications according to the boot dependency inventory, preserving admitted compilation variants and explicit dependency boundaries. Shipping an application descriptor does not automatically start it; native bindings, selected dependency images and the existing boot protocol remain required. Continue actual image ownership/execution checks and original OTP comparisons separately from file inventory checks.
 
 ## Remaining official application inventories
 
-The admitted Windows release contains 1321 BEAM files across 34 applications (36 application directories including C/Java support). This batch packages708/1321 image names (53.6%); this is packaging progress only. Source names, descriptors, generated support and native platform prerequisites remain distinct. The complete module list is in [OTP_LIBRARY_INVENTORY.json](OTP_LIBRARY_INVENTORY.json).
+The admitted Windows release contains 1321 BEAM files across 34 applications (36 application directories including C/Java support). This batch packages845/1321 image names (64.0%); this is packaging progress only. Source names, descriptors, generated support and native platform prerequisites remain distinct. The complete module list is in [OTP_LIBRARY_INVENTORY.json](OTP_LIBRARY_INVENTORY.json).
 
 | Remaining application | BEAM images | Packaging state |
 | --- | ---: | --- |
 | common_test | 47 | Not yet packaged |
 | debugger | 24 | Not yet packaged |
 | dialyzer | 29 | Not yet packaged |
-| diameter | 47 | Not yet packaged |
 | erl_interface | 0 | C/Java support; no BEAM images |
 | et | 6 | Not yet packaged |
 | jinterface | 0 | C/Java support; no BEAM images |
@@ -65,7 +67,6 @@ The admitted Windows release contains 1321 BEAM files across 34 applications (36
 | odbc | 3 | Not yet packaged |
 | os_mon | 8 | Not yet packaged |
 | reltool | 9 | Not yet packaged |
-| snmp | 90 | Not yet packaged |
 | wx | 241 | Not yet packaged |
 
 Next priority: remaining application families and the explicit runtime/filesystem/parse-transform prerequisites for executing the original compiler pipeline. Native profiling/tracing/driver effects must be validated separately from these finite pure calculations. Packaging an image does not prove every export, I/O effect, on_load hook, native binding or application-start closure.
@@ -81,3 +82,5 @@ Part470 executes original crypto_ec_curves, pubkey_translation, pubkey_policy_tr
 Part471 executes original ssl_cipher_format/ssl_alert/ssh_bits/ssh_message with original lists/string/unicode/unicode_util and an identical observer.1107 complete outcomes/stacks cover143 suite macros through six binary/map/legacy/RFC/OpenSSL routes, selected reverse strings, alerts,21 mpint boundaries,17 SSH packet forms and five curve/OID mappings. Include132 dynamic skip profiles and20 wide integer profiles: OTP ignores bs_skip_bits2 flags, and bs_match integer fields are no longer arbitrarily capped at128 bits. All86355 deterministic ETF bytes match OTP. Full authenticated TLS/DTLS/SSH handshakes, native crypto, key exchange, certificate validation, live socket/session/channel behavior and complete module compatibility remain separate obligations.
 
 Part472 executes original http_util/httpd_util/ftp_response/tftp_lib/eldap with original stdlib/inet_parse dependencies and an identical observer.1337 whole outcomes (1282 returns/55 caught errors) match all122877 deterministic ETF bytes. HTTP dates use fixed UTC targets converted by original calendar to each host local input before original RFC formatting; no result normalization is applied. All500 three-digit FTP reply codes and every two-chunk split of three response streams are exercised; LDAP includes original structural filters, DN and URL parser behavior, and TFTP includes all six packet opcodes with malformed/boundary cases. Full live HTTP/FTP/TFTP/LDAP services, socket transfers, authentication, native ASN.1 BER parsing and application startup remain separate obligations.
+
+Part473 compares768 whole outcomes/stacks (386 Diameter/382 SNMP;541 returns/227 caught errors), all233992 deterministic ETF bytes, on unchanged original modules. The separate18-outcome native-dependent original reference corpus (Diameter URI/PCRE and raw Counter64/ASN.1 BER) is captured and hash-verified but explicitly has no managed compatibility acceptance. Counter64 prepared-TLV decoder checks are separate from raw BER. Existing PCRE requires explicit provider configuration; no provider or ASN.1 placeholder is silently installed. Full Diameter peers, SNMP agents/managers/traps, native security/authentication, complete MIB/dictionary compilation and application boot remain open.

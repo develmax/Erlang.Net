@@ -1,0 +1,39 @@
+{
+  "SourceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Compiler": "admitted official OTP29.1.1 erlc",
+  "CompilerOptions": [
+    "debug_info",
+    "deterministic"
+  ],
+  "Outcomes": 768,
+  "Returned": 541,
+  "Caught": 227,
+  "Serialization": "term_to_binary/2 with deterministic option; whole term",
+  "Files": {
+    "native-required-values.etf": "D15EFA6DDFECB875DA065AB6FDEDCA102D4BA6F43A4A4666471CC89C4EEFE20D",
+    "original-values.etf": "05C70483CC51CE07F2CD1FAB5AD4A6DC9984D6DDD6449EA5E60F28E398AC55D5",
+    "otp_management473_observer.beam": "73200482149B39C075566CE93D6B70A8821C5D51D3F22661E50D217C1746717D",
+    "otp_management473_observer.erl": "06C31A42CE422766FAD92141D08BA021BFB5938ADA904D654F138CE8933402D4"
+  },
+  "CompilerBindings": [
+    {
+      "Path": "bin/erlc.exe",
+      "Sha256": "8F1CD8036F83AC45C4A3173DF965F6503059EB99E0C14322A5D376EDC8CF7769"
+    },
+    {
+      "Path": "erts-17.1/bin/erlc.exe",
+      "Sha256": "8F1CD8036F83AC45C4A3173DF965F6503059EB99E0C14322A5D376EDC8CF7769"
+    },
+    {
+      "Path": "lib/compiler-10.0.6/ebin/compile.beam",
+      "Sha256": "142D29BF0A3C0395B432F20F2568AEC3C9ED749213D6957FDE7AE132F14B3A3B"
+    }
+  ],
+  "NativeDependentOriginalOnlyOutcomes": 18,
+  "NativeDependentManagedAcceptance": false,
+  "NativeRequired": [
+    "PCRE-backed original re for DiameterURI",
+    "asn1rt_nif:decode_ber_tlv for raw Counter64"
+  ],
+  "PreparedCounter64TlvCases": 6
+}

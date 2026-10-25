@@ -1,0 +1,24 @@
+{
+  "Outcomes": 18,
+  "OriginalOnly": true,
+  "ManagedAcceptance": false,
+  "ExecutionBindings": [
+    {
+      "Path": "lib/asn1-5.5.2/ebin/asn1rt_nif.beam",
+      "Sha256": "C0E58A4246ED68B42978A9360A2BB4919979CBC0DF750DC83DE74FE72CC1A080"
+    },
+    {
+      "Path": "lib/asn1-5.5.2/priv/lib/asn1rt_nif.dll",
+      "Sha256": "6DD9230EDADA15AE5E5858D87C20D2A42E43264C517D47C9178E1F139B3E6412"
+    },
+    {
+      "Path": "lib/stdlib-8.1/ebin/re.beam",
+      "Sha256": "209F22D045A795A01FF7D6F4322B7AC2C32C261192A4014370A55BD1A1619015"
+    }
+  ],
+  "Required": [
+    "PCRE-backed original re for DiameterURI",
+    "asn1rt_nif:decode_ber_tlv for raw Counter64"
+  ],
+  "RawEtfSha256": "D15EFA6DDFECB875DA065AB6FDEDCA102D4BA6F43A4A4666471CC89C4EEFE20D"
+}

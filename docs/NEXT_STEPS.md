@@ -1,3 +1,9 @@
+# Current checkpoint — Part473
+
+Finish the exact-head CI/package gate for Diameter/SNMP. Continue remaining original application inventories (476 images in ten applications). Keep native ASN.1 BER decoding and an explicitly configured portable PCRE provider as separate prerequisites before certifying the18 retained native-dependent profiles. Live Diameter/SNMP peers, agents/managers, native security, complete dictionary/MIB compilation and application boot remain separate from packaging.
+
+Earlier checkpoints below are historical.
+
 # Current checkpoint — Part472
 
 Complete the exact-head full CI/package gate for the network application libraries. Next package remaining official application families according to the dependency inventory; independently expand real runtime/native/boot compatibility. Packaging is708/1321 images,613 remaining. Native network services, full application boot, ASN.1 primitives, secure handshakes and platform/performance parity are separate milestones.

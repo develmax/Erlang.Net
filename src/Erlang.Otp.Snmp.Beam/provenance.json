@@ -1,0 +1,1443 @@
+{
+  "ReleaseTag": "OTP-29.1.1",
+  "SourceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ArchiveSha256": "337480AF988ECA993C2E98B68850F00FC6724D366346565E38941AC0D1B7C56B",
+  "ExecutionManifestSha256": "AF5EA3DA317E2ABC8A0CF1874D4E6BFB93AC1A47E864A7B92BBE7A03D1607E99",
+  "ReleaseUrl": "https://github.com/erlang/otp/releases/download/OTP-29.1.1/otp_win64_29.1.1.zip",
+  "Application": "snmp",
+  "Version": "5.20.5",
+  "ProducerPlatform": "Windows x64 official release",
+  "DescriptorModules": [
+    "snmp",
+    "snmp_app",
+    "snmp_app_sup",
+    "snmp_community_mib",
+    "snmp_conf",
+    "snmp_config",
+    "snmp_framework_mib",
+    "snmp_generic",
+    "snmp_generic_mnesia",
+    "snmp_index",
+    "snmp_log",
+    "snmp_mini_mib",
+    "snmp_misc",
+    "snmp_note_store",
+    "snmp_notification_mib",
+    "snmp_pdus",
+    "snmp_pdus_basic",
+    "snmp_shadow_table",
+    "snmp_standard_mib",
+    "snmp_target_mib",
+    "snmp_user_based_sm_mib",
+    "snmp_usm",
+    "snmp_verbosity",
+    "snmp_view_based_acm_mib",
+    "snmpa",
+    "snmpa_acm",
+    "snmpa_agent",
+    "snmpa_agent_sup",
+    "snmpa_app",
+    "snmpa_authentication_service",
+    "snmpa_conf",
+    "snmpa_discovery_handler",
+    "snmpa_discovery_handler_default",
+    "snmpa_error",
+    "snmpa_error_io",
+    "snmpa_error_logger",
+    "snmpa_error_report",
+    "snmpa_get",
+    "snmpa_get_lib",
+    "snmpa_get_mechanism",
+    "snmpa_local_db",
+    "snmpa_mib",
+    "snmpa_mib_data",
+    "snmpa_mib_data_tttn",
+    "snmpa_mib_lib",
+    "snmpa_mib_storage",
+    "snmpa_mib_storage_dets",
+    "snmpa_mib_storage_ets",
+    "snmpa_mib_storage_mnesia",
+    "snmpa_misc_sup",
+    "snmpa_mpd",
+    "snmpa_net_if",
+    "snmpa_net_if_filter",
+    "snmpa_network_interface",
+    "snmpa_network_interface_filter",
+    "snmpa_notification_delivery_info_receiver",
+    "snmpa_notification_filter",
+    "snmpa_set",
+    "snmpa_set_lib",
+    "snmpa_set_mechanism",
+    "snmpa_supervisor",
+    "snmpa_svbl",
+    "snmpa_symbolic_store",
+    "snmpa_target_cache",
+    "snmpa_trap",
+    "snmpa_usm",
+    "snmpa_vacm",
+    "snmpc",
+    "snmpc_lib",
+    "snmpc_mib_gram",
+    "snmpc_mib_to_hrl",
+    "snmpc_misc",
+    "snmpc_tok",
+    "snmpm",
+    "snmpm_conf",
+    "snmpm_config",
+    "snmpm_misc_sup",
+    "snmpm_mpd",
+    "snmpm_net_if",
+    "snmpm_net_if_filter",
+    "snmpm_net_if_mt",
+    "snmpm_network_interface",
+    "snmpm_network_interface_filter",
+    "snmpm_server",
+    "snmpm_server_sup",
+    "snmpm_supervisor",
+    "snmpm_user",
+    "snmpm_user_default",
+    "snmpm_user_old",
+    "snmpm_usm"
+  ],
+  "Files": [
+    {
+      "Path": "ebin/snmp.app",
+      "Sha256": "E2189BFA7E8AB326C41D4BD336E95B5C42F4DFBFF6CC83583208026F0042305C"
+    },
+    {
+      "Path": "ebin/snmp.appup",
+      "Sha256": "52735397F535A55DEFA94766FC9BD63ECDD32CCB3FBF9F76FE3478C891EBD9B9"
+    },
+    {
+      "Path": "ebin/snmp.beam",
+      "Sha256": "B90652782AE15BACE1573EBFEC789DC5698538C162A6B2D10C067516B087A721"
+    },
+    {
+      "Path": "ebin/snmp_app.beam",
+      "Sha256": "96236FB28ABCBE47D044153155FD9B989DD592CC2DB34C5336E19946C2828150"
+    },
+    {
+      "Path": "ebin/snmp_app_sup.beam",
+      "Sha256": "2DC31C9AF98BD6770515CFA67550499F8B3C464E7430AA1BA025E46A5DA050E8"
+    },
+    {
+      "Path": "ebin/snmp_community_mib.beam",
+      "Sha256": "D90C34F8BCF71AB3F87B45F7B8D6CBD162FF1FDA16925E7AB1D8FBC2E3E815F5"
+    },
+    {
+      "Path": "ebin/snmp_conf.beam",
+      "Sha256": "8280762AB3A064F43A4EF26E0A252985B85D48D2DC057055B99118AC0251F904"
+    },
+    {
+      "Path": "ebin/snmp_config.beam",
+      "Sha256": "7B7F0A8326259D477F77C575F9D28A0089851C457B312C94CFDAA8575651777C"
+    },
+    {
+      "Path": "ebin/snmp_framework_mib.beam",
+      "Sha256": "65279120BD167A468A27BA3E3FB8E72C58E63B72FD8DCCA59216FEDFCD4F4BBF"
+    },
+    {
+      "Path": "ebin/snmp_generic.beam",
+      "Sha256": "17A659B28C525EBDC6C82B6C1348BD25900D9E76E31A6FCE38FDE81CB3A5F91C"
+    },
+    {
+      "Path": "ebin/snmp_generic_mnesia.beam",
+      "Sha256": "7B7F78D74D38D9F6099175C2DC10B0FDE057DFBAEA81560183868CB3E0F7F13F"
+    },
+    {
+      "Path": "ebin/snmp_index.beam",
+      "Sha256": "BCB672E031CECD3905BB4C12DFAC0193E25D86FF912F300010E4FE42FB8BC329"
+    },
+    {
+      "Path": "ebin/snmp_log.beam",
+      "Sha256": "85D31135E1A25AC7AFBFEAE562D27F33527E502205CCDA323EEE7F8218FD782E"
+    },
+    {
+      "Path": "ebin/snmp_mini_mib.beam",
+      "Sha256": "8DA5FA83EFBE393A437F7BA2323D7B992B02361D2D1F58FF1BD990B8B8349426"
+    },
+    {
+      "Path": "ebin/snmp_misc.beam",
+      "Sha256": "F0963CD113C26E022223414B0AFFC287F3A315ED9A518990B187034CCFC99B65"
+    },
+    {
+      "Path": "ebin/snmp_note_store.beam",
+      "Sha256": "6532E0A825552D1E38E0AF55D9570D2624BE966C12C6727AC60CA3B98F0B0D73"
+    },
+    {
+      "Path": "ebin/snmp_notification_mib.beam",
+      "Sha256": "F265EE47D1C6BB83389BC937A81D9F02D84EC128FF26B7FC82E89843FBC440B0"
+    },
+    {
+      "Path": "ebin/snmp_pdus.beam",
+      "Sha256": "AAB78803E96D96812A0888C13485C1E9F01FA3DC1FE69F90A05F271F0666ABA1"
+    },
+    {
+      "Path": "ebin/snmp_pdus_basic.beam",
+      "Sha256": "1B1491134485D037F29FB9DEAD5375391060457125305C43A7CC50AB1CD494A2"
+    },
+    {
+      "Path": "ebin/snmp_shadow_table.beam",
+      "Sha256": "D6E4025B2C34E4DC8315DF543FE66B414E57B418963B2D6EB69C8AFD9FF3F8CE"
+    },
+    {
+      "Path": "ebin/snmp_standard_mib.beam",
+      "Sha256": "DBD90D3F36285181D3AACD69079E048F3A948D0CB609A50EB2FE96E7C5855E64"
+    },
+    {
+      "Path": "ebin/snmp_target_mib.beam",
+      "Sha256": "674169B801767E3F78F7EE12C18C13A7A2C1C882B485FA76F2D38B3F8C520273"
+    },
+    {
+      "Path": "ebin/snmp_user_based_sm_mib.beam",
+      "Sha256": "0DDE19E57F988FC0B2ABC1B78A636E763075B1D67CCBC9B03E5479E20FD88B6D"
+    },
+    {
+      "Path": "ebin/snmp_usm.beam",
+      "Sha256": "E6FD2B8BE8E9D20424F697B7D4EEB0E956BA170D0592E428BE06D19D75AA4329"
+    },
+    {
+      "Path": "ebin/snmp_verbosity.beam",
+      "Sha256": "71CA903BDCE729DD5AA4AB8FCA36B38D0FB809C13831FBEA9EF5933AB5C8F745"
+    },
+    {
+      "Path": "ebin/snmp_view_based_acm_mib.beam",
+      "Sha256": "8CEF40831A1B52655D62366197B76A0B44E46B75F5C6F2F60CB08BDF6D59B9BE"
+    },
+    {
+      "Path": "ebin/snmpa.beam",
+      "Sha256": "4264B4F9F20771A10101F843A8D59DFB137B2B9B7E74CF256947709386870712"
+    },
+    {
+      "Path": "ebin/snmpa_acm.beam",
+      "Sha256": "5E6F91E96AD0A954FBBE6BB844FFB12FB9FAA8C3E932C34D1208FB7D7ECE75A1"
+    },
+    {
+      "Path": "ebin/snmpa_agent.beam",
+      "Sha256": "BF4E454806F2FBEB63691F96A576B62CED089F0166100BF3A236B8477CF5BAD1"
+    },
+    {
+      "Path": "ebin/snmpa_agent_sup.beam",
+      "Sha256": "9DB81F6F5C8F0E122B00798015EBC7958C911CCE91E180BEFC3865CA20FD03D5"
+    },
+    {
+      "Path": "ebin/snmpa_app.beam",
+      "Sha256": "07ECA2FC34B590AD3A6C6EB356DF9E67D12902C26909BAB78F3CDC2BD0D5710C"
+    },
+    {
+      "Path": "ebin/snmpa_authentication_service.beam",
+      "Sha256": "D488E8D095709A6E8D1B4AB85CB7BA6F946EF60BE0BED3F79E57A401631E5E56"
+    },
+    {
+      "Path": "ebin/snmpa_conf.beam",
+      "Sha256": "0D57E9252C57193D3F6828149DA7C00DF8180FEAB85D5DA5B16746333876833F"
+    },
+    {
+      "Path": "ebin/snmpa_discovery_handler.beam",
+      "Sha256": "6D04C42E1E0B1F34ABC88F291F507670CD43812BCD317EF1DA3CBC6A9D179795"
+    },
+    {
+      "Path": "ebin/snmpa_discovery_handler_default.beam",
+      "Sha256": "A1AC4A686AF4C73B027D32B269D65356CA80CB8A42DFC1307CB9E981392C1BF7"
+    },
+    {
+      "Path": "ebin/snmpa_error.beam",
+      "Sha256": "CF9C5B916CD61D7F60A90519AD17616604369ED61EC95C829A78FE6FB0CFD2E6"
+    },
+    {
+      "Path": "ebin/snmpa_error_io.beam",
+      "Sha256": "45834DE03823B56629C1A21CBF770FFFC20DBB4A7861A359A3031882C4B24E8D"
+    },
+    {
+      "Path": "ebin/snmpa_error_logger.beam",
+      "Sha256": "4828A7F653D69F73A8D8FE840AD569001913DDC6B3B570E33164360630A43C0F"
+    },
+    {
+      "Path": "ebin/snmpa_error_report.beam",
+      "Sha256": "1A7C33D11E7C821E21C36BAECEC8932ABB2330837725C9F6837CA860FDD6BF24"
+    },
+    {
+      "Path": "ebin/snmpa_get.beam",
+      "Sha256": "7C46F9599BB5A561593DC34F3B6A96F872D712B76122DA9444193AEE2F8A8D5E"
+    },
+    {
+      "Path": "ebin/snmpa_get_lib.beam",
+      "Sha256": "A12A6B077CD04A28A73150C1C2CF9D46D055C12FA1F081EBC7BDF01F8742E11C"
+    },
+    {
+      "Path": "ebin/snmpa_get_mechanism.beam",
+      "Sha256": "ED2CA03CF33D619535B9CF4EE01A1767993EA7D621C5FFDFB20BADFE9F125522"
+    },
+    {
+      "Path": "ebin/snmpa_local_db.beam",
+      "Sha256": "DB4830EF6F2D0758A486045842ABD3D75E680B0F4D0FBA5920552DA9B42ABA97"
+    },
+    {
+      "Path": "ebin/snmpa_mib.beam",
+      "Sha256": "9CD03690C5C67E3A8B61F783035234D3B68607438D397678A31BEAB2516E5B16"
+    },
+    {
+      "Path": "ebin/snmpa_mib_data.beam",
+      "Sha256": "A6DF03EE0E8444B9652B7B856294568F188E8E371E4B3D6B5DC4569B5F93DB46"
+    },
+    {
+      "Path": "ebin/snmpa_mib_data_tttn.beam",
+      "Sha256": "77A67AC52702DD432DC723D338BF9D991021515E80A6ADC1002CD69133B555FF"
+    },
+    {
+      "Path": "ebin/snmpa_mib_lib.beam",
+      "Sha256": "45895466654B4AFC2255C4585CD18C869295B2F194A57F5292C74AE763BFD836"
+    },
+    {
+      "Path": "ebin/snmpa_mib_storage.beam",
+      "Sha256": "DA6A69BDB78B44AF93C664CA891ABD4B11B0BB4413EB5ED2DBEB0AE8BB000789"
+    },
+    {
+      "Path": "ebin/snmpa_mib_storage_dets.beam",
+      "Sha256": "6E0FC3A7EE80E155BECFD075B4D2CBE5E1AC011E8868F310A732EBD120B8D3B7"
+    },
+    {
+      "Path": "ebin/snmpa_mib_storage_ets.beam",
+      "Sha256": "7079335E545778A02F3FCF41FAB11F78E7826DCD464D8629FFF7606A24D7B67E"
+    },
+    {
+      "Path": "ebin/snmpa_mib_storage_mnesia.beam",
+      "Sha256": "8902064DD4974AC73D47F3177087179EC1C244AC198FCC17582E944FDCE129AC"
+    },
+    {
+      "Path": "ebin/snmpa_misc_sup.beam",
+      "Sha256": "9E99025FD603EBA387CE3BEC7585CC7C554E8D48FA978F43D4AA906FFE5E9870"
+    },
+    {
+      "Path": "ebin/snmpa_mpd.beam",
+      "Sha256": "D493814DE622D32A3985906EB1531B89048D903F7870D33D7202768D8C64EE40"
+    },
+    {
+      "Path": "ebin/snmpa_net_if.beam",
+      "Sha256": "EE47D2A716C275E559790AF96BD700076940286AEDD79848E1CDEA8745B40CE6"
+    },
+    {
+      "Path": "ebin/snmpa_net_if_filter.beam",
+      "Sha256": "AB0077DEEB5B3403C16B60B112DBAC30BC9ECED7D41561102E5F219BE25DC20C"
+    },
+    {
+      "Path": "ebin/snmpa_network_interface.beam",
+      "Sha256": "72E21BE6680EADC06C187597CAB42C4BB0876EF7561772D37A1A2070AFDFB5AF"
+    },
+    {
+      "Path": "ebin/snmpa_network_interface_filter.beam",
+      "Sha256": "2AA284147CF44ED6748EA6105A1B7A7B02665CD9AE56227248943E383BCACBE0"
+    },
+    {
+      "Path": "ebin/snmpa_notification_delivery_info_receiver.beam",
+      "Sha256": "B5E851F53BABF5E6B25BE5E2CC188B059E5ED849D1D02FD47EDEE19341C913F7"
+    },
+    {
+      "Path": "ebin/snmpa_notification_filter.beam",
+      "Sha256": "A62967758A9CD4A29C2AD65F16CAE7DE5AC5B4CC5A3644BFB70CE3B884873815"
+    },
+    {
+      "Path": "ebin/snmpa_set.beam",
+      "Sha256": "38427735C176F159FC2F7022930E11B8086AE152EA8456A9FAA7DA3BA04A7F98"
+    },
+    {
+      "Path": "ebin/snmpa_set_lib.beam",
+      "Sha256": "1AFEB7AFC4D6C077589D941D58BF3B7D3481192544296C356870C13A59005717"
+    },
+    {
+      "Path": "ebin/snmpa_set_mechanism.beam",
+      "Sha256": "197BDB6629705A4AA953FF58561D6133FF2DF884319949D762C94616FB6A4258"
+    },
+    {
+      "Path": "ebin/snmpa_supervisor.beam",
+      "Sha256": "1F45ECD6051D6AC2FAB37D50ADE7563E25EA20FF9539D2A405446D2138F377F1"
+    },
+    {
+      "Path": "ebin/snmpa_svbl.beam",
+      "Sha256": "0E689C1A02F9DAAE144B95AF9E3D9F80DB1D9C5578F5C9283391D2808FBA4B80"
+    },
+    {
+      "Path": "ebin/snmpa_symbolic_store.beam",
+      "Sha256": "0C01EE9E6A23D39353B0AD59BF1E32C51F740EA1D7FD5D164E82ED7C9D7EFB5F"
+    },
+    {
+      "Path": "ebin/snmpa_target_cache.beam",
+      "Sha256": "027DE10CD7E1329803D28EDB05613B2584BC06FEEF39B4675B6C291C3D0BC83B"
+    },
+    {
+      "Path": "ebin/snmpa_trap.beam",
+      "Sha256": "6593233B0E2D4E42329463A3F7FA5E91F755B4E55880DA6B6D3817A7591782A4"
+    },
+    {
+      "Path": "ebin/snmpa_usm.beam",
+      "Sha256": "98A17EBD72E1D93FC4DC5044A53494591E367D91A908EECF343E9E0C79002313"
+    },
+    {
+      "Path": "ebin/snmpa_vacm.beam",
+      "Sha256": "359C9735F3F9067655C0543FF5CAF09DA648D9BDD591B3EFE5585CBF49C5F593"
+    },
+    {
+      "Path": "ebin/snmpc.beam",
+      "Sha256": "623E6D0DFCBC26A8D869717CA8150F09D08018A24AB49DE26588743701AC73F1"
+    },
+    {
+      "Path": "ebin/snmpc_lib.beam",
+      "Sha256": "BC2D17741630B8434C82484C80BE98ECB820A994B6CCA524A8A68F127312165A"
+    },
+    {
+      "Path": "ebin/snmpc_mib_gram.beam",
+      "Sha256": "653036185127AF8E171BD9FF09CBCF6A161BF8FC617E86D960901F0161319F26"
+    },
+    {
+      "Path": "ebin/snmpc_mib_to_hrl.beam",
+      "Sha256": "30869AE6C8723C195B8F7F85C8ECE5CE9BE9A8F93F5FB29058D5A22FD65A326D"
+    },
+    {
+      "Path": "ebin/snmpc_misc.beam",
+      "Sha256": "9F8ACDC13FF54B0EE2171B1A05B9829234F50C11E119A2371DDE620882410765"
+    },
+    {
+      "Path": "ebin/snmpc_tok.beam",
+      "Sha256": "457EF4FEDC959CB2318B356129C6C71BC0C0BE5FD8B84727284BFF328083152B"
+    },
+    {
+      "Path": "ebin/snmpm.beam",
+      "Sha256": "23A004E7A430215FE23941F1E74D7F61CABC30C60435F86D7B96FBFDC1FD52C7"
+    },
+    {
+      "Path": "ebin/snmpm_conf.beam",
+      "Sha256": "F477353FA2AFE9B4A1365452FBBC97059492CAB7BC7FD10646F1F0D3A51E2EBC"
+    },
+    {
+      "Path": "ebin/snmpm_config.beam",
+      "Sha256": "3AF7A615C63776D764D2F55F640F16A6942BBC342B64FF85C94164EF503C5661"
+    },
+    {
+      "Path": "ebin/snmpm_misc_sup.beam",
+      "Sha256": "379EFBDB262441A308CE8C909088B11B4887964F18F8C608D3DF6936D4BCA7F1"
+    },
+    {
+      "Path": "ebin/snmpm_mpd.beam",
+      "Sha256": "9752B7423C78A39D4AEC586D17FEB1E4279AB73EC5D91982D5311321C8E16F21"
+    },
+    {
+      "Path": "ebin/snmpm_net_if.beam",
+      "Sha256": "61FAC12A8E9417A4394E3E1BBCD6E7C06BD5BB7EE6D19AC2E839DF87B6DD64E3"
+    },
+    {
+      "Path": "ebin/snmpm_net_if_filter.beam",
+      "Sha256": "5CF9BC1E203C0E5AE2DBF96910F7B1FD4C849DE106B22062EBF592F24313695C"
+    },
+    {
+      "Path": "ebin/snmpm_net_if_mt.beam",
+      "Sha256": "F43ED4D92F54AAD2EF714C4756474E1F9A09856799280AFECED53AE01E09ACFF"
+    },
+    {
+      "Path": "ebin/snmpm_network_interface.beam",
+      "Sha256": "F61451D28E289FA6DF4149E297328D9D1E2C5C57363ECAC80582FB85687F4E8F"
+    },
+    {
+      "Path": "ebin/snmpm_network_interface_filter.beam",
+      "Sha256": "CA478ADB98822A50CA12313AA9EAD138D20B8B488D1B4FB476ABC5034546D98C"
+    },
+    {
+      "Path": "ebin/snmpm_server.beam",
+      "Sha256": "2217618BCF5EE9E1576CE9287A957B3386083B1F6DE0AC1B0E0BC46B4D54B2D5"
+    },
+    {
+      "Path": "ebin/snmpm_server_sup.beam",
+      "Sha256": "FA42F084F1A1667F42B9B3A9C23E5C9ADC4FD25CBA4E038CB13B7E6ABD7A549C"
+    },
+    {
+      "Path": "ebin/snmpm_supervisor.beam",
+      "Sha256": "C91FCE707C409004F0E50F867DBC9B311B8EC9CE3682F9B1A2B795ABA8F360BD"
+    },
+    {
+      "Path": "ebin/snmpm_user.beam",
+      "Sha256": "0D74D307D8B21913AA4834F5DFF8382B9E8E4971484631781C543347878BD7DA"
+    },
+    {
+      "Path": "ebin/snmpm_user_default.beam",
+      "Sha256": "9D200B20C2839003F53B662C32AFC1FE2ED6D73698D05D7E9EF29ACF0BD47B01"
+    },
+    {
+      "Path": "ebin/snmpm_user_old.beam",
+      "Sha256": "7F1BAD41CB75593175C637C8E56C74CC392B6C173E1F2B7E8F90D0C2C3EAD0F0"
+    },
+    {
+      "Path": "ebin/snmpm_usm.beam",
+      "Sha256": "90FFD373FB95C9BF92D70FE8CBE765178B3FA19A9B4DC78431DD6B5F0B930303"
+    },
+    {
+      "Path": "src/agent/snmp_community_mib.erl",
+      "Sha256": "AE64303F84AFF429FBAE14582980EEE6FFF4F705E94AEB3039B87E0238B1DC7A"
+    },
+    {
+      "Path": "src/agent/snmp_framework_mib.erl",
+      "Sha256": "8F827C92BA2E10C3372B37C6A0DCFF4F44E9CF548F00D4BEF169E3AEDBC80116"
+    },
+    {
+      "Path": "src/agent/snmp_generic.erl",
+      "Sha256": "67C13B6FCE1A821E217A0B1E4E757B64DD6644ACA2487B3927AAB9D7E1E303A2"
+    },
+    {
+      "Path": "src/agent/snmp_generic_mnesia.erl",
+      "Sha256": "ABB366252E65DF13509DC5C3B696E9960E6AC4093734E92736B5BFF1B4151892"
+    },
+    {
+      "Path": "src/agent/snmp_index.erl",
+      "Sha256": "0546CFF689656F82D03D684CD4CC43BB750F40B367593E937D5C3558A9B97432"
+    },
+    {
+      "Path": "src/agent/snmp_notification_mib.erl",
+      "Sha256": "369DC11E6C9858F8BE34C40DCFC88285C5E35C477D36047B41870782406B7335"
+    },
+    {
+      "Path": "src/agent/snmp_shadow_table.erl",
+      "Sha256": "A7AE1B1564151B8793DA270A37DDB0C6C3CCFEF5013833A33A3C6E4696904F04"
+    },
+    {
+      "Path": "src/agent/snmp_standard_mib.erl",
+      "Sha256": "3D01CDD7ED1BA158FCED3B1933D6486F434F2C2C5E93044E5DCD7483007C79B2"
+    },
+    {
+      "Path": "src/agent/snmp_target_mib.erl",
+      "Sha256": "8311BB394C0130B9BC76EBBBD731716E5D5974B06ECB99CA7F9FAE2F0A54BE44"
+    },
+    {
+      "Path": "src/agent/snmp_user_based_sm_mib.erl",
+      "Sha256": "C30114FEE9713F09853773B6D735B2B0C2097DDB93E18EDD37DA1485C690B5F2"
+    },
+    {
+      "Path": "src/agent/snmp_view_based_acm_mib.erl",
+      "Sha256": "6574B5135D2791B9252C23E86822023D0A732702A980085C0DFD91BE291A88D3"
+    },
+    {
+      "Path": "src/agent/snmpa.erl",
+      "Sha256": "DC5250F77F2DBC8D28BEC2923AF084FA662397E498C9CB58C5D89CA424110B60"
+    },
+    {
+      "Path": "src/agent/snmpa_acm.erl",
+      "Sha256": "11883449EB7EC06AEB07D8BAA875F37A226A5DEEEBAF5F1946F65EA2E9C1F7E6"
+    },
+    {
+      "Path": "src/agent/snmpa_agent.erl",
+      "Sha256": "9AB1D8879B7D9C5A35B34B5ADF71D89338040B82910C8A3BC1A54F822CD7C268"
+    },
+    {
+      "Path": "src/agent/snmpa_agent_sup.erl",
+      "Sha256": "24810A75C3A3E539918B3EA80742E6939DCC2AD44A37B7ED4FA9A3E4E2AF14A7"
+    },
+    {
+      "Path": "src/agent/snmpa_app.erl",
+      "Sha256": "0BBADAF76B4CDE48DEAB239D221CECF5420414650B3F116840780864CB58275B"
+    },
+    {
+      "Path": "src/agent/snmpa_atl.hrl",
+      "Sha256": "14122419C1BF81DD9EC2DA1B108BA0AE472AB79CB6C6217FEA20DA2DC927F20A"
+    },
+    {
+      "Path": "src/agent/snmpa_authentication_service.erl",
+      "Sha256": "2459B86DD948DECAF17DDDB3324774BB114D7A7188147198AF9CAD7792282581"
+    },
+    {
+      "Path": "src/agent/snmpa_conf.erl",
+      "Sha256": "12CCD47CE17DAADBB0BED340F8C4E1F9F455DF364DD381DA1785D14BB65346FE"
+    },
+    {
+      "Path": "src/agent/snmpa_discovery_handler.erl",
+      "Sha256": "1CED0ECBE86A8C98DFCB24D987EF6F00B604C10FAAC9D691D98AA98068ECCFC3"
+    },
+    {
+      "Path": "src/agent/snmpa_discovery_handler_default.erl",
+      "Sha256": "00ECD2DDE6F3D56CFBF137DCBC2EB971D245C0D828A75FA17D57B343B9AC7D34"
+    },
+    {
+      "Path": "src/agent/snmpa_error.erl",
+      "Sha256": "FFC29D5B29CB4F42A14EE5F79684ACCCE0132DF73F12047D9DE9CEBFCCBD5343"
+    },
+    {
+      "Path": "src/agent/snmpa_error_io.erl",
+      "Sha256": "501CF277E53803E494A5469C0A7AC5065F2F7D68DC253C37E8406F4390E67BBE"
+    },
+    {
+      "Path": "src/agent/snmpa_error_logger.erl",
+      "Sha256": "9D511E45784F222F4854E61F277EABDA6D6A48F2422797B10ED1E0079E1656AC"
+    },
+    {
+      "Path": "src/agent/snmpa_error_report.erl",
+      "Sha256": "AA291EBCE1D3FAE8FE31F5E78E6FDBF22166837EDF2DA79538D370AD7B706F43"
+    },
+    {
+      "Path": "src/agent/snmpa_get.erl",
+      "Sha256": "21387437F93D9AB156FD235222DC6368333A64C29E3BEB669FB186BDF31693F6"
+    },
+    {
+      "Path": "src/agent/snmpa_get_lib.erl",
+      "Sha256": "46D7000DD83D237F24A743070CEA8BD95FD1A8F4F630E334CC766D9A63B62530"
+    },
+    {
+      "Path": "src/agent/snmpa_get_mechanism.erl",
+      "Sha256": "99425FD7F7756B5E92FAC1B26B961754A98C2E91DE4C7C9611227C7C5FE4D4D6"
+    },
+    {
+      "Path": "src/agent/snmpa_internal.hrl",
+      "Sha256": "ACD03A83D7CE88631200260B754D5BABB9538F02AA8F4411F6679D4B15D1390E"
+    },
+    {
+      "Path": "src/agent/snmpa_local_db.erl",
+      "Sha256": "FFC83B7B98D4F95C61BB0FD6C991B151A5DBAFF8CA3F40023FDC5FE2F1CBC1C5"
+    },
+    {
+      "Path": "src/agent/snmpa_mib.erl",
+      "Sha256": "2730C41A9811AFE5C393A7C01FD7A51CBB6506BF3BC7B69006F49698C81CD738"
+    },
+    {
+      "Path": "src/agent/snmpa_mib_data.erl",
+      "Sha256": "7AD41E4869DAC5E5AC7F11F9D29B66327EB4AF5C38F29DEB48426C289DDA9BE1"
+    },
+    {
+      "Path": "src/agent/snmpa_mib_data_tttn.erl",
+      "Sha256": "5F9F9B192A52E8CEE0CECF399E121625676541359EE4830AD6737122328A33A2"
+    },
+    {
+      "Path": "src/agent/snmpa_mib_lib.erl",
+      "Sha256": "B5FCEDCD3D1829CF56E77663D28760779028B44F10AA858228E3D0688C8ED2E1"
+    },
+    {
+      "Path": "src/agent/snmpa_mib_storage.erl",
+      "Sha256": "26B18ECEC8C8726B19F60B911938EB3A5EEE778EEE865DD30A82AEB7C94A490F"
+    },
+    {
+      "Path": "src/agent/snmpa_mib_storage_dets.erl",
+      "Sha256": "0C0A6ED7722973283E2C9D742E8F88BC3C16F3EF21907AFDF530513A9E4B8B2D"
+    },
+    {
+      "Path": "src/agent/snmpa_mib_storage_ets.erl",
+      "Sha256": "B8C0E36249EEA1A4BDCDBD0EA95D83FF7284CE31E8CEAE8B21E5612B4AE3ADC5"
+    },
+    {
+      "Path": "src/agent/snmpa_mib_storage_mnesia.erl",
+      "Sha256": "D4972A1488B378C7DE794CF87603B83C9A09F3328B7F6FAF0DA57F54CF8B0E13"
+    },
+    {
+      "Path": "src/agent/snmpa_misc_sup.erl",
+      "Sha256": "ED13162AF2CBAD80825D1C238AE2B91D6C77DC20B063FED0985242D8C1BDA1FE"
+    },
+    {
+      "Path": "src/agent/snmpa_mpd.erl",
+      "Sha256": "6AB6518853942207C4793D931BE8B2493AB12B07D6DDC138D8A98CD6A307E215"
+    },
+    {
+      "Path": "src/agent/snmpa_net_if.erl",
+      "Sha256": "33DD43C2419D0D18C9B89CAB615AE014F0CED890763A75EF2613799E4449BABF"
+    },
+    {
+      "Path": "src/agent/snmpa_net_if_filter.erl",
+      "Sha256": "F37BA8AF0E44445D218043A73ADF065C825FFE85408637519FABB621D8D90CB1"
+    },
+    {
+      "Path": "src/agent/snmpa_network_interface.erl",
+      "Sha256": "4F79BA1613991DB280E17BA57FE460747AE4310A10D0EE9E7ED4BB9FE429908B"
+    },
+    {
+      "Path": "src/agent/snmpa_network_interface_filter.erl",
+      "Sha256": "48BE1F251F3562F2D2DE9A84877843A8A8CCE1CA423C1E204EFE021E67354F35"
+    },
+    {
+      "Path": "src/agent/snmpa_notification_delivery_info_receiver.erl",
+      "Sha256": "B5A40E390F4419356EB0135298A1134EC65E8554D1F5D85662875982FB1A8004"
+    },
+    {
+      "Path": "src/agent/snmpa_notification_filter.erl",
+      "Sha256": "7923AB99B0C29F42C0F07DBAABBE4E871B004DA78B2CE2A59B23B6F07624D3EA"
+    },
+    {
+      "Path": "src/agent/snmpa_set.erl",
+      "Sha256": "8E2FCA247ED5D129B07C101AAD288428F7DC6403FEF12020B68F0D23EDE1DFBB"
+    },
+    {
+      "Path": "src/agent/snmpa_set_lib.erl",
+      "Sha256": "7F34D869F4BD67FBE94A1EC5EAAA1EE985ABAC500C7E6AA039803D4F1EA6C16F"
+    },
+    {
+      "Path": "src/agent/snmpa_set_mechanism.erl",
+      "Sha256": "56BA798EB05BCEE9A4893804347BF3CDAA3F4497BCA831B0F08C37EED2C7D263"
+    },
+    {
+      "Path": "src/agent/snmpa_supervisor.erl",
+      "Sha256": "15764EC8AAEEFD1C44A27309F541497C6F69190D779EAD6B1CCCFE87CC7B2A49"
+    },
+    {
+      "Path": "src/agent/snmpa_svbl.erl",
+      "Sha256": "E072B6DDF283505DE1E36A84EC1D6CDF3AFE150421450ED8B567B06DE1F02B41"
+    },
+    {
+      "Path": "src/agent/snmpa_symbolic_store.erl",
+      "Sha256": "167AB842C8C99ED36DBC06E0D16D819871AA5B8B065A654795334DD407896D79"
+    },
+    {
+      "Path": "src/agent/snmpa_target_cache.erl",
+      "Sha256": "AA6FBF7A46026008B91A5472BB1E51CA9DBFD1A71C4B8BCB46822E5DBFC2F6AA"
+    },
+    {
+      "Path": "src/agent/snmpa_trap.erl",
+      "Sha256": "26D8C6081D1A10060A26E4197ED94753C741095F900A3ACE05B30316EEF00107"
+    },
+    {
+      "Path": "src/agent/snmpa_usm.erl",
+      "Sha256": "E8C610AE6020378CEA184B7E50F88EBE369B5FAE3B07851060A8F1B6FA04B288"
+    },
+    {
+      "Path": "src/agent/snmpa_vacm.erl",
+      "Sha256": "24A3715F3A55BAB3534462C5EB875FF34A141A0CF16D7C83AFA2F6A4E25CB8AE"
+    },
+    {
+      "Path": "src/agent/snmpa_vacm.hrl",
+      "Sha256": "307DBF2ED60F452EEEF80B47BA5E32EC58799D565A93A191C9E4662DE4884AFD"
+    },
+    {
+      "Path": "src/app/snmp.erl",
+      "Sha256": "796EA582F8A76D4CF063459C7E1829A90739F0989670D4D80692A97AA7EAD99C"
+    },
+    {
+      "Path": "src/app/snmp_app.erl",
+      "Sha256": "8E2CE546C0D42BE36782D4275F71E99762E2A2C17A8E1B2723FBE17BA2099C4E"
+    },
+    {
+      "Path": "src/app/snmp_app_sup.erl",
+      "Sha256": "4F24366DF9EB15D06E3A348202CE92D324ABD898ED1C9B2F5C370F27B5FEC7DD"
+    },
+    {
+      "Path": "src/app/snmp_internal.hrl",
+      "Sha256": "9E872AA0C4F74F6C789873B3261FA764CDA031A37C1CDB7E16BCAE8C3BAB9125"
+    },
+    {
+      "Path": "src/compiler/snmpc.erl",
+      "Sha256": "24C31F4ABE928DB2F08F0B9ED2E26574523C99B76DD3F31DCA2D19370B864DEB"
+    },
+    {
+      "Path": "src/compiler/snmpc.hrl",
+      "Sha256": "4AFD59590D409ABE4D648E9F74D157D1B29392C7973C362C4E0F8FD9754C7AA0"
+    },
+    {
+      "Path": "src/compiler/snmpc.src",
+      "Sha256": "6FEDAE2CBDEB20C03FC30E172511ACD22200AEF4037ACC66B1A96E7364E913AC"
+    },
+    {
+      "Path": "src/compiler/snmpc_lib.erl",
+      "Sha256": "8340D3282A33F315BE3A33A078DA2451E64CF8E82EF43A885685C770BFAFA205"
+    },
+    {
+      "Path": "src/compiler/snmpc_lib.hrl",
+      "Sha256": "214B9BD4B4E2B96A3916FDD8BA73D070850A6B04EF6B3B1C8ABF8AD409528C53"
+    },
+    {
+      "Path": "src/compiler/snmpc_mib_gram.erl",
+      "Sha256": "314C39094F3C64B03ECE5B44F9BB4FE4448E1EEAA3277F3557EC0F540296907A"
+    },
+    {
+      "Path": "src/compiler/snmpc_mib_gram.yrl",
+      "Sha256": "8285930560AFB9E5E0EA7DB5B2F41EAFF49CBF3A3A0C52782AE2B373028CC33A"
+    },
+    {
+      "Path": "src/compiler/snmpc_mib_to_hrl.erl",
+      "Sha256": "FF8E7CCAB519A3F30959205BBE6DD7B9EFE1CC91C38ACADF27DA9612BC949E50"
+    },
+    {
+      "Path": "src/compiler/snmpc_misc.erl",
+      "Sha256": "9E484F0708B13D81102756350AE2E0DF15141443926A08ADEB604B211DDF8E88"
+    },
+    {
+      "Path": "src/compiler/snmpc_misc.hrl",
+      "Sha256": "CD0F8BBA40B08DB2D1EB1B8E9193934FA595366EEE722C324C2BCE3B824BCC87"
+    },
+    {
+      "Path": "src/compiler/snmpc_tok.erl",
+      "Sha256": "0FB7A6449B545653FC86F9FC780910A425306DF18ED1A234167C353C93B932B9"
+    },
+    {
+      "Path": "src/manager/snmpm.erl",
+      "Sha256": "69253F3690D402EC4DB8B90170113B90A115359F84EFCE22E9BD2C96066163E7"
+    },
+    {
+      "Path": "src/manager/snmpm_atl.hrl",
+      "Sha256": "CE6E9D70CA75EDCD9752334B0C366E677FB15FAB84573EEB3138259C6AD767EC"
+    },
+    {
+      "Path": "src/manager/snmpm_conf.erl",
+      "Sha256": "1EE5035352F7C294C43ACC31568D8F4C8D9240E1E6A8442E92944651E92FACD8"
+    },
+    {
+      "Path": "src/manager/snmpm_config.erl",
+      "Sha256": "0788A9C2648B20E1AB522C286D2A0F6F4F12D942C216156D04C504B93DFC12F1"
+    },
+    {
+      "Path": "src/manager/snmpm_internal.hrl",
+      "Sha256": "302D65B6CC5014B9FAEC41B33485DF603A6D743C28CC5724E2C57851C9AD4460"
+    },
+    {
+      "Path": "src/manager/snmpm_misc_sup.erl",
+      "Sha256": "38F1BDFE0552F3E8C718220C84C5A83A43A9837BAF4277C711A06A579999BBCB"
+    },
+    {
+      "Path": "src/manager/snmpm_mpd.erl",
+      "Sha256": "7C66DA0AB402632D931D4A15F38E0BC7B9C333D341183B2F15F9A3770B02D7CB"
+    },
+    {
+      "Path": "src/manager/snmpm_net_if.erl",
+      "Sha256": "9655E05A97C8ECF531C66CE9693FF9C4B2AE86AA5A93EB64C8CD1660FE34FDF1"
+    },
+    {
+      "Path": "src/manager/snmpm_net_if_filter.erl",
+      "Sha256": "FD2E773E0330AA4E15DFF3F3D041A4A1E339EDFF82A5A148D3770742C7F29ED6"
+    },
+    {
+      "Path": "src/manager/snmpm_net_if_mt.erl",
+      "Sha256": "B6EE6BFC534D66A3976FDCB856585014C157562A8D80184FE74BCE4142664628"
+    },
+    {
+      "Path": "src/manager/snmpm_network_interface.erl",
+      "Sha256": "2FD16D47F6BA7F27C9EE48F774445DA7BBBB62BAA85D8B71D6E37C8184650B8D"
+    },
+    {
+      "Path": "src/manager/snmpm_network_interface_filter.erl",
+      "Sha256": "F26A016944E1B1D6BDDF4DECBF2BC949C42F4B98891B6CAC1F2ECC5B12C01967"
+    },
+    {
+      "Path": "src/manager/snmpm_server.erl",
+      "Sha256": "C13C2129C1FBB2BE92DA2005E95A650A69ECAE22A25257584E5C1123274A541A"
+    },
+    {
+      "Path": "src/manager/snmpm_server_sup.erl",
+      "Sha256": "E6C6EC7E851F6FB7321F319B0B37442F88614F126C45B841FF8BD0B29B166D62"
+    },
+    {
+      "Path": "src/manager/snmpm_supervisor.erl",
+      "Sha256": "0AE08773D500C612D2AAA4025D5B3AB8F5E211C0D444345D806442D78ACB5DE4"
+    },
+    {
+      "Path": "src/manager/snmpm_user.erl",
+      "Sha256": "52C89FDD2ADEF94D9C4034A2AC8A414457F21E524952AF8A7CF34DE577CFEC85"
+    },
+    {
+      "Path": "src/manager/snmpm_user_default.erl",
+      "Sha256": "01F38B8E7A76255275CA1D8AB988D1DB1197E782076DF74B95C69AEF40E03FE1"
+    },
+    {
+      "Path": "src/manager/snmpm_user_old.erl",
+      "Sha256": "8961EA2A13ED43CCE814FCC9134696E1F961CACACDC8148ADA35F6F22018D4C2"
+    },
+    {
+      "Path": "src/manager/snmpm_usm.erl",
+      "Sha256": "25DDADBCA1F7A0C46CB9F32E3D32820C313A6C9701D30B03324B0DB8607B9AA6"
+    },
+    {
+      "Path": "src/manager/snmpm_usm.hrl",
+      "Sha256": "A73FC0974DFEE7E26DA8BB1BD33BE87B5763F87229664CF720B3B58157D1CD91"
+    },
+    {
+      "Path": "src/misc/snmp_conf.erl",
+      "Sha256": "6078DD451E0129FFC8B80B2D64FE2504D080A79160C4CE2AD6700CD14F5E4C3C"
+    },
+    {
+      "Path": "src/misc/snmp_config.erl",
+      "Sha256": "48A2C96461AF946F607FC3D3EF305EFE482215B904B01F000312E4B94FDF0CA1"
+    },
+    {
+      "Path": "src/misc/snmp_debug.hrl",
+      "Sha256": "236314213F0951ED299579313B09C34FB0C29FC891729C0284C847ED034F0F7C"
+    },
+    {
+      "Path": "src/misc/snmp_log.erl",
+      "Sha256": "0051854E5E43A3F756642DF1918FF85DEBC0F4313DEBA96CC4190355F7E6FC7F"
+    },
+    {
+      "Path": "src/misc/snmp_mini_mib.erl",
+      "Sha256": "F7B6A9B5448BBD63E525200584002121F3A2383E7FF12F27C5A4FFBCBA651749"
+    },
+    {
+      "Path": "src/misc/snmp_misc.erl",
+      "Sha256": "ECCB920EDC14AD156368E38C3357F30A5C7918B092BBCEB5BFA59EE6842FF2E2"
+    },
+    {
+      "Path": "src/misc/snmp_note_store.erl",
+      "Sha256": "784DAA3F5C4D1F57BEB7A6AD4FF7729B1E659A38AB692EAF1F432A127305EE04"
+    },
+    {
+      "Path": "src/misc/snmp_pdus.erl",
+      "Sha256": "E808A208F4862AB38E03D5945B9889CB60F77D76ECA6322CEC7414BFEE50F659"
+    },
+    {
+      "Path": "src/misc/snmp_pdus_basic.erl",
+      "Sha256": "A18BB6DF5A1E17383CE6E0509868D921C2626702CF49BB2BFD73C20F3DCC9514"
+    },
+    {
+      "Path": "src/misc/snmp_usm.erl",
+      "Sha256": "49238143CE42102F2A6A5B5069D5252DE02D1FD020BFAB0CFF4F87221C639182"
+    },
+    {
+      "Path": "src/misc/snmp_usm.hrl",
+      "Sha256": "042F01919243BE2A64A826DA322FBC4A213D3F9000A16C405976510BF5D38418"
+    },
+    {
+      "Path": "src/misc/snmp_verbosity.erl",
+      "Sha256": "CFA7A577285BE0C75587A17B8120ADEA534A7BCEC356F2ED193CD16BEFB1F328"
+    },
+    {
+      "Path": "src/misc/snmp_verbosity.hrl",
+      "Sha256": "647AA22D4A8DE554D64B9A799468675CCFAC74F27DE245F5F15DD28678A52FC4"
+    },
+    {
+      "Path": "include/INET-ADDRESS-MIB.hrl",
+      "Sha256": "399284D27915E9B867CECFE2E3F537BB41F92D84154494F0AD07DA80255640AE"
+    },
+    {
+      "Path": "include/OTP-REG.hrl",
+      "Sha256": "0522CB9F53669B5535A33C5CB60FD147C023F52F2267A518D2DE9C779596DBDE"
+    },
+    {
+      "Path": "include/OTP-SNMPEA-MIB.hrl",
+      "Sha256": "1B2F7AC8C71D3A697526A4A5AF625B5209AA80C3E1DB69D562B16DEE080399B2"
+    },
+    {
+      "Path": "include/OTP-TC.hrl",
+      "Sha256": "C62597728268D221ADCEF42D7546654D29CDA769065128BB23F0055546FDFD34"
+    },
+    {
+      "Path": "include/RFC1213-MIB.hrl",
+      "Sha256": "6D3F285B0BF26CB84E09154FA49D26428B16DC8F589B1F9B53CF369E61859F66"
+    },
+    {
+      "Path": "include/SNMP-COMMUNITY-MIB.hrl",
+      "Sha256": "D719F0A4361C8F83249FBCA6912DB83520E23735D5852C8ED4451571F482FDD6"
+    },
+    {
+      "Path": "include/SNMP-FRAMEWORK-MIB.hrl",
+      "Sha256": "73E0F7C9E9E469769BE93CB536F907CE0A41D163A569371E1BBCAA3DD36025F6"
+    },
+    {
+      "Path": "include/SNMP-MPD-MIB.hrl",
+      "Sha256": "DD34AEE2DA4AC30D7B7149FACE63E1204E37F8424E849704716CAF6DA468D278"
+    },
+    {
+      "Path": "include/SNMP-NOTIFICATION-MIB.hrl",
+      "Sha256": "6FA5BD87101E45FC21045DDBF6B0A3C9E0F2FF26464113D4EE23BAD880C66D38"
+    },
+    {
+      "Path": "include/SNMP-TARGET-MIB.hrl",
+      "Sha256": "761910085CDCC0DB2D3CE516E5630FF659492AD746DCE50E8CBC27362D1268BC"
+    },
+    {
+      "Path": "include/SNMP-USER-BASED-SM-MIB.hrl",
+      "Sha256": "8760108B23EDBA7F031ECD37BB951EEAFA51E515A36AFFEB8931F6BDB534E906"
+    },
+    {
+      "Path": "include/SNMP-USM-AES-MIB.hrl",
+      "Sha256": "14D8409937ED7FB95662066F20D4BF979F99F478A3EBC4CE9F8417DF06963BE9"
+    },
+    {
+      "Path": "include/SNMP-USM-HMAC-SHA2-MIB.hrl",
+      "Sha256": "707CA1C9EA8916B305886BFACF89A5D5F6E99DAD42E8BB010C6A559D0BDF1FB1"
+    },
+    {
+      "Path": "include/SNMP-VIEW-BASED-ACM-MIB.hrl",
+      "Sha256": "CDDC09C7317013C5D7306F0D32DFEC3C47A61C30395D6FAEA34F8C821829CE83"
+    },
+    {
+      "Path": "include/snmp_tables.hrl",
+      "Sha256": "A310BC767C0DB3139C4D7199FE82D44F3ED460BE2CAE87A671D85FC29746DFAE"
+    },
+    {
+      "Path": "include/snmp_types.hrl",
+      "Sha256": "6A55013C47F5071666C0394706C12590B0E289C234C6A309ECC2055C66ED8DAD"
+    },
+    {
+      "Path": "include/SNMPv2-MIB.hrl",
+      "Sha256": "4FFA58AC499801CC5B9B0E0052F7F557F931D29045B75CBA613058F291E0E18A"
+    },
+    {
+      "Path": "include/SNMPv2-TC.hrl",
+      "Sha256": "5936EF4967ED28B153936FE507905EE12DA9DD9E9088F42FD865A0CD41EBF966"
+    },
+    {
+      "Path": "include/SNMPv2-TM.hrl",
+      "Sha256": "98DD48F543CEE690DAEBE0EF1092B8137FB63012B1A7B6E6D7512A938FC04C50"
+    },
+    {
+      "Path": "include/STANDARD-MIB.hrl",
+      "Sha256": "75A877A49F20DFB2244BDC6156350AB20DD88C5F1BA6062C74DB256AE9753591"
+    },
+    {
+      "Path": "include/TRANSPORT-ADDRESS-MIB.hrl",
+      "Sha256": "CFF3484FF26EF33E6055069A73A607A0E9F18E74C4F5AFE3F4F5AD17CC1F8B0D"
+    },
+    {
+      "Path": "mibs/INET-ADDRESS-MIB.mib",
+      "Sha256": "FC5F3AFC3E8B754027A8E785F90F611F256CDD31A8CFFF7F45DF690B41920C5A"
+    },
+    {
+      "Path": "mibs/OTP-REG.mib",
+      "Sha256": "5B2FB064587BCB3795CD174EA75147293C2BC818AEF7983049C2D68CAE06F3BC"
+    },
+    {
+      "Path": "mibs/OTP-SNMPEA-MIB.mib",
+      "Sha256": "6C7E76E284286A127F74C9480E5C35F8C710FE996F9C2F91CC52CC49F0927295"
+    },
+    {
+      "Path": "mibs/OTP-TC.mib",
+      "Sha256": "2D0845668A8BAA5E3A066AF826E66EC148068A2AB7EBB207C727E749B68766B9"
+    },
+    {
+      "Path": "mibs/RFC1213-MIB.mib",
+      "Sha256": "4540ECABE28B0585DE3B1961C8D5B6AD43BAE07EC1474C7530E389F90451F951"
+    },
+    {
+      "Path": "mibs/SNMP-COMMUNITY-MIB.mib",
+      "Sha256": "656F13EB592B936A29441EBD56A88D308062CB8DEA91132BAAEF9B2A9740922C"
+    },
+    {
+      "Path": "mibs/SNMP-FRAMEWORK-MIB.mib",
+      "Sha256": "0C06209C4DED8270DFABDEF86DAD0C9B1AFE47FB461BB2AC297044DBA6B4A34C"
+    },
+    {
+      "Path": "mibs/SNMP-MPD-MIB.mib",
+      "Sha256": "CA0DE7073D90A4044E4EE1DC8771E8AF7A3BEE6FEE4285C42B09C1DAFAB73DE1"
+    },
+    {
+      "Path": "mibs/SNMP-NOTIFICATION-MIB.funcs",
+      "Sha256": "EA900F0D01555B93519BAE6696D78D62131E720487FE3863B1AD08C8A3CCCA56"
+    },
+    {
+      "Path": "mibs/SNMP-NOTIFICATION-MIB.mib",
+      "Sha256": "B5434A8F88BBA579CE6BBED9AA4DEF31BF289673C578C075C8A5C2A58721475D"
+    },
+    {
+      "Path": "mibs/SNMP-TARGET-MIB.funcs",
+      "Sha256": "DD6D952054B2A041A43281280E5FF35D8EB95E7080C62D25FF827FD18ECB11E2"
+    },
+    {
+      "Path": "mibs/SNMP-TARGET-MIB.mib",
+      "Sha256": "7C23AB790ED02BA53BB695D504EBB121B741418292D473E12C566A86F5793B1B"
+    },
+    {
+      "Path": "mibs/SNMP-USER-BASED-SM-MIB.mib",
+      "Sha256": "2EE3C7F7ABF6DFA66AB3448ACB1DCF5194D9871FDE7E46A029840C7345B58DCE"
+    },
+    {
+      "Path": "mibs/SNMP-USM-AES-MIB.mib",
+      "Sha256": "9514922BD8027E631C3FB23D172DDDC09CBB38223FA3902F11E84CC5E25F17A6"
+    },
+    {
+      "Path": "mibs/SNMP-USM-HMAC-SHA2-MIB.mib",
+      "Sha256": "155D899010F23206D152709A55A64839E18732C5928BBE048F56F3475D5ED3CB"
+    },
+    {
+      "Path": "mibs/SNMP-VIEW-BASED-ACM-MIB.mib",
+      "Sha256": "4675E83640205E9EF7B2C26AF505CC3D9E54C02E9B217E8027DF53B7126CF62E"
+    },
+    {
+      "Path": "mibs/SNMPv2-CONF.mib",
+      "Sha256": "E9DF06F44AE8D7F611D9F25052BE476F6D853AC142DB3C767DBC6698913390A5"
+    },
+    {
+      "Path": "mibs/SNMPv2-MIB.funcs",
+      "Sha256": "4ABBA4FAD4A003636A5DD4FAD72C8E425AAAD17C65C8C445B3004C0752ED6F9E"
+    },
+    {
+      "Path": "mibs/SNMPv2-MIB.mib",
+      "Sha256": "D9CF3E203274FBB671C79F99BFC323DFAA4E6D9659629A7800E6F04EF80124FC"
+    },
+    {
+      "Path": "mibs/SNMPv2-SMI.mib",
+      "Sha256": "430AAD46FC409B8DC99085743F9C09CC1471B7EAA4DE66DCD0E8DDC60DBDA287"
+    },
+    {
+      "Path": "mibs/SNMPv2-TC.mib",
+      "Sha256": "098567C42993191E5B3BF5F0BAFF78689448A820336567D7D9344B88DEF45DDD"
+    },
+    {
+      "Path": "mibs/SNMPv2-TM.mib",
+      "Sha256": "14D0A39D3A656DE86B96AA05AB4A40BD4C63168220BE45FF0FAE58F48D84B1A6"
+    },
+    {
+      "Path": "mibs/STANDARD-MIB.funcs",
+      "Sha256": "0AE1639AFCE2997C4DB72B785F8DF0709CCDB10255AD68CBEFAB9C0D16CE917A"
+    },
+    {
+      "Path": "mibs/STANDARD-MIB.mib",
+      "Sha256": "10906789C11D5AA2BFA618170C3322ACF1FB02D146DA77F7EF8E69ED4E29D09F"
+    },
+    {
+      "Path": "mibs/TRANSPORT-ADDRESS-MIB.mib",
+      "Sha256": "54ECA548D2EE2D75EAF28CFB460C93462F17B2F2E26A4C1CF2AEE653B7EB5FF6"
+    },
+    {
+      "Path": "mibs/v1/OTP-SNMPEA-MIB.mib.v1",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "mibs/v1/RFC-1212.mib",
+      "Sha256": "831F77EDD9084B316DFC486D403226D91317F11324B073F2459DEAE0C5B99123"
+    },
+    {
+      "Path": "mibs/v1/RFC-1215.mib",
+      "Sha256": "E8AABA6D5E4B9CD4E66388BA762839897F96068434BDBAB1E5CB1B1D6B391CF3"
+    },
+    {
+      "Path": "mibs/v1/RFC1155-SMI.mib",
+      "Sha256": "A7C17685C3E8517D245A9B131BB3E807101DA2B8BA85DF5CDA7364404A91626D"
+    },
+    {
+      "Path": "priv/conf/agent/agent.conf",
+      "Sha256": "B947E3DF9ABC3B1F93736E853298E4BB95633422B4A360DC231D9DA7CACDCC81"
+    },
+    {
+      "Path": "priv/conf/agent/community.conf",
+      "Sha256": "F3341A1EB996B00C581759ADE0E523FDB6C5EB9D3640E5E02B568EEB46CF5076"
+    },
+    {
+      "Path": "priv/conf/agent/context.conf",
+      "Sha256": "353F42B6B60A661FB0E3F80B0DF4EB901E7646E57BCF335781C4E75F9AB7B764"
+    },
+    {
+      "Path": "priv/conf/agent/notify.conf",
+      "Sha256": "68404A325C653786848AEF312C3E024A99F7500085534429EE9205F37B7CCE98"
+    },
+    {
+      "Path": "priv/conf/agent/standard.conf",
+      "Sha256": "CBADE6A5B2C217181225D5847F524FC8595E1AE03E805F80B7CD38E7199FD6D6"
+    },
+    {
+      "Path": "priv/conf/agent/target_addr.conf",
+      "Sha256": "4E07345D942407A475C9D60D58B2D3E592A67A71E346D6A0A5C4F7061E208C73"
+    },
+    {
+      "Path": "priv/conf/agent/target_params.conf",
+      "Sha256": "D23080170818B597F0426B4FACD95FE7F00A17029BDD2B012E8FA24300732F69"
+    },
+    {
+      "Path": "priv/conf/agent/usm.conf",
+      "Sha256": "533DF63C4DCA1D32FCF0DEC2DC819BD6E11DEF92C1DA0E11F33360B0E5A268D5"
+    },
+    {
+      "Path": "priv/conf/agent/vacm.conf",
+      "Sha256": "7703F985343531B329FA8F61FD3D6AE20426FB5B5A1663D795B6041EBAE4E210"
+    },
+    {
+      "Path": "priv/conf/manager/agents.conf",
+      "Sha256": "7523F5F33AEA13AB86EC1C61FDF7F9FCFEC26ECD777973D78D4E78C429F5F0A8"
+    },
+    {
+      "Path": "priv/conf/manager/manager.conf",
+      "Sha256": "AAE0BEB5539CAFD9FEE431C9C1180623CE5886AE6D701974AA46626A6D52501B"
+    },
+    {
+      "Path": "priv/conf/manager/users.conf",
+      "Sha256": "E1FA3CD898C8C5D4BA11B4B5C6E380707C74DD37196A7C5581A9181C08CD8B8D"
+    },
+    {
+      "Path": "priv/mibs/INET-ADDRESS-MIB.bin",
+      "Sha256": "0B9B15C17B3BCD9B3DB8C1A2B5C020F9B0044EE7D000C2B593A3C6DA4E9210A9"
+    },
+    {
+      "Path": "priv/mibs/OTP-REG.bin",
+      "Sha256": "D17994E915BBF36D51EDF7AA4851F1F47491F1C5B3D4FE3D07C7BBD1B5ED0DD8"
+    },
+    {
+      "Path": "priv/mibs/OTP-SNMPEA-MIB.bin",
+      "Sha256": "B3E252CCBEC3B9122110C202E198C451DDE271EA48EC12F55337A7C97722FA1E"
+    },
+    {
+      "Path": "priv/mibs/OTP-TC.bin",
+      "Sha256": "B0A17F2BA62844AED636937B08CBFA31C3B921270870FD04ADFF0CD2A1E0CEA2"
+    },
+    {
+      "Path": "priv/mibs/RFC1213-MIB.bin",
+      "Sha256": "9472355C159F8613ADF62062BA54988303302E196956EA19627601DDAA1C914B"
+    },
+    {
+      "Path": "priv/mibs/SNMP-COMMUNITY-MIB.bin",
+      "Sha256": "EF6F232331FE977345F2C641FBEE28CD865519A5BDE618EBDFFEAFD38AE35303"
+    },
+    {
+      "Path": "priv/mibs/SNMP-FRAMEWORK-MIB.bin",
+      "Sha256": "E825B1AA1B802426D6569FCCE089D0BAF85367265B05690067D9326EC62A8022"
+    },
+    {
+      "Path": "priv/mibs/SNMP-MPD-MIB.bin",
+      "Sha256": "1B19369DFA9F48D0BE19E56087BC756CFE34C2A88EB830E837A1EC24F01FD6BA"
+    },
+    {
+      "Path": "priv/mibs/SNMP-NOTIFICATION-MIB.bin",
+      "Sha256": "E2D8ECC579B13D7B489C9D3F0847FC6DE41C38DE6B4EB0B4B273D6EC44FC4DBB"
+    },
+    {
+      "Path": "priv/mibs/SNMP-TARGET-MIB.bin",
+      "Sha256": "1E774A1E29A681A03D460903B3E548F73A6DD4FD45A83F4E2DD515C3B8DB6BA7"
+    },
+    {
+      "Path": "priv/mibs/SNMP-USER-BASED-SM-MIB.bin",
+      "Sha256": "81310F9823B3371A0C886CDAA821902386689085226401E8BF2D99117E9F1947"
+    },
+    {
+      "Path": "priv/mibs/SNMP-USM-AES-MIB.bin",
+      "Sha256": "FA19105CB77B03403F15FDF9960E821F36C66DC67C82A13D1927930327140153"
+    },
+    {
+      "Path": "priv/mibs/SNMP-USM-HMAC-SHA2-MIB.bin",
+      "Sha256": "BA5FE54752D76516632E68ABB49707810FBD70470754AECA49C5AFA091F3730D"
+    },
+    {
+      "Path": "priv/mibs/SNMP-VIEW-BASED-ACM-MIB.bin",
+      "Sha256": "CDE8F28984011AF747EF9F85AF4F1A5538B378DB8A313A3D645216ED2F458D5B"
+    },
+    {
+      "Path": "priv/mibs/SNMPv2-MIB.bin",
+      "Sha256": "70FC124D06A4CC5D3431BFC06473A7F52BD0FEE84BDC1D60501BEF1C49A0E7F5"
+    },
+    {
+      "Path": "priv/mibs/SNMPv2-TM.bin",
+      "Sha256": "078218A7F1A27C7DEAE7F9E73DD004FE8930BB3312420E93ABEC86A74A058A3F"
+    },
+    {
+      "Path": "priv/mibs/STANDARD-MIB.bin",
+      "Sha256": "6ABFBE98D5891207DDDF485B5C01FFE1DB76D0084BDC7208BC98AC0A2C28AC94"
+    },
+    {
+      "Path": "priv/mibs/TRANSPORT-ADDRESS-MIB.bin",
+      "Sha256": "93F50349B7B226CE61038F269C24C3C0EC24F0B075231D6CA1B93733451942D1"
+    },
+    {
+      "Path": "bin/snmpc",
+      "Sha256": "D53BDEF07214DFEB7344D242F7EE4DCEC6882A3B1C211DC2D377165464C863CD"
+    }
+  ],
+  "PinnedSourceMatches": [
+    "lib/snmp/src/agent/snmp_community_mib.erl",
+    "lib/snmp/src/agent/snmp_framework_mib.erl",
+    "lib/snmp/src/agent/snmp_generic.erl",
+    "lib/snmp/src/agent/snmp_generic_mnesia.erl",
+    "lib/snmp/src/agent/snmp_index.erl",
+    "lib/snmp/src/agent/snmp_notification_mib.erl",
+    "lib/snmp/src/agent/snmp_shadow_table.erl",
+    "lib/snmp/src/agent/snmp_standard_mib.erl",
+    "lib/snmp/src/agent/snmp_target_mib.erl",
+    "lib/snmp/src/agent/snmp_user_based_sm_mib.erl",
+    "lib/snmp/src/agent/snmp_view_based_acm_mib.erl",
+    "lib/snmp/src/agent/snmpa.erl",
+    "lib/snmp/src/agent/snmpa_acm.erl",
+    "lib/snmp/src/agent/snmpa_agent.erl",
+    "lib/snmp/src/agent/snmpa_agent_sup.erl",
+    "lib/snmp/src/agent/snmpa_app.erl",
+    "lib/snmp/src/agent/snmpa_atl.hrl",
+    "lib/snmp/src/agent/snmpa_authentication_service.erl",
+    "lib/snmp/src/agent/snmpa_conf.erl",
+    "lib/snmp/src/agent/snmpa_discovery_handler.erl",
+    "lib/snmp/src/agent/snmpa_discovery_handler_default.erl",
+    "lib/snmp/src/agent/snmpa_error.erl",
+    "lib/snmp/src/agent/snmpa_error_io.erl",
+    "lib/snmp/src/agent/snmpa_error_logger.erl",
+    "lib/snmp/src/agent/snmpa_error_report.erl",
+    "lib/snmp/src/agent/snmpa_get.erl",
+    "lib/snmp/src/agent/snmpa_get_lib.erl",
+    "lib/snmp/src/agent/snmpa_get_mechanism.erl",
+    "lib/snmp/src/agent/snmpa_internal.hrl",
+    "lib/snmp/src/agent/snmpa_local_db.erl",
+    "lib/snmp/src/agent/snmpa_mib.erl",
+    "lib/snmp/src/agent/snmpa_mib_data.erl",
+    "lib/snmp/src/agent/snmpa_mib_data_tttn.erl",
+    "lib/snmp/src/agent/snmpa_mib_lib.erl",
+    "lib/snmp/src/agent/snmpa_mib_storage.erl",
+    "lib/snmp/src/agent/snmpa_mib_storage_dets.erl",
+    "lib/snmp/src/agent/snmpa_mib_storage_ets.erl",
+    "lib/snmp/src/agent/snmpa_mib_storage_mnesia.erl",
+    "lib/snmp/src/agent/snmpa_misc_sup.erl",
+    "lib/snmp/src/agent/snmpa_mpd.erl",
+    "lib/snmp/src/agent/snmpa_net_if.erl",
+    "lib/snmp/src/agent/snmpa_net_if_filter.erl",
+    "lib/snmp/src/agent/snmpa_network_interface.erl",
+    "lib/snmp/src/agent/snmpa_network_interface_filter.erl",
+    "lib/snmp/src/agent/snmpa_notification_delivery_info_receiver.erl",
+    "lib/snmp/src/agent/snmpa_notification_filter.erl",
+    "lib/snmp/src/agent/snmpa_set.erl",
+    "lib/snmp/src/agent/snmpa_set_lib.erl",
+    "lib/snmp/src/agent/snmpa_set_mechanism.erl",
+    "lib/snmp/src/agent/snmpa_supervisor.erl",
+    "lib/snmp/src/agent/snmpa_svbl.erl",
+    "lib/snmp/src/agent/snmpa_symbolic_store.erl",
+    "lib/snmp/src/agent/snmpa_target_cache.erl",
+    "lib/snmp/src/agent/snmpa_trap.erl",
+    "lib/snmp/src/agent/snmpa_usm.erl",
+    "lib/snmp/src/agent/snmpa_vacm.erl",
+    "lib/snmp/src/agent/snmpa_vacm.hrl",
+    "lib/snmp/src/app/snmp.erl",
+    "lib/snmp/src/app/snmp_app.erl",
+    "lib/snmp/src/app/snmp_app_sup.erl",
+    "lib/snmp/src/app/snmp_internal.hrl",
+    "lib/snmp/src/manager/snmpm.erl",
+    "lib/snmp/src/manager/snmpm_atl.hrl",
+    "lib/snmp/src/manager/snmpm_conf.erl",
+    "lib/snmp/src/manager/snmpm_config.erl",
+    "lib/snmp/src/manager/snmpm_internal.hrl",
+    "lib/snmp/src/manager/snmpm_misc_sup.erl",
+    "lib/snmp/src/manager/snmpm_mpd.erl",
+    "lib/snmp/src/manager/snmpm_net_if.erl",
+    "lib/snmp/src/manager/snmpm_net_if_filter.erl",
+    "lib/snmp/src/manager/snmpm_net_if_mt.erl",
+    "lib/snmp/src/manager/snmpm_network_interface.erl",
+    "lib/snmp/src/manager/snmpm_network_interface_filter.erl",
+    "lib/snmp/src/manager/snmpm_server.erl",
+    "lib/snmp/src/manager/snmpm_server_sup.erl",
+    "lib/snmp/src/manager/snmpm_supervisor.erl",
+    "lib/snmp/src/manager/snmpm_user.erl",
+    "lib/snmp/src/manager/snmpm_user_default.erl",
+    "lib/snmp/src/manager/snmpm_user_old.erl",
+    "lib/snmp/src/manager/snmpm_usm.erl",
+    "lib/snmp/src/manager/snmpm_usm.hrl",
+    "lib/snmp/src/misc/snmp_conf.erl",
+    "lib/snmp/src/misc/snmp_config.erl",
+    "lib/snmp/src/misc/snmp_debug.hrl",
+    "lib/snmp/src/misc/snmp_log.erl",
+    "lib/snmp/src/misc/snmp_mini_mib.erl",
+    "lib/snmp/src/misc/snmp_misc.erl",
+    "lib/snmp/src/misc/snmp_note_store.erl",
+    "lib/snmp/src/misc/snmp_pdus.erl",
+    "lib/snmp/src/misc/snmp_usm.erl",
+    "lib/snmp/src/misc/snmp_usm.hrl",
+    "lib/snmp/src/misc/snmp_verbosity.erl",
+    "lib/snmp/src/misc/snmp_verbosity.hrl",
+    "lib/snmp/include/snmp_tables.hrl",
+    "lib/snmp/include/snmp_types.hrl",
+    "lib/snmp/include/SNMPv2-TC.hrl"
+  ],
+  "GeneratedReleaseSources": [
+    "src/compiler/snmpc_mib_gram.erl",
+    "src/misc/snmp_pdus_basic.erl",
+    "include/INET-ADDRESS-MIB.hrl",
+    "include/OTP-REG.hrl",
+    "include/OTP-SNMPEA-MIB.hrl",
+    "include/OTP-TC.hrl",
+    "include/RFC1213-MIB.hrl",
+    "include/SNMP-COMMUNITY-MIB.hrl",
+    "include/SNMP-FRAMEWORK-MIB.hrl",
+    "include/SNMP-MPD-MIB.hrl",
+    "include/SNMP-NOTIFICATION-MIB.hrl",
+    "include/SNMP-TARGET-MIB.hrl",
+    "include/SNMP-USER-BASED-SM-MIB.hrl",
+    "include/SNMP-USM-AES-MIB.hrl",
+    "include/SNMP-USM-HMAC-SHA2-MIB.hrl",
+    "include/SNMP-VIEW-BASED-ACM-MIB.hrl",
+    "include/SNMPv2-MIB.hrl",
+    "include/SNMPv2-TM.hrl",
+    "include/STANDARD-MIB.hrl",
+    "include/TRANSPORT-ADDRESS-MIB.hrl"
+  ],
+  "PinnedSupportMatches": [
+    "lib/snmp/mibs/INET-ADDRESS-MIB.mib",
+    "lib/snmp/mibs/OTP-REG.mib",
+    "lib/snmp/mibs/OTP-SNMPEA-MIB.mib",
+    "lib/snmp/mibs/OTP-TC.mib",
+    "lib/snmp/mibs/RFC1213-MIB.mib",
+    "lib/snmp/mibs/SNMP-COMMUNITY-MIB.mib",
+    "lib/snmp/mibs/SNMP-FRAMEWORK-MIB.mib",
+    "lib/snmp/mibs/SNMP-MPD-MIB.mib",
+    "lib/snmp/mibs/SNMP-NOTIFICATION-MIB.funcs",
+    "lib/snmp/mibs/SNMP-NOTIFICATION-MIB.mib",
+    "lib/snmp/mibs/SNMP-TARGET-MIB.funcs",
+    "lib/snmp/mibs/SNMP-TARGET-MIB.mib",
+    "lib/snmp/mibs/SNMP-USER-BASED-SM-MIB.mib",
+    "lib/snmp/mibs/SNMP-USM-AES-MIB.mib",
+    "lib/snmp/mibs/SNMP-USM-HMAC-SHA2-MIB.mib",
+    "lib/snmp/mibs/SNMP-VIEW-BASED-ACM-MIB.mib",
+    "lib/snmp/mibs/SNMPv2-CONF.mib",
+    "lib/snmp/mibs/SNMPv2-MIB.funcs",
+    "lib/snmp/mibs/SNMPv2-MIB.mib",
+    "lib/snmp/mibs/SNMPv2-SMI.mib",
+    "lib/snmp/mibs/SNMPv2-TC.mib",
+    "lib/snmp/mibs/SNMPv2-TM.mib",
+    "lib/snmp/mibs/STANDARD-MIB.funcs",
+    "lib/snmp/mibs/STANDARD-MIB.mib",
+    "lib/snmp/mibs/TRANSPORT-ADDRESS-MIB.mib",
+    "lib/snmp/priv/conf/agent/agent.conf",
+    "lib/snmp/priv/conf/agent/community.conf",
+    "lib/snmp/priv/conf/agent/context.conf",
+    "lib/snmp/priv/conf/agent/notify.conf",
+    "lib/snmp/priv/conf/agent/standard.conf",
+    "lib/snmp/priv/conf/agent/target_addr.conf",
+    "lib/snmp/priv/conf/agent/target_params.conf",
+    "lib/snmp/priv/conf/agent/usm.conf",
+    "lib/snmp/priv/conf/agent/vacm.conf",
+    "lib/snmp/priv/conf/manager/agents.conf",
+    "lib/snmp/priv/conf/manager/manager.conf",
+    "lib/snmp/priv/conf/manager/users.conf"
+  ],
+  "GeneratedSupportFiles": [
+    "mibs/v1/OTP-SNMPEA-MIB.mib.v1",
+    "mibs/v1/RFC-1212.mib",
+    "mibs/v1/RFC-1215.mib",
+    "mibs/v1/RFC1155-SMI.mib",
+    "priv/mibs/INET-ADDRESS-MIB.bin",
+    "priv/mibs/OTP-REG.bin",
+    "priv/mibs/OTP-SNMPEA-MIB.bin",
+    "priv/mibs/OTP-TC.bin",
+    "priv/mibs/RFC1213-MIB.bin",
+    "priv/mibs/SNMP-COMMUNITY-MIB.bin",
+    "priv/mibs/SNMP-FRAMEWORK-MIB.bin",
+    "priv/mibs/SNMP-MPD-MIB.bin",
+    "priv/mibs/SNMP-NOTIFICATION-MIB.bin",
+    "priv/mibs/SNMP-TARGET-MIB.bin",
+    "priv/mibs/SNMP-USER-BASED-SM-MIB.bin",
+    "priv/mibs/SNMP-USM-AES-MIB.bin",
+    "priv/mibs/SNMP-USM-HMAC-SHA2-MIB.bin",
+    "priv/mibs/SNMP-VIEW-BASED-ACM-MIB.bin",
+    "priv/mibs/SNMPv2-MIB.bin",
+    "priv/mibs/SNMPv2-TM.bin",
+    "priv/mibs/STANDARD-MIB.bin",
+    "priv/mibs/TRANSPORT-ADDRESS-MIB.bin",
+    "bin/snmpc"
+  ],
+  "ExcludedNativeProducerFiles": [],
+  "PinnedSourceRelocations": [
+    {
+      "PackagedPath": "src/compiler/snmpc.erl",
+      "UpstreamPath": "lib/snmp/src/compile/snmpc.erl"
+    },
+    {
+      "PackagedPath": "src/compiler/snmpc.hrl",
+      "UpstreamPath": "lib/snmp/src/compile/snmpc.hrl"
+    },
+    {
+      "PackagedPath": "src/compiler/snmpc.src",
+      "UpstreamPath": "lib/snmp/src/compile/snmpc.src"
+    },
+    {
+      "PackagedPath": "src/compiler/snmpc_lib.erl",
+      "UpstreamPath": "lib/snmp/src/compile/snmpc_lib.erl"
+    },
+    {
+      "PackagedPath": "src/compiler/snmpc_lib.hrl",
+      "UpstreamPath": "lib/snmp/src/compile/snmpc_lib.hrl"
+    },
+    {
+      "PackagedPath": "src/compiler/snmpc_mib_gram.yrl",
+      "UpstreamPath": "lib/snmp/src/compile/snmpc_mib_gram.yrl"
+    },
+    {
+      "PackagedPath": "src/compiler/snmpc_mib_to_hrl.erl",
+      "UpstreamPath": "lib/snmp/src/compile/snmpc_mib_to_hrl.erl"
+    },
+    {
+      "PackagedPath": "src/compiler/snmpc_misc.erl",
+      "UpstreamPath": "lib/snmp/src/compile/snmpc_misc.erl"
+    },
+    {
+      "PackagedPath": "src/compiler/snmpc_misc.hrl",
+      "UpstreamPath": "lib/snmp/src/compile/snmpc_misc.hrl"
+    },
+    {
+      "PackagedPath": "src/compiler/snmpc_tok.erl",
+      "UpstreamPath": "lib/snmp/src/compile/snmpc_tok.erl"
+    }
+  ]
+}
