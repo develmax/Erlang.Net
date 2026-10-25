@@ -1,0 +1,588 @@
+{
+  "ReleaseTag": "OTP-29.1.1",
+  "SourceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ArchiveSha256": "337480AF988ECA993C2E98B68850F00FC6724D366346565E38941AC0D1B7C56B",
+  "ExecutionManifestSha256": "AF5EA3DA317E2ABC8A0CF1874D4E6BFB93AC1A47E864A7B92BBE7A03D1607E99",
+  "ReleaseUrl": "https://github.com/erlang/otp/releases/download/OTP-29.1.1/otp_win64_29.1.1.zip",
+  "Application": "diameter",
+  "Version": "2.7.2",
+  "ProducerPlatform": "Windows x64 official release",
+  "DescriptorModules": [
+    "diameter",
+    "diameter_app",
+    "diameter_callback",
+    "diameter_capx",
+    "diameter_codec",
+    "diameter_config",
+    "diameter_config_sup",
+    "diameter_dist",
+    "diameter_etcp",
+    "diameter_etcp_sup",
+    "diameter_gen",
+    "diameter_gen_acct_rfc6733",
+    "diameter_gen_base_accounting",
+    "diameter_gen_base_rfc3588",
+    "diameter_gen_base_rfc6733",
+    "diameter_gen_doic_rfc7683",
+    "diameter_gen_relay",
+    "diameter_lib",
+    "diameter_misc_sup",
+    "diameter_peer",
+    "diameter_peer_fsm",
+    "diameter_peer_fsm_sup",
+    "diameter_reg",
+    "diameter_sctp",
+    "diameter_sctp_sup",
+    "diameter_service",
+    "diameter_service_sup",
+    "diameter_session",
+    "diameter_stats",
+    "diameter_sup",
+    "diameter_sync",
+    "diameter_tcp",
+    "diameter_tcp_sup",
+    "diameter_traffic",
+    "diameter_transport",
+    "diameter_transport_sup",
+    "diameter_types",
+    "diameter_watchdog",
+    "diameter_watchdog_sup"
+  ],
+  "Files": [
+    {
+      "Path": "ebin/diameter.app",
+      "Sha256": "B1F7D22D657423E655A8549F994706ED9EDCCD65595CDE688A2C796A45953547"
+    },
+    {
+      "Path": "ebin/diameter.appup",
+      "Sha256": "D8244ED8DF5D703338E406D1961E9EF84F47CEB4E5D65DE673AE891ACE24B0C9"
+    },
+    {
+      "Path": "ebin/diameter.beam",
+      "Sha256": "D74F72F5C0D43950359858C6D95B78A225FF3B39B5971641352C9F64CE3983C6"
+    },
+    {
+      "Path": "ebin/diameter_app.beam",
+      "Sha256": "6F522215C974DF6FD14BAAE3A34A61DBF90B8B0F85B8372156812EA38D661C4A"
+    },
+    {
+      "Path": "ebin/diameter_callback.beam",
+      "Sha256": "573A046E1DAC646801BF734063D75E82550C053A2792025598CE741A5D790BD7"
+    },
+    {
+      "Path": "ebin/diameter_capx.beam",
+      "Sha256": "EE5F27EDF85C32B95CB8E69C3BB397963E3C0C81D5FEF4B9135ED5B9E5FFA32B"
+    },
+    {
+      "Path": "ebin/diameter_codec.beam",
+      "Sha256": "36219EAADCC68F109A0E22D92E81C4B0B515AF8D4AE31CBB976E8237E02917E8"
+    },
+    {
+      "Path": "ebin/diameter_codegen.beam",
+      "Sha256": "AFECB6BC42661D2509A339F7665F1497252DF8FFEE2D455A533B71162225AD0A"
+    },
+    {
+      "Path": "ebin/diameter_config.beam",
+      "Sha256": "8B4CF2618B3E1B19CC0ABEA416D7628B6479E44BFFCA4E3FE7444DA4FA0C5927"
+    },
+    {
+      "Path": "ebin/diameter_config_sup.beam",
+      "Sha256": "397DCB0DF16CA8DCCD0AB9E773E6EB9500481B5983259BD725123BF8DC82763F"
+    },
+    {
+      "Path": "ebin/diameter_dbg.beam",
+      "Sha256": "663AA0D611DFCA4A284886374508F204D1A95CFEDA7523BF59641BC139599C36"
+    },
+    {
+      "Path": "ebin/diameter_dict_parser.beam",
+      "Sha256": "563F675533B913F8F2EED91DF7440E34F1580608DD3BEBCAF18BE949E6241B11"
+    },
+    {
+      "Path": "ebin/diameter_dict_scanner.beam",
+      "Sha256": "6688E033388F62C2C53AD6CF20B6AB5C9CCD0B4F84A1AE45F2D5251D094BE7C3"
+    },
+    {
+      "Path": "ebin/diameter_dict_util.beam",
+      "Sha256": "E92A8870AE4F3AFD13060781E9654DC17D553287645C5A145E7E4EF41E4DB75F"
+    },
+    {
+      "Path": "ebin/diameter_dist.beam",
+      "Sha256": "36E8EC194CD2CE781B7CED3778130CE07D44BBA0D8DAD3C6C0BDCB16617A4196"
+    },
+    {
+      "Path": "ebin/diameter_etcp.beam",
+      "Sha256": "80CB0ED090BA4DF476553F839A8D0CF361FE2FDEEE7095486F791423BC71E11E"
+    },
+    {
+      "Path": "ebin/diameter_etcp_sup.beam",
+      "Sha256": "BB8E0DA534A762DD8949AB80867E172C09A629DF0477CA5D10455C321903B8AE"
+    },
+    {
+      "Path": "ebin/diameter_exprecs.beam",
+      "Sha256": "A72B0502862DA90486EB656515BA773CD039C70CD6836FC36281ACC4FC6E38C1"
+    },
+    {
+      "Path": "ebin/diameter_gen.beam",
+      "Sha256": "73E692CDFB3322096382DA9C469F0F4DF93E57615DD41A1D41A38B441229F394"
+    },
+    {
+      "Path": "ebin/diameter_gen_acct_rfc6733.beam",
+      "Sha256": "3C65CFE691D95ECBF189F6459F0963DFA6914A8F1A1DC96BF9E9215B3906CA08"
+    },
+    {
+      "Path": "ebin/diameter_gen_base_accounting.beam",
+      "Sha256": "237EA20E574A953693973603679CF8374FDBC9B368F893EA2C46CB26376F13E7"
+    },
+    {
+      "Path": "ebin/diameter_gen_base_rfc3588.beam",
+      "Sha256": "1037DCFC8443CD9784E004F32D52F95BF71A797DB119C5013A3F558DE602A908"
+    },
+    {
+      "Path": "ebin/diameter_gen_base_rfc6733.beam",
+      "Sha256": "49CB7F1DD0EB79BD690DC95EFC711EB659A5EFB5E0023D7D27F847E9EBFC8D9D"
+    },
+    {
+      "Path": "ebin/diameter_gen_doic_rfc7683.beam",
+      "Sha256": "28E07946261D5ADC50311889CB33B70D0AE3F026049388DD3B1976CAC290EDB6"
+    },
+    {
+      "Path": "ebin/diameter_gen_relay.beam",
+      "Sha256": "B99C344ADF83157DB6171C98E78C7A09AFF18CD20AD2E8FCDE6C854D7902AE15"
+    },
+    {
+      "Path": "ebin/diameter_info.beam",
+      "Sha256": "8415F9195F7AF9B60EBCB786524F3F625A9286BAFA8D9FE2E154F5914D46F2FA"
+    },
+    {
+      "Path": "ebin/diameter_lib.beam",
+      "Sha256": "4FC309C6B359B5A3BA2E96AFFCB766828392642C5E5B1EC971D28BB406B59C55"
+    },
+    {
+      "Path": "ebin/diameter_make.beam",
+      "Sha256": "6F4B2F392697848E2C3C8A161D52D92A04B33E7DE93D175FB486229A1335EF8E"
+    },
+    {
+      "Path": "ebin/diameter_misc_sup.beam",
+      "Sha256": "122DBD29E944DE3F212B7287310547CBE0D1C0D911F908B032C31025C329C267"
+    },
+    {
+      "Path": "ebin/diameter_peer.beam",
+      "Sha256": "FE3930B6D2163F812C56C351B354E2D97EC63D404BD1D3909061082321AB1023"
+    },
+    {
+      "Path": "ebin/diameter_peer_fsm.beam",
+      "Sha256": "D6F66486DDAD117F5BB3A78F3CC4D093B302E92E5BE5312D405F686214B39970"
+    },
+    {
+      "Path": "ebin/diameter_peer_fsm_sup.beam",
+      "Sha256": "69F2568414568712AA3724CA7F6FA9A952A40C5CF521752D99211A9D9FD962A2"
+    },
+    {
+      "Path": "ebin/diameter_reg.beam",
+      "Sha256": "1FE6539542198CD54FFFD784A22A567622B8FB89ED62780F418D71AE24016E71"
+    },
+    {
+      "Path": "ebin/diameter_sctp.beam",
+      "Sha256": "69B9EC98385E60235E6541546F6C00BD9F04F75531D53F8BF25C1FC12015669E"
+    },
+    {
+      "Path": "ebin/diameter_sctp_sup.beam",
+      "Sha256": "6B3689EF5010A03B450F7473D3C5E990EE260DA875208BFD8A0574689FDCFA0F"
+    },
+    {
+      "Path": "ebin/diameter_service.beam",
+      "Sha256": "3421571BFC61E325DD3809B048348396C1AAC29007C5E0DFA5F65EB8DE528571"
+    },
+    {
+      "Path": "ebin/diameter_service_sup.beam",
+      "Sha256": "1421B1C6C1DB483BBD98D314B20268623214B4946E324CAA57C8DE3BE0B23074"
+    },
+    {
+      "Path": "ebin/diameter_session.beam",
+      "Sha256": "2C07F760E6B0707116868590252C7EE62D9B915DB3F845D427AA75DACDA36C60"
+    },
+    {
+      "Path": "ebin/diameter_stats.beam",
+      "Sha256": "EAA9C86D46B3420E537536D2DC98B56BA882BFC0DE8C90E2C623CA0F8E4F2045"
+    },
+    {
+      "Path": "ebin/diameter_sup.beam",
+      "Sha256": "944153F1D80DA4507209BA7ED20214CEEDCAAC6708EB6DA3BD5000A4E66953A4"
+    },
+    {
+      "Path": "ebin/diameter_sync.beam",
+      "Sha256": "83B003F74B16253EDF2C8F71067EA8E399E286ACAF6466A613D65B4F921F44CF"
+    },
+    {
+      "Path": "ebin/diameter_tcp.beam",
+      "Sha256": "2FA4B79362462ADE57DF4E3A5855F9C418AD43B3E2CB6711C3A75B3C2027F43E"
+    },
+    {
+      "Path": "ebin/diameter_tcp_sup.beam",
+      "Sha256": "AE60B4D9151E6DA5D8D87F23430D14B96DF5C8CED13D21C6431A2A33AF22B611"
+    },
+    {
+      "Path": "ebin/diameter_traffic.beam",
+      "Sha256": "D95FDB2F72AAE2898DD897758A6C80379117D73880678979598DA09DD02EFD32"
+    },
+    {
+      "Path": "ebin/diameter_transport.beam",
+      "Sha256": "9A5D56509B320E644F105B8C84C0B80A4BB1E926B642D779A1F380D7CBA11835"
+    },
+    {
+      "Path": "ebin/diameter_transport_sup.beam",
+      "Sha256": "3E526D8D8A57112BA09307EFD6B55F98B57ED06A3062D0EDBCAB80BF8DA30100"
+    },
+    {
+      "Path": "ebin/diameter_types.beam",
+      "Sha256": "63F52C3429675AC0D4797B4FF4E89E4E5C0CFF809C210685ACAC348CB184C7F6"
+    },
+    {
+      "Path": "ebin/diameter_watchdog.beam",
+      "Sha256": "9BE4EE76CB461F2EC80D717A64B4E5E2D5CAF5A6FE48CCE3E9291190C51C19C5"
+    },
+    {
+      "Path": "ebin/diameter_watchdog_sup.beam",
+      "Sha256": "D836CD9120645428EE1C9E0D6F4B7018B12A477FED33A46E538FD30571C2B85E"
+    },
+    {
+      "Path": "src/base/diameter.erl",
+      "Sha256": "06206AA6E66D11D877A4A0832205B04F94A232719918739072EA91C15ECC714D"
+    },
+    {
+      "Path": "src/base/diameter_app.erl",
+      "Sha256": "A928CAD96D27214DBA037FE9A21F0CD677A11A3E4A5E2918F0B04C6B5E405FD5"
+    },
+    {
+      "Path": "src/base/diameter_callback.erl",
+      "Sha256": "998C9366D5FD84A46AF175A34E0896B14689EC9C16B1E938D999350AFC6D3FB0"
+    },
+    {
+      "Path": "src/base/diameter_capx.erl",
+      "Sha256": "922880341F9CF04022A894E1C7D8BAD7726380A6D43ADE7D5EEF752F4829A652"
+    },
+    {
+      "Path": "src/base/diameter_codec.erl",
+      "Sha256": "473319EB31226090D0ADE35E01E8A256B96D58C6CA271B44FBD216757D4CA0A6"
+    },
+    {
+      "Path": "src/base/diameter_config.erl",
+      "Sha256": "B1738949F89CF4B39C0B59376D8F6DC92408EEFB12A675D1BCA8849A673F5E2A"
+    },
+    {
+      "Path": "src/base/diameter_config_sup.erl",
+      "Sha256": "88B837D4197BF451477C696AC0C86E5B73E577F3AD209BBA1FF0A6417AB1C877"
+    },
+    {
+      "Path": "src/base/diameter_dist.erl",
+      "Sha256": "CFACCFA031E5ED8C1B699B79B2BF06D5B5BE69B607673DCEE2B2BEA100D08C7B"
+    },
+    {
+      "Path": "src/base/diameter_gen.erl",
+      "Sha256": "B5DF47E19A0F399148A0F17CFD55D41F457FB4433D66B030B310E842D167C93C"
+    },
+    {
+      "Path": "src/base/diameter_internal.hrl",
+      "Sha256": "D01B342BA083D83494C44AA658D63294A8F582A8610FF59C51D0E57D4EFF3645"
+    },
+    {
+      "Path": "src/base/diameter_lib.erl",
+      "Sha256": "D5ED99E9FDE48D6D96C79C6A16F9A98820C8BD638ED1C22167A367F7DEAF5F39"
+    },
+    {
+      "Path": "src/base/diameter_misc_sup.erl",
+      "Sha256": "D9B6302AC3BF198CD00090984A71B4CEE17CBD51AC26662387451B451B20C731"
+    },
+    {
+      "Path": "src/base/diameter_peer.erl",
+      "Sha256": "E07181B3990AE632F6A3A57E94D7F78DE577C528E58727B5EAADBE58BA2B8BC1"
+    },
+    {
+      "Path": "src/base/diameter_peer_fsm.erl",
+      "Sha256": "9BBC0B3DCB0FB23ED5FEEE464A7CDA47F7B2EEE7ACBBCC30D0AFBE6D3DC300B8"
+    },
+    {
+      "Path": "src/base/diameter_peer_fsm_sup.erl",
+      "Sha256": "0B16FAFD294DB7DB6DC193AFD6B8020EF52C9A2A6177CCF1D6D5EDCA040589EA"
+    },
+    {
+      "Path": "src/base/diameter_reg.erl",
+      "Sha256": "D12E6C5B733C31424679665C4A71E09BA66CAFF90B7589464A22C437458CFD2B"
+    },
+    {
+      "Path": "src/base/diameter_service.erl",
+      "Sha256": "73613A835E7BEDB771B94B4F464CCA8519EDD0D740C09FE6F8F72D5645525756"
+    },
+    {
+      "Path": "src/base/diameter_service_sup.erl",
+      "Sha256": "CA2CF1F176AEE241B76CFD80F5C1F2CA9D813C9A070E35FDD9F0E84D13928831"
+    },
+    {
+      "Path": "src/base/diameter_session.erl",
+      "Sha256": "50E3129940269BEFA8E28CEAE1BB25D93027BFC669206B5ECBD02AD3A8C948A8"
+    },
+    {
+      "Path": "src/base/diameter_stats.erl",
+      "Sha256": "D9D5D28C556058B13B6CCBB8F5FFD90532F0A50608058EF9D8E801152E512738"
+    },
+    {
+      "Path": "src/base/diameter_sup.erl",
+      "Sha256": "065DF0A408FA4A6EFE7026B2DF55EC3F73F4CDB956C2DCA7047D48840B6AAA03"
+    },
+    {
+      "Path": "src/base/diameter_sync.erl",
+      "Sha256": "6E7B5E0E0FD8E5BCB033C3E39D9116E74DD34E02EC227A600A2B00C9F80ED234"
+    },
+    {
+      "Path": "src/base/diameter_traffic.erl",
+      "Sha256": "3B442FAEAE6F4A6084F69D15033972F118FE85F594E9AD6979C71FAE03D563C0"
+    },
+    {
+      "Path": "src/base/diameter_types.erl",
+      "Sha256": "67E8B3578BB404D7BA4AF30158EDCB4E80A407BDE76DC99A186ECA071353E2E6"
+    },
+    {
+      "Path": "src/base/diameter_watchdog.erl",
+      "Sha256": "C956F2D970C71B4400F598D2AFE2608224075B1B1C35DC9392C9558229F41098"
+    },
+    {
+      "Path": "src/base/diameter_watchdog_sup.erl",
+      "Sha256": "74C3539D2DD7E4622A8938B3210FB770B204CA3BEF91E206F69DC68AEDEF42E5"
+    },
+    {
+      "Path": "src/compiler/diameter_codegen.erl",
+      "Sha256": "14B624405F8304E014D645EABE59DBAECF6E38C9999B344F1D36387273D57963"
+    },
+    {
+      "Path": "src/compiler/diameter_dict_parser.yrl",
+      "Sha256": "A2E2ACCA3B9CCE1A0E01B02AD6FE5961960BD10368B720843B7DCC52B525E77B"
+    },
+    {
+      "Path": "src/compiler/diameter_dict_scanner.erl",
+      "Sha256": "8CA8075A3698C84C00870A26B38D7B45316956C1E110EBAB3C12D664256313EB"
+    },
+    {
+      "Path": "src/compiler/diameter_dict_util.erl",
+      "Sha256": "E1B8BC0FFD4D1BD322622FD6CCBA4EC2083C7229EBD6C5637180B2C489CDE03B"
+    },
+    {
+      "Path": "src/compiler/diameter_exprecs.erl",
+      "Sha256": "298AD7DC5A103A8248F1628F4CCFA2D4CE82425ABB34CE6C1401BA1AB9E168D9"
+    },
+    {
+      "Path": "src/compiler/diameter_forms.hrl",
+      "Sha256": "C711726A98D4455AD260C8E83206088EA3F629FC69D0D9442349AE3F34315936"
+    },
+    {
+      "Path": "src/compiler/diameter_make.erl",
+      "Sha256": "FEB86465752FA7B9E4C2BCC3D529A759C7C1A7BBF5B6EC9597067A4BDF6BED2C"
+    },
+    {
+      "Path": "src/compiler/diameter_vsn.hrl",
+      "Sha256": "4EB824F5DD6B0D828ACB60989445474D43D3F1FBAB6ED400997C8B75B16E03D7"
+    },
+    {
+      "Path": "src/dict/acct_rfc6733.dia",
+      "Sha256": "B021294E86669BFC2D04167D30214FC375F4C12E485FAA3E15E935E9DCFB71AA"
+    },
+    {
+      "Path": "src/dict/base_accounting.dia",
+      "Sha256": "7E080FECE2F0CD431BF23D72DD7142EABC6673F6974B8E71C7F4D1C99833EB6D"
+    },
+    {
+      "Path": "src/dict/base_rfc3588.dia",
+      "Sha256": "FC0021760AA79A7E37D13E05A8B8DE1E6C70843905E1EEF3F6A5F66713174175"
+    },
+    {
+      "Path": "src/dict/base_rfc6733.dia",
+      "Sha256": "039433F042956BA684D5A4EA72FED3A3DC54E3B4DC319EF9D8DDE0776540C0DA"
+    },
+    {
+      "Path": "src/dict/doic_rfc7683.dia",
+      "Sha256": "814C7F6B34BE5BA750D695EDF626A7BE7749D221C23A0646CD04AA44E00FB8C1"
+    },
+    {
+      "Path": "src/dict/relay.dia",
+      "Sha256": "210545BF9681E46AC2B6FC9086B6F3B83BD493887B8E2D25F13906A69BCFF6D6"
+    },
+    {
+      "Path": "src/gen/diameter_dict_parser.erl",
+      "Sha256": "3D0496E81EEB5257AB41E21CCACED83C7449AEFFF145957BF69105C9A6674B7D"
+    },
+    {
+      "Path": "src/gen/diameter_gen_acct_rfc6733.erl",
+      "Sha256": "904B87AE089F5830DF126FA47FA5297ECB2BCD6EAD80754DE41EEE38AE410EDB"
+    },
+    {
+      "Path": "src/gen/diameter_gen_base_accounting.erl",
+      "Sha256": "74404EF9ACF0CA6901A2E86E7DA3BE2D1018A1572B2C5D5C595359D58C53A271"
+    },
+    {
+      "Path": "src/gen/diameter_gen_base_rfc3588.erl",
+      "Sha256": "69BECBAD5875AD731B6932FDFBC006DFBE5845A4701B0188238D3304B0156A21"
+    },
+    {
+      "Path": "src/gen/diameter_gen_base_rfc6733.erl",
+      "Sha256": "D2DC7DF9A5DC1FF866463FD782EBCC021840825E3E4ACCFECAE51DFB0269489C"
+    },
+    {
+      "Path": "src/gen/diameter_gen_doic_rfc7683.erl",
+      "Sha256": "242844BA9BC91A8F112309463C18A80C16E73E92ADBC411B6BA18D260358BB26"
+    },
+    {
+      "Path": "src/gen/diameter_gen_relay.erl",
+      "Sha256": "0AB2EB62EE849042E48333C0418AB352B2AE619C5B20395634BB64C40C1EA7FF"
+    },
+    {
+      "Path": "src/info/diameter_dbg.erl",
+      "Sha256": "09463B6CBCB5A04589A880C43EA0128F4C6F5BF5725C1D1A6328E160ADD12F01"
+    },
+    {
+      "Path": "src/info/diameter_info.erl",
+      "Sha256": "01F7BA3E88377660EDED2CE0919D68B6A95296C27AA281FBF6B23BE2C411423A"
+    },
+    {
+      "Path": "src/transport/diameter_etcp.erl",
+      "Sha256": "E72A898D61305B9B3A301BD7C5E3B8435DA5F378706D01F816DB6381CA4F1E12"
+    },
+    {
+      "Path": "src/transport/diameter_etcp_sup.erl",
+      "Sha256": "D1319535B91828C22DD4A1D6A0FCE01A30915B7E5F76180E2749C71503E472AB"
+    },
+    {
+      "Path": "src/transport/diameter_sctp.erl",
+      "Sha256": "E1394C4C26321805AD91F0CC19536DFE7CFEC1DBD66FEE0CC7C8C7443FC50655"
+    },
+    {
+      "Path": "src/transport/diameter_sctp_sup.erl",
+      "Sha256": "38863F0BAC96FBAB4FBF5FD194A262F7EB926D4B5B7883E38BE4A92A9F7DE63C"
+    },
+    {
+      "Path": "src/transport/diameter_tcp.erl",
+      "Sha256": "147AE23F2BC59F6360E1ABB5A62EAAC5459502D05B8D8434DBA4871647C376FD"
+    },
+    {
+      "Path": "src/transport/diameter_tcp_sup.erl",
+      "Sha256": "5BB0A9448F403443BF6770F3B5451D5C44E436D425ADB2143437E01FB49FE5BC"
+    },
+    {
+      "Path": "src/transport/diameter_transport.erl",
+      "Sha256": "2912F3F09CE8DA7EEA8BB990F958DF983364DCBBC789EDFD8D69B6447CA41C5F"
+    },
+    {
+      "Path": "src/transport/diameter_transport_sup.erl",
+      "Sha256": "E1BCB06B850B443D30CCA7E485FF72B586D8BA3FBDEA245E633D5DEFA68862F6"
+    },
+    {
+      "Path": "include/diameter.hrl",
+      "Sha256": "B203DAF0018504B89839031016A89809778798FA550DA8CE48EEDD96AC355436"
+    },
+    {
+      "Path": "include/diameter_gen.hrl",
+      "Sha256": "6394951DE1F6C8232ECDDAEF4EA26E438A150B13E565F3D79E040604E0EA1E3F"
+    },
+    {
+      "Path": "include/diameter_gen_acct_rfc6733.hrl",
+      "Sha256": "38DB956AE7176BAF2D42C1B0375CC7009E04FF0A0B77845E74EB23ABF049F41E"
+    },
+    {
+      "Path": "include/diameter_gen_base_accounting.hrl",
+      "Sha256": "00CE64308659A099C14E36B98112A56E0F579D68C96FC8087E86C811ABD4B6E7"
+    },
+    {
+      "Path": "include/diameter_gen_base_rfc3588.hrl",
+      "Sha256": "E4209D9C005A88EF17106D208AA7AB5DFE8E17A1F909E00ED1354EB90C05145B"
+    },
+    {
+      "Path": "include/diameter_gen_base_rfc6733.hrl",
+      "Sha256": "66EEF46663D708618AEAAD638755AFEFC401F94B8E45F4A2F10173F7E5EAF4AD"
+    },
+    {
+      "Path": "include/diameter_gen_doic_rfc7683.hrl",
+      "Sha256": "09780D7F026D035127688DC7517906177E5A1106655CB5B3916CB8C7B63FAEB4"
+    },
+    {
+      "Path": "include/diameter_gen_relay.hrl",
+      "Sha256": "F89585E3AEC8B2B30DB18923A584AF8EB5E61CC82BCC9A5E5604E24BBB63CFBB"
+    },
+    {
+      "Path": "bin/diameterc",
+      "Sha256": "D8FDB07FACD2060AAA373EDB2A51C485DC7CBEF420410B344F272A28AF36E123"
+    }
+  ],
+  "PinnedSourceMatches": [
+    "lib/diameter/src/base/diameter.erl",
+    "lib/diameter/src/base/diameter_app.erl",
+    "lib/diameter/src/base/diameter_callback.erl",
+    "lib/diameter/src/base/diameter_capx.erl",
+    "lib/diameter/src/base/diameter_codec.erl",
+    "lib/diameter/src/base/diameter_config.erl",
+    "lib/diameter/src/base/diameter_config_sup.erl",
+    "lib/diameter/src/base/diameter_dist.erl",
+    "lib/diameter/src/base/diameter_gen.erl",
+    "lib/diameter/src/base/diameter_internal.hrl",
+    "lib/diameter/src/base/diameter_lib.erl",
+    "lib/diameter/src/base/diameter_misc_sup.erl",
+    "lib/diameter/src/base/diameter_peer.erl",
+    "lib/diameter/src/base/diameter_peer_fsm.erl",
+    "lib/diameter/src/base/diameter_peer_fsm_sup.erl",
+    "lib/diameter/src/base/diameter_reg.erl",
+    "lib/diameter/src/base/diameter_service.erl",
+    "lib/diameter/src/base/diameter_service_sup.erl",
+    "lib/diameter/src/base/diameter_session.erl",
+    "lib/diameter/src/base/diameter_stats.erl",
+    "lib/diameter/src/base/diameter_sup.erl",
+    "lib/diameter/src/base/diameter_sync.erl",
+    "lib/diameter/src/base/diameter_traffic.erl",
+    "lib/diameter/src/base/diameter_types.erl",
+    "lib/diameter/src/base/diameter_watchdog.erl",
+    "lib/diameter/src/base/diameter_watchdog_sup.erl",
+    "lib/diameter/src/compiler/diameter_codegen.erl",
+    "lib/diameter/src/compiler/diameter_dict_parser.yrl",
+    "lib/diameter/src/compiler/diameter_dict_scanner.erl",
+    "lib/diameter/src/compiler/diameter_dict_util.erl",
+    "lib/diameter/src/compiler/diameter_exprecs.erl",
+    "lib/diameter/src/compiler/diameter_forms.hrl",
+    "lib/diameter/src/compiler/diameter_make.erl",
+    "lib/diameter/src/compiler/diameter_vsn.hrl",
+    "lib/diameter/src/dict/acct_rfc6733.dia",
+    "lib/diameter/src/dict/base_accounting.dia",
+    "lib/diameter/src/dict/base_rfc3588.dia",
+    "lib/diameter/src/dict/base_rfc6733.dia",
+    "lib/diameter/src/dict/doic_rfc7683.dia",
+    "lib/diameter/src/dict/relay.dia",
+    "lib/diameter/src/info/diameter_dbg.erl",
+    "lib/diameter/src/info/diameter_info.erl",
+    "lib/diameter/src/transport/diameter_etcp.erl",
+    "lib/diameter/src/transport/diameter_etcp_sup.erl",
+    "lib/diameter/src/transport/diameter_sctp.erl",
+    "lib/diameter/src/transport/diameter_sctp_sup.erl",
+    "lib/diameter/src/transport/diameter_tcp.erl",
+    "lib/diameter/src/transport/diameter_tcp_sup.erl",
+    "lib/diameter/src/transport/diameter_transport.erl",
+    "lib/diameter/src/transport/diameter_transport_sup.erl",
+    "lib/diameter/include/diameter.hrl",
+    "lib/diameter/include/diameter_gen.hrl"
+  ],
+  "GeneratedReleaseSources": [
+    "src/gen/diameter_dict_parser.erl",
+    "src/gen/diameter_gen_acct_rfc6733.erl",
+    "src/gen/diameter_gen_base_accounting.erl",
+    "src/gen/diameter_gen_base_rfc3588.erl",
+    "src/gen/diameter_gen_base_rfc6733.erl",
+    "src/gen/diameter_gen_doic_rfc7683.erl",
+    "src/gen/diameter_gen_relay.erl",
+    "include/diameter_gen_acct_rfc6733.hrl",
+    "include/diameter_gen_base_accounting.hrl",
+    "include/diameter_gen_base_rfc3588.hrl",
+    "include/diameter_gen_base_rfc6733.hrl",
+    "include/diameter_gen_doic_rfc7683.hrl",
+    "include/diameter_gen_relay.hrl"
+  ],
+  "PinnedSupportMatches": [
+    "lib/diameter/bin/diameterc"
+  ],
+  "GeneratedSupportFiles": [],
+  "ExcludedNativeProducerFiles": [],
+  "PinnedSourceRelocations": []
+}
