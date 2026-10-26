@@ -6912,6 +6912,22 @@ try
         Erlang.Tests.NifMapCreation501TestNames.Threads,
         NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapCreation501HostEntry.ThreadAccess
     );
+    Test(
+        Erlang.Tests.NifMapValue503TestNames.Shape,
+        NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapValue503HostEntry.ShapeAndOutput
+    );
+    Test(
+        Erlang.Tests.NifMapValue503TestNames.Owners,
+        NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapValue503HostEntry.OwnersAndHints
+    );
+    Test(
+        Erlang.Tests.NifMapValue503TestNames.Pending,
+        NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapValue503HostEntry.PendingKeys
+    );
+    Test(
+        Erlang.Tests.NifMapValue503TestNames.Invalid,
+        NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapValue503HostEntry.InvalidOwnersAndThreads
+    );
     Test(Erlang.Tests.ReviewFollowup498Names.ParserTest, Erlang.Tests.ReviewFollowup498Checks.ParserHostArguments);
     Test(Erlang.Tests.ReviewFollowup498Names.MapTest, Erlang.Tests.ReviewFollowup498Checks.ImportedFlatMaps);
 

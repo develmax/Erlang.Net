@@ -21,6 +21,7 @@ internal sealed unsafe class NifNativeWindowsCallbacks : IDisposable
             throw new OutOfMemoryException();
         var slots = (nint*)pointer;
         slots[NifNativeWindowsCallbackLayout.MakeNewMap] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint>)&NifNativeMapCreation501Callbacks.Make;
+        slots[NifNativeWindowsCallbackLayout.GetMapValue] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint, nuint, nuint*, int>)&NifNativeMapValue503Callbacks.Get;
         slots[NifNativeWindowsCallbackLayout.GetMapSize] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint, nuint*, int>)&NifNativeMapSizeCallbacks.Size;
         slots[NifNativeWindowsCallbackLayout.IsIdentical] = (nint)(delegate* unmanaged[Cdecl]<nuint, nuint, int>)&NifNativeComparisonCallbacks.Identical;
         slots[NifNativeWindowsCallbackLayout.Compare] = (nint)(delegate* unmanaged[Cdecl]<nuint, nuint, int>)&NifNativeComparisonCallbacks.Compare;

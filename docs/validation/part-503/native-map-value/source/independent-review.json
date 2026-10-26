@@ -1,0 +1,80 @@
+{
+  "Status": "INDEPENDENT_SOURCE_REVIEW_COMPLETE_NO_CONCRETE_FINDINGS",
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "OriginalSource": {
+    "Path": "erts/emulator/beam/erl_nif.c",
+    "Sha256": "66F06AB32AEDB5D1E02140C37E0215E797FB80D78C1AA4091EB52BE01465299A",
+    "Function": "enif_get_map_value",
+    "StartLine": 3700
+  },
+  "ManagedSources": [
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapValue503Callbacks.cs",
+      "Sha256": "359B848CBA729BC8C2C5FA80569FE9B36BAAE07CA13DF35212D02A9A4019896D"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapValue503Names.cs",
+      "Sha256": "DF32946BB761E484D068AD0E23E044B419C59EFC15FFA86E182B3861AD7D61B5"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbackLayout.cs",
+      "Sha256": "E9993DE09F1EFFFAE8AD26FAA9614DF491429B0A69901A021617FFD989D3D434"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbacks.cs",
+      "Sha256": "6F5FACD0B5B7370C7F352007C4EF5BCB7512D7D0BC3F3170465D53188F77FDD2"
+    }
+  ],
+  "Findings": [],
+  "ReviewedContract": {
+    "Abi": "Cdecl int(ErlNifEnv*, ERL_NIF_TERM, ERL_NIF_TERM, ERL_NIF_TERM*); managed nint environment/nuint term words/nuint* output/int status. Pointer-sized nuint matches native term width on admitted Windows x64. This source mapping is not execution proof for 32-bit or other platforms.",
+    "Slot": 112,
+    "Environment": "Pinned function ignores env. Managed callback treats it as optional index hint and resolves the actual accessible term owner.",
+    "RefusalOrdering": "Non-map returns zero without inspecting key or writing output. Missing key returns zero without output write.",
+    "Keys": "Exact MapTerm.TryGet comparison distinguishes integer and float keys. Pending key graph resolves afresh per lookup, including mutable native binary leaves nested inside tuple/list keys.",
+    "ResultOwnership": "Result handle is added to the map-owning environment, not an unrelated hint or key environment. Explicit copies survive clearing that source environment; borrowed handles do not.",
+    "DomainRules": "Managed containment rejects expired handles, wrong process-bound threads and cross-runtime key ownership before successful output write. Independent environments may be used on their supported independent thread.",
+    "CurrentRepresentation": "Supported native map constructors presently expose StaticTerm MapTerm; pending graph node forms represent binary/tuple/list values, not a pending map constructor. Therefore StaticTerm map discrimination is consistent with currently supported map inputs. Future make_map_put/update or pending-map nodes require a new representation/lifetime audit.",
+    "NullOutput": "NULL output is valid only on missing/non-map paths in this observed partition. A found key with NULL output is undefined native caller behavior: pinned implementation dereferences value. Managed rejection via HostFailure is containment, not claimed OTP equivalence; genuine C fixture avoids this dangerous success path.",
+    "OutputWidth": "Pinned Eterm* stores one pointer-sized term. Host tests protect adjacent nuint sentinels and untouched missing output; no arbitrary non-NULL address validation or native memory-safety guarantee is inferred."
+  },
+  "ReviewedTests": {
+    "Host": "Shape/output sentinels, exact numeric keys, independent map ownership/copy/clear, optional hints, pending binary and nested key mutations, invalid ownership and thread access.",
+    "ActualCFixture": "Ordinary exact/compound/bitstring/large/identity keys, NULL or independent environment hints, non-map and missing NULL output, independent-map copy lifetime, pending binary-key mutation.",
+    "HostExecutionByReviewer": false,
+    "OriginalExecutionByReviewer": false,
+    "OriginalComparisonResultClaimed": false
+  },
+  "Limits": [
+    "Current genuine native acquisition is Windows x64 only.",
+    "No Linux bridge, ARM or 32-bit native execution validation is claimed.",
+    "No full map mutation/iteration family or general NIF ABI completion is claimed.",
+    "No automatic security or memory-safety certification follows from this source review.",
+    "Invalid host-created handles/output pointers are separate containment controls, not valid native guest behavior."
+  ],
+  "ApiDelta": 0,
+  "FullContractDelta": 0,
+  "NativeCallbackPromotionClaimed": false,
+  "ReviewOnly": true,
+  "PostFormatRefresh": {
+    "Status": "RAW_BINDINGS_REFRESHED_FORMAT_ONLY_VERIFIED",
+    "ChangedFiles": [
+      {
+        "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapValue503Callbacks.cs",
+        "PreviousRawSha256": "022871E4661EE0983DDC308DA17627AE60E2613C754414DEC382A27F0F3A559C",
+        "CurrentRawSha256": "359B848CBA729BC8C2C5FA80569FE9B36BAAE07CA13DF35212D02A9A4019896D",
+        "VerifiedChange": "Method parameter wrapping/line endings only; restoring prior header and prior newline form reproduces prior raw SHA256 exactly."
+      }
+    ],
+    "FindingsAdded": 0,
+    "OriginalSourceDigestUnchanged": true,
+    "ExecutionClaimedByReviewer": false,
+    "NativeAcquisitionReportedByParentNotIndependentlyReexecuted": {
+      "WholeOriginalBytes": 1123,
+      "GoldenSha256": "84EBCB88F48074ECF056C2EC4D307909B67AB2C162A4D592D844C44D263B6704",
+      "ProviderFiles": 6427,
+      "RoutesPassedReported": 3,
+      "FinalSourceBuildAndGoldenRepeat": "Pending parent validation"
+    }
+  }
+}

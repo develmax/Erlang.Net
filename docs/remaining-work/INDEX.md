@@ -1,16 +1,16 @@
 # Remaining work
 
-## Part502 current contract queue
+## Part503 current contract queue
 
-See [checkpoint502](checkpoint-502.md):708 registered,180 full contracts,504 pending and24 known differences; API/full deltas0/0. Original559 cohort62 closed/497 remain, plus seven reclassified contracts.
+See [checkpoint503](checkpoint-503.md):708 registered,180 full contracts,504 pending and24 known differences; API/full-MFA deltas0/0. Original559 cohort62 closed/497 remain, plus seven reclassified contracts.
 
-The controlled original C NIF refutes Part500's physical-completion inference. Part502 separates logical death from physical retirement, preserves actual ETS ordering and strong Dispose/Halt joins, and explicitly supersedes the old interpretation. Parent501 green9048 CI is independently verified; final502 affected/CI/review states are recorded in [current evidence](../validation/part-502/logical-and-physical-retirement/README.md). Native enif_get_map_value is prepared separately and earns no compatibility credit before original acquisition and integration.
+C# native enif_get_map_value is implemented at slot112 with original1123-byte output matching both native loaders, four HOST groups, final152/152 native/retirement checks and actual cleanup. Its Windows x64 callback delta+1 is separate from MFA readiness; the map family remains partial. Part502 logical/physical retirement correction is retained. Exact final-head CI/review remain delivery gates; [current evidence](../validation/part-503/native-map-value/README.md) preserves the complete scope.
 
 ## Immediate queue
 
 1. Finish the24 retained differences and audit the seven reclassified contracts without treating a fixed finite witness as whole-API closure.
 2. Complete504 pending contracts (497 from the original559 cohort plus seven reclassified contracts), grouped by shared dependencies and supported platforms.
-3. Extend the native map surface beyond empty creation: map lookup/put/update/remove and iterators; retain explicit Linux/native ABI limits. Then continue process/name table queries and source/import lifecycle contracts.
+3. Extend the native map surface beyond empty creation: map put/update/remove and iterators; retain explicit Linux/native ABI limits. Then continue process/name table queries and source/import lifecycle contracts.
 4. Expand original application lifecycle/upgrades, native ABI/packaging, ETS/resource/concurrency and distribution acceptance; preserve already-closed witnesses.
 5. Complete compiler/language/build/debug partitions, three-strategy scheduling, upstream suites, release support and fair original-OTP benchmarks.
 

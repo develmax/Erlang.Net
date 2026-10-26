@@ -1,0 +1,41 @@
+# Part 503: native map-value lookup
+
+Implement the Windows x64 `enif_get_map_value` callback at pinned OTP slot112. This adds one scoped native callback, not an Erlang MFA or another full-MFA closure. Registered708/full180/pending504/known24 remain unchanged; API/full-MFA deltas0/0. Catalog9055 adds four HOST groups, and source guards1731 bind the two new runtime files plus the existing callback-table/layout changes. Final local build, golden repeat,152 affected cases and style pass; exact publication-head CI remains pending.
+
+## Source contract and implementation
+
+Pinned OTP-29.1.1 commit `ad05823719d77c8faee87348ea39513d4e2f99c5`, `erl_nif.c:3700`, implements `enif_get_map_value` without using the environment argument. It returns zero immediately for a non-map, looks up the exact key through `erts_maps_get`, writes one native term only when found, then returns one. Missing keys return zero without modifying the output. [Preparation audit](source/preparation-source-audit.json) records the native declarations, map implementation and documentation digests; its preparation-only status is historical and is not execution evidence. The [independent formatted-source review](source/independent-review.json) binds all four current runtime files and reports no concrete findings.
+
+The managed callback preserves these branches. It resolves the map's actual environment owner using the environment argument only as an optional hint. A non-map is rejected before inspecting the key. Key ownership must belong to the same logical runtime; the current key graph is resolved on each call and looked up through exact map-key equality. Integer1 and float1.0 remain distinct. A found value is added to the map-owning environment, so its lifetime follows the source map rather than an unrelated environment hint or key environment. Output is assigned only after successful lookup/admission.
+
+Pending binary keys are read from current native storage, including binary leaves nested inside pending tuple/list graphs. Repeated mutations are not hidden by a cached first materialization. The supported map inputs themselves currently use `StaticTerm MapTerm`; supported constructors do not yet produce a pending map graph node. Future native map mutation/update constructors that introduce pending maps require a new representation and lifetime audit; this increment does not claim those operations are implemented.
+
+The C ABI is `int(ErlNifEnv*, ERL_NIF_TERM, ERL_NIF_TERM, ERL_NIF_TERM*)`, mapped to Cdecl `int(nint,nuint,nuint,nuint*)`. The term output occupies one pointer-sized slot. Actual execution is admitted only for Windows x64 here; the type mapping is not proof of 32-bit, Linux or ARM native operation.
+
+## Actual first acquisition and golden provenance
+
+Build a genuine C fixture using the pinned official headers and Windows configuration, and execute the same built DLL in three owned processes: original OTP, ordinary managed loading and reviewed managed loading. Both complete managed outputs match the complete original1123-byte ETF, with zero normalization:
+
+`84EBCB88F48074ECF056C2EC4D307909B67AB2C162A4D592D844C44D263B6704`
+
+The fixture covers empty/missing maps; atom, integer-versus-float, compound, bitstring, reference, PID and function keys; a65-entry map; null and independent environment hints; eleven non-map families; missing-key NULL output; copied independent-map lifetime after clear/free; and actual mutable native binary-key lookup. [Original output](acquisition/original/returned.etf), [ordinary output](acquisition/ordinary/returned.etf) and [reviewed output](acquisition/reviewed/returned.etf) are retained separately and are byte-identical. This is two whole loader comparisons against one independently acquired original result, not three separate compatibility closures.
+
+[Acquisition completion](acquisition/completion.json) reports `GoldenChecked:false` deliberately: this first original process establishes the golden rather than comparing it against a managed expectation. Its historical source plan seal is `7C162E807C468ED6AA91A6EE07AB404084E5A1243675C0194537503FA3069F7B`. Preserve that [pre-golden plan](acquisition/source-plan-before-golden.json), [compiled C copy](acquisition/compiled-fixture.c), [build receipt](acquisition/build-receipt.json) and [staged preparation receipt](history/staged-preparation.json) unchanged.
+
+Only after actual original acquisition, add the original result hash to the plan and reseal it as `D1A9BE80F21C40E7FD8D84489401BF18F673EA14A5A383FB0170C11766EA204A`. The [post-acquisition golden plan](golden/source-plan-after-acquisition.json) is a separate document. A [fresh final-source repeat](final/completion.json) now passes with `GoldenChecked:true`, reacquiring the actual original and both managed native routes; each complete1123-byte output retains the same golden hash. The first acquisition remains unchanged and is not retroactively relabeled as that repeat.
+
+All6427 official provider files match before and after, and all owned processes settle. Ordinary/reviewed policy invocation counts are actually0/1. Each route checks that the DLL is absent before loading, present during native invocation and absent after actual image retirement/runtime disposal; actual environment and binary-ownership baselines return. See the separate [ordinary](acquisition/ordinary/completion.json) and [reviewed](acquisition/reviewed/completion.json) receipts. Source/build/admission validation remains separate from execution; a build receipt does not grant execution approval.
+
+## HOST controls and invalid-caller boundary
+
+The [four HOST groups](history/focus-integration.json) pass through the real unmanaged callback table with actual environments and native binary storage. They cover exact keys; neighboring output sentinels and unchanged missing output; optional/unrelated hints; map-owned borrowed result lifetime and explicit copy; repeated pending binary/nested-key mutations; independent-thread use; wrong process-bound threads; foreign-runtime keys; and invalid/cleared handles. Signature wrapping is the only runtime change introduced by the subsequent formatter; restoring the previous signature/newline form reproduces the prior raw SHA exactly, as recorded by the independent review.
+
+Finding a key with NULL output is invalid native caller behavior: the pinned implementation dereferences the pointer. The genuine C fixture intentionally avoids that successful-lookup case. The managed HOST check instead verifies containment as a host failure with untouched output and no guest exception; it does not claim OTP-equivalent behavior for the invalid call. No arbitrary non-NULL pointer validation or general native memory-safety certification follows from these checks.
+
+## Final local acceptance and remaining delivery gates
+
+The [final formatted-source build](final/build.log) passes with zero warnings/errors, the [fresh native repeat](final/completion.json) passes against the resealed original golden and the [affected regression](final/affected.json) passes152/152, covering the full native block plus six retained process-retirement/ownership controls. Style reports zero files requiring formatting. A [fresh retained empty-map constructor comparison](retained-map-constructor-completion.json) also passes both whole native loader comparisons against original OTP. These are separate actual receipts; no uninterrupted full9055 local suite is claimed. [Final source audit](source/source-audit.json) binds the four formatted runtime files and this scoped acceptance.
+
+Exact publication-head GitHub CI/artifacts, package/consumer/cleanup retention and final PR review remain pending in [acceptance.json](acceptance.json). Source roster1731, catalog9055 and scoped native callback delta+1 are kept separate from unchanged MFA readiness708/180/504/24.
+
+No Linux bridge, ARM or 32-bit native execution, complete map mutation/iterator family, general NIF ABI or complete native-library compatibility is claimed. LICENSE.local.txt remains excluded. [manifest.json](manifest.json) binds the raw copied acquisition evidence, both source-plan generations, preparation history and reviews; authored README/acceptance status are separate from that immutable manifest.

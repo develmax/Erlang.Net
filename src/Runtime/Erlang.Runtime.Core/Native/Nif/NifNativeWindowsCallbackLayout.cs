@@ -4,6 +4,7 @@ internal static class NifNativeWindowsCallbackLayout
 {
     internal const int GetMapSize = 109;
     internal const int MakeNewMap = 110;
+    internal const int GetMapValue = 112;
     internal const int FunctionCount = 180;
     internal const int TailPointers = 2;
     internal const int IsIdentical = 15;

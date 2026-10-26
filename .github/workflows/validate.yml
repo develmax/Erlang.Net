@@ -109,6 +109,13 @@ jobs:
           }
           python -B tools/Native/Erlang.NifMapCreation501Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 3E2BAFD2AB62E8588434C07C3CD341D9E429333C6AF4F7916E4D2279D9954579 --output artifacts/native-map501/ci --runtime-version 10.0.11 --check-golden
           if ($LASTEXITCODE -ne 0) { throw 'Native map501 original/ordinary/reviewed comparison failed; inspect all phase receipts' }
+      - name: Compare native map lookup with pinned OTP and both loaders
+        if: ${{ !cancelled() }}
+        shell: pwsh
+        run: |
+          if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) { throw 'Map lookup503 preparation unavailable; dependent native execution was not started.' }
+          python -B tools/Native/Erlang.NifMapValue503Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 D1A9BE80F21C40E7FD8D84489401BF18F673EA14A5A383FB0170C11766EA204A --output artifacts/native-map503/ci --check-golden
+          if ($LASTEXITCODE -ne 0) { throw 'Native map lookup503 comparison failed; independent route results are retained.' }
       - name: Verify logical death before physical dirty completion in pinned OTP
         if: ${{ !cancelled() }}
         shell: pwsh
@@ -126,6 +133,7 @@ jobs:
             artifacts/tests.json
             artifacts/native-map501/ci/**
             artifacts/process-retirement502/ci/**
+            artifacts/native-map503/ci/**
             artifacts/contracts487/ci-original/**
             artifacts/contracts489/ci-original/**
             artifacts/contracts490/ci-original/**

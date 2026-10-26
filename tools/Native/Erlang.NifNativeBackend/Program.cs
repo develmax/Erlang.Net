@@ -61,6 +61,13 @@ try
         return;
     }
 
+    if (args.Length != 0 && args[0] == MapValue503CallbackNames.Mode)
+    {
+        await MapValue503CallbackEntry.Run(args[1..]);
+
+        return;
+    }
+
     if (args.Length != 0 && args[0] == MapCreation501CallbackNames.Mode)
     {
         await MapCreation501CallbackEntry.Run(args[1..]);
