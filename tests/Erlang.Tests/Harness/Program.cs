@@ -6928,6 +6928,22 @@ try
         Erlang.Tests.NifMapValue503TestNames.Invalid,
         NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapValue503HostEntry.InvalidOwnersAndThreads
     );
+    Test(
+        Erlang.Tests.NifMapReview504TestNames.Functions,
+        NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapReview504HostEntry.SourceFunUniquePreconditions
+    );
+    Test(
+        Erlang.Tests.NifMapReview504TestNames.Static,
+        NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapReview504HostEntry.StaticLookupAllocations
+    );
+    Test(
+        Erlang.Tests.NifMapReview504TestNames.Misses,
+        NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapReview504HostEntry.IndexedStaticLookupMisses
+    );
+    Test(
+        Erlang.Tests.NifMapReview504TestNames.Collision,
+        NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapReview504HostEntry.CollisionCmpUsesActualFirstRole
+    );
     Test(Erlang.Tests.ProcessOwnedWord504Names.RootsTest, Erlang.Tests.ProcessOwnedWord504Checks.Roots);
     Test(Erlang.Tests.ProcessOwnedTerm504Names.GraphTest, Erlang.Tests.ProcessOwnedTerm504Checks.Graph);
     Test(Erlang.Tests.ProcessOwnedTerm504Names.RetirementTest, Erlang.Tests.ProcessOwnedTerm504Checks.Retirement);

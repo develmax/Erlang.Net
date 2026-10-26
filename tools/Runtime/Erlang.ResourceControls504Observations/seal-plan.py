@@ -28,7 +28,7 @@ def main():
              dict(Name='normal_queue', Native=False, Stages=['normal_runnable', 'normal_retired'])]
     cases += [dict(Name=name, Native=True, Stages=native_stages)
               for name in ['held_queues', 'cancel_queued', 'cancel_running']]
-    paths = ['README.md', 'collect.py', 'seal-plan.py',
+    paths = ['README.md', 'collect.py', 'seal-plan.py', 'check-diagnostics.py',
              'fixtures/queue_statistics504.c', 'fixtures/queue_statistics504.erl']
     plan = dict(Status='UNEXECUTED_ORIGINAL_SOURCE_PLAN', OriginalCommit=PIN,
         Flags=['+S', '1:1', '+SDcpu', '1:1', '+SDio', '1', '+A', '1'],

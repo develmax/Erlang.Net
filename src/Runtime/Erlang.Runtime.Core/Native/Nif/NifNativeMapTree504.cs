@@ -79,6 +79,10 @@ internal static class NifNativeMapTree504
         }
         if (node.Collision)
         {
+            // Pinned erl_map.c insert_down uses CMP_TERM == 0 here, not EQ.
+            // Distinct local-fun Unique bytes can compare equal. Preserve that
+            // protocol against this VM's actual first collision leaf; replacing
+            // it with exact equality diverges from the original NIF observations.
             var children = node.Children.ToList();
             int index = 0;
             for (; index < children.Count; index++)

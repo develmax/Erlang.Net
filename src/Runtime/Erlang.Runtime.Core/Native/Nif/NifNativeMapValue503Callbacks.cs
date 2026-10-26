@@ -24,15 +24,23 @@ internal static unsafe class NifNativeMapValue503Callbacks
                 throw new InvalidOperationException(NifNativeDiagnostics.ForeignRuntime);
             Term key = keyOwner.Get(keyHandle);
             NifNativeTermValue resultValue;
-            _ = NifNativeMapGraph504.TryNode(mapValue, owner.Runtime, out var node);
-            if (!NifNativeMapGraph504.TryGet(
-                node,
-                key,
-                owner.Runtime,
-                out var found
-            ))
-                return NifNativeMapValue503Names.MissingOrNotMap;
-            resultValue = found.Value;
+            if (mapValue.StaticTerm is MapTerm map)
+            {
+                if (!map.TryGet(key, out var foundValue))
+                    return NifNativeMapValue503Names.MissingOrNotMap;
+                resultValue = new(foundValue!);
+            }
+            else
+            {
+                if (!NifNativeMapGraph504.TryGet(
+                    (NifNativeMapNode504)mapValue.Pending!,
+                    key,
+                    owner.Runtime,
+                    out var found
+                ))
+                    return NifNativeMapValue503Names.MissingOrNotMap;
+                resultValue = found.Value;
+            }
             if (output == null)
                 throw new InvalidOperationException(NifNativeMapValue503Names.NullOutput);
             nuint result = owner.AddValue(resultValue);

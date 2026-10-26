@@ -14,6 +14,23 @@ The reducible normal loop measures actual normal queue activity without blocking
 the observer. Its physical numbers are retained rather than replaced by constants.
 
 Native bodies have a twenty-second deadline; an Erlang `after` releases them.
+Stage observations and the latest 32 actual barrier polls remain in Erlang
+memory while dirty workers are held. File operations themselves require dirty
+IO, so all ETF disk writes happen only after release. Diagnostics include each
+child's pre-NIF readiness/current-function message and real native entered,
+completed, timeout, release-state and release-call counters. Failed barriers
+retain their final actual observation in the exception and flush diagnostic ETF.
+The original failed run is preserved; this fixture correction does not relabel it.
+Native typed guards require actual held and queued polls before either deadline,
+zero CPU/IO timeout counts throughout the poll history, and a final released
+cleanup with at least one release call, empty queues and completed bodies equal
+to entered bodies separately for CPU and IO. A cancelled queued owner need not
+enter its native body; no fixed two-per-kind count is used. Normal owned VM exit
+and stream/process cleanup remain required for every independent case.
+`check-diagnostics.py` is a pure source control: it accepts unequal real per-kind
+completion totals and rejects missing polls, expired deadlines, missing release,
+unfinished/over-counted bodies and mismatched final counters without starting
+any original or SDK process.
 The collector owns each compiler and VM process group with the existing sealed
 `OwnedProcess` helper, closes streams, reaps the process, and retains cleanup
 receipts. Successful capture refuses forced cleanup. Cases continue independently

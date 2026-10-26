@@ -1,0 +1,51 @@
+{
+  "Part": 504,
+  "Status": "CORRECTIONS_LOCAL_ACCEPTED_CI_RETRY_PENDING",
+  "ParentHead": "19ecb1ed99367f5c1a3c049ef19bd55283374d17",
+  "ParentRun": 40414718764,
+  "ParentWindowsJob": 121894026321,
+  "ParentWindowsPassed": 9073,
+  "ParentWindowsConclusion": "success",
+  "ParentOverallConclusion": "failure",
+  "ParentLinuxJob": 121894025787,
+  "ParentLinuxArtifact": 12695561736,
+  "ParentLinuxArtifactSha256": "D875A00F11B070BB4EF2501B9CE406F5D34A20C4E42BE4637CC096F2113F4E42",
+  "ParentWindowsArtifact": 12696361136,
+  "ParentWindowsArtifactSha256": "B1860311084AD37894CA9BCC6C825FA30C7A8FFA1FF0E460DEA8396696FE730D",
+  "StaticLookupRed": {
+    "Passed": 0,
+    "Failed": 2
+  },
+  "StaticLookupGreen": {
+    "NewControlsPassed": 4,
+    "NativePassed": 158,
+    "NativeFailedMissingProvider": 1,
+    "MissingProviderRepeatPassed": 1
+  },
+  "Catalog": 9077,
+  "SourceGuards": 1772,
+  "MfaDelta": 0,
+  "FullDelta": 0,
+  "KnownDifferenceDelta": 0,
+  "Collision": {
+    "ReviewedSuggestion": "Replace CMP ties with exact equality",
+    "Decision": "Do not apply: contradicts actual pinned OTP source/protocol",
+    "OriginalFixedIdRawBytes": 1098,
+    "OriginalFixedIdSha256": "07F68A31A099EAFD5A61E98B8FA1BE8413A936555E04FA3BB548CF852E73AF3B",
+    "OriginalRoleRawBytes": 1151,
+    "OriginalRoleSha256": "632783221F4F85E25D1297898ABEAA336FBCCEC5D063CD1E50F7661B8B041503",
+    "WholeLoaderComparisons": 2,
+    "DefaultAndCanonicalStrict": true,
+    "OwnStateRoleSelection": "Actual first colliding key from iterator; both baseline values100; absent third key. No ETF rewriting."
+  },
+  "LinuxCorrection": {
+    "PlanSha256": "65DFD908AB37416665DEB9BA988B315BAFAB27DC2FEA8F3A7802156D7A62582C",
+    "OriginalErlCompileWerrorPassed": true,
+    "PureDiagnosticInvalidCasesRejected": 18,
+    "ActualRepeatPending": true
+  },
+  "RuntimeChanged": [
+    "Only static-map lookup restoration; collision behavior preserved with source comment"
+  ],
+  "LICENSEExcluded": true
+}

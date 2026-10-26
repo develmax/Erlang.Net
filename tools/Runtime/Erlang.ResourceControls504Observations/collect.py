@@ -113,6 +113,42 @@ def check_sample(value):
     return result
 
 
+def check_native_diagnostics(value):
+    require(value[0] == 'tuple' and len(value[1]) == 3 and value[1][0] == ('atom','diagnostics'), 'native diagnostics tuple')
+    rows = value[1][1]
+    require(rows[0] == 'list' and 0 < len(rows[1]) <= 32, 'nonempty bounded native poll history')
+    observed = []
+    for row in rows[1]:
+        require(row[0] == 'tuple' and len(row[1]) == 3, 'native poll tuple')
+        label, timestamp, observation = row[1]
+        require(label[0] == 'atom' and timestamp[0] == 'integer', 'native poll label/timestamp')
+        require(label[1] in ['held','queued','retired','cleanup_wait','cleanup'], 'native cleanup failed or unknown poll')
+        require(observation[0] == 'tuple' and len(observation[1]) == 3, 'native physical observation')
+        queued, status, details = observation[1]
+        require(queued[0] == 'tuple' and len(queued[1]) == 2, 'dirty queue pair')
+        require(status[0] == 'tuple' and len(status[1]) == 4, 'native four-counter status')
+        require(details[0] == 'tuple' and len(details[1]) == 8, 'native eight-counter details')
+        q = tuple(integer(item) for item in queued[1])
+        s = tuple(integer(item) for item in status[1])
+        d = tuple(integer(item) for item in details[1])
+        require(d[4] == d[5] == 0, 'native body deadline expired')
+        require(d[2] <= d[0] and d[3] <= d[1], 'physical completion cannot exceed entry')
+        observed.append((label[1],q,s,d))
+    # These must be real stable polls, not inferred from the final empty queues.
+    require(any(label == 'held' and q == (0,0) and s == (1,1,0,0) and d[:4] == (1,1,0,0)
+        and d[6:] == (0,0) for label,q,s,d in observed), 'missing pre-deadline held poll')
+    require(any(label == 'queued' and q == (1,1) and s == (1,1,0,0) and d[:4] == (1,1,0,0)
+        and d[6:] == (0,0) for label,q,s,d in observed), 'missing pre-deadline queued poll')
+    label,q,s,d = observed[-1]
+    require(label == 'cleanup', 'last poll must prove actual cleanup')
+    require(q == (0,0) and d[6] == 1 and d[7] >= 1, 'dirty release/queue cleanup not confirmed')
+    require(d[0] >= 1 and d[1] >= 1 and d[2] == d[0] and d[3] == d[1], 'native physical bodies not complete')
+    require(s == d[:4], 'final native status/detail disagreement')
+    return dict(PollCount=len(observed),TimeoutsCpu=d[4],TimeoutsIo=d[5],Released=d[6],
+        ReleaseCalls=d[7],EnteredCpu=d[0],EnteredIo=d[1],CompletedCpu=d[2],CompletedIo=d[3],
+        QueuedOwnersRequiredToEnter=False,PhysicalClosureConfirmed=True)
+
+
 def main():
     require(sys.platform.startswith('linux') and __debug__, 'Linux non-optimized collector required')
     parser = argparse.ArgumentParser()
@@ -214,15 +250,23 @@ def main():
                 '-pa', str(preparation), '-eval', expression], directory, private_environment, directory / 'vm', 45)
             failures.extend(invocation['Failures'])
             try:
+                diagnostic_path = directory / 'diagnostics.etf'
+                if diagnostic_path.exists():
+                    diagnostic = decoder.decode_exact(diagnostic_path.read_bytes())
+                    save(directory / 'diagnostics-readable.json', diagnostic)
+                    if case['Native']:
+                        save(directory / 'native-closure.json', check_native_diagnostics(diagnostic))
+                else:
+                    require(not case['Native'], 'native diagnostic/cleanup evidence missing')
                 outcome = decoder.decode_exact((directory / 'outcome.etf').read_bytes())
                 require(outcome[0] == 'tuple' and outcome[1][0] == ('atom', 'returned'), 'original raised (full ETF retained)')
                 if case['Name'] == 'debug_flags':
                     require(outcome[1][1] == ('tuple', (('atom', 'debug_flags'), ('list', (('atom', 'true'),) * 15))), '15 unconditional debug_flags results')
                 else:
                     samples = {}
-                    for path in sorted(directory.glob('*.etf')):
-                        if path.name not in ['outcome.etf', 'profile.etf']:
-                            samples[path.stem] = check_sample(decoder.decode_exact(path.read_bytes()))
+                    for stage in case['Stages']:
+                        path = directory / (stage + '.etf')
+                        samples[stage] = check_sample(decoder.decode_exact(path.read_bytes()))
                     require(set(samples) == set(case['Stages']), 'all declared stages captured')
                     if case['Native']:
                         for stage, expected in [('held', [0, 0]), ('queued', [1, 1])]:
