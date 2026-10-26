@@ -1,0 +1,44 @@
+{
+  "Partial": true,
+  "SelectedCount": 5,
+  "TotalCount": 9045,
+  "Blocks": [],
+  "ExactCases": [
+    "host/new-connection501-default-retained-capacity-and-cleanup",
+    "host/new-connection501-explicit-quota-retained-identity-and-isolation",
+    "runtime/node-native501/NativeConnection501",
+    "runtime/node-native501/NodeContract501",
+    "runtime/node-native501/NodeIdentity501"
+  ],
+  "Passed": 3,
+  "Failed": 2,
+  "Tests": [
+    {
+      "Name": "runtime/node-native501/NodeContract501",
+      "Status": "Passed",
+      "Milliseconds": 3468
+    },
+    {
+      "Name": "runtime/node-native501/NodeIdentity501",
+      "Status": "Passed",
+      "Milliseconds": 136
+    },
+    {
+      "Name": "runtime/node-native501/NativeConnection501",
+      "Status": "Passed",
+      "Milliseconds": 1440
+    },
+    {
+      "Name": "host/new-connection501-default-retained-capacity-and-cleanup",
+      "Status": "Failed",
+      "Error": "System.ArgumentException: An item with the same key has already been added. Key: (erlang, self, 0)\r\n   at System.Collections.Generic.Dictionary\u00602.TryInsert(TKey key, TValue value, InsertionBehavior behavior)\r\n   at System.Collections.Generic.Dictionary\u00602.Add(TKey key, TValue value)\r\n   at Erlang.ModuleRegistry.Register(String module, String function, Int32 arity, ErlangFunction body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Modules\\ModuleRegistry.cs:line 134\r\n   at Erlang.CoreModules.\u003CRegisterCode\u003Eg__Add|1_0(String module, String name, Int32 arity, Func\u00603 f, \u003C\u003Ec__DisplayClass1_0\u0026) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Primitives\\CoreModules.cs:line 20\r\n   at Erlang.CoreModules.RegisterCode(ModuleRegistry r) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Primitives\\CoreModules.cs:line 26\r\n   at Erlang.ModuleRegistry.\u003C\u003Ec__DisplayClass88_0.\u003CInstallPreloaded\u003Eb__0(ModuleRegistry target) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Modules\\ModuleRegistry.cs:line 628\r\n   at Erlang.ModuleRegistry.Apply(Action\u00601 configure) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Modules\\ModuleRegistry.cs:line 723\r\n   at Erlang.ModuleRegistry.InstallPreloaded(Action\u00601 configure) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Modules\\ModuleRegistry.cs:line 624\r\n   at Erlang.CoreModules.Register(ModuleRegistry r) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Primitives\\CoreModules.cs:line 9\r\n   at Erlang.ModuleRegistry.Apply(Action\u00601 configure) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Modules\\ModuleRegistry.cs:line 723\r\n   at Erlang.RuntimeInitializer.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Bootstrap\\RuntimeInitializer.cs:line 73\r\n   at Erlang.Tests.NewConnection501CapacityChecks.DefaultRetainedCapacityAndCleanup() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Distribution\\Connections\\NewConnection501CapacityChecks.cs:line 15\r\n   at Erlang.Tests.NewConnection501CapacityChecks.DefaultRetainedCapacityAndCleanup() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Distribution\\Connections\\NewConnection501CapacityChecks.cs:line 45\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 6927",
+      "Milliseconds": 51
+    },
+    {
+      "Name": "host/new-connection501-explicit-quota-retained-identity-and-isolation",
+      "Status": "Failed",
+      "Error": "System.ArgumentException: An item with the same key has already been added. Key: (erlang, self, 0)\r\n   at System.Collections.Generic.Dictionary\u00602.TryInsert(TKey key, TValue value, InsertionBehavior behavior)\r\n   at System.Collections.Generic.Dictionary\u00602.Add(TKey key, TValue value)\r\n   at Erlang.ModuleRegistry.Register(String module, String function, Int32 arity, ErlangFunction body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Modules\\ModuleRegistry.cs:line 134\r\n   at Erlang.CoreModules.\u003CRegisterCode\u003Eg__Add|1_0(String module, String name, Int32 arity, Func\u00603 f, \u003C\u003Ec__DisplayClass1_0\u0026) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Primitives\\CoreModules.cs:line 20\r\n   at Erlang.CoreModules.RegisterCode(ModuleRegistry r) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Primitives\\CoreModules.cs:line 26\r\n   at Erlang.ModuleRegistry.\u003C\u003Ec__DisplayClass88_0.\u003CInstallPreloaded\u003Eb__0(ModuleRegistry target) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Modules\\ModuleRegistry.cs:line 628\r\n   at Erlang.ModuleRegistry.Apply(Action\u00601 configure) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Modules\\ModuleRegistry.cs:line 723\r\n   at Erlang.ModuleRegistry.InstallPreloaded(Action\u00601 configure) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Modules\\ModuleRegistry.cs:line 624\r\n   at Erlang.CoreModules.Register(ModuleRegistry r) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Primitives\\CoreModules.cs:line 9\r\n   at Erlang.ModuleRegistry.Apply(Action\u00601 configure) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Modules\\ModuleRegistry.cs:line 723\r\n   at Erlang.RuntimeInitializer.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Bootstrap\\RuntimeInitializer.cs:line 73\r\n   at Erlang.Tests.NewConnection501CapacityChecks.ExplicitQuotaAndIsolation() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Distribution\\Connections\\NewConnection501CapacityChecks.cs:line 56\r\n   at Erlang.Tests.NewConnection501CapacityChecks.ExplicitQuotaAndIsolation() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Distribution\\Connections\\NewConnection501CapacityChecks.cs:line 86\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 6927",
+      "Milliseconds": 14
+    }
+  ]
+}

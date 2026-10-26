@@ -1,0 +1,14 @@
+Unhandled exception. System.NotSupportedException: The BEAM frame or Y-register ownership is unsupported
+   at Erlang.BeamReceiveBinaryPairs.ValidateFunction(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary`2 receives) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamReceiveBinaryPairs.cs:line 76
+   at Erlang.BeamFrameValidation.ValidateExceptionalEntry(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary`2 receives, BigInteger entryContexts) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamFrameValidation.cs:line 454
+   at Erlang.BeamFrameValidation.ValidateExceptional(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary`2 receives) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamFrameValidation.cs:line 422
+   at Erlang.BeamFrameValidation.Validate(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary`2 receives) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamFrameValidation.cs:line 30
+   at Erlang.BeamRegisterValidation.Validate(BeamLinkedCode code, BeamLinkedFunction entry) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamRegisterValidation.cs:line 444
+   at Erlang.ModuleRegistry.PrepareBeam(ReadOnlyMemory`1 bytes, BeamDependencySelection dependencies) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Modules\ModuleRegistry.PreparedBeam.cs:line 32
+   at Erlang.Tests.BeamOrdsetsCoreHostChecks.<>c__DisplayClass1_1.<RunSubject>b__0(String module) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamOrdsetsCoreHostChecks.cs:line 40
+   at System.Linq.Enumerable.ArraySelectIterator`2.Fill(ReadOnlySpan`1 source, Span`1 destination, Func`2 func)
+   at System.Linq.Enumerable.ArraySelectIterator`2.ToArray()
+   at Erlang.Tests.BeamOrdsetsCoreHostChecks.RunSubject(String observer, Func`2 read, Int32 valueCount, Int32 profileCount, Func`2 initialize, Boolean encodeInRuntime, String[] additionalDependencies) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamOrdsetsCoreHostChecks.cs:line 40
+   at Erlang.Tests.BeamOrdsetsCoreHostChecks.RunSubject(String observer, Func`2 read, Int32 valueCount, Int32 profileCount, Func`2 initialize, Boolean encodeInRuntime, String[] additionalDependencies) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Compiler\Beam\BeamOrdsetsCoreHostChecks.cs:line 102
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\node501\probe\Program.cs:line 29
+   at Program.<Main>(String[] args)

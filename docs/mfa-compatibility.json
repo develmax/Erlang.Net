@@ -6739,12 +6739,35 @@
       "Module": "erlang",
       "Function": "node",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
+      "Status": "Verified compatible",
+      "Scope": "Returns the node atom of a guest PID, port or reference, including magic/resource references, without testing liveness; rejects other Erlang term types with the original badarg metadata. Local identifiers follow their logical VM identity, external identifiers retain the recorded node. Direct/dynamic/non-tail and ordinary/receive guards match pinned OTP, including complete stack profiles and actual identity cycles. Complete observable guest-term contract on the supported Erlang term model; no arbitrary cross-host C# object-sharing, internal-layout, timing or performance claim.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-501/node-native-contracts/node-source-audit.json",
+          "Sha256": "70F12DCA738F341CEEB9DE985CBEE1A86A21CA8D1F78F4C9AF50A6F82E50DE14",
+          "Scope": "Pinned C, node-container macros and x86/arm JIT source partition, managed identity getters and explicit host boundary."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-501/node-native-contracts/node/completion.json",
+          "Sha256": "A47ADA351F9881B2625E1EBF74439972CA08E1E062A9C7BC0AE87F61769F358C",
+          "Scope": "134 values and670 complete stack profiles compare literally, including direct/dynamic/guard/receive instruction routes."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-501/node-native-contracts/identity/completion.json",
+          "Sha256": "F7613386B89FFCDB7840EA471D0163266F45C718A352D628472DC55C4E2903FA",
+          "Scope": "Six whole outcomes through two actual kernel/name cycles with retained local, dead and external identifiers."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-501/node-native-contracts/affected-final.json",
+          "Sha256": "14AD0408C658573320C6C76B02484CACAF946D1BA55622A7DF8BCDD9E4C579F5",
+          "Scope": "1733/1733 final-source processes/native/distribution and retained BIF groups."
+        }
+      ],
+      "Limits": []
     },
     {
       "Module": "erlang",
@@ -20478,8 +20501,8 @@
       "Module": "erts_internal",
       "Function": "new_connection",
       "Arity": 1,
-      "Status": "Known differences",
-      "Scope": "An explicit entries.Count >= MaximumNodes rejection remains; defaultMaximumNodes is1024, unlike the pinned ERTS source. Generation/reuse tests do not remove this limit.",
+      "Status": "Needs verification",
+      "Scope": "The recorded default1024 node ceiling is repaired;1025 real pending handles and their cleanup/reuse match pinned OTP. Explicitly configured host quotas remain supported. Complete native command audit is still required; selected capacity/lifetime witnesses do not promote the entire API.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
@@ -20498,12 +20521,30 @@
           "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
           "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
           "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
+        },
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-501/node-native-contracts/capacity-source-audit.json",
+          "Sha256": "BDADE51E95185D1DD3F6944812F882391245A85FF636A314295F8612A85B6CA9",
+          "Scope": "Remove confirmed default capacity discrepancy while keeping full native API audit pending."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-501/node-native-contracts/capacity/completion.json",
+          "Sha256": "1DD83A8C3C8870E769A537E9B4F9464849AEB310267DCEB218772FAC18B97E32",
+          "Scope": "Six complete capacity protocol outputs from actual original native pending handles; opaque handles are tested relationally."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-501/node-native-contracts/affected-final.json",
+          "Sha256": "14AD0408C658573320C6C76B02484CACAF946D1BA55622A7DF8BCDD9E4C579F5",
+          "Scope": "Actual default1025 handles, explicitquota2, abort/reuse/generation, VM isolation and resource cleanup within1733/1733."
         }
       ],
       "Limits": [
-        "The runtime has a configurable maximum distribution-node count (default1024); the pinned source has no corresponding fixed per-runtime budget.",
-        "Native handle IDs/reference bytes are own-VM state; physical native layout and resource exhaustion are not claimed identical.",
-        "Loading the complete original erts_internal module and its remaining native prerequisites is still unfinished."
+        "Full validation/state/handle/concurrency and resource contract remains unclosed.",
+        "Explicit host quotas are opt-in host policy; default no longer imposes1024.",
+        "Native handle bytes remain own-VM state; physical native layout/resource accounting is not claimed identical."
       ]
     },
     {
@@ -24066,11 +24107,11 @@
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbackLayout.cs",
-      "Sha256": "89A1D947502FF932E67E08BD066AE8CEECF173123A13C74D62C772F5367866DC"
+      "Sha256": "92FA6E00B07B4E7D49B79A038CAA87BFD6AA657A20192393DE4F4EF5AF3F305E"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbacks.cs",
-      "Sha256": "8614F45DF22B222E780CA5A67830C16E34E7DFD59031ABEA64CF0DC4903D583F"
+      "Sha256": "BB88BE862E456190564DAEDAA9B0588305F903E174A381935412EDF7AE32A8C7"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsLoaderNames.cs",
@@ -27463,6 +27504,18 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/RuntimeProcessLivenessNames499.cs",
       "Sha256": "5917375EB7A6C7D1C6A55388C0291E6E030EB3B37393E73A64298EA17ABECC59"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Distribution/DistributionPendingParameters.cs",
+      "Sha256": "694BD57444573774E56C9B4FDB10F2458D295DDD5DC3AAFBC4D36C77859517AA"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapCreation501Callbacks.cs",
+      "Sha256": "0DDFBD5D7CFAB7EE89D19DBEE7D8310460225ED5A1B3A2121759D44E9258B674"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapCreation501Names.cs",
+      "Sha256": "1F51B43126E4FB600C628A5B2847CB6C780D079FD0D128169D611581E3AF2956"
     }
   ]
 }

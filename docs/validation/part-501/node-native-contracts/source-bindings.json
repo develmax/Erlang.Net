@@ -1,0 +1,86 @@
+{
+  "SourceFiles": [
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Distribution/DistributionPendingParameters.cs",
+      "Previous": "4B51B6028A5AAA4B0B44EB632BB04403118EB9FE819557046B0A7F3F739E29FE",
+      "Sha256": "694BD57444573774E56C9B4FDB10F2458D295DDD5DC3AAFBC4D36C77859517AA",
+      "GuardAdded": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapCreation501Callbacks.cs",
+      "Previous": null,
+      "Sha256": "0DDFBD5D7CFAB7EE89D19DBEE7D8310460225ED5A1B3A2121759D44E9258B674",
+      "GuardAdded": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapCreation501Names.cs",
+      "Previous": null,
+      "Sha256": "1F51B43126E4FB600C628A5B2847CB6C780D079FD0D128169D611581E3AF2956",
+      "GuardAdded": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbackLayout.cs",
+      "Previous": "89A1D947502FF932E67E08BD066AE8CEECF173123A13C74D62C772F5367866DC",
+      "Sha256": "92FA6E00B07B4E7D49B79A038CAA87BFD6AA657A20192393DE4F4EF5AF3F305E",
+      "GuardAdded": false
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbacks.cs",
+      "Previous": "8614F45DF22B222E780CA5A67830C16E34E7DFD59031ABEA64CF0DC4903D583F",
+      "Sha256": "BB88BE862E456190564DAEDAA9B0588305F903E174A381935412EDF7AE32A8C7",
+      "GuardAdded": false
+    }
+  ],
+  "SourceGuards": 1729,
+  "Plans": [
+    {
+      "Plan": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Seal": "1EB3756BE4907972C373000FAE6D8D51DE4FBFC7714D0F7856B96881EDD5F1BA",
+      "Changed": [
+        "src/Runtime/Erlang.Runtime.Core/Distribution/DistributionPendingParameters.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbackLayout.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbacks.cs",
+        "tools/Native/Erlang.NifNativeBackend/Program.cs"
+      ],
+      "Added": [
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapCreation501Callbacks.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapCreation501Names.cs",
+        "tools/Native/Erlang.NifNativeBackend/MapCreation501CallbackAdmission.cs",
+        "tools/Native/Erlang.NifNativeBackend/MapCreation501CallbackDriver.cs",
+        "tools/Native/Erlang.NifNativeBackend/MapCreation501CallbackEntry.cs",
+        "tools/Native/Erlang.NifNativeBackend/MapCreation501CallbackNames.cs",
+        "tools/Native/Erlang.NifNativeBackend/MapCreation501NativeModuleHandle.cs",
+        "tools/Native/Erlang.NifNativeBackend/NifNativeMapCreation501HostChecks.cs",
+        "tools/Native/Erlang.NifNativeBackend/NifNativeMapCreation501HostEntry.cs",
+        "tools/Native/Erlang.NifNativeBackend/NifNativeMapCreation501HostNames.cs"
+      ],
+      "PreservedHistoricalRows": true
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Seal": "501373D024C40F353DDE3E5D9475A1A8D529141329F5127B873DD1BFFCFA5FA2",
+      "Changed": [
+        "src/Runtime/Erlang.Runtime.Core/Distribution/DistributionPendingParameters.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbackLayout.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbacks.cs",
+        "tools/Native/Erlang.NifNativeBackend/Program.cs"
+      ],
+      "Added": [
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapCreation501Callbacks.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapCreation501Names.cs",
+        "tools/Native/Erlang.NifNativeBackend/MapCreation501CallbackAdmission.cs",
+        "tools/Native/Erlang.NifNativeBackend/MapCreation501CallbackDriver.cs",
+        "tools/Native/Erlang.NifNativeBackend/MapCreation501CallbackEntry.cs",
+        "tools/Native/Erlang.NifNativeBackend/MapCreation501CallbackNames.cs",
+        "tools/Native/Erlang.NifNativeBackend/MapCreation501NativeModuleHandle.cs",
+        "tools/Native/Erlang.NifNativeBackend/NifNativeMapCreation501HostChecks.cs",
+        "tools/Native/Erlang.NifNativeBackend/NifNativeMapCreation501HostEntry.cs",
+        "tools/Native/Erlang.NifNativeBackend/NifNativeMapCreation501HostNames.cs"
+      ],
+      "PreservedHistoricalRows": true
+    }
+  ],
+  "NativeAbiPromotion": false,
+  "NativeMapConstructorAdded": true,
+  "PreviousFullNativeClaimsExpanded": false
+}

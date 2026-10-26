@@ -1,13 +1,13 @@
 {
   "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "InitialPending": 559,
-  "Closed": 59,
-  "RemainingFromOriginalCohort": 500,
-  "AdditionalReclassifiedContracts": 6,
+  "Closed": 62,
+  "RemainingFromOriginalCohort": 497,
+  "AdditionalReclassifiedContracts": 7,
   "CurrentLedgerCounts": {
-    "Verified compatible": 177,
-    "Needs verification": 506,
-    "Known differences": 25
+    "Verified compatible": 180,
+    "Needs verification": 504,
+    "Known differences": 24
   },
   "Contracts": [
     {
@@ -3024,7 +3024,7 @@
       "Module": "erlang",
       "Function": "node",
       "Arity": 1,
-      "Status": "Needs verification",
+      "Status": "Verified compatible",
       "DirectTest": "mfa/erlang:node/1",
       "RequiredClosure": [
         "source branches and dependent primitives",
@@ -3066,7 +3066,7 @@
       "Module": "erlang",
       "Function": "is_process_alive",
       "Arity": 1,
-      "Status": "Needs verification",
+      "Status": "Verified compatible",
       "DirectTest": "mfa/erlang:is_process_alive/1",
       "RequiredClosure": [
         "source branches and dependent primitives",
@@ -3444,7 +3444,7 @@
       "Module": "erlang",
       "Function": "is_alive",
       "Arity": 0,
-      "Status": "Needs verification",
+      "Status": "Verified compatible",
       "DirectTest": "mfa/erlang:is_alive/0",
       "RequiredClosure": [
         "source branches and dependent primitives",
@@ -7838,5 +7838,5 @@
     }
   ],
   "OriginalCohortKnownDifferences": 0,
-  "OriginalCohortNeedsVerification": 500
+  "OriginalCohortNeedsVerification": 497
 }
