@@ -1,13 +1,7 @@
 # Unclosed default contracts — volume2
 
-Current candidate: Part491. Whole contract evidence remains in the canonical [ledger](../mfa-compatibility.json); see [cohort progress](checkpoint-491.md).
+Current candidate: Part492. Whole contract evidence remains in the canonical [ledger](../mfa-compatibility.json); see [cohort progress](checkpoint-492.md).
 
-- `erlang:list_to_ref/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:load_module/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:load_nif/2` — **Known differences**. Ordinary loader and reviewed native routes exist. Complete ordinary/indirect calls, pathname/platform/ABI and callback dependency closure remain unclosed; no finite fixture upgrades the whole API.
-- `erlang:loaded/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:localtime/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:localtime_to_universaltime/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:localtime_to_universaltime/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:make_fun/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:make_ref/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
@@ -152,3 +146,9 @@ Current candidate: Part491. Whole contract evidence remains in the canonical [le
 - `erlang:whereis/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:yield/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erpc:call/4` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `erpc:call/5` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `erpc:execute_call/4` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `error_logger:get_format_depth/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `error_logger:limit_term/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erts_internal:abort_pending_connection/2` — **Needs verification**. Real native distribution entry state with complete finite original values/errors/stacks; all-domain ownership/effects closure remains explicitly unfinished.
+- `erts_internal:cmp_term/2` — **Needs verification**. Explicit runtime primitive/compiler-helper boundary supporting original selected OTP libraries. Direct MFA presence and finite original-module execution do not establish this command's entire public contract.

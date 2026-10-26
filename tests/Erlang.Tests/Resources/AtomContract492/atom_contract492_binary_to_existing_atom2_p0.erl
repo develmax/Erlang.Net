@@ -1,0 +1,86 @@
+-module(atom_contract492_binary_to_existing_atom2_p0).
+-export([run/0,run_stacks/0,probe/1]).
+run() -> ordsets_core_support:run(?MODULE,cases()).
+run_stacks() -> ordsets_core_support:profiles(?MODULE,cases()).
+cases() -> [c0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15,c16,c17,c18,c19,c20,c21,c22,c23,c24,c25,c26,c27,c28,c29,c30,c31,c32,c33,c34,c35,c36,c37,c38,c39,c40,c41,c42,c43,c44,c45,c46,c47,c48,c49,c50,c51,c52,c53,c54,c55,c56,c57,c58,c59,c60,c61,c62,c63,c64,c65,c66,c67,c68,c69,c70,c71,c72,c73,c74,c75,c76,c77,c78,c79].
+probe(c0) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<>>,utf8]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<>>,utf8]);
+probe(c1) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<>>,unicode]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<>>,unicode]);
+probe(c2) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<>>,latin1]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<>>,latin1]);
+probe(c3) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<0>>,utf8]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<0>>,utf8]);
+probe(c4) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<0>>,unicode]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<0>>,unicode]);
+probe(c5) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<0>>,latin1]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<0>>,latin1]);
+probe(c6) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<97,0,98>>,utf8]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<97,0,98>>,utf8]);
+probe(c7) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<97,0,98>>,unicode]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<97,0,98>>,unicode]);
+probe(c8) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<97,0,98>>,latin1]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<97,0,98>>,latin1]);
+probe(c9) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[<<127,128,255>>,utf8]);
+probe(c10) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[<<127,128,255>>,unicode]);
+probe(c11) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<127,128,255>>,latin1]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<127,128,255>>,latin1]);
+probe(c12) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<195,191>>,utf8]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<195,191>>,utf8]);
+probe(c13) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<195,191>>,unicode]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<195,191>>,unicode]);
+probe(c14) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<195,191>>,latin1]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<195,191>>,latin1]);
+probe(c15) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<196,128>>,utf8]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<196,128>>,utf8]);
+probe(c16) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<196,128>>,unicode]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<196,128>>,unicode]);
+probe(c17) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<196,128>>,latin1]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<196,128>>,latin1]);
+probe(c18) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<226,130,172>>,utf8]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<226,130,172>>,utf8]);
+probe(c19) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<226,130,172>>,unicode]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<226,130,172>>,unicode]);
+probe(c20) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<226,130,172>>,latin1]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<226,130,172>>,latin1]);
+probe(c21) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<240,159,152,128>>,utf8]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<240,159,152,128>>,utf8]);
+probe(c22) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<240,159,152,128>>,unicode]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<240,159,152,128>>,unicode]);
+probe(c23) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<240,159,152,128>>,latin1]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<240,159,152,128>>,latin1]);
+probe(c24) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<244,143,191,191>>,utf8]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<244,143,191,191>>,utf8]);
+probe(c25) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<244,143,191,191>>,unicode]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<244,143,191,191>>,unicode]);
+probe(c26) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<244,143,191,191>>,latin1]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<244,143,191,191>>,latin1]);
+probe(c27) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<239,183,144>>,utf8]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<239,183,144>>,utf8]);
+probe(c28) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<239,183,144>>,unicode]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<239,183,144>>,unicode]);
+probe(c29) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<239,183,144>>,latin1]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<239,183,144>>,latin1]);
+probe(c30) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[<<128>>,utf8]);
+probe(c31) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[<<128>>,unicode]);
+probe(c32) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<128>>,latin1]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<128>>,latin1]);
+probe(c33) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[<<192,128>>,utf8]);
+probe(c34) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[<<192,128>>,unicode]);
+probe(c35) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<192,128>>,latin1]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<192,128>>,latin1]);
+probe(c36) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[<<193,191>>,utf8]);
+probe(c37) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[<<193,191>>,unicode]);
+probe(c38) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<193,191>>,latin1]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<193,191>>,latin1]);
+probe(c39) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[<<194>>,utf8]);
+probe(c40) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[<<194>>,unicode]);
+probe(c41) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<194>>,latin1]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<194>>,latin1]);
+probe(c42) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[<<224,128,128>>,utf8]);
+probe(c43) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[<<224,128,128>>,unicode]);
+probe(c44) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<224,128,128>>,latin1]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<224,128,128>>,latin1]);
+probe(c45) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[<<237,160,128>>,utf8]);
+probe(c46) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[<<237,160,128>>,unicode]);
+probe(c47) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<237,160,128>>,latin1]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<237,160,128>>,latin1]);
+probe(c48) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[<<244,144,128,128>>,utf8]);
+probe(c49) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[<<244,144,128,128>>,unicode]);
+probe(c50) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<244,144,128,128>>,latin1]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<244,144,128,128>>,latin1]);
+probe(c51) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[<<248,128,128,128,128>>,utf8]);
+probe(c52) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[<<248,128,128,128,128>>,unicode]);
+probe(c53) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<248,128,128,128,128>>,latin1]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<248,128,128,128,128>>,latin1]);
+probe(c54) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[<<255>>,utf8]);
+probe(c55) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[<<255>>,unicode]);
+probe(c56) -> _=erlang:apply(erlang,opaque(binary_to_atom),[<<255>>,latin1]), erlang:apply(erlang,opaque(binary_to_existing_atom),[<<255>>,latin1]);
+probe(c57) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[<<1:1>>,utf8]);
+probe(c58) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[<<1:1>>,unicode]);
+probe(c59) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[<<1:1>>,latin1]);
+probe(c60) -> _=erlang:apply(erlang,opaque(binary_to_atom),[binary:copy(<<97>>,255),utf8]), erlang:apply(erlang,opaque(binary_to_existing_atom),[binary:copy(<<97>>,255),utf8]);
+probe(c61) -> _=erlang:apply(erlang,opaque(binary_to_atom),[binary:copy(<<97>>,255),unicode]), erlang:apply(erlang,opaque(binary_to_existing_atom),[binary:copy(<<97>>,255),unicode]);
+probe(c62) -> _=erlang:apply(erlang,opaque(binary_to_atom),[binary:copy(<<97>>,255),latin1]), erlang:apply(erlang,opaque(binary_to_existing_atom),[binary:copy(<<97>>,255),latin1]);
+probe(c63) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[binary:copy(<<97>>,256),utf8]);
+probe(c64) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[binary:copy(<<97>>,256),unicode]);
+probe(c65) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[binary:copy(<<97>>,256),latin1]);
+probe(c66) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[binary:copy(<<97>>,257),utf8]);
+probe(c67) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[binary:copy(<<97>>,257),unicode]);
+probe(c68) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[binary:copy(<<97>>,257),latin1]);
+probe(c69) -> _=erlang:apply(erlang,opaque(binary_to_atom),[binary:copy(<<240,159,152,128>>,255),utf8]), erlang:apply(erlang,opaque(binary_to_existing_atom),[binary:copy(<<240,159,152,128>>,255),utf8]);
+probe(c70) -> _=erlang:apply(erlang,opaque(binary_to_atom),[binary:copy(<<240,159,152,128>>,255),unicode]), erlang:apply(erlang,opaque(binary_to_existing_atom),[binary:copy(<<240,159,152,128>>,255),unicode]);
+probe(c71) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[binary:copy(<<240,159,152,128>>,255),latin1]);
+probe(c72) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[binary:copy(<<240,159,152,128>>,256),utf8]);
+probe(c73) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[binary:copy(<<240,159,152,128>>,256),unicode]);
+probe(c74) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[binary:copy(<<240,159,152,128>>,256),latin1]);
+probe(c75) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[binary:copy(<<255>>,1020),utf8]);
+probe(c76) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[binary:copy(<<255>>,1020),unicode]);
+probe(c77) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[binary:copy(<<255>>,1020),latin1]);
+probe(c78) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[binary:copy(<<255>>,1021),utf8]);
+probe(c79) -> erlang:apply(erlang,opaque(binary_to_existing_atom),[binary:copy(<<255>>,1021),unicode]).
+opaque(Value) -> put(atom_contract492_input,Value),erase(atom_contract492_input).

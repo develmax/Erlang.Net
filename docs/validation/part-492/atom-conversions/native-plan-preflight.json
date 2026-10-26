@@ -1,0 +1,28 @@
+{
+  "Passed": true,
+  "NativeAbiAcceptancePromoted": false,
+  "Plans": [
+    {
+      "Plan": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Workflow": ".github/workflows/nif-pending-native.yml",
+      "Seal": "E398840F5044E3B60A93D960230B48E4B374F19C370D07212A2F7F74F1C17134",
+      "RowsChanged": [
+        "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangAtomConversions.cs",
+        "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangAtomRegistrations.cs"
+      ],
+      "Added": "src/Runtime/Erlang.Runtime.Core/Primitives/Atoms/AtomUtf8BinaryCache.cs",
+      "OtherRowsAndMetadataUnchanged": true
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Workflow": ".github/workflows/nif-reallocation-native.yml",
+      "Seal": "4C96DEBE930624C836D7629A22FFD4F5A725FCE0977B6EA6DD366DB1C9311138",
+      "RowsChanged": [
+        "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangAtomConversions.cs",
+        "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangAtomRegistrations.cs"
+      ],
+      "Added": "src/Runtime/Erlang.Runtime.Core/Primitives/Atoms/AtomUtf8BinaryCache.cs",
+      "OtherRowsAndMetadataUnchanged": true
+    }
+  ]
+}

@@ -1,0 +1,332 @@
+{
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "CompleteOnSupportedValidErlangTermModelForSixReadConversions": true,
+  "CreationCapacityCompatibilityClaimed": false,
+  "WholeCompilerCompletionClaimed": false,
+  "PhysicalAllocationTimingClaimed": false,
+  "Partitions": {
+    "atom_to_list/1": "Atom name is a valid scalar sequence of at most255 characters. Enumerate Unicode scalars into fresh Cons cells with immediate integer codepoints in order; empty name returns nil. Nonatom arguments raise native badarg. No atom-table change.",
+    "atom_to_binary/1": "Default UTF8 conversion delegates to the same name binary as the two-argument UTF8 primitive. On error, pinned erlang.erl catches error and re-raises with original argument list, error_info literal and error_with_info source location; caller/depth behavior is preserved.",
+    "atom_to_binary/2": "Validate atom and utf8/unicode/latin1 encoding. UTF8/unicode and ASCII Latin1 return the same immutable per-registered-name UTF8 binary. Non-ASCII Latin1 requires every codepoint<=255 and allocates a fresh transcoded binary. Invalid inputs/encoding raise native badarg. No new atom is created.",
+    "list_to_existing_atom/1": "Require a proper list of at most255 valid Unicode scalar integers and an already registered exact name. Every malformed/overlong/absent name raises native badarg; return the existing atom word on success without registration. Exact ordinal scalar identity, no normalization.",
+    "binary_to_existing_atom/1": "Default UTF8 existing-name lookup has the same complete validation/lookup as arity2, with the actual source wrapper catch/re-raise metadata and original single argument on errors. No new name is registered.",
+    "binary_to_existing_atom/2": "Require a whole-byte bitstring, supported encoding, at most255 decoded valid scalars and exact existing name. Latin1 maps bytes directly; UTF8/unicode reject invalid/noncanonical sequences and scalar/length violations. Return the existing atom word, else badarg. No name creation."
+  },
+  "CacheInvariant": "One immutable UTF8 binary per exact registered name; its key set is a subset of the bounded permanent atom-name table. Concurrent GetOrAdd returns the published entry; non-ASCII Latin1 remains fresh.",
+  "SharedErrorInfoLiteral": "One cached immutable module=erl_erts_errors map matches the source literal; the existing error_with_info source location is reused because it denotes the very same pinned helper.",
+  "ManagedSources": [
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangAtomRegistrations.cs",
+      "Sha256": "9CE9E7981DAA00CFB92635E3F4E09D203C2A8A7C60464A24E57937B10E7A72FF"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangAtomConversions.cs",
+      "Sha256": "057521B8E5A41ABF700BBA91361E858225BCB0E311CFBB31A3476C56EE9E6335"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangAtomParameters.cs",
+      "Sha256": "066768876D0519ABB7E26A3901399E79EC257A852A3D6BE6B2C84A905C43DBA1"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangAtomBifNames.cs",
+      "Sha256": "438961E13B833767C657BC3503BA9CFB129CFD380623339026DD8F361580691E"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Atoms/AtomUtf8BinaryCache.cs",
+      "Sha256": "231245380375591CA3FABD73525F405B5FDB0A799C174D573725C449982B05CC"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Values/Atoms/Atom.cs",
+      "Sha256": "E1772CEA8524236CD6BF34E47697574E69445FB3581246067D6061BAEEAF4A50"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Values/Atoms/AtomNameRegistry.cs",
+      "Sha256": "41AFC114318E413C6FFEF3C60A5C22E4C671DBDB0C772317BA062CB8C055A03A"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Values/Atoms/AtomNameValidation.cs",
+      "Sha256": "C3866CF1A0071B3E444749493C4428B904C97864A6639713E0DCA1298A7B903F"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Values/Atoms/AtomNameLimits.cs",
+      "Sha256": "1F01CD2455292ACEEE56CB292DF7B0A9BF000947C2CC64091CAFB52A152ADB35"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Values/Atoms/AtomTableLimits.cs",
+      "Sha256": "A5B1AA5B7C64B0358A470746682EF01C224EADD36BC87A5A81F4A88B0B56DF01"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Values/Term.cs",
+      "Sha256": "D00E81EC8E725BE87D5F5D75D4B086B52AAC0C3B533D1E3D53DB478DC5D89363"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Values/BitString.cs",
+      "Sha256": "1AA811589FA9AEC9F00970A785572B6D6BEABAF895A1AF656499A863A8467683"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangSizeErrorNames.cs",
+      "Sha256": "2E9BD002B1759426562DDFC4986F20BD2AD012465B6332C9F21AD49C8F138CA8"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Drivers/PortErrorSourceLocations.cs",
+      "Sha256": "4376FEDBBFB9B48F1DF238C199DC95F8117560109064B47495C35BC633C2A47E"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Drivers/PortErrorSourceLocationNames.cs",
+      "Sha256": "1F98B1C5C8B7CB6BE031B6B3851BCDE5456AA4EBABCDC5D50A3A4B04BC5A3E59"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.cs",
+      "Sha256": "31C81E0ECBF85E6F97BD6FF7D39B2F5A85CB69B0DCAD882E9C6BAA3F8C350609"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DebugSame420.cs",
+      "Sha256": "0083B5EB252EB60F3BD0BA34AA6590C5FD9B015CF7B4EC23F94709DA77A7F353"
+    }
+  ],
+  "OriginalSources": [
+    {
+      "Path": "erts/emulator/beam/bif.c",
+      "Sha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_unicode.c",
+      "Sha256": "6C1B4A4521A434477D3CCE75D9BE1B4DE3706B064F4E0F2C72F48BE8AEC9C4A6"
+    },
+    {
+      "Path": "erts/emulator/beam/atom.c",
+      "Sha256": "A306918AEDFACB0BE08784ADE592EBB5260B32B3AC9F6457EBB4DBA231F8763E"
+    },
+    {
+      "Path": "erts/emulator/beam/index.c",
+      "Sha256": "0BDA64305A9AB0935C36D77B88637C8B50EC77351E1A0B159FB9D2417CD458C5"
+    },
+    {
+      "Path": "erts/preloaded/src/erlang.erl",
+      "Sha256": "00D7672A16325E43CA221C6D6CEB4200390E2A961A243C2E31DDC141AC145047"
+    }
+  ],
+  "Values": 569,
+  "StackProfiles": 2845,
+  "WholeComparisons": 3414,
+  "NormalizedFields": 0,
+  "SourceGuards": 1692,
+  "Resources": [
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/atom_contract492_atom_to_binary1_p0.beam",
+      "Sha256": "CD5818852D71DF4E367C25C6F74B814D6F38D5B7FE064C9C6E470AEF0DAC7531"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/atom_contract492_atom_to_binary1_p0.erl",
+      "Sha256": "94F51BD2E9F87CDD0FEEC7D81B48C25CEE4ECE92819247827583A2D4C0224E4E"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/atom_contract492_atom_to_binary2_p0.beam",
+      "Sha256": "B99426C2FD63413E4D6C671CB2DD55E156DDC3395330FAD8E581813AC5B9F85B"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/atom_contract492_atom_to_binary2_p0.erl",
+      "Sha256": "7644B452C6021A57CB1B6B3DCB411F821AF385358276BC2A23A499DC316A9227"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/atom_contract492_atom_to_binary2_p1.beam",
+      "Sha256": "B43DAADBF9152AEEFC2FC7F7C7E922193F5C2A5709DFD230A885EDCBC126A00B"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/atom_contract492_atom_to_binary2_p1.erl",
+      "Sha256": "F78C5CF1432DEE609DD3A1FD15933B34E8F1C1BF37EA3233BCDFFBDD57784AB8"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/atom_contract492_atom_to_list1_p0.beam",
+      "Sha256": "1561903691FCF2B9D1E1A8D07E343824DB7D48EC8BA93EEEFFF61D44C6078EE5"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/atom_contract492_atom_to_list1_p0.erl",
+      "Sha256": "01C538910954734F0D348269830144372423F9B3113CDC3B8AFB8E3692DAB229"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/atom_contract492_binary_to_atom1_p0.beam",
+      "Sha256": "966B43CB64FA6E80E6DEB2603DBA91E30821B81C56A016069F9D0F3F275411C9"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/atom_contract492_binary_to_atom1_p0.erl",
+      "Sha256": "717FBFC09FB3CB9A7BE0BF8EE98B65F9819B8F8B125595B3AE165F78B04DFFE0"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/atom_contract492_binary_to_atom2_p0.beam",
+      "Sha256": "2FAFE4DB5D4B4D1168791E3157C31A17C35880CA47650CB9B28E5F58A32C6A99"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/atom_contract492_binary_to_atom2_p0.erl",
+      "Sha256": "2E4DDD2DE5A0B12DED125D97C26627D4577394D861789B7EE41E8C9D9EAFF325"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/atom_contract492_binary_to_atom2_p1.beam",
+      "Sha256": "40418C4C8B4C86E88FB7518C71709C51A1711B11E4B0984FED7CA9767385F244"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/atom_contract492_binary_to_atom2_p1.erl",
+      "Sha256": "51D0F20B6793FFAC96840AEA63F75441929088AE197F68D4886D997B5E21D908"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/atom_contract492_binary_to_existing_atom1_p0.beam",
+      "Sha256": "7461B26FD824B26791C94EB9371B79912F98F3DAF885D57AB802751DB45DB99E"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/atom_contract492_binary_to_existing_atom1_p0.erl",
+      "Sha256": "8D0403B1D7CD6FC3EA7FE1A3B92428889762E04A0DBB5A2FC1C407FCDE5576D3"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/atom_contract492_binary_to_existing_atom2_p0.beam",
+      "Sha256": "108CEAAE81A06C41A4076284641DF921A85CC5F388ED731757945B3B22E22389"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/atom_contract492_binary_to_existing_atom2_p0.erl",
+      "Sha256": "6B5371994D0F699C7512033E0F2A3DFB0A692E90E5E969FE34A8EF5CBCBF01AA"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/atom_contract492_binary_to_existing_atom2_p1.beam",
+      "Sha256": "3FB55082DACA0F75B2BAACCAF7CE247645219B268B0A8D6B24502383EF89714F"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/atom_contract492_binary_to_existing_atom2_p1.erl",
+      "Sha256": "36CEFBA7DF928857F4E95AD08375C44F3C71EEC83665EF6AB7FA700BFB06F7BA"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/atom_contract492_identity.beam",
+      "Sha256": "CD2289ED193406ED9A3448876815CE68B6213A891C2C15880F00435EEB64A477"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/atom_contract492_identity.erl",
+      "Sha256": "BCFB506F11B0FDD29FF764A18E7563A7B8310FE390277B6DAEA643CC0B15A1A8"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/atom_contract492_list_to_atom1_p0.beam",
+      "Sha256": "BB81D60746AA88E8DC05445A847C8AEBB834C5F4EF93132A7DC14196531A86A9"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/atom_contract492_list_to_atom1_p0.erl",
+      "Sha256": "3DC498B226D68F9BC367F60163F8297DD825C160D4AC8E7B7BAD14A0C0359D74"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/atom_contract492_list_to_existing_atom1_p0.beam",
+      "Sha256": "3AB1655350DD084110C60D1A2A20796BB4482AFB140F2F7231F2038458756ECD"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/atom_contract492_list_to_existing_atom1_p0.erl",
+      "Sha256": "149EB125B4FE0281D63FAFFE75A48C71C86211482FCE72D86CE974CC13F0A325"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/atom_to_binary1_p0.stacks.etf",
+      "Sha256": "85B106C7BCE4A0EBD7FDDFCA767C331F64959292E03BA88CC1DDFA3BA6016D02"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/atom_to_binary1_p0.values.etf",
+      "Sha256": "57769F06D239AD589904B69CAD030A20005B316FDAE5086035E4306A4C1DBD46"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/atom_to_binary2_p0.stacks.etf",
+      "Sha256": "16D35F78B92B0AD0265B0D70685B0EF44E53366A94C1AFDAE437E36760B85B83"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/atom_to_binary2_p0.values.etf",
+      "Sha256": "FA503456301D3814444068E6C3D784DCBEBBADAF63EF338CDE43FA6B54B116FB"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/atom_to_binary2_p1.stacks.etf",
+      "Sha256": "3BFF6A2E9237BA3846F7939E6118FE70C2B4B7BC7CFC4D49B0A8228F20AD85BC"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/atom_to_binary2_p1.values.etf",
+      "Sha256": "07363D036330F99B2BE92D44C9BE5E310E40B1FFA3BF990D3989E463A08632A0"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/atom_to_list1_p0.stacks.etf",
+      "Sha256": "F4452933170BF095729257024FF161C0A6C6C0D4AF2E6E22F86D01B89407C0F2"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/atom_to_list1_p0.values.etf",
+      "Sha256": "AE6B5D4D5A9AB7D75B86CF8895144C66534288469A8476509FCF072CD7773FF6"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/binary_to_atom1_p0.stacks.etf",
+      "Sha256": "F74D2EE262A291C295D48BEA6E009816A61B988E7885425AAA40CA498174BB68"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/binary_to_atom1_p0.values.etf",
+      "Sha256": "0976D1A046B93D2DCB60BE6C6D5402B7AD71C6B91996ED7050F40E8CA5896BA3"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/binary_to_atom2_p0.stacks.etf",
+      "Sha256": "0D44B336F9962F2D73189DC3C5D36ABB754309510F3A79D23E3D458E4ECF2D4E"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/binary_to_atom2_p0.values.etf",
+      "Sha256": "9D62E8C2AF092BA8A0DCEC6AEFD7CCABFDF470E8D05F5EAD6F2C55AC83B7CCCF"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/binary_to_atom2_p1.stacks.etf",
+      "Sha256": "3BF5C5A42F2D6A1246BF2D46368CD1E881293B0373D5D4BA210975C647D41BB3"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/binary_to_atom2_p1.values.etf",
+      "Sha256": "8290701C426807DA287C5F26AB140EC0FDA8AA0A16DCF51BB998009788FDDECE"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/binary_to_existing_atom1_p0.stacks.etf",
+      "Sha256": "F9A54CFBCC0B7FD06085DA1F7821766AA5FFE876F036D44C6BBEF1A0BD61E80D"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/binary_to_existing_atom1_p0.values.etf",
+      "Sha256": "565D04F70C7626F5C13B9DC59841C48D4D831E5E55B2936E93123EBE56D26A78"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/binary_to_existing_atom2_p0.stacks.etf",
+      "Sha256": "70BB81CD3F47288E62A1E39959AB3A7886A88AE027B24A9D85CD0C28BAFE590D"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/binary_to_existing_atom2_p0.values.etf",
+      "Sha256": "98E8F15A0E2F47576C3A98CE1B6557BBC65F59ADFB7BFF6C4DDF82FFC3C75E8D"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/binary_to_existing_atom2_p1.stacks.etf",
+      "Sha256": "21F60B6A9513EC55E1A239CF77EEBC8C036E294EF7F3FE81B68D21797CBFEEED"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/binary_to_existing_atom2_p1.values.etf",
+      "Sha256": "CBEA8EFAD64DFAF58465A3369F009BC8F5B1B0B4D0AD10A70A0A9EC08EAAFF89"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/groups.json",
+      "Sha256": "105E11F3C83F04265FF736FE690C0FA7AAECDD77C3C87E344BCB9DAD08DD61AC"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/identity.stacks.etf",
+      "Sha256": "D21A9D8D19EA29A8CAEA2A2EC1A16E9BDD6B432C92EBB570A93F1E5F0336C88D"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/identity.values.etf",
+      "Sha256": "BEB025B00A676C6913ADCF4E9DA4813C16B25CCF8A9CE6F57A172ECD52862B74"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/list_to_atom1_p0.stacks.etf",
+      "Sha256": "3E863D04F4B5709A5BEDB64C7E05226414A60C3F80FBBEDF668C63109480057A"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/list_to_atom1_p0.values.etf",
+      "Sha256": "A826FC5A479BCADDE8FA6F058D4350406766AE7B9FA67ED217F4D2D8D4437A64"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/list_to_existing_atom1_p0.stacks.etf",
+      "Sha256": "DCC3A0B0AD814AD9117F8432991D405EB5AC09DD2AB954FB9A003B4871FBE50C"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/list_to_existing_atom1_p0.values.etf",
+      "Sha256": "EE5B8E1914BA65BD5EC0CEED36812672BE72CBAB26F1777E7AB072E3FE543A98"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/AtomContract492/manifest.json",
+      "Sha256": "5BA3CE7CBCDA68ECD67F90A801E2BAB25184980C93E2934BB66FFD3ED67DA409"
+    }
+  ]
+}

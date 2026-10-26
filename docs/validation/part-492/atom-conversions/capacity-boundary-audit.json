@@ -1,0 +1,57 @@
+{
+  "Finding": "At a full atom table, pinned index_put_entry exits the original VM rather than returning an Erlang error. AtomNameRegistry.Observe instead throws catchable ErlangException(system_limit).",
+  "OriginalObserved": {
+    "ConfiguredCapacity": 16384,
+    "BeforeCount": 10182,
+    "ExitCode": 1,
+    "ErlangCatchMarkerObserved": false,
+    "OwnedProcessSettled": true,
+    "Receipt": "capacity-original/completion.json",
+    "ReceiptSha256": "109F751626FEAB49BD191528614931CC3579339E1698E92908B93EDC52CC11D1"
+  },
+  "ManagedBoundaryLiveFilled": false,
+  "ManagedEvidence": "Source predicate names.Count>=AtomTableLimits.MaximumNames throws new ErlangException(SystemLimit). No claim of a paired live full managed table or identical absolute table populations.",
+  "ManagedSources": [
+    {
+      "Path": "src/Runtime/Erlang.Terms/Values/Atoms/AtomNameRegistry.cs",
+      "Sha256": "41AFC114318E413C6FFEF3C60A5C22E4C671DBDB0C772317BA062CB8C055A03A"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Values/Atoms/AtomTableLimits.cs",
+      "Sha256": "A5B1AA5B7C64B0358A470746682EF01C224EADD36BC87A5A81F4A88B0B56DF01"
+    }
+  ],
+  "OriginalSources": [
+    {
+      "Path": "erts/emulator/beam/bif.c",
+      "Sha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_unicode.c",
+      "Sha256": "6C1B4A4521A434477D3CCE75D9BE1B4DE3706B064F4E0F2C72F48BE8AEC9C4A6"
+    },
+    {
+      "Path": "erts/emulator/beam/atom.c",
+      "Sha256": "A306918AEDFACB0BE08784ADE592EBB5260B32B3AC9F6457EBB4DBA231F8763E"
+    },
+    {
+      "Path": "erts/emulator/beam/index.c",
+      "Sha256": "0BDA64305A9AB0935C36D77B88637C8B50EC77351E1A0B159FB9D2417CD458C5"
+    }
+  ],
+  "Affected": [
+    {
+      "Function": "list_to_atom",
+      "Arity": 1
+    },
+    {
+      "Function": "binary_to_atom",
+      "Arity": 1
+    },
+    {
+      "Function": "binary_to_atom",
+      "Arity": 2
+    }
+  ],
+  "WholeCompatibilityClaimed": false
+}

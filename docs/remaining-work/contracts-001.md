@@ -1,6 +1,6 @@
 # Unclosed default contracts — volume1
 
-Current candidate: Part491. Whole contract evidence remains in the canonical [ledger](../mfa-compatibility.json); see [cohort progress](checkpoint-491.md).
+Current candidate: Part492. Whole contract evidence remains in the canonical [ledger](../mfa-compatibility.json); see [cohort progress](checkpoint-492.md).
 
 - `application:get_env/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `application:get_env/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
@@ -27,15 +27,10 @@ Current candidate: Part491. Whole contract evidence remains in the canonical [le
 - `erlang:append/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:apply/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:apply/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:atom_to_binary/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:atom_to_binary/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:atom_to_list/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:binary_part/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:binary_part/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:binary_to_atom/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:binary_to_atom/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:binary_to_existing_atom/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:binary_to_existing_atom/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:binary_to_atom/1` — **Known differences**. Ordinary conversion values and full stacks match the tested source partitions, but table saturation is not fully compatible: original OTP terminates its VM; managed registry throws catchable system_limit. Original configured-capacity termination is observed; managed boundary is source-inspected, not live-filled.
+- `erlang:binary_to_atom/2` — **Known differences**. Ordinary conversion values and full stacks match the tested source partitions, but table saturation is not fully compatible: original OTP terminates its VM; managed registry throws catchable system_limit. Original configured-capacity termination is observed; managed boundary is source-inspected, not live-filled.
 - `erlang:binary_to_float/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:binary_to_integer/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:binary_to_integer/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
@@ -143,12 +138,17 @@ Current candidate: Part491. Whole contract evidence remains in the canonical [le
 - `erlang:is_record/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:link/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:link/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:list_to_atom/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:list_to_atom/1` — **Known differences**. Ordinary conversion values and full stacks match the tested source partitions, but table saturation is not fully compatible: original OTP terminates its VM; managed registry throws catchable system_limit. Original configured-capacity termination is observed; managed boundary is source-inspected, not live-filled.
 - `erlang:list_to_binary/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:list_to_bitstring/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:list_to_existing_atom/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:list_to_float/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:list_to_integer/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:list_to_integer/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:list_to_pid/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:list_to_port/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:list_to_ref/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:load_module/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:load_nif/2` — **Known differences**. Ordinary loader and reviewed native routes exist. Complete ordinary/indirect calls, pathname/platform/ABI and callback dependency closure remain unclosed; no finite fixture upgrades the whole API.
+- `erlang:loaded/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:localtime/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:localtime_to_universaltime/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
