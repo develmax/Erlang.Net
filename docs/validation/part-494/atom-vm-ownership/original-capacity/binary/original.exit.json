@@ -1,0 +1,25 @@
+{
+  "Command": [
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+    "+S",
+    "1:1",
+    "+A",
+    "1",
+    "+t",
+    "16384",
+    "-noshell",
+    "-noinput",
+    "-boot",
+    "no_dot_erlang",
+    "-eval",
+    "io:format(\"before=~p limit=~p~n\",[erlang:system_info(atom_count),erlang:system_info(atom_limit)]),try lists:foreach(fun(N)->binary_to_atom(list_to_binary(\"otp494cap_\"++integer_to_list(N))) end,lists:seq(1,16384)) of _->io:format(\"completed~n\") catch C:R->io:format(\"caught=~p:~p~n\",[C,R]) after io:format(\"after=ran~n\") end,halt(0)."
+  ],
+  "Pid": 188764,
+  "ElapsedSeconds": 0.31200000003445894,
+  "TimedOut": false,
+  "Settled": true,
+  "ExitCode": 1,
+  "Failures": [],
+  "StdoutSha256": "5F029ACAF093B48BDC0A92CF5C4CA727CA9F58BBB959C762D09914B96C0C0D49",
+  "StderrSha256": "57C789E32D30C6028DF126A9DD2E0E9E58730CED8237B2DFEDF4C5AF38A290EB"
+}

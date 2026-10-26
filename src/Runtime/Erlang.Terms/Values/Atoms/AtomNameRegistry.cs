@@ -1,76 +1,23 @@
-using System.Collections.Concurrent;
-
 namespace Erlang;
 
 public static class AtomNameRegistry
 {
-    private static readonly ConcurrentDictionary<string, int> names = new(StringComparer.Ordinal);
-    private static readonly object gate = new();
+    private static readonly AtomNameTable host = new(
+        AtomTableLimits.MaximumNames,
+        static () => throw new ErlangException(ErlangErrorReasons.SystemLimit)
+    );
 
-    static AtomNameRegistry()
-    {
-        names.TryAdd(ErlangBooleanAtoms.False, 0);
-        ObservedPayloadStorage.Atom(ErlangBooleanAtoms.False);
-        foreach (string name in ErlangPrimordialAtomNames.All)
-        {
-            names.TryAdd(name, names.Count);
-            ObservedPayloadStorage.Atom(name);
-        }
-    }
+    internal static AtomNameTable Current => AtomNameScope.Current ?? host;
 
-    public static void Observe(string name)
-    {
-        ArgumentNullException.ThrowIfNull(name);
-        if (names.ContainsKey(name))
-            return;
-        AtomNameValidation.Validate(name);
-        lock (gate)
-        {
-            if (names.ContainsKey(name))
-                return;
-            if (names.Count >= AtomTableLimits.MaximumNames)
-                throw new ErlangException(ErlangErrorReasons.SystemLimit);
-            names.TryAdd(name, names.Count);
-            ObservedPayloadStorage.Atom(name);
-        }
-    }
+    public static void Observe(string name) => Current.Observe(name);
 
-    public static string Register(string name)
-    {
-        Observe(name);
-        ObservedPayloadStorage.Atom(name);
+    public static string Register(string name) => Current.Register(name);
 
-        return name;
-    }
+    internal static bool TryNameAt423(int index, out string name) => Current.TryNameAt(index, out name);
 
-    // The authoritative registration ordinal is already stored in names. No second
-    // reverse cache or guessed OTP index is introduced by this diagnostic path.
-    internal static bool TryNameAt423(int index, out string name)
-    {
-        lock (gate)
-        {
-            if ((uint)index < (uint)names.Count)
-                foreach (var entry in names)
-                    if (entry.Value == index)
-                    {
-                        name = entry.Key;
+    public static int Count => Current.Count;
 
-                        return true;
-                    }
-        }
-        name = string.Empty;
+    public static bool Exists(string name) => Current.Exists(name);
 
-        return false;
-    }
-
-    public static int Count => names.Count;
-
-    public static bool Exists(string name) => names.ContainsKey(name);
-
-    public static int IndexOf(string name)
-    {
-        Observe(name);
-
-        return names[name];
-    }
+    public static int IndexOf(string name) => Current.IndexOf(name);
 }

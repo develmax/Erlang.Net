@@ -222,6 +222,9 @@ public sealed class Parser
         )
         {
             DeclaredNifs = declaredNifs,
+            ScannedAtomNames = Array.AsReadOnly(tokens
+                .Where(token => token.Kind is LexerTokenKinds.Atom or LexerTokenKinds.QuotedAtom or LexerTokenKinds.Variable or LexerTokenKinds.Keyword)
+                .Select(token => token.Text).Distinct(StringComparer.Ordinal).ToArray()),
             CallBindings = callBindings.Build(),
             NativeRecords = Array.AsReadOnly(nativeRecords.Values.Select(definition => new NativeRecordDefinition(
                 definition.Name,

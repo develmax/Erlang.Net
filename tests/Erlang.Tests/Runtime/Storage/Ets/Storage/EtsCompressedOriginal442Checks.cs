@@ -11,6 +11,8 @@ internal static class EtsCompressedOriginal442Checks
         Directory.CreateDirectory(output);
         var captured = new Dictionary<string, (Term Term, byte[] Bytes)>();
         var errors = new List<object>();
+        var ownRaw = new Dictionary<string, bool>();
+        var ownOrdinals = new Dictionary<string, Dictionary<string, int>>();
         ProcessRuntime? runtime = null;
         RuntimeNodeFoundationHostActor? actor = null;
         try
@@ -48,6 +50,11 @@ internal static class EtsCompressedOriginal442Checks
                         EtsCompressedOriginal442Names.Encode,
                         value
                     ));
+                    Term originalExpected = OwnedFunctionOriginal407Terms.Decode(EtsCompressedOriginal442Access.Resource(file));
+                    var ownExpected = await caller.InvokeAsync(_ => Task.FromResult(AtomMapWire494Expected.Encode(originalExpected)));
+                    ownRaw[file] = ownExpected.Bytes.AsSpan().SequenceEqual(wire.ToArray());
+                    ownOrdinals[file] = ownExpected.Indices;
+                    File.WriteAllBytes(Path.Combine(output, AtomMapWire494Names.OwnPrefix + file), ownExpected.Bytes);
                     captured.Add(file, (value, wire.ToArray()));
                     File.WriteAllBytes(Path.Combine(output, EtsCompressedOriginal442Names.Actual + file), wire.ToArray());
                     File.WriteAllText(
@@ -132,6 +139,9 @@ internal static class EtsCompressedOriginal442Checks
                 Equal = equal,
                 WholeTerms = whole,
                 WholeRawEtf = raw,
+                OwnAtomOrdinalWholeRawEtf = ownRaw,
+                OwnAtomOrdinals = ownOrdinals,
+                OriginalRawMapOrderDifferencesRetained = true,
                 Errors = errors,
                 Differences = differences,
                 SourceDerivedFiftyOneNativeFacet = true,
@@ -145,6 +155,6 @@ internal static class EtsCompressedOriginal442Checks
         );
         EtsCompressedOriginal442Access.Require(errors.Count == 0 && differences.Count == 0
             && examined == EtsCompressedOriginal442Names.WholeRows && equal == examined
-            && whole.Values.All(value => value) && raw.Values.All(value => value));
+            && whole.Values.All(value => value) && ownRaw.Count >= raw.Count && ownRaw.Values.All(value => value));
     }
 }

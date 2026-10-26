@@ -17,8 +17,8 @@ public sealed partial class ProcessRuntime
 
     internal void ObserveIncomingTerm(Term term)
     {
-        if (term is Pid or ReferenceTerm or PortTerm or Cons or TupleTerm or MapTerm or NativeRecordTerm or HamtBitmapTerm429 ||
-            term is FunctionTerm { Environment.Count: > 0 })
+        if (term is Atom or Pid or ReferenceTerm or PortTerm or Cons or TupleTerm or MapTerm or NativeRecordTerm or HamtBitmapTerm429 ||
+            term is FunctionTerm)
             KnownNodes.Observe(term);
     }
 

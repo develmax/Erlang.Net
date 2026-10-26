@@ -19,6 +19,7 @@ public sealed partial record ModuleDefinition(
     public IReadOnlyList<ModuleAttribute> Attributes { get; init; } = Array.AsReadOnly((Attributes ?? []).ToArray());
 
     public string? SourceFilePath { get; init; }
+    public IReadOnlyList<string> ScannedAtomNames { get; init; } = Array.Empty<string>();
 
     public SourceCallBindings CallBindings { get; init; } = SourceCallBindings.Empty;
 
@@ -40,12 +41,13 @@ public sealed partial record ModuleDefinition(
     {
         using var source = registry.EnterSourceMutation();
         Otp.OtpModules.Register(registry);
-        AtomNameRegistry.Observe(Name);
-        foreach (var function in Functions)
-            AtomNameRegistry.Observe(function.Name);
-
         registry.ApplySourceCode(target =>
         {
+            AtomNameRegistry.Observe(Name);
+            foreach (string atom in ScannedAtomNames)
+                AtomNameRegistry.Observe(atom);
+            foreach (var function in Functions)
+                AtomNameRegistry.Observe(function.Name);
             target.PublishModule(Name);
             var image = target.CurrentCodeImage(Name)!;
             foreach (var export in Exports)

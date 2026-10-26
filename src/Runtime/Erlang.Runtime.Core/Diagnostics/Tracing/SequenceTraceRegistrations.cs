@@ -66,7 +66,9 @@ internal static class SequenceTraceRegistrations
             : arguments[0] is Atom { Name: ProcessFullSweepNames.Flag }
             ? ValueTask.FromResult<Term>(Term.Tuple(Term.A(ProcessFullSweepNames.Flag), Term.I(context.Runtime.DefaultFullSweepAfter)))
             : arguments[0] is Atom { Name: AtomRegistryInfoNames.AtomCount }
-            ? ValueTask.FromResult<Term>(Term.I(AtomNameRegistry.Count))
+            ? ValueTask.FromResult<Term>(Term.I(context.Runtime.AtomCount))
+            : arguments[0] is Atom { Name: AtomRegistryInfoNames.AtomLimit }
+            ? ValueTask.FromResult<Term>(Term.I(context.Runtime.AtomLimit))
             : arguments[0] is Atom { Name: RuntimeLocalNodeAdmissionNames.Creation } ? ValueTask.FromResult<Term>(Term.I(context.Runtime.LocalIdentity.Snapshot.Creation))
             : arguments[0] is Atom { Name: CodePurgerNames432.Outstanding }
             ? ValueTask.FromResult(context.Runtime.ReadSystemRequestWindow432(context))

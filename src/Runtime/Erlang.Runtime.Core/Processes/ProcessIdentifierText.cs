@@ -4,7 +4,7 @@ namespace Erlang;
 
 internal static class ProcessIdentifierText
 {
-    private static ulong Channel(ProcessRuntime runtime, string node) => node == runtime.Node ? ProcessIdentifierTextParameters.LocalChannel : (ulong)AtomNameRegistry.IndexOf(node);
+    private static ulong Channel(ProcessRuntime runtime, string node) => node == runtime.Node ? ProcessIdentifierTextParameters.LocalChannel : (ulong)runtime.AtomNames.IndexOf(node);
 
     public static Term PidList(ProcessRuntime runtime, Pid pid) => Term.String(string.Create(
         CultureInfo.InvariantCulture,

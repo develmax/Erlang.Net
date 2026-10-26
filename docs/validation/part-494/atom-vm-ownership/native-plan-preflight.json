@@ -1,0 +1,92 @@
+{
+  "Plans": [
+    {
+      "Plan": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Workflow": ".github/workflows/nif-pending-native.yml",
+      "OldSeal": "E4A07EA9C049A0AF9BD027E584929A8689506C980E18DF885DD8D726B732B71B",
+      "Seal": "4547BC432B30209BEAF93808DF6C7ADA0AD6D64FABB8687659B7AA54B48EBDD3",
+      "Changed": [
+        "src/Compiler/Erlang.Compiler/Compilation/CodeGeneration.cs",
+        "src/Compiler/Erlang.Compiler/Syntax/Ast/ModuleDefinition.cs",
+        "src/Compiler/Erlang.Compiler/Syntax/Parser.cs",
+        "src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Distribution/RuntimeKnownNodes.cs",
+        "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.NodeEpochs.cs",
+        "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.PreparedBeam.cs",
+        "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallbackScope.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeEnvironmentBinding.cs",
+        "src/Runtime/Erlang.Runtime.Core/Primitives/Atoms/AtomRegistryInfoNames.cs",
+        "src/Runtime/Erlang.Runtime.Core/Primitives/Atoms/AtomUtf8BinaryCache.cs",
+        "src/Runtime/Erlang.Runtime.Core/Primitives/ReferenceText.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ExternalDecode.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ExternalTerms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Halt.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.MapHashScope.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntimeOptions.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessIdentifierText.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.cs",
+        "src/Runtime/Erlang.Serialization/ExternalTermFormat/EtfDecodeOptions.cs",
+        "src/Runtime/Erlang.Serialization/ExternalTermFormat/ExternalTermFormat.cs",
+        "src/Runtime/Erlang.Terms/Functions/FunctionTerm.cs",
+        "src/Runtime/Erlang.Terms/Values/Atoms/AtomCache.cs",
+        "src/Runtime/Erlang.Terms/Values/Atoms/AtomNameRegistry.cs"
+      ],
+      "Added": [
+        "src/Compiler/Erlang.Compiler/Compilation/ModuleAtomCodeNames.cs",
+        "src/Runtime/Erlang.Runtime.Core/Primitives/Atoms/AtomRuntimeParameters.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Atoms.cs",
+        "src/Runtime/Erlang.Terms/Values/Atoms/AtomNameScope.cs",
+        "src/Runtime/Erlang.Terms/Values/Atoms/AtomNameTable.cs"
+      ],
+      "PreservedHistoricalRows": [],
+      "NativeAbiAcceptancePromoted": false
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Workflow": ".github/workflows/nif-reallocation-native.yml",
+      "OldSeal": "A3028AB982ADF51569743ACC5154EC358FEC3205FDC57C2100D614298FAD6165",
+      "Seal": "FF55C351B7871CA66C91EF34C5CED2D561671C6A227ABC824551D881936D46C8",
+      "Changed": [
+        "src/Compiler/Erlang.Compiler/Compilation/CodeGeneration.cs",
+        "src/Compiler/Erlang.Compiler/Syntax/Ast/ModuleDefinition.cs",
+        "src/Compiler/Erlang.Compiler/Syntax/Parser.cs",
+        "src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Distribution/RuntimeKnownNodes.cs",
+        "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.NodeEpochs.cs",
+        "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.PreparedBeam.cs",
+        "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallbackScope.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeEnvironmentBinding.cs",
+        "src/Runtime/Erlang.Runtime.Core/Primitives/Atoms/AtomRegistryInfoNames.cs",
+        "src/Runtime/Erlang.Runtime.Core/Primitives/Atoms/AtomUtf8BinaryCache.cs",
+        "src/Runtime/Erlang.Runtime.Core/Primitives/ReferenceText.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ExternalDecode.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ExternalTerms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Halt.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.MapHashScope.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntimeOptions.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessIdentifierText.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.cs",
+        "src/Runtime/Erlang.Serialization/ExternalTermFormat/EtfDecodeOptions.cs",
+        "src/Runtime/Erlang.Serialization/ExternalTermFormat/ExternalTermFormat.cs",
+        "src/Runtime/Erlang.Terms/Functions/FunctionTerm.cs",
+        "src/Runtime/Erlang.Terms/Values/Atoms/AtomCache.cs",
+        "src/Runtime/Erlang.Terms/Values/Atoms/AtomNameRegistry.cs"
+      ],
+      "Added": [
+        "src/Compiler/Erlang.Compiler/Compilation/ModuleAtomCodeNames.cs",
+        "src/Runtime/Erlang.Runtime.Core/Primitives/Atoms/AtomRuntimeParameters.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Atoms.cs",
+        "src/Runtime/Erlang.Terms/Values/Atoms/AtomNameScope.cs",
+        "src/Runtime/Erlang.Terms/Values/Atoms/AtomNameTable.cs"
+      ],
+      "PreservedHistoricalRows": [],
+      "NativeAbiAcceptancePromoted": false
+    }
+  ],
+  "Passed": true,
+  "CompatibilityPromoted": false
+}

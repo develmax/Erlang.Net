@@ -125,6 +125,7 @@ public sealed partial class ModuleRegistry
         ErlangFunction body
     )
     {
+        using var atomScope = owningRuntime is null ? null : new AtomNameScope(owningRuntime.AtomNames);
         using var modification = CodeModification.Enter();
         AtomNameRegistry.Observe(module);
         AtomNameRegistry.Observe(function);
@@ -281,6 +282,7 @@ public sealed partial class ModuleRegistry
         out bool selectedElementSourceContract
     )
     {
+        using var atomScope = new AtomNameScope(context.Runtime.AtomNames);
         selectedElementSourceContract = false;
         dispatch = ModuleCallDispatchKind.Direct;
         context.Runtime.ThrowIfHalted();
@@ -472,6 +474,7 @@ public sealed partial class ModuleRegistry
 
     public void PublishModule(string module)
     {
+        using var atomScope = owningRuntime is null ? null : new AtomNameScope(owningRuntime.AtomNames);
         using var modification = CodeModification.Enter();
         AtomNameRegistry.Observe(module);
         lock (gate)
@@ -694,6 +697,7 @@ public sealed partial class ModuleRegistry
 
     public void Apply(Action<ModuleRegistry> configure)
     {
+        using var atomScope = owningRuntime is null ? null : new AtomNameScope(owningRuntime.AtomNames);
         var modification = CodeModification.Enter();
         ModuleRegistryApplyFrame? transaction = null;
         try

@@ -1,13 +1,13 @@
 {
   "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "InitialPending": 559,
-  "Closed": 49,
-  "RemainingFromOriginalCohort": 510,
+  "Closed": 52,
+  "RemainingFromOriginalCohort": 507,
   "AdditionalReclassifiedContracts": 6,
   "CurrentLedgerCounts": {
-    "Verified compatible": 167,
+    "Verified compatible": 170,
     "Needs verification": 513,
-    "Known differences": 28
+    "Known differences": 25
   },
   "Contracts": [
     {
@@ -2464,7 +2464,7 @@
       "Module": "erlang",
       "Function": "list_to_atom",
       "Arity": 1,
-      "Status": "Known differences",
+      "Status": "Verified compatible",
       "DirectTest": "mfa/erlang:list_to_atom/1",
       "RequiredClosure": [
         "source branches and dependent primitives",
@@ -2506,7 +2506,7 @@
       "Module": "erlang",
       "Function": "binary_to_atom",
       "Arity": 1,
-      "Status": "Known differences",
+      "Status": "Verified compatible",
       "DirectTest": "mfa/erlang:binary_to_atom/1",
       "RequiredClosure": [
         "source branches and dependent primitives",
@@ -2548,7 +2548,7 @@
       "Module": "erlang",
       "Function": "binary_to_atom",
       "Arity": 2,
-      "Status": "Known differences",
+      "Status": "Verified compatible",
       "DirectTest": "mfa/erlang:binary_to_atom/2",
       "RequiredClosure": [
         "source branches and dependent primitives",
@@ -7837,6 +7837,6 @@
       ]
     }
   ],
-  "OriginalCohortKnownDifferences": 3,
+  "OriginalCohortKnownDifferences": 0,
   "OriginalCohortNeedsVerification": 507
 }

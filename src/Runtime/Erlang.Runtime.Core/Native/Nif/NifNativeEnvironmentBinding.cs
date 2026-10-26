@@ -4,11 +4,13 @@ internal sealed class NifNativeEnvironmentBinding : IDisposable
 {
     private NifNativeCallbackScope? owner;
     private NifNativeCallEnvironment? previous;
+    private readonly AtomNameScope atoms;
 
-    internal NifNativeEnvironmentBinding(NifNativeCallbackScope scope, NifNativeCallEnvironment? previous)
+    internal NifNativeEnvironmentBinding(NifNativeCallbackScope scope, NifNativeCallEnvironment? previous, NifNativeCallEnvironment environment)
     {
         owner = scope;
         this.previous = previous;
+        atoms = new AtomNameScope(environment.Runtime.AtomNames);
     }
 
     public void Dispose()
@@ -17,6 +19,7 @@ internal sealed class NifNativeEnvironmentBinding : IDisposable
         if (scope is null)
             return;
         scope.RestoreEnvironment(previous);
+        atoms.Dispose();
         previous = null;
     }
 }

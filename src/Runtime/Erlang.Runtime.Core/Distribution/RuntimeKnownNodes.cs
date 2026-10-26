@@ -4,7 +4,8 @@ namespace Erlang;
 
 internal sealed partial class RuntimeKnownNodes(
     LocalNodeIdentity localIdentity,
-    Func<Atom, RuntimeDistributionEntryIdentity?> resolveDistributionEntry
+    Func<Atom, RuntimeDistributionEntryIdentity?> resolveDistributionEntry,
+    Action<string> observeAtom
 )
 {
     private readonly object gate = new();
@@ -24,6 +25,7 @@ internal sealed partial class RuntimeKnownNodes(
         }
         Enqueue(term);
         var discoveries = new List<(Term Value, string Name, bool External)>();
+        var atomNames = new HashSet<string>(StringComparer.Ordinal);
         lock (gate)
         {
             if (observedIdentitiesClosed)
@@ -37,6 +39,7 @@ internal sealed partial class RuntimeKnownNodes(
                     ReferenceTerm reference => reference.Node,
                     _ => null
                 };
+                if (name is not null) atomNames.Add(name);
                 bool local = value switch
                 {
                     Pid pid => ReferenceEquals(pid.LocalIdentity, localIdentity),
@@ -57,11 +60,17 @@ internal sealed partial class RuntimeKnownNodes(
                 }
                 switch (value)
                 {
+                    case Atom atom:
+                        atomNames.Add(atom.Name);
+                        break;
                     case Cons list:
                         Enqueue(list.Head);
                         Enqueue(list.Tail);
                         break;
                     case NativeRecordTerm record:
+                        atomNames.Add(record.Module.Name);
+                        atomNames.Add(record.Name.Name);
+                        foreach (Atom field in record.FieldNames) atomNames.Add(field.Name);
                         foreach (Term item in record.Values)
                             Enqueue(item);
                         break;
@@ -80,12 +89,23 @@ internal sealed partial class RuntimeKnownNodes(
                         }
                         break;
                     case FunctionTerm function:
+                        if (function.ExternalIdentity is { } external)
+                        {
+                            atomNames.Add(external.Module.Name);
+                            atomNames.Add(external.Function.Name);
+                        }
+                        if (function.StoredLocalIdentity is { } localFunction)
+                        {
+                            atomNames.Add(localFunction.Module.Name);
+                            if (localFunction.Name is { } functionName) atomNames.Add(functionName.Name);
+                        }
                         foreach (Term item in function.Environment)
                             Enqueue(item);
                         break;
                 }
             }
         }
+        foreach (string atomName in atomNames) observeAtom(atomName);
         foreach (var discovery in discoveries)
         {
             // Never acquire the runtime gate/call a resolver while holding this gate.

@@ -68,6 +68,10 @@ jobs:
           }
           python -B tools/Validation/AtomContract492/observe-capacity-original.py --repository $PWD.Path --admission artifacts/library376-official-compiler/official-admission.json --output artifacts/contracts492/ci-capacity
           if ($LASTEXITCODE -ne 0) { $contractFailures += "Original atom-capacity observation failed" }
+          foreach ($creator in @('list', 'binary', 'encoded')) {
+            python -B tools/Validation/AtomContract494/observe-capacity-original.py --repository $PWD.Path --admission artifacts/library376-official-compiler/official-admission.json --creator $creator --output "artifacts/contracts494/ci-capacity/$creator"
+            if ($LASTEXITCODE -ne 0) { $contractFailures += "Original atom-capacity route failed: $creator" }
+          }
           if ($contractFailures.Count -ne 0) { throw ($contractFailures -join '; ') }
       - shell: pwsh
         run: ./tools/validate.ps1 -TestRuntimeVersion 10.0.11
@@ -84,6 +88,7 @@ jobs:
             artifacts/contracts492/ci-original/**
             artifacts/contracts493/ci-original/**
             artifacts/contracts492/ci-capacity/**
+            artifacts/contracts494/ci-capacity/**
             artifacts/library485/permanent/**
             artifacts/library485/catalog/**/results/**
             artifacts/library485/catalog/**/native/compile*.txt

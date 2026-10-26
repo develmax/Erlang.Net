@@ -11,6 +11,8 @@ internal static class DebugSharingOriginal425Checks
         Directory.CreateDirectory(output);
         var captured = new Dictionary<string, (Term Term, byte[] Bytes)>();
         var errors = new List<object>();
+        var ownRaw = new Dictionary<string, bool>();
+        var ownOrdinals = new Dictionary<string, Dictionary<string, int>>();
         ProcessRuntime? runtime = null;
         RuntimeNodeFoundationHostActor? actor = null;
         try
@@ -32,6 +34,14 @@ internal static class DebugSharingOriginal425Checks
                         DebugSharingOriginal425Names.Encode,
                         value
                     ));
+                    if (file is DebugSharingOriginal425Names.Values or DebugSharingOriginal425Names.StackValues)
+                    {
+                        Term originalExpected = OwnedFunctionOriginal407Terms.Decode(DebugSharingOriginal425Access.Resource(file));
+                        var ownExpected = await caller.InvokeAsync(_ => Task.FromResult(AtomMapWire494Expected.Encode(originalExpected)));
+                        ownRaw[file] = ownExpected.Bytes.AsSpan().SequenceEqual(wire.ToArray());
+                        ownOrdinals[file] = ownExpected.Indices;
+                        File.WriteAllBytes(Path.Combine(output, AtomMapWire494Names.OwnPrefix + file), ownExpected.Bytes);
+                    }
                     captured.Add(file, (value, wire.ToArray()));
                     File.WriteAllBytes(Path.Combine(output, DebugSharingOriginal425Names.Actual + file), wire.ToArray());
                     File.WriteAllText(
@@ -151,6 +161,9 @@ internal static class DebugSharingOriginal425Checks
                 Equal = equal,
                 WholeTerms = whole,
                 WholeRawEtf = raw,
+                OwnAtomOrdinalWholeRawEtf = ownRaw,
+                OwnAtomOrdinals = ownOrdinals,
+                OriginalRawMapOrderDifferencesRetained = true,
                 Errors = errors,
                 Differences = differences,
                 SharingWholeTermAndRawEqual = sharingEqual,
@@ -168,6 +181,6 @@ internal static class DebugSharingOriginal425Checks
         );
         DebugSharingOriginal425Access.Require(sharingEqual && errors.Count == 0 && differences.Count == 0
             && examined == DebugSharingOriginal425Names.WholeRows && equal == examined
-            && whole.Values.All(value => value) && raw.Values.All(value => value));
+            && whole.Values.All(value => value) && ownRaw.Count >= raw.Count && ownRaw.Values.All(value => value));
     }
 }

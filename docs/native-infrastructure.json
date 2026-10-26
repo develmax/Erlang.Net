@@ -29,13 +29,13 @@
   "SourceEquivalence": {
     "TestedPlanPath": "docs/validation/part-361/tested-source-plan.json",
     "TestedPlanSha256": "26771833B3E7C2A70166C36ED0854354198F4DC5E6270E01CD1B00E97101A2E2",
-    "CurrentBoundSourceFiles": 40,
+    "CurrentBoundSourceFiles": 41,
     "ExactRawHashesMatchTestedPlan": false,
     "SameHeadExecutionInferred": false,
     "HistoricalCurrentBoundSourceFiles": 40,
-    "CurrentMatchesHistoricalTestedPlan": 32,
-    "CurrentAddendumPath": "docs/validation/part-440/readiness-publication/publication-source-review.json",
-    "CurrentAddendumSha256": "838FBD920ED236384A0E8E59682A2D13899D36721A221AAE2B2A40B4B08DB900",
+    "CurrentMatchesHistoricalTestedPlan": 31,
+    "CurrentAddendumPath": "docs/validation/part-494/atom-vm-ownership/native-source-addendum.json",
+    "CurrentAddendumSha256": "39F51EC6E61BE7D4B664C0066015BFCFDBC487D7EDEF16CA25ADFABF75EAC7A4",
     "HistoricalPart369MatchesTestedPlan": 38,
     "HistoricalPart369DeltaFiles": [
       {
@@ -89,11 +89,19 @@
         "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeTypeCallbacks.cs",
         "Before": "33E7760C58CFF782789DC0D051AED0DD125B60A0D1BA316D4477A46642CDA2F8",
         "After": "042FBB3E13629A768FD943FE3D07F8A9AF5D6F393B5485C8DC4C8F5C034F8EFB"
+      },
+      {
+        "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallbackScope.cs",
+        "Before": "1911396A620D6F733F8F4F8558252F070EC83CE6753F41597864281DCE796893",
+        "After": "9467C9BA57633AEF3AF752908C6D523882A07F791B9C2398995C94121FBDD4C2"
       }
     ],
     "HistoricalAddendumPath": "docs/validation/part-369/native-infrastructure-source-addendum.json",
     "HistoricalAddendumSha256": "4608CDC41E1706CCA33FE23475888C73EA1A307E1DE81534B993A1965E4DF71C",
-    "CurrentBoundSourceCommit": "0ceebcbd7025f7b347082293d5f56eb6d86a8377"
+    "CurrentBoundSourceCommit": "0ceebcbd7025f7b347082293d5f56eb6d86a8377",
+    "EarlierCurrentAddendumPath": "docs/validation/part-440/readiness-publication/publication-source-review.json",
+    "EarlierCurrentAddendumSha256": "838FBD920ED236384A0E8E59682A2D13899D36721A221AAE2B2A40B4B08DB900",
+    "CurrentBoundSourceCommitIsHistorical": true
   },
   "Counts": {
     "InventoryRows": 24,
@@ -188,6 +196,10 @@
       "Scope": "Current six-file semantic delta, authentic CI8813 and independent source audit; historical24-row scopes and platform limits retained, no new native certification.",
       "Platform": "source-audit; windows-x64 CI",
       "ExecutionIdentity": "0ceebcbd7025f7b347082293d5f56eb6d86a8377"
+    },
+    "part494-atom-ownership": {
+      "Path": "docs/validation/part-494/atom-vm-ownership/native-source-addendum.json",
+      "Sha256": "39F51EC6E61BE7D4B664C0066015BFCFDBC487D7EDEF16CA25ADFABF75EAC7A4"
     }
   },
   "Entries": [
@@ -325,12 +337,17 @@
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallbackScope.cs",
-          "Sha256": "1911396A620D6F733F8F4F8558252F070EC83CE6753F41597864281DCE796893"
+          "Sha256": "9467C9BA57633AEF3AF752908C6D523882A07F791B9C2398995C94121FBDD4C2"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeEnvironmentBinding.cs",
+          "Sha256": "A7F464389ADFF8D1AB693D29C61B221A16935AA6385CFC5A1EE663BC0B36D54A"
         }
       ],
       "EvidenceRefs": [
         "full",
-        "part440-current-source-review"
+        "part440-current-source-review",
+        "part494-atom-ownership"
       ],
       "Platforms": [
         "windows-x64",

@@ -146,4 +146,4 @@ Append numbered English entries only to the last volume. Start the next sequenti
 - [0085.md](docs/changelog/0085.md) — parts482–484 (closed; comparison frames and cooperative original receive guards)
 - [0086.md](docs/changelog/0086.md) — parts485–491 (closed; native catalog, layout and contract audits)
 
-- [0087.md](docs/changelog/0087.md) — parts492–493 (active; atom and integer conversion audits)
+- [0087.md](docs/changelog/0087.md) — parts492–494 (active; conversions and logical VM atom ownership)

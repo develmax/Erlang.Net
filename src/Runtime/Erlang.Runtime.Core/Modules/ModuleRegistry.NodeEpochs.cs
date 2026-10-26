@@ -22,6 +22,7 @@ public sealed partial class ModuleRegistry
             return new();
         var options = new EtfDecodeOptions
         {
+            AtomTable = runtime.AtomNames,
             LocalSeed = runtime.LocalTermSeed,
             ExternalFunctionFactory = (identity, safe) => runtime.Functions.External(runtime, identity, safe)
         };

@@ -1,8 +1,8 @@
 {
   "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Registered": 708,
-  "Verified": 167,
-  "KnownDifferences": 28,
+  "Verified": 170,
+  "KnownDifferences": 25,
   "NeedsVerification": 513,
   "UnclosedDefaultContracts": [
     {
@@ -300,78 +300,6 @@
       "Evidence": [],
       "Limits": [
         "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
-    },
-    {
-      "Module": "erlang",
-      "Function": "binary_to_atom",
-      "Arity": 1,
-      "Status": "Known differences",
-      "Scope": "Ordinary conversion values and full stacks match the tested source partitions, but table saturation is not fully compatible: original OTP terminates its VM; managed registry throws catchable system_limit. Original configured-capacity termination is observed; managed boundary is source-inspected, not live-filled.",
-      "Evidence": [
-        {
-          "Kind": "CompatibilityAudit",
-          "Path": "validation/part-492/atom-conversions/capacity-boundary-audit.json",
-          "Sha256": "71125461511F5F994FD2E7B55DDE6B89803BAA91C2422D6B44AAF761C5B0BCE9",
-          "Scope": "Source-confirmed table-boundary lifecycle difference; fresh isolated original VM exits1 without Erlang catch and settles; no live full managed table claim."
-        },
-        {
-          "Kind": "CompatibilityAudit",
-          "Path": "validation/part-492/atom-conversions/source-audit.json",
-          "Sha256": "1B32708A4AB4A1218F791753E192451845340C1273B4B90AD5799DFFB82E00A3",
-          "Scope": "Pinned complete read-conversion source/type/range/state/reference/error/effect partitions; creator capacity gap is explicit."
-        },
-        {
-          "Kind": "OriginalOtpComparison",
-          "Path": "validation/part-492/atom-conversions/original-comparison.json",
-          "Sha256": "CC44AF06C559C9F0203672F9261512CD63C15C1A5A0792010C4390F976561E9D",
-          "Scope": "Thirteen actual original subjects,569 values/2845 full stacks, own-state existing-name protocols, actual native same and provider/child settlement."
-        },
-        {
-          "Kind": "LocalValidation",
-          "Path": "validation/part-492/atom-conversions/affected-final.json",
-          "Sha256": "5B3C0B7E9617705FBE96DF0089B6C0130428149BF8DDA18A3555C480292BF5B6",
-          "Scope": "All65 old/new contract groups pass on final rebuilt assembly;31782 whole comparisons; continuous publication CI remains required."
-        }
-      ],
-      "Limits": [
-        "Atom-table saturation lifecycle differs; no whole contract promotion."
-      ]
-    },
-    {
-      "Module": "erlang",
-      "Function": "binary_to_atom",
-      "Arity": 2,
-      "Status": "Known differences",
-      "Scope": "Ordinary conversion values and full stacks match the tested source partitions, but table saturation is not fully compatible: original OTP terminates its VM; managed registry throws catchable system_limit. Original configured-capacity termination is observed; managed boundary is source-inspected, not live-filled.",
-      "Evidence": [
-        {
-          "Kind": "CompatibilityAudit",
-          "Path": "validation/part-492/atom-conversions/capacity-boundary-audit.json",
-          "Sha256": "71125461511F5F994FD2E7B55DDE6B89803BAA91C2422D6B44AAF761C5B0BCE9",
-          "Scope": "Source-confirmed table-boundary lifecycle difference; fresh isolated original VM exits1 without Erlang catch and settles; no live full managed table claim."
-        },
-        {
-          "Kind": "CompatibilityAudit",
-          "Path": "validation/part-492/atom-conversions/source-audit.json",
-          "Sha256": "1B32708A4AB4A1218F791753E192451845340C1273B4B90AD5799DFFB82E00A3",
-          "Scope": "Pinned complete read-conversion source/type/range/state/reference/error/effect partitions; creator capacity gap is explicit."
-        },
-        {
-          "Kind": "OriginalOtpComparison",
-          "Path": "validation/part-492/atom-conversions/original-comparison.json",
-          "Sha256": "CC44AF06C559C9F0203672F9261512CD63C15C1A5A0792010C4390F976561E9D",
-          "Scope": "Thirteen actual original subjects,569 values/2845 full stacks, own-state existing-name protocols, actual native same and provider/child settlement."
-        },
-        {
-          "Kind": "LocalValidation",
-          "Path": "validation/part-492/atom-conversions/affected-final.json",
-          "Sha256": "5B3C0B7E9617705FBE96DF0089B6C0130428149BF8DDA18A3555C480292BF5B6",
-          "Scope": "All65 old/new contract groups pass on final rebuilt assembly;31782 whole comparisons; continuous publication CI remains required."
-        }
-      ],
-      "Limits": [
-        "Atom-table saturation lifecycle differs; no whole contract promotion."
       ]
     },
     {
@@ -1483,42 +1411,6 @@
       "Evidence": [],
       "Limits": [
         "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending Already-connected guest remote PID LINK output is accepted into finite connection-owned staging before the normal caller waits. Captured-generation LINK, local relation and local receiver priority commit together after actual encoding/capacity preflight. An accepted worker retains its ticket and entry lease across producer cancellation or kill; retained terminal EXIT follows LINK in order. Normal callers cooperatively admit existing owner signals/system queries while awaiting turn or capacity. With async_dist true the caller returns after bounded acceptance without that output wait. Duplicate LINK remains idempotent, link/2 options validate before mutation, and hard staging-cap refusal raises system_limit before relation installation. SDK staging and transport have separately finite accounted-byte/packet budgets; these are SDK resource bounds, not physical native buffer sizes. Accepted UNLINK remains connection-owned and only its guest wait admits caller signals. Pending/autoconnect, remote names/aliases, synchronous embedding setters, complete inbound priority, live SDK network peers, native scheduler/queue-phase identity and general native wire equality remain incomplete. Five actual generated-guest HOST controls cover normal/async turn/capacity ownership and hard-cap refusal. The separate pinned original325 collector remains unexecuted by this pipeline."
-      ]
-    },
-    {
-      "Module": "erlang",
-      "Function": "list_to_atom",
-      "Arity": 1,
-      "Status": "Known differences",
-      "Scope": "Ordinary conversion values and full stacks match the tested source partitions, but table saturation is not fully compatible: original OTP terminates its VM; managed registry throws catchable system_limit. Original configured-capacity termination is observed; managed boundary is source-inspected, not live-filled.",
-      "Evidence": [
-        {
-          "Kind": "CompatibilityAudit",
-          "Path": "validation/part-492/atom-conversions/capacity-boundary-audit.json",
-          "Sha256": "71125461511F5F994FD2E7B55DDE6B89803BAA91C2422D6B44AAF761C5B0BCE9",
-          "Scope": "Source-confirmed table-boundary lifecycle difference; fresh isolated original VM exits1 without Erlang catch and settles; no live full managed table claim."
-        },
-        {
-          "Kind": "CompatibilityAudit",
-          "Path": "validation/part-492/atom-conversions/source-audit.json",
-          "Sha256": "1B32708A4AB4A1218F791753E192451845340C1273B4B90AD5799DFFB82E00A3",
-          "Scope": "Pinned complete read-conversion source/type/range/state/reference/error/effect partitions; creator capacity gap is explicit."
-        },
-        {
-          "Kind": "OriginalOtpComparison",
-          "Path": "validation/part-492/atom-conversions/original-comparison.json",
-          "Sha256": "CC44AF06C559C9F0203672F9261512CD63C15C1A5A0792010C4390F976561E9D",
-          "Scope": "Thirteen actual original subjects,569 values/2845 full stacks, own-state existing-name protocols, actual native same and provider/child settlement."
-        },
-        {
-          "Kind": "LocalValidation",
-          "Path": "validation/part-492/atom-conversions/affected-final.json",
-          "Sha256": "5B3C0B7E9617705FBE96DF0089B6C0130428149BF8DDA18A3555C480292BF5B6",
-          "Scope": "All65 old/new contract groups pass on final rebuilt assembly;31782 whole comparisons; continuous publication CI remains required."
-        }
-      ],
-      "Limits": [
-        "Atom-table saturation lifecycle differs; no whole contract promotion."
       ]
     },
     {
@@ -278352,7 +278244,7 @@
       "Module": "erlang",
       "CatalogPublicApis": 875,
       "DefaultRegistered": 351,
-      "DefaultVerified": 70,
+      "DefaultVerified": 73,
       "RequiresPreprocessing": false,
       "OriginalExecutionStatus": "Requires separate execution evidence; default registry is not original-library coverage"
     },

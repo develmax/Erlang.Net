@@ -21,6 +21,7 @@ public sealed partial class ProcessRuntime
 
     internal T ReadMapHashIdentity<T>(Func<T> read)
     {
+        using var atomScope = new AtomNameScope(AtomNames);
         lock (gate)
         {
             ObjectDisposedException.ThrowIf(disposed || IsHaltRequested, this);

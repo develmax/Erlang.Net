@@ -22,6 +22,7 @@ internal static class AtomCache
     public static Atom Get(string name)
     {
         ArgumentNullException.ThrowIfNull(name);
+        AtomNameRegistry.Observe(name);
 
         return Values.TryGetValue(name, out var atom) ? atom : new Atom(name);
     }

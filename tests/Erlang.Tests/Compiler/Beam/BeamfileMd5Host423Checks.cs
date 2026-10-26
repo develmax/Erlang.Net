@@ -61,6 +61,7 @@ internal static class BeamfileMd5Host423Checks
         await using var runtime = new ProcessRuntime();
         await runtime.InitializeModulesAsync(registry => RuntimeBootstrapBeamfileMd5423.Register(runtime, registry));
         await using var actor = new RuntimeNodeFoundationHostActor(runtime);
+        using var atomScope = runtime.EnterAtomScope();
         FunctionTerm function = (FunctionTerm)runtime.ImportExternalTerm(DistDecode423Bytes.StaticNormalFun).Term;
         LocalFunctionIdentity identity = function.LocalIdentity!;
         int calls = 0;

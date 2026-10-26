@@ -2,6 +2,7 @@ namespace Erlang;
 
 public sealed record EtfDecodeOptions
 {
+    internal AtomNameTable? AtomTable { get; init; }
     internal Func<IReadOnlyList<EtfNodeEpoch>, EtfDecodeAdmission>? NodeAdmission { get; init; }
     internal LocalNodeIdentity? NodeIdentity { get; init; }
     internal bool DistributionDebug423 { get; init; }
