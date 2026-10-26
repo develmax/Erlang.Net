@@ -1,0 +1,11 @@
+# Part486 layout acceptance
+
+Source/tool categorization only:44 source directories and65 tool directories move; test directories remain unchanged. See [the layout crosswalk](../../../project-layout.md) and [remaining-work checkpoint](../../../remaining-work/checkpoint-486.md).
+
+The107-project graph retains all155 reference edges. All3054 original OTP assets retain exact SHA256. All1685 current source bindings match their relocated files. Assembly/package identities and backend semantics are preserved; no API or complete-contract promotion is made.
+
+The initial full run is intentionally retained as failed:8834/8896. A mechanical replacement modified frozen JSON fixtures, poisoning one shared manifest check and two other cohorts. Restore16 immutable fixture files to baseline bytes, rebuild and rerun every failed group:62/62 pass. The local readiness report explicitly composes these inputs and is **not** an uninterrupted final full run. Publication-head GitHub CI is required separately; its final receipt belongs to the PR and must name the exact SHA.
+
+Fresh ordinary and cold PackageReference catalog runs each prepare1321/1321 primary images, publish original native source owners, compare176 complete regex captures and9 portable native groups, verify the original own-state map protocol and settle native resources/child processes. Raw map-key tuple order remains explicitly unequal across VMs. Cold execution uses empty PATH and an isolated package cache. Cold Stdlib exercises all four managed/BEAM combinations; cold Syntax passes53 packaging checks and19 whole original outcomes/stacks. These are scoped witnesses, not full-module certification.
+
+`completion.json` names the receipts and bounded totals. `initial-full-failed.json` retains all failures; `final-affected.json` retains their successful rerun. `original-assets.json` preserves old/new paths and original hashes. `binding-migration.json` records baseline-matching current binding successors; historical snapshots, frozen original observations and closed changelog volumes are unchanged. No new Linux/native-thread acceptance is claimed by moving observer scripts. LICENSE.local.txt and unrelated untracked files are excluded.

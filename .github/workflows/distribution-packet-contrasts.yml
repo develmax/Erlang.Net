@@ -25,7 +25,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p artifacts
-          dotnet build tools/Erlang.DistributionPacketContrasts -m:1 --disable-build-servers 2>&1 | tee artifacts/beam-fixture-tool-build.log
+          dotnet build tools/Distribution/Erlang.DistributionPacketContrasts -m:1 --disable-build-servers 2>&1 | tee artifacts/beam-fixture-tool-build.log
       - name: Build standalone mixed map observation tool
         id: mixed-tool
         if: ${{ !cancelled() && inputs.capture_mixed }}
@@ -33,7 +33,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p artifacts
-          dotnet build tools/Erlang.MixedMapIdentityContrasts -m:1 --disable-build-servers 2>&1 | tee artifacts/mixed-map-tool-build.log
+          dotnet build tools/Collections/Erlang.MixedMapIdentityContrasts -m:1 --disable-build-servers 2>&1 | tee artifacts/mixed-map-tool-build.log
       - name: Build and attest the pinned development compiler
         id: pinned-build
         if: ${{ !cancelled() && (steps.packet-tool.outcome == 'success' || steps.mixed-tool.outcome == 'success') }}
@@ -83,13 +83,13 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          dotnet run --project tools/Erlang.DistributionPacketContrasts --no-build -- artifacts/beam-otp-oracle/lib/erlang artifacts/distribution-packet artifacts/beam-source-build-evidence.json
+          dotnet run --project tools/Distribution/Erlang.DistributionPacketContrasts --no-build -- artifacts/beam-otp-oracle/lib/erlang artifacts/distribution-packet artifacts/beam-source-build-evidence.json
       - name: Capture one mixed map transition in a separate fresh VM
         if: ${{ !cancelled() && inputs.capture_mixed && steps.mixed-tool.outcome == 'success' && steps.pinned-build.outcome == 'success' }}
         shell: bash
         run: |
           set -euo pipefail
-          dotnet run --project tools/Erlang.MixedMapIdentityContrasts --no-build -- artifacts/beam-otp-oracle/lib/erlang artifacts/mixed-map-identity artifacts/beam-source-build-evidence.json
+          dotnet run --project tools/Collections/Erlang.MixedMapIdentityContrasts --no-build -- artifacts/beam-otp-oracle/lib/erlang artifacts/mixed-map-identity artifacts/beam-source-build-evidence.json
       - uses: actions/upload-artifact@v7
         if: always()
         with:

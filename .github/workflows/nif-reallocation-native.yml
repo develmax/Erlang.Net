@@ -17,7 +17,7 @@ jobs:
       DOTNET_PROCESSOR_COUNT: '2'
       DOTNET_CLI_USE_MSBUILD_SERVER: '0'
       MSBUILDDISABLENODEREUSE: '1'
-      REVIEWED_REALLOCATION_PLAN_SHA256: C68F2A4208344418385DC746F822FE88BD709285342305AFAF2E26952DC6905D
+      REVIEWED_REALLOCATION_PLAN_SHA256: C3562CB68CF82FC16B928319D039A035DA724DE6739E3FCB6ACBF126FE008AC2
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-dotnet@v6
@@ -34,7 +34,7 @@ jobs:
           export ROOT="$GITHUB_WORKSPACE"
           export BASE="$ROOT/artifacts/reallocation-native"
           export SOURCE="$BASE/otp-source"
-          export TOOL="$ROOT/tools/Erlang.NifReallocationObservations"
+          export TOOL="$ROOT/tools/Native/Erlang.NifReallocationObservations"
           export PLAN="$TOOL/SOURCE-PLAN.json"
           test ! -e "$BASE"
           mkdir -p "$BASE/control"

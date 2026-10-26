@@ -22,7 +22,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python3 tools/Erlang.RawOnLoadVisibilityObservations/run-reviewed.py verify \
+          python3 tools/Native/Erlang.RawOnLoadVisibilityObservations/run-reviewed.py verify \
             --repository "$GITHUB_WORKSPACE" \
             --approved-execution-plan-sha256 "$REVIEWED_EXECUTION_PLAN_SHA256" \
             --output "$GITHUB_WORKSPACE/artifacts/raw-onload-original303"
@@ -30,7 +30,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python3 tools/Erlang.RawOnLoadVisibilityObservations/run-reviewed.py synthetic \
+          python3 tools/Native/Erlang.RawOnLoadVisibilityObservations/run-reviewed.py synthetic \
             --repository "$GITHUB_WORKSPACE" \
             --approved-execution-plan-sha256 "$REVIEWED_EXECUTION_PLAN_SHA256" \
             --output "$GITHUB_WORKSPACE/artifacts/raw-onload-original303" \
@@ -48,7 +48,7 @@ jobs:
             make -j2
             make install
           ) 2>&1 | tee artifacts/raw-onload-original303/original-build.log
-          python3 tools/Erlang.RawOnLoadVisibilityObservations/run-reviewed.py provenance \
+          python3 tools/Native/Erlang.RawOnLoadVisibilityObservations/run-reviewed.py provenance \
             --repository "$GITHUB_WORKSPACE" \
             --approved-execution-plan-sha256 "$REVIEWED_EXECUTION_PLAN_SHA256" \
             --otp-source "$GITHUB_WORKSPACE/artifacts/raw-onload-otp-source" \
@@ -57,7 +57,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python3 tools/Erlang.RawOnLoadVisibilityObservations/run-reviewed.py collect \
+          python3 tools/Native/Erlang.RawOnLoadVisibilityObservations/run-reviewed.py collect \
             --repository "$GITHUB_WORKSPACE" \
             --approved-execution-plan-sha256 "$REVIEWED_EXECUTION_PLAN_SHA256" \
             --otp-source "$GITHUB_WORKSPACE/artifacts/raw-onload-otp-source" \
@@ -67,7 +67,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python3 tools/Erlang.RawOnLoadVisibilityObservations/run-reviewed.py guard \
+          python3 tools/Native/Erlang.RawOnLoadVisibilityObservations/run-reviewed.py guard \
             --repository "$GITHUB_WORKSPACE" \
             --approved-execution-plan-sha256 "$REVIEWED_EXECUTION_PLAN_SHA256" \
             --otp-source "$GITHUB_WORKSPACE/artifacts/raw-onload-otp-source" \

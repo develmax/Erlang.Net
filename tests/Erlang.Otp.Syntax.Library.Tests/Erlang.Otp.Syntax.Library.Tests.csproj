@@ -7,9 +7,9 @@
     <ErlangPreprocessEnabled>false</ErlangPreprocessEnabled>
   </PropertyGroup>
   <ItemGroup Condition="'$(UseInstalledPackage)' != 'true'">
-    <ProjectReference Include="../../src/Erlang.Otp.Stdlib.Beam/Erlang.Otp.Stdlib.Beam.csproj" />
-    <ProjectReference Include="../../src/Erlang.Otp.Parsetools.Beam/Erlang.Otp.Parsetools.Beam.csproj" />
-    <ProjectReference Include="../../src/Erlang.Otp.SyntaxTools.Beam/Erlang.Otp.SyntaxTools.Beam.csproj" />
+    <ProjectReference Include="../../src/Otp/Original/Foundation/Erlang.Otp.Stdlib.Beam/Erlang.Otp.Stdlib.Beam.csproj" />
+    <ProjectReference Include="../../src/Otp/Original/Development/Erlang.Otp.Parsetools.Beam/Erlang.Otp.Parsetools.Beam.csproj" />
+    <ProjectReference Include="../../src/Otp/Original/Development/Erlang.Otp.SyntaxTools.Beam/Erlang.Otp.SyntaxTools.Beam.csproj" />
   </ItemGroup>
   <ItemGroup Condition="'$(UseInstalledPackage)' == 'true'">
     <PackageReference Include="Erlang.Otp.Stdlib.Beam" Version="0.1.0" />

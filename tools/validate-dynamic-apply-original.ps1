@@ -3,6 +3,7 @@ param(
     [string]$Admission = 'artifacts/library376-official-compiler/official-admission.json',
     [string]$Output = 'artifacts/otp-apply-original'
 )
+. "$PSScriptRoot/project-layout.ps1"
 $ErrorActionPreference = 'Stop'
 $profile = Get-Content -LiteralPath $Admission -Raw | ConvertFrom-Json
 if ($profile.SourceCommit -cne 'ad05823719d77c8faee87348ea39513d4e2f99c5' -or -not $profile.EveryExtractedFileMatchesArchive) { throw 'Unadmitted original OTP provider' }
@@ -20,7 +21,7 @@ if ($fixture.Serialization -cne 'term_to_binary/2 deterministic; whole term') { 
 $applySource = Join-Path $profile.InstalledOtpRoot 'lib/erts-17.1/src/erlang.erl'
 if ((Get-FileHash -LiteralPath $applySource -Algorithm SHA256).Hash -cne $fixture.ApplyFunctionSource.Sha256 -or $fixture.ApplyFunctionSource.Line -ne 10558 -or [IO.File]::ReadAllLines($applySource)[10557] -cne '    erlang:apply(Fun, Args).') { throw 'Pinned apply/2 continuation source differs' }
 foreach ($include in $fixture.CompilerIncludes) {
-    if ((Get-FileHash -LiteralPath $include.Path -Algorithm SHA256).Hash -cne $include.Sha256) { throw 'Original observer include differs' }
+    if ((Get-FileHash -LiteralPath (Resolve-OriginalFixturePath $include.Path) -Algorithm SHA256).Hash -cne $include.Sha256) { throw 'Original observer include differs' }
 }
 if ($fixture.CompilerBindings.Count -ne 3) { throw 'Observer compiler bindings are incomplete' }
 foreach ($binding in $fixture.CompilerBindings) {

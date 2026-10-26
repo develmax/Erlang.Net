@@ -7,10 +7,10 @@
     <ErlangPreprocessEnabled>false</ErlangPreprocessEnabled>
   </PropertyGroup>
   <ItemGroup Condition="'$(UseInstalledPackage)' != 'true'">
-    <ProjectReference Include="../../src/Erlang.Otp.Stdlib.Beam/Erlang.Otp.Stdlib.Beam.csproj" />
-    <ProjectReference Include="../../src/Erlang.Otp.Kernel.Beam/Erlang.Otp.Kernel.Beam.csproj" />
-    <ProjectReference Include="../../src/Erlang.Otp.Erts.Beam/Erlang.Otp.Erts.Beam.csproj" />
-    <ProjectReference Include="../../src/Erlang.Otp.Sasl.Beam/Erlang.Otp.Sasl.Beam.csproj" />
+    <ProjectReference Include="../../src/Otp/Original/Foundation/Erlang.Otp.Stdlib.Beam/Erlang.Otp.Stdlib.Beam.csproj" />
+    <ProjectReference Include="../../src/Otp/Original/Foundation/Erlang.Otp.Kernel.Beam/Erlang.Otp.Kernel.Beam.csproj" />
+    <ProjectReference Include="../../src/Otp/Original/Foundation/Erlang.Otp.Erts.Beam/Erlang.Otp.Erts.Beam.csproj" />
+    <ProjectReference Include="../../src/Otp/Original/Foundation/Erlang.Otp.Sasl.Beam/Erlang.Otp.Sasl.Beam.csproj" />
   </ItemGroup>
   <ItemGroup Condition="'$(UseInstalledPackage)' == 'true'">
     <PackageReference Include="Erlang.Otp.Stdlib.Beam" Version="0.1.0" />

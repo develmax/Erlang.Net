@@ -9,12 +9,12 @@
     <ErlangPreprocessEnabled>false</ErlangPreprocessEnabled>
   </PropertyGroup>
   <ItemGroup Condition="'$(UseInstalledPackage)' != 'true'">
-    <ProjectReference Include="../../src/Erlang.Otp.Tftp.Beam/Erlang.Otp.Tftp.Beam.csproj" />
-    <ProjectReference Include="../../src/Erlang.Otp.Eldap.Beam/Erlang.Otp.Eldap.Beam.csproj" />
-    <ProjectReference Include="../../src/Erlang.Otp.Kernel.Beam/Erlang.Otp.Kernel.Beam.csproj" />
-    <ProjectReference Include="../../src/Erlang.Otp.Stdlib.Beam/Erlang.Otp.Stdlib.Beam.csproj" />
-    <ProjectReference Include="../../src/Erlang.Otp.Inets.Beam/Erlang.Otp.Inets.Beam.csproj" />
-    <ProjectReference Include="../../src/Erlang.Otp.Ftp.Beam/Erlang.Otp.Ftp.Beam.csproj" />
+    <ProjectReference Include="../../src/Otp/Original/Networking/Erlang.Otp.Tftp.Beam/Erlang.Otp.Tftp.Beam.csproj" />
+    <ProjectReference Include="../../src/Otp/Original/Networking/Erlang.Otp.Eldap.Beam/Erlang.Otp.Eldap.Beam.csproj" />
+    <ProjectReference Include="../../src/Otp/Original/Foundation/Erlang.Otp.Kernel.Beam/Erlang.Otp.Kernel.Beam.csproj" />
+    <ProjectReference Include="../../src/Otp/Original/Foundation/Erlang.Otp.Stdlib.Beam/Erlang.Otp.Stdlib.Beam.csproj" />
+    <ProjectReference Include="../../src/Otp/Original/Networking/Erlang.Otp.Inets.Beam/Erlang.Otp.Inets.Beam.csproj" />
+    <ProjectReference Include="../../src/Otp/Original/Networking/Erlang.Otp.Ftp.Beam/Erlang.Otp.Ftp.Beam.csproj" />
   </ItemGroup>
   <ItemGroup Condition="'$(UseInstalledPackage)' == 'true'">
     <PackageReference Include="Erlang.Otp.Tftp.Beam" Version="0.1.0" />

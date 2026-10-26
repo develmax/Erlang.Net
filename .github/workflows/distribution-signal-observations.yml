@@ -22,7 +22,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p artifacts
-          dotnet build tools/Erlang.DistributionSignalObservations -m:1 --disable-build-servers -p:UseSharedCompilation=false 2>&1 | tee artifacts/signal-observation-tool-build.log
+          dotnet build tools/Distribution/Erlang.DistributionSignalObservations -m:1 --disable-build-servers -p:UseSharedCompilation=false 2>&1 | tee artifacts/signal-observation-tool-build.log
       - name: Build and attest the pinned development compiler
         id: pinned-build
         if: ${{ !cancelled() && steps.signal-tool.outcome == 'success' }}
@@ -72,7 +72,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          dotnet run --project tools/Erlang.DistributionSignalObservations --no-build -- artifacts/beam-otp-oracle/lib/erlang artifacts/distribution-signal-observations artifacts/beam-source-build-evidence.json
+          dotnet run --project tools/Distribution/Erlang.DistributionSignalObservations --no-build -- artifacts/beam-otp-oracle/lib/erlang artifacts/distribution-signal-observations artifacts/beam-source-build-evidence.json
       - name: Observe public group leader assignment between two real original nodes
         if: ${{ !cancelled() && steps.signal-tool.outcome == 'success' && steps.pinned-build.outcome == 'success' }}
         shell: bash
@@ -81,7 +81,7 @@ jobs:
           GROUP_LEADER_SOURCE_PLAN_SHA256: ACEE30ABEDDF9EF2572F50D0008699ADDE9B9F02C44470AD7C8E2AC5F58F948F
         run: |
           set -euo pipefail
-          python3 -B tools/Erlang.GroupLeaderOutboundObservations/collect.py \
+          python3 -B tools/Distribution/Erlang.GroupLeaderOutboundObservations/collect.py \
             --otp-source "$GITHUB_WORKSPACE/artifacts/beam-otp-source" \
             --otp-root "$GITHUB_WORKSPACE/artifacts/beam-otp-oracle/lib/erlang" \
             --build-evidence "$GITHUB_WORKSPACE/artifacts/beam-source-build-evidence.json" \
@@ -96,7 +96,7 @@ jobs:
           GUEST_CONNECTED_SEND_SOURCE_PLAN_SHA256: 7E14E4D608DAB6DC61AC1C08CFD53183CE9979FDCA178D2E84CB19811FA45399
         run: |
           set -euo pipefail
-          python3 -B tools/Erlang.GuestConnectedSendObservations/collect.py \
+          python3 -B tools/Distribution/Erlang.GuestConnectedSendObservations/collect.py \
             --otp-source "$GITHUB_WORKSPACE/artifacts/beam-otp-source" \
             --otp-root "$GITHUB_WORKSPACE/artifacts/beam-otp-oracle/lib/erlang" \
             --build-evidence "$GITHUB_WORKSPACE/artifacts/beam-source-build-evidence.json" \
@@ -111,7 +111,7 @@ jobs:
           GUEST_CONNECTED_LINK_SOURCE_PLAN_SHA256: 5106A602867DA8CB30AF0F42E6384E543B576148D25BAF8FC4E685BDD6C76602
         run: |
           set -euo pipefail
-          python3 -B tools/Erlang.GuestConnectedLinkObservations/collect.py \
+          python3 -B tools/Distribution/Erlang.GuestConnectedLinkObservations/collect.py \
             --otp-source "$GITHUB_WORKSPACE/artifacts/beam-otp-source" \
             --otp-root "$GITHUB_WORKSPACE/artifacts/beam-otp-oracle/lib/erlang" \
             --build-evidence "$GITHUB_WORKSPACE/artifacts/beam-source-build-evidence.json" \
@@ -126,7 +126,7 @@ jobs:
           GUEST_CONNECTED_EXIT_SOURCE_PLAN_SHA256: F40BA9404BF5BE58BE58108365AB85C6B24E9528DA870355FDFE0126DBD3576B
         run: |
           set -euo pipefail
-          python3 -B tools/Erlang.GuestConnectedExitObservations/collect.py \
+          python3 -B tools/Distribution/Erlang.GuestConnectedExitObservations/collect.py \
             --otp-source "$GITHUB_WORKSPACE/artifacts/beam-otp-source" \
             --otp-root "$GITHUB_WORKSPACE/artifacts/beam-otp-oracle/lib/erlang" \
             --build-evidence "$GITHUB_WORKSPACE/artifacts/beam-source-build-evidence.json" \
@@ -142,7 +142,7 @@ jobs:
           CONTROL_WAIT_SOURCE_PLAN_SHA256: 146C1DFA51058C54D8C72DAFEAAB24D82F5684B3EA5C9CB0CE1B35724D070705
         run: |
           set -euo pipefail
-          python3 -B tools/Erlang.DistributionControlWaitObservations/collect.py \
+          python3 -B tools/Distribution/Erlang.DistributionControlWaitObservations/collect.py \
             --otp-source "$GITHUB_WORKSPACE/artifacts/beam-otp-source" \
             --otp-root "$GITHUB_WORKSPACE/artifacts/beam-otp-oracle/lib/erlang" \
             --build-evidence "$GITHUB_WORKSPACE/artifacts/beam-source-build-evidence.json" \
@@ -158,7 +158,7 @@ jobs:
           LINK_RETENTION_SOURCE_PLAN_SHA256: A62852C3F0148AD1381F62CD470BE858C03B9502613C1761E88718E4A5CAC323
         run: |
           set -euo pipefail
-          python3 -B tools/Erlang.DistributionLinkRetentionObservations/collect.py \
+          python3 -B tools/Distribution/Erlang.DistributionLinkRetentionObservations/collect.py \
             --otp-source "$GITHUB_WORKSPACE/artifacts/beam-otp-source" \
             --otp-root "$GITHUB_WORKSPACE/artifacts/beam-otp-oracle/lib/erlang" \
             --build-evidence "$GITHUB_WORKSPACE/artifacts/beam-source-build-evidence.json" \

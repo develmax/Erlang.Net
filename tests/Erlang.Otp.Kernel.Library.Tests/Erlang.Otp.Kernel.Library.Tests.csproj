@@ -7,7 +7,7 @@
     <ErlangPreprocessEnabled>false</ErlangPreprocessEnabled>
   </PropertyGroup>
   <ItemGroup Condition="'$(UseInstalledPackage)' != 'true'">
-    <ProjectReference Include="../../src/Erlang.Otp.Kernel.Beam/Erlang.Otp.Kernel.Beam.csproj" />
+    <ProjectReference Include="../../src/Otp/Original/Foundation/Erlang.Otp.Kernel.Beam/Erlang.Otp.Kernel.Beam.csproj" />
   </ItemGroup>
   <ItemGroup Condition="'$(UseInstalledPackage)' == 'true'">
     <PackageReference Include="Erlang.Otp.Kernel.Beam" Version="0.1.0" />

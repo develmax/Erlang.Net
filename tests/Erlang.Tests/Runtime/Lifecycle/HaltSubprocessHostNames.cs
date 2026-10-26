@@ -3,7 +3,7 @@ namespace Erlang.Tests;
 internal static class HaltSubprocessHostNames
 {
     public const string Test = "runtime/halt-dedicated-raw-process-numeric-errors-abort-and-real-dump";
-    public const string Probe = "tools/Erlang.HaltProbe/bin/Debug/net10.0/Erlang.HaltProbe.dll";
+    public const string Probe = "tools/Runtime/Erlang.HaltProbe/bin/Debug/net10.0/Erlang.HaltProbe.dll";
     public const string Artifacts = "artifacts/halt-subprocess-cases";
     public const string Report = "artifacts/halt-subprocess-host-results.json";
     public const string Dump = "requested-clr.dmp";

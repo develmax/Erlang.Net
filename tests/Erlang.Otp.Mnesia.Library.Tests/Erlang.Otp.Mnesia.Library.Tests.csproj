@@ -7,8 +7,8 @@
     <ErlangPreprocessEnabled>false</ErlangPreprocessEnabled>
   </PropertyGroup>
   <ItemGroup Condition="'$(UseInstalledPackage)' != 'true'">
-    <ProjectReference Include="../../src/Erlang.Otp.Stdlib.Beam/Erlang.Otp.Stdlib.Beam.csproj" />
-    <ProjectReference Include="../../src/Erlang.Otp.Mnesia.Beam/Erlang.Otp.Mnesia.Beam.csproj" />
+    <ProjectReference Include="../../src/Otp/Original/Foundation/Erlang.Otp.Stdlib.Beam/Erlang.Otp.Stdlib.Beam.csproj" />
+    <ProjectReference Include="../../src/Otp/Original/Data/Erlang.Otp.Mnesia.Beam/Erlang.Otp.Mnesia.Beam.csproj" />
   </ItemGroup>
   <ItemGroup Condition="'$(UseInstalledPackage)' == 'true'">
     <PackageReference Include="Erlang.Otp.Stdlib.Beam" Version="0.1.0" />

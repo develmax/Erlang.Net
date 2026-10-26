@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
     <ErlangToolPath Condition="'$(ErlangToolPath)' == '' and Exists('$(MSBuildThisFileDirectory)../tools/net10.0/Erlang.Tool.dll')">$(MSBuildThisFileDirectory)../tools/net10.0/Erlang.Tool.dll</ErlangToolPath>
-    <ErlangToolPath Condition="'$(ErlangToolPath)' == ''">$(MSBuildThisFileDirectory)../tools/Erlang.Tool/bin/$(Configuration)/net10.0/Erlang.Tool.dll</ErlangToolPath>
+    <ErlangToolPath Condition="'$(ErlangToolPath)' == ''">$(MSBuildThisFileDirectory)../tools/Build/Erlang.Tool/bin/$(Configuration)/net10.0/Erlang.Tool.dll</ErlangToolPath>
     <ErlangPreprocessEnabled Condition="'$(ErlangPreprocessEnabled)' == ''">true</ErlangPreprocessEnabled>
   </PropertyGroup>
   <Target Name="ErlangCollect" Condition="'$(ErlangPreprocessEnabled)' == 'true'">

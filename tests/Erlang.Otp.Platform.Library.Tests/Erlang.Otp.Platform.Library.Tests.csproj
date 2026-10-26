@@ -9,9 +9,9 @@
     <ErlangPreprocessEnabled>false</ErlangPreprocessEnabled>
   </PropertyGroup>
   <ItemGroup Condition="'$(UseInstalledPackage)' != 'true'">
-    <ProjectReference Include="../../src/Erlang.Otp.OsMon.Beam/Erlang.Otp.OsMon.Beam.csproj" />
-    <ProjectReference Include="../../src/Erlang.Otp.Odbc.Beam/Erlang.Otp.Odbc.Beam.csproj" />
-    <ProjectReference Include="../../src/Erlang.Otp.Stdlib.Beam/Erlang.Otp.Stdlib.Beam.csproj" />
+    <ProjectReference Include="../../src/Otp/Original/Platform/Erlang.Otp.OsMon.Beam/Erlang.Otp.OsMon.Beam.csproj" />
+    <ProjectReference Include="../../src/Otp/Original/Platform/Erlang.Otp.Odbc.Beam/Erlang.Otp.Odbc.Beam.csproj" />
+    <ProjectReference Include="../../src/Otp/Original/Foundation/Erlang.Otp.Stdlib.Beam/Erlang.Otp.Stdlib.Beam.csproj" />
   </ItemGroup>
   <ItemGroup Condition="'$(UseInstalledPackage)' == 'true'">
     <PackageReference Include="Erlang.Otp.OsMon.Beam" Version="0.1.0" />

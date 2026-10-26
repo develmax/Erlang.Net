@@ -5,8 +5,8 @@ Push-Location $validationRoot
 try {
     # Reviewed source-plan/workflow preflight: run before the first build.
     $reviewedPlanContracts = @(
-        @{ Plan = 'tools/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json'; Workflow = '.github/workflows/nif-pending-native.yml'; Pin = 'REVIEWED_SOURCE_PLAN_SHA256' },
-        @{ Plan = 'tools/Erlang.NifReallocationObservations/SOURCE-PLAN.json'; Workflow = '.github/workflows/nif-reallocation-native.yml'; Pin = 'REVIEWED_REALLOCATION_PLAN_SHA256' }
+        @{ Plan = 'tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json'; Workflow = '.github/workflows/nif-pending-native.yml'; Pin = 'REVIEWED_SOURCE_PLAN_SHA256' },
+        @{ Plan = 'tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json'; Workflow = '.github/workflows/nif-reallocation-native.yml'; Pin = 'REVIEWED_REALLOCATION_PLAN_SHA256' }
     )
     $reviewedPlanUtf8 = New-Object System.Text.UTF8Encoding($false, $true)
     foreach ($contract in $reviewedPlanContracts) {
@@ -76,8 +76,8 @@ try {
             Invoke-DotNet @('run', '--project', 'examples/HelloOtpLibraryReference', '--no-build', '--', $listsBackend, $queueBackend)
         }
     }
-    Invoke-DotNet @('run', '--project', 'tools/Erlang.Style', '--no-build', '--', '--check', '.')
-    Invoke-DotNet @('run', '--project', 'tools/Erlang.NifNativeBackend', '--no-build')
+    Invoke-DotNet @('run', '--project', 'tools/Build/Erlang.Style', '--no-build', '--', '--check', '.')
+    Invoke-DotNet @('run', '--project', 'tools/Native/Erlang.NifNativeBackend', '--no-build')
     if ($TestRuntimeVersion) {
         if ($TestRuntimeVersion -notmatch '^\d+\.\d+\.\d+$') { throw 'Invalid explicit test runtime version' }
         # Native managed-object census has a source/hash-admitted CLR profile.
@@ -95,10 +95,10 @@ try {
     & (Join-Path $PSScriptRoot 'validate-receive-length-original.ps1')
     & (Join-Path $PSScriptRoot 'validate-regex-captures-original.ps1')
     & (Join-Path $PSScriptRoot 'validate-otp-catalog.ps1')
-    Invoke-DotNet @('run', '--project', 'tools/Erlang.Tool', '--no-build', '--', 'readiness', 'docs', 'artifacts/tests.json', 'artifacts/readiness')
+    Invoke-DotNet @('run', '--project', 'tools/Build/Erlang.Tool', '--no-build', '--', 'readiness', 'docs', 'artifacts/tests.json', 'artifacts/readiness')
     $missingOracle = Join-Path $validationRoot 'artifacts/nonexistent-oracle/erl'
     if (Test-Path -LiteralPath $missingOracle) { throw 'Negative oracle fixture must not exist' }
-    $oracleFailureOutput = & dotnet run --project tools/Erlang.Differential --no-build -- $missingOracle artifacts/oracle-unavailable.json 2>&1
+    $oracleFailureOutput = & dotnet run --project tools/Validation/Erlang.Differential --no-build -- $missingOracle artifacts/oracle-unavailable.json 2>&1
     if ($LASTEXITCODE -ne 2) { throw 'Unavailable oracle did not return infrastructure exit code 2' }
     $oracleFailureOutput | Set-Content artifacts/oracle-unavailable.log
     $oracleFailure = Get-Content artifacts/oracle-unavailable.json -Raw | ConvertFrom-Json
@@ -120,9 +120,9 @@ try {
     $rebuiltOutput = & dotnet run --project examples/HelloHybrid --no-build
     if ($LASTEXITCODE -ne 0 -or (($rebuiltOutput -join "`n").Trim() -ne 'Hello World')) { throw 'Clean/rebuild output mismatch' }
     if (-not $SkipPackage) {
-        Invoke-DotNet @('pack', 'src/Erlang.CSharp.MSBuild', '-c', 'Debug', '-o', 'artifacts/packages', '-m:1', '--nologo')
+        Invoke-DotNet @('pack', 'src/Integration/Erlang.CSharp.MSBuild', '-c', 'Debug', '-o', 'artifacts/packages', '-m:1', '--nologo')
         & (Join-Path $PSScriptRoot 'validate-otp-catalog-package.ps1') -Feed (Join-Path $validationRoot 'artifacts/packages')
-        Invoke-DotNet @('pack', 'tools/Erlang.Tool', '-c', 'Debug', '-o', 'artifacts/packages', '-m:1', '--nologo')
+        Invoke-DotNet @('pack', 'tools/Build/Erlang.Tool', '-c', 'Debug', '-o', 'artifacts/packages', '-m:1', '--nologo')
         & (Join-Path $PSScriptRoot 'validate-otp-library-package.ps1') -Feed (Join-Path $validationRoot 'artifacts/packages')
         & (Join-Path $PSScriptRoot 'validate-otp-library-package.ps1') -Feed (Join-Path $validationRoot 'artifacts/packages') -Library Kernel
         & (Join-Path $PSScriptRoot 'validate-otp-library-package.ps1') -Feed (Join-Path $validationRoot 'artifacts/packages') -Library Boot

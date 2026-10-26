@@ -1,0 +1,223 @@
+{
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "RuntimeBuildManifestSha256": "4C9A79CD6E8BC18F68316D42B2F30DB171E67A242CA81CA84BB8A022E8BA5BFB",
+  "Headers": [
+    {
+      "Name": "erl_nif.h",
+      "GitPath": "erts/emulator/beam/erl_nif.h",
+      "Sha256": "6CB96C37D306A173EF71946E823829FC21E47CB4A19288B221129EAC2F13B689"
+    },
+    {
+      "Name": "erl_drv_nif.h",
+      "GitPath": "erts/emulator/beam/erl_drv_nif.h",
+      "Sha256": "E9D4280779E8FD4AC463144F310B4DA2346DD3A18E73D445BF1F88AE3C1F1312"
+    },
+    {
+      "Name": "erl_nif_api_funcs.h",
+      "GitPath": "erts/emulator/beam/erl_nif_api_funcs.h",
+      "Sha256": "CF34ADA521AEB0EE00C9936320CD694F9816EDBAB960500453051CEA443DDA11"
+    }
+  ],
+  "Status": "SOURCE_ONLY_TERM_CALLBACK_LOCAL_V4_PORT_PASSIVE_DECODER_SUCCESSOR",
+  "Files": [
+    {
+      "Path": "build-native.py",
+      "Bytes": 209,
+      "Sha256": "C5071F4A241C97926448A671BEC768ABD9CA16F2AA4BA17146C9EB8FC6EBC499"
+    },
+    {
+      "Path": "cases.json",
+      "Bytes": 838,
+      "Sha256": "C99CB8A2BE5EC3DF4B6DCF7443AEC446663377CEB57FF101649C4F25E4478F71"
+    },
+    {
+      "Path": "collect.py",
+      "Bytes": 7307,
+      "Sha256": "C1425531535BA0778B2487EE63F7C398A3B69A7F0B4D2FFBCBB5A4BCD4E758A6"
+    },
+    {
+      "Path": "common.py",
+      "Bytes": 1907,
+      "Sha256": "3F125D4C9A8AFB56A1EBA07B4176C9A3EF64D6AB35FE38056246BBB6B1AE36BA"
+    },
+    {
+      "Path": "native/entry_fixture_names.h",
+      "Bytes": 213,
+      "Sha256": "59BC8DA1AF0C7332B217BF7C91B5EA71246B8B8C069E0B7DAD485F731DAF3107"
+    },
+    {
+      "Path": "native/term_callback_contract.c",
+      "Bytes": 2961,
+      "Sha256": "80C1AE921DA3ABFB7E601051832B279CCC4D4DE94B57C082E2DA2395859C6B5F"
+    },
+    {
+      "Path": "original/entry_observer.erl",
+      "Bytes": 2927,
+      "Sha256": "52538D5DD2C35C138626049A334E47C1B4F3D99E2E022D3305E485BDF00C0B01"
+    },
+    {
+      "Path": "original/term_callback_contract.erl",
+      "Bytes": 267,
+      "Sha256": "388F0D713306E49AFFD5F5DC2557CA6A6A1BDD1A58071FC81D9972BBD58D0692"
+    },
+    {
+      "Path": "README.md",
+      "Bytes": 2707,
+      "Sha256": "6F90D582F16EB178D0D877A214534A8757406F296E741AB7DC731854DB83CD7A"
+    },
+    {
+      "Path": "verify-source.py",
+      "Bytes": 370,
+      "Sha256": "9606583380F9C7806EB1E08C2F810A6D900D7597D58B3ECBFE1F7B1C46249FC5"
+    },
+    {
+      "Path": "passive_etf.py",
+      "Bytes": 7377,
+      "Sha256": "9C3204CB29755C508D05B611EA02B3A3186F83B40A72BF6EEC366242040432EE"
+    }
+  ],
+  "Dependencies": [
+    {
+      "Path": ".github/workflows/scheduler-affinity-original.yml",
+      "Bytes": 3495,
+      "Sha256": "7AB6C32B1E7E0E95BF077FD0BC08D08AE6E7F194109717BF7248D889175038EB"
+    },
+    {
+      "Path": "tools/Distribution/Erlang.GuestConnectedSendObservations/owned_process.py",
+      "Bytes": 3675,
+      "Sha256": "846101AD4F92121ACB128EAFB3228DD66D8A524CE0539A25E020A77010CFF071"
+    },
+    {
+      "Path": "tools/Distribution/Erlang.GuestConnectedSendObservations/passive_etf.py",
+      "Bytes": 7105,
+      "Sha256": "A069AD650B3EA1BE6B90DE60117B84ED7A1A6B67128CC41E7ECAEFD2889C1713"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifEntryOriginalObservations/build-native.py",
+      "Bytes": 4304,
+      "Sha256": "51D77AD276615E39E34E3AC2CA27388864A9B29A8735D00E718E0BC3DAF12B0D"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifEntryOriginalObservations/common.py",
+      "Bytes": 6493,
+      "Sha256": "74C2E6E59B1E4BA2629920399BF83B852CAB16D5FC352CDCD10B5A6656613C3D"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/README.md",
+      "Bytes": 3677,
+      "Sha256": "C21F5CA5CED8349CA0A264F91BA0E7D0A4F3DBDFB24635DEEC253EA54A6168B7"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/build-original.py",
+      "Bytes": 4256,
+      "Sha256": "B7C199B249AFF4C7C7E6ED06C1A26A2A1450991E810CD9388D50F521CCC97A35"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/check-source-controls.py",
+      "Bytes": 4177,
+      "Sha256": "5B9C1040B671B4FE63B25E142BBABAFCBE8D03750B2E22AAC1600796200FC30D"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/collect-profile.py",
+      "Bytes": 8774,
+      "Sha256": "E6637A0CE4561AD1E741DBDD6585DEE739FE2EA08C76AA994828B6E6F0B8170A"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/fixtures/scheduler_first_instruction.erl",
+      "Bytes": 473,
+      "Sha256": "ABB26ED42ED55ECC662E02E3301BCC38253AD4204D532199B8DCA25991650254"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/fixtures/scheduler_invalid_and_duplicate.erl",
+      "Bytes": 713,
+      "Sha256": "20430A4ACED89F26AE3C10535CE3861D4A5AB35204A5BCE0F3C39BA49F382DF2"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/fixtures/scheduler_migration_previous_binding.erl",
+      "Bytes": 349,
+      "Sha256": "26D487608148CD933C6B95E69117EF2675B01F11CDFDCF18341F1C447BE31961"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/fixtures/scheduler_offline_bound_resume.erl",
+      "Bytes": 978,
+      "Sha256": "DC851B11A4E7E8F4FFCADE7FADF6C9B35FAD474A2F6D80883A0655F93C5461EE"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/fixtures/scheduler_offline_pending_kill.erl",
+      "Bytes": 999,
+      "Sha256": "BAF618AC18FA41E6A325780A0AD4C2D5DA88F871D9EF3E39B300A085C79EF0D5"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/golden/compiled-protocol.etf",
+      "Bytes": 13,
+      "Sha256": "23B72BADA8C96C8C80CF461CB32D6C35DF80AA77EB59DE04E6DAF104DE4D5FA8"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/golden/outcome.etf",
+      "Bytes": 19,
+      "Sha256": "666DC00F2BCD8ADE2B692DE79BA53C1F46D80095DC9FD45EFAABFE87F8850B4A"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/golden/profile.etf",
+      "Bytes": 26,
+      "Sha256": "1C9EF0D7ADC63609C2BAC80E80855A5BD1E24CEB6A1C5ADA28D30F81169C2C65"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/golden/returned.etf",
+      "Bytes": 7,
+      "Sha256": "B95A960C86D5DB4B0AD2EB63A6A3298A224E20944B11E5B91751B0E534C3D683"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/manifest.json",
+      "Bytes": 4992,
+      "Sha256": "AEBBA0D2DCF97E1248CA38407E8EBE628EB08F9EA4D13F48EC0C83A7A0364E61"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/source_inputs.py",
+      "Bytes": 3099,
+      "Sha256": "28B06562E1621DF049D4C1B603B5AD7D9EBDA6C0BE616D21D54CCD4B03A34F45"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/verify-source.py",
+      "Bytes": 451,
+      "Sha256": "77FCB06FBEF2C7A2ADE4190395E6C1762007279A827CA4BD6078721D7D87CACC"
+    }
+  ],
+  "Workflow": {
+    "Path": ".github/workflows/nif-term-callback-original.yml",
+    "Bytes": 5084,
+    "Sha256": "235086FE8BA6103569856B8DE2F2C8FA474C80D8E33FB1EC7F35F89557B1621E"
+  },
+  "NativeImageCount": 1,
+  "CaseCount": 1,
+  "OriginalExecuted": false,
+  "SdkExecuted": false,
+  "PermittedUndefinedSymbols": [
+    "_ITM_deregisterTMCloneTable",
+    "_ITM_registerTMCloneTable",
+    "__cxa_finalize",
+    "__gmon_start__",
+    "__stack_chk_fail",
+    "enif_alloc",
+    "enif_free",
+    "enif_get_int",
+    "enif_get_list_cell",
+    "enif_is_atom",
+    "enif_is_binary",
+    "enif_is_empty_list",
+    "enif_is_fun",
+    "enif_is_list",
+    "enif_is_map",
+    "enif_is_number",
+    "enif_is_pid",
+    "enif_is_port",
+    "enif_is_ref",
+    "enif_is_tuple",
+    "enif_make_badarg",
+    "enif_make_int",
+    "enif_make_list_from_array",
+    "enif_make_string",
+    "enif_make_tuple_from_array",
+    "enif_priv_data"
+  ]
+}

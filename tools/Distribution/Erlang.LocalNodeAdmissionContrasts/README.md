@@ -1,0 +1,11 @@
+# Original local-node admission observations
+
+This collector observes the pinned original OTP 29.1.1 source (ad05823719d77c8faee87348ea39513d4e2f99c5). It runs the admission probe and the same Erlang source as the SDK compiled setnode contracts in two separate fresh unnamed VMs, after a separate runtime-attestation VM. It compiles the exact three frozen Erlang sources with warnings treated as errors.
+
+The collector validates the source-build receipt and raw build-log SHA, installed OTP_VERSION and root, the exact raw source-plan SHA, SourceTag, source hashes, scenario and required-artifact inventories before creating output. Each scenario preserves raw stdout/stderr bytes, process exit/capture state, every ETF result, full outer exception and stage. A failed first scenario does not skip the second capture. Capture completeness does not mean semantic agreement.
+
+The admission scenario retains an external creation4 and observes argument errors, missing kernel, duplicate legacy monitor messages and kernel death/reset. The compiled scenario has no retained epoch and observes missing-kernel error, inactive/active state, map monitors, minimum active creation, already-active failure and cleanup. These frozen inputs contain no SDK expected outcomes. SDK function-factory ownership, hash, dictionary and lock-order controls remain HOST evidence.
+
+The isolated collector was built with zero errors/warnings; twelve pre-write rejection controls and raw process exit/inherited-pipe cleanup controls passed. Genuine original OTP execution remains pending publication and workflow dispatch. Those synthetic controls do not establish Erlang semantic compatibility. The assembly name is AdmissionOracle; run the project folder tools/Distribution/Erlang.LocalNodeAdmissionContrasts with arguments otpRoot, a fresh output directory and sourceBuildEvidence.json.
+
+The additive local-node-admission-contrasts workflow builds one pinned OTP source tree for both scenario VMs and always uploads raw evidence. The existing distribution-packet workflow and twenty-artifact packet probe remain unchanged. Do not retry or rewrite prior failed observations; publish a newly reviewed source version for any correction.

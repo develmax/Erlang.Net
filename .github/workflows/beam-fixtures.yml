@@ -19,7 +19,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p artifacts
-          dotnet build tools/Erlang.BeamFixtures -m:1 --disable-build-servers 2>&1 | tee artifacts/beam-fixture-tool-build.log
+          dotnet build tools/Compiler/Erlang.BeamFixtures -m:1 --disable-build-servers 2>&1 | tee artifacts/beam-fixture-tool-build.log
       - name: Build and attest the pinned development compiler
         shell: bash
         run: |
@@ -68,22 +68,22 @@ jobs:
           set -euo pipefail
           echo 'PINNED_BEAM_OBSERVER_DECLARED 4 6; retained compiler fixtures6/native executions5'
           echo 'PINNED_BEAM_METADATA_MUTATIONS_DECLARED 24; expected acceptance20/rejection4, unobserved until this run'
-          dotnet tools/Erlang.BeamFixtures/bin/Debug/net10.0/BeamFixtureExport.dll "$GITHUB_WORKSPACE/artifacts/beam-otp-oracle/lib/erlang" "$GITHUB_WORKSPACE/artifacts/beam-fixtures" "$GITHUB_WORKSPACE/artifacts/beam-source-build-evidence.json" --execute --metadata-mutations 2>&1 | tee artifacts/beam-fixture-export.log
+          dotnet tools/Compiler/Erlang.BeamFixtures/bin/Debug/net10.0/BeamFixtureExport.dll "$GITHUB_WORKSPACE/artifacts/beam-otp-oracle/lib/erlang" "$GITHUB_WORKSPACE/artifacts/beam-fixtures" "$GITHUB_WORKSPACE/artifacts/beam-source-build-evidence.json" --execute --metadata-mutations 2>&1 | tee artifacts/beam-fixture-export.log
       - name: Verify retained fixtures and original on_load observer evidence
         shell: bash
         run: |
           set -euo pipefail
-          python3 tools/Erlang.BeamFixtures/verify-on-load-observers.py "$GITHUB_WORKSPACE/artifacts/beam-fixtures" 2>&1 | tee artifacts/beam-on-load-observer-guard.log
+          python3 tools/Compiler/Erlang.BeamFixtures/verify-on-load-observers.py "$GITHUB_WORKSPACE/artifacts/beam-fixtures" 2>&1 | tee artifacts/beam-on-load-observer-guard.log
       - name: Verify original raw metadata mutation evidence
         shell: bash
         run: |
           set -euo pipefail
-          python3 tools/Erlang.BeamFixtures/verify-metadata-mutations.py "$GITHUB_WORKSPACE/artifacts/beam-fixtures" --expected-head "$GITHUB_SHA" --expected-run "$GITHUB_RUN_ID" --expected-attempt "$GITHUB_RUN_ATTEMPT" 2>&1 | tee artifacts/beam-metadata-mutation-guard.log
+          python3 tools/Compiler/Erlang.BeamFixtures/verify-metadata-mutations.py "$GITHUB_WORKSPACE/artifacts/beam-fixtures" --expected-head "$GITHUB_SHA" --expected-run "$GITHUB_RUN_ID" --expected-attempt "$GITHUB_RUN_ATTEMPT" 2>&1 | tee artifacts/beam-metadata-mutation-guard.log
       - name: Verify actual compiled load_nif caller opcode roles
         shell: bash
         run: |
           set -euo pipefail
-          python3 tools/Erlang.BeamFixtures/verify-load-nif-opcodes.py "$GITHUB_WORKSPACE/artifacts/beam-fixtures" --expected-head "$GITHUB_SHA" --expected-run "$GITHUB_RUN_ID" --expected-attempt "$GITHUB_RUN_ATTEMPT" 2>&1 | tee artifacts/beam-load-nif-opcode-guard.log
+          python3 tools/Compiler/Erlang.BeamFixtures/verify-load-nif-opcodes.py "$GITHUB_WORKSPACE/artifacts/beam-fixtures" --expected-head "$GITHUB_SHA" --expected-run "$GITHUB_RUN_ID" --expected-attempt "$GITHUB_RUN_ATTEMPT" 2>&1 | tee artifacts/beam-load-nif-opcode-guard.log
       - uses: actions/upload-artifact@v7
         if: always()
         with:

@@ -22,7 +22,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p artifacts
-          dotnet build tools/Erlang.DistributionTraceObservations -m:1 --disable-build-servers -p:UseSharedCompilation=false 2>&1 | tee artifacts/trace-observation-tool-build.log
+          dotnet build tools/Distribution/Erlang.DistributionTraceObservations -m:1 --disable-build-servers -p:UseSharedCompilation=false 2>&1 | tee artifacts/trace-observation-tool-build.log
       - name: Build and attest the pinned development compiler
         id: pinned-build
         if: ${{ !cancelled() && steps.trace-tool.outcome == 'success' }}
@@ -72,7 +72,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          dotnet run --project tools/Erlang.DistributionTraceObservations --no-build -- artifacts/beam-otp-oracle/lib/erlang artifacts/distribution-trace-observations artifacts/beam-source-build-evidence.json
+          dotnet run --project tools/Distribution/Erlang.DistributionTraceObservations --no-build -- artifacts/beam-otp-oracle/lib/erlang artifacts/distribution-trace-observations artifacts/beam-source-build-evidence.json
       - uses: actions/upload-artifact@v7
         if: always()
         with:

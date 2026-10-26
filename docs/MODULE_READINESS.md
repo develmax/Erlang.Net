@@ -1,6 +1,6 @@
 # Module readiness
 
-Part485 report provenance: readiness preflight combines the immutable exact Part484 CI8895 report with final affected6540 outcomes,including the new176-row group,for8896 catalog names. This is not an uninterrupted publication-head full run;that GitHub gate is tracked separately. Primary preparation is1321/1321 only with explicit native configuration,not a full-module compatibility percentage.
+Part486 provenance: the local preflight explicitly composes8834 successful groups from the retained initial8896 run with62/62 final restored-fixture groups. It is not an uninterrupted final full run. Exact publication-head CI is a separate gate. Source/tool categorization adds no API/full-contract credit; current remaining work is in [checkpoint486](remaining-work/checkpoint-486.md).
 
 Baseline **OTP-29.1.1**. Local tests **8896 passed**. Runtime MFAs **708** (previous snapshot **708**, delta **0**), in **21** modules. Reference inventory: **1289** source-module rows.
 

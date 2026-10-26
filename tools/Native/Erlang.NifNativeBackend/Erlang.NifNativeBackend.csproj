@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../../src/Runtime/Erlang.Runtime/Erlang.Runtime.csproj" />
+    <ProjectReference Include="../../../src/Compiler/Erlang.Compiler/Erlang.Compiler.csproj" />
+    <Reference Include="Microsoft.CodeAnalysis"><HintPath>$(MSBuildToolsPath)/DotnetTools/dotnet-format/Microsoft.CodeAnalysis.dll</HintPath></Reference>
+    <Reference Include="Microsoft.CodeAnalysis.CSharp"><HintPath>$(MSBuildToolsPath)/DotnetTools/dotnet-format/Microsoft.CodeAnalysis.CSharp.dll</HintPath></Reference>
+    <Compile Include="../../Validation/Erlang.Differential/GeneratedModuleCompiler.cs" Link="GeneratedModuleCompiler.cs" />
+    <Compile Include="../../Validation/Erlang.Differential/GeneratedModuleArtifact.cs" Link="GeneratedModuleArtifact.cs" />
+    <Compile Include="../../Validation/Erlang.Differential/GeneratedModuleReferences.cs" Link="GeneratedModuleReferences.cs" />
+    <Compile Include="../../Validation/Erlang.Differential/GeneratedModuleMetadata.cs" Link="GeneratedModuleMetadata.cs" />
+    <Compile Include="../../Validation/Erlang.Differential/OracleDiagnostics.cs" Link="OracleDiagnostics.cs" />
+  </ItemGroup>
+</Project>

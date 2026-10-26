@@ -22,17 +22,17 @@ $run = Join-Path $root ([Guid]::NewGuid().ToString('N'))
 $native = Join-Path $run 'native'
 $package = Join-Path $run 'package'
 New-Item -ItemType Directory -Path $native, $package -Force | Out-Null
-dotnet build tools/Erlang.OtpCatalogValidation -c Release -m:1 -p:ConcurrentBuild=false --nologo
+dotnet build tools/Validation/Erlang.OtpCatalogValidation -c Release -m:1 -p:ConcurrentBuild=false --nologo
 if ($LASTEXITCODE -ne 0) { throw 'Catalog validation tool build failed' }
-dotnet publish src/Erlang.DriverHost -c Release -m:1 -p:ConcurrentBuild=false -p:RuntimeFrameworkVersion=10.0.11 -p:RollForward=Disable -o $package --nologo
+dotnet publish src/Runtime/Erlang.DriverHost -c Release -m:1 -p:ConcurrentBuild=false -p:RuntimeFrameworkVersion=10.0.11 -p:RollForward=Disable -o $package --nologo
 if ($LASTEXITCODE -ne 0) { throw 'DriverHost publish failed' }
-$pythonArguments = @('-B', 'tools/Erlang.OtpCatalogValidation/build-native.py', '--headers', $headers, '--output', $native)
+$pythonArguments = @('-B', 'tools/Validation/Erlang.OtpCatalogValidation/build-native.py', '--headers', $headers, '--output', $native)
 if ([IO.Path]::GetFileNameWithoutExtension($Python) -eq 'py') { $pythonArguments = @('-3') + $pythonArguments }
 & $Python @pythonArguments
 if ($LASTEXITCODE -ne 0) { throw 'Ordinary driver services build failed' }
 Copy-Item -LiteralPath (Join-Path $native 'erldrv-host-native.dll') -Destination $package
 foreach ($file in @('erldrv-host-abi.json', 'erldrv-host-errno.json')) {
-    Copy-Item -LiteralPath (Join-Path 'tools/Erlang.OtpCatalogValidation/native' $file) -Destination $package
+    Copy-Item -LiteralPath (Join-Path 'tools/Validation/Erlang.OtpCatalogValidation/native' $file) -Destination $package
 }
 $configuration = [ordered]@{}
 foreach ($row in @(@('Abi', 'erldrv-host-abi.json'), @('Errno', 'erldrv-host-errno.json'), @('Bridge', 'erldrv-host-native.dll'))) {
@@ -45,7 +45,7 @@ $packageFiles = @(Get-ChildItem -LiteralPath $package -File | Sort-Object Name |
     [ordered]@{ Path = $_.Name; Sha256 = (Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash }
 })
 [ordered]@{ Protocol = 1; EntryPoint = 'Erlang.DriverHost.exe'; Files = $packageFiles } | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $manifest -Encoding utf8
-dotnet exec --fx-version 10.0.11 tools/Erlang.OtpCatalogValidation/bin/Release/net10.0/Erlang.OtpCatalogValidation.dll $PWD.Path $Admission $manifest (Join-Path $run 'results')
+dotnet exec --fx-version 10.0.11 tools/Validation/Erlang.OtpCatalogValidation/bin/Release/net10.0/Erlang.OtpCatalogValidation.dll $PWD.Path $Admission $manifest (Join-Path $run 'results')
 $status = $LASTEXITCODE
 Confirm-CatalogHeaders
 if ($status -ne 0) { throw "Configured original catalog failed: $run" }

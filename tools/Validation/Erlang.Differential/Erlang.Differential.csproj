@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType></PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../Native/Erlang.PortProbe/Erlang.PortProbe.csproj" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="../../../src/Compiler/Erlang.Compiler/Erlang.Compiler.csproj" />
+    <ProjectReference Include="../../../src/Runtime/Erlang.Serialization/Erlang.Serialization.csproj" />
+    <Reference Include="Microsoft.CodeAnalysis"><HintPath>$(MSBuildToolsPath)/DotnetTools/dotnet-format/Microsoft.CodeAnalysis.dll</HintPath></Reference>
+    <Reference Include="Microsoft.CodeAnalysis.CSharp"><HintPath>$(MSBuildToolsPath)/DotnetTools/dotnet-format/Microsoft.CodeAnalysis.CSharp.dll</HintPath></Reference>
+  </ItemGroup>
+</Project>

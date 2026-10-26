@@ -3,6 +3,7 @@ param(
     [string]$Configuration = 'Debug',
     [ValidateSet('Stdlib', 'Kernel', 'Boot', 'Syntax', 'Compiler', 'Tools', 'Documentation', 'Mnesia', 'Asn1', 'Security', 'Transport', 'Network', 'Management', 'Megaco', 'TestAnalysis', 'Platform', 'Gui')][string]$Library = 'Stdlib'
 )
+. "$PSScriptRoot/project-layout.ps1"
 $ErrorActionPreference = 'Stop'
 $repository = Split-Path -Parent $PSScriptRoot
 $feedPath = (Resolve-Path -LiteralPath $Feed).Path
@@ -19,12 +20,12 @@ Push-Location $repository
 try {
     $packageLibraries = if ($Library -eq 'Boot') { @('Erts', 'Sasl') } elseif ($Library -eq 'Syntax') { @('SyntaxTools', 'Parsetools') } elseif ($Library -eq 'Tools') { @('Tools', 'RuntimeTools') } elseif ($Library -eq 'Documentation') { @('Eunit', 'Edoc', 'Xmerl') } elseif ($Library -eq 'Security') { @('Crypto', 'PublicKey') } elseif ($Library -eq 'Transport') { @('Ssl', 'Ssh') } elseif ($Library -eq 'Network') { @('Inets', 'Ftp', 'Tftp', 'Eldap') } elseif ($Library -eq 'Management') { @('Diameter', 'Snmp') } elseif ($Library -eq 'TestAnalysis') { @('CommonTest', 'Dialyzer') } elseif ($Library -eq 'Platform') { @('OsMon', 'Odbc') } elseif ($Library -eq 'Gui') { @('Debugger', 'Et', 'Observer', 'Reltool', 'Wx') } else { @($Library) }
     foreach ($packageLibrary in $packageLibraries) {
-        Invoke-LibraryDotNet @('pack', "src/Erlang.Otp.$packageLibrary.Beam", '-c', $Configuration, '-m:1', '--nologo', '-p:UseInstalledPackage=true', "-p:RestoreSources=$feedPath", "-p:RestorePackagesPath=$work/build-cache", '-o', $feedPath)
+        Invoke-LibraryDotNet @('pack', (Resolve-OriginalLibraryDirectory $packageLibrary), '-c', $Configuration, '-m:1', '--nologo', '-p:UseInstalledPackage=true', "-p:RestoreSources=$feedPath", "-p:RestorePackagesPath=$work/build-cache", '-o', $feedPath)
     }
     if ($Library -in @('Documentation', 'Mnesia', 'Asn1', 'Security', 'Transport', 'Network', 'Management', 'Megaco', 'TestAnalysis', 'Platform', 'Gui')) {
         $verifiedAssets = 0
         foreach ($packageLibrary in $packageLibraries) {
-            $directory = "src/Erlang.Otp.$packageLibrary.Beam"
+            $directory = (Resolve-OriginalLibraryDirectory $packageLibrary)
             $provenance = Get-Content -LiteralPath "$directory/provenance.json" -Raw | ConvertFrom-Json
             $archive = [IO.Compression.ZipFile]::OpenRead((Join-Path $feedPath "Erlang.Otp.$packageLibrary.Beam.0.1.0.nupkg"))
             try {

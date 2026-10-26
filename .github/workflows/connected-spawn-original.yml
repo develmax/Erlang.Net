@@ -23,7 +23,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p artifacts/connected-spawn-original
-          python3 tools/Erlang.ConnectedSpawnOriginalObservations/collect-original.py verify \
+          python3 tools/Distribution/Erlang.ConnectedSpawnOriginalObservations/collect-original.py verify \
             --repository "$GITHUB_WORKSPACE" --manifest-sha256 "$SOURCE_MANIFEST_SHA256" \
             --expected-head "$GITHUB_SHA" \
             2>&1 | tee artifacts/connected-spawn-original/source-verification.log
@@ -44,7 +44,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python3 tools/Erlang.ConnectedSpawnOriginalObservations/collect-original.py collect \
+          python3 tools/Distribution/Erlang.ConnectedSpawnOriginalObservations/collect-original.py collect \
             --repository "$GITHUB_WORKSPACE" --manifest-sha256 "$SOURCE_MANIFEST_SHA256" \
             --expected-head "$GITHUB_SHA" \
             --otp-source "$GITHUB_WORKSPACE/artifacts/connected-spawn-otp-source" \

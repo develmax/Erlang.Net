@@ -3,6 +3,7 @@ param(
     [string]$Admission = 'artifacts/library376-official-compiler/official-admission.json',
     [string]$Output = 'artifacts/otp-asn1-original'
 )
+. "$PSScriptRoot/project-layout.ps1"
 $ErrorActionPreference = 'Stop'
 $profile = Get-Content -LiteralPath $Admission -Raw | ConvertFrom-Json
 if ($profile.SourceCommit -cne 'ad05823719d77c8faee87348ea39513d4e2f99c5' -or -not $profile.EveryExtractedFileMatchesArchive) { throw 'Unadmitted original OTP provider' }
@@ -15,7 +16,7 @@ foreach ($file in $selected) {
 }
 $packagedFiles = 0
 foreach ($library in @('Asn1')) {
-    $directory = "src/Erlang.Otp.$library.Beam"
+    $directory = (Resolve-OriginalLibraryDirectory $library)
     $provenance = Get-Content -LiteralPath "$directory/provenance.json" -Raw | ConvertFrom-Json
     # The runner rebuilds its inventory JSON; ordering/serialization is not release identity.
     # Bind the same immutable archive and verify every packaged file below.

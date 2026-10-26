@@ -3,6 +3,7 @@ param(
     [string]$Admission = 'artifacts/library376-official-compiler/official-admission.json',
     [string]$Output = 'artifacts/otp-transport-original'
 )
+. "$PSScriptRoot/project-layout.ps1"
 $ErrorActionPreference = 'Stop'
 $profile = Get-Content -LiteralPath $Admission -Raw | ConvertFrom-Json
 if ($profile.SourceCommit -cne 'ad05823719d77c8faee87348ea39513d4e2f99c5' -or -not $profile.EveryExtractedFileMatchesArchive) { throw 'Unadmitted original OTP provider' }
@@ -15,7 +16,7 @@ foreach ($file in $selected) {
 }
 $packagedFiles = 0
 foreach ($library in @('Ssl', 'Ssh')) {
-    $directory = "src/Erlang.Otp.$library.Beam"
+    $directory = (Resolve-OriginalLibraryDirectory $library)
     $provenance = Get-Content -LiteralPath "$directory/provenance.json" -Raw | ConvertFrom-Json
     # The runner rebuilds its inventory JSON; ordering/serialization is not release identity.
     # Bind the same immutable archive and verify every packaged file below.
@@ -33,7 +34,7 @@ $fixture = Get-Content -LiteralPath (Join-Path $fixtureDirectory 'fixture.json')
 if ($fixture.SourceCommit -cne $profile.SourceCommit -or $fixture.Outcomes -ne 1107) { throw 'Observer provenance differs' }
 if ($fixture.Serialization -cne 'term_to_binary/2 with deterministic option; whole term') { throw 'Original observer serialization contract differs' }
 foreach ($include in $fixture.CompilerIncludes) {
-    if ((Get-FileHash -LiteralPath $include.Path -Algorithm SHA256).Hash -cne $include.Sha256) { throw 'Original observer include differs' }
+    if ((Get-FileHash -LiteralPath (Resolve-OriginalFixturePath $include.Path) -Algorithm SHA256).Hash -cne $include.Sha256) { throw 'Original observer include differs' }
 }
 if ($fixture.CompilerBindings.Count -ne 3) { throw 'Observer compiler bindings are incomplete' }
 foreach ($binding in $fixture.CompilerBindings) {

@@ -7,7 +7,7 @@ dotnet build examples/HelloOtpLibraries/HelloOtpLibraries.csproj
 dotnet examples/HelloOtpLibraries/bin/Debug/net10.0/HelloOtpLibraries.dll
 ```
 
-`Program.cs` explicitly loads the generated manifest and calls `ProcessRuntime.CreateAsync`. Merely deploying a manifest does not change the default constructor. The output reports actual selected image hashes, public exports, native boundaries and an executed result for each library. `src/Erlang.Otp.Stdlib.Beam/Otp/provenance.json` binds upstream source/image provenance. Original Erlang sources are retained unchanged alongside the images in that source library; their presence does not trigger compilation.
+`Program.cs` explicitly loads the generated manifest and calls `ProcessRuntime.CreateAsync`. Merely deploying a manifest does not change the default constructor. The output reports actual selected image hashes, public exports, native boundaries and an executed result for each library. `src/Otp/Original/Foundation/Erlang.Otp.Stdlib.Beam/Otp/provenance.json` binds upstream source/image provenance. Original Erlang sources are retained unchanged alongside the images in that source library; their presence does not trigger compilation.
 
 The five newly selectable collections (sets, dict, orddict, gb_sets, gb_trees) currently require Beam. The six earlier libraries retain their explicit Managed alternatives. Native BIF/NIF stub bodies and runtime compiler helpers remain C# integration points; pure selected library functions execute original BEAM. Finite comparison evidence and remaining compatibility scopes are recorded in the English changelog and `docs/OTP_BACKEND_PROGRESS.md`.
 

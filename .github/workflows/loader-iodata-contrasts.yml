@@ -19,10 +19,10 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p artifacts
-          dotnet build tools/Erlang.LoaderIodataContrasts -m:1 --disable-build-servers 2>&1 | tee artifacts/beam-fixture-tool-build.log
+          dotnet build tools/Compiler/Erlang.LoaderIodataContrasts -m:1 --disable-build-servers 2>&1 | tee artifacts/beam-fixture-tool-build.log
       - name: Verify sixteen static source declarations before native observation
         shell: bash
-        run: python3 tools/Erlang.LoaderIodataContrasts/verify-iodata-contrasts.py --report artifacts/loader-iodata-static-preflight.json
+        run: python3 tools/Compiler/Erlang.LoaderIodataContrasts/verify-iodata-contrasts.py --report artifacts/loader-iodata-static-preflight.json
       - name: Build and attest the pinned development compiler
         shell: bash
         run: |
@@ -69,13 +69,13 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          dotnet tools/Erlang.LoaderIodataContrasts/bin/Debug/net10.0/Erlang.LoaderIodataContrasts.dll "$GITHUB_WORKSPACE/artifacts/beam-otp-oracle/lib/erlang" "$GITHUB_WORKSPACE" "$GITHUB_WORKSPACE/artifacts/loader-iodata-contrasts" "$GITHUB_WORKSPACE/artifacts/beam-source-build-evidence.json" 2>&1 | tee artifacts/loader-iodata-export.log
+          dotnet tools/Compiler/Erlang.LoaderIodataContrasts/bin/Debug/net10.0/Erlang.LoaderIodataContrasts.dll "$GITHUB_WORKSPACE/artifacts/beam-otp-oracle/lib/erlang" "$GITHUB_WORKSPACE" "$GITHUB_WORKSPACE/artifacts/loader-iodata-contrasts" "$GITHUB_WORKSPACE/artifacts/beam-source-build-evidence.json" 2>&1 | tee artifacts/loader-iodata-export.log
       - name: Independently verify actual native argument domains and summaries
         if: always()
         shell: bash
         run: |
           set -euo pipefail
-          python3 tools/Erlang.LoaderIodataContrasts/verify-iodata-contrasts.py --native-output artifacts/loader-iodata-contrasts --report artifacts/loader-iodata-static-guard.json 2>&1 | tee artifacts/loader-iodata-static-guard.log
+          python3 tools/Compiler/Erlang.LoaderIodataContrasts/verify-iodata-contrasts.py --native-output artifacts/loader-iodata-contrasts --report artifacts/loader-iodata-static-guard.json 2>&1 | tee artifacts/loader-iodata-static-guard.log
       - uses: actions/upload-artifact@v7
         if: always()
         with:

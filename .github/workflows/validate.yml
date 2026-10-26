@@ -26,7 +26,7 @@ jobs:
         run: |
           $originalFailures = @()
           $PSNativeCommandUseErrorActionPreference = $false
-          python -B tools/Erlang.DdllFormatterOriginalObservations/collect-same-host.py --repository $PWD.Path --admission artifacts/library376-official-compiler/official-admission.json --output artifacts/library437-ddll-same-host-original1
+          python -B tools/Native/Erlang.DdllFormatterOriginalObservations/collect-same-host.py --repository $PWD.Path --admission artifacts/library376-official-compiler/official-admission.json --output artifacts/library437-ddll-same-host-original1
           if ($LASTEXITCODE -ne 0) {
             $originalFailures += 'Same-host original formatter capture failed'
           } else {
@@ -34,7 +34,7 @@ jobs:
             "ERLANG_DDLL_FORMATTER_ORIGINAL_PROFILE=$proof" | Add-Content $env:GITHUB_ENV
             "ERLANG_DDLL_FORMATTER_ORIGINAL_PROFILE_SHA256=$((Get-FileHash -LiteralPath $proof -Algorithm SHA256).Hash)" | Add-Content $env:GITHUB_ENV
           }
-          python -B tools/Erlang.EtsCompressedOriginalObservations442/collect-same-host.py --repository $PWD.Path --admission artifacts/library376-official-compiler/official-admission.json --output artifacts/library442-ets-same-host-original1
+          python -B tools/Collections/Erlang.EtsCompressedOriginalObservations442/collect-same-host.py --repository $PWD.Path --admission artifacts/library376-official-compiler/official-admission.json --output artifacts/library442-ets-same-host-original1
           if ($LASTEXITCODE -ne 0) { $originalFailures += 'Same-host original ETS442 capture failed' }
           if ($originalFailures.Count -ne 0) { throw ($originalFailures -join '; ') }
       - shell: pwsh

@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Version>0.1.0</Version>
+    <ErlangPreprocessEnabled>false</ErlangPreprocessEnabled>
+    <Description>Pinned original OTP mnesia images and application resources for Erlang.Net.</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>OTP-LICENSE.txt</PackageLicenseFile>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(UseInstalledPackage)' != 'true'">
+    <ProjectReference Include="../../../../Runtime/Erlang.Runtime/Erlang.Runtime.csproj" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(UseInstalledPackage)' == 'true'">
+    <PackageReference Include="Erlang.Net.CSharp" Version="0.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Otp/ebin/*" LogicalName="Erlang.Otp.Mnesia.Beam.%(Filename)%(Extension)" />
+    <EmbeddedResource Include="catalog.json" LogicalName="Erlang.Otp.Mnesia.Beam.catalog.json" />
+    <None Include="README.md" Pack="true" PackagePath="/" />
+    <None Include="../../../../../docs/OTP-LICENSE.txt" Pack="true" PackagePath="/" />
+    <None Update="Otp/src/*" Pack="true" PackagePath="otp/src/%(Filename)%(Extension)" />
+    <None Update="Otp/include/*" Pack="true" PackagePath="otp/include/%(Filename)%(Extension)" />
+    <None Update="provenance.json;catalog.json" Pack="true" PackagePath="otp/" />
+  </ItemGroup>
+</Project>

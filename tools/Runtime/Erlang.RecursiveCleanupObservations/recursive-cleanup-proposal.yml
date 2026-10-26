@@ -1,0 +1,62 @@
+name: Recursive cleanup comparison against pinned OTP
+on:
+  workflow_dispatch:
+    inputs:
+      subject_ref:
+        description: Published subject commit to compare
+        type: string
+        required: true
+        default: d83ed875d0c77939e20049afcb46fa297fee82dd
+permissions:
+  contents: read
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+      - name: Validate exact subject commit
+        env:
+          SUBJECT_REF: ${{ inputs.subject_ref }}
+        run: |
+          [[ "$SUBJECT_REF" =~ ^[0-9a-f]{40}$ ]]
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.subject_ref }}
+          path: artifacts/subject
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+      - name: Build pinned original OTP
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 --branch OTP-29.1.1 https://github.com/erlang/otp.git artifacts/otp-source
+          test "$(git -C artifacts/otp-source rev-parse HEAD)" = ad05823719d77c8faee87348ea39513d4e2f99c5
+          cd artifacts/otp-source
+          ./configure --prefix="$GITHUB_WORKSPACE/artifacts/otp-oracle" --without-javac --without-wx --without-odbc --without-debugger --without-observer --without-et
+          make -j2
+          make install
+      - name: Build subject and collector separately
+        shell: bash
+        run: |
+          set -euo pipefail
+          dotnet build artifacts/subject/tools/Validation/Erlang.Differential --disable-build-servers -m:1 -nr:false -p:UseSharedCompilation=false -p:RestoreDisableParallel=true
+          dotnet build tools/Runtime/Erlang.RecursiveCleanupObservations --disable-build-servers -m:1 -nr:false -p:UseSharedCompilation=false -p:RestoreDisableParallel=true -p:ApprovedBinaries="$GITHUB_WORKSPACE/artifacts/subject/tools/Validation/Erlang.Differential/bin/Debug/net10.0"
+      - name: Compare recursive cleanup observations
+        shell: bash
+        env:
+          SUBJECT_REF: ${{ inputs.subject_ref }}
+        run: |
+          set -euo pipefail
+          collector="$GITHUB_WORKSPACE/tools/Runtime/Erlang.RecursiveCleanupObservations/bin/Debug/net10.0/SupplementalCleanup.dll"
+          out="$GITHUB_WORKSPACE/artifacts/recursive-cleanup"
+          subject="$GITHUB_WORKSPACE/artifacts/subject"
+          python3 tools/Runtime/Erlang.RecursiveCleanupObservations/run.py sdk --collector "$collector" --out "$out" --subject-sha "$SUBJECT_REF" --subject-root "$subject" --verify-subject-git
+          python3 tools/Runtime/Erlang.RecursiveCleanupObservations/run.py original --collector "$collector" --out "$out" --subject-sha "$SUBJECT_REF" --subject-root "$subject" --verify-subject-git --oracle "$GITHUB_WORKSPACE/artifacts/otp-oracle/bin/erl" --otp-source "$GITHUB_WORKSPACE/artifacts/otp-source"
+          python3 tools/Runtime/Erlang.RecursiveCleanupObservations/run.py compare --out "$out" --subject-sha "$SUBJECT_REF" --subject-root "$subject" --verify-subject-git
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: recursive-cleanup
+          path: artifacts/recursive-cleanup
