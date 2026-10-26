@@ -24,6 +24,7 @@ internal static class NumericSourceContractHostChecks
                 [Term.A(NumericSourceContractHostNames.ModuleKey)] = Term.A(NumericSourceContractHostNames.Formatter)
             })
         ));
+        info = IntegerParseError493Metadata.WithLocation(info);
         foreach (Term item in rows)
         {
             Require(item is TupleTerm { Items.Count: 5 });

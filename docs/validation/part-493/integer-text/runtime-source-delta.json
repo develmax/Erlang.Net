@@ -1,0 +1,100 @@
+{
+  "Changes": [
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangAtomRegistrations.cs",
+      "Before": "9CE9E7981DAA00CFB92635E3F4E09D203C2A8A7C60464A24E57937B10E7A72FF",
+      "After": "9F885A7409083627AE9493369F5183634175A03B51A322EF9E1BBC36747A8C32",
+      "BeforeBytes": 2300,
+      "AfterBytes": 2168
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangIntegerParseBridge.cs",
+      "Before": "5B8C84D98995CC682D5FFE2B1348A29818B31C7F2A8088A9DFDBCEDFEDD64150",
+      "After": "C9B9F6F70ADC853BB03AE7CA1A8BEE6EB365A3F21F5DFAA14B0FB8D7F6BE5D2B",
+      "BeforeBytes": 974,
+      "AfterBytes": 1199
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangIntegerListParse.cs",
+      "Before": "EFDDB3260FC853C14FBF6055A480FB943B8117EC1C7FD4BA5EBA62F22853330C",
+      "After": "7CD0B5704B93252DE54F8A91F69A66596E81CCC5A534B0D2A4E71C0CF8FA5DE8",
+      "BeforeBytes": 2429,
+      "AfterBytes": 2493
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangIntegerBinaryParse.cs",
+      "Before": null,
+      "After": "E830EF3F020B02CAEDD41F2CF13BE1AB08DE19565CEFBA7F10B53D5E9ECC5837",
+      "BeforeBytes": null,
+      "AfterBytes": 764
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangErrorHelperMetadata.cs",
+      "Before": null,
+      "After": "D815D59D0CC151468DDED5CF55D1C47CAB380FB19456DF79819FC3CAED55671D",
+      "BeforeBytes": null,
+      "AfterBytes": 521
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangErrorHelperNames.cs",
+      "Before": null,
+      "After": "6F86A42608CB7FCCB20A0D49577486E1784153E2A9F3EFFC7530F78DF439FFC6",
+      "BeforeBytes": null,
+      "AfterBytes": 124
+    }
+  ],
+  "Plans": [
+    {
+      "Plan": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Updated": [
+        "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangAtomRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangIntegerParseBridge.cs",
+        "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangIntegerListParse.cs"
+      ],
+      "Added": [
+        "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangIntegerBinaryParse.cs",
+        "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangErrorHelperMetadata.cs",
+        "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangErrorHelperNames.cs"
+      ]
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Updated": [
+        "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangAtomRegistrations.cs"
+      ],
+      "Added": [
+        "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangIntegerBinaryParse.cs",
+        "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangErrorHelperMetadata.cs",
+        "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangErrorHelperNames.cs"
+      ]
+    }
+  ],
+  "AddedGuards": [
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangIntegerBinaryParse.cs",
+      "Sha256": "5A77DAF22C069694399D99FF8517EA589D4378DE020F8298E03C48EF2010A2D5"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangErrorHelperMetadata.cs",
+      "Sha256": "D815D59D0CC151468DDED5CF55D1C47CAB380FB19456DF79819FC3CAED55671D"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangErrorHelperNames.cs",
+      "Sha256": "6F86A42608CB7FCCB20A0D49577486E1784153E2A9F3EFFC7530F78DF439FFC6"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangIntegerText.cs",
+      "Sha256": "AC00CE83EAAE417710D5BB399A21AD7A1D632D110010BDC345A9D39B168FDEF3"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangDataBifNames.cs",
+      "Sha256": "027224A58DF37862F2FE98CC29A78012D9EE853D1EA3C9828B65C79D0DC49059"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangDataLimits.cs",
+      "Sha256": "B5E63B4D35C128F825B1846519C5383FB1DCD847F841F7615693EB6EFE0D6F94"
+    }
+  ],
+  "SourceGuards": 1698,
+  "NativeAbiAcceptancePromoted": false
+}

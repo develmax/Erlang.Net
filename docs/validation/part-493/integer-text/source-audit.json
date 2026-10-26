@@ -1,0 +1,679 @@
+{
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "CompleteOnSupportedValidErlangTermModel": true,
+  "WholeCompilerOrSchedulerCompletionClaimed": false,
+  "PhysicalAllocationCeilingsOrTimingClaimed": false,
+  "Partitions": {
+    "integer_to_list/1": "Require an integer and, for arity2, an integer base2..36; arity1 uses10. Decimal invariant formatting and repeated exact DivRem produce the same sign/uppercase digit sequence, including zero. The list result has fresh cells/immediate characters; binary output is fresh ASCII storage. Invalid types/base raise the original native badarg with complete original arguments/stack.",
+    "integer_to_list/2": "Require an integer and, for arity2, an integer base2..36; arity1 uses10. Decimal invariant formatting and repeated exact DivRem produce the same sign/uppercase digit sequence, including zero. The list result has fresh cells/immediate characters; binary output is fresh ASCII storage. Invalid types/base raise the original native badarg with complete original arguments/stack.",
+    "integer_to_binary/1": "Require an integer and, for arity2, an integer base2..36; arity1 uses10. Decimal invariant formatting and repeated exact DivRem produce the same sign/uppercase digit sequence, including zero. The list result has fresh cells/immediate characters; binary output is fresh ASCII storage. Invalid types/base raise the original native badarg with complete original arguments/stack.",
+    "integer_to_binary/2": "Require an integer and, for arity2, an integer base2..36; arity1 uses10. Decimal invariant formatting and repeated exact DivRem produce the same sign/uppercase digit sequence, including zero. The list result has fresh cells/immediate characters; binary output is fresh ASCII storage. Invalid types/base raise the original native badarg with complete original arguments/stack.",
+    "list_to_integer/1": "Validate base2..36 (default10). Preserve the pinned list scanner: exact sign recognition, leading zero skip, low-byte interpretation only for native-small head integers, base-specific short digit threshold, proper-tail requirement. Promote to the strict whole-byte long path exactly after that threshold, resetting to the original list. Parse groups of12 bounded digits with exact balanced BigInteger combination. Fast invalid input uses badarg_with_info; long-path errors use error_with_info. Return the exact signed integer, no input mutation.",
+    "binary_to_integer/1": "Validate base and whole-byte bitstring. Match native optional sign/leading-zero scan, immediate all-zero result and remaining-length threshold before digit validation. Strict ASCII digits/signs and exact base arithmetic match the native short/long paths. Fast errors use badarg_with_info; long errors use error_with_info. No whitespace, separators, prefixes or malformed input accepted; no input mutation.",
+    "list_to_integer/2": "Validate base2..36 (default10). Preserve the pinned list scanner: exact sign recognition, leading zero skip, low-byte interpretation only for native-small head integers, base-specific short digit threshold, proper-tail requirement. Promote to the strict whole-byte long path exactly after that threshold, resetting to the original list. Parse groups of12 bounded digits with exact balanced BigInteger combination. Fast invalid input uses badarg_with_info; long-path errors use error_with_info. Return the exact signed integer, no input mutation.",
+    "binary_to_integer/2": "Validate base and whole-byte bitstring. Match native optional sign/leading-zero scan, immediate all-zero result and remaining-length threshold before digit validation. Strict ASCII digits/signs and exact base arithmetic match the native short/long paths. Fast errors use badarg_with_info; long errors use error_with_info. No whitespace, separators, prefixes or malformed input accepted; no input mutation."
+  },
+  "ChunkProof": {
+    "DigitsPerChunk": 12,
+    "MaximumRadix": 36,
+    "LargestChunkMultiplier": 4738381338321616896,
+    "Unsigned64Safe": true,
+    "Combination": "For adjacent groups, value=left*rightMultiplier+right; multiplier=leftMultiplier*rightMultiplier. Balanced regrouping preserves this invariant exactly."
+  },
+  "ErrorHelperSource": "Pinned erlang.erl13495 error_with_info and13498 badarg_with_info; actual native short/long selection determines the helper, shared formatter literal retained across atom/integer wrappers.",
+  "ManagedSources": [
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangDataRegistrations.cs",
+      "Sha256": "DC46EF435E8C1DC21430C1A084EBC903E38633BA6DE032D19447A7F466ACEAEF"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangDataBifNames.cs",
+      "Sha256": "027224A58DF37862F2FE98CC29A78012D9EE853D1EA3C9828B65C79D0DC49059"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangDataLimits.cs",
+      "Sha256": "B5E63B4D35C128F825B1846519C5383FB1DCD847F841F7615693EB6EFE0D6F94"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangIntegerText.cs",
+      "Sha256": "AC00CE83EAAE417710D5BB399A21AD7A1D632D110010BDC345A9D39B168FDEF3"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangIntegerParseParameters.cs",
+      "Sha256": "3AF5E633EB6EFED5C7EF999E94E0393CA50DD12CEC708E07EFD25731B8749C54"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangIntegerParseBridge.cs",
+      "Sha256": "C9B9F6F70ADC853BB03AE7CA1A8BEE6EB365A3F21F5DFAA14B0FB8D7F6BE5D2B"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangIntegerListParse.cs",
+      "Sha256": "7CD0B5704B93252DE54F8A91F69A66596E81CCC5A534B0D2A4E71C0CF8FA5DE8"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangIntegerBinaryParse.cs",
+      "Sha256": "E830EF3F020B02CAEDD41F2CF13BE1AB08DE19565CEFBA7F10B53D5E9ECC5837"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangErrorHelperMetadata.cs",
+      "Sha256": "D815D59D0CC151468DDED5CF55D1C47CAB380FB19456DF79819FC3CAED55671D"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangErrorHelperNames.cs",
+      "Sha256": "6F86A42608CB7FCCB20A0D49577486E1784153E2A9F3EFFC7530F78DF439FFC6"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangAtomRegistrations.cs",
+      "Sha256": "9F885A7409083627AE9493369F5183634175A03B51A322EF9E1BBC36747A8C32"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Values/Integer.cs",
+      "Sha256": "CD4E5B3604C8194785FE20CD15A09A182BFBCA7128B95EE688ADB8719C30CC4F"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Values/Term.cs",
+      "Sha256": "D00E81EC8E725BE87D5F5D75D4B086B52AAC0C3B533D1E3D53DB478DC5D89363"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Binary/ErlangIoData.cs",
+      "Sha256": "0584CEAF97CC5F4F60277152F8893D9701BBA44258582C22C833847F8B5A7CE7"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Values/BitString.cs",
+      "Sha256": "1AA811589FA9AEC9F00970A785572B6D6BEABAF895A1AF656499A863A8467683"
+    }
+  ],
+  "OriginalSources": [
+    {
+      "Path": "erts/emulator/beam/bif.c",
+      "Sha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC"
+    },
+    {
+      "Path": "erts/emulator/beam/binary.c",
+      "Sha256": "381E560A653FFF056A4EDC78774AF0F42A7C24C663231C88CBC3C5E32DE12F88"
+    },
+    {
+      "Path": "erts/emulator/beam/big.c",
+      "Sha256": "7E68A6FF381701F2B5BF3BD4AFE65EF545D97B34B884F227B637FF259B0FCDDE"
+    },
+    {
+      "Path": "erts/preloaded/src/erlang.erl",
+      "Sha256": "00D7672A16325E43CA221C6D6CEB4200390E2A961A243C2E31DDC141AC145047"
+    }
+  ],
+  "Values": 2467,
+  "StackProfiles": 12335,
+  "WholeComparisons": 14802,
+  "NormalizedFields": 0,
+  "SourceGuards": 1698,
+  "Resources": [
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/binary_to_integer1_p0.stacks.etf",
+      "Sha256": "F9C9D82008E67022050CA9F35AD3D2DBCCDA3CEF3C3C2447D079E2F68D6FA8DD"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/binary_to_integer1_p0.values.etf",
+      "Sha256": "E5A6243D4F742BE0DF768F4C2DB64B566EBF0631A3492C31468E05C986C59F7A"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/binary_to_integer2_p0.stacks.etf",
+      "Sha256": "1A4CAADBD4BED3C1DD365C5A34F26D166BAF9FD99DBFAA2ACB5530EB5A59D756"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/binary_to_integer2_p0.values.etf",
+      "Sha256": "62532FAC790A9EB8F8C20BAB777162A46A1750410C97A975D0B80A7C469AAA8A"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/binary_to_integer2_p1.stacks.etf",
+      "Sha256": "14D26E78AB35E1EE396F972A7CC71BAFB81DAA517D921B71870C77824893C511"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/binary_to_integer2_p1.values.etf",
+      "Sha256": "B57A76292F16A25DD17A878142A0DFCD45D056017B618B60C305EF7EF5292CDC"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/binary_to_integer2_p2.stacks.etf",
+      "Sha256": "7A7A1FDBB03C305D171AE0BBD2DB21763C44986D5012EA9A9F6B4C2D65AFB590"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/binary_to_integer2_p2.values.etf",
+      "Sha256": "DF7579833947F08CD06B82760CC4C05299FAD009195A064936564AFC94F6E696"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/binary_to_integer2_p3.stacks.etf",
+      "Sha256": "D88841284F9C55FF6EC3A311B1A0F7BEF328D6FC345442512F7D56B23767B227"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/binary_to_integer2_p3.values.etf",
+      "Sha256": "6118F39F68D7AB0EE6D6FB0703A7F5AF6C3A55513A27B0BD028D122A29DDC27B"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/binary_to_integer2_p4.stacks.etf",
+      "Sha256": "244507E6F90EDBF137402404DFF710CD34131894E8BBE819DDD5D37AE79AF048"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/binary_to_integer2_p4.values.etf",
+      "Sha256": "FD4E34EA78EB76303701F51C4316BACAAE14AD1C84D63C84D9A8770B8A38CF47"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/binary_to_integer2_p5.stacks.etf",
+      "Sha256": "8D5BE42A32529C92E47BE70F6E9A31DE188A1ECB31F37EC72DD53446408F8496"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/binary_to_integer2_p5.values.etf",
+      "Sha256": "D664902DACA5293ABE3030027D4960C3865926078E183D63FC76985FB24D8477"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/groups.json",
+      "Sha256": "9D4E417E64DE15C9D26752529D176AF9BA2C5D5945E05349EA1B9BD64F68C2BC"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_binary_to_integer1_p0.beam",
+      "Sha256": "CD82C134176A0117E8281BEA9A7BB0038EE5AE3F89FFD8F8AD7840B2A001CC65"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_binary_to_integer1_p0.erl",
+      "Sha256": "70F24F84D8FC8A88917773712A1773705088867097B9095F8B5245F8DD17170E"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_binary_to_integer2_p0.beam",
+      "Sha256": "B95DFA9216A13D9B1EE0F8BA3CC2B6DF3F05CA7C7971F1242566F0828B5584B6"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_binary_to_integer2_p0.erl",
+      "Sha256": "A25AB37EC57B87BF126433251015CF2F1D9FF8F0658D8398A7555FEA8DCDBB83"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_binary_to_integer2_p1.beam",
+      "Sha256": "E9CAF267C9C3F167036F7C77B6A12581A029018D921C21E3BC6468855D6C395C"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_binary_to_integer2_p1.erl",
+      "Sha256": "8B537560AE4BB88F1B26FCCAC43D462F98702406E5CBAE906A8254D417FF0ABA"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_binary_to_integer2_p2.beam",
+      "Sha256": "86AAD8C6929CD4DACD4270A650B1AACB78F33FCE423FF67FF86B577A6C335A3A"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_binary_to_integer2_p2.erl",
+      "Sha256": "321581915E7389C8F104718AF1B19CAE45A72979CF91A0E1A44FFB628A9B43BE"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_binary_to_integer2_p3.beam",
+      "Sha256": "2445419BFADEDB7AA610E6EC434938B604B976F885175F7A36A2F229F3D40139"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_binary_to_integer2_p3.erl",
+      "Sha256": "336503FCA40DC09EBCC82BE0627C82E45726392A283C5552D79D71799E38F33C"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_binary_to_integer2_p4.beam",
+      "Sha256": "67CA080D842D39DCD4661C7B68BCBE5EA0DAC86A5F751710E46152573EE1F383"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_binary_to_integer2_p4.erl",
+      "Sha256": "1FEA720083B9A53CB4E0A182814438785AED9C11FCBF55C85F98840CEC1ACE14"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_binary_to_integer2_p5.beam",
+      "Sha256": "2D1A106942D665C33ED79914E576C89EDE8C3E32175ABB3E57FE76A146061184"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_binary_to_integer2_p5.erl",
+      "Sha256": "8A7023F2BE15183FDBC1AE9CE791F659A24C57238D59F186B4E86B8A639173DF"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_integer_to_binary1_p0.beam",
+      "Sha256": "EB46719DE6D1D8ACBE98D2E6F1EE849AD6D30172D706FF1E3D8C659552A3D79B"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_integer_to_binary1_p0.erl",
+      "Sha256": "31914A58A3AA0CB5F4E4CCCE6AB4BA87B3944E60A11304EDC64C084D4659CC73"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_integer_to_binary2_p0.beam",
+      "Sha256": "7BCE01470D4C5570A5C2F5841D9339E2EA5B04F87F3B30D5DB310E62E3501CC5"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_integer_to_binary2_p0.erl",
+      "Sha256": "5DBDF42164CAAC70C3A7096BD677AA582454AFB89046C9898CCE2A14BEDE2F4F"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_integer_to_binary2_p1.beam",
+      "Sha256": "196E704845F652523B47884A014EFFF94AA1BBE5A2EB394A545DEB9C89616B11"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_integer_to_binary2_p1.erl",
+      "Sha256": "3ABD18E458074478607747F328E410FB0DF4A254A5B930B64584FFB63A421969"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_integer_to_binary2_p2.beam",
+      "Sha256": "EBF22A998323338217A4F5A550D8712BA8B499E5A7FC0F931CA424A8B9BDFE5B"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_integer_to_binary2_p2.erl",
+      "Sha256": "5A02E8846C1FD64312D0366661818EA8E433D539C1FD74CF85F94C2B8FA06C69"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_integer_to_binary2_p3.beam",
+      "Sha256": "79F05F2007233373FF9674EF34434818B381F59C7BCD0FC47E088D752258D3CA"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_integer_to_binary2_p3.erl",
+      "Sha256": "C407F123E1C216944FC0C70B572B09F677F5B18AA86003E9EA3FD507459BB72E"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_integer_to_binary2_p4.beam",
+      "Sha256": "8CDCC58666AB0505C5C010DEB13E2B34B987EA3D22ED5D1F9A7CB56D7887561B"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_integer_to_binary2_p4.erl",
+      "Sha256": "CBB47FF871308F47A8F772B731069A78FBDD4D499FFE5C2927B9979302EF8C6E"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_integer_to_binary2_p5.beam",
+      "Sha256": "3DDC16B017F07C632EAD80C8E90595E3B5C7427F20DFB2689E8E3D5274944634"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_integer_to_binary2_p5.erl",
+      "Sha256": "B6D5EB1BF2F78B4F22B228555366D5E3CE6EBE9676BC2BAB71ACAC3F13FFB719"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_integer_to_binary2_p6.beam",
+      "Sha256": "AFF69E9113E9AF511493431F014E45AB0F2D76F338820873EB612228DDE9CB57"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_integer_to_binary2_p6.erl",
+      "Sha256": "937F412B7DC94BAA4B09DF09A8D425CB1097ACE39B49E99ECBF9E4EA767EE460"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_integer_to_binary2_p7.beam",
+      "Sha256": "4DE5DE14F62226466E7CE0466E3F34B4D910E5C97B72167800B88D04DAA85EF4"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_integer_to_binary2_p7.erl",
+      "Sha256": "32E52017FFE15C65D1C63DCB441FEC6689F2D141846F4A102E1B0C5C0FEEDE67"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_integer_to_list1_p0.beam",
+      "Sha256": "EB3BCFE96CDC7B2673DDD8CD4DC6A152753388A645D388C383D0B5842957A0A3"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_integer_to_list1_p0.erl",
+      "Sha256": "170E3203C9D8E02A1CD60F2BD14401638A8C89C73DDEAD6995524FD89F3FC2A7"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_integer_to_list2_p0.beam",
+      "Sha256": "FE099D597F028188BD0D261D6AE2BEE14E11186F417EAC46C1C9F6A9BD975F74"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_integer_to_list2_p0.erl",
+      "Sha256": "781B1705FE59B047D719C1DA536207F3EC62AFFB54AAE8B22F2D4CE87214CB8C"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_integer_to_list2_p1.beam",
+      "Sha256": "B07765863F693EF6028A54EB230086E4049B1AE42CB88B26365E87627A1456EF"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_integer_to_list2_p1.erl",
+      "Sha256": "410FB6A7CB50E581FEF3FD23C6AE88E48BF5AFFE85D542F7EFCCA3DA8960CC38"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_integer_to_list2_p2.beam",
+      "Sha256": "F3114ADC2520909E947B57C0CC5C4A0C9918A1C872813B2EB27DFFFC4E213004"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_integer_to_list2_p2.erl",
+      "Sha256": "ECE05D854BE21A1CEC9429492DF9A09EFAEB1673E8CDC9E399E98DBFE64CB6C2"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_integer_to_list2_p3.beam",
+      "Sha256": "35CB98C1F22E80694FEA40EC8957B55DF7717BDD33480FDAE729B1032F4AE4BC"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_integer_to_list2_p3.erl",
+      "Sha256": "B6D8E16DEB84B8A0656B1AA704CCB1068468AE1F80D83E96C7BC516A846A9B5C"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_integer_to_list2_p4.beam",
+      "Sha256": "B03D98B47FDBB094D9A0B5FBABD7B036183D8946FDA9546F1E3FE9DFFF01FB33"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_integer_to_list2_p4.erl",
+      "Sha256": "13A9CE62CCF8B53DBCB8FE2AC74E4E5583796BE961CC9B85D3227F3713AA5438"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_integer_to_list2_p5.beam",
+      "Sha256": "BB83586EFA56DF8EA40BA64F637798D228EC61AD32F2693BD30A34F946294BCC"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_integer_to_list2_p5.erl",
+      "Sha256": "CEB0C3BA6D8E37841A9A0917D6792288980AA8596916B599275072070585517E"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_integer_to_list2_p6.beam",
+      "Sha256": "33770775671894F3A55478EA30B5657CC7574CC5A46643F33C329B1C13D5BD78"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_integer_to_list2_p6.erl",
+      "Sha256": "BF7B1FD1BE625A4E9B346549AD7B7F77B01A96A14EFA4165972897ED7035B01F"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_integer_to_list2_p7.beam",
+      "Sha256": "5EDB1F4D5C918B20A9C327E81F966692290FB8579CE73724C828859E04FF56BF"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_integer_to_list2_p7.erl",
+      "Sha256": "FC7F028B194CD933884264CE5B62B06CECED22CEF6F2C5635FF7CDB4337A1C29"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_list_to_integer1_p0.beam",
+      "Sha256": "86A6A9E15AE4F7425D69C8BBC277F9B74265F16E4D30EAA23EC59A71225429EC"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_list_to_integer1_p0.erl",
+      "Sha256": "0BF92FABD76AC3468CBBE9736C1BF8F5CA37ABE2BF0CE0E6EFFC9C25F97AE51A"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_list_to_integer1_p1.beam",
+      "Sha256": "1805EC10206CE2F5BB48CD558B65697F25421916928C0D47F522442440C3970B"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_list_to_integer1_p1.erl",
+      "Sha256": "20A4935F737324AAF59816C60706964AAA1D8AC1B1E3362AE4B82C8F374D56B3"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_list_to_integer2_p0.beam",
+      "Sha256": "562529667E3895F7272FF57928CA16F737FCB5153E9A72461F3503A474C6D2A7"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_list_to_integer2_p0.erl",
+      "Sha256": "2E1009917537F659DED8E5529BEA80E9168095BDA2D53D8AD57941720F3EBD52"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_list_to_integer2_p1.beam",
+      "Sha256": "FE539EAFAB94C3A5FCE620880E024DA853606E2221DF8ADEC8967E854DA96267"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_list_to_integer2_p1.erl",
+      "Sha256": "95F84D4F55D7BA59A36DF446C7717BE925570A6387CE776C34D73D4DF24ED494"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_list_to_integer2_p2.beam",
+      "Sha256": "C6AFE05E9CE2E7206E7BBCB8BAE5347807652E2ABB81C72D04834E0B8CD53983"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_list_to_integer2_p2.erl",
+      "Sha256": "86F0AA02F831E2C4B858B1A2F30D398B3FEBD2C27984E25670C861D061D83C56"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_list_to_integer2_p3.beam",
+      "Sha256": "F03F184B226B7472DAD90C39205ED2CE8B5A220BBE92AA148705BCB4E7F4D7C5"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_list_to_integer2_p3.erl",
+      "Sha256": "B56027A6BEB8E9F30738327A9E0F1D3BB025C12DDB9F92E80EE45CB213821636"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_list_to_integer2_p4.beam",
+      "Sha256": "9DCF6AC23B99F199A32BB20B64BD85A1EC55835D75B666DCBF806623125426E0"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_list_to_integer2_p4.erl",
+      "Sha256": "49AD6B8031F7F71DB14310D6E07810E3AA1F47528CF7B0369847593644ECA26D"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_list_to_integer2_p5.beam",
+      "Sha256": "DF96E77775EC6832A6AA5D8641B2BA2C1D6E9D672CFD50508DE4144AE5C41796"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_list_to_integer2_p5.erl",
+      "Sha256": "022A71F72D07ED93305AB4318D266A189A916E1663289255CC83974269A4EDD1"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_list_to_integer2_p6.beam",
+      "Sha256": "B00FB98086BE531F63677ABF130F934DFDE8D78BB03996F5E91A3A805E0F0C0C"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_list_to_integer2_p6.erl",
+      "Sha256": "45E553243835D2E22BE10302A641B217C4A5DB646A1C029837C620FDC8F093C0"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_list_to_integer2_p7.beam",
+      "Sha256": "9A98EA2FC465671D889DED13A7B90B88D362F940698AE85C0C04BAB4493C26D8"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_contract493_list_to_integer2_p7.erl",
+      "Sha256": "E279166ADDA453C452F51982DEFE55F8DCA881D8055B052C3B7F2734ACA5B366"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_to_binary1_p0.stacks.etf",
+      "Sha256": "D91071ADF2CCEAFE8114C65216E09454AF5EFE2DC251F84B16D3BDC4B37C565D"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_to_binary1_p0.values.etf",
+      "Sha256": "17FE01E894F0C25B14C64CD88C32D31F123CA480C69780D425F949AB1811B6A2"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_to_binary2_p0.stacks.etf",
+      "Sha256": "96E2B6C3AC1D7043D15DE2F028702FDB45A8B7620A4031554EE9DCFF5CBE02C5"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_to_binary2_p0.values.etf",
+      "Sha256": "C820357EA68A82CEF7EA857F6806353CD26C21D669D73BF1E11D4FE8E1F00B07"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_to_binary2_p1.stacks.etf",
+      "Sha256": "C90F6B248D2A68A70B27A1BE637325DDAC00DD6276AC925CF06304C240C33136"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_to_binary2_p1.values.etf",
+      "Sha256": "45B98695B5A8FC7250916C9F0E892387FA1FC36516E61F06BA8D0112ECD76765"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_to_binary2_p2.stacks.etf",
+      "Sha256": "89629CF74E99A38DAE0FBE794C043F76E48D1AAC98EC3627539686DDEEF50F2B"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_to_binary2_p2.values.etf",
+      "Sha256": "E73B3EB50A1DBC2A4F2452D37BF42706283E46224969B27B775A9BEB926420AA"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_to_binary2_p3.stacks.etf",
+      "Sha256": "1AD667B1B59DB7927365C7BA615394AA9463BEE47A3EE535E6E17DE6C60625EA"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_to_binary2_p3.values.etf",
+      "Sha256": "14ABB6F49C1597E367D6C1170D07DED9DEA107D7C2B5963B301D68C8D6D07D95"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_to_binary2_p4.stacks.etf",
+      "Sha256": "5369A42772C45559CC0F2926142D1828E5757DDDB47CE63C699B58C671144EC6"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_to_binary2_p4.values.etf",
+      "Sha256": "92B47F6689C56A6612681C7A8AD5364AE4940A9E1EB8E7D4F6D12D8066EDA7BC"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_to_binary2_p5.stacks.etf",
+      "Sha256": "127B77019E10EF6914379079D5C3F781C7947EE7F1B528742D3C6AA244B3A6C1"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_to_binary2_p5.values.etf",
+      "Sha256": "DD9CD1E082D8567567D185B861CA534CA50D83B2B4EA7295AF8C48B3A2C80EC8"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_to_binary2_p6.stacks.etf",
+      "Sha256": "33EBB7CE4FA375B7EE6FF390832CD3176511052C3AE1E7716151BCAC29625855"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_to_binary2_p6.values.etf",
+      "Sha256": "1BBAE7A3ADE67C63676194866DCC5A5C7855D9444E19D444D6AE0CE1949BD6E2"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_to_binary2_p7.stacks.etf",
+      "Sha256": "5C0E575AFE330A4BA9AEFA03FE7475BDA2F7DD8F5C1DA54F0C4C2383ECC19715"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_to_binary2_p7.values.etf",
+      "Sha256": "C4512E226CB860989CFDF1CBB58F40A4614DBCD1E7BC6D92041800E84CA7F67D"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_to_list1_p0.stacks.etf",
+      "Sha256": "7E980ADD40F8A5F67A121717C2134E6F3D98C980167E27EB8EFD69DEFBDB14B2"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_to_list1_p0.values.etf",
+      "Sha256": "9404E04305CEF99173F51FFCFA8CEE5E20D6461F51E61ACC27A21CBD3D09CF29"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_to_list2_p0.stacks.etf",
+      "Sha256": "5ADDCCE16B825F2E6AC696ABBE2A8DB85725EFFD1342980C656153F301B83458"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_to_list2_p0.values.etf",
+      "Sha256": "5288EAF6885738B0D59E14D9CAA0C123A8ACD04E73A8C0D6510844AD7B4E321C"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_to_list2_p1.stacks.etf",
+      "Sha256": "6CDA9AD58ABA06F6D4AABF018EADF4F98C8E9241CD41FAA1D84DAA2B4E6B6824"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_to_list2_p1.values.etf",
+      "Sha256": "F254C5114BF1189F646F6A9D674E98140A3B43E42333167BC10372C3FEF8D058"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_to_list2_p2.stacks.etf",
+      "Sha256": "15ED46501406D0079473091491738C0FB5AD312EFA2C3F1511218BF413E3D725"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_to_list2_p2.values.etf",
+      "Sha256": "FEE066CF2EFA904780C4F405E279DD2F225E2BD32E587016DA23F942FB87875A"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_to_list2_p3.stacks.etf",
+      "Sha256": "5F84CCA79DFD732DA87C2DAD9FD6127356B5782761EA8030C200A938457B160D"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_to_list2_p3.values.etf",
+      "Sha256": "46E36E92DA55FEC7BBA9F21137080E7A385FC68790E1A123407F7DD25D33E670"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_to_list2_p4.stacks.etf",
+      "Sha256": "D2017DBD5349454DD4ECE5BB7733ADC9C7CBA1D61A1784B435EAA7B5360B1E12"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_to_list2_p4.values.etf",
+      "Sha256": "ABEABA1F2D66487B36CBFFE644DC59F1ABDB33D978FBD9EFB8A0AB448B5F8648"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_to_list2_p5.stacks.etf",
+      "Sha256": "DBD2A3ED8DE050DA8E79E56E78F18E9A5151DC6506AF15FDBA662677BB6B175F"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_to_list2_p5.values.etf",
+      "Sha256": "5AD2C8A1FF1B9581BFA722FC7654D5D8EDCD120B0C9035F3F7834AEB497982E1"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_to_list2_p6.stacks.etf",
+      "Sha256": "6F90C5816CCC27C7802BC7AE41B36501363FCB2D0AA333131006A056738771F3"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_to_list2_p6.values.etf",
+      "Sha256": "E91A39DCB4AF1F8AAB3AFBBD836944AEC5500CFAB8675D7D8850EA0F22458C0C"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_to_list2_p7.stacks.etf",
+      "Sha256": "C4C9ED27468F36F6D8164A69FF1C69FE40105C5F5DF1D9564757E6F6CEF94994"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/integer_to_list2_p7.values.etf",
+      "Sha256": "C4512E226CB860989CFDF1CBB58F40A4614DBCD1E7BC6D92041800E84CA7F67D"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/list_to_integer1_p0.stacks.etf",
+      "Sha256": "E6640D2314D335484AB035CD09EA63A21BBCD2EF4CEF809686877919C0BFF0D3"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/list_to_integer1_p0.values.etf",
+      "Sha256": "6686B3D0FC2EA6A72B3437F6EEB1814FA76C54C5A5CB46D015E26FE9B43AED6E"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/list_to_integer1_p1.stacks.etf",
+      "Sha256": "CDD4566F0F2CB31BF86567518A50AE2897129BC53A779AEAF02FA4BDE96AFBED"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/list_to_integer1_p1.values.etf",
+      "Sha256": "C032551BBDCCA715D18530561BF3D8611CCB32F27A7AE73E65B7D3AA8C734C03"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/list_to_integer2_p0.stacks.etf",
+      "Sha256": "F13C04761DE4209DC714BB93AE0456F564E026487460406D76D6D92300E40089"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/list_to_integer2_p0.values.etf",
+      "Sha256": "62532FAC790A9EB8F8C20BAB777162A46A1750410C97A975D0B80A7C469AAA8A"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/list_to_integer2_p1.stacks.etf",
+      "Sha256": "D4674B129ED05B4E4F91BDE407A20B13ACD0B6445B32FAEDB0B544AEE5EC2D10"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/list_to_integer2_p1.values.etf",
+      "Sha256": "B57A76292F16A25DD17A878142A0DFCD45D056017B618B60C305EF7EF5292CDC"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/list_to_integer2_p2.stacks.etf",
+      "Sha256": "D619C0C1E9AC6A65AF7C004BAC91492A88F8B681093D646F77159F0E2EB06FD8"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/list_to_integer2_p2.values.etf",
+      "Sha256": "DF7579833947F08CD06B82760CC4C05299FAD009195A064936564AFC94F6E696"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/list_to_integer2_p3.stacks.etf",
+      "Sha256": "9FABCF73CEB1DAB306853462D163A737A17EB88CE931DD3BFC58D7D004DC2487"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/list_to_integer2_p3.values.etf",
+      "Sha256": "586B88A4F0A35E3563F68F36450822E297BA2BA3B144C57D0230AC6CC5607A58"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/list_to_integer2_p4.stacks.etf",
+      "Sha256": "8ECB0CFDCC523593F33A6FCA023C54297C4D93E3DCD0DF2F601D90C7BD61A7C9"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/list_to_integer2_p4.values.etf",
+      "Sha256": "F5F2AF9D5672FFE62A0D2FCB7BE8977248F71C5B7B19480E7A26F00437D13FBD"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/list_to_integer2_p5.stacks.etf",
+      "Sha256": "ECBD31F252BDEB7176CC9054037992D76EA170F5551397BEF0012EEEF6FAE3FE"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/list_to_integer2_p5.values.etf",
+      "Sha256": "F8246AF9595FDC8652B25C3615EF6F6157A8CC4A5D384EF41308B7B028FF9565"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/list_to_integer2_p6.stacks.etf",
+      "Sha256": "DD648402CAA8F2EFE7D1805D1C217EE78A55E5FE82B772A8E3960AFBDBD03A4A"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/list_to_integer2_p6.values.etf",
+      "Sha256": "60EAC6A6CDB895C4BC6071BD4FDFC985E38C1CAF12409879ACE3566B0CEE5828"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/list_to_integer2_p7.stacks.etf",
+      "Sha256": "EE3B15FEACD945FB64351347CA9B607FE493015F2C7979788F4456AEBA696FE9"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/list_to_integer2_p7.values.etf",
+      "Sha256": "F512D014BFC52B798C72B7CA17BFD5B76410FC63A73A467ADB7A5535CA822480"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/IntegerContract493/manifest.json",
+      "Sha256": "24A0EA253CBDAFDCA884297E9E2170EF10B91EDC7DD369539571E9540A21EC13"
+    }
+  ]
+}

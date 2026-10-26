@@ -1,15 +1,7 @@
 # Unclosed default contracts — volume2
 
-Current candidate: Part492. Whole contract evidence remains in the canonical [ledger](../mfa-compatibility.json); see [cohort progress](checkpoint-492.md).
+Current candidate: Part493. Whole contract evidence remains in the canonical [ledger](../mfa-compatibility.json); see [cohort progress](checkpoint-493.md).
 
-- `erlang:localtime_to_universaltime/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:make_fun/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:make_ref/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:map_get/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:map_size/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:match_spec_test/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:max/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:md5/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:md5_final/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:md5_init/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:md5_update/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
@@ -152,3 +144,11 @@ Current candidate: Part492. Whole contract evidence remains in the canonical [le
 - `error_logger:limit_term/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erts_internal:abort_pending_connection/2` — **Needs verification**. Real native distribution entry state with complete finite original values/errors/stacks; all-domain ownership/effects closure remains explicitly unfinished.
 - `erts_internal:cmp_term/2` — **Needs verification**. Explicit runtime primitive/compiler-helper boundary supporting original selected OTP libraries. Direct MFA presence and finite original-module execution do not establish this command's entire public contract.
+- `erts_internal:get_creation/0` — **Needs verification**. Real native distribution entry state with complete finite original values/errors/stacks; all-domain ownership/effects closure remains explicitly unfinished.
+- `erts_internal:map_next/3` — **Needs verification**. Explicit runtime primitive/compiler-helper boundary supporting original selected OTP libraries. Direct MFA presence and finite original-module execution do not establish this command's entire public contract.
+- `erts_internal:mc_iterator/1` — **Needs verification**. Explicit runtime primitive/compiler-helper boundary supporting original selected OTP libraries. Direct MFA presence and finite original-module execution do not establish this command's entire public contract.
+- `erts_internal:mc_refill/1` — **Needs verification**. Explicit runtime primitive/compiler-helper boundary supporting original selected OTP libraries. Direct MFA presence and finite original-module execution do not establish this command's entire public contract.
+- `erts_internal:new_connection/1` — **Known differences**. An explicit entries.Count >= MaximumNodes rejection remains; defaultMaximumNodes is1024, unlike the pinned ERTS source. Generation/reuse tests do not remove this limit.
+- `gen_server:call/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `gen_server:call/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `gen_server:cast/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.

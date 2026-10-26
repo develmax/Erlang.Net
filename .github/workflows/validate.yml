@@ -62,6 +62,10 @@ jobs:
             python -B tools/Validation/ContractReaudit487/collect-original.py --repository $PWD.Path --admission artifacts/library376-official-compiler/official-admission.json --fixture tests/Erlang.Tests/Resources/AtomContract492 --subject $group.Subject --golden-prefix "$($group.Group)." --output "artifacts/contracts492/ci-original/$($group.Group)" --check-golden
             if ($LASTEXITCODE -ne 0) { $contractFailures += "Original atom acquisition failed: $($group.Group)" }
           }
+          foreach ($group in (Get-Content tests/Erlang.Tests/Resources/IntegerContract493/groups.json -Raw | ConvertFrom-Json)) {
+            python -B tools/Validation/ContractReaudit487/collect-original.py --repository $PWD.Path --admission artifacts/library376-official-compiler/official-admission.json --fixture tests/Erlang.Tests/Resources/IntegerContract493 --subject $group.Subject --golden-prefix "$($group.Group)." --output "artifacts/contracts493/ci-original/$($group.Group)" --check-golden
+            if ($LASTEXITCODE -ne 0) { $contractFailures += "Original integer text acquisition failed: $($group.Group)" }
+          }
           python -B tools/Validation/AtomContract492/observe-capacity-original.py --repository $PWD.Path --admission artifacts/library376-official-compiler/official-admission.json --output artifacts/contracts492/ci-capacity
           if ($LASTEXITCODE -ne 0) { $contractFailures += "Original atom-capacity observation failed" }
           if ($contractFailures.Count -ne 0) { throw ($contractFailures -join '; ') }
@@ -78,6 +82,7 @@ jobs:
             artifacts/contracts490/ci-original/**
             artifacts/contracts491/ci-original/**
             artifacts/contracts492/ci-original/**
+            artifacts/contracts493/ci-original/**
             artifacts/contracts492/ci-capacity/**
             artifacts/library485/permanent/**
             artifacts/library485/catalog/**/results/**

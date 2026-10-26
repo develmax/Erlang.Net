@@ -2,10 +2,6 @@ namespace Erlang;
 
 internal static class ErlangAtomRegistrations
 {
-    private static readonly MapTerm errorInfo = new([
-        new(Term.A(RuntimeExceptionNames.Module), Term.A(ErlangSizeErrorNames.Formatter))
-    ]);
-
     public static void Register(ModuleRegistry registry)
     {
         void Add(string name, int arity, Func<IReadOnlyList<Term>, Term> body) => registry.Register(
@@ -27,7 +23,7 @@ internal static class ErlangAtomRegistrations
                         ExplicitStackTrace = true,
                         StackTraceTerm = context.CaptureErrorStack(
                             Cons.From(arguments),
-                            errorInfo,
+                            ErlangErrorHelperMetadata.Info,
                             name,
                             PortErrorSourceLocations.ErrorWithInfo
                         )

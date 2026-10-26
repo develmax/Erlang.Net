@@ -6,25 +6,27 @@ internal static class ErlangIntegerParseBridge
     {
         string function = binary ? ErlangDataBifNames.BinaryToInteger : ErlangDataBifNames.ListToInteger;
         using var source = context.EnterSourceTailCall(ErlangModuleNames.Module, function);
+        bool big = false;
         try
         {
             int radix = ErlangIntegerText.Base(arguments);
 
             return binary
-                ? ErlangIntegerText.Parse(
-                    ErlangIoData.Binary(arguments[0]).Select(value => (int)value),
-                    radix
-                )
-                : ErlangIntegerListParse.Parse(arguments[0], radix);
+                ? ErlangIntegerBinaryParse.Parse(arguments[0], radix, out big)
+                : ErlangIntegerListParse.Parse(arguments[0], radix, out big);
         }
         catch (ErlangException error)
         {
-            throw context.CaptureNativeFailure(
-                error,
-                ErlangModuleNames.Module,
-                function,
-                arguments
-            );
+            throw new ErlangException(error.Reason, error.ExceptionClass)
+            {
+                ExplicitStackTrace = true,
+                StackTraceTerm = context.CaptureErrorStack(
+                    Cons.From(arguments),
+                    ErlangErrorHelperMetadata.Info,
+                    function,
+                    big ? PortErrorSourceLocations.ErrorWithInfo : ErlangErrorHelperMetadata.BadArgumentWithInfo
+                )
+            };
         }
     }
 }

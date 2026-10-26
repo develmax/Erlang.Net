@@ -8,6 +8,7 @@ internal static class NumericContract487Names
     internal const string Failure = "Numeric BIF re-audit resource is missing or differs";
     internal const int Values = 252;
     internal const int Profiles = 1260;
+    internal const int BudgetSeconds = 30;
     internal static readonly IReadOnlyDictionary<string, string> Digests = new Dictionary<string, string>
     {
         ["numeric_contract487.beam"] = "F5C0688DB96E7AD49C3FF3B21EDF604AEB4E87734024C4A7174C810FC286A0F3",

@@ -99,11 +99,17 @@ internal static class NumericSmallParseHostChecks
         await Error(actor, runtime, [Characters('+' + NumericSmallParseHostNames.ByteRange, '1')]);
         await Error(actor, runtime, [Term.List(new Integer(smallBoundary + '1'))]);
         await Error(actor, runtime, [Term.List(new Integer(-smallBoundary - NumericSmallParseHostNames.ByteRange + '1'))]);
-        await Error(actor, runtime, [Repeat('1' + NumericSmallParseHostNames.ByteRange, NumericSmallParseHostNames.DecimalSmallDigits + 1)]);
         await Error(
             actor,
             runtime,
-            [Repeat('1' + NumericSmallParseHostNames.ByteRange, NumericSmallParseHostNames.HexadecimalSmallDigits + 1), Term.I(NumericSmallParseHostNames.HexadecimalBase)]
+            [Repeat('1' + NumericSmallParseHostNames.ByteRange, NumericSmallParseHostNames.DecimalSmallDigits + 1)],
+            true
+        );
+        await Error(
+            actor,
+            runtime,
+            [Repeat('1' + NumericSmallParseHostNames.ByteRange, NumericSmallParseHostNames.HexadecimalSmallDigits + 1), Term.I(NumericSmallParseHostNames.HexadecimalBase)],
+            true
         );
         await Error(actor, runtime, [new Cons(Term.I('1' + NumericSmallParseHostNames.ByteRange), Term.A(NumericSmallParseHostNames.Tail))]);
         await Error(actor, runtime, [Characters('2' + NumericSmallParseHostNames.ByteRange), Term.I(NumericSmallParseHostNames.MinimumBase)]);
@@ -135,7 +141,8 @@ internal static class NumericSmallParseHostChecks
     private static async Task Error(
         RuntimeNodeFoundationHostActor actor,
         ProcessRuntime runtime,
-        Term[] arguments
+        Term[] arguments,
+        bool big = false
     )
     {
         bool caught = false;
@@ -167,7 +174,7 @@ internal static class NumericSmallParseHostChecks
                     [Term.A(NumericSmallParseHostNames.ModuleKey)] = Term.A(NumericSmallParseHostNames.Formatter)
                 })
             ));
-            Require(first.Items[3].Equals(expectedInfo));
+            Require(first.Items[3].Equals(IntegerParseError493Metadata.WithLocation(expectedInfo, big)));
         }
         Require(caught);
     }
