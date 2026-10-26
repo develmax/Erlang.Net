@@ -46,6 +46,10 @@ jobs:
             python -B tools/Validation/ContractReaudit487/collect-original.py --repository $PWD.Path --admission artifacts/library376-official-compiler/official-admission.json --fixture "tests/Erlang.Tests/Resources/$fixtureName" --output "artifacts/contracts487/ci-original/$fixtureName" --check-golden
             if ($LASTEXITCODE -ne 0) { $contractFailures += "Original contract acquisition failed: $fixtureName" }
           }
+          foreach ($group in (Get-Content tests/Erlang.Tests/Resources/TupleMutation489/groups.json -Raw | ConvertFrom-Json)) {
+            python -B tools/Validation/ContractReaudit487/collect-original.py --repository $PWD.Path --admission artifacts/library376-official-compiler/official-admission.json --fixture tests/Erlang.Tests/Resources/TupleMutation489 --subject $group.Subject --golden-prefix "$($group.Group)." --output "artifacts/contracts489/ci-original/$($group.Group)" --check-golden
+            if ($LASTEXITCODE -ne 0) { $contractFailures += "Original tuple acquisition failed: $($group.Group)" }
+          }
           if ($contractFailures.Count -ne 0) { throw ($contractFailures -join '; ') }
       - shell: pwsh
         run: ./tools/validate.ps1 -TestRuntimeVersion 10.0.11
@@ -56,6 +60,7 @@ jobs:
           path: |
             artifacts/tests.json
             artifacts/contracts487/ci-original/**
+            artifacts/contracts489/ci-original/**
             artifacts/library485/permanent/**
             artifacts/library485/catalog/**/results/**
             artifacts/library485/catalog/**/native/compile*.txt

@@ -1,0 +1,49 @@
+{
+  "Passed": true,
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ProviderFiles": 6427,
+  "ProviderBeforeEqual": true,
+  "ProviderAfterEqual": true,
+  "SourceSha256": "239EE130D53038D4E75AA9DFAA6F593D85E7E77DCDFBAD055142690048412741",
+  "OriginalReceipt": {
+    "Command": [
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+      "+S",
+      "1:1",
+      "+A",
+      "1",
+      "-noshell",
+      "-noinput",
+      "-boot",
+      "no_dot_erlang",
+      "-pa",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\contracts489\\final-original\\append_element",
+      "-eval",
+      "{ok,tuple_mutation489_append_element,_}=compile:file(\"tuple_mutation489_append_element.erl\",[return_errors,return_warnings]),[ok=prim_file:write_file(File,term_to_binary(ordsets_core_worker:run(tuple_mutation489_append_element,Entry),[{minor_version,2}])) || {File,Entry} <- [{\"values.etf\",run},{\"stacks.etf\",run_stacks}]],{beam_file,_,_,_,_,Functions}=beam_disasm:file(\"tuple_mutation489_append_element.beam\"),Instructions=lists:append([Is || {function,_,_,_,Is} <- Functions]),ApplySites=[I || I <- Instructions,is_tuple(I),lists:member(element(1,I),[apply,apply_last])],true=length(ApplySites)>0,ok=prim_file:write_file(\"dispatch-proof.etf\",term_to_binary({tuple_mutation489_append_element,length(ApplySites),ApplySites})),halt(0)."
+    ],
+    "Pid": 130176,
+    "ElapsedSeconds": 0.28200000000651926,
+    "TimedOut": false,
+    "Settled": true,
+    "ExitCode": 0,
+    "Failures": [],
+    "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  "GoldenChecked": true,
+  "NormalizedFields": 0,
+  "Errors": [],
+  "Files": {
+    "dispatch-proof.etf": "7FA0146DDFC00463B41CA94CAD96E3F854472D4B340EBAA1534D2F9AF3FE6509",
+    "ordsets_core_support.beam": "E96720C753F9438E66367C71A90C5D0C1E3AA29091B178799986E36A8438022F",
+    "ordsets_core_worker.beam": "E345AE81943C41F82F3CBCA24B963D2D25CB24C0C15E2A0B21B72A65757D6B3F",
+    "original.exit.json": "E38C8159178A2D3E5F6DD3F8E38594DACB7BABA36ECCE3EC3760DCCEF837E137",
+    "original.live.json": "9D0950897D8E92A229D729EC655818A379ABC6DEF039D0F79948B1194203977B",
+    "original.stderr.log": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "original.stdout.log": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "stacks.etf": "96C4C7DA11963A05AB8C05542A889D3139761141BFC244DE66D4B5EF582F9059",
+    "tuple_mutation489_append_element.beam": "03158709B1E179861C38AC4E953DCF8ADE93BFD14A2A8E00F36AD8305D01FC88",
+    "tuple_mutation489_append_element.erl": "239EE130D53038D4E75AA9DFAA6F593D85E7E77DCDFBAD055142690048412741",
+    "values.etf": "11AA33F722412EEA8861C20C6DEF0EC220C46630E9BE01E28799FCD504197E42"
+  }
+}

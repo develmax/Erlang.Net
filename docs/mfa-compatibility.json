@@ -4394,67 +4394,169 @@
       "Module": "erlang",
       "Function": "setelement",
       "Arity": 3,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
+      "Status": "Verified compatible",
+      "Scope": "Complete observable native BIF contract on supported valid Erlang terms: Tuple and integer index1..arity; copy tuple references and replace exactly one field; invalid combinations badarg. The result is a fresh nonempty tuple, without input mutation. Complete native error/argument/source-stack behavior matches pinned OTP. No identical timing/allocation-ceiling or whole compiler acceptance.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-489/tuple-mutations/source-audit.json",
+          "Sha256": "709B1298D84DAFE75D7ADFF4DCD1A05F363A7C9B1D6FC006B6883870EC486D74",
+          "Scope": "Complete type/range/construction/reference/effect source proof; native max-arity definition and exact current sources bound."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-489/tuple-mutations/original/setelement/completion.json",
+          "Sha256": "C968DABF2F78110CA8D26E940893DB74C88BE6BE30ABE82F31EDA2FFE34E4FB2",
+          "Scope": "Fresh admitted6427-file provider, actual dynamic apply and complete raw outcomes/stacks; both goldens and child settlement checked."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-489/tuple-mutations/split-results.json",
+          "Sha256": "720557CA8CA6E02A5BA202292C18F000B1DC9E28BD7D9C0D0ADEB8A1B6797D51",
+          "Scope": "Seven independent API groups preserve all344 cases/1720 stack outcomes; unchanged15s outer budgets; no normalized fields."
+        }
+      ],
+      "Limits": []
     },
     {
       "Module": "erlang",
       "Function": "append_element",
       "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
+      "Status": "Verified compatible",
+      "Scope": "Complete observable native BIF contract on supported valid Erlang terms: Tuple arity below16777215; copy references in order and append exact value reference. At/above the limit or a nontuple: badarg. Complete native error/argument/source-stack behavior matches pinned OTP. No identical timing/allocation-ceiling or whole compiler acceptance.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-489/tuple-mutations/source-audit.json",
+          "Sha256": "709B1298D84DAFE75D7ADFF4DCD1A05F363A7C9B1D6FC006B6883870EC486D74",
+          "Scope": "Complete type/range/construction/reference/effect source proof; native max-arity definition and exact current sources bound."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-489/tuple-mutations/original/append_element/completion.json",
+          "Sha256": "94B2224EBA12788149E25A9522511D88D6509F92ADE9ABE08B484D1B521F4F9A",
+          "Scope": "Fresh admitted6427-file provider, actual dynamic apply and complete raw outcomes/stacks; both goldens and child settlement checked."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-489/tuple-mutations/split-results.json",
+          "Sha256": "720557CA8CA6E02A5BA202292C18F000B1DC9E28BD7D9C0D0ADEB8A1B6797D51",
+          "Scope": "Seven independent API groups preserve all344 cases/1720 stack outcomes; unchanged15s outer budgets; no normalized fields."
+        }
+      ],
+      "Limits": []
     },
     {
       "Module": "erlang",
       "Function": "insert_element",
       "Arity": 3,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
+      "Status": "Verified compatible",
+      "Scope": "Complete observable native BIF contract on supported valid Erlang terms: Tuple and integer index1..arity+1; preserve prefix/suffix references and insert exact value. Invalid type/range badarg. Preserve pinned insert behavior; do not invent append-style extra arity validation. Complete native error/argument/source-stack behavior matches pinned OTP. No identical timing/allocation-ceiling or whole compiler acceptance.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-489/tuple-mutations/source-audit.json",
+          "Sha256": "709B1298D84DAFE75D7ADFF4DCD1A05F363A7C9B1D6FC006B6883870EC486D74",
+          "Scope": "Complete type/range/construction/reference/effect source proof; native max-arity definition and exact current sources bound."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-489/tuple-mutations/original/insert_element/completion.json",
+          "Sha256": "494842101EA11E2499A500D1BEFBF109FA26127EFD683AC402E68F1842889252",
+          "Scope": "Fresh admitted6427-file provider, actual dynamic apply and complete raw outcomes/stacks; both goldens and child settlement checked."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-489/tuple-mutations/split-results.json",
+          "Sha256": "720557CA8CA6E02A5BA202292C18F000B1DC9E28BD7D9C0D0ADEB8A1B6797D51",
+          "Scope": "Seven independent API groups preserve all344 cases/1720 stack outcomes; unchanged15s outer budgets; no normalized fields."
+        }
+      ],
+      "Limits": []
     },
     {
       "Module": "erlang",
       "Function": "delete_element",
       "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
+      "Status": "Verified compatible",
+      "Scope": "Complete observable native BIF contract on supported valid Erlang terms: Tuple and integer index1..arity; preserve surviving references/order; single-element tuple produces canonical empty storage; invalid combinations badarg. Complete native error/argument/source-stack behavior matches pinned OTP. No identical timing/allocation-ceiling or whole compiler acceptance.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-489/tuple-mutations/source-audit.json",
+          "Sha256": "709B1298D84DAFE75D7ADFF4DCD1A05F363A7C9B1D6FC006B6883870EC486D74",
+          "Scope": "Complete type/range/construction/reference/effect source proof; native max-arity definition and exact current sources bound."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-489/tuple-mutations/original/delete_element/completion.json",
+          "Sha256": "644C4D95E020F7AB06E522A64182D87DDFC1D6CEC8B8F9D314F9CE647ED517C3",
+          "Scope": "Fresh admitted6427-file provider, actual dynamic apply and complete raw outcomes/stacks; both goldens and child settlement checked."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-489/tuple-mutations/split-results.json",
+          "Sha256": "720557CA8CA6E02A5BA202292C18F000B1DC9E28BD7D9C0D0ADEB8A1B6797D51",
+          "Scope": "Seven independent API groups preserve all344 cases/1720 stack outcomes; unchanged15s outer budgets; no normalized fields."
+        }
+      ],
+      "Limits": []
     },
     {
       "Module": "erlang",
       "Function": "make_tuple",
       "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
+      "Status": "Verified compatible",
+      "Scope": "Complete observable native BIF contract on supported valid Erlang terms: Integer size0..16777215; repeat the actual default reference; zero returns canonical empty storage; every other size badarg. Complete native error/argument/source-stack behavior matches pinned OTP. No identical timing/allocation-ceiling or whole compiler acceptance.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-489/tuple-mutations/source-audit.json",
+          "Sha256": "709B1298D84DAFE75D7ADFF4DCD1A05F363A7C9B1D6FC006B6883870EC486D74",
+          "Scope": "Complete type/range/construction/reference/effect source proof; native max-arity definition and exact current sources bound."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-489/tuple-mutations/original/make_tuple2/completion.json",
+          "Sha256": "F6C150FB8BECD4445F4FE305267C229CF71CD43D225008555FECE38F84C9C1A8",
+          "Scope": "Fresh admitted6427-file provider, actual dynamic apply and complete raw outcomes/stacks; both goldens and child settlement checked."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-489/tuple-mutations/split-results.json",
+          "Sha256": "720557CA8CA6E02A5BA202292C18F000B1DC9E28BD7D9C0D0ADEB8A1B6797D51",
+          "Scope": "Seven independent API groups preserve all344 cases/1720 stack outcomes; unchanged15s outer budgets; no normalized fields."
+        }
+      ],
+      "Limits": []
     },
     {
       "Module": "erlang",
       "Function": "make_tuple",
       "Arity": 3,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
+      "Status": "Verified compatible",
+      "Scope": "Complete observable native BIF contract on supported valid Erlang terms: Same size/default construction, followed by proper list of two-tuples with indices1..size. Apply left-to-right, last duplicate wins; reject malformed entries/tails/indices. Allocation-before-initializer-validation follows pinned source. Complete native error/argument/source-stack behavior matches pinned OTP. No identical timing/allocation-ceiling or whole compiler acceptance.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-489/tuple-mutations/source-audit.json",
+          "Sha256": "709B1298D84DAFE75D7ADFF4DCD1A05F363A7C9B1D6FC006B6883870EC486D74",
+          "Scope": "Complete type/range/construction/reference/effect source proof; native max-arity definition and exact current sources bound."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-489/tuple-mutations/original/make_tuple3/completion.json",
+          "Sha256": "338CA6657EBF216503CCDF5764FF59CEFEA75AAB138EF0567D5E09E9F580A573",
+          "Scope": "Fresh admitted6427-file provider, actual dynamic apply and complete raw outcomes/stacks; both goldens and child settlement checked."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-489/tuple-mutations/split-results.json",
+          "Sha256": "720557CA8CA6E02A5BA202292C18F000B1DC9E28BD7D9C0D0ADEB8A1B6797D51",
+          "Scope": "Seven independent API groups preserve all344 cases/1720 stack outcomes; unchanged15s outer budgets; no normalized fields."
+        }
+      ],
+      "Limits": []
     },
     {
       "Module": "erlang",
@@ -4488,12 +4590,29 @@
       "Module": "erlang",
       "Function": "list_to_tuple",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
+      "Status": "Verified compatible",
+      "Scope": "Complete observable native BIF contract on supported valid Erlang terms: Finite proper list of at most16777215 cells; preserve each element reference and order; nil produces canonical empty storage. Improper/nonslist/oversize inputs badarg. Early size refusal and complete native length scan have the same pure error outcome/arguments. Complete native error/argument/source-stack behavior matches pinned OTP. No identical timing/allocation-ceiling or whole compiler acceptance.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-489/tuple-mutations/source-audit.json",
+          "Sha256": "709B1298D84DAFE75D7ADFF4DCD1A05F363A7C9B1D6FC006B6883870EC486D74",
+          "Scope": "Complete type/range/construction/reference/effect source proof; native max-arity definition and exact current sources bound."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-489/tuple-mutations/original/list_to_tuple/completion.json",
+          "Sha256": "F5B83A215E49A752E90F8F2C9672D23E8E9BE5BF0CDA935D2F5C4958D735E945",
+          "Scope": "Fresh admitted6427-file provider, actual dynamic apply and complete raw outcomes/stacks; both goldens and child settlement checked."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-489/tuple-mutations/split-results.json",
+          "Sha256": "720557CA8CA6E02A5BA202292C18F000B1DC9E28BD7D9C0D0ADEB8A1B6797D51",
+          "Scope": "Seven independent API groups preserve all344 cases/1720 stack outcomes; unchanged15s outer budgets; no normalized fields."
+        }
+      ],
+      "Limits": []
     },
     {
       "Module": "erlang",

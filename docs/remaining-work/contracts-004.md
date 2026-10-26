@@ -1,14 +1,7 @@
 # Unclosed default contracts — volume4
 
-Current candidate: Part488. Whole contract evidence remains in the canonical [ledger](../mfa-compatibility.json); see [cohort progress](checkpoint-488.md).
+Current candidate: Part489. Whole contract evidence remains in the canonical [ledger](../mfa-compatibility.json); see [cohort progress](checkpoint-489.md).
 
-- `logger:set_handler_config/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `logger:set_handler_config/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `logger:set_module_level/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `logger:set_primary_config/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `logger:set_primary_config/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `logger:set_process_metadata/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `logger:unset_module_level/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `logger:unset_module_level/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `logger:unset_process_metadata/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `logger:update_handler_config/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
