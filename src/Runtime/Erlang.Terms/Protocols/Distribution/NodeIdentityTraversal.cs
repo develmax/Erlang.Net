@@ -2,7 +2,7 @@ namespace Erlang;
 
 internal static class NodeIdentityTraversal
 {
-    internal static LocalNodeIdentity[] KeyNodes(Dictionary<Term, Term> entries)
+    internal static LocalNodeIdentity[] KeyNodes(IEnumerable<KeyValuePair<Term, Term>> entries)
     {
         Stack<Term>? pending = null;
         foreach (var entry in entries)

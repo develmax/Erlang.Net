@@ -1,0 +1,288 @@
+{
+  "Reason": "Current source-only declarations contained inherited stale rows; refresh binds current main/504 sources, with no historical native execution/equivalence promotion.",
+  "Plans": [
+    {
+      "Plan": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "PreviousSeal": "9FC19C424352600C5C59E8C43B12997DD3C8F104B153BEF090346D4C961C8806",
+      "CurrentSeal": "B324B12EE1381240F2B85785428D23E9C5ED36ACF0FD57174977644BE0BC78F0",
+      "Refreshes": [
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamApplyExecution.cs",
+          "PriorPlanSha256": "49229EB41C89ED8E5CC45C3C4F20FB08970079096E2CAB18278B9C76CBF4474B",
+          "CurrentSha256": "F3AD0E0E4D3DCDA2D7969F993E046B52C103EA09573224AC1CB2CBA990D1A355",
+          "CurrentBytesEqualMain": true
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamBinaryEntryProtocol.cs",
+          "PriorPlanSha256": "E92218EB4606A2B8BFEE783534FCAE222DD0F33B5BD983FD7431A42F7F780A49",
+          "CurrentSha256": "6CFEB0BD0BF8BB5B81791DAC625B3082B46863B4C1F03AF1E535E03DAF7B47DF",
+          "CurrentBytesEqualMain": true
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamBinaryInstructionValidation.cs",
+          "PriorPlanSha256": "287190217981C4E2E00444DA412C685755A4803E6C0F91C6997F52E6DDE0FD5B",
+          "CurrentSha256": "2E0CDF9DE88AB8A9250207C2B691493534B78E3DE27EA52520F8DDDA7264DC30",
+          "CurrentBytesEqualMain": true
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamBinaryNames.cs",
+          "PriorPlanSha256": "DC266C67766539BA564D8D4CD6E21A1872CB35D5AD483E2396C018E2F20E2227",
+          "CurrentSha256": "A21973182651B452BC579C40700A593BA6BC516A684D4D0F28CEFCDB9CBFFD21",
+          "CurrentBytesEqualMain": true
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamFrameValidation.cs",
+          "PriorPlanSha256": "5981EF978AA5222CC1FBE061E7CC2C93018F9D8CFD1BE6385140E175F0246485",
+          "CurrentSha256": "A872E0E7D1A2AA488FDD24BD7349397B91116147199388D0854FE091F34F66ED",
+          "CurrentBytesEqualMain": true
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamInfallibleBifContract.cs",
+          "PriorPlanSha256": "F5642B09CC787AE2C28F9F302A7993C809FAF1EE87357763AA6D5515A6104AFA",
+          "CurrentSha256": "6FAF73C968BF8C8B43FD052ABE5BFCA7F08AE189B1431217507089EE0220ACE4",
+          "CurrentBytesEqualMain": true
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamNoReturnAnalysis.cs",
+          "PriorPlanSha256": "A55581622FFA89C205052E960542E3DF066B504E72D7D965C08D9845AEF17091",
+          "CurrentSha256": "129436418E36016781ABC67804328622EEEA1F74B44048BC668C470EFA60DEB1",
+          "CurrentBytesEqualMain": true
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamNoReturnClosedWaitComponent.cs",
+          "PriorPlanSha256": "5DF9F5F2F8F8C7D5DAB7B2F179B3AFB6BA60217777CC5B4D8CA80ABB445BC9C4",
+          "CurrentSha256": "B197D2A38D6FC92BFD4EC3DEC6CCC5ED28B11B77AB889259D8E5829FF34660C1",
+          "CurrentBytesEqualMain": true
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamReceivePlanner.cs",
+          "PriorPlanSha256": "3A8FCD62C36679A9E32E16B3B7AFCB199FF2429BFF8D4F5935A2D72046605F06",
+          "CurrentSha256": "8B6E0C5D8F16CF31A7066BA46106F2B5262574332AF87B1D768A7DF41FD21462",
+          "CurrentBytesEqualMain": true
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamReceivePureBifs.cs",
+          "PriorPlanSha256": "9328A68E0405C250510B3E68780DFEE86F5966EB248170EB65DE1570754AC43F",
+          "CurrentSha256": "E969EB9571C20696FD53C857ADE26A0F0A882BE9248EF8B276495989805C5A19",
+          "CurrentBytesEqualMain": true
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Regex/ReOptions411.cs",
+          "PriorPlanSha256": "81EE303C701737CB2FC866149BCC77FA2805315EB5CCAC41424EFF06C39680E9",
+          "CurrentSha256": "55B5495542CE4C3BEC7C76A0DC478897D148D77776BA7BC7B3157BBA1E4787F2",
+          "CurrentBytesEqualMain": true
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Regex/RuntimeRegexEngine411.Operations.cs",
+          "PriorPlanSha256": "1A675F21E72C237FD6A0C239A9D70D721AA90A8FF49EF217A03A8D748B2C56AE",
+          "CurrentSha256": "C6463E772E505FD91E86733DF2C4231EBB9C445C612EED5A8990DB8EEFF08FB0",
+          "CurrentBytesEqualMain": true
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangApplyDispatch.cs",
+          "PriorPlanSha256": "523D5A2FADF85C6102708AA448E8B1AE57260899498497F31252402F50168EE0",
+          "CurrentSha256": "37BBEC63B68C34B4AC0174969529777F7730AA17E7AD99D5EC795F062EB4E29A",
+          "CurrentBytesEqualMain": true
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangBasicRegistrations.cs",
+          "PriorPlanSha256": "29719B7742DB8AB626C55113E910B677916574D8BF4178C5507FAD89CA41C86B",
+          "CurrentSha256": "E7A27A6498346F1005919BD074AF7DCC5050BE9624D625AA4BC91CB5E14644B0",
+          "CurrentBytesEqualMain": true
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.BeamReceive.cs",
+          "PriorPlanSha256": "24B0B06D8FC356A21D25FE01E8C4D3C45E9E297C6ACA753FD4024F1D2B739C0B",
+          "CurrentSha256": "9BA5575273391400C395A7E8E7827A644DAD8B5A85C9EBD8A5048C0275386E02",
+          "CurrentBytesEqualMain": true
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Mailbox.ReceiveMarkers.cs",
+          "PriorPlanSha256": "1C6EF5F63AEE946FFDF8B22B1ADA878E0B0ABDBB1055EDB2B13395FD348D4651",
+          "CurrentSha256": "766BE8B83D6E7A0BA1C91DD7B723002F46A03937698D3FB7D8EBFAE682A4C4AE",
+          "CurrentBytesEqualMain": true
+        }
+      ],
+      "AddedTestDependencies": [
+        "tests/Erlang.Tests/Harness/Program.cs",
+        "tests/Erlang.Tests/Runtime/Memory/BeamOwnedWord504Checks.cs",
+        "tests/Erlang.Tests/Runtime/Memory/BeamOwnedWord504Names.cs",
+        "tests/Erlang.Tests/Runtime/Memory/ProcessOwnedTerm504Checks.cs",
+        "tests/Erlang.Tests/Runtime/Memory/ProcessOwnedTerm504Names.cs",
+        "tests/Erlang.Tests/Runtime/Memory/ProcessOwnedWord504Checks.cs",
+        "tests/Erlang.Tests/Runtime/Memory/ProcessOwnedWord504Names.cs",
+        "tests/Erlang.Tests/Runtime/Memory/RuntimeQueueStatistics504TestNames.cs",
+        "tests/Erlang.Tests/Runtime/Native/Nif/Maps/NifMapFamily504TestNames.cs",
+        "tests/Erlang.Tests/Runtime/Native/Nif/Maps/NifMapIterator504TestNames.cs",
+        "tests/Erlang.Tests/Runtime/Statistics/RuntimeStatisticsHostChecks.cs",
+        "tests/Erlang.Tests/Runtime/Statistics/RuntimeStatisticsHostParameters.cs"
+      ],
+      "NativePlanExecuted": false
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "PreviousSeal": "82C870096D91E35DAE925CCB774F3B432B2EA0F6F10A4836C03EB51DB7BE2216",
+      "CurrentSeal": "4053F0CFBD919251DEE5C42575E6B874C0E7664297D64888EFFF4F749D3536AC",
+      "Refreshes": [
+        {
+          "Path": ".gitattributes",
+          "PriorPlanSha256": "DEB20CD206003F0D14E7F3D7C0FA82B49E1B177AE4FDB2B886C6029BD4DA158E",
+          "CurrentSha256": "D6AA132722FE487360BF304F5C4A2BFACBA2745B89BE69DFA5BE5B9FF97F4A64",
+          "CurrentBytesEqualMain": false
+        },
+        {
+          "Path": ".github/workflows/nif-pending-native.yml",
+          "PriorPlanSha256": "8BA45C2A44408ECAC2CD062843A7A0A39372E04BED0EB3DE5206DA660EA89708",
+          "CurrentSha256": "2A74B7BD32D765AEDE5A2BA1C73E63E906A4F0BEF852960DC90515F9A2AA9DD0",
+          "CurrentBytesEqualMain": false
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamApplyExecution.cs",
+          "PriorPlanSha256": "49229EB41C89ED8E5CC45C3C4F20FB08970079096E2CAB18278B9C76CBF4474B",
+          "CurrentSha256": "F3AD0E0E4D3DCDA2D7969F993E046B52C103EA09573224AC1CB2CBA990D1A355",
+          "CurrentBytesEqualMain": true
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamBinaryEntryProtocol.cs",
+          "PriorPlanSha256": "E92218EB4606A2B8BFEE783534FCAE222DD0F33B5BD983FD7431A42F7F780A49",
+          "CurrentSha256": "6CFEB0BD0BF8BB5B81791DAC625B3082B46863B4C1F03AF1E535E03DAF7B47DF",
+          "CurrentBytesEqualMain": true
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamBinaryInstructionValidation.cs",
+          "PriorPlanSha256": "287190217981C4E2E00444DA412C685755A4803E6C0F91C6997F52E6DDE0FD5B",
+          "CurrentSha256": "2E0CDF9DE88AB8A9250207C2B691493534B78E3DE27EA52520F8DDDA7264DC30",
+          "CurrentBytesEqualMain": true
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamBinaryNames.cs",
+          "PriorPlanSha256": "DC266C67766539BA564D8D4CD6E21A1872CB35D5AD483E2396C018E2F20E2227",
+          "CurrentSha256": "A21973182651B452BC579C40700A593BA6BC516A684D4D0F28CEFCDB9CBFFD21",
+          "CurrentBytesEqualMain": true
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamFrameValidation.cs",
+          "PriorPlanSha256": "5981EF978AA5222CC1FBE061E7CC2C93018F9D8CFD1BE6385140E175F0246485",
+          "CurrentSha256": "A872E0E7D1A2AA488FDD24BD7349397B91116147199388D0854FE091F34F66ED",
+          "CurrentBytesEqualMain": true
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamInfallibleBifContract.cs",
+          "PriorPlanSha256": "F5642B09CC787AE2C28F9F302A7993C809FAF1EE87357763AA6D5515A6104AFA",
+          "CurrentSha256": "6FAF73C968BF8C8B43FD052ABE5BFCA7F08AE189B1431217507089EE0220ACE4",
+          "CurrentBytesEqualMain": true
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamNoReturnAnalysis.cs",
+          "PriorPlanSha256": "A55581622FFA89C205052E960542E3DF066B504E72D7D965C08D9845AEF17091",
+          "CurrentSha256": "129436418E36016781ABC67804328622EEEA1F74B44048BC668C470EFA60DEB1",
+          "CurrentBytesEqualMain": true
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamNoReturnClosedWaitComponent.cs",
+          "PriorPlanSha256": "5DF9F5F2F8F8C7D5DAB7B2F179B3AFB6BA60217777CC5B4D8CA80ABB445BC9C4",
+          "CurrentSha256": "B197D2A38D6FC92BFD4EC3DEC6CCC5ED28B11B77AB889259D8E5829FF34660C1",
+          "CurrentBytesEqualMain": true
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamReceivePlanner.cs",
+          "PriorPlanSha256": "3A8FCD62C36679A9E32E16B3B7AFCB199FF2429BFF8D4F5935A2D72046605F06",
+          "CurrentSha256": "8B6E0C5D8F16CF31A7066BA46106F2B5262574332AF87B1D768A7DF41FD21462",
+          "CurrentBytesEqualMain": true
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamReceivePureBifs.cs",
+          "PriorPlanSha256": "9328A68E0405C250510B3E68780DFEE86F5966EB248170EB65DE1570754AC43F",
+          "CurrentSha256": "E969EB9571C20696FD53C857ADE26A0F0A882BE9248EF8B276495989805C5A19",
+          "CurrentBytesEqualMain": true
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Regex/ReOptions411.cs",
+          "PriorPlanSha256": "81EE303C701737CB2FC866149BCC77FA2805315EB5CCAC41424EFF06C39680E9",
+          "CurrentSha256": "55B5495542CE4C3BEC7C76A0DC478897D148D77776BA7BC7B3157BBA1E4787F2",
+          "CurrentBytesEqualMain": true
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Regex/RuntimeRegexEngine411.Operations.cs",
+          "PriorPlanSha256": "1A675F21E72C237FD6A0C239A9D70D721AA90A8FF49EF217A03A8D748B2C56AE",
+          "CurrentSha256": "C6463E772E505FD91E86733DF2C4231EBB9C445C612EED5A8990DB8EEFF08FB0",
+          "CurrentBytesEqualMain": true
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangApplyDispatch.cs",
+          "PriorPlanSha256": "523D5A2FADF85C6102708AA448E8B1AE57260899498497F31252402F50168EE0",
+          "CurrentSha256": "37BBEC63B68C34B4AC0174969529777F7730AA17E7AD99D5EC795F062EB4E29A",
+          "CurrentBytesEqualMain": true
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangBasicRegistrations.cs",
+          "PriorPlanSha256": "29719B7742DB8AB626C55113E910B677916574D8BF4178C5507FAD89CA41C86B",
+          "CurrentSha256": "E7A27A6498346F1005919BD074AF7DCC5050BE9624D625AA4BC91CB5E14644B0",
+          "CurrentBytesEqualMain": true
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangIntegerListParse.cs",
+          "PriorPlanSha256": "EFDDB3260FC853C14FBF6055A480FB943B8117EC1C7FD4BA5EBA62F22853330C",
+          "CurrentSha256": "7CD0B5704B93252DE54F8A91F69A66596E81CCC5A534B0D2A4E71C0CF8FA5DE8",
+          "CurrentBytesEqualMain": true
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangIntegerParseBridge.cs",
+          "PriorPlanSha256": "5B8C84D98995CC682D5FFE2B1348A29818B31C7F2A8088A9DFDBCEDFEDD64150",
+          "CurrentSha256": "C9B9F6F70ADC853BB03AE7CA1A8BEE6EB365A3F21F5DFAA14B0FB8D7F6BE5D2B",
+          "CurrentBytesEqualMain": true
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.BeamReceive.cs",
+          "PriorPlanSha256": "24B0B06D8FC356A21D25FE01E8C4D3C45E9E297C6ACA753FD4024F1D2B739C0B",
+          "CurrentSha256": "9BA5575273391400C395A7E8E7827A644DAD8B5A85C9EBD8A5048C0275386E02",
+          "CurrentBytesEqualMain": true
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Mailbox.ReceiveMarkers.cs",
+          "PriorPlanSha256": "1C6EF5F63AEE946FFDF8B22B1ADA878E0B0ABDBB1055EDB2B13395FD348D4651",
+          "CurrentSha256": "766BE8B83D6E7A0BA1C91DD7B723002F46A03937698D3FB7D8EBFAE682A4C4AE",
+          "CurrentBytesEqualMain": true
+        },
+        {
+          "Path": "tests/Erlang.Tests/Harness/Program.cs",
+          "PriorPlanSha256": "FDBEF8734FA4E5735C3748394154B1C6A1783A41E9156CE607EEDF6E02B4FF83",
+          "CurrentSha256": "806AD118EC4435CC6751301917C0C33A507F26FA2E34C8BAFABA9427574CA1B1",
+          "CurrentBytesEqualMain": false
+        },
+        {
+          "Path": "tools/Native/Erlang.NifLinuxCallbackObservations/prepare.py",
+          "PriorPlanSha256": "6D717835B72068F56DB1D601C80332F3CB7D4346D446D9A19945AC086D2D10F9",
+          "CurrentSha256": "5441CE2D3BE09E1DE85D9C409D09858A626BB88EBB2CC2695036F547F0724207",
+          "CurrentBytesEqualMain": true
+        },
+        {
+          "Path": "tools/Native/Erlang.NifOrdinaryLoaderObservations/run.py",
+          "PriorPlanSha256": "3BFC24D039F699B6591AA52372151574C052465EE16A6C848D03BC39F54E017C",
+          "CurrentSha256": "AF3CAA69E0F7E03001F0493908A5141FB30A53D84077CA8537A80483D73E7B6D",
+          "CurrentBytesEqualMain": true
+        },
+        {
+          "Path": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+          "PriorPlanSha256": "B5747837521B62BF6963796E6606FB53F4121C01E56307DE73F31BF5F6B92510",
+          "CurrentSha256": "B324B12EE1381240F2B85785428D23E9C5ED36ACF0FD57174977644BE0BC78F0",
+          "CurrentBytesEqualMain": false
+        }
+      ],
+      "AddedTestDependencies": [
+        "tests/Erlang.Tests/Runtime/Memory/BeamOwnedWord504Checks.cs",
+        "tests/Erlang.Tests/Runtime/Memory/BeamOwnedWord504Names.cs",
+        "tests/Erlang.Tests/Runtime/Memory/ProcessOwnedTerm504Checks.cs",
+        "tests/Erlang.Tests/Runtime/Memory/ProcessOwnedTerm504Names.cs",
+        "tests/Erlang.Tests/Runtime/Memory/ProcessOwnedWord504Checks.cs",
+        "tests/Erlang.Tests/Runtime/Memory/ProcessOwnedWord504Names.cs",
+        "tests/Erlang.Tests/Runtime/Memory/RuntimeQueueStatistics504TestNames.cs",
+        "tests/Erlang.Tests/Runtime/Native/Nif/Maps/NifMapFamily504TestNames.cs",
+        "tests/Erlang.Tests/Runtime/Native/Nif/Maps/NifMapIterator504TestNames.cs",
+        "tests/Erlang.Tests/Runtime/Statistics/RuntimeStatisticsHostChecks.cs",
+        "tests/Erlang.Tests/Runtime/Statistics/RuntimeStatisticsHostParameters.cs"
+      ],
+      "NativePlanExecuted": false
+    }
+  ]
+}

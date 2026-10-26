@@ -11,11 +11,14 @@ internal static unsafe class NifNativeMapSizeCallbacks
         try
         {
             var owner = NifNativeCallEnvironment.ResolveTermOwner(term, env);
-            if (owner.GetValue(term).StaticTerm is not MapTerm map)
+            var value = owner.GetValue(term);
+            int count = value.StaticTerm is MapTerm map ? map.Entries.Count
+                : value.Pending is NifNativeMapNode504 pending ? pending.Entries.Count : -1;
+            if (count < 0)
                 return 0;
             if (size == null)
                 throw new ArgumentException(NifNativeMapSizeNames.NullOutput);
-            *size = (nuint)map.Entries.Count;
+            *size = (nuint)count;
 
             return 1;
         }

@@ -5,6 +5,17 @@ internal static class NifNativeWindowsCallbackLayout
     internal const int GetMapSize = 109;
     internal const int MakeNewMap = 110;
     internal const int GetMapValue = 112;
+    internal const int MakeMapPut = 111;
+    internal const int MakeMapUpdate = 113;
+    internal const int MakeMapRemove = 114;
+    internal const int CreateMapIterator = 115;
+    internal const int DestroyMapIterator = 116;
+    internal const int IsMapIteratorHead = 117;
+    internal const int IsMapIteratorTail = 118;
+    internal const int NextMapIterator = 119;
+    internal const int PreviousMapIterator = 120;
+    internal const int GetMapIteratorPair = 121;
+    internal const int MakeMapFromArrays = 165;
     internal const int FunctionCount = 180;
     internal const int TailPointers = 2;
     internal const int IsIdentical = 15;

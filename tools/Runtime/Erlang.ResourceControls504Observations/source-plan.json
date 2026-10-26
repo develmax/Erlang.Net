@@ -1,0 +1,136 @@
+{
+  "Status": "UNEXECUTED_ORIGINAL_SOURCE_PLAN",
+  "OriginalCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Flags": [
+    "+S",
+    "1:1",
+    "+SDcpu",
+    "1:1",
+    "+SDio",
+    "1",
+    "+A",
+    "1"
+  ],
+  "QueueKeys": [
+    "run_queue",
+    "run_queue_lengths",
+    "run_queue_lengths_all",
+    "total_run_queue_lengths",
+    "total_run_queue_lengths_all",
+    "active_tasks",
+    "active_tasks_all",
+    "total_active_tasks",
+    "total_active_tasks_all",
+    "run_queues"
+  ],
+  "Cases": [
+    {
+      "Name": "debug_flags",
+      "Native": false,
+      "Stages": []
+    },
+    {
+      "Name": "normal_queue",
+      "Native": false,
+      "Stages": [
+        "normal_runnable",
+        "normal_retired"
+      ]
+    },
+    {
+      "Name": "held_queues",
+      "Native": true,
+      "Stages": [
+        "held",
+        "queued",
+        "after_action",
+        "retired"
+      ]
+    },
+    {
+      "Name": "cancel_queued",
+      "Native": true,
+      "Stages": [
+        "held",
+        "queued",
+        "after_action",
+        "retired"
+      ]
+    },
+    {
+      "Name": "cancel_running",
+      "Native": true,
+      "Stages": [
+        "held",
+        "queued",
+        "after_action",
+        "retired"
+      ]
+    }
+  ],
+  "DebugFlagArguments": 15,
+  "OwnedProcess": "tools/Distribution/Erlang.GuestConnectedSendObservations/owned_process.py",
+  "Decoder": "tools/Distribution/Erlang.GuestConnectedSendObservations/passive_etf.py",
+  "SourceIdentity": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/source_inputs.py",
+  "BuildManifest": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/manifest.json",
+  "Files": [
+    {
+      "Path": "tools/Runtime/Erlang.ResourceControls504Observations/README.md",
+      "HashMode": "TextLF",
+      "Bytes": 3823,
+      "Sha256": "81DEE3C483194333BBBC600D93092C10DF1279942ADA9973AD7D538BAB67A10B"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.ResourceControls504Observations/collect.py",
+      "HashMode": "TextLF",
+      "Bytes": 14432,
+      "Sha256": "F8E3174C12A1D23CE63288B392E01E150B2F2004CE7ADCAF6B2149AF301B9A41"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.ResourceControls504Observations/seal-plan.py",
+      "HashMode": "TextLF",
+      "Bytes": 2592,
+      "Sha256": "FC61216F5EAF97AD25C7FB4BBB37B5EBE306E496EFCB87CCA1E6A216E987A4A9"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.ResourceControls504Observations/fixtures/queue_statistics504.c",
+      "HashMode": "TextLF",
+      "Bytes": 1914,
+      "Sha256": "175CCCF1B8FD7AA37DE76AADF5C8FEBB57B4EA0462E868DAE5A35E1092FD82BA"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.ResourceControls504Observations/fixtures/queue_statistics504.erl",
+      "HashMode": "TextLF",
+      "Bytes": 3198,
+      "Sha256": "5181E840ACEA92E58901008A181F5FE0E77E9C54F6B8FEE1E5653F5AB9E41BDE"
+    }
+  ],
+  "Dependencies": [
+    {
+      "Path": "tools/Distribution/Erlang.GuestConnectedSendObservations/owned_process.py",
+      "HashMode": "TextLF",
+      "Bytes": 3675,
+      "Sha256": "846101AD4F92121ACB128EAFB3228DD66D8A524CE0539A25E020A77010CFF071"
+    },
+    {
+      "Path": "tools/Distribution/Erlang.GuestConnectedSendObservations/passive_etf.py",
+      "HashMode": "TextLF",
+      "Bytes": 7105,
+      "Sha256": "A069AD650B3EA1BE6B90DE60117B84ED7A1A6B67128CC41E7ECAEFD2889C1713"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/source_inputs.py",
+      "HashMode": "TextLF",
+      "Bytes": 3099,
+      "Sha256": "28B06562E1621DF049D4C1B603B5AD7D9EBDA6C0BE616D21D54CCD4B03A34F45"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/manifest.json",
+      "HashMode": "TextLF",
+      "Bytes": 4992,
+      "Sha256": "AEBBA0D2DCF97E1248CA38407E8EBE628EB08F9EA4D13F48EC0C83A7A0364E61"
+    }
+  ],
+  "SdkCompared": false,
+  "WholeApiPromoted": false
+}

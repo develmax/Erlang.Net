@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Erlang;
 
-public sealed class MapTerm : Term
+public sealed partial class MapTerm : Term
 {
     private readonly Dictionary<Term, Term> lookup;
 

@@ -8,6 +8,70 @@ concurrency:
   group: validate-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 jobs:
+  original-resource-controls504:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    env:
+      ERLC_USE_SERVER: 'false'
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 2
+      - name: Select changed resource-control inputs
+        id: resource-scope
+        shell: bash
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          python3 - <<'PY'
+          import json, os, pathlib, subprocess
+          base = os.environ.get('BASE_SHA', '')
+          present = bool(base and set(base) != {'0'} and subprocess.run(['git', 'cat-file', '-e', base + '^{commit}'], capture_output=True).returncode == 0)
+          changed = subprocess.check_output(['git', 'diff', '--name-only', base, 'HEAD'], text=True).splitlines() if present else []
+          prefixes = ('tools/Runtime/Erlang.ResourceControls504Observations/', 'tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/', 'src/Runtime/Erlang.Runtime.Core/Scheduling/', 'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Statistics', 'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.SchedulerStatistics', 'src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations')
+          selected = [name for name in changed if name.startswith(prefixes) or 'SystemFlag504' in name or name == '.github/workflows/validate.yml']
+          required = not present or bool(selected)
+          folder = pathlib.Path('artifacts/resource-controls504-original')
+          folder.mkdir(parents=True)
+          (folder / 'scope.json').write_text(json.dumps(dict(Required=required, BaseAvailable=present, Base=base, SelectedPaths=selected, OriginalExecutionClaimed=False), indent=2) + '\n')
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write('required=' + str(required).lower() + '\n')
+          PY
+      - name: Prepare one pinned original runtime for the whole resource batch
+        if: steps.resource-scope.outputs.required == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/resource-controls504-original
+          git clone --depth 1 --single-branch --branch OTP-29.1.1 https://github.com/erlang/otp.git artifacts/resource-controls504-otp-source > artifacts/resource-controls504-original/clone.log 2>&1
+          test "$(git -C artifacts/resource-controls504-otp-source rev-parse HEAD)" = ad05823719d77c8faee87348ea39513d4e2f99c5
+          python3 -B tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/build-original.py \
+            --repository "$GITHUB_WORKSPACE" --manifest-sha256 AEBBA0D2DCF97E1248CA38407E8EBE628EB08F9EA4D13F48EC0C83A7A0364E61 \
+            --expected-head "$GITHUB_SHA" --otp-source "$GITHUB_WORKSPACE/artifacts/resource-controls504-otp-source" \
+            --prefix "$GITHUB_WORKSPACE/artifacts/resource-controls504-otp" \
+            --output "$GITHUB_WORKSPACE/artifacts/resource-controls504-original/runtime-build" \
+            > artifacts/resource-controls504-original/runtime-build.log 2>&1
+      - name: Capture all independent original queue and flag cases
+        if: steps.resource-scope.outputs.required == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          receipt="$GITHUB_WORKSPACE/artifacts/resource-controls504-original/runtime-build/build-receipt.json"
+          receipt_sha=$(sha256sum "$receipt" | cut -d ' ' -f 1)
+          python3 -B tools/Runtime/Erlang.ResourceControls504Observations/collect.py \
+            --repository "$GITHUB_WORKSPACE" --expected-head "$GITHUB_SHA" \
+            --plan-sha256 F59E99F994162636A541D048973833CDF8136A42A4191319A10528055C046F3C \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/resource-controls504-otp-source" \
+            --otp-install "$GITHUB_WORKSPACE/artifacts/resource-controls504-otp/lib/erlang" \
+            --build-receipt "$receipt" --build-receipt-sha256 "$receipt_sha" \
+            --output "$GITHUB_WORKSPACE/artifacts/resource-controls504-original/capture" \
+            > artifacts/resource-controls504-original/capture.log 2>&1
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: original-resource-controls504
+          path: artifacts/resource-controls504-original/**
   relocated-tooling:
     runs-on: ubuntu-latest
     steps:
@@ -116,6 +180,15 @@ jobs:
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) { throw 'Map lookup503 preparation unavailable; dependent native execution was not started.' }
           python -B tools/Native/Erlang.NifMapValue503Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 D1A9BE80F21C40E7FD8D84489401BF18F673EA14A5A383FB0170C11766EA204A --output artifacts/native-map503/ci --check-golden
           if ($LASTEXITCODE -ne 0) { throw 'Native map lookup503 comparison failed; independent route results are retained.' }
+      - name: Compare the complete native map family with pinned OTP and both loaders
+        if: ${{ !cancelled() }}
+        shell: pwsh
+        run: |
+          if (!(Test-Path tools/Native/Erlang.NifNativeBackend/bin/Debug/net10.0/Erlang.NifNativeBackend.dll) -or !(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
+            throw 'Map family504 requires successful host/provider preparation; dependent execution was not started'
+          }
+          python -B tools/Native/Erlang.NifMapFamily504Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 D0F1BB1E678627E19685EFF5E77A064C2EB90CB35ECB250E09166CF26407A9A3 --output artifacts/native-map504/ci --check-golden
+          if ($LASTEXITCODE -ne 0) { throw 'Native map family504 original/ordinary/reviewed comparison failed; all prepared independent route receipts are retained' }
       - name: Verify logical death before physical dirty completion in pinned OTP
         if: ${{ !cancelled() }}
         shell: pwsh
@@ -134,6 +207,7 @@ jobs:
             artifacts/native-map501/ci/**
             artifacts/process-retirement502/ci/**
             artifacts/native-map503/ci/**
+            artifacts/native-map504/ci/**
             artifacts/contracts487/ci-original/**
             artifacts/contracts489/ci-original/**
             artifacts/contracts490/ci-original/**

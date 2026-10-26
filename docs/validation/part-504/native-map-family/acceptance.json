@@ -1,0 +1,170 @@
+{
+  "Part": 504,
+  "Status": "LOCAL_SCOPED_ACCEPTANCE_EXACT_HEAD_CI_PENDING",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "MergedParts": {
+    "502": "b330dd3d884802b8b64faaac78edf813e2fc7fa1",
+    "503": "30d294e5c9e5ce8bd0c01248adf3e9e4a610b9a4",
+    "MainMergeCi": 40400648174,
+    "MainMergeCiConclusion": "success"
+  },
+  "Registered": 708,
+  "Full": 180,
+  "Pending": 504,
+  "Known": 24,
+  "MfaDelta": 0,
+  "FullContractDelta": 0,
+  "KnownDifferenceDelta": 0,
+  "NativeFamilyFunctions": 15,
+  "NewNativeCallbacks": 11,
+  "SourceGuards": 1772,
+  "Catalog": 9073,
+  "WholeProjectPercent": null,
+  "OriginalReturnedBytes": 440639,
+  "OriginalGoldenSha256": "F5BAA4479C6C886E1C5534E0F90C5FB496EFA2D7E822395B43401DCEC1C450A2",
+  "FamilyPlanSha256": "D0F1BB1E678627E19685EFF5E77A064C2EB90CB35ECB250E09166CF26407A9A3",
+  "WholeCanonicalLoaderComparisons": 2,
+  "WholeCanonicalBytesEqual": true,
+  "DefaultRawScope": "Only two exact atom-key pairs in root.group9 independent result may permute; all other bytes and bindings strict.",
+  "AdditionalMutableKeyCases": 136,
+  "AdditionalTemporaryReplacementCases": 32,
+  "NonInvokedStructuralPrecondition": "Only duplicate-key removal at size33,target1, binary64/65 is marked -2; original access violation localized before this guard.",
+  "IndependentLoaderCleanup": true,
+  "Reports": [
+    {
+      "Path": "validation/part-504/native-map-family/affected-final.json.gz",
+      "Sha256": "F115D15917F901FAD144451218C4F5FF857CA4D62E07698E425F95E10FA9A9D0",
+      "ReportSha256": "7510725B30A6495B9883E13338636092F479FA5F3AAB78FEB8D40EEDBB20002F",
+      "Passed": 7997,
+      "Failed": 139,
+      "Partial": true
+    },
+    {
+      "Path": "validation/part-504/native-map-family/affected-child-process-repeat.json.gz",
+      "Sha256": "D0527F52549A161BCE9633026C2C9251F09D4AFAA1224066A24047760AF2FF3A",
+      "ReportSha256": "AB8588B05BE9A63768A3C1613BB063F1A85E0F1E23D2D4EFDA016CA7AAB13F15",
+      "Passed": 139,
+      "Failed": 0,
+      "Partial": true
+    },
+    {
+      "Path": "validation/part-504/native-map-family/final-native-terms.json.gz",
+      "Sha256": "F7D9BA487E47909A0822FC1A05378100264E5D72B2E6EE3F9707CDDAFAB907A2",
+      "ReportSha256": "622A3B60AFCDE89C32B1F7E85E9AC8B0378379AAA6FEC0E56373CC89A22AA13E",
+      "Passed": 1706,
+      "Failed": 0,
+      "Partial": true
+    },
+    {
+      "Path": "validation/part-504/native-map-family/focus-structural.json.gz",
+      "Sha256": "1EE2AF1278885243F5F0F44103BEBF49533E9107B3B059318DB0E748E0F4AE5D",
+      "ReportSha256": "CFEE5540BDA0C528C9B2470D9CB1D466C8E8839519F27615FC6FEB58772C1AAE",
+      "Passed": 18,
+      "Failed": 0,
+      "Partial": true
+    },
+    {
+      "Path": "validation/part-504/native-map-family/final-tooling.json.gz",
+      "Sha256": "9F75C976BDC23574770532FE0E6F212B1A3952C9AE95FBEF5D62FDC44260E0A0",
+      "Partial": true
+    },
+    {
+      "Path": "validation/part-504/native-map-family/final-statistics-repeat.json.gz",
+      "Sha256": "2CFBDE1EFDC35081D1BAB942DD17316B62528411135667A2DC9D47B3BA06BDF2",
+      "Partial": true
+    }
+  ],
+  "LocalUninterruptedFullRun": false,
+  "CurrentHeadCi": "pending publication",
+  "ResourceLinuxOriginal": "prepared, not executed",
+  "Remaining": [
+    "Guest term producers, all live root domains, real GC and public heap/resource options remain disconnected from isolated substrate. All24 KnownDifference entries stay open.",
+    "Materialized maps still need retained physical topology for post-return and nested-map-key operations.",
+    "Linux/ARM/32-bit managed native-map family execution is not accepted.",
+    "504 pending MFA contracts remain to validate; finite selected native cases do not promote entire erlang:load_nif/2."
+  ],
+  "Tooling": {
+    "InitialPassed": 934,
+    "InitialFailed": 1,
+    "Cause": "Stale HOST test expected statistics(run_queues) rejection, but the pinned literal-string branch supports it. Production implementation retained; test now verifies tuple width and nonnegative values.",
+    "FinalFocusedRepeatPassed": 2,
+    "RuntimeUnchangedByTestCorrection": true
+  },
+  "CatalogCoverage": {
+    "Count": 9073,
+    "Composite": true,
+    "UninterruptedLocalFullRun": false,
+    "Sources": [
+      {
+        "Name": "affected-final",
+        "Path": "artifacts\\batch504\\affected-final.json",
+        "Sha256": "7510725B30A6495B9883E13338636092F479FA5F3AAB78FEB8D40EEDBB20002F",
+        "Passed": 7997,
+        "Failed": 139
+      },
+      {
+        "Name": "affected-child-process-repeat",
+        "Path": "artifacts\\batch504\\affected-child-process-repeat.json",
+        "Sha256": "AB8588B05BE9A63768A3C1613BB063F1A85E0F1E23D2D4EFDA016CA7AAB13F15",
+        "Passed": 139,
+        "Failed": 0
+      },
+      {
+        "Name": "focus-structural",
+        "Path": "artifacts\\batch504\\focus-structural.json",
+        "Sha256": "CFEE5540BDA0C528C9B2470D9CB1D466C8E8839519F27615FC6FEB58772C1AAE",
+        "Passed": 18,
+        "Failed": 0
+      },
+      {
+        "Name": "final-native-terms",
+        "Path": "artifacts\\batch504\\final-native-terms.json",
+        "Sha256": "622A3B60AFCDE89C32B1F7E85E9AC8B0378379AAA6FEC0E56373CC89A22AA13E",
+        "Passed": 1706,
+        "Failed": 0
+      },
+      {
+        "Name": "final-tooling",
+        "Path": "artifacts\\batch504\\final-tooling.json",
+        "Sha256": "430E27A407C946CCEEB518DF46D32918DC633FB250AB2031B40E1698F78CCF08",
+        "Passed": 934,
+        "Failed": 1
+      },
+      {
+        "Name": "final-statistics-repeat",
+        "Path": "artifacts\\batch504\\final-statistics-repeat.json",
+        "Sha256": "9055B61D5B28110FDD39B36CA6707479F524749E20D01329F336813FA833831B",
+        "Passed": 2,
+        "Failed": 0
+      }
+    ]
+  },
+  "RuntimeBinaries": [
+    {
+      "Path": "tests/Erlang.Tests/bin/Debug/net10.0/Erlang.Runtime.dll",
+      "Sha256": "A6CF2534B2E17D2DDC79DC05BF02AA6AEE29194994C4226FB77FD7B3C45126B8"
+    },
+    {
+      "Path": "tests/Erlang.Tests/bin/Debug/net10.0/Erlang.Terms.dll",
+      "Sha256": "8A3829319C00CB1F24CE8C2CF6D5520B421A385288B7EF2F48BE624C90CC567F"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifNativeBackend/bin/Debug/net10.0/Erlang.NifNativeBackend.dll",
+      "Sha256": "8E596CFD5007D81793C362CC552E77B7CB1845A3757AA030BF3F71BC6C74E708"
+    },
+    {
+      "Path": "tests/Erlang.Tests/bin/Debug/net10.0/Erlang.Tests.dll",
+      "Sha256": "17858551CBE756BBE60FD2F66E571AAA399D155C3AF6FB55771E4F1089C93564"
+    }
+  ],
+  "CurrentReviewedPlans": [
+    {
+      "Path": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Sha256": "B324B12EE1381240F2B85785428D23E9C5ED36ACF0FD57174977644BE0BC78F0"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Sha256": "4053F0CFBD919251DEE5C42575E6B874C0E7664297D64888EFFF4F749D3536AC"
+    }
+  ]
+}

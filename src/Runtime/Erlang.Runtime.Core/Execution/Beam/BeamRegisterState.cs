@@ -1,10 +1,17 @@
 namespace Erlang;
 
-internal sealed class BeamRegisterState
+internal sealed class BeamRegisterState : IDisposable
 {
     private readonly BeamRegisterSlot[] values = new BeamRegisterSlot[BeamOperandParameters.MaximumRegister];
     private readonly Stack<BeamLocalFrame> frames = new();
     private readonly double?[] floating = new double?[BeamOperandParameters.MaximumRegister];
+    private readonly ProcessWordExecution504? words504;
+
+    internal BeamRegisterState() { }
+
+    internal BeamRegisterState(ProcessWordExecution504? words) => words504 = words;
+
+    internal IDisposable? EnterWordOperation504() => words504?.Enter();
 
     internal double ReadFloat(BeamOperand operand)
         => floating[(int)operand.Value] ?? throw new InvalidDataException(BeamOnLoadDiagnostics.Frame);
@@ -20,13 +27,13 @@ internal sealed class BeamRegisterState
 
     internal int FrameDepth => frames.Count;
 
-    internal void Allocate(int slots) => frames.Push(new(slots));
+    internal void Allocate(int slots) => frames.Push(new(slots, words504));
 
     internal void Deallocate(int slots)
     {
         if (!frames.TryPeek(out BeamLocalFrame? frame) || frame.Slots != slots || frame.HasHandlers)
             throw new InvalidDataException(BeamOnLoadDiagnostics.Frame);
-        frames.Pop();
+        frames.Pop().Dispose();
     }
 
     internal Term ReadY(int index) => frames.Peek().Read(index);
@@ -40,7 +47,7 @@ internal sealed class BeamRegisterState
         if (!frames.TryPeek(out BeamLocalFrame? frame))
             throw new InvalidDataException(BeamOnLoadDiagnostics.Frame);
         BeamLocalFrame trimmed = frame.Trim(removed, remaining);
-        frames.Pop();
+        frames.Pop().Dispose();
         frames.Push(trimmed);
     }
 
@@ -178,23 +185,39 @@ internal sealed class BeamRegisterState
             if (frame.HasHandlers)
                 throw new InvalidDataException(BeamRegisterProtocolNames.Handler);
         while (!ReferenceEquals(frames.Peek(), target))
-            frames.Pop();
+            frames.Pop().Dispose();
     }
 
     public BeamRegisterState Clone()
     {
-        var clone = new BeamRegisterState();
-        Array.Copy(values, clone.values, values.Length);
-        Array.Copy(floating, clone.floating, floating.Length);
-        foreach (BeamLocalFrame frame in frames.Reverse())
-            clone.frames.Push(frame.Clone());
+        var clone = new BeamRegisterState(words504);
+        try
+        {
+            Array.Copy(values, clone.values, values.Length);
+            Array.Copy(floating, clone.floating, floating.Length);
+            foreach (BeamLocalFrame frame in frames.Reverse())
+                clone.frames.Push(frame.Clone());
 
-        return clone;
+            return clone;
+        }
+        catch
+        {
+            clone.Dispose();
+            throw;
+        }
     }
 
     public void CheckLive(int count)
     {
         for (int index = 0; index < count; index++)
             values[index].RequireMovable();
+    }
+
+    public void Dispose()
+    {
+        while (frames.TryPop(out BeamLocalFrame? frame))
+            frame.Dispose();
+        Array.Clear(values);
+        Array.Clear(floating);
     }
 }

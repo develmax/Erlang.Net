@@ -148,4 +148,4 @@ Append numbered English entries only to the last volume. Start the next sequenti
 
 - [0087.md](docs/changelog/0087.md) — parts492–501 (closed; conversions, ownership, map/record/BIF contracts, review repairs and liveness)
 
-- [0088.md](docs/changelog/0088.md) — parts502–503 (active)
+- [0088.md](docs/changelog/0088.md) — parts502–504 (active)

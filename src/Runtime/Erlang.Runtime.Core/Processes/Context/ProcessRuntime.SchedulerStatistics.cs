@@ -2,8 +2,5 @@ namespace Erlang;
 
 public sealed partial class ProcessRuntime
 {
-    internal Term SampleSchedulerQueues(string key) => RuntimeSchedulerStatistics.Format(
-        key,
-        actorDispatcher.QueueLengths(RuntimeSchedulerStatistics.IncludesRunning(key))
-    );
+    internal Term SampleSchedulerQueues(string key) => SampleSchedulerQueues504(key);
 }

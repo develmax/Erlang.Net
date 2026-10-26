@@ -16,17 +16,26 @@ internal static unsafe class NifNativeMapValue503Callbacks
         try
         {
             var owner = NifNativeCallEnvironment.ResolveTermOwner(mapHandle, env);
-            if (owner.GetValue(mapHandle).StaticTerm is not MapTerm map)
+            var mapValue = owner.GetValue(mapHandle);
+            if (mapValue.StaticTerm is not MapTerm && mapValue.Pending is not NifNativeMapNode504)
                 return NifNativeMapValue503Names.MissingOrNotMap;
             var keyOwner = NifNativeCallEnvironment.ResolveTermOwner(keyHandle, env);
             if (!ReferenceEquals(owner.Runtime, keyOwner.Runtime))
                 throw new InvalidOperationException(NifNativeDiagnostics.ForeignRuntime);
             Term key = keyOwner.Get(keyHandle);
-            if (!map.TryGet(key, out var value))
+            NifNativeTermValue resultValue;
+            _ = NifNativeMapGraph504.TryNode(mapValue, owner.Runtime, out var node);
+            if (!NifNativeMapGraph504.TryGet(
+                node,
+                key,
+                owner.Runtime,
+                out var found
+            ))
                 return NifNativeMapValue503Names.MissingOrNotMap;
+            resultValue = found.Value;
             if (output == null)
                 throw new InvalidOperationException(NifNativeMapValue503Names.NullOutput);
-            nuint result = owner.Add(value!);
+            nuint result = owner.AddValue(resultValue);
             *output = result;
 
             return NifNativeMapValue503Names.Found;

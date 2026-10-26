@@ -1,0 +1,168 @@
+{
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Platform": "windows-x64",
+  "ApiFamilyFunctions": [
+    {
+      "Name": "enif_is_map",
+      "Slot": 108
+    },
+    {
+      "Name": "enif_get_map_size",
+      "Slot": 109
+    },
+    {
+      "Name": "enif_make_new_map",
+      "Slot": 110
+    },
+    {
+      "Name": "enif_make_map_put",
+      "Slot": 111
+    },
+    {
+      "Name": "enif_get_map_value",
+      "Slot": 112
+    },
+    {
+      "Name": "enif_make_map_update",
+      "Slot": 113
+    },
+    {
+      "Name": "enif_make_map_remove",
+      "Slot": 114
+    },
+    {
+      "Name": "enif_map_iterator_create",
+      "Slot": 115
+    },
+    {
+      "Name": "enif_map_iterator_destroy",
+      "Slot": 116
+    },
+    {
+      "Name": "enif_map_iterator_is_head",
+      "Slot": 117
+    },
+    {
+      "Name": "enif_map_iterator_is_tail",
+      "Slot": 118
+    },
+    {
+      "Name": "enif_map_iterator_next",
+      "Slot": 119
+    },
+    {
+      "Name": "enif_map_iterator_prev",
+      "Slot": 120
+    },
+    {
+      "Name": "enif_map_iterator_get_pair",
+      "Slot": 121
+    },
+    {
+      "Name": "enif_make_map_from_arrays",
+      "Slot": 165
+    }
+  ],
+  "Headers": [
+    {
+      "GitPath": "erts/emulator/beam/erl_nif.h",
+      "OutputName": "erl_nif.h",
+      "Sha256": "6CB96C37D306A173EF71946E823829FC21E47CB4A19288B221129EAC2F13B689"
+    },
+    {
+      "GitPath": "erts/emulator/beam/erl_drv_nif.h",
+      "OutputName": "erl_drv_nif.h",
+      "Sha256": "E9D4280779E8FD4AC463144F310B4DA2346DD3A18E73D445BF1F88AE3C1F1312"
+    },
+    {
+      "GitPath": "erts/emulator/beam/erl_nif_api_funcs.h",
+      "OutputName": "erl_nif_api_funcs.h",
+      "Sha256": "CF34ADA521AEB0EE00C9936320CD694F9816EDBAB960500453051CEA443DDA11"
+    },
+    {
+      "OutputName": "erl_int_sizes_config.h",
+      "Sha256": "9CE6329729C2F6AA0B87B2D84608FF547A8A256D02D8E9559DFF874CDB8A9986",
+      "Origin": "Pinned official Windows release generated configuration"
+    }
+  ],
+  "Dependencies": [
+    {
+      "Path": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/owned.py",
+      "HashMode": "TextLF",
+      "Sha256": "429ED3777FD3EE18800409FFC49881BEADF6CD35248C1F3738BB8A472318EC17"
+    },
+    {
+      "Path": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/bounded_inventory.py",
+      "HashMode": "TextLF",
+      "Sha256": "694958238C5AC57EF4611E18F07B54B97A546FEF0C0A547FF65563FF9B495451"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifMapFamily504Observations/diagnostic_etf.py",
+      "HashMode": "Raw",
+      "Sha256": "194CB0DB3D7D591B481AB601CA3156790E807A479A965CB886C08597993D355C"
+    }
+  ],
+  "BuildScriptSha256": "E8FADF6884E175EB6A08A7B170E86B31BE31C5342CF2EFC1A23D01593A9D1921",
+  "CollectorSha256": "D16BE111066875E8BAA951DF4205A83D54B3BAA6588F66A21E88833E1A04915B",
+  "NativeSourcePath": "tools/Native/Erlang.NifMapFamily504Observations/map_family504.c",
+  "NativeSourceSha256": "41F95EDD498BAE925670FB3B7B824DE2FB7363D63F2B1E9EDC463345BA7A2BD5",
+  "ErlangSourcePath": "tools/Native/Erlang.NifMapFamily504Observations/map_family504.erl",
+  "ErlangSourceSha256": "49DC3866112524C71BCFF1513B83B21B00CD1431CFD3F3B351AC3E2D764883F0",
+  "OriginalGoldenState": "ACQUIRED_FROM_INDEPENDENT_ORIGINAL_REPLACEMENT1_REQUIRES_FINAL_REPEAT",
+  "DiagnosticDecoderProvenance": {
+    "BasePath": "tools/Distribution/Erlang.GuestConnectedSendObservations/passive_etf.py",
+    "BaseRawSha256": "A069AD650B3EA1BE6B90DE60117B84ED7A1A6B67128CC41E7ECAEFD2889C1713",
+    "SharedFileModified": false,
+    "MapRepresentation": "Every raw encoded entry retained in order, with no dictionary/frozenset canonicalization or key-domain restriction",
+    "EtfOutputBytesRewritten": false,
+    "AggregateDecodedTermLimit": 1000000
+  },
+  "SerializationProfiles": {
+    "CanonicalOptions": [
+      "deterministic",
+      {
+        "minor_version": 2
+      }
+    ],
+    "DefaultOptions": [
+      {
+        "minor_version": 2
+      }
+    ],
+    "Producer": "Actual erlang:term_to_binary/2 in each VM",
+    "SameActualObservedTerm": true,
+    "CanonicalWholeBytesComparedStrictly": true,
+    "DefaultWholeCaptureRetained": true,
+    "DefaultAllowedDifference": {
+      "Path": "root.group9.independent.result_map",
+      "Kind": "Only permutation of two exact raw atom-key/value pairs",
+      "Bindings": {
+        "added": 99,
+        "old": "kept"
+      },
+      "AllOtherRawBytesEqual": true
+    },
+    "PostCaptureEtfNormalization": false
+  },
+  "ObservationGroups": 14,
+  "MutableKeyPartition": {
+    "Cases": 136,
+    "RemovalNotInvoked": {
+      "MapSize": 33,
+      "MutationTarget": 1,
+      "BinaryBytes": [
+        64,
+        65
+      ],
+      "Marker": -2,
+      "Reason": "Duplicate structural keys violate original HAMT-to-flat deletion precondition; original access violation captured and localized in mutable-original1/2. All other scalar observations remain executed."
+    },
+    "WholeApiPromotion": false
+  },
+  "ReplacementKeyPartition": {
+    "Cases": 32,
+    "MapWordReuseObserved": true,
+    "TemporaryKeyAfterReplacementMutated": true
+  },
+  "OriginalGoldenSha256": "F5BAA4479C6C886E1C5534E0F90C5FB496EFA2D7E822395B43401DCEC1C450A2"
+}

@@ -6,6 +6,7 @@ internal static class RuntimeStatisticsHostParameters
     public const int Owners = 2;
     public const int SamplesPerOwner = 64;
     public const int BusySpinIterations = 256;
+    public const int DirtyQueueKinds = 2;
     public static readonly TimeSpan BusyInterval = TimeSpan.FromMilliseconds(2);
     public static readonly TimeSpan Timeout = TimeSpan.FromSeconds(20);
     public const string Failure = "Statistics actual shared clock/user CPU contract failed";
@@ -15,7 +16,6 @@ internal static class RuntimeStatisticsHostParameters
         RuntimeStatisticsNames.Io,
         RuntimeStatisticsNames.MicrostateAccounting,
         RuntimeStatisticsNames.SchedulerWallTime,
-        RuntimeStatisticsNames.SchedulerWallTimeAll,
-        RuntimeStatisticsNames.RunQueues
+        RuntimeStatisticsNames.SchedulerWallTimeAll
     ];
 }

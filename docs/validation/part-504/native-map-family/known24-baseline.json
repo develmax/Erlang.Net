@@ -1,0 +1,1045 @@
+[
+  {
+    "Module": "erlang",
+    "Function": "process_info",
+    "Arity": 2,
+    "Status": "Known differences",
+    "Scope": "Four physical process_info keys remain absent from the supported-key parser and default logical list. No manufactured ERTS heap/stack figures are introduced.",
+    "Evidence": [
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-347/current-source-difference-review.json",
+        "Sha256": "5692B504DF36620B5244DA53D1B50C0CD5D79B9D0E5A9E376F9EE0C886B26C42",
+        "Scope": "Exact current source and pinned OTP branches prove omitted default physical fields and badarg for four valid explicit resource keys. Existing original projections remain separately scoped; no new physical values were observed or fabricated."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-357/current-source-preservation.json",
+        "Sha256": "564A44C46AC0CD681250FF16EDE64FACE56790919DDABD5C74E6958000D2DA54",
+        "Scope": "Part357 current source binding and focused acquisition; previous classifications retained. Root peer/canonical/original gates remain required; no new Verified claim."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-359/current-source-preservation.json",
+        "Sha256": "F17A44A0512987CF6BA39DDA306B45241E1A7863F4C33096AC1B5EB85F53A2B5",
+        "Scope": "Part359 current source preservation for existing audited scopes plus unpromoted Windows fixed24 callbacks and original-driven remote monitor correction; no complete-contract promotion inferred."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-360/current-source-preservation.json",
+        "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
+        "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+        "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+        "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
+      }
+    ],
+    "Limits": [
+      "Native physical resource keys total_heap_size, heap_size, stack_size and garbage_collection are unsupported and rejected; they are valid in pinned OTP. Do not replace them with fabricated integer values or node-wide GC totals.",
+      "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending Supported item async_dist now returns the actual target process flag as a boolean from the existing gated runtime state. Scalar and list queries preserve item validation, list order and duplicates; the item remains excluded from the default process_info/1 catalog. Real generated default/transition/other-process/child/dead-target/error contracts and mixed owner queries during connected output waits are covered within the existing PID/query domain. This adds no export and does not complete remote process-info domains, pending/autoconnect, native scheduler parity or general wire equality."
+    ]
+  },
+  {
+    "Module": "erlang",
+    "Function": "process_info",
+    "Arity": 1,
+    "Status": "Known differences",
+    "Scope": "Four physical process_info keys remain absent from the supported-key parser and default logical list. No manufactured ERTS heap/stack figures are introduced.",
+    "Evidence": [
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-347/current-source-difference-review.json",
+        "Sha256": "5692B504DF36620B5244DA53D1B50C0CD5D79B9D0E5A9E376F9EE0C886B26C42",
+        "Scope": "Exact current source and pinned OTP branches prove omitted default physical fields and badarg for four valid explicit resource keys. Existing original projections remain separately scoped; no new physical values were observed or fabricated."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-357/current-source-preservation.json",
+        "Sha256": "564A44C46AC0CD681250FF16EDE64FACE56790919DDABD5C74E6958000D2DA54",
+        "Scope": "Part357 current source binding and focused acquisition; previous classifications retained. Root peer/canonical/original gates remain required; no new Verified claim."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-359/current-source-preservation.json",
+        "Sha256": "F17A44A0512987CF6BA39DDA306B45241E1A7863F4C33096AC1B5EB85F53A2B5",
+        "Scope": "Part359 current source preservation for existing audited scopes plus unpromoted Windows fixed24 callbacks and original-driven remote monitor correction; no complete-contract promotion inferred."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-360/current-source-preservation.json",
+        "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
+        "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+        "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+        "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
+      }
+    ],
+    "Limits": [
+      "The native physical heap/stack/GC fields are absent. Actual original logical projections pass within their finite query scope; they do not verify a full default-list/resource contract. Other remaining query, scheduler and process-domain limits are not promoted to compatible."
+    ]
+  },
+  {
+    "Module": "erlang",
+    "Function": "spawn_opt",
+    "Arity": 2,
+    "Status": "Known differences",
+    "Scope": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+    "Evidence": [
+      {
+        "Kind": "CompatibilityAudit",
+        "Path": "validation/part-350/spawn-options-audit/classification.json",
+        "Sha256": "0D696281D199856D537BE53C6A2C2DB70DA31E89EED3A95B5DACD73BFAA1EF4D",
+        "Scope": "Independent source-known valid-option refusal at published349 against pinned OTP-29.1.1; reporting-only classification, no execution or complete option-parity claim."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-350/spawn-options-audit/source-known-review.json",
+        "Sha256": "CE46C0AF7705FDCB276119E5C5B4721D8B9E6A0243E671CECD34689AB7862D0F",
+        "Scope": "Independent source-known valid-option refusal at published349 against pinned OTP-29.1.1; reporting-only classification, no execution or complete option-parity claim."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-350/spawn-options-audit/pinned-source-anchors.json",
+        "Sha256": "67D53E54734834587660628AC022C1A915FE93D7690A0C7520FAB07AFC321482",
+        "Scope": "Independent source-known valid-option refusal at published349 against pinned OTP-29.1.1; reporting-only classification, no execution or complete option-parity claim."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-350/spawn-options-audit/prior-report.json",
+        "Sha256": "CFD479C7DDE0F927221A44C31EA991B2F4FEB604C95666326A3072A1BA11030F",
+        "Scope": "Independent source-known valid-option refusal at published349 against pinned OTP-29.1.1; reporting-only classification, no execution or complete option-parity claim."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-351/spawn-option-refinement/prefull-source-review.json",
+        "Sha256": "F2E799B8C899489D7441F0C58C2C9B64932A55B3CADFE70A8A46C515B98F3BA9",
+        "Scope": "Current source implements priority while remaining heap/GC/MQD/affinity refusals preserve Known status; prior unsupported-priority evidence is historical and unchanged."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-353/compatibility-source-review/report.json",
+        "Sha256": "B61E4947BC3FD74441B829A1CCF04E61BB967E698AA7F0E93E4EC52DA6A5A5A6",
+        "Scope": "Current logical scheduler binding replaces the prior current refusal description; remaining concrete tuning refusals keep Known differences. No new Verified promotion."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-357/current-source-preservation.json",
+        "Sha256": "564A44C46AC0CD681250FF16EDE64FACE56790919DDABD5C74E6958000D2DA54",
+        "Scope": "Part357 current source binding and focused acquisition; previous classifications retained. Root peer/canonical/original gates remain required; no new Verified claim."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-359/current-source-preservation.json",
+        "Sha256": "F17A44A0512987CF6BA39DDA306B45241E1A7863F4C33096AC1B5EB85F53A2B5",
+        "Scope": "Part359 current source preservation for existing audited scopes plus unpromoted Windows fixed24 callbacks and original-driven remote monitor correction; no complete-contract promotion inferred."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-360/current-source-preservation.json",
+        "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
+        "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+        "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+        "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
+      }
+    ],
+    "Limits": [
+      "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+      "Current styled-source preservation review and prior managed focus do not establish complete spawn_opt compatibility. Final part 353 full validation and explicit two-lane original comparison remain pending; original part 351 covers its three priority witnesses only.",
+      "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
+    ]
+  },
+  {
+    "Module": "erlang",
+    "Function": "spawn_opt",
+    "Arity": 3,
+    "Status": "Known differences",
+    "Scope": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+    "Evidence": [
+      {
+        "Kind": "CompatibilityAudit",
+        "Path": "validation/part-350/spawn-options-audit/classification.json",
+        "Sha256": "0D696281D199856D537BE53C6A2C2DB70DA31E89EED3A95B5DACD73BFAA1EF4D",
+        "Scope": "Independent source-known valid-option refusal at published349 against pinned OTP-29.1.1; reporting-only classification, no execution or complete option-parity claim."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-350/spawn-options-audit/source-known-review.json",
+        "Sha256": "CE46C0AF7705FDCB276119E5C5B4721D8B9E6A0243E671CECD34689AB7862D0F",
+        "Scope": "Independent source-known valid-option refusal at published349 against pinned OTP-29.1.1; reporting-only classification, no execution or complete option-parity claim."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-350/spawn-options-audit/pinned-source-anchors.json",
+        "Sha256": "67D53E54734834587660628AC022C1A915FE93D7690A0C7520FAB07AFC321482",
+        "Scope": "Independent source-known valid-option refusal at published349 against pinned OTP-29.1.1; reporting-only classification, no execution or complete option-parity claim."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-350/spawn-options-audit/prior-report.json",
+        "Sha256": "CFD479C7DDE0F927221A44C31EA991B2F4FEB604C95666326A3072A1BA11030F",
+        "Scope": "Independent source-known valid-option refusal at published349 against pinned OTP-29.1.1; reporting-only classification, no execution or complete option-parity claim."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-351/spawn-option-refinement/prefull-source-review.json",
+        "Sha256": "F2E799B8C899489D7441F0C58C2C9B64932A55B3CADFE70A8A46C515B98F3BA9",
+        "Scope": "Current source implements priority while remaining heap/GC/MQD/affinity refusals preserve Known status; prior unsupported-priority evidence is historical and unchanged."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-353/compatibility-source-review/report.json",
+        "Sha256": "B61E4947BC3FD74441B829A1CCF04E61BB967E698AA7F0E93E4EC52DA6A5A5A6",
+        "Scope": "Current logical scheduler binding replaces the prior current refusal description; remaining concrete tuning refusals keep Known differences. No new Verified promotion."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-357/current-source-preservation.json",
+        "Sha256": "564A44C46AC0CD681250FF16EDE64FACE56790919DDABD5C74E6958000D2DA54",
+        "Scope": "Part357 current source binding and focused acquisition; previous classifications retained. Root peer/canonical/original gates remain required; no new Verified claim."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-359/current-source-preservation.json",
+        "Sha256": "F17A44A0512987CF6BA39DDA306B45241E1A7863F4C33096AC1B5EB85F53A2B5",
+        "Scope": "Part359 current source preservation for existing audited scopes plus unpromoted Windows fixed24 callbacks and original-driven remote monitor correction; no complete-contract promotion inferred."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-360/current-source-preservation.json",
+        "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
+        "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+        "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+        "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
+      }
+    ],
+    "Limits": [
+      "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+      "Current styled-source preservation review and prior managed focus do not establish complete spawn_opt compatibility. Final part 353 full validation and explicit two-lane original comparison remain pending; original part 351 covers its three priority witnesses only.",
+      "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
+    ]
+  },
+  {
+    "Module": "erlang",
+    "Function": "spawn_opt",
+    "Arity": 4,
+    "Status": "Known differences",
+    "Scope": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+    "Evidence": [
+      {
+        "Kind": "CompatibilityAudit",
+        "Path": "validation/part-350/spawn-options-audit/classification.json",
+        "Sha256": "0D696281D199856D537BE53C6A2C2DB70DA31E89EED3A95B5DACD73BFAA1EF4D",
+        "Scope": "Independent source-known valid-option refusal at published349 against pinned OTP-29.1.1; reporting-only classification, no execution or complete option-parity claim."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-350/spawn-options-audit/source-known-review.json",
+        "Sha256": "CE46C0AF7705FDCB276119E5C5B4721D8B9E6A0243E671CECD34689AB7862D0F",
+        "Scope": "Independent source-known valid-option refusal at published349 against pinned OTP-29.1.1; reporting-only classification, no execution or complete option-parity claim."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-350/spawn-options-audit/pinned-source-anchors.json",
+        "Sha256": "67D53E54734834587660628AC022C1A915FE93D7690A0C7520FAB07AFC321482",
+        "Scope": "Independent source-known valid-option refusal at published349 against pinned OTP-29.1.1; reporting-only classification, no execution or complete option-parity claim."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-350/spawn-options-audit/prior-report.json",
+        "Sha256": "CFD479C7DDE0F927221A44C31EA991B2F4FEB604C95666326A3072A1BA11030F",
+        "Scope": "Independent source-known valid-option refusal at published349 against pinned OTP-29.1.1; reporting-only classification, no execution or complete option-parity claim."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-351/spawn-option-refinement/prefull-source-review.json",
+        "Sha256": "F2E799B8C899489D7441F0C58C2C9B64932A55B3CADFE70A8A46C515B98F3BA9",
+        "Scope": "Current source implements priority while remaining heap/GC/MQD/affinity refusals preserve Known status; prior unsupported-priority evidence is historical and unchanged."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-353/compatibility-source-review/report.json",
+        "Sha256": "B61E4947BC3FD74441B829A1CCF04E61BB967E698AA7F0E93E4EC52DA6A5A5A6",
+        "Scope": "Current logical scheduler binding replaces the prior current refusal description; remaining concrete tuning refusals keep Known differences. No new Verified promotion."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-357/current-source-preservation.json",
+        "Sha256": "564A44C46AC0CD681250FF16EDE64FACE56790919DDABD5C74E6958000D2DA54",
+        "Scope": "Part357 current source binding and focused acquisition; previous classifications retained. Root peer/canonical/original gates remain required; no new Verified claim."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-359/current-source-preservation.json",
+        "Sha256": "F17A44A0512987CF6BA39DDA306B45241E1A7863F4C33096AC1B5EB85F53A2B5",
+        "Scope": "Part359 current source preservation for existing audited scopes plus unpromoted Windows fixed24 callbacks and original-driven remote monitor correction; no complete-contract promotion inferred."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-360/current-source-preservation.json",
+        "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
+        "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+        "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+        "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
+      }
+    ],
+    "Limits": [
+      "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+      "Current styled-source preservation review and prior managed focus do not establish complete spawn_opt compatibility. Final part 353 full validation and explicit two-lane original comparison remain pending; original part 351 covers its three priority witnesses only.",
+      "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
+    ]
+  },
+  {
+    "Module": "erlang",
+    "Function": "spawn_opt",
+    "Arity": 5,
+    "Status": "Known differences",
+    "Scope": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+    "Evidence": [
+      {
+        "Kind": "CompatibilityAudit",
+        "Path": "validation/part-350/spawn-options-audit/classification.json",
+        "Sha256": "0D696281D199856D537BE53C6A2C2DB70DA31E89EED3A95B5DACD73BFAA1EF4D",
+        "Scope": "Independent source-known valid-option refusal at published349 against pinned OTP-29.1.1; reporting-only classification, no execution or complete option-parity claim."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-350/spawn-options-audit/source-known-review.json",
+        "Sha256": "CE46C0AF7705FDCB276119E5C5B4721D8B9E6A0243E671CECD34689AB7862D0F",
+        "Scope": "Independent source-known valid-option refusal at published349 against pinned OTP-29.1.1; reporting-only classification, no execution or complete option-parity claim."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-350/spawn-options-audit/pinned-source-anchors.json",
+        "Sha256": "67D53E54734834587660628AC022C1A915FE93D7690A0C7520FAB07AFC321482",
+        "Scope": "Independent source-known valid-option refusal at published349 against pinned OTP-29.1.1; reporting-only classification, no execution or complete option-parity claim."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-350/spawn-options-audit/prior-report.json",
+        "Sha256": "CFD479C7DDE0F927221A44C31EA991B2F4FEB604C95666326A3072A1BA11030F",
+        "Scope": "Independent source-known valid-option refusal at published349 against pinned OTP-29.1.1; reporting-only classification, no execution or complete option-parity claim."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-351/spawn-option-refinement/prefull-source-review.json",
+        "Sha256": "F2E799B8C899489D7441F0C58C2C9B64932A55B3CADFE70A8A46C515B98F3BA9",
+        "Scope": "Current source implements priority while remaining heap/GC/MQD/affinity refusals preserve Known status; prior unsupported-priority evidence is historical and unchanged."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-353/compatibility-source-review/report.json",
+        "Sha256": "B61E4947BC3FD74441B829A1CCF04E61BB967E698AA7F0E93E4EC52DA6A5A5A6",
+        "Scope": "Current logical scheduler binding replaces the prior current refusal description; remaining concrete tuning refusals keep Known differences. No new Verified promotion."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-357/current-source-preservation.json",
+        "Sha256": "564A44C46AC0CD681250FF16EDE64FACE56790919DDABD5C74E6958000D2DA54",
+        "Scope": "Part357 current source binding and focused acquisition; previous classifications retained. Root peer/canonical/original gates remain required; no new Verified claim."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-359/current-source-preservation.json",
+        "Sha256": "F17A44A0512987CF6BA39DDA306B45241E1A7863F4C33096AC1B5EB85F53A2B5",
+        "Scope": "Part359 current source preservation for existing audited scopes plus unpromoted Windows fixed24 callbacks and original-driven remote monitor correction; no complete-contract promotion inferred."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-360/current-source-preservation.json",
+        "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
+        "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+        "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+        "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
+      }
+    ],
+    "Limits": [
+      "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+      "Current styled-source preservation review and prior managed focus do not establish complete spawn_opt compatibility. Final part 353 full validation and explicit two-lane original comparison remain pending; original part 351 covers its three priority witnesses only.",
+      "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
+    ]
+  },
+  {
+    "Module": "erlang",
+    "Function": "spawn_request",
+    "Arity": 2,
+    "Status": "Known differences",
+    "Scope": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+    "Evidence": [
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-354/current-known-differences/source-review.json",
+        "Sha256": "8025CCCC9F2A8CA163E8FE7C54BB83C7971E2D2D6D27E429061FEFA273A4A1FA",
+        "Scope": "Concrete remaining valid-key, creator-option and default native-loader observable differences on styled private354. No selected-case-only Verified admission."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-357/current-source-preservation.json",
+        "Sha256": "564A44C46AC0CD681250FF16EDE64FACE56790919DDABD5C74E6958000D2DA54",
+        "Scope": "Part357 current source binding and focused acquisition; previous classifications retained. Root peer/canonical/original gates remain required; no new Verified claim."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-359/current-source-preservation.json",
+        "Sha256": "F17A44A0512987CF6BA39DDA306B45241E1A7863F4C33096AC1B5EB85F53A2B5",
+        "Scope": "Part359 current source preservation for existing audited scopes plus unpromoted Windows fixed24 callbacks and original-driven remote monitor correction; no complete-contract promotion inferred."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-360/current-source-preservation.json",
+        "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
+        "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+        "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+        "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
+      }
+    ],
+    "Limits": [
+      "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+      "Priority and logical scheduler binding are implemented; connected spawning is not claimed missing. Full native options/resource/alias/autoconnect/timing compatibility remains incomplete or unverified.",
+      "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
+    ]
+  },
+  {
+    "Module": "erlang",
+    "Function": "spawn_request",
+    "Arity": 3,
+    "Status": "Known differences",
+    "Scope": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+    "Evidence": [
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-354/current-known-differences/source-review.json",
+        "Sha256": "8025CCCC9F2A8CA163E8FE7C54BB83C7971E2D2D6D27E429061FEFA273A4A1FA",
+        "Scope": "Concrete remaining valid-key, creator-option and default native-loader observable differences on styled private354. No selected-case-only Verified admission."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-357/current-source-preservation.json",
+        "Sha256": "564A44C46AC0CD681250FF16EDE64FACE56790919DDABD5C74E6958000D2DA54",
+        "Scope": "Part357 current source binding and focused acquisition; previous classifications retained. Root peer/canonical/original gates remain required; no new Verified claim."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-359/current-source-preservation.json",
+        "Sha256": "F17A44A0512987CF6BA39DDA306B45241E1A7863F4C33096AC1B5EB85F53A2B5",
+        "Scope": "Part359 current source preservation for existing audited scopes plus unpromoted Windows fixed24 callbacks and original-driven remote monitor correction; no complete-contract promotion inferred."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-360/current-source-preservation.json",
+        "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
+        "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+        "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+        "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
+      }
+    ],
+    "Limits": [
+      "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+      "Priority and logical scheduler binding are implemented; connected spawning is not claimed missing. Full native options/resource/alias/autoconnect/timing compatibility remains incomplete or unverified.",
+      "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
+    ]
+  },
+  {
+    "Module": "erlang",
+    "Function": "spawn_request",
+    "Arity": 4,
+    "Status": "Known differences",
+    "Scope": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+    "Evidence": [
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-354/current-known-differences/source-review.json",
+        "Sha256": "8025CCCC9F2A8CA163E8FE7C54BB83C7971E2D2D6D27E429061FEFA273A4A1FA",
+        "Scope": "Concrete remaining valid-key, creator-option and default native-loader observable differences on styled private354. No selected-case-only Verified admission."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-357/current-source-preservation.json",
+        "Sha256": "564A44C46AC0CD681250FF16EDE64FACE56790919DDABD5C74E6958000D2DA54",
+        "Scope": "Part357 current source binding and focused acquisition; previous classifications retained. Root peer/canonical/original gates remain required; no new Verified claim."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-359/current-source-preservation.json",
+        "Sha256": "F17A44A0512987CF6BA39DDA306B45241E1A7863F4C33096AC1B5EB85F53A2B5",
+        "Scope": "Part359 current source preservation for existing audited scopes plus unpromoted Windows fixed24 callbacks and original-driven remote monitor correction; no complete-contract promotion inferred."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-360/current-source-preservation.json",
+        "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
+        "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+        "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+        "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
+      }
+    ],
+    "Limits": [
+      "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+      "Priority and logical scheduler binding are implemented; connected spawning is not claimed missing. Full native options/resource/alias/autoconnect/timing compatibility remains incomplete or unverified.",
+      "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
+    ]
+  },
+  {
+    "Module": "erlang",
+    "Function": "spawn_request",
+    "Arity": 5,
+    "Status": "Known differences",
+    "Scope": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+    "Evidence": [
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-354/current-known-differences/source-review.json",
+        "Sha256": "8025CCCC9F2A8CA163E8FE7C54BB83C7971E2D2D6D27E429061FEFA273A4A1FA",
+        "Scope": "Concrete remaining valid-key, creator-option and default native-loader observable differences on styled private354. No selected-case-only Verified admission."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-357/current-source-preservation.json",
+        "Sha256": "564A44C46AC0CD681250FF16EDE64FACE56790919DDABD5C74E6958000D2DA54",
+        "Scope": "Part357 current source binding and focused acquisition; previous classifications retained. Root peer/canonical/original gates remain required; no new Verified claim."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-359/current-source-preservation.json",
+        "Sha256": "F17A44A0512987CF6BA39DDA306B45241E1A7863F4C33096AC1B5EB85F53A2B5",
+        "Scope": "Part359 current source preservation for existing audited scopes plus unpromoted Windows fixed24 callbacks and original-driven remote monitor correction; no complete-contract promotion inferred."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-360/current-source-preservation.json",
+        "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
+        "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+        "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+        "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
+      }
+    ],
+    "Limits": [
+      "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+      "Priority and logical scheduler binding are implemented; connected spawning is not claimed missing. Full native options/resource/alias/autoconnect/timing compatibility remains incomplete or unverified.",
+      "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
+    ]
+  },
+  {
+    "Module": "erlang",
+    "Function": "system_flag",
+    "Arity": 2,
+    "Status": "Known differences",
+    "Scope": "system_flag(fullsweep_after,Value) is implemented, including native-small validation and system clamp. min_heap_size and other unimplemented system controls remain contract gaps.",
+    "Evidence": [
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-354/current-known-differences/source-review.json",
+        "Sha256": "8025CCCC9F2A8CA163E8FE7C54BB83C7971E2D2D6D27E429061FEFA273A4A1FA",
+        "Scope": "Concrete remaining valid-key, creator-option and default native-loader observable differences on styled private354. No selected-case-only Verified admission."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-357/current-source-preservation.json",
+        "Sha256": "564A44C46AC0CD681250FF16EDE64FACE56790919DDABD5C74E6958000D2DA54",
+        "Scope": "Part357 current source binding and focused acquisition; previous classifications retained. Root peer/canonical/original gates remain required; no new Verified claim."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-359/current-source-preservation.json",
+        "Sha256": "F17A44A0512987CF6BA39DDA306B45241E1A7863F4C33096AC1B5EB85F53A2B5",
+        "Scope": "Part359 current source preservation for existing audited scopes plus unpromoted Windows fixed24 callbacks and original-driven remote monitor correction; no complete-contract promotion inferred."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-360/current-source-preservation.json",
+        "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
+        "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+        "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+        "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
+      }
+    ],
+    "Limits": [
+      "system_flag(fullsweep_after,Value) is implemented, including native-small validation and system clamp. min_heap_size and other unimplemented system controls remain contract gaps.",
+      "Full branch/options/error/effect coverage remains required."
+    ]
+  },
+  {
+    "Module": "erlang",
+    "Function": "statistics",
+    "Arity": 1,
+    "Status": "Known differences",
+    "Scope": "statistics(garbage_collection) is implemented using actual CLR samples. Old unsupported-key wording is obsolete; the estimate is not ERTS per-process/native-word accounting and does not establish whole statistics compatibility.",
+    "Evidence": [
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-351/statistics-audit/classification.json",
+        "Sha256": "4BBB3A04A253D6F4F3B2C783FAC94ED14590DD8D56AD3B5A372C458835FA9CA2",
+        "Scope": "Source-proven valid garbage_collection key is rejected with notsup, while pinned OTP accepts it and requests GC statistics; no physical counter values are invented and the minimal probe is unexecuted."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-357/current-source-preservation.json",
+        "Sha256": "564A44C46AC0CD681250FF16EDE64FACE56790919DDABD5C74E6958000D2DA54",
+        "Scope": "Part357 current source binding and focused acquisition; previous classifications retained. Root peer/canonical/original gates remain required; no new Verified claim."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-359/current-source-preservation.json",
+        "Sha256": "F17A44A0512987CF6BA39DDA306B45241E1A7863F4C33096AC1B5EB85F53A2B5",
+        "Scope": "Part359 current source preservation for existing audited scopes plus unpromoted Windows fixed24 callbacks and original-driven remote monitor correction; no complete-contract promotion inferred."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-360/current-source-preservation.json",
+        "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
+        "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+        "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+        "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
+      }
+    ],
+    "Limits": [
+      "statistics(garbage_collection) is implemented using actual CLR samples. Old unsupported-key wording is obsolete; the estimate is not ERTS per-process/native-word accounting and does not establish whole statistics compatibility.",
+      "Full branch/options/error/effect coverage remains required."
+    ]
+  },
+  {
+    "Module": "erlang",
+    "Function": "load_nif",
+    "Arity": 2,
+    "Status": "Known differences",
+    "Scope": "Ordinary loader and reviewed native routes exist. Complete ordinary/indirect calls, pathname/platform/ABI and callback dependency closure remain unclosed; no finite fixture upgrades the whole API.",
+    "Evidence": [
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-354/current-known-differences/source-review.json",
+        "Sha256": "8025CCCC9F2A8CA163E8FE7C54BB83C7971E2D2D6D27E429061FEFA273A4A1FA",
+        "Scope": "Concrete remaining valid-key, creator-option and default native-loader observable differences on styled private354. No selected-case-only Verified admission."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-356/current-source-preservation.json",
+        "Sha256": "F32FC9C7283C3858BFD93CAF3070D49CD95CA7E1B455AF89F3362BA475E0501F",
+        "Scope": "Current controlled direct-loader implementation and explicit remaining ordinary/default policy, callback, lifecycle and filename limitations; status remains Known differences."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-357/current-source-preservation.json",
+        "Sha256": "564A44C46AC0CD681250FF16EDE64FACE56790919DDABD5C74E6958000D2DA54",
+        "Scope": "Part357 current source binding and focused acquisition; previous classifications retained. Root peer/canonical/original gates remain required; no new Verified claim."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-359/current-source-preservation.json",
+        "Sha256": "F17A44A0512987CF6BA39DDA306B45241E1A7863F4C33096AC1B5EB85F53A2B5",
+        "Scope": "Part359 current source preservation for existing audited scopes plus unpromoted Windows fixed24 callbacks and original-driven remote monitor correction; no complete-contract promotion inferred."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-360/current-source-preservation.json",
+        "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
+        "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-361/current-source-preservation.json",
+        "Sha256": "71CF94FDBB0F98BD8FE5E2657B49B3FEBE2201E377EBEF4094447175D1BE5925",
+        "Scope": "Author current source binding only; Root independent source review and integrated execution pending. Prior classifications and complete bounded scopes retained; no API promotion."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+        "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+        "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
+      }
+    ],
+    "Limits": [
+      "Ordinary captured direct calls open host libraries without per-image approval; optional reviewed hash policy and explicit handler retain precedence. Raw Unix filename bytes/search are implemented in source with Linux/original execution pending. General native ABI/version/dirty/resource/thread/upgrade support remains incomplete.",
+      "Managed source-route and owned Windows eleven-image observations do not establish original OTP equality or complete native error text. New ordinary original comparisons and same-head CI remain pending."
+    ]
+  },
+  {
+    "Module": "proc_lib",
+    "Function": "spawn_opt",
+    "Arity": 3,
+    "Status": "Known differences",
+    "Scope": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+    "Evidence": [
+      {
+        "Kind": "CompatibilityAudit",
+        "Path": "validation/part-341/compatibility-audit/classification.json",
+        "Sha256": "B424B90ADA84FB2271BE803A5525A00835EAFC80B3FFB5967E12588678E14A7A",
+        "Scope": "Complete source branch/term partition argument and per-MFA classification at published340; no presence-only verification."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-341/compatibility-audit/proc-lib-rpc-erpc-inventory.json",
+        "Sha256": "E3766539CFAEF13586CD07EBFB68687D8A18B29C7BDF176BB06B65458690CEE7",
+        "Scope": "Published340 per-MFA known differences and verification gaps; stale original inventory CI-pending text is not reused."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+        "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+        "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
+      }
+    ],
+    "Limits": [
+      "RECHECK487_FRESH_RECEIVER: Exact current/old source-image resolution and fresh lexical/captured-function controls pass without receiver constructor execution. Complete API/source/error/effect audits remain pending; the historical340 failure is not asserted current.",
+      "SPAWN_NATIVE_TUNING: priority, scheduler, fullsweep_after and message_queue_data are implemented. Native heap sizing/limits remain unsupported; physical ERTS collector equivalence is unclosed.",
+      "REMOTE_WHOLE_TRACE_TCP: Native/managed transport integration exists, but complete proc_lib remote spawn/alias/trace branch coverage remains unverified. Missing whole-contract evidence is not a confirmed current discrepancy."
+    ]
+  },
+  {
+    "Module": "proc_lib",
+    "Function": "spawn_opt",
+    "Arity": 5,
+    "Status": "Known differences",
+    "Scope": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+    "Evidence": [
+      {
+        "Kind": "CompatibilityAudit",
+        "Path": "validation/part-341/compatibility-audit/classification.json",
+        "Sha256": "B424B90ADA84FB2271BE803A5525A00835EAFC80B3FFB5967E12588678E14A7A",
+        "Scope": "Complete source branch/term partition argument and per-MFA classification at published340; no presence-only verification."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-341/compatibility-audit/proc-lib-rpc-erpc-inventory.json",
+        "Sha256": "E3766539CFAEF13586CD07EBFB68687D8A18B29C7BDF176BB06B65458690CEE7",
+        "Scope": "Published340 per-MFA known differences and verification gaps; stale original inventory CI-pending text is not reused."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+        "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+        "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
+      }
+    ],
+    "Limits": [
+      "SPAWN_NATIVE_TUNING: priority, scheduler, fullsweep_after and message_queue_data are implemented. Native heap sizing/limits remain unsupported; physical ERTS collector equivalence is unclosed.",
+      "REMOTE_WHOLE_TRACE_TCP: Native/managed transport integration exists, but complete proc_lib remote spawn/alias/trace branch coverage remains unverified. Missing whole-contract evidence is not a confirmed current discrepancy."
+    ]
+  },
+  {
+    "Module": "proc_lib",
+    "Function": "spawn_opt",
+    "Arity": 2,
+    "Status": "Known differences",
+    "Scope": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+    "Evidence": [
+      {
+        "Kind": "CompatibilityAudit",
+        "Path": "validation/part-341/compatibility-audit/classification.json",
+        "Sha256": "B424B90ADA84FB2271BE803A5525A00835EAFC80B3FFB5967E12588678E14A7A",
+        "Scope": "Complete source branch/term partition argument and per-MFA classification at published340; no presence-only verification."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-341/compatibility-audit/proc-lib-rpc-erpc-inventory.json",
+        "Sha256": "E3766539CFAEF13586CD07EBFB68687D8A18B29C7BDF176BB06B65458690CEE7",
+        "Scope": "Published340 per-MFA known differences and verification gaps; stale original inventory CI-pending text is not reused."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+        "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+        "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
+      }
+    ],
+    "Limits": [
+      "RECHECK487_FRESH_RECEIVER: Exact current/old source-image resolution and fresh lexical/captured-function controls pass without receiver constructor execution. Complete API/source/error/effect audits remain pending; the historical340 failure is not asserted current.",
+      "SPAWN_NATIVE_TUNING: priority, scheduler, fullsweep_after and message_queue_data are implemented. Native heap sizing/limits remain unsupported; physical ERTS collector equivalence is unclosed."
+    ]
+  },
+  {
+    "Module": "proc_lib",
+    "Function": "spawn_opt",
+    "Arity": 4,
+    "Status": "Known differences",
+    "Scope": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+    "Evidence": [
+      {
+        "Kind": "CompatibilityAudit",
+        "Path": "validation/part-341/compatibility-audit/classification.json",
+        "Sha256": "B424B90ADA84FB2271BE803A5525A00835EAFC80B3FFB5967E12588678E14A7A",
+        "Scope": "Complete source branch/term partition argument and per-MFA classification at published340; no presence-only verification."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-341/compatibility-audit/proc-lib-rpc-erpc-inventory.json",
+        "Sha256": "E3766539CFAEF13586CD07EBFB68687D8A18B29C7BDF176BB06B65458690CEE7",
+        "Scope": "Published340 per-MFA known differences and verification gaps; stale original inventory CI-pending text is not reused."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+        "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+        "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
+      }
+    ],
+    "Limits": [
+      "SPAWN_NATIVE_TUNING: priority, scheduler, fullsweep_after and message_queue_data are implemented. Native heap sizing/limits remain unsupported; physical ERTS collector equivalence is unclosed."
+    ]
+  },
+  {
+    "Module": "proc_lib",
+    "Function": "start",
+    "Arity": 5,
+    "Status": "Known differences",
+    "Scope": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+    "Evidence": [
+      {
+        "Kind": "CompatibilityAudit",
+        "Path": "validation/part-341/compatibility-audit/classification.json",
+        "Sha256": "B424B90ADA84FB2271BE803A5525A00835EAFC80B3FFB5967E12588678E14A7A",
+        "Scope": "Complete source branch/term partition argument and per-MFA classification at published340; no presence-only verification."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-341/compatibility-audit/proc-lib-rpc-erpc-inventory.json",
+        "Sha256": "E3766539CFAEF13586CD07EBFB68687D8A18B29C7BDF176BB06B65458690CEE7",
+        "Scope": "Published340 per-MFA known differences and verification gaps; stale original inventory CI-pending text is not reused."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+        "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+        "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
+      }
+    ],
+    "Limits": [
+      "SPAWN_NATIVE_TUNING: priority, scheduler, fullsweep_after and message_queue_data are implemented. Native heap sizing/limits remain unsupported; physical ERTS collector equivalence is unclosed."
+    ]
+  },
+  {
+    "Module": "proc_lib",
+    "Function": "start_link",
+    "Arity": 5,
+    "Status": "Known differences",
+    "Scope": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+    "Evidence": [
+      {
+        "Kind": "CompatibilityAudit",
+        "Path": "validation/part-341/compatibility-audit/classification.json",
+        "Sha256": "B424B90ADA84FB2271BE803A5525A00835EAFC80B3FFB5967E12588678E14A7A",
+        "Scope": "Complete source branch/term partition argument and per-MFA classification at published340; no presence-only verification."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-341/compatibility-audit/proc-lib-rpc-erpc-inventory.json",
+        "Sha256": "E3766539CFAEF13586CD07EBFB68687D8A18B29C7BDF176BB06B65458690CEE7",
+        "Scope": "Published340 per-MFA known differences and verification gaps; stale original inventory CI-pending text is not reused."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+        "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+        "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
+      }
+    ],
+    "Limits": [
+      "SPAWN_NATIVE_TUNING: priority, scheduler, fullsweep_after and message_queue_data are implemented. Native heap sizing/limits remain unsupported; physical ERTS collector equivalence is unclosed."
+    ]
+  },
+  {
+    "Module": "proc_lib",
+    "Function": "start_monitor",
+    "Arity": 5,
+    "Status": "Known differences",
+    "Scope": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+    "Evidence": [
+      {
+        "Kind": "CompatibilityAudit",
+        "Path": "validation/part-341/compatibility-audit/classification.json",
+        "Sha256": "B424B90ADA84FB2271BE803A5525A00835EAFC80B3FFB5967E12588678E14A7A",
+        "Scope": "Complete source branch/term partition argument and per-MFA classification at published340; no presence-only verification."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-341/compatibility-audit/proc-lib-rpc-erpc-inventory.json",
+        "Sha256": "E3766539CFAEF13586CD07EBFB68687D8A18B29C7BDF176BB06B65458690CEE7",
+        "Scope": "Published340 per-MFA known differences and verification gaps; stale original inventory CI-pending text is not reused."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+        "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+        "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
+      }
+    ],
+    "Limits": [
+      "SPAWN_NATIVE_TUNING: priority, scheduler, fullsweep_after and message_queue_data are implemented. Native heap sizing/limits remain unsupported; physical ERTS collector equivalence is unclosed."
+    ]
+  },
+  {
+    "Module": "proc_lib",
+    "Function": "init_p",
+    "Arity": 3,
+    "Status": "Known differences",
+    "Scope": "Missing physical process_info fields still flow into crash reports. Complete distributed report/logger machinery and hibernate physical behavior remain separate from passing local lifecycle witnesses.",
+    "Evidence": [
+      {
+        "Kind": "CompatibilityAudit",
+        "Path": "validation/part-341/compatibility-audit/classification.json",
+        "Sha256": "B424B90ADA84FB2271BE803A5525A00835EAFC80B3FFB5967E12588678E14A7A",
+        "Scope": "Complete source branch/term partition argument and per-MFA classification at published340; no presence-only verification."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-341/compatibility-audit/proc-lib-rpc-erpc-inventory.json",
+        "Sha256": "E3766539CFAEF13586CD07EBFB68687D8A18B29C7BDF176BB06B65458690CEE7",
+        "Scope": "Published340 per-MFA known differences and verification gaps; stale original inventory CI-pending text is not reused."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+        "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+        "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
+      }
+    ],
+    "Limits": [
+      "RECHECK487_FRESH_RECEIVER: Exact current/old source-image resolution and fresh lexical/captured-function controls pass without receiver constructor execution. Complete API/source/error/effect audits remain pending; the historical340 failure is not asserted current.",
+      "CRASH_PHYSICAL_FIELDS: Generated crash report heap_size and stack_size are undefined on managed processes instead of native nonnegative BEAM counts. Existing portable tests allow exactly those two alternatives; other fields retain their assertions.",
+      "LOGGER_BACKEND_BREADTH: Crash reports use real per-runtime logger configuration and guest callbacks, but default output is synchronous managed writer handling, not full OTP logger_std_h process/overload/physical-file machinery. Full logger_formatter headers/templates/configuration remain absent.",
+      "REMOTE_NEIGHBOUR_CRASH_STACK: Full remote-neighbour crash graph and native complete crash-stack output are not established by the finite local lifecycle assertions. Remote process_info now uses real rpc; this removes the old missing-RPC dependency, not every distributed report equivalence gap."
+    ]
+  },
+  {
+    "Module": "proc_lib",
+    "Function": "init_p",
+    "Arity": 5,
+    "Status": "Known differences",
+    "Scope": "Missing physical process_info fields still flow into crash reports. Complete distributed report/logger machinery and hibernate physical behavior remain separate from passing local lifecycle witnesses.",
+    "Evidence": [
+      {
+        "Kind": "CompatibilityAudit",
+        "Path": "validation/part-341/compatibility-audit/classification.json",
+        "Sha256": "B424B90ADA84FB2271BE803A5525A00835EAFC80B3FFB5967E12588678E14A7A",
+        "Scope": "Complete source branch/term partition argument and per-MFA classification at published340; no presence-only verification."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-341/compatibility-audit/proc-lib-rpc-erpc-inventory.json",
+        "Sha256": "E3766539CFAEF13586CD07EBFB68687D8A18B29C7BDF176BB06B65458690CEE7",
+        "Scope": "Published340 per-MFA known differences and verification gaps; stale original inventory CI-pending text is not reused."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+        "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+        "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
+      }
+    ],
+    "Limits": [
+      "CRASH_PHYSICAL_FIELDS: Generated crash report heap_size and stack_size are undefined on managed processes instead of native nonnegative BEAM counts. Existing portable tests allow exactly those two alternatives; other fields retain their assertions.",
+      "LOGGER_BACKEND_BREADTH: Crash reports use real per-runtime logger configuration and guest callbacks, but default output is synchronous managed writer handling, not full OTP logger_std_h process/overload/physical-file machinery. Full logger_formatter headers/templates/configuration remain absent.",
+      "REMOTE_NEIGHBOUR_CRASH_STACK: Full remote-neighbour crash graph and native complete crash-stack output are not established by the finite local lifecycle assertions. Remote process_info now uses real rpc; this removes the old missing-RPC dependency, not every distributed report equivalence gap."
+    ]
+  },
+  {
+    "Module": "proc_lib",
+    "Function": "wake_up",
+    "Arity": 3,
+    "Status": "Known differences",
+    "Scope": "Missing physical process_info fields still flow into crash reports. Complete distributed report/logger machinery and hibernate physical behavior remain separate from passing local lifecycle witnesses.",
+    "Evidence": [
+      {
+        "Kind": "CompatibilityAudit",
+        "Path": "validation/part-341/compatibility-audit/classification.json",
+        "Sha256": "B424B90ADA84FB2271BE803A5525A00835EAFC80B3FFB5967E12588678E14A7A",
+        "Scope": "Complete source branch/term partition argument and per-MFA classification at published340; no presence-only verification."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-341/compatibility-audit/proc-lib-rpc-erpc-inventory.json",
+        "Sha256": "E3766539CFAEF13586CD07EBFB68687D8A18B29C7BDF176BB06B65458690CEE7",
+        "Scope": "Published340 per-MFA known differences and verification gaps; stale original inventory CI-pending text is not reused."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+        "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+        "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
+      }
+    ],
+    "Limits": [
+      "CRASH_PHYSICAL_FIELDS: Generated crash report heap_size and stack_size are undefined on managed processes instead of native nonnegative BEAM counts. Existing portable tests allow exactly those two alternatives; other fields retain their assertions.",
+      "LOGGER_BACKEND_BREADTH: Crash reports use real per-runtime logger configuration and guest callbacks, but default output is synchronous managed writer handling, not full OTP logger_std_h process/overload/physical-file machinery. Full logger_formatter headers/templates/configuration remain absent.",
+      "PHYSICAL_HIBERNATE: Cooperative wake-up and call/error paths are implemented; BEAM heap compaction, stack footprint, scheduler/GC costs and timing are not demonstrated equivalent on CLR.",
+      "REMOTE_NEIGHBOUR_CRASH_STACK: Full remote-neighbour crash graph and native complete crash-stack output are not established by the finite local lifecycle assertions. Remote process_info now uses real rpc; this removes the old missing-RPC dependency, not every distributed report equivalence gap."
+    ]
+  },
+  {
+    "Module": "proc_lib",
+    "Function": "hibernate",
+    "Arity": 3,
+    "Status": "Known differences",
+    "Scope": "Missing physical process_info fields still flow into crash reports. Complete distributed report/logger machinery and hibernate physical behavior remain separate from passing local lifecycle witnesses.",
+    "Evidence": [
+      {
+        "Kind": "CompatibilityAudit",
+        "Path": "validation/part-341/compatibility-audit/classification.json",
+        "Sha256": "B424B90ADA84FB2271BE803A5525A00835EAFC80B3FFB5967E12588678E14A7A",
+        "Scope": "Complete source branch/term partition argument and per-MFA classification at published340; no presence-only verification."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-341/compatibility-audit/proc-lib-rpc-erpc-inventory.json",
+        "Sha256": "E3766539CFAEF13586CD07EBFB68687D8A18B29C7BDF176BB06B65458690CEE7",
+        "Scope": "Published340 per-MFA known differences and verification gaps; stale original inventory CI-pending text is not reused."
+      },
+      {
+        "Kind": "SourceReview",
+        "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+        "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+        "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
+      }
+    ],
+    "Limits": [
+      "CRASH_PHYSICAL_FIELDS: Generated crash report heap_size and stack_size are undefined on managed processes instead of native nonnegative BEAM counts. Existing portable tests allow exactly those two alternatives; other fields retain their assertions.",
+      "LOGGER_BACKEND_BREADTH: Crash reports use real per-runtime logger configuration and guest callbacks, but default output is synchronous managed writer handling, not full OTP logger_std_h process/overload/physical-file machinery. Full logger_formatter headers/templates/configuration remain absent.",
+      "PHYSICAL_HIBERNATE: Cooperative wake-up and call/error paths are implemented; BEAM heap compaction, stack footprint, scheduler/GC costs and timing are not demonstrated equivalent on CLR.",
+      "REMOTE_NEIGHBOUR_CRASH_STACK: Full remote-neighbour crash graph and native complete crash-stack output are not established by the finite local lifecycle assertions. Remote process_info now uses real rpc; this removes the old missing-RPC dependency, not every distributed report equivalence gap."
+    ]
+  }
+]
