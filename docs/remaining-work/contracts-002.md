@@ -1,10 +1,7 @@
 # Unclosed default contracts — volume2
 
-Current candidate: Part495. Whole contract evidence remains in the canonical [ledger](../mfa-compatibility.json); see [cohort progress](checkpoint-495.md).
+Current candidate: Part496. Whole contract evidence remains in the canonical [ledger](../mfa-compatibility.json); see [cohort progress](checkpoint-496.md).
 
-- `erlang:module_loaded/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:monitor/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:monitor/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:monitor_node/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:monitor_node/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:monotonic_time/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
@@ -152,3 +149,6 @@ Current candidate: Part495. Whole contract evidence remains in the canonical [le
 - `gen_server:start_link/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `gen_server:start_link/4` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `gen_server:stop/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `gen_server:stop/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `io:format/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `lists:all/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.

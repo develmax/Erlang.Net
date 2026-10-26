@@ -1,10 +1,7 @@
 # Unclosed default contracts — volume3
 
-Current candidate: Part495. Whole contract evidence remains in the canonical [ledger](../mfa-compatibility.json); see [cohort progress](checkpoint-495.md).
+Current candidate: Part496. Whole contract evidence remains in the canonical [ledger](../mfa-compatibility.json); see [cohort progress](checkpoint-496.md).
 
-- `gen_server:stop/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `io:format/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `lists:all/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `lists:any/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `lists:append/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `lists:append/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
@@ -152,3 +149,6 @@ Current candidate: Part495. Whole contract evidence remains in the canonical [le
 - `maps:update/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `maps:update_with/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `maps:update_with/4` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `maps:values/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `maps:with/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `maps:without/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.

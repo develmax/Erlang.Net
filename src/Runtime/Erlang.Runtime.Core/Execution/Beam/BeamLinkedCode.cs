@@ -16,6 +16,10 @@ internal sealed record BeamLinkedCode(
 )
 {
     private readonly ConcurrentDictionary<BigInteger, Integer> integerConstants = new();
+    private readonly ConcurrentDictionary<string, IReadOnlyList<NativeRecordDefinition>> nativeRecords = new(StringComparer.Ordinal);
+
+    internal IReadOnlyList<NativeRecordDefinition> NativeRecords
+        => nativeRecords.GetOrAdd(BeamPreparationNames.RecordsChunk, static (_, code) => BeamRecordMetadata.Read(code), this);
 
     internal IReadOnlySet<string> RegistryModuleDependencies { get; init; } = FrozenSet<string>.Empty;
     internal IReadOnlyList<Term> SourceLocations { get; init; } = Array.Empty<Term>();

@@ -137,6 +137,31 @@ internal static class BeamLinkedCodeReader
         var operands = instruction.Operands;
         switch (instruction.Definition.Name)
         {
+            case BeamRecordConstructionNames.Opcode:
+                Require(
+                    operands[BeamRecordConstructionNames.Failure].Kind == BeamOperandParameters.Failure
+                    && operands[BeamRecordConstructionNames.Name].Kind == BeamOperandParameters.Atom
+                    && operands[BeamRecordConstructionNames.Source].Kind == BeamOperandParameters.Nil,
+                    BeamLinkDiagnostics.OperandRole
+                );
+                Destination(operands[BeamRecordConstructionNames.Destination]);
+                _ = Unsigned(operands[BeamRecordConstructionNames.Live]);
+                Require(
+                    operands[BeamRecordConstructionNames.Fields].Kind == BeamOperandParameters.Count
+                    && operands[BeamRecordConstructionNames.Fields].Value == operands.Count - BeamRecordConstructionNames.FirstField
+                    && operands[BeamRecordConstructionNames.Fields].Value % BeamRecordConstructionNames.FieldWidth == 0,
+                    BeamLinkDiagnostics.OperandRole
+                );
+                var recordFields = new HashSet<int>();
+                for (int field = BeamRecordConstructionNames.FirstField; field < operands.Count; field += BeamRecordConstructionNames.FieldWidth)
+                {
+                    Require(
+                        operands[field].Kind == BeamOperandParameters.Atom && recordFields.Add((int)operands[field].Value),
+                        BeamLinkDiagnostics.OperandRole
+                    );
+                    Source(operands[field + 1]);
+                }
+                break;
             case BeamCollectionOpcodeNames.UpdateRecord:
                 Require(operands[0].Kind == BeamOperandParameters.Atom, BeamLinkDiagnostics.OperandRole);
                 int recordSize = Unsigned(operands[1]);

@@ -1,0 +1,53 @@
+{
+  "Passed": true,
+  "Plans": [
+    {
+      "Plan": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Workflow": ".github/workflows/nif-pending-native.yml",
+      "OldSeal": "4547BC432B30209BEAF93808DF6C7ADA0AD6D64FABB8687659B7AA54B48EBDD3",
+      "Seal": "D43E1B56A32C2CBF5277A4CC50A2823CD315FD9BA33A88FEF0A97E3D0BFDF744",
+      "Changed": [
+        "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLinkedCode.cs",
+        "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLinkedCodeReader.cs",
+        "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamPublicationMetadata.cs",
+        "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterValidation.cs"
+      ],
+      "Added": [
+        "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRecordConstruction.cs",
+        "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRecordConstructionNames.cs",
+        "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRecordMetadata.cs",
+        "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRecordMetadataNames.cs"
+      ],
+      "PreservedHistoricalRows": [
+        "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamFrameValidation.cs",
+        "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterInterpreter.cs"
+      ],
+      "NativeAbiPromotion": false
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Workflow": ".github/workflows/nif-reallocation-native.yml",
+      "OldSeal": "FF55C351B7871CA66C91EF34C5CED2D561671C6A227ABC824551D881936D46C8",
+      "Seal": "041C447C9F5C8820F5E24EA3968FD6BCEA30BCFB31EA5C8F8AC6168D6D372F32",
+      "Changed": [
+        "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLinkedCode.cs",
+        "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLinkedCodeReader.cs",
+        "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamPublicationMetadata.cs",
+        "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterValidation.cs"
+      ],
+      "Added": [
+        "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRecordConstruction.cs",
+        "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRecordConstructionNames.cs",
+        "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRecordMetadata.cs",
+        "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRecordMetadataNames.cs"
+      ],
+      "PreservedHistoricalRows": [
+        "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamFrameValidation.cs",
+        "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterInterpreter.cs"
+      ],
+      "NativeAbiPromotion": false
+    }
+  ],
+  "NativeInfrastructureBoundSourceOverlaps": [],
+  "NativeRosterAndAbiUnchanged": true
+}

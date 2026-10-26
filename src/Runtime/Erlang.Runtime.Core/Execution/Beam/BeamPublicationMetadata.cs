@@ -4,8 +4,6 @@ internal static class BeamPublicationMetadata
 {
     internal static BeamPreparedMetadata Read(BeamLinkedCode code, EtfDecodeOptions? decoding = null)
     {
-        if (code.Structure.Chunks.Any(chunk => chunk.Id == BeamPreparationNames.RecordsChunk && chunk.Payload.Length != 0))
-            throw new NotSupportedException(BeamPreparationNames.UnsupportedRecords);
         // Publication can retain every declared lambda, even if no export reaches it.
         // Validate all targets before accepting their image-owned entry identities.
         foreach (BeamLambdaEntry lambda in code.Lambdas)
@@ -18,6 +16,7 @@ internal static class BeamPublicationMetadata
             BeamChecksumReader.Read(code),
             compilation.Value,
             attributes.Value,
+            nativeRecords: code.NativeRecords,
             attributePolicy: ModuleAttributePolicy.PreserveDecoded
         )
         {

@@ -1,0 +1,1338 @@
+{
+  "Partial": true,
+  "SelectedCount": 221,
+  "TotalCount": 9020,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/native-record-cross-module-current-definitions-and-captured-values",
+    "oracle/compiled-module/erlang-native-record-access-anonymous-foreign-private",
+    "oracle/compiled-module/erlang-native-record-access-anonymous-local-private-update-and-pattern",
+    "oracle/compiled-module/erlang-native-record-access-anonymous-missing-field-actual-identity",
+    "oracle/compiled-module/erlang-native-record-access-anonymous-non-record-types",
+    "oracle/compiled-module/erlang-native-record-access-anonymous-qualified-identity-and-export",
+    "oracle/compiled-module/erlang-native-record-access-anonymous-read-keeps-update-permission",
+    "oracle/compiled-module/erlang-native-record-access-local-name-foreign-private-access-only",
+    "oracle/compiled-module/erlang-native-record-access-local-name-mismatch-and-actual-field-identity",
+    "oracle/compiled-module/erlang-native-record-completion-bitwise-operators",
+    "oracle/compiled-module/erlang-native-record-completion-boolean-operators",
+    "oracle/compiled-module/erlang-native-record-completion-comparison-operators",
+    "oracle/compiled-module/erlang-native-record-completion-nested-scalar-fold",
+    "oracle/compiled-module/erlang-native-record-completion-parenthesized",
+    "oracle/compiled-module/erlang-native-record-completion-scalar-append",
+    "oracle/compiled-module/erlang-native-record-completion-string-binary",
+    "oracle/compiled-module/erlang-native-record-completion-typed-binary",
+    "oracle/compiled-module/erlang-native-record-completion-typed-containers",
+    "oracle/compiled-module/erlang-native-record-completion-typed-export-default",
+    "oracle/compiled-module/erlang-native-record-completion-typed-remote-fun",
+    "oracle/compiled-module/erlang-native-record-completion-typed-required",
+    "oracle/compiled-module/erlang-native-record-completion-typed-union-range",
+    "oracle/compiled-module/erlang-native-record-create-badfield",
+    "oracle/compiled-module/erlang-native-record-create-duplicates",
+    "oracle/compiled-module/erlang-native-record-create-error-order",
+    "oracle/compiled-module/erlang-native-record-create-invalid-options",
+    "oracle/compiled-module/erlang-native-record-empty",
+    "oracle/compiled-module/erlang-native-record-etf-exact-empty",
+    "oracle/compiled-module/erlang-native-record-etf-invalid-flags",
+    "oracle/compiled-module/erlang-native-record-etf-roundtrip",
+    "oracle/compiled-module/erlang-native-record-get-errors",
+    "oracle/compiled-module/erlang-native-record-hash-multi-field-numeric",
+    "oracle/compiled-module/erlang-native-record-hash-single-field-numeric",
+    "oracle/compiled-module/erlang-native-record-hashes",
+    "oracle/compiled-module/erlang-native-record-introspection",
+    "oracle/compiled-module/erlang-native-record-introspection-errors",
+    "oracle/compiled-module/erlang-native-record-numeric-equality",
+    "oracle/compiled-module/erlang-native-record-order",
+    "oracle/compiled-module/erlang-native-record-predicate-guard",
+    "oracle/compiled-module/erlang-native-record-predicate-one",
+    "oracle/compiled-module/erlang-native-record-predicate-three",
+    "oracle/compiled-module/erlang-native-record-predicate-two",
+    "oracle/compiled-module/erlang-native-record-syntax-anonymous-foreign",
+    "oracle/compiled-module/erlang-native-record-syntax-anonymous-local-private",
+    "oracle/compiled-module/erlang-native-record-syntax-anonymous-private-match",
+    "oracle/compiled-module/erlang-native-record-syntax-captured-layout",
+    "oracle/compiled-module/erlang-native-record-syntax-closure-pattern",
+    "oracle/compiled-module/erlang-native-record-syntax-comprehension-pattern",
+    "oracle/compiled-module/erlang-native-record-syntax-default-signed-zero",
+    "oracle/compiled-module/erlang-native-record-syntax-definition-errors",
+    "oracle/compiled-module/erlang-native-record-syntax-definition-exported",
+    "oracle/compiled-module/erlang-native-record-syntax-definition-private",
+    "oracle/compiled-module/erlang-native-record-syntax-external-create-error-order",
+    "oracle/compiled-module/erlang-native-record-syntax-external-create-missing",
+    "oracle/compiled-module/erlang-native-record-syntax-external-empty-match-private",
+    "oracle/compiled-module/erlang-native-record-syntax-external-exported-access-update",
+    "oracle/compiled-module/erlang-native-record-syntax-external-private-create",
+    "oracle/compiled-module/erlang-native-record-syntax-external-private-permissions",
+    "oracle/compiled-module/erlang-native-record-syntax-external-self-create",
+    "oracle/compiled-module/erlang-native-record-syntax-guard-access",
+    "oracle/compiled-module/erlang-native-record-syntax-imported-access",
+    "oracle/compiled-module/erlang-native-record-syntax-literal-defaults",
+    "oracle/compiled-module/erlang-native-record-syntax-local-create",
+    "oracle/compiled-module/erlang-native-record-syntax-local-predicate",
+    "oracle/compiled-module/erlang-native-record-syntax-local-update",
+    "oracle/compiled-module/erlang-native-record-syntax-names",
+    "oracle/compiled-module/erlang-native-record-syntax-pattern-binding",
+    "oracle/compiled-module/erlang-native-record-syntax-pattern-captured-fields",
+    "oracle/compiled-module/erlang-native-record-syntax-quoted-underscore-name",
+    "oracle/compiled-module/erlang-native-record-syntax-source-order-create",
+    "oracle/compiled-module/erlang-native-record-syntax-update-evaluation-order",
+    "oracle/compiled-module/erlang-native-record-update",
+    "oracle/compiled-module/erlang-native-record-update-errors",
+    "oracle/compiled-module/erlang-native-record-update-wildcard",
+    "oracle/compiler-diagnostic/native-record-default-call",
+    "oracle/compiler-diagnostic/native-record-default-integer-binary",
+    "oracle/compiler-diagnostic/native-record-default-list-operator",
+    "oracle/compiler-diagnostic/native-record-default-map-comparison",
+    "oracle/compiler-diagnostic/native-record-default-short-circuit",
+    "oracle/compiler-diagnostic/native-record-default-string-comparison",
+    "oracle/compiler-diagnostic/native-record-duplicate-import",
+    "oracle/compiler-diagnostic/native-record-field-index",
+    "oracle/compiler-diagnostic/native-record-guard-create",
+    "oracle/compiler-diagnostic/native-record-import-after-local",
+    "oracle/compiler-diagnostic/native-record-local-after-import",
+    "oracle/compiler-diagnostic/native-record-quoted-underscore-construction-validator",
+    "oracle/compiler-diagnostic/native-record-record-info",
+    "oracle/compiler-diagnostic/native-record-required-field",
+    "oracle/compiler-diagnostic/native-record-tuple-export",
+    "oracle/compiler-diagnostic/native-record-type-arity",
+    "oracle/compiler-diagnostic/native-record-undefined-export",
+    "oracle/compiler-diagnostic/native-record-unknown-construction-field",
+    "oracle/compiler-diagnostic/native-record-wildcard-init",
+    "runtime/beam/apply381/badarg-frame-and-typed-register-rejections",
+    "runtime/beam/artifact-inspector383/on-load-metadata-no-execution",
+    "runtime/beam/callback399/shape-frame-opaque",
+    "runtime/beam/closed-wait412/original-inet-owned-publication",
+    "runtime/beam/delay-binary411/original-dist-util-owned-publication",
+    "runtime/beam/position398/source-reference-identity",
+    "runtime/beam/protected-receive386/clone-and-retained-trim-identity",
+    "runtime/beam/receive-marker-types381/storage-identity",
+    "runtime/beam/tuple398/warm-proof-actual-instruction-identity",
+    "runtime/beam/writable-receive411/original-peer-owned-publication",
+    "runtime/bif-contract487/numeric252-values-and1260-full-stacks",
+    "runtime/bif-contract487/whole84-values-and420-full-stacks",
+    "runtime/bif-contract488/tuple111-values-and555-full-stacks",
+    "runtime/bif-contract489/append_element",
+    "runtime/bif-contract489/delete_element",
+    "runtime/bif-contract489/insert_element",
+    "runtime/bif-contract489/list_to_tuple",
+    "runtime/bif-contract489/make_tuple2",
+    "runtime/bif-contract489/make_tuple3",
+    "runtime/bif-contract489/setelement",
+    "runtime/bif-contract490/boolean_and",
+    "runtime/bif-contract490/boolean_not",
+    "runtime/bif-contract490/boolean_or",
+    "runtime/bif-contract490/boolean_xor",
+    "runtime/bif-contract490/integer_complement",
+    "runtime/bif-contract490/unary_minus",
+    "runtime/bif-contract490/unary_plus",
+    "runtime/bif-contract491/add_float_left",
+    "runtime/bif-contract491/add_float_right",
+    "runtime/bif-contract491/add_identity",
+    "runtime/bif-contract491/add_integers",
+    "runtime/bif-contract491/add_invalid",
+    "runtime/bif-contract491/divide_float_left",
+    "runtime/bif-contract491/divide_float_right",
+    "runtime/bif-contract491/divide_identity",
+    "runtime/bif-contract491/divide_integers",
+    "runtime/bif-contract491/divide_invalid",
+    "runtime/bif-contract491/integer_and_identity",
+    "runtime/bif-contract491/integer_and_integers",
+    "runtime/bif-contract491/integer_and_invalid",
+    "runtime/bif-contract491/integer_divide_identity",
+    "runtime/bif-contract491/integer_divide_integers",
+    "runtime/bif-contract491/integer_divide_invalid",
+    "runtime/bif-contract491/integer_or_identity",
+    "runtime/bif-contract491/integer_or_integers",
+    "runtime/bif-contract491/integer_or_invalid",
+    "runtime/bif-contract491/integer_xor_identity",
+    "runtime/bif-contract491/integer_xor_integers",
+    "runtime/bif-contract491/integer_xor_invalid",
+    "runtime/bif-contract491/multiply_float_left",
+    "runtime/bif-contract491/multiply_float_right",
+    "runtime/bif-contract491/multiply_identity",
+    "runtime/bif-contract491/multiply_integers",
+    "runtime/bif-contract491/multiply_invalid",
+    "runtime/bif-contract491/remainder_identity",
+    "runtime/bif-contract491/remainder_integers",
+    "runtime/bif-contract491/remainder_invalid",
+    "runtime/bif-contract491/subtract_float_left",
+    "runtime/bif-contract491/subtract_float_right",
+    "runtime/bif-contract491/subtract_identity",
+    "runtime/bif-contract491/subtract_integers",
+    "runtime/bif-contract491/subtract_invalid",
+    "runtime/bif-contract492/atom_to_binary1_p0",
+    "runtime/bif-contract492/atom_to_binary2_p0",
+    "runtime/bif-contract492/atom_to_binary2_p1",
+    "runtime/bif-contract492/atom_to_list1_p0",
+    "runtime/bif-contract492/binary_to_atom1_p0",
+    "runtime/bif-contract492/binary_to_atom2_p0",
+    "runtime/bif-contract492/binary_to_atom2_p1",
+    "runtime/bif-contract492/binary_to_existing_atom1_p0",
+    "runtime/bif-contract492/binary_to_existing_atom2_p0",
+    "runtime/bif-contract492/binary_to_existing_atom2_p1",
+    "runtime/bif-contract492/identity",
+    "runtime/bif-contract492/list_to_atom1_p0",
+    "runtime/bif-contract492/list_to_existing_atom1_p0",
+    "runtime/bif-contract493/binary_to_integer1_p0",
+    "runtime/bif-contract493/binary_to_integer2_p0",
+    "runtime/bif-contract493/binary_to_integer2_p1",
+    "runtime/bif-contract493/binary_to_integer2_p2",
+    "runtime/bif-contract493/binary_to_integer2_p3",
+    "runtime/bif-contract493/binary_to_integer2_p4",
+    "runtime/bif-contract493/binary_to_integer2_p5",
+    "runtime/bif-contract493/integer_to_binary1_p0",
+    "runtime/bif-contract493/integer_to_binary2_p0",
+    "runtime/bif-contract493/integer_to_binary2_p1",
+    "runtime/bif-contract493/integer_to_binary2_p2",
+    "runtime/bif-contract493/integer_to_binary2_p3",
+    "runtime/bif-contract493/integer_to_binary2_p4",
+    "runtime/bif-contract493/integer_to_binary2_p5",
+    "runtime/bif-contract493/integer_to_binary2_p6",
+    "runtime/bif-contract493/integer_to_binary2_p7",
+    "runtime/bif-contract493/integer_to_list1_p0",
+    "runtime/bif-contract493/integer_to_list2_p0",
+    "runtime/bif-contract493/integer_to_list2_p1",
+    "runtime/bif-contract493/integer_to_list2_p2",
+    "runtime/bif-contract493/integer_to_list2_p3",
+    "runtime/bif-contract493/integer_to_list2_p4",
+    "runtime/bif-contract493/integer_to_list2_p5",
+    "runtime/bif-contract493/integer_to_list2_p6",
+    "runtime/bif-contract493/integer_to_list2_p7",
+    "runtime/bif-contract493/list_to_integer1_p0",
+    "runtime/bif-contract493/list_to_integer1_p1",
+    "runtime/bif-contract493/list_to_integer2_p0",
+    "runtime/bif-contract493/list_to_integer2_p1",
+    "runtime/bif-contract493/list_to_integer2_p2",
+    "runtime/bif-contract493/list_to_integer2_p3",
+    "runtime/bif-contract493/list_to_integer2_p4",
+    "runtime/bif-contract493/list_to_integer2_p5",
+    "runtime/bif-contract493/list_to_integer2_p6",
+    "runtime/bif-contract493/list_to_integer2_p7",
+    "runtime/bif-contract495/is_map_key",
+    "runtime/bif-contract495/map_get",
+    "runtime/bif-contract495/map_size",
+    "runtime/bif-contract496/construction",
+    "runtime/bif-contract496/is_record1_p0",
+    "runtime/bif-contract496/is_record1_p1",
+    "runtime/bif-contract496/is_record1_p2",
+    "runtime/bif-contract496/is_record2_p0",
+    "runtime/bif-contract496/is_record2_p1",
+    "runtime/bif-contract496/is_record2_p2",
+    "runtime/bif-contract496/is_record2_p3",
+    "runtime/bif-contract496/is_record3_p0",
+    "runtime/bif-contract496/is_record3_p1",
+    "runtime/bif-contract496/is_record3_p2",
+    "runtime/bif-contract496/is_record3_p3",
+    "runtime/bif-contract496/is_record3_p4",
+    "runtime/bif-contract496/is_record3_p5",
+    "terms/native-record-immutable-snapshot-and-wire-rejection"
+  ],
+  "Passed": 221,
+  "Failed": 0,
+  "Tests": [
+    {
+      "Name": "runtime/beam/closed-wait412/original-inet-owned-publication",
+      "Status": "Passed",
+      "Milliseconds": 269
+    },
+    {
+      "Name": "runtime/beam/writable-receive411/original-peer-owned-publication",
+      "Status": "Passed",
+      "Milliseconds": 59
+    },
+    {
+      "Name": "runtime/beam/delay-binary411/original-dist-util-owned-publication",
+      "Status": "Passed",
+      "Milliseconds": 43
+    },
+    {
+      "Name": "runtime/beam/callback399/shape-frame-opaque",
+      "Status": "Passed",
+      "Milliseconds": 11
+    },
+    {
+      "Name": "runtime/beam/tuple398/warm-proof-actual-instruction-identity",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "runtime/beam/position398/source-reference-identity",
+      "Status": "Passed",
+      "Milliseconds": 47
+    },
+    {
+      "Name": "terms/native-record-immutable-snapshot-and-wire-rejection",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "compiler/native-record-cross-module-current-definitions-and-captured-values",
+      "Status": "Passed",
+      "Milliseconds": 324
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-predicate-one",
+      "Status": "Passed",
+      "Milliseconds": 1284
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-predicate-two",
+      "Status": "Passed",
+      "Milliseconds": 57
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-predicate-three",
+      "Status": "Passed",
+      "Milliseconds": 52
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-predicate-guard",
+      "Status": "Passed",
+      "Milliseconds": 66
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-introspection",
+      "Status": "Passed",
+      "Milliseconds": 81
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-empty",
+      "Status": "Passed",
+      "Milliseconds": 50
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-update",
+      "Status": "Passed",
+      "Milliseconds": 66
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-update-wildcard",
+      "Status": "Passed",
+      "Milliseconds": 50
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-create-error-order",
+      "Status": "Passed",
+      "Milliseconds": 52
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-create-badfield",
+      "Status": "Passed",
+      "Milliseconds": 49
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-create-invalid-options",
+      "Status": "Passed",
+      "Milliseconds": 46
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-create-duplicates",
+      "Status": "Passed",
+      "Milliseconds": 52
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-introspection-errors",
+      "Status": "Passed",
+      "Milliseconds": 47
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-update-errors",
+      "Status": "Passed",
+      "Milliseconds": 65
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-get-errors",
+      "Status": "Passed",
+      "Milliseconds": 46
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-order",
+      "Status": "Passed",
+      "Milliseconds": 60
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-numeric-equality",
+      "Status": "Passed",
+      "Milliseconds": 57
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-etf-roundtrip",
+      "Status": "Passed",
+      "Milliseconds": 101
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-etf-exact-empty",
+      "Status": "Passed",
+      "Milliseconds": 68
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-etf-invalid-flags",
+      "Status": "Passed",
+      "Milliseconds": 52
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-hashes",
+      "Status": "Passed",
+      "Milliseconds": 59
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-hash-single-field-numeric",
+      "Status": "Passed",
+      "Milliseconds": 55
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-hash-multi-field-numeric",
+      "Status": "Passed",
+      "Milliseconds": 50
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-local-create",
+      "Status": "Passed",
+      "Milliseconds": 65
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-literal-defaults",
+      "Status": "Passed",
+      "Milliseconds": 61
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-names",
+      "Status": "Passed",
+      "Milliseconds": 53
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-local-update",
+      "Status": "Passed",
+      "Milliseconds": 57
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-pattern-binding",
+      "Status": "Passed",
+      "Milliseconds": 50
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-pattern-captured-fields",
+      "Status": "Passed",
+      "Milliseconds": 43
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-guard-access",
+      "Status": "Passed",
+      "Milliseconds": 55
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-local-predicate",
+      "Status": "Passed",
+      "Milliseconds": 54
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-definition-private",
+      "Status": "Passed",
+      "Milliseconds": 48
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-definition-exported",
+      "Status": "Passed",
+      "Milliseconds": 42
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-external-self-create",
+      "Status": "Passed",
+      "Milliseconds": 44
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-external-private-create",
+      "Status": "Passed",
+      "Milliseconds": 39
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-external-create-missing",
+      "Status": "Passed",
+      "Milliseconds": 40
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-external-create-error-order",
+      "Status": "Passed",
+      "Milliseconds": 37
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-external-exported-access-update",
+      "Status": "Passed",
+      "Milliseconds": 52
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-external-private-permissions",
+      "Status": "Passed",
+      "Milliseconds": 49
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-external-empty-match-private",
+      "Status": "Passed",
+      "Milliseconds": 44
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-anonymous-local-private",
+      "Status": "Passed",
+      "Milliseconds": 45
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-anonymous-foreign",
+      "Status": "Passed",
+      "Milliseconds": 44
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-anonymous-private-match",
+      "Status": "Passed",
+      "Milliseconds": 49
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-definition-errors",
+      "Status": "Passed",
+      "Milliseconds": 43
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-captured-layout",
+      "Status": "Passed",
+      "Milliseconds": 52
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-source-order-create",
+      "Status": "Passed",
+      "Milliseconds": 57
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-closure-pattern",
+      "Status": "Passed",
+      "Milliseconds": 63
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-comprehension-pattern",
+      "Status": "Passed",
+      "Milliseconds": 70
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-imported-access",
+      "Status": "Passed",
+      "Milliseconds": 54
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-update-evaluation-order",
+      "Status": "Passed",
+      "Milliseconds": 53
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-default-signed-zero",
+      "Status": "Passed",
+      "Milliseconds": 52
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-quoted-underscore-name",
+      "Status": "Passed",
+      "Milliseconds": 38
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-completion-typed-required",
+      "Status": "Passed",
+      "Milliseconds": 60
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-completion-typed-export-default",
+      "Status": "Passed",
+      "Milliseconds": 48
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-completion-typed-union-range",
+      "Status": "Passed",
+      "Milliseconds": 65
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-completion-typed-containers",
+      "Status": "Passed",
+      "Milliseconds": 84
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-completion-typed-remote-fun",
+      "Status": "Passed",
+      "Milliseconds": 105
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-completion-typed-binary",
+      "Status": "Passed",
+      "Milliseconds": 72
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-completion-parenthesized",
+      "Status": "Passed",
+      "Milliseconds": 47
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-completion-boolean-operators",
+      "Status": "Passed",
+      "Milliseconds": 50
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-completion-comparison-operators",
+      "Status": "Passed",
+      "Milliseconds": 48
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-completion-bitwise-operators",
+      "Status": "Passed",
+      "Milliseconds": 56
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-completion-scalar-append",
+      "Status": "Passed",
+      "Milliseconds": 43
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-completion-nested-scalar-fold",
+      "Status": "Passed",
+      "Milliseconds": 46
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-completion-string-binary",
+      "Status": "Passed",
+      "Milliseconds": 87
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-access-anonymous-foreign-private",
+      "Status": "Passed",
+      "Milliseconds": 49
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-access-anonymous-missing-field-actual-identity",
+      "Status": "Passed",
+      "Milliseconds": 48
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-access-anonymous-non-record-types",
+      "Status": "Passed",
+      "Milliseconds": 47
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-access-anonymous-local-private-update-and-pattern",
+      "Status": "Passed",
+      "Milliseconds": 52
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-access-anonymous-qualified-identity-and-export",
+      "Status": "Passed",
+      "Milliseconds": 53
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-access-anonymous-read-keeps-update-permission",
+      "Status": "Passed",
+      "Milliseconds": 49
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-access-local-name-foreign-private-access-only",
+      "Status": "Passed",
+      "Milliseconds": 60
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-access-local-name-mismatch-and-actual-field-identity",
+      "Status": "Passed",
+      "Milliseconds": 56
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-required-field",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-default-call",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-field-index",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-wildcard-init",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-record-info",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-guard-create",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-tuple-export",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-undefined-export",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-default-list-operator",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-default-map-comparison",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-default-short-circuit",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-default-integer-binary",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-default-string-comparison",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-type-arity",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-unknown-construction-field",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-import-after-local",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-local-after-import",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-duplicate-import",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-quoted-underscore-construction-validator",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "runtime/beam/apply381/badarg-frame-and-typed-register-rejections",
+      "Status": "Passed",
+      "Milliseconds": 16
+    },
+    {
+      "Name": "runtime/beam/receive-marker-types381/storage-identity",
+      "Status": "Passed",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "runtime/beam/artifact-inspector383/on-load-metadata-no-execution",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "runtime/beam/protected-receive386/clone-and-retained-trim-identity",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "runtime/bif-contract487/whole84-values-and420-full-stacks",
+      "Status": "Passed",
+      "Milliseconds": 1301
+    },
+    {
+      "Name": "runtime/bif-contract487/numeric252-values-and1260-full-stacks",
+      "Status": "Passed",
+      "Milliseconds": 9742
+    },
+    {
+      "Name": "runtime/bif-contract488/tuple111-values-and555-full-stacks",
+      "Status": "Passed",
+      "Milliseconds": 1482
+    },
+    {
+      "Name": "runtime/bif-contract489/setelement",
+      "Status": "Passed",
+      "Milliseconds": 926
+    },
+    {
+      "Name": "runtime/bif-contract489/insert_element",
+      "Status": "Passed",
+      "Milliseconds": 828
+    },
+    {
+      "Name": "runtime/bif-contract489/delete_element",
+      "Status": "Passed",
+      "Milliseconds": 750
+    },
+    {
+      "Name": "runtime/bif-contract489/append_element",
+      "Status": "Passed",
+      "Milliseconds": 97
+    },
+    {
+      "Name": "runtime/bif-contract489/list_to_tuple",
+      "Status": "Passed",
+      "Milliseconds": 92
+    },
+    {
+      "Name": "runtime/bif-contract489/make_tuple2",
+      "Status": "Passed",
+      "Milliseconds": 84
+    },
+    {
+      "Name": "runtime/bif-contract489/make_tuple3",
+      "Status": "Passed",
+      "Milliseconds": 588
+    },
+    {
+      "Name": "runtime/bif-contract490/boolean_not",
+      "Status": "Passed",
+      "Milliseconds": 236
+    },
+    {
+      "Name": "runtime/bif-contract490/boolean_and",
+      "Status": "Passed",
+      "Milliseconds": 2437
+    },
+    {
+      "Name": "runtime/bif-contract490/boolean_or",
+      "Status": "Passed",
+      "Milliseconds": 2573
+    },
+    {
+      "Name": "runtime/bif-contract490/boolean_xor",
+      "Status": "Passed",
+      "Milliseconds": 2681
+    },
+    {
+      "Name": "runtime/bif-contract490/unary_plus",
+      "Status": "Passed",
+      "Milliseconds": 257
+    },
+    {
+      "Name": "runtime/bif-contract490/unary_minus",
+      "Status": "Passed",
+      "Milliseconds": 215
+    },
+    {
+      "Name": "runtime/bif-contract490/integer_complement",
+      "Status": "Passed",
+      "Milliseconds": 278
+    },
+    {
+      "Name": "runtime/bif-contract491/add_integers",
+      "Status": "Passed",
+      "Milliseconds": 2766
+    },
+    {
+      "Name": "runtime/bif-contract491/add_float_left",
+      "Status": "Passed",
+      "Milliseconds": 2868
+    },
+    {
+      "Name": "runtime/bif-contract491/add_float_right",
+      "Status": "Passed",
+      "Milliseconds": 1122
+    },
+    {
+      "Name": "runtime/bif-contract491/add_invalid",
+      "Status": "Passed",
+      "Milliseconds": 403
+    },
+    {
+      "Name": "runtime/bif-contract491/add_identity",
+      "Status": "Passed",
+      "Milliseconds": 150
+    },
+    {
+      "Name": "runtime/bif-contract491/subtract_integers",
+      "Status": "Passed",
+      "Milliseconds": 2670
+    },
+    {
+      "Name": "runtime/bif-contract491/subtract_float_left",
+      "Status": "Passed",
+      "Milliseconds": 2788
+    },
+    {
+      "Name": "runtime/bif-contract491/subtract_float_right",
+      "Status": "Passed",
+      "Milliseconds": 1130
+    },
+    {
+      "Name": "runtime/bif-contract491/subtract_invalid",
+      "Status": "Passed",
+      "Milliseconds": 413
+    },
+    {
+      "Name": "runtime/bif-contract491/subtract_identity",
+      "Status": "Passed",
+      "Milliseconds": 145
+    },
+    {
+      "Name": "runtime/bif-contract491/multiply_integers",
+      "Status": "Passed",
+      "Milliseconds": 2773
+    },
+    {
+      "Name": "runtime/bif-contract491/multiply_float_left",
+      "Status": "Passed",
+      "Milliseconds": 2837
+    },
+    {
+      "Name": "runtime/bif-contract491/multiply_float_right",
+      "Status": "Passed",
+      "Milliseconds": 1158
+    },
+    {
+      "Name": "runtime/bif-contract491/multiply_invalid",
+      "Status": "Passed",
+      "Milliseconds": 396
+    },
+    {
+      "Name": "runtime/bif-contract491/multiply_identity",
+      "Status": "Passed",
+      "Milliseconds": 146
+    },
+    {
+      "Name": "runtime/bif-contract491/divide_integers",
+      "Status": "Passed",
+      "Milliseconds": 2814
+    },
+    {
+      "Name": "runtime/bif-contract491/divide_float_left",
+      "Status": "Passed",
+      "Milliseconds": 2794
+    },
+    {
+      "Name": "runtime/bif-contract491/divide_float_right",
+      "Status": "Passed",
+      "Milliseconds": 1195
+    },
+    {
+      "Name": "runtime/bif-contract491/divide_invalid",
+      "Status": "Passed",
+      "Milliseconds": 413
+    },
+    {
+      "Name": "runtime/bif-contract491/divide_identity",
+      "Status": "Passed",
+      "Milliseconds": 154
+    },
+    {
+      "Name": "runtime/bif-contract491/integer_divide_integers",
+      "Status": "Passed",
+      "Milliseconds": 2833
+    },
+    {
+      "Name": "runtime/bif-contract491/integer_divide_invalid",
+      "Status": "Passed",
+      "Milliseconds": 787
+    },
+    {
+      "Name": "runtime/bif-contract491/integer_divide_identity",
+      "Status": "Passed",
+      "Milliseconds": 137
+    },
+    {
+      "Name": "runtime/bif-contract491/remainder_integers",
+      "Status": "Passed",
+      "Milliseconds": 2989
+    },
+    {
+      "Name": "runtime/bif-contract491/remainder_invalid",
+      "Status": "Passed",
+      "Milliseconds": 807
+    },
+    {
+      "Name": "runtime/bif-contract491/remainder_identity",
+      "Status": "Passed",
+      "Milliseconds": 153
+    },
+    {
+      "Name": "runtime/bif-contract491/integer_and_integers",
+      "Status": "Passed",
+      "Milliseconds": 3033
+    },
+    {
+      "Name": "runtime/bif-contract491/integer_and_invalid",
+      "Status": "Passed",
+      "Milliseconds": 902
+    },
+    {
+      "Name": "runtime/bif-contract491/integer_and_identity",
+      "Status": "Passed",
+      "Milliseconds": 186
+    },
+    {
+      "Name": "runtime/bif-contract491/integer_or_integers",
+      "Status": "Passed",
+      "Milliseconds": 2952
+    },
+    {
+      "Name": "runtime/bif-contract491/integer_or_invalid",
+      "Status": "Passed",
+      "Milliseconds": 799
+    },
+    {
+      "Name": "runtime/bif-contract491/integer_or_identity",
+      "Status": "Passed",
+      "Milliseconds": 156
+    },
+    {
+      "Name": "runtime/bif-contract491/integer_xor_integers",
+      "Status": "Passed",
+      "Milliseconds": 2865
+    },
+    {
+      "Name": "runtime/bif-contract491/integer_xor_invalid",
+      "Status": "Passed",
+      "Milliseconds": 806
+    },
+    {
+      "Name": "runtime/bif-contract491/integer_xor_identity",
+      "Status": "Passed",
+      "Milliseconds": 147
+    },
+    {
+      "Name": "runtime/bif-contract492/atom_to_list1_p0",
+      "Status": "Passed",
+      "Milliseconds": 271
+    },
+    {
+      "Name": "runtime/bif-contract492/list_to_atom1_p0",
+      "Status": "Passed",
+      "Milliseconds": 497
+    },
+    {
+      "Name": "runtime/bif-contract492/list_to_existing_atom1_p0",
+      "Status": "Passed",
+      "Milliseconds": 631
+    },
+    {
+      "Name": "runtime/bif-contract492/atom_to_binary1_p0",
+      "Status": "Passed",
+      "Milliseconds": 234
+    },
+    {
+      "Name": "runtime/bif-contract492/atom_to_binary2_p0",
+      "Status": "Passed",
+      "Milliseconds": 924
+    },
+    {
+      "Name": "runtime/bif-contract492/atom_to_binary2_p1",
+      "Status": "Passed",
+      "Milliseconds": 183
+    },
+    {
+      "Name": "runtime/bif-contract492/binary_to_atom1_p0",
+      "Status": "Passed",
+      "Milliseconds": 235
+    },
+    {
+      "Name": "runtime/bif-contract492/binary_to_atom2_p0",
+      "Status": "Passed",
+      "Milliseconds": 874
+    },
+    {
+      "Name": "runtime/bif-contract492/binary_to_atom2_p1",
+      "Status": "Passed",
+      "Milliseconds": 259
+    },
+    {
+      "Name": "runtime/bif-contract492/binary_to_existing_atom1_p0",
+      "Status": "Passed",
+      "Milliseconds": 343
+    },
+    {
+      "Name": "runtime/bif-contract492/binary_to_existing_atom2_p0",
+      "Status": "Passed",
+      "Milliseconds": 1520
+    },
+    {
+      "Name": "runtime/bif-contract492/binary_to_existing_atom2_p1",
+      "Status": "Passed",
+      "Milliseconds": 494
+    },
+    {
+      "Name": "runtime/bif-contract492/identity",
+      "Status": "Passed",
+      "Milliseconds": 109
+    },
+    {
+      "Name": "runtime/bif-contract493/integer_to_list1_p0",
+      "Status": "Passed",
+      "Milliseconds": 186
+    },
+    {
+      "Name": "runtime/bif-contract493/integer_to_list2_p0",
+      "Status": "Passed",
+      "Milliseconds": 963
+    },
+    {
+      "Name": "runtime/bif-contract493/integer_to_list2_p1",
+      "Status": "Passed",
+      "Milliseconds": 861
+    },
+    {
+      "Name": "runtime/bif-contract493/integer_to_list2_p2",
+      "Status": "Passed",
+      "Milliseconds": 808
+    },
+    {
+      "Name": "runtime/bif-contract493/integer_to_list2_p3",
+      "Status": "Passed",
+      "Milliseconds": 739
+    },
+    {
+      "Name": "runtime/bif-contract493/integer_to_list2_p4",
+      "Status": "Passed",
+      "Milliseconds": 767
+    },
+    {
+      "Name": "runtime/bif-contract493/integer_to_list2_p5",
+      "Status": "Passed",
+      "Milliseconds": 782
+    },
+    {
+      "Name": "runtime/bif-contract493/integer_to_list2_p6",
+      "Status": "Passed",
+      "Milliseconds": 848
+    },
+    {
+      "Name": "runtime/bif-contract493/integer_to_list2_p7",
+      "Status": "Passed",
+      "Milliseconds": 177
+    },
+    {
+      "Name": "runtime/bif-contract493/integer_to_binary1_p0",
+      "Status": "Passed",
+      "Milliseconds": 179
+    },
+    {
+      "Name": "runtime/bif-contract493/integer_to_binary2_p0",
+      "Status": "Passed",
+      "Milliseconds": 784
+    },
+    {
+      "Name": "runtime/bif-contract493/integer_to_binary2_p1",
+      "Status": "Passed",
+      "Milliseconds": 729
+    },
+    {
+      "Name": "runtime/bif-contract493/integer_to_binary2_p2",
+      "Status": "Passed",
+      "Milliseconds": 733
+    },
+    {
+      "Name": "runtime/bif-contract493/integer_to_binary2_p3",
+      "Status": "Passed",
+      "Milliseconds": 779
+    },
+    {
+      "Name": "runtime/bif-contract493/integer_to_binary2_p4",
+      "Status": "Passed",
+      "Milliseconds": 752
+    },
+    {
+      "Name": "runtime/bif-contract493/integer_to_binary2_p5",
+      "Status": "Passed",
+      "Milliseconds": 679
+    },
+    {
+      "Name": "runtime/bif-contract493/integer_to_binary2_p6",
+      "Status": "Passed",
+      "Milliseconds": 793
+    },
+    {
+      "Name": "runtime/bif-contract493/integer_to_binary2_p7",
+      "Status": "Passed",
+      "Milliseconds": 189
+    },
+    {
+      "Name": "runtime/bif-contract493/list_to_integer1_p0",
+      "Status": "Passed",
+      "Milliseconds": 750
+    },
+    {
+      "Name": "runtime/bif-contract493/list_to_integer1_p1",
+      "Status": "Passed",
+      "Milliseconds": 86
+    },
+    {
+      "Name": "runtime/bif-contract493/list_to_integer2_p0",
+      "Status": "Passed",
+      "Milliseconds": 778
+    },
+    {
+      "Name": "runtime/bif-contract493/list_to_integer2_p1",
+      "Status": "Passed",
+      "Milliseconds": 768
+    },
+    {
+      "Name": "runtime/bif-contract493/list_to_integer2_p2",
+      "Status": "Passed",
+      "Milliseconds": 748
+    },
+    {
+      "Name": "runtime/bif-contract493/list_to_integer2_p3",
+      "Status": "Passed",
+      "Milliseconds": 819
+    },
+    {
+      "Name": "runtime/bif-contract493/list_to_integer2_p4",
+      "Status": "Passed",
+      "Milliseconds": 768
+    },
+    {
+      "Name": "runtime/bif-contract493/list_to_integer2_p5",
+      "Status": "Passed",
+      "Milliseconds": 785
+    },
+    {
+      "Name": "runtime/bif-contract493/list_to_integer2_p6",
+      "Status": "Passed",
+      "Milliseconds": 739
+    },
+    {
+      "Name": "runtime/bif-contract493/list_to_integer2_p7",
+      "Status": "Passed",
+      "Milliseconds": 679
+    },
+    {
+      "Name": "runtime/bif-contract493/binary_to_integer1_p0",
+      "Status": "Passed",
+      "Milliseconds": 324
+    },
+    {
+      "Name": "runtime/bif-contract493/binary_to_integer2_p0",
+      "Status": "Passed",
+      "Milliseconds": 770
+    },
+    {
+      "Name": "runtime/bif-contract493/binary_to_integer2_p1",
+      "Status": "Passed",
+      "Milliseconds": 750
+    },
+    {
+      "Name": "runtime/bif-contract493/binary_to_integer2_p2",
+      "Status": "Passed",
+      "Milliseconds": 765
+    },
+    {
+      "Name": "runtime/bif-contract493/binary_to_integer2_p3",
+      "Status": "Passed",
+      "Milliseconds": 785
+    },
+    {
+      "Name": "runtime/bif-contract493/binary_to_integer2_p4",
+      "Status": "Passed",
+      "Milliseconds": 801
+    },
+    {
+      "Name": "runtime/bif-contract493/binary_to_integer2_p5",
+      "Status": "Passed",
+      "Milliseconds": 616
+    },
+    {
+      "Name": "runtime/bif-contract495/map_size",
+      "Status": "Passed",
+      "Milliseconds": 731
+    },
+    {
+      "Name": "runtime/bif-contract495/map_get",
+      "Status": "Passed",
+      "Milliseconds": 1894
+    },
+    {
+      "Name": "runtime/bif-contract495/is_map_key",
+      "Status": "Passed",
+      "Milliseconds": 1583
+    },
+    {
+      "Name": "runtime/bif-contract496/is_record1_p0",
+      "Status": "Passed",
+      "Milliseconds": 482
+    },
+    {
+      "Name": "runtime/bif-contract496/is_record1_p1",
+      "Status": "Passed",
+      "Milliseconds": 594
+    },
+    {
+      "Name": "runtime/bif-contract496/is_record1_p2",
+      "Status": "Passed",
+      "Milliseconds": 172
+    },
+    {
+      "Name": "runtime/bif-contract496/is_record2_p0",
+      "Status": "Passed",
+      "Milliseconds": 931
+    },
+    {
+      "Name": "runtime/bif-contract496/is_record2_p1",
+      "Status": "Passed",
+      "Milliseconds": 1070
+    },
+    {
+      "Name": "runtime/bif-contract496/is_record2_p2",
+      "Status": "Passed",
+      "Milliseconds": 1178
+    },
+    {
+      "Name": "runtime/bif-contract496/is_record2_p3",
+      "Status": "Passed",
+      "Milliseconds": 298
+    },
+    {
+      "Name": "runtime/bif-contract496/is_record3_p0",
+      "Status": "Passed",
+      "Milliseconds": 1210
+    },
+    {
+      "Name": "runtime/bif-contract496/is_record3_p1",
+      "Status": "Passed",
+      "Milliseconds": 1375
+    },
+    {
+      "Name": "runtime/bif-contract496/is_record3_p2",
+      "Status": "Passed",
+      "Milliseconds": 1423
+    },
+    {
+      "Name": "runtime/bif-contract496/is_record3_p3",
+      "Status": "Passed",
+      "Milliseconds": 1487
+    },
+    {
+      "Name": "runtime/bif-contract496/is_record3_p4",
+      "Status": "Passed",
+      "Milliseconds": 1427
+    },
+    {
+      "Name": "runtime/bif-contract496/is_record3_p5",
+      "Status": "Passed",
+      "Milliseconds": 128
+    },
+    {
+      "Name": "runtime/bif-contract496/construction",
+      "Status": "Passed",
+      "Milliseconds": 51
+    }
+  ]
+}
