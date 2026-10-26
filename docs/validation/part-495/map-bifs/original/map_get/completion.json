@@ -1,0 +1,49 @@
+{
+  "Passed": true,
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ProviderFiles": 6427,
+  "ProviderBeforeEqual": true,
+  "ProviderAfterEqual": true,
+  "SourceSha256": "55D53540804D0337E9C9514E3FB28FFAF5E4AF4C09FADCC2C88939F2ADAF9A0F",
+  "OriginalReceipt": {
+    "Command": [
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+      "+S",
+      "1:1",
+      "+A",
+      "1",
+      "-noshell",
+      "-noinput",
+      "-boot",
+      "no_dot_erlang",
+      "-pa",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\contracts495\\original-final\\map_get",
+      "-eval",
+      "{ok,map_contract495_map_get,_}=compile:file(\"map_contract495_map_get.erl\",[return_errors,return_warnings]),[ok=prim_file:write_file(File,term_to_binary(ordsets_core_worker:run(map_contract495_map_get,Entry),[{minor_version,2}])) || {File,Entry} <- [{\"values.etf\",run},{\"stacks.etf\",run_stacks}]],{beam_file,_,_,_,_,Functions}=beam_disasm:file(\"map_contract495_map_get.beam\"),Instructions=lists:append([Is || {function,_,_,_,Is} <- Functions]),ApplySites=[I || I <- Instructions,is_tuple(I),lists:member(element(1,I),[apply,apply_last])],true=length(ApplySites)>0,ok=prim_file:write_file(\"dispatch-proof.etf\",term_to_binary({map_contract495_map_get,length(ApplySites),ApplySites})),halt(0)."
+    ],
+    "Pid": 211908,
+    "ElapsedSeconds": 0.2970000000204891,
+    "TimedOut": false,
+    "Settled": true,
+    "ExitCode": 0,
+    "Failures": [],
+    "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  "GoldenChecked": false,
+  "NormalizedFields": 0,
+  "Errors": [],
+  "Files": {
+    "dispatch-proof.etf": "A62AFE33927A3C1D29D405C062D38C4C44A5B69FF606F0B49BD79956E0BDE1B5",
+    "map_contract495_map_get.beam": "566571ECBAB9147D62AD4AE49F72A6F5AE72ED7EF46DBCCB4920D98CC277BBC9",
+    "map_contract495_map_get.erl": "55D53540804D0337E9C9514E3FB28FFAF5E4AF4C09FADCC2C88939F2ADAF9A0F",
+    "ordsets_core_support.beam": "E96720C753F9438E66367C71A90C5D0C1E3AA29091B178799986E36A8438022F",
+    "ordsets_core_worker.beam": "E345AE81943C41F82F3CBCA24B963D2D25CB24C0C15E2A0B21B72A65757D6B3F",
+    "original.exit.json": "C1910CFAEEAFC68E2BADC6A64B2D58D889482D591B035B9FF3C790B08B7678A8",
+    "original.live.json": "582A9CC2EE5E3970BCAD347E769408039B05F72A2CA0C93735FCB08F4F8DB05B",
+    "original.stderr.log": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "original.stdout.log": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "stacks.etf": "2EE2E55D91141423E63F6F0CCB67274621BF0B781E66547906FAE79190C1F3A3",
+    "values.etf": "55E3FD253305FE38D70E28111D09B9EDC095A8B39F157E43913173A0E60CD11D"
+  }
+}

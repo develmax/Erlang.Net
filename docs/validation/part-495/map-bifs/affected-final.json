@@ -1,0 +1,630 @@
+{
+  "Partial": true,
+  "SelectedCount": 103,
+  "TotalCount": 9006,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/bif-contract487/numeric252-values-and1260-full-stacks",
+    "runtime/bif-contract487/whole84-values-and420-full-stacks",
+    "runtime/bif-contract488/tuple111-values-and555-full-stacks",
+    "runtime/bif-contract489/append_element",
+    "runtime/bif-contract489/delete_element",
+    "runtime/bif-contract489/insert_element",
+    "runtime/bif-contract489/list_to_tuple",
+    "runtime/bif-contract489/make_tuple2",
+    "runtime/bif-contract489/make_tuple3",
+    "runtime/bif-contract489/setelement",
+    "runtime/bif-contract490/boolean_and",
+    "runtime/bif-contract490/boolean_not",
+    "runtime/bif-contract490/boolean_or",
+    "runtime/bif-contract490/boolean_xor",
+    "runtime/bif-contract490/integer_complement",
+    "runtime/bif-contract490/unary_minus",
+    "runtime/bif-contract490/unary_plus",
+    "runtime/bif-contract491/add_float_left",
+    "runtime/bif-contract491/add_float_right",
+    "runtime/bif-contract491/add_identity",
+    "runtime/bif-contract491/add_integers",
+    "runtime/bif-contract491/add_invalid",
+    "runtime/bif-contract491/divide_float_left",
+    "runtime/bif-contract491/divide_float_right",
+    "runtime/bif-contract491/divide_identity",
+    "runtime/bif-contract491/divide_integers",
+    "runtime/bif-contract491/divide_invalid",
+    "runtime/bif-contract491/integer_and_identity",
+    "runtime/bif-contract491/integer_and_integers",
+    "runtime/bif-contract491/integer_and_invalid",
+    "runtime/bif-contract491/integer_divide_identity",
+    "runtime/bif-contract491/integer_divide_integers",
+    "runtime/bif-contract491/integer_divide_invalid",
+    "runtime/bif-contract491/integer_or_identity",
+    "runtime/bif-contract491/integer_or_integers",
+    "runtime/bif-contract491/integer_or_invalid",
+    "runtime/bif-contract491/integer_xor_identity",
+    "runtime/bif-contract491/integer_xor_integers",
+    "runtime/bif-contract491/integer_xor_invalid",
+    "runtime/bif-contract491/multiply_float_left",
+    "runtime/bif-contract491/multiply_float_right",
+    "runtime/bif-contract491/multiply_identity",
+    "runtime/bif-contract491/multiply_integers",
+    "runtime/bif-contract491/multiply_invalid",
+    "runtime/bif-contract491/remainder_identity",
+    "runtime/bif-contract491/remainder_integers",
+    "runtime/bif-contract491/remainder_invalid",
+    "runtime/bif-contract491/subtract_float_left",
+    "runtime/bif-contract491/subtract_float_right",
+    "runtime/bif-contract491/subtract_identity",
+    "runtime/bif-contract491/subtract_integers",
+    "runtime/bif-contract491/subtract_invalid",
+    "runtime/bif-contract492/atom_to_binary1_p0",
+    "runtime/bif-contract492/atom_to_binary2_p0",
+    "runtime/bif-contract492/atom_to_binary2_p1",
+    "runtime/bif-contract492/atom_to_list1_p0",
+    "runtime/bif-contract492/binary_to_atom1_p0",
+    "runtime/bif-contract492/binary_to_atom2_p0",
+    "runtime/bif-contract492/binary_to_atom2_p1",
+    "runtime/bif-contract492/binary_to_existing_atom1_p0",
+    "runtime/bif-contract492/binary_to_existing_atom2_p0",
+    "runtime/bif-contract492/binary_to_existing_atom2_p1",
+    "runtime/bif-contract492/identity",
+    "runtime/bif-contract492/list_to_atom1_p0",
+    "runtime/bif-contract492/list_to_existing_atom1_p0",
+    "runtime/bif-contract493/binary_to_integer1_p0",
+    "runtime/bif-contract493/binary_to_integer2_p0",
+    "runtime/bif-contract493/binary_to_integer2_p1",
+    "runtime/bif-contract493/binary_to_integer2_p2",
+    "runtime/bif-contract493/binary_to_integer2_p3",
+    "runtime/bif-contract493/binary_to_integer2_p4",
+    "runtime/bif-contract493/binary_to_integer2_p5",
+    "runtime/bif-contract493/integer_to_binary1_p0",
+    "runtime/bif-contract493/integer_to_binary2_p0",
+    "runtime/bif-contract493/integer_to_binary2_p1",
+    "runtime/bif-contract493/integer_to_binary2_p2",
+    "runtime/bif-contract493/integer_to_binary2_p3",
+    "runtime/bif-contract493/integer_to_binary2_p4",
+    "runtime/bif-contract493/integer_to_binary2_p5",
+    "runtime/bif-contract493/integer_to_binary2_p6",
+    "runtime/bif-contract493/integer_to_binary2_p7",
+    "runtime/bif-contract493/integer_to_list1_p0",
+    "runtime/bif-contract493/integer_to_list2_p0",
+    "runtime/bif-contract493/integer_to_list2_p1",
+    "runtime/bif-contract493/integer_to_list2_p2",
+    "runtime/bif-contract493/integer_to_list2_p3",
+    "runtime/bif-contract493/integer_to_list2_p4",
+    "runtime/bif-contract493/integer_to_list2_p5",
+    "runtime/bif-contract493/integer_to_list2_p6",
+    "runtime/bif-contract493/integer_to_list2_p7",
+    "runtime/bif-contract493/list_to_integer1_p0",
+    "runtime/bif-contract493/list_to_integer1_p1",
+    "runtime/bif-contract493/list_to_integer2_p0",
+    "runtime/bif-contract493/list_to_integer2_p1",
+    "runtime/bif-contract493/list_to_integer2_p2",
+    "runtime/bif-contract493/list_to_integer2_p3",
+    "runtime/bif-contract493/list_to_integer2_p4",
+    "runtime/bif-contract493/list_to_integer2_p5",
+    "runtime/bif-contract493/list_to_integer2_p6",
+    "runtime/bif-contract493/list_to_integer2_p7",
+    "runtime/bif-contract495/is_map_key",
+    "runtime/bif-contract495/map_get",
+    "runtime/bif-contract495/map_size"
+  ],
+  "Passed": 103,
+  "Failed": 0,
+  "Tests": [
+    {
+      "Name": "runtime/bif-contract487/whole84-values-and420-full-stacks",
+      "Status": "Passed",
+      "Milliseconds": 1352
+    },
+    {
+      "Name": "runtime/bif-contract487/numeric252-values-and1260-full-stacks",
+      "Status": "Passed",
+      "Milliseconds": 8173
+    },
+    {
+      "Name": "runtime/bif-contract488/tuple111-values-and555-full-stacks",
+      "Status": "Passed",
+      "Milliseconds": 1482
+    },
+    {
+      "Name": "runtime/bif-contract489/setelement",
+      "Status": "Passed",
+      "Milliseconds": 776
+    },
+    {
+      "Name": "runtime/bif-contract489/insert_element",
+      "Status": "Passed",
+      "Milliseconds": 750
+    },
+    {
+      "Name": "runtime/bif-contract489/delete_element",
+      "Status": "Passed",
+      "Milliseconds": 720
+    },
+    {
+      "Name": "runtime/bif-contract489/append_element",
+      "Status": "Passed",
+      "Milliseconds": 76
+    },
+    {
+      "Name": "runtime/bif-contract489/list_to_tuple",
+      "Status": "Passed",
+      "Milliseconds": 94
+    },
+    {
+      "Name": "runtime/bif-contract489/make_tuple2",
+      "Status": "Passed",
+      "Milliseconds": 78
+    },
+    {
+      "Name": "runtime/bif-contract489/make_tuple3",
+      "Status": "Passed",
+      "Milliseconds": 547
+    },
+    {
+      "Name": "runtime/bif-contract490/boolean_not",
+      "Status": "Passed",
+      "Milliseconds": 256
+    },
+    {
+      "Name": "runtime/bif-contract490/boolean_and",
+      "Status": "Passed",
+      "Milliseconds": 2360
+    },
+    {
+      "Name": "runtime/bif-contract490/boolean_or",
+      "Status": "Passed",
+      "Milliseconds": 2379
+    },
+    {
+      "Name": "runtime/bif-contract490/boolean_xor",
+      "Status": "Passed",
+      "Milliseconds": 2273
+    },
+    {
+      "Name": "runtime/bif-contract490/unary_plus",
+      "Status": "Passed",
+      "Milliseconds": 243
+    },
+    {
+      "Name": "runtime/bif-contract490/unary_minus",
+      "Status": "Passed",
+      "Milliseconds": 212
+    },
+    {
+      "Name": "runtime/bif-contract490/integer_complement",
+      "Status": "Passed",
+      "Milliseconds": 219
+    },
+    {
+      "Name": "runtime/bif-contract491/add_integers",
+      "Status": "Passed",
+      "Milliseconds": 2548
+    },
+    {
+      "Name": "runtime/bif-contract491/add_float_left",
+      "Status": "Passed",
+      "Milliseconds": 2569
+    },
+    {
+      "Name": "runtime/bif-contract491/add_float_right",
+      "Status": "Passed",
+      "Milliseconds": 1087
+    },
+    {
+      "Name": "runtime/bif-contract491/add_invalid",
+      "Status": "Passed",
+      "Milliseconds": 401
+    },
+    {
+      "Name": "runtime/bif-contract491/add_identity",
+      "Status": "Passed",
+      "Milliseconds": 125
+    },
+    {
+      "Name": "runtime/bif-contract491/subtract_integers",
+      "Status": "Passed",
+      "Milliseconds": 2609
+    },
+    {
+      "Name": "runtime/bif-contract491/subtract_float_left",
+      "Status": "Passed",
+      "Milliseconds": 2569
+    },
+    {
+      "Name": "runtime/bif-contract491/subtract_float_right",
+      "Status": "Passed",
+      "Milliseconds": 1068
+    },
+    {
+      "Name": "runtime/bif-contract491/subtract_invalid",
+      "Status": "Passed",
+      "Milliseconds": 396
+    },
+    {
+      "Name": "runtime/bif-contract491/subtract_identity",
+      "Status": "Passed",
+      "Milliseconds": 138
+    },
+    {
+      "Name": "runtime/bif-contract491/multiply_integers",
+      "Status": "Passed",
+      "Milliseconds": 2569
+    },
+    {
+      "Name": "runtime/bif-contract491/multiply_float_left",
+      "Status": "Passed",
+      "Milliseconds": 2605
+    },
+    {
+      "Name": "runtime/bif-contract491/multiply_float_right",
+      "Status": "Passed",
+      "Milliseconds": 1052
+    },
+    {
+      "Name": "runtime/bif-contract491/multiply_invalid",
+      "Status": "Passed",
+      "Milliseconds": 366
+    },
+    {
+      "Name": "runtime/bif-contract491/multiply_identity",
+      "Status": "Passed",
+      "Milliseconds": 141
+    },
+    {
+      "Name": "runtime/bif-contract491/divide_integers",
+      "Status": "Passed",
+      "Milliseconds": 2583
+    },
+    {
+      "Name": "runtime/bif-contract491/divide_float_left",
+      "Status": "Passed",
+      "Milliseconds": 2667
+    },
+    {
+      "Name": "runtime/bif-contract491/divide_float_right",
+      "Status": "Passed",
+      "Milliseconds": 1081
+    },
+    {
+      "Name": "runtime/bif-contract491/divide_invalid",
+      "Status": "Passed",
+      "Milliseconds": 383
+    },
+    {
+      "Name": "runtime/bif-contract491/divide_identity",
+      "Status": "Passed",
+      "Milliseconds": 122
+    },
+    {
+      "Name": "runtime/bif-contract491/integer_divide_integers",
+      "Status": "Passed",
+      "Milliseconds": 2556
+    },
+    {
+      "Name": "runtime/bif-contract491/integer_divide_invalid",
+      "Status": "Passed",
+      "Milliseconds": 681
+    },
+    {
+      "Name": "runtime/bif-contract491/integer_divide_identity",
+      "Status": "Passed",
+      "Milliseconds": 157
+    },
+    {
+      "Name": "runtime/bif-contract491/remainder_integers",
+      "Status": "Passed",
+      "Milliseconds": 2567
+    },
+    {
+      "Name": "runtime/bif-contract491/remainder_invalid",
+      "Status": "Passed",
+      "Milliseconds": 700
+    },
+    {
+      "Name": "runtime/bif-contract491/remainder_identity",
+      "Status": "Passed",
+      "Milliseconds": 125
+    },
+    {
+      "Name": "runtime/bif-contract491/integer_and_integers",
+      "Status": "Passed",
+      "Milliseconds": 2532
+    },
+    {
+      "Name": "runtime/bif-contract491/integer_and_invalid",
+      "Status": "Passed",
+      "Milliseconds": 709
+    },
+    {
+      "Name": "runtime/bif-contract491/integer_and_identity",
+      "Status": "Passed",
+      "Milliseconds": 134
+    },
+    {
+      "Name": "runtime/bif-contract491/integer_or_integers",
+      "Status": "Passed",
+      "Milliseconds": 2704
+    },
+    {
+      "Name": "runtime/bif-contract491/integer_or_invalid",
+      "Status": "Passed",
+      "Milliseconds": 664
+    },
+    {
+      "Name": "runtime/bif-contract491/integer_or_identity",
+      "Status": "Passed",
+      "Milliseconds": 120
+    },
+    {
+      "Name": "runtime/bif-contract491/integer_xor_integers",
+      "Status": "Passed",
+      "Milliseconds": 2506
+    },
+    {
+      "Name": "runtime/bif-contract491/integer_xor_invalid",
+      "Status": "Passed",
+      "Milliseconds": 658
+    },
+    {
+      "Name": "runtime/bif-contract491/integer_xor_identity",
+      "Status": "Passed",
+      "Milliseconds": 148
+    },
+    {
+      "Name": "runtime/bif-contract492/atom_to_list1_p0",
+      "Status": "Passed",
+      "Milliseconds": 195
+    },
+    {
+      "Name": "runtime/bif-contract492/list_to_atom1_p0",
+      "Status": "Passed",
+      "Milliseconds": 363
+    },
+    {
+      "Name": "runtime/bif-contract492/list_to_existing_atom1_p0",
+      "Status": "Passed",
+      "Milliseconds": 555
+    },
+    {
+      "Name": "runtime/bif-contract492/atom_to_binary1_p0",
+      "Status": "Passed",
+      "Milliseconds": 201
+    },
+    {
+      "Name": "runtime/bif-contract492/atom_to_binary2_p0",
+      "Status": "Passed",
+      "Milliseconds": 801
+    },
+    {
+      "Name": "runtime/bif-contract492/atom_to_binary2_p1",
+      "Status": "Passed",
+      "Milliseconds": 126
+    },
+    {
+      "Name": "runtime/bif-contract492/binary_to_atom1_p0",
+      "Status": "Passed",
+      "Milliseconds": 234
+    },
+    {
+      "Name": "runtime/bif-contract492/binary_to_atom2_p0",
+      "Status": "Passed",
+      "Milliseconds": 736
+    },
+    {
+      "Name": "runtime/bif-contract492/binary_to_atom2_p1",
+      "Status": "Passed",
+      "Milliseconds": 240
+    },
+    {
+      "Name": "runtime/bif-contract492/binary_to_existing_atom1_p0",
+      "Status": "Passed",
+      "Milliseconds": 301
+    },
+    {
+      "Name": "runtime/bif-contract492/binary_to_existing_atom2_p0",
+      "Status": "Passed",
+      "Milliseconds": 1093
+    },
+    {
+      "Name": "runtime/bif-contract492/binary_to_existing_atom2_p1",
+      "Status": "Passed",
+      "Milliseconds": 401
+    },
+    {
+      "Name": "runtime/bif-contract492/identity",
+      "Status": "Passed",
+      "Milliseconds": 107
+    },
+    {
+      "Name": "runtime/bif-contract493/integer_to_list1_p0",
+      "Status": "Passed",
+      "Milliseconds": 158
+    },
+    {
+      "Name": "runtime/bif-contract493/integer_to_list2_p0",
+      "Status": "Passed",
+      "Milliseconds": 831
+    },
+    {
+      "Name": "runtime/bif-contract493/integer_to_list2_p1",
+      "Status": "Passed",
+      "Milliseconds": 783
+    },
+    {
+      "Name": "runtime/bif-contract493/integer_to_list2_p2",
+      "Status": "Passed",
+      "Milliseconds": 751
+    },
+    {
+      "Name": "runtime/bif-contract493/integer_to_list2_p3",
+      "Status": "Passed",
+      "Milliseconds": 722
+    },
+    {
+      "Name": "runtime/bif-contract493/integer_to_list2_p4",
+      "Status": "Passed",
+      "Milliseconds": 731
+    },
+    {
+      "Name": "runtime/bif-contract493/integer_to_list2_p5",
+      "Status": "Passed",
+      "Milliseconds": 708
+    },
+    {
+      "Name": "runtime/bif-contract493/integer_to_list2_p6",
+      "Status": "Passed",
+      "Milliseconds": 800
+    },
+    {
+      "Name": "runtime/bif-contract493/integer_to_list2_p7",
+      "Status": "Passed",
+      "Milliseconds": 157
+    },
+    {
+      "Name": "runtime/bif-contract493/integer_to_binary1_p0",
+      "Status": "Passed",
+      "Milliseconds": 155
+    },
+    {
+      "Name": "runtime/bif-contract493/integer_to_binary2_p0",
+      "Status": "Passed",
+      "Milliseconds": 687
+    },
+    {
+      "Name": "runtime/bif-contract493/integer_to_binary2_p1",
+      "Status": "Passed",
+      "Milliseconds": 665
+    },
+    {
+      "Name": "runtime/bif-contract493/integer_to_binary2_p2",
+      "Status": "Passed",
+      "Milliseconds": 641
+    },
+    {
+      "Name": "runtime/bif-contract493/integer_to_binary2_p3",
+      "Status": "Passed",
+      "Milliseconds": 641
+    },
+    {
+      "Name": "runtime/bif-contract493/integer_to_binary2_p4",
+      "Status": "Passed",
+      "Milliseconds": 659
+    },
+    {
+      "Name": "runtime/bif-contract493/integer_to_binary2_p5",
+      "Status": "Passed",
+      "Milliseconds": 673
+    },
+    {
+      "Name": "runtime/bif-contract493/integer_to_binary2_p6",
+      "Status": "Passed",
+      "Milliseconds": 711
+    },
+    {
+      "Name": "runtime/bif-contract493/integer_to_binary2_p7",
+      "Status": "Passed",
+      "Milliseconds": 174
+    },
+    {
+      "Name": "runtime/bif-contract493/list_to_integer1_p0",
+      "Status": "Passed",
+      "Milliseconds": 656
+    },
+    {
+      "Name": "runtime/bif-contract493/list_to_integer1_p1",
+      "Status": "Passed",
+      "Milliseconds": 80
+    },
+    {
+      "Name": "runtime/bif-contract493/list_to_integer2_p0",
+      "Status": "Passed",
+      "Milliseconds": 663
+    },
+    {
+      "Name": "runtime/bif-contract493/list_to_integer2_p1",
+      "Status": "Passed",
+      "Milliseconds": 659
+    },
+    {
+      "Name": "runtime/bif-contract493/list_to_integer2_p2",
+      "Status": "Passed",
+      "Milliseconds": 661
+    },
+    {
+      "Name": "runtime/bif-contract493/list_to_integer2_p3",
+      "Status": "Passed",
+      "Milliseconds": 691
+    },
+    {
+      "Name": "runtime/bif-contract493/list_to_integer2_p4",
+      "Status": "Passed",
+      "Milliseconds": 710
+    },
+    {
+      "Name": "runtime/bif-contract493/list_to_integer2_p5",
+      "Status": "Passed",
+      "Milliseconds": 677
+    },
+    {
+      "Name": "runtime/bif-contract493/list_to_integer2_p6",
+      "Status": "Passed",
+      "Milliseconds": 703
+    },
+    {
+      "Name": "runtime/bif-contract493/list_to_integer2_p7",
+      "Status": "Passed",
+      "Milliseconds": 618
+    },
+    {
+      "Name": "runtime/bif-contract493/binary_to_integer1_p0",
+      "Status": "Passed",
+      "Milliseconds": 288
+    },
+    {
+      "Name": "runtime/bif-contract493/binary_to_integer2_p0",
+      "Status": "Passed",
+      "Milliseconds": 653
+    },
+    {
+      "Name": "runtime/bif-contract493/binary_to_integer2_p1",
+      "Status": "Passed",
+      "Milliseconds": 664
+    },
+    {
+      "Name": "runtime/bif-contract493/binary_to_integer2_p2",
+      "Status": "Passed",
+      "Milliseconds": 661
+    },
+    {
+      "Name": "runtime/bif-contract493/binary_to_integer2_p3",
+      "Status": "Passed",
+      "Milliseconds": 728
+    },
+    {
+      "Name": "runtime/bif-contract493/binary_to_integer2_p4",
+      "Status": "Passed",
+      "Milliseconds": 711
+    },
+    {
+      "Name": "runtime/bif-contract493/binary_to_integer2_p5",
+      "Status": "Passed",
+      "Milliseconds": 549
+    },
+    {
+      "Name": "runtime/bif-contract495/map_size",
+      "Status": "Passed",
+      "Milliseconds": 606
+    },
+    {
+      "Name": "runtime/bif-contract495/map_get",
+      "Status": "Passed",
+      "Milliseconds": 1462
+    },
+    {
+      "Name": "runtime/bif-contract495/is_map_key",
+      "Status": "Passed",
+      "Milliseconds": 1360
+    }
+  ]
+}

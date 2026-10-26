@@ -1,9 +1,9 @@
 {
   "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Registered": 708,
-  "Verified": 170,
+  "Verified": 173,
   "KnownDifferences": 25,
-  "NeedsVerification": 513,
+  "NeedsVerification": 510,
   "UnclosedDefaultContracts": [
     {
       "Module": "application",
@@ -1338,17 +1338,6 @@
     },
     {
       "Module": "erlang",
-      "Function": "is_map_key",
-      "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
-    },
-    {
-      "Module": "erlang",
       "Function": "is_process_alive",
       "Arity": 1,
       "Status": "Needs verification",
@@ -1604,28 +1593,6 @@
       "Module": "erlang",
       "Function": "make_ref",
       "Arity": 0,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
-    },
-    {
-      "Module": "erlang",
-      "Function": "map_get",
-      "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
-    },
-    {
-      "Module": "erlang",
-      "Function": "map_size",
-      "Arity": 1,
       "Status": "Needs verification",
       "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
       "Evidence": [],
@@ -278244,7 +278211,7 @@
       "Module": "erlang",
       "CatalogPublicApis": 875,
       "DefaultRegistered": 351,
-      "DefaultVerified": 73,
+      "DefaultVerified": 76,
       "RequiresPreprocessing": false,
       "OriginalExecutionStatus": "Requires separate execution evidence; default registry is not original-library coverage"
     },

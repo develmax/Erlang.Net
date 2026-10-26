@@ -6838,8 +6838,8 @@
       "Sha256": "C3F8819E5985BEA0C5DE31F2C301A854E7D4B885DA1DF8B292B52823E421A2CC"
     }
   ],
-  "VerifiedCompatibleMfas": 170,
-  "NeedsVerificationMfas": 513,
+  "VerifiedCompatibleMfas": 173,
+  "NeedsVerificationMfas": 510,
   "KnownDifferenceMfas": 25,
   "MfaCompatibility": [
     {
@@ -9252,36 +9252,87 @@
       "Module": "erlang",
       "Function": "map_size",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+      "Status": "Verified compatible",
+      "Scope": "Complete supported valid Erlang term contract audited against pinned OTP-29.1.1: map/nonmap branches, exact key relation, returned binding identity, badmap/badkey and full ordinary/direct/guard/error stack metadata. Includes source-defined interior-node map_size rejection with the whole bound-role protocol. Undefined native lookup on an interior HAMT node is outside the original lookup precondition; valid raw cursors over complete maps remain supported. Not a claim of identical physical representation, timing or whole-module compatibility.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-495/map-bifs/source-audit.json",
+          "Sha256": "3478F3F137609CA72DE78077BB37440BEB927F85D1D53CB10C5788F0529CC10D",
+          "Scope": "Complete source branch/key relation and raw-node precondition audit."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-495/map-bifs/original-comparison.json",
+          "Sha256": "3DCEC4615B3C75FC28806B43D7B455C7B4247DC66330147E3B15DEE68FF44587",
+          "Scope": "194 values and 970 full-stack profiles;1158 literal whole outputs plus6 whole source-bound node outputs."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-495/map-bifs/affected-final.json",
+          "Sha256": "2B66B971167D8D17208CAF91BB7BABCC8CCB311F1D4A7F0F4E5EC45610AEDBE0",
+          "Scope": "All100 inherited groups and3 new map groups pass on the final local sources."
+        }
       ],
+      "Limits": [],
       "Key": "erlang:map_size/1"
     },
     {
       "Module": "erlang",
       "Function": "map_get",
       "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+      "Status": "Verified compatible",
+      "Scope": "Complete supported valid Erlang term contract audited against pinned OTP-29.1.1: map/nonmap branches, exact key relation, returned binding identity, badmap/badkey and full ordinary/direct/guard/error stack metadata. Includes source-defined interior-node map_size rejection with the whole bound-role protocol. Undefined native lookup on an interior HAMT node is outside the original lookup precondition; valid raw cursors over complete maps remain supported. Not a claim of identical physical representation, timing or whole-module compatibility.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-495/map-bifs/source-audit.json",
+          "Sha256": "3478F3F137609CA72DE78077BB37440BEB927F85D1D53CB10C5788F0529CC10D",
+          "Scope": "Complete source branch/key relation and raw-node precondition audit."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-495/map-bifs/original-comparison.json",
+          "Sha256": "3DCEC4615B3C75FC28806B43D7B455C7B4247DC66330147E3B15DEE68FF44587",
+          "Scope": "194 values and 970 full-stack profiles;1158 literal whole outputs plus6 whole source-bound node outputs."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-495/map-bifs/affected-final.json",
+          "Sha256": "2B66B971167D8D17208CAF91BB7BABCC8CCB311F1D4A7F0F4E5EC45610AEDBE0",
+          "Scope": "All100 inherited groups and3 new map groups pass on the final local sources."
+        }
       ],
+      "Limits": [],
       "Key": "erlang:map_get/2"
     },
     {
       "Module": "erlang",
       "Function": "is_map_key",
       "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+      "Status": "Verified compatible",
+      "Scope": "Complete supported valid Erlang term contract audited against pinned OTP-29.1.1: map/nonmap branches, exact key relation, returned binding identity, badmap/badkey and full ordinary/direct/guard/error stack metadata. Includes source-defined interior-node map_size rejection with the whole bound-role protocol. Undefined native lookup on an interior HAMT node is outside the original lookup precondition; valid raw cursors over complete maps remain supported. Not a claim of identical physical representation, timing or whole-module compatibility.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-495/map-bifs/source-audit.json",
+          "Sha256": "3478F3F137609CA72DE78077BB37440BEB927F85D1D53CB10C5788F0529CC10D",
+          "Scope": "Complete source branch/key relation and raw-node precondition audit."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-495/map-bifs/original-comparison.json",
+          "Sha256": "3DCEC4615B3C75FC28806B43D7B455C7B4247DC66330147E3B15DEE68FF44587",
+          "Scope": "194 values and 970 full-stack profiles;1158 literal whole outputs plus6 whole source-bound node outputs."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-495/map-bifs/affected-final.json",
+          "Sha256": "2B66B971167D8D17208CAF91BB7BABCC8CCB311F1D4A7F0F4E5EC45610AEDBE0",
+          "Scope": "All100 inherited groups and3 new map groups pass on the final local sources."
+        }
       ],
+      "Limits": [],
       "Key": "erlang:is_map_key/2"
     },
     {
@@ -27882,7 +27933,7 @@
     }
   ],
   "ComparisonTestReport": "validation/part-485/native-catalog/previous-tests.json",
-  "LocalPassedTests": 9003,
+  "LocalPassedTests": 9006,
   "RegisteredMfas": 708,
   "PreviousRegisteredMfas": 708,
   "RegisteredMfaDelta": 0,
@@ -28110,7 +28161,7 @@
         "Physical BEAM heap/scheduler/resources,complete lint/spec/warnings/source stacks/code staging,connected distribution and full native/upstream/performance parity;native numeric record hashes independently matched in230, while general resource/lifecycle scope remains partial.",
         "Part378: same-function receive\u002Btry and mixed Term/raw joins remain conservative refusals; raw manual/Nil, native-entry-specific, full depth/deeper recursion/cross-image lifecycle and stale-fun dispatch profiles need separate proof."
       ],
-      "RelatedPassedTests": 1847
+      "RelatedPassedTests": 1850
     },
     {
       "Id": "Compiler",
@@ -34869,8 +34920,8 @@
       "Name": "erlang",
       "Status": "Partially compatible",
       "RegisteredMfas": 351,
-      "VerifiedCompatibleMfas": 73,
-      "NeedsVerificationMfas": 265,
+      "VerifiedCompatibleMfas": 76,
+      "NeedsVerificationMfas": 262,
       "KnownDifferenceMfas": 13,
       "PreviousRegisteredMfas": 351,
       "Delta": 0,
@@ -52323,5 +52374,6 @@
       "Mfas": [],
       "AbsentFromReference": []
     }
-  ]
+  ],
+  "LocalValidationScope": "Part495 composite: exact parent CI40253386383 plus final103 affected groups;9006 unique names. New continuous exact-head CI remains required."
 }

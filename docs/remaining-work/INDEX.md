@@ -1,17 +1,17 @@
 # Remaining work
 
-## Part494 current contract queue
+## Part495 current contract queue
 
-See [checkpoint494](checkpoint-494.md) for the current31/559 cohorts:170 verified /513 pending /25 known, still708 registered. Six obsolete defect labels moved to full audit;52 original pending contracts closed, including the repaired creator capacity boundary. Local9003 readiness is composite; exact final-source CI remains a delivery gate. The checkpoint486 counts below record the preceding boundary.
+See [checkpoint495](checkpoint-495.md) for the current31/559 cohorts:173 verified /510 pending /25 known, still708 registered. Six obsolete defect labels moved to full audit;55 original pending contracts closed, including the repaired creator capacity boundary. Local9006 readiness is composite; exact final-source CI remains a delivery gate. The checkpoint486 counts below record the preceding boundary.
 
-The current contract list is [checkpoint494](checkpoint-494.md). The broader project backlog and layout are retained in [checkpoint486](checkpoint-486.md). Earlier milestone descriptions must not override these checkpoints.
+The current contract list is [checkpoint495](checkpoint-495.md). The broader project backlog and layout are retained in [checkpoint486](checkpoint-486.md). Earlier milestone descriptions must not override these checkpoints.
 
-Part485 is merged into main as `eb2d3d74352436f4d02d0cd41ad795a66093f70d`. Publication CI40192228033 and merge CI40216629306 are green. At that checkpoint the registry contained708 API:118 verified full contracts,559 Needs verification and31 Known differences. The current candidate counts are170/513/25. Original libraries remain Erlang/BEAM; C# owns runtime/native BIFs and existing explicit alternatives.
+Part485 is merged into main as `eb2d3d74352436f4d02d0cd41ad795a66093f70d`. Publication CI40192228033 and merge CI40216629306 are green. At that checkpoint the registry contained708 API:118 verified full contracts,559 Needs verification and31 Known differences. The current candidate counts are173/510/25. Original libraries remain Erlang/BEAM; C# owns runtime/native BIFs and existing explicit alternatives.
 
 ## Immediate queue
 
-1. Close the25 retained differences; six obsolete captured-function labels still require full audits. Preserve original values, complete stacks, backend and resource evidence. The three new atom-capacity findings are repaired locally; final CI is pending.
-2. Complete513 pending contracts (507 from the initial559 cohort plus6 reclassified contracts), plus relevant original-library APIs beyond the default registry, grouped by shared dependencies and supported platforms.
+1. Close the25 retained differences; six obsolete captured-function labels still require full audits. Preserve original values, complete stacks, backend and resource evidence. The atom-capacity repair has independently verified green CI40253386383. Three map BIF contracts pass final103/103; new exact-head CI remains a gate.
+2. Complete510 pending contracts (504 from the initial559 cohort plus6 reclassified contracts), plus relevant original-library APIs beyond the default registry, grouped by shared dependencies and supported platforms.
 3. Expand original application boot/lifecycle/upgrades, native ABI/packaging, ETS/resource/concurrency and distribution acceptance. Retain already-closed finite witnesses.
 4. Complete compiler/language/build/debug partitions, the three-strategy scheduler requirement, upstream suites, release support and fair original-OTP benchmarks.
 

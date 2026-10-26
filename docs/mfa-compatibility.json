@@ -2395,34 +2395,85 @@
       "Module": "erlang",
       "Function": "map_size",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
+      "Status": "Verified compatible",
+      "Scope": "Complete supported valid Erlang term contract audited against pinned OTP-29.1.1: map/nonmap branches, exact key relation, returned binding identity, badmap/badkey and full ordinary/direct/guard/error stack metadata. Includes source-defined interior-node map_size rejection with the whole bound-role protocol. Undefined native lookup on an interior HAMT node is outside the original lookup precondition; valid raw cursors over complete maps remain supported. Not a claim of identical physical representation, timing or whole-module compatibility.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-495/map-bifs/source-audit.json",
+          "Sha256": "3478F3F137609CA72DE78077BB37440BEB927F85D1D53CB10C5788F0529CC10D",
+          "Scope": "Complete source branch/key relation and raw-node precondition audit."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-495/map-bifs/original-comparison.json",
+          "Sha256": "3DCEC4615B3C75FC28806B43D7B455C7B4247DC66330147E3B15DEE68FF44587",
+          "Scope": "194 values and 970 full-stack profiles;1158 literal whole outputs plus6 whole source-bound node outputs."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-495/map-bifs/affected-final.json",
+          "Sha256": "2B66B971167D8D17208CAF91BB7BABCC8CCB311F1D4A7F0F4E5EC45610AEDBE0",
+          "Scope": "All100 inherited groups and3 new map groups pass on the final local sources."
+        }
+      ],
+      "Limits": []
     },
     {
       "Module": "erlang",
       "Function": "map_get",
       "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
+      "Status": "Verified compatible",
+      "Scope": "Complete supported valid Erlang term contract audited against pinned OTP-29.1.1: map/nonmap branches, exact key relation, returned binding identity, badmap/badkey and full ordinary/direct/guard/error stack metadata. Includes source-defined interior-node map_size rejection with the whole bound-role protocol. Undefined native lookup on an interior HAMT node is outside the original lookup precondition; valid raw cursors over complete maps remain supported. Not a claim of identical physical representation, timing or whole-module compatibility.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-495/map-bifs/source-audit.json",
+          "Sha256": "3478F3F137609CA72DE78077BB37440BEB927F85D1D53CB10C5788F0529CC10D",
+          "Scope": "Complete source branch/key relation and raw-node precondition audit."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-495/map-bifs/original-comparison.json",
+          "Sha256": "3DCEC4615B3C75FC28806B43D7B455C7B4247DC66330147E3B15DEE68FF44587",
+          "Scope": "194 values and 970 full-stack profiles;1158 literal whole outputs plus6 whole source-bound node outputs."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-495/map-bifs/affected-final.json",
+          "Sha256": "2B66B971167D8D17208CAF91BB7BABCC8CCB311F1D4A7F0F4E5EC45610AEDBE0",
+          "Scope": "All100 inherited groups and3 new map groups pass on the final local sources."
+        }
+      ],
+      "Limits": []
     },
     {
       "Module": "erlang",
       "Function": "is_map_key",
       "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
+      "Status": "Verified compatible",
+      "Scope": "Complete supported valid Erlang term contract audited against pinned OTP-29.1.1: map/nonmap branches, exact key relation, returned binding identity, badmap/badkey and full ordinary/direct/guard/error stack metadata. Includes source-defined interior-node map_size rejection with the whole bound-role protocol. Undefined native lookup on an interior HAMT node is outside the original lookup precondition; valid raw cursors over complete maps remain supported. Not a claim of identical physical representation, timing or whole-module compatibility.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-495/map-bifs/source-audit.json",
+          "Sha256": "3478F3F137609CA72DE78077BB37440BEB927F85D1D53CB10C5788F0529CC10D",
+          "Scope": "Complete source branch/key relation and raw-node precondition audit."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-495/map-bifs/original-comparison.json",
+          "Sha256": "3DCEC4615B3C75FC28806B43D7B455C7B4247DC66330147E3B15DEE68FF44587",
+          "Scope": "194 values and 970 full-stack profiles;1158 literal whole outputs plus6 whole source-bound node outputs."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-495/map-bifs/affected-final.json",
+          "Sha256": "2B66B971167D8D17208CAF91BB7BABCC8CCB311F1D4A7F0F4E5EC45610AEDBE0",
+          "Scope": "All100 inherited groups and3 new map groups pass on the final local sources."
+        }
+      ],
+      "Limits": []
     },
     {
       "Module": "erlang",

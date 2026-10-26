@@ -1,0 +1,63 @@
+{
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "CompleteOnSupportedValidErlangTermModel": true,
+  "ProductionEdits": 0,
+  "SourceGuards": 1708,
+  "SourceBindings": [
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/CoreModules.cs",
+      "Sha256": "EB66B5E5D4E1EA2E3FB8320727D6D1548EEFE1566E2B6335367106A325B72D85"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangSizeErrorFrames.cs",
+      "Sha256": "DBD6900803129EADAE99F8C5219562A5E71E9B2696A6275159E893D4FE3ACB67"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Collections/Maps/MapTerm.cs",
+      "Sha256": "212F943EE8C1991896CBF5D2295EFC825533CCFECB773BB095A4FFD8107772F4"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Collections/Maps/HamtBitmapTerm429.cs",
+      "Sha256": "591FD5AEBB13535E54FB32B407EB32B09B3C0A9BBCA87711A252928B6EDE076F"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Ordering/TermOrder.cs",
+      "Sha256": "F90916D20013404E42D7744E7E7633079A9021AC580BEA0A7E77AA6F37B80C91"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Values/Term.cs",
+      "Sha256": "D00E81EC8E725BE87D5F5D75D4B086B52AAC0C3B533D1E3D53DB478DC5D89363"
+    }
+  ],
+  "OriginalSources": [
+    {
+      "Path": "erts/emulator/beam/erl_map.c",
+      "Sha256": "47F77A3456ED1D17BAB547F50427ACA109564ED072D0945096790D84F998EA69"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_map.h",
+      "Sha256": "30E3E82727D9CE3031972C7D83D4B27E12F0E0997B93E778D5CD47ACCD9018B9"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_term.h",
+      "Sha256": "8E016126FB7A1BC1DB8D31111601C0BEA21D72207211BF91E1F3C127E943B5C2"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_utils.h",
+      "Sha256": "DAD589935F12DACF7004F68588417DF30E041B34499A8DC1E6336A0A292E78C4"
+    },
+    {
+      "Path": "erts/preloaded/src/erlang.erl",
+      "Sha256": "00D7672A16325E43CA221C6D6CEB4200390E2A961A243C2E31DDC141AC145047"
+    }
+  ],
+  "map_size/1": "Pinned erts_map_size accepts flatmap and HAMT heads, returns the binding count, otherwise BADMAP with the original argument. Managed complete maps carry an immutable deduplicated binding dictionary; Entries.Count is exactly that count. All nonmap term families preserve the badmap value and complete source stacks. Interior bitmap nodes are not HAMT heads: source size returns -1; a genuine node rejection is exercised separately with its own bound role.",
+  "map_get/2": "Pinned maps_get_2 rejects a nonmap second argument with BADMAP, returns the actual stored value on exact key match, otherwise BADKEY with the original key. MapTerm.Get uses the same immutable dictionary and returns the stored Term object without copying. The source guard path suppresses failure and the direct/dynamic native paths retain full errors and metadata.",
+  "is_map_key/2": "Pinned maps_is_key_2 uses the same exact lookup and returns only true/false; nonmaps preserve BADMAP. MapTerm.TryGet follows the same dictionary as map_get, with no mutation, registration or copying of keys/values.",
+  "ExactKeyRelation": "Term.Equals delegates to iterative ExactEquals, with distinct integer/float identities and bitwise signed-zero distinction; names for atoms, complete node/creation/identifier fields for resources, function kind/code/environment identity, tuple/list/native-record structure and bit length/content, and exact map key/value bindings. TermOrder.Hash partitions the same families, uses signed-zero bits, complete identifier/code components and iterative children. Map pair aggregation is independent of insertion order. Hash collisions are resolved by exact equality; neither CLR hash values nor dictionary bucket order are promised to match OTP. Lookup depth uses an explicit work stack, not C# recursion. Native record field canonicalization is exercised by reordered source fields.",
+  "MapRepresentations": "Integer-key maps exercise 0..1024 bindings with 31/32/33 and 255/256/257 transitions. Key-family, missing-key, duplicate-key, exact/numeric and structural-equality partitions are explicit. Complete maps returned by raw cursor protocols remain ordinary MapTerm objects; their prior own-state iterator obligations are unchanged.",
+  "RawInteriorBoundary": "A true erts_internal:map_hashmap_children interior bitmap node is is_map=true but not a complete map head. map_size rejection is defined and tested. For map_get/is_map_key, pinned erts_maps_get asserts is_hashmap(map) after the flatmap branch. Passing an interior node violates that native precondition; no compatibility claim for undefined native memory interpretation or assertion-crash behavior is made. This is distinct from the mandatory supported raw [Path|CompleteMap] cursor protocol.",
+  "OwnNodeProtocol": "Only the actual interior node identity is bound in source to owned_hamt_node, recursively through the original error and every full stack frame. is_map and term_type are also returned. No stack frame, argument, file/line, class or metadata is removed. Six complete source protocol outputs (ordinary plus five profiles) compare as whole bytes.",
+  "ObserverCorrection": "The first generic helper capture failed raw map_get bytes, while both entire decoded values and stacks were equal. Generic ExternalTermFormat.Encode used canonical arithmetic map order rather than the owning VM traversal. The new explicit opt-in calls public erlang:term_to_binary inside the actor. All previous callers retain the original default path. Original golden bytes are never rewritten to match a managed result.",
+  "Limits": "No entire erlang module, scheduler, physical layout/capacity, timing/performance or undefined native-pointer misuse claim. Exact-head continuous CI is still required."
+}

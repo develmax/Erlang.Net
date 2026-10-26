@@ -15,6 +15,7 @@ internal static class BeamOrdsetsCoreHostNames
     internal const string Observer = "ordsets_core_observe";
     internal const string Worker = "ordsets_core_worker";
     internal const string Run = "run";
+    internal const string TermToBinary = "term_to_binary";
     internal const string Stacks = "run_stacks";
     internal const string ModuleInfo = "module_info";
     internal const string Normal = "normal";

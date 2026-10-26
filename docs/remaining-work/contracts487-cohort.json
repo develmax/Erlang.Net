@@ -1,12 +1,12 @@
 {
   "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "InitialPending": 559,
-  "Closed": 52,
-  "RemainingFromOriginalCohort": 507,
+  "Closed": 55,
+  "RemainingFromOriginalCohort": 504,
   "AdditionalReclassifiedContracts": 6,
   "CurrentLedgerCounts": {
-    "Verified compatible": 170,
-    "Needs verification": 513,
+    "Verified compatible": 173,
+    "Needs verification": 510,
     "Known differences": 25
   },
   "Contracts": [
@@ -56,7 +56,7 @@
       "Module": "erlang",
       "Function": "map_size",
       "Arity": 1,
-      "Status": "Needs verification",
+      "Status": "Verified compatible",
       "DirectTest": "mfa/erlang:map_size/1",
       "RequiredClosure": [
         "source branches and dependent primitives",
@@ -70,7 +70,7 @@
       "Module": "erlang",
       "Function": "map_get",
       "Arity": 2,
-      "Status": "Needs verification",
+      "Status": "Verified compatible",
       "DirectTest": "mfa/erlang:map_get/2",
       "RequiredClosure": [
         "source branches and dependent primitives",
@@ -84,7 +84,7 @@
       "Module": "erlang",
       "Function": "is_map_key",
       "Arity": 2,
-      "Status": "Needs verification",
+      "Status": "Verified compatible",
       "DirectTest": "mfa/erlang:is_map_key/2",
       "RequiredClosure": [
         "source branches and dependent primitives",
@@ -7838,5 +7838,5 @@
     }
   ],
   "OriginalCohortKnownDifferences": 0,
-  "OriginalCohortNeedsVerification": 507
+  "OriginalCohortNeedsVerification": 504
 }
