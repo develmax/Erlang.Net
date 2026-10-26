@@ -24,7 +24,7 @@ def main():
  out=Path(a.output).resolve();assert not out.exists();out.mkdir(parents=True)
  env=identity.sanitized_environment(os.environ);headers=runtime/'usr/include';stages=[];images=[]
  for family,toolname,directory,approved in [('size','Erlang.NifMapSizeOriginalObservations',a.size_native_build,a.approved_size_native_receipt_sha256),('reference','Erlang.NifMakeReferenceOriginalObservations',a.reference_native_build,a.approved_reference_native_receipt_sha256)]:
-  tool=R/'tools'/toolname;manifest=J(tool/'manifest.json');native=Path(directory).resolve();proof=native/'native-build-receipt.json';assert H(proof)==approved.upper()
+  tool=R/'tools/Native'/toolname;manifest=J(tool/'manifest.json');native=Path(directory).resolve();proof=native/'native-build-receipt.json';assert H(proof)==approved.upper()
   build=J(proof);assert build['Status']=='PASS_OWNED_NATIVE_ENTRY_FIXTURE_BUILD' and build['SubjectHead']==a.expected_head and build['SourceManifestSha256']==H(tool/'manifest.json') and build['RuntimeBuildReceiptSha256']==H(a.build_receipt)
   assert len(build['Images'])==1
   image=build['Images'][0];library=Path(image['Path']).resolve();assert library.is_relative_to(native) and H(library)==image['Sha256']

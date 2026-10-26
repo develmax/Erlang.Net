@@ -73,7 +73,11 @@ internal static class DebugSharingCopy425
         {
             var keys = (TupleTerm)values[0];
 
-            return new MapTerm(keys.Items.Select((key, index) => new KeyValuePair<Term, Term>(key, values[index + 1])), keys);
+            return new MapTerm(
+                keys.Items.Select((key, index) => new KeyValuePair<Term, Term>(key, values[index + 1])),
+                keys,
+                rebaseCopiedFlatKeys: true
+            );
         }
 
         return new MapTerm(Enumerable.Range(0, values.Length / 2)

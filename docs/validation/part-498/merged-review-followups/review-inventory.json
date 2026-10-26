@@ -1,0 +1,281 @@
+[
+  {
+    "PR": 20,
+    "CommentCount": 1,
+    "ReviewSummaries": [
+      {
+        "commit_sha": "228e962e596d8f15b396497d7e64a0f8aea8c979",
+        "has_any_findings": true,
+        "has_unresolved_findings": true,
+        "status": "failed"
+      }
+    ],
+    "Findings": [],
+    "Threads": []
+  },
+  {
+    "PR": 21,
+    "CommentCount": 1,
+    "ReviewSummaries": [
+      {
+        "commit_sha": "8a625d3418b7606cf90140ee6324b8552f562ac3",
+        "has_any_findings": false,
+        "has_unresolved_findings": false,
+        "status": "completed"
+      }
+    ],
+    "Findings": [],
+    "Threads": []
+  },
+  {
+    "PR": 47,
+    "CommentCount": 2,
+    "ReviewSummaries": [
+      {
+        "commit_sha": "af74aa110130d2937ffca262d73c297f0fd95343",
+        "has_any_findings": true,
+        "has_unresolved_findings": true,
+        "status": "completed"
+      }
+    ],
+    "Findings": [
+      {
+        "Url": "https://github.com/develmax/Erlang.Net/pull/47#issuecomment-6402103260",
+        "Body": "<!-- codex-code-review-finding:v1 -->\n\n\n### 💡 Codex Review\n\nhttps://github.com/develmax/Erlang.Net/blob/af74aa110130d2937ffca262d73c297f0fd95343/tools/Native/Erlang.NifLinuxCallbackObservations/prepare.py#L20-L23\n**<sub><sub>![P2 Badge](https://img.shields.io/badge/P2-yellow?style=flat)</sub></sub>  Update dynamically constructed paths in the Linux callback pipeline**\n\nThe Linux callback pipeline still constructs flat tool paths: `.github/workflows/nif-linux-callback17.yml` invokes `tools/$tool/build-native.py` and `tools/$tool/collect.py` at lines 79 and 84, and `prepare.py` constructs `R/'tools'/toolname` at line 27. Both selected observer directories now exist only under `tools/Native` (confirmed by repository-wide search). Consequently, the workflow cannot acquire its fixtures, and fixing those workflow paths alone still leaves preparation failing with `FileNotFoundError` when reading the manifests. Update these dynamic paths alongside the explicit paths migrated here.\n\nAGENTS.md reference: [AGENTS.md:L1-L1](https://github.com/develmax/Erlang.Net/blob/af74aa110130d2937ffca262d73c297f0fd95343/AGENTS.md#L1-L1)\n\n---\n\nhttps://github.com/develmax/Erlang.Net/blob/af74aa110130d2937ffca262d73c297f0fd95343/tools/Native/Erlang.NifOrdinaryLoaderObservations/run.py#L4\n**<sub><sub>![P2 Badge](https://img.shields.io/badge/P2-yellow?style=flat)</sub></sub>  Migrate the ordinary-loader observer's dependency search paths**\n\nWhen the ordinary-loader regression runner receives valid inputs, its dependency setup still inserts `R/'tools'/tool` into `sys.path` for all three helpers. Those directories have moved into `Native`, `Distribution`, and `Runtime`, so the subsequent imports fail before any loader regression executes; reproducing this import setup yields `ModuleNotFoundError: No module named 'common'`. Update the dynamically constructed helper paths as well as the repository-root calculation.\n\nAGENTS.md reference: [AGENTS.md:L1-L1](https://github.com/develmax/Erlang.Net/blob/af74aa110130d2937ffca262d73c297f0fd95343/AGENTS.md#L1-L1)\n    \n\n",
+        "Path": null,
+        "Line": null
+      }
+    ],
+    "Threads": []
+  },
+  {
+    "PR": 48,
+    "CommentCount": 1,
+    "ReviewSummaries": [
+      {
+        "commit_sha": "fc0cff221b6c1a043dbdd152ca19ac5f2e29da9d",
+        "has_any_findings": false,
+        "has_unresolved_findings": false,
+        "status": "completed"
+      }
+    ],
+    "Findings": [],
+    "Threads": []
+  },
+  {
+    "PR": 49,
+    "CommentCount": 1,
+    "ReviewSummaries": [
+      {
+        "commit_sha": "96859e4f614debbbdae09c905b6bbdfb3f7b49bd",
+        "has_any_findings": null,
+        "has_unresolved_findings": null,
+        "status": "running"
+      }
+    ],
+    "Findings": [],
+    "Threads": []
+  },
+  {
+    "PR": 50,
+    "CommentCount": 1,
+    "ReviewSummaries": [
+      {
+        "commit_sha": "0603b3b28333f6f58f430cbcdf8def36052f12a4",
+        "has_any_findings": false,
+        "has_unresolved_findings": false,
+        "status": "completed"
+      }
+    ],
+    "Findings": [],
+    "Threads": []
+  },
+  {
+    "PR": 51,
+    "CommentCount": 1,
+    "ReviewSummaries": [
+      {
+        "commit_sha": "4df8a05ed5bcf47a1d6c0b3eb53d0d927293b876",
+        "has_any_findings": false,
+        "has_unresolved_findings": false,
+        "status": "completed"
+      }
+    ],
+    "Findings": [],
+    "Threads": []
+  },
+  {
+    "PR": 52,
+    "CommentCount": 1,
+    "ReviewSummaries": [
+      {
+        "commit_sha": "b7e5e21441023d633bc5be16485ee3e19db62424",
+        "has_any_findings": false,
+        "has_unresolved_findings": false,
+        "status": "completed"
+      }
+    ],
+    "Findings": [],
+    "Threads": []
+  },
+  {
+    "PR": 53,
+    "CommentCount": 1,
+    "ReviewSummaries": [
+      {
+        "commit_sha": null,
+        "has_any_findings": null,
+        "has_unresolved_findings": null,
+        "status": "completed"
+      }
+    ],
+    "Findings": [],
+    "Threads": []
+  },
+  {
+    "PR": 54,
+    "CommentCount": 3,
+    "ReviewSummaries": [
+      {
+        "commit_sha": "ffba7bf0361ae3dd6ee7d8ce071cac72517e9dbc",
+        "has_any_findings": true,
+        "has_unresolved_findings": true,
+        "status": "completed"
+      }
+    ],
+    "Findings": [
+      {
+        "Url": "https://github.com/develmax/Erlang.Net/pull/54#discussion_r4373001898",
+        "Body": "**<sub><sub>![P2 Badge](https://img.shields.io/badge/P2-yellow?style=flat)</sub></sub>  Preserve host error-handler arguments when capturing parser failures**\n\nWhen a registered C# error handler calls `list_to_integer` or `binary_to_integer` with invalid input, this replacement loses the handler's saved arguments from the resulting stack. `EnterHostErrorHandler` stores them in `HostHandlerArguments`, and the previous `CaptureNativeFailure` path preserves them through `RuntimeExceptionCapture.Call`; `CaptureErrorStack` instead emits only `frame.Arity` for caller frames. Because the new exception sets `ExplicitStackTrace`, the outer handler capture cannot repair it. Preserve the existing caller-frame capture behavior while adding the short/long parser source metadata, or teach the shared helper to retain host-handler arguments.\n\nUseful? React with 👍 / 👎.\n\n<!-- codex-code-review-finding:v1 -->",
+        "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangIntegerParseBridge.cs",
+        "Line": 23
+      }
+    ],
+    "Threads": [
+      {
+        "id": "PRRT_kwDOVCU9ks6wGZmV",
+        "is_resolved": false,
+        "is_outdated": false,
+        "path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangIntegerParseBridge.cs",
+        "line": 23,
+        "diff_side": "RIGHT",
+        "start_line": 22,
+        "start_diff_side": "RIGHT",
+        "original_line": 23,
+        "original_start_line": 22,
+        "resolved_by": null,
+        "comments": [
+          {
+            "id": "PRRC_kwDOVCU9ks8AAAABBKa2qg",
+            "database_id": 4373001898,
+            "body": "**<sub><sub>![P2 Badge](https://img.shields.io/badge/P2-yellow?style=flat)</sub></sub>  Preserve host error-handler arguments when capturing parser failures**\n\nWhen a registered C# error handler calls `list_to_integer` or `binary_to_integer` with invalid input, this replacement loses the handler's saved arguments from the resulting stack. `EnterHostErrorHandler` stores them in `HostHandlerArguments`, and the previous `CaptureNativeFailure` path preserves them through `RuntimeExceptionCapture.Call`; `CaptureErrorStack` instead emits only `frame.Arity` for caller frames. Because the new exception sets `ExplicitStackTrace`, the outer handler capture cannot repair it. Preserve the existing caller-frame capture behavior while adding the short/long parser source metadata, or teach the shared helper to retain host-handler arguments.\n\nUseful? React with 👍 / 👎.\n\n<!-- codex-code-review-finding:v1 -->",
+            "created_at": "2026-10-25T23:53:31Z",
+            "updated_at": "2026-10-25T23:53:31Z",
+            "author": {
+              "login": "chatgpt-codex-connector",
+              "name": "chatgpt-codex-connector",
+              "email": null,
+              "avatar_url": "https://avatars.githubusercontent.com/in/1144995?v=4",
+              "id": null
+            },
+            "viewer_did_author": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "PR": 55,
+    "CommentCount": 3,
+    "ReviewSummaries": [
+      {
+        "commit_sha": "d74560e3095968097c190493217a8aaff65ad0c2",
+        "has_any_findings": true,
+        "has_unresolved_findings": true,
+        "status": "completed"
+      }
+    ],
+    "Findings": [
+      {
+        "Url": "https://github.com/develmax/Erlang.Net/pull/55#discussion_r4373267395",
+        "Body": "**<sub><sub>![P2 Badge](https://img.shields.io/badge/P2-yellow?style=flat)</sub></sub>  Handle imported flat maps with a different atom ordering**\n\nWhen a flat map is constructed in one runtime (or the host registry) and passed to another runtime whose atom registration order differs, admitting its names here leaves `MapTerm.FlatKeys426` in the original table's order. Calling `erts_debug:copy_shared/2` on that imported map then reaches `DebugSharingCopy425.CopyMap`, which passes the original key tuple to the `MapTerm` constructor; that constructor re-sorts using the destination table and throws `ArgumentException` because the orders disagree. For example, constructing a two-atom-key map after registering `a` then `b`, and importing it into a VM that registered `b` then `a`, triggers this regression. Account for destination-specific flat-key ordering during import or copying so valid imported maps remain copyable.\n\nUseful? React with 👍 / 👎.\n\n<!-- codex-code-review-finding:v1 -->",
+        "Path": "src/Runtime/Erlang.Runtime.Core/Distribution/RuntimeKnownNodes.cs",
+        "Line": 108
+      }
+    ],
+    "Threads": [
+      {
+        "id": "PRRT_kwDOVCU9ks6wHCC-",
+        "is_resolved": false,
+        "is_outdated": false,
+        "path": "src/Runtime/Erlang.Runtime.Core/Distribution/RuntimeKnownNodes.cs",
+        "line": 108,
+        "diff_side": "RIGHT",
+        "start_line": 108,
+        "start_diff_side": null,
+        "original_line": 108,
+        "original_start_line": null,
+        "resolved_by": null,
+        "comments": [
+          {
+            "id": "PRRC_kwDOVCU9ks8AAAABBKrDww",
+            "database_id": 4373267395,
+            "body": "**<sub><sub>![P2 Badge](https://img.shields.io/badge/P2-yellow?style=flat)</sub></sub>  Handle imported flat maps with a different atom ordering**\n\nWhen a flat map is constructed in one runtime (or the host registry) and passed to another runtime whose atom registration order differs, admitting its names here leaves `MapTerm.FlatKeys426` in the original table's order. Calling `erts_debug:copy_shared/2` on that imported map then reaches `DebugSharingCopy425.CopyMap`, which passes the original key tuple to the `MapTerm` constructor; that constructor re-sorts using the destination table and throws `ArgumentException` because the orders disagree. For example, constructing a two-atom-key map after registering `a` then `b`, and importing it into a VM that registered `b` then `a`, triggers this regression. Account for destination-specific flat-key ordering during import or copying so valid imported maps remain copyable.\n\nUseful? React with 👍 / 👎.\n\n<!-- codex-code-review-finding:v1 -->",
+            "created_at": "2026-10-26T01:20:22Z",
+            "updated_at": "2026-10-26T01:20:23Z",
+            "author": {
+              "login": "chatgpt-codex-connector",
+              "name": "chatgpt-codex-connector",
+              "email": null,
+              "avatar_url": "https://avatars.githubusercontent.com/in/1144995?v=4",
+              "id": null
+            },
+            "viewer_did_author": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "PR": 56,
+    "CommentCount": 1,
+    "ReviewSummaries": [
+      {
+        "commit_sha": "b4d2278e77a4a16e7c5e9cd7486c25a8967f9acf",
+        "has_any_findings": false,
+        "has_unresolved_findings": false,
+        "status": "completed"
+      }
+    ],
+    "Findings": [],
+    "Threads": []
+  },
+  {
+    "PR": 57,
+    "CommentCount": 1,
+    "ReviewSummaries": [
+      {
+        "commit_sha": "b3c5c604e39a46dcb49c89343bc98d3a9f8b20c7",
+        "has_any_findings": false,
+        "has_unresolved_findings": false,
+        "status": "completed"
+      }
+    ],
+    "Findings": [],
+    "Threads": []
+  },
+  {
+    "PR": 58,
+    "CommentCount": 1,
+    "ReviewSummaries": [
+      {
+        "commit_sha": "0b7a9c20afa0d0d70d1011f4efe3265270d1a520",
+        "has_any_findings": null,
+        "has_unresolved_findings": null,
+        "status": "running"
+      }
+    ],
+    "Findings": [],
+    "Threads": []
+  }
+]

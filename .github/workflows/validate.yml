@@ -8,6 +8,19 @@ concurrency:
   group: validate-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 jobs:
+  relocated-tooling:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Verify actual relocated observer imports and workflow paths
+        run: |
+          mkdir -p artifacts/review498
+          python3 -B tools/Validation/ReviewFollowup498/check-tool-paths.py > artifacts/review498/tool-paths-linux.json
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: relocated-tooling
+          path: artifacts/review498/**
   local-regressions:
     runs-on: windows-latest
     steps:

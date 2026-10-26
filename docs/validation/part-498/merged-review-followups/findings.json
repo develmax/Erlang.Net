@@ -1,0 +1,65 @@
+{
+  "ReviewedPRs": [
+    20,
+    21,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58
+  ],
+  "ActionableFindings": 4,
+  "CommentLocations": 3,
+  "AllReproducedInCurrentSource": true,
+  "Findings": [
+    {
+      "Id": "47-linux-callback-paths",
+      "PR": 47,
+      "Url": "https://github.com/develmax/Erlang.Net/pull/47#issuecomment-6402103260",
+      "Problem": "The workflow and preparer still built flat tools paths after category migration.",
+      "Fix": "Use tools/Native for both observer families in the workflow and preparation loop.",
+      "Validation": "Execute actual preparer path expressions against both real manifest/cases files and resolve all4 workflow entry points."
+    },
+    {
+      "Id": "47-ordinary-loader-imports",
+      "PR": 47,
+      "Url": "https://github.com/develmax/Erlang.Net/pull/47#issuecomment-6402103260",
+      "Problem": "The ordinary-loader runner could not import its relocated Native/Distribution/Runtime helpers.",
+      "Fix": "Use category-relative entries in the actual sys.path setup; retain the correct repository-root calculation.",
+      "Validation": "Before: real ModuleNotFoundError. After: execute actual import statements and verify4 imported module file locations and both real root calculations. Ubuntu CI is an additional required gate; do not claim native execution."
+    },
+    {
+      "Id": "54-host-handler-stack-arguments",
+      "PR": 54,
+      "Thread": "PRRT_kwDOVCU9ks6wGZmV",
+      "Url": "https://github.com/develmax/Erlang.Net/pull/54#discussion_r4373001898",
+      "Problem": "Explicit parser failure stacks replaced saved C# error-handler arguments with arity3.",
+      "Fix": "CaptureErrorStack retains HostHandlerArguments and empty caller source metadata, matching RuntimeExceptionCapture.Call. Keep native parser arguments, helper metadata, depth and continuation behavior.",
+      "Validation": "Before: targeted assertion fails. Final196 includes48 cases across sync/async handlers, depths1/2/8, list/binary, arities1/2 and short/long failures."
+    },
+    {
+      "Id": "55-imported-flat-map-copy",
+      "PR": 55,
+      "Thread": "PRRT_kwDOVCU9ks6wHCC-",
+      "Url": "https://github.com/develmax/Erlang.Net/pull/55#discussion_r4373267395",
+      "Problem": "copy_shared/2 rejected a valid imported flat map when atom registration order differed between VMs.",
+      "Fix": "Opt into rebasing copied flat keys only at the sharing-copy call. Sort once in MapTerm; preserve the copied tuple when compatible, otherwise rebuild it only if the exact same key objects form a permutation. Keep strict default constructors and reject wrong key counts/sets.",
+      "Validation": "Before: ArgumentException. Final196 covers host and other-VM maps, both copy flags, shared values, repeated-map identity, explicit source-key tuples and same-VM map/key-tuple aliases."
+    }
+  ],
+  "IncompleteReviewMetadata": [
+    20,
+    49,
+    53,
+    58
+  ],
+  "IncompleteIsNotClean": true,
+  "PublishedFindingResolutionPendingFinalCiAndIntegration": true
+}

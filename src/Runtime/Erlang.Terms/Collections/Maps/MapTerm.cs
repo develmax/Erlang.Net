@@ -19,6 +19,15 @@ public sealed class MapTerm : Term
     }
 
     internal MapTerm(IEnumerable<KeyValuePair<Term, Term>> entries, TupleTerm? copiedFlatKeys)
+        : this(entries, copiedFlatKeys, false)
+    {
+    }
+
+    internal MapTerm(
+        IEnumerable<KeyValuePair<Term, Term>> entries,
+        TupleTerm? copiedFlatKeys,
+        bool rebaseCopiedFlatKeys
+    )
     {
         var d = new Dictionary<Term, Term>();
         foreach (var entry in entries)
@@ -65,7 +74,13 @@ public sealed class MapTerm : Term
             ).Select(entry => entry.Key).ToArray();
             if (copiedFlatKeys is not null && (copiedFlatKeys.Items.Count != keys.Length
                 || keys.Where((key, index) => !ReferenceEquals(key, copiedFlatKeys.Items[index])).Any()))
-                throw new ArgumentException(MapFlatKeyNames426.InvalidCopiedKeys, nameof(copiedFlatKeys));
+            {
+                var supplied = new HashSet<Term>(copiedFlatKeys.Items, ReferenceEqualityComparer.Instance);
+                if (!rebaseCopiedFlatKeys || copiedFlatKeys.Items.Count != keys.Length
+                    || supplied.Count != keys.Length || keys.Any(key => !supplied.Contains(key)))
+                    throw new ArgumentException(MapFlatKeyNames426.InvalidCopiedKeys, nameof(copiedFlatKeys));
+                copiedFlatKeys = null;
+            }
             FlatKeys426 = copiedFlatKeys ?? new TupleTerm(keys);
         }
         else if (copiedFlatKeys is not null)

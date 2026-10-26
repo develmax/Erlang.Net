@@ -1,10 +1,10 @@
 # Remaining work
 
-## Part497 current contract queue
+## Part498 current contract queue
 
-See [checkpoint497](checkpoint-497.md) for the current31/559 cohorts:177 verified /506 pending /25 known, still708 registered. Six obsolete defect labels moved to full audit;59 original pending contracts closed, including the repaired creator capacity boundary. Local9035 readiness is composite; exact final-source CI remains a delivery gate. The checkpoint486 counts below record the preceding boundary.
+See [checkpoint498](checkpoint-498.md) for the current31/559 cohorts:177 verified /506 pending /25 known, still708 registered. Six obsolete defect labels moved to full audit;59 original pending contracts closed, including the repaired creator capacity boundary. Local9037 readiness is composite; exact final-source CI remains a delivery gate. The checkpoint486 counts below record the preceding boundary.
 
-The current contract list is [checkpoint497](checkpoint-497.md). The broader project backlog and layout are retained in [checkpoint486](checkpoint-486.md). Earlier milestone descriptions must not override these checkpoints.
+The current contract list is [checkpoint498](checkpoint-498.md). The broader project backlog and layout are retained in [checkpoint486](checkpoint-486.md). Earlier milestone descriptions must not override these checkpoints.
 
 Part485 is merged into main as `eb2d3d74352436f4d02d0cd41ad795a66093f70d`. Publication CI40192228033 and merge CI40216629306 are green. At that checkpoint the registry contained708 API:118 verified full contracts,559 Needs verification and31 Known differences. The current candidate counts are177/506/25. Original libraries remain Erlang/BEAM; C# owns runtime/native BIFs and existing explicit alternatives.
 
