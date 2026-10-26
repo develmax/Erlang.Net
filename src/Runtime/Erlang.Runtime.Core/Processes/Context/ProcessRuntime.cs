@@ -119,6 +119,18 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
     {
     }
 
+    public ProcessRuntime(ProcessRuntimeOptions options)
+        : this(
+            ProcessNodeDefaults.Local,
+            null,
+            ProcessTableParameters.DefaultCapacity,
+            null,
+            Environment.ProcessorCount,
+            options
+        )
+    {
+    }
+
     public ProcessRuntime(
         string node,
         TextWriter? output,
@@ -163,6 +175,9 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
     )
     {
         ArgumentNullException.ThrowIfNull(options);
+        ArgumentOutOfRangeException.ThrowIfLessThan(options.MaximumAtoms, AtomRuntimeParameters.MinimumCapacity);
+        AtomNames = new(options.MaximumAtoms, AtomTableExhausted);
+        using var atomScope = new AtomNameScope(AtomNames);
         WarningMapping = options.WarningMapping;
         PrintableRange = options.PrintableRange;
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(maximumActorConcurrency);
@@ -173,7 +188,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         ConfiguredNode = node;
         LocalIdentity = new(ProcessNodeDefaults.Local);
         ReferenceResources = new(Modules, LocalIdentity);
-        KnownNodes = new(LocalIdentity, TryGetDistributionEntryIdentity);
+        KnownNodes = new(LocalIdentity, TryGetDistributionEntryIdentity, AtomNames.Observe);
         Modules.AttachRuntime(this);
         Output = output ?? Console.Out;
         ownsStandardStreams = standardStreams is null;

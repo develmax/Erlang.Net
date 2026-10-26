@@ -6864,6 +6864,14 @@ try
     foreach (var group in Erlang.Tests.IntegerContract493Names.Groups)
         Test(Erlang.Tests.IntegerContract493Names.TestPrefix + group.Group, () => Erlang.Tests.IntegerContract493Checks.Run(group));
 
+    Test(Erlang.Tests.AtomVm494Names.Isolation, Erlang.Tests.AtomVm494Checks.Isolation);
+    Test(Erlang.Tests.AtomVm494Names.Import, Erlang.Tests.AtomVm494Checks.Import);
+    Test(Erlang.Tests.AtomVm494Names.BinaryIdentity, Erlang.Tests.AtomVm494Checks.BinaryIdentity);
+    Test(Erlang.Tests.AtomVm494Names.Exhaustion, Erlang.Tests.AtomVm494Checks.Exhaustion);
+    Test(Erlang.Tests.AtomVm494Names.BinaryExhaustion, Erlang.Tests.AtomVm494Checks.BinaryExhaustion);
+    Test(Erlang.Tests.AtomVm494Names.EncodedExhaustion, Erlang.Tests.AtomVm494Checks.EncodedExhaustion);
+    Test(Erlang.Tests.AtomVm494Names.SafeDecode, Erlang.Tests.AtomVm494Checks.SafeDecode);
+
     var catalog = Erlang.Tests.TestRunCatalog.Create(tests.Select(test => test.Name));
     selectedTests = selection.Select(tests, catalog);
     if (selection.ListOnly)

@@ -150,6 +150,7 @@ internal static class DistDecode423Checks
         await using var runtime = new ProcessRuntime();
         await runtime.InitializeModulesAsync(registry => RuntimeBootstrapDistDecode423.Register(runtime, registry));
         await using var actor = new RuntimeNodeFoundationHostActor(runtime);
+        using var atomScope = runtime.EnterAtomScope();
         int anchor = AtomNameRegistry.IndexOf(DistDecode423Names.RawAtomAnchor);
         Require(anchor <= ushort.MaxValue);
         foreach (bool wide in new[] { false, true })

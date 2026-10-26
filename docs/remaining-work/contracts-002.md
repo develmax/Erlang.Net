@@ -1,10 +1,7 @@
 # Unclosed default contracts — volume2
 
-Current candidate: Part493. Whole contract evidence remains in the canonical [ledger](../mfa-compatibility.json); see [cohort progress](checkpoint-493.md).
+Current candidate: Part494. Whole contract evidence remains in the canonical [ledger](../mfa-compatibility.json); see [cohort progress](checkpoint-494.md).
 
-- `erlang:md5_final/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:md5_init/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:md5_update/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:memory/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:memory/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:min/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
@@ -152,3 +149,6 @@ Current candidate: Part493. Whole contract evidence remains in the canonical [le
 - `gen_server:call/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `gen_server:call/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `gen_server:cast/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `gen_server:reply/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `gen_server:start/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `gen_server:start/4` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.

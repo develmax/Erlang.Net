@@ -27,7 +27,7 @@ internal sealed class NifNativeCallbackScope : IDisposable
         _ = NifNativeCallEnvironment.Resolve(environment.Pointer);
         if (!ReferenceEquals(environment.Failure, Failure))
             throw new InvalidOperationException(NifNativeInvocationNames.ForeignFailureState);
-        var binding = new NifNativeEnvironmentBinding(this, InvocationEnvironment);
+        var binding = new NifNativeEnvironmentBinding(this, InvocationEnvironment, environment);
         InvocationEnvironment = environment;
 
         return binding;

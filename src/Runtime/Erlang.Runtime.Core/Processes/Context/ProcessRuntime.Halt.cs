@@ -24,9 +24,12 @@ public sealed partial class ProcessRuntime
             options ?? new()
         ));
 
-    public Task<RuntimeHaltResult> RequestHalt(RuntimeHaltRequest request)
+    public Task<RuntimeHaltResult> RequestHalt(RuntimeHaltRequest request) => RequestHaltCore(request, false);
+
+    private Task<RuntimeHaltResult> RequestHaltCore(RuntimeHaltRequest request, bool fatalAtomExhaustion)
     {
-        Modules.RequireSourceShutdownCaller();
+        if (!fatalAtomExhaustion)
+            Modules.RequireSourceShutdownCaller();
         ArgumentNullException.ThrowIfNull(request);
         ArgumentNullException.ThrowIfNull(request.Options);
         if (!Enum.IsDefined(request.Kind))

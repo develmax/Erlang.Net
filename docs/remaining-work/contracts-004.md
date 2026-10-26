@@ -1,10 +1,7 @@
 # Unclosed default contracts — volume4
 
-Current candidate: Part493. Whole contract evidence remains in the canonical [ledger](../mfa-compatibility.json); see [cohort progress](checkpoint-493.md).
+Current candidate: Part494. Whole contract evidence remains in the canonical [ledger](../mfa-compatibility.json); see [cohort progress](checkpoint-494.md).
 
-- `maps:size/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `maps:take/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `maps:to_list/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `maps:update/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `maps:update_with/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `maps:update_with/4` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.

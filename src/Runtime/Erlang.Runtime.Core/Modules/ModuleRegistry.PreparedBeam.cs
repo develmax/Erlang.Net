@@ -7,6 +7,7 @@ public sealed partial class ModuleRegistry
 
     public PreparedBeamImage PrepareBeam(ReadOnlyMemory<byte> bytes, BeamDependencySelection dependencies)
     {
+        using var atomScope = owningRuntime is null ? null : new AtomNameScope(owningRuntime.AtomNames);
         ArgumentNullException.ThrowIfNull(dependencies);
         byte[] owned = ObservedPayloadStorage.Code(bytes.ToArray());
         EtfDecodeOptions decoding = PreparationDecodeOptions();
@@ -14,6 +15,10 @@ public sealed partial class ModuleRegistry
         {
             RegistryModuleDependencies = dependencies.RegistryModules
         };
+        if (owningRuntime is not null)
+            foreach (string? atom in code.Structure.Atoms)
+                if (atom is not null)
+                    owningRuntime.AtomNames.Observe(atom);
         if (code.OnLoadEntryLabel is int callbackLabel)
         {
             BeamLinkedFunction callback = code.Functions.Single(function => function.EntryLabel == callbackLabel);

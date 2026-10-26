@@ -1,0 +1,22 @@
+{
+  "SourceBindingsChanged": [
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallbackScope.cs",
+      "Before": "1911396A620D6F733F8F4F8558252F070EC83CE6753F41597864281DCE796893",
+      "After": "9467C9BA57633AEF3AF752908C6D523882A07F791B9C2398995C94121FBDD4C2"
+    }
+  ],
+  "AdditionalManagedDependency": {
+    "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeEnvironmentBinding.cs",
+    "Sha256": "A7F464389ADFF8D1AB693D29C61B221A16935AA6385CFC5A1EE663BC0B36D54A"
+  },
+  "Change": "Pass the already validated new invocation environment to the managed binding, enter its owning atom table and restore the previous table on disposal.",
+  "NativeAbiLayoutOrCallbackSignaturesChanged": false,
+  "COrCppBridgeSourcesChanged": false,
+  "NativeAbiAcceptancePromoted": false,
+  "Evidence": "Both complete local9003-test passes retain every native/driver/NIF check as Passed; remaining failures are recorded separately. The final compiler-only fingerprint correction does not change these managed native entry files.",
+  "LinuxNativeExecutedForCurrentSource": false,
+  "ExactHeadCiPending": true,
+  "RosterStatusesCountsAndMilestonesUnchanged": true,
+  "PriorCurrentAddendum": "docs/validation/part-440/readiness-publication/publication-source-review.json"
+}

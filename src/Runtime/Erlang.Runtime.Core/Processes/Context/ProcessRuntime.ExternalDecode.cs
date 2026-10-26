@@ -9,6 +9,7 @@ public sealed partial class ProcessRuntime
             throw new ArgumentException(RuntimeExternalTermDiagnostics.ResourceFactory, nameof(options));
         EtfDecodeOptions prepared = options with
         {
+            AtomTable = AtomNames,
             LocalSeed = LocalTermSeed,
             ExternalFunctionFactory = options.ExternalFunctionFactory ?? ((identity, safe) => Functions.External(this, identity, safe)),
             LocalFunctionFactory = options.LocalFunctionFactory ?? ((code, arity, environment) => Functions.Restore(

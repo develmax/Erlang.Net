@@ -117,6 +117,7 @@ public static partial class ExternalTermFormat
         bool strict
     )
     {
+        using var atomScope = options.AtomTable is null ? null : new AtomNameScope(options.AtomTable);
         if (data.Length > maxBytes || data.Length < EtfHeaderLayout.MinimumPacketBytes || data[EtfHeaderLayout.VersionOffset] != EtfHeaderLayout.Version)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
         try

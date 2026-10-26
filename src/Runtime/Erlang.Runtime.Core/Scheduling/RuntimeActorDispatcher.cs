@@ -49,7 +49,11 @@ internal sealed partial class RuntimeActorDispatcher
                     TaskContinuationOptions.None,
                     scheduler
                 );
-                execution = factory.StartNew(NifImageInitializationFlow.IsolateActor(NifRetirementFlow.IsolateActor(body))).Unwrap();
+                execution = factory.StartNew(NifImageInitializationFlow.IsolateActor(NifRetirementFlow.IsolateActor(async () =>
+                {
+                    using var atomScope = new AtomNameScope(owner.Runtime.AtomNames);
+                    await body();
+                }))).Unwrap();
                 scheduler.CancellationRegistration = owner.Cancellation.UnsafeRegister(static value =>
                 {
                     var target = (RuntimeProcessTaskScheduler)value!;

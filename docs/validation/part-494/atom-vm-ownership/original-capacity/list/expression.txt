@@ -1,0 +1,1 @@
+io:format("before=~p limit=~p~n",[erlang:system_info(atom_count),erlang:system_info(atom_limit)]),try lists:foreach(fun(N)->list_to_atom("otp494cap_"++integer_to_list(N)) end,lists:seq(1,16384)) of _->io:format("completed~n") catch C:R->io:format("caught=~p:~p~n",[C,R]) after io:format("after=ran~n") end,halt(0).

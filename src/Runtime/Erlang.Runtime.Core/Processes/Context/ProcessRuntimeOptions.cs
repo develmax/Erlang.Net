@@ -2,6 +2,8 @@ namespace Erlang;
 
 public sealed class ProcessRuntimeOptions
 {
+    public int MaximumAtoms { get; init; } = AtomTableLimits.MaximumNames;
+
     public RuntimeWarningMapping WarningMapping { get; }
 
     public RuntimePrintableRange PrintableRange { get; }

@@ -13,6 +13,7 @@ public sealed class FunctionTerm(int arity, Func<ITermExecutionContext, IReadOnl
     private readonly LocalFunctionIdentity? localIdentity;
     private readonly Func<LocalFunctionIdentity>? identityProvider;
     public LocalFunctionIdentity? LocalIdentity => identityProvider?.Invoke() ?? localIdentity;
+    internal LocalFunctionIdentity? StoredLocalIdentity => localIdentity;
     public IReadOnlyList<Term> Environment { get; } = Array.Empty<Term>();
 
     public FunctionTerm(ExternalFunctionIdentity identity, Func<ITermExecutionContext, IReadOnlyList<Term>, ValueTask<Term>> invoke) : this(identity.Arity, invoke)

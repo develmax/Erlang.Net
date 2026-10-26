@@ -82,7 +82,13 @@ internal static class IdentifierObservationResolverHostChecks
         object localIdentity = typeof(ProcessRuntime).GetProperty(
             IdentifierObservationShutdownHostNames.LocalIdentityProperty, InstanceFlags)!.GetValue(runtime)!;
 
-        return constructor.Invoke(new object[] { localIdentity, resolver });
+        Action<string> observeAtom = name =>
+        {
+            using var atomScope = runtime.EnterAtomScope();
+            AtomNameRegistry.Observe(name);
+        };
+
+        return constructor.Invoke(new object[] { localIdentity, resolver, observeAtom });
     }
 
     private static void Observe(object known, Term term)

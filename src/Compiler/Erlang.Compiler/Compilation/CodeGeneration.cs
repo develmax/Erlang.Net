@@ -167,7 +167,7 @@ public static class CodeGeneration
             module.Attributes,
             attribute => ModuleAttributeCodeNames.Constructor + Quote(attribute.Name) + "," + TermCode(attribute.Value) + ")",
             "global::Erlang.Compiler.ModuleAttribute"
-        ) : string.Empty) + ")" + NativeModuleInitializer(module) + ";\npublic static void Register(global::Erlang.ModuleRegistry registry)=>Definition.Register(registry);\n}\n";
+        ) : string.Empty) + ")" + NativeModuleInitializer(module, includeAttributes) + ";\npublic static void Register(global::Erlang.ModuleRegistry registry)=>Definition.Register(registry);\n}\n";
     }
 
     public static string Preprocess(string source, string path, string nullableContext = "enable")
@@ -320,9 +320,11 @@ public static class CodeGeneration
         "global::Erlang.NativeRecordFieldType"
     )) + ")";
 
-    private static string NativeModuleInitializer(ModuleDefinition module)
+    private static string NativeModuleInitializer(ModuleDefinition module, bool includeLoadingMetadata)
     {
         var fields = new List<string>();
+        if (includeLoadingMetadata && module.ScannedAtomNames.Count != 0)
+            fields.Add(ModuleAtomCodeNames.Initializer + Array(module.ScannedAtomNames, Quote, ModuleAtomCodeNames.StringType));
         if (module.SourceFilePath is not null)
             fields.Add("SourceFilePath=" + Quote(module.SourceFilePath));
         if (module.NativeRecords.Count != 0)

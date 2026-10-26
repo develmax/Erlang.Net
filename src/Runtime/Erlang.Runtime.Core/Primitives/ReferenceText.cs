@@ -9,7 +9,7 @@ internal static class ReferenceText
     {
         if (reference is IReferenceResourceSerialization resource)
             resource.SaveReferenceIdentity();
-        ulong channel = reference.Node == runtime.Node ? ReferenceTextParameters.LocalChannel : (ulong)AtomNameRegistry.IndexOf(reference.Node);
+        ulong channel = reference.Node == runtime.Node ? ReferenceTextParameters.LocalChannel : (ulong)runtime.AtomNames.IndexOf(reference.Node);
         var text = new StringBuilder(ReferenceTextSyntax.Opening);
         text.Append(channel.ToString(CultureInfo.InvariantCulture));
         for (int index = reference.Words.Count - 1; index >= 0; index--)
