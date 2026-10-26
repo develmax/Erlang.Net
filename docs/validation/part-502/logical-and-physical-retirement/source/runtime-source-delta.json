@@ -1,0 +1,44 @@
+{
+  "SourceFiles": [
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+      "Previous": "64DD5F7FC096EA81DF1F61DA0E0E9B3ACABCDD858CE305EE5B32702372097E3F",
+      "Sha256": "382130AEC0E755C7ADEB053F913A2658A9107A008B2175B5D5F7A8D5DB9E19B3"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ExitContinuation.cs",
+      "Previous": "4CD3D98A4A2B4832E29DD57D2F52FBADD82F0D7B8AC83B2F41BB81253D152E45",
+      "Sha256": "6B458B667AE40357C95BE970DF0BCD30C8FAEEBF02F6303DFBBD72DB7B1DDAA3"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessExitContinuation.cs",
+      "Previous": "8543D7468380A1EB78B3DE88CA15ED75368C4FB79DFD8C2173BB5C5B3E521066",
+      "Sha256": "AE2DDC6E0D727441FB06A69AAAACDB79C2EEB0DE652CBC1C90BED389C710E9D6"
+    }
+  ],
+  "SourceGuards": 1729,
+  "Plans": [
+    {
+      "Plan": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Seal": "184F19CB7C262954D69BCF86E4369C39CF5FA0D16FC6F1FE455D3C8E91DE0D4A",
+      "Changed": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ExitContinuation.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessExitContinuation.cs"
+      ],
+      "Added": []
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Seal": "D22ACE8FE58EE826DF8B5A4DBEA5CC96E557E547031323EB3AA4F9396F6DCC18",
+      "Changed": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ExitContinuation.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessExitContinuation.cs"
+      ],
+      "Added": []
+    }
+  ],
+  "NativeAbiPromotion": false,
+  "NativeInfrastructureBoundSourceOverlaps": []
+}

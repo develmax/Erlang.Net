@@ -1,0 +1,69 @@
+{
+  "SourceFiles": [
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangProcessQueryRegistrations.cs",
+      "Previous": "0DA968510EA2412387A0BCB18D5481C98B4A7E20095AD9FAD13DBF3FB7418081",
+      "Sha256": "DED13F8B703416CD15EEA001E1D4F0B3315D5AD70849646E88442730CF398A39"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessAliveRequest425.cs",
+      "Previous": "3ED850B68A77577D1E75ED0361BF82052527D316C46A3F998E052C047CBE5A74",
+      "Sha256": "4EE1BBDB23CC033DF4DAAD1B90DED468C21311CA5DF7E843378E605F0CB35119"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessAlive425.cs",
+      "Previous": "DF66E87800227CEE9626374183873494F6895100D2AC76730EABD5EDEBFDE889",
+      "Sha256": "5A64E4EAE990838E9074921817C46B0134F68372DE4A8F3DE57337C1C3D9E354"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Distribution/RuntimeNodeQueryRegistrations.cs",
+      "Previous": "038CEC597935E8AAE603B6F229FD54F3F87507DBE6C2DFFED9996E8BED09220D",
+      "Sha256": "BA48FEABCA7DAF1D342060A7E2CF8AD3B7693C526A7FE3AF5C9D22D68FDF14F6"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessLiveness499.cs",
+      "Previous": null,
+      "Sha256": "05C97BE44E477E9E4EB4125E87E2F39F5E84084FD7937F5782554C97D861CBE0"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/RuntimeProcessLivenessNames499.cs",
+      "Previous": null,
+      "Sha256": "5917375EB7A6C7D1C6A55388C0291E6E030EB3B37393E73A64298EA17ABECC59"
+    }
+  ],
+  "SourceGuards": 1726,
+  "Plans": [
+    {
+      "Plan": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Changed": [
+        "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangProcessQueryRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessAliveRequest425.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessAlive425.cs",
+        "src/Runtime/Erlang.Runtime.Core/Distribution/RuntimeNodeQueryRegistrations.cs"
+      ],
+      "Added": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessLiveness499.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/RuntimeProcessLivenessNames499.cs"
+      ],
+      "PreservedHistoricalRows": [],
+      "Seal": "80289EF08F813E2D54284799756ADCD11B0B9CDE8671FD8E525745A56ED0A3FB"
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Changed": [
+        "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangProcessQueryRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessAliveRequest425.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessAlive425.cs",
+        "src/Runtime/Erlang.Runtime.Core/Distribution/RuntimeNodeQueryRegistrations.cs"
+      ],
+      "Added": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessLiveness499.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/RuntimeProcessLivenessNames499.cs"
+      ],
+      "PreservedHistoricalRows": [],
+      "Seal": "5D256C66CD919798BEFF6B38B570CCCFBEDFD4F929EEC4E52636255C3CAAEA74"
+    }
+  ],
+  "NativeAbiPromotion": false,
+  "NativeInfrastructureBoundSourceOverlaps": []
+}

@@ -6881,6 +6881,37 @@ try
     foreach (var group in Erlang.Tests.BuiltinContract497Names.Groups)
         Test(Erlang.Tests.BuiltinContract497Names.TestPrefix + group.Group, () => Erlang.Tests.BuiltinContract497Checks.Run(group));
 
+    Test(
+        Erlang.Tests.ProcessLiveness499Names.Test,
+        () => Erlang.Tests.ProcessLiveness499Checks.Run(("", "process_liveness499", 65, 325))
+    );
+    Test(Erlang.Tests.ProcessLiveness499Names.OrderingTest, Erlang.Tests.ProcessLiveness499OrderingChecks.Run);
+    Test(Erlang.Tests.ProcessRetirement500Names.Test, Erlang.Tests.ProcessRetirement500Checks.Run);
+    Test(Erlang.Tests.LogicalRetirement502Names.Test, Erlang.Tests.LogicalRetirement502Checks.Run);
+    Test(Erlang.Tests.LogicalAllocatorRetirement502Names.Test, Erlang.Tests.LogicalAllocatorRetirement502Checks.Run);
+    Test(Erlang.Tests.LogicalStorageRetirement502Names.Test, Erlang.Tests.LogicalStorageRetirement502Checks.Run);
+    foreach (var group in Erlang.Tests.NodeNative501Names.Groups)
+        Test(Erlang.Tests.NodeNative501Names.TestPrefix + group.Family, () => Erlang.Tests.NodeNative501Checks.Run(group));
+    Test(
+        Erlang.Tests.NewConnection501CapacityNames.DefaultTest,
+        Erlang.Tests.NewConnection501CapacityChecks.DefaultRetainedCapacityAndCleanup
+    );
+    Test(
+        Erlang.Tests.NewConnection501CapacityNames.ExplicitTest,
+        Erlang.Tests.NewConnection501CapacityChecks.ExplicitQuotaAndIsolation
+    );
+    Test(
+        Erlang.Tests.NifMapCreation501TestNames.Creation,
+        NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapCreation501HostEntry.CreationAndOwnership
+    );
+    Test(
+        Erlang.Tests.NifMapCreation501TestNames.Invalid,
+        NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapCreation501HostEntry.InvalidEnvironments
+    );
+    Test(
+        Erlang.Tests.NifMapCreation501TestNames.Threads,
+        NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapCreation501HostEntry.ThreadAccess
+    );
     Test(Erlang.Tests.ReviewFollowup498Names.ParserTest, Erlang.Tests.ReviewFollowup498Checks.ParserHostArguments);
     Test(Erlang.Tests.ReviewFollowup498Names.MapTest, Erlang.Tests.ReviewFollowup498Checks.ImportedFlatMaps);
 

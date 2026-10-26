@@ -1,0 +1,29 @@
+{
+  "Command": [
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+    "+S",
+    "2:2",
+    "+SDcpu",
+    "1",
+    "+SDio",
+    "1",
+    "+A",
+    "1",
+    "-noshell",
+    "-noinput",
+    "-boot",
+    "no_dot_erlang",
+    "-pa",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\process-retirement502\\checkout-fixed\\original",
+    "-eval",
+    "W=fun(N,V)->ok=file:write_file(N,term_to_binary(V,[{minor_version,2}])) end,try Expected=filename:absname(os:getenv(\"PROBE_RUNTIME_ROOT\")),Expected=filename:absname(code:root_dir()),8=erlang:system_info(wordsize),W(\"metadata.etf\",{Expected,erlang:system_info(version),erlang:system_info(wordsize),erlang:system_info(system_architecture)}),C=compile:file(\"retirement_probe502.erl\",[return_errors,return_warnings]),W(\"compile.etf\",C),{ok,retirement_probe502,_}=C,{module,retirement_probe502}=code:load_abs(\"retirement_probe502\"),ok=retirement_probe502:load(os:getenv(\"PROBE_DLL_STEM\")),R=retirement_probe502:run(),W(\"returned.etf\",R),D=code:delete(retirement_probe502),P=code:purge(retirement_probe502),L=code:is_loaded(retirement_probe502),W(\"cleanup.etf\",{D,P,L}),true=D,false=P,false=L,halt(0) catch Class:Reason:Stack->W(\"raised.etf\",{Class,Reason,Stack}),halt(1) end."
+  ],
+  "Pid": 146376,
+  "ElapsedSeconds": 0.3279999999795109,
+  "TimedOut": false,
+  "Settled": true,
+  "ExitCode": 0,
+  "Failures": [],
+  "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+  "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+}

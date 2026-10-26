@@ -12,6 +12,7 @@ internal sealed class ProcessExitContinuation(
     internal TaskCompletionSource Quiescence { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
     internal TaskCompletionSource LocalCleanup { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
     internal Task? StorageRetirement { get; init; }
+    internal Task PhysicalRetirement { get; init; } = Task.CompletedTask;
     internal List<Exception>? PreparationFailures { get; init; }
     internal int NextOutput { get; set; }
 }

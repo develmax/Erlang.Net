@@ -1,0 +1,19 @@
+{
+  "Partial": true,
+  "SelectedCount": 1,
+  "TotalCount": 9049,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/process-liveness502/logical-exit-before-physical-dirty-completion"
+  ],
+  "Passed": 0,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "runtime/process-liveness502/logical-exit-before-physical-dirty-completion",
+      "Status": "Failed",
+      "Error": "System.IO.InvalidDataException: Logical process retirement502 differs from controlled original OTP\r\n   at Erlang.Tests.LogicalRetirement502Checks.Check(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Processes\\Lifecycle\\LogicalRetirement502Checks.cs:line 175\r\n   at Erlang.Tests.LogicalRetirement502Checks.Observe() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Processes\\Lifecycle\\LogicalRetirement502Checks.cs:line 123\r\n   at Erlang.Tests.LogicalRetirement502Checks.Observe() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Processes\\Lifecycle\\LogicalRetirement502Checks.cs:line 149\r\n   at Erlang.Tests.LogicalRetirement502Checks.Observe() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Processes\\Lifecycle\\LogicalRetirement502Checks.cs:line 149\r\n   at Erlang.Tests.LogicalRetirement502Checks.Observe() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Processes\\Lifecycle\\LogicalRetirement502Checks.cs:line 149\r\n   at Erlang.Tests.LogicalRetirement502Checks.Observe() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Processes\\Lifecycle\\LogicalRetirement502Checks.cs:line 149\r\n   at Erlang.Tests.LogicalRetirement502Checks.Observe() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Processes\\Lifecycle\\LogicalRetirement502Checks.cs:line 149\r\n   at Erlang.Tests.LogicalRetirement502Checks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Processes\\Lifecycle\\LogicalRetirement502Checks.cs:line 17\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 6946",
+      "Milliseconds": 10128
+    }
+  ]
+}

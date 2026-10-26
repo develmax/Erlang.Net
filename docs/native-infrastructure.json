@@ -7,7 +7,7 @@
     "Tag": "OTP-29.1.1",
     "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5"
   },
-  "Methodology": "Historical24-row engineering inventory and scoped status counters retain their original authorities and platform limits. Current40 source bindings identify published0ceebcbd, reviewed after the two Part369 changes and six further boot, retirement, allocation-window and HAMT changes. Current binding hashes are not raw equivalence to the historical Part361 tested plan. Actual Windows CI8813 passes; its later readiness failure is retained. No new Linux/original execution, whole-NIF, physical-layout or expanded map contract is inferred.",
+  "Methodology": "Historical24-row engineering inventory and scoped status counters retain their original authorities and platform limits. Current40 source bindings identify published0ceebcbd, reviewed after the two Part369 changes and six further boot, retirement, allocation-window and HAMT changes. Current binding hashes are not raw equivalence to the historical Part361 tested plan. Actual Windows CI8813 passes; its later readiness failure is retained. No new Linux/original execution, whole-NIF, physical-layout or expanded map contract is inferred. Part501 updates callback/layout bindings after scoped constructor execution; the new map-family row remains partial and outside Main. Historical scoped milestones and the fixed24-unit roster are not promoted.",
   "MfaAccounting": {
     "SeparateFrom": "docs/module-readiness.json",
     "CountedAsNewMfas": 0,
@@ -29,7 +29,7 @@
   "SourceEquivalence": {
     "TestedPlanPath": "docs/validation/part-361/tested-source-plan.json",
     "TestedPlanSha256": "26771833B3E7C2A70166C36ED0854354198F4DC5E6270E01CD1B00E97101A2E2",
-    "CurrentBoundSourceFiles": 41,
+    "CurrentBoundSourceFiles": 58,
     "ExactRawHashesMatchTestedPlan": false,
     "SameHeadExecutionInferred": false,
     "HistoricalCurrentBoundSourceFiles": 40,
@@ -107,13 +107,13 @@
     "InventoryRows": 24,
     "Implementation": {
       "implemented": 17,
-      "partial": 1,
-      "not-implemented": 6
+      "partial": 2,
+      "not-implemented": 5
     },
     "Verification": {
       "accepted-scoped": 7,
-      "local-tests-only": 10,
-      "missing": 6,
+      "local-tests-only": 11,
+      "missing": 5,
       "source-only": 1
     },
     "InMain": 18,
@@ -200,6 +200,12 @@
     "part494-atom-ownership": {
       "Path": "docs/validation/part-494/atom-vm-ownership/native-source-addendum.json",
       "Sha256": "39F51EC6E61BE7D4B664C0066015BFCFDBC487D7EDEF16CA25ADFABF75EAC7A4"
+    },
+    "map-creation501": {
+      "Path": "docs/validation/part-501/node-native-contracts/native-map/source-audit.json",
+      "Sha256": "25E16C05FC0D8F4B826F0BDC1CA62104CCDE8D29D287AFD188BDDB0BF55FB489",
+      "Scope": "Selected empty-map constructor, actual Windows native code, raw original pairing and physical cleanup; no expanded family/Linux acceptance.",
+      "Platform": "windows-x64"
     }
   },
   "Entries": [
@@ -490,7 +496,7 @@
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbacks.cs",
-          "Sha256": "8614F45DF22B222E780CA5A67830C16E34E7DFD59031ABEA64CF0DC4903D583F"
+          "Sha256": "BB88BE862E456190564DAEDAA9B0588305F903E174A381935412EDF7AE32A8C7"
         }
       ],
       "EvidenceRefs": [
@@ -599,7 +605,7 @@
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbacks.cs",
-          "Sha256": "8614F45DF22B222E780CA5A67830C16E34E7DFD59031ABEA64CF0DC4903D583F"
+          "Sha256": "BB88BE862E456190564DAEDAA9B0588305F903E174A381935412EDF7AE32A8C7"
         }
       ],
       "EvidenceRefs": [
@@ -744,11 +750,11 @@
       "SourceBindings": [
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbacks.cs",
-          "Sha256": "8614F45DF22B222E780CA5A67830C16E34E7DFD59031ABEA64CF0DC4903D583F"
+          "Sha256": "BB88BE862E456190564DAEDAA9B0588305F903E174A381935412EDF7AE32A8C7"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbackLayout.cs",
-          "Sha256": "89A1D947502FF932E67E08BD066AE8CEECF173123A13C74D62C772F5367866DC"
+          "Sha256": "92FA6E00B07B4E7D49B79A038CAA87BFD6AA657A20192393DE4F4EF5AF3F305E"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativePlatformLoader.cs",
@@ -942,8 +948,8 @@
       "Title": "Native map construction,mutation and iteration",
       "Scope": "Native map creation,put/update/remove and iteration beyond static MapTerm cardinality.",
       "DoneCriterion": "Implement and bind the selected native map mutation/iterator family; prove pending map ownership,copy/materialization and error/lifetime contracts.",
-      "Implementation": "not-implemented",
-      "Verification": "missing",
+      "Implementation": "partial",
+      "Verification": "local-tests-only",
       "InMain": false,
       "MainCommit": null,
       "ScopedMilestoneMet": false,
@@ -954,16 +960,91 @@
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbackLayout.cs",
-          "Sha256": "89A1D947502FF932E67E08BD066AE8CEECF173123A13C74D62C772F5367866DC"
+          "Sha256": "92FA6E00B07B4E7D49B79A038CAA87BFD6AA657A20192393DE4F4EF5AF3F305E"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapCreation501Callbacks.cs",
+          "Sha256": "0DDFBD5D7CFAB7EE89D19DBEE7D8310460225ED5A1B3A2121759D44E9258B674"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapCreation501Names.cs",
+          "Sha256": "1F51B43126E4FB600C628A5B2847CB6C780D079FD0D128169D611581E3AF2956"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifMapCreation501Observations/build-native.py",
+          "Sha256": "5D1C2D76D798BA611C3A12FD6CCBAF79116CAC7C2DAA5FCA5EE2B127661D941E"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifMapCreation501Observations/collect.py",
+          "Sha256": "EE5591C2648E3A3641D7EB86633ED5CF71C2E66B4020C56A78DC6672F8E368F8"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifMapCreation501Observations/map_creation501.c",
+          "Sha256": "13D90A7396133FCB4F180C2E23EA06267AA6552DFE7D09E306F79E31CC824805"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifMapCreation501Observations/map_creation501.erl",
+          "Sha256": "0077477F4808FB1673B5683D677C2688D782428DB5AAA697BB27F8E2A7904C46"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifMapCreation501Observations/original-values.etf",
+          "Sha256": "0F1A977A4D479B2463F5B9D74FBA6BC32E1A6B7BAAFDA3E13F2C33FD9A14F242"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifMapCreation501Observations/source-plan.json",
+          "Sha256": "3E2BAFD2AB62E8588434C07C3CD341D9E429333C6AF4F7916E4D2279D9954579"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/MapCreation501CallbackAdmission.cs",
+          "Sha256": "F7D980106F928BFD571B1826ECD391C6D7994DB2E8ECDD8C8FB5CB302A288BDA"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/MapCreation501CallbackDriver.cs",
+          "Sha256": "DB953D4580B9724435402A81040B2191545D79ED5C815854539DFA68F1DBB8C6"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/MapCreation501CallbackEntry.cs",
+          "Sha256": "0F0A18651F3AEF743BEA751F6950BEB3B9E0AB045AFC093CA2183D69A0C056B1"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/MapCreation501CallbackNames.cs",
+          "Sha256": "1FCC2C3533783BE9961AFAB21AB777A25D04E3A4D7C04AAC760BD3EF89DA4C7D"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/MapCreation501NativeModuleHandle.cs",
+          "Sha256": "DC535680C9E29AEE7D1F4320B6D9F63B142480B942BC256734BCE3D54210EF29"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapCreation501HostChecks.cs",
+          "Sha256": "DB3B4CFF4745F4EDE80E5A328F1756DB708240F16FFF1500BE82C2772D5E38CC"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapCreation501HostEntry.cs",
+          "Sha256": "C6A0CEB7ECC7296E7042580714782EE2F1027815D0CDB2DB2EC6761DEBFE2263"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapCreation501HostNames.cs",
+          "Sha256": "D54B47EC3D6F5C748BDC432BDEDF0A054B600954B34249D4E4337064B1F0F047"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/Program.cs",
+          "Sha256": "5F4BA0CCFC1BE098AAF73E681CAB749C12D8E66CDC5237379BE17CCFD79C2BCB"
         }
       ],
       "EvidenceRefs": [
-        "contract"
+        "contract",
+        "map-creation501"
       ],
-      "Platforms": [],
-      "RelatedPassedTests": [],
+      "Platforms": [
+        "windows-x64"
+      ],
+      "RelatedPassedTests": [
+        "host/nif-map-creation501-actual-slot-and-environment-ownership",
+        "host/nif-map-creation501-invalid-and-retired-environments",
+        "host/nif-map-creation501-process-and-independent-thread-ownership"
+      ],
       "RemainingOrBlockers": [
-        "Slots110-114 are pending; cardinality of static MapTerm values does not implement native map construction or iterator state."
+        "Slot110 empty-map creation is implemented and genuinely compared in Windows OTP/ordinary/reviewed routes. Slots111-114 mutation/lookup/removal and map iterators remain pending; the whole family is not accepted."
       ]
     },
     {
@@ -1031,5 +1112,42 @@
       ]
     }
   ],
-  "InventoryIdsSha256": "D333E96ECA335BE07B1B9D9929848AA4EAC30110B792E19763D6AF1E0428CD27"
+  "InventoryIdsSha256": "D333E96ECA335BE07B1B9D9929848AA4EAC30110B792E19763D6AF1E0428CD27",
+  "CurrentSourceUpdate501": {
+    "ChangedBindings": [
+      {
+        "Id": "nif.binary-storage",
+        "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbacks.cs",
+        "Previous": "8614F45DF22B222E780CA5A67830C16E34E7DFD59031ABEA64CF0DC4903D583F",
+        "Sha256": "BB88BE862E456190564DAEDAA9B0588305F903E174A381935412EDF7AE32A8C7"
+      },
+      {
+        "Id": "nif.comparison",
+        "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbacks.cs",
+        "Previous": "8614F45DF22B222E780CA5A67830C16E34E7DFD59031ABEA64CF0DC4903D583F",
+        "Sha256": "BB88BE862E456190564DAEDAA9B0588305F903E174A381935412EDF7AE32A8C7"
+      },
+      {
+        "Id": "nif.windows-loader",
+        "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbacks.cs",
+        "Previous": "8614F45DF22B222E780CA5A67830C16E34E7DFD59031ABEA64CF0DC4903D583F",
+        "Sha256": "BB88BE862E456190564DAEDAA9B0588305F903E174A381935412EDF7AE32A8C7"
+      },
+      {
+        "Id": "nif.windows-loader",
+        "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbackLayout.cs",
+        "Previous": "89A1D947502FF932E67E08BD066AE8CEECF173123A13C74D62C772F5367866DC",
+        "Sha256": "92FA6E00B07B4E7D49B79A038CAA87BFD6AA657A20192393DE4F4EF5AF3F305E"
+      },
+      {
+        "Id": "nif.map-mutation-iteration",
+        "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbackLayout.cs",
+        "Previous": "89A1D947502FF932E67E08BD066AE8CEECF173123A13C74D62C772F5367866DC",
+        "Sha256": "92FA6E00B07B4E7D49B79A038CAA87BFD6AA657A20192393DE4F4EF5AF3F305E"
+      }
+    ],
+    "NativeConstructorAdded": true,
+    "NativeFamilyStillPartial": true,
+    "HistoricalScopedMilestonesUnchanged": true
+  }
 }

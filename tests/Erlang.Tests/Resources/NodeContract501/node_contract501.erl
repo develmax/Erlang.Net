@@ -1,0 +1,159 @@
+-module(node_contract501).
+-export([run/0,run_stacks/0,probe/1]).
+run()->ordsets_core_support:run(?MODULE,cases()).
+run_stacks()->ordsets_core_support:profiles(?MODULE,cases()).
+cases()->[case_0,case_1,case_2,case_3,case_4,case_5,case_6,case_7,case_8,case_9,case_10,case_11,case_12,case_13,case_14,case_15,case_16,case_17,case_18,case_19,case_20,case_21,case_22,case_23,case_24,case_25,case_26,case_27,case_28,case_29,case_30,case_31,case_32,case_33,case_34,case_35,case_36,case_37,case_38,case_39,case_40,case_41,case_42,case_43,case_44,case_45,case_46,case_47,case_48,case_49,case_50,case_51,case_52,case_53,case_54,case_55,case_56,case_57,case_58,case_59,case_60,case_61,case_62,case_63,case_64,case_65,case_66,case_67,case_68,case_69,case_70,case_71,case_72,case_73,case_74,case_75,case_76,case_77,case_78,case_79,case_80,case_81,case_82,case_83,case_84,case_85,case_86,case_87,case_88,case_89,case_90,case_91,case_92,case_93,case_94,case_95,case_96,case_97,case_98,case_99,case_100,case_101,case_102,case_103,case_104,case_105,case_106,case_107,case_108,case_109,case_110,case_111,case_112,case_113,case_114,case_115,case_116,case_117,case_118,case_119,case_120,case_121,case_122,case_123,case_124,case_125,case_126,case_127,case_128,case_129,case_130,case_131,case_132,case_133].
+probe(case_0)->erlang:apply(erlang,opaque(node),[opaque(raw)]);
+probe(case_1)->erlang:apply(erlang,opaque(node),[opaque(true)]);
+probe(case_2)->erlang:apply(erlang,opaque(node),[opaque(0)]);
+probe(case_3)->erlang:apply(erlang,opaque(node),[opaque(-1)]);
+probe(case_4)->erlang:apply(erlang,opaque(node),[opaque(1 bsl 128)]);
+probe(case_5)->erlang:apply(erlang,opaque(node),[opaque(0.0)]);
+probe(case_6)->erlang:apply(erlang,opaque(node),[opaque(1.5)]);
+probe(case_7)->erlang:apply(erlang,opaque(node),[opaque([])]);
+probe(case_8)->erlang:apply(erlang,opaque(node),[opaque([a])]);
+probe(case_9)->erlang:apply(erlang,opaque(node),[opaque([a|tail])]);
+probe(case_10)->erlang:apply(erlang,opaque(node),[opaque({})]);
+probe(case_11)->erlang:apply(erlang,opaque(node),[opaque({a,b})]);
+probe(case_12)->erlang:apply(erlang,opaque(node),[opaque(#{})]);
+probe(case_13)->erlang:apply(erlang,opaque(node),[opaque(#{a=>b})]);
+probe(case_14)->erlang:apply(erlang,opaque(node),[opaque(<<>>)]);
+probe(case_15)->erlang:apply(erlang,opaque(node),[opaque(<<1,2>>)]);
+probe(case_16)->erlang:apply(erlang,opaque(node),[opaque(<<1:1>>)]);
+probe(case_17)->erlang:apply(erlang,opaque(node),[opaque(fun erlang:abs/1)]);
+probe(case_18)->erlang:apply(erlang,opaque(node),[opaque(self())]);
+probe(case_19)->erlang:apply(erlang,opaque(node),[opaque(make_ref())]);
+probe(case_20)->erlang:apply(erlang,opaque(node),[opaque(atomics:new(1,[]))]);
+probe(case_21)->erlang:apply(erlang,opaque(node),[opaque(pid(new))]);
+probe(case_22)->erlang:apply(erlang,opaque(node),[opaque(pid(old))]);
+probe(case_23)->erlang:apply(erlang,opaque(node),[opaque(port(old))]);
+probe(case_24)->erlang:apply(erlang,opaque(node),[opaque(port(new))]);
+probe(case_25)->erlang:apply(erlang,opaque(node),[opaque(port(wide))]);
+probe(case_26)->erlang:apply(erlang,opaque(node),[opaque(reference(old))]);
+probe(case_27)->erlang:apply(erlang,opaque(node),[opaque(reference(new))]);
+probe(case_28)->erlang:apply(erlang,opaque(node),[opaque(reference(newer))]);
+probe(case_29)->direct(opaque(raw));
+probe(case_30)->direct(opaque(true));
+probe(case_31)->direct(opaque(0));
+probe(case_32)->direct(opaque(-1));
+probe(case_33)->direct(opaque(1 bsl 128));
+probe(case_34)->direct(opaque(0.0));
+probe(case_35)->direct(opaque(1.5));
+probe(case_36)->direct(opaque([]));
+probe(case_37)->direct(opaque([a]));
+probe(case_38)->direct(opaque([a|tail]));
+probe(case_39)->direct(opaque({}));
+probe(case_40)->direct(opaque({a,b}));
+probe(case_41)->direct(opaque(#{}));
+probe(case_42)->direct(opaque(#{a=>b}));
+probe(case_43)->direct(opaque(<<>>));
+probe(case_44)->direct(opaque(<<1,2>>));
+probe(case_45)->direct(opaque(<<1:1>>));
+probe(case_46)->direct(opaque(fun erlang:abs/1));
+probe(case_47)->direct(opaque(self()));
+probe(case_48)->direct(opaque(make_ref()));
+probe(case_49)->direct(opaque(atomics:new(1,[])));
+probe(case_50)->direct(opaque(pid(new)));
+probe(case_51)->direct(opaque(pid(old)));
+probe(case_52)->direct(opaque(port(old)));
+probe(case_53)->direct(opaque(port(new)));
+probe(case_54)->direct(opaque(port(wide)));
+probe(case_55)->direct(opaque(reference(old)));
+probe(case_56)->direct(opaque(reference(new)));
+probe(case_57)->direct(opaque(reference(newer)));
+probe(case_58)->guarded(opaque(raw));
+probe(case_59)->guarded(opaque(true));
+probe(case_60)->guarded(opaque(0));
+probe(case_61)->guarded(opaque(-1));
+probe(case_62)->guarded(opaque(1 bsl 128));
+probe(case_63)->guarded(opaque(0.0));
+probe(case_64)->guarded(opaque(1.5));
+probe(case_65)->guarded(opaque([]));
+probe(case_66)->guarded(opaque([a]));
+probe(case_67)->guarded(opaque([a|tail]));
+probe(case_68)->guarded(opaque({}));
+probe(case_69)->guarded(opaque({a,b}));
+probe(case_70)->guarded(opaque(#{}));
+probe(case_71)->guarded(opaque(#{a=>b}));
+probe(case_72)->guarded(opaque(<<>>));
+probe(case_73)->guarded(opaque(<<1,2>>));
+probe(case_74)->guarded(opaque(<<1:1>>));
+probe(case_75)->guarded(opaque(fun erlang:abs/1));
+probe(case_76)->guarded(opaque(self()));
+probe(case_77)->guarded(opaque(make_ref()));
+probe(case_78)->guarded(opaque(atomics:new(1,[])));
+probe(case_79)->guarded(opaque(pid(new)));
+probe(case_80)->guarded(opaque(pid(old)));
+probe(case_81)->guarded(opaque(port(old)));
+probe(case_82)->guarded(opaque(port(new)));
+probe(case_83)->guarded(opaque(port(wide)));
+probe(case_84)->guarded(opaque(reference(old)));
+probe(case_85)->guarded(opaque(reference(new)));
+probe(case_86)->guarded(opaque(reference(newer)));
+probe(case_87)->received(opaque(raw));
+probe(case_88)->received(opaque(true));
+probe(case_89)->received(opaque(0));
+probe(case_90)->received(opaque(-1));
+probe(case_91)->received(opaque(1 bsl 128));
+probe(case_92)->received(opaque(0.0));
+probe(case_93)->received(opaque(1.5));
+probe(case_94)->received(opaque([]));
+probe(case_95)->received(opaque([a]));
+probe(case_96)->received(opaque([a|tail]));
+probe(case_97)->received(opaque({}));
+probe(case_98)->received(opaque({a,b}));
+probe(case_99)->received(opaque(#{}));
+probe(case_100)->received(opaque(#{a=>b}));
+probe(case_101)->received(opaque(<<>>));
+probe(case_102)->received(opaque(<<1,2>>));
+probe(case_103)->received(opaque(<<1:1>>));
+probe(case_104)->received(opaque(fun erlang:abs/1));
+probe(case_105)->received(opaque(self()));
+probe(case_106)->received(opaque(make_ref()));
+probe(case_107)->received(opaque(atomics:new(1,[])));
+probe(case_108)->received(opaque(pid(new)));
+probe(case_109)->received(opaque(pid(old)));
+probe(case_110)->received(opaque(port(old)));
+probe(case_111)->received(opaque(port(new)));
+probe(case_112)->received(opaque(port(wide)));
+probe(case_113)->received(opaque(reference(old)));
+probe(case_114)->received(opaque(reference(new)));
+probe(case_115)->received(opaque(reference(newer)));
+probe(case_116)->caller(raw);
+probe(case_117)->caller(true);
+probe(case_118)->caller(0);
+probe(case_119)->caller(-1);
+probe(case_120)->caller(1 bsl 128);
+probe(case_121)->caller(0.0);
+probe(case_122)->caller(1.5);
+probe(case_123)->caller([]);
+probe(case_124)->caller([a]);
+probe(case_125)->caller([a|tail]);
+probe(case_126)->caller({});
+probe(case_127)->caller({a,b});
+probe(case_128)->caller(#{});
+probe(case_129)->caller(#{a=>b});
+probe(case_130)->caller(<<>>);
+probe(case_131)->caller(<<1,2>>);
+probe(case_132)->caller(<<1:1>>);
+probe(case_133)->caller(fun erlang:abs/1).
+opaque(V)->put(node_contract501_input,V),erase(node_contract501_input).
+caller(V)->R=erlang:apply(erlang,opaque(node),[opaque(V)]),{continued,R}.
+name()-><<131,N/binary>>=term_to_binary('external@host'),N.
+pid(new)->N=name(),binary_to_term(<<131,88,N/binary,123:32,0:32,42:32>>);
+pid(old)->N=name(),binary_to_term(<<131,103,N/binary,123:32,0:32,1:8>>).
+port(old)->N=name(),binary_to_term(<<131,102,N/binary,123:32,1:8>>);
+port(new)->N=name(),binary_to_term(<<131,89,N/binary,123:32,42:32>>);
+port(wide)->N=name(),binary_to_term(<<131,120,N/binary,123:64,42:32>>).
+reference(old)->N=name(),binary_to_term(<<131,101,N/binary,123:32,1:8>>);
+reference(new)->N=name(),binary_to_term(<<131,114,3:16,N/binary,1:8,123:32,456:32,789:32>>);
+reference(newer)->N=name(),binary_to_term(<<131,90,3:16,N/binary,42:32,123:32,456:32,789:32>>).
+direct(V)->node(V).
+guarded(V) when node(V)=:='external@host'->{external,node(V)};
+guarded(V) when node(V)=:='nonode@nohost'->{local,node(V)};
+guarded(_)->rejected.
+received(V)->self()!{probe,V},receive
+ {probe,X} when node(X)=:='external@host'->{external,node(X)};
+ {probe,X} when node(X)=:='nonode@nohost'->{local,node(X)};
+ {probe,_}->rejected
+end.

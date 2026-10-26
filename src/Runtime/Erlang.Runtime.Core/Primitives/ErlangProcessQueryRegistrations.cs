@@ -33,13 +33,7 @@ internal static class ErlangProcessQueryRegistrations
         Add(
             ErlangProcessQueryNames.Alive,
             1,
-            (context, arguments) =>
-        {
-            if (arguments[0] is not Pid pid || pid.Node != context.Runtime.Node)
-                throw new ErlangException(ErlangErrorReasons.BadArgument);
-
-            return ValueTask.FromResult<Term>(Term.A(context.Runtime.IsAlive(pid) ? ErlangBooleanAtoms.True : ErlangBooleanAtoms.False));
-        }
+            (context, arguments) => context.Runtime.QueryProcessAlive499(context, arguments[0])
         );
         Add(
             ErlangProcessQueryNames.Yield,

@@ -1,0 +1,52 @@
+{
+  "Status": "SOURCE_PARTITIONS_ONLY_NOT_EXECUTED_OR_PROMOTED",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Sources": [
+    {
+      "Path": "erts/emulator/beam/bif.c",
+      "Sha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_ptab.c",
+      "Sha256": "08743809F78709C07810A678CAD30808927B03215C4E2C12FFD4D4B43532629F"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_process.c",
+      "Sha256": "89CBDB55BE2A97E77B2450BB3D339CA6DB934B9C4BF556EAD29B4EAE88072DC9"
+    },
+    {
+      "Path": "erts/emulator/beam/register.c",
+      "Sha256": "604BA0DB2A1D0D4063671368738FA8A6D409333F596BF8385E30CE419B376AD9"
+    },
+    {
+      "Path": "erts/emulator/beam/io.c",
+      "Sha256": "9C50AC21612672EBB26307A40B7BC36BB942405A7B97D3B4584DDD6C61DED232"
+    },
+    {
+      "Path": "erts/preloaded/src/erlang.erl",
+      "Sha256": "00D7672A16325E43CA221C6D6CEB4200390E2A961A243C2E31DDC141AC145047"
+    }
+  ],
+  "Processes": {
+    "Entry": "bif.c4097 processes_0 -> erts_ptab_list",
+    "Snapshot": "erl_ptab.c746+: consistent snapshot at a point during BIF; slots scanned under table lock; no EXITING filter; started_interval excludes later births; deleted-element log restores pre-invocation identifiers deleted before inspected chunk.",
+    "DeathBoundary": "erl_process.c14454 deletes PTab entry in EXIT_FREE, after timers/ETS/system tasks and registered-name removal. Physical dirty native execution may outlive this point:14755+ sets F_DELAYED_DEL_PROC if DIRTY_RUNNING and postpones delete_process.",
+    "RejectedInference": "Dirty callback still physically running does not imply PID must remain in processes/0. Adding every exitContinuation until physical retirement would be incorrect.",
+    "Managed": "ProcessRuntime.cs794 ProcessSnapshot returns processes.Keys under runtime gate; Terminate removes processes/processSlots before asynchronous etsFoundation.ProcessTerminated and all other retirement tasks.",
+    "PotentialGap": "An exiting managed process still in pre-FREE resource cleanup may be omitted too early. Source-guided hypothesis; no original runtime comparison or managed reproduction performed in this audit.",
+    "SnapshotConsistency": "Single managed runtime-gate snapshot is consistent at one instant; different time slicing is not by itself a semantic bug."
+  },
+  "Registered": {
+    "Entry": "register.c576 registered_0 holds global registry read lock and traverses process_reg hash into list.",
+    "Membership": "RegProc entries contain process OR port; shared managed names dictionary already contains both.",
+    "ProcessDeath": "erl_process.c14420-14426 unregisters name late in FREE before PTab removal and before monitors/links.",
+    "PortDeath": "io.c3904-3905 unregisters port name immediately after entering EXITING, before link/monitor dispatch and physical driver/resource deletion.",
+    "Ordering": "Source uses hash_foreach + list prepend; managed uses Dictionary insertion order. Public erlang.erl5912 docs promises registered names but no sorted or insertion order. Treat ordering as unresolved source/protocol scope until deliberately accepted; do not claim byte-identical whole list from sorted/projected comparisons.",
+    "PotentialGap": "Managed FinishTermination delays all process-name removal through aggregated physical dirty retirement, while OTP can unregister before physical dirty body finishes. Requires actual controlled NIF/owned-resource comparison to confirm. Registered port-name timing also requires comparison against native frontend retirement."
+  },
+  "ApiDelta": 0,
+  "FullContractDelta": 0,
+  "KnownDifferenceDelta": 0,
+  "TestsExecuted": 0,
+  "TrackedChanges": 0
+}

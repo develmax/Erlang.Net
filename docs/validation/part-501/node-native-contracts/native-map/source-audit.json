@@ -1,0 +1,113 @@
+{
+  "Status": "WINDOWS_NATIVE_CONSTRUCTOR_SCOPE_ACCEPTED_LOCALLY",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Sources": [
+    {
+      "Path": "erts/emulator/beam/erl_nif_api_funcs.h",
+      "Sha256": "CF34ADA521AEB0EE00C9936320CD694F9816EDBAB960500453051CEA443DDA11",
+      "Bytes": 38959
+    },
+    {
+      "Path": "erts/emulator/beam/erl_nif.c",
+      "Sha256": "66F06AB32AEDB5D1E02140C37E0215E797FB80D78C1AA4091EB52BE01465299A",
+      "Bytes": 197317
+    }
+  ],
+  "Slot": 110,
+  "Fixture": [
+    {
+      "Path": "artifacts/native-map501/fixture/map_creation501.c",
+      "Sha256": "13D90A7396133FCB4F180C2E23EA06267AA6552DFE7D09E306F79E31CC824805",
+      "Bytes": 1656
+    },
+    {
+      "Path": "artifacts/native-map501/fixture/map_creation501.erl",
+      "Sha256": "0077477F4808FB1673B5683D677C2688D782428DB5AAA697BB27F8E2A7904C46",
+      "Bytes": 296
+    }
+  ],
+  "RuntimeImplementationWritten": true,
+  "BuildExecuted": true,
+  "OriginalNativeExecuted": true,
+  "OrdinaryNativeExecuted": true,
+  "ReviewedNativeExecuted": true,
+  "FullContractDelta": 0,
+  "WholeRawLoaderComparisons": 2,
+  "PhysicalDllUnloadVerified": true,
+  "EnvironmentAndBufferBaselinesRestored": true,
+  "ActualReviewedPolicyCalls": 1,
+  "ActualOrdinaryPolicyCalls": 0,
+  "HostGroupsPassed": 3,
+  "NativeApiAdded": "enif_make_new_map",
+  "NativeApiDelta": 1,
+  "ErlangMfaDelta": 0,
+  "SourcePlanSha256": "3E2BAFD2AB62E8588434C07C3CD341D9E429333C6AF4F7916E4D2279D9954579",
+  "ExactHeadCiPending": true,
+  "Limits": [
+    "Windows x64 actual native execution only; Linux bridge export/execution remains unverified.",
+    "No map put/update/remove/iterator API or full map-family claim.",
+    "Invalid/retired/foreign-thread environment refusals are managed host controls, not original undefined-behaviour comparisons."
+  ],
+  "ManagedFixtureAndToolBindings": [
+    {
+      "Path": "tools/Native/Erlang.NifMapCreation501Observations/build-native.py",
+      "Sha256": "5D1C2D76D798BA611C3A12FD6CCBAF79116CAC7C2DAA5FCA5EE2B127661D941E"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifMapCreation501Observations/collect.py",
+      "Sha256": "EE5591C2648E3A3641D7EB86633ED5CF71C2E66B4020C56A78DC6672F8E368F8"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifMapCreation501Observations/map_creation501.c",
+      "Sha256": "13D90A7396133FCB4F180C2E23EA06267AA6552DFE7D09E306F79E31CC824805"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifMapCreation501Observations/map_creation501.erl",
+      "Sha256": "0077477F4808FB1673B5683D677C2688D782428DB5AAA697BB27F8E2A7904C46"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifMapCreation501Observations/original-values.etf",
+      "Sha256": "0F1A977A4D479B2463F5B9D74FBA6BC32E1A6B7BAAFDA3E13F2C33FD9A14F242"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifMapCreation501Observations/source-plan.json",
+      "Sha256": "3E2BAFD2AB62E8588434C07C3CD341D9E429333C6AF4F7916E4D2279D9954579"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapCreation501CallbackAdmission.cs",
+      "Sha256": "F7D980106F928BFD571B1826ECD391C6D7994DB2E8ECDD8C8FB5CB302A288BDA"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapCreation501CallbackDriver.cs",
+      "Sha256": "DB953D4580B9724435402A81040B2191545D79ED5C815854539DFA68F1DBB8C6"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapCreation501CallbackEntry.cs",
+      "Sha256": "0F0A18651F3AEF743BEA751F6950BEB3B9E0AB045AFC093CA2183D69A0C056B1"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapCreation501CallbackNames.cs",
+      "Sha256": "1FCC2C3533783BE9961AFAB21AB777A25D04E3A4D7C04AAC760BD3EF89DA4C7D"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapCreation501NativeModuleHandle.cs",
+      "Sha256": "DC535680C9E29AEE7D1F4320B6D9F63B142480B942BC256734BCE3D54210EF29"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapCreation501HostChecks.cs",
+      "Sha256": "DB3B4CFF4745F4EDE80E5A328F1756DB708240F16FFF1500BE82C2772D5E38CC"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapCreation501HostEntry.cs",
+      "Sha256": "C6A0CEB7ECC7296E7042580714782EE2F1027815D0CDB2DB2EC6761DEBFE2263"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapCreation501HostNames.cs",
+      "Sha256": "D54B47EC3D6F5C748BDC432BDEDF0A054B600954B34249D4E4337064B1F0F047"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifNativeBackend/Program.cs",
+      "Sha256": "5F4BA0CCFC1BE098AAF73E681CAB749C12D8E66CDC5237379BE17CCFD79C2BCB"
+    }
+  ]
+}

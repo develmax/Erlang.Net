@@ -110,6 +110,15 @@ public sealed partial class ProcessRuntime
         }
         finally
         {
+            try
+            {
+                // Logical replies/DOWN may precede dirty-body completion; ownership never does.
+                await continuation.PhysicalRetirement.ConfigureAwait(false);
+            }
+            catch (Exception physicalFailure)
+            {
+                failure = failure is null ? physicalFailure : new AggregateException(failure, physicalFailure);
+            }
             lock (gate)
             {
                 exitContinuations.Remove(continuation.Process);

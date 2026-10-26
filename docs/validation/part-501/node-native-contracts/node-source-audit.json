@@ -1,0 +1,115 @@
+{
+  "Status": "SOURCE_PARTITION_AND_PERMANENT_COMPARISONS_ACCEPTED_LOCALLY",
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Values": 134,
+  "CompleteStackProfiles": 670,
+  "WholeLiteralComparisons": 810,
+  "NormalizedFields": 0,
+  "OriginalSources": [
+    {
+      "Path": "erts/emulator/beam/dist.c",
+      "Sha256": "67711AB6A7C9FCE0F4D5B40B06D4DDE5F61E9C8BDFAAFB1D0A22988D04657EEB",
+      "Partition": "node_1 rejects non-node containers then returns node_container_node_name; JIT implementation is separately reviewed."
+    },
+    {
+      "Path": "erts/emulator/beam/erl_node_container_utils.h",
+      "Sha256": "A7F0C4C49A3043042F4CD4C644F3D1AE6B70D9E49DAF3A76E82D4509F0B3692D",
+      "Partition": "Internal PID/port/ref versus external container split, implicit erts_this_node identity and external recorded node name."
+    },
+    {
+      "Path": "erts/emulator/beam/jit/x86/instr_guard_bifs.cpp",
+      "Sha256": "5CB8BD82D9DADB1C39501FC2F672734D67307DD3D93F77A3F1393DF89CD67951",
+      "Partition": "emit_bif_node and handle_node_error: internal PID/port/ref, external node pointer, fail0 badarg erlang:node/1 frame versus nonzero guard failure."
+    },
+    {
+      "Path": "erts/emulator/beam/jit/arm/instr_guard_bifs.cpp",
+      "Sha256": "734F6DAD437F2189B880F77D46F176997BCDD9F63DFB858E94D0EA876870D57B",
+      "Partition": "Same accepted container split and fail0/nonzero guard behaviour in arm lowering."
+    }
+  ],
+  "ManagedSources": [
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangProcessQueryRegistrations.cs",
+      "Sha256": "DED13F8B703416CD15EEA001E1D4F0B3315D5AD70849646E88442730CF398A39"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamReceivePureBifs.cs",
+      "Sha256": "E969EB9571C20696FD53C857ADE26A0F0A882BE9248EF8B276495989805C5A19"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Identifiers/Pid.cs",
+      "Sha256": "CFB58C5E4A782C21CD612E16FB361CBFB6C5A1C7A4422A0A987B2752C353F80D"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Identifiers/PortTerm.cs",
+      "Sha256": "083E9B55E3BB8265E7C575FFE84E1BA1DD17B8E11A9C272586138A197E19AF21"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Identifiers/ReferenceTerm.cs",
+      "Sha256": "8AF2B4C481E2D58E0AEEE23F30EA9DD8047EF502FB2A024B7C125D397DDB22C4"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/References/ResourceReferenceTerm.cs",
+      "Sha256": "DCB42DC0EAE26EC5D8870AF23F2E50B1C5957774AF23B7D00DFD270E5772BE8F"
+    }
+  ],
+  "ActualDisassembly": "disassembly/selected.etf",
+  "SourceSha256": "68699D64396A6FFC22D3A5003EDEB49E435798BD7B910DDAC9953B1234DEBE17",
+  "ProviderFiles": 6427,
+  "OwnedOriginalProcessSettled": true,
+  "SourcePartition": "NodeOf accepts exactly PID, port and reference subclasses including actual atomics resource references. Local node identity is read through LocalIdentity.Snapshot; external identities remain recorded. No liveness or existence test is performed. BIF errors and guard failures are compared through the same compiled fixture. Real receive executes node guard lowering.",
+  "TestRoutes": [
+    "dynamic apply",
+    "direct bif fail0",
+    "ordinary guard nonzero failure",
+    "receive guard nonzero failure",
+    "non-tail dynamic error frame"
+  ],
+  "ApiDelta": 0,
+  "FullContractDelta": 1,
+  "IdentityLifecycle": {
+    "WholeProtocolOutputs": 6,
+    "OriginalSourceSha256": "69B370819006A17EDEE549FC10F1496666A0AA048D8851468A3FF90EEA623AED",
+    "OriginalFolder": "identity-original2",
+    "ManagedComparison": "identity-comparison2.log",
+    "ObservedPhases": [
+      "nonode@nohost",
+      "identity501a@localhost",
+      "nonode@nohost",
+      "identity501b@localhost",
+      "nonode@nohost"
+    ],
+    "RetainedValues": [
+      "actual local PID",
+      "actual local reference",
+      "actual atomics magic reference",
+      "internal port identifier",
+      "actual terminated child PID",
+      "external PID kept@host"
+    ],
+    "NoNormalization": true,
+    "FullRawEqual": true,
+    "CompilerPreparationRefusalRetained": {
+      "Original": "identity-original1",
+      "Managed": "identity-comparison.log",
+      "Reason": "BEAM binary-role frame validation rejects pre-receive binary matching; remains an open compiler restriction."
+    },
+    "FinalFixtureChange": "Build external PID in a separate pure function; reacquire original output, preserve refused source and log. This does not close the compiler restriction."
+  },
+  "LocalAffected": 1733,
+  "PermanentTestsAdded": true,
+  "ExactHeadCiPending": true,
+  "NodeComparisons": 810,
+  "NativeCapacityProtocolComparisons": 6,
+  "CrossHostBoundary": "Guest node/1 contract only. Directly sharing a foreign VM mutable C# identifier object bypasses import and is a separate host boundary limitation; this work does not claim to close arbitrary cross-host object sharing.",
+  "ImportedIdentity": "Source review: captured ETF node epoch is rehydrated into receiving LocalIdentity only for its current name/creation; other epochs remain external/fixed. The literal fixture is not a cross-host sharing test.",
+  "HistoricalPrototypePromotionRequirements": [
+    "Permanent resource/hash-bound canonical tests",
+    "Affected regression and exact publication-head CI"
+  ],
+  "RequiredBeforePublication": [
+    "Exact publication-head CI, independently downloaded artifact and fresh review retrieval"
+  ],
+  "ParentHead": "31203cbfc8cfa53b5cb06e8a6187752424c3c33e",
+  "FinalWorkingTreeSourceBindings": "source-bindings.json"
+}

@@ -1,0 +1,9 @@
+# Part502 Windows checkout correction
+
+Run40366082117 at f44a6a3734ab40d09e0a32f313908cb32eb523f1 failed only the controlled-original collector preflight. Its complete validate.ps1 stage passed9051/9051 tests, all274 original ETF files, package/17 cold-consumer gates and actual native501 ordinary/reviewed comparisons. [Independent partial proof](failed-main-proof.json) explicitly retains overall failure and absent controlled502 evidence. It is not a green CI acceptance.
+
+The sealed plan expected the7105-byte LF Git blob of tools/Distribution/Erlang.GuestConnectedSendObservations/passive_etf.py, SHA A069AD650B3EA1BE6B90DE60117B84ED7A1A6B67128CC41E7ECAEFD2889C1713. Windows core.autocrlf=true checkout produced7261 CRLF bytes, SHA3748AD5C8842FC04FF62EA07AF6F9ED194320C612321AC25DBB98DB3389F9016. [Actual checkout-filter reproduction](checkout-red.json) reproduces the mismatch; local testing had used LF and missed it.
+
+Set exactly this dependency to -text in .gitattributes. [The same Windows filter now preserves the Git blob](checkout-green.json). Keep strict raw SHA validation, the63171EAC39BEF4AD0DEBE1F4CD09241EA6C4F6967CB8FABBCC638D6F540B7B76 plan seal and both original goldens unchanged. No runtime, test body, native C source or Python decoder body changes. No normalized source digest is substituted for the approved raw bytes.
+
+A fresh [controlled original run](original-completion.json) after the correction passes complete golden107-byte output and23-byte cleanup, independent physical C markers, provider6427 before/after and actual owned-process settlement. The [build receipt](build-receipt.json) retains the compiled source/header/DLL bindings. New publication-head continuous CI and fresh review remain required; this local repeat does not relabel the failed run as passed. API/full/native callback deltas0/0/0.

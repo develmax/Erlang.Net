@@ -1,9 +1,9 @@
 {
   "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Registered": 708,
-  "Verified": 177,
-  "KnownDifferences": 25,
-  "NeedsVerification": 506,
+  "Verified": 180,
+  "KnownDifferences": 24,
+  "NeedsVerification": 504,
   "UnclosedDefaultContracts": [
     {
       "Module": "application",
@@ -1316,28 +1316,6 @@
     },
     {
       "Module": "erlang",
-      "Function": "is_alive",
-      "Arity": 0,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
-    },
-    {
-      "Module": "erlang",
-      "Function": "is_process_alive",
-      "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
-    },
-    {
-      "Module": "erlang",
       "Function": "link",
       "Arity": 1,
       "Status": "Needs verification",
@@ -1747,17 +1725,6 @@
       "Module": "erlang",
       "Function": "nif_error",
       "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
-    },
-    {
-      "Module": "erlang",
-      "Function": "node",
-      "Arity": 1,
       "Status": "Needs verification",
       "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
       "Evidence": [],
@@ -3784,8 +3751,8 @@
       "Module": "erts_internal",
       "Function": "new_connection",
       "Arity": 1,
-      "Status": "Known differences",
-      "Scope": "An explicit entries.Count >= MaximumNodes rejection remains; defaultMaximumNodes is1024, unlike the pinned ERTS source. Generation/reuse tests do not remove this limit.",
+      "Status": "Needs verification",
+      "Scope": "The recorded default1024 node ceiling is repaired;1025 real pending handles and their cleanup/reuse match pinned OTP. Explicitly configured host quotas remain supported. Complete native command audit is still required; selected capacity/lifetime witnesses do not promote the entire API.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
@@ -3804,12 +3771,30 @@
           "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
           "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
           "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
+        },
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-501/node-native-contracts/capacity-source-audit.json",
+          "Sha256": "5B796DAB798858156270EBC8610DFEBCC6C5AD1E1AA110D18D27FC991C70D499",
+          "Scope": "Remove confirmed default capacity discrepancy while keeping full native API audit pending."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-501/node-native-contracts/capacity/completion.json",
+          "Sha256": "1DD83A8C3C8870E769A537E9B4F9464849AEB310267DCEB218772FAC18B97E32",
+          "Scope": "Six complete capacity protocol outputs from actual original native pending handles; opaque handles are tested relationally."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-501/node-native-contracts/affected-final.json",
+          "Sha256": "14AD0408C658573320C6C76B02484CACAF946D1BA55622A7DF8BCDD9E4C579F5",
+          "Scope": "Actual default1025 handles, explicitquota2, abort/reuse/generation, VM isolation and resource cleanup within1733/1733."
         }
       ],
       "Limits": [
-        "The runtime has a configurable maximum distribution-node count (default1024); the pinned source has no corresponding fixed per-runtime budget.",
-        "Native handle IDs/reference bytes are own-VM state; physical native layout and resource exhaustion are not claimed identical.",
-        "Loading the complete original erts_internal module and its remaining native prerequisites is still unfinished."
+        "Full validation/state/handle/concurrency and resource contract remains unclosed.",
+        "Explicit host quotas are opt-in host policy; default no longer imposes1024.",
+        "Native handle bytes remain own-VM state; physical native layout/resource accounting is not claimed identical."
       ]
     },
     {
@@ -278167,7 +278152,7 @@
       "Module": "erlang",
       "CatalogPublicApis": 875,
       "DefaultRegistered": 351,
-      "DefaultVerified": 80,
+      "DefaultVerified": 83,
       "RequiresPreprocessing": false,
       "OriginalExecutionStatus": "Requires separate execution evidence; default registry is not original-library coverage"
     },

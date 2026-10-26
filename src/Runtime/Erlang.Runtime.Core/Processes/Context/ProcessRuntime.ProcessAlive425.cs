@@ -14,7 +14,8 @@ public sealed partial class ProcessRuntime
                 || arguments[1] is not ReferenceTerm reference || reference is ResourceReferenceTerm || !IsCurrentLocal(reference))
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
             var request = new ProcessAliveRequest425(requester.Self, reference);
-            if (!processes.TryGetValue(target, out ProcessContext? process))
+            ProcessContext? process = FindProcessAliveTarget425(target);
+            if (process is null)
             {
                 ReplyProcessAlive425(request, false);
                 // The pinned failed-send return handles already queued incoming signals.
@@ -22,41 +23,59 @@ public sealed partial class ProcessRuntime
 
                 return Term.A(ProcessAliveNames425.Ok);
             }
-            if (!processAliveRequests425.TryGetValue(process, out var requests))
-            {
-                requests = new();
-                processAliveRequests425.Add(process, requests);
-            }
-            requests.Add(request);
-            try
-            {
-                process.Mailbox.SendPending(
-                    Nil.Value,
-                    () =>
-                {
-                    lock (gate)
-                    {
-                        if (requests.Remove(request))
-                        {
-                            if (requests.Count == 0) processAliveRequests425.Remove(process);
-                            ReplyProcessAlive425(request, !process.Terminated);
-                        }
-                    }
-
-                    return null;
-                },
-                    from: requester.Self,
-                    traceAdmission: false
-                );
-            }
-            catch
-            {
-                requests.Remove(request);
-                if (requests.Count == 0) processAliveRequests425.Remove(process);
-                throw;
-            }
+            QueueProcessAlive425(process, request);
 
             return Term.A(ProcessAliveNames425.Ok);
+        }
+    }
+
+    private ProcessContext? FindProcessAliveTarget425(Pid pid)
+    {
+        if (processes.TryGetValue(pid, out var process))
+            return process;
+        foreach (var exit in exitContinuations.Values)
+            if (!exit.LocalCleanup.Task.IsCompleted && exit.Process.Self.Equals(pid))
+                return exit.Process;
+
+        return null;
+    }
+
+    private void QueueProcessAlive425(ProcessContext process, ProcessAliveRequest425 request)
+    {
+        if (!processAliveRequests425.TryGetValue(process, out var requests))
+        {
+            requests = new();
+            processAliveRequests425.Add(process, requests);
+        }
+        requests.Add(request);
+        if (process.Terminated)
+            return;
+        try
+        {
+            process.Mailbox.SendPending(
+                Nil.Value,
+                () =>
+            {
+                lock (gate)
+                {
+                    if (requests.Remove(request))
+                    {
+                        if (requests.Count == 0) processAliveRequests425.Remove(process);
+                        ReplyProcessAlive425(request, !process.Terminated);
+                    }
+                }
+
+                return null;
+            },
+                from: request.Requester,
+                traceAdmission: false
+            );
+        }
+        catch
+        {
+            requests.Remove(request);
+            if (requests.Count == 0) processAliveRequests425.Remove(process);
+            throw;
         }
     }
 
@@ -80,8 +99,13 @@ public sealed partial class ProcessRuntime
     }
 
     private void ReplyProcessAlive425(ProcessAliveRequest425 request, bool result)
-        => SendSystem(request.Requester, Term.Tuple(request.Reference,
-            Term.A(result ? ProcessAliveNames425.True : ProcessAliveNames425.False)));
+    {
+        if (request.Completion is { } completion)
+            completion.TrySetResult(result);
+        else
+            SendSystem(request.Requester, Term.Tuple(request.Reference!,
+                Term.A(result ? ProcessAliveNames425.True : ProcessAliveNames425.False)));
+    }
 
     // Halt discards all pending signals and guest replies, matching existing request classes.
     private void CloseProcessAlive425() => processAliveRequests425.Clear();

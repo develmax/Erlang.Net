@@ -1,0 +1,62 @@
+{
+  "Status": "DEFAULT_CAPACITY_DIFFERENCE_REPAIRED_FULL_CONTRACT_STILL_PENDING",
+  "Subject": "connection_capacity501",
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "OriginalSource": {
+    "Path": "erts/emulator/beam/dist.c",
+    "Sha256": "67711AB6A7C9FCE0F4D5B40B06D4DDE5F61E9C8BDFAAFB1D0A22988D04657EEB"
+  },
+  "ObserverSourceSha256": "ECA8E5DA6E6C3792353E1C43677F94BF61C0D738716A588F8CCB6EB93533C6E4",
+  "OriginalSuccessfulPendingEntries": 1025,
+  "ManagedDefaultSuccessfulPendingEntries": 1024,
+  "ManagedDefaultFailure": {
+    "Entry": 1025,
+    "Class": "error",
+    "Reason": "system_limit",
+    "CompleteStackCaptured": true
+  },
+  "ManagedConfiguredControl": {
+    "MaximumNodes": 2048,
+    "WholeProtocolOutcomesMatched": 6,
+    "Log": "../capacity-configured-comparison.log",
+    "ConsoleLabelIsInheritedFromNodePrototype": true,
+    "DefaultBehaviourUnchanged": true
+  },
+  "Cleanup": "Every successfully created handle is aborted by actual abort_pending_connection/2; original owned VM settles, managed runtime is actually disposed. No real remote network connections are created.",
+  "ComparisonScope": "Finite native pending-capacity invariant and full error capture. Opaque distribution handles are tested relationally and not normalized into a raw-return equality claim. No full new_connection contract promotion.",
+  "ProviderFiles": 6427,
+  "ApiDelta": 0,
+  "FullContractDelta": 0,
+  "KnownDifferenceCountDelta": -1,
+  "ProductionChanges": 0,
+  "Evidence": {
+    "stacks.etf.actual": "D5D7A228B2712691753DF53D30E8AA3613C49592C49BC3FEB126C1ED3AFBEFD3",
+    "stacks.etf.expected": "0DD2C70000B203AC9BBF71FA5160285579DC83EE19C8F4C1274753844BB573E3",
+    "values.etf.actual": "0354739AADC7E457674F10D0F3AED38ECD507D910CA388DE73D7603059A9A3D9",
+    "values.etf.expected": "9D552530A5A1C579A8171EE7BD72AA4F191BA8F7B5039B6DD82B56F83250F812"
+  },
+  "SourceAudit": {
+    "Sources": [
+      {
+        "Path": "erts/emulator/beam/dist.c",
+        "Sha256": "67711AB6A7C9FCE0F4D5B40B06D4DDE5F61E9C8BDFAAFB1D0A22988D04657EEB"
+      },
+      {
+        "Path": "erts/emulator/beam/erl_node_tables.c",
+        "Sha256": "FA200FDE36B86D52FFA9B09208A701B524094F3475768F7A304C8249800BDC50"
+      },
+      {
+        "Path": "erts/emulator/beam/erl_node_tables.h",
+        "Sha256": "B67B0E26740014B49DA842982C210C2C69EA4C33C575F3544D889FDAADA57C70"
+      }
+    ],
+    "NativePath": "erts_internal_new_connection_1 validates node name, rejects self, uses erts_find_or_insert_dist_entry and state-specific connection ID. The latter uses hash insertion without the managed1024 check.",
+    "CandidateDirection": "Remove the arbitrary default1024 ceiling while preserving explicitly configured host quotas. Raising to another small fixed limit is only a control, not a compatibility fix. Actual VM resource exhaustion and all handle lifetimes still need independent acceptance."
+  },
+  "Correction": "Default maximum is int.MaxValue instead of1024, beyond the logical atom-table bound; explicit host quotas remain unchanged. Actual default1025 retained handles and quota2/isolation/lifetime controls pass.",
+  "DefaultDifferenceStillOpen": false,
+  "FinalNativeProtocolComparisons": 6,
+  "Remaining": "Complete argument/state/handle/resource and original-module contract audit remains pending; no whole native API promotion.",
+  "BeforeRuntimeHead": "31203cbfc8cfa53b5cb06e8a6187752424c3c33e",
+  "FinalWorkingTreeSourceBindings": "source-bindings.json"
+}

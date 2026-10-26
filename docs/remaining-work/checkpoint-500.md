@@ -1,0 +1,7 @@
+# Part500 — finish the liveness retirement partition
+
+Correct a gap in Part499: a detached PID with pending physical/local cleanup must remain an ordered alive-query target. Actual held dirty work reproduces the premature false result; the corrected runtime passes1392 affected tests including five native lifecycle/ownership controls. Six complete protocol outputs match pinned original crypto-backed dirty execution. The workload bodies differ and no crypto API is claimed. [Evidence and correction](../validation/part-500/process-retirement/README.md).
+
+Counts remain708 registered,179 full,504 pending,25 known; erlang82/351 full,256 pending,13 known. This increment repairs the earlier classification, with API/full deltas0/0. Other module counts remain [checkpoint499](checkpoint-499.md). Source guards remain1726. Local9040 is an explicit parent-CI/final-affected composite. New-head continuous CI and fresh original acquisitions are required; parent499 green9039 alone does not validate this fix.
+
+Next: finish the node/1 source/container/JIT partition and integrate its prepared47-value/235-stack prototype. node/0 is already verified and must not be counted again. Then audit processes/0 table retirement and registered/0 name/port lifecycle and ordering under each VM's actual state. No additional closure is claimed for these prepared subjects. The broader work remains in [the complete inventory](complete-inventory.json); LICENSE.local.txt stays uncommitted.

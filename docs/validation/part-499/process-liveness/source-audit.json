@@ -1,0 +1,59 @@
+{
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Passed": true,
+  "CompleteOnSupportedValidErlangTermModel": true,
+  "OriginalSources": [
+    {
+      "Path": "erts/emulator/beam/erl_bif_info.c",
+      "Sha256": "9A86723F7BCE38BCB64B4CF3E7759FFC51CEFA9973CB11B36DC26A263A329149"
+    },
+    {
+      "Path": "erts/preloaded/src/erlang.erl",
+      "Sha256": "00D7672A16325E43CA221C6D6CEB4200390E2A961A243C2E31DDC141AC145047"
+    },
+    {
+      "Path": "erts/preloaded/src/erts_internal.erl",
+      "Sha256": "22B6A291C32778EDB84DC1E9BB2CFD5AF44CA7E9F0AE53CB01F3A674218BC260"
+    },
+    {
+      "Path": "erts/emulator/beam/dist.c",
+      "Sha256": "67711AB6A7C9FCE0F4D5B40B06D4DDE5F61E9C8BDFAAFB1D0A22988D04657EEB"
+    }
+  ],
+  "Contracts": [
+    {
+      "MFA": "erlang:is_process_alive/1",
+      "Branches": [
+        "Internal self returns true without a queued request.",
+        "Missing local PID, including old local creation, returns false.",
+        "Live local process without pending signals uses table lookup.",
+        "Pending signals and exiting processes use an ordered is-alive request; termination completes false.",
+        "Before returning a non-self result, admit incoming signals to the requester.",
+        "External PID from another node and every non-PID family fail with badarg and complete original error metadata."
+      ],
+      "Correction": "Replace unordered ContainsKey result with existing ordered request machinery, retaining self/idle fast paths. Cancelled callers remove their request without creating guest reply messages.",
+      "Cases": "Static term partition, direct/dynamic and non-tail calls, current self, missing/old-local/remote PID, live child, normal/abnormal/kill exit, depths default/0/1/2/8, held scheduler target, surviving signal and caller cancellation."
+    },
+    {
+      "MFA": "erlang:is_alive/0",
+      "Branches": [
+        "A node name other than nonode@nohost returns true.",
+        "With nonode@nohost, absent or exactly false persistent flag returns false.",
+        "Every other value at {erts_internal,dynamic_node_name} returns true."
+      ],
+      "Correction": "Follow original erlang.erl and erts_internal.erl predicates instead of using active owned-kernel admission as the API result. Transport admission property remains separately defined.",
+      "Cases": "Unnamed default and repeated queries; eight persistent flags including false, true, nonboolean atoms, nil, integer, map, binary and external function; existing original named-kernel and owned-kernel lifecycle regressions."
+    }
+  ],
+  "OriginalValues": 65,
+  "CompleteStackProfiles": 325,
+  "WholeLiteralComparisons": 390,
+  "NormalizedFields": 0,
+  "OriginalWorkerUnchanged": true,
+  "ApiDelta": 0,
+  "FullContractDelta": 2,
+  "NotClaimed": [
+    "Identical VM layout, PID/reference allocation numbers, scheduling timing or performance.",
+    "Full distribution or arbitrary native ABI compatibility."
+  ]
+}
