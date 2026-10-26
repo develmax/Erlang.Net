@@ -6872,6 +6872,9 @@ try
     Test(Erlang.Tests.AtomVm494Names.EncodedExhaustion, Erlang.Tests.AtomVm494Checks.EncodedExhaustion);
     Test(Erlang.Tests.AtomVm494Names.SafeDecode, Erlang.Tests.AtomVm494Checks.SafeDecode);
 
+    foreach (var group in Erlang.Tests.MapContract495Names.Groups)
+        Test(Erlang.Tests.MapContract495Names.TestPrefix + group.Group, () => Erlang.Tests.MapContract495Checks.Run(group));
+
     var catalog = Erlang.Tests.TestRunCatalog.Create(tests.Select(test => test.Name));
     selectedTests = selection.Select(tests, catalog);
     if (selection.ListOnly)

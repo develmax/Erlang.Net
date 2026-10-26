@@ -18,7 +18,9 @@ internal static class BeamOrdsetsCoreHostChecks
         Func<string, byte[]> read,
         int valueCount,
         int profileCount,
-        Func<ProcessRuntime, Task>? initialize = null
+        Func<ProcessRuntime, Task>? initialize = null,
+        bool encodeInRuntime = false,
+        string[]? additionalDependencies = null
     )
     {
         byte[] lists = Read(BeamOrdsetsCoreHostNames.Lists + BeamOrdsetsCoreHostNames.BeamExtension);
@@ -34,7 +36,7 @@ internal static class BeamOrdsetsCoreHostChecks
         string[] dependencies = [BeamOrdsetsCoreHostNames.Erlang, BeamOrdsetsCoreHostNames.Lists,
             BeamOrdsetsCoreHostNames.Ordsets, .. BeamOrdsetsCoreHostNames.Fixtures];
         string[] fixtures = [observer, BeamOrdsetsCoreHostNames.Support, BeamOrdsetsCoreHostNames.Worker];
-        dependencies = [.. dependencies, BeamOrdsetsCoreHostNames.Binary, observer];
+        dependencies = [.. dependencies, BeamOrdsetsCoreHostNames.Binary, observer, .. additionalDependencies ?? []];
         PreparedBeamImage[] images = fixtures.Select(module => runtime.Modules.PrepareBeam(
             read(module + BeamOrdsetsCoreHostNames.BeamExtension), new BeamDependencySelection(dependencies)
         )).ToArray();
@@ -57,7 +59,14 @@ internal static class BeamOrdsetsCoreHostChecks
                         Term.A(observer),
                         Term.A(observation.Entry)
                     );
-                    byte[] encoded = ExternalTermFormat.Encode(actual, new EtfEncodingOptions { FunctionOwner = runtime.InitializationPid });
+                    byte[] encoded = encodeInRuntime
+                        ? ((BitString)await runtime.Modules.Call(
+                            context,
+                            BeamOrdsetsCoreHostNames.Erlang,
+                            BeamOrdsetsCoreHostNames.TermToBinary,
+                            actual
+                        )).ToArray()
+                        : ExternalTermFormat.Encode(actual, new EtfEncodingOptions { FunctionOwner = runtime.InitializationPid });
                     captured.Add((actual, encoded, observation.Resource));
                     int count = observation.Entry == BeamOrdsetsCoreHostNames.Run
                         ? Cons.Items(actual).Count()

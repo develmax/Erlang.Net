@@ -1,0 +1,15 @@
+[
+  {
+    "Api": "map_size",
+    "Passed": true
+  },
+  {
+    "Api": "map_get",
+    "Passed": false,
+    "Error": "System.IO.InvalidDataException: Original compiled ordsets corpus or backend ownership differs\r\nD:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\beam-contract-failures\\map_contract495_map_get\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.\u003C\u003Ec__DisplayClass1_1.\u003C\u003CRunSubject\u003Eb__1\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 79\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.RunSubject(String observer, Func\u00602 read, Int32 valueCount, Int32 profileCount, Func\u00602 initialize) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 92\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.RunSubject(String observer, Func\u00602 read, Int32 valueCount, Int32 profileCount, Func\u00602 initialize) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 93\r\n   at Program.Main() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\contracts495\\Probe\\Program.cs:line 35"
+  },
+  {
+    "Api": "is_map_key",
+    "Passed": true
+  }
+]

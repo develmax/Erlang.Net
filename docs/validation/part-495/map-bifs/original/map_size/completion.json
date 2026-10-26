@@ -1,0 +1,49 @@
+{
+  "Passed": true,
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ProviderFiles": 6427,
+  "ProviderBeforeEqual": true,
+  "ProviderAfterEqual": true,
+  "SourceSha256": "4B9A668B25D0DC9ACF1EB67630B349062D17A2DF2BE69447DE113040B2266E24",
+  "OriginalReceipt": {
+    "Command": [
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+      "+S",
+      "1:1",
+      "+A",
+      "1",
+      "-noshell",
+      "-noinput",
+      "-boot",
+      "no_dot_erlang",
+      "-pa",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\contracts495\\original-node\\map_size",
+      "-eval",
+      "{ok,map_contract495_map_size,_}=compile:file(\"map_contract495_map_size.erl\",[return_errors,return_warnings]),[ok=prim_file:write_file(File,term_to_binary(ordsets_core_worker:run(map_contract495_map_size,Entry),[{minor_version,2}])) || {File,Entry} <- [{\"values.etf\",run},{\"stacks.etf\",run_stacks}]],{beam_file,_,_,_,_,Functions}=beam_disasm:file(\"map_contract495_map_size.beam\"),Instructions=lists:append([Is || {function,_,_,_,Is} <- Functions]),ApplySites=[I || I <- Instructions,is_tuple(I),lists:member(element(1,I),[apply,apply_last])],true=length(ApplySites)>0,ok=prim_file:write_file(\"dispatch-proof.etf\",term_to_binary({map_contract495_map_size,length(ApplySites),ApplySites})),halt(0)."
+    ],
+    "Pid": 108912,
+    "ElapsedSeconds": 0.39000000001396984,
+    "TimedOut": false,
+    "Settled": true,
+    "ExitCode": 0,
+    "Failures": [],
+    "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  "GoldenChecked": false,
+  "NormalizedFields": 0,
+  "Errors": [],
+  "Files": {
+    "dispatch-proof.etf": "548790ABA3F0CA596851DF7D760D4E00F666BB238E6BBDA41B0452DE485F79EF",
+    "map_contract495_map_size.beam": "D25EEAA17180BDFFCC856765FA3308D7050A095D44C151CAF4148B8186C9BA0D",
+    "map_contract495_map_size.erl": "4B9A668B25D0DC9ACF1EB67630B349062D17A2DF2BE69447DE113040B2266E24",
+    "ordsets_core_support.beam": "E96720C753F9438E66367C71A90C5D0C1E3AA29091B178799986E36A8438022F",
+    "ordsets_core_worker.beam": "E345AE81943C41F82F3CBCA24B963D2D25CB24C0C15E2A0B21B72A65757D6B3F",
+    "original.exit.json": "5C814896E354387D6B4823759C5BD956DB9E5024ADC3FEB2C5033EBFBF147A36",
+    "original.live.json": "CEE9BE6B1EACB6E893D95F8A163EA2E13EC80EB76D976BA7ADB1FAE4AE3A439C",
+    "original.stderr.log": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "original.stdout.log": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "stacks.etf": "AF28B37E623E7F6A0538131FEF535690CAD6C98E9E74CF53A4D322C61F614517",
+    "values.etf": "04EF8603900AB419491ACE3D97B6C3B44D662B2F5214E97F87902AA6C3CC7FE3"
+  }
+}
