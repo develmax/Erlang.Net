@@ -55,7 +55,7 @@ jobs:
         run: |
           $PSNativeCommandUseErrorActionPreference = $false
           $contractFailures = @()
-          foreach ($fixtureName in @('ContractReaudit487', 'NumericContract487', 'TupleContract488', 'ProcessLiveness499')) {
+          foreach ($fixtureName in @('ContractReaudit487', 'NumericContract487', 'TupleContract488', 'ProcessLiveness499', 'ProcessRetirement500')) {
             python -B tools/Validation/ContractReaudit487/collect-original.py --repository $PWD.Path --admission artifacts/library376-official-compiler/official-admission.json --fixture "tests/Erlang.Tests/Resources/$fixtureName" --output "artifacts/contracts487/ci-original/$fixtureName" --check-golden
             if ($LASTEXITCODE -ne 0) { $contractFailures += "Original contract acquisition failed: $fixtureName" }
           }

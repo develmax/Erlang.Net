@@ -14,7 +14,8 @@ public sealed partial class ProcessRuntime
                 || arguments[1] is not ReferenceTerm reference || reference is ResourceReferenceTerm || !IsCurrentLocal(reference))
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
             var request = new ProcessAliveRequest425(requester.Self, reference);
-            if (!processes.TryGetValue(target, out ProcessContext? process))
+            ProcessContext? process = FindProcessAliveTarget425(target);
+            if (process is null)
             {
                 ReplyProcessAlive425(request, false);
                 // The pinned failed-send return handles already queued incoming signals.
@@ -28,6 +29,17 @@ public sealed partial class ProcessRuntime
         }
     }
 
+    private ProcessContext? FindProcessAliveTarget425(Pid pid)
+    {
+        if (processes.TryGetValue(pid, out var process))
+            return process;
+        foreach (var exit in exitContinuations.Values)
+            if (!exit.LocalCleanup.Task.IsCompleted && exit.Process.Self.Equals(pid))
+                return exit.Process;
+
+        return null;
+    }
+
     private void QueueProcessAlive425(ProcessContext process, ProcessAliveRequest425 request)
     {
         if (!processAliveRequests425.TryGetValue(process, out var requests))
@@ -36,6 +48,8 @@ public sealed partial class ProcessRuntime
             processAliveRequests425.Add(process, requests);
         }
         requests.Add(request);
+        if (process.Terminated)
+            return;
         try
         {
             process.Mailbox.SendPending(

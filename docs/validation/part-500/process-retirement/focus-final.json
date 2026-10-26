@@ -1,0 +1,38 @@
+{
+  "DerivedFrom": "affected-terminal.json",
+  "SubsetOnly": true,
+  "Passed": 6,
+  "Failed": 0,
+  "Tests": [
+    {
+      "Name": "HOST dirty native physical CPU/IO lanes and truthful counts",
+      "Status": "Passed",
+      "Milliseconds": 13
+    },
+    {
+      "Name": "HOST queued dirty native cancellation skips body",
+      "Status": "Passed",
+      "Milliseconds": 11
+    },
+    {
+      "Name": "HOST actual Dispose joins held dirty native work",
+      "Status": "Passed",
+      "Milliseconds": 13
+    },
+    {
+      "Name": "HOST idle dirty native workers release invocation arguments and EC",
+      "Status": "Passed",
+      "Milliseconds": 94
+    },
+    {
+      "Name": "HOST Halt and initializer death join real held dirty work",
+      "Status": "Passed",
+      "Milliseconds": 32
+    },
+    {
+      "Name": "runtime/process-liveness500/physical-retirement-before-false",
+      "Status": "Passed",
+      "Milliseconds": 741
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Passed": true,
+  "SupersedesIncompletePart499RetirementPartition": true,
+  "OriginalSources": [
+    {
+      "Path": "erts/emulator/beam/erl_bif_info.c",
+      "Sha256": "9A86723F7BCE38BCB64B4CF3E7759FFC51CEFA9973CB11B36DC26A263A329149"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_proc_sig_queue.c",
+      "Sha256": "8C09013466104034A847E3439DF4D31C4D5184D2C46430A3CDB0F86710F2C519"
+    },
+    {
+      "Path": "lib/crypto/c_src/pbkdf2_hmac.c",
+      "Sha256": "4104E1534D918A0C53625BC81BE69AA81EEC225170F55CF3BAE86D64E6919F2D"
+    }
+  ],
+  "Defect": "A PID removed from processes during asynchronous physical retirement was mistaken for a fully absent PID. Registered name and real dirty work were still live when public is_process_alive returned false. The earlier Part499 source partition and its full-contract classification did not cover this transition.",
+  "Correction": "Resolve live process or an exit continuation whose LocalCleanup has not completed. A terminated target records pending replies without appending another mailbox signal. FinishProcessAlive425 releases both private and native reference replies after storage/dirty retirement. Abandoned private waiters are explicitly cancelled after request removal. Completed local cleanup does not wait for unrelated remote-output draining.",
+  "OriginalActualWork": "crypto:pbkdf2_hmac/5 with1000000 iterations schedules a real dirty CPU NIF. Admission is observed through erts_internal:is_process_executing_dirty/1 before kill. Actual public and internal alive calls finish false; name is undefined and dirty query false.",
+  "ManagedActualWork": "An actually running owned dirty CPU callback is held by a real event. Kill starts actual asynchronous retirement. Public result and native reply must both remain pending; callback release permits physical completion, name cleanup and false replies. The public-return marker precedes the internal-reply await, so one route cannot mask an early result on the other.",
+  "Comparison": "All six complete successful protocol outputs compare literally under the same outcome schema, including default/0/1/2/8 backtrace profiles. Workload bodies differ deliberately: original crypto NIF versus controlled managed dirty callback. No crypto implementation, identical workload/latency, arbitrary NIF ABI or new native full contract is claimed.",
+  "WholeProtocolComparisons": 6,
+  "NormalizedFields": 0,
+  "CanonicalGroupsAdded": 1,
+  "ApiDelta": 0,
+  "FullContractDelta": 0,
+  "FullContractsRetainedAfterCorrection": 179,
+  "LocalAffected": 1392,
+  "AdditionalNativeControls": 5,
+  "NativeControlsIncludedInAffected": true,
+  "PrivateWaiterSettledOnAbandonment": true
+}

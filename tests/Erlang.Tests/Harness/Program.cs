@@ -6886,6 +6886,7 @@ try
         () => Erlang.Tests.ProcessLiveness499Checks.Run(("", "process_liveness499", 65, 325))
     );
     Test(Erlang.Tests.ProcessLiveness499Names.OrderingTest, Erlang.Tests.ProcessLiveness499OrderingChecks.Run);
+    Test(Erlang.Tests.ProcessRetirement500Names.Test, Erlang.Tests.ProcessRetirement500Checks.Run);
     Test(Erlang.Tests.ReviewFollowup498Names.ParserTest, Erlang.Tests.ReviewFollowup498Checks.ParserHostArguments);
     Test(Erlang.Tests.ReviewFollowup498Names.MapTest, Erlang.Tests.ReviewFollowup498Checks.ImportedFlatMaps);
 

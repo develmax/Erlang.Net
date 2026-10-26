@@ -14,7 +14,8 @@ public sealed partial class ProcessRuntime
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
             if (pid.Equals(requester.Self))
                 return CoreModules.Boolean(true);
-            alive = processes.TryGetValue(pid, out target);
+            target = FindProcessAliveTarget425(pid);
+            alive = target is not null;
             if (alive && (target!.Terminated || target.Mailbox.HasPendingSignals428))
             {
                 completion = new(TaskCreationOptions.RunContinuationsAsynchronously);
@@ -34,6 +35,7 @@ public sealed partial class ProcessRuntime
                 lock (gate)
                     if (processAliveRequests425.TryGetValue(target!, out var requests) && requests.Remove(request!) && requests.Count == 0)
                         processAliveRequests425.Remove(target!);
+                completion.TrySetCanceled();
             }
         }
         AdmitSignals(requester);

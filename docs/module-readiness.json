@@ -4651,7 +4651,7 @@
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessAlive425.cs",
-      "Sha256": "5A64E4EAE990838E9074921817C46B0134F68372DE4A8F3DE57337C1C3D9E354"
+      "Sha256": "41D6C7B1F2F7A41E58B3E61D9CA3A33B7B90F497DDB816A2AA30D66EF17D4EB7"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Regex411.cs",
@@ -6903,7 +6903,7 @@
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessLiveness499.cs",
-      "Sha256": "05C97BE44E477E9E4EB4125E87E2F39F5E84084FD7937F5782554C97D861CBE0"
+      "Sha256": "872094152557D7E8906EB17AA86BD5C539C1A989A9C4906F104FB3C00D3E7F2B"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/RuntimeProcessLivenessNames499.cs",
@@ -16682,7 +16682,7 @@
       "Function": "is_process_alive",
       "Arity": 1,
       "Status": "Verified compatible",
-      "Scope": "Replace unordered ContainsKey result with existing ordered request machinery, retaining self/idle fast paths. Cancelled callers remove their request without creating guest reply messages. Complete source partition and literal values/full stacks against pinned OTP-29.1.1 on the supported Erlang term model; not VM layout, timing or performance parity.",
+      "Scope": "Replace unordered ContainsKey result with existing ordered request machinery, retaining self/idle fast paths. Cancelled callers remove their request without creating guest reply messages. Complete source partition and literal values/full stacks against pinned OTP-29.1.1 on the supported Erlang term model; not VM layout, timing or performance parity. Part500 corrects the previously incomplete retirement partition: a detached PID with pending physical/local cleanup remains an ordered target until FinishTermination; frozen Part499 evidence alone did not establish this branch.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
@@ -16701,6 +16701,30 @@
           "Path": "validation/part-499/process-liveness/affected-final.json",
           "Sha256": "D80142738705B0202A16A86592B47DF6C658D1458A00301FB1E13509A6AB2D8A",
           "Scope": "1386/1386 final affected cases, including all132 inherited BIF groups, the entire processes block, original named kernel and held-target cancellation controls."
+        },
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-500/process-retirement/source-audit.json",
+          "Sha256": "F656B24A71E3588E0CDA4B34F1AA0B280D3A913FDDD9F297EAEC8D610DBA6617",
+          "Scope": "Correct the Part499 source-partition oversight for detached but physically retiring targets; no new full-contract promotion."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-500/process-retirement/original-completion.json",
+          "Sha256": "2686D6D1D6A952F119566A2D2E02AEDB57F6A47AFD78FFC961CB4026B4C2D43F",
+          "Scope": "Actual original crypto dirty CPU admission, kill, public/internal queries, name cleanup and six complete protocol outcomes; differing native workload bodies are explicit."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-500/process-retirement/affected-final.json",
+          "Sha256": "EB3621EB42B88EEBAF0E56EFD58F7ACFAF994163FFC693CDDFD62B1BB0BA98EA",
+          "Scope": "1392/1392 on final runtime sources, retaining all132 BIF groups and the full processes block."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-500/process-retirement/dirty-retention.json",
+          "Sha256": "D038312560B0CFC32927A53F5E83359EAB3F055B5483E5A447FB55BDD5161DE6",
+          "Scope": "Five included actual CPU/IO, cancellation, Dispose/Halt and argument/EC release controls."
         }
       ],
       "Limits": [],
@@ -28155,7 +28179,7 @@
     }
   ],
   "ComparisonTestReport": "validation/part-485/native-catalog/previous-tests.json",
-  "LocalPassedTests": 9039,
+  "LocalPassedTests": 9040,
   "RegisteredMfas": 708,
   "PreviousRegisteredMfas": 708,
   "RegisteredMfaDelta": 0,
@@ -28383,7 +28407,7 @@
         "Physical BEAM heap/scheduler/resources,complete lint/spec/warnings/source stacks/code staging,connected distribution and full native/upstream/performance parity;native numeric record hashes independently matched in230, while general resource/lifecycle scope remains partial.",
         "Part378: same-function receive\u002Btry and mixed Term/raw joins remain conservative refusals; raw manual/Nil, native-entry-specific, full depth/deeper recursion/cross-image lifecycle and stale-fun dispatch profiles need separate proof."
       ],
-      "RelatedPassedTests": 1883
+      "RelatedPassedTests": 1884
     },
     {
       "Id": "Compiler",
@@ -52597,5 +52621,5 @@
       "AbsentFromReference": []
     }
   ],
-  "LocalValidationScope": "Part499 composite: exact parent CI40309862392/9037 plus final1386 affected cases;9039 unique names. Not an uninterrupted local full run. Exact publication-head continuous CI remains required."
+  "LocalValidationScope": "Part500 composite: independently verified parent CI40321433167/9039 plus final1392 affected cases, including five native retention controls;9040 unique names. Not uninterrupted. Exact new-head continuous CI remains required."
 }

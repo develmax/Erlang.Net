@@ -1,0 +1,19 @@
+{
+  "Partial": true,
+  "SelectedCount": 1,
+  "TotalCount": 9040,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/process-liveness500/physical-retirement-before-false"
+  ],
+  "Passed": 0,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "runtime/process-liveness500/physical-retirement-before-false",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Process liveness differs from pinned OTP\r\n   at Erlang.Tests.ProcessRetirement500Checks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Processes\\Lifecycle\\ProcessRetirement500Checks.cs:line 54\r\n   at Erlang.Tests.ProcessRetirement500Checks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Processes\\Lifecycle\\ProcessRetirement500Checks.cs:line 72\r\n   at Erlang.Tests.ProcessRetirement500Checks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Processes\\Lifecycle\\ProcessRetirement500Checks.cs:line 72\r\n   at Erlang.Tests.ProcessRetirement500Checks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Processes\\Lifecycle\\ProcessRetirement500Checks.cs:line 72\r\n   at Erlang.Tests.ProcessRetirement500Checks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Processes\\Lifecycle\\ProcessRetirement500Checks.cs:line 72\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 6923",
+      "Milliseconds": 114
+    }
+  ]
+}
