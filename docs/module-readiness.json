@@ -3511,11 +3511,11 @@
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbackLayout.cs",
-      "Sha256": "92FA6E00B07B4E7D49B79A038CAA87BFD6AA657A20192393DE4F4EF5AF3F305E"
+      "Sha256": "E9993DE09F1EFFFAE8AD26FAA9614DF491429B0A69901A021617FFD989D3D434"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbacks.cs",
-      "Sha256": "BB88BE862E456190564DAEDAA9B0588305F903E174A381935412EDF7AE32A8C7"
+      "Sha256": "6F5FACD0B5B7370C7F352007C4EF5BCB7512D7D0BC3F3170465D53188F77FDD2"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsLoaderNames.cs",
@@ -6920,6 +6920,14 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapCreation501Names.cs",
       "Sha256": "1F51B43126E4FB600C628A5B2847CB6C780D079FD0D128169D611581E3AF2956"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapValue503Callbacks.cs",
+      "Sha256": "359B848CBA729BC8C2C5FA80569FE9B36BAAE07CA13DF35212D02A9A4019896D"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapValue503Names.cs",
+      "Sha256": "DF32946BB761E484D068AD0E23E044B419C59EFC15FFA86E182B3861AD7D61B5"
     }
   ],
   "VerifiedCompatibleMfas": 180,
@@ -28250,7 +28258,7 @@
     }
   ],
   "ComparisonTestReport": "validation/part-485/native-catalog/previous-tests.json",
-  "LocalPassedTests": 9051,
+  "LocalPassedTests": 9055,
   "RegisteredMfas": 708,
   "PreviousRegisteredMfas": 708,
   "RegisteredMfaDelta": 0,
@@ -52692,5 +52700,5 @@
       "AbsentFromReference": []
     }
   ],
-  "LocalValidationScope": "Part502 local9051 is an explicit composite of independently verified parent501 CI40356733018/9048 and final1736 affected tests on the corrected runtime. One legacy case is deliberately renamed and three actual ownership controls are added. This is not an uninterrupted final local full run; exact publication-head continuous CI remains required. Controlled original C NIF502 and genuine Windows native-map501 loader comparisons are separate execution receipts."
+  "LocalValidationScope": "Part503 local9055 is an explicit composite: parent501 exact CI40356733018/9048, final502 affected1736 and final503 full-native plus retirement152. It is not an uninterrupted final local full run. Exact publication-head continuous CI remains required. New native callback Windows x64 execution is separate from unchanged708 registered/180 full/504 pending/24 known MFA counts."
 }

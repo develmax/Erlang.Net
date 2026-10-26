@@ -1,0 +1,68 @@
+{
+  "Status": "SCOPED_WINDOWS_X64_NATIVE_MAP_VALUE_LOCALLY_VALIDATED_EXACT_CI_PENDING",
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "NativeCallback": "enif_get_map_value",
+  "Slot": 112,
+  "OriginalSource": {
+    "Path": "erts/emulator/beam/erl_nif.c",
+    "Sha256": "66F06AB32AEDB5D1E02140C37E0215E797FB80D78C1AA4091EB52BE01465299A",
+    "Function": "enif_get_map_value",
+    "StartLine": 3700
+  },
+  "ManagedSources": [
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapValue503Callbacks.cs",
+      "Sha256": "359B848CBA729BC8C2C5FA80569FE9B36BAAE07CA13DF35212D02A9A4019896D"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapValue503Names.cs",
+      "Sha256": "DF32946BB761E484D068AD0E23E044B419C59EFC15FFA86E182B3861AD7D61B5"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbackLayout.cs",
+      "Sha256": "E9993DE09F1EFFFAE8AD26FAA9614DF491429B0A69901A021617FFD989D3D434"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbacks.cs",
+      "Sha256": "6F5FACD0B5B7370C7F352007C4EF5BCB7512D7D0BC3F3170465D53188F77FDD2"
+    }
+  ],
+  "OriginalSourcePartition": "Env unused; non-map before key; exact map lookup; output assigned only on found key.",
+  "CurrentRepresentation": "Supported maps StaticTerm MapTerm; mutable pending key graphs resolved afresh. Future pending maps require new audit.",
+  "ResultOwner": "Map environment; independent of optional env hint.",
+  "Abi": "Cdecl int(nint,nuint,nuint,nuint*); one native pointer-sized output, tested Windows x64 only.",
+  "OriginalGoldenOrigin": "Actual first pinned original acquisition, then separate resealed-plan golden repeat. No managed-seeded expected result.",
+  "OriginalGoldenSha256": "84EBCB88F48074ECF056C2EC4D307909B67AB2C162A4D592D844C44D263B6704",
+  "OriginalRawBytes": 1123,
+  "WholeRawLoaderComparisons": 2,
+  "OriginalExecuted": true,
+  "OrdinaryManagedNativeLoaderExecuted": true,
+  "ReviewedManagedNativeLoaderExecuted": true,
+  "FinalGoldenChecked": true,
+  "ProviderFiles": 6427,
+  "ProviderUnchanged": true,
+  "OwnedProcessesSettled": true,
+  "NativeImageUnloadedAndOwnershipBaselinesRestored": true,
+  "HostGroupsPassed": 4,
+  "FinalAffectedPassed": 152,
+  "FinalAffectedSelected": 152,
+  "FinalCatalog": 9055,
+  "NullFound": "Original dereferences NULL on found key; managed HOST containment is not claimed native equivalence for invalid caller behavior.",
+  "ApiDelta": 0,
+  "FullMfaContractDelta": 0,
+  "ScopedNativeCallbackDelta": 1,
+  "WindowsOnly": true,
+  "LinuxNativeExecutionClaimed": false,
+  "WholeNativeAbiPromotion": false,
+  "ExactPublicationHeadCi": "PENDING",
+  "Evidence": [
+    "final/completion.json",
+    "final/affected.json",
+    "source/independent-review.json",
+    "retained-map-constructor-completion.json"
+  ],
+  "FinalStyleCheck": {
+    "Passed": true,
+    "FilesRequiringFormatting": 0
+  }
+}

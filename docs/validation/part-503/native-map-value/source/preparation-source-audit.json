@@ -1,0 +1,92 @@
+{
+  "Status": "PREPARATION_ONLY_NOT_IMPLEMENTED_OR_EXECUTED",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Slot": 112,
+  "OriginalSources": [
+    {
+      "GitPath": "erts/emulator/beam/erl_nif_api_funcs.h",
+      "Sha256": "CF34ADA521AEB0EE00C9936320CD694F9816EDBAB960500453051CEA443DDA11",
+      "Bytes": 38959
+    },
+    {
+      "GitPath": "erts/emulator/beam/erl_nif.c",
+      "Sha256": "66F06AB32AEDB5D1E02140C37E0215E797FB80D78C1AA4091EB52BE01465299A",
+      "Bytes": 197317
+    },
+    {
+      "GitPath": "erts/emulator/beam/erl_map.c",
+      "Sha256": "47F77A3456ED1D17BAB547F50427ACA109564ED072D0945096790D84F998EA69",
+      "Bytes": 121796
+    },
+    {
+      "GitPath": "erts/doc/references/erl_nif.md",
+      "Sha256": "833FA2CC14A6776A46B288964893EFCE91A94D21F6A0A6456E515B00A43813BE",
+      "Bytes": 129163
+    }
+  ],
+  "ManagedDependencies": [
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeTermValue.cs",
+      "Sha256": "DC059AC474603881FCFEBF11C3E84A284128CE3B1AB6282963FAF1A085D50E0C",
+      "Bytes": 1229
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeTermGraph.cs",
+      "Sha256": "6FF624C4548324A070AA33532B324C534DECB5C33268427E721646F97A3F88F8",
+      "Bytes": 1028
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.cs",
+      "Sha256": "52AA8BDB06D8BB924CDAC0B9F26398E53D5CD5BBDA48CF2A9FB889FEDC9FEBE9",
+      "Bytes": 10328
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeListCellCallbacks.cs",
+      "Sha256": "E6AE7EF0AAA55ACB7DE466EDDC20F41E65DE03291984FBAFEAA2CEDD5B1BDCB2",
+      "Bytes": 1121
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeComparisonCallbacks.cs",
+      "Sha256": "24E7C71D1F89A098A5F912AE261D70AA203BA8508B9AED8B0F60AA2019732D63",
+      "Bytes": 1400
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeBinaryNode.cs",
+      "Sha256": "BF97FB511F8E1B965C00C4583DC775C40B8C0AD974162ACEDBF29B072EB3274B",
+      "Bytes": 802
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeBinaryStorage.cs",
+      "Sha256": "8AC72A9A1F6746EE1BD5C299B929C5BC911D4E0D9E30685B469B7CCA5EDBD43A",
+      "Bytes": 4438
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Collections/Maps/MapTerm.cs",
+      "Sha256": "594ED6ECD5CDAF7935C71A1E510775BCA4F79A3093B85907F5EFF236A275373F",
+      "Bytes": 4033
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Values/Term.cs",
+      "Sha256": "D00E81EC8E725BE87D5F5D75D4B086B52AAC0C3B533D1E3D53DB478DC5D89363",
+      "Bytes": 1509
+    }
+  ],
+  "Fixture": [
+    {
+      "Path": "artifacts/native-map502/fixture/map_value502.c",
+      "Sha256": "5ABEADE810BDB549F3F7FFEFE42FB2CF46BE2025E28EED8C74E657516A7682FA",
+      "Bytes": 2770
+    },
+    {
+      "Path": "artifacts/native-map502/fixture/map_value502.erl",
+      "Sha256": "4AB017891EDC166F33D90F2D00106E887C37A0226A77380BCA6FA3908DB0EA2F",
+      "Bytes": 1864
+    }
+  ],
+  "BuildExecuted": false,
+  "OriginalNativeExecuted": false,
+  "OrdinaryNativeExecuted": false,
+  "ReviewedNativeExecuted": false,
+  "ApiDelta": 0,
+  "FullContractDelta": 0
+}

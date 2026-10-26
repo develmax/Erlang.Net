@@ -1,6 +1,6 @@
 # Module readiness
 
-Baseline **OTP-29.1.1**. Local tests **9051 passed**. Runtime MFAs **708** (previous snapshot **708**, delta **0**), in **21** modules. Reference inventory: **1289** source-module rows.
+Baseline **OTP-29.1.1**. Local tests **9055 passed**. Runtime MFAs **708** (previous snapshot **708**, delta **0**), in **21** modules. Reference inventory: **1289** source-module rows.
 
 API presence is the registered, directly tested MFA count divided by the union of pinned explicit exports and BIF declarations. It is not semantic completion or test coverage. Preprocessing, generated/NIF/conditional/platform exports and complete contracts remain unresolved. Component milestones have no invented weighted percentage.
 
@@ -258,4 +258,4 @@ gen_server and supervisor have C# host facades and selected registered Erlang-mo
 
 [Native infrastructure inventory](native-infrastructure.md) tracks a separate fixed engineering inventory; its counters are not Erlang MFA totals.
 
-Part502 local9051 is an explicit composite of independently verified parent501 CI40356733018/9048 and final1736 affected tests on the corrected runtime. One legacy case is deliberately renamed and three actual ownership controls are added. This is not an uninterrupted final local full run; exact publication-head continuous CI remains required. Controlled original C NIF502 and genuine Windows native-map501 loader comparisons are separate execution receipts.
+Part503 local9055 is an explicit composite: parent501 exact CI40356733018/9048, final502 affected1736 and final503 full-native plus retirement152. It is not an uninterrupted final local full run. Exact publication-head continuous CI remains required. New native callback Windows x64 execution is separate from unchanged708 registered/180 full/504 pending/24 known MFA counts.

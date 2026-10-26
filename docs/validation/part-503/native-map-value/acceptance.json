@@ -1,0 +1,90 @@
+{
+  "Status": "FINAL_FORMATTED_BUILD_GOLDEN_REPEAT_AND_AFFECTED_PASS_EXACT_HEAD_CI_PENDING",
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "NativeCallback": "enif_get_map_value",
+  "Slot": 112,
+  "Abi": "Cdecl int(nint environment,nuint map,nuint key,nuint* output)",
+  "InitialAcquisition": {
+    "Passed": true,
+    "Platform": "windows-x64",
+    "OriginalExecuted": true,
+    "OrdinaryManagedLoaderExecuted": true,
+    "ReviewedManagedLoaderExecuted": true,
+    "WholeRawLoaderComparisons": 2,
+    "OriginalBytes": 1123,
+    "OriginalSha256": "84EBCB88F48074ECF056C2EC4D307909B67AB2C162A4D592D844C44D263B6704",
+    "GoldenChecked": false,
+    "Explanation": "Independent original acquisition establishes the golden. Both complete managed returns match that original, without normalization; a subsequent sealed golden repeat is separate.",
+    "ProviderFiles": 6427,
+    "ProviderBeforeEqual": true,
+    "ProviderAfterEqual": true,
+    "OwnedProcessesSettled": true,
+    "ReviewedPolicyInvocationCounts": {
+      "ordinary": 0,
+      "reviewed": 1
+    },
+    "ModulePresenceAndPhysicalUnloadVerified": true,
+    "EnvironmentAndBinaryOwnershipBaselinesRestored": true
+  },
+  "Golden": {
+    "Source": "Actual pinned original OTP acquisition, not managed return data",
+    "BeforeAcquisitionPlanSha256": "7C162E807C468ED6AA91A6EE07AB404084E5A1243675C0194537503FA3069F7B",
+    "AfterAcquisitionPlanSha256": "D1A9BE80F21C40E7FD8D84489401BF18F673EA14A5A383FB0170C11766EA204A",
+    "RepeatAgainstResealedPlan": "PASSED"
+  },
+  "HostFocus": {
+    "Passed": 4,
+    "Selected": 4,
+    "Scope": "Unmanaged callback-table invocation with actual environments, handles, pending binary storage, ownership and thread controls; invalid host cases are containment controls."
+  },
+  "FinalFormattedBuild": {
+    "Passed": true,
+    "Warnings": 0,
+    "Errors": 0
+  },
+  "FinalGoldenRepeat": {
+    "Passed": true,
+    "GoldenChecked": true,
+    "WholeRawLoaderComparisons": 2,
+    "OriginalBytes": 1123,
+    "NormalizedFields": 0
+  },
+  "FinalAffected": {
+    "Passed": 152,
+    "Selected": 152,
+    "Failed": 0,
+    "Catalog": 9055,
+    "Blocks": [
+      "native"
+    ],
+    "AdditionalRetirementControls": 6
+  },
+  "ExactPublicationHeadCi": "PENDING",
+  "Counts": {
+    "RegisteredApis": 708,
+    "FullMfaContracts": 180,
+    "NeedsVerification": 504,
+    "KnownDifferences": 24,
+    "ApiDelta": 0,
+    "FullMfaContractDelta": 0,
+    "ScopedNativeCallbackDelta": 1,
+    "SourceGuards": 1731,
+    "ExpectedCatalogTests": 9055,
+    "ActualCatalogTests": 9055
+  },
+  "Limits": [
+    "Windows x64 only; no Linux bridge, ARM or 32-bit native execution claim.",
+    "Original success with NULL output dereferences the pointer; managed containment does not claim equivalence for this invalid caller case.",
+    "Currently supported maps are StaticTerm MapTerm. Future pending-map constructors need a new representation/lifetime audit.",
+    "No complete map mutation/iterator family, general NIF ABI or arbitrary pointer safety claim."
+  ],
+  "StyleCheck": {
+    "Passed": true,
+    "FilesRequiringFormatting": 0
+  },
+  "RetainedConstructorNativeComparison": {
+    "Passed": true,
+    "WholeRawLoaderComparisons": 2,
+    "GoldenChecked": true
+  }
+}
