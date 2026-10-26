@@ -6878,6 +6878,9 @@ try
     foreach (var group in Erlang.Tests.RecordContract496Names.Groups)
         Test(Erlang.Tests.RecordContract496Names.TestPrefix + group.Group, () => Erlang.Tests.RecordContract496Checks.Run(group));
 
+    foreach (var group in Erlang.Tests.BuiltinContract497Names.Groups)
+        Test(Erlang.Tests.BuiltinContract497Names.TestPrefix + group.Group, () => Erlang.Tests.BuiltinContract497Checks.Run(group));
+
     var catalog = Erlang.Tests.TestRunCatalog.Create(tests.Select(test => test.Name));
     selectedTests = selection.Select(tests, catalog);
     if (selection.ListOnly)

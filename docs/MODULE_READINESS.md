@@ -255,3 +255,5 @@ Compatibility is tracked per command in an explicit, baseline-bound audited ledg
 gen_server and supervisor have C# host facades and selected registered Erlang-module adapters; full behaviour contracts remain partial. Full zero-registration inventory rows and implemented MFA names are preserved in module-readiness.json. Related test counts can overlap components and are not summed as independent coverage.
 
 [Native infrastructure inventory](native-infrastructure.md) tracks a separate fixed engineering inventory; its counters are not Erlang MFA totals.
+
+Local validation provenance: Part4979035 is a composite of exact-head parent496 CI9020 and final164 affected tests, not a new uninterrupted local full run. Exact publication-head CI remains required.

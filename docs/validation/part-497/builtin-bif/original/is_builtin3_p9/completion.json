@@ -1,0 +1,49 @@
+{
+  "Passed": true,
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ProviderFiles": 6427,
+  "ProviderBeforeEqual": true,
+  "ProviderAfterEqual": true,
+  "SourceSha256": "B7D75D885636FA666856E2D9472FF70451435A19508203958986715FEFE630DA",
+  "OriginalReceipt": {
+    "Command": [
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+      "+S",
+      "1:1",
+      "+A",
+      "1",
+      "-noshell",
+      "-noinput",
+      "-boot",
+      "no_dot_erlang",
+      "-pa",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\contracts497\\original\\is_builtin3_p9",
+      "-eval",
+      "{ok,builtin_contract497_is_builtin3_p9,_}=compile:file(\"builtin_contract497_is_builtin3_p9.erl\",[return_errors,return_warnings]),[ok=prim_file:write_file(File,term_to_binary(ordsets_core_worker:run(builtin_contract497_is_builtin3_p9,Entry),[{minor_version,2}])) || {File,Entry} <- [{\"values.etf\",run},{\"stacks.etf\",run_stacks}]],{beam_file,_,_,_,_,Functions}=beam_disasm:file(\"builtin_contract497_is_builtin3_p9.beam\"),Instructions=lists:append([Is || {function,_,_,_,Is} <- Functions]),ApplySites=[I || I <- Instructions,is_tuple(I),lists:member(element(1,I),[apply,apply_last])],true=length(ApplySites)>0,ok=prim_file:write_file(\"dispatch-proof.etf\",term_to_binary({builtin_contract497_is_builtin3_p9,length(ApplySites),ApplySites})),halt(0)."
+    ],
+    "Pid": 70512,
+    "ElapsedSeconds": 0.26599999994505197,
+    "TimedOut": false,
+    "Settled": true,
+    "ExitCode": 0,
+    "Failures": [],
+    "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  "GoldenChecked": false,
+  "NormalizedFields": 0,
+  "Errors": [],
+  "Files": {
+    "builtin_contract497_is_builtin3_p9.beam": "2F47258146F8EB87CFFDA50965EA21D7A49E00AC46A3B865A5F947BEA9FB0765",
+    "builtin_contract497_is_builtin3_p9.erl": "B7D75D885636FA666856E2D9472FF70451435A19508203958986715FEFE630DA",
+    "dispatch-proof.etf": "AC1CCC32B538C682BD201AC99B41F6D5D8D2F5C21DB0D5DDB84067D4F5ABF633",
+    "ordsets_core_support.beam": "E96720C753F9438E66367C71A90C5D0C1E3AA29091B178799986E36A8438022F",
+    "ordsets_core_worker.beam": "E345AE81943C41F82F3CBCA24B963D2D25CB24C0C15E2A0B21B72A65757D6B3F",
+    "original.exit.json": "AE52CB9A345FC6B6F0417F7B27D20770DF5E265453B63650D95A7D1BCEEF2A3C",
+    "original.live.json": "7A2D29498FBCEB57C3044C71074549718626B0A763B0D61E2E78C4B6FCE85837",
+    "original.stderr.log": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "original.stdout.log": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "stacks.etf": "DC2C0E86F5D337386DF658E21CEB34F492D1ADF07010A72744D49B4B39C482FB",
+    "values.etf": "CBCA24BCA7D8A0234765A7B0688BFC5A00E8C72CED2561FC327BAFF5B2DEC9E7"
+  }
+}

@@ -7645,12 +7645,29 @@
       "Module": "erlang",
       "Function": "is_builtin",
       "Arity": 3,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
+      "Status": "Verified compatible",
+      "Scope": "Complete supported valid-term contract audited against pinned OTP-29.1.1: exact556-entry native catalog (553 declared BIFs plus3 instruction special cases), atom validation,64-bit native-small bounds and signed32-bit arity conversion, all term families and actual interior HAMT nodes, absent/non-BIF identities, direct/dynamic calls, complete reasons/stacks and source-proved independence from ordinary module load/delete/NIF code addresses. Own-state node identity is bound only where required; no whole-module, physical-layout or performance claim.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-497/builtin-bif/source-audit.json",
+          "Sha256": "28EE22BEF22844994F8B1A7C6F86038993E8502ACFAD9F60B35580AD31ADE5A2",
+          "Scope": "Complete argument/lookup partition, exact original catalog set and source-proved export lifetime."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-497/builtin-bif/original-comparison.json",
+          "Sha256": "4575D9A9B270076C5F70DE42BA114F74445333E6FA9DC704E80FD6EC38E3CB1B",
+          "Scope": "811 values and4055 complete stack profiles:4848 literal whole outputs plus18 actual own-node protocols."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-497/builtin-bif/affected-final.json",
+          "Sha256": "E15C3B183E991E4D7D28DD29F80376BEAAF4FC5621463C9F73973AA4DA0244AF",
+          "Scope": "164/164 final affected tests:117 inherited BIF groups,15 new groups and32 function-query regressions."
+        }
+      ],
+      "Limits": []
     },
     {
       "Module": "erlang",
@@ -27316,6 +27333,18 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Native/Primitives/NativeRecordNames.cs",
       "Sha256": "999E916A53ED318F39DA44C8A670BDE694B1D5DECD5D66017CBBEE47CCA1BC62"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangFunctionRegistrations.cs",
+      "Sha256": "5CC88848F3F11D258D37F6730A47562FB433F470B01D82633C1A7DD82AC3D2C4"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangFunctionParameters.cs",
+      "Sha256": "060E8CFF29DED53499693C8B0DCE39DD2839DED010B2BDA0A9C8D4F79CC4EDCD"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangFunctionBifNames.cs",
+      "Sha256": "B39E3A55265B495F98F09BE83CBC500D329263FD5582AE3FD393E4576BE75C3E"
     }
   ]
 }
