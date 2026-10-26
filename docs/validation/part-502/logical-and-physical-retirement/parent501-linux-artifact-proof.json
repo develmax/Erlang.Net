@@ -1,0 +1,29 @@
+{
+  "Passed": true,
+  "Platform": "linux",
+  "SourceBindings": {
+    "tools/Native/Erlang.NifOrdinaryLoaderObservations/run.py": "AF3CAA69E0F7E03001F0493908A5141FB30A53D84077CA8537A80483D73E7B6D",
+    "tools/Native/Erlang.NifLinuxCallbackObservations/prepare.py": "5441CE2D3BE09E1DE85D9C409D09858A626BB88EBB2CC2695036F547F0724207",
+    ".github/workflows/nif-linux-callback17.yml": "3BBEE9C44C4A17C1EDDEBE22A5F811B3E3C8EA2389AE54AB8DD0EFFCB6397F92",
+    "tools/Validation/ReviewFollowup498/check-tool-paths.py": "E90B78C3483555BE0BC6C8339087C1EF5525C633C79908040AE7BFBBA173AC23",
+    "tools/Native/Erlang.NifEntryOriginalObservations/common.py": "74C2E6E59B1E4BA2629920399BF83B852CAB16D5FC352CDCD10B5A6656613C3D",
+    "tools/Distribution/Erlang.GuestConnectedSendObservations/owned_process.py": "846101AD4F92121ACB128EAFB3228DD66D8A524CE0539A25E020A77010CFF071",
+    "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/source_inputs.py": "28B06562E1621DF049D4C1B603B5AD7D9EBDA6C0BE616D21D54CCD4B03A34F45",
+    "tools/Distribution/Erlang.GuestConnectedSendObservations/passive_etf.py": "A069AD650B3EA1BE6B90DE60117B84ED7A1A6B67128CC41E7ECAEFD2889C1713"
+  },
+  "ImportedModules": {
+    "common": "tools/Native/Erlang.NifEntryOriginalObservations/common.py",
+    "owned_process": "tools/Distribution/Erlang.GuestConnectedSendObservations/owned_process.py",
+    "source_inputs": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/source_inputs.py",
+    "passive_etf": "tools/Distribution/Erlang.GuestConnectedSendObservations/passive_etf.py"
+  },
+  "PreparedObservers": [
+    "tools/Native/Erlang.NifMapSizeOriginalObservations",
+    "tools/Native/Erlang.NifMakeReferenceOriginalObservations"
+  ],
+  "WorkflowCommandsResolved": 4,
+  "NativeExecutionClaimed": false,
+  "ArtifactSha256": "c0dd081a9b22b8e9b9e6db0c4bc1f5e771295249c83b59b8af434b57a3718b30",
+  "ExpectedHead": "0363df7e5e5024707469f8a6518b0d7c2290375e",
+  "ActualCommittedSourceHashesVerified": true
+}

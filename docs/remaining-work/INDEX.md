@@ -1,10 +1,10 @@
 # Remaining work
 
-## Part501 current contract queue
+## Part502 current contract queue
 
-See [checkpoint501](checkpoint-501.md):708 registered,180 verified full contracts,504 pending and24 recorded differences. The original559 pending cohort has62 closed/497 remaining; seven reclassified former differences require full audits. `node/1` adds one full guest contract. The corrected native connection default leaves its complete native command audit pending. `enif_make_new_map` adds a selected Windows native callback, not a registered Erlang MFA.
+See [checkpoint502](checkpoint-502.md):708 registered,180 full contracts,504 pending and24 known differences; API/full deltas0/0. Original559 cohort62 closed/497 remain, plus seven reclassified contracts.
 
-Current candidate validation:1733/1733 affected,810 literal node outcomes/profiles, six native capacity protocol comparisons, genuine original/ordinary/reviewed empty-map outputs and physical cleanup. Local9048 readiness is explicitly composite. Exact final-source CI remains a delivery gate. Older checkpoints retain their historical boundaries.
+The controlled original C NIF refutes Part500's physical-completion inference. Part502 separates logical death from physical retirement, preserves actual ETS ordering and strong Dispose/Halt joins, and explicitly supersedes the old interpretation. Parent501 green9048 CI is independently verified; final502 affected/CI/review states are recorded in [current evidence](../validation/part-502/logical-and-physical-retirement/README.md). Native enif_get_map_value is prepared separately and earns no compatibility credit before original acquisition and integration.
 
 ## Immediate queue
 

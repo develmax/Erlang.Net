@@ -2,7 +2,8 @@ namespace Erlang.Tests;
 
 internal static class ProcessRetirement500Names
 {
-    internal const string Test = "runtime/process-liveness500/physical-retirement-before-false";
+    internal const string Test = "runtime/process-liveness500/logical-retirement-before-false";
+    internal const string DirtyQuery = "is_process_executing_dirty";
     internal const string Registered = "process_retirement500_owner";
     internal const string Prefix = "Erlang.Tests.ProcessRetirement500.";
     internal const string Values = "values.etf";

@@ -1,0 +1,19 @@
+{"Partial":true,"SelectedCount":4,"TotalCount":9051}
+PASS runtime/process-liveness500/logical-retirement-before-false
+PASS runtime/process-liveness502/logical-exit-before-physical-dirty-completion
+PASS runtime/allocator502/logical-exit-before-actual-auxiliary-drain
+FAIL runtime/process-liveness502/actual-ets-retirement-before-logical-exit: System.InvalidOperationException: Actual ETS logical retirement502 must precede liveness replies and DOWN
+   at Erlang.Tests.LogicalStorageRetirement502Checks.Check(Boolean condition) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Runtime\Processes\Lifecycle\LogicalStorageRetirement502Checks.cs:line 142
+   at Erlang.Tests.LogicalStorageRetirement502Checks.<>c__DisplayClass0_0.<Run>b__1() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Runtime\Processes\Lifecycle\LogicalStorageRetirement502Checks.cs:line 37
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Erlang.Tests.LogicalStorageRetirement502Checks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Runtime\Processes\Lifecycle\LogicalStorageRetirement502Checks.cs:line 116
+   at Erlang.Tests.LogicalStorageRetirement502Checks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Runtime\Processes\Lifecycle\LogicalStorageRetirement502Checks.cs:line 121
+   at Erlang.Tests.LogicalStorageRetirement502Checks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Runtime\Processes\Lifecycle\LogicalStorageRetirement502Checks.cs:line 121
+   at Erlang.Tests.LogicalStorageRetirement502Checks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Runtime\Processes\Lifecycle\LogicalStorageRetirement502Checks.cs:line 121
+   at Erlang.Tests.LogicalStorageRetirement502Checks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Runtime\Processes\Lifecycle\LogicalStorageRetirement502Checks.cs:line 121
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 6948
+3/4 passed

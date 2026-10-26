@@ -6887,6 +6887,9 @@ try
     );
     Test(Erlang.Tests.ProcessLiveness499Names.OrderingTest, Erlang.Tests.ProcessLiveness499OrderingChecks.Run);
     Test(Erlang.Tests.ProcessRetirement500Names.Test, Erlang.Tests.ProcessRetirement500Checks.Run);
+    Test(Erlang.Tests.LogicalRetirement502Names.Test, Erlang.Tests.LogicalRetirement502Checks.Run);
+    Test(Erlang.Tests.LogicalAllocatorRetirement502Names.Test, Erlang.Tests.LogicalAllocatorRetirement502Checks.Run);
+    Test(Erlang.Tests.LogicalStorageRetirement502Names.Test, Erlang.Tests.LogicalStorageRetirement502Checks.Run);
     foreach (var group in Erlang.Tests.NodeNative501Names.Groups)
         Test(Erlang.Tests.NodeNative501Names.TestPrefix + group.Family, () => Erlang.Tests.NodeNative501Checks.Run(group));
     Test(

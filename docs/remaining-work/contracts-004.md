@@ -1,6 +1,6 @@
 # Unclosed default contracts — volume4
 
-Current candidate: Part501. Whole contract evidence remains in the canonical [ledger](../mfa-compatibility.json); see [cohort progress](checkpoint-501.md).
+Current candidate: Part502. Whole contract evidence remains in the canonical [ledger](../mfa-compatibility.json); see [cohort progress](checkpoint-502.md).
 
 - `ordsets:from_list/1` — **Needs verification**. Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim.
 - `ordsets:intersection/1` — **Needs verification**. Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim.

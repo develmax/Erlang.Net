@@ -6796,7 +6796,7 @@
       "Function": "is_process_alive",
       "Arity": 1,
       "Status": "Verified compatible",
-      "Scope": "Replace unordered ContainsKey result with existing ordered request machinery, retaining self/idle fast paths. Cancelled callers remove their request without creating guest reply messages. Complete source partition and literal values/full stacks against pinned OTP-29.1.1 on the supported Erlang term model; not VM layout, timing or performance parity. Part500 corrects the previously incomplete retirement partition: a detached PID with pending physical/local cleanup remains an ordered target until FinishTermination; frozen Part499 evidence alone did not establish this branch.",
+      "Scope": "Ordered liveness requests retain self/idle fast paths and caller cancellation cleanup. Part502 explicitly supersedes the Part500 physical-completion inference: logical owned-storage retirement precedes false/name removal/DOWN; independent dirty native and allocator physical work may outlive those guest events. Host completion, Dispose and Halt still join real physical settlement. The controlled original C NIF proves both phases with independent physical markers, not the filtered dirty lookup. Complete source/term/error/full-stack partition on the supported Erlang term model; no identical VM layout, timings or performance claim.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
@@ -6820,25 +6820,43 @@
           "Kind": "CompatibilityAudit",
           "Path": "validation/part-500/process-retirement/source-audit.json",
           "Sha256": "F656B24A71E3588E0CDA4B34F1AA0B280D3A913FDDD9F297EAEC8D610DBA6617",
-          "Scope": "Correct the Part499 source-partition oversight for detached but physically retiring targets; no new full-contract promotion."
+          "Scope": "Historical Part500 evidence, retained unchanged; its physical-completion inference is superseded by Part502. Correct the Part499 source-partition oversight for detached but physically retiring targets; no new full-contract promotion."
         },
         {
           "Kind": "OriginalOtpComparison",
           "Path": "validation/part-500/process-retirement/original-completion.json",
           "Sha256": "2686D6D1D6A952F119566A2D2E02AEDB57F6A47AFD78FFC961CB4026B4C2D43F",
-          "Scope": "Actual original crypto dirty CPU admission, kill, public/internal queries, name cleanup and six complete protocol outcomes; differing native workload bodies are explicit."
+          "Scope": "Historical Part500 evidence, retained unchanged; its physical-completion inference is superseded by Part502. Actual original crypto dirty CPU admission, kill, public/internal queries, name cleanup and six complete protocol outcomes; differing native workload bodies are explicit."
         },
         {
           "Kind": "LocalValidation",
           "Path": "validation/part-500/process-retirement/affected-final.json",
           "Sha256": "EB3621EB42B88EEBAF0E56EFD58F7ACFAF994163FFC693CDDFD62B1BB0BA98EA",
-          "Scope": "1392/1392 on final runtime sources, retaining all132 BIF groups and the full processes block."
+          "Scope": "Historical Part500 evidence, retained unchanged; its physical-completion inference is superseded by Part502. 1392/1392 on final runtime sources, retaining all132 BIF groups and the full processes block."
         },
         {
           "Kind": "LocalValidation",
           "Path": "validation/part-500/process-retirement/dirty-retention.json",
           "Sha256": "D038312560B0CFC32927A53F5E83359EAB3F055B5483E5A447FB55BDD5161DE6",
-          "Scope": "Five included actual CPU/IO, cancellation, Dispose/Halt and argument/EC release controls."
+          "Scope": "Historical Part500 evidence, retained unchanged; its physical-completion inference is superseded by Part502. Five included actual CPU/IO, cancellation, Dispose/Halt and argument/EC release controls."
+        },
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-502/logical-and-physical-retirement/acceptance.json",
+          "Sha256": "9E8816479E7045C802D234D7F4CB936F8B034BEBD3287E810209D8F9B1073EC4",
+          "Scope": "Controlled original proof and source-guided logical/physical phase correction; no new contract promotion."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-502/logical-and-physical-retirement/original/completion.json",
+          "Sha256": "4788516D2D3A60B92782C17AA749FA24BF1C4CB887F5A25FE1E7A28E00A6E3A5",
+          "Scope": "Actual C markers prove unfinished body before false/name removal/DOWN; whole raw golden and cleanup,6427 provider files unchanged."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-502/logical-and-physical-retirement/affected-final.json",
+          "Sha256": "BC108310BB53E8B72471428846FF4611E620A4C283EE978E96ADDC3280D31251",
+          "Scope": "1736/1736 final affected tests; corrected500 query uses actual dirty BIF, actual dirty/aux/ETS barriers and retained Dispose/Halt controls."
         }
       ],
       "Limits": []
@@ -25123,7 +25141,7 @@
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ExitContinuation.cs",
-      "Sha256": "4CD3D98A4A2B4832E29DD57D2F52FBADD82F0D7B8AC83B2F41BB81253D152E45"
+      "Sha256": "6B458B667AE40357C95BE970DF0BCD30C8FAEEBF02F6303DFBBD72DB7B1DDAA3"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ExternalTerms.cs",
@@ -25307,7 +25325,7 @@
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
-      "Sha256": "64DD5F7FC096EA81DF1F61DA0E0E9B3ACABCDD858CE305EE5B32702372097E3F"
+      "Sha256": "382130AEC0E755C7ADEB053F913A2658A9107A008B2175B5D5F7A8D5DB9E19B3"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntimeOptions.cs",
@@ -25491,7 +25509,7 @@
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessExitContinuation.cs",
-      "Sha256": "8543D7468380A1EB78B3DE88CA15ED75368C4FB79DFD8C2173BB5C5B3E521066"
+      "Sha256": "AE2DDC6E0D727441FB06A69AAAACDB79C2EEB0DE652CBC1C90BED389C710E9D6"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessFullSweepAfter.cs",

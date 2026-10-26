@@ -1496,24 +1496,26 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             IReadOnlyList<DistributionExitOutput> remoteOutput = Array.Empty<DistributionExitOutput>();
             CleanupStep(() => remoteOutput = CaptureDistributionExitOutput(ctx, reason));
             Task storage = Task.CompletedTask;
+            Task physical = Task.CompletedTask;
             CleanupStep(() => storage = etsFoundation?.ProcessTerminated(ctx.Self) ?? Task.CompletedTask);
             CleanupStep(() => storage = RegexProcessRetirement411(ctx, storage));
             CleanupStep(() => storage = PersistentProcessRetirement417(ctx, storage));
             CleanupStep(() => storage = SystemTaskProcessRetirement428(ctx, storage));
-            CleanupStep(() => storage = DirtyNativeProcessRetirement419(ctx, storage));
+            CleanupStep(() => physical = DirtyNativeProcessRetirement419(ctx, Task.CompletedTask));
             CleanupStep(() => storage = DebugDispatchProcessRetirement432(ctx, storage));
             CleanupStep(() => storage = CountersProcessRetirement421(ctx, storage));
             CleanupStep(() => storage = HamtProcessRetirement429(ctx, storage));
             CleanupStep(() => storage = EtsQueueRetirement419(ctx, storage));
             CleanupStep(() => storage = DriverFrontendProcessRetirement422(ctx, storage));
             CleanupStep(() => storage = CodePurgerProcessRetirement432(ctx, storage));
-            CleanupStep(() => storage = AllocatorGatherProcessRetirement434(ctx, storage));
+            CleanupStep(() => physical = AllocatorGatherProcessRetirement434(ctx, physical));
             ProcessExitContinuation? exit = null;
             if (!storage.IsCompleted)
             {
                 exit = new(ctx, reason, remoteOutput)
                 {
                     StorageRetirement = storage,
+                    PhysicalRetirement = physical,
                     PreparationFailures = failures
                 };
                 StartExitContinuation(exit);
@@ -1523,9 +1525,9 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 return;
             }
             CleanupStep(() => storage.GetAwaiter().GetResult());
-            if (remoteOutput.Count != 0)
+            if (remoteOutput.Count != 0 || !physical.IsCompletedSuccessfully)
             {
-                exit = new(ctx, reason, remoteOutput);
+                exit = new(ctx, reason, remoteOutput) { PhysicalRetirement = physical };
                 StartExitContinuation(exit);
             }
             FinishTermination(
@@ -1549,7 +1551,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         }
     }
 
-    // Called under runtime.gate, after owned storage retirement and before DOWN/links/Done.
+    // Called under runtime.gate after logical storage retirement. Host Done still joins physical work.
     private void FinishTermination(
         ProcessContext ctx,
         Term reason,

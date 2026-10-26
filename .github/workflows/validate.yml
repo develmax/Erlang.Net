@@ -109,6 +109,15 @@ jobs:
           }
           python -B tools/Native/Erlang.NifMapCreation501Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 3E2BAFD2AB62E8588434C07C3CD341D9E429333C6AF4F7916E4D2279D9954579 --output artifacts/native-map501/ci --runtime-version 10.0.11 --check-golden
           if ($LASTEXITCODE -ne 0) { throw 'Native map501 original/ordinary/reviewed comparison failed; inspect all phase receipts' }
+      - name: Verify logical death before physical dirty completion in pinned OTP
+        if: ${{ !cancelled() }}
+        shell: pwsh
+        run: |
+          if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
+            throw 'Retirement502 requires successful original-provider preparation; dependent native execution was not started'
+          }
+          python -B tools/Native/Erlang.ProcessRetirement502OriginalObservations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 63171EAC39BEF4AD0DEBE1F4CD09241EA6C4F6967CB8FABBCC638D6F540B7B76 --output artifacts/process-retirement502/ci --check-golden
+          if ($LASTEXITCODE -ne 0) { throw 'Retirement502 controlled original protocol failed; inspect native markers and owned-process receipt' }
       - uses: actions/upload-artifact@v7
         if: always()
         with:
@@ -116,6 +125,7 @@ jobs:
           path: |
             artifacts/tests.json
             artifacts/native-map501/ci/**
+            artifacts/process-retirement502/ci/**
             artifacts/contracts487/ci-original/**
             artifacts/contracts489/ci-original/**
             artifacts/contracts490/ci-original/**

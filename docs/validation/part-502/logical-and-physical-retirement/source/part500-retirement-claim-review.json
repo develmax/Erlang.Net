@@ -1,0 +1,94 @@
+{
+  "Status": "SOURCE_BOUND_REFUTATION_OF_PHYSICAL_COMPLETION_INFERENCE",
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Sources": [
+    {
+      "Path": "erts/emulator/beam/erl_process_lock.h",
+      "Sha256": "43CED660D93B11BECE618BF2CF50C25A7B42ACC7C4BA42A2FE480EB737C60F3A",
+      "Ranges": [
+        {
+          "Start": 1135,
+          "End": 1157,
+          "Text": "ERTS_GLB_INLINE Process *erts_proc_lookup_raw(Eterm pid)\n{\n    Process *proc;\n\n    ERTS_LC_ASSERT(erts_thr_progress_lc_is_delaying());\n\n    if (is_not_internal_pid(pid))\n\treturn NULL;\n\n    proc = (Process *) erts_ptab_pix2intptr_ddrb(&erts_proc,\n\t\t\t\t\t\t internal_pid_index(pid));\n    if (proc && proc->common.id != pid)\n\treturn NULL;\n    return proc;\n}\n\nERTS_GLB_INLINE Process *erts_proc_lookup(Eterm pid)\n{\n    Process *proc = erts_proc_lookup_raw(pid);\n    if (proc && ERTS_PROC_IS_EXITING(proc))\n\treturn NULL;\n    return proc;\n}"
+        }
+      ]
+    },
+    {
+      "Path": "erts/emulator/beam/erl_bif_info.c",
+      "Sha256": "9A86723F7BCE38BCB64B4CF3E7759FFC51CEFA9973CB11B36DC26A263A329149",
+      "Ranges": [
+        {
+          "Start": 4049,
+          "End": 4110,
+          "Text": "BIF_RETTYPE erts_internal_is_process_alive_2(BIF_ALIST_2)\n{\n    if (!is_internal_pid(BIF_ARG_1) || !is_internal_ordinary_ref(BIF_ARG_2))\n        BIF_ERROR(BIF_P, BADARG);\n    if (!erts_proc_sig_send_is_alive_request(BIF_P, BIF_ARG_1, BIF_ARG_2)) {\n        if (ERTS_PROC_HAS_INCOMING_SIGNALS(BIF_P))\n            ERTS_BIF_HANDLE_SIGNALS_FROM_RETURN(BIF_P, BIF_ARG_1, am_ok);\n    }\n    BIF_RET(am_ok);\n}\n\nBIF_RETTYPE is_process_alive_1(BIF_ALIST_1) \n{\n\n    if (is_internal_pid(BIF_ARG_1)) {\n        BIF_RETTYPE result;\n        Process *rp;\n\n        if (BIF_ARG_1 == BIF_P->common.id)\n            BIF_RET(am_true);\n\n        rp = erts_proc_lookup_raw(BIF_ARG_1);\n        if (!rp) {\n            result = am_false;\n        }\n        else {\n            erts_aint32_t state = erts_atomic32_read_acqb(&rp->state);\n            if (state & (ERTS_PSFLG_EXITING\n                         | ERTS_PSFLG_SIG_Q\n                         | ERTS_PSFLG_MSG_SIG_IN_Q\n                         | ERTS_PSFLG_NMSG_SIG_IN_Q)) {\n                /*\n                 * If in exiting state, trap out and send 'is alive'\n                 * request and wait for it to complete termination.\n                 *\n                 * If process has signals enqueued, we need to\n                 * send it an 'is alive' request via its signal\n                 * queue in order to ensure that signal order is\n                 * preserved (we may earlier have sent it an\n                 * exit signal that has not been processed yet).\n                 */\n                BIF_TRAP1(is_process_alive_trap, BIF_P, BIF_ARG_1);\n            }\n\n            result = am_true;\n        }\n\n        if (ERTS_PROC_HAS_INCOMING_SIGNALS(BIF_P)) {\n            /*\n             * Ensure that signal order of signals from inspected\n             * process to us is preserved...\n             */\n            ERTS_BIF_HANDLE_SIGNALS_FROM_RETURN(BIF_P, BIF_ARG_1, result);\n        }\n        BIF_RET(result);\n    }\n\n   if (is_external_pid(BIF_ARG_1)) {\n       if (external_pid_dist_entry(BIF_ARG_1) == erts_this_dist_entry)\n\t   BIF_RET(am_false); /* A pid from an old incarnation of this node */\n   }\n"
+        }
+      ]
+    },
+    {
+      "Path": "erts/emulator/beam/erl_proc_sig_queue.c",
+      "Sha256": "8C09013466104034A847E3439DF4D31C4D5184D2C46430A3CDB0F86710F2C519",
+      "Ranges": [
+        {
+          "Start": 3027,
+          "End": 3083,
+          "Text": "erts_proc_sig_send_is_alive_request(Process *c_p, Eterm to, Eterm ref)\n{\n    ErlHeapFragment *hfrag;\n    Uint hsz;\n    Eterm *hp, *start_hp, ref_cpy, msg;\n    ErlOffHeap *ohp;\n    ErtsMessage *mp;\n    ErtsIsAliveRequest *alive_req;\n\n    ASSERT(is_internal_ordinary_ref(ref));\n\n    hsz = ERTS_REF_THING_SIZE + 3 + sizeof(ErtsIsAliveRequest)/sizeof(Eterm);\n\n    mp = erts_alloc_message(hsz, &hp);\n    hfrag = &mp->hfrag;\n    mp->next = NULL;\n    ohp = &hfrag->off_heap;\n    start_hp = hp;\n\n    ref_cpy = STORE_NC(&hp, ohp, ref);\n    msg = TUPLE2(hp, ref_cpy, am_false); /* default res 'false' */\n    hp += 3;\n\n    hfrag->used_size = hp - start_hp;\n\n    alive_req = (ErtsIsAliveRequest *) (char *) hp;\n    alive_req->message = msg;\n    alive_req->requester = c_p->common.id;\n\n    ERL_MESSAGE_TERM(mp) = ERTS_PROC_SIG_MAKE_TAG(ERTS_SIG_Q_OP_IS_ALIVE,\n                                                  ERTS_SIG_Q_TYPE_UNDEFINED,\n                                                  0);\n\n    if (proc_queue_signal(&c_p->common, c_p->common.id, to,\n                          (ErtsSignal *)mp, 0, ERTS_SIG_Q_OP_IS_ALIVE)) {\n        (void) maybe_elevate_sig_handling_prio(c_p, -1, to);\n        return !0;\n    }\n    else {\n        /* It wasn't alive; reply to ourselves... */\n        mp->next = NULL;\n        mp->data.attached = ERTS_MSG_COMBINED_HFRAG;\n        erts_queue_message(c_p, ERTS_PROC_LOCK_MAIN, mp, msg, am_system);\n        return 0;\n    }\n}\n\nint\nerts_proc_sig_send_process_info_request(Process *c_p,\n                                        Eterm to,\n                                        int *item_ix,\n                                        Eterm *item_extra,\n                                        int len,\n                                        int flags,\n                                        Uint reserve_size,\n                                        Eterm ref)\n{"
+        },
+        {
+          "Start": 7399,
+          "End": 7404,
+          "Text": "\n        case ERTS_SIG_Q_OP_IS_ALIVE:\n            is_alive_response(c_p, sig, 0);\n            break;\n\n        case ERTS_SIG_Q_OP_PROCESS_INFO:"
+        }
+      ]
+    },
+    {
+      "Path": "erts/emulator/beam/erl_process.c",
+      "Sha256": "89CBDB55BE2A97E77B2450BB3D339CA6DB934B9C4BF556EAD29B4EAE88072DC9",
+      "Ranges": [
+        {
+          "Start": 9215,
+          "End": 9233,
+          "Text": "BIF_RETTYPE\nerts_internal_is_process_executing_dirty_1(BIF_ALIST_1)\n{\n    if (is_not_internal_pid(BIF_ARG_1))\n\tBIF_ERROR(BIF_P, BADARG);\n    else {\n\tProcess *rp = erts_proc_lookup(BIF_ARG_1);\n\tif (rp) {\n\t    erts_aint32_t state = erts_atomic32_read_nob(&rp->state);\n\t    if (state & (ERTS_PSFLG_DIRTY_RUNNING\n\t\t\t |ERTS_PSFLG_DIRTY_RUNNING_SYS)) {\n\t\tBIF_RET(am_true);\n\t    }\n\t}\n    }\n    BIF_RET(am_false);\n}\n\nBIF_RETTYPE"
+        },
+        {
+          "Start": 13530,
+          "End": 13550,
+          "Text": "    c_p->i = beam_exit;\n\n    /* Always active when exiting... */\n    ASSERT(state & ERTS_PSFLG_ACTIVE);\n\n    /*\n     * If we are terminating a process that currently\n     * is executing on a dirty scheduler. It *should*\n     * be scheduled on a normal scheduler...\n     */\n    ASSERT(!(state & (ERTS_PSFLG_DIRTY_RUNNING\n                      | ERTS_PSFLG_DIRTY_RUNNING_SYS))\n           || enqueue == ERTS_ENQUEUE_NORMAL_QUEUE\n           || enqueue == -ERTS_ENQUEUE_NORMAL_QUEUE);\n\n    erts_proc_unlock(c_p, ERTS_PROC_LOCKS_ALL_MINOR);\n    if (enqueue)\n        add2runq(enqueue, enq_prio, c_p, state);\n}\n\nstatic int"
+        },
+        {
+          "Start": 14418,
+          "End": 14466,
+          "Text": "        }\n\n        /*\n         * The registered name *should* be the last \"erlang resource\" to\n         * cleanup.\n         */\n        if (p->common.u.alive.reg) {\n            (void) erts_unregister_name(p, ERTS_PROC_LOCK_MAIN, NULL, THE_NON_VALUE);\n            ASSERT(!p->common.u.alive.reg);\n        }\n\n        erts_proc_lock(p, ERTS_PROC_LOCKS_ALL_MINOR);\n        curr_locks = ERTS_PROC_LOCKS_ALL;\n\n        if (p->common.tracee.first_ref) {\n            reds -= delete_unalive_trace_refs(&p->common);\n        }\n\n        /*\n         * Note! The monitor and link fields will be overwritten \n         * by erts_ptab_delete_element() below.\n         */\n        trap_state->links = ERTS_P_LINKS(p);\n        trap_state->monitors = ERTS_P_MONITORS(p);\n        trap_state->lt_monitors = ERTS_P_LT_MONITORS(p);\n\n        {\n            /* Do *not* use erts_get_runq_proc() */\n            ErtsRunQueue *rq;\n            rq = erts_get_runq_current(erts_proc_sched_data(p));\n\n            erts_runq_lock(rq);\n\n            ASSERT(p->scheduler_data);\n            ASSERT(p->scheduler_data->current_process == p);\n            ASSERT(p->scheduler_data->free_process == NULL);\n\n            /* Time of death! */\n            erts_ptab_delete_element(&erts_proc, &p->common);\n\n            erts_runq_unlock(rq);\n        }\n\n        /*\n         * All \"erlang resources\" have to be deallocated before this point,\n         * e.g. registered name, so monitoring and linked processes can\n         * be sure that all interesting resources have been deallocated\n         * when the monitors and/or links hit.\n         */"
+        },
+        {
+          "Start": 14750,
+          "End": 14770,
+          "Text": "        ASSERT(p->scheduler_data->free_process == NULL);\n\n        p->scheduler_data->current_process = NULL;\n        p->scheduler_data->free_process = p;\n\n        if (state & (ERTS_PSFLG_DIRTY_RUNNING\n                     | ERTS_PSFLG_DIRTY_RUNNING_SYS)) {\n            p->flags |= F_DELAYED_DEL_PROC;\n            delay_del_proc = 1;\n            /*\n             * The dirty scheduler decrease refc\n             * when done with the process...\n             */\n        }\n\n        erts_schedule_thr_prgr_later_cleanup_op(\n            (void (*)(void*))erts_proc_dec_refc,\n            (void *) &p->common,\n            &p->common.u.release,\n            sizeof(Process));\n"
+        }
+      ]
+    }
+  ],
+  "Findings": [
+    {
+      "Claim": "is_process_executing_dirty(Pid)==false establishes physical dirty callback finished",
+      "Result": "FALSE",
+      "Reason": "BIF uses nonraw erts_proc_lookup; this rejects EXITING before checking DIRTY_RUNNING. False is possible as soon as EXITING is set, independently of callback completion."
+    },
+    {
+      "Claim": "is_process_alive(Pid) must wait for physical dirty body completion after native process table deletion",
+      "Result": "FALSE_BY_SOURCE",
+      "Reason": "Public BIF raw table lookup absent returns false. EXIT_FREE deletes PTab before delayed physical dirty release. Native2 request to absent process self-replies false. Requests queued during exit are answered in EXIT_HANDLE_PROC_SIG before delayed physical deletion."
+    },
+    {
+      "Claim": "An existing exiting PTab entry is treated exactly like absent process",
+      "Result": "FALSE",
+      "Reason": "Public1 traps for EXITING/signals to preserve exit/resource and signal ordering. A managed fix must preserve this pre-FREE phase rather than always returning false at Terminated."
+    }
+  ],
+  "CurrentManagedConcern": "FindProcessAliveTarget425 searches exitContinuations until LocalCleanup completes; LocalCleanup waits aggregated retirement including actual dirty work. This conflates pre-FREE logical resource retirement with post-FREE physical dirty work. Source partition requires separation, but no implementation changes or runtime discrepancy witness performed in this audit.",
+  "Original500EvidenceLimit": "Crypto dirty probe uses lookup-based is_process_executing_dirty. Its final false plus false liveness and absent name is not proof original physical body stopped. Existing whole output equality cannot justify a controlled managed physical-retirement fence absent equivalent original physical handshake.",
+  "NextProof": "Controlled genuine original dirty NIF signals entry to a separate owner then blocks on owned native event. Observer kills target and records liveness replies, process-table membership, name and DOWN while native event remains blocked; release event in finally and verify actual physical completion/unload separately. Pin source/tool/library hashes and actual ordinary loader path.",
+  "TrackedChanges": 0,
+  "TestsExecuted": 0,
+  "ApiDelta": 0,
+  "FullContractDelta": 0
+}

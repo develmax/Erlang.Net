@@ -1,0 +1,111 @@
+{
+  "Status": "FINAL_AFFECTED_PASSED_EXACT_PUBLICATION_HEAD_CI_PENDING",
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SupersedesPart500PhysicalCompletionInference": true,
+  "HistoricalPart500FilesRewritten": false,
+  "Original": {
+    "Platform": "windows-x64",
+    "ActualCNativeLibraryExecuted": true,
+    "WholeRawProtocolVerified": true,
+    "NormalizedFields": 0,
+    "EnteredBeforeKill": 1,
+    "DoneBeforeExplicitRelease": 0,
+    "WaitBeforeRelease": -1,
+    "PublicAliveBeforeRelease": false,
+    "NativeAliveBeforeRelease": false,
+    "NameBeforeRelease": "undefined",
+    "DownBeforeRelease": "killed",
+    "DoneAfterRelease": 1,
+    "WaitAfterRelease": 0,
+    "ProviderFiles": 6427,
+    "ProviderBeforeEqual": true,
+    "ProviderAfterEqual": true,
+    "OwnedVmSettled": true
+  },
+  "Managed": {
+    "DirtyProtocolReplica": "Actual owned C# dirty CPU callback with independent physical markers; whole encoded protocol compared literally to original/returned.etf. This is not native C execution in the managed runtime.",
+    "AuxiliaryControl": "Actual admitted allocator auxiliary batch held on its real lane; logical replies/name/DOWN precede PhysicalDone, while host completion/disposal join it. Source-guided ownership regression, not controlled original auxiliary execution.",
+    "StorageControl": "Actual ETS object retirement blocked on real stored-object gate reached through real read lease; both actual alive requests admitted and pending until logical storage cleanup. Read lease alone is not the barrier.",
+    "HostCompletion": "Done, exit-continuation Quiescence, Dispose and Halt continue joining physical ownership, including failure paths.",
+    "Original500Golden": "Fourth field now obtained from actual is_process_executing_dirty/1 lookup semantics rather than substituting physical callback done. Original published golden bytes retained.",
+    "RenamedCase": {
+      "Previous": "runtime/process-liveness500/physical-retirement-before-false",
+      "Current": "runtime/process-liveness500/logical-retirement-before-false",
+      "CountDelta": 0
+    }
+  },
+  "FocusedHistory": {
+    "InitialControlledManaged": {
+      "Passed": 0,
+      "Selected": 1
+    },
+    "AfterDirtySplit": {
+      "Passed": 9,
+      "Selected": 9
+    },
+    "AfterAllocatorSplit": {
+      "Passed": 3,
+      "Selected": 3
+    },
+    "InitialStorageFixture": {
+      "Passed": 3,
+      "Selected": 4,
+      "Reason": "Fixture scheduling/lane contention caused the actual mutex wait to time out; not an accepted compatibility result."
+    },
+    "StorageFixtureAfterBoundLaneRepair": {
+      "Passed": 1,
+      "Selected": 1
+    }
+  },
+  "FinalAffected": {
+    "Status": "PASSED",
+    "Passed": 1736,
+    "Selected": 1736,
+    "Catalog": 9051,
+    "ClaimedPassed": true
+  },
+  "Counts": {
+    "RegisteredApis": 708,
+    "FullContracts": 180,
+    "NeedsVerification": 504,
+    "KnownDifferences": 24,
+    "ApiDelta": 0,
+    "FullContractDelta": 0,
+    "SourceGuards": 1729,
+    "ProductionSourceHashChanges": 3,
+    "ExpectedCatalogTests": 9051
+  },
+  "ParentCi": {
+    "Head": "0363df7e5e5024707469f8a6518b0d7c2290375e",
+    "Run": 40356733018,
+    "Job": 121691095348,
+    "ArtifactSha256": "448dd9bdd8f22a13e7eff607fe639e3ed1215a548d335f59fadd6f843d58a1cd",
+    "Passed": true,
+    "FullTests": 9048,
+    "AllPriorOrderedTestsRetained": true,
+    "InheritedLivenessClassificationBlockedByControlled502Probe": true,
+    "WholeSemanticCompatibilityClaimed": false,
+    "ArtifactId": 12668878778,
+    "DerivedFrom": "parent501-artifact-proof.json",
+    "Scope": "Independently verified publication-head CI and retained artifact evidence, not physical-completion semantics proof.",
+    "Parent500FullContracts": 179,
+    "Canonical501FullContracts": 180
+  },
+  "FreshNativeEmptyMapComparison": {
+    "WholeRawLoaderComparisons": 2,
+    "Platform": "windows-x64",
+    "Passed": true,
+    "NoNewNativeCallbackPromotion": true
+  },
+  "Limits": [
+    "Windows x64 original controlled NIF only; no Linux execution claim.",
+    "No full NIF ABI or complete native-library compatibility claim.",
+    "Auxiliary and ETS ownership controls are source-guided managed regressions, not claimed controlled-original counterparts.",
+    "Process-table exiting membership and registered-name ordering remain separate validation work."
+  ],
+  "DeliveryGates": [
+    "Exact publication-head GitHub CI",
+    "Artifact/package/consumer/original/cleanup retention verification",
+    "Fresh PR review of final head"
+  ]
+}

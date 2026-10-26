@@ -1,6 +1,6 @@
 # Unclosed default contracts — volume2
 
-Current candidate: Part501. Whole contract evidence remains in the canonical [ledger](../mfa-compatibility.json); see [cohort progress](checkpoint-501.md).
+Current candidate: Part502. Whole contract evidence remains in the canonical [ledger](../mfa-compatibility.json); see [cohort progress](checkpoint-502.md).
 
 - `erlang:monotonic_time/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:nif_error/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.

@@ -1,0 +1,41 @@
+{
+  "Status": "ORIGINAL_CONTROLLED_PROBE_COMPLETE",
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ProviderFiles": 6427,
+  "ProviderUnchanged": true,
+  "BuildReceiptSha256": "EB10E820EAB479582A47FE04E04D01A57C5F99E47FB43EB21E3422AF393223BC",
+  "LibrarySha256": "26C374204AAFBC1B938DE238875E128A341EE32E4D0D0BF1D1B4E538196F71B0",
+  "SourceSha256": "BA82FA1166A1091E9AC13FC0C631DFA27514516D8450CFCA7B9362DF920D53DC",
+  "OwnedStage": {
+    "Command": [
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+      "+S",
+      "2:2",
+      "+SDcpu",
+      "1",
+      "+SDio",
+      "1",
+      "+A",
+      "1",
+      "-noshell",
+      "-noinput",
+      "-boot",
+      "no_dot_erlang",
+      "-pa",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\retirement-probe502\\original1",
+      "-eval",
+      "W=fun(N,V)->ok=file:write_file(N,term_to_binary(V,[{minor_version,2}])) end,try Expected=filename:absname(os:getenv(\"PROBE_RUNTIME_ROOT\")),Expected=filename:absname(code:root_dir()),W(\"metadata.etf\",{Expected,erlang:system_info(version),erlang:system_info(wordsize),erlang:system_info(system_architecture)}),C=compile:file(\"retirement_probe502.erl\",[return_errors,return_warnings]),W(\"compile.etf\",C),{ok,retirement_probe502,_}=C,{module,retirement_probe502}=code:load_abs(\"retirement_probe502\"),ok=retirement_probe502:load(os:getenv(\"PROBE_DLL_STEM\")),R=retirement_probe502:run(),W(\"returned.etf\",R),D=code:delete(retirement_probe502),P=code:purge(retirement_probe502),L=code:is_loaded(retirement_probe502),W(\"cleanup.etf\",{D,P,L}),true=D,false=P,false=L,halt(0) catch Class:Reason:Stack->W(\"raised.etf\",{Class,Reason,Stack}),halt(1) end."
+    ],
+    "Pid": 148992,
+    "ElapsedSeconds": 0.26599999994505197,
+    "TimedOut": false,
+    "Settled": true,
+    "ExitCode": 0,
+    "Failures": [],
+    "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  "PhysicalMarkersFromActualCNotDirtyBif": true,
+  "WholeReturnedTerm": "('tuple', (('tuple', (('atom', 'before_release'), ('tuple', (('integer', 1), ('integer', 0), ('integer', -1))), ('atom', 'true'), ('atom', 'false'), ('atom', 'false'), ('atom', 'undefined'), ('atom', 'killed'), ('tuple', (('integer', 1), ('integer', 0), ('integer', -1))))), ('tuple', (('atom', 'after_release'), ('tuple', (('integer', 1), ('integer', 1), ('integer', 0)))))))",
+  "ReturnedSha256": "F7767587600CE0445C6D2E60B7862FF40A54529D7C596C7C512F877F3EF10829"
+}
