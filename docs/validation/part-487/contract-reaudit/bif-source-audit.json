@@ -1,0 +1,146 @@
+{
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Mfas": [
+    "erlang:bit_size/1",
+    "erlang:byte_size/1",
+    "erlang:is_function/2",
+    "erlang:abs/1",
+    "erlang:float/1",
+    "erlang:round/1",
+    "erlang:trunc/1",
+    "erlang:floor/1",
+    "erlang:ceil/1"
+  ],
+  "CompleteOnSupportedValidErlangTermModel": true,
+  "WholeCompilerCompletionClaimed": false,
+  "PhysicalAllocationCeilingsClaimed": false,
+  "ManagedSources": [
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/CoreModules.cs",
+      "Sha256": "11F4A05085FCAD96F480AC02B6C04C90A45CB1B9375B165D06F912CF57FB3ECB"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangBasicRegistrations.cs",
+      "Sha256": "E7A27A6498346F1005919BD074AF7DCC5050BE9624D625AA4BC91CB5E14644B0"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangNumericBifs.cs",
+      "Sha256": "1F88BAF3ED096BCDC39F496A0B713D9193EBAF4F813CBA87FEBDD3C1EC81A822"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangSizeErrorFrames.cs",
+      "Sha256": "DBD6900803129EADAE99F8C5219562A5E71E9B2696A6275159E893D4FE3ACB67"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Values/BitString.cs",
+      "Sha256": "1AA811589FA9AEC9F00970A785572B6D6BEABAF895A1AF656499A863A8467683"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Values/Integer.cs",
+      "Sha256": "CD4E5B3604C8194785FE20CD15A09A182BFBCA7128B95EE688ADB8719C30CC4F"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Values/FloatTerm.cs",
+      "Sha256": "15947C4D813909CD7B1C8A163D4FFBC3509E8E5DDEB026C88F1D308B7BC15229"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Functions/FunctionTerm.cs",
+      "Sha256": "B58853E8C1D4548775E4835DA704C15DAFA1EBF06C99432CEA6BDAB6ABE7C5E2"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DebugSame420.cs",
+      "Sha256": "0083B5EB252EB60F3BD0BA34AA6590C5FD9B015CF7B4EC23F94709DA77A7F353"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLinkedCode.cs",
+      "Sha256": "0A490F50F0D2B3B70E9E35763598FB4B506F1FC5DE616EB5F02CCECC7CBDF05D"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterInterpreter.cs",
+      "Sha256": "62B317624F4D88C126F0E1DE4DC1232F9000FE7DE98A16C5EAF0894A2FE7F063"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamReceiveMatcher.cs",
+      "Sha256": "99555560B682112095CC3D51BBDD2EFC94F4612B91E7586FCD439862733C9CA7"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLiteralCallFailureProof.cs",
+      "Sha256": "C25783F7A46BB270F1A5513B3E7A124BD192219D969D9ABE14F9461C96D53655"
+    }
+  ],
+  "OriginalSources": [
+    {
+      "Path": "erts/emulator/beam/erl_bif_guard.c",
+      "Sha256": "6A254BCEDAF5F57A01A8CDD6CF94F8140693BE99B4735A9283D8BFFA4288CC67"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_bif_op.c",
+      "Sha256": "74CA827E5188657CF2726A4C8A9DA6F4503675714A656041722CE10A066EEAD3"
+    },
+    {
+      "Path": "erts/emulator/beam/big.c",
+      "Sha256": "7E68A6FF381701F2B5BF3BD4AFE65EF545D97B34B884F227B637FF259B0FCDDE"
+    }
+  ],
+  "Partitions": {
+    "bit_size/1": "Bitstring logical length; every other valid term: badarg and exact native argument/error frame.",
+    "byte_size/1": "Bitstring widened ceiling(length/8), including zero/unaligned/sliced; every other term: badarg.",
+    "is_function/2": "Argument2 first: all nonintegers/negative integers error; nonnegative arbitrary precision integer compares local/external function arity; every nonfunction false. No255 bound on supplied arity.",
+    "abs/1": "Integers: preserve original nonnegative value object, construct magnitude only for negative input. Finite floats: preserve positive input, allocate fabs result for <=0, including both signed zeros. Other terms: badarg.",
+    "float/1": "Preserve any valid FloatTerm object and bits. Integer: exact conversion through53 significant bits; above53 nearest/ties-to-even; reject width>1024 or rounded overflow. Other terms: badarg.",
+    "round/1": "Preserve integers. Finite floats round to nearest integer, midpoint away from zero, then exact integral-double to BigInteger conversion. Other terms: badarg.",
+    "trunc/1": "Preserve integers; finite floats truncate toward zero and convert exactly; other terms badarg.",
+    "floor/1": "Preserve integers; finite floats take mathematical floor and convert exactly; other terms badarg.",
+    "ceil/1": "Preserve integers; finite floats take mathematical ceiling and convert exactly; other terms badarg."
+  },
+  "BifCases": 335,
+  "AdditionalIntegerLiteralControl": 1,
+  "WholeValueRows": 336,
+  "WholeStackRows": 1680,
+  "WholeComparisons": 2016,
+  "BacktraceDepths": [
+    "default",
+    0,
+    1,
+    2,
+    8
+  ],
+  "NormalizedFields": 0,
+  "InputDispatch": "Opaque function atom forces runtime apply; original disassembler dispatch-proof.etf required. An earlier constant-folded fixture is retained as superseded evidence, not current primitive-path proof.",
+  "Effects": "BIFs invoke no guest callback or mutable VM state. Fixture input barrier puts/erases its private dictionary key in an isolated worker; source constructors/error contexts remain actual guest code.",
+  "SourceProof": "README.md and numeric-source-proof.md",
+  "RawResources": [
+    {
+      "Path": "tests/Erlang.Tests/Resources/ContractReaudit487/contract_reaudit487.beam",
+      "Sha256": "F881049C686C98729F5C97A4043E7EA8957F55F5B8FCB700EF16C34A50E3713B"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/ContractReaudit487/contract_reaudit487.erl",
+      "Sha256": "4F00C58E0ABBB5A44C1883273BF7D25EF48A903A3864103F49D840FE0D52EBD4"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/ContractReaudit487/stacks.etf",
+      "Sha256": "0061C9DB219033EFD9B132169CDF716805ABDCF304E18970BE4126D332163507"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/ContractReaudit487/values.etf",
+      "Sha256": "5CB532DFAA22E3C27CBE772F6417C0BC3C17A2C02475FB5E8DE310CBDF1B068B"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/NumericContract487/numeric_contract487.beam",
+      "Sha256": "F5C0688DB96E7AD49C3FF3B21EDF604AEB4E87734024C4A7174C810FC286A0F3"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/NumericContract487/numeric_contract487.erl",
+      "Sha256": "D2AD9132ACA538FA0817BFF27544ACEE78E801DBD29C5BE1628286A660702B4C"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/NumericContract487/stacks.etf",
+      "Sha256": "DEA8EA2184832E2E8BDE0747103A7BBFE06A5FE5DFF3220D5F452029142E75C6"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/NumericContract487/values.etf",
+      "Sha256": "AD2938336E345B6A7A97DDAE8E6BCBA28F86F04AFC6B0144193BAF6DA9F5CB32"
+    }
+  ]
+}

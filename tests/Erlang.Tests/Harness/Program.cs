@@ -6850,6 +6850,9 @@ try
     Test(Erlang.Tests.LibraryManifestOriginalNames.Test, Erlang.Tests.LibraryManifestOriginalHostChecks.Run);
     Test(Erlang.Tests.LibraryManifestOriginalNames.FrameTest, Erlang.Tests.LibraryManifestOriginalHostChecks.StoredFunBounds);
 
+    Test(Erlang.Tests.ContractReaudit487Names.Test, Erlang.Tests.ContractReaudit487Checks.Run);
+    Test(Erlang.Tests.NumericContract487Names.Test, Erlang.Tests.NumericContract487Checks.Run);
+
     var catalog = Erlang.Tests.TestRunCatalog.Create(tests.Select(test => test.Name));
     selectedTests = selection.Select(tests, catalog);
     if (selection.ListOnly)

@@ -1,0 +1,51 @@
+{
+  "Passed": false,
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ProviderFiles": 6427,
+  "ProviderBeforeEqual": true,
+  "ProviderAfterEqual": true,
+  "SourceSha256": "0E73A0FE48DF9FD7639DF2E603D41A234E4CC5A627CA3C247745FE503E8F5007",
+  "OriginalReceipt": {
+    "Command": [
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+      "+S",
+      "1:1",
+      "+A",
+      "1",
+      "-noshell",
+      "-noinput",
+      "-boot",
+      "no_dot_erlang",
+      "-pa",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\contracts487\\negative-original",
+      "-eval",
+      "{ok,contract_reaudit487,_}=compile:file(\"contract_reaudit487.erl\",[return_errors,return_warnings]),[ok=prim_file:write_file(File,term_to_binary(ordsets_core_worker:run(contract_reaudit487,Entry),[{minor_version,2}])) || {File,Entry} <- [{\"values.etf\",run},{\"stacks.etf\",run_stacks}]],halt(0)."
+    ],
+    "Pid": 210168,
+    "ElapsedSeconds": 0.3440000000409782,
+    "TimedOut": false,
+    "Settled": true,
+    "ExitCode": 0,
+    "Failures": [],
+    "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  "GoldenChecked": true,
+  "NormalizedFields": 0,
+  "Errors": [
+    "Whole original golden differs: values.etf",
+    "Whole original golden differs: stacks.etf"
+  ],
+  "Files": {
+    "contract_reaudit487.beam": "4D01BBA78FAF0EC692B713ED971C345581171D8BCEB59894E4E1F1E84EE0032F",
+    "contract_reaudit487.erl": "0E73A0FE48DF9FD7639DF2E603D41A234E4CC5A627CA3C247745FE503E8F5007",
+    "ordsets_core_support.beam": "E96720C753F9438E66367C71A90C5D0C1E3AA29091B178799986E36A8438022F",
+    "ordsets_core_worker.beam": "E345AE81943C41F82F3CBCA24B963D2D25CB24C0C15E2A0B21B72A65757D6B3F",
+    "original.exit.json": "E402CF23C027AE582B690C54B04B7189D942639D1B318B833AFD06BE42C21614",
+    "original.live.json": "719EC5C1077169CAFAD9D3C38AD088C39E8FDC26C96BAFE23169A9A574D1AA93",
+    "original.stderr.log": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "original.stdout.log": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "stacks.etf": "CA46B2CD1F431B30B29AE090BDE95B3A11DC568399C022B27DDC4283BB913E8D",
+    "values.etf": "5CB532DFAA22E3C27CBE772F6417C0BC3C17A2C02475FB5E8DE310CBDF1B068B"
+  }
+}

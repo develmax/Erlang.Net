@@ -43,7 +43,7 @@ internal static class BeamLiteralCallFailureProof
 
     private static Term? Literal(BeamLinkedCode code, BeamOperand operand) => operand.Kind switch
     {
-        BeamOperandParameters.Integer => new Integer(operand.Value),
+        BeamOperandParameters.Integer => code.IntegerConstant(operand.Value),
         BeamOperandParameters.Atom => Term.A(code.Structure.Atoms[(int)operand.Value]!),
         BeamOperandParameters.Nil => Nil.Value,
         BeamOperandParameters.LiteralValue => code.Structure.Literals[(int)operand.Value],

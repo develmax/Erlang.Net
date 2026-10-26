@@ -17,7 +17,8 @@ internal static class BeamOrdsetsCoreHostChecks
         string observer,
         Func<string, byte[]> read,
         int valueCount,
-        int profileCount
+        int profileCount,
+        Func<ProcessRuntime, Task>? initialize = null
     )
     {
         byte[] lists = Read(BeamOrdsetsCoreHostNames.Lists + BeamOrdsetsCoreHostNames.BeamExtension);
@@ -26,6 +27,8 @@ internal static class BeamOrdsetsCoreHostChecks
             RuntimeModuleSelection.Beam(BeamOrdsetsCoreHostNames.Lists, lists),
             RuntimeModuleSelection.Beam(BeamOrdsetsCoreHostNames.Ordsets, ordsets, [BeamOrdsetsCoreHostNames.Lists])
         ]));
+        if (initialize is not null)
+            await initialize(runtime);
         VerifyLibrary(runtime, BeamOrdsetsCoreHostNames.Ordsets);
         VerifyLibrary(runtime, BeamOrdsetsCoreHostNames.Lists);
         string[] dependencies = [BeamOrdsetsCoreHostNames.Erlang, BeamOrdsetsCoreHostNames.Lists,
@@ -64,7 +67,17 @@ internal static class BeamOrdsetsCoreHostChecks
                 foreach (var observation in captured)
                 {
                     byte[] expected = read(observation.Resource);
-                    Require(observation.Encoded.AsSpan().SequenceEqual(expected));
+                    if (!observation.Encoded.AsSpan().SequenceEqual(expected))
+                    {
+                        string directory = Path.Combine(BeamOrdsetsCoreHostNames.FailureDirectory, observer);
+                        Directory.CreateDirectory(directory);
+                        foreach (var raw in captured)
+                        {
+                            File.WriteAllBytes(Path.Combine(directory, raw.Resource + BeamOrdsetsCoreHostNames.ActualSuffix), raw.Encoded);
+                            File.WriteAllBytes(Path.Combine(directory, raw.Resource + BeamOrdsetsCoreHostNames.ExpectedSuffix), read(raw.Resource));
+                        }
+                        throw new InvalidDataException(BeamOrdsetsCoreHostNames.Failure + Environment.NewLine + Path.GetFullPath(directory));
+                    }
                     Require(observation.Actual.Equals(runtime.ImportExternalTerm(expected).Term));
                 }
                 completed.TrySetResult();

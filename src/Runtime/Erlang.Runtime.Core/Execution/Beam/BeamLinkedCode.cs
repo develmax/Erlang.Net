@@ -1,5 +1,6 @@
 using System.Collections.Frozen;
 using System.Collections.Concurrent;
+using System.Numerics;
 
 namespace Erlang;
 
@@ -14,7 +15,11 @@ internal sealed record BeamLinkedCode(
     IReadOnlyList<BeamLambdaEntry> Lambdas
 )
 {
+    private readonly ConcurrentDictionary<BigInteger, Integer> integerConstants = new();
+
     internal IReadOnlySet<string> RegistryModuleDependencies { get; init; } = FrozenSet<string>.Empty;
     internal IReadOnlyList<Term> SourceLocations { get; init; } = Array.Empty<Term>();
     internal ConcurrentDictionary<int, object> ContinuationIdentities { get; } = new();
+
+    internal Integer IntegerConstant(BigInteger value) => integerConstants.GetOrAdd(value, static number => new Integer(number));
 }

@@ -1,5 +1,49 @@
 # Unclosed default contracts — volume3
 
+Current candidate: Part487. Whole contract evidence remains in the canonical [ledger](../mfa-compatibility.json); see [cohort progress](checkpoint-487.md).
+
+- `erlang:term_to_binary/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:term_to_iovec/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:term_to_iovec/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:throw/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:time/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:time_offset/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:time_offset/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:timestamp/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:trace/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:trace_delivered/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:trace_info/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:trace_pattern/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:trace_pattern/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:tuple_to_list/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:unalias/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:unique_integer/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:unique_integer/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:universaltime/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:universaltime_to_localtime/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:universaltime_to_posixtime/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:unlink/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:unregister/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:whereis/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:xor/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:yield/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erpc:call/4` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `erpc:call/5` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `erpc:execute_call/4` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
+- `error_logger:get_format_depth/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `error_logger:limit_term/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erts_internal:abort_pending_connection/2` — **Needs verification**. Real native distribution entry state with complete finite original values/errors/stacks; all-domain ownership/effects closure remains explicitly unfinished.
+- `erts_internal:cmp_term/2` — **Needs verification**. Explicit runtime primitive/compiler-helper boundary supporting original selected OTP libraries. Direct MFA presence and finite original-module execution do not establish this command's entire public contract.
+- `erts_internal:get_creation/0` — **Needs verification**. Real native distribution entry state with complete finite original values/errors/stacks; all-domain ownership/effects closure remains explicitly unfinished.
+- `erts_internal:map_next/3` — **Needs verification**. Explicit runtime primitive/compiler-helper boundary supporting original selected OTP libraries. Direct MFA presence and finite original-module execution do not establish this command's entire public contract.
+- `erts_internal:mc_iterator/1` — **Needs verification**. Explicit runtime primitive/compiler-helper boundary supporting original selected OTP libraries. Direct MFA presence and finite original-module execution do not establish this command's entire public contract.
+- `erts_internal:mc_refill/1` — **Needs verification**. Explicit runtime primitive/compiler-helper boundary supporting original selected OTP libraries. Direct MFA presence and finite original-module execution do not establish this command's entire public contract.
+- `erts_internal:new_connection/1` — **Known differences**. An explicit entries.Count >= MaximumNodes rejection remains; defaultMaximumNodes is1024, unlike the pinned ERTS source. Generation/reuse tests do not remove this limit.
+- `gen_server:call/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `gen_server:call/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `gen_server:cast/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `gen_server:reply/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `gen_server:start/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `gen_server:start/4` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `gen_server:start_link/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `gen_server:start_link/4` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
@@ -108,76 +152,3 @@
 - `logger:get_primary_config/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `logger:get_process_metadata/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `logger:macro_log/4` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `logger:remove_handler/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `logger:remove_handler_filter/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `logger:remove_primary_filter/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `logger:set_handler_config/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `logger:set_handler_config/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `logger:set_module_level/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `logger:set_primary_config/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `logger:set_primary_config/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `logger:set_process_metadata/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `logger:unset_module_level/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `logger:unset_module_level/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `logger:unset_process_metadata/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `logger:update_handler_config/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `logger:update_primary_config/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `logger:update_process_metadata/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `maps:filter/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `maps:filtermap/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `maps:find/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `maps:fold/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `maps:foreach/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `maps:from_keys/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `maps:from_list/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `maps:get/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `maps:get/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `maps:groups_from_list/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `maps:groups_from_list/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `maps:intersect/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `maps:intersect_with/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `maps:is_iterator_valid/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `maps:is_key/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `maps:iterator/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `maps:iterator/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `maps:keys/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `maps:map/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `maps:merge/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `maps:merge_with/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `maps:new/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `maps:next/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `maps:put/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `maps:remove/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `maps:size/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `maps:take/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `maps:to_list/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `maps:update/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `maps:update_with/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `maps:update_with/4` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `maps:values/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `maps:with/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `maps:without/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `math:log/1` — **Needs verification**. Explicit runtime primitive/compiler-helper boundary supporting original selected OTP libraries. Direct MFA presence and finite original-module execution do not establish this command's entire public contract.
-- `ordsets:add_element/2` — **Needs verification**. Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim.
-- `ordsets:del_element/2` — **Needs verification**. Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim.
-- `ordsets:filtermap/2` — **Needs verification**. Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim.
-- `ordsets:from_list/1` — **Needs verification**. Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim.
-- `ordsets:intersection/1` — **Needs verification**. Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim.
-- `ordsets:intersection/2` — **Needs verification**. Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim.
-- `ordsets:is_disjoint/2` — **Needs verification**. Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim.
-- `ordsets:is_element/2` — **Needs verification**. Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim.
-- `ordsets:is_equal/2` — **Needs verification**. Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim.
-- `ordsets:is_set/1` — **Needs verification**. Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim.
-- `ordsets:is_subset/2` — **Needs verification**. Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim.
-- `ordsets:map/2` — **Needs verification**. Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim.
-- `ordsets:subtract/2` — **Needs verification**. Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim.
-- `ordsets:union/1` — **Needs verification**. Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim.
-- `ordsets:union/2` — **Needs verification**. Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim.
-- `proc_lib:format/1` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
-- `proc_lib:format/2` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
-- `proc_lib:format/3` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
-- `proc_lib:get_label/1` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
-- `proc_lib:hibernate/3` — **Known differences**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
-- `proc_lib:init_ack/1` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
-- `proc_lib:init_ack/2` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
-- `proc_lib:init_fail/2` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.

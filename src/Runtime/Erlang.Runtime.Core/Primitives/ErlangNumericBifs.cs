@@ -16,11 +16,11 @@ internal static class ErlangNumericBifs
             throw new ErlangException(ErlangErrorReasons.BadArgument);
         }
         if (value is Integer number)
-            return operation == ErlangBasicBifNames.Absolute ? new Integer(BigInteger.Abs(number.Value)) : value;
+            return operation == ErlangBasicBifNames.Absolute && number.Value.Sign < 0 ? new Integer(BigInteger.Abs(number.Value)) : value;
         if (value is not FloatTerm floating)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
         if (operation == ErlangBasicBifNames.Absolute)
-            return new FloatTerm(Math.Abs(floating.Value));
+            return floating.Value > 0 ? value : new FloatTerm(Math.Abs(floating.Value));
         double result = operation switch
         {
             ErlangBasicBifNames.Round => Math.Round(floating.Value, MidpointRounding.AwayFromZero),

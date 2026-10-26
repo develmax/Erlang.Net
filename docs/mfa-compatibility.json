@@ -1729,23 +1729,81 @@
       "Module": "erlang",
       "Function": "bit_size",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
+      "Status": "Verified compatible",
+      "Scope": "Complete observable native BIF contract on the supported valid Erlang term model: Bitstring logical length; every other valid term: badarg and exact native argument/error frame. Source/dependency/effect proof and actual runtime-dispatch original comparisons; no claim of identical VM allocation ceilings, timings or whole compiler/backend completion.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-487/contract-reaudit/bif-source-audit.json",
+          "Sha256": "FB784024190335BCC6BE7F89791503DA1E8713D9E3EF994405E16E55FFEB31CD",
+          "Scope": "Complete source partition argument with pinned original and current managed source bindings; README explains dependency/effect closure."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-487/contract-reaudit/original-acquisition.json",
+          "Sha256": "6ADE24296FC7A589F2E8724A4BB5F3358667396F6423B5F8337632ADF058FC5E",
+          "Scope": "Fresh admitted6427-file original OTP provider; whole84 values and420 stack outcomes acquired, no normalization; worker/fixture identities bound in audit."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-487/contract-reaudit/first-bif-comparison.json",
+          "Sha256": "42C8B8BFC69DF11F6DB17CC798B9772F39D90B9DDD9D3A6FE0EE4CA30DA70A2C",
+          "Scope": "Our runtime executes unchanged original observer and compares all504 outcomes byte-for-byte and as complete decoded terms."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-487/contract-reaudit/original-final-size/completion.json",
+          "Sha256": "45418741FE840D993F964ED4E22A4B1971F7B60EF86C09539F49570C96883627",
+          "Scope": "Fresh same-host pinned OTP acquisition; all6427 provider files verified before/after; actual dynamic apply proof retained; golden whole terms/stacks match."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-487/contract-reaudit/final-dispatch-2016.json",
+          "Sha256": "4385CF7A7A31AE79D65B819E3A0B3B51C36DE8F1DC3CCE8664C3C6FEF518E34F",
+          "Scope": "Actual registered runtime BIF dispatch;335 API cases plus1 integer-literal identity control,2016 whole outcomes including five stack depths; zero normalized fields."
+        }
+      ],
+      "Limits": []
     },
     {
       "Module": "erlang",
       "Function": "byte_size",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
+      "Status": "Verified compatible",
+      "Scope": "Complete observable native BIF contract on the supported valid Erlang term model: Bitstring widened ceiling(length/8), including zero/unaligned/sliced; every other term: badarg. Source/dependency/effect proof and actual runtime-dispatch original comparisons; no claim of identical VM allocation ceilings, timings or whole compiler/backend completion.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-487/contract-reaudit/bif-source-audit.json",
+          "Sha256": "FB784024190335BCC6BE7F89791503DA1E8713D9E3EF994405E16E55FFEB31CD",
+          "Scope": "Complete source partition argument with pinned original and current managed source bindings; README explains dependency/effect closure."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-487/contract-reaudit/original-acquisition.json",
+          "Sha256": "6ADE24296FC7A589F2E8724A4BB5F3358667396F6423B5F8337632ADF058FC5E",
+          "Scope": "Fresh admitted6427-file original OTP provider; whole84 values and420 stack outcomes acquired, no normalization; worker/fixture identities bound in audit."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-487/contract-reaudit/first-bif-comparison.json",
+          "Sha256": "42C8B8BFC69DF11F6DB17CC798B9772F39D90B9DDD9D3A6FE0EE4CA30DA70A2C",
+          "Scope": "Our runtime executes unchanged original observer and compares all504 outcomes byte-for-byte and as complete decoded terms."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-487/contract-reaudit/original-final-size/completion.json",
+          "Sha256": "45418741FE840D993F964ED4E22A4B1971F7B60EF86C09539F49570C96883627",
+          "Scope": "Fresh same-host pinned OTP acquisition; all6427 provider files verified before/after; actual dynamic apply proof retained; golden whole terms/stacks match."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-487/contract-reaudit/final-dispatch-2016.json",
+          "Sha256": "4385CF7A7A31AE79D65B819E3A0B3B51C36DE8F1DC3CCE8664C3C6FEF518E34F",
+          "Scope": "Actual registered runtime BIF dispatch;335 API cases plus1 integer-literal identity control,2016 whole outcomes including five stack depths; zero normalized fields."
+        }
+      ],
+      "Limits": []
     },
     {
       "Module": "erlang",
@@ -3478,67 +3536,169 @@
       "Module": "erlang",
       "Function": "abs",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
+      "Status": "Verified compatible",
+      "Scope": "Complete observable native BIF contract on the supported valid Erlang term model: Integers: preserve original nonnegative value object, construct magnitude only for negative input. Finite floats: preserve positive input, allocate fabs result for <=0, including both signed zeros. Other terms: badarg. Source/dependency/effect proof and actual runtime-dispatch original comparisons; no claim of identical VM allocation ceilings, timings or whole compiler/backend completion.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-487/contract-reaudit/bif-source-audit.json",
+          "Sha256": "FB784024190335BCC6BE7F89791503DA1E8713D9E3EF994405E16E55FFEB31CD",
+          "Scope": "Complete branch/type/dependency/effect proof, original/current source hashes, native allocation identity and exact controlled native entry."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-487/contract-reaudit/original-final-numeric/completion.json",
+          "Sha256": "D25B7F51E05B38DEF9D358D50D02C681E00C25829697649A5489D7F0B1E7CA23",
+          "Scope": "Fresh same-host pinned OTP acquisition; all6427 provider files verified before/after; actual dynamic apply proof retained; golden whole terms/stacks match."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-487/contract-reaudit/final-dispatch-2016.json",
+          "Sha256": "4385CF7A7A31AE79D65B819E3A0B3B51C36DE8F1DC3CCE8664C3C6FEF518E34F",
+          "Scope": "Actual registered runtime BIF dispatch;335 API cases plus1 integer-literal identity control,2016 whole outcomes including five stack depths; zero normalized fields."
+        }
+      ],
+      "Limits": []
     },
     {
       "Module": "erlang",
       "Function": "float",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
+      "Status": "Verified compatible",
+      "Scope": "Complete observable native BIF contract on the supported valid Erlang term model: Preserve any valid FloatTerm object and bits. Integer: exact conversion through53 significant bits; above53 nearest/ties-to-even; reject width>1024 or rounded overflow. Other terms: badarg. Source/dependency/effect proof and actual runtime-dispatch original comparisons; no claim of identical VM allocation ceilings, timings or whole compiler/backend completion.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-487/contract-reaudit/bif-source-audit.json",
+          "Sha256": "FB784024190335BCC6BE7F89791503DA1E8713D9E3EF994405E16E55FFEB31CD",
+          "Scope": "Complete branch/type/dependency/effect proof, original/current source hashes, native allocation identity and exact controlled native entry."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-487/contract-reaudit/original-final-numeric/completion.json",
+          "Sha256": "D25B7F51E05B38DEF9D358D50D02C681E00C25829697649A5489D7F0B1E7CA23",
+          "Scope": "Fresh same-host pinned OTP acquisition; all6427 provider files verified before/after; actual dynamic apply proof retained; golden whole terms/stacks match."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-487/contract-reaudit/final-dispatch-2016.json",
+          "Sha256": "4385CF7A7A31AE79D65B819E3A0B3B51C36DE8F1DC3CCE8664C3C6FEF518E34F",
+          "Scope": "Actual registered runtime BIF dispatch;335 API cases plus1 integer-literal identity control,2016 whole outcomes including five stack depths; zero normalized fields."
+        }
+      ],
+      "Limits": []
     },
     {
       "Module": "erlang",
       "Function": "round",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
+      "Status": "Verified compatible",
+      "Scope": "Complete observable native BIF contract on the supported valid Erlang term model: Preserve integers. Finite floats round to nearest integer, midpoint away from zero, then exact integral-double to BigInteger conversion. Other terms: badarg. Source/dependency/effect proof and actual runtime-dispatch original comparisons; no claim of identical VM allocation ceilings, timings or whole compiler/backend completion.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-487/contract-reaudit/bif-source-audit.json",
+          "Sha256": "FB784024190335BCC6BE7F89791503DA1E8713D9E3EF994405E16E55FFEB31CD",
+          "Scope": "Complete branch/type/dependency/effect proof, original/current source hashes, native allocation identity and exact controlled native entry."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-487/contract-reaudit/original-final-numeric/completion.json",
+          "Sha256": "D25B7F51E05B38DEF9D358D50D02C681E00C25829697649A5489D7F0B1E7CA23",
+          "Scope": "Fresh same-host pinned OTP acquisition; all6427 provider files verified before/after; actual dynamic apply proof retained; golden whole terms/stacks match."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-487/contract-reaudit/final-dispatch-2016.json",
+          "Sha256": "4385CF7A7A31AE79D65B819E3A0B3B51C36DE8F1DC3CCE8664C3C6FEF518E34F",
+          "Scope": "Actual registered runtime BIF dispatch;335 API cases plus1 integer-literal identity control,2016 whole outcomes including five stack depths; zero normalized fields."
+        }
+      ],
+      "Limits": []
     },
     {
       "Module": "erlang",
       "Function": "trunc",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
+      "Status": "Verified compatible",
+      "Scope": "Complete observable native BIF contract on the supported valid Erlang term model: Preserve integers; finite floats truncate toward zero and convert exactly; other terms badarg. Source/dependency/effect proof and actual runtime-dispatch original comparisons; no claim of identical VM allocation ceilings, timings or whole compiler/backend completion.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-487/contract-reaudit/bif-source-audit.json",
+          "Sha256": "FB784024190335BCC6BE7F89791503DA1E8713D9E3EF994405E16E55FFEB31CD",
+          "Scope": "Complete branch/type/dependency/effect proof, original/current source hashes, native allocation identity and exact controlled native entry."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-487/contract-reaudit/original-final-numeric/completion.json",
+          "Sha256": "D25B7F51E05B38DEF9D358D50D02C681E00C25829697649A5489D7F0B1E7CA23",
+          "Scope": "Fresh same-host pinned OTP acquisition; all6427 provider files verified before/after; actual dynamic apply proof retained; golden whole terms/stacks match."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-487/contract-reaudit/final-dispatch-2016.json",
+          "Sha256": "4385CF7A7A31AE79D65B819E3A0B3B51C36DE8F1DC3CCE8664C3C6FEF518E34F",
+          "Scope": "Actual registered runtime BIF dispatch;335 API cases plus1 integer-literal identity control,2016 whole outcomes including five stack depths; zero normalized fields."
+        }
+      ],
+      "Limits": []
     },
     {
       "Module": "erlang",
       "Function": "floor",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
+      "Status": "Verified compatible",
+      "Scope": "Complete observable native BIF contract on the supported valid Erlang term model: Preserve integers; finite floats take mathematical floor and convert exactly; other terms badarg. Source/dependency/effect proof and actual runtime-dispatch original comparisons; no claim of identical VM allocation ceilings, timings or whole compiler/backend completion.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-487/contract-reaudit/bif-source-audit.json",
+          "Sha256": "FB784024190335BCC6BE7F89791503DA1E8713D9E3EF994405E16E55FFEB31CD",
+          "Scope": "Complete branch/type/dependency/effect proof, original/current source hashes, native allocation identity and exact controlled native entry."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-487/contract-reaudit/original-final-numeric/completion.json",
+          "Sha256": "D25B7F51E05B38DEF9D358D50D02C681E00C25829697649A5489D7F0B1E7CA23",
+          "Scope": "Fresh same-host pinned OTP acquisition; all6427 provider files verified before/after; actual dynamic apply proof retained; golden whole terms/stacks match."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-487/contract-reaudit/final-dispatch-2016.json",
+          "Sha256": "4385CF7A7A31AE79D65B819E3A0B3B51C36DE8F1DC3CCE8664C3C6FEF518E34F",
+          "Scope": "Actual registered runtime BIF dispatch;335 API cases plus1 integer-literal identity control,2016 whole outcomes including five stack depths; zero normalized fields."
+        }
+      ],
+      "Limits": []
     },
     {
       "Module": "erlang",
       "Function": "ceil",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
+      "Status": "Verified compatible",
+      "Scope": "Complete observable native BIF contract on the supported valid Erlang term model: Preserve integers; finite floats take mathematical ceiling and convert exactly; other terms badarg. Source/dependency/effect proof and actual runtime-dispatch original comparisons; no claim of identical VM allocation ceilings, timings or whole compiler/backend completion.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-487/contract-reaudit/bif-source-audit.json",
+          "Sha256": "FB784024190335BCC6BE7F89791503DA1E8713D9E3EF994405E16E55FFEB31CD",
+          "Scope": "Complete branch/type/dependency/effect proof, original/current source hashes, native allocation identity and exact controlled native entry."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-487/contract-reaudit/original-final-numeric/completion.json",
+          "Sha256": "D25B7F51E05B38DEF9D358D50D02C681E00C25829697649A5489D7F0B1E7CA23",
+          "Scope": "Fresh same-host pinned OTP acquisition; all6427 provider files verified before/after; actual dynamic apply proof retained; golden whole terms/stacks match."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-487/contract-reaudit/final-dispatch-2016.json",
+          "Sha256": "4385CF7A7A31AE79D65B819E3A0B3B51C36DE8F1DC3CCE8664C3C6FEF518E34F",
+          "Scope": "Actual registered runtime BIF dispatch;335 API cases plus1 integer-literal identity control,2016 whole outcomes including five stack depths; zero normalized fields."
+        }
+      ],
+      "Limits": []
     },
     {
       "Module": "erlang",
@@ -3838,12 +3998,41 @@
       "Module": "erlang",
       "Function": "is_function",
       "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
+      "Status": "Verified compatible",
+      "Scope": "Complete observable native BIF contract on the supported valid Erlang term model: Argument2 first: all nonintegers/negative integers error; nonnegative arbitrary precision integer compares local/external function arity; every nonfunction false. No255 bound on supplied arity. Source/dependency/effect proof and actual runtime-dispatch original comparisons; no claim of identical VM allocation ceilings, timings or whole compiler/backend completion.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-487/contract-reaudit/bif-source-audit.json",
+          "Sha256": "FB784024190335BCC6BE7F89791503DA1E8713D9E3EF994405E16E55FFEB31CD",
+          "Scope": "Complete source partition argument with pinned original and current managed source bindings; README explains dependency/effect closure."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-487/contract-reaudit/original-acquisition.json",
+          "Sha256": "6ADE24296FC7A589F2E8724A4BB5F3358667396F6423B5F8337632ADF058FC5E",
+          "Scope": "Fresh admitted6427-file original OTP provider; whole84 values and420 stack outcomes acquired, no normalization; worker/fixture identities bound in audit."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-487/contract-reaudit/first-bif-comparison.json",
+          "Sha256": "42C8B8BFC69DF11F6DB17CC798B9772F39D90B9DDD9D3A6FE0EE4CA30DA70A2C",
+          "Scope": "Our runtime executes unchanged original observer and compares all504 outcomes byte-for-byte and as complete decoded terms."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-487/contract-reaudit/original-final-size/completion.json",
+          "Sha256": "45418741FE840D993F964ED4E22A4B1971F7B60EF86C09539F49570C96883627",
+          "Scope": "Fresh same-host pinned OTP acquisition; all6427 provider files verified before/after; actual dynamic apply proof retained; golden whole terms/stacks match."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-487/contract-reaudit/final-dispatch-2016.json",
+          "Sha256": "4385CF7A7A31AE79D65B819E3A0B3B51C36DE8F1DC3CCE8664C3C6FEF518E34F",
+          "Scope": "Actual registered runtime BIF dispatch;335 API cases plus1 integer-literal identity control,2016 whole outcomes including five stack depths; zero normalized fields."
+        }
+      ],
+      "Limits": []
     },
     {
       "Module": "erlang",
@@ -5380,7 +5569,7 @@
       "Function": "process_info",
       "Arity": 2,
       "Status": "Known differences",
-      "Scope": "Supported logical information keys retain their existing query behavior. Four valid OTP resource keys (total_heap_size, heap_size, stack_size, garbage_collection) currently raise badarg, which is a known contract difference.",
+      "Scope": "Four physical process_info keys remain absent from the supported-key parser and default logical list. No manufactured ERTS heap/stack figures are introduced.",
       "Evidence": [
         {
           "Kind": "SourceReview",
@@ -5405,6 +5594,12 @@
           "Path": "validation/part-360/current-source-preservation.json",
           "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
           "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+          "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+          "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
         }
       ],
       "Limits": [
@@ -5417,7 +5612,7 @@
       "Function": "process_info",
       "Arity": 1,
       "Status": "Known differences",
-      "Scope": "Logical default process information is implemented, but the default list omits pinned OTP total_heap_size, heap_size, stack_size and garbage_collection. This is a known observable contract difference, not merely missing verification.",
+      "Scope": "Four physical process_info keys remain absent from the supported-key parser and default logical list. No manufactured ERTS heap/stack figures are introduced.",
       "Evidence": [
         {
           "Kind": "SourceReview",
@@ -5442,6 +5637,12 @@
           "Path": "validation/part-360/current-source-preservation.json",
           "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
           "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+          "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+          "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
         }
       ],
       "Limits": [
@@ -6586,7 +6787,7 @@
       "Function": "spawn_opt",
       "Arity": 2,
       "Status": "Known differences",
-      "Scope": "Existing local and connected spawn paths implement low/normal/high/max process scheduling priority and logical scheduler binding. Heap/GC tuning and message_queue_data remain source-proven valid OTP refusals, so the full option contract remains Known differences. Logical lanes do not certify native scheduler timing, throughput or physical CPU pinning.",
+      "Scope": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
@@ -6641,10 +6842,16 @@
           "Path": "validation/part-360/current-source-preservation.json",
           "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
           "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+          "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+          "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
         }
       ],
       "Limits": [
-        "SPAWN_VALID_TUNING_REJECTED: valid message_queue_data on_heap/off_heap, min_heap_size, min_bin_vheap_size and max_heap_size remain unsupported. Process scheduling priority and logical {scheduler,N} binding are implemented source slices. Historical evidence retains its original historical scope.",
+        "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
         "Current styled-source preservation review and prior managed focus do not establish complete spawn_opt compatibility. Final part 353 full validation and explicit two-lane original comparison remain pending; original part 351 covers its three priority witnesses only.",
         "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
       ]
@@ -6654,7 +6861,7 @@
       "Function": "spawn_opt",
       "Arity": 3,
       "Status": "Known differences",
-      "Scope": "Existing local and connected spawn paths implement low/normal/high/max process scheduling priority and logical scheduler binding. Heap/GC tuning and message_queue_data remain source-proven valid OTP refusals, so the full option contract remains Known differences. Logical lanes do not certify native scheduler timing, throughput or physical CPU pinning.",
+      "Scope": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
@@ -6709,10 +6916,16 @@
           "Path": "validation/part-360/current-source-preservation.json",
           "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
           "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+          "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+          "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
         }
       ],
       "Limits": [
-        "SPAWN_VALID_TUNING_REJECTED: valid message_queue_data on_heap/off_heap, min_heap_size, min_bin_vheap_size and max_heap_size remain unsupported. Process scheduling priority and logical {scheduler,N} binding are implemented source slices. Historical evidence retains its original historical scope.",
+        "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
         "Current styled-source preservation review and prior managed focus do not establish complete spawn_opt compatibility. Final part 353 full validation and explicit two-lane original comparison remain pending; original part 351 covers its three priority witnesses only.",
         "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
       ]
@@ -6722,7 +6935,7 @@
       "Function": "spawn_opt",
       "Arity": 4,
       "Status": "Known differences",
-      "Scope": "Existing local and connected spawn paths implement low/normal/high/max process scheduling priority and logical scheduler binding. Heap/GC tuning and message_queue_data remain source-proven valid OTP refusals, so the full option contract remains Known differences. Logical lanes do not certify native scheduler timing, throughput or physical CPU pinning.",
+      "Scope": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
@@ -6777,10 +6990,16 @@
           "Path": "validation/part-360/current-source-preservation.json",
           "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
           "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+          "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+          "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
         }
       ],
       "Limits": [
-        "SPAWN_VALID_TUNING_REJECTED: valid message_queue_data on_heap/off_heap, min_heap_size, min_bin_vheap_size and max_heap_size remain unsupported. Process scheduling priority and logical {scheduler,N} binding are implemented source slices. Historical evidence retains its original historical scope.",
+        "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
         "Current styled-source preservation review and prior managed focus do not establish complete spawn_opt compatibility. Final part 353 full validation and explicit two-lane original comparison remain pending; original part 351 covers its three priority witnesses only.",
         "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
       ]
@@ -6790,7 +7009,7 @@
       "Function": "spawn_opt",
       "Arity": 5,
       "Status": "Known differences",
-      "Scope": "Existing local and connected spawn paths implement low/normal/high/max process scheduling priority and logical scheduler binding. Heap/GC tuning and message_queue_data remain source-proven valid OTP refusals, so the full option contract remains Known differences. Logical lanes do not certify native scheduler timing, throughput or physical CPU pinning.",
+      "Scope": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
@@ -6845,10 +7064,16 @@
           "Path": "validation/part-360/current-source-preservation.json",
           "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
           "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+          "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+          "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
         }
       ],
       "Limits": [
-        "SPAWN_VALID_TUNING_REJECTED: valid message_queue_data on_heap/off_heap, min_heap_size, min_bin_vheap_size and max_heap_size remain unsupported. Process scheduling priority and logical {scheduler,N} binding are implemented source slices. Historical evidence retains its original historical scope.",
+        "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
         "Current styled-source preservation review and prior managed focus do not establish complete spawn_opt compatibility. Final part 353 full validation and explicit two-lane original comparison remain pending; original part 351 covers its three priority witnesses only.",
         "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
       ]
@@ -6861,7 +7086,7 @@
       "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
       "Evidence": [],
       "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
+        "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
         "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
       ]
     },
@@ -6870,7 +7095,7 @@
       "Function": "spawn_request",
       "Arity": 2,
       "Status": "Known differences",
-      "Scope": "Local and connected spawn-request/reply paths implement their existing link/monitor/reply, process priority and logical scheduler slices. Valid local heap/GC/message_queue_data creator options remain rejected.",
+      "Scope": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
       "Evidence": [
         {
           "Kind": "SourceReview",
@@ -6895,10 +7120,16 @@
           "Path": "validation/part-360/current-source-preservation.json",
           "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
           "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+          "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+          "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
         }
       ],
       "Limits": [
-        "Valid message_queue_data=on_heap/off_heap, min_heap_size=0, min_bin_vheap_size=0 and fullsweep_after=0 are rejected as bad options on local option-bearing request routes.",
+        "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
         "Priority and logical scheduler binding are implemented; connected spawning is not claimed missing. Full native options/resource/alias/autoconnect/timing compatibility remains incomplete or unverified.",
         "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
       ]
@@ -6908,7 +7139,7 @@
       "Function": "spawn_request",
       "Arity": 3,
       "Status": "Known differences",
-      "Scope": "Local and connected spawn-request/reply paths implement their existing link/monitor/reply, process priority and logical scheduler slices. Valid local heap/GC/message_queue_data creator options remain rejected.",
+      "Scope": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
       "Evidence": [
         {
           "Kind": "SourceReview",
@@ -6933,10 +7164,16 @@
           "Path": "validation/part-360/current-source-preservation.json",
           "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
           "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+          "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+          "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
         }
       ],
       "Limits": [
-        "Valid message_queue_data=on_heap/off_heap, min_heap_size=0, min_bin_vheap_size=0 and fullsweep_after=0 are rejected as bad options on local option-bearing request routes.",
+        "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
         "Priority and logical scheduler binding are implemented; connected spawning is not claimed missing. Full native options/resource/alias/autoconnect/timing compatibility remains incomplete or unverified.",
         "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
       ]
@@ -6946,7 +7183,7 @@
       "Function": "spawn_request",
       "Arity": 4,
       "Status": "Known differences",
-      "Scope": "Local and connected spawn-request/reply paths implement their existing link/monitor/reply, process priority and logical scheduler slices. Valid local heap/GC/message_queue_data creator options remain rejected.",
+      "Scope": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
       "Evidence": [
         {
           "Kind": "SourceReview",
@@ -6971,10 +7208,16 @@
           "Path": "validation/part-360/current-source-preservation.json",
           "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
           "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+          "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+          "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
         }
       ],
       "Limits": [
-        "Valid message_queue_data=on_heap/off_heap, min_heap_size=0, min_bin_vheap_size=0 and fullsweep_after=0 are rejected as bad options on local option-bearing request routes.",
+        "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
         "Priority and logical scheduler binding are implemented; connected spawning is not claimed missing. Full native options/resource/alias/autoconnect/timing compatibility remains incomplete or unverified.",
         "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
       ]
@@ -6984,7 +7227,7 @@
       "Function": "spawn_request",
       "Arity": 5,
       "Status": "Known differences",
-      "Scope": "Local and connected spawn-request/reply paths implement their existing link/monitor/reply, process priority and logical scheduler slices. Valid local heap/GC/message_queue_data creator options remain rejected.",
+      "Scope": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
       "Evidence": [
         {
           "Kind": "SourceReview",
@@ -7009,10 +7252,16 @@
           "Path": "validation/part-360/current-source-preservation.json",
           "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
           "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+          "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+          "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
         }
       ],
       "Limits": [
-        "Valid message_queue_data=on_heap/off_heap, min_heap_size=0, min_bin_vheap_size=0 and fullsweep_after=0 are rejected as bad options on local option-bearing request routes.",
+        "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
         "Priority and logical scheduler binding are implemented; connected spawning is not claimed missing. Full native options/resource/alias/autoconnect/timing compatibility remains incomplete or unverified.",
         "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
       ]
@@ -7374,7 +7623,7 @@
       "Function": "system_flag",
       "Arity": 2,
       "Status": "Known differences",
-      "Scope": "Partial system_flag/2; backtrace_depth state and common failure-origin capture are implemented privately. Valid fullsweep_after and min_heap_size setters remain unsupported.",
+      "Scope": "system_flag(fullsweep_after,Value) is implemented, including native-small validation and system clamp. min_heap_size and other unimplemented system controls remain contract gaps.",
       "Evidence": [
         {
           "Kind": "SourceReview",
@@ -7399,11 +7648,17 @@
           "Path": "validation/part-360/current-source-preservation.json",
           "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
           "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+          "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+          "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
         }
       ],
       "Limits": [
-        "Valid fullsweep_after=0 and min_heap_size=0 are accepted by pinned OTP but this implementation rejects them with badarg.",
-        "Full native flag surface, exact arbitrary file/line/tail layouts, scheduler and physical resource semantics are not certified. The earlier generic error/hd gap is historical, not a current refusal."
+        "system_flag(fullsweep_after,Value) is implemented, including native-small validation and system clamp. min_heap_size and other unimplemented system controls remain contract gaps.",
+        "Full branch/options/error/effect coverage remains required."
       ]
     },
     {
@@ -7543,7 +7798,7 @@
       "Function": "statistics",
       "Arity": 1,
       "Status": "Known differences",
-      "Scope": "Wall-clock/runtime samples retain their current implementation. Valid pinned OTP garbage_collection queries are rejected with notsup by the managed physical-key gate: a concrete observable contract difference.",
+      "Scope": "statistics(garbage_collection) is implemented using actual CLR samples. Old unsupported-key wording is obsolete; the estimate is not ERTS per-process/native-word accounting and does not establish whole statistics compatibility.",
       "Evidence": [
         {
           "Kind": "SourceReview",
@@ -7568,12 +7823,17 @@
           "Path": "validation/part-360/current-source-preservation.json",
           "Sha256": "7D90028348FB02A7541A5F328B6A0740F5F475BAACBB03A282FA3BAB3F3D215A",
           "Scope": "Part360 source identity preservation over published359 with191guarded files; separate unpromoted callbacks and exact retained31managed source2 evidence, not full API compatibility."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+          "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+          "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
         }
       ],
       "Limits": [
-        "The valid garbage_collection key is explicitly rejected with notsup. Pinned OTP accepts this key and obtains GC statistics (or its internal undefined branch); the project has not implemented corresponding real GC accounting. Do not fabricate counter values or claim complete statistics/1 compatibility.",
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending",
-        "Part357 adds real cooperative reductions/exact_reductions and nine dispatcher queue observations. Empty dirty aggregate entries represent no dirty backend; garbage_collection, native port task queues, scheduler wall time and complete native scheduling accounting remain incomplete."
+        "statistics(garbage_collection) is implemented using actual CLR samples. Old unsupported-key wording is obsolete; the estimate is not ERTS per-process/native-word accounting and does not establish whole statistics compatibility.",
+        "Full branch/options/error/effect coverage remains required."
       ]
     },
     {
@@ -7625,7 +7885,7 @@
       "Function": "load_nif",
       "Arity": 2,
       "Status": "Known differences",
-      "Scope": "Captured direct calls support ordinary host loading and optional reviewed image admission. Indirect refusal remains. Current raw Unix pathname plumbing and additional selected callbacks require integrated managed/native/original proof; broader ABI, resources, dirty execution and upgrade semantics remain incomplete.",
+      "Scope": "Ordinary loader and reviewed native routes exist. Complete ordinary/indirect calls, pathname/platform/ABI and callback dependency closure remain unclosed; no finite fixture upgrades the whole API.",
       "Evidence": [
         {
           "Kind": "SourceReview",
@@ -7662,6 +7922,12 @@
           "Path": "validation/part-361/current-source-preservation.json",
           "Sha256": "71CF94FDBB0F98BD8FE5E2657B49B3FEBE2201E377EBEF4094447175D1BE5925",
           "Scope": "Author current source binding only; Root independent source review and integrated execution pending. Prior classifications and complete bounded scopes retained; no API promotion."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+          "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+          "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
         }
       ],
       "Limits": [
@@ -9147,8 +9413,8 @@
       "Module": "proc_lib",
       "Function": "spawn",
       "Arity": 2,
-      "Status": "Known differences",
-      "Scope": "Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.",
+      "Status": "Needs verification",
+      "Scope": "Current/old BEAM and generated-source owners resolve exact function fingerprints and environments without running a closure constructor. Fresh-receiver, lexical and current/old/purged/sibling controls pass. The old published340 missing-constructor defect is no longer current; full API audits remain outstanding.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
@@ -9161,11 +9427,17 @@
           "Path": "validation/part-341/compatibility-audit/proc-lib-rpc-erpc-inventory.json",
           "Sha256": "E3766539CFAEF13586CD07EBFB68687D8A18B29C7BDF176BB06B65458690CEE7",
           "Scope": "Published340 per-MFA known differences and verification gaps; stale original inventory CI-pending text is not reused."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+          "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+          "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
         }
       ],
       "Limits": [
-        "FRESH_RECEIVER_CAPTURED_FUN: A receiver with the matching source module loaded but no local execution of the closure constructor cannot reliably restore the anonymous/captured function body and initial-call name in published340. Private341 source5 adds exact owner/current-old fingerprint resolution without constructor evaluation.",
-        "REMOTE_WHOLE_TRACE_TCP: Native339 twelve observations and SDK23 checked contracts agree within the crosswalk, not identical whole scenarios/traces. No live native-to-SDK TCP/handshake/EPMD interoperation is established; observer trace side effects and exact combined traced alias lifecycle remain unmatched."
+        "RECHECK487_FRESH_RECEIVER: Exact current/old source-image resolution and fresh lexical/captured-function controls pass without receiver constructor execution. Complete API/source/error/effect audits remain pending; the historical340 failure is not asserted current.",
+        "REMOTE_WHOLE_TRACE_TCP: Native/managed transport integration exists, but complete proc_lib remote spawn/alias/trace branch coverage remains unverified. Missing whole-contract evidence is not a confirmed current discrepancy."
       ]
     },
     {
@@ -9189,15 +9461,15 @@
         }
       ],
       "Limits": [
-        "REMOTE_WHOLE_TRACE_TCP: Native339 twelve observations and SDK23 checked contracts agree within the crosswalk, not identical whole scenarios/traces. No live native-to-SDK TCP/handshake/EPMD interoperation is established; observer trace side effects and exact combined traced alias lifecycle remain unmatched."
+        "REMOTE_WHOLE_TRACE_TCP: Native/managed transport integration exists, but complete proc_lib remote spawn/alias/trace branch coverage remains unverified. Missing whole-contract evidence is not a confirmed current discrepancy."
       ]
     },
     {
       "Module": "proc_lib",
       "Function": "spawn_link",
       "Arity": 2,
-      "Status": "Known differences",
-      "Scope": "Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.",
+      "Status": "Needs verification",
+      "Scope": "Current/old BEAM and generated-source owners resolve exact function fingerprints and environments without running a closure constructor. Fresh-receiver, lexical and current/old/purged/sibling controls pass. The old published340 missing-constructor defect is no longer current; full API audits remain outstanding.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
@@ -9210,11 +9482,17 @@
           "Path": "validation/part-341/compatibility-audit/proc-lib-rpc-erpc-inventory.json",
           "Sha256": "E3766539CFAEF13586CD07EBFB68687D8A18B29C7BDF176BB06B65458690CEE7",
           "Scope": "Published340 per-MFA known differences and verification gaps; stale original inventory CI-pending text is not reused."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+          "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+          "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
         }
       ],
       "Limits": [
-        "FRESH_RECEIVER_CAPTURED_FUN: A receiver with the matching source module loaded but no local execution of the closure constructor cannot reliably restore the anonymous/captured function body and initial-call name in published340. Private341 source5 adds exact owner/current-old fingerprint resolution without constructor evaluation.",
-        "REMOTE_WHOLE_TRACE_TCP: Native339 twelve observations and SDK23 checked contracts agree within the crosswalk, not identical whole scenarios/traces. No live native-to-SDK TCP/handshake/EPMD interoperation is established; observer trace side effects and exact combined traced alias lifecycle remain unmatched."
+        "RECHECK487_FRESH_RECEIVER: Exact current/old source-image resolution and fresh lexical/captured-function controls pass without receiver constructor execution. Complete API/source/error/effect audits remain pending; the historical340 failure is not asserted current.",
+        "REMOTE_WHOLE_TRACE_TCP: Native/managed transport integration exists, but complete proc_lib remote spawn/alias/trace branch coverage remains unverified. Missing whole-contract evidence is not a confirmed current discrepancy."
       ]
     },
     {
@@ -9238,7 +9516,7 @@
         }
       ],
       "Limits": [
-        "REMOTE_WHOLE_TRACE_TCP: Native339 twelve observations and SDK23 checked contracts agree within the crosswalk, not identical whole scenarios/traces. No live native-to-SDK TCP/handshake/EPMD interoperation is established; observer trace side effects and exact combined traced alias lifecycle remain unmatched."
+        "REMOTE_WHOLE_TRACE_TCP: Native/managed transport integration exists, but complete proc_lib remote spawn/alias/trace branch coverage remains unverified. Missing whole-contract evidence is not a confirmed current discrepancy."
       ]
     },
     {
@@ -9246,7 +9524,7 @@
       "Function": "spawn_opt",
       "Arity": 3,
       "Status": "Known differences",
-      "Scope": "Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.",
+      "Scope": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
@@ -9259,12 +9537,18 @@
           "Path": "validation/part-341/compatibility-audit/proc-lib-rpc-erpc-inventory.json",
           "Sha256": "E3766539CFAEF13586CD07EBFB68687D8A18B29C7BDF176BB06B65458690CEE7",
           "Scope": "Published340 per-MFA known differences and verification gaps; stale original inventory CI-pending text is not reused."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+          "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+          "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
         }
       ],
       "Limits": [
-        "FRESH_RECEIVER_CAPTURED_FUN: A receiver with the matching source module loaded but no local execution of the closure constructor cannot reliably restore the anonymous/captured function body and initial-call name in published340. Private341 source5 adds exact owner/current-old fingerprint resolution without constructor evaluation.",
-        "SPAWN_NATIVE_TUNING: Shared ProcessSpawnOptions accepts link/monitor including priority/alias/tag and async_dist only; valid native scheduling/heap/GC tuning such as priority, min_heap_size, min_bin_vheap_size, fullsweep_after and max_heap_size are not implemented by that parser. These are not invalid Erlang options merely because CLR lacks their physical counterpart.",
-        "REMOTE_WHOLE_TRACE_TCP: Native339 twelve observations and SDK23 checked contracts agree within the crosswalk, not identical whole scenarios/traces. No live native-to-SDK TCP/handshake/EPMD interoperation is established; observer trace side effects and exact combined traced alias lifecycle remain unmatched."
+        "RECHECK487_FRESH_RECEIVER: Exact current/old source-image resolution and fresh lexical/captured-function controls pass without receiver constructor execution. Complete API/source/error/effect audits remain pending; the historical340 failure is not asserted current.",
+        "SPAWN_NATIVE_TUNING: priority, scheduler, fullsweep_after and message_queue_data are implemented. Native heap sizing/limits remain unsupported; physical ERTS collector equivalence is unclosed.",
+        "REMOTE_WHOLE_TRACE_TCP: Native/managed transport integration exists, but complete proc_lib remote spawn/alias/trace branch coverage remains unverified. Missing whole-contract evidence is not a confirmed current discrepancy."
       ]
     },
     {
@@ -9272,7 +9556,7 @@
       "Function": "spawn_opt",
       "Arity": 5,
       "Status": "Known differences",
-      "Scope": "Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.",
+      "Scope": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
@@ -9285,19 +9569,25 @@
           "Path": "validation/part-341/compatibility-audit/proc-lib-rpc-erpc-inventory.json",
           "Sha256": "E3766539CFAEF13586CD07EBFB68687D8A18B29C7BDF176BB06B65458690CEE7",
           "Scope": "Published340 per-MFA known differences and verification gaps; stale original inventory CI-pending text is not reused."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+          "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+          "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
         }
       ],
       "Limits": [
-        "SPAWN_NATIVE_TUNING: Shared ProcessSpawnOptions accepts link/monitor including priority/alias/tag and async_dist only; valid native scheduling/heap/GC tuning such as priority, min_heap_size, min_bin_vheap_size, fullsweep_after and max_heap_size are not implemented by that parser. These are not invalid Erlang options merely because CLR lacks their physical counterpart.",
-        "REMOTE_WHOLE_TRACE_TCP: Native339 twelve observations and SDK23 checked contracts agree within the crosswalk, not identical whole scenarios/traces. No live native-to-SDK TCP/handshake/EPMD interoperation is established; observer trace side effects and exact combined traced alias lifecycle remain unmatched."
+        "SPAWN_NATIVE_TUNING: priority, scheduler, fullsweep_after and message_queue_data are implemented. Native heap sizing/limits remain unsupported; physical ERTS collector equivalence is unclosed.",
+        "REMOTE_WHOLE_TRACE_TCP: Native/managed transport integration exists, but complete proc_lib remote spawn/alias/trace branch coverage remains unverified. Missing whole-contract evidence is not a confirmed current discrepancy."
       ]
     },
     {
       "Module": "proc_lib",
       "Function": "spawn",
       "Arity": 1,
-      "Status": "Known differences",
-      "Scope": "Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.",
+      "Status": "Needs verification",
+      "Scope": "Current/old BEAM and generated-source owners resolve exact function fingerprints and environments without running a closure constructor. Fresh-receiver, lexical and current/old/purged/sibling controls pass. The old published340 missing-constructor defect is no longer current; full API audits remain outstanding.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
@@ -9310,10 +9600,16 @@
           "Path": "validation/part-341/compatibility-audit/proc-lib-rpc-erpc-inventory.json",
           "Sha256": "E3766539CFAEF13586CD07EBFB68687D8A18B29C7BDF176BB06B65458690CEE7",
           "Scope": "Published340 per-MFA known differences and verification gaps; stale original inventory CI-pending text is not reused."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+          "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+          "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
         }
       ],
       "Limits": [
-        "FRESH_RECEIVER_CAPTURED_FUN: A receiver with the matching source module loaded but no local execution of the closure constructor cannot reliably restore the anonymous/captured function body and initial-call name in published340. Private341 source5 adds exact owner/current-old fingerprint resolution without constructor evaluation."
+        "RECHECK487_FRESH_RECEIVER: Exact current/old source-image resolution and fresh lexical/captured-function controls pass without receiver constructor execution. Complete API/source/error/effect audits remain pending; the historical340 failure is not asserted current."
       ]
     },
     {
@@ -9344,8 +9640,8 @@
       "Module": "proc_lib",
       "Function": "spawn_link",
       "Arity": 1,
-      "Status": "Known differences",
-      "Scope": "Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.",
+      "Status": "Needs verification",
+      "Scope": "Current/old BEAM and generated-source owners resolve exact function fingerprints and environments without running a closure constructor. Fresh-receiver, lexical and current/old/purged/sibling controls pass. The old published340 missing-constructor defect is no longer current; full API audits remain outstanding.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
@@ -9358,10 +9654,16 @@
           "Path": "validation/part-341/compatibility-audit/proc-lib-rpc-erpc-inventory.json",
           "Sha256": "E3766539CFAEF13586CD07EBFB68687D8A18B29C7BDF176BB06B65458690CEE7",
           "Scope": "Published340 per-MFA known differences and verification gaps; stale original inventory CI-pending text is not reused."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+          "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+          "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
         }
       ],
       "Limits": [
-        "FRESH_RECEIVER_CAPTURED_FUN: A receiver with the matching source module loaded but no local execution of the closure constructor cannot reliably restore the anonymous/captured function body and initial-call name in published340. Private341 source5 adds exact owner/current-old fingerprint resolution without constructor evaluation."
+        "RECHECK487_FRESH_RECEIVER: Exact current/old source-image resolution and fresh lexical/captured-function controls pass without receiver constructor execution. Complete API/source/error/effect audits remain pending; the historical340 failure is not asserted current."
       ]
     },
     {
@@ -9585,7 +9887,7 @@
       "Function": "spawn_opt",
       "Arity": 2,
       "Status": "Known differences",
-      "Scope": "Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.",
+      "Scope": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
@@ -9598,11 +9900,17 @@
           "Path": "validation/part-341/compatibility-audit/proc-lib-rpc-erpc-inventory.json",
           "Sha256": "E3766539CFAEF13586CD07EBFB68687D8A18B29C7BDF176BB06B65458690CEE7",
           "Scope": "Published340 per-MFA known differences and verification gaps; stale original inventory CI-pending text is not reused."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+          "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+          "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
         }
       ],
       "Limits": [
-        "FRESH_RECEIVER_CAPTURED_FUN: A receiver with the matching source module loaded but no local execution of the closure constructor cannot reliably restore the anonymous/captured function body and initial-call name in published340. Private341 source5 adds exact owner/current-old fingerprint resolution without constructor evaluation.",
-        "SPAWN_NATIVE_TUNING: Shared ProcessSpawnOptions accepts link/monitor including priority/alias/tag and async_dist only; valid native scheduling/heap/GC tuning such as priority, min_heap_size, min_bin_vheap_size, fullsweep_after and max_heap_size are not implemented by that parser. These are not invalid Erlang options merely because CLR lacks their physical counterpart."
+        "RECHECK487_FRESH_RECEIVER: Exact current/old source-image resolution and fresh lexical/captured-function controls pass without receiver constructor execution. Complete API/source/error/effect audits remain pending; the historical340 failure is not asserted current.",
+        "SPAWN_NATIVE_TUNING: priority, scheduler, fullsweep_after and message_queue_data are implemented. Native heap sizing/limits remain unsupported; physical ERTS collector equivalence is unclosed."
       ]
     },
     {
@@ -9610,7 +9918,7 @@
       "Function": "spawn_opt",
       "Arity": 4,
       "Status": "Known differences",
-      "Scope": "Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.",
+      "Scope": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
@@ -9623,10 +9931,16 @@
           "Path": "validation/part-341/compatibility-audit/proc-lib-rpc-erpc-inventory.json",
           "Sha256": "E3766539CFAEF13586CD07EBFB68687D8A18B29C7BDF176BB06B65458690CEE7",
           "Scope": "Published340 per-MFA known differences and verification gaps; stale original inventory CI-pending text is not reused."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+          "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+          "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
         }
       ],
       "Limits": [
-        "SPAWN_NATIVE_TUNING: Shared ProcessSpawnOptions accepts link/monitor including priority/alias/tag and async_dist only; valid native scheduling/heap/GC tuning such as priority, min_heap_size, min_bin_vheap_size, fullsweep_after and max_heap_size are not implemented by that parser. These are not invalid Erlang options merely because CLR lacks their physical counterpart."
+        "SPAWN_NATIVE_TUNING: priority, scheduler, fullsweep_after and message_queue_data are implemented. Native heap sizing/limits remain unsupported; physical ERTS collector equivalence is unclosed."
       ]
     },
     {
@@ -9634,7 +9948,7 @@
       "Function": "start",
       "Arity": 5,
       "Status": "Known differences",
-      "Scope": "Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.",
+      "Scope": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
@@ -9647,10 +9961,16 @@
           "Path": "validation/part-341/compatibility-audit/proc-lib-rpc-erpc-inventory.json",
           "Sha256": "E3766539CFAEF13586CD07EBFB68687D8A18B29C7BDF176BB06B65458690CEE7",
           "Scope": "Published340 per-MFA known differences and verification gaps; stale original inventory CI-pending text is not reused."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+          "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+          "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
         }
       ],
       "Limits": [
-        "SPAWN_NATIVE_TUNING: Shared ProcessSpawnOptions accepts link/monitor including priority/alias/tag and async_dist only; valid native scheduling/heap/GC tuning such as priority, min_heap_size, min_bin_vheap_size, fullsweep_after and max_heap_size are not implemented by that parser. These are not invalid Erlang options merely because CLR lacks their physical counterpart."
+        "SPAWN_NATIVE_TUNING: priority, scheduler, fullsweep_after and message_queue_data are implemented. Native heap sizing/limits remain unsupported; physical ERTS collector equivalence is unclosed."
       ]
     },
     {
@@ -9658,7 +9978,7 @@
       "Function": "start_link",
       "Arity": 5,
       "Status": "Known differences",
-      "Scope": "Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.",
+      "Scope": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
@@ -9671,10 +9991,16 @@
           "Path": "validation/part-341/compatibility-audit/proc-lib-rpc-erpc-inventory.json",
           "Sha256": "E3766539CFAEF13586CD07EBFB68687D8A18B29C7BDF176BB06B65458690CEE7",
           "Scope": "Published340 per-MFA known differences and verification gaps; stale original inventory CI-pending text is not reused."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+          "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+          "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
         }
       ],
       "Limits": [
-        "SPAWN_NATIVE_TUNING: Shared ProcessSpawnOptions accepts link/monitor including priority/alias/tag and async_dist only; valid native scheduling/heap/GC tuning such as priority, min_heap_size, min_bin_vheap_size, fullsweep_after and max_heap_size are not implemented by that parser. These are not invalid Erlang options merely because CLR lacks their physical counterpart."
+        "SPAWN_NATIVE_TUNING: priority, scheduler, fullsweep_after and message_queue_data are implemented. Native heap sizing/limits remain unsupported; physical ERTS collector equivalence is unclosed."
       ]
     },
     {
@@ -9730,7 +10056,7 @@
       "Function": "start_monitor",
       "Arity": 5,
       "Status": "Known differences",
-      "Scope": "Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.",
+      "Scope": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
@@ -9743,18 +10069,24 @@
           "Path": "validation/part-341/compatibility-audit/proc-lib-rpc-erpc-inventory.json",
           "Sha256": "E3766539CFAEF13586CD07EBFB68687D8A18B29C7BDF176BB06B65458690CEE7",
           "Scope": "Published340 per-MFA known differences and verification gaps; stale original inventory CI-pending text is not reused."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+          "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+          "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
         }
       ],
       "Limits": [
-        "SPAWN_NATIVE_TUNING: Shared ProcessSpawnOptions accepts link/monitor including priority/alias/tag and async_dist only; valid native scheduling/heap/GC tuning such as priority, min_heap_size, min_bin_vheap_size, fullsweep_after and max_heap_size are not implemented by that parser. These are not invalid Erlang options merely because CLR lacks their physical counterpart."
+        "SPAWN_NATIVE_TUNING: priority, scheduler, fullsweep_after and message_queue_data are implemented. Native heap sizing/limits remain unsupported; physical ERTS collector equivalence is unclosed."
       ]
     },
     {
       "Module": "proc_lib",
       "Function": "initial_call",
       "Arity": 1,
-      "Status": "Known differences",
-      "Scope": "Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.",
+      "Status": "Needs verification",
+      "Scope": "Current/old BEAM and generated-source owners resolve exact function fingerprints and environments without running a closure constructor. Fresh-receiver, lexical and current/old/purged/sibling controls pass. The old published340 missing-constructor defect is no longer current; full API audits remain outstanding.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
@@ -9767,18 +10099,24 @@
           "Path": "validation/part-341/compatibility-audit/proc-lib-rpc-erpc-inventory.json",
           "Sha256": "E3766539CFAEF13586CD07EBFB68687D8A18B29C7BDF176BB06B65458690CEE7",
           "Scope": "Published340 per-MFA known differences and verification gaps; stale original inventory CI-pending text is not reused."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+          "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+          "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
         }
       ],
       "Limits": [
-        "FRESH_RECEIVER_CAPTURED_FUN: A receiver with the matching source module loaded but no local execution of the closure constructor cannot reliably restore the anonymous/captured function body and initial-call name in published340. Private341 source5 adds exact owner/current-old fingerprint resolution without constructor evaluation."
+        "RECHECK487_FRESH_RECEIVER: Exact current/old source-image resolution and fresh lexical/captured-function controls pass without receiver constructor execution. Complete API/source/error/effect audits remain pending; the historical340 failure is not asserted current."
       ]
     },
     {
       "Module": "proc_lib",
       "Function": "translate_initial_call",
       "Arity": 1,
-      "Status": "Known differences",
-      "Scope": "Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.",
+      "Status": "Needs verification",
+      "Scope": "Current/old BEAM and generated-source owners resolve exact function fingerprints and environments without running a closure constructor. Fresh-receiver, lexical and current/old/purged/sibling controls pass. The old published340 missing-constructor defect is no longer current; full API audits remain outstanding.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
@@ -9791,10 +10129,16 @@
           "Path": "validation/part-341/compatibility-audit/proc-lib-rpc-erpc-inventory.json",
           "Sha256": "E3766539CFAEF13586CD07EBFB68687D8A18B29C7BDF176BB06B65458690CEE7",
           "Scope": "Published340 per-MFA known differences and verification gaps; stale original inventory CI-pending text is not reused."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+          "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+          "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
         }
       ],
       "Limits": [
-        "FRESH_RECEIVER_CAPTURED_FUN: A receiver with the matching source module loaded but no local execution of the closure constructor cannot reliably restore the anonymous/captured function body and initial-call name in published340. Private341 source5 adds exact owner/current-old fingerprint resolution without constructor evaluation."
+        "RECHECK487_FRESH_RECEIVER: Exact current/old source-image resolution and fresh lexical/captured-function controls pass without receiver constructor execution. Complete API/source/error/effect audits remain pending; the historical340 failure is not asserted current."
       ]
     },
     {
@@ -9842,7 +10186,7 @@
         }
       ],
       "Limits": [
-        "REMOTE_WHOLE_TRACE_TCP: Native339 twelve observations and SDK23 checked contracts agree within the crosswalk, not identical whole scenarios/traces. No live native-to-SDK TCP/handshake/EPMD interoperation is established; observer trace side effects and exact combined traced alias lifecycle remain unmatched."
+        "REMOTE_WHOLE_TRACE_TCP: Native/managed transport integration exists, but complete proc_lib remote spawn/alias/trace branch coverage remains unverified. Missing whole-contract evidence is not a confirmed current discrepancy."
       ]
     },
     {
@@ -10016,7 +10360,7 @@
       "Function": "init_p",
       "Arity": 3,
       "Status": "Known differences",
-      "Scope": "Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.",
+      "Scope": "Missing physical process_info fields still flow into crash reports. Complete distributed report/logger machinery and hibernate physical behavior remain separate from passing local lifecycle witnesses.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
@@ -10029,10 +10373,16 @@
           "Path": "validation/part-341/compatibility-audit/proc-lib-rpc-erpc-inventory.json",
           "Sha256": "E3766539CFAEF13586CD07EBFB68687D8A18B29C7BDF176BB06B65458690CEE7",
           "Scope": "Published340 per-MFA known differences and verification gaps; stale original inventory CI-pending text is not reused."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+          "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+          "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
         }
       ],
       "Limits": [
-        "FRESH_RECEIVER_CAPTURED_FUN: A receiver with the matching source module loaded but no local execution of the closure constructor cannot reliably restore the anonymous/captured function body and initial-call name in published340. Private341 source5 adds exact owner/current-old fingerprint resolution without constructor evaluation.",
+        "RECHECK487_FRESH_RECEIVER: Exact current/old source-image resolution and fresh lexical/captured-function controls pass without receiver constructor execution. Complete API/source/error/effect audits remain pending; the historical340 failure is not asserted current.",
         "CRASH_PHYSICAL_FIELDS: Generated crash report heap_size and stack_size are undefined on managed processes instead of native nonnegative BEAM counts. Existing portable tests allow exactly those two alternatives; other fields retain their assertions.",
         "LOGGER_BACKEND_BREADTH: Crash reports use real per-runtime logger configuration and guest callbacks, but default output is synchronous managed writer handling, not full OTP logger_std_h process/overload/physical-file machinery. Full logger_formatter headers/templates/configuration remain absent.",
         "REMOTE_NEIGHBOUR_CRASH_STACK: Full remote-neighbour crash graph and native complete crash-stack output are not established by the finite local lifecycle assertions. Remote process_info now uses real rpc; this removes the old missing-RPC dependency, not every distributed report equivalence gap."
@@ -10043,7 +10393,7 @@
       "Function": "init_p",
       "Arity": 5,
       "Status": "Known differences",
-      "Scope": "Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.",
+      "Scope": "Missing physical process_info fields still flow into crash reports. Complete distributed report/logger machinery and hibernate physical behavior remain separate from passing local lifecycle witnesses.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
@@ -10056,6 +10406,12 @@
           "Path": "validation/part-341/compatibility-audit/proc-lib-rpc-erpc-inventory.json",
           "Sha256": "E3766539CFAEF13586CD07EBFB68687D8A18B29C7BDF176BB06B65458690CEE7",
           "Scope": "Published340 per-MFA known differences and verification gaps; stale original inventory CI-pending text is not reused."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+          "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+          "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
         }
       ],
       "Limits": [
@@ -10069,7 +10425,7 @@
       "Function": "wake_up",
       "Arity": 3,
       "Status": "Known differences",
-      "Scope": "Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.",
+      "Scope": "Missing physical process_info fields still flow into crash reports. Complete distributed report/logger machinery and hibernate physical behavior remain separate from passing local lifecycle witnesses.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
@@ -10082,6 +10438,12 @@
           "Path": "validation/part-341/compatibility-audit/proc-lib-rpc-erpc-inventory.json",
           "Sha256": "E3766539CFAEF13586CD07EBFB68687D8A18B29C7BDF176BB06B65458690CEE7",
           "Scope": "Published340 per-MFA known differences and verification gaps; stale original inventory CI-pending text is not reused."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+          "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+          "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
         }
       ],
       "Limits": [
@@ -10096,7 +10458,7 @@
       "Function": "hibernate",
       "Arity": 3,
       "Status": "Known differences",
-      "Scope": "Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.",
+      "Scope": "Missing physical process_info fields still flow into crash reports. Complete distributed report/logger machinery and hibernate physical behavior remain separate from passing local lifecycle witnesses.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
@@ -10109,6 +10471,12 @@
           "Path": "validation/part-341/compatibility-audit/proc-lib-rpc-erpc-inventory.json",
           "Sha256": "E3766539CFAEF13586CD07EBFB68687D8A18B29C7BDF176BB06B65458690CEE7",
           "Scope": "Published340 per-MFA known differences and verification gaps; stale original inventory CI-pending text is not reused."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+          "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+          "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
         }
       ],
       "Limits": [
@@ -18166,7 +18534,7 @@
       "Function": "new_connection",
       "Arity": 1,
       "Status": "Known differences",
-      "Scope": "Real native connection-entry allocation and current-generation reuse through the runtime distribution table. Exact finite original values and full error stacks pass; configured resource policy prevents full-contract compatibility.",
+      "Scope": "An explicit entries.Count >= MaximumNodes rejection remains; defaultMaximumNodes is1024, unlike the pinned ERTS source. Generation/reuse tests do not remove this limit.",
       "Evidence": [
         {
           "Kind": "CompatibilityAudit",
@@ -18179,6 +18547,12 @@
           "Path": "validation/part-400/net-kernel-and-pending-connection/whole-comparisons.json",
           "Sha256": "823679BC1DC97E3C3949AEEBE3DAE965C9C5D4BC00E3864DC38351379DEF5362",
           "Scope": "102 complete original new_connection outcomes plus138 original net_kernel outcomes, both raw ETF and typed whole equality; no all-domain promotion."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/part-487/contract-reaudit/known-differences-review.json",
+          "Sha256": "9B66122DA8580C14BB0573D1162365F99705C50830D9E95A151F95B928D84998",
+          "Scope": "Current31-entry re-audit with per-entry source hashes and bounded81-case regression; six obsolete-defect entries return to Needs verification, no whole-contract promotion from this review."
         }
       ],
       "Limits": [
@@ -18578,10 +18952,6 @@
       "Sha256": "EC38828DD641FB4E0775B57728096F6936815B9804B0C532D30ED0103486A025"
     },
     {
-      "Path": "src/Runtime/Erlang.DriverHost/Hosting/Program.cs",
-      "Sha256": "62BC7D3E563AD9B16F4CB9C6B96AA367709B4FF781BF7934D8EC0C31FCFD76A3"
-    },
-    {
       "Path": "src/Otp/Managed/Erlang.Otp.Behaviours/Composition/OtpModules.cs",
       "Sha256": "963C51FB9B001FF8B4B4FE2C5921FD062CE865B2936E60F2023FA7FCF6092C4B"
     },
@@ -18948,6 +19318,10 @@
     {
       "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Support/RuntimeExceptionWrapperNames.cs",
       "Sha256": "BE91EBBB5E961620A5064604A2A5C36965731EA392468D75166A0E72C7A163C9"
+    },
+    {
+      "Path": "src/Runtime/Erlang.DriverHost/Hosting/Program.cs",
+      "Sha256": "62BC7D3E563AD9B16F4CB9C6B96AA367709B4FF781BF7934D8EC0C31FCFD76A3"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Bootstrap/RuntimeBootstrapAllocatorGather434.cs",
@@ -19779,7 +20153,7 @@
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLinkedCode.cs",
-      "Sha256": "0CEA1C8006E2152A8513B14CBE74DFEFAEBF09D771788882AA34D3BC429C2C76"
+      "Sha256": "0A490F50F0D2B3B70E9E35763598FB4B506F1FC5DE616EB5F02CCECC7CBDF05D"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLinkedCodeReader.cs",
@@ -19787,7 +20161,7 @@
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLiteralCallFailureProof.cs",
-      "Sha256": "3B971FEDE3A02E8549FB53EB5CA7A19DFADF62B8A80000ACAEFA06081EB7336F"
+      "Sha256": "C25783F7A46BB270F1A5513B3E7A124BD192219D969D9ABE14F9461C96D53655"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLoaderApi.cs",
@@ -19871,7 +20245,7 @@
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamReceiveMatcher.cs",
-      "Sha256": "71F3A19A23EE361F3F4E7730AFF3C06EF03AA16701C861D0F0568BA3A2BD7DEF"
+      "Sha256": "99555560B682112095CC3D51BBDD2EFC94F4612B91E7586FCD439862733C9CA7"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamReceiveNames.cs",
@@ -19903,7 +20277,7 @@
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterInterpreter.cs",
-      "Sha256": "63EE28E234D98A23BA22264ED5E744A002450BAF8B602F9A91385DC16A125782"
+      "Sha256": "62B317624F4D88C126F0E1DE4DC1232F9000FE7DE98A16C5EAF0894A2FE7F063"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterProtocolNames.cs",
@@ -22200,6 +22574,10 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangNativeHash.cs",
       "Sha256": "F45DD43525616577D2E26A375090C102665D581A25A9437784C24E819374E40A"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangNumericBifs.cs",
+      "Sha256": "1F88BAF3ED096BCDC39F496A0B713D9193EBAF4F813CBA87FEBDD3C1EC81A822"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangOperatorValues.cs",

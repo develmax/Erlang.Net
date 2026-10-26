@@ -260,7 +260,7 @@ These are catalog/default-registry counts. A missing default entry does not mean
 | `erl_init` | 2 | 0 | 0 |
 | `erl_prim_loader` | 20 | 0 | 0 |
 | `erl_tracer` | 3 | 0 | 0 |
-| `erlang` | 875 | 351 | 21 |
+| `erlang` | 875 | 351 | 30 |
 | `erts_code_purger` | 6 | 0 | 0 |
 | `erts_dirty_process_signal_handler` | 1 | 0 | 0 |
 | `erts_internal` | 98 | 7 | 0 |

@@ -1,0 +1,745 @@
+{
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SourceBaseline": "af74aa110130d2937ffca262d73c297f0fd95343",
+  "ReviewedRecordedDifferences": 31,
+  "RetainedKnownDifferences": 25,
+  "ReclassifiedForFullAudit": 6,
+  "FullContractsPromotedByThisReview": 0,
+  "Rows": [
+    {
+      "Module": "erlang",
+      "Function": "process_info",
+      "Arity": 2,
+      "PreviousStatus": "Known differences",
+      "Status": "Known differences",
+      "Group": "physical-info",
+      "Finding": "Four physical process_info keys remain absent from the supported-key parser and default logical list. No manufactured ERTS heap/stack figures are introduced.",
+      "SourceFiles": [
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+          "Sha256": "EB6A119EABD576DFBC3BF40DA6452544FF294A5182DBFACCAC81C7BE62F29DDF"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoDefaultCatalog.cs",
+          "Sha256": "7B3FCA544BBAECF99567010EB5549D6359F159D90A4EB823FB56E6F47FD80AF2"
+        }
+      ],
+      "ExecutionEvidence": "current-difference-and-ordsets.json; bounded81 tests, not complete API contracts",
+      "FreshOriginalWholeApiAudit": false
+    },
+    {
+      "Module": "erlang",
+      "Function": "process_info",
+      "Arity": 1,
+      "PreviousStatus": "Known differences",
+      "Status": "Known differences",
+      "Group": "physical-info",
+      "Finding": "Four physical process_info keys remain absent from the supported-key parser and default logical list. No manufactured ERTS heap/stack figures are introduced.",
+      "SourceFiles": [
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+          "Sha256": "EB6A119EABD576DFBC3BF40DA6452544FF294A5182DBFACCAC81C7BE62F29DDF"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoDefaultCatalog.cs",
+          "Sha256": "7B3FCA544BBAECF99567010EB5549D6359F159D90A4EB823FB56E6F47FD80AF2"
+        }
+      ],
+      "ExecutionEvidence": "current-difference-and-ordsets.json; bounded81 tests, not complete API contracts",
+      "FreshOriginalWholeApiAudit": false
+    },
+    {
+      "Module": "erlang",
+      "Function": "spawn_opt",
+      "Arity": 2,
+      "PreviousStatus": "Known differences",
+      "Status": "Known differences",
+      "Group": "spawn-tuning",
+      "Finding": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+      "SourceFiles": [
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessSpawnOptions.cs",
+          "Sha256": "598170B4AFE1AE85BFD8E18CC601238FDDD63E0C4F0D883B7AB091112ED9A967"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessFullSweepAfter.cs",
+          "Sha256": "EF84914A3905CE4F8638C4DAC8F6F8AAB555967505D91AAF1FBD924D6E25733E"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessMessageQueueData411.cs",
+          "Sha256": "D9F2885ECD94A72CDEC8794A5C91E3EFA7D0C48E7EBC08EFCCF580BBE57910FC"
+        }
+      ],
+      "ExecutionEvidence": "current-difference-and-ordsets.json; bounded81 tests, not complete API contracts",
+      "FreshOriginalWholeApiAudit": false
+    },
+    {
+      "Module": "erlang",
+      "Function": "spawn_opt",
+      "Arity": 3,
+      "PreviousStatus": "Known differences",
+      "Status": "Known differences",
+      "Group": "spawn-tuning",
+      "Finding": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+      "SourceFiles": [
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessSpawnOptions.cs",
+          "Sha256": "598170B4AFE1AE85BFD8E18CC601238FDDD63E0C4F0D883B7AB091112ED9A967"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessFullSweepAfter.cs",
+          "Sha256": "EF84914A3905CE4F8638C4DAC8F6F8AAB555967505D91AAF1FBD924D6E25733E"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessMessageQueueData411.cs",
+          "Sha256": "D9F2885ECD94A72CDEC8794A5C91E3EFA7D0C48E7EBC08EFCCF580BBE57910FC"
+        }
+      ],
+      "ExecutionEvidence": "current-difference-and-ordsets.json; bounded81 tests, not complete API contracts",
+      "FreshOriginalWholeApiAudit": false
+    },
+    {
+      "Module": "erlang",
+      "Function": "spawn_opt",
+      "Arity": 4,
+      "PreviousStatus": "Known differences",
+      "Status": "Known differences",
+      "Group": "spawn-tuning",
+      "Finding": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+      "SourceFiles": [
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessSpawnOptions.cs",
+          "Sha256": "598170B4AFE1AE85BFD8E18CC601238FDDD63E0C4F0D883B7AB091112ED9A967"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessFullSweepAfter.cs",
+          "Sha256": "EF84914A3905CE4F8638C4DAC8F6F8AAB555967505D91AAF1FBD924D6E25733E"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessMessageQueueData411.cs",
+          "Sha256": "D9F2885ECD94A72CDEC8794A5C91E3EFA7D0C48E7EBC08EFCCF580BBE57910FC"
+        }
+      ],
+      "ExecutionEvidence": "current-difference-and-ordsets.json; bounded81 tests, not complete API contracts",
+      "FreshOriginalWholeApiAudit": false
+    },
+    {
+      "Module": "erlang",
+      "Function": "spawn_opt",
+      "Arity": 5,
+      "PreviousStatus": "Known differences",
+      "Status": "Known differences",
+      "Group": "spawn-tuning",
+      "Finding": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+      "SourceFiles": [
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessSpawnOptions.cs",
+          "Sha256": "598170B4AFE1AE85BFD8E18CC601238FDDD63E0C4F0D883B7AB091112ED9A967"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessFullSweepAfter.cs",
+          "Sha256": "EF84914A3905CE4F8638C4DAC8F6F8AAB555967505D91AAF1FBD924D6E25733E"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessMessageQueueData411.cs",
+          "Sha256": "D9F2885ECD94A72CDEC8794A5C91E3EFA7D0C48E7EBC08EFCCF580BBE57910FC"
+        }
+      ],
+      "ExecutionEvidence": "current-difference-and-ordsets.json; bounded81 tests, not complete API contracts",
+      "FreshOriginalWholeApiAudit": false
+    },
+    {
+      "Module": "erlang",
+      "Function": "spawn_request",
+      "Arity": 2,
+      "PreviousStatus": "Known differences",
+      "Status": "Known differences",
+      "Group": "spawn-tuning",
+      "Finding": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+      "SourceFiles": [
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessSpawnOptions.cs",
+          "Sha256": "598170B4AFE1AE85BFD8E18CC601238FDDD63E0C4F0D883B7AB091112ED9A967"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessFullSweepAfter.cs",
+          "Sha256": "EF84914A3905CE4F8638C4DAC8F6F8AAB555967505D91AAF1FBD924D6E25733E"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessMessageQueueData411.cs",
+          "Sha256": "D9F2885ECD94A72CDEC8794A5C91E3EFA7D0C48E7EBC08EFCCF580BBE57910FC"
+        }
+      ],
+      "ExecutionEvidence": "current-difference-and-ordsets.json; bounded81 tests, not complete API contracts",
+      "FreshOriginalWholeApiAudit": false
+    },
+    {
+      "Module": "erlang",
+      "Function": "spawn_request",
+      "Arity": 3,
+      "PreviousStatus": "Known differences",
+      "Status": "Known differences",
+      "Group": "spawn-tuning",
+      "Finding": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+      "SourceFiles": [
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessSpawnOptions.cs",
+          "Sha256": "598170B4AFE1AE85BFD8E18CC601238FDDD63E0C4F0D883B7AB091112ED9A967"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessFullSweepAfter.cs",
+          "Sha256": "EF84914A3905CE4F8638C4DAC8F6F8AAB555967505D91AAF1FBD924D6E25733E"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessMessageQueueData411.cs",
+          "Sha256": "D9F2885ECD94A72CDEC8794A5C91E3EFA7D0C48E7EBC08EFCCF580BBE57910FC"
+        }
+      ],
+      "ExecutionEvidence": "current-difference-and-ordsets.json; bounded81 tests, not complete API contracts",
+      "FreshOriginalWholeApiAudit": false
+    },
+    {
+      "Module": "erlang",
+      "Function": "spawn_request",
+      "Arity": 4,
+      "PreviousStatus": "Known differences",
+      "Status": "Known differences",
+      "Group": "spawn-tuning",
+      "Finding": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+      "SourceFiles": [
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessSpawnOptions.cs",
+          "Sha256": "598170B4AFE1AE85BFD8E18CC601238FDDD63E0C4F0D883B7AB091112ED9A967"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessFullSweepAfter.cs",
+          "Sha256": "EF84914A3905CE4F8638C4DAC8F6F8AAB555967505D91AAF1FBD924D6E25733E"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessMessageQueueData411.cs",
+          "Sha256": "D9F2885ECD94A72CDEC8794A5C91E3EFA7D0C48E7EBC08EFCCF580BBE57910FC"
+        }
+      ],
+      "ExecutionEvidence": "current-difference-and-ordsets.json; bounded81 tests, not complete API contracts",
+      "FreshOriginalWholeApiAudit": false
+    },
+    {
+      "Module": "erlang",
+      "Function": "spawn_request",
+      "Arity": 5,
+      "PreviousStatus": "Known differences",
+      "Status": "Known differences",
+      "Group": "spawn-tuning",
+      "Finding": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+      "SourceFiles": [
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessSpawnOptions.cs",
+          "Sha256": "598170B4AFE1AE85BFD8E18CC601238FDDD63E0C4F0D883B7AB091112ED9A967"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessFullSweepAfter.cs",
+          "Sha256": "EF84914A3905CE4F8638C4DAC8F6F8AAB555967505D91AAF1FBD924D6E25733E"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessMessageQueueData411.cs",
+          "Sha256": "D9F2885ECD94A72CDEC8794A5C91E3EFA7D0C48E7EBC08EFCCF580BBE57910FC"
+        }
+      ],
+      "ExecutionEvidence": "current-difference-and-ordsets.json; bounded81 tests, not complete API contracts",
+      "FreshOriginalWholeApiAudit": false
+    },
+    {
+      "Module": "erlang",
+      "Function": "system_flag",
+      "Arity": 2,
+      "PreviousStatus": "Known differences",
+      "Status": "Known differences",
+      "Group": "system-flags",
+      "Finding": "system_flag(fullsweep_after,Value) is implemented, including native-small validation and system clamp. min_heap_size and other unimplemented system controls remain contract gaps.",
+      "SourceFiles": [
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations.cs",
+          "Sha256": "F31069EF993CE374B446BC08D9AEAC6DF5BD596789C6CE9005D010FC08910B45"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessFullSweepAfter.cs",
+          "Sha256": "EF84914A3905CE4F8638C4DAC8F6F8AAB555967505D91AAF1FBD924D6E25733E"
+        }
+      ],
+      "ExecutionEvidence": "current-difference-and-ordsets.json; bounded81 tests, not complete API contracts",
+      "FreshOriginalWholeApiAudit": false
+    },
+    {
+      "Module": "erlang",
+      "Function": "statistics",
+      "Arity": 1,
+      "PreviousStatus": "Known differences",
+      "Status": "Known differences",
+      "Group": "statistics",
+      "Finding": "statistics(garbage_collection) is implemented using actual CLR samples. Old unsupported-key wording is obsolete; the estimate is not ERTS per-process/native-word accounting and does not establish whole statistics compatibility.",
+      "SourceFiles": [
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatisticsRegistrations.cs",
+          "Sha256": "70472D73A001A3289F49B66C8402C9C27D70B39A5EB0133CB085CE17D11C4CD0"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.ManagedGarbage457.cs",
+          "Sha256": "66D0F899189B5D7C822F125238EFC7E66343297A84892B82BD4939E538CB4B43"
+        }
+      ],
+      "ExecutionEvidence": "current-difference-and-ordsets.json; bounded81 tests, not complete API contracts",
+      "FreshOriginalWholeApiAudit": false
+    },
+    {
+      "Module": "erlang",
+      "Function": "load_nif",
+      "Arity": 2,
+      "PreviousStatus": "Known differences",
+      "Status": "Known differences",
+      "Group": "nif",
+      "Finding": "Ordinary loader and reviewed native routes exist. Complete ordinary/indirect calls, pathname/platform/ABI and callback dependency closure remain unclosed; no finite fixture upgrades the whole API.",
+      "SourceFiles": [
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Modules/Functions/SourceLoadNifCall.cs",
+          "Sha256": "9632287BFA0AFDAA615E47EF4659721A194FAD9EE443E71BC3A2BAA6DA299B11"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Modules/Functions/SourceLoadNifFilename.cs",
+          "Sha256": "A40270669386E828CC1468165AD6D6A2966AA5B27BBD440BC554055BDB3B88DA"
+        }
+      ],
+      "ExecutionEvidence": "current-difference-and-ordsets.json; bounded81 tests, not complete API contracts",
+      "FreshOriginalWholeApiAudit": false
+    },
+    {
+      "Module": "proc_lib",
+      "Function": "spawn",
+      "Arity": 2,
+      "PreviousStatus": "Known differences",
+      "Status": "Needs verification",
+      "Group": "fresh-function",
+      "Finding": "Current/old BEAM and generated-source owners resolve exact function fingerprints and environments without running a closure constructor. Fresh-receiver, lexical and current/old/purged/sibling controls pass. The old published340 missing-constructor defect is no longer current; full API audits remain outstanding.",
+      "SourceFiles": [
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.SourceLocalFunctions.cs",
+          "Sha256": "7A76F5B492FDB6C21B3C7F2703A8389D4ECA620C8D37920B113E919FA47C5421"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Services/RuntimeFunctionEntries.cs",
+          "Sha256": "B7F02744D3817271D6BAFBB73A923D50C055B06EDE3A6F9F55D7089A9C8CB341"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Modules/Functions/RestoredStoredFunctionRecipe.cs",
+          "Sha256": "423AA600ACDA2EC637483E185B9CCD835F51871851EF3100114664BE96593B45"
+        }
+      ],
+      "ExecutionEvidence": "current-difference-and-ordsets.json; bounded81 tests, not complete API contracts",
+      "FreshOriginalWholeApiAudit": false
+    },
+    {
+      "Module": "proc_lib",
+      "Function": "spawn_link",
+      "Arity": 2,
+      "PreviousStatus": "Known differences",
+      "Status": "Needs verification",
+      "Group": "fresh-function",
+      "Finding": "Current/old BEAM and generated-source owners resolve exact function fingerprints and environments without running a closure constructor. Fresh-receiver, lexical and current/old/purged/sibling controls pass. The old published340 missing-constructor defect is no longer current; full API audits remain outstanding.",
+      "SourceFiles": [
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.SourceLocalFunctions.cs",
+          "Sha256": "7A76F5B492FDB6C21B3C7F2703A8389D4ECA620C8D37920B113E919FA47C5421"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Services/RuntimeFunctionEntries.cs",
+          "Sha256": "B7F02744D3817271D6BAFBB73A923D50C055B06EDE3A6F9F55D7089A9C8CB341"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Modules/Functions/RestoredStoredFunctionRecipe.cs",
+          "Sha256": "423AA600ACDA2EC637483E185B9CCD835F51871851EF3100114664BE96593B45"
+        }
+      ],
+      "ExecutionEvidence": "current-difference-and-ordsets.json; bounded81 tests, not complete API contracts",
+      "FreshOriginalWholeApiAudit": false
+    },
+    {
+      "Module": "proc_lib",
+      "Function": "spawn_opt",
+      "Arity": 3,
+      "PreviousStatus": "Known differences",
+      "Status": "Known differences",
+      "Group": "spawn-tuning",
+      "Finding": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+      "SourceFiles": [
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessSpawnOptions.cs",
+          "Sha256": "598170B4AFE1AE85BFD8E18CC601238FDDD63E0C4F0D883B7AB091112ED9A967"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessFullSweepAfter.cs",
+          "Sha256": "EF84914A3905CE4F8638C4DAC8F6F8AAB555967505D91AAF1FBD924D6E25733E"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessMessageQueueData411.cs",
+          "Sha256": "D9F2885ECD94A72CDEC8794A5C91E3EFA7D0C48E7EBC08EFCCF580BBE57910FC"
+        }
+      ],
+      "ExecutionEvidence": "current-difference-and-ordsets.json; bounded81 tests, not complete API contracts",
+      "FreshOriginalWholeApiAudit": false
+    },
+    {
+      "Module": "proc_lib",
+      "Function": "spawn_opt",
+      "Arity": 5,
+      "PreviousStatus": "Known differences",
+      "Status": "Known differences",
+      "Group": "spawn-tuning",
+      "Finding": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+      "SourceFiles": [
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessSpawnOptions.cs",
+          "Sha256": "598170B4AFE1AE85BFD8E18CC601238FDDD63E0C4F0D883B7AB091112ED9A967"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessFullSweepAfter.cs",
+          "Sha256": "EF84914A3905CE4F8638C4DAC8F6F8AAB555967505D91AAF1FBD924D6E25733E"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessMessageQueueData411.cs",
+          "Sha256": "D9F2885ECD94A72CDEC8794A5C91E3EFA7D0C48E7EBC08EFCCF580BBE57910FC"
+        }
+      ],
+      "ExecutionEvidence": "current-difference-and-ordsets.json; bounded81 tests, not complete API contracts",
+      "FreshOriginalWholeApiAudit": false
+    },
+    {
+      "Module": "proc_lib",
+      "Function": "spawn",
+      "Arity": 1,
+      "PreviousStatus": "Known differences",
+      "Status": "Needs verification",
+      "Group": "fresh-function",
+      "Finding": "Current/old BEAM and generated-source owners resolve exact function fingerprints and environments without running a closure constructor. Fresh-receiver, lexical and current/old/purged/sibling controls pass. The old published340 missing-constructor defect is no longer current; full API audits remain outstanding.",
+      "SourceFiles": [
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.SourceLocalFunctions.cs",
+          "Sha256": "7A76F5B492FDB6C21B3C7F2703A8389D4ECA620C8D37920B113E919FA47C5421"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Services/RuntimeFunctionEntries.cs",
+          "Sha256": "B7F02744D3817271D6BAFBB73A923D50C055B06EDE3A6F9F55D7089A9C8CB341"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Modules/Functions/RestoredStoredFunctionRecipe.cs",
+          "Sha256": "423AA600ACDA2EC637483E185B9CCD835F51871851EF3100114664BE96593B45"
+        }
+      ],
+      "ExecutionEvidence": "current-difference-and-ordsets.json; bounded81 tests, not complete API contracts",
+      "FreshOriginalWholeApiAudit": false
+    },
+    {
+      "Module": "proc_lib",
+      "Function": "spawn_link",
+      "Arity": 1,
+      "PreviousStatus": "Known differences",
+      "Status": "Needs verification",
+      "Group": "fresh-function",
+      "Finding": "Current/old BEAM and generated-source owners resolve exact function fingerprints and environments without running a closure constructor. Fresh-receiver, lexical and current/old/purged/sibling controls pass. The old published340 missing-constructor defect is no longer current; full API audits remain outstanding.",
+      "SourceFiles": [
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.SourceLocalFunctions.cs",
+          "Sha256": "7A76F5B492FDB6C21B3C7F2703A8389D4ECA620C8D37920B113E919FA47C5421"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Services/RuntimeFunctionEntries.cs",
+          "Sha256": "B7F02744D3817271D6BAFBB73A923D50C055B06EDE3A6F9F55D7089A9C8CB341"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Modules/Functions/RestoredStoredFunctionRecipe.cs",
+          "Sha256": "423AA600ACDA2EC637483E185B9CCD835F51871851EF3100114664BE96593B45"
+        }
+      ],
+      "ExecutionEvidence": "current-difference-and-ordsets.json; bounded81 tests, not complete API contracts",
+      "FreshOriginalWholeApiAudit": false
+    },
+    {
+      "Module": "proc_lib",
+      "Function": "spawn_opt",
+      "Arity": 2,
+      "PreviousStatus": "Known differences",
+      "Status": "Known differences",
+      "Group": "spawn-tuning",
+      "Finding": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+      "SourceFiles": [
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessSpawnOptions.cs",
+          "Sha256": "598170B4AFE1AE85BFD8E18CC601238FDDD63E0C4F0D883B7AB091112ED9A967"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessFullSweepAfter.cs",
+          "Sha256": "EF84914A3905CE4F8638C4DAC8F6F8AAB555967505D91AAF1FBD924D6E25733E"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessMessageQueueData411.cs",
+          "Sha256": "D9F2885ECD94A72CDEC8794A5C91E3EFA7D0C48E7EBC08EFCCF580BBE57910FC"
+        }
+      ],
+      "ExecutionEvidence": "current-difference-and-ordsets.json; bounded81 tests, not complete API contracts",
+      "FreshOriginalWholeApiAudit": false
+    },
+    {
+      "Module": "proc_lib",
+      "Function": "spawn_opt",
+      "Arity": 4,
+      "PreviousStatus": "Known differences",
+      "Status": "Known differences",
+      "Group": "spawn-tuning",
+      "Finding": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+      "SourceFiles": [
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessSpawnOptions.cs",
+          "Sha256": "598170B4AFE1AE85BFD8E18CC601238FDDD63E0C4F0D883B7AB091112ED9A967"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessFullSweepAfter.cs",
+          "Sha256": "EF84914A3905CE4F8638C4DAC8F6F8AAB555967505D91AAF1FBD924D6E25733E"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessMessageQueueData411.cs",
+          "Sha256": "D9F2885ECD94A72CDEC8794A5C91E3EFA7D0C48E7EBC08EFCCF580BBE57910FC"
+        }
+      ],
+      "ExecutionEvidence": "current-difference-and-ordsets.json; bounded81 tests, not complete API contracts",
+      "FreshOriginalWholeApiAudit": false
+    },
+    {
+      "Module": "proc_lib",
+      "Function": "start",
+      "Arity": 5,
+      "PreviousStatus": "Known differences",
+      "Status": "Known differences",
+      "Group": "spawn-tuning",
+      "Finding": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+      "SourceFiles": [
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessSpawnOptions.cs",
+          "Sha256": "598170B4AFE1AE85BFD8E18CC601238FDDD63E0C4F0D883B7AB091112ED9A967"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessFullSweepAfter.cs",
+          "Sha256": "EF84914A3905CE4F8638C4DAC8F6F8AAB555967505D91AAF1FBD924D6E25733E"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessMessageQueueData411.cs",
+          "Sha256": "D9F2885ECD94A72CDEC8794A5C91E3EFA7D0C48E7EBC08EFCCF580BBE57910FC"
+        }
+      ],
+      "ExecutionEvidence": "current-difference-and-ordsets.json; bounded81 tests, not complete API contracts",
+      "FreshOriginalWholeApiAudit": false
+    },
+    {
+      "Module": "proc_lib",
+      "Function": "start_link",
+      "Arity": 5,
+      "PreviousStatus": "Known differences",
+      "Status": "Known differences",
+      "Group": "spawn-tuning",
+      "Finding": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+      "SourceFiles": [
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessSpawnOptions.cs",
+          "Sha256": "598170B4AFE1AE85BFD8E18CC601238FDDD63E0C4F0D883B7AB091112ED9A967"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessFullSweepAfter.cs",
+          "Sha256": "EF84914A3905CE4F8638C4DAC8F6F8AAB555967505D91AAF1FBD924D6E25733E"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessMessageQueueData411.cs",
+          "Sha256": "D9F2885ECD94A72CDEC8794A5C91E3EFA7D0C48E7EBC08EFCCF580BBE57910FC"
+        }
+      ],
+      "ExecutionEvidence": "current-difference-and-ordsets.json; bounded81 tests, not complete API contracts",
+      "FreshOriginalWholeApiAudit": false
+    },
+    {
+      "Module": "proc_lib",
+      "Function": "start_monitor",
+      "Arity": 5,
+      "PreviousStatus": "Known differences",
+      "Status": "Known differences",
+      "Group": "spawn-tuning",
+      "Finding": "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+      "SourceFiles": [
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessSpawnOptions.cs",
+          "Sha256": "598170B4AFE1AE85BFD8E18CC601238FDDD63E0C4F0D883B7AB091112ED9A967"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessFullSweepAfter.cs",
+          "Sha256": "EF84914A3905CE4F8638C4DAC8F6F8AAB555967505D91AAF1FBD924D6E25733E"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessMessageQueueData411.cs",
+          "Sha256": "D9F2885ECD94A72CDEC8794A5C91E3EFA7D0C48E7EBC08EFCCF580BBE57910FC"
+        }
+      ],
+      "ExecutionEvidence": "current-difference-and-ordsets.json; bounded81 tests, not complete API contracts",
+      "FreshOriginalWholeApiAudit": false
+    },
+    {
+      "Module": "proc_lib",
+      "Function": "initial_call",
+      "Arity": 1,
+      "PreviousStatus": "Known differences",
+      "Status": "Needs verification",
+      "Group": "fresh-function",
+      "Finding": "Current/old BEAM and generated-source owners resolve exact function fingerprints and environments without running a closure constructor. Fresh-receiver, lexical and current/old/purged/sibling controls pass. The old published340 missing-constructor defect is no longer current; full API audits remain outstanding.",
+      "SourceFiles": [
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.SourceLocalFunctions.cs",
+          "Sha256": "7A76F5B492FDB6C21B3C7F2703A8389D4ECA620C8D37920B113E919FA47C5421"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Services/RuntimeFunctionEntries.cs",
+          "Sha256": "B7F02744D3817271D6BAFBB73A923D50C055B06EDE3A6F9F55D7089A9C8CB341"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Modules/Functions/RestoredStoredFunctionRecipe.cs",
+          "Sha256": "423AA600ACDA2EC637483E185B9CCD835F51871851EF3100114664BE96593B45"
+        }
+      ],
+      "ExecutionEvidence": "current-difference-and-ordsets.json; bounded81 tests, not complete API contracts",
+      "FreshOriginalWholeApiAudit": false
+    },
+    {
+      "Module": "proc_lib",
+      "Function": "translate_initial_call",
+      "Arity": 1,
+      "PreviousStatus": "Known differences",
+      "Status": "Needs verification",
+      "Group": "fresh-function",
+      "Finding": "Current/old BEAM and generated-source owners resolve exact function fingerprints and environments without running a closure constructor. Fresh-receiver, lexical and current/old/purged/sibling controls pass. The old published340 missing-constructor defect is no longer current; full API audits remain outstanding.",
+      "SourceFiles": [
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.SourceLocalFunctions.cs",
+          "Sha256": "7A76F5B492FDB6C21B3C7F2703A8389D4ECA620C8D37920B113E919FA47C5421"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Services/RuntimeFunctionEntries.cs",
+          "Sha256": "B7F02744D3817271D6BAFBB73A923D50C055B06EDE3A6F9F55D7089A9C8CB341"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Modules/Functions/RestoredStoredFunctionRecipe.cs",
+          "Sha256": "423AA600ACDA2EC637483E185B9CCD835F51871851EF3100114664BE96593B45"
+        }
+      ],
+      "ExecutionEvidence": "current-difference-and-ordsets.json; bounded81 tests, not complete API contracts",
+      "FreshOriginalWholeApiAudit": false
+    },
+    {
+      "Module": "proc_lib",
+      "Function": "init_p",
+      "Arity": 3,
+      "PreviousStatus": "Known differences",
+      "Status": "Known differences",
+      "Group": "reports",
+      "Finding": "Missing physical process_info fields still flow into crash reports. Complete distributed report/logger machinery and hibernate physical behavior remain separate from passing local lifecycle witnesses.",
+      "SourceFiles": [
+        {
+          "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/ProcLib/ProcLibCrashReportBuilder.cs",
+          "Sha256": "416451A30510809222F3BE96115287FFA71668AC16B2D993B20B3588305A94A6"
+        },
+        {
+          "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/ProcLib/ProcLibIntrospection.cs",
+          "Sha256": "D931A279B9B2F4C51766057E3DC70A22ABAB904A1252E278298193BCD1ED4C9C"
+        }
+      ],
+      "ExecutionEvidence": "current-difference-and-ordsets.json; bounded81 tests, not complete API contracts",
+      "FreshOriginalWholeApiAudit": false
+    },
+    {
+      "Module": "proc_lib",
+      "Function": "init_p",
+      "Arity": 5,
+      "PreviousStatus": "Known differences",
+      "Status": "Known differences",
+      "Group": "reports",
+      "Finding": "Missing physical process_info fields still flow into crash reports. Complete distributed report/logger machinery and hibernate physical behavior remain separate from passing local lifecycle witnesses.",
+      "SourceFiles": [
+        {
+          "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/ProcLib/ProcLibCrashReportBuilder.cs",
+          "Sha256": "416451A30510809222F3BE96115287FFA71668AC16B2D993B20B3588305A94A6"
+        },
+        {
+          "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/ProcLib/ProcLibIntrospection.cs",
+          "Sha256": "D931A279B9B2F4C51766057E3DC70A22ABAB904A1252E278298193BCD1ED4C9C"
+        }
+      ],
+      "ExecutionEvidence": "current-difference-and-ordsets.json; bounded81 tests, not complete API contracts",
+      "FreshOriginalWholeApiAudit": false
+    },
+    {
+      "Module": "proc_lib",
+      "Function": "wake_up",
+      "Arity": 3,
+      "PreviousStatus": "Known differences",
+      "Status": "Known differences",
+      "Group": "reports",
+      "Finding": "Missing physical process_info fields still flow into crash reports. Complete distributed report/logger machinery and hibernate physical behavior remain separate from passing local lifecycle witnesses.",
+      "SourceFiles": [
+        {
+          "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/ProcLib/ProcLibCrashReportBuilder.cs",
+          "Sha256": "416451A30510809222F3BE96115287FFA71668AC16B2D993B20B3588305A94A6"
+        },
+        {
+          "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/ProcLib/ProcLibIntrospection.cs",
+          "Sha256": "D931A279B9B2F4C51766057E3DC70A22ABAB904A1252E278298193BCD1ED4C9C"
+        }
+      ],
+      "ExecutionEvidence": "current-difference-and-ordsets.json; bounded81 tests, not complete API contracts",
+      "FreshOriginalWholeApiAudit": false
+    },
+    {
+      "Module": "proc_lib",
+      "Function": "hibernate",
+      "Arity": 3,
+      "PreviousStatus": "Known differences",
+      "Status": "Known differences",
+      "Group": "reports",
+      "Finding": "Missing physical process_info fields still flow into crash reports. Complete distributed report/logger machinery and hibernate physical behavior remain separate from passing local lifecycle witnesses.",
+      "SourceFiles": [
+        {
+          "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/ProcLib/ProcLibCrashReportBuilder.cs",
+          "Sha256": "416451A30510809222F3BE96115287FFA71668AC16B2D993B20B3588305A94A6"
+        },
+        {
+          "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/ProcLib/ProcLibIntrospection.cs",
+          "Sha256": "D931A279B9B2F4C51766057E3DC70A22ABAB904A1252E278298193BCD1ED4C9C"
+        }
+      ],
+      "ExecutionEvidence": "current-difference-and-ordsets.json; bounded81 tests, not complete API contracts",
+      "FreshOriginalWholeApiAudit": false
+    },
+    {
+      "Module": "erts_internal",
+      "Function": "new_connection",
+      "Arity": 1,
+      "PreviousStatus": "Known differences",
+      "Status": "Known differences",
+      "Group": "capacity",
+      "Finding": "An explicit entries.Count >= MaximumNodes rejection remains; defaultMaximumNodes is1024, unlike the pinned ERTS source. Generation/reuse tests do not remove this limit.",
+      "SourceFiles": [
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Distribution/RuntimeDistributionPending.cs",
+          "Sha256": "7FDB4EFB9F2D0EB448DE0D06F294EBF26AECDF6E2F1616A7D9A1EC0013945817"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Distribution/DistributionPendingParameters.cs",
+          "Sha256": "4B51B6028A5AAA4B0B44EB632BB04403118EB9FE819557046B0A7F3F739E29FE"
+        }
+      ],
+      "ExecutionEvidence": "current-difference-and-ordsets.json; bounded81 tests, not complete API contracts",
+      "FreshOriginalWholeApiAudit": false
+    }
+  ]
+}
