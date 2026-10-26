@@ -1,0 +1,26 @@
+{
+  "Partial": true,
+  "SelectedCount": 2,
+  "TotalCount": 9039,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/process-liveness499/exit-signal-order",
+    "runtime/process-liveness499/full-values-stacks"
+  ],
+  "Passed": 0,
+  "Failed": 2,
+  "Tests": [
+    {
+      "Name": "runtime/process-liveness499/full-values-stacks",
+      "Status": "Failed",
+      "Error": "System.IO.InvalidDataException: Original compiled ordsets corpus or backend ownership differs\r\nD:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\beam-contract-failures\\process_liveness499\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.\u003C\u003Ec__DisplayClass1_1.\u003C\u003CRunSubject\u003Eb__1\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 88\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.RunSubject(String observer, Func\u00602 read, Int32 valueCount, Int32 profileCount, Func\u00602 initialize, Boolean encodeInRuntime, String[] additionalDependencies) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 101\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.RunSubject(String observer, Func\u00602 read, Int32 valueCount, Int32 profileCount, Func\u00602 initialize, Boolean encodeInRuntime, String[] additionalDependencies) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 102\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 6919",
+      "Milliseconds": 1019
+    },
+    {
+      "Name": "runtime/process-liveness499/exit-signal-order",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Process liveness differs from pinned OTP\r\n   at Erlang.Tests.ProcessLiveness499OrderingChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Processes\\Lifecycle\\ProcessLiveness499OrderingChecks.cs:line 70\r\n   at Erlang.Tests.ProcessLiveness499OrderingChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Processes\\Lifecycle\\ProcessLiveness499OrderingChecks.cs:line 80\r\n   at Erlang.Tests.ProcessLiveness499OrderingChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Processes\\Lifecycle\\ProcessLiveness499OrderingChecks.cs:line 80\r\n   at Erlang.Tests.ProcessLiveness499OrderingChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Processes\\Lifecycle\\ProcessLiveness499OrderingChecks.cs:line 80\r\n   at Erlang.Tests.ProcessLiveness499OrderingChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Processes\\Lifecycle\\ProcessLiveness499OrderingChecks.cs:line 80\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 6919",
+      "Milliseconds": 25
+    }
+  ]
+}

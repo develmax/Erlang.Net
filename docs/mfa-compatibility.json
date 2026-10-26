@@ -6772,12 +6772,29 @@
       "Module": "erlang",
       "Function": "is_process_alive",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
+      "Status": "Verified compatible",
+      "Scope": "Replace unordered ContainsKey result with existing ordered request machinery, retaining self/idle fast paths. Cancelled callers remove their request without creating guest reply messages. Complete source partition and literal values/full stacks against pinned OTP-29.1.1 on the supported Erlang term model; not VM layout, timing or performance parity.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-499/process-liveness/source-audit.json",
+          "Sha256": "1F439BDBE0F10CA7ED49DD16FDFAF6F196A2AC014E0422108D284547EC3445E5",
+          "Scope": "Complete original source branch and term partition with corrected stateful ordering and dynamic-name behavior."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-499/process-liveness/original-completion.json",
+          "Sha256": "BFA9B43DFDCB652D9FDC7E445A92C30927744A3178BDB414BE4FD43BB71ADE59",
+          "Scope": "65 values and325 full stack profiles, all390 whole literal comparisons; zero normalization;6427 provider files unchanged and original process settled."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-499/process-liveness/affected-final.json",
+          "Sha256": "D80142738705B0202A16A86592B47DF6C658D1458A00301FB1E13509A6AB2D8A",
+          "Scope": "1386/1386 final affected cases, including all132 inherited BIF groups, the entire processes block, original named kernel and held-target cancellation controls."
+        }
+      ],
+      "Limits": []
     },
     {
       "Module": "erlang",
@@ -7154,12 +7171,29 @@
       "Module": "erlang",
       "Function": "is_alive",
       "Arity": 0,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
+      "Status": "Verified compatible",
+      "Scope": "Follow original erlang.erl and erts_internal.erl predicates instead of using active owned-kernel admission as the API result. Transport admission property remains separately defined. Complete source partition and literal values/full stacks against pinned OTP-29.1.1 on the supported Erlang term model; not VM layout, timing or performance parity.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-499/process-liveness/source-audit.json",
+          "Sha256": "1F439BDBE0F10CA7ED49DD16FDFAF6F196A2AC014E0422108D284547EC3445E5",
+          "Scope": "Complete original source branch and term partition with corrected stateful ordering and dynamic-name behavior."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-499/process-liveness/original-completion.json",
+          "Sha256": "BFA9B43DFDCB652D9FDC7E445A92C30927744A3178BDB414BE4FD43BB71ADE59",
+          "Scope": "65 values and325 full stack profiles, all390 whole literal comparisons; zero normalization;6427 provider files unchanged and original process settled."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-499/process-liveness/affected-final.json",
+          "Sha256": "D80142738705B0202A16A86592B47DF6C658D1458A00301FB1E13509A6AB2D8A",
+          "Scope": "1386/1386 final affected cases, including all132 inherited BIF groups, the entire processes block, original named kernel and held-target cancellation controls."
+        }
+      ],
+      "Limits": []
     },
     {
       "Module": "erlang",
@@ -24472,7 +24506,7 @@
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangProcessQueryRegistrations.cs",
-      "Sha256": "0DA968510EA2412387A0BCB18D5481C98B4A7E20095AD9FAD13DBF3FB7418081"
+      "Sha256": "DED13F8B703416CD15EEA001E1D4F0B3315D5AD70849646E88442730CF398A39"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangSizeErrorFrames.cs",
@@ -25148,7 +25182,7 @@
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessAlive425.cs",
-      "Sha256": "DF66E87800227CEE9626374183873494F6895100D2AC76730EABD5EDEBFDE889"
+      "Sha256": "5A64E4EAE990838E9074921817C46B0134F68372DE4A8F3DE57337C1C3D9E354"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Regex411.cs",
@@ -25376,7 +25410,7 @@
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessAliveRequest425.cs",
-      "Sha256": "3ED850B68A77577D1E75ED0361BF82052527D316C46A3F998E052C047CBE5A74"
+      "Sha256": "4EE1BBDB23CC033DF4DAAD1B90DED468C21311CA5DF7E843378E605F0CB35119"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessExecutionAdmission.cs",
@@ -27393,6 +27427,18 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangFunctionBifNames.cs",
       "Sha256": "B39E3A55265B495F98F09BE83CBC500D329263FD5582AE3FD393E4576BE75C3E"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Distribution/RuntimeNodeQueryRegistrations.cs",
+      "Sha256": "BA48FEABCA7DAF1D342060A7E2CF8AD3B7693C526A7FE3AF5C9D22D68FDF14F6"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessLiveness499.cs",
+      "Sha256": "05C97BE44E477E9E4EB4125E87E2F39F5E84084FD7937F5782554C97D861CBE0"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/RuntimeProcessLivenessNames499.cs",
+      "Sha256": "5917375EB7A6C7D1C6A55388C0291E6E030EB3B37393E73A64298EA17ABECC59"
     }
   ]
 }

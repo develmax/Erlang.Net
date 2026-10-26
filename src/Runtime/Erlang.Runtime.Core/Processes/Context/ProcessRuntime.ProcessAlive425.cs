@@ -22,41 +22,46 @@ public sealed partial class ProcessRuntime
 
                 return Term.A(ProcessAliveNames425.Ok);
             }
-            if (!processAliveRequests425.TryGetValue(process, out var requests))
-            {
-                requests = new();
-                processAliveRequests425.Add(process, requests);
-            }
-            requests.Add(request);
-            try
-            {
-                process.Mailbox.SendPending(
-                    Nil.Value,
-                    () =>
-                {
-                    lock (gate)
-                    {
-                        if (requests.Remove(request))
-                        {
-                            if (requests.Count == 0) processAliveRequests425.Remove(process);
-                            ReplyProcessAlive425(request, !process.Terminated);
-                        }
-                    }
-
-                    return null;
-                },
-                    from: requester.Self,
-                    traceAdmission: false
-                );
-            }
-            catch
-            {
-                requests.Remove(request);
-                if (requests.Count == 0) processAliveRequests425.Remove(process);
-                throw;
-            }
+            QueueProcessAlive425(process, request);
 
             return Term.A(ProcessAliveNames425.Ok);
+        }
+    }
+
+    private void QueueProcessAlive425(ProcessContext process, ProcessAliveRequest425 request)
+    {
+        if (!processAliveRequests425.TryGetValue(process, out var requests))
+        {
+            requests = new();
+            processAliveRequests425.Add(process, requests);
+        }
+        requests.Add(request);
+        try
+        {
+            process.Mailbox.SendPending(
+                Nil.Value,
+                () =>
+            {
+                lock (gate)
+                {
+                    if (requests.Remove(request))
+                    {
+                        if (requests.Count == 0) processAliveRequests425.Remove(process);
+                        ReplyProcessAlive425(request, !process.Terminated);
+                    }
+                }
+
+                return null;
+            },
+                from: request.Requester,
+                traceAdmission: false
+            );
+        }
+        catch
+        {
+            requests.Remove(request);
+            if (requests.Count == 0) processAliveRequests425.Remove(process);
+            throw;
         }
     }
 
@@ -80,8 +85,13 @@ public sealed partial class ProcessRuntime
     }
 
     private void ReplyProcessAlive425(ProcessAliveRequest425 request, bool result)
-        => SendSystem(request.Requester, Term.Tuple(request.Reference,
-            Term.A(result ? ProcessAliveNames425.True : ProcessAliveNames425.False)));
+    {
+        if (request.Completion is { } completion)
+            completion.TrySetResult(result);
+        else
+            SendSystem(request.Requester, Term.Tuple(request.Reference!,
+                Term.A(result ? ProcessAliveNames425.True : ProcessAliveNames425.False)));
+    }
 
     // Halt discards all pending signals and guest replies, matching existing request classes.
     private void CloseProcessAlive425() => processAliveRequests425.Clear();

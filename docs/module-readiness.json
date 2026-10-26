@@ -1039,7 +1039,7 @@
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Diagnostics/Debug/DebugSharingCopy425.cs",
-      "Sha256": "5C4B4EE8EF4EACD9A67BD9CBD7EDF90C58DA1C4ADA5FE76ABA077C402D024334"
+      "Sha256": "DFEDEA9D56A34F1FDE957883553E6BE322341E4E7C5F603B202E5C05349A3CE2"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Diagnostics/Debug/DebugSharingCopyFrame425.cs",
@@ -3975,7 +3975,7 @@
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangProcessQueryRegistrations.cs",
-      "Sha256": "0DA968510EA2412387A0BCB18D5481C98B4A7E20095AD9FAD13DBF3FB7418081"
+      "Sha256": "DED13F8B703416CD15EEA001E1D4F0B3315D5AD70849646E88442730CF398A39"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangSizeErrorFrames.cs",
@@ -4331,7 +4331,7 @@
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.cs",
-      "Sha256": "31C81E0ECBF85E6F97BD6FF7D39B2F5A85CB69B0DCAD882E9C6BAA3F8C350609"
+      "Sha256": "3C55B2A8F989423B75B604A438E40EC3DD35286079A4C88F97FAFB1A337B2BF9"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ActorControl428.cs",
@@ -4651,7 +4651,7 @@
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessAlive425.cs",
-      "Sha256": "DF66E87800227CEE9626374183873494F6895100D2AC76730EABD5EDEBFDE889"
+      "Sha256": "5A64E4EAE990838E9074921817C46B0134F68372DE4A8F3DE57337C1C3D9E354"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Regex411.cs",
@@ -4879,7 +4879,7 @@
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessAliveRequest425.cs",
-      "Sha256": "3ED850B68A77577D1E75ED0361BF82052527D316C46A3F998E052C047CBE5A74"
+      "Sha256": "4EE1BBDB23CC033DF4DAAD1B90DED468C21311CA5DF7E843378E605F0CB35119"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessExecutionAdmission.cs",
@@ -6483,7 +6483,7 @@
     },
     {
       "Path": "src/Runtime/Erlang.Terms/Collections/Maps/MapTerm.cs",
-      "Sha256": "212F943EE8C1991896CBF5D2295EFC825533CCFECB773BB095A4FFD8107772F4"
+      "Sha256": "594ED6ECD5CDAF7935C71A1E510775BCA4F79A3093B85907F5EFF236A275373F"
     },
     {
       "Path": "src/Runtime/Erlang.Terms/Collections/Maps/TermMapComparisonEnvironment.cs",
@@ -6884,10 +6884,34 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Native/Primitives/NativeRecordNames.cs",
       "Sha256": "999E916A53ED318F39DA44C8A670BDE694B1D5DECD5D66017CBBEE47CCA1BC62"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangFunctionRegistrations.cs",
+      "Sha256": "5CC88848F3F11D258D37F6730A47562FB433F470B01D82633C1A7DD82AC3D2C4"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangFunctionParameters.cs",
+      "Sha256": "060E8CFF29DED53499693C8B0DCE39DD2839DED010B2BDA0A9C8D4F79CC4EDCD"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangFunctionBifNames.cs",
+      "Sha256": "B39E3A55265B495F98F09BE83CBC500D329263FD5582AE3FD393E4576BE75C3E"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Distribution/RuntimeNodeQueryRegistrations.cs",
+      "Sha256": "BA48FEABCA7DAF1D342060A7E2CF8AD3B7693C526A7FE3AF5C9D22D68FDF14F6"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessLiveness499.cs",
+      "Sha256": "05C97BE44E477E9E4EB4125E87E2F39F5E84084FD7937F5782554C97D861CBE0"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/RuntimeProcessLivenessNames499.cs",
+      "Sha256": "5917375EB7A6C7D1C6A55388C0291E6E030EB3B37393E73A64298EA17ABECC59"
     }
   ],
-  "VerifiedCompatibleMfas": 176,
-  "NeedsVerificationMfas": 507,
+  "VerifiedCompatibleMfas": 179,
+  "NeedsVerificationMfas": 504,
   "KnownDifferenceMfas": 25,
   "MfaCompatibility": [
     {
@@ -12512,6 +12536,18 @@
           "Path": "validation/part-493/integer-text/affected-final.json",
           "Sha256": "D07911B9B2C4C354B78407BC73EB1A6EFF7B64E78881A938EC0D37190938B294",
           "Scope": "All100 old/new contract groups pass on final rebuilt assembly;46584 whole comparisons; exact-head continuous CI remains a separate gate."
+        },
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-498/merged-review-followups/findings.json",
+          "Sha256": "575ADFCD33473A01DA7AEE2BCD9C9DC476EA1D236EAC9F018C079A650031C710",
+          "Scope": "Post-merge review repair: preserve saved host-handler arguments without changing original parser source metadata."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-498/merged-review-followups/affected-final.json",
+          "Sha256": "A234C9523956C5D56850E1014937BFE6C6C5916F0C637CDCB63BBE0DF59FD04F",
+          "Scope": "196/196, including all132 inherited BIF groups,48 host-parser combinations and imported-map regressions."
         }
       ],
       "Limits": [],
@@ -12541,6 +12577,18 @@
           "Path": "validation/part-493/integer-text/affected-final.json",
           "Sha256": "D07911B9B2C4C354B78407BC73EB1A6EFF7B64E78881A938EC0D37190938B294",
           "Scope": "All100 old/new contract groups pass on final rebuilt assembly;46584 whole comparisons; exact-head continuous CI remains a separate gate."
+        },
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-498/merged-review-followups/findings.json",
+          "Sha256": "575ADFCD33473A01DA7AEE2BCD9C9DC476EA1D236EAC9F018C079A650031C710",
+          "Scope": "Post-merge review repair: preserve saved host-handler arguments without changing original parser source metadata."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-498/merged-review-followups/affected-final.json",
+          "Sha256": "A234C9523956C5D56850E1014937BFE6C6C5916F0C637CDCB63BBE0DF59FD04F",
+          "Scope": "196/196, including all132 inherited BIF groups,48 host-parser combinations and imported-map regressions."
         }
       ],
       "Limits": [],
@@ -12628,6 +12676,18 @@
           "Path": "validation/part-493/integer-text/affected-final.json",
           "Sha256": "D07911B9B2C4C354B78407BC73EB1A6EFF7B64E78881A938EC0D37190938B294",
           "Scope": "All100 old/new contract groups pass on final rebuilt assembly;46584 whole comparisons; exact-head continuous CI remains a separate gate."
+        },
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-498/merged-review-followups/findings.json",
+          "Sha256": "575ADFCD33473A01DA7AEE2BCD9C9DC476EA1D236EAC9F018C079A650031C710",
+          "Scope": "Post-merge review repair: preserve saved host-handler arguments without changing original parser source metadata."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-498/merged-review-followups/affected-final.json",
+          "Sha256": "A234C9523956C5D56850E1014937BFE6C6C5916F0C637CDCB63BBE0DF59FD04F",
+          "Scope": "196/196, including all132 inherited BIF groups,48 host-parser combinations and imported-map regressions."
         }
       ],
       "Limits": [],
@@ -12657,6 +12717,18 @@
           "Path": "validation/part-493/integer-text/affected-final.json",
           "Sha256": "D07911B9B2C4C354B78407BC73EB1A6EFF7B64E78881A938EC0D37190938B294",
           "Scope": "All100 old/new contract groups pass on final rebuilt assembly;46584 whole comparisons; exact-head continuous CI remains a separate gate."
+        },
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-498/merged-review-followups/findings.json",
+          "Sha256": "575ADFCD33473A01DA7AEE2BCD9C9DC476EA1D236EAC9F018C079A650031C710",
+          "Scope": "Post-merge review repair: preserve saved host-handler arguments without changing original parser source metadata."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-498/merged-review-followups/affected-final.json",
+          "Sha256": "A234C9523956C5D56850E1014937BFE6C6C5916F0C637CDCB63BBE0DF59FD04F",
+          "Scope": "196/196, including all132 inherited BIF groups,48 host-parser combinations and imported-map regressions."
         }
       ],
       "Limits": [],
@@ -16609,12 +16681,29 @@
       "Module": "erlang",
       "Function": "is_process_alive",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+      "Status": "Verified compatible",
+      "Scope": "Replace unordered ContainsKey result with existing ordered request machinery, retaining self/idle fast paths. Cancelled callers remove their request without creating guest reply messages. Complete source partition and literal values/full stacks against pinned OTP-29.1.1 on the supported Erlang term model; not VM layout, timing or performance parity.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-499/process-liveness/source-audit.json",
+          "Sha256": "1F439BDBE0F10CA7ED49DD16FDFAF6F196A2AC014E0422108D284547EC3445E5",
+          "Scope": "Complete original source branch and term partition with corrected stateful ordering and dynamic-name behavior."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-499/process-liveness/original-completion.json",
+          "Sha256": "BFA9B43DFDCB652D9FDC7E445A92C30927744A3178BDB414BE4FD43BB71ADE59",
+          "Scope": "65 values and325 full stack profiles, all390 whole literal comparisons; zero normalization;6427 provider files unchanged and original process settled."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-499/process-liveness/affected-final.json",
+          "Sha256": "D80142738705B0202A16A86592B47DF6C658D1458A00301FB1E13509A6AB2D8A",
+          "Scope": "1386/1386 final affected cases, including all132 inherited BIF groups, the entire processes block, original named kernel and held-target cancellation controls."
+        }
       ],
+      "Limits": [],
       "Key": "erlang:is_process_alive/1"
     },
     {
@@ -17020,12 +17109,29 @@
       "Module": "erlang",
       "Function": "is_alive",
       "Arity": 0,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+      "Status": "Verified compatible",
+      "Scope": "Follow original erlang.erl and erts_internal.erl predicates instead of using active owned-kernel admission as the API result. Transport admission property remains separately defined. Complete source partition and literal values/full stacks against pinned OTP-29.1.1 on the supported Erlang term model; not VM layout, timing or performance parity.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-499/process-liveness/source-audit.json",
+          "Sha256": "1F439BDBE0F10CA7ED49DD16FDFAF6F196A2AC014E0422108D284547EC3445E5",
+          "Scope": "Complete original source branch and term partition with corrected stateful ordering and dynamic-name behavior."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-499/process-liveness/original-completion.json",
+          "Sha256": "BFA9B43DFDCB652D9FDC7E445A92C30927744A3178BDB414BE4FD43BB71ADE59",
+          "Scope": "65 values and325 full stack profiles, all390 whole literal comparisons; zero normalization;6427 provider files unchanged and original process settled."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-499/process-liveness/affected-final.json",
+          "Sha256": "D80142738705B0202A16A86592B47DF6C658D1458A00301FB1E13509A6AB2D8A",
+          "Scope": "1386/1386 final affected cases, including all132 inherited BIF groups, the entire processes block, original named kernel and held-target cancellation controls."
+        }
       ],
+      "Limits": [],
       "Key": "erlang:is_alive/0"
     },
     {
@@ -17608,12 +17714,29 @@
       "Module": "erlang",
       "Function": "is_builtin",
       "Arity": 3,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+      "Status": "Verified compatible",
+      "Scope": "Complete supported valid-term contract audited against pinned OTP-29.1.1: exact556-entry native catalog (553 declared BIFs plus3 instruction special cases), atom validation,64-bit native-small bounds and signed32-bit arity conversion, all term families and actual interior HAMT nodes, absent/non-BIF identities, direct/dynamic calls, complete reasons/stacks and source-proved independence from ordinary module load/delete/NIF code addresses. Own-state node identity is bound only where required; no whole-module, physical-layout or performance claim.",
+      "Evidence": [
+        {
+          "Kind": "CompatibilityAudit",
+          "Path": "validation/part-497/builtin-bif/source-audit.json",
+          "Sha256": "28EE22BEF22844994F8B1A7C6F86038993E8502ACFAD9F60B35580AD31ADE5A2",
+          "Scope": "Complete argument/lookup partition, exact original catalog set and source-proved export lifetime."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-497/builtin-bif/original-comparison.json",
+          "Sha256": "4575D9A9B270076C5F70DE42BA114F74445333E6FA9DC704E80FD6EC38E3CB1B",
+          "Scope": "811 values and4055 complete stack profiles:4848 literal whole outputs plus18 actual own-node protocols."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-497/builtin-bif/affected-final.json",
+          "Sha256": "E15C3B183E991E4D7D28DD29F80376BEAAF4FC5621463C9F73973AA4DA0244AF",
+          "Scope": "164/164 final affected tests:117 inherited BIF groups,15 new groups and32 function-query regressions."
+        }
       ],
+      "Limits": [],
       "Key": "erlang:is_builtin/3"
     },
     {
@@ -28032,7 +28155,7 @@
     }
   ],
   "ComparisonTestReport": "validation/part-485/native-catalog/previous-tests.json",
-  "LocalPassedTests": 9020,
+  "LocalPassedTests": 9039,
   "RegisteredMfas": 708,
   "PreviousRegisteredMfas": 708,
   "RegisteredMfaDelta": 0,
@@ -28260,7 +28383,7 @@
         "Physical BEAM heap/scheduler/resources,complete lint/spec/warnings/source stacks/code staging,connected distribution and full native/upstream/performance parity;native numeric record hashes independently matched in230, while general resource/lifecycle scope remains partial.",
         "Part378: same-function receive\u002Btry and mixed Term/raw joins remain conservative refusals; raw manual/Nil, native-entry-specific, full depth/deeper recursion/cross-image lifecycle and stale-fun dispatch profiles need separate proof."
       ],
-      "RelatedPassedTests": 1864
+      "RelatedPassedTests": 1883
     },
     {
       "Id": "Compiler",
@@ -35019,8 +35142,8 @@
       "Name": "erlang",
       "Status": "Partially compatible",
       "RegisteredMfas": 351,
-      "VerifiedCompatibleMfas": 79,
-      "NeedsVerificationMfas": 259,
+      "VerifiedCompatibleMfas": 82,
+      "NeedsVerificationMfas": 256,
       "KnownDifferenceMfas": 13,
       "PreviousRegisteredMfas": 351,
       "Delta": 0,
@@ -52474,7 +52597,5 @@
       "AbsentFromReference": []
     }
   ],
-  "LocalValidationScope": "Part496 composite: exact parent CI40268601688 plus final221 affected groups;9020 unique names. Continuous new-head CI remains required.",
-  "LocalValidationScope": "Part497 composite: parent496 exact-head CI9020 plus final164 affected tests;9035 total. Not uninterrupted; exact publication-head CI required.",
-  "LocalValidationScope": "Part498 composite: independently green main9035 plus final196 affected tests;9037 total. Exact repair-head CI and Ubuntu tooling proof required."
+  "LocalValidationScope": "Part499 composite: exact parent CI40309862392/9037 plus final1386 affected cases;9039 unique names. Not an uninterrupted local full run. Exact publication-head continuous CI remains required."
 }
