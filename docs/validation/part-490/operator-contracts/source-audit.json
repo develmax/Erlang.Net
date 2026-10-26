@@ -1,0 +1,248 @@
+{
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "CompleteOnSupportedValidErlangTermModel": true,
+  "WholeCompilerCompletionClaimed": false,
+  "PhysicalAllocationCeilingsClaimed": false,
+  "ProductionSourceChanges": 0,
+  "Partitions": {
+    "not/1": "Exactly true/false atoms are accepted and negated; every other term raises badarg. Canonical Boolean atoms are returned with no input mutation.",
+    "and/2": "Both arguments must be true/false atoms. The exhaustive four-case truth table matches OTP; either invalid argument raises badarg, including false in first position. Eager native BIF semantics, not short-circuit source syntax.",
+    "or/2": "Both arguments must be true/false atoms. The exhaustive four-case truth table matches OTP; either invalid argument raises badarg, including true in first position. Eager native BIF semantics.",
+    "xor/2": "Both arguments must be true/false atoms. Return true iff they differ; either invalid argument raises badarg. Canonical atom result.",
+    "+/1": "Integer or finite FloatTerm returns the exact supplied term without allocation or conversion. Every other term raises badarith.",
+    "-/1": "Integer negation is exact arbitrary-precision subtraction from zero, including small/big boundaries; finite float negation flips its sign including both zeros and subnormals, creating a fresh float. All other terms raise badarith.",
+    "bnot/1": "Integer-only infinite signed two-complement complement equals -x-1 for all integer magnitudes/signs. Small/big representations preserve the value and fresh boxed-result semantics. Noninteger terms raise badarith. No claim of identical VM physical allocation limits."
+  },
+  "ManagedSources": [
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangBasicRegistrations.cs",
+      "Sha256": "E7A27A6498346F1005919BD074AF7DCC5050BE9624D625AA4BC91CB5E14644B0"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangOperatorValues.cs",
+      "Sha256": "01653EF37DFD81616BCDE5AB96BCA54576AAABCE6FFF8DC2468446BCCA489FF4"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/CoreModules.cs",
+      "Sha256": "11F4A05085FCAD96F480AC02B6C04C90A45CB1B9375B165D06F912CF57FB3ECB"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Values/FloatTerm.cs",
+      "Sha256": "15947C4D813909CD7B1C8A163D4FFBC3509E8E5DDEB026C88F1D308B7BC15229"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Values/Integer.cs",
+      "Sha256": "CD4E5B3604C8194785FE20CD15A09A182BFBCA7128B95EE688ADB8719C30CC4F"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Values/Atoms/ErlangBooleanAtoms.cs",
+      "Sha256": "9140F2E799740BE5FDA0A36A2A7BA27D3DF3A5A203AD23BBA32C36AE52A06F82"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Support/ErlangOperators.cs",
+      "Sha256": "EEF9E55D3B9D58A4D58734B0E4A2CB5FEF6F1F3775CB9DDA5A48B5D7900F7C01"
+    }
+  ],
+  "OriginalSources": [
+    {
+      "Path": "erts/emulator/beam/erl_bif_op.c",
+      "Sha256": "74CA827E5188657CF2726A4C8A9DA6F4503675714A656041722CE10A066EEAD3"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_arith.c",
+      "Sha256": "C4A4B1AA7C8A7C387D80DF6C33B35EC50C943A309AD7E404CCA0F4C53D499EF4"
+    },
+    {
+      "Path": "erts/emulator/beam/big.c",
+      "Sha256": "7E68A6FF381701F2B5BF3BD4AFE65EF545D97B34B884F227B637FF259B0FCDDE"
+    },
+    {
+      "Path": "erts/emulator/beam/bif.tab",
+      "Sha256": "55C88258E90745E701D00702266C6422E35C31C6796CE2086EA00FA00F9D8816"
+    }
+  ],
+  "Cases": 605,
+  "StackProfiles": 3025,
+  "WholeComparisons": 3630,
+  "NormalizedFields": 0,
+  "Groups": [
+    {
+      "Group": "boolean_not",
+      "Subject": "operator_contract490_boolean_not",
+      "Function": "not",
+      "Arity": 1,
+      "Values": 38,
+      "Profiles": 190
+    },
+    {
+      "Group": "boolean_and",
+      "Subject": "operator_contract490_boolean_and",
+      "Function": "and",
+      "Arity": 2,
+      "Values": 151,
+      "Profiles": 755
+    },
+    {
+      "Group": "boolean_or",
+      "Subject": "operator_contract490_boolean_or",
+      "Function": "or",
+      "Arity": 2,
+      "Values": 151,
+      "Profiles": 755
+    },
+    {
+      "Group": "boolean_xor",
+      "Subject": "operator_contract490_boolean_xor",
+      "Function": "xor",
+      "Arity": 2,
+      "Values": 151,
+      "Profiles": 755
+    },
+    {
+      "Group": "unary_plus",
+      "Subject": "operator_contract490_unary_plus",
+      "Function": "+",
+      "Arity": 1,
+      "Values": 38,
+      "Profiles": 190
+    },
+    {
+      "Group": "unary_minus",
+      "Subject": "operator_contract490_unary_minus",
+      "Function": "-",
+      "Arity": 1,
+      "Values": 38,
+      "Profiles": 190
+    },
+    {
+      "Group": "integer_complement",
+      "Subject": "operator_contract490_integer_complement",
+      "Function": "bnot",
+      "Arity": 1,
+      "Values": 38,
+      "Profiles": 190
+    }
+  ],
+  "Resources": [
+    {
+      "Path": "tests/Erlang.Tests/Resources/OperatorContract490/boolean_and.stacks.etf",
+      "Sha256": "5E6A329E193D78098A9CBF7513FFD2DB8EADF8D1E2191E2FCBA0AB3872F10F59"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/OperatorContract490/boolean_and.values.etf",
+      "Sha256": "A6A1A294015B86332899D9E5C02713E92D96409CA1CACDF90AFFC8DB44EA3798"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/OperatorContract490/boolean_not.stacks.etf",
+      "Sha256": "49E94FE81691F84317B814A5E09F3EE39624124308FC8E9A80D46070668F26EC"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/OperatorContract490/boolean_not.values.etf",
+      "Sha256": "7E642A9EC25526F61A51896DCA8431D1FEA9FD8F33D20E39DDC299E39A67107D"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/OperatorContract490/boolean_or.stacks.etf",
+      "Sha256": "58D8F856E911F369D7D4D50E7D59D4B41F731167B2888B1DCE61517F49053EDC"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/OperatorContract490/boolean_or.values.etf",
+      "Sha256": "24DF6BAE31C34D992093EF5952ECEC6BF90560B5A4F2D99DD47A99539ED7E256"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/OperatorContract490/boolean_xor.stacks.etf",
+      "Sha256": "A4E6D3A57DE57FB45B50487E5EBC4E912143D07A5CBB31BB2261437EB1A3154E"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/OperatorContract490/boolean_xor.values.etf",
+      "Sha256": "C1940BC6644193BB53F6DCD819875246471B33E8CBD4404E78D7FC71860E9586"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/OperatorContract490/groups.json",
+      "Sha256": "4A9A0FDD01FE1C168AE1E6A4EF9C15090D4680F257D4FFA82B8A830ECDFBBD97"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/OperatorContract490/integer_complement.stacks.etf",
+      "Sha256": "F2603CE17D61F8860834712DA4492199057776995ADEA9AB8FED65D66385D811"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/OperatorContract490/integer_complement.values.etf",
+      "Sha256": "2BFE9CC5B37B38E8A2038D8BB09A76A6808E706E4F06C630A261A3626559D31E"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/OperatorContract490/manifest.json",
+      "Sha256": "3DE3010E9A0888158523F91E2301A3BEBF16C954B01ADF60255C8BE5AE88AEF9"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/OperatorContract490/operator_contract490_boolean_and.beam",
+      "Sha256": "077AC602755DC6DB1557F5CC0876332B6E8DD87E8A926E21C759674B52A5F38C"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/OperatorContract490/operator_contract490_boolean_and.erl",
+      "Sha256": "AE9D2E07E8D42E6C7ACA8E3C44F2F498F217343C6BDF871CD84B4117A3E6437F"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/OperatorContract490/operator_contract490_boolean_not.beam",
+      "Sha256": "92DBEA742532261A66B29985077E9783500535075197EBADECB0BA70F999C0B8"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/OperatorContract490/operator_contract490_boolean_not.erl",
+      "Sha256": "798F36F519F137D4BEE1F34594D64389C1450B1BBC6C8D07FF33DEAE23964D20"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/OperatorContract490/operator_contract490_boolean_or.beam",
+      "Sha256": "18D396F7CED03D0720AFBCB3CD7E633F5AA8A484411668EA255FC20039B7A228"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/OperatorContract490/operator_contract490_boolean_or.erl",
+      "Sha256": "74D4F05D34EFF069E6D1E22BD2C5941C8F3BB065CF78B93988478AEB59EF27E1"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/OperatorContract490/operator_contract490_boolean_xor.beam",
+      "Sha256": "944B98999618566B0546B8D78709C9FDE7ED204F4612682799B368BD7BB48B03"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/OperatorContract490/operator_contract490_boolean_xor.erl",
+      "Sha256": "789A3C9F6A942E7ED4B1F013D645BB1887A4FF5845F57317BAF637770127940D"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/OperatorContract490/operator_contract490_integer_complement.beam",
+      "Sha256": "593F5974DBFBDA46C3984391FCBABD86EFB8AD23F47EAB69E1455B51C19DDBF6"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/OperatorContract490/operator_contract490_integer_complement.erl",
+      "Sha256": "EE37F5FAEE740607470BF38B7D80C9A89259874302D9CEEF20CF1F301783BDED"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/OperatorContract490/operator_contract490_unary_minus.beam",
+      "Sha256": "0518A24DA325313D3DAEA0EE8F2A51F2086C53A565EE80B17BED887C660C81A6"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/OperatorContract490/operator_contract490_unary_minus.erl",
+      "Sha256": "DB119EA225E6FB3F2320DCE05C78D52B8DE3C5408B2675FD929B1F6C36A6509E"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/OperatorContract490/operator_contract490_unary_plus.beam",
+      "Sha256": "29339D21486A101809326F28E33F79D12EEE4742D18CF495CC9FE3E662964AE6"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/OperatorContract490/operator_contract490_unary_plus.erl",
+      "Sha256": "879F9732FCAFAF6F40D34AA8AB71DD82ED3E28BB918E9320DE34179E30A7FD74"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/OperatorContract490/unary_minus.stacks.etf",
+      "Sha256": "AE27FF50F70AFFE13F256F17065CC09F970F1D9014BCDCE427C039AE490F12DB"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/OperatorContract490/unary_minus.values.etf",
+      "Sha256": "DC177CD1EBA2BD09E74AB42AE11F050826CBDEAAE504423E9FCAB8100E0795AD"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/OperatorContract490/unary_plus.stacks.etf",
+      "Sha256": "D90142BCA590D8E6FDD0D8C17E0E4827AB8741236836EA44E3378E1D0668F3BC"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/OperatorContract490/unary_plus.values.etf",
+      "Sha256": "19FF5090CA069B7F209C2BAE3B7B48C6BC5D2E7A46AD6EF4A107DD0565F2FA94"
+    }
+  ]
+}

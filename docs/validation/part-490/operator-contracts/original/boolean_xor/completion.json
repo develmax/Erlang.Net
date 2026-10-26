@@ -1,0 +1,49 @@
+{
+  "Passed": true,
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ProviderFiles": 6427,
+  "ProviderBeforeEqual": true,
+  "ProviderAfterEqual": true,
+  "SourceSha256": "789A3C9F6A942E7ED4B1F013D645BB1887A4FF5845F57317BAF637770127940D",
+  "OriginalReceipt": {
+    "Command": [
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+      "+S",
+      "1:1",
+      "+A",
+      "1",
+      "-noshell",
+      "-noinput",
+      "-boot",
+      "no_dot_erlang",
+      "-pa",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\contracts490\\original\\boolean_xor",
+      "-eval",
+      "{ok,operator_contract490_boolean_xor,_}=compile:file(\"operator_contract490_boolean_xor.erl\",[return_errors,return_warnings]),[ok=prim_file:write_file(File,term_to_binary(ordsets_core_worker:run(operator_contract490_boolean_xor,Entry),[{minor_version,2}])) || {File,Entry} <- [{\"values.etf\",run},{\"stacks.etf\",run_stacks}]],{beam_file,_,_,_,_,Functions}=beam_disasm:file(\"operator_contract490_boolean_xor.beam\"),Instructions=lists:append([Is || {function,_,_,_,Is} <- Functions]),ApplySites=[I || I <- Instructions,is_tuple(I),lists:member(element(1,I),[apply,apply_last])],true=length(ApplySites)>0,ok=prim_file:write_file(\"dispatch-proof.etf\",term_to_binary({operator_contract490_boolean_xor,length(ApplySites),ApplySites})),halt(0)."
+    ],
+    "Pid": 316208,
+    "ElapsedSeconds": 0.28100000007543713,
+    "TimedOut": false,
+    "Settled": true,
+    "ExitCode": 0,
+    "Failures": [],
+    "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  "GoldenChecked": false,
+  "NormalizedFields": 0,
+  "Errors": [],
+  "Files": {
+    "dispatch-proof.etf": "7614EE0178C1E5D5B93AD8ECF966881BCD03A822D45FE6772A81935830B6A1A0",
+    "operator_contract490_boolean_xor.beam": "944B98999618566B0546B8D78709C9FDE7ED204F4612682799B368BD7BB48B03",
+    "operator_contract490_boolean_xor.erl": "789A3C9F6A942E7ED4B1F013D645BB1887A4FF5845F57317BAF637770127940D",
+    "ordsets_core_support.beam": "E96720C753F9438E66367C71A90C5D0C1E3AA29091B178799986E36A8438022F",
+    "ordsets_core_worker.beam": "E345AE81943C41F82F3CBCA24B963D2D25CB24C0C15E2A0B21B72A65757D6B3F",
+    "original.exit.json": "D414B8B8459DB0C73452E661A0885D91CBA9024CAB52F1807C3AF92D91F92D85",
+    "original.live.json": "740CD8919D0F60ACBB273AF54F0979D4954B4BC6109AB673E31922EBBB69E930",
+    "original.stderr.log": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "original.stdout.log": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "stacks.etf": "A4E6D3A57DE57FB45B50487E5EBC4E912143D07A5CBB31BB2261437EB1A3154E",
+    "values.etf": "C1940BC6644193BB53F6DCD819875246471B33E8CBD4404E78D7FC71860E9586"
+  }
+}
