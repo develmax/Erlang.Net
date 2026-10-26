@@ -1,0 +1,81 @@
+-module(arithmetic_contract491_integer_xor_invalid).
+-export([run/0,run_stacks/0,probe/1]).
+run() -> ordsets_core_support:run(?MODULE,cases()).
+run_stacks() -> ordsets_core_support:profiles(?MODULE,cases()).
+cases() -> [c169,c170,c171,c172,c173,c174,c175,c176,c177,c178,c179,c180,c181,c182,c183,c184,c185,c186,c187,c188,c189,c190,c191,c192,c193,c194,c195,c196,c197,c198,c199,c200,c201,c202,c203,c204,c205,c206,c207,c208,c209,c210,c211,c212,c213,c214,c215,c216,c217,c218,c219,c220,c221,c222,c223,c224,c225,c226,c227,c228,c229,c230,c231,c232,c233,c234,c235,c236,c237,c238,c239,c240,c241,c242,c243].
+probe(c169) -> erlang:apply(erlang,opaque('bxor'),[0.0,1]);
+probe(c170) -> erlang:apply(erlang,opaque('bxor'),[1,0.0]);
+probe(c171) -> erlang:apply(erlang,opaque('bxor'),[0.0,0.0]);
+probe(c172) -> erlang:apply(erlang,opaque('bxor'),[-0.0,1]);
+probe(c173) -> erlang:apply(erlang,opaque('bxor'),[1,-0.0]);
+probe(c174) -> erlang:apply(erlang,opaque('bxor'),[-0.0,-0.0]);
+probe(c175) -> erlang:apply(erlang,opaque('bxor'),[1.5,1]);
+probe(c176) -> erlang:apply(erlang,opaque('bxor'),[1,1.5]);
+probe(c177) -> erlang:apply(erlang,opaque('bxor'),[1.5,1.5]);
+probe(c178) -> erlang:apply(erlang,opaque('bxor'),[-1.5,1]);
+probe(c179) -> erlang:apply(erlang,opaque('bxor'),[1,-1.5]);
+probe(c180) -> erlang:apply(erlang,opaque('bxor'),[-1.5,-1.5]);
+probe(c181) -> erlang:apply(erlang,opaque('bxor'),[1.7976931348623157e308,1]);
+probe(c182) -> erlang:apply(erlang,opaque('bxor'),[1,1.7976931348623157e308]);
+probe(c183) -> erlang:apply(erlang,opaque('bxor'),[1.7976931348623157e308,1.7976931348623157e308]);
+probe(c184) -> erlang:apply(erlang,opaque('bxor'),[-1.7976931348623157e308,1]);
+probe(c185) -> erlang:apply(erlang,opaque('bxor'),[1,-1.7976931348623157e308]);
+probe(c186) -> erlang:apply(erlang,opaque('bxor'),[-1.7976931348623157e308,-1.7976931348623157e308]);
+probe(c187) -> erlang:apply(erlang,opaque('bxor'),[2.2250738585072014e-308,1]);
+probe(c188) -> erlang:apply(erlang,opaque('bxor'),[1,2.2250738585072014e-308]);
+probe(c189) -> erlang:apply(erlang,opaque('bxor'),[2.2250738585072014e-308,2.2250738585072014e-308]);
+probe(c190) -> erlang:apply(erlang,opaque('bxor'),[4.9406564584124654e-324,1]);
+probe(c191) -> erlang:apply(erlang,opaque('bxor'),[1,4.9406564584124654e-324]);
+probe(c192) -> erlang:apply(erlang,opaque('bxor'),[4.9406564584124654e-324,4.9406564584124654e-324]);
+probe(c193) -> erlang:apply(erlang,opaque('bxor'),[true,1]);
+probe(c194) -> erlang:apply(erlang,opaque('bxor'),[1,true]);
+probe(c195) -> erlang:apply(erlang,opaque('bxor'),[true,true]);
+probe(c196) -> erlang:apply(erlang,opaque('bxor'),[false,1]);
+probe(c197) -> erlang:apply(erlang,opaque('bxor'),[1,false]);
+probe(c198) -> erlang:apply(erlang,opaque('bxor'),[false,false]);
+probe(c199) -> erlang:apply(erlang,opaque('bxor'),[a,1]);
+probe(c200) -> erlang:apply(erlang,opaque('bxor'),[1,a]);
+probe(c201) -> erlang:apply(erlang,opaque('bxor'),[a,a]);
+probe(c202) -> erlang:apply(erlang,opaque('bxor'),[[],1]);
+probe(c203) -> erlang:apply(erlang,opaque('bxor'),[1,[]]);
+probe(c204) -> erlang:apply(erlang,opaque('bxor'),[[],[]]);
+probe(c205) -> erlang:apply(erlang,opaque('bxor'),[[a],1]);
+probe(c206) -> erlang:apply(erlang,opaque('bxor'),[1,[a]]);
+probe(c207) -> erlang:apply(erlang,opaque('bxor'),[[a],[a]]);
+probe(c208) -> erlang:apply(erlang,opaque('bxor'),[[a|tail],1]);
+probe(c209) -> erlang:apply(erlang,opaque('bxor'),[1,[a|tail]]);
+probe(c210) -> erlang:apply(erlang,opaque('bxor'),[[a|tail],[a|tail]]);
+probe(c211) -> erlang:apply(erlang,opaque('bxor'),[{},1]);
+probe(c212) -> erlang:apply(erlang,opaque('bxor'),[1,{}]);
+probe(c213) -> erlang:apply(erlang,opaque('bxor'),[{},{}]);
+probe(c214) -> erlang:apply(erlang,opaque('bxor'),[{a},1]);
+probe(c215) -> erlang:apply(erlang,opaque('bxor'),[1,{a}]);
+probe(c216) -> erlang:apply(erlang,opaque('bxor'),[{a},{a}]);
+probe(c217) -> erlang:apply(erlang,opaque('bxor'),[#{},1]);
+probe(c218) -> erlang:apply(erlang,opaque('bxor'),[1,#{}]);
+probe(c219) -> erlang:apply(erlang,opaque('bxor'),[#{},#{}]);
+probe(c220) -> erlang:apply(erlang,opaque('bxor'),[#{a=>1},1]);
+probe(c221) -> erlang:apply(erlang,opaque('bxor'),[1,#{a=>1}]);
+probe(c222) -> erlang:apply(erlang,opaque('bxor'),[#{a=>1},#{a=>1}]);
+probe(c223) -> erlang:apply(erlang,opaque('bxor'),[<<>>,1]);
+probe(c224) -> erlang:apply(erlang,opaque('bxor'),[1,<<>>]);
+probe(c225) -> erlang:apply(erlang,opaque('bxor'),[<<>>,<<>>]);
+probe(c226) -> erlang:apply(erlang,opaque('bxor'),[<<1:1>>,1]);
+probe(c227) -> erlang:apply(erlang,opaque('bxor'),[1,<<1:1>>]);
+probe(c228) -> erlang:apply(erlang,opaque('bxor'),[<<1:1>>,<<1:1>>]);
+probe(c229) -> erlang:apply(erlang,opaque('bxor'),[fun erlang:abs/1,1]);
+probe(c230) -> erlang:apply(erlang,opaque('bxor'),[1,fun erlang:abs/1]);
+probe(c231) -> erlang:apply(erlang,opaque('bxor'),[fun erlang:abs/1,fun erlang:abs/1]);
+probe(c232) -> erlang:apply(erlang,opaque('bxor'),[fun() -> ok end,1]);
+probe(c233) -> erlang:apply(erlang,opaque('bxor'),[1,fun() -> ok end]);
+probe(c234) -> erlang:apply(erlang,opaque('bxor'),[fun() -> ok end,fun() -> ok end]);
+probe(c235) -> erlang:apply(erlang,opaque('bxor'),[binary_to_term(<<131,103,100,0,6,"oracle",0,0,0,1,0,0,0,0,0>>),1]);
+probe(c236) -> erlang:apply(erlang,opaque('bxor'),[1,binary_to_term(<<131,103,100,0,6,"oracle",0,0,0,1,0,0,0,0,0>>)]);
+probe(c237) -> erlang:apply(erlang,opaque('bxor'),[binary_to_term(<<131,103,100,0,6,"oracle",0,0,0,1,0,0,0,0,0>>),binary_to_term(<<131,103,100,0,6,"oracle",0,0,0,1,0,0,0,0,0>>)]);
+probe(c238) -> erlang:apply(erlang,opaque('bxor'),[binary_to_term(<<131,101,100,0,6,"oracle",0,0,0,1,0>>),1]);
+probe(c239) -> erlang:apply(erlang,opaque('bxor'),[1,binary_to_term(<<131,101,100,0,6,"oracle",0,0,0,1,0>>)]);
+probe(c240) -> erlang:apply(erlang,opaque('bxor'),[binary_to_term(<<131,101,100,0,6,"oracle",0,0,0,1,0>>),binary_to_term(<<131,101,100,0,6,"oracle",0,0,0,1,0>>)]);
+probe(c241) -> erlang:apply(erlang,opaque('bxor'),[binary_to_term(<<131,102,100,0,6,"oracle",0,0,0,1,0>>),1]);
+probe(c242) -> erlang:apply(erlang,opaque('bxor'),[1,binary_to_term(<<131,102,100,0,6,"oracle",0,0,0,1,0>>)]);
+probe(c243) -> erlang:apply(erlang,opaque('bxor'),[binary_to_term(<<131,102,100,0,6,"oracle",0,0,0,1,0>>),binary_to_term(<<131,102,100,0,6,"oracle",0,0,0,1,0>>)]).
+opaque(Value) -> put(arithmetic_contract491_input,Value),erase(arithmetic_contract491_input).

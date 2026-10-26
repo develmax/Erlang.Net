@@ -1,16 +1,7 @@
 # Unclosed default contracts — volume3
 
-Current candidate: Part490. Whole contract evidence remains in the canonical [ledger](../mfa-compatibility.json); see [cohort progress](checkpoint-490.md).
+Current candidate: Part491. Whole contract evidence remains in the canonical [ledger](../mfa-compatibility.json); see [cohort progress](checkpoint-491.md).
 
-- `erlang:unique_integer/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:universaltime/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:universaltime_to_localtime/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:universaltime_to_posixtime/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:unlink/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:unregister/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:whereis/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:yield/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erpc:call/4` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
 - `erpc:call/5` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
 - `erpc:execute_call/4` — **Needs verification**. Published340 implemented API contract; presence is distinct from semantic compatibility. Private runtime corrections are not published verification.
 - `error_logger:get_format_depth/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
@@ -152,3 +143,12 @@ Current candidate: Part490. Whole contract evidence remains in the canonical [le
 - `logger:update_process_metadata/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `maps:filter/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `maps:filtermap/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `maps:find/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `maps:fold/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `maps:foreach/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `maps:from_keys/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `maps:from_list/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `maps:get/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `maps:get/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `maps:groups_from_list/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `maps:groups_from_list/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.

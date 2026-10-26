@@ -1,0 +1,28 @@
+{
+  "PriorVerifiedContracts": 144,
+  "ProductionFilesChanged": [
+    "src/Runtime/Erlang.Runtime.Core/Primitives/CoreModules.cs"
+  ],
+  "ChangedArea": "Only integer result identity shortcuts after existing type/divisor validation, before unchanged arithmetic switch. Float conversion, nonfinite refusal, registration and error construction are unchanged.",
+  "UnaryMinusPreserved": "The only previously verified operator using this integer dispatch is unary minus, expressed as0-x. Its new zero branch returns the same immediate zero value/identity; nonzero inputs follow the unchanged subtraction.",
+  "OtherPartitionsPreserved": "All other integer shortcut results have identical values/types/errors and now match native reference preservation. Other operations retain existing result allocation and all earlier source partitions.",
+  "RuntimeDelta": {
+    "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/CoreModules.cs",
+    "Before": "11F4A05085FCAD96F480AC02B6C04C90A45CB1B9375B165D06F912CF57FB3ECB",
+    "After": "EB66B5E5D4E1EA2E3FB8320727D6D1548EEFE1566E2B6335367106A325B72D85",
+    "BeforeBytes": 19464,
+    "AfterBytes": 19907
+  },
+  "Other1686SourceGuardsUnchanged": true,
+  "FullRegressionRequired": true,
+  "AllCaseCoveragePassed": true,
+  "Composite": true,
+  "ContinuousFullPassed": false,
+  "OriginalFullPassed": 8947,
+  "OriginalFullFailed": 1,
+  "FreshExactCasePassed": 1,
+  "FullRegressionCases": 8948,
+  "All8913PriorOrderedCasesRetained": true,
+  "FullReport": "full-results.json",
+  "FullReportSha256": "54DCA338D2695308D754095799B326352527B57F9346A4F96CDF505B77C0797D"
+}

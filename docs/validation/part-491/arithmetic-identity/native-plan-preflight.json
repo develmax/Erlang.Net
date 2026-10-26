@@ -1,0 +1,50 @@
+{
+  "Passed": true,
+  "NativeAbiAcceptancePromoted": false,
+  "Plans": [
+    {
+      "Plan": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Workflow": ".github/workflows/nif-pending-native.yml",
+      "Seal": "B9F90D8AA7BBAC03146162B49F5D8D8DAF5872564020121DCCDAFD82021A1DA4",
+      "OnlyCurrentCoreModulesRowChanged": true,
+      "Changes": [
+        {
+          "Before": {
+            "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/CoreModules.cs",
+            "Bytes": 19464,
+            "Sha256": "11F4A05085FCAD96F480AC02B6C04C90A45CB1B9375B165D06F912CF57FB3ECB",
+            "HashMode": "TextLF"
+          },
+          "After": {
+            "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/CoreModules.cs",
+            "Bytes": 19907,
+            "Sha256": "EB66B5E5D4E1EA2E3FB8320727D6D1548EEFE1566E2B6335367106A325B72D85",
+            "HashMode": "TextLF"
+          }
+        }
+      ]
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Workflow": ".github/workflows/nif-reallocation-native.yml",
+      "Seal": "AC22732FDFD5EE2924D908F2401BD339FB0DAD3432A37EF7F7D63F8016078EAF",
+      "OnlyCurrentCoreModulesRowChanged": true,
+      "Changes": [
+        {
+          "Before": {
+            "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/CoreModules.cs",
+            "Bytes": 19464,
+            "Sha256": "11F4A05085FCAD96F480AC02B6C04C90A45CB1B9375B165D06F912CF57FB3ECB",
+            "HashMode": "TextLF"
+          },
+          "After": {
+            "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/CoreModules.cs",
+            "Bytes": 19907,
+            "Sha256": "EB66B5E5D4E1EA2E3FB8320727D6D1548EEFE1566E2B6335367106A325B72D85",
+            "HashMode": "TextLF"
+          }
+        }
+      ]
+    }
+  ]
+}

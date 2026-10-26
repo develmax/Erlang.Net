@@ -1,9 +1,9 @@
 {
   "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Registered": 708,
-  "Verified": 144,
+  "Verified": 153,
   "KnownDifferences": 25,
-  "NeedsVerification": 539,
+  "NeedsVerification": 530,
   "UnclosedDefaultContracts": [
     {
       "Module": "application",
@@ -62,28 +62,6 @@
     },
     {
       "Module": "erlang",
-      "Function": "*",
-      "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
-    },
-    {
-      "Module": "erlang",
-      "Function": "+",
-      "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
-    },
-    {
-      "Module": "erlang",
       "Function": "++",
       "Arity": 2,
       "Status": "Needs verification",
@@ -95,29 +73,7 @@
     },
     {
       "Module": "erlang",
-      "Function": "-",
-      "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
-    },
-    {
-      "Module": "erlang",
       "Function": "--",
-      "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
-    },
-    {
-      "Module": "erlang",
-      "Function": "/",
       "Arity": 2,
       "Status": "Needs verification",
       "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
@@ -359,17 +315,6 @@
     },
     {
       "Module": "erlang",
-      "Function": "band",
-      "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
-    },
-    {
-      "Module": "erlang",
       "Function": "binary_part",
       "Arity": 2,
       "Status": "Needs verification",
@@ -524,17 +469,6 @@
     },
     {
       "Module": "erlang",
-      "Function": "bor",
-      "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
-    },
-    {
-      "Module": "erlang",
       "Function": "bsl",
       "Arity": 2,
       "Status": "Needs verification",
@@ -559,17 +493,6 @@
       "Module": "erlang",
       "Function": "bump_reductions",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
-    },
-    {
-      "Module": "erlang",
-      "Function": "bxor",
-      "Arity": 2,
       "Status": "Needs verification",
       "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
       "Evidence": [],
@@ -872,17 +795,6 @@
       "Evidence": [],
       "Limits": [
         "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending SendPend includes actual retained staged plus transport encoded AccountedBytes, including accepted async_dist PID output. Queue partitions are bounded SDK accounting, not ERTS driver allocation or whole physical memory. OutputBuffers counts consumed packets; counters and exact-generation retirement remain existing controls."
-      ]
-    },
-    {
-      "Module": "erlang",
-      "Function": "div",
-      "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
       ]
     },
     {
@@ -2624,17 +2536,6 @@
       "Module": "erlang",
       "Function": "registered",
       "Arity": 0,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
-    },
-    {
-      "Module": "erlang",
-      "Function": "rem",
-      "Arity": 2,
       "Status": "Needs verification",
       "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
       "Evidence": [],
@@ -278530,7 +278431,7 @@
       "Module": "erlang",
       "CatalogPublicApis": 875,
       "DefaultRegistered": 351,
-      "DefaultVerified": 47,
+      "DefaultVerified": 56,
       "RequiresPreprocessing": false,
       "OriginalExecutionStatus": "Requires separate execution evidence; default registry is not original-library coverage"
     },

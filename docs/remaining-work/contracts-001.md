@@ -1,18 +1,14 @@
 # Unclosed default contracts — volume1
 
-Current candidate: Part490. Whole contract evidence remains in the canonical [ledger](../mfa-compatibility.json); see [cohort progress](checkpoint-490.md).
+Current candidate: Part491. Whole contract evidence remains in the canonical [ledger](../mfa-compatibility.json); see [cohort progress](checkpoint-491.md).
 
 - `application:get_env/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `application:get_env/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `application:set_env/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `application:unset_env/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:!/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:*/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:+/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:++/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:-/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:--/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang://2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:/=/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:</2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:=/=/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
@@ -34,7 +30,6 @@ Current candidate: Part490. Whole contract evidence remains in the canonical [le
 - `erlang:atom_to_binary/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:atom_to_binary/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:atom_to_list/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:band/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:binary_part/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:binary_part/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:binary_to_atom/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
@@ -49,11 +44,9 @@ Current candidate: Part490. Whole contract evidence remains in the canonical [le
 - `erlang:binary_to_term/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:binary_to_term/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:bitstring_to_list/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:bor/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:bsl/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:bsr/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:bump_reductions/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:bxor/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:call_on_load_function/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:cancel_timer/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:cancel_timer/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
@@ -81,7 +74,6 @@ Current candidate: Part490. Whole contract evidence remains in the canonical [le
 - `erlang:dist_ctrl_put_data/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:dist_ctrl_set_opt/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:dist_get_stat/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:div/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:dmonitor_node/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:dt_append_vm_tag_data/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:dt_get_tag/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
@@ -152,3 +144,11 @@ Current candidate: Part490. Whole contract evidence remains in the canonical [le
 - `erlang:link/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:link/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:list_to_atom/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:list_to_binary/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:list_to_bitstring/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:list_to_existing_atom/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:list_to_float/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:list_to_integer/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:list_to_integer/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:list_to_pid/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:list_to_port/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
