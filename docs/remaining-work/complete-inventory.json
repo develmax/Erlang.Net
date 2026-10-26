@@ -1,9 +1,9 @@
 {
   "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Registered": 708,
-  "Verified": 127,
+  "Verified": 130,
   "KnownDifferences": 25,
-  "NeedsVerification": 556,
+  "NeedsVerification": 553,
   "UnclosedDefaultContracts": [
     {
       "Module": "application",
@@ -1037,24 +1037,6 @@
       "Evidence": [],
       "Limits": [
         "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
-    },
-    {
-      "Module": "erlang",
-      "Function": "element",
-      "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Existing implementation and selected passed cases; no whole-MFA compatibility claim.",
-      "Evidence": [
-        {
-          "Kind": "CompatibilityAudit",
-          "Path": "validation/part-341/compatibility-audit/classification.json",
-          "Sha256": "B424B90ADA84FB2271BE803A5525A00835EAFC80B3FFB5967E12588678E14A7A",
-          "Scope": "Complete source branch/term partition argument and per-MFA classification at published340; no presence-only verification."
-        }
-      ],
-      "Limits": [
-        "Normal index/evaluation-order witnesses exist; emptytuple/negative/zero/large/noninteger/index and non-tuple direct errors need bounded contract completion."
       ]
     },
     {
@@ -2981,17 +2963,6 @@
     },
     {
       "Module": "erlang",
-      "Function": "size",
-      "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
-    },
-    {
-      "Module": "erlang",
       "Function": "spawn",
       "Arity": 1,
       "Status": "Needs verification",
@@ -4004,17 +3975,6 @@
       "Module": "erlang",
       "Function": "trace_pattern",
       "Arity": 3,
-      "Status": "Needs verification",
-      "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
-      "Evidence": [],
-      "Limits": [
-        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-      ]
-    },
-    {
-      "Module": "erlang",
-      "Function": "tuple_to_list",
-      "Arity": 1,
       "Status": "Needs verification",
       "Scope": "Complete command contract against the pinned OTP baseline has not yet been independently audited.",
       "Evidence": [],
@@ -278724,7 +278684,7 @@
       "Module": "erlang",
       "CatalogPublicApis": 875,
       "DefaultRegistered": 351,
-      "DefaultVerified": 30,
+      "DefaultVerified": 33,
       "RequiresPreprocessing": false,
       "OriginalExecutionStatus": "Requires separate execution evidence; default registry is not original-library coverage"
     },

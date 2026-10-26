@@ -1,0 +1,73 @@
+{
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ParentSourceHead": "fc0cff221b6c1a043dbdd152ca19ac5f2e29da9d",
+  "CompleteOnSupportedValidErlangTermModel": true,
+  "PhysicalAllocationCeilingsClaimed": false,
+  "WholeCompilerCompletionClaimed": false,
+  "ProductionSourceChanges": 0,
+  "Mfas": [
+    "erlang:element/2",
+    "erlang:size/1",
+    "erlang:tuple_to_list/1"
+  ],
+  "Partitions": {
+    "element/2": "Integer index in1..tuple arity returns the exact referenced element. Every other index/term combination raises badarg. Any successful index of a valid Erlang tuple is necessarily a native small integer; managed bounds precede narrowing.",
+    "size/1": "Tuple arity or floor(bitstring logical length/8), including nonbinary bitstrings. Every other term raises badarg. No guest callback or mutation.",
+    "tuple_to_list/1": "Tuple only: build a fresh proper list in tuple order, preserving each element reference; the empty tuple returns shared nil. Every other term raises badarg. No user-supplied iterator/callback is involved because TupleTerm owns an immutable array."
+  },
+  "ManagedSources": [
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/CoreModules.cs",
+      "Sha256": "11F4A05085FCAD96F480AC02B6C04C90A45CB1B9375B165D06F912CF57FB3ECB"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangBasicRegistrations.cs",
+      "Sha256": "E7A27A6498346F1005919BD074AF7DCC5050BE9624D625AA4BC91CB5E14644B0"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Collections/Lists/Cons.cs",
+      "Sha256": "46D73379F77BC6339AC7E5C035FAF5AB8B4EE8CEB286877C92DAC0C8CC3125D9"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Values/TupleTerm.cs",
+      "Sha256": "31EFD1F98D5853EC21C8A9915AC34AF55793016ACF5258B2FBCDAA96DBF040A8"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Values/BitString.cs",
+      "Sha256": "1AA811589FA9AEC9F00970A785572B6D6BEABAF895A1AF656499A863A8467683"
+    }
+  ],
+  "OriginalSources": [
+    {
+      "Path": "erts/emulator/beam/bif.c",
+      "Sha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_bif_guard.c",
+      "Sha256": "6A254BCEDAF5F57A01A8CDD6CF94F8140693BE99B4735A9283D8BFFA4288CC67"
+    }
+  ],
+  "Values": 111,
+  "StackProfiles": 555,
+  "WholeComparisons": 666,
+  "NormalizedFields": 0,
+  "RuntimeDispatch": "Opaque function atom plus original dispatch-proof.etf; no compile-time numeric/tuple answer substitution",
+  "Resources": [
+    {
+      "Path": "tests/Erlang.Tests/Resources/TupleContract488/stacks.etf",
+      "Sha256": "FDA0117CD7FB8FFDE41469002BDA46B8A1ACA1E6726A212F724E44F2757C8695"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/TupleContract488/tuple_contract488.beam",
+      "Sha256": "7FE73404133CB3CCFEA6527F12F247EBE088283B9DFCEB867E87CF8175CDF7E0"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/TupleContract488/tuple_contract488.erl",
+      "Sha256": "08AD27423610EAD73FB502F75F9349A200DC57656E2F49F9C16880E3F3E73D00"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/TupleContract488/values.etf",
+      "Sha256": "936687BCF2E8353092EC843D3785C89148674E9BA838F8254109BA38AF5E07ED"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # Unclosed default contracts — volume1
 
-Current candidate: Part487. Whole contract evidence remains in the canonical [ledger](../mfa-compatibility.json); see [cohort progress](checkpoint-487.md).
+Current candidate: Part488. Whole contract evidence remains in the canonical [ledger](../mfa-compatibility.json); see [cohort progress](checkpoint-488.md).
 
 - `application:get_env/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `application:get_env/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
@@ -96,7 +96,6 @@ Current candidate: Part487. Whole contract evidence remains in the canonical [le
 - `erlang:dt_put_tag/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:dt_restore_tag/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:dt_spread_tag/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
-- `erlang:element/2` — **Needs verification**. Existing implementation and selected passed cases; no whole-MFA compatibility claim.
 - `erlang:erase/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:erase/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:error/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
@@ -152,3 +151,4 @@ Current candidate: Part487. Whole contract evidence remains in the canonical [le
 - `erlang:iolist_to_iovec/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:is_alive/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:is_builtin/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `erlang:is_map_key/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
