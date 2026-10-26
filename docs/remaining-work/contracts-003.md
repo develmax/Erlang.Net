@@ -1,8 +1,7 @@
 # Unclosed default contracts — volume3
 
-Current candidate: Part496. Whole contract evidence remains in the canonical [ledger](../mfa-compatibility.json); see [cohort progress](checkpoint-496.md).
+Current candidate: Part497. Whole contract evidence remains in the canonical [ledger](../mfa-compatibility.json); see [cohort progress](checkpoint-497.md).
 
-- `lists:any/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `lists:append/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `lists:append/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `lists:concat/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
@@ -152,3 +151,4 @@ Current candidate: Part496. Whole contract evidence remains in the canonical [le
 - `maps:values/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `maps:with/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `maps:without/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `math:log/1` — **Needs verification**. Explicit runtime primitive/compiler-helper boundary supporting original selected OTP libraries. Direct MFA presence and finite original-module execution do not establish this command's entire public contract.

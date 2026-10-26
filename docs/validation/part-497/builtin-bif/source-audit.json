@@ -1,0 +1,85 @@
+{
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Passed": true,
+  "CompleteOnSupportedValidErlangTermModel": true,
+  "OriginalSources": [
+    {
+      "Path": "erts/emulator/beam/bif.c",
+      "Sha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC"
+    },
+    {
+      "Path": "erts/emulator/beam/beam_common.c",
+      "Sha256": "1AF6CF2D371975B0D9944B5857062A90091298373B3802639B25D03003AB3C47"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_utils.h",
+      "Sha256": "DAD589935F12DACF7004F68588417DF30E041B34499A8DC1E6336A0A292E78C4"
+    },
+    {
+      "Path": "erts/emulator/beam/bif.tab",
+      "Sha256": "55C88258E90745E701D00702266C6422E35C31C6796CE2086EA00FA00F9D8816"
+    },
+    {
+      "Path": "erts/emulator/beam/export.c",
+      "Sha256": "2264960DA8BF721025651E6F0A7F0C71BDF53AE5B2E9936F5A9250C8076E1092"
+    },
+    {
+      "Path": "erts/emulator/beam/emu/beam_emu.c",
+      "Sha256": "47C1453C9B1C2224EBA6FC00406847EE0609FE6FF4ADCBA4B233D37F230A633D"
+    },
+    {
+      "Path": "erts/emulator/beam/jit/beam_jit_main.cpp",
+      "Sha256": "F4ECA3746B7C5D77117C2FF28B26CFAC917A127EC27789917CDA8124DA3147F4"
+    },
+    {
+      "Path": "erts/emulator/beam/beam_bif_load.c",
+      "Sha256": "2EB70C13C595806337A7F4DC115A612214F7B5D9E5E7E2BA56C1D76AFCD91D6D"
+    }
+  ],
+  "SourceBindings": [
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangFunctionRegistrations.cs",
+      "Sha256": "5CC88848F3F11D258D37F6730A47562FB433F470B01D82633C1A7DD82AC3D2C4"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangFunctionParameters.cs",
+      "Sha256": "060E8CFF29DED53499693C8B0DCE39DD2839DED010B2BDA0A9C8D4F79CC4EDCD"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangFunctionBifNames.cs",
+      "Sha256": "B39E3A55265B495F98F09BE83CBC500D329263FD5582AE3FD393E4576BE75C3E"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Primitives/NativeBuiltinCatalog.cs",
+      "Sha256": "17D47C563EAC30308F96719F5232FDB6FAB84C4F5EF195F4FA146823993BBDBF"
+    }
+  ],
+  "NativeBifTabEntries": 553,
+  "InstructionOnlyBuiltins": [
+    [
+      "erlang",
+      "apply",
+      2
+    ],
+    [
+      "erlang",
+      "apply",
+      3
+    ],
+    [
+      "erlang",
+      "yield",
+      0
+    ]
+  ],
+  "ManagedCatalogEntries": 556,
+  "Missing": [],
+  "Extra": [],
+  "ArgumentPartition": "Pinned bif.c is_builtin_3 requires module/function atoms and native-small arity before lookup. Query validates the same three types and exact signed64-bit small range [-2^59,2^59-1]. All other supported term families, including native records and actual interior HAMT nodes, take badarg and retain complete original arguments and stack metadata.",
+  "ArityConversion": "signed_val passes to erts_is_builtin(Eterm,Eterm,int), a signed32-bit parameter on the admitted platform. Unchecked int32 truncation is intentional, including negative values and large small-integer aliases. Do not replace it with a0..255 check or the make_fun arity limit.",
+  "ClosedLookupPartition": "Exactly553 bif/ubif/gcbif/hbif entries plus apply/2,apply/3,yield/0 instruction special cases equal all556 managed catalog triples. Every actual positive triple is dynamically observed. HashSet tuple equality is ordinal module/function name equality and exact narrowed integer arity; absence returns false without loading modules. All nonmembers follow that single lookup branch, including wrong case, absent functions/modules/arities and ordinary Erlang exports.",
+  "Lifetime": "export.c export allocation initializes bif_number=-1. Interpreter install_bifs and JIT install_bifs install the entire compiled BIF table and assign positive indexes before module loading; beam_common tests only bif_number, never active code addresses. Delete-module paths in beam_bif_load skip BIF entries. The only other -1 assignment in bif.c belongs to distinct hidden trap exports, not public table entries. Ordinary BEAM/NIF exports therefore do not become BIFs when loading, replacing or deleting code. Static membership correctly remains independent of managed registry export ownership. This is source proof, not an unexecuted lifecycle-test claim.",
+  "ObservationScope": "All556 positive catalog entries, direct and dynamic calls, native-small boundaries and int32 aliases, all ordinary invalid term families, native records, hidden trap names, exact atom spelling/case and real internal HAMT-node/cursor argument rejections. is_builtin/3 is not a legal guard BIF: no invented guard form is admitted.",
+  "OwnStateProtocol": "Only the actual acquired interior HAMT node is bound to owned_hamt_node throughout entire error reasons and every stack frame. Actual complete map/cursor arguments and all other fields remain intact. Three values and15 stack profiles use this own-state binding; remaining4848 outputs compare literally. No fabricated node or selected error tuple replaces an observation.",
+  "Boundary": "One supported BIF contract. This does not promote function_exported/3, make_fun/3, all erlang APIs, every native BIF implementation, VM physical layout, platform performance or undocumented invalid-pointer behavior."
+}

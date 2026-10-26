@@ -1,8 +1,7 @@
 # Unclosed default contracts — volume2
 
-Current candidate: Part496. Whole contract evidence remains in the canonical [ledger](../mfa-compatibility.json); see [cohort progress](checkpoint-496.md).
+Current candidate: Part497. Whole contract evidence remains in the canonical [ledger](../mfa-compatibility.json); see [cohort progress](checkpoint-497.md).
 
-- `erlang:monitor_node/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:monitor_node/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:monotonic_time/0` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `erlang:monotonic_time/1` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
@@ -152,3 +151,4 @@ Current candidate: Part496. Whole contract evidence remains in the canonical [le
 - `gen_server:stop/3` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `io:format/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
 - `lists:all/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.
+- `lists:any/2` — **Needs verification**. Complete command contract against the pinned OTP baseline has not yet been independently audited.

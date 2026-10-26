@@ -1,0 +1,11 @@
+# Part497 — complete supported is_builtin/3 contract
+
+The pinned OTP-29.1.1 source partition and actual compiled observers match all4866 outputs:811 values and4055 complete stack profiles. [Source audit](source-audit.json) proves the exact556-entry catalog, atom/type validation, native-small bounds, signed32-bit narrowing and independence from ordinary export code addresses. [Original comparison](original-comparison.json) retains every original acquisition and its6427-file provider and process settlement. Fifteen canonical groups preserve actual dynamic apply dispatch; legal direct calls remain tested. No guard form is invented.
+
+4848 outputs compare literally. Eighteen outputs bind only the actual interior HAMT node identity, recursively throughout the entire exception reason and stack. Complete map/cursor arguments remain intact. This uses the source protocol relative to each VM's state, not a fabricated OTP snapshot.
+
+[Initial focus](focus-initial.json) passes14/14; [expanded final focus](focus-final.json) passes15/15. [Final affected regression](affected-final.json) passes164/164:117 inherited BIF groups,15 new groups and32 related function-query checks. No runtime defect or production edit is required. [Preparation history](preparation-history.json) retains the original last-page dispatch-proof refusal and its corrected reacquisition. Thirteen unchanged pages reuse exact-source local receipts; CI independently reacquires all15.
+
+[Source bindings](source-bindings.json) add three unchanged audited dependencies to the canonical guards (1720→1723); the native catalog was already bound. Native plans, ABI signatures and infrastructure roster remain unchanged. [Acceptance](acceptance.json) adds one full contract, zero registered APIs:177 verified,506 pending,25 known of708. erlang80/351;59 original pending contracts closed,500 remain (10.55%).
+
+Parent496 exact-head CI40276836899 is green9020/9020 and its artifact is independently verified. New local9035 readiness is explicitly a parent/final164 composite, not an uninterrupted local full run. New exact-head continuous CI, fresh original acquisitions, packages, cold consumers, catalog and cleanup remain publication gates; the PR records the result without rewriting frozen evidence. LICENSE.local.txt stays uncommitted and no merge is implied.
