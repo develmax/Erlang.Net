@@ -1,0 +1,25 @@
+{
+  "Command": [
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+    "+S",
+    "1:1",
+    "+A",
+    "1",
+    "-noshell",
+    "-noinput",
+    "-boot",
+    "no_dot_erlang",
+    "-pa",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\contracts496\\original-final\\construction",
+    "-eval",
+    "{ok,record_contract496_construction,_}=compile:file(\"record_contract496_construction.erl\",[return_errors,return_warnings]),[ok=prim_file:write_file(File,term_to_binary(ordsets_core_worker:run(record_contract496_construction,Entry),[{minor_version,2}])) || {File,Entry} <- [{\"values.etf\",run},{\"stacks.etf\",run_stacks}]],{beam_file,_,_,_,_,Functions}=beam_disasm:file(\"record_contract496_construction.beam\"),Instructions=lists:append([Is || {function,_,_,_,Is} <- Functions]),ApplySites=[I || I <- Instructions,is_tuple(I),lists:member(element(1,I),[apply,apply_last])],true=length(ApplySites)>0,ok=prim_file:write_file(\"dispatch-proof.etf\",term_to_binary({record_contract496_construction,length(ApplySites),ApplySites})),halt(0)."
+  ],
+  "Pid": 343444,
+  "ElapsedSeconds": 0.3279999999795109,
+  "TimedOut": false,
+  "Settled": true,
+  "ExitCode": 1,
+  "Failures": [],
+  "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+  "StderrSha256": "8E8D62093FC638D69C44930B75ADDD448C1FF444937E6BD275A6C334DAEEAE53"
+}

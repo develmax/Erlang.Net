@@ -1,0 +1,20 @@
+{
+  "CompilerRefusals": [
+    "is_record2_p0",
+    "is_record2_p1",
+    "is_record2_p2",
+    "is_record2_p3",
+    "is_record3_p0",
+    "is_record3_p1",
+    "is_record3_p2",
+    "is_record3_p3",
+    "is_record3_p4",
+    "construction"
+  ],
+  "RuntimeSemanticFailuresClaimed": false,
+  "Reasons": [
+    "Variable-tag is_record/2,3 guards are illegal; use legal literal guards while keeping dynamic/error ordinary BIF calls.",
+    "A bitstring expression is not an allowed native-record default in the pinned compiler; replace it with the legal explicit undefined default."
+  ],
+  "GuardInventoryCorrection": "1708 to1720: four new source files, the previously unguarded BeamLinkedCode and newly audited unchanged record dependencies. The failed preflight wrote no ledger or plan and was repaired before acceptance."
+}

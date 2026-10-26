@@ -1,0 +1,35 @@
+-module(record_contract496_is_record2_p3).
+-export([run/0,run_stacks/0,probe/1]).
+-record #native{x=1}.
+run()->ordsets_core_support:run(?MODULE,cases()).
+run_stacks()->ordsets_core_support:profiles(?MODULE,cases()).
+cases()->[case_0,case_1,case_2,case_3,case_4,case_5,case_6,case_7,case_8,case_9,case_10,case_11,case_12,case_13,case_14,case_15,case_16,case_17,case_18,case_19,case_20,case_21,case_22,case_23,case_24,case_25,case_26].
+probe(case_0)->erlang:is_record(opaque({sample}),opaque(sample));
+probe(case_1)->guard_probe(opaque({sample}),opaque(sample));
+probe(case_2)->erlang:is_record(opaque({sample}),opaque(native));
+probe(case_3)->guard_probe(opaque({sample}),opaque(native));
+probe(case_4)->erlang:is_record(opaque({sample}),opaque(0));
+probe(case_5)->guard_probe(opaque({sample}),opaque(0));
+probe(case_6)->erlang:is_record(opaque({sample,1}),opaque(sample));
+probe(case_7)->guard_probe(opaque({sample,1}),opaque(sample));
+probe(case_8)->erlang:is_record(opaque({sample,1}),opaque(native));
+probe(case_9)->guard_probe(opaque({sample,1}),opaque(native));
+probe(case_10)->erlang:is_record(opaque({sample,1}),opaque(0));
+probe(case_11)->guard_probe(opaque({sample,1}),opaque(0));
+probe(case_12)->erlang:is_record(opaque(records:create(record496,sample,[{x,1}],#{is_exported=>false})),opaque(sample));
+probe(case_13)->guard_probe(opaque(records:create(record496,sample,[{x,1}],#{is_exported=>false})),opaque(sample));
+probe(case_14)->erlang:is_record(opaque(records:create(record496,sample,[{x,1}],#{is_exported=>false})),opaque(native));
+probe(case_15)->guard_probe(opaque(records:create(record496,sample,[{x,1}],#{is_exported=>false})),opaque(native));
+probe(case_16)->erlang:is_record(opaque(records:create(record496,sample,[{x,1}],#{is_exported=>false})),opaque(0));
+probe(case_17)->guard_probe(opaque(records:create(record496,sample,[{x,1}],#{is_exported=>false})),opaque(0));
+probe(case_18)->erlang:is_record(opaque(#native{}),opaque(sample));
+probe(case_19)->guard_probe(opaque(#native{}),opaque(sample));
+probe(case_20)->erlang:is_record(opaque(#native{}),opaque(native));
+probe(case_21)->guard_probe(opaque(#native{}),opaque(native));
+probe(case_22)->erlang:is_record(opaque(#native{}),opaque(0));
+probe(case_23)->guard_probe(opaque(#native{}),opaque(0));
+probe(case_24)->erlang:apply(erlang,opaque(is_record),[opaque(records:create('','',[{x,1}],#{is_exported=>false})),opaque('')]);
+probe(case_25)->erlang:apply(erlang,opaque(is_record),[opaque(records:create('','запись',[{x,1}],#{is_exported=>false})),opaque('запись')]);
+probe(case_26)->M=maps:from_list([{I,I}||I<-lists:seq(1,256)]),N=hd([C||C<-erts_internal:map_hashmap_children(M),is_map(C)]),erlang:apply(erlang,opaque(is_record),[N,sample]).
+guard_probe(V,Tag) when erlang:is_record(V,Tag)->true;guard_probe(_,_)->false.
+opaque(V)->put(record_contract496_input,V),erase(record_contract496_input).

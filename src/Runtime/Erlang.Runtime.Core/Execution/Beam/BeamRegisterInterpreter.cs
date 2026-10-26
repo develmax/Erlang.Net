@@ -261,6 +261,9 @@ internal static partial class BeamRegisterInterpreter
                         registers.ClearFloats();
                     switch (instruction.Definition.Name)
                     {
+                        case BeamRecordConstructionNames.Opcode:
+                            registers.Write(operands[BeamRecordConstructionNames.Destination], BeamRecordConstruction.Create(code, registers, operands));
+                            break;
                         case BeamCollectionOpcodeNames.UpdateRecord:
                             registers.Write(operands[3], BeamCollectionExecution.UpdateRecord(code, registers, operands));
                             break;

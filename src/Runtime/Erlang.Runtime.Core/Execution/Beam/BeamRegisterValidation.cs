@@ -47,6 +47,12 @@ internal static class BeamRegisterValidation
                 var operands = instruction.Operands;
                 switch (instruction.Definition.Name)
                 {
+                    case BeamRecordConstructionNames.Opcode:
+                        Live(operands[BeamRecordConstructionNames.Live]);
+                        for (int field = BeamRecordConstructionNames.FirstField; field < operands.Count; field += BeamRecordConstructionNames.FieldWidth)
+                            Source(operands[field + 1]);
+                        Destination(operands[BeamRecordConstructionNames.Destination]);
+                        break;
                     case BeamCollectionOpcodeNames.UpdateRecord:
                         Source(operands[2]);
                         for (int field = 6; field < operands.Count; field += 2)
@@ -450,7 +456,8 @@ internal static class BeamRegisterValidation
     internal static BeamExternalImport TernaryBifImport(BeamLinkedCode code, int index)
     {
         BeamExternalImport import = BeamExternalImports.Resolve(code, index);
-        if (import.Module != ErlangModuleNames.Module || import.Function != ErlangModuleNames.IsInteger || import.Arity != 3)
+        if (import.Module != ErlangModuleNames.Module
+            || import.Function is not (ErlangModuleNames.IsInteger or RecordPredicateNames.IsRecord) || import.Arity != 3)
             throw new NotSupportedException(BeamRegisterNames.Unsupported);
 
         return import;

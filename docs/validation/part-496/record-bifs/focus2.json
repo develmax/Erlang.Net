@@ -1,0 +1,95 @@
+{
+  "Partial": true,
+  "SelectedCount": 13,
+  "TotalCount": 9019,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/bif-contract496/is_record1_p0",
+    "runtime/bif-contract496/is_record1_p1",
+    "runtime/bif-contract496/is_record1_p2",
+    "runtime/bif-contract496/is_record2_p0",
+    "runtime/bif-contract496/is_record2_p1",
+    "runtime/bif-contract496/is_record2_p2",
+    "runtime/bif-contract496/is_record2_p3",
+    "runtime/bif-contract496/is_record3_p0",
+    "runtime/bif-contract496/is_record3_p1",
+    "runtime/bif-contract496/is_record3_p2",
+    "runtime/bif-contract496/is_record3_p3",
+    "runtime/bif-contract496/is_record3_p4",
+    "runtime/bif-contract496/is_record3_p5"
+  ],
+  "Passed": 8,
+  "Failed": 5,
+  "Tests": [
+    {
+      "Name": "runtime/bif-contract496/is_record1_p0",
+      "Status": "Passed",
+      "Milliseconds": 1049
+    },
+    {
+      "Name": "runtime/bif-contract496/is_record1_p1",
+      "Status": "Failed",
+      "Error": "System.NotSupportedException: Unsupported BEAM opcode role in bounded linker\r\n   at Erlang.BeamLinkedCodeReader.ValidateRoles(BeamInstruction instruction, BeamStructure structure, IReadOnlyDictionary\u00602 functions, IReadOnlyList\u00601 lambdas) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Execution\\Beam\\BeamLinkedCodeReader.cs:line 614\r\n   at Erlang.BeamLinkedCodeReader.Read(BeamStructure structure) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Execution\\Beam\\BeamLinkedCodeReader.cs:line 92\r\n   at Erlang.ModuleRegistry.PrepareBeam(ReadOnlyMemory\u00601 bytes, BeamDependencySelection dependencies) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Modules\\ModuleRegistry.PreparedBeam.cs:line 14\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.\u003C\u003Ec__DisplayClass1_1.\u003CRunSubject\u003Eb__0(String module) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 40\r\n   at System.Linq.Enumerable.ArraySelectIterator\u00602.Fill(ReadOnlySpan\u00601 source, Span\u00601 destination, Func\u00602 func)\r\n   at System.Linq.Enumerable.ArraySelectIterator\u00602.ToArray()\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.RunSubject(String observer, Func\u00602 read, Int32 valueCount, Int32 profileCount, Func\u00602 initialize, Boolean encodeInRuntime, String[] additionalDependencies) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 40\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.RunSubject(String observer, Func\u00602 read, Int32 valueCount, Int32 profileCount, Func\u00602 initialize, Boolean encodeInRuntime, String[] additionalDependencies) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 102\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 6911",
+      "Milliseconds": 118
+    },
+    {
+      "Name": "runtime/bif-contract496/is_record1_p2",
+      "Status": "Passed",
+      "Milliseconds": 328
+    },
+    {
+      "Name": "runtime/bif-contract496/is_record2_p0",
+      "Status": "Passed",
+      "Milliseconds": 1146
+    },
+    {
+      "Name": "runtime/bif-contract496/is_record2_p1",
+      "Status": "Failed",
+      "Error": "System.NotSupportedException: Unsupported BEAM opcode role in bounded linker\r\n   at Erlang.BeamLinkedCodeReader.ValidateRoles(BeamInstruction instruction, BeamStructure structure, IReadOnlyDictionary\u00602 functions, IReadOnlyList\u00601 lambdas) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Execution\\Beam\\BeamLinkedCodeReader.cs:line 614\r\n   at Erlang.BeamLinkedCodeReader.Read(BeamStructure structure) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Execution\\Beam\\BeamLinkedCodeReader.cs:line 92\r\n   at Erlang.ModuleRegistry.PrepareBeam(ReadOnlyMemory\u00601 bytes, BeamDependencySelection dependencies) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Modules\\ModuleRegistry.PreparedBeam.cs:line 14\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.\u003C\u003Ec__DisplayClass1_1.\u003CRunSubject\u003Eb__0(String module) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 40\r\n   at System.Linq.Enumerable.ArraySelectIterator\u00602.ToArray()\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.RunSubject(String observer, Func\u00602 read, Int32 valueCount, Int32 profileCount, Func\u00602 initialize, Boolean encodeInRuntime, String[] additionalDependencies) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 40\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.RunSubject(String observer, Func\u00602 read, Int32 valueCount, Int32 profileCount, Func\u00602 initialize, Boolean encodeInRuntime, String[] additionalDependencies) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 102\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 6911",
+      "Milliseconds": 57
+    },
+    {
+      "Name": "runtime/bif-contract496/is_record2_p2",
+      "Status": "Passed",
+      "Milliseconds": 1103
+    },
+    {
+      "Name": "runtime/bif-contract496/is_record2_p3",
+      "Status": "Failed",
+      "Error": "System.NotSupportedException: Unsupported BEAM opcode role in bounded linker\r\n   at Erlang.BeamLinkedCodeReader.ValidateRoles(BeamInstruction instruction, BeamStructure structure, IReadOnlyDictionary\u00602 functions, IReadOnlyList\u00601 lambdas) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Execution\\Beam\\BeamLinkedCodeReader.cs:line 614\r\n   at Erlang.BeamLinkedCodeReader.Read(BeamStructure structure) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Execution\\Beam\\BeamLinkedCodeReader.cs:line 92\r\n   at Erlang.ModuleRegistry.PrepareBeam(ReadOnlyMemory\u00601 bytes, BeamDependencySelection dependencies) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Modules\\ModuleRegistry.PreparedBeam.cs:line 14\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.\u003C\u003Ec__DisplayClass1_1.\u003CRunSubject\u003Eb__0(String module) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 40\r\n   at System.Linq.Enumerable.ArraySelectIterator\u00602.ToArray()\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.RunSubject(String observer, Func\u00602 read, Int32 valueCount, Int32 profileCount, Func\u00602 initialize, Boolean encodeInRuntime, String[] additionalDependencies) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 40\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.RunSubject(String observer, Func\u00602 read, Int32 valueCount, Int32 profileCount, Func\u00602 initialize, Boolean encodeInRuntime, String[] additionalDependencies) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 102\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 6911",
+      "Milliseconds": 44
+    },
+    {
+      "Name": "runtime/bif-contract496/is_record3_p0",
+      "Status": "Failed",
+      "Error": "System.NotSupportedException: Unsupported BEAM opcode role in bounded linker\r\n   at Erlang.BeamLinkedCodeReader.ValidateRoles(BeamInstruction instruction, BeamStructure structure, IReadOnlyDictionary\u00602 functions, IReadOnlyList\u00601 lambdas) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Execution\\Beam\\BeamLinkedCodeReader.cs:line 614\r\n   at Erlang.BeamLinkedCodeReader.Read(BeamStructure structure) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Execution\\Beam\\BeamLinkedCodeReader.cs:line 92\r\n   at Erlang.ModuleRegistry.PrepareBeam(ReadOnlyMemory\u00601 bytes, BeamDependencySelection dependencies) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Modules\\ModuleRegistry.PreparedBeam.cs:line 14\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.\u003C\u003Ec__DisplayClass1_1.\u003CRunSubject\u003Eb__0(String module) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 40\r\n   at System.Linq.Enumerable.ArraySelectIterator\u00602.ToArray()\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.RunSubject(String observer, Func\u00602 read, Int32 valueCount, Int32 profileCount, Func\u00602 initialize, Boolean encodeInRuntime, String[] additionalDependencies) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 40\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.RunSubject(String observer, Func\u00602 read, Int32 valueCount, Int32 profileCount, Func\u00602 initialize, Boolean encodeInRuntime, String[] additionalDependencies) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 102\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 6911",
+      "Milliseconds": 45
+    },
+    {
+      "Name": "runtime/bif-contract496/is_record3_p1",
+      "Status": "Passed",
+      "Milliseconds": 1250
+    },
+    {
+      "Name": "runtime/bif-contract496/is_record3_p2",
+      "Status": "Passed",
+      "Milliseconds": 1183
+    },
+    {
+      "Name": "runtime/bif-contract496/is_record3_p3",
+      "Status": "Passed",
+      "Milliseconds": 1399
+    },
+    {
+      "Name": "runtime/bif-contract496/is_record3_p4",
+      "Status": "Passed",
+      "Milliseconds": 1499
+    },
+    {
+      "Name": "runtime/bif-contract496/is_record3_p5",
+      "Status": "Failed",
+      "Error": "System.NotSupportedException: Unsupported BEAM opcode role in bounded linker\r\n   at Erlang.BeamLinkedCodeReader.ValidateRoles(BeamInstruction instruction, BeamStructure structure, IReadOnlyDictionary\u00602 functions, IReadOnlyList\u00601 lambdas) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Execution\\Beam\\BeamLinkedCodeReader.cs:line 614\r\n   at Erlang.BeamLinkedCodeReader.Read(BeamStructure structure) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Execution\\Beam\\BeamLinkedCodeReader.cs:line 92\r\n   at Erlang.ModuleRegistry.PrepareBeam(ReadOnlyMemory\u00601 bytes, BeamDependencySelection dependencies) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Modules\\ModuleRegistry.PreparedBeam.cs:line 14\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.\u003C\u003Ec__DisplayClass1_1.\u003CRunSubject\u003Eb__0(String module) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 40\r\n   at System.Linq.Enumerable.ArraySelectIterator\u00602.ToArray()\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.RunSubject(String observer, Func\u00602 read, Int32 valueCount, Int32 profileCount, Func\u00602 initialize, Boolean encodeInRuntime, String[] additionalDependencies) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 40\r\n   at Erlang.Tests.BeamOrdsetsCoreHostChecks.RunSubject(String observer, Func\u00602 read, Int32 valueCount, Int32 profileCount, Func\u00602 initialize, Boolean encodeInRuntime, String[] additionalDependencies) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamOrdsetsCoreHostChecks.cs:line 102\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 6911",
+      "Milliseconds": 41
+    }
+  ]
+}
