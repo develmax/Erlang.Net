@@ -32,7 +32,7 @@ def main():
     assert focus.name == 'Erlang.NifOrdinaryLoaderFocus.dll' and focus.is_file()
     assert H(focus.parent/'Erlang.NifBridge.so') == a.bridge_sha256.upper()
     output = Path(a.output).resolve(); output.mkdir(parents=True, exist_ok=False)
-    for tool in ['Erlang.NifEntryOriginalObservations','Erlang.GuestConnectedSendObservations','Erlang.SchedulerAffinityOriginalObservations']:
+    for tool in ['Native/Erlang.NifEntryOriginalObservations','Distribution/Erlang.GuestConnectedSendObservations','Runtime/Erlang.SchedulerAffinityOriginalObservations']:
         sys.path.insert(0,str(R/'tools'/tool))
     import common, owned_process, source_inputs, passive_etf
     env = source_inputs.sanitized_environment(os.environ)

@@ -852,3 +852,5 @@ Pinned baseline: OTP-29.1.1 (`ad05823719d77c8faee87348ea39513d4e2f99c5`).
 
 
 Local validation provenance: Part4979035 is a composite of exact-head parent496 CI9020 and final164 affected tests, not a new uninterrupted local full run. Exact publication-head CI remains required.
+
+Local validation provenance: Part4989037 combines independently verified main CI9035 with final196 affected tests. It is not an uninterrupted new local full run; exact repair-head CI and Ubuntu tool checks remain required.

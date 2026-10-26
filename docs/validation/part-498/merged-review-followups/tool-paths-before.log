@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tools\Validation\ReviewFollowup498\check-tool-paths.py", line 54, in <module>
+    result = check(Path(__file__).resolve().parents[3])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tools\Validation\ReviewFollowup498\check-tool-paths.py", line 23, in check
+    exec(compile(ast.Module(body=[setup, imports], type_ignores=[]), str(runner), 'exec'), namespace)
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tools\Native\Erlang.NifOrdinaryLoaderObservations\run.py", line 37, in <module>
+    import common, owned_process, source_inputs, passive_etf
+ModuleNotFoundError: No module named 'common'

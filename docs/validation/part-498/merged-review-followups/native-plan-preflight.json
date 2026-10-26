@@ -1,0 +1,33 @@
+{
+  "Passed": true,
+  "Plans": [
+    {
+      "Plan": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Workflow": ".github/workflows/nif-pending-native.yml",
+      "OldSeal": "D43E1B56A32C2CBF5277A4CC50A2823CD315FD9BA33A88FEF0A97E3D0BFDF744",
+      "Seal": "3E7224671EEB233BF7B92E0BFA51E1EC7929B1F15633B1AFA54B7CE73286849F",
+      "Changed": [
+        "src/Runtime/Erlang.Runtime.Core/Diagnostics/Debug/DebugSharingCopy425.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.cs",
+        "src/Runtime/Erlang.Terms/Collections/Maps/MapTerm.cs"
+      ],
+      "PreservedHistoricalRows": [],
+      "NativeAbiPromotion": false
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Workflow": ".github/workflows/nif-reallocation-native.yml",
+      "OldSeal": "041C447C9F5C8820F5E24EA3968FD6BCEA30BCFB31EA5C8F8AC6168D6D372F32",
+      "Seal": "68BB5B93A411D9AAE3CF3D1B5C73BB76C19449150BE3F74B15CA88AC389F853D",
+      "Changed": [
+        "src/Runtime/Erlang.Runtime.Core/Diagnostics/Debug/DebugSharingCopy425.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.cs",
+        "src/Runtime/Erlang.Terms/Collections/Maps/MapTerm.cs"
+      ],
+      "PreservedHistoricalRows": [],
+      "NativeAbiPromotion": false
+    }
+  ],
+  "NativeInfrastructureBoundSourceOverlaps": [],
+  "NativeRosterAndAbiUnchanged": true
+}

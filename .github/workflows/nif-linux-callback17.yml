@@ -76,12 +76,12 @@ jobs:
           receipt_sha=$(sha256sum "$receipt" | cut -d' ' -f1)
           for family in size reference; do
             if [ "$family" = size ]; then tool=Erlang.NifMapSizeOriginalObservations; manifest="$MAP_MANIFEST_SHA"; else tool=Erlang.NifMakeReferenceOriginalObservations; manifest="$REFERENCE_MANIFEST_SHA"; fi
-            python3 -B "tools/$tool/build-native.py" --repository "$GITHUB_WORKSPACE" --expected-head "$GITHUB_SHA" --manifest-sha256 "$manifest" \
+            python3 -B "tools/Native/$tool/build-native.py" --repository "$GITHUB_WORKSPACE" --expected-head "$GITHUB_SHA" --manifest-sha256 "$manifest" \
               --otp-source "$GITHUB_WORKSPACE/artifacts/linux17-otp-source" --runtime-root "$GITHUB_WORKSPACE/artifacts/linux17-otp/lib/erlang" \
               --build-receipt "$receipt" --approved-build-receipt-sha256 "$receipt_sha" \
               --output "$GITHUB_WORKSPACE/artifacts/linux-callback17/$family-native"
             native_sha=$(sha256sum "artifacts/linux-callback17/$family-native/native-build-receipt.json" | cut -d' ' -f1)
-            python3 -B "tools/$tool/collect.py" --repository "$GITHUB_WORKSPACE" --expected-head "$GITHUB_SHA" --manifest-sha256 "$manifest" \
+            python3 -B "tools/Native/$tool/collect.py" --repository "$GITHUB_WORKSPACE" --expected-head "$GITHUB_SHA" --manifest-sha256 "$manifest" \
               --otp-source "$GITHUB_WORKSPACE/artifacts/linux17-otp-source" --runtime-root "$GITHUB_WORKSPACE/artifacts/linux17-otp/lib/erlang" \
               --build-receipt "$receipt" --approved-build-receipt-sha256 "$receipt_sha" \
               --native-build "$GITHUB_WORKSPACE/artifacts/linux-callback17/$family-native" --approved-native-build-receipt-sha256 "$native_sha" \

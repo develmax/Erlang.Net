@@ -353,10 +353,11 @@ public sealed partial class ProcessContext : ITermExecutionContext
             frames.Add(Term.Tuple(
                 Term.A(frame.Module),
                 Term.A(frame.Function),
-                first && arguments is Cons or Nil ? arguments : Term.I(frame.Arity),
+                first && arguments is Cons or Nil ? arguments
+                    : frame.HostHandlerArguments is { } handlerArguments ? Cons.From(handlerArguments) : Term.I(frame.Arity),
                 first && info is not null
                     ? Cons.From(Cons.Items(frame.SourceLocation ?? Nil.Value).Concat(Cons.Items(location)))
-                    : frame.SourceLocation ?? Nil.Value
+                    : frame.HostHandlerArguments is not null ? Nil.Value : frame.SourceLocation ?? Nil.Value
             ));
             first = false;
             frame = frame.Parent;

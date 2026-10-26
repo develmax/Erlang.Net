@@ -257,3 +257,5 @@ gen_server and supervisor have C# host facades and selected registered Erlang-mo
 [Native infrastructure inventory](native-infrastructure.md) tracks a separate fixed engineering inventory; its counters are not Erlang MFA totals.
 
 Local validation provenance: Part4979035 is a composite of exact-head parent496 CI9020 and final164 affected tests, not a new uninterrupted local full run. Exact publication-head CI remains required.
+
+Local validation provenance: Part4989037 combines independently verified main CI9035 with final196 affected tests. It is not an uninterrupted new local full run; exact repair-head CI and Ubuntu tool checks remain required.
