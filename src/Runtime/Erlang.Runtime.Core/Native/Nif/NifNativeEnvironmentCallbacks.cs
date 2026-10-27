@@ -44,7 +44,7 @@ internal static class NifNativeEnvironmentCallbacks
             if (!ReferenceEquals(owner.Runtime, original.Runtime))
                 throw new InvalidOperationException(NifNativeDiagnostics.ForeignRuntime);
 
-            return owner.AddValue(NifNativeTermCopy504.Copy(original.GetValue(source)));
+            return owner.CopyValueFrom516(original.GetValue(source));
         }
         catch (Exception failure)
         {

@@ -75,6 +75,7 @@ internal sealed unsafe class NifNativeLibraryOwner : IAsyncDisposable
                 0,
                 failure
             );
+            environment.AttachGuestRoots516(initializationContext);
             using var invocation = scope.BindEnvironment(environment);
             if (OperatingSystem.IsLinux())
             {
@@ -167,6 +168,7 @@ internal sealed unsafe class NifNativeLibraryOwner : IAsyncDisposable
                 privateData,
                 failure
             );
+            environment.AttachGuestRoots516(context);
             using var invocation = scope.BindEnvironment(environment);
             nuint[] handles = arguments.Select(environment.Add).ToArray();
             nuint returned;
@@ -176,7 +178,7 @@ internal sealed unsafe class NifNativeLibraryOwner : IAsyncDisposable
             failure.ThrowPending();
             context.Cancellation.ThrowIfCancellationRequested();
 
-            return environment.Get(returned);
+            return environment.ExportResult516(returned);
         }
     }
 

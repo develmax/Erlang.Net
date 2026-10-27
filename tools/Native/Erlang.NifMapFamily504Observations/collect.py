@@ -93,10 +93,24 @@ def main():
     parser.add_argument('--runtime-version', default='10.0.11')
     parser.add_argument('--check-golden', action='store_true')
     parser.add_argument('--original-only', action='store_true')
+    parser.add_argument('--owned-terms516', action='store_true')
+    parser.add_argument('--both-runtime-profiles516', action='store_true')
     args = parser.parse_args()
+    if args.both_runtime_profiles516 and args.owned_terms516:
+        parser.error('--owned-terms516 and --both-runtime-profiles516 are mutually exclusive')
     root, tool, out = args.repository.resolve(), Path(__file__).resolve().parent, args.output.resolve()
     assert os.name == 'nt' and tool == root/'tools/Native/Erlang.NifMapFamily504Observations'
     assert out.is_relative_to(root/'artifacts/native-map504') and not out.exists()
+    profiles516 = [('ordinary-runtime', False), ('owned-runtime', True)] if args.both_runtime_profiles516 else [
+        ('owned-runtime' if args.owned_terms516 else 'ordinary-runtime', args.owned_terms516)]
+    loader_routes516 = ['ordinary', 'reviewed']
+    managed_runs516 = [(profile, enabled, route,
+        profile + '--' + route if args.both_runtime_profiles516 else route,
+        out/profile/route if args.both_runtime_profiles516 else out/route)
+        for profile, enabled in profiles516 for route in loader_routes516]
+    matched_by_profile516 = {profile: 0 for profile, _ in profiles516}
+    managed_receipts516 = {}
+    expected_comparisons516 = 0 if args.original_only else len(managed_runs516)
     plan_path = tool/'source-plan.json'
     assert sha(plan_path) == args.plan_sha256.upper()
     plan = json.loads(plan_path.read_bytes())
@@ -111,8 +125,6 @@ def main():
     if args.check_golden:
         assert 'OriginalGoldenSha256' in plan and sha(tool/'original-values.etf') == plan['OriginalGoldenSha256']
     host = root/'tools/Native/Erlang.NifNativeBackend/bin/Debug/net10.0/Erlang.NifNativeBackend.dll'
-    if not args.original_only and not host.is_file():
-        raise RuntimeError('Managed host preparation is absent; dependent native loader execution was not started: ' + str(host))
     helpers = root/'tools/Native/Erlang.DdllFormatterOriginalObservations/scripts'
     owned, inventory = load('owned_family504', helpers/'owned.py'), load('inventory_family504', helpers/'bounded_inventory.py')
     decoder = load('decoder_family504', tool/'diagnostic_etf.py')
@@ -136,15 +148,19 @@ def main():
         env.pop(name, None)
 
     def phase(name, command, directory, cwd=None):
-        directory.mkdir(exist_ok=True)
         try:
+            directory.mkdir(exist_ok=True)
             receipt = owned.owned(command, directory, name, 180, env, str(cwd or directory))
             phases[name] = receipt
             return True
         except Exception as error:
             receipt_path = directory/(name+'.exit.json')
-            if receipt_path.is_file():
-                phases[name] = json.loads(receipt_path.read_bytes())
+            phases[name] = dict(CollectionFailed=True, Error=repr(error))
+            try:
+                if receipt_path.is_file():
+                    phases[name] = json.loads(receipt_path.read_bytes())
+            except Exception as receipt_error:
+                failures.append(name + ' receipt: ' + repr(receipt_error))
             failures.append(name + ': ' + repr(error))
             return False
 
@@ -207,40 +223,49 @@ def main():
                 except Exception as error:
                     failures.append('original protocol validation: ' + repr(error))
             if not args.original_only:
-                # Routes are independent after successful C/managed-host preparation.
-                for route in ['ordinary', 'reviewed']:
-                    phase(route, ['dotnet', 'exec', '--fx-version', args.runtime_version, str(host), '--map-family504',
-                        str(admission_path), sha(admission_path), str(out/route), route], out/(route+'-process'), root)
-                if raw is not None:
-                    for route in ['ordinary', 'reviewed']:
-                        returned = out/route/'returned.etf'
-                        if not returned.is_file():
-                            failures.append(route + ': no returned ETF')
-                            continue
+                prepared516 = all(path.is_file() for path in [host, host.with_suffix('.deps.json'), host.with_suffix('.runtimeconfig.json')]) and shutil.which('dotnet')
+                if not prepared516:
+                    failures.append('managed preparation missing; dependent routes skipped')
+                else:
+                    # All prepared profile/loader routes are independent, even after a prior failure.
+                    for profile, enabled, route, label, directory in managed_runs516:
+                        phase(label, ['dotnet', 'exec', '--fx-version', args.runtime_version, str(host), '--map-family504',
+                            str(admission_path), sha(admission_path), str(directory), route] + (['--owned-terms516'] if enabled else []), out/(label+'-process'), root)
+                    for profile, enabled, route, label, directory in managed_runs516:
+                        returned = directory/'returned.etf'
                         try:
-                            assert returned.read_bytes() == raw, route + ': whole deterministic ETF differs'
-                            default_comparisons[route] = compare_default_profile(decoder,
-                                (original/'returned-default.etf').read_bytes(), (out/route/'returned-default.etf').read_bytes())
-                            done = json.loads((out/route/'completion.json').read_bytes())
+                            done = json.loads((directory/'completion.json').read_bytes())
+                            assert done['OwnedTermsPilot506'] == enabled, label + ': runtime profile'
+                            assert done['Route'] == route and done['AdmissionSha256'] == sha(admission_path)
+                            assert done['Status'] == 'NATIVE_IMAGE_RETIRED_RUNTIME_DISPOSED'
                             assert done['ReviewedPolicyInvocationCount'] == (1 if route == 'reviewed' else 0)
                             for key in ['EnvironmentBaselineRestored', 'BinaryOwnershipBaselineRestored', 'NativeModuleAbsentBeforeLoad',
                                 'NativeModulePresentDuringInvocation', 'NativeModuleAbsentAfterRetirementAndRuntimeDisposal']:
-                                assert done[key], (route, key)
-                            matched += 1
+                                assert done[key], (label, key)
+                            managed_receipts516[label] = done
+
+                            if raw is not None:
+                                assert returned.read_bytes() == raw, label + ': whole deterministic ETF differs'
+                                default_comparisons[label] = compare_default_profile(decoder,
+                                    (original/'returned-default.etf').read_bytes(), (directory/'returned-default.etf').read_bytes())
+                                matched += 1
+                                matched_by_profile516[profile] += 1
                         except Exception as error:
-                            failures.append(route + ': ' + repr(error))
+                            failures.append(label + ': ' + repr(error))
     except Exception as error:
         failures.append(repr(error))
     finally:
         after = inventory.inventory(installed) == expected
         if not after:
             failures.append('Original provider changed')
+        if not args.original_only and (matched != expected_comparisons516 or any(count != len(loader_routes516) for count in matched_by_profile516.values())):
+            failures.append('Not all requested runtime-profile/loader comparisons passed')
         save(out/'completion.json', dict(Passed=not failures, Pin=PIN, Platform='windows-x64',
             ProviderFiles=6427, ProviderBeforeEqual=True, ProviderAfterEqual=after,
             SourcePlanSha256=sha(plan_path), GoldenChecked=golden_checked,
-            OriginalOnly=args.original_only, WholeRawLoaderComparisons=matched, NormalizedFields=0,
-            NativeLibraryExecuted=original_executed, ManagedNativeExecuted=matched > 0,
-            ManagedLoaderRoutesAttempted=sum(name in phases for name in ['ordinary', 'reviewed']),
+            OwnedTermsPilot506=None if args.both_runtime_profiles516 else args.owned_terms516, OriginalOnly=args.original_only, BothRuntimeProfiles516=args.both_runtime_profiles516, ExpectedRawLoaderComparisons=expected_comparisons516, WholeRawComparisonsByRuntimeProfile=matched_by_profile516, ManagedRuntimeProfileReceipts=managed_receipts516, WholeRawLoaderComparisons=matched, NormalizedFields=0,
+            NativeLibraryExecuted=original_executed, ManagedNativeExecuted=bool(managed_receipts516),
+            ManagedLoaderRoutesAttempted=sum(label in phases for _, _, _, label, _ in managed_runs516),
             OriginalExecutionAttempted='original' in phases,
             OriginalReturnedBytes=original_bytes, ApiFamilyFunctions=plan['ApiFamilyFunctions'],
             SerializationProfiles=plan['SerializationProfiles'], DefaultProfileComparisons=default_comparisons,
