@@ -22,6 +22,23 @@ internal sealed partial class BeamRegisterState
         }
     }
 
+    // Called only immediately after roots507.Tuple/Cons publishes Candidate.
+    // The producer's outer catch performs the same rollback as ordinary writes.
+    private void CommitConstructedX548(int index, Term value)
+    {
+        try
+        {
+            roots507!.RequireConstructedCandidate548(index, value);
+            values[index] = BeamRegisterSlot.FromTerm(value);
+            roots507.Commit(index);
+        }
+        catch
+        {
+            roots507?.Rollback(index);
+            throw;
+        }
+    }
+
     internal void ApplyLiveHint507(int count)
     {
         CheckLive(count);
@@ -60,7 +77,7 @@ internal sealed partial class BeamRegisterState
         try
         {
             Term value = roots507?.Tuple(index, children) ?? new TupleTerm(children);
-            WriteXSlot507(index, BeamRegisterSlot.FromTerm(value), false);
+            CommitConstructedX548(index, value);
         }
         catch
         {
@@ -88,7 +105,7 @@ internal sealed partial class BeamRegisterState
         try
         {
             Term value = roots507?.Cons(index, head, tail) ?? new Cons(head, tail);
-            WriteXSlot507(index, BeamRegisterSlot.FromTerm(value), false);
+            CommitConstructedX548(index, value);
         }
         catch
         {

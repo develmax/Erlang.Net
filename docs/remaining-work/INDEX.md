@@ -1,8 +1,8 @@
 # Remaining work
 
-## Current checkpoint520
+## Current checkpoint521
 
-See [checkpoint520](checkpoint-520.md):708 registered /180 full /504 pending /24 known differences, all deltas0. Native malformed spawn options and original proc_lib match315 complete named-target cases in both runtime profiles (630 scoped comparisons);319/319 affected regressions passed. Legacy C# proc_lib frame metadata, valid resource/default policies and the15 default cases remain open. Publication-head CI for520 is pending. Part519 CI551 is green9166/9166/all3jobs; see [checkpoint519](checkpoint-519.md).
+See [checkpoint521](checkpoint-521.md):708 registered /180 full /504 pending /24 known differences, all deltas0. Constructor candidate removes duplicate graph publication, passes91 applicable checks in its separate composition, and retains rollback/identity controls. Final original comparisons/publication CI remain pending. [Checkpoint520](checkpoint-520.md) covers315 original proc_lib contracts in both profiles; PR73 CI552 remains in progress.
 
 ## Historical Part504 contract queue
 
