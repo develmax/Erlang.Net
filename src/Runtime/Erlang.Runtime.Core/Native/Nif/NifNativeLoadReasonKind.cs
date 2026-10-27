@@ -6,5 +6,6 @@ internal enum NifNativeLoadReasonKind
     MissingFunction,
     UndeclaredFunction,
     DuplicateFunction,
-    LoadVeto
+    LoadVeto,
+    IllegalFlags521
 }

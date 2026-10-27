@@ -18,6 +18,8 @@ internal sealed class NifImageBindings
     private Term installedFunctions = Nil.Value;
     private IAsyncDisposable? nativeOwner;
     private int activeCalls;
+    private Exception? physicalReleaseFailure521;
+    private Exception? retainedPhysicalFailure521;
     private TaskCompletionSource? callsDrained;
     private TaskCompletionSource? retirement;
     private Task? retirementDriver;
@@ -129,12 +131,22 @@ internal sealed class NifImageBindings
         }
     }
 
-    internal void ReleaseCall()
+    // Allocation-free diagnostic assignment. A failed final release intentionally
+    // retains activeCalls/nativeOwner; never manufacture a successful drain.
+    internal Exception? RetainedPhysicalFailure521 => Volatile.Read(ref retainedPhysicalFailure521);
+
+    internal void RecordPhysicalRetention521(Exception failure)
+        => Interlocked.CompareExchange(ref retainedPhysicalFailure521, failure, null);
+
+    internal void ReleaseCall(Exception? physicalFailure521 = null)
     {
         lock (gate)
         {
             if (activeCalls == 0)
                 throw new InvalidOperationException(NifImageBindingNames.ActiveUnderflow);
+            if (physicalFailure521 is not null)
+                physicalReleaseFailure521 = physicalReleaseFailure521 is null ? physicalFailure521
+                    : new AggregateException(physicalReleaseFailure521, physicalFailure521);
             activeCalls--;
             if (activeCalls == 0)
                 callsDrained?.TrySetResult();
@@ -189,7 +201,7 @@ internal sealed class NifImageBindings
         return completion.Task;
     }
 
-    private static async Task CompleteRetirement(
+    private async Task CompleteRetirement(
         Task drain,
         IAsyncDisposable? cleanup,
         TaskCompletionSource completion,
@@ -206,6 +218,9 @@ internal sealed class NifImageBindings
         {
             errors.Add(error);
         }
+        lock (gate)
+            if (physicalReleaseFailure521 is not null)
+                errors.Add(physicalReleaseFailure521);
         try
         {
             if (cleanup is not null) await cleanup.DisposeAsync().ConfigureAwait(false);

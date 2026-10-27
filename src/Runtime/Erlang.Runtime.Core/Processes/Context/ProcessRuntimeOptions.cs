@@ -6,6 +6,8 @@ public sealed class ProcessRuntimeOptions
 
     public RuntimeNativeMetadataImage? NativeMetadataImage { get; init; }
 
+    public int DirtyIoSchedulerCount { get; init; } = DirtyNativePoolParameters522.DefaultIoWorkers;
+
     public int MaximumAtoms { get; init; } = AtomTableLimits.MaximumNames;
 
     public RuntimeWarningMapping WarningMapping { get; }

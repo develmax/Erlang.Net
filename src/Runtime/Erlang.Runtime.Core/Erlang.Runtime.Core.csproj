@@ -4,4 +4,14 @@
     <ProjectReference Include="../Erlang.Terms/Erlang.Terms.csproj" />
     <ProjectReference Include="../Erlang.Serialization/Erlang.Serialization.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="runtimes/win-x64/native/Erlang.Nif.WindowsVariadic.dll"
+          Condition="Exists('runtimes/win-x64/native/Erlang.Nif.WindowsVariadic.dll')"
+          CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest"
+          TargetPath="Erlang.Nif.WindowsVariadic.dll" Pack="true" PackagePath="runtimes/win-x64/native/Erlang.Nif.WindowsVariadic.dll" />
+  </ItemGroup>
+  <Target Name="RequireWindowsNifVariadicAsset526" BeforeTargets="GenerateNuspec">
+    <Error Condition="!Exists('runtimes/win-x64/native/Erlang.Nif.WindowsVariadic.dll')"
+           Text="Build/install the Windows NIF variadic runtime asset before packaging Erlang.Runtime.Core." />
+  </Target>
 </Project>

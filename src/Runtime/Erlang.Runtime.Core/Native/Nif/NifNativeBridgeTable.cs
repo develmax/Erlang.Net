@@ -51,4 +51,5 @@ internal unsafe struct NifNativeBridgeTable
     internal delegate* unmanaged[Cdecl]<nint, void> FreeEnvironment;
     internal delegate* unmanaged[Cdecl]<nint, void> ClearEnvironment;
     internal delegate* unmanaged[Cdecl]<nint, nuint, nuint> CopyTerm;
+    internal delegate* unmanaged[Cdecl]<int> ThreadType521;
 }

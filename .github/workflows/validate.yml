@@ -380,6 +380,19 @@ jobs:
           foreach ($route516 in @('ordinary','reviewed')) {
             if ($comparison516.ManagedRuntimeProfileReceipts.('ordinary-runtime--' + $route516).OwnedTermsPilot506 -ne $false -or $comparison516.ManagedRuntimeProfileReceipts.('owned-runtime--' + $route516).OwnedTermsPilot506 -ne $true) { throw 'Actual native runtime-profile receipt missing or wrong' }
           }
+      - name: Compare genuine variadic NIF calls with pinned Windows OTP
+        id: variadic526
+        if: ${{ !cancelled() && steps.native-host-ready.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $admission = 'artifacts/library376-official-compiler/official-admission.json'
+          $admissionSha = (Get-FileHash $admission -Algorithm SHA256).Hash
+          $planSha = (Get-FileHash tools/Native/Erlang.NifVariadic526Observations/source-plan.json -Algorithm SHA256).Hash
+          python -B tools/Native/Erlang.NifVariadic526Observations/collect.py --official-admission $admission --admission-sha256 $admissionSha --plan-sha256 $planSha --output artifacts/nif-variadic526/ci --execute-original --with-managed
+          if ($LASTEXITCODE -ne 0) { throw 'Variadic526 original or independent managed comparisons failed; all raw errors retained' }
+          $result = Get-Content artifacts/nif-variadic526/ci/completion.json -Raw | ConvertFrom-Json
+          if (!$result.Passed -or !$result.OriginalExecuted -or !$result.ManagedRequested -or $result.ExpectedManagedRoutes -ne 4 -or $result.MatchedManagedRoutes.Count -ne 4) { throw 'Variadic526 requires all four genuine original/managed comparisons and cleanup' }
       - name: Verify logical death before physical dirty completion in pinned OTP
         if: ${{ !cancelled() }}
         shell: pwsh
@@ -435,6 +448,7 @@ jobs:
           path: |
             artifacts/owned506/**
             artifacts/dynamic520/**
+            artifacts/nif-variadic526/**
             artifacts/tests.json
             artifacts/native-map501/ci/**
             artifacts/process-retirement502/ci/**

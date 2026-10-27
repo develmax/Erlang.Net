@@ -1,0 +1,4716 @@
+{
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Platform": "windows-x64",
+  "NativeSourcePath": "tools/Native/Erlang.NifVariadic526Observations/fixtures/variadic_family526.c",
+  "ErlangSourcePath": "tools/Native/Erlang.NifVariadic526Observations/fixtures/variadic_family526.erl",
+  "NativeSourceSha256": "64EA4EE3CC4E3DBD6EBD6295E35CE34421E69033468BE13548885D8F8C78D411",
+  "ErlangSourceSha256": "64E4A199BCF0779F3968BC131EB60E62A65CEAC159F57C5F167CD11C5BF605A1",
+  "BuildScriptSha256": "48F3C4AA2AA9399E885562B1C7C2F0A941CB113DA314540A62010D5B8DF92328",
+  "Headers": [
+    {
+      "GitPath": "erts/emulator/beam/erl_nif.h",
+      "OutputName": "erl_nif.h",
+      "Sha256": "6CB96C37D306A173EF71946E823829FC21E47CB4A19288B221129EAC2F13B689"
+    },
+    {
+      "GitPath": "erts/emulator/beam/erl_drv_nif.h",
+      "OutputName": "erl_drv_nif.h",
+      "Sha256": "E9D4280779E8FD4AC463144F310B4DA2346DD3A18E73D445BF1F88AE3C1F1312"
+    },
+    {
+      "GitPath": "erts/emulator/beam/erl_nif_api_funcs.h",
+      "OutputName": "erl_nif_api_funcs.h",
+      "Sha256": "CF34ADA521AEB0EE00C9936320CD694F9816EDBAB960500453051CEA443DDA11"
+    },
+    {
+      "OutputName": "erl_int_sizes_config.h",
+      "Sha256": "9CE6329729C2F6AA0B87B2D84608FF547A8A256D02D8E9559DFF874CDB8A9986",
+      "Origin": "Pinned official Windows release generated configuration"
+    }
+  ],
+  "Inputs": [
+    {
+      "Scope": "Tool",
+      "Path": ".gitattributes",
+      "HashMode": "Raw",
+      "Sha256": "22106984A6C1274EAD5C283789CA11D75B303658949AAA627698747E7B2D6160"
+    },
+    {
+      "Scope": "Tool",
+      "Path": "build-native.py",
+      "HashMode": "Raw",
+      "Sha256": "48F3C4AA2AA9399E885562B1C7C2F0A941CB113DA314540A62010D5B8DF92328"
+    },
+    {
+      "Scope": "Tool",
+      "Path": "collect.py",
+      "HashMode": "Raw",
+      "Sha256": "CD192B6DBB657C5787A26080A4D507E6A2B39DEB80B79CE61470825BC9DF6EDF"
+    },
+    {
+      "Scope": "Tool",
+      "Path": "fixtures/variadic_family526.c",
+      "HashMode": "Raw",
+      "Sha256": "64EA4EE3CC4E3DBD6EBD6295E35CE34421E69033468BE13548885D8F8C78D411"
+    },
+    {
+      "Scope": "Tool",
+      "Path": "fixtures/variadic_family526.erl",
+      "HashMode": "Raw",
+      "Sha256": "64E4A199BCF0779F3968BC131EB60E62A65CEAC159F57C5F167CD11C5BF605A1"
+    },
+    {
+      "Scope": "Tool",
+      "Path": "fixtures/variadic_family526_driver.erl",
+      "HashMode": "Raw",
+      "Sha256": "74C3606376626609542C7BC8632FB136ADECFD94C71C0C32B703C77B9CFAEB29"
+    },
+    {
+      "Scope": "Tool",
+      "Path": "README.md",
+      "HashMode": "Raw",
+      "Sha256": "4B7920913DB7ED79C5643B0021249A11B849E32954923C74B0631ED5387898AF"
+    },
+    {
+      "Scope": "Tool",
+      "Path": "seal-source-plan.py",
+      "HashMode": "Raw",
+      "Sha256": "2900217FF2F1D39DD9612E93E19F71FD9CA5DF54361FDCB29A1A367AC25D2422"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Erlang.Runtime.Core.csproj",
+      "HashMode": "TextLF",
+      "Sha256": "1DEB7473061FB6A45BC447675688A178F9BD1117561926DB43F587682AA8C359"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamAllocationDiagnostics.cs",
+      "HashMode": "Raw",
+      "Sha256": "595BCEB9DB4DA6D4198E58528243D265647F5AFF56C14295CC5503A388A5BD71"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamAllocationWire.cs",
+      "HashMode": "Raw",
+      "Sha256": "2E3C9FAE4660EA22F06746CD031A82934B21C4B36D6A20BAB28743AAA5D990D0"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamApplyExecution.cs",
+      "HashMode": "Raw",
+      "Sha256": "39F33BF18F1F181D30D96DF79D7945047871A4601E18252E834B6D7FF0C6F009"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamApplyNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "0DE5A70145E7AB8544E0445E5EDEF80B301A1C54615CF1F3D0C74871A8A66410"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamArtifactInfo.cs",
+      "HashMode": "Raw",
+      "Sha256": "B2DF6C6EF349FACE7FD0F26C6AFF3B5380C65737122B6695A09211C30BB98184"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamArtifactInspectionNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "23A569851FC1988BE8FF00B67E9015ED5047B4FDC21AFB37B3127FF07AF30D1A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamArtifactInspector.cs",
+      "HashMode": "Raw",
+      "Sha256": "5BB4F8547181FA930787C3D47B1DD88EC4F388FFBCD2202ACDFC47BCE4D993D0"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamBinaryCommand.cs",
+      "HashMode": "Raw",
+      "Sha256": "9D9E2BC19043AF3CB83030BF06CB4140602A3E720758882E35CCE6204CE0392E"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamBinaryCommandKind.cs",
+      "HashMode": "Raw",
+      "Sha256": "D743F2CEB2042614E06227F6749D9061BC4B704F71B6061E873FB8D1B375849C"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamBinaryCommands.cs",
+      "HashMode": "Raw",
+      "Sha256": "EF489E7915D37E4FD1957E5734F976756EBAE87BB8D04CAD7D1B7B2553466ED6"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamBinaryConstructionValues.cs",
+      "HashMode": "Raw",
+      "Sha256": "6A9210B59733B09F1F22EF44415A9EF69B53FE10608D9FE41836C3FA2A013B5B"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamBinaryEntryProtocol.cs",
+      "HashMode": "Raw",
+      "Sha256": "6CFEB0BD0BF8BB5B81791DAC625B3082B46863B4C1F03AF1E535E03DAF7B47DF"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamBinaryExecution.cs",
+      "HashMode": "Raw",
+      "Sha256": "754C2C1544C0A1C3838A2633DB77ACB4C39F429B5BEA345D2EA4ED12EE7F2249"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamBinaryFieldExecution.cs",
+      "HashMode": "Raw",
+      "Sha256": "9FA75448D427AB287881EBAD0B0C9EAE77607802954BA3ECA95D99703C445597"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamBinaryFieldNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "3185FB02CB1A9CEDF419B5C7868A59D7585D3C296C147FF6182156B5E155572C"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamBinaryFlagNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "CDCCA2B50EFF88E7C2EE0425A75E477AB607DCAF81FA71BA89FAB00FD3E73978"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamBinaryHalfValues.cs",
+      "HashMode": "Raw",
+      "Sha256": "6A9169A3DC228F7A410DCCC8A4DFAAF50F585481848A8EC17AE4F52B65652971"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamBinaryInstructionValidation.cs",
+      "HashMode": "Raw",
+      "Sha256": "2E0CDF9DE88AB8A9250207C2B691493534B78E3DE27EA52520F8DDDA7264DC30"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamBinaryMatchContext.cs",
+      "HashMode": "Raw",
+      "Sha256": "DA4061B73256ADCECB716C88E8A26698DA77CD773CAEB8F6AD2BF2ED07A57021"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamBinaryMatchFailureProof.cs",
+      "HashMode": "Raw",
+      "Sha256": "CA53FCCD0B478B12602F57CBEC79B6FF95E33D90C3E723BCFD36119F5D3EAB9D"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamBinaryMatchPosition.cs",
+      "HashMode": "Raw",
+      "Sha256": "3003341729365756B5C85F313651F6D2BA17AF732F79F0A928D704267E0865FD"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamBinaryNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "A21973182651B452BC579C40700A593BA6BC516A684D4D0F28CEFCDB9CBFFD21"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamBinaryWireValues.cs",
+      "HashMode": "Raw",
+      "Sha256": "15B20CD10CA37D461F2470F8C4EEF8D719CE2D1B28F0CB6853858E399281EB35"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamCallContinuation.cs",
+      "HashMode": "Raw",
+      "Sha256": "3374A95EC7BDF30EEA157C5C5FFC61C763D9FB992CE085B0797383B4778448EA"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamCallFrame.cs",
+      "HashMode": "Raw",
+      "Sha256": "E7A403D2D19F9CD21FCF37E1D9B08FCADB72FB1727C8B8B138BF70A8B3DB1C08"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamCatchNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "BC86228ABCAF1E4CF2FCBB6C0C7FD2712AB7F969BACAB01AEF38A41F2C2197F6"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamChecksumReader.cs",
+      "HashMode": "Raw",
+      "Sha256": "2AA1490EFE157367006B54DF45852E2222FEFBA5F636D24F6D20689D5594743E"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamChecksumWire.cs",
+      "HashMode": "Raw",
+      "Sha256": "E79592274367212EE2F70A6F2A73AC82645548CF5DDC0CD3D71385D402427BEA"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamChunk.cs",
+      "HashMode": "Raw",
+      "Sha256": "153365B8ACCACA0196F355DB226F63716E0F55B4FA1762F4A9A61F6911F6B198"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamClosureBinding.cs",
+      "HashMode": "Raw",
+      "Sha256": "12E842063BAF67F7C0D225C56AE4967D93D65DE58F6B691CA988A6203687C902"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamClosureDiagnostics.cs",
+      "HashMode": "Raw",
+      "Sha256": "EACDD78CD44D84B1D21110E5D62F566992D0C60D0D8E00A31B0804714A50728E"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamClosureFactory.cs",
+      "HashMode": "Raw",
+      "Sha256": "D9510E7BA1B2285BF57142876F8A241B9FEE8F531D6E1AE5683B76432308C8FC"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamClrLimits.cs",
+      "HashMode": "Raw",
+      "Sha256": "9E7CBF05E02E8E0BE876252E281DA76726A2875BFB113C73DD4729F9B1B12295"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamCodeHeader.cs",
+      "HashMode": "Raw",
+      "Sha256": "7CC1DECA39449AC8ABA236535FC5DE687F82F3B925FAF0D6BBF97A807C540728"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamCollectionExecution.cs",
+      "HashMode": "Raw",
+      "Sha256": "C7C5C7FB87380ABB84DADA08CCC399C5F60E296AEEE124C1BAF5A212412FDA30"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamCollectionOpcodeNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "D1390574FFDD5802C64A726573833B275D971C21ED1C6FD51764E349E1928976"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamCompactReader.cs",
+      "HashMode": "Raw",
+      "Sha256": "D40A2FC1059C3FF6BBBFBB5C943729402BC9DBECDAC4CBBEFDD4F880BEBDBB23"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamCompactValue.cs",
+      "HashMode": "Raw",
+      "Sha256": "C19668B942811B6554EBDF2F8C55615F98BD8FCD0FC9C3AF85EEF9DACBBF0C0F"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamCursor.cs",
+      "HashMode": "Raw",
+      "Sha256": "1140F65DB8FD6DB7165AC17A1EA4EC41E74A4036C878ED542B79AC70E0B6BB09"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamCursorWire.cs",
+      "HashMode": "Raw",
+      "Sha256": "7491623005D36E211E8C12D1E3D6C9E0862701D21DE42D759C94F4C00F0A4477"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamDecodedMetadata.cs",
+      "HashMode": "Raw",
+      "Sha256": "F82EBBCD26FD8FB076C0D6DA3EDA3E181B2C87D3050DEEA6FC1093E174C172A0"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamDeflateFormat.cs",
+      "HashMode": "Raw",
+      "Sha256": "728CA33C78F5EB068B3D8E8AED28F4551A446CCA0C14C71DD6039CE4E7C49406"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamDependencySelection.cs",
+      "HashMode": "Raw",
+      "Sha256": "A0CB6AFF8A17D64E57DFC55C7DCF5CDF5ACE8CAE42F2AD8BBF97A7F0194936C1"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamDiagnostics.cs",
+      "HashMode": "Raw",
+      "Sha256": "24AFD1500A7BAFF1F2DB413964CBCEB68C3ED8F4A2E7313AA5D1B531C7F83847"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamExecutionHandler432.cs",
+      "HashMode": "Raw",
+      "Sha256": "2B2626DBA6BAEA1516936F1AAA38657C0C2986B57D47EFE4D4518D3595C3CC49"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamExecutionIdentity.cs",
+      "HashMode": "Raw",
+      "Sha256": "69B3EA5D0AEB75907ED74EFAED83A7D2A3E3D18FDD495D8C8195E587D110075C"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamExport.cs",
+      "HashMode": "Raw",
+      "Sha256": "E646E6DB0E29A067ACE079D54564F2320808EDC675023EFF3E1E7567EB026052"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamExternalImport.cs",
+      "HashMode": "Raw",
+      "Sha256": "898AF0987E988AB0EC2690243FFD0A8D8A70DE2F24FF51B1AF05AB404B38224D"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamExternalImports.cs",
+      "HashMode": "Raw",
+      "Sha256": "73AA740D9ED2A0B8B195889DF2EE93362F4854ED6640322D1226955503B240F2"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamfileChunkNative418.cs",
+      "HashMode": "Raw",
+      "Sha256": "21AF10636532BAFF5F244F5FF47A8DC241203E995E34AF002122D660D2771BDC"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamfileChunkReader418.cs",
+      "HashMode": "Raw",
+      "Sha256": "D10ED3EE16AFA8D09105570347C8F59E53B55847A05E1B2A71CF120143BAFF6C"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamfileMd5Argument423.cs",
+      "HashMode": "Raw",
+      "Sha256": "7C75ABDC069C4A59DB5B5389256AD975CDA3212AD58804F8019C8AFE348E4EBB"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamfileMd5Binding423.cs",
+      "HashMode": "Raw",
+      "Sha256": "A9AAF6524D8EF190842E2C146A9485237E36A9AFB22356EBED16D80876326AF8"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamfileMd5Document423.Arguments.cs",
+      "HashMode": "Raw",
+      "Sha256": "A9EB3781BB6E6575D5587CE2D963C2BE611751D7F1537721ADF367CB99AB8F62"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamfileMd5Document423.cs",
+      "HashMode": "Raw",
+      "Sha256": "1A143522F4F29E8F276AFC943E2752871CE65F139D67F4498E4D7633483C6AE2"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamfileMd5Document423.DebugRecords.cs",
+      "HashMode": "Raw",
+      "Sha256": "526EEE56E8B128015AC1DC57B672A5CD2D82EF82CD7201F51F1071FF938DE30A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamfileMd5Document423.LiteralsLines.cs",
+      "HashMode": "Raw",
+      "Sha256": "EDD941A1F5FAF7F904103675FA12260037DD20CA58BFEB71C59F1E5EC69E9AF4"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamfileMd5Names423.cs",
+      "HashMode": "Raw",
+      "Sha256": "DAB3DE81009A4ED5C22B37478250608E7E98E5BAEE1F3B457D8269499F78D89A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamfileMd5Native423.cs",
+      "HashMode": "Raw",
+      "Sha256": "25BE436FD268BEC39A348E0E00B83728A4874CD00D1EF7E838CF4EB5B0F3915B"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamfileNativeNames418.cs",
+      "HashMode": "Raw",
+      "Sha256": "C801A68AA58D4EB4294590513F7136FEE9674D74CCB21B79F1389FC14C7F6CE1"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamFloatStringExecution.cs",
+      "HashMode": "Raw",
+      "Sha256": "A793AF42F8F3C26442053DB2B74442174EF983DF2A9D4576D9F0886679A54183"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamFloatStringNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "B52071E1B1CFDE71790E5E15B2AC1BAE29EE6B267ADBCAA291807FE8964100C2"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamFrameIdentity.cs",
+      "HashMode": "Raw",
+      "Sha256": "8952BBD43C1BB16619D6BFC0A0854912A8C780878A8EC5C34E45C0AC6DECA221"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamFrameParameters.cs",
+      "HashMode": "Raw",
+      "Sha256": "82E3592999BA7F96BAC0BAFDFA4D925EAD493DBBDD7654CDCB455AC5E323F011"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamFrameValidation.cs",
+      "HashMode": "Raw",
+      "Sha256": "B6CF7822D505F98650ACCE8115247553556EB175111563B7F4F44C2FA184D42E"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamFunctionScope.cs",
+      "HashMode": "Raw",
+      "Sha256": "98E97C8F58503D4DB31A0DDE87FEF9B3CD95D218B1E744BCEAB90DFB6523F679"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamFunctionSignature.cs",
+      "HashMode": "Raw",
+      "Sha256": "22B41E6FA6B33C6EEC00D6EC53E71E57F6BC6E65B9A176D9311B6198B510F120"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamFunTailProtocol.cs",
+      "HashMode": "Raw",
+      "Sha256": "2CA0F8CFE95CA63DA4660505BE5C700A40485D2CB63B4D7FD067C3BF8E1BE7D4"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamGeneralOpcodeNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "59D80811CDC7DCDDC30BA841513711FEA62634ECCED74C64F08F0676A05D0A86"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamGeneralTests.cs",
+      "HashMode": "Raw",
+      "Sha256": "068B33EC8D2C250B900F5EFF85E1B2C84BF72CB3DFEFB3B871D47A947EC233ED"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamGeneratedMetadata.cs",
+      "HashMode": "Raw",
+      "Sha256": "BD84E57E24E1E0890E6170C62AD483023FA6B3CD6EDC6D6B33BE136615EC1B8B"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamGuardedTupleBifProof.cs",
+      "HashMode": "Raw",
+      "Sha256": "A95DBD9EEF1DC95E8D0CC11FA42FF624C91F3239EE668C607A56A9FB50519829"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamGzipFormat.cs",
+      "HashMode": "Raw",
+      "Sha256": "27C55FCC5DC7407203B27063BD1B47276E1A9EA34C1C938271B63384A1AB162A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamGzipMembers.cs",
+      "HashMode": "Raw",
+      "Sha256": "3125013ECBB9DEC0E3C5E2E6E78BB2994A232ED7AEDDE116EA873C691D31E055"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamHalfWire.cs",
+      "HashMode": "Raw",
+      "Sha256": "E15048252A582091AB896E6B329A06B5EAF430398AB9663E4B97B73D492B5F16"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamHandlerCheckpoint.cs",
+      "HashMode": "Raw",
+      "Sha256": "77E6F215203F95DDFE8AF759758BCE7F3420E8516650AB05EEE4FE8372BB80B0"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamHandlerTag.cs",
+      "HashMode": "Raw",
+      "Sha256": "AE273CF01235BA1C20843FF2D8B01D03D4795A2B7F89D5BFD431AFA71D77894B"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamIffWire.cs",
+      "HashMode": "Raw",
+      "Sha256": "02B07BBB74E64F2911A1802F62429FF554DD036C1B552876FD068939C54E2557"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamImport.cs",
+      "HashMode": "Raw",
+      "Sha256": "E4A2A9B03665A79579DDEB444BBDE5E5E8241165858174CAFDDF10AAB7952834"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamInfallibleBifContract.cs",
+      "HashMode": "Raw",
+      "Sha256": "6FAF73C968BF8C8B43FD052ABE5BFCA7F08AE189B1431217507089EE0220ACE4"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamInfallibleBifNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "72777CE2CD19E74AA9717F28A1DE92A3A6B0DEB45FB21D0958D473E449E9AAF1"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamInstruction.cs",
+      "HashMode": "Raw",
+      "Sha256": "159E8CA91C5B2709EC954D7964D1246E9A951DD54C76E040A2CF85FAF232ABAF"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamInstructionLocations.cs",
+      "HashMode": "Raw",
+      "Sha256": "98BC6CF82AAD07355BA388E6048A585E3811ADD6342CB9F7C594645FC31FABF0"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamInstructionReader.cs",
+      "HashMode": "Raw",
+      "Sha256": "20F76CCA225EA1F9001ABCBEF50399F0B9FD2BF8D2FC0C689FA432776B9E05B5"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamIntegerNormalization.cs",
+      "HashMode": "Raw",
+      "Sha256": "C693225146E74052769D947A62E83B152B74AEF797E29685E0E7AF576C3503A6"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLambdaDiagnostics.cs",
+      "HashMode": "Raw",
+      "Sha256": "492ED46A33A4D7FB52586D68C139910D519633C6DB694639B289287374D61B76"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLambdaEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "373043705F705E4A2C8F366FF1321926FE169838602BA706F4DADDFD0A3E995D"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLambdaNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "1F7903AF7AA780FB623638C22F621C3CFC2DCF30C19A716ECF0725A631BB111F"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLambdaReader.cs",
+      "HashMode": "Raw",
+      "Sha256": "96945ACCBD97A294EB5CE9C307794FFAC6F372D928B08AF474EEA42062B9CE78"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLambdaWire.cs",
+      "HashMode": "Raw",
+      "Sha256": "5D470C7E0961DEFB5B790D55E9BEDB8D4F6DD7F771B3B91FEDFE1668DACF1A51"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLineNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "465F59785E930A4588A7057A702B8D04F3F30D047454D2D3BD6840F5F14A61BE"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLineTableReader.cs",
+      "HashMode": "Raw",
+      "Sha256": "C1117C50A40AB701A8DD7E0058A5486567D9D2AB09C2D0982DB012FC92F7663E"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLinkDiagnostics.cs",
+      "HashMode": "Raw",
+      "Sha256": "EAC9D390E5134402654377A7A6092AF6D0E3A31E632ECB9DBD7147E2A8DA71C6"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLinkedCode.cs",
+      "HashMode": "Raw",
+      "Sha256": "773508186D6CF6AC7DB413E72B15F9232D6EB061F2432101AE987598B0D41EAC"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLinkedCodeReader.cs",
+      "HashMode": "Raw",
+      "Sha256": "311252BA95B7F70317808AEF16DB06C0486A340DB98B49C18842E2F49FC079C8"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLinkedFunction.cs",
+      "HashMode": "Raw",
+      "Sha256": "8B35D2DEC08D7B801CCD41011B4BF19F6F4753805DDBB3D0802B938D709FF3D0"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLinkNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "3E07412A6C6174E4166EC74083D14C13E078BF016BDF441669BAFBDE578E4CDB"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLinkParameters.cs",
+      "HashMode": "Raw",
+      "Sha256": "132F9D99DF4CA85D4DEE18A472C2890B90E1AEFE58327854170E655B3447084C"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLiteralCallFailureProof.cs",
+      "HashMode": "Raw",
+      "Sha256": "C25783F7A46BB270F1A5513B3E7A124BD192219D969D9ABE14F9461C96D53655"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLiteralDiagnostics.cs",
+      "HashMode": "Raw",
+      "Sha256": "6EAC9A3DD3F42BA377D9A76D8B5844B4D36AA50BCAB76D5FEEB202C5E0F0EA9B"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLiteralLimits.cs",
+      "HashMode": "Raw",
+      "Sha256": "90C11325234B861C8B8A03F18F26582F44248036F1A0CDF88A09F389C05CA4C8"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLiteralReader.cs",
+      "HashMode": "Raw",
+      "Sha256": "2F004409AF810F71CE85F78DF2DC45CFEEF1F1696C1D48A0225B1C9DB41495FE"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLiteralWire.cs",
+      "HashMode": "Raw",
+      "Sha256": "DA945E6416245E883C8394F8F6D4BFCABC72483F3F813115EA1E6AEBE2A30D41"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLoaderApi.cs",
+      "HashMode": "Raw",
+      "Sha256": "A55F7FEF1E7892FB66CD9E89856069DD9B9954979C3F9337FF504485AB813123"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLoaderDiagnostics.cs",
+      "HashMode": "Raw",
+      "Sha256": "D6E2CEC793B8C35A51F5E58EFCA0CD2F988F99B3B415C81D73BC0ED2F594CC11"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLoaderNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "6219C643389D2395AB5F23E2D70CB68505023B6689DD6B5814CF4FE919AED479"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLoaderRegistrations.cs",
+      "HashMode": "Raw",
+      "Sha256": "FDED0B9B1E3F0BAD69F2E445E0FAE588CE9DCDDBCFE0776BA610A4A5A78648E5"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLocalFrame.cs",
+      "HashMode": "Raw",
+      "Sha256": "85EA14841351AB22D6EFA0D3950CD05A543652CB378B573A52D2E36DFBAEC26E"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLocalFrame.Owned507.cs",
+      "HashMode": "Raw",
+      "Sha256": "E4F508643D60ACE7AE328779FB2A53F2FD48AEF3E08240276B1FB0DFA3BB8A1E"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamMapOperands.cs",
+      "HashMode": "Raw",
+      "Sha256": "4F665F6B953E13D0E99D0ECFD69953759A71947299DFB218AB8CE2DD0EBD5EB3"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamMetadataProvenance.cs",
+      "HashMode": "Raw",
+      "Sha256": "DFF77EA0F55C007FAF328E86DA007FC43EC705464DD23E2769A8746DCCF7384C"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamMetadataWire.cs",
+      "HashMode": "Raw",
+      "Sha256": "79E385D180F7E90C54DAFE9F4822482F1E95EC53664318F34AA1087C1874D904"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamModule.cs",
+      "HashMode": "Raw",
+      "Sha256": "4F03D158A448856A24871269BD3DD26494EA3CDE58BE15A9BECFAD09E6A5DCB3"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamModuleApplyTailScope.cs",
+      "HashMode": "Raw",
+      "Sha256": "30C10F8DF1AABBDBF86B8BE44905642E8F018AC32039F8157A9D48A7D6D035DE"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamModuleDiagnostics.cs",
+      "HashMode": "Raw",
+      "Sha256": "AD0E1ABECB824AE6DCA49BA56EDCE73D1595574B6BDBAEEDD0B7F8F84FD4655C"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamNativeCallSite419.cs",
+      "HashMode": "Raw",
+      "Sha256": "C7490273B82E6E291D2C08F2A0828ECF407BAE4300E478ADDEC50AAE3C60518A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamNativeCallSites419.cs",
+      "HashMode": "Raw",
+      "Sha256": "FF28595F50F723D3EE7CED5A7607F22648366DF1C40999A0A693B09667C6F8F8"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamNativePrimitiveNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "A41AACBAB8EDCD9C5C74907E0E9D9DD185A246B4D93611D89C3FE4CF38A98000"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamNativePrimitives.cs",
+      "HashMode": "Raw",
+      "Sha256": "E520B6F73B7733D5711E6B0875FF478F951BA0D1C51715E5FE4A5D6685BDB268"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamNifDeclarations.cs",
+      "HashMode": "Raw",
+      "Sha256": "0CCBF986FFFE4DDF26B34803483DE4620A3310C9A201B3F470DEE83616A1D9D7"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamNifNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "EFD77C425FE671E53EA508DF0F714FDBD6F8C9A99CA929044861B14930D7256E"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamNoReturnAnalysis.cs",
+      "HashMode": "Raw",
+      "Sha256": "129436418E36016781ABC67804328622EEEA1F74B44048BC668C470EFA60DEB1"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamNoReturnClosedWaitComponent.cs",
+      "HashMode": "Raw",
+      "Sha256": "B197D2A38D6FC92BFD4EC3DEC6CCC5ED28B11B77AB889259D8E5829FF34660C1"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamOnLoadCallbackAbortedException.cs",
+      "HashMode": "Raw",
+      "Sha256": "BC310A94B4E6016832B3D40C877CFD9854FB1631635D55897D57064AE53025F4"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamOnLoadCallbackOutcome.cs",
+      "HashMode": "Raw",
+      "Sha256": "7C488012F810072870A4A29211D3F6A7BA9CCF46193F18F3783A06CCABD0D20C"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamOnLoadDiagnostics.cs",
+      "HashMode": "Raw",
+      "Sha256": "D1F1B264B74E468CC27D91029D162A70D87F3F83C055B6C5F50B38F5DB72B6E9"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamOnLoadMetadata.cs",
+      "HashMode": "Raw",
+      "Sha256": "9F45A16AB3D5AD32EFA1E6E6090C2EDC286F72A58AA32C36180284B363CEE13F"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamOnLoadNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "4F2D65B2543E7378969B3BD38A10FCB0FA85A0C50AD4B0797D70F5E9153F2039"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamOnLoadPhase.cs",
+      "HashMode": "Raw",
+      "Sha256": "71F5CDCFD6F0979EB9345094F656AA8FAA0A83F722EBAE6A0D47ECBC495E7AB8"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamOnLoadResult.cs",
+      "HashMode": "Raw",
+      "Sha256": "D3F0B0758267DDDAB0158507418F4D322031F54AB54B7078F79A34E561B270F8"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamOnLoadTicket.cs",
+      "HashMode": "Raw",
+      "Sha256": "E90795397DC6C621539FAF615960944DB51959E028AC37B13A271D1DD2A6A31B"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamOpcodeCatalog.cs",
+      "HashMode": "Raw",
+      "Sha256": "27B191C843B088C4252125EC7A317ACB3282B4A0D2E3487C906B5522D10DE844"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamOpcodeDefinition.cs",
+      "HashMode": "Raw",
+      "Sha256": "12E1607FD5D3C962FE9078EDA820DB9CD43EE0E7CF117AE6748DCA203D3211AA"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamOperand.cs",
+      "HashMode": "Raw",
+      "Sha256": "C9AE1276143297202D3EBA18203014C6458456E5531BA252D58883928C1B83B5"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamOperandParameters.cs",
+      "HashMode": "Raw",
+      "Sha256": "CA5368EE470EB05E644352671C2CCE7013BCF853D597C802DBEF8B0614B6E4D0"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamOwnedCheckpoint507.cs",
+      "HashMode": "Raw",
+      "Sha256": "15497F5BA5D7A1602FBAF71EDE63EACA802F87D49787571F8D1577A3D93A51BB"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamOwnedCheckpointScope507.cs",
+      "HashMode": "Raw",
+      "Sha256": "2BF9BA1411BBFE1F13BF79D98B3051D2021428ABBABDA0ED9C6E9E596389FFB7"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamOwnedReceive507Names.cs",
+      "HashMode": "Raw",
+      "Sha256": "E54003BFCDDDDFED85995E1BA99D6D934EF0DDFFAB486431EE136C328C2ABA32"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamOwnedRoots507.cs",
+      "HashMode": "Raw",
+      "Sha256": "82D6933D42CF0D5DBDC36DD55DB9C9764181B4A1D90479E637068D9557D7D615"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamOwnedRoots507Names.cs",
+      "HashMode": "Raw",
+      "Sha256": "A8988D2747A07DF296186190465A5A828192F8921263366F3ABD74B0AC521CDA"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamOwnedTemporary507.cs",
+      "HashMode": "Raw",
+      "Sha256": "62C6E9964C4831F85F156241F7B201BDE98D2FC3776D21F23886BD5BD5111EE7"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamPendingGeneration.cs",
+      "HashMode": "Raw",
+      "Sha256": "202B2F1094AC63DA67271044019825B4689EDA6C6918B9245FAF41C976F6862C"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamPreparationNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "F3171AD31311A546A88858843C962D55A8B0B38577C729ABB8527BDEF740A239"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamPreparedMetadata.cs",
+      "HashMode": "Raw",
+      "Sha256": "BC41A20930F9849EA86E5865CF8CA4AE3FF7F8B3D5BFA1F9D1BD0EE0484BC807"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamPublicationMetadata.cs",
+      "HashMode": "Raw",
+      "Sha256": "DBBE34539A378EE7BF8645F359C05510D6C5B8D61282D71A61FDF45EECEC093A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamPublicationResult.cs",
+      "HashMode": "Raw",
+      "Sha256": "E3D19CCF6E81A308A1B9A7668DC2BE06E756DD2F4B3B3244FDE1C588BCA791E2"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamPublicationStatus.cs",
+      "HashMode": "Raw",
+      "Sha256": "0F2A3300C1F7DC1DFFD9033298FAA6AC04CFAA4EFDC89994A758065FE99E0B0A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRaiseEmptyTraceNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "FE1A6F617DAB6C6C9F8F2216F7AC738CFC440CDC9DA945CC0A5E4580B10D4E65"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRaiseEmptyTraceProof.cs",
+      "HashMode": "Raw",
+      "Sha256": "7A49330513063E081593143DEEC3AAB7F9CB8F5DC138B05A151FD2ED50B5EB96"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamReceiveBinaryPairs.cs",
+      "HashMode": "Raw",
+      "Sha256": "1B168D75EAAF8E143AA8C3E68BBDA3CE028EFD972B7E05C8D600F639096E8DA5"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamReceiveCallbackExecution.cs",
+      "HashMode": "Raw",
+      "Sha256": "25B6971D28DADA6C00201CDF1FA8F76C592CB3D508B30E9CD10292066929CFAE"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamReceiveCallbackNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "F3ACA8CFE02E9050B87625B3932A1D766AE776CD3FDDD4711CFBE0BA54456A33"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamReceiveCallbackPlan.cs",
+      "HashMode": "Raw",
+      "Sha256": "ABDCC6C03E7F61D726B29395E07FD76BA2EDDE4DCBAE7AEE5BCC95F8B3FE1D2A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamReceiveMarker.cs",
+      "HashMode": "Raw",
+      "Sha256": "F0560F54F480E64612C082C1875435A9CAA45BC0D8D4CBADD4B5DA7064F0AFB9"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamReceiveMarkerNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "54DB8238CEE012E06955B24FA40C2828425B238B5478A6F13DD37960100B9382"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamReceiveMatcher.cs",
+      "HashMode": "Raw",
+      "Sha256": "35827BD91F3F38F5A941907B8921B67CA6BA39ED2E5E27D94CD852A7D0503068"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamReceiveNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "96788D5B4EA53A3948F027CD40F89D2653FE2296F81344CF442F0B3224CBC5A6"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamReceivePlan.cs",
+      "HashMode": "Raw",
+      "Sha256": "0A397FC55C7A53D8682A26B7001D5E4B4986757E2329B2BE927E74570C249B13"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamReceivePlanner.cs",
+      "HashMode": "Raw",
+      "Sha256": "8B6E0C5D8F16CF31A7066BA46106F2B5262574332AF87B1D768A7DF41FD21462"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamReceivePureBifs.cs",
+      "HashMode": "Raw",
+      "Sha256": "E969EB9571C20696FD53C857ADE26A0F0A882BE9248EF8B276495989805C5A19"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamReceiveSelection.cs",
+      "HashMode": "Raw",
+      "Sha256": "A59BCD8B420A534B4DEDDDAB90505763F7C33A736CE5EA15ECB37BABBBCAC208"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRecordConstruction.cs",
+      "HashMode": "Raw",
+      "Sha256": "E1ED89077C2FA70F4E9C4536226020A8D0AAE661B3E0EE7147AAB20CFB6DE672"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRecordConstructionNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "7F7DDDFDF7A5007FE2D818AF45D3EDB93D44D21F13622B3798D015C26B606C6D"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRecordMetadata.cs",
+      "HashMode": "Raw",
+      "Sha256": "582C0BC4E086AEA704FC0E46BCF3178946D0421051E7B90F9DDE9A3D2BDEECF9"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRecordMetadataNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "EE5D196ACAC3A3BCFC03C05BE383230456995293FC37784200D09390EBA842A6"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterInterpreter.cs",
+      "HashMode": "Raw",
+      "Sha256": "19600168F5049F24D31416F786990952D2DA2F88560B561F79CCF34385BC95E2"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterInterpreter.DebugCode427.cs",
+      "HashMode": "Raw",
+      "Sha256": "96FFC19918BC2E7DC5CC21E21CDE20784EE9A46BEBBDAD8F776983DC3A5D7EB6"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterInterpreter.Dispatch432.cs",
+      "HashMode": "Raw",
+      "Sha256": "F0A11A756242FA5054A436E7EDCEDA8BAD5C0955F7034CDED55E1E7A92578103"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterInterpreter.Owned507.cs",
+      "HashMode": "Raw",
+      "Sha256": "4807F29123F230BC69409398DFCDDFF0F63D913B3CF4A22E58DE228965654130"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "86289DA75EC3171026778E91EF66DCFB066780265CCE625566A937CA554E8DF1"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterProtocolNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "7C8B004AD0B1F33822D578CCA66C680890261638BC7884148E94D1ADB945E14A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterSlot.cs",
+      "HashMode": "Raw",
+      "Sha256": "E35E00C0A8E9FD68A495E1BA93652CD589A351E6329FC24679BBC85ACD406819"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterSlotKind.cs",
+      "HashMode": "Raw",
+      "Sha256": "B8501FC602383B35F819D81D34E2D454B8F51036AF818B7D547F649037052219"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterState.cs",
+      "HashMode": "Raw",
+      "Sha256": "470B4562633711F48B1D94DA0E919F45184B4CE777680E46AD9559867572FFF6"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterState.Owned507.cs",
+      "HashMode": "Raw",
+      "Sha256": "AFD7B68CD83B564A8F144F6792AC3D3C2D2751277421C24F0CC9F8FD4187BF70"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterValidation.cs",
+      "HashMode": "Raw",
+      "Sha256": "A352ECDA0C694F5787597F352EC4BF2E2CDADFC8219E19943F55C207EE520B71"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamSavedTrace.cs",
+      "HashMode": "Raw",
+      "Sha256": "89C85C9B11E51C00BF294973C83CACCCAF9BA5EF8E621B602EAF1F60B88C6F6F"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamSelectValueValidation.cs",
+      "HashMode": "Raw",
+      "Sha256": "B79FD56BECCBECE878C161F1A1BD9EA667D380FD7A83B4286E387897ABDF8A02"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamStoredFunctionRecipe.cs",
+      "HashMode": "Raw",
+      "Sha256": "DB4BA27AE1B2C54951D9FFFA08245DC1E3B2E831CCFBCC25A4261327733A3B79"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamStructure.cs",
+      "HashMode": "Raw",
+      "Sha256": "0D22C3E2C11866FE69D09CAA764478DC6EE6A1C09F220D6D58974180E51E0A87"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamStructureReader.cs",
+      "HashMode": "Raw",
+      "Sha256": "B9C6F54E67BC699E62EB1E90BB950973CB5C337B2FCA327E6EB8D636E2F7F172"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamTryExecution.cs",
+      "HashMode": "Raw",
+      "Sha256": "52A3826477BE22F081F90DB19E0336D56AD26E5E049BB07020F06443BE0CE7F1"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamTryNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "B8E7334E72368A24AAB7762452A0310B94938DE8C14369DF57B8823E176D7BAF"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamTryParameters.cs",
+      "HashMode": "Raw",
+      "Sha256": "EAF3F617AF66539DBFCFD8F8B746E6B5D09BD5DB000BFFFD3A1FA4174F8C84DB"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamTupleSelectValidation.cs",
+      "HashMode": "Raw",
+      "Sha256": "A455D4862E76A25F9D86F7CC33A2109A9A463F3B80550260788EFCBE05AB4FFD"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamTypeEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "F9D6F9E3112DCBFC6FB536C6DF958D882FD171A714B2036C5D6D26DF3561BAD1"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamTypeTable.cs",
+      "HashMode": "Raw",
+      "Sha256": "7925B27EFD8CA5CE2B71EFAF8CD05738FCFF8F3FADCCE55B63BBBC7CB9F7BBB1"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamTypeTableReader.cs",
+      "HashMode": "Raw",
+      "Sha256": "DE8EE95DE9A8816245A8E5DFBF5CD6D369FD566B4678B24B10B61A2F437DAECC"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamTypeWire.cs",
+      "HashMode": "Raw",
+      "Sha256": "859293C39A1EE6BE19F484B58237A7AC75E54F2E84753966211F437CD1A72B14"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamUnicodeFieldNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "54B34EA74E55ADCFE505F63AEDF6CDCB51EDBD6F217F7A10BEE9936B46EAA5AF"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamUnicodeFields.cs",
+      "HashMode": "Raw",
+      "Sha256": "12AF4ADA86F85FC83AF22422D30CE7A26F35C3D6234758946D88E030D03732B4"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamWire.cs",
+      "HashMode": "Raw",
+      "Sha256": "08A22C10F6752B8D1D32FAB6C65216FAF240E19650FFB81D2C401FE5D4179CD6"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamZeroFrame.cs",
+      "HashMode": "Raw",
+      "Sha256": "A44EA317CE72989B217A8B8C70BCC6F96F27BEEB8D8AD418F6A27241AC1AFA12"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamZeroFrameValidation.cs",
+      "HashMode": "Raw",
+      "Sha256": "6B59FB7E1B40C444BC4C738833F07B204ED8ECF55F00E0618EB15146BFBC315D"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamZlibMemberBoundary.cs",
+      "HashMode": "Raw",
+      "Sha256": "0BD81A55E5D54B72DDF66C399011D949F584C6CA728D6D12C9C01094C441056A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/PreparedBeamImage.cs",
+      "HashMode": "Raw",
+      "Sha256": "1C6F926725E58710CFE99C4C23182114883E812A1A8F760A10E2B7B6EEAFAE34"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/PreparedBeamImage.LocalFunctions.cs",
+      "HashMode": "Raw",
+      "Sha256": "697F6B8E74DC1BEA03245A19C0570B5484B1C158F304161E5FC65933D1A360D8"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/Contracts/INifImageRetirementPreparation.cs",
+      "HashMode": "Raw",
+      "Sha256": "D2E3246A20E66345A1DA2E801D03C85429FD7ED118272B14C65CBC812DFF7977"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/native/windows_varargs526.c",
+      "HashMode": "Raw",
+      "Sha256": "9F862DA2E2763B46B245AE8DA1935C4B492AE63475FD3FCF6093B912153604DB"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifAllocationScanOwner434.cs",
+      "HashMode": "Raw",
+      "Sha256": "702DFF5EC84823DB5D5C5D6062F9339010DF7F4A85D0DAAE8B11191CD2A334BC"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifBinaryPayloadLease512.cs",
+      "HashMode": "Raw",
+      "Sha256": "EF313A260913E3A885928BEA70B8C44240019810370BCEC88923766436B6F7EB"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifImageAdmissionException.cs",
+      "HashMode": "Raw",
+      "Sha256": "4EA08E154A10CC049A18D242D58EC5793CB584E16AC8E75144CBBA3C90AAC921"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifImageAdmissionFailure.cs",
+      "HashMode": "Raw",
+      "Sha256": "4B790532D7372463A073278105173DAB64F0E89FE080BA2C69EB14DF636CDB3F"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifImageAdmissionGeneration.cs",
+      "HashMode": "Raw",
+      "Sha256": "C0CAE4EAD78A310BBE07B60B0FB8AAD25594761532353426FC21349A0D91B8C8"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifImageAdmissionOrigin.cs",
+      "HashMode": "Raw",
+      "Sha256": "171D523F66AB8A330EBE9112EFE223C0204DCA1DC847393C86842026135DDE5A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifImageAdmissionStates.cs",
+      "HashMode": "Raw",
+      "Sha256": "4C75667C82604DEDFE4A8501A9335B88CEABCF42418F21E457861F341D5DB6B4"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifImageBindingNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "5056AF8FF3AEAA39FE7DB74D301D99DCD02D2DA87A2B17DAF078300196680A02"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifImageBindingPhase.cs",
+      "HashMode": "Raw",
+      "Sha256": "0DA40EEE01F93507D4F344D04E5647C68240A8787F57F94B42238A449ADEDED9"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifImageBindingReservation.cs",
+      "HashMode": "Raw",
+      "Sha256": "BD780BBF4E3F0DC7740ACCFC74BD56342949203816E491C382CAF3AD17B786BB"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifImageBindings.cs",
+      "HashMode": "Raw",
+      "Sha256": "CFACE5ED75DE9DAEDCCB445BC31BC36F4137F99EA7E14E49DD294A1AFE733553"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifImageBindingStore.cs",
+      "HashMode": "Raw",
+      "Sha256": "677108FD58314F4AA18407EF4F748457BA4300185CC407B6D83DBAAEA74D5C8E"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifImageCall.cs",
+      "HashMode": "Raw",
+      "Sha256": "359D22C1E260631F2E11A668DEA46EA7D39B512759B87BD01BE8574273FCBB8A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifImageCallStates.cs",
+      "HashMode": "Raw",
+      "Sha256": "50A9234703444E1CFD57FF9A9A5177EEFDD109AE9C33625BFC312265C36824BD"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifImageInitializationFlow.cs",
+      "HashMode": "Raw",
+      "Sha256": "051FFB5F1844968F93991AA01E185D201B3FCF87F909ADAEBC943E85B034F9D9"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifImageInitialized.cs",
+      "HashMode": "Raw",
+      "Sha256": "512CAC602DB8FBE49D0E0DEA40E0D1DA6D88D980F6BCB81A926832A11BA3A067"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifImageLoadReservation.cs",
+      "HashMode": "Raw",
+      "Sha256": "26F285BD62F582E2CFA765D77EF29E118D1ABFF697126F23570B42511F6C46CF"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifImagePhysicalPin521.cs",
+      "HashMode": "Raw",
+      "Sha256": "7D2D30D357A78E69B3FC442EEAA7E6638DAA5F059EC51BFC30E3CD652BD9D6AC"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifImagePhysicalScope521.cs",
+      "HashMode": "Raw",
+      "Sha256": "57628288304C02B62C7CAD87435978D0F8FEEED1D4FCF490227D960A43907828"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeAbi.cs",
+      "HashMode": "Raw",
+      "Sha256": "229DCC3F607AE85EE937FB8FF00866B6BBED15AEE060B575D866B9EB735A3999"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeAbiEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "3970151D12A30FB5A946AFEC5E4B17BC94F22F4D972005D51473CB35CF873C9A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeAbiFunction.cs",
+      "HashMode": "Raw",
+      "Sha256": "F5DED50583B67137AA00849E9C522DB7B5B7A0B8B76B6B6365B063B1A6683756"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeAllocationDomain.Capture.cs",
+      "HashMode": "Raw",
+      "Sha256": "2913D380489520E9B5333676E7F00C664C392E7796AED07781EBD1CDA50B1670"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeAllocationDomain.cs",
+      "HashMode": "Raw",
+      "Sha256": "1F53727DE1C4E4E94F00B0329FB632B49E67A4EEE3ACCD0252DD25DFBC41EE74"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeAllocationDomain.Window434.cs",
+      "HashMode": "Raw",
+      "Sha256": "8339C166CFBABBF87ECD86B1FD84C4E8218791526A9D449AC818D32B19AFA90A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeAllocationDomainChange.cs",
+      "HashMode": "Raw",
+      "Sha256": "3E0CF1DBFEE84AD0887C1C644C37B44CADD3BEBD5431298BFCC3907544EC71EE"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeAllocationDomainDiagnostics.cs",
+      "HashMode": "Raw",
+      "Sha256": "2D5071C37D2B3A2DF93D188E80C035EC722825E1B7EEEE843DB7DAA916E4D469"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeAllocationDomainSnapshot.cs",
+      "HashMode": "Raw",
+      "Sha256": "FE9E96A98B39C1A45FBD404D08CE94C4A0F6446C4A83C258E5621BA07F90FE74"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeAllocationOwner.cs",
+      "HashMode": "Raw",
+      "Sha256": "2BEAAEA461C6736E0648D42B12CA4AF1F8FC0CFBDA3C075B29C77E781A1946BA"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeAllocationOwner.Window434.cs",
+      "HashMode": "Raw",
+      "Sha256": "867F74584AD90E23F16615FE32DF0EFD5E81C7A7E90BEF22889AF9DFEBE99408"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeAllocationParameters.cs",
+      "HashMode": "Raw",
+      "Sha256": "BF43286D8988B28B0560D48703E722A13E8E9417B2EFCDA28AE715DFD5FB8F57"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeAllocationSnapshot.cs",
+      "HashMode": "Raw",
+      "Sha256": "27B54F9804676CAD84DB8A29574FF9EEA32D615E37F642E2B6934ADB12D93FC5"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeArrayCallbacks.cs",
+      "HashMode": "Raw",
+      "Sha256": "670E396BE73D2F169699C4C9237039C7AC14634F4E3923BE69953BB9EE30AB90"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeArrayNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "77DAF3C3ED3BBA46930C040516ADFB9D938770938323BB6F589814665987B1E4"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeAtomCallbacks.cs",
+      "HashMode": "Raw",
+      "Sha256": "5DC060495CB534FBB71CF982CCFA037340664454164822058E5C4FBCF3649ED9"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeBinaryCallbacks.cs",
+      "HashMode": "Raw",
+      "Sha256": "284249C5C93F995E4477CE79324098DA4810959C63D92B864567D6586D2D64F5"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeBinaryDescriptor.cs",
+      "HashMode": "Raw",
+      "Sha256": "6E14C9EC3F24475EEC356AA7ACFE11C34C594260BC3E2960151C0EBBF392CEB3"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeBinaryNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "9E141C2678FD3ADBF13BB427F28FBA38973E272F2336BABCA3BB1A4CDB2B96DF"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeBinaryNode.cs",
+      "HashMode": "Raw",
+      "Sha256": "BF97FB511F8E1B965C00C4583DC775C40B8C0AD974162ACEDBF29B072EB3274B"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeBinaryRegistry.cs",
+      "HashMode": "Raw",
+      "Sha256": "AC2FBDBA687A5845B2AF5ACF0E2B6F5177DF6C693EDBF10F23B2AC8EB83E0160"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeBinaryStorage.cs",
+      "HashMode": "Raw",
+      "Sha256": "F2BAD9246399F5C66DA38D3ADFBEF3AC422C30BF1D835D88E92E8094531C2E69"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeBinaryStorage.Lease512.cs",
+      "HashMode": "Raw",
+      "Sha256": "2BEC9661A3A37436A203A689537BD022A1FB0B84D12A6D73695FC3EE1B4AA30F"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeBridgeTable.cs",
+      "HashMode": "Raw",
+      "Sha256": "4BAE759E19E1166FF67332CFE07AD5AD295C3745D229CC4DD726269CA3511395"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallbackScope.cs",
+      "HashMode": "Raw",
+      "Sha256": "9467C9BA57633AEF3AF752908C6D523882A07F791B9C2398995C94121FBDD4C2"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.cs",
+      "HashMode": "Raw",
+      "Sha256": "E65BF3EC376500D944D89F0A90D97B8D0508B1289420EF36B9A3D5EA1B9509D9"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.MapIterator504.cs",
+      "HashMode": "Raw",
+      "Sha256": "35C1FC2DBF94F222C44A9219E4ED7388245AC74435D78906C357639103827493"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.OwnedRoots516.cs",
+      "HashMode": "Raw",
+      "Sha256": "534ADB6E337F51CABD8AE6E4C5E48B765761FFFD862189977875DEFD5FFFCFD8"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCapabilityProfile.cs",
+      "HashMode": "Raw",
+      "Sha256": "BB02181953B06E0B31A70054D2BC1BB4BF4A192E836A0C5A88FCED88ED8C8164"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCapsuleDiagnostics.cs",
+      "HashMode": "Raw",
+      "Sha256": "863E782E92A618DA4FF49F23F702F6824CA4EB223571D995FEB3C9BA6E007002"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCapsuleLayout.cs",
+      "HashMode": "Raw",
+      "Sha256": "EDD946D71CF812D4D62E0B0CF48C84657971F8B52150F7F14C15B0D66C7FD403"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeComparisonCallbacks.cs",
+      "HashMode": "Raw",
+      "Sha256": "24E7C71D1F89A098A5F912AE261D70AA203BA8508B9AED8B0F60AA2019732D63"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeComparisonNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "0AD5879A31A2E0B8C26677ED3FAC22E19F5DF92037B515A7FEEAD558DA930316"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeConsNode.cs",
+      "HashMode": "Raw",
+      "Sha256": "FA698C8837CAD50CFC4EF9CADF79F5B4D4536E93548EDD539E53FC3A04179970"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeDefaultLoader.cs",
+      "HashMode": "Raw",
+      "Sha256": "8F0466A42FB5C8C5C532D318CF28C49D8E12B93B44FEA0FB6ECEB6BE7B08742A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeDefaultLoaderNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "6BB69FC0749A27212DF306454393D3E6851791D85E39E9FBF01B59105C853B2B"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeDiagnostics.cs",
+      "HashMode": "Raw",
+      "Sha256": "67E5D1ACD830704025C00D26C640D22F800B8927D3E98F0AB623830A058D0951"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeElfCapsule.cs",
+      "HashMode": "Raw",
+      "Sha256": "4AEE9477F527B63CBB6E4EEE39BFB1D34D89402E6C21B0A6BC00768A36B5788C"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeEntryAdmissionException.cs",
+      "HashMode": "Raw",
+      "Sha256": "C37232B6182E77C9F43A76AEC393D1116DC2D2EDF7C1B53908B012C3C769953A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeEntryFunctions.cs",
+      "HashMode": "Raw",
+      "Sha256": "0E1A50430A240D8521EB78916754FFFA1F02A8B2C84288A6B2D7D0A66A649A59"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeEntryReader.cs",
+      "HashMode": "Raw",
+      "Sha256": "4886AF66B25FD5A47331B6C0E0A95AA75D1C84DF7EA74B86273544BAB31B4A76"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeEntryTextLimits.cs",
+      "HashMode": "Raw",
+      "Sha256": "FE5EA708149B5757FDB5E4B122BA785A5E05E5BCB5CDE56CC2C15FCF1181798F"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeEnvironmentAllocator.cs",
+      "HashMode": "Raw",
+      "Sha256": "78C63B36D518B58966AD3F858080E3FCA7EAA15595EF3935A470309A8E783461"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeEnvironmentBinding.cs",
+      "HashMode": "Raw",
+      "Sha256": "A7F464389ADFF8D1AB693D29C61B221A16935AA6385CFC5A1EE663BC0B36D54A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeEnvironmentCallbacks.cs",
+      "HashMode": "Raw",
+      "Sha256": "B071F2E5213A9B46C37F619ED79FA4510E2E59A0587DD20BE672F4038ED8BDE0"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeEnvironmentLayout.cs",
+      "HashMode": "Raw",
+      "Sha256": "1BBF3B267DC9C00D1A8567483C4424FD604D4C8812384BE9EAD8A4305F08C165"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeEnvironmentNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "2676A9470CB3775D3D528DD80797F403EA52C3591FB9917BEB08DFD96710C954"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeExportRegistration.cs",
+      "HashMode": "Raw",
+      "Sha256": "ADDE75C85DFD3EFC44F5318829E93683D61E949F898258463C350CA56EB3094A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeFailureState.cs",
+      "HashMode": "Raw",
+      "Sha256": "EC70AF2834C2180FFF18FD542621A2877E156424248491F62BAB2FD9E2CC984A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeFilename.cs",
+      "HashMode": "Raw",
+      "Sha256": "6E3ED59F82CF13FEA144561A6A6FF88B9BC3157DF42A4E3B531257965E926D71"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeFlagReason521Names.cs",
+      "HashMode": "Raw",
+      "Sha256": "66B91280660D2A064A05992CB16913173C5E1DF998AF52F295935FE53D917839"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeFunction521.cs",
+      "HashMode": "Raw",
+      "Sha256": "B28852863D1855977D5944EB51867567BA4CCD05672075FDE7CC417260FD4213"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeHostFailureException.cs",
+      "HashMode": "Raw",
+      "Sha256": "5A630556C9964384CBAFE3CD080CA7109B2DF9E6D0E0AF2423E48FA152FF5189"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeHostFileNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "2F34F9DBB97A3CE73BA52B7E47E4FA6C728CB515DD8381CA9D2C8C2773F497B1"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeHostFriend.cs",
+      "HashMode": "Raw",
+      "Sha256": "32E96226E4A66D2DABB721B4B30FB344D3B88EC20CC29DC1DD1B39AA48B4EFD5"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeImageInitializer.cs",
+      "HashMode": "Raw",
+      "Sha256": "DAA0798F3E969721BFFCEF6B39E2580B462B491E452EFD18D4B0B0D4B8D1E1AF"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeImmediateOwner.cs",
+      "HashMode": "Raw",
+      "Sha256": "33FC5CF5ED4983D8B3C417007C99F1B0653D5865DF87DBB75A61A2037DE58B72"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeInvocationNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "7C82BD5BD3A4EB1C79D83037C5A83000AEFE7D623F9BC18A48DE0A9C0AEE63E1"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLibraryOwner.cs",
+      "HashMode": "Raw",
+      "Sha256": "45FA5ABEE2C6E4767A8DD96BD5721CDD3C8F1ED5BC8E138E3637CB4F8B57E8C3"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLibraryOwner.Dirty521.cs",
+      "HashMode": "Raw",
+      "Sha256": "908DEFA079E40C1C012B736C0DFB28D5A6303BC2527D8DDC72396D7E62B8F83C"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLibraryPath.cs",
+      "HashMode": "Raw",
+      "Sha256": "BD5215BDD63C35DCDD4E008158D8DF4BC6142471674B7F6DC132DA42A8AE26D2"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLifecycleGate.cs",
+      "HashMode": "Raw",
+      "Sha256": "0B997B1E606F3F05A3AD0C26C9B1E8B81007383AA6B130DF3AD81AB567AAE243"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLifecycleNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "29CFF755D5A9C7416E87D4B32A80CBD13915BA57043BCD4EE5A519F63F275ACD"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLinuxBridgeDeployment.cs",
+      "HashMode": "Raw",
+      "Sha256": "B8C75AB65CF1275E7E2C6E059D78E3593902F33664D29B062D6B7F4B95EB6CC5"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLinuxBridgeInput.cs",
+      "HashMode": "Raw",
+      "Sha256": "8F84426701DFE6ABCBB356C33C35E8F72ACFE4B95EC3D6B4D1BDCE759DD9EA91"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLinuxCapsuleLease.cs",
+      "HashMode": "Raw",
+      "Sha256": "E64EF737BE2575301982145F2340F3FA8325ADA6E067EDE734EFD535D0D79B4C"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLinuxNamespace.cs",
+      "HashMode": "Raw",
+      "Sha256": "CEDF8F3E936D14F6DF349E238E4AEF6239B41A1B7EDBD453C73313389911CBA9"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLinuxNamespaceApi.cs",
+      "HashMode": "Raw",
+      "Sha256": "D3F0E281101F7F8A7CBEFAC2347598A233AE2E330E18E54FB32A45C4932295CD"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLinuxNamespaceNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "92F745464DD3B272E8E62D3414F829C94CC6B00494D1A7B74E437F2C8DA01D5D"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLinuxNamespaceRetention.cs",
+      "HashMode": "Raw",
+      "Sha256": "9D84567A330D314EAE369BA85FCEDEFBBDFA3D2528170A83AE9F25B4ABF2C575"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLinuxNumericCallbacks.cs",
+      "HashMode": "Raw",
+      "Sha256": "175DB3B64F8584BA5D4C35DF9112C40C5D8A41AFEAE46D31B60F87B0F10880D0"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLinuxNumericNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "984341B3E0B8E988A03B8E5D45B58E76FADCC357F4B0A66E179AEED8C9D77B9A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLinuxPthreadControl.cs",
+      "HashMode": "Raw",
+      "Sha256": "88FF58339B486EF7E2C87AA19DE68485317C31F957518F69A2CE6C678DC0BDBB"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLinuxPthreadControlNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "0326152E8838EADA01FA9AC2F544F2B6088A8A153DBC6DED5A3FF60DA65A86F2"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLinuxReallocationExtension.cs",
+      "HashMode": "Raw",
+      "Sha256": "722C1969FE111656E6082B6CF6E24C1F54BC25DE214717EE3934744F40022064"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLinuxSymbolOwner.cs",
+      "HashMode": "Raw",
+      "Sha256": "E2080B7FE378AB011B4433E1392489E1833FEC5B4B12A84ECFD5E047032DFABE"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeListCellCallbacks.cs",
+      "HashMode": "Raw",
+      "Sha256": "E6AE7EF0AAA55ACB7DE466EDDC20F41E65DE03291984FBAFEAA2CEDD5B1BDCB2"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeListCellNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "B4C16D2AC246CF13D08CF20BF2132E592D1498EE13ACD583B50413FFBC85E12E"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLoadReason.cs",
+      "HashMode": "Raw",
+      "Sha256": "1DF63EB0BDF1C7D2E4E2A8B7C6875261D4A423E313EF11B837B8E1057DE984BE"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLoadReasonKind.cs",
+      "HashMode": "Raw",
+      "Sha256": "F71C0001C1E52F0DA88A0E58D5BF591ABF34EB0A5C0DD9017EC5BC0E43946B35"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLoadReasonText.cs",
+      "HashMode": "Raw",
+      "Sha256": "2B71E4631D3BE2A4CC005C0D4DE282DD9CC9E91A248AB3CBE4754B8730D39E51"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLoadStageException.cs",
+      "HashMode": "Raw",
+      "Sha256": "75E8E152E29595BCD9FEC3077432F9CE3B88410A750E6885E713A074F6E77B37"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLoadVetoException.cs",
+      "HashMode": "Raw",
+      "Sha256": "413D53CCFC45FB525FBE860F7B838995B2D26B137DFF4E1702CE5AE10D238D92"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapArrays504Callbacks.cs",
+      "HashMode": "Raw",
+      "Sha256": "10BEDAA74A1A8F1F4A8A0FEB94723602B5508305321D93A95021C685AEB67407"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapBranch504.cs",
+      "HashMode": "Raw",
+      "Sha256": "AF7951BCAB16BE177B35BE2120F823E324B76EC1B908542F1272454D16DB43A2"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapCreation501Callbacks.cs",
+      "HashMode": "Raw",
+      "Sha256": "0DDFBD5D7CFAB7EE89D19DBEE7D8310460225ED5A1B3A2121759D44E9258B674"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapCreation501Names.cs",
+      "HashMode": "Raw",
+      "Sha256": "1F51B43126E4FB600C628A5B2847CB6C780D079FD0D128169D611581E3AF2956"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapFamily504Names.cs",
+      "HashMode": "Raw",
+      "Sha256": "94B4F9900A8A545889065AA8B548F02EAA77331FB037CF2D320A75E3C571B821"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapGraph504.cs",
+      "HashMode": "Raw",
+      "Sha256": "86A0DEFCCEAD31EDBFDF5A7F1DE0A49EAF89CF7E4D0B5E0DC2C50CFAF886C217"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapHashRetention504.cs",
+      "HashMode": "Raw",
+      "Sha256": "F24E3EDBA3ED7838CF7A558F225443181FF7A8F440DDEC27526BB41DB6BCBCBA"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapIterator504.cs",
+      "HashMode": "Raw",
+      "Sha256": "E8289EF3086D975702A8E4F6AD5925C58AF08DB1211FE622A6E2C72274A30D74"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapIterator504Callbacks.cs",
+      "HashMode": "Raw",
+      "Sha256": "3BC3C8690DD306AEE181B342824A72BCE523355845A8E9F34264A3D82665C976"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapIterator504Names.cs",
+      "HashMode": "Raw",
+      "Sha256": "91D79B0539EB77399E576FF8048660D034D450EF9DE39038D485596D2BA78941"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapIterator504State.cs",
+      "HashMode": "Raw",
+      "Sha256": "DE1F458F852ABE8D18258AD5B13DBF01956F73DDDA996C0D60206E3AD2B802D5"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapMutation504Callbacks.cs",
+      "HashMode": "Raw",
+      "Sha256": "9B8B63FC5FE61B66E233EB675123E0BFC221EA2F79E78056FCBDB3BF6F4148C2"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapMutation504Kind.cs",
+      "HashMode": "Raw",
+      "Sha256": "599996B2D5B4953636A0EBC08E85EAD415B51275EFA2F2DD5230804E6948D1E8"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapNode504.cs",
+      "HashMode": "Raw",
+      "Sha256": "006827E654EEEF275AEFC621174DA9FEAF6F9F895FABCB92523FEC673C494954"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapSizeCallbacks.cs",
+      "HashMode": "Raw",
+      "Sha256": "025989B3728E33AFBAAC57A0CCEDAC67315AA1465D8C25C34EE31448054A72F8"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapSizeNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "2709988CB99D9E1C744DAF25C86AD175315BF4C30310F423450C318ED061DBF8"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapTree504.cs",
+      "HashMode": "Raw",
+      "Sha256": "F045E1A940A3E94AC872BDD80B2BE948FB42518970DC1A82F08772279164CEFD"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapValue503Callbacks.cs",
+      "HashMode": "Raw",
+      "Sha256": "59B5EEB47C899D4B3BBCD6ECC091AF61348EA54EEF4AB0D68F8B0AA538BCC490"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapValue503Names.cs",
+      "HashMode": "Raw",
+      "Sha256": "DF32946BB761E484D068AD0E23E044B419C59EFC15FFA86E182B3861AD7D61B5"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "D19BB90FB9084401BF31C15B56BEA0A718F695DF3372556CF1F8BEC92C205BAB"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeNumericCallbacks.cs",
+      "HashMode": "Raw",
+      "Sha256": "97B168D7A231922C2CEDCF4C80CC3C81DDA9A882071868C15B4E451F794AFDFA"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeNumericConversionCodes.cs",
+      "HashMode": "Raw",
+      "Sha256": "69C3C0BEB5E6574E1703D8E3F35C08DFF0A2C615D8B4996D6F1E5E1526523815"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeNumericNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "80E517253B57DE8379A817FE6FAE1EE352B33D570141528E0C347389171FA2C1"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativePlatformLoader.cs",
+      "HashMode": "Raw",
+      "Sha256": "4D7065CF652CF428BAAC78BED36227C51D168D80DC00A5A93F2151D7B3A103CF"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativePrimitiveCallbacks.cs",
+      "HashMode": "Raw",
+      "Sha256": "7AA85D7B7265B5A3650BC260668AFFF516BBF2B6C1038FD3494F285B0B304E37"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeReallocationBridgeTable.cs",
+      "HashMode": "Raw",
+      "Sha256": "C19222135C97EC4E7821EFC15DFFE87D2FE14A9E6B40B508B3EE56378AA0067F"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeReallocationExportRegistration.cs",
+      "HashMode": "Raw",
+      "Sha256": "05F345682FBEDB825A97271FC579E0BBFF4C525143B9685D53911959B8812D5E"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeReallocationNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "BCD89614CF3EF42A88CDA921C3D528DD62B899DC865CB31B03C9471E913DD42C"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeReferenceBridgeTable.cs",
+      "HashMode": "Raw",
+      "Sha256": "BEAEE3C01BB8C3107084FCF8D81FD8D805525E2D37B41CCB940D847274DB4A9E"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeReferenceCallbacks.cs",
+      "HashMode": "Raw",
+      "Sha256": "DA9DEA07EA5B9D3424ACB70561274CE7F4279AABBAA05C185D782431E268D3AF"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeReferenceNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "915862B351A92EAD2E1B6CA026EAF701E9F2C7AAE5A2C06EF26CE230D451F177"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeReviewedBasicAbi.cs",
+      "HashMode": "Raw",
+      "Sha256": "1EEA223FE14F6486C7AC233286AB533840C4A62B5CA3398A1FA46EC80D21423E"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeScheduling521Names.cs",
+      "HashMode": "Raw",
+      "Sha256": "66E885676336ADFB34348EEDAB61C6D1DA8537526DB67E78FE7F982B193A0FA9"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeSequenceCallbacks.cs",
+      "HashMode": "Raw",
+      "Sha256": "E9326F7D610B175E1BB212DFA32C38349083C9CDF83188738D6AD48FDAC7BF77"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeStringCallbacks.cs",
+      "HashMode": "Raw",
+      "Sha256": "6097F7D29D15B23458C2D2A320796E6689901BEFFD815CE4ADDC2CBC4CF5D354"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeTermCopy504.cs",
+      "HashMode": "Raw",
+      "Sha256": "0180D65A5881CC69A5C10D902EE63AEF6C7138BD555AEF8545EB22FAA62CBC1D"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeTermCopy504Names.cs",
+      "HashMode": "Raw",
+      "Sha256": "F68680A7E79A941BAB5D80D3A3B95EAD8BBF8D439CF3B2F46B1F002E87855829"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeTermGraph.cs",
+      "HashMode": "Raw",
+      "Sha256": "6FF624C4548324A070AA33532B324C534DECB5C33268427E721646F97A3F88F8"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeTermNode.cs",
+      "HashMode": "Raw",
+      "Sha256": "4888F7239F052430E7CC5EA3AB755A3F461003B704B677226EB29575849FE2A1"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeTermValue.cs",
+      "HashMode": "Raw",
+      "Sha256": "DC059AC474603881FCFEBF11C3E84A284128CE3B1AB6282963FAF1A085D50E0C"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeTextNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "3FF1EE8303EF1A66E2B5E5296474CA9D90018672D7B4104C74A8A234289C8D12"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeThreadType521Callbacks.cs",
+      "HashMode": "Raw",
+      "Sha256": "B48B898FD1D03E0734D7374FDD5377174B600A7104C77279DBB5791055EEA775"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeTupleNode.cs",
+      "HashMode": "Raw",
+      "Sha256": "C30C66A73F7A7F2CDFEDC900A55C0EE599FDF22770E4778ECA3EE6886F070364"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeTypeCallbacks.cs",
+      "HashMode": "Raw",
+      "Sha256": "69BD961E88178C067AFAC52C72106D7379FC06E41B3AB6C319214D8C26D6C283"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeTypeKind.cs",
+      "HashMode": "Raw",
+      "Sha256": "595C7BE7C92399A2B96E66B1883DE5836BE72CBB41338223F97849F3D80DB0CA"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeUnixFile.cs",
+      "HashMode": "Raw",
+      "Sha256": "082D22BA1C66D66836FEAE441BC4686BB59E207F777479E3672C52544D82439D"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeUnixPathNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "6DDFD65D3BABC32B0AA8EFED6B629677C1C344BD0BF22716F291AE36F729204E"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeVariadicCursor.cs",
+      "HashMode": "Raw",
+      "Sha256": "D3A30D298EAC352A219BD2DEA1AD10FCBE07454EF07F9B8C615D69DF7A1D74F4"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbackLayout.cs",
+      "HashMode": "Raw",
+      "Sha256": "9833093E1296B4644BBBC43F0FC5F900997B160181EA440DC99E94D1F9639403"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbacks.cs",
+      "HashMode": "Raw",
+      "Sha256": "A70745A6BC2A1D126787E800E6A0FAFD4369BF7FD0076BDA565C92F755885A14"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsLoaderNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "F5D0F711D02F756C5246C51AFD2724542A812FD636962DB254DF5A3C6C33510E"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifRetirementFlow.cs",
+      "HashMode": "Raw",
+      "Sha256": "61286D6414BE7371CFFB5877374413768FB368764D46853D7EAE7730BB39AE58"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifRetirementOperation.cs",
+      "HashMode": "Raw",
+      "Sha256": "D71FD753FDA0CF8EF10940D8CF209E5C4A037851C5FF6A16B62BA269539C6F2A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifWindowsVariadic526.cs",
+      "HashMode": "Raw",
+      "Sha256": "A10954BC966FDD5AFE2DD6CEBFA849ECA133FA44E6D7665893DC44A328CCDCDE"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifWindowsVariadic526Names.cs",
+      "HashMode": "Raw",
+      "Sha256": "C923E72924D9A0BCC8C5094CF2D06F6AD30C67DC69D59DBD6FC47AE86CD534EB"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifWindowsVariadic526Table.cs",
+      "HashMode": "Raw",
+      "Sha256": "365895A773787AC9D52494A9DE1D4E572A3AE1F56106A3F2F9E460F8AFEAAAEE"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/ProcessRuntime.NativeMapDomain505.cs",
+      "HashMode": "Raw",
+      "Sha256": "9FDE42B7C53D6F821398603CA4BF6AFA5B4F56EC07F6AFABB4BFDE396EA30AC1"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/ProcessRuntime.NativeMapHash504.cs",
+      "HashMode": "Raw",
+      "Sha256": "A579107CAC417D4D0DD5F499AD1F0C2CFC6403BDF1D42FEE5E46F19BBB804F25"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.AsyncSelection.cs",
+      "HashMode": "Raw",
+      "Sha256": "322D40D391B1376D4A9351C0B0F9BE24C74FE0D59EF45BA6605C2F79C014118B"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.BeamFrames.cs",
+      "HashMode": "Raw",
+      "Sha256": "610138A0067F6D4371A92ACEC1D165CEBF5C3D40D795F25F48D56BE42A280714"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.BeamLoader.cs",
+      "HashMode": "Raw",
+      "Sha256": "3EDD51170ECB3BCF647886A5B6206FF2F042422988A1A99C6ADC79671CC34069"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.BeamReceive.cs",
+      "HashMode": "Raw",
+      "Sha256": "9E6C52CCB0CBD9BBDDD6FCF1FBB91BF658EF2B560F86F2A8B608360B9684874A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.cs",
+      "HashMode": "Raw",
+      "Sha256": "AC8C8F0D6738442617B2B5A58CBDEB805FA417BB891A6E868575858B175CAC61"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.DebugInternal419.cs",
+      "HashMode": "Raw",
+      "Sha256": "31AB92BDB555741D0C5EAB10BAADC9C35E4B20922FF6D1EAD2B78A196940FC5A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.DirtyNative419.cs",
+      "HashMode": "Raw",
+      "Sha256": "9DEAD2B3C9F1ACCC0F39FC1B173627B0E33DE434B1BE0D9CDC4EFD25A9E4697C"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.DistributionWait.cs",
+      "HashMode": "Raw",
+      "Sha256": "33D69954ED19DC136902EBF2521D3C39E1290B26DA79B95A378B7B76DF4C29E5"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.ErrorHandlers.cs",
+      "HashMode": "Raw",
+      "Sha256": "6BD2063879D8A6DA15D87C94ECFAD2ED2CC8A6E91CA2367A2CE9CA0EC86E7952"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.EtsQueue419.cs",
+      "HashMode": "Raw",
+      "Sha256": "8A90A138E23DFCD18915C6AC90BAF51787DB1A9A63149B591E53553B46DA817C"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.FunctionBoundary506.cs",
+      "HashMode": "Raw",
+      "Sha256": "FF50E1417687932A0B67A65B156AE453003DA1D33186C5F657D82F8042B88C84"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.GarbageCollectionPolicy.cs",
+      "HashMode": "Raw",
+      "Sha256": "A80D1CA2C487F66B2490A9565188646076ECC14412F92A622AF3136A222C80BF"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.GeneratedFrames.cs",
+      "HashMode": "Raw",
+      "Sha256": "C16FF0A3AFA8CC509DF58DC7E8263145B29122F8C80921F8085367B0F335205A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.Guest507.cs",
+      "HashMode": "Raw",
+      "Sha256": "80E9221B3977F7F301F56E3ADCF59878008F90E692D2FF5EE337099773231ABA"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.GuestFunctions507.cs",
+      "HashMode": "Raw",
+      "Sha256": "6D0956AE73F66B1BB1B88FF71E31255CA763514D46AC01B63185966F2C22AB13"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.InternalOwner419.cs",
+      "HashMode": "Raw",
+      "Sha256": "82AE2553466E6B4051AEE18B36F22EA64CC0DF0B29B715A8E3244B379C6BDEC4"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.ListTraversal.cs",
+      "HashMode": "Raw",
+      "Sha256": "762E8A8590A6C47D40A8B9BEEFB6ECFD6E149A7A8B05E8F3A333AB330DE8283C"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.NativeErrorInfo.cs",
+      "HashMode": "Raw",
+      "Sha256": "ACE0D80294449D58CE122E7D514CCD03014E32A130B14CECC01BB330528F18B4"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.OwnedCollection508.cs",
+      "HashMode": "Raw",
+      "Sha256": "624585D1B7FAF6172B1A3700CD0312B1BD96BA9C5F69917B384A4317DD6F5AC1"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.OwnedTermHeap504.cs",
+      "HashMode": "Raw",
+      "Sha256": "480D9D8934331C2432245EF418FC47BF43A78A12552DBC5F787A5F83C4A04CFB"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.OwnedTermPilot506.cs",
+      "HashMode": "Raw",
+      "Sha256": "1338C4B64BF2A5A29E241234F6BFF08B8094B74E12361AC3C3919918D0D86568"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.OwnedWords504.cs",
+      "HashMode": "Raw",
+      "Sha256": "877146F6708DEDE28C3DA0D898DA4A252B965F8FFC57071D7344969B31FE9029"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.Source511.cs",
+      "HashMode": "Raw",
+      "Sha256": "0ABCB4313CBA9B007E7DB19C4077D94B67EE7648B937D74A238F5B5DE0778070"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.SourceLocations.cs",
+      "HashMode": "Raw",
+      "Sha256": "D6F1417262F40797A249BB8472297C05F2323CC467AD44DA2CE01D6114BADBCE"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.SystemProcess.cs",
+      "HashMode": "Raw",
+      "Sha256": "5D50E3249B0EF83A88339F4F270151093673513C1D56EA083A917184C2E54359"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.SystemTaskPriority428.cs",
+      "HashMode": "Raw",
+      "Sha256": "3F73477E095AA3006F5B9E403F75374E4E9647E52BFE836AD0ABB10BD68EE3B3"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.TraceErrorOrigin427.cs",
+      "HashMode": "Raw",
+      "Sha256": "451982E38BCED5990DA797C70E01AE6294B2886459E31D71D1DE3D463460BD5C"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.Trampoline506.cs",
+      "HashMode": "Raw",
+      "Sha256": "F54A815713169B0D55C57F8F00B9DBA43D842BCAEF5CB1D26361CACFC8F60164"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ActorControl428.cs",
+      "HashMode": "Raw",
+      "Sha256": "FCE6565194F74CAF5F5704A22310B1145A7587CEB602ECCBEF2AD18BF3BE80D9"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ActorDispatch.cs",
+      "HashMode": "Raw",
+      "Sha256": "F02AC1BC70816DE1FE7A3E275885F0B6E9946A92C926AD69C7DEDDF8EA49196D"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.AllocatorGather434.cs",
+      "HashMode": "Raw",
+      "Sha256": "E958733D6C950C9E4163EC6F51320C526BA816DFAF209FFBBE89E1F0A7AFECD4"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.AsyncDistribution.cs",
+      "HashMode": "Raw",
+      "Sha256": "04CDC42FB33DCF0359285E1E74F4E984A3CD1A753982A65978EC1F38251BACAD"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Atomics413.cs",
+      "HashMode": "Raw",
+      "Sha256": "45E83E94A2C1302ABE3A6CF4717B91F0D1061FD49A2C2665C8209C0CAEFCE41D"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Atoms.cs",
+      "HashMode": "Raw",
+      "Sha256": "46EB7BCC7921B373EF46A4168A6E8738878119816AD641EE324C09F35F584D57"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.AuxiliaryParticipants430.cs",
+      "HashMode": "Raw",
+      "Sha256": "BD337CC272BCAF190F4286B122BE5845CC51DB3E9CCC683CA5107B06CF4925E8"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Backtrace.cs",
+      "HashMode": "Raw",
+      "Sha256": "2DD3177A08AAC511E88629E38B428BB0CFD238225173CE83DCD933B0638140D1"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Beamfile418.cs",
+      "HashMode": "Raw",
+      "Sha256": "0FA47EECC5C39EF009CB48DDC50CF4FFFE226622BB4C7A6CC774FC1076E6D256"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Binary512.cs",
+      "HashMode": "Raw",
+      "Sha256": "EF35471453DEFAAC05B74FB0C7DBC127BF5BBAB2B8B8D05520042733A794F02B"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.CallbackUnwind.cs",
+      "HashMode": "Raw",
+      "Sha256": "67EBF7251E07A1992C5C320B4B998FC0BB9DB2FF2550D258CF443F3A152584A5"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.CodeChecks.cs",
+      "HashMode": "Raw",
+      "Sha256": "83F95E1A372A5B230FAF5DAD230FB6770F162C20487178246AA40901CDD8C517"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.CodePurge.cs",
+      "HashMode": "Raw",
+      "Sha256": "5B152DAEED8C7397CD20C9413B2DFFA41B9D28ED4A639B3FA7B373CE37CBF14E"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.CodePurgerCalls432.cs",
+      "HashMode": "Raw",
+      "Sha256": "549D0BAD17EFF1FC0B601F2DD68E83E65EFEB67176B76863FB122E8A1F3FF1DB"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.CodePurgerRetirement432.cs",
+      "HashMode": "Raw",
+      "Sha256": "A4D69EE7453E67513F38F70A8741AE0BF396DE81B362441A48E4C6B22A8B925D"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.CodePurgerRole432.cs",
+      "HashMode": "Raw",
+      "Sha256": "35338BF56CAABE1A45A36DA9E3A14889E2281E156C39C136710F821836ADD030"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Collectors413.cs",
+      "HashMode": "Raw",
+      "Sha256": "0E737E4BC8CC7C5B3AD9FA8B25F56D2D64AA2D1AB4C2D88EBBFBA2A0F333FFFF"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.CollectorSignals413.cs",
+      "HashMode": "Raw",
+      "Sha256": "8E68AD47403A96DEEACD22A73C9EC1853D950C7123A8F51CBFBBF90557641543"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.CollectorStartup413.cs",
+      "HashMode": "Raw",
+      "Sha256": "ACAD57AA8F1CBCF9BB9C77B3FAC5DD1EEB68E6829C801F944D5B17B09C4A6EF0"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ConnectedSpawn.cs",
+      "HashMode": "Raw",
+      "Sha256": "1C32D67C37806B58530396E0A1C38025FD34FF9340CBE4163A358ECC44FBE83F"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ConnectedSpawnOptions.cs",
+      "HashMode": "Raw",
+      "Sha256": "7FF25A2296D124AC75A26AA5D3711DD06E478AB421388A70626AE74C4C718C33"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Counters421.cs",
+      "HashMode": "Raw",
+      "Sha256": "4C189FC48EE777291BC162410C7B7A5218E7C2D71494DAFE4ADE619B29D56035"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+      "HashMode": "Raw",
+      "Sha256": "2B36BF8460DDCF828975DEF5BDAE5D14DC07EDF2CE5CF3B7FEDCBE3642B92624"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DdllError416.cs",
+      "HashMode": "Raw",
+      "Sha256": "108784CE108BE71B89854416B71CAFCECCDC031804A2A4BA7CBF5BEDEAC02F65"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DdllParentServices422.cs",
+      "HashMode": "Raw",
+      "Sha256": "522840F34EE151367DB3C4A60A7DBE32B564FDC54301A3F1239ABFA83E965575"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DebugCode427.cs",
+      "HashMode": "Raw",
+      "Sha256": "58A6B98574937A8E7434BBCF0B24938FA7F024C7DD0A308BFEFAF5A010781277"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DebugDirty424.cs",
+      "HashMode": "Raw",
+      "Sha256": "C1B34F28750ED5597BF3CB8885D119FBAB5AB80B84F04F9BF51B905A8C06E2A4"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DebugDispatch432.cs",
+      "HashMode": "Raw",
+      "Sha256": "3BC97CBECF5583D70E2547835785F414678465FAAFDFBF00D2EA68C59EB358F0"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Debugger413.cs",
+      "HashMode": "Raw",
+      "Sha256": "4AB3A8BAB0A5E9AB10B198D7B13A0C50E6A6B9BD138F838DDE66145EBD49BF84"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DebugInternal419.cs",
+      "HashMode": "Raw",
+      "Sha256": "CD0F14EB26B507A20FF58BD97563B80E97372DDA54DD3131B0C7407CA5B050A2"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DebugInternalLogger419.cs",
+      "HashMode": "Raw",
+      "Sha256": "2932434E02487B050EC39E530322CFB3C71FC69B617EEA294176DA50D0F3F9D3"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DebugLocks419.cs",
+      "HashMode": "Raw",
+      "Sha256": "9452791ED9FA3ADD5D92E93E1A9CCBF71A35B7A5DD4A805C41A860285FF582E8"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DebugSame420.cs",
+      "HashMode": "Raw",
+      "Sha256": "0083B5EB252EB60F3BD0BA34AA6590C5FD9B015CF7B4EC23F94709DA77A7F353"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DebugSharing425.cs",
+      "HashMode": "Raw",
+      "Sha256": "28FF095855386D9C41D45943E6D980942469042262C6547710CC5AE453D801DA"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DebugSharingLiterals425.cs",
+      "HashMode": "Raw",
+      "Sha256": "EFDB0C0969276A338CE62CF6A989C5F87B7635E56E717519D94872BE0A5AAE91"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DebugUnaligned421.cs",
+      "HashMode": "Raw",
+      "Sha256": "23944A5AB0BC551578FA7DFB5272BEE60972A581F66168231F42620CA6753E4E"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DefaultProcessInfo.cs",
+      "HashMode": "Raw",
+      "Sha256": "66AA3CCC4991B76EC06DE86826272800021786A7F8C6F11A3B595BF57781BDD3"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DeferredExitReason.cs",
+      "HashMode": "Raw",
+      "Sha256": "19612369F8897E2C26BF6E3B6BA8A5262632E0CB6FF7685103C7AC22AB880BE9"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DeferredSignals.cs",
+      "HashMode": "Raw",
+      "Sha256": "CB5063067909220990E324E576884C1EB688D1B3BC4D5D84ED5E2A581FDFB187"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DirtyNative419.cs",
+      "HashMode": "Raw",
+      "Sha256": "AB35B06AE177EEF9817B26EC674D05EC12632248A91DFFBB56BA84431A7B0C8F"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DirtyPoolConfiguration522.cs",
+      "HashMode": "Raw",
+      "Sha256": "588642F4F1775AE45BC47740B6A299A70EEC9DFA4E3C02B37C893AB4D20D774E"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DirtyQuery423.cs",
+      "HashMode": "Raw",
+      "Sha256": "EE3F38847C06E2F50AE736B0C5E42AC7747282949C1D35E938C2E658201ACB5B"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DirtySchedulerInfo419.cs",
+      "HashMode": "Raw",
+      "Sha256": "4BC79F21034C217C92DE52F6D944642BA48EEAEAAAA38D558055DB0F6B46C867"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DirtySignalNotifications428.cs",
+      "HashMode": "Raw",
+      "Sha256": "B0D27287DEE42BFAD5724715D882635AA130692E6E92D1F33FEC77F61F24F761"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DirtySignals428.cs",
+      "HashMode": "Raw",
+      "Sha256": "1CE8DC18D172ED8A130F5772538C8042D542C74E5EFD9E52E48FB67362B81A00"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DirtySystemHandlers428.cs",
+      "HashMode": "Raw",
+      "Sha256": "FDC5D0ED3EAAEAACF93CF936358644154015D42F4FEF6A6FFBC389EACFB5A86C"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Distribution.cs",
+      "HashMode": "Raw",
+      "Sha256": "33486C7191A58B5D89F65AB777BF8D87C5F4C901DF2A05556AEE92E0E5239F6D"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DistributionAliases.cs",
+      "HashMode": "Raw",
+      "Sha256": "5A32869B8B42D3A5D3CAE64A252936AD24EA9AE504EB5D307FC354ABAA5D1D68"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DistributionConnected.cs",
+      "HashMode": "Raw",
+      "Sha256": "04CF39CD2B4611233DC5B5762236BC6E8620E480F34FAB08715F81E1D7FF2111"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DistributionController.cs",
+      "HashMode": "Raw",
+      "Sha256": "ECABD8E0E80AC8E4C5B2459F1CC8CAB6D0BC6306637AA5BE9FACA728010F1967"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DistributionControllerExit.cs",
+      "HashMode": "Raw",
+      "Sha256": "858968BFC18D4045F3646E539AA021227BC01CE416B74D012835F2CA723657F6"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DistributionEntries.cs",
+      "HashMode": "Raw",
+      "Sha256": "57754ADFBE2103167033BD3E1A22F5E5065587B40F9F44B3E2ECBFC8CFA5B3CE"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DistributionGroupLeader.cs",
+      "HashMode": "Raw",
+      "Sha256": "7874FFBA2506C08DFADCE062BEF61DAF6ED244BAAAB398393873A8DD8F63EBFE"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DistributionLinks.cs",
+      "HashMode": "Raw",
+      "Sha256": "FA5296566531B8451A042593D2CABE1A882443AE63B9870952E69AE8A0AD93CC"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DistributionMonitors.cs",
+      "HashMode": "Raw",
+      "Sha256": "FDADB82F747F031BE258E458FA7A3B3A757FD58EA48FE20122C7CC612BEA6CCF"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DistributionProfile429.cs",
+      "HashMode": "Raw",
+      "Sha256": "9F4D13BC6DFAA37FB26594603683580506B7C79BC8C3E2C3E26D2EEDF1466399"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DistributionTrace.cs",
+      "HashMode": "Raw",
+      "Sha256": "D9E3BDF22F4B85E385CE1804A917DBD49DDAB99DA3A80863E7C137535B490286"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DriverExternal455.cs",
+      "HashMode": "Raw",
+      "Sha256": "A419214A3B2B84B15887FA55F57DC4029168B438D42BFF09669EFFBA3340CA73"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DriverFrontend422.cs",
+      "HashMode": "Raw",
+      "Sha256": "F0ABB737C98600DF8BB3676652D3A0ECFEF0AB1A0DA2946D644DA1BE1E16836B"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DriverParentCodec422.cs",
+      "HashMode": "Raw",
+      "Sha256": "1DB07BD3424C46FD127DFD7BDCAA9F3F14FEA190ACCC09D4D3CDAFABCED74A2F"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DriverPortDispatch422.cs",
+      "HashMode": "Raw",
+      "Sha256": "1616018C4B56D768979BB3A1402AEB22CFF0ABD6C920E63AFD5D5488EDF4936D"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DriverPorts422.cs",
+      "HashMode": "Raw",
+      "Sha256": "1C188EE8F849D0DA713F4B175C5EFBB394F0E84D5DEF95ACC80DF50EB69A2FF2"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DriverTermDelivery422.cs",
+      "HashMode": "Raw",
+      "Sha256": "B70ABB90E368E4322CDAACA1CCE43C8A62AAF2216794B37498E1EA1A04B0E003"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ErrorHandler.cs",
+      "HashMode": "Raw",
+      "Sha256": "4D75768AA5782D72A76B91438F5C9766F45B55E42555B24F6DB93B74AD98D0D2"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.EtsAll420.cs",
+      "HashMode": "Raw",
+      "Sha256": "F38BDFECACFD029BB0D853CE242BF1CFEA40C85289E06E1479C76F87A5F37AB0"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.EtsFoundation.cs",
+      "HashMode": "Raw",
+      "Sha256": "5FEA680992AA044D157BFD196C43FA983B7E9A023C8CD303B6A0B59103B079DF"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.EtsHeir419.cs",
+      "HashMode": "Raw",
+      "Sha256": "999968A6409068DDD9693848553EC064270B420C262FB2362D0E9985C498FAB5"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.EtsQueue419.cs",
+      "HashMode": "Raw",
+      "Sha256": "55BC34C766B1361DF2652857D73C9D50F71205EDF2788A4C30C216C82BFFF1E8"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ExitContinuation.cs",
+      "HashMode": "Raw",
+      "Sha256": "6B458B667AE40357C95BE970DF0BCD30C8FAEEBF02F6303DFBBD72DB7B1DDAA3"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ExternalDecode.cs",
+      "HashMode": "Raw",
+      "Sha256": "F0E490E2E7DE1484CF82B255E666F2620BA94A0DB16827C2EAD4EF30184ED4F5"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ExternalTerms.cs",
+      "HashMode": "Raw",
+      "Sha256": "59201BC5E32F4444764353E54FEA775A72E4ED876DDD12F200F72EED4161A559"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.GarbageCollection.cs",
+      "HashMode": "Raw",
+      "Sha256": "04B9EC5D240C39D02700A1C15E9C17711D535A97BB3C85460C4DD4D67DC0ED10"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.GarbageCollectionPolicy.cs",
+      "HashMode": "Raw",
+      "Sha256": "C5A13FD35B757992119F9047FFC04871FB1FFAC810BE958D89F3B9D61DE98089"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.GroupLeaderOutput.cs",
+      "HashMode": "Raw",
+      "Sha256": "9D654AE366E7E8A69E280975E35335C4C0149F09B04C7126CF032D6B23053A96"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.GuestExitSignals.cs",
+      "HashMode": "Raw",
+      "Sha256": "D2E199D3194D9E50FC55DE4A1551F2207F31AADECE721144E0C537E87DAFB09E"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.GuestLinks.cs",
+      "HashMode": "Raw",
+      "Sha256": "6711344B9589FC9C358283B95030AC0BABC54CA699F29D80DCCF96E57A8FDD6D"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Halt.cs",
+      "HashMode": "Raw",
+      "Sha256": "CAA88F0494E14FFF5647390A61F83F3BD0AE00729482CFF25B838A9193E8A19F"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.HamtIndex429.cs",
+      "HashMode": "Raw",
+      "Sha256": "DC2DBDA5ED31593E98CC25BCDC3A733602841A0EE970D16E25BF67785EC393ED"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.HamtTermType430.cs",
+      "HashMode": "Raw",
+      "Sha256": "99E04C77C296DA44CDBC1CA815C1117077500A1993E281712D372993670475A0"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.InternalGarbageCollection428.cs",
+      "HashMode": "Raw",
+      "Sha256": "63DBFF09A1ADB0C20DC5F018E11B87E73AB352522F2928B5485ED81D007F4393"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.InternalOwner419.cs",
+      "HashMode": "Raw",
+      "Sha256": "17FD75A9F35A35572667E34C34B5C04CCCE140C01B7A19637E5315F531D8A7F2"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.InternalPortIdentity428.cs",
+      "HashMode": "Raw",
+      "Sha256": "1A07B1E7C4AD64433C39CE126B8E553D2718C2B6AC0D200ECE7AEDAED891C365"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.InternalPorts416.cs",
+      "HashMode": "Raw",
+      "Sha256": "867E5794B3DC4ED0569006437695FF091E9B6722E810CF2DC5FC5B87DF8E17DC"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.InternalProcess425.cs",
+      "HashMode": "Raw",
+      "Sha256": "DEFD69AD57807027AEC9F79B495989B345126BCC986D0ADC5376982A42CC93F3"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.LibrarySelection.cs",
+      "HashMode": "Raw",
+      "Sha256": "C3903BAEE3B89B7755502AADF6309A5E8CC9C3A4E7BC1105AA09206BDA183305"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.LibrarySelectionObservation.cs",
+      "HashMode": "Raw",
+      "Sha256": "561B59F9EB0F08BF2665A472BBD80F1B3F700F230A6BF9D53B44F2BBB4134912"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.LiveDistributionOutput.cs",
+      "HashMode": "Raw",
+      "Sha256": "CF91B58AF8B58613CAA1373DA451EAD8885DBDDB8EA0F0FEA2EA0CFFF84EFE7A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.MapHashScope.cs",
+      "HashMode": "Raw",
+      "Sha256": "68DBDCED428A7B5C2745CE3308BBC5B42E03DC10F5977D5B21C9593D33FB175A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.MatchSpec419.cs",
+      "HashMode": "Raw",
+      "Sha256": "8ADF1AD0EE00795DC20C0CB2E474F11CCD07C81DA75BB4AB83C339F374150A41"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Memory.cs",
+      "HashMode": "Raw",
+      "Sha256": "7680D4E33F87CF8223F4A914AF6A1A17E29A9139BC0853948A10DC3437E2CE24"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.NativeAllocations.cs",
+      "HashMode": "Raw",
+      "Sha256": "6AD945ACF754376AC2D4C611609266DAC5CF5089F80A04E4E25CFC733A824765"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.NativeCreation.cs",
+      "HashMode": "Raw",
+      "Sha256": "B2A6D2E091155CAF6FC96DE2B0A150BAF167D4CD24E0C9AD3ABF00031DEB43B1"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.NativeDistChannel429.cs",
+      "HashMode": "Raw",
+      "Sha256": "ED4E33474BA7110D552369969E616D5C3ECDFACD294049513DE797ADF69BCE15"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.NativeDistribution457.cs",
+      "HashMode": "Raw",
+      "Sha256": "2775B448FA16A41E6845D9FE2EEA5E222DD439E3B3B19310644955300A3CF41A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.NativeDistSpawn430.cs",
+      "HashMode": "Raw",
+      "Sha256": "EF76C3233E84C0E6C6425CB99C81CCEFA99EB433479E219C6CDE34F18C142F27"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.NativeLinuxNamespace.cs",
+      "HashMode": "Raw",
+      "Sha256": "D475A127FFC81FA8FD61C56F81083136DDC65979AA92B0E7A9C2BEDC116A1AC5"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.NativeMetadata527.cs",
+      "HashMode": "Raw",
+      "Sha256": "4C80337A9FE2DC627F75A260F861D717D73967678C47578D91321C98C32D00B8"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.NativePrimitives.cs",
+      "HashMode": "Raw",
+      "Sha256": "4C2EBBBC4ECBA15E02EEA9271D197586D751EF082F952BE37E85E5EDF46CD14F"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.NetKernel.cs",
+      "HashMode": "Raw",
+      "Sha256": "B730890882862CF4A50135C1E85F5CED86E87B579BB07257BBE85A489B5ABBC4"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.NifLifetime.cs",
+      "HashMode": "Raw",
+      "Sha256": "2EB7491CC03109D697CDBED834D926844028F226A48BF90FA76B2CC3E94B211A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.NodeAdmission.cs",
+      "HashMode": "Raw",
+      "Sha256": "365F11B4AA521DAF997AB1CF4B4BD4C7582818398AEC9654791F3D84A16FF146"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.NodeIdentity.cs",
+      "HashMode": "Raw",
+      "Sha256": "C8CA9FD6FB02F068EC4071648CADDC4B70E530E11FD969EFE60729A0FF921454"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.OsNative.cs",
+      "HashMode": "Raw",
+      "Sha256": "AA5EB5793078CD6749E8D45C9E56148F7C35CE337B54EA98AB775077511994CF"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.OtpBoot.cs",
+      "HashMode": "Raw",
+      "Sha256": "F42CE56A72291551BA2FC315FEC384992D241B27D2BDDCCAAD64D2F3D248F87E"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.OwnedTermProcessExit506.cs",
+      "HashMode": "Raw",
+      "Sha256": "DC4BF999F10DA2730131E14A437198DB2D063ACBD30664ACE7C8998714ADB6AF"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.OwnedTermRetirement506.cs",
+      "HashMode": "Raw",
+      "Sha256": "32EF653AF8565E2C651D0ED64E6DF459F840E6FD008408DEA496B7DA80969BC4"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.OwnedTerms506.cs",
+      "HashMode": "Raw",
+      "Sha256": "5DB662B8C77666DCBF0B0B67274EA9484654E20803A7F796534185CF44F7155E"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.PayloadExit.cs",
+      "HashMode": "Raw",
+      "Sha256": "DE74A5DBADCC307BE3C1ADF5AEA1CD08F3034B44866CE20AC20C6B35BF61CA96"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.PayloadMonitorDown.cs",
+      "HashMode": "Raw",
+      "Sha256": "701C10BD2FC0B77A89CFDCD3E9E11B57353017D2313F0C3E7FAFC089CF34CAD2"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.PersistentRetirement417.cs",
+      "HashMode": "Raw",
+      "Sha256": "07CE625D9A543DADB040FE39E28BAAB703E0C003D9FC811DF14B2E0F2CCC702D"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.PersistentTerms.cs",
+      "HashMode": "Raw",
+      "Sha256": "624867588D485B95988585BA76236314950EEA84EEED319713C59AAA8ED33FF3"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.PrintableRange.cs",
+      "HashMode": "Raw",
+      "Sha256": "8E4C60D4A53BB3A99049B7AF5DA2F37C9D786943DAB4342FC3D4DC53389C3D9F"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Priority.cs",
+      "HashMode": "Raw",
+      "Sha256": "66871BF5F4E57C8BC7A7CACF1325C2ADABD63335C6A3B691643A8A66EC8F6EDA"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.PriorityPermissions.cs",
+      "HashMode": "Raw",
+      "Sha256": "DE60E7A837740BEADD6B443D6491156A2F48508863D68543AD8BBAB605647203"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessAlive425.cs",
+      "HashMode": "Raw",
+      "Sha256": "41D6C7B1F2F7A41E58B3E61D9CA3A33B7B90F497DDB816A2AA30D66EF17D4EB7"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessDisplay.cs",
+      "HashMode": "Raw",
+      "Sha256": "6A371B20979D25521A722BDD2F0893F33CCB95DD870B11D005CF380E0677D47D"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs",
+      "HashMode": "Raw",
+      "Sha256": "FC705BAF00A38BBB625A0C7169CEEF42F96F48B78FE88F96355A536DB842F71E"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfoIdentity.cs",
+      "HashMode": "Raw",
+      "Sha256": "95FC48C9C216B52F3D08B03D1D5DB81F719F0C7AE7E2001DE100C504BCF93728"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessLiveness499.cs",
+      "HashMode": "Raw",
+      "Sha256": "872094152557D7E8906EB17AA86BD5C539C1A989A9C4906F104FB3C00D3E7F2B"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Regex411.cs",
+      "HashMode": "Raw",
+      "Sha256": "1BDBA8AEB8A1DA2764BD4CBB2201C4184880FD3B827434EC3EA6416AE9329E6D"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Schedulers.cs",
+      "HashMode": "Raw",
+      "Sha256": "204776C0257981488A5EA254E0522BD75B99C55B1C4FA038C2A0A6E60844399F"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.SchedulerStatistics.cs",
+      "HashMode": "Raw",
+      "Sha256": "FEA47A08C4A783E93441B369126FB46016D3AAC6BB7274207FC12DBD78E63232"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.SchedulerWallTime.cs",
+      "HashMode": "Raw",
+      "Sha256": "AC30C56BD394D6231607674A7E89705CC69B8E99F5523387008139C2EEDDE787"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.SignalOwner428.cs",
+      "HashMode": "Raw",
+      "Sha256": "2666B0A8A75334C9F48185237295DF1284AE82F816272232CD773B97F6715198"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.SourceMonitor458.cs",
+      "HashMode": "Raw",
+      "Sha256": "9F5A5098C8E93B063AA7EA2B1367CE924F28B5B3418794D36735EE56B74078CD"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Statistics504.cs",
+      "HashMode": "Raw",
+      "Sha256": "B4E9F84C26ACF1F80489B9F02E75FF6ECD82560615029AC5F3EA39C191EFD4CD"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.SystemCheck431.cs",
+      "HashMode": "Raw",
+      "Sha256": "F41F841B444C1B70CB755F5918D6B159A08E59E84DA095558BB0AE7E0538D228"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.SystemLogger.cs",
+      "HashMode": "Raw",
+      "Sha256": "8E6F15E4066B2DA7E78C32B4C409A70F981B3CBE790B6ADA8E8615BBF8995773"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.SystemProcess.cs",
+      "HashMode": "Raw",
+      "Sha256": "4C82DF607A3BFCC650DBD876B56D70BAFBAA1E47BF67ABC6CA76659A87544423"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.SystemRequestWindow432.cs",
+      "HashMode": "Raw",
+      "Sha256": "891510EEB0C8764D8CF56973C2F8C560D7CFBEE5B23FF86A271C7E0B7050FCD5"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.SystemTaskRequests428.cs",
+      "HashMode": "Raw",
+      "Sha256": "DA59664855AC23A098691B60391AA8440BCDD11F18D045724603F68DB6592ECC"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.SystemTaskRetirement428.cs",
+      "HashMode": "Raw",
+      "Sha256": "68640FCB7987E22955A3301DAA9E0FD03ECAE256200E8B5769DE702CE8BF43D5"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.UniqueMonotonic436.cs",
+      "HashMode": "Raw",
+      "Sha256": "E903CA29461A14D9DD8FE9C85D2FCB2A275056000CA1795EF6C95E3381BAF3E5"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.WarningMapping.cs",
+      "HashMode": "Raw",
+      "Sha256": "619E98C0FD47EB9E11675681D6A1A6C08DE89D49A8E83463E5C4E5A57AFBD505"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntimeOptions.cs",
+      "HashMode": "Raw",
+      "Sha256": "829DD85C958C4BC4F153F469B12C508634D8E454CE53432D7A980251E81262AF"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/runtimes/win-x64/native/Erlang.Nif.WindowsVariadic.dll",
+      "HashMode": "Raw",
+      "Sha256": "C854474AB72CD521AA065DAEE6766F7ED532D9254F7E020154244F049B150821"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyNativeInvocation419.cs",
+      "HashMode": "Raw",
+      "Sha256": "E83E2F154A1C1EF23065B943C6D12E3704ACF89B55E288B2E7C113074B32DD1B"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyNativeKind419.cs",
+      "HashMode": "Raw",
+      "Sha256": "91F534A2CC809F270F610EAD1B87622A30D45C57360D4E93999CACBDFC607463"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyNativeNames419.cs",
+      "HashMode": "Raw",
+      "Sha256": "988B34FC9A7DBE4934CB2D1812F8791AB0234DDBF1C97C1AA75F9B67C6743A16"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyNativeOwner419.cs",
+      "HashMode": "Raw",
+      "Sha256": "BDA832E736DFC9581BAD6678D237B2578BB8F0A6975ECAA4E50599D2856E5AF4"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyNativeOwner419.PoolSnapshot522.cs",
+      "HashMode": "Raw",
+      "Sha256": "1E684E7DFF6AA148603C6C37CEA5D6F193D309DBC6D7E7F870BBB278A573CE28"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyNativeOwner419.Statistics504.cs",
+      "HashMode": "Raw",
+      "Sha256": "66231AC99E07451EE3478FB9F4109F5F2F51E4464CEEB2D3A62108F48402E630"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyNativeOwnerFlow419.cs",
+      "HashMode": "Raw",
+      "Sha256": "01BF71033AAA4A7E1DDFBB8438B903FFA9DA76A81FE7958B42944343729579EB"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyNativePoolParameters522.cs",
+      "HashMode": "Raw",
+      "Sha256": "FD7F467711C6B62086058EF999E9849C588E4D1D8127F402C7A7CA8F8F46CE3E"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyNativePoolSnapshot522.cs",
+      "HashMode": "Raw",
+      "Sha256": "B6D1E68BBEEB91FE376CE1ADD1F1330561C81A38F17E911B013C3E495D74922F"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyNativeQueue522.cs",
+      "HashMode": "Raw",
+      "Sha256": "922CA03025633F8FDAB5571A2092F6232B702FF8A486FA7E88DFE8BC3B1BB73C"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyNativeSchedulerNames419.cs",
+      "HashMode": "Raw",
+      "Sha256": "75CD306F041433D852181107C5506A65921D59BFC86C194987EAE77A8D1AE51C"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyNativeSiteScope419.cs",
+      "HashMode": "Raw",
+      "Sha256": "41B91B09941AD3264A522D2B780B0638F1A5DDDFB0445F6185BA7CA2ECCB3519"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyNativeSnapshot419.cs",
+      "HashMode": "Raw",
+      "Sha256": "9487A84158E74B470773CC66886FC73ACB84FC79A9078FE3416E43E8BDE2F91F"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyNativeThread419.cs",
+      "HashMode": "Raw",
+      "Sha256": "D664AB3DF4A0E556086A848A7CA6300D0182DD05109E76D20C80DDDE7F759916"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyNativeWorker419.cs",
+      "HashMode": "Raw",
+      "Sha256": "0D39D1A28264D46B84CE699ECFFEB6E0481BA0ECD41153E91E1901D3ECAE05F5"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyNativeWorkerSnapshot522.cs",
+      "HashMode": "Raw",
+      "Sha256": "3902F24005F987F9CFFE19F46550EF14013D6159AC8BF0DC7A47C729CBBD9030"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyQueryBinding423.cs",
+      "HashMode": "Raw",
+      "Sha256": "9C12CE17C368C2D54773709DAEAD1E8F15DBC8DF282DFDECF0501A4A4AC48D94"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyQueryNames423.cs",
+      "HashMode": "Raw",
+      "Sha256": "3F61136DE92D459E4D58EC984F35085A0AC6A37E07EA36FE2926030B998EB4F5"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyQueryNative423.cs",
+      "HashMode": "Raw",
+      "Sha256": "4AAFEEF5BB2FEE055533EC508E5C2B811BDC03F51947F2841F5CDD795755EF31"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtySystemHandlerSlot428.cs",
+      "HashMode": "Raw",
+      "Sha256": "122E84CAA0BE3DD98FE8AD899CDB7D3E4BB51AA50081BD93CCC7BF54A1675FBB"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtySystemHandlerSource428.cs",
+      "HashMode": "Raw",
+      "Sha256": "3EA414E9EC3FBC2A7284DE95B4F14EF64239EED484D9F399F7586A98469945E7"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorContinuation.cs",
+      "HashMode": "Raw",
+      "Sha256": "0725B8ECE17147ABEA9C8F0FE6F25614FEE4F775A42E5B01669FC6DA233B9A7A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorControlLease428.cs",
+      "HashMode": "Raw",
+      "Sha256": "905D514923BB19D035CF701CAF0B0D0413961EA8A08A22DBAD7838AD6203885D"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorControlNames428.cs",
+      "HashMode": "Raw",
+      "Sha256": "8626278925C9E9C785230A91AD87CDA2D287FC00445E77B4C49C599FF57C9526"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.Auxiliary420.cs",
+      "HashMode": "Raw",
+      "Sha256": "C6BEBCB8BB0C049669818B84C6D186CE871D4BF307F7BB372E7FA5E960875E91"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.AuxiliaryParticipants430.cs",
+      "HashMode": "Raw",
+      "Sha256": "FEAA8268C888D3DD0C8C13F34DC830ABC1C63213738306EC1317F3E22C5A2F26"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.Control428.cs",
+      "HashMode": "Raw",
+      "Sha256": "15B7AAD00C5E77BAD81C73FE19B570AFC074D17A22563051E6F36DA17BC66C5E"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.cs",
+      "HashMode": "Raw",
+      "Sha256": "61DA38DB6E3FEAF95DE845DB9C593579E8ACEC5C41B84E7A09C8ADCBFBA4574A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.DriverPort422.cs",
+      "HashMode": "Raw",
+      "Sha256": "4220B493EE0719D25E5ADE1F452D8428038D35F28211CDAE02F77689E364DB4D"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.Statistics.cs",
+      "HashMode": "Raw",
+      "Sha256": "09C8E9858439F469DF482C770019D616A3B92D8FE446D5A91CE1C12372E016B5"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.Statistics504.cs",
+      "HashMode": "Raw",
+      "Sha256": "5616557CE859899888BE3EB3C14705B7CFC7CD68E61092CDB2D292E1D7849C25"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.WallTime.cs",
+      "HashMode": "Raw",
+      "Sha256": "D6BE527C56EA7D77A3169E71464A0DE3A9541A4C3E34F1D22118F418612DE448"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatchNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "AD372907FB258EC710F631857FF01B7285550FE84A1917BCCA3BDFF862A2E84B"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatchParameters.cs",
+      "HashMode": "Raw",
+      "Sha256": "BBF04A0BF1150966F463444EE5A242B1F6CF35A294B2C0B5A993673C2DC2DFDE"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorExecutionTurn.cs",
+      "HashMode": "Raw",
+      "Sha256": "BFF1DE27732D09F82DE3BA2870606C162C498EA7529682BA7A8A8170BFF55207"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorRole.cs",
+      "HashMode": "Raw",
+      "Sha256": "BC35B24EBE5308D041E46B7CCF13EBC7773FFAA564991E0E3A02D0FECF91A815"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeSchedulerAuxiliary420.cs",
+      "HashMode": "Raw",
+      "Sha256": "3855696E5937E91EE5DCAE3AFD7B182C2DEBC51A39A2F779DBF222A69194AE7E"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeSchedulerAuxiliaryBatch420.cs",
+      "HashMode": "Raw",
+      "Sha256": "7879F7115F55560F0F0D03609CCABFFBBD70FD3777D9BEE2A933E7D9ADAECD2F"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeSchedulerAuxiliaryState420.cs",
+      "HashMode": "Raw",
+      "Sha256": "6CF60B9E306BA781F527BAD23B8A42BB3452C8178982AFA649E6B261ACFBEFDA"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeSchedulerLane.cs",
+      "HashMode": "Raw",
+      "Sha256": "C3DD854FFC61823EDFABC1ADC3A828D74663AC72FE407EE517A91F6EF7829198"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeSchedulerOnlineRequest.cs",
+      "HashMode": "Raw",
+      "Sha256": "8FD23181F230F4AE049DDC752E58218558928E6A5EEAD423F3123419740E67A1"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeSchedulerStatistics.cs",
+      "HashMode": "Raw",
+      "Sha256": "AC15F810DAC68DD28C7ADCE1CCDAED5642C77392856E42D7605D0587BCFC9819"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/SystemAllocatorQueryDiagnostics.cs",
+      "HashMode": "Raw",
+      "Sha256": "A3B7BB2C63E07C622A8339B485A337C431D3A5A1E11492650E3ACBEC3CBE695A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/SystemAllocatorQueryNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "28DDF64E30DB797E9136DF199AA4BD90DFE945FABBD7BC0C0E2393D766F80BE4"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/SystemAllocatorQueryProvider.cs",
+      "HashMode": "Raw",
+      "Sha256": "83DA99FED0C3064E54D75148E9E3A54F2B0F73CA1362D4B3B0CCE11F2288B203"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/SystemTaskFlow428.cs",
+      "HashMode": "Raw",
+      "Sha256": "C345CD5E9F8426232A61939B4835F9AAADEA3B4DB288D50C72AD27DF258E8FA7"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/SystemTaskNames428.cs",
+      "HashMode": "Raw",
+      "Sha256": "D5B3107FBB6A65970A6FC0F2E044058D44E275D522FF972246B3CFE1D95234DB"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/SystemTaskPump428.cs",
+      "HashMode": "Raw",
+      "Sha256": "542279523CD9BB450D452187FB31E3E36B1DE6EA8E5D41235C7197363F02244C"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/SystemTaskRequest428.cs",
+      "HashMode": "Raw",
+      "Sha256": "D516834815BC2AF2E51F92A89719DCA208EB4A5642F69068E87908C6B092D6E0"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Topology/CpuTopologyConversion.cs",
+      "HashMode": "Raw",
+      "Sha256": "8B17C2B8D2BD390BB70EE8745E36FFB018E77D728E189A8D4E4387C16400DF22"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Topology/CpuTopologyEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "5B0B683C5F589535759888EB7F3C62AE005570B07D51981A473F693BC818E062"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Topology/CpuTopologyFormatting.cs",
+      "HashMode": "Raw",
+      "Sha256": "EDE53488C761937BA66C1E6EDB46120752520A835EB73692743D13FF9FA6DBEE"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Topology/CpuTopologyLevel.cs",
+      "HashMode": "Raw",
+      "Sha256": "51B5495813B6098DBBEC65E1D66E5AFE2CB301A74FFA6D2AE8F11598BA44286C"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Topology/CpuTopologyNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "8A5DF19DB05F67F7C220653C6180F4679E0CE72B5E2F0F179A594A8756EE06B8"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Topology/CpuTopologyParameters.cs",
+      "HashMode": "Raw",
+      "Sha256": "60DC6BAAF5FBBCC2B03C270C54688265C4A17394B643E1E2B25C21BE178F3564"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Topology/CpuTopologySettingParameters.cs",
+      "HashMode": "Raw",
+      "Sha256": "F324ABAF8AB193CA3207E87D40A671FA067439A111556CF2E871881D70DF630F"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Topology/CpuTopologyState.cs",
+      "HashMode": "Raw",
+      "Sha256": "B8D7E57AC47FB0F374C60CB4388FBB9397C37E3139751E3AFF94B532CF15332E"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Topology/CpuTopologyStateNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "54C4B2A3B6C0EA6AAA1524DE86B0766613E3C4016424F80B17DBBFB04CE3C01A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Topology/CpuTopologyStateRegistrations.cs",
+      "HashMode": "Raw",
+      "Sha256": "34DEB67C477F926366018771CEFEAF412EF00D46DCFC1AD6048906DFBFE5722A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Topology/CpuTopologyValidation.cs",
+      "HashMode": "Raw",
+      "Sha256": "6ADE0DB49E61115ADA996EA2305A57C718D5F2596A0CC77A203CCDEA84CC80E9"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/bounded_inventory.py",
+      "HashMode": "TextLF",
+      "Sha256": "694958238C5AC57EF4611E18F07B54B97A546FEF0C0A547FF65563FF9B495451"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/owned.py",
+      "HashMode": "TextLF",
+      "Sha256": "429ED3777FD3EE18800409FFC49881BEADF6CD35248C1F3738BB8A472318EC17"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/passive_etf.py",
+      "HashMode": "TextLF",
+      "Sha256": "9C3204CB29755C508D05B611EA02B3A3186F83B40A72BF6EEC366242040432EE"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/build-windows-varargs526.py",
+      "HashMode": "TextLF",
+      "Sha256": "4DEA7D1CD5B7ECE42666AE3A4495E65C33DEDF49AACCC0D20E32CE3564420A85"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/Erlang.NifNativeBackend.csproj",
+      "HashMode": "TextLF",
+      "Sha256": "B19845FAB0432B03DC3252628DD5E6CCDA6362F60147F598FF6C0DFA869D0EFB"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapCollision504CallbackAdmission.cs",
+      "HashMode": "Raw",
+      "Sha256": "CE9F393769BC26FF5B9CA3174BB9817BEA43A73B51898523BB6735CE52F282FC"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapCollision504CallbackDriver.cs",
+      "HashMode": "Raw",
+      "Sha256": "B661F4F0FD2808F72A1C212BC45581445597EBC61C54E669DEADC028BC99D320"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapCollision504CallbackEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "27160071808F8E56D8A87DFAF3B60117F636D6D820967DD63D952F74BB451397"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapCollision504CallbackNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "2B6DEC64B8560E908A8ABCEED283369CBBE179F2627132D0B3798514D5233582"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapCollision504NativeModuleHandle.cs",
+      "HashMode": "Raw",
+      "Sha256": "BD83CF83CD5F044AED5D1292602217CC243B61E968CF255646478041007E9C30"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapCreation501CallbackAdmission.cs",
+      "HashMode": "Raw",
+      "Sha256": "F7D980106F928BFD571B1826ECD391C6D7994DB2E8ECDD8C8FB5CB302A288BDA"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapCreation501CallbackDriver.cs",
+      "HashMode": "Raw",
+      "Sha256": "DB953D4580B9724435402A81040B2191545D79ED5C815854539DFA68F1DBB8C6"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapCreation501CallbackEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "0F0A18651F3AEF743BEA751F6950BEB3B9E0AB045AFC093CA2183D69A0C056B1"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapCreation501CallbackNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "1FCC2C3533783BE9961AFAB21AB777A25D04E3A4D7C04AAC760BD3EF89DA4C7D"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapCreation501NativeModuleHandle.cs",
+      "HashMode": "Raw",
+      "Sha256": "DC535680C9E29AEE7D1F4320B6D9F63B142480B942BC256734BCE3D54210EF29"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapFamily504CallbackAdmission.cs",
+      "HashMode": "Raw",
+      "Sha256": "D637BC63C84B5107CA73C1FA743E5867D45BD5ACBB336E5F9C74109B909FEAD6"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapFamily504CallbackDriver.cs",
+      "HashMode": "Raw",
+      "Sha256": "E6084FC723FD07DB83EA75B2F21704F824BD281DBE4714D533027B96BA12F801"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapFamily504CallbackEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "B9BED050DF8CF9BE8E873B2D28804503A92F39A5916C8A79569BE7F46C581DB3"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapFamily504CallbackNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "EE0A4AD2B344E9F689977CB87C81BD69D102FDC30031726C9B10FD73BB5D2211"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapFamily504NativeModuleHandle.cs",
+      "HashMode": "Raw",
+      "Sha256": "C942CA2AE9ADF21706651136C25DC5572147D9B4752769BBEFA524D527EE5D62"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapMaterialized505CallbackAdmission.cs",
+      "HashMode": "Raw",
+      "Sha256": "233533B4E0298BF1D1A5E2A133BB6D9A9887B36B366AAD46325588B1B2DF69B4"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapMaterialized505CallbackDriver.cs",
+      "HashMode": "Raw",
+      "Sha256": "C5AD524F002CFB8AC40BBC289C2EF1D32BD743691DA2A09C6FAA1C9201D17EFF"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapMaterialized505CallbackEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "C6400242E0EF80EF1525AB7B3FA6DFB71F416C0987ED823E974E445907D9CF0D"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapMaterialized505CallbackNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "5D813B82EF8989B631AD9D5EE3D03104AE6C340B98AC63792D13800B730728D6"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapMaterialized505NativeModuleHandle.cs",
+      "HashMode": "Raw",
+      "Sha256": "CDC217AFFA0CB830F078401856988CF30B17FEC22F595C84CB373FB363C34426"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapReentry505CallbackAdmission.cs",
+      "HashMode": "Raw",
+      "Sha256": "336BBEED1AEEA238583526759AD09E7D721DE5BE884FE9A4AF63E50B451543A2"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapReentry505CallbackDriver.cs",
+      "HashMode": "Raw",
+      "Sha256": "1AB0FD44A5A579C1ABB1CE096C065798BFF8E384498449A05BE46BDF84F1B575"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapReentry505CallbackEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "F88F0DE1B30C6F799C57DE76FA425E59C12D97737F0F84F2EF7C097267572B91"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapReentry505CallbackNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "0CEBEA97BAEFFA87F1C215117A9A68BA11B01D2F1320B7EBA912463651DC67ED"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapReentry505NativeModuleHandle.cs",
+      "HashMode": "Raw",
+      "Sha256": "E1E664BBB8AC7E24C564030461F360BED2A031B870C378E0180D25FB0D8BED30"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapValue503CallbackAdmission.cs",
+      "HashMode": "Raw",
+      "Sha256": "5D339C1931F3087B4699066A5B54713312CC273EF8EF252EC37D60A7DEE741FD"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapValue503CallbackDriver.cs",
+      "HashMode": "Raw",
+      "Sha256": "6E9335CB98CC9F98C1F37ED073F8F328A5D223BEA2C27415BC05371A0160157F"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapValue503CallbackEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "27B173ED38B1B6454E4A0C574136192F0F3227BBC1FB8373EBD5BF9D189107BB"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapValue503CallbackNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "E00C1EABC8C689CF9EDB8C812941779602EBC4FA8EDB7ECE7E78ACF91BF48D52"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapValue503NativeModuleHandle.cs",
+      "HashMode": "Raw",
+      "Sha256": "5253E2658D85F7093FC4DA2A6BA8220F164CCB674B13C1E206FBC76794CCEFE2"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/native/nif_bridge_abi_probe.c",
+      "HashMode": "TextLF",
+      "Sha256": "3DEB50B9D036CBCFAC0C382A675C29119235A409D07296900EDADB797DA034B1"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/native/nif_bridge_api.h",
+      "HashMode": "TextLF",
+      "Sha256": "1224A86F1B49D678F9178EDC60380F1AC374076A45AFC5F633476B44982EF515"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/native/nif_bridge_exports.c",
+      "HashMode": "TextLF",
+      "Sha256": "FEA3DE17F03B62B4EE0CB4D7D85A6A202512DB3C39C9E93084D78681623CC911"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/native/nif_bridge_pthread_control.c",
+      "HashMode": "TextLF",
+      "Sha256": "BCA123D0EA700CEBC1C795EE2604A9BC27AB849F98820B617011F693F297217C"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/native/nif_bridge_varargs.c",
+      "HashMode": "TextLF",
+      "Sha256": "D680D7309C6A7078975B33A284F82063335BE011D23E58BCE97A3C5473E8A250"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NativeOwned516Profile.cs",
+      "HashMode": "Raw",
+      "Sha256": "7A2AB338DC20C6EED0617F5D5B4D534BD6FAFF8A9868D96B11009E9C124A6A5F"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NativeOwned516ProfileNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "6ADAA1A081B605796B8F968C191627700C43A9FA5E54B08DCFF05532E389892E"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifDirty521Driver.cs",
+      "HashMode": "Raw",
+      "Sha256": "0CD2DFBFBC2E6C7C36E0200738E12F77DB70431309A783CA3BBE3BE3C33D1306"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifDirty521Names.cs",
+      "HashMode": "Raw",
+      "Sha256": "D0E4DAC541673C962E597CDE49BD1074C6FE188B198CDBFD7C0A478198DC34CD"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifLinuxCallbackAdmission.cs",
+      "HashMode": "Raw",
+      "Sha256": "E50CCAF4A7993238A10EF76C679533EC6AB8E1853291FA42488E1906102444AA"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifLinuxCallbackDiagnosticRuntime.cs",
+      "HashMode": "Raw",
+      "Sha256": "933E3A938C5361E519578A2B528A84743B4F5487543C2CB075EF295F09CB9E41"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifLinuxCallbackDriver.cs",
+      "HashMode": "Raw",
+      "Sha256": "8197FFFBDDCF7D11E8AFE225B201A2857288E850E9005CC275D88F51CF3C8C0D"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifLinuxCallbackEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "FE423D93D4B14220AF169C25B9C38F580122F0E33EAFF91C715F1441FFC7566E"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifLinuxCallbackImage.cs",
+      "HashMode": "Raw",
+      "Sha256": "707CA00495C5F727BFC28091C5A37E95BAD0D57BD3A424C6F6B2A90E751B6577"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifLinuxCallbackNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "B9B4F32AC6D155E021963C36AF04F7B824836C3E26F8D59B08BE866AB737A06E"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifLinuxCallbackTrace.cs",
+      "HashMode": "Raw",
+      "Sha256": "97091DC95CE967848ECEF2ED04662662DF30823931176E4BEECB1DCC59F9BD4E"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifLinuxCallbackTraceNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "0139225E565FD0AF613EBB64E88947FABBAEAA57CE582FBEFDBB616AFD02A675"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifLinuxPthreadProbeNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "55CA0EF150DDF4EB02784FDA86A7F326BE7E3CC1A3E23498BFABCE435F2C92CC"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifMakeReferenceCallbackAdmission.cs",
+      "HashMode": "Raw",
+      "Sha256": "817F4C686D0EBBF5A755DBCC1B7B9821EA796FE6DBE4B80BB239E7EBE23BF6EF"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifMakeReferenceCallbackBuildReceipt.cs",
+      "HashMode": "Raw",
+      "Sha256": "1EDF658EB9660964A8D218BF8C8CEFCA24459D58BA21A3E40D0A3A8559AC0DF6"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifMakeReferenceCallbackDriver.cs",
+      "HashMode": "Raw",
+      "Sha256": "D70E3EA388EB200845792C285513DD8624E157C18500478449C6D21F34B1A86A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifMakeReferenceCallbackEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "5F806AB2A0202D031F4840FEC7A1B7F3CE9B07E7982628FAF9EBB5F516B7B3DD"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifMakeReferenceCallbackImage.cs",
+      "HashMode": "Raw",
+      "Sha256": "7ACDAE4C436D3E1E32B689AEA6AB4A196D8C4278659646EB53A037B96C9B2729"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifMakeReferenceCallbackNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "17B1E4DE27D6A860B296C67ECE1CEC06ED78C55557CC653D5538E08B1FF09720"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifMapSizeCallbackAdmission.cs",
+      "HashMode": "Raw",
+      "Sha256": "2D37099D8CAF3CB3903DD20590920ABA0C049EEE284CA12563137FEB756A4253"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifMapSizeCallbackBuildReceipt.cs",
+      "HashMode": "Raw",
+      "Sha256": "BFC599C70BF055FE61D994497BA2BBA35A11A33BF56221D99142395FFACA3464"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifMapSizeCallbackDriver.cs",
+      "HashMode": "Raw",
+      "Sha256": "823B1D9C11E3522BD2265553F2AECCFC78B7ABB818E0EE0344EF7E2F8AE2DF4F"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifMapSizeCallbackEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "23868BB5DE55CD26AE934334D3CE87C31A9D64681DB58CC8C3D4EC0387FFCCBD"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifMapSizeCallbackImage.cs",
+      "HashMode": "Raw",
+      "Sha256": "A6008AE22CD0D19BE7D7B8C8B13F949CE85189D29F5BB9044460C1E800333F57"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifMapSizeCallbackNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "4FA82F8DABAFBD47593DFE073C8570117D49F8AA8D3480BEE9964234B4150F56"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeAbiChecks.cs",
+      "HashMode": "Raw",
+      "Sha256": "B370AD322EF7F7248E926887F2896E5F825A64A9214E4C322A269AFBA358EBC5"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeArrayHostChecks.cs",
+      "HashMode": "Raw",
+      "Sha256": "E3D916A49617F9C0790AD755DF670FD97FA43DB84D63C6196F8B1AFE6929715A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeArrayHostEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "0A47954E6DE0982BCDF872620E599749C7C7D6F4058241E94D50462599113B69"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeArrayHostNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "76E4E53B02D6D46F128707B20B41538D7236CD190A477C1824EA1ECEC924B32F"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeBinaryHostChecks.cs",
+      "HashMode": "Raw",
+      "Sha256": "65A2AEC1EF8F94480D398B70908846CCB02F4123021A321632C3BD09B8CAF29F"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeBinaryHostEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "7010CC814910244C7E81B4E5AD7DDF1FCE3ABC1C801B5A84238F1BF8F5F0A10C"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeBinaryHostNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "52B733B7646FCFFA766D86539BCF204BBC6171FDAB501C522F59730732A59954"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeBridgeFixedHostChecks.cs",
+      "HashMode": "Raw",
+      "Sha256": "9704A3D69B28FE0D94B5B1663473504D04B2E5B011E4754A1BA1EA9098C71605"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeBridgeFixedHostEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "E582C0DFF5004DBFF9B4EAA98841153870EEE64CEBE717A4C5248DB523A4248A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeBridgeFixedHostNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "B3D2C2C2B7A775AEAE936D72E167DC9A286F71D739B55F88C8E2D6E3EE8133B2"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeComparisonHostChecks.cs",
+      "HashMode": "Raw",
+      "Sha256": "B3F0CAD4F766B57456682812C698F3C5504FD330DB27C6482B3A01678AFD4726"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeComparisonHostEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "C7176E2C496654138FF241B5FF10A9F898BF44C7F281BD653C00E8F046097A0F"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeComparisonHostNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "202520FA0AB6AC64816B17B89351AC6AF060755A9A7B98C72AD3D8D3167E6F51"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeCompiledRouteChecks.cs",
+      "HashMode": "Raw",
+      "Sha256": "6E0FA2422C0CC97E444308B8E7BEED856F6231BAE6C3A6647FCD3B897417EBAC"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeCompiledRouteNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "AE84CAB3FD372BFFDE79AC2114A5E1FB0779D9C218B8EEA7D7439F434373BC74"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeDefaultRouteChecks.cs",
+      "HashMode": "Raw",
+      "Sha256": "CCA9C02805C25DE5D50CC638EF5EAC3A6E2991FE3DE55D62DE744EE15FE2CE5A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeDefaultRouteHostEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "1FDD242604F09F63CC259EE3241B268ED7F2F8F99A5769DEB81757FC5E50729E"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeDefaultRouteNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "D05EBD6A2775F2F8CFC8CA04B70725F73550116E34CC890893BC282D067E4DCD"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeDomainChecks.cs",
+      "HashMode": "Raw",
+      "Sha256": "9BBDA254DA17C9C7AE09C45A391DB6B3CFF2551DF5A963C60EAB5A363E20851F"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeDomainNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "8A509716EB7BD3AA09DF7A583E579C2DE2F244654112F7584965875D1CA525E8"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeElevenDriver.cs",
+      "HashMode": "Raw",
+      "Sha256": "19D704A1571F9983ADB5E7B82D2FEF0CFB8222120BBEEE3FD8768ED7A008B225"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeElevenNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "D473D01254DF07832BCA724EC646FB783E6AA6B6F81922887446C68B091034FF"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeElfCapsuleHostEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "1CBDF13525C8339EF2935A18BDD0D0F7689C8D06816B4A56A338A12F99B4D219"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeElfCapsuleHostNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "0E867EB3848246B599A29D65130306995E3A67F2C955B65BAE1B2C1622F0EBBD"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeEntryControlledChecks.cs",
+      "HashMode": "Raw",
+      "Sha256": "33701023B4769559572A6266072176BA2D837B0D3E9F086F0BD51F2EFFED605E"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeEntryControlledNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "9D0A35A55D9F914DE718CD55DFF8C3ECE336FCDB6638D4A270098311F0AE7F63"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeFenceNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "EC6E3DE77D27E95047EEBA8102163D36CB6F44939691063054DB04466BA69B89"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeFilenameControlNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "0B6A7D8A6D5CB08B3D498570FD93EC41EAF529E0084061B151D25DEDE1B3552C"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeFilenameControls.cs",
+      "HashMode": "Raw",
+      "Sha256": "C81B1C76134640087F49530C576901D1C14F594DBC99F1E98838BC86C91AE7EE"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeFlatDuplicate505HostChecks.cs",
+      "HashMode": "Raw",
+      "Sha256": "E2C0E43E809A1093E0F98CBD6C4B1B3D971DDCFC366DD4C5F81DCA24029024BB"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeFlatDuplicate505HostEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "FBC8B91A15808724F76790D1A3832A75F261C0FB9EAF28DC1A97E1F690D853B2"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeFlatDuplicate505HostNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "BC923271CABF8F51D2FACDB7377C433CE0D40F50E5B3C3DDADDF6F28FD66D80F"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeHarness.cs",
+      "HashMode": "Raw",
+      "Sha256": "2A8E68915E688BD05645F3A2DCC97FA011738E570C7A712CF18B7F46F74DA5FE"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeHarnessNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "330EA44C9DC12F60BC21CD908CC5FA331766A080DA434C96D88467FD57280826"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeImmediateHostChecks.cs",
+      "HashMode": "Raw",
+      "Sha256": "CCAB5E5686A712568CFEAB5A5ADCEE229A7F88283DE476F1C8AC0C5F5E3CD864"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeImmediateHostEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "81F3536910AD48F5AAAF38F9A5C5739470F857E6D48630B4ECCB946D4A462C74"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeImmediateHostNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "B69BC60B82906105E5CFF9ECB3F778BE265909FD1409929D637A83CD1A273935"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeLegacyStringHostChecks.cs",
+      "HashMode": "Raw",
+      "Sha256": "EF6FCAB5A043C5EE72D1DBEA29D4FA510EC7CC673DB68D292D81DC8C182FFF4C"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeLegacyStringHostEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "E50C5F73A2E5F5637B31C6518402441DEF44380F765ABBD950139FE35C803DBD"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeLegacyStringHostNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "8586D8AB7D77D89351D2AF874DBF1F960181C5C98958AEAF60B2576C1AA72B5D"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeLifecycleChecks.cs",
+      "HashMode": "Raw",
+      "Sha256": "30249C0D36D18988C97FDDA08DAECE6D815C7439893DF62E61C41540F7E75366"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeLinuxImmediateHostChecks.cs",
+      "HashMode": "Raw",
+      "Sha256": "9A17C6D9FBE0743ECF03C4BBE01C4060CDC693B8D8AD0D5EDF92CD9095BE4CB9"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeLinuxImmediateHostEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "A133832C3519EC158EF33F20CAD75C360ADDE8EB79EAC218B8EB4784A4DF44EC"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeLinuxImmediateHostNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "F53EDBADAC6CF90E217896944168758FF50BDB15519C7C8C84DB9EAA3AF336B0"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeLoadReasonCheckNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "B4108A98AEE98C558E43976CF9B0C7A37C16C942B624F519D623D61482025842"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeLoadReasonChecks.cs",
+      "HashMode": "Raw",
+      "Sha256": "1A60A7365D915562702A83F38806AC7148E289240C7E1B492277B4C40662F854"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeLoadReasonControlChecks.cs",
+      "HashMode": "Raw",
+      "Sha256": "5747A3517B642CC215D997ED578B4D85B51DA5D625DFEDEE30C729133951E702"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeLoadReasonExpected.cs",
+      "HashMode": "Raw",
+      "Sha256": "14A032CEAAEE0003C0AA2504C2DA22F585F068A58E80861E7085B036771A418F"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeLoadReasonHostEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "B6AAF6B3BC5C0AF963914ECF70440BA12409BA20B7A9A8B75D76F04D78A63DE2"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeManagedChecks.cs",
+      "HashMode": "Raw",
+      "Sha256": "B5F61F202A202164D13A35836F2B47E21D8917D740CD7479F5A145BB2405E73A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapCreation501HostChecks.cs",
+      "HashMode": "Raw",
+      "Sha256": "DB3B4CFF4745F4EDE80E5A328F1756DB708240F16FFF1500BE82C2772D5E38CC"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapCreation501HostEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "C6A0CEB7ECC7296E7042580714782EE2F1027815D0CDB2DB2EC6761DEBFE2263"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapCreation501HostNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "D54B47EC3D6F5C748BDC432BDEDF0A054B600954B34249D4E4337064B1F0F047"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapFamily504HostChecks.cs",
+      "HashMode": "Raw",
+      "Sha256": "D96B3939A22D9B69A0AC648F8A09282A0053CA3A995CE38E89755CE0F7EE3782"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapFamily504HostEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "DADC671F4E4878759CD9DA2F4F53C84790C0C485BA1191C8E2160C5013166AEE"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapFamily504HostNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "CDE319123FA73E2428FBB1DD03CA308659F37F88C16EA677436AF901B242150A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapIterator504HostChecks.cs",
+      "HashMode": "Raw",
+      "Sha256": "264D515DBC7656909971286D4E6354F50B5422377E87197998F3A110929EA773"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapIterator504HostEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "D67E34913C2BCB44861E7B0015457C69524F7252CFB71459FC8B4E365F6117DB"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapIterator504HostNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "C42E63669137FC34277287A99163EC4E66E602382C402FF6CC7EE07F2B1762A3"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapMaterialized505HostChecks.cs",
+      "HashMode": "Raw",
+      "Sha256": "0B1769FD12F73F718092EB8D00E24F05DC9E07827A4FA601D7CFCB4D7623AA03"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapMaterialized505HostEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "CE000549262C696FB81B20E4A321CCFEA1D73D096735E2F04E0BDF9BEFEEFF63"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapMaterialized505HostNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "8B948CD5E075687B98BA5AEB3944DC0C7DE33E7F5ACED0B120168073E1F5C3B6"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapReview504HostChecks.cs",
+      "HashMode": "Raw",
+      "Sha256": "1ED369F1ED5B08F59404FA6E71764FDDBD38C185A3AEE5064CF04885B6EAE972"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapReview504HostEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "04A61E2753B1FF4FFE4FF64791BA94A34EE9DC631C7B667A7854C3144FE25467"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapReview504HostNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "BB2AD26CB2C740557273DC49997365A639013D03C8E8367B1190821E36EEF526"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapSizeHostChecks.cs",
+      "HashMode": "Raw",
+      "Sha256": "83E999D32306D84E29A87CB68DDF477734707A9C989294776EDD8DC74008C848"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapSizeHostEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "1CB1C12C87D64F42CDE6A507E9755582D346E6F1F92ACAD1CCBB09E9CC4E3A18"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapSizeHostNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "978FADF7C92C4091B628CDA379EA753CC4F0213298D62A4783FB3905BDBD9722"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapValue503HostChecks.cs",
+      "HashMode": "Raw",
+      "Sha256": "3B4983AB34482048828EB7460DF2CFEBF0E2143B28AFACF3F1EFB5018B3DF839"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapValue503HostEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "72CF16ACA37EB0AD805C185CC3ADC59D6D0248F4A01EAD290B7750CA8594179D"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapValue503HostNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "14A85A1B6F99BABD2C0C68C16F716B1ABEA9EB76ADA8594EC7411EEB090613A5"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeNumericHostChecks.cs",
+      "HashMode": "Raw",
+      "Sha256": "FAEEEB09725DCA07B7F23A631B5208F556880EF7B337C2AC832FC696EE241AEC"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeNumericHostEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "368F2BE8FD153DA7A62151E905ADF26227139E521FB3BEC501CBC7347E394F4A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeNumericHostNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "DAF8CE7248A80EC0DC683149C663301800173B8B917F74E9A1839588A414F628"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeOwnershipChecks.cs",
+      "HashMode": "Raw",
+      "Sha256": "481B7ED7D1284571D8948099EA62FDE8B5EC70049123C15BEBEDD44F3E9BEB19"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativePayloadQueryHarness.cs",
+      "HashMode": "Raw",
+      "Sha256": "F85C7C7E33776F58E0094A4BF9509255CA938800FD377DAF2C28BE8F8B1ECE6E"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativePayloadQueryHarnessNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "E5F8BBC82D500071C343534913C67CD616B98D97BE0C8D36D9F8767D58D49C4C"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativePayloadQueryPhase.cs",
+      "HashMode": "Raw",
+      "Sha256": "AB1FDBC78F0F271A4CEF71F88414B3322ADE4F94A380BBBB9D51DAFCAD0805BB"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeProviderContextChecks.cs",
+      "HashMode": "Raw",
+      "Sha256": "868E7534483D05F4B8B69A6E68D53076B454E866D0195F86146593B861CF888A"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeReallocationCase.cs",
+      "HashMode": "Raw",
+      "Sha256": "1C7925C0A3A2648A870DB39D72441CB3000FE068BA008C7029F0B0BE1C422D26"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeReallocationChecks.Callbacks.cs",
+      "HashMode": "Raw",
+      "Sha256": "D33465ADEF0CCFE9197F9B5DA8401E3B3AAB17493C3D250C668959EBE1E9A406"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeReallocationChecks.cs",
+      "HashMode": "Raw",
+      "Sha256": "16FE8250FC486C7B6911CF96F075911B1F0FFA088F79AAEB1FB4E1AA391B3D94"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeReallocationChecks.Lifecycle.cs",
+      "HashMode": "Raw",
+      "Sha256": "9B119ED254B3B90D935F1F8003BEC8FEF8E98555197A2C5270A654D59E1DE683"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeReallocationHarnessNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "4AB698C06F6335AF180713E92E7949C8AF21EE64E1BACBDC114DBA849D171142"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeReallocationLayout.cs",
+      "HashMode": "Raw",
+      "Sha256": "51D000677C4C1C79934B9CF29A6DADA69E68C656B816EF32326891D7E407B940"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeReallocationLibrary.cs",
+      "HashMode": "Raw",
+      "Sha256": "D16770BC226CEDF333B7555BE6471C4DAF39E3E16E627A609ED4700BC1DA0402"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeReallocationParameters.cs",
+      "HashMode": "Raw",
+      "Sha256": "9F5D777D69978EA5BC874715A317FD086E54E999C3F98335DDBD599279F86550"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeReferenceCounterHostEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "CE59A5731E9783B4B49DA0708B50ED9055D4029C55C126EC700F7BDA996664C0"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeReferenceCounterHostNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "1039FD9275B7079F677556E94C3CCB57AEE1AAC8CB789A4333A0E33D58DB5542"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeReferenceEnvironmentHostChecks.cs",
+      "HashMode": "Raw",
+      "Sha256": "9A245184BFAD6E0F5E656D55DAEBA277C3BFFDA409469DAFFBD2D82D7DDCD105"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeReferenceEnvironmentHostEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "E89AB1F1C18873227AC6E15C4F6999674A6DBED8AFD2638A8D645A6BB90739BC"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeReferenceEnvironmentHostNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "F5816EC9578B2D1429602D5CFA835F92A3EEA80093B2F7EA013BCFA63A849AE9"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeSequenceTextHostChecks.cs",
+      "HashMode": "Raw",
+      "Sha256": "2E6DC170CB992F1C4EC217898FDBF73FC50D9F3147EFC0C77222B7B6E5A2765F"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeSequenceTextHostEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "00B3ABFEF542E1EDDD6C58CD8C61DEE09399D44B21FD182B38ED54AD16F4805D"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeSequenceTextHostNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "7D6747D7634EF0B31AA51D36EE891F218BA69592622DFE73E3D2199D35C6417F"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeTypeHostChecks.cs",
+      "HashMode": "Raw",
+      "Sha256": "AA9874B4069F3F5E41E5A64491CFC2D7BDE62C91E7F9B1BAB85E41E20B51B1CB"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeTypeHostEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "41BA8BCDB226AE47389D837D10A97A687CD9DBBA5DD3F3C096F33C110547D176"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeTypeHostNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "425D161B0652466398E75B5FB305F3810CDB2C3E7D5A73CB40FDDACB5E607AB5"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeUnixPathControls.cs",
+      "HashMode": "Raw",
+      "Sha256": "A3BAAED6FD68374E93D696FF7316661024BFD27B775374AE9FFA2D9E02194E90"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeUnixRawPathDriver.cs",
+      "HashMode": "Raw",
+      "Sha256": "C0F9FA1895C6737E08D9BBB47758125B72FC36103DA38199BF49BF78FCDF45F3"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeUnixRawPathNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "67DD0BFC4473F8D3D747E3870D9094BD595897AB1072F4A72604DFC6865DD709"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifOrdinaryLoaderDriver.cs",
+      "HashMode": "Raw",
+      "Sha256": "6073FC0DB2893120A007F85194D8E5940A78E7C60D566734B1A51189076086C8"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifOrdinaryLoaderEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "87B55AC55FE552D8ABE2E50ADB3951346E822469FD470DAEEAFE5610C08205CA"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifOrdinaryLoaderNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "CE068C349A6ADE98A67B0B8202429EF82EE4F33133EA25B468BF4E8DB63D14C1"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifTermCallbackAdmission.cs",
+      "HashMode": "Raw",
+      "Sha256": "6593D044528BFB7545055BB4C290FA07A10BE76BEB8AE00CC52CA6B74FADA863"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifTermCallbackBuildReceipt.cs",
+      "HashMode": "Raw",
+      "Sha256": "ACAA0FBA921C9F503D70AD7B01756C27B7FDB53CD56FCFC4D635A1487E25A1A8"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifTermCallbackDriver.cs",
+      "HashMode": "Raw",
+      "Sha256": "3E02D42F0C776B944D7A43D73998F15CE65E1BA4B5FAFE1C1F64C22B918B443E"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifTermCallbackEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "ECA681A589325F34D7E94BF292042868061162B852751889F6E9B17F49E63DA8"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifTermCallbackImage.cs",
+      "HashMode": "Raw",
+      "Sha256": "1495AC99BF91E973FEF43814358F2E58DE83272E4A55CF56864FA91E97C47F26"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifTermCallbackNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "EDF4A260DDBB3AC1EE51CEDEEB01D3A78E416CB68D6C8EDA60F7BC000D336FC4"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifTermCallbackSamples.cs",
+      "HashMode": "Raw",
+      "Sha256": "060463A2DC6D09DF50634BA9BE8C012FBBCCD3FD9D85BF41DD02DB2C900B67D4"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifTextBinaryCallbackAdmission.cs",
+      "HashMode": "Raw",
+      "Sha256": "E74BD38ABAD33AA467F782F85C4CACDC2B3CA54BB04CB03CA1E3D2C2F7E5D37C"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifTextBinaryCallbackBuildReceipt.cs",
+      "HashMode": "Raw",
+      "Sha256": "1D13D398BF26380CE6A3BBEC0653AFAB548C4FD859821F941DA879853E59AA90"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifTextBinaryCallbackDriver.cs",
+      "HashMode": "Raw",
+      "Sha256": "7233E9778C52A5CAB382228EA09C43D1B63F8D62D74714C6863D93C90B0E01F5"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifTextBinaryCallbackEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "285AC683C84D42223963890807C713B8A7C4DFC094D78FEEEACCAFB25157E8B8"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifTextBinaryCallbackImage.cs",
+      "HashMode": "Raw",
+      "Sha256": "7C883FF19C552EA9EC019D96B8EC6965DD3323723D36A18C00F32ABD6A5A6E72"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifTextBinaryCallbackNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "03A2F66CCB1D996CF07E4BF486E58DF618164D95CFDA79C391195ABED40E52BF"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/Program.cs",
+      "HashMode": "Raw",
+      "Sha256": "7A7B8F3C7D1059234C2D9F63FD764F9E8A174CD7958C5E2FC0E90D6CD649F7B1"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/RuntimeQueueStatistics504HostChecks.cs",
+      "HashMode": "Raw",
+      "Sha256": "62093D3FEDC5005B89AA646BE7A7CE6BB971C0095FA71A0AC1859E7A50CF0D40"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/RuntimeQueueStatistics504HostEntry.cs",
+      "HashMode": "Raw",
+      "Sha256": "B6DF68561AA3E4BB5BCB7C4425B5B963FC1B5A6B86F3F12EAB7F9395563F79A6"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Native/Erlang.NifNativeBackend/RuntimeQueueStatistics504HostNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "63A4B21A51A28DD93C47D6803BDA2E02F1ED1550952D111EDD887F9DDDF0546E"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Runtime/Erlang.OwnedGuest506Observations/collect.py",
+      "HashMode": "TextLF",
+      "Sha256": "AD538FF48E2D3DE07DC70EA9C47C49A98BF722D35C5C5492F2F9CF8E0EC274CE"
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Runtime/Erlang.OwnedGuest506Observations/seal.py",
+      "HashMode": "TextLF",
+      "Sha256": "45A49309F9309F5B674C9E79AFEFF63B19AB39CEBC7908C5B40571B5E2169BE0"
+    }
+  ],
+  "ExecutionApproved": false,
+  "OriginalCollected": false,
+  "WholeContractsClosed": 0
+}

@@ -45,7 +45,7 @@ NIF_BRIDGE_EXPORT int nif_bridge_register(const NifBridgeCallbacks *callbacks)
         callbacks->get_map_size == NULL ||
         callbacks->make_ref == NULL || callbacks->alloc_env == NULL ||
         callbacks->free_env == NULL || callbacks->clear_env == NULL ||
-        callbacks->make_copy == NULL)
+        callbacks->make_copy == NULL || callbacks->thread_type521 == NULL)
         return 1;
 
     if (atomic_compare_exchange_strong_explicit(&published_callbacks, &expected, callbacks,
@@ -280,4 +280,9 @@ NIF_BRIDGE_EXPORT void enif_clear_env(ErlNifEnv *env)
 NIF_BRIDGE_EXPORT ERL_NIF_TERM enif_make_copy(ErlNifEnv *env, ERL_NIF_TERM source)
 {
     return nif_bridge_callbacks()->make_copy(env, source);
+}
+
+NIF_BRIDGE_EXPORT int enif_thread_type(void)
+{
+    return nif_bridge_callbacks()->thread_type521();
 }

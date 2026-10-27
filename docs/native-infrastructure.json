@@ -29,7 +29,7 @@
   "SourceEquivalence": {
     "TestedPlanPath": "docs/validation/part-361/tested-source-plan.json",
     "TestedPlanSha256": "26771833B3E7C2A70166C36ED0854354198F4DC5E6270E01CD1B00E97101A2E2",
-    "CurrentBoundSourceFiles": 212,
+    "CurrentBoundSourceFiles": 237,
     "ExactRawHashesMatchTestedPlan": false,
     "SameHeadExecutionInferred": false,
     "HistoricalCurrentBoundSourceFiles": 40,
@@ -107,13 +107,13 @@
     "InventoryRows": 24,
     "Implementation": {
       "implemented": 17,
-      "partial": 2,
-      "not-implemented": 5
+      "partial": 3,
+      "not-implemented": 4
     },
     "Verification": {
       "accepted-scoped": 7,
-      "local-tests-only": 11,
-      "missing": 5,
+      "local-tests-only": 12,
+      "missing": 4,
       "source-only": 1
     },
     "InMain": 18,
@@ -224,6 +224,20 @@
       "Sha256": "B0A86154824579EB9406B10695FE07C41022B2C287BE4FA9462F0D4F2C3A9BEE",
       "Scope": "Indexed static lookup restoration and pinned CMP-first own-state collision protocol; original Linux fixture correction remains to execute.",
       "Platform": "windows-x64"
+    },
+    "dirty-native518": {
+      "Path": "docs/validation/part-518/dirty-native/archive-index.json",
+      "Sha256": "A185A3A8FC1605F1C654517B4819BEC19710829B6E33699B1718284DFECE37EB",
+      "Scope": "39 affected controls,28 original flag comparisons and4 genuine variadic routes on the isolated feature source; no whole API or Main promotion",
+      "Platform": "windows-x64",
+      "ExecutionIdentity": "feature based on12893d5; exact publication CI required"
+    },
+    "dirty-native518-consumer": {
+      "Path": "docs/validation/part-518/dirty-native/nuget-consumer/completion.json",
+      "Sha256": "484424BA39941FAEF2CD9DAAAC6815B432DA690D2213A212E2DF5CA0C4FD69D3",
+      "Scope": "Independent NuGet consumer resolves actual native C entry points; exact RID package path checked",
+      "Platform": "windows-x64",
+      "ExecutionIdentity": "isolated Part518 source; ordinary independent package consumer"
     }
   },
   "Entries": [
@@ -277,7 +291,7 @@
       "SourceBindings": [
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeAbi.cs",
-          "Sha256": "87D203E0B449BC2B865CED1124E86D4CFAFB48AFAA1FCCF9F1176154B1F1868A"
+          "Sha256": "229DCC3F607AE85EE937FB8FF00866B6BBED15AEE060B575D866B9EB735A3999"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeEntryReader.cs",
@@ -285,12 +299,38 @@
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeEntryFunctions.cs",
-          "Sha256": "5E3F0F9F8B4225E6082212C34974370545FFB59D4591A4157922E6954F16197C"
+          "Sha256": "0E1A50430A240D8521EB78916754FFFA1F02A8B2C84288A6B2D7D0A66A649A59"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Erlang.Runtime.Core.csproj",
+          "Sha256": "1DEB7473061FB6A45BC447675688A178F9BD1117561926DB43F587682AA8C359"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifWindowsVariadic526.cs",
+          "Sha256": "A10954BC966FDD5AFE2DD6CEBFA849ECA133FA44E6D7665893DC44A328CCDCDE"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifWindowsVariadic526Names.cs",
+          "Sha256": "C923E72924D9A0BCC8C5094CF2D06F6AD30C67DC69D59DBD6FC47AE86CD534EB"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifWindowsVariadic526Table.cs",
+          "Sha256": "365895A773787AC9D52494A9DE1D4E572A3AE1F56106A3F2F9E460F8AFEAAAEE"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/native/windows_varargs526.c",
+          "Sha256": "9F862DA2E2763B46B245AE8DA1935C4B492AE63475FD3FCF6093B912153604DB"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/runtimes/win-x64/native/Erlang.Nif.WindowsVariadic.dll",
+          "Sha256": "C854474AB72CD521AA065DAEE6766F7ED532D9254F7E020154244F049B150821"
         }
       ],
       "EvidenceRefs": [
         "full",
-        "contract"
+        "contract",
+        "dirty-native518",
+        "dirty-native518-consumer"
       ],
       "Platforms": [
         "windows-x64",
@@ -314,7 +354,7 @@
       "SourceBindings": [
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifImageBindings.cs",
-          "Sha256": "9468F2BAD4F3CBE81DF8DBF30C9F31E1504C9B65D7D22A9ED163C0FA162A77AF"
+          "Sha256": "CFACE5ED75DE9DAEDCCB445BC31BC36F4137F99EA7E14E49DD294A1AFE733553"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.NifAdmission.cs",
@@ -357,7 +397,7 @@
       "SourceBindings": [
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLibraryOwner.cs",
-          "Sha256": "5BDDE5062A012EFA068A7092061BF128C1CCAF0A09ABFB29A341F33B3662C14D"
+          "Sha256": "45FA5ABEE2C6E4767A8DD96BD5721CDD3C8F1ED5BC8E138E3637CB4F8B57E8C3"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallbackScope.cs",
@@ -514,7 +554,7 @@
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbacks.cs",
-          "Sha256": "61905E6CDA85DB3F38DBA75FFA1B7E2E258D8E61912AA6BD508E6C124CC5B131"
+          "Sha256": "A70745A6BC2A1D126787E800E6A0FAFD4369BF7FD0076BDA565C92F755885A14"
         }
       ],
       "EvidenceRefs": [
@@ -623,7 +663,7 @@
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbacks.cs",
-          "Sha256": "61905E6CDA85DB3F38DBA75FFA1B7E2E258D8E61912AA6BD508E6C124CC5B131"
+          "Sha256": "A70745A6BC2A1D126787E800E6A0FAFD4369BF7FD0076BDA565C92F755885A14"
         }
       ],
       "EvidenceRefs": [
@@ -768,11 +808,11 @@
       "SourceBindings": [
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbacks.cs",
-          "Sha256": "61905E6CDA85DB3F38DBA75FFA1B7E2E258D8E61912AA6BD508E6C124CC5B131"
+          "Sha256": "A70745A6BC2A1D126787E800E6A0FAFD4369BF7FD0076BDA565C92F755885A14"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbackLayout.cs",
-          "Sha256": "23D93D2FF70A3E758DDCFC1075C6211F343512A07893359E80B54803A84A9EAF"
+          "Sha256": "9833093E1296B4644BBBC43F0FC5F900997B160181EA440DC99E94D1F9639403"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativePlatformLoader.cs",
@@ -804,11 +844,11 @@
       "SourceBindings": [
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifImageBindings.cs",
-          "Sha256": "9468F2BAD4F3CBE81DF8DBF30C9F31E1504C9B65D7D22A9ED163C0FA162A77AF"
+          "Sha256": "CFACE5ED75DE9DAEDCCB445BC31BC36F4137F99EA7E14E49DD294A1AFE733553"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLibraryOwner.cs",
-          "Sha256": "5BDDE5062A012EFA068A7092061BF128C1CCAF0A09ABFB29A341F33B3662C14D"
+          "Sha256": "45FA5ABEE2C6E4767A8DD96BD5721CDD3C8F1ED5BC8E138E3637CB4F8B57E8C3"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLinuxCapsuleLease.cs",
@@ -893,22 +933,109 @@
       "Title": "Dirty native scheduler execution",
       "Scope": "CPU/IO dirty flags,scheduling and process/scheduler interaction.",
       "DoneCriterion": "Admit intended dirty flags and prove scheduler responsiveness,call ownership,cancellation/halt and error behavior with genuine fixtures.",
-      "Implementation": "not-implemented",
-      "Verification": "missing",
+      "Implementation": "partial",
+      "Verification": "local-tests-only",
       "InMain": false,
       "MainCommit": null,
       "ScopedMilestoneMet": false,
       "SourceBindings": [
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeEntryFunctions.cs",
-          "Sha256": "5E3F0F9F8B4225E6082212C34974370545FFB59D4591A4157922E6954F16197C"
+          "Sha256": "0E1A50430A240D8521EB78916754FFFA1F02A8B2C84288A6B2D7D0A66A649A59"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifImagePhysicalPin521.cs",
+          "Sha256": "7D2D30D357A78E69B3FC442EEAA7E6638DAA5F059EC51BFC30E3CD652BD9D6AC"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifImagePhysicalScope521.cs",
+          "Sha256": "57628288304C02B62C7CAD87435978D0F8FEEED1D4FCF490227D960A43907828"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeFlagReason521Names.cs",
+          "Sha256": "66B91280660D2A064A05992CB16913173C5E1DF998AF52F295935FE53D917839"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeFunction521.cs",
+          "Sha256": "B28852863D1855977D5944EB51867567BA4CCD05672075FDE7CC417260FD4213"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLibraryOwner.Dirty521.cs",
+          "Sha256": "908DEFA079E40C1C012B736C0DFB28D5A6303BC2527D8DDC72396D7E62B8F83C"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeScheduling521Names.cs",
+          "Sha256": "66E885676336ADFB34348EEDAB61C6D1DA8537526DB67E78FE7F982B193A0FA9"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeThreadType521Callbacks.cs",
+          "Sha256": "B48B898FD1D03E0734D7374FDD5377174B600A7104C77279DBB5791055EEA775"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DirtyNative419.cs",
+          "Sha256": "AB35B06AE177EEF9817B26EC674D05EC12632248A91DFFBB56BA84431A7B0C8F"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DirtyPoolConfiguration522.cs",
+          "Sha256": "588642F4F1775AE45BC47740B6A299A70EEC9DFA4E3C02B37C893AB4D20D774E"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DirtySchedulerInfo419.cs",
+          "Sha256": "4BC79F21034C217C92DE52F6D944642BA48EEAEAAAA38D558055DB0F6B46C867"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+          "Sha256": "2B36BF8460DDCF828975DEF5BDAE5D14DC07EDF2CE5CF3B7FEDCBE3642B92624"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntimeOptions.cs",
+          "Sha256": "829DD85C958C4BC4F153F469B12C508634D8E454CE53432D7A980251E81262AF"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyNativeOwner419.PoolSnapshot522.cs",
+          "Sha256": "1E684E7DFF6AA148603C6C37CEA5D6F193D309DBC6D7E7F870BBB278A573CE28"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyNativeOwner419.cs",
+          "Sha256": "BDA832E736DFC9581BAD6678D237B2578BB8F0A6975ECAA4E50599D2856E5AF4"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyNativePoolParameters522.cs",
+          "Sha256": "FD7F467711C6B62086058EF999E9849C588E4D1D8127F402C7A7CA8F8F46CE3E"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyNativePoolSnapshot522.cs",
+          "Sha256": "B6D1E68BBEEB91FE376CE1ADD1F1330561C81A38F17E911B013C3E495D74922F"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyNativeQueue522.cs",
+          "Sha256": "922CA03025633F8FDAB5571A2092F6232B702FF8A486FA7E88DFE8BC3B1BB73C"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyNativeWorker419.cs",
+          "Sha256": "0D39D1A28264D46B84CE699ECFFEB6E0481BA0ECD41153E91E1901D3ECAE05F5"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyNativeWorkerSnapshot522.cs",
+          "Sha256": "3902F24005F987F9CFFE19F46550EF14013D6159AC8BF0DC7A47C729CBBD9030"
         }
       ],
-      "EvidenceRefs": [],
-      "Platforms": [],
-      "RelatedPassedTests": [],
+      "EvidenceRefs": [
+        "dirty-native518"
+      ],
+      "Platforms": [
+        "windows-x64"
+      ],
+      "RelatedPassedTests": [
+        "native-flags521/deferred-physical-custody",
+        "native-flags521/cleanup-failure-releases-image",
+        "native-flags521/bookkeeping-failure-retains-image",
+        "dirty-io522/held-job-leaves-real-control-lane",
+        "dirty-io522/close-joins-every-IO-worker"
+      ],
       "RemainingOrBlockers": [
-        "Nonzero function Flags currently rejected. General Task-based runtime scheduling is not dirty-NIF support."
+        "Static flags0/CPU1/IO2 and finite Windows whole-return protocols now execute on actual lanes; dynamic enif_schedule_nif and the complete dirty NIF API remain open.",
+        "Actual held/cancel/purge native lifecycle protocols, Linux execution and whole erlang:load_nif contract closure remain separate acceptance gates."
       ]
     },
     {
@@ -924,7 +1051,7 @@
       "SourceBindings": [
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeNames.cs",
-          "Sha256": "7C9E4674218704D7F43100C4D09F5DDAAD53E9C63A2F420151784A0850C4F879"
+          "Sha256": "D19BB90FB9084401BF31C15B56BEA0A718F695DF3372556CF1F8BEC92C205BAB"
         }
       ],
       "EvidenceRefs": [],
@@ -978,7 +1105,7 @@
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbackLayout.cs",
-          "Sha256": "23D93D2FF70A3E758DDCFC1075C6211F343512A07893359E80B54803A84A9EAF"
+          "Sha256": "9833093E1296B4644BBBC43F0FC5F900997B160181EA440DC99E94D1F9639403"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapCreation501Callbacks.cs",
@@ -1046,7 +1173,7 @@
         },
         {
           "Path": "tools/Native/Erlang.NifNativeBackend/Program.cs",
-          "Sha256": "F7DE02A725F8803F8F58B53F3343861147BABA1C8EAA4A8F6B86C36A448FFFE8"
+          "Sha256": "7A7B8F3C7D1059234C2D9F63FD764F9E8A174CD7958C5E2FC0E90D6CD649F7B1"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapValue503Callbacks.cs",
@@ -1058,7 +1185,7 @@
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbacks.cs",
-          "Sha256": "61905E6CDA85DB3F38DBA75FFA1B7E2E258D8E61912AA6BD508E6C124CC5B131"
+          "Sha256": "A70745A6BC2A1D126787E800E6A0FAFD4369BF7FD0076BDA565C92F755885A14"
         },
         {
           "Path": "tools/Native/Erlang.NifNativeBackend/MapValue503CallbackAdmission.cs",
@@ -1743,7 +1870,7 @@
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeAbi.cs",
-          "Sha256": "87D203E0B449BC2B865CED1124E86D4CFAFB48AFAA1FCCF9F1176154B1F1868A"
+          "Sha256": "229DCC3F607AE85EE937FB8FF00866B6BBED15AEE060B575D866B9EB735A3999"
         }
       ],
       "EvidenceRefs": [],
@@ -1770,7 +1897,7 @@
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLibraryOwner.cs",
-          "Sha256": "5BDDE5062A012EFA068A7092061BF128C1CCAF0A09ABFB29A341F33B3662C14D"
+          "Sha256": "45FA5ABEE2C6E4767A8DD96BD5721CDD3C8F1ED5BC8E138E3637CB4F8B57E8C3"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLinuxCapsuleLease.cs",
@@ -2018,5 +2145,20 @@
     "SameHeadCiVerified": false,
     "FullMfaDelta": 0,
     "KnownDifferenceDelta": 0
+  },
+  "CurrentSourceUpdate518": {
+    "CandidateBase": "12893d5eeda975abb7e6fe86f9b55ea38b7f4be8",
+    "FeatureSource": true,
+    "ChangedBindings": [
+      "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifImageBindings.cs",
+      "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeAbi.cs",
+      "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeEntryFunctions.cs",
+      "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLibraryOwner.cs",
+      "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeNames.cs",
+      "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbackLayout.cs",
+      "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbacks.cs",
+      "tools/Native/Erlang.NifNativeBackend/Program.cs"
+    ],
+    "WholeMfaContractsPromoted": 0
   }
 }
