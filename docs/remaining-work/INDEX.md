@@ -1,6 +1,10 @@
 # Remaining work
 
-## Part504 current contract queue
+## Current checkpoint519
+
+See [checkpoint519](checkpoint-519.md):708 registered /180 full /504 pending /24 known differences, all deltas0. The shared map candidate has85/85 selected affected controls and a complete deterministic original worker comparison in ordinary/private profiles. Final source-bound native replay passed4/4; full publication-head CI and review remain required. Maps remains0/34 full contracts; resource/boot work is separate.
+
+## Historical Part504 contract queue
 
 See [checkpoint504](checkpoint-504.md):708 registered,180 full contracts,504 pending and24 known differences; MFA/full deltas0/0. Original559 cohort62 closed/497 remain, plus seven reclassified contracts.
 

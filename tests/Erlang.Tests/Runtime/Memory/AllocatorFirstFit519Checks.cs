@@ -20,6 +20,7 @@ internal static class AllocatorFirstFit519Checks
             new object[] { words },
             null
         )!;
+        using var slabLifetime = (IDisposable)slab;
         var occupied = new bool[words];
         var live = new List<(int Offset, int Length)>();
         var random = new Random(519);
@@ -72,6 +73,7 @@ internal static class AllocatorFirstFit519Checks
             new object[] { count * 2 + 4 },
             null
         )!;
+        using var slabLifetime = (IDisposable)slab;
         Check((int)Call(slab, Reserve, 1)! == 0);
         Check((int)Call(slab, Reserve, 1)! == 1);
         Check((int)Call(slab, Reserve, 1)! == 2);
@@ -191,7 +193,25 @@ internal static class AllocatorFirstFit519Checks
     }
 
     private static TupleTerm Allocate(object heap, int length)
-        => (TupleTerm)Call(heap, CreateTuple, new object[] { Enumerable.Repeat<Term>(Term.I(519), length).ToArray() })!;
+    {
+        // This suite measures the raw word allocator, independently of tuple
+        // header width. Preserve its original physical request/offset assertions.
+        object gate = Property(heap, HeapGate)!;
+        lock (gate)
+        {
+            object payload = Call(heap, AllocateRaw, new object[] { Enumerable.Repeat<Term>(Term.I(519), length).ToArray() })!;
+
+            Type contract = typeof(TupleTerm).Assembly.GetType(OwnedSequenceType, true)!;
+            ConstructorInfo constructor = typeof(TupleTerm).GetConstructor(
+                Members,
+                null,
+                [contract],
+                null
+            )!;
+
+            return (TupleTerm)constructor.Invoke([payload]);
+        }
+    }
 
     private static object? BlockProperty(TupleTerm value, string name)
         => Property(Property(value, Storage)!, name);

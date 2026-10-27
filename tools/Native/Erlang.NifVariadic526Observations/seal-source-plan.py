@@ -11,6 +11,73 @@ NATIVE_ASSET = CORE + "/runtimes/win-x64/native/Erlang.Nif.WindowsVariadic.dll"
 WINDOWS_ADAPTER_SOURCE = CORE + "/Native/Nif/native/windows_varargs526.c"
 SOURCE_SUFFIXES = frozenset((".cs", ".csproj", ".props", ".targets", ".py", ".c", ".h"))
 EXCLUDED_DIRECTORIES = frozenset(("bin", "obj", "__pycache__"))
+# Static reviewed production scope of Part519; no dependency on artifact packets.
+MAP_PRODUCTION519 = (
+    "src/Compiler/Erlang.Compiler/Execution/Execution.cs",
+    "src/Runtime/Erlang.Runtime.Core/Diagnostics/Debug/DebugSharingSize425.cs",
+    "src/Runtime/Erlang.Runtime.Core/Diagnostics/Debug/DebugSharingSizeFrame425.cs",
+    "src/Runtime/Erlang.Runtime.Core/Diagnostics/Debug/DebugSharingSizeGraph528.cs",
+    "src/Runtime/Erlang.Runtime.Core/Diagnostics/Debug/DebugSharingSizePolicy528.cs",
+    "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamExternalImports.cs",
+    "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.BeamPrimitives.cs",
+    "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.DebugSharing425.cs",
+    "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.HamtMap430.cs",
+    "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.MapKeys426.cs",
+    "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/HamtViewNode.OwnedPayload517.cs",
+    "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/HamtViewNode.cs",
+    "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/NativeMapMaterialization.LogicalEscape517.cs",
+    "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/NativeMapMaterialization.OwnedPayload517.cs",
+    "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/NativeMapMaterializedLayout505.OwnedPayload517.cs",
+    "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/OwnedFlatMapLookup517.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DebugSharing425.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/CellStorage526Names.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/EncodedMapHeader526.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/GuestAdoptionFrame507.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/MapRouting517Names.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/MapRoutingFallback517.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/NativeTermCellBuffer526.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedDetachedCopyFrame510.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedMapEntries517.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedMapHamtView517.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedMapHeader517.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedMapHeaderKind517.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedMapNodePlan517.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedMapPayload517.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedMapPayloadNames517.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedMapRow517.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedPayloadCopyFrame506.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedPhysicalWordSnapshot526.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermDetachedCopy506.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermTransfer506.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedWordSizeFrame526.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/PreparedMapGraph517.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/PreparedMapGraphUse517.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/PreparedOwnedMap517.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/PreparedOwnedMapNode526.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/PreparedOwnedMapUse517.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermConstruction.MapFork517.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermConstruction514.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Guest507.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.MapFork517.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Source511.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame506.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.DebugWords526.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Generations508.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Guest507.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.MapPayload517.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.MapRouting517.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.NativeWords526.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.SharedHamt526.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap506.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermSequence506.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermSlab506.cs",
+    "src/Runtime/Erlang.Terms/Collections/Maps/HamtBitmapTerm429.OwnedPayload517.cs",
+    "src/Runtime/Erlang.Terms/Collections/Maps/HamtBitmapTerm429.cs",
+    "src/Runtime/Erlang.Terms/Collections/Maps/MapTerm.MapOrigin517.cs",
+    "src/Runtime/Erlang.Terms/Collections/Maps/MapTerm.OwnedPayload517.cs",
+    "src/Runtime/Erlang.Terms/Collections/Maps/MapTerm.cs",
+    "src/Runtime/Erlang.Terms/Storage/IOwnedMapPayload517.cs",
+)
 
 
 def sha(path, mode="Raw"):
@@ -36,6 +103,7 @@ def main():
         })
 
     repository_inputs = set()
+    repository_inputs.update(ROOT / name for name in MAP_PRODUCTION519)
     source_groups = (
         "tools/Native/Erlang.NifNativeBackend",
         "tools/Runtime/Erlang.OwnedGuest506Observations",

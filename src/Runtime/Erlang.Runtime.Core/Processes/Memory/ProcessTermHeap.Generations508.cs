@@ -83,8 +83,9 @@ internal sealed partial class ProcessTermHeap506
             foreach (long id in dead)
             {
                 ProcessTermSequence506 block = blocks[id];
-                ReleaseAllocation519(block.Slab, block.Offset, block.Count);
+                ReleaseAllocation519(block.Slab, block.AllocationOffset526, block.AllocationWords526);
                 blocks.Remove(id);
+                mapHeaders517.Remove(id);
                 oldBlocks508.Remove(id);
             }
             if (major)

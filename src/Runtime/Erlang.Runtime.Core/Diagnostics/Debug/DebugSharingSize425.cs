@@ -2,13 +2,14 @@ namespace Erlang;
 
 internal static class DebugSharingSize425
 {
-    internal static ulong Flat(Term source)
+    internal static ulong Flat(ProcessRuntime runtime, Term source)
     {
+        using var graph = new DebugSharingSizeGraph528(runtime);
         // Memoize each subtree's flat cost; add that cost on every incoming
         // edge. An exponential DAG does not require exponential CLR work.
         var known = new Dictionary<Term, ulong>(ReferenceEqualityComparer.Instance);
         var pending = new Stack<DebugSharingSizeFrame425>();
-        pending.Push(new(source));
+        pending.Push(new(graph, source));
         while (true)
         {
             DebugSharingSizeFrame425 frame = pending.Peek();
@@ -20,7 +21,7 @@ internal static class DebugSharingSize425
                     frame.Size = unchecked(frame.Size + size);
                     frame.Index++;
                 }
-                else pending.Push(new(child));
+                else pending.Push(new(graph, child));
                 continue;
             }
             known.Add(frame.Value, frame.Size);
@@ -31,6 +32,7 @@ internal static class DebugSharingSize425
 
     internal static ulong Shared(ProcessRuntime runtime, Term source)
     {
+        using var graph = new DebugSharingSizeGraph528(runtime);
         var seen = new HashSet<Term>(ReferenceEqualityComparer.Instance);
         var pending = new Stack<Term>();
         pending.Push(source);
@@ -38,8 +40,8 @@ internal static class DebugSharingSize425
         while (pending.TryPop(out Term? value))
         {
             if (!seen.Add(value) || runtime.IsSharingLiteral425(value)) continue;
-            size = unchecked(size + DebugSharingWordLayout425.OwnWords(value));
-            foreach (Term child in DebugSharingGraph425.Children(value)) pending.Push(child);
+            size = unchecked(size + graph.OwnWords(value, shared: true));
+            foreach (Term child in graph.Children(value)) pending.Push(child);
         }
 
         return size;

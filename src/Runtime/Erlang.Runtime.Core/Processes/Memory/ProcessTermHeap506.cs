@@ -95,11 +95,22 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
         }
     }
 
-    internal Term ImportPrepared(Term portable)
+    internal Term ImportPrepared(
+        Term portable,
+        PreparedMapGraph517 maps,
+        ProcessTermConstruction514 construction,
+        PreparedMapGraphUse517 admitted
+    )
     {
-        // Caller holds Gate. This pass only allocates tuple/list payloads;
-        // opaque portable subgraphs retain their portable descriptor/backing.
-        return OwnedTermTransfer506.Copy(portable, this);
+        // Hash plans already exist; no runtime/index callback under this gate.
+        // Legacy unsupported map layouts keep their exact existing path.
+        return OwnedTermTransfer506.Copy(
+            portable,
+            this,
+            maps,
+            construction,
+            admitted
+        );
     }
 
     internal bool IsOwnedLocal(Term value)
@@ -139,16 +150,23 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
         }
     }
 
-    internal Term CreateTuple(Term[] children) => children.Length == 0 ? Term.Tuple() : new TupleTerm(Allocate(children));
+    internal Term CreateTuple(Term[] children) => children.Length == 0 ? Term.Tuple() : new TupleTerm(AllocateEncoded526(children, [EncodedMapHeader526.Tuple(children.Length)]));
 
     internal Term CreateCons(Term head, Term tail) => new Cons(Allocate([head, tail]));
 
-    private ProcessTermSequence506 Allocate(Term[] children)
+    private ProcessTermSequence506 Allocate(Term[] children) => AllocateEncoded526(children, []);
+
+    private ProcessTermSequence506 AllocateEncoded526(Term[] children, nuint[] headers)
     {
+        if (!Monitor.IsEntered(Gate))
+            throw new InvalidOperationException(CellStorage526Names.GateRequired);
+        ObjectDisposedException.ThrowIf(closing && frames.Count == 0, this);
+        int physicalWords = checked(children.Length + headers.Length);
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(physicalWords);
         // Caller holds Gate throughout complete graph import + root publication.
         ProcessTermSlab506? selected = null;
         int offset = -1;
-        int selectedIndex = allocationCandidates519.TryGetValue(children.Length, out int candidate)
+        int selectedIndex = allocationCandidates519.TryGetValue(physicalWords, out int candidate)
             ? candidate : 0;
         for (; selectedIndex < slabs.Count; selectedIndex++)
         {
@@ -157,10 +175,10 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
             {
                 AllocationSlabVisits519++;
             }
-            offset = slab.Reserve(children.Length);
+            offset = slab.Reserve(physicalWords);
             if (offset < 0)
             {
-                allocationCandidates519[children.Length] = selectedIndex + 1;
+                allocationCandidates519[physicalWords] = selectedIndex + 1;
                 continue;
             }
             selected = slab;
@@ -170,7 +188,7 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
         {
             int size = ProcessTerm506Names.InitialReferenceSlabWords;
             int previous = ProcessTerm506Names.PreviousFibonacciSlabWords;
-            while (size < children.Length)
+            while (size < physicalWords)
             {
                 int next = size < ProcessTerm506Names.LastFibonacciSlabWords
                     ? checked(size + previous + 1)
@@ -180,32 +198,36 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
             }
             selectedIndex = slabs.Count;
             selected = new(size);
-            slabs.Add(selected);
+            try
+            {
+                slabs.Add(selected);
+            }
+            catch
+            {
+                selected.Cells.Dispose();
+                throw;
+            }
             unchecked
             {
                 AllocationSlabVisits519++;
             }
-            offset = selected.Reserve(children.Length);
+            offset = selected.Reserve(physicalWords);
         }
         try
         {
             // This insertion can allocate. It is inside the reservation rollback.
-            allocationCandidates519[children.Length] = selectedIndex;
+            allocationCandidates519[physicalWords] = selectedIndex;
             long id = checked(identity + 1);
             var block = new ProcessTermSequence506(
                 this,
                 id,
                 selected,
-                offset,
-                children.Length
+                checked(offset + headers.Length),
+                children.Length,
+                headers.Length
             );
-            Array.Copy(
-                children,
-                0,
-                selected.Cells,
-                offset,
-                children.Length
-            );
+            selected.Cells.WriteHeaders526(headers, offset);
+            selected.Cells.WriteTerms526(children, checked(offset + headers.Length));
             blocks.Add(id, block);
             identity = id;
 
@@ -213,7 +235,7 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
         }
         catch
         {
-            ReleaseAllocation519(selected, offset, children.Length);
+            ReleaseAllocation519(selected, offset, physicalWords);
             throw;
         }
     }
@@ -263,8 +285,9 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
         if (!closing || frames.Count != 0)
             return;
         foreach (ProcessTermSlab506 slab in slabs)
-            Array.Clear(slab.Cells);
+            slab.Cells.Dispose();
         blocks.Clear();
+        mapHeaders517.Clear();
         oldBlocks508.Clear();
         slabs.Clear();
         allocationCandidates519.Clear();
@@ -274,6 +297,8 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
     internal static IOwnedTermSequence506? Storage(Term term) => term switch
     {
         TupleTerm tuple => tuple.OwnedStorage506,
+        MapTerm map => map.OwnedMapPayload517?.RootPayload,
+        HamtBitmapTerm429 bitmap => bitmap.OwnedStorage517,
         Cons cons => cons.OwnedStorage506,
         _ => null
     };

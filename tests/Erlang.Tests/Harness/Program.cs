@@ -43,6 +43,13 @@ if (args is [Erlang.Tests.DynamicApplyBoundary520Names.ChildSwitch, var reposito
     return 0;
 }
 
+if (args is [Erlang.Tests.MapRouting517TestNames.OriginalChildMode, var admission, var admissionSha])
+{
+    await Erlang.Tests.MapRouting517Checks.OriginalBeamProducer(admission, admissionSha);
+
+    return 0;
+}
+
 Erlang.Tests.TestRunSelection selection;
 try
 {
@@ -7016,6 +7023,14 @@ try
     Test(Erlang.Tests.NativeMetadataWitness527Names.Test, Erlang.Tests.NativeMetadataWitness527Checks.Run);
     Test(Erlang.Tests.NativeMetadataImage527Names.Test, Erlang.Tests.NativeMetadataImage527Checks.Original);
     Test(Erlang.Tests.NativeMetadataImage527Names.LinelessTest, Erlang.Tests.NativeMetadataImage527Checks.Lineless);
+    Test(Erlang.Tests.MapPayload517Names.FlatTest, Erlang.Tests.MapPayload517Checks.FlatOccurrenceCustody);
+    Test(Erlang.Tests.MapPayload517Names.HamtTest, Erlang.Tests.MapPayload517Checks.HamtNodeCustody);
+    Test(Erlang.Tests.MapPayload517Names.RawTest, Erlang.Tests.MapPayload517Checks.RawInteriorRetainsOnlySubtree);
+    Test(Erlang.Tests.MapPayload517Names.RollbackTest, Erlang.Tests.MapPayload517Checks.PostAllocationHeaderFaultRollsBack);
+    Test(Erlang.Tests.MapPayload517Names.BoundaryTest, Erlang.Tests.MapPayload517Checks.FlatHamtBoundaryRoutes);
+    Test(Erlang.Tests.MapRouting517TestNames.SourceTest, Erlang.Tests.MapRouting517Checks.SourceProducer);
+    Test(Erlang.Tests.OwnedWords526Names.Test, Erlang.Tests.OwnedWords526Checks.PhysicalHeadersAndRetirement);
+    Test(Erlang.Tests.MapSharingSize528Names.Test, Erlang.Tests.MapSharingSize528Checks.Run);
     Test(Erlang.Tests.AllocatorFirstFit519Names.MixedTest, Erlang.Tests.AllocatorFirstFit519Checks.MixedFirstFit);
     Test(Erlang.Tests.AllocatorFirstFit519Names.FragmentedTest, Erlang.Tests.AllocatorFirstFit519Checks.FragmentedLinearScan);
     Test(Erlang.Tests.AllocatorFirstFit519Names.HeapTest, Erlang.Tests.AllocatorFirstFit519Checks.HeapLinearScan);

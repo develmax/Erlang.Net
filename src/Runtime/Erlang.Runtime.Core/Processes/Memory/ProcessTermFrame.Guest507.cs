@@ -58,24 +58,47 @@ internal sealed partial class ProcessTermFrame506
 
     internal Term AdoptGuestInto507(int slot, Term value)
     {
+        ProcessTermFrame506 construction;
+        ProcessTermConstruction514 custody;
         lock (owner.Gate)
         {
             ValidateSlot(slot);
             owner.ValidateGuestGraph507(value);
-            if (owner.IsOwnedLocal(value) || value is not (TupleTerm or Cons) || value is TupleTerm { Items.Count: 0 })
+            if (owner.IsOwnedLocal(value) || value is not (TupleTerm or Cons or MapTerm)
+                || value is TupleTerm { Items.Count: 0 } || value is MapTerm { Entries.Count: 0 })
             {
                 PublishRoot512(slot, value);
 
                 return value;
             }
-            using ProcessTermFrame506 construction = owner.Enter();
-            // Root the complete validated input before the first allocation.
-            // Intermediate newly constructed nodes join the same transaction.
-            ProcessTermConstruction514 custody = construction.BeginConstruction514(value);
-            Term adopted = owner.AdoptGuest507(value, custody);
-            PublishRoot512(slot, adopted);
+            construction = owner.Enter();
+            try
+            {
+                custody = construction.BeginConstruction514(value);
+            }
+            catch
+            {
+                construction.Dispose();
+                throw;
+            }
+        }
+        using (construction)
+        using (PreparedMapGraph517 maps = owner.PrepareMapGraph517(value, true))
+        using (PreparedMapGraphUse517 admitted = maps.AdmitBuilds517())
+        {
+            lock (owner.Gate)
+            {
+                ValidateSlot(slot);
+                Term adopted = owner.AdoptGuest507(
+                    value,
+                    custody,
+                    maps,
+                    admitted
+                );
+                PublishRoot512(slot, adopted);
 
-            return adopted;
+                return adopted;
+            }
         }
     }
 
