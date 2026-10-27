@@ -432,14 +432,41 @@ jobs:
             if ($LASTEXITCODE -ne 0) { $failures += $owned }
           }
           if ($failures.Count -ne 0) { throw "Dynamic520 failed profiles: $failures" }
+      - name: Compare genuine compiled map worker in both managed profiles
+        id: map519-compiled-worker
+        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $PSNativeCommandUseErrorActionPreference = $false
+          $testDll = 'tests/Erlang.Tests/bin/Debug/net10.0/Erlang.Tests.dll'
+          if (!(Test-Path -LiteralPath $testDll)) { throw 'Final test host missing; dependent execution skipped' }
+          $admission = 'artifacts/library376-official-compiler/official-admission.json'
+          $admissionSha = (Get-FileHash -LiteralPath $admission -Algorithm SHA256).Hash
+          $tool = 'tools/Runtime/Erlang.OwnedGuest506Observations'
+          $plan = "$tool/source-plan.json"
+          $out = 'artifacts/owned506/map519-compiled-worker'
+          python -B "$tool/collect.py" --repository $PWD.Path --expected-head $env:EXPECTED_HEAD --plan-sha256 $env:OWNED506_PLAN_SHA --official-admission $admission --admission-sha256 $admissionSha --output $out --execute-original --compiled-worker --job map-routing517 *> artifacts/owned506/map519-compiled-worker-original.log
+          if ($LASTEXITCODE -ne 0) { throw 'Compiled map original failed; adoption/managed execution skipped' }
+          $completion = "$out/completion.json"
+          $completionSha = (Get-FileHash -LiteralPath $completion -Algorithm SHA256).Hash
+          $adopted = 'artifacts/owned506/map519-admission.json'
+          python -B "$tool/adopt-original.py" --repository $PWD.Path --completion $completion --completion-sha256 $completionSha --source-plan $plan --source-plan-sha256 $env:OWNED506_PLAN_SHA --output $adopted *> artifacts/owned506/map519-adoption.log
+          if ($LASTEXITCODE -ne 0) { throw 'Compiled map adoption failed; managed execution skipped' }
+          $adoptedSha = (Get-FileHash -LiteralPath $adopted -Algorithm SHA256).Hash
+          dotnet exec --fx-version 10.0.11 $testDll --original-map523-child $adopted $adoptedSha *> artifacts/owned506/map519-compiled-worker-managed.log
+          if ($LASTEXITCODE -ne 0) { throw 'Whole compiled map comparison failed' }
+
       - name: Require owned506 original source and full original batch
         if: ${{ !cancelled() }}
         shell: pwsh
         env:
           ADMISSION: ${{ steps.owned506-admit.outcome }}
+          MAP_COMPILED: ${{ steps.map519-compiled-worker.outcome }}
           ORIGINAL: ${{ steps.owned506-original.outcome }}
         run: |
-          if ($env:ADMISSION -ne 'success' -or $env:ORIGINAL -ne 'success') { throw 'Owned506 required acquisition stages did not pass' }
+          if ($env:ADMISSION -ne 'success' -or $env:ORIGINAL -ne 'success' -or $env:MAP_COMPILED -ne 'success') { throw 'Owned506 required acquisition/compiled-map stages did not pass' }
           if ('${{ steps.dynamic520-original.outcome }}' -ne 'success' -or '${{ steps.dynamic520-controls.outcome }}' -ne 'success') { throw 'Dynamic520 required original and managed stages did not pass' }
       - uses: actions/upload-artifact@v7
         if: always()
