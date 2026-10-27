@@ -23,7 +23,7 @@ internal static class BeamApplyHostChecks
         }
         );
         BeamModule zero = BeamModule.Prepare(Bytes(0));
-        BeamModule one = BeamModule.Prepare(Bytes(1), new BeamDependencySelection([BeamApplyHostNames.Module]));
+        BeamModule one = BeamModule.Prepare(Bytes(1));
         Require(zero.Supports(BeamOpcodeEdgeNames.Run, 2) && one.Supports(BeamOpcodeEdgeNames.Run, 3));
         await using var actor = new RuntimeNodeFoundationHostActor(runtime);
         await actor.InvokeAsync(async context =>
@@ -81,7 +81,7 @@ internal static class BeamApplyHostChecks
             }
             Require(caught);
         }
-        BeamModule missing = BeamModule.Prepare(Bytes(0), new BeamDependencySelection([BeamApplyHostNames.Module]));
+        BeamModule missing = BeamModule.Prepare(Bytes(0));
         bool undefined = false;
         try
         {

@@ -28,6 +28,21 @@ if (args.Length > 0 && args[0] == Erlang.Tests.StandardBootOriginal412Names.Chil
 if (args.Length > 0 && args[0] == Erlang.Tests.AtomicsOriginal413Names.ChildSwitch)
     return await Erlang.Tests.AtomicsOriginal413ChildMain.Run(args);
 
+// Dedicated explicit-input child target; do not register artifact-dependent
+// Ordinary/Private methods into the canonical checkout test list.
+if (args is [Erlang.Tests.DynamicApplyBoundary520Names.ChildSwitch, var repository, var completion, var sha, var owned, var output])
+{
+    await Erlang.Tests.DynamicApplyBoundary520Checks.Run(
+        repository,
+        completion,
+        sha,
+        bool.Parse(owned),
+        output
+    );
+
+    return 0;
+}
+
 Erlang.Tests.TestRunSelection selection;
 try
 {

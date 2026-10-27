@@ -150,7 +150,12 @@ internal static class BeamLoaderApi
         return new ErlangException(exception.Reason, exception.ExceptionClass)
         {
             ExplicitStackTrace = true,
-            StackTraceTerm = context.CaptureErrorStack(Cons.From(arguments), info, function)
+            StackTraceTerm = context.CaptureErrorStack(
+                Cons.From(arguments),
+                info,
+                function,
+                function == BeamLoaderNames.LoadModule ? PortErrorSourceLocations.ErrorWithInfo : null
+            )
         };
     }
 
