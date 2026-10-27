@@ -1,0 +1,155 @@
+{
+  "Stage": "506_TRAMPOLINE_SOURCE_ONLY_OVERLAY",
+  "Built": false,
+  "Executed": false,
+  "ActiveFilesChanged": false,
+  "KnownPromotions": 0,
+  "MainPackageManifestSha256": "3FD13C046481ACC06619470EDEB6FE56292FAF7FB3523A552AD818C274CAD664",
+  "PatchSha256": "F15D3887B2A37A4487F8C0A2D044BDA8A6422C8D70B83F7DE0F4919280C3977F",
+  "Sources": [
+    {
+      "Target": "src/Compiler/Erlang.Compiler/Execution/ControlFlow/RuntimeTailCall.cs",
+      "Action": "replace",
+      "Base": "active",
+      "BaseSha256": "0CD50027055DCFDD3E7E181A96054D4F39FDE16A17609BAA4FB7DD02FA38C722",
+      "StagedSha256": "5E9AB8FED69621A2D9A7DAF8A360479B15EDD24752C271E4B4BC1BEC99DCF2EF",
+      "Bytes": 503
+    },
+    {
+      "Target": "src/Compiler/Erlang.Compiler/Execution/Execution.cs",
+      "Action": "replace",
+      "Base": "known24-staged",
+      "BaseSha256": "2FD0876847ECC363DAC3F1DEE1023F41A07CE3104F703A06A3395360B61D1F83",
+      "StagedSha256": "67EC41FFC008924DD9979E64495AA5291D476F18E41775D7DBF4D3189AFFB34F",
+      "Bytes": 46091
+    },
+    {
+      "Target": "src/Compiler/Erlang.Compiler/Execution/Execution.FunctionTailCall.cs",
+      "Action": "replace",
+      "Base": "active",
+      "BaseSha256": "4C32A9A97F9504262EF04B3504D68DDDB4EEABA14C03667788848527E628428E",
+      "StagedSha256": "55E5CE5843C6DFB124E3A33DD958155ECD21F6FD075A5CFCF4A77318423D4C37",
+      "Bytes": 671
+    },
+    {
+      "Target": "src/Compiler/Erlang.Compiler/Execution/Execution.InvocationLoop.cs",
+      "Action": "replace",
+      "Base": "active",
+      "BaseSha256": "6A59041AE9715920B2FD25986452098EF457157C52BD88AB085BC92856E650E7",
+      "StagedSha256": "4E79B4C92CBDBAC3E250D372EA1E7042283F36D079F8FA78F72E3CBB3DA8CD8D",
+      "Bytes": 5770
+    },
+    {
+      "Target": "src/Compiler/Erlang.Compiler/Execution/Source/OwnedTrampolineCheckpoint506.cs",
+      "Action": "add",
+      "Base": null,
+      "BaseSha256": null,
+      "StagedSha256": "C4A6EA94805CFD4BA2D8D697D1DFD41F912F3F9250CE8E804D905707496104C7",
+      "Bytes": 754
+    },
+    {
+      "Target": "src/Compiler/Erlang.Compiler/Execution/Source/OwnedTrampolineCheckpointScope506.cs",
+      "Action": "add",
+      "Base": null,
+      "BaseSha256": null,
+      "StagedSha256": "C2DE45E157D23C166CD36051A5871421B9619A683BC93EE66B826BDE8C2E99FA",
+      "Bytes": 261
+    },
+    {
+      "Target": "src/Compiler/Erlang.Compiler/Execution/Source/SourceContinuationPayload506.cs",
+      "Action": "add",
+      "Base": null,
+      "BaseSha256": null,
+      "StagedSha256": "08358A52611899AC645851AAA3A05837768017E1192FABE57F0E08F9E15489B5",
+      "Bytes": 1726
+    },
+    {
+      "Target": "src/Compiler/Erlang.Compiler/Execution/Source/SourceFunctionTransfer.cs",
+      "Action": "replace",
+      "Base": "active",
+      "BaseSha256": "622A29EC9F5424A26612DADC7635982F3B8B257E5F22F0E97247D6F6BC257182",
+      "StagedSha256": "FD99D69FB73D7702636D4A7B0BF854399D8D0C5E5A3DF0EE84C8FB496D56205D",
+      "Bytes": 714
+    },
+    {
+      "Target": "src/Compiler/Erlang.Compiler/Execution/Source/SourceTailCall.cs",
+      "Action": "replace",
+      "Base": "active",
+      "BaseSha256": "E4E36F3BA1A11BF31B859B7019982325A3217C01B7F3D9C37038723AFEF61049",
+      "StagedSha256": "B5388D104B1B829A86990AEAB549D8AF0DDCF9D621D0CCBC563D01FDE51A9933",
+      "Bytes": 631
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.cs",
+      "Action": "replace",
+      "Base": "known24-staged",
+      "BaseSha256": "C58E35074A4CE8E499165554A235B571C05F179A39B2340D20DA932DED78B297",
+      "StagedSha256": "597519CDDDCE71ED1FDA3B5D486155A8EC87AFB55875DDA940BFC45C90628596",
+      "Bytes": 32138
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.OwnedTerms506.cs",
+      "Action": "replace",
+      "Base": "known24-staged",
+      "BaseSha256": "EBD2BFD1964B6A7E935C8EBFABBAA86503AF90706D2772BF8F513978420D3E89",
+      "StagedSha256": "5ED75809366204623C8487A19B720CB408ABF4802618F66D0AD1FEA391478123",
+      "Bytes": 1612
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.FunctionBoundary506.cs",
+      "Action": "replace",
+      "Base": "known24-staged",
+      "BaseSha256": "697892BC647886C5F149BEDF0F202A8ACF4E6AEC5690919FD8307A8B3BFCE6D1",
+      "StagedSha256": "FF50E1417687932A0B67A65B156AE453003DA1D33186C5F657D82F8042B88C84",
+      "Bytes": 1103
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.Trampoline506.cs",
+      "Action": "add",
+      "Base": null,
+      "BaseSha256": null,
+      "StagedSha256": "0B354659141D0A5135F63B2467493B6AA78D4F6F2B056C3B49CFAFBD30A56949",
+      "Bytes": 240
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermInvocation506.cs",
+      "Action": "replace",
+      "Base": "known24-staged",
+      "BaseSha256": "088745797674DFF73BC31CBD1E82480728F2CBDA01A348EF5E47C9CD2F64945B",
+      "StagedSha256": "8C360AB82C590EB9E522E496E9ACFC9AF4838D013FE4248161D6AA01CC2C2AD0",
+      "Bytes": 3866
+    },
+    {
+      "Target": "src/Runtime/Erlang.Terms/Support/IOwnedControlTransfer506.cs",
+      "Action": "add",
+      "Base": null,
+      "BaseSha256": null,
+      "StagedSha256": "8691DE7A7F26A30D4FB0C20759A3E803B34175DCF8F54CA62DDB53F3FDD9B87E",
+      "Bytes": 273
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Memory/OwnedTrampoline506Checks.cs",
+      "Action": "add",
+      "Base": null,
+      "BaseSha256": null,
+      "StagedSha256": "9CB4C9FECA370DF55E622F25E3FCACBE4DF5A93C9971099C0AE9197446DE05F6",
+      "Bytes": 7146
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Memory/OwnedTrampoline506Names.cs",
+      "Action": "add",
+      "Base": null,
+      "BaseSha256": null,
+      "StagedSha256": "D78D106836EE1A67EE0DFE5E02CB006602B14B1DCB97CC278BD6E166D7C8A3AF",
+      "Bytes": 2602
+    }
+  ],
+  "Tests": [
+    "OwnedTrampoline506Checks.AllCarriers",
+    "OwnedTrampoline506Checks.TailPlateau",
+    "OwnedTrampoline506Checks.CancelHandoff",
+    "OwnedTrampoline506Checks.CancelFunctionTransfer"
+  ],
+  "ParentNullableGuardPreserved": true,
+  "MainRetirementPartialReplaced": false
+}

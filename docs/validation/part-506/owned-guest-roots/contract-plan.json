@@ -1,0 +1,1240 @@
+{
+  "SchemaVersion": 1,
+  "State": "PREPARED_SOURCE_ONLY_NOT_EXECUTED",
+  "PinnedOtp": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "LedgerSnapshotSha256": "631A7EAA3C9662F67DDFE7B611848C3DB807925AF25E48937AE78E9CD6C8A09C",
+  "PinnedSourceManifestSha256": "D8C442F97E4DAFB93238BB0697EBB17E7227BDDFD2442AECA03519F23146BC43",
+  "KnownDifferenceMfas": 24,
+  "WholeContractsClosed": 0,
+  "ActiveLedgerOrProductionModified": false,
+  "VmExecuted": false,
+  "OriginalExpectedResultsSeeded": false,
+  "Groups": {
+    "process-info": {
+      "Id": "PINFO",
+      "Sources": [
+        "erts/emulator/beam/erl_bif_info.c:813-855",
+        "erts/emulator/beam/erl_bif_info.c:1555-1565",
+        "erts/emulator/beam/erl_bif_info.c:1566 process_info_aux"
+      ],
+      "ArgumentPartitions": [
+        "self and controlled live child; stable waiting versus actively allocating target",
+        "dead local PID after observed DOWN; invalid PID type; external/disconnected PID handled as separate original branch",
+        "all41 source item rows, including tuple dictionary-key selector; scalar/list/empty/improper-list/wrong tuple/unknown-item forms",
+        "preserve list order and duplicates; default-list order and membership are independent of explicit-item catalog",
+        "registered-name scalar/list always-wrap difference; scheduler/current-location/stacktrace flags and receiver snapshots"
+      ],
+      "ResultPartitions": [
+        "raw complete process_info/1 default list",
+        "each raw scalar result including undefined/dead behavior and full exception stack",
+        "single atomic multi-item resource snapshot; duplicate item agreement in that same query"
+      ],
+      "EffectPartitions": [
+        "actual heap/old heap/fragments/stack/binary/message queue/GC roots before allocation, while retained, after collection and after release",
+        "messages copied or shared through actual owner handoff; on_heap/off_heap queue effects",
+        "owner-consistent snapshot during active/suspended/dirty/distribution output waits; no mixed-epoch fields"
+      ],
+      "RemainingGate": "All physical payload/root providers and source snapshot/collection semantics, full item catalog and process domains; finite shape/retention witnesses do not close the MFA."
+    },
+    "spawn-resources": {
+      "Id": "SPAWN",
+      "Sources": [
+        "erts/preloaded/src/erlang.erl:10751 spawn_opt facade family",
+        "erts/preloaded/src/erlang.erl:11133 spawn_request facade family",
+        "erts/emulator/beam/erl_process.c:12222 erts_parse_spawn_opts",
+        "erts/emulator/beam/erl_gc.c:3825 erts_max_heap_size",
+        "lib/stdlib/src/proc_lib.erl:243-286 and434-605"
+      ],
+      "ArgumentPartitions": [
+        "every function/MFA/node overload; fun arity0 versus nonzero; legacy{M,F} facade; proper/improper argument and option lists",
+        "native-small boundaries, bignums, floats, negative/zero/positive values; exact boolean flag atoms",
+        "max_heap_size scalar or map: mandatory size; optional kill/error_logger/include_shared_binaries; unknown extra keys are ignored by pinned parser",
+        "duplicate valid options last-wins; invalid earlier option remains failure despite later valid duplicate",
+        "min/max ordering applied to final effective options; original heap-class rounding and real default values",
+        "local explicit node, real connected peer, disconnected existing peer, reconnect/incarnation change, asynchronous reply modes and tags",
+        "link/monitor atoms/tuples, priority messages/tags, reset precedence, scheduler0..actual schedulers, priority and async_dist"
+      ],
+      "ResultPartitions": [
+        "PID versus{PID,Monitor}; request reference and actual reply tuple/tag/status",
+        "startup arbitrary ack/nack Return; start_monitor returns{Return,Ref}; timeout/death reinserts DOWN as source requires",
+        "error class/reason/full stack and exact error_info, not just badarg text"
+      ],
+      "EffectPartitions": [
+        "future-child inheritance; actual min/bin heap capacity; Uint16 fullsweep_after wrap in spawn options",
+        "max-heap kill/log/include-shared-binaries and actual allocation/collection, not parsed-value echoes",
+        "publication/link/monitor/request rollback and no leaked tagged child on invalid options; caller error-term allocation is allowed",
+        "real distributed startup ownership, pending requests, cancellation and cleanup across disconnect/reconnect"
+      ],
+      "RemainingGate": "Complete parser is necessary but insufficient: actual allocation/GC/resource policy, all facade selectors, remote/async domains, startup/cancellation and full error stacks remain required."
+    },
+    "system-resource-controls": {
+      "Id": "FLAGS",
+      "Sources": [
+        "erts/emulator/beam/bif.c:4972 system_flag_2",
+        "erts/emulator/beam/bif.c:5039-5099 heap controls",
+        "erts/emulator/beam/erl_gc.c:3825 max-heap map parser"
+      ],
+      "ArgumentPartitions": [
+        "all16 source system_flag branches plus invalid key/value cases; feature-conditional flags are build-profile partitions",
+        "heap/min-bin native-small values and source class rounding; max-heap scalar/map flags and relation to current global min",
+        "fullsweep_after clamps above65535 here, unlike spawn-option truncation",
+        "duplicate setter sequence, old-value return, invalid setter atomicity; future child versus preexisting child"
+      ],
+      "ResultPartitions": [
+        "raw previous value and normalized current setting from real VM metadata",
+        "complete errors/stacks; scheduler/microstate/time-offset/tracer return variants"
+      ],
+      "EffectPartitions": [
+        "fresh owned VM per setting case; restore prior values in after; time-offset finalization tested only in disposable VM",
+        "global defaults affect only the intended future children; isolation across logical ProcessRuntime instances",
+        "actual kill/log/bin accounting after successful policy mutation; validate other flag machinery, not only heap flags"
+      ],
+      "RemainingGate": "Real defaults, native policy effects, all source flag branches and build profiles; no heap-only whole-MFA promotion."
+    },
+    "garbage-statistics": {
+      "Id": "STATS",
+      "Sources": [
+        "erts/emulator/beam/erl_bif_info.c:4160-4326 statistics_1",
+        "erts/emulator/beam/erl_bif_info.c:4301 literal run_queues branch",
+        "erts/emulator/beam/erl_gc.c collection accounting"
+      ],
+      "ArgumentPartitions": [
+        "all20 source statistics keys, including literal run_queues, exact_reductions and dirty/all variants",
+        "invalid atom, scalar and compound terms; enabled/disabled scheduler wall-time and microstate feature profiles"
+      ],
+      "ResultPartitions": [
+        "raw per-key value with exact shape, units, cumulative/delta/reset protocol",
+        "actual GC collection count and reclaimed VM words, preserving raw counts and the source fixed tuple fields",
+        "scheduler/queue cardinalities relative to actual normal/dirty schedulers, never hardcoded arrays"
+      ],
+      "EffectPartitions": [
+        "record before/after actual target minor/major collections and retained/released payloads",
+        "node-wide totals include real background work; do not assert one global GC per explicit request or compare arbitrary CLR GC counts",
+        "same-runtime attribution and distinct-runtime isolation; actual IO/scheduling work for non-GC keys"
+      ],
+      "RemainingGate": "Source event/word accounting plus all non-GC keys and build-conditional branches; type checks alone do not close statistics/1."
+    },
+    "crash-heap-hibernate": {
+      "Id": "PROC_REPORT",
+      "Sources": [
+        "lib/stdlib/src/proc_lib.erl:306-365",
+        "lib/stdlib/src/proc_lib.erl:950-1011 crash_report/my_info",
+        "lib/stdlib/src/proc_lib.erl:1143 neighbours",
+        "erts/emulator/beam/erl_gc.c garbage_collect_hibernate",
+        "lib/stdlib/src/erl_error.erl formatter"
+      ],
+      "ArgumentPartitions": [
+        "init_p/3 fun0/nonzero/bad fun, arbitrary parent and ancestor shapes; init_p/5/wake_up/3/hibernate/3 MFA/list guards",
+        "error/exit/throw plus normal/shutdown report suppression; dictionary initial-call overwritten/erased forms",
+        "actual local and connected remote linked neighbours; logger handler/formatter configuration and overload/file backends"
+      ],
+      "ResultPartitions": [
+        "complete child DOWN reason/class/stack and typed logger report, initial_call/ancestors/process labels",
+        "raw real heap_size/stack_size and collection/binary/message/dictionary fields in reports",
+        "hibernate never returns normally; wake metadata and wake exceptions follow proc_lib wrapper"
+      ],
+      "EffectPartitions": [
+        "actual heap compaction and stack reset before wake, argument survival and release after wake",
+        "report/logger callback and neighbour traversal ordering; real process locks/remote rpc failures",
+        "separate structured real-report comparison with identity witnesses from exact formatting of explicitly portable report inputs"
+      ],
+      "RemainingGate": "Real physical report fields, hibernate heap/stack effects, logger breadth and remote-neighbour complete stacks; prior local lifecycle witnesses remain scoped."
+    },
+    "native-load-closure": {
+      "Id": "NIF_LOAD",
+      "Sources": [
+        "erts/emulator/beam/erl_nif.c:4622 load_nif_2 and actual load_nif path",
+        "erts/emulator/beam/erl_nif.c load_nif_1st/2nd/3rd_finisher lifecycle"
+      ],
+      "ArgumentPartitions": [
+        "filename flat/deep lists, Unicode/platform paths, wrong types, extension and search rules; arbitrary LoadInfo reaches actual load callback",
+        "direct current-code/on_load versus indirect/old-code/reload/upgrade module contexts",
+        "missing/malformed library, wrong module, ABI/version/architecture, absent exports/imports, dependency-resolution failures",
+        "Windows/Linux, x64/ARM/32bit and supported native resource/thread/upgrade boundaries are independent profiles"
+      ],
+      "ResultPartitions": [
+        "complete source error tuple/text/error_info for the actual OS/path/locale, not generic CLR exceptions",
+        "load success/new function binding, load rejection, upgrade veto and retained old image",
+        "existing reviewed and ordinary loaders remain separate routes with actual policy invocation proof"
+      ],
+      "EffectPartitions": [
+        "native env/private data/resource/root ownership, clear/free/copy/async handoff/destructor/unload on actor death and cancellation",
+        "failed preparation must not execute dependent library routes; each independent route still settles",
+        "actual physical module presence/absence, process ownership and allocation baselines; all15 map callbacks are one dependency, not the full MFA"
+      ],
+      "RemainingGate": "All inherited platform/ABI/thread/resource/import/error/lifecycle limits; reuse completed504/505 evidence without treating it as full load_nif closure."
+    }
+  },
+  "Mfas": [
+    {
+      "Mfa": "erlang:process_info/2",
+      "LedgerStatusUnchanged": "Known differences",
+      "Group": "PINFO",
+      "FacadeSelectors": [
+        "erlang:process_info/2"
+      ],
+      "ArgumentPartitions": [
+        "self and controlled live child; stable waiting versus actively allocating target",
+        "dead local PID after observed DOWN; invalid PID type; external/disconnected PID handled as separate original branch",
+        "all41 source item rows, including tuple dictionary-key selector; scalar/list/empty/improper-list/wrong tuple/unknown-item forms",
+        "preserve list order and duplicates; default-list order and membership are independent of explicit-item catalog",
+        "registered-name scalar/list always-wrap difference; scheduler/current-location/stacktrace flags and receiver snapshots"
+      ],
+      "ErrorContract": "Full class/reason/stack/error_info retained. Only explicitly witnessed PID/reference/node role aliases may be compared relationally; no frame/key/string dropping.",
+      "ResultPartitions": [
+        "raw complete process_info/1 default list",
+        "each raw scalar result including undefined/dead behavior and full exception stack",
+        "single atomic multi-item resource snapshot; duplicate item agreement in that same query"
+      ],
+      "EffectPartitions": [
+        "actual heap/old heap/fragments/stack/binary/message queue/GC roots before allocation, while retained, after collection and after release",
+        "messages copied or shared through actual owner handoff; on_heap/off_heap queue effects",
+        "owner-consistent snapshot during active/suspended/dirty/distribution output waits; no mixed-epoch fields"
+      ],
+      "SourceAnchors": [
+        "erts/emulator/beam/erl_bif_info.c:813-855",
+        "erts/emulator/beam/erl_bif_info.c:1555-1565",
+        "erts/emulator/beam/erl_bif_info.c:1566 process_info_aux"
+      ],
+      "ExactInheritedDeficits": [
+        "Native physical resource keys total_heap_size, heap_size, stack_size and garbage_collection are unsupported and rejected; they are valid in pinned OTP. Do not replace them with fabricated integer values or node-wide GC totals.",
+        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending Supported item async_dist now returns the actual target process flag as a boolean from the existing gated runtime state. Scalar and list queries preserve item validation, list order and duplicates; the item remains excluded from the default process_info/1 catalog. Real generated default/transition/other-process/child/dead-target/error contracts and mixed owner queries during connected output waits are covered within the existing PID/query domain. This adds no export and does not complete remote process-info domains, pending/autoconnect, native scheduler parity or general wire equality."
+      ],
+      "AdditionalClosureGate": "All physical payload/root providers and source snapshot/collection semantics, full item catalog and process domains; finite shape/retention witnesses do not close the MFA.",
+      "SharedOwnedPayloadProviderRequired": true,
+      "PreparedRepresentativeErrorWitness": true,
+      "WholeContractValidated": false
+    },
+    {
+      "Mfa": "erlang:process_info/1",
+      "LedgerStatusUnchanged": "Known differences",
+      "Group": "PINFO",
+      "FacadeSelectors": [
+        "erlang:process_info/1"
+      ],
+      "ArgumentPartitions": [
+        "self and controlled live child; stable waiting versus actively allocating target",
+        "dead local PID after observed DOWN; invalid PID type; external/disconnected PID handled as separate original branch",
+        "all41 source item rows, including tuple dictionary-key selector; scalar/list/empty/improper-list/wrong tuple/unknown-item forms",
+        "preserve list order and duplicates; default-list order and membership are independent of explicit-item catalog",
+        "registered-name scalar/list always-wrap difference; scheduler/current-location/stacktrace flags and receiver snapshots"
+      ],
+      "ErrorContract": "Full class/reason/stack/error_info retained. Only explicitly witnessed PID/reference/node role aliases may be compared relationally; no frame/key/string dropping.",
+      "ResultPartitions": [
+        "raw complete process_info/1 default list",
+        "each raw scalar result including undefined/dead behavior and full exception stack",
+        "single atomic multi-item resource snapshot; duplicate item agreement in that same query"
+      ],
+      "EffectPartitions": [
+        "actual heap/old heap/fragments/stack/binary/message queue/GC roots before allocation, while retained, after collection and after release",
+        "messages copied or shared through actual owner handoff; on_heap/off_heap queue effects",
+        "owner-consistent snapshot during active/suspended/dirty/distribution output waits; no mixed-epoch fields"
+      ],
+      "SourceAnchors": [
+        "erts/emulator/beam/erl_bif_info.c:813-855",
+        "erts/emulator/beam/erl_bif_info.c:1555-1565",
+        "erts/emulator/beam/erl_bif_info.c:1566 process_info_aux"
+      ],
+      "ExactInheritedDeficits": [
+        "The native physical heap/stack/GC fields are absent. Actual original logical projections pass within their finite query scope; they do not verify a full default-list/resource contract. Other remaining query, scheduler and process-domain limits are not promoted to compatible."
+      ],
+      "AdditionalClosureGate": "All physical payload/root providers and source snapshot/collection semantics, full item catalog and process domains; finite shape/retention witnesses do not close the MFA.",
+      "SharedOwnedPayloadProviderRequired": true,
+      "PreparedRepresentativeErrorWitness": true,
+      "WholeContractValidated": false
+    },
+    {
+      "Mfa": "erlang:spawn_opt/2",
+      "LedgerStatusUnchanged": "Known differences",
+      "Group": "SPAWN",
+      "FacadeSelectors": [
+        "Fun,Opts",
+        "{Module,Function},Opts"
+      ],
+      "ArgumentPartitions": [
+        "every function/MFA/node overload; fun arity0 versus nonzero; legacy{M,F} facade; proper/improper argument and option lists",
+        "native-small boundaries, bignums, floats, negative/zero/positive values; exact boolean flag atoms",
+        "max_heap_size scalar or map: mandatory size; optional kill/error_logger/include_shared_binaries; unknown extra keys are ignored by pinned parser",
+        "duplicate valid options last-wins; invalid earlier option remains failure despite later valid duplicate",
+        "min/max ordering applied to final effective options; original heap-class rounding and real default values",
+        "local explicit node, real connected peer, disconnected existing peer, reconnect/incarnation change, asynchronous reply modes and tags",
+        "link/monitor atoms/tuples, priority messages/tags, reset precedence, scheduler0..actual schedulers, priority and async_dist"
+      ],
+      "ErrorContract": "Full class/reason/stack/error_info retained. Only explicitly witnessed PID/reference/node role aliases may be compared relationally; no frame/key/string dropping.",
+      "ResultPartitions": [
+        "PID versus{PID,Monitor}; request reference and actual reply tuple/tag/status",
+        "startup arbitrary ack/nack Return; start_monitor returns{Return,Ref}; timeout/death reinserts DOWN as source requires",
+        "error class/reason/full stack and exact error_info, not just badarg text"
+      ],
+      "EffectPartitions": [
+        "future-child inheritance; actual min/bin heap capacity; Uint16 fullsweep_after wrap in spawn options",
+        "max-heap kill/log/include-shared-binaries and actual allocation/collection, not parsed-value echoes",
+        "publication/link/monitor/request rollback and no leaked tagged child on invalid options; caller error-term allocation is allowed",
+        "real distributed startup ownership, pending requests, cancellation and cleanup across disconnect/reconnect"
+      ],
+      "SourceAnchors": [
+        "erts/preloaded/src/erlang.erl:10751 spawn_opt facade family",
+        "erts/preloaded/src/erlang.erl:11133 spawn_request facade family",
+        "erts/emulator/beam/erl_process.c:12222 erts_parse_spawn_opts",
+        "erts/emulator/beam/erl_gc.c:3825 erts_max_heap_size",
+        "lib/stdlib/src/proc_lib.erl:243-286 and434-605"
+      ],
+      "ExactInheritedDeficits": [
+        "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+        "Current styled-source preservation review and prior managed focus do not establish complete spawn_opt compatibility. Final part 353 full validation and explicit two-lane original comparison remain pending; original part 351 covers its three priority witnesses only.",
+        "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
+      ],
+      "AdditionalClosureGate": "Complete parser is necessary but insufficient: actual allocation/GC/resource policy, all facade selectors, remote/async domains, startup/cancellation and full error stacks remain required.",
+      "SharedOwnedPayloadProviderRequired": true,
+      "PreparedRepresentativeErrorWitness": true,
+      "WholeContractValidated": false
+    },
+    {
+      "Mfa": "erlang:spawn_opt/3",
+      "LedgerStatusUnchanged": "Known differences",
+      "Group": "SPAWN",
+      "FacadeSelectors": [
+        "Node,Fun,Opts",
+        "Node,{Module,Function},Opts"
+      ],
+      "ArgumentPartitions": [
+        "every function/MFA/node overload; fun arity0 versus nonzero; legacy{M,F} facade; proper/improper argument and option lists",
+        "native-small boundaries, bignums, floats, negative/zero/positive values; exact boolean flag atoms",
+        "max_heap_size scalar or map: mandatory size; optional kill/error_logger/include_shared_binaries; unknown extra keys are ignored by pinned parser",
+        "duplicate valid options last-wins; invalid earlier option remains failure despite later valid duplicate",
+        "min/max ordering applied to final effective options; original heap-class rounding and real default values",
+        "local explicit node, real connected peer, disconnected existing peer, reconnect/incarnation change, asynchronous reply modes and tags",
+        "link/monitor atoms/tuples, priority messages/tags, reset precedence, scheduler0..actual schedulers, priority and async_dist"
+      ],
+      "ErrorContract": "Full class/reason/stack/error_info retained. Only explicitly witnessed PID/reference/node role aliases may be compared relationally; no frame/key/string dropping.",
+      "ResultPartitions": [
+        "PID versus{PID,Monitor}; request reference and actual reply tuple/tag/status",
+        "startup arbitrary ack/nack Return; start_monitor returns{Return,Ref}; timeout/death reinserts DOWN as source requires",
+        "error class/reason/full stack and exact error_info, not just badarg text"
+      ],
+      "EffectPartitions": [
+        "future-child inheritance; actual min/bin heap capacity; Uint16 fullsweep_after wrap in spawn options",
+        "max-heap kill/log/include-shared-binaries and actual allocation/collection, not parsed-value echoes",
+        "publication/link/monitor/request rollback and no leaked tagged child on invalid options; caller error-term allocation is allowed",
+        "real distributed startup ownership, pending requests, cancellation and cleanup across disconnect/reconnect"
+      ],
+      "SourceAnchors": [
+        "erts/preloaded/src/erlang.erl:10751 spawn_opt facade family",
+        "erts/preloaded/src/erlang.erl:11133 spawn_request facade family",
+        "erts/emulator/beam/erl_process.c:12222 erts_parse_spawn_opts",
+        "erts/emulator/beam/erl_gc.c:3825 erts_max_heap_size",
+        "lib/stdlib/src/proc_lib.erl:243-286 and434-605"
+      ],
+      "ExactInheritedDeficits": [
+        "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+        "Current styled-source preservation review and prior managed focus do not establish complete spawn_opt compatibility. Final part 353 full validation and explicit two-lane original comparison remain pending; original part 351 covers its three priority witnesses only.",
+        "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
+      ],
+      "AdditionalClosureGate": "Complete parser is necessary but insufficient: actual allocation/GC/resource policy, all facade selectors, remote/async domains, startup/cancellation and full error stacks remain required.",
+      "SharedOwnedPayloadProviderRequired": true,
+      "PreparedRepresentativeErrorWitness": true,
+      "WholeContractValidated": false
+    },
+    {
+      "Mfa": "erlang:spawn_opt/4",
+      "LedgerStatusUnchanged": "Known differences",
+      "Group": "SPAWN",
+      "FacadeSelectors": [
+        "Module,Function,Args,Opts"
+      ],
+      "ArgumentPartitions": [
+        "every function/MFA/node overload; fun arity0 versus nonzero; legacy{M,F} facade; proper/improper argument and option lists",
+        "native-small boundaries, bignums, floats, negative/zero/positive values; exact boolean flag atoms",
+        "max_heap_size scalar or map: mandatory size; optional kill/error_logger/include_shared_binaries; unknown extra keys are ignored by pinned parser",
+        "duplicate valid options last-wins; invalid earlier option remains failure despite later valid duplicate",
+        "min/max ordering applied to final effective options; original heap-class rounding and real default values",
+        "local explicit node, real connected peer, disconnected existing peer, reconnect/incarnation change, asynchronous reply modes and tags",
+        "link/monitor atoms/tuples, priority messages/tags, reset precedence, scheduler0..actual schedulers, priority and async_dist"
+      ],
+      "ErrorContract": "Full class/reason/stack/error_info retained. Only explicitly witnessed PID/reference/node role aliases may be compared relationally; no frame/key/string dropping.",
+      "ResultPartitions": [
+        "PID versus{PID,Monitor}; request reference and actual reply tuple/tag/status",
+        "startup arbitrary ack/nack Return; start_monitor returns{Return,Ref}; timeout/death reinserts DOWN as source requires",
+        "error class/reason/full stack and exact error_info, not just badarg text"
+      ],
+      "EffectPartitions": [
+        "future-child inheritance; actual min/bin heap capacity; Uint16 fullsweep_after wrap in spawn options",
+        "max-heap kill/log/include-shared-binaries and actual allocation/collection, not parsed-value echoes",
+        "publication/link/monitor/request rollback and no leaked tagged child on invalid options; caller error-term allocation is allowed",
+        "real distributed startup ownership, pending requests, cancellation and cleanup across disconnect/reconnect"
+      ],
+      "SourceAnchors": [
+        "erts/preloaded/src/erlang.erl:10751 spawn_opt facade family",
+        "erts/preloaded/src/erlang.erl:11133 spawn_request facade family",
+        "erts/emulator/beam/erl_process.c:12222 erts_parse_spawn_opts",
+        "erts/emulator/beam/erl_gc.c:3825 erts_max_heap_size",
+        "lib/stdlib/src/proc_lib.erl:243-286 and434-605"
+      ],
+      "ExactInheritedDeficits": [
+        "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+        "Current styled-source preservation review and prior managed focus do not establish complete spawn_opt compatibility. Final part 353 full validation and explicit two-lane original comparison remain pending; original part 351 covers its three priority witnesses only.",
+        "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
+      ],
+      "AdditionalClosureGate": "Complete parser is necessary but insufficient: actual allocation/GC/resource policy, all facade selectors, remote/async domains, startup/cancellation and full error stacks remain required.",
+      "SharedOwnedPayloadProviderRequired": true,
+      "PreparedRepresentativeErrorWitness": true,
+      "WholeContractValidated": false
+    },
+    {
+      "Mfa": "erlang:spawn_opt/5",
+      "LedgerStatusUnchanged": "Known differences",
+      "Group": "SPAWN",
+      "FacadeSelectors": [
+        "Node,Module,Function,Args,Opts"
+      ],
+      "ArgumentPartitions": [
+        "every function/MFA/node overload; fun arity0 versus nonzero; legacy{M,F} facade; proper/improper argument and option lists",
+        "native-small boundaries, bignums, floats, negative/zero/positive values; exact boolean flag atoms",
+        "max_heap_size scalar or map: mandatory size; optional kill/error_logger/include_shared_binaries; unknown extra keys are ignored by pinned parser",
+        "duplicate valid options last-wins; invalid earlier option remains failure despite later valid duplicate",
+        "min/max ordering applied to final effective options; original heap-class rounding and real default values",
+        "local explicit node, real connected peer, disconnected existing peer, reconnect/incarnation change, asynchronous reply modes and tags",
+        "link/monitor atoms/tuples, priority messages/tags, reset precedence, scheduler0..actual schedulers, priority and async_dist"
+      ],
+      "ErrorContract": "Full class/reason/stack/error_info retained. Only explicitly witnessed PID/reference/node role aliases may be compared relationally; no frame/key/string dropping.",
+      "ResultPartitions": [
+        "PID versus{PID,Monitor}; request reference and actual reply tuple/tag/status",
+        "startup arbitrary ack/nack Return; start_monitor returns{Return,Ref}; timeout/death reinserts DOWN as source requires",
+        "error class/reason/full stack and exact error_info, not just badarg text"
+      ],
+      "EffectPartitions": [
+        "future-child inheritance; actual min/bin heap capacity; Uint16 fullsweep_after wrap in spawn options",
+        "max-heap kill/log/include-shared-binaries and actual allocation/collection, not parsed-value echoes",
+        "publication/link/monitor/request rollback and no leaked tagged child on invalid options; caller error-term allocation is allowed",
+        "real distributed startup ownership, pending requests, cancellation and cleanup across disconnect/reconnect"
+      ],
+      "SourceAnchors": [
+        "erts/preloaded/src/erlang.erl:10751 spawn_opt facade family",
+        "erts/preloaded/src/erlang.erl:11133 spawn_request facade family",
+        "erts/emulator/beam/erl_process.c:12222 erts_parse_spawn_opts",
+        "erts/emulator/beam/erl_gc.c:3825 erts_max_heap_size",
+        "lib/stdlib/src/proc_lib.erl:243-286 and434-605"
+      ],
+      "ExactInheritedDeficits": [
+        "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+        "Current styled-source preservation review and prior managed focus do not establish complete spawn_opt compatibility. Final part 353 full validation and explicit two-lane original comparison remain pending; original part 351 covers its three priority witnesses only.",
+        "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
+      ],
+      "AdditionalClosureGate": "Complete parser is necessary but insufficient: actual allocation/GC/resource policy, all facade selectors, remote/async domains, startup/cancellation and full error stacks remain required.",
+      "SharedOwnedPayloadProviderRequired": true,
+      "PreparedRepresentativeErrorWitness": true,
+      "WholeContractValidated": false
+    },
+    {
+      "Mfa": "erlang:spawn_request/2",
+      "LedgerStatusUnchanged": "Known differences",
+      "Group": "SPAWN",
+      "FacadeSelectors": [
+        "Fun,Opts",
+        "Node,Fun"
+      ],
+      "ArgumentPartitions": [
+        "every function/MFA/node overload; fun arity0 versus nonzero; legacy{M,F} facade; proper/improper argument and option lists",
+        "native-small boundaries, bignums, floats, negative/zero/positive values; exact boolean flag atoms",
+        "max_heap_size scalar or map: mandatory size; optional kill/error_logger/include_shared_binaries; unknown extra keys are ignored by pinned parser",
+        "duplicate valid options last-wins; invalid earlier option remains failure despite later valid duplicate",
+        "min/max ordering applied to final effective options; original heap-class rounding and real default values",
+        "local explicit node, real connected peer, disconnected existing peer, reconnect/incarnation change, asynchronous reply modes and tags",
+        "link/monitor atoms/tuples, priority messages/tags, reset precedence, scheduler0..actual schedulers, priority and async_dist"
+      ],
+      "ErrorContract": "Full class/reason/stack/error_info retained. Only explicitly witnessed PID/reference/node role aliases may be compared relationally; no frame/key/string dropping.",
+      "ResultPartitions": [
+        "PID versus{PID,Monitor}; request reference and actual reply tuple/tag/status",
+        "startup arbitrary ack/nack Return; start_monitor returns{Return,Ref}; timeout/death reinserts DOWN as source requires",
+        "error class/reason/full stack and exact error_info, not just badarg text"
+      ],
+      "EffectPartitions": [
+        "future-child inheritance; actual min/bin heap capacity; Uint16 fullsweep_after wrap in spawn options",
+        "max-heap kill/log/include-shared-binaries and actual allocation/collection, not parsed-value echoes",
+        "publication/link/monitor/request rollback and no leaked tagged child on invalid options; caller error-term allocation is allowed",
+        "real distributed startup ownership, pending requests, cancellation and cleanup across disconnect/reconnect"
+      ],
+      "SourceAnchors": [
+        "erts/preloaded/src/erlang.erl:10751 spawn_opt facade family",
+        "erts/preloaded/src/erlang.erl:11133 spawn_request facade family",
+        "erts/emulator/beam/erl_process.c:12222 erts_parse_spawn_opts",
+        "erts/emulator/beam/erl_gc.c:3825 erts_max_heap_size",
+        "lib/stdlib/src/proc_lib.erl:243-286 and434-605"
+      ],
+      "ExactInheritedDeficits": [
+        "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+        "Priority and logical scheduler binding are implemented; connected spawning is not claimed missing. Full native options/resource/alias/autoconnect/timing compatibility remains incomplete or unverified.",
+        "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
+      ],
+      "AdditionalClosureGate": "Complete parser is necessary but insufficient: actual allocation/GC/resource policy, all facade selectors, remote/async domains, startup/cancellation and full error stacks remain required.",
+      "SharedOwnedPayloadProviderRequired": true,
+      "PreparedRepresentativeErrorWitness": true,
+      "WholeContractValidated": false
+    },
+    {
+      "Mfa": "erlang:spawn_request/3",
+      "LedgerStatusUnchanged": "Known differences",
+      "Group": "SPAWN",
+      "FacadeSelectors": [
+        "Node,Fun,Opts",
+        "Module,Function,Args"
+      ],
+      "ArgumentPartitions": [
+        "every function/MFA/node overload; fun arity0 versus nonzero; legacy{M,F} facade; proper/improper argument and option lists",
+        "native-small boundaries, bignums, floats, negative/zero/positive values; exact boolean flag atoms",
+        "max_heap_size scalar or map: mandatory size; optional kill/error_logger/include_shared_binaries; unknown extra keys are ignored by pinned parser",
+        "duplicate valid options last-wins; invalid earlier option remains failure despite later valid duplicate",
+        "min/max ordering applied to final effective options; original heap-class rounding and real default values",
+        "local explicit node, real connected peer, disconnected existing peer, reconnect/incarnation change, asynchronous reply modes and tags",
+        "link/monitor atoms/tuples, priority messages/tags, reset precedence, scheduler0..actual schedulers, priority and async_dist"
+      ],
+      "ErrorContract": "Full class/reason/stack/error_info retained. Only explicitly witnessed PID/reference/node role aliases may be compared relationally; no frame/key/string dropping.",
+      "ResultPartitions": [
+        "PID versus{PID,Monitor}; request reference and actual reply tuple/tag/status",
+        "startup arbitrary ack/nack Return; start_monitor returns{Return,Ref}; timeout/death reinserts DOWN as source requires",
+        "error class/reason/full stack and exact error_info, not just badarg text"
+      ],
+      "EffectPartitions": [
+        "future-child inheritance; actual min/bin heap capacity; Uint16 fullsweep_after wrap in spawn options",
+        "max-heap kill/log/include-shared-binaries and actual allocation/collection, not parsed-value echoes",
+        "publication/link/monitor/request rollback and no leaked tagged child on invalid options; caller error-term allocation is allowed",
+        "real distributed startup ownership, pending requests, cancellation and cleanup across disconnect/reconnect"
+      ],
+      "SourceAnchors": [
+        "erts/preloaded/src/erlang.erl:10751 spawn_opt facade family",
+        "erts/preloaded/src/erlang.erl:11133 spawn_request facade family",
+        "erts/emulator/beam/erl_process.c:12222 erts_parse_spawn_opts",
+        "erts/emulator/beam/erl_gc.c:3825 erts_max_heap_size",
+        "lib/stdlib/src/proc_lib.erl:243-286 and434-605"
+      ],
+      "ExactInheritedDeficits": [
+        "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+        "Priority and logical scheduler binding are implemented; connected spawning is not claimed missing. Full native options/resource/alias/autoconnect/timing compatibility remains incomplete or unverified.",
+        "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
+      ],
+      "AdditionalClosureGate": "Complete parser is necessary but insufficient: actual allocation/GC/resource policy, all facade selectors, remote/async domains, startup/cancellation and full error stacks remain required.",
+      "SharedOwnedPayloadProviderRequired": true,
+      "PreparedRepresentativeErrorWitness": true,
+      "WholeContractValidated": false
+    },
+    {
+      "Mfa": "erlang:spawn_request/4",
+      "LedgerStatusUnchanged": "Known differences",
+      "Group": "SPAWN",
+      "FacadeSelectors": [
+        "Node,Module,Function,Args",
+        "Module,Function,Args,Opts"
+      ],
+      "ArgumentPartitions": [
+        "every function/MFA/node overload; fun arity0 versus nonzero; legacy{M,F} facade; proper/improper argument and option lists",
+        "native-small boundaries, bignums, floats, negative/zero/positive values; exact boolean flag atoms",
+        "max_heap_size scalar or map: mandatory size; optional kill/error_logger/include_shared_binaries; unknown extra keys are ignored by pinned parser",
+        "duplicate valid options last-wins; invalid earlier option remains failure despite later valid duplicate",
+        "min/max ordering applied to final effective options; original heap-class rounding and real default values",
+        "local explicit node, real connected peer, disconnected existing peer, reconnect/incarnation change, asynchronous reply modes and tags",
+        "link/monitor atoms/tuples, priority messages/tags, reset precedence, scheduler0..actual schedulers, priority and async_dist"
+      ],
+      "ErrorContract": "Full class/reason/stack/error_info retained. Only explicitly witnessed PID/reference/node role aliases may be compared relationally; no frame/key/string dropping.",
+      "ResultPartitions": [
+        "PID versus{PID,Monitor}; request reference and actual reply tuple/tag/status",
+        "startup arbitrary ack/nack Return; start_monitor returns{Return,Ref}; timeout/death reinserts DOWN as source requires",
+        "error class/reason/full stack and exact error_info, not just badarg text"
+      ],
+      "EffectPartitions": [
+        "future-child inheritance; actual min/bin heap capacity; Uint16 fullsweep_after wrap in spawn options",
+        "max-heap kill/log/include-shared-binaries and actual allocation/collection, not parsed-value echoes",
+        "publication/link/monitor/request rollback and no leaked tagged child on invalid options; caller error-term allocation is allowed",
+        "real distributed startup ownership, pending requests, cancellation and cleanup across disconnect/reconnect"
+      ],
+      "SourceAnchors": [
+        "erts/preloaded/src/erlang.erl:10751 spawn_opt facade family",
+        "erts/preloaded/src/erlang.erl:11133 spawn_request facade family",
+        "erts/emulator/beam/erl_process.c:12222 erts_parse_spawn_opts",
+        "erts/emulator/beam/erl_gc.c:3825 erts_max_heap_size",
+        "lib/stdlib/src/proc_lib.erl:243-286 and434-605"
+      ],
+      "ExactInheritedDeficits": [
+        "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+        "Priority and logical scheduler binding are implemented; connected spawning is not claimed missing. Full native options/resource/alias/autoconnect/timing compatibility remains incomplete or unverified.",
+        "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
+      ],
+      "AdditionalClosureGate": "Complete parser is necessary but insufficient: actual allocation/GC/resource policy, all facade selectors, remote/async domains, startup/cancellation and full error stacks remain required.",
+      "SharedOwnedPayloadProviderRequired": true,
+      "PreparedRepresentativeErrorWitness": true,
+      "WholeContractValidated": false
+    },
+    {
+      "Mfa": "erlang:spawn_request/5",
+      "LedgerStatusUnchanged": "Known differences",
+      "Group": "SPAWN",
+      "FacadeSelectors": [
+        "Node,Module,Function,Args,Opts"
+      ],
+      "ArgumentPartitions": [
+        "every function/MFA/node overload; fun arity0 versus nonzero; legacy{M,F} facade; proper/improper argument and option lists",
+        "native-small boundaries, bignums, floats, negative/zero/positive values; exact boolean flag atoms",
+        "max_heap_size scalar or map: mandatory size; optional kill/error_logger/include_shared_binaries; unknown extra keys are ignored by pinned parser",
+        "duplicate valid options last-wins; invalid earlier option remains failure despite later valid duplicate",
+        "min/max ordering applied to final effective options; original heap-class rounding and real default values",
+        "local explicit node, real connected peer, disconnected existing peer, reconnect/incarnation change, asynchronous reply modes and tags",
+        "link/monitor atoms/tuples, priority messages/tags, reset precedence, scheduler0..actual schedulers, priority and async_dist"
+      ],
+      "ErrorContract": "Full class/reason/stack/error_info retained. Only explicitly witnessed PID/reference/node role aliases may be compared relationally; no frame/key/string dropping.",
+      "ResultPartitions": [
+        "PID versus{PID,Monitor}; request reference and actual reply tuple/tag/status",
+        "startup arbitrary ack/nack Return; start_monitor returns{Return,Ref}; timeout/death reinserts DOWN as source requires",
+        "error class/reason/full stack and exact error_info, not just badarg text"
+      ],
+      "EffectPartitions": [
+        "future-child inheritance; actual min/bin heap capacity; Uint16 fullsweep_after wrap in spawn options",
+        "max-heap kill/log/include-shared-binaries and actual allocation/collection, not parsed-value echoes",
+        "publication/link/monitor/request rollback and no leaked tagged child on invalid options; caller error-term allocation is allowed",
+        "real distributed startup ownership, pending requests, cancellation and cleanup across disconnect/reconnect"
+      ],
+      "SourceAnchors": [
+        "erts/preloaded/src/erlang.erl:10751 spawn_opt facade family",
+        "erts/preloaded/src/erlang.erl:11133 spawn_request facade family",
+        "erts/emulator/beam/erl_process.c:12222 erts_parse_spawn_opts",
+        "erts/emulator/beam/erl_gc.c:3825 erts_max_heap_size",
+        "lib/stdlib/src/proc_lib.erl:243-286 and434-605"
+      ],
+      "ExactInheritedDeficits": [
+        "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+        "Priority and logical scheduler binding are implemented; connected spawning is not claimed missing. Full native options/resource/alias/autoconnect/timing compatibility remains incomplete or unverified.",
+        "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
+      ],
+      "AdditionalClosureGate": "Complete parser is necessary but insufficient: actual allocation/GC/resource policy, all facade selectors, remote/async domains, startup/cancellation and full error stacks remain required.",
+      "SharedOwnedPayloadProviderRequired": true,
+      "PreparedRepresentativeErrorWitness": true,
+      "WholeContractValidated": false
+    },
+    {
+      "Mfa": "erlang:system_flag/2",
+      "LedgerStatusUnchanged": "Known differences",
+      "Group": "FLAGS",
+      "FacadeSelectors": [
+        "erlang:system_flag/2"
+      ],
+      "ArgumentPartitions": [
+        "all16 source system_flag branches plus invalid key/value cases; feature-conditional flags are build-profile partitions",
+        "heap/min-bin native-small values and source class rounding; max-heap scalar/map flags and relation to current global min",
+        "fullsweep_after clamps above65535 here, unlike spawn-option truncation",
+        "duplicate setter sequence, old-value return, invalid setter atomicity; future child versus preexisting child"
+      ],
+      "ErrorContract": "Full class/reason/stack/error_info retained. Only explicitly witnessed PID/reference/node role aliases may be compared relationally; no frame/key/string dropping.",
+      "ResultPartitions": [
+        "raw previous value and normalized current setting from real VM metadata",
+        "complete errors/stacks; scheduler/microstate/time-offset/tracer return variants"
+      ],
+      "EffectPartitions": [
+        "fresh owned VM per setting case; restore prior values in after; time-offset finalization tested only in disposable VM",
+        "global defaults affect only the intended future children; isolation across logical ProcessRuntime instances",
+        "actual kill/log/bin accounting after successful policy mutation; validate other flag machinery, not only heap flags"
+      ],
+      "SourceAnchors": [
+        "erts/emulator/beam/bif.c:4972 system_flag_2",
+        "erts/emulator/beam/bif.c:5039-5099 heap controls",
+        "erts/emulator/beam/erl_gc.c:3825 max-heap map parser"
+      ],
+      "ExactInheritedDeficits": [
+        "system_flag(fullsweep_after,Value) is implemented, including native-small validation and system clamp. min_heap_size and other unimplemented system controls remain contract gaps.",
+        "Full branch/options/error/effect coverage remains required."
+      ],
+      "AdditionalClosureGate": "Real defaults, native policy effects, all source flag branches and build profiles; no heap-only whole-MFA promotion.",
+      "SharedOwnedPayloadProviderRequired": true,
+      "PreparedRepresentativeErrorWitness": true,
+      "WholeContractValidated": false
+    },
+    {
+      "Mfa": "erlang:statistics/1",
+      "LedgerStatusUnchanged": "Known differences",
+      "Group": "STATS",
+      "FacadeSelectors": [
+        "erlang:statistics/1"
+      ],
+      "ArgumentPartitions": [
+        "all20 source statistics keys, including literal run_queues, exact_reductions and dirty/all variants",
+        "invalid atom, scalar and compound terms; enabled/disabled scheduler wall-time and microstate feature profiles"
+      ],
+      "ErrorContract": "Full class/reason/stack/error_info retained. Only explicitly witnessed PID/reference/node role aliases may be compared relationally; no frame/key/string dropping.",
+      "ResultPartitions": [
+        "raw per-key value with exact shape, units, cumulative/delta/reset protocol",
+        "actual GC collection count and reclaimed VM words, preserving raw counts and the source fixed tuple fields",
+        "scheduler/queue cardinalities relative to actual normal/dirty schedulers, never hardcoded arrays"
+      ],
+      "EffectPartitions": [
+        "record before/after actual target minor/major collections and retained/released payloads",
+        "node-wide totals include real background work; do not assert one global GC per explicit request or compare arbitrary CLR GC counts",
+        "same-runtime attribution and distinct-runtime isolation; actual IO/scheduling work for non-GC keys"
+      ],
+      "SourceAnchors": [
+        "erts/emulator/beam/erl_bif_info.c:4160-4326 statistics_1",
+        "erts/emulator/beam/erl_bif_info.c:4301 literal run_queues branch",
+        "erts/emulator/beam/erl_gc.c collection accounting"
+      ],
+      "ExactInheritedDeficits": [
+        "statistics(garbage_collection) is implemented using actual CLR samples. Old unsupported-key wording is obsolete; the estimate is not ERTS per-process/native-word accounting and does not establish whole statistics compatibility.",
+        "Full branch/options/error/effect coverage remains required."
+      ],
+      "AdditionalClosureGate": "Source event/word accounting plus all non-GC keys and build-conditional branches; type checks alone do not close statistics/1.",
+      "SharedOwnedPayloadProviderRequired": true,
+      "PreparedRepresentativeErrorWitness": true,
+      "WholeContractValidated": false
+    },
+    {
+      "Mfa": "erlang:load_nif/2",
+      "LedgerStatusUnchanged": "Known differences",
+      "Group": "NIF_LOAD",
+      "FacadeSelectors": [
+        "erlang:load_nif/2"
+      ],
+      "ArgumentPartitions": [
+        "filename flat/deep lists, Unicode/platform paths, wrong types, extension and search rules; arbitrary LoadInfo reaches actual load callback",
+        "direct current-code/on_load versus indirect/old-code/reload/upgrade module contexts",
+        "missing/malformed library, wrong module, ABI/version/architecture, absent exports/imports, dependency-resolution failures",
+        "Windows/Linux, x64/ARM/32bit and supported native resource/thread/upgrade boundaries are independent profiles"
+      ],
+      "ErrorContract": "Full class/reason/stack/error_info retained. Only explicitly witnessed PID/reference/node role aliases may be compared relationally; no frame/key/string dropping.",
+      "ResultPartitions": [
+        "complete source error tuple/text/error_info for the actual OS/path/locale, not generic CLR exceptions",
+        "load success/new function binding, load rejection, upgrade veto and retained old image",
+        "existing reviewed and ordinary loaders remain separate routes with actual policy invocation proof"
+      ],
+      "EffectPartitions": [
+        "native env/private data/resource/root ownership, clear/free/copy/async handoff/destructor/unload on actor death and cancellation",
+        "failed preparation must not execute dependent library routes; each independent route still settles",
+        "actual physical module presence/absence, process ownership and allocation baselines; all15 map callbacks are one dependency, not the full MFA"
+      ],
+      "SourceAnchors": [
+        "erts/emulator/beam/erl_nif.c:4622 load_nif_2 and actual load_nif path",
+        "erts/emulator/beam/erl_nif.c load_nif_1st/2nd/3rd_finisher lifecycle"
+      ],
+      "ExactInheritedDeficits": [
+        "Ordinary captured direct calls open host libraries without per-image approval; optional reviewed hash policy and explicit handler retain precedence. Raw Unix filename bytes/search are implemented in source with Linux/original execution pending. General native ABI/version/dirty/resource/thread/upgrade support remains incomplete.",
+        "Managed source-route and owned Windows eleven-image observations do not establish original OTP equality or complete native error text. New ordinary original comparisons and same-head CI remain pending."
+      ],
+      "AdditionalClosureGate": "All inherited platform/ABI/thread/resource/import/error/lifecycle limits; reuse completed504/505 evidence without treating it as full load_nif closure.",
+      "SharedOwnedPayloadProviderRequired": true,
+      "PreparedRepresentativeErrorWitness": true,
+      "WholeContractValidated": false
+    },
+    {
+      "Mfa": "proc_lib:spawn_opt/3",
+      "LedgerStatusUnchanged": "Known differences",
+      "Group": "SPAWN",
+      "FacadeSelectors": [
+        "Node,Fun,Opts"
+      ],
+      "ArgumentPartitions": [
+        "every function/MFA/node overload; fun arity0 versus nonzero; legacy{M,F} facade; proper/improper argument and option lists",
+        "native-small boundaries, bignums, floats, negative/zero/positive values; exact boolean flag atoms",
+        "max_heap_size scalar or map: mandatory size; optional kill/error_logger/include_shared_binaries; unknown extra keys are ignored by pinned parser",
+        "duplicate valid options last-wins; invalid earlier option remains failure despite later valid duplicate",
+        "min/max ordering applied to final effective options; original heap-class rounding and real default values",
+        "local explicit node, real connected peer, disconnected existing peer, reconnect/incarnation change, asynchronous reply modes and tags",
+        "link/monitor atoms/tuples, priority messages/tags, reset precedence, scheduler0..actual schedulers, priority and async_dist"
+      ],
+      "ErrorContract": "Full class/reason/stack/error_info retained. Only explicitly witnessed PID/reference/node role aliases may be compared relationally; no frame/key/string dropping.",
+      "ResultPartitions": [
+        "PID versus{PID,Monitor}; request reference and actual reply tuple/tag/status",
+        "startup arbitrary ack/nack Return; start_monitor returns{Return,Ref}; timeout/death reinserts DOWN as source requires",
+        "error class/reason/full stack and exact error_info, not just badarg text"
+      ],
+      "EffectPartitions": [
+        "future-child inheritance; actual min/bin heap capacity; Uint16 fullsweep_after wrap in spawn options",
+        "max-heap kill/log/include-shared-binaries and actual allocation/collection, not parsed-value echoes",
+        "publication/link/monitor/request rollback and no leaked tagged child on invalid options; caller error-term allocation is allowed",
+        "real distributed startup ownership, pending requests, cancellation and cleanup across disconnect/reconnect"
+      ],
+      "SourceAnchors": [
+        "erts/preloaded/src/erlang.erl:10751 spawn_opt facade family",
+        "erts/preloaded/src/erlang.erl:11133 spawn_request facade family",
+        "erts/emulator/beam/erl_process.c:12222 erts_parse_spawn_opts",
+        "erts/emulator/beam/erl_gc.c:3825 erts_max_heap_size",
+        "lib/stdlib/src/proc_lib.erl:243-286 and434-605"
+      ],
+      "ExactInheritedDeficits": [
+        "RECHECK487_FRESH_RECEIVER: Exact current/old source-image resolution and fresh lexical/captured-function controls pass without receiver constructor execution. Complete API/source/error/effect audits remain pending; the historical340 failure is not asserted current.",
+        "SPAWN_NATIVE_TUNING: priority, scheduler, fullsweep_after and message_queue_data are implemented. Native heap sizing/limits remain unsupported; physical ERTS collector equivalence is unclosed.",
+        "REMOTE_WHOLE_TRACE_TCP: Native/managed transport integration exists, but complete proc_lib remote spawn/alias/trace branch coverage remains unverified. Missing whole-contract evidence is not a confirmed current discrepancy."
+      ],
+      "AdditionalClosureGate": "Complete parser is necessary but insufficient: actual allocation/GC/resource policy, all facade selectors, remote/async domains, startup/cancellation and full error stacks remain required.",
+      "SharedOwnedPayloadProviderRequired": true,
+      "PreparedRepresentativeErrorWitness": true,
+      "WholeContractValidated": false
+    },
+    {
+      "Mfa": "proc_lib:spawn_opt/5",
+      "LedgerStatusUnchanged": "Known differences",
+      "Group": "SPAWN",
+      "FacadeSelectors": [
+        "Node,Module,Function,Args,Opts"
+      ],
+      "ArgumentPartitions": [
+        "every function/MFA/node overload; fun arity0 versus nonzero; legacy{M,F} facade; proper/improper argument and option lists",
+        "native-small boundaries, bignums, floats, negative/zero/positive values; exact boolean flag atoms",
+        "max_heap_size scalar or map: mandatory size; optional kill/error_logger/include_shared_binaries; unknown extra keys are ignored by pinned parser",
+        "duplicate valid options last-wins; invalid earlier option remains failure despite later valid duplicate",
+        "min/max ordering applied to final effective options; original heap-class rounding and real default values",
+        "local explicit node, real connected peer, disconnected existing peer, reconnect/incarnation change, asynchronous reply modes and tags",
+        "link/monitor atoms/tuples, priority messages/tags, reset precedence, scheduler0..actual schedulers, priority and async_dist"
+      ],
+      "ErrorContract": "Full class/reason/stack/error_info retained. Only explicitly witnessed PID/reference/node role aliases may be compared relationally; no frame/key/string dropping.",
+      "ResultPartitions": [
+        "PID versus{PID,Monitor}; request reference and actual reply tuple/tag/status",
+        "startup arbitrary ack/nack Return; start_monitor returns{Return,Ref}; timeout/death reinserts DOWN as source requires",
+        "error class/reason/full stack and exact error_info, not just badarg text"
+      ],
+      "EffectPartitions": [
+        "future-child inheritance; actual min/bin heap capacity; Uint16 fullsweep_after wrap in spawn options",
+        "max-heap kill/log/include-shared-binaries and actual allocation/collection, not parsed-value echoes",
+        "publication/link/monitor/request rollback and no leaked tagged child on invalid options; caller error-term allocation is allowed",
+        "real distributed startup ownership, pending requests, cancellation and cleanup across disconnect/reconnect"
+      ],
+      "SourceAnchors": [
+        "erts/preloaded/src/erlang.erl:10751 spawn_opt facade family",
+        "erts/preloaded/src/erlang.erl:11133 spawn_request facade family",
+        "erts/emulator/beam/erl_process.c:12222 erts_parse_spawn_opts",
+        "erts/emulator/beam/erl_gc.c:3825 erts_max_heap_size",
+        "lib/stdlib/src/proc_lib.erl:243-286 and434-605"
+      ],
+      "ExactInheritedDeficits": [
+        "SPAWN_NATIVE_TUNING: priority, scheduler, fullsweep_after and message_queue_data are implemented. Native heap sizing/limits remain unsupported; physical ERTS collector equivalence is unclosed.",
+        "REMOTE_WHOLE_TRACE_TCP: Native/managed transport integration exists, but complete proc_lib remote spawn/alias/trace branch coverage remains unverified. Missing whole-contract evidence is not a confirmed current discrepancy."
+      ],
+      "AdditionalClosureGate": "Complete parser is necessary but insufficient: actual allocation/GC/resource policy, all facade selectors, remote/async domains, startup/cancellation and full error stacks remain required.",
+      "SharedOwnedPayloadProviderRequired": true,
+      "PreparedRepresentativeErrorWitness": true,
+      "WholeContractValidated": false
+    },
+    {
+      "Mfa": "proc_lib:spawn_opt/2",
+      "LedgerStatusUnchanged": "Known differences",
+      "Group": "SPAWN",
+      "FacadeSelectors": [
+        "Fun,Opts"
+      ],
+      "ArgumentPartitions": [
+        "every function/MFA/node overload; fun arity0 versus nonzero; legacy{M,F} facade; proper/improper argument and option lists",
+        "native-small boundaries, bignums, floats, negative/zero/positive values; exact boolean flag atoms",
+        "max_heap_size scalar or map: mandatory size; optional kill/error_logger/include_shared_binaries; unknown extra keys are ignored by pinned parser",
+        "duplicate valid options last-wins; invalid earlier option remains failure despite later valid duplicate",
+        "min/max ordering applied to final effective options; original heap-class rounding and real default values",
+        "local explicit node, real connected peer, disconnected existing peer, reconnect/incarnation change, asynchronous reply modes and tags",
+        "link/monitor atoms/tuples, priority messages/tags, reset precedence, scheduler0..actual schedulers, priority and async_dist"
+      ],
+      "ErrorContract": "Full class/reason/stack/error_info retained. Only explicitly witnessed PID/reference/node role aliases may be compared relationally; no frame/key/string dropping.",
+      "ResultPartitions": [
+        "PID versus{PID,Monitor}; request reference and actual reply tuple/tag/status",
+        "startup arbitrary ack/nack Return; start_monitor returns{Return,Ref}; timeout/death reinserts DOWN as source requires",
+        "error class/reason/full stack and exact error_info, not just badarg text"
+      ],
+      "EffectPartitions": [
+        "future-child inheritance; actual min/bin heap capacity; Uint16 fullsweep_after wrap in spawn options",
+        "max-heap kill/log/include-shared-binaries and actual allocation/collection, not parsed-value echoes",
+        "publication/link/monitor/request rollback and no leaked tagged child on invalid options; caller error-term allocation is allowed",
+        "real distributed startup ownership, pending requests, cancellation and cleanup across disconnect/reconnect"
+      ],
+      "SourceAnchors": [
+        "erts/preloaded/src/erlang.erl:10751 spawn_opt facade family",
+        "erts/preloaded/src/erlang.erl:11133 spawn_request facade family",
+        "erts/emulator/beam/erl_process.c:12222 erts_parse_spawn_opts",
+        "erts/emulator/beam/erl_gc.c:3825 erts_max_heap_size",
+        "lib/stdlib/src/proc_lib.erl:243-286 and434-605"
+      ],
+      "ExactInheritedDeficits": [
+        "RECHECK487_FRESH_RECEIVER: Exact current/old source-image resolution and fresh lexical/captured-function controls pass without receiver constructor execution. Complete API/source/error/effect audits remain pending; the historical340 failure is not asserted current.",
+        "SPAWN_NATIVE_TUNING: priority, scheduler, fullsweep_after and message_queue_data are implemented. Native heap sizing/limits remain unsupported; physical ERTS collector equivalence is unclosed."
+      ],
+      "AdditionalClosureGate": "Complete parser is necessary but insufficient: actual allocation/GC/resource policy, all facade selectors, remote/async domains, startup/cancellation and full error stacks remain required.",
+      "SharedOwnedPayloadProviderRequired": true,
+      "PreparedRepresentativeErrorWitness": true,
+      "WholeContractValidated": false
+    },
+    {
+      "Mfa": "proc_lib:spawn_opt/4",
+      "LedgerStatusUnchanged": "Known differences",
+      "Group": "SPAWN",
+      "FacadeSelectors": [
+        "Module,Function,Args,Opts"
+      ],
+      "ArgumentPartitions": [
+        "every function/MFA/node overload; fun arity0 versus nonzero; legacy{M,F} facade; proper/improper argument and option lists",
+        "native-small boundaries, bignums, floats, negative/zero/positive values; exact boolean flag atoms",
+        "max_heap_size scalar or map: mandatory size; optional kill/error_logger/include_shared_binaries; unknown extra keys are ignored by pinned parser",
+        "duplicate valid options last-wins; invalid earlier option remains failure despite later valid duplicate",
+        "min/max ordering applied to final effective options; original heap-class rounding and real default values",
+        "local explicit node, real connected peer, disconnected existing peer, reconnect/incarnation change, asynchronous reply modes and tags",
+        "link/monitor atoms/tuples, priority messages/tags, reset precedence, scheduler0..actual schedulers, priority and async_dist"
+      ],
+      "ErrorContract": "Full class/reason/stack/error_info retained. Only explicitly witnessed PID/reference/node role aliases may be compared relationally; no frame/key/string dropping.",
+      "ResultPartitions": [
+        "PID versus{PID,Monitor}; request reference and actual reply tuple/tag/status",
+        "startup arbitrary ack/nack Return; start_monitor returns{Return,Ref}; timeout/death reinserts DOWN as source requires",
+        "error class/reason/full stack and exact error_info, not just badarg text"
+      ],
+      "EffectPartitions": [
+        "future-child inheritance; actual min/bin heap capacity; Uint16 fullsweep_after wrap in spawn options",
+        "max-heap kill/log/include-shared-binaries and actual allocation/collection, not parsed-value echoes",
+        "publication/link/monitor/request rollback and no leaked tagged child on invalid options; caller error-term allocation is allowed",
+        "real distributed startup ownership, pending requests, cancellation and cleanup across disconnect/reconnect"
+      ],
+      "SourceAnchors": [
+        "erts/preloaded/src/erlang.erl:10751 spawn_opt facade family",
+        "erts/preloaded/src/erlang.erl:11133 spawn_request facade family",
+        "erts/emulator/beam/erl_process.c:12222 erts_parse_spawn_opts",
+        "erts/emulator/beam/erl_gc.c:3825 erts_max_heap_size",
+        "lib/stdlib/src/proc_lib.erl:243-286 and434-605"
+      ],
+      "ExactInheritedDeficits": [
+        "SPAWN_NATIVE_TUNING: priority, scheduler, fullsweep_after and message_queue_data are implemented. Native heap sizing/limits remain unsupported; physical ERTS collector equivalence is unclosed."
+      ],
+      "AdditionalClosureGate": "Complete parser is necessary but insufficient: actual allocation/GC/resource policy, all facade selectors, remote/async domains, startup/cancellation and full error stacks remain required.",
+      "SharedOwnedPayloadProviderRequired": true,
+      "PreparedRepresentativeErrorWitness": true,
+      "WholeContractValidated": false
+    },
+    {
+      "Mfa": "proc_lib:start/5",
+      "LedgerStatusUnchanged": "Known differences",
+      "Group": "SPAWN",
+      "FacadeSelectors": [
+        "proc_lib:start/5"
+      ],
+      "ArgumentPartitions": [
+        "every function/MFA/node overload; fun arity0 versus nonzero; legacy{M,F} facade; proper/improper argument and option lists",
+        "native-small boundaries, bignums, floats, negative/zero/positive values; exact boolean flag atoms",
+        "max_heap_size scalar or map: mandatory size; optional kill/error_logger/include_shared_binaries; unknown extra keys are ignored by pinned parser",
+        "duplicate valid options last-wins; invalid earlier option remains failure despite later valid duplicate",
+        "min/max ordering applied to final effective options; original heap-class rounding and real default values",
+        "local explicit node, real connected peer, disconnected existing peer, reconnect/incarnation change, asynchronous reply modes and tags",
+        "link/monitor atoms/tuples, priority messages/tags, reset precedence, scheduler0..actual schedulers, priority and async_dist"
+      ],
+      "ErrorContract": "Full class/reason/stack/error_info retained. Only explicitly witnessed PID/reference/node role aliases may be compared relationally; no frame/key/string dropping.",
+      "ResultPartitions": [
+        "PID versus{PID,Monitor}; request reference and actual reply tuple/tag/status",
+        "startup arbitrary ack/nack Return; start_monitor returns{Return,Ref}; timeout/death reinserts DOWN as source requires",
+        "error class/reason/full stack and exact error_info, not just badarg text"
+      ],
+      "EffectPartitions": [
+        "future-child inheritance; actual min/bin heap capacity; Uint16 fullsweep_after wrap in spawn options",
+        "max-heap kill/log/include-shared-binaries and actual allocation/collection, not parsed-value echoes",
+        "publication/link/monitor/request rollback and no leaked tagged child on invalid options; caller error-term allocation is allowed",
+        "real distributed startup ownership, pending requests, cancellation and cleanup across disconnect/reconnect"
+      ],
+      "SourceAnchors": [
+        "erts/preloaded/src/erlang.erl:10751 spawn_opt facade family",
+        "erts/preloaded/src/erlang.erl:11133 spawn_request facade family",
+        "erts/emulator/beam/erl_process.c:12222 erts_parse_spawn_opts",
+        "erts/emulator/beam/erl_gc.c:3825 erts_max_heap_size",
+        "lib/stdlib/src/proc_lib.erl:243-286 and434-605"
+      ],
+      "ExactInheritedDeficits": [
+        "SPAWN_NATIVE_TUNING: priority, scheduler, fullsweep_after and message_queue_data are implemented. Native heap sizing/limits remain unsupported; physical ERTS collector equivalence is unclosed."
+      ],
+      "AdditionalClosureGate": "Complete parser is necessary but insufficient: actual allocation/GC/resource policy, all facade selectors, remote/async domains, startup/cancellation and full error stacks remain required.",
+      "SharedOwnedPayloadProviderRequired": true,
+      "PreparedRepresentativeErrorWitness": true,
+      "WholeContractValidated": false
+    },
+    {
+      "Mfa": "proc_lib:start_link/5",
+      "LedgerStatusUnchanged": "Known differences",
+      "Group": "SPAWN",
+      "FacadeSelectors": [
+        "proc_lib:start_link/5"
+      ],
+      "ArgumentPartitions": [
+        "every function/MFA/node overload; fun arity0 versus nonzero; legacy{M,F} facade; proper/improper argument and option lists",
+        "native-small boundaries, bignums, floats, negative/zero/positive values; exact boolean flag atoms",
+        "max_heap_size scalar or map: mandatory size; optional kill/error_logger/include_shared_binaries; unknown extra keys are ignored by pinned parser",
+        "duplicate valid options last-wins; invalid earlier option remains failure despite later valid duplicate",
+        "min/max ordering applied to final effective options; original heap-class rounding and real default values",
+        "local explicit node, real connected peer, disconnected existing peer, reconnect/incarnation change, asynchronous reply modes and tags",
+        "link/monitor atoms/tuples, priority messages/tags, reset precedence, scheduler0..actual schedulers, priority and async_dist"
+      ],
+      "ErrorContract": "Full class/reason/stack/error_info retained. Only explicitly witnessed PID/reference/node role aliases may be compared relationally; no frame/key/string dropping.",
+      "ResultPartitions": [
+        "PID versus{PID,Monitor}; request reference and actual reply tuple/tag/status",
+        "startup arbitrary ack/nack Return; start_monitor returns{Return,Ref}; timeout/death reinserts DOWN as source requires",
+        "error class/reason/full stack and exact error_info, not just badarg text"
+      ],
+      "EffectPartitions": [
+        "future-child inheritance; actual min/bin heap capacity; Uint16 fullsweep_after wrap in spawn options",
+        "max-heap kill/log/include-shared-binaries and actual allocation/collection, not parsed-value echoes",
+        "publication/link/monitor/request rollback and no leaked tagged child on invalid options; caller error-term allocation is allowed",
+        "real distributed startup ownership, pending requests, cancellation and cleanup across disconnect/reconnect"
+      ],
+      "SourceAnchors": [
+        "erts/preloaded/src/erlang.erl:10751 spawn_opt facade family",
+        "erts/preloaded/src/erlang.erl:11133 spawn_request facade family",
+        "erts/emulator/beam/erl_process.c:12222 erts_parse_spawn_opts",
+        "erts/emulator/beam/erl_gc.c:3825 erts_max_heap_size",
+        "lib/stdlib/src/proc_lib.erl:243-286 and434-605"
+      ],
+      "ExactInheritedDeficits": [
+        "SPAWN_NATIVE_TUNING: priority, scheduler, fullsweep_after and message_queue_data are implemented. Native heap sizing/limits remain unsupported; physical ERTS collector equivalence is unclosed."
+      ],
+      "AdditionalClosureGate": "Complete parser is necessary but insufficient: actual allocation/GC/resource policy, all facade selectors, remote/async domains, startup/cancellation and full error stacks remain required.",
+      "SharedOwnedPayloadProviderRequired": true,
+      "PreparedRepresentativeErrorWitness": true,
+      "WholeContractValidated": false
+    },
+    {
+      "Mfa": "proc_lib:start_monitor/5",
+      "LedgerStatusUnchanged": "Known differences",
+      "Group": "SPAWN",
+      "FacadeSelectors": [
+        "proc_lib:start_monitor/5"
+      ],
+      "ArgumentPartitions": [
+        "every function/MFA/node overload; fun arity0 versus nonzero; legacy{M,F} facade; proper/improper argument and option lists",
+        "native-small boundaries, bignums, floats, negative/zero/positive values; exact boolean flag atoms",
+        "max_heap_size scalar or map: mandatory size; optional kill/error_logger/include_shared_binaries; unknown extra keys are ignored by pinned parser",
+        "duplicate valid options last-wins; invalid earlier option remains failure despite later valid duplicate",
+        "min/max ordering applied to final effective options; original heap-class rounding and real default values",
+        "local explicit node, real connected peer, disconnected existing peer, reconnect/incarnation change, asynchronous reply modes and tags",
+        "link/monitor atoms/tuples, priority messages/tags, reset precedence, scheduler0..actual schedulers, priority and async_dist"
+      ],
+      "ErrorContract": "Full class/reason/stack/error_info retained. Only explicitly witnessed PID/reference/node role aliases may be compared relationally; no frame/key/string dropping.",
+      "ResultPartitions": [
+        "PID versus{PID,Monitor}; request reference and actual reply tuple/tag/status",
+        "startup arbitrary ack/nack Return; start_monitor returns{Return,Ref}; timeout/death reinserts DOWN as source requires",
+        "error class/reason/full stack and exact error_info, not just badarg text"
+      ],
+      "EffectPartitions": [
+        "future-child inheritance; actual min/bin heap capacity; Uint16 fullsweep_after wrap in spawn options",
+        "max-heap kill/log/include-shared-binaries and actual allocation/collection, not parsed-value echoes",
+        "publication/link/monitor/request rollback and no leaked tagged child on invalid options; caller error-term allocation is allowed",
+        "real distributed startup ownership, pending requests, cancellation and cleanup across disconnect/reconnect"
+      ],
+      "SourceAnchors": [
+        "erts/preloaded/src/erlang.erl:10751 spawn_opt facade family",
+        "erts/preloaded/src/erlang.erl:11133 spawn_request facade family",
+        "erts/emulator/beam/erl_process.c:12222 erts_parse_spawn_opts",
+        "erts/emulator/beam/erl_gc.c:3825 erts_max_heap_size",
+        "lib/stdlib/src/proc_lib.erl:243-286 and434-605"
+      ],
+      "ExactInheritedDeficits": [
+        "SPAWN_NATIVE_TUNING: priority, scheduler, fullsweep_after and message_queue_data are implemented. Native heap sizing/limits remain unsupported; physical ERTS collector equivalence is unclosed."
+      ],
+      "AdditionalClosureGate": "Complete parser is necessary but insufficient: actual allocation/GC/resource policy, all facade selectors, remote/async domains, startup/cancellation and full error stacks remain required.",
+      "SharedOwnedPayloadProviderRequired": true,
+      "PreparedRepresentativeErrorWitness": true,
+      "WholeContractValidated": false
+    },
+    {
+      "Mfa": "proc_lib:init_p/3",
+      "LedgerStatusUnchanged": "Known differences",
+      "Group": "PROC_REPORT",
+      "FacadeSelectors": [
+        "proc_lib:init_p/3"
+      ],
+      "ArgumentPartitions": [
+        "init_p/3 fun0/nonzero/bad fun, arbitrary parent and ancestor shapes; init_p/5/wake_up/3/hibernate/3 MFA/list guards",
+        "error/exit/throw plus normal/shutdown report suppression; dictionary initial-call overwritten/erased forms",
+        "actual local and connected remote linked neighbours; logger handler/formatter configuration and overload/file backends"
+      ],
+      "ErrorContract": "Full class/reason/stack/error_info retained. Only explicitly witnessed PID/reference/node role aliases may be compared relationally; no frame/key/string dropping.",
+      "ResultPartitions": [
+        "complete child DOWN reason/class/stack and typed logger report, initial_call/ancestors/process labels",
+        "raw real heap_size/stack_size and collection/binary/message/dictionary fields in reports",
+        "hibernate never returns normally; wake metadata and wake exceptions follow proc_lib wrapper"
+      ],
+      "EffectPartitions": [
+        "actual heap compaction and stack reset before wake, argument survival and release after wake",
+        "report/logger callback and neighbour traversal ordering; real process locks/remote rpc failures",
+        "separate structured real-report comparison with identity witnesses from exact formatting of explicitly portable report inputs"
+      ],
+      "SourceAnchors": [
+        "lib/stdlib/src/proc_lib.erl:306-365",
+        "lib/stdlib/src/proc_lib.erl:950-1011 crash_report/my_info",
+        "lib/stdlib/src/proc_lib.erl:1143 neighbours",
+        "erts/emulator/beam/erl_gc.c garbage_collect_hibernate",
+        "lib/stdlib/src/erl_error.erl formatter"
+      ],
+      "ExactInheritedDeficits": [
+        "RECHECK487_FRESH_RECEIVER: Exact current/old source-image resolution and fresh lexical/captured-function controls pass without receiver constructor execution. Complete API/source/error/effect audits remain pending; the historical340 failure is not asserted current.",
+        "CRASH_PHYSICAL_FIELDS: Generated crash report heap_size and stack_size are undefined on managed processes instead of native nonnegative BEAM counts. Existing portable tests allow exactly those two alternatives; other fields retain their assertions.",
+        "LOGGER_BACKEND_BREADTH: Crash reports use real per-runtime logger configuration and guest callbacks, but default output is synchronous managed writer handling, not full OTP logger_std_h process/overload/physical-file machinery. Full logger_formatter headers/templates/configuration remain absent.",
+        "REMOTE_NEIGHBOUR_CRASH_STACK: Full remote-neighbour crash graph and native complete crash-stack output are not established by the finite local lifecycle assertions. Remote process_info now uses real rpc; this removes the old missing-RPC dependency, not every distributed report equivalence gap."
+      ],
+      "AdditionalClosureGate": "Real physical report fields, hibernate heap/stack effects, logger breadth and remote-neighbour complete stacks; prior local lifecycle witnesses remain scoped.",
+      "SharedOwnedPayloadProviderRequired": true,
+      "PreparedRepresentativeErrorWitness": true,
+      "WholeContractValidated": false
+    },
+    {
+      "Mfa": "proc_lib:init_p/5",
+      "LedgerStatusUnchanged": "Known differences",
+      "Group": "PROC_REPORT",
+      "FacadeSelectors": [
+        "proc_lib:init_p/5"
+      ],
+      "ArgumentPartitions": [
+        "init_p/3 fun0/nonzero/bad fun, arbitrary parent and ancestor shapes; init_p/5/wake_up/3/hibernate/3 MFA/list guards",
+        "error/exit/throw plus normal/shutdown report suppression; dictionary initial-call overwritten/erased forms",
+        "actual local and connected remote linked neighbours; logger handler/formatter configuration and overload/file backends"
+      ],
+      "ErrorContract": "Full class/reason/stack/error_info retained. Only explicitly witnessed PID/reference/node role aliases may be compared relationally; no frame/key/string dropping.",
+      "ResultPartitions": [
+        "complete child DOWN reason/class/stack and typed logger report, initial_call/ancestors/process labels",
+        "raw real heap_size/stack_size and collection/binary/message/dictionary fields in reports",
+        "hibernate never returns normally; wake metadata and wake exceptions follow proc_lib wrapper"
+      ],
+      "EffectPartitions": [
+        "actual heap compaction and stack reset before wake, argument survival and release after wake",
+        "report/logger callback and neighbour traversal ordering; real process locks/remote rpc failures",
+        "separate structured real-report comparison with identity witnesses from exact formatting of explicitly portable report inputs"
+      ],
+      "SourceAnchors": [
+        "lib/stdlib/src/proc_lib.erl:306-365",
+        "lib/stdlib/src/proc_lib.erl:950-1011 crash_report/my_info",
+        "lib/stdlib/src/proc_lib.erl:1143 neighbours",
+        "erts/emulator/beam/erl_gc.c garbage_collect_hibernate",
+        "lib/stdlib/src/erl_error.erl formatter"
+      ],
+      "ExactInheritedDeficits": [
+        "CRASH_PHYSICAL_FIELDS: Generated crash report heap_size and stack_size are undefined on managed processes instead of native nonnegative BEAM counts. Existing portable tests allow exactly those two alternatives; other fields retain their assertions.",
+        "LOGGER_BACKEND_BREADTH: Crash reports use real per-runtime logger configuration and guest callbacks, but default output is synchronous managed writer handling, not full OTP logger_std_h process/overload/physical-file machinery. Full logger_formatter headers/templates/configuration remain absent.",
+        "REMOTE_NEIGHBOUR_CRASH_STACK: Full remote-neighbour crash graph and native complete crash-stack output are not established by the finite local lifecycle assertions. Remote process_info now uses real rpc; this removes the old missing-RPC dependency, not every distributed report equivalence gap."
+      ],
+      "AdditionalClosureGate": "Real physical report fields, hibernate heap/stack effects, logger breadth and remote-neighbour complete stacks; prior local lifecycle witnesses remain scoped.",
+      "SharedOwnedPayloadProviderRequired": true,
+      "PreparedRepresentativeErrorWitness": true,
+      "WholeContractValidated": false
+    },
+    {
+      "Mfa": "proc_lib:wake_up/3",
+      "LedgerStatusUnchanged": "Known differences",
+      "Group": "PROC_REPORT",
+      "FacadeSelectors": [
+        "proc_lib:wake_up/3"
+      ],
+      "ArgumentPartitions": [
+        "init_p/3 fun0/nonzero/bad fun, arbitrary parent and ancestor shapes; init_p/5/wake_up/3/hibernate/3 MFA/list guards",
+        "error/exit/throw plus normal/shutdown report suppression; dictionary initial-call overwritten/erased forms",
+        "actual local and connected remote linked neighbours; logger handler/formatter configuration and overload/file backends"
+      ],
+      "ErrorContract": "Full class/reason/stack/error_info retained. Only explicitly witnessed PID/reference/node role aliases may be compared relationally; no frame/key/string dropping.",
+      "ResultPartitions": [
+        "complete child DOWN reason/class/stack and typed logger report, initial_call/ancestors/process labels",
+        "raw real heap_size/stack_size and collection/binary/message/dictionary fields in reports",
+        "hibernate never returns normally; wake metadata and wake exceptions follow proc_lib wrapper"
+      ],
+      "EffectPartitions": [
+        "actual heap compaction and stack reset before wake, argument survival and release after wake",
+        "report/logger callback and neighbour traversal ordering; real process locks/remote rpc failures",
+        "separate structured real-report comparison with identity witnesses from exact formatting of explicitly portable report inputs"
+      ],
+      "SourceAnchors": [
+        "lib/stdlib/src/proc_lib.erl:306-365",
+        "lib/stdlib/src/proc_lib.erl:950-1011 crash_report/my_info",
+        "lib/stdlib/src/proc_lib.erl:1143 neighbours",
+        "erts/emulator/beam/erl_gc.c garbage_collect_hibernate",
+        "lib/stdlib/src/erl_error.erl formatter"
+      ],
+      "ExactInheritedDeficits": [
+        "CRASH_PHYSICAL_FIELDS: Generated crash report heap_size and stack_size are undefined on managed processes instead of native nonnegative BEAM counts. Existing portable tests allow exactly those two alternatives; other fields retain their assertions.",
+        "LOGGER_BACKEND_BREADTH: Crash reports use real per-runtime logger configuration and guest callbacks, but default output is synchronous managed writer handling, not full OTP logger_std_h process/overload/physical-file machinery. Full logger_formatter headers/templates/configuration remain absent.",
+        "PHYSICAL_HIBERNATE: Cooperative wake-up and call/error paths are implemented; BEAM heap compaction, stack footprint, scheduler/GC costs and timing are not demonstrated equivalent on CLR.",
+        "REMOTE_NEIGHBOUR_CRASH_STACK: Full remote-neighbour crash graph and native complete crash-stack output are not established by the finite local lifecycle assertions. Remote process_info now uses real rpc; this removes the old missing-RPC dependency, not every distributed report equivalence gap."
+      ],
+      "AdditionalClosureGate": "Real physical report fields, hibernate heap/stack effects, logger breadth and remote-neighbour complete stacks; prior local lifecycle witnesses remain scoped.",
+      "SharedOwnedPayloadProviderRequired": true,
+      "PreparedRepresentativeErrorWitness": true,
+      "WholeContractValidated": false
+    },
+    {
+      "Mfa": "proc_lib:hibernate/3",
+      "LedgerStatusUnchanged": "Known differences",
+      "Group": "PROC_REPORT",
+      "FacadeSelectors": [
+        "proc_lib:hibernate/3"
+      ],
+      "ArgumentPartitions": [
+        "init_p/3 fun0/nonzero/bad fun, arbitrary parent and ancestor shapes; init_p/5/wake_up/3/hibernate/3 MFA/list guards",
+        "error/exit/throw plus normal/shutdown report suppression; dictionary initial-call overwritten/erased forms",
+        "actual local and connected remote linked neighbours; logger handler/formatter configuration and overload/file backends"
+      ],
+      "ErrorContract": "Full class/reason/stack/error_info retained. Only explicitly witnessed PID/reference/node role aliases may be compared relationally; no frame/key/string dropping.",
+      "ResultPartitions": [
+        "complete child DOWN reason/class/stack and typed logger report, initial_call/ancestors/process labels",
+        "raw real heap_size/stack_size and collection/binary/message/dictionary fields in reports",
+        "hibernate never returns normally; wake metadata and wake exceptions follow proc_lib wrapper"
+      ],
+      "EffectPartitions": [
+        "actual heap compaction and stack reset before wake, argument survival and release after wake",
+        "report/logger callback and neighbour traversal ordering; real process locks/remote rpc failures",
+        "separate structured real-report comparison with identity witnesses from exact formatting of explicitly portable report inputs"
+      ],
+      "SourceAnchors": [
+        "lib/stdlib/src/proc_lib.erl:306-365",
+        "lib/stdlib/src/proc_lib.erl:950-1011 crash_report/my_info",
+        "lib/stdlib/src/proc_lib.erl:1143 neighbours",
+        "erts/emulator/beam/erl_gc.c garbage_collect_hibernate",
+        "lib/stdlib/src/erl_error.erl formatter"
+      ],
+      "ExactInheritedDeficits": [
+        "CRASH_PHYSICAL_FIELDS: Generated crash report heap_size and stack_size are undefined on managed processes instead of native nonnegative BEAM counts. Existing portable tests allow exactly those two alternatives; other fields retain their assertions.",
+        "LOGGER_BACKEND_BREADTH: Crash reports use real per-runtime logger configuration and guest callbacks, but default output is synchronous managed writer handling, not full OTP logger_std_h process/overload/physical-file machinery. Full logger_formatter headers/templates/configuration remain absent.",
+        "PHYSICAL_HIBERNATE: Cooperative wake-up and call/error paths are implemented; BEAM heap compaction, stack footprint, scheduler/GC costs and timing are not demonstrated equivalent on CLR.",
+        "REMOTE_NEIGHBOUR_CRASH_STACK: Full remote-neighbour crash graph and native complete crash-stack output are not established by the finite local lifecycle assertions. Remote process_info now uses real rpc; this removes the old missing-RPC dependency, not every distributed report equivalence gap."
+      ],
+      "AdditionalClosureGate": "Real physical report fields, hibernate heap/stack effects, logger breadth and remote-neighbour complete stacks; prior local lifecycle witnesses remain scoped.",
+      "SharedOwnedPayloadProviderRequired": true,
+      "PreparedRepresentativeErrorWitness": true,
+      "WholeContractValidated": false
+    }
+  ],
+  "ComparisonProfiles": {
+    "PortableDeterministic": "Whole typed class/reason/stack/result equality, no dropped frames or metadata; raw bytes retained. Compile identical source filenames/options.",
+    "IdentitySensitive": "Raw whole ETF retained; bijection only for named actual PID/ref/node witnesses with all relationships checked, never blanket opaque-value wildcard.",
+    "PhysicalResources": "Raw actual counts/bytes/capacities/events retained. Compare pinned policy and within-VM owner/epoch/retention/collection relations; dynamic live heap values are not blind cross-VM golden bytes. Shape-only/monotonic smoke never closes an MFA.",
+    "RealReports": "Structured reports keep every field with named identities and actual resource witnesses. Exact formatting uses separate declared portable inputs, not rewriting an actual captured report.",
+    "NativeLoader": "Actual original/ordinary/reviewed physical lifecycle and platform errors; never managed-generated goldens."
+  },
+  "PreparedJobs": [
+    {
+      "Id": "portable-errors",
+      "Entry": "contract_errors506:run/0",
+      "RepresentativeMfas": 24,
+      "FullContractsClosed": 0
+    },
+    {
+      "Id": "owned-resource-window",
+      "Entry": "contract_resources506:run/0",
+      "GroupIds": [
+        "PINFO",
+        "STATS"
+      ],
+      "FullContractsClosed": 0
+    },
+    {
+      "Id": "existing-owned-pilot",
+      "Entry": "owned_observer506:run/0",
+      "PreservedExistingFixtureBytes": true,
+      "FullContractsClosed": 0
+    }
+  ],
+  "AdditionalExecutionJobsRequired": [
+    "Every spawn facade \u00d7 valid/error/parser/effect options, real connected/disconnected peer and request reply modes",
+    "Every system flag branch in disposable VM with old-value/inheritance/restoration and actual effects",
+    "All statistics keys with real scheduler/IO/accounting work and feature capabilities",
+    "proc_lib start ack/nack/timeout/monitor/link/rollback; init_p error classes; real logger/neighbours/hibernate",
+    "All native-loader platform/ABI/resource/thread/import/upgrade/error paths, reusing sealed504/505 packages"
+  ],
+  "SharedResourceGate": [
+    "Actual payload backing for every admitted term producer, not owner labels over CLR storage",
+    "Complete roots: arguments/live frames/closures/dictionaries/mailboxes/modules/ETS/persistent_term/timers/native envs and callbacks",
+    "Actual collection and class policy, min/max/bin accounting, kill/log behaviour and cancellation/retirement",
+    "No counters manufactured from default constants, generic GC.GetTotalMemory, node-wide CLR collection count or unsupported-root omissions"
+  ],
+  "BackendProvenanceGates": [
+    "Record original installed module paths/hashes and selected managed C#/Erlang-source/BEAM implementation per module; never silently validate a fallback lane.",
+    "Use pinned once-compiled BEAM or declared fixed NEW_FUN_EXT inputs when code identity itself must be portable. Source-compiler metadata differences remain observable deficits, not dropped frames or arbitrary function wildcards.",
+    "Named PID/ref/node aliases must preserve every relation; unknown opaque values are not automatically comparable.",
+    "Record actual scheduler/dirty/feature capabilities for statistics/flag domains; absent domain is unexecuted, not a zero-valued success."
+  ],
+  "Scheduling": "Shared root/provider gate first; shared parser modes once, each facade and wrapper branch separately; full affected resource closure once per provider change, not after every independent formatting-only change."
+}

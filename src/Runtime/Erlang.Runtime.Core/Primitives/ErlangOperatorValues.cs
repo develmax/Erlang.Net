@@ -46,7 +46,26 @@ public static class ErlangOperatorValues
         };
     }
 
-    public static async ValueTask<bool> TrySendAsync(
+    public static ValueTask<bool> TrySendAsync(
+        ProcessContext context,
+        Term target,
+        Term message,
+        bool priority = false,
+        bool noSuspend = false
+    )
+    {
+        var outgoing = PrepareSendArguments506(context, target, message);
+
+        return TrySendPortableAsync(
+            context,
+            outgoing.Target,
+            outgoing.Message,
+            priority,
+            noSuspend
+        );
+    }
+
+    private static async ValueTask<bool> TrySendPortableAsync(
         ProcessContext context,
         Term target,
         Term message,
@@ -103,7 +122,7 @@ public static class ErlangOperatorValues
                 context
             );
         }
-        Send(
+        SendPortable(
             context,
             target,
             message,
@@ -114,6 +133,38 @@ public static class ErlangOperatorValues
     }
 
     public static Term Send(
+        ProcessContext context,
+        Term target,
+        Term message,
+        bool priority = false
+    )
+    {
+        var outgoing = PrepareSendArguments506(context, target, message);
+        Term result = SendPortable(
+            context,
+            outgoing.Target,
+            outgoing.Message,
+            priority
+        );
+
+        return outgoing.Detached ? message : result;
+    }
+
+    private static (Term Target, Term Message, bool Detached) PrepareSendArguments506(
+        ProcessContext context,
+        Term target,
+        Term message
+    )
+    {
+        if (!context.Runtime.OwnedTermsPilot506 || context.CurrentOwned506 is not { } owned)
+            return (target, message, false);
+
+        // A queued message can outlive its sender's actual heap retirement.
+        // Export before distribution, port, tracing or runtime gates are taken.
+        return (owned.Export(target), owned.Export(message), true);
+    }
+
+    private static Term SendPortable(
         ProcessContext context,
         Term target,
         Term message,

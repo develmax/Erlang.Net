@@ -8,22 +8,28 @@ public static partial class Execution
         IReadOnlyList<Term> arguments
     )
     {
+        OwnedTermInvocation506? trampoline = null;
         var module = target.Module;
         var image = target.Image;
         var lease = target.Lease;
         try
         {
+            trampoline = context.EnterOwnedTrampoline506(arguments);
+            arguments = trampoline?.Arguments ?? arguments;
+            if (trampoline is not null)
+            {
+                var initial = SourceContinuationPayload506.Target(target, arguments, trampoline.HoldControl506);
+                target = initial.Target;
+                arguments = initial.Arguments;
+            }
             while (true)
             {
                 if (lease is null && image is not null)
-                {
                     lease = await context.Runtime.Modules.AcquireSourceCode(context, image);
-                }
                 try
                 {
                     using var flow = module is null ? null : lease?.Attach(module);
-
-                    return target.Expression is { } expression
+                    Term result = target.Expression is { } expression
                         ? await InvokeAnonymousFrame(
                             module,
                             target.Identity!,
@@ -40,6 +46,8 @@ public static partial class Execution
                             arguments,
                             image
                         );
+
+                    return trampoline?.Complete(result) ?? result;
                 }
                 catch (TailCall next) when (module is not null)
                 {
@@ -53,6 +61,8 @@ public static partial class Execution
                     );
                     arguments = next.Arguments;
                     image = next.Image;
+                    if (trampoline is not null)
+                        await OwnedTrampolineCheckpoint506.Reach(context, nameof(TailCall));
                 }
                 catch (SourceTailCall next)
                 {
@@ -69,48 +79,91 @@ public static partial class Execution
                         image
                     );
                     arguments = next.Arguments;
+                    if (trampoline is not null)
+                        await OwnedTrampolineCheckpoint506.Reach(context, nameof(SourceTailCall));
                 }
                 catch (RuntimeTailCall next)
                 {
                     lease?.Dispose();
                     lease = null;
-
-                    return await CallRuntime(
+                    if (trampoline is not null)
+                        await OwnedTrampolineCheckpoint506.Reach(context, nameof(RuntimeTailCall));
+                    Term result = await CallRuntime(
                         context,
                         next.Module,
                         next.Function,
                         next.Arguments
                     );
+
+                    return trampoline?.Complete(result) ?? result;
                 }
                 catch (FunctionTailCall next)
                 {
+                    if (trampoline is not null)
+                        await OwnedTrampolineCheckpoint506.Reach(context, nameof(FunctionTailCall));
                     if (!SourceFunctionTailDispatch.IsSource(context, next.Function))
                     {
                         lease?.Dispose();
                         lease = null;
+                        Term result = await next.Function.Invoke(context, next.Arguments);
 
-                        return await next.Function.Invoke(context, next.Arguments);
+                        return trampoline?.Complete(result) ?? result;
                     }
                     using var transferScope = SourceFunctionTailDispatch.Enter(context);
                     try
                     {
-                        return await next.Function.Invoke(context, next.Arguments);
+                        Term result = await next.Function.Invoke(context, next.Arguments);
+
+                        return trampoline?.Complete(result) ?? result;
                     }
                     catch (SourceFunctionTransfer transfer) when (ReferenceEquals(transfer.Scope, transferScope))
                     {
+                        (SourceInvocationTarget Target, IReadOnlyList<Term> Arguments) rooted;
+                        try
+                        {
+                            if (trampoline is null)
+                                rooted = (transfer.Target, next.Arguments);
+                            else
+                            {
+                                var published = SourceContinuationPayload506.Target(transfer.Target, next.Arguments, trampoline.HoldControl506);
+                                rooted = (published.Target, published.Arguments);
+                            }
+                        }
+                        catch
+                        {
+                            transfer.Target.Lease?.Dispose();
+                            throw;
+                        }
                         lease?.Dispose();
-                        target = transfer.Target;
+                        target = rooted.Target;
+                        arguments = rooted.Arguments;
                         module = target.Module;
                         image = target.Image;
                         lease = target.Lease;
-                        arguments = next.Arguments;
+                        if (trampoline is not null)
+                            await OwnedTrampolineCheckpoint506.Reach(context, nameof(SourceFunctionTransfer));
                     }
                 }
             }
         }
+        catch (ErlangException error) when (trampoline is not null)
+        {
+            throw trampoline.Transfer(error);
+        }
+        catch (Exception control) when (trampoline is not null && control is IOwnedControlTransfer506)
+        {
+            throw trampoline.TransferControl506(control);
+        }
         finally
         {
-            lease?.Dispose();
+            try
+            {
+                lease?.Dispose();
+            }
+            finally
+            {
+                trampoline?.Dispose();
+            }
         }
     }
 }

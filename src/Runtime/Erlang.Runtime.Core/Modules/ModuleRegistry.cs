@@ -250,12 +250,12 @@ public sealed partial class ModuleRegistry
         string module,
         string function,
         params Term[] arguments
-    ) => CallWithDispatch(
+    ) => CallOwnedBridge506(
         context,
         module,
         function,
         arguments,
-        out _
+        true
     );
 
     internal ValueTask<Term> CallWithDispatch(
@@ -375,6 +375,70 @@ public sealed partial class ModuleRegistry
     }
 
     private ValueTask<Term> InvokeSelected(
+        ProcessContext context,
+        string module,
+        string function,
+        Term[] arguments,
+        ErlangFunction body,
+        ModuleCodeImage? image,
+        IDisposable? code
+    ) => context.Runtime.OwnedTermsPilot506
+        ? InvokeSelectedOwned506(
+            context,
+            module,
+            function,
+            arguments,
+            body,
+            image,
+            code
+        )
+        : InvokeSelectedCore506(
+            context,
+            module,
+            function,
+            arguments,
+            body,
+            image,
+            code
+        );
+
+    private async ValueTask<Term> InvokeSelectedOwned506(
+        ProcessContext context,
+        string module,
+        string function,
+        Term[] arguments,
+        ErlangFunction body,
+        ModuleCodeImage? image,
+        IDisposable? code
+    )
+    {
+        using var owned = context.EnterOwnedInvocation506(arguments)!;
+        try
+        {
+            Term[] portable = owned.Arguments.Select(owned.Export).ToArray();
+            Term result = await InvokeSelectedCore506(
+                context,
+                module,
+                function,
+                portable,
+                body,
+                image,
+                code
+            );
+
+            return owned.Complete(result);
+        }
+        catch (ErlangException error)
+        {
+            throw owned.Transfer(error);
+        }
+        catch (Exception control) when (control is IOwnedControlTransfer506)
+        {
+            throw owned.TransferControl506(control);
+        }
+    }
+
+    private ValueTask<Term> InvokeSelectedCore506(
         ProcessContext context,
         string module,
         string function,

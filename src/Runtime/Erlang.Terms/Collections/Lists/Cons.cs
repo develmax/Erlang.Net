@@ -4,10 +4,24 @@ using System.Text;
 
 namespace Erlang;
 
-public sealed class Cons(Term head, Term tail) : Term
+public sealed class Cons : Term
 {
-    public Term Head { get; } = head;
-    public Term Tail { get; } = tail;
+    // Two reference fields, matching the portable representation's field count.
+    // Owned payloads use the first field as a typed sequence instead of keeping
+    // duplicate head/tail references beside the actual slab cells.
+    private readonly object headOrOwned;
+    private readonly Term? tail;
+    internal IOwnedTermSequence506? OwnedStorage506 => headOrOwned as IOwnedTermSequence506;
+    public Term Head => headOrOwned is Term value ? value : ((IOwnedTermSequence506)headOrOwned)[0];
+    public Term Tail => tail ?? ((IOwnedTermSequence506)headOrOwned)[1];
+
+    public Cons(Term head, Term tail)
+    {
+        headOrOwned = head;
+        this.tail = tail;
+    }
+
+    internal Cons(IOwnedTermSequence506 owned) => headOrOwned = owned;
 
     public static Term From(IEnumerable<Term> items, Term? tail = null)
     {

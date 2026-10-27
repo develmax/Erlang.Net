@@ -1,0 +1,38 @@
+{
+  "ReviewKind": "read-only static source",
+  "Executed": false,
+  "ActiveEdits": false,
+  "SnapshotAtomic": false,
+  "KnownPromotions": 0,
+  "ReportSha256": "ABFC77DFD898D72B6AEFE117738CBDA387C641FDD2614BA7DA130FEF27AA5AE6",
+  "Findings": [
+    {
+      "Id": "506-R1",
+      "Priority": "P1",
+      "Area": "dictionary/runtime lock order",
+      "Status": "Accepted; staged source split observed; coherent patch and tests still required",
+      "ConcretePath": "External identity detached copy -> KnownNodes resolver -> runtime gate vs Info runtime gate -> dictionary gate"
+    },
+    {
+      "Id": "506-R2",
+      "Priority": "P1",
+      "Area": "continuation root handoff",
+      "Status": "Accepted; continuation fix in progress",
+      "ConcretePath": "SourceTailCall/RuntimeTailCall/FunctionTailCall escape owned frame before InvocationLoop consumes arguments"
+    },
+    {
+      "Id": "506-R3",
+      "Priority": "P1 before native physical maps admitted",
+      "Area": "part505 map copy semantics",
+      "Status": "Integration dependency; proposal owner notified",
+      "ConcretePath": "Ordinary new MapTerm reconstructs/deduplicates entries and drops native lookup/equality state"
+    },
+    {
+      "Id": "506-R4",
+      "Priority": "P1 before overlapping host-task profile enabled",
+      "Area": "physical cancellation retirement",
+      "Status": "Static lifetime gap; no leak execution claimed",
+      "ConcretePath": "OwnedTermRetirement506 stored but not joined by runtime/halt shutdown"
+    }
+  ]
+}

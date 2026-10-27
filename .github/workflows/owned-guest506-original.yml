@@ -1,0 +1,110 @@
+name: Owned guest506 pinned original batch and final controls
+on:
+  workflow_dispatch:
+    inputs:
+      expected_head:
+        description: Exact published source head
+        type: string
+        required: true
+      source_plan_sha256:
+        description: Reviewed raw SHA256 of tracked owned guest506 source-plan.json
+        type: string
+        required: true
+permissions:
+  contents: read
+jobs:
+  original-and-final-controls:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    env:
+      EXPECTED_HEAD: ${{ inputs.expected_head }}
+      SOURCE_PLAN_SHA256: ${{ inputs.source_plan_sha256 }}
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+      - name: Admit exact source and reviewed plan without starting an Erlang VM
+        id: admit
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_SHA" = "$EXPECTED_HEAD"
+          test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+          mkdir -p artifacts/owned-guest506-ci
+          python -B tools/Runtime/Erlang.OwnedGuest506Observations/collect.py \
+            --repository "$GITHUB_WORKSPACE" --expected-head "$EXPECTED_HEAD" \
+            --plan-sha256 "$SOURCE_PLAN_SHA256" --output "$GITHUB_WORKSPACE/artifacts/owned-guest506-ci/prepare" \
+            > artifacts/owned-guest506-ci/source-admission.log 2>&1
+      - name: Prepare existing admitted official Windows provider
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: ./tools/prepare-regex-provider.ps1 -Repository $PWD.Path
+      - name: Build original Linux provider once for all independent jobs
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 --single-branch --branch OTP-29.1.1 https://github.com/erlang/otp.git \
+            artifacts/owned-guest506-otp-source > artifacts/owned-guest506-ci/clone.log 2>&1
+          test "$(git -C artifacts/owned-guest506-otp-source rev-parse HEAD)" = ad05823719d77c8faee87348ea39513d4e2f99c5
+          manifest_sha=$(sha256sum tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/manifest.json | cut -d ' ' -f 1)
+          python -B tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/build-original.py \
+            --repository "$GITHUB_WORKSPACE" --manifest-sha256 "$manifest_sha" --expected-head "$EXPECTED_HEAD" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/owned-guest506-otp-source" \
+            --prefix "$GITHUB_WORKSPACE/artifacts/owned-guest506-otp" \
+            --output "$GITHUB_WORKSPACE/artifacts/owned-guest506-ci/runtime-build" \
+            > artifacts/owned-guest506-ci/runtime-build.log 2>&1
+      - name: Collect all original jobs and retain independent failures
+        id: original
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "$RUNNER_OS" = Windows ]; then
+            admission="$GITHUB_WORKSPACE/artifacts/library376-official-compiler/official-admission.json"
+            provider=(--official-admission "$admission")
+          else
+            admission="$GITHUB_WORKSPACE/artifacts/owned-guest506-ci/runtime-build/build-receipt.json"
+            provider=(--build-receipt "$admission" --otp-source "$GITHUB_WORKSPACE/artifacts/owned-guest506-otp-source")
+          fi
+          admission_sha=$(sha256sum "$admission" | cut -d ' ' -f 1)
+          python -B tools/Runtime/Erlang.OwnedGuest506Observations/collect.py \
+            --repository "$GITHUB_WORKSPACE" --expected-head "$EXPECTED_HEAD" \
+            --plan-sha256 "$SOURCE_PLAN_SHA256" --output "$GITHUB_WORKSPACE/artifacts/owned-guest506-ci/capture" \
+            --execute-original --check-paired-golden --admission-sha256 "$admission_sha" "${provider[@]}" \
+            > artifacts/owned-guest506-ci/capture.log 2>&1
+      - name: Run final-source original observer and ownership controls independently
+        id: controls
+        if: ${{ !cancelled() && steps.admit.outcome == 'success' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          dotnet run --project tests/Erlang.Tests/Erlang.Tests.csproj -c Release -- \
+            --case runtime/owned-guest506/original-compiled-worker-whole-values-and-stacks \
+            --case runtime/owned-guest506/source-message-survives-sender-physical-retirement \
+            --report artifacts/owned-guest506-ci/final-controls.json \
+            > artifacts/owned-guest506-ci/final-controls.log 2>&1
+      - name: Require original and final controls to both pass
+        if: always()
+        shell: bash
+        env:
+          ORIGINAL: ${{ steps.original.outcome }}
+          CONTROLS: ${{ steps.controls.outcome }}
+        run: |
+          test "$ORIGINAL" = success
+          test "$CONTROLS" = success
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: owned-guest506-${{ matrix.os }}
+          path: artifacts/owned-guest506-ci/**
+          if-no-files-found: warn

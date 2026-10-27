@@ -3,31 +3,96 @@ namespace Erlang.Compiler;
 public static partial class Execution
 {
     private sealed record Selection(Clause Clause, Dictionary<string, Term> Bindings);
-    private sealed class TailCall(string function, IReadOnlyList<Term> arguments, ModuleCodeImage? image) : Exception
+    private sealed class TailCall(string function, IReadOnlyList<Term> arguments, ModuleCodeImage? image) : Exception, IOwnedControlTransfer506
     {
         public string Function { get; } = function; public IReadOnlyList<Term> Arguments { get; } = arguments;
         public ModuleCodeImage? Image { get; } = image;
+
+        Exception IOwnedControlTransfer506.TransferTerms506(Func<Term, Term> publish)
+            => new TailCall(Function, SourceContinuationPayload506.Arguments(Arguments, publish), Image);
     }
 
-    public static ValueTask<Term> EvaluateAsync(Expr expression, ProcessContext context) => Evaluate(
-        expression,
-        context,
-        new Dictionary<string, Term>(StringComparer.Ordinal),
-        null
-    );
+    public static ValueTask<Term> EvaluateAsync(Expr expression, ProcessContext context)
+        => context.Runtime.OwnedTermsPilot506 ? EvaluateOwnedEntry506(expression, context) : Evaluate(
+            expression,
+            context,
+            new Dictionary<string, Term>(StringComparer.Ordinal),
+            null
+        );
+
+    private static async ValueTask<Term> EvaluateOwnedEntry506(Expr expression, ProcessContext context)
+    {
+        using var owned = context.EnterOwnedInvocation506([], true)!;
+        try
+        {
+            Term result = await Evaluate(
+                expression,
+                context,
+                new Dictionary<string, Term>(StringComparer.Ordinal),
+                null
+            );
+
+            return owned.Complete(result);
+        }
+        catch (ErlangException error)
+        {
+            throw owned.Transfer(error);
+        }
+        catch (Exception control) when (owned is not null && control is IOwnedControlTransfer506)
+        {
+            throw owned.TransferControl506(control);
+        }
+    }
 
     public static ValueTask<Term> InvokeAsync(
         ModuleDefinition module,
         string function,
         ProcessContext context,
         IReadOnlyList<Term> arguments
-    ) => InvokeAsync(
-        module,
-        function,
-        context,
-        arguments,
-        null
-    );
+    ) => context.Runtime.OwnedTermsPilot506
+        ? InvokePublicOwned506(
+            module,
+            function,
+            context,
+            arguments
+        )
+        : InvokeAsync(
+            module,
+            function,
+            context,
+            arguments,
+            null
+        );
+
+    private static async ValueTask<Term> InvokePublicOwned506(
+        ModuleDefinition module,
+        string function,
+        ProcessContext context,
+        IReadOnlyList<Term> arguments
+    )
+    {
+        using var owned = context.EnterOwnedInvocation506(arguments, true)!;
+        try
+        {
+            Term result = await InvokeAsync(
+                module,
+                function,
+                context,
+                owned.Arguments,
+                null
+            );
+
+            return owned.Complete(result);
+        }
+        catch (ErlangException error)
+        {
+            throw owned.Transfer(error);
+        }
+        catch (Exception control) when (owned is not null && control is IOwnedControlTransfer506)
+        {
+            throw owned.TransferControl506(control);
+        }
+    }
 
     internal static ValueTask<Term> InvokeAsync(
         ModuleDefinition module,
@@ -51,7 +116,61 @@ public static partial class Execution
         ), context, arguments);
     }
 
-    private static async ValueTask<Term> InvokeFrame(
+    private static ValueTask<Term> InvokeFrame(
+        ModuleDefinition module,
+        string function,
+        ProcessContext context,
+        IReadOnlyList<Term> arguments,
+        ModuleCodeImage? image
+    ) => context.Runtime.OwnedTermsPilot506
+        ? InvokeOwnedFrame506(
+            module,
+            function,
+            context,
+            arguments,
+            image
+        )
+        : InvokeFrameCore506(
+            module,
+            function,
+            context,
+            arguments,
+            image
+        );
+
+    private static async ValueTask<Term> InvokeOwnedFrame506(
+        ModuleDefinition module,
+        string function,
+        ProcessContext context,
+        IReadOnlyList<Term> arguments,
+        ModuleCodeImage? image
+    )
+    {
+        using var owned = context.EnterOwnedInvocation506(arguments)!;
+        owned.AdmitContinuationInputs506();
+        try
+        {
+            Term result = await InvokeFrameCore506(
+                module,
+                function,
+                context,
+                owned?.Arguments ?? arguments,
+                image
+            );
+
+            return owned?.Complete(result) ?? result;
+        }
+        catch (ErlangException error) when (owned is not null)
+        {
+            throw owned.Transfer(error);
+        }
+        catch (Exception control) when (owned is not null && control is IOwnedControlTransfer506)
+        {
+            throw owned.TransferControl506(control);
+        }
+    }
+
+    private static async ValueTask<Term> InvokeFrameCore506(
         ModuleDefinition module,
         string function,
         ProcessContext context,
@@ -169,7 +288,75 @@ public static partial class Execution
         lease
     ), context, arguments);
 
-    private static async ValueTask<Term> InvokeAnonymousFrame(
+    private static ValueTask<Term> InvokeAnonymousFrame(
+        ModuleDefinition? module,
+        LocalFunctionIdentity identity,
+        Expr.Fun expression,
+        Dictionary<string, Term> environment,
+        ProcessContext context,
+        ModuleCodeImage? image,
+        IReadOnlyList<Term> arguments
+    ) => context.Runtime.OwnedTermsPilot506
+        ? InvokeOwnedAnonymous506(
+            module,
+            identity,
+            expression,
+            environment,
+            context,
+            image,
+            arguments
+        )
+        : InvokeAnonymousFrameCore506(
+            module,
+            identity,
+            expression,
+            environment,
+            context,
+            image,
+            arguments
+        );
+
+    private static async ValueTask<Term> InvokeOwnedAnonymous506(
+        ModuleDefinition? module,
+        LocalFunctionIdentity identity,
+        Expr.Fun expression,
+        Dictionary<string, Term> environment,
+        ProcessContext context,
+        ModuleCodeImage? image,
+        IReadOnlyList<Term> arguments
+    )
+    {
+        using var owned = context.EnterOwnedInvocation506(arguments)!;
+        var copied = environment.ToDictionary(pair => pair.Key, pair => owned.Frame.Retain(pair.Value), StringComparer.Ordinal);
+        Dictionary<string, Term> rooted = environment is CompiledBindingScope previous
+            ? new CompiledBindingScope(copied, previous.Constraints.ToDictionary(pair => pair.Key, pair => owned.Frame.Retain(pair.Value), StringComparer.Ordinal))
+            : copied;
+        owned.AdmitContinuationInputs506();
+        try
+        {
+            Term result = await InvokeAnonymousFrameCore506(
+                module,
+                identity,
+                expression,
+                rooted,
+                context,
+                image,
+                owned.Arguments
+            );
+
+            return owned.Complete(result);
+        }
+        catch (ErlangException error)
+        {
+            throw owned.Transfer(error);
+        }
+        catch (Exception control) when (owned is not null && control is IOwnedControlTransfer506)
+        {
+            throw owned.TransferControl506(control);
+        }
+    }
+
+    private static async ValueTask<Term> InvokeAnonymousFrameCore506(
         ModuleDefinition? module,
         LocalFunctionIdentity identity,
         Expr.Fun expression,
@@ -308,7 +495,7 @@ public static partial class Execution
         // Synchronous host Pattern.Match retains its synchronous contract.
         // Source execution uses PatternKeyAsync and the cooperative BIF.
         Expr.Call x when ctx is not null && x.Function == ErlangModuleNames.Length && x.Arguments.Count == 1 => ErlangListLength.ReadMatchSpec(GuardValue(x.Arguments[0], b, ctx)),
-        Expr.Call x when ctx is not null && Semantics.GuardBifs.Contains((x.Function, x.Arguments.Count)) => ctx.Runtime.Modules.Call(
+        Expr.Call x when ctx is not null && Semantics.GuardBifs.Contains((x.Function, x.Arguments.Count)) => ctx.Runtime.Modules.CallInto506(
             ctx,
             ErlangModuleNames.Module,
             x.Function,
@@ -327,13 +514,15 @@ public static partial class Execution
     {
         try
         {
-            return await EvaluateCore(
+            Term result = await EvaluateCore(
                 e,
                 ctx,
                 b,
                 module,
                 tail
             );
+
+            return ctx.OwnGuestResult506(result);
         }
         catch (ErlangException exception)
         {

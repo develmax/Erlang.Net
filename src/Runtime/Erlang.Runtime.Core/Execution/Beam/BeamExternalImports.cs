@@ -25,6 +25,8 @@ internal static class BeamExternalImports
     {
         bool supported = NativeBuiltinCatalog.Contains(module, function, arity) || module == ErlangModuleNames.Module && (
             arity == 0 && function == ErlangModuleNames.Self
+            || function == ProcessGarbageCollectionNames.Function && arity is 0 or 1 or 2
+            || function is ErlangModuleNames.Spawn or ErlangModuleNames.SpawnLink or ErlangModuleNames.SpawnMonitor && arity is 1 or 3
             || arity == 1 && function is ErlangModuleNames.WhereIs or ErlangModuleNames.Error or BeamLoaderNames.CallOnLoad or ErlangErrorMetadataNames.NifError
                 or ErlangModuleNames.IsList or ErlangModuleNames.Length or ErlangModuleNames.Spawn
             || arity == 2 && function is BeamRegisterNames.Add or BeamRegisterNames.Subtract or ErlangModuleNames.Put or SourceLoadNifNames.Function

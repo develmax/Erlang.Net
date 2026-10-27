@@ -175,6 +175,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
     )
     {
         ArgumentNullException.ThrowIfNull(options);
+        OwnedTermsPilot506 = options.OwnedTermsPilot506;
         ArgumentOutOfRangeException.ThrowIfLessThan(options.MaximumAtoms, AtomRuntimeParameters.MinimumCapacity);
         AtomNames = new(options.MaximumAtoms, AtomTableExhausted);
         using var atomScope = new AtomNameScope(AtomNames);
@@ -206,6 +207,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         };
         InitializationPid = initial.Self;
         processes.Add(initial.Self, initial);
+        RegisterOwnedTermContext506(initial);
         processSlots.Add(initial.Self);
         initializer = new(initial);
         initial.ExecutionStarted = true;
@@ -266,6 +268,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             bool enqueued = false;
             try
             {
+                RegisterOwnedTermContext506(ctx);
                 _ = actorDispatcher.Dispatch(
                     ctx,
                     async () =>
@@ -342,7 +345,14 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                         {
                             lock (gate)
                                 executingProcesses.Remove(ctx);
-                            ctx.Unwound.TrySetResult();
+                            try
+                            {
+                                ctx.BeginOwnedTermRetirement506();
+                            }
+                            finally
+                            {
+                                ctx.Unwound.TrySetResult();
+                            }
                         }
                     }
                 }
@@ -1509,6 +1519,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             CleanupStep(() => storage = DriverFrontendProcessRetirement422(ctx, storage));
             CleanupStep(() => storage = CodePurgerProcessRetirement432(ctx, storage));
             CleanupStep(() => physical = AllocatorGatherProcessRetirement434(ctx, physical));
+            CleanupStep(() => physical = OwnedTermProcessRetirement506(ctx, physical));
             ProcessExitContinuation? exit = null;
             if (!storage.IsCompleted)
             {
@@ -1716,13 +1727,22 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         }
         finally
         {
-            StartNifShutdown();
+            try
+            {
+                context.BeginOwnedTermRetirement506();
+            }
+            finally
+            {
+                context.Unwound.TrySetResult();
+                StartNifShutdown();
+            }
         }
     }
 
     public async ValueTask DisposeAsync()
     {
         Modules.RequireNifShutdownCaller();
+        RequireOwnedTermShutdownCaller506();
         Task sourceShutdown = Modules.CloseSourceMutationsAsync();
         var failures = new List<Exception>();
         Task nativeShutdown;
@@ -1763,7 +1783,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 DrainHamtIndex429(),
                 DrainDriverFrontend422(),
                 DrainCodePurger432(),
-                DrainAllocatorGather434()
+                DrainAllocatorGather434(),
+                DrainOwnedTermContexts506()
             ).ConfigureAwait(false);
         }
         catch (Exception failure)
@@ -1865,7 +1886,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             DrainHamtIndex429(),
             DrainDriverFrontend422(),
             DrainCodePurger432(),
-            DrainAllocatorGather434()
+            DrainAllocatorGather434(),
+            DrainOwnedTermContexts506()
         ).ConfigureAwait(false);
         if (ownsStandardStreams)
             StandardStreams.Dispose();

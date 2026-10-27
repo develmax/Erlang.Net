@@ -6968,6 +6968,20 @@ try
         Erlang.Tests.NifNativeFlatDuplicate505TestNames.Factory,
         NifNativeBackend::Erlang.NifNativeBackend.NifNativeFlatDuplicate505HostEntry.FactoryRowsAndPeerEquality
     );
+    Test(Erlang.Tests.OwnedTrampoline506Names.CarriersTest, Erlang.Tests.OwnedTrampoline506Checks.AllCarriers);
+    Test(Erlang.Tests.OwnedTrampoline506Names.PlateauTest, Erlang.Tests.OwnedTrampoline506Checks.TailPlateau);
+    Test(Erlang.Tests.OwnedTrampoline506Names.CancelTest, Erlang.Tests.OwnedTrampoline506Checks.CancelHandoff);
+    Test(Erlang.Tests.OwnedTrampoline506Names.CancelFunctionTest, Erlang.Tests.OwnedTrampoline506Checks.CancelFunctionTransfer);
+    Test(Erlang.Tests.OwnedGuest506Names.Test, Erlang.Tests.OwnedGuest506Checks.Payload);
+    Test(Erlang.Tests.OwnedGuest506Names.MessageTest, Erlang.Tests.OwnedGuest506Checks.SourceMessageRetirement);
+    Test(Erlang.Tests.OwnedGuestOriginal506Names.Test, Erlang.Tests.OwnedGuestOriginal506Checks.Run);
+    Test(Erlang.Tests.OwnedGuest506Names.HeldTest, Erlang.Tests.OwnedGuest506Checks.AwaitAndClosure);
+    Test(Erlang.Tests.OwnedGuest506Names.CapturedTaskTest, Erlang.Tests.OwnedGuest506Checks.CapturedTask);
+    Test(Erlang.Tests.OwnedGuest506Names.DictionaryTest, Erlang.Tests.OwnedGuest506Checks.ConcurrentDictionary);
+    Test(Erlang.Tests.OwnedGuest506Names.DescriptorTest, Erlang.Tests.OwnedGuest506Checks.DescriptorLockOrder);
+    Test(Erlang.Tests.OwnedGuest506Names.ErrorsTest, Erlang.Tests.OwnedGuest506Checks.Errors);
+    Test(Erlang.Tests.OwnedGuest506Names.PhysicalTest, Erlang.Tests.OwnedGuest506Checks.PhysicalRetirement);
+    Test(Erlang.Tests.OwnedGuest506Names.LifecycleInfoTest, Erlang.Tests.OwnedGuest506Checks.LifecycleInfo);
     Test(Erlang.Tests.ProcessOwnedWord504Names.RootsTest, Erlang.Tests.ProcessOwnedWord504Checks.Roots);
     Test(Erlang.Tests.ProcessOwnedTerm504Names.GraphTest, Erlang.Tests.ProcessOwnedTerm504Checks.Graph);
     Test(Erlang.Tests.ProcessOwnedTerm504Names.RetirementTest, Erlang.Tests.ProcessOwnedTerm504Checks.Retirement);
