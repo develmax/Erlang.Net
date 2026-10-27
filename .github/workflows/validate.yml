@@ -207,6 +207,152 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           persist-credentials: false
+      - name: Check all eight native source-plan byte bindings before regression
+        shell: python
+        run: |
+          """Passive source binding checks only: never calls a collector main/build/VM."""
+          import argparse
+          import hashlib
+          import importlib.util
+          import json
+          import os
+          from pathlib import Path
+          import re
+          import sys
+
+          sys.dont_write_bytecode = True
+          PIN = "ad05823719d77c8faee87348ea39513d4e2f99c5"
+          NATIVE = "tools/Native/"
+          OWNED = "tools/Runtime/Erlang.OwnedGuest506Observations"
+          LEGACY = ["Erlang.NifMapFamily504Observations", "Erlang.NifMapMaterialized505Observations",
+                    "Erlang.NifMapReentry505Observations"]
+
+
+          def digest(path):
+              return hashlib.sha256(path.read_bytes()).hexdigest().upper()
+
+
+          def require(value, message):
+              if not value:
+                  raise ValueError(message)
+
+
+          def module(path, name):
+              spec = importlib.util.spec_from_file_location(name, path)
+              loaded = importlib.util.module_from_spec(spec)
+              spec.loader.exec_module(loaded)
+              return loaded
+
+
+          def plan(root, relative):
+              path = root / relative
+              value = json.loads(path.read_bytes())
+              require(value.get("PinnedCommit", value.get("PinnedOtpCommit")) == PIN, "Wrong source pin")
+              return path, value
+
+
+          def native(root, name, workflow):
+              tool = root / NATIVE / name
+              path, value = plan(root, NATIVE + name + "/source-plan.json")
+              lines = [line for line in workflow.splitlines() if NATIVE + name + "/collect.py" in line]
+              require(len(lines) == 1, "One exact workflow collector invocation required")
+              match = re.search(r"--plan-sha256 ([0-9A-F]{64})", lines[0])
+              require(match is not None and match.group(1) == digest(path), "Workflow source-plan pin differs")
+              collector = module(tool / "collect.py", "preflight_" + name.replace(".", "_"))
+              if name == LEGACY[1]:
+                  rows = collector.sources(root, tool, value)
+              elif name == LEGACY[2]:
+                  rows = collector.dependencies(root, value, False)
+              else:
+                  rows = collector.dependencies(root, value)
+              for prefix, filename in [("NativeSource", None), ("ErlangSource", None),
+                                       ("BuildScript", "build-native.py"), ("Collector", "collect.py")]:
+                  source = tool / filename if filename else root / value[prefix + "Path"]
+                  require(digest(source) == value[prefix + "Sha256"], "Tool source seal differs: " + str(source))
+              if "SealerSha256" in value:
+                  require(digest(tool / "seal.py") == value["SealerSha256"], "Sealer source differs")
+              # Whole owner/env partial membership, including newly added partials.
+              paths = {row["Path"] for row in value["Dependencies"]}
+              folder = root / "src/Runtime/Erlang.Runtime.Core/Native/Nif"
+              required = {p.relative_to(root).as_posix() for pattern in
+                          ["NifNativeLibraryOwner*.cs", "NifNativeCallEnvironment*.cs"] for p in folder.glob(pattern)}
+              require(required.issubset(paths), "Unbound owner/environment partials: " + str(sorted(required - paths)))
+              return dict(PlanSha256=digest(path), VerifiedRows=len(rows), NativeExecuted=False)
+
+
+          def pending(root):
+              relative = NATIVE + "Erlang.NifPendingVarargsObservations"
+              path, value = plan(root, relative + "/reviewed-source-plan.json")
+              workflow = (root / ".github/workflows/nif-pending-native.yml").read_text(encoding="utf-8-sig")
+              match = re.search(r"REVIEWED_SOURCE_PLAN_SHA256: ([0-9A-F]{64})", workflow)
+              require(match is not None and match.group(1) == digest(path), "Pending workflow pin differs")
+              helper = module(root / relative / "run-reviewed.py", "preflight_pending")
+              names = set()
+              for row in value["Files"]:
+                  require(row["Path"] not in names, "Duplicate pending source")
+                  names.add(row["Path"])
+                  source = (root / row["Path"]).resolve()
+                  require(source.is_relative_to(root), "Pending source escapes repository")
+                  actual = helper.record(source, root, row["HashMode"])
+                  actual["Path"] = actual["Path"].replace("\\", "/")
+                  require(actual == row, "Pending source differs: " + row["Path"])
+              # reviewed_inputs invokes git membership enumeration: deliberately not called
+              # by this byte-only preflight. The existing native execution gate keeps it.
+              return dict(PlanSha256=digest(path), VerifiedRows=len(names), CompleteGitMembershipChecked=False)
+
+
+          def reallocation(root):
+              relative = NATIVE + "Erlang.NifReallocationObservations"
+              path, _ = plan(root, relative + "/SOURCE-PLAN.json")
+              workflow = (root / ".github/workflows/nif-reallocation-native.yml").read_text(encoding="utf-8-sig")
+              match = re.search(r"REVIEWED_REALLOCATION_PLAN_SHA256: ([0-9A-F]{64})", workflow)
+              require(match is not None and match.group(1) == digest(path), "Reallocation workflow pin differs")
+              helper = module(root / relative / "reviewed_common.py", "preflight_reallocation")
+              value = helper.verified_plan(root, path, match.group(1))
+              return dict(PlanSha256=digest(path), VerifiedRows=len(value["Files"]))
+
+
+          def main():
+              parser = argparse.ArgumentParser(description=__doc__)
+              parser.add_argument("--repository", type=Path, default=Path(os.environ.get("GITHUB_WORKSPACE", ".")))
+              parser.add_argument("--output", type=Path, default=Path("artifacts/source-plan566/preflight.json"))
+              args = parser.parse_args()
+              root = args.repository.resolve()
+              output = args.output.resolve() if args.output.is_absolute() else root / args.output
+              require(output.resolve().is_relative_to(root / "artifacts") and not output.exists(), "Fresh artifact output required")
+              owned = module(root / OWNED / "collect.py", "preflight_owned506")
+              workflow = (root / ".github/workflows/validate.yml").read_text(encoding="utf-8-sig")
+              checks = [(name, lambda name=name: native(root, name, workflow)) for name in LEGACY]
+              for relative in [OWNED, NATIVE + "Erlang.NifVariadic526Observations"]:
+                  def inputs(relative=relative):
+                      path, value = plan(root, relative + "/source-plan.json")
+                      owned.check_inputs(root, root / relative, value)
+                      return dict(PlanSha256=digest(path), VerifiedRows=len(value["Inputs"]))
+                  checks.append((relative, inputs))
+              checks.extend([("Pending", lambda: pending(root)), ("Reallocation", lambda: reallocation(root))])
+              def private():
+                  relative = NATIVE + "Erlang.NifPrivateData557Observations"
+                  path, _ = plan(root, relative + "/source-plan.json")
+                  evidence = module(root / relative / "evidence.py", "preflight_private557")
+                  files = evidence.package(root, root / relative, digest(path))
+                  return dict(PlanSha256=digest(path), VerifiedFiles=len(files))
+              checks.append(("Private557", private))
+              outcomes = []
+              for name, check in checks:
+                  try:
+                      outcomes.append(dict(Plan=name, Passed=True, Details=check()))
+                  except Exception as error:
+                      outcomes.append(dict(Plan=name, Passed=False, Error=repr(error)))
+              passed = all(row["Passed"] for row in outcomes)
+              output.parent.mkdir(parents=True, exist_ok=True)
+              output.write_bytes((json.dumps(dict(Passed=passed, Checks=outcomes, ExpectedPlans=8,
+                  BuildOrVmExecuted=False, NativeExecuted=False, SourceHeadAuthenticityClaimed=False,
+                  FullSourceMembershipClaimed=False, WholeContractsClosed=0), indent=2) + "\n").encode())
+              require(passed, "Source-plan consistency failed; all independent results retained")
+
+
+          if __name__ == "__main__":
+              main()
       - name: Admit reviewed committed owned506 plan at the exact source head
         id: owned506-admit
         continue-on-error: true
@@ -341,7 +487,7 @@ jobs:
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
             throw 'Map family504 requires successful host/provider preparation; dependent execution was not started'
           }
-          python -B tools/Native/Erlang.NifMapFamily504Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 E45F5C266FEC47FBCF26FCB3F4539912707D2DF806B65599B0DE6A5650928724 --output artifacts/native-map504/ci --check-golden --both-runtime-profiles516
+          python -B tools/Native/Erlang.NifMapFamily504Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 3123F5A26E4878EBEBB6D2DD1212B24012A59905C013EB0E5C33AEABEFA38B29 --output artifacts/native-map504/ci --check-golden --both-runtime-profiles516
           if ($LASTEXITCODE -ne 0) { throw 'Native map family504 original/ordinary/reviewed comparison failed; all prepared independent route receipts are retained' }
           $comparison516 = Get-Content 'artifacts/native-map504/ci/completion.json' -Raw | ConvertFrom-Json
           if (!$comparison516.Passed -or !$comparison516.BothRuntimeProfiles516 -or $comparison516.ExpectedRawLoaderComparisons -ne 4 -or $comparison516.WholeRawLoaderComparisons -ne 4 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'ordinary-runtime' -ne 2 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'owned-runtime' -ne 2) { throw 'All four runtime-profile/loader comparisons are required' }
@@ -362,7 +508,7 @@ jobs:
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
             throw 'Materialized505 host/provider preparation missing; dependent execution skipped'
           }
-          python -B tools/Native/Erlang.NifMapMaterialized505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 0B9E696F3222A104D038D98935244148F53B0B3A596EB30AD8E3F6191B93D501 --output artifacts/native-map505/ci --check-golden --both-runtime-profiles516
+          python -B tools/Native/Erlang.NifMapMaterialized505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 5B2137298B00B507CD86D9C62EBA8D985A8BCBFA0185EB4CC4745522FED40728 --output artifacts/native-map505/ci --check-golden --both-runtime-profiles516
           if ($LASTEXITCODE -ne 0) { throw 'Materialized505 independent original/ordinary/reviewed comparison failed; inspect retained full results' }
           $comparison516 = Get-Content 'artifacts/native-map505/ci/completion.json' -Raw | ConvertFrom-Json
           if (!$comparison516.Passed -or !$comparison516.BothRuntimeProfiles516 -or $comparison516.ExpectedRawLoaderComparisons -ne 4 -or $comparison516.WholeRawLoaderComparisons -ne 4 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'ordinary-runtime' -ne 2 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'owned-runtime' -ne 2) { throw 'All four runtime-profile/loader comparisons are required' }
@@ -376,7 +522,7 @@ jobs:
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
             throw 'Reentry505 host/provider preparation missing; dependent execution skipped'
           }
-          python -B tools/Native/Erlang.NifMapReentry505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 4775D4D38F4057A38BD9F57B497DE6D3E64DCFCD8CE79BB285A09AFCF6A1D23A --output artifacts/native-map505/reentry-ci --check-golden --both-runtime-profiles516
+          python -B tools/Native/Erlang.NifMapReentry505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 5BC5955BE8F3773D707FC0FEEEC994A37BB0E155BCA32277813C3A5C61EB39D0 --output artifacts/native-map505/reentry-ci --check-golden --both-runtime-profiles516
           if ($LASTEXITCODE -ne 0) { throw 'Reentry505 original/ordinary/reviewed comparison failed; independent routes and cleanup retained' }
           $comparison516 = Get-Content 'artifacts/native-map505/reentry-ci/completion.json' -Raw | ConvertFrom-Json
           if (!$comparison516.Passed -or !$comparison516.BothRuntimeProfiles516 -or $comparison516.ExpectedRawLoaderComparisons -ne 4 -or $comparison516.WholeRawLoaderComparisons -ne 4 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'ordinary-runtime' -ne 2 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'owned-runtime' -ne 2) { throw 'All four runtime-profile/loader comparisons are required' }
@@ -526,6 +672,7 @@ jobs:
         with:
           name: validation
           path: |
+            artifacts/source-plan566/**
             artifacts/owned506/**
             artifacts/dynamic520/**
             artifacts/map-routing517/**

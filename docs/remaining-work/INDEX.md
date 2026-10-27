@@ -32,3 +32,7 @@ The detailed [architecture and compatibility queue](architecture-and-compatibili
 - [Native API boundaries](../NATIVE_API_LIMITATIONS.md)
 
 The current528 unclosed rows are504 pending plus24 recorded differences. Historical differences still need current reproductions; unregistered original exports are not automatically missing implementations. Preparation of1321 primary images across34 libraries is complete under the explicit native configuration; full application/API acceptance remains separate. No justified project-wide completion percentage or fixed remaining-test count is available.
+
+## Part523 CI555 correction
+
+Full9180/0 and Linux pass; overall run failed three old native-map source plans. Metadata/checkouts and early8-plan gate are corrected, local original12routes pass, exact repair-head CI pending. See [checkpoint523](checkpoint-523.md#2026-10-28-ci555-source-plan-correction).
