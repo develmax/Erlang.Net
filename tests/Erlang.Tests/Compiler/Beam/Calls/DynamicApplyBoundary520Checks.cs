@@ -43,7 +43,7 @@ internal static class DynamicApplyBoundary520Checks
         {
             string path = Path.GetFullPath(Path.Combine(repository, input.GetProperty(PathProperty).GetString()!));
             Require(path.StartsWith(repository + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase)
-                && File.Exists(path) && Digest(path) == input.GetProperty(ShaProperty).GetString());
+                && File.Exists(path) && SourceDigest(path, input) == input.GetProperty(ShaProperty).GetString());
         }
         var images = root.GetProperty(ImagesProperty).EnumerateArray().ToDictionary(image => image.GetProperty(ModuleProperty).GetString()!, StringComparer.Ordinal);
         Require(images.Count == 2 && images.ContainsKey(Caller) && images.ContainsKey(Target));
@@ -235,6 +235,20 @@ internal static class DynamicApplyBoundary520Checks
 
     private static bool IsDown(Term value, Pid pid, ReferenceTerm monitor) => value is TupleTerm { Items.Count: 5 } tuple
         && tuple.Items[0].Equals(Term.A(DownTag)) && tuple.Items[1].Equals(monitor) && tuple.Items[3].Equals(pid);
+
+    internal static string SourceDigest(string path, JsonElement input)
+    {
+        string mode = input.TryGetProperty(HashModeProperty, out JsonElement value) ? value.GetString()! : RawMode;
+        Require(mode is RawMode or TextLfMode);
+        byte[] bytes = File.ReadAllBytes(path);
+        if (mode == TextLfMode)
+        {
+            byte[] original = bytes;
+            bytes = original.Where((value, index) => value != 13 || index + 1 == original.Length || original[index + 1] != 10).ToArray();
+        }
+
+        return Convert.ToHexString(SHA256.HashData(bytes));
+    }
 
     private static string Digest(string path) => Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(path)));
 
