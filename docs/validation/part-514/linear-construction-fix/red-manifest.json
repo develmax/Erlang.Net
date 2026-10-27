@@ -1,0 +1,36 @@
+{
+  "State": "diagnostics only plus tests; algorithm unchanged",
+  "BaselineCommit": "9c30cc21cf11b8e0b159e252eb50c5cb68f81149",
+  "Files": [
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessBinaryRegistry512.cs",
+      "Payload": "red-instrumentation/sources/src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessBinaryRegistry512.cs",
+      "PayloadSha256": "F6F4B62D901A9772B54D6A98BD65CDDB6C291A7550E735299D3B01C19051D9B7",
+      "Preimage": "preimages/src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessBinaryRegistry512.cs",
+      "BaseSha256": "EBE2C3B49500A1B6BA31F5239CC287D54A7194745F57FD8CE4050FA0AB0E72B5"
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessBinaryTraversalSnapshot514.cs",
+      "Payload": "red-instrumentation/sources/src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessBinaryTraversalSnapshot514.cs",
+      "PayloadSha256": "86E6F1FB7D1918797337362D5D797A4CB40635217978D39FC21934E078168B95",
+      "Preimage": null,
+      "BaseSha256": null
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Memory/LinearConstruction514Checks.cs",
+      "Payload": "sources/tests/Erlang.Tests/Runtime/Memory/LinearConstruction514Checks.cs",
+      "PayloadSha256": "A23FFD2F5854EF610DE7DFD2F9D34AD4855F84F31DC8296B69D3D26D90D4FD82",
+      "Preimage": null,
+      "BaseSha256": null
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Memory/LinearConstruction514Names.cs",
+      "Payload": "sources/tests/Erlang.Tests/Runtime/Memory/LinearConstruction514Names.cs",
+      "PayloadSha256": "7A09C67A597B12CCAB771EA6EC0FC8F0B85934B1054479511DEFD07F60FFFD8C",
+      "Preimage": null,
+      "BaseSha256": null
+    }
+  ],
+  "ExecuteOnly": "LinearConstruction514Checks.Scaling",
+  "Expected": "actual measured visits/retains/peak exceed linear bounds; not missing-method red"
+}

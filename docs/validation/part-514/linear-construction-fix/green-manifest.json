@@ -1,0 +1,72 @@
+{
+  "State": "fix after retained red diagnostics and identical tests",
+  "Files": [
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermConstruction514.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermConstruction514.cs",
+      "PayloadSha256": "39D2B0B24D2BA65E634A15C7641BF2748BB09056C434E47A1FE40975886BDCFA",
+      "Preimage": null,
+      "BaseSha256": null
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermConstruction514Names.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermConstruction514Names.cs",
+      "PayloadSha256": "F3D97A813FE394D0F6CBD85B517C5F970799E07C61D34117FF83D6EF6B023F80",
+      "Preimage": null,
+      "BaseSha256": null
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Guest507.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Guest507.cs",
+      "PayloadSha256": "E1EC317BA0DD5779282E69F437EE60539EDE1782540C31BF9E8AEC8216890D29",
+      "Preimage": "preimages/src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Guest507.cs",
+      "BaseSha256": "61D737F3FFBA15AD5BB67A91F653EE0E86CB389D0616C74B6D48DA90FDAC4545"
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Source511.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Source511.cs",
+      "PayloadSha256": "9D4464823557ED870FAB942BBC0CDBBDA54F0924B485A691747C97DBF0DD6A97",
+      "Preimage": "preimages/src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Source511.cs",
+      "BaseSha256": "CC770EDFB108ADBB6865F793C941D438915B64A8E1B38456653FCB633A4FC64C"
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Guest507.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Guest507.cs",
+      "PayloadSha256": "D0BA8BF8401AE859E5AF71561B65B69CF73BF1C728E3F6B4BC24D59BE02803F1",
+      "Preimage": "preimages/src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Guest507.cs",
+      "BaseSha256": "D7FF8016C275046CAFC05E1627DDBBC9E64E80760807460E364FB294F20B96F5"
+    }
+  ],
+  "RetainRedFiles": [
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessBinaryRegistry512.cs",
+      "Sha256": "F6F4B62D901A9772B54D6A98BD65CDDB6C291A7550E735299D3B01C19051D9B7"
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessBinaryTraversalSnapshot514.cs",
+      "Sha256": "86E6F1FB7D1918797337362D5D797A4CB40635217978D39FC21934E078168B95"
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Memory/LinearConstruction514Checks.cs",
+      "Sha256": "A23FFD2F5854EF610DE7DFD2F9D34AD4855F84F31DC8296B69D3D26D90D4FD82"
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Memory/LinearConstruction514Names.cs",
+      "Sha256": "7A09C67A597B12CCAB771EA6EC0FC8F0B85934B1054479511DEFD07F60FFFD8C"
+    }
+  ],
+  "Tests": [
+    {
+      "Name": "LinearConstruction514Names.ScalingTest",
+      "Method": "LinearConstruction514Checks.Scaling"
+    },
+    {
+      "Name": "LinearConstruction514Names.HiddenTest",
+      "Method": "LinearConstruction514Checks.HiddenPhysicalMap"
+    },
+    {
+      "Name": "LinearConstruction514Names.RollbackTest",
+      "Method": "LinearConstruction514Checks.RejectAndRollback"
+    }
+  ]
+}

@@ -26,16 +26,61 @@ internal sealed partial class ProcessTermFrame506
 
     internal ProcessTermFrame506 EnterSourceLexicalRoots511() => owner.Enter();
 
-    internal void PublishConstructedNode511(Term value)
+    private ProcessTermConstruction514? constructionCustody514;
+
+    internal ProcessTermConstruction514 BeginConstruction514(Term source)
     {
         lock (owner.Gate)
         {
             ObjectDisposedException.ThrowIf(disposed, this);
-            // Only the internal guest adopter calls this immediately after
-            // constructing a node from its already validated/rooted children.
-            // Empty tuples have no owned payload block to publish.
-            if (owner.IsOwnedLocal(value))
-                PublishRoot512(Reserve(), value);
+            if (constructionCustody514 is not null)
+                throw new InvalidOperationException(ProcessTermConstruction514Names.InvalidCustody);
+            owner.ValidateGuestGraph507(source);
+            int slot = Reserve();
+            PublishRoot512(slot, source);
+            try
+            {
+                return constructionCustody514 = new(this, source);
+            }
+            catch
+            {
+                Clear(slot);
+                throw;
+            }
+        }
+    }
+
+    internal void PublishConstructedNode511(Term value, ProcessTermConstruction514 custody)
+    {
+        lock (owner.Gate)
+        {
+            ObjectDisposedException.ThrowIf(disposed, this);
+            if (!ReferenceEquals(custody, constructionCustody514))
+                throw new InvalidOperationException(ProcessTermConstruction514Names.InvalidCustody);
+            if (!owner.IsOwnedLocal(value))
+                return;
+            if (value is not (Cons or TupleTerm))
+                throw new InvalidOperationException(ProcessTermConstruction514Names.InvalidCustody);
+            // Only tuple/cons containers are created by this adopter. Their
+            // direct children must come from the rooted input or earlier nodes;
+            // no new binary backing can enter through this capability.
+            foreach (Term child in NativeMapOwnedRoots510.Children(value))
+                if (!custody.Contains(child))
+                    throw new InvalidOperationException(ProcessTermConstruction514Names.UnadmittedChild);
+            int slot = Reserve();
+            bool added = custody.Admit(value);
+            try
+            {
+                // The transaction's single complete input lease owns all binary
+                // descendants. This slot is a real guest-cell root only.
+                values.Add(slot, value);
+            }
+            catch
+            {
+                if (added)
+                    custody.Forget(value);
+                throw;
+            }
         }
     }
 

@@ -11910,14 +11910,20 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessBinaryRegistry512.cs",
       "HashMode": "TextLF",
-      "Bytes": 3258,
-      "Sha256": "EBE2C3B49500A1B6BA31F5239CC287D54A7194745F57FD8CE4050FA0AB0E72B5"
+      "Bytes": 4361,
+      "Sha256": "F80012B7E9BE0841ADA6B6B6A93D5308A1C1AE9594ED244E9376F3E0533997DD"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessBinarySnapshot512.cs",
       "HashMode": "TextLF",
       "Bytes": 375,
       "Sha256": "3BBF654A49DF6153D667872249B4F64E69230CE5BFA7DAD00143E85F44F3F79B"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessBinaryTraversalSnapshot514.cs",
+      "HashMode": "TextLF",
+      "Sha256": "2DF784B671F6DE513828D6FD8B86AA3F457A67E6660D87F40EBD6891A9B5EB86",
+      "Bytes": 284
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermCollection504.cs",
@@ -12016,6 +12022,18 @@
       "Sha256": "41C005FFE1764F5DEE5A6289E55341881828EC2A9009623EC7B3107ECF14AC2A"
     },
     {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermConstruction514.cs",
+      "HashMode": "TextLF",
+      "Sha256": "489409F0775B9FE4F9534DE992B7DFBA53F25CA73EA687EC670E50CF47459172",
+      "Bytes": 932
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermConstruction514Names.cs",
+      "HashMode": "TextLF",
+      "Sha256": "E9BA37BF9203F566C2D2C311390626EA541326E9309C767A6B7400C3C9AA70D4",
+      "Bytes": 308
+    },
+    {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Binary512.cs",
       "HashMode": "TextLF",
       "Bytes": 1031,
@@ -12024,14 +12042,14 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Guest507.cs",
       "HashMode": "BinaryExact",
-      "Bytes": 3079,
-      "Sha256": "61D737F3FFBA15AD5BB67A91F653EE0E86CB389D0616C74B6D48DA90FDAC4545"
+      "Bytes": 3093,
+      "Sha256": "4E89D4B682921A375CE2126901E94E252084517B6A7BD126D2B529F047F9E45F"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Source511.cs",
       "HashMode": "TextLF",
-      "Bytes": 2999,
-      "Sha256": "CC770EDFB108ADBB6865F793C941D438915B64A8E1B38456653FCB633A4FC64C"
+      "Bytes": 4769,
+      "Sha256": "802AB30326E2143AB6A08DD8EC72BFFBA4CDFBF68198F219F5C605370E812EC6"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame506.cs",
@@ -12060,8 +12078,8 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Guest507.cs",
       "HashMode": "BinaryExact",
-      "Bytes": 1513,
-      "Sha256": "D7FF8016C275046CAFC05E1627DDBBC9E64E80760807460E364FB294F20B96F5"
+      "Bytes": 1566,
+      "Sha256": "3108CCA91CC904E2CE524A2DF674639C9B9A7D50C6268C7748495B8D0C7173A5"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap506.cs",
@@ -16728,8 +16746,8 @@
     {
       "Path": "tests/Erlang.Tests/Harness/Program.cs",
       "HashMode": "TextLF",
-      "Bytes": 326414,
-      "Sha256": "3730BD304D4283A6ED13BF4289A6F1794685E2F90B9DB470032F5686B5FB0DEB"
+      "Bytes": 326894,
+      "Sha256": "769B74A67C9579053A78FCD2C27B2BBE8142EB1BE4D148ADB262A3FB4D6FDAD4"
     },
     {
       "Path": "tests/Erlang.Tests/Resources/OwnedGuestOriginal506/observed-deterministic.etf",
@@ -16898,6 +16916,18 @@
       "HashMode": "BinaryExact",
       "Bytes": 446,
       "Sha256": "53523119D0271191F1599264C08E699F8173D6009D97795538078E460BD8CAC4"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Memory/LinearConstruction514Checks.cs",
+      "HashMode": "TextLF",
+      "Sha256": "29EBBF779F37F675D708477BE958745191F123429DE8DFA2608EE008EA4CF462",
+      "Bytes": 8828
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Memory/LinearConstruction514Names.cs",
+      "HashMode": "TextLF",
+      "Sha256": "8769C0164C4068B5F36F61F4CC8C81CD9A55CC08FD776D023A807773D87E714E",
+      "Bytes": 2264
     },
     {
       "Path": "tests/Erlang.Tests/Runtime/Memory/NativeMapComposition510Checks.cs",

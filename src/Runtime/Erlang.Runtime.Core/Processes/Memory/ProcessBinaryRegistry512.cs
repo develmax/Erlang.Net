@@ -3,6 +3,24 @@ namespace Erlang;
 internal sealed class ProcessBinaryRegistry512
 {
     private readonly object gate = new();
+    private long visitedTerms514;
+    private long retainOperations514;
+    private long liveBackingReferences514;
+    private long peakBackingReferences514;
+
+    internal ProcessBinaryTraversalSnapshot514 TraversalSnapshot514
+    {
+        get
+        {
+            lock (gate)
+                return new(
+                    visitedTerms514,
+                    retainOperations514,
+                    liveBackingReferences514,
+                    peakBackingReferences514
+                );
+        }
+    }
     private readonly HashSet<ProcessBinaryLease512> leases = new();
     private readonly Dictionary<object, int> frames = new(ReferenceEqualityComparer.Instance);
 
@@ -21,12 +39,14 @@ internal sealed class ProcessBinaryRegistry512
         // registry gate is held while reading term children or their backing.
         var seen = new HashSet<Term>(ReferenceEqualityComparer.Instance);
         var backings = new Dictionary<object, BinaryPayloadHandle512>(ReferenceEqualityComparer.Instance);
+        long visits = 0;
         var pending = new Stack<Term>();
         pending.Push(graph);
         while (pending.TryPop(out Term? value))
         {
             if (!seen.Add(value))
                 continue;
+            visits++;
             if (value is BitString binary)
             {
                 BinaryPayloadHandle512 handle = binary.CaptureBinaryPayload512();
@@ -38,7 +58,16 @@ internal sealed class ProcessBinaryRegistry512
         }
         var lease = new ProcessBinaryLease512(this, owner, backings.Values.ToArray());
         lock (gate)
+        {
+            long nextVisits = checked(visitedTerms514 + visits);
+            long nextOperations = checked(retainOperations514 + 1);
+            long nextReferences = checked(liveBackingReferences514 + lease.Handles.Length);
             leases.Add(lease);
+            visitedTerms514 = nextVisits;
+            retainOperations514 = nextOperations;
+            liveBackingReferences514 = nextReferences;
+            peakBackingReferences514 = Math.Max(peakBackingReferences514, nextReferences);
+        }
 
         return lease;
     }
@@ -49,6 +78,7 @@ internal sealed class ProcessBinaryRegistry512
         {
             if (!leases.Remove(lease))
                 return;
+            liveBackingReferences514 -= lease.Handles.Length;
             lease.Clear512();
         }
     }

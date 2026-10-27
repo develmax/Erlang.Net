@@ -71,8 +71,8 @@ internal sealed partial class ProcessTermFrame506
             using ProcessTermFrame506 construction = owner.Enter();
             // Root the complete validated input before the first allocation.
             // Intermediate newly constructed nodes join the same transaction.
-            construction.PublishRoot512(construction.Reserve(), value);
-            Term adopted = owner.AdoptGuest507(value, construction);
+            ProcessTermConstruction514 custody = construction.BeginConstruction514(value);
+            Term adopted = owner.AdoptGuest507(value, custody);
             PublishRoot512(slot, adopted);
 
             return adopted;

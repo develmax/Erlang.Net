@@ -6981,6 +6981,10 @@ try
     Test(Erlang.Tests.TrustedGuest507Names.OverrideTest, Erlang.Tests.TrustedGuest507Checks.OpaqueOverride);
     Test(Erlang.Tests.HybridBoundary507Names.Test, Erlang.Tests.HybridBoundary507Checks.MutablePatterns);
     Test(Erlang.Tests.HybridKeyScope507Names.Test, Erlang.Tests.HybridKeyScope507Checks.Parity);
+    Test(Erlang.Tests.LinearConstruction514Names.ScalingTest, Erlang.Tests.LinearConstruction514Checks.Scaling);
+    Test(Erlang.Tests.LinearConstruction514Names.EmptyTest, Erlang.Tests.LinearConstruction514Checks.NestedEmptyTuples);
+    Test(Erlang.Tests.LinearConstruction514Names.HiddenTest, Erlang.Tests.LinearConstruction514Checks.HiddenPhysicalMap);
+    Test(Erlang.Tests.LinearConstruction514Names.RollbackTest, Erlang.Tests.LinearConstruction514Checks.RejectAndRollback);
     Test(Erlang.Tests.ResourcePolicy508TestNames.TableTest, Erlang.Tests.ResourcePolicy508Checks.Table);
     Test(Erlang.Tests.ResourcePolicy508TestNames.DefaultsTest, Erlang.Tests.ResourcePolicy508Checks.DefaultsAndConversion);
     Test(Erlang.Tests.ResourcePolicy508TestNames.GenerationsTest, Erlang.Tests.ResourcePolicy508Checks.Generations);
