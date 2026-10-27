@@ -91,6 +91,7 @@ jobs:
           dotnet run --project tests/Erlang.Tests/Erlang.Tests.csproj -c Release -- \
             --case runtime/owned-guest506/original-compiled-worker-whole-values-and-stacks \
             --case runtime/owned-guest506/source-message-survives-sender-physical-retirement \
+            --case runtime/owned-guest506/nested-foreign-invocation-refuses-enclosing-vm-shutdown \
             --report artifacts/owned-guest506-ci/final-controls.json \
             > artifacts/owned-guest506-ci/final-controls.log 2>&1
       - name: Require original and final controls to both pass

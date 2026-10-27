@@ -21,3 +21,5 @@ Total708 registered,180 full,504 pending,24 known. Delta API/full/known0/0/0. Al
 5. Next common gates: message/native/binary/map/function domains, precise liveness, resource policies and all six coordinated original contract groups; then re-audit the remaining504 pending APIs.
 
 [Evidence and explicit limits](../validation/part-506/owned-guest-roots/README.md). Catalog9097 includes14 new finite groups; source guards1804. No arbitrary whole-project percentage is assigned.
+
+Review correction: initial f53f72a4 CI40442003049 passes all jobs, but a live enclosing-VM shutdown cycle is independently reproduced. The chain guard correction passes15/15 targeted groups, with unrelated/captured-context controls. Final catalog9098 (+1); fresh exact-head full CI/review remain pending. The full9097 report is retained as pre-fix evidence.

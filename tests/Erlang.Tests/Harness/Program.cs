@@ -6975,6 +6975,7 @@ try
     Test(Erlang.Tests.OwnedGuest506Names.Test, Erlang.Tests.OwnedGuest506Checks.Payload);
     Test(Erlang.Tests.OwnedGuest506Names.MessageTest, Erlang.Tests.OwnedGuest506Checks.SourceMessageRetirement);
     Test(Erlang.Tests.OwnedGuestOriginal506Names.Test, Erlang.Tests.OwnedGuestOriginal506Checks.Run);
+    Test(Erlang.Tests.OwnedShutdown506Names.Test, Erlang.Tests.OwnedShutdown506Checks.NestedForeignInvocation);
     Test(Erlang.Tests.OwnedGuest506Names.HeldTest, Erlang.Tests.OwnedGuest506Checks.AwaitAndClosure);
     Test(Erlang.Tests.OwnedGuest506Names.CapturedTaskTest, Erlang.Tests.OwnedGuest506Checks.CapturedTask);
     Test(Erlang.Tests.OwnedGuest506Names.DictionaryTest, Erlang.Tests.OwnedGuest506Checks.ConcurrentDictionary);

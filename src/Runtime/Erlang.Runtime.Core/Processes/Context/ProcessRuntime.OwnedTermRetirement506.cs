@@ -58,8 +58,7 @@ public sealed partial class ProcessRuntime
 
     private void RequireOwnedTermShutdownCaller506()
     {
-        if (OwnedTermInvocation506.Active is { IsDisposed: false } invocation
-            && ReferenceEquals(invocation.Runtime, this))
+        if (OwnedTermInvocation506.HasActiveFor506(this))
             throw new InvalidOperationException(ProcessTerm506Names.SelfShutdown);
     }
 }

@@ -5,6 +5,16 @@ internal sealed class OwnedTermInvocation506 : IDisposable
     private static readonly AsyncLocal<OwnedTermInvocation506?> active = new();
     private readonly OwnedTermInvocation506? previousActive;
     internal static OwnedTermInvocation506? Active => active.Value;
+
+    internal static bool HasActiveFor506(ProcessRuntime runtime)
+    {
+        for (OwnedTermInvocation506? invocation = active.Value; invocation is not null; invocation = invocation.previousActive)
+            if (!invocation.IsDisposed && ReferenceEquals(invocation.Runtime, runtime))
+                return true;
+
+        return false;
+    }
+
     internal ProcessRuntime Runtime => context.Runtime;
     private readonly ProcessContext context;
     private readonly OwnedTermInvocation506? previous;

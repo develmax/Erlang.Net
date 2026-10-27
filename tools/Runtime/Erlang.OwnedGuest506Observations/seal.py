@@ -20,6 +20,8 @@ DEPENDENCIES = [
     'tests/Erlang.Tests/Runtime/Memory/OwnedGuestOriginal506Checks.cs',
     'tests/Erlang.Tests/Runtime/Memory/OwnedGuestOriginal506Names.cs',
     'tests/Erlang.Tests/Runtime/Memory/OwnedGuest506RuntimeFactory.cs',
+    'tests/Erlang.Tests/Runtime/Memory/OwnedShutdown506Checks.cs',
+    'tests/Erlang.Tests/Runtime/Memory/OwnedShutdown506Names.cs',
     'tests/Erlang.Tests/Resources/OwnedGuestOriginal506/observed.etf',
     'tests/Erlang.Tests/Resources/OwnedGuestOriginal506/observed-deterministic.etf',
 ]
