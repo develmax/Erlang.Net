@@ -1,0 +1,122 @@
+{
+  "HarnessRegistrations": 12,
+  "WholeContractsClosed": 0,
+  "ExecutedByThisPacket": false,
+  "Groups": [
+    {
+      "Group": "508 table",
+      "Method": "ResourcePolicy508Checks.Table",
+      "FiniteScenarios": [
+        "All 137 pinned observed 64-bit classes: exact, next-after-prior and strict-next partitions",
+        "Zero strict-next and 32-bit minimum boundary"
+      ]
+    },
+    {
+      "Group": "508 defaults",
+      "Method": "ResourcePolicy508Checks.DefaultsAndConversion",
+      "FiniteScenarios": [
+        "Immutable initial/before/after VM policy snapshots",
+        "System minimum exchange rounding versus spawn minimum clamp",
+        "system fullsweep 65536 clamps to65535; spawn65536 truncates to0",
+        "Invalid earlier duplicate and oversized bignum failure"
+      ]
+    },
+    {
+      "Group": "508 generations",
+      "Method": "ResourcePolicy508Checks.Generations",
+      "FiniteScenarios": [
+        "Real nursery payload -> survivor -> old over two explicit minors",
+        "Unrooted old survives minor; major reclaims actual cells",
+        "Disposed owned payload reads fail; fullsweep threshold0 selects major"
+      ]
+    },
+    {
+      "Group": "510 flat",
+      "Method": "NativeMapOwned510Checks.FlatDuplicateOccurrences",
+      "FiniteScenarios": [
+        "Distinct physical duplicate occurrences survive detached copy",
+        "Canonical and arithmetic view occurrence identities retained",
+        "Detached graph portable; same-VM materialized layout remains physical"
+      ]
+    },
+    {
+      "Group": "510 HAMT",
+      "Method": "NativeMapOwned510Checks.HiddenHamtRootsAndTopology",
+      "FiniteScenarios": [
+        "Noncanonical hidden owned values are traced",
+        "Stored topology/hash retention copied, not reconstructed from logical entries",
+        "Source rooted collection and portable detachment preserve layout"
+      ]
+    },
+    {
+      "Group": "510 foreign",
+      "Method": "NativeMapOwned510Checks.ForeignDomainFailsClosed",
+      "FiniteScenarios": [
+        "Physical raw topology from foreign VM refuses unsupported transfer rather than reuse foreign hash state"
+      ]
+    },
+    {
+      "Group": "511 aggregate",
+      "Method": "SourceLiveness511Checks.Run",
+      "FiniteScenarios": [
+        "discarded: two no-longer-read512-element lists reclaimed",
+        "closure: captured live environment survives collection",
+        "conditional: maybe/comprehension suffix roots",
+        "builders: tuple/list intermediate adoption roots",
+        "tail:33 collection observations with stable live bound",
+        "transfer: try/exception/control handoff roots",
+        "Each of six entrypoints ordinary/private result equality AND whole ETF bytes"
+      ]
+    },
+    {
+      "Group": "512 sharing",
+      "Method": "BinaryOwned512Checks.SharingAndEscapes",
+      "FiniteScenarios": [
+        "One actual refc backing shared by slices and two process frames",
+        "One process clear preserves other root; final clear removes registry leases",
+        "Mailbox/host wrapper retains real backing independently after root removal"
+      ]
+    },
+    {
+      "Group": "512 source",
+      "Method": "BinaryOwned512Checks.SourceAndRollback",
+      "FiniteScenarios": [
+        "Compiled source tuple/dictionary get-put-erase roots preserve same backing",
+        "Final call result export portable; registry root cleanup",
+        "Provisional replacement publication rolls back old backing lease on disposal"
+      ]
+    },
+    {
+      "Group": "512 native",
+      "Method": "BinaryOwned512Checks.NativeLifetime",
+      "FiniteScenarios": [
+        "Native buffer allocation -> retained payload lease -> native ownership release",
+        "Read only through live lease; last lease frees actual native buffer",
+        "Explicit copied byte result remains after buffer retirement"
+      ]
+    },
+    {
+      "Group": "510/508/512 composition",
+      "Method": "NativeMapComposition510Checks.HiddenMajorBinaryAndClose",
+      "FiniteScenarios": [
+        "Hidden HAMT tuple and binary retained solely by physical map root",
+        "508 major collection preserves hidden tuple cells",
+        "512 registry retains hidden backing then releases final lease",
+        "Detached result remains readable after source close"
+      ]
+    },
+    {
+      "Group": "511/512 composition",
+      "Method": "SourceBinaryComposition511Checks.RetirementAndHiddenMap",
+      "FiniteScenarios": [
+        "discarded binary releases completed statement lease",
+        "Closure live binary retained through safe point and portable output",
+        "Hidden physical-map binary retained through source lexical replacement",
+        "Future repeated match retains equality constraint and produces exact badmatch2",
+        "Unknown AST fallback retains all candidate roots",
+        "Compiled constrained scope retains visible and hidden constraint roots",
+        "End of call registry has zero source roots"
+      ]
+    }
+  ]
+}

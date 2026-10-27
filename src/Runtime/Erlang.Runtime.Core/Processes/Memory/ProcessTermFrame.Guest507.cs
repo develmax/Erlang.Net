@@ -17,7 +17,7 @@ internal sealed partial class ProcessTermFrame506
         {
             ValidateSlot(slot);
             owner.ValidateGuestGraph507(value);
-            values[slot] = value;
+            PublishRoot512(slot, value);
 
             return value;
         }
@@ -36,7 +36,7 @@ internal sealed partial class ProcessTermFrame506
             foreach (Term child in copied)
                 owner.ValidateGuestGraph507(child);
             Term value = owner.CreateTuple(copied);
-            values[slot] = value;
+            PublishRoot512(slot, value);
 
             return value;
         }
@@ -50,7 +50,7 @@ internal sealed partial class ProcessTermFrame506
             owner.ValidateGuestGraph507(head);
             owner.ValidateGuestGraph507(tail);
             Term value = owner.CreateCons(head, tail);
-            values[slot] = value;
+            PublishRoot512(slot, value);
 
             return value;
         }
@@ -62,8 +62,18 @@ internal sealed partial class ProcessTermFrame506
         {
             ValidateSlot(slot);
             owner.ValidateGuestGraph507(value);
-            Term adopted = owner.AdoptGuest507(value);
-            values[slot] = adopted;
+            if (owner.IsOwnedLocal(value) || value is not (TupleTerm or Cons) || value is TupleTerm { Items.Count: 0 })
+            {
+                PublishRoot512(slot, value);
+
+                return value;
+            }
+            using ProcessTermFrame506 construction = owner.Enter();
+            // Root the complete validated input before the first allocation.
+            // Intermediate newly constructed nodes join the same transaction.
+            construction.PublishRoot512(construction.Reserve(), value);
+            Term adopted = owner.AdoptGuest507(value, construction);
+            PublishRoot512(slot, adopted);
 
             return adopted;
         }
@@ -75,6 +85,7 @@ internal sealed partial class ProcessTermFrame506
         {
             ObjectDisposedException.ThrowIf(disposed, this);
             values.Clear();
+            binaryRoots512?.ClearAll512();
         }
     }
 
@@ -86,6 +97,7 @@ internal sealed partial class ProcessTermFrame506
         {
             ObjectDisposedException.ThrowIf(disposed, this);
             values.Clear();
+            binaryRoots512?.ClearAll512();
             nextSlot = 0;
         }
     }

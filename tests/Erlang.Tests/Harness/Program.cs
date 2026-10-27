@@ -6981,6 +6981,18 @@ try
     Test(Erlang.Tests.TrustedGuest507Names.OverrideTest, Erlang.Tests.TrustedGuest507Checks.OpaqueOverride);
     Test(Erlang.Tests.HybridBoundary507Names.Test, Erlang.Tests.HybridBoundary507Checks.MutablePatterns);
     Test(Erlang.Tests.HybridKeyScope507Names.Test, Erlang.Tests.HybridKeyScope507Checks.Parity);
+    Test(Erlang.Tests.ResourcePolicy508TestNames.TableTest, Erlang.Tests.ResourcePolicy508Checks.Table);
+    Test(Erlang.Tests.ResourcePolicy508TestNames.DefaultsTest, Erlang.Tests.ResourcePolicy508Checks.DefaultsAndConversion);
+    Test(Erlang.Tests.ResourcePolicy508TestNames.GenerationsTest, Erlang.Tests.ResourcePolicy508Checks.Generations);
+    Test(Erlang.Tests.NativeMapOwned510Names.FlatDuplicateTest, Erlang.Tests.NativeMapOwned510Checks.FlatDuplicateOccurrences);
+    Test(Erlang.Tests.NativeMapOwned510Names.HiddenHamtTest, Erlang.Tests.NativeMapOwned510Checks.HiddenHamtRootsAndTopology);
+    Test(Erlang.Tests.NativeMapOwned510Names.ForeignDomainTest, Erlang.Tests.NativeMapOwned510Checks.ForeignDomainFailsClosed);
+    Test(Erlang.Tests.SourceLiveness511Names.Test, Erlang.Tests.SourceLiveness511Checks.Run);
+    Test(Erlang.Tests.BinaryOwned512Names.SharingTest, Erlang.Tests.BinaryOwned512Checks.SharingAndEscapes);
+    Test(Erlang.Tests.BinaryOwned512Names.SourceTest, Erlang.Tests.BinaryOwned512Checks.SourceAndRollback);
+    Test(Erlang.Tests.BinaryOwned512Names.NativeTest, Erlang.Tests.BinaryOwned512Checks.NativeLifetime);
+    Test(Erlang.Tests.NativeMapComposition510Names.Test, Erlang.Tests.NativeMapComposition510Checks.HiddenMajorBinaryAndClose);
+    Test(Erlang.Tests.SourceBinaryComposition511Names.Test, Erlang.Tests.SourceBinaryComposition511Checks.RetirementAndHiddenMap);
     Test(
         Erlang.Tests.TrustedCapabilities507Names.Test,
         Erlang.Tests.TrustedCapabilities507Checks.FactoryInheritedAndPublicOverride

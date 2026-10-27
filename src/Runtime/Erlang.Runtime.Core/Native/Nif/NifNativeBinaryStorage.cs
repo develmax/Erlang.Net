@@ -2,7 +2,7 @@ using System.Runtime.InteropServices;
 
 namespace Erlang;
 
-internal sealed unsafe class NifNativeBinaryStorage
+internal sealed unsafe partial class NifNativeBinaryStorage
 {
     private static long liveBuffers;
     internal static long LiveBufferCount => Interlocked.Read(ref liveBuffers);

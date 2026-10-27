@@ -2,7 +2,7 @@ using System.Runtime.CompilerServices;
 
 namespace Erlang;
 
-internal static class NativeMapMaterialization505
+internal static partial class NativeMapMaterialization505
 {
     private static readonly ConditionalWeakTable<MapTerm, NativeMapMaterializedLayout505> layouts = new();
 
