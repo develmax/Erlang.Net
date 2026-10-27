@@ -4661,8 +4661,8 @@
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLoaderApi.cs",
-      "Bytes": 6146,
-      "Sha256": "CD0934D2C83B1103E252A79EFCF6FB534FF9F7348A7F2FAA041EDC24C5DEEECC",
+      "Bytes": 6156,
+      "Sha256": "A55F7FEF1E7892FB66CD9E89856069DD9B9954979C3F9337FF504485AB813123",
       "HashMode": "TextLF"
     },
     {
@@ -10492,6 +10492,18 @@
       "HashMode": "TextLF"
     },
     {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/RuntimeNativeMetadataImage.cs",
+      "Bytes": 2296,
+      "Sha256": "A279A120F6EF1EE402D2F3C88A8FA019CAB3C9971EBFC6647036B113FCEF00B1",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/RuntimeNativeMetadataNames527.cs",
+      "Bytes": 410,
+      "Sha256": "6897EAC06E0A83135E2103C8269D0BF6F55985314646D9E06FBCFAF6C2AF2BB9",
+      "HashMode": "TextLF"
+    },
+    {
       "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/StringFloatNative.cs",
       "Bytes": 2513,
       "Sha256": "1CCA6F101C278352DEB9769F9801CF83616B109FF1A062905148DDF4599029E0",
@@ -11296,6 +11308,12 @@
       "HashMode": "TextLF"
     },
     {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.NativeMetadata527.cs",
+      "Bytes": 296,
+      "Sha256": "4C80337A9FE2DC627F75A260F861D717D73967678C47578D91321C98C32D00B8",
+      "HashMode": "TextLF"
+    },
+    {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.NativePrimitives.cs",
       "Bytes": 326,
       "Sha256": "4C2EBBBC4ECBA15E02EEA9271D197586D751EF082F952BE37E85E5EDF46CD14F",
@@ -11519,14 +11537,14 @@
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
-      "Bytes": 74069,
-      "Sha256": "095C0420CA6948E8A4C7AB615CA5B50144B6A5688FB80E9D290B1A7B2BA2C162",
+      "Bytes": 74131,
+      "Sha256": "43A8ADD2E9A59BF2153099643AE43144E02C7318576F74B1C63D9587E7AA2FE5",
       "HashMode": "TextLF"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntimeOptions.cs",
-      "Bytes": 1089,
-      "Sha256": "915B4E1EE629E61C7C9A9901706861BA2ED3BC0A32D93494CAC6BCB342A552DE",
+      "Bytes": 1164,
+      "Sha256": "74A94263F6EDA55C0E8F7C5166AA4F585FFE3391EE6AABFCAABE70D7F641E05E",
       "HashMode": "TextLF"
     },
     {
@@ -16722,8 +16740,8 @@
     {
       "Path": "tests/Erlang.Tests/Compiler/Beam/Calls/DynamicApplyBoundary520Checks.cs",
       "HashMode": "TextLF",
-      "Sha256": "F893E021E421A59AC79CAB0BF5558819B1997E20CFD0C0DB5828939DA5EF5D64",
-      "Bytes": 13340
+      "Sha256": "0211134CA174DB8FE26A447A65E118DAD39ED4977EBA3495AC9863B9C50F25EF",
+      "Bytes": 14197
     },
     {
       "Path": "tests/Erlang.Tests/Compiler/Beam/Calls/DynamicApplyBoundary520Imports.cs",
@@ -16738,10 +16756,46 @@
       "Bytes": 4282
     },
     {
+      "Path": "tests/Erlang.Tests/Compiler/Beam/Calls/DynamicApplyNativeMetadata527Admission.cs",
+      "Bytes": 3133,
+      "Sha256": "6C28A0BDDFD1D4241194F68F2B7963164D2A3DFD05E197C5E1D6D162C92FCD2A",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Compiler/Beam/Calls/DynamicApplyNativeMetadata527Names.cs",
+      "Bytes": 1769,
+      "Sha256": "817744C2285319298B2D1F7AE7973C43EE0BA3697715FD14346BFCB99209502A",
+      "HashMode": "TextLF"
+    },
+    {
       "Path": "tests/Erlang.Tests/Compiler/Beam/Calls/DynamicApplySourceAdmission520Checks.cs",
       "HashMode": "TextLF",
       "Sha256": "8169D600B8E49A767B700F0FBD65D115A626E42077A628B98ACF170FB056424E",
       "Bytes": 1633
+    },
+    {
+      "Path": "tests/Erlang.Tests/Compiler/Beam/Calls/NativeMetadataImage527Checks.cs",
+      "Bytes": 3606,
+      "Sha256": "273C866A0E2100CFEE9871BE51E6E98CACB01CF833790205645FC55795DF521D",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Compiler/Beam/Calls/NativeMetadataImage527Names.cs",
+      "Bytes": 1008,
+      "Sha256": "2F324D3A9B18F1BF3F9EE14E0E5603ACC34016525CDF7CD20605221EE35F4B32",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Compiler/Beam/Calls/NativeMetadataWitness527Checks.cs",
+      "Bytes": 1401,
+      "Sha256": "2AD28154D125AE14F99A8E58904C6674D21DC97EECD4A2BFCCAC156475515C5B",
+      "HashMode": "TextLF"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Compiler/Beam/Calls/NativeMetadataWitness527Names.cs",
+      "Bytes": 419,
+      "Sha256": "536946BE7D17E4F16FEE2DAAE45E1C44186171C7A24DFE5E46FC22CABA06169C",
+      "HashMode": "TextLF"
     },
     {
       "Path": "tests/Erlang.Tests/Compiler/Beam/Receive/BeamReceiveBinary398Checks.cs",
@@ -16776,8 +16830,14 @@
     {
       "Path": "tests/Erlang.Tests/Harness/Program.cs",
       "HashMode": "TextLF",
-      "Bytes": 329181,
-      "Sha256": "8612C03E0632ABBB4011FF77CAD5A3CFE860E74FCBEE7C49AC34F20996D72E39"
+      "Bytes": 329515,
+      "Sha256": "F94D2FD30BDC93CBD6D3A878084D31891E5519B51727D892267EAF392BD432DD"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/Beam/native_metadata527_erlang.beam",
+      "Bytes": 40440,
+      "Sha256": "F4827EBCDB5C66BF96E34EE832783905FC5A7795286A154D00434C5CFA723FA7",
+      "HashMode": "BinaryExact"
     },
     {
       "Path": "tests/Erlang.Tests/Resources/OwnedGuestOriginal506/observed-deterministic.etf",
@@ -17009,8 +17069,8 @@
     },
     {
       "Path": "tests/Erlang.Tests/Runtime/Memory/OwnedGuest506RuntimeFactory.cs",
-      "Bytes": 591,
-      "Sha256": "A62A63247BEA72D81690577A2E96698AA2C70340268DFF31B59E2386E4B496CA",
+      "Bytes": 681,
+      "Sha256": "5D70C9F8FF9996554254AEBACD7FEB80E0E43CA3DABBB13D2CAE28358726FDE8",
       "HashMode": "BinaryExact"
     },
     {

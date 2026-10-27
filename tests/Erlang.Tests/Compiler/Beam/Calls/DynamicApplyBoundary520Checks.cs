@@ -70,6 +70,15 @@ internal static class DynamicApplyBoundary520Checks
         string loaderSha = loader.GetProperty(ShaProperty).GetString()!;
         Require(File.Exists(loaderPath) && Digest(loaderPath) == loaderSha);
         byte[] loaderBytes = File.ReadAllBytes(loaderPath);
+        JsonElement nativeMetadata = root.GetProperty(DynamicApplyNativeMetadata527Names.Field);
+        Require(nativeMetadata.GetProperty(ModuleProperty).GetString() == ErlangModule);
+        string metadataName = nativeMetadata.GetProperty(NameProperty).GetString()!;
+        Require(Path.GetFileName(metadataName) == metadataName);
+        string metadataPath = Path.Combine(original, metadataName);
+        Require(File.Exists(metadataPath) && Digest(metadataPath) == nativeMetadata.GetProperty(ShaProperty).GetString());
+        byte[] metadataBytes = File.ReadAllBytes(metadataPath);
+        RuntimeNativeMetadataImage metadataProfile = DynamicApplyNativeMetadata527Admission.Verify(original, nativeMetadata, metadataBytes);
+        Require(metadataProfile.OriginalBeamSha256 == nativeMetadata.GetProperty(ShaProperty).GetString());
         byte[] expectedRaw = File.ReadAllBytes(Path.Combine(original, Raw));
         byte[] expectedDeterministic = File.ReadAllBytes(Path.Combine(original, Deterministic));
         string[] callerImports = DynamicApplyBoundary520Imports.Read(callerBytes);
@@ -79,7 +88,7 @@ internal static class DynamicApplyBoundary520Checks
             .Distinct(StringComparer.Ordinal).Order(StringComparer.Ordinal).ToArray();
         Require(!selected.Contains(Target, StringComparer.Ordinal));
         Directory.CreateDirectory(output);
-        await using var runtime = OwnedGuest506RuntimeFactory.Create(owned);
+        await using var runtime = OwnedGuest506RuntimeFactory.Create(owned, metadataProfile);
         PreparedBeamImage? caller = null, target = null;
         await runtime.InitializeModulesAsync(registry =>
         {

@@ -72,6 +72,7 @@ def main():
     errors = []
     images = []
     passed = False
+    native_metadata = None
 
     for file_path in sorted((tool_directory / 'fixtures').glob('*.erl')):
         shutil.copyfile(file_path, output / file_path.name)
@@ -82,6 +83,9 @@ def main():
     env = dict(os.environ, ERL_CRASH_DUMP=str(output / 'erl_crash.dump'), ERL_CRASH_DUMP_SECONDS='15')
 
     try:
+        metadata_helper = load('dynamic520_native_metadata527', tool_directory / 'metadata-image527.py')
+        native_metadata = metadata_helper.acquire(installed, output)
+
         compile_directory = output / 'compile'
         compile_directory.mkdir()
         for file_path in output.glob('*.erl'):
@@ -111,8 +115,20 @@ def main():
             images.append(dict(Module=module[1], Name=beam_path.name, Sha256=sha(beam_path), StaticModules=sorted(modules)))
         shutil.copyfile(compile_directory / 'acquire520.beam', output / 'acquire520.beam')
 
-        phases['Observer'] = shared.execute(repository, [str(erl), '+S', '2:2', '-noshell', '-noinput', '-pa', str(output), '-eval', 'ok=acquire520:run(),halt().'], output, env)
-        require(all(((output / n).is_file() for n in ['observed.etf', 'observed-deterministic.etf', 'worker-witness.etf', 'owners.etf'])), 'Full original outputs missing')
+        observer_expression = (
+            '{ok,{erlang,NativeMd5}}=beam_lib:md5("metadata-effective-erlang.beam"),'
+            'NativeMd5=erlang:module_info(md5),'
+            'ok=file:write_file("native-metadata-executing.etf",'
+            'term_to_binary({erlang,code:which(erlang),NativeMd5,erlang:module_info(compile)})),'
+            'ok=acquire520:run(),halt().'
+        )
+        phases['Observer'] = shared.execute(
+            repository,
+            [str(erl), '+S', '2:2', '-noshell', '-noinput', '-pa', str(output), '-eval', observer_expression],
+            output,
+            env,
+        )
+        require(all(((output / n).is_file() for n in ['observed.etf', 'observed-deterministic.etf', 'worker-witness.etf', 'owners.etf', 'native-metadata-executing.etf'])), 'Full original outputs missing')
         passed = True
     except Exception as error:
         errors.append(repr(error))
@@ -142,6 +158,7 @@ def main():
             ProviderAdmissionSha256=arguments.admission_sha256.upper(),
             Files=inventory,
             Images=images,
+            NativeMetadataImage=native_metadata,
             LoaderImage=dict(
                 Module='odbc',
                 Name='odbc.beam',

@@ -4,6 +4,8 @@ public sealed class ProcessRuntimeOptions
 {
     internal bool OwnedTermsPilot506 { get; init; }
 
+    public RuntimeNativeMetadataImage? NativeMetadataImage { get; init; }
+
     public int MaximumAtoms { get; init; } = AtomTableLimits.MaximumNames;
 
     public RuntimeWarningMapping WarningMapping { get; }

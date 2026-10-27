@@ -16,3 +16,5 @@ The24 known differences remain open as a coordinated resource batch. Shared boot
 Canonical total:708 registered,180 full,24 known and504 pending. Delta0/0/0. Full-contract fraction180/708 is25.4%; it is not overall project completion. Counts describe the recorded backend scopes; native callback families are separate from module MFAs.
 
 CI543 failed at preparation/source admission and compilation; complete failed artifacts are retained. The clean-checkout repair passes seven focused controls and52 complete fresh original comparisons; new exact-head CI/review remains mandatory. No native/resource scope is promoted by that repair.
+
+CI544: Windows9148/9148 and relocated tooling pass; Linux retains two metadata-only comparison failures. Executing-image metadata repair passes two local controls and fresh52 complete Windows comparisons. Final-head Linux CI/review is pending; the24 known differences remain open.

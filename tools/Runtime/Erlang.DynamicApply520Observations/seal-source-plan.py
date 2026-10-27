@@ -7,6 +7,7 @@ tool = Path(__file__).resolve().parent
 paths = [
     tool / 'collect-original.py',
     tool / 'seal-source-plan.py',
+    tool / 'metadata-image527.py',
     *sorted((tool / 'fixtures').glob('*.erl')),
     repo / 'tools/Runtime/Erlang.OwnedGuest506Observations/collect.py',
     repo / 'tools/Native/Erlang.NifMapFamily504Observations/diagnostic_etf.py',

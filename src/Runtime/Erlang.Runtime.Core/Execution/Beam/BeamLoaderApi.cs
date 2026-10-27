@@ -154,7 +154,7 @@ internal static class BeamLoaderApi
                 Cons.From(arguments),
                 info,
                 function,
-                function == BeamLoaderNames.LoadModule ? PortErrorSourceLocations.ErrorWithInfo : null
+                function == BeamLoaderNames.LoadModule ? context.Runtime.NativeLoadModuleErrorLocation527 : null
             )
         };
     }
