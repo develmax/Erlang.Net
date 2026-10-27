@@ -1,6 +1,6 @@
 namespace Erlang;
 
-public abstract record Pattern
+public abstract partial record Pattern
 {
     protected abstract bool MatchCore(
         Term value,
@@ -29,7 +29,7 @@ public abstract record Pattern
     )
     {
         var candidate = new Dictionary<string, Term>(bindings, StringComparer.Ordinal);
-        if (!await MatchCoreAsync(
+        if (!await MatchBoundaryAsync507(
             value,
             candidate,
             context,
@@ -51,7 +51,7 @@ public abstract record Pattern
     )
     {
         var candidate = new Dictionary<string, Term>(bindings, StringComparer.Ordinal);
-        if (!MatchCore(
+        if (!MatchBoundary507(
             value,
             candidate,
             context,
@@ -113,7 +113,7 @@ public abstract record Pattern
             if (value is not TupleTerm t || t.Items.Count != Items.Count)
                 return false;
             for (int i = 0; i < Items.Count; i++)
-                if (!Items[i].MatchCore(
+                if (!Items[i].MatchBoundary507(
                     t.Items[i],
                     bindings,
                     context,
@@ -134,7 +134,7 @@ public abstract record Pattern
             if (value is not TupleTerm t || t.Items.Count != Items.Count)
                 return false;
             for (int i = 0; i < Items.Count; i++)
-                if (!await Items[i].MatchCoreAsync(
+                if (!await Items[i].MatchBoundaryAsync507(
                     t.Items[i],
                     bindings,
                     context,
@@ -156,7 +156,7 @@ public abstract record Pattern
         {
             foreach (var p in Items)
             {
-                if (value is not Cons c || !p.MatchCore(
+                if (value is not Cons c || !p.MatchBoundary507(
                     c.Head,
                     bindings,
                     context,
@@ -166,7 +166,7 @@ public abstract record Pattern
                 value = c.Tail;
             }
 
-            return Tail is null ? value is Nil : Tail.MatchCore(
+            return Tail is null ? value is Nil : Tail.MatchBoundary507(
                 value,
                 bindings,
                 context,
@@ -183,7 +183,7 @@ public abstract record Pattern
         {
             foreach (var p in Items)
             {
-                if (value is not Cons c || !await p.MatchCoreAsync(
+                if (value is not Cons c || !await p.MatchBoundaryAsync507(
                     c.Head,
                     bindings,
                     context,
@@ -193,7 +193,7 @@ public abstract record Pattern
                 value = c.Tail;
             }
 
-            return Tail is null ? value is Nil : await Tail.MatchCoreAsync(
+            return Tail is null ? value is Nil : await Tail.MatchBoundaryAsync507(
                 value,
                 bindings,
                 context,

@@ -1,0 +1,50 @@
+{
+  "Status": "source-only focused fix; not built/run",
+  "Files": [
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamOwnedRoots507.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamOwnedRoots507.cs",
+      "PayloadSha256": "2649C4110C50DDE116F039AD927FE95AE9350E98EE664CDDAE46E594A1CF8F35",
+      "Preimage": "preimages/src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamOwnedRoots507.cs",
+      "BaseSha256": "CEB79D42AF34CFCAF339752CC3CD2E3EBA6C2D3B972830A2601CD9CE947F896E"
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterInterpreter.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterInterpreter.cs",
+      "PayloadSha256": "4B9DC3F1CEBE3E5F80D553DF2088978BFAD839E72F191B1C9DE865AEDF43B013",
+      "Preimage": "preimages/src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterInterpreter.cs",
+      "BaseSha256": "A1E8F0333DA96E3188B069A2C5214F8A396E57E653B9FDC860C8A7940A9D9948"
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterState.Owned507.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterState.Owned507.cs",
+      "PayloadSha256": "840C9868A03743152C8D8604AE9BF0D830911963866CE78CFEFE07907A4A188A",
+      "Preimage": "preimages/src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterState.Owned507.cs",
+      "BaseSha256": "03D9043EB3BA61DAA05E6718D4512C593AE564A290CFC21143E634EFD7F81BD8"
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Memory/BeamGuestReturn507Checks.cs",
+      "Payload": "sources/tests/Erlang.Tests/Runtime/Memory/BeamGuestReturn507Checks.cs",
+      "PayloadSha256": "E26ADA22A7C8C2FF6AC077B332F527AA48BB4C3B0670A8E5069D81D6828E543A",
+      "Preimage": null,
+      "BaseSha256": null
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Memory/BeamGuestReturn507Names.cs",
+      "Payload": "sources/tests/Erlang.Tests/Runtime/Memory/BeamGuestReturn507Names.cs",
+      "PayloadSha256": "9FF9646D5DCB8C5BF3F6222A21C17B83222D5D4716B233EFE5C56523EEECE42C",
+      "Preimage": null,
+      "BaseSha256": null
+    }
+  ],
+  "OriginalFixture": {
+    "Path": "tests/Erlang.Tests/Resources/LibraryDependencies392/context_forwarding_observer397.beam",
+    "Sha256": "82981A64B3CE6731B9A32EF83EA3240035792B4C8B5C7123D85DA61A1E6BBCFA",
+    "NoNewOriginalExecution": true
+  },
+  "Registration": {
+    "Name": "BeamGuestReturn507Names.Test",
+    "Method": "BeamGuestReturn507Checks.AliasAndHost"
+  },
+  "Scope": "Seven result-return sites only. Sends/opaque argument export/exception detachment unchanged."
+}

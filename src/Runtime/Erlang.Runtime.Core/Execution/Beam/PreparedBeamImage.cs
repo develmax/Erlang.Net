@@ -13,9 +13,11 @@ public sealed partial class PreparedBeamImage : ISourceLocalFunctionResolver
         Descriptor = metadata.Descriptor;
         AttributeProvenance = metadata.Attributes;
         CompilationProvenance = metadata.Compilation;
+        var primitives507 = owner.CaptureBeamPrimitives(code);
         ExecutionIdentity = new(new ModuleCodeImage(Name, this), this)
         {
-            NativePrimitives = owner.CaptureBeamPrimitives(code)
+            NativePrimitives = primitives507,
+            OwnedNativeCapabilities507 = owner.PreparedOwnedCapabilities507(primitives507)
         };
         Bodies = Array.AsReadOnly(ObservedPayloadStorage.Code(code.Exports.Select<BeamLinkedFunction, ErlangFunction>(function =>
             (context, arguments) => BeamRegisterInterpreter.Execute(

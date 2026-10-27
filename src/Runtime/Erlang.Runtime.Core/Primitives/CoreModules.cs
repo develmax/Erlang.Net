@@ -23,6 +23,22 @@ public static class CoreModules
             arity,
             (c, a) => ValueTask.FromResult(f(c, a))
         );
+
+        void AddRead507(string name, int arity, Func<ProcessContext, IReadOnlyList<Term>, Term> f)
+            => r.RegisterCanonicalRead507(
+                ErlangModuleNames.Module,
+                name,
+                arity,
+                (c, a) => ValueTask.FromResult(f(c, a))
+            );
+
+        void AddDictionary507(string name, int arity, Func<ProcessContext, IReadOnlyList<Term>, Term> f)
+            => r.RegisterCanonicalDictionary507(
+                ErlangModuleNames.Module,
+                name,
+                arity,
+                (c, a) => ValueTask.FromResult(f(c, a))
+            );
         Add(
             ErlangModuleNames.Module,
             ErlangModuleNames.Self,
@@ -35,20 +51,17 @@ public static class CoreModules
             1,
             (context, arguments) => ErlangListLength.ReadAsync(context, arguments[0])
         );
-        Add(
-            ErlangModuleNames.Module,
+        AddRead507(
             ErlangModuleNames.Head,
             1,
             (c, a) => a[0] is Cons l ? l.Head : throw new ErlangException(ErlangErrorReasons.BadArgument)
         );
-        Add(
-            ErlangModuleNames.Module,
+        AddRead507(
             ErlangModuleNames.Tail,
             1,
             (c, a) => a[0] is Cons l ? l.Tail : throw new ErlangException(ErlangErrorReasons.BadArgument)
         );
-        Add(
-            ErlangModuleNames.Module,
+        AddRead507(
             ErlangModuleNames.Element,
             2,
             (c, a) => a[0] is Integer i && a[1] is TupleTerm t && i.Value > 0 && i.Value <= t.Items.Count ? t.Items[(int)i.Value - 1] : throw new ErlangException(ErlangErrorReasons.BadArgument)
@@ -336,36 +349,9 @@ public static class CoreModules
             1,
             (c, a) => throw new ErlangException(a[0], ErlangExceptionClasses.Throw)
         );
-        Add(
-            ErlangModuleNames.Module,
-            ErlangModuleNames.Put,
-            2,
-            (c, a) =>
- {
-     var previous = c.Dictionary.GetValueOrDefault(a[0], Term.A(ProcessDictionaryAtoms.Undefined));
-     c.Dictionary[a[0]] = a[1];
-
-     return previous;
- }
-        );
-        Add(
-            ErlangModuleNames.Module,
-            ErlangModuleNames.Get,
-            1,
-            (c, a) => ErlangInfallibleBifValues.Get(c, a[0])
-        );
-        Add(
-            ErlangModuleNames.Module,
-            ErlangModuleNames.Erase,
-            1,
-            (c, a) =>
- {
-     var previous = c.Dictionary.GetValueOrDefault(a[0], Term.A(ProcessDictionaryAtoms.Undefined));
-     c.Dictionary.Remove(a[0]);
-
-     return previous;
- }
-        );
+        AddDictionary507(ErlangModuleNames.Put, 2, OwnedDictionaryBifs507.Put);
+        AddDictionary507(ErlangModuleNames.Get, 1, OwnedDictionaryBifs507.Get);
+        AddDictionary507(ErlangModuleNames.Erase, 1, OwnedDictionaryBifs507.Erase);
         RuntimeManagedLibraries456.Register(r, RuntimeManagedLibraryStage456.Collections);
         ErlangBasicRegistrations.Register(r);
         ErlangDataRegistrations.Register(r);

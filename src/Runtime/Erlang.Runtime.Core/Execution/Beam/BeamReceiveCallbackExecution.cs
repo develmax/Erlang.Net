@@ -13,6 +13,7 @@ internal static class BeamReceiveCallbackExecution
     )
     {
         using var wordOperation504 = before.EnterWordOperation504();
+        await before.ReceiveCheckpoint507(BeamOwnedReceive507Names.CallbackEntered);
         Term callee = BeamRegisterInterpreter.Read(code, before, callback.Callee);
         if (callee is not FunctionTerm callable || callable.Arity != 1)
         {
@@ -25,6 +26,8 @@ internal static class BeamReceiveCallbackExecution
             throw context.CaptureSourceFailure(new ErlangException(reason));
         }
         scope.SetContinuation(code, callback.CallInstructionIndex + 1);
+        // On failure the caller's handler captures this continuation before
+        // unwinding it. Clearing in a finally would change original stacks.
         Term result = await callable.Invoke(context, Array.AsReadOnly(new[] { message }));
         scope.ClearContinuation();
         if (result is Atom { Name: BeamReceiveCallbackNames.NoMatch })
@@ -36,7 +39,18 @@ internal static class BeamReceiveCallbackExecution
             registers.ClearFloats();
             registers.Write(0, result);
 
-            return new(callback.SuccessInstructionIndex, registers, []);
+            var selection = new BeamReceiveSelection(callback.SuccessInstructionIndex, registers, []);
+            try
+            {
+                await before.ReceiveCheckpoint507(BeamOwnedReceive507Names.CallbackSelected);
+
+                return selection;
+            }
+            catch
+            {
+                selection.Dispose();
+                throw;
+            }
         }
         catch
         {

@@ -1,0 +1,138 @@
+{
+  "Stage": "507_BEAM_OPT_IN_ROOT_BRIDGE_SOURCE_ONLY",
+  "Built": false,
+  "Executed": false,
+  "ActiveEdits": false,
+  "KnownPromotions": 0,
+  "OrdinaryReceiveChanged": false,
+  "OwnedReceiveAdmitted": false,
+  "LiveHintCoverage": [
+    "allocate",
+    "allocate_heap",
+    "test_heap"
+  ],
+  "RequiredSharedApis": [
+    "ProcessTermFrame506.SetLocalGraph507(int,Term)",
+    "ProcessTermFrame506.AdoptGuestInto507(int,Term)",
+    "ProcessTermFrame506.CreateTupleInto507(int,IReadOnlyList<Term>)",
+    "ProcessTermFrame506.CreateConsInto507(int,Term,Term)",
+    "ProcessContext.InvokeNativePrimitive507(BeamExecutionIdentity,ErlangFunction,IReadOnlyList<Term>)"
+  ],
+  "Sources": [
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamFunctionScope.cs",
+      "Action": "replace",
+      "BaseSha256": "001438269CABC03C36FDCA1225D0174D7C471F6E4B08B986C6A4E2D48C43F838",
+      "StagedSha256": "296A011E24A7C6F8B85787094D8255D543954F9F8DE5AD1F803D71A1B0724A31",
+      "Bytes": 2120
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLocalFrame.cs",
+      "Action": "replace",
+      "BaseSha256": "B723AA448C311BF91AA57B8267DFFD015B256945AC64D246FAB229705B34D862",
+      "StagedSha256": "C2D5E70060DBA7E7C0EEB40D7664210321294BBDF1584D589E8E92C735DCA6AC",
+      "Bytes": 6231
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLocalFrame.Owned507.cs",
+      "Action": "add",
+      "BaseSha256": null,
+      "StagedSha256": "715E5C2B39A815BEA2D64E04CBFFA5934713167BAD6312234AC1EE412C8C41DE",
+      "Bytes": 1064
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamOwnedCheckpoint507.cs",
+      "Action": "add",
+      "BaseSha256": null,
+      "StagedSha256": "66E3D7EB90725123AB19A3559431726A8317ACD07433CE0D2A29938F5FF3A21E",
+      "Bytes": 574
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamOwnedCheckpointScope507.cs",
+      "Action": "add",
+      "BaseSha256": null,
+      "StagedSha256": "3094190C7147074376D96995D04DC31764419CA78382034636D8EBE33F5E09FE",
+      "Bytes": 246
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamOwnedRoots507.cs",
+      "Action": "add",
+      "BaseSha256": null,
+      "StagedSha256": "79E59664C1C9BA308F215410F14B829D9DAF307AF7365DED6CF5BEF92C9C87E6",
+      "Bytes": 2775
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamOwnedRoots507Names.cs",
+      "Action": "add",
+      "BaseSha256": null,
+      "StagedSha256": "A8988D2747A07DF296186190465A5A828192F8921263366F3ABD74B0AC521CDA",
+      "Bytes": 199
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamOwnedTemporary507.cs",
+      "Action": "add",
+      "BaseSha256": null,
+      "StagedSha256": "D10457F32730296BCFD30DCFEBB58C277FCCE2644EFA1413C60E782FD9AF2267",
+      "Bytes": 478
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterInterpreter.cs",
+      "Action": "replace",
+      "BaseSha256": "279FCA247268F65E2A9F82740BF0D39ADBC5DE26F9EF4EEBAA6270BC132E83C1",
+      "StagedSha256": "CF388B89F9C48EE99649DF8A38910065B9D726399E62953F666861036BCA7B4C",
+      "Bytes": 77980
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterInterpreter.Owned507.cs",
+      "Action": "add",
+      "BaseSha256": null,
+      "StagedSha256": "2CA96136614A7AB3A7533F8E0BB7C5CFAFBDEB942836AC77370124A8007E6E2F",
+      "Bytes": 1060
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterSlot.cs",
+      "Action": "replace",
+      "BaseSha256": "0062C802C58E36F33441369DBB2C31A610904E4BA3DB44F92438ED41316CF701",
+      "StagedSha256": "81C3AC71406373477E95BF06D3B3472993F6449B16EB3C31D8C76DA74F62C56D",
+      "Bytes": 4069
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterState.cs",
+      "Action": "replace",
+      "BaseSha256": "5E6B430794B9A0EA93268463B136969FB3D76213F31E657C32AE6A281B813BB9",
+      "StagedSha256": "158C2154A7D84B967FFC9CCBA2E43FF31A62A209D2868EB8B58E41D7838B6838",
+      "Bytes": 10857
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterState.Owned507.cs",
+      "Action": "add",
+      "BaseSha256": null,
+      "StagedSha256": "7E59E1F52ED544BB1569778478264471EA5667C6513093D3E0CACA843536AF8E",
+      "Bytes": 2684
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Memory/BeamOwnedRoots507Checks.cs",
+      "Action": "add",
+      "BaseSha256": null,
+      "StagedSha256": "B3CFDA99B125A6084B312BA6A83749BB704A96FC4DB66C1806F192527A066A16",
+      "Bytes": 8848
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Memory/BeamOwnedRoots507Names.cs",
+      "Action": "add",
+      "BaseSha256": null,
+      "StagedSha256": "6F83684D022098DEAFA120FC58140B944E034E41A172C74D15465AA55E3447E8",
+      "Bytes": 2066
+    }
+  ],
+  "BaseDrift": [],
+  "PatchSha256": "F259427A4F32F6910D766B1CF3B62AD4E0E14F2ECEA8AECC52201D7B988B0F75",
+  "Tests": [
+    "BeamOwnedRoots507Checks.OriginalTryReplay",
+    "BeamOwnedRoots507Checks.AliasAndTrim",
+    "BeamOwnedRoots507Checks.CancelAtTuple"
+  ],
+  "PublicGcOrResourceApiReclassified": false,
+  "TextualBraceControlPassed": true,
+  "CompilationClaimed": false
+}

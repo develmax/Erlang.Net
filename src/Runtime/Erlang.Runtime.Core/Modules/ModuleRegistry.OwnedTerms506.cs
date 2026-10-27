@@ -49,18 +49,18 @@ public sealed partial class ModuleRegistry
         using OwnedTermInvocation506 owned = context.EnterOwnedInvocation506(arguments, hostBoundary)!;
         try
         {
-            // Opaque registered C# bodies see portable values, so a delegate that
-            // retains its arguments cannot keep borrowed process-owned wrappers.
-            Term[] portable = owned.Arguments.Select(owned.Export).ToArray();
+            // The selected binding bridge applies its exact body capability;
+            // opaque callbacks export arguments before invoking host code.
+            Term[] selectedArguments = owned.Arguments;
             Term result = await CallWithDispatch(
                 context,
                 module,
                 function,
-                portable,
+                selectedArguments,
                 out _
             );
 
-            return owned.Complete(result);
+            return hostBoundary ? owned.Complete(result) : owned.CompleteGuest507(result);
         }
         catch (ErlangException error)
         {

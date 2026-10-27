@@ -1,6 +1,6 @@
 namespace Erlang.Compiler;
 
-internal sealed class SourceStoredFunctionRecipe : IRuntimeStoredFunctionRecipe
+internal sealed class SourceStoredFunctionRecipe : IRuntimeStoredFunctionRecipe, ICanonicalGuestRecipe507
 {
     private readonly RuntimeFunctionEntries owner;
     private readonly ModuleDefinition? module;
@@ -66,6 +66,8 @@ internal sealed class SourceStoredFunctionRecipe : IRuntimeStoredFunctionRecipe
 
         return recipe;
     }
+
+    bool ICanonicalGuestRecipe507.AdmittedTo507(ProcessRuntime runtime) => ReferenceEquals(owner, runtime.Functions);
 
     public FunctionTerm Rebind(IReadOnlyList<Term> environment) => Create(environment);
 

@@ -309,6 +309,13 @@ internal sealed partial class ProcessTracing(ProcessRuntime runtime, object gate
         IReadOnlyList<Term> arguments
     )
     {
+        if (runtime.OwnedTermsPilot506)
+        {
+            lock (gate)
+                if (patterns.Count == 0 && namedSessions425.Count == 0)
+                    return null; // Trace-hook linearization precedes later configuration.
+            arguments = arguments.Select(context.CopyGuestEscape507).ToArray();
+        }
         lock (gate)
         {
             if (sessionView425 || sessionsClosed425 || namedSessions425.Count == 0)
@@ -407,6 +414,7 @@ internal sealed partial class ProcessTracing(ProcessRuntime runtime, object gate
 
     private void Returned(ProcessContext context, ProcessTraceInvocation invocation, Term value)
     {
+        value = context.CopyGuestEscape507(value);
         if (invocation.Children425 is { } children)
             foreach (var child in children) child.Owner.Returned(context, child.Invocation, value);
         lock (gate)
@@ -416,6 +424,7 @@ internal sealed partial class ProcessTracing(ProcessRuntime runtime, object gate
 
     public void Failed(ProcessContext context, ProcessTraceInvocation? invocation, ErlangException exception)
     {
+        Term portableReason507 = context.CopyGuestEscape507(exception.Reason);
         if (invocation?.Children425 is { } children)
             foreach (var child in children) child.Owner.Failed(context, child.Invocation, exception);
         lock (gate)
@@ -423,7 +432,7 @@ internal sealed partial class ProcessTracing(ProcessRuntime runtime, object gate
                 Output(
                     context.Self,
                     ProcessTraceFlags.Call,
-                    [Term.A(ProcessTraceNames.Exception), invocation.Mfa, Term.Tuple(Term.A(exception.ExceptionClass), exception.Reason)]
+                    [Term.A(ProcessTraceNames.Exception), invocation.Mfa, Term.Tuple(Term.A(exception.ExceptionClass), portableReason507)]
                 );
     }
 

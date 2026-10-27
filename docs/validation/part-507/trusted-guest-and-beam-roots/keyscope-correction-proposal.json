@@ -1,0 +1,48 @@
+{
+  "Status": "source-only; no active edits/build/original or managed execution",
+  "ProductionFiles": 2,
+  "Files": [
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Execution/Patterns/OpaquePatternInvocation507.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Execution/Patterns/OpaquePatternInvocation507.cs",
+      "PayloadSha256": "BF00C0E79ED149EC37593048F2E4AAC6F72881257E107DB77721AA179455DD72",
+      "Preimage": "preimages/src/Runtime/Erlang.Runtime.Core/Execution/Patterns/OpaquePatternInvocation507.cs",
+      "BaseSha256": "304B17BD9C0E4DED47FFE39AE3703E1848A4B02F95ED9E80AADD196F219F8880"
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Execution/Patterns/Pattern.Owned507.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Execution/Patterns/Pattern.Owned507.cs",
+      "PayloadSha256": "93EDB531904195A8001D80C6CC001E381385EF33D3EB4DBCA25C93DF37E6CA25",
+      "Preimage": "preimages/src/Runtime/Erlang.Runtime.Core/Execution/Patterns/Pattern.Owned507.cs",
+      "BaseSha256": "0967496265B349A1F02B30F92746C1CD225BC923C6EC003F41787431AC7AA6DB"
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Memory/HybridKeyScope507Checks.cs",
+      "Payload": "sources/tests/Erlang.Tests/Runtime/Memory/HybridKeyScope507Checks.cs",
+      "PayloadSha256": "7F353E70750F1E1111C4163FC31452BC10EB3FEB171AFFF58E6A80C9443E6EE5",
+      "Preimage": null,
+      "BaseSha256": null
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Memory/HybridKeyScope507Names.cs",
+      "Payload": "sources/tests/Erlang.Tests/Runtime/Memory/HybridKeyScope507Names.cs",
+      "PayloadSha256": "D8360E25A6CA5998EEF01D51A2D6E87EC7BEF9E8ED11D8B26A7E54F466BCC553",
+      "Preimage": null,
+      "BaseSha256": null
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Memory/HybridKeyScopePattern507.cs",
+      "Payload": "sources/tests/Erlang.Tests/Runtime/Memory/HybridKeyScopePattern507.cs",
+      "PayloadSha256": "48A1CC7D7293BAF8EBB353B2EE517BFEC43EE35681143BD5D043A7ABE02063BC",
+      "Preimage": null,
+      "BaseSha256": null
+    }
+  ],
+  "Registration": {
+    "Name": "HybridKeyScope507Names.Test",
+    "Method": "HybridKeyScope507Checks.Parity"
+  },
+  "Scope": "Successful custom matcher outputs import bindings and keyscope jointly; failures do not copy output environments; public host snapshots stay portable",
+  "StableRoots": "Existing owned.Preserve caller root protects the joint environment across later guard/BIF result-slot reuse; conservative until invocation end",
+  "WholeContractPromotions": 0
+}

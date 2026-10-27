@@ -1,0 +1,243 @@
+{
+  "Part": 507,
+  "Status": "source-only proposal; unbuilt and unexecuted",
+  "Base": "parent active integrated 506 plus trampoline and physical process retirement",
+  "OriginalOtpPin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "RootLimit": "same ProcessContext heap only; not arbitrary cross-process graph borrowing",
+  "Pilot": "internal opt-in only; default remains portable",
+  "All24KnownDifferences": "remain Known; no whole-contract promotion",
+  "CompanionManifest": "artifacts/batch507/beam-owned-roots/manifest.json",
+  "CompanionReportedSha256": "D6D8AA44628088620B41A3889E1DF0A0C2C1A5E14CFBF0091A271E9CF5FA3E9C",
+  "Targets": [
+    {
+      "Target": "src/Compiler/Erlang.Compiler/Execution/Execution.cs",
+      "Payload": "sources/src/Compiler/Erlang.Compiler/Execution/Execution.cs",
+      "PayloadSha256": "469E15C17AAA63DF7C1E8A6D5A2604D7D600878D40159DF2221F279D031B6FFC",
+      "BaseSha256": "6FE0BDE90B4C5389C91562B39E9542C3D8487D03BE78E2594737F0E8E411564B"
+    },
+    {
+      "Target": "src/Compiler/Erlang.Compiler/Execution/Execution.InvocationLoop.cs",
+      "Payload": "sources/src/Compiler/Erlang.Compiler/Execution/Execution.InvocationLoop.cs",
+      "PayloadSha256": "A9DEEE070B18F60228C2909F5EDBB802CEB9DAFDB700AD6CAD764ECD571D44B2",
+      "BaseSha256": "051BCCFA30BB7A6F8D64BF2ABC2779B76E1E5AF3007D544E2038F3A612A73E66"
+    },
+    {
+      "Target": "src/Compiler/Erlang.Compiler/Execution/Source/SourceStoredFunctionRecipe.cs",
+      "Payload": "sources/src/Compiler/Erlang.Compiler/Execution/Source/SourceStoredFunctionRecipe.cs",
+      "PayloadSha256": "ED983037BCD2F79AED26A198619D74EE02FD21E8B2B9A2DC802A578042D0521E",
+      "BaseSha256": "964C2E988F57B6497AD7B98D1E2E739F5E1220B05C37B6B156C6D3DB026599BD"
+    },
+    {
+      "Target": "src/Compiler/Erlang.Compiler/Syntax/Ast/ModuleDefinition.cs",
+      "Payload": "sources/src/Compiler/Erlang.Compiler/Syntax/Ast/ModuleDefinition.cs",
+      "PayloadSha256": "19152B6206CDB822044DE98AC5E194AD30213308797E942D8E1C4F77D64D0FD0",
+      "BaseSha256": "B946B33B38C0D4CB5D028A901B16FBED1F58181DD1E62BB86072AAFFAA8DAB88"
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamExecutionIdentity.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamExecutionIdentity.cs",
+      "PayloadSha256": "69B3EA5D0AEB75907ED74EFAED83A7D2A3E3D18FDD495D8C8195E587D110075C",
+      "BaseSha256": "78F26295947AC57FAD8C5599DFBCC38EA47589DD61FA6A069ED040A7C8563509"
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamStoredFunctionRecipe.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamStoredFunctionRecipe.cs",
+      "PayloadSha256": "DB4BA27AE1B2C54951D9FFFA08245DC1E3B2E831CCFBCC25A4261327733A3B79",
+      "BaseSha256": "DD7C7ADF80CF0E80FC958907FEC8E87F8DAF54F321660741902770C19891581E"
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/PreparedBeamImage.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Execution/Beam/PreparedBeamImage.cs",
+      "PayloadSha256": "27ADF4471BE21E585D270E51DA5A4FA05C3388E7FC190205AED7513FE042C739",
+      "BaseSha256": "AC6BDE752D2FAB6FC35E6FF8B0831C812C12998773BD70807B66E0C7BDB2AF8F"
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Modules/Functions/ICanonicalGuestRecipe507.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Modules/Functions/ICanonicalGuestRecipe507.cs",
+      "PayloadSha256": "B1EDB6954C227D098C66AC3A4BD9A97E1F8CA3DA261A59EA242DB7D78CB08178",
+      "BaseSha256": null
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.BeamPrimitives.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.BeamPrimitives.cs",
+      "PayloadSha256": "878B792B499C973B7E0E88F816A4BD28A5760855C309B2B46400A25EAB419028",
+      "BaseSha256": "A607BDF4BC98E8F7507677AFEABEDD4A18D96DC70B62558787A59ED8E3134B77"
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.cs",
+      "PayloadSha256": "995C9EF5BCB05403108067AE8A3D99F65BF9FDB3AF42F098F18C501625EB511C",
+      "BaseSha256": "C70A56BFFBFB5DF9C6342A3447D320F7FAAD7802CB224C15C1755F8342F021F2"
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.OwnedBindings507.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.OwnedBindings507.cs",
+      "PayloadSha256": "C1FD04A039B9A6A978758D7E8313BC4DB2DF3BBF6332D07C63878694862564A8",
+      "BaseSha256": null
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.OwnedTerms506.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.OwnedTerms506.cs",
+      "PayloadSha256": "B8D63CF3EEDA56780B0CF6DFE25409AFA206AA19E25087251EE92297E68A214B",
+      "BaseSha256": "0918AC3BE3AEF7F5E7D3293C403AE00F6792CACE6BA823C9ABF4EA6C6BE38E2D"
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.PreparedBeam.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.PreparedBeam.cs",
+      "PayloadSha256": "B20E020B776D4DEEE9E1A003A1D9CC0931C3AE8DC1A2FCE2064EE0F7E1EEAD09",
+      "BaseSha256": "2DC8AC349D1862A8D8D347C70223CEB49DE2527F2B10C9CAA8DA50880CE2DD9D"
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.ProcessScheduling.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.ProcessScheduling.cs",
+      "PayloadSha256": "1B57931D838DC960DFB841649186C4F7EC92777DF8AACF4FB936AAAAF4952D97",
+      "BaseSha256": "ED6529031DDB176F6E518831149A6B34C20D5903A5808CC34F9B21E7BAC39D2B"
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Modules/OwnedBinding507.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Modules/OwnedBinding507.cs",
+      "PayloadSha256": "560DFB157CD0B7C96D505145373D9585E28E4E27CE898F122372BFE9040147D0",
+      "BaseSha256": null
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Modules/OwnedBindingKind507.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Modules/OwnedBindingKind507.cs",
+      "PayloadSha256": "F82673BB1668953FDE08B09F2E31607FFD3BF41EB595C90EC55369D6F5F36A2B",
+      "BaseSha256": null
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Modules/OwnedPreparedCapabilities507.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Modules/OwnedPreparedCapabilities507.cs",
+      "PayloadSha256": "32DACDAACCA957C36903CEF36B9BDFF659E60D4230B1A36C2FAF6923361376E0",
+      "BaseSha256": null
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Primitives/CoreModules.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Primitives/CoreModules.cs",
+      "PayloadSha256": "9388997D85D26891C5337F2D57FF057A4794CE10B32ACEA28828D003679967E3",
+      "BaseSha256": "EB66B5E5D4E1EA2E3FB8320727D6D1548EEFE1566E2B6335367106A325B72D85"
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangBasicRegistrations.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Primitives/ErlangBasicRegistrations.cs",
+      "PayloadSha256": "C452A6B4E8B82F446A9D2D1B75EC5C7EDAE1E650861584C46951958757CCC473",
+      "BaseSha256": "E7A27A6498346F1005919BD074AF7DCC5050BE9624D625AA4BC91CB5E14644B0"
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Primitives/OwnedDictionaryBifs507.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Primitives/OwnedDictionaryBifs507.cs",
+      "PayloadSha256": "ACC3F109EB26F55BB60AF1A55ED96E9871B4AC19B3CEE87DD18F16F09D0D2CE1",
+      "BaseSha256": null
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.Guest507.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.Guest507.cs",
+      "PayloadSha256": "80E9221B3977F7F301F56E3ADCF59878008F90E692D2FF5EE337099773231ABA",
+      "BaseSha256": null
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.GuestFunctions507.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.GuestFunctions507.cs",
+      "PayloadSha256": "5E5335EC9FB09E6C6F47826F5855C76C05A775742BBFE7B889988BBBB82C109E",
+      "BaseSha256": null
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/GuestAdoptionFrame507.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Processes/Memory/GuestAdoptionFrame507.cs",
+      "PayloadSha256": "596C70BDE28D9B97BF03460BE060BF51D83E50A59E6B97F56B42C7AA8E65B161",
+      "BaseSha256": null
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedBoundary507Names.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedBoundary507Names.cs",
+      "PayloadSha256": "77EA861664B7CEF68D5626B5B730D9F9D5EA4AE6A5A76776A6FB878561B6D579",
+      "BaseSha256": null
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermInvocation.Guest507.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermInvocation.Guest507.cs",
+      "PayloadSha256": "E6FCC155877260A3332646CE902C53ECEB8BC67FF4579C974430148B6EB01979",
+      "BaseSha256": null
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermInvocation506.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermInvocation506.cs",
+      "PayloadSha256": "4875CABDED576B0BE0D2A4B438D2C6EC833809041619367502467DB1BCCA6720",
+      "BaseSha256": "8C360AB82C590EB9E522E496E9ACFC9AF4838D013FE4248161D6AA01CC2C2AD0"
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Guest507.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Guest507.cs",
+      "PayloadSha256": "DF3F746FF3738EBFC9D96FC6ED317ED9B61911BC12D38FDBEE2C0A8AA87C1643",
+      "BaseSha256": null
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame506.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame506.cs",
+      "PayloadSha256": "553E883DAEF6A94A0D25E3521B0DF0A34B062F20A76B90AF52F82B411E5DEA05",
+      "BaseSha256": "E961F52305F972DC46B60820D35DD4253D5701FB5682D7CA6E8A38E8191180C4"
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Guest507.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Guest507.cs",
+      "PayloadSha256": "9F377A83783F2E271520683B306443925DF7650EFF1A1FF8C2DC30EE1C0B66DC",
+      "BaseSha256": null
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap506.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap506.cs",
+      "PayloadSha256": "1BB55C2A8194436F10424FB224692BDB55DC4FBA11E66FF677E1BC7CEA0410B4",
+      "BaseSha256": "28A4BA1A966468B8864DB244C1109107CB212E0AA3C0E8435EA0C64FE7AAF710"
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessDictionary.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Processes/ProcessDictionary.cs",
+      "PayloadSha256": "C8217BFAF1AB3A3AAFC3F31C4728BBA9725E55440AAB0DF85F27E8075F4B11A2",
+      "BaseSha256": "0189E83C52E9DE4799D7FF1353EF5AD3058E5F4695CEF8DB420FF65659D0F60B"
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessDictionary.Guest507.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Processes/ProcessDictionary.Guest507.cs",
+      "PayloadSha256": "9941CAC487AE29F25677BC89555A31E382FF6A617DF97EC8AEA26304597DC379",
+      "BaseSha256": null
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessDictionary507Atoms.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Processes/ProcessDictionary507Atoms.cs",
+      "PayloadSha256": "E07B756670F915698230315CD3DF8E8376C84F8E4B9F4638C50D06D9310B92C7",
+      "BaseSha256": null
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessTracing.cs",
+      "Payload": "sources/src/Runtime/Erlang.Runtime.Core/Processes/ProcessTracing.cs",
+      "PayloadSha256": "37C37BD8E20AA59A1D9D4E278F347B2D6ADF187E43366103303F9B4A6D7C573E",
+      "BaseSha256": "094AFAA7E4711733F0F395267FAE1A231B0EC8B05A06E1F36B0A0F63F32BD21A"
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Memory/TrustedGuest507Checks.cs",
+      "Payload": "sources/tests/Erlang.Tests/Runtime/Memory/TrustedGuest507Checks.cs",
+      "PayloadSha256": "8FE42A449D6C144AE10A1011BCFC860EAA936ACA95E591D92DEC51340AFB6BB0",
+      "BaseSha256": null
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Memory/TrustedGuest507Names.cs",
+      "Payload": "sources/tests/Erlang.Tests/Runtime/Memory/TrustedGuest507Names.cs",
+      "PayloadSha256": "CF73B20B6032B796D26030CE42DB4D4C6FCED7868BE82C1DD08D25F0A20AF265",
+      "BaseSha256": null
+    }
+  ],
+  "Registrations": [
+    {
+      "NameConstant": "TrustedGuest507Names.SharingTest",
+      "Method": "TrustedGuest507Checks.Sharing"
+    },
+    {
+      "NameConstant": "TrustedGuest507Names.AllocationTest",
+      "Method": "TrustedGuest507Checks.AllocationAndSlots"
+    },
+    {
+      "NameConstant": "TrustedGuest507Names.OverrideTest",
+      "Method": "TrustedGuest507Checks.OpaqueOverride"
+    }
+  ]
+}

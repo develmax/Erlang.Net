@@ -53,9 +53,12 @@ internal static class BeamReceiveMatcher
         using var wordOperation504 = before.EnterWordOperation504();
         BeamRegisterState registers = before.Clone();
         bool transferred504 = false;
+        var markerRoots507 = new List<IDisposable>();
         try
         {
             registers.Write(plan.MessageRegister, message);
+            if (context is not null)
+                await registers.ReceiveCheckpoint507(BeamOwnedReceive507Names.GuardEntered);
             var clearMarkers = new List<Term>();
             int pc = plan.ScanInstructionIndex + 1;
             while (plan.MatcherInstructions.Contains(pc))
@@ -178,8 +181,13 @@ internal static class BeamReceiveMatcher
                         break;
                     case BeamGeneralOpcodeNames.GetList:
                         Cons list = (Cons)Read(code, registers, operands[0]);
-                        registers.Write(operands[1], list.Head);
-                        registers.Write(operands[2], list.Tail);
+                        Term head507 = list.Head;
+                        Term tail507 = list.Tail;
+                        using (registers.Protect507(head507, tail507))
+                        {
+                            registers.Write(operands[1], head507);
+                            registers.Write(operands[2], tail507);
+                        }
                         break;
                     case BeamGeneralOpcodeNames.GetHead:
                         registers.Write(operands[1], ((Cons)Read(code, registers, operands[0])).Head);
@@ -218,8 +226,9 @@ internal static class BeamReceiveMatcher
                         if (missingElement)
                             pc = code.Labels[(int)operands[0].Value];
                         else
-                            foreach (var element in extracted)
-                                registers.Write(element.Destination, element.Value);
+                            using (registers.Protect507(extracted.Select(item => item.Value).ToArray()))
+                                foreach (var element in extracted)
+                                    registers.Write(element.Destination, element.Value);
                         break;
                     case BeamGeneralOpcodeNames.MapFields:
                         if (Read(code, registers, operands[1]) is not MapTerm map
@@ -238,7 +247,10 @@ internal static class BeamReceiveMatcher
                         registers.CheckLive((int)operands[1].Value);
                         break;
                     case BeamReceiveMarkerNames.Clear:
-                        clearMarkers.Add(Read(code, registers, operands[0]));
+                        Term marker507 = Read(code, registers, operands[0]);
+                        if (registers.Protect507(marker507) is { } markerRoot507)
+                            markerRoots507.Add(markerRoot507);
+                        clearMarkers.Add(marker507);
                         break;
                     case BeamLinkNames.RemoveMessage:
                         var selection = new BeamReceiveSelection(pc, registers, clearMarkers.ToArray());
@@ -256,8 +268,16 @@ internal static class BeamReceiveMatcher
         }
         finally
         {
-            if (!transferred504)
-                registers.Dispose();
+            try
+            {
+                if (!transferred504)
+                    registers.Dispose();
+            }
+            finally
+            {
+                foreach (IDisposable markerRoot507 in markerRoots507)
+                    markerRoot507.Dispose();
+            }
         }
     }
 

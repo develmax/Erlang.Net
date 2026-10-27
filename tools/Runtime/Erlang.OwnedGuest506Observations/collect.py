@@ -206,7 +206,7 @@ def main():
         save(out/'preflight-failure.json', dict(Error=repr(error), VmStarted=False))
         raise
     save(out/'provider-before.json', before)
-    errors, observations, phases = [], [], {}
+    errors, observations, phases, golden_comparisons = [], [], {}, []
     env = dict(os.environ)
     for key in ['ERL_FLAGS', 'ERL_AFLAGS', 'ERL_ZFLAGS', 'ERL_LIBS', 'ERL_COMPILER_OPTIONS', 'ERLC_EMULATOR',
                 'ERLC_USE_SERVER', 'ERLC_SERVER_ID', 'ERLC_CONFIGURATION', 'ERL_ROOTDIR']:
@@ -245,7 +245,11 @@ def main():
                 if args.check_paired_golden and row.get('PairedProfiles'):
                     mismatches = []
                     for name in ['observed.etf', 'observed-deterministic.etf']:
-                        if (directory/name).read_bytes() != (tool/'golden/paired335'/name).read_bytes():
+                        actual, golden = directory/name, tool/'golden/paired335'/name
+                        equal = actual.read_bytes() == golden.read_bytes()
+                        golden_comparisons.append(dict(Job=job, Profile=name,
+                            ActualSha256=sha(actual), GoldenSha256=sha(golden), Equal=equal))
+                        if not equal:
                             mismatches.append(name)
                     require(not mismatches, 'Whole historical original protocol differs: '+repr(mismatches))
             except Exception as error:
@@ -273,8 +277,13 @@ def main():
             save(out/'provider-after.json', dict(ProviderEqual=False, Error=repr(error)))
         save(out/'completion.json', dict(ObservationAcquisitionPassed=not errors, Errors=errors, Phases=phases,
             Observations=observations, SourcePlanSha256=args.plan_sha256.upper(), PinnedCommit=PIN,
-            OriginalOnly=True, WholeContractsClosed=0, ComparisonPerformed=False,
-            ManagedExecutionClaimed=False, RawEtfRewritten=False))
+            OriginalOnly=True, WholeContractsClosed=0,
+            ComparisonPerformed=bool(golden_comparisons),
+            OriginalGoldenComparisonRequested=args.check_paired_golden,
+            OriginalGoldenComparisonPerformed=bool(golden_comparisons),
+            OriginalGoldenComparisons=golden_comparisons,
+            ManagedComparisonPerformed=False, ManagedExecutionClaimed=False,
+            RawEtfRewritten=False))
     require(not errors, '; '.join(errors))
 
 

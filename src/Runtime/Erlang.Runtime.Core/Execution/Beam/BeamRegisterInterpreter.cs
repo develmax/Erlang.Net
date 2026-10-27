@@ -124,7 +124,10 @@ internal static partial class BeamRegisterInterpreter
         using var flow = lease.Attach(execution.Owner);
         BeamRegisterValidation.Validate(code, function);
         await using var wordExecution504 = new ProcessWordExecution504(context.OwnedWords504);
-        var registers = new BeamRegisterState(wordExecution504);
+        var registers = new BeamRegisterState(wordExecution504, context);
+        // Admission/import can fail before the ordinary interpreter try/finally.
+        // This guard covers imports before the interpreter try/finally.
+        using var ownedSetup507 = registers.HasOwnedRoots507 ? registers : null;
         IReadOnlyList<Term> instructionLocations = BeamInstructionLocations.Read(code);
         for (int index = 0; index < arguments.Count; index++)
         {
@@ -202,16 +205,19 @@ internal static partial class BeamRegisterInterpreter
                         {
                             Term[] primitiveArguments = Enumerable.Range(0, function.Arity).Select(registers.Read).ToArray();
                             using (context.EnterBeamNative(function.Module, function.Name, function.Arity))
-                                registers.Write(0, await RuntimeExceptionCapture.InvokeNative(
-                                    context,
-                                    primitive,
-                                    function.Module,
-                                    function.Name,
-                                    primitiveArguments
-                                ));
+                                registers.Write(
+                                    0,
+                                    await RuntimeExceptionCapture.InvokeNative(
+                                        context,
+                                        registers.HasOwnedRoots507 ? OwnedPrimitive507(execution, primitive) : primitive,
+                                        function.Module,
+                                        function.Name,
+                                        primitiveArguments
+                                    )
+                                );
                             entering = false;
                             if (!ReturnToCaller())
-                                return registers.Read(0);
+                                return registers.CompleteGuestReturn507(registers.Read(0));
                             continue;
                         }
                         functionFrame = new BeamFunctionScope(context, function, Enumerable.Range(0, function.Arity).Select(registers.CaptureArgument).ToArray());
@@ -238,9 +244,10 @@ internal static partial class BeamRegisterInterpreter
                             if (native is not null)
                             {
                                 Term[] nativeArguments = Enumerable.Range(0, function.Arity).Select(registers.Read).ToArray();
+                                nativeArguments = registers.ExportArguments507(nativeArguments);
                                 registers.Write(0, await native.InvokeAsync(context, nativeArguments));
                                 if (!ReturnToCaller())
-                                    return registers.Read(0);
+                                    return registers.CompleteGuestReturn507(registers.Read(0));
                                 continue;
                             }
                         }
@@ -335,14 +342,17 @@ internal static partial class BeamRegisterInterpreter
                         case BeamGeneralOpcodeNames.GetList:
                         case BeamGeneralOpcodeNames.GetHead:
                         case BeamGeneralOpcodeNames.GetTail:
-                            if (Read(code, registers, operands[0]) is not Cons cell)
-                                throw new InvalidDataException(BeamRegisterNames.Unsupported);
-                            Term cellHead = cell.Head;
-                            Term cellTail = cell.Tail;
-                            registers.Write(operands[1], instruction.Definition.Name == BeamGeneralOpcodeNames.GetTail ? cellTail : cellHead);
-                            if (instruction.Definition.Name == BeamGeneralOpcodeNames.GetList)
-                                registers.Write(operands[2], cellTail);
-                            break;
+                            {
+                                if (Read(code, registers, operands[0]) is not Cons cell)
+                                    throw new InvalidDataException(BeamRegisterNames.Unsupported);
+                                using var cellRoots507 = registers.HasOwnedRoots507 ? registers.Protect507(cell) : null;
+                                Term cellHead = cell.Head;
+                                Term cellTail = cell.Tail;
+                                registers.Write(operands[1], instruction.Definition.Name == BeamGeneralOpcodeNames.GetTail ? cellTail : cellHead);
+                                if (instruction.Definition.Name == BeamGeneralOpcodeNames.GetList)
+                                    registers.Write(operands[2], cellTail);
+                                break;
+                            }
                         case BeamGeneralOpcodeNames.Swap:
                             registers.SwapRegisters(operands[0], operands[1]);
                             break;
@@ -399,30 +409,33 @@ internal static partial class BeamRegisterInterpreter
                                 );
                             break;
                         case BeamGeneralOpcodeNames.MapElements:
-                            if (Read(code, registers, operands[1]) is not MapTerm elementMap)
-                                throw new InvalidDataException(BeamLinkDiagnostics.OperandRole);
-                            var extracted = new List<(BeamOperand Destination, Term Value)>();
-                            bool missingElement = false;
-                            for (int pair = 3; pair < operands.Count; pair += 2)
                             {
-                                if (!elementMap.TryGet(Read(code, registers, operands[pair]), out Term? element))
+                                if (Read(code, registers, operands[1]) is not MapTerm elementMap)
+                                    throw new InvalidDataException(BeamLinkDiagnostics.OperandRole);
+                                using var extractedRoots507 = registers.HasOwnedRoots507 ? registers.Protect507(elementMap) : null;
+                                var extracted = new List<(BeamOperand Destination, Term Value)>();
+                                bool missingElement = false;
+                                for (int pair = 3; pair < operands.Count; pair += 2)
                                 {
-                                    missingElement = true;
-                                    break;
+                                    if (!elementMap.TryGet(Read(code, registers, operands[pair]), out Term? element))
+                                    {
+                                        missingElement = true;
+                                        break;
+                                    }
+                                    extracted.Add((operands[pair + 1], element!));
                                 }
-                                extracted.Add((operands[pair + 1], element!));
+                                if (missingElement)
+                                    pc = Branch(
+                                        code,
+                                        function,
+                                        operands[0],
+                                        new ErlangException(ErlangErrorReasons.FunctionClause)
+                                    );
+                                else
+                                    foreach (var element in extracted)
+                                        registers.Write(element.Destination, element.Value);
+                                break;
                             }
-                            if (missingElement)
-                                pc = Branch(
-                                    code,
-                                    function,
-                                    operands[0],
-                                    new ErlangException(ErlangErrorReasons.FunctionClause)
-                                );
-                            else
-                                foreach (var element in extracted)
-                                    registers.Write(element.Destination, element.Value);
-                            break;
                         case BeamGeneralOpcodeNames.MapExact:
                         case BeamGeneralOpcodeNames.MapAssociate:
                             registers.CheckLive((int)operands[3].Value);
@@ -610,6 +623,7 @@ internal static partial class BeamRegisterInterpreter
                                     ErlangExceptionClasses.Exit => Term.Tuple(Term.A(BeamCatchNames.Exit), catchReason),
                                     _ => Term.Tuple(Term.A(BeamCatchNames.Exit), Term.Tuple(catchReason, catchTrace.StackTraceTerm))
                                 };
+                                using var catchRoots507 = registers.HasOwnedRoots507 ? registers.Protect507(catchResult) : null;
                                 registers.ClearXExcept();
                                 registers.Write(0, catchResult);
                                 pendingHandler = null;
@@ -861,7 +875,7 @@ internal static partial class BeamRegisterInterpreter
                             );
                             registers.Write(0, appliedLast);
                             if (!ReturnToCaller())
-                                return appliedLast;
+                                return registers.CompleteGuestReturn507(appliedLast);
                             break;
                         case BeamLinkNames.ExternalCall:
                         case BeamOnLoadNames.ExternalLast:
@@ -942,7 +956,7 @@ internal static partial class BeamRegisterInterpreter
                             if (instruction.Definition.Name == BeamOnLoadNames.ExternalLast)
                             {
                                 if (!ReturnToCaller())
-                                    return imported;
+                                    return registers.CompleteGuestReturn507(imported);
                             }
                             break;
                         case BeamLinkNames.Label:
@@ -951,7 +965,7 @@ internal static partial class BeamRegisterInterpreter
                             break;
                         case BeamLinkNames.Allocate:
                         case BeamLinkNames.AllocateHeap:
-                            registers.CheckLive((int)operands[instruction.Definition.Name == BeamLinkNames.AllocateHeap ? 2 : 1].Value);
+                            registers.ApplyLiveHint507((int)operands[instruction.Definition.Name == BeamLinkNames.AllocateHeap ? 2 : 1].Value);
                             continuations.TryPeek(out BeamCallContinuation? savedContinuation);
                             callFrames.Push(new(
                                 function.EntryLabel,
@@ -984,53 +998,57 @@ internal static partial class BeamRegisterInterpreter
                             break;
                         case BeamGeneralOpcodeNames.DynamicCall:
                         case BeamLambdaNames.Call:
-                            bool dynamicCall = instruction.Definition.Name == BeamGeneralOpcodeNames.DynamicCall;
-                            int arity = (int)operands[dynamicCall ? 0 : 1].Value;
-                            registers.CheckLive(arity);
-                            Term callee = dynamicCall ? registers.Read(arity) : Read(code, registers, operands[2]);
-                            if (!dynamicCall && operands[0].Kind == BeamOperandParameters.Unsigned)
-                                BeamClosureFactory.RequireKnownTarget(callee, code, (int)operands[0].Value);
-                            if (callee is not FunctionTerm callable)
-                                throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadFunction), callee));
-                            Term[] funArguments = Enumerable.Range(0, arity).Select(registers.Read).ToArray();
-                            bool tailFun = BeamFunTailProtocol.TryDeallocation(
-                                code,
-                                function,
-                                pc,
-                                out int funSlots
-                            ) && callable.Arity == arity;
-                            if (tailFun)
                             {
-                                if (!callFrames.TryPeek(out BeamCallFrame? funFrame) || funFrame.FunctionEntryLabel != function.EntryLabel
-                                    || funFrame.ContinuationDepth != continuations.Count || funFrame.Slots != funSlots)
-                                    throw new InvalidDataException(BeamOnLoadDiagnostics.Frame);
-                                registers.Deallocate(funFrame.Slots);
-                                callFrames.Pop();
-                                if (funFrame.SavedContinuation is not null)
+                                bool dynamicCall = instruction.Definition.Name == BeamGeneralOpcodeNames.DynamicCall;
+                                int arity = (int)operands[dynamicCall ? 0 : 1].Value;
+                                registers.CheckLive(arity);
+                                Term callee = dynamicCall ? registers.Read(arity) : Read(code, registers, operands[2]);
+                                if (!dynamicCall && operands[0].Kind == BeamOperandParameters.Unsigned)
+                                    BeamClosureFactory.RequireKnownTarget(callee, code, (int)operands[0].Value);
+                                if (callee is not FunctionTerm callable)
+                                    throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadFunction), callee));
+                                Term[] funArguments = Enumerable.Range(0, arity).Select(registers.Read).ToArray();
+                                using var funRoots507 = registers.HasOwnedRoots507 ? registers.Protect507(callee, Term.Tuple(funArguments)) : null;
+                                bool tailFun = BeamFunTailProtocol.TryDeallocation(
+                                    code,
+                                    function,
+                                    pc,
+                                    out int funSlots
+                                ) && callable.Arity == arity;
+                                if (tailFun)
                                 {
-                                    continuations.Pop();
-                                    continuations.Push(funFrame.SavedContinuation);
+                                    if (!callFrames.TryPeek(out BeamCallFrame? funFrame) || funFrame.FunctionEntryLabel != function.EntryLabel
+                                        || funFrame.ContinuationDepth != continuations.Count || funFrame.Slots != funSlots)
+                                        throw new InvalidDataException(BeamOnLoadDiagnostics.Frame);
+                                    registers.Deallocate(funFrame.Slots);
+                                    callFrames.Pop();
+                                    if (funFrame.SavedContinuation is not null)
+                                    {
+                                        continuations.Pop();
+                                        continuations.Push(funFrame.SavedContinuation);
+                                    }
+                                    functionFrame?.Dispose();
+                                    functionFrame = null;
                                 }
-                                functionFrame?.Dispose();
-                                functionFrame = null;
+                                else
+                                    functionFrame!.SetContinuation(code, pc);
+                                Term funResult = await callable.Invoke(context, Array.AsReadOnly(funArguments));
+                                functionFrame?.ClearContinuation();
+                                registers.Write(0, funResult);
+                                if (tailFun && !ReturnToCaller())
+                                    return registers.CompleteGuestReturn507(funResult);
+                                break;
                             }
-                            else
-                                functionFrame!.SetContinuation(code, pc);
-                            Term funResult = await callable.Invoke(context, Array.AsReadOnly(funArguments));
-                            functionFrame?.ClearContinuation();
-                            registers.Write(0, funResult);
-                            if (tailFun && !ReturnToCaller())
-                                return funResult;
-                            break;
                         case BeamLinkNames.Bif:
                             BeamRegisterValidation.SelfImport(code, (int)operands[0].Value);
                             registers.Write(operands[1], await BeamExternalImports.Invoke(context, BeamExternalImports.Resolve(code, (int)operands[0].Value), []));
                             break;
                         case BeamLinkNames.Send:
                             {
-                                Term recipient = registers.Read(0);
+                                Term recipient = registers.Export507(registers.Read(0));
                                 Term sentMessage = registers.Read(1);
-                                await ErlangOperatorValues.TrySendAsync(context, recipient, sentMessage);
+                                Term portableMessage507 = registers.Export507(sentMessage);
+                                await ErlangOperatorValues.TrySendAsync(context, recipient, portableMessage507);
                                 registers.Write(0, sentMessage);
                                 break;
                             }
@@ -1095,11 +1113,14 @@ internal static partial class BeamRegisterInterpreter
                                 }
                                 else
                                 {
-                                    foreach (Term markerId in selected.ClearMarkers)
-                                        context.Mailbox.ClearReceiveMarker(markerId);
-                                    registers.Dispose();
-                                    registers = selected.Registers;
-                                    pc = selected.NextInstructionIndex;
+                                    using (selected)
+                                    {
+                                        foreach (Term markerId in selected.ClearMarkers)
+                                            context.Mailbox.ClearReceiveMarker(markerId);
+                                        registers.Dispose();
+                                        registers = selected.TakeRegisters507();
+                                        pc = selected.NextInstructionIndex;
+                                    }
                                 }
                                 break;
                             }
@@ -1112,7 +1133,7 @@ internal static partial class BeamRegisterInterpreter
                         case BeamLinkNames.Return:
                             Term result = registers.Read(0);
                             if (!ReturnToCaller())
-                                return result;
+                                return registers.CompleteGuestReturn507(result);
                             break;
                         case BeamRegisterNames.Call:
                         case BeamLinkNames.LocalCall:
@@ -1189,7 +1210,7 @@ internal static partial class BeamRegisterInterpreter
                                 externalResult = await BeamExternalImports.Invoke(context, tailImport, tailArguments);
                             registers.Write(0, externalResult);
                             if (!ReturnToCaller())
-                                return externalResult;
+                                return registers.CompleteGuestReturn507(externalResult);
                             break;
                         case BeamLinkNames.GuardBif:
                             registers.CheckLive((int)operands[1].Value);
@@ -1216,20 +1237,22 @@ internal static partial class BeamRegisterInterpreter
                             }
                             break;
                         case BeamLinkNames.HeapTest:
-                            registers.CheckLive((int)operands[1].Value);
+                            registers.ApplyLiveHint507((int)operands[1].Value);
                             break;
                         case BeamLinkNames.PutList:
                             Term head = Read(code, registers, operands[0]);
                             Term tail = Read(code, registers, operands[1]);
-                            registers.Write(operands[2], new Cons(head, tail));
+                            registers.WriteCons507(operands[2], head, tail);
                             break;
                         case BeamLinkNames.PutTuple:
                             Term[] items = operands.Skip(BeamLinkParameters.TupleListPrefixOperands).Select(operand => Read(code, registers, operand)).ToArray();
-                            registers.Write(operands[0], new TupleTerm(items));
+                            registers.WriteTuple507(operands[0], items);
                             break;
                         default:
                             throw new NotSupportedException(BeamRegisterNames.Unsupported);
                     }
+                    if (registers.HasOwnedRoots507)
+                        await BeamOwnedCheckpoint507.Reach(context, instruction.Definition.Name);
                 }
                 catch (ErlangException error) when (handlers.Count != 0)
                 {
@@ -1239,6 +1262,7 @@ internal static partial class BeamRegisterInterpreter
                         error,
                         error.Reason is Atom { Name: ErlangErrorReasons.FunctionClause } ? functionFrame?.Arguments : null
                     );
+                    using var exceptionRoots507 = registers.HasOwnedRoots507 ? registers.Protect507(capturedError.Reason, capturedError.StackTraceTerm) : null;
                     var savedTrace = new BeamSavedTrace(capturedError);
                     BeamHandlerTag target = handlers.Peek();
                     BeamHandlerCheckpoint checkpoint = target.Checkpoint;
@@ -1274,14 +1298,19 @@ internal static partial class BeamRegisterInterpreter
         }
         catch (ErlangException error)
         {
-            throw context.CaptureSourceFailure(error, error.Reason is Atom { Name: ErlangErrorReasons.FunctionClause } ? functionFrame?.Arguments : null);
+            throw registers.ExportException507(context.CaptureSourceFailure(error, error.Reason is Atom { Name: ErlangErrorReasons.FunctionClause } ? functionFrame?.Arguments : null));
         }
         finally
         {
-            registers.Dispose();
-            functionFrame?.Dispose();
-            while (functionFrames.TryPop(out var suspendedFrame))
-                suspendedFrame.Dispose();
+            if (registers.HasOwnedRoots507)
+                DisposeOwnedFrames507(registers, functionFrame, functionFrames);
+            else
+            {
+                registers.Dispose();
+                functionFrame?.Dispose();
+                while (functionFrames.TryPop(out var suspendedFrame))
+                    suspendedFrame.Dispose();
+            }
         }
     }
 

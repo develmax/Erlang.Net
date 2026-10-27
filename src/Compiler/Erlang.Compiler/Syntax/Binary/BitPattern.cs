@@ -2,7 +2,7 @@ using System.Numerics;
 
 namespace Erlang.Compiler;
 
-public sealed record BitPattern(IReadOnlyList<BitPatternSegment> Segments) : Pattern
+public sealed record BitPattern(IReadOnlyList<BitPatternSegment> Segments) : Pattern, ICanonicalPattern507
 {
     internal static BitPattern FromExpression(Expr.Bits bits)
     {

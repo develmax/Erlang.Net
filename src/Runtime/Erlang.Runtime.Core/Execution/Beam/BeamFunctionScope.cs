@@ -7,12 +7,25 @@ internal sealed class BeamFunctionScope : IDisposable
     private IDisposable? location;
     private IDisposable? continuation;
     private Term? currentLocation;
+    private readonly BeamOwnedRoots507? roots507;
 
     internal BeamFunctionScope(ProcessContext context, BeamLinkedFunction target, IReadOnlyList<Term> arguments)
     {
         this.context = context;
         Arguments = Array.AsReadOnly(arguments.ToArray());
-        function = context.EnterBeamFunction(target.Module, target.Name, target.Arity);
+        if (context.Runtime.OwnedTermsPilot506)
+            roots507 = new(context, 2);
+        try
+        {
+            roots507?.Prepare(0, BeamRegisterSlot.FromTerm(Term.Tuple(arguments.ToArray())), false);
+            roots507?.Commit(0);
+            function = context.EnterBeamFunction(target.Module, target.Name, target.Arity);
+        }
+        catch
+        {
+            roots507?.Dispose();
+            throw;
+        }
     }
 
     internal IReadOnlyList<Term> Arguments { get; }
@@ -34,15 +47,32 @@ internal sealed class BeamFunctionScope : IDisposable
         if (ReferenceEquals(currentLocation, value))
             return;
         location?.Dispose();
-        location = context.EnterSourceLocation(value);
+        roots507?.Prepare(1, BeamRegisterSlot.FromTerm(value), false);
+        try
+        {
+            location = context.EnterSourceLocation(value);
+            roots507?.Commit(1);
+        }
+        catch
+        {
+            roots507?.Rollback(1);
+            throw;
+        }
         currentLocation = value;
     }
 
     public void Dispose()
     {
-        ClearContinuation();
-        location?.Dispose();
-        location = null;
-        function.Dispose();
+        try
+        {
+            ClearContinuation();
+            location?.Dispose();
+            location = null;
+            function.Dispose();
+        }
+        finally
+        {
+            roots507?.Dispose();
+        }
     }
 }

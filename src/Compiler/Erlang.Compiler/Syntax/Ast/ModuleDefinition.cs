@@ -51,7 +51,7 @@ public sealed partial record ModuleDefinition(
             target.PublishModule(Name);
             var image = target.CurrentCodeImage(Name)!;
             foreach (var export in Exports)
-                target.RegisterSource(
+                target.RegisterCanonicalSource507(
                     Name,
                     export.Name,
                     export.Arity,

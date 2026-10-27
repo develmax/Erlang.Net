@@ -47,7 +47,7 @@ public static partial class Execution
                             image
                         );
 
-                    return trampoline?.Complete(result) ?? result;
+                    return trampoline?.CompleteGuest507(result) ?? result;
                 }
                 catch (TailCall next) when (module is not null)
                 {
@@ -95,7 +95,7 @@ public static partial class Execution
                         next.Arguments
                     );
 
-                    return trampoline?.Complete(result) ?? result;
+                    return trampoline?.CompleteGuest507(result) ?? result;
                 }
                 catch (FunctionTailCall next)
                 {
@@ -105,16 +105,16 @@ public static partial class Execution
                     {
                         lease?.Dispose();
                         lease = null;
-                        Term result = await next.Function.Invoke(context, next.Arguments);
+                        Term result = await context.InvokeGuestFunction507(next.Function, next.Arguments);
 
-                        return trampoline?.Complete(result) ?? result;
+                        return trampoline?.CompleteGuest507(result) ?? result;
                     }
                     using var transferScope = SourceFunctionTailDispatch.Enter(context);
                     try
                     {
-                        Term result = await next.Function.Invoke(context, next.Arguments);
+                        Term result = await context.InvokeGuestFunction507(next.Function, next.Arguments);
 
-                        return trampoline?.Complete(result) ?? result;
+                        return trampoline?.CompleteGuest507(result) ?? result;
                     }
                     catch (SourceFunctionTransfer transfer) when (ReferenceEquals(transfer.Scope, transferScope))
                     {

@@ -89,6 +89,7 @@ public sealed partial class ModuleRegistry
                     }
                     registry.PublishModuleCode(image.Name, image.Descriptor);
                     codeImages[image.Name] = image.ExecutionIdentity.Image;
+                    BindPreparedOwnedBodies507(image);
                 }
             });
             foreach (PreparedBeamImage image in owned)

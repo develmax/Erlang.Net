@@ -6,7 +6,7 @@ public sealed record NativeRecordPattern(
     string Caller,
     bool External,
     IReadOnlyList<NativeRecordPatternField> Fields
-) : Pattern
+) : Pattern, ICanonicalPattern507
 {
     protected override bool MatchCore(
         Term value,

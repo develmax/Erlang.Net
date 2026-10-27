@@ -8,6 +8,17 @@ internal readonly struct BeamRegisterSlot
 
     internal object? StoredValue504 => value;
 
+    internal Term RootGraph507() => Kind switch
+    {
+        BeamRegisterSlotKind.Term => ReadTerm(),
+        BeamRegisterSlotKind.SavedTrace => Term.Tuple(ReadSavedTrace().Reason, ReadSavedTrace().StackTraceTerm),
+        BeamRegisterSlotKind.BinaryMatchContext => ReadBinaryMatchContext().Source,
+        BeamRegisterSlotKind.BinaryMatchPosition => ReadBinaryPosition().Source,
+        // Handler checkpoints contain code/depth metadata, not hidden Terms.
+        // Receive-marker references belong to the separate mailbox root domain.
+        _ => Nil.Value
+    };
+
     internal static BeamRegisterSlot FromStoredValue504(object? value) => value is null ? default : new(value);
 
     internal BeamRegisterSlotKind Kind => value switch

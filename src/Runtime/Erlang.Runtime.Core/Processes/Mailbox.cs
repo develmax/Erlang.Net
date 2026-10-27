@@ -659,7 +659,7 @@ public sealed partial class Mailbox
                 finally
                 {
                     if (!transferred504 && match is BeamReceiveSelection discarded504)
-                        discarded504.Registers.Dispose();
+                        discarded504.Dispose();
                 }
             }
             if (selected is null)
@@ -676,18 +676,27 @@ public sealed partial class Mailbox
             }
             if (selected is not null)
             {
-                MessageReceived?.Invoke();
-                SequenceTraceToken? traceToken = received.TraceToken;
-                bool preserveTrace = received.PreserveTrace;
-                if (received.DistributionTraceToken is { } rawTrace)
+                try
                 {
-                    var reception = DistributionSequenceTraceToken.Decode(rawTrace);
-                    traceToken = reception.Token;
-                    preserveTrace = reception.Preserve;
-                }
-                TraceReceived?.Invoke(received.Value, traceToken, preserveTrace);
+                    MessageReceived?.Invoke();
+                    SequenceTraceToken? traceToken = received.TraceToken;
+                    bool preserveTrace = received.PreserveTrace;
+                    if (received.DistributionTraceToken is { } rawTrace)
+                    {
+                        var reception = DistributionSequenceTraceToken.Decode(rawTrace);
+                        traceToken = reception.Token;
+                        preserveTrace = reception.Preserve;
+                    }
+                    TraceReceived?.Invoke(received.Value, traceToken, preserveTrace);
 
-                return selected;
+                    return selected;
+                }
+                catch
+                {
+                    if (selected is BeamReceiveSelection abandoned507)
+                        abandoned507.Dispose();
+                    throw;
+                }
             }
             if (timeout == TimeSpan.Zero && retry && !previousConflict && ExecutionBlocked?.Invoke() != true)
             {

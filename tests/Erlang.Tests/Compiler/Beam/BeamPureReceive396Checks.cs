@@ -96,7 +96,9 @@ internal static class BeamPureReceive396Checks
             accepted,
             self
         );
-        object registers = Property(selected, Registers);
+        using var selectionOwner507 = (IDisposable)selected;
+        object registers = Call(selected, BeamReceiveSelectionHostNames.TakeRegisters);
+        using var registersOwner507 = (IDisposable)registers;
         Require(((Term)Call(registers, BeamBinaryHostNames.Read, 1)).Equals(Term.Tuple(accepted, Term.A(BeamOpcodeEdgeNames.Other))));
         Require(ReferenceEquals(Call(before, BeamBinaryHostNames.Read, 1), sentinel));
         Refuses<InvalidDataException>(() => Call(registers, BeamBinaryHostNames.Read, 3));
