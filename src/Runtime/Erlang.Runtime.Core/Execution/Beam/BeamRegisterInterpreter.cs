@@ -345,12 +345,13 @@ internal static partial class BeamRegisterInterpreter
                             {
                                 if (Read(code, registers, operands[0]) is not Cons cell)
                                     throw new InvalidDataException(BeamRegisterNames.Unsupported);
-                                using var cellRoots507 = registers.HasOwnedRoots507 ? registers.Protect507(cell) : null;
-                                Term cellHead = cell.Head;
-                                Term cellTail = cell.Tail;
-                                registers.Write(operands[1], instruction.Definition.Name == BeamGeneralOpcodeNames.GetTail ? cellTail : cellHead);
-                                if (instruction.Definition.Name == BeamGeneralOpcodeNames.GetList)
-                                    registers.Write(operands[2], cellTail);
+                                registers.WriteListParts550(
+                                    instruction.Definition.Name,
+                                    operands[0],
+                                    operands[1],
+                                    instruction.Definition.Name == BeamGeneralOpcodeNames.GetList ? operands[2] : null,
+                                    cell
+                                );
                                 break;
                             }
                         case BeamGeneralOpcodeNames.Swap:

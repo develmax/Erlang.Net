@@ -10,6 +10,9 @@ PIN = 'ad05823719d77c8faee87348ea39513d4e2f99c5'
 TOOL = 'tools/Runtime/Erlang.OwnedGuest506Observations'
 WORKFLOWS = ['.github/workflows/owned-guest506-original.yml', '.github/workflows/validate.yml']
 DEPENDENCIES = [
+    'src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterInterpreter.cs',
+    'tests/Erlang.Tests/Runtime/Memory/BeamListCurrentRoot550Checks.cs',
+    'tests/Erlang.Tests/Runtime/Memory/BeamListCurrentRoot550Names.cs',
     'src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLocalFrame.Owned507.cs',
     'src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamOwnedRoots507.cs',
     'src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterState.Owned507.cs',

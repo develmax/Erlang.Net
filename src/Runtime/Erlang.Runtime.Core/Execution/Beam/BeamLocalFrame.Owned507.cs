@@ -2,6 +2,9 @@ namespace Erlang;
 
 internal sealed partial class BeamLocalFrame
 {
+    internal bool HoldsPublishedTerm550(int index, Term value)
+        => roots507?.HoldsPublishedTerm550(index, value) == true;
+
     // Only already-published constructor results enter this private path.
     private void CommitConstructedY548(int index, Term value)
     {

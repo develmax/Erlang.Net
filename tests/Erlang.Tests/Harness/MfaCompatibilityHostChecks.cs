@@ -198,6 +198,13 @@ public static class MfaCompatibilityHostChecks
         foreach (string command in new[] { "erlang:</2", "erlang:>/2", "erlang:=</2", "erlang:>=/2" })
             Require(commands.Contains("| `" + command + "` |", StringComparison.Ordinal));
         Require(MfaCompatibilityMarkdown.Code("`") == "`` ` ``");
+        CheckIndex(output, ledger);
+        await CheckMixedIndex(
+            root,
+            docs,
+            testPath,
+            ledger
+        );
         Write(Path.Combine(docs, MfaCompatibilityNames.File), ledger with { Commit = new string('0', 40) });
         string invalidOutput = Path.Combine(root, "invalid-output");
         bool rejected = false;
@@ -210,6 +217,99 @@ public static class MfaCompatibilityHostChecks
             rejected = true;
         }
         Require(rejected && !Directory.Exists(invalidOutput));
+    }
+
+    private static async Task CheckMixedIndex(
+        string root,
+        string docs,
+        string tests,
+        MfaCompatibilityLedger ledger
+    )
+    {
+        Require(ledger.Entries.Length >= 3);
+        foreach (string proof in new[] { MfaCompatibilityHostNames.OriginalFile, MfaCompatibilityHostNames.AuditFile })
+            File.WriteAllText(Path.Combine(docs, proof), MfaCompatibilityHostNames.Scope);
+        string source = Path.Combine(root, MfaCompatibilityHostNames.IndexSourcePath);
+        Directory.CreateDirectory(Path.GetDirectoryName(source)!);
+        File.WriteAllText(source, MfaCompatibilityHostNames.Scope);
+
+        MfaCompatibilityEvidence Proof(string kind, string name) => new()
+        {
+            Kind = kind,
+            Path = name,
+            Scope = MfaCompatibilityHostNames.Scope,
+            Sha256 = Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(Path.Combine(docs, name))))
+        };
+        var original = Proof(MfaCompatibilityNames.OriginalComparison, MfaCompatibilityHostNames.OriginalFile);
+        var audit = Proof(MfaCompatibilityNames.Audit, MfaCompatibilityHostNames.AuditFile);
+        MfaCompatibilityEntry[] entries = ledger.Entries.Select((entry, index) => index switch
+        {
+            0 => entry with { Status = MfaCompatibilityNames.Verified, Limits = [], Evidence = [original, audit] },
+            1 => entry with { Status = MfaCompatibilityNames.Different, Evidence = [audit] },
+            _ => entry
+        }).ToArray();
+        var mixed = ledger with
+        {
+            Entries = entries,
+            VerifiedSourceFiles = [new MfaCompatibilitySourceFile
+            {
+                Path = MfaCompatibilityHostNames.IndexSourcePath,
+                Sha256 = Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(source)))
+            }]
+        };
+        string ledgerPath = Path.Combine(docs, MfaCompatibilityNames.File);
+        File.WriteAllText(ledgerPath, JsonSerializer.Serialize(mixed));
+        byte[] input = File.ReadAllBytes(ledgerPath);
+        string output = Path.Combine(root, MfaCompatibilityHostNames.MixedIndexOutput);
+        Require(!Directory.Exists(output));
+        await Readiness.Generate(docs, tests, output);
+        Require(input.AsSpan().SequenceEqual(File.ReadAllBytes(ledgerPath)));
+        CheckIndex(output, mixed);
+        using var report = JsonDocument.Parse(File.ReadAllBytes(Path.Combine(output, ReadinessText.ReportJson)));
+        Require(report.RootElement.GetProperty("VerifiedCompatibleMfas").GetInt32() == 1
+            && report.RootElement.GetProperty("KnownDifferenceMfas").GetInt32() == 1
+            && report.RootElement.GetProperty("NeedsVerificationMfas").GetInt32() == entries.Length - 2);
+    }
+
+    private static void CheckIndex(string output, MfaCompatibilityLedger ledger)
+    {
+        string index = File.ReadAllText(Path.Combine(output, MfaCompatibilityIndexNames.File));
+        string full = File.ReadAllText(Path.Combine(output, MfaCompatibilityNames.Report));
+        int verified = ledger.Entries.Count(entry => entry.Status == MfaCompatibilityNames.Verified);
+        int different = ledger.Entries.Count(entry => entry.Status == MfaCompatibilityNames.Different);
+        int pending = ledger.Entries.Count(entry => entry.Status == MfaCompatibilityNames.Pending);
+        Require(index.Contains(
+            string.Format(
+                System.Globalization.CultureInfo.InvariantCulture,
+                MfaCompatibilityIndexNames.Summary,
+                verified,
+                different,
+                pending
+            ),
+            StringComparison.Ordinal
+        ));
+        string[] lines = index.Split('\n');
+        int totalRows = 0;
+        foreach (string status in new[] { MfaCompatibilityNames.Verified, MfaCompatibilityNames.Different, MfaCompatibilityNames.Pending })
+        {
+            var expected = ledger.Entries.Where(entry => entry.Status == status)
+                .OrderBy(entry => entry.Module, StringComparer.Ordinal).ThenBy(entry => entry.Function, StringComparer.Ordinal)
+                .ThenBy(entry => entry.Arity).ToArray();
+            string title = MfaCompatibilityNames.DisplayStatus(status);
+            string heading = "## " + title + " (" + expected.Length + ")";
+            int start = Array.IndexOf(lines, heading);
+            Require(start >= 0 && lines.Count(line => line == heading) == 1);
+            int end = Array.FindIndex(lines, start + 1, line => line.StartsWith("## ", StringComparison.Ordinal));
+            if (end < 0) end = lines.Length;
+            string[] actualRows = lines[(start + 1)..end].Where(line => line.StartsWith("| `", StringComparison.Ordinal)).ToArray();
+            string anchor = title.ToLowerInvariant().Replace("%", "").Replace(" ", "-");
+            Require(full.Contains("## " + title + "\n", StringComparison.Ordinal));
+            Require(actualRows.Length == expected.Length);
+            Require(actualRows.SequenceEqual(expected.Select(entry => "| " + MfaCompatibilityMarkdown.Code(entry.Key)
+                + " | [" + MfaCompatibilityIndexNames.Details + "](" + MfaCompatibilityNames.Report + "#" + anchor + ") |")));
+            totalRows += actualRows.Length;
+        }
+        Require(totalRows == ledger.Entries.Length && !index.Contains('\r'));
     }
 
     private static void MustReject(Action action)
