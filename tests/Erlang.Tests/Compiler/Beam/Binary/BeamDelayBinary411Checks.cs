@@ -4,7 +4,7 @@ using static Erlang.Tests.BeamDelayBinary411Names;
 
 namespace Erlang.Tests;
 
-internal static class BeamDelayBinary411Checks
+internal static partial class BeamDelayBinary411Checks
 {
     private static byte[] Y(int index) => [BeamOpcodeEdgeBytes.Y(index)];
 
@@ -99,7 +99,7 @@ internal static class BeamDelayBinary411Checks
         return Task.CompletedTask;
     }
 
-    internal static Task Join()
+    internal static async Task Join()
     {
         // Both predecessor orders, with Term and genuinely uninitialized
         // siblings. Must masks alone erase Context-vs-uninitialized at a join.
@@ -146,7 +146,8 @@ internal static class BeamDelayBinary411Checks
             Instruction(Jump, F(3))
         );
         BeamBinaryHostAccess.Require(!Prepare(loop).Supports(BeamOpcodeEdgeNames.Run, 1));
-        // A real matcher remains within the unchanged adjacent-pair gate.
+        // Dead ordinary scratch before a nonbinary matcher is admitted by518.
+        // Require actual mailbox execution; candidate binary pairs remain gated.
         byte[] matcher = BeamBinaryHostBytes.Join(
             Start(1, 0, 1),
             Instruction(Move, A(7), X(1)),
@@ -158,8 +159,7 @@ internal static class BeamDelayBinary411Checks
             Instruction(Label, U(4)),
             Instruction(Wait, F(3))
         );
-        BeamBinaryHostAccess.Require(!Prepare(matcher).Supports(BeamOpcodeEdgeNames.Run, 1));
-
-        return Task.CompletedTask;
+        await DeadOrdinaryScratchBeforeMatcher532(matcher);
+        CandidateAndLiveScratchRefused532();
     }
 }
