@@ -164,6 +164,19 @@ public static class TermOrder
                     int count = x.Entries.Count.CompareTo(y.Entries.Count);
                     if (count != 0)
                         return count;
+                    if (purpose == TermComparisonPurpose.ExactEquality)
+                    {
+                        var native = x.NativeEquality505?.Invoke(y) ?? y.NativeEquality505?.Invoke(x);
+                        if (native is not null)
+                        {
+                            if (!native.SameShape)
+                                return 1;
+                            pending.Push(native.Comparisons.Select(pair =>
+                                TermComparisonStep.Pair(pair.Key, pair.Value, true)).GetEnumerator());
+
+                            return 0;
+                        }
+                    }
                     if (purpose == TermComparisonPurpose.NumericEquality
                         && x.Entries.Count > TermMapOrderParameters.FlatMapMaximumEntries
                         && layoutFactory is not null)

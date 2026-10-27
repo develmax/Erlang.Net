@@ -1,0 +1,157 @@
+{
+  "Passed": true,
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Platform": "windows-x64",
+  "ProviderFiles": 6427,
+  "ProviderBeforeEqual": true,
+  "ProviderAfterEqual": true,
+  "SourcePlanSha256": "E9CB5D2355007707C41063ADA7410FA4E0272E91636A00BA348641C2304CE6A9",
+  "GoldenChecked": false,
+  "OriginalOnly": true,
+  "WholeRawLoaderComparisons": 0,
+  "NormalizedFields": 0,
+  "NativeLibraryExecuted": true,
+  "ManagedNativeExecuted": false,
+  "ManagedPhysicalCleanupProofs": {},
+  "ManagedLoaderRoutesAttempted": 0,
+  "OriginalExecutionAttempted": true,
+  "OriginalReturnedBytes": 3898,
+  "ApiFamilyFunctions": [
+    {
+      "Name": "enif_make_int"
+    },
+    {
+      "Name": "enif_make_tuple_from_array"
+    },
+    {
+      "Name": "enif_make_list_from_array"
+    },
+    {
+      "Name": "enif_make_badarg"
+    },
+    {
+      "Name": "enif_get_int"
+    },
+    {
+      "Name": "enif_is_identical"
+    },
+    {
+      "Name": "enif_get_map_size"
+    },
+    {
+      "Name": "enif_get_map_value"
+    },
+    {
+      "Name": "enif_make_map_from_arrays"
+    },
+    {
+      "Name": "enif_make_map_put"
+    },
+    {
+      "Name": "enif_make_map_update"
+    },
+    {
+      "Name": "enif_make_map_remove"
+    },
+    {
+      "Name": "enif_map_iterator_create"
+    },
+    {
+      "Name": "enif_map_iterator_get_pair"
+    },
+    {
+      "Name": "enif_map_iterator_next"
+    },
+    {
+      "Name": "enif_map_iterator_destroy"
+    },
+    {
+      "Name": "enif_alloc_env"
+    },
+    {
+      "Name": "enif_make_copy"
+    },
+    {
+      "Name": "enif_clear_env"
+    },
+    {
+      "Name": "enif_free_env"
+    }
+  ],
+  "SerializationProfiles": {
+    "CanonicalOptions": [
+      "deterministic",
+      {
+        "minor_version": 2
+      }
+    ],
+    "DefaultOptions": [
+      {
+        "minor_version": 2
+      }
+    ],
+    "Producer": "Actual erlang:term_to_binary/2 in each VM",
+    "SameActualObservedTerm": true,
+    "CanonicalWholeBytesComparedStrictly": true,
+    "DefaultWholeCaptureRetained": true,
+    "DefaultAllowedDifference": null,
+    "PostCaptureEtfNormalization": false
+  },
+  "DefaultProfileComparisons": {},
+  "BothProfilesFromSameActualObservedTerm": true,
+  "PostCaptureEtfNormalizationPerformed": false,
+  "Phases": {
+    "build": {
+      "Command": [
+        "C:\\Users\\Maksim\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Native\\Erlang.NifMapReentry505Observations\\build-native.py",
+        "--plan",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Native\\Erlang.NifMapReentry505Observations\\source-plan.json",
+        "--approved-plan-sha256",
+        "E9CB5D2355007707C41063ADA7410FA4E0272E91636A00BA348641C2304CE6A9",
+        "--provider-admission",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\official-admission.json",
+        "--output",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-map505\\reentry-original1\\build"
+      ],
+      "Pid": 226860,
+      "ElapsedSeconds": 1.562999999965541,
+      "TimedOut": false,
+      "Settled": true,
+      "ExitCode": 0,
+      "Failures": [],
+      "StdoutSha256": "1FA3DD3ABD0329C4B1C84F4BE596CD184ABD681F2559ACA42CA5CDC42BC2E5F0",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "original": {
+      "Command": [
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+        "+S",
+        "1:1",
+        "+A",
+        "1",
+        "-noshell",
+        "-noinput",
+        "-boot",
+        "no_dot_erlang",
+        "-pa",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-map505\\reentry-original1\\original",
+        "-eval",
+        "W=fun(N,V)->ok=file:write_file(N,term_to_binary(V,[{minor_version,2}])) end,Expected=filename:absname(os:getenv(\"MAP_REENTRY505_RUNTIME_ROOT\")),Expected=filename:absname(code:root_dir()),8=erlang:system_info(wordsize),W(\"metadata.etf\",{Expected,erlang:system_info(version),erlang:system_info(wordsize),erlang:system_info(system_architecture)}),C=compile:file(\"map_reentry505.erl\",[return_errors,return_warnings]),W(\"compile.etf\",C),{ok,map_reentry505,_}=C,ok=map_reentry505:load(\"D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/native-map505/reentry-original1/build/map_reentry505\"),T=map_reentry505:run(),W(\"returned-default.etf\",T),ok=file:write_file(\"returned.etf\",term_to_binary(T,[deterministic,{minor_version,2}])),D=code:delete(map_reentry505),P=code:purge(map_reentry505),L=code:is_loaded(map_reentry505),W(\"cleanup.etf\",{D,P,L}),true=D,false=P,false=L,halt(0)."
+      ],
+      "Pid": 319504,
+      "ElapsedSeconds": 0.34299999999348074,
+      "TimedOut": false,
+      "Settled": true,
+      "ExitCode": 0,
+      "Failures": [],
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    }
+  },
+  "Errors": [],
+  "LinuxNativeExecutionClaimed": false,
+  "WholeFamilyCompatibilityClaimed": false,
+  "GoldenReferencePresent": false
+}

@@ -196,6 +196,24 @@ jobs:
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) { throw 'Collision504 provider preparation missing; dependent execution skipped' }
           python -B tools/Native/Erlang.NifMapCollision504Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 1E9AFD3B7D49E6EB0D8B30C09C91C718821360533C610D87A62CBE8C056FFAC4 --output artifacts/native-map504/collision-ci --check-golden
           if ($LASTEXITCODE -ne 0) { throw 'Source-exact collision504 original/ordinary/reviewed comparison failed' }
+      - name: Compare materialized native maps after return with pinned OTP
+        if: ${{ !cancelled() }}
+        shell: pwsh
+        run: |
+          if (!(Test-Path tools/Native/Erlang.NifNativeBackend/bin/Debug/net10.0/Erlang.NifNativeBackend.dll) -or !(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
+            throw 'Materialized505 host/provider preparation missing; dependent execution skipped'
+          }
+          python -B tools/Native/Erlang.NifMapMaterialized505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 48B09FAA35E224DBCF152E8CCBB9332D5DB6CF917B49F9EDB6229BBA3659BF62 --output artifacts/native-map505/ci --check-golden
+          if ($LASTEXITCODE -ne 0) { throw 'Materialized505 independent original/ordinary/reviewed comparison failed; inspect retained full results' }
+      - name: Compare duplicate flat-map native reentry with pinned OTP
+        if: ${{ !cancelled() }}
+        shell: pwsh
+        run: |
+          if (!(Test-Path tools/Native/Erlang.NifNativeBackend/bin/Debug/net10.0/Erlang.NifNativeBackend.dll) -or !(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
+            throw 'Reentry505 host/provider preparation missing; dependent execution skipped'
+          }
+          python -B tools/Native/Erlang.NifMapReentry505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 2DBFC0CBBF1946D5944738CF48DB2BD04143F95DD7DAEB6A7F6F970640460FD7 --output artifacts/native-map505/reentry-ci --check-golden
+          if ($LASTEXITCODE -ne 0) { throw 'Reentry505 original/ordinary/reviewed comparison failed; independent routes and cleanup retained' }
       - name: Verify logical death before physical dirty completion in pinned OTP
         if: ${{ !cancelled() }}
         shell: pwsh
@@ -214,6 +232,8 @@ jobs:
             artifacts/native-map501/ci/**
             artifacts/process-retirement502/ci/**
             artifacts/native-map503/ci/**
+            artifacts/native-map505/ci/**
+            artifacts/native-map505/reentry-ci/**
             artifacts/native-map504/ci/**
             artifacts/native-map504/collision-ci/**
             artifacts/contracts487/ci-original/**

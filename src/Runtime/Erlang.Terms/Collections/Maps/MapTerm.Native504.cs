@@ -4,12 +4,30 @@ public sealed partial class MapTerm
 {
     // Native writable keys may become equal after insertion. Preserve physical
     // cardinality and key order instead of rebuilding a deduplicated dictionary.
-    internal static MapTerm FromNativeLayout504(IReadOnlyList<KeyValuePair<Term, Term>> physicalEntries)
-        => new(physicalEntries, NativeMapLayout504.Preserved);
+    private readonly Func<Term, (bool Found, Term? Value)>? nativeLookup505;
+    internal Func<MapTerm, NativeMapEqualityPlan505?>? NativeEquality505 { get; }
 
-    private MapTerm(IReadOnlyList<KeyValuePair<Term, Term>> physicalEntries, NativeMapLayout504 layout)
+    internal static MapTerm FromNativeLayout504(
+        IReadOnlyList<KeyValuePair<Term, Term>> physicalEntries,
+        Func<Term, (bool Found, Term? Value)>? nativeLookup = null,
+        Func<MapTerm, NativeMapEqualityPlan505?>? nativeEquality = null
+    ) => new(
+        physicalEntries,
+        NativeMapLayout504.Preserved,
+        nativeLookup,
+        nativeEquality
+    );
+
+    private MapTerm(
+        IReadOnlyList<KeyValuePair<Term, Term>> physicalEntries,
+        NativeMapLayout504 layout,
+        Func<Term, (bool Found, Term? Value)>? nativeLookup,
+        Func<MapTerm, NativeMapEqualityPlan505?>? nativeEquality
+    )
     {
         _ = layout;
+        nativeLookup505 = nativeLookup;
+        NativeEquality505 = nativeEquality;
         var captured = physicalEntries.ToArray();
         lookup = new();
         foreach (var entry in captured)

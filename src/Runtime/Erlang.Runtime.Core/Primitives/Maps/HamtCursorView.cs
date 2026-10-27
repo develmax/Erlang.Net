@@ -8,7 +8,8 @@ internal static class HamtCursorView
         MapTerm map,
         BigInteger path,
         Func<Term, ulong> internalHash,
-        HamtViewNode? ownedRoot429 = null
+        HamtViewNode? ownedRoot429 = null,
+        ProcessRuntime? runtime505 = null
     )
     {
         BigInteger smallLimit = BigInteger.One << HamtViewLayout.SmallValueBits;
@@ -18,7 +19,8 @@ internal static class HamtCursorView
             if (!small || path.Sign < 0 || path > map.Entries.Count)
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
 
-            return Cons.From(map.Entries.Select(pair => Term.Tuple(pair.Key, pair.Value)));
+            return Cons.From(OtpMapHashLayoutProtocol.FlatEntries(map, runtime505)
+                .Select(pair => Term.Tuple(pair.Key, pair.Value)));
         }
         if (!small && path.Sign < 0)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
@@ -52,7 +54,8 @@ internal static class HamtCursorView
         Term accumulator,
         Func<Term, ulong> internalHash,
         int maximumEntries = int.MaxValue,
-        HamtViewNode? ownedRoot429 = null
+        HamtViewNode? ownedRoot429 = null,
+        ProcessRuntime? runtime505 = null
     )
     {
         if (accumulator is not (Nil or Cons))
@@ -63,7 +66,7 @@ internal static class HamtCursorView
         {
             if (!small || path.Sign < 0 || path > map.Entries.Count)
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
-            var physical = OtpMapHashLayoutProtocol.FlatEntries(map);
+            var physical = OtpMapHashLayoutProtocol.FlatEntries(map, runtime505);
             for (int index = physical.Count - 1; index >= 0; index--)
                 accumulator = new Cons(Term.Tuple(physical[index].Key, physical[index].Value), accumulator);
 

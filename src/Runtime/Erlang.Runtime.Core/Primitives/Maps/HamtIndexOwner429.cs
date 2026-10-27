@@ -42,6 +42,20 @@ internal sealed class HamtIndexOwner429(ProcessRuntime runtime)
 
                 return read;
             }
+            if (NativeMapMaterialization505.TryIndex(
+                map,
+                runtime,
+                Domain,
+                out var preserved
+            ))
+            {
+                var read = new HamtIndexRead429(this, preserved);
+                int admitted = checked(readers + 1);
+                maps.Add(map, preserved);
+                readers = admitted;
+
+                return read;
+            }
             builders = checked(builders + 1);
         }
         HamtIndex429? built = null;

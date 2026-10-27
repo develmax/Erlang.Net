@@ -1,0 +1,190 @@
+{
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Platform": "windows-x64",
+  "Headers": [
+    {
+      "GitPath": "erts/emulator/beam/erl_nif.h",
+      "OutputName": "erl_nif.h",
+      "Sha256": "6CB96C37D306A173EF71946E823829FC21E47CB4A19288B221129EAC2F13B689"
+    },
+    {
+      "GitPath": "erts/emulator/beam/erl_drv_nif.h",
+      "OutputName": "erl_drv_nif.h",
+      "Sha256": "E9D4280779E8FD4AC463144F310B4DA2346DD3A18E73D445BF1F88AE3C1F1312"
+    },
+    {
+      "GitPath": "erts/emulator/beam/erl_nif_api_funcs.h",
+      "OutputName": "erl_nif_api_funcs.h",
+      "Sha256": "CF34ADA521AEB0EE00C9936320CD694F9816EDBAB960500453051CEA443DDA11"
+    },
+    {
+      "OutputName": "erl_int_sizes_config.h",
+      "Sha256": "9CE6329729C2F6AA0B87B2D84608FF547A8A256D02D8E9559DFF874CDB8A9986",
+      "Origin": "Pinned official Windows release generated configuration"
+    }
+  ],
+  "DiagnosticDecoderProvenance": {
+    "BasePath": "tools/Distribution/Erlang.GuestConnectedSendObservations/passive_etf.py",
+    "BaseRawSha256": "A069AD650B3EA1BE6B90DE60117B84ED7A1A6B67128CC41E7ECAEFD2889C1713",
+    "SharedFileModified": false,
+    "MapRepresentation": "Every raw encoded entry retained in order, with no dictionary/frozenset canonicalization or key-domain restriction",
+    "EtfOutputBytesRewritten": false,
+    "AggregateDecodedTermLimit": 1000000
+  },
+  "SerializationProfiles": {
+    "CanonicalOptions": [
+      "deterministic",
+      {
+        "minor_version": 2
+      }
+    ],
+    "DefaultOptions": [
+      {
+        "minor_version": 2
+      }
+    ],
+    "Producer": "Actual erlang:term_to_binary/2 in each VM",
+    "SameActualObservedTerm": true,
+    "CanonicalWholeBytesComparedStrictly": true,
+    "DefaultWholeCaptureRetained": true,
+    "DefaultAllowedDifference": null,
+    "PostCaptureEtfNormalization": false
+  },
+  "ApiFamilyFunctions": [
+    {
+      "Name": "enif_make_int"
+    },
+    {
+      "Name": "enif_make_tuple_from_array"
+    },
+    {
+      "Name": "enif_make_list_from_array"
+    },
+    {
+      "Name": "enif_make_badarg"
+    },
+    {
+      "Name": "enif_get_int"
+    },
+    {
+      "Name": "enif_is_identical"
+    },
+    {
+      "Name": "enif_get_map_size"
+    },
+    {
+      "Name": "enif_get_map_value"
+    },
+    {
+      "Name": "enif_make_map_from_arrays"
+    },
+    {
+      "Name": "enif_make_map_put"
+    },
+    {
+      "Name": "enif_make_map_update"
+    },
+    {
+      "Name": "enif_make_map_remove"
+    },
+    {
+      "Name": "enif_map_iterator_create"
+    },
+    {
+      "Name": "enif_map_iterator_get_pair"
+    },
+    {
+      "Name": "enif_map_iterator_next"
+    },
+    {
+      "Name": "enif_map_iterator_destroy"
+    },
+    {
+      "Name": "enif_alloc_env"
+    },
+    {
+      "Name": "enif_make_copy"
+    },
+    {
+      "Name": "enif_clear_env"
+    },
+    {
+      "Name": "enif_free_env"
+    }
+  ],
+  "Dependencies": [
+    {
+      "Path": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/owned.py",
+      "HashMode": "TextLF",
+      "Sha256": "429ED3777FD3EE18800409FFC49881BEADF6CD35248C1F3738BB8A472318EC17"
+    },
+    {
+      "Path": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/bounded_inventory.py",
+      "HashMode": "TextLF",
+      "Sha256": "694958238C5AC57EF4611E18F07B54B97A546FEF0C0A547FF65563FF9B495451"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifMapFamily504Observations/diagnostic_etf.py",
+      "HashMode": "Raw",
+      "Sha256": "194CB0DB3D7D591B481AB601CA3156790E807A479A965CB886C08597993D355C"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapReentry505CallbackAdmission.cs",
+      "HashMode": "TextLF",
+      "Sha256": "336BBEED1AEEA238583526759AD09E7D721DE5BE884FE9A4AF63E50B451543A2",
+      "When": "managed"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapReentry505CallbackDriver.cs",
+      "HashMode": "TextLF",
+      "Sha256": "A7B3DDDB63333A51A0B5922CA11F7165941BADAB3C5FCE9979942F450252C496",
+      "When": "managed"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapReentry505CallbackEntry.cs",
+      "HashMode": "TextLF",
+      "Sha256": "F88F0DE1B30C6F799C57DE76FA425E59C12D97737F0F84F2EF7C097267572B91",
+      "When": "managed"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapReentry505CallbackNames.cs",
+      "HashMode": "TextLF",
+      "Sha256": "0CEBEA97BAEFFA87F1C215117A9A68BA11B01D2F1320B7EBA912463651DC67ED",
+      "When": "managed"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapReentry505NativeModuleHandle.cs",
+      "HashMode": "TextLF",
+      "Sha256": "E1E664BBB8AC7E24C564030461F360BED2A031B870C378E0180D25FB0D8BED30",
+      "When": "managed"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifNativeBackend/Program.cs",
+      "HashMode": "TextLF",
+      "Sha256": "F7DE02A725F8803F8F58B53F3343861147BABA1C8EAA4A8F6B86C36A448FFFE8",
+      "When": "managed"
+    }
+  ],
+  "NativeSourcePath": "tools/Native/Erlang.NifMapReentry505Observations/map_reentry505.c",
+  "NativeSourceSha256": "70D72FD05BA206AD9439DA01EAC6943A8F8BCA412A0FBEC63BDE41F9C1C13A28",
+  "ErlangSourcePath": "tools/Native/Erlang.NifMapReentry505Observations/map_reentry505.erl",
+  "ErlangSourceSha256": "99C47C1B5F3FC32E4DCE61C3D12F41EE9A0C04D5B238C528C40CB5B622A3D341",
+  "BuildScriptSha256": "B8A5624D4BEFE06F5C0F90803C062420D4E4E1F95BF48B81F46BC060E5765FFF",
+  "CollectorSha256": "F3949DF6742B06DC959BCD4D22536CD187BFF478F67D4055EEC3B4C940BCE212",
+  "SealerSha256": "9F4212129B1E789A7FF75FC9F14EB36183534F810454D857D929C0607CE765D3",
+  "OriginalGoldenState": "INDEPENDENT_ORIGINAL_REENTRY_PROTOCOL_ACQUIRED",
+  "ObservationGroups": 2,
+  "ReviewScope": "Static flat-map reentry preserves every same-reference key/value occurrence after CMP collision replacement and unique numeric-key shrink33->32.",
+  "NativeInvocationCount": 2,
+  "ObserverRoles": "Role0 is actual first colliding fun; role1 the other stored fun; role2 absent. Both initial stored values100. Final result contains no opaque map/fun/PID.",
+  "Protocol": "Two actual NIF calls: build/3 returns flat32 plus role terms; observe/4 after garbage collection records all target occurrences and all31 numeric key values, independent flat update/put/remove/missing-remove/copy and unchanged original.",
+  "NoCapturedEtfNormalization": true,
+  "DefaultRawGoldenRequiredForBothRoutes": true,
+  "OriginalGoldenSha256": "6CC01AD7BAC1C43BDFBC14FDB2D4566325EB06C9032328D067CE65E13C794E04",
+  "OriginalGoldenProvenance": {
+    "CompletionSha256": "F9CAC9BE8F7FB431C880B557CFD7A134E1697636025E64FEFB63A2AC12159C75",
+    "CapturedSourcePlanSha256": "E9CB5D2355007707C41063ADA7410FA4E0272E91636A00BA348641C2304CE6A9",
+    "ReturnedBytes": 3898,
+    "Producer": "Actual pinned original-only VM; no managed result used as reference"
+  }
+}

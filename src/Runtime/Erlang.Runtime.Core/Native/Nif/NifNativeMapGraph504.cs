@@ -41,19 +41,19 @@ internal static class NifNativeMapGraph504
         }
         if (map.Entries.Count <= HamtViewLayout.ReleaseFlatMapLimit)
         {
-            var entries = map.FlatKeys426!.Items.Select(key =>
-            {
-                var pair = map.Entries.First(entry => ReferenceEquals(entry.Key, key));
-
-                return new KeyValuePair<NifNativeTermValue, NifNativeTermValue>(new(pair.Key), new(pair.Value));
-            }).ToArray();
-            node = new(entries);
+            var entries = NativeMapFlatEntries505.Read(map, runtime).Select(pair =>
+                new KeyValuePair<NifNativeTermValue, NifNativeTermValue>(new(pair.Key), new(pair.Value))).ToArray();
+            node = new(entries, runtime);
         }
         else
         {
             using var index = runtime.AcquireHamtIndex429(map);
-            node = new(NifNativeMapTree504.FromView(index.Index.Root,
-                pair => new(new(pair.Key), new(pair.Value))), new(index.Index.Ownership));
+            node = new(
+                NifNativeMapTree504.FromView(index.Index.Root,
+                pair => new(new(pair.Key), new(pair.Value))),
+                new(index.Index.Ownership),
+                runtime
+            );
         }
 
         return true;
@@ -103,7 +103,7 @@ internal static class NifNativeMapGraph504
         using var atoms = new AtomNameScope(runtime.AtomNames);
         if (entries.Count <= HamtViewLayout.ReleaseFlatMapLimit)
             return new(new NifNativeMapNode504(entries.OrderBy(entry => NifNativeTermGraph.Resolve(entry.Key),
-                Comparer<Term>.Create(FlatCompare)).ToArray()));
+                Comparer<Term>.Create(FlatCompare)).ToArray(), runtime));
         var captured = entries.ToArray();
         // Bulk construction hashes the current keys once. Dictionary compaction
         // also matches OTP's last-input-wins transition from a growing flat map.
@@ -111,12 +111,12 @@ internal static class NifNativeMapGraph504
             new KeyValuePair<Term, Term>(NifNativeTermGraph.Resolve(entry.Key), Term.I(index))));
         if (ordering.Entries.Count <= HamtViewLayout.ReleaseFlatMapLimit)
             return new(new NifNativeMapNode504(ordering.FlatKeys426!.Items.Select(key =>
-                captured[(int)((Integer)ordering.Get(key)).Value]).ToArray()));
+                captured[(int)((Integer)ordering.Get(key)).Value]).ToArray(), runtime));
         using var indexRead = runtime.AcquireHamtIndex429(ordering);
         var root = NifNativeMapTree504.FromView(indexRead.Index.Root,
             pair => captured[(int)((Integer)pair.Value).Value]);
 
-        return new(new NifNativeMapNode504(root, new(indexRead.Index.Ownership)));
+        return new(new NifNativeMapNode504(root, new(indexRead.Index.Ownership), runtime));
     }
 
     internal static NifNativeMapNode504 Change(
@@ -146,9 +146,9 @@ internal static class NifNativeMapGraph504
                     return original;
                 var survivors = removed!.Entries().ToArray();
                 if (survivors.Length <= HamtViewLayout.ReleaseFlatMapLimit)
-                    return new(SortAfterRemoval(survivors));
+                    return new(SortAfterRemoval(survivors), runtime);
 
-                return new(removed, original.HashRetention!);
+                return new(removed, original.HashRetention!, runtime);
             }
             var changed = NifNativeMapTree504.Put(
                 root,
@@ -164,7 +164,7 @@ internal static class NifNativeMapGraph504
             if (ReferenceEquals(changed, root))
                 return original;
 
-            return new(changed, new(runtime.RetainNativeMapHashes504(hashes), original.HashRetention));
+            return new(changed, new(runtime.RetainNativeMapHashes504(hashes), original.HashRetention), runtime);
         }
         int match = Find(original.Entries, resolved);
         found = match >= 0;
@@ -192,7 +192,7 @@ internal static class NifNativeMapGraph504
             entries.Insert(insertion, new(key, value));
         }
 
-        return new(entries.ToArray());
+        return new(entries.ToArray(), runtime);
     }
 
     private static int FlatCompare(Term left, Term right)

@@ -87,10 +87,18 @@ public sealed partial class MapTerm : Term
             throw new ArgumentException(MapFlatKeyNames426.InvalidCopiedKeys, nameof(copiedFlatKeys));
     }
 
-    public Term Get(Term key) => lookup.TryGetValue(key, out var value) ? value : throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadKey), key));
+    public Term Get(Term key) => TryGet(key, out var value) ? value! : throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadKey), key));
 
     public bool TryGet(Term key, out Term? value)
     {
+        if (nativeLookup505 is { } native)
+        {
+            var result = native(key);
+            value = result.Value;
+
+            return result.Found;
+        }
+
         return lookup.TryGetValue(key, out value);
     }
 

@@ -6944,6 +6944,30 @@ try
         Erlang.Tests.NifMapReview504TestNames.Collision,
         NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapReview504HostEntry.CollisionCmpUsesActualFirstRole
     );
+    Test(
+        Erlang.Tests.NifMapMaterialized505TestNames.Flat,
+        NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapMaterialized505HostEntry.FlatPhysicalLayoutAndEquality
+    );
+    Test(
+        Erlang.Tests.NifMapMaterialized505TestNames.Saved,
+        NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapMaterialized505HostEntry.NativeBufferReleaseAndSavedIndex
+    );
+    Test(
+        Erlang.Tests.NifMapMaterialized505TestNames.Deep,
+        NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapMaterialized505HostEntry.DeepNativeMapEquality
+    );
+    Test(
+        Erlang.Tests.NifMapMaterialized505TestNames.Owners,
+        NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapMaterialized505HostEntry.CrossRuntimeAndClosedOwner
+    );
+    Test(
+        Erlang.Tests.NifNativeFlatDuplicate505TestNames.Materialized,
+        NifNativeBackend::Erlang.NifNativeBackend.NifNativeFlatDuplicate505HostEntry.MaterializedSameReferenceRows
+    );
+    Test(
+        Erlang.Tests.NifNativeFlatDuplicate505TestNames.Factory,
+        NifNativeBackend::Erlang.NifNativeBackend.NifNativeFlatDuplicate505HostEntry.FactoryRowsAndPeerEquality
+    );
     Test(Erlang.Tests.ProcessOwnedWord504Names.RootsTest, Erlang.Tests.ProcessOwnedWord504Checks.Roots);
     Test(Erlang.Tests.ProcessOwnedTerm504Names.GraphTest, Erlang.Tests.ProcessOwnedTerm504Checks.Graph);
     Test(Erlang.Tests.ProcessOwnedTerm504Names.RetirementTest, Erlang.Tests.ProcessOwnedTerm504Checks.Retirement);

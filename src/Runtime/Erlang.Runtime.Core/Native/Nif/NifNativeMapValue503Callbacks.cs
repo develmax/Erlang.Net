@@ -26,7 +26,12 @@ internal static unsafe class NifNativeMapValue503Callbacks
             NifNativeTermValue resultValue;
             if (mapValue.StaticTerm is MapTerm map)
             {
-                if (!map.TryGet(key, out var foundValue))
+                if (!NativeMapMaterialization505.TryGet(
+                    map,
+                    key,
+                    owner.Runtime,
+                    out var foundValue
+                ))
                     return NifNativeMapValue503Names.MissingOrNotMap;
                 resultValue = new(foundValue!);
             }
