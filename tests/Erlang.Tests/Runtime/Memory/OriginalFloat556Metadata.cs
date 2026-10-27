@@ -11,6 +11,18 @@ internal static class OriginalFloat556Metadata
         OriginalFloat556Admission receipt,
         string metadataCompletion,
         string metadataSha
+    ) => ReadProvider(
+        repository,
+        receipt.ProviderBeforePath,
+        metadataCompletion,
+        metadataSha
+    );
+
+    internal static RuntimeNativeMetadataImage ReadProvider(
+        string repository,
+        string providerBeforePath,
+        string metadataCompletion,
+        string metadataSha
     )
     {
         Require(Digest(metadataCompletion) == metadataSha.ToUpperInvariant());
@@ -18,7 +30,7 @@ internal static class OriginalFloat556Metadata
         JsonElement metadata = metadataDocument.RootElement;
         Require(metadata.GetProperty(MetadataPin).GetString() == Pin && metadata.GetProperty(OriginalOnly).GetBoolean()
             && metadata.GetProperty(AcquisitionPassed).GetBoolean());
-        using var provider = JsonDocument.Parse(File.ReadAllBytes(OriginalFloat556AdmissionReader.Resolve(repository, receipt.ProviderBeforePath)));
+        using var provider = JsonDocument.Parse(File.ReadAllBytes(OriginalFloat556AdmissionReader.Resolve(repository, providerBeforePath)));
         Require(metadata.GetProperty(ProviderAdmissionSha256).GetString() == provider.RootElement.GetProperty(AdmissionSha256).GetString());
         string metadataDirectory = Path.GetDirectoryName(Path.GetFullPath(metadataCompletion))!;
         foreach (var row in metadata.GetProperty(Files).EnumerateArray())

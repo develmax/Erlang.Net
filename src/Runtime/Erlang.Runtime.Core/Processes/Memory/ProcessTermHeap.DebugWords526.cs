@@ -26,12 +26,13 @@ internal sealed partial class ProcessTermHeap506
                 frame = null;
                 existingWords = 0;
                 if (value is Nil or Atom || value is TupleTerm { HasGlobalEmptyStorage428: true }
-                    || value is Integer integer && integer.Value >= -SmallBound526
+                    || value is Integer integer && integer.OwnedStorage559 is null
+                        && integer.Value >= -SmallBound526
                         && integer.Value < SmallBound526)
                     return true;
                 // Reject unrepresented scalar/function/binary/foreign domains;
                 // their existing source policy remains the explicit fallback.
-                if (value is not (TupleTerm or Cons or MapTerm or HamtBitmapTerm429 or FloatTerm))
+                if (value is not (TupleTerm or Cons or MapTerm or HamtBitmapTerm429 or FloatTerm or Integer))
                     return false;
                 if (!flat && runtime.IsSharingLiteral425(value))
                     return true;
@@ -41,6 +42,10 @@ internal sealed partial class ProcessTermHeap506
                 if (value is FloatTerm)
                 {
                     _ = ReadFloat556(payload);
+                }
+                else if (value is Integer)
+                {
+                    _ = ReadInteger559(payload);
                 }
                 else if (value is TupleTerm)
                 {

@@ -10,7 +10,7 @@ internal sealed class ProcessTermSequence506(
     int length,
     int headerWords526 = 0,
     int rawPayloadWords556 = 0
-) : IOwnedFloatStorage556
+) : IOwnedFloatStorage556, IOwnedIntegerStorage559
 {
     public object Owner => owner;
     public long Identity { get; } = identity;
@@ -24,6 +24,8 @@ internal sealed class ProcessTermSequence506(
     public Term this[int index] => owner.Read(this, index);
 
     public double ReadFloat556() => owner.ReadFloat556(this);
+
+    public System.Numerics.BigInteger ReadInteger559() => owner.ReadInteger559(this);
 
     public IEnumerator<Term> GetEnumerator()
     {

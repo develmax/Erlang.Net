@@ -32,6 +32,8 @@ internal static class OwnedTermTransfer506
                 )
                 : frame.Source switch
                 {
+                    Integer when ProcessTermHeap506.IsImmediateInteger559(frame.Source) => frame.Source,
+                    Integer number => heap.CreateInteger559(number.Value, construction),
                     FloatTerm number => heap.CreateFloat556(number.Value, construction),
                     Cons => heap.CreateCons(frame.Copied[0], frame.Copied[1]),
                     TupleTerm { Items.Count: 0 } => frame.Source,
@@ -44,7 +46,7 @@ internal static class OwnedTermTransfer506
                     ),
                     _ => frame.Source
                 };
-            if (frame.MapPlan is null && frame.NodePlan526 is null && frame.Source is not FloatTerm)
+            if (frame.MapPlan is null && frame.NodePlan526 is null && frame.Source is not (FloatTerm or Integer))
                 construction.Publish(result);
             stack.Pop();
             if (stack.Count == 0)

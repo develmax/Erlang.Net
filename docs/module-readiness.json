@@ -5167,7 +5167,7 @@
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermTransfer506.cs",
-      "Sha256": "C60839894DB958C73CE61E861D07793C8FD8FB02E50E254B525B9F8A92A087FE"
+      "Sha256": "AB84D8E69F4DC4F07A7F6D44E316FBB442385CCABF2BCB397356BDFAD70844A5"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/PreparedTermTransfer506.cs",
@@ -5239,7 +5239,7 @@
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap506.cs",
-      "Sha256": "C2712D1948AB2047E5284C79AD90207A0B2B78DD04839B66A408733DBBDCE78D"
+      "Sha256": "4C667A2C4D5EC76147E992E4F0681A0071A5C55D6B23DB0D37D037DC9CBE4C06"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeapSnapshot506.cs",
@@ -5247,7 +5247,7 @@
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermSequence506.cs",
-      "Sha256": "106F33CEDB5B4C2D58DF77D5F6CD898EFE4A48C18D51F168923F61E7ABB5E6BD"
+      "Sha256": "B0D6BFCEE923B5D70F46192C6C2B6ACE70A6732DAF87C38634F89B3CFE403196"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermSlab506.cs",
@@ -7203,7 +7203,7 @@
     },
     {
       "Path": "src/Runtime/Erlang.Terms/Values/Integer.cs",
-      "Sha256": "CD4E5B3604C8194785FE20CD15A09A182BFBCA7128B95EE688ADB8719C30CC4F"
+      "Sha256": "3D6261FA9487E05878E1B0B4854B3E97F83E351C3FA23E442685E80FED18B09C"
     },
     {
       "Path": "src/Runtime/Erlang.Terms/Values/Records/NativeRecordTerm.cs",
@@ -7303,11 +7303,11 @@
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Guest507.cs",
-      "Sha256": "918C2092189DB6069F96EC9F1007CECF0801EC7F624A4C7B7205A56A1B31BFF9"
+      "Sha256": "A60C45C346EB91747C09AE10510AD2655B8ECA102B6F27153D1003E55C363A2C"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Guest507.cs",
-      "Sha256": "44C29A485CE581EDA2B404E2C4D9CCBAF833CA4F6342E3C02AF2D5413600423C"
+      "Sha256": "BEE6CBEBCAA94AC8FCB613F2B83A979C97E2D69404C148678B52C2F0DBF228FB"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessDictionary.Guest507.cs",
@@ -7455,7 +7455,7 @@
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Source511.cs",
-      "Sha256": "8F1612B0A1A30F1182AAEDB1752FD2BDA0D48612813FA705BC5C6F487582C362"
+      "Sha256": "CEB712A90A8AF38E3F6AAFA41044D73C0D6DE64E4BACDE07AB37A015BA73FF0A"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermGenerationSnapshot508.cs",
@@ -7703,7 +7703,7 @@
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.DebugWords526.cs",
-      "Sha256": "89A057943B1D4590B1851FC11CBC1A824E38B87E4BBBD8804880133161D2E305"
+      "Sha256": "CDF39032F23C39194BC814F5F1BDBF83A7D401BBE8E4BA11FDA5566B3DCAA294"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.MapPayload517.cs",
@@ -7784,6 +7784,18 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.LoadPrivateData557.cs",
       "Sha256": "E60C65D915755D245A1A13A0B8848200CF9461F721573D2A49C778437F3D48BC"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/BoxedInteger559Names.cs",
+      "Sha256": "6CCA5EE623D4C5C0D6B5DA6E973F79326936BCC20F1127B519282C81E9F550D9"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Integer559.cs",
+      "Sha256": "7523EBBDDA8B9B3FC31807F250169D56D1F31C4BF1E7DBF39AB0C0B3E39406AC"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Storage/IOwnedIntegerStorage559.cs",
+      "Sha256": "E3CB878B748CB61472EBE1D7922311E35A7C3B4B10160501D06B8FA7C201FA30"
     }
   ],
   "VerifiedCompatibleMfas": 180,
@@ -29114,7 +29126,7 @@
     }
   ],
   "ComparisonTestReport": "validation/part-485/native-catalog/previous-tests.json",
-  "LocalPassedTests": 9180,
+  "LocalPassedTests": 9184,
   "RegisteredMfas": 708,
   "PreviousRegisteredMfas": 708,
   "RegisteredMfaDelta": 0,
@@ -29345,7 +29357,7 @@
         "Physical BEAM heap/scheduler/resources,complete lint/spec/warnings/source stacks/code staging,connected distribution and full native/upstream/performance parity;native numeric record hashes independently matched in230, while general resource/lifecycle scope remains partial.",
         "Part378: same-function receive\u002Btry and mixed Term/raw joins remain conservative refusals; raw manual/Nil, native-entry-specific, full depth/deeper recursion/cross-image lifecycle and stale-fun dispatch profiles need separate proof."
       ],
-      "RelatedPassedTests": 1986
+      "RelatedPassedTests": 1990
     },
     {
       "Id": "Compiler",
