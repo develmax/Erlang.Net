@@ -451,7 +451,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Compiled map original failed; adoption/managed execution skipped' }
           $completion = "$out/completion.json"
           $completionSha = (Get-FileHash -LiteralPath $completion -Algorithm SHA256).Hash
-          $adopted = 'artifacts/owned506/map519-admission.json'
+          $adopted = Join-Path $PWD 'artifacts/owned506/map519-admission.json'
           python -B "$tool/adopt-original.py" --repository $PWD.Path --completion $completion --completion-sha256 $completionSha --source-plan $plan --source-plan-sha256 $env:OWNED506_PLAN_SHA --output $adopted *> artifacts/owned506/map519-adoption.log
           if ($LASTEXITCODE -ne 0) { throw 'Compiled map adoption failed; managed execution skipped' }
           $adoptedSha = (Get-FileHash -LiteralPath $adopted -Algorithm SHA256).Hash
