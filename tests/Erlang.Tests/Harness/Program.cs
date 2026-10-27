@@ -50,6 +50,41 @@ if (args is [Erlang.Tests.MapRouting517TestNames.OriginalChildMode, var admissio
     return 0;
 }
 
+if (args is [Erlang.Tests.SpawnResource541Names.ChildSwitch, var spawnRepository,
+    var spawnAdmission, var spawnAdmissionSha, var spawnMetadata, var spawnMetadataSha,
+    var spawnOwned, var spawnOutput])
+{
+    await Erlang.Tests.SpawnResource541Replay.Run(
+        spawnRepository,
+        spawnAdmission,
+        spawnAdmissionSha,
+        spawnMetadata,
+        spawnMetadataSha,
+        bool.Parse(spawnOwned),
+        spawnOutput
+    );
+
+    return 0;
+}
+
+if (args is [Erlang.Tests.SpawnResource542Names.ChildSwitch, var resourceRepository,
+    var resourceAdmission, var resourceAdmissionSha, var resourceMetadata, var resourceMetadataSha,
+    var resourceOwned, var resourceBackend, var resourceOutput])
+{
+    await Erlang.Tests.SpawnResource541Replay.Run(
+        resourceRepository,
+        resourceAdmission,
+        resourceAdmissionSha,
+        resourceMetadata,
+        resourceMetadataSha,
+        bool.Parse(resourceOwned),
+        resourceOutput,
+        resourceBackend
+    );
+
+    return 0;
+}
+
 Erlang.Tests.TestRunSelection selection;
 try
 {
@@ -63,6 +98,12 @@ catch (ArgumentException failure)
 }
 
 var tests = new List<(string Name, Func<Task> Body)>();
+Test(Erlang.Tests.SpawnWorker546Names.Test, Erlang.Tests.SpawnWorker546Checks.Run);
+Test(Erlang.Tests.SpawnResource540Names.ValidationTest, Erlang.Tests.SpawnResource540Checks.Validation);
+Test(Erlang.Tests.SpawnResource540Names.InternalTest, Erlang.Tests.SpawnResource540Checks.InternalErrors);
+Test(Erlang.Tests.SpawnResource540Names.MetadataTest, Erlang.Tests.SpawnResource540Checks.PublicMetadata);
+Test(Erlang.Tests.SpawnResource541ComparisonChecks.TestName, Erlang.Tests.SpawnResource541ComparisonChecks.Run);
+
 Test(Erlang.Tests.EtsQueriesOriginal414Names.Test, Erlang.Tests.EtsQueriesOriginal414Checks.Run);
 Test(Erlang.Tests.CollectorsOriginal415Names.Test, Erlang.Tests.CollectorsOriginal415Checks.Run);
 Test(Erlang.Tests.InternalPortsOriginal416Names.Test, Erlang.Tests.InternalPortsOriginal416Checks.Run);

@@ -458,6 +458,20 @@ jobs:
           dotnet exec --fx-version 10.0.11 $testDll --original-map523-child $adopted $adoptedSha *> artifacts/owned506/map519-compiled-worker-managed.log
           if ($LASTEXITCODE -ne 0) { throw 'Whole compiled map comparison failed' }
 
+      - name: Acquire complete spawn option references and compare malformed contracts
+        id: spawn541-contracts
+        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' && steps.dynamic520-original.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $admission = Join-Path $PWD.Path 'artifacts/library376-official-compiler/official-admission.json'
+          $admissionSha = (Get-FileHash -LiteralPath $admission -Algorithm SHA256).Hash
+          $metadata = Join-Path $PWD.Path 'artifacts/dynamic520/original/completion.json'
+          $metadataSha = (Get-FileHash -LiteralPath $metadata -Algorithm SHA256).Hash
+          python -B tools/Runtime/Erlang.OwnedGuest506Observations/capture-spawn541.py --repository $PWD.Path --expected-head $env:EXPECTED_HEAD --source-plan-sha256 $env:OWNED506_PLAN_SHA --official-admission $admission --admission-sha256 $admissionSha --output artifacts/owned506/spawn541 --proc-lib-backend542 original-proc-lib --managed-host tests/Erlang.Tests/bin/Debug/net10.0/Erlang.Tests.dll --metadata-completion $metadata --metadata-completion-sha256 $metadataSha
+          if ($LASTEXITCODE -ne 0) { throw 'Spawn original/whole managed contract failed; raw failures retained' }
+
       - name: Require owned506 original source and full original batch
         if: ${{ !cancelled() }}
         shell: pwsh
@@ -465,7 +479,9 @@ jobs:
           ADMISSION: ${{ steps.owned506-admit.outcome }}
           MAP_COMPILED: ${{ steps.map519-compiled-worker.outcome }}
           ORIGINAL: ${{ steps.owned506-original.outcome }}
+          SPAWN_CONTRACTS: ${{ steps.spawn541-contracts.outcome }}
         run: |
+          if ($env:SPAWN_CONTRACTS -ne 'success') { throw 'Required spawn contract stage failed' }
           if ($env:ADMISSION -ne 'success' -or $env:ORIGINAL -ne 'success' -or $env:MAP_COMPILED -ne 'success') { throw 'Owned506 required acquisition/compiled-map stages did not pass' }
           if ('${{ steps.dynamic520-original.outcome }}' -ne 'success' -or '${{ steps.dynamic520-controls.outcome }}' -ne 'success') { throw 'Dynamic520 required original and managed stages did not pass' }
       - uses: actions/upload-artifact@v7
@@ -475,6 +491,7 @@ jobs:
           path: |
             artifacts/owned506/**
             artifacts/dynamic520/**
+            artifacts/map-routing517/**
             artifacts/nif-variadic526/**
             artifacts/tests.json
             artifacts/native-map501/ci/**
