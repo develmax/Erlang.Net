@@ -64,7 +64,8 @@ internal sealed partial class ProcessTermFrame506
         {
             ValidateSlot(slot);
             owner.ValidateGuestGraph507(value);
-            if (owner.IsOwnedLocal(value) || value is not (TupleTerm or Cons or MapTerm)
+            if (owner.IsOwnedLocal(value) || owner.IsLiteralFloat556(value)
+                || value is not (TupleTerm or Cons or MapTerm or FloatTerm)
                 || value is TupleTerm { Items.Count: 0 } || value is MapTerm { Entries.Count: 0 })
             {
                 PublishRoot512(slot, value);

@@ -108,12 +108,9 @@ internal sealed unsafe partial class NifNativeLibraryOwner : IAsyncDisposable
             entry = NifNativeEntryReader.Read(entryPointer);
             ValidateEntry(descriptor);
             nuint info = environment.Add(loadInfo);
-            nint data = 0;
-            int result = entry.Load == 0
-                ? 0 : ((delegate* unmanaged[Cdecl]<nint, nint*, nuint, int>)entry.Load)(environment.Pointer, &data, info);
+            int result = InvokeLoadCallback557(environment, info);
             if (result == 0)
             {
-                privateData = data;
                 initialized = true;
             }
             failure.ThrowPending();

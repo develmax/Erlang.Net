@@ -125,6 +125,9 @@ jobs:
             --case runtime/owned-guest506/original-compiled-worker-whole-values-and-stacks \
             --case runtime/owned-guest506/source-message-survives-sender-physical-retirement \
             --case runtime/owned-guest506/nested-foreign-invocation-refuses-enclosing-vm-shutdown \
+            --case runtime/boxed-float556/actual-slab-getter-and-major-gc \
+            --case runtime/boxed-float556/adoption-marker-and-root-only-custody \
+            --case runtime/boxed-float556/foreign-rejection-and-held-retirement \
             --report artifacts/resource-controls504-original/owned506-final-controls.json \
             > artifacts/resource-controls504-original/owned506-final-controls.log 2>&1
       - name: Capture fresh dynamic520 whole contracts using the shared Linux OTP
@@ -393,6 +396,24 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Variadic526 original or independent managed comparisons failed; all raw errors retained' }
           $result = Get-Content artifacts/nif-variadic526/ci/completion.json -Raw | ConvertFrom-Json
           if (!$result.Passed -or !$result.OriginalExecuted -or !$result.ManagedRequested -or $result.ExpectedManagedRoutes -ne 4 -or $result.MatchedManagedRoutes.Count -ne 4) { throw 'Variadic526 requires all four genuine original/managed comparisons and cleanup' }
+      - name: Compare live NIF private data with pinned Windows OTP
+        id: private557
+        if: ${{ !cancelled() && steps.native-host-ready.outcome == 'success' && steps.shared-original-provider.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          New-Item -ItemType Directory -Path artifacts/nif-private-data557 -Force | Out-Null
+          $actualHead = git rev-parse HEAD
+          if ($LASTEXITCODE -ne 0 -or $actualHead -ne $env:EXPECTED_HEAD) { throw 'Private557 exact source head differs' }
+          $planSha = python -c "import hashlib,subprocess,sys; print(hashlib.sha256(subprocess.check_output(['git','show',sys.argv[1]+':tools/Native/Erlang.NifPrivateData557Observations/source-plan.json'])).hexdigest().upper())" $env:EXPECTED_HEAD
+          if ($LASTEXITCODE -ne 0) { throw 'Private557 committed source plan could not be read' }
+          $admission = 'artifacts/library376-official-compiler/official-admission.json'
+          $admissionSha = (Get-FileHash $admission -Algorithm SHA256).Hash
+          python -B tools/Native/Erlang.NifPrivateData557Observations/collect.py --official-admission $admission --admission-sha256 $admissionSha --plan-sha256 $planSha --expected-head $env:EXPECTED_HEAD --output artifacts/nif-private-data557/ci --execute-original --with-managed *> artifacts/nif-private-data557/ci.log
+          if ($LASTEXITCODE -ne 0) { throw 'Private557 original or independent managed comparisons failed; complete raw evidence retained' }
+          $result = Get-Content artifacts/nif-private-data557/ci/completion.json -Raw | ConvertFrom-Json
+          if (!$result.Passed -or !$result.OriginalExecuted -or !$result.ManagedRequested -or $result.ExpectedManagedRoutes -ne 4 -or $result.MatchedManagedRoutes.Count -ne 4 -or $result.WholeContractsClosed -ne 0) { throw 'Private557 requires all four actual comparisons and physical cleanup' }
       - name: Verify logical death before physical dirty completion in pinned OTP
         if: ${{ !cancelled() }}
         shell: pwsh
@@ -472,6 +493,20 @@ jobs:
           python -B tools/Runtime/Erlang.OwnedGuest506Observations/capture-spawn541.py --repository $PWD.Path --expected-head $env:EXPECTED_HEAD --source-plan-sha256 $env:OWNED506_PLAN_SHA --official-admission $admission --admission-sha256 $admissionSha --output artifacts/owned506/spawn541 --proc-lib-backend542 original-proc-lib --managed-host tests/Erlang.Tests/bin/Debug/net10.0/Erlang.Tests.dll --metadata-completion $metadata --metadata-completion-sha256 $metadataSha
           if ($LASTEXITCODE -ne 0) { throw 'Spawn original/whole managed contract failed; raw failures retained' }
 
+      - name: Compare original boxed-float worker in both runtime profiles
+        id: float556-contracts
+        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' && steps.dynamic520-original.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $admission = Join-Path $PWD.Path 'artifacts/library376-official-compiler/official-admission.json'
+          $admissionSha = (Get-FileHash -LiteralPath $admission -Algorithm SHA256).Hash
+          $metadata = Join-Path $PWD.Path 'artifacts/dynamic520/original/completion.json'
+          $metadataSha = (Get-FileHash -LiteralPath $metadata -Algorithm SHA256).Hash
+          python -B tools/Runtime/Erlang.OwnedGuest506Observations/capture-float556.py --repository $PWD.Path --expected-head $env:EXPECTED_HEAD --source-plan-sha256 $env:OWNED506_PLAN_SHA --official-admission $admission --admission-sha256 $admissionSha --output artifacts/owned506/float556 --managed-host tests/Erlang.Tests/bin/Debug/net10.0/Erlang.Tests.dll --metadata-completion $metadata --metadata-completion-sha256 $metadataSha
+          if ($LASTEXITCODE -ne 0) { throw 'Float556 whole default/deterministic contracts failed; raw failures retained' }
+
       - name: Require owned506 original source and full original batch
         if: ${{ !cancelled() }}
         shell: pwsh
@@ -482,8 +517,10 @@ jobs:
           SPAWN_CONTRACTS: ${{ steps.spawn541-contracts.outcome }}
         run: |
           if ($env:SPAWN_CONTRACTS -ne 'success') { throw 'Required spawn contract stage failed' }
+          if ('${{ steps.float556-contracts.outcome }}' -ne 'success') { throw 'Required boxed-float original and both managed profiles did not pass' }
           if ($env:ADMISSION -ne 'success' -or $env:ORIGINAL -ne 'success' -or $env:MAP_COMPILED -ne 'success') { throw 'Owned506 required acquisition/compiled-map stages did not pass' }
           if ('${{ steps.dynamic520-original.outcome }}' -ne 'success' -or '${{ steps.dynamic520-controls.outcome }}' -ne 'success') { throw 'Dynamic520 required original and managed stages did not pass' }
+          if ('${{ steps.private557.outcome }}' -ne 'success') { throw 'Private557 required original acquisition and four independent managed routes did not pass' }
       - uses: actions/upload-artifact@v7
         if: always()
         with:
@@ -493,6 +530,7 @@ jobs:
             artifacts/dynamic520/**
             artifacts/map-routing517/**
             artifacts/nif-variadic526/**
+            artifacts/nif-private-data557/**
             artifacts/tests.json
             artifacts/native-map501/ci/**
             artifacts/process-retirement502/ci/**

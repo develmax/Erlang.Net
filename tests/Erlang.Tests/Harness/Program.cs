@@ -85,6 +85,23 @@ if (args is [Erlang.Tests.SpawnResource542Names.ChildSwitch, var resourceReposit
     return 0;
 }
 
+if (args is [Erlang.Tests.OriginalFloat556Names.ChildSwitch, var floatRepository,
+    var floatAdmission, var floatAdmissionSha, var floatMetadata, var floatMetadataSha,
+    var floatOwned, var floatOutput])
+{
+    await Erlang.Tests.OriginalFloat556Replay.Run(
+        floatRepository,
+        floatAdmission,
+        floatAdmissionSha,
+        floatMetadata,
+        floatMetadataSha,
+        bool.Parse(floatOwned),
+        floatOutput
+    );
+
+    return 0;
+}
+
 Erlang.Tests.TestRunSelection selection;
 try
 {
@@ -7064,6 +7081,9 @@ try
     Test(Erlang.Tests.NativeMetadataWitness527Names.Test, Erlang.Tests.NativeMetadataWitness527Checks.Run);
     Test(Erlang.Tests.NativeMetadataImage527Names.Test, Erlang.Tests.NativeMetadataImage527Checks.Original);
     Test(Erlang.Tests.NativeMetadataImage527Names.LinelessTest, Erlang.Tests.NativeMetadataImage527Checks.Lineless);
+    Test(Erlang.Tests.BoxedFloat556Names.PhysicalCase, Erlang.Tests.BoxedFloat556Checks.PhysicalGetterAndGc);
+    Test(Erlang.Tests.BoxedFloat556Names.AdoptionCase, Erlang.Tests.BoxedFloat556Checks.AdoptionAndRootOnly);
+    Test(Erlang.Tests.BoxedFloat556Names.LifetimeCase, Erlang.Tests.BoxedFloat556Checks.ForeignAndHeldRetirement);
     Test(Erlang.Tests.BeamListCurrentRoot550Names.MatrixTest, Erlang.Tests.BeamListCurrentRoot550Checks.Matrix);
     Test(Erlang.Tests.BeamListCurrentRoot550Names.CustodyTest, Erlang.Tests.BeamListCurrentRoot550Checks.Custody);
     Test(Erlang.Tests.BeamListCurrentRoot550Names.FailureTest, Erlang.Tests.BeamListCurrentRoot550Checks.ClosedYStore);

@@ -29,7 +29,7 @@
   "SourceEquivalence": {
     "TestedPlanPath": "docs/validation/part-361/tested-source-plan.json",
     "TestedPlanSha256": "26771833B3E7C2A70166C36ED0854354198F4DC5E6270E01CD1B00E97101A2E2",
-    "CurrentBoundSourceFiles": 289,
+    "CurrentBoundSourceFiles": 291,
     "ExactRawHashesMatchTestedPlan": false,
     "SameHeadExecutionInferred": false,
     "HistoricalCurrentBoundSourceFiles": 40,
@@ -397,7 +397,7 @@
       "SourceBindings": [
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLibraryOwner.cs",
-          "Sha256": "45FA5ABEE2C6E4767A8DD96BD5721CDD3C8F1ED5BC8E138E3637CB4F8B57E8C3"
+          "Sha256": "48173F2FE160ABF072939B958647908014507542A9D90377C4C40E6DB53050AB"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallbackScope.cs",
@@ -406,6 +406,14 @@
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeEnvironmentBinding.cs",
           "Sha256": "A7F464389ADFF8D1AB693D29C61B221A16935AA6385CFC5A1EE663BC0B36D54A"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLibraryOwner.LoadPrivateData557.cs",
+          "Sha256": "3D86003E3FE390754170E58491472DD2FB5214A47EB43BF4E2E57C08933CF9AD"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.LoadPrivateData557.cs",
+          "Sha256": "E60C65D915755D245A1A13A0B8848200CF9461F721573D2A49C778437F3D48BC"
         }
       ],
       "EvidenceRefs": [
@@ -435,11 +443,19 @@
       "SourceBindings": [
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.cs",
-          "Sha256": "E65BF3EC376500D944D89F0A90D97B8D0508B1289420EF36B9A3D5EA1B9509D9"
+          "Sha256": "E1ED7892D9421F136966BF0C9071B58D0B348D15EA0A74C768811DA7EB8877CC"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeTermValue.cs",
           "Sha256": "DC059AC474603881FCFEBF11C3E84A284128CE3B1AB6282963FAF1A085D50E0C"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLibraryOwner.LoadPrivateData557.cs",
+          "Sha256": "3D86003E3FE390754170E58491472DD2FB5214A47EB43BF4E2E57C08933CF9AD"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.LoadPrivateData557.cs",
+          "Sha256": "E60C65D915755D245A1A13A0B8848200CF9461F721573D2A49C778437F3D48BC"
         }
       ],
       "EvidenceRefs": [
@@ -513,7 +529,15 @@
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.cs",
-          "Sha256": "E65BF3EC376500D944D89F0A90D97B8D0508B1289420EF36B9A3D5EA1B9509D9"
+          "Sha256": "E1ED7892D9421F136966BF0C9071B58D0B348D15EA0A74C768811DA7EB8877CC"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLibraryOwner.LoadPrivateData557.cs",
+          "Sha256": "3D86003E3FE390754170E58491472DD2FB5214A47EB43BF4E2E57C08933CF9AD"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.LoadPrivateData557.cs",
+          "Sha256": "E60C65D915755D245A1A13A0B8848200CF9461F721573D2A49C778437F3D48BC"
         }
       ],
       "EvidenceRefs": [
@@ -848,11 +872,19 @@
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLibraryOwner.cs",
-          "Sha256": "45FA5ABEE2C6E4767A8DD96BD5721CDD3C8F1ED5BC8E138E3637CB4F8B57E8C3"
+          "Sha256": "48173F2FE160ABF072939B958647908014507542A9D90377C4C40E6DB53050AB"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLinuxCapsuleLease.cs",
           "Sha256": "E64EF737BE2575301982145F2340F3FA8325ADA6E067EDE734EFD535D0D79B4C"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLibraryOwner.LoadPrivateData557.cs",
+          "Sha256": "3D86003E3FE390754170E58491472DD2FB5214A47EB43BF4E2E57C08933CF9AD"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.LoadPrivateData557.cs",
+          "Sha256": "E60C65D915755D245A1A13A0B8848200CF9461F721573D2A49C778437F3D48BC"
         }
       ],
       "EvidenceRefs": [
@@ -1249,7 +1281,7 @@
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.cs",
-          "Sha256": "E65BF3EC376500D944D89F0A90D97B8D0508B1289420EF36B9A3D5EA1B9509D9"
+          "Sha256": "E1ED7892D9421F136966BF0C9071B58D0B348D15EA0A74C768811DA7EB8877CC"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeEnvironmentCallbacks.cs",
@@ -1737,11 +1769,11 @@
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Guest507.cs",
-          "Sha256": "83CC48C5E138EF4914C7504F45D754130E60524408F08869B7C6DEA6D63421B6"
+          "Sha256": "918C2092189DB6069F96EC9F1007CECF0801EC7F624A4C7B7205A56A1B31BFF9"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Source511.cs",
-          "Sha256": "63D44048B14EA288AB93C8D2ED5A22C4F399C030350D83C48807D5DFAC7F880E"
+          "Sha256": "8F1612B0A1A30F1182AAEDB1752FD2BDA0D48612813FA705BC5C6F487582C362"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame506.cs",
@@ -1761,11 +1793,11 @@
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Guest507.cs",
-          "Sha256": "E7735003C161C5EC0497D85E01662F0F04F31B3F43CE80B81C608B6999E8E0FC"
+          "Sha256": "44C29A485CE581EDA2B404E2C4D9CCBAF833CA4F6342E3C02AF2D5413600423C"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap506.cs",
-          "Sha256": "F3B1677CC5B0128B9FB139B83A103509088EA0197576B447BB1573E2D6F54D34"
+          "Sha256": "C2712D1948AB2047E5284C79AD90207A0B2B78DD04839B66A408733DBBDCE78D"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/SourceEvaluationTurn511.cs",
@@ -1877,7 +1909,7 @@
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/CellStorage526Names.cs",
-          "Sha256": "A5B299CCCDBFA4596DA7DCE18BE3CE6C21C848E3711E2AE474E956C8074D0C36"
+          "Sha256": "C3BB4539B381629BFE67794A1C1B2DF0DAB298ABE30F5EB0DCECFB896A7C24B0"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/EncodedMapHeader526.cs",
@@ -1897,7 +1929,7 @@
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/NativeTermCellBuffer526.cs",
-          "Sha256": "4ADCD8086FB3CC4B3B9C739F06806933F1D2D3B17E90047874D589BF60B3F7CD"
+          "Sha256": "EE0E6F5EBA1297D927EA1A378AE1A893FC29899550F33CA44FF8A5D05D63E0C4"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedMapEntries517.cs",
@@ -1937,11 +1969,11 @@
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedPhysicalWordSnapshot526.cs",
-          "Sha256": "1699B67C772853EC544B7FDAA10A8FA61E07F56D2714B384C11BACD72E8DFEFE"
+          "Sha256": "B7A5E561BB1AD735510A628DAEF285560515C8F7A0F76BD560EDF45E3EC2F743"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermTransfer506.cs",
-          "Sha256": "6DB33A6CE027C35BDD116870C83DA21C2A707BDD844B0A6F20D12CC1C754D547"
+          "Sha256": "C60839894DB958C73CE61E861D07793C8FD8FB02E50E254B525B9F8A92A087FE"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedWordSizeFrame526.cs",
@@ -1977,7 +2009,7 @@
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.DebugWords526.cs",
-          "Sha256": "E080DC2EDD4E4758B76F5902BA720455F24B2B5DFE0B2C122966D352C9509FD9"
+          "Sha256": "89A057943B1D4590B1851FC11CBC1A824E38B87E4BBBD8804880133161D2E305"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.MapPayload517.cs",
@@ -1989,7 +2021,7 @@
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.NativeWords526.cs",
-          "Sha256": "4951CE1D96891BFF546FB7AFEF7B24E68369DE8E518F54E9BD3DB839BFB19C49"
+          "Sha256": "F50E4877F915E396866EB31739A402E30134221B82D9405900C892D3652FC140"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.SharedHamt526.cs",
@@ -1997,7 +2029,7 @@
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermSequence506.cs",
-          "Sha256": "145BD54A1C435B1B15EFC7659D917CCC404C1F9A5CE5C3F342CC133138C01AB4"
+          "Sha256": "106F33CEDB5B4C2D58DF77D5F6CD898EFE4A48C18D51F168923F61E7ABB5E6BD"
         },
         {
           "Path": "src/Runtime/Erlang.Terms/Collections/Maps/HamtBitmapTerm429.OwnedPayload517.cs",
@@ -2018,6 +2050,14 @@
         {
           "Path": "src/Runtime/Erlang.Terms/Storage/IOwnedMapPayload517.cs",
           "Sha256": "37F658263F6DCB44BCB89E699356C5CBC5A1020733EFA57D9FB3E6CD329F9AF5"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLibraryOwner.LoadPrivateData557.cs",
+          "Sha256": "3D86003E3FE390754170E58491472DD2FB5214A47EB43BF4E2E57C08933CF9AD"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.LoadPrivateData557.cs",
+          "Sha256": "E60C65D915755D245A1A13A0B8848200CF9461F721573D2A49C778437F3D48BC"
         }
       ],
       "EvidenceRefs": [
@@ -2105,11 +2145,19 @@
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLibraryOwner.cs",
-          "Sha256": "45FA5ABEE2C6E4767A8DD96BD5721CDD3C8F1ED5BC8E138E3637CB4F8B57E8C3"
+          "Sha256": "48173F2FE160ABF072939B958647908014507542A9D90377C4C40E6DB53050AB"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLinuxCapsuleLease.cs",
           "Sha256": "E64EF737BE2575301982145F2340F3FA8325ADA6E067EDE734EFD535D0D79B4C"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLibraryOwner.LoadPrivateData557.cs",
+          "Sha256": "3D86003E3FE390754170E58491472DD2FB5214A47EB43BF4E2E57C08933CF9AD"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.LoadPrivateData557.cs",
+          "Sha256": "E60C65D915755D245A1A13A0B8848200CF9461F721573D2A49C778437F3D48BC"
         }
       ],
       "EvidenceRefs": [
@@ -2439,5 +2487,30 @@
     ],
     "WholeMfaContractsPromoted": 0,
     "WholeMapApisPromoted": 0
+  },
+  "CurrentSourceUpdate523": {
+    "Scope": "Actual load callback private-data binding; no whole-contract promotion",
+    "ChangedExistingSourceBindings": [
+      "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.cs",
+      "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLibraryOwner.cs",
+      "src/Runtime/Erlang.Runtime.Core/Processes/Memory/CellStorage526Names.cs",
+      "src/Runtime/Erlang.Runtime.Core/Processes/Memory/NativeTermCellBuffer526.cs",
+      "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedPhysicalWordSnapshot526.cs",
+      "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermTransfer506.cs",
+      "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Guest507.cs",
+      "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Source511.cs",
+      "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.DebugWords526.cs",
+      "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Guest507.cs",
+      "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.NativeWords526.cs",
+      "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap506.cs",
+      "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermSequence506.cs"
+    ],
+    "AddedSourceBindings": [
+      "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLibraryOwner.LoadPrivateData557.cs",
+      "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.LoadPrivateData557.cs"
+    ],
+    "ApiBindingCountChanged": false,
+    "ClassificationsChanged": false,
+    "SameHeadFullRegressionInferred": false
   }
 }

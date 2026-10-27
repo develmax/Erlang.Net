@@ -13,6 +13,10 @@ SOURCE_SUFFIXES = frozenset((".cs", ".csproj", ".props", ".targets", ".py", ".c"
 EXCLUDED_DIRECTORIES = frozenset(("bin", "obj", "__pycache__"))
 # Static reviewed production scope of Part519; no dependency on artifact packets.
 MAP_PRODUCTION519 = (
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/BoxedFloat556Names.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Float556.cs",
+    "src/Runtime/Erlang.Terms/Storage/IOwnedFloatStorage556.cs",
+    "src/Runtime/Erlang.Terms/Values/FloatTerm.cs",
     "src/Compiler/Erlang.Compiler/Execution/Execution.cs",
     "src/Runtime/Erlang.Runtime.Core/Diagnostics/Debug/DebugSharingSize425.cs",
     "src/Runtime/Erlang.Runtime.Core/Diagnostics/Debug/DebugSharingSizeFrame425.cs",

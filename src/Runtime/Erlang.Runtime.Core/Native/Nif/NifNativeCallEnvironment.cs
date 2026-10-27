@@ -25,10 +25,8 @@ internal sealed unsafe partial class NifNativeCallEnvironment : IDisposable
     {
         get;
     }
-    internal nint PrivateData
-    {
-        get;
-    }
+    private readonly nint privateDataSnapshot557;
+    internal nint PrivateData => initializingOwner557?.ReadInitializingPrivateData557() ?? privateDataSnapshot557;
     internal NifNativeFailureState Failure { get; }
     private readonly int threadId = Environment.CurrentManagedThreadId;
     internal bool IsIndependent { get; }
@@ -73,7 +71,7 @@ internal sealed unsafe partial class NifNativeCallEnvironment : IDisposable
         Failure = failure;
         Runtime = runtime;
         Image = image;
-        PrivateData = privateData;
+        privateDataSnapshot557 = privateData;
         IsIndependent = independent;
         pointer = (nint)NativeMemory.Alloc(NifNativeAbi.EnvironmentStorageBytes);
         if (pointer == 0)
