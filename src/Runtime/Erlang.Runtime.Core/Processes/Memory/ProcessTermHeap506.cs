@@ -76,6 +76,9 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
         => PrepareBorrow(Borrow(caller, value));
 
     internal PreparedTermTransfer506 PrepareBorrow(ProcessTermBorrow506 borrow)
+        => PrepareBorrowAtomics586(borrow, null);
+
+    internal PreparedTermTransfer506 PrepareBorrowAtomics586(ProcessTermBorrow506 borrow, bool? exportHostAtomics586)
     {
         if (!ReferenceEquals(borrow.Owner, this))
             throw new InvalidOperationException(ProcessTerm506Names.ForeignRoot);
@@ -84,7 +87,7 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
         {
             // No heap or dictionary gate is held by callers here. Typed recipe
             // factories and external-node discovery can acquire runtime locks.
-            Term portable = OwnedTermDetachedCopy506.Copy(runtime, borrow.Value);
+            Term portable = OwnedTermDetachedCopy506.CopyAtomics586(runtime, borrow.Value, exportHostAtomics586);
 
             return new(borrow, portable);
         }
@@ -127,7 +130,7 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
 
     internal Term Export(ProcessTermFrame506 caller, Term value)
     {
-        using PreparedTermTransfer506 prepared = Prepare(caller, value);
+        using PreparedTermTransfer506 prepared = PrepareBorrowAtomics586(Borrow(caller, value), true);
 
         return prepared.Portable;
     }

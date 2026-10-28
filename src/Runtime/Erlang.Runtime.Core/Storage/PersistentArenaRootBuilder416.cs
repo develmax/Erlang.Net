@@ -47,7 +47,7 @@ internal sealed class PersistentArenaRootBuilder416 : IDisposable
 
     internal int Identity(ProcessRuntime owner, Term value)
     {
-        RuntimeExternalTermReservation reservation = owner.ReserveExternalTerm(value);
+        RuntimeExternalTermReservation reservation = owner.ReserveStoredTerm591(value);
         try
         {
             var root = new PersistentArenaRoot416(PersistentArenaRootKind416.Identity, reservation);

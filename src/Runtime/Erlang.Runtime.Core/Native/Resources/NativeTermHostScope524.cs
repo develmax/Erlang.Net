@@ -40,7 +40,7 @@ public sealed class NativeTermHostScope524 : IDisposable
         lock (gate)
             ObjectDisposedException.ThrowIf(disposed, this);
         // Resource/heap/domain traversal must not run under the host-scope gate.
-        IDisposable? lease = NativeResourceRoots524.RetainGraph524(value, runtime);
+        IDisposable? lease = NativeResourceRoots524.RetainGraph524(value, runtime, hostAtomics586: true);
         if (lease is null) return value;
         try
         {

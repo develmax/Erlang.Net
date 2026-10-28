@@ -75,6 +75,13 @@ internal sealed partial class RuntimeEtsStoredObject
         return owned.Materialize(cancellation);
     }
 
+    internal Term MaterializeSelected594(CancellationToken cancellation, AtomicsHostCopyTransaction591 transaction)
+    {
+        var current = Volatile.Read(ref payload) ?? throw new ObjectDisposedException(nameof(RuntimeEtsStoredObject));
+
+        return current.MaterializeSelected594(cancellation, transaction);
+    }
+
     internal void Release()
     {
         RuntimeEtsStoredPayload? retired = null;

@@ -42,7 +42,11 @@ internal static class AtomicsHost413Checks
             reference
         );
         AtomicsHost413Access.Require(info.TryGet(Term.A(AtomicsHost413Names.Memory), out Term? memory)
-            && memory!.Equals(new Integer(new BigInteger(runtime.AtomicsStorage413.OwnedNativeBytes))));
+            && memory is Integer originalBytes
+            && originalBytes.Value + System.Runtime.InteropServices.Marshal.OffsetOf(
+                typeof(ProcessRuntime).Assembly.GetType(AtomicsHost413Names.MagicHeaderType586, true)!,
+                AtomicsHost413Names.DestructorField586
+            ).ToInt64() == runtime.AtomicsStorage413.OwnedNativeBytes);
         AtomicsHost413Access.Require(runtime.AtomicsStorage413.Created == 1 && runtime.AtomicsStorage413.LiveArrays == 1
             && runtime.AtomicsStorage413.ActiveInvocations == 0);
     }

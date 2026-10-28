@@ -1,0 +1,43 @@
+{
+  "Partial": true,
+  "SelectedCount": 5,
+  "TotalCount": 9263,
+  "Blocks": [],
+  "ExactCases": [
+    "oracle/compiled-module/debug-dirty424-all948-full-typed-raw",
+    "runtime/atomics595/dirty-copy-foreign-before-stale-without-entry-grant",
+    "runtime/atomics595/dirty-copy-host-wrapper-survives-source-drop",
+    "runtime/external-term-wide-shared-graph-bounded-work-and-domain-checks",
+    "runtime/native-map510/foreign-domain-fails-closed"
+  ],
+  "Passed": 4,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "runtime/atomics595/dirty-copy-host-wrapper-survives-source-drop",
+      "Status": "Passed",
+      "Milliseconds": 114
+    },
+    {
+      "Name": "runtime/atomics595/dirty-copy-foreign-before-stale-without-entry-grant",
+      "Status": "Passed",
+      "Milliseconds": 15
+    },
+    {
+      "Name": "oracle/compiled-module/debug-dirty424-all948-full-typed-raw",
+      "Status": "Passed",
+      "Milliseconds": 28403
+    },
+    {
+      "Name": "runtime/external-term-wide-shared-graph-bounded-work-and-domain-checks",
+      "Status": "Passed",
+      "Milliseconds": 94
+    },
+    {
+      "Name": "runtime/native-map510/foreign-domain-fails-closed",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Sequence contains no matching element\r\n   at System.Linq.ThrowHelper.ThrowNoMatchException()\r\n   at System.Linq.Enumerable.Single[TSource](IEnumerable\u00601 source, Func\u00602 predicate)\r\n   at Erlang.Tests.NativeMapOwned510Checks.Call(Object target, String method, Object[] arguments) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Memory\\NativeMapOwned510Checks.cs:line 296\r\n   at Erlang.Tests.NativeMapOwned510Checks.ForeignDomainFailsClosed() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Memory\\NativeMapOwned510Checks.cs:line 172\r\n   at Erlang.Tests.NativeMapOwned510Checks.ForeignDomainFailsClosed() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Memory\\NativeMapOwned510Checks.cs:line 182\r\n   at Erlang.Tests.NativeMapOwned510Checks.ForeignDomainFailsClosed() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Memory\\NativeMapOwned510Checks.cs:line 182\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7531",
+      "Milliseconds": 23
+    }
+  ]
+}

@@ -14,6 +14,22 @@ internal sealed class PersistentArenaRead416(
     private PersistentArenaRoots416? bundle = roots;
 
     internal TupleTerm Materialize(CancellationToken cancellation)
+        => MaterializeSelected591(cancellation, true, false);
+
+    internal TupleTerm MaterializeSelected591(CancellationToken cancellation, bool admitResults = true, bool valueOnly = false)
+        => MaterializeSelected594(
+            cancellation,
+            admitResults,
+            valueOnly,
+            null
+        );
+
+    internal TupleTerm MaterializeSelected594(
+        CancellationToken cancellation,
+        bool admitResults,
+        bool valueOnly,
+        AtomicsHostCopyTransaction591? transaction
+    )
     {
         lock (gate)
         {
@@ -27,7 +43,14 @@ internal sealed class PersistentArenaRead416(
                 bytes
             );
 
-            return (TupleTerm)PersistentArenaCodec416.Decode(copy, bundle!, cancellation);
+            return (TupleTerm)PersistentArenaCodec416.DecodeSelected594(
+                copy,
+                bundle!,
+                cancellation,
+                admitResults,
+                valueOnly,
+                transaction
+            );
         }
     }
 

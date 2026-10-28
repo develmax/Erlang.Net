@@ -100,17 +100,43 @@ public sealed partial class RuntimeReferenceResources
     internal ReferenceTerm Rehydrate(ReferenceTerm reference, LocalNodeSnapshot wire)
     {
         ArgumentNullException.ThrowIfNull(reference);
+        ResourceReferenceTerm? atomics = null;
+        AtomicsBackingLease586? producer = null;
+        ReferenceTerm restored;
         lock (gate)
         {
             bool local = ReferenceEquals(reference.LocalIdentity, localIdentity) || reference.Node == wire.Node && reference.Creation == wire.Creation;
-            ReferenceTerm restored = local ? new ReferenceTerm(localIdentity, reference.Words) : new ReferenceTerm(reference.Node, reference.Words, reference.Creation);
-            if (!closed && local &&
-                reference.Words.Count == ReferenceIdentityLayout.LocalWords && (reference.Words[1] & ReferenceNumberLayout.MagicMarker) != 0 &&
-                entries.TryGetValue(restored, out var weak) && weak.TryGetTarget(out var entry) && entry.Published && entry.IsAlive)
-                return new ResourceReferenceTerm(entry);
-
-            return restored;
+            restored = local ? new ReferenceTerm(localIdentity, reference.Words) : new ReferenceTerm(reference.Node, reference.Words, reference.Creation);
+            if (!closed && local && reference.Words.Count == ReferenceIdentityLayout.LocalWords
+                && (reference.Words[1] & ReferenceNumberLayout.MagicMarker) != 0
+                && entries.TryGetValue(restored, out var weak) && weak.TryGetTarget(out var entry) && entry.Published && entry.IsAlive)
+            {
+                if (entry.Kind != ReferenceResourceKind.Atomics413)
+                    return new ResourceReferenceTerm(entry);
+                AtomicsGuestRoot413 root = entry.Read<AtomicsGuestRoot413>();
+                try
+                {
+                    producer = root.Array.RetainBacking586(AtomicsLeaseKind586.Producer);
+                }
+                catch (ObjectDisposedException)
+                {
+                    return restored;
+                }
+                try
+                {
+                    atomics = new ResourceReferenceTerm(entry);
+                }
+                catch
+                {
+                    producer.Dispose();
+                    throw;
+                }
+            }
         }
+        if (atomics is null)
+            return restored;
+        using (producer)
+            return OwnedTermInvocation506.AdmitRehydratedAtomics586(atomics, atomics.AtomicsBacking586!);
     }
 
     internal void Save(ReferenceResourceEntry entry)

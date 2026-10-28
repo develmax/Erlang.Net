@@ -1,3 +1,11 @@
+# Active implementation checkpoint — Part532 (2026-10-28)
+
+Part531 is merged in main as bda187874 after exact-head CI40702663208 passed9236/9236 and all three jobs, with final review/comments/threads checked. The merge's own CI40711888368 is tracked separately.
+
+Part532 final local gates pass9263/9263 (+27), preserving all9236 previous names. Real atomics backing and typed producer/guest/host/store/operation custody are integrated, including failed-copy and aggregate rollback. Fresh original atomics/counters comparisons pass both execution profiles under the explicit six-reference protocol (literal byte equality remains false); retained native loaders both match whole raw/deterministic5224-byte streams with physical cleanup. Eight source gates and exact3686-member coverage pass. Publication-head CI/review remain separate gates. [Evidence](validation/part-532/README.md).
+
+Read the [Part532 checkpoint](remaining-work/checkpoint-532.md) and [dependency-ordered24-contract plan](remaining-work/plan-24-after-530.md). Registered708 /verified180 /pending504 /known24, API/full deltas0/0. P2b counters and P3–P12 remain open. Older checkpoint headings below are historical.
+
 Final local Part485 acceptance:6540/6540 affected tests;warm and cold configured1321/1321,176 whole captures,9 portable native groups and own-state map protocol,balanced native cleanup and child exit0. Core/test/cold and three package runtime entries match41F9B1DF. Strict readiness preflight8896 preserves all8895 prior ordered names;1685 source bindings. Merge484 CI40189725678 is green. Publication-head full CI remains pending.
 
 # Current checkpoint — Part485

@@ -40,6 +40,7 @@ internal sealed class ProcessBinaryRegistry512
         var seen = new HashSet<Term>(ReferenceEqualityComparer.Instance);
         var backings = new Dictionary<object, BinaryPayloadHandle512>(ReferenceEqualityComparer.Instance);
         HashSet<NativeResourcePayload524>? native = null;
+        HashSet<AtomicsGuestRoot413>? atomics586 = null;
         long visits = 0;
         var pending = new Stack<Term>();
         pending.Push(graph);
@@ -53,6 +54,9 @@ internal sealed class ProcessBinaryRegistry512
             if (NativeResourceRoots524.Direct524(value, (owner as ProcessTermHeap506)?.Runtime524) is { } resource
                 && !ProcessTermHeap506.HasOwnedMagicReference576(value))
                 (native ??= new(ReferenceEqualityComparer.Instance)).Add(resource);
+            if (AtomicsRoots586.Direct586(value, (owner as ProcessTermHeap506)?.Runtime524) is { } atomics
+                && !ProcessTermHeap506.HasOwnedMagicReference576(value))
+                (atomics586 ??= new(ReferenceEqualityComparer.Instance)).Add(atomics);
             if (value is BitString binary)
             {
                 BinaryPayloadHandle512 handle = binary.CaptureBinaryPayload512();
@@ -62,13 +66,15 @@ internal sealed class ProcessBinaryRegistry512
                 foreach (Term child in NativeMapOwnedRoots510.Children(value))
                     pending.Push(child);
         }
-        var retained = new IDisposable[native?.Count ?? 0];
+        var retained = new IDisposable[(native?.Count ?? 0) + (atomics586?.Count ?? 0)];
         int admitted = 0;
         ProcessBinaryLease512 lease;
         try
         {
             if (native is not null)
                 foreach (NativeResourcePayload524 payload in native) retained[admitted++] = payload.RetainRoot524();
+            if (atomics586 is not null)
+                foreach (AtomicsGuestRoot413 root in atomics586) retained[admitted++] = root.RetainGuest586();
             lease = new ProcessBinaryLease512(
                 this,
                 owner,
@@ -76,9 +82,20 @@ internal sealed class ProcessBinaryRegistry512
                 retained.Length == 0 ? null : new NativeResourceRootSet524(retained)
             );
         }
-        catch
+        catch (Exception original)
         {
-            for (int index = admitted - 1; index >= 0; index--) retained[index].Dispose();
+            Exception? cleanupFailure = null;
+            for (int index = admitted - 1; index >= 0; index--)
+                try
+                {
+                    retained[index].Dispose();
+                }
+                catch (Exception error)
+                {
+                    cleanupFailure ??= error;
+                }
+            if (cleanupFailure is not null)
+                throw new AggregateException(original, cleanupFailure);
             throw;
         }
         try

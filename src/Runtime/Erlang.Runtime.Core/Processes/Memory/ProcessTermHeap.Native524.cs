@@ -9,7 +9,7 @@ internal sealed partial class ProcessTermHeap506
     // Caller owns Gate and keeps the complete input graph rooted during admission.
     internal ProcessNativePublication524? PrepareNativeHeaders524(Term graph, bool legacyHeaders576 = true)
     {
-        if (!NativeResourceAddresses524.AnyLive524)
+        if (!NativeResourceAddresses524.AnyLive524 && magicReferences576.Count == 0)
             return null;
         var seen = new HashSet<Term>(ReferenceEqualityComparer.Instance);
         var pending = new Stack<Term>();

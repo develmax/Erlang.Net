@@ -7,7 +7,7 @@ internal sealed partial class ProcessTermHeap506
     private nint magicOffHeap576;
 
     internal bool IsNativeMagicReference576(Term value)
-        => value is ResourceReferenceTerm { ResourceKind: ReferenceResourceKind.NativeResource524 };
+        => value is ResourceReferenceTerm { ResourceKind: ReferenceResourceKind.NativeResource524 or ReferenceResourceKind.Atomics413 };
 
     internal static bool HasOwnedMagicReference576(Term value)
         => value is ResourceReferenceTerm { OwnedStorage562: ProcessTermSequence506 block }
@@ -21,6 +21,8 @@ internal sealed partial class ProcessTermHeap506
 
     internal ResourceReferenceTerm CreateMagicReference576(ResourceReferenceTerm source, ProcessTermConstruction514 construction)
     {
+        if (source.ResourceKind == ReferenceResourceKind.Atomics413)
+            return CreateAtomicsMagic586(source, construction);
         if (source.ResourceKind != ReferenceResourceKind.NativeResource524
             || !ReferenceEquals(source.Entry.Owner, runtime.ReferenceResources))
             throw new NotSupportedException(NativeResource524Names.Foreign);
@@ -167,7 +169,7 @@ internal sealed partial class ProcessTermHeap506
         if (!magicReferences576.TryGetValue(block.Identity, out var typed) || typed.Kind != NativeOffheapKind576.MagicReference)
             return false;
         NativeOffheapHeader576 owned = RequireMagicReference576(block);
-        numbers = owned.Payload.ReadMagicNumbers576(owned.Binary);
+        numbers = owned.ReadNumbers586();
 
         return true;
     }

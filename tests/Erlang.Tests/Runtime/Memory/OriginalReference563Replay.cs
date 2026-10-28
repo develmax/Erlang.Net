@@ -4,7 +4,7 @@ using static Erlang.Tests.OriginalReference563Names;
 
 namespace Erlang.Tests;
 
-internal static class OriginalReference563Replay
+internal static partial class OriginalReference563Replay
 {
     internal static async Task Run(
         string repository,
@@ -17,10 +17,32 @@ internal static class OriginalReference563Replay
     )
     {
         repository = System.IO.Path.GetFullPath(repository);
+        OriginalReference563Admission receipt = OriginalReference563AdmissionReader.Read(repository, admission, admissionSha);
+        await RunAdmitted588(
+            repository,
+            receipt,
+            metadataCompletion,
+            metadataSha,
+            owned,
+            output,
+            null
+        );
+    }
+
+    private static async Task RunAdmitted588(
+        string repository,
+        OriginalReference563Admission receipt,
+        string metadataCompletion,
+        string metadataSha,
+        bool owned,
+        string output,
+        OriginalAtomics588Admission? atomics,
+        bool atomicsOwnRef590 = false
+    )
+    {
         output = System.IO.Path.GetFullPath(output);
         if (Directory.Exists(output))
             throw new InvalidDataException(Failure);
-        OriginalReference563Admission receipt = OriginalReference563AdmissionReader.Read(repository, admission, admissionSha);
         RuntimeNativeMetadataImage metadata = OriginalFloat556Metadata.ReadProvider(
             repository,
             receipt.ProviderBeforePath,
@@ -28,126 +50,201 @@ internal static class OriginalReference563Replay
             metadataSha
         );
         bool loaderMap = receipt.Job == OriginalLoaderMap528Names.Job;
-        string subjectName = loaderMap ? OriginalLoaderMap528Names.Subject : Subject;
+        string subjectName = atomics is not null ? OriginalAtomics588Names.Subject : loaderMap ? OriginalLoaderMap528Names.Subject : Subject;
         Directory.CreateDirectory(output);
-        await using var runtime = OwnedGuest506RuntimeFactory.Create(owned, metadata);
-        bool actualOwned = (bool)typeof(ProcessRuntime).GetProperty(
-            OwnedGuest506Names.PrivateOption,
-            BindingFlags.Instance | BindingFlags.NonPublic
-        )!.GetValue(runtime)!;
-        Require(actualOwned == owned);
-        await DebugSame420HostAccess.Initialize(runtime);
-        await runtime.InitializeModulesAsync(registry =>
+        var runtime = OwnedGuest506RuntimeFactory.Create(owned, metadata);
+        Exception? primary588 = null;
+        try
         {
-            RuntimeBootstrapDebugSharing425.Register(runtime, registry);
-            if (loaderMap)
-                RuntimeBootstrapMapKeys426.Register(runtime, registry);
-        });
-        PreparedBeamImage subject = runtime.Modules.PrepareBeam(
-            File.ReadAllBytes(OriginalReference563AdmissionReader.Resolve(repository, receipt.BeamPath)),
-            new BeamDependencySelection(loaderMap
-                ? new[] { Core, Debug, OriginalLoaderMap528Names.InternalModule, OriginalLoaderMap528Names.MapsModule, OriginalLoaderMap528Names.OtherSubject }
-                : new[] { Core, Debug })
-        );
-        PreparedBeamImage worker = runtime.Modules.PrepareBeam(
-            File.ReadAllBytes(OriginalReference563AdmissionReader.Resolve(repository, receipt.WorkerBeamPath)),
-            new BeamDependencySelection(new[] { Core, subjectName })
-        );
-        Require(subject.Name == subjectName && worker.Name == Worker
-            && !subject.HasOnLoad && !worker.HasOnLoad
-            && subject.NativePrimitiveExports.Count == 0 && worker.NativePrimitiveExports.Count == 0
-            && subject.OriginalBeamSha256 == receipt.BeamSha256
-            && worker.OriginalBeamSha256 == receipt.WorkerBeamSha256);
-        PreparedBeamImage? other = loaderMap ? runtime.Modules.PrepareBeam(
-            File.ReadAllBytes(OriginalReference563AdmissionReader.Resolve(repository, receipt.OtherBeamPath!)),
-            new BeamDependencySelection(Array.Empty<string>())
-        ) : null;
-        if (other is not null)
-            Require(other.Name == OriginalLoaderMap528Names.OtherSubject && !other.HasOnLoad
-                && other.NativePrimitiveExports.Count == 0 && other.OriginalBeamSha256 == receipt.OtherBeamSha256);
-        Require(runtime.Modules.PublishPreparedBeam(other is null ? [subject, worker] : [other, subject, worker]).Status == BeamPublicationStatus.Published);
-        var completed = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
-        ProcessHandle controller = runtime.Spawn(async context =>
-        {
-            try
+            bool actualOwned = (bool)typeof(ProcessRuntime).GetProperty(
+                OwnedGuest506Names.PrivateOption,
+                BindingFlags.Instance | BindingFlags.NonPublic
+            )!.GetValue(runtime)!;
+            Require(actualOwned == owned);
+            await DebugSame420HostAccess.Initialize(runtime);
+            await runtime.InitializeModulesAsync(registry =>
             {
-                Require(ReferenceEquals(runtime.Modules.SourceOwner(subjectName, OriginalReference563Names.Run, 0), subject)
-                    && ReferenceEquals(runtime.Modules.SourceOwner(Worker, OriginalReference563Names.Run, 1), worker)
-                    && (other is null || ReferenceEquals(runtime.Modules.SourceOwner(OriginalLoaderMap528Names.OtherSubject, OriginalLoaderMap528Names.OtherFunction, 1), other)));
-                Term actual = await runtime.Modules.Call(
-                    context,
-                    Worker,
-                    OriginalReference563Names.Run,
-                    Term.A(subjectName)
-                );
-                Term minor = Term.Tuple(Term.A(MinorVersion), Term.I(2));
-                var raw = (BitString)await runtime.Modules.Call(
-                    context,
-                    Core,
-                    Encode,
-                    actual,
-                    Term.List(minor)
-                );
-                var deterministic = (BitString)await runtime.Modules.Call(
-                    context,
-                    Core,
-                    Encode,
-                    actual,
-                    Term.List(Term.A(Deterministic), minor)
-                );
-                byte[] actualRaw = raw.ToArray();
-                byte[] actualDeterministic = deterministic.ToArray();
-                await File.WriteAllBytesAsync(System.IO.Path.Combine(output, RawFile), actualRaw);
-                await File.WriteAllBytesAsync(System.IO.Path.Combine(output, DeterministicFile), actualDeterministic);
-                byte[] original = File.ReadAllBytes(OriginalReference563AdmissionReader.Resolve(repository, receipt.DeterministicPath));
-                byte[] originalRaw = File.ReadAllBytes(OriginalReference563AdmissionReader.Resolve(repository, receipt.RawPath));
-                bool successfulCases = loaderMap ? HasLoaderMapCases(actual) : HasSuccessfulCases(actual);
-                bool rawEqual = actualRaw.AsSpan().SequenceEqual(originalRaw);
-                bool deterministicEqual = actualDeterministic.AsSpan().SequenceEqual(original);
-                Require(ReferenceEquals(runtime.Modules.SourceOwner(subjectName, OriginalReference563Names.Run, 0), subject)
-                    && ReferenceEquals(runtime.Modules.SourceOwner(Worker, OriginalReference563Names.Run, 1), worker)
-                    && (other is null || ReferenceEquals(runtime.Modules.SourceOwner(OriginalLoaderMap528Names.OtherSubject, OriginalLoaderMap528Names.OtherFunction, 1), other)));
-                await File.WriteAllTextAsync(
-                    System.IO.Path.Combine(output, ComparisonFile),
-                    JsonSerializer.Serialize(new
-                    {
-                        Passed = rawEqual && deterministicEqual && successfulCases,
-                        RequiredSuccessfulCases = successfulCases,
-                        WholeDefaultEtfEqual = rawEqual,
-                        WholeDeterministicEtfEqual = deterministicEqual,
-                        OwnedProfile = actualOwned,
-                        SourcePin = Pin,
-                        SubjectBeamSha256 = receipt.BeamSha256,
-                        WorkerBeamSha256 = receipt.WorkerBeamSha256,
-                        WorkerSourceSha256 = receipt.WorkerSourceSha256,
-                        EffectiveNativeMetadataSha256 = metadata.OriginalBeamSha256,
-                        WholeRawValuesAndStacksCompared = true,
-                        Comparison = "BothWholeDefaultAndDeterministicETFBytes",
-                        RawEtfRetained = true,
-                        RawEtfRewritten = false,
-                        FullContractsClosed = 0
-                    })
-                );
-                Require(rawEqual && deterministicEqual && successfulCases);
-                completed.TrySetResult();
-            }
-            catch (Exception error)
+                RuntimeBootstrapDebugSharing425.Register(runtime, registry);
+                if (atomics is not null) RuntimeBootstrapAtomics.Register(runtime, registry);
+                if (loaderMap)
+                    RuntimeBootstrapMapKeys426.Register(runtime, registry);
+            });
+            PreparedBeamImage[] stockImages = atomics is null ? [] : OriginalAtomics588Images.Prepare(runtime, repository, atomics);
+            PreparedBeamImage subject = runtime.Modules.PrepareBeam(
+                File.ReadAllBytes(OriginalReference563AdmissionReader.Resolve(repository, receipt.BeamPath)),
+                new BeamDependencySelection(atomics is not null
+                    ? DynamicApplyBoundary520Imports.Read(File.ReadAllBytes(OriginalReference563AdmissionReader.Resolve(repository, receipt.BeamPath)))
+                    : loaderMap
+                    ? new[] { Core, Debug, OriginalLoaderMap528Names.InternalModule, OriginalLoaderMap528Names.MapsModule, OriginalLoaderMap528Names.OtherSubject }
+                    : new[] { Core, Debug })
+            );
+            PreparedBeamImage worker = runtime.Modules.PrepareBeam(
+                File.ReadAllBytes(OriginalReference563AdmissionReader.Resolve(repository, receipt.WorkerBeamPath)),
+                new BeamDependencySelection(new[] { Core, subjectName })
+            );
+            Require(subject.Name == subjectName && worker.Name == Worker
+                && !subject.HasOnLoad && !worker.HasOnLoad
+                && subject.NativePrimitiveExports.Count == 0 && worker.NativePrimitiveExports.Count == 0
+                && subject.OriginalBeamSha256 == receipt.BeamSha256
+                && worker.OriginalBeamSha256 == receipt.WorkerBeamSha256);
+            if (atomics is not null) OriginalAtomics588Images.RequireWorkers(repository, atomics, [subject, worker]);
+            PreparedBeamImage? other = loaderMap ? runtime.Modules.PrepareBeam(
+                File.ReadAllBytes(OriginalReference563AdmissionReader.Resolve(repository, receipt.OtherBeamPath!)),
+                new BeamDependencySelection(Array.Empty<string>())
+            ) : null;
+            if (other is not null)
+                Require(other.Name == OriginalLoaderMap528Names.OtherSubject && !other.HasOnLoad
+                    && other.NativePrimitiveExports.Count == 0 && other.OriginalBeamSha256 == receipt.OtherBeamSha256);
+            Require(runtime.Modules.PublishPreparedBeam(atomics is not null ? [.. stockImages, subject, worker]
+                : other is null ? [subject, worker] : [other, subject, worker]).Status == BeamPublicationStatus.Published);
+            var completed = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+            ProcessHandle controller = runtime.Spawn(async context =>
             {
                 try
                 {
-                    await File.WriteAllTextAsync(System.IO.Path.Combine(output, FailureFile), error.ToString());
-                    completed.TrySetException(error);
+                    Require(ReferenceEquals(runtime.Modules.SourceOwner(subjectName, OriginalReference563Names.Run, 0), subject)
+                        && ReferenceEquals(runtime.Modules.SourceOwner(Worker, OriginalReference563Names.Run, 1), worker)
+                        && ReferenceEquals(runtime.Modules.SourceOwner(Worker, WorkerFunction, WorkerArity), worker)
+                        && (other is null || ReferenceEquals(runtime.Modules.SourceOwner(OriginalLoaderMap528Names.OtherSubject, OriginalLoaderMap528Names.OtherFunction, 1), other)));
+                    if (atomics is not null) OriginalAtomics588Images.RequireOwners(
+                        runtime,
+                        stockImages,
+                        repository,
+                        atomics
+                    );
+                    if (atomics is not null) await OriginalAtomics588Images.CaptureOwners(
+                        context,
+                        runtime,
+                        stockImages,
+                        output,
+                        OriginalAtomics588MetadataNames.BeforePhase
+                    );
+                    Term actual = await runtime.Modules.Call(
+                        context,
+                        Worker,
+                        OriginalReference563Names.Run,
+                        Term.A(subjectName)
+                    );
+                    Term minor = Term.Tuple(Term.A(MinorVersion), Term.I(2));
+                    var raw = (BitString)await runtime.Modules.Call(
+                        context,
+                        Core,
+                        Encode,
+                        actual,
+                        Term.List(minor)
+                    );
+                    var deterministic = (BitString)await runtime.Modules.Call(
+                        context,
+                        Core,
+                        Encode,
+                        actual,
+                        Term.List(Term.A(Deterministic), minor)
+                    );
+                    byte[] actualRaw = raw.ToArray();
+                    byte[] actualDeterministic = deterministic.ToArray();
+                    await File.WriteAllBytesAsync(System.IO.Path.Combine(output, RawFile), actualRaw);
+                    await File.WriteAllBytesAsync(System.IO.Path.Combine(output, DeterministicFile), actualDeterministic);
+                    byte[] original = File.ReadAllBytes(OriginalReference563AdmissionReader.Resolve(repository, receipt.DeterministicPath));
+                    byte[] originalRaw = File.ReadAllBytes(OriginalReference563AdmissionReader.Resolve(repository, receipt.RawPath));
+                    bool successfulCases = atomics is not null ? OriginalAtomics588Cases.HasSuccessfulCases(actual)
+                        : loaderMap ? HasLoaderMapCases(actual) : HasSuccessfulCases(actual);
+                    bool rawEqual = actualRaw.AsSpan().SequenceEqual(originalRaw);
+                    bool deterministicEqual = actualDeterministic.AsSpan().SequenceEqual(original);
+                    OriginalAtomics590Result? ownRefDefault = atomicsOwnRef590 && atomics is not null
+                        ? OriginalAtomics590Identity.Compare(originalRaw, actualRaw) : null;
+                    OriginalAtomics590Result? ownRefDeterministic = atomicsOwnRef590 && atomics is not null
+                        ? OriginalAtomics590Identity.Compare(original, actualDeterministic) : null;
+                    bool ownRefProtocol = ownRefDefault is not null && ownRefDeterministic is not null
+                        && OriginalAtomics590Identity.SameBinding(ownRefDefault, ownRefDeterministic);
+                    bool protocolPassed = rawEqual && deterministicEqual || ownRefProtocol;
+                    Require(ReferenceEquals(runtime.Modules.SourceOwner(subjectName, OriginalReference563Names.Run, 0), subject)
+                        && ReferenceEquals(runtime.Modules.SourceOwner(Worker, OriginalReference563Names.Run, 1), worker)
+                        && ReferenceEquals(runtime.Modules.SourceOwner(Worker, WorkerFunction, WorkerArity), worker)
+                        && (other is null || ReferenceEquals(runtime.Modules.SourceOwner(OriginalLoaderMap528Names.OtherSubject, OriginalLoaderMap528Names.OtherFunction, 1), other)));
+                    if (atomics is not null) OriginalAtomics588Images.RequireOwners(
+                        runtime,
+                        stockImages,
+                        repository,
+                        atomics
+                    );
+                    if (atomics is not null) await OriginalAtomics588Images.CaptureOwners(
+                        context,
+                        runtime,
+                        stockImages,
+                        output,
+                        OriginalAtomics588MetadataNames.AfterPhase
+                    );
+                    await File.WriteAllTextAsync(
+                        System.IO.Path.Combine(output, ComparisonFile),
+                        JsonSerializer.Serialize(new
+                        {
+                            Passed = protocolPassed && successfulCases,
+                            OwnReferenceProtocolOptIn = atomicsOwnRef590,
+                            OwnReferenceProtocolPassed = ownRefProtocol,
+                            OwnReferenceDefault = ownRefDefault,
+                            OwnReferenceDeterministic = ownRefDeterministic,
+                            RequiredSuccessfulCases = successfulCases,
+                            WholeDefaultEtfEqual = rawEqual,
+                            WholeDeterministicEtfEqual = deterministicEqual,
+                            OwnedProfile = actualOwned,
+                            SourcePin = Pin,
+                            SubjectBeamSha256 = receipt.BeamSha256,
+                            StockImages = stockImages.Select(image => new
+                            {
+                                image.Name,
+                                image.OriginalBeamSha256,
+                                NativeMd5 = Convert.ToHexString(image.NativeMd5.ToArray()),
+                                Dependencies = image.RegistryModuleDependencies.Order(StringComparer.Ordinal).ToArray()
+                            }).ToArray(),
+                            WorkerBeamSha256 = receipt.WorkerBeamSha256,
+                            WorkerSourceSha256 = receipt.WorkerSourceSha256,
+                            EffectiveNativeMetadataSha256 = metadata.OriginalBeamSha256,
+                            WholeRawValuesAndStacksCompared = true,
+                            Comparison = atomicsOwnRef590 ? OriginalAtomics590Names.ComparisonLaw
+                                : WholeByteComparisonLaw,
+                            RawEtfRetained = true,
+                            RawEtfRewritten = false,
+                            FullContractsClosed = 0
+                        })
+                    );
+                    Require(protocolPassed && successfulCases);
+                    completed.TrySetResult();
                 }
-                catch (Exception evidenceError)
+                catch (Exception error)
                 {
-                    completed.TrySetException(new AggregateException(error, evidenceError));
+                    try
+                    {
+                        await File.WriteAllTextAsync(System.IO.Path.Combine(output, FailureFile), error.ToString());
+                        completed.TrySetException(error);
+                    }
+                    catch (Exception evidenceError)
+                    {
+                        completed.TrySetException(new AggregateException(error, evidenceError));
+                    }
                 }
-            }
 
-            return Nil.Value;
-        });
-        await completed.Task.WaitAsync(Deadline);
-        await controller.Completion.WaitAsync(Deadline);
+                return Nil.Value;
+            });
+            await completed.Task.WaitAsync(Deadline);
+            await controller.Completion.WaitAsync(Deadline);
+        }
+        catch (Exception error)
+        {
+            primary588 = error;
+            throw;
+        }
+        finally
+        {
+            try
+            {
+                await runtime.DisposeAsync().AsTask().WaitAsync(Deadline);
+            }
+            catch (Exception cleanup)
+            {
+                if (primary588 is not null) throw new AggregateException(primary588, cleanup);
+                throw;
+            }
+        }
     }
 
     private static bool HasLoaderMapCases(Term workerResult)

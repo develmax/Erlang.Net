@@ -7,6 +7,40 @@ using Erlang;
 using Erlang.Compiler;
 using Erlang.Otp;
 
+if (args is [Erlang.Tests.OriginalAtomics590Names.ChildSwitch, var ownRefRepository, var ownRefAdmission,
+    var ownRefAdmissionSha, var ownRefMetadata, var ownRefMetadataSha, var ownRefOwned, var ownRefOutput])
+{
+    await Erlang.Tests.OriginalReference563Replay.RunAtomics590(
+        ownRefRepository,
+        ownRefAdmission,
+        ownRefAdmissionSha,
+        ownRefMetadata,
+        ownRefMetadataSha,
+        bool.Parse(ownRefOwned),
+        ownRefOutput
+    );
+
+    return 0;
+}
+
+if (args is [Erlang.Tests.OriginalAtomics588Names.ChildSwitch, var atomicsRepository,
+    var atomicsAdmission, var atomicsAdmissionSha, var atomicsMetadata, var atomicsMetadataSha,
+    var atomicsOwned, var atomicsOutput])
+{
+    await Erlang.Tests.OriginalReference563Replay.RunAtomics588(
+        atomicsRepository,
+        atomicsAdmission,
+        atomicsAdmissionSha,
+        atomicsMetadata,
+        atomicsMetadataSha,
+        bool.Parse(atomicsOwned),
+        atomicsOutput
+    );
+
+    return 0;
+}
+
+
 if (args.Length > 0 && args[0] == Erlang.Tests.TermOrderHostNames.ChildSwitch)
     return Erlang.Tests.TermOrderProbeHostMain.Run(args);
 
@@ -149,6 +183,55 @@ catch (ArgumentException failure)
 }
 
 var tests = new List<(string Name, Func<Task> Body)>();
+Test(Erlang.Tests.OriginalAtomics590Names.IdentityCase, Erlang.Tests.OriginalAtomics590Checks.AliasDomainAndStackRefusal);
+Test(
+    Erlang.Tests.OriginalAtomics588Names.CoverageCase,
+    Erlang.Tests.OriginalAtomics588CaseChecks.HiddenFailureAndMissingCoverage
+);
+Test(
+    Erlang.Tests.AtomicsDictionaryHost589Names.GetterCase,
+    Erlang.Tests.AtomicsDictionaryHost589Checks.GetterSurvivesEraseAndCollection
+);
+Test(
+    Erlang.Tests.AtomicsDictionaryHost589Names.SnapshotCase,
+    Erlang.Tests.AtomicsDictionaryHost589Checks.SnapshotSurvivesEraseAndCollection
+);
+Test(Erlang.Tests.AtomicsStore590Names.SendCase, Erlang.Tests.AtomicsStore590Checks.QueueHandoff);
+Test(Erlang.Tests.AtomicsStore590Names.EtsCase, Erlang.Tests.AtomicsStore590Checks.EtsHandoff);
+Test(Erlang.Tests.AtomicsStore590Names.PersistentCase, Erlang.Tests.AtomicsStore590Checks.PersistentHandoff);
+Test(Erlang.Tests.AtomicsRetirement590Names.Test, Erlang.Tests.AtomicsRetirement590Checks.PhysicalFailureForgetsReference);
+Test(
+    Erlang.Tests.AtomicsPersistentSelection591Names.KeyCase,
+    Erlang.Tests.AtomicsPersistentSelection591Checks.UnusedKeyDoesNotEscape
+);
+Test(
+    Erlang.Tests.AtomicsPersistentSelection591Names.AliasCase,
+    Erlang.Tests.AtomicsPersistentSelection591Checks.EscapingAliasRetainsBacking
+);
+Test(Erlang.Tests.AtomicsReservation591Names.ValueCase, Erlang.Tests.AtomicsReservation591Checks.PublicValueAndClose);
+Test(Erlang.Tests.AtomicsReservation591Names.PinCase, Erlang.Tests.AtomicsReservation591Checks.ActivePinStillJoins);
+Test(
+    Erlang.Tests.AtomicsReservation591Names.CloseCase,
+    Erlang.Tests.AtomicsReservation591Checks.RetainedReservationCloseOnly
+);
+Test(
+    Erlang.Tests.AtomicsExportRollback593Names.RollbackCase,
+    Erlang.Tests.AtomicsExportRollback593Checks.LateFailureReleasesActualBacking
+);
+Test(
+    Erlang.Tests.AtomicsExportRollback593Names.CommitCase,
+    Erlang.Tests.AtomicsExportRollback593Checks.SuccessfulCopyTransfersToWrappers
+);
+Test(Erlang.Tests.AtomicsAggregate594Names.GetAllCase, Erlang.Tests.AtomicsAggregate594Checks.GetAllLaterAreaFailure);
+Test(Erlang.Tests.AtomicsAggregate594Names.SnapshotCase, Erlang.Tests.AtomicsAggregate594Checks.SnapshotLaterAreaFailure);
+Test(Erlang.Tests.AtomicsAggregate594Names.PairsCase, Erlang.Tests.AtomicsAggregate594Checks.PairsLaterAreaFailure);
+Test(Erlang.Tests.AtomicsEtsAggregate594Names.Case, Erlang.Tests.AtomicsEtsAggregate594Checks.LaterRowFailure);
+Test(Erlang.Tests.AtomicsMagic586Names.PhysicalTest, Erlang.Tests.AtomicsMagic586Checks.PhysicalHeaders);
+Test(Erlang.Tests.AtomicsMagic586Names.GenerationsTest, Erlang.Tests.AtomicsMagic586Checks.Generations);
+Test(Erlang.Tests.AtomicsMagic586Names.ForeignTest, Erlang.Tests.AtomicsMagic586Checks.ForeignBeforeStale);
+Test(Erlang.Tests.AtomicsP2a586Names.GuestTest, Erlang.Tests.AtomicsP2a586Checks.GuestRetirementIgnoresStaleClrEntry);
+Test(Erlang.Tests.AtomicsP2a586Names.PinTest, Erlang.Tests.AtomicsP2a586Checks.ActivePinOutlivesLastGuestRoot);
+Test(Erlang.Tests.AtomicsP2a586Names.HostTest, Erlang.Tests.AtomicsP2a586Checks.HostCustodyIndependentOfGuest);
 Test(Erlang.Tests.AtomicsLifecycle586Names.GateTest, Erlang.Tests.AtomicsLifecycle586Checks.ShutdownWaitsOutsideRuntimeGate);
 Test(
     Erlang.Tests.AtomicsLifecycle586Names.HeapTest,
@@ -589,6 +672,11 @@ Test(Erlang.Tests.InternalTrace425HostNames.LifetimeTest, Erlang.Tests.InternalT
 Test(Erlang.Tests.MapKeysOriginal426Names.StorageTest, Erlang.Tests.MapKeysHost426Checks.Storage);
 Test(Erlang.Tests.MapKeysOriginal426Names.OwnerTest, Erlang.Tests.MapKeysHost426Checks.Ownership);
 Test(Erlang.Tests.MapKeysOriginal426Names.Test, Erlang.Tests.MapKeysOriginal426Checks.Run);
+Test(
+    Erlang.Tests.DebugDirtyAtomics595Names.ValueCase,
+    Erlang.Tests.DebugDirtyAtomics595Checks.CopiedWrapperSurvivesSourceDrop
+);
+Test(Erlang.Tests.DebugDirtyAtomics595Names.ForeignCase, Erlang.Tests.DebugDirtyAtomics595Checks.ForeignBeforeStale);
 Test(Erlang.Tests.DebugDirtyOriginal424Names.Test, Erlang.Tests.DebugDirtyOriginal424Checks.Run);
 Test(Erlang.Tests.DebugDirty424Names.Values, Erlang.Tests.DebugDirty424Checks.Values);
 Test(Erlang.Tests.DebugDirty424Names.Copies, Erlang.Tests.DebugDirty424Checks.Copies);

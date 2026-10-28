@@ -41,7 +41,12 @@ internal sealed partial class PersistentArenaStore416
         runtime.RequirePersistentActor(context);
         ulong hash = Hash(key);
         using var read = AcquireSnapshot();
-        TupleTerm? found = read.Find(key, hash, context.Cancellation);
+        TupleTerm? found = read.FindSelected591(
+            key,
+            hash,
+            context.Cancellation,
+            valueOnly: true
+        );
 
         return found?.Items[1] ?? fallback ?? throw new ErlangException(ErlangErrorReasons.BadArgument);
     }
@@ -49,9 +54,17 @@ internal sealed partial class PersistentArenaStore416
     internal Term GetAll(ProcessContext context)
     {
         runtime.RequirePersistentActor(context);
+
+        return AtomicsHostAggregate594.Publish(transaction => GetAllSelected594(context, transaction));
+    }
+
+    internal Term GetAllSelected594(ProcessContext context, AtomicsHostCopyTransaction591 transaction)
+    {
+        runtime.RequirePersistentActor(context);
         using var read = AcquireSnapshot();
         Term result = Nil.Value;
-        foreach (var pair in read.Pairs(context.Cancellation)) result = new Cons(pair, result);
+        foreach (var pair in read.PairsSelected594(context.Cancellation, transaction))
+            result = new Cons(pair, result);
 
         return result;
     }
@@ -73,7 +86,12 @@ internal sealed partial class PersistentArenaStore416
         try
         {
             using var read = AcquireSnapshot();
-            TupleTerm? previous = read.Find(key, hash, context.Cancellation);
+            TupleTerm? previous = read.FindSelected591(
+                key,
+                hash,
+                context.Cancellation,
+                admitResults: false
+            );
             if (previous is not null && previous.Items[1].Equals(value))
             {
                 runtime.PublishPersistent(context, () =>
@@ -111,7 +129,7 @@ internal sealed partial class PersistentArenaStore416
                 if (previous is not null && entry.Hash == hash)
                 {
                     using var candidate = entry.Area.AcquireRead();
-                    if (candidate.Materialize(context.Cancellation).Items[0].Equals(key))
+                    if (candidate.MaterializeSelected591(context.Cancellation, admitResults: false).Items[0].Equals(key))
                     {
                         replaced = entry.Area;
                         replacedSlot = entry.Slot;
@@ -187,7 +205,7 @@ internal sealed partial class PersistentArenaStore416
                 if (entry.Hash == hash)
                 {
                     using var read = entry.Area.AcquireRead();
-                    if (read.Materialize(context.Cancellation).Items[0].Equals(key))
+                    if (read.MaterializeSelected591(context.Cancellation, admitResults: false).Items[0].Equals(key))
                     {
                         removed = entry.Area;
                         removedSlot = entry.Slot;
