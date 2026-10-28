@@ -75,7 +75,10 @@ def main():
     if isinstance(inventory,list):
         inventory={row['Path']:row.get('Sha256',row.get('TargetSha256')) for row in inventory if row.get('Sha256',row.get('TargetSha256'))}
     stock_index=json.loads(files['stock-images588.json'].read_bytes())
-    require(stock_index['Schema']==2 and stock_index['ExecutionProfile']=='GENUINE_FILE_LOADED_STOCK_ATOMICS_COUNTERS588','Explicit genuine loaded profile required')
+    stock_policy=load('stock_policy598',tool/'stock-owners588.py')
+    profile=stock_index['ExecutionProfile']
+    require(stock_index['Schema']==2 and profile in (stock_policy.PROFILE,stock_policy.SOURCE_BUILT_PROFILE),'Explicit genuine loaded profile required')
+    require((profile==stock_policy.SOURCE_BUILT_PROFILE)==(before['Profile']==stock_policy.SOURCE_BUILT_PROVIDER),'Initial stock identity policy does not match the admitted provider')
     rows=stock_index['Images']
     require([r['Module'] for r in rows]==['atomics','counters'],'Exact stock pair required')
     for row in rows:
@@ -96,7 +99,7 @@ def main():
     for path in files.values():bind(path)
     bind(completion.parent/'launch-plan.json');bind(source)
     stocks=[dict(Module=r['Module'],BeamPath=bind(files[r['CopiedFile']]),BeamSha256=r['Sha256'],ProviderPath=r['ProviderPath']) for r in rows]
-    result=dict(StockExecutionProfile='GENUINE_FILE_LOADED_STOCK_ATOMICS_COUNTERS588',
+    result=dict(StockExecutionProfile=profile,
         InitialPreloadedOwnersPath=bind(files['stock-owners-initial-preloaded588.etf']),
         StockLoadReceiptsPath=bind(files['stock-load-receipts588.etf']),
         StockNativeWitnessPath=bind(files['stock-loaded-native-witness588.etf']),

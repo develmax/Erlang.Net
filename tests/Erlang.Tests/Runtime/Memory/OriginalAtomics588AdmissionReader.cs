@@ -10,7 +10,8 @@ internal static class OriginalAtomics588AdmissionReader
     {
         Require(Path.IsPathFullyQualified(path) && Digest(path) == expected.ToUpperInvariant());
         var receipt = JsonSerializer.Deserialize<OriginalAtomics588Admission>(File.ReadAllBytes(path))!;
-        Require(receipt.StockExecutionProfile == OriginalAtomics588MetadataNames.StockExecutionProfile);
+        bool sourceBuilt = receipt.StockExecutionProfile == OriginalAtomics588MetadataNames.SourceBuiltStockExecutionProfile;
+        Require(sourceBuilt || receipt.StockExecutionProfile == OriginalAtomics588MetadataNames.StockExecutionProfile);
         var worker = receipt.Worker;
         Require(worker.OriginalAcquisitionPassed && worker.PinnedCommit == OriginalReference563Names.Pin && worker.Job == Job);
         var bound = new Dictionary<string, string>(StringComparer.Ordinal);
@@ -26,6 +27,10 @@ internal static class OriginalAtomics588AdmissionReader
             (worker.CompletionPath,worker.CompletionSha256),(worker.InventoryPath,worker.InventorySha256),
             (worker.ProviderBeforePath,worker.ProviderBeforeSha256),(worker.ProviderAfterPath,worker.ProviderAfterSha256)})
             Require(bound.TryGetValue(row.Item1, out string? value) && value == row.Item2);
+        using var provider = JsonDocument.Parse(File.ReadAllBytes(Resolve(repository, worker.ProviderBeforePath)));
+        bool sourceBuiltProvider = provider.RootElement.GetProperty(OriginalAtomics588MetadataNames.ProviderProfileField).GetString()
+            == OriginalAtomics588MetadataNames.SourceBuiltProviderProfile;
+        Require(sourceBuilt == sourceBuiltProvider && (!sourceBuilt || OperatingSystem.IsLinux()));
         Require(Digest(Path.Combine(repository, Fixture)) == worker.SourceSha256
             && Digest(Path.Combine(repository, OriginalReference563Names.WorkerFixturePath)) == worker.WorkerSourceSha256);
         Require(receipt.Stock.Select(row => row.Module).SequenceEqual(new[] { Atomics, Counters }));

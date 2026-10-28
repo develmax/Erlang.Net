@@ -3,6 +3,9 @@ namespace Erlang.Tests;
 internal static class OriginalAtomics588MetadataNames
 {
     internal const string StockExecutionProfile = "GENUINE_FILE_LOADED_STOCK_ATOMICS_COUNTERS588";
+    internal const string SourceBuiltStockExecutionProfile = "GENUINE_FILE_LOADED_STOCK_ATOMICS_COUNTERS598_SOURCE_BUILT";
+    internal const string SourceBuiltProviderProfile = "PINNED_LINUX_BUILD_RECEIPT_KEY_BINARIES_AND_FULL_BEFORE_AFTER";
+    internal const string ProviderProfileField = "Profile";
     internal const string Md5 = "md5";
     internal const string Compile = "compile";
     internal const string Attributes = "attributes";
@@ -33,4 +36,5 @@ internal static class OriginalAtomics588MetadataNames
     internal const int LoadedFirstMd5Index = 3;
     internal const int LoadedSecondMd5Index = 4;
     internal const int LoadedTraceRowsIndex = 5;
+    internal const int Md5Bits = 128;
 }

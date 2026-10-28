@@ -234,7 +234,7 @@ def main():
                     require(args.compiled_worker and row.get('OptInOnly') and job == 'atomics-magic586'
                             and row['StockModules588'] == ['atomics', 'counters'], 'Unsupported stock-owner profile')
                     stock588 = load('stock_owners588', tool/'stock-owners588.py')
-                    stock588.prepare(installed, directory, row['StockModules588'])
+                    stock588.prepare(installed, directory, row['StockModules588'], source_built=args.build_receipt is not None)
                 compiled_worker = args.compiled_worker and not row.get('PairedProfiles')
                 if compiled_worker:
                     shutil.copyfile(worker_source, directory/worker_source.name)

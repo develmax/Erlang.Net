@@ -123,11 +123,15 @@ internal static class OriginalAtomics588Images
             var before = (TupleTerm)initial[i];
             var load = (TupleTerm)loads[i];
             var image = images[i];
+            Term initialMd5 = before.Items[OriginalAtomics588MetadataNames.OwnerRunningMd5Index];
+            bool sourceBuilt = receipt.StockExecutionProfile == OriginalAtomics588MetadataNames.SourceBuiltStockExecutionProfile;
+            Require(initialMd5 is BitString { BitLength: OriginalAtomics588MetadataNames.Md5Bits }
+                && (sourceBuilt || initialMd5.Equals(image.NativeMd5)));
             Require(before.Items[0].Equals(Term.A(image.Name)) && before.Items[OriginalAtomics588MetadataNames.PreloadedWhichIndex].Equals(Term.A(OriginalAtomics588MetadataNames.Preloaded))
-                && before.Items[OriginalAtomics588MetadataNames.OwnerFileMd5Index].Equals(image.NativeMd5) && before.Items[OriginalAtomics588MetadataNames.OwnerRunningMd5Index].Equals(image.NativeMd5)
+                && before.Items[OriginalAtomics588MetadataNames.OwnerFileMd5Index].Equals(image.NativeMd5)
                 && load.Items[0].Equals(Term.A(image.Name)) && load.Items[1].Equals(Term.A(ErlangBooleanAtoms.True))
                 && load.Items[2].Equals(Term.Tuple(Term.A(OriginalAtomics588MetadataNames.LoadedModuleTag), Term.A(image.Name)))
-                && load.Items[OriginalAtomics588MetadataNames.LoadedFirstMd5Index].Equals(image.NativeMd5) && load.Items[OriginalAtomics588MetadataNames.LoadedSecondMd5Index].Equals(image.NativeMd5)
+                && load.Items[OriginalAtomics588MetadataNames.LoadedFirstMd5Index].Equals(initialMd5) && load.Items[OriginalAtomics588MetadataNames.LoadedSecondMd5Index].Equals(image.NativeMd5)
                 && load.Items[OriginalAtomics588MetadataNames.LoadedTraceRowsIndex] is Cons);
         }
     }
