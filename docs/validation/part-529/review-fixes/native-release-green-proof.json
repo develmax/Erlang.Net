@@ -1,0 +1,65 @@
+{
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "OriginalSourceSha256": "66F06AB32AEDB5D1E02140C37E0215E797FB80D78C1AA4091EB52BE01465299A",
+  "PreservedSourceMatchesPin": true,
+  "OriginalSourceFunctions": [
+    "nif_resource_dtor_prologue",
+    "run_resource_dtor",
+    "enif_release_resource"
+  ],
+  "OriginalNativeOnly": [
+    1,
+    1,
+    1
+  ],
+  "BeforeBothManagedNativeOnly": [
+    1,
+    1,
+    0
+  ],
+  "After": [
+    {
+      "Route": "ordinary",
+      "NativeOnly": [
+        "tuple",
+        [
+          [
+            "integer",
+            1
+          ],
+          [
+            "integer",
+            1
+          ],
+          [
+            "integer",
+            1
+          ]
+        ]
+      ]
+    },
+    {
+      "Route": "reviewed",
+      "NativeOnly": [
+        "tuple",
+        [
+          [
+            "integer",
+            1
+          ],
+          [
+            "integer",
+            1
+          ],
+          [
+            "integer",
+            1
+          ]
+        ]
+      ]
+    }
+  ],
+  "FullRawComparisonsUsed": true,
+  "RawEtfRewritten": false,
+  "WholeContractsClosed": 0
+}

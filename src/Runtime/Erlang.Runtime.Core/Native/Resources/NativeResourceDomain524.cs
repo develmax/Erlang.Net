@@ -115,13 +115,13 @@ internal sealed partial class NativeResourceDomain524
     internal BitString Binary524(NativeResourcePayload524 payload, nint data, nuint length)
         => BitString.FromNativeStorage524(new NativeResourceBinaryStorage524(payload, data, length));
 
-    internal void Enqueue524(NativeResourcePayload524 payload, bool guestGc = false)
+    internal void Enqueue524(NativeResourcePayload524 payload, bool runOnNormalScheduler = false)
     {
         try
         {
             lock (gate)
             {
-                payload.GuestGcRetirement536 = guestGc;
+                payload.NormalSchedulerRetirement536 = runOnNormalScheduler;
                 if (tail is null) head = payload;
                 else tail.NextRetirement524 = payload;
                 tail = payload;
@@ -224,7 +224,7 @@ internal sealed partial class NativeResourceDomain524
                     else if (closePrepared527 && live.Count == 0 && pendingLoads527 == 0)
                         break;
                 }
-                if (payload is { GuestGcRetirement536: true })
+                if (payload is { NormalSchedulerRetirement536: true })
                     normalDispatcher536.Dispatch536(payload.Complete524).GetAwaiter().GetResult();
                 else payload?.Complete524();
             }

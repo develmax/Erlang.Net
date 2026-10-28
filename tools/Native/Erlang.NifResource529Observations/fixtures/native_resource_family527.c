@@ -138,6 +138,16 @@ static ERL_NIF_TERM make527(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv[])
     enif_release_resource(resource);
     return result;
 }
+static ERL_NIF_TERM native_only527(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv[])
+{
+    (void)argc; (void)argv;
+    void *resource = enif_alloc_resource(legacy527, PAYLOAD_BYTES527);
+    if (resource == NULL) return enif_make_badarg(env);
+    enif_keep_resource(resource);
+    enif_release_resource(resource);
+    enif_release_resource(resource);
+    return enif_make_atom(env, "ok");
+}
 static ERL_NIF_TERM inspect527(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv[])
 {
     void *resource;
@@ -156,6 +166,7 @@ static ERL_NIF_TERM count_nif527(ErlNifEnv *env, int argc, const ERL_NIF_TERM ar
 }
 static ErlNifFunc functions527[] = {
     {"opens527", 0, opens527, 0}, {"outside527", 0, outside527, 0},
-    {"make527", 0, make527, 0}, {"inspect527", 1, inspect527, 0}, {"count527", 0, count_nif527, 0}
+    {"make527", 0, make527, 0}, {"native_only527", 0, native_only527, 0},
+    {"inspect527", 1, inspect527, 0}, {"count527", 0, count_nif527, 0}
 };
 ERL_NIF_INIT(native_resource_family527, functions527, load527, NULL, upgrade527, NULL)

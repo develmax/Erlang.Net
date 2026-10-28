@@ -60,6 +60,19 @@ internal sealed partial class NativeResourceDomain524
         }
     }
 
+    internal void RetireDetachedType575(NativeResourceType524 type)
+    {
+        lock (gate)
+        {
+            // Serialize the ownership transfer with Join524. There must be no
+            // removed-but-not-disposed gap in which shutdown reports success.
+            // This runs after all table/name locks exit. Dispose only frees the
+            // token and releases a pin; ReleaseCall queues no C inline here.
+            if (types.Remove(type))
+                type.Dispose();
+        }
+    }
+
     internal void DiscardPendingType527(NativeResourceType524 type)
     {
         lock (gate) types.Remove(type);

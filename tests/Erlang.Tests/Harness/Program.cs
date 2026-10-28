@@ -149,6 +149,19 @@ catch (ArgumentException failure)
 }
 
 var tests = new List<(string Name, Func<Task> Body)>();
+Test(
+    Erlang.Tests.NativeResourceTypeRetirement575Names.RepeatedCase,
+    Erlang.Tests.NativeResourceTypeRetirement575Checks.RepeatedEmptyRetirement
+);
+Test(
+    Erlang.Tests.NativeResourceTypeRetirement575Names.PendingCase,
+    Erlang.Tests.NativeResourceTypeRetirement575Checks.PendingRollbackAndNewOwner
+);
+Test(
+    Erlang.Tests.NativeResourceTypeRetirement575Names.HeldCase,
+    Erlang.Tests.NativeResourceTypeRetirement575Checks.HeldPayloadAndInvocation
+);
+
 Test(Erlang.Tests.SpawnWorker546Names.Test, Erlang.Tests.SpawnWorker546Checks.Run);
 Test(Erlang.Tests.SpawnResource540Names.ValidationTest, Erlang.Tests.SpawnResource540Checks.Validation);
 Test(Erlang.Tests.SpawnResource540Names.InternalTest, Erlang.Tests.SpawnResource540Checks.InternalErrors);

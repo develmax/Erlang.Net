@@ -1,14 +1,18 @@
 -module(native_resource_family527).
--export([load/2, run/0, held/2, opens527/0, outside527/0, make527/0, inspect527/1, count527/0]).
+-export([load/2, run/0, held/2, opens527/0, outside527/0, make527/0, native_only527/0, inspect527/1, count527/0]).
 
 load(Path, Info) -> erlang:load_nif(Path, Info).
 opens527() -> erlang:nif_error(nif_not_loaded).
 outside527() -> erlang:nif_error(nif_not_loaded).
 make527() -> erlang:nif_error(nif_not_loaded).
+native_only527() -> erlang:nif_error(nif_not_loaded).
 inspect527(_) -> erlang:nif_error(nif_not_loaded).
 count527() -> erlang:nif_error(nif_not_loaded).
 
 run() ->
+    {Version, Initial, _} = count527(),
+    ok = native_only527(),
+    NativeOnly = await527(Version, Initial + 1, 2000),
     {Version, Before, _} = count527(),
     Ref = make_ref(),
     {Pid, Monitor} = spawn_monitor(?MODULE, held, [self(), Ref]),
@@ -19,7 +23,7 @@ run() ->
         Down = receive {'DOWN', Monitor, process, Pid, DownReason} -> DownReason
             after 10000 -> error(missing_down527) end,
         After = await527(Version, Before + 1, 2000),
-        {opens527(), outside527(), Receipt, HeldCount, Down, After}
+        {opens527(), outside527(), Receipt, HeldCount, Down, After, NativeOnly}
     catch Class:Failure:Stack ->
         exit(Pid, kill),
         receive {'DOWN', Monitor, process, Pid, _} -> ok after 10000 -> ok end,

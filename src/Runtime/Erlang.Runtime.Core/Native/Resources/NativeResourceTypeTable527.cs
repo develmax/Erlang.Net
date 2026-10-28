@@ -97,18 +97,28 @@ internal sealed partial class NativeResourceTypeTable527(ProcessRuntime runtime,
 
     internal void TryRetireEmpty527(NativeResourceType524 type)
     {
-        NativeResourceCallbackVersion527? release = null;
+        bool detached = false;
         callbackGate.EnterWriteLock();
         try
         {
             lock (namesGate529)
-                if (type.DetachIfEmpty527(out release)) committed.Remove(type);
+            {
+                if (type.DetachIfEmpty527(out _))
+                {
+                    committed.Remove(type);
+                    detached = true;
+                }
+            }
         }
         finally
         {
             callbackGate.ExitWriteLock();
         }
-        release?.Dispose();
+        // Detach revoked future payload/pending admission. Transfer the domain's
+        // last ownership outside callback/name locks before unregistering the
+        // opaque token and releasing its callback-version/image pin.
+        if (detached)
+            domain.RetireDetachedType575(type);
     }
 
     internal void BeginClose527()

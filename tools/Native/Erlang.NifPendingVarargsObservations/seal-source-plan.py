@@ -155,6 +155,8 @@ EXPLICIT_REVIEWED_INPUTS = frozenset((
     'tests/Erlang.Tests/Runtime/Native/Resources/NativeResourceLogical529Checks.cs',
     'tests/Erlang.Tests/Runtime/Native/Resources/NativeResourceLogical529Names.cs',
     'tests/Erlang.Tests/Runtime/Native/Resources/NativeResourceScope528Names.cs',
+    'tests/Erlang.Tests/Runtime/Native/Resources/NativeResourceTypeRetirement575Checks.cs',
+    'tests/Erlang.Tests/Runtime/Native/Resources/NativeResourceTypeRetirement575Names.cs',
     'tests/Erlang.Tests/Runtime/Processes/Spawn/SpawnResource540Checks.cs',
     'tests/Erlang.Tests/Runtime/Processes/Spawn/SpawnResource540Names.cs',
     'tests/Erlang.Tests/Runtime/Processes/Spawn/SpawnResource541Comparison.cs',
