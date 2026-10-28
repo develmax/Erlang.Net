@@ -7,6 +7,7 @@ internal sealed partial class RuntimeAtomicsOwner413
     private readonly LinkedList<AtomicsArray413> order = new();
     private int active;
     private bool closed;
+    private bool draining586;
     private bool drained;
     private long created, freed;
     private ulong bytes;
@@ -85,6 +86,12 @@ internal sealed partial class RuntimeAtomicsOwner413
         }
     }
 
+    internal void StopAdmission586()
+    {
+        lock (gate)
+            closed = true;
+    }
+
     internal void Close()
     {
         // Allocate failure aggregation before publishing the closing state.
@@ -92,13 +99,14 @@ internal sealed partial class RuntimeAtomicsOwner413
         var failures = new List<Exception>();
         lock (gate)
         {
-            if (closed)
+            if (draining586)
             {
                 while (!drained) Monitor.Wait(gate);
 
                 return;
             }
             closed = true;
+            draining586 = true;
             while (active != 0) Monitor.Wait(gate);
         }
         try

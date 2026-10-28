@@ -82,7 +82,7 @@ public sealed partial class ProcessRuntime
             _ = CloseHamtIndex429();
             _ = CloseRegex411();
             _ = CloseDriverFrontend422();
-            CloseAtomics413();
+            _ = CloseAtomics413();
             CloseCollectors413();
             _ = CloseCodePurger432();
             ProcessTracing.CloseTraceSessions425();
@@ -280,6 +280,7 @@ public sealed partial class ProcessRuntime
                     DrainDirtyNative419(),
                     DrainDebugDispatch432(),
                     DrainCounters421(),
+                    DrainAtomics586(),
                     DrainHamtIndex429(),
                     DrainDriverFrontend422(),
                     DrainCodePurger432(),

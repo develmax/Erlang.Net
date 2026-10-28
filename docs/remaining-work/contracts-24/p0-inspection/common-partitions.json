@@ -1,0 +1,92 @@
+{
+  "profiles": {
+    "Dimensions": [
+      "Pinned ad058 commit and actual executing BEAM source/MD5/native metadata identity",
+      "Windows/Linux and any supported other OS; exact build_type debug/opt, JIT/interpreter and line table present/absent",
+      "32/64 native-small/word/pointer bounds if target supported; little/big-endian support claim explicitly admitted",
+      "normal schedulers1/multiple,online1/total,dirty CPU1/multiple,dirty IO1/multiple; pending/running dirty work",
+      "ERTS_ENABLE_MSACC on/off; USE_VM_PROBES on/off; OS CPU affinity/topology available/unavailable",
+      "time_warp modes no/single/multi and preliminary/final/volatile; emulator initial CLI heap/full-sweep options",
+      "managed versus original Erlang/BEAM backend routes; ordinary runtime and private owned profile; two isolated logical VMs in same.NET process"
+    ],
+    "Rule": "Configuration differences are explicit admitted provider profiles, never OS-name guessed output or constant normalized counters. Unsupported platform claims remain open."
+  },
+  "pi.targets": {
+    "Partitions": [
+      "self live",
+      "held local other process",
+      "running/runnable/receive/suspended/GC/dirty-NIF states",
+      "dead local PID after authenticated DOWN",
+      "exit racing request; reply-vs-death; requester cancellation; stale request and mailbox cleanup",
+      "remote external PID badarg",
+      "external PID associated current distribution entry ->undefined,even if numeric identity equals former local PID",
+      "foreign logical VM PID; old creation/node identity transition",
+      "nonPID each Erlang term family"
+    ],
+    "Expected": "dead local/external current-entry undefined after selector validation; other invalidtarget badarg. Preserve signal order for another target and own-state identity witnesses."
+  },
+  "pi.selector_forms": {
+    "Partitions": [
+      "each40 atom key",
+      "{dictionary,Key} for every key term family incl[]/improperlist/map/localfun/binary/resource",
+      "empty proper item list",
+      "singleton proper item list",
+      "mixed41 keys",
+      "unknownatom,wrongtuple tag/arity,integer,float,binary,bitstring,fun,pid,port,ref,map",
+      "improper list and nested item list",
+      "valid and invalid selector combined with dead/invalid PID to prove validation precedence"
+    ],
+    "Source": "erl_bif_info.c1289-1368 parses selector before PID lookup; invalid item never becomes undefined because target dead."
+  },
+  "pi.order_duplicates": {
+    "Partitions": [
+      "default17 exact order,registered_name absent only when unregistered",
+      "explicit list preserves request order and duplicates",
+      "unregistered registered_name singleton[] versus list {registered_name,[]}",
+      "duplicate atom keys share same captured value; {dictionary,K1}/{dictionary,K2} processed separately",
+      "messages computed before message_queue_len regardless item order; sensitive/corrupt-distribution queue affects len; duplicated mixed keys"
+    ],
+    "CurrentDeficit": "current foreach samples some duplicate fields repeatedly,not pinned per-item memoized boundary; exact concurrency/source-sensitive cases unverified."
+  },
+  "pi.signals": {
+    "Partitions": [
+      "held remote-owner request mailbox barrier and actualreply identity",
+      "self pending signals flush,including self send/link/monitor",
+      "owner hasqueued monitor/DOWN/exit/priority signals",
+      "messages/length same inspection boundary and corrupt distribution-message removal",
+      "cross-process returned dictionary/messages/label terms own correct heap roots after target exit",
+      "target/requester death; cancellation releases pending request/temporary roots without leaking reply"
+    ],
+    "Implementation": "ProcessRuntime.QueryProcessInfo/PendingInfoRequests plus mailbox SendPending; not full pinned force-signal/need-msgq lock protocol proof."
+  },
+  "pi.errors_full_stacks": {
+    "Reason": "error:badarg for invalid selector/type/target; successful undefined is not an exception",
+    "Frames": [
+      "retain full top erlang:process_info arguments/arity,caller source/BEAM/native frames",
+      "real executing file/line metadata,erl_erts_errors error_info where native machinery emits it",
+      "direct named call,erlang:apply and function call dispatch retain actual native/source context",
+      "configured backtrace_depth0/1/max affects captured stack; do not remove frames or force an empty map"
+    ],
+    "Comparison": "Whole raw/default+det ETF when literal stable. Genuine PID/ref/VM-state witnesses authenticate roles before relational checks; no arbitrary first-PID mapping or error projection."
+  },
+  "flag.errors_full_stacks": {
+    "Partitions": [
+      "unknown atom selector and nonatom selector: BADARG|EXF_HAS_EXT_INFO with fvalue badopt",
+      "KNOWN selector wrongvalue: plain BADARG branch,except helper-specific notsup/oldstate result",
+      "unsupported allocator returns atomnotsup,not exception; scheduler affinity canerror:notsup",
+      "microstate disabled build reaches unknownselector; enabled build wrongvalue isknown invalid branch",
+      "no state mutation afterinvalid value; valid returnoldstate and effect complete"
+    ],
+    "Frames": "Retain exact class/reason/full native+caller stack,argument terms and error_info cause/module; deriveprofile from actual selected original image,not staticWindows lines."
+  },
+  "stats.errors_full_stacks": {
+    "Partitions": [
+      "every20 selector",
+      "unknownatom/nonatom all term families ->badarg",
+      "microstate unavailable compile branch ->badarg,not genericnotsup",
+      "scheduler walltime disabled->undefined (value),GC/MSACC request unavailable->undefined as implemented in pin",
+      "hostCPU acquisition/notsupported backend error doesnot silently prove OTP source contract"
+    ],
+    "Frames": "Original plainBIF BADARG and actual native metadata/erl_erts_errors capture must be preserved; no synthetic native location or stripped caller frame."
+  }
+}

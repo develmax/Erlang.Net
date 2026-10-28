@@ -1,0 +1,329 @@
+{
+  "UnitCount": 24,
+  "MfaCount": 1,
+  "TargetMfa": "erlang:load_nif/2",
+  "FixedEngineeringUnitsAreNot24MfaContracts": true,
+  "StatusesCopiedNotPromoted": true,
+  "HistoricalSourceBindingAndMilestoneCaveatsRetained": true,
+  "InventorySourceSha256": "DBCDEA9ED935FB152C77EFF3B6585C9B6057B358E1A2DDA4D5A44098CC87A399",
+  "Units": [
+    {
+      "Id": "nif.load-admission",
+      "Title": "Ordinary and reviewed NIF admission",
+      "Implementation": "implemented",
+      "Verification": "accepted-scoped",
+      "ScopedMilestoneMet": true,
+      "Platforms": [
+        "windows-x64",
+        "glibc-linux-x64"
+      ],
+      "RemainingOrBlockers": [
+        "Complete OTP load failure text/error_info partition and every native dependency graph are not established."
+      ]
+    },
+    {
+      "Id": "nif.abi-entry",
+      "Title": "Native entry ABI admission",
+      "Implementation": "implemented",
+      "Verification": "local-tests-only",
+      "ScopedMilestoneMet": false,
+      "Platforms": [
+        "windows-x64",
+        "glibc-linux-x64"
+      ],
+      "RemainingOrBlockers": [
+        "EntryReader fixes2.18; fields existing in a struct are not implemented feature support. Wider entry versions/options and full minimum-ERTS/resource-field policy remain open."
+      ]
+    },
+    {
+      "Id": "nif.image-bindings",
+      "Title": "Image-owned installation and dispatch",
+      "Implementation": "implemented",
+      "Verification": "local-tests-only",
+      "ScopedMilestoneMet": false,
+      "Platforms": [
+        "windows-x64",
+        "glibc-linux-x64"
+      ],
+      "RemainingOrBlockers": [
+        "Host regression evidence is not a full OTP upgrade/reload or arbitrary stale-code contract proof."
+      ]
+    },
+    {
+      "Id": "nif.synchronous-call",
+      "Title": "Synchronous native call and exception boundary",
+      "Implementation": "implemented",
+      "Verification": "local-tests-only",
+      "ScopedMilestoneMet": false,
+      "Platforms": [
+        "windows-x64",
+        "glibc-linux-x64"
+      ],
+      "RemainingOrBlockers": [
+        "No interruption of arbitrary native code; native memory corruption is not contained like an Erlang exception. Async and dirty execution are separate units."
+      ]
+    },
+    {
+      "Id": "nif.term-ownership",
+      "Title": "Bound term handles and provenance",
+      "Implementation": "implemented",
+      "Verification": "local-tests-only",
+      "ScopedMilestoneMet": false,
+      "Platforms": [
+        "windows-x64",
+        "glibc-linux-x64"
+      ],
+      "RemainingOrBlockers": [
+        "Handles differ from BEAM tagged terms and have a finite signed-long process-wide ceiling. Invalid pointers/expired or unsynchronized handles are outside native crash parity."
+      ]
+    },
+    {
+      "Id": "nif.allocation-ownership",
+      "Title": "Native allocation ownership and reallocation",
+      "Implementation": "implemented",
+      "Verification": "local-tests-only",
+      "ScopedMilestoneMet": false,
+      "Platforms": [
+        "windows-x64",
+        "glibc-linux-x64"
+      ],
+      "RemainingOrBlockers": [
+        "Reallocation remains profile/platform bounded; arbitrary allocator ownership mixing and OOM/native-fault parity are not accepted."
+      ]
+    },
+    {
+      "Id": "nif.independent-environments",
+      "Title": "Independent environments and copying",
+      "Implementation": "implemented",
+      "Verification": "accepted-scoped",
+      "ScopedMilestoneMet": true,
+      "Platforms": [
+        "windows-x64",
+        "glibc-linux-x64"
+      ],
+      "RemainingOrBlockers": [
+        "Callers must synchronize independent environments and stop workers before unload. Shared unsynchronized access and invalid environments are excluded."
+      ]
+    },
+    {
+      "Id": "nif.binary-storage",
+      "Title": "Native binary descriptor and storage lifetime",
+      "Implementation": "implemented",
+      "Verification": "local-tests-only",
+      "ScopedMilestoneMet": false,
+      "Platforms": [
+        "windows-x64"
+      ],
+      "RemainingOrBlockers": [
+        "Linux bridge does not expose the full Windows binary callback surface. Zero-copy BEAM layout/GC identity and every descriptor invalid-use branch are not claimed."
+      ]
+    },
+    {
+      "Id": "nif.numeric-marshalling",
+      "Title": "Native numeric marshalling",
+      "Implementation": "implemented",
+      "Verification": "local-tests-only",
+      "ScopedMilestoneMet": false,
+      "Platforms": [
+        "windows-x64",
+        "glibc-linux-x64"
+      ],
+      "RemainingOrBlockers": [
+        "Width observations are accepted; all numeric callback contracts are not independently complete merely because widths match."
+      ]
+    },
+    {
+      "Id": "nif.sequence-and-type-callbacks",
+      "Title": "Sequence,atom,string and type callbacks",
+      "Implementation": "implemented",
+      "Verification": "local-tests-only",
+      "ScopedMilestoneMet": false,
+      "Platforms": [
+        "windows-x64",
+        "glibc-linux-x64"
+      ],
+      "RemainingOrBlockers": [
+        "Platform callback surfaces differ; Latin1/string limits and variadic item bounds are explicit adaptations. Not every OTP term callback is present."
+      ]
+    },
+    {
+      "Id": "nif.comparison",
+      "Title": "Native comparison and identity",
+      "Implementation": "partial",
+      "Verification": "local-tests-only",
+      "ScopedMilestoneMet": false,
+      "Platforms": [
+        "windows-x64"
+      ],
+      "RemainingOrBlockers": [
+        "Linux comparison slots15/16 remain pending. Representation and floating/reference ownership boundaries must remain explicit."
+      ]
+    },
+    {
+      "Id": "nif.reference-constructor",
+      "Title": "Reference generation",
+      "Implementation": "implemented",
+      "Verification": "accepted-scoped",
+      "ScopedMilestoneMet": true,
+      "Platforms": [
+        "windows-x64",
+        "glibc-linux-x64"
+      ],
+      "RemainingOrBlockers": [
+        "Finite reference domain/generator and separate opaque-handle capacity remain documented. MakeRef(NULL),expired pointers and exact cross-VM raw words are excluded."
+      ]
+    },
+    {
+      "Id": "nif.map-cardinality",
+      "Title": "Map cardinality",
+      "Implementation": "implemented",
+      "Verification": "accepted-scoped",
+      "ScopedMilestoneMet": true,
+      "Platforms": [
+        "windows-x64",
+        "glibc-linux-x64"
+      ],
+      "RemainingOrBlockers": [
+        "Future pending native map nodes are not preapproved. Successful-map NULL-output writes and expired/unsynchronized pointers are outside parity."
+      ]
+    },
+    {
+      "Id": "nif.linux-loader",
+      "Title": "Linux namespace and raw path loader controls",
+      "Implementation": "implemented",
+      "Verification": "accepted-scoped",
+      "ScopedMilestoneMet": true,
+      "Platforms": [
+        "glibc-linux-x64"
+      ],
+      "RemainingOrBlockers": [
+        "Not a proof for every SONAME/versioned/transitive/dlopen dependency graph,namespace/TLS exhaustion or hidden libc behavior. No base-copy path rewrite is in Main."
+      ]
+    },
+    {
+      "Id": "nif.windows-loader",
+      "Title": "Windows initializer callback table",
+      "Implementation": "implemented",
+      "Verification": "local-tests-only",
+      "ScopedMilestoneMet": false,
+      "Platforms": [
+        "windows-x64"
+      ],
+      "RemainingOrBlockers": [
+        "Zero-filled unwired slots are unsupported callbacks,not a complete OTP180-slot implementation. DLL dependency and invalid pointer behavior remain bounded."
+      ]
+    },
+    {
+      "Id": "nif.retirement",
+      "Title": "Quiescent unload and image retirement",
+      "Implementation": "implemented",
+      "Verification": "accepted-scoped",
+      "ScopedMilestoneMet": true,
+      "Platforms": [
+        "windows-x64",
+        "glibc-linux-x64"
+      ],
+      "RemainingOrBlockers": [
+        "This unit requires joined workers. Arbitrary background callbacks,active resource destructors and hot upgrades are not accepted by these receipts."
+      ]
+    },
+    {
+      "Id": "nif.native-thread-tls",
+      "Title": "Joined native worker and selected TLS destructors",
+      "Implementation": "implemented",
+      "Verification": "accepted-scoped",
+      "ScopedMilestoneMet": true,
+      "Platforms": [
+        "glibc-linux-x64"
+      ],
+      "RemainingOrBlockers": [
+        "getspecific is resolved but its positive call count is zero in the current probe. Cancellation,hidden libc calls,arbitrary C++ TLS/DSO unload and unjoined workers remain unverified; no whole-pthread claim."
+      ]
+    },
+    {
+      "Id": "nif.resources",
+      "Title": "NIF resources and resource types",
+      "Implementation": "not-implemented",
+      "Verification": "missing",
+      "ScopedMilestoneMet": false,
+      "Platforms": [],
+      "RemainingOrBlockers": [
+        "ResourceInitSize struct field is metadata only; no resource API/GC implementation found in the inspected native callback surface."
+      ]
+    },
+    {
+      "Id": "nif.dirty-scheduling",
+      "Title": "Dirty native scheduler execution",
+      "Implementation": "partial",
+      "Verification": "local-tests-only",
+      "ScopedMilestoneMet": false,
+      "Platforms": [
+        "windows-x64"
+      ],
+      "RemainingOrBlockers": [
+        "Static flags0/CPU1/IO2 and finite Windows whole-return protocols now execute on actual lanes; dynamic enif_schedule_nif and the complete dirty NIF API remain open.",
+        "Actual held/cancel/purge native lifecycle protocols, Linux execution and whole erlang:load_nif contract closure remain separate acceptance gates."
+      ]
+    },
+    {
+      "Id": "nif.async-native",
+      "Title": "Async native work and IO notifications",
+      "Implementation": "not-implemented",
+      "Verification": "missing",
+      "ScopedMilestoneMet": false,
+      "Platforms": [],
+      "RemainingOrBlockers": [
+        "No enif_schedule_nif/enif_select/enif_send bridge implementation found. Async loader/disposal methods do not implement these APIs."
+      ]
+    },
+    {
+      "Id": "nif.upgrade-reload",
+      "Title": "Native reload and code upgrade",
+      "Implementation": "not-implemented",
+      "Verification": "missing",
+      "ScopedMilestoneMet": false,
+      "Platforms": [],
+      "RemainingOrBlockers": [
+        "Reload and Upgrade fields exist but admission explicitly rejects Reload/UpgradeUnsupported. Ordinary load/unload is not upgrade support."
+      ]
+    },
+    {
+      "Id": "nif.map-mutation-iteration",
+      "Title": "Native map construction,mutation and iteration",
+      "Implementation": "partial",
+      "Verification": "local-tests-only",
+      "ScopedMilestoneMet": false,
+      "Platforms": [
+        "windows-x64"
+      ],
+      "RemainingOrBlockers": [
+        "Retained map/header topology and guest aliases are implemented in Part519 and have scoped Windows whole-protocol evidence; remaining native lifetime, layout and platform contracts still need complete verification.",
+        "Linux/ARM/32-bit managed native-map family execution is not accepted."
+      ]
+    },
+    {
+      "Id": "nif.other-platforms",
+      "Title": "Additional native ABI/platform routes",
+      "Implementation": "not-implemented",
+      "Verification": "missing",
+      "ScopedMilestoneMet": false,
+      "Platforms": [],
+      "RemainingOrBlockers": [
+        "Current accepted profile is Windows/glibc Linux x64. Managed-code portability does not prove native ABI portability."
+      ]
+    },
+    {
+      "Id": "nif.failed-close-retention",
+      "Title": "Failed-close containment and retained roots",
+      "Implementation": "implemented",
+      "Verification": "source-only",
+      "ScopedMilestoneMet": false,
+      "Platforms": [
+        "glibc-linux-x64"
+      ],
+      "RemainingOrBlockers": [
+        "Normal cleanup receipts do not execute failed-dlclose branches. Quarantine intentionally retains storage and is not evidence of successful release or native crash containment."
+      ]
+    }
+  ]
+}
