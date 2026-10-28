@@ -29,7 +29,8 @@ internal static class ClrMemoryPublicHostNames
     internal const string Bytes = "Bytes";
     internal const string Kind = "Kind";
     internal const string ByteView = "ByteView";
-    internal const string Backing = "bytes";
+    internal const string Backing = "backing";
+    internal const string ManagedBuffer = "Buffer";
     internal const string Slots = "processSlots";
     internal const string SlotBacking = "slots";
     internal const string Allocated = "AllocatedPayloadBytes";
