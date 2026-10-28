@@ -67,7 +67,7 @@ internal sealed partial class RuntimeEtsStoredPayload : IDisposable
                             Children: ChildIds(function.Environment),
                             Function: RuntimeStoredFunctionRecipes.Capture(owner, function)
                         ),
-                        Pid or ReferenceTerm or PortTerm => new(RuntimeEtsStoredKind.Identity, Identity: owner.ReserveExternalTerm(item.Term)),
+                        Pid or ReferenceTerm or PortTerm => new(RuntimeEtsStoredKind.Identity, Identity: owner.ReserveStoredTerm591(item.Term)),
                         _ => throw new ArgumentException(RuntimeEtsFoundationNames.UnsupportedTerm)
                     };
                     nodes[indices[item.Term]] = node;
@@ -112,16 +112,37 @@ internal sealed partial class RuntimeEtsStoredPayload : IDisposable
     }
 
     internal Term Materialize(CancellationToken cancellation)
+        => AtomicsHostAggregate594.Publish(transaction => MaterializeSelected594(cancellation, transaction));
+
+    internal Term MaterializeSelected594(CancellationToken cancellation, AtomicsHostCopyTransaction591 transaction)
     {
         RuntimeEtsCompressed438? compressed = Volatile.Read(ref compressed438);
         RuntimeEtsStoredNode[] owned = compressed is null
             ? Volatile.Read(ref nodes) ?? throw new ObjectDisposedException(nameof(RuntimeEtsStoredPayload))
             : EtsCompressedReader438.Decode(compressed, cancellation);
 
-        return MaterializeNodes438(owned, 0, cancellation);
+        return MaterializeNodesSelected594(
+            owned,
+            0,
+            cancellation,
+            transaction
+        );
     }
 
     internal static Term MaterializeNodes438(RuntimeEtsStoredNode[] owned, int root, CancellationToken cancellation)
+        => AtomicsHostAggregate594.Publish(transaction => MaterializeNodesSelected594(
+            owned,
+            root,
+            cancellation,
+            transaction
+        ));
+
+    internal static Term MaterializeNodesSelected594(
+        RuntimeEtsStoredNode[] owned,
+        int root,
+        CancellationToken cancellation,
+        AtomicsHostCopyTransaction591 transaction
+    )
     {
         var values = new Term?[owned.Length];
         var pending = new Stack<(int Index, bool Finish)>();
@@ -161,7 +182,7 @@ internal sealed partial class RuntimeEtsStoredPayload : IDisposable
                     node.Children!.Select((child, index) => new KeyValuePair<Atom, Term>(Term.A(node.Names[index + 2]), values[child]!))
                 ),
                 RuntimeEtsStoredKind.Function => node.Function!.Rebind(Children().ToArray()),
-                RuntimeEtsStoredKind.Identity => OwnedTermInvocation506.AdmitNativeStoredResult524(node.Identity!.Value),
+                RuntimeEtsStoredKind.Identity => OwnedTermInvocation506.AdmitNativeStoredResultSelected594(node.Identity!.Value, transaction),
                 _ => throw new InvalidOperationException()
             };
         }

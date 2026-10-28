@@ -52,17 +52,29 @@ public sealed partial class ProcessDictionary : IDictionary<Term, Term>, IReadOn
 
     private Term Detach(Term value)
     {
+        using PreparedTermTransfer506? prepared = PrepareDetachedInput586(value, out Term portable);
+
+        return portable;
+    }
+
+    private PreparedTermTransfer506? PrepareDetachedInput586(Term value, out Term portable)
+    {
         if (!context.Runtime.OwnedTermsPilot506)
-            return value;
+        {
+            portable = value;
+
+            return null;
+        }
         ProcessTermBorrow506 borrow;
         lock (gate)
         {
             CheckOpen();
             borrow = context.TermHeap506.Borrow(frame!, value);
         }
-        using PreparedTermTransfer506 prepared = context.TermHeap506.PrepareBorrow(borrow);
+        PreparedTermTransfer506 prepared = context.TermHeap506.PrepareBorrow(borrow);
+        portable = prepared.Portable;
 
-        return prepared.Portable;
+        return prepared;
     }
 
     public bool ContainsKey(Term key)
@@ -97,7 +109,7 @@ public sealed partial class ProcessDictionary : IDictionary<Term, Term>, IReadOn
             }
             borrow = context.TermHeap506.Borrow(frame, found);
         }
-        using PreparedTermTransfer506 prepared = context.TermHeap506.PrepareBorrow(borrow);
+        using PreparedTermTransfer506 prepared = context.TermHeap506.PrepareBorrowAtomics586(borrow, true);
         value = prepared.Portable;
 
         return true;
@@ -110,7 +122,10 @@ public sealed partial class ProcessDictionary : IDictionary<Term, Term>, IReadOn
         bool duplicateReturnsFalse
     )
     {
-        var pair = (TupleTerm)Detach(Term.Tuple(key, value));
+        // Keep the input borrow through destination publication and rollback.
+        // A detached facade alone must not become a guest ownership root.
+        using PreparedTermTransfer506? prepared = PrepareDetachedInput586(Term.Tuple(key, value), out Term portable);
+        var pair = (TupleTerm)portable;
         Term portableKey = pair.Items[0], portableValue = pair.Items[1];
         lock (gate)
         {
@@ -252,7 +267,7 @@ public sealed partial class ProcessDictionary : IDictionary<Term, Term>, IReadOn
             // factory or detached-copy callback runs under the dictionary gate.
             borrow = context.TermHeap506.Borrow(frame, Term.Tuple(data.SelectMany(pair => new[] { pair.Key, pair.Value }).ToArray()));
         }
-        using PreparedTermTransfer506 prepared = context.TermHeap506.PrepareBorrow(borrow);
+        using PreparedTermTransfer506 prepared = context.TermHeap506.PrepareBorrowAtomics586(borrow, true);
         var copied = (TupleTerm)prepared.Portable;
 
         return Enumerable.Range(0, copied.Items.Count / 2).Select(index =>

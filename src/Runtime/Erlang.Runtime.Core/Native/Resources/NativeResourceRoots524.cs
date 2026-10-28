@@ -28,29 +28,75 @@ internal static class NativeResourceRoots524
     internal static bool Contains524(Term source)
     {
         if (!NativeResourceAddresses524.AnyLive524) return false;
-        var seen = new HashSet<Term>(ReferenceEqualityComparer.Instance);
-        var pending = new Stack<Term>();
-        pending.Push(source);
-        while (pending.TryPop(out Term? value))
+        var traversal = new ResourceRootTraversal595(source);
+        while (traversal.TryPop(out Term? value))
         {
-            if (!seen.Add(value)) continue;
             if (Direct524(value) is not null) return true;
-            foreach (Term child in NativeMapOwnedRoots510.Children(value)) pending.Push(child);
+            traversal.EnqueueChildren(value);
         }
 
         return false;
     }
 
-    internal static IDisposable? RetainGraph524(Term source, ProcessRuntime? expected = null, bool skipOwnedMagic576 = false)
+    internal static IDisposable? RetainGraph524(
+        Term source,
+        ProcessRuntime? expected = null,
+        bool skipOwnedMagic576 = false,
+        bool hostAtomics586 = false
+    )
+    {
+        IDisposable? atomics = AtomicsRoots586.RetainGraph586(
+            source,
+            expected,
+            skipOwnedMagic576,
+            hostAtomics586
+        );
+        IDisposable? native = null;
+        try
+        {
+            native = RetainNativeGraph524(source, expected, skipOwnedMagic576);
+            if (atomics is null)
+                return native;
+            if (native is null)
+                return atomics;
+
+            return new NativeResourceRootSet524([atomics, native]);
+        }
+        catch (Exception original)
+        {
+            Exception? nativeFailure = null;
+            Exception? atomicsFailure = null;
+            try
+            {
+                native?.Dispose();
+            }
+            catch (Exception error)
+            {
+                nativeFailure = error;
+            }
+            try
+            {
+                atomics?.Dispose();
+            }
+            catch (Exception error)
+            {
+                atomicsFailure = error;
+            }
+            if (nativeFailure is not null && atomicsFailure is not null)
+                throw new AggregateException(original, nativeFailure, atomicsFailure);
+            if (nativeFailure is not null || atomicsFailure is not null)
+                throw new AggregateException(original, nativeFailure ?? atomicsFailure!);
+            throw;
+        }
+    }
+
+    private static IDisposable? RetainNativeGraph524(Term source, ProcessRuntime? expected, bool skipOwnedMagic576)
     {
         if (!NativeResourceAddresses524.AnyLive524) return null;
-        var seen = new HashSet<Term>(ReferenceEqualityComparer.Instance);
         var payloads = new HashSet<NativeResourcePayload524>(ReferenceEqualityComparer.Instance);
-        var pending = new Stack<Term>();
-        pending.Push(source);
-        while (pending.TryPop(out Term? value))
+        var traversal = new ResourceRootTraversal595(source);
+        while (traversal.TryPop(out Term? value))
         {
-            if (!seen.Add(value)) continue;
             if (Direct524(value, expected) is { } payload
                 && (!skipOwnedMagic576 || !ProcessTermHeap506.HasOwnedMagicReference576(value)))
             {
@@ -58,7 +104,7 @@ internal static class NativeResourceRoots524
                     throw new NotSupportedException(NativeResource524Names.Foreign);
                 payloads.Add(payload);
             }
-            foreach (Term child in NativeMapOwnedRoots510.Children(value)) pending.Push(child);
+            traversal.EnqueueChildren(value);
         }
         if (payloads.Count == 0) return null;
         var leases = new IDisposable[payloads.Count];

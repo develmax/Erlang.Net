@@ -14,7 +14,13 @@ internal sealed partial class OwnedTermInvocation506
     }
 
     internal static Term AdmitNativeStoredResult524(Term value)
+        => AdmitNativeStoredResultSelected594(value, null);
+
+    internal static Term AdmitNativeStoredResultSelected594(Term value, AtomicsHostCopyTransaction591? transaction)
     {
+        if (value is ResourceReferenceTerm { ResourceKind: ReferenceResourceKind.Atomics413 } atomics
+            && AtomicsRoots586.Direct586(atomics) is { } backing)
+            return AdmitRehydratedAtomicsSelected594(atomics, backing, transaction);
         if (!NativeResourceRoots524.Contains524(value)) return value;
         OwnedTermInvocation506? invocation = Active;
         if (invocation is { IsDisposed: false })

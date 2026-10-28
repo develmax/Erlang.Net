@@ -16,6 +16,9 @@ internal static class OriginalReference563Names
     internal const string Normal = "normal";
     internal const string Subject = "ordinary_reference563";
     internal const string Worker = "contract_worker513";
+    internal const string WorkerFunction = "worker";
+    internal const int WorkerArity = 3;
+    internal const string WholeByteComparisonLaw = "BothWholeDefaultAndDeterministicETFBytes";
     internal const string Core = "erlang";
     internal const string Debug = "erts_debug";
     internal const string Run = "run";

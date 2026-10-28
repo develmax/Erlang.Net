@@ -154,4 +154,6 @@ Append numbered English entries only to the last volume. Start the next sequenti
 
 - [0090.md](docs/changelog/0090.md) — parts517–523 (closed; loader metadata, dirty native ABI, shared maps and native spawn contracts)
 
-- [0091.md](docs/changelog/0091.md) — Parts524,526–530 and dated Part523 CI correction (active)
+- [0091.md](docs/changelog/0091.md) — Parts524,526–531 and dated Part523 CI correction (closed)
+
+- [0092.md](docs/changelog/0092.md) — Part532 (active)

@@ -17,7 +17,7 @@ internal sealed class PersistentIdentifierRoot416 : IDisposable
     internal static PersistentIdentifierRoot416 Capture(ProcessRuntime owner, Term value)
     {
         // This admission verifies foreign opaque domains; its temporary Term root is not retained.
-        using var admission = owner.ReserveExternalTerm(value);
+        using var admission = owner.ReserveStoredTerm591(value);
         LocalNodeIdentity? local = value switch
         {
             Pid pid => pid.LocalIdentity,

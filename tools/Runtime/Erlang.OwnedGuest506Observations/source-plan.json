@@ -19,6 +19,13 @@
     },
     {
       "Scope": "Tool",
+      "Path": "adopt-atomics588.py",
+      "HashMode": "Raw",
+      "Sha256": "9970EC5B5FBCB337428F92999ADC8D46CC0B3BFE8C78411DDEE17976B5047F91",
+      "Bytes": 7506
+    },
+    {
+      "Scope": "Tool",
       "Path": "adopt-float556.py",
       "HashMode": "Raw",
       "Sha256": "C6A374A9E234F230851F6960472EEDCA945A0CFDD3835DAC3011E47CC4EEE235",
@@ -54,6 +61,20 @@
     },
     {
       "Scope": "Tool",
+      "Path": "atomics-closure592.py",
+      "HashMode": "Raw",
+      "Sha256": "33CC87E2228BF7A14FEC83020ED0755103DB3CE9B60002180A4F559938442CBB",
+      "Bytes": 5606
+    },
+    {
+      "Scope": "Tool",
+      "Path": "capture-atomics588.py",
+      "HashMode": "Raw",
+      "Sha256": "E7B1C3C736EEDDB9703379B28185A5D83BAE22E9FE59230AAFF65543EC0594EC",
+      "Bytes": 13499
+    },
+    {
+      "Scope": "Tool",
       "Path": "capture-float556.py",
       "HashMode": "Raw",
       "Sha256": "461EA34AE8152821B215D89A6501FE36D82FC911D45035E9B412EC81B46BD53E",
@@ -84,8 +105,15 @@
       "Scope": "Tool",
       "Path": "collect.py",
       "HashMode": "Raw",
-      "Sha256": "AD538FF48E2D3DE07DC70EA9C47C49A98BF722D35C5C5492F2F9CF8E0EC274CE",
-      "Bytes": 18682
+      "Sha256": "81453AFC5D85A3FB0EC3204FD8C1A7F6B8866CF49050F4E01806CAC23F35110B",
+      "Bytes": 19858
+    },
+    {
+      "Scope": "Tool",
+      "Path": "fixtures/atomics_magic586.erl",
+      "HashMode": "Raw",
+      "Sha256": "E4C51985FA38FCE8BB0579D6F2E0B4D036139A65E88A4DC74FC9FD0E34B65B78",
+      "Bytes": 3735
     },
     {
       "Scope": "Tool",
@@ -462,22 +490,736 @@
       "Scope": "Tool",
       "Path": "jobs.json",
       "HashMode": "Raw",
-      "Sha256": "5DB8CD02DB87BB864CDA8F1829699F7803ADFB67CECD38D911B8A7597A78CA9D",
-      "Bytes": 3957
+      "Sha256": "6910088C6C636CC1014E859A5A0A0A9B30E94875D97CE2E21DB61F40DCEDC6FC",
+      "Bytes": 4350
     },
     {
       "Scope": "Tool",
       "Path": "README.md",
       "HashMode": "Raw",
-      "Sha256": "B1463DC17445846AE6F66CF1A51EFD7375B55F3192B1B755F95E6B86D98CA7F6",
-      "Bytes": 5737
+      "Sha256": "BADF9446E34BFDEE0F65E59E03546BDBC3F071C4B0149AE1F5778C0B0753FF0B",
+      "Bytes": 7243
     },
     {
       "Scope": "Tool",
       "Path": "seal.py",
       "HashMode": "Raw",
-      "Sha256": "E1CF33466AB4A2F3BDC6C248993B1EE0305BACD8D92C424C6E5A18FAB634CDD5",
-      "Bytes": 13156
+      "Sha256": "8B911DDBB18095015EC8521EEA9D12C8EE0F3E5AEE582B4AAE8D00A66C8B39E4",
+      "Bytes": 21093
+    },
+    {
+      "Scope": "Tool",
+      "Path": "stock-owners588.py",
+      "HashMode": "Raw",
+      "Sha256": "4B6F05A1DEBED778A8090A416A25E65BC9AB73BD2C8CAFB08A309C0D7E107D55",
+      "Bytes": 6744
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Diagnostics/Debug/DebugDirtyOperations424.cs",
+      "HashMode": "Raw",
+      "Sha256": "5622D6A9F85BA8B78014AE2D416B8170CA2E541E494BA779C45F78CB9A839696",
+      "SealedBytes": 5090
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Diagnostics/Debug/DebugDirtyTermCopy424.cs",
+      "HashMode": "Raw",
+      "Sha256": "0D0EFED306613146D21728587699797EAE88FD9B36D32D59DEFBA2C8A834D1E8",
+      "SealedBytes": 4933
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Resources/ResourceRootTraversal595.cs",
+      "HashMode": "Raw",
+      "Sha256": "DD6786D68D129D821BE74788CD6E4B514794539FFE18D60400C5A13E248D0EAA",
+      "SealedBytes": 1952
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Storage/Atomics/DebugDirtyAtomics595Checks.cs",
+      "HashMode": "Raw",
+      "Sha256": "D7EEB8585A7FA5EF188CB8D064D22C7E05A963A4888D9519AF2A41D11EB95FE2",
+      "SealedBytes": 5893
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Storage/Atomics/DebugDirtyAtomics595Names.cs",
+      "HashMode": "Raw",
+      "Sha256": "28E4CA53F019CE7E4ECCB196F83399E329B150D7365041FD67E4123B10FD9F4C",
+      "SealedBytes": 1139
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Storage/AtomicsHostAggregate594.cs",
+      "HashMode": "Raw",
+      "Sha256": "373E5BF269111603B148ABDDA0C66DFBA08B940E6DE48B25D7CD678215566898",
+      "SealedBytes": 861
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Storage/PersistentTermArenaSnapshot417.cs",
+      "HashMode": "Raw",
+      "Sha256": "F4D6275417CD4A02ED041175EFE8BED6DDE1A835F7D329A287B6E900D9C3E01C",
+      "SealedBytes": 684
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Storage/PersistentTermReadSnapshot.cs",
+      "HashMode": "Raw",
+      "Sha256": "FAF2099AFB6E601E1D009DA65135203BA081DF7E3D17B99B564759C5FAE2330F",
+      "SealedBytes": 1260
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Storage/RuntimeEtsReadLease.cs",
+      "HashMode": "Raw",
+      "Sha256": "F1BABE15E9A77B1614455784117EDA5CD55952A59F98536013F2216F64533FB0",
+      "SealedBytes": 1078
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Storage/RuntimeEtsStoredObject.cs",
+      "HashMode": "Raw",
+      "Sha256": "87A8DBF6827B962CB00753C89C23C142117854867A095E1B982A0F85D1A8B0CA",
+      "SealedBytes": 2862
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Storage/Atomics/AtomicsAggregate594Checks.cs",
+      "HashMode": "Raw",
+      "Sha256": "F85FD5B19D6305CB951061257886DBB0FB5B93173031400CC65255B67D434D47",
+      "SealedBytes": 12644
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Storage/Atomics/AtomicsAggregate594Names.cs",
+      "HashMode": "Raw",
+      "Sha256": "6163CF13F2D3111BC8690D948ABCE4936AEF78CC15AEAFCE642ED18046CD40E2",
+      "SealedBytes": 2324
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Storage/Atomics/AtomicsEtsAggregate594Checks.cs",
+      "HashMode": "Raw",
+      "Sha256": "35EBD796686A0CA871CED93B67477B52D34F336056B507E37B09ED8016727918",
+      "SealedBytes": 8200
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Storage/Atomics/AtomicsEtsAggregate594Names.cs",
+      "HashMode": "Raw",
+      "Sha256": "48040A22582E4189AB653A28BD83F42CCEAF7D1E2655B048D8EA180926BEA902",
+      "SealedBytes": 1495
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ExternalTerms.cs",
+      "HashMode": "Raw",
+      "Sha256": "A2852F753A6B708469D2622030A3F47EB9B1AFACEBB0E03972394C2EB65F15F5",
+      "SealedBytes": 3298
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Storage/AtomicsHostCopyTransaction591.cs",
+      "HashMode": "Raw",
+      "Sha256": "90869AEF9990D61EC3C63D257FD4DBEE97E6CB6C3794F0568CF20DE139C0A706",
+      "SealedBytes": 1584
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Storage/PersistentArenaCodec416.cs",
+      "HashMode": "Raw",
+      "Sha256": "A9D9972894486BD7B981F88808B90A9E3F3B75EEF276908C5923A50E9C9CD5E4",
+      "SealedBytes": 15300
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Storage/PersistentArenaRead416.cs",
+      "HashMode": "Raw",
+      "Sha256": "4158858660525F9A1531BE004AC30983690299B9E774693E180DC5BB7414E7AD",
+      "SealedBytes": 1777
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Storage/PersistentArenaRoot416.cs",
+      "HashMode": "Raw",
+      "Sha256": "B9C2A1C1503130248C1084A6FABBF033E1944DB356E67D0C76F82B47129D71D1",
+      "SealedBytes": 2052
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Storage/PersistentArenaRootBuilder416.cs",
+      "HashMode": "Raw",
+      "Sha256": "7D37D55F8A639BA53634AF65838D0097D197AC769339A844463793C82946947F",
+      "SealedBytes": 2883
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Storage/PersistentArenaSelection591.cs",
+      "HashMode": "Raw",
+      "Sha256": "380A7C868EB24AFAAF730FE7A08A5558BAF01DD238DE6157C72EEC9F94F1C72C",
+      "SealedBytes": 3242
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Storage/PersistentArenaSelection591Names.cs",
+      "HashMode": "Raw",
+      "Sha256": "C7747E8A4EF0575A14CC2855462F9CAF7A4A83A06A5D74ADD7D8C32FEB99D4C6",
+      "SealedBytes": 363
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Storage/PersistentArenaStore416.cs",
+      "HashMode": "Raw",
+      "Sha256": "773E19D1AF71E356689CAEC411AFD85776301A6EEF5274A5595297A3353A751B",
+      "SealedBytes": 11514
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Storage/PersistentIdentifierRoot416.cs",
+      "HashMode": "Raw",
+      "Sha256": "F391D465C590F7469B87C25EBD5246C2DB1C3CB5B14CC2C588DB05A4450F3D84",
+      "SealedBytes": 2462
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Storage/PersistentTableRead416.cs",
+      "HashMode": "Raw",
+      "Sha256": "E970575FDAF2806ED86ED708B3A4E81BDE7BF3148DECA7C346CCD35887811F1B",
+      "SealedBytes": 3999
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Storage/RuntimeEtsStoredPayload.cs",
+      "HashMode": "Raw",
+      "Sha256": "7337C8DD7FAE9595DE1EA743E06AFC3936C9E9ACF9F234A0DC6360F9C408D8B1",
+      "SealedBytes": 10711
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Memory/OriginalAtomics588CaseNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "1F9778382D18B327F80BECF7A2ED3162E7F7BAC099F634005BC4A42BFB378819",
+      "SealedBytes": 1791
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Memory/OriginalAtomics588MetadataNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "F1F83DAC6FEF5AAAF94B1BF27469947B96014DD6BBF366847CDC40E4EE63859B",
+      "SealedBytes": 2005
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Memory/OriginalAtomics590Checks.cs",
+      "HashMode": "Raw",
+      "Sha256": "B4E0BA37931C35FF6B9D230A9D36B9A712936768BD7969A52930D5607DC08639",
+      "SealedBytes": 5639
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Memory/OriginalAtomics590Identity.cs",
+      "HashMode": "Raw",
+      "Sha256": "226D1872B05248CB03D2871476B1AE1EDCADAA3E09A6ADC95D3F9696A6A62D5F",
+      "SealedBytes": 6335
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Memory/OriginalAtomics590Names.cs",
+      "HashMode": "Raw",
+      "Sha256": "1959F8CF24786EF988A25018A1B0091CEFD7D9045DDC0736EE5CECB100AF8CB6",
+      "SealedBytes": 1432
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Memory/OriginalAtomics590Result.cs",
+      "HashMode": "Raw",
+      "Sha256": "538FC264878B01AC97ADE88023E58A5C2C88ED7BD43ACFEBB05FB17731BAE0C1",
+      "SealedBytes": 254
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Memory/OriginalAtomics590Role.cs",
+      "HashMode": "Raw",
+      "Sha256": "DFB2847D9DFE75B80888C3192E325169BA7721D8DF340187B71F67B94DFAA7D2",
+      "SealedBytes": 114
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Memory/OriginalAtomics590SyntheticNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "AD83A671CBFF2784618EA2D37A0DDE63DAF69B8BA2D337481BD4B5F593783DD2",
+      "SealedBytes": 690
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Memory/OriginalAtomics590Wire.cs",
+      "HashMode": "Raw",
+      "Sha256": "E94B9970E2B3B8D7C5490A3DE0E3784C13EA4765BC59E352978382B17163B2DD",
+      "SealedBytes": 5778
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Memory/OriginalAtomics590WireNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "1D0E8F15899853391F28F6217E1E8035B46FD8D8C0B30AFEE4D19BDC8DF8D4B1",
+      "SealedBytes": 1751
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Memory/OriginalReference563Replay.Atomics590.cs",
+      "HashMode": "Raw",
+      "Sha256": "09A215F64ACCA3C7CEE93B1F6F52F30E6E104C901ADE14D26BBC35742DA3CDD3",
+      "SealedBytes": 724
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Storage/Atomics/AtomicsExportRollback593Checks.cs",
+      "HashMode": "Raw",
+      "Sha256": "1873F7A6B9AAE57835A901F59607A3B57C237A32613C2BC7CBA1A0BE0BCB5707",
+      "SealedBytes": 6704
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Storage/Atomics/AtomicsExportRollback593Names.cs",
+      "HashMode": "Raw",
+      "Sha256": "9FB5799E250141D3E0666A34761727740230718762DC95B901155886C629091A",
+      "SealedBytes": 1579
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Storage/Atomics/AtomicsPersistentSelection591Checks.cs",
+      "HashMode": "Raw",
+      "Sha256": "70882C95EB807E9A883304583908900403F764990DF10BB7E79920D0F5AA8DFF",
+      "SealedBytes": 7325
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Storage/Atomics/AtomicsPersistentSelection591Names.cs",
+      "HashMode": "Raw",
+      "Sha256": "3A93B43B374256AA69402AB08172A5C8C981684C57C52B7989C826396D5F0FFA",
+      "SealedBytes": 905
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Storage/Atomics/AtomicsReservation591Checks.cs",
+      "HashMode": "Raw",
+      "Sha256": "BE9C9433AA46E7D62AF6DAC2F48E97DA4E0C64575A38C34E839CDC93CD24B3E7",
+      "SealedBytes": 7303
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Storage/Atomics/AtomicsReservation591Names.cs",
+      "HashMode": "Raw",
+      "Sha256": "EFC72F75B46C8AD5720AD8974D1FCCC88B464BD70CD071851D07C4DD170F4969",
+      "SealedBytes": 1252
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermInvocation.Native524.cs",
+      "HashMode": "Raw",
+      "Sha256": "B5DFD6EAEF070BDD844C67DE89072B676EA5057E0E8A47BB37DA9ED8AFE9681D",
+      "SealedBytes": 1567
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Services/RuntimeExternalTermReservation.cs",
+      "HashMode": "Raw",
+      "Sha256": "669D8721ED2B61C33DA452EF32709F37236FF751FEEE926AD5042DA7617B02DB",
+      "SealedBytes": 3290
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Storage/Atomics/AtomicsRetirement590Checks.cs",
+      "HashMode": "Raw",
+      "Sha256": "E5548BA0B1683D2B93D42622B098C9D5E046066C2A0F620E94D24381C8E47A76",
+      "SealedBytes": 5604
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Storage/Atomics/AtomicsRetirement590Destructor.cs",
+      "HashMode": "Raw",
+      "Sha256": "ED437723C066A4A02C31B67A8C7665016FBB188413C4BE15D4FA9A28D5265786",
+      "SealedBytes": 183
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Storage/Atomics/AtomicsRetirement590Names.cs",
+      "HashMode": "Raw",
+      "Sha256": "E0A2FAF76CA6C8DF3D7E181957C42912B4FC9AF3D541BD13039193BC09F307C6",
+      "SealedBytes": 1121
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Storage/Atomics/AtomicsStore590Checks.cs",
+      "HashMode": "Raw",
+      "Sha256": "EAE16D706AAE6E56664DE1FE8D4805B94C4A4B0531DC6FB9601B8268EE31F812",
+      "SealedBytes": 10335
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Storage/Atomics/AtomicsStore590Names.cs",
+      "HashMode": "Raw",
+      "Sha256": "517AB3DE35150FE383C3B524F1D41554E91097BBA0AF8D709A6A0CD31C42E4E8",
+      "SealedBytes": 1218
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.Native524.cs",
+      "HashMode": "Raw",
+      "Sha256": "0B1354584E11DDC54AEDA8DF574C2AE2FC97650D9D464230B13F67F2A18295E4",
+      "SealedBytes": 2246
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.OwnedRoots516.cs",
+      "HashMode": "Raw",
+      "Sha256": "1F2B3F313690F8D7A593605996E47EA7AAE922E9E41ECC0F9073E528F74AAEE2",
+      "SealedBytes": 5877
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceRoots524.cs",
+      "HashMode": "Raw",
+      "Sha256": "3D55CCADF911A250239CD3D83E907081959E104815D715366B2D8D56E801CB66",
+      "SealedBytes": 4617
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeTermHostScope524.cs",
+      "HashMode": "Raw",
+      "Sha256": "3CF3C3CD9B91742B924C35ADABDCF21E60762B7BC2E74A64CEF639B720B2EE7E",
+      "SealedBytes": 3031
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/References/ResourceReferenceTerm.cs",
+      "HashMode": "Raw",
+      "Sha256": "73D1DD1CA26C8A329D2871F712091A54EB29EC4BD3724A863B196C75DA20609F",
+      "SealedBytes": 1450
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.Atomics586.cs",
+      "HashMode": "Raw",
+      "Sha256": "AD4CFAF6391350CDF23B6B763D84957BDEB109AA4ED2034018CEE43F20B41013",
+      "SealedBytes": 1558
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermDetachedCopy506.cs",
+      "HashMode": "Raw",
+      "Sha256": "B2B89499A15297CADBE1FEFDD5D95C23A40280530B13E81ABFA0EA47448DF1F7",
+      "SealedBytes": 8969
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermInvocation.Atomics586.cs",
+      "HashMode": "Raw",
+      "Sha256": "8B2B04C55CF92F26898D5BE400A50B467DB8D2C9B70BCC28B04B4435C716CAF0",
+      "SealedBytes": 1083
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessBinaryRegistry512.cs",
+      "HashMode": "Raw",
+      "Sha256": "F98E90E5173B0DC7C99CFCF148F81FC49701D8750FE8A471922C189A9EC07D68",
+      "SealedBytes": 6548
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Atomics586.cs",
+      "HashMode": "Raw",
+      "Sha256": "87153D93B95EE3D54B2C71F7F072BB14FFEC07C383DCDA9A1163280F0A33E5D2",
+      "SealedBytes": 4030
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Native524.cs",
+      "HashMode": "Raw",
+      "Sha256": "B8888BCFE9374CA9605D5067374BF07EDE25D1774940008C190017ECF637A410",
+      "SealedBytes": 6094
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessDictionary.cs",
+      "HashMode": "Raw",
+      "Sha256": "5CCA6A52025E238B44D3A87D4174513454E220AE758B95CF560352EB261414BB",
+      "SealedBytes": 8535
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Services/RuntimeReferenceResources.cs",
+      "HashMode": "Raw",
+      "Sha256": "346CC87FD5A63A331CF3E2C37A11F0FF4C9016DF422945832114EA7BD27A3F1B",
+      "SealedBytes": 8466
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Storage/AtomicsRoots586.cs",
+      "HashMode": "Raw",
+      "Sha256": "0327419485A394ECB271918A7588740B6EC1F439F64E97878A49BCB7FB21113D",
+      "SealedBytes": 3599
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Storage/RuntimeAtomicsOwner413.Retirement586.cs",
+      "HashMode": "Raw",
+      "Sha256": "213E6DE1DE20D73120F9A510DD4BDA2DA5CBB915985B0D6E05D93E3D11A46250",
+      "SealedBytes": 1528
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Storage/Atomics/AtomicsDictionaryHost589Checks.cs",
+      "HashMode": "Raw",
+      "Sha256": "53474D5FE7BE32AB0DDDCF78CE7C8882AD936DAFCD6A7303C471348656728A8C",
+      "SealedBytes": 4958
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Storage/Atomics/AtomicsDictionaryHost589Names.cs",
+      "HashMode": "Raw",
+      "Sha256": "068F9DE6048B408E38B5C96F0A17E111A314C07AE68F13DDA187F4C2D4FC8F01",
+      "SealedBytes": 1113
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Storage/Atomics/AtomicsHost413Checks.cs",
+      "HashMode": "Raw",
+      "Sha256": "B7C9395336A24D0859CAECC071CB1A3BDEF02E8DDAC4E08C02AE1C71497FA019",
+      "SealedBytes": 14635
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Storage/Atomics/AtomicsHost413Names.cs",
+      "HashMode": "Raw",
+      "Sha256": "06D20FBD26BB61187FE5547FD7A999122C69AD725334DB9D3EB2D4FE926ED3F4",
+      "SealedBytes": 2115
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Storage/Atomics/AtomicsMagic586Checks.cs",
+      "HashMode": "Raw",
+      "Sha256": "53106B68CE6F934E2379C024316F9FCB58053161EB5C277B1AC84196E3E61563",
+      "SealedBytes": 6266
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Storage/Atomics/AtomicsMagic586Names.cs",
+      "HashMode": "Raw",
+      "Sha256": "B3635693CD9DD713982EE0F35ABC30DEA04BF5A86A4FD202DBF6E449C2B717B6",
+      "SealedBytes": 1361
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Storage/Atomics/AtomicsP2a586Checks.cs",
+      "HashMode": "Raw",
+      "Sha256": "3BCE915D193C0B7937315D0B2DA3F0C87C8A36C44EEDC1E6FF0DD84D060D6971",
+      "SealedBytes": 2958
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Storage/Atomics/AtomicsP2a586Fixture.cs",
+      "HashMode": "Raw",
+      "Sha256": "D4576E82930855CA2BF1D52C794EC47564965974AEF045A83AC4D219E316FD2C",
+      "SealedBytes": 3700
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Storage/Atomics/AtomicsP2a586Names.cs",
+      "HashMode": "Raw",
+      "Sha256": "011530B6F4F2016A1F43FE685872CFC44C3791C389FD4647C88530177B713590",
+      "SealedBytes": 1678
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Storage/AtomicsResourceLease586.cs",
+      "HashMode": "Raw",
+      "Sha256": "675BEB1CDF9B49FA92C5C309E246EB64797EBCE2B245928D1D1F024B4E0FDD70",
+      "SealedBytes": 749
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Storage/AtomicsOwnership586Names.cs",
+      "HashMode": "Raw",
+      "Sha256": "A5F194674B763BFD219D8D136DCA2BAEEDD25CA78BFA5F53362CF53FC3FBDD2C",
+      "SealedBytes": 640
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Storage/AtomicsNative413.cs",
+      "HashMode": "Raw",
+      "Sha256": "1F57D183EB2A5EF97DBA3F77CAFD30AE09115DF58E2928655162A7EA3A3C722B",
+      "SealedBytes": 3853
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Storage/AtomicsMagicHeader413.cs",
+      "HashMode": "Raw",
+      "Sha256": "C83A48BF355615016D49AABE8208C6F9EA792B3A3AF31776A680C9BD17AC9E97",
+      "SealedBytes": 633
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Storage/AtomicsLeaseKind586.cs",
+      "HashMode": "Raw",
+      "Sha256": "FB99FFE9AF11DC1D32C06D833F4D747940A7252BC1D1B3ACB33DC2F5CE034B80",
+      "SealedBytes": 91
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Storage/AtomicsHostCustody586.cs",
+      "HashMode": "Raw",
+      "Sha256": "71B31E6698C3F4CDF18F6ED9EBBA8D7BC864CB1C604EE2BE56F38E1447FF66B4",
+      "SealedBytes": 904
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Storage/AtomicsGuestRoot413.cs",
+      "HashMode": "Raw",
+      "Sha256": "451DA5D3C4F3569F9680C91290252B8AD4BF9769D3205B308145733E48847F1C",
+      "SealedBytes": 839
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Storage/AtomicsConstructorBinding413.cs",
+      "HashMode": "Raw",
+      "Sha256": "E9B6D5E562C4DB7EB1028CDB5F18E28D9DD711856A268393E11E6CB42B6E5D57",
+      "SealedBytes": 4007
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Storage/AtomicsBackingLease586.cs",
+      "HashMode": "Raw",
+      "Sha256": "77B7CE20794C7B2E31AFFD58EDB452052AA4577AABE70FE6701A53D4B094D098",
+      "SealedBytes": 653
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Storage/AtomicsArray413.Ownership586.cs",
+      "HashMode": "Raw",
+      "Sha256": "F3CDF653E9A2748F7919291E2611D0BB0B151C762FCA90C7153DF4B709968878",
+      "SealedBytes": 5789
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Storage/AtomicsArray413.cs",
+      "HashMode": "Raw",
+      "Sha256": "834BF075A60F821877E2E40713DD85CB3D8B6B68F1048C57879FD23F16D2D6BA",
+      "SealedBytes": 6194
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Services/RuntimeReferenceResources.Atomics413.cs",
+      "HashMode": "Raw",
+      "Sha256": "758C1DFD8D6BE7826716E7359526E95F819D1FFE3EFF9BC53D72088F1F8C6C32",
+      "SealedBytes": 2073
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Magic576.cs",
+      "HashMode": "Raw",
+      "Sha256": "B732608872A7E0ED3F0DF8356A2F168A58ECA72AD4C9CA7D2860568FA60C08EC",
+      "SealedBytes": 12653
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/NativeOffheapHeader576.cs",
+      "HashMode": "Raw",
+      "Sha256": "351D1E4FD794B772B87ADA81F65AF2F8D7B351FC8B5C2ABFF6ABB870E06E914B",
+      "SealedBytes": 2406
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Atomics413.cs",
+      "HashMode": "Raw",
+      "Sha256": "82EE702763DF6B333B890C6AED3C8ECC461DF94530DC86EE32BE0DA28CF7420F",
+      "SealedBytes": 1572
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Storage/RuntimeAtomicsOwner413.cs",
+      "HashMode": "Raw",
+      "Sha256": "EDC92F703AC1C758297FEDA2F62EB06312D0A4380B06A908A5EA009697B4FDCC",
+      "SealedBytes": 6030
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.BeamPrimitives.cs",
+      "HashMode": "Raw",
+      "Sha256": "3C1D968F693D65B90ADAEBD172001E64918D3DC96FDC5CADA9B718147F68ED89",
+      "SealedBytes": 26198
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.BootstrapAtomics413.cs",
+      "HashMode": "Raw",
+      "Sha256": "C09524C2212B1B592A842157678994EE2C74A2868078EC8301487780D0BF3732",
+      "SealedBytes": 1287
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Memory/OriginalReference563Replay.Atomics588.cs",
+      "HashMode": "Raw",
+      "Sha256": "BCD874F3BE7436C25423DEB2C35496BDE7A4A45F8EB65F1362305CE81D6B6FB3",
+      "SealedBytes": 730
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Memory/OriginalAtomics588Stock.cs",
+      "HashMode": "Raw",
+      "Sha256": "E1F43BB546F1207247E4213183E4B870CA38FBC83F1D40EB7949CEB92B428CD7",
+      "SealedBytes": 163
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Memory/OriginalAtomics588Names.cs",
+      "HashMode": "Raw",
+      "Sha256": "363A9D3EB0913B8AC891CB6290CC8A5D93ED8EC2BA6FDB3B08AA3AC72F16574D",
+      "SealedBytes": 1501
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Memory/OriginalAtomics588Images.cs",
+      "HashMode": "Raw",
+      "Sha256": "14FB726B2BB8EFCCC6E57C4574C10F8CD15FB2D123C24E46B9BAB89419AC44F9",
+      "SealedBytes": 9274
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Memory/OriginalAtomics588Evidence.cs",
+      "HashMode": "Raw",
+      "Sha256": "3D5F4868AF79CE727DCC80EA0F53BBB0841FCAFF16F184EB4BA3141236340E44",
+      "SealedBytes": 104
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Memory/OriginalAtomics588Cases.cs",
+      "HashMode": "Raw",
+      "Sha256": "01BBDA7C99A0A0EF2FB6E28E3BEA7D226399CF3613E46FC323C3E23F16E8737D",
+      "SealedBytes": 4004
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Memory/OriginalAtomics588CaseChecks.cs",
+      "HashMode": "Raw",
+      "Sha256": "96EC44A03745DF236C06DE0B16D2BE56ADC6B1BD826E83E708089A60E53818A9",
+      "SealedBytes": 3793
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Memory/OriginalAtomics588AdmissionReader.cs",
+      "HashMode": "Raw",
+      "Sha256": "CC45371A4168383A914CF6EE7359146C1DF710207A137DCADB279D1A9116EEA5",
+      "SealedBytes": 3686
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Memory/OriginalAtomics588Admission.cs",
+      "HashMode": "Raw",
+      "Sha256": "7BD7AF6D3AAAEDECBD9E13E2C0C692320F3EC7F1A408A9530B79CC41591DC06A",
+      "SealedBytes": 439
     },
     {
       "Scope": "Repository",
@@ -651,8 +1393,8 @@
       "Scope": "Repository",
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap506.cs",
       "HashMode": "Raw",
-      "Sha256": "8B49B866F8F93F15EF9E7C24ED634DC2BC3E05A3EB12989C303B91BF9BB34A6A",
-      "SealedBytes": 10720
+      "Sha256": "220B00B0F60FE4E99498967FF229592EB2C605C9D55920B2FE8FE80EE8F243F6",
+      "SealedBytes": 10951
     },
     {
       "Scope": "Repository",
@@ -721,15 +1463,15 @@
       "Scope": "Repository",
       "Path": "tests/Erlang.Tests/Runtime/Memory/OriginalReference563Names.cs",
       "HashMode": "Raw",
-      "Sha256": "CE82B9FC49E0252F31CDE44325313E437D81A2DBC084345572DAC610908AC9DF",
-      "SealedBytes": 2343
+      "Sha256": "B32889885AF98221089A5879AC2ECFB55118A1631758F2A76708308C6E5DF0CE",
+      "SealedBytes": 2531
     },
     {
       "Scope": "Repository",
       "Path": "tests/Erlang.Tests/Runtime/Memory/OriginalReference563Replay.cs",
       "HashMode": "Raw",
-      "Sha256": "AD7CC0FD82E57B6ECCAC6CA406578007207BAB92B7CDECABCAC148D88D5EA7F6",
-      "SealedBytes": 10661
+      "Sha256": "72DBDC08A88AF126EA9D1ABA7BB111703DED13C1906B5635C341735CD57D483F",
+      "SealedBytes": 15777
     },
     {
       "Scope": "Repository",
@@ -1176,8 +1918,8 @@
       "Scope": "Repository",
       "Path": "tests/Erlang.Tests/Harness/Program.cs",
       "HashMode": "Raw",
-      "Sha256": "E431DDCEA5DE61A8680E41AB0763E4F2E45670A29000CDB57379CFC316669DE9",
-      "SealedBytes": 343661
+      "Sha256": "7044AEC170E6A6C1DA2739B5E28B3DEE485E840113592F6B937D8AFC26FA990F",
+      "SealedBytes": 348018
     },
     {
       "Scope": "Repository",
@@ -1344,8 +2086,8 @@
       "Scope": "Repository",
       "Path": ".github/workflows/validate.yml",
       "HashMode": "TextLF",
-      "Sha256": "837A668812D5464E59462E11753D01EB0D0E61E1CF48819FFBFC6D35FE1DEF02",
-      "SealedBytes": 67056
+      "Sha256": "4B03DCE26402C158392D38E76DB6DD73A0521048DF3CEA3E1E9955A87203762B",
+      "SealedBytes": 71170
     }
   ],
   "Excludes": [

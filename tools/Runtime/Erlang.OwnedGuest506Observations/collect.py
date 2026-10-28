@@ -184,7 +184,7 @@ def main():
     require(plan['PinnedCommit'] == PIN, 'Plan pin differs')
     check_inputs(repo, tool, plan)
     jobs = json.loads((tool/'jobs.json').read_bytes())['Jobs']
-    selected = args.job or list(jobs)
+    selected = args.job or [name for name, row in jobs.items() if not row.get('OptInOnly', False)]
     require(selected and len(selected) == len(set(selected)) and all(name in jobs for name in selected), 'Invalid/duplicate jobs')
     for name in selected:
         row = jobs[name]
@@ -229,6 +229,12 @@ def main():
                 row = jobs[job]
                 for name in row['Fixtures']:
                     shutil.copyfile(tool/'fixtures'/name, directory/name)
+                stock588 = None
+                if row.get('StockModules588'):
+                    require(args.compiled_worker and row.get('OptInOnly') and job == 'atomics-magic586'
+                            and row['StockModules588'] == ['atomics', 'counters'], 'Unsupported stock-owner profile')
+                    stock588 = load('stock_owners588', tool/'stock-owners588.py')
+                    stock588.prepare(installed, directory, row['StockModules588'], source_built=args.build_receipt is not None)
                 compiled_worker = args.compiled_worker and not row.get('PairedProfiles')
                 if compiled_worker:
                     shutil.copyfile(worker_source, directory/worker_source.name)
@@ -248,15 +254,18 @@ def main():
                     'W("modules.etf",[{M,code:which(M),M:module_info(md5)}||M<-Modules]),'
                     + ('W("executing-owners.etf",[{M,code:which(M),M:module_info(md5),'
                        'M:module_info(compile),M:module_info(attributes),M:module_info(exports)}||M<-Modules]),' if compiled_worker else '')
-                    +
-                    'try '+entry+' of T->W("observed.etf",T),'+paired
+                    + (stock588.expression(directory, 'stock-owners-before588.etf') if stock588 else '')
+                    + 'try '+entry+' of T->W("observed.etf",T),'+paired
                     + ('ok=file:write_file("observed-deterministic.etf",term_to_binary(T,[deterministic,{minor_version,2}])),'
                        'W("worker-witnesses.etf",get(contract_worker513_witnesses)),'
-                       'case T of {{returned,_},normal}->halt(0);_->halt(78) end ' if compiled_worker else 'halt(0) ')
+                       + (stock588.expression(directory, 'stock-owners-after588.etf') if stock588 else '')
+                       + 'case T of {{returned,_},normal}->halt(0);_->halt(78) end ' if compiled_worker else 'halt(0) ')
                     + 'catch C:R:S->W("entry-failure.etf",{C,R,S}),halt(77) end.')
                 command = [str(executable), '+S', '1:1', '+A', '1', '-noshell', '-noinput', '-boot', 'no_dot_erlang',
                            '-pa', str(directory), '-eval', expression]
                 phases[job] = execute(repo, command, directory, job_env)
+                if stock588:
+                    stock588.verify(installed, directory)
                 observed = directory/'observed.etf'
                 require(observed.is_file(), 'No raw observation')
                 observations.append(dict(Job=job, Bytes=observed.stat().st_size, Sha256=sha(observed)))

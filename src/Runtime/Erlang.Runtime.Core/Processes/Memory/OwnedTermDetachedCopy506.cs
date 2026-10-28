@@ -3,6 +3,56 @@ namespace Erlang;
 internal static class OwnedTermDetachedCopy506
 {
     internal static Term Copy(ProcessRuntime runtime, Term source)
+        => CopyAtomics586(runtime, source);
+
+    internal static Term CopyAtomics586(
+        ProcessRuntime runtime,
+        Term source,
+        bool? exportHostAtomics586 = null,
+        AtomicsHostCopyTransaction591? hostCopies591 = null
+    )
+    {
+        bool hostExport = exportHostAtomics586 ?? !runtime.OwnedTermsPilot506;
+        bool ownsTransaction = hostCopies591 is null;
+        Exception? primary = null;
+        try
+        {
+            return CopyCore593(
+                runtime,
+                source,
+                hostExport,
+                ref hostCopies591,
+                ownsTransaction
+            );
+        }
+        catch (Exception error)
+        {
+            primary = error;
+            throw;
+        }
+        finally
+        {
+            if (ownsTransaction)
+            {
+                try
+                {
+                    hostCopies591?.Dispose();
+                }
+                catch (Exception cleanup) when (primary is not null)
+                {
+                    throw new AggregateException(primary, cleanup);
+                }
+            }
+        }
+    }
+
+    private static Term CopyCore593(
+        ProcessRuntime runtime,
+        Term source,
+        bool hostExport,
+        ref AtomicsHostCopyTransaction591? hostCopies591,
+        bool ownsTransaction
+    )
     {
         // The native copy_struct traversal copies each heap occurrence; do not
         // turn repeated boxed children into a shared memoized output graph.
@@ -17,8 +67,19 @@ internal static class OwnedTermDetachedCopy506
                 stack.Push(new(runtime, frame.Children[frame.Index]));
                 continue;
             }
+            // No allocation and no extra traversal for ordinary non-atomics
+            // copies or internal guest/store copies with host export disabled.
+            if (hostExport && hostCopies591 is null
+                && frame.Source is ResourceReferenceTerm { ResourceKind: ReferenceResourceKind.Atomics413 })
+                hostCopies591 = new AtomicsHostCopyTransaction591();
             Term copy = frame.NativeMap is { } nativeMap
-                ? nativeMap.Build(frame.Copied) : Build(runtime, frame.Source, frame.Copied);
+                ? nativeMap.Build(frame.Copied) : Build(
+                    runtime,
+                    frame.Source,
+                    frame.Copied,
+                    hostExport,
+                    hostCopies591
+                );
             if (frame.NativeMap is not null && frame.Source is MapTerm { IsOrdinaryLogicalMap517: true } && copy is MapTerm raw)
             {
                 // Ordinary maps keep the legacy portable dictionary facade for
@@ -33,6 +94,8 @@ internal static class OwnedTermDetachedCopy506
             if (stack.Count == 0)
             {
                 runtime.ObserveIncomingTerm(copy);
+                if (ownsTransaction)
+                    hostCopies591?.CommitWrappers593();
 
                 return copy;
             }
@@ -55,7 +118,13 @@ internal static class OwnedTermDetachedCopy506
         return true;
     }
 
-    private static Term Build(ProcessRuntime runtime, Term source, Term[] values)
+    private static Term Build(
+        ProcessRuntime runtime,
+        Term source,
+        Term[] values,
+        bool exportHostAtomics586,
+        AtomicsHostCopyTransaction591? hostCopies591
+    )
     {
         switch (source)
         {
@@ -104,6 +173,9 @@ internal static class OwnedTermDetachedCopy506
                 return slice.Backing is null ? new BitString(binary.ToArray(), binary.BitLength)
                     : slice.Backing.Materialize(slice.BitOffset, slice.BitLength);
             case ResourceReferenceTerm resource:
+                if (exportHostAtomics586 && resource.ResourceKind == ReferenceResourceKind.Atomics413)
+                    return AtomicsRoots586.HostCopy586(resource, hostCopies591);
+
                 // New heap wrapper, same actual authenticated magic resource.
                 // Native resource lifetime is held separately by actual root/store leases.
                 // Freeze the authoritative actual header/prefix identity while

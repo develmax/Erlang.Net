@@ -5,14 +5,27 @@ internal sealed class PersistentArenaRoot416(PersistentArenaRootKind416 kind, ob
     private object? owned = value;
     internal PersistentArenaRootKind416 Kind { get; } = kind;
 
-    internal BitString Binary(long offset, int length)
-        => (BitString)OwnedTermInvocation506.AdmitNativeStoredResult524(
-            Require<PersistentBinaryBacking416>(PersistentArenaRootKind416.Binary).Materialize(offset, length));
+    internal BitString Binary(long offset, int length) => BinarySelected591(offset, length, true);
+
+    internal BitString BinarySelected591(long offset, int length, bool admitResult)
+    {
+        BitString value = Require<PersistentBinaryBacking416>(PersistentArenaRootKind416.Binary).Materialize(offset, length);
+
+        return admitResult ? (BitString)OwnedTermInvocation506.AdmitNativeStoredResult524(value) : value;
+    }
 
     internal Term Identifier(byte[] bytes) => Require<PersistentIdentifierRoot416>(PersistentArenaRootKind416.Identifier).Materialize(bytes);
 
-    internal Term Identity() => OwnedTermInvocation506.AdmitNativeStoredResult524(
-        Require<RuntimeExternalTermReservation>(PersistentArenaRootKind416.Identity).Value);
+    internal Term Identity() => IdentitySelected591(true);
+
+    internal Term IdentitySelected591(bool admitResult) => IdentitySelected594(admitResult, null);
+
+    internal Term IdentitySelected594(bool admitResult, AtomicsHostCopyTransaction591? transaction)
+    {
+        Term value = Require<RuntimeExternalTermReservation>(PersistentArenaRootKind416.Identity).Value;
+
+        return admitResult ? OwnedTermInvocation506.AdmitNativeStoredResultSelected594(value, transaction) : value;
+    }
 
     internal FunctionTerm Function(IReadOnlyList<Term> environment)
         => Require<IRuntimeStoredFunctionRecipe>(PersistentArenaRootKind416.Function).Rebind(environment);

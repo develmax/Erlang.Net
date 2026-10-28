@@ -63,6 +63,37 @@ internal static class PersistentArenaCodec416
     }
 
     internal static Term Decode(byte[] bytes, PersistentArenaRoots416 roots, CancellationToken cancellation)
+        => DecodeSelected591(
+            bytes,
+            roots,
+            cancellation,
+            true,
+            false
+        );
+
+    internal static Term DecodeSelected591(
+        byte[] bytes,
+        PersistentArenaRoots416 roots,
+        CancellationToken cancellation,
+        bool admitResults,
+        bool valueOnly
+    ) => DecodeSelected594(
+        bytes,
+        roots,
+        cancellation,
+        admitResults,
+        valueOnly,
+        null
+    );
+
+    internal static Term DecodeSelected594(
+        byte[] bytes,
+        PersistentArenaRoots416 roots,
+        CancellationToken cancellation,
+        bool admitResults,
+        bool valueOnly,
+        AtomicsHostCopyTransaction591? transaction
+    )
     {
         Require(bytes.Length >= PersistentArenaNames416.HeaderBytes);
         using var input = new MemoryStream(bytes, false);
@@ -72,53 +103,104 @@ internal static class PersistentArenaCodec416
         ulong root = reader.ReadUInt64();
         ulong count = reader.ReadUInt64();
         Require(reader.ReadUInt64() == checked((ulong)roots.Count));
+        // Select the actual escaping graph before any leaf admission. Still
+        // decode/validate ALL nodes below; comparison mode admits no outputs.
+        HashSet<ulong>? escaping = admitResults
+            ? PersistentArenaSelection591.Escaping(
+                bytes,
+                root,
+                valueOnly,
+                cancellation
+            ) : null;
         var decoded = new Dictionary<ulong, Term>();
-        while (input.Position < input.Length)
+        var admittedHosts591 = new List<AtomicsHostCustody586>();
+        try
         {
-            cancellation.ThrowIfCancellationRequested();
-            Require(input.Length - input.Position >= PersistentArenaNames416.NodeHeaderBytes);
-            ulong position = checked((ulong)input.Position);
-            var kind = (PersistentArenaKind416)reader.ReadInt32();
-            int length = reader.ReadInt32();
-            int children = reader.ReadInt32();
-            int external = reader.ReadInt32();
-            long auxiliary = reader.ReadInt64();
-            Require(length >= 0 && children >= 0
-                && (long)length + (long)children * PersistentArenaNames416.OffsetBytes <= input.Length - input.Position);
-            byte[] data = reader.ReadBytes(length);
-            var values = new Term[children];
-            for (int index = 0; index < children; index++)
+            while (input.Position < input.Length)
             {
-                ulong offset = reader.ReadUInt64();
-                Require(offset < position && decoded.ContainsKey(offset));
-                values[index] = decoded[offset];
+                cancellation.ThrowIfCancellationRequested();
+                Require(input.Length - input.Position >= PersistentArenaNames416.NodeHeaderBytes);
+                ulong position = checked((ulong)input.Position);
+                var kind = (PersistentArenaKind416)reader.ReadInt32();
+                int length = reader.ReadInt32();
+                int children = reader.ReadInt32();
+                int external = reader.ReadInt32();
+                long auxiliary = reader.ReadInt64();
+                Require(length >= 0 && children >= 0
+                    && (long)length + (long)children * PersistentArenaNames416.OffsetBytes <= input.Length - input.Position);
+                byte[] data = reader.ReadBytes(length);
+                var values = new Term[children];
+                for (int index = 0; index < children; index++)
+                {
+                    ulong offset = reader.ReadUInt64();
+                    Require(offset < position && decoded.ContainsKey(offset));
+                    values[index] = decoded[offset];
+                }
+                PersistentArenaRoot416? offheap = external == PersistentArenaNames416.MissingRoot ? null : roots.Get(external);
+                Term value = kind switch
+                {
+                    PersistentArenaKind416.Nil when length == 0 && children == 0 && offheap is null => Nil.Value,
+                    PersistentArenaKind416.Atom when children == 0 && offheap is null => Atom(data),
+                    PersistentArenaKind416.Integer when children == 0 && offheap is null => new Integer(new BigInteger(data)),
+                    PersistentArenaKind416.Float when length == 0 && children == 0 && offheap is null => new FloatTerm(BitConverter.Int64BitsToDouble(auxiliary)),
+                    PersistentArenaKind416.Cons when length == 0 && children == 2 && offheap is null => new Cons(values[0], values[1]),
+                    PersistentArenaKind416.Tuple when length == 0 && offheap is null => new TupleTerm(values),
+                    PersistentArenaKind416.Map when length == 0 && children % 2 == 0 && offheap is null => new MapTerm(
+                        Enumerable.Range(0, children / 2).Select(index => new KeyValuePair<Term, Term>(values[index * 2], values[index * 2 + 1]))),
+                    PersistentArenaKind416.InlineBinary when children == 0 && offheap is null && auxiliary >= 0 && auxiliary <= int.MaxValue
+                        => new BitString(data, (int)auxiliary),
+                    PersistentArenaKind416.ReferenceBinary when length == sizeof(int) && children == 0 && offheap is not null
+                        => offheap.BinarySelected591(auxiliary, System.Buffers.Binary.BinaryPrimitives.ReadInt32LittleEndian(data), escaping?.Contains(position) == true),
+                    PersistentArenaKind416.NativeRecord when offheap is null => Record(data, values, auxiliary),
+                    PersistentArenaKind416.Identity when children == 0 && offheap is not null => offheap.Identifier(data),
+                    PersistentArenaKind416.ResourceIdentity when length == 0 && children == 0 && offheap is not null => offheap.IdentitySelected594(escaping?.Contains(position) == true, transaction),
+                    PersistentArenaKind416.Function when length == 0 && offheap is not null => Function(offheap, values, auxiliary),
+                    _ => throw new InvalidDataException(PersistentArenaNames416.Invalid)
+                };
+                if (escaping?.Contains(position) == true
+                    && value is ResourceReferenceTerm { ResourceKind: ReferenceResourceKind.Atomics413, AtomicsHost586: { } host })
+                {
+                    try
+                    {
+                        admittedHosts591.Add(host);
+                    }
+                    catch (Exception original)
+                    {
+                        try
+                        {
+                            host.Dispose();
+                        }
+                        catch (Exception cleanup)
+                        {
+                            throw new AggregateException(original, cleanup);
+                        }
+                        throw;
+                    }
+                }
+                decoded.Add(position, value);
             }
-            PersistentArenaRoot416? offheap = external == PersistentArenaNames416.MissingRoot ? null : roots.Get(external);
-            Term value = kind switch
-            {
-                PersistentArenaKind416.Nil when length == 0 && children == 0 && offheap is null => Nil.Value,
-                PersistentArenaKind416.Atom when children == 0 && offheap is null => Atom(data),
-                PersistentArenaKind416.Integer when children == 0 && offheap is null => new Integer(new BigInteger(data)),
-                PersistentArenaKind416.Float when length == 0 && children == 0 && offheap is null => new FloatTerm(BitConverter.Int64BitsToDouble(auxiliary)),
-                PersistentArenaKind416.Cons when length == 0 && children == 2 && offheap is null => new Cons(values[0], values[1]),
-                PersistentArenaKind416.Tuple when length == 0 && offheap is null => new TupleTerm(values),
-                PersistentArenaKind416.Map when length == 0 && children % 2 == 0 && offheap is null => new MapTerm(
-                    Enumerable.Range(0, children / 2).Select(index => new KeyValuePair<Term, Term>(values[index * 2], values[index * 2 + 1]))),
-                PersistentArenaKind416.InlineBinary when children == 0 && offheap is null && auxiliary >= 0 && auxiliary <= int.MaxValue
-                    => new BitString(data, (int)auxiliary),
-                PersistentArenaKind416.ReferenceBinary when length == sizeof(int) && children == 0 && offheap is not null
-                    => offheap.Binary(auxiliary, System.Buffers.Binary.BinaryPrimitives.ReadInt32LittleEndian(data)),
-                PersistentArenaKind416.NativeRecord when offheap is null => Record(data, values, auxiliary),
-                PersistentArenaKind416.Identity when children == 0 && offheap is not null => offheap.Identifier(data),
-                PersistentArenaKind416.ResourceIdentity when length == 0 && children == 0 && offheap is not null => offheap.Identity(),
-                PersistentArenaKind416.Function when length == 0 && offheap is not null => Function(offheap, values, auxiliary),
-                _ => throw new InvalidDataException(PersistentArenaNames416.Invalid)
-            };
-            decoded.Add(position, value);
-        }
-        Require((ulong)decoded.Count == count && decoded.ContainsKey(root));
+            Require((ulong)decoded.Count == count && decoded.ContainsKey(root));
 
-        return decoded[root];
+            return decoded[root];
+        }
+        catch (Exception original)
+        {
+            Exception? cleanupFailure = null;
+            // A later malformed node/admission failure must not leave hidden
+            // finalizable host carriers created by earlier selected leaves.
+            foreach (AtomicsHostCustody586 host in admittedHosts591)
+                try
+                {
+                    host.Dispose();
+                }
+                catch (Exception cleanup)
+                {
+                    cleanupFailure ??= cleanup;
+                }
+            if (cleanupFailure is not null)
+                throw new AggregateException(original, cleanupFailure);
+            throw;
+        }
     }
 
     private static Atom Atom(byte[] bytes)

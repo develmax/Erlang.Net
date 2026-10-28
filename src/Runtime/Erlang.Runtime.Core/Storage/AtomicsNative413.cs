@@ -41,6 +41,9 @@ internal static class AtomicsNative413
         if (resource is null) throw new ErlangException(ErlangErrorReasons.BadArgument);
         AtomicsGuestRoot413 root = resource.Value;
         if (!ReferenceEquals(root.Owner, owner.AtomicsOwner413)) throw new ErlangException(ErlangErrorReasons.BadArgument);
+        // PARENT SHARED-ROOT SEAM: validate exact current magic header/mb or
+        // admitted host carrier before pointer reads; no name/Entry-only grant.
+        context.RequireAtomicsReference586(reference, root);
         using var lease = root.Array.Acquire();
         if (lease is null) throw new ErlangException(ErlangErrorReasons.BadArgument);
         var array = lease.Value;
@@ -50,7 +53,7 @@ internal static class AtomicsNative413
                 [Term.A(AtomicsNames413.Size)] = new Integer(new System.Numerics.BigInteger(array.Length)),
                 [Term.A(AtomicsNames413.Minimum)] = array.Signed ? Term.I(long.MinValue) : Term.I(0),
                 [Term.A(AtomicsNames413.Maximum)] = array.Signed ? Term.I(long.MaxValue) : new Integer(new System.Numerics.BigInteger(ulong.MaxValue)),
-                [Term.A(AtomicsNames413.Memory)] = new Integer(new System.Numerics.BigInteger(array.AllocatedBytes))
+                [Term.A(AtomicsNames413.Memory)] = new Integer(new System.Numerics.BigInteger(array.OriginalSize585))
             });
         ulong index = AtomicsValues413.Index(arguments[1], array.Length);
         if (function == AtomicsNames413.Get)

@@ -32,7 +32,7 @@ jobs:
           base = os.environ.get('BASE_SHA', '')
           present = bool(base and set(base) != {'0'} and subprocess.run(['git', 'cat-file', '-e', base + '^{commit}'], capture_output=True).returncode == 0)
           changed = subprocess.check_output(['git', 'diff', '--name-only', base, 'HEAD'], text=True).splitlines() if present else []
-          prefixes = ('tools/Runtime/Erlang.DynamicApply520Observations/', 'tests/Erlang.Tests/Compiler/Beam/Calls/DynamicApply', 'tools/Runtime/Erlang.OwnedGuest506Observations/', 'tests/Erlang.Tests/Runtime/Memory/Owned', 'src/Runtime/Erlang.Runtime.Core/Processes/Memory/', 'src/Runtime/Erlang.Runtime.Core/Execution/Beam/', 'tools/Runtime/Erlang.ResourceControls504Observations/', 'tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/', 'src/Runtime/Erlang.Runtime.Core/Scheduling/', 'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Statistics', 'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.SchedulerStatistics', 'src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations')
+          prefixes = ('src/Runtime/Erlang.Runtime.Core/Storage/RuntimeAtomics', 'src/Runtime/Erlang.Runtime.Core/Processes/ProcessRuntime.cs', 'src/Runtime/Erlang.Runtime.Core/Storage/Atomics', 'src/Runtime/Erlang.Runtime.Core/Services/RuntimeReferenceResources', 'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Atomics', 'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.Atomics', 'src/Runtime/Erlang.Runtime.Core/Primitives/References/ResourceReferenceTerm.cs', 'tests/Erlang.Tests/Runtime/Storage/Atomics/', 'tests/Erlang.Tests/Runtime/Memory/OriginalAtomics', 'tools/Runtime/Erlang.DynamicApply520Observations/', 'tests/Erlang.Tests/Compiler/Beam/Calls/DynamicApply', 'tools/Runtime/Erlang.OwnedGuest506Observations/', 'tests/Erlang.Tests/Runtime/Memory/Owned', 'src/Runtime/Erlang.Runtime.Core/Processes/Memory/', 'src/Runtime/Erlang.Runtime.Core/Execution/Beam/', 'tools/Runtime/Erlang.ResourceControls504Observations/', 'tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/', 'src/Runtime/Erlang.Runtime.Core/Scheduling/', 'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Statistics', 'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.SchedulerStatistics', 'src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations')
           selected = [name for name in changed if name.startswith(prefixes) or 'SystemFlag504' in name or 'Owned' in name or name == '.github/workflows/validate.yml']
           required = not present or bool(selected)
           folder = pathlib.Path('artifacts/resource-controls504-original')
@@ -167,6 +167,26 @@ jobs:
               > "artifacts/resource-controls504-original/dynamic520-managed-$owned.log" 2>&1; then status=1; fi
           done
           exit "$status"
+      - name: Compare atomics and original counters with the shared Linux OTP
+        id: atomics592-contracts
+        if: ${{ !cancelled() && steps.resource-scope.outputs.required == 'true' && steps.shared-original-build.outcome == 'success' && steps.managed-linux-build.outcome == 'success' && steps.owned506-admit.outcome == 'success' && steps.dynamic520-original.outcome == 'success' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          provider="$GITHUB_WORKSPACE/artifacts/resource-controls504-original/runtime-build/build-receipt.json"
+          provider_sha=$(sha256sum "$provider" | cut -d ' ' -f 1)
+          metadata="$GITHUB_WORKSPACE/artifacts/resource-controls504-original/dynamic520-original/completion.json"
+          metadata_sha=$(sha256sum "$metadata" | cut -d ' ' -f 1)
+          host="$GITHUB_WORKSPACE/tests/Erlang.Tests/bin/Release/net10.0/Erlang.Tests.dll"
+          host_sha=$(sha256sum "$host" | cut -d ' ' -f 1)
+          python3 -B tools/Runtime/Erlang.OwnedGuest506Observations/capture-atomics588.py \
+            --repository "$GITHUB_WORKSPACE" --expected-head "$EXPECTED_HEAD" --source-plan-sha256 "$OWNED506_PLAN_SHA" \
+            --build-receipt "$provider" --otp-source "$GITHUB_WORKSPACE/artifacts/resource-controls504-otp-source" \
+            --admission-sha256 "$provider_sha" --output artifacts/resource-controls504-original/atomics592 \
+            --managed-host "$host" --managed-host-sha256 "$host_sha" --metadata-completion "$metadata" \
+            --metadata-completion-sha256 "$metadata_sha" --own-reference-protocol \
+            > artifacts/resource-controls504-original/atomics592.log 2>&1
       - name: Require every owned506 original and final-control stage
         if: ${{ !cancelled() && steps.resource-scope.outputs.required == 'true' }}
         shell: bash
@@ -177,6 +197,7 @@ jobs:
           CONTROLS: ${{ steps.owned506-controls.outcome }}
           DYNAMIC_ORIGINAL: ${{ steps.dynamic520-original.outcome }}
           DYNAMIC_CONTROLS: ${{ steps.dynamic520-controls.outcome }}
+          ATOMICS_CONTRACTS: ${{ steps.atomics592-contracts.outcome }}
         run: |
           test "$ADMISSION" = success
           test "$ORIGINAL" = success
@@ -184,6 +205,7 @@ jobs:
           test "$CONTROLS" = success
           test "$DYNAMIC_ORIGINAL" = success
           test "$DYNAMIC_CONTROLS" = success
+          test "$ATOMICS_CONTRACTS" = success
       - uses: actions/upload-artifact@v7
         if: always()
         with:
@@ -491,7 +513,7 @@ jobs:
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
             throw 'Map family504 requires successful host/provider preparation; dependent execution was not started'
           }
-          python -B tools/Native/Erlang.NifMapFamily504Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 F194115E68A39434099311F979EE5E1C213A757CDE01F2EA4B821D7854C834F2 --output artifacts/native-map504/ci --check-golden --both-runtime-profiles516
+          python -B tools/Native/Erlang.NifMapFamily504Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 4629C187449CE0596DFF24B6EF928A487694C907998E40F272FFE5E89B09BBD2 --output artifacts/native-map504/ci --check-golden --both-runtime-profiles516
           if ($LASTEXITCODE -ne 0) { throw 'Native map family504 original/ordinary/reviewed comparison failed; all prepared independent route receipts are retained' }
           $comparison516 = Get-Content 'artifacts/native-map504/ci/completion.json' -Raw | ConvertFrom-Json
           if (!$comparison516.Passed -or !$comparison516.BothRuntimeProfiles516 -or $comparison516.ExpectedRawLoaderComparisons -ne 4 -or $comparison516.WholeRawLoaderComparisons -ne 4 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'ordinary-runtime' -ne 2 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'owned-runtime' -ne 2) { throw 'All four runtime-profile/loader comparisons are required' }
@@ -512,7 +534,7 @@ jobs:
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
             throw 'Materialized505 host/provider preparation missing; dependent execution skipped'
           }
-          python -B tools/Native/Erlang.NifMapMaterialized505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 19057746F693E6E10F60397FC3FAC1E0CB6D0BC2F26C58637676F76B50DDBD71 --output artifacts/native-map505/ci --check-golden --both-runtime-profiles516
+          python -B tools/Native/Erlang.NifMapMaterialized505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 E0A3A163DF6F143A416EF5473E61FA1CE1D55BDD91FC6FA8F9E5181A1450189B --output artifacts/native-map505/ci --check-golden --both-runtime-profiles516
           if ($LASTEXITCODE -ne 0) { throw 'Materialized505 independent original/ordinary/reviewed comparison failed; inspect retained full results' }
           $comparison516 = Get-Content 'artifacts/native-map505/ci/completion.json' -Raw | ConvertFrom-Json
           if (!$comparison516.Passed -or !$comparison516.BothRuntimeProfiles516 -or $comparison516.ExpectedRawLoaderComparisons -ne 4 -or $comparison516.WholeRawLoaderComparisons -ne 4 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'ordinary-runtime' -ne 2 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'owned-runtime' -ne 2) { throw 'All four runtime-profile/loader comparisons are required' }
@@ -526,7 +548,7 @@ jobs:
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
             throw 'Reentry505 host/provider preparation missing; dependent execution skipped'
           }
-          python -B tools/Native/Erlang.NifMapReentry505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 A7115C1942CE0837CE745C42210305C5E332790241EB21F2E4E79BB625615A72 --output artifacts/native-map505/reentry-ci --check-golden --both-runtime-profiles516
+          python -B tools/Native/Erlang.NifMapReentry505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 280FBDF06035CE72C32678D1FE3973E84C2C0EF956CC96911275E38067A2244E --output artifacts/native-map505/reentry-ci --check-golden --both-runtime-profiles516
           if ($LASTEXITCODE -ne 0) { throw 'Reentry505 original/ordinary/reviewed comparison failed; independent routes and cleanup retained' }
           $comparison516 = Get-Content 'artifacts/native-map505/reentry-ci/completion.json' -Raw | ConvertFrom-Json
           if (!$comparison516.Passed -or !$comparison516.BothRuntimeProfiles516 -or $comparison516.ExpectedRawLoaderComparisons -ne 4 -or $comparison516.WholeRawLoaderComparisons -ne 4 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'ordinary-runtime' -ne 2 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'owned-runtime' -ne 2) { throw 'All four runtime-profile/loader comparisons are required' }
@@ -736,6 +758,21 @@ jobs:
           if ($errors529.Count -ne 0) { throw ($errors529 -join "`n") }
 
 
+      - name: Compare atomics and original counters with the admitted Windows provider
+        id: atomics592-contracts
+        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' && steps.dynamic520-original.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $provider = Join-Path $PWD.Path 'artifacts/library376-official-compiler/official-admission.json'
+          $providerSha = (Get-FileHash -LiteralPath $provider -Algorithm SHA256).Hash
+          $metadata = Join-Path $PWD.Path 'artifacts/dynamic520/original/completion.json'
+          $metadataSha = (Get-FileHash -LiteralPath $metadata -Algorithm SHA256).Hash
+          $hostPath = Join-Path $PWD.Path 'tests/Erlang.Tests/bin/Debug/net10.0/Erlang.Tests.dll'
+          $hostSha = (Get-FileHash -LiteralPath $hostPath -Algorithm SHA256).Hash
+          python -B tools/Runtime/Erlang.OwnedGuest506Observations/capture-atomics588.py --repository $PWD.Path --expected-head $env:EXPECTED_HEAD --source-plan-sha256 $env:OWNED506_PLAN_SHA --official-admission $provider --admission-sha256 $providerSha --output artifacts/owned506/atomics592 --managed-host $hostPath --managed-host-sha256 $hostSha --metadata-completion $metadata --metadata-completion-sha256 $metadataSha --own-reference-protocol *> artifacts/owned506/atomics592.log
+          if ($LASTEXITCODE -ne 0) { throw 'Atomics original and two independently collected final-source profiles did not pass' }
       - name: Require owned506 original source and full original batch
         if: ${{ !cancelled() }}
         shell: pwsh
@@ -746,6 +783,7 @@ jobs:
           SPAWN_CONTRACTS: ${{ steps.spawn541-contracts.outcome }}
         run: |
           if ($env:SPAWN_CONTRACTS -ne 'success') { throw 'Required spawn contract stage failed' }
+          if ('${{ steps.atomics592-contracts.outcome }}' -ne 'success') { throw 'Required atomics original/protocol/closure stages did not pass' }
           if ('${{ steps.resource529-original.outcome }}' -ne 'success' -or '${{ steps.resource529-managed.outcome }}' -ne 'success') { throw 'Both selected resource529 original and managed routes must pass' }
           if ('${{ steps.reference528-contracts.outcome }}' -ne 'success') { throw 'Required ordinary-reference/loader-map original and both profiles did not pass' }
           if ('${{ steps.float556-contracts.outcome }}' -ne 'success') { throw 'Required boxed-float original and both managed profiles did not pass' }

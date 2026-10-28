@@ -85,11 +85,14 @@ internal static class DebugDirtyOperations424
 
     private static Term Copy(ProcessRuntime runtime, Term argument)
     {
-        Term result = Nil.Value;
-        for (int index = 0; index < DebugDirtyNames424.Copies; index++)
-            result = new Cons(DebugDirtyTermCopy424.Copy(runtime, argument), result);
+        return AtomicsHostAggregate594.Publish(transaction =>
+        {
+            Term result = Nil.Value;
+            for (int index = 0; index < DebugDirtyNames424.Copies; index++)
+                result = new Cons(DebugDirtyTermCopy424.CopySelected595(runtime, argument, transaction), result);
 
-        return result;
+            return result;
+        });
     }
 
 }
