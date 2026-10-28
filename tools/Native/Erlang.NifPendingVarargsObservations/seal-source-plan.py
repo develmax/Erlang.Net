@@ -191,6 +191,8 @@ EXPLICIT_REVIEWED_INPUTS = frozenset((
     'tests/Erlang.Tests/Runtime/Scheduling/Native521RuntimeFactory.cs',
     'tests/Erlang.Tests/Runtime/Statistics/RuntimeStatisticsHostChecks.cs',
     'tests/Erlang.Tests/Runtime/Statistics/RuntimeStatisticsHostParameters.cs',
+    'tests/Erlang.Tests/Runtime/Storage/Atomics/AtomicsLifecycle586Checks.cs',
+    'tests/Erlang.Tests/Runtime/Storage/Atomics/AtomicsLifecycle586Names.cs',
     'tools/Native/Erlang.NifDirty521Observations/.gitattributes',
     'tools/Native/Erlang.NifDirty521Observations/build-native.py',
     'tools/Native/Erlang.NifDirty521Observations/collect.py',

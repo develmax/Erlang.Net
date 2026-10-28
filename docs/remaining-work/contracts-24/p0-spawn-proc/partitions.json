@@ -1,0 +1,1439 @@
+{
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SourceOnly": true,
+  "ExecutedCases": 0,
+  "PartitionCount": 177,
+  "Partitions": [
+    {
+      "Id": "options-valid.empty",
+      "Group": "options-valid",
+      "Input": "[]",
+      "RequiredObservation": "actual selected child flags; pid/ref/link/monitor causal protocol; actual native-small uint16 conversion, no CLR defaults",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-valid.priority-max",
+      "Group": "options-valid",
+      "Input": "[{priority,max}]",
+      "RequiredObservation": "actual selected child flags; pid/ref/link/monitor causal protocol; actual native-small uint16 conversion, no CLR defaults",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-valid.priority-high",
+      "Group": "options-valid",
+      "Input": "[{priority,high}]",
+      "RequiredObservation": "actual selected child flags; pid/ref/link/monitor causal protocol; actual native-small uint16 conversion, no CLR defaults",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-valid.priority-normal",
+      "Group": "options-valid",
+      "Input": "[{priority,normal}]",
+      "RequiredObservation": "actual selected child flags; pid/ref/link/monitor causal protocol; actual native-small uint16 conversion, no CLR defaults",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-valid.priority-low",
+      "Group": "options-valid",
+      "Input": "[{priority,low}]",
+      "RequiredObservation": "actual selected child flags; pid/ref/link/monitor causal protocol; actual native-small uint16 conversion, no CLR defaults",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-valid.scheduler-zero",
+      "Group": "options-valid",
+      "Input": "[{scheduler,0}]",
+      "RequiredObservation": "actual selected child flags; pid/ref/link/monitor causal protocol; actual native-small uint16 conversion, no CLR defaults",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-valid.scheduler-first",
+      "Group": "options-valid",
+      "Input": "[{scheduler,1}]",
+      "RequiredObservation": "actual selected child flags; pid/ref/link/monitor causal protocol; actual native-small uint16 conversion, no CLR defaults",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-valid.scheduler-last",
+      "Group": "options-valid",
+      "Input": "[{scheduler,ConfiguredSchedulers}]",
+      "RequiredObservation": "actual selected child flags; pid/ref/link/monitor causal protocol; actual native-small uint16 conversion, no CLR defaults",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-valid.fullsweep-zero",
+      "Group": "options-valid",
+      "Input": "[{fullsweep_after,0}]",
+      "RequiredObservation": "actual selected child flags; pid/ref/link/monitor causal protocol; actual native-small uint16 conversion, no CLR defaults",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-valid.fullsweep-u16max",
+      "Group": "options-valid",
+      "Input": "[{fullsweep_after,65535}]",
+      "RequiredObservation": "actual selected child flags; pid/ref/link/monitor causal protocol; actual native-small uint16 conversion, no CLR defaults",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-valid.fullsweep-u16-wrap",
+      "Group": "options-valid",
+      "Input": "[{fullsweep_after,65536}]",
+      "RequiredObservation": "actual selected child flags; pid/ref/link/monitor causal protocol; actual native-small uint16 conversion, no CLR defaults",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-valid.queue-on",
+      "Group": "options-valid",
+      "Input": "[{message_queue_data,on_heap}]",
+      "RequiredObservation": "actual selected child flags; pid/ref/link/monitor causal protocol; actual native-small uint16 conversion, no CLR defaults",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-valid.queue-off",
+      "Group": "options-valid",
+      "Input": "[{message_queue_data,off_heap}]",
+      "RequiredObservation": "actual selected child flags; pid/ref/link/monitor causal protocol; actual native-small uint16 conversion, no CLR defaults",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-valid.async-true",
+      "Group": "options-valid",
+      "Input": "[{async_dist,true}]",
+      "RequiredObservation": "actual selected child flags; pid/ref/link/monitor causal protocol; actual native-small uint16 conversion, no CLR defaults",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-valid.async-false",
+      "Group": "options-valid",
+      "Input": "[{async_dist,false}]",
+      "RequiredObservation": "actual selected child flags; pid/ref/link/monitor causal protocol; actual native-small uint16 conversion, no CLR defaults",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-valid.link-atom",
+      "Group": "options-valid",
+      "Input": "[link]",
+      "RequiredObservation": "actual selected child flags; pid/ref/link/monitor causal protocol; actual native-small uint16 conversion, no CLR defaults",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-valid.link-empty",
+      "Group": "options-valid",
+      "Input": "[{link,[]}]",
+      "RequiredObservation": "actual selected child flags; pid/ref/link/monitor causal protocol; actual native-small uint16 conversion, no CLR defaults",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-valid.link-priority",
+      "Group": "options-valid",
+      "Input": "[{link,[priority]}]",
+      "RequiredObservation": "actual selected child flags; pid/ref/link/monitor causal protocol; actual native-small uint16 conversion, no CLR defaults",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-valid.monitor-atom",
+      "Group": "options-valid",
+      "Input": "[monitor]",
+      "RequiredObservation": "actual selected child flags; pid/ref/link/monitor causal protocol; actual native-small uint16 conversion, no CLR defaults",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-valid.monitor-empty",
+      "Group": "options-valid",
+      "Input": "[{monitor,[]}]",
+      "RequiredObservation": "actual selected child flags; pid/ref/link/monitor causal protocol; actual native-small uint16 conversion, no CLR defaults",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-valid.monitor-priority",
+      "Group": "options-valid",
+      "Input": "[{monitor,[priority]}]",
+      "RequiredObservation": "actual selected child flags; pid/ref/link/monitor causal protocol; actual native-small uint16 conversion, no CLR defaults",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-valid.monitor-tag",
+      "Group": "options-valid",
+      "Input": "[{monitor,[{tag,CustomTerm}]}]",
+      "RequiredObservation": "actual selected child flags; pid/ref/link/monitor causal protocol; actual native-small uint16 conversion, no CLR defaults",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-valid.monitor-alias-explicit",
+      "Group": "options-valid",
+      "Input": "[{monitor,[{alias,explicit_unalias}]}]",
+      "RequiredObservation": "actual selected child flags; pid/ref/link/monitor causal protocol; actual native-small uint16 conversion, no CLR defaults",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-valid.monitor-alias-demonitor",
+      "Group": "options-valid",
+      "Input": "[{monitor,[{alias,demonitor}]}]",
+      "RequiredObservation": "actual selected child flags; pid/ref/link/monitor causal protocol; actual native-small uint16 conversion, no CLR defaults",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-valid.monitor-alias-reply",
+      "Group": "options-valid",
+      "Input": "[{monitor,[{alias,reply_demonitor}]}]",
+      "RequiredObservation": "actual selected child flags; pid/ref/link/monitor causal protocol; actual native-small uint16 conversion, no CLR defaults",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-valid.monitor-link",
+      "Group": "options-valid",
+      "Input": "[monitor,link]",
+      "RequiredObservation": "actual selected child flags; pid/ref/link/monitor causal protocol; actual native-small uint16 conversion, no CLR defaults",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-valid.priority-last",
+      "Group": "options-valid",
+      "Input": "[{priority,low},{priority,high}]",
+      "RequiredObservation": "actual selected child flags; pid/ref/link/monitor causal protocol; actual native-small uint16 conversion, no CLR defaults",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-valid.monitor-atom-resets-tuple",
+      "Group": "options-valid",
+      "Input": "[{monitor,[priority,{tag,custom}]},monitor]",
+      "RequiredObservation": "actual selected child flags; pid/ref/link/monitor causal protocol; actual native-small uint16 conversion, no CLR defaults",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-valid.monitor-tuple-last",
+      "Group": "options-valid",
+      "Input": "[monitor,{monitor,[priority,{tag,custom}]}]",
+      "RequiredObservation": "actual selected child flags; pid/ref/link/monitor causal protocol; actual native-small uint16 conversion, no CLR defaults",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-valid.link-atom-after-tuple",
+      "Group": "options-valid",
+      "Input": "[{link,[priority]},link]",
+      "RequiredObservation": "actual selected child flags; pid/ref/link/monitor causal protocol; actual native-small uint16 conversion, no CLR defaults",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-valid.link-empty-after-priority",
+      "Group": "options-valid",
+      "Input": "[{link,[priority]},{link,[]}]",
+      "RequiredObservation": "actual selected child flags; pid/ref/link/monitor causal protocol; actual native-small uint16 conversion, no CLR defaults",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-valid.queue-last",
+      "Group": "options-valid",
+      "Input": "[{message_queue_data,on_heap},{message_queue_data,off_heap}]",
+      "RequiredObservation": "actual selected child flags; pid/ref/link/monitor causal protocol; actual native-small uint16 conversion, no CLR defaults",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-valid.scheduler-duplicate",
+      "Group": "options-valid",
+      "Input": "[{scheduler,0},{scheduler,ConfiguredSchedulers}]",
+      "RequiredObservation": "actual selected child flags; pid/ref/link/monitor causal protocol; actual native-small uint16 conversion, no CLR defaults",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-valid.async-toggle",
+      "Group": "options-valid",
+      "Input": "[{async_dist,true},{async_dist,false}]",
+      "RequiredObservation": "actual selected child flags; pid/ref/link/monitor causal protocol; actual native-small uint16 conversion, no CLR defaults",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "resource-policy.heap-zero",
+      "Group": "resource-policy",
+      "Input": "[{min_heap_size,0}]",
+      "RequiredObservation": "actual child heap class/default clamp; nursery/old/binary allocation, automatic GC; kill/log flags applied to source domains; retained complete overflow outcomes",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441; erts_max_heap_size helper",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "resource-policy.heap-below-default",
+      "Group": "resource-policy",
+      "Input": "[{min_heap_size,ActualDefaultMin-1}]",
+      "RequiredObservation": "actual child heap class/default clamp; nursery/old/binary allocation, automatic GC; kill/log flags applied to source domains; retained complete overflow outcomes",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441; erts_max_heap_size helper",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "resource-policy.heap-exact-default",
+      "Group": "resource-policy",
+      "Input": "[{min_heap_size,ActualDefaultMin}]",
+      "RequiredObservation": "actual child heap class/default clamp; nursery/old/binary allocation, automatic GC; kill/log flags applied to source domains; retained complete overflow outcomes",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441; erts_max_heap_size helper",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "resource-policy.heap-between-classes",
+      "Group": "resource-policy",
+      "Input": "[{min_heap_size,ClassBoundary+1}]",
+      "RequiredObservation": "actual child heap class/default clamp; nursery/old/binary allocation, automatic GC; kill/log flags applied to source domains; retained complete overflow outcomes",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441; erts_max_heap_size helper",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "resource-policy.bin-zero",
+      "Group": "resource-policy",
+      "Input": "[{min_bin_vheap_size,0}]",
+      "RequiredObservation": "actual child heap class/default clamp; nursery/old/binary allocation, automatic GC; kill/log flags applied to source domains; retained complete overflow outcomes",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441; erts_max_heap_size helper",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "resource-policy.bin-between-classes",
+      "Group": "resource-policy",
+      "Input": "[{min_bin_vheap_size,ClassBoundary+1}]",
+      "RequiredObservation": "actual child heap class/default clamp; nursery/old/binary allocation, automatic GC; kill/log flags applied to source domains; retained complete overflow outcomes",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441; erts_max_heap_size helper",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "resource-policy.max-disabled",
+      "Group": "resource-policy",
+      "Input": "[{max_heap_size,0}]",
+      "RequiredObservation": "actual child heap class/default clamp; nursery/old/binary allocation, automatic GC; kill/log flags applied to source domains; retained complete overflow outcomes",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441; erts_max_heap_size helper",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "resource-policy.max-map-defaults",
+      "Group": "resource-policy",
+      "Input": "[{max_heap_size,#{size=>0}}]",
+      "RequiredObservation": "actual child heap class/default clamp; nursery/old/binary allocation, automatic GC; kill/log flags applied to source domains; retained complete overflow outcomes",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441; erts_max_heap_size helper",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "resource-policy.max-all-flags",
+      "Group": "resource-policy",
+      "Input": "[{max_heap_size,#{size=>Cap,kill=>Kill,error_logger=>Log,include_shared_binaries=>Include}}]",
+      "RequiredObservation": "actual child heap class/default clamp; nursery/old/binary allocation, automatic GC; kill/log flags applied to source domains; retained complete overflow outcomes; execute all eight boolean combinations, both shared/refc and unique binary allocations, source logger marker and actual process fate",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441; erts_max_heap_size helper",
+      "EvidenceState": "PLANNED_NOT_EXECUTED",
+      "ParameterDomains": {
+        "Kill": [
+          true,
+          false
+        ],
+        "Log": [
+          true,
+          false
+        ],
+        "Include": [
+          true,
+          false
+        ],
+        "Cap": "independently chosen source-valid enabled/disabled limit with actual allocation barrier"
+      }
+    },
+    {
+      "Id": "resource-policy.max-extra-key",
+      "Group": "resource-policy",
+      "Input": "[{max_heap_size,#{size=>0,extra=>retained_input}}]",
+      "RequiredObservation": "actual child heap class/default clamp; nursery/old/binary allocation, automatic GC; kill/log flags applied to source domains; retained complete overflow outcomes",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441; erts_max_heap_size helper",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "resource-policy.max-min-equal",
+      "Group": "resource-policy",
+      "Input": "[{min_heap_size,Class},{max_heap_size,Class}]",
+      "RequiredObservation": "actual child heap class/default clamp; nursery/old/binary allocation, automatic GC; kill/log flags applied to source domains; retained complete overflow outcomes",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441; erts_max_heap_size helper",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "resource-policy.max-min-below",
+      "Group": "resource-policy",
+      "Input": "[{min_heap_size,Class},{max_heap_size,Class-1}]",
+      "RequiredObservation": "actual child heap class/default clamp; nursery/old/binary allocation, automatic GC; kill/log flags applied to source domains; retained complete overflow outcomes",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441; erts_max_heap_size helper",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "resource-policy.max-before-min",
+      "Group": "resource-policy",
+      "Input": "[{max_heap_size,Class-1},{min_heap_size,Class}]",
+      "RequiredObservation": "actual child heap class/default clamp; nursery/old/binary allocation, automatic GC; kill/log flags applied to source domains; retained complete overflow outcomes",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441; erts_max_heap_size helper",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "resource-policy.min-last-wins",
+      "Group": "resource-policy",
+      "Input": "[{min_heap_size,Class+1},{min_heap_size,0}]",
+      "RequiredObservation": "actual child heap class/default clamp; nursery/old/binary allocation, automatic GC; kill/log flags applied to source domains; retained complete overflow outcomes",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441; erts_max_heap_size helper",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "resource-policy.max-last-wins",
+      "Group": "resource-policy",
+      "Input": "[{max_heap_size,Class},{max_heap_size,0}]",
+      "RequiredObservation": "actual child heap class/default clamp; nursery/old/binary allocation, automatic GC; kill/log flags applied to source domains; retained complete overflow outcomes",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441; erts_max_heap_size helper",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "resource-policy.sweep-with-heap",
+      "Group": "resource-policy",
+      "Input": "[{fullsweep_after,0},{min_heap_size,Class}]",
+      "RequiredObservation": "actual child heap class/default clamp; nursery/old/binary allocation, automatic GC; kill/log flags applied to source domains; retained complete overflow outcomes",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441; erts_max_heap_size helper",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-invalid.options-atom",
+      "Group": "options-invalid",
+      "Input": "bad",
+      "RequiredObservation": "actual error class/reason/arguments/all frames/file+line/error_info.cause; no child/monitor/link/policy leak; badopt remains sticky while improper tail selects parser badarg",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-invalid.options-improper",
+      "Group": "options-invalid",
+      "Input": "[link|bad]",
+      "RequiredObservation": "actual error class/reason/arguments/all frames/file+line/error_info.cause; no child/monitor/link/policy leak; badopt remains sticky while improper tail selects parser badarg",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-invalid.options-empty-tuple",
+      "Group": "options-invalid",
+      "Input": "[{}]",
+      "RequiredObservation": "actual error class/reason/arguments/all frames/file+line/error_info.cause; no child/monitor/link/policy leak; badopt remains sticky while improper tail selects parser badarg",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-invalid.options-tuple3",
+      "Group": "options-invalid",
+      "Input": "[{priority,low,extra}]",
+      "RequiredObservation": "actual error class/reason/arguments/all frames/file+line/error_info.cause; no child/monitor/link/policy leak; badopt remains sticky while improper tail selects parser badarg",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-invalid.options-nonoption",
+      "Group": "options-invalid",
+      "Input": "[42]",
+      "RequiredObservation": "actual error class/reason/arguments/all frames/file+line/error_info.cause; no child/monitor/link/policy leak; badopt remains sticky while improper tail selects parser badarg",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-invalid.unknown-option",
+      "Group": "options-invalid",
+      "Input": "[unknown]",
+      "RequiredObservation": "actual error class/reason/arguments/all frames/file+line/error_info.cause; no child/monitor/link/policy leak; badopt remains sticky while improper tail selects parser badarg",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-invalid.priority-bad",
+      "Group": "options-invalid",
+      "Input": "[{priority,bad}]",
+      "RequiredObservation": "actual error class/reason/arguments/all frames/file+line/error_info.cause; no child/monitor/link/policy leak; badopt remains sticky while improper tail selects parser badarg",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-invalid.priority-sticky",
+      "Group": "options-invalid",
+      "Input": "[{priority,bad},{priority,normal}]",
+      "RequiredObservation": "actual error class/reason/arguments/all frames/file+line/error_info.cause; no child/monitor/link/policy leak; badopt remains sticky while improper tail selects parser badarg",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-invalid.scheduler-negative",
+      "Group": "options-invalid",
+      "Input": "[{scheduler,-1}]",
+      "RequiredObservation": "actual error class/reason/arguments/all frames/file+line/error_info.cause; no child/monitor/link/policy leak; badopt remains sticky while improper tail selects parser badarg",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-invalid.scheduler-past",
+      "Group": "options-invalid",
+      "Input": "[{scheduler,ConfiguredSchedulers+1}]",
+      "RequiredObservation": "actual error class/reason/arguments/all frames/file+line/error_info.cause; no child/monitor/link/policy leak; badopt remains sticky while improper tail selects parser badarg",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-invalid.scheduler-bignum",
+      "Group": "options-invalid",
+      "Input": "[{scheduler,NativeSmallMax+1}]",
+      "RequiredObservation": "actual error class/reason/arguments/all frames/file+line/error_info.cause; no child/monitor/link/policy leak; badopt remains sticky while improper tail selects parser badarg",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-invalid.heap-negative",
+      "Group": "options-invalid",
+      "Input": "[{min_heap_size,-1}]",
+      "RequiredObservation": "actual error class/reason/arguments/all frames/file+line/error_info.cause; no child/monitor/link/policy leak; badopt remains sticky while improper tail selects parser badarg",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-invalid.heap-noninteger",
+      "Group": "options-invalid",
+      "Input": "[{min_heap_size,bad}]",
+      "RequiredObservation": "actual error class/reason/arguments/all frames/file+line/error_info.cause; no child/monitor/link/policy leak; badopt remains sticky while improper tail selects parser badarg",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-invalid.heap-bignum",
+      "Group": "options-invalid",
+      "Input": "[{min_heap_size,NativeSmallMax+1}]",
+      "RequiredObservation": "actual error class/reason/arguments/all frames/file+line/error_info.cause; no child/monitor/link/policy leak; badopt remains sticky while improper tail selects parser badarg",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-invalid.bin-negative",
+      "Group": "options-invalid",
+      "Input": "[{min_bin_vheap_size,-1}]",
+      "RequiredObservation": "actual error class/reason/arguments/all frames/file+line/error_info.cause; no child/monitor/link/policy leak; badopt remains sticky while improper tail selects parser badarg",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-invalid.bin-bignum",
+      "Group": "options-invalid",
+      "Input": "[{min_bin_vheap_size,NativeSmallMax+1}]",
+      "RequiredObservation": "actual error class/reason/arguments/all frames/file+line/error_info.cause; no child/monitor/link/policy leak; badopt remains sticky while improper tail selects parser badarg",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-invalid.max-negative",
+      "Group": "options-invalid",
+      "Input": "[{max_heap_size,-1}]",
+      "RequiredObservation": "actual error class/reason/arguments/all frames/file+line/error_info.cause; no child/monitor/link/policy leak; badopt remains sticky while improper tail selects parser badarg",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-invalid.max-missing-size",
+      "Group": "options-invalid",
+      "Input": "[{max_heap_size,#{}}]",
+      "RequiredObservation": "actual error class/reason/arguments/all frames/file+line/error_info.cause; no child/monitor/link/policy leak; badopt remains sticky while improper tail selects parser badarg",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-invalid.max-bad-size",
+      "Group": "options-invalid",
+      "Input": "[{max_heap_size,#{size=>bad}}]",
+      "RequiredObservation": "actual error class/reason/arguments/all frames/file+line/error_info.cause; no child/monitor/link/policy leak; badopt remains sticky while improper tail selects parser badarg",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-invalid.max-kill-bad",
+      "Group": "options-invalid",
+      "Input": "[{max_heap_size,#{size=>0,kill=>1}}]",
+      "RequiredObservation": "actual error class/reason/arguments/all frames/file+line/error_info.cause; no child/monitor/link/policy leak; badopt remains sticky while improper tail selects parser badarg",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-invalid.max-log-bad",
+      "Group": "options-invalid",
+      "Input": "[{max_heap_size,#{size=>0,error_logger=>bad}}]",
+      "RequiredObservation": "actual error class/reason/arguments/all frames/file+line/error_info.cause; no child/monitor/link/policy leak; badopt remains sticky while improper tail selects parser badarg",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-invalid.max-shared-bad",
+      "Group": "options-invalid",
+      "Input": "[{max_heap_size,#{size=>0,include_shared_binaries=>0}}]",
+      "RequiredObservation": "actual error class/reason/arguments/all frames/file+line/error_info.cause; no child/monitor/link/policy leak; badopt remains sticky while improper tail selects parser badarg",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-invalid.fullsweep-negative",
+      "Group": "options-invalid",
+      "Input": "[{fullsweep_after,-1}]",
+      "RequiredObservation": "actual error class/reason/arguments/all frames/file+line/error_info.cause; no child/monitor/link/policy leak; badopt remains sticky while improper tail selects parser badarg",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-invalid.fullsweep-bignum",
+      "Group": "options-invalid",
+      "Input": "[{fullsweep_after,NativeSmallMax+1}]",
+      "RequiredObservation": "actual error class/reason/arguments/all frames/file+line/error_info.cause; no child/monitor/link/policy leak; badopt remains sticky while improper tail selects parser badarg",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-invalid.queue-bad",
+      "Group": "options-invalid",
+      "Input": "[{message_queue_data,bad}]",
+      "RequiredObservation": "actual error class/reason/arguments/all frames/file+line/error_info.cause; no child/monitor/link/policy leak; badopt remains sticky while improper tail selects parser badarg",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-invalid.async-bad",
+      "Group": "options-invalid",
+      "Input": "[{async_dist,bad}]",
+      "RequiredObservation": "actual error class/reason/arguments/all frames/file+line/error_info.cause; no child/monitor/link/policy leak; badopt remains sticky while improper tail selects parser badarg",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-invalid.link-bad-flags",
+      "Group": "options-invalid",
+      "Input": "[{link,[bad]}]",
+      "RequiredObservation": "actual error class/reason/arguments/all frames/file+line/error_info.cause; no child/monitor/link/policy leak; badopt remains sticky while improper tail selects parser badarg",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-invalid.monitor-bad-flags",
+      "Group": "options-invalid",
+      "Input": "[{monitor,[bad]}]",
+      "RequiredObservation": "actual error class/reason/arguments/all frames/file+line/error_info.cause; no child/monitor/link/policy leak; badopt remains sticky while improper tail selects parser badarg",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-invalid.monitor-improper",
+      "Group": "options-invalid",
+      "Input": "[{monitor,[priority|bad]}]",
+      "RequiredObservation": "actual error class/reason/arguments/all frames/file+line/error_info.cause; no child/monitor/link/policy leak; badopt remains sticky while improper tail selects parser badarg",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-invalid.sticky-resource",
+      "Group": "options-invalid",
+      "Input": "[{min_heap_size,-1},{min_heap_size,0}]",
+      "RequiredObservation": "actual error class/reason/arguments/all frames/file+line/error_info.cause; no child/monitor/link/policy leak; badopt remains sticky while improper tail selects parser badarg",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-invalid.improper-overrides-badopt",
+      "Group": "options-invalid",
+      "Input": "[{min_heap_size,-1}|bad]",
+      "RequiredObservation": "actual error class/reason/arguments/all frames/file+line/error_info.cause; no child/monitor/link/policy leak; badopt remains sticky while improper tail selects parser badarg",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-invalid.reply-on-sync",
+      "Group": "options-invalid",
+      "Input": "[{reply,yes}]",
+      "RequiredObservation": "actual error class/reason/arguments/all frames/file+line/error_info.cause; no child/monitor/link/policy leak; badopt remains sticky while improper tail selects parser badarg",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "options-invalid.reply-tag-on-sync",
+      "Group": "options-invalid",
+      "Input": "[{reply_tag,custom}]",
+      "RequiredObservation": "actual error class/reason/arguments/all frames/file+line/error_info.cause; no child/monitor/link/policy leak; badopt remains sticky while improper tail selects parser badarg",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "target-shape.fun0",
+      "Group": "target-shape",
+      "Input": "external fun target/0",
+      "RequiredObservation": "source clause selected at caller; child failure vs parent failure kept distinct; actual node/identity, pid/ref causality and own-VM heaps",
+      "Source": "pinned/erts/preloaded/src/erlang.erl spawn_opt/spawn_request clauses",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "target-shape.fun1",
+      "Group": "target-shape",
+      "Input": "external fun target/1",
+      "RequiredObservation": "source clause selected at caller; child failure vs parent failure kept distinct; actual node/identity, pid/ref causality and own-VM heaps",
+      "Source": "pinned/erts/preloaded/src/erlang.erl spawn_opt/spawn_request clauses",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "target-shape.local-closure",
+      "Group": "target-shape",
+      "Input": "fun()->captured shared graph end",
+      "RequiredObservation": "source clause selected at caller; child failure vs parent failure kept distinct; actual node/identity, pid/ref causality and own-VM heaps",
+      "Source": "pinned/erts/preloaded/src/erlang.erl spawn_opt/spawn_request clauses",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "target-shape.tuple-mf",
+      "Group": "target-shape",
+      "Input": "{Module,Function}",
+      "RequiredObservation": "source clause selected at caller; child failure vs parent failure kept distinct; actual node/identity, pid/ref causality and own-VM heaps",
+      "Source": "pinned/erts/preloaded/src/erlang.erl spawn_opt/spawn_request clauses",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "target-shape.bad-fun",
+      "Group": "target-shape",
+      "Input": "42",
+      "RequiredObservation": "source clause selected at caller; child failure vs parent failure kept distinct; actual node/identity, pid/ref causality and own-VM heaps",
+      "Source": "pinned/erts/preloaded/src/erlang.erl spawn_opt/spawn_request clauses",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "target-shape.bad-tuple-mf",
+      "Group": "target-shape",
+      "Input": "{42,Function}",
+      "RequiredObservation": "source clause selected at caller; child failure vs parent failure kept distinct; actual node/identity, pid/ref causality and own-VM heaps",
+      "Source": "pinned/erts/preloaded/src/erlang.erl spawn_opt/spawn_request clauses",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "target-shape.missing-mfa",
+      "Group": "target-shape",
+      "Input": "missing module or function",
+      "RequiredObservation": "source clause selected at caller; child failure vs parent failure kept distinct; actual node/identity, pid/ref causality and own-VM heaps",
+      "Source": "pinned/erts/preloaded/src/erlang.erl spawn_opt/spawn_request clauses",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "target-shape.mfa-good",
+      "Group": "target-shape",
+      "Input": "Module,Function,proper args",
+      "RequiredObservation": "source clause selected at caller; child failure vs parent failure kept distinct; actual node/identity, pid/ref causality and own-VM heaps",
+      "Source": "pinned/erts/preloaded/src/erlang.erl spawn_opt/spawn_request clauses",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "target-shape.mfa-args-improper",
+      "Group": "target-shape",
+      "Input": "Module,Function,[value|tail]",
+      "RequiredObservation": "source clause selected at caller; child failure vs parent failure kept distinct; actual node/identity, pid/ref causality and own-VM heaps",
+      "Source": "pinned/erts/preloaded/src/erlang.erl spawn_opt/spawn_request clauses",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "target-shape.mfa-args-nonlist",
+      "Group": "target-shape",
+      "Input": "Module,Function,bad",
+      "RequiredObservation": "source clause selected at caller; child failure vs parent failure kept distinct; actual node/identity, pid/ref causality and own-VM heaps",
+      "Source": "pinned/erts/preloaded/src/erlang.erl spawn_opt/spawn_request clauses",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "target-shape.mfa-bad-module",
+      "Group": "target-shape",
+      "Input": "42,Function,[]",
+      "RequiredObservation": "source clause selected at caller; child failure vs parent failure kept distinct; actual node/identity, pid/ref causality and own-VM heaps",
+      "Source": "pinned/erts/preloaded/src/erlang.erl spawn_opt/spawn_request clauses",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "target-shape.mfa-bad-function",
+      "Group": "target-shape",
+      "Input": "Module,42,[]",
+      "RequiredObservation": "source clause selected at caller; child failure vs parent failure kept distinct; actual node/identity, pid/ref causality and own-VM heaps",
+      "Source": "pinned/erts/preloaded/src/erlang.erl spawn_opt/spawn_request clauses",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "target-shape.local-node",
+      "Group": "target-shape",
+      "Input": "node()",
+      "RequiredObservation": "source clause selected at caller; child failure vs parent failure kept distinct; actual node/identity, pid/ref causality and own-VM heaps",
+      "Source": "pinned/erts/preloaded/src/erlang.erl spawn_opt/spawn_request clauses",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "target-shape.invalid-node",
+      "Group": "target-shape",
+      "Input": "42",
+      "RequiredObservation": "source clause selected at caller; child failure vs parent failure kept distinct; actual node/identity, pid/ref causality and own-VM heaps",
+      "Source": "pinned/erts/preloaded/src/erlang.erl spawn_opt/spawn_request clauses",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "target-shape.remote-live",
+      "Group": "target-shape",
+      "Input": "authenticated real connected peer",
+      "RequiredObservation": "source clause selected at caller; child failure vs parent failure kept distinct; actual node/identity, pid/ref causality and own-VM heaps",
+      "Source": "pinned/erts/preloaded/src/erlang.erl spawn_opt/spawn_request clauses",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "target-shape.remote-missing",
+      "Group": "target-shape",
+      "Input": "real absent/unreachable node",
+      "RequiredObservation": "source clause selected at caller; child failure vs parent failure kept distinct; actual node/identity, pid/ref causality and own-VM heaps",
+      "Source": "pinned/erts/preloaded/src/erlang.erl spawn_opt/spawn_request clauses",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "target-shape.remote-old-capability",
+      "Group": "target-shape",
+      "Input": "real peer lacking spawn_request capability",
+      "RequiredObservation": "source clause selected at caller; child failure vs parent failure kept distinct; actual node/identity, pid/ref causality and own-VM heaps",
+      "Source": "pinned/erts/preloaded/src/erlang.erl spawn_opt/spawn_request clauses",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "target-shape.remote-disconnect-during",
+      "Group": "target-shape",
+      "Input": "peer disconnect after real request admission",
+      "RequiredObservation": "source clause selected at caller; child failure vs parent failure kept distinct; actual node/identity, pid/ref causality and own-VM heaps",
+      "Source": "pinned/erts/preloaded/src/erlang.erl spawn_opt/spawn_request clauses",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "target-shape.remote-reconnect",
+      "Group": "target-shape",
+      "Input": "same logical peer after actual incarnation restart",
+      "RequiredObservation": "source clause selected at caller; child failure vs parent failure kept distinct; actual node/identity, pid/ref causality and own-VM heaps",
+      "Source": "pinned/erts/preloaded/src/erlang.erl spawn_opt/spawn_request clauses",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "defaults.defaults-parent-explicit",
+      "Group": "defaults",
+      "Input": "no child opts after parent-specific process flags",
+      "RequiredObservation": "query actual new child before allocation; distinguish VM defaults from inherited parent state; restore in independent finally",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441 ERTS_SET_DEFAULT_SPAWN_OPTS",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "defaults.defaults-vm-min",
+      "Group": "defaults",
+      "Input": "set actual system min_heap_size then spawn no opts; restore",
+      "RequiredObservation": "query actual new child before allocation; distinguish VM defaults from inherited parent state; restore in independent finally",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441 ERTS_SET_DEFAULT_SPAWN_OPTS",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "defaults.defaults-vm-bin",
+      "Group": "defaults",
+      "Input": "set actual system min_bin_vheap_size then spawn; restore",
+      "RequiredObservation": "query actual new child before allocation; distinguish VM defaults from inherited parent state; restore in independent finally",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441 ERTS_SET_DEFAULT_SPAWN_OPTS",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "defaults.defaults-vm-max",
+      "Group": "defaults",
+      "Input": "set actual system max_heap_size then spawn; restore",
+      "RequiredObservation": "query actual new child before allocation; distinguish VM defaults from inherited parent state; restore in independent finally",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441 ERTS_SET_DEFAULT_SPAWN_OPTS",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "defaults.defaults-vm-sweep",
+      "Group": "defaults",
+      "Input": "set actual system fullsweep_after then spawn; restore",
+      "RequiredObservation": "query actual new child before allocation; distinguish VM defaults from inherited parent state; restore in independent finally",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441 ERTS_SET_DEFAULT_SPAWN_OPTS",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "defaults.defaults-vm-queue",
+      "Group": "defaults",
+      "Input": "system/default queue vs parent override; restore",
+      "RequiredObservation": "query actual new child before allocation; distinguish VM defaults from inherited parent state; restore in independent finally",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441 ERTS_SET_DEFAULT_SPAWN_OPTS",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "async.reply-yes",
+      "Group": "async",
+      "Input": "[{reply,yes}]",
+      "RequiredObservation": "actual immediate request ref; permitted success/error message presence; monitor DOWN must not precede success reply; no DOWN on creation failure; no-reply requires independent child/barrier proof, never timeout-as-success",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441; pinned/erts/preloaded/src/erlang.erl spawn_request docs/source",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "async.reply-no",
+      "Group": "async",
+      "Input": "[{reply,no}]",
+      "RequiredObservation": "actual immediate request ref; permitted success/error message presence; monitor DOWN must not precede success reply; no DOWN on creation failure; no-reply requires independent child/barrier proof, never timeout-as-success",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441; pinned/erts/preloaded/src/erlang.erl spawn_request docs/source",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "async.reply-success",
+      "Group": "async",
+      "Input": "[{reply,success_only}]",
+      "RequiredObservation": "actual immediate request ref; permitted success/error message presence; monitor DOWN must not precede success reply; no DOWN on creation failure; no-reply requires independent child/barrier proof, never timeout-as-success",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441; pinned/erts/preloaded/src/erlang.erl spawn_request docs/source",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "async.reply-error",
+      "Group": "async",
+      "Input": "[{reply,error_only}]",
+      "RequiredObservation": "actual immediate request ref; permitted success/error message presence; monitor DOWN must not precede success reply; no DOWN on creation failure; no-reply requires independent child/barrier proof, never timeout-as-success",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441; pinned/erts/preloaded/src/erlang.erl spawn_request docs/source",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "async.reply-tag",
+      "Group": "async",
+      "Input": "[{reply_tag,CustomTerm}]",
+      "RequiredObservation": "actual immediate request ref; permitted success/error message presence; monitor DOWN must not precede success reply; no DOWN on creation failure; no-reply requires independent child/barrier proof, never timeout-as-success",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441; pinned/erts/preloaded/src/erlang.erl spawn_request docs/source",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "async.reply-last",
+      "Group": "async",
+      "Input": "[{reply,no},{reply,yes}]",
+      "RequiredObservation": "actual immediate request ref; permitted success/error message presence; monitor DOWN must not precede success reply; no DOWN on creation failure; no-reply requires independent child/barrier proof, never timeout-as-success",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441; pinned/erts/preloaded/src/erlang.erl spawn_request docs/source",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "async.reply-tag-last",
+      "Group": "async",
+      "Input": "[{reply_tag,first},{reply_tag,last}]",
+      "RequiredObservation": "actual immediate request ref; permitted success/error message presence; monitor DOWN must not precede success reply; no DOWN on creation failure; no-reply requires independent child/barrier proof, never timeout-as-success",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441; pinned/erts/preloaded/src/erlang.erl spawn_request docs/source",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "async.reply-invalid",
+      "Group": "async",
+      "Input": "[{reply,bad}]",
+      "RequiredObservation": "actual immediate request ref; permitted success/error message presence; monitor DOWN must not precede success reply; no DOWN on creation failure; no-reply requires independent child/barrier proof, never timeout-as-success",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441; pinned/erts/preloaded/src/erlang.erl spawn_request docs/source",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "async.request-monitor",
+      "Group": "async",
+      "Input": "[monitor]",
+      "RequiredObservation": "actual immediate request ref; permitted success/error message presence; monitor DOWN must not precede success reply; no DOWN on creation failure; no-reply requires independent child/barrier proof, never timeout-as-success",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441; pinned/erts/preloaded/src/erlang.erl spawn_request docs/source",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "async.request-monitor-custom",
+      "Group": "async",
+      "Input": "[{monitor,[priority,{tag,custom}]}]",
+      "RequiredObservation": "actual immediate request ref; permitted success/error message presence; monitor DOWN must not precede success reply; no DOWN on creation failure; no-reply requires independent child/barrier proof, never timeout-as-success",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441; pinned/erts/preloaded/src/erlang.erl spawn_request docs/source",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "async.request-link",
+      "Group": "async",
+      "Input": "[link]",
+      "RequiredObservation": "actual immediate request ref; permitted success/error message presence; monitor DOWN must not precede success reply; no DOWN on creation failure; no-reply requires independent child/barrier proof, never timeout-as-success",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441; pinned/erts/preloaded/src/erlang.erl spawn_request docs/source",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "async.request-abandon",
+      "Group": "async",
+      "Input": "abandon only after real request identity exists",
+      "RequiredObservation": "actual immediate request ref; permitted success/error message presence; monitor DOWN must not precede success reply; no DOWN on creation failure; no-reply requires independent child/barrier proof, never timeout-as-success",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441; pinned/erts/preloaded/src/erlang.erl spawn_request docs/source",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "async.request-creator-exits",
+      "Group": "async",
+      "Input": "caller terminates before child outcome",
+      "RequiredObservation": "actual immediate request ref; permitted success/error message presence; monitor DOWN must not precede success reply; no DOWN on creation failure; no-reply requires independent child/barrier proof, never timeout-as-success",
+      "Source": "pinned/erts/emulator/beam/erl_process.c:12222-12441; pinned/erts/preloaded/src/erlang.erl spawn_request docs/source",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "startup.ack-live",
+      "Group": "startup",
+      "Input": "target calls actual init_ack then held",
+      "RequiredObservation": "exact return and retained/consumed DOWN/EXIT/ack/nack mailbox; actual child physical death before return where source waits; start_monitor requeues real DOWN",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl VERIFY_NO_MONITOR_OPT, sync_start, sync_start_monitor, flush_EXIT",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "startup.ack-dies",
+      "Group": "startup",
+      "Input": "actual init_ack then exit/error",
+      "RequiredObservation": "exact return and retained/consumed DOWN/EXIT/ack/nack mailbox; actual child physical death before return where source waits; start_monitor requeues real DOWN",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl VERIFY_NO_MONITOR_OPT, sync_start, sync_start_monitor, flush_EXIT",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "startup.nack",
+      "Group": "startup",
+      "Input": "actual init_fail(Return,Exception)",
+      "RequiredObservation": "exact return and retained/consumed DOWN/EXIT/ack/nack mailbox; actual child physical death before return where source waits; start_monitor requeues real DOWN",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl VERIFY_NO_MONITOR_OPT, sync_start, sync_start_monitor, flush_EXIT",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "startup.preack-exit",
+      "Group": "startup",
+      "Input": "child exits before ack",
+      "RequiredObservation": "exact return and retained/consumed DOWN/EXIT/ack/nack mailbox; actual child physical death before return where source waits; start_monitor requeues real DOWN",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl VERIFY_NO_MONITOR_OPT, sync_start, sync_start_monitor, flush_EXIT",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "startup.preack-error",
+      "Group": "startup",
+      "Input": "child raises before ack",
+      "RequiredObservation": "exact return and retained/consumed DOWN/EXIT/ack/nack mailbox; actual child physical death before return where source waits; start_monitor requeues real DOWN",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl VERIFY_NO_MONITOR_OPT, sync_start, sync_start_monitor, flush_EXIT",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "startup.preack-throw",
+      "Group": "startup",
+      "Input": "child throws before ack",
+      "RequiredObservation": "exact return and retained/consumed DOWN/EXIT/ack/nack mailbox; actual child physical death before return where source waits; start_monitor requeues real DOWN",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl VERIFY_NO_MONITOR_OPT, sync_start, sync_start_monitor, flush_EXIT",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "startup.timeout-zero",
+      "Group": "startup",
+      "Input": "Timeout=0 with child barrier guaranteeing no ack",
+      "RequiredObservation": "exact return and retained/consumed DOWN/EXIT/ack/nack mailbox; actual child physical death before return where source waits; start_monitor requeues real DOWN",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl VERIFY_NO_MONITOR_OPT, sync_start, sync_start_monitor, flush_EXIT",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "startup.timeout-finite",
+      "Group": "startup",
+      "Input": "finite actual timeout before ack",
+      "RequiredObservation": "exact return and retained/consumed DOWN/EXIT/ack/nack mailbox; actual child physical death before return where source waits; start_monitor requeues real DOWN",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl VERIFY_NO_MONITOR_OPT, sync_start, sync_start_monitor, flush_EXIT",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "startup.timeout-infinity",
+      "Group": "startup",
+      "Input": "infinity + explicit independent controller release",
+      "RequiredObservation": "exact return and retained/consumed DOWN/EXIT/ack/nack mailbox; actual child physical death before return where source waits; start_monitor requeues real DOWN",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl VERIFY_NO_MONITOR_OPT, sync_start, sync_start_monitor, flush_EXIT",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "startup.timeout-invalid",
+      "Group": "startup",
+      "Input": "bad/negative/noninteger timeout in isolated parent",
+      "RequiredObservation": "exact return and retained/consumed DOWN/EXIT/ack/nack mailbox; actual child physical death before return where source waits; start_monitor requeues real DOWN",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl VERIFY_NO_MONITOR_OPT, sync_start, sync_start_monitor, flush_EXIT",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "startup.monitor-forbidden-atom",
+      "Group": "startup",
+      "Input": "SpawnOpts=[monitor]",
+      "RequiredObservation": "exact return and retained/consumed DOWN/EXIT/ack/nack mailbox; actual child physical death before return where source waits; start_monitor requeues real DOWN",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl VERIFY_NO_MONITOR_OPT, sync_start, sync_start_monitor, flush_EXIT",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "startup.monitor-forbidden-tuple",
+      "Group": "startup",
+      "Input": "SpawnOpts=[{monitor,[]}]",
+      "RequiredObservation": "exact return and retained/consumed DOWN/EXIT/ack/nack mailbox; actual child physical death before return where source waits; start_monitor requeues real DOWN",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl VERIFY_NO_MONITOR_OPT, sync_start, sync_start_monitor, flush_EXIT",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "startup.monitor-tuple3",
+      "Group": "startup",
+      "Input": "SpawnOpts=[{monitor,[],extra}]",
+      "RequiredObservation": "exact return and retained/consumed DOWN/EXIT/ack/nack mailbox; actual child physical death before return where source waits; start_monitor requeues real DOWN",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl VERIFY_NO_MONITOR_OPT, sync_start, sync_start_monitor, flush_EXIT",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "startup.monitor-improper-options",
+      "Group": "startup",
+      "Input": "SpawnOpts=[value|bad]",
+      "RequiredObservation": "exact return and retained/consumed DOWN/EXIT/ack/nack mailbox; actual child physical death before return where source waits; start_monitor requeues real DOWN",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl VERIFY_NO_MONITOR_OPT, sync_start, sync_start_monitor, flush_EXIT",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "startup.link-request",
+      "Group": "startup",
+      "Input": "SpawnOpts=[link] with trap_exit toggled",
+      "RequiredObservation": "exact return and retained/consumed DOWN/EXIT/ack/nack mailbox; actual child physical death before return where source waits; start_monitor requeues real DOWN",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl VERIFY_NO_MONITOR_OPT, sync_start, sync_start_monitor, flush_EXIT",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "startup.late-ack",
+      "Group": "startup",
+      "Input": "release ack only after timeout/kill cleanup",
+      "RequiredObservation": "exact return and retained/consumed DOWN/EXIT/ack/nack mailbox; actual child physical death before return where source waits; start_monitor requeues real DOWN",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl VERIFY_NO_MONITOR_OPT, sync_start, sync_start_monitor, flush_EXIT",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "startup.unrelated-ack",
+      "Group": "startup",
+      "Input": "foreign child/tag cannot satisfy wait",
+      "RequiredObservation": "exact return and retained/consumed DOWN/EXIT/ack/nack mailbox; actual child physical death before return where source waits; start_monitor requeues real DOWN",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl VERIFY_NO_MONITOR_OPT, sync_start, sync_start_monitor, flush_EXIT",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "startup.ack-shape",
+      "Group": "startup",
+      "Input": "Ret arbitrary term; preserve exact returned value",
+      "RequiredObservation": "exact return and retained/consumed DOWN/EXIT/ack/nack mailbox; actual child physical death before return where source waits; start_monitor requeues real DOWN",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl VERIFY_NO_MONITOR_OPT, sync_start, sync_start_monitor, flush_EXIT",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "init.fun0",
+      "Group": "init",
+      "Input": "valid Fun0 returning",
+      "RequiredObservation": "actual parent/ancestor/initial-call/dictionary/neighbor process snapshots, logger causal marker, correct exit conversion and full report physical fields",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl init_p/exit_p/crash_report",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "init.fun1",
+      "Group": "init",
+      "Input": "valid function/1; source is_function accepts then invocation child badarity",
+      "RequiredObservation": "actual parent/ancestor/initial-call/dictionary/neighbor process snapshots, logger causal marker, correct exit conversion and full report physical fields",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl init_p/exit_p/crash_report",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "init.bad-fun",
+      "Group": "init",
+      "Input": "nonfunction -> wrapper function_clause",
+      "RequiredObservation": "actual parent/ancestor/initial-call/dictionary/neighbor process snapshots, logger causal marker, correct exit conversion and full report physical fields",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl init_p/exit_p/crash_report",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "init.ancestor-proper",
+      "Group": "init",
+      "Input": "[] or proper list",
+      "RequiredObservation": "actual parent/ancestor/initial-call/dictionary/neighbor process snapshots, logger causal marker, correct exit conversion and full report physical fields",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl init_p/exit_p/crash_report",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "init.ancestor-improper",
+      "Group": "init",
+      "Input": "improper cons retained in $ancestors",
+      "RequiredObservation": "actual parent/ancestor/initial-call/dictionary/neighbor process snapshots, logger causal marker, correct exit conversion and full report physical fields",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl init_p/exit_p/crash_report",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "init.parent-arbitrary",
+      "Group": "init",
+      "Input": "parent term not restricted by wrapper",
+      "RequiredObservation": "actual parent/ancestor/initial-call/dictionary/neighbor process snapshots, logger causal marker, correct exit conversion and full report physical fields",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl init_p/exit_p/crash_report",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "init.mfa-good",
+      "Group": "init",
+      "Input": "valid MFA held",
+      "RequiredObservation": "actual parent/ancestor/initial-call/dictionary/neighbor process snapshots, logger causal marker, correct exit conversion and full report physical fields",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl init_p/exit_p/crash_report",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "init.mfa-missing",
+      "Group": "init",
+      "Input": "undef child with complete initial-call stack",
+      "RequiredObservation": "actual parent/ancestor/initial-call/dictionary/neighbor process snapshots, logger causal marker, correct exit conversion and full report physical fields",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl init_p/exit_p/crash_report",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "init.mfa-improper",
+      "Group": "init",
+      "Input": "Cons args pass wrapper is_list then apply fails",
+      "RequiredObservation": "actual parent/ancestor/initial-call/dictionary/neighbor process snapshots, logger causal marker, correct exit conversion and full report physical fields",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl init_p/exit_p/crash_report",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "init.dictionary-preexisting",
+      "Group": "init",
+      "Input": "preexisting $ancestors/$initial_call overwritten",
+      "RequiredObservation": "actual parent/ancestor/initial-call/dictionary/neighbor process snapshots, logger causal marker, correct exit conversion and full report physical fields",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl init_p/exit_p/crash_report",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "init.dictionary-cleared",
+      "Group": "init",
+      "Input": "target erases initial_call then raises",
+      "RequiredObservation": "actual parent/ancestor/initial-call/dictionary/neighbor process snapshots, logger causal marker, correct exit conversion and full report physical fields",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl init_p/exit_p/crash_report",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "init.exit-normal",
+      "Group": "init",
+      "Input": "normal exit no crash report",
+      "RequiredObservation": "actual parent/ancestor/initial-call/dictionary/neighbor process snapshots, logger causal marker, correct exit conversion and full report physical fields",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl init_p/exit_p/crash_report",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "init.exit-shutdown",
+      "Group": "init",
+      "Input": "shutdown and {shutdown,Detail} no crash report",
+      "RequiredObservation": "actual parent/ancestor/initial-call/dictionary/neighbor process snapshots, logger causal marker, correct exit conversion and full report physical fields",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl init_p/exit_p/crash_report",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "init.exit-error-throw",
+      "Group": "init",
+      "Input": "non-normal exit/error/throw reports exact class/reason/stack",
+      "RequiredObservation": "actual parent/ancestor/initial-call/dictionary/neighbor process snapshots, logger causal marker, correct exit conversion and full report physical fields",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl init_p/exit_p/crash_report",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "init.logger-failure",
+      "Group": "init",
+      "Input": "real logger handler failure must not fabricate success",
+      "RequiredObservation": "actual parent/ancestor/initial-call/dictionary/neighbor process snapshots, logger causal marker, correct exit conversion and full report physical fields",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl init_p/exit_p/crash_report",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "sleep.hibernate-empty",
+      "Group": "sleep",
+      "Input": "empty inbox then real waiting hibernate boundary",
+      "RequiredObservation": "isolated real child; waiting/current_function+mailbox witness, actual wake/down and logger barrier; full term graph custody, no controller-destructive hibernate",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl hibernate/wake_up; actual runtime hibernate native",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "sleep.hibernate-queued",
+      "Group": "sleep",
+      "Input": "message queued before hibernate entry",
+      "RequiredObservation": "isolated real child; waiting/current_function+mailbox witness, actual wake/down and logger barrier; full term graph custody, no controller-destructive hibernate",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl hibernate/wake_up; actual runtime hibernate native",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "sleep.hibernate-wake",
+      "Group": "sleep",
+      "Input": "send tagged wake after waiting snapshot",
+      "RequiredObservation": "isolated real child; waiting/current_function+mailbox witness, actual wake/down and logger barrier; full term graph custody, no controller-destructive hibernate",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl hibernate/wake_up; actual runtime hibernate native",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "sleep.hibernate-retained",
+      "Group": "sleep",
+      "Input": "live argument graph/shared binaries survives stack retirement",
+      "RequiredObservation": "isolated real child; waiting/current_function+mailbox witness, actual wake/down and logger barrier; full term graph custody, no controller-destructive hibernate",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl hibernate/wake_up; actual runtime hibernate native",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "sleep.hibernate-physical",
+      "Group": "sleep",
+      "Input": "actual stack/heap shrink and post-wake roots/resource count",
+      "RequiredObservation": "isolated real child; waiting/current_function+mailbox witness, actual wake/down and logger barrier; full term graph custody, no controller-destructive hibernate",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl hibernate/wake_up; actual runtime hibernate native",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "sleep.hibernate-bad-module",
+      "Group": "sleep",
+      "Input": "invalid module before hibernate",
+      "RequiredObservation": "isolated real child; waiting/current_function+mailbox witness, actual wake/down and logger barrier; full term graph custody, no controller-destructive hibernate",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl hibernate/wake_up; actual runtime hibernate native",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "sleep.hibernate-improper",
+      "Group": "sleep",
+      "Input": "Cons args accepted by wrapper, destructive wake then apply error",
+      "RequiredObservation": "isolated real child; waiting/current_function+mailbox witness, actual wake/down and logger barrier; full term graph custody, no controller-destructive hibernate",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl hibernate/wake_up; actual runtime hibernate native",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "sleep.wake-return",
+      "Group": "sleep",
+      "Input": "valid target returns exact term",
+      "RequiredObservation": "isolated real child; waiting/current_function+mailbox witness, actual wake/down and logger barrier; full term graph custody, no controller-destructive hibernate",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl hibernate/wake_up; actual runtime hibernate native",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "sleep.wake-error",
+      "Group": "sleep",
+      "Input": "error with retained initial_call report",
+      "RequiredObservation": "isolated real child; waiting/current_function+mailbox witness, actual wake/down and logger barrier; full term graph custody, no controller-destructive hibernate",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl hibernate/wake_up; actual runtime hibernate native",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "sleep.wake-throw",
+      "Group": "sleep",
+      "Input": "throw becomes source exit_reason",
+      "RequiredObservation": "isolated real child; waiting/current_function+mailbox witness, actual wake/down and logger barrier; full term graph custody, no controller-destructive hibernate",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl hibernate/wake_up; actual runtime hibernate native",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "sleep.wake-missing",
+      "Group": "sleep",
+      "Input": "undef exact source/native metadata",
+      "RequiredObservation": "isolated real child; waiting/current_function+mailbox witness, actual wake/down and logger barrier; full term graph custody, no controller-destructive hibernate",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl hibernate/wake_up; actual runtime hibernate native",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "sleep.hibernate-cancel",
+      "Group": "sleep",
+      "Input": "kill while asleep, physical roots/native backing settle",
+      "RequiredObservation": "isolated real child; waiting/current_function+mailbox witness, actual wake/down and logger barrier; full term graph custody, no controller-destructive hibernate",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl hibernate/wake_up; actual runtime hibernate native",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "sleep.hibernate-owner-change",
+      "Group": "sleep",
+      "Input": "live resources +cross-process send before hibernation",
+      "RequiredObservation": "isolated real child; waiting/current_function+mailbox witness, actual wake/down and logger barrier; full term graph custody, no controller-destructive hibernate",
+      "Source": "pinned/lib/stdlib/src/proc_lib.erl hibernate/wake_up; actual runtime hibernate native",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "remote.success-pid",
+      "Group": "remote",
+      "Input": "remote spawn_opt no monitor",
+      "RequiredObservation": "reply success returns actual remotePid after real target barrier",
+      "Source": "pinned/erts/preloaded/src/erlang.erl:11049-11075;11443-11449",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "remote.success-monitored",
+      "Group": "remote",
+      "Input": "remote spawn_opt [monitor]",
+      "RequiredObservation": "returns {Pid,Ref}; actual remote death and DOWN match",
+      "Source": "pinned/erts/preloaded/src/erlang.erl:11049-11075;11443-11449",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "remote.badopt-reply",
+      "Group": "remote",
+      "Input": "real target rejects otherwise admitted option",
+      "RequiredObservation": "spawn_opt source badarg_with_cause; request async error badopt",
+      "Source": "pinned/erts/preloaded/src/erlang.erl:11049-11075;11443-11449",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "remote.noconnection-crasher",
+      "Group": "remote",
+      "Input": "remote spawn_opt error noconnection",
+      "RequiredObservation": "source creates local erts_internal:crasher with original options; retain returned useless/local pid and linked/monitor fate",
+      "Source": "pinned/erts/preloaded/src/erlang.erl:11049-11075;11443-11449",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "remote.notsup-crasher",
+      "Group": "remote",
+      "Input": "remote spawn_opt real capability notsup",
+      "RequiredObservation": "source same local crasher fallback; no synthetic immediate error substituted",
+      "Source": "pinned/erts/preloaded/src/erlang.erl:11049-11075;11443-11449",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "remote.other-error-reply",
+      "Group": "remote",
+      "Input": "actual dist spawn other error",
+      "RequiredObservation": "source error_with_info preserves exact reason and metadata",
+      "Source": "pinned/erts/preloaded/src/erlang.erl:11049-11075;11443-11449",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "remote.crasher-option-failure",
+      "Group": "remote",
+      "Input": "noconnection +options failing fallback",
+      "RequiredObservation": "retain exact fallback catch/helper error metadata",
+      "Source": "pinned/erts/preloaded/src/erlang.erl:11049-11075;11443-11449",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "remote.sender-receiver-validation",
+      "Group": "remote",
+      "Input": "disconnected request +resource/unknown opts",
+      "RequiredObservation": "dist sender validates reply/link/monitor separately; prove real receiver validates resource args on connection",
+      "Source": "pinned/erts/preloaded/src/erlang.erl:11049-11075;11443-11449",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "remote.request-error-noconnection",
+      "Group": "remote",
+      "Input": "async real remote disconnect",
+      "RequiredObservation": "actual request identity reply policy; child may exist, must settle target-local witness",
+      "Source": "pinned/erts/preloaded/src/erlang.erl:11049-11075;11443-11449",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    },
+    {
+      "Id": "remote.peer-incarnation",
+      "Group": "remote",
+      "Input": "real restart/reconnect after request",
+      "RequiredObservation": "old request/ref/monitor cannot bind fresh peer child; full source/target cleanup",
+      "Source": "pinned/erts/preloaded/src/erlang.erl:11049-11075;11443-11449",
+      "EvidenceState": "PLANNED_NOT_EXECUTED"
+    }
+  ]
+}

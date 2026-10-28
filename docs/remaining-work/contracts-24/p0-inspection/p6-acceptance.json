@@ -1,0 +1,110 @@
+{
+  "P0": "Exhaustive native dispatch inventory41+22+20 captured; finite verification inventory is not full proof.",
+  "P6AcceptanceStages": [
+    {
+      "Stage": "P6.1-admit",
+      "Requires": [
+        "exact final source SHA/defaultbackend and actual supported target profile",
+        "whole original worker image/source/MD5/provider-before-after inventory",
+        "native metadata source-image file/line/error profile; same compiled worker for managed replay",
+        "unmodified default+det whole ETF/fullstack; all original errors and cleanup retained"
+      ]
+    },
+    {
+      "Stage": "P6.2-selectors-errors",
+      "Requires": [
+        "all83selector rows plus process_info/1 default17",
+        "all common invalidtype/form/duplicate/order/preference rows",
+        "full errorstacks include source/BEAM/comprehension/caller context and configured depth",
+        "unknown-selector vs known-invalid cause discrimination; helpers retain atomnotsup vs errornotsup vsundefined distinction"
+      ]
+    },
+    {
+      "Stage": "P6.3-actual-effects",
+      "Requires": [
+        "system_flag readold/effect/restore for every22 branch; freshchild defaults",
+        "real scheduler/dirty queues,walltime,context switches,IO/tracing/logger/time/allocator states",
+        "two logical VM ownership isolation; original actor lifecycle barriers",
+        "all41 processinfo specific states and sensitive suppression"
+      ]
+    },
+    {
+      "Stage": "P6.4-resources",
+      "Requires": [
+        "complete guest term producers/headers (floats,bignums,ordinaryref plus ALLmagicproducers,functions,external identities,maps,all binaries)",
+        "real source/BEAM stack frames/rootslots,continuations,mailbox/onheap fragments,dictionary,ETS,persistent/native/exported hostroots",
+        "generation occupancy+capacity/highwater/virtualbinary metrics,fullsweep/min/max policies,allocation-failure/rollback",
+        "actual process bytes domain including owned host metadata; no dummy ERTSsizeof constants or global CLR process totals",
+        "GC self/remote safepoint,live async callbacks,dirty workers,cancellation; logical DOWN before physical cleanup",
+        "actual collector-only statistics counters; NOT CLR GetTotalMemory/CollectionCount replacement"
+      ]
+    },
+    {
+      "Stage": "P6.5-config-platform",
+      "Requires": [
+        "all admitted supported OS/wordsize/build/MSACC/affinity/timewarp/scheduler profiles",
+        "conditional absent branches retain source BADARG/undefined behavior",
+        "unsupported profiles explicit,not silently counted complete"
+      ]
+    },
+    {
+      "Stage": "P6.6-close",
+      "Requires": [
+        "all row branch obligations code-reviewed with exact source proof and complete actualpartitions",
+        "fresh final-head GitHub CI wholeoriginal comparisons and affected/full regression green",
+        "independent reviewer checks status/provenance after finalhead changes",
+        "all four MFAs remain Known until whole condition fulfilled; no presence/per-key promotion"
+      ]
+    }
+  ],
+  "ExistingOriginalOnlyEvidence": [
+    {
+      "Directory": "artifacts/batch520/original-workers-admitted/process-info-all41",
+      "Scope": "Previously acquired original worker evidence; not a fresh c7fb01a managed comparison or whole-contract certificate"
+    },
+    {
+      "Directory": "artifacts/batch520/original-workers-admitted/statistics-all20",
+      "Scope": "Previously acquired original worker evidence; not a fresh c7fb01a managed comparison or whole-contract certificate"
+    },
+    {
+      "Directory": "artifacts/batch520/original-workers-admitted/shared-system-flags",
+      "Scope": "Previously acquired original worker evidence; not a fresh c7fb01a managed comparison or whole-contract certificate"
+    }
+  ],
+  "GroupedPriority": [
+    {
+      "Priority": 1,
+      "Group": "Complete real19 shared-resource model before exposing physical selectors/valid heap flags",
+      "APIs": [
+        "process_info/1,2",
+        "system_flag/2 resourcebranches",
+        "statistics/1 GC",
+        "spawn_opt/request/proc_lib related15 APIs"
+      ],
+      "Reason": "Default17 list omits4physical fields; process_info/2 recognizes22atom keys+dictionary tuple, missing18valid atoms. Private storage subset isnot complete public budgets."
+    },
+    {
+      "Priority": 2,
+      "Group": "Logical metadata/trace/default errors in parallel independent from physical arena",
+      "Fixes": [
+        "parent/label/current_location projection from existingactualstate",
+        "sensitive messages/dictionary/{dictionary,K} behavior; duplicate snapshot memoization",
+        "fulltrace/backtrace/catchlevel semantics viaexistingframe/tracingstate",
+        "unknownflag error_info badopt vs knowninvalid; build-conditioned stats errors"
+      ],
+      "Constraint": "do not fake physicalfields to claim logical projection iscomplete"
+    },
+    {
+      "Priority": 3,
+      "Group": "Actual scheduler/statistics/config/time/allocator effects as one coordinated branchbatch",
+      "Fixes": [
+        "scheduler_walltime flag+stats pair",
+        "dirty online/multi scheduling and taskcounts",
+        "contextswitch+IO and conditional MSACC/scheduling_statistics",
+        "trace control/resetseq/moduletracer +logger lifecycle",
+        "real affinity+topology+time_offset+allocator backend"
+      ]
+    }
+  ],
+  "WholeContractsClosed": 0
+}

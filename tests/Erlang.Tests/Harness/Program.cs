@@ -149,6 +149,11 @@ catch (ArgumentException failure)
 }
 
 var tests = new List<(string Name, Func<Task> Body)>();
+Test(Erlang.Tests.AtomicsLifecycle586Names.GateTest, Erlang.Tests.AtomicsLifecycle586Checks.ShutdownWaitsOutsideRuntimeGate);
+Test(
+    Erlang.Tests.AtomicsLifecycle586Names.HeapTest,
+    Erlang.Tests.AtomicsLifecycle586Checks.BackingSurvivesOwnedHeapRetirement
+);
 Test(
     Erlang.Tests.NativeResourceTypeRetirement575Names.RepeatedCase,
     Erlang.Tests.NativeResourceTypeRetirement575Checks.RepeatedEmptyRetirement
