@@ -1,0 +1,163 @@
+{
+  "ManifestSha256": "880EE724EB28D04167E0D452C251E5EB1AC1AD29502BDDFC5D25747E64BA82E0",
+  "Targets": [
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.OwnedTermProcessExit506.cs",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.OwnedTermProcessExit506.cs",
+      "BeforeSha256": "0E86D99EA935943DF3F6C25D9076A4671466F1FFB3CB3BF1BCC46FCF26803561",
+      "AfterSha256": "5A4A79ABFC8BEEA342689EE29C94009A79DA6D8C004799F5EE23A7CA7104490B",
+      "Hunks": [
+        {
+          "Before": "        context.Mailbox.CloseForExit593();\n        Task queueRoots593 = context.Mailbox.DrainClosedPayload593();",
+          "After": "        // Terminate holds R: stop admission without taking mailbox M.\n        context.Mailbox.StopAdmissionForExit606();\n        // This is the specific pre-existing queue-observation fence. The\n        // preceding argument is the DIRTY physical chain, not ETS storage.\n        // Waiting all storage/physical work before releasing queue roots\n        // could create an ownership cycle.\n        Task queueObservation606 = EtsQueueRetirement419(context, Task.CompletedTask);\n        Task queueRoots593 = context.Mailbox.DrainAfterQueueObservations606(queueObservation606);"
+        }
+      ]
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Mailbox.Retirement593.cs",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Processes/Mailbox.Retirement593.cs",
+      "BeforeSha256": "663C6CC3EDEE91738C2F52DCEC52EDB20ACF5EDD590F8BE36752CC7435F3C68B",
+      "AfterSha256": "5108EED4C6FD83813AEB520053F8B5EC44765819273571BFF5345459A46385D4",
+      "Hunks": [
+        {
+          "Before": "    private Task? retirement593;\n\n    internal void CloseForExit593()",
+          "After": "    private Task? retirement593;\n    private bool entriesCaptured606;\n\n    // This is the only operation required under runtime R. Physical queue\n    // capture and release callbacks must not acquire mailbox M from that turn.\n    internal void StopAdmissionForExit606() => Volatile.Write(ref closed593, true);\n\n    internal Task DrainAfterQueueObservations606(Task observations)\n    {\n        StopAdmissionForExit606();\n        if (ExecutionContext.IsFlowSuppressed())\n            return Task.Run(() => DrainAfterQueueObservationsCore606(observations));\n\n        using (ExecutionContext.SuppressFlow())\n            return Task.Run(() => DrainAfterQueueObservationsCore606(observations));\n    }\n\n    private async Task DrainAfterQueueObservationsCore606(Task observations)\n    {\n        Exception? observationFailure = null, captureFailure = null, drainFailure = null;\n        try { await observations.ConfigureAwait(false); }\n        catch (Exception error) { observationFailure = error; }\n        // A faulted predecessor cannot suppress independent physical cleanup.\n        // Task.Run suppressed actor/owned-invocation context and owns no R/M.\n        try { CloseForExit593(); }\n        catch (Exception error) { captureFailure = error; }\n        try { await DrainClosedPayload593().ConfigureAwait(false); }\n        catch (Exception error) { drainFailure = error; }\n        if (observationFailure is not null || captureFailure is not null || drainFailure is not null)\n            throw new AggregateException(new[] { observationFailure, captureFailure, drainFailure }.OfType<Exception>());\n    }\n\n    internal void CloseForExit593()"
+        },
+        {
+          "Before": "    internal void CloseForExit593()\n    {\n        lock (gate)\n        {\n            if (Volatile.Read(ref closed593))\n                return;\n\n            Volatile.Write(ref closed593, true);",
+          "After": "    internal void CloseForExit593()\n    {\n        StopAdmissionForExit606();\n        lock (gate)\n        {\n            if (entriesCaptured606)\n                return;"
+        },
+        {
+          "Before": "            // No new signal allocation is needed: closed mailboxes never wait",
+          "After": "            entriesCaptured606 = true;\n            // No new signal allocation is needed: closed mailboxes never wait"
+        }
+      ]
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Mailbox.cs",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Processes/Mailbox.cs",
+      "BeforeSha256": "0C2C120C5EF6371F08DAD22CE3E62DB5E9508292AE339520D64D6882895A4E11",
+      "AfterSha256": "2E1DCCEBFB4DAD61C115B71EB0F1029B1FD5B22E818E6052FCBC1D3025CBB100",
+      "Hunks": [
+        {
+          "Before": "    internal void StopForHalt()\n    {\n        CloseForExit593();\n        lock (gate)\n        {\n            Volatile.Write(ref closed593, true);\n            foreach (var queued593 in messages)\n                queued593.Custody593?.Dispose();\n            PayloadRetirements593.Close();\n            mutationRevision++;\n            precedenceRevision++;\n            ResetBeamSave();\n            beamSave = null;\n            foreach (var entry in messages)\n                entry.DeferredRelease?.Invoke();\n            ClearReceiveMarkersForHalt();\n            ClearPendingSignals428();\n            messages.Clear();\n            pending = 0;\n            deferredPending = 0;\n            admittedCount = 0;\n            lastPriority = null;\n            var previous = changed;\n            changed = NewSignal();\n            previous.TrySetResult();\n        }\n    }\n\n",
+          "After": "    internal void StopForHalt() => CloseForExit593();\n\n"
+        },
+        {
+          "Before": "            if (HaltRequested?.Invoke() == true || pending == 0)\n                return;\n            for (var node = messages.First; node is not null;)\n            {\n                var next = node.Next;\n                if (node.Value.Deferred)",
+          "After": "            if (Volatile.Read(ref closed593) || HaltRequested?.Invoke() == true || pending == 0)\n                return;\n            for (var node = messages.First; node is not null;)\n            {\n                var next = node.Next;\n                if (node.Value.Deferred)"
+        },
+        {
+          "Before": "                    bool? priority = admission();\n                    if (priority is null)",
+          "After": "                    bool? priority = admission();\n                    // Admission may terminate this owner reentrantly. Its\n                    // atomic closed latch invalidates this cached node outcome.\n                    if (Volatile.Read(ref closed593))\n                        break;\n                    if (priority is null)"
+        },
+        {
+          "Before": "                        ObserveQueueLength419(admittedCount);\n                        if (node.Value.TraceAdmission)",
+          "After": "                        ObserveQueueLength419(admittedCount);\n                        if (Volatile.Read(ref closed593))\n                            break;\n                        if (node.Value.TraceAdmission)"
+        },
+        {
+          "Before": "            if (HaltRequested?.Invoke() == true || pending == 0)\n                return;\n            for (var node = messages.First; node is not null;)\n            {\n                var next = node.Next;\n                if (node.Value.Admission is not null || node.Value.Deferred)",
+          "After": "            if (Volatile.Read(ref closed593) || HaltRequested?.Invoke() == true || pending == 0)\n                return;\n            for (var node = messages.First; node is not null;)\n            {\n                var next = node.Next;\n                if (node.Value.Admission is not null || node.Value.Deferred)"
+        },
+        {
+          "Before": "                    node.Value.DeferredRelease?.Invoke();\n                    RemoveNode(node);\n                }\n                node = next;",
+          "After": "                    Action? release = node.Value.DeferredRelease;\n                    node.Value = node.Value with { DeferredRelease = null };\n                    release?.Invoke();\n                    if (Volatile.Read(ref closed593))\n                        return;\n                    RemoveNode(node);\n                }\n                node = next is not null && ReferenceEquals(next.List, messages) ? next : null;"
+        }
+      ]
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Mailbox.SignalOwner428.cs",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Processes/Mailbox.SignalOwner428.cs",
+      "BeforeSha256": "75EA0B3D8CBCB17F547A4DB508A5E7D57944CFAF06EF2F915255BF83D681521F",
+      "AfterSha256": "233D8FF70BA8BCD2F94A9420C316B482C8B0A1CF7AE63723EF548E24F6C72070",
+      "Hunks": [
+        {
+          "Before": "    internal bool HasPendingSignals428 => Volatile.Read(ref pending) != 0;",
+          "After": "    internal bool HasPendingSignals428 => !Volatile.Read(ref closed593) && Volatile.Read(ref pending) != 0;"
+        },
+        {
+          "Before": "            if (HaltRequested?.Invoke() == true) return new(0, false, false);",
+          "After": "            if (Volatile.Read(ref closed593) || HaltRequested?.Invoke() == true) return new(0, false, false);"
+        },
+        {
+          "Before": "                bool? priority = admission();\n                if (priority is null)",
+          "After": "                bool? priority = admission();\n                if (Volatile.Read(ref closed593)) break;\n                if (priority is null)"
+        },
+        {
+          "Before": "                    ObserveQueueLength419(admittedCount);\n                    if (node.Value.TraceAdmission)",
+          "After": "                    ObserveQueueLength419(admittedCount);\n                    if (Volatile.Read(ref closed593)) break;\n                    if (node.Value.TraceAdmission)"
+        },
+        {
+          "Before": "            remaining = pendingSignals428.Count != 0;",
+          "After": "            remaining = !Volatile.Read(ref closed593) && pendingSignals428.Count != 0;"
+        },
+        {
+          "Before": "            if (pendingSignals428.First is not { } first) return null;",
+          "After": "            if (Volatile.Read(ref closed593) || pendingSignals428.First is not { } first) return null;"
+        }
+      ]
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Mailbox.DeferredPreparation.cs",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Processes/Mailbox.DeferredPreparation.cs",
+      "BeforeSha256": "69C1B00DD03DA064789020A5D2CA91DBF87202C91BB783FB39858117A3081177",
+      "AfterSha256": "78164A3DBAB03324D657066D481E9FF4680B4760EDAD8A53A72F4717C4F63728",
+      "Hunks": [
+        {
+          "Before": "    internal bool HasDeferredPending => Volatile.Read(ref deferredPending) != 0;",
+          "After": "    internal bool HasDeferredPending => !Volatile.Read(ref closed593) && Volatile.Read(ref deferredPending) != 0;"
+        },
+        {
+          "Before": "    internal void SendDeferred(\n        Func<DeferredMailboxAdmission?> prepare,\n        Action release,\n        Term? from,\n        Term? traceToken\n    )\n    {\n        lock (gate)\n        {\n            if (HaltRequested?.Invoke() == true)\n            {\n                release();\n\n                return;\n            }\n            var pendingNode = new LinkedListNode<Entry>(new Entry(\n                Nil.Value,\n                null,\n                Control: true,\n                From: from,\n                DistributionTraceToken: traceToken,\n                DeferredPreparation: prepare,\n                DeferredRelease: release,\n                Deferred: true\n            ));\n            AddPendingSignal428(pendingNode);\n            messages.AddLast(pendingNode);\n            deferredPending++;\n            pending++;\n            mutationRevision++;\n            precedenceRevision++;\n            var previous = changed;\n            changed = NewSignal();\n            previous.TrySetResult();\n        }\n        PendingSignalAdded428?.Invoke(null);\n    }\n\n",
+          "After": "    internal void SendDeferred(\n        Func<DeferredMailboxAdmission?> prepare,\n        Action release,\n        Term? from,\n        Term? traceToken\n    )\n    {\n        if (!TrySendDeferred606(prepare, release, from, traceToken))\n            release(); // Rejected capture cleanup is outside mailbox M.\n    }\n\n    // Runtime callers holding R inspect this result and release outside R/M.\n    internal bool TrySendDeferred606(\n        Func<DeferredMailboxAdmission?> prepare,\n        Action release,\n        Term? from,\n        Term? traceToken\n    )\n    {\n        if (Volatile.Read(ref closed593) || HaltRequested?.Invoke() == true)\n            return false;\n        lock (gate)\n        {\n            if (Volatile.Read(ref closed593) || HaltRequested?.Invoke() == true)\n                return false;\n            var pendingNode = new LinkedListNode<Entry>(new Entry(\n                Nil.Value,\n                null,\n                Control: true,\n                From: from,\n                DistributionTraceToken: traceToken,\n                DeferredPreparation: prepare,\n                DeferredRelease: release,\n                Deferred: true\n            ));\n            AddPendingSignal428(pendingNode);\n            messages.AddLast(pendingNode);\n            deferredPending++;\n            pending++;\n            mutationRevision++;\n            precedenceRevision++;\n            var previous = changed;\n            changed = NewSignal();\n            previous.TrySetResult();\n        }\n        PendingSignalAdded428?.Invoke(null);\n\n        return true;\n    }\n\n"
+        },
+        {
+          "Before": "    internal MailboxDeferredPreparation? ClaimDeferred()\n    {\n        lock (gate)\n        {\n            for",
+          "After": "    internal MailboxDeferredPreparation? ClaimDeferred()\n    {\n        lock (gate)\n        {\n            if (Volatile.Read(ref closed593)) return null;\n            for"
+        },
+        {
+          "Before": "            if (!ReferenceEquals(node.List, messages))\n                return;",
+          "After": "            if (Volatile.Read(ref closed593) || !ReferenceEquals(node.List, messages))\n                return;"
+        },
+        {
+          "Before": "            node.Value.DeferredRelease?.Invoke();\n            node.Value = node.Value with { Deferred = false, DeferredRelease = null };",
+          "After": "            Action? release = node.Value.DeferredRelease;\n            // Claim before callback: reentrant exit may capture this same Entry.\n            node.Value = node.Value with { Deferred = false, DeferredRelease = null };\n            release?.Invoke();\n            if (Volatile.Read(ref closed593)) return;"
+        },
+        {
+          "Before": "            ObserveQueueLength419(admittedCount);\n            if (result.Priority)",
+          "After": "            ObserveQueueLength419(admittedCount);\n            if (Volatile.Read(ref closed593)) return;\n            if (result.Priority)"
+        }
+      ]
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DeferredSignals.cs",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DeferredSignals.cs",
+      "BeforeSha256": "CB5063067909220990E324E576884C1EB688D1B3BC4D5D84ED5E2A581FDFB187",
+      "AfterSha256": "31D1EA0A9D85FBD4887A0DA388724ABCD68520FF410A89235320307C44F4534B",
+      "Hunks": [
+        {
+          "Before": "        lock (gate)\n        {\n            if (!ReferenceEquals(owner.Runtime, this) || !processes.TryGetValue(owner.Self, out var found) ||\n                !ReferenceEquals(found, owner) || owner.Terminated)\n            {\n                release();\n\n                return;\n            }\n            owner.DeferredSignalDrain ??= new();\n            owner.Mailbox.SendDeferred(\n                prepare,\n                release,\n                from,\n                traceToken\n            );\n        }",
+          "After": "        bool accepted = false;\n        lock (gate)\n        {\n            if (ReferenceEquals(owner.Runtime, this) && processes.TryGetValue(owner.Self, out var found)\n                && ReferenceEquals(found, owner) && !owner.Terminated)\n            {\n                owner.DeferredSignalDrain ??= new();\n                accepted = owner.Mailbox.TrySendDeferred606(prepare, release, from, traceToken);\n            }\n        }\n        if (!accepted) release(); // No runtime R or mailbox M during rejected cleanup."
+        }
+      ]
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Halt.cs",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Halt.cs",
+      "BeforeSha256": "53D7C0B1CDDDEAA4B9246B056EE908A9A2E0CCD77E62069E8CA3CA89CA846E6D",
+      "AfterSha256": "3EA1DB8A6818699466314B9DF1D06A412FE8402474B75C21F35371D5532C66A3",
+      "Hunks": [
+        {
+          "Before": "                process.Terminated = true;\n                process.ExitReason = Term.A(ProcessExitReasons.Shutdown);",
+          "After": "                process.Terminated = true;\n                process.Mailbox.StopAdmissionForExit606();\n                process.ExitReason = Term.A(ProcessExitReasons.Shutdown);"
+        },
+        {
+          "Before": "            foreach (ProcessContext process in stopped)\n                process.Mailbox.StopForHalt();\n            Task mailboxRetirements593 = Task.WhenAll(stopped.Select(process => process.Mailbox.DrainClosedPayload593()));",
+          "After": "            Task mailboxRetirements593;\n            lock (gate)\n                mailboxRetirements593 = Task.WhenAll(stopped.Select(process =>\n                    process.Mailbox.DrainAfterQueueObservations606(EtsQueueRetirement419(process, Task.CompletedTask))));"
+        }
+      ]
+    }
+  ],
+  "Built": false,
+  "Executed": false
+}

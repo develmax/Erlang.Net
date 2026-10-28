@@ -5,22 +5,30 @@ namespace Erlang.NifNativeBackend;
 
 internal static class Resource529Driver
 {
-    internal static async Task Run(
+    internal static Task Run(string[] arguments, Func<bool, Task<ProcessRuntime>>? runtimeFactory = null)
+        => RunProtocol(arguments, runtimeFactory, Resource529ProtocolKind.Default);
+
+    internal static async Task RunProtocol(
         string[] arguments,
-        Func<bool, Task<ProcessRuntime>>? runtimeFactory = null
+        Func<bool, Task<ProcessRuntime>>? runtimeFactory = null,
+        Resource529ProtocolKind protocol = Resource529ProtocolKind.Default
     )
     {
         Require(arguments.Length == 5 && OperatingSystem.IsWindows());
         Verify(arguments[0], arguments[1]);
         using var admission = JsonDocument.Parse(File.ReadAllBytes(arguments[0]));
         JsonElement row = admission.RootElement;
-        Require(row.GetProperty("Status").GetString() == Resource529Names.Status);
+        Require(protocol is Resource529ProtocolKind.Default or Resource529ProtocolKind.Queue593);
+        bool queue593 = protocol == Resource529ProtocolKind.Queue593;
+        Require(row.GetProperty("Status").GetString() == (queue593 ? ResourceQueue593Names.Status : Resource529Names.Status));
         Require(row.GetProperty("Pin").GetString() == Resource529Names.Pin);
         foreach (var input in row.GetProperty("Inputs").EnumerateArray())
             Verify(input.GetProperty("Path").GetString()!, input.GetProperty("Sha256").GetString()!);
         string job = row.GetProperty("Job").GetString()!;
         Require(row.GetProperty("ProtocolSchemaVersion").GetInt32() == 2);
-        Require(job is Resource529Names.Family or Resource529Names.FreshLoad or Resource529Names.Upgrade);
+        Require(queue593
+            ? job == ResourceQueue593Names.Job
+            : job is Resource529Names.Family or Resource529Names.FreshLoad or Resource529Names.Upgrade);
         string route = arguments[2];
         Require(route is Resource529Names.Ordinary or Resource529Names.Reviewed);
         bool owned = arguments[3] switch
@@ -114,13 +122,15 @@ internal static class Resource529Driver
             {
                 string first = libraries[0].GetProperty("Path").GetString()!;
                 string second = libraries[^1].GetProperty("Path").GetString()!;
-                string stub = job == Resource529Names.Family ? Resource529Names.FamilyModule : Resource529Names.HandoffModule;
+                string stub = job == Resource529Names.Family || queue593 ? Resource529Names.FamilyModule : Resource529Names.HandoffModule;
                 var admitted = row.GetProperty("Images").EnumerateArray().Single(image => image.GetProperty("Module").GetString() == stub);
                 Term fresh = new BitString(File.ReadAllBytes(admitted.GetProperty("Path").GetString()!));
                 string marker = Path.Combine(output, Resource529Names.Marker);
                 Term firstPath = Term.String(first[..^Resource529Names.Dll.Length]);
                 Term secondPath = Term.String(second[..^Resource529Names.Dll.Length]);
-                Term observed = job == Resource529Names.Family
+                Term observed = queue593
+                    ? await ResourceQueue593Observation.Execute(context, firstPath)
+                    : job == Resource529Names.Family
                     ? await current.Modules.Call(
                         context,
                         Resource529Names.Observer,
@@ -146,6 +156,7 @@ internal static class Resource529Driver
                 deterministic = await Encode(context, observed, true);
                 await File.WriteAllBytesAsync(Path.Combine(output, Resource529Names.Raw), raw);
                 await File.WriteAllBytesAsync(Path.Combine(output, Resource529Names.Deterministic), deterministic);
+                if (queue593) Require(ResourceQueue593Observation.BothCasesReturned(observed));
                 if (observed is TupleTerm { Items: [Atom { Name: Resource529Names.Raised }, _, _, _] })
                     throw new InvalidOperationException(Resource529Names.Invalid);
             }

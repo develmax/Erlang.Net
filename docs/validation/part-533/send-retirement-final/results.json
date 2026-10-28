@@ -1,0 +1,68 @@
+{
+  "Passed": true,
+  "HostSha256": "B9F75884CA911059FE32361D485982F263B4526D2680ACEA86B501D233C5E29E",
+  "Results": [
+    {
+      "BeamWorker": false,
+      "ExpectedRed": false,
+      "ActualHeldObserved": true,
+      "ActualGuestCompletionObserved": true,
+      "Passed": true,
+      "Receipt": {
+        "Command": [
+          "dotnet",
+          "exec",
+          "--fx-version",
+          "10.0.11",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+          "--atomics593-send-child",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\artifacts\\resource533\\atomics-retirement-final\\admission.json",
+          "EF8238FB49C222F216D8945F2A8DF3C954982A3192B874668D3C04C95ED7F5F1",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\artifacts\\resource533\\dynamic520-final\\completion.json",
+          "205788A8793C3E9B9A924BB4D9C9B7E65356C605B30A5F8DACBADD83B933487C",
+          "false"
+        ],
+        "Pid": 14044,
+        "ElapsedSeconds": 2.438000000000102,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "A21C33CFE9A8073E284FC9DDE35BC5FEA60BEA08CADBCA35EC7CCE2818B4B8AE"
+      }
+    },
+    {
+      "BeamWorker": true,
+      "ExpectedRed": false,
+      "ActualHeldObserved": true,
+      "ActualGuestCompletionObserved": true,
+      "Passed": true,
+      "Receipt": {
+        "Command": [
+          "dotnet",
+          "exec",
+          "--fx-version",
+          "10.0.11",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+          "--atomics593-send-child",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\artifacts\\resource533\\atomics-retirement-final\\admission.json",
+          "EF8238FB49C222F216D8945F2A8DF3C954982A3192B874668D3C04C95ED7F5F1",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\artifacts\\resource533\\dynamic520-final\\completion.json",
+          "205788A8793C3E9B9A924BB4D9C9B7E65356C605B30A5F8DACBADD83B933487C",
+          "true"
+        ],
+        "Pid": 28196,
+        "ElapsedSeconds": 2.375,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "297C0409658D9ED68DDF76A27AF40C42F17BEE7B5DA49D8FF38D856D821527F3"
+      }
+    }
+  ]
+}

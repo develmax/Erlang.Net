@@ -818,6 +818,49 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
     }
 
     internal Term ProcessInfo(Pid pid, IReadOnlyList<ProcessInfoItem> keys, bool singleton)
+        => CaptureProcessInfoSnapshot601(pid, keys, singleton).CompleteAndDispose(this, null);
+
+    private ProcessInfoSnapshot601 CaptureProcessInfoSnapshot601(Pid pid, IReadOnlyList<ProcessInfoItem> keys, bool singleton)
+    {
+        var captured = new ProcessInfoSnapshot601();
+        FillProcessInfoSnapshot601(
+            captured,
+            pid,
+            keys,
+            singleton
+        );
+
+        return captured;
+    }
+
+    private void FillProcessInfoSnapshot601(
+        ProcessInfoSnapshot601 captured,
+        Pid pid,
+        IReadOnlyList<ProcessInfoItem> keys,
+        bool singleton
+    )
+    {
+        try
+        {
+            captured.Value = ReadProcessInfoSnapshot601(
+                pid,
+                keys,
+                singleton,
+                captured
+            );
+        }
+        catch (Exception error)
+        {
+            captured.Failure = error;
+        }
+    }
+
+    private Term ReadProcessInfoSnapshot601(
+        Pid pid,
+        IReadOnlyList<ProcessInfoItem> keys,
+        bool singleton,
+        ProcessInfoSnapshot601 captured
+    )
     {
         ProcessContext observed;
         lock (gate)
@@ -833,7 +876,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             if (!processes.TryGetValue(pid, out var process) || !ReferenceEquals(process, observed) || process.Terminated)
                 return ProcessInfoAtoms.Undefined;
             var values = new List<Term>(keys.Count);
-            IReadOnlyList<Term>? messages = keys.Any(key => key.Name is ProcessInfoNames.Messages or ProcessInfoNames.MessageQueueLength) ? process.Mailbox.Snapshot() : null;
+            IReadOnlyList<Term>? messages = keys.Any(key => key.Name is ProcessInfoNames.Messages or ProcessInfoNames.MessageQueueLength)
+                ? (captured.Messages = process.Mailbox.CaptureSnapshot601()).Values.ToArray() : null;
             foreach (ProcessInfoItem key in keys)
             {
                 Term value = key.Name switch
@@ -1353,9 +1397,9 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 DetachConnectedSpawnMonitor(observer, reference);
             }
             if (flush && removed && monitor!.Source == ProcessMonitorSource.TimeOffset)
-                observer.Mailbox.Remove(term => term is TupleTerm tuple && tuple.Items.Count == ProcessMonitorTupleLayout.Fields && tuple.Items[1].Equals(reference));
+                observer.Mailbox.RemoveControl593(term => term is TupleTerm tuple && tuple.Items.Count == ProcessMonitorTupleLayout.Fields && tuple.Items[1].Equals(reference));
             else if (flush && !removed)
-                observer.Mailbox.RemoveFirst(term => term is TupleTerm tuple && tuple.Items.Count == ProcessMonitorTupleLayout.Fields && tuple.Items[1].Equals(reference));
+                observer.Mailbox.RemoveFirstControl593(term => term is TupleTerm tuple && tuple.Items.Count == ProcessMonitorTupleLayout.Fields && tuple.Items[1].Equals(reference));
 
             return !info || removed;
         }
@@ -1705,6 +1749,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 StopLocalNode();
                 localNodeEvents?.Close();
                 disposed = true;
+                StopMailboxRootAdmission593();
                 _ = actorDispatcher.CompleteWhenIdle();
                 Timers.Dispose();
                 distributionPending?.Close();
@@ -1785,6 +1830,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 DrainDirtyNative419(),
                 DrainDebugDispatch432(),
                 DrainCounters421(),
+                DrainMailboxRoots593(),
                 DrainAtomics586(),
                 DrainHamtIndex429(),
                 DrainDriverFrontend422(),
@@ -1858,6 +1904,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 StopLocalNode();
                 localNodeEvents?.Close();
                 disposed = true;
+                StopMailboxRootAdmission593();
                 _ = actorDispatcher.CompleteWhenIdle();
                 Timers.Dispose();
                 distributionPending?.Close();
@@ -1901,6 +1948,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             DrainDirtyNative419(),
             DrainDebugDispatch432(),
             DrainCounters421(),
+            DrainMailboxRoots593(),
             DrainAtomics586(),
             DrainHamtIndex429(),
             DrainDriverFrontend422(),

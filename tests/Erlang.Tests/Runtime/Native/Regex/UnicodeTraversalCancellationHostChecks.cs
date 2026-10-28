@@ -66,6 +66,8 @@ internal static class UnicodeTraversalCancellationHostChecks
                 await Task.Yield();
             }
             Require(!outcome.Task.IsCompleted && active.Mailbox.Count == 1 && ActiveLeases(active) > 0);
+            var beforeExit = (IReadOnlyList<Term>)typeof(Mailbox).GetMethod(Snapshot, BindingFlags.Instance | BindingFlags.NonPublic)!.Invoke(active.Mailbox, null)!;
+            Require(beforeExit.Count == 1 && beforeExit[0].Equals(sentinel));
             await controller.Invoke(context =>
 {
     runtime.Exit(context, worker.Pid, Term.A(Kill));
@@ -84,9 +86,11 @@ internal static class UnicodeTraversalCancellationHostChecks
             {
                 cancelled = true;
             }
-            Require(cancelled && active.Cancellation.IsCancellationRequested && ActiveLeases(active) == 0 && active.Mailbox.Count == 1);
+            Require(cancelled && active.Cancellation.IsCancellationRequested && ActiveLeases(active) == 0 && active.Mailbox.Count == 0);
             var messages = (IReadOnlyList<Term>)typeof(Mailbox).GetMethod(Snapshot, BindingFlags.Instance | BindingFlags.NonPublic)!.Invoke(active.Mailbox, null)!;
-            Require(messages.Count == 1 && messages[0].Equals(sentinel));
+            Require(messages.Count == 0);
+            runtime.Send(worker.Pid, sentinel);
+            Require(active.Mailbox.Count == 0);
             lock (RuntimeGate(runtime)) Require(!ProcessesWhileLocked(runtime).Any(context => context.Self.Equals(worker.Pid)));
             Require(controller.Process.Completion.IsCompleted == false);
             await controller.InvokeAsync(async context =>

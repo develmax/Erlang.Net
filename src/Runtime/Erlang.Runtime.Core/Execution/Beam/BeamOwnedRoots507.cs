@@ -2,7 +2,7 @@ namespace Erlang;
 
 // One mirror root per logical register, with a second publication slot while
 // the old 504 cell is being replaced. Never hold both owners' gates at once.
-internal sealed class BeamOwnedRoots507 : IDisposable
+internal sealed partial class BeamOwnedRoots507 : IDisposable
 {
     private readonly ProcessContext context;
     private readonly ProcessTermFrame506 frame;

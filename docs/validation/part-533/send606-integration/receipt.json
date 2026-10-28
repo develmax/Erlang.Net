@@ -1,0 +1,106 @@
+{
+  "ManifestSha256": "42D59E78F9C6D6367110262CEE8C81AE5B16144AFB87FD8E5CE77845117425EE",
+  "Targets": [
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Mailbox.cs",
+      "BeforeSha256": "2E1DCCEBFB4DAD61C115B71EB0F1029B1FD5B22E818E6052FCBC1D3025CBB100",
+      "AfterSha256": "16B870A3C479D9EB3DD165ED6A190F9E1B04437BF16A49343AB3D057EDA9B29C",
+      "Hunks": [
+        {
+          "Before": "internal void SendTraced(",
+          "After": "internal void SendTracedSnapshot593(",
+          "ExactOccurrenceCount": 1
+        },
+        {
+          "Before": "internal void SendPending(",
+          "After": "internal void SendPendingSnapshot593(",
+          "ExactOccurrenceCount": 1
+        },
+        {
+          "Before": "SendPendingCore428",
+          "After": "SendPendingCore593",
+          "ExactOccurrenceCount": 3
+        }
+      ]
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessTracing.cs",
+      "BeforeSha256": "845F2691705D736481B7383409241F71187CE560C992C86A9B86904BD05CA017",
+      "AfterSha256": "7EFA7E442B938AC3EBBA3F80494E2F7B37BA688F0D3088F2046FE71D7F8F55C1",
+      "Hunks": [
+        {
+          "Before": "processes[current.Tracer].Mailbox.SendTraced(",
+          "After": "processes[current.Tracer].Mailbox.SendTracedSnapshot593(",
+          "ExactOccurrenceCount": 1
+        }
+      ]
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.MessageSend593.cs",
+      "BeforeSha256": "F52FB3EA2CD238884FC332C72D90C7C0C4EE2157720230F1FCE156097EB72068",
+      "AfterSha256": "512A7673DD3BDFFFE77F291C75647E81CC4A8F8ADD891BB3409BE1E7DF364F76",
+      "Hunks": [
+        {
+          "Before": ".Mailbox.SendTraced(",
+          "After": ".Mailbox.SendTracedSnapshot593(",
+          "ExactOccurrenceCount": 1
+        }
+      ]
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs",
+      "BeforeSha256": "69871D99F932B835FD7C1381BDE79963D96BADE8728DA3C36C9D1443A1B38690",
+      "AfterSha256": "57371CBC62435A98E3B482D595C28715A24AA4DE15A7A9A8E3C6570D9ED8C888",
+      "Hunks": [
+        {
+          "Before": ".Mailbox.SendTraced(",
+          "After": ".Mailbox.SendTracedSnapshot593(",
+          "ExactOccurrenceCount": 1
+        }
+      ]
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Storage/Mailbox/MailboxSnapshot601TestNames.cs",
+      "BeforeSha256": "CD4916D9C2BB9BBEFCB35B546107F75CBF5A1EF6D981800CACF564049A060499",
+      "AfterSha256": "A6A0A258F158D843DDDEC226AD286087712DA46D7B98C2793F2329B7C9F74D18",
+      "Hunks": [
+        {
+          "Before": "\"SendTraced\"",
+          "After": "\"SendTracedSnapshot593\"",
+          "ExactOccurrenceCount": 1
+        }
+      ]
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Storage/Mailbox/MailboxOpaqueRemove601Names.cs",
+      "BeforeSha256": "35476CCA99B585EA281C005864D6A70B2F0E0F1A987147BBCBB1AA334F0E8379",
+      "AfterSha256": "AA9D4BDD993FDBD6ABB90614D7BA23C9EB8AD233D648093040C78CB420EF5CB7",
+      "Hunks": [
+        {
+          "Before": "\"SendTraced\"",
+          "After": "\"SendTracedSnapshot593\"",
+          "ExactOccurrenceCount": 1
+        }
+      ]
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Storage/Mailbox/MailboxReentrantExit606Names.cs",
+      "BeforeSha256": "E6B66FB68D94237D7B2B8133034DCDDF9C866D31AE0AB332AE23964622A80BAF",
+      "AfterSha256": "BD2E17939524EF26415C2D8776A45739EB141E032EE369842AC24514EA81ABA2",
+      "Hunks": [
+        {
+          "Before": "\"SendPending\"",
+          "After": "\"SendPendingSnapshot593\"",
+          "ExactOccurrenceCount": 1
+        }
+      ]
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Mailbox.LegacySendSignatures606.cs",
+      "MustBeAbsent": true,
+      "AfterSha256": "4CA86E7C365027B6A17C37DE92CF0A67BC73813022097603FB1277F456834A81"
+    }
+  ],
+  "Built": false,
+  "Executed": false
+}

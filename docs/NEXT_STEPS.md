@@ -1,3 +1,9 @@
+# Active implementation checkpoint — Part533 (2026-10-29)
+
+Part533 final local gates pass9294/9294 (+31), preserving every9263 authenticated previous CI name. Supported local guest sends, snapshots and process_info replies use explicit custody; physical queue retirement runs outside runtime monitors and actor scheduler affinity. Actual Source/originalBEAM lifetimes, fresh atomics/counters and both real native-loader whole streams/cleanup pass. Failed whole runs and meaningful controls remain preserved. API/full deltas0/0;708registered/180verified/504pending/24known. Current-head CI/review/merge are separate PR gates.
+
+Part532 is delivered in main3a0427acd (PR84); exact-head and merge CI are green. Older checkpoint sections below are historical. [Part533 evidence](validation/part-533/README.md) · [Checkpoint](remaining-work/checkpoint-533.md) · [Dependency plan](remaining-work/plan-24-after-530.md).
+
 # Active implementation checkpoint — Part532 (2026-10-28)
 
 Part531 is merged in main as bda187874 after exact-head CI40702663208 passed9236/9236 and all three jobs, with final review/comments/threads checked. The merge's own CI40711888368 is tracked separately.

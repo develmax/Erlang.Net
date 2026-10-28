@@ -7,6 +7,22 @@ using Erlang;
 using Erlang.Compiler;
 using Erlang.Otp;
 
+if (args is [Erlang.Tests.AtomicsInternalSend593Names.ChildSwitch, var send593Repository,
+    var send593Admission, var send593AdmissionSha, var send593Metadata, var send593MetadataSha,
+    var send593Beam])
+{
+    await Erlang.Tests.AtomicsInternalSend593Checks.Run(
+        send593Repository,
+        send593Admission,
+        send593AdmissionSha,
+        send593Metadata,
+        send593MetadataSha,
+        bool.Parse(send593Beam)
+    );
+
+    return 0;
+}
+
 if (args is [Erlang.Tests.OriginalAtomics590Names.ChildSwitch, var ownRefRepository, var ownRefAdmission,
     var ownRefAdmissionSha, var ownRefMetadata, var ownRefMetadataSha, var ownRefOwned, var ownRefOutput])
 {
@@ -183,6 +199,55 @@ catch (ArgumentException failure)
 }
 
 var tests = new List<(string Name, Func<Task> Body)>();
+Test(
+    Erlang.Tests.MailboxOpaqueRemove601Names.Case,
+    Erlang.Tests.MailboxOpaqueRemove601Checks.BulkCallbackHasNoLaterGuestOperations
+);
+Test(Erlang.Tests.MailboxSnapshot601TestNames.SnapshotCase, Erlang.Tests.MailboxSnapshot601Checks.PublicSnapshot);
+Test(Erlang.Tests.SnapshotIdentity601Names.PlainCase, Erlang.Tests.SnapshotIdentity601Checks.Plain);
+Test(Erlang.Tests.SnapshotIdentity601Names.MixedCase, Erlang.Tests.SnapshotIdentity601Checks.Mixed);
+Test(Erlang.Tests.ProcessInfoMixed601Names.Case, Erlang.Tests.ProcessInfoMixed601Checks.Run);
+Test(Erlang.Tests.ProcessInfoLate601Names.CancelCase, Erlang.Tests.ProcessInfoLate601Checks.CancelAfterPublication);
+Test(Erlang.Tests.ProcessInfoLate601Names.ExitBeforeCase, Erlang.Tests.ProcessInfoLate601Checks.ExitBeforeCapture);
+Test(Erlang.Tests.ProcessInfoLate601Names.ExitAfterCase, Erlang.Tests.ProcessInfoLate601Checks.ExitAfterCapture);
+Test(Erlang.Tests.SchedulerRetirement607Names.Case, Erlang.Tests.SchedulerRetirement607Checks.Run);
+Test(Erlang.Tests.ForeignRuntimeDrain606Names.Case, Erlang.Tests.ForeignRuntimeDrain606Checks.Run);
+Test(Erlang.Tests.MailboxBulkClose606Names.Case, Erlang.Tests.MailboxBulkClose606Checks.Run);
+Test(Erlang.Tests.MailboxReentrantExit606Names.PendingCase, Erlang.Tests.MailboxReentrantExit606Checks.Pending);
+Test(Erlang.Tests.MailboxReentrantExit606Names.DeferredCase, Erlang.Tests.MailboxReentrantExit606Checks.Deferred);
+Test(Erlang.Tests.MailboxReentrantExit606Names.LateCase, Erlang.Tests.MailboxReentrantExit606Checks.Late);
+Test(Erlang.Tests.ProcessInfoStorageGap601Names.Case, Erlang.Tests.ProcessInfoStorageGap601Checks.Run);
+Test(Erlang.Tests.OpaqueBoundary602Names.RejectionCase, Erlang.Tests.OpaqueBoundary602Checks.RejectionRollback);
+Test(Erlang.Tests.OpaqueBoundary602Names.RetainedCase, Erlang.Tests.OpaqueBoundary602Checks.RetainedFalseAndThrow);
+Test(Erlang.Tests.OpaqueBoundary602Names.CloseCase, Erlang.Tests.OpaqueBoundary602Checks.PredicateClosesVm);
+Test(Erlang.Tests.MailboxSnapshot601TestNames.SourceCase, Erlang.Tests.MailboxSnapshot601Checks.SourceRemoteInfo);
+Test(Erlang.Tests.MailboxSnapshot601TestNames.SelfCase, Erlang.Tests.MailboxSnapshot601Checks.SourceSelfInfo);
+Test(Erlang.Tests.MailboxSnapshot601TestNames.OverrideCase, Erlang.Tests.MailboxSnapshot601Checks.PublicReregister);
+Test(Erlang.Tests.MailboxSnapshot601TestNames.DefaultCase, Erlang.Tests.MailboxSnapshot601Checks.DefaultProfile);
+Test(Erlang.Tests.MailboxSnapshot601TestNames.MutualCase, Erlang.Tests.ProcessInfo601ProtocolChecks.Mutual);
+Test(Erlang.Tests.MailboxSnapshot601TestNames.OrderingCase, Erlang.Tests.ProcessInfo601ProtocolChecks.ReplyOrdering);
+Test(Erlang.Tests.MailboxSnapshot601TestNames.CancellationCase, Erlang.Tests.ProcessInfo601ProtocolChecks.Cancellation);
+
+Test(Erlang.Tests.NativeStore600Names.EtsCase, Erlang.Tests.NativeStore600Checks.Ets);
+Test(Erlang.Tests.NativeStore600Names.PersistentCase, Erlang.Tests.NativeStore600Checks.Persistent);
+
+Test(
+    Erlang.Tests.MailboxCustody593CaseNames.RecipientFallback,
+    Erlang.Tests.MailboxRootRetirement593Checks.RecipientFallbackAndErrors
+);
+Test(
+    Erlang.Tests.MailboxCustody593CaseNames.RecipientIsolation,
+    Erlang.Tests.MailboxRootRetirement593Checks.RecipientDrainDoesNotJoinOtherMailbox
+);
+Test(
+    Erlang.Tests.MailboxCustody593CaseNames.LastRecipient,
+    Erlang.Tests.MailboxSnapshotSettlement593Checks.SharedSnapshotFinalRecipientSettlesActualRoots
+);
+Test(
+    Erlang.Tests.MailboxCustody593CaseNames.SpecificRootFallback,
+    Erlang.Tests.MailboxSnapshotSettlement593Checks.SpecificReadyRootFallbackRetainsFailure
+);
+
 Test(Erlang.Tests.OriginalAtomics590Names.IdentityCase, Erlang.Tests.OriginalAtomics590Checks.AliasDomainAndStackRefusal);
 Test(
     Erlang.Tests.OriginalAtomics588Names.CoverageCase,

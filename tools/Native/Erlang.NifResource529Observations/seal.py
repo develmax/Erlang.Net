@@ -9,6 +9,7 @@ def main():
  assert plan['ProtocolSchemaVersion']==2 and plan['OriginalFirstRequired'] is True
  assert set(plan['Variants'])=={'family1','handoff1','handoff2'}
  assert set(plan['Jobs'])=={'family527','fresh_load_after_purge','genuine_upgrade'}
+ plan['OptionalProtocols']={'queue593':{'Observer':'resource_queue593','ObserverArity':0,'Modules':['native_resource_family527','resource_queue593'],'StockModules':['timer'],'RetainedNativeVariant':'family1','DefaultSelected':False}}
  family=plan['Jobs']['family527']
  family['Modules']=['native_resource_family527','resource_observer529','magic_alias_observer576','resource_binary_observer577']
  family['StockModules']=['timer','erts_debug','gb_trees']

@@ -69,6 +69,7 @@ public sealed partial class ProcessRuntime
             StopLocalNode();
             localNodeEvents?.Close();
             disposed = true;
+            StopMailboxRootAdmission593();
             _ = actorDispatcher.CompleteWhenIdle();
             distributionPending?.Close();
             OsEnvironment?.Dispose();
@@ -105,6 +106,7 @@ public sealed partial class ProcessRuntime
             {
                 processSlots.Remove(process.Self);
                 process.Terminated = true;
+                process.Mailbox.StopAdmissionForExit606();
                 process.ExitReason = Term.A(ProcessExitReasons.Shutdown);
                 process.PendingCodeChecks.Clear();
                 process.PendingInfoRequests.Clear();
@@ -175,8 +177,10 @@ public sealed partial class ProcessRuntime
         {
             Task timerCallbacks = Timers.StopForHaltAsync();
             Suspensions.StopForHalt();
-            foreach (ProcessContext process in stopped)
-                process.Mailbox.StopForHalt();
+            Task mailboxRetirements593;
+            lock (gate)
+                mailboxRetirements593 = Task.WhenAll(stopped.Select(process =>
+                    process.Mailbox.DrainAfterQueueObservations606(EtsQueueRetirement419(process, Task.CompletedTask))));
             Volatile.Write(ref haltState, (int)RuntimeLifecycleState.Stopped);
             if (!options.Flush)
                 haltCompletion.TrySetResult(haltResult!);
@@ -245,7 +249,8 @@ public sealed partial class ProcessRuntime
                     timerCallbacks,
                     monitoring,
                     portDrain,
-                    Task.WhenAll(ownerCancellation)
+                    Task.WhenAll(ownerCancellation),
+                    mailboxRetirements593
                 ).ConfigureAwait(false);
             }
             catch (Exception exception)
@@ -280,6 +285,7 @@ public sealed partial class ProcessRuntime
                     DrainDirtyNative419(),
                     DrainDebugDispatch432(),
                     DrainCounters421(),
+                    DrainMailboxRoots593(),
                     DrainAtomics586(),
                     DrainHamtIndex429(),
                     DrainDriverFrontend422(),

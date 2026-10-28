@@ -3,6 +3,10 @@
 Prepared 2026-10-28 against main `c7fb01a757d04dc4ec08fdee99ab212d85b72f15`.
 This document is a plan, not implementation or passing evidence. Baseline: 708 registered APIs, 180 verified contracts, 504 needing verification, 24 known differences. The 24 entries are incomplete API contracts, not 24 isolated small defects. Closing them does not automatically verify the other 504 entries.
 
+## Current progress — 2026-10-29
+
+Part532 is merged and green; Part533 local final acceptance is9294/9294 (+31), with actual original-backed Source/BEAM send lifetime, protected snapshots, both real native loaders, and scheduler-independent physical retirement. Current-head CI/review/delivery are recorded in its PR. These finite P1/P2a/P4 foundations close zero of the24 whole API contracts. Canonical708/180/504/24 remain.
+
 ## Delivered foundation
 
 Part530 implements real three-word NIF resource magic references and three-word BinRef/five-word SubBits storage in the private-owned profile. Live readers, native-result aliases, nested resource slices, collection, rollback and physical retirement have source-bound evidence. PR82 exact-head CI40676225450 passed all three jobs and 9234/9234 tests; main has the identical tested tree. This does not establish complete ordinary-profile ownership, other resource producers, public resource accounting or general NIF compatibility.
@@ -185,4 +189,4 @@ P10 may close earlier; counts must then be recomputed from actual accepted entri
 
 ## Immediate next executable package
 
-Start P0's matrix for the resource consumers and the coherent P1+P2a atomics ownership work. The existing artifact-only prefix candidate is unbuilt and not integration-ready: do not publish its three files alone as complete atomics support. First split shutdown admission/physical retirement, introduce exact typed custody, then integrate real prefix/header plus constructor/all seven bodies together and execute their complete original matrix. Retain the existing NIF529/530 full observations as the cross-domain regression.
+Deliver Part533 through exact-head green CI/current review/merge. Then integrate the counters current-source composition and independent lifecycle correction, build and compare the complete original family, preserving actual DEBUG/OPT allocation geometry and scheduler configuration. Continue corrected regex/binary/match-program producers and remaining owner/root domains before enabling physical public metrics or promoting P6-P10 contracts. Keep the acceptance matrices above unchanged.

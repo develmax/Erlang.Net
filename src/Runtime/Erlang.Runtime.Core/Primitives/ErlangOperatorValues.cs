@@ -2,7 +2,7 @@ using System.Numerics;
 
 namespace Erlang;
 
-public static class ErlangOperatorValues
+public static partial class ErlangOperatorValues
 {
     public static Term Unary(string operation, Term value) => operation switch
     {

@@ -1,0 +1,19 @@
+{
+  "Partial": true,
+  "SelectedCount": 1,
+  "TotalCount": 9270,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/mailbox601/opaque-remove-releases-all-operations-before-callback"
+  ],
+  "Passed": 0,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "runtime/mailbox601/opaque-remove-releases-all-operations-before-callback",
+      "Status": "Failed",
+      "Error": "System.AggregateException: One or more errors occurred. (opaque_remove_retained_later_candidate_operation601)\r\n ---\u003E System.InvalidOperationException: opaque_remove_retained_later_candidate_operation601\r\n   at Erlang.Tests.MailboxOpaqueRemove601Checks.\u003C\u003Ec__DisplayClass1_1.\u003CBulkCallbackHasNoLaterGuestOperations\u003Eb__5(Term _) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Storage\\Mailbox\\MailboxOpaqueRemove601Checks.cs:line 43\r\n   at Erlang.Mailbox.RemoveCore593(Func\u00602 predicate, Boolean opaque) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Mailbox.cs:line 455\r\n   at Erlang.Mailbox.Remove(Func\u00602 predicate) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Mailbox.cs:line 418\r\n   at Erlang.Tests.MailboxOpaqueRemove601Checks.BulkCallbackHasNoLaterGuestOperations() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Storage\\Mailbox\\MailboxOpaqueRemove601Checks.cs:line 37\r\n   --- End of inner exception stack trace ---\r\n   at Erlang.Tests.MailboxOpaqueRemove601Checks.BulkCallbackHasNoLaterGuestOperations() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Storage\\Mailbox\\MailboxOpaqueRemove601Checks.cs:line 58\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7557",
+      "Milliseconds": 100
+    }
+  ]
+}

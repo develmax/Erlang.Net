@@ -1,0 +1,206 @@
+{"Partial":true,"SelectedCount":187,"TotalCount":9291}
+snapshot601 actual flat_size binding before=False, after=True
+PASS runtime/mailbox601/public-snapshot-retains-origin-across-dequeue
+PASS runtime/mailbox601/plain-public-callback-snapshot-identity
+snapshot601 actual flat_size binding before=False, after=True
+PASS runtime/mailbox601/mixed-native-and-plain-snapshot-identity
+PASS runtime/mailbox601/default-mixed-process-info-preserves-public-callback
+snapshot601 actual flat_size binding before=False, after=True
+PASS runtime/mailbox601/cancel-after-native-reply-publication-and-target-exit
+snapshot601 actual flat_size binding before=False, after=True
+PASS runtime/mailbox601/target-exit-before-capture-replies-undefined
+snapshot601 actual flat_size binding before=False, after=True
+snapshot601 late phase: reply-returned
+snapshot601 late phase: destination-adopted
+snapshot601 late phase: requester-major-collected
+snapshot601 late phase: destination-retirement
+PASS runtime/mailbox601/target-done-before-requester-consumes-native-reply
+PASS runtime/mailbox606/pending-admission-self-exit-normal-and-bounded
+PASS runtime/mailbox606/deferred-release-self-exit-complete-and-discard-once
+PASS runtime/mailbox606/late-deferred-send-after-owner-done-releases-outside-monitor
+PASS runtime/mailbox601/cancel-during-real-ets-target-retirement-gap
+PASS runtime/opaque602/real-native-atomics-hostscope-rejection-rollback
+PASS runtime/opaque602/false-throw-retained-host-input-outlives-queue
+PASS runtime/opaque602/real-atomics-bulk-callback-close-no-guest-operations
+snapshot601 actual flat_size binding before=False, after=True
+snapshot601 actual source scalar returned: run=3
+snapshot601 actual post-return major collection: run
+PASS runtime/mailbox601/source-remote-process-info-roots-native-messages
+snapshot601 actual flat_size binding before=False, after=True
+snapshot601 actual source scalar returned: self_run=3
+snapshot601 actual post-return major collection: self_run
+PASS runtime/mailbox601/source-self-process-info-and-trusted-receive
+snapshot601 actual flat_size binding before=False, after=True
+PASS runtime/mailbox601/public-reregister-process-info-stays-opaque
+PASS runtime/mailbox601/default-process-info-private-reply-no-owned-heap
+PASS runtime/mailbox601/mutual-process-info-control-signal-liveness
+PASS runtime/mailbox601/remote-process-info-original-reply-order
+snapshot601 actual flat_size binding before=False, after=True
+PASS runtime/mailbox601/cancel-before-target-capture-releases-request
+PASS runtime/internal-ports416/real-open-command-connect-info-close-and-child-exit
+PASS HOST/internal-ports416/bad-flags-before-real-blocked-command-queue
+PASS HOST/internal-ports416/connect-after-real-queued-close-and-invalid-target-order
+PASS HOST debug dirty3 post-exit physical work and real big allocation
+PASS HOST/library419/ets-transfer-queue-monitor-order-and-recipient-death-fence
+PASS host/distribution402-native-abort-real-exiting-retains-entry
+PASS host/new-connection400-native-pending-connected-exiting-and-capacity
+PASS host/net-kernel400-original-primitive-owner-and-peer-flags
+PASS runtime/mailbox/callback399/current-save-priority
+PASS runtime/mailbox/callback399/priority-source-repeats
+PASS runtime/mailbox/callback399/exception-nested-save
+PASS runtime/mailbox/callback399/cancellation-reset
+PASS runtime/mailbox/callback399/marker-priority
+PASS runtime/mailbox/callback399/deferred-priority
+PASS runtime/mailbox/callback399/nested-current-consume
+PASS runtime/library399/original-port-windows6-whole-terms
+PASS runtime/library392/unicode-real-traversal-cancellation-settles
+PASS runtime/halt-foundation-transfer-admission-and-independent-runtime
+PASS runtime/halt-live-port-drain-immediate-timeout-and-profile-ownership
+PASS runtime/system-profile-real-shared-state-isolation-death-and-validation
+PASS runtime/ports-real-executable-ownership-and-resource-cleanup
+PASS runtime/port-protocol-close-drains-pending-bytes
+PASS runtime/alias-concurrent-reply-wire-identity-owner-cleanup
+PASS mfa/erlang:open_port/2
+PASS mfa/erlang:port_call/2
+PASS mfa/erlang:port_call/3
+PASS mfa/erlang:port_close/1
+PASS mfa/erlang:port_command/2
+PASS mfa/erlang:port_command/3
+PASS mfa/erlang:port_connect/2
+PASS mfa/erlang:port_control/3
+PASS mfa/erlang:port_get_data/1
+PASS mfa/erlang:port_info/1
+PASS mfa/erlang:port_info/2
+PASS mfa/erlang:port_set_data/2
+PASS mfa/erlang:ports/0
+PASS oracle/compiled-module/erlang-port-lifecycle
+PASS oracle/compiled-module/erlang-port-binary-echo
+PASS oracle/compiled-module/erlang-port-command-flags
+PASS oracle/compiled-module/erlang-port-data
+PASS oracle/compiled-module/erlang-port-info
+PASS oracle/compiled-module/erlang-port-driver-callbacks
+PASS oracle/compiled-module/erlang-port-registered
+PASS oracle/compiled-module/erlang-port-reconnect
+PASS oracle/compiled-module/erlang-port-packet-1
+PASS oracle/compiled-module/erlang-port-packet-2
+PASS oracle/compiled-module/erlang-port-packet-4
+PASS oracle/compiled-module/erlang-port-list-echo
+PASS oracle/compiled-module/erlang-port-exit-status
+PASS oracle/compiled-module/erlang-port-eof
+PASS oracle/compiled-module/erlang-port-closed-errors
+PASS oracle/compiled-module/erlang-port-protocol-command
+PASS oracle/compiled-module/erlang-port-protocol-badsig
+PASS oracle/compiled-module/erlang-port-unlink-link
+PASS oracle/compiled-module/erlang-port-name-uniqueness
+PASS oracle/compiled-module/erlang-port-protocol-info-barrier
+PASS oracle/compiled-module/erlang-port-line-capacity-1-list
+PASS oracle/compiled-module/erlang-port-line-capacity-1-binary
+PASS oracle/compiled-module/erlang-port-line-capacity-2-list
+PASS oracle/compiled-module/erlang-port-line-capacity-2-binary
+PASS oracle/compiled-module/erlang-port-line-capacity-3-list
+PASS oracle/compiled-module/erlang-port-line-capacity-3-binary
+PASS oracle/compiled-module/erlang-port-line-capacity-4-list
+PASS oracle/compiled-module/erlang-port-line-capacity-4-binary
+PASS oracle/compiled-module/erlang-port-line-capacity-5-list
+PASS oracle/compiled-module/erlang-port-line-capacity-5-binary
+PASS oracle/compiled-module/erlang-port-line-capacity-32-list
+PASS oracle/compiled-module/erlang-port-line-capacity-32-binary
+PASS oracle/compiled-module/erlang-port-line-echo-crlf
+PASS oracle/compiled-module/erlang-port-line-explicit-close-discards-partial
+PASS oracle/compiled-module/erlang-port-observer-close-down
+PASS oracle/compiled-module/erlang-port-observer-named
+PASS oracle/compiled-module/erlang-port-observer-qualified-name
+PASS oracle/compiled-module/erlang-port-observer-closed
+PASS oracle/compiled-module/erlang-port-observer-multiple
+PASS oracle/compiled-module/erlang-port-observer-demonitor-active
+PASS oracle/compiled-module/erlang-port-observer-custom-tag
+PASS oracle/compiled-module/erlang-port-observer-monitored-by
+PASS oracle/compiled-module/erlang-port-observer-alias-explicit_unalias
+PASS oracle/compiled-module/erlang-port-observer-alias-demonitor
+PASS oracle/compiled-module/erlang-port-observer-alias-reply_demonitor
+PASS oracle/compiled-module/erlang-port-observer-exit-normal-two
+PASS oracle/compiled-module/erlang-port-observer-exit-normal-three
+PASS oracle/compiled-module/erlang-port-observer-exit-shutdown-two
+PASS oracle/compiled-module/erlang-port-observer-exit-shutdown-three
+PASS oracle/compiled-module/erlang-port-observer-exit-kill-two
+PASS oracle/compiled-module/erlang-port-observer-exit-kill-three
+PASS oracle/compiled-module/erlang-port-observer-exit-_custom_42_-two
+PASS oracle/compiled-module/erlang-port-observer-exit-_custom_42_-three
+PASS oracle/compiled-module/erlang-port-observer-exit_signal-normal-two
+PASS oracle/compiled-module/erlang-port-observer-exit_signal-normal-three
+PASS oracle/compiled-module/erlang-port-observer-exit_signal-shutdown-two
+PASS oracle/compiled-module/erlang-port-observer-exit_signal-shutdown-three
+PASS oracle/compiled-module/erlang-port-observer-exit_signal-kill-two
+PASS oracle/compiled-module/erlang-port-observer-exit_signal-kill-three
+PASS oracle/compiled-module/erlang-port-observer-exit_signal-_custom_42_-two
+PASS oracle/compiled-module/erlang-port-observer-exit_signal-_custom_42_-three
+PASS oracle/compiled-module/erlang-port-observer-priority-monitor
+PASS oracle/compiled-module/erlang-port-observer-priority-link
+PASS oracle/compiled-module/erlang-port-observer-priority-link-reset
+PASS oracle/compiled-module/erlang-port-observer-dead-link-trapped
+PASS oracle/compiled-module/erlang-port-observer-dead-link-untrapped
+PASS oracle/compiled-module/erlang-port-observer-dead-exit
+PASS oracle/compiled-module/erlang-port-observer-owner-death
+PASS oracle/compiled-module/erlang-port-observer-observer-death
+PASS oracle/compiled-module/erlang-port-observer-other-normal-exit
+PASS oracle/compiled-module/erlang-port-observer-invalid-exit-options-preserve
+PASS oracle/compiled-module/erlang-port-packet-boundary-maximum-1
+PASS oracle/compiled-module/erlang-port-packet-boundary-too-large-1-two
+PASS oracle/compiled-module/erlang-port-packet-boundary-too-large-1-three
+PASS oracle/compiled-module/erlang-port-packet-boundary-protocol-too-large-1
+PASS oracle/compiled-module/erlang-port-packet-boundary-empty-1
+PASS oracle/compiled-module/erlang-port-packet-boundary-invalid-iodata-preserves-1
+PASS oracle/compiled-module/erlang-port-packet-boundary-maximum-2
+PASS oracle/compiled-module/erlang-port-packet-boundary-too-large-2-two
+PASS oracle/compiled-module/erlang-port-packet-boundary-too-large-2-three
+PASS oracle/compiled-module/erlang-port-packet-boundary-protocol-too-large-2
+PASS oracle/compiled-module/erlang-port-packet-boundary-empty-2
+PASS oracle/compiled-module/erlang-port-packet-boundary-invalid-iodata-preserves-2
+PASS oracle/compiled-module/erlang-port-pressure-setting-0
+PASS oracle/compiled-module/erlang-port-pressure-setting-1
+PASS oracle/compiled-module/erlang-port-pressure-setting-2
+PASS oracle/compiled-module/erlang-port-pressure-setting-3
+PASS oracle/compiled-module/erlang-port-pressure-setting-4
+PASS oracle/compiled-module/erlang-port-pressure-suspend-resume-true
+PASS oracle/compiled-module/erlang-port-pressure-suspend-resume-false
+PASS oracle/compiled-module/erlang-port-pressure-default-line
+PASS oracle/compiled-module/erlang-port-message-pressure-option-0
+PASS oracle/compiled-module/erlang-port-message-pressure-option-1
+PASS oracle/compiled-module/erlang-port-message-pressure-option-2
+PASS oracle/compiled-module/erlang-port-message-pressure-decline-12
+PASS oracle/compiled-module/erlang-port-message-pressure-decline-13
+PASS oracle/compiled-module/erlang-port-message-pressure-decline-14
+PASS oracle/compiled-module/erlang-port-message-pressure-large-message-15
+PASS oracle/compiled-module/erlang-port-message-pressure-large-message-16
+PASS oracle/compiled-module/erlang-port-message-pressure-large-message-17
+PASS oracle/compiled-module/erlang-port-native-option-echo-0
+PASS oracle/compiled-module/erlang-port-native-option-echo-1
+PASS oracle/compiled-module/erlang-port-native-option-echo-2
+PASS oracle/compiled-module/erlang-port-native-option-echo-3
+PASS oracle/compiled-module/erlang-port-native-option-echo-4
+PASS oracle/compiled-module/erlang-port-native-option-shared-streams-5
+PASS oracle/compiled-module/erlang-port-native-option-shared-streams-6
+PASS oracle/compiled-module/erlang-port-native-option-shared-streams-7
+PASS oracle/compiled-module/erlang-port-native-option-shell-shared-streams
+PASS oracle/compiled-module/erlang-port-native-option-arg0-9
+PASS oracle/compiled-module/erlang-port-native-option-arg0-10
+PASS oracle/compiled-module/erlang-port-native-option-arg0-11
+PASS oracle/compiled-module/erlang-port-native-option-arg0-preserved-by-args
+PASS oracle/compiled-module/erlang-port-native-option-auxiliary-19
+PASS oracle/compiled-module/erlang-port-native-option-auxiliary-20
+PASS oracle/compiled-module/erlang-port-native-option-auxiliary-21
+PASS oracle/compiled-module/erlang-port-native-option-input-only-eof
+PASS oracle/compiled-module/erlang-port-native-option-input-only-output-fails
+PASS oracle/compiled-module/erlang-port-native-option-output-only-no-data
+PASS runtime/private-ordered-deferred-owner-signal-drain
+PASS runtime/distribution-original-payload14-direct-contract-regressions
+PASS runtime/system-monitor-real-busy-port-wait-notification
+PASS runtime/port-command-cancellation-before-prior-protocol-command-completes
+PASS runtime/port-info-one-argument-cancellation-before-prior-command
+PASS runtime/port-info-two-argument-cancellation-before-prior-command
+PASS runtime/port-close-caller-cancellation-preserves-accepted-close
+PASS runtime/process-liveness499/exit-signal-order
+PASS runtime/beam-owned507/receive/removed-candidate-rollback
+PASS runtime/beam-owned507/receive/pending-admission-cancellation
+PASS runtime/beam-owned507/receive/post-consumption-trace-failure-both-routes
+187/187 passed

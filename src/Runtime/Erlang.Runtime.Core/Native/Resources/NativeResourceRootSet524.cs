@@ -5,14 +5,19 @@ internal sealed class NativeResourceRootSet524(IDisposable[] leases) : IDisposab
     private IDisposable[]? owned = leases;
     private readonly List<Exception> failures = new(leases.Length);
 
-    public void Dispose()
+    public void Dispose() => DisposeCore593(false);
+
+    internal void DisposeGuestGc593() => DisposeCore593(true);
+
+    private void DisposeCore593(bool guestGc)
     {
         IDisposable[]? retired = Interlocked.Exchange(ref owned, null);
         if (retired is null) return;
         foreach (IDisposable lease in retired)
             try
             {
-                lease.Dispose();
+                if (guestGc) NativeResourceRoots524.DisposeGuestGraph593(lease);
+                else lease.Dispose();
             }
             catch (Exception error)
             {

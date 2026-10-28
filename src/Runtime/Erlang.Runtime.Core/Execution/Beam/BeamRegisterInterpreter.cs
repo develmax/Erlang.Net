@@ -1063,10 +1063,17 @@ internal static partial class BeamRegisterInterpreter
                             break;
                         case BeamLinkNames.Send:
                             {
-                                Term recipient = registers.Export507(registers.Read(0));
+                                Term recipient = registers.Read(0);
                                 Term sentMessage = registers.Read(1);
-                                Term portableMessage507 = registers.Export507(sentMessage);
-                                await ErlangOperatorValues.TrySendAsync(context, recipient, portableMessage507);
+                                if (registers.HasOwnedRoots507)
+                                    await ErlangOperatorValues.TrySendBeam593Async(
+                                        context,
+                                        registers,
+                                        recipient,
+                                        sentMessage
+                                    );
+                                else
+                                    await ErlangOperatorValues.TrySendAsync(context, recipient, sentMessage);
                                 registers.Write(0, sentMessage);
                                 break;
                             }
@@ -1088,12 +1095,13 @@ internal static partial class BeamRegisterInterpreter
                                         context.Self
                                     )
                                     : _ => null;
+                                MailboxSelectionAdmission593? admission593 = before.ReceiveAdmission593();
                                 BeamReceiveSelection? selected;
                                 if (plan.Callback is { } callback)
                                 {
                                     Term callbackTimeout = plan.TimeoutOperand is { } timeoutOperand
                                         ? Read(code, before, timeoutOperand) : Term.A(BeamReceiveNames.Infinity);
-                                    selected = await context.ReceiveBeamAsync(
+                                    selected = await context.ReceiveBeamAdmitted593(
                                         message => BeamReceiveCallbackExecution.Select(
                                             context,
                                             code,
@@ -1103,11 +1111,12 @@ internal static partial class BeamRegisterInterpreter
                                             before,
                                             message
                                         ),
-                                        callbackTimeout
+                                        callbackTimeout,
+                                        admission593
                                     );
                                 }
                                 else if (BeamReceivePureBifs.RequiresAsync(code, plan))
-                                    selected = await context.ReceiveBeamGuardAsync(
+                                    selected = await context.ReceiveBeamGuardAdmitted593(
                                         message => BeamReceiveMatcher.SelectAsync(
                                             code,
                                             plan,
@@ -1116,12 +1125,13 @@ internal static partial class BeamRegisterInterpreter
                                             context.Self,
                                             context
                                         ),
-                                        plan.TimeoutOperand is { } asyncTimeout ? Read(code, before, asyncTimeout) : Term.A(BeamReceiveNames.Infinity)
+                                        plan.TimeoutOperand is { } asyncTimeout ? Read(code, before, asyncTimeout) : Term.A(BeamReceiveNames.Infinity),
+                                        admission593
                                     );
                                 else
-                                    selected = plan.TimeoutOperand is { } receiveTimeout
-                                        ? await context.ReceiveErlangAsync(selectMessage, Read(code, before, receiveTimeout))
-                                        : await context.ReceiveAsync(selectMessage);
+                                    selected = await context.ReceiveBeamPure593(selectMessage,
+                                        plan.TimeoutOperand is { } receiveTimeout ? Read(code, before, receiveTimeout) : null,
+                                        admission593);
                                 if (selected is null)
                                 {
                                     if (!plan.HasTimeout)

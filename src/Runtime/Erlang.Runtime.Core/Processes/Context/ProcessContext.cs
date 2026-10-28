@@ -16,6 +16,7 @@ public sealed partial class ProcessContext : ITermExecutionContext
         Mailbox = new()
         {
             Owner = pid,
+            Runtime593 = runtime,
             IncomingTerm = Runtime.ObserveIncomingTerm,
             HaltRequested = () => Runtime.IsHaltRequested,
             ProcessSignals = () => Runtime.AdmitSignals(this),
@@ -25,6 +26,12 @@ public sealed partial class ProcessContext : ITermExecutionContext
             ExecutionBlocked = () => SuspensionRequested,
             MessageReceived = SavedCalls.Received,
             MessageAdmitted = (message, from) => Runtime.ProcessTracing.Admitted(this, message, from),
+            MessageAdmittedSnapshot593 = (message, from, publication) => Runtime.ProcessTracing.AdmittedSnapshot593(
+                this,
+                message,
+                from,
+                publication
+            ),
             TraceReceived = (message, token, preserve) => Runtime.SequenceTracing.Received(
                 this,
                 message,

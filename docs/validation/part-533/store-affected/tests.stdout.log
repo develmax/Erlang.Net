@@ -1,0 +1,56 @@
+{"Partial":true,"SelectedCount":49,"TotalCount":9269}
+PASS runtime/native-store600/ets-source-header-drop-real-payload
+PASS runtime/native-store600/persistent-source-header-drop-real-payload
+PASS runtime/mailbox593/recipient-ready-fallback-and-errors
+PASS runtime/mailbox593/drain-does-not-join-other-recipient
+PASS runtime/mailbox593/final-recipient-settles-actual-roots
+PASS runtime/mailbox593/specific-ready-root-fallback-retains-failure
+PASS runtime/atomics589/public-dictionary-getter-host-retains-after-erase-gc
+PASS runtime/atomics589/public-dictionary-snapshot-host-retains-after-erase-gc
+PASS runtime/atomics590/queue-export-source-drop-destination-retirement
+PASS runtime/atomics590/ets-domain-source-drop-destination-retirement
+PASS runtime/atomics590/persistent-domain-source-drop-destination-retirement
+PASS runtime/atomics590/post-free-error-forgets-reference-and-accounts-once
+PASS runtime/atomics591/persistent-get-does-not-export-unused-atomics-key
+PASS runtime/atomics591/persistent-value-selection-preserves-alias-and-host-custody
+PASS runtime/atomics591/public-reservation-value-and-dispose-halt
+PASS runtime/atomics591/public-reservation-still-joins-active-pin
+PASS runtime/atomics591/retained-public-reservation-does-not-block-vm-close
+atomics593 rollback: host roots at late closure=1, after failure=0
+PASS runtime/atomics593/late-export-failure-releases-actual-host-custody
+PASS runtime/atomics593/successful-export-commits-only-returned-wrappers
+atomics594 aggregate route=0, host roots after later-area failure=0
+PASS runtime/atomics594/persistent-get-all-later-area-rollback
+atomics594 aggregate route=1, host roots after later-area failure=0
+PASS runtime/atomics594/persistent-arena-snapshot-later-area-rollback
+atomics594 aggregate route=2, host roots after later-area failure=0
+PASS runtime/atomics594/persistent-pairs-later-area-rollback
+atomics594 ETS aggregate: host roots after malformed later row=0
+PASS runtime/atomics594/ets-backed-snapshot-later-row-rollback
+PASS runtime/atomics586/real-process-headers-share-live-prefix
+PASS runtime/atomics586/old-magic-root-survives-minor-not-major
+PASS runtime/atomics586/foreign-before-stale-header-read
+PASS runtime/atomics586/guest-retirement-ignores-stale-clr-entry
+PASS runtime/atomics586/active-pin-outlives-last-guest-root
+PASS runtime/atomics586/host-custody-independent-of-guest
+PASS runtime/atomics586/shutdown-waits-outside-runtime-gate
+PASS runtime/atomics586/shutdown-retains-backing-until-owned-heap-retires
+PASS runtime/native-magic576/early-failure-restores-and-drains
+PASS runtime/resource-bits583/nested-portable-recipe-keeps-original-binref
+PASS runtime/resource-bits577/actual-sub-bits-binref-readers-and-corruption
+PASS runtime/resource-bits577/slice-recipe-shared-binref-minor-major
+PASS runtime/resource-bits577/unpublished-rollback-host-export-and-stale-foreign
+PASS runtime/resource-bits577/canonical-part-and-public-reregister-opaque
+PASS runtime/native-magic576/actual-wrapper-alias-and-prefix-reader
+PASS runtime/native-magic576/minor-major-and-construction-rollback
+PASS runtime/native-magic576/host-escape-and-foreign-custody
+PASS runtime/atomics413/original-whole7-admission-and-owned-values
+PASS runtime/atomics413/interlocked-concurrent-distinct-tickets
+PASS runtime/atomics413/creator-death-canonical-reference-and-foreign-domain
+PASS runtime/atomics413/close-joins-real-invocation-and-array-leases
+PASS runtime/atomics413/constructor-rollback-registration-conflict-and-transaction
+PASS runtime/atomics413/gc-drops-guest-root-without-runtime-term-retention
+PASS runtime/atomics595/dirty-copy-host-wrapper-survives-source-drop
+PASS runtime/atomics595/dirty-copy-foreign-before-stale-without-entry-grant
+PASS runtime/resource570/native-bytes-and-owned-cell-domains
+49/49 passed

@@ -18,17 +18,21 @@ internal sealed class NativeMagicReference576Fixture
     private object? payload;
     private bool nativeOutstanding;
 
-    private NativeMagicReference576Fixture() => Runtime = OwnedGuest506RuntimeFactory.Create();
+    private NativeMagicReference576Fixture(bool owned) => Runtime = OwnedGuest506RuntimeFactory.Create(owned);
 
     internal ProcessRuntime Runtime { get; }
 
-    internal static async Task Run(Func<NativeMagicReference576Fixture, Task> body)
+    internal static Task Run(Func<NativeMagicReference576Fixture, Task> body) => RunProfile(body, true);
+
+    internal static Task RunDefault(Func<NativeMagicReference576Fixture, Task> body) => RunProfile(body, false);
+
+    private static async Task RunProfile(Func<NativeMagicReference576Fixture, Task> body, bool owned)
     {
         var failures = new List<Exception>();
         NativeMagicReference576Fixture? fixture = null;
         try
         {
-            fixture = new();
+            fixture = new(owned);
             await body(fixture);
         }
         catch (Exception error)

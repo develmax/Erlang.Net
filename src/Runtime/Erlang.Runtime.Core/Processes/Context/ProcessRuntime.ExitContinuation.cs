@@ -41,7 +41,13 @@ public sealed partial class ProcessRuntime
     private void StartExitContinuation(ProcessExitContinuation continuation)
     {
         exitContinuations.Add(continuation.Process, continuation);
-        _ = CompleteExitContinuation(continuation);
+        // Runtime-owned retirement must outlive an actor's scheduler lane.
+        // Suppress actor/invocation AsyncLocals at the first asynchronous hop.
+        if (ExecutionContext.IsFlowSuppressed())
+            _ = CompleteExitContinuation(continuation);
+        else
+            using (ExecutionContext.SuppressFlow())
+                _ = CompleteExitContinuation(continuation);
     }
 
     private async Task CompleteExitContinuation(ProcessExitContinuation continuation)
@@ -50,7 +56,11 @@ public sealed partial class ProcessRuntime
         bool localCleanupCompleted = false;
         try
         {
-            await Task.Yield();
+            // Force an asynchronous ThreadPool continuation without capturing
+            // the actor TaskScheduler or SynchronizationContext. There is no
+            // separate dispatch after registration that can orphan ownership.
+            await Task.CompletedTask.ConfigureAwait(ConfigureAwaitOptions.ForceYielding);
+            using var atomScope = new AtomNameScope(AtomNames);
             if (continuation.StorageRetirement is { } storage)
             {
                 var preparation = continuation.PreparationFailures!;

@@ -9,7 +9,7 @@ public sealed partial class Mailbox
 
     internal Action<ProcessSchedulingPriority?>? PendingSignalAdded428 { get; init; }
 
-    internal bool HasPendingSignals428 => Volatile.Read(ref pending) != 0;
+    internal bool HasPendingSignals428 => !Volatile.Read(ref closed593) && Volatile.Read(ref pending) != 0;
 
     private void AddPendingSignal428(LinkedListNode<Entry> node)
     {
@@ -37,7 +37,7 @@ public sealed partial class Mailbox
         bool deferred = false, remaining;
         lock (gate)
         {
-            if (HaltRequested?.Invoke() == true) return new(0, false, false);
+            if (Volatile.Read(ref closed593) || HaltRequested?.Invoke() == true) return new(0, false, false);
             var originalTail = pendingSignals428.Last;
             while (processed < budget && pendingSignals428.First is { } index)
             {
@@ -57,12 +57,14 @@ public sealed partial class Mailbox
                 precedenceRevision++;
                 node.Value = node.Value with { Admission = null, Control = true };
                 bool? priority = admission();
+                if (Volatile.Read(ref closed593)) break;
                 if (priority is null) RemoveNode(node);
                 else
                 {
                     node.Value = node.Value with { Control = false };
                     admittedCount++;
                     ObserveQueueLength419(admittedCount);
+                    if (Volatile.Read(ref closed593)) break;
                     if (node.Value.TraceAdmission) admitted.Add((node.Value.Value, node.Value.From));
                     if (priority.Value)
                     {
@@ -78,7 +80,7 @@ public sealed partial class Mailbox
                 // yield before newly appended signals instead of chasing them forever.
                 if (reachedTail || originalTail?.List is null) break;
             }
-            remaining = pendingSignals428.Count != 0;
+            remaining = !Volatile.Read(ref closed593) && pendingSignals428.Count != 0;
         }
         foreach (var item in admitted) MessageAdmitted?.Invoke(item.Message, item.From);
 
@@ -89,7 +91,7 @@ public sealed partial class Mailbox
     {
         lock (gate)
         {
-            if (pendingSignals428.First is not { } first) return null;
+            if (Volatile.Read(ref closed593) || pendingSignals428.First is not { } first) return null;
             var node = first.Value;
             if (!node.Value.Deferred || node.Value.DeferredPreparation is not { } prepare) return null;
             node.Value = node.Value with { DeferredPreparation = null };

@@ -23,6 +23,7 @@ public sealed partial class Mailbox
     internal Func<bool>? ExecutionBlocked { get; init; }
     internal Action? MessageReceived { get; init; }
     internal Action<Term, Term?>? MessageAdmitted { get; init; }
+    internal Action<Term, Term?, MailboxPublicationScope593>? MessageAdmittedSnapshot593 { get; init; }
     internal Action<int>? QueueLengthChanged { get; init; }
     internal Action<Term, SequenceTraceToken?, bool>? TraceReceived { get; init; }
     internal Action? ReceiveTimedOut { get; init; }
@@ -40,37 +41,18 @@ public sealed partial class Mailbox
         Func<DeferredMailboxAdmission?>? DeferredPreparation = null,
         Action? DeferredRelease = null,
         bool Deferred = false,
-        BeamReceiveMarker? ReceiveMarker = null
+        BeamReceiveMarker? ReceiveMarker = null,
+        MailboxEntryCustody593? Custody593 = null,
+        Exception? RetirementFailure593 = null
     );
 
     private static TaskCompletionSource NewSignal() => new(TaskCreationOptions.RunContinuationsAsynchronously);
 
-    internal void StopForHalt()
-    {
-        lock (gate)
-        {
-            mutationRevision++;
-            precedenceRevision++;
-            ResetBeamSave();
-            beamSave = null;
-            foreach (var entry in messages)
-                entry.DeferredRelease?.Invoke();
-            ClearReceiveMarkersForHalt();
-            ClearPendingSignals428();
-            messages.Clear();
-            pending = 0;
-            deferredPending = 0;
-            admittedCount = 0;
-            lastPriority = null;
-            var previous = changed;
-            changed = NewSignal();
-            previous.TrySetResult();
-        }
-    }
+    internal void StopForHalt() => CloseForExit593();
 
     private void ThrowIfHalted()
     {
-        if (HaltRequested?.Invoke() == true)
+        if (Volatile.Read(ref closed593) || HaltRequested?.Invoke() == true)
             throw new OperationCanceledException();
     }
 
@@ -126,22 +108,24 @@ public sealed partial class Mailbox
         );
     }
 
-    internal void SendTraced(
+    internal void SendTracedSnapshot593(
         Term message,
         SequenceTraceToken? token,
         bool preserve = false,
         bool priority = false,
         Term? from = null,
         bool traceAdmission = true,
-        Term? distributionTraceToken = null
+        Term? distributionTraceToken = null,
+        MailboxPublicationScope593? publication593 = null
     )
     {
         IncomingTerm?.Invoke(message);
         if (from is not null)
             IncomingTerm?.Invoke(from);
+        MailboxEntryCustody593? custody593 = PrepareCustody593(publication593);
         lock (gate)
         {
-            if (HaltRequested?.Invoke() == true)
+            if (Volatile.Read(ref closed593) || HaltRequested?.Invoke() == true)
                 return;
             if (CopySelfMessages || priority || from is null || !from.Equals(Owner) || token is not null)
                 BinarySharingCursor.Pin(message);
@@ -156,17 +140,22 @@ public sealed partial class Mailbox
                     preserve,
                     from,
                     traceAdmission,
-                    distributionTraceToken
-                )) : messages.AddAfter(lastPriority, new Entry(
-                    message,
-                    null,
-                    false,
-                    token,
-                    preserve,
-                    from,
-                    traceAdmission,
-                    distributionTraceToken
-                ));
+                    distributionTraceToken,
+                    Custody593: custody593
+                )) : messages.AddAfter(
+                    lastPriority,
+                    new Entry(
+                        message,
+                        null,
+                        false,
+                        token,
+                        preserve,
+                        from,
+                        traceAdmission,
+                        distributionTraceToken,
+                        Custody593: custody593
+                    )
+                );
             else
                 messages.AddLast(new Entry(
                     message,
@@ -176,8 +165,10 @@ public sealed partial class Mailbox
                     preserve,
                     from,
                     traceAdmission,
-                    distributionTraceToken
+                    distributionTraceToken,
+                    Custody593: custody593
                 ));
+            custody593?.Publish();
             mutationRevision++;
             if (priority)
             {
@@ -191,19 +182,25 @@ public sealed partial class Mailbox
             previous.TrySetResult();
         }
         if (traceAdmission)
-            MessageAdmitted?.Invoke(message, from);
+        {
+            if (publication593 is not null && MessageAdmittedSnapshot593 is { } traced593)
+                traced593(message, from, publication593);
+            else
+                MessageAdmitted?.Invoke(message, from);
+        }
     }
 
-    internal void SendPending(
+    internal void SendPendingSnapshot593(
         Term message,
         Func<bool?> admission,
         SequenceTraceToken? token = null,
         bool preserve = false,
         Term? from = null,
         bool traceAdmission = true,
-        Term? distributionTraceToken = null
+        Term? distributionTraceToken = null,
+        MailboxPublicationScope593? publication593 = null
     )
-        => SendPendingCore428(
+        => SendPendingCore593(
             message,
             admission,
             token,
@@ -211,7 +208,8 @@ public sealed partial class Mailbox
             from,
             traceAdmission,
             distributionTraceToken,
-            null
+            null,
+            publication593
         );
 
     internal void SendPendingPriority428(
@@ -220,7 +218,7 @@ public sealed partial class Mailbox
         ProcessSchedulingPriority priority,
         Term? from
     )
-        => SendPendingCore428(
+        => SendPendingCore593(
             message,
             admission,
             null,
@@ -231,7 +229,7 @@ public sealed partial class Mailbox
             priority
         );
 
-    private void SendPendingCore428(
+    private void SendPendingCore593(
         Term message,
         Func<bool?> admission,
         SequenceTraceToken? token = null,
@@ -240,15 +238,17 @@ public sealed partial class Mailbox
         bool traceAdmission = true,
         Term? distributionTraceToken = null
         ,
-        ProcessSchedulingPriority? notificationPriority428 = null
+        ProcessSchedulingPriority? notificationPriority428 = null,
+        MailboxPublicationScope593? publication593 = null
     )
     {
         IncomingTerm?.Invoke(message);
         if (from is not null)
             IncomingTerm?.Invoke(from);
+        MailboxEntryCustody593? custody593 = PrepareCustody593(publication593);
         lock (gate)
         {
-            if (HaltRequested?.Invoke() == true)
+            if (Volatile.Read(ref closed593) || HaltRequested?.Invoke() == true)
                 return;
             BinarySharingCursor.Pin(message);
             var pendingNode = new LinkedListNode<Entry>(new Entry(
@@ -259,10 +259,12 @@ public sealed partial class Mailbox
                 preserve,
                 from,
                 traceAdmission,
-                distributionTraceToken
+                distributionTraceToken,
+                Custody593: custody593
             ));
             AddPendingSignal428(pendingNode);
             messages.AddLast(pendingNode);
+            custody593?.Publish();
             pending++;
             mutationRevision++;
             precedenceRevision++;
@@ -278,7 +280,7 @@ public sealed partial class Mailbox
         var admitted = new List<(Term Message, Term? From)>();
         lock (gate)
         {
-            if (HaltRequested?.Invoke() == true || pending == 0)
+            if (Volatile.Read(ref closed593) || HaltRequested?.Invoke() == true || pending == 0)
                 return;
             for (var node = messages.First; node is not null;)
             {
@@ -293,6 +295,10 @@ public sealed partial class Mailbox
                     precedenceRevision++;
                     node.Value = node.Value with { Admission = null, Control = true };
                     bool? priority = admission();
+                    // Admission may terminate this owner reentrantly. Its
+                    // atomic closed latch invalidates this cached node outcome.
+                    if (Volatile.Read(ref closed593))
+                        break;
                     if (priority is null)
                         RemoveNode(node);
                     else
@@ -300,6 +306,8 @@ public sealed partial class Mailbox
                         node.Value = node.Value with { Control = false };
                         admittedCount++;
                         ObserveQueueLength419(admittedCount);
+                        if (Volatile.Read(ref closed593))
+                            break;
                         if (node.Value.TraceAdmission)
                             admitted.Add((node.Value.Value, node.Value.From));
                         if (priority.Value)
@@ -327,24 +335,32 @@ public sealed partial class Mailbox
     {
         lock (gate)
         {
-            if (HaltRequested?.Invoke() == true || pending == 0)
+            if (Volatile.Read(ref closed593) || HaltRequested?.Invoke() == true || pending == 0)
                 return;
             for (var node = messages.First; node is not null;)
             {
                 var next = node.Next;
                 if (node.Value.Admission is not null || node.Value.Deferred)
                 {
-                    node.Value.DeferredRelease?.Invoke();
+                    Action? release = node.Value.DeferredRelease;
+                    node.Value = node.Value with { DeferredRelease = null };
+                    release?.Invoke();
+                    if (Volatile.Read(ref closed593))
+                        return;
                     RemoveNode(node);
                 }
-                node = next;
+                node = next is not null && ReferenceEquals(next.List, messages) ? next : null;
             }
             pending = 0;
             deferredPending = 0;
         }
     }
 
-    public bool RemoveFirst(Func<Term, bool> predicate)
+    public bool RemoveFirst(Func<Term, bool> predicate) => RemoveFirstCore593(predicate, true);
+
+    internal bool RemoveFirstControl593(Func<Term, bool> predicate) => RemoveFirstCore593(predicate, false);
+
+    private bool RemoveFirstCore593(Func<Term, bool> predicate, bool opaque)
     {
         ProcessSignals?.Invoke();
         while (true)
@@ -360,6 +376,7 @@ public sealed partial class Mailbox
             while (node is not null)
             {
                 Entry candidate;
+                IDisposable? operation = null;
                 lock (gate)
                 {
                     if (revision != precedenceRevision || !ReferenceEquals(node.List, messages))
@@ -373,57 +390,159 @@ public sealed partial class Mailbox
                         continue;
                     }
                     candidate = node.Value;
+                    operation = candidate.Custody593?.BorrowOperation();
                 }
-                bool matched = predicate(candidate.Value);
-                lock (gate)
+                Exception? primary = null;
+                try
                 {
-                    if (revision != precedenceRevision || !IsAdmitted(node))
+                    Term input = opaque ? OpaqueCandidate593(candidate.Value) : candidate.Value;
+                    if (opaque)
                     {
-                        retry = true;
-                        break;
+                        operation?.Dispose();
+                        operation = null;
                     }
-                    if (matched)
+                    bool matched = predicate(input);
+                    lock (gate)
                     {
-                        RemoveNode(node);
+                        if (revision != precedenceRevision || !IsAdmitted(node))
+                        {
+                            retry = true;
+                            break;
+                        }
+                        if (matched)
+                        {
+                            RemoveNode(node);
 
-                        return true;
+                            return true;
+                        }
+                        node = node.Next;
                     }
-                    node = node.Next;
+                }
+                catch (Exception error)
+                {
+                    primary = error;
+                    throw;
+                }
+                finally
+                {
+                    MailboxReceiveCleanup593.Dispose(
+                        null,
+                        null,
+                        operation,
+                        primary
+                    );
                 }
             }
-            if (!retry)
-                return false;
+            if (!retry) return false;
             ProcessSignals?.Invoke();
         }
     }
 
-    public int Remove(Func<Term, bool> predicate)
+    public int Remove(Func<Term, bool> predicate) => RemoveCore593(predicate, true);
+
+    internal int RemoveControl593(Func<Term, bool> predicate) => RemoveCore593(predicate, false);
+
+    private int RemoveCore593(Func<Term, bool> predicate, bool opaque)
     {
         ProcessSignals?.Invoke();
         while (true)
         {
             (LinkedListNode<Entry> Node, Entry Value)[] candidates;
+            IDisposable?[] operations;
+            Exception?[] cleanupErrors593;
             long revision;
             lock (gate)
             {
                 candidates = CaptureAdmitted();
+                operations = new IDisposable?[candidates.Length];
+                cleanupErrors593 = new Exception?[candidates.Length];
                 revision = mutationRevision;
-            }
-            var matched = new List<LinkedListNode<Entry>>();
-            foreach (var candidate in candidates)
-            {
-                if (predicate(candidate.Value.Value))
-                    matched.Add(candidate.Node);
-            }
-            lock (gate)
-            {
-                if (revision == mutationRevision && candidates.All(candidate => IsAdmitted(candidate.Node)))
+                try
                 {
-                    foreach (var node in matched)
-                        RemoveNode(node);
-
-                    return matched.Count;
+                    for (int index = 0; index < candidates.Length; index++)
+                        operations[index] = candidates[index].Value.Custody593?.BorrowOperation();
                 }
+                catch
+                {
+                    foreach (IDisposable? operation in operations) operation?.Dispose();
+                    throw;
+                }
+            }
+            Exception? primary = null;
+            try
+            {
+                Term[]? opaqueInputs = opaque ? AtomicsHostAggregate594.Publish(transaction =>
+                {
+                    var inputs = new Term[candidates.Length];
+                    for (int index = 0; index < candidates.Length; index++)
+                        inputs[index] = OpaqueCandidate593(candidates[index].Value.Value, transaction);
+
+                    // An opaque predicate may close the VM. No temporary guest
+                    // operation owned by this batch may remain during callbacks.
+                    for (int index = 0; index < operations.Length; index++)
+                    {
+                        IDisposable? operation = operations[index];
+                        operations[index] = null;
+                        try
+                        {
+                            operation?.Dispose();
+                        }
+                        catch (Exception error)
+                        {
+                            cleanupErrors593[index] = error;
+                        }
+                    }
+                    if (cleanupErrors593.Any(error => error is not null))
+                    {
+                        var failure = new AggregateException(cleanupErrors593.OfType<Exception>());
+                        Array.Clear(cleanupErrors593);
+                        throw failure;
+                    }
+
+                    return inputs;
+                }) : null;
+                var matched = new List<LinkedListNode<Entry>>();
+                for (int index = 0; index < candidates.Length; index++)
+                {
+                    Term input = opaqueInputs is null ? candidates[index].Value.Value : opaqueInputs[index];
+                    if (predicate(input)) matched.Add(candidates[index].Node);
+                }
+                lock (gate)
+                {
+                    if (revision == mutationRevision && candidates.All(candidate => IsAdmitted(candidate.Node)))
+                    {
+                        int removed = 0;
+                        foreach (var node in matched)
+                        {
+                            if (Volatile.Read(ref closed593)) break;
+                            RemoveNode(node);
+                            removed++;
+                        }
+
+                        return removed;
+                    }
+                }
+            }
+            catch (Exception error)
+            {
+                primary = error;
+                throw;
+            }
+            finally
+            {
+                // Each operation is an atomic queue-interest drop; all are
+                // attempted before allocating any aggregate error structure.
+                for (int index = 0; index < operations.Length; index++)
+                    try
+                    {
+                        operations[index]?.Dispose();
+                    }
+                    catch (Exception error)
+                    {
+                        cleanupErrors593[index] = error;
+                    }
+                if (cleanupErrors593.Any(error => error is not null))
+                    throw new AggregateException(new[] { primary }.Concat(cleanupErrors593).OfType<Exception>());
             }
             ProcessSignals?.Invoke();
         }
@@ -542,12 +661,13 @@ public sealed partial class Mailbox
         }
     }
 
-    private async ValueTask<T?> ReceiveMarkedCore<T>(
+    private async ValueTask<T?> ReceiveMarkedCore593<T>(
         Func<Term, ValueTask<T?>> select,
         TimeSpan? timeout,
         CancellationToken cancellation,
         Func<TimeSpan?>? resolveTimeout,
-        ReceiveMarkerState? markerSelection
+        ReceiveMarkerState? markerSelection,
+        MailboxSelectionAdmission593? admission593
     ) where T : class
     {
         if (timeout < TimeSpan.Zero)
@@ -581,6 +701,7 @@ public sealed partial class Mailbox
             bool retry;
             T? selected = null;
             Entry received = default;
+            IDisposable? receivedOperation593 = null;
             LinkedListNode<Entry>? node;
             long revision;
             long capturedPulse;
@@ -600,6 +721,7 @@ public sealed partial class Mailbox
             while (node is not null)
             {
                 Entry candidate;
+                IDisposable? operation593 = null;
                 lock (gate)
                 {
                     ValidateReceiveMarkerPriority(markerSelection);
@@ -616,12 +738,26 @@ public sealed partial class Mailbox
                         continue;
                     }
                     candidate = node.Value;
+                    operation593 = candidate.Custody593?.BorrowOperation();
                 }
-                long suspensionBefore = SuspensionTime?.Invoke() ?? 0;
-                T? match = await select(candidate.Value);
+                T? match = null;
+                MailboxGuestCandidate593? guest593 = null;
+                Exception? primary593 = null;
                 bool transferred504 = false;
                 try
                 {
+                    long suspensionBefore = SuspensionTime?.Invoke() ?? 0;
+                    guest593 = admission593?.Prepare(candidate.Value, candidate.Custody593?.Graph);
+                    Term candidateValue593 = guest593?.Value ?? OpaqueCandidate593(candidate.Value);
+                    if (admission593 is null)
+                    {
+                        // Host admission is complete; do not make a public
+                        // callback's VM-close depend on its own Guest borrow.
+                        operation593?.Dispose();
+                        operation593 = null;
+                    }
+                    match = await select(candidateValue593);
+                    guest593?.AttachTo(match);
                     start += (SuspensionTime?.Invoke() ?? 0) - suspensionBefore;
                     ThrowIfHalted();
                     cancellation.ThrowIfCancellationRequested();
@@ -639,9 +775,12 @@ public sealed partial class Mailbox
                         if (match is not null)
                         {
                             selected = match;
-                            transferred504 = true;
                             received = candidate;
+                            operation593 ??= candidate.Custody593?.BorrowOperation();
                             RemoveNode(node);
+                            receivedOperation593 = operation593;
+                            operation593 = null;
+                            transferred504 = true;
                             break;
                         }
                         if (ReferenceEquals(node, capturedTail))
@@ -656,10 +795,19 @@ public sealed partial class Mailbox
                         }
                     }
                 }
+                catch (Exception error)
+                {
+                    primary593 = error;
+                    throw;
+                }
                 finally
                 {
-                    if (!transferred504 && match is BeamReceiveSelection discarded504)
-                        discarded504.Dispose();
+                    MailboxReceiveCleanup593.Dispose(
+                        !transferred504 ? match as IGuestMailboxSelection593 : null,
+                        guest593,
+                        operation593,
+                        primary593
+                    );
                 }
             }
             if (selected is null)
@@ -676,6 +824,7 @@ public sealed partial class Mailbox
             }
             if (selected is not null)
             {
+                Exception? traceFailure593 = null;
                 try
                 {
                     MessageReceived?.Invoke();
@@ -691,11 +840,19 @@ public sealed partial class Mailbox
 
                     return selected;
                 }
-                catch
+                catch (Exception error)
                 {
-                    if (selected is BeamReceiveSelection abandoned507)
-                        abandoned507.Dispose();
+                    traceFailure593 = error;
                     throw;
+                }
+                finally
+                {
+                    MailboxReceiveCleanup593.Dispose(
+                        traceFailure593 is not null ? selected as IGuestMailboxSelection593 : null,
+                        null,
+                        receivedOperation593,
+                        traceFailure593
+                    );
                 }
             }
             if (timeout == TimeSpan.Zero && retry && !previousConflict && ExecutionBlocked?.Invoke() != true)
@@ -754,13 +911,11 @@ public sealed partial class Mailbox
         if (ReferenceEquals(node, lastPriority))
             lastPriority = node.Previous;
         messages.Remove(node);
+        node.Value.Custody593?.Dispose();
         if (ordinary)
             ObserveQueueLength419(admittedCount);
     }
 
     internal IReadOnlyList<Term> Snapshot()
-    {
-        lock (gate)
-            return messages.Where(entry => !entry.Control).Select(entry => entry.Value).ToArray();
-    }
+        => CompletePublicSnapshot601(CaptureSnapshot601());
 }

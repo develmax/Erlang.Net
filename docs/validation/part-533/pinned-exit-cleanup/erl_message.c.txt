@@ -1,0 +1,42 @@
+209: erts_cleanup_message(ErtsMessage *mp)
+210: {
+211:     ErlHeapFragment *bp;
+212: 
+213:     if (ERTS_SIG_IS_NON_MSG(mp)) {
+214:         erts_proc_sig_cleanup_non_msg_signal(mp);
+215:         return;
+216:     }
+217: 
+218:     if (ERTS_SIG_IS_EXTERNAL_MSG(mp)) {
+219:         ErtsDistExternal *edep = erts_proc_sig_get_external(mp);
+220:         if (edep) {
+221:             erts_free_dist_ext_copy(edep);
+222:             if (mp->data.heap_frag == &mp->hfrag) {
+223:                 ASSERT(ERTS_SIG_IS_EXTERNAL_MSG(mp));
+224:                 mp->data.heap_frag = ERTS_MSG_COMBINED_HFRAG;
+225:             }
+226:         }
+227:     }
+228: 
+229:     if (mp->data.attached != ERTS_MSG_COMBINED_HFRAG)
+230:         bp = mp->data.heap_frag;
+231:     else {
+232:         bp = mp->hfrag.next;
+233:         erts_cleanup_offheap(&mp->hfrag.off_heap);
+234:     }
+235:     if (bp)
+236:         free_message_buffer(bp);
+237: }
+238: 
+239: void
+240: erts_cleanup_messages(ErtsMessage *msgp)
+241: {
+242:     ErtsMessage *mp = msgp;
+243:     while (mp) {
+244: 	ErtsMessage *fmp;
+245: 	erts_cleanup_message(mp);
+246: 	fmp = mp;
+247: 	mp = mp->next;
+248: 	erts_free_message(fmp);
+249:     }
+250: }

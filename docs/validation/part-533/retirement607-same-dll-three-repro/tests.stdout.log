@@ -1,0 +1,11 @@
+{"Partial":true,"SelectedCount":3,"TotalCount":9292}
+FAIL scheduler/canceled-queued-waiter-successor: System.TimeoutException: The operation has timed out.
+   at Erlang.Tests.SchedulerControlCalls.Normal(ProcessHandle process) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Scheduling\SchedulerControlCalls.cs:line 47
+   at Erlang.Tests.SchedulerOnlineConcurrentHostChecks.CanceledQueuedWaiterDoesNotStallSuccessor() in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Scheduling\SchedulerOnlineConcurrentHostChecks.cs:line 199
+   at Erlang.Tests.SchedulerOnlineConcurrentHostChecks.CanceledQueuedWaiterDoesNotStallSuccessor() in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Scheduling\SchedulerOnlineConcurrentHostChecks.cs:line 204
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Harness\Program.cs:line 7594
+FAIL host/nif-map-value503-invalid-owner-and-thread-controls: System.TimeoutException: The operation has timed out.
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Harness\Program.cs:line 7594
+FAIL host/nif-map-family504/invalid-owners-threads: System.TimeoutException: The operation has timed out.
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Harness\Program.cs:line 7594
+0/3 passed

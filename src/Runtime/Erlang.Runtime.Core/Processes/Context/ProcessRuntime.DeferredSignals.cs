@@ -10,23 +10,22 @@ public sealed partial class ProcessRuntime
         Term? traceToken = null
     )
     {
+        bool accepted = false;
         lock (gate)
         {
-            if (!ReferenceEquals(owner.Runtime, this) || !processes.TryGetValue(owner.Self, out var found) ||
-                !ReferenceEquals(found, owner) || owner.Terminated)
+            if (ReferenceEquals(owner.Runtime, this) && processes.TryGetValue(owner.Self, out var found)
+                && ReferenceEquals(found, owner) && !owner.Terminated)
             {
-                release();
-
-                return;
+                owner.DeferredSignalDrain ??= new();
+                accepted = owner.Mailbox.TrySendDeferred606(
+                    prepare,
+                    release,
+                    from,
+                    traceToken
+                );
             }
-            owner.DeferredSignalDrain ??= new();
-            owner.Mailbox.SendDeferred(
-                prepare,
-                release,
-                from,
-                traceToken
-            );
         }
+        if (!accepted) release(); // No runtime R or mailbox M during rejected cleanup.
     }
 
     private void DrainDeferredProcessSignals(ProcessContext owner)
