@@ -1,0 +1,73 @@
+{
+  "Passed": false,
+  "Checks": [
+    {
+      "Plan": "Erlang.NifMapFamily504Observations",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "12B3190794AB74965082E0425E65D39080C9A8DDFC498218D8D9A24D9DD9C63D",
+        "VerifiedRows": 38,
+        "NativeExecuted": false
+      }
+    },
+    {
+      "Plan": "Erlang.NifMapMaterialized505Observations",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "6FCC0C3B2F66B61CCACAC1806504C3B886517CAA88CEA5E008A9DB7C09E18499",
+        "VerifiedRows": 43,
+        "NativeExecuted": false
+      }
+    },
+    {
+      "Plan": "Erlang.NifMapReentry505Observations",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "090E517CA18D60202A4C52FADE32EB0A7B7A42A08C5A776A839E10769C0463CD",
+        "VerifiedRows": 43,
+        "NativeExecuted": false
+      }
+    },
+    {
+      "Plan": "tools/Runtime/Erlang.OwnedGuest506Observations",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "823F9149E42C325DDA75DEA258DA18903FCF8001B22F6AAECD3EEA0C12C3BA22",
+        "VerifiedRows": 158
+      }
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifVariadic526Observations",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "32AF216C34B5C33252B95B2791C0BEE2EDA1D6D2F3337B56D0CFBF24EF9E5E84",
+        "VerifiedRows": 861
+      }
+    },
+    {
+      "Plan": "Pending",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "39E843863B8FB36BD6626539EB04563E5E8946B5BC4725CB0976ADC16E3130F5",
+        "VerifiedRows": 3190,
+        "CompleteGitMembershipChecked": false
+      }
+    },
+    {
+      "Plan": "Reallocation",
+      "Passed": false,
+      "Error": "RuntimeError('Reviewed source changed: tools/Native/Erlang.NifMakeReferenceOriginalObservations/native/entry_fixture_names.h')"
+    },
+    {
+      "Plan": "Private557",
+      "Passed": false,
+      "Error": "RuntimeError('Source seal differs: .github/workflows/validate.yml')"
+    }
+  ],
+  "ExpectedPlans": 8,
+  "BuildOrVmExecuted": false,
+  "NativeExecuted": false,
+  "SourceHeadAuthenticityClaimed": false,
+  "FullSourceMembershipClaimed": false,
+  "WholeContractsClosed": 0
+}
