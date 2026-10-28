@@ -75,8 +75,7 @@ public static class CoreModules
             (c, a) => a[0] is Integer i && a[1] is TupleTerm t && i.Value > 0 && i.Value <= t.Items.Count ? t.Items[(int)i.Value - 1] : throw new ErlangException(ErlangErrorReasons.BadArgument)
         );
         r.SealElementSourceContract();
-        Add(
-            ErlangModuleNames.Module,
+        AddRead507(
             ErlangModuleNames.TupleSize,
             1,
             (c, a) => a[0] is TupleTerm t

@@ -1,0 +1,96 @@
+{
+  "Platform": "Pinned64-bit known-endian release data model; existing resource profile gates still required. No new header allocated by571.",
+  "Layouts": [
+    {
+      "Domain": "Magic reference",
+      "Words": 3,
+      "Cells": [
+        "ERTS_REF_THING_HEADER = ((3-1)<<6) | (0x4<<2) = 0x90 under known-endian64profile",
+        "actual magic Binary allocation pointer (not userdata pointer or GCHandle)",
+        "actual linked next ErtsOffHeapHeader pointer, or null only if chain tail"
+      ],
+      "Source": "write_magic_ref_thing; enif_make_resource allocates ERTS_MAGIC_REF_THING_SIZE",
+      "Reader": "Owned magic-ref Words/FullId must validate header, active registered owner range and leased mb pointer, then read actual payload refn. ResourceReferenceTerm must get a distinct owned reader constructor; cannot keep base portable Entry.Identity authoritative.",
+      "Alias": "Repeated exact same resource term can preserve one term-header identity; distinct enif_make_resource calls can create distinct headers for one backing. Copy/export must not collapse distinct wrapper occurrences."
+    },
+    {
+      "Domain": "BinRef",
+      "Words": 3,
+      "Cells": [
+        "HEADER_BIN_REF = ((3-1)<<6) | (0xA<<2) = 0xA8",
+        "actual Binary allocation pointer",
+        "actual next offheap-header pointer"
+      ],
+      "Source": "erl_bits.h BinRef + erts_wrap_refc_bitstring",
+      "Reader": "Opaque BinRef never guest-visible; use registered actual address/tag, one real payload lease per actual ref-header ownership as policy requires. Shared slices may retain the same BinRef while preserving separate SubBits."
+    },
+    {
+      "Domain": "ErlSubBits",
+      "Words": 5,
+      "Cells": [
+        "HEADER_SUB_BITS = ((5-1)<<6) | (0x9<<2) = 0x124",
+        "base_flags = (actual_data_pointer - (actual_data_pointer & 3)) | flags",
+        "start = bit_offset + (actual_data_pointer & 3)*8",
+        "end = start + bit_size",
+        "orig = boxed actual BinRef address (TAG_PRIMARY_BOXED=2), not GCHandle or CLR identity"
+      ],
+      "Source": "erl_sub_bits_init adjusts unaligned resource binary pointer; enif_make_resource_binary allocates ERL_REFC_BITS_SIZE=8words",
+      "Reader": "BitString.BitLength, bitOffset, backing selection and data reads must be descriptor-authoritative, including SliceBits/CloneNativeView/BorrowNativeBinary; cannot add a shadow block while fixed CLR fields still decide semantics. Preserve data pointer resource-native caller validity contract."
+    }
+  ],
+  "RequiredProductionHooks": [
+    {
+      "Files": [
+        "src/Runtime/Erlang.Runtime.Core/Primitives/References/ResourceReferenceTerm.cs",
+        "src/Runtime/Erlang.Terms/Identifiers/ReferenceTerm.cs"
+      ],
+      "Work": "Add explicit owned magic-ref reader constructor/interface, separately from ordinary reference562 capability; public/ETF/resource identity serialization remains portable unless admitted to actual guest heap."
+    },
+    {
+      "Files": [
+        "src/Runtime/Erlang.Terms/Values/BitString.cs",
+        "src/Runtime/Erlang.Terms/Values/BitString.Native524.cs",
+        "src/Runtime/Erlang.Terms/Values/Binary/INativeBinaryStorage524.cs"
+      ],
+      "Work": "Introduce owned descriptor-backed view that derives size/start/base/orig from actual cells, preserving portable backing path, native payload lease, unaligned bits and small-slice copy policy. Actual getter read must reject stale/foreign header before memory access."
+    },
+    {
+      "Files": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Native524.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessNativeHeader524.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Generations508.cs"
+      ],
+      "Work": "Track actual registered sequences per descriptor, offheap chain, shared BinRef dependencies. Mark every semantic survivor/old minor survivor actual block before dead enumeration; commit semantic retirement without freeing ranges a second time. Rollback releases only uncommitted ranges; common dead-block loop owns successful ranges."
+    },
+    {
+      "Files": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermTransfer506.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Guest507.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermDetachedCopy506.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.OwnedRoots516.cs"
+      ],
+      "Work": "Transform portable producer into actual owned wrapper/result at guest handoff, preserving aliases distinctly from backing, pending native graph/hidden map roots and exact host export lease. Existing root-only PrepareNativeHeaders cannot mutate immutable portable wrappers into authoritative owned forms."
+    }
+  ],
+  "Transaction": [
+    "Obtain real payload lease and checked actual mb/data pointer while lease admitted; prepare all capability/layout records and capacity before publication.",
+    "Allocate exact header/raw sequences, link actual offheap chain and shared BinRef roots; actual fields become the wrapper reader authority.",
+    "Publish destination complete root before releasing source/env admission. On failure restore offheap chain and release newly registered ranges exactly once; preserve prior root.",
+    "Before GC common dead-block list mark actual blocks of every semantic survivor, including unreachable old descriptors retained during minor and shared BinRef required by younger view.",
+    "Compute567totals from actual registered allocation ranges unchanged; native bytes/arena remain separate. Commit semantic lease retirement then common raw-block release; descriptor Dispose never frees scheduled raw range again.",
+    "At full owner retirement detach guest wrappers/export portable host custody, retire semantic roots, existing slab destruction and queued normal destructor/DSO pin closure in correct physical order."
+  ],
+  "NextFiniteAcceptance": [
+    "Actual pointer/header/start/end/orig mutation affects real guest getters; reject wrong tag/foreign/stale descriptor before reading payload.",
+    "Distinct term aliases vs same backing, shared BinRef+new SubBits, unaligned/empty/resource small-slice cases.",
+    "Rollback at every header/root/link publication; no ghost567cells or leaked resource/image pin.",
+    "Repeated minor/major old BinRef + young view keep backing; last GC frees correct3/5/8registered words and actual native bytes separately.",
+    "Real send/store/ETS/persistent/host/native escape and final destructor/DSO retirement; no freed raw header in portable exports."
+  ],
+  "NotClaimed": [
+    "No magic/BinRef/SubBits header representation or producers enabled by571",
+    "No public process_info/statistics/minmax budgets",
+    "No full API/24Known promotion",
+    "No original/native execution"
+  ]
+}

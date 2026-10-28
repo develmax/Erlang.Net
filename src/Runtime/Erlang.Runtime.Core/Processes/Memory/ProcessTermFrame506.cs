@@ -15,7 +15,7 @@ internal sealed partial class ProcessTermFrame506 : IDisposable
     internal void InitializeBorrow506(Term value)
     {
         nextSlot = 1;
-        PublishRoot512(0, value);
+        PublishRoot512(0, value, false);
     }
 
     internal int Reserve()
@@ -119,8 +119,7 @@ internal sealed partial class ProcessTermFrame506 : IDisposable
                 return;
             disposed = true;
             values.Clear();
-            binaryRoots512?.Dispose();
-            owner.Release(this);
+            ReleaseRootsAndMagic576();
         }
     }
 }

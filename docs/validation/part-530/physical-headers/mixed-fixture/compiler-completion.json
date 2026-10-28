@@ -1,0 +1,37 @@
+{
+  "OriginalCompilerPin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ProviderAdmissionSha256": "41CCC2FDE5493D85BEAA21996E12D0885D2919B0D4BF44137D0673DCDC9D5EA6",
+  "ProviderFiles": 6427,
+  "ProviderUnchanged": true,
+  "SourceSha256": "B2ACD7A969D82AA30876F3DCAD1B43FB4D18F19239E0662F49B67ED20C208FAF",
+  "BeamSha256": "52F41357D000B3FFCCCF16F6D7F75BDF0AA2CE7DE57330871BA26387EA0C5C42",
+  "Process": {
+    "Command": [
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+      "+S",
+      "1:1",
+      "+A",
+      "1",
+      "+SDcpu",
+      "1",
+      "+SDio",
+      "1",
+      "-noshell",
+      "-noinput",
+      "-boot",
+      "no_dot_erlang",
+      "-eval",
+      "try Expected=filename:absname(\"D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/library376-official-compiler/installed\"),Expected=filename:absname(code:root_dir()),8=erlang:system_info(wordsize),{ok,erts_debug,B,[]}=compile:file(\"erts_debug.erl\",[binary,return_errors,return_warnings]),ok=file:write_file(\"erts_debug.beam\",B),{ok,Chunks}=beam_lib:chunks(B,[exports,imports,compile_info,attributes]),ok=file:write_file(\"metadata.etf\",term_to_binary({erlang:system_info(version),erlang:system_info(system_architecture),Chunks})),halt(0) catch C:R:S->file:write_file(\"failure.etf\",term_to_binary({C,R,S})),halt(77) end."
+    ],
+    "Pid": 175388,
+    "ElapsedSeconds": 0.2339999999385327,
+    "TimedOut": false,
+    "Settled": true,
+    "ExitCode": 0,
+    "Failures": [],
+    "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  "Error": null,
+  "ManagedExecution": false
+}

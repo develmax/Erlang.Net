@@ -5,7 +5,7 @@ namespace Erlang;
 // Heap-local physical words. Payload words own real GCHandle roots; raw header
 // words contain source-defined numeric bits. Payload tagging is not yet ERTS.
 // All ordinary accesses are serialized by the owning ProcessTermHeap506.Gate.
-internal sealed unsafe class NativeTermCellBuffer526 : IDisposable
+internal sealed unsafe partial class NativeTermCellBuffer526 : IDisposable
 {
     private nuint* pointer;
     private readonly byte[] kinds;

@@ -164,7 +164,50 @@ static ERL_NIF_TERM count_nif527(ErlNifEnv *env, int argc, const ERL_NIF_TERM ar
     return enif_make_tuple3(env, enif_make_int(env, RESOURCE_VERSION527), enif_make_long(env, count527()),
         enif_make_int(env, thread527()));
 }
+static ERL_NIF_TERM aliases576(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv[])
+{
+    (void)argc; (void)argv;
+    void *resource = enif_alloc_resource(dynamic527, PAYLOAD_BYTES527);
+    if (resource == NULL) return enif_make_badarg(env);
+    for (unsigned i = 0; i < PAYLOAD_BYTES527; i++) ((unsigned char *)resource)[i] = (unsigned char)i;
+    ERL_NIF_TERM first = enif_make_resource(env, resource);
+    ERL_NIF_TERM second = enif_make_resource(env, resource);
+    ErlNifEnv *copy_env = enif_alloc_env();
+    if (copy_env == NULL) {
+        enif_release_resource(resource);
+        return enif_make_badarg(env);
+    }
+    ERL_NIF_TERM copied = enif_make_copy(copy_env, first);
+    ERL_NIF_TERM returned = enif_make_copy(env, copied);
+    enif_free_env(copy_env);
+    enif_release_resource(resource);
+    return enif_make_tuple4(env, first, first, second, returned);
+}
+
+static ERL_NIF_TERM binary_aliases577(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv[])
+{
+    (void)argc; (void)argv;
+    unsigned char *resource = enif_alloc_resource(dynamic527, PAYLOAD_BYTES527);
+    if (resource == NULL) return enif_make_badarg(env);
+    for (unsigned i = 0; i < PAYLOAD_BYTES527; i++) resource[i] = (unsigned char)i;
+    ERL_NIF_TERM reference = enif_make_resource(env, resource);
+    ERL_NIF_TERM first = enif_make_resource_binary(env, resource, resource, PAYLOAD_BYTES527);
+    ERL_NIF_TERM independent = enif_make_resource_binary(env, resource, resource, PAYLOAD_BYTES527);
+    ErlNifEnv *copy_env = enif_alloc_env();
+    if (copy_env == NULL) {
+        enif_release_resource(resource);
+        return enif_make_badarg(env);
+    }
+    ERL_NIF_TERM temporary = enif_make_copy(copy_env, first);
+    ERL_NIF_TERM copied = enif_make_copy(env, temporary);
+    enif_free_env(copy_env);
+    enif_release_resource(resource);
+    ERL_NIF_TERM rows[] = { reference, first, independent, copied };
+    return enif_make_tuple_from_array(env, rows, 4);
+}
+
 static ErlNifFunc functions527[] = {
+    {"aliases576", 0, aliases576, 0}, {"binary_aliases577", 0, binary_aliases577, 0},
     {"opens527", 0, opens527, 0}, {"outside527", 0, outside527, 0},
     {"make527", 0, make527, 0}, {"native_only527", 0, native_only527, 0},
     {"inspect527", 1, inspect527, 0}, {"count527", 0, count_nif527, 0}

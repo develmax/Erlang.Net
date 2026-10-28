@@ -1,0 +1,20 @@
+{"Partial":true,"SelectedCount":1,"TotalCount":9228}
+FAIL runtime/resource-bits577/unpublished-rollback-host-export-and-stale-foreign: System.ObjectDisposedException: Cannot access a disposed object.
+Object name: 'ProcessTermSequence506'.
+   at Erlang.ProcessTermHeap506.RequireResourceBitsDescriptor577(ProcessTermSequence506 block) in D:\Distr\Work\Codex\Erlang.Net\w518repair\src\Runtime\Erlang.Runtime.Core\Processes\Memory\ProcessTermHeap.ResourceBits577.cs:line 117
+   at Erlang.ProcessTermHeap506.ReadResourceBits577(ProcessTermSequence506 block) in D:\Distr\Work\Codex\Erlang.Net\w518repair\src\Runtime\Erlang.Runtime.Core\Processes\Memory\ProcessTermHeap.ResourceBits577.cs:line 86
+   at Erlang.ProcessTermSequence506.ReadResourceBits577() in D:\Distr\Work\Codex\Erlang.Net\w518repair\src\Runtime\Erlang.Runtime.Core\Processes\Memory\ProcessTermSequence506.cs:line 32
+   at Erlang.BitString.get_NativeResourceIdentity524() in D:\Distr\Work\Codex\Erlang.Net\w518repair\src\Runtime\Erlang.Terms\Values\BitString.Native524.cs:line 9
+   at Erlang.NativeResourceRoots524.Direct524(Term value, ProcessRuntime expected) in D:\Distr\Work\Codex\Erlang.Net\w518repair\src\Runtime\Erlang.Runtime.Core\Native\Resources\NativeResourceRoots524.cs:line 7
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+--- End of stack trace from previous location ---
+   at Erlang.Tests.ResourceBinary577Checks.DirectNative(Term value, ProcessRuntime expected) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Native\Resources\ResourceBinary577Checks.cs:line 236
+   at Erlang.Tests.ResourceBinary577Checks.<>c__DisplayClass4_0.<RollbackAndHostEscape>b__4() in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Native\Resources\ResourceBinary577Checks.cs:line 155
+   at Erlang.Tests.ResourceBinary577Checks.ExpectForeign(Action body) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Native\Resources\ResourceBinary577Checks.cs:line 243
+   at Erlang.Tests.ResourceBinary577Checks.<>c.<<RollbackAndHostEscape>b__4_0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Native\Resources\ResourceBinary577Checks.cs:line 155
+--- End of stack trace from previous location ---
+   at Erlang.Tests.ResourceBinary577Checks.Run(Func`2 body) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Native\Resources\ResourceBinary577Checks.cs:line 258
+   at Erlang.Tests.ResourceBinary577Checks.Run(Func`2 body) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Native\Resources\ResourceBinary577Checks.cs:line 261
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Harness\Program.cs:line 7413
+0/1 passed

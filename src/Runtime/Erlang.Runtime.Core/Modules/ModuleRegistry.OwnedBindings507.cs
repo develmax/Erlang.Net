@@ -105,7 +105,6 @@ public sealed partial class ModuleRegistry
     {
         if (owningRuntime?.OwnedTermsPilot506 != true)
             return;
-        bool pureGuestImage = image.ExecutionIdentity.NativePrimitives.Values.All(body => NativeBorrowKind507(image.ExecutionIdentity, body) != OwnedBindingKind507.Opaque);
         for (int index = 0; index < image.Code.Exports.Count; index++)
         {
             BeamLinkedFunction function = image.Code.Exports[index];
@@ -118,7 +117,9 @@ public sealed partial class ModuleRegistry
             if (image.ExecutionIdentity.NativePrimitives.TryGetValue((function.Name, function.Arity), out var primitive))
                 kind = NativeBorrowKind507(image.ExecutionIdentity, primitive);
             else
-                kind = pureGuestImage ? OwnedBindingKind507.PreparedGuest : OwnedBindingKind507.Opaque;
+                // This body executes admitted BEAM instructions. Every local native
+                // entry independently applies its exact captured primitive capability.
+                kind = OwnedBindingKind507.PreparedGuest;
             // Retain exact canonical publication authority even when currently
             // opaque. Only a later genuine image-bound NIF may upgrade its OWN entry.
             ownedBindings507[key] = new(

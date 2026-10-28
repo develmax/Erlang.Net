@@ -31,8 +31,8 @@
       "VersionSuffix": "527",
       "NativeSourcePath": "tools/Native/Erlang.NifResource529Observations/fixtures/native_resource_family527.c",
       "ErlangSourcePath": "tools/Native/Erlang.NifResource529Observations/fixtures/native_resource_family527.erl",
-      "NativeSourceSha256": "0139C8E8242B39E4A158273BC28EA900B51E2D0A8F9E03C59F108E0589CF2601",
-      "ErlangSourceSha256": "6353C2A8A4566D0AF2460D96B7878F2F667E90F427501FE31F3355FB11332936"
+      "NativeSourceSha256": "1EBB916759CF6AE14B15A5F93F39AE60F9F332FBFB1883200B61D891C1E9FFCB",
+      "ErlangSourceSha256": "6D014C264AFB72473BE31BA72E91590B516318901F304F89BA1F93B15045DC20"
     },
     "handoff1": {
       "Define": "1",
@@ -60,11 +60,18 @@
       ],
       "Modules": [
         "native_resource_family527",
-        "resource_observer529"
+        "resource_observer529",
+        "magic_alias_observer576",
+        "resource_binary_observer577"
       ],
       "NifModule": "native_resource_family527",
       "Observer": "resource_observer529",
-      "ObserverArity": 5
+      "ObserverArity": 5,
+      "StockModules": [
+        "timer",
+        "erts_debug",
+        "gb_trees"
+      ]
     },
     "fresh_load_after_purge": {
       "Variants": [
@@ -5161,7 +5168,7 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamStoredFunctionRecipe.cs",
       "HashMode": "Raw",
-      "Sha256": "DB4BA27AE1B2C54951D9FFFA08245DC1E3B2E831CCFBCC25A4261327733A3B79"
+      "Sha256": "0A4079450663D3239F6743AB06D2BEAAA271EA5F1C4B8C4A47C8D1F0585A36F8"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamStructure.cs",
@@ -5876,7 +5883,7 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.OwnedBindings507.cs",
       "HashMode": "Raw",
-      "Sha256": "EA99C949D405CE72CC58EB339A9237043606319351903390E082BC80E4D193F4"
+      "Sha256": "0EEED5D930AAFD3EBC4CF2C5503765FD8EDD67B228AE8490FCEDFF7A5092A394"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.OwnedTerms506.cs",
@@ -7396,7 +7403,7 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifImageCall.cs",
       "HashMode": "Raw",
-      "Sha256": "48C7E09F6840EB7553AB719AC1DE1ACED0674558B76E34B5A206F933EC5F45BA"
+      "Sha256": "F550171BCA5E447D8B7712A9C2152C0D9BDDFFAEF3AD0AB17FE2D255F2AABE94"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifImageCallStates.cs",
@@ -7591,12 +7598,17 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.cs",
       "HashMode": "Raw",
-      "Sha256": "84E31C96645750C022D58EDF0B75C5FD2FCB987F215B65277267394AB9D9BA7F"
+      "Sha256": "0DBD737FFA0219C6089C5CE32C38310320B1FCD3151C77C9106DC64503210C0C"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.LoadPrivateData557.cs",
       "HashMode": "Raw",
       "Sha256": "E60C65D915755D245A1A13A0B8848200CF9461F721573D2A49C778437F3D48BC"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.Magic576.cs",
+      "HashMode": "Raw",
+      "Sha256": "661CF954050BBC7FBC370AF03078CBB3B9A3AEDBB24989CCFA3721B7644BEA4F"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.MapIterator504.cs",
@@ -7606,12 +7618,12 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.Native524.cs",
       "HashMode": "Raw",
-      "Sha256": "4458930DCD2051D243F2F8637DAC6449DEC1AFF422549C83E013BF04B3515AC5"
+      "Sha256": "0CDB10B76009F9D9970C9F94AB31A26560F00076EF63ED74EC512BAEAE0AFC31"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.OwnedRoots516.cs",
       "HashMode": "Raw",
-      "Sha256": "B47D3EEACAABE42F353F94DC9F92B90B6A4D90C7628B88C8B051B394D716B16E"
+      "Sha256": "6660C04A3334B438313A65C33C2E99E38280320E1977EDEBD3BE8CEE940E887E"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.ResourceCallback524.cs",
@@ -8071,7 +8083,7 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeResource527Callbacks.cs",
       "HashMode": "Raw",
-      "Sha256": "F6A05BBCC5C81672AFC8F9D1B7017F7B5499BB5D7701666550459FADE6BF262E"
+      "Sha256": "6CE1FC6BC82C67F2491CD57F5B72B5E27A9CD27217923965B2629AE5DF54022B"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeResource527Layout.cs",
@@ -8674,9 +8686,14 @@
       "Sha256": "2092A3052045C54D9667A0813210F084853C9812DD777104C35DF508FE470907"
     },
     {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourcePayload.Magic576.cs",
+      "HashMode": "Raw",
+      "Sha256": "C916DE35B0110300BBC2D743F67081192EC18E67641127CC8E840A2EC613B13A"
+    },
+    {
       "Path": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourcePayload524.cs",
       "HashMode": "Raw",
-      "Sha256": "EA18A65C783EF9AA545BAA104A4C1AC6B48D3D00C4BA2993FF51B9BC15B2E7F8"
+      "Sha256": "8CF840518C18522A5C6866FF99F88D6D718D87365FA4B8519EAB96EAA8CD85EE"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourcePublication527.cs",
@@ -8691,7 +8708,7 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceRoots524.cs",
       "HashMode": "Raw",
-      "Sha256": "C55B12DBF77F5387F42E171754AD4E3082AC0A288EB81ADA975DAD3D45D9A715"
+      "Sha256": "9D9C849881693C9F4A730387E4D4AE9BF33367C2E7268293C4692B92DE422C54"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceRootSet524.cs",
@@ -8866,7 +8883,7 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryModule.cs",
       "HashMode": "Raw",
-      "Sha256": "733F54399F56861A887594627F6FEB18C5CCB5B969C86EAFAA836C9710DC75F1"
+      "Sha256": "F2B0C5FED7333CE96808C6B74657D3A2070DD9DD0CC178402FE4C16FE8BA85FA"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryModuleNames.cs",
@@ -9086,7 +9103,7 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/CoreModules.cs",
       "HashMode": "Raw",
-      "Sha256": "DB553B1C43174E1224A8D063C939C97941324742D5AF88FE252389146C338967"
+      "Sha256": "10F17235DC8D8EA91C1EEFFA5F635858B2DE6905046904F87E154DE759A1DEEE"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangApplyDispatch.cs",
@@ -9141,7 +9158,7 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangBasicRegistrations.cs",
       "HashMode": "Raw",
-      "Sha256": "5FAE1DEEC503434AAF8CF2BF69DF72A0D7F9FDBD2AAEF1E82857BAD3BB359B09"
+      "Sha256": "14D42C97725DBBD66AF795FB53E7D5F983AA576A3F45B716D55325DD3458CE2A"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangCalendar.cs",
@@ -9226,7 +9243,7 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangDataRegistrations.cs",
       "HashMode": "Raw",
-      "Sha256": "8A6A4472494F90ACE93B054537423DC58735F59B64C96B20E3BEC60B9C1E2573"
+      "Sha256": "1615E010609551F1F98F21E81CA0CA63EE5FFC39322BEE4FD407D31ADCD308FB"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangErrorHelperMetadata.cs",
@@ -9956,7 +9973,7 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/References/ResourceReferenceTerm.cs",
       "HashMode": "Raw",
-      "Sha256": "DCB42DC0EAE26EC5D8870AF23F2E50B1C5957774AF23B7D00DFD270E5772BE8F"
+      "Sha256": "E2D94B890427447A9A3870F67482A56B189054FEFE1223BAB647D0D92CCDAFF5"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/ReferenceText.cs",
@@ -10141,7 +10158,7 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.GuestNif535.cs",
       "HashMode": "Raw",
-      "Sha256": "04409D209E7DD062F5BDEBB58FE99B69E0EA8AFCB30BEDDCE3ED184946B218A5"
+      "Sha256": "6054F173B01EFB4CD5C049D525077BFFF087AEA8B20F38544A402F287B46F20E"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.InternalOwner419.cs",
@@ -11081,7 +11098,7 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/GuestAdoptionFrame507.cs",
       "HashMode": "Raw",
-      "Sha256": "FEEA02A57416CE6E97C02EFC0F9DAF76D4ADF5368F49D40F84920A229E46F8FB"
+      "Sha256": "357E2028D17BC259CDFF39F82F410D7691148BBE0A557C1B2A2543333BFB0221"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/InternalGarbageCollectionBinding428.cs",
@@ -11097,6 +11114,16 @@
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/InternalGarbageCollectionNative428.cs",
       "HashMode": "Raw",
       "Sha256": "882F3ED31D2785CDF4C5B2C6E751D2DA53747E49388184CEF2E24B082256C1AF"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/MagicReference576Names.cs",
+      "HashMode": "Raw",
+      "Sha256": "9BE709D7A0D5193878353C333B5119531268A0490982315CF95C509F63FF0D56"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/MagicReferenceSweep576.cs",
+      "HashMode": "Raw",
+      "Sha256": "05769DEBDCDFCA511457EF1FDD1706C325F58792020B33A4DDCD0D6C8A645BE7"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ManagedCollectorBinding413.cs",
@@ -11166,12 +11193,37 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/NativeMapOwnedRoots510.cs",
       "HashMode": "Raw",
-      "Sha256": "2FF572E362277453F8DED6152F42D4F440C15D6776C8B6A4C0199355A70B0B36"
+      "Sha256": "C244751D8B683CD73CF16359E0A5D095D86C861E5DA726D47164BE0B73CC831E"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/NativeOffheap576Names.cs",
+      "HashMode": "Raw",
+      "Sha256": "4AF6F7DEFDDCB8D299E6614515200C64244ADC03CC6536031B56FC7BFE1FAD59"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/NativeOffheapHeader576.cs",
+      "HashMode": "Raw",
+      "Sha256": "A752877587815EFB8BE735ADC7640F5B22BB25ECB030B3B4BD4E1460731E23C9"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/NativeOffheapKind576.cs",
+      "HashMode": "Raw",
+      "Sha256": "D5FC4554F2C149B538A128CD1CAA0EA850B69A3C87A21E994F6EA3A2D72A4861"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/NativeRawAddress571Names.cs",
+      "HashMode": "Raw",
+      "Sha256": "02CDCEA71173BEA9F4FB6E7A02862E268E060EF47987A2BC45D3081E2F7A7DC5"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/NativeTermCellBuffer.Raw571.cs",
+      "HashMode": "Raw",
+      "Sha256": "D214831AB135510BE184CD447AC05BDABEBC6E8BFA7FF0B998EC3DB5F95F45A7"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/NativeTermCellBuffer526.cs",
       "HashMode": "Raw",
-      "Sha256": "EE0E6F5EBA1297D927EA1A378AE1A893FC29899550F33CA44FF8A5D05D63E0C4"
+      "Sha256": "30E47C24330833FA90287BD6613E4938FDE8182BCEEE6BB09760EE20D1682E97"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OrdinaryReference562Names.cs",
@@ -11241,7 +11293,7 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermDetachedCopy506.cs",
       "HashMode": "Raw",
-      "Sha256": "FE5179118DF9FE2974108C9E66F2798416C9BD6CF90048A42EF1F2F622CED6C0"
+      "Sha256": "4A0DFD43CF918D249F431ED8EB08CB04A2C571F213EF2A5C551C8A57B97600CF"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermInvocation.Guest507.cs",
@@ -11252,6 +11304,11 @@
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermInvocation.Native524.cs",
       "HashMode": "Raw",
       "Sha256": "03191E38CBE0D6EC1C97F11DD35BAE4D8F7F8ABB9FE3BD2E749481833A625EFD"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermInvocation.NativeGuest535.cs",
+      "HashMode": "Raw",
+      "Sha256": "17D4E0A62F5D9DC6DF048CDAC91CF99FEFA344B2B90D853FF1F91A2999738C1E"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermInvocation.Source511.cs",
@@ -11266,7 +11323,7 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermTransfer506.cs",
       "HashMode": "Raw",
-      "Sha256": "02D92AD78CDCBC33DC9E66F298F97EB05AE0A3B326B68BE6DA6FA655AD6D14C9"
+      "Sha256": "F3F043B37D034F99885451F437AE419FE78902981214AEB78EEFF644A4A6F7F9"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedWordSizeFrame526.cs",
@@ -11346,7 +11403,7 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessBinaryRegistry512.cs",
       "HashMode": "Raw",
-      "Sha256": "12965F5B43923CEA568C1D42F8044B1D0999238578776AC9596AD71B0A7218AB"
+      "Sha256": "CE5118765ACFF3C7478115EBC566F7C135C3F0236E0BBDC806DA3AA3607E6327"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessBinarySnapshot512.cs",
@@ -11371,7 +11428,7 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessNativePublication524.cs",
       "HashMode": "Raw",
-      "Sha256": "74299625E57198A2BAC1343EE3FA672630D2B9F50344B79152B1B8480D18DB06"
+      "Sha256": "A755B7438C0A80F6D151D4EF9101F2A51626C24B159118E327C55BA9CF9039D8"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermCollection504.cs",
@@ -11459,9 +11516,19 @@
       "Sha256": "E7A1A4CA1236B1EFD86D5906EDBFBFE346362CCB9C43728F24C715198D805DDE"
     },
     {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermConstruction.Magic576.cs",
+      "HashMode": "Raw",
+      "Sha256": "81027F434062A8F8A92E1DD187824CB0F28B916427B6E7EFCB294B2D939DDE46"
+    },
+    {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermConstruction.MapFork517.cs",
       "HashMode": "Raw",
-      "Sha256": "663A15B1DBEDA6B20A799B1406D771D886B62BB8A77F0D5636E2DEAEE25AFEFD"
+      "Sha256": "AD90BCC86FFBE75D36C8365E9CDC2D1FDD4020F2478F9C349B90037AE9936F60"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermConstruction.ResourceBits577.cs",
+      "HashMode": "Raw",
+      "Sha256": "976B1CEB818FBC93B1FF9C08C39382668B63AE1881FE50C70A1E8003B833AE9F"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermConstruction514.cs",
@@ -11476,12 +11543,17 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Binary512.cs",
       "HashMode": "Raw",
-      "Sha256": "8A825E879660984D55E3303AE2B4F5CA5C08D0685C43C8D99ED5F83BB372FD43"
+      "Sha256": "E4EFBADD874B1B0555C30865020FF57797EB4E2024328C595B9AC83AE745331C"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Guest507.cs",
       "HashMode": "Raw",
-      "Sha256": "D64A9F05B5F0ACFD645AD6A7DC9315FE87B1F01C4E2D8E770EACA5651FAB1EFF"
+      "Sha256": "E5F6A8EBF7529FBC36BC1C4D92BAF0489D8F06E2356FE7266D202F170EF12299"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Magic576.cs",
+      "HashMode": "Raw",
+      "Sha256": "660450A1EB73A4823A8CCD3A102DB9D83B898AAAA2A514CF371F84CC5FCC4E93"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.MapFork517.cs",
@@ -11491,12 +11563,12 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Source511.cs",
       "HashMode": "Raw",
-      "Sha256": "A0FF5014F0F71C7958E58AF7803C037A6156C68332DFB3222DC3C5F419460F54"
+      "Sha256": "BA44CA58BC3A8A5CD36B84C7AF8AB8709F6C6929AC817EECE9582EF82D88869E"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame506.cs",
       "HashMode": "Raw",
-      "Sha256": "DEC669BEF81FB8282FCD948B806BFFB6E97196D0B49979E01C8C646CD61557D4"
+      "Sha256": "EA4FA0B518F1C3E3DC2A183C92B9FB463DB6B1158EC90A293A8F651D23E15ABA"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermGenerationSnapshot508.cs",
@@ -11516,7 +11588,7 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.DebugWords526.cs",
       "HashMode": "Raw",
-      "Sha256": "3AE80A8981BCDE7B3765E7BC8C9ADC93E60FEC7344B918F3905DF63FC8F8FF38"
+      "Sha256": "7E6BBE1E254D3A041C914A7D609CC0B49A9EC3CC445B238AF527DEEDEF1B2F80"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Float556.cs",
@@ -11526,12 +11598,12 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Generations508.cs",
       "HashMode": "Raw",
-      "Sha256": "6F563C0FF62816FDCCEA384642E604916FE66EB8BA3F7EF1AEE0CD60BDA4ABBA"
+      "Sha256": "8A5C1D8199EA18EA80B9892B4DD0623E5C8C4780EF56B604D03CED7FED65A330"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Guest507.cs",
       "HashMode": "Raw",
-      "Sha256": "7FD5366E0D23AEA8DFC027AA643EDA9E5128CDA1C1D794DA075BDC634F8C6D03"
+      "Sha256": "6627EAF4A9D5B94E2923F3A0714F2C4A776DD9AFB4EB10C8B73091A179948089"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Integer559.cs",
@@ -11542,6 +11614,11 @@
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.LoaderMapKeys565.cs",
       "HashMode": "Raw",
       "Sha256": "F3759270EA2C2FFE15D6C7C66CA9C3F9935E5B99BBD0EC1E599712BC8A640EF0"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Magic576.cs",
+      "HashMode": "Raw",
+      "Sha256": "2AD30DCB15B895D2939CD06F3C100D516DB79AB790C8960ADD92D007F2D6D169"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.MapPayload517.cs",
@@ -11556,7 +11633,7 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Native524.cs",
       "HashMode": "Raw",
-      "Sha256": "9CDCB9A5A1910B0056490478763214FCD0B6622FC8C9B04BBB08A6DA74D8AC84"
+      "Sha256": "5911EF4860461C66E8E1F439D17E4A3A26AF219EA057CAC33C7F963F97EB66C8"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.NativeWords526.cs",
@@ -11564,9 +11641,19 @@
       "Sha256": "F50E4877F915E396866EB31739A402E30134221B82D9405900C892D3652FC140"
     },
     {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.RawAddresses571.cs",
+      "HashMode": "Raw",
+      "Sha256": "5B3758A56050995858DA7A5218FFC29785164636E97D9B39F098D5BFE349067F"
+    },
+    {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Reference562.cs",
       "HashMode": "Raw",
-      "Sha256": "88D07E0E05600978DAA65E9D5905AFEF48A0CC46A4D58D8C9584AFD2E62DD596"
+      "Sha256": "954AED71C969E95BFB73C80F731BF9F01E61EE9E2764280557B22FBD994CC4D7"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.ResourceBits577.cs",
+      "HashMode": "Raw",
+      "Sha256": "0F084BB63F2FC59F40C19B273082F41B13234578649882CF437E645043FA1E88"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.SharedHamt526.cs",
@@ -11576,7 +11663,7 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap506.cs",
       "HashMode": "Raw",
-      "Sha256": "D4326FB272B06D633CA6EEE80CA6B2F0FD9864418995856527238BD693D0FAB4"
+      "Sha256": "8B49B866F8F93F15EF9E7C24ED634DC2BC3E05A3EB12989C303B91BF9BB34A6A"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeapSnapshot506.cs",
@@ -11584,9 +11671,14 @@
       "Sha256": "97013557BB122E7FD05DD61F8C2CCC927886DE41C0DDC9A37C406B29A32601AF"
     },
     {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermRawAddress571.cs",
+      "HashMode": "Raw",
+      "Sha256": "9A09341328C6D2B7556500BDCF31DF0664BFAFD7B3D233A18089920282903EB6"
+    },
+    {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermSequence506.cs",
       "HashMode": "Raw",
-      "Sha256": "B1A1CD57562416A75C57E3CCE41DC343DB6693EFB5653269A5DD7EC0B2B7102E"
+      "Sha256": "42F26FAD4E338945C3D168B6A6C3AA2D7719408C0087D417361E9229AFB7583E"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermSlab506.cs",
@@ -11602,6 +11694,16 @@
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessWordOperation504.cs",
       "HashMode": "Raw",
       "Sha256": "510C30CD656C09FF04AF2535D63860974C955752D74668795F23C1A6915A5462"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ResourceBinary577Names.cs",
+      "HashMode": "Raw",
+      "Sha256": "EF7401E36061B5DABA9DB69C344D22519F2614A4DA5764E290D526FBB2D39B45"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ResourceBinaryDescriptor577.cs",
+      "HashMode": "Raw",
+      "Sha256": "034B59E719C8729B336F8FBC0D2D2AE400E627835DA0418258F765D0EDAAF4C2"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/SourceEvaluationTurn511.cs",
@@ -15151,7 +15253,7 @@
     {
       "Path": "src/Runtime/Erlang.Terms/Identifiers/ReferenceTerm.cs",
       "HashMode": "Raw",
-      "Sha256": "4EC4B4D7497B1653EDC6E71FF1A3CB232C5BEE5EA71BD8B5B3D0805BBB7015E9"
+      "Sha256": "AFC34CBAEB3FB866231CC696A1EDA66F8DDF60DCD7FAAC33FE4867BB503B9B2F"
     },
     {
       "Path": "src/Runtime/Erlang.Terms/Ordering/ErlangBlockHash.cs",
@@ -15279,6 +15381,11 @@
       "Sha256": "F4924AD5B857DF397EBCDB80ED0BAE2837CBE2DC63B6D005975F0D4BC00C75FE"
     },
     {
+      "Path": "src/Runtime/Erlang.Terms/Storage/IOwnedResourceBitsStorage577.cs",
+      "HashMode": "Raw",
+      "Sha256": "D653DDB3678CE0A8DC2B52A20C34D1BF48361EA84F478CC0C8C12E2CD1683C35"
+    },
+    {
       "Path": "src/Runtime/Erlang.Terms/Storage/IOwnedTermSequence506.cs",
       "HashMode": "Raw",
       "Sha256": "CED23F60176792C8B532EA4E33645E67C4DADBA7D77F8BD039E40C27F28ED4FC"
@@ -15302,6 +15409,11 @@
       "Path": "src/Runtime/Erlang.Terms/Storage/Observed/ObservedPayloadStorage.cs",
       "HashMode": "Raw",
       "Sha256": "98BDFF70B425F513EF598BC5B6EE3AC71704E8DADC1D351EC222ADB13B1FC992"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Storage/ResourceBitsRead577.cs",
+      "HashMode": "Raw",
+      "Sha256": "8907351AAE5068F06EC95AB39703BAB3AEBEF58806C44D0633DA96E0474E28A3"
     },
     {
       "Path": "src/Runtime/Erlang.Terms/Support/ErlangModuleNames.cs",
@@ -15456,7 +15568,7 @@
     {
       "Path": "src/Runtime/Erlang.Terms/Values/BitString.cs",
       "HashMode": "Raw",
-      "Sha256": "33147E627299AD48C8119673F0905CF7CAEA8474CC602DA407F478B781B383E9"
+      "Sha256": "E87633AC915747FC1F96899C8AF71DE3FCDC8C5BA68BA1734510059DA56E844B"
     },
     {
       "Path": "src/Runtime/Erlang.Terms/Values/BitString.DebugUnaligned421.cs",
@@ -15466,32 +15578,37 @@
     {
       "Path": "src/Runtime/Erlang.Terms/Values/BitString.Native524.cs",
       "HashMode": "Raw",
-      "Sha256": "013867800C259BA1DC64C2D88C2D9CE332E73ABDE2A200EA297F2CDEBDEE1E29"
+      "Sha256": "7D59A7EE435EFDF8A3D3A541D80053781EE0605A67CAB8A1403EFDB2839356AB"
     },
     {
       "Path": "src/Runtime/Erlang.Terms/Values/BitString.OwnedPayload512.cs",
       "HashMode": "Raw",
-      "Sha256": "CC99E5FE209D04AE9FE51782B50FA3F7F8B5D830BDDE7B081427D568B8A4BB03"
+      "Sha256": "CB1648CEF2C622E1A0F629B1FF202CF38CBDB22051E0F25841447A4004308A75"
     },
     {
       "Path": "src/Runtime/Erlang.Terms/Values/BitString.PersistentStorage416.cs",
       "HashMode": "Raw",
-      "Sha256": "5F0CCE4600665121DEB38A8D143AFC51C7AA27AC638D7922FCA39DFA59B5A1AB"
+      "Sha256": "0BD1C6A607190066EF903F2F7F519309D6629EB573FF7CEEFC893AAFE6D1E71C"
     },
     {
       "Path": "src/Runtime/Erlang.Terms/Values/BitString.RegexCapture.cs",
       "HashMode": "Raw",
-      "Sha256": "3474352E1DE2378A9E6BBD4B62D1CFAE948DFB97D2A8E95482CDF61E58730B2F"
+      "Sha256": "0CBC55A77BEBA9C835526031945324BCCE911980166FDE9FE7E7197193E32A61"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Values/BitString.ResourceBits577.cs",
+      "HashMode": "Raw",
+      "Sha256": "2DE3E400567E4C83C1DA81B20C855B0DC5DEC319A84035C28D6EECF07B47465C"
     },
     {
       "Path": "src/Runtime/Erlang.Terms/Values/BitString.Sharing425.cs",
       "HashMode": "Raw",
-      "Sha256": "18D9CA0E6DE4CBBE6C0BEC3BC3F0AE94ADA1D7D3AE94B7A053A8924EC4C19480"
+      "Sha256": "4B6E64BB2A38B231EB2033326372977EBC9AE97ED622A6B4CA62A51782FA4038"
     },
     {
       "Path": "src/Runtime/Erlang.Terms/Values/BitString.TermHeader430.cs",
       "HashMode": "Raw",
-      "Sha256": "3D04298A51655A8117670CC99027B84CD9A27F5D77E4F5871C8C9284BB7971C7"
+      "Sha256": "709DE9F02EA1449671A11AC360E5A70AFC60EBA04A3E685ED4EF1D97EC07B9B8"
     },
     {
       "Path": "src/Runtime/Erlang.Terms/Values/BitStringLayout.cs",
@@ -16501,7 +16618,7 @@
     {
       "Path": "tools/Native/Erlang.NifResource529Observations/collect.py",
       "HashMode": "Raw",
-      "Sha256": "03028F193DEF30A63AC6A14A460489F6C56391A6531F6AF94DB4FA3E4AD05774"
+      "Sha256": "2923C6D492DA6CCB24696CE95BB58092638EF26E5D7084ED219DF1C7336FACF6"
     },
     {
       "Path": "tools/Native/Erlang.NifResource529Observations/fixtures/acquire_handoff528.erl",
@@ -16514,14 +16631,19 @@
       "Sha256": "BC0B7972ED92AB49B3EF3105A239D8DA03E4F84D50905AA36675D89CDB5DAC09"
     },
     {
+      "Path": "tools/Native/Erlang.NifResource529Observations/fixtures/magic_alias_observer576.erl",
+      "HashMode": "Raw",
+      "Sha256": "D5F772283CE8F26A419121A6238B7B95AEB0F72FB65283B1F89DA4F23FD3BBBA"
+    },
+    {
       "Path": "tools/Native/Erlang.NifResource529Observations/fixtures/native_resource_family527.c",
       "HashMode": "Raw",
-      "Sha256": "0139C8E8242B39E4A158273BC28EA900B51E2D0A8F9E03C59F108E0589CF2601"
+      "Sha256": "1EBB916759CF6AE14B15A5F93F39AE60F9F332FBFB1883200B61D891C1E9FFCB"
     },
     {
       "Path": "tools/Native/Erlang.NifResource529Observations/fixtures/native_resource_family527.erl",
       "HashMode": "Raw",
-      "Sha256": "6353C2A8A4566D0AF2460D96B7878F2F667E90F427501FE31F3355FB11332936"
+      "Sha256": "6D014C264AFB72473BE31BA72E91590B516318901F304F89BA1F93B15045DC20"
     },
     {
       "Path": "tools/Native/Erlang.NifResource529Observations/fixtures/native_resource_handoff528.c",
@@ -16534,6 +16656,11 @@
       "Sha256": "B8DCD3C6781B7A282ADEC1DC0039338467E50EB8380DBE8AEA51EE183CEF8CFB"
     },
     {
+      "Path": "tools/Native/Erlang.NifResource529Observations/fixtures/resource_binary_observer577.erl",
+      "HashMode": "Raw",
+      "Sha256": "35E35F33F7F8E9EA3576C54653F9E288E9A2F9B150D235F89BBC62B790231459"
+    },
+    {
       "Path": "tools/Native/Erlang.NifResource529Observations/fixtures/resource_handoff_worker528.erl",
       "HashMode": "Raw",
       "Sha256": "4BB0EE1886D931FBA9E6ED9D88EFE65A0DA05F87B703C5CEAEC2AE3D999255F0"
@@ -16541,7 +16668,7 @@
     {
       "Path": "tools/Native/Erlang.NifResource529Observations/fixtures/resource_observer529.erl",
       "HashMode": "Raw",
-      "Sha256": "59091BCB3BDE080FC1A927964E18E9224663F607658F400DBD4761B9EE374210"
+      "Sha256": "71616B20CCBD8EBB205AFF1B697A0E0229D9DAD6B70C7D2F5DDEB91CF96922B6"
     },
     {
       "Path": "tools/Native/Erlang.NifResource529Observations/fixtures/resource_takeover_observer529.erl",
@@ -16556,12 +16683,12 @@
     {
       "Path": "tools/Native/Erlang.NifResource529Observations/replay-family.py",
       "HashMode": "Raw",
-      "Sha256": "E158A9319EEBDF3BAE7BD9B61B0CADF4CABDA38B928608B586B30AFA522F30F3"
+      "Sha256": "E42462A0641CAE182F20BC9170115054BAE4C84452E4E440015C6F5332CC531A"
     },
     {
       "Path": "tools/Native/Erlang.NifResource529Observations/seal.py",
       "HashMode": "Raw",
-      "Sha256": "FC9FB6FEDD97F8AB9E81E724A122009FD739FBA9E3305A6ACBFE2F9267330CA6"
+      "Sha256": "7735A50980432F144C336356343E8B1D5F7812AFA789AD74B243039DCEBF202D"
     }
   ],
   "BuildScriptSha256": "E73C3EB03046E985BBAAE950988F8643E06279B293A7B6E87812C07749BD040F",

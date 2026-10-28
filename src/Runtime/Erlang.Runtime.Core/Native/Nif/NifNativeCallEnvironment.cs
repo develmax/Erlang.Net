@@ -158,6 +158,7 @@ internal sealed unsafe partial class NifNativeCallEnvironment : IDisposable
     internal nuint AddValue(NifNativeTermValue value)
     {
         _ = Pointer;
+        value = AdoptMagicValue576(value);
         RetainGuestValue516(value);
         if (value.Pending is { } pending)
             RetainGraph(pending);

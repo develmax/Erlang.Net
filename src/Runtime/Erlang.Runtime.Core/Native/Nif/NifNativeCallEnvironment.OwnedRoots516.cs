@@ -113,8 +113,17 @@ internal sealed unsafe partial class NifNativeCallEnvironment
     {
         Term value = Get(handle);
 
-        // Dynamic NIF functions remain an opaque boundary. Export while the
-        // environment frame still owns every source graph/root and backing.
+        if (Runtime.OwnedTermsPilot506 && NativeResourceRoots524.Contains524(value)
+            && OwnedTermInvocation506.TryAdmitNativeGuestResult535(
+                Runtime,
+                Image,
+                value,
+                out Term guest
+            ))
+            return guest;
+
+        // Export opaque results while the environment frame still owns every
+        // source graph/root and backing.
         Term exported = Runtime.OwnedTermsPilot506 ? OwnedTermDetachedCopy506.Copy(Runtime, value) : value;
         if (!NativeResourceRoots524.Contains524(exported)) return exported;
 

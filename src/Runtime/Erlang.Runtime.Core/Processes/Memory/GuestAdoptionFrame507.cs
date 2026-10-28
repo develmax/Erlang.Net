@@ -19,6 +19,7 @@ internal sealed class GuestAdoptionFrame507
             {
                 Cons cons => [cons.Head, cons.Tail],
                 TupleTerm tuple => tuple.Items.ToArray(),
+                BitString { ResourceSliceOrigin577: { } origin } => [origin],
                 _ => []
             };
         Built = new Term[Children.Length];

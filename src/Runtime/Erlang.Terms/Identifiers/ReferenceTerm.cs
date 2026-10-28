@@ -70,6 +70,15 @@ public class ReferenceTerm : Term
         ordinaryLocal562 = true;
     }
 
+    // Resource wrappers use the actual magic-reference reader without receiving
+    // the runtime ordinary-make_ref provenance capability.
+    internal ReferenceTerm(ReferenceTerm identity, IOwnedReferenceStorage562 storage)
+    {
+        externalIdentity = identity.WireIdentity;
+        localIdentity = identity.LocalIdentity;
+        OwnedStorage562 = storage;
+    }
+
     private static BigInteger Reconstruct562(IReadOnlyList<uint> words)
     {
         BigInteger id = BigInteger.Zero;

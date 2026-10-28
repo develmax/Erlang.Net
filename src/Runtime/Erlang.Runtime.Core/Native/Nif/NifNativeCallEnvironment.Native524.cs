@@ -17,7 +17,7 @@ internal sealed unsafe partial class NifNativeCallEnvironment
             {
                 nativeStaticRoots524 ??= new(ReferenceEqualityComparer.Instance);
                 if (nativeStaticRoots524.Contains(term)) continue;
-                IDisposable? lease = NativeResourceRoots524.RetainGraph524(term, Runtime);
+                IDisposable? lease = NativeResourceRoots524.RetainGraph524(term, Runtime, guestRoots516 is not null);
                 if (lease is not null)
                 {
                     try

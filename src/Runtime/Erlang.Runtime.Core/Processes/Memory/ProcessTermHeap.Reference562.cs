@@ -43,6 +43,8 @@ internal sealed partial class ProcessTermHeap506
         lock (Gate)
         {
             RequireReferencePlatform562();
+            if (TryReadMagicWords576(payload, out var magicNumbers))
+                return magicNumbers!;
             if (!ReferenceEquals(payload.Owner, this)
                 || !blocks.TryGetValue(payload.Identity, out var active)
                 || !ReferenceEquals(active, payload))

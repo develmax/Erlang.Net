@@ -6,7 +6,7 @@ run(Kind, First, Second, FreshBeam, MarkerBase) ->
         Value = case Kind of
             family527 ->
                 ok = native_resource_family527:load(First, 0),
-                native_resource_family527:run();
+                {native_resource_family527:run(), magic_alias_observer576:run(), resource_binary_observer577:run()};
             handoff528 ->
                 acquire_handoff528:run(First, FreshBeam, Second,
                     MarkerBase ++ "-first", MarkerBase ++ "-second")

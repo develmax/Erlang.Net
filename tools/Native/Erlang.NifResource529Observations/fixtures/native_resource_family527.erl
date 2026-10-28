@@ -1,5 +1,5 @@
 -module(native_resource_family527).
--export([load/2, run/0, held/2, opens527/0, outside527/0, make527/0, native_only527/0, inspect527/1, count527/0]).
+-export([load/2, run/0, held/2, opens527/0, outside527/0, make527/0, native_only527/0, inspect527/1, count527/0, aliases576/0, binary_aliases577/0]).
 
 load(Path, Info) -> erlang:load_nif(Path, Info).
 opens527() -> erlang:nif_error(nif_not_loaded).
@@ -8,6 +8,9 @@ make527() -> erlang:nif_error(nif_not_loaded).
 native_only527() -> erlang:nif_error(nif_not_loaded).
 inspect527(_) -> erlang:nif_error(nif_not_loaded).
 count527() -> erlang:nif_error(nif_not_loaded).
+
+aliases576() -> erlang:nif_error(nif_not_loaded).
+binary_aliases577() -> erlang:nif_error(nif_not_loaded).
 
 run() ->
     {Version, Initial, _} = count527(),

@@ -23,4 +23,6 @@ internal static class NativeResourceAllocation570Names
     internal const string RetireImage = "RetireAsync";
     // Actual tuple allocation: one header and its two Term cells.
     internal const int TupleAllocationWords = 3;
+    // Actual BinRef3 + SubBits5 cells per independently copied resource view.
+    internal const int ResourceBinaryAllocationWords = 8;
 }

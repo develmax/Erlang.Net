@@ -2,9 +2,22 @@ namespace Erlang;
 
 public sealed partial class BitString
 {
-    internal object? NativeResourceIdentity524 => backing.NativeIdentity524;
+    internal object? NativeResourceIdentity524
+    {
+        get
+        {
+            _ = ownedResourceBits577?.ReadResourceBits577();
 
-    internal IDisposable? RetainNativeRoot524() => backing.RetainNative524();
+            return backing.NativeIdentity524;
+        }
+    }
+
+    internal IDisposable? RetainNativeRoot524()
+    {
+        ValidateOwnedBits577();
+
+        return backing.RetainNative524();
+    }
 
     internal static BitString FromNativeStorage524(INativeBinaryStorage524 storage)
     {
@@ -15,18 +28,18 @@ public sealed partial class BitString
         return new BitString(new BinaryBacking(storage), 0, bits);
     }
 
-    internal BitString CloneNativeView524() => new(backing, bitOffset, BitLength);
+    internal BitString CloneNativeView524() => DetachResourceView577();
 
     internal bool BorrowNativeBinary524(out nint pointer, out IDisposable? lease)
     {
         pointer = 0;
         lease = null;
-        if (!IsBinary || bitOffset % BitStringLayout.BitsPerByte != 0 || backing.NativeStorage524 is not { } native)
+        if (!IsBinary || LogicalBitOffset577 % BitStringLayout.BitsPerByte != 0 || backing.NativeStorage524 is not { } native)
             return false;
         IDisposable retained = native.RetainRoot524();
         try
         {
-            pointer = checked(native.Pointer524 + (nint)(bitOffset / BitStringLayout.BitsPerByte));
+            pointer = checked(native.Pointer524 + (nint)(LogicalBitOffset577 / BitStringLayout.BitsPerByte));
             lease = retained;
 
             return true;

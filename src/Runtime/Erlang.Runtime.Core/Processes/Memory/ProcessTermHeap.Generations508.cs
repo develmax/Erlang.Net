@@ -73,7 +73,9 @@ internal sealed partial class ProcessTermHeap506
                 foreach (Term child in NativeMapOwnedRoots510.Children(term))
                     pending.Push(child);
             }
+            MarkResourceBinaryNodes577(seen, major, marked);
             ProcessNativeCollection524? nativeCollection = PrepareNativeCollection524(seen, major, marked);
+            MagicReferenceSweep576? magicCollection = PrepareMagicCollection576(marked, major);
             long[] dead = blocks.Keys.Where(id => !marked.Contains(id)
                 && (major || !oldBlocks508.Contains(id))).ToArray();
             long reclaimed = dead.Sum(id => (long)blocks[id].Count);
@@ -85,6 +87,7 @@ internal sealed partial class ProcessTermHeap506
             // All traversal/validation and checked scalar calculations complete
             // before cells are released or collection state advances.
             nativeCollection?.Commit524();
+            magicCollection?.Commit576();
             foreach (long id in dead)
             {
                 ProcessTermSequence506 block = blocks[id];
@@ -93,6 +96,7 @@ internal sealed partial class ProcessTermHeap506
                 mapHeaders517.Remove(id);
                 oldBlocks508.Remove(id);
             }
+            ForgetResourceBinaryBlocks577(dead);
             if (major)
                 oldBlocks508.Clear();
             else

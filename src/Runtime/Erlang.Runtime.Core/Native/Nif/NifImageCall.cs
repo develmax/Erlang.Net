@@ -9,6 +9,10 @@ internal sealed class NifImageCall : IDisposable
 
     internal bool GuestNative535 { get; }
 
+    internal bool CanRetainGuestResult535(ModuleCodeImage image)
+        => GuestNative535 && ReferenceEquals(owner.Image, image)
+            && Volatile.Read(ref state) == NifImageCallStates.Running;
+
     internal NifImageCall(NifImageBindings owner, ErlangFunction body, int arity)
         : this(
             owner,
