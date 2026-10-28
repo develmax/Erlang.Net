@@ -296,9 +296,15 @@ public static class NifReallocationHostChecks
                 0,
                 NifReallocationHostParameters.AfterZero
             );
-            await ConcurrentSnapshots(runtime, a, pointer);
+            pointer = await ConcurrentSnapshots(runtime, a, pointer);
             await libraryA.DisposeAsync();
             await libraryB.DisposeAsync();
+            var retained = NifAllocationDomainHostBridge.Snapshot(runtime);
+            Require(retained.JoinedOwners == NifAllocationDomainHostParameters.SimultaneousOwners && retained.Allocations.Count == 2);
+            Read(pointer, NifReallocationHostParameters.AfterZero);
+            Read(other, NifReallocationHostParameters.OtherGrown);
+            NativeResourceArena528Access.Free(pointer);
+            NativeResourceArena528Access.Free(other);
             var closed = NifAllocationDomainHostBridge.Snapshot(runtime);
             Require(closed.JoinedOwners == 0 && closed.Allocations.Count == 0);
             Coherent(closed.Allocations);
@@ -306,10 +312,10 @@ public static class NifReallocationHostChecks
         );
     }
 
-    private static async Task ConcurrentSnapshots(ProcessRuntime runtime, NifReallocationHostOwner owner, nint pointer)
+    private static async Task<nint> ConcurrentSnapshots(ProcessRuntime runtime, NifReallocationHostOwner owner, nint pointer)
     {
         using var writerStop = new CancellationTokenSource(NifAllocationDomainHostNames.Deadline);
-        Task writer = Task.Run(() =>
+        Task<nint> writer = Task.Run(() =>
         {
             int size = NifReallocationHostParameters.AfterZero;
             for (int index = 0; index < NifReallocationHostParameters.Iterations; index++)
@@ -324,6 +330,8 @@ public static class NifReallocationHostChecks
                 );
                 size = next;
             }
+
+            return pointer;
         });
         Exception? readerFailure = null;
         try
@@ -356,6 +364,8 @@ public static class NifReallocationHostChecks
                 // The writer has settled; preserve the original reader/observed writer failure.
             }
         }
-        // Library disposal reclaims the final pointer; the caller never reuses its stale value.
+
+        // Return the settled writer's actual final allocation; realloc may have moved it.
+        return await writer;
     }
 }

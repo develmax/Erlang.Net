@@ -30,6 +30,18 @@ public sealed partial class ProcessRuntime
         try
         {
             await Modules.CloseNifLifetimeAsync().ConfigureAwait(false);
+            Exception? resourceFailure528 = null;
+            try
+            {
+                await DrainNativeResources524().ConfigureAwait(false);
+            }
+            catch (Exception error)
+            {
+                resourceFailure528 = error;
+            }
+            FinalizeNativeAllocationArena528(true);
+            if (resourceFailure528 is not null)
+                System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(resourceFailure528).Throw();
             automaticNifShutdown!.TrySetResult();
         }
         catch (Exception failure)

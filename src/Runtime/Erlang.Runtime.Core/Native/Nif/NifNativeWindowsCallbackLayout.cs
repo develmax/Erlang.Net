@@ -52,6 +52,7 @@ internal static class NifNativeWindowsCallbackLayout
     internal const int IsNumber = 104;
     internal const int IsMap = 108;
     internal const int GetListCell = 13;
+    internal const int MakeListCell = 26;
     internal const int GetUnsignedLong = 11;
     internal const int GetDouble = 12;
     internal const int MakeUnsignedLong = 20;

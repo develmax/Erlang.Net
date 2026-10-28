@@ -1,0 +1,18 @@
+[
+  {
+    "Path": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceTypeTable527.cs",
+    "RawPreimageSha256": "6D1935152862FF49EF796767D412E5BBCCEE3C46D75DE2FE25BEEDCB3738BF6A",
+    "TextLFPreimageSha256": "6D1935152862FF49EF796767D412E5BBCCEE3C46D75DE2FE25BEEDCB3738BF6A",
+    "CandidateSha256": "FECE5487659D0B6448C31DF0637682E759BE7EB6E668029B98B612BEEDC0E02E",
+    "Before": "        NativeResourceCallbackVersion527? release = null;\n        callbackGate.EnterWriteLock();\n        try\n        {\n            lock (namesGate529)\n                if (type.DetachIfEmpty527(out release)) committed.Remove(type);\n        }\n        finally\n        {\n            callbackGate.ExitWriteLock();\n        }\n        release?.Dispose();",
+    "After": "        bool detached = false;\n        callbackGate.EnterWriteLock();\n        try\n        {\n            lock (namesGate529)\n            {\n                if (type.DetachIfEmpty527(out _))\n                {\n                    committed.Remove(type);\n                    detached = true;\n                }\n            }\n        }\n        finally\n        {\n            callbackGate.ExitWriteLock();\n        }\n        // Detach revoked future payload/pending admission. Transfer the domain's\n        // last ownership outside callback/name locks before unregistering the\n        // opaque token and releasing its callback-version/image pin.\n        if (detached)\n            domain.RetireDetachedType575(type);"
+  },
+  {
+    "Path": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceDomain.Types527.cs",
+    "RawPreimageSha256": "10FFCF5081376418187CA329E6CD12B33737F3A012202F73F8935445227755C0",
+    "TextLFPreimageSha256": "10FFCF5081376418187CA329E6CD12B33737F3A012202F73F8935445227755C0",
+    "CandidateSha256": "BA93539877FD1E8DA37740CF641B5AA2D871BB7AE14C805D20317525FDA070D0",
+    "Before": "    internal void DiscardPendingType527(NativeResourceType524 type)\n",
+    "After": "    internal void RetireDetachedType575(NativeResourceType524 type)\n    {\n        lock (gate)\n        {\n            // Serialize the ownership transfer with Join524. There must be no\n            // removed-but-not-disposed gap in which shutdown reports success.\n            // This runs after all table/name locks exit. Dispose only frees the\n            // token and releases a pin; ReleaseCall queues no C inline here.\n            if (types.Remove(type))\n                type.Dispose();\n        }\n    }\n\n    internal void DiscardPendingType527(NativeResourceType524 type)\n"
+  }
+]

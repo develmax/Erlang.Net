@@ -21,6 +21,7 @@ internal sealed unsafe partial class NifNativeCallEnvironment
     // There is no environment gate around this traversal or detached copying.
     private void RetainGuestValue516(NifNativeTermValue value)
     {
+        RetainNativeValue524(value);
         ProcessTermFrame506? roots = guestRoots516;
         if (roots is null)
             return;
@@ -114,6 +115,11 @@ internal sealed unsafe partial class NifNativeCallEnvironment
 
         // Dynamic NIF functions remain an opaque boundary. Export while the
         // environment frame still owns every source graph/root and backing.
-        return Runtime.OwnedTermsPilot506 ? OwnedTermDetachedCopy506.Copy(Runtime, value) : value;
+        Term exported = Runtime.OwnedTermsPilot506 ? OwnedTermDetachedCopy506.Copy(Runtime, value) : value;
+        if (!NativeResourceRoots524.Contains524(exported)) return exported;
+
+        return Runtime.OwnedTermsPilot506
+            ? OwnedTermInvocation506.AdmitNativeResult524(Runtime, exported)
+            : NativeTermHostScope524.AdmitCurrent524(Runtime, exported);
     }
 }

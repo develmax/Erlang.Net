@@ -39,6 +39,7 @@ internal sealed class ProcessBinaryRegistry512
         // registry gate is held while reading term children or their backing.
         var seen = new HashSet<Term>(ReferenceEqualityComparer.Instance);
         var backings = new Dictionary<object, BinaryPayloadHandle512>(ReferenceEqualityComparer.Instance);
+        HashSet<NativeResourcePayload524>? native = null;
         long visits = 0;
         var pending = new Stack<Term>();
         pending.Push(graph);
@@ -47,6 +48,8 @@ internal sealed class ProcessBinaryRegistry512
             if (!seen.Add(value))
                 continue;
             visits++;
+            if (NativeResourceRoots524.Direct524(value) is { } resource)
+                (native ??= new(ReferenceEqualityComparer.Instance)).Add(resource);
             if (value is BitString binary)
             {
                 BinaryPayloadHandle512 handle = binary.CaptureBinaryPayload512();
@@ -56,20 +59,46 @@ internal sealed class ProcessBinaryRegistry512
                 foreach (Term child in NativeMapOwnedRoots510.Children(value))
                     pending.Push(child);
         }
-        var lease = new ProcessBinaryLease512(this, owner, backings.Values.ToArray());
-        lock (gate)
+        var retained = new IDisposable[native?.Count ?? 0];
+        int admitted = 0;
+        ProcessBinaryLease512 lease;
+        try
         {
-            long nextVisits = checked(visitedTerms514 + visits);
-            long nextOperations = checked(retainOperations514 + 1);
-            long nextReferences = checked(liveBackingReferences514 + lease.Handles.Length);
-            leases.Add(lease);
-            visitedTerms514 = nextVisits;
-            retainOperations514 = nextOperations;
-            liveBackingReferences514 = nextReferences;
-            peakBackingReferences514 = Math.Max(peakBackingReferences514, nextReferences);
+            if (native is not null)
+                foreach (NativeResourcePayload524 payload in native) retained[admitted++] = payload.RetainRoot524();
+            lease = new ProcessBinaryLease512(
+                this,
+                owner,
+                backings.Values.ToArray(),
+                retained.Length == 0 ? null : new NativeResourceRootSet524(retained)
+            );
         }
+        catch
+        {
+            for (int index = admitted - 1; index >= 0; index--) retained[index].Dispose();
+            throw;
+        }
+        try
+        {
+            lock (gate)
+            {
+                long nextVisits = checked(visitedTerms514 + visits);
+                long nextOperations = checked(retainOperations514 + 1);
+                long nextReferences = checked(liveBackingReferences514 + lease.Handles.Length);
+                leases.Add(lease);
+                visitedTerms514 = nextVisits;
+                retainOperations514 = nextOperations;
+                liveBackingReferences514 = nextReferences;
+                peakBackingReferences514 = Math.Max(peakBackingReferences514, nextReferences);
+            }
 
-        return lease;
+            return lease;
+        }
+        catch
+        {
+            lease.Clear512();
+            throw;
+        }
     }
 
     internal void Release512(ProcessBinaryLease512 lease)

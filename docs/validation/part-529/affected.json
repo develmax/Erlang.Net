@@ -1,0 +1,1532 @@
+{
+  "Partial": true,
+  "SelectedCount": 253,
+  "TotalCount": 9215,
+  "Blocks": [],
+  "ExactCases": [
+    "HOST/beam410/original-prim-file-exact33-nif-declarations",
+    "HOST/beam410/raw-nif-marker-eligibility-and-entry",
+    "beam/loader-map-keys565/actual-key-tuple-custody-and-portable-export",
+    "beam/loader-map-keys565/foreign-stale-and-unadmitted-hidden-keys",
+    "beam/loader-map-keys565/syntactic-literal-predicate-and-image-identity",
+    "compiler/nif-declaration-control-metadata-and-ownership",
+    "host/nif-map-creation501-actual-slot-and-environment-ownership",
+    "host/nif-map-creation501-invalid-and-retired-environments",
+    "host/nif-map-creation501-process-and-independent-thread-ownership",
+    "host/nif-map-family504/arrays-aliases",
+    "host/nif-map-family504/copy-boundaries-owners",
+    "host/nif-map-family504/invalid-owners-threads",
+    "host/nif-map-family504/mutation-output",
+    "host/nif-map-family504/pending-values-replacement",
+    "host/nif-map-iterator504-all-slots-shapes-and-boundaries",
+    "host/nif-map-iterator504-borrowed-pending-value-graphs",
+    "host/nif-map-iterator504-hints-owner-and-clear-lifetime",
+    "host/nif-map-iterator504-invalid-owner-and-thread-controls",
+    "host/nif-map-materialized505/buffer-release-and-saved-index",
+    "host/nif-map-materialized505/cross-runtime-and-closed-owner",
+    "host/nif-map-materialized505/deep-map-equality",
+    "host/nif-map-materialized505/duplicate-reference-factory-and-peer-equality",
+    "host/nif-map-materialized505/duplicate-reference-reentry",
+    "host/nif-map-materialized505/physical-flat-layout-and-equality",
+    "host/nif-map-review504/collision-cmp-actual-first-role",
+    "host/nif-map-review504/local-fun-unique-and-comparison-preconditions",
+    "host/nif-map-review504/static-indexed-lookup-allocation-scaling",
+    "host/nif-map-review504/static-indexed-misses-and-output-guards",
+    "host/nif-map-value503-exact-keys-and-unchanged-output",
+    "host/nif-map-value503-fresh-pending-binary-key-graphs",
+    "host/nif-map-value503-invalid-owner-and-thread-controls",
+    "host/nif-map-value503-map-owner-lifetime-and-hints",
+    "mfa/erlang:load_nif/2",
+    "mfa/erlang:nif_error/1",
+    "mfa/erlang:nif_error/2",
+    "native-cons539/owners-expiry-and-thread-admission",
+    "native-cons539/pending-binary-and-improper-tuple-tail",
+    "native-cons539/real-slot-static-and-improper",
+    "native-cons539/resource-copy-and-clear-lifetime",
+    "native-resource524/physical-destructor-image-pin",
+    "native-resource524/view-guest-collection",
+    "native-resource527/create-duplicate-rollback",
+    "native-resource527/magic-header-identity",
+    "native-resource527/takeover-new-physical-destructor",
+    "native-resource528/arena-image-close-foreign-free",
+    "native-resource528/new-destructor-old-child",
+    "native-resource529/held-callback-forked-image-pin",
+    "native-resource529/logical-name-unlink-live-payload",
+    "native-resource531/parallel-host-export-lease-custody",
+    "native-resource535/canonical-readers-public-refusal",
+    "native-resource535/managed-nif-provider-opaque",
+    "native-resource535/public-reregister-canonical-delegate-opaque",
+    "native-resource536/guest-gc-real-normal-auxiliary-once",
+    "native-resource536/held-normal-destructor-physical-close",
+    "native-resource536/non-gc-foreign-context-retained",
+    "oracle/compiled-module/default_load_nif_accepted_domain",
+    "oracle/compiled-module/default_load_nif_invalid_filename",
+    "oracle/compiled-module/erlang-error-metadata-export-nif_error-1",
+    "oracle/compiled-module/erlang-error-metadata-export-nif_error-2",
+    "oracle/compiled-module/erlang-load-nif-indirect-apply-argument-failure-before-bif",
+    "oracle/compiled-module/erlang-load-nif-indirect-apply-argument-order",
+    "oracle/compiled-module/erlang-load-nif-indirect-apply-improper-path-before-validation",
+    "oracle/compiled-module/erlang-load-nif-indirect-apply-invalid-path",
+    "oracle/compiled-module/erlang-load-nif-indirect-apply-missing-path",
+    "oracle/compiled-module/erlang-load-nif-indirect-apply-opaque-map-and-fun-arguments",
+    "oracle/compiled-module/erlang-load-nif-indirect-fun-reference-invalid-path",
+    "oracle/compiled-module/erlang-load-nif-ordinary-host-badarg",
+    "oracle/compiled-module/erlang-load-nif-ordinary-host-missing-binary",
+    "oracle/compiled-module/erlang-load-nif-ordinary-host-missing-string",
+    "oracle/compiled-module/erlang-module-information-nifs",
+    "oracle/compiled-module/erlang-nif-declaration-absent-fallback",
+    "oracle/compiled-module/erlang-nif-declaration-duplicate-function-fallback",
+    "oracle/compiled-module/erlang-nif-declaration-empty-fallback",
+    "oracle/compiled-module/erlang-nif-declaration-empty-then-nonempty-fallback",
+    "oracle/compiled-module/erlang-nif-declaration-nonempty-then-empty-fallback",
+    "oracle/compiled-module/erlang-nif-declaration-private-fallback",
+    "oracle/compiled-module/erlang-nif-declaration-repeated-attribute-fallback",
+    "oracle/compiled-module/erlang-nif-declaration-tuple-form-fallback",
+    "oracle/compiled-module/otp-supervisor-significant-all-last-temporary",
+    "oracle/compiled-module/otp-supervisor-significant-all-last-transient",
+    "oracle/compiled-module/otp-supervisor-significant-all-waits-for-last",
+    "oracle/compiled-module/otp-supervisor-significant-any-temporary-abnormal",
+    "oracle/compiled-module/otp-supervisor-significant-any-temporary-normal",
+    "oracle/compiled-module/otp-supervisor-significant-any-transient-normal",
+    "oracle/compiled-module/otp-supervisor-significant-any-transient-shutdown",
+    "oracle/compiled-module/otp-supervisor-significant-any-transient-shutdown-tuple",
+    "oracle/compiled-module/otp-supervisor-significant-check-empty-and-legacy",
+    "oracle/compiled-module/otp-supervisor-significant-check-improper-invalid-head",
+    "oracle/compiled-module/otp-supervisor-significant-check-improper-valid-prefix",
+    "oracle/compiled-module/otp-supervisor-significant-check-invalid-boolean",
+    "oracle/compiled-module/otp-supervisor-significant-check-invalid-policy-order",
+    "oracle/compiled-module/otp-supervisor-significant-check-permanent",
+    "oracle/compiled-module/otp-supervisor-significant-check-policy",
+    "oracle/compiled-module/otp-supervisor-significant-dynamic-significant-child",
+    "oracle/compiled-module/otp-supervisor-significant-dynamic-significant-invalid",
+    "oracle/compiled-module/otp-supervisor-significant-failed-dynamic-record",
+    "oracle/compiled-module/otp-supervisor-significant-group-restart-no-auto-shutdown",
+    "oracle/compiled-module/otp-supervisor-significant-ignored-dynamic",
+    "oracle/compiled-module/otp-supervisor-significant-ignored-startup",
+    "oracle/compiled-module/otp-supervisor-significant-inactive-significant-not-counted",
+    "oracle/compiled-module/otp-supervisor-significant-manual-delete-keeps-supervisor",
+    "oracle/compiled-module/otp-supervisor-significant-manual-terminate-keeps-supervisor",
+    "oracle/compiled-module/otp-supervisor-significant-non-significant-normal",
+    "oracle/compiled-module/otp-supervisor-significant-non-significant-temporary",
+    "oracle/compiled-module/otp-supervisor-significant-startup-empty-all",
+    "oracle/compiled-module/otp-supervisor-significant-startup-empty-any",
+    "oracle/compiled-module/otp-supervisor-significant-startup-invalid-policy",
+    "oracle/compiled-module/otp-supervisor-significant-startup-never-error",
+    "oracle/compiled-module/otp-supervisor-significant-startup-permanent-error",
+    "oracle/compiled-module/otp-supervisor-significant-transient-abnormal-restarts",
+    "oracle/compiler-diagnostic/nif-declaration-invalid-integer-entry",
+    "oracle/compiler-diagnostic/nif-declaration-undefined-local",
+    "runtime/allocation567/failed-publication-not-garbage-collection",
+    "runtime/allocation567/isolation-and-held-retirement",
+    "runtime/allocation567/scalar-generations-and-actual-reclaim",
+    "runtime/allocation567/shared-map-roots-custody",
+    "runtime/allocator434/actual-nif-span-histogram-and-realloc",
+    "runtime/beam-constructed548/closed-504-store-candidate-rollback",
+    "runtime/beam-constructed548/exact-candidate-reuse-and-structural-impostor-refused",
+    "runtime/beam-constructed548/single-candidate-publication-matrix",
+    "runtime/beam-list550/closed-y-store-publication-rollback",
+    "runtime/beam-list550/current-root-pair-publication-matrix",
+    "runtime/beam-list550/gc-custody-and-exact-root-refusal",
+    "runtime/boxed-float556/actual-slab-getter-and-major-gc",
+    "runtime/boxed-float556/adoption-marker-and-root-only-custody",
+    "runtime/boxed-float556/foreign-rejection-and-held-retirement",
+    "runtime/boxed-integer559/actual-slab-getter-and-major-gc",
+    "runtime/boxed-integer559/adoption-marker-and-root-only-custody",
+    "runtime/boxed-integer559/foreign-rejection-and-held-retirement",
+    "runtime/boxed-integer559/nested-immediates-import-and-adoption",
+    "runtime/configured-load-nif-common-capture",
+    "runtime/default-nif-source-route-policy-filename-and-code-admission",
+    "runtime/direct-source-load-nif-exact-caller-capability",
+    "runtime/library-manifest389/beam-owned-images-and-actual-source-owners",
+    "runtime/library-manifest389/invalid-schema-path-hash-and-dependencies",
+    "runtime/library-manifest389/managed-and-explicit-mixed-projects",
+    "runtime/library-manifest389/original-worker-values-and-five-full-stack-profiles",
+    "runtime/library-manifest389/stored-fun-y-destination-bounds",
+    "runtime/library-manifest389/valid-hash-wrong-module-refuses-startup",
+    "runtime/native-map510/composed-major-binary-lease-hidden-leaf-and-source-close",
+    "runtime/native-map510/flat-duplicate-occurrences-detach",
+    "runtime/native-map510/foreign-domain-fails-closed",
+    "runtime/native-map510/hidden-hamt-roots-and-topology",
+    "runtime/native-provider408/selected-original-manifest-consumer",
+    "runtime/native/regex485/binary-captures-whole-176",
+    "runtime/nif-array-callback-bounded-count-system-limit",
+    "runtime/nif-array-callback-empty-null-input",
+    "runtime/nif-array-callback-foreign-expired-and-null-containment",
+    "runtime/nif-array-callback-order-aliases-and-large-arrays",
+    "runtime/nif-beam-exact-image-entry-and-closure-routing",
+    "runtime/nif-binary-windows-allocationacrosscalls",
+    "runtime/nif-binary-windows-containment",
+    "runtime/nif-binary-windows-deepgraph",
+    "runtime/nif-binary-windows-deferredcomposites",
+    "runtime/nif-binary-windows-exceptionalcleanup",
+    "runtime/nif-binary-windows-exceptiongraph",
+    "runtime/nif-binary-windows-inspection",
+    "runtime/nif-binary-windows-iolists",
+    "runtime/nif-binary-windows-readonlyreallocation",
+    "runtime/nif-binary-windows-subviewlifetimes",
+    "runtime/nif-caller-image-reservation-generation-and-cleanup",
+    "runtime/nif-image-attachment-transactions-and-quiescence",
+    "runtime/nif-installed-current-image-inventory-and-cache",
+    "runtime/nif-legacy-string-windows-environmentandcontainment",
+    "runtime/nif-legacy-string-windows-latin1",
+    "runtime/nif-legacy-string-windows-longinputs",
+    "runtime/nif-legacy-string-windows-rejectedutf8",
+    "runtime/nif-legacy-string-windows-termination",
+    "runtime/nif-legacy-string-windows-utf8",
+    "runtime/nif-linux-bridge-array-list-cell",
+    "runtime/nif-linux-bridge-fixed-layout",
+    "runtime/nif-linux-bridge-lp64-long-boundaries",
+    "runtime/nif-linux-lp64-immediate-integer-boundaries-and-aliases",
+    "runtime/nif-linux-lp64-immediate-invocation-owner-restoration",
+    "runtime/nif-linux-lp64-large-environment-and-expired-owner-containment",
+    "runtime/nif-list-cell-windows-proper-improper-and-negative",
+    "runtime/nif-load-reason-original-five-controls",
+    "runtime/nif-native-requested-backing-allocation-ledger",
+    "runtime/nif-numeric-windows-environment-lifetime-and-output-containment",
+    "runtime/nif-numeric-windows-finite-bits-and-nonfinite-badarg",
+    "runtime/nif-numeric-windows-integer-constructor-boundaries",
+    "runtime/nif-numeric-windows-integer-conversion-boundaries-canaries",
+    "runtime/nif-owned-purge-discard-shutdown-and-real-unwind",
+    "runtime/nif-prepared-image-owner-without-global-exports",
+    "runtime/nif-real-payload-reallocation-extent-history",
+    "runtime/nif-runtime-native-payload-domain-lifecycle",
+    "runtime/nif-sequence-text-windows-atoms",
+    "runtime/nif-sequence-text-windows-containment",
+    "runtime/nif-sequence-text-windows-invocationownership",
+    "runtime/nif-sequence-text-windows-listlengths",
+    "runtime/nif-sequence-text-windows-strings",
+    "runtime/nif-sequence-text-windows-tuplelifetime",
+    "runtime/nif-source-named-entry-routing-and-owned-drain",
+    "runtime/nif-type-callback-windows-environment-independent",
+    "runtime/nif-type-callback-windows-table-all-term-categories",
+    "runtime/nif-type-list-cell-windows-expired-owner-containment",
+    "runtime/nif/compare-ordering",
+    "runtime/nif/compare-pending-live-writes",
+    "runtime/nif/compare-reference-ownership",
+    "runtime/nif/exact-identity",
+    "runtime/nif/linux-capsule-metadata",
+    "runtime/nif/map-size-owner-lifetime",
+    "runtime/nif/map-size-pure-environment",
+    "runtime/nif/map-size-shape-output",
+    "runtime/nif/reference-counter-boundaries",
+    "runtime/nif/reference-counter-concurrent-boundaries",
+    "runtime/nif/reference-environment-lifetime",
+    "runtime/nif/reference-foreign-threads",
+    "runtime/nif/reference-uniqueness",
+    "runtime/nif516/append-only-hidden-map-and-new-composite",
+    "runtime/nif516/environment-retains-real-slab-until-disposal",
+    "runtime/nif516/ordinary-profile-preserves-existing-static-path",
+    "runtime/nif516/pending-static-roots-independent-copy-magic-custody",
+    "runtime/nif516/static-list-tail-root-walk-scaling",
+    "runtime/nif516/unknown-static-graph-remains-conservative",
+    "runtime/nif526/windows-variadic-slots-never-null",
+    "runtime/ordinary-reference562/actual-header-words-and-retirement",
+    "runtime/ordinary-reference562/alias-import-adopt-and-rollback",
+    "runtime/ordinary-reference562/provenance-identity-and-foreign",
+    "runtime/owned-actor-dispatch-capacity-continuation-and-retirement",
+    "runtime/owned-guest506/blocked-source-descriptor-does-not-hold-heap-gate",
+    "runtime/owned-guest506/captured-context-public-entry-reopens-independent-roots",
+    "runtime/owned-guest506/compiled-await-cancellation-and-source-closure-export",
+    "runtime/owned-guest506/compiled-payload-roots-dictionary-and-host-export",
+    "runtime/owned-guest506/concurrent-host-dictionary-writes-and-real-collection",
+    "runtime/owned-guest506/logical-down-before-held-host-root-and-physical-dispose-join",
+    "runtime/owned-guest506/nested-foreign-invocation-refuses-enclosing-vm-shutdown",
+    "runtime/owned-guest506/ordinary-and-owned-source-errors-and-full-stacks",
+    "runtime/owned-guest506/original-compiled-worker-whole-values-and-stacks",
+    "runtime/owned-guest506/process-info-dictionary-races-return-and-kill",
+    "runtime/owned-guest506/source-message-survives-sender-physical-retirement",
+    "runtime/owned-guest507/custom-pattern-keyscope-success-copyback-parity",
+    "runtime/owned-guest507/mutable-public-patterns-and-opaque-binding-portability",
+    "runtime/owned-local-function-matching-code-retarget",
+    "runtime/owned-reference-live-ETF-text-prepared-resource-lifetime",
+    "runtime/owned-source511/statement-roots-closures-and-transactional-builders",
+    "runtime/owned-trampoline506/all-carriers-survive-collection-before-next-admission",
+    "runtime/owned-trampoline506/cancel-admitted-function-target-releases-roots",
+    "runtime/owned-trampoline506/cancel-held-handoff-retires-real-roots",
+    "runtime/owned-trampoline506/fixed-tail-control-root-plateau",
+    "runtime/owned-words526/real-headers-alias-counts-rollback-retirement",
+    "runtime/resource-policy508/actual-young-old-slab-reclamation",
+    "runtime/resource-policy508/pinned-size-table-and-original-137-classes",
+    "runtime/resource-policy508/vm-default-snapshots-and-distinct-sweep-conversions",
+    "runtime/resource514/construction-custody-rejects-new-backing-rollback",
+    "runtime/resource514/construction-hidden-physical-map-custody",
+    "runtime/resource514/construction-nested-empty-tuples",
+    "runtime/resource514/linear-construction-binary-visits-and-leases",
+    "runtime/resource519/explicit-private-self-gc-clears-dead-slabs-preserves-live",
+    "runtime/resource519/ordinary-garbage-collect-does-not-create-owned-heap",
+    "runtime/resource519/real-garbage-collect-keeps-hidden-map-binary-live",
+    "runtime/resource519/real-garbage-collect-reclaims-unrooted-owned-cells",
+    "runtime/resource570/native-bytes-and-owned-cell-domains"
+  ],
+  "Passed": 251,
+  "Failed": 2,
+  "Tests": [
+    {
+      "Name": "runtime/native/regex485/binary-captures-whole-176",
+      "Status": "Passed",
+      "Milliseconds": 163689
+    },
+    {
+      "Name": "HOST/beam410/original-prim-file-exact33-nif-declarations",
+      "Status": "Passed",
+      "Milliseconds": 195
+    },
+    {
+      "Name": "HOST/beam410/raw-nif-marker-eligibility-and-entry",
+      "Status": "Passed",
+      "Milliseconds": 225
+    },
+    {
+      "Name": "runtime/allocator434/actual-nif-span-histogram-and-realloc",
+      "Status": "Passed",
+      "Milliseconds": 143
+    },
+    {
+      "Name": "runtime/native-provider408/selected-original-manifest-consumer",
+      "Status": "Passed",
+      "Milliseconds": 845
+    },
+    {
+      "Name": "compiler/nif-declaration-control-metadata-and-ownership",
+      "Status": "Passed",
+      "Milliseconds": 124
+    },
+    {
+      "Name": "runtime/nif-image-attachment-transactions-and-quiescence",
+      "Status": "Passed",
+      "Milliseconds": 63
+    },
+    {
+      "Name": "runtime/nif-caller-image-reservation-generation-and-cleanup",
+      "Status": "Passed",
+      "Milliseconds": 340
+    },
+    {
+      "Name": "runtime/nif-source-named-entry-routing-and-owned-drain",
+      "Status": "Passed",
+      "Milliseconds": 257
+    },
+    {
+      "Name": "runtime/direct-source-load-nif-exact-caller-capability",
+      "Status": "Passed",
+      "Milliseconds": 4025
+    },
+    {
+      "Name": "runtime/nif-beam-exact-image-entry-and-closure-routing",
+      "Status": "Passed",
+      "Milliseconds": 174
+    },
+    {
+      "Name": "runtime/nif-installed-current-image-inventory-and-cache",
+      "Status": "Passed",
+      "Milliseconds": 127
+    },
+    {
+      "Name": "runtime/nif-native-requested-backing-allocation-ledger",
+      "Status": "Passed",
+      "Milliseconds": 22
+    },
+    {
+      "Name": "runtime/nif-runtime-native-payload-domain-lifecycle",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Native payload domain lifecycle invariant failed.\r\n   at Erlang.Tests.NifAllocationDomainHostChecks.Require(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Native\\Nif\\Memory\\NifAllocationDomainHostChecks.cs:line 85\r\n   at Erlang.Tests.NifAllocationDomainHostChecks.PayloadAndDisposal(ProcessRuntime runtime, ModuleCodeImage image, ProcessContext context, ModuleCodeDescriptor descriptor) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Native\\Nif\\Memory\\NifAllocationDomainHostChecks.cs:line 151\r\n   at Erlang.Tests.NifAllocationDomainHostChecks.PayloadAndDisposal(ProcessRuntime runtime, ModuleCodeImage image, ProcessContext context, ModuleCodeDescriptor descriptor) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Native\\Nif\\Memory\\NifAllocationDomainHostChecks.cs:line 154\r\n   at Erlang.Tests.NifAllocationDomainHostChecks.\u003C\u003Ec__DisplayClass3_0.\u003C\u003CRun\u003Eb__1\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Native\\Nif\\Memory\\NifAllocationDomainHostChecks.cs:line 46\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.NifAdmissionHostBridge.\u003C\u003Ec__DisplayClass8_0.\u003C\u003CContext\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Native\\Nif\\Loading\\NifAdmissionHostBridge.cs:line 77\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.NifAdmissionHostBridge.Context(ProcessRuntime runtime, Func\u00602 operation) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Native\\Nif\\Loading\\NifAdmissionHostBridge.cs:line 87\r\n   at Erlang.Tests.NifAllocationDomainHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Native\\Nif\\Memory\\NifAllocationDomainHostChecks.cs:line 36\r\n   at Erlang.Tests.NifAllocationDomainHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Native\\Nif\\Memory\\NifAllocationDomainHostChecks.cs:line 36\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7380",
+      "Milliseconds": 76
+    },
+    {
+      "Name": "runtime/nif-real-payload-reallocation-extent-history",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Actual native reallocation extent invariant failed.\r\n   at Erlang.Tests.NifReallocationHostChecks.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Native\\Nif\\Callbacks\\NifReallocationHostChecks.cs:line 21\r\n   at Erlang.Tests.NifReallocationHostChecks.\u003C\u003Ec__DisplayClass13_0.\u003C\u003CJoinedDomain\u003Eb__1\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Native\\Nif\\Callbacks\\NifReallocationHostChecks.cs:line 303\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.NifReallocationHostChecks.\u003C\u003Ec__DisplayClass13_0.\u003C\u003CJoinedDomain\u003Eb__1\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Native\\Nif\\Callbacks\\NifReallocationHostChecks.cs:line 304\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.NifReallocationHostChecks.\u003C\u003Ec__DisplayClass13_0.\u003C\u003CJoinedDomain\u003Eb__1\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Native\\Nif\\Callbacks\\NifReallocationHostChecks.cs:line 304\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.NifAdmissionHostBridge.\u003C\u003Ec__DisplayClass8_0.\u003C\u003CContext\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Native\\Nif\\Loading\\NifAdmissionHostBridge.cs:line 77\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.NifAdmissionHostBridge.Context(ProcessRuntime runtime, Func\u00602 operation) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Native\\Nif\\Loading\\NifAdmissionHostBridge.cs:line 87\r\n   at Erlang.Tests.NifReallocationHostChecks.JoinedDomain() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Native\\Nif\\Callbacks\\NifReallocationHostChecks.cs:line 239\r\n   at Erlang.Tests.NifReallocationHostChecks.JoinedDomain() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Native\\Nif\\Callbacks\\NifReallocationHostChecks.cs:line 239\r\n   at Erlang.Tests.NifReallocationHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Native\\Nif\\Callbacks\\NifReallocationHostChecks.cs:line 15\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7380",
+      "Milliseconds": 104
+    },
+    {
+      "Name": "runtime/nif-owned-purge-discard-shutdown-and-real-unwind",
+      "Status": "Passed",
+      "Milliseconds": 497
+    },
+    {
+      "Name": "runtime/owned-local-function-matching-code-retarget",
+      "Status": "Passed",
+      "Milliseconds": 155
+    },
+    {
+      "Name": "mfa/erlang:load_nif/2",
+      "Status": "Passed",
+      "Milliseconds": 115
+    },
+    {
+      "Name": "mfa/erlang:nif_error/1",
+      "Status": "Passed",
+      "Milliseconds": 146
+    },
+    {
+      "Name": "mfa/erlang:nif_error/2",
+      "Status": "Passed",
+      "Milliseconds": 198
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-significant-check-policy",
+      "Status": "Passed",
+      "Milliseconds": 335
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-significant-check-permanent",
+      "Status": "Passed",
+      "Milliseconds": 238
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-significant-check-invalid-boolean",
+      "Status": "Passed",
+      "Milliseconds": 256
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-significant-check-invalid-policy-order",
+      "Status": "Passed",
+      "Milliseconds": 219
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-significant-check-empty-and-legacy",
+      "Status": "Passed",
+      "Milliseconds": 210
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-significant-startup-never-error",
+      "Status": "Passed",
+      "Milliseconds": 385
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-significant-startup-permanent-error",
+      "Status": "Passed",
+      "Milliseconds": 178
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-significant-startup-invalid-policy",
+      "Status": "Passed",
+      "Milliseconds": 221
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-significant-startup-empty-any",
+      "Status": "Passed",
+      "Milliseconds": 198
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-significant-startup-empty-all",
+      "Status": "Passed",
+      "Milliseconds": 211
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-significant-any-transient-normal",
+      "Status": "Passed",
+      "Milliseconds": 221
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-significant-any-transient-shutdown",
+      "Status": "Passed",
+      "Milliseconds": 198
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-significant-any-transient-shutdown-tuple",
+      "Status": "Passed",
+      "Milliseconds": 193
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-significant-any-temporary-normal",
+      "Status": "Passed",
+      "Milliseconds": 205
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-significant-any-temporary-abnormal",
+      "Status": "Passed",
+      "Milliseconds": 260
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-significant-all-last-transient",
+      "Status": "Passed",
+      "Milliseconds": 364
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-significant-all-last-temporary",
+      "Status": "Passed",
+      "Milliseconds": 263
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-significant-all-waits-for-last",
+      "Status": "Passed",
+      "Milliseconds": 290
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-significant-transient-abnormal-restarts",
+      "Status": "Passed",
+      "Milliseconds": 218
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-significant-non-significant-normal",
+      "Status": "Passed",
+      "Milliseconds": 251
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-significant-non-significant-temporary",
+      "Status": "Passed",
+      "Milliseconds": 315
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-significant-manual-terminate-keeps-supervisor",
+      "Status": "Passed",
+      "Milliseconds": 210
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-significant-manual-delete-keeps-supervisor",
+      "Status": "Passed",
+      "Milliseconds": 183
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-significant-dynamic-significant-child",
+      "Status": "Passed",
+      "Milliseconds": 222
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-significant-dynamic-significant-invalid",
+      "Status": "Passed",
+      "Milliseconds": 201
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-significant-ignored-startup",
+      "Status": "Passed",
+      "Milliseconds": 226
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-significant-ignored-dynamic",
+      "Status": "Passed",
+      "Milliseconds": 234
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-significant-inactive-significant-not-counted",
+      "Status": "Passed",
+      "Milliseconds": 248
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-significant-failed-dynamic-record",
+      "Status": "Passed",
+      "Milliseconds": 237
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-significant-check-improper-invalid-head",
+      "Status": "Passed",
+      "Milliseconds": 331
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-significant-check-improper-valid-prefix",
+      "Status": "Passed",
+      "Milliseconds": 258
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-significant-group-restart-no-auto-shutdown",
+      "Status": "Passed",
+      "Milliseconds": 316
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-error-metadata-export-nif_error-1",
+      "Status": "Passed",
+      "Milliseconds": 119
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-error-metadata-export-nif_error-2",
+      "Status": "Passed",
+      "Milliseconds": 93
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-module-information-nifs",
+      "Status": "Passed",
+      "Milliseconds": 99
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-nif-declaration-absent-fallback",
+      "Status": "Passed",
+      "Milliseconds": 120
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-nif-declaration-empty-fallback",
+      "Status": "Passed",
+      "Milliseconds": 84
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-nif-declaration-private-fallback",
+      "Status": "Passed",
+      "Milliseconds": 73
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-nif-declaration-tuple-form-fallback",
+      "Status": "Passed",
+      "Milliseconds": 77
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-nif-declaration-duplicate-function-fallback",
+      "Status": "Passed",
+      "Milliseconds": 85
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-nif-declaration-repeated-attribute-fallback",
+      "Status": "Passed",
+      "Milliseconds": 73
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-nif-declaration-empty-then-nonempty-fallback",
+      "Status": "Passed",
+      "Milliseconds": 88
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-nif-declaration-nonempty-then-empty-fallback",
+      "Status": "Passed",
+      "Milliseconds": 79
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-load-nif-indirect-apply-invalid-path",
+      "Status": "Passed",
+      "Milliseconds": 74
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-load-nif-indirect-apply-missing-path",
+      "Status": "Passed",
+      "Milliseconds": 181
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-load-nif-indirect-apply-opaque-map-and-fun-arguments",
+      "Status": "Passed",
+      "Milliseconds": 73
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-load-nif-indirect-apply-improper-path-before-validation",
+      "Status": "Passed",
+      "Milliseconds": 82
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-load-nif-indirect-apply-argument-order",
+      "Status": "Passed",
+      "Milliseconds": 81
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-load-nif-indirect-apply-argument-failure-before-bif",
+      "Status": "Passed",
+      "Milliseconds": 113
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-load-nif-indirect-fun-reference-invalid-path",
+      "Status": "Passed",
+      "Milliseconds": 74
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/nif-declaration-undefined-local",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/nif-declaration-invalid-integer-entry",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "runtime/owned-reference-live-ETF-text-prepared-resource-lifetime",
+      "Status": "Passed",
+      "Milliseconds": 594
+    },
+    {
+      "Name": "runtime/owned-actor-dispatch-capacity-continuation-and-retirement",
+      "Status": "Passed",
+      "Milliseconds": 272
+    },
+    {
+      "Name": "runtime/nif-prepared-image-owner-without-global-exports",
+      "Status": "Passed",
+      "Milliseconds": 201
+    },
+    {
+      "Name": "oracle/compiled-module/default_load_nif_accepted_domain",
+      "Status": "Passed",
+      "Milliseconds": 285
+    },
+    {
+      "Name": "oracle/compiled-module/default_load_nif_invalid_filename",
+      "Status": "Passed",
+      "Milliseconds": 224
+    },
+    {
+      "Name": "runtime/configured-load-nif-common-capture",
+      "Status": "Passed",
+      "Milliseconds": 285
+    },
+    {
+      "Name": "runtime/default-nif-source-route-policy-filename-and-code-admission",
+      "Status": "Passed",
+      "Milliseconds": 864
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-load-nif-ordinary-host-missing-string",
+      "Status": "Passed",
+      "Milliseconds": 195
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-load-nif-ordinary-host-missing-binary",
+      "Status": "Passed",
+      "Milliseconds": 184
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-load-nif-ordinary-host-badarg",
+      "Status": "Passed",
+      "Milliseconds": 65
+    },
+    {
+      "Name": "runtime/nif-array-callback-empty-null-input",
+      "Status": "Passed",
+      "Milliseconds": 59
+    },
+    {
+      "Name": "runtime/nif-array-callback-order-aliases-and-large-arrays",
+      "Status": "Passed",
+      "Milliseconds": 20
+    },
+    {
+      "Name": "runtime/nif-array-callback-bounded-count-system-limit",
+      "Status": "Passed",
+      "Milliseconds": 16
+    },
+    {
+      "Name": "runtime/nif-array-callback-foreign-expired-and-null-containment",
+      "Status": "Passed",
+      "Milliseconds": 16
+    },
+    {
+      "Name": "runtime/nif-load-reason-original-five-controls",
+      "Status": "Passed",
+      "Milliseconds": 38
+    },
+    {
+      "Name": "runtime/nif-type-callback-windows-table-all-term-categories",
+      "Status": "Passed",
+      "Milliseconds": 26
+    },
+    {
+      "Name": "runtime/nif-type-callback-windows-environment-independent",
+      "Status": "Passed",
+      "Milliseconds": 19
+    },
+    {
+      "Name": "runtime/nif-list-cell-windows-proper-improper-and-negative",
+      "Status": "Passed",
+      "Milliseconds": 16
+    },
+    {
+      "Name": "runtime/nif-type-list-cell-windows-expired-owner-containment",
+      "Status": "Passed",
+      "Milliseconds": 18
+    },
+    {
+      "Name": "runtime/nif-numeric-windows-integer-conversion-boundaries-canaries",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "runtime/nif-numeric-windows-integer-constructor-boundaries",
+      "Status": "Passed",
+      "Milliseconds": 18
+    },
+    {
+      "Name": "runtime/nif-numeric-windows-finite-bits-and-nonfinite-badarg",
+      "Status": "Passed",
+      "Milliseconds": 18
+    },
+    {
+      "Name": "runtime/nif-numeric-windows-environment-lifetime-and-output-containment",
+      "Status": "Passed",
+      "Milliseconds": 17
+    },
+    {
+      "Name": "runtime/nif-sequence-text-windows-tuplelifetime",
+      "Status": "Passed",
+      "Milliseconds": 19
+    },
+    {
+      "Name": "runtime/nif-sequence-text-windows-listlengths",
+      "Status": "Passed",
+      "Milliseconds": 17
+    },
+    {
+      "Name": "runtime/nif-sequence-text-windows-atoms",
+      "Status": "Passed",
+      "Milliseconds": 26
+    },
+    {
+      "Name": "runtime/nif-sequence-text-windows-strings",
+      "Status": "Passed",
+      "Milliseconds": 18
+    },
+    {
+      "Name": "runtime/nif-sequence-text-windows-invocationownership",
+      "Status": "Passed",
+      "Milliseconds": 15
+    },
+    {
+      "Name": "runtime/nif-sequence-text-windows-containment",
+      "Status": "Passed",
+      "Milliseconds": 19
+    },
+    {
+      "Name": "runtime/nif-legacy-string-windows-latin1",
+      "Status": "Passed",
+      "Milliseconds": 24
+    },
+    {
+      "Name": "runtime/nif-legacy-string-windows-utf8",
+      "Status": "Passed",
+      "Milliseconds": 17
+    },
+    {
+      "Name": "runtime/nif-legacy-string-windows-longinputs",
+      "Status": "Passed",
+      "Milliseconds": 62
+    },
+    {
+      "Name": "runtime/nif-legacy-string-windows-termination",
+      "Status": "Passed",
+      "Milliseconds": 16
+    },
+    {
+      "Name": "runtime/nif-legacy-string-windows-rejectedutf8",
+      "Status": "Passed",
+      "Milliseconds": 37
+    },
+    {
+      "Name": "runtime/nif-legacy-string-windows-environmentandcontainment",
+      "Status": "Passed",
+      "Milliseconds": 17
+    },
+    {
+      "Name": "runtime/nif-linux-lp64-immediate-integer-boundaries-and-aliases",
+      "Status": "Passed",
+      "Milliseconds": 20
+    },
+    {
+      "Name": "runtime/nif-linux-lp64-immediate-invocation-owner-restoration",
+      "Status": "Passed",
+      "Milliseconds": 17
+    },
+    {
+      "Name": "runtime/nif-linux-lp64-large-environment-and-expired-owner-containment",
+      "Status": "Passed",
+      "Milliseconds": 17
+    },
+    {
+      "Name": "runtime/nif-linux-bridge-fixed-layout",
+      "Status": "Passed",
+      "Milliseconds": 18
+    },
+    {
+      "Name": "runtime/nif-linux-bridge-lp64-long-boundaries",
+      "Status": "Passed",
+      "Milliseconds": 16
+    },
+    {
+      "Name": "runtime/nif-linux-bridge-array-list-cell",
+      "Status": "Passed",
+      "Milliseconds": 17
+    },
+    {
+      "Name": "runtime/nif-binary-windows-inspection",
+      "Status": "Passed",
+      "Milliseconds": 26
+    },
+    {
+      "Name": "runtime/nif-binary-windows-iolists",
+      "Status": "Passed",
+      "Milliseconds": 23
+    },
+    {
+      "Name": "runtime/nif-binary-windows-allocationacrosscalls",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "runtime/nif-binary-windows-readonlyreallocation",
+      "Status": "Passed",
+      "Milliseconds": 16
+    },
+    {
+      "Name": "runtime/nif-binary-windows-deferredcomposites",
+      "Status": "Passed",
+      "Milliseconds": 18
+    },
+    {
+      "Name": "runtime/nif-binary-windows-subviewlifetimes",
+      "Status": "Passed",
+      "Milliseconds": 19
+    },
+    {
+      "Name": "runtime/nif-binary-windows-exceptionalcleanup",
+      "Status": "Passed",
+      "Milliseconds": 17
+    },
+    {
+      "Name": "runtime/nif-binary-windows-exceptiongraph",
+      "Status": "Passed",
+      "Milliseconds": 18
+    },
+    {
+      "Name": "runtime/nif-binary-windows-deepgraph",
+      "Status": "Passed",
+      "Milliseconds": 117
+    },
+    {
+      "Name": "runtime/nif-binary-windows-containment",
+      "Status": "Passed",
+      "Milliseconds": 19
+    },
+    {
+      "Name": "runtime/nif/compare-ordering",
+      "Status": "Passed",
+      "Milliseconds": 50
+    },
+    {
+      "Name": "runtime/nif/exact-identity",
+      "Status": "Passed",
+      "Milliseconds": 21
+    },
+    {
+      "Name": "runtime/nif/compare-pending-live-writes",
+      "Status": "Passed",
+      "Milliseconds": 17
+    },
+    {
+      "Name": "runtime/nif/reference-uniqueness",
+      "Status": "Passed",
+      "Milliseconds": 26
+    },
+    {
+      "Name": "runtime/nif/compare-reference-ownership",
+      "Status": "Passed",
+      "Milliseconds": 18
+    },
+    {
+      "Name": "runtime/nif/map-size-shape-output",
+      "Status": "Passed",
+      "Milliseconds": 95
+    },
+    {
+      "Name": "runtime/nif/map-size-pure-environment",
+      "Status": "Passed",
+      "Milliseconds": 76
+    },
+    {
+      "Name": "runtime/nif/map-size-owner-lifetime",
+      "Status": "Passed",
+      "Milliseconds": 19
+    },
+    {
+      "Name": "runtime/nif/reference-environment-lifetime",
+      "Status": "Passed",
+      "Milliseconds": 22
+    },
+    {
+      "Name": "runtime/nif/reference-foreign-threads",
+      "Status": "Passed",
+      "Milliseconds": 20
+    },
+    {
+      "Name": "runtime/nif/reference-counter-boundaries",
+      "Status": "Passed",
+      "Milliseconds": 21
+    },
+    {
+      "Name": "runtime/nif/reference-counter-concurrent-boundaries",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "runtime/nif/linux-capsule-metadata",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "runtime/library-manifest389/beam-owned-images-and-actual-source-owners",
+      "Status": "Passed",
+      "Milliseconds": 209
+    },
+    {
+      "Name": "runtime/library-manifest389/managed-and-explicit-mixed-projects",
+      "Status": "Passed",
+      "Milliseconds": 245
+    },
+    {
+      "Name": "runtime/library-manifest389/invalid-schema-path-hash-and-dependencies",
+      "Status": "Passed",
+      "Milliseconds": 47
+    },
+    {
+      "Name": "runtime/library-manifest389/valid-hash-wrong-module-refuses-startup",
+      "Status": "Passed",
+      "Milliseconds": 97
+    },
+    {
+      "Name": "runtime/library-manifest389/original-worker-values-and-five-full-stack-profiles",
+      "Status": "Passed",
+      "Milliseconds": 203
+    },
+    {
+      "Name": "runtime/library-manifest389/stored-fun-y-destination-bounds",
+      "Status": "Passed",
+      "Milliseconds": 105
+    },
+    {
+      "Name": "host/nif-map-creation501-actual-slot-and-environment-ownership",
+      "Status": "Passed",
+      "Milliseconds": 17
+    },
+    {
+      "Name": "host/nif-map-creation501-invalid-and-retired-environments",
+      "Status": "Passed",
+      "Milliseconds": 16
+    },
+    {
+      "Name": "host/nif-map-creation501-process-and-independent-thread-ownership",
+      "Status": "Passed",
+      "Milliseconds": 17
+    },
+    {
+      "Name": "host/nif-map-value503-exact-keys-and-unchanged-output",
+      "Status": "Passed",
+      "Milliseconds": 19
+    },
+    {
+      "Name": "host/nif-map-value503-map-owner-lifetime-and-hints",
+      "Status": "Passed",
+      "Milliseconds": 16
+    },
+    {
+      "Name": "host/nif-map-value503-fresh-pending-binary-key-graphs",
+      "Status": "Passed",
+      "Milliseconds": 16
+    },
+    {
+      "Name": "host/nif-map-value503-invalid-owner-and-thread-controls",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "host/nif-map-review504/local-fun-unique-and-comparison-preconditions",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "host/nif-map-review504/static-indexed-lookup-allocation-scaling",
+      "Status": "Passed",
+      "Milliseconds": 52
+    },
+    {
+      "Name": "host/nif-map-review504/static-indexed-misses-and-output-guards",
+      "Status": "Passed",
+      "Milliseconds": 57
+    },
+    {
+      "Name": "host/nif-map-review504/collision-cmp-actual-first-role",
+      "Status": "Passed",
+      "Milliseconds": 60
+    },
+    {
+      "Name": "host/nif-map-materialized505/physical-flat-layout-and-equality",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "host/nif-map-materialized505/buffer-release-and-saved-index",
+      "Status": "Passed",
+      "Milliseconds": 38
+    },
+    {
+      "Name": "host/nif-map-materialized505/deep-map-equality",
+      "Status": "Passed",
+      "Milliseconds": 228
+    },
+    {
+      "Name": "host/nif-map-materialized505/cross-runtime-and-closed-owner",
+      "Status": "Passed",
+      "Milliseconds": 70
+    },
+    {
+      "Name": "host/nif-map-materialized505/duplicate-reference-reentry",
+      "Status": "Passed",
+      "Milliseconds": 35
+    },
+    {
+      "Name": "host/nif-map-materialized505/duplicate-reference-factory-and-peer-equality",
+      "Status": "Passed",
+      "Milliseconds": 21
+    },
+    {
+      "Name": "runtime/owned-trampoline506/all-carriers-survive-collection-before-next-admission",
+      "Status": "Passed",
+      "Milliseconds": 411
+    },
+    {
+      "Name": "runtime/owned-trampoline506/fixed-tail-control-root-plateau",
+      "Status": "Passed",
+      "Milliseconds": 257
+    },
+    {
+      "Name": "runtime/owned-trampoline506/cancel-held-handoff-retires-real-roots",
+      "Status": "Passed",
+      "Milliseconds": 163
+    },
+    {
+      "Name": "runtime/owned-trampoline506/cancel-admitted-function-target-releases-roots",
+      "Status": "Passed",
+      "Milliseconds": 175
+    },
+    {
+      "Name": "runtime/owned-guest506/compiled-payload-roots-dictionary-and-host-export",
+      "Status": "Passed",
+      "Milliseconds": 202
+    },
+    {
+      "Name": "runtime/owned-guest506/source-message-survives-sender-physical-retirement",
+      "Status": "Passed",
+      "Milliseconds": 144
+    },
+    {
+      "Name": "runtime/owned-guest506/original-compiled-worker-whole-values-and-stacks",
+      "Status": "Passed",
+      "Milliseconds": 433
+    },
+    {
+      "Name": "runtime/owned-guest506/nested-foreign-invocation-refuses-enclosing-vm-shutdown",
+      "Status": "Passed",
+      "Milliseconds": 138
+    },
+    {
+      "Name": "runtime/owned-guest507/mutable-public-patterns-and-opaque-binding-portability",
+      "Status": "Passed",
+      "Milliseconds": 234
+    },
+    {
+      "Name": "runtime/owned-guest507/custom-pattern-keyscope-success-copyback-parity",
+      "Status": "Passed",
+      "Milliseconds": 189
+    },
+    {
+      "Name": "runtime/nif526/windows-variadic-slots-never-null",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "runtime/boxed-integer559/nested-immediates-import-and-adoption",
+      "Status": "Passed",
+      "Milliseconds": 37
+    },
+    {
+      "Name": "runtime/allocation567/scalar-generations-and-actual-reclaim",
+      "Status": "Passed",
+      "Milliseconds": 42
+    },
+    {
+      "Name": "runtime/allocation567/shared-map-roots-custody",
+      "Status": "Passed",
+      "Milliseconds": 18
+    },
+    {
+      "Name": "runtime/allocation567/failed-publication-not-garbage-collection",
+      "Status": "Passed",
+      "Milliseconds": 19
+    },
+    {
+      "Name": "runtime/allocation567/isolation-and-held-retirement",
+      "Status": "Passed",
+      "Milliseconds": 36
+    },
+    {
+      "Name": "runtime/ordinary-reference562/actual-header-words-and-retirement",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "runtime/ordinary-reference562/alias-import-adopt-and-rollback",
+      "Status": "Passed",
+      "Milliseconds": 23
+    },
+    {
+      "Name": "runtime/ordinary-reference562/provenance-identity-and-foreign",
+      "Status": "Passed",
+      "Milliseconds": 39
+    },
+    {
+      "Name": "beam/loader-map-keys565/foreign-stale-and-unadmitted-hidden-keys",
+      "Status": "Passed",
+      "Milliseconds": 100
+    },
+    {
+      "Name": "beam/loader-map-keys565/syntactic-literal-predicate-and-image-identity",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "beam/loader-map-keys565/actual-key-tuple-custody-and-portable-export",
+      "Status": "Passed",
+      "Milliseconds": 23
+    },
+    {
+      "Name": "runtime/boxed-integer559/actual-slab-getter-and-major-gc",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "runtime/boxed-integer559/adoption-marker-and-root-only-custody",
+      "Status": "Passed",
+      "Milliseconds": 23
+    },
+    {
+      "Name": "runtime/boxed-integer559/foreign-rejection-and-held-retirement",
+      "Status": "Passed",
+      "Milliseconds": 19
+    },
+    {
+      "Name": "runtime/boxed-float556/actual-slab-getter-and-major-gc",
+      "Status": "Passed",
+      "Milliseconds": 24
+    },
+    {
+      "Name": "runtime/boxed-float556/adoption-marker-and-root-only-custody",
+      "Status": "Passed",
+      "Milliseconds": 20
+    },
+    {
+      "Name": "runtime/boxed-float556/foreign-rejection-and-held-retirement",
+      "Status": "Passed",
+      "Milliseconds": 19
+    },
+    {
+      "Name": "runtime/beam-list550/current-root-pair-publication-matrix",
+      "Status": "Passed",
+      "Milliseconds": 223
+    },
+    {
+      "Name": "runtime/beam-list550/gc-custody-and-exact-root-refusal",
+      "Status": "Passed",
+      "Milliseconds": 36
+    },
+    {
+      "Name": "runtime/beam-list550/closed-y-store-publication-rollback",
+      "Status": "Passed",
+      "Milliseconds": 18
+    },
+    {
+      "Name": "runtime/beam-constructed548/single-candidate-publication-matrix",
+      "Status": "Passed",
+      "Milliseconds": 138
+    },
+    {
+      "Name": "runtime/beam-constructed548/closed-504-store-candidate-rollback",
+      "Status": "Passed",
+      "Milliseconds": 52
+    },
+    {
+      "Name": "runtime/beam-constructed548/exact-candidate-reuse-and-structural-impostor-refused",
+      "Status": "Passed",
+      "Milliseconds": 28
+    },
+    {
+      "Name": "runtime/owned-words526/real-headers-alias-counts-rollback-retirement",
+      "Status": "Passed",
+      "Milliseconds": 28
+    },
+    {
+      "Name": "native-resource529/logical-name-unlink-live-payload",
+      "Status": "Passed",
+      "Milliseconds": 45
+    },
+    {
+      "Name": "native-resource529/held-callback-forked-image-pin",
+      "Status": "Passed",
+      "Milliseconds": 20
+    },
+    {
+      "Name": "native-resource531/parallel-host-export-lease-custody",
+      "Status": "Passed",
+      "Milliseconds": 73
+    },
+    {
+      "Name": "native-resource535/canonical-readers-public-refusal",
+      "Status": "Passed",
+      "Milliseconds": 142
+    },
+    {
+      "Name": "native-resource535/public-reregister-canonical-delegate-opaque",
+      "Status": "Passed",
+      "Milliseconds": 76
+    },
+    {
+      "Name": "native-resource535/managed-nif-provider-opaque",
+      "Status": "Passed",
+      "Milliseconds": 68
+    },
+    {
+      "Name": "native-resource536/guest-gc-real-normal-auxiliary-once",
+      "Status": "Passed",
+      "Milliseconds": 22
+    },
+    {
+      "Name": "native-resource536/held-normal-destructor-physical-close",
+      "Status": "Passed",
+      "Milliseconds": 20
+    },
+    {
+      "Name": "native-resource536/non-gc-foreign-context-retained",
+      "Status": "Passed",
+      "Milliseconds": 19
+    },
+    {
+      "Name": "native-cons539/real-slot-static-and-improper",
+      "Status": "Passed",
+      "Milliseconds": 27
+    },
+    {
+      "Name": "native-cons539/pending-binary-and-improper-tuple-tail",
+      "Status": "Passed",
+      "Milliseconds": 19
+    },
+    {
+      "Name": "native-cons539/owners-expiry-and-thread-admission",
+      "Status": "Passed",
+      "Milliseconds": 19
+    },
+    {
+      "Name": "native-cons539/resource-copy-and-clear-lifetime",
+      "Status": "Passed",
+      "Milliseconds": 24
+    },
+    {
+      "Name": "native-resource524/view-guest-collection",
+      "Status": "Passed",
+      "Milliseconds": 40
+    },
+    {
+      "Name": "native-resource524/physical-destructor-image-pin",
+      "Status": "Passed",
+      "Milliseconds": 19
+    },
+    {
+      "Name": "native-resource527/magic-header-identity",
+      "Status": "Passed",
+      "Milliseconds": 19
+    },
+    {
+      "Name": "native-resource527/create-duplicate-rollback",
+      "Status": "Passed",
+      "Milliseconds": 21
+    },
+    {
+      "Name": "native-resource527/takeover-new-physical-destructor",
+      "Status": "Passed",
+      "Milliseconds": 21
+    },
+    {
+      "Name": "native-resource528/arena-image-close-foreign-free",
+      "Status": "Passed",
+      "Milliseconds": 46
+    },
+    {
+      "Name": "native-resource528/new-destructor-old-child",
+      "Status": "Passed",
+      "Milliseconds": 21
+    },
+    {
+      "Name": "runtime/resource570/native-bytes-and-owned-cell-domains",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "runtime/resource519/real-garbage-collect-reclaims-unrooted-owned-cells",
+      "Status": "Passed",
+      "Milliseconds": 46
+    },
+    {
+      "Name": "runtime/resource519/real-garbage-collect-keeps-hidden-map-binary-live",
+      "Status": "Passed",
+      "Milliseconds": 73
+    },
+    {
+      "Name": "runtime/resource519/ordinary-garbage-collect-does-not-create-owned-heap",
+      "Status": "Passed",
+      "Milliseconds": 38
+    },
+    {
+      "Name": "runtime/resource519/explicit-private-self-gc-clears-dead-slabs-preserves-live",
+      "Status": "Passed",
+      "Milliseconds": 184
+    },
+    {
+      "Name": "runtime/nif516/static-list-tail-root-walk-scaling",
+      "Status": "Passed",
+      "Milliseconds": 171
+    },
+    {
+      "Name": "runtime/nif516/append-only-hidden-map-and-new-composite",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "runtime/nif516/unknown-static-graph-remains-conservative",
+      "Status": "Passed",
+      "Milliseconds": 20
+    },
+    {
+      "Name": "runtime/nif516/pending-static-roots-independent-copy-magic-custody",
+      "Status": "Passed",
+      "Milliseconds": 39
+    },
+    {
+      "Name": "runtime/nif516/environment-retains-real-slab-until-disposal",
+      "Status": "Passed",
+      "Milliseconds": 31
+    },
+    {
+      "Name": "runtime/nif516/ordinary-profile-preserves-existing-static-path",
+      "Status": "Passed",
+      "Milliseconds": 23
+    },
+    {
+      "Name": "runtime/resource514/linear-construction-binary-visits-and-leases",
+      "Status": "Passed",
+      "Milliseconds": 70
+    },
+    {
+      "Name": "runtime/resource514/construction-nested-empty-tuples",
+      "Status": "Passed",
+      "Milliseconds": 23
+    },
+    {
+      "Name": "runtime/resource514/construction-hidden-physical-map-custody",
+      "Status": "Passed",
+      "Milliseconds": 36
+    },
+    {
+      "Name": "runtime/resource514/construction-custody-rejects-new-backing-rollback",
+      "Status": "Passed",
+      "Milliseconds": 52
+    },
+    {
+      "Name": "runtime/resource-policy508/pinned-size-table-and-original-137-classes",
+      "Status": "Passed",
+      "Milliseconds": 6
+    },
+    {
+      "Name": "runtime/resource-policy508/vm-default-snapshots-and-distinct-sweep-conversions",
+      "Status": "Passed",
+      "Milliseconds": 12
+    },
+    {
+      "Name": "runtime/resource-policy508/actual-young-old-slab-reclamation",
+      "Status": "Passed",
+      "Milliseconds": 44
+    },
+    {
+      "Name": "runtime/native-map510/flat-duplicate-occurrences-detach",
+      "Status": "Passed",
+      "Milliseconds": 28
+    },
+    {
+      "Name": "runtime/native-map510/hidden-hamt-roots-and-topology",
+      "Status": "Passed",
+      "Milliseconds": 31
+    },
+    {
+      "Name": "runtime/native-map510/foreign-domain-fails-closed",
+      "Status": "Passed",
+      "Milliseconds": 39
+    },
+    {
+      "Name": "runtime/owned-source511/statement-roots-closures-and-transactional-builders",
+      "Status": "Passed",
+      "Milliseconds": 661
+    },
+    {
+      "Name": "runtime/native-map510/composed-major-binary-lease-hidden-leaf-and-source-close",
+      "Status": "Passed",
+      "Milliseconds": 32
+    },
+    {
+      "Name": "runtime/owned-guest506/compiled-await-cancellation-and-source-closure-export",
+      "Status": "Passed",
+      "Milliseconds": 153
+    },
+    {
+      "Name": "runtime/owned-guest506/captured-context-public-entry-reopens-independent-roots",
+      "Status": "Passed",
+      "Milliseconds": 149
+    },
+    {
+      "Name": "runtime/owned-guest506/concurrent-host-dictionary-writes-and-real-collection",
+      "Status": "Passed",
+      "Milliseconds": 222
+    },
+    {
+      "Name": "runtime/owned-guest506/blocked-source-descriptor-does-not-hold-heap-gate",
+      "Status": "Passed",
+      "Milliseconds": 164
+    },
+    {
+      "Name": "runtime/owned-guest506/ordinary-and-owned-source-errors-and-full-stacks",
+      "Status": "Passed",
+      "Milliseconds": 111
+    },
+    {
+      "Name": "runtime/owned-guest506/logical-down-before-held-host-root-and-physical-dispose-join",
+      "Status": "Passed",
+      "Milliseconds": 27
+    },
+    {
+      "Name": "runtime/owned-guest506/process-info-dictionary-races-return-and-kill",
+      "Status": "Passed",
+      "Milliseconds": 169
+    },
+    {
+      "Name": "host/nif-map-family504/mutation-output",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "host/nif-map-family504/arrays-aliases",
+      "Status": "Passed",
+      "Milliseconds": 23
+    },
+    {
+      "Name": "host/nif-map-family504/pending-values-replacement",
+      "Status": "Passed",
+      "Milliseconds": 19
+    },
+    {
+      "Name": "host/nif-map-family504/copy-boundaries-owners",
+      "Status": "Passed",
+      "Milliseconds": 27
+    },
+    {
+      "Name": "host/nif-map-family504/invalid-owners-threads",
+      "Status": "Passed",
+      "Milliseconds": 43
+    },
+    {
+      "Name": "host/nif-map-iterator504-all-slots-shapes-and-boundaries",
+      "Status": "Passed",
+      "Milliseconds": 63
+    },
+    {
+      "Name": "host/nif-map-iterator504-hints-owner-and-clear-lifetime",
+      "Status": "Passed",
+      "Milliseconds": 19
+    },
+    {
+      "Name": "host/nif-map-iterator504-borrowed-pending-value-graphs",
+      "Status": "Passed",
+      "Milliseconds": 18
+    },
+    {
+      "Name": "host/nif-map-iterator504-invalid-owner-and-thread-controls",
+      "Status": "Passed",
+      "Milliseconds": 18
+    }
+  ]
+}

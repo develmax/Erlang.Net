@@ -1,13 +1,21 @@
 namespace Erlang;
 
-internal sealed class BinaryBacking
+internal sealed partial class BinaryBacking
 {
     private readonly object gate = new();
     private byte[] buffer;
     private object? writer;
     private int apparentBytes;
     internal bool IsReference { get; }
-    internal byte[] Buffer => Volatile.Read(ref buffer);
+    internal byte[] Buffer => native524 is null ? Volatile.Read(ref buffer)
+        : throw new NotSupportedException(NativeBinary524Names.ArrayRequired);
+    internal ReadOnlySpan<byte> ReadSpan524 => native524 is { } native ? native.Bytes524 : Buffer;
+    internal int Length524 => native524?.DataLength524 ?? Buffer.Length;
+    internal long ReferencedCapacity524 => native524?.AllocatedBytes524 ?? Buffer.LongLength;
+    internal long ReferencedByteSize524 => native524?.ReferencedBytes524 ?? Buffer.LongLength;
+    internal object? NativeIdentity524 => native524?.ResourceIdentity524;
+
+    internal IDisposable? RetainNative524() => native524?.RetainRoot524();
 
     internal BinaryBacking(byte[] owned, bool reference)
     {

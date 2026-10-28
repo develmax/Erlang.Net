@@ -35,4 +35,33 @@ internal static unsafe class NifNativeListCellCallbacks
             return 0;
         }
     }
+
+    [UnmanagedCallersOnly(CallConvs = [typeof(CallConvCdecl)])]
+    internal static nuint Create(nint env, nuint head, nuint tail)
+    {
+        NifNativeCallEnvironment? environment = null;
+        try
+        {
+            environment = NifNativeCallEnvironment.Resolve(env);
+            NifNativeTermValue headValue = environment.GetValue(head);
+            NifNativeTermValue tailValue = environment.GetValue(tail);
+            NifNativeTermValue result = headValue.IsPending || tailValue.IsPending
+                ? new(new NifNativeConsNode(headValue, tailValue))
+                : new(new Cons(headValue.StaticTerm!, tailValue.StaticTerm!));
+
+            return environment.AddValue(result);
+        }
+        catch (OutOfMemoryException) when (environment is not null)
+        {
+            environment.Failure.Raise(NifNativeArrayNames.SystemLimit);
+
+            return 0;
+        }
+        catch (Exception failure)
+        {
+            NifNativeCallbackScope.Fail(failure);
+
+            return 0;
+        }
+    }
 }

@@ -200,7 +200,7 @@ public static partial class Execution
                 {
                     try
                     {
-                        return await context.InvokeNativePrimitive507(native.InvokeAsync, arguments);
+                        return await context.InvokeImageNif535(native, arguments);
                     }
                     catch (ErlangException exception)
                     {

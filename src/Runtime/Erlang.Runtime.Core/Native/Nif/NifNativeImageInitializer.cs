@@ -15,12 +15,16 @@ internal static class NifNativeImageInitializer
         var owner = new NifNativeLibraryOwner(reservation.Image, reservation.Generation.Context);
         try
         {
+            NativeResourceImages524.Register524(owner.ResourceAdapter524());
+            owner.BeginResourceLoad527(reservation);
             var bindings = owner.Initialize(
                 profile,
                 reservation.Generation.TargetDescriptor,
                 loadInfo,
                 cancellation
             );
+
+            owner.EndResourceLoadCallback527();
 
             return ValueTask.FromResult(new NifImageInitialized(owner, bindings));
         }

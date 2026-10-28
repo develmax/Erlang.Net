@@ -52,4 +52,16 @@ internal unsafe struct NifNativeBridgeTable
     internal delegate* unmanaged[Cdecl]<nint, void> ClearEnvironment;
     internal delegate* unmanaged[Cdecl]<nint, nuint, nuint> CopyTerm;
     internal delegate* unmanaged[Cdecl]<int> ThreadType521;
+    internal delegate* unmanaged[Cdecl]<nint, byte*, byte*, nint, int, int*, nint> OpenResourceType527;
+    internal delegate* unmanaged[Cdecl]<nint, nuint, nint> AllocateResource527;
+    internal delegate* unmanaged[Cdecl]<nint, void> ReleaseResource527;
+    internal delegate* unmanaged[Cdecl]<nint, nint, nuint> MakeResource527;
+    internal delegate* unmanaged[Cdecl]<nint, nuint, nint, nint*, int> GetResource527;
+    internal delegate* unmanaged[Cdecl]<nint, nuint> SizeOfResource527;
+    internal delegate* unmanaged[Cdecl]<nint, void> KeepResource527;
+    internal delegate* unmanaged[Cdecl]<nint, nint, nint, nuint, nuint> MakeResourceBinary527;
+    internal delegate* unmanaged[Cdecl]<nint, byte*, nint, int, int*, nint> OpenResourceTypeX527;
+    internal delegate* unmanaged[Cdecl]<nint, byte*, nint, int, int*, nint> InitResourceType527;
+    internal delegate* unmanaged[Cdecl]<nint, nuint, nuint, nuint, nint, int> DynamicResourceCall527;
+    internal delegate* unmanaged[Cdecl]<nint, nuint, nuint, nuint> MakeListCell539;
 }

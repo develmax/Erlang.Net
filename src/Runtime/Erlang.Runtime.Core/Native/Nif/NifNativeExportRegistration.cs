@@ -118,6 +118,18 @@ internal static unsafe class NifNativeExportRegistration
         MakeInt64 = &NifNativeLinuxNumericCallbacks.MakeLong,
         MakeUInt64 = &NifNativeLinuxNumericCallbacks.MakeUnsignedLong,
         GetMapSize = &NifNativeMapSizeCallbacks.Size,
-        ThreadType521 = &NifNativeThreadType521Callbacks.Read
+        ThreadType521 = &NifNativeThreadType521Callbacks.Read,
+        OpenResourceType527 = &NifNativeResourceType527Callbacks.Open,
+        AllocateResource527 = &NifNativeResource527Callbacks.Allocate,
+        ReleaseResource527 = &NifNativeResource527Callbacks.Release,
+        MakeResource527 = &NifNativeResource527Callbacks.Make,
+        GetResource527 = &NifNativeResource527Callbacks.Get,
+        SizeOfResource527 = &NifNativeResource527Callbacks.Size,
+        KeepResource527 = &NifNativeResource527Callbacks.Keep,
+        MakeResourceBinary527 = &NifNativeResource527Callbacks.MakeBinary,
+        OpenResourceTypeX527 = &NifNativeResourceType527Callbacks.OpenX,
+        InitResourceType527 = &NifNativeResourceType527Callbacks.Init,
+        DynamicResourceCall527 = &NifNativeResourceType527Callbacks.DynamicCall,
+        MakeListCell539 = &NifNativeListCellCallbacks.Create
     };
 }

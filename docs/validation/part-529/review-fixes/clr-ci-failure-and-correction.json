@@ -1,0 +1,11 @@
+{
+  "FailedRun": 40648338319,
+  "Head": "6b7e408422a23d41b46626685023f7fe98a9c63d",
+  "FirstFullPassed": 9217,
+  "FirstFullFailed": 1,
+  "Failure": "host/clr-observed-payload-memory: reflection cannot box BitString.bytes ReadOnlySpan<byte>",
+  "Correction": "Read actual BinaryBacking.Buffer array through its owning backing object; preserve identity, sharing, weak lifetime, accounting and cancellation assertions",
+  "CorrectedGroupPassed": 1,
+  "ProductionChanged": false,
+  "WholeContractsClosed": 0
+}

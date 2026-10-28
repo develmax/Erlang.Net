@@ -2,7 +2,7 @@ namespace Erlang;
 
 // Internal lifetime primitive only. Registry code-modification admission and entry routing
 // must be integrated before any native loader can publish bindings through this primitive.
-internal sealed class NifImageBindings
+internal sealed partial class NifImageBindings
 {
     internal NifImageBindings(ModuleCodeImage image) => Image = image;
 
@@ -87,6 +87,8 @@ internal sealed class NifImageBindings
             ordered.Add(Term.Tuple(Term.A(binding.Key.Name), Term.I(binding.Key.Arity)));
         }
         Term installed = Cons.From(ordered);
+        using NativeResourcePublication527? resourcePublication =
+            (owner as NifNativeLibraryOwner)?.PrepareResourcePublication527();
         lock (gate)
         {
             if (phase != NifImageBindingPhase.Initializing || !ReferenceEquals(reservation, pending))
@@ -96,6 +98,7 @@ internal sealed class NifImageBindings
             nativeOwner = owner;
             reservation = null;
             phase = NifImageBindingPhase.Ready;
+            resourcePublication?.Commit527();
             pending.Complete();
         }
     }
@@ -127,7 +130,12 @@ internal sealed class NifImageBindings
                 activeCalls++;
             }
 
-            return new NifImageCall(this, body, arity);
+            return new NifImageCall(
+                this,
+                body,
+                arity,
+                IsGuestNativeBody535(function, arity, body)
+            );
         }
     }
 
@@ -155,50 +163,36 @@ internal sealed class NifImageBindings
 
     internal Task RetireAsync()
     {
-        IAsyncDisposable? cleanup;
-        Task drain;
-        TaskCompletionSource completion;
+        CloseAdmission529();
+        NifImageRetirementState529 state;
         lock (gate)
         {
-            if (retirement is not null)
-                return retirement.Task;
-            retirement = completion = new(TaskCreationOptions.RunContinuationsAsynchronously);
-            phase = NifImageBindingPhase.Retired;
-            ready = null;
-            installedFunctions = Nil.Value;
-            cleanup = nativeOwner;
-            nativeOwner = null;
-            if (activeCalls == 0)
-                drain = Task.CompletedTask;
-            else
-            {
-                callsDrained = new(TaskCreationOptions.RunContinuationsAsynchronously);
-                drain = callsDrained.Task;
-            }
-            if (reservation is { } initializing)
-                drain = Task.WhenAll(drain, initializing.Settled);
+            state = retirementState529!;
+            if (state.DriverStarted529) return state.Completion529.Task;
+            state.DriverStarted529 = true;
         }
         Exception? preparationFailure = null;
         try
         {
-            // Admission is closed and this binding gate is released. A trusted
-            // owner can initiate cancellation before blocked active calls drain.
-            (cleanup as INifImageRetirementPreparation)?.BeginRetirement();
+            // Empty type pins and owner cancellation settle outside all name,
+            // binding and registry gates on the physical retirement worker.
+            state.Names529?.Finish529();
+            (state.Cleanup529 as INifImageRetirementPreparation)?.BeginRetirement();
         }
         catch (Exception error)
         {
             preparationFailure = error;
         }
         Task driver = CompleteRetirement(
-            drain,
-            cleanup,
-            completion,
+            state.Drain529,
+            state.Cleanup529,
+            state.Completion529,
             preparationFailure
         );
         lock (gate)
             retirementDriver = driver;
 
-        return completion.Task;
+        return state.Completion529.Task;
     }
 
     private async Task CompleteRetirement(
@@ -219,8 +213,13 @@ internal sealed class NifImageBindings
             errors.Add(error);
         }
         lock (gate)
+        {
             if (physicalReleaseFailure521 is not null)
                 errors.Add(physicalReleaseFailure521);
+            if (resourcePublicationFailures527 is { } resourceFailures)
+                foreach (Exception? failure in resourceFailures)
+                    if (failure is not null) errors.Add(failure);
+        }
         try
         {
             if (cleanup is not null) await cleanup.DisposeAsync().ConfigureAwait(false);

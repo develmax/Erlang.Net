@@ -19,7 +19,7 @@ public sealed partial class ModuleRegistry
                     ErlangFunction canonical = functions[signature];
                     primitives.Add((function.Name, function.Arity), canonical);
                     OwnedBindingKind507 kind = SelectedOwnedBinding507(signature, canonical);
-                    if (owned507 is not null && kind is OwnedBindingKind507.PureAliasRead or OwnedBindingKind507.LocalDictionary)
+                    if (owned507 is not null && kind is OwnedBindingKind507.PureAliasRead or OwnedBindingKind507.LocalDictionary or OwnedBindingKind507.RuntimeRead535)
                         owned507[canonical] = kind;
                 }
                 else if (sourceOwners.GetValueOrDefault(signature) is PreparedBeamImage previous
@@ -28,7 +28,7 @@ public sealed partial class ModuleRegistry
                 {
                     primitives.Add((function.Name, function.Arity), primitive);
                     OwnedBindingKind507 kind = NativeBorrowKind507(previous.ExecutionIdentity, primitive);
-                    if (owned507 is not null && kind is OwnedBindingKind507.PureAliasRead or OwnedBindingKind507.LocalDictionary)
+                    if (owned507 is not null && kind is OwnedBindingKind507.PureAliasRead or OwnedBindingKind507.LocalDictionary or OwnedBindingKind507.RuntimeRead535)
                         owned507[primitive] = kind;
                 }
                 else if (!functions.ContainsKey(signature) && !sourceOwners.ContainsKey(signature)

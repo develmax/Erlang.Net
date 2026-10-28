@@ -1723,6 +1723,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 CloseCollectors413();
                 _ = CloseCodePurger432();
                 ProcessTracing.CloseTraceSessions425();
+                _ = CloseNativeResources524();
                 ReferenceResources.Close();
                 Ports.Shutdown();
                 foreach (var process in processes.Values.ToArray())
@@ -1788,7 +1789,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 DrainDriverFrontend422(),
                 DrainCodePurger432(),
                 DrainAllocatorGather434(),
-                DrainOwnedTermContexts506()
+                DrainOwnedTermContexts506(),
+                DrainNativeResources524()
             ).ConfigureAwait(false);
         }
         catch (Exception failure)
@@ -1812,9 +1814,11 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         {
             failures.Add(cancellationDrain.Exception ?? failure);
         }
+        bool nativeImagesSettled528 = false;
         try
         {
             await Task.WhenAll(sourceShutdown, nativeShutdown, DrainAutomaticNifShutdown()).ConfigureAwait(false);
+            nativeImagesSettled528 = true;
         }
         catch (Exception failure)
         {
@@ -1823,6 +1827,14 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         try
         {
             CloseNativeLinuxNamespace();
+        }
+        catch (Exception failure)
+        {
+            failures.Add(failure);
+        }
+        try
+        {
+            FinalizeNativeAllocationArena528(nativeImagesSettled528);
         }
         catch (Exception failure)
         {
@@ -1863,6 +1875,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 CloseCollectors413();
                 _ = CloseCodePurger432();
                 ProcessTracing.CloseTraceSessions425();
+                _ = CloseNativeResources524();
                 ReferenceResources.Close();
                 Ports.Shutdown();
                 foreach (var p in processes.Values.ToArray())

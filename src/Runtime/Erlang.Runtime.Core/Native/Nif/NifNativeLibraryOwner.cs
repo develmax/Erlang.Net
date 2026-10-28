@@ -45,6 +45,7 @@ internal sealed unsafe partial class NifNativeLibraryOwner : IAsyncDisposable
             initializationStarted = true;
             reallocationEnabled = profile.ReallocationEnabled;
             allocations.JoinDomain(initializationContext.Runtime.NativeAllocationDomain);
+            allocations.AttachImage528();
             allocations.RegisterWindow434(image.Module);
             NifNativePlatformLoader.VerifyPlatform();
             try
@@ -123,6 +124,8 @@ internal sealed unsafe partial class NifNativeLibraryOwner : IAsyncDisposable
                 bindings.Add(new(pair.Key, BindFunction521(pair.Key, pair.Value)));
             }
 
+            SealGuestBindings535(bindings);
+
             return bindings.AsReadOnly();
         }
     }
@@ -177,6 +180,15 @@ internal sealed unsafe partial class NifNativeLibraryOwner : IAsyncDisposable
 
     public ValueTask DisposeAsync()
     {
+        Exception? resourceRollbackFailure527 = null;
+        try
+        {
+            RollbackResourceLoad527();
+        }
+        catch (Exception error)
+        {
+            resourceRollbackFailure527 = error;
+        }
         using var lifecycle = NifNativeLifecycleGate.Enter(CancellationToken.None);
         lock (gate)
         {
@@ -192,7 +204,7 @@ internal sealed unsafe partial class NifNativeLibraryOwner : IAsyncDisposable
             );
             using var retirementInvocation = retirementScope.BindEnvironment(retirementEnvironment);
             disposed = true;
-            Exception? failure = null;
+            Exception? failure = resourceRollbackFailure527;
             bool nativeClosed = false;
             try
             {
@@ -238,7 +250,11 @@ internal sealed unsafe partial class NifNativeLibraryOwner : IAsyncDisposable
                     // Target ELF/CRT destructors finish before failed-init/veto containment.
                     try
                     {
-                        allocations.ReclaimAll();
+                        // enif_alloc is VM allocation storage, not DLL-private
+                        // scratch. A new callback image can free old userdata.
+                        // Reclaim only an unjoined standalone owner here.
+                        if (allocations.Arena528 is null) allocations.ReclaimAll();
+                        else allocations.ImageClosed528();
                     }
                     catch (Exception reclaimFailure)
                     {

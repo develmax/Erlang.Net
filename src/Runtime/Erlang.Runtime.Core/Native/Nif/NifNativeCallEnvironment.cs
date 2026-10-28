@@ -241,6 +241,22 @@ internal sealed unsafe partial class NifNativeCallEnvironment : IDisposable
         inspectedBinaries ??= new(ReferenceEqualityComparer.Instance);
         if (inspectedBinaries.TryGetValue(binary, out var existing))
             return existing;
+        NifNativeBinaryStorage? borrowed = NifNativeBinaryStorage.Borrow524(binary);
+        if (borrowed is not null)
+        {
+            try
+            {
+                RetainBinaryStorage(borrowed);
+                inspectedBinaries.Add(binary, borrowed);
+
+                return borrowed;
+            }
+            catch
+            {
+                borrowed.ReleaseUnowned();
+                throw;
+            }
+        }
         var storage = CreateBinaryStorage((nuint)binary.ByteSpan.Length);
         binary.ByteSpan.CopyTo(new Span<byte>(storage.Pointer, binary.ByteSpan.Length));
         inspectedBinaries.Add(binary, storage);
@@ -304,6 +320,7 @@ internal sealed unsafe partial class NifNativeCallEnvironment : IDisposable
         pendingReasonHandle = 0;
         pendingReasonVersion = 0;
         ClearGuestRootInventory516();
+        ClearNativeRoots524();
         Interlocked.Exchange(ref guestRoots516, null)?.Dispose();
     }
 

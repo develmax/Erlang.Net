@@ -245,8 +245,13 @@ internal static partial class BeamRegisterInterpreter
                             if (native is not null)
                             {
                                 Term[] nativeArguments = Enumerable.Range(0, function.Arity).Select(registers.Read).ToArray();
-                                nativeArguments = registers.ExportArguments507(nativeArguments);
-                                registers.Write(0, await native.InvokeAsync(context, nativeArguments));
+                                if (registers.HasOwnedRoots507 && native.GuestNative535)
+                                    registers.Write(0, await context.InvokeImageNif535(native, nativeArguments));
+                                else
+                                {
+                                    nativeArguments = registers.ExportArguments507(nativeArguments);
+                                    registers.Write(0, await native.InvokeAsync(context, nativeArguments));
+                                }
                                 if (!ReturnToCaller())
                                     return registers.CompleteGuestReturn507(registers.Read(0));
                                 continue;

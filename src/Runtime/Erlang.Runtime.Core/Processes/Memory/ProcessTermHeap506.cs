@@ -287,6 +287,7 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
     {
         if (!closing || frames.Count != 0)
             return;
+        RetireNativeHeaders524();
         foreach (ProcessTermSlab506 slab in slabs)
             slab.Cells.Dispose();
         blocks.Clear();
