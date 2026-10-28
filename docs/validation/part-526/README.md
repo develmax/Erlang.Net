@@ -64,3 +64,7 @@ API/full-contract deltas0/0:708 registered,180 recorded full contracts,
 not close the unfinished reference/map producer work or establish whole OTP
 compatibility. Final merged-head CI and final branch inventory must be checked
 after the remaining merges; historical successful runs do not substitute for it.
+
+## Final informational metadata correction
+
+Independent final77 review verifies all11506 C#/project/build entries are identical and identifies18 stale informational dependency sizes across the three legacy plans. Correct only Bytes according to each declared TextLF sequence, keeping the already-verified SHA/source unchanged. Refresh workflow pins, the current infrastructure evidence binding and downstream plan hashes. All8 passive checks and10341 downstream rows pass on final files; before/after proof is retained in local-checks/informational-sizes.json. These are informational metadata corrections, not new runtime behavior.
