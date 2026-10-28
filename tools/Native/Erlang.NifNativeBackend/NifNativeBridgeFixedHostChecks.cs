@@ -31,7 +31,27 @@ internal static unsafe class NifNativeBridgeFixedHostChecks
         ];
         Require(prefix.Length == NifNativeBridgeFixedHostNames.LegacyPointerCount);
         Require(extension.Length == NifNativeBridgeFixedHostNames.AddedPointerCount);
-        string[] fields = [.. prefix, .. extension];
+        string[] resources =
+        [
+            nameof(NifNativeBridgeTable.OpenResourceType527),
+            nameof(NifNativeBridgeTable.AllocateResource527),
+            nameof(NifNativeBridgeTable.ReleaseResource527),
+            nameof(NifNativeBridgeTable.MakeResource527),
+            nameof(NifNativeBridgeTable.GetResource527),
+            nameof(NifNativeBridgeTable.SizeOfResource527),
+            nameof(NifNativeBridgeTable.KeepResource527),
+            nameof(NifNativeBridgeTable.MakeResourceBinary527),
+            nameof(NifNativeBridgeTable.OpenResourceTypeX527),
+            nameof(NifNativeBridgeTable.InitResourceType527),
+            nameof(NifNativeBridgeTable.DynamicResourceCall527)
+        ];
+        string[] cons = [nameof(NifNativeBridgeTable.MakeListCell539)];
+        Require(resources.Length == NifNativeBridgeFixedHostNames.ResourcePointerCount);
+        Require(cons.Length == NifNativeBridgeFixedHostNames.ConsPointerCount);
+        Require(Marshal.OffsetOf<NifNativeBridgeTable>(resources[0]).ToInt64() == NifNativeBridgeFixedHostNames.ResourceAppendOffset);
+        Require(Marshal.OffsetOf<NifNativeBridgeTable>(cons[0]).ToInt64() == NifNativeBridgeFixedHostNames.ConsAppendOffset);
+        string[] fields = [.. prefix, .. extension, .. resources, .. cons];
+        Require(NifNativeBridgeFixedHostNames.MetadataBytes + fields.Length * sizeof(nint) == NifNativeBridgeFixedHostNames.ExpectedTableBytes);
         var pointers = (nint*)((byte*)&table + NifNativeBridgeFixedHostNames.MetadataBytes);
         for (int index = 0; index < fields.Length; index++)
         {
@@ -116,6 +136,19 @@ internal static unsafe class NifNativeBridgeFixedHostChecks
             null,
             null
         ) == 0);
+        // Invoke the appended constructor, not merely compare a non-NULL slot.
+        nuint improper = table.MakeListCell539(owner.Pointer, atom, integer);
+        Require(improper != 0 && owner.Get(improper).Equals(new Cons(owner.Get(atom), Term.I(7))));
+        nuint proper = table.MakeListCell539(owner.Pointer, atom, list);
+        Require(proper != 0 && owner.Get(proper).Equals(new Cons(owner.Get(atom), owner.Get(list))));
+        nuint constructedHead = 0, constructedTail = 0;
+        Require(table.GetListCell(
+            owner.Pointer,
+            improper,
+            &constructedHead,
+            &constructedTail
+        ) == 1);
+        Require(owner.Get(constructedHead).Equals(owner.Get(atom)) && owner.Get(constructedTail).Equals(Term.I(7)));
         Require(owner.Get(table.MakeTupleFromArray(owner.Pointer, null, 0)).Equals(Term.Tuple()));
         Require(owner.Get(table.MakeListFromArray(owner.Pointer, null, 0)) is Nil);
         state.ThrowPending();

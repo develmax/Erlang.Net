@@ -13,7 +13,7 @@ _Static_assert(sizeof(long) == 8, "Linux bridge requires LP64 long");
 _Static_assert(sizeof(void *) == 8, "Linux bridge requires x64 pointers");
 
 #define NIF_BRIDGE_EXPORT __attribute__((visibility("default")))
-#define NIF_BRIDGE_VERSION UINT32_C(5)
+#define NIF_BRIDGE_VERSION UINT32_C(7)
 
 typedef struct NifBridgeCursor {
     va_list arguments;
@@ -68,9 +68,21 @@ typedef struct NifBridgeCallbacks {
     void (*clear_env)(ErlNifEnv *);
     ERL_NIF_TERM (*make_copy)(ErlNifEnv *, ERL_NIF_TERM);
     int (*thread_type521)(void);
+    ErlNifResourceType *(*open_resource_type527)(ErlNifEnv *env, const char *module, const char *name, ErlNifResourceDtor *dtor, ErlNifResourceFlags flags, ErlNifResourceFlags *tried);
+    void *(*alloc_resource527)(ErlNifResourceType *type, size_t size);
+    void(*release_resource527)(void *resource);
+    ERL_NIF_TERM(*make_resource527)(ErlNifEnv *env, void *resource);
+    int(*get_resource527)(ErlNifEnv *env, ERL_NIF_TERM term, ErlNifResourceType *type, void **output);
+    size_t(*sizeof_resource527)(void *resource);
+    void(*keep_resource527)(void *resource);
+    ERL_NIF_TERM(*make_resource_binary527)(ErlNifEnv *env, void *resource, const void *data, size_t size);
+    ErlNifResourceType *(*open_resource_type_x527)(ErlNifEnv *env, const char *name, const ErlNifResourceTypeInit *init, ErlNifResourceFlags flags, ErlNifResourceFlags *tried);
+    ErlNifResourceType *(*init_resource_type527)(ErlNifEnv *env, const char *name, const ErlNifResourceTypeInit *init, ErlNifResourceFlags flags, ErlNifResourceFlags *tried);
+    int(*dynamic_resource_call527)(ErlNifEnv *env, ERL_NIF_TERM module, ERL_NIF_TERM name, ERL_NIF_TERM resource, void *data);
+    ERL_NIF_TERM (*make_list_cell539)(ErlNifEnv *, ERL_NIF_TERM, ERL_NIF_TERM);
 } NifBridgeCallbacks;
 
-_Static_assert(sizeof(NifBridgeCallbacks) == 368, "Fixed bridge table size mismatch");
+_Static_assert(sizeof(NifBridgeCallbacks) == 464, "Fixed bridge table size mismatch");
 
 /* Caller owns an immutable, process-lifetime table. No replacement/unregister. */
 NIF_BRIDGE_EXPORT int nif_bridge_register(const NifBridgeCallbacks *callbacks);

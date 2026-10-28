@@ -1,0 +1,17 @@
+# Part529: coordinated native resource domain
+
+This is the next shared implementation batch behind the24Known differences, not24independent compatibility promotions. Applies166 guarded source targets after Part528, preserving ordinary reference storage, loader-map keys, metadata assignment and occupied-slab accounting.
+
+Implements native payload/type/callback/image lifetime, cross-image allocation arena, transaction rollback and logical type-name unlink, exact-image guest-native readers, normal-scheduler GC destructor dispatch and canonical cons creation. Both Windows and Linux fixed-table source layouts append the resource/cons fields together (ABI7,464bytes,resource prefix368,cons456). Actual native payload/arena byte domains remain separate from actual registered guest-slab cells; semantic native descriptors do not pretend to be physical ERTS heap headers.
+
+Build passes0warnings/errors after correcting a test-only unqualified helper reference. All21new controls pass; all9194old test names remain in the9215catalog. An initial compile failure is retained. Current253-case affected/native regression and genuine original family replay through both loaders remain explicit gates. Independent source review found no concrete blocker; it is not an execution result.
+
+Upgrade remains refused. Resource down/monitor/select, general foreign native threads, physical magic-ref/BinRef/SubBits guest storage, complete budgets/public process resource metrics and ordinary-profile resource custody remain incomplete. Fresh-load-after-purge requires actual original boot dependencies, not a replacement worker. Counts708registered/180full/504pending/24Known remain unchanged.
+
+Part528 publication is PR80 atdd9439f3a2e6a9d0e7e2010a42f47b759e6fe8d2, CI579. Its local first full9179/9194 plus corrected official-provider prerequisite suffix15/15 covers all9194names with unchanged production code; this is explicitly a composite and does not replace final-head clean CI. Part527 rule merged through PR79 into329bb84acd7326a0306a0c2b896329240127eaa6 after its all3jobs green exact-head CI577.
+
+Pinned original OTP29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5. No original expected bytes, values, errors or stacks are normalized. LICENSE.local.txt excluded; no package publication.
+
+Final local acceptance:253/253affected/native cases pass. First251/253report remains; two old controls assumed per-image arena reclamation. Their replacements retain all historical arithmetic/overflow/concurrency checks and now verify actual bytes after image close, correct final realloc pointer transfer, explicit arena free and zero owners/blocks. The existing two-profile arena control also verifies actual VM retirement removes the leaked allocation/address index. Both final-source-bound ordinary/reviewed private-owned resource family replays pass complete4239-byte default and deterministic comparisons with the genuine original, actual loader-policy calls0/1 and full physical cleanup. Both raw outcomes and originals are retained here.
+
+CI reuses the same observer/driver/provider with one selected fresh original family and two independent private-loader routes. Existing three-protocol default remains unchanged. Eight final passive source plans and exact3571-member Pending closure pass; new resource plan binds3293 dependencies.2035source guards, API/full deltas0/0. Exact-head CI/review/merge remain pending.

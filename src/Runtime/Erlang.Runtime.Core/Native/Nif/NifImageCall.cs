@@ -7,11 +7,29 @@ internal sealed class NifImageCall : IDisposable
     private readonly int arity;
     private int state;
 
+    internal bool GuestNative535 { get; }
+
     internal NifImageCall(NifImageBindings owner, ErlangFunction body, int arity)
+        : this(
+            owner,
+            body,
+            arity,
+            false
+        )
+    {
+    }
+
+    internal NifImageCall(
+        NifImageBindings owner,
+        ErlangFunction body,
+        int arity,
+        bool guestNative
+    )
     {
         this.owner = owner;
         this.body = body;
         this.arity = arity;
+        GuestNative535 = guestNative;
     }
 
     internal async ValueTask<Term> InvokeAsync(ProcessContext context, IReadOnlyList<Term> arguments)

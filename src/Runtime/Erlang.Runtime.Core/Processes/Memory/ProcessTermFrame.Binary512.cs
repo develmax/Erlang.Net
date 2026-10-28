@@ -22,8 +22,10 @@ internal sealed partial class ProcessTermFrame506
     // dictionary growth failures restore the previous publication atomically.
     private void PublishRoot512(int slot, Term value)
     {
+        using ProcessNativePublication524? native = owner.PrepareNativeHeaders524(value);
         using ProcessBinaryPublication512 publication = (binaryRoots512 ??= owner.EnterBinaryFrame512()).Prepare512(slot, value);
         values[slot] = value;
         publication.Commit512();
+        native?.Commit524();
     }
 }

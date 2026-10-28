@@ -3,6 +3,13 @@ using Erlang.NifNativeBackend;
 
 try
 {
+    if (args.Length != 0 && args[0] == Resource529Names.Mode)
+    {
+        await Resource529Driver.Run(args[1..]);
+
+        return;
+    }
+
     if (args.Length != 0 && args[0] == NifDirty521Names.Mode)
     {
         await NifDirty521Driver.Run(

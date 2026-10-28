@@ -16,7 +16,7 @@ internal static class NifNativeThreadType521Callbacks
                 _ => NifNativeScheduling521Names.UndefinedThread
             };
 
-        return RuntimeActorExecutionTurn.LaneIdentity != 0
+        return RuntimeActorExecutionTurn.LaneIdentity != 0 || RuntimeNormalAuxiliaryTurn536.Lane536 != 0
             ? NifNativeScheduling521Names.NormalThread
             : NifNativeScheduling521Names.UndefinedThread;
     }

@@ -6,5 +6,7 @@ internal enum OwnedBindingKind507
     CompilerGuest,
     PreparedGuest,
     LocalDictionary,
-    PureAliasRead
+    PureAliasRead,
+    RuntimeRead535,
+    NativeGuest535
 }

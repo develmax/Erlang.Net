@@ -94,6 +94,8 @@ internal static class OwnedTermDetachedCopy506
                     record.IsExported,
                     record.FieldNames.Select((name, index) => new KeyValuePair<Atom, Term>(name, values[index]))
                 );
+            case BitString binary when binary.NativeResourceIdentity524 is not null:
+                return binary.CloneNativeView524();
             case BitString binary:
                 PersistentBinarySlice416 slice = binary.CapturePersistentSlice416();
 
@@ -101,7 +103,7 @@ internal static class OwnedTermDetachedCopy506
                     : slice.Backing.Materialize(slice.BitOffset, slice.BitLength);
             case ResourceReferenceTerm resource:
                 // New heap wrapper, same actual authenticated magic resource.
-                // Its strong Entry reference owns payload lifetime naturally.
+                // Native resource lifetime is held separately by actual root/store leases.
                 return new ResourceReferenceTerm(resource.Entry);
             case Pid pid:
                 return pid.LocalIdentity is { } pidOwner ? new Pid(pidOwner, pid.Id) : new Pid(pid.Node, pid.Id, pid.Creation);

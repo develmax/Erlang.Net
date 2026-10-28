@@ -7170,6 +7170,72 @@ try
     Test(Erlang.Tests.MapRouting517TestNames.SourceTest, Erlang.Tests.MapRouting517Checks.SourceProducer);
     Test(Erlang.Tests.OwnedWords526Names.Test, Erlang.Tests.OwnedWords526Checks.PhysicalHeadersAndRetirement);
     Test(Erlang.Tests.MapSharingSize528Names.Test, Erlang.Tests.MapSharingSize528Checks.Run);
+    Test(Erlang.Tests.NativeResourceLogical529Names.UnlinkTest, Erlang.Tests.NativeResourceLogical529Checks.UnlinkLivePayload);
+    Test(Erlang.Tests.NativeResourceLogical529Names.CallbackTest, Erlang.Tests.NativeResourceLogical529Checks.HeldCallbackPin);
+    Test(Erlang.Tests.NativeHostScope531Names.Test, Erlang.Tests.NativeHostScope531Checks.ParallelExports);
+    Test(Erlang.Tests.NativeGuest535Names.ReadersTest, Erlang.Tests.NativeGuest535Checks.ReadersAndPublicRefusal);
+    Test(Erlang.Tests.NativeGuest535Names.ReregisterTest, Erlang.Tests.NativeGuest535Checks.PublicReregisterStaysOpaque);
+    Test(Erlang.Tests.NativeGuest535Names.FakeTest, Erlang.Tests.NativeGuest535Checks.ManagedNifProviderStaysOpaque);
+    Test(
+        Erlang.Tests.NativeResource536TestNames.NormalTest,
+        Erlang.Tests.NativeResource536Checks.GuestGcUsesActualNormalAuxiliaryOnce
+    );
+    Test(
+        Erlang.Tests.NativeResource536TestNames.HeldTest,
+        Erlang.Tests.NativeResource536Checks.HeldNormalDestructorKeepsImageAndClosePhysical
+    );
+    Test(
+        Erlang.Tests.NativeResource536TestNames.ForeignTest,
+        Erlang.Tests.NativeResource536Checks.NonGcRouteIsNotSilentlyReclassified
+    );
+    Test(
+        Erlang.Tests.NativeCons539CaseNames.Shape,
+        NifNativeBackend::Erlang.NifNativeBackend.NifConsCell539HostEntry.ShapeAndAbi
+    );
+    Test(
+        Erlang.Tests.NativeCons539CaseNames.Pending,
+        NifNativeBackend::Erlang.NifNativeBackend.NifConsCell539HostEntry.PendingHeadAndImproperTail
+    );
+    Test(
+        Erlang.Tests.NativeCons539CaseNames.Owners,
+        NifNativeBackend::Erlang.NifNativeBackend.NifConsCell539HostEntry.InvalidOwnersAndThreads
+    );
+    Test(
+        Erlang.Tests.NativeCons539CaseNames.Resource,
+        Erlang.Tests.NativeCons539ResourceChecks.CopiedCellKeepsResourceUntilLastEnvironmentClear
+    );
+    Test(
+        Erlang.Tests.NativeResourceScope528Names.ViewAndGuestCollection,
+        Erlang.Tests.NativeResource524Checks.ViewAndGuestCollection
+    );
+    Test(
+        Erlang.Tests.NativeResourceScope528Names.PhysicalDestructorPinsImage,
+        Erlang.Tests.NativeResource524Checks.PhysicalDestructorPinsImage
+    );
+    Test(
+        Erlang.Tests.NativeResourceScope528Names.PhysicalMagicHeaderAndIdentity,
+        Erlang.Tests.NativeResource527Checks.PhysicalMagicHeaderAndIdentity
+    );
+    Test(
+        Erlang.Tests.NativeResourceScope528Names.CreateDuplicateOrderAndRollback,
+        Erlang.Tests.NativeResource527Checks.CreateDuplicateOrderAndRollback
+    );
+    Test(
+        Erlang.Tests.NativeResourceScope528Names.TakeoverUsesNewPhysicalDestructor,
+        Erlang.Tests.NativeResource527Checks.TakeoverUsesNewPhysicalDestructor
+    );
+    Test(
+        Erlang.Tests.NativeResourceScope528Names.ArenaSurvivesImageCloseAndSupportsForeignFree,
+        Erlang.Tests.NativeResourceArena528Checks.ArenaSurvivesImageCloseAndSupportsForeignFree
+    );
+    Test(
+        Erlang.Tests.NativeResourceScope528Names.NewDestructorFreesOldImageChildAllocation,
+        Erlang.Tests.NativeResourceArena528Checks.NewDestructorFreesOldImageChildAllocation
+    );
+    Test(
+        Erlang.Tests.NativeResourceAllocation570Names.Test,
+        Erlang.Tests.NativeResourceAllocation570Checks.SeparateNativeBytesAndGuestCells
+    );
     Test(Erlang.Tests.AllocatorFirstFit519Names.MixedTest, Erlang.Tests.AllocatorFirstFit519Checks.MixedFirstFit);
     Test(Erlang.Tests.AllocatorFirstFit519Names.FragmentedTest, Erlang.Tests.AllocatorFirstFit519Checks.FragmentedLinearScan);
     Test(Erlang.Tests.AllocatorFirstFit519Names.HeapTest, Erlang.Tests.AllocatorFirstFit519Checks.HeapLinearScan);

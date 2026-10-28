@@ -32,6 +32,14 @@ public static class CoreModules
                 (c, a) => ValueTask.FromResult(f(c, a))
             );
 
+        void AddRuntimeRead535(string name, int arity, Func<ProcessContext, IReadOnlyList<Term>, Term> f)
+            => r.RegisterCanonicalRuntimeRead535(
+                ErlangModuleNames.Module,
+                name,
+                arity,
+                (context, arguments) => ValueTask.FromResult(f(context, arguments))
+            );
+
         void AddDictionary507(string name, int arity, Func<ProcessContext, IReadOnlyList<Term>, Term> f)
             => r.RegisterCanonicalDictionary507(
                 ErlangModuleNames.Module,
@@ -135,8 +143,7 @@ public static class CoreModules
                     Term.A(ErlangErrorReasons.BadArgument)
                 )
         );
-        Add(
-            ErlangModuleNames.Module,
+        AddRuntimeRead535(
             ErlangModuleNames.ByteSize,
             1,
             (c, a) => a[0] is BitString b

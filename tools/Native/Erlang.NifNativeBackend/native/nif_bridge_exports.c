@@ -45,7 +45,18 @@ NIF_BRIDGE_EXPORT int nif_bridge_register(const NifBridgeCallbacks *callbacks)
         callbacks->get_map_size == NULL ||
         callbacks->make_ref == NULL || callbacks->alloc_env == NULL ||
         callbacks->free_env == NULL || callbacks->clear_env == NULL ||
-        callbacks->make_copy == NULL || callbacks->thread_type521 == NULL)
+        callbacks->make_copy == NULL || callbacks->thread_type521 == NULL ||
+        callbacks->open_resource_type527 == NULL ||
+        callbacks->alloc_resource527 == NULL ||
+        callbacks->release_resource527 == NULL ||
+        callbacks->make_resource527 == NULL ||
+        callbacks->get_resource527 == NULL ||
+        callbacks->sizeof_resource527 == NULL ||
+        callbacks->keep_resource527 == NULL ||
+        callbacks->make_resource_binary527 == NULL ||
+        callbacks->open_resource_type_x527 == NULL ||
+        callbacks->init_resource_type527 == NULL ||
+        callbacks->dynamic_resource_call527 == NULL || callbacks->make_list_cell539 == NULL)
         return 1;
 
     if (atomic_compare_exchange_strong_explicit(&published_callbacks, &expected, callbacks,
@@ -177,6 +188,11 @@ NIF_BRIDGE_EXPORT int enif_is_map(ErlNifEnv * env, ERL_NIF_TERM term)
     return nif_bridge_callbacks()->is_map(env, term);
 }
 
+NIF_BRIDGE_EXPORT ERL_NIF_TERM enif_make_list_cell(ErlNifEnv *env, ERL_NIF_TERM head, ERL_NIF_TERM tail)
+{
+    return nif_bridge_callbacks()->make_list_cell539(env, head, tail);
+}
+
 NIF_BRIDGE_EXPORT int enif_get_list_cell(ErlNifEnv * env, ERL_NIF_TERM term, ERL_NIF_TERM * head, ERL_NIF_TERM * tail)
 {
     return nif_bridge_callbacks()->get_list_cell(env, term, head, tail);
@@ -285,4 +301,59 @@ NIF_BRIDGE_EXPORT ERL_NIF_TERM enif_make_copy(ErlNifEnv *env, ERL_NIF_TERM sourc
 NIF_BRIDGE_EXPORT int enif_thread_type(void)
 {
     return nif_bridge_callbacks()->thread_type521();
+}
+
+NIF_BRIDGE_EXPORT ErlNifResourceType *enif_open_resource_type(ErlNifEnv *env, const char *module, const char *name, ErlNifResourceDtor *dtor, ErlNifResourceFlags flags, ErlNifResourceFlags *tried)
+{
+    return nif_bridge_callbacks()->open_resource_type527(env, module, name, dtor, flags, tried);
+}
+
+NIF_BRIDGE_EXPORT void *enif_alloc_resource(ErlNifResourceType *type, size_t size)
+{
+    return nif_bridge_callbacks()->alloc_resource527(type, size);
+}
+
+NIF_BRIDGE_EXPORT voidenif_release_resource(void *resource)
+{
+    nif_bridge_callbacks()->release_resource527(resource);
+}
+
+NIF_BRIDGE_EXPORT ERL_NIF_TERM enif_make_resource(ErlNifEnv *env, void *resource)
+{
+    return nif_bridge_callbacks()->make_resource527(env, resource);
+}
+
+NIF_BRIDGE_EXPORT int enif_get_resource(ErlNifEnv *env, ERL_NIF_TERM term, ErlNifResourceType *type, void **output)
+{
+    return nif_bridge_callbacks()->get_resource527(env, term, type, output);
+}
+
+NIF_BRIDGE_EXPORT size_t enif_sizeof_resource(void *resource)
+{
+    return nif_bridge_callbacks()->sizeof_resource527(resource);
+}
+
+NIF_BRIDGE_EXPORT voidenif_keep_resource(void *resource)
+{
+    nif_bridge_callbacks()->keep_resource527(resource);
+}
+
+NIF_BRIDGE_EXPORT ERL_NIF_TERM enif_make_resource_binary(ErlNifEnv *env, void *resource, const void *data, size_t size)
+{
+    return nif_bridge_callbacks()->make_resource_binary527(env, resource, data, size);
+}
+
+NIF_BRIDGE_EXPORT ErlNifResourceType *enif_open_resource_type_x(ErlNifEnv *env, const char *name, const ErlNifResourceTypeInit *init, ErlNifResourceFlags flags, ErlNifResourceFlags *tried)
+{
+    return nif_bridge_callbacks()->open_resource_type_x527(env, name, init, flags, tried);
+}
+
+NIF_BRIDGE_EXPORT ErlNifResourceType *enif_init_resource_type(ErlNifEnv *env, const char *name, const ErlNifResourceTypeInit *init, ErlNifResourceFlags flags, ErlNifResourceFlags *tried)
+{
+    return nif_bridge_callbacks()->init_resource_type527(env, name, init, flags, tried);
+}
+
+NIF_BRIDGE_EXPORT int enif_dynamic_resource_call(ErlNifEnv *env, ERL_NIF_TERM module, ERL_NIF_TERM name, ERL_NIF_TERM resource, void *data)
+{
+    return nif_bridge_callbacks()->dynamic_resource_call527(env, module, name, resource, data);
 }

@@ -18,7 +18,7 @@ internal static class NifNativeNames
     internal const int FunctionCount = 2;
     internal const int IncrementArity = 1;
     internal const int GreetingArity = 0;
-    internal const uint BridgeVersion = 5;
+    internal const uint BridgeVersion = 7;
     internal const int LinuxImmediate = 2;
     internal const int LinuxGlobal = 256;
     internal const int MaximumVariadicItems = 4096;
@@ -61,6 +61,18 @@ internal static class NifNativeNames
         "enif_free_env",
         "enif_clear_env",
         "enif_make_copy",
-        "enif_thread_type"
+        "enif_thread_type",
+        "enif_open_resource_type",
+        "enif_alloc_resource",
+        "enif_release_resource",
+        "enif_make_resource",
+        "enif_get_resource",
+        "enif_sizeof_resource",
+        "enif_keep_resource",
+        "enif_make_resource_binary",
+        "enif_open_resource_type_x",
+        "enif_init_resource_type",
+        "enif_dynamic_resource_call",
+        "enif_make_list_cell"
     ];
 }

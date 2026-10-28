@@ -8,7 +8,23 @@ internal sealed class PersistentArenaRootBuilder416 : IDisposable
 
     internal int Binary(PersistentBinaryBacking416 value)
     {
-        if (binaries.TryGetValue(value.StorageIdentity, out int existing)) return existing;
+        if (binaries.TryGetValue(value.StorageIdentity, out int existing))
+        {
+            value.Dispose();
+
+            return existing;
+        }
+        // Reserve dictionary capacity before transferring the disposable backing
+        // into the roots list, so metadata OOM cannot orphan a native lease.
+        try
+        {
+            binaries.EnsureCapacity(checked(binaries.Count + 1));
+        }
+        catch
+        {
+            value.Dispose();
+            throw;
+        }
         int index = Add(new(PersistentArenaRootKind416.Binary, value));
         binaries.Add(value.StorageIdentity, index);
 

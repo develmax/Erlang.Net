@@ -147,6 +147,10 @@ public static class NifAllocationDomainHostChecks
         library.Free(pointer);
         await library.DisposeAsync();
         await library.DisposeAsync();
+        var retained = NifAllocationDomainHostBridge.Snapshot(runtime);
+        Require(retained.JoinedOwners == 1 && retained.Allocations.Count == 1 && library.OwnerSnapshot.Count == 1);
+        Require(Marshal.ReadByte(zero) == NifAllocationDomainHostParameters.PayloadMarker);
+        NativeResourceArena528Access.Free(zero);
         var closed = NifAllocationDomainHostBridge.Snapshot(runtime);
         Require(closed.JoinedOwners == 0 && closed.Allocations.Count == 0 && library.OwnerSnapshot.Count == 0);
         Require(closed.Allocations.AllocatedRequestedBytes == both.Allocations.AllocatedRequestedBytes && closed.Allocations.PeakBackingRequestBytes == both.Allocations.PeakBackingRequestBytes);
@@ -181,6 +185,10 @@ public static class NifAllocationDomainHostChecks
         await first.DisposeAsync();
         Require(NifAllocationDomainHostBridge.Snapshot(runtime).JoinedOwners == 1);
         await second.DisposeAsync();
+        Require(NifAllocationDomainHostBridge.Snapshot(runtime).Allocations.Count == 2);
+        NativeResourceArena528Access.Free(secondPointer);
+        NativeResourceArena528Access.Free(later);
+        Require(NifAllocationDomainHostBridge.Snapshot(runtime).JoinedOwners == 0);
         Coherent(NifAllocationDomainHostBridge.Snapshot(runtime));
         passed.Add(NifAllocationDomainHostNames.AggregateCase);
     }
@@ -207,7 +215,8 @@ public static class NifAllocationDomainHostChecks
                 Marshal.WriteByte(pointer, NifAllocationDomainHostParameters.PayloadMarker);
                 entered.SetResult();
                 await release.Task.WaitAsync(NifAllocationDomainHostNames.Deadline);
-                first.Free(pointer);
+                Require(Marshal.ReadByte(pointer) == NifAllocationDomainHostParameters.PayloadMarker);
+                NativeResourceArena528Access.Free(pointer);
             }
             catch (Exception failure)
             {
@@ -238,9 +247,10 @@ public static class NifAllocationDomainHostChecks
             await writer.WaitAsync(NifAllocationDomainHostNames.Deadline);
             await first.DisposeAsync();
             var drained = NifAllocationDomainHostBridge.Snapshot(runtime);
-            Require(drained.JoinedOwners == 1 && drained.Allocations.Count == 0 && first.OwnerSnapshot.Count == 0);
+            Require(drained.JoinedOwners == 2 && drained.Allocations.Count == 1 && first.OwnerSnapshot.Count == 1);
             release.TrySetResult();
             await held.WaitAsync(NifAllocationDomainHostNames.Deadline);
+            Require(NifAllocationDomainHostBridge.Snapshot(runtime).Allocations.Count == 0 && first.OwnerSnapshot.Count == 0);
             await second.DisposeAsync();
             Require(NifAllocationDomainHostBridge.Snapshot(runtime).JoinedOwners == 0);
             Coherent(NifAllocationDomainHostBridge.Snapshot(runtime));
