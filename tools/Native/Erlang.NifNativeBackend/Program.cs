@@ -61,6 +61,34 @@ try
         return;
     }
 
+    if (args.Length != 0 && args[0] == MapCollision504CallbackNames.Mode)
+    {
+        await MapCollision504CallbackEntry.Run(args[1..]);
+
+        return;
+    }
+
+    if (args.Length != 0 && args[0] == MapMaterialized505CallbackNames.Mode)
+    {
+        await MapMaterialized505CallbackEntry.Run(args[1..]);
+
+        return;
+    }
+
+    if (args.Length != 0 && args[0] == MapReentry505CallbackNames.Mode)
+    {
+        await MapReentry505CallbackEntry.Run(args[1..]);
+
+        return;
+    }
+
+    if (args.Length != 0 && args[0] == MapFamily504CallbackNames.Mode)
+    {
+        await MapFamily504CallbackEntry.Run(args[1..]);
+
+        return;
+    }
+
     if (args.Length != 0 && args[0] == MapValue503CallbackNames.Mode)
     {
         await MapValue503CallbackEntry.Run(args[1..]);

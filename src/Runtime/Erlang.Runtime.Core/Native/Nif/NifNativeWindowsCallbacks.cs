@@ -22,6 +22,17 @@ internal sealed unsafe class NifNativeWindowsCallbacks : IDisposable
         var slots = (nint*)pointer;
         slots[NifNativeWindowsCallbackLayout.MakeNewMap] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint>)&NifNativeMapCreation501Callbacks.Make;
         slots[NifNativeWindowsCallbackLayout.GetMapValue] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint, nuint, nuint*, int>)&NifNativeMapValue503Callbacks.Get;
+        slots[NifNativeWindowsCallbackLayout.MakeMapPut] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint, nuint, nuint, nuint*, int>)&NifNativeMapMutation504Callbacks.Put;
+        slots[NifNativeWindowsCallbackLayout.MakeMapUpdate] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint, nuint, nuint, nuint*, int>)&NifNativeMapMutation504Callbacks.Update;
+        slots[NifNativeWindowsCallbackLayout.MakeMapRemove] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint, nuint, nuint*, int>)&NifNativeMapMutation504Callbacks.Remove;
+        slots[NifNativeWindowsCallbackLayout.MakeMapFromArrays] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint*, nuint*, nuint, nuint*, int>)&NifNativeMapArrays504Callbacks.Create;
+        slots[NifNativeWindowsCallbackLayout.CreateMapIterator] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint, NifNativeMapIterator504*, int, int>)&NifNativeMapIterator504Callbacks.Create;
+        slots[NifNativeWindowsCallbackLayout.DestroyMapIterator] = (nint)(delegate* unmanaged[Cdecl]<nint, NifNativeMapIterator504*, void>)&NifNativeMapIterator504Callbacks.Destroy;
+        slots[NifNativeWindowsCallbackLayout.IsMapIteratorHead] = (nint)(delegate* unmanaged[Cdecl]<nint, NifNativeMapIterator504*, int>)&NifNativeMapIterator504Callbacks.IsHead;
+        slots[NifNativeWindowsCallbackLayout.IsMapIteratorTail] = (nint)(delegate* unmanaged[Cdecl]<nint, NifNativeMapIterator504*, int>)&NifNativeMapIterator504Callbacks.IsTail;
+        slots[NifNativeWindowsCallbackLayout.NextMapIterator] = (nint)(delegate* unmanaged[Cdecl]<nint, NifNativeMapIterator504*, int>)&NifNativeMapIterator504Callbacks.Next;
+        slots[NifNativeWindowsCallbackLayout.PreviousMapIterator] = (nint)(delegate* unmanaged[Cdecl]<nint, NifNativeMapIterator504*, int>)&NifNativeMapIterator504Callbacks.Previous;
+        slots[NifNativeWindowsCallbackLayout.GetMapIteratorPair] = (nint)(delegate* unmanaged[Cdecl]<nint, NifNativeMapIterator504*, nuint*, nuint*, int>)&NifNativeMapIterator504Callbacks.GetPair;
         slots[NifNativeWindowsCallbackLayout.GetMapSize] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint, nuint*, int>)&NifNativeMapSizeCallbacks.Size;
         slots[NifNativeWindowsCallbackLayout.IsIdentical] = (nint)(delegate* unmanaged[Cdecl]<nuint, nuint, int>)&NifNativeComparisonCallbacks.Identical;
         slots[NifNativeWindowsCallbackLayout.Compare] = (nint)(delegate* unmanaged[Cdecl]<nuint, nuint, int>)&NifNativeComparisonCallbacks.Compare;

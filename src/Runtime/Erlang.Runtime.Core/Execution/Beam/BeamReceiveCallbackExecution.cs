@@ -12,6 +12,7 @@ internal static class BeamReceiveCallbackExecution
         Term message
     )
     {
+        using var wordOperation504 = before.EnterWordOperation504();
         Term callee = BeamRegisterInterpreter.Read(code, before, callback.Callee);
         if (callee is not FunctionTerm callable || callable.Arity != 1)
         {
@@ -29,10 +30,18 @@ internal static class BeamReceiveCallbackExecution
         if (result is Atom { Name: BeamReceiveCallbackNames.NoMatch })
             return null;
         BeamRegisterState registers = before.Clone();
-        registers.ClearXExcept();
-        registers.ClearFloats();
-        registers.Write(0, result);
+        try
+        {
+            registers.ClearXExcept();
+            registers.ClearFloats();
+            registers.Write(0, result);
 
-        return new(callback.SuccessInstructionIndex, registers, []);
+            return new(callback.SuccessInstructionIndex, registers, []);
+        }
+        catch
+        {
+            registers.Dispose();
+            throw;
+        }
     }
 }

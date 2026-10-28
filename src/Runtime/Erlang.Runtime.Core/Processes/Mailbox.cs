@@ -619,37 +619,47 @@ public sealed partial class Mailbox
                 }
                 long suspensionBefore = SuspensionTime?.Invoke() ?? 0;
                 T? match = await select(candidate.Value);
-                start += (SuspensionTime?.Invoke() ?? 0) - suspensionBefore;
-                ThrowIfHalted();
-                cancellation.ThrowIfCancellationRequested();
-                lock (gate)
+                bool transferred504 = false;
+                try
                 {
+                    start += (SuspensionTime?.Invoke() ?? 0) - suspensionBefore;
                     ThrowIfHalted();
                     cancellation.ThrowIfCancellationRequested();
-                    ValidateReceiveMarkerPriority(markerSelection);
-                    if (revision != precedenceRevision || pending != 0 || !IsAdmitted(node)
-                        || ExecutionBlocked?.Invoke() == true)
+                    lock (gate)
                     {
-                        retry = true;
-                        break;
+                        ThrowIfHalted();
+                        cancellation.ThrowIfCancellationRequested();
+                        ValidateReceiveMarkerPriority(markerSelection);
+                        if (revision != precedenceRevision || pending != 0 || !IsAdmitted(node)
+                            || ExecutionBlocked?.Invoke() == true)
+                        {
+                            retry = true;
+                            break;
+                        }
+                        if (match is not null)
+                        {
+                            selected = match;
+                            transferred504 = true;
+                            received = candidate;
+                            RemoveNode(node);
+                            break;
+                        }
+                        if (ReferenceEquals(node, capturedTail))
+                        {
+                            resumeAfter = node;
+                            resumeRevision = revision;
+                            node = null;
+                        }
+                        else
+                        {
+                            node = node.Next;
+                        }
                     }
-                    if (match is not null)
-                    {
-                        selected = match;
-                        received = candidate;
-                        RemoveNode(node);
-                        break;
-                    }
-                    if (ReferenceEquals(node, capturedTail))
-                    {
-                        resumeAfter = node;
-                        resumeRevision = revision;
-                        node = null;
-                    }
-                    else
-                    {
-                        node = node.Next;
-                    }
+                }
+                finally
+                {
+                    if (!transferred504 && match is BeamReceiveSelection discarded504)
+                        discarded504.Registers.Dispose();
                 }
             }
             if (selected is null)

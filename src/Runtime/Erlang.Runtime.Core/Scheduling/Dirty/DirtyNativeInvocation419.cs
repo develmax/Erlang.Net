@@ -8,6 +8,7 @@ internal sealed class DirtyNativeInvocation419
     private Term[]? arguments;
     private BeamNativeCallSite419? site;
     internal ProcessContext Owner { get; }
+    internal DirtyNativeKind419 Kind { get; }
     internal string Module { get; }
     internal string Function { get; }
     internal TaskCompletionSource<Term> Outcome { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
@@ -18,6 +19,7 @@ internal sealed class DirtyNativeInvocation419
 
     internal DirtyNativeInvocation419(
         ProcessContext owner,
+        DirtyNativeKind419 kind,
         string module,
         string function,
         IReadOnlyList<Term> arguments,
@@ -25,6 +27,7 @@ internal sealed class DirtyNativeInvocation419
     )
     {
         Owner = owner;
+        Kind = kind;
         Module = module;
         Function = function;
         this.arguments = arguments.ToArray();

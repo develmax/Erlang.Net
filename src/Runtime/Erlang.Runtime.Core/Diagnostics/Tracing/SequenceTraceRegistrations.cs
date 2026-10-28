@@ -32,7 +32,9 @@ internal static class SequenceTraceRegistrations
             ErlangModuleNames.Module,
             SequenceTraceNames.SystemFlag,
             2,
-            (context, arguments) => arguments[0] is Atom { Name: SequenceTraceNames.SystemTracer }
+            (context, arguments) => RuntimeSystemFlag504.TrySet(arguments[0], out Term flagResult)
+            ? ValueTask.FromResult(flagResult)
+            : arguments[0] is Atom { Name: SequenceTraceNames.SystemTracer }
             ? ValueTask.FromResult(context.Runtime.SequenceTracing.SetTracer(arguments[1]))
             : arguments[0] is Atom { Name: RuntimeSystemLoggerNames.Flag }
             ? ValueTask.FromResult(context.Runtime.ExchangeSystemLogger(context, arguments[1]))

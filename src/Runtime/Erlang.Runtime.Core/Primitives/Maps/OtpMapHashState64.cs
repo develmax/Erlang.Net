@@ -5,6 +5,8 @@ namespace Erlang;
 
 internal sealed class OtpMapHashState64(OtpMapHashIdentityProvider identities)
 {
+    internal ProcessRuntime? Runtime505 => (identities as OtpMapRuntimeIdentityProvider)?.Runtime505;
+
     private ulong alpha;
     private ulong beta;
     private ulong ticks;

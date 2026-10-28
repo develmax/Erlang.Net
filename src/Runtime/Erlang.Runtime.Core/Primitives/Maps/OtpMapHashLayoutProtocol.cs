@@ -8,6 +8,15 @@ internal static class OtpMapHashLayoutProtocol
         Func<Term, ulong> internalHash
     )
     {
+        if (NativeMapMaterialization505.TryRead(map, state.Runtime505, out var saved) && saved.Root is { } preserved)
+        {
+            state.Alpha((ulong)(preserved.Children.Count == OtpMapHashLayoutNames.FullRootSlots
+                ? OtpMapHashNames.HashMapHeadArray : OtpMapHashNames.HashMapHeadBitmap));
+            state.Beta((ulong)saved.PhysicalEntries.Count);
+            AppendChildren(preserved, 0, state);
+
+            return;
+        }
         if (map.Entries.Count <= HamtViewLayout.ReleaseFlatMapLimit)
         {
             AppendFlat(map, state);
@@ -42,12 +51,31 @@ internal static class OtpMapHashLayoutProtocol
 
     internal static IReadOnlyList<KeyValuePair<Term, Term>> FlatEntries(MapTerm map)
     {
+        if (NativeMapMaterialization505.TryRead(map, null, out var saved))
+            return saved.PhysicalEntries;
         var state = new OtpMapHashState64(new OtpMapOwnAtomIdentityProvider());
 
-        return FlatEntries(map, state);
+        return SortedFlatEntries(map, state);
+    }
+
+    internal static IReadOnlyList<KeyValuePair<Term, Term>> FlatEntries(MapTerm map, ProcessRuntime? runtime)
+    {
+        if (NativeMapMaterialization505.TryRead(map, runtime, out var saved))
+            return saved.PhysicalEntries;
+        var state = new OtpMapHashState64(new OtpMapOwnAtomIdentityProvider());
+
+        return SortedFlatEntries(map, state);
     }
 
     private static IReadOnlyList<KeyValuePair<Term, Term>> FlatEntries(MapTerm map, OtpMapHashState64 state)
+    {
+        if (NativeMapMaterialization505.TryRead(map, state.Runtime505, out var saved))
+            return saved.PhysicalEntries;
+
+        return SortedFlatEntries(map, state);
+    }
+
+    private static IReadOnlyList<KeyValuePair<Term, Term>> SortedFlatEntries(MapTerm map, OtpMapHashState64 state)
     {
         return map.Entries
             .OrderBy(pair => pair.Key, Comparer<Term>.Create((left, right) => FlatKeyOrder(left, right, state)))

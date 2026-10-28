@@ -1,0 +1,691 @@
+{
+  "BaselineGuards": 1731,
+  "SourceGuards": 1772,
+  "SourceFiles": [
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations.cs",
+      "Previous": "C7BB05E88B8CE1BD5D4DD8DDF85AF02B2485EC7BA96BD0ECA6C95BA98F17DAE6",
+      "Sha256": "7B836B5A86AD0ED84E2D0F4CCD2EE785E7346B185EE02C54DA721CD79C2928F7",
+      "Added": false
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLocalFrame.cs",
+      "Previous": "06DD1129B87ECABD0FC37CE3C0B8AD03D517AAE36B0DD738C8DE7D0E2E0CB4F3",
+      "Sha256": "B723AA448C311BF91AA57B8267DFFD015B256945AC64D246FAB229705B34D862",
+      "Added": false
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamReceiveCallbackExecution.cs",
+      "Previous": "9FDBA0A249EB3DF9BFCF46FDB348BA86C1F479EAA687AC53245404F42EDCD9D5",
+      "Sha256": "4105C830EDAF7211E31F993FE4848EF96AB758AD224C2F9D47089A2AAA964550",
+      "Added": false
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamReceiveMatcher.cs",
+      "Previous": "99555560B682112095CC3D51BBDD2EFC94F4612B91E7586FCD439862733C9CA7",
+      "Sha256": "B6471151CE01627B6DFDE3C67AD80DDFFA34183C6A2FFBE360C4729FAB3A2570",
+      "Added": false
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterInterpreter.cs",
+      "Previous": "CDC5463460F018DC6332EED7A40BEC3E6C2C85798B8701B90293AC5712BBF6F9",
+      "Sha256": "279FCA247268F65E2A9F82740BF0D39ADBC5DE26F9EF4EEBAA6270BC132E83C1",
+      "Added": false
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterSlot.cs",
+      "Previous": "32A9438D2D8997DF6F22488D98D31411BA7DF6083D51B048C3D3360F720A7A78",
+      "Sha256": "0062C802C58E36F33441369DBB2C31A610904E4BA3DB44F92438ED41316CF701",
+      "Added": false
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterState.cs",
+      "Previous": "C8E7C9AC89B909BA38FB0612D204A16943EB2E2CDE8612B1AC179956996C4962",
+      "Sha256": "5E6B430794B9A0EA93268463B136969FB3D76213F31E657C32AE6A281B813BB9",
+      "Added": false
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.MapIterator504.cs",
+      "Previous": null,
+      "Sha256": "35C1FC2DBF94F222C44A9219E4ED7388245AC74435D78906C357639103827493",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.cs",
+      "Previous": "52AA8BDB06D8BB924CDAC0B9F26398E53D5CD5BBDA48CF2A9FB889FEDC9FEBE9",
+      "Sha256": "22F771B9171C245C5E90E45534EECB9AD59EAE91C7102B4CFDB45891CF9B2D84",
+      "Added": false
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeEnvironmentCallbacks.cs",
+      "Previous": "B24B8300202DBBD4CFB8BA5CF1072591A7D9BE0FC68F54E32D18C45012411B8B",
+      "Sha256": "C4C4FBEA69F3D4D0BB6F963BBACE3351C8FEE20CFBC624A24ADF1B6F1BEB2BC4",
+      "Added": false
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapArrays504Callbacks.cs",
+      "Previous": null,
+      "Sha256": "10BEDAA74A1A8F1F4A8A0FEB94723602B5508305321D93A95021C685AEB67407",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapBranch504.cs",
+      "Previous": null,
+      "Sha256": "AF7951BCAB16BE177B35BE2120F823E324B76EC1B908542F1272454D16DB43A2",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapFamily504Names.cs",
+      "Previous": null,
+      "Sha256": "94B4F9900A8A545889065AA8B548F02EAA77331FB037CF2D320A75E3C571B821",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapGraph504.cs",
+      "Previous": null,
+      "Sha256": "F4F4BCE064D47093FD938646340DBF6B9E0D87AF88911361F57E76458B0E7761",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapHashRetention504.cs",
+      "Previous": null,
+      "Sha256": "F24E3EDBA3ED7838CF7A558F225443181FF7A8F440DDEC27526BB41DB6BCBCBA",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapIterator504.cs",
+      "Previous": null,
+      "Sha256": "E8289EF3086D975702A8E4F6AD5925C58AF08DB1211FE622A6E2C72274A30D74",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapIterator504Callbacks.cs",
+      "Previous": null,
+      "Sha256": "3BC3C8690DD306AEE181B342824A72BCE523355845A8E9F34264A3D82665C976",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapIterator504Names.cs",
+      "Previous": null,
+      "Sha256": "91D79B0539EB77399E576FF8048660D034D450EF9DE39038D485596D2BA78941",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapIterator504State.cs",
+      "Previous": null,
+      "Sha256": "DE1F458F852ABE8D18258AD5B13DBF01956F73DDDA996C0D60206E3AD2B802D5",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapMutation504Callbacks.cs",
+      "Previous": null,
+      "Sha256": "9B8B63FC5FE61B66E233EB675123E0BFC221EA2F79E78056FCBDB3BF6F4148C2",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapMutation504Kind.cs",
+      "Previous": null,
+      "Sha256": "599996B2D5B4953636A0EBC08E85EAD415B51275EFA2F2DD5230804E6948D1E8",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapNode504.cs",
+      "Previous": null,
+      "Sha256": "9D3280F4C8FF679C9629C453398A18A8E3FD01DEBC9585DA3B899E93F843B6B4",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapSizeCallbacks.cs",
+      "Previous": "DB96E5019CA273E1A2F67D156AD0462FEAE306DAE7E946AC630AA1BC4F8B8969",
+      "Sha256": "025989B3728E33AFBAAC57A0CCEDAC67315AA1465D8C25C34EE31448054A72F8",
+      "Added": false
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapTree504.cs",
+      "Previous": null,
+      "Sha256": "8512BBF65C7A346713E297F24AA5B079E2D7BC59B9D20EE2B749688CB6E1AEA5",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapValue503Callbacks.cs",
+      "Previous": "359B848CBA729BC8C2C5FA80569FE9B36BAAE07CA13DF35212D02A9A4019896D",
+      "Sha256": "6F35E174528EF768519C2064A14EEE00C37683FB50968B350FCC790DDD8C445F",
+      "Added": false
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeTermCopy504.cs",
+      "Previous": null,
+      "Sha256": "EA92A75A3C5174BE1DB4D64E70A5F744BDDB01B4C966A586CFEDCD29A6973945",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeTermCopy504Names.cs",
+      "Previous": null,
+      "Sha256": "F68680A7E79A941BAB5D80D3A3B95EAD8BBF8D439CF3B2F46B1F002E87855829",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeTypeCallbacks.cs",
+      "Previous": "042FBB3E13629A768FD943FE3D07F8A9AF5D6F393B5485C8DC4C8F5C034F8EFB",
+      "Sha256": "69BD961E88178C067AFAC52C72106D7379FC06E41B3AB6C319214D8C26D6C283",
+      "Added": false
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbackLayout.cs",
+      "Previous": "E9993DE09F1EFFFAE8AD26FAA9614DF491429B0A69901A021617FFD989D3D434",
+      "Sha256": "23D93D2FF70A3E758DDCFC1075C6211F343512A07893359E80B54803A84A9EAF",
+      "Added": false
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbacks.cs",
+      "Previous": "6F5FACD0B5B7370C7F352007C4EF5BCB7512D7D0BC3F3170465D53188F77FDD2",
+      "Sha256": "61905E6CDA85DB3F38DBA75FFA1B7E2E258D8E61912AA6BD508E6C124CC5B131",
+      "Added": false
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/ProcessRuntime.NativeMapHash504.cs",
+      "Previous": null,
+      "Sha256": "A579107CAC417D4D0DD5F499AD1F0C2CFC6403BDF1D42FEE5E46F19BBB804F25",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.OwnedTermHeap504.cs",
+      "Previous": null,
+      "Sha256": "480D9D8934331C2432245EF418FC47BF43A78A12552DBC5F787A5F83C4A04CFB",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.OwnedWords504.cs",
+      "Previous": null,
+      "Sha256": "877146F6708DEDE28C3DA0D898DA4A252B965F8FFC57071D7344969B31FE9029",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.SchedulerStatistics.cs",
+      "Previous": "ADBE0100E84B9546DBB768DAA5881E85E172B4318185DBC870D9CF731072C7C3",
+      "Sha256": "FEA47A08C4A783E93441B369126FB46016D3AAC6BB7274207FC12DBD78E63232",
+      "Added": false
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Statistics504.cs",
+      "Previous": null,
+      "Sha256": "B4E9F84C26ACF1F80489B9F02E75FF6ECD82560615029AC5F3EA39C191EFD4CD",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Mailbox.BeamSaveCursor.cs",
+      "Previous": "7174C5B7F27D6F15D8A88E0B533CF93A8E1A1AE8A4E7C186A46C17AB3B090E1C",
+      "Sha256": "7A5FDAC97035F1FD0601DA0B5664A30F0D85B8ED747273D2C524A45B8C2CA8D5",
+      "Added": false
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Mailbox.cs",
+      "Previous": "B5A163C883EA8CB19A856D89C6D1229EABCE5C101273E29DFCC46AFD5A33F491",
+      "Sha256": "9547FF714F0A7BEAC2C8E7071835915FE3016A1AAD4D3743A3C2D080A5FFE796",
+      "Added": false
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermCollection504.cs",
+      "Previous": null,
+      "Sha256": "FEF6C8428EFC6D1A5433157B9066F2E59D9EB3C052620F186D17F479D250CAAF",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermHeap504.cs",
+      "Previous": null,
+      "Sha256": "5004543B3B55324DFB0C53EF12007C3B06E32AFE6497AAA855BA65488F21288D",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermId504.cs",
+      "Previous": null,
+      "Sha256": "C7CBFE7E60E7052A4D7AA66602742AA3A10F810BA90F2ACE7ADA9A9B12FC5CB0",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermKind504.cs",
+      "Previous": null,
+      "Sha256": "302F17044508F1C327985519FF875D7615ABD1FFE5B122B8048CEC520B0B46F5",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermNames504.cs",
+      "Previous": null,
+      "Sha256": "8E19BB47BCD5AD7F2A552ECAE44BC3E0B954ADD22C15BB969D66DF64371209F3",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermNode504.cs",
+      "Previous": null,
+      "Sha256": "9C928B7B3E7FCB3D9834D49108C57A06A7CC815268053D8833591D7676F044F8",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermRoot504.cs",
+      "Previous": null,
+      "Sha256": "427C67EC81FC4BD38D121BE988EC71E77D5522D2FC7A93D189917A632D351DFB",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermSnapshot504.cs",
+      "Previous": null,
+      "Sha256": "24B65BBF895AE523EC68FD2179A2608A5D98F4EB5E6A77E8EFF486DC2E3C1893",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedWordArena504.cs",
+      "Previous": null,
+      "Sha256": "41A9A38B08E8CA9FC38086FB96815922278183C16B9F881AC3A5C7A2A45DF43C",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedWordLease504.cs",
+      "Previous": null,
+      "Sha256": "B06AB135436D984342151F4A933FF580C333BA431B619DBB9D2456CD877E8F45",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedWordLimit504.cs",
+      "Previous": null,
+      "Sha256": "5FCC4093917D3B396D769A9923382949F51CF95B2981428E0E6B3C10614A3777",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedWordNames504.cs",
+      "Previous": null,
+      "Sha256": "F83A79441573FFDAFC90B375C7EAA6137BCE930686E344CE50D9E64458E6BFE8",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedWordSnapshot504.cs",
+      "Previous": null,
+      "Sha256": "9819EB66FC14AC0900A052A747815F47D67A24157570088A3EDF0701F4C80830",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessWordExecution504.cs",
+      "Previous": null,
+      "Sha256": "5B59758755B7B9DF6CDA22B91A01EF09034C8C603CF51ABF586D386C85D3ECB8",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessWordOperation504.cs",
+      "Previous": null,
+      "Sha256": "510C30CD656C09FF04AF2535D63860974C955752D74668795F23C1A6915A5462",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyNativeInvocation419.cs",
+      "Previous": "DDEC81215B4E2643FA7396F1DE0B06BF0E3C601109FEAEA5A999FF83DDBE385F",
+      "Sha256": "E83E2F154A1C1EF23065B943C6D12E3704ACF89B55E288B2E7C113074B32DD1B",
+      "Added": false
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyNativeOwner419.Statistics504.cs",
+      "Previous": null,
+      "Sha256": "66231AC99E07451EE3478FB9F4109F5F2F51E4464CEEB2D3A62108F48402E630",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyNativeOwner419.cs",
+      "Previous": "95E1449CD5DEF2E34BD6368F53B3C70A400A1727B6C157DF492A05D1E081A307",
+      "Sha256": "49834865BB5118AAB1CB211DC00A8C799BEB8904BAE9DFEA046A202312F24E76",
+      "Added": false
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.Statistics504.cs",
+      "Previous": null,
+      "Sha256": "5616557CE859899888BE3EB3C14705B7CFC7CD68E61092CDB2D292E1D7849C25",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeSchedulerStatistics.cs",
+      "Previous": "A35F1A21C9AAD3D92B250DA083BA403AC50737755367348E2DFB6BDFFFB2E979",
+      "Sha256": "AC15F810DAC68DD28C7ADCE1CCDAED5642C77392856E42D7605D0587BCFC9819",
+      "Added": false
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Services/RuntimeSystemFlag504.cs",
+      "Previous": null,
+      "Sha256": "186EF96AC6C7F0ECA6D56A91ED9F88220EE6A17DBDFD66F069CBAB0DDAB2F3B7",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Services/RuntimeSystemFlag504Names.cs",
+      "Previous": null,
+      "Sha256": "2F00B5F5293591BEA7F296C171D9C9B0785013E00F3B2EF0D6876426027D3F30",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Collections/Maps/MapTerm.Native504.cs",
+      "Previous": null,
+      "Sha256": "8BF4106DD36AC8F5D65872232836278C187D6E236208DD1CD0BABE5442C345DD",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Collections/Maps/MapTerm.cs",
+      "Previous": "594ED6ECD5CDAF7935C71A1E510775BCA4F79A3093B85907F5EFF236A275373F",
+      "Sha256": "03B35C3F0C8EEE3EC2E67902F9D0CE40809209F6368776838614B24C91481FF1",
+      "Added": false
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Collections/Maps/NativeMapLayout504.cs",
+      "Previous": null,
+      "Sha256": "971E9C3E5005D343DB52D5416E8AFFCACE099C286122B33958915A5D73BA4E0D",
+      "Added": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Protocols/Distribution/NodeIdentityTraversal.cs",
+      "Previous": "D0289A94B0C1EA0300123B73827E07CCFFAF225061B348BA00D78B3D75BCF7C4",
+      "Sha256": "EEA65826D68A4575481C6DF962A250996A355CD47DC33A3B28A52AEE466B8CB7",
+      "Added": false
+    }
+  ],
+  "BackendDependencies": [
+    "tools/Native/Erlang.NifNativeBackend/MapFamily504CallbackAdmission.cs",
+    "tools/Native/Erlang.NifNativeBackend/MapFamily504CallbackDriver.cs",
+    "tools/Native/Erlang.NifNativeBackend/MapFamily504CallbackEntry.cs",
+    "tools/Native/Erlang.NifNativeBackend/MapFamily504CallbackNames.cs",
+    "tools/Native/Erlang.NifNativeBackend/MapFamily504NativeModuleHandle.cs",
+    "tools/Native/Erlang.NifNativeBackend/NifNativeMapFamily504HostChecks.cs",
+    "tools/Native/Erlang.NifNativeBackend/NifNativeMapFamily504HostEntry.cs",
+    "tools/Native/Erlang.NifNativeBackend/NifNativeMapFamily504HostNames.cs",
+    "tools/Native/Erlang.NifNativeBackend/NifNativeMapIterator504HostChecks.cs",
+    "tools/Native/Erlang.NifNativeBackend/NifNativeMapIterator504HostEntry.cs",
+    "tools/Native/Erlang.NifNativeBackend/NifNativeMapIterator504HostNames.cs",
+    "tools/Native/Erlang.NifNativeBackend/Program.cs",
+    "tools/Native/Erlang.NifNativeBackend/RuntimeQueueStatistics504HostChecks.cs",
+    "tools/Native/Erlang.NifNativeBackend/RuntimeQueueStatistics504HostEntry.cs",
+    "tools/Native/Erlang.NifNativeBackend/RuntimeQueueStatistics504HostNames.cs"
+  ],
+  "ReviewedPlans": [
+    {
+      "Plan": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Seal": "B324B12EE1381240F2B85785428D23E9C5ED36ACF0FD57174977644BE0BC78F0",
+      "Added": [
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.MapIterator504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapArrays504Callbacks.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapBranch504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapFamily504Names.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapGraph504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapHashRetention504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapIterator504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapIterator504Callbacks.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapIterator504Names.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapIterator504State.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapMutation504Callbacks.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapMutation504Kind.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapNode504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapTree504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeTermCopy504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeTermCopy504Names.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/ProcessRuntime.NativeMapHash504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.OwnedTermHeap504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.OwnedWords504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Statistics504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermCollection504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermHeap504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermId504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermKind504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermNames504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermNode504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermRoot504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermSnapshot504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedWordArena504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedWordLease504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedWordLimit504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedWordNames504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedWordSnapshot504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessWordExecution504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessWordOperation504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyNativeOwner419.Statistics504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.Statistics504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeSystemFlag504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeSystemFlag504Names.cs",
+        "src/Runtime/Erlang.Terms/Collections/Maps/MapTerm.Native504.cs",
+        "src/Runtime/Erlang.Terms/Collections/Maps/NativeMapLayout504.cs",
+        "tools/Native/Erlang.NifNativeBackend/MapFamily504CallbackAdmission.cs",
+        "tools/Native/Erlang.NifNativeBackend/MapFamily504CallbackDriver.cs",
+        "tools/Native/Erlang.NifNativeBackend/MapFamily504CallbackEntry.cs",
+        "tools/Native/Erlang.NifNativeBackend/MapFamily504CallbackNames.cs",
+        "tools/Native/Erlang.NifNativeBackend/MapFamily504NativeModuleHandle.cs",
+        "tools/Native/Erlang.NifNativeBackend/NifNativeMapFamily504HostChecks.cs",
+        "tools/Native/Erlang.NifNativeBackend/NifNativeMapFamily504HostEntry.cs",
+        "tools/Native/Erlang.NifNativeBackend/NifNativeMapFamily504HostNames.cs",
+        "tools/Native/Erlang.NifNativeBackend/NifNativeMapIterator504HostChecks.cs",
+        "tools/Native/Erlang.NifNativeBackend/NifNativeMapIterator504HostEntry.cs",
+        "tools/Native/Erlang.NifNativeBackend/NifNativeMapIterator504HostNames.cs",
+        "tools/Native/Erlang.NifNativeBackend/RuntimeQueueStatistics504HostChecks.cs",
+        "tools/Native/Erlang.NifNativeBackend/RuntimeQueueStatistics504HostEntry.cs",
+        "tools/Native/Erlang.NifNativeBackend/RuntimeQueueStatistics504HostNames.cs"
+      ],
+      "Changed": [
+        "src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLocalFrame.cs",
+        "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamReceiveCallbackExecution.cs",
+        "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamReceiveMatcher.cs",
+        "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterInterpreter.cs",
+        "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterSlot.cs",
+        "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterState.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.MapIterator504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeEnvironmentCallbacks.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapArrays504Callbacks.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapBranch504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapFamily504Names.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapGraph504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapHashRetention504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapIterator504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapIterator504Callbacks.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapIterator504Names.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapIterator504State.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapMutation504Callbacks.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapMutation504Kind.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapNode504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapSizeCallbacks.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapTree504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapValue503Callbacks.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeTermCopy504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeTermCopy504Names.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeTypeCallbacks.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbackLayout.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbacks.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/ProcessRuntime.NativeMapHash504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.OwnedTermHeap504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.OwnedWords504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.SchedulerStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Statistics504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Mailbox.BeamSaveCursor.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Mailbox.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermCollection504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermHeap504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermId504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermKind504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermNames504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermNode504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermRoot504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermSnapshot504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedWordArena504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedWordLease504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedWordLimit504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedWordNames504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedWordSnapshot504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessWordExecution504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessWordOperation504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyNativeInvocation419.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyNativeOwner419.Statistics504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyNativeOwner419.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.Statistics504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeSchedulerStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeSystemFlag504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeSystemFlag504Names.cs",
+        "src/Runtime/Erlang.Terms/Collections/Maps/MapTerm.Native504.cs",
+        "src/Runtime/Erlang.Terms/Collections/Maps/MapTerm.cs",
+        "src/Runtime/Erlang.Terms/Collections/Maps/NativeMapLayout504.cs",
+        "src/Runtime/Erlang.Terms/Protocols/Distribution/NodeIdentityTraversal.cs",
+        "tools/Native/Erlang.NifNativeBackend/MapFamily504CallbackAdmission.cs",
+        "tools/Native/Erlang.NifNativeBackend/MapFamily504CallbackDriver.cs",
+        "tools/Native/Erlang.NifNativeBackend/MapFamily504CallbackEntry.cs",
+        "tools/Native/Erlang.NifNativeBackend/MapFamily504CallbackNames.cs",
+        "tools/Native/Erlang.NifNativeBackend/MapFamily504NativeModuleHandle.cs",
+        "tools/Native/Erlang.NifNativeBackend/NifNativeMapFamily504HostChecks.cs",
+        "tools/Native/Erlang.NifNativeBackend/NifNativeMapFamily504HostEntry.cs",
+        "tools/Native/Erlang.NifNativeBackend/NifNativeMapFamily504HostNames.cs",
+        "tools/Native/Erlang.NifNativeBackend/NifNativeMapIterator504HostChecks.cs",
+        "tools/Native/Erlang.NifNativeBackend/NifNativeMapIterator504HostEntry.cs",
+        "tools/Native/Erlang.NifNativeBackend/NifNativeMapIterator504HostNames.cs",
+        "tools/Native/Erlang.NifNativeBackend/Program.cs",
+        "tools/Native/Erlang.NifNativeBackend/RuntimeQueueStatistics504HostChecks.cs",
+        "tools/Native/Erlang.NifNativeBackend/RuntimeQueueStatistics504HostEntry.cs",
+        "tools/Native/Erlang.NifNativeBackend/RuntimeQueueStatistics504HostNames.cs"
+      ],
+      "FirstDirect504Seal": "9FC19C424352600C5C59E8C43B12997DD3C8F104B153BEF090346D4C961C8806"
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Seal": "4053F0CFBD919251DEE5C42575E6B874C0E7664297D64888EFFF4F749D3536AC",
+      "Added": [
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.MapIterator504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapArrays504Callbacks.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapBranch504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapFamily504Names.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapGraph504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapHashRetention504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapIterator504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapIterator504Callbacks.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapIterator504Names.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapIterator504State.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapMutation504Callbacks.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapMutation504Kind.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapNode504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapTree504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeTermCopy504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeTermCopy504Names.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/ProcessRuntime.NativeMapHash504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.OwnedTermHeap504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.OwnedWords504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Statistics504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermCollection504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermHeap504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermId504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermKind504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermNames504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermNode504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermRoot504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermSnapshot504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedWordArena504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedWordLease504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedWordLimit504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedWordNames504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedWordSnapshot504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessWordExecution504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessWordOperation504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyNativeOwner419.Statistics504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.Statistics504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeSystemFlag504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeSystemFlag504Names.cs",
+        "src/Runtime/Erlang.Terms/Collections/Maps/MapTerm.Native504.cs",
+        "src/Runtime/Erlang.Terms/Collections/Maps/NativeMapLayout504.cs",
+        "tools/Native/Erlang.NifNativeBackend/MapFamily504CallbackAdmission.cs",
+        "tools/Native/Erlang.NifNativeBackend/MapFamily504CallbackDriver.cs",
+        "tools/Native/Erlang.NifNativeBackend/MapFamily504CallbackEntry.cs",
+        "tools/Native/Erlang.NifNativeBackend/MapFamily504CallbackNames.cs",
+        "tools/Native/Erlang.NifNativeBackend/MapFamily504NativeModuleHandle.cs",
+        "tools/Native/Erlang.NifNativeBackend/NifNativeMapFamily504HostChecks.cs",
+        "tools/Native/Erlang.NifNativeBackend/NifNativeMapFamily504HostEntry.cs",
+        "tools/Native/Erlang.NifNativeBackend/NifNativeMapFamily504HostNames.cs",
+        "tools/Native/Erlang.NifNativeBackend/NifNativeMapIterator504HostChecks.cs",
+        "tools/Native/Erlang.NifNativeBackend/NifNativeMapIterator504HostEntry.cs",
+        "tools/Native/Erlang.NifNativeBackend/NifNativeMapIterator504HostNames.cs",
+        "tools/Native/Erlang.NifNativeBackend/RuntimeQueueStatistics504HostChecks.cs",
+        "tools/Native/Erlang.NifNativeBackend/RuntimeQueueStatistics504HostEntry.cs",
+        "tools/Native/Erlang.NifNativeBackend/RuntimeQueueStatistics504HostNames.cs"
+      ],
+      "Changed": [
+        "src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLocalFrame.cs",
+        "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamReceiveCallbackExecution.cs",
+        "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamReceiveMatcher.cs",
+        "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterInterpreter.cs",
+        "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterSlot.cs",
+        "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterState.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.MapIterator504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeEnvironmentCallbacks.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapArrays504Callbacks.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapBranch504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapFamily504Names.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapGraph504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapHashRetention504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapIterator504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapIterator504Callbacks.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapIterator504Names.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapIterator504State.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapMutation504Callbacks.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapMutation504Kind.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapNode504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapSizeCallbacks.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapTree504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapValue503Callbacks.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeTermCopy504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeTermCopy504Names.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeTypeCallbacks.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbackLayout.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbacks.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Nif/ProcessRuntime.NativeMapHash504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.OwnedTermHeap504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.OwnedWords504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.SchedulerStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Statistics504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Mailbox.BeamSaveCursor.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Mailbox.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermCollection504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermHeap504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermId504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermKind504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermNames504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermNode504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermRoot504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermSnapshot504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedWordArena504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedWordLease504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedWordLimit504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedWordNames504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedWordSnapshot504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessWordExecution504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessWordOperation504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyNativeInvocation419.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyNativeOwner419.Statistics504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/Dirty/DirtyNativeOwner419.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.Statistics504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeSchedulerStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeSystemFlag504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeSystemFlag504Names.cs",
+        "src/Runtime/Erlang.Terms/Collections/Maps/MapTerm.Native504.cs",
+        "src/Runtime/Erlang.Terms/Collections/Maps/MapTerm.cs",
+        "src/Runtime/Erlang.Terms/Collections/Maps/NativeMapLayout504.cs",
+        "src/Runtime/Erlang.Terms/Protocols/Distribution/NodeIdentityTraversal.cs",
+        "tools/Native/Erlang.NifNativeBackend/MapFamily504CallbackAdmission.cs",
+        "tools/Native/Erlang.NifNativeBackend/MapFamily504CallbackDriver.cs",
+        "tools/Native/Erlang.NifNativeBackend/MapFamily504CallbackEntry.cs",
+        "tools/Native/Erlang.NifNativeBackend/MapFamily504CallbackNames.cs",
+        "tools/Native/Erlang.NifNativeBackend/MapFamily504NativeModuleHandle.cs",
+        "tools/Native/Erlang.NifNativeBackend/NifNativeMapFamily504HostChecks.cs",
+        "tools/Native/Erlang.NifNativeBackend/NifNativeMapFamily504HostEntry.cs",
+        "tools/Native/Erlang.NifNativeBackend/NifNativeMapFamily504HostNames.cs",
+        "tools/Native/Erlang.NifNativeBackend/NifNativeMapIterator504HostChecks.cs",
+        "tools/Native/Erlang.NifNativeBackend/NifNativeMapIterator504HostEntry.cs",
+        "tools/Native/Erlang.NifNativeBackend/NifNativeMapIterator504HostNames.cs",
+        "tools/Native/Erlang.NifNativeBackend/Program.cs",
+        "tools/Native/Erlang.NifNativeBackend/RuntimeQueueStatistics504HostChecks.cs",
+        "tools/Native/Erlang.NifNativeBackend/RuntimeQueueStatistics504HostEntry.cs",
+        "tools/Native/Erlang.NifNativeBackend/RuntimeQueueStatistics504HostNames.cs"
+      ],
+      "FirstDirect504Seal": "82C870096D91E35DAE925CCB774F3B432B2EA0F6F10A4836C03EB51DB7BE2216"
+    }
+  ],
+  "ApiDelta": 0,
+  "FullContractDelta": 0,
+  "KnownDifferenceDelta": 0,
+  "AdditionalPlanRefresh": "docs/validation/part-504/native-map-family/reviewed-plan-refresh.json"
+}

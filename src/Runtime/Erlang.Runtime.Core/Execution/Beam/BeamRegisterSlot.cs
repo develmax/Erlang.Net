@@ -6,6 +6,10 @@ internal readonly struct BeamRegisterSlot
 
     private BeamRegisterSlot(object value) => this.value = value;
 
+    internal object? StoredValue504 => value;
+
+    internal static BeamRegisterSlot FromStoredValue504(object? value) => value is null ? default : new(value);
+
     internal BeamRegisterSlotKind Kind => value switch
     {
         null => BeamRegisterSlotKind.Uninitialized,

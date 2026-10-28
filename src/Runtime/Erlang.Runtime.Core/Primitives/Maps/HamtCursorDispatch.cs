@@ -14,15 +14,22 @@ internal static class HamtCursorDispatch
     )
     {
         cursor = Nil.Value;
+        bool saved = NativeMapMaterialization505.TryRead(map, runtime, out var layout) && layout.Root is not null;
         if (map.Entries.Count <= MapIteratorLayout.FlatMapMaximumEntries
-            || runtime is null && !map.Entries.All(entry => Supported(entry.Key)))
+            || !saved && runtime is null && !map.Entries.All(entry => Supported(entry.Key)))
         {
             return false;
         }
         Term list;
         if (runtime is null)
         {
-            list = HamtCursorView.ReadIntegerCursor(map, path, key => OtpMapInternalHash64.Hash(key, identities));
+            list = saved ? HamtCursorView.ReadIntegerCursor(
+                map,
+                path,
+                null!,
+                layout.Root
+            )
+                : HamtCursorView.ReadIntegerCursor(map, path, key => OtpMapInternalHash64.Hash(key, identities));
         }
         else
         {
@@ -31,7 +38,8 @@ internal static class HamtCursorDispatch
                 map,
                 path,
                 null!,
-                index.Index.Root
+                index.Index.Root,
+                runtime
             );
         }
         var pairs = Cons.Items(list).Cast<TupleTerm>().ToArray();

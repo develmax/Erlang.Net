@@ -123,7 +123,8 @@ internal static partial class BeamRegisterInterpreter
         );
         using var flow = lease.Attach(execution.Owner);
         BeamRegisterValidation.Validate(code, function);
-        var registers = new BeamRegisterState();
+        await using var wordExecution504 = new ProcessWordExecution504(context.OwnedWords504);
+        var registers = new BeamRegisterState(wordExecution504);
         IReadOnlyList<Term> instructionLocations = BeamInstructionLocations.Read(code);
         for (int index = 0; index < arguments.Count; index++)
         {
@@ -1037,68 +1038,71 @@ internal static partial class BeamRegisterInterpreter
                         case BeamLinkNames.WaitTimeout:
                         case BeamLinkNames.Wait:
                         case BeamLinkNames.Timeout:
-                            BeamReceivePlan plan = instruction.Definition.Name == BeamLinkNames.LoopReceive
-                                ? BeamReceivePlanner.Build(code, function, pc - 1)
-                                : BeamReceivePlanner.BuildDelay(code, function, pc - 1);
-                            BeamRegisterState before = registers.Clone();
-                            Func<Term, BeamReceiveSelection?> selectMessage = plan.HasMatcher
-                                ? message => BeamReceiveMatcher.Select(
-                                    code,
-                                    plan,
-                                    before,
-                                    message,
-                                    context.Self
-                                )
-                                : _ => null;
-                            BeamReceiveSelection? selected;
-                            if (plan.Callback is { } callback)
                             {
-                                Term callbackTimeout = plan.TimeoutOperand is { } timeoutOperand
-                                    ? Read(code, before, timeoutOperand) : Term.A(BeamReceiveNames.Infinity);
-                                selected = await context.ReceiveBeamAsync(
-                                    message => BeamReceiveCallbackExecution.Select(
-                                        context,
-                                        code,
-                                        function,
-                                        functionFrame!,
-                                        callback,
-                                        before,
-                                        message
-                                    ),
-                                    callbackTimeout
-                                );
-                            }
-                            else if (BeamReceivePureBifs.RequiresAsync(code, plan))
-                                selected = await context.ReceiveBeamGuardAsync(
-                                    message => BeamReceiveMatcher.SelectAsync(
+                                BeamReceivePlan plan = instruction.Definition.Name == BeamLinkNames.LoopReceive
+                                    ? BeamReceivePlanner.Build(code, function, pc - 1)
+                                    : BeamReceivePlanner.BuildDelay(code, function, pc - 1);
+                                using BeamRegisterState before = registers.Clone();
+                                Func<Term, BeamReceiveSelection?> selectMessage = plan.HasMatcher
+                                    ? message => BeamReceiveMatcher.Select(
                                         code,
                                         plan,
                                         before,
                                         message,
-                                        context.Self,
-                                        context
-                                    ),
-                                    plan.TimeoutOperand is { } asyncTimeout ? Read(code, before, asyncTimeout) : Term.A(BeamReceiveNames.Infinity)
-                                );
-                            else
-                                selected = plan.TimeoutOperand is { } receiveTimeout
-                                    ? await context.ReceiveErlangAsync(selectMessage, Read(code, before, receiveTimeout))
-                                    : await context.ReceiveAsync(selectMessage);
-                            if (selected is null)
-                            {
-                                if (!plan.HasTimeout)
-                                    throw new InvalidDataException(BeamReceiveNames.InvalidPlan);
-                                registers.ClearXExcept();
-                                pc = plan.TimeoutInstructionIndex + 1;
+                                        context.Self
+                                    )
+                                    : _ => null;
+                                BeamReceiveSelection? selected;
+                                if (plan.Callback is { } callback)
+                                {
+                                    Term callbackTimeout = plan.TimeoutOperand is { } timeoutOperand
+                                        ? Read(code, before, timeoutOperand) : Term.A(BeamReceiveNames.Infinity);
+                                    selected = await context.ReceiveBeamAsync(
+                                        message => BeamReceiveCallbackExecution.Select(
+                                            context,
+                                            code,
+                                            function,
+                                            functionFrame!,
+                                            callback,
+                                            before,
+                                            message
+                                        ),
+                                        callbackTimeout
+                                    );
+                                }
+                                else if (BeamReceivePureBifs.RequiresAsync(code, plan))
+                                    selected = await context.ReceiveBeamGuardAsync(
+                                        message => BeamReceiveMatcher.SelectAsync(
+                                            code,
+                                            plan,
+                                            before,
+                                            message,
+                                            context.Self,
+                                            context
+                                        ),
+                                        plan.TimeoutOperand is { } asyncTimeout ? Read(code, before, asyncTimeout) : Term.A(BeamReceiveNames.Infinity)
+                                    );
+                                else
+                                    selected = plan.TimeoutOperand is { } receiveTimeout
+                                        ? await context.ReceiveErlangAsync(selectMessage, Read(code, before, receiveTimeout))
+                                        : await context.ReceiveAsync(selectMessage);
+                                if (selected is null)
+                                {
+                                    if (!plan.HasTimeout)
+                                        throw new InvalidDataException(BeamReceiveNames.InvalidPlan);
+                                    registers.ClearXExcept();
+                                    pc = plan.TimeoutInstructionIndex + 1;
+                                }
+                                else
+                                {
+                                    foreach (Term markerId in selected.ClearMarkers)
+                                        context.Mailbox.ClearReceiveMarker(markerId);
+                                    registers.Dispose();
+                                    registers = selected.Registers;
+                                    pc = selected.NextInstructionIndex;
+                                }
+                                break;
                             }
-                            else
-                            {
-                                foreach (Term markerId in selected.ClearMarkers)
-                                    context.Mailbox.ClearReceiveMarker(markerId);
-                                registers = selected.Registers;
-                                pc = selected.NextInstructionIndex;
-                            }
-                            break;
                         case BeamLinkNames.Move:
                             if (operands[0].Kind is BeamOperandParameters.X or BeamOperandParameters.Y)
                                 registers.CopyRegister(operands[0], operands[1]);
@@ -1274,6 +1278,7 @@ internal static partial class BeamRegisterInterpreter
         }
         finally
         {
+            registers.Dispose();
             functionFrame?.Dispose();
             while (functionFrames.TryPop(out var suspendedFrame))
                 suspendedFrame.Dispose();

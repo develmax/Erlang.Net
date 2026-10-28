@@ -246,58 +246,69 @@ public sealed partial class Mailbox
             {
                 long suspended = SuspensionTime?.Invoke() ?? 0;
                 T? result = await select(candidate.Value);
-                start += (SuspensionTime?.Invoke() ?? 0) - suspended;
-                while (true)
+                bool transferred504 = false;
+                try
                 {
-                    ThrowIfHalted();
-                    cancellation.ThrowIfCancellationRequested();
-                    ProcessSignals?.Invoke();
-                    if (WaitForExecution is not null)
-                        start += await WaitForExecution();
-                    Entry consumed = default;
-                    bool retry;
-                    bool rescan = false;
-                    lock (gate)
+                    start += (SuspensionTime?.Invoke() ?? 0) - suspended;
+                    while (true)
                     {
                         ThrowIfHalted();
                         cancellation.ThrowIfCancellationRequested();
-                        retry = pending != 0 || ExecutionBlocked?.Invoke() == true;
-                        // Priority insertion keeps the guard result for its prior candidate
-                        // and commits through the current save pointer, as OTP i_length does.
-                        // Host-side removal instead invalidates candidate ownership.
-                        if (!retry && rescanRemovedCandidate && !ReferenceEquals(candidateNode?.List, messages))
-                            rescan = true;
-                        if (!retry && !rescan)
+                        ProcessSignals?.Invoke();
+                        if (WaitForExecution is not null)
+                            start += await WaitForExecution();
+                        Entry consumed = default;
+                        bool retry;
+                        bool rescan = false;
+                        lock (gate)
                         {
-                            if (result is null)
-                                AdvanceBeamSave();
-                            else
+                            ThrowIfHalted();
+                            cancellation.ThrowIfCancellationRequested();
+                            retry = pending != 0 || ExecutionBlocked?.Invoke() == true;
+                            // Priority insertion keeps the guard result for its prior candidate
+                            // and commits through the current save pointer, as OTP i_length does.
+                            // Host-side removal instead invalidates candidate ownership.
+                            if (!retry && rescanRemovedCandidate && !ReferenceEquals(candidateNode?.List, messages))
+                                rescan = true;
+                            if (!retry && !rescan)
                             {
-                                var current = PeekBeamSave() ?? throw new InvalidDataException(BeamReceiveNames.InvalidPlan);
-                                consumed = current.Value;
-                                RemoveNode(current);
-                                ResetBeamSave();
+                                if (result is null)
+                                    AdvanceBeamSave();
+                                else
+                                {
+                                    var current = PeekBeamSave() ?? throw new InvalidDataException(BeamReceiveNames.InvalidPlan);
+                                    consumed = current.Value;
+                                    RemoveNode(current);
+                                    ResetBeamSave();
+                                }
                             }
                         }
-                    }
-                    if (retry)
-                        continue;
-                    if (rescan)
-                        break;
-                    if (result is null)
-                        break;
-                    MessageReceived?.Invoke();
-                    SequenceTraceToken? traceToken = consumed.TraceToken;
-                    bool preserve = consumed.PreserveTrace;
-                    if (consumed.DistributionTraceToken is { } raw)
-                    {
-                        var reception = DistributionSequenceTraceToken.Decode(raw);
-                        traceToken = reception.Token;
-                        preserve = reception.Preserve;
-                    }
-                    TraceReceived?.Invoke(consumed.Value, traceToken, preserve);
+                        if (retry)
+                            continue;
+                        if (rescan)
+                            break;
+                        if (result is null)
+                            break;
+                        MessageReceived?.Invoke();
+                        SequenceTraceToken? traceToken = consumed.TraceToken;
+                        bool preserve = consumed.PreserveTrace;
+                        if (consumed.DistributionTraceToken is { } raw)
+                        {
+                            var reception = DistributionSequenceTraceToken.Decode(raw);
+                            traceToken = reception.Token;
+                            preserve = reception.Preserve;
+                        }
+                        TraceReceived?.Invoke(consumed.Value, traceToken, preserve);
 
-                    return result;
+                        transferred504 = true;
+
+                        return result;
+                    }
+                }
+                finally
+                {
+                    if (!transferred504 && result is BeamReceiveSelection discarded504)
+                        discarded504.Registers.Dispose();
                 }
                 continue;
             }

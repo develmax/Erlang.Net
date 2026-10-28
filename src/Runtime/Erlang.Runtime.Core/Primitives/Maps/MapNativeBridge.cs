@@ -93,7 +93,8 @@ internal static class MapNativeBridge
             offset.Value,
             arguments[2],
             identities.Hash,
-            ownedRoot429: owned?.Index.Root
+            ownedRoot429: owned?.Index.Root,
+            runtime505: context.Runtime
         );
     }
 }

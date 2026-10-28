@@ -45,6 +45,20 @@ public static class MapIteration
             Term keys = state.Head;
             if (keys is Integer path)
             {
+                if (map.Entries.Count <= MapIteratorLayout.FlatMapMaximumEntries
+                    && NativeMapMaterialization505.TryRead(map, runtime, out var saved))
+                {
+                    if (path.Value < 0 || path.Value > map.Entries.Count)
+                        throw new ErlangException(ErlangErrorReasons.BadArgument);
+                    Term physical = Term.A(MapIteratorAtoms.None);
+                    for (int pairIndex = saved.PhysicalEntries.Count - 1; pairIndex >= 0; pairIndex--)
+                    {
+                        var entry = saved.PhysicalEntries[pairIndex];
+                        physical = Term.Tuple(entry.Key, entry.Value, physical);
+                    }
+
+                    return physical;
+                }
                 if (HamtCursorDispatch.TryRead(
                     map,
                     path.Value,
@@ -58,7 +72,7 @@ public static class MapIteration
                 if (!accepted)
                     throw new ErlangException(ErlangErrorReasons.BadArgument);
                 var physicalEntries = map.Entries.Count <= MapIteratorLayout.FlatMapMaximumEntries
-                    ? OtpMapHashLayoutProtocol.FlatEntries(map) : map.Entries;
+                    ? OtpMapHashLayoutProtocol.FlatEntries(map, runtime) : map.Entries;
                 keys = Cons.From(physicalEntries.Select(entry => entry.Key));
             }
             var entries = new List<KeyValuePair<Term, Term>>();

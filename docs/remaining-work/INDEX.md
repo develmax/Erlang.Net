@@ -1,16 +1,16 @@
 # Remaining work
 
-## Part503 current contract queue
+## Part504 current contract queue
 
-See [checkpoint503](checkpoint-503.md):708 registered,180 full contracts,504 pending and24 known differences; API/full-MFA deltas0/0. Original559 cohort62 closed/497 remain, plus seven reclassified contracts.
+See [checkpoint504](checkpoint-504.md):708 registered,180 full contracts,504 pending and24 known differences; MFA/full deltas0/0. Original559 cohort62 closed/497 remain, plus seven reclassified contracts.
 
-C# native enif_get_map_value is implemented at slot112 with original1123-byte output matching both native loaders, four HOST groups, final152/152 native/retirement checks and actual cleanup. Its Windows x64 callback delta+1 is separate from MFA readiness; the map family remains partial. Part502 logical/physical retirement correction is retained. Exact final-head CI/review remain delivery gates; [current evidence](../validation/part-503/native-map-value/README.md) preserves the complete scope.
+Parts502/503 are merged; main30d294e5c CI40400648174 is green. All15 selected Windows native-map callbacks are implemented together (+11); both native loaders match the whole440639-byte original output, including168 added key mutation/replacement scenarios. New18/18 and final native/term1706/1706 pass, with actual cleanup. Post-return/nested-map topology and other platforms remain open. Real Y-root and isolated term-heap foundations do not close the24 resource contracts. [Current evidence](../validation/part-504/native-map-family/README.md).
 
 ## Immediate queue
 
 1. Finish the24 retained differences and audit the seven reclassified contracts without treating a fixed finite witness as whole-API closure.
 2. Complete504 pending contracts (497 from the original559 cohort plus seven reclassified contracts), grouped by shared dependencies and supported platforms.
-3. Extend the native map surface beyond empty creation: map put/update/remove and iterators; retain explicit Linux/native ABI limits. Then continue process/name table queries and source/import lifecycle contracts.
+3. Complete saved native-map topology, equality and hashing after materialization and for nested keys; retain explicit Linux/native ABI limits. Continue shared guest heap/root/collection integration, process/name table queries and source/import lifecycle contracts.
 4. Expand original application lifecycle/upgrades, native ABI/packaging, ETS/resource/concurrency and distribution acceptance; preserve already-closed witnesses.
 5. Complete compiler/language/build/debug partitions, three-strategy scheduling, upstream suites, release support and fair original-OTP benchmarks.
 

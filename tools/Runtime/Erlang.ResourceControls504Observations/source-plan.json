@@ -1,0 +1,142 @@
+{
+  "Status": "UNEXECUTED_ORIGINAL_SOURCE_PLAN",
+  "OriginalCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Flags": [
+    "+S",
+    "1:1",
+    "+SDcpu",
+    "1:1",
+    "+SDio",
+    "1",
+    "+A",
+    "1"
+  ],
+  "QueueKeys": [
+    "run_queue",
+    "run_queue_lengths",
+    "run_queue_lengths_all",
+    "total_run_queue_lengths",
+    "total_run_queue_lengths_all",
+    "active_tasks",
+    "active_tasks_all",
+    "total_active_tasks",
+    "total_active_tasks_all",
+    "run_queues"
+  ],
+  "Cases": [
+    {
+      "Name": "debug_flags",
+      "Native": false,
+      "Stages": []
+    },
+    {
+      "Name": "normal_queue",
+      "Native": false,
+      "Stages": [
+        "normal_runnable",
+        "normal_retired"
+      ]
+    },
+    {
+      "Name": "held_queues",
+      "Native": true,
+      "Stages": [
+        "held",
+        "queued",
+        "after_action",
+        "retired"
+      ]
+    },
+    {
+      "Name": "cancel_queued",
+      "Native": true,
+      "Stages": [
+        "held",
+        "queued",
+        "after_action",
+        "retired"
+      ]
+    },
+    {
+      "Name": "cancel_running",
+      "Native": true,
+      "Stages": [
+        "held",
+        "queued",
+        "after_action",
+        "retired"
+      ]
+    }
+  ],
+  "DebugFlagArguments": 15,
+  "OwnedProcess": "tools/Distribution/Erlang.GuestConnectedSendObservations/owned_process.py",
+  "Decoder": "tools/Distribution/Erlang.GuestConnectedSendObservations/passive_etf.py",
+  "SourceIdentity": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/source_inputs.py",
+  "BuildManifest": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/manifest.json",
+  "Files": [
+    {
+      "Path": "tools/Runtime/Erlang.ResourceControls504Observations/README.md",
+      "HashMode": "TextLF",
+      "Bytes": 5111,
+      "Sha256": "074421AD312D238F2FB68D7BFEE35EA48EABCE5CC420E4727FCDA07C9B5B7B1B"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.ResourceControls504Observations/collect.py",
+      "HashMode": "TextLF",
+      "Bytes": 17454,
+      "Sha256": "E8F47D8193038B48F550D57DE97D8DF31412269015F10ED6C943614C919AA840"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.ResourceControls504Observations/seal-plan.py",
+      "HashMode": "TextLF",
+      "Bytes": 2616,
+      "Sha256": "24508C3536990982FD2E14B5CCDF683EDFD32651B60212B968E3B1005BE1D9DC"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.ResourceControls504Observations/check-diagnostics.py",
+      "HashMode": "TextLF",
+      "Bytes": 2819,
+      "Sha256": "5EB580ABC9E09D35C9C885297DC026D34F3CBEF98A831FBC641FD9B8F6379B73"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.ResourceControls504Observations/fixtures/queue_statistics504.c",
+      "HashMode": "TextLF",
+      "Bytes": 2686,
+      "Sha256": "70DA06C21B839D75626A2088B6254595D6DA01A2C35CF91B54B756BBC773104A"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.ResourceControls504Observations/fixtures/queue_statistics504.erl",
+      "HashMode": "TextLF",
+      "Bytes": 5800,
+      "Sha256": "E12CAB9DB2424562BB9A352BF84B2954D0D5D22595FCCDCB7D67AAA4C31AEB4F"
+    }
+  ],
+  "Dependencies": [
+    {
+      "Path": "tools/Distribution/Erlang.GuestConnectedSendObservations/owned_process.py",
+      "HashMode": "TextLF",
+      "Bytes": 3675,
+      "Sha256": "846101AD4F92121ACB128EAFB3228DD66D8A524CE0539A25E020A77010CFF071"
+    },
+    {
+      "Path": "tools/Distribution/Erlang.GuestConnectedSendObservations/passive_etf.py",
+      "HashMode": "TextLF",
+      "Bytes": 7105,
+      "Sha256": "A069AD650B3EA1BE6B90DE60117B84ED7A1A6B67128CC41E7ECAEFD2889C1713"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/source_inputs.py",
+      "HashMode": "TextLF",
+      "Bytes": 3099,
+      "Sha256": "28B06562E1621DF049D4C1B603B5AD7D9EBDA6C0BE616D21D54CCD4B03A34F45"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/manifest.json",
+      "HashMode": "TextLF",
+      "Bytes": 4992,
+      "Sha256": "AEBBA0D2DCF97E1248CA38407E8EBE628EB08F9EA4D13F48EC0C83A7A0364E61"
+    }
+  ],
+  "SdkCompared": false,
+  "WholeApiPromoted": false
+}

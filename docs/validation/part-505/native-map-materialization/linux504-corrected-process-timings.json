@@ -1,0 +1,130 @@
+{
+  "Run": 40422559287,
+  "Job": 121920273840,
+  "Observation": "Fixture IO self-block removed; not a production runtime speed comparison",
+  "NativeCases": [
+    {
+      "Case": "held_queues",
+      "CorrectedElapsedSeconds": 0.12610147600003074,
+      "OriginalProcessReceipt": {
+        "Arguments": [
+          "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/resource-controls504-otp/lib/erlang/bin/erl",
+          "+S",
+          "1:1",
+          "+SDcpu",
+          "1:1",
+          "+SDio",
+          "1",
+          "+A",
+          "1",
+          "-noshell",
+          "-noinput",
+          "-boot",
+          "start_clean",
+          "-pa",
+          "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/resource-controls504-original/capture/preparation",
+          "-eval",
+          "D=os:getenv(\"RESOURCE504_DIR\"), W=fun(N,V)->ok=file:write_file(filename:join(D,N),term_to_binary(V,[{minor_version,2}])) end, Root=filename:absname(code:root_dir()), Root=os:getenv(\"RESOURCE504_ROOT\"), Profile={erlang:system_info(schedulers),erlang:system_info(schedulers_online),erlang:system_info(dirty_cpu_schedulers),erlang:system_info(dirty_io_schedulers)}, W(\"profile.etf\",{Root,Profile}), {1,1,1,1}=Profile, ok=queue_statistics504:load(os:getenv(\"RESOURCE504_LIBRARY\")), R=try queue_statistics504:run(held_queues) of V->{returned,V} catch C:E:S->{raised,C,E,S} end, W(\"outcome.etf\",R),case R of {returned,_}->halt(0);_->halt(1) end."
+        ],
+        "OwnedPid": 82476,
+        "OwnedProcessGroup": 82476,
+        "ExitCode": 0,
+        "ElapsedSeconds": 0.12610147600003074,
+        "TerminationRequested": false,
+        "RemainingGroupKillRequested": false,
+        "ParentReaped": true,
+        "CleanupFailure": null,
+        "StreamsClosed": true,
+        "StdoutBytes": 0,
+        "StderrBytes": 0,
+        "Scope": "Linux foreground private epmd/erl process groups; automatic epmd daemon disabled"
+      },
+      "PreviousFailedElapsedSeconds": 24.137904445000004,
+      "PreviousFailedExitCode": 1
+    },
+    {
+      "Case": "cancel_queued",
+      "CorrectedElapsedSeconds": 0.150994379999986,
+      "OriginalProcessReceipt": {
+        "Arguments": [
+          "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/resource-controls504-otp/lib/erlang/bin/erl",
+          "+S",
+          "1:1",
+          "+SDcpu",
+          "1:1",
+          "+SDio",
+          "1",
+          "+A",
+          "1",
+          "-noshell",
+          "-noinput",
+          "-boot",
+          "start_clean",
+          "-pa",
+          "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/resource-controls504-original/capture/preparation",
+          "-eval",
+          "D=os:getenv(\"RESOURCE504_DIR\"), W=fun(N,V)->ok=file:write_file(filename:join(D,N),term_to_binary(V,[{minor_version,2}])) end, Root=filename:absname(code:root_dir()), Root=os:getenv(\"RESOURCE504_ROOT\"), Profile={erlang:system_info(schedulers),erlang:system_info(schedulers_online),erlang:system_info(dirty_cpu_schedulers),erlang:system_info(dirty_io_schedulers)}, W(\"profile.etf\",{Root,Profile}), {1,1,1,1}=Profile, ok=queue_statistics504:load(os:getenv(\"RESOURCE504_LIBRARY\")), R=try queue_statistics504:run(cancel_queued) of V->{returned,V} catch C:E:S->{raised,C,E,S} end, W(\"outcome.etf\",R),case R of {returned,_}->halt(0);_->halt(1) end."
+        ],
+        "OwnedPid": 82495,
+        "OwnedProcessGroup": 82495,
+        "ExitCode": 0,
+        "ElapsedSeconds": 0.150994379999986,
+        "TerminationRequested": false,
+        "RemainingGroupKillRequested": false,
+        "ParentReaped": true,
+        "CleanupFailure": null,
+        "StreamsClosed": true,
+        "StdoutBytes": 0,
+        "StderrBytes": 0,
+        "Scope": "Linux foreground private epmd/erl process groups; automatic epmd daemon disabled"
+      },
+      "PreviousFailedElapsedSeconds": 24.138900098000022,
+      "PreviousFailedExitCode": 1
+    },
+    {
+      "Case": "cancel_running",
+      "CorrectedElapsedSeconds": 0.1274136389999967,
+      "OriginalProcessReceipt": {
+        "Arguments": [
+          "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/resource-controls504-otp/lib/erlang/bin/erl",
+          "+S",
+          "1:1",
+          "+SDcpu",
+          "1:1",
+          "+SDio",
+          "1",
+          "+A",
+          "1",
+          "-noshell",
+          "-noinput",
+          "-boot",
+          "start_clean",
+          "-pa",
+          "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/resource-controls504-original/capture/preparation",
+          "-eval",
+          "D=os:getenv(\"RESOURCE504_DIR\"), W=fun(N,V)->ok=file:write_file(filename:join(D,N),term_to_binary(V,[{minor_version,2}])) end, Root=filename:absname(code:root_dir()), Root=os:getenv(\"RESOURCE504_ROOT\"), Profile={erlang:system_info(schedulers),erlang:system_info(schedulers_online),erlang:system_info(dirty_cpu_schedulers),erlang:system_info(dirty_io_schedulers)}, W(\"profile.etf\",{Root,Profile}), {1,1,1,1}=Profile, ok=queue_statistics504:load(os:getenv(\"RESOURCE504_LIBRARY\")), R=try queue_statistics504:run(cancel_running) of V->{returned,V} catch C:E:S->{raised,C,E,S} end, W(\"outcome.etf\",R),case R of {returned,_}->halt(0);_->halt(1) end."
+        ],
+        "OwnedPid": 82514,
+        "OwnedProcessGroup": 82514,
+        "ExitCode": 0,
+        "ElapsedSeconds": 0.1274136389999967,
+        "TerminationRequested": false,
+        "RemainingGroupKillRequested": false,
+        "ParentReaped": true,
+        "CleanupFailure": null,
+        "StreamsClosed": true,
+        "StdoutBytes": 0,
+        "StderrBytes": 0,
+        "Scope": "Linux foreground private epmd/erl process groups; automatic epmd daemon disabled"
+      },
+      "PreviousFailedElapsedSeconds": 24.115805660999968,
+      "PreviousFailedExitCode": 1
+    }
+  ],
+  "AcquisitionAttempts": {
+    "PreviousFailedBatch": 1,
+    "CorrectedBatch": 1,
+    "IndependentNativeCasesPerBatch": 3,
+    "OriginalOtpBuildsPerBatch": 1
+  }
+}

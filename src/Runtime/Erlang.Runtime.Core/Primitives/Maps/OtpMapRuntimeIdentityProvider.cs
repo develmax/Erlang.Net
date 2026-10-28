@@ -7,6 +7,8 @@ internal sealed class OtpMapRuntimeIdentityProvider(
     Action<MapTerm, OtpMapHashState64, Func<Term, ulong>> appendMap
 ) : OtpMapHashIdentityProvider, IDisposable
 {
+    internal ProcessRuntime Runtime505 => runtime;
+
     private readonly object scopeGate = new();
     private NodeComparisonContext snapshots = Seed(runtime, local);
 

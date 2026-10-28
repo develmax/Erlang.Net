@@ -41,6 +41,9 @@ internal static class RuntimeStatisticsHostChecks
                     Require(exception.Reason.Equals(Term.A(RuntimeStatisticsNames.NotSupported)));
                 }
             }
+            var queues = await Sample(context, RuntimeStatisticsNames.RunQueues);
+            Require(queues.Items.Count == runtime.ActorDispatchCapacity + RuntimeStatisticsHostParameters.DirtyQueueKinds);
+            Require(queues.Items.All(value => value is Integer { Value.Sign: >= 0 }));
             var beforeGc = await Sample(context, RuntimeStatisticsNames.GarbageCollection);
             Require(beforeGc.Items is [Integer { Value.Sign: >= 0 }, Integer { Value.Sign: >= 0 }, Integer { Value.IsZero: true }]);
             // Exercise the real public collection path; this is managed-platform

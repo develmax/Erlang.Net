@@ -1,0 +1,611 @@
+{
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "BaselineKnown": 24,
+  "ClosedByThisAgent": 0,
+  "Status": "ACTUAL_BEAM_Y_OWNERSHIP_INTEGRATED_PUBLIC_RESOURCE_CONTRACTS_STILL_OPEN",
+  "Clusters": {
+    "process-info": 2,
+    "spawn-resources": 15,
+    "system-resource-controls": 1,
+    "garbage-statistics": 1,
+    "native-load-closure": 1,
+    "crash-heap-hibernate": 4
+  },
+  "OriginalSources": [
+    {
+      "Path": "erts/emulator/beam/erl_gc.c",
+      "Sha256": "D83220568588CFAD8EBEEF5D399D43D04A6E79D7A002404C1A503D274AB8381D",
+      "Bytes": 123536
+    },
+    {
+      "Path": "erts/emulator/beam/erl_gc.h",
+      "Sha256": "F1BE3B3F40976409563A861E4881A7B2A1C774E6531CC3613F6304953C4FDF2D",
+      "Bytes": 6942
+    },
+    {
+      "Path": "erts/emulator/beam/erl_process.c",
+      "Sha256": "89CBDB55BE2A97E77B2450BB3D339CA6DB934B9C4BF556EAD29B4EAE88072DC9",
+      "Bytes": 459197
+    },
+    {
+      "Path": "erts/emulator/beam/erl_vm.h",
+      "Sha256": "C362C2C222F5342BC0EDD3B666BA58EF571DFF6D6F37542169316C208FAB9816",
+      "Bytes": 11233
+    },
+    {
+      "Path": "erts/emulator/beam/erl_init.c",
+      "Sha256": "427B8918B7300B6998B2B1D5123A2904C59A67BA917E20461C9300B62D38B027",
+      "Bytes": 89801
+    },
+    {
+      "Path": "erts/emulator/beam/bif.c",
+      "Sha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC",
+      "Bytes": 169612
+    },
+    {
+      "Path": "lib/stdlib/src/proc_lib.erl",
+      "Sha256": "A8FC8E94F9AD47ACE46CD204FC5EB6FD227C09787F3BE906D80D2E4547E6A8C5",
+      "Bytes": 57067
+    },
+    {
+      "Path": "erts/emulator/beam/erl_nif.c",
+      "Sha256": "66F06AB32AEDB5D1E02140C37E0215E797FB80D78C1AA4091EB52BE01465299A",
+      "Bytes": 197317
+    }
+  ],
+  "CurrentSourceBindings": [
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessSpawnOptions.cs",
+      "Sha256": "598170B4AFE1AE85BFD8E18CC601238FDDD63E0C4F0D883B7AB091112ED9A967"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoDefaultCatalog.cs",
+      "Sha256": "7B3FCA544BBAECF99567010EB5549D6359F159D90A4EB823FB56E6F47FD80AF2"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+      "Sha256": "56831E7519AE1D2ACC09D1AD8F624111A4424A1E45A6A46CA3E0C144030BDC4A"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+      "Sha256": "EB6A119EABD576DFBC3BF40DA6452544FF294A5182DBFACCAC81C7BE62F29DDF"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.ManagedGarbage457.cs",
+      "Sha256": "66D0F899189B5D7C822F125238EFC7E66343297A84892B82BD4939E538CB4B43"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatisticsRegistrations.cs",
+      "Sha256": "70472D73A001A3289F49B66C8402C9C27D70B39A5EB0133CB085CE17D11C4CD0"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations.cs",
+      "Sha256": "C7BB05E88B8CE1BD5D4DD8DDF85AF02B2485EC7BA96BD0ECA6C95BA98F17DAE6"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Internal/InternalSpawnRequestNative429.cs",
+      "Sha256": "16C5E8E5FC8614F1988E0C64CEF894CA82895A627F1F83C8604C2D49043DFC81"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/ProcLib/ProcLibCrashReportBuilder.cs",
+      "Sha256": "416451A30510809222F3BE96115287FFA71668AC16B2D993B20B3588305A94A6"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/ProcLib/ProcLibOptionStartup.cs",
+      "Sha256": "38BE2C622605A473EED1211294BABAF950579C2D3B8067102235800311E6D5A2"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterState.cs",
+      "Sha256": "C8E7C9AC89B909BA38FB0612D204A16943EB2E2CDE8612B1AC179956996C4962"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLocalFrame.cs",
+      "Sha256": "06DD1129B87ECABD0FC37CE3C0B8AD03D517AAE36B0DD738C8DE7D0E2E0CB4F3"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamReceiveMatcher.cs",
+      "Sha256": "99555560B682112095CC3D51BBDD2EFC94F4612B91E7586FCD439862733C9CA7"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterInterpreter.cs",
+      "Sha256": "CDC5463460F018DC6332EED7A40BEC3E6C2C85798B8701B90293AC5712BBF6F9"
+    }
+  ],
+  "ActualFoundationSources": [
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedWordArena504.cs",
+      "Sha256": "472138AD91284439F7DB29409E12ECCB521D10633C022BEB05A1A73031F940A3"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedWordLease504.cs",
+      "Sha256": "B06AB135436D984342151F4A933FF580C333BA431B619DBB9D2456CD877E8F45"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedWordLimit504.cs",
+      "Sha256": "5FCC4093917D3B396D769A9923382949F51CF95B2981428E0E6B3C10614A3777"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedWordNames504.cs",
+      "Sha256": "F83A79441573FFDAFC90B375C7EAA6137BCE930686E344CE50D9E64458E6BFE8"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedWordSnapshot504.cs",
+      "Sha256": "9819EB66FC14AC0900A052A747815F47D67A24157570088A3EDF0701F4C80830"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessWordExecution504.cs",
+      "Sha256": "5B59758755B7B9DF6CDA22B91A01EF09034C8C603CF51ABF586D386C85D3ECB8"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessWordOperation504.cs",
+      "Sha256": "510C30CD656C09FF04AF2535D63860974C955752D74668795F23C1A6915A5462"
+    }
+  ],
+  "Entries": [
+    {
+      "Mfa": "erlang:process_info/2",
+      "Cluster": "process-info",
+      "Status": "OPEN_NO_CLASSIFICATION_PROMOTION",
+      "CurrentSourceReproduction": "Four valid explicit fields reject through ProcessInfoItem.Parse/IsSupported. Default catalog deliberately filters MissingPhysicalKeys.",
+      "RequiredImplementationAndValidation": "Complete actual heap + stack + collection provider, scalar/list/default/error/dead/owner-snapshot semantics; no synthetic footprint.",
+      "InheritedLimits": [
+        "Native physical resource keys total_heap_size, heap_size, stack_size and garbage_collection are unsupported and rejected; they are valid in pinned OTP. Do not replace them with fabricated integer values or node-wide GC totals.",
+        "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending Supported item async_dist now returns the actual target process flag as a boolean from the existing gated runtime state. Scalar and list queries preserve item validation, list order and duplicates; the item remains excluded from the default process_info/1 catalog. Real generated default/transition/other-process/child/dead-target/error contracts and mixed owner queries during connected output waits are covered within the existing PID/query domain. This adds no export and does not complete remote process-info domains, pending/autoconnect, native scheduler parity or general wire equality."
+      ],
+      "LiveOriginalExecutionByThisAgent": false,
+      "KnownDifferenceEliminatedByStandaloneArena": false
+    },
+    {
+      "Mfa": "erlang:process_info/1",
+      "Cluster": "process-info",
+      "Status": "OPEN_NO_CLASSIFICATION_PROMOTION",
+      "CurrentSourceReproduction": "Four valid explicit fields reject through ProcessInfoItem.Parse/IsSupported. Default catalog deliberately filters MissingPhysicalKeys.",
+      "RequiredImplementationAndValidation": "Complete actual heap + stack + collection provider, scalar/list/default/error/dead/owner-snapshot semantics; no synthetic footprint.",
+      "InheritedLimits": [
+        "The native physical heap/stack/GC fields are absent. Actual original logical projections pass within their finite query scope; they do not verify a full default-list/resource contract. Other remaining query, scheduler and process-domain limits are not promoted to compatible."
+      ],
+      "LiveOriginalExecutionByThisAgent": false,
+      "KnownDifferenceEliminatedByStandaloneArena": false
+    },
+    {
+      "Mfa": "erlang:spawn_opt/2",
+      "Cluster": "spawn-resources",
+      "Status": "OPEN_NO_CLASSIFICATION_PROMOTION",
+      "CurrentSourceReproduction": "ProcessSpawnOptions.Parse default rejects valid min_heap_size, min_bin_vheap_size and max_heap_size.",
+      "RequiredImplementationAndValidation": "Pinned native-small/map flags, heap-class rounding, last-wins, max/min relation, actual allocation/GC/kill/log/binary accounting, local/remote/async/startup ownership and rollback.",
+      "InheritedLimits": [
+        "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+        "Current styled-source preservation review and prior managed focus do not establish complete spawn_opt compatibility. Final part 353 full validation and explicit two-lane original comparison remain pending; original part 351 covers its three priority witnesses only.",
+        "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
+      ],
+      "LiveOriginalExecutionByThisAgent": false,
+      "KnownDifferenceEliminatedByStandaloneArena": false
+    },
+    {
+      "Mfa": "erlang:spawn_opt/3",
+      "Cluster": "spawn-resources",
+      "Status": "OPEN_NO_CLASSIFICATION_PROMOTION",
+      "CurrentSourceReproduction": "ProcessSpawnOptions.Parse default rejects valid min_heap_size, min_bin_vheap_size and max_heap_size.",
+      "RequiredImplementationAndValidation": "Pinned native-small/map flags, heap-class rounding, last-wins, max/min relation, actual allocation/GC/kill/log/binary accounting, local/remote/async/startup ownership and rollback.",
+      "InheritedLimits": [
+        "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+        "Current styled-source preservation review and prior managed focus do not establish complete spawn_opt compatibility. Final part 353 full validation and explicit two-lane original comparison remain pending; original part 351 covers its three priority witnesses only.",
+        "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
+      ],
+      "LiveOriginalExecutionByThisAgent": false,
+      "KnownDifferenceEliminatedByStandaloneArena": false
+    },
+    {
+      "Mfa": "erlang:spawn_opt/4",
+      "Cluster": "spawn-resources",
+      "Status": "OPEN_NO_CLASSIFICATION_PROMOTION",
+      "CurrentSourceReproduction": "ProcessSpawnOptions.Parse default rejects valid min_heap_size, min_bin_vheap_size and max_heap_size.",
+      "RequiredImplementationAndValidation": "Pinned native-small/map flags, heap-class rounding, last-wins, max/min relation, actual allocation/GC/kill/log/binary accounting, local/remote/async/startup ownership and rollback.",
+      "InheritedLimits": [
+        "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+        "Current styled-source preservation review and prior managed focus do not establish complete spawn_opt compatibility. Final part 353 full validation and explicit two-lane original comparison remain pending; original part 351 covers its three priority witnesses only.",
+        "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
+      ],
+      "LiveOriginalExecutionByThisAgent": false,
+      "KnownDifferenceEliminatedByStandaloneArena": false
+    },
+    {
+      "Mfa": "erlang:spawn_opt/5",
+      "Cluster": "spawn-resources",
+      "Status": "OPEN_NO_CLASSIFICATION_PROMOTION",
+      "CurrentSourceReproduction": "ProcessSpawnOptions.Parse default rejects valid min_heap_size, min_bin_vheap_size and max_heap_size.",
+      "RequiredImplementationAndValidation": "Pinned native-small/map flags, heap-class rounding, last-wins, max/min relation, actual allocation/GC/kill/log/binary accounting, local/remote/async/startup ownership and rollback.",
+      "InheritedLimits": [
+        "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+        "Current styled-source preservation review and prior managed focus do not establish complete spawn_opt compatibility. Final part 353 full validation and explicit two-lane original comparison remain pending; original part 351 covers its three priority witnesses only.",
+        "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
+      ],
+      "LiveOriginalExecutionByThisAgent": false,
+      "KnownDifferenceEliminatedByStandaloneArena": false
+    },
+    {
+      "Mfa": "erlang:spawn_request/2",
+      "Cluster": "spawn-resources",
+      "Status": "OPEN_NO_CLASSIFICATION_PROMOTION",
+      "CurrentSourceReproduction": "ProcessSpawnOptions.Parse default rejects valid min_heap_size, min_bin_vheap_size and max_heap_size.",
+      "RequiredImplementationAndValidation": "Pinned native-small/map flags, heap-class rounding, last-wins, max/min relation, actual allocation/GC/kill/log/binary accounting, local/remote/async/startup ownership and rollback.",
+      "InheritedLimits": [
+        "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+        "Priority and logical scheduler binding are implemented; connected spawning is not claimed missing. Full native options/resource/alias/autoconnect/timing compatibility remains incomplete or unverified.",
+        "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
+      ],
+      "LiveOriginalExecutionByThisAgent": false,
+      "KnownDifferenceEliminatedByStandaloneArena": false
+    },
+    {
+      "Mfa": "erlang:spawn_request/3",
+      "Cluster": "spawn-resources",
+      "Status": "OPEN_NO_CLASSIFICATION_PROMOTION",
+      "CurrentSourceReproduction": "ProcessSpawnOptions.Parse default rejects valid min_heap_size, min_bin_vheap_size and max_heap_size.",
+      "RequiredImplementationAndValidation": "Pinned native-small/map flags, heap-class rounding, last-wins, max/min relation, actual allocation/GC/kill/log/binary accounting, local/remote/async/startup ownership and rollback.",
+      "InheritedLimits": [
+        "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+        "Priority and logical scheduler binding are implemented; connected spawning is not claimed missing. Full native options/resource/alias/autoconnect/timing compatibility remains incomplete or unverified.",
+        "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
+      ],
+      "LiveOriginalExecutionByThisAgent": false,
+      "KnownDifferenceEliminatedByStandaloneArena": false
+    },
+    {
+      "Mfa": "erlang:spawn_request/4",
+      "Cluster": "spawn-resources",
+      "Status": "OPEN_NO_CLASSIFICATION_PROMOTION",
+      "CurrentSourceReproduction": "ProcessSpawnOptions.Parse default rejects valid min_heap_size, min_bin_vheap_size and max_heap_size.",
+      "RequiredImplementationAndValidation": "Pinned native-small/map flags, heap-class rounding, last-wins, max/min relation, actual allocation/GC/kill/log/binary accounting, local/remote/async/startup ownership and rollback.",
+      "InheritedLimits": [
+        "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+        "Priority and logical scheduler binding are implemented; connected spawning is not claimed missing. Full native options/resource/alias/autoconnect/timing compatibility remains incomplete or unverified.",
+        "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
+      ],
+      "LiveOriginalExecutionByThisAgent": false,
+      "KnownDifferenceEliminatedByStandaloneArena": false
+    },
+    {
+      "Mfa": "erlang:spawn_request/5",
+      "Cluster": "spawn-resources",
+      "Status": "OPEN_NO_CLASSIFICATION_PROMOTION",
+      "CurrentSourceReproduction": "ProcessSpawnOptions.Parse default rejects valid min_heap_size, min_bin_vheap_size and max_heap_size.",
+      "RequiredImplementationAndValidation": "Pinned native-small/map flags, heap-class rounding, last-wins, max/min relation, actual allocation/GC/kill/log/binary accounting, local/remote/async/startup ownership and rollback.",
+      "InheritedLimits": [
+        "Current parser supports priority, scheduler, fullsweep_after and message_queue_data. Heap controls min_heap_size, min_bin_vheap_size and max_heap_size still fall through to badarg; CLR/ERTS physical collector parity is not established.",
+        "Priority and logical scheduler binding are implemented; connected spawning is not claimed missing. Full native options/resource/alias/autoconnect/timing compatibility remains incomplete or unverified.",
+        "Part357 fullsweep_after controls explicit CLR collection mode and remote atom monitor retains the last tuple monitor options; tuple-empty monitor resets them, while local atom monitor resets them. Per-process BEAM heaps/automatic GC, message_queue_data/heap options, remote metadata now covers async_dist and final priority-link choice; physical resources and complete connected scheduling remain incomplete."
+      ],
+      "LiveOriginalExecutionByThisAgent": false,
+      "KnownDifferenceEliminatedByStandaloneArena": false
+    },
+    {
+      "Mfa": "erlang:system_flag/2",
+      "Cluster": "system-resource-controls",
+      "Status": "OPEN_NO_CLASSIFICATION_PROMOTION",
+      "CurrentSourceReproduction": "SequenceTraceRegistrations system_flag has fullsweep and several logical controls but no min_heap/min_bin_vheap/max_heap defaults.",
+      "RequiredImplementationAndValidation": "Real shared VM defaults, setter old-values, validation/error stack, future-child inheritance and resource effects; audit all other valid flag branches.",
+      "InheritedLimits": [
+        "system_flag(fullsweep_after,Value) is implemented, including native-small validation and system clamp. min_heap_size and other unimplemented system controls remain contract gaps.",
+        "Full branch/options/error/effect coverage remains required."
+      ],
+      "LiveOriginalExecutionByThisAgent": false,
+      "KnownDifferenceEliminatedByStandaloneArena": false
+    },
+    {
+      "Mfa": "erlang:statistics/1",
+      "Cluster": "garbage-statistics",
+      "Status": "OPEN_NO_CLASSIFICATION_PROMOTION",
+      "CurrentSourceReproduction": "SampleManagedGarbage457 reads global CLR totals and estimates reclaimed bytes; that is not a per-VM Erlang word collector.",
+      "RequiredImplementationAndValidation": "Actual per-runtime collection events and reclaimed VM words, normal/major and attribution/isolation; audit other statistics keys rather than promoting a GC-only result.",
+      "InheritedLimits": [
+        "statistics(garbage_collection) is implemented using actual CLR samples. Old unsupported-key wording is obsolete; the estimate is not ERTS per-process/native-word accounting and does not establish whole statistics compatibility.",
+        "Full branch/options/error/effect coverage remains required."
+      ],
+      "LiveOriginalExecutionByThisAgent": false,
+      "KnownDifferenceEliminatedByStandaloneArena": false
+    },
+    {
+      "Mfa": "erlang:load_nif/2",
+      "Cluster": "native-load-closure",
+      "Status": "OPEN_NO_CLASSIFICATION_PROMOTION",
+      "CurrentSourceReproduction": "Current ordinary/reviewed loaders exist; whole pathname/platform/ABI/callback/lifecycle closure still unclosed.",
+      "RequiredImplementationAndValidation": "Complete map-family package is one dependency. Keep Linux/ARM/32-bit/ABI/version/resource/thread/upgrade/import/error-text and direct/indirect/ordinary source branches distinct.",
+      "InheritedLimits": [
+        "Ordinary captured direct calls open host libraries without per-image approval; optional reviewed hash policy and explicit handler retain precedence. Raw Unix filename bytes/search are implemented in source with Linux/original execution pending. General native ABI/version/dirty/resource/thread/upgrade support remains incomplete.",
+        "Managed source-route and owned Windows eleven-image observations do not establish original OTP equality or complete native error text. New ordinary original comparisons and same-head CI remain pending."
+      ],
+      "LiveOriginalExecutionByThisAgent": false,
+      "KnownDifferenceEliminatedByStandaloneArena": false
+    },
+    {
+      "Mfa": "proc_lib:spawn_opt/3",
+      "Cluster": "spawn-resources",
+      "Status": "OPEN_NO_CLASSIFICATION_PROMOTION",
+      "CurrentSourceReproduction": "ProcessSpawnOptions.Parse default rejects valid min_heap_size, min_bin_vheap_size and max_heap_size.",
+      "RequiredImplementationAndValidation": "Pinned native-small/map flags, heap-class rounding, last-wins, max/min relation, actual allocation/GC/kill/log/binary accounting, local/remote/async/startup ownership and rollback.",
+      "InheritedLimits": [
+        "RECHECK487_FRESH_RECEIVER: Exact current/old source-image resolution and fresh lexical/captured-function controls pass without receiver constructor execution. Complete API/source/error/effect audits remain pending; the historical340 failure is not asserted current.",
+        "SPAWN_NATIVE_TUNING: priority, scheduler, fullsweep_after and message_queue_data are implemented. Native heap sizing/limits remain unsupported; physical ERTS collector equivalence is unclosed.",
+        "REMOTE_WHOLE_TRACE_TCP: Native/managed transport integration exists, but complete proc_lib remote spawn/alias/trace branch coverage remains unverified. Missing whole-contract evidence is not a confirmed current discrepancy."
+      ],
+      "LiveOriginalExecutionByThisAgent": false,
+      "KnownDifferenceEliminatedByStandaloneArena": false
+    },
+    {
+      "Mfa": "proc_lib:spawn_opt/5",
+      "Cluster": "spawn-resources",
+      "Status": "OPEN_NO_CLASSIFICATION_PROMOTION",
+      "CurrentSourceReproduction": "ProcessSpawnOptions.Parse default rejects valid min_heap_size, min_bin_vheap_size and max_heap_size.",
+      "RequiredImplementationAndValidation": "Pinned native-small/map flags, heap-class rounding, last-wins, max/min relation, actual allocation/GC/kill/log/binary accounting, local/remote/async/startup ownership and rollback.",
+      "InheritedLimits": [
+        "SPAWN_NATIVE_TUNING: priority, scheduler, fullsweep_after and message_queue_data are implemented. Native heap sizing/limits remain unsupported; physical ERTS collector equivalence is unclosed.",
+        "REMOTE_WHOLE_TRACE_TCP: Native/managed transport integration exists, but complete proc_lib remote spawn/alias/trace branch coverage remains unverified. Missing whole-contract evidence is not a confirmed current discrepancy."
+      ],
+      "LiveOriginalExecutionByThisAgent": false,
+      "KnownDifferenceEliminatedByStandaloneArena": false
+    },
+    {
+      "Mfa": "proc_lib:spawn_opt/2",
+      "Cluster": "spawn-resources",
+      "Status": "OPEN_NO_CLASSIFICATION_PROMOTION",
+      "CurrentSourceReproduction": "ProcessSpawnOptions.Parse default rejects valid min_heap_size, min_bin_vheap_size and max_heap_size.",
+      "RequiredImplementationAndValidation": "Pinned native-small/map flags, heap-class rounding, last-wins, max/min relation, actual allocation/GC/kill/log/binary accounting, local/remote/async/startup ownership and rollback.",
+      "InheritedLimits": [
+        "RECHECK487_FRESH_RECEIVER: Exact current/old source-image resolution and fresh lexical/captured-function controls pass without receiver constructor execution. Complete API/source/error/effect audits remain pending; the historical340 failure is not asserted current.",
+        "SPAWN_NATIVE_TUNING: priority, scheduler, fullsweep_after and message_queue_data are implemented. Native heap sizing/limits remain unsupported; physical ERTS collector equivalence is unclosed."
+      ],
+      "LiveOriginalExecutionByThisAgent": false,
+      "KnownDifferenceEliminatedByStandaloneArena": false
+    },
+    {
+      "Mfa": "proc_lib:spawn_opt/4",
+      "Cluster": "spawn-resources",
+      "Status": "OPEN_NO_CLASSIFICATION_PROMOTION",
+      "CurrentSourceReproduction": "ProcessSpawnOptions.Parse default rejects valid min_heap_size, min_bin_vheap_size and max_heap_size.",
+      "RequiredImplementationAndValidation": "Pinned native-small/map flags, heap-class rounding, last-wins, max/min relation, actual allocation/GC/kill/log/binary accounting, local/remote/async/startup ownership and rollback.",
+      "InheritedLimits": [
+        "SPAWN_NATIVE_TUNING: priority, scheduler, fullsweep_after and message_queue_data are implemented. Native heap sizing/limits remain unsupported; physical ERTS collector equivalence is unclosed."
+      ],
+      "LiveOriginalExecutionByThisAgent": false,
+      "KnownDifferenceEliminatedByStandaloneArena": false
+    },
+    {
+      "Mfa": "proc_lib:start/5",
+      "Cluster": "spawn-resources",
+      "Status": "OPEN_NO_CLASSIFICATION_PROMOTION",
+      "CurrentSourceReproduction": "ProcessSpawnOptions.Parse default rejects valid min_heap_size, min_bin_vheap_size and max_heap_size.",
+      "RequiredImplementationAndValidation": "Pinned native-small/map flags, heap-class rounding, last-wins, max/min relation, actual allocation/GC/kill/log/binary accounting, local/remote/async/startup ownership and rollback.",
+      "InheritedLimits": [
+        "SPAWN_NATIVE_TUNING: priority, scheduler, fullsweep_after and message_queue_data are implemented. Native heap sizing/limits remain unsupported; physical ERTS collector equivalence is unclosed."
+      ],
+      "LiveOriginalExecutionByThisAgent": false,
+      "KnownDifferenceEliminatedByStandaloneArena": false
+    },
+    {
+      "Mfa": "proc_lib:start_link/5",
+      "Cluster": "spawn-resources",
+      "Status": "OPEN_NO_CLASSIFICATION_PROMOTION",
+      "CurrentSourceReproduction": "ProcessSpawnOptions.Parse default rejects valid min_heap_size, min_bin_vheap_size and max_heap_size.",
+      "RequiredImplementationAndValidation": "Pinned native-small/map flags, heap-class rounding, last-wins, max/min relation, actual allocation/GC/kill/log/binary accounting, local/remote/async/startup ownership and rollback.",
+      "InheritedLimits": [
+        "SPAWN_NATIVE_TUNING: priority, scheduler, fullsweep_after and message_queue_data are implemented. Native heap sizing/limits remain unsupported; physical ERTS collector equivalence is unclosed."
+      ],
+      "LiveOriginalExecutionByThisAgent": false,
+      "KnownDifferenceEliminatedByStandaloneArena": false
+    },
+    {
+      "Mfa": "proc_lib:start_monitor/5",
+      "Cluster": "spawn-resources",
+      "Status": "OPEN_NO_CLASSIFICATION_PROMOTION",
+      "CurrentSourceReproduction": "ProcessSpawnOptions.Parse default rejects valid min_heap_size, min_bin_vheap_size and max_heap_size.",
+      "RequiredImplementationAndValidation": "Pinned native-small/map flags, heap-class rounding, last-wins, max/min relation, actual allocation/GC/kill/log/binary accounting, local/remote/async/startup ownership and rollback.",
+      "InheritedLimits": [
+        "SPAWN_NATIVE_TUNING: priority, scheduler, fullsweep_after and message_queue_data are implemented. Native heap sizing/limits remain unsupported; physical ERTS collector equivalence is unclosed."
+      ],
+      "LiveOriginalExecutionByThisAgent": false,
+      "KnownDifferenceEliminatedByStandaloneArena": false
+    },
+    {
+      "Mfa": "proc_lib:init_p/3",
+      "Cluster": "crash-heap-hibernate",
+      "Status": "OPEN_NO_CLASSIFICATION_PROMOTION",
+      "CurrentSourceReproduction": "ProcLibCrashReportBuilder consumes absent heap/stack values; physical hibernate/complete logger branches unclosed.",
+      "RequiredImplementationAndValidation": "Real process heap/stack fields feeding both managed and original proc_lib; actual heap release/stack reset on hibernate plus full report/error/logger/remote-neighbour source coverage.",
+      "InheritedLimits": [
+        "RECHECK487_FRESH_RECEIVER: Exact current/old source-image resolution and fresh lexical/captured-function controls pass without receiver constructor execution. Complete API/source/error/effect audits remain pending; the historical340 failure is not asserted current.",
+        "CRASH_PHYSICAL_FIELDS: Generated crash report heap_size and stack_size are undefined on managed processes instead of native nonnegative BEAM counts. Existing portable tests allow exactly those two alternatives; other fields retain their assertions.",
+        "LOGGER_BACKEND_BREADTH: Crash reports use real per-runtime logger configuration and guest callbacks, but default output is synchronous managed writer handling, not full OTP logger_std_h process/overload/physical-file machinery. Full logger_formatter headers/templates/configuration remain absent.",
+        "REMOTE_NEIGHBOUR_CRASH_STACK: Full remote-neighbour crash graph and native complete crash-stack output are not established by the finite local lifecycle assertions. Remote process_info now uses real rpc; this removes the old missing-RPC dependency, not every distributed report equivalence gap."
+      ],
+      "LiveOriginalExecutionByThisAgent": false,
+      "KnownDifferenceEliminatedByStandaloneArena": false
+    },
+    {
+      "Mfa": "proc_lib:init_p/5",
+      "Cluster": "crash-heap-hibernate",
+      "Status": "OPEN_NO_CLASSIFICATION_PROMOTION",
+      "CurrentSourceReproduction": "ProcLibCrashReportBuilder consumes absent heap/stack values; physical hibernate/complete logger branches unclosed.",
+      "RequiredImplementationAndValidation": "Real process heap/stack fields feeding both managed and original proc_lib; actual heap release/stack reset on hibernate plus full report/error/logger/remote-neighbour source coverage.",
+      "InheritedLimits": [
+        "CRASH_PHYSICAL_FIELDS: Generated crash report heap_size and stack_size are undefined on managed processes instead of native nonnegative BEAM counts. Existing portable tests allow exactly those two alternatives; other fields retain their assertions.",
+        "LOGGER_BACKEND_BREADTH: Crash reports use real per-runtime logger configuration and guest callbacks, but default output is synchronous managed writer handling, not full OTP logger_std_h process/overload/physical-file machinery. Full logger_formatter headers/templates/configuration remain absent.",
+        "REMOTE_NEIGHBOUR_CRASH_STACK: Full remote-neighbour crash graph and native complete crash-stack output are not established by the finite local lifecycle assertions. Remote process_info now uses real rpc; this removes the old missing-RPC dependency, not every distributed report equivalence gap."
+      ],
+      "LiveOriginalExecutionByThisAgent": false,
+      "KnownDifferenceEliminatedByStandaloneArena": false
+    },
+    {
+      "Mfa": "proc_lib:wake_up/3",
+      "Cluster": "crash-heap-hibernate",
+      "Status": "OPEN_NO_CLASSIFICATION_PROMOTION",
+      "CurrentSourceReproduction": "ProcLibCrashReportBuilder consumes absent heap/stack values; physical hibernate/complete logger branches unclosed.",
+      "RequiredImplementationAndValidation": "Real process heap/stack fields feeding both managed and original proc_lib; actual heap release/stack reset on hibernate plus full report/error/logger/remote-neighbour source coverage.",
+      "InheritedLimits": [
+        "CRASH_PHYSICAL_FIELDS: Generated crash report heap_size and stack_size are undefined on managed processes instead of native nonnegative BEAM counts. Existing portable tests allow exactly those two alternatives; other fields retain their assertions.",
+        "LOGGER_BACKEND_BREADTH: Crash reports use real per-runtime logger configuration and guest callbacks, but default output is synchronous managed writer handling, not full OTP logger_std_h process/overload/physical-file machinery. Full logger_formatter headers/templates/configuration remain absent.",
+        "PHYSICAL_HIBERNATE: Cooperative wake-up and call/error paths are implemented; BEAM heap compaction, stack footprint, scheduler/GC costs and timing are not demonstrated equivalent on CLR.",
+        "REMOTE_NEIGHBOUR_CRASH_STACK: Full remote-neighbour crash graph and native complete crash-stack output are not established by the finite local lifecycle assertions. Remote process_info now uses real rpc; this removes the old missing-RPC dependency, not every distributed report equivalence gap."
+      ],
+      "LiveOriginalExecutionByThisAgent": false,
+      "KnownDifferenceEliminatedByStandaloneArena": false
+    },
+    {
+      "Mfa": "proc_lib:hibernate/3",
+      "Cluster": "crash-heap-hibernate",
+      "Status": "OPEN_NO_CLASSIFICATION_PROMOTION",
+      "CurrentSourceReproduction": "ProcLibCrashReportBuilder consumes absent heap/stack values; physical hibernate/complete logger branches unclosed.",
+      "RequiredImplementationAndValidation": "Real process heap/stack fields feeding both managed and original proc_lib; actual heap release/stack reset on hibernate plus full report/error/logger/remote-neighbour source coverage.",
+      "InheritedLimits": [
+        "CRASH_PHYSICAL_FIELDS: Generated crash report heap_size and stack_size are undefined on managed processes instead of native nonnegative BEAM counts. Existing portable tests allow exactly those two alternatives; other fields retain their assertions.",
+        "LOGGER_BACKEND_BREADTH: Crash reports use real per-runtime logger configuration and guest callbacks, but default output is synchronous managed writer handling, not full OTP logger_std_h process/overload/physical-file machinery. Full logger_formatter headers/templates/configuration remain absent.",
+        "PHYSICAL_HIBERNATE: Cooperative wake-up and call/error paths are implemented; BEAM heap compaction, stack footprint, scheduler/GC costs and timing are not demonstrated equivalent on CLR.",
+        "REMOTE_NEIGHBOUR_CRASH_STACK: Full remote-neighbour crash graph and native complete crash-stack output are not established by the finite local lifecycle assertions. Remote process_info now uses real rpc; this removes the old missing-RPC dependency, not every distributed report equivalence gap."
+      ],
+      "LiveOriginalExecutionByThisAgent": false,
+      "KnownDifferenceEliminatedByStandaloneArena": false
+    }
+  ],
+  "NextIntegration": [
+    "Use real arena storage for process-owned live term/frame domains, not duplicate unused buffers as heap metrics.",
+    "BEAM X arrays are scratch/register state, not automatically ERTS process-heap words. Distinguish Y-stack/frame storage, term payload, mailbox/dictionary/source/native roots.",
+    "Close and dispose rejected receive candidates, before snapshots, handler paths, trim/clones and asynchronous cleanup deterministically before arena retirement can join them.",
+    "Native dirty bodies can retain process heap after logical death. Classify root borrowers explicitly; do not reintroduce Part500 physical wait before guest false/name/DOWN.",
+    "Attach actual per-process collection/enforcement only after all roots/domain storage are accounted; standalone arena bounded admission does not yet enforce max_heap_size of arbitrary guest graphs."
+  ],
+  "TestingState": "No builds, native execution or CI run by this agent; parent owns execution.",
+  "ActualOwnershipIntegration": {
+    "Sources": [
+      {
+        "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.OwnedWords504.cs",
+        "Sha256": "877146F6708DEDE28C3DA0D898DA4A252B965F8FFC57071D7344969B31FE9029"
+      },
+      {
+        "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Mailbox.cs",
+        "Sha256": "9547FF714F0A7BEAC2C8E7071835915FE3016A1AAD4D3743A3C2D080A5FFE796"
+      },
+      {
+        "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Mailbox.BeamSaveCursor.cs",
+        "Sha256": "7A5FDAC97035F1FD0601DA0B5664A30F0D85B8ED747273D2C524A45B8C2CA8D5"
+      },
+      {
+        "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLocalFrame.cs",
+        "Sha256": "F28063D8F91A0586BC8E72105541AD7EAC7A3124701A4F3ADA359A72316D86E3"
+      },
+      {
+        "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamReceiveCallbackExecution.cs",
+        "Sha256": "4105C830EDAF7211E31F993FE4848EF96AB758AD224C2F9D47089A2AAA964550"
+      },
+      {
+        "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamReceiveMatcher.cs",
+        "Sha256": "B6471151CE01627B6DFDE3C67AD80DDFFA34183C6A2FFBE360C4729FAB3A2570"
+      },
+      {
+        "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterInterpreter.cs",
+        "Sha256": "78840CDD6789D003F6A101A278C4EA0F4B146FA976333E41939E2EA70D4A5868"
+      },
+      {
+        "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterSlot.cs",
+        "Sha256": "0062C802C58E36F33441369DBB2C31A610904E4BA3DB44F92438ED41316CF701"
+      },
+      {
+        "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterState.cs",
+        "Sha256": "5E6B430794B9A0EA93268463B136969FB3D76213F31E657C32AE6A281B813BB9"
+      }
+    ],
+    "OwnedDomain": "Native pointer-sized Y-register cells containing real GCHandle roots; exact live lease/root/capacity snapshots.",
+    "Cleanup": "Deallocate, trim, unwind, state disposal, rejected mailbox selections and final execution-scope retirement release actual roots/buffers. Admitted asynchronous matchers finish before scope cleanup.",
+    "EscapeAudit": "Captured closure environments copy Term references into independent Term arrays; trim/clone copy original handler objects and retain the exact BeamFrameIdentity. Returned/captured Terms are managed objects independent of released native cells.",
+    "NotOwnedYet": [
+      "Term payload graph allocations",
+      "Generated C# backend lexical/local roots",
+      "Mailbox and process dictionary term ownership",
+      "Native callback graph physical lifetime",
+      "Process-wide GC policy and generational collection"
+    ],
+    "NoPublicMetricActivation": true,
+    "NoGuestHeapOptionAcceptance": true,
+    "NoGlobalGcSubstitution": true,
+    "ParentBuildRequested": true,
+    "FinalSourcesValidationPending": true,
+    "OriginalSourceOwnershipTests": [
+      {
+        "Path": "tests/Erlang.Tests/Runtime/Memory/BeamOwnedWord504Checks.cs",
+        "Sha256": "FD187AC37D1C2123011701E249B6C3530C3BBB84C431BCED6930665C44BE334B"
+      },
+      {
+        "Path": "tests/Erlang.Tests/Runtime/Memory/BeamOwnedWord504Names.cs",
+        "Sha256": "B411EC3BFDDF5CF2B6B00185C82342FA57F0F44AA4A408FB0416A99D54FECBF2"
+      },
+      {
+        "Path": "tests/Erlang.Tests/Runtime/Memory/ProcessOwnedWord504Checks.cs",
+        "Sha256": "7F60A1F62B88AF4F83C1ADD8810B7B66F5118C01541164CE3C5B89AEE0E67AB2"
+      },
+      {
+        "Path": "tests/Erlang.Tests/Runtime/Memory/ProcessOwnedWord504Names.cs",
+        "Sha256": "5398019883BECCDBADE2DCB7F571A0E751AD473C8666905D3A8D8A1EF115944A"
+      }
+    ],
+    "OriginalSourceOwnershipScope": "Pinned protected receive386 whole run/run_stacks ETF plus held/1 normal release and cancellation inside a live protected try. Original fixture hashes are verified before use; final parent build/test receipt pending."
+  },
+  "DedicatedOtherOwner": {
+    "Clusters": [
+      "system-resource-controls",
+      "garbage-statistics"
+    ],
+    "Agent": "native_map_iterators504",
+    "Note": "Actual frame-cell release is not a guest garbage collection or reclaimed term-word event."
+  },
+  "IsolatedTermPayloadSubstrate": {
+    "Status": "IMPLEMENTED_NOT_CONNECTED_TO_GUEST_TERM_PRODUCERS",
+    "Sources": [
+      {
+        "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.OwnedTermHeap504.cs",
+        "Sha256": "480D9D8934331C2432245EF418FC47BF43A78A12552DBC5F787A5F83C4A04CFB"
+      },
+      {
+        "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermCollection504.cs",
+        "Sha256": "FEF6C8428EFC6D1A5433157B9066F2E59D9EB3C052620F186D17F479D250CAAF"
+      },
+      {
+        "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermHeap504.cs",
+        "Sha256": "651010897E4D6BA865CD3F5198FDD6049FBC3C82FF72DDCD0BFF3F33F0E69ED0"
+      },
+      {
+        "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermId504.cs",
+        "Sha256": "C7CBFE7E60E7052A4D7AA66602742AA3A10F810BA90F2ACE7ADA9A9B12FC5CB0"
+      },
+      {
+        "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermKind504.cs",
+        "Sha256": "302F17044508F1C327985519FF875D7615ABD1FFE5B122B8048CEC520B0B46F5"
+      },
+      {
+        "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermNames504.cs",
+        "Sha256": "8E19BB47BCD5AD7F2A552ECAE44BC3E0B954ADD22C15BB969D66DF64371209F3"
+      },
+      {
+        "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermNode504.cs",
+        "Sha256": "9C928B7B3E7FCB3D9834D49108C57A06A7CC815268053D8833591D7676F044F8"
+      },
+      {
+        "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermRoot504.cs",
+        "Sha256": "86F7355009E415FB051079AA6E489A55267038C839E2D66A5DAE4522F9CED0AE"
+      },
+      {
+        "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessOwnedTermSnapshot504.cs",
+        "Sha256": "24B65BBF895AE523EC68FD2179A2608A5D98F4EB5E6A77E8EFF486DC2E3C1893"
+      }
+    ],
+    "Storage": "Actual native binary bytes and native 64-bit owner-local graph edge vectors; no shadow payload byte arrays are retained. Read methods return explicit caller-owned copies. Graph metadata and root lease registry remain managed.",
+    "Collection": "Atomic strong root publication, native-edge tracing, unreachable/cyclic native buffer sweep; reclaimed byte/node results describe only this isolated allocator, not ERTS/CLR guest GC statistics.",
+    "Retirement": "Admission closes, existing root leases remain readable, final lease release frees actual remaining native storage. Cancelling an await of retirement cannot cancel the owner drain.",
+    "MissingIntegration": [
+      "Guest Term tuple/list/binary/map payload backing",
+      "Source and generated producer construction",
+      "External host export/import and cross-process copy boundaries",
+      "Actual process cleanup calls into this heap",
+      "Public heap options/resource metrics/GC effects"
+    ],
+    "ParentValidationPending": true
+  }
+}

@@ -6928,6 +6928,94 @@ try
         Erlang.Tests.NifMapValue503TestNames.Invalid,
         NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapValue503HostEntry.InvalidOwnersAndThreads
     );
+    Test(
+        Erlang.Tests.NifMapReview504TestNames.Functions,
+        NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapReview504HostEntry.SourceFunUniquePreconditions
+    );
+    Test(
+        Erlang.Tests.NifMapReview504TestNames.Static,
+        NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapReview504HostEntry.StaticLookupAllocations
+    );
+    Test(
+        Erlang.Tests.NifMapReview504TestNames.Misses,
+        NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapReview504HostEntry.IndexedStaticLookupMisses
+    );
+    Test(
+        Erlang.Tests.NifMapReview504TestNames.Collision,
+        NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapReview504HostEntry.CollisionCmpUsesActualFirstRole
+    );
+    Test(
+        Erlang.Tests.NifMapMaterialized505TestNames.Flat,
+        NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapMaterialized505HostEntry.FlatPhysicalLayoutAndEquality
+    );
+    Test(
+        Erlang.Tests.NifMapMaterialized505TestNames.Saved,
+        NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapMaterialized505HostEntry.NativeBufferReleaseAndSavedIndex
+    );
+    Test(
+        Erlang.Tests.NifMapMaterialized505TestNames.Deep,
+        NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapMaterialized505HostEntry.DeepNativeMapEquality
+    );
+    Test(
+        Erlang.Tests.NifMapMaterialized505TestNames.Owners,
+        NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapMaterialized505HostEntry.CrossRuntimeAndClosedOwner
+    );
+    Test(
+        Erlang.Tests.NifNativeFlatDuplicate505TestNames.Materialized,
+        NifNativeBackend::Erlang.NifNativeBackend.NifNativeFlatDuplicate505HostEntry.MaterializedSameReferenceRows
+    );
+    Test(
+        Erlang.Tests.NifNativeFlatDuplicate505TestNames.Factory,
+        NifNativeBackend::Erlang.NifNativeBackend.NifNativeFlatDuplicate505HostEntry.FactoryRowsAndPeerEquality
+    );
+    Test(Erlang.Tests.ProcessOwnedWord504Names.RootsTest, Erlang.Tests.ProcessOwnedWord504Checks.Roots);
+    Test(Erlang.Tests.ProcessOwnedTerm504Names.GraphTest, Erlang.Tests.ProcessOwnedTerm504Checks.Graph);
+    Test(Erlang.Tests.ProcessOwnedTerm504Names.RetirementTest, Erlang.Tests.ProcessOwnedTerm504Checks.Retirement);
+    Test(
+        Erlang.Tests.RuntimeQueueStatistics504TestNames.Held,
+        NifNativeBackend::Erlang.NifNativeBackend.RuntimeQueueStatistics504HostEntry.HeldDirtyQueues
+    );
+    Test(Erlang.Tests.ProcessOwnedWord504Names.FramesTest, Erlang.Tests.ProcessOwnedWord504Checks.Frames);
+    Test(Erlang.Tests.ProcessOwnedWord504Names.OperationTest, Erlang.Tests.ProcessOwnedWord504Checks.ActiveOperation);
+    Test(Erlang.Tests.BeamOwnedWord504Names.ReplayTest, Erlang.Tests.BeamOwnedWord504Checks.Replay);
+    Test(Erlang.Tests.BeamOwnedWord504Names.HeldTest, Erlang.Tests.BeamOwnedWord504Checks.Held);
+    Test(
+        Erlang.Tests.NifMapFamily504TestNames.Mutation,
+        NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapFamily504HostEntry.MutationAndOutput
+    );
+    Test(
+        Erlang.Tests.NifMapFamily504TestNames.Arrays,
+        NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapFamily504HostEntry.ArraysAndAliases
+    );
+    Test(
+        Erlang.Tests.NifMapFamily504TestNames.Pending,
+        NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapFamily504HostEntry.PendingValuesAndReplacement
+    );
+    Test(
+        Erlang.Tests.NifMapFamily504TestNames.Copy,
+        NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapFamily504HostEntry.CopyBoundariesAndOwnerLifetime
+    );
+    Test(
+        Erlang.Tests.NifMapFamily504TestNames.Invalid,
+        NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapFamily504HostEntry.InvalidOwnersAndThreads
+    );
+    Test(Erlang.Tests.ProcessOwnedWord504Names.RetirementTest, Erlang.Tests.ProcessOwnedWord504Checks.Retirement);
+    Test(
+        Erlang.Tests.NifMapIterator504TestNames.Shapes,
+        NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapIterator504HostEntry.ShapesAndBoundaries
+    );
+    Test(
+        Erlang.Tests.NifMapIterator504TestNames.Lifetime,
+        NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapIterator504HostEntry.HintsAndLifetime
+    );
+    Test(
+        Erlang.Tests.NifMapIterator504TestNames.Pending,
+        NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapIterator504HostEntry.PendingPairs
+    );
+    Test(
+        Erlang.Tests.NifMapIterator504TestNames.Containment,
+        NifNativeBackend::Erlang.NifNativeBackend.NifNativeMapIterator504HostEntry.ContainmentAndThreads
+    );
     Test(Erlang.Tests.ReviewFollowup498Names.ParserTest, Erlang.Tests.ReviewFollowup498Checks.ParserHostArguments);
     Test(Erlang.Tests.ReviewFollowup498Names.MapTest, Erlang.Tests.ReviewFollowup498Checks.ImportedFlatMaps);
 

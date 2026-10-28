@@ -1,0 +1,155 @@
+{
+  "OriginalFailures": [
+    {
+      "Directory": "mutable-original1",
+      "CompletionSha256": "D4CFC9A66D2B4F8461DE9BF7B488A7E3AEB0CC72E2CF23BF4B5B74F78DA02764",
+      "Passed": false,
+      "Errors": [
+        "original: RuntimeError('Owned stage failed; all available raw evidence retained: original')"
+      ],
+      "OriginalReceipt": {
+        "Command": [
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+          "+S",
+          "1:1",
+          "+A",
+          "1",
+          "-noshell",
+          "-noinput",
+          "-boot",
+          "no_dot_erlang",
+          "-pa",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-map504\\mutable-original1\\original",
+          "-eval",
+          "W=fun(N,V)->ok=file:write_file(N,term_to_binary(V,[{minor_version,2}])) end,Expected=filename:absname(os:getenv(\"MAP_FAMILY504_RUNTIME_ROOT\")),Expected=filename:absname(code:root_dir()),8=erlang:system_info(wordsize),W(\"metadata.etf\",{Expected,erlang:system_info(version),erlang:system_info(wordsize),erlang:system_info(system_architecture)}),C=compile:file(\"map_family504.erl\",[return_errors,return_warnings]),W(\"compile.etf\",C),{ok,map_family504,_}=C,ok=map_family504:load(\"D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/native-map504/mutable-original1/build/map_family504\"),T=map_family504:run(),W(\"returned-default.etf\",T),ok=file:write_file(\"returned.etf\",term_to_binary(T,[deterministic,{minor_version,2}])),D=code:delete(map_family504),P=code:purge(map_family504),L=code:is_loaded(map_family504),W(\"cleanup.etf\",{D,P,L}),true=D,false=P,false=L,halt(0)."
+        ],
+        "Pid": 243804,
+        "ElapsedSeconds": 1.922000000020489,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 3221225477,
+        "Failures": [],
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "PreservedInputBundle": {
+        "Path": "mutable-original1-inputs.json.gz",
+        "Sha256": "8CA1523C22A60DF1AE85C98A2BCD8006A6359BC51DE311DC205A2574042A17E5"
+      }
+    },
+    {
+      "Directory": "mutable-original2",
+      "CompletionSha256": "B30413F1A72EC1E81D2CD070C55C58F8FCC278C50D41515FE5280955217E0BCB",
+      "Passed": false,
+      "Errors": [
+        "original: RuntimeError('Owned stage failed; all available raw evidence retained: original')"
+      ],
+      "OriginalReceipt": {
+        "Command": [
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+          "+S",
+          "1:1",
+          "+A",
+          "1",
+          "-noshell",
+          "-noinput",
+          "-boot",
+          "no_dot_erlang",
+          "-pa",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-map504\\mutable-original2\\original",
+          "-eval",
+          "W=fun(N,V)->ok=file:write_file(N,term_to_binary(V,[{minor_version,2}])) end,Expected=filename:absname(os:getenv(\"MAP_FAMILY504_RUNTIME_ROOT\")),Expected=filename:absname(code:root_dir()),8=erlang:system_info(wordsize),W(\"metadata.etf\",{Expected,erlang:system_info(version),erlang:system_info(wordsize),erlang:system_info(system_architecture)}),C=compile:file(\"map_family504.erl\",[return_errors,return_warnings]),W(\"compile.etf\",C),{ok,map_family504,_}=C,ok=map_family504:load(\"D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/native-map504/mutable-original2/build/map_family504\"),T=map_family504:run(),W(\"returned-default.etf\",T),ok=file:write_file(\"returned.etf\",term_to_binary(T,[deterministic,{minor_version,2}])),D=code:delete(map_family504),P=code:purge(map_family504),L=code:is_loaded(map_family504),W(\"cleanup.etf\",{D,P,L}),true=D,false=P,false=L,halt(0)."
+        ],
+        "Pid": 179660,
+        "ElapsedSeconds": 1.7809999999590218,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 3221225477,
+        "Failures": [],
+        "StdoutSha256": "2DCBF27BB68000E68375CD6E748AB7B17C37999C98E92A9DED5AF600ADCD11CF",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "PreservedInputBundle": {
+        "Path": "mutable-original2-inputs.json.gz",
+        "Sha256": "67328F73C66D0F1337B12530B2CB16F8D95D6829CD8A93D68F28E17FF1C9D8F3"
+      }
+    },
+    {
+      "Directory": "mutable-original3",
+      "CompletionSha256": "DDBB39CC333A7A304F4AAA1487DA277EE41D521BF5E9428E782E5DFBB338C04D",
+      "Passed": false,
+      "Errors": [
+        "original protocol validation: ValueError('Aggregate decoded term budget')"
+      ],
+      "OriginalReceipt": {
+        "Command": [
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+          "+S",
+          "1:1",
+          "+A",
+          "1",
+          "-noshell",
+          "-noinput",
+          "-boot",
+          "no_dot_erlang",
+          "-pa",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-map504\\mutable-original3\\original",
+          "-eval",
+          "W=fun(N,V)->ok=file:write_file(N,term_to_binary(V,[{minor_version,2}])) end,Expected=filename:absname(os:getenv(\"MAP_FAMILY504_RUNTIME_ROOT\")),Expected=filename:absname(code:root_dir()),8=erlang:system_info(wordsize),W(\"metadata.etf\",{Expected,erlang:system_info(version),erlang:system_info(wordsize),erlang:system_info(system_architecture)}),C=compile:file(\"map_family504.erl\",[return_errors,return_warnings]),W(\"compile.etf\",C),{ok,map_family504,_}=C,ok=map_family504:load(\"D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/native-map504/mutable-original3/build/map_family504\"),T=map_family504:run(),W(\"returned-default.etf\",T),ok=file:write_file(\"returned.etf\",term_to_binary(T,[deterministic,{minor_version,2}])),D=code:delete(map_family504),P=code:purge(map_family504),L=code:is_loaded(map_family504),W(\"cleanup.etf\",{D,P,L}),true=D,false=P,false=L,halt(0)."
+        ],
+        "Pid": 315152,
+        "ElapsedSeconds": 0.3440000000409782,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "PreservedInputBundle": {
+        "Path": "mutable-original3-inputs.json.gz",
+        "Sha256": "F925BB3C55C1D5CAC1B5BB4505C94BA2FE2DEE6B88A0F7424E978C1B3072AB41"
+      }
+    },
+    {
+      "Directory": "mutable-original4",
+      "CompletionSha256": "986C84F0624E3C84E996219E92F3EE09D62B1354D5019D986D9146568F121439",
+      "Passed": false,
+      "Errors": [
+        "original protocol validation: AssertionError()"
+      ],
+      "OriginalReceipt": {
+        "Command": [
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+          "+S",
+          "1:1",
+          "+A",
+          "1",
+          "-noshell",
+          "-noinput",
+          "-boot",
+          "no_dot_erlang",
+          "-pa",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\native-map504\\mutable-original4\\original",
+          "-eval",
+          "W=fun(N,V)->ok=file:write_file(N,term_to_binary(V,[{minor_version,2}])) end,Expected=filename:absname(os:getenv(\"MAP_FAMILY504_RUNTIME_ROOT\")),Expected=filename:absname(code:root_dir()),8=erlang:system_info(wordsize),W(\"metadata.etf\",{Expected,erlang:system_info(version),erlang:system_info(wordsize),erlang:system_info(system_architecture)}),C=compile:file(\"map_family504.erl\",[return_errors,return_warnings]),W(\"compile.etf\",C),{ok,map_family504,_}=C,ok=map_family504:load(\"D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/native-map504/mutable-original4/build/map_family504\"),T=map_family504:run(),W(\"returned-default.etf\",T),ok=file:write_file(\"returned.etf\",term_to_binary(T,[deterministic,{minor_version,2}])),D=code:delete(map_family504),P=code:purge(map_family504),L=code:is_loaded(map_family504),W(\"cleanup.etf\",{D,P,L}),true=D,false=P,false=L,halt(0)."
+        ],
+        "Pid": 7868,
+        "ElapsedSeconds": 0.3279999999795109,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "PreservedInputBundle": {
+        "Path": "mutable-original4-inputs.json.gz",
+        "Sha256": "46BDC9250C9D418A342452203CE6075CA39F3E38D75CC4CF4AA8A7AB1999AB77"
+      }
+    }
+  ],
+  "InitialAffectedRunFailurePreserved": true,
+  "All139ChildPermissionFailuresRecheckedUnrestricted": true,
+  "NoFailedReceiptRelabeled": true
+}

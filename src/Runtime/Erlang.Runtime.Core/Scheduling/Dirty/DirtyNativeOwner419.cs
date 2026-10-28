@@ -1,6 +1,6 @@
 namespace Erlang;
 
-internal sealed class DirtyNativeOwner419
+internal sealed partial class DirtyNativeOwner419
 {
     private readonly object gate = new();
     private readonly DirtyNativeWorker419 cpu, io;
@@ -65,6 +65,7 @@ internal sealed class DirtyNativeOwner419
             invocations.EnsureCapacity(checked(invocations.Count + 1));
             var call = new DirtyNativeInvocation419(
                 owner,
+                kind,
                 module,
                 function,
                 arguments,

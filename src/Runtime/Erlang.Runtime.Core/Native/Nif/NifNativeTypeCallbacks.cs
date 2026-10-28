@@ -62,6 +62,7 @@ internal static class NifNativeTypeCallbacks
                     NifNativeBinaryNode => kind == NifNativeTypeKind.Binary,
                     NifNativeTupleNode => kind == NifNativeTypeKind.Tuple,
                     NifNativeConsNode => kind == NifNativeTypeKind.List,
+                    NifNativeMapNode504 => kind == NifNativeTypeKind.Map,
                     _ => false
                 };
 

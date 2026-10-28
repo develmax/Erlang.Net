@@ -4,7 +4,7 @@ using Erlang;
 
 namespace Erlang;
 
-internal sealed unsafe class NifNativeCallEnvironment : IDisposable
+internal sealed unsafe partial class NifNativeCallEnvironment : IDisposable
 {
     private static readonly ConcurrentDictionary<nint, NifNativeCallEnvironment> Environments = new();
     private static long nextTerm;
@@ -286,6 +286,7 @@ internal sealed unsafe class NifNativeCallEnvironment : IDisposable
 
     private void ClearTerms()
     {
+        ClearMapIterators504();
         if (tupleArrays is not null)
         {
             foreach (var entry in tupleArrays)
