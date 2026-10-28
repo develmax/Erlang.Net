@@ -6,6 +6,7 @@ internal static class ResourceBinary577TestNames
     internal const string GuestModule = "resource_bits_guest577", GuestPart = "part", Part = "part", Functions = "functions";
     internal const string GuestSource = "-module(resource_bits_guest577). -export([part/1]). part(B) -> byte_size(binary:part(B,1,65)).";
     internal const string HeaderCase = "runtime/resource-bits577/actual-sub-bits-binref-readers-and-corruption";
+    internal const string NestedRecipeCase = "runtime/resource-bits583/nested-portable-recipe-keeps-original-binref";
     internal const string SharingCase = "runtime/resource-bits577/slice-recipe-shared-binref-minor-major";
     internal const string EscapeCase = "runtime/resource-bits577/unpublished-rollback-host-export-and-stale-foreign";
     internal const string Heap = "TermHeap506", Enter = "Enter", Reserve = "Reserve", Read = "Read", Clear = "Clear";

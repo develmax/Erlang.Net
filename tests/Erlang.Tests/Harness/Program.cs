@@ -164,6 +164,11 @@ Test(
 
 Test(Erlang.Tests.NativeMagicCleanup576Names.Test, Erlang.Tests.NativeMagicCleanup576Checks.EarlyFailureRestoresAndDrains);
 
+Test(
+    Erlang.Tests.ResourceBinary577TestNames.NestedRecipeCase,
+    Erlang.Tests.ResourceBinary577Checks.NestedRecipeRetainsOriginalBinRef
+);
+
 Test(Erlang.Tests.ResourceBinary577TestNames.HeaderCase, Erlang.Tests.ResourceBinary577Checks.HeaderReadersAndCorruption);
 Test(Erlang.Tests.ResourceBinary577TestNames.SharingCase, Erlang.Tests.ResourceBinary577Checks.SliceSharingAndGenerations);
 Test(Erlang.Tests.ResourceBinary577TestNames.EscapeCase, Erlang.Tests.ResourceBinary577Checks.RollbackAndHostEscape);

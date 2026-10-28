@@ -33,9 +33,10 @@ worker(Parent, Token) ->
         {Resource, Binary, Independent, Copy} = native_resource_family527:binary_aliases577(),
         A = binary:part(Binary, 1, 65),
         B = binary:part(Binary, 2, 65),
-        Before = report(Binary, A, B, Copy, Independent),
+        Nested = native_resource_family527:nested_binary577(Binary),
+        Before = report(Binary, A, B, Copy, Independent, Nested),
         true = erlang:garbage_collect(),
-        After = report(Binary, A, B, Copy, Independent),
+        After = report(Binary, A, B, Copy, Independent, Nested),
         {returned, [
             {resource_is_reference, is_reference(Resource)},
             {resource_still_live, native_resource_family527:inspect527(Resource)},
@@ -48,7 +49,7 @@ worker(Parent, Token) ->
     Parent ! {Token, Receipt},
     ok.
 
-report(Binary, A, B, Copy, Independent) ->
+report(Binary, A, B, Copy, Independent, Nested) ->
     [
         {bytes, {byte_size(Binary), byte_size(A), byte_size(B), byte_size(Copy)}},
         {prefixes, {binary:part(Binary, 0, 4), binary:part(A, 0, 4), binary:part(B, 0, 4)}},
@@ -60,7 +61,9 @@ report(Binary, A, B, Copy, Independent) ->
         {copied, sizes577(Copy)},
         {independent, {sizes577(Independent), erts_debug:same(Binary, Independent), Binary =:= Independent}},
         {same, {erts_debug:same(Binary, Binary), erts_debug:same(Binary, Copy), erts_debug:same(A, B)}},
-        {content_equal, Binary =:= Copy}
+        {content_equal, Binary =:= Copy},
+        {nested_native_slice, {byte_size(Nested), binary:part(Nested, 0, 4),
+                               sizes577({Binary, Nested})}}
     ].
 
 sizes577(Value) ->

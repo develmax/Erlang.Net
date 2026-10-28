@@ -2,7 +2,7 @@
 
 PR81 is merged in main7e9c86eea; exact merge CI40659932886 passes9218/9218 and all three jobs. Its working branch is deleted after ancestry/SHA/dependency checks.
 
-Physical native-resource magic-reference/BinRef/SubBits storage passes the final local original5136-byte whole comparison through both loaders, both ETF encodings and physical cleanup.290/290affected groups pass; catalog9233. Publication-head CI and review remain the immediate delivery gate.
+Physical native-resource magic-reference/BinRef/SubBits storage passes the final local original5224-byte whole comparison through both loaders, both ETF encodings and physical cleanup.291/291affected groups pass; catalog9234. Publication-head CI and review remain the immediate delivery gate.
 
 ## Whole-contract accounting
 
@@ -44,3 +44,5 @@ Physical native-resource magic-reference/BinRef/SubBits storage passes the final
 3. Complete load_nif/2 outside this scoped native resource slice: general ABI/platform/thread/monitor/select/upgrade coverage and remaining ordinary custody.
 
 Do not infer full closure from finite witnesses. Other magic-reference resource producers, full public resource policies and complete ordinary native-root ownership are still explicit limitations.
+
+Nested-slice follow-up: an unowned intermediate large slice lost its source recipe. The new permanent test failed before the fix, and both native loaders differed from original OTP in two complete-stream fields (shared size19 instead of16, before/after GC). Preserving the original slice origin retains the actual BinRef. The final291 affected groups and both complete5224-byte default/deterministic streams pass, including physical cleanup. Earlier5136-byte receipts remain historical evidence; nested-slices/manifest.json records the expanded final observer. No whole-contract promotion is claimed.

@@ -206,7 +206,18 @@ static ERL_NIF_TERM binary_aliases577(ErlNifEnv *env, int argc, const ERL_NIF_TE
     return enif_make_tuple_from_array(env, rows, 4);
 }
 
+static ERL_NIF_TERM nested_binary577(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv[])
+{
+    ErlNifBinary binary;
+    /* Offset1 plus80 bytes requires at least81 source bytes. */
+    if (argc != 1 || !enif_inspect_binary(env, argv[0], &binary) || binary.size < 81)
+        return enif_make_badarg(env);
+    ERL_NIF_TERM inner = enif_make_sub_binary(env, argv[0], 1, 80);
+    return enif_make_sub_binary(env, inner, 1, 65);
+}
+
 static ErlNifFunc functions527[] = {
+    {"nested_binary577", 1, nested_binary577, 0},
     {"aliases576", 0, aliases576, 0}, {"binary_aliases577", 0, binary_aliases577, 0},
     {"opens527", 0, opens527, 0}, {"outside527", 0, outside527, 0},
     {"make527", 0, make527, 0}, {"native_only527", 0, native_only527, 0},

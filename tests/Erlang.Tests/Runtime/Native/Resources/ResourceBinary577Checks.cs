@@ -184,6 +184,54 @@ internal static class ResourceBinary577Checks
         await Task.CompletedTask;
     });
 
+    internal static Task NestedRecipeRetainsOriginalBinRef() => Run(async fixture =>
+    {
+        IDisposable roots = fixture.Frame();
+        int sourceSlot = Slot(roots), recipeSlot = Slot(roots), adoptedSlot = Slot(roots);
+        long baseline = PhysicalWords(fixture.Heap);
+        var source = (BitString)Call(
+            roots,
+            Adopt,
+            sourceSlot,
+            fixture.View
+        )!;
+        nuint binRef = Origin(source);
+        BitString firstRecipe = source.SliceBits(8, 80 * 8);
+        BitString nestedRecipe = firstRecipe.SliceBits(8, 65 * 8);
+        Check(PhysicalWords(fixture.Heap) == baseline + 8);
+        // Only the SECOND unowned recipe is a registered root. CLR locals do
+        // not retain physical guest headers or supply an implicit GC root.
+        Call(
+            roots,
+            SetLocal,
+            recipeSlot,
+            nestedRecipe
+        );
+        Call(roots, Clear, sourceSlot);
+        Call(fixture.Heap, Collect);
+        Check(source.BitLength == Bytes * 8 && Origin(source) == binRef);
+        Check(PhysicalWords(fixture.Heap) == baseline + 8);
+        var adopted = (BitString)Call(
+            roots,
+            Adopt,
+            adoptedSlot,
+            nestedRecipe
+        )!;
+        Check(Origin(adopted) == binRef && PhysicalWords(fixture.Heap) == baseline + 13);
+        Check(adopted.ToArray().SequenceEqual(fixture.Data.Skip(3).Take(65)));
+        Call(roots, Clear, recipeSlot);
+        Call(fixture.Heap, Collect);
+        Check(PhysicalWords(fixture.Heap) == baseline + 8 && Origin(adopted) == binRef);
+        Expect<ObjectDisposedException>(() => _ = source.BitLength);
+        Check(adopted.ToArray().SequenceEqual(fixture.Data.Skip(3).Take(65)));
+        Call(roots, Clear, adoptedSlot);
+        Call(fixture.Heap, Collect);
+        Check(PhysicalWords(fixture.Heap) == baseline);
+        Expect<ObjectDisposedException>(() => _ = adopted.BitLength);
+        fixture.ReleaseNative();
+        await ((Task)Get(fixture.Payload, Retired)).WaitAsync(Deadline);
+    });
+
     internal static Task RollbackAndHostEscape() => Run(async fixture =>
     {
         long baseline = PhysicalWords(fixture.Heap);

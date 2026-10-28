@@ -73,7 +73,12 @@ public sealed partial class BitString : Term
             throw new ErlangException(ErlangErrorReasons.BadArgument);
         if (ownedResourceBits577 is not null)
             return SliceOwnedResourceBits577(offset, count);
-        var result = new BitString(backing, LogicalBitOffset577 + offset, count);
+        var result = new BitString(
+            backing,
+            LogicalBitOffset577 + offset,
+            count,
+            sliceOrigin577: resourceSliceOrigin577
+        );
         if (count > BitStringStorage.HeapBytes * BitStringLayout.BitsPerByte)
             return result;
 

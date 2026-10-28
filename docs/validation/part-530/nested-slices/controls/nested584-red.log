@@ -1,0 +1,13 @@
+{"Partial":true,"SelectedCount":1,"TotalCount":9234}
+FAIL runtime/resource-bits583/nested-portable-recipe-keeps-original-binref: System.ObjectDisposedException: Cannot access a disposed object.
+Object name: 'ProcessTermSequence506'.
+   at Erlang.ProcessTermHeap506.RequireResourceBitsDescriptor577(ProcessTermSequence506 block) in D:\Distr\Work\Codex\Erlang.Net\w518repair\src\Runtime\Erlang.Runtime.Core\Processes\Memory\ProcessTermHeap.ResourceBits577.cs:line 129
+   at Erlang.ProcessTermHeap506.ReadResourceBits577(ProcessTermSequence506 block) in D:\Distr\Work\Codex\Erlang.Net\w518repair\src\Runtime\Erlang.Runtime.Core\Processes\Memory\ProcessTermHeap.ResourceBits577.cs:line 98
+   at Erlang.ProcessTermSequence506.ReadResourceBits577() in D:\Distr\Work\Codex\Erlang.Net\w518repair\src\Runtime\Erlang.Runtime.Core\Processes\Memory\ProcessTermSequence506.cs:line 32
+   at Erlang.BitString.get_BitLength() in D:\Distr\Work\Codex\Erlang.Net\w518repair\src\Runtime\Erlang.Terms\Values\BitString.cs:line 15
+   at Erlang.Tests.ResourceBinary577Checks.<>c.<<NestedRecipeRetainsOriginalBinRef>b__4_0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Native\Resources\ResourceBinary577Checks.cs:line 202
+--- End of stack trace from previous location ---
+   at Erlang.Tests.ResourceBinary577Checks.Run(Func`2 body) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Native\Resources\ResourceBinary577Checks.cs:line 416
+   at Erlang.Tests.ResourceBinary577Checks.Run(Func`2 body) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Native\Resources\ResourceBinary577Checks.cs:line 426
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Harness\Program.cs:line 7435
+0/1 passed
