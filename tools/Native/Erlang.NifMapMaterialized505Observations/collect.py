@@ -62,11 +62,25 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--runtime-version', default='10.0.11')
     parser.add_argument('--original-only', action='store_true')
+    parser.add_argument('--owned-terms516', action='store_true')
+    parser.add_argument('--both-runtime-profiles516', action='store_true')
     parser.add_argument('--check-golden', action='store_true')
     args = parser.parse_args()
+    if args.both_runtime_profiles516 and args.owned_terms516:
+        parser.error('--owned-terms516 and --both-runtime-profiles516 are mutually exclusive')
     root, tool, out = args.repository.resolve(), Path(__file__).resolve().parent, args.output.resolve()
     require(os.name == 'nt' and __debug__ and tool == root / TOOL, 'Windows non-optimized source collector')
     require(out.is_relative_to(root / 'artifacts/native-map505') and not out.exists(), 'fresh owned output')
+    profiles516 = [('ordinary-runtime', False), ('owned-runtime', True)] if args.both_runtime_profiles516 else [
+        ('owned-runtime' if args.owned_terms516 else 'ordinary-runtime', args.owned_terms516)]
+    loader_routes516 = ['ordinary', 'reviewed']
+    managed_runs516 = [(profile, enabled, route,
+        profile + '--' + route if args.both_runtime_profiles516 else route,
+        out/profile/route if args.both_runtime_profiles516 else out/route)
+        for profile, enabled in profiles516 for route in loader_routes516]
+    matched_by_profile516 = {profile: 0 for profile, _ in profiles516}
+    managed_receipts516 = {}
+    expected_comparisons516 = 0 if args.original_only else len(managed_runs516)
     plan_path = tool / 'source-plan.json'
     require(sha(plan_path) == args.plan_sha256.upper(), 'external plan seal')
     plan = json.loads(plan_path.read_bytes())
@@ -94,7 +108,7 @@ def main():
     save(out / 'dependency-proof.json', proof)
     save(out / 'inputs.json', dict(ProviderAdmissionPath=str(args.provider_admission.resolve()),
         ProviderAdmissionSha256=sha(args.provider_admission), ProviderManifestSha256=sha(manifest),
-        SourcePlanSha256=sha(plan_path), OriginalOnly=args.original_only, OriginalGoldenProvided='OriginalGoldenSha256' in plan))
+        SourcePlanSha256=sha(plan_path), OwnedTermsPilot506=None if args.both_runtime_profiles516 else args.owned_terms516, OriginalOnly=args.original_only, OriginalGoldenProvided='OriginalGoldenSha256' in plan))
     env = dict(os.environ)
     env['MAP_MATERIALIZED505_RUNTIME_ROOT'] = str(installed)
     # Preserve stderr and crash dumps; malformed-map failures must remain visible.
@@ -104,14 +118,18 @@ def main():
     matched, batch_original_ok, provider_after, golden_checked = 0, False, False, False
 
     def phase(name, command, directory, cwd=None, environment=None):
-        directory.mkdir(exist_ok=True)
         try:
+            directory.mkdir(exist_ok=True)
             phases[name] = owned.owned(command, directory, name, 180, environment or env, str(cwd or directory))
             return True
         except Exception as error:
             receipt = directory / (name + '.exit.json')
-            if receipt.is_file():
-                phases[name] = json.loads(receipt.read_bytes())
+            phases[name] = dict(CollectionFailed=True, Error=repr(error))
+            try:
+                if receipt.is_file():
+                    phases[name] = json.loads(receipt.read_bytes())
+            except Exception as receipt_error:
+                failures.append(name + ' receipt: ' + repr(receipt_error))
             failures.append(name + ': ' + repr(error))
             return False
 
@@ -196,25 +214,31 @@ def main():
                         failures.append('independent golden repeat: ' + repr(error))
                 if not args.original_only:
                     host = root / 'tools/Native/Erlang.NifNativeBackend/bin/Debug/net10.0/Erlang.NifNativeBackend.dll'
-                    if not host.is_file():
+                    prepared516 = all(path.is_file() for path in [host, host.with_suffix('.deps.json'), host.with_suffix('.runtimeconfig.json')]) and shutil.which('dotnet')
+                    if not prepared516:
                         failures.append('managed preparation missing; dependent routes skipped')
                     else:
-                        for route in ['ordinary','reviewed']:
-                            phase(route,['dotnet','exec','--fx-version',args.runtime_version,str(host),'--map-materialized505',
-                                str(admission_path),sha(admission_path),str(out / route),route],out / (route+'-process'),root)
-                        if batch_original_ok:
-                            for route in ['ordinary','reviewed']:
-                                try:
+                        for profile, enabled, route, label, directory in managed_runs516:
+                            phase(label,['dotnet','exec','--fx-version',args.runtime_version,str(host),'--map-materialized505',
+                                str(admission_path),sha(admission_path),str(directory),route] + (['--owned-terms516'] if enabled else []),out / (label+'-process'),root)
+                        for profile, enabled, route, label, directory in managed_runs516:
+                            try:
+                                done = json.loads((directory / 'completion.json').read_bytes())
+                                require(done['OwnedTermsPilot506'] == enabled, label + ': runtime profile')
+                                assert done['Route'] == route and done['AdmissionSha256'] == sha(admission_path)
+                                assert done['Status'] == 'NATIVE_IMAGE_RETIRED_RUNTIME_DISPOSED'
+                                require(done['ReviewedPolicyInvocationCount'] == (1 if route=='reviewed' else 0), label + ': reviewed policy count')
+                                for key in ['EnvironmentBaselineRestored','BinaryOwnershipBaselineRestored','NativeModuleAbsentBeforeLoad',
+                                    'NativeModulePresentDuringInvocation','NativeModuleAbsentAfterRetirementAndRuntimeDisposal']:
+                                    require(done[key], label + ': ' + key)
+                                managed_receipts516[label] = done
+                                if batch_original_ok:
                                     for leaf in ['returned.etf','returned-default.etf']:
-                                        require((out / route / leaf).read_bytes() == (out / 'original-batch' / leaf).read_bytes(), route + ': whole raw profile differs: ' + leaf)
-                                    done = json.loads((out / route / 'completion.json').read_bytes())
-                                    require(done['ReviewedPolicyInvocationCount'] == (1 if route=='reviewed' else 0), 'reviewed policy count')
-                                    for key in ['EnvironmentBaselineRestored','BinaryOwnershipBaselineRestored','NativeModuleAbsentBeforeLoad',
-                                        'NativeModulePresentDuringInvocation','NativeModuleAbsentAfterRetirementAndRuntimeDisposal']:
-                                        require(done[key], route + ': ' + key)
+                                        require((directory / leaf).read_bytes() == (out / 'original-batch' / leaf).read_bytes(), label + ': whole raw profile differs: ' + leaf)
                                     matched += 1
-                                except Exception as error:
-                                    failures.append(route + ': ' + repr(error))
+                                    matched_by_profile516[profile] += 1
+                            except Exception as error:
+                                failures.append(label + ': ' + repr(error))
             else:
                 failures.append('independent original safety incomplete; whole original batch and managed routes skipped')
     except Exception as error:
@@ -227,13 +251,15 @@ def main():
             sources(root,tool,plan)
         except Exception as error:
             failures.append('final input recheck: ' + repr(error))
+        if not args.original_only and (matched != expected_comparisons516 or any(count != len(loader_routes516) for count in matched_by_profile516.values())):
+            failures.append('Not all requested runtime-profile/loader comparisons passed')
         save(out / 'completion.json',dict(Passed=not failures,PinnedCommit=PIN,ProviderFiles=6427,
             ProviderBeforeEqual=True,ProviderAfterEqual=provider_after,SourcePlanSha256=sha(plan_path),
             OriginalSafetyCases=safety,OriginalSafetyPassed=sum(row['Passed'] for row in safety),
-            WholeOriginalBatchPassed=batch_original_ok,WholeRawLoaderComparisons=matched,
-            OriginalOnly=args.original_only,GoldenChecked=golden_checked,GoldenReferencePresent='OriginalGoldenSha256' in plan,
+            ManagedNativeExecuted=bool(managed_receipts516), ManagedLoaderRoutesAttempted=sum(label in phases for _, _, _, label, _ in managed_runs516), WholeOriginalBatchPassed=batch_original_ok,BothRuntimeProfiles516=args.both_runtime_profiles516, ExpectedRawLoaderComparisons=expected_comparisons516, WholeRawComparisonsByRuntimeProfile=matched_by_profile516, ManagedRuntimeProfileReceipts=managed_receipts516, WholeRawLoaderComparisons=matched,
+            OwnedTermsPilot506=None if args.both_runtime_profiles516 else args.owned_terms516, OriginalOnly=args.original_only,GoldenChecked=golden_checked,GoldenReferencePresent='OriginalGoldenSha256' in plan,
             WholeProfilesComparisonPolicy='strict whole bytes for canonical and default',
-            WholeProfilesComparedStrictly=matched==2,NormalizedFields=0,PostCaptureEtfNormalizationPerformed=False,
+            WholeProfilesComparedStrictly=not args.original_only and matched==expected_comparisons516,NormalizedFields=0,PostCaptureEtfNormalizationPerformed=False,
             ActualWholeBatchProfilesCaptured=batch_original_ok,Phases=phases,Errors=failures,WholeApiCompatibilityClaimed=False))
     require(not failures, 'independent observations retained; inspect completion.json')
 

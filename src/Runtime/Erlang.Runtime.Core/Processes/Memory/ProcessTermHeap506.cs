@@ -8,6 +8,8 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
     private readonly List<ProcessTermSlab506> slabs = new();
     private readonly Dictionary<long, ProcessTermSequence506> blocks = new();
     private readonly HashSet<ProcessTermFrame506> frames = new();
+    internal long AllocationSlabVisits519 { get; private set; }
+    private readonly Dictionary<int, int> allocationCandidates519 = new();
     private long identity;
     private bool closing;
     private readonly TaskCompletionSource drained = new(TaskCreationOptions.RunContinuationsAsynchronously);
@@ -146,11 +148,21 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
         // Caller holds Gate throughout complete graph import + root publication.
         ProcessTermSlab506? selected = null;
         int offset = -1;
-        foreach (ProcessTermSlab506 slab in slabs)
+        int selectedIndex = allocationCandidates519.TryGetValue(children.Length, out int candidate)
+            ? candidate : 0;
+        for (; selectedIndex < slabs.Count; selectedIndex++)
         {
+            ProcessTermSlab506 slab = slabs[selectedIndex];
+            unchecked
+            {
+                AllocationSlabVisits519++;
+            }
             offset = slab.Reserve(children.Length);
             if (offset < 0)
+            {
+                allocationCandidates519[children.Length] = selectedIndex + 1;
                 continue;
+            }
             selected = slab;
             break;
         }
@@ -166,12 +178,19 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
                 previous = size;
                 size = next;
             }
+            selectedIndex = slabs.Count;
             selected = new(size);
             slabs.Add(selected);
+            unchecked
+            {
+                AllocationSlabVisits519++;
+            }
             offset = selected.Reserve(children.Length);
         }
         try
         {
+            // This insertion can allocate. It is inside the reservation rollback.
+            allocationCandidates519[children.Length] = selectedIndex;
             long id = checked(identity + 1);
             var block = new ProcessTermSequence506(
                 this,
@@ -194,9 +213,15 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
         }
         catch
         {
-            selected.Release(offset, children.Length);
+            ReleaseAllocation519(selected, offset, children.Length);
             throw;
         }
+    }
+
+    private void ReleaseAllocation519(ProcessTermSlab506 slab, int offset, int length)
+    {
+        slab.Release(offset, length);
+        allocationCandidates519.Clear();
     }
 
     internal Term Read(ProcessTermSequence506 block, int index)
@@ -242,6 +267,7 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
         blocks.Clear();
         oldBlocks508.Clear();
         slabs.Clear();
+        allocationCandidates519.Clear();
         drained.TrySetResult();
     }
 

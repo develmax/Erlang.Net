@@ -160,6 +160,7 @@ internal sealed unsafe partial class NifNativeCallEnvironment : IDisposable
     internal nuint AddValue(NifNativeTermValue value)
     {
         _ = Pointer;
+        RetainGuestValue516(value);
         if (value.Pending is { } pending)
             RetainGraph(pending);
         long handle = Interlocked.Increment(ref nextTerm);
@@ -304,6 +305,8 @@ internal sealed unsafe partial class NifNativeCallEnvironment : IDisposable
         terms.Clear();
         pendingReasonHandle = 0;
         pendingReasonVersion = 0;
+        ClearGuestRootInventory516();
+        Interlocked.Exchange(ref guestRoots516, null)?.Dispose();
     }
 
     public void Dispose()
@@ -312,7 +315,13 @@ internal sealed unsafe partial class NifNativeCallEnvironment : IDisposable
         if (previous == 0)
             return;
         Environments.TryRemove(previous, out _);
-        ClearTerms();
-        NativeMemory.Free((void*)previous);
+        try
+        {
+            ClearTerms();
+        }
+        finally
+        {
+            NativeMemory.Free((void*)previous);
+        }
     }
 }

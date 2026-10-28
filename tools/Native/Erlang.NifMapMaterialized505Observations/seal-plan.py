@@ -26,6 +26,9 @@ def main():
     dependency_paths = [helpers + 'owned.py', helpers + 'bounded_inventory.py', decoder]
     dependency_paths += [path.relative_to(root).as_posix()
         for path in sorted((root / 'tools/Native/Erlang.NifNativeBackend').glob('MapMaterialized505*.cs'))]
+    dependency_paths += ['tools/Native/Erlang.NifNativeBackend/NativeOwned516Profile.cs',
+        'tools/Native/Erlang.NifNativeBackend/NativeOwned516ProfileNames.cs']
+    dependency_paths += ['src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.cs', 'src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.OwnedRoots516.cs', 'src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeEnvironmentCallbacks.cs', 'src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLibraryOwner.cs', 'src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeTermCopy504.cs']
     dependency_paths.append('tools/Native/Erlang.NifNativeBackend/Program.cs')
     dependency_rows = []
     for name in dependency_paths:

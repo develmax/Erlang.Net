@@ -8,6 +8,12 @@ public sealed partial class ProcessRuntime
         bool major = options.Type is Atom { Name: ProcessGarbageCollectionNames.Major };
         if (!options.Async && target.Equals(requester.Self))
         {
+            // The internal owned profile has real registered guest roots at
+            // this synchronous self safe point. Retire unreachable guest cells
+            // before CLR collection; otherwise their slabs keep dead graphs alive.
+            // Remote/asynchronous/off-actor/default paths are intentionally unchanged.
+            if (OwnedTermsPilot506 && RuntimeActorExecutionTurn.IsOwnedBy(requester))
+                requester.CollectOwnedGeneration508(major);
             requester.CollectManagedGarbage(major, CollectManagedHeap);
 
             return Term.A(ErlangBooleanAtoms.True);

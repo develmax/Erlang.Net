@@ -278,11 +278,16 @@ jobs:
         if: ${{ !cancelled() }}
         shell: pwsh
         run: |
-          if (!(Test-Path tools/Native/Erlang.NifNativeBackend/bin/Debug/net10.0/Erlang.NifNativeBackend.dll) -or !(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
+          if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
             throw 'Map family504 requires successful host/provider preparation; dependent execution was not started'
           }
-          python -B tools/Native/Erlang.NifMapFamily504Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 D0F1BB1E678627E19685EFF5E77A064C2EB90CB35ECB250E09166CF26407A9A3 --output artifacts/native-map504/ci --check-golden
+          python -B tools/Native/Erlang.NifMapFamily504Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 27AC013A16D6A0F146B860D9907916EFE48B1642C487D9DBC7EA6518330FACC3 --output artifacts/native-map504/ci --check-golden --both-runtime-profiles516
           if ($LASTEXITCODE -ne 0) { throw 'Native map family504 original/ordinary/reviewed comparison failed; all prepared independent route receipts are retained' }
+          $comparison516 = Get-Content 'artifacts/native-map504/ci/completion.json' -Raw | ConvertFrom-Json
+          if (!$comparison516.Passed -or !$comparison516.BothRuntimeProfiles516 -or $comparison516.ExpectedRawLoaderComparisons -ne 4 -or $comparison516.WholeRawLoaderComparisons -ne 4 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'ordinary-runtime' -ne 2 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'owned-runtime' -ne 2) { throw 'All four runtime-profile/loader comparisons are required' }
+          foreach ($route516 in @('ordinary','reviewed')) {
+            if ($comparison516.ManagedRuntimeProfileReceipts.('ordinary-runtime--' + $route516).OwnedTermsPilot506 -ne $false -or $comparison516.ManagedRuntimeProfileReceipts.('owned-runtime--' + $route516).OwnedTermsPilot506 -ne $true) { throw 'Actual native runtime-profile receipt missing or wrong' }
+          }
       - name: Compare source-exact function collision protocol with pinned OTP
         if: ${{ !cancelled() }}
         shell: pwsh
@@ -294,20 +299,30 @@ jobs:
         if: ${{ !cancelled() }}
         shell: pwsh
         run: |
-          if (!(Test-Path tools/Native/Erlang.NifNativeBackend/bin/Debug/net10.0/Erlang.NifNativeBackend.dll) -or !(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
+          if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
             throw 'Materialized505 host/provider preparation missing; dependent execution skipped'
           }
-          python -B tools/Native/Erlang.NifMapMaterialized505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 48B09FAA35E224DBCF152E8CCBB9332D5DB6CF917B49F9EDB6229BBA3659BF62 --output artifacts/native-map505/ci --check-golden
+          python -B tools/Native/Erlang.NifMapMaterialized505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 B4872E739FCD1015E9BDE3B89D7ED9EC78E76617487D51FC2098AC7DEE8F550F --output artifacts/native-map505/ci --check-golden --both-runtime-profiles516
           if ($LASTEXITCODE -ne 0) { throw 'Materialized505 independent original/ordinary/reviewed comparison failed; inspect retained full results' }
+          $comparison516 = Get-Content 'artifacts/native-map505/ci/completion.json' -Raw | ConvertFrom-Json
+          if (!$comparison516.Passed -or !$comparison516.BothRuntimeProfiles516 -or $comparison516.ExpectedRawLoaderComparisons -ne 4 -or $comparison516.WholeRawLoaderComparisons -ne 4 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'ordinary-runtime' -ne 2 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'owned-runtime' -ne 2) { throw 'All four runtime-profile/loader comparisons are required' }
+          foreach ($route516 in @('ordinary','reviewed')) {
+            if ($comparison516.ManagedRuntimeProfileReceipts.('ordinary-runtime--' + $route516).OwnedTermsPilot506 -ne $false -or $comparison516.ManagedRuntimeProfileReceipts.('owned-runtime--' + $route516).OwnedTermsPilot506 -ne $true) { throw 'Actual native runtime-profile receipt missing or wrong' }
+          }
       - name: Compare duplicate flat-map native reentry with pinned OTP
         if: ${{ !cancelled() }}
         shell: pwsh
         run: |
-          if (!(Test-Path tools/Native/Erlang.NifNativeBackend/bin/Debug/net10.0/Erlang.NifNativeBackend.dll) -or !(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
+          if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
             throw 'Reentry505 host/provider preparation missing; dependent execution skipped'
           }
-          python -B tools/Native/Erlang.NifMapReentry505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 2DBFC0CBBF1946D5944738CF48DB2BD04143F95DD7DAEB6A7F6F970640460FD7 --output artifacts/native-map505/reentry-ci --check-golden
+          python -B tools/Native/Erlang.NifMapReentry505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 4064F3FA04350872DF3D1BD347588CCEDA49C772D6D2DE332E946BC26A528A7E --output artifacts/native-map505/reentry-ci --check-golden --both-runtime-profiles516
           if ($LASTEXITCODE -ne 0) { throw 'Reentry505 original/ordinary/reviewed comparison failed; independent routes and cleanup retained' }
+          $comparison516 = Get-Content 'artifacts/native-map505/reentry-ci/completion.json' -Raw | ConvertFrom-Json
+          if (!$comparison516.Passed -or !$comparison516.BothRuntimeProfiles516 -or $comparison516.ExpectedRawLoaderComparisons -ne 4 -or $comparison516.WholeRawLoaderComparisons -ne 4 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'ordinary-runtime' -ne 2 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'owned-runtime' -ne 2) { throw 'All four runtime-profile/loader comparisons are required' }
+          foreach ($route516 in @('ordinary','reviewed')) {
+            if ($comparison516.ManagedRuntimeProfileReceipts.('ordinary-runtime--' + $route516).OwnedTermsPilot506 -ne $false -or $comparison516.ManagedRuntimeProfileReceipts.('owned-runtime--' + $route516).OwnedTermsPilot506 -ne $true) { throw 'Actual native runtime-profile receipt missing or wrong' }
+          }
       - name: Verify logical death before physical dirty completion in pinned OTP
         if: ${{ !cancelled() }}
         shell: pwsh

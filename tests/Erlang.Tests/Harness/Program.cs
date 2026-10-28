@@ -6981,6 +6981,23 @@ try
     Test(Erlang.Tests.TrustedGuest507Names.OverrideTest, Erlang.Tests.TrustedGuest507Checks.OpaqueOverride);
     Test(Erlang.Tests.HybridBoundary507Names.Test, Erlang.Tests.HybridBoundary507Checks.MutablePatterns);
     Test(Erlang.Tests.HybridKeyScope507Names.Test, Erlang.Tests.HybridKeyScope507Checks.Parity);
+    Test(Erlang.Tests.AllocatorFirstFit519Names.MixedTest, Erlang.Tests.AllocatorFirstFit519Checks.MixedFirstFit);
+    Test(Erlang.Tests.AllocatorFirstFit519Names.FragmentedTest, Erlang.Tests.AllocatorFirstFit519Checks.FragmentedLinearScan);
+    Test(Erlang.Tests.AllocatorFirstFit519Names.HeapTest, Erlang.Tests.AllocatorFirstFit519Checks.HeapLinearScan);
+    Test(
+        Erlang.Tests.AllocatorFirstFit519Names.ReuseTest,
+        Erlang.Tests.AllocatorFirstFit519Checks.CollectionAndRollbackReuse
+    );
+    Test(Erlang.Tests.PrivateSelfGc519Names.BifTest, Erlang.Tests.PrivateSelfGc519Checks.RealBifReclaims);
+    Test(Erlang.Tests.PrivateSelfGc519Names.LiveTest, Erlang.Tests.PrivateSelfGc519Checks.LiveHiddenAndBinary);
+    Test(Erlang.Tests.PrivateSelfGc519Names.OrdinaryTest, Erlang.Tests.PrivateSelfGc519Checks.OrdinaryNoHeap);
+    Test(Erlang.Tests.PrivateSelfGc519Names.Test, Erlang.Tests.PrivateSelfGc519Checks.ExplicitCollection);
+    Test(Erlang.Tests.NifAppendOnly516Names.ScalingTest, Erlang.Tests.NifAppendOnly516Checks.StaticTailScaling);
+    Test(Erlang.Tests.NifAppendOnly516Names.HiddenTest, Erlang.Tests.NifAppendOnly516Checks.HiddenAndNewComposite);
+    Test(Erlang.Tests.NifAppendOnly516Names.UnknownTest, Erlang.Tests.NifAppendOnly516Checks.UnknownRemainsConservative);
+    Test(Erlang.Tests.NifEnvironmentRoots516Names.BoundTest, Erlang.Tests.NifEnvironmentRoots516Checks.BoundPendingAndCopy);
+    Test(Erlang.Tests.NifEnvironmentRoots516Names.RetirementTest, Erlang.Tests.NifEnvironmentRoots516Checks.HeldRetirement);
+    Test(Erlang.Tests.NifEnvironmentRoots516Names.OrdinaryTest, Erlang.Tests.NifEnvironmentRoots516Checks.OrdinaryProfile);
     Test(Erlang.Tests.LinearConstruction514Names.ScalingTest, Erlang.Tests.LinearConstruction514Checks.Scaling);
     Test(Erlang.Tests.LinearConstruction514Names.EmptyTest, Erlang.Tests.LinearConstruction514Checks.NestedEmptyTuples);
     Test(Erlang.Tests.LinearConstruction514Names.HiddenTest, Erlang.Tests.LinearConstruction514Checks.HiddenPhysicalMap);

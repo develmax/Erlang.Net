@@ -1,0 +1,1132 @@
+{
+  "Parent": "553f530ea16fd363c83cb256664146d600c71ad1",
+  "CurrentCatalogue": 9147,
+  "FinalAffected": {
+    "Partial": true,
+    "Passed": 125,
+    "Failed": 0
+  },
+  "NativeBatches": [
+    {
+      "Name": "family",
+      "Passed": true,
+      "Routes": 4,
+      "WholeRawByProfile": {
+        "ordinary-runtime": 2,
+        "owned-runtime": 2
+      },
+      "SourcePlanSha256": "27AC013A16D6A0F146B860D9907916EFE48B1642C487D9DBC7EA6518330FACC3",
+      "Phases": {
+        "build": {
+          "ElapsedSeconds": 1.2349999999860302,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "original": {
+          "ElapsedSeconds": 0.28200000000651926,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "ordinary-runtime--ordinary": {
+          "ElapsedSeconds": 2.85999999998603,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "ordinary-runtime--reviewed": {
+          "ElapsedSeconds": 2.26500000001397,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "owned-runtime--ordinary": {
+          "ElapsedSeconds": 6.407000000006519,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "owned-runtime--reviewed": {
+          "ElapsedSeconds": 6.375,
+          "ExitCode": 0,
+          "Settled": true
+        }
+      }
+    },
+    {
+      "Name": "materialized",
+      "Passed": true,
+      "Routes": 4,
+      "WholeRawByProfile": {
+        "ordinary-runtime": 2,
+        "owned-runtime": 2
+      },
+      "SourcePlanSha256": "B4872E739FCD1015E9BDE3B89D7ED9EC78E76617487D51FC2098AC7DEE8F550F",
+      "Phases": {
+        "build": {
+          "ElapsedSeconds": 1.187999999965541,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "case-00-n2-b64-t1": {
+          "ElapsedSeconds": 0.25,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "case-01-n2-b64-t128": {
+          "ElapsedSeconds": 0.23400000005494803,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "case-02-n2-b64-t129": {
+          "ElapsedSeconds": 0.2339999999385327,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "case-03-n2-b64-t143": {
+          "ElapsedSeconds": 0.23499999998603016,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "case-04-n2-b65-t1": {
+          "ElapsedSeconds": 0.25,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "case-05-n2-b65-t128": {
+          "ElapsedSeconds": 0.25,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "case-06-n2-b65-t129": {
+          "ElapsedSeconds": 0.23400000005494803,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "case-07-n2-b65-t143": {
+          "ElapsedSeconds": 0.23499999998603016,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "case-08-n32-b64-t1": {
+          "ElapsedSeconds": 0.25,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "case-09-n32-b64-t128": {
+          "ElapsedSeconds": 0.25,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "case-10-n32-b64-t129": {
+          "ElapsedSeconds": 0.25,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "case-11-n32-b64-t143": {
+          "ElapsedSeconds": 0.25,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "case-12-n32-b65-t1": {
+          "ElapsedSeconds": 0.23400000005494803,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "case-13-n32-b65-t128": {
+          "ElapsedSeconds": 0.25,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "case-14-n32-b65-t129": {
+          "ElapsedSeconds": 0.23400000005494803,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "case-15-n32-b65-t143": {
+          "ElapsedSeconds": 0.2339999999385327,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "case-16-n33-b64-t1": {
+          "ElapsedSeconds": 0.25,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "case-17-n33-b64-t128": {
+          "ElapsedSeconds": 0.25,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "case-18-n33-b64-t129": {
+          "ElapsedSeconds": 0.2339999999385327,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "case-19-n33-b64-t143": {
+          "ElapsedSeconds": 0.23499999998603016,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "case-20-n33-b65-t1": {
+          "ElapsedSeconds": 0.23499999998603016,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "case-21-n33-b65-t128": {
+          "ElapsedSeconds": 0.25,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "case-22-n33-b65-t129": {
+          "ElapsedSeconds": 0.23400000005494803,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "case-23-n33-b65-t143": {
+          "ElapsedSeconds": 0.25,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "case-24-n65-b64-t1": {
+          "ElapsedSeconds": 0.2339999999385327,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "case-25-n65-b64-t128": {
+          "ElapsedSeconds": 0.2339999999385327,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "case-26-n65-b64-t129": {
+          "ElapsedSeconds": 0.25,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "case-27-n65-b64-t143": {
+          "ElapsedSeconds": 0.23499999998603016,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "case-28-n65-b65-t1": {
+          "ElapsedSeconds": 0.23499999998603016,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "case-29-n65-b65-t128": {
+          "ElapsedSeconds": 0.25,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "case-30-n65-b65-t129": {
+          "ElapsedSeconds": 0.25,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "case-31-n65-b65-t143": {
+          "ElapsedSeconds": 0.25,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "original-batch": {
+          "ElapsedSeconds": 0.25,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "ordinary-runtime--ordinary": {
+          "ElapsedSeconds": 2.202999999979511,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "ordinary-runtime--reviewed": {
+          "ElapsedSeconds": 2.2820000000065193,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "owned-runtime--ordinary": {
+          "ElapsedSeconds": 5.655999999959022,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "owned-runtime--reviewed": {
+          "ElapsedSeconds": 5.375,
+          "ExitCode": 0,
+          "Settled": true
+        }
+      }
+    },
+    {
+      "Name": "reentry",
+      "Passed": true,
+      "Routes": 4,
+      "WholeRawByProfile": {
+        "ordinary-runtime": 2,
+        "owned-runtime": 2
+      },
+      "SourcePlanSha256": "4064F3FA04350872DF3D1BD347588CCEDA49C772D6D2DE332E946BC26A528A7E",
+      "Phases": {
+        "build": {
+          "ElapsedSeconds": 1.140999999945052,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "original": {
+          "ElapsedSeconds": 0.25,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "ordinary-runtime--ordinary": {
+          "ElapsedSeconds": 1.5309999999590218,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "ordinary-runtime--reviewed": {
+          "ElapsedSeconds": 1.547000000020489,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "owned-runtime--ordinary": {
+          "ElapsedSeconds": 1.6099999999860302,
+          "ExitCode": 0,
+          "Settled": true
+        },
+        "owned-runtime--reviewed": {
+          "ElapsedSeconds": 1.5929999999934807,
+          "ExitCode": 0,
+          "Settled": true
+        }
+      }
+    }
+  ],
+  "CurrentFullAcceptance": false,
+  "ExactPublicationCIAndReviewPending": true,
+  "Registered": 708,
+  "FullContracts": 180,
+  "PendingContracts": 504,
+  "KnownDifferences": 24,
+  "ApiDelta": 0,
+  "FullContractDelta": 0,
+  "SourceGuards": 1875,
+  "NativeSourceBindings": 212,
+  "SourceOnlyManualPlansExecuted": false,
+  "Files": [
+    {
+      "Source": "artifacts/batch516/allocator-red.json",
+      "Stored": "allocator-red.json.gz",
+      "RawSha256": "ED5A2482799EB3B88FDFC26F85A6B7ED45780E252A7773831F87D6AF42295430",
+      "StoredSha256": "8601F57B075AEE81EF55AD5E7C9015FCF7333728D5F604BA5C17DAE1643F507D"
+    },
+    {
+      "Source": "artifacts/batch516/allocator-red.log",
+      "Stored": "allocator-red.log.gz",
+      "RawSha256": "16304CDB5DD6FE5874DD9F16889DFACD3540AF60FC67EEF0D014BEE469824D12",
+      "StoredSha256": "4D0E26B3A3E9EF6F50383D9D500B34C21A24B6B320FE691EE5817AD85848FF6A"
+    },
+    {
+      "Source": "artifacts/batch516/allocator-green-four.json",
+      "Stored": "allocator-green-four.json.gz",
+      "RawSha256": "E48CF471CFA981A136625B7CD09A9929BAE48ED16BED705DA2A2C0D8F88677C5",
+      "StoredSha256": "78E065FA8F0EE4454BAA4EF3748F5B3AFB5AE3FEF2ADB8F47F17ADD516DEB136"
+    },
+    {
+      "Source": "artifacts/batch516/allocator-green-four.log",
+      "Stored": "allocator-green-four.log.gz",
+      "RawSha256": "A0EE06F78F77FFCCB9F8F0188980FA4AB2DD126C6A8D553F20D9F06566CC7D0D",
+      "StoredSha256": "75F1EE95078F9076081E9BA25FAFB320B5C9362B988F7036728482357611AF6F"
+    },
+    {
+      "Source": "artifacts/batch516/final-affected125.json",
+      "Stored": "final-affected125.json.gz",
+      "RawSha256": "F5A618BAE5F335B2676274A7C3E3BB927455D686277F686862E3B5076D3D1DA5",
+      "StoredSha256": "99FBE2DE93532EDD4AD22D67BBF4AEDB7951431BBAFEDDA9186A4372013B23A2"
+    },
+    {
+      "Source": "artifacts/batch516/final-affected125.log",
+      "Stored": "final-affected125.log.gz",
+      "RawSha256": "D4C4826A838057AFC35F414A566295FE6CE1A51D29AFE854BB8CE760494407AB",
+      "StoredSha256": "75A22856F59DA809DCF4D60B68FB61A8AE5231677E4F18BAC91E6251F22D94A4"
+    },
+    {
+      "Source": "artifacts/batch516/build-final-allocator.log",
+      "Stored": "build-final-allocator.log.gz",
+      "RawSha256": "EFD2B74D9F86ADD11692191F8823E669AF513E0DA00B508B22B14612C536CBB8",
+      "StoredSha256": "0C2EE6EF721FE38F20D0C33443671AFBCBCF24B6AC1C650E32ADFF0F10E03625"
+    },
+    {
+      "Source": "artifacts/batch516/build-final-native-allocator.log",
+      "Stored": "build-final-native-allocator.log.gz",
+      "RawSha256": "D5BF460196D2DFEF1C7AB55EE2535A111D83CB3E9B5E74C01587CA51C87B2983",
+      "StoredSha256": "B2EF73B80A1ABE6459B62D1028356F8B5D77E33B0FB0C0BA5D15E2B5AFA3D33F"
+    },
+    {
+      "Source": "artifacts/batch516/style-final-allocator.log",
+      "Stored": "style-final-allocator.log.gz",
+      "RawSha256": "E27828D691BEB8FA1DC514F49F0DF8C1538FDEEC7DBDC465DDBC1C929F6D5B64",
+      "StoredSha256": "93168DA0EE6D29B64B7DDF1FC5A647AF4D45BFBB78D19ACA4456EFC3E859C0E0"
+    },
+    {
+      "Source": "artifacts/batch519/allocator-first-fit/independent-review/findings.md",
+      "Stored": "allocator-review-findings.md.gz",
+      "RawSha256": "AE802CFE33601600229B69DC6A9A4E0A7AB9854955F8B2691BC735475634AC5B",
+      "StoredSha256": "C7B585DEB896CD75770D68CD02488B0E9B193D84AD13A324BD1A068F066082F9"
+    },
+    {
+      "Source": "artifacts/batch519/allocator-first-fit/independent-review/snapshot.json",
+      "Stored": "allocator-review-snapshot.json.gz",
+      "RawSha256": "C13444DFA72FBEC2331C7E6FC20C24B1B9BE15A5D24721AF24C7D471A0A60935",
+      "StoredSha256": "F15599A7C0EF3885D95A03AABB48396B2C8744FC8D385031EF0250FC961F383C"
+    },
+    {
+      "Source": "artifacts/native-map504/family516-dual-after-allocator-final/completion.json",
+      "Stored": "family/completion.json.gz",
+      "RawSha256": "E4CC088080A557F4E18243587509646A9CEB1201718FDB50E3B038BC17C328E7",
+      "StoredSha256": "EFB4227D4D28897717E010945BB74FEF5D3063129EBBB239EBD4C9F9F8E59302"
+    },
+    {
+      "Source": "artifacts/native-map504/family516-dual-after-allocator-final/dependency-proof.json",
+      "Stored": "family/dependency-proof.json.gz",
+      "RawSha256": "F133B60572E039695BBBF24DBE7A791468F47B0FB2EFE3A02BE95FABB662A113",
+      "StoredSha256": "E992858E70B56A82069D98911B17CB42281CEE52D507C726288592BEEAB5FCC2"
+    },
+    {
+      "Source": "artifacts/native-map504/family516-dual-after-allocator-final/execution-admission.json",
+      "Stored": "family/execution-admission.json.gz",
+      "RawSha256": "5F1BD504B56CE389A0E1F9CCCE2D1E8FAA01B46673B84E02AEA6493402C94D34",
+      "StoredSha256": "2F5685EDBA02FCFCF8E4502D148259E3C2C1A418B7F4E712C2B594C2EB835E7D"
+    },
+    {
+      "Source": "artifacts/native-map504/family516-dual-after-allocator-final/original/returned-default.etf",
+      "Stored": "family/original/returned-default.etf.gz",
+      "RawSha256": "EF61E03BAA533C082FFBD3A6FDFD642C6C7F5F1127A1E90DEBAF5D3CC5C0E13C",
+      "StoredSha256": "BAA32D15E12832520254CD12BF471DC1F1AEADB0ED0C404229420E926B2F5D79"
+    },
+    {
+      "Source": "artifacts/native-map504/family516-dual-after-allocator-final/original/returned.etf",
+      "Stored": "family/original/returned.etf.gz",
+      "RawSha256": "F5BAA4479C6C886E1C5534E0F90C5FB496EFA2D7E822395B43401DCEC1C450A2",
+      "StoredSha256": "6C191BD282677E8A326ED99F88948391ABC8C4D78642159FB4AC9A9C49E4E2E0"
+    },
+    {
+      "Source": "artifacts/native-map504/family516-dual-after-allocator-final/ordinary-runtime/ordinary/returned-default.etf",
+      "Stored": "family/ordinary-runtime/ordinary/returned-default.etf.gz",
+      "RawSha256": "EF419520092BA858960F0D8EFBAACD705FB5E08D4AA3F35EDAF7569B29BA5FE1",
+      "StoredSha256": "2B5C8B5A70E1342E4BB2E159D84AA4D8DA2342D51F7A6CCD97F024239D9AB2AB"
+    },
+    {
+      "Source": "artifacts/native-map504/family516-dual-after-allocator-final/ordinary-runtime/ordinary/returned.etf",
+      "Stored": "family/ordinary-runtime/ordinary/returned.etf.gz",
+      "RawSha256": "F5BAA4479C6C886E1C5534E0F90C5FB496EFA2D7E822395B43401DCEC1C450A2",
+      "StoredSha256": "6C191BD282677E8A326ED99F88948391ABC8C4D78642159FB4AC9A9C49E4E2E0"
+    },
+    {
+      "Source": "artifacts/native-map504/family516-dual-after-allocator-final/ordinary-runtime/reviewed/returned-default.etf",
+      "Stored": "family/ordinary-runtime/reviewed/returned-default.etf.gz",
+      "RawSha256": "EF419520092BA858960F0D8EFBAACD705FB5E08D4AA3F35EDAF7569B29BA5FE1",
+      "StoredSha256": "2B5C8B5A70E1342E4BB2E159D84AA4D8DA2342D51F7A6CCD97F024239D9AB2AB"
+    },
+    {
+      "Source": "artifacts/native-map504/family516-dual-after-allocator-final/ordinary-runtime/reviewed/returned.etf",
+      "Stored": "family/ordinary-runtime/reviewed/returned.etf.gz",
+      "RawSha256": "F5BAA4479C6C886E1C5534E0F90C5FB496EFA2D7E822395B43401DCEC1C450A2",
+      "StoredSha256": "6C191BD282677E8A326ED99F88948391ABC8C4D78642159FB4AC9A9C49E4E2E0"
+    },
+    {
+      "Source": "artifacts/native-map504/family516-dual-after-allocator-final/owned-runtime/ordinary/returned-default.etf",
+      "Stored": "family/owned-runtime/ordinary/returned-default.etf.gz",
+      "RawSha256": "EF419520092BA858960F0D8EFBAACD705FB5E08D4AA3F35EDAF7569B29BA5FE1",
+      "StoredSha256": "2B5C8B5A70E1342E4BB2E159D84AA4D8DA2342D51F7A6CCD97F024239D9AB2AB"
+    },
+    {
+      "Source": "artifacts/native-map504/family516-dual-after-allocator-final/owned-runtime/ordinary/returned.etf",
+      "Stored": "family/owned-runtime/ordinary/returned.etf.gz",
+      "RawSha256": "F5BAA4479C6C886E1C5534E0F90C5FB496EFA2D7E822395B43401DCEC1C450A2",
+      "StoredSha256": "6C191BD282677E8A326ED99F88948391ABC8C4D78642159FB4AC9A9C49E4E2E0"
+    },
+    {
+      "Source": "artifacts/native-map504/family516-dual-after-allocator-final/owned-runtime/reviewed/returned-default.etf",
+      "Stored": "family/owned-runtime/reviewed/returned-default.etf.gz",
+      "RawSha256": "EF419520092BA858960F0D8EFBAACD705FB5E08D4AA3F35EDAF7569B29BA5FE1",
+      "StoredSha256": "2B5C8B5A70E1342E4BB2E159D84AA4D8DA2342D51F7A6CCD97F024239D9AB2AB"
+    },
+    {
+      "Source": "artifacts/native-map504/family516-dual-after-allocator-final/owned-runtime/reviewed/returned.etf",
+      "Stored": "family/owned-runtime/reviewed/returned.etf.gz",
+      "RawSha256": "F5BAA4479C6C886E1C5534E0F90C5FB496EFA2D7E822395B43401DCEC1C450A2",
+      "StoredSha256": "6C191BD282677E8A326ED99F88948391ABC8C4D78642159FB4AC9A9C49E4E2E0"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/completion.json",
+      "Stored": "materialized/completion.json.gz",
+      "RawSha256": "3081FDFC29A716821B58D53014B1C4ADCD9198D8968A1722ADF511F09E4AE01B",
+      "StoredSha256": "2F0A615056FE00B6AD304BB6793F2F8471FBE8A7FDDA1DAFB8861709C73D8C71"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/dependency-proof.json",
+      "Stored": "materialized/dependency-proof.json.gz",
+      "RawSha256": "CB01C793C224883DB729470FA0A13F5447AEF4AB1F3524CA580D6F193FBDBA01",
+      "StoredSha256": "0587A74A1E83A36A65FBBBE43B1BF1F5C6107CF1953FCF1404B32CA369F3E05D"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/execution-admission.json",
+      "Stored": "materialized/execution-admission.json.gz",
+      "RawSha256": "1ACAA0FDC7CFE178D37395EEE00F420165C52932E3736A12A7EF3FCF86127CE1",
+      "StoredSha256": "7FD79FC8C809859D440537D0050616C10357BB71027A43C3261A0DF322A21001"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-batch/returned-default.etf",
+      "Stored": "materialized/original-batch/returned-default.etf.gz",
+      "RawSha256": "F0F14BB1B6BF0D282D882AF6FCC225AB2983834CA7BE340FF3DC4B063CE8BC06",
+      "StoredSha256": "E273EBDC0FBA2038DE015AA9AE2AB089BC69DB6E70581FFFC8E3FFAB0F9B162B"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-batch/returned.etf",
+      "Stored": "materialized/original-batch/returned.etf.gz",
+      "RawSha256": "F0F14BB1B6BF0D282D882AF6FCC225AB2983834CA7BE340FF3DC4B063CE8BC06",
+      "StoredSha256": "E273EBDC0FBA2038DE015AA9AE2AB089BC69DB6E70581FFFC8E3FFAB0F9B162B"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/ordinary-runtime/ordinary/returned-default.etf",
+      "Stored": "materialized/ordinary-runtime/ordinary/returned-default.etf.gz",
+      "RawSha256": "F0F14BB1B6BF0D282D882AF6FCC225AB2983834CA7BE340FF3DC4B063CE8BC06",
+      "StoredSha256": "E273EBDC0FBA2038DE015AA9AE2AB089BC69DB6E70581FFFC8E3FFAB0F9B162B"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/ordinary-runtime/ordinary/returned.etf",
+      "Stored": "materialized/ordinary-runtime/ordinary/returned.etf.gz",
+      "RawSha256": "F0F14BB1B6BF0D282D882AF6FCC225AB2983834CA7BE340FF3DC4B063CE8BC06",
+      "StoredSha256": "E273EBDC0FBA2038DE015AA9AE2AB089BC69DB6E70581FFFC8E3FFAB0F9B162B"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/ordinary-runtime/reviewed/returned-default.etf",
+      "Stored": "materialized/ordinary-runtime/reviewed/returned-default.etf.gz",
+      "RawSha256": "F0F14BB1B6BF0D282D882AF6FCC225AB2983834CA7BE340FF3DC4B063CE8BC06",
+      "StoredSha256": "E273EBDC0FBA2038DE015AA9AE2AB089BC69DB6E70581FFFC8E3FFAB0F9B162B"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/ordinary-runtime/reviewed/returned.etf",
+      "Stored": "materialized/ordinary-runtime/reviewed/returned.etf.gz",
+      "RawSha256": "F0F14BB1B6BF0D282D882AF6FCC225AB2983834CA7BE340FF3DC4B063CE8BC06",
+      "StoredSha256": "E273EBDC0FBA2038DE015AA9AE2AB089BC69DB6E70581FFFC8E3FFAB0F9B162B"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-00-n2-b64-t1/returned-default.etf",
+      "Stored": "materialized/original-cases/case-00-n2-b64-t1/returned-default.etf.gz",
+      "RawSha256": "E78B8DF0A91BFAD27E15693F5ACE880992092AA3AF996EED8F42CD6C5FAAB9F0",
+      "StoredSha256": "5D64A1F7165C9C614CC97CAE0E2FD3699EC5AC3D6BB1F4169989B148EE28A528"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-00-n2-b64-t1/returned.etf",
+      "Stored": "materialized/original-cases/case-00-n2-b64-t1/returned.etf.gz",
+      "RawSha256": "E78B8DF0A91BFAD27E15693F5ACE880992092AA3AF996EED8F42CD6C5FAAB9F0",
+      "StoredSha256": "5D64A1F7165C9C614CC97CAE0E2FD3699EC5AC3D6BB1F4169989B148EE28A528"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-01-n2-b64-t128/returned-default.etf",
+      "Stored": "materialized/original-cases/case-01-n2-b64-t128/returned-default.etf.gz",
+      "RawSha256": "D8A1D4A1733772DA8376156EA6D885C907918A16584C6D25179C35ECAC63F879",
+      "StoredSha256": "5912CDCA2AD5982EFC41896DFB3DE754D2F3626727153742662A4E414A7EB3CC"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-01-n2-b64-t128/returned.etf",
+      "Stored": "materialized/original-cases/case-01-n2-b64-t128/returned.etf.gz",
+      "RawSha256": "D8A1D4A1733772DA8376156EA6D885C907918A16584C6D25179C35ECAC63F879",
+      "StoredSha256": "5912CDCA2AD5982EFC41896DFB3DE754D2F3626727153742662A4E414A7EB3CC"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-02-n2-b64-t129/returned-default.etf",
+      "Stored": "materialized/original-cases/case-02-n2-b64-t129/returned-default.etf.gz",
+      "RawSha256": "2E5D429C9B28C87B66E0C587703DA26E5F50E5182215DFC6C153D4BA91BC3B18",
+      "StoredSha256": "2D9AD96C33D3596C0252624FC73DD033CBAACEA9D63BEB18FFDA75D2CE345C8D"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-02-n2-b64-t129/returned.etf",
+      "Stored": "materialized/original-cases/case-02-n2-b64-t129/returned.etf.gz",
+      "RawSha256": "2E5D429C9B28C87B66E0C587703DA26E5F50E5182215DFC6C153D4BA91BC3B18",
+      "StoredSha256": "2D9AD96C33D3596C0252624FC73DD033CBAACEA9D63BEB18FFDA75D2CE345C8D"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-03-n2-b64-t143/returned-default.etf",
+      "Stored": "materialized/original-cases/case-03-n2-b64-t143/returned-default.etf.gz",
+      "RawSha256": "64D08F058C193C286EC01E6114DB1334260B45F00FD9E301B4AE3FF6A00D1240",
+      "StoredSha256": "6DE4A1D1A9165CC088ABA7366E4ABB576832981EE8A53D4A6385DC2B3FC50658"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-03-n2-b64-t143/returned.etf",
+      "Stored": "materialized/original-cases/case-03-n2-b64-t143/returned.etf.gz",
+      "RawSha256": "64D08F058C193C286EC01E6114DB1334260B45F00FD9E301B4AE3FF6A00D1240",
+      "StoredSha256": "6DE4A1D1A9165CC088ABA7366E4ABB576832981EE8A53D4A6385DC2B3FC50658"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-04-n2-b65-t1/returned-default.etf",
+      "Stored": "materialized/original-cases/case-04-n2-b65-t1/returned-default.etf.gz",
+      "RawSha256": "E78B8DF0A91BFAD27E15693F5ACE880992092AA3AF996EED8F42CD6C5FAAB9F0",
+      "StoredSha256": "5D64A1F7165C9C614CC97CAE0E2FD3699EC5AC3D6BB1F4169989B148EE28A528"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-04-n2-b65-t1/returned.etf",
+      "Stored": "materialized/original-cases/case-04-n2-b65-t1/returned.etf.gz",
+      "RawSha256": "E78B8DF0A91BFAD27E15693F5ACE880992092AA3AF996EED8F42CD6C5FAAB9F0",
+      "StoredSha256": "5D64A1F7165C9C614CC97CAE0E2FD3699EC5AC3D6BB1F4169989B148EE28A528"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-05-n2-b65-t128/returned-default.etf",
+      "Stored": "materialized/original-cases/case-05-n2-b65-t128/returned-default.etf.gz",
+      "RawSha256": "D8A1D4A1733772DA8376156EA6D885C907918A16584C6D25179C35ECAC63F879",
+      "StoredSha256": "5912CDCA2AD5982EFC41896DFB3DE754D2F3626727153742662A4E414A7EB3CC"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-05-n2-b65-t128/returned.etf",
+      "Stored": "materialized/original-cases/case-05-n2-b65-t128/returned.etf.gz",
+      "RawSha256": "D8A1D4A1733772DA8376156EA6D885C907918A16584C6D25179C35ECAC63F879",
+      "StoredSha256": "5912CDCA2AD5982EFC41896DFB3DE754D2F3626727153742662A4E414A7EB3CC"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-06-n2-b65-t129/returned-default.etf",
+      "Stored": "materialized/original-cases/case-06-n2-b65-t129/returned-default.etf.gz",
+      "RawSha256": "2E5D429C9B28C87B66E0C587703DA26E5F50E5182215DFC6C153D4BA91BC3B18",
+      "StoredSha256": "2D9AD96C33D3596C0252624FC73DD033CBAACEA9D63BEB18FFDA75D2CE345C8D"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-06-n2-b65-t129/returned.etf",
+      "Stored": "materialized/original-cases/case-06-n2-b65-t129/returned.etf.gz",
+      "RawSha256": "2E5D429C9B28C87B66E0C587703DA26E5F50E5182215DFC6C153D4BA91BC3B18",
+      "StoredSha256": "2D9AD96C33D3596C0252624FC73DD033CBAACEA9D63BEB18FFDA75D2CE345C8D"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-07-n2-b65-t143/returned-default.etf",
+      "Stored": "materialized/original-cases/case-07-n2-b65-t143/returned-default.etf.gz",
+      "RawSha256": "64D08F058C193C286EC01E6114DB1334260B45F00FD9E301B4AE3FF6A00D1240",
+      "StoredSha256": "6DE4A1D1A9165CC088ABA7366E4ABB576832981EE8A53D4A6385DC2B3FC50658"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-07-n2-b65-t143/returned.etf",
+      "Stored": "materialized/original-cases/case-07-n2-b65-t143/returned.etf.gz",
+      "RawSha256": "64D08F058C193C286EC01E6114DB1334260B45F00FD9E301B4AE3FF6A00D1240",
+      "StoredSha256": "6DE4A1D1A9165CC088ABA7366E4ABB576832981EE8A53D4A6385DC2B3FC50658"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-08-n32-b64-t1/returned-default.etf",
+      "Stored": "materialized/original-cases/case-08-n32-b64-t1/returned-default.etf.gz",
+      "RawSha256": "8CB71DEB8096B41E04E02F9B8ECA2CB7728B36ED8994728A038183AFEAC25A14",
+      "StoredSha256": "1E13D80C16CEBC0A3F7CD1A5A47988128E199D014236BD54E0D7947E3D4C9CEF"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-08-n32-b64-t1/returned.etf",
+      "Stored": "materialized/original-cases/case-08-n32-b64-t1/returned.etf.gz",
+      "RawSha256": "8CB71DEB8096B41E04E02F9B8ECA2CB7728B36ED8994728A038183AFEAC25A14",
+      "StoredSha256": "1E13D80C16CEBC0A3F7CD1A5A47988128E199D014236BD54E0D7947E3D4C9CEF"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-09-n32-b64-t128/returned-default.etf",
+      "Stored": "materialized/original-cases/case-09-n32-b64-t128/returned-default.etf.gz",
+      "RawSha256": "0FE18F17B3F21BC301DC828F78CFAD5531FF9889AF9376FCB9735CFAB75FB484",
+      "StoredSha256": "84BAFB1F7F4BA5244294EB1414838F8C036C047A254450C5C68EA8546B856676"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-09-n32-b64-t128/returned.etf",
+      "Stored": "materialized/original-cases/case-09-n32-b64-t128/returned.etf.gz",
+      "RawSha256": "0FE18F17B3F21BC301DC828F78CFAD5531FF9889AF9376FCB9735CFAB75FB484",
+      "StoredSha256": "84BAFB1F7F4BA5244294EB1414838F8C036C047A254450C5C68EA8546B856676"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-10-n32-b64-t129/returned-default.etf",
+      "Stored": "materialized/original-cases/case-10-n32-b64-t129/returned-default.etf.gz",
+      "RawSha256": "5116BA6D9B53E9DA6C5C5A1FF6C2D6985467D68C2A5088DF80EED57A055BFB2B",
+      "StoredSha256": "3E54F25EC2AB66225E96E9B192B5A1D7793B662B1585998F36EA6F0FCA632D99"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-10-n32-b64-t129/returned.etf",
+      "Stored": "materialized/original-cases/case-10-n32-b64-t129/returned.etf.gz",
+      "RawSha256": "5116BA6D9B53E9DA6C5C5A1FF6C2D6985467D68C2A5088DF80EED57A055BFB2B",
+      "StoredSha256": "3E54F25EC2AB66225E96E9B192B5A1D7793B662B1585998F36EA6F0FCA632D99"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-11-n32-b64-t143/returned-default.etf",
+      "Stored": "materialized/original-cases/case-11-n32-b64-t143/returned-default.etf.gz",
+      "RawSha256": "A02A0357E952E23FD2FFD42E7920C63C627062644BE47105046D199A8FEDBB66",
+      "StoredSha256": "A76DE386431BC62C32EDAE70061D8F0D6C98B6CEA1906E8BF6B59DA2D7603084"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-11-n32-b64-t143/returned.etf",
+      "Stored": "materialized/original-cases/case-11-n32-b64-t143/returned.etf.gz",
+      "RawSha256": "A02A0357E952E23FD2FFD42E7920C63C627062644BE47105046D199A8FEDBB66",
+      "StoredSha256": "A76DE386431BC62C32EDAE70061D8F0D6C98B6CEA1906E8BF6B59DA2D7603084"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-12-n32-b65-t1/returned-default.etf",
+      "Stored": "materialized/original-cases/case-12-n32-b65-t1/returned-default.etf.gz",
+      "RawSha256": "8CB71DEB8096B41E04E02F9B8ECA2CB7728B36ED8994728A038183AFEAC25A14",
+      "StoredSha256": "1E13D80C16CEBC0A3F7CD1A5A47988128E199D014236BD54E0D7947E3D4C9CEF"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-12-n32-b65-t1/returned.etf",
+      "Stored": "materialized/original-cases/case-12-n32-b65-t1/returned.etf.gz",
+      "RawSha256": "8CB71DEB8096B41E04E02F9B8ECA2CB7728B36ED8994728A038183AFEAC25A14",
+      "StoredSha256": "1E13D80C16CEBC0A3F7CD1A5A47988128E199D014236BD54E0D7947E3D4C9CEF"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-13-n32-b65-t128/returned-default.etf",
+      "Stored": "materialized/original-cases/case-13-n32-b65-t128/returned-default.etf.gz",
+      "RawSha256": "0FE18F17B3F21BC301DC828F78CFAD5531FF9889AF9376FCB9735CFAB75FB484",
+      "StoredSha256": "84BAFB1F7F4BA5244294EB1414838F8C036C047A254450C5C68EA8546B856676"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-13-n32-b65-t128/returned.etf",
+      "Stored": "materialized/original-cases/case-13-n32-b65-t128/returned.etf.gz",
+      "RawSha256": "0FE18F17B3F21BC301DC828F78CFAD5531FF9889AF9376FCB9735CFAB75FB484",
+      "StoredSha256": "84BAFB1F7F4BA5244294EB1414838F8C036C047A254450C5C68EA8546B856676"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-14-n32-b65-t129/returned-default.etf",
+      "Stored": "materialized/original-cases/case-14-n32-b65-t129/returned-default.etf.gz",
+      "RawSha256": "5116BA6D9B53E9DA6C5C5A1FF6C2D6985467D68C2A5088DF80EED57A055BFB2B",
+      "StoredSha256": "3E54F25EC2AB66225E96E9B192B5A1D7793B662B1585998F36EA6F0FCA632D99"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-14-n32-b65-t129/returned.etf",
+      "Stored": "materialized/original-cases/case-14-n32-b65-t129/returned.etf.gz",
+      "RawSha256": "5116BA6D9B53E9DA6C5C5A1FF6C2D6985467D68C2A5088DF80EED57A055BFB2B",
+      "StoredSha256": "3E54F25EC2AB66225E96E9B192B5A1D7793B662B1585998F36EA6F0FCA632D99"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-15-n32-b65-t143/returned-default.etf",
+      "Stored": "materialized/original-cases/case-15-n32-b65-t143/returned-default.etf.gz",
+      "RawSha256": "A02A0357E952E23FD2FFD42E7920C63C627062644BE47105046D199A8FEDBB66",
+      "StoredSha256": "A76DE386431BC62C32EDAE70061D8F0D6C98B6CEA1906E8BF6B59DA2D7603084"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-15-n32-b65-t143/returned.etf",
+      "Stored": "materialized/original-cases/case-15-n32-b65-t143/returned.etf.gz",
+      "RawSha256": "A02A0357E952E23FD2FFD42E7920C63C627062644BE47105046D199A8FEDBB66",
+      "StoredSha256": "A76DE386431BC62C32EDAE70061D8F0D6C98B6CEA1906E8BF6B59DA2D7603084"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-16-n33-b64-t1/returned-default.etf",
+      "Stored": "materialized/original-cases/case-16-n33-b64-t1/returned-default.etf.gz",
+      "RawSha256": "4974D599D64FDD3E8B9624544BA562FD1C69EFF831DF372C589BC53C277BED1C",
+      "StoredSha256": "6BA6529ACA5E9552F70DB0943DEF6319CB45AC285C0C5FA1AC4A08DE571EEDB2"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-16-n33-b64-t1/returned.etf",
+      "Stored": "materialized/original-cases/case-16-n33-b64-t1/returned.etf.gz",
+      "RawSha256": "4974D599D64FDD3E8B9624544BA562FD1C69EFF831DF372C589BC53C277BED1C",
+      "StoredSha256": "6BA6529ACA5E9552F70DB0943DEF6319CB45AC285C0C5FA1AC4A08DE571EEDB2"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-17-n33-b64-t128/returned-default.etf",
+      "Stored": "materialized/original-cases/case-17-n33-b64-t128/returned-default.etf.gz",
+      "RawSha256": "D5FB423B8F32757C408E89308163B033DF58CCDDC4CD94CF0DE4729B75A56289",
+      "StoredSha256": "4D8184E3C159DD6C54B304D5D8D16D0B59A7B4B05A3412CC0F643961B0DBB0B7"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-17-n33-b64-t128/returned.etf",
+      "Stored": "materialized/original-cases/case-17-n33-b64-t128/returned.etf.gz",
+      "RawSha256": "D5FB423B8F32757C408E89308163B033DF58CCDDC4CD94CF0DE4729B75A56289",
+      "StoredSha256": "4D8184E3C159DD6C54B304D5D8D16D0B59A7B4B05A3412CC0F643961B0DBB0B7"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-18-n33-b64-t129/returned-default.etf",
+      "Stored": "materialized/original-cases/case-18-n33-b64-t129/returned-default.etf.gz",
+      "RawSha256": "F0CC1AD0E884BE01047BA939680A50CBB322288DBABCF9F2BC2F0E59727FF32C",
+      "StoredSha256": "D67EE2FF99B3FFDD7370DF9D7A9396C65971E1C9A92656C8545FCBEBAB133C89"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-18-n33-b64-t129/returned.etf",
+      "Stored": "materialized/original-cases/case-18-n33-b64-t129/returned.etf.gz",
+      "RawSha256": "F0CC1AD0E884BE01047BA939680A50CBB322288DBABCF9F2BC2F0E59727FF32C",
+      "StoredSha256": "D67EE2FF99B3FFDD7370DF9D7A9396C65971E1C9A92656C8545FCBEBAB133C89"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-19-n33-b64-t143/returned-default.etf",
+      "Stored": "materialized/original-cases/case-19-n33-b64-t143/returned-default.etf.gz",
+      "RawSha256": "C07954732F88EE61A4FC9B35F45F9C350DBA4354C7E7FF08EDBC713918F5DDA0",
+      "StoredSha256": "B21B19A150D50A19193D37BB9449EBC2F19FCFD8BC29F21BF4868A3E572306A1"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-19-n33-b64-t143/returned.etf",
+      "Stored": "materialized/original-cases/case-19-n33-b64-t143/returned.etf.gz",
+      "RawSha256": "C07954732F88EE61A4FC9B35F45F9C350DBA4354C7E7FF08EDBC713918F5DDA0",
+      "StoredSha256": "B21B19A150D50A19193D37BB9449EBC2F19FCFD8BC29F21BF4868A3E572306A1"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-20-n33-b65-t1/returned-default.etf",
+      "Stored": "materialized/original-cases/case-20-n33-b65-t1/returned-default.etf.gz",
+      "RawSha256": "CE00CE44F90AEE2532AC8DF2600E4A0733C82D8B2C3A8C860361C6C3F2FF5DF1",
+      "StoredSha256": "FC7DE76B8BF3D06954FC925E77F809557EA2283FD0BD0CAC3C84A403FF34F048"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-20-n33-b65-t1/returned.etf",
+      "Stored": "materialized/original-cases/case-20-n33-b65-t1/returned.etf.gz",
+      "RawSha256": "CE00CE44F90AEE2532AC8DF2600E4A0733C82D8B2C3A8C860361C6C3F2FF5DF1",
+      "StoredSha256": "FC7DE76B8BF3D06954FC925E77F809557EA2283FD0BD0CAC3C84A403FF34F048"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-21-n33-b65-t128/returned-default.etf",
+      "Stored": "materialized/original-cases/case-21-n33-b65-t128/returned-default.etf.gz",
+      "RawSha256": "D4254294036EC9C8F884852C0876224F6943CCDD892DD2982B3F96DF23367461",
+      "StoredSha256": "0692863493742FF7FC242901FF634C206E82F3D1F94432C28462EF15CE8B1C55"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-21-n33-b65-t128/returned.etf",
+      "Stored": "materialized/original-cases/case-21-n33-b65-t128/returned.etf.gz",
+      "RawSha256": "D4254294036EC9C8F884852C0876224F6943CCDD892DD2982B3F96DF23367461",
+      "StoredSha256": "0692863493742FF7FC242901FF634C206E82F3D1F94432C28462EF15CE8B1C55"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-22-n33-b65-t129/returned-default.etf",
+      "Stored": "materialized/original-cases/case-22-n33-b65-t129/returned-default.etf.gz",
+      "RawSha256": "1419F434AA27E2B8E4CC580090B19DE1178559DA071D473537E21EFDB1A5BCA8",
+      "StoredSha256": "4273BFC2CE21679604AB6F1B7BBD954B607ED3BF91EA83AA692495AC2777688C"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-22-n33-b65-t129/returned.etf",
+      "Stored": "materialized/original-cases/case-22-n33-b65-t129/returned.etf.gz",
+      "RawSha256": "1419F434AA27E2B8E4CC580090B19DE1178559DA071D473537E21EFDB1A5BCA8",
+      "StoredSha256": "4273BFC2CE21679604AB6F1B7BBD954B607ED3BF91EA83AA692495AC2777688C"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-23-n33-b65-t143/returned-default.etf",
+      "Stored": "materialized/original-cases/case-23-n33-b65-t143/returned-default.etf.gz",
+      "RawSha256": "FB33E0035BD624CD56503D27780EBB91E8849EF884277304C65407B9E106BDE2",
+      "StoredSha256": "3DA84AFE7519D6551436FA172D626616483D840B2CCA518ADB4AAF08A3C86674"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-23-n33-b65-t143/returned.etf",
+      "Stored": "materialized/original-cases/case-23-n33-b65-t143/returned.etf.gz",
+      "RawSha256": "FB33E0035BD624CD56503D27780EBB91E8849EF884277304C65407B9E106BDE2",
+      "StoredSha256": "3DA84AFE7519D6551436FA172D626616483D840B2CCA518ADB4AAF08A3C86674"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-24-n65-b64-t1/returned-default.etf",
+      "Stored": "materialized/original-cases/case-24-n65-b64-t1/returned-default.etf.gz",
+      "RawSha256": "37649966EE653F36C66CB3784D06963D68E06C7DF7294C40FFA05143B2CC9466",
+      "StoredSha256": "2F3DA2FC9DE3DC7C06FF233A6CF5A7A8D51583C484CEF13C8CE14EE0DDD08975"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-24-n65-b64-t1/returned.etf",
+      "Stored": "materialized/original-cases/case-24-n65-b64-t1/returned.etf.gz",
+      "RawSha256": "37649966EE653F36C66CB3784D06963D68E06C7DF7294C40FFA05143B2CC9466",
+      "StoredSha256": "2F3DA2FC9DE3DC7C06FF233A6CF5A7A8D51583C484CEF13C8CE14EE0DDD08975"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-25-n65-b64-t128/returned-default.etf",
+      "Stored": "materialized/original-cases/case-25-n65-b64-t128/returned-default.etf.gz",
+      "RawSha256": "F09F9AE9E45D77A0FA22B029E124D10E707D5D11F583D4189903384212178F7D",
+      "StoredSha256": "B35A4892BEE4C807B4E19BFEDCF7BC7C3005B29A31D0D0CE9A32FDDDD97E314E"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-25-n65-b64-t128/returned.etf",
+      "Stored": "materialized/original-cases/case-25-n65-b64-t128/returned.etf.gz",
+      "RawSha256": "F09F9AE9E45D77A0FA22B029E124D10E707D5D11F583D4189903384212178F7D",
+      "StoredSha256": "B35A4892BEE4C807B4E19BFEDCF7BC7C3005B29A31D0D0CE9A32FDDDD97E314E"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-26-n65-b64-t129/returned-default.etf",
+      "Stored": "materialized/original-cases/case-26-n65-b64-t129/returned-default.etf.gz",
+      "RawSha256": "5883FC5DB4EC30BAFBF699C6C8FA5C3F1AC2CB1FB32D19C625B27A435DD7038D",
+      "StoredSha256": "9BC4B1E01337C654DE4DFE1C43AB1256D4B652F0EDBEB91DB4D447976CFC346B"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-26-n65-b64-t129/returned.etf",
+      "Stored": "materialized/original-cases/case-26-n65-b64-t129/returned.etf.gz",
+      "RawSha256": "5883FC5DB4EC30BAFBF699C6C8FA5C3F1AC2CB1FB32D19C625B27A435DD7038D",
+      "StoredSha256": "9BC4B1E01337C654DE4DFE1C43AB1256D4B652F0EDBEB91DB4D447976CFC346B"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-27-n65-b64-t143/returned-default.etf",
+      "Stored": "materialized/original-cases/case-27-n65-b64-t143/returned-default.etf.gz",
+      "RawSha256": "1A61ED2F9BC90F2E3EB69626AD2A8CDE4030612EF49E03F69619E3B31837B0DD",
+      "StoredSha256": "0ABAE95B5FD0031133D5D045CCF30CADCBE25C47014F8F1EFC9D45ED367697F6"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-27-n65-b64-t143/returned.etf",
+      "Stored": "materialized/original-cases/case-27-n65-b64-t143/returned.etf.gz",
+      "RawSha256": "1A61ED2F9BC90F2E3EB69626AD2A8CDE4030612EF49E03F69619E3B31837B0DD",
+      "StoredSha256": "0ABAE95B5FD0031133D5D045CCF30CADCBE25C47014F8F1EFC9D45ED367697F6"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-28-n65-b65-t1/returned-default.etf",
+      "Stored": "materialized/original-cases/case-28-n65-b65-t1/returned-default.etf.gz",
+      "RawSha256": "1B4C2D98B39FA550A26E24CA302D3D31DAA8F1E9A2326F30778BA6DB33A1E5F4",
+      "StoredSha256": "99E33E179DED3821A5C487E58719EF7522CEE1846E91C778016057A23BB619B3"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-28-n65-b65-t1/returned.etf",
+      "Stored": "materialized/original-cases/case-28-n65-b65-t1/returned.etf.gz",
+      "RawSha256": "1B4C2D98B39FA550A26E24CA302D3D31DAA8F1E9A2326F30778BA6DB33A1E5F4",
+      "StoredSha256": "99E33E179DED3821A5C487E58719EF7522CEE1846E91C778016057A23BB619B3"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-29-n65-b65-t128/returned-default.etf",
+      "Stored": "materialized/original-cases/case-29-n65-b65-t128/returned-default.etf.gz",
+      "RawSha256": "36D431A33F6F419A872F112120D638308D3746537959108AB3F7A158D49F229B",
+      "StoredSha256": "4DD81EE304F3C73D72CFE5DF9D4CE0FD2A74D531199223750323137DEF4E4BE1"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-29-n65-b65-t128/returned.etf",
+      "Stored": "materialized/original-cases/case-29-n65-b65-t128/returned.etf.gz",
+      "RawSha256": "36D431A33F6F419A872F112120D638308D3746537959108AB3F7A158D49F229B",
+      "StoredSha256": "4DD81EE304F3C73D72CFE5DF9D4CE0FD2A74D531199223750323137DEF4E4BE1"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-30-n65-b65-t129/returned-default.etf",
+      "Stored": "materialized/original-cases/case-30-n65-b65-t129/returned-default.etf.gz",
+      "RawSha256": "172417DF67080782D16AA50DDA493C393E9BB97B99163DDFD249D18E7E55DB1F",
+      "StoredSha256": "5A0F5710239CF4ABF53ECDFE371244A6C4DBDDD2012195C8578542A5F0903778"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-30-n65-b65-t129/returned.etf",
+      "Stored": "materialized/original-cases/case-30-n65-b65-t129/returned.etf.gz",
+      "RawSha256": "172417DF67080782D16AA50DDA493C393E9BB97B99163DDFD249D18E7E55DB1F",
+      "StoredSha256": "5A0F5710239CF4ABF53ECDFE371244A6C4DBDDD2012195C8578542A5F0903778"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-31-n65-b65-t143/returned-default.etf",
+      "Stored": "materialized/original-cases/case-31-n65-b65-t143/returned-default.etf.gz",
+      "RawSha256": "FD09744DCE2C4472229B15723E1FA909A901B3BF7A6B9CF9E733105281A3DE95",
+      "StoredSha256": "17476556F33165E47F2744DF1FD7052C577A887A402BBD762AD4A160C4871136"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/original-cases/case-31-n65-b65-t143/returned.etf",
+      "Stored": "materialized/original-cases/case-31-n65-b65-t143/returned.etf.gz",
+      "RawSha256": "FD09744DCE2C4472229B15723E1FA909A901B3BF7A6B9CF9E733105281A3DE95",
+      "StoredSha256": "17476556F33165E47F2744DF1FD7052C577A887A402BBD762AD4A160C4871136"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/owned-runtime/ordinary/returned-default.etf",
+      "Stored": "materialized/owned-runtime/ordinary/returned-default.etf.gz",
+      "RawSha256": "F0F14BB1B6BF0D282D882AF6FCC225AB2983834CA7BE340FF3DC4B063CE8BC06",
+      "StoredSha256": "E273EBDC0FBA2038DE015AA9AE2AB089BC69DB6E70581FFFC8E3FFAB0F9B162B"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/owned-runtime/ordinary/returned.etf",
+      "Stored": "materialized/owned-runtime/ordinary/returned.etf.gz",
+      "RawSha256": "F0F14BB1B6BF0D282D882AF6FCC225AB2983834CA7BE340FF3DC4B063CE8BC06",
+      "StoredSha256": "E273EBDC0FBA2038DE015AA9AE2AB089BC69DB6E70581FFFC8E3FFAB0F9B162B"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/owned-runtime/reviewed/returned-default.etf",
+      "Stored": "materialized/owned-runtime/reviewed/returned-default.etf.gz",
+      "RawSha256": "F0F14BB1B6BF0D282D882AF6FCC225AB2983834CA7BE340FF3DC4B063CE8BC06",
+      "StoredSha256": "E273EBDC0FBA2038DE015AA9AE2AB089BC69DB6E70581FFFC8E3FFAB0F9B162B"
+    },
+    {
+      "Source": "artifacts/native-map505/materialized516-dual-after-allocator-final/owned-runtime/reviewed/returned.etf",
+      "Stored": "materialized/owned-runtime/reviewed/returned.etf.gz",
+      "RawSha256": "F0F14BB1B6BF0D282D882AF6FCC225AB2983834CA7BE340FF3DC4B063CE8BC06",
+      "StoredSha256": "E273EBDC0FBA2038DE015AA9AE2AB089BC69DB6E70581FFFC8E3FFAB0F9B162B"
+    },
+    {
+      "Source": "artifacts/native-map505/reentry516-dual-after-allocator-final/completion.json",
+      "Stored": "reentry/completion.json.gz",
+      "RawSha256": "C2F568C2FE5D3D6C582F492BBF203563860D39E4CA570CFD19C810916EF1E260",
+      "StoredSha256": "9B082E26D92DA770C4103B6F214C78A48E6EE34F5501BB21EFC78B1163DD7E3F"
+    },
+    {
+      "Source": "artifacts/native-map505/reentry516-dual-after-allocator-final/dependency-proof.json",
+      "Stored": "reentry/dependency-proof.json.gz",
+      "RawSha256": "243E4C74B67F4821BE60761442C94E047E56514E26FF1EFB8F8692ADEE42E931",
+      "StoredSha256": "CE3B30DF8F885AB71385458C30A2D549CE5C80471D4046953EF333FE4A572ED4"
+    },
+    {
+      "Source": "artifacts/native-map505/reentry516-dual-after-allocator-final/execution-admission.json",
+      "Stored": "reentry/execution-admission.json.gz",
+      "RawSha256": "DA1A171A9003D9F4EBBDC103A6750A1FCA262B60AD547DEE8539E82C9B037CC2",
+      "StoredSha256": "2B3C39CFDBADF2AB2585D971F24D95C68B9DF21FE3CB3388EAF8AD3C693D7A8A"
+    },
+    {
+      "Source": "artifacts/native-map505/reentry516-dual-after-allocator-final/original/returned-default.etf",
+      "Stored": "reentry/original/returned-default.etf.gz",
+      "RawSha256": "6CC01AD7BAC1C43BDFBC14FDB2D4566325EB06C9032328D067CE65E13C794E04",
+      "StoredSha256": "024EA80548EBBD8066B0D4C5370FD6EDA83548F6DAFCC2C56FB31E52A145BD5C"
+    },
+    {
+      "Source": "artifacts/native-map505/reentry516-dual-after-allocator-final/original/returned.etf",
+      "Stored": "reentry/original/returned.etf.gz",
+      "RawSha256": "6CC01AD7BAC1C43BDFBC14FDB2D4566325EB06C9032328D067CE65E13C794E04",
+      "StoredSha256": "024EA80548EBBD8066B0D4C5370FD6EDA83548F6DAFCC2C56FB31E52A145BD5C"
+    },
+    {
+      "Source": "artifacts/native-map505/reentry516-dual-after-allocator-final/ordinary-runtime/ordinary/returned-default.etf",
+      "Stored": "reentry/ordinary-runtime/ordinary/returned-default.etf.gz",
+      "RawSha256": "6CC01AD7BAC1C43BDFBC14FDB2D4566325EB06C9032328D067CE65E13C794E04",
+      "StoredSha256": "024EA80548EBBD8066B0D4C5370FD6EDA83548F6DAFCC2C56FB31E52A145BD5C"
+    },
+    {
+      "Source": "artifacts/native-map505/reentry516-dual-after-allocator-final/ordinary-runtime/ordinary/returned.etf",
+      "Stored": "reentry/ordinary-runtime/ordinary/returned.etf.gz",
+      "RawSha256": "6CC01AD7BAC1C43BDFBC14FDB2D4566325EB06C9032328D067CE65E13C794E04",
+      "StoredSha256": "024EA80548EBBD8066B0D4C5370FD6EDA83548F6DAFCC2C56FB31E52A145BD5C"
+    },
+    {
+      "Source": "artifacts/native-map505/reentry516-dual-after-allocator-final/ordinary-runtime/reviewed/returned-default.etf",
+      "Stored": "reentry/ordinary-runtime/reviewed/returned-default.etf.gz",
+      "RawSha256": "6CC01AD7BAC1C43BDFBC14FDB2D4566325EB06C9032328D067CE65E13C794E04",
+      "StoredSha256": "024EA80548EBBD8066B0D4C5370FD6EDA83548F6DAFCC2C56FB31E52A145BD5C"
+    },
+    {
+      "Source": "artifacts/native-map505/reentry516-dual-after-allocator-final/ordinary-runtime/reviewed/returned.etf",
+      "Stored": "reentry/ordinary-runtime/reviewed/returned.etf.gz",
+      "RawSha256": "6CC01AD7BAC1C43BDFBC14FDB2D4566325EB06C9032328D067CE65E13C794E04",
+      "StoredSha256": "024EA80548EBBD8066B0D4C5370FD6EDA83548F6DAFCC2C56FB31E52A145BD5C"
+    },
+    {
+      "Source": "artifacts/native-map505/reentry516-dual-after-allocator-final/owned-runtime/ordinary/returned-default.etf",
+      "Stored": "reentry/owned-runtime/ordinary/returned-default.etf.gz",
+      "RawSha256": "6CC01AD7BAC1C43BDFBC14FDB2D4566325EB06C9032328D067CE65E13C794E04",
+      "StoredSha256": "024EA80548EBBD8066B0D4C5370FD6EDA83548F6DAFCC2C56FB31E52A145BD5C"
+    },
+    {
+      "Source": "artifacts/native-map505/reentry516-dual-after-allocator-final/owned-runtime/ordinary/returned.etf",
+      "Stored": "reentry/owned-runtime/ordinary/returned.etf.gz",
+      "RawSha256": "6CC01AD7BAC1C43BDFBC14FDB2D4566325EB06C9032328D067CE65E13C794E04",
+      "StoredSha256": "024EA80548EBBD8066B0D4C5370FD6EDA83548F6DAFCC2C56FB31E52A145BD5C"
+    },
+    {
+      "Source": "artifacts/native-map505/reentry516-dual-after-allocator-final/owned-runtime/reviewed/returned-default.etf",
+      "Stored": "reentry/owned-runtime/reviewed/returned-default.etf.gz",
+      "RawSha256": "6CC01AD7BAC1C43BDFBC14FDB2D4566325EB06C9032328D067CE65E13C794E04",
+      "StoredSha256": "024EA80548EBBD8066B0D4C5370FD6EDA83548F6DAFCC2C56FB31E52A145BD5C"
+    },
+    {
+      "Source": "artifacts/native-map505/reentry516-dual-after-allocator-final/owned-runtime/reviewed/returned.etf",
+      "Stored": "reentry/owned-runtime/reviewed/returned.etf.gz",
+      "RawSha256": "6CC01AD7BAC1C43BDFBC14FDB2D4566325EB06C9032328D067CE65E13C794E04",
+      "StoredSha256": "024EA80548EBBD8066B0D4C5370FD6EDA83548F6DAFCC2C56FB31E52A145BD5C"
+    }
+  ],
+  "CurrentSourceBindings": [
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.OwnedRoots516.cs",
+      "Sha256": "534ADB6E337F51CABD8AE6E4C5E48B765761FFFD862189977875DEFD5FFFCFD8"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.cs",
+      "Sha256": "E65BF3EC376500D944D89F0A90D97B8D0508B1289420EF36B9A3D5EA1B9509D9"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeEnvironmentCallbacks.cs",
+      "Sha256": "B071F2E5213A9B46C37F619ED79FA4510E2E59A0587DD20BE672F4038ED8BDE0"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLibraryOwner.cs",
+      "Sha256": "5BDDE5062A012EFA068A7092061BF128C1CCAF0A09ABFB29A341F33B3662C14D"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeTermCopy504.cs",
+      "Sha256": "0180D65A5881CC69A5C10D902EE63AEF6C7138BD555AEF8545EB22FAA62CBC1D"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.GarbageCollection.cs",
+      "Sha256": "04B9EC5D240C39D02700A1C15E9C17711D535A97BB3C85460C4DD4D67DC0ED10"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Generations508.cs",
+      "Sha256": "84B5651F081A6A2083578D2DFBBB3FAACEF6461752A916B7E5E7140C48922F77"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap506.cs",
+      "Sha256": "67390A4CE3BD73B76BA5A5D7CF8D0ABCACFDCFBD2A2C3BF584D3C97988ABA729"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermSlab506.cs",
+      "Sha256": "D7F9957D83D3DE6E651CF02D95DC36A65DF4916AD50C9D1DC7D02BD7A9A96275"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Harness/Program.cs",
+      "Sha256": "95783AD01F4410C753D87ACA3DB8563B4928559424BB3713DE1AAD082DCF6187"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Memory/AllocatorFirstFit519Checks.cs",
+      "Sha256": "46F0E6E8C2E90E7CC8C041C3658C905BB229507756C84BCD46FED17D552F231F"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Memory/AllocatorFirstFit519Names.cs",
+      "Sha256": "59AEF797B8DA670C1AE8CB37746C467AFD24111CBAAA69FF997297B5D7A9CA2B"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Memory/PrivateSelfGc519Checks.cs",
+      "Sha256": "75D988C23BB898481104B0822512265970DF26361A53FC866809A7FC8792D53E"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Memory/PrivateSelfGc519Names.cs",
+      "Sha256": "A90953C20A427933CF2AC23702F20EEAB35311027A71E65CD8531AEFEE2BB031"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Native/Nif/Memory/NifAppendOnly516Checks.cs",
+      "Sha256": "EF770AAD2A9844B7D020170E1880D307FBEEFBC95C70FD6321BD8529A2774274"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Native/Nif/Memory/NifAppendOnly516Names.cs",
+      "Sha256": "4424CEC9B2E158CE49D3CAA5FBF9C85EDB87600466E2E7851AF54A06F8ED5F7C"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Native/Nif/Memory/NifEnvironmentRoots516Checks.cs",
+      "Sha256": "D44D5788386F656517C4BF630F73C5E923649EFE7FDEF2F826BE60E8BD3787EF"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Native/Nif/Memory/NifEnvironmentRoots516Names.cs",
+      "Sha256": "26C36CC513556104B662B73090792B981C8B3270766099A193271F75AB928AEC"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Native/Nif/Memory/UnknownNifGuest516Term.cs",
+      "Sha256": "D7B9E7143FD894AB26644D8043394F4705787C88D710F11F014F3F1A3186EB67"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifMapFamily504Observations/collect.py",
+      "Sha256": "9CE0EB3EA32700A756A647C6B08B6AE5DE8FC456662B0BBCF1AD64E2BF2C435D"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifMapFamily504Observations/source-plan.json",
+      "Sha256": "27AC013A16D6A0F146B860D9907916EFE48B1642C487D9DBC7EA6518330FACC3"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifMapMaterialized505Observations/collect.py",
+      "Sha256": "F6DEADDFA7C402A44C3AC6BA297B93534405BF9996E2804F33F8F4D7EF92D106"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifMapMaterialized505Observations/seal-plan.py",
+      "Sha256": "5D00AC3028A8A91105887E6BC10801B149F52948D849B3499D779927C5679F81"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifMapMaterialized505Observations/source-plan.json",
+      "Sha256": "B4872E739FCD1015E9BDE3B89D7ED9EC78E76617487D51FC2098AC7DEE8F550F"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifMapReentry505Observations/collect.py",
+      "Sha256": "6C80BE5D36BB9D4602D8C422EFC80FD0EE3EA254E83B95E76475292E98BBA2F0"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifMapReentry505Observations/source-plan.json",
+      "Sha256": "4064F3FA04350872DF3D1BD347588CCEDA49C772D6D2DE332E946BC26A528A7E"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapFamily504CallbackDriver.cs",
+      "Sha256": "E6084FC723FD07DB83EA75B2F21704F824BD281DBE4714D533027B96BA12F801"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapMaterialized505CallbackDriver.cs",
+      "Sha256": "C5AD524F002CFB8AC40BBC289C2EF1D32BD743691DA2A09C6FAA1C9201D17EFF"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifNativeBackend/MapReentry505CallbackDriver.cs",
+      "Sha256": "1AB0FD44A5A579C1ABB1CE096C065798BFF8E384498449A05BE46BDF84F1B575"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifNativeBackend/NativeOwned516Profile.cs",
+      "Sha256": "7A2AB338DC20C6EED0617F5D5B4D534BD6FAFF8A9868D96B11009E9C124A6A5F"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifNativeBackend/NativeOwned516ProfileNames.cs",
+      "Sha256": "6ADAA1A081B605796B8F968C191627700C43A9FA5E54B08DCFF05532E389892E"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Sha256": "12FEED6F9205675BC7C6C8AE6ADA3C705DE1E8983C761A21A43353BE721043DE"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Sha256": "2EF16C5E93FADE085D46152D0F59A987B037DFB6CE7026C61D7EEBBDC351E81B"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.OwnedGuest506Observations/source-plan.json",
+      "Sha256": "40F029813BF716DAB476C82920E1247F6C69F28E9C138D29B9EAC4D0533E8512"
+    }
+  ]
+}

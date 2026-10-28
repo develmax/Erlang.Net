@@ -9,7 +9,8 @@ internal static class MapFamily504CallbackDriver
 {
     internal static async Task Run(string[] arguments)
     {
-        Require(arguments.Length == 4 && OperatingSystem.IsWindows());
+        Require(arguments.Length is 4 or 5 && OperatingSystem.IsWindows());
+        bool ownedProfile516 = NativeOwned516Profile.Requested(arguments);
         Verify(arguments[0], arguments[1]);
         var admission = JsonSerializer.Deserialize<MapFamily504CallbackAdmission>(File.ReadAllBytes(arguments[0]))
             ?? throw new InvalidOperationException(MapFamily504CallbackNames.Broken);
@@ -49,8 +50,9 @@ internal static class MapFamily504CallbackDriver
         int reviewedPolicyCalls = 0;
         int expectedPolicyCalls = route == MapFamily504CallbackNames.Reviewed ? 1 : 0;
         using var compiled = GeneratedModuleCompiler.Compile(File.ReadAllText(admission.ErlangSourcePath));
-        await using (var runtime = new ProcessRuntime())
+        await using (var runtime = NativeOwned516Profile.Create(ownedProfile516))
         {
+            Require(runtime.OwnedTermsPilot506 == ownedProfile516);
             compiled.Definition.Register(runtime.Modules);
             var image = runtime.Modules.CurrentCodeImage(MapFamily504CallbackNames.Module)
                 ?? throw new InvalidOperationException(MapFamily504CallbackNames.Broken);
@@ -124,6 +126,7 @@ internal static class MapFamily504CallbackDriver
             {
                 Status = MapFamily504CallbackNames.Retired,
                 Route = route,
+                OwnedTermsPilot506 = ownedProfile516,
                 ReviewedPolicyInvocationCount = Volatile.Read(ref reviewedPolicyCalls),
                 AdmissionSha256 = arguments[1],
                 admission.BuildReceiptSha256,
