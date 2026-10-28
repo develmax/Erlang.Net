@@ -183,9 +183,18 @@ internal static class Readiness
             baseline.Commit
         ))
             markdown.AppendLine().AppendLine(NativeInfrastructureNames.Link);
+        MfaCompatibilityLedger outputLedger = compatibility with
+        {
+            Entries = registered.Select(entry => compatibilityByMfa[Key(entry.Module, entry.Function, entry.Arity)]).ToArray()
+        };
         await File.WriteAllTextAsync(
             Path.Combine(output, MfaCompatibilityNames.Report),
-            MfaCompatibilityMarkdown.Generate(compatibility with { Entries = registered.Select(entry => compatibilityByMfa[Key(entry.Module, entry.Function, entry.Arity)]).ToArray() }),
+            MfaCompatibilityMarkdown.Generate(outputLedger),
+            new UTF8Encoding(false)
+        );
+        await File.WriteAllTextAsync(
+            Path.Combine(output, MfaCompatibilityIndexNames.File),
+            MfaCompatibilityIndexMarkdown.Generate(outputLedger),
             new UTF8Encoding(false)
         );
         await File.WriteAllTextAsync(Path.Combine(output, ReadinessText.ReportJson), JsonSerializer.Serialize(data, JsonOptions) + "\n", new UTF8Encoding(false));

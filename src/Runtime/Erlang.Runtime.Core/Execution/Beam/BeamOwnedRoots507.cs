@@ -62,6 +62,10 @@ internal sealed class BeamOwnedRoots507 : IDisposable
             throw new InvalidDataException(BeamConstructedCommit548Names.CandidateMismatch);
     }
 
+    // Proof of an existing live published slot, never a type/cache inference.
+    internal bool HoldsPublishedTerm550(int index, Term value)
+        => published[index] && ReferenceEquals(frame.Read(Current(index)), value);
+
     internal void Commit(int index)
     {
         frame.Clear(Current(index));

@@ -1,8 +1,8 @@
 # Remaining work
 
-## Current checkpoint521
+## Current checkpoint522
 
-See [checkpoint521](checkpoint-521.md):708 registered /180 full /504 pending /24 known differences, all deltas0. Constructor candidate removes duplicate graph publication, passes91 applicable checks in its separate composition, and retains rollback/identity controls. Final original comparisons/publication CI remain pending. [Checkpoint520](checkpoint-520.md) covers315 original proc_lib contracts in both profiles; PR73 CI552 remains in progress.
+See [checkpoint522](checkpoint-522.md):708 registered /180 full /504 pending /24 known differences, deltas0. Shared-ledger index generation repairs stale16/30/541 presentation. Current-root get_list custody passes95 applicable publication checks; final original comparisons/publication CI remain pending. The complete24-entry next batch is19 shared resource-policy consumers,1 NIF upgrade and4 crash/hibernate contracts. Part520 CI552 is fully green9171/9171/all3jobs; Part521 CI553 is in progress.
 
 ## Historical Part504 contract queue
 
