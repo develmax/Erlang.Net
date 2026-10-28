@@ -11,7 +11,7 @@ public sealed partial class ProcessContext
     private async ValueTask<Term> AwaitGuestNif535(NifImageCall native, IReadOnlyList<Term> arguments)
     {
         using var owned = EnterOwnedInvocation506(arguments)!;
-        owned.BindingKind507 = OwnedBindingKind507.NativeGuest535;
+        owned.BindNativeGuestResult535(native);
         try
         {
             Term result = await native.InvokeAsync(this, owned.Arguments);

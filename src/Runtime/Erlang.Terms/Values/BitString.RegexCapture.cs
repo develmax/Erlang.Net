@@ -6,7 +6,7 @@ public sealed partial class BitString
     {
         backing.Pin();
         if (!IsBinary
-            || bitOffset % BitStringLayout.BitsPerByte != 0
+            || LogicalBitOffset577 % BitStringLayout.BitsPerByte != 0
             || BitLength <= BitStringStorage.HeapBytes * BitStringLayout.BitsPerByte)
             return null;
 

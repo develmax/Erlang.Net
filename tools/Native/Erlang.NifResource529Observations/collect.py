@@ -22,7 +22,7 @@ def es(p):
  s=str(p).replace("\\","/")
  if any(ord(c)<32 or ord(c)>126 for c in s): raise ValueError("ASCII acquisition paths required")
  return json.dumps(s)
-def expr(job, spec, libraries, directory, installed, modules):
+def expr(job, spec, libraries, directory, installed, modules, stock):
  # Entire actual result is encoded in both profiles, never normalized.
  fresh="<<>>" if job=="family527" else "element(2,file:read_file(\"native_resource_handoff528.beam\"))"
  first=es(libraries[0].with_suffix(""));second=es(libraries[-1].with_suffix(""))
@@ -35,12 +35,20 @@ def expr(job, spec, libraries, directory, installed, modules):
   assert spec['Observer']=='resource_takeover_observer529' and spec['ObserverArity']==6
   call='resource_takeover_observer529:run('+job+','+first+','+fresh+','+second+','+es(str(marker)+'-first')+','+es(str(marker)+'-second')+')'
  files=",".join(es(x+".erl") for x in modules)
+ stock_pairs=','.join('{'+item['Module']+',filename:absname('+es(item['ProviderPath'])+')}' for item in stock)
+ stock_evidence=('Stock=['+stock_pairs+'],W("stock-executing-owners.etf",[begin '
+  +'Running=M:module_info(md5),P=filename:absname(code:which(M)),'
+  +'{ok,{M,Running}}=beam_lib:md5(P),'
+  +'{M,P,Running,M:module_info(compile),M:module_info(attributes),M:module_info(exports)} '
+  +'end||{M,P}<-Stock]),')
+
  return ('W=fun(N,V)->ok=file:write_file(N,term_to_binary(V,[{minor_version,2}])) end,try '
   +'Expected=filename:absname('+es(installed)+'),Expected=filename:absname(code:root_dir()),8=erlang:system_info(wordsize),'
   +'W("metadata.etf",{Expected,erlang:system_info(version),erlang:system_info(system_architecture)}),'
   +'C=[compile:file(F,[return_errors,return_warnings])||F<-['+files+']],W("compile.etf",C),'
   +'true=lists:all(fun({ok,_,_})->true;({ok,_})->true;(_)->false end,C),'
   +'W("executing-owners.etf",[{M,code:which(M),M:module_info(md5),M:module_info(compile),M:module_info(attributes),M:module_info(exports)}||M<-['+','.join(modules)+']]),'
+  +stock_evidence
   +'V='+call+','
   +'W("observed.etf",V),ok=file:write_file("observed-deterministic.etf",term_to_binary(V,[deterministic,{minor_version,2}])),'
   +'Cleanup=[{M,code:delete(M),code:purge(M),code:is_loaded(M)}||M<-['+','.join(modules)+']],W("cleanup.etf",Cleanup),'
@@ -125,12 +133,25 @@ def main():
    try:
     d=out/('original-'+name);d.mkdir();libs=[out/('build-'+v)/'resource529.dll' for v in job['Variants']]
     for module in job['Modules']:shutil.copyfile(TOOL/'fixtures'/(module+'.erl'),d/(module+'.erl'))
-    command=[str(installed/'bin/erl.exe'),'+S','1:1','+A','1','+SDcpu','1','+SDio','2','-noshell','-noinput','-boot','no_dot_erlang','-pa',str(d),'-eval',expr(name,job,libs,d,installed,job['Modules'])]
+    stock=[]
+    stock_directory=d/'stock-images'
+    stock_directory.mkdir()
+    for module in job.get('StockModules',['timer']):
+     candidates=list((installed/'lib').glob(('kernel-*' if module=='erts_debug' else 'stdlib-*')+'/ebin/'+module+'.beam'))
+     assert len(candidates)==1,('Provider stock image',module,candidates)
+     source=candidates[0].resolve();relative=source.relative_to(installed).as_posix()
+     assert sha(source)==expected[relative]
+     copied=stock_directory/(module+'.beam');shutil.copyfile(source,copied)
+     assert sha(copied)==expected[relative]
+     stock.append({'Module':module,'ProviderPath':str(source),'ProviderRelativePath':relative,'Path':str(copied.resolve()),'Sha256':sha(copied),'Bytes':copied.stat().st_size})
+    save(d/'stock-images.json',stock)
+
+    command=[str(installed/'bin/erl.exe'),'+S','1:1','+A','1','+SDcpu','1','+SDio','2','-noshell','-noinput','-boot','no_dot_erlang','-pa',str(d),'-eval',expr(name,job,libs,d,installed,job['Modules'],stock)]
     ok=phase('original-'+name,command,d)
-    required=['observed.etf','observed-deterministic.etf','compile.etf','metadata.etf','executing-owners.etf','cleanup.etf']+[m+'.beam' for m in job['Modules']]
+    required=['observed.etf','observed-deterministic.etf','compile.etf','metadata.etf','executing-owners.etf','stock-executing-owners.etf','stock-images.json','cleanup.etf']+[m+'.beam' for m in job['Modules']]
     missing=[s for s in required if not (d/s).is_file()]
     if missing:ok=False;errors.append(name+' missing '+repr(missing))
-    inventory=[{'Path':str(f.resolve()),'Sha256':sha(f),'Bytes':f.stat().st_size} for f in sorted(d.iterdir()) if f.is_file()]
+    inventory=[{'Path':str(f.resolve()),'Sha256':sha(f),'Bytes':f.stat().st_size} for f in sorted(d.rglob('*')) if f.is_file()]
     save(d/'artifacts.json',inventory);originals[name]={'Succeeded':ok,'InventorySha256':sha(d/'artifacts.json')}
    except Exception as e:
     errors.append(name+' independent original: '+repr(e));originals[name]={'Succeeded':False,'Error':repr(e)}
@@ -144,7 +165,22 @@ def main():
     try:
      d=out/('original-'+name);libs=[out/('build-'+v)/'resource529.dll' for v in job['Variants']]
      images=[{'Module':m,'Path':str((d/(m+'.beam')).resolve()),'Sha256':sha(d/(m+'.beam'))} for m in job['Modules']]+dep
-     ad={'Status':'RESOURCE529_SOURCE_BOUND','ProtocolSchemaVersion':2,'Pin':PIN,'Job':name,'Images':images,'Dependencies':[r['Module'] for r in images], 'Libraries':[{'Path':str(lib.resolve()),'Sha256':sha(lib),'BuildReceiptPath':str((lib.parent/'build-receipt.json').resolve()),'BuildReceiptSha256':sha(lib.parent/'build-receipt.json')} for lib in libs], 'OriginalRawPath':str((d/'observed.etf').resolve()),'OriginalDeterministicPath':str((d/'observed-deterministic.etf').resolve()),'OriginalInventoryPath':str((d/'artifacts.json').resolve()),'OriginalInventorySha256':sha(d/'artifacts.json'),'PlanSha256':sha(planpath),'Inputs':backend_inputs+[{'Path':str((out/('build-'+v)/'build-receipt.json').resolve()),'Sha256':sha(out/('build-'+v)/'build-receipt.json')} for v in job['Variants']]}
+     stock=json.loads((d/'stock-images.json').read_bytes())
+     stock_images=[]
+     for item in stock:
+      assert item['Sha256']==expected[item['ProviderRelativePath']]==sha(item['Path'])
+      assert Path(item['Path']).resolve().is_relative_to((d/'stock-images').resolve())
+      stock_images.append({key:item[key] for key in ['Module','Path','Sha256']})
+     by_module={}
+     for item in images+stock_images:
+      prior=by_module.get(item['Module'])
+      assert prior is None or prior['Sha256']==item['Sha256'],('Conflicting image',item['Module'])
+      by_module[item['Module']]=item
+     images=list(by_module.values())
+     reader=load('resource529_imports',TOOL/'replay-family.py')
+     dependencies=sorted({item['Module'] for item in images}|{entry['Module'] for item in images for entry in reader.imports(item['Path'])})
+
+     ad={'Status':'RESOURCE529_SOURCE_BOUND','ProtocolSchemaVersion':2,'Pin':PIN,'Job':name,'Images':images,'Dependencies':dependencies, 'Libraries':[{'Path':str(lib.resolve()),'Sha256':sha(lib),'BuildReceiptPath':str((lib.parent/'build-receipt.json').resolve()),'BuildReceiptSha256':sha(lib.parent/'build-receipt.json')} for lib in libs], 'OriginalRawPath':str((d/'observed.etf').resolve()),'OriginalDeterministicPath':str((d/'observed-deterministic.etf').resolve()),'OriginalInventoryPath':str((d/'artifacts.json').resolve()),'OriginalInventorySha256':sha(d/'artifacts.json'),'PlanSha256':sha(planpath),'Inputs':backend_inputs+[{'Path':str((out/('build-'+v)/'build-receipt.json').resolve()),'Sha256':sha(out/('build-'+v)/'build-receipt.json')} for v in job['Variants']]}
     except Exception as e:
      errors.append(name+' managed admission preparation: '+repr(e))
      for route in ['ordinary','reviewed']:

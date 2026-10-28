@@ -162,6 +162,48 @@ Test(
     Erlang.Tests.NativeResourceTypeRetirement575Checks.HeldPayloadAndInvocation
 );
 
+Test(Erlang.Tests.NativeMagicCleanup576Names.Test, Erlang.Tests.NativeMagicCleanup576Checks.EarlyFailureRestoresAndDrains);
+
+Test(
+    Erlang.Tests.ResourceBinary577TestNames.NestedRecipeCase,
+    Erlang.Tests.ResourceBinary577Checks.NestedRecipeRetainsOriginalBinRef
+);
+
+Test(Erlang.Tests.ResourceBinary577TestNames.HeaderCase, Erlang.Tests.ResourceBinary577Checks.HeaderReadersAndCorruption);
+Test(Erlang.Tests.ResourceBinary577TestNames.SharingCase, Erlang.Tests.ResourceBinary577Checks.SliceSharingAndGenerations);
+Test(Erlang.Tests.ResourceBinary577TestNames.EscapeCase, Erlang.Tests.ResourceBinary577Checks.RollbackAndHostEscape);
+Test(
+    Erlang.Tests.ResourceBinary577TestNames.BoundaryCase,
+    Erlang.Tests.ResourceBinary577Checks.CanonicalPartAndOpaqueReregister
+);
+
+Test(Erlang.Tests.BeamMixedNative580Names.IdentityCase, Erlang.Tests.BeamMixedNative580Checks.IdentityAndCapture);
+Test(Erlang.Tests.BeamMixedNative580Names.OpaqueCase, Erlang.Tests.BeamMixedNative580Checks.OpaqueDirectAndClosure);
+Test(Erlang.Tests.BeamMixedNative580Names.PublicCase, Erlang.Tests.BeamMixedNative580Checks.PublicReregister);
+
+Test(Erlang.Tests.BeamMixedNative580Names.PredicateCase, Erlang.Tests.BeamMixedNative580Checks.PublicPredicateReregister);
+
+Test(Erlang.Tests.NativeResult582Names.Case, Erlang.Tests.NativeResult582Checks.RefusalsWithoutPublication);
+
+Test(
+    Erlang.Tests.NativeMagicReference576Names.PhysicalCase,
+    Erlang.Tests.NativeMagicReference576Checks.PhysicalAliasAndReader
+);
+Test(
+    Erlang.Tests.NativeMagicReference576Names.RollbackCase,
+    Erlang.Tests.NativeMagicReference576Checks.GenerationsAndRollback
+);
+Test(
+    Erlang.Tests.NativeMagicReference576Names.HostCase,
+    Erlang.Tests.NativeMagicReference576Checks.HostEscapeAndForeignCustody
+);
+
+Test(Erlang.Tests.NativeRawAddress571TestNames.LiveCase, Erlang.Tests.NativeRawAddress571Checks.LiveCellsAndRanges);
+Test(
+    Erlang.Tests.NativeRawAddress571TestNames.RetirementCase,
+    Erlang.Tests.NativeRawAddress571Checks.ForeignStaleAndRetirement
+);
+
 Test(Erlang.Tests.SpawnWorker546Names.Test, Erlang.Tests.SpawnWorker546Checks.Run);
 Test(Erlang.Tests.SpawnResource540Names.ValidationTest, Erlang.Tests.SpawnResource540Checks.Validation);
 Test(Erlang.Tests.SpawnResource540Names.InternalTest, Erlang.Tests.SpawnResource540Checks.InternalErrors);

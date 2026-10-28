@@ -7,18 +7,36 @@ internal sealed partial class ProcessTermHeap506
     internal ProcessRuntime Runtime524 => runtime;
 
     // Caller owns Gate and keeps the complete input graph rooted during admission.
-    internal ProcessNativePublication524? PrepareNativeHeaders524(Term graph)
+    internal ProcessNativePublication524? PrepareNativeHeaders524(Term graph, bool legacyHeaders576 = true)
     {
         if (!NativeResourceAddresses524.AnyLive524)
             return null;
         var seen = new HashSet<Term>(ReferenceEqualityComparer.Instance);
         var pending = new Stack<Term>();
         var targets = new List<(Term Term, NativeResourcePayload524 Payload)>();
+        var promotions = new List<NativeOffheapHeader576>();
+        var binaryPromotions = new List<ResourceBinaryDescriptor577>();
         pending.Push(graph);
         while (pending.TryPop(out Term? value))
         {
             if (!seen.Add(value)) continue;
-            if (NativeResourceRoots524.Direct524(value) is { } payload && !nativeHeaders524.ContainsKey(value))
+            if (value is ResourceReferenceTerm { OwnedStorage562: { } storage } && !ReferenceEquals(storage.Owner, this))
+                throw new InvalidOperationException(ProcessTerm506Names.ForeignRoot);
+            bool actualMagic = HasOwnedMagicReference576(value);
+            if (actualMagic && value is ResourceReferenceTerm { OwnedStorage562: ProcessTermSequence506 block })
+            {
+                NativeOffheapHeader576 descriptor = RequireMagicReference576(block);
+                if (!descriptor.Published)
+                    promotions.Add(descriptor);
+            }
+            bool actualBinary = TryGetResourceBitsDescriptor577(value, out var resourceBits);
+            if (actualBinary)
+            {
+                if (!resourceBits!.Published) binaryPromotions.Add(resourceBits);
+                if (!resourceBits.BinRef.Published) promotions.Add(resourceBits.BinRef);
+            }
+            if (NativeResourceRoots524.Direct524(value, runtime) is { } payload
+                && legacyHeaders576 && !actualMagic && !actualBinary && !nativeHeaders524.ContainsKey(value))
             {
                 if (!ReferenceEquals(runtime, payload.Runtime))
                     throw new NotSupportedException(NativeResource524Names.Foreign);
@@ -26,10 +44,15 @@ internal sealed partial class ProcessTermHeap506
             }
             foreach (Term child in NativeMapOwnedRoots510.Children(value)) pending.Push(child);
         }
-        if (targets.Count == 0) return null;
+        if (targets.Count == 0 && promotions.Count == 0 && binaryPromotions.Count == 0) return null;
         nativeHeaders524.EnsureCapacity(checked(nativeHeaders524.Count + targets.Count));
         var inserted = new ProcessNativeHeader524[targets.Count];
-        var publication = new ProcessNativePublication524(this, inserted);
+        var publication = new ProcessNativePublication524(
+            this,
+            inserted,
+            promotions.ToArray(),
+            binaryPromotions.ToArray()
+        );
         int admitted = 0;
         try
         {

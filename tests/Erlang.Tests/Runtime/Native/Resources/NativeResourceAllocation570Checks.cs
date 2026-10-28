@@ -44,8 +44,8 @@ internal static class NativeResourceAllocation570Checks
                 binarySlot,
                 binary
             );
-            // Native semantic headers currently have no registered slab cells.
-            NativeResource524Access.Check(Occupied(Property(heap, Allocation)) == Occupied(initialCells));
+            // Resource bits now have actual BinRef/SubBits cells and readers.
+            NativeResource524Access.Check(Occupied(Property(heap, Allocation)) == Occupied(initialCells) + ResourceBinaryAllocationWords);
             int tupleSlot = (int)Call(frame, Reserve)!;
             Call(
                 frame,
@@ -53,7 +53,7 @@ internal static class NativeResourceAllocation570Checks
                 tupleSlot,
                 Term.Tuple(binary, binary)
             );
-            NativeResource524Access.Check(Occupied(Property(heap, Allocation)) == Occupied(initialCells) + TupleAllocationWords);
+            NativeResource524Access.Check(Occupied(Property(heap, Allocation)) == Occupied(initialCells) + TupleAllocationWords + 3 * ResourceBinaryAllocationWords);
             // Two views/aliases retain one actual backing allocation.
             CheckDomain(domain, initialBytes + actualNativeBytes, initialCount + 1);
             Call(payload, ReleaseNative);
@@ -69,7 +69,7 @@ internal static class NativeResourceAllocation570Checks
             NativeResource524Access.Check(Number(Call(domain, DomainSnapshot)!, NativeReclaimed) == initialNativeReclaimed + 1);
             object reclaimed = Property(heap, Allocation);
             NativeResource524Access.Check(Occupied(reclaimed) == Occupied(initialCells));
-            NativeResource524Access.Check(Number(reclaimed, Reclaimed) == Number(initialCells, Reclaimed) + TupleAllocationWords);
+            NativeResource524Access.Check(Number(reclaimed, Reclaimed) == Number(initialCells, Reclaimed) + TupleAllocationWords + 3 * ResourceBinaryAllocationWords);
         }
         catch (Exception error)
         {

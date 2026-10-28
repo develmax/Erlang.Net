@@ -287,6 +287,8 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
     {
         if (!closing || frames.Count != 0)
             return;
+        RetireMagicReferences576();
+        RetireResourceBinaryDescriptors577();
         RetireNativeHeaders524();
         foreach (ProcessTermSlab506 slab in slabs)
             slab.Cells.Dispose();
@@ -307,6 +309,7 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
         FloatTerm number => number.OwnedStorage556,
         Integer number => number.OwnedStorage559,
         ReferenceTerm reference => reference.OwnedStorage562,
+        BitString binary => binary.OwnedStorage577,
         _ => null
     };
 }

@@ -76,11 +76,36 @@ def main():
  provider_manifest=admitted(provider['ExecutionManifestPath'],provider['ExecutionManifestSha256']);installed=Path(provider['InstalledOtpRoot']).resolve()
  expected={i['Path'].replace('\\','/'):i['Sha256'] for i in json.loads(provider_manifest.read_bytes())};assert len(expected)==6427
  before=json.loads((original/'provider-before.json').read_bytes());after=json.loads((original/'provider-after.json').read_bytes());assert before==after==expected
- # Only reachable non-native dependency is genuine stock timer:sleep/1.
- candidates=list((installed/'lib').glob('stdlib-*/ebin/timer.beam'));assert len(candidates)==1
- timer=candidates[0].resolve();admitted(timer,expected[timer.relative_to(installed).as_posix()])
- images=[{'Module':n,'Path':str((captured/(n+'.beam')).resolve()),'Sha256':sha(captured/(n+'.beam'))} for n in ['native_resource_family527','resource_observer529']]
- images.append({'Module':'timer','Path':str(timer),'Sha256':sha(timer)})
+ # Historical receipts remain readable. Fresh combined observations require
+ # independently inventoried fixture and executing provider-stock evidence.
+ fixture_modules=['native_resource_family527','resource_observer529']
+ fresh_modules=['magic_alias_observer576','resource_binary_observer577']
+ present=[(captured/(module+'.beam')).is_file() for module in fresh_modules]
+ assert all(present) or not any(present),'Incomplete combined observer images'
+ if all(present):
+  fixture_modules+=fresh_modules
+  required_fresh=['stock-images.json','stock-executing-owners.etf']+[module+'.beam' for module in fresh_modules]
+  assert all(any(Path(item['Path'])==captured/name for item in original_inventory) for name in required_fresh)
+ images=[{'Module':module,'Path':str((captured/(module+'.beam')).resolve()),'Sha256':sha(captured/(module+'.beam'))} for module in fixture_modules]
+ stocks=[]
+ if (captured/'stock-images.json').is_file():
+  stocks=json.loads((captured/'stock-images.json').read_bytes())
+  expected_stock={'timer','erts_debug','gb_trees'} if all(present) else {'timer'}
+  assert {item['Module'] for item in stocks}==expected_stock and len(stocks)==len(expected_stock)
+  for item in stocks:
+   source=(installed/item['ProviderRelativePath']).resolve()
+   assert source.is_relative_to(installed) and source==Path(item['ProviderPath']).resolve()
+   assert sha(source)==expected[item['ProviderRelativePath']]==item['Sha256']
+   copy=admitted(item['Path'],item['Sha256'])
+   assert copy.is_relative_to(captured/'stock-images')
+   assert any(Path(entry['Path'])==copy and entry['Sha256']==item['Sha256'] for entry in original_inventory)
+   images.append({key:item[key] for key in ['Module','Path','Sha256']})
+ else:
+  assert not all(present),'Fresh combined observer requires stock execution evidence'
+  candidates=list((installed/'lib').glob('stdlib-*/ebin/timer.beam'));assert len(candidates)==1
+  timer=candidates[0].resolve();admitted(timer,expected[timer.relative_to(installed).as_posix()])
+  images.append({'Module':'timer','Path':str(timer),'Sha256':sha(timer)})
+
  import_rows={i['Module']:imports(i['Path']) for i in images}
  dependencies=sorted({i['Module'] for i in images}|{j['Module'] for imp in import_rows.values() for j in imp})
  out=Path(x.output).resolve();assert (out.is_relative_to(ROOT/'artifacts/batch533/resource-family-entry') or out.is_relative_to(repository/'artifacts/resource529')) and not out.exists();out.mkdir(parents=True)
@@ -93,7 +118,7 @@ def main():
  sources.add(Path(__file__).resolve());source_closure=[row(p) for p in sorted(sources)];save(out/'source-inventory.json',source_closure)
  save(out/'imports.json',{'ActualImages':import_rows,'DeclaredSelection':dependencies,'NativeDefaultBindings':['erlang native BIFs','binary:referenced_byte_size/1'],'UnloadedBranches':'timer other API dependencies and observer oldhandoff branch remain unavailable unless already default-bound; accidental unavailable calls remain undef'})
  additional=[original/'completion.json',original/'selection.json',original/'provider-before.json',original/'provider-after.json',receipt,planpath,invpath,provider_path,provider_manifest,out/'backend-inventory.json',out/'source-inventory.json',out/'imports.json']
- inputs={i['Path']:i for i in binary_closure+source_closure+[row(p) for p in additional]+[row(Path(i['Path'])) for i in original_inventory]+[row(timer)]}
+ inputs={i['Path']:i for i in binary_closure+source_closure+[row(p) for p in additional]+[row(Path(i['Path'])) for i in original_inventory]+[row(Path(item['Path'])) for item in images]}
  admission={'Status':'RESOURCE529_SOURCE_BOUND','ProtocolSchemaVersion':2,'Pin':PIN,'Job':'family527','Images':images,'Dependencies':dependencies,'Libraries':[{'Path':str(library),'Sha256':sha(library),'BuildReceiptPath':str(receipt),'BuildReceiptSha256':sha(receipt)}],'OriginalRawPath':str(captured/'observed.etf'),'OriginalDeterministicPath':str(captured/'observed-deterministic.etf'),'OriginalInventoryPath':str(invpath),'OriginalInventorySha256':sha(invpath),'PlanSha256':sha(planpath),'Inputs':list(inputs.values())}
  ap=out/'admission.json';save(ap,admission)
  command=['dotnet','--fx-version','10.0.11',str(backend),'--resource529-child',str(ap),sha(ap),x.route,'private-owned',str(out/'managed')]

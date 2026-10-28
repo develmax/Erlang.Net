@@ -32,13 +32,14 @@ internal sealed partial class ProcessTermHeap506
                     return true;
                 // Reject unrepresented scalar/function/binary/foreign domains;
                 // their existing source policy remains the explicit fallback.
-                if (value is not (TupleTerm or Cons or MapTerm or HamtBitmapTerm429 or FloatTerm or Integer or ReferenceTerm))
+                if (value is not (TupleTerm or Cons or MapTerm or HamtBitmapTerm429 or FloatTerm or Integer or ReferenceTerm or BitString))
                     return false;
                 if (!flat && runtime.IsSharingLiteral425(value))
                     return true;
                 if (!IsOwnedLocal(value) || Storage(value) is not ProcessTermSequence506 payload)
                     return false;
                 bool sharedHamt = false;
+                ProcessTermSequence506? binaryReference577 = null;
                 if (value is FloatTerm)
                 {
                     _ = ReadFloat556(payload);
@@ -50,6 +51,11 @@ internal sealed partial class ProcessTermHeap506
                 else if (value is ReferenceTerm)
                 {
                     _ = ReadReferenceWords562(payload);
+                }
+                else if (value is BitString)
+                {
+                    _ = ReadResourceBits577(payload);
+                    binaryReference577 = RequireResourceBitsDescriptor577(payload).BinRef.Block;
                 }
                 else if (value is TupleTerm)
                 {
@@ -76,6 +82,13 @@ internal sealed partial class ProcessTermHeap506
                 if (!active.Add(payload.Identity))
                     return false;
                 frame = new(payload);
+                if (binaryReference577 is { } binaryReference
+                    && (flat || !known.ContainsKey(binaryReference.Identity)))
+                {
+                    ulong binaryWords = checked((ulong)binaryReference.AllocationWords526);
+                    frame.Words = checked(frame.Words + binaryWords);
+                    if (!flat) known[binaryReference.Identity] = binaryWords;
+                }
                 if (sharedHamt)
                     frame.Words = DebugSharingSizePolicy528.SharedHamtWords(frame.Words);
 

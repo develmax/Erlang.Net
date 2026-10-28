@@ -2,7 +2,7 @@ using System.Runtime.InteropServices;
 
 namespace Erlang;
 
-internal sealed unsafe class NativeResourcePayload524
+internal sealed unsafe partial class NativeResourcePayload524
 {
     private readonly object gate = new();
     private readonly NativeResourceDomain524 domain;

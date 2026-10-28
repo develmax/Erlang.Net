@@ -52,8 +52,8 @@ internal static class ErlangDataRegistrations
         Read535(ErlangDataBifNames.BinaryToList, 1, arguments => ErlangIoData.ToList(arguments[0], false));
         Add(ErlangDataBifNames.BinaryToList, 3, arguments => ErlangIoData.SliceList(arguments));
         Add(ErlangDataBifNames.BitstringToList, 1, arguments => ErlangIoData.ToList(arguments[0], true));
-        Add(ErlangDataBifNames.BinaryPart, 3, arguments => ErlangIoData.Part(arguments[0], arguments[1], arguments[2]));
-        Add(
+        Read535(ErlangDataBifNames.BinaryPart, 3, arguments => ErlangIoData.Part(arguments[0], arguments[1], arguments[2]));
+        Read535(
             ErlangDataBifNames.BinaryPart,
             2,
             arguments => arguments[1] is TupleTerm { Items.Count: 2 } range ? ErlangIoData.Part(arguments[0], range.Items[0], range.Items[1]) : throw new ErlangException(ErlangErrorReasons.BadArgument)

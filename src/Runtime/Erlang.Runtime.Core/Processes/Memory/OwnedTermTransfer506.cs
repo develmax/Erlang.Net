@@ -35,6 +35,8 @@ internal static class OwnedTermTransfer506
                     Integer when ProcessTermHeap506.IsImmediateInteger559(frame.Source) => frame.Source,
                     Integer number => heap.CreateInteger559(number.Value, construction),
                     FloatTerm number => heap.CreateFloat556(number.Value, construction),
+                    BitString binary when heap.IsNativeResourceBinary577(binary) => heap.CreateResourceBits577(binary, construction, false),
+                    ResourceReferenceTerm resource when heap.IsNativeMagicReference576(resource) => heap.CreateMagicReference576(resource, construction),
                     ReferenceTerm reference when heap.IsOrdinaryLocalReference562(reference) => heap.CreateReference562(reference, construction),
                     Cons => heap.CreateCons(frame.Copied[0], frame.Copied[1]),
                     TupleTerm { Items.Count: 0 } => frame.Source,
@@ -47,8 +49,8 @@ internal static class OwnedTermTransfer506
                     ),
                     _ => frame.Source
                 };
-            if (frame.MapPlan is null && frame.NodePlan526 is null && frame.Source is not (FloatTerm or Integer)
-                && !heap.IsOrdinaryLocalReference562(frame.Source))
+            if (frame.MapPlan is null && frame.NodePlan526 is null && frame.Source is not (FloatTerm or Integer or BitString)
+                && !heap.IsOrdinaryLocalReference562(frame.Source) && !heap.IsNativeMagicReference576(frame.Source))
                 construction.Publish(result);
             stack.Pop();
             if (stack.Count == 0)

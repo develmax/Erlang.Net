@@ -9,6 +9,9 @@ def main():
  assert plan['ProtocolSchemaVersion']==2 and plan['OriginalFirstRequired'] is True
  assert set(plan['Variants'])=={'family1','handoff1','handoff2'}
  assert set(plan['Jobs'])=={'family527','fresh_load_after_purge','genuine_upgrade'}
+ family=plan['Jobs']['family527']
+ family['Modules']=['native_resource_family527','resource_observer529','magic_alias_observer576','resource_binary_observer577']
+ family['StockModules']=['timer','erts_debug','gb_trees']
  for variant in plan['Variants'].values():
   variant['NativeSourceSha256']=sha(ROOT/variant['NativeSourcePath'])
   variant['ErlangSourceSha256']=sha(ROOT/variant['ErlangSourcePath'])

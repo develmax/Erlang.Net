@@ -10,6 +10,13 @@ internal static class ErlangBasicRegistrations
             arity,
             (context, arguments) => ValueTask.FromResult(body(context, arguments))
         );
+
+        void Read507(string name, int arity, Func<ProcessContext, IReadOnlyList<Term>, Term> body) => registry.RegisterCanonicalRead507(
+            ErlangModuleNames.Module,
+            name,
+            arity,
+            (context, arguments) => ValueTask.FromResult(body(context, arguments))
+        );
         foreach (string operation in new[] { ErlangOperators.Plus, ErlangOperators.Minus, ErlangOperators.Not, ErlangOperators.BitwiseNot })
             Add(operation, 1, (_, arguments) => ErlangOperatorValues.Unary(operation, arguments[0]));
         foreach (string operation in new[] { ErlangOperators.Plus, ErlangOperators.Minus, ErlangOperators.Multiply, ErlangOperators.Divide, ErlangOperators.IntegerDivide, ErlangOperators.Remainder, ErlangOperators.BitwiseAnd, ErlangOperators.BitwiseOr, ErlangOperators.BitwiseXor, ErlangOperators.ShiftLeft, ErlangOperators.ShiftRight, ErlangOperators.And, ErlangOperators.Or, ErlangOperators.Xor, ErlangOperators.NumericEqual, ErlangOperators.NumericNotEqual, ErlangOperators.ExactEqual, ErlangOperators.ExactNotEqual, ErlangOperators.Less, ErlangOperators.Greater, ErlangOperators.LessOrEqual, ErlangOperators.GreaterOrEqual, ErlangOperators.Append, ErlangOperators.SubtractList })
@@ -28,14 +35,14 @@ internal static class ErlangBasicRegistrations
             1,
             (_, arguments) => CoreModules.Boolean(arguments[0] is Atom { Name: ErlangBooleanAtoms.True or ErlangBooleanAtoms.False })
         );
-        Add(ErlangBasicBifNames.IsFunction, 1, (_, arguments) => CoreModules.Boolean(arguments[0] is FunctionTerm));
-        Add(
+        Read507(ErlangBasicBifNames.IsFunction, 1, (_, arguments) => CoreModules.Boolean(arguments[0] is FunctionTerm));
+        Read507(
             ErlangBasicBifNames.IsFunction,
             2,
             (_, arguments) => arguments[1] is Integer number && number.Value >= 0 ? CoreModules.Boolean(arguments[0] is FunctionTerm function && function.Arity == number.Value) : throw new ErlangException(ErlangErrorReasons.BadArgument)
         );
         Add(ErlangBasicBifNames.IsPort, 1, (_, arguments) => CoreModules.Boolean(arguments[0] is PortTerm));
-        Add(ErlangBasicBifNames.IsReference, 1, (_, arguments) => CoreModules.Boolean(arguments[0] is ReferenceTerm));
+        Read507(ErlangBasicBifNames.IsReference, 1, (_, arguments) => CoreModules.Boolean(arguments[0] is ReferenceTerm));
         Add(
             ErlangModuleNames.IsInteger,
             3,

@@ -1,0 +1,19 @@
+{
+  "Partial": true,
+  "SelectedCount": 1,
+  "TotalCount": 9234,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/resource-bits583/nested-portable-recipe-keeps-original-binref"
+  ],
+  "Passed": 0,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "runtime/resource-bits583/nested-portable-recipe-keeps-original-binref",
+      "Status": "Failed",
+      "Error": "System.ObjectDisposedException: Cannot access a disposed object.\r\nObject name: \u0027ProcessTermSequence506\u0027.\r\n   at Erlang.ProcessTermHeap506.RequireResourceBitsDescriptor577(ProcessTermSequence506 block) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Memory\\ProcessTermHeap.ResourceBits577.cs:line 129\r\n   at Erlang.ProcessTermHeap506.ReadResourceBits577(ProcessTermSequence506 block) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Memory\\ProcessTermHeap.ResourceBits577.cs:line 98\r\n   at Erlang.ProcessTermSequence506.ReadResourceBits577() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Memory\\ProcessTermSequence506.cs:line 32\r\n   at Erlang.BitString.get_BitLength() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\src\\Runtime\\Erlang.Terms\\Values\\BitString.cs:line 15\r\n   at Erlang.Tests.ResourceBinary577Checks.\u003C\u003Ec.\u003C\u003CNestedRecipeRetainsOriginalBinRef\u003Eb__4_0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Native\\Resources\\ResourceBinary577Checks.cs:line 202\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.ResourceBinary577Checks.Run(Func\u00602 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Native\\Resources\\ResourceBinary577Checks.cs:line 416\r\n   at Erlang.Tests.ResourceBinary577Checks.Run(Func\u00602 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Native\\Resources\\ResourceBinary577Checks.cs:line 426\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7435",
+      "Milliseconds": 160
+    }
+  ]
+}

@@ -6,6 +6,8 @@ internal static class NativeMapOwnedRoots510
 {
     internal static Term[] Children(Term value)
     {
+        if (value is BitString { ResourceSliceOrigin577: { } origin })
+            return [origin];
         if (value is not MapTerm map)
             return new DebugDirtyCopyFrame424(value).Children;
         if (!NativeMapMaterialization505.TryRead(map, null, out var layout))

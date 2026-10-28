@@ -97,6 +97,8 @@ internal static class OwnedTermDetachedCopy506
             case BitString binary when binary.NativeResourceIdentity524 is not null:
                 return binary.CloneNativeView524();
             case BitString binary:
+                if (binary.OwnedStorage577 is not null || binary.ResourceSliceOrigin577 is not null)
+                    return binary.DetachResourceView577();
                 PersistentBinarySlice416 slice = binary.CapturePersistentSlice416();
 
                 return slice.Backing is null ? new BitString(binary.ToArray(), binary.BitLength)
@@ -104,7 +106,9 @@ internal static class OwnedTermDetachedCopy506
             case ResourceReferenceTerm resource:
                 // New heap wrapper, same actual authenticated magic resource.
                 // Native resource lifetime is held separately by actual root/store leases.
-                return new ResourceReferenceTerm(resource.Entry);
+                // Freeze the authoritative actual header/prefix identity while
+                // the source borrow is held; never read retired heap words later.
+                return new ResourceReferenceTerm(resource.Entry, new ReferenceTerm(resource));
             case Pid pid:
                 return pid.LocalIdentity is { } pidOwner ? new Pid(pidOwner, pid.Id) : new Pid(pid.Node, pid.Id, pid.Creation);
             case PortTerm port:

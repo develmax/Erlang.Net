@@ -2,14 +2,27 @@ namespace Erlang;
 
 internal static class NativeResourceRoots524
 {
-    internal static NativeResourcePayload524? Direct524(Term value)
+    internal static NativeResourcePayload524? Direct524(Term value, ProcessRuntime? expected = null)
     {
-        if (value is BitString { NativeResourceIdentity524: NativeResourcePayload524 binary })
-            return binary;
-        if (value is ResourceReferenceTerm resource && resource.ResourceKind == ReferenceResourceKind.NativeResource524)
-            return resource.Entry.Read<NativeResourcePayload524>();
+        // Admit backing custody before a live/stale descriptor can read its heap.
+        NativeResourcePayload524? payload = value is BitString { ResourceBacking577.NativeStorage524.ResourceIdentity524: NativeResourcePayload524 binary }
+            ? binary : value is ResourceReferenceTerm resource && resource.ResourceKind == ReferenceResourceKind.NativeResource524
+            ? resource.Entry.Read<NativeResourcePayload524>() : null;
+        if (payload is null)
+            return null;
+        if (expected is not null && !ReferenceEquals(payload.Runtime, expected))
+            throw new NotSupportedException(NativeResource524Names.Foreign);
+        if (value is BitString bits)
+            _ = bits.NativeResourceIdentity524;
+        if (value is ResourceReferenceTerm { OwnedStorage562: { } storage } owned)
+        {
+            if (storage is not ProcessTermSequence506 || storage.Owner is not ProcessTermHeap506 heap)
+                throw new InvalidOperationException(MagicReference576Names.Invalid);
 
-        return null;
+            return heap.ReadMagicPayload576(owned, payload);
+        }
+
+        return payload;
     }
 
     internal static bool Contains524(Term source)
@@ -28,7 +41,7 @@ internal static class NativeResourceRoots524
         return false;
     }
 
-    internal static IDisposable? RetainGraph524(Term source, ProcessRuntime? expected = null)
+    internal static IDisposable? RetainGraph524(Term source, ProcessRuntime? expected = null, bool skipOwnedMagic576 = false)
     {
         if (!NativeResourceAddresses524.AnyLive524) return null;
         var seen = new HashSet<Term>(ReferenceEqualityComparer.Instance);
@@ -38,7 +51,8 @@ internal static class NativeResourceRoots524
         while (pending.TryPop(out Term? value))
         {
             if (!seen.Add(value)) continue;
-            if (Direct524(value) is { } payload)
+            if (Direct524(value, expected) is { } payload
+                && (!skipOwnedMagic576 || !ProcessTermHeap506.HasOwnedMagicReference576(value)))
             {
                 if (expected is not null && !ReferenceEquals(expected, payload.Runtime))
                     throw new NotSupportedException(NativeResource524Names.Foreign);

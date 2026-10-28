@@ -38,7 +38,10 @@ internal sealed partial class ProcessTermFrame506
                 throw new InvalidOperationException(ProcessTermConstruction514Names.InvalidCustody);
             owner.ValidateGuestGraph507(source);
             int slot = Reserve();
-            PublishRoot512(slot, source);
+            // Portable construction inputs need only their real512 backing
+            // lease, not a second legacy GC sidecar. Actual owned headers remain
+            // admitted if this root borrows an already constructed object.
+            PublishRoot512(slot, source, false);
             try
             {
                 return constructionCustody514 = new(this, source);
@@ -60,7 +63,7 @@ internal sealed partial class ProcessTermFrame506
                 throw new InvalidOperationException(ProcessTermConstruction514Names.InvalidCustody);
             if (!owner.IsOwnedLocal(value))
                 return;
-            if (value is not (Cons or TupleTerm or MapTerm or HamtBitmapTerm429 or FloatTerm or Integer or ReferenceTerm))
+            if (value is not (Cons or TupleTerm or MapTerm or HamtBitmapTerm429 or FloatTerm or Integer or ReferenceTerm or BitString))
                 throw new InvalidOperationException(ProcessTermConstruction514Names.InvalidCustody);
             // Admitted containers and zero-child boxed numerics are created here.
             // Direct children must come from the rooted input or earlier nodes;

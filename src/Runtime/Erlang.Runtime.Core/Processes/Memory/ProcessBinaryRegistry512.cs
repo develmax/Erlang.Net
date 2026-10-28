@@ -48,7 +48,10 @@ internal sealed class ProcessBinaryRegistry512
             if (!seen.Add(value))
                 continue;
             visits++;
-            if (NativeResourceRoots524.Direct524(value) is { } resource)
+            if (value is ResourceReferenceTerm { OwnedStorage562: { } storage } && !ReferenceEquals(storage.Owner, owner))
+                throw new InvalidOperationException(ProcessTerm506Names.ForeignRoot);
+            if (NativeResourceRoots524.Direct524(value, (owner as ProcessTermHeap506)?.Runtime524) is { } resource
+                && !ProcessTermHeap506.HasOwnedMagicReference576(value))
                 (native ??= new(ReferenceEqualityComparer.Instance)).Add(resource);
             if (value is BitString binary)
             {
