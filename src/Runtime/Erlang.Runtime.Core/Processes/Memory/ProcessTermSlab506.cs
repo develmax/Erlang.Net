@@ -1,17 +1,18 @@
 namespace Erlang;
 
-internal sealed class ProcessTermSlab506(int words)
+internal sealed class ProcessTermSlab506(int words) : IDisposable
 {
-    internal Term?[] Cells { get; } = new Term?[words];
     private readonly bool[] used = new bool[words];
     private readonly Dictionary<int, int> candidates519 = new();
     private int firstFree519;
     private int freeWords519 = words;
+    internal NativeTermCellBuffer526 Cells { get; } = new(words);
 
     internal long ReservationCellVisits519 { get; private set; }
 
     internal int Reserve(int length)
     {
+        ObjectDisposedException.ThrowIf(Cells.Disposed526, this);
         if (freeWords519 < length)
             return -1;
 
@@ -65,7 +66,7 @@ internal sealed class ProcessTermSlab506(int words)
 
     internal void Release(int offset, int length)
     {
-        Array.Clear(Cells, offset, length);
+        Cells.Clear526(offset, length);
         Array.Fill(
             used,
             false,
@@ -77,4 +78,6 @@ internal sealed class ProcessTermSlab506(int words)
         // A release can bridge holes for every length, not only this length.
         candidates519.Clear();
     }
+
+    public void Dispose() => Cells.Dispose();
 }

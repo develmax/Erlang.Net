@@ -7,7 +7,8 @@ internal sealed class ProcessTermSequence506(
     long identity,
     ProcessTermSlab506 slab,
     int offset,
-    int length
+    int length,
+    int headerWords526 = 0
 ) : IOwnedTermSequence506
 {
     public object Owner => owner;
@@ -15,6 +16,9 @@ internal sealed class ProcessTermSequence506(
     public int Count { get; } = length;
     internal ProcessTermSlab506 Slab { get; } = slab;
     internal int Offset { get; } = offset;
+    internal int HeaderWords526 { get; } = headerWords526;
+    internal int AllocationOffset526 => Offset - HeaderWords526;
+    internal int AllocationWords526 => checked(Count + HeaderWords526);
     public Term this[int index] => owner.Read(this, index);
 
     public IEnumerator<Term> GetEnumerator()

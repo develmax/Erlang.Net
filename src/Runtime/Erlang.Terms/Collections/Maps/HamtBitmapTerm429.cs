@@ -4,7 +4,7 @@ namespace Erlang;
 
 // Actual immutable interior node of the owning runtime's map traversal index.
 // This is not a complete map and has no fabricated size or key dictionary.
-internal sealed class HamtBitmapTerm429 : Term
+internal sealed partial class HamtBitmapTerm429 : Term
 {
     internal object Domain { get; }
     internal object Ownership { get; }

@@ -44,7 +44,7 @@ def main():
         if not args.replace_plan_sha256 or actual != args.replace_plan_sha256.upper():
             raise RuntimeError('Replacing a plan requires its current SHA; immutable history belongs outside the tool')
     rows = []
-    allowed_root = {'.gitattributes', 'collect.py', 'seal.py', 'jobs.json', 'README.md'}
+    allowed_root = {'.gitattributes', 'collect.py', 'seal.py', 'jobs.json', 'README.md', 'adopt-original.py', 'admitted_receipts.py'}
     for path in sorted(tool.rglob('*')):
         if not path.is_file() or path == plan_path:
             continue

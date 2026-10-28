@@ -78,7 +78,7 @@ internal static class BeamExternalImports
                 arguments
             );
 
-        return context.Runtime.Modules.Call(
+        return context.Runtime.Modules.CallInto506(
             context,
             import.Module,
             import.Function,

@@ -999,7 +999,8 @@ public static partial class Execution
                             module,
                             x.Function,
                             ctx,
-                            args
+                            args,
+                            null
                         );
                         if (observation?.Matches(result) == true)
                             throw new SourceContinuationReturn(result);

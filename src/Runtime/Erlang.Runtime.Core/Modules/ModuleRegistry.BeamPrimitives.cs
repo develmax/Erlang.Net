@@ -278,7 +278,11 @@ public sealed partial class ModuleRegistry
                         signature.Arity,
                         out ErlangFunction mapKeys426
                     ))
+                {
                     primitives.Add((function.Name, function.Arity), mapKeys426);
+                    if (owned507 is not null)
+                        owned507[mapKeys426] = OwnedBindingKind507.PureAliasRead;
+                }
                 else if (!functions.ContainsKey(signature) && !sourceOwners.ContainsKey(signature)
                     && InternalProcessNative425.TryCapture(
                         owningRuntime,
@@ -332,7 +336,11 @@ public sealed partial class ModuleRegistry
                         signature.Arity,
                         out ErlangFunction debugSharing425
                     ))
+                {
                     primitives.Add((function.Name, function.Arity), debugSharing425);
+                    if (owned507 is not null && (signature.Name is DebugSharingNames425.Flat or DebugSharingNames425.Shared))
+                        owned507[debugSharing425] = OwnedBindingKind507.PureAliasRead;
+                }
                 else if (!functions.ContainsKey(signature) && !sourceOwners.ContainsKey(signature)
                     && DebugDirtyNative424.TryCapture(
                         owningRuntime,
@@ -377,7 +385,11 @@ public sealed partial class ModuleRegistry
                         signature.Arity,
                         out ErlangFunction hamtMap430
                     ))
+                {
                     primitives.Add((function.Name, function.Arity), hamtMap430);
+                    if (owned507 is not null && (signature.Name == HamtNativeNames430.Children))
+                        owned507[hamtMap430] = OwnedBindingKind507.PureAliasRead;
+                }
                 else if (!functions.ContainsKey(signature) && !sourceOwners.ContainsKey(signature)
                     && InternalPortLoaderNative428.TryCapture(
                         owningRuntime,

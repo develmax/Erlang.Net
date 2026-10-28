@@ -11,7 +11,9 @@ internal sealed class OwnedDetachedCopyFrame510
     internal OwnedDetachedCopyFrame510(ProcessRuntime runtime, Term source)
     {
         Source = source;
-        if (source is MapTerm map && map.NativeEquality505 is not null)
+        bool hasLayout = source is MapTerm candidate && NativeMapMaterialization505.TryRead(candidate, null, out _);
+        if (source is MapTerm map && (map.NativeEquality505 is not null || hasLayout)
+            && (!map.IsOrdinaryLogicalMap517 || !NativeMapMaterialization505.TryRead(map, null, out var saved) || saved.Matches(runtime)))
         {
             NativeMap = new(runtime, map);
             Children = NativeMap.Children;
